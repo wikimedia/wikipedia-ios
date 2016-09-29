@@ -3,7 +3,9 @@
 
 NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
 
+NSString *const WMFReferenceFragmentSubstring = @"ref_";
 NSString *const WMFCitationFragmentSubstring = @"cite_note";
+NSString *const WMFEndNoteFragmentSubstring = @"endnote_";
 
 @implementation NSString (WMFPageUtilities)
 
@@ -11,8 +13,16 @@ NSString *const WMFCitationFragmentSubstring = @"cite_note";
     return [self containsString:WMFInternalLinkPathPrefix];
 }
 
+- (BOOL)wmf_isReferenceFragment {
+    return [self containsString:WMFReferenceFragmentSubstring];
+}
+
 - (BOOL)wmf_isCitationFragment {
     return [self containsString:WMFCitationFragmentSubstring];
+}
+
+- (BOOL)wmf_isEndNoteFragment {
+    return [self containsString:WMFEndNoteFragmentSubstring];
 }
 
 - (NSString *)wmf_pathWithoutWikiPrefix {

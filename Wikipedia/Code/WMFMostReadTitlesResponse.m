@@ -1,9 +1,6 @@
 #import "WMFMostReadTitlesResponse.h"
-#import "NSDictionary+WMFRequiredValueForKey.h"
-#import "Wikipedia-Swift.h"
-#import "WMFAssetsFile.h"
 
-#import <Tweaks/FBTweakInline.h>
+//#import <Tweaks/FBTweakInline.h>
 
 typedef NS_ENUM(NSUInteger, WMFMostReadTitlesResponseError) {
     WMFMostReadTitlesResponseErrorEmptyItems,
@@ -46,6 +43,9 @@ static NSString *const WMFMostReadFailingProjectUserInfoKey = @"WMFMostReadFaili
         @"Test_card",
         @"Web_scraping",
         @"XHamster",
+        @"Okto",
+        @"Proyecto_40",
+        @"AMGTV",
         @"Java_(programming_language)",
         @"Images/upload/bel.jpg",
         @"Superintelligence:_Paths,_Dangers,_Strategies"

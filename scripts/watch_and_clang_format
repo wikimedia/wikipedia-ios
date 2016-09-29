@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+require 'listen'
+
+wd = Dir.pwd
+
+extensions_to_format = [".m", ".h", ".c"]
+
+paths_for_listening = []
+
+Dir.foreach(wd) { |sd|
+  if File.directory?(sd) 
+    lower = sd.downcase
+    if lower != 'pods' && !lower.start_with?('.')
+      paths_for_listening << sd
+    end
+  end
+}
+
+listener = Listen.to(*paths_for_listening) do |modified, added, removed|
+  modified_and_added = modified + added
+  modified_and_added.each do |path|
+    extension = File.extname(path)
+    if extensions_to_format.include?(extension)
+      puts "Formatting #{path}"
+      `clang-format -style=file -i #{path}`
+    end
+  end
+end
+
+listener.start
+
+sleep

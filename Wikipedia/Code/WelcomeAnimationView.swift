@@ -38,4 +38,10 @@ public class WelcomeAnimationView : UIView {
     var wmf_scaleZeroAndLowerRightTransform: CATransform3D {
           return CATransform3DConcat(wmf_scaleZeroAndRightTransform, wmf_lowerTransform)
     }
+    
+    override public func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        // Fix for: http://stackoverflow.com/a/39614714
+        self.layoutIfNeeded()
+    }
 }

@@ -75,11 +75,14 @@
 "wikitext-upload-result-unknown" = "Imposibil de determinat rezultatul încărcării textului wiki.";
 "wikitext-upload-captcha-error" = "Eroare de verificare la Captcha.";
 "wikitext-upload-captcha-needed" = "Verificare captcha necesară.";
+// Fuzzy
 "wikitext-upload-save" = "Se salvează...";
 "wikitext-upload-save-sign-in" = "Autentificare";
 "wikitext-upload-save-sign-in-benefits" = "Astfel, coeditorii pot interacționa cu dumnevoastră, iar dumnevoastră veți putea vedea articolele pe care le-ați modificat.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Salvare ca anonim";
 "wikitext-upload-save-anonymously-warning" = "Modificările vor fi atribuite adresei IP a dispozitivului dumneavoastră. Dacă recurgeți la $1 veți beneficia de mai multă confidențialitate.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Salvând, sunteți de acord cu acești $1 și acceptați să vă publicați irevocabil modificările sub licența $2.";
 "wikitext-upload-save-terms-name" = "Termeni de utilizare";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -163,14 +166,17 @@
 "page-history-downloading" = "Se încarcă istoricul articolului...";
 "navbar-title-mode-edit-wikitext" = "Modificare";
 "navbar-title-mode-login" = "Autentificare";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Autentificare și salvare";
 "navbar-title-mode-create-account" = "Creare cont";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Creare cont și salvare";
 "navbar-title-mode-edit-wikitext-warning" = "Probleme la modificare";
 "navbar-title-mode-edit-wikitext-disallow" = "Probleme la modificare";
 "navbar-title-mode-edit-wikitext-preview" = "Previzualizare";
 "navbar-title-mode-edit-wikitext-captcha" = "Verificare rapidă necesară";
 "navbar-title-mode-edit-wikitext-summary" = "Descrieți-vă modificarea";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Salvare";
 "edit-summary-choice-linked-words" = "Adăugat legături";
 "edit-summary-choice-fixed-grammar" = "Ajustări gramaticale";
@@ -259,12 +265,14 @@
 "table-of-contents-button-label" = "Cuprins";
 "table-of-contents-close-accessibility-label" = "Închide cuprinsul";
 "table-of-contents-close-accessibility-hint" = "Închide";
+// Fuzzy
 "abuse-filter-warning-heading" = "Aceasta pare o modificare neconstructivă. Sigur doriți s-o salvați?";
 "abuse-filter-warning-subheading" = "Modificarea dumnevoastră poate conține una din următoarele probleme:";
 "abuse-filter-warning-caps" = "Scrierea INTEGRALĂ CU MAJUSCULE";
 "abuse-filter-warning-blanking" = "Golirea conținutului sau introducerea de spam";
 "abuse-filter-warning-irrelevant" = "Legături externe sau imagini irelevante";
 "abuse-filter-warning-repeat" = "Caractere repeeeetate";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Nu puteți salva această modificare. Mergeți înapoi și schimbați-o.";
 "abuse-filter-disallow-unconstructive" = "Un filtru automat a identificat această modificare ca potențial neconstructivă sau ca fiind o tentativă de vandalism.";
 "abuse-filter-disallow-notable" = "Wikipedia este o enciclopedie și acceptă doar conținut neutru și notabil.";

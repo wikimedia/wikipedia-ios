@@ -22,8 +22,8 @@ abstract_target 'Foundation' do
   # Utilities
   pod 'libextobjc/EXTScope', '~> 0.4.1'
   pod 'BlocksKit/Core', '~> 2.2.0'
-  pod 'KVOController', '= 1.0.3'
-  
+  pod 'KVOController', '= 1.1.0'
+
   pod 'CocoaLumberjack/Swift'
 
   # Dates
@@ -39,41 +39,42 @@ abstract_target 'Foundation' do
   pod 'SSDataSources', '~> 0.8.0'
 
   # Autolayout
-  pod 'Masonry', '0.6.2'
+  pod 'Masonry', '~> 1.0'
 
   # Diagnostics
-  pod 'PiwikTracker'
-  pod 'HockeySDK', '~> 3.8.2'
+  pod 'PiwikTracker', :git => 'https://github.com/wikimedia/piwik-sdk-ios.git'
+  pod 'HockeySDK', '~> 4.1.0'
 
-   pod 'hpple', '~> 0.2'
-	
+  pod 'hpple', '~> 0.2'
+
   target 'ContinueReadingWidget' do
 
   end
-  
-  target 'WMFUtilities' do
-  	
+
+  target 'TopReadWidget' do
+
   end
-  
+
+  target 'WMFUtilities' do
+
+  end
+
   target 'WMFModel' do
 
   end
-  
+
   target 'WMFUI' do
-  	
   end
-  
+
   target 'Wikipedia' do
     # Utilities
     pod 'Tweaks'
-    pod 'BlocksKit/UIKit', '~> 2.2.0'
 
     # HTML
     pod 'GCDWebServer', '~> 3.3'
 
     # Views
     pod 'TSMessages', :git => 'https://github.com/wikimedia/TSMessages.git'
-    pod 'SVWebViewController', '~> 1.0'
     pod "SWStepSlider", :git => 'https://github.com/wikimedia/SWStepSlider.git'
 
     # Activities

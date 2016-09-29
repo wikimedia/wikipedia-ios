@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Eitvys200
 // Author: Gediminas
+// Author: Homo
 // Author: Hugo.arg
 // Author: Macofe
 // Author: Mantak111
@@ -37,6 +38,7 @@
 "history-clear-delete-all" = "Taip, ištrinti viską";
 "history-none" = "Naujausių puslapių nėra.";
 "zero-charged-verbiage" = "Vikipedija Zero išjungtas";
+"zero-interstitial-title" = "Paliekama „Vikipedija Zero“";
 "zero-interstitial-continue" = "Išeiti";
 "zero-interstitial-cancel" = "Likti čia";
 "zero-learn-more-learn-more" = "Skaityti daugiau";
@@ -55,10 +57,10 @@
 "account-creation-email-placeholder-text" = "El. paštas (neprivaloma)";
 "login-name-not-found" = "Prisijungimui būtinas vartotojo vardas.";
 "login-name-illegal" = "Jūs pateikėte negalimą vartotojo vardą.";
-"login-name-does-not-exist" = "Vartotojo vardas, kurį pateikėte neegzistuoja.";
+"login-name-does-not-exist" = "Jūsų pateikto vartotojo vardo nėra.";
 "login-password-empty" = "Prisijungti reikalingas slaptažodis.";
 "login-password-wrong" = "Slaptažodis, kurį pateikėte, yra neteisingas.";
-"login-throttled" = "Per trumpą laiką Jūs prisijungėte per daug kartų.";
+"login-throttled" = "Per trumpą laiką jūs prisijungėte per daug kartų.";
 "login-user-blocked" = "Naudotojas yra užblokuotas.";
 "login-account-creation" = "Neturite paskyros? Prisijunkite prie Vikipedijos.";
 "login-username-placeholder-text" = "Vartotojo vardas";
@@ -68,9 +70,9 @@
 "wikitext-download-success" = "Turinys įkeltas.";
 "wikitext-upload-captcha-error" = "Saugos kodo tikrinimo klaida.";
 "wikitext-upload-captcha-needed" = "Reikia patikrinimo saugos kodu.";
-"wikitext-upload-save" = "Įrašoma...";
+"wikitext-upload-save" = "Publikuojama...";
 "wikitext-upload-save-sign-in" = "Prisijungti";
-"wikitext-upload-save-anonymously" = "Įrašyti anonimiškai";
+"wikitext-upload-save-anonymously" = "Publikuoti anonimiškai";
 "wikitext-upload-save-terms-name" = "Naudojimo sąlygos";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Atidaryti nuorodą";
@@ -78,6 +80,9 @@
 "search-title" = "Paieška";
 "search-searching" = "Ieškoma...";
 "search-field-placeholder-text" = "Paieška Vikipedijoje";
+"search-field-placeholder-text-zero" = "Ieškoti „Vikipedijoje Zero“";
+"search-loading-section-zero" = "Įkeliama pirmoji straipsnio dalis...";
+"search-loading-section-remaining" = "Įkeliamas likęs straipsnis...";
 "search-loading-article-loaded" = "Straipsnis įkeltas.";
 "search-cancel" = "Atšaukti";
 "search-titles" = "Pavadinimai";
@@ -88,6 +93,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Šio veiksmo anuliuoti negalima!";
 "search-recent-clear-cancel" = "Atšaukti";
 "search-recent-clear-delete-all" = "Naikinti viską";
+"search-result-redirected-from" = "Nukreipta iš: $1";
 "settings-title" = "Nustatymai";
 "settings-language" = "Vikipedijos kalba";
 "settings-support" = "Paremti Vikipediją";
@@ -107,6 +113,7 @@
 "main-menu-account-title-logged-in" = "Prisijungta kaip: $1";
 "main-menu-account-login" = "Prisijungti";
 "main-menu-account-logout" = "Atsijungti";
+"main-menu-account-logout-are-you-sure" = "Ar tikrai norite atsijungti?";
 "main-menu-account-logout-cancel" = "Atšaukti";
 "main-menu-show-title" = "Rodyti man...";
 "main-menu-show-history" = "Naujausi";
@@ -115,9 +122,9 @@
 "main-menu-random" = "Atsitiktinis";
 "main-menu-feedback-heading" = "Atsiliepimas";
 "main-menu-send-feedback" = "Parašykite mums";
+"main-menu-show-page-history" = "$1 pakeitimų istorija";
 "main-menu-credits" = "Kreditai";
-// Fuzzy
-"main-menu-about" = "Apie Vikipedijos programėlę";
+"main-menu-about" = "Apie programėlę";
 "main-menu-zero-faq" = "Vikipedija Zero DUK";
 "main-menu-privacy-policy" = "Privatumo politika";
 "main-menu-terms-of-use" = "Naudojimo sąlygos";
@@ -146,20 +153,28 @@
 "page-history-downloading" = "Įkeliama straipsnio istorija...";
 "navbar-title-mode-edit-wikitext" = "Redaguoti";
 "navbar-title-mode-login" = "Prisijungti";
-"navbar-title-mode-login-and-save" = "Prisijungti ir įrašyti";
+"navbar-title-mode-login-and-save" = "Prisijungti ir publikuoti";
 "navbar-title-mode-create-account" = "Kurti paskyrą";
-"navbar-title-mode-create-account-and-save" = "Kurti paskyrą ir įrašyti";
+"navbar-title-mode-create-account-and-save" = "Kurti paskyrą ir publikuoti";
+"navbar-title-mode-edit-wikitext-warning" = "Redaguoti problemas";
+"navbar-title-mode-edit-wikitext-disallow" = "Redaguoti problemas";
 "navbar-title-mode-edit-wikitext-preview" = "Peržiūra";
 "navbar-title-mode-edit-wikitext-summary" = "Aprašykite savo keitimą";
-"navbar-title-mode-edit-wikitext-save" = "Įrašyti";
+"navbar-title-mode-edit-wikitext-save" = "Publikuoti";
 "edit-summary-choice-linked-words" = "Pridėtos nuorodos";
 "edit-summary-choice-fixed-grammar" = "Pataisyta gramatika";
 "edit-summary-choice-fixed-typos" = "Pataisyta rašyba";
 "edit-summary-choice-added-category" = "Pridėta kategorija";
+"edit-summary-choice-added-missing-info" = "Pridėta trūkstama informacija";
+"edit-summary-choice-added-clarification" = "Pridėtas paaiškinimas";
 "edit-summary-choice-other" = "Kita";
+"edit-summary-title" = "Kaip pagerinote straipsnį?";
 "fetching-random-article" = "Gaunamas atsitiktinis straipsnis";
 "article-pull-to-refresh-prompt" = "Traukite, kad atnaujintumėte straipsnį";
 "article-pull-to-refresh-is-refreshing" = "Straipsnis naujinamas";
+"credits-title" = "Atviro kodo duomenų saugyklos";
+"credits-wikimedia-repos" = "Vikimedijos duomenų saugyklos";
+"credits-external-libraries" = "Išorinės duomenų saugyklos";
 "about-title" = "Apie";
 "about-wikipedia" = "Vikipedija";
 "about-contributors" = "Autoriai";
@@ -186,17 +201,23 @@
 "share-on-twitter-sign-off" = "per @Wikipedia";
 "share-as-image" = "Dalintis kaip vaizdu";
 "share-as-text" = "Dalintis kaip tekstu";
+"share-cancel" = "Atšaukti";
 "timestamp-just-now" = "ką tik";
+"timestamp-minutes" = "Prieš %d minutes";
 "timestamp-hours" = "Prieš %d valandas";
 "timestamp-days" = "Prieš %d dienas";
 "timestamp-months" = "Prieš %d mėnesius";
 "timestamp-years" = "Prieš %d metus";
+"lastmodified-by-user" = "$1 redagavo $2";
+"lastmodified-by-anon" = "$1 redagavo anoniminis naudotojas";
 "button-edit" = "Keisti";
 "button-next" = "Kitas";
 "button-done" = "Atlikta";
 "button-save" = "Įrašyti";
+"button-publish" = "Publikuoti";
 "button-ok" = "Gerai";
 "button-save-for-later" = "Išsaugoti ateičiai";
+"button-saved-for-later" = "Išsaugoti ateičiai";
 "button-report-a-bug" = "Pranešti apie klaidą";
 "onboarding-create-account" = "Kurti paskyrą";
 "onboarding-login" = "Prisijungti";
@@ -205,15 +226,20 @@
 "onboarding-wikipedia" = "Vikipedija";
 "onboarding-free-encyclopedia" = "Laisvoji enciklopedija";
 "preference_title_eventlogging_opt_in" = "Siųsti naudojimo ataskaitas";
+"page_protected_sysop" = "Šis puslapis buvo visiškai apsaugotas.";
 "page_protected_can_not_edit_title" = "Šis puslapis apsaugotas";
 // Fuzzy
 "license-footer-text" = "Turinys prieinamas pagal $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Turinys";
+// Fuzzy
+"table-of-contents-button-label" = "Turinys";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Uždaryti turinį";
 "table-of-contents-close-accessibility-hint" = "Uždaryti";
+"abuse-filter-warning-heading" = "Tai atrodo kaip nekonstruktyvus pakeitimas, ar tikrai norite jį publikuoti?";
 "abuse-filter-warning-caps" = "Rašyti didžiosiomis";
-"abuse-filter-disallow-heading" = "Jūs negalite išsaugoti šio pakeitimo. Prašome grįžti ir pakeisti jį.";
+"abuse-filter-disallow-heading" = "Jūs negalite publikuoti šio pakeitimo. Prašome grįžti ir jį pakeisti.";
 "menu-edit-accessibility-label" = "Redaguoti";
 "menu-close-accessibility-label" = "Uždaryti";
 "menu-preview-accessibility-label" = "Peržiūra";
@@ -262,6 +288,8 @@
 "home-featured-article-heading" = "Rinktinis straipsnis $1";
 "home-main-page-heading" = "Šiandien Vikipedijoje";
 "home-potd-heading" = "Dienos nuotrauka $1";
+"home-last-update-label" = "Paskutinį kartą atnaujinta: $1";
+"home-last-update-never-label" = "Paskutinį kartą atnaujinta: Niekada";
 "home-updating-label" = "Atnaujinama...";
 "home-hide-suggestion-prompt" = "Paslėpti šį pasiūlymą";
 "home-hide-suggestion-cancel" = "Atšaukti";
@@ -284,12 +312,17 @@
 "empty-no-feed-action-message" = "Jūs dar galite skaityti išsaugotus puslapius";
 "empty-no-search-results-message" = "Rezultatų nerasta";
 "empty-no-saved-pages-title" = "Dar nėra išsaugotų puslapių";
+"empty-no-history-title" = "Nėra rodytinos istorijos";
 "alert-no-internet" = "Ten nėra interneto ryšio";
+"icon-shortcut-continue-reading-title" = "Skaityti toliau";
+"icon-shortcut-random-title" = "Atsitiktinis straipsnis";
+"icon-shortcut-nearby-title" = "Straipsniai netoliese";
 "close-button-accessibility-label" = "Uždaryti";
 "back-button-accessibility-label" = "Atgal";
 "explore-featured-article-heading" = "Rinktinis straipsnis";
 "explore-continue-reading-heading" = "Skaityti toliau";
 "explore-nearby-heading" = "Artimos vietovės";
+"explore-nearby-sub-heading-your-location" = "Jūsų vieta";
 "explore-continue-related-heading" = "Nes jūs skaitėte";
 "explore-main-page-heading" = "Šiandien Vikipedijoje";
 "explore-random-article-heading" = "Atsitiktinis straipsnis";
@@ -299,3 +332,10 @@
 "explore-most-read-more-list-title" = "Top straipsniai";
 "explore-most-read-more-list-title-for-date" = "Viršuje $1";
 "explore-another-random" = "Kitas atsitiktinis straipsnis";
+"find-in-page-button-label" = "Rasti puslapyje";
+"find-in-page-popover-description" = "Ieškoti teksto straipsniuose";
+"continue-reading-empty-title" = "Nėra neseniai skaitytų straipsnių";
+"top-read-see-more-trending" = "Peržiūrėti daugiau tendencijų";
+"top-read-reader-count-thousands" = "$1 tūkst.";
+"top-read-header-with-language" = "$1 Vikipedija";
+"top-read-header-generic" = "Vikipedija";

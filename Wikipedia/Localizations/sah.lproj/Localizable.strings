@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: HalanTul
 // Author: Ай-Куо
+// Author: Туллук
 
 "languages-title" = "Тылын уларыт";
 "article-languages-label" = "Тылгын тал";
@@ -74,10 +75,10 @@
 "wikitext-upload-result-unknown" = "Биики-тиэкис хачайдаммыт түмүгүн быһаарар сатаммата.";
 "wikitext-upload-captcha-error" = "Капча алҕастаах.";
 "wikitext-upload-captcha-needed" = "Капча көмөтүнэн тургутуу ирдэнэр.";
-"wikitext-upload-save" = "Бигэргэнэр...";
+"wikitext-upload-save" = "Бэчээттээһин...";
 "wikitext-upload-save-sign-in" = "Киир";
 "wikitext-upload-save-sign-in-benefits" = "Атын кыттааччылар эйиэхэ тахсыахтарын сөп уонна ханнык ыстатыйаны көннөрбүккүн көрөр кыахтаныаҥ.";
-"wikitext-upload-save-anonymously" = "Ааты эппэккэ эрэ бигэргэт";
+"wikitext-upload-save-anonymously" = "Ааты эппэккэ эрэ бигэргэтии";
 "wikitext-upload-save-anonymously-warning" = "Көннөрүүҥ IP-аадырыскынан бэлиэтэниэ. Өскөтө $1 буоллаххына, айпигын кистиир кыахтаныаҥ.";
 "wikitext-upload-save-terms-and-license" = "Бигэргэттэххинэ $1 усулуобуйатын кытта толору сөбүлэһэҕин, суруйбуккун $2 лиссиэнсийэнэн бэчээттиири көҥүллүүгүн.";
 "wikitext-upload-save-terms-name" = "Туһаныы сиэрэ";
@@ -162,15 +163,15 @@
 "page-history-downloading" = "Сирэй устуоруйата хачайданар...";
 "navbar-title-mode-edit-wikitext" = "Уларыт";
 "navbar-title-mode-login" = "Киир";
-"navbar-title-mode-login-and-save" = "Киир уонна бигэргэт";
+"navbar-title-mode-login-and-save" = "Киир уонна бэчээттээ";
 "navbar-title-mode-create-account" = "Бэлиэтэнии";
-"navbar-title-mode-create-account-and-save" = "Бэлиэтэнии уонна бигэргэтии";
+"navbar-title-mode-create-account-and-save" = "Бэлиэтэнии уонна бэчээттээһин";
 "navbar-title-mode-edit-wikitext-warning" = "Уларытыы сатаммата";
 "navbar-title-mode-edit-wikitext-disallow" = "Уларытыы сатаммата";
 "navbar-title-mode-edit-wikitext-preview" = "Эрдэ көрүү";
 "navbar-title-mode-edit-wikitext-captcha" = "Суһал тургутууну ирдиир";
 "navbar-title-mode-edit-wikitext-summary" = "Тугу гыммыккын кэпсээ";
-"navbar-title-mode-edit-wikitext-save" = "Бигэргэт";
+"navbar-title-mode-edit-wikitext-save" = "Бэчээттииргэ";
 "edit-summary-choice-linked-words" = "Эбиллибит сигэлэр";
 "edit-summary-choice-fixed-grammar" = "Таба суруйуутун көннөрдүм";
 "edit-summary-choice-fixed-inaccuracy" = "Кыра алҕаһын көннөрдүм";
@@ -235,6 +236,7 @@
 "button-next" = "Аныгыскы";
 "button-done" = "Оҥоһулунна";
 "button-save" = "Бигэргэтэргэ";
+"button-publish" = "Бэчээттииргэ";
 "button-ok" = "Сөп";
 "button-save-for-later" = "Хойутуу";
 "button-saved-for-later" = "Кэлин бигэргэтиэм";
@@ -256,9 +258,10 @@
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Иһинээҕитэ";
 "table-of-contents-button-label" = "Иһинээҕитэ";
-"table-of-contents-close-accessibility-label" = "Бастар тиһиликтэрин сап";
+"table-of-contents-close-accessibility-label" = "Ис хоһоонун тиһилигин сап";
 "table-of-contents-close-accessibility-hint" = "Сап";
-"abuse-filter-warning-heading" = "Бу көннөрүү бөрүкүтэ суох көннөрүүгэ майгынныыр. Бигэргэтэҕин дуо?";
+"table-of-contents-popover-description" = "Ыстатыйалар туһунан кылгас суруйууну ылыы";
+"abuse-filter-warning-heading" = "Бу көннөрүү бөрүкүтэ суох көннөрүүгэ маарынныыр. Чахчы бэчээттиигин дуо?";
 "abuse-filter-warning-subheading" = "Көннөрүүҥ мантан бииригэр эбэтэр хаһыгар да сөп түбэһиэн сөп:";
 "abuse-filter-warning-caps" = "УЛАХАН БУУКУБАНАН суруллубут";
 "abuse-filter-warning-blanking" = "Кураанах ыстатыйа биитэр спаам";
@@ -394,3 +397,4 @@
 "no-email-account-alert" = "Бука диэн, ҕааддьыккар электрон почталаах бэлиэ-аатта оҥоһун, онтон киирэн көрөөр.";
 "request-feedback-on-error" = "Дьибилгэт биллибэт алҕаһы кытта көрүстэ, бу туһунан оҥорооччулар сиһилии билиэхтэрин баҕараллара саарбаҕа суох. бука диэн, маны баттаан биһиэхэ бу туһунан сиһилии сурукта ыыт.";
 "explore-another-random" = "Атын түбэспиччэ ыстатыйа";
+"top-read-header-generic" = "Бикипиэдьийэ";

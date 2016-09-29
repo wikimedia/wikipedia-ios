@@ -6,7 +6,7 @@
 #import "MWKHistoryList.h"
 #import "MWKHistoryEntry.h"
 
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 
 #import "PiwikTracker+WMFExtensions.h"
 #import "WMFArticleViewController.h"

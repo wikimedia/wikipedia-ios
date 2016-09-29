@@ -10,9 +10,7 @@
 #import "EditFunnel.h"
 #import "AccountCreationViewController.h"
 #import "WikiGlyph_Chars.h"
-#import "ReferencesVC.h"
 #import "WMF_Colors.h"
-#import "WikiGlyphButton.h"
 #import "WikiGlyphLabel.h"
 #import "NSString+FormattedAttributedString.h"
 #import "SavedPagesFunnel.h"
@@ -44,15 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) IBOutlet PaddedLabel *zeroStatusLabel;
 
-@property (strong, nonatomic, nullable) ReferencesVC *referencesVC;
-@property (weak, nonatomic) IBOutlet UIView *referencesContainerView;
-
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *referencesContainerViewBottomConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *referencesContainerViewHeightConstraint;
-
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *webViewBottomConstraint;
-
-@property (nonatomic) BOOL referencesHidden;
 
 /**
  * Designated initializer.

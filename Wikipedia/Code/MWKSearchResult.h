@@ -6,31 +6,33 @@
 
 @property (nonatomic, assign, readonly) NSInteger revID;
 
-@property (nonatomic, copy, readonly) NSString *displayTitle;
+@property (nullable, nonatomic, copy, readonly) NSString *displayTitle;
 
-@property (nonatomic, copy, readonly) NSString *wikidataDescription;
+@property (nullable, nonatomic, copy, readonly) NSString *wikidataDescription;
 
-@property (nonatomic, copy, readonly) NSString *extract;
+@property (nullable, nonatomic, copy, readonly) NSString *extract;
 
-@property (nonatomic, copy, readonly) NSURL *thumbnailURL;
+@property (nullable, nonatomic, copy, readonly) NSURL *thumbnailURL;
 
-@property (nonatomic, copy, readonly) NSNumber *index;
+@property (nullable, nonatomic, copy, readonly) NSNumber *index;
 
-@property (nonatomic, copy, readonly) NSNumber *titleNamespace;
+@property (nullable, nonatomic, copy, readonly) NSNumber *titleNamespace;
+
+@property (nullable, nonatomic, copy) NSArray<NSNumber *> *viewCounts;
 
 @property (nonatomic, assign, readonly) BOOL isDisambiguation;
 
 @property (nonatomic, assign, readonly) BOOL isList;
 
-- (instancetype)initWithArticleID:(NSInteger)articleID
-                            revID:(NSInteger)revID
-                     displayTitle:(NSString *)displayTitle
-              wikidataDescription:(NSString *)wikidataDescription
-                          extract:(NSString *)extract
-                     thumbnailURL:(NSURL *)thumbnailURL
-                            index:(NSNumber *)index
-                 isDisambiguation:(BOOL)isDisambiguation
-                           isList:(BOOL)isList
-                   titleNamespace:(NSNumber *)titleNamespace;
+- (nullable instancetype)initWithArticleID:(NSInteger)articleID
+                                     revID:(NSInteger)revID
+                              displayTitle:(nullable NSString *)displayTitle
+                       wikidataDescription:(nullable NSString *)wikidataDescription
+                                   extract:(nullable NSString *)extract
+                              thumbnailURL:(nullable NSURL *)thumbnailURL
+                                     index:(nullable NSNumber *)index
+                          isDisambiguation:(BOOL)isDisambiguation
+                                    isList:(BOOL)isList
+                            titleNamespace:(nullable NSNumber *)titleNamespace;
 
 @end

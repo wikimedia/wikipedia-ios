@@ -246,6 +246,26 @@
     return c;
 }
 
++ (instancetype)wmf_foundationGray {
+    static UIColor *c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0x7D8389 alpha:1.0];
+    });
+    return c;
+}
+
++ (instancetype)wmf_darkGray {
+    static UIColor *c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0x555A5f alpha:1.0];
+    });
+    return c;
+}
+
 + (instancetype)wmf_customGray {
     static UIColor *c = nil;
 
@@ -347,6 +367,36 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         c = [UIColor wmf_colorWithHex:0x000000 alpha:0.8];
+    });
+    return c;
+}
+
++ (instancetype)wmf_referencePopoverBackgroundColor {
+    static UIColor *c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0xffffff alpha:1.0];
+    });
+    return c;
+}
+
++ (instancetype)wmf_referencePopoverLinkColor {
+    static UIColor *c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0x3366CC alpha:1.0];
+    });
+    return c;
+}
+
++ (instancetype)wmf_referencePopoverTextColor {
+    static UIColor *c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0x000000 alpha:1.0];
     });
     return c;
 }

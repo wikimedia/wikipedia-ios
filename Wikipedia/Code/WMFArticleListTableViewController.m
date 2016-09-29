@@ -1,5 +1,5 @@
 #import "WMFArticleListTableViewController.h"
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFSearch.h"
 #import "UIViewController+WMFArticlePresentation.h"
@@ -165,10 +165,6 @@
 #pragma mark - Empty State
 
 - (void)updateEmptyState {
-    if (self.view.superview == nil) {
-        return;
-    }
-
     if ([self numberOfItems] > 0) {
         [self wmf_hideEmptyView];
     } else {

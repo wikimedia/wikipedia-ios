@@ -61,8 +61,10 @@
 "wikitext-downloading" = "ھێنانی ناوەڕۆک...";
 "wikitext-download-success" = "ناوەڕۆک دابەزێندرا.";
 "wikitext-preview-changes-none" = "ھیچ گۆڕانکارییەک نەکراوە تا نیشان بدرێت.";
+// Fuzzy
 "wikitext-upload-save" = "خەریکە پاشەکەوت دەبێت...";
 "wikitext-upload-save-sign-in" = "بچۆ ژوورەوە";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "پاشکەوتکردنی نەناسراوانە";
 "wikitext-upload-save-terms-name" = "مەرجەکانی بەکارھێنان";
 "open-link-title" = "کردنەوەی بەستەر";
@@ -130,11 +132,14 @@
 "page-history-downloading" = "ھێنانی مێژووی وتار...";
 "navbar-title-mode-edit-wikitext" = "دەستکاری";
 "navbar-title-mode-login" = "بچۆ ژوورەوە";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "چوونە ناوەوە و پاشەکەوتکردن";
 "navbar-title-mode-create-account" = "ھەژمار دروست بکە";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "دروستکردنی ھەژمار و پاشەکەوتکردن";
 "navbar-title-mode-edit-wikitext-preview" = "پێشبینین";
 "navbar-title-mode-edit-wikitext-summary" = "باسی دەستکارییەکەت بکە";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "پاشەکەوت";
 "edit-summary-choice-linked-words" = "گرێدانەکان زیاد کرا";
 "edit-summary-choice-fixed-grammar" = "چاککردنی ڕێزمان";
@@ -189,9 +194,12 @@
 "license-footer-text" = "ناوەڕۆک بەردەستە لەژێر $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "ناوەڕۆکەکان";
+// Fuzzy
 "table-of-contents-button-label" = "خشتەی ناوەڕۆکەکان";
 "table-of-contents-close-accessibility-hint" = "داخستن";
+// Fuzzy
 "abuse-filter-warning-heading" = "ئەمە بە دەستکارییەکی ڕووخێنەر دەچێت. دڵنیای کە دەتەوێت پاشەکەوتی بکەی؟";
+// Fuzzy
 "abuse-filter-disallow-heading" = "ناتوانی ئەم گۆڕانکارییە پاشەکەوت بکەی. تکایە بگەڕێوە و بی گۆڕە.";
 "menu-edit-accessibility-label" = "دەستکاری";
 "menu-close-accessibility-label" = "داخستن";

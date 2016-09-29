@@ -3,12 +3,12 @@
 #import "MWKDataStore.h"
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "MWKArticle.h"
-#import "MWKDataStore+WMFDataSources.h"
+#import "MWKDataStore.h"
 #import "SavedPagesFunnel.h"
 #import "PiwikTracker+WMFExtensions.h"
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 
-@interface WMFSaveButtonController () <WMFDataSourceDelegate>
+@interface WMFSaveButtonController ()
 
 - (instancetype)initWithControl:(UIControl *)button
                   barButtonItem:(UIBarButtonItem *)barButtonItem
@@ -16,7 +16,6 @@
                             url:(NSURL *)url NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, strong) SavedPagesFunnel *savedPagesFunnel;
-
 
 @end
 
@@ -73,7 +72,7 @@
         return;
     }
     [self unobserveURL:_url];
-    _url = url;
+    _url = [url copy];
     [self observeURL:_url];
     [self updateSavedButtonState];
 }

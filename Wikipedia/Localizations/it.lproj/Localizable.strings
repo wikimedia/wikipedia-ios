@@ -1,6 +1,7 @@
 // Messages for Italian (italiano)
 // Exported from translatewiki.net
 // Author: Alexmar983
+// Author: Anto
 // Author: Bertaz
 // Author: Beta16
 // Author: Brion
@@ -92,12 +93,12 @@
 "wikitext-upload-result-unknown" = "Impossibile determinare il risultato del caricamento del wikitesto.";
 "wikitext-upload-captcha-error" = "Errore nella verifica del CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Verifica del CAPTCHA necessaria.";
-"wikitext-upload-save" = "Salvataggio...";
+"wikitext-upload-save" = "Pubblicazione...";
 "wikitext-upload-save-sign-in" = "Accedi";
 "wikitext-upload-save-sign-in-benefits" = "Così gli altri co-editori potranno connettersi con te e potrete vedere quali articoli avete modificato.";
-"wikitext-upload-save-anonymously" = "Salva in modo anonimo";
+"wikitext-upload-save-anonymously" = "Pubblica in modo anonimo";
 "wikitext-upload-save-anonymously-warning" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1 avrai maggiore privacy.";
-"wikitext-upload-save-terms-and-license" = "Salvando, accetti le nostre $1, e accetti irrevocabilmente di rilasciare i tuoi contributi con licenza $2.";
+"wikitext-upload-save-terms-and-license" = "Con la pubblicazione, accetti le nostre $1, e accetti irrevocabilmente di rilasciare i tuoi contributi con licenza $2.";
 "wikitext-upload-save-terms-name" = "Condizioni d'uso";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Apri collegamento";
@@ -180,15 +181,15 @@
 "page-history-downloading" = "Caricamento della cronologia dell'articolo...";
 "navbar-title-mode-edit-wikitext" = "Modifica";
 "navbar-title-mode-login" = "Accedi";
-"navbar-title-mode-login-and-save" = "Accedi e salva";
+"navbar-title-mode-login-and-save" = "Accedi e pubblica";
 "navbar-title-mode-create-account" = "Crea un'utenza";
-"navbar-title-mode-create-account-and-save" = "Crea un'utenza e salva";
+"navbar-title-mode-create-account-and-save" = "Crea un'utenza e pubblica";
 "navbar-title-mode-edit-wikitext-warning" = "Problemi con la modifica";
 "navbar-title-mode-edit-wikitext-disallow" = "Problemi con la modifica";
 "navbar-title-mode-edit-wikitext-preview" = "Anteprima";
 "navbar-title-mode-edit-wikitext-captcha" = "Verifica rapida necessaria";
 "navbar-title-mode-edit-wikitext-summary" = "Descrivi la tua modifica";
-"navbar-title-mode-edit-wikitext-save" = "Salva";
+"navbar-title-mode-edit-wikitext-save" = "Pubblica";
 "edit-summary-choice-linked-words" = "Aggiunti collegamenti";
 "edit-summary-choice-fixed-grammar" = "Corretta grammatica";
 "edit-summary-choice-fixed-inaccuracy" = "Corretta inesattezza";
@@ -253,6 +254,7 @@
 "button-next" = "Successivo";
 "button-done" = "Fatto";
 "button-save" = "Salva";
+"button-publish" = "Pubblica";
 "button-ok" = "OK";
 "button-save-for-later" = "Salva per dopo";
 "button-saved-for-later" = "Salvato per dopo";
@@ -273,9 +275,10 @@
 "license-footer-text" = "Il contenuto è disponibile in base alla licenza $1, se non diversamente specificato.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Contenuti";
-"table-of-contents-button-label" = "Sommario";
+"table-of-contents-button-label" = "Indice";
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";
 "table-of-contents-close-accessibility-hint" = "Chiudi";
+"table-of-contents-popover-description" = "Ottieni una panoramica delle voci";
 "abuse-filter-warning-heading" = "Questa potrebbe essere una modifica inutile, sei sicuro di volerla salvare?";
 "abuse-filter-warning-subheading" = "La tua modifica potrebbe contenere uno o più dei seguenti elementi:";
 "abuse-filter-warning-caps" = "Scritte tutte in MAIUSCOLO";
@@ -399,6 +402,7 @@
 "explore-featured-article-heading" = "Voce in vetrina";
 "explore-continue-reading-heading" = "Continua a leggere";
 "explore-nearby-heading" = "Luoghi vicino";
+"explore-nearby-sub-heading-your-location" = "Propria posizione";
 "explore-continue-related-heading" = "Perché hai letto";
 "explore-main-page-heading" = "Oggi su Wikipedia";
 "explore-random-article-heading" = "Voce a caso";
@@ -414,3 +418,12 @@
 "request-feedback-on-error" = "L'applicazione ha riscontrato un problema su cui i nostri sviluppatori vorrebbero saperne di più. Si prega di toccare qui per inviarci una email con i dettagli dell'errore.";
 "explore-another-random" = "Un'altra voce a caso";
 "find-in-page-no-matches" = "0 corrispondenze";
+"find-in-page-button-label" = "Trova nella pagina";
+"find-in-page-popover-description" = "Ricerca testo nelle voci";
+"continue-reading-empty-title" = "Nessuna voce letta recentemente";
+"continue-reading-empty-description" = "Esplorare Wikipedia per altre voci da leggere";
+"top-read-see-more" = "Vedi i più lettu";
+"top-read-see-more-trending" = "Vedi i più di tendenza";
+"top-read-reader-count-thousands" = "$1 mila";
+"top-read-header-with-language" = "Wikipedia in $1";
+"top-read-header-generic" = "Wikipedia";

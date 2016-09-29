@@ -17,7 +17,7 @@
 
 // Frameworks
 #import <HockeySDK/HockeySDK.h>
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 #import <Tweaks/FBTweakViewController.h>
 #import <Tweaks/FBTweakStore.h>
 #import <SSDataSources/SSDataSources.h>
@@ -87,6 +87,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_settingsViewActivity]];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
+}
+
 - (void)configureBackButton {
     @weakify(self)
         UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
@@ -140,7 +145,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             [SessionSingleton sharedInstance].shouldSendUsageReports = isOn;
             break;
         case WMFSettingsMenuItemType_ZeroWarnWhenLeaving:
-            [SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving = isOn;
+            [SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving = isOn;
             break;
         case WMFSettingsMenuItemType_SearchLanguageBarVisibility:
             [[NSUserDefaults wmf_userDefaults] wmf_setShowSearchLanguageBar:isOn];

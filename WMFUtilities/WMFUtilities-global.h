@@ -2,7 +2,7 @@
 #define WMFUtilities_Global_h
 
 #import <libextobjc/EXTScope.h>
-#import <KVOController/FBKVOController.h>
+#import <KVOController/KVOController.h>
 #import <BlocksKit/BlocksKit.h>
 #import <PromiseKit/PromiseKit.h>
 
@@ -37,4 +37,8 @@
 #import <WMFUtilities/NSFileManager+WMFGroup.h>
 #import <WMFUtilities/NSDateFormatter+WMFExtensions.h>
 #import <WMFUtilities/NSDate+WMFRelativeDate.h>
+#import <WMFUtilities/NSDictionary+WMFRequiredValueForKey.h>
+#import <WMFUtilities/NSCalendar+WMFCommonCalendars.h>
+#import <WMFUtilities/WMFNumberOfExtractCharacters.h>
+#import <WMFUtilities/NSBundle+WMFInfoUtils.h>
 #endif

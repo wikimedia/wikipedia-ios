@@ -3,7 +3,7 @@
 @implementation MWKHistoryEntry (WMFDatabaseStorable)
 
 + (NSString *)databaseKeyForURL:(NSURL *)url {
-    return [[NSURL wmf_desktopURLForURL:url] absoluteString];
+    return url.wmf_databaseKey;
 }
 
 - (NSString *)databaseKey {

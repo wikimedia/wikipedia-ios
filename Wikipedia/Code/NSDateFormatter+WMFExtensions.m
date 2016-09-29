@@ -81,6 +81,16 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     return _dateFormatter;
 }
 
++ (instancetype)wmf_englishUTCNonDelimitedYearMonthDayFormatter {
+    static NSDateFormatter *_dateFormatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _dateFormatter = [self wmf_newEnglishYearMonthDayFormatter];
+        _dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+    });
+    return _dateFormatter;
+}
+
 + (instancetype)wmf_englishUTCSlashDelimitedYearMonthDayFormatter {
     static NSDateFormatter *_dateFormatter;
     static dispatch_once_t onceToken;
@@ -95,6 +105,13 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     NSString *quotedSeparator = [@[@"'", separator, @"'"] componentsJoinedByString:@""];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = [@[@"yyyy", @"MM", @"dd"] componentsJoinedByString:quotedSeparator];
+    dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en"];
+    return dateFormatter;
+}
+
++ (instancetype)wmf_newEnglishYearMonthDayFormatter {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyyMMdd";
     dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en"];
     return dateFormatter;
 }
@@ -125,6 +142,16 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     dispatch_once(&onceToken, ^{
         _dateFormatter = [[NSDateFormatter alloc] init];
         [_dateFormatter setLocalizedDateFormatFromTemplate:@"EEEMMMdd"];
+    });
+    return _dateFormatter;
+}
+
++ (instancetype)wmf_shortMonthNameDayOfMonthNumberDateFormatter {
+    static NSDateFormatter *_dateFormatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setLocalizedDateFormatFromTemplate:@"MMMd"];
     });
     return _dateFormatter;
 }

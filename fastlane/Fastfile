@@ -1,9 +1,7 @@
 # Customise this file, documentation can be found here:
 # https://github.com/KrauseFx/fastlane/tree/master/docs
-# vi: ft=ruby
 
 $:.unshift File.dirname(__FILE__)
-require 'lib/utils.rb'
 
 default_platform :ios
 
@@ -12,6 +10,17 @@ platform :ios do
      # Set project for commit_version_bump, which seems to get confused by projects in other folders
      ENV['FL_BUILD_NUMBER_PROJECT'] = "Wikipedia.xcodeproj"
      ensure_git_status_clean unless ENV['FL_NO_ENSURE_CLEAN']
+     xcversion version: "~> 8.0.0"
+  end
+
+  desc "Checks out the sha specified in the environment variables or the develop branch"
+  lane :checkout do
+    sha = ENV['SHA']
+    if sha != nil
+      puts sha
+      commit = last_git_commit
+      sh "git checkout #{sha}"
+    end
   end
 
   desc "Runs linting (and eventually static analysis)"
@@ -26,35 +35,21 @@ platform :ios do
     )
   end
 
-  desc "Runs tests, version, tag, and push to the beta branch"
-  lane :testAndPushBeta do
-    mergeReleaseBetaIntoBeta
-    verifyTestPlatforms
-    bumpAndTagBeta
-    badge(dark: true, shield: get_badge_version_string, shield_no_resize: true)
-    beta
-  end
-
-  desc "Runs tests, version, tag, and push to the beta branch"
-  lane :submitAndPushToMaster do
-    mergeReleaseIntoMaster
-    bumpAndTagRelease
-    store
-  end
-
   desc "Runs tests on the primary platforms and configurations"
-  lane :verifyTestPlatforms do
+  lane :verify_test_platforms do
     verify(
-     sim_os: 9.3,
+     sim: 'iPhone 6s (9.3)',
      scheme: "WikipediaRTL"
     )
     verify(
-     sim_os: 9.3
+     sim: 'iPhone 6s (9.3)'
     )
     verify(
+     sim: 'iPhone 6s (10.0)',
      scheme: "WikipediaRTL"
     )
     verify(
+     sim: 'iPhone 6s (10.0)',
      junit: true
     )
   end
@@ -62,12 +57,12 @@ platform :ios do
   desc "Runs unit tests, optionally generating a JUnit report."
   lane :verify do |options|
     scheme = options[:scheme] || 'Wikipedia'
-    sim_os = options[:sim_os] || '10.0'
-    destination = "platform=iOS Simulator,name=iPhone 6,OS=#{sim_os}"
+    sim = options[:sim] || 'iPhone 6s (10.0)'
     opts = {
+      :device => sim,
+      :sdk => "iphonesimulator",
       :scheme =>  scheme,
       :workspace => 'Wikipedia.xcworkspace',
-      :destination => destination,
       :buildlog_path => './build',
       :output_directory => './build/reports',
       :output_style => 'basic',
@@ -79,145 +74,86 @@ platform :ios do
   end
 
   desc "Increment the app version patch"
-  lane :bumpPatch do
+  lane :bump_patch do
     increment_version_number(
       bump_type: "patch"
     )
   end
 
   desc "Increment the app version minor"
-  lane :bumpMinor do
+  lane :bump_minor do
     increment_version_number(
       bump_type: "minor"
     )
   end
 
   desc "Increment the app version major"
-  lane :bumpMajor do
+  lane :bump_major do
     increment_version_number(
       bump_type: "major"
     )
   end
 
-  desc "Increment the app's build number without committing the changes. Returns a string of the new, bumped version."
-  lane :bump do |options|
-    opt_build_num = options[:build_number] || ENV['BUILD_NUMBER']
-    if opt_build_num then
-      increment_build_number(build_number: opt_build_num.to_i)
-    else
-      increment_build_number(build_number: get_beta_build_number)
-    end
-    get_version_string
-  end
-
-  desc "Merge release-beta branch into beta branch. This should be done before verifying test platforms."
-  lane :mergeReleaseBetaIntoBeta do |options|
-    sh "git fetch"
-    sh "git checkout release-beta"
-    sh "git pull"
-    sh "git checkout beta"
-    sh "git merge release-beta"
-  end
-
-  desc "Merge release branch into beta master."
-  lane :mergeReleaseIntoMaster do |options|
-    sh "git fetch"
-    sh "git checkout release"
-    sh "git pull"
-    sh "git checkout master"
-    sh "git merge release"
-  end
-
-  desc "Increment the app's beta build number, add a tag, and push to the beta branch."
-  lane :bumpAndTagBeta do |options|
-    increment_build_number
-
-    new_version = get_version_string
-    commit_version_bump
-    push_to_git_remote(
-       local_branch: 'beta',  # optional, aliased by 'branch', default: 'master'
-       remote_branch: 'beta', # optional, default is set to local_branch
-    )
-
-    tag_name = "betas/#{new_version}"
+  desc "Add a tag for the current build number and push to repo."
+  lane :tag_beta do |options|
+    tag_name = "betas/#{get_build_number}"
     add_git_tag(tag: tag_name)
     sh "git push origin --tags"
-
   end
 
-  desc "Increment the app's build number, add a tag, and push to the master branch."
-  lane :bumpAndTagRelease do |options|
-    increment_build_number(build_number: get_release_build_number)
-
-    new_version = get_version_string
-    commit_version_bump
-    push_to_git_remote(
-       local_branch: 'master',  # optional, aliased by 'branch', default: 'master'
-       remote_branch: 'master', # optional, default is set to local_branch
-    )
-
-    tag_name = "releases/#{new_version}"
+  desc "Add a tag for the current version number push to repo."
+  lane :tag_release do |options|
+    tag_name = "releases/#{get_version_number}"
     add_git_tag(tag: tag_name)
     sh "git push origin --tags"
-
   end
 
-  desc "Returns a default changelog."
-  lane :default_changelog do
-    changelog = changelog_from_git_commits(
-        between: [ENV['GIT_PREVIOUS_SUCCESSFUL_COMMIT'] || "HEAD^^^^^", "HEAD"],
-        pretty: "- %s"
-    )
-    # HAX: strip emoji from changelog
-    changelog = changelog.sub(/[\u{1F300}-\u{1F6FF}]/, '')
-    Actions.lane_context[SharedValues::FL_CHANGELOG] = changelog
-    puts changelog
-    changelog
-  end
-
-  desc "Submit a new **Wikipedia Beta** build to Apple TestFlight for internal testing."
-  lane :beta do
+  desc "Build the app for distibution"
+  lane :build do
+    cert
 
     sigh(
-      adhoc: false,
-      force: true
+      provisioning_name: "Continue Reading",
+      app_identifier: "org.wikimedia.wikipedia.ContinueReadingWidget"
     )
 
-    gym(
-      configuration: "Beta",
-      scheme: "Wikipedia Beta"
-    )
-
-    # changelog = default_changelog
-
-    hockey_beta_id = ENV["HOCKEY_BETA"]
-    raise "Must specifiy HockeyApp public identifier." unless hockey_beta_id.length > 0
-
-    hockey(
-      public_identifier: hockey_beta_id,
-      # notes: changelog,
-      notify: '0', # Means do not notify
-      status: '1', # Means do not make available for download
-    )
-
-    pilot(
-      skip_submission: false,
-      distribute_external: false
-    )
-
-  end
-
-  desc "Submit a new App Store release candidate Apple TestFlight for internal testing."
-  lane :store do
     sigh(
-      adhoc: false,
-      force: true
+      provisioning_name: "Top Read",
+      app_identifier: "org.wikimedia.wikipedia.TopReadWidget"
     )
+
+    sigh(
+      provisioning_name: "AppStore",
+      app_identifier: "org.wikimedia.wikipedia"
+    )
+
+    # badge(dark: true, shield: "#{get_version_number}-#{get_build_number}-blue", shield_no_resize: true)
 
     gym(
       configuration: "Release",
-      scheme: "Wikipedia"
+      scheme: "Wikipedia",
+      sdk: "iphoneos10.0"
     )
+
+  end
+
+  # This lane requires HOCKEY_PRODUCTION environment variable to be set.
+  # 1. HOCKEY_PRODUCTION=THE_API_KEY bundle exec fastlane push_beta
+  # 2. Use a .env file
+  desc "updates version, builds, and pushes to Testlfight"
+  lane :push_beta do
+
+    increment_build_number({
+      build_number: latest_testflight_build_number + 1
+    })
+
+    changelog_from_git_commits(
+      pretty: '- (%ae) %s', # Optional, lets you provide a custom format to apply to each commit when generating the changelog text
+      tag_match_pattern: 'betas/*', # Optional, lets you search for a tag name that matches a glob(7) pattern
+      include_merges: false # Optional, lets you filter out merge commits
+    )
+
+    build
 
     hockey_prod_id = ENV["HOCKEY_PRODUCTION"]
     raise "Must specifiy HockeyApp public identifier." unless hockey_prod_id.length > 0
@@ -229,34 +165,48 @@ platform :ios do
     )
 
     pilot(
+      skip_waiting_for_build_processing: true,
       skip_submission: false,
       distribute_external: false
     )
 
+    tag_beta
+
   end
 
+  desc "Runs tests, version, tag, and push to the beta branch"
+  lane :test_and_push_beta do
 
-  desc "Upload a developer build to Hockey."
-  lane :dev do
-    sigh(
-      adhoc: true,
-      # Fastlane has issues forcing AdHoc profiles
-      force: false
-    )
+    verify_test_platforms
+    push_beta
 
-    gym(
-      configuration: "AdHoc",
-      scheme: "Wikipedia AdHoc",
-      # both of these flags are required for ad hoc
-      export_method: 'ad-hoc',
-      use_legacy_build_api: true
-    )
-
-    hockey(
-      notes: default_changelog,
-      notify: '2', # Notify all testers
-      status: '2', # Make available for download
-      release_type: '2' # 'alpha' release type
-    )
   end
+
+  desc "Runs tests, version, tag, and push to the beta branch"
+  lane :submit_release do
+    build = ENV['BUILD']
+    raise "Must specifiy a BUILD." unless build.length > 0
+
+    sh "git pull"
+    sh "git checkout betas/#{sha}"
+
+    app_review_information(
+      first_name: "Corey",
+      last_name: "Floyd",
+      phone_number: "+43 123123123",
+      email_address: "github@krausefx.com",
+      demo_user: "demoUser",
+      demo_password: "demoPass",
+      notes: "such notes, very text"
+    )
+
+    deliver(
+      submit_for_review: true,
+      automatic_release: false,
+      build_number:build.to_i,
+    )
+
+    tag_release
+  end
+
 end

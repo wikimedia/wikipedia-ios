@@ -1,6 +1,7 @@
 // Messages for Maithili (मैथिली)
 // Exported from translatewiki.net
 // Author: Bijay chaurasia
+// Author: NehalDaveND
 // Author: बिप्लब आनन्द
 
 "article-languages-label" = "भाषा चुनु";
@@ -24,7 +25,7 @@
 "history-clear-cancel" = "रद्द करु";
 // Fuzzy
 "history-clear-delete-all" = "सभटाकेँ मेटाउ";
-"zero-free-verbiage" = "अपन मोबाइल अपरेटर (डाटा शुल्क माफ) सँ विकिपिडियाक उपयोग मुफ्तमे करि सकैत अछि ।";
+"zero-free-verbiage" = "अपन दूरभाष अपरेटर (डाटा शुल्क माफ) सँ विकिपिडियाक उपयोग मुफ्तमे करि सकैत अछि ।";
 "zero-charged-verbiage" = "शून्य विकिपिडिया बन्द भ गेल अछि";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "शून्य विकिपिडिया निस्क्रमण";
@@ -39,7 +40,7 @@
 "account-creation-logging-in" = "प्रवेश करेत ...";
 "account-creation-passwords-mismatched" = "कुटशब्द मेल नै भेल";
 "account-creation-saving" = "आहाँ के सम्पादन सुरक्षित भ्यरहल अछि...";
-"account-creation-login" = "पहिलसे से खाता अछि ? लोग इन करु";
+"account-creation-login" = "पहिने सँ खाता अछि ? सम्प्रवेश करी।";
 // Fuzzy
 "account-creation-username-placeholder-text" = "प्रयोक्ता नाम";
 "account-creation-password-placeholder-text" = "कूटशब्द";
@@ -50,7 +51,7 @@
 "login-name-not-found" = "प्रयोगकर्ता नाम लग इन करबाक लेल आवश्यक अछि।";
 // Fuzzy
 "login-name-illegal" = "आहाँ अवैध प्रयोगकर्ता नाम प्रदान कर्ने छी।";
-"login-password-empty" = "लोग इन करबक लेल कुटशब्द जरुरी";
+"login-password-empty" = "सम्प्रवेश करैक लेल कुटशब्द आवश्यक अछि।";
 "login-password-wrong" = "आहाँ के कुटशब्द गलत अछि ।";
 "login-throttled" = "आहाँ आधिक बेर सम्प्रवेश कैर चुकल चिए";
 "login-user-blocked" = "प्रयोक्ता प्रतिबन्धित अछि।";
@@ -65,8 +66,10 @@
 "wikitext-preview-changes-none" = "कुनो परिवर्तन पूर्वावलोकन करल ग्याल अछि ।";
 "wikitext-upload-captcha-error" = "केप्चा प्रमाणिकरण में त्रुटि।";
 "wikitext-upload-captcha-needed" = "केप्चा प्रमाणिकरण चाही ।";
+// Fuzzy
 "wikitext-upload-save" = "आहाँ के सम्पादन सुरक्षित भ्यरहल अछि...";
 "wikitext-upload-save-sign-in" = "सम्प्रवेश";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "गुमनाम के रुपमें संग्रह करु";
 "wikitext-upload-save-terms-name" = "उपयोग कऽ शर्त सभ";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -116,7 +119,7 @@
 "main-menu-heading-zero" = "शून्य विकिपिडिया";
 "main-menu-heading-legal" = "गोपनीयता आर नियम";
 "main-menu-show-today" = "आजु";
-"main-menu-nearby" = "लग के";
+"main-menu-nearby" = "लगमे";
 "main-menu-more" = "आर...";
 "main-menu-heading-debug" = "दोषमार्जन";
 "main-menu-debug-crash" = "दुर्घटना";
@@ -134,14 +137,17 @@
 "page-history-downloading" = "लेख इतिहास लोड भ्या रहल अछि...";
 "navbar-title-mode-edit-wikitext" = "सम्पादन करू";
 "navbar-title-mode-login" = "सम्प्रवेश";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "हमरा सम्प्रवेशित राखु";
 "navbar-title-mode-create-account" = "खाता खोलल जाए";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "खाता खोलू आर हमरा सम्प्रवेशित राखु";
 "navbar-title-mode-edit-wikitext-warning" = "त्रुटीसभ के सम्पादन करु";
 "navbar-title-mode-edit-wikitext-disallow" = "त्रुटीसभ के सम्पादन करु";
 "navbar-title-mode-edit-wikitext-preview" = "पूर्वावलोकन";
 "navbar-title-mode-edit-wikitext-captcha" = "त्वरित सत्यापन के जरूरत";
 "navbar-title-mode-edit-wikitext-summary" = "अपन सम्पादन के वर्णन करु";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "सुरक्षित करू";
 "edit-summary-choice-linked-words" = "लिंक जोडू";
 "edit-summary-choice-fixed-grammar" = "व्याकरण ठिक करु";

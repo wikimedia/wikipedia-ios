@@ -19,9 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable, readonly) WKWebView *webView;
 
-@property (nonatomic) BOOL isPeeking;
-@property (strong, nonatomic, nullable) WMFPeekHTMLElement *peekElement;
-
 @property (nonatomic) CGFloat contentWidthPercentage;
 @property (nonatomic, readonly) CGFloat marginWidth;
 
@@ -60,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong, nullable) NSArray<UIViewController *> *footerViewControllers;
 
-- (UIView *)footerAtIndex:(NSInteger)index;
+- (nullable UIView *)footerAtIndex:(NSInteger)index;
 - (void)scrollToFooterAtIndex:(NSInteger)index animated:(BOOL)animated;
 - (void)accessibilityCursorToFooterAtIndex:(NSInteger)index;
 

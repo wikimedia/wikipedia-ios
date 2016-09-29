@@ -32,16 +32,20 @@ NSString *const WMFArticleFetcherErrorDomain = @"WMFArticleFetcherErrorDomain";
 
 NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFetcherErrorCachedFallbackArticleKey";
 
-@interface WMFArticleBaseFetcher ()
+@interface WMFArticleFetcher ()
 
 @property (nonatomic, strong) NSMapTable *operationsKeyedByTitle;
 @property (nonatomic, strong) dispatch_queue_t operationsQueue;
 
+@property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
+@property (nonatomic, strong) WMFArticleRevisionFetcher *revisionFetcher;
+
 @end
 
-@implementation WMFArticleBaseFetcher
+@implementation WMFArticleFetcher
 
-- (instancetype)init {
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
+    NSParameterAssert(dataStore);
     self = [super init];
     if (self) {
         self.operationsKeyedByTitle = [NSMapTable strongToWeakObjectsMapTable];
@@ -49,19 +53,27 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         self.operationsQueue = dispatch_queue_create([queueID cStringUsingEncoding:NSUTF8StringEncoding], DISPATCH_QUEUE_SERIAL);
         AFHTTPSessionManager *manager = [AFHTTPSessionManager wmf_createDefaultManager];
         self.operationManager = manager;
+        self.operationManager.requestSerializer = [WMFArticleRequestSerializer serializer];
+        self.operationManager.responseSerializer = [WMFArticleResponseSerializer serializer];
+
+        self.dataStore = dataStore;
+        self.revisionFetcher = [[WMFArticleRevisionFetcher alloc] init];
+
+        /*
+         Setting short revision check timeouts, to ensure that poor connections don't drastically impact the case
+         when cached article content is up to date.
+         */
+        //        FBTweakBind(self.revisionFetcher,
+        //                    timeoutInterval,
+        //                    @"Networking",
+        //                    @"Article",
+        //                    @"Revision Check Timeout",
+        //                    0.8);
     }
     return self;
 }
 
-- (WMFArticleRequestSerializer *)requestSerializer {
-    return nil;
-}
-
 #pragma mark - Fetching
-
-- (id)serializedArticleWithURL:(NSURL *)articleURL response:(id)response {
-    return response;
-}
 
 - (void)fetchArticleForURL:(NSURL *)articleURL
              useDesktopURL:(BOOL)useDeskTopURL
@@ -72,7 +84,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     }
 
     // Force desktop domain if not Zero rated.
-    if (![SessionSingleton sharedInstance].zeroConfigState.disposition) {
+    if (![SessionSingleton sharedInstance].zeroConfigurationManager.isZeroRated) {
         useDeskTopURL = YES;
     }
 
@@ -91,7 +103,9 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         success:^(NSURLSessionDataTask *operation, id response) {
             dispatchOnBackgroundQueue(^{
                 [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                resolve([self serializedArticleWithURL:articleURL response:response]);
+                MWKArticle *article = [self serializedArticleWithURL:articleURL response:response];
+                [self.dataStore asynchronouslyCacheArticle:article];
+                resolve(article);
             });
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
@@ -148,46 +162,10 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     [self.operationManager wmf_cancelAllTasks];
 }
 
-@end
-
-@interface WMFArticleFetcher ()
-
-@property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
-@property (nonatomic, strong) WMFArticleRevisionFetcher *revisionFetcher;
-
-@end
-
-@implementation WMFArticleFetcher
-
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
-    NSParameterAssert(dataStore);
-    self = [super init];
-    if (self) {
-        self.operationManager.requestSerializer = [WMFArticleRequestSerializer serializer];
-        self.operationManager.responseSerializer = [WMFArticleResponseSerializer serializer];
-
-        self.dataStore = dataStore;
-        self.revisionFetcher = [[WMFArticleRevisionFetcher alloc] init];
-
-        /*
-           Setting short revision check timeouts, to ensure that poor connections don't drastically impact the case
-           when cached article content is up to date.
-         */
-        //        FBTweakBind(self.revisionFetcher,
-        //                    timeoutInterval,
-        //                    @"Networking",
-        //                    @"Article",
-        //                    @"Revision Check Timeout",
-        //                    0.8);
-    }
-    return self;
-}
-
 - (id)serializedArticleWithURL:(NSURL *)url response:(NSDictionary *)response {
     MWKArticle *article = [[MWKArticle alloc] initWithURL:url dataStore:self.dataStore];
     @try {
         [article importMobileViewJSON:response];
-        [article save];
         return article;
     } @catch (NSException *e) {
         DDLogError(@"Failed to import article data. Response: %@. Error: %@", response, e);

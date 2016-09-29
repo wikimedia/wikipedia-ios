@@ -390,6 +390,7 @@
     XCTestExpectation *promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
 
     [self.faceDetectionCache detectFaceBoundsInImage:[UIImage new]
+        onGPU:YES
         URL:self.testURL
         failure:^(NSError *error) {
             XCTFail();

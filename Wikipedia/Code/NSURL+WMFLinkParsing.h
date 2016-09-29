@@ -137,6 +137,22 @@ extern NSString *const WMFDefaultSiteDomain;
 - (NSURL *)wmf_URLWithTitle:(NSString *)title;
 
 /**
+ * Return a new URL similar to the URL you call this method on but replace the title with the given title and the scheme with the internal scheme (wikipedia://)
+ *
+ * @param title         A Wikimedia title. For exmaple: `Main Page`.
+ *
+ * @return A new URL based on the URL you call this method on with the given title.
+ **/
+- (NSURL *)wmf_wikipediaSchemeURLWithTitle:(NSString *)title;
+
+/**
+ * Return a new URL similar to the URL you call this method on but replace the scheme with the internal scheme (wikipedia://)
+ *
+ * @return A new URL based on the URL you call this method on but with wikipedia:// as the scheme
+ **/
+@property (nullable, nonatomic, copy, readonly) NSURL *wmf_wikipediaSchemeURL;
+
+/**
  * Return a new URL similar to the URL you call this method on but replace the title and fragemnt.
  *
  * @param title         A Wikimedia title. For exmaple: `Main Page`.
@@ -184,6 +200,8 @@ extern NSString *const WMFDefaultSiteDomain;
 
 @property (nonatomic, copy, readonly) NSString *wmf_titleWithUnderScores;
 
+@property (nullable, nonatomic, copy, readonly) NSString *wmf_databaseKey; // string suitable for using as a unique key for the article
+
 #pragma mark - Introspection
 
 /**
@@ -196,6 +214,11 @@ extern NSString *const WMFDefaultSiteDomain;
  *  Return YES if the receiver has "cite_note" in the path
  */
 @property (nonatomic, readonly) BOOL wmf_isWikiCitation;
+
+/**
+ *  Return YES if the receiver should be peekable via 3d touch
+ */
+@property (nonatomic, readonly) BOOL wmf_isPeekable;
 
 /**
  *  Return YES if the URL has a .m subdomain

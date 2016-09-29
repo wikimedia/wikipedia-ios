@@ -11,11 +11,13 @@ typedef void (^WMFDynamicHeightPopoverPresentationHandler)(UIPopoverPresentation
 - (void)wmf_presentDynamicHeightPopoverViewControllerForBarButtonItem:(UIBarButtonItem *)item
                                                             withTitle:(NSString *)title
                                                               message:(NSString *)message
-                                                                width:(CGFloat)width {
+                                                                width:(CGFloat)width
+                                                             duration:(NSTimeInterval)duration {
 
     [self wmf_presentDynamicHeightPopoverViewControllerWithTitle:title
                                                          message:message
                                                            width:width
+                                                        duration:duration
                                  withPresenterConfigurationBlock:^(UIPopoverPresentationController *presenter) {
                                      [presenter setBarButtonItem:item];
                                  }];
@@ -24,11 +26,13 @@ typedef void (^WMFDynamicHeightPopoverPresentationHandler)(UIPopoverPresentation
 - (void)wmf_presentDynamicHeightPopoverViewControllerForSourceRect:(CGRect)sourceRect
                                                          withTitle:(NSString *)title
                                                            message:(NSString *)message
-                                                             width:(CGFloat)width {
+                                                             width:(CGFloat)width
+                                                          duration:(NSTimeInterval)duration {
 
     [self wmf_presentDynamicHeightPopoverViewControllerWithTitle:title
                                                          message:message
                                                            width:width
+                                                        duration:duration
                                  withPresenterConfigurationBlock:^(UIPopoverPresentationController *presenter) {
                                      [presenter setSourceView:self.view];
                                      [presenter setSourceRect:sourceRect];
@@ -38,15 +42,32 @@ typedef void (^WMFDynamicHeightPopoverPresentationHandler)(UIPopoverPresentation
 - (void)wmf_presentDynamicHeightPopoverViewControllerWithTitle:(NSString *)title
                                                        message:(NSString *)message
                                                          width:(CGFloat)width
+                                                      duration:(NSTimeInterval)duration
                                withPresenterConfigurationBlock:(WMFDynamicHeightPopoverPresentationHandler)presenterConfigurationBlock {
 
-    [self presentViewController:
-              [self wmf_dynamicHeightPopoverViewControllerWithTitle:title
-                                                            message:message
-                                                              width:width
-                                    withPresenterConfigurationBlock:presenterConfigurationBlock]
+    if (self.navigationController.visibleViewController != self) {
+        return;
+    }
+
+    UIViewController *popoverVC = [self wmf_dynamicHeightPopoverViewControllerWithTitle:title
+                                                                                message:message
+                                                                                  width:width
+                                                        withPresenterConfigurationBlock:presenterConfigurationBlock];
+    [self presentViewController:popoverVC
                        animated:NO
-                     completion:nil];
+                     completion:^{
+                         if (duration > 0) {
+                             [self performSelector:@selector(dismissPopover:) withObject:popoverVC afterDelay:duration];
+                         }
+                     }];
+}
+
+- (void)dismissPopover:(UIViewController *)popoverVC {
+    // Ensure the popover is still the presented view controller.
+    if (self.presentedViewController == popoverVC) {
+        [self dismissViewControllerAnimated:YES
+                                 completion:nil];
+    }
 }
 
 - (UIViewController *)wmf_dynamicHeightPopoverViewControllerWithTitle:(NSString *)title

@@ -77,9 +77,11 @@
 "wikitext-download-success" = "সমল ল'ড হৈছে।";
 "wikitext-preview-changes" = "আপোনাৰ সালসলনিৰ প্ৰাক্‌দৰ্শন উদ্ধাৰ কৰা হৈছে...";
 "wikitext-preview-changes-none" = "প্ৰাক্‌দৰ্শনৰ বাবে কোনো সালসলনি কৰা নাই।";
+// Fuzzy
 "wikitext-upload-save" = "সাঁচি থোৱা হৈছে...";
 "wikitext-upload-save-sign-in" = "প্ৰৱেশ";
 "wikitext-upload-save-sign-in-benefits" = "যাতে সহ-সম্পাদকসকলে আপোনাৰ লগত যোগাযোগ কৰিব পাৰে আৰু আৰু আপুনি আগতে সম্পাদনা কৰা প্ৰবন্ধবোৰ চাব পাৰে।";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "বেনামীভাৱে সাঁচি থওক";
 "wikitext-upload-save-anonymously-warning" = "সম্পাদনাসমূহ আপোনাৰ আই পি ঠিকনাত আৰোপ কৰা হ'ব। যদি আপুনি $1 কৰে তেন্তে আপুনি অধিক গোপনীয়তা লাভ কৰিব।";
 "wikitext-upload-save-terms-name" = "ব্যৱহাৰৰ চৰ্তাৱলী";
@@ -155,14 +157,17 @@
 "page-history-downloading" = "প্ৰবন্ধ ইতিহাস ল'ড হৈছে...";
 "navbar-title-mode-edit-wikitext" = "সম্পাদনা";
 "navbar-title-mode-login" = "প্ৰৱেশ";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "প্ৰৱেশ কৰক আৰু সাঁচি থওক";
 "navbar-title-mode-create-account" = "একাউণ্ট সৃষ্টি কৰক";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "একাউণ্ট সৃষ্টি কৰক আৰু সাঁচি থওক";
 "navbar-title-mode-edit-wikitext-warning" = "সমস্যা সম্পাদনা";
 "navbar-title-mode-edit-wikitext-disallow" = "সমস্যা সম্পাদনা";
 "navbar-title-mode-edit-wikitext-preview" = "প্ৰাকদৰ্শন";
 "navbar-title-mode-edit-wikitext-captcha" = "দ্ৰুত নিশ্চিতকৰণৰ প্ৰয়োজন";
 "navbar-title-mode-edit-wikitext-summary" = "আপোনাৰ সম্পাদনাৰ বৰ্ণনা দিয়ক";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "সাঁচি থওক";
 "edit-summary-choice-linked-words" = "লিংক যোগ";
 "edit-summary-choice-fixed-grammar" = "ব্যাকৰণ শুধৰণি";
@@ -226,6 +231,7 @@
 "license-footer-text" = "সমল $1ৰ আওতাত উপলব্ধ";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "সমল";
+// Fuzzy
 "abuse-filter-warning-heading" = "এইটো সম্ভৱ এটা অগঠনমূলক সম্পাদনা। আপুনি এইটো সাঁচিব বুলি নিশ্চিতনে?";
 "abuse-filter-warning-subheading" = "আপোনাৰ সম্পাদনাত তলৰ এটা বা একাধিক থাকিব পাৰে:";
 "menu-edit-accessibility-label" = "সম্পাদনা";

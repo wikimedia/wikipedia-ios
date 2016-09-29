@@ -85,10 +85,12 @@
 "wikitext-upload-result-unknown" = "Nie można określić wyniku pobierania wiki tekstu.";
 "wikitext-upload-captcha-error" = "Błąd weryfikacji CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Potrzebna weryfikacja CAPTCHA.";
-"wikitext-upload-save" = "Zapisywanie...";
+"wikitext-upload-save" = "Publikowanie...";
 "wikitext-upload-save-sign-in" = "Zaloguj się";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Zapisz anonimowo";
 "wikitext-upload-save-anonymously-warning" = "Zmiany będą oznaczone przez adres IP urządzenia. Jeśli $1, otrzymasz wyższy poziom prywatności.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Zapisując, zgadzasz się na $1 i nieodwołalnie publikujesz swój wkład na licencji $2.";
 "wikitext-upload-save-terms-name" = "Warunki użytkowania";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -165,14 +167,17 @@
 "page-history-downloading" = "Ładowanie historii artykułu...";
 "navbar-title-mode-edit-wikitext" = "Edytuj";
 "navbar-title-mode-login" = "Zaloguj się";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Zaloguj się i zapisz";
 "navbar-title-mode-create-account" = "Utwórz konto";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Załóż konto i zapisz";
 "navbar-title-mode-edit-wikitext-warning" = "Problemy edycji";
 "navbar-title-mode-edit-wikitext-disallow" = "Problemy edycji";
 "navbar-title-mode-edit-wikitext-preview" = "Podgląd";
 "navbar-title-mode-edit-wikitext-captcha" = "Szybka weryfikacja wymagana";
 "navbar-title-mode-edit-wikitext-summary" = "Opisz swoją edycję";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Zapisz";
 "edit-summary-choice-linked-words" = "Dodane linki";
 "edit-summary-choice-fixed-grammar" = "Poprawiono pisownię";
@@ -254,13 +259,15 @@
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Zawartości";
 "table-of-contents-button-label" = "Spis treści";
+"table-of-contents-close-accessibility-label" = "Zamknij spis treści";
 "table-of-contents-close-accessibility-hint" = "Zamknij";
-"abuse-filter-warning-heading" = "To wygląda na niekonstruktywną edycję, jesteś pewny, by ją zaspisać?";
+"abuse-filter-warning-heading" = "To wygląda na niekonstruktywną edycję, na pewno chcesz ją opublikować?";
 "abuse-filter-warning-subheading" = "Twoja edycja może zawierać jedną lub wiele z następujących czynności:";
 "abuse-filter-warning-caps" = "Pisanie WIELKIMI LITERAMI";
 "abuse-filter-warning-blanking" = "Blankowanie lub spamowanie artykułów";
 "abuse-filter-warning-irrelevant" = "Nieodpowiednie linki zewnętrzne lub obrazy";
 "abuse-filter-warning-repeat" = "Powtaaaarzanie znaków";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Nie możesz zapisać tej edycji. Wróć i popraw ją.";
 "abuse-filter-disallow-unconstructive" = "Zautomatyzowany filtr rozpoznał tę edycję jako potencjalnie niekonstruktywną albo próbę wandalizmu";
 "abuse-filter-disallow-notable" = "Wikipedia to encyklopedia, a tu dopuszczalne są tylko neutralne i znaczące treści.";
@@ -341,8 +348,13 @@
 "icon-shortcut-random-title" = "Losowy artykuł";
 "close-button-accessibility-label" = "Zamknij";
 "explore-nearby-heading" = "Miejsca w pobliżu";
+"explore-nearby-sub-heading-your-location" = "Twoje położenie";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";
 "explore-most-read-generic-heading" = "Najczęściej czytane";
 "explore-most-read-more-list-title" = "Najczęściej czytane artykuły";
 "no-email-account-alert" = "Skonfiguruj konto e-mail w tym urządzeniu i spróbuj jeszcze raz.";
 "explore-another-random" = "Inny losowy artykuł";
+"find-in-page-button-label" = "Znajdź na stronie";
+"find-in-page-popover-description" = "Wyszukiwanie tekstu w artykułach";
+"top-read-reader-count-thousands" = "$1 tys.";
+"top-read-header-generic" = "Wikipedia";

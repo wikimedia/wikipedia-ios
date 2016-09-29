@@ -43,17 +43,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.dataSource = [self.userDataStore savedDataSource];
-    self.dataSource.delegate = self;
 
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
+
+    self.dataSource = [self.userDataStore savedDataSource];
+    self.dataSource.delegate = self;
+    [self.tableView reloadData];
+    [self updateEmptyAndDeleteState];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.dataSource.granularDelegateCallbacksEnabled = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_savedPagesViewActivity]];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.dataSource.granularDelegateCallbacksEnabled = NO;
 }
 
 #pragma mark - UITableViewDataSource
@@ -88,12 +101,17 @@
 
 #pragma mark - WMFDataSourceDelegate
 
+- (void)dataSourceDidUpdateAllData:(id<WMFDataSource>)dataSource {
+    [self.tableView reloadData];
+}
+
 - (void)dataSourceWillBeginUpdates:(id<WMFDataSource>)dataSource {
     [self.tableView beginUpdates];
 }
 
 - (void)dataSourceDidFinishUpdates:(id<WMFDataSource>)dataSource {
     [self.tableView endUpdates];
+    [self updateEmptyAndDeleteState];
 }
 
 - (void)dataSource:(id<WMFDataSource>)dataSource didDeleteSectionsAtIndexes:(NSIndexSet *)indexes {

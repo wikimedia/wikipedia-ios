@@ -16,7 +16,7 @@
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    return YES;
+    return self.welcomeNavigationController.viewControllers.count > 1;
 }
 
 + (instancetype)welcomeViewControllerFromDefaultStoryBoard {
@@ -59,6 +59,14 @@
     WMFBoringNavigationTransition *animation = [[WMFBoringNavigationTransition alloc] init];
     animation.operation = operation;
     return animation;
+}
+
+- (UIViewController *)childViewControllerForStatusBarStyle {
+    return self.welcomeNavigationController;
+}
+
+- (UIViewController *)childViewControllerForStatusBarHidden {
+    return self.welcomeNavigationController;
 }
 
 @end

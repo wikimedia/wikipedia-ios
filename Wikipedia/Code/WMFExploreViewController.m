@@ -2,7 +2,7 @@
 #import "Wikipedia-Swift.h"
 
 // Frameworks
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 #import <Tweaks/FBTweakViewController.h>
 
 #import "PiwikTracker+WMFExtensions.h"
@@ -44,6 +44,7 @@
 
 // Controllers
 #import "WMFRelatedSectionBlackList.h"
+#import "WMFRandomSectionController.h"
 
 #define ENABLE_RANDOM_DEBUGGING 0
 
@@ -62,7 +63,6 @@ NS_ASSUME_NONNULL_BEGIN
                                         UIViewControllerPreviewingDelegate,
                                         WMFAnalyticsContextProviding,
                                         WMFAnalyticsViewNameProviding,
-                                        UINavigationControllerDelegate,
                                         WMFColumnarCollectionViewLayoutDelegate>
 
 @property (nonatomic, strong, readonly) MWKSavedPageList *savedPages;
@@ -261,7 +261,6 @@ NS_ASSUME_NONNULL_BEGIN
     UINavigationController *settingsContainer =
         [[UINavigationController alloc] initWithRootViewController:
                                             [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore]];
-    settingsContainer.delegate = self;
     [self presentViewController:settingsContainer
                        animated:YES
                      completion:nil];
@@ -371,7 +370,6 @@ NS_ASSUME_NONNULL_BEGIN
     for (UICollectionViewCell *cell in self.collectionView.visibleCells) {
         cell.selected = NO;
     }
-    [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:nil];
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
@@ -854,14 +852,20 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self.KVOControllerNonRetaining observe:controller
                                     keyPath:WMF_SAFE_KEYPATH(controller, items)
-                                    options:0
+                                    options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
                                       block:^(WMFExploreViewController *observer,
                                               id<WMFExploreSectionController> observedController,
-                                              NSDictionary *_) {
+                                              NSDictionary *change) {
                                           NSUInteger sectionIndex = [observer indexForSectionController:observedController];
-                                          if (sectionIndex != NSNotFound && [observer isDisplayingCellsForSection:sectionIndex]) {
+                                          if (sectionIndex != NSNotFound) {
                                               DDLogDebug(@"Reloading table to display results in controller %@", observedController);
-                                              [observer.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                                              id oldValue = change[NSKeyValueChangeOldKey];
+                                              id newValue = change[NSKeyValueChangeNewKey];
+                                              if ([observedController isKindOfClass:[WMFRandomSectionController class]] && [oldValue respondsToSelector:@selector(count)] && [newValue respondsToSelector:@selector(count)] && [oldValue count] == [newValue count]) {
+                                                  [observer.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                                              } else {
+                                                  [observer.collectionView reloadData];
+                                              }
                                           }
                                       }];
 }
@@ -976,14 +980,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)analyticsName {
     return [self analyticsContext];
-}
-
-#pragma mark - UINavigationControllerDelegate
-
-- (void)navigationController:(UINavigationController *)navigationController
-      willShowViewController:(UIViewController *)viewController
-                    animated:(BOOL)animated {
-    [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
 }
 
 #pragma mark - UIRefreshControl

@@ -105,7 +105,7 @@
                                                 iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_Switch
                                            disclosureText:nil
-                                               isSwitchOn:[SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving];
+                                               isSwitchOn:[SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving];
         }
         case WMFSettingsMenuItemType_ZeroFAQ: {
             return

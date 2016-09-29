@@ -1,0 +1,9 @@
+#!/bin/bash
+
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew update && brew install npm clang-format rbenv ruby-build
+rbenv install -s
+gem install bundler
+bundle install
+rm -rf .git/hooks/pre-commit
+cp -f scripts/clang_format_git_diff .git/hooks/pre-commit

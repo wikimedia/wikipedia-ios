@@ -18,7 +18,7 @@
 #import "AbuseFilterAlert.h"
 #import "MWLanguageInfo.h"
 #import "NSObject+ConstraintsScale.h"
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFChildViewController.h"
@@ -216,7 +216,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
                                                            [self goBack];
                                                    }];
 
-    self.buttonSave = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-save", nil)
+    self.buttonSave = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-publish", nil)
                                                           style:UIBarButtonItemStylePlain
                                                         handler:^(id sender) {
                                                             @strongify(self)

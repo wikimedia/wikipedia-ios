@@ -40,9 +40,12 @@ static NSString *const kHockeyAppDoNotSendStringsKey = @"hockeyapp-alert-do-not-
     [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:appID];
 
 #if DEBUG
-    [BITHockeyManager sharedHockeyManager].debugLogEnabled = YES;
+    [BITHockeyManager sharedHockeyManager].logLevel = BITLogLevelDebug;
+#else
+    [BITHockeyManager sharedHockeyManager].logLevel = BITLogLevelError;
 #endif
     [BITHockeyManager sharedHockeyManager].updateManager.updateSetting = BITUpdateCheckManually;
+    [BITHockeyManager sharedHockeyManager].metricsManager.disabled = NO;
     [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
     //We always wnat usrs to have the chance to send a crash report.
     if ([[BITHockeyManager sharedHockeyManager] crashManager].crashManagerStatus == BITCrashManagerStatusDisabled) {

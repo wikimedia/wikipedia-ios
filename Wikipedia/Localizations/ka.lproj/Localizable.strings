@@ -73,11 +73,14 @@
 "wikitext-upload-result-unknown" = "ვიკიტექსტის ატვირთვის შედეგის განსაზღვრა შეუძლებელია.";
 "wikitext-upload-captcha-error" = "CAPTCHA-ს დადასტურების შეცდომა.";
 "wikitext-upload-captcha-needed" = "საჭიროა CAPTCHA-ს დადასტურება.";
+// Fuzzy
 "wikitext-upload-save" = "ინახება...";
 "wikitext-upload-save-sign-in" = "შესვლა";
 "wikitext-upload-save-sign-in-benefits" = "ამგვარად თანარედაქტორებს შეუძლიათ დაგიკავშირდნენ და შეგიძლიათ ნახოთ თუ რომელი სტატიები დაარედაქტირეთ.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "ანონიმურად დამახსოვრება";
 "wikitext-upload-save-anonymously-warning" = "რედაქტორებს მიენიჭებათ თქვენი მოწყობილობის IP მისამართი. თუ თქვენ $1, იქნებით ინფორმაციულად უფრო დაცული.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "შენახვით, თქვენ ეთანხმებით $1-ს, და თქვენი წვლილის გაშვებას $2 ლიცენზიით.";
 "wikitext-upload-save-terms-name" = "გამოყენების პირობები";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -160,14 +163,17 @@
 "page-history-downloading" = "სტატიის ისტორია იტვირთება...";
 "navbar-title-mode-edit-wikitext" = "რედაქტირება";
 "navbar-title-mode-login" = "შესვლა";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "შესვლა და დამახსოვრება";
 "navbar-title-mode-create-account" = "ანგარიშის შექმნა";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "შექმენი ანგარიში და შეინახე";
 "navbar-title-mode-edit-wikitext-warning" = "პრობლემების რედაქტირება";
 "navbar-title-mode-edit-wikitext-disallow" = "პრობლემების რედაქტირება";
 "navbar-title-mode-edit-wikitext-preview" = "წინასწარ გადახედვა";
 "navbar-title-mode-edit-wikitext-captcha" = "საჭიროა სწრაფი დადასტურება";
 "navbar-title-mode-edit-wikitext-summary" = "აღწერეთ თქვენი რედაქტირებები";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "შენახვა";
 "edit-summary-choice-linked-words" = "დამატებული ბმულები";
 "edit-summary-choice-fixed-grammar" = "გრამატიკის შესწორება";
@@ -248,14 +254,17 @@
 "license-footer-text" = "კონტენტი ხელმისაწვდომია $1-ით";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "შინაარსი";
+// Fuzzy
 "table-of-contents-button-label" = "სარჩევი";
 "table-of-contents-close-accessibility-hint" = "დახურვა";
+// Fuzzy
 "abuse-filter-warning-heading" = "თქვენი რედაქტირება არაკონსტრუქციულს ჰგავს, დარწმუნებული ხართ, რომ მისი შენახვა გსურთ?";
 "abuse-filter-warning-subheading" = "თქვენი რედაქტირება შესაძლოა შეიცავდეს ერთ ან რამდენიმე შემდეგ ელემენტს:";
 "abuse-filter-warning-caps" = "იკრიფება დიდ ასოებზე";
 "abuse-filter-warning-blanking" = "სტატიების დაცარიელება ან სპამი";
 "abuse-filter-warning-irrelevant" = "შეუსაბამო გარე ბმულები ან სურათები";
 "abuse-filter-warning-repeat" = "სიმბოლოების გამეორება";
+// Fuzzy
 "abuse-filter-disallow-heading" = "ამ ცვლილების შენახვა არ შეგიძლიათ. დაბრუნდით უკან და შეცვალეთ.";
 "abuse-filter-disallow-unconstructive" = "ავტომატურმა ფილტრმა ეს რედაქტირება მიიჩნია შესაძლო არაკონსტრუქციულად ან ვანდალიზმით მცდელობად.";
 "abuse-filter-disallow-notable" = "ვიკიპედია მხოლოდ და მხოლოდ ნეიტრალური ენციკლოპედიაა.";

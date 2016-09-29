@@ -51,9 +51,9 @@
 "login-username-placeholder-text" = "کارن-نوم";
 "login-password-placeholder-text" = "پټنوم";
 "wikitext-downloading" = "مېنځپانگه رابرسېرېږي...";
-"wikitext-upload-save" = "خوندي کېږي...";
+"wikitext-upload-save" = "خپرېږي...";
 "wikitext-upload-save-sign-in" = "ننوتل";
-"wikitext-upload-save-anonymously" = "په ورکنومي توگه خوندي کول";
+"wikitext-upload-save-anonymously" = "په ورکنومي توگه خپرول";
 "wikitext-upload-save-terms-name" = "د کارولو شرطونه";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "پرانيستې تړنه";
@@ -115,13 +115,13 @@
 "page-history-downloading" = "د ليکنې پېښليک رابرسېرېږي...";
 "navbar-title-mode-edit-wikitext" = "سمول";
 "navbar-title-mode-login" = "ننوتل";
-"navbar-title-mode-login-and-save" = "ننوتل او خوندي کول";
+"navbar-title-mode-login-and-save" = "ننوتل او خپرول";
 "navbar-title-mode-create-account" = "گڼون جوړول";
-"navbar-title-mode-create-account-and-save" = "گڼون جوړول او خوندي کول";
+"navbar-title-mode-create-account-and-save" = "گڼون جوړول او ليکنې خپرول";
 "navbar-title-mode-edit-wikitext-warning" = "د سمون ستونزې";
 "navbar-title-mode-edit-wikitext-disallow" = "د سمون ستونزې";
 "navbar-title-mode-edit-wikitext-preview" = "مخليدنه";
-"navbar-title-mode-edit-wikitext-save" = "خوندي کول";
+"navbar-title-mode-edit-wikitext-save" = "خپرول";
 "edit-summary-choice-linked-words" = "ورگډې شوې تړنې";
 "edit-summary-choice-added-category" = "وېشنيزه ورگډه شوه";
 "edit-summary-choice-added-missing-info" = "ورک مالومات ورگډ شول";
@@ -160,6 +160,7 @@
 "button-next" = "راتلونکی";
 "button-done" = "ترسره شو";
 "button-save" = "خوندي کول";
+"button-publish" = "خپرول";
 "button-ok" = "ښه";
 "button-save-for-later" = "د وروسته لوستلو لپاره خوندي کول";
 "button-saved-for-later" = "د وروسته لوستلو لپاره خوندي شو";
@@ -255,6 +256,7 @@
 "compass-direction" = "په $1 بجو";
 "explore-featured-article-heading" = "مخکښه ليکنه";
 "explore-nearby-heading" = "نژدې ځايونه";
+"explore-nearby-sub-heading-your-location" = "ستاسې ځای";
 "explore-continue-related-heading" = "ځکه چې تاسې لولی";
 "explore-main-page-heading" = "نن په ويکيپېډيا کې";
 "explore-random-article-heading" = "ناټاکلې ليکنه";
@@ -266,3 +268,6 @@
 "explore-most-read-footer-for-date" = "په $1 ټولې ډېرې لوستل شوې ليکنې";
 "explore-most-read-more-list-title" = "د سر ليکنې";
 "find-in-page-no-matches" = "0 ورته والی لري";
+"find-in-page-button-label" = "په مخ کې موندل";
+"top-read-header-with-language" = "$1 ويکيپېډيا";
+"top-read-header-generic" = "ويکيپېډيا";

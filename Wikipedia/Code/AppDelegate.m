@@ -4,7 +4,6 @@
 #import "WMFAppViewController.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 #import <Tweaks/FBTweakShakeWindow.h>
-#import "ZeroConfigState.h"
 #import "NSUserActivity+WMFExtensions.h"
 
 @interface AppDelegate ()
@@ -26,8 +25,8 @@
     [[NSUserDefaults wmf_userDefaults] registerDefaults:@{
         @"CurrentArticleDomain": defaultLanguage,
         @"Domain": defaultLanguage,
-        ZeroWarnWhenLeaving: @YES,
-        ZeroOnDialogShownOnce: @NO,
+        WMFZeroWarnWhenLeaving: @YES,
+        WMFZeroOnDialogShownOnce: @NO,
         @"LastHousekeepingDate": [NSDate date],
         @"SendUsageReports": @NO,
         @"AccessSavedPagesMessageShown": @NO
@@ -60,8 +59,6 @@
                                     [UIApplicationShortcutItem wmf_nearby],
                                     nil];
 
-    [shortcutItems wmf_safeAddObject:[UIApplicationShortcutItem wmf_continueReading]];
-
     [shortcutItems addObject:[UIApplicationShortcutItem wmf_search]];
 
     [UIApplication sharedApplication].shortcutItems = shortcutItems;
@@ -93,7 +90,6 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

@@ -18,6 +18,15 @@ extern NSString *const WMFCitationFragmentSubstring;
 - (BOOL)wmf_isWikiResource;
 
 /**
+ * Determine if a fragment points to a reference.
+ *
+ * The receiver is usually obtained from the fragment of a link tapped by the user.
+ *
+ * @return `YES` if the receiver contains a substring indicating that it is a reference, otherwise `NO`.
+ */
+- (BOOL)wmf_isReferenceFragment;
+
+/**
  * Determine if a fragment points to a citation.
  *
  * The receiver is usually obtained from the fragment of a link tapped by the user.
@@ -25,6 +34,15 @@ extern NSString *const WMFCitationFragmentSubstring;
  * @return `YES` if the receiver contains a substring indicating that it is a citation, otherwise `NO`.
  */
 - (BOOL)wmf_isCitationFragment;
+
+/**
+ * Determine if a fragment points to an endnote.
+ *
+ * The receiver is usually obtained from the fragment of a link tapped by the user.
+ *
+ * @return `YES` if the receiver contains a substring indicating that it is an endnote, otherwise `NO`.
+ */
+- (BOOL)wmf_isEndNoteFragment;
 
 /**
  * Strips the internal link prefix from the receiver, if present.

@@ -67,7 +67,29 @@ extern NSString *const MWKURLKey;
 
 #pragma mark - Legacy Datastore methods
 
+/**
+ *  Save the @c article asynchronously. If an existing save operation exists for this article or an article with the same URL, it will be cancelled and re-added with this copy of the article.
+ *
+ *  @param article    The article to save.
+ **/
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article;
+
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article completion:(nullable dispatch_block_t)completion;
+
+/**
+ *  Cancel the asynchronous save for the @c article.
+ *
+ *  @param article    The article to cancel.
+ **/
+- (void)cancelAsynchronousCacheForArticle:(MWKArticle *)article;
+
 @property (readonly, copy, nonatomic) NSString *basePath;
+
+/**
+ *  Call this to manually sync the database.
+ *  Useful for when resuming and the DB may have been modified out of process
+ */
+- (void)syncDataStoreToDatabase;
 
 /**
  *  Path for the default main data store.
@@ -217,6 +239,12 @@ extern NSString *const MWKURLKey;
 - (void)stopCacheRemoval;
 
 - (NSArray *)legacyImageURLsForArticle:(MWKArticle *)article;
+
+- (void)readWithBlock:(void (^)(YapDatabaseReadTransaction *_Nonnull transaction))block;
+- (nullable id)readAndReturnResultsWithBlock:(id (^)(YapDatabaseReadTransaction *_Nonnull transaction))block;
+- (void)readViewNamed:(NSString *)viewName withWithBlock:(void (^)(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view))block;
+- (nullable id)readAndReturnResultsWithViewNamed:(NSString *)viewName withWithBlock:(id (^)(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view))block;
+- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction *_Nonnull transaction))block;
 
 @end
 

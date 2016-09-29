@@ -1,6 +1,7 @@
 #import "YapDatabase+WMFExtensions.h"
 #import "YapDatabase+WMFViews.h"
 #import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
+#import <YapDatabase/YapDatabaseCrossProcessNotification.h>
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "MWKHistoryEntry+WMFDatabaseViews.h"
 #import <WMFModel/WMFModel-Swift.h>
@@ -34,9 +35,78 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (readwrite, nonatomic, strong) dispatch_queue_t cacheRemovalQueue;
 @property (readwrite, nonatomic, getter=isCacheRemovalActive) BOOL cacheRemovalActive;
 
+@property (readwrite, atomic, strong) id previousCleanup;
+
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSOperation *> *articleSaveOperations;
+@property (nonatomic, strong) NSOperationQueue *articleSaveQueue;
+
 @end
 
 @implementation MWKDataStore
+
+- (NSOperationQueue *)articleSaveQueue {
+    if (!_articleSaveQueue) {
+        _articleSaveQueue = [NSOperationQueue new];
+        _articleSaveQueue.qualityOfService = NSQualityOfServiceBackground;
+        _articleSaveQueue.maxConcurrentOperationCount = 1;
+    }
+    return _articleSaveQueue;
+}
+
+- (NSMutableDictionary<NSString *, NSOperation *> *)articleSaveOperations {
+    if (!_articleSaveOperations) {
+        _articleSaveOperations = [NSMutableDictionary new];
+    }
+    return _articleSaveOperations;
+}
+
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article {
+    [self asynchronouslyCacheArticle:article completion:nil];
+}
+
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article completion:(nullable dispatch_block_t)completion {
+    NSOperationQueue *queue = [self articleSaveQueue];
+    NSMutableDictionary *operations = [self articleSaveOperations];
+    @synchronized(queue) {
+        NSString *key = article.url.wmf_databaseKey;
+        if (!key) {
+            return;
+        }
+
+        NSOperation *op = operations[key];
+        if (op) {
+            [op cancel];
+            [operations removeObjectForKey:key];
+        }
+
+        op = [NSBlockOperation blockOperationWithBlock:^{
+            [article save];
+            @synchronized(queue) {
+                [operations removeObjectForKey:key];
+            }
+        }];
+        op.completionBlock = completion;
+
+        if (!op) {
+            return;
+        }
+
+        operations[key] = op;
+
+        [queue addOperation:op];
+    }
+}
+
+- (void)cancelAsynchronousCacheForArticle:(MWKArticle *)article {
+    NSOperationQueue *queue = [self articleSaveQueue];
+    NSMutableDictionary *operations = [self articleSaveOperations];
+    @synchronized(queue) {
+        NSString *key = article.url.wmf_databaseKey;
+        NSOperation *op = operations[key];
+        [op cancel];
+        [operations removeObjectForKey:key];
+    }
+}
 
 #pragma mark - NSObject
 
@@ -144,19 +214,46 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     [self cleanup];
 }
 
+- (void)syncDataStoreToDatabase {
+    // Jump to the most recent commit.
+    // End & Re-Begin the long-lived transaction atomically.
+    // Also grab all the notifications for all the commits that I jump.
+    // If the UI is a bit backed up, I may jump multiple commits.
+    NSArray *notifications = [self.articleReferenceReadConnection beginLongLivedReadTransaction];
+
+    //Note: we must send notificatons even if they are 0
+    //This is neccesary because when changes happen in other processes
+    //Yap reports 0 changes and simply flushes its caches.
+    //This updates the connections and the DB, but not mappings
+    //To update any mappings, we must propagate "0" notifications
+
+    [self.changeHandlers compact];
+    for (id<WMFDatabaseChangeHandler> obj in self.changeHandlers) {
+        [obj processChanges:notifications onConnection:self.articleReferenceReadConnection];
+    }
+}
+
 - (void)cleanup {
-    [self readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
-        YapDatabaseViewTransaction *view = [transaction ext:WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView];
-        if ([view numberOfItemsInAllGroups] == 0) {
-            return;
-        }
-        NSMutableArray *keysToRemove = [NSMutableArray array];
-        [view enumerateKeysInGroup:[[view allGroups] firstObject]
-                        usingBlock:^(NSString *_Nonnull collection, NSString *_Nonnull key, NSUInteger index, BOOL *_Nonnull stop) {
-                            [keysToRemove addObject:key];
-                        }];
-        [transaction removeObjectsForKeys:keysToRemove inCollection:[MWKHistoryEntry databaseCollectionName]];
-    }];
+    id previousCleanup = self.previousCleanup;
+    if (previousCleanup != nil) {
+        [NSObject bk_cancelBlock:previousCleanup];
+    }
+    self.previousCleanup = [NSObject bk_performBlockInBackground:^{
+        self.previousCleanup = nil;
+        [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
+            YapDatabaseViewTransaction *view = [transaction ext:WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView];
+            if ([view numberOfItemsInAllGroups] == 0) {
+                return;
+            }
+            NSMutableArray *keysToRemove = [NSMutableArray array];
+            [view enumerateKeysInGroup:[[view allGroups] firstObject]
+                            usingBlock:^(NSString *_Nonnull collection, NSString *_Nonnull key, NSUInteger index, BOOL *_Nonnull stop) {
+                                [keysToRemove addObject:key];
+                            }];
+            [transaction removeObjectsForKeys:keysToRemove inCollection:[MWKHistoryEntry databaseCollectionName]];
+        }];
+    }
+                                                      afterDelay:1];
 }
 
 #pragma mark - Entry Access 

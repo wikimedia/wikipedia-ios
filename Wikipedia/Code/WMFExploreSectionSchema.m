@@ -298,6 +298,17 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 
 #pragma mark - WMFDataSourceDelegate
 
+- (void)dataSourceDidUpdateAllData:(id<WMFDataSource>)dataSource {
+    if (dataSource == self.blackListDataSource) {
+        [self.blackList enumerateItemsWithBlock:^(MWKHistoryEntry *_Nonnull entry, BOOL *stop) {
+            WMFExploreSection *section = [self existingSectionForArticleURL:entry.url];
+            if (section) {
+                [self removeSection:section];
+            }
+        }];
+    }
+}
+
 - (void)dataSourceDidFinishUpdates:(id<WMFDataSource>)dataSource {
     if (dataSource == self.blackListDataSource) {
         [self.blackList enumerateItemsWithBlock:^(MWKHistoryEntry *_Nonnull entry, BOOL *stop) {
@@ -587,6 +598,12 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
                                   }];
         return array;
     }];
+
+    //Sort by date
+    [array sortWithOptions:NSSortStable | NSSortConcurrent
+           usingComparator:^NSComparisonResult(WMFExploreSection *_Nonnull obj1, WMFExploreSection *_Nonnull obj2) {
+               return -[obj1.dateCreated compare:obj2.dateCreated];
+           }];
 
     return [array wmf_arrayByTrimmingToLength:maxLength];
 }

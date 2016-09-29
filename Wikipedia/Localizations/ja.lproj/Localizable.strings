@@ -88,11 +88,14 @@
 "wikitext-upload-result-unknown" = "ウィキテキストのアップロード結果が不明です。";
 "wikitext-upload-captcha-error" = "CAPTCHA認証エラーです。";
 "wikitext-upload-captcha-needed" = "CAPTCHA認証が必要です。";
+// Fuzzy
 "wikitext-upload-save" = "保存中...";
 "wikitext-upload-save-sign-in" = "ログイン";
 "wikitext-upload-save-sign-in-benefits" = "他の編集者があなたに連絡をとれたり、自分が編集した記事を確認できたりします。";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "匿名で保存";
 "wikitext-upload-save-anonymously-warning" = "編集はあなたの機器のIPアドレスに関連付けられます。$1すれば、よりプライバシーが高まります。";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "変更内容を保存すると、あなたは $1 に同意し、自分の投稿内容を $2 ライセンスのもとで公開することに同意したと見なされます。";
 "wikitext-upload-save-terms-name" = "利用規約";
 "wikitext-upload-save-license-name" = "クリエイティブ・コモンズ 表示-継承 3.0";
@@ -176,14 +179,17 @@
 "page-history-downloading" = "記事の履歴を読み込み中...";
 "navbar-title-mode-edit-wikitext" = "編集";
 "navbar-title-mode-login" = "ログイン";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "ログインして保存";
 "navbar-title-mode-create-account" = "アカウント作成";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "アカウントを作成して保存";
 "navbar-title-mode-edit-wikitext-warning" = "編集の問題点";
 "navbar-title-mode-edit-wikitext-disallow" = "編集の問題点";
 "navbar-title-mode-edit-wikitext-preview" = "プレビュー";
 "navbar-title-mode-edit-wikitext-captcha" = "簡易確認が必要";
 "navbar-title-mode-edit-wikitext-summary" = "あなたの編集について説明してください";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "保存";
 "edit-summary-choice-linked-words" = "リンクを追加";
 "edit-summary-choice-fixed-grammar" = "文法を修正";
@@ -272,12 +278,14 @@
 "table-of-contents-button-label" = "目次";
 "table-of-contents-close-accessibility-label" = "目次を閉じる";
 "table-of-contents-close-accessibility-hint" = "閉じる";
+// Fuzzy
 "abuse-filter-warning-heading" = "これは建設的な編集ではないようです。それでも保存しますか？";
 "abuse-filter-warning-subheading" = "あなたの編集は以下に該当しているかもしれません。";
 "abuse-filter-warning-caps" = "すべて大文字での入力";
 "abuse-filter-warning-blanking" = "記事の白紙化やスパム行為";
 "abuse-filter-warning-irrelevant" = "不適切な外部リンクや画像";
 "abuse-filter-warning-repeat" = "文字の無意味な繰り返し";
+// Fuzzy
 "abuse-filter-disallow-heading" = "この編集は保存できません。戻って変更してください。";
 "abuse-filter-disallow-unconstructive" = "自動フィルターがこの編集を非建設的あるいは荒らし行為の可能性があると判断しました。";
 "abuse-filter-disallow-notable" = "ウィキペディアは百科事典であり、中立的で特筆性のあるコンテンツのみを収録します。";
@@ -410,3 +418,5 @@
 "request-feedback-on-error" = "アプリが遭遇した問題について、開発者はもっと詳しく知りたいと考えています。こちらをタップして、エラーの詳細についてメールをご送信ください。";
 "explore-another-random" = "おまかせで別の記事";
 "find-in-page-no-matches" = "該当するものはありません";
+"find-in-page-button-label" = "ページ内検索";
+"find-in-page-popover-description" = "記事内のテキストを検索します";

@@ -4,6 +4,7 @@
 // Frameworks
 #import <Masonry/Masonry.h>
 #import <Tweaks/FBTweakInline.h>
+#import <YapDatabase/YapDatabase.h>
 #import "PiwikTracker+WMFExtensions.h"
 
 // Utility
@@ -44,6 +45,8 @@
 #import "WMFAuthenticationManager.h"
 
 #import "WMFDailyStatsLoggingFunnel.h"
+
+#import "WMFMostReadListTableViewController.h"
 
 #define TEST_SHARED_CONTAINER_MIGRATION DEBUG && 0
 
@@ -91,7 +94,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 @property (nonatomic, strong) SavedArticlesFetcher *savedArticlesFetcher;
 @property (nonatomic, strong) WMFRandomArticleFetcher *randomFetcher;
 @property (nonatomic, strong) SessionSingleton *session;
-@property (nonatomic, strong) WMFSavedPageSpotlightManager *spotlightManager;
 
 @property (nonatomic) BOOL isPresentingOnboarding;
 
@@ -101,7 +103,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
 
 @property (nonatomic, strong) WMFDailyStatsLoggingFunnel *statsFunnel;
-
 
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
@@ -118,8 +119,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [super viewDidLoad];
     self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(zeroDispositionDidChange:)
-                                                 name:WMFZeroDispositionDidChange
+                                             selector:@selector(isZeroRatedChanged:)
+                                                 name:WMFZeroRatingChanged
                                                object:nil];
 }
 
@@ -215,8 +216,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)launchAppInWindow:(UIWindow *)window {
-    [WikipediaAppUtils copyAssetsFolderToAppDataDocuments];
-
     WMFStyleManager *manager = [WMFStyleManager new];
     [manager applyStyleToWindow:window];
     [WMFStyleManager setSharedStyleManager:manager];
@@ -228,11 +227,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackgroundWithNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 
     [self showSplashView];
-    
+
 #if TEST_SHARED_CONTAINER_MIGRATION
     NSFileManager *fm = [NSFileManager defaultManager];
-    [fm removeItemAtPath:[YapDatabase wmf_databasePath]  error:nil];
-    [fm removeItemAtPath:[MWKDataStore mainDataStorePath]  error:nil];
+    [fm removeItemAtPath:[YapDatabase wmf_databasePath] error:nil];
+    [fm removeItemAtPath:[MWKDataStore mainDataStorePath] error:nil];
     [fm removeItemAtPath:[SDImageCache wmf_imageCacheDirectory] error:nil];
     [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:NO];
 #endif
@@ -262,15 +261,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 - (void)finishLaunch {
     @weakify(self)
-
-    [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
-        @strongify(self)
-        [self loadMainUI];
-        self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
-        [self hideSplashViewAnimated:!didShowOnboarding];
-        [self resumeApp];
-        [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
-    }];
+        [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+            @strongify(self)
+                [self loadMainUI];
+            [self hideSplashViewAnimated:!didShowOnboarding];
+            [self resumeApp];
+            [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
+        }];
 }
 
 #pragma mark - Start/Pause/Resume App
@@ -279,12 +276,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if (self.isPresentingOnboarding) {
         return;
     }
-    
+
     if (![self uiIsLoaded]) {
         return;
     }
-    
+
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
+
+    [self.session.dataStore syncDataStoreToDatabase];
 
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:NULL failure:NULL];
     [self.savedArticlesFetcher start];
@@ -294,7 +293,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     } else if (self.unprocessedShortcutItem) {
         [self processShortcutItem:self.unprocessedShortcutItem completion:NULL];
     } else if ([self shouldShowLastReadArticleOnLaunch]) {
-        [self showLastReadArticleAnimated:YES];
+        [self showLastReadArticleAnimated:NO];
     } else if ([self shouldShowExploreScreenOnLaunch]) {
         [self showExplore];
     }
@@ -399,13 +398,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     self.unprocessedShortcutItem = nil;
 
     if ([item.type isEqualToString:WMFIconShortcutTypeSearch]) {
-        [self showSearchAnimated:YES];
+        [self showSearchAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeRandom]) {
-        [self showRandomArticleAnimated:YES];
+        [self showRandomArticleAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeNearby]) {
-        [self showNearbyListAnimated:YES];
+        [self showNearbyListAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
-        [self showLastReadArticleAnimated:YES];
+        [self showLastReadArticleAnimated:NO];
     }
     if (completion) {
         completion(YES);
@@ -424,16 +423,17 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         case WMFUserActivityTypeHistory:
         case WMFUserActivityTypeSearch:
         case WMFUserActivityTypeSettings:
+        case WMFUserActivityTypeTopRead:
             return YES;
         case WMFUserActivityTypeSearchResults:
-            if ([activity wmf_searchTerm]) {
+            if ([activity wmf_searchTerm] != nil) {
                 return YES;
             } else {
                 return NO;
             }
             break;
         case WMFUserActivityTypeArticle: {
-            if (!activity.webpageURL) {
+            if (![activity wmf_articleURL]) {
                 return NO;
             } else {
                 return YES;
@@ -460,6 +460,31 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
             [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
             break;
+        case WMFUserActivityTypeTopRead: {
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+
+            UINavigationController *navController = [self navigationControllerForTab:WMFAppTabTypeExplore];
+            [navController popToRootViewControllerAnimated:NO];
+            NSDictionary *userInfo = activity.userInfo;
+            NSDate *date = userInfo[@"date"];
+            NSURL *siteURL = userInfo[@"siteURL"];
+            NSString *host = siteURL.host;
+            if (date == nil || host == nil) {
+                break;
+            }
+            MWKDataStore *dataStore = [[SessionSingleton sharedInstance] dataStore];
+            [dataStore readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction) {
+                NSString *collection = [@[@"wmftopread", host] componentsJoinedByString:@":"];
+                NSString *key = [[NSDateFormatter wmf_englishUTCNonDelimitedYearMonthDayFormatter] stringFromDate:date];
+                NSArray *previews = [transaction objectForKey:key inCollection:collection];
+                if ([previews count] > 0) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        WMFMostReadListTableViewController *mostReadListVC = [[WMFMostReadListTableViewController alloc] initWithPreviews:previews fromSiteURL:siteURL forDate:date dataStore:dataStore];
+                        [navController pushViewController:mostReadListVC animated:NO];
+                    });
+                }
+            }];
+        } break;
         case WMFUserActivityTypeSavedPages:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSaved];
             [[self navigationControllerForTab:WMFAppTabTypeSaved] popToRootViewControllerAnimated:NO];
@@ -480,7 +505,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             [[UIViewController wmf_sharedSearchViewController] setSearchTerm:[activity wmf_searchTerm]];
             break;
         case WMFUserActivityTypeArticle: {
-            NSURL *URL = activity.webpageURL;
+            NSURL *URL = [activity wmf_articleURL];
             if (!URL) {
                 return NO;
             }
@@ -562,7 +587,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if (![self uiIsLoaded]) {
         return nil;
     }
-    
+
     if (_randomFetcher == nil) {
         _randomFetcher = [[WMFRandomArticleFetcher alloc] init];
     }
@@ -573,7 +598,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if (![self uiIsLoaded]) {
         return nil;
     }
-    
+
     if (!_session) {
         _session = [SessionSingleton sharedInstance];
     }
@@ -806,48 +831,64 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 - (void)navigationController:(UINavigationController *)navigationController
       willShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated {
+    navigationController.interactivePopGestureRecognizer.delegate = self;
     [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     DDLogWarn(@"Pushing/Popping article… Logging Important Statistics");
     [self logImportantStatistics];
+    if ([[navigationController viewControllers] count] == 1) {
+        [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:nil];
+    }
 }
 
 #pragma mark - UIGestureRecognizerDelegate
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    for (WMFAppTabType i = 0; i < WMFAppTabCount; i++) {
+        UINavigationController *navigationController = [self navigationControllerForTab:i];
+        if (navigationController.interactivePopGestureRecognizer == gestureRecognizer) {
+            return navigationController.viewControllers.count > 1;
+        }
+    }
     return YES;
 }
 
-#pragma mark - WMFZeroDisposition
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return ![gestureRecognizer isMemberOfClass:[UIScreenEdgePanGestureRecognizer class]];
+}
 
-- (void)zeroDispositionDidChange:(NSNotification *)note {
-    ZeroConfigState *state = [note object];
-    if (state.zeroMessage) {
-        [self showFirstTimeZeroOnAlertIfNeeded:state.zeroMessage];
+#pragma mark - Wikipedia Zero
+
+- (void)isZeroRatedChanged:(NSNotification *)note {
+    WMFZeroConfigurationManager *zeroConfigurationManager = [note object];
+    if (zeroConfigurationManager.isZeroRated) {
+        [self showFirstTimeZeroOnAlertIfNeeded:zeroConfigurationManager.zeroConfiguration];
     } else {
         [self showZeroOffAlert];
     }
 }
 
 - (void)setZeroOnDialogShownOnce {
-    [[NSUserDefaults wmf_userDefaults] setBool:YES forKey:ZeroOnDialogShownOnce];
+    [[NSUserDefaults wmf_userDefaults] setBool:YES forKey:WMFZeroOnDialogShownOnce];
     [[NSUserDefaults wmf_userDefaults] synchronize];
 }
 
 - (BOOL)zeroOnDialogShownOnce {
-    return [[NSUserDefaults wmf_userDefaults] boolForKey:ZeroOnDialogShownOnce];
+    return [[NSUserDefaults wmf_userDefaults] boolForKey:WMFZeroOnDialogShownOnce];
 }
 
-- (void)showFirstTimeZeroOnAlertIfNeeded:(WMFZeroMessage *)zeroMessage {
+- (void)showFirstTimeZeroOnAlertIfNeeded:(WMFZeroConfiguration *)zeroConfiguration {
     if ([self zeroOnDialogShownOnce]) {
         return;
     }
 
     [self setZeroOnDialogShownOnce];
 
-    UIAlertController *dialog = [UIAlertController alertControllerWithTitle:zeroMessage.message message:MWLocalizedString(@"zero-learn-more", nil) preferredStyle:UIAlertControllerStyleAlert];
+    NSString *title = zeroConfiguration.message ? zeroConfiguration.message : MWLocalizedString(@"zero-free-verbiage", nil);
+
+    UIAlertController *dialog = [UIAlertController alertControllerWithTitle:title message:MWLocalizedString(@"zero-learn-more", nil) preferredStyle:UIAlertControllerStyleAlert];
 
     [dialog addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil) style:UIAlertActionStyleCancel handler:NULL]];
 

@@ -23,6 +23,10 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
 #pragma mark - Setup
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
     NSParameterAssert(dataStore);
     self = [super init];
@@ -30,8 +34,13 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
         self.dataStore = dataStore;
         self.dataSource = [self.dataStore savedDataSource];
         [self migrateLegacyDataIfNeeded];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
     }
     return self;
+}
+
+- (void)applicationWillEnterForeground:(NSNotification *)note {
+    self.dataSource = [self.dataStore savedDataSource];
 }
 
 #pragma mark - Legacy Migration

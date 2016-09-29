@@ -79,7 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString *)analyticsContext {
-    return @"More Reccomended";
+    return @"More Recommended";
 }
 
 

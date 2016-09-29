@@ -13,6 +13,10 @@
     return self;
 }
 
++ (NSUInteger)modelVersion {
+    return 2;
+}
+
 - (instancetype)initWithDict:(NSDictionary *)dict {
     NSString *urlString = dict[@"url"];
     NSString *domain = dict[@"domain"];
@@ -31,6 +35,7 @@
 
     self = [self initWithURL:url];
     if (self) {
+        self.fragment = [self optionalString:@"fragment" dict:dict];
         self.dateViewed = [self requiredDate:@"date" dict:dict];
         self.scrollPosition = [[self requiredNumber:@"scrollPosition" dict:dict] floatValue];
         self.titleWasSignificantlyViewed = [[self optionalNumber:@"titleWasSignificantlyViewed" dict:dict] boolValue];
@@ -57,11 +62,11 @@
 }
 
 - (NSUInteger)hash {
-    return self.url.hash ^ self.dateViewed.hash ^ [@(self.scrollPosition) integerValue];
+    return self.url.hash ^ self.dateViewed.hash ^ [@(self.scrollPosition) integerValue] ^ self.fragment.hash;
 }
 
 - (BOOL)isEqualToHistoryEntry:(MWKHistoryEntry *)entry {
-    return WMF_IS_EQUAL(self.url, entry.url) && WMF_EQUAL(self.dateViewed, isEqualToDate:, entry.dateViewed) && self.scrollPosition == entry.scrollPosition;
+    return WMF_IS_EQUAL(self.url, entry.url) && WMF_EQUAL(self.dateViewed, isEqualToDate:, entry.dateViewed) && self.scrollPosition == entry.scrollPosition && ((self.fragment == entry.fragment) || (self.fragment && entry.fragment && [self.fragment isEqualToString:entry.fragment]));
 }
 
 #pragma mark - MWKListObject
@@ -77,6 +82,7 @@
     [dict wmf_maybeSetObject:[self iso8601DateString:self.dateViewed] forKey:@"date"];
     [dict wmf_maybeSetObject:@(self.scrollPosition) forKey:@"scrollPosition"];
     [dict wmf_maybeSetObject:@(self.titleWasSignificantlyViewed) forKey:@"titleWasSignificantlyViewed"];
+    [dict wmf_maybeSetObject:self.fragment forKey:@"fragment"];
 
     return [NSDictionary dictionaryWithDictionary:dict];
 }

@@ -55,6 +55,10 @@
 
 + (instancetype)wmf_customGray;
 
++ (instancetype)wmf_foundationGray;
+
++ (instancetype)wmf_darkGray;
+
 + (instancetype)wmf_readerWGray;
 
 + (instancetype)wmf_placeholderImageTintColor;
@@ -106,5 +110,11 @@
 + (instancetype)wmf_primaryLanguageLabelBackgroundColor;
 
 + (instancetype)wmf_barButtonItemPopoverMessageBackgroundColor;
+
++ (instancetype)wmf_referencePopoverBackgroundColor;
+
++ (instancetype)wmf_referencePopoverLinkColor;
+
++ (instancetype)wmf_referencePopoverTextColor;
 
 @end

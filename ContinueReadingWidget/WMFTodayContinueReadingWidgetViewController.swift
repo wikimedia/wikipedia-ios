@@ -5,78 +5,154 @@ import WMFUI
 class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var imageView: UIImageView!
 
+    @IBOutlet weak var daysAgoView: UIView!
     @IBOutlet weak var daysAgoLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
+    
+    @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var emptyTitleLabel: UILabel!
+    @IBOutlet weak var emptyDescriptionLabel: UILabel!
+
+    @IBOutlet var imageWidthConstraint: NSLayoutConstraint!
+    @IBOutlet var titleLabelTrailingConstraint: NSLayoutConstraint!
     
     var articleURL: NSURL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.imageView.clipsToBounds = true
-        #if DEBUG
-            NSUserDefaults.wmf_userDefaults().wmf_setOpenArticleURL(NSURL(string: "https://en.wikipedia.org/wiki/Barack_Obama#2012_presidential_campaign"))
-        #endif
-        widgetPerformUpdate { (result) in
-            
-        }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        emptyDescriptionLabel.text = localizedStringForKeyFallingBackOnEnglish("continue-reading-empty-title")
+        emptyDescriptionLabel.text = localizedStringForKeyFallingBackOnEnglish("continue-reading-empty-description")
+        updateView()
     }
     
-    func widgetActiveDisplayModeDidChange(activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
-        
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        updateView()
     }
     
     func widgetPerformUpdate(completionHandler: (NCUpdateResult) -> Void) {
-        guard let openArticleURL = NSUserDefaults.wmf_userDefaults().wmf_openArticleURL() else {
-            articleURL = nil
+        
+        let didUpdate = updateView()
+        
+        if(didUpdate){
+            completionHandler(.NewData)
+            
+        }else{
             completionHandler(.NoData)
-            return
+        }
+    }
+    
+    var emptyViewHidden: Bool = false {
+        didSet {
+            emptyView.hidden = emptyViewHidden
+            
+            titleLabel.hidden = !emptyViewHidden
+            textLabel.hidden = !emptyViewHidden
+            imageView.hidden = !emptyViewHidden
+            daysAgoView.hidden = !emptyViewHidden
+        }
+    }
+
+    var collapseImageAndWidenLabels: Bool = true {
+        didSet {
+            imageWidthConstraint.constant = collapseImageAndWidenLabels ? 0 : 86
+            titleLabelTrailingConstraint.constant = collapseImageAndWidenLabels ? 0 : 10
+            self.imageView.alpha = self.collapseImageAndWidenLabels ? 0 : 1
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func hasNewData() -> Bool{
+        
+        guard let session = SessionSingleton.sharedInstance() else {
+            return false
+        }
+
+        session.dataStore.syncDataStoreToDatabase()
+        
+        guard let historyEntry = session.userDataStore.historyList.mostRecentEntry() else {
+            return false
+        }
+        let fragment = historyEntry.fragment
+        
+        let newURL = historyEntry.url.wmf_URLWithFragment(fragment)
+        
+        return newURL.absoluteString != articleURL?.absoluteString
+    }
+    
+    func updateView() -> Bool {
+        
+        if hasNewData() == false{
+            return false
+        }
+
+        textLabel.text = nil
+        titleLabel.text = nil
+        imageView.image = nil
+        collapseImageAndWidenLabels = true
+        imageView.hidden = true
+        daysAgoLabel.text = nil
+        daysAgoView.hidden = true
+        
+        guard let session = SessionSingleton.sharedInstance() else {
+            emptyViewHidden = false
+            return false
         }
         
-        articleURL = openArticleURL
-        
-        guard let article = SessionSingleton.sharedInstance().dataStore.existingArticleWithURL(openArticleURL) else {
-            completionHandler(.NoData)
-            return
+        guard let historyEntry = session.userDataStore.historyList.mostRecentEntry() else {
+            return false
         }
         
-        if let section = article.sections.sectionWithFragment(openArticleURL.fragment) {
-            self.textLabel.text = section.line?.wmf_stringByRemovingHTML()
+        let fragment = historyEntry.fragment
+        articleURL = historyEntry.url.wmf_URLWithFragment(fragment)
+        
+        guard let lastReadArticleURL = articleURL else {
+            emptyViewHidden = false
+            return false
+        }
+        
+        guard let article = session.dataStore.existingArticleWithURL(lastReadArticleURL) else {
+            emptyViewHidden = false
+            return false
+        }
+        
+        emptyViewHidden = true
+        
+        if let subtitle = article.summary ?? article.entityDescription?.wmf_stringByCapitalizingFirstCharacter(){
+            self.textLabel.text = subtitle
         } else {
             self.textLabel.text = nil
         }
         
         if let date = NSUserDefaults.wmf_userDefaults().wmf_appResignActiveDate() {
-            self.daysAgoLabel.hidden = false
+            self.daysAgoView.hidden = false
             self.daysAgoLabel.text = date.wmf_relativeTimestamp()
         } else {
-            self.daysAgoLabel.hidden = true
+            self.daysAgoView.hidden = true
         }
-
-        
-        self.titleLabel.text = article.displaytitle
         
         
-        if let imageURL = NSURL(string: article.imageURL) {
+        self.titleLabel.text = article.displaytitle?.wmf_stringByRemovingHTML()
+        
+        
+        if let string = article.imageURL, let imageURL = NSURL(string: string) {
+            self.imageView.hidden = false
             self.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: { (error) in
-                
+                self.collapseImageAndWidenLabels = true
             }) {
-                
+                self.collapseImageAndWidenLabels = false
             }
+        } else {
+            self.collapseImageAndWidenLabels = true
         }
         
-
-        completionHandler(.NewData)
-        
+        return true
     }
+    
 
     @IBAction func continueReading(sender: AnyObject) {
-        guard let URLToOpen = articleURL else {
+        guard let URLToOpen = articleURL?.wmf_wikipediaSchemeURL ?? NSUserActivity.wmf_URLForActivityOfType(.Explore, parameters: nil) else {
             return
         }
         

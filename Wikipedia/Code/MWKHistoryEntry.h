@@ -10,6 +10,8 @@
 @property (readonly, assign, nonatomic) BOOL isSaved;
 
 @property (readwrite, assign, nonatomic) CGFloat scrollPosition;
+@property (readwrite, copy, nonatomic) NSString *fragment;
+
 @property (readwrite, assign, nonatomic, getter=isBlackListed) BOOL blackListed;
 @property (readwrite, assign, nonatomic) BOOL titleWasSignificantlyViewed;
 

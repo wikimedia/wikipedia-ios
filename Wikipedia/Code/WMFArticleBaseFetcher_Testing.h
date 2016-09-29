@@ -1,6 +1,6 @@
 #import "WMFArticleFetcher.h"
 
-@interface WMFArticleBaseFetcher ()
+@interface WMFArticleFetcher ()
 
 @property (nonatomic, strong) AFHTTPSessionManager *operationManager;
 

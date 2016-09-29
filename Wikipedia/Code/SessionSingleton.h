@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "MWKHistoryEntry.h"
-#import "ZeroConfigState.h"
+#import "WMFZeroConfigurationManager.h"
 
 @class MWKDataStore;
 @class MWKArticle;
@@ -12,7 +12,7 @@
 + (SessionSingleton *)sharedInstance;
 
 // Persistent settings and credentials
-@property (strong, nonatomic) ZeroConfigState *zeroConfigState;
+@property (strong, nonatomic) WMFZeroConfigurationManager *zeroConfigurationManager;
 @property (nonatomic) BOOL shouldSendUsageReports;
 
 // Data access objects

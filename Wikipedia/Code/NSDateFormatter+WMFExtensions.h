@@ -42,6 +42,8 @@
 
 + (instancetype)wmf_englishHyphenatedYearMonthDayFormatter;
 
++ (instancetype)wmf_englishUTCNonDelimitedYearMonthDayFormatter;
+
 + (instancetype)wmf_dayNameMonthNameDayOfMonthNumberDateFormatter;
 
 + (instancetype)wmf_utcDayNameMonthNameDayOfMonthNumberDateFormatter;
@@ -49,6 +51,8 @@
 + (instancetype)wmf_englishUTCSlashDelimitedYearMonthDayFormatter;
 
 + (instancetype)wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter;
+
++ (instancetype)wmf_shortMonthNameDayOfMonthNumberDateFormatter;
 
 + (instancetype)wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter;
 

@@ -19,6 +19,8 @@
 #import <NYTPhotoViewer/NYTPhotosOverlayView.h>
 #import <NYTPhotoViewer/NYTScalingImageView.h>
 #import <NYTPhotoViewer/NYTPhoto.h>
+#import <Masonry/Masonry.h>
+#import "WMFGradientView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -281,6 +283,29 @@ NS_ASSUME_NONNULL_BEGIN
     NYTPhotoViewController *vc = [super newPhotoViewControllerForPhoto:photo];
     vc.scalingImageView.imageView.backgroundColor = [UIColor whiteColor];
     return vc;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self addGradientToGalleryNavigationBar];
+}
+
+- (void)addGradientToGalleryNavigationBar {
+    WMFGradientView *gradientView = [WMFGradientView new];
+    [gradientView.gradientLayer setLocations:@[@0, @.745, @1]];
+    [gradientView.gradientLayer setColors:@[
+        (id)[UIColor blackColor].CGColor,
+        (id)[UIColor blackColor].CGColor,
+        (id)[UIColor clearColor].CGColor
+    ]];
+    [gradientView.gradientLayer setStartPoint:CGPointMake(0.5, 0.0)];
+    [gradientView.gradientLayer setEndPoint:CGPointMake(0.5, 1.0)];
+    [self.overlayView.navigationBar addSubview:gradientView];
+    [self.overlayView.navigationBar sendSubviewToBack:gradientView];
+    [gradientView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.leading.trailing.equalTo(self.overlayView.navigationBar);
+        make.height.equalTo(self.overlayView.navigationBar).multipliedBy(1.34);
+    }];
 }
 
 #pragma mark - Actions

@@ -13,6 +13,7 @@
 // Author: Sjoerddebruin
 // Author: Southparkfan
 // Author: TrisbaasBaan
+// Author: Wikibelgiaan
 
 "languages-title" = "Taal wijzigen";
 "article-languages-label" = "Taal kiezen";
@@ -85,12 +86,12 @@
 "wikitext-upload-result-unknown" = "Het was niet mogelijk het resultaat van de geüploade wikitekst te bepalen.";
 "wikitext-upload-captcha-error" = "CAPTCHA-vertificatiefout.";
 "wikitext-upload-captcha-needed" = "Er is een CAPTCHA-controle nodig.";
-"wikitext-upload-save" = "Aan het opslaan...";
+"wikitext-upload-save" = "Bezig met publiceren...";
 "wikitext-upload-save-sign-in" = "Aanmelden";
 "wikitext-upload-save-sign-in-benefits" = "Zodat mederedacteuren met u kunnen communiceren en zodat u kunt zien welke pagina's u hebt bewerkt.";
-"wikitext-upload-save-anonymously" = "Als anoniem opslaan";
+"wikitext-upload-save-anonymously" = "Anoniem publiceren";
 "wikitext-upload-save-anonymously-warning" = "Bewerkingen worden toegeschreven aan uw IP-adres. Door $1 heeft u meer privacy.";
-"wikitext-upload-save-terms-and-license" = "Door op te slaan gaat u akkoord met de $1 en worden uw bijdragen onherroepelijk vrijgegeven onder de $2-licentie.";
+"wikitext-upload-save-terms-and-license" = "Door te publiceren gaat u akkoord met de $1 en worden uw bijdragen onherroepelijk vrijgegeven onder de $2-licentie.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaarden";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Koppeling openen";
@@ -173,15 +174,15 @@
 "page-history-downloading" = "Paginageschiedenis laden...";
 "navbar-title-mode-edit-wikitext" = "Bewerken";
 "navbar-title-mode-login" = "Aanmelden";
-"navbar-title-mode-login-and-save" = "Aanmelden en opslaan";
+"navbar-title-mode-login-and-save" = "Aanmelden en publiceren";
 "navbar-title-mode-create-account" = "Account aanmaken";
-"navbar-title-mode-create-account-and-save" = "Account aanmaken en opslaan";
+"navbar-title-mode-create-account-and-save" = "Account aanmaken en publiceren";
 "navbar-title-mode-edit-wikitext-warning" = "Bewerkingsproblemen";
 "navbar-title-mode-edit-wikitext-disallow" = "Bewerkingsproblemen";
 "navbar-title-mode-edit-wikitext-preview" = "Voorvertoning";
 "navbar-title-mode-edit-wikitext-captcha" = "Snelle controle nodig";
 "navbar-title-mode-edit-wikitext-summary" = "Beschrijf uw bewerking";
-"navbar-title-mode-edit-wikitext-save" = "Opslaan";
+"navbar-title-mode-edit-wikitext-save" = "Publiceren";
 "edit-summary-choice-linked-words" = "Koppelingen toegevoegd";
 "edit-summary-choice-fixed-grammar" = "Grammatica gecorrigeerd";
 "edit-summary-choice-fixed-inaccuracy" = "Onjuistheid gecorrigeerd";
@@ -246,6 +247,7 @@
 "button-next" = "Volgende";
 "button-done" = "Afgerond";
 "button-save" = "Opslaan";
+"button-publish" = "Publiceren";
 "button-ok" = "OK";
 "button-save-for-later" = "Opslaan voor later";
 "button-saved-for-later" = "Opgeslagen voor later";
@@ -269,13 +271,14 @@
 "table-of-contents-button-label" = "Inhoudsopgave";
 "table-of-contents-close-accessibility-label" = "Inhoudsopgave sluiten";
 "table-of-contents-close-accessibility-hint" = "Sluiten";
-"abuse-filter-warning-heading" = "Dit lijkt een niet-constructieve bewerking. Weet u zeker dat u die wilt opslaan?";
+"table-of-contents-popover-description" = "Een overzicht van het artikel krijgen";
+"abuse-filter-warning-heading" = "Dit lijkt een niet-constructieve bewerking. Weet u zeker dat u die wilt publiceren?";
 "abuse-filter-warning-subheading" = "Uw bewerking kan een of meer van het volgende bevatten:";
 "abuse-filter-warning-caps" = "Tekst in HOOFDLETTERS";
 "abuse-filter-warning-blanking" = "Pagina's leegmaken of spam plaatsen";
 "abuse-filter-warning-irrelevant" = "Irrelevante externe koppelingen of afbeeldingen";
 "abuse-filter-warning-repeat" = "Herhaaaalende tekens";
-"abuse-filter-disallow-heading" = "U kunt deze bewerking niet opslaan. Ga terug en pas deze aan.";
+"abuse-filter-disallow-heading" = "U kunt deze bewerking niet publiceren. Ga terug en pas deze aan.";
 "abuse-filter-disallow-unconstructive" = "Een geautomatiseerd filter heeft deze bewerking gemarkeerd als onconstructief of vandalistisch.";
 "abuse-filter-disallow-notable" = "Wikipedia is een encylopedie en alleen neutrale relevante inhoud is hier toegestaan.";
 "menu-edit-accessibility-label" = "Bewerken";
@@ -392,6 +395,7 @@
 "explore-featured-article-heading" = "Uitgelichte pagina";
 "explore-continue-reading-heading" = "Verder lezen";
 "explore-nearby-heading" = "Plaatsen in de buurt";
+"explore-nearby-sub-heading-your-location" = "Uw locatie";
 "explore-continue-related-heading" = "Omdat u hebt gelezen";
 "explore-main-page-heading" = "Vandaag op Wikipedia";
 "explore-random-article-heading" = "Willekeurige pagina";
@@ -403,4 +407,14 @@
 "explore-most-read-footer-for-date" = "Alle meest gelezen pagina's op $1";
 "explore-most-read-more-list-title" = "Meest gelezen pagina's";
 "explore-most-read-more-list-title-for-date" = "Populair op $1";
+"no-email-account-alert" = "Gelieve een e-mailaccount op je apparaat in te stellen en het opnieuw te proberen.";
+"request-feedback-on-error" = "De app is op een probleem gestoten waarover onze ontwikkelaars graag meer willen weten. Gelieve hier te tikken om ons een e-mail te sturen met de foutgegevens.";
+"explore-another-random" = "Ander willekeurig artikel";
 "find-in-page-no-matches" = "0 overeenkomsten";
+"find-in-page-button-label" = "Op pagina zoeken";
+"find-in-page-popover-description" = "Tekst zoeken in artikelen";
+"continue-reading-empty-title" = "Geen recent gelezen pagina's";
+"top-read-see-more" = "Meer meest gelezen pagina's bekijken";
+"top-read-see-more-trending" = "Meer populaire pagina's bekijken";
+"top-read-header-with-language" = "Wikipedia in het $1";
+"top-read-header-generic" = "Wikipedia";

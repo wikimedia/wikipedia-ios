@@ -1,5 +1,4 @@
-#import <Foundation/Foundation.h>
-
+NS_ASSUME_NONNULL_BEGIN
 @class MWKArticle;
 
 typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
@@ -9,7 +8,8 @@ typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
     WMFUserActivityTypeSearch,
     WMFUserActivityTypeSearchResults,
     WMFUserActivityTypeArticle,
-    WMFUserActivityTypeSettings
+    WMFUserActivityTypeSettings,
+    WMFUserActivityTypeTopRead
 };
 
 @interface NSUserActivity (WMFExtensions)
@@ -33,4 +33,9 @@ typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
 
 - (NSString *)wmf_searchTerm;
 
+- (NSURL *)wmf_articleURL;
+
++ (nullable NSURL *)wmf_URLForActivityOfType:(WMFUserActivityType)type parameters:(nullable NSDictionary *)params;
+
 @end
+NS_ASSUME_NONNULL_END

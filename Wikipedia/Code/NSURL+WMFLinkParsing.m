@@ -101,6 +101,19 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
     return components.URL;
 }
 
+- (NSURL *)wmf_wikipediaSchemeURLWithTitle:(NSString *)title {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    components.wmf_title = title;
+    components.scheme = @"wikipedia";
+    return components.URL;
+}
+
+- (nullable NSURL *)wmf_wikipediaSchemeURL {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    components.scheme = @"wikipedia";
+    return components.URL;
+}
+
 - (NSURL *)wmf_URLWithTitle:(NSString *)title fragment:(NSString *)fragment {
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.wmf_title = title;
@@ -174,6 +187,25 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
     return [self.fragment wmf_isCitationFragment];
 }
 
+- (BOOL)wmf_isPeekable {
+    if ([self.absoluteString isEqualToString:@""] ||
+        [self.fragment wmf_isReferenceFragment] ||
+        [self.fragment wmf_isCitationFragment] ||
+        [self.fragment wmf_isEndNoteFragment]) {
+        return NO;
+    }
+    if (![self wmf_isWikiResource]) {
+        if ([self.scheme hasPrefix:@"http"]) {
+            return YES;
+        }
+    } else {
+        if (![self wmf_isIntraPageFragment]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (BOOL)wmf_isMobile {
     NSArray *hostComponents = [self.host componentsSeparatedByString:@"."];
     if (hostComponents.count < 3) {
@@ -213,6 +245,18 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
         NSString *potentialLanguage = hostComponents[0];
         return [potentialLanguage isEqualToString:@"m"] ? nil : potentialLanguage;
     }
+}
+
+- (NSURL *)wmf_databaseKeyURL {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:NO];
+    components.fragment = nil;
+    components.scheme = @"https";
+    return components.URL;
+}
+
+- (NSString *)wmf_databaseKey {
+    return self.wmf_databaseKeyURL.absoluteString.precomposedStringWithCanonicalMapping;
 }
 
 - (NSString *)wmf_title {

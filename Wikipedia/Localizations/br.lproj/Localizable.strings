@@ -77,11 +77,14 @@
 "wikitext-upload-result-unknown" = "N'haller ket termenañ disoc'h pellgargañ ar wikitestenn.";
 "wikitext-upload-captcha-error" = "Fazi gwiriañ Captcha";
 "wikitext-upload-captcha-needed" = "Ezhomm gwiriañ captcha";
+// Fuzzy
 "wikitext-upload-save" = "Oc'h enrollañ...";
 "wikitext-upload-save-sign-in" = "Kevreañ";
 "wikitext-upload-save-sign-in-benefits" = "Evel-se e c'hall ar genembannerien labourat war-eeun ganeoc'h ha gallout a reot gwelet peseurt pennadoù ho peus kemmet.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Enrollañ ent dianav";
 "wikitext-upload-save-anonymously-warning" = "Ar c'hemmoù a vo roet da chomlec'h IP hoc'h ardivink. M'ho peus $1 ho po muioc'h a zegasadennoù e kuzhut.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Pa'z enrollit e tegemerit ar $1, ha lakait ho tegasadennoù dindan an aotre-implijout $2 en un doare didorradus.";
 "wikitext-upload-save-terms-name" = "Termenoù implijout";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -158,19 +161,23 @@
 "saved-pages-refresh-cancel-alert-button" = "Mat eo";
 "saved-pages-description" = "Mat-tre eo enrollañ pajennoù. Gallout a rit ober ganto evel sinedoù hag a c'hallit lenn pa vezit ezlinenn.";
 "saved-pages-none" = "Pajenn ebet enrollet c'hoazh.";
+"saved-pages-image-download-error" = "C'hwitet eo pellgardadur ar skeudennoù evit ar bajenn enrollet-se.";
 "history-title" = "Istor";
 "page-history-title" = "Istor ar pennad";
 "page-history-downloading" = "O kargañ istor ar pennad...";
 "navbar-title-mode-edit-wikitext" = "Kemmañ";
 "navbar-title-mode-login" = "Kevreañ";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Kevreañ hag enrollañ";
 "navbar-title-mode-create-account" = "Krouiñ ur gont";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Krouiñ ur gont hag enrollañ";
 "navbar-title-mode-edit-wikitext-warning" = "Kemmañ ar c'hudennoù";
 "navbar-title-mode-edit-wikitext-disallow" = "Kemmañ ar c'hudennoù";
 "navbar-title-mode-edit-wikitext-preview" = "Rakwelet";
 "navbar-title-mode-edit-wikitext-captcha" = "Gwiriañ buan zo ezhomm";
 "navbar-title-mode-edit-wikitext-summary" = "Deskrivit ho kemm";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Enrollañ";
 "edit-summary-choice-linked-words" = "Liammoù ouzhpennet";
 "edit-summary-choice-fixed-grammar" = "Fazi yezhadur reizhet";
@@ -207,15 +214,16 @@
 "about-libraries-licenses-title" = "Plijout a ra deomp ar meziant kod digor $1";
 "about-libraries-complete-list" = "Roll klok";
 "about-repositories" = "Reizhiadoù daveiñ";
+"about-repositories-app-source-license" = "Ar c'hod mammennoù a c'haller kaout dindan $1.";
 "about-repositories-app-source-license-mit" = "Aotre-implijout MIT";
 "about-send-feedback" = "Kas un ali diwar-benn an arload";
-// Fuzzy
-"about-product-of" = "Ur produ eus an $1";
+"about-product-of" = "Graet gant ar $1 gant skoazell tud a-youl vat eveldoc'h";
 "about-wikimedia-foundation" = "Diazezadur Wikimedia";
 "share-menu-save-page" = "Enrollañ ar pennad";
 "share-menu-page-saved" = "Pennad enrollet";
 "share-menu-page-saved-access" = "Ali : evit monet d'ho pajennoù enrollet, bizskrivañ $1 amañ a-us pe pouezit pell war $2 amañ dindan.";
 "share-custom-menu-item" = "Rannañ";
+"share-a-fact-share-menu-item" = "Rannañ-ur-fed";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" war @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" war @Wikipedia: \"$2\"";
@@ -255,15 +263,19 @@
 "license-footer-text" = "An endalc'had a c'haller kavout dindan $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Endalc'had";
+// Fuzzy
 "table-of-contents-button-label" = "Taolenn";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Serriñ an daolenn";
 "table-of-contents-close-accessibility-hint" = "Serriñ";
+// Fuzzy
 "abuse-filter-warning-heading" = "War a seblant ne vez ket degaset kalz a dra gant an aozadenn-mañ. Ha sur oc'h e fell deoc'h enrollañ anezhi ?";
 "abuse-filter-warning-subheading" = "E-barzh hoc'h aozadenn e c'hall bezañ unan eus an elfennoù-mañ :";
 "abuse-filter-warning-caps" = "Testenn e PENNLIZHERENNOÙ";
 "abuse-filter-warning-blanking" = "Pennadoù goullo pe posteloù strobus";
 "abuse-filter-warning-irrelevant" = "Liammoù pe skeudennoù diavaez diazaz";
 "abuse-filter-warning-repeat" = "Arouezennoù adskriiiiivet";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Ne c'hallit ket enrollañ ar c'hemm-mañ. Distroit ha kemmit anezhañ.";
 "abuse-filter-disallow-unconstructive" = "Ur sil emgefreek en deus anavezet ar c'hemm-mañ evel unan na zegaso ket kalz a dra, pe evel unan a glask degas drast.";
 "abuse-filter-disallow-notable" = "Un holloueziadur eo Wikipedia. N'eus nemet traoù neptu pe traoù a dalvouegezh a c'haller lakaat e-barzh.";
@@ -315,6 +327,9 @@
 "hockeyapp-alert-privacy" = "Prevezded $1";
 "page-issues" = "Kudennoù war ar bajenn";
 "page-similar-titles" = "Pajennoù damheñvel";
+"page-read-in-other-languages" = "A c'haller kaout e $1 yezh all";
+"page-last-edited" = "Kemmet $1 deiz zo";
+"page-edit-history" = "Istor klok ar c'hemmoù";
 "captcha-reload" = "Diskwel ur c'haptcha all";
 "captcha-prompt" = "Ebarzhit an destenn CAPTCHA";
 "home-title" = "Ergerzhet";
@@ -335,7 +350,11 @@
 "home-hide-suggestion-cancel" = "Nullañ";
 "home-accessibility-label" = "Wikipédia, Ergerzhet";
 "home-button-accessibility-label" = "Bouton degemer";
+"potd-description-prefix" = "Skeudenn an deiz evit $1";
+"welcome-explore-title" = "Ergerzhet";
+"welcome-explore-sub-title" = "Un doare nevez da ziskoachañ pennadoù dedennus bemdez";
 "welcome-explore-tell-me-more" = "Lavaret muioc'h din";
+"welcome-explore-tell-me-more-about-explore" = "Muioc'h a draoù diwar-benn Ergerzh";
 "welcome-explore-tell-me-more-done-button" = "Dibat evit";
 "welcome-explore-continue-button" = "Kregiñ";
 "welcome-languages-title" = "Yezhoù";
@@ -372,6 +391,9 @@
 "explore-most-read-generic-heading" = "Ar re a vez lennet ar muiañ";
 "explore-most-read-footer" = "An holl bennadoù lennet ar muiañ";
 "explore-most-read-footer-for-date" = "An holl bennadoù lennet ar muiañ d'an $1";
+"explore-most-read-more-list-title" = "Pennadoù gwellañ";
 "explore-most-read-more-list-title-for-date" = "Ar re a vez lennet ar muiañ d'an $1";
 "no-email-account-alert" = "Kendalc'hit, mar plij da gefluniañ ur gemennadenn en hoc'h ardivink ha klaskit en-dro.";
 "request-feedback-on-error" = "Ur gudenn zo c'hoarvezet gant an arload. Plijout a rafe d'hon diorroerien gouzout hiroc'h diwar he fenn. Touchit amañ, mar plij, evit kas ur postel deomp ha displegit deomp ar fazi dre ar munud.";
+"explore-another-random" = "Ur pennad all dre zegouezh";
+"find-in-page-no-matches" = "Ne glot gant tra ebet";

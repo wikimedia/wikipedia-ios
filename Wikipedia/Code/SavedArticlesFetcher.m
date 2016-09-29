@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WMFArticleFetcher *articleFetcher;
 @property (nonatomic, strong) WMFImageController *imageController;
 @property (nonatomic, strong) MWKImageInfoFetcher *imageInfoFetcher;
+@property (nonatomic, strong) WMFSavedPageSpotlightManager *spotlightManager;
 
 @property (nonatomic, strong) NSMutableDictionary<NSURL *, AnyPromise *> *fetchOperationsByArticleTitle;
 @property (nonatomic, strong) NSMutableDictionary<NSURL *, NSError *> *errorsByArticleTitle;
@@ -49,6 +50,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)dealloc {
     [self stop];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
@@ -71,8 +73,15 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         self.imageController = imageController;
         self.savedPageList = savedPageList;
         self.imageInfoFetcher = imageInfoFetcher;
+        self.dataSource = [self.dataStore savedDataSource];
+        self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.dataStore];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
     }
     return self;
+}
+
+- (void)applicationWillEnterForeground:(NSNotification *)note {
+    self.dataSource = [self.dataStore savedDataSource];
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
@@ -105,6 +114,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             [self fetchUncachedArticleURLs:@[url]];
         } else {
             [self cancelFetchForArticleURL:url];
+            [self.spotlightManager removeFromIndex:url];
         }
     }
 }
@@ -160,10 +170,11 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     for (NSURL *url in urls) {
         dispatch_async(self.accessQueue, ^{
             [self fetchArticleURL:url
-                          failure:^(NSError *error) {
-                          }
-                          success:^{
-                          }];
+                failure:^(NSError *error) {
+                }
+                success:^{
+                    [self.spotlightManager addToIndex:url];
+                }];
         });
     }
 }

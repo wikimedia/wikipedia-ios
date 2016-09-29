@@ -16,10 +16,6 @@ PODS:
     - AFNetworking/NSURLSession
   - AnimatedGIFImageSerialization (0.2.0)
   - BlocksKit/Core (2.2.5)
-  - BlocksKit/DynamicDelegate (2.2.5)
-  - BlocksKit/UIKit (2.2.5):
-    - BlocksKit/Core
-    - BlocksKit/DynamicDelegate
   - CocoaLumberjack (2.3.0):
     - CocoaLumberjack/Default (= 2.3.0)
     - CocoaLumberjack/Extensions (= 2.3.0)
@@ -40,28 +36,28 @@ PODS:
     - GCDWebServer/Core (= 3.3.3)
   - GCDWebServer/Core (3.3.3)
   - HexColors (2.3.0)
-  - HockeySDK (3.8.6):
-    - HockeySDK/AllFeaturesLib (= 3.8.6)
-  - HockeySDK/AllFeaturesLib (3.8.6)
+  - HockeySDK (4.1.0):
+    - HockeySDK/AllFeaturesLib (= 4.1.0)
+  - HockeySDK/AllFeaturesLib (4.1.0)
   - hpple (0.2.0)
-  - KVOController (1.0.3)
+  - KVOController (1.1.0)
   - libextobjc/EXTScope (0.4.1):
     - libextobjc/RuntimeExtensions
   - libextobjc/RuntimeExtensions (0.4.1)
   - Mantle (2.0.7):
     - Mantle/extobjc (= 2.0.7)
   - Mantle/extobjc (2.0.7)
-  - Masonry (0.6.2)
+  - Masonry (1.0.1)
   - Nimble (4.0.1)
   - Nocilla (0.11.0)
   - NSDate-Extensions (0.0.1)
-  - NYTPhotoViewer (1.1.0):
-    - NYTPhotoViewer/AnimatedGifSupport (= 1.1.0)
-    - NYTPhotoViewer/Core (= 1.1.0)
-  - NYTPhotoViewer/AnimatedGifSupport (1.1.0):
-    - FLAnimatedImage (~> 1.0.8)
+  - NYTPhotoViewer (1.2.0):
+    - NYTPhotoViewer/AnimatedGifSupport (= 1.2.0)
+    - NYTPhotoViewer/Core (= 1.2.0)
+  - NYTPhotoViewer/AnimatedGifSupport (1.2.0):
+    - FLAnimatedImage (~> 1.0.12)
     - NYTPhotoViewer/Core
-  - NYTPhotoViewer/Core (1.1.0)
+  - NYTPhotoViewer/Core (1.2.0)
   - OCHamcrest (4.2.0)
   - OCMockito (1.4.0):
     - OCHamcrest (~> 4.0)
@@ -93,91 +89,88 @@ PODS:
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
   - SSDataSources (0.8.5)
-  - SVWebViewController (1.0)
   - SWStepSlider (1.0.0)
   - TSMessages (0.9.13):
     - HexColors (~> 2.3.0)
-    - Masonry (~> 0.6)
+    - Masonry (~> 1.0)
   - TUSafariActivity (1.0.4)
   - Tweaks (2.0.0)
   - VTAcknowledgementsViewController (1.1)
-  - YapDatabase (2.9.1):
-    - YapDatabase/Standard (= 2.9.1)
-  - YapDatabase/Standard (2.9.1):
-    - YapDatabase/Standard/Core (= 2.9.1)
-    - YapDatabase/Standard/Extensions (= 2.9.1)
-  - YapDatabase/Standard/Core (2.9.1):
+  - YapDatabase (2.9.2):
+    - YapDatabase/Standard (= 2.9.2)
+  - YapDatabase/Standard (2.9.2):
+    - YapDatabase/Standard/Core (= 2.9.2)
+    - YapDatabase/Standard/Extensions (= 2.9.2)
+  - YapDatabase/Standard/Core (2.9.2):
     - CocoaLumberjack (~> 2)
-  - YapDatabase/Standard/Extensions (2.9.1):
+  - YapDatabase/Standard/Extensions (2.9.2):
     - YapDatabase/Standard/Core
-    - YapDatabase/Standard/Extensions/ActionManager (= 2.9.1)
-    - YapDatabase/Standard/Extensions/CloudKit (= 2.9.1)
-    - YapDatabase/Standard/Extensions/ConnectionProxy (= 2.9.1)
-    - YapDatabase/Standard/Extensions/CrossProcessNotification (= 2.9.1)
-    - YapDatabase/Standard/Extensions/FilteredViews (= 2.9.1)
-    - YapDatabase/Standard/Extensions/FullTextSearch (= 2.9.1)
-    - YapDatabase/Standard/Extensions/Hooks (= 2.9.1)
-    - YapDatabase/Standard/Extensions/Relationships (= 2.9.1)
-    - YapDatabase/Standard/Extensions/RTreeIndex (= 2.9.1)
-    - YapDatabase/Standard/Extensions/SearchResults (= 2.9.1)
-    - YapDatabase/Standard/Extensions/SecondaryIndex (= 2.9.1)
-    - YapDatabase/Standard/Extensions/Views (= 2.9.1)
-  - YapDatabase/Standard/Extensions/ActionManager (2.9.1):
+    - YapDatabase/Standard/Extensions/ActionManager (= 2.9.2)
+    - YapDatabase/Standard/Extensions/CloudKit (= 2.9.2)
+    - YapDatabase/Standard/Extensions/ConnectionProxy (= 2.9.2)
+    - YapDatabase/Standard/Extensions/CrossProcessNotification (= 2.9.2)
+    - YapDatabase/Standard/Extensions/FilteredViews (= 2.9.2)
+    - YapDatabase/Standard/Extensions/FullTextSearch (= 2.9.2)
+    - YapDatabase/Standard/Extensions/Hooks (= 2.9.2)
+    - YapDatabase/Standard/Extensions/Relationships (= 2.9.2)
+    - YapDatabase/Standard/Extensions/RTreeIndex (= 2.9.2)
+    - YapDatabase/Standard/Extensions/SearchResults (= 2.9.2)
+    - YapDatabase/Standard/Extensions/SecondaryIndex (= 2.9.2)
+    - YapDatabase/Standard/Extensions/Views (= 2.9.2)
+  - YapDatabase/Standard/Extensions/ActionManager (2.9.2):
     - Reachability (~> 3)
     - YapDatabase/Standard/Core
     - YapDatabase/Standard/Extensions/Views
-  - YapDatabase/Standard/Extensions/CloudKit (2.9.1):
+  - YapDatabase/Standard/Extensions/CloudKit (2.9.2):
     - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/ConnectionProxy (2.9.1):
+  - YapDatabase/Standard/Extensions/ConnectionProxy (2.9.2):
     - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/CrossProcessNotification (2.9.1):
+  - YapDatabase/Standard/Extensions/CrossProcessNotification (2.9.2):
     - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/FilteredViews (2.9.1):
+  - YapDatabase/Standard/Extensions/FilteredViews (2.9.2):
     - YapDatabase/Standard/Core
     - YapDatabase/Standard/Extensions/Views
-  - YapDatabase/Standard/Extensions/FullTextSearch (2.9.1):
+  - YapDatabase/Standard/Extensions/FullTextSearch (2.9.2):
     - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/Hooks (2.9.1):
+  - YapDatabase/Standard/Extensions/Hooks (2.9.2):
     - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/Relationships (2.9.1):
+  - YapDatabase/Standard/Extensions/Relationships (2.9.2):
     - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/RTreeIndex (2.9.1):
+  - YapDatabase/Standard/Extensions/RTreeIndex (2.9.2):
     - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/SearchResults (2.9.1):
+  - YapDatabase/Standard/Extensions/SearchResults (2.9.2):
     - YapDatabase/Standard/Core
     - YapDatabase/Standard/Extensions/FullTextSearch
     - YapDatabase/Standard/Extensions/Views
-  - YapDatabase/Standard/Extensions/SecondaryIndex (2.9.1):
+  - YapDatabase/Standard/Extensions/SecondaryIndex (2.9.2):
     - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/Views (2.9.1):
+  - YapDatabase/Standard/Extensions/Views (2.9.2):
     - YapDatabase/Standard/Core
 
 DEPENDENCIES:
   - AFNetworking (from `https://github.com/wikimedia/AFNetworking.git`, branch `release/3.1.1`)
   - AnimatedGIFImageSerialization (from `https://github.com/wikimedia/AnimatedGIFImageSerialization.git`)
   - BlocksKit/Core (~> 2.2.0)
-  - BlocksKit/UIKit (~> 2.2.0)
   - CocoaLumberjack/Swift
   - FBSnapshotTestCase
   - GCDWebServer (~> 3.3)
-  - HockeySDK (~> 3.8.2)
+  - HockeySDK (~> 4.1.0)
   - hpple (~> 0.2)
-  - KVOController (= 1.0.3)
+  - KVOController (= 1.1.0)
   - libextobjc/EXTScope (~> 0.4.1)
   - Mantle (~> 2.0.0)
-  - Masonry (= 0.6.2)
+  - Masonry (~> 1.0)
   - Nimble (~> 4.0.0)
   - Nocilla
   - NSDate-Extensions (from `git@github.com:wikimedia/NSDate-Extensions.git`)
   - NYTPhotoViewer
   - OCHamcrest (~> 4.2.0)
   - OCMockito (~> 1.4.0)
-  - PiwikTracker
+  - PiwikTracker (from `https://github.com/wikimedia/piwik-sdk-ios.git`)
   - PromiseKit (~> 3.4)
   - Quick (~> 0.9.0)
   - SDWebImage (from `https://github.com/wikimedia/SDWebImage.git`, commit `bb49df83e72f2231a191e9477a85f0effe13430a`)
   - SSDataSources (~> 0.8.0)
-  - SVWebViewController (~> 1.0)
   - SWStepSlider (from `https://github.com/wikimedia/SWStepSlider.git`)
   - TSMessages (from `https://github.com/wikimedia/TSMessages.git`)
   - TUSafariActivity
@@ -193,6 +186,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/wikimedia/AnimatedGIFImageSerialization.git
   NSDate-Extensions:
     :git: git@github.com:wikimedia/NSDate-Extensions.git
+  PiwikTracker:
+    :git: https://github.com/wikimedia/piwik-sdk-ios.git
   SDWebImage:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
@@ -211,6 +206,9 @@ CHECKOUT OPTIONS:
   NSDate-Extensions:
     :commit: 388ab1b864b742feadc1cf94063968953fc6a6a1
     :git: git@github.com:wikimedia/NSDate-Extensions.git
+  PiwikTracker:
+    :commit: 87cf4aa60ad29cdb375a3fe789c9717887ee210e
+    :git: https://github.com/wikimedia/piwik-sdk-ios.git
   SDWebImage:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
@@ -218,7 +216,7 @@ CHECKOUT OPTIONS:
     :commit: 2e857008b8e251a2cd669f7c288944592e02e7c4
     :git: https://github.com/wikimedia/SWStepSlider.git
   TSMessages:
-    :commit: ec0aa9be29ab79083e4957ac500f3af2f622605d
+    :commit: 01cfd45fad2cdb3e9297327914c178d32e9f6a98
     :git: https://github.com/wikimedia/TSMessages.git
 
 SPEC CHECKSUMS:
@@ -230,16 +228,16 @@ SPEC CHECKSUMS:
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   GCDWebServer: 1c39a1f0763e4eb492bee021e4270fce097d3555
   HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
-  HockeySDK: ab68303eec6680f6b539de65d747742dd276e934
+  HockeySDK: 1249d4f1b3a9ce537a1517805bcf6fe121099d16
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
-  KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
+  KVOController: 321b5fc59300fcaabd42c0f679baa7a27efbb2fd
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Mantle: bc40bb061d8c2c6fb48d5083e04d928c3b7f73d9
-  Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
+  Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
   Nocilla: 7af7a386071150cc8aa5da4da97d060f049dd61c
   NSDate-Extensions: 5bd64f8815dc6b3c9d08e1f620229567e2b4771c
-  NYTPhotoViewer: e80e8767f3780d2df37c6f72cbab15d6c7232911
+  NYTPhotoViewer: 323217e4590a1586eb3c9674b3fefb0fb8b57896
   OCHamcrest: c14c0b3f4c4e99363e5b87d97bae38c4438b6d5d
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
   OMGHTTPURLRQ: 1e54807cb7d5dbb506926e53498e1e9ac5720c79
@@ -249,14 +247,13 @@ SPEC CHECKSUMS:
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
-  SVWebViewController: c36dda7326e81fcae0abf5d02bf7bbf7e41be901
   SWStepSlider: a714a255526dbba7c6290d67ea7226ba8724b56c
-  TSMessages: 39ca10c7bfdaa42d574af0f7946a04699145051e
+  TSMessages: 5460d0b3ea087d2843ce6e01d87797992dbe1911
   TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
   VTAcknowledgementsViewController: 44da49d57a1dbf414e653688793a130d24af151e
-  YapDatabase: 713d4018cfacbd6e77dd430710ca84730e450980
+  YapDatabase: b1e43555a34a5298e23a045be96817a5ef0da58f
 
-PODFILE CHECKSUM: 36805ec9fcd13965508956d6be8e9918b03e12cf
+PODFILE CHECKSUM: c0eccd5e9e0b9dc5d8623a05bc5a21c54028b103
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.0.beta.1
