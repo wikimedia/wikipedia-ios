@@ -28,8 +28,8 @@
     [self addSubview:self.arrowImageView];
 }
 
-- (UIImageView*)arrowImageView {
-    if (!_arrowImageView){
+- (UIImageView *)arrowImageView {
+    if (!_arrowImageView) {
         _arrowImageView = [[UIImageView alloc] initWithImage:[self arrowImageWithSize:CGSizeMake([[self class] arrowBase], [[self class] arrowHeight])]];
     }
     return _arrowImageView;

@@ -9,3 +9,4 @@ clang-format -style=file -i WikipediaUnitTests/Code/*.m
 clang-format -style=file -i WMFKit/*.h
 clang-format -style=file -i WMFKit/*.m
 #clang-format -style=file -i WMFKit/*.c
+

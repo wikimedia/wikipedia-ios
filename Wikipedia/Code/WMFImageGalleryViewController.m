@@ -294,10 +294,10 @@ NS_ASSUME_NONNULL_BEGIN
     WMFGradientView *gradientView = [WMFGradientView new];
     [gradientView.gradientLayer setLocations:@[@0, @.745, @1]];
     [gradientView.gradientLayer setColors:@[
-                                            (id)[UIColor blackColor].CGColor,
-                                            (id)[UIColor blackColor].CGColor,
-                                            (id)[UIColor clearColor].CGColor
-                                            ]];
+        (id)[UIColor blackColor].CGColor,
+        (id)[UIColor blackColor].CGColor,
+        (id)[UIColor clearColor].CGColor
+    ]];
     [gradientView.gradientLayer setStartPoint:CGPointMake(0.5, 0.0)];
     [gradientView.gradientLayer setEndPoint:CGPointMake(0.5, 1.0)];
     [self.overlayView.navigationBar addSubview:gradientView];

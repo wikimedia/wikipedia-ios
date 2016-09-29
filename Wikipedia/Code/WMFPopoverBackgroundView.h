@@ -2,6 +2,6 @@
 
 @interface WMFPopoverBackgroundView : UIPopoverBackgroundView
 
-@property (nonatomic, strong) UIColor* arrowColor;
+@property (nonatomic, strong) UIColor *arrowColor;
 
 @end

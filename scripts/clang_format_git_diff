@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+file_types = {h: true, m: true, cpp: true, c: true}
+
+made_changes = false
+
+`git status --porcelain`.split('\n').each do |line|
+  components = line.split(' ')
+  next if components.count < 2
+  code = components[0]
+  next if code == 'D'
+  file = components[1]
+  extension = file.split('.').last
+  next if !file_types[extension.downcase.to_sym]
+  replacements = `/usr/local/bin/clang-format -style=file -output-replacements-xml #{file}`
+  if replacements.match(/^<replacement /)
+    made_changes = true
+    `/usr/local/bin/clang-format -style=file -i #{file}`
+  end
+end
+
+if made_changes
+  puts "clang-format made formatting changes - verify them and re-commit."
+  abort()
+end

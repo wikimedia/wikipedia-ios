@@ -12,7 +12,7 @@ extern NSString *const WMFReferenceLinkTappedNotification;
                                                           HTML:(nullable NSString *)html
                                                          width:(CGFloat)width;
 
-- (void)wmf_dismissReferencePopoverAnimated:(BOOL)flag completion:(void (^ __nullable)(void))completion;
+- (void)wmf_dismissReferencePopoverAnimated:(BOOL)flag completion:(void (^__nullable)(void))completion;
 
 @end
 

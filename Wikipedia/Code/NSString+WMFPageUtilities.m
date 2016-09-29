@@ -1,7 +1,6 @@
 #import "NSString+WMFPageUtilities.h"
 #import "NSString+WMFExtras.h"
 
-
 NSString *const WMFReferenceFragmentSubstring = @"ref_";
 NSString *const WMFCitationFragmentSubstring = @"cite_note";
 NSString *const WMFEndNoteFragmentSubstring = @"endnote_";
