@@ -52,7 +52,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @implementation MWKDataStore
 
 - (NSOperationQueue *)articleSaveQueue {
-    if(!_articleSaveQueue){
+    if (!_articleSaveQueue) {
         _articleSaveQueue = [NSOperationQueue new];
         _articleSaveQueue.qualityOfService = NSQualityOfServiceBackground;
         _articleSaveQueue.maxConcurrentOperationCount = 1;
@@ -61,7 +61,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (NSMutableDictionary<NSString *, NSOperation *> *)articleSaveOperations {
-    if(!_articleSaveOperations){
+    if (!_articleSaveOperations) {
         _articleSaveOperations = [NSMutableDictionary new];
     }
     return _articleSaveOperations;
@@ -71,44 +71,43 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     [self asynchronouslyCacheArticle:article completion:nil];
 }
 
-- (void)asynchronouslyCacheArticle:(MWKArticle *)article completion:(nullable dispatch_block_t)completion{
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article completion:(nullable dispatch_block_t)completion {
     NSOperationQueue *queue = [self articleSaveQueue];
     NSMutableDictionary *operations = [self articleSaveOperations];
-    @synchronized (queue) {
+    @synchronized(queue) {
         NSString *key = article.url.wmf_databaseKey;
         if (!key) {
             return;
         }
-        
+
         NSOperation *op = operations[key];
         if (op) {
             [op cancel];
             [operations removeObjectForKey:key];
         }
-        
+
         op = [NSBlockOperation blockOperationWithBlock:^{
             [article save];
-            @synchronized (queue) {
+            @synchronized(queue) {
                 [operations removeObjectForKey:key];
             }
         }];
         op.completionBlock = completion;
-        
+
         if (!op) {
             return;
         }
-        
+
         operations[key] = op;
-        
+
         [queue addOperation:op];
     }
 }
 
-
 - (void)cancelAsynchronousCacheForArticle:(MWKArticle *)article {
     NSOperationQueue *queue = [self articleSaveQueue];
     NSMutableDictionary *operations = [self articleSaveOperations];
-    @synchronized (queue) {
+    @synchronized(queue) {
         NSString *key = article.url.wmf_databaseKey;
         NSOperation *op = operations[key];
         [op cancel];
@@ -283,7 +282,8 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
                             }];
             [transaction removeObjectsForKeys:keysToRemove inCollection:[MWKHistoryEntry databaseCollectionName]];
         }];
-    } afterDelay:1];
+    }
+                                                      afterDelay:1];
 }
 
 #pragma mark - Legacy DataStore

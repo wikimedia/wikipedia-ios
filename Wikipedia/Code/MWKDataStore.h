@@ -73,14 +73,12 @@ extern NSString *const MWKItemUpdatedNotification;
 
 - (void)asynchronouslyCacheArticle:(MWKArticle *)article completion:(nullable dispatch_block_t)completion;
 
-
 /**
  *  Cancel the asynchronous save for the @c article.
  *
  *  @param article    The article to cancel.
  **/
 - (void)cancelAsynchronousCacheForArticle:(MWKArticle *)article;
-
 
 @property (readonly, copy, nonatomic) NSString *basePath;
 

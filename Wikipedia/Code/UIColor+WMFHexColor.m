@@ -16,17 +16,17 @@
     CGFloat blue;
     CGFloat alpha;
     [self getRed:&red green:&green blue:&blue alpha:&alpha];
-    if(includeAlpha){
+    if (includeAlpha) {
         return [NSString stringWithFormat:@"%02x%02x%02x%02x",
-                (int)(255.0 * red),
-                (int)(255.0 * green),
-                (int)(255.0 * blue),
-                (int)(255.0 * alpha)];
-    }else{
+                                          (int)(255.0 * red),
+                                          (int)(255.0 * green),
+                                          (int)(255.0 * blue),
+                                          (int)(255.0 * alpha)];
+    } else {
         return [NSString stringWithFormat:@"%02x%02x%02x",
-                (int)(255.0 * red),
-                (int)(255.0 * green),
-                (int)(255.0 * blue)];
+                                          (int)(255.0 * red),
+                                          (int)(255.0 * green),
+                                          (int)(255.0 * blue)];
     }
 }
 

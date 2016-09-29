@@ -373,7 +373,7 @@
 
 + (instancetype)wmf_referencePopoverBackgroundColor {
     static UIColor *c = nil;
-    
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         c = [UIColor wmf_colorWithHex:0xffffff alpha:1.0];
@@ -383,7 +383,7 @@
 
 + (instancetype)wmf_referencePopoverLinkColor {
     static UIColor *c = nil;
-    
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         c = [UIColor wmf_colorWithHex:0x3366CC alpha:1.0];
@@ -393,7 +393,7 @@
 
 + (instancetype)wmf_referencePopoverTextColor {
     static UIColor *c = nil;
-    
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         c = [UIColor wmf_colorWithHex:0x000000 alpha:1.0];
