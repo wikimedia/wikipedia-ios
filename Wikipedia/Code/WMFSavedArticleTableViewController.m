@@ -47,7 +47,7 @@
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
-    
+
     self.dataSource = [self.dataStore savedDataSource];
     self.dataSource.delegate = self;
     [self.tableView reloadData];
@@ -82,13 +82,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticleListTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleListTableViewCell identifier] forIndexPath:indexPath];
-    
+
     MWKHistoryEntry *entry = [self.dataSource objectAtIndexPath:indexPath];
     MWKArticle *article = [[self dataStore] articleWithURL:entry.url];
     cell.titleText = article.url.wmf_title;
     cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
     [cell setImage:[article bestThumbnailImage]];
-    
+
     return cell;
 }
 
