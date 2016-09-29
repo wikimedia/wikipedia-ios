@@ -48,7 +48,7 @@
 
 #import "WMFMostReadListTableViewController.h"
 
-#import "WMFUserNotificationsController.h"
+#import "WMFNotificationsController.h"
 
 #define TEST_SHARED_CONTAINER_MIGRATION DEBUG && 0
 
@@ -106,7 +106,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 @property (nonatomic, strong) WMFDailyStatsLoggingFunnel *statsFunnel;
 
-@property (nonatomic, strong) WMFUserNotificationsController *notificationsController;
+@property (nonatomic, strong) WMFNotificationsController *notificationsController;
 
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
@@ -602,13 +602,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     return _randomFetcher;
 }
 
-- (WMFUserNotificationsController *)notificationsController {
+- (WMFNotificationsController *)notificationsController {
     if (![self uiIsLoaded]) {
         return nil;
     }
 
     if (!_notificationsController) {
-        _notificationsController = [[WMFUserNotificationsController alloc] init];
+        _notificationsController = [[WMFNotificationsController alloc] init];
     }
 
     return _notificationsController;
