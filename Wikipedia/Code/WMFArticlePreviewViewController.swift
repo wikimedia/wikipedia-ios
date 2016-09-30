@@ -2,6 +2,7 @@ import UIKit
 
 public class WMFArticlePreviewViewController: UIViewController {
 
+    @IBOutlet weak public var marginWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak public var imageView: UIImageView!
     @IBOutlet weak public var subtitleLabel: UILabel!
     @IBOutlet weak public var titleLabel: UILabel!
