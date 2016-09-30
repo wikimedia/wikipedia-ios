@@ -44,8 +44,8 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
         let extract = info[WMFNotificationInfoArticleExtractKey] as? String
         
         if let html = info[WMFNotificationInfoStoryHTMLKey] as? String {
-            let font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody, compatibleWithTraitCollection: nil)
-            let linkFont = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline, compatibleWithTraitCollection: nil)
+            let font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote, compatibleWithTraitCollection: nil)
+            let linkFont = UIFont.boldSystemFontOfSize(font.pointSize)
             let attributedString = html.wmf_attributedStringByRemovingHTMLWithFont(font, linkFont: linkFont)
             summaryLabel.attributedText = attributedString
         }
