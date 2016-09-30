@@ -391,7 +391,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iIa-dg-uH0">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="PNI-Oh-9ff"/>
                                 </constraints>
@@ -451,7 +451,7 @@
                                 </variation>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="iIa-dg-uH0" firstAttribute="leading" secondItem="tzw-k8-eL6" secondAttribute="leading" id="0ZM-Ha-j7N"/>
                             <constraint firstItem="oqE-Xn-Paw" firstAttribute="leading" secondItem="tzw-k8-eL6" secondAttribute="leading" constant="16" id="1JW-Zr-SEU"/>
