@@ -44,22 +44,10 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
         let extract = info[WMFNotificationInfoArticleExtractKey] as? String
         
         if let html = info[WMFNotificationInfoStoryHTMLKey] as? String {
-            if let data = html.dataUsingEncoding(NSUTF8StringEncoding) {
-                do {
-                    let attributedString = try NSMutableAttributedString(data: data, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-                        NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding], documentAttributes: nil)
-                    let fullRange = NSMakeRange(0, attributedString.length)
-                    let font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody, compatibleWithTraitCollection: nil)
-                    attributedString.addAttribute(NSFontAttributeName, value: font, range: fullRange)
-                    summaryLabel.attributedText = attributedString
-                } catch let error {
-                    DDLogError("Error parsing HTML for in the news notification: \(error)")
-                    summaryLabel.text = html.wmf_stringByRemovingHTML()
-                }
-            }
-            else {
-                summaryLabel.text = html.wmf_stringByRemovingHTML()
-            }
+            let font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody, compatibleWithTraitCollection: nil)
+            let linkFont = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline, compatibleWithTraitCollection: nil)
+            let attributedString = html.wmf_attributedStringByRemovingHTMLWithFont(font, linkFont: linkFont)
+            summaryLabel.attributedText = attributedString
         }
         
         
