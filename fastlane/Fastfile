@@ -72,6 +72,13 @@ platform :ios do
     opts[:output_types] = options[:junit] ? "junit" : ""
     scan(opts)
   end
+  
+  desc "Increment the build number"
+  lane :bump_build do 
+    increment_build_number({
+      build_number: latest_testflight_build_number + 1
+    })
+  end
 
   desc "Increment the app version patch"
   lane :bump_patch do
