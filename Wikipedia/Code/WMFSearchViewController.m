@@ -29,6 +29,7 @@
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFLanguagesViewController.h"
 #import "UIViewController+WMFEmptyView.h"
+#import "WMFSearchLanguagesBarViewController.h"
 
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
@@ -175,6 +176,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)configureLanguageButtons {
+return;
     if ([[NSUserDefaults wmf_userDefaults] wmf_showSearchLanguageBar]) {
         [self.view addSubview:self.languageBarContainer];
         [self.languageBarContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -295,6 +297,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     if ([segue.destinationViewController isKindOfClass:[RecentSearchesViewController class]]) {
         self.recentSearchesViewController = segue.destinationViewController;
         [self configureRecentSearchList];
+    }
+    if ([segue.destinationViewController isKindOfClass:[WMFSearchLanguagesBarViewController class]]) {
+        // Allow size of contained VC's view to control container size: http://stackoverflow.com/a/34279613
+        segue.destinationViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
     }
 }
 
