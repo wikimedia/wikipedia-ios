@@ -67,8 +67,10 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             self.imageViewHidden = true
         }
         
-        if let viewCounts = info[WMFNotificationInfoViewCountsKey] as? [Double] {
-            print(viewCounts)
+        if let viewCounts = info[WMFNotificationInfoViewCountsKey] as? [NSNumber] {
+            sparklineView.dataValues = viewCounts
+            sparklineView.showsVerticalGridlines = true
+            sparklineView.updateMinAndMaxFromDataValues()
         }
     }
 

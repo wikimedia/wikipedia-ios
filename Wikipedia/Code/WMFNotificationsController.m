@@ -69,7 +69,7 @@ NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
                          WMFNotificationInfoThumbnailURLStringKey: @"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/FastTelescope%2A8sep2015.jpg/320px-FastTelescope%2A8sep2015.jpg",
                          WMFNotificationInfoArticleExtractKey: @"The Five hundred metre Aperture Spherical Telescope (FAST; Chinese: 五百米口径球面射电望远镜), nicknamed Tianyan (天眼, lit. \"Heavenly Eye\" or \"The Eye of Heaven\"), is a radio telescope located in the Dawodang depression (大窝凼洼地), a natural basin in Pingtang County, Guizhou Province, southwest China.",
                          WMFNotificationInfoStoryHTMLKey: HTMLString,
-                         WMFNotificationInfoViewCountsKey: @[@1, @2, @3, @10]
+                         WMFNotificationInfoViewCountsKey: @[@1, @1, @2, @2, @1, @2, @10]
                          };
     UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:5 repeats:NO];
     NSString *identifier = [[NSUUID UUID] UUIDString];

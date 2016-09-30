@@ -81,6 +81,28 @@ public class WMFSparklineView : UIView {
         }
     }
     
+    public var showsVerticalGridlines = false {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    public func updateMinAndMaxFromDataValues() {
+        var min = CGFloat.max
+        var max = CGFloat.min
+        for val in dataValues {
+            let val = CGFloat(val.doubleValue)
+            if val < min {
+                min = val
+            }
+            if val > max {
+                max = val
+            }
+        }
+        minDataValue = min
+        maxDataValue = max
+    }
+    
     func setup() {
         gridlineLayer.fillColor = UIColor.clearColor().CGColor
         gridlineLayer.strokeColor = UIColor(white: 0.6, alpha: 0.2).CGColor
@@ -124,21 +146,35 @@ public class WMFSparklineView : UIView {
         let secondGridlineY = maxY
         gridlinePath.moveToPoint(CGPoint(x: minX, y: secondGridlineY))
         gridlinePath.addLineToPoint(CGPoint(x: maxX, y: secondGridlineY))
-
-        gridlineLayer.path = gridlinePath.CGPath
+        
+        if showsVerticalGridlines {
+            let lowerGridlineY = 0.33*(firstGridlineY + secondGridlineY)
+            gridlinePath.moveToPoint(CGPoint(x: minX, y: lowerGridlineY))
+            gridlinePath.addLineToPoint(CGPoint(x: maxX, y: lowerGridlineY))
+            
+            let higherGridlineY = 0.67*(firstGridlineY + secondGridlineY)
+            gridlinePath.moveToPoint(CGPoint(x: minX, y: higherGridlineY))
+            gridlinePath.addLineToPoint(CGPoint(x: maxX, y: higherGridlineY))
+        }
         
         let delta = maxDataValue - minDataValue
-        var x: CGFloat = minX
-        let xInterval = width/CGFloat(dataValues.count - 1)
+        let lastIndex = dataValues.count - 1
+        let xInterval = width/CGFloat(lastIndex)
         var points = [CGPoint]()
-        for dataValue in dataValues {
+        for (i, dataValue) in dataValues.enumerate() {
             let floatValue = CGFloat(dataValue.doubleValue)
             let relativeY = floatValue - minDataValue
             let normalizedY = 1 - relativeY/delta
             let y = minY + height*normalizedY
+            let x = xInterval * CGFloat(i)
             points.append(CGPoint(x: x, y: y))
-            x += xInterval
+            if showsVerticalGridlines && i != 0 && i != lastIndex {
+                gridlinePath.moveToPoint(CGPoint(x: x, y: minY - 5))
+                gridlinePath.addLineToPoint(CGPoint(x: x, y: maxY + 5))
+            }
         }
+        gridlineLayer.path = gridlinePath.CGPath
+
         sparklineLayer.path = UIBezierPath.quadCurvePathWithPoints(points).CGPath
     }
 
