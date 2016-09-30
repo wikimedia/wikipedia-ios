@@ -7743,7 +7743,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
-				PROVISIONING_PROFILE = "e3ca5637-d387-4ad9-815d-e0410f664f3b";
 				PROVISIONING_PROFILE_SPECIFIER = "Wikipedia Development";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
@@ -7818,7 +7817,6 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "446c3da6-aaa7-4a5d-a435-b68e25f5f086";
 				PROVISIONING_PROFILE_SPECIFIER = "Continue Reading Development";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
@@ -7851,7 +7849,6 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "446c3da6-aaa7-4a5d-a435-b68e25f5f086";
 				PROVISIONING_PROFILE_SPECIFIER = "Continue Reading Development";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
@@ -7879,7 +7876,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c95e8855-b9cc-4936-9225-6e070ed51ea9";
 				PROVISIONING_PROFILE_SPECIFIER = "Continue Reading";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
@@ -7907,7 +7903,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c95e8855-b9cc-4936-9225-6e070ed51ea9";
 				PROVISIONING_PROFILE_SPECIFIER = "Continue Reading";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
@@ -7935,7 +7930,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c95e8855-b9cc-4936-9225-6e070ed51ea9";
 				PROVISIONING_PROFILE_SPECIFIER = "Continue Reading";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
@@ -7963,7 +7957,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c95e8855-b9cc-4936-9225-6e070ed51ea9";
 				PROVISIONING_PROFILE_SPECIFIER = "Continue Reading";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
@@ -8058,7 +8051,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = Wikipedia;
-				PROVISIONING_PROFILE = "0554f8dd-22e5-4095-bd72-5f5b61829c17";
 				PROVISIONING_PROFILE_SPECIFIER = "org.wikimedia.wikipedia AppStore";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
@@ -8198,7 +8190,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
-				PROVISIONING_PROFILE = "0554f8dd-22e5-4095-bd72-5f5b61829c17";
 				PROVISIONING_PROFILE_SPECIFIER = "org.wikimedia.wikipedia AppStore";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
@@ -8331,7 +8322,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
-				PROVISIONING_PROFILE = "0554f8dd-22e5-4095-bd72-5f5b61829c17";
 				PROVISIONING_PROFILE_SPECIFIER = "org.wikimedia.wikipedia AppStore";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
@@ -8608,7 +8598,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
-				PROVISIONING_PROFILE = "e3ca5637-d387-4ad9-815d-e0410f664f3b";
 				PROVISIONING_PROFILE_SPECIFIER = "Wikipedia Development";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
@@ -8651,7 +8640,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = Wikipedia;
-				PROVISIONING_PROFILE = "0554f8dd-22e5-4095-bd72-5f5b61829c17";
 				PROVISIONING_PROFILE_SPECIFIER = "org.wikimedia.wikipedia AppStore";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
@@ -9140,7 +9128,6 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d5f02180-4d60-4f7b-a2fd-afb29fcbba6e";
 				PROVISIONING_PROFILE_SPECIFIER = "Top Read Development";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -9173,7 +9160,6 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d5f02180-4d60-4f7b-a2fd-afb29fcbba6e";
 				PROVISIONING_PROFILE_SPECIFIER = "Top Read Development";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -9202,7 +9188,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fb63f523-449b-4bf5-988c-9edbe36fd51b";
 				PROVISIONING_PROFILE_SPECIFIER = "Top Read";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
@@ -9230,7 +9215,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fb63f523-449b-4bf5-988c-9edbe36fd51b";
 				PROVISIONING_PROFILE_SPECIFIER = "Top Read";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
@@ -9258,7 +9242,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fb63f523-449b-4bf5-988c-9edbe36fd51b";
 				PROVISIONING_PROFILE_SPECIFIER = "Top Read";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
@@ -9286,7 +9269,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fb63f523-449b-4bf5-988c-9edbe36fd51b";
 				PROVISIONING_PROFILE_SPECIFIER = "Top Read";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
