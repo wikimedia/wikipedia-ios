@@ -5,6 +5,12 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *heightContraint;
 @property (nonatomic) BOOL hidden;
 
+@property (strong, nonatomic) IBOutlet UIButton *languageOneButton;
+@property (strong, nonatomic) IBOutlet UIButton *languageTwoButton;
+@property (strong, nonatomic) IBOutlet UIButton *languageThreeButton;
+@property (strong, nonatomic) IBOutlet UIButton *otherLanguagesButton;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *languageButtons;
+
 @end
 
 @implementation WMFSearchLanguagesBarViewController

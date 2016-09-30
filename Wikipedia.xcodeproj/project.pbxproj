@@ -3327,8 +3327,7 @@
 				B0E803AF1C0CDBCF0065EBC0 /* WMFSearchDataSource.h */,
 				B0E803B01C0CDBCF0065EBC0 /* WMFSearchDataSource.m */,
 				B0E8033B1C0CD76B0065EBC0 /* WMFSearchViewController.storyboard */,
-				B04DA3C41D9EFA6900F45DB7 /* WMFSearchLanguagesBarViewController.h */,
-				B04DA3C51D9EFA6900F45DB7 /* WMFSearchLanguagesBarViewController.m */,
+				B04DA3C71D9F044100F45DB7 /* Search Languages Bar */,
 			);
 			name = "View Controller";
 			path = Wikipedia/Code;
@@ -3610,6 +3609,15 @@
 				B016DCEA1D497C74005BABA1 /* WMFFindInPageKeyboardBar.xib */,
 			);
 			name = FindInPage;
+			sourceTree = "<group>";
+		};
+		B04DA3C71D9F044100F45DB7 /* Search Languages Bar */ = {
+			isa = PBXGroup;
+			children = (
+				B04DA3C41D9EFA6900F45DB7 /* WMFSearchLanguagesBarViewController.h */,
+				B04DA3C51D9EFA6900F45DB7 /* WMFSearchLanguagesBarViewController.m */,
+			);
+			name = "Search Languages Bar";
 			sourceTree = "<group>";
 		};
 		B05033B21D1FA437002E7D4F /* ImageTags */ = {

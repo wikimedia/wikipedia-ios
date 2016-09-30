@@ -484,6 +484,13 @@
                     <size key="freeformSize" width="375" height="44"/>
                     <connections>
                         <outlet property="heightContraint" destination="PNI-Oh-9ff" id="1V5-uk-4v3"/>
+                        <outlet property="languageOneButton" destination="oqE-Xn-Paw" id="55H-an-F2d"/>
+                        <outlet property="languageThreeButton" destination="u5D-PX-Vyp" id="di1-Ku-h36"/>
+                        <outlet property="languageTwoButton" destination="WJp-HZ-PFr" id="pEY-wR-WIr"/>
+                        <outlet property="otherLanguagesButton" destination="Jiw-B9-ljV" id="9Nc-dq-dpL"/>
+                        <outletCollection property="languageButtons" destination="oqE-Xn-Paw" id="b2t-5Y-5kM"/>
+                        <outletCollection property="languageButtons" destination="WJp-HZ-PFr" id="hf8-F4-cYY"/>
+                        <outletCollection property="languageButtons" destination="u5D-PX-Vyp" id="n78-TE-omy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eR3-yK-u5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
