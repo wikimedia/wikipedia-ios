@@ -1,7 +1,8 @@
 #import "WMFSearchLanguagesBarViewController.h"
 #import "UIFont+WMFStyle.h"
+#import "WMFLanguagesViewController.h"
 
-@interface WMFSearchLanguagesBarViewController ()
+@interface WMFSearchLanguagesBarViewController () <WMFLanguagesViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *heightContraint;
 @property (nonatomic) BOOL hidden;
@@ -117,7 +118,7 @@
 //TODO:
 // - send message that lang changed to delegate (WMFSearchController - will need to actually make and set "delegate" prop) so it can re-call "searchForSearchTerm" with the new lang
 // - decide who compares results list url to search site url to see if results need to be refreshed (when new primary lang is set from settings)
-// - remove dupe code from WMFSearchViewController.m
+// - remove dupe bits from WMFSearchViewController.m (and storyboard!)
 //
 //    NSString *query = self.searchField.text;
 //    if (![url isEqual:[self.resultsListController.dataSource searchSiteURL]] || [query isEqualToString:[self.resultsListController.dataSource searchResults].searchTerm]) {
@@ -140,6 +141,16 @@
     MWKLanguageLink *language = [[MWKLanguageLinkController sharedInstance] appLanguage];
     NSAssert(language, @"No app language data found");
     return language;
+}
+
+- (IBAction)openLanguagePicker:(id)sender {
+    WMFLanguagesViewController *languagesVC = [WMFPreferredLanguagesViewController preferredLanguagesViewController];
+    languagesVC.delegate = self;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:NULL];
+}
+
+- (void)languagesController:(WMFPreferredLanguagesViewController *)controller didUpdatePreferredLanguages:(NSArray<MWKLanguageLink *> *)languages {
+    [self updateLanguageBarLanguages];
 }
 
 @end
