@@ -403,7 +403,7 @@
                                     <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="setLanguageWithSender:" destination="tkf-8P-b2O" eventType="touchUpInside" id="ql5-6j-GpT"/>
+                                    <action selector="setLanguageWithSender:" destination="jWX-gY-OwH" eventType="touchUpInside" id="bsi-AK-x4L"/>
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="998" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WJp-HZ-PFr" customClass="WMFUnderlineButton">
@@ -413,7 +413,7 @@
                                     <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="setLanguageWithSender:" destination="tkf-8P-b2O" eventType="touchUpInside" id="thS-Ig-cTn"/>
+                                    <action selector="setLanguageWithSender:" destination="jWX-gY-OwH" eventType="touchUpInside" id="Vj9-QT-uKx"/>
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="998" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u5D-PX-Vyp" customClass="WMFUnderlineButton">
@@ -423,7 +423,7 @@
                                     <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="setLanguageWithSender:" destination="tkf-8P-b2O" eventType="touchUpInside" id="XYg-74-Vu5"/>
+                                    <action selector="setLanguageWithSender:" destination="jWX-gY-OwH" eventType="touchUpInside" id="YZm-Wi-F0o"/>
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jiw-B9-ljV" customClass="WMFTitleInsetRespectingButton">

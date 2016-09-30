@@ -37,6 +37,8 @@
     [super viewWillAppear:animated];
     
     [self updateLanguageBarLanguages];
+    [self selectLanguageForURL:[self selectedLanguage].siteURL];
+
     self.hidden = ![[NSUserDefaults wmf_userDefaults] wmf_showSearchLanguageBar];
 }
 
@@ -73,6 +75,71 @@
             obj.hidden = NO;
         }
     }];
+}
+
+- (IBAction)setLanguageWithSender:(UIButton *)sender {
+    NSUInteger index = [self.languageButtons indexOfObject:sender];
+    NSAssert(index != NSNotFound, @"language button not found for language!");
+    if (index != NSNotFound) {
+        MWKLanguageLink *lang = [self languageBarLanguages][index];
+        [self setSelectedLanguage:lang];
+    }
+}
+
+- (void)setSelectedLanguage:(MWKLanguageLink *)language {
+    [[NSUserDefaults wmf_userDefaults] wmf_setCurrentSearchLanguageDomain:language.siteURL];
+    [self updateLanguageBarLanguages];
+    [self selectLanguageForURL:language.siteURL];
+}
+
+- (void)selectLanguageForURL:(NSURL *)url {
+    __block BOOL foundLanguageInBar = NO;
+    [[self languageBarLanguages] enumerateObjectsUsingBlock:^(MWKLanguageLink *_Nonnull language, NSUInteger idx, BOOL *_Nonnull stop) {
+        if ([[language siteURL] isEqual:url]) {
+            UIButton *buttonToSelect = self.languageButtons[idx];
+            [self.languageButtons enumerateObjectsUsingBlock:^(UIButton *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+                if (obj == buttonToSelect) {
+                    [obj setSelected:YES];
+                    foundLanguageInBar = YES;
+                } else {
+                    [obj setSelected:NO];
+                }
+            }];
+        }
+    }];
+    
+    //If we didn't find the last selected Language, jsut select the first one
+    if (!foundLanguageInBar) {
+        [self setSelectedLanguage:[[self languageBarLanguages] firstObject]];
+        return;
+    }
+    
+//TODO:
+// - send message that lang changed to delegate (WMFSearchController - will need to actually make and set "delegate" prop) so it can re-call "searchForSearchTerm" with the new lang
+// - decide who compares results list url to search site url to see if results need to be refreshed (when new primary lang is set from settings)
+// - remove dupe code from WMFSearchViewController.m
+//
+//    NSString *query = self.searchField.text;
+//    if (![url isEqual:[self.resultsListController.dataSource searchSiteURL]] || [query isEqualToString:[self.resultsListController.dataSource searchResults].searchTerm]) {
+//        [self searchForSearchTerm:query];
+//    }
+}
+
+- (MWKLanguageLink *)selectedLanguage {
+    NSURL *siteURL = [[NSUserDefaults wmf_userDefaults] wmf_currentSearchLanguageDomain];
+    MWKLanguageLink *lang = nil;
+    if (siteURL) {
+        lang = [[MWKLanguageLinkController sharedInstance] languageForSiteURL:siteURL];
+    } else {
+        lang = [self appLanguage];
+    }
+    return lang;
+}
+
+- (nullable MWKLanguageLink *)appLanguage {
+    MWKLanguageLink *language = [[MWKLanguageLinkController sharedInstance] appLanguage];
+    NSAssert(language, @"No app language data found");
+    return language;
 }
 
 @end
