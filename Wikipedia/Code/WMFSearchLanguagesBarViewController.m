@@ -31,10 +31,13 @@
     [self.otherLanguagesButton setClipsToBounds:YES];
     [self.otherLanguagesButton setTitle:MWLocalizedString(@"main-menu-title", nil) forState:UIControlStateNormal];
     self.otherLanguagesButton.titleLabel.font = [UIFont wmf_subtitle];
+}
 
-    [self updateLanguageBarLanguages];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
-    self.hidden = YES;
+    [self updateLanguageBarLanguages];
+    self.hidden = ![[NSUserDefaults wmf_userDefaults] wmf_showSearchLanguageBar];
 }
 
 - (void)setHidden:(BOOL)hidden {
@@ -70,13 +73,6 @@
             obj.hidden = NO;
         }
     }];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    
-self.hidden = !self.hidden;
-    
 }
 
 @end
