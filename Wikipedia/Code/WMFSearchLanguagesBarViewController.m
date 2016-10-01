@@ -41,7 +41,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self selectFirstLanguageIfNoneSelectedOrIfFirstLanguageHasChanged];
-    self.previousFirstLanguage = [[self languageBarLanguages] firstObject];
+    self.previousFirstLanguage = [self.languageBarLanguages firstObject];
 }
 
 - (void)selectFirstLanguageIfNoneSelectedOrIfFirstLanguageHasChanged {
@@ -60,7 +60,7 @@
 }
 
 - (BOOL)isFirstLanguageTheSameAsLastTime {
-    return [self.previousFirstLanguage isEqualToLanguageLink:[[self languageBarLanguages] firstObject]];
+    return [self.previousFirstLanguage isEqualToLanguageLink:[self.languageBarLanguages firstObject]];
 }
 
 - (void)setHidden:(BOOL)hidden {
@@ -79,7 +79,7 @@
 }
 
 - (void)updateLanguageBarLanguageButtons {
-    [[self languageBarLanguages] enumerateObjectsUsingBlock:^(MWKLanguageLink *_Nonnull language, NSUInteger idx, BOOL *_Nonnull stop) {
+    [self.languageBarLanguages enumerateObjectsUsingBlock:^(MWKLanguageLink *_Nonnull language, NSUInteger idx, BOOL *_Nonnull stop) {
         if (idx >= [self.languageButtons count]) {
             *stop = YES;
         }
@@ -89,7 +89,7 @@
     }];
     
     [self.languageButtons enumerateObjectsUsingBlock:^(UIButton *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        if (idx >= [[self languageBarLanguages] count]) {
+        if (idx >= [self.languageBarLanguages count]) {
             obj.enabled = NO;
             obj.hidden = YES;
         } else {
@@ -103,8 +103,7 @@
     NSUInteger index = [self.languageButtons indexOfObject:sender];
     NSAssert(index != NSNotFound, @"language button not found for language!");
     if (index != NSNotFound) {
-        MWKLanguageLink *lang = [self languageBarLanguages][index];
-        self.currentlySelectedSearchLanguage = lang;
+        self.currentlySelectedSearchLanguage = [self.languageBarLanguages wmf_safeObjectAtIndex:index];
     }
 }
 
