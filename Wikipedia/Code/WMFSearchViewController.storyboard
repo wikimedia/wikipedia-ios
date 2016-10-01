@@ -189,11 +189,6 @@
                     <connections>
                         <outlet property="closeButton" destination="Kjf-LF-NvO" id="lCI-I4-AM0"/>
                         <outlet property="contentViewTop" destination="8MZ-d6-S5y" id="vRR-vo-iHX"/>
-                        <outlet property="languageBarContainer" destination="xlJ-QG-9Zi" id="LNf-20-zCH"/>
-                        <outlet property="languageOneButton" destination="gGK-Lg-uhN" id="2BK-l1-0bQ"/>
-                        <outlet property="languageThreeButton" destination="9C2-oo-p5z" id="K0B-3r-N9i"/>
-                        <outlet property="languageTwoButton" destination="Zpf-xN-ND1" id="1Th-ul-qYe"/>
-                        <outlet property="otherLanguagesButton" destination="xWF-WY-cEi" id="D9l-nd-2ip"/>
                         <outlet property="recentSearchesContainerView" destination="tpe-pb-Bgw" id="aD2-ul-dw2"/>
                         <outlet property="resultsListContainerView" destination="Ia7-49-Gwu" id="xdS-en-9mw"/>
                         <outlet property="searchContentContainer" destination="RWd-Ft-cEc" id="1ml-U9-Erw"/>
@@ -204,87 +199,9 @@
                         <outlet property="searchSuggestionButton" destination="ukX-0p-5ey" id="O0X-WP-Nym"/>
                         <outlet property="separatorView" destination="a3z-uC-8hv" id="qND-75-Ceo"/>
                         <outlet property="suggestionButtonHeightConstraint" destination="kmj-N8-U2n" id="xhh-6i-8mi"/>
-                        <outletCollection property="languageButtons" destination="gGK-Lg-uhN" id="hdU-EP-dMJ"/>
-                        <outletCollection property="languageButtons" destination="Zpf-xN-ND1" id="lLY-Ba-71j"/>
-                        <outletCollection property="languageButtons" destination="9C2-oo-p5z" id="bp1-BC-EEU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A7p-O3-yFe" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xlJ-QG-9Zi" userLabel="Language Container">
-                    <subviews>
-                        <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dFR-By-zsk" userLabel="Separator View">
-                            <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="1" id="9Uj-8I-d9R"/>
-                                <constraint firstAttribute="height" constant="32" id="R8c-in-HFF"/>
-                                <constraint firstAttribute="width" constant="1" id="vIg-pe-KhB"/>
-                            </constraints>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="R8c-in-HFF"/>
-                                    <exclude reference="vIg-pe-KhB"/>
-                                </mask>
-                            </variation>
-                        </view>
-                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gGK-Lg-uhN" customClass="WMFUnderlineButton">
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <inset key="titleEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
-                            <state key="normal" title="Button">
-                                <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="setLanguageWithSender:" destination="tkf-8P-b2O" eventType="touchUpInside" id="HMz-jF-QpA"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="998" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpf-xN-ND1" customClass="WMFUnderlineButton">
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <inset key="titleEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
-                            <state key="normal" title="Button">
-                                <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="setLanguageWithSender:" destination="tkf-8P-b2O" eventType="touchUpInside" id="f8m-IP-3Pc"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="998" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9C2-oo-p5z" customClass="WMFUnderlineButton">
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <inset key="titleEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
-                            <state key="normal" title="Button">
-                                <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="setLanguageWithSender:" destination="tkf-8P-b2O" eventType="touchUpInside" id="3m1-zJ-5Sr"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xWF-WY-cEi" customClass="WMFTitleInsetRespectingButton">
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <inset key="titleEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
-                            <state key="normal" title="Button">
-                                <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="openLanguagePicker:" destination="tkf-8P-b2O" eventType="touchUpInside" id="GJc-5c-WCb"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstItem="Zpf-xN-ND1" firstAttribute="width" secondItem="9C2-oo-p5z" secondAttribute="width" priority="997" id="7pR-ql-iZG"/>
-                        <constraint firstAttribute="bottom" secondItem="dFR-By-zsk" secondAttribute="bottom" id="BwX-Hg-sld"/>
-                        <constraint firstItem="xWF-WY-cEi" firstAttribute="centerY" secondItem="xlJ-QG-9Zi" secondAttribute="centerY" id="NRs-pZ-nQQ"/>
-                        <constraint firstItem="gGK-Lg-uhN" firstAttribute="centerY" secondItem="xlJ-QG-9Zi" secondAttribute="centerY" id="RnL-Py-PCD"/>
-                        <constraint firstItem="9C2-oo-p5z" firstAttribute="leading" secondItem="Zpf-xN-ND1" secondAttribute="trailing" constant="8" id="aDN-eL-5qL"/>
-                        <constraint firstItem="dFR-By-zsk" firstAttribute="leading" secondItem="xlJ-QG-9Zi" secondAttribute="leading" id="bM8-TM-2pt"/>
-                        <constraint firstItem="Zpf-xN-ND1" firstAttribute="centerY" secondItem="gGK-Lg-uhN" secondAttribute="centerY" id="bd1-Wc-ZnS"/>
-                        <constraint firstItem="Zpf-xN-ND1" firstAttribute="leading" secondItem="gGK-Lg-uhN" secondAttribute="trailing" constant="8" id="fAk-8A-0cA"/>
-                        <constraint firstAttribute="trailing" secondItem="dFR-By-zsk" secondAttribute="trailing" id="h9w-Hl-U2z"/>
-                        <constraint firstAttribute="height" constant="44" id="hE6-Up-vv4"/>
-                        <constraint firstItem="xWF-WY-cEi" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9C2-oo-p5z" secondAttribute="trailing" constant="8" id="hca-to-osA"/>
-                        <constraint firstItem="9C2-oo-p5z" firstAttribute="centerY" secondItem="gGK-Lg-uhN" secondAttribute="centerY" id="ojy-0z-PRb"/>
-                        <constraint firstItem="gGK-Lg-uhN" firstAttribute="leading" secondItem="xlJ-QG-9Zi" secondAttribute="leading" constant="16" id="vtT-we-D06"/>
-                        <constraint firstAttribute="trailing" secondItem="xWF-WY-cEi" secondAttribute="trailing" constant="16" id="zuO-BO-y1K"/>
-                    </constraints>
-                </view>
             </objects>
             <point key="canvasLocation" x="642" y="2849"/>
         </scene>
