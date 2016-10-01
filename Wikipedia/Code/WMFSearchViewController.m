@@ -37,7 +37,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                        WMFRecentSearchesViewControllerDelegate,
                                        UITextFieldDelegate,
                                        WMFArticleListTableViewControllerDelegate,
-                                       WMFLanguagesViewControllerDelegate>
+                                       WMFLanguagesViewControllerDelegate,
+                                       WMFSearchLanguagesBarViewControllerDelegate>
 
 @property (nonatomic, strong) MWKDataStore *dataStore;
 
@@ -45,6 +46,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @property (nonatomic, strong) RecentSearchesViewController *recentSearchesViewController;
 @property (nonatomic, strong) WMFSearchResultsTableViewController *resultsListController;
+@property (nonatomic, strong) WMFSearchLanguagesBarViewController *searchLanguagesBarViewController;
 
 @property (strong, nonatomic) IBOutlet UIView *searchFieldContainer;
 @property (strong, nonatomic) IBOutlet UITextField *searchField;
@@ -299,9 +301,16 @@ return;
         [self configureRecentSearchList];
     }
     if ([segue.destinationViewController isKindOfClass:[WMFSearchLanguagesBarViewController class]]) {
+        self.searchLanguagesBarViewController = (WMFSearchLanguagesBarViewController *)segue.destinationViewController;
+        self.searchLanguagesBarViewController.delegate = self;
+        
         // Allow size of contained VC's view to control container size: http://stackoverflow.com/a/34279613
-        segue.destinationViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+        self.searchLanguagesBarViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
     }
+}
+
+- (void)searchLanguagesBarController:(WMFSearchLanguagesBarViewController *)controller didChangeCurrentlySelectedSearchLanguage:(MWKLanguageLink*)language{
+    [self searchForSearchTerm:self.searchField.text];
 }
 
 #pragma mark - Separator View
@@ -402,7 +411,7 @@ return;
 }
 
 - (NSURL *)currentlySelectedSearchURL {
-    return [self selectedLanguage].siteURL;
+    return self.searchLanguagesBarViewController.currentlySelectedSearchLanguage.siteURL;
 }
 
 - (void)didCancelSearch {
