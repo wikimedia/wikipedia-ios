@@ -102,7 +102,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="aQA-T5-obx" userLabel="Languages bar container">
+                            <containerView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="aQA-T5-obx" userLabel="Languages Bar Container">
                                 <connections>
                                     <segue destination="jWX-gY-OwH" kind="embed" id="RO6-QL-HnF"/>
                                 </connections>
