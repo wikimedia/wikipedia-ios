@@ -45,22 +45,22 @@
 }
 
 - (void)selectFirstLanguageIfNoneSelectedOrIfFirstLanguageHasChanged {
-    if(![self isAnyButtonSelected] || ![self isFirstLanguageTheSameAsLastTime]){
+    if([self isEveryButtonUnselected] || [self isFirstLanguageDifferentFromLastTime]){
         [self setLanguageWithSender:self.languageButtons.firstObject];
     }
 }
 
-- (BOOL)isAnyButtonSelected{
+- (BOOL)isEveryButtonUnselected{
     for(UIButton *button in self.languageButtons){
         if(button.selected){
-            return YES;
+            return NO;
         }
     }
-    return NO;
+    return YES;
 }
 
-- (BOOL)isFirstLanguageTheSameAsLastTime {
-    return [self.previousFirstLanguage isEqualToLanguageLink:[self.languageBarLanguages firstObject]];
+- (BOOL)isFirstLanguageDifferentFromLastTime {
+    return ![self.previousFirstLanguage isEqualToLanguageLink:[self.languageBarLanguages firstObject]];
 }
 
 - (void)setHidden:(BOOL)hidden {
