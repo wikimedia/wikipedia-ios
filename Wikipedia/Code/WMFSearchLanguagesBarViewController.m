@@ -29,22 +29,15 @@
     [self.languageButtons enumerateObjectsUsingBlock:^(UIButton *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         obj.tintColor = [UIColor wmf_blueTintColor];
     }];
-    
-    UIImage *buttonBackground = [UIImage wmf_imageFromColor:[UIColor whiteColor]];
-    UIImage *highlightedButtonBackground = [UIImage wmf_imageFromColor:[UIColor colorWithWhite:0.9 alpha:1]];
-    [self.otherLanguagesButton setBackgroundImage:buttonBackground forState:UIControlStateNormal];
-    [self.otherLanguagesButton setBackgroundImage:highlightedButtonBackground forState:UIControlStateHighlighted];
-    [self.otherLanguagesButton.layer setCornerRadius:2.0f];
-    [self.otherLanguagesButton setClipsToBounds:YES];
+    [self.otherLanguagesButton setBackgroundImage:[UIImage wmf_imageFromColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [self.otherLanguagesButton setBackgroundImage:[UIImage wmf_imageFromColor:[UIColor colorWithWhite:0.9 alpha:1]] forState:UIControlStateHighlighted];
     [self.otherLanguagesButton setTitle:MWLocalizedString(@"main-menu-title", nil) forState:UIControlStateNormal];
     self.otherLanguagesButton.titleLabel.font = [UIFont wmf_subtitle];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     [self updateLanguageBarLanguageButtons];
-    
     self.hidden = ![[NSUserDefaults wmf_userDefaults] wmf_showSearchLanguageBar];
 }
 
@@ -69,7 +62,6 @@
     self.previousFirstLanguage = [[self languageBarLanguages] firstObject];
 }
 
-
 - (void)setHidden:(BOOL)hidden {
     if(hidden){
         self.heightContraint.constant = 0;
@@ -92,7 +84,6 @@
         }
         UIButton *button = self.languageButtons[idx];
         [button setTitle:[language localizedName] forState:UIControlStateNormal];
-        
         [button setSelected:[[language siteURL] isEqual:[[self selectedLanguage] siteURL]]];
     }];
     
@@ -120,21 +111,13 @@
     _currentlySelectedSearchLanguage = currentlySelectedSearchLanguage;
  
     [[NSUserDefaults wmf_userDefaults] wmf_setCurrentSearchLanguageDomain:currentlySelectedSearchLanguage.siteURL];
-    
     [self.delegate searchLanguagesBarController:self didChangeCurrentlySelectedSearchLanguage:currentlySelectedSearchLanguage];
-    
     [self updateLanguageBarLanguageButtons];
 }
 
 - (MWKLanguageLink *)selectedLanguage {
     NSURL *siteURL = [[NSUserDefaults wmf_userDefaults] wmf_currentSearchLanguageDomain];
-    MWKLanguageLink *lang = nil;
-    if (siteURL) {
-        lang = [[MWKLanguageLinkController sharedInstance] languageForSiteURL:siteURL];
-    } else {
-        lang = [self appLanguage];
-    }
-    return lang;
+    return siteURL ? [[MWKLanguageLinkController sharedInstance] languageForSiteURL:siteURL] : [self appLanguage];
 }
 
 - (nullable MWKLanguageLink *)appLanguage {
