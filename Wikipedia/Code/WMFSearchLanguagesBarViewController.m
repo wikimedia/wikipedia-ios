@@ -140,8 +140,4 @@
     [self updateLanguageBarLanguageButtons];
 }
 
-- (NSURL *)currentlySelectedSearchURL {
-    return [self selectedLanguage].siteURL;
-}
-
 @end
