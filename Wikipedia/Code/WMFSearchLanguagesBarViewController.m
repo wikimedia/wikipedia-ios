@@ -5,17 +5,14 @@
 @interface WMFSearchLanguagesBarViewController () <WMFLanguagesViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *heightContraint;
-@property (nonatomic) BOOL hidden;
-
 @property (strong, nonatomic) IBOutlet UIButton *languageOneButton;
 @property (strong, nonatomic) IBOutlet UIButton *languageTwoButton;
 @property (strong, nonatomic) IBOutlet UIButton *languageThreeButton;
 @property (strong, nonatomic) IBOutlet UIButton *otherLanguagesButton;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *languageButtons;
-
 @property (strong, nonatomic) MWKLanguageLink *previousFirstLanguage;
-
-@property (nonatomic, strong) MWKLanguageLink* currentlySelectedSearchLanguage;
+@property (strong, nonatomic) MWKLanguageLink* currentlySelectedSearchLanguage;
+@property (nonatomic) BOOL hidden;
 
 @end
 
