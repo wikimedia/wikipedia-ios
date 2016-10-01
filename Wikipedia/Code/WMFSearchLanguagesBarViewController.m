@@ -23,8 +23,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.languageButtons enumerateObjectsUsingBlock:^(UIButton *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        obj.tintColor = [UIColor wmf_blueTintColor];
+    [self.languageButtons enumerateObjectsUsingBlock:^(UIButton *_Nonnull button, NSUInteger idx, BOOL *_Nonnull stop) {
+        button.tintColor = [UIColor wmf_blueTintColor];
     }];
     [self.otherLanguagesButton setBackgroundImage:[UIImage wmf_imageFromColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     [self.otherLanguagesButton setBackgroundImage:[UIImage wmf_imageFromColor:[UIColor colorWithWhite:0.9 alpha:1]] forState:UIControlStateHighlighted];
