@@ -41,6 +41,18 @@
     self.hidden = ![[NSUserDefaults wmf_userDefaults] wmf_showSearchLanguageBar];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self selectFirstLanguageIfNoneSelectedOrIfFirstLanguageHasChanged];
+    self.previousFirstLanguage = [[self languageBarLanguages] firstObject];
+}
+
+- (void)selectFirstLanguageIfNoneSelectedOrIfFirstLanguageHasChanged {
+    if(![self isAnyButtonSelected] || ![self isFirstLanguageTheSameAsLastTime]){
+        [self setLanguageWithSender:self.languageButtons.firstObject];
+    }
+}
+
 - (BOOL)isAnyButtonSelected{
     for(UIButton *button in self.languageButtons){
         if(button.selected){
@@ -50,16 +62,8 @@
     return NO;
 }
 
-- (void)selectFirstLanguageIfNoneSelectedOrIfFirstLanguageHasChanged {
-    if(![self isAnyButtonSelected] || ![self.previousFirstLanguage isEqualToLanguageLink:[[self languageBarLanguages] firstObject]]){
-        [self setLanguageWithSender:self.languageButtons.firstObject];
-    }
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self selectFirstLanguageIfNoneSelectedOrIfFirstLanguageHasChanged];
-    self.previousFirstLanguage = [[self languageBarLanguages] firstObject];
+- (BOOL)isFirstLanguageTheSameAsLastTime {
+    return [self.previousFirstLanguage isEqualToLanguageLink:[[self languageBarLanguages] firstObject]];
 }
 
 - (void)setHidden:(BOOL)hidden {
