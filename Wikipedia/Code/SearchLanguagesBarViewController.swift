@@ -7,11 +7,8 @@ import Foundation
 class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate {
     weak var delegate: SearchLanguagesBarViewControllerDelegate?
     
-    @IBOutlet private var languageOneButton: UIButton?
-    @IBOutlet private var languageTwoButton: UIButton?
-    @IBOutlet private var languageThreeButton: UIButton?
-    @IBOutlet private var otherLanguagesButton: UIButton?
     @IBOutlet private var languageButtons: [UIButton] = []
+    @IBOutlet private var otherLanguagesButton: UIButton?
     @IBOutlet private var heightConstraint: NSLayoutConstraint?
     
     private var previousFirstLanguage: MWKLanguageLink?
