@@ -233,10 +233,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
     if (self.traitCollection.verticalSizeClass != newCollection.verticalSizeClass) {
         [self.view setNeedsUpdateConstraints];
-        [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
-            [self.view layoutSubviews];
-        }
-                                     completion:nil];
     }
 }
 
