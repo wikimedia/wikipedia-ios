@@ -102,6 +102,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
             if let selectedLanguage = selectedLanguage() {
                 button.selected = language.isEqualToLanguageLink(selectedLanguage)
             }else{
+                assert(false, "selectedLanguage should have been set at this point")
                 button.selected = false
             }
         }
@@ -125,10 +126,14 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     }
 
     private func selectedLanguage() -> MWKLanguageLink? {
-        guard let siteURL = NSUserDefaults.wmf_userDefaults().wmf_currentSearchLanguageDomain() else {
-            return MWKLanguageLinkController.sharedInstance().appLanguage
+        var selectedLanguage:MWKLanguageLink?
+        if let siteURL = NSUserDefaults.wmf_userDefaults().wmf_currentSearchLanguageDomain() {
+            selectedLanguage = MWKLanguageLinkController.sharedInstance().languageForSiteURL(siteURL)
+        }else{
+            selectedLanguage = MWKLanguageLinkController.sharedInstance().appLanguage
         }
-        return MWKLanguageLinkController.sharedInstance().languageForSiteURL(siteURL)
+        assert(selectedLanguage != nil, "Expected language not set")
+        return selectedLanguage
     }
     
     @IBAction private func openLanguagePicker() {
