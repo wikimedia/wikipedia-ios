@@ -27,6 +27,7 @@
 #import "WebViewController.h"
 #import "WMFArticleListDataSourceTableViewController.h"
 #import "WMFExploreViewController.h"
+#import "WMFLanguagesViewController.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"

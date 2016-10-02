@@ -299,7 +299,7 @@
         <!--Search Languages Bar View Controller-->
         <scene sceneID="hzd-EC-Bmf">
             <objects>
-                <viewController id="jWX-gY-OwH" customClass="WMFSearchLanguagesBarViewController" sceneMemberID="viewController">
+                <viewController id="jWX-gY-OwH" customClass="SearchLanguagesBarViewController" customModule="Wikipedia" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KmN-DY-Ftt"/>
                         <viewControllerLayoutGuide type="bottom" id="1Y5-MX-atE"/>
@@ -321,7 +321,7 @@
                                     <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="setLanguageWithSender:" destination="jWX-gY-OwH" eventType="touchUpInside" id="bsi-AK-x4L"/>
+                                    <action selector="setLanguageWithSender:" destination="jWX-gY-OwH" eventType="touchUpInside" id="jht-BW-fTW"/>
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="998" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WJp-HZ-PFr" customClass="WMFUnderlineButton">
@@ -331,7 +331,7 @@
                                     <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="setLanguageWithSender:" destination="jWX-gY-OwH" eventType="touchUpInside" id="Vj9-QT-uKx"/>
+                                    <action selector="setLanguageWithSender:" destination="jWX-gY-OwH" eventType="touchUpInside" id="Kd8-Kw-1U6"/>
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="998" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u5D-PX-Vyp" customClass="WMFUnderlineButton">
@@ -341,7 +341,7 @@
                                     <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="setLanguageWithSender:" destination="jWX-gY-OwH" eventType="touchUpInside" id="YZm-Wi-F0o"/>
+                                    <action selector="setLanguageWithSender:" destination="jWX-gY-OwH" eventType="touchUpInside" id="pZN-cl-nsZ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jiw-B9-ljV" customClass="WMFTitleInsetRespectingButton">
@@ -357,7 +357,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="openLanguagePicker:" destination="jWX-gY-OwH" eventType="touchUpInside" id="fjd-zg-RnN"/>
+                                    <action selector="openLanguagePicker" destination="jWX-gY-OwH" eventType="touchUpInside" id="aof-d9-PyO"/>
                                 </connections>
                             </button>
                             <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rly-Nt-Gci" userLabel="Separator View">
@@ -407,14 +407,14 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="44"/>
                     <connections>
-                        <outlet property="heightContraint" destination="PNI-Oh-9ff" id="1V5-uk-4v3"/>
-                        <outlet property="languageOneButton" destination="oqE-Xn-Paw" id="55H-an-F2d"/>
-                        <outlet property="languageThreeButton" destination="u5D-PX-Vyp" id="di1-Ku-h36"/>
-                        <outlet property="languageTwoButton" destination="WJp-HZ-PFr" id="pEY-wR-WIr"/>
-                        <outlet property="otherLanguagesButton" destination="Jiw-B9-ljV" id="9Nc-dq-dpL"/>
-                        <outletCollection property="languageButtons" destination="oqE-Xn-Paw" id="b2t-5Y-5kM"/>
-                        <outletCollection property="languageButtons" destination="WJp-HZ-PFr" id="hf8-F4-cYY"/>
-                        <outletCollection property="languageButtons" destination="u5D-PX-Vyp" id="n78-TE-omy"/>
+                        <outlet property="heightConstraint" destination="PNI-Oh-9ff" id="H0d-D5-9ni"/>
+                        <outlet property="languageOneButton" destination="oqE-Xn-Paw" id="80I-QF-2pt"/>
+                        <outlet property="languageThreeButton" destination="u5D-PX-Vyp" id="g40-Zc-gCQ"/>
+                        <outlet property="languageTwoButton" destination="WJp-HZ-PFr" id="igx-mk-LFn"/>
+                        <outlet property="otherLanguagesButton" destination="Jiw-B9-ljV" id="hcH-JU-N1z"/>
+                        <outletCollection property="languageButtons" destination="oqE-Xn-Paw" collectionClass="NSMutableArray" id="RBP-TK-Wje"/>
+                        <outletCollection property="languageButtons" destination="WJp-HZ-PFr" collectionClass="NSMutableArray" id="3pP-S2-62d"/>
+                        <outletCollection property="languageButtons" destination="u5D-PX-Vyp" collectionClass="NSMutableArray" id="YXv-ra-U8y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eR3-yK-u5m" userLabel="First Responder" sceneMemberID="firstResponder"/>

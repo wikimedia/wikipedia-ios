@@ -36,7 +36,7 @@
 
 @interface WMFPreferredLanguagesViewController : WMFLanguagesViewController
 
-+ (instancetype)preferredLanguagesViewController;
++ (instancetype)preferredLanguagesViewController NS_SWIFT_NAME(preferredLanguagesViewController());
 
 @property (nonatomic, weak) id<WMFPreferredLanguagesViewControllerDelegate> delegate;
 
