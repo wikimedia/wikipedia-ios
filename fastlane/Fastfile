@@ -117,31 +117,17 @@ platform :ios do
 
   desc "Build the app for distibution"
   lane :build do
-    cert
-
-    sigh(
-      provisioning_name: "Continue Reading",
-      app_identifier: "org.wikimedia.wikipedia.ContinueReadingWidget"
-    )
-
-    sigh(
-      provisioning_name: "Top Read",
-      app_identifier: "org.wikimedia.wikipedia.TopReadWidget"
-    )
-
-    sigh(
-      provisioning_name: "AppStore",
-      app_identifier: "org.wikimedia.wikipedia"
-    )
-
-    # badge(dark: true, shield: "#{get_version_number}-#{get_build_number}-blue", shield_no_resize: true)
-
-    gym(
-      configuration: "Release",
-      scheme: "Wikipedia",
-      sdk: "iphoneos10.0"
-    )
-
+    project_dir = ".."
+    build_dir = "../build"
+    
+    product_name = "Wikipedia"
+    workspace_name = product_name
+    scheme_name = product_name
+    
+    sh "xcodebuild -workspace #{project_dir}/#{workspace_name}.xcworkspace -scheme #{scheme_name} -archivePath #{build_dir}/#{product_name}.xcarchive archive"
+    sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath #{build_dir}/#{product_name}.xcarchive -exportPath #{build_dir}"
+    sh "zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM"
+    sh "mv #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.app.dSYM.zip"
   end
 
   # This lane requires HOCKEY_PRODUCTION environment variable to be set.
@@ -149,6 +135,9 @@ platform :ios do
   # 2. Use a .env file
   desc "updates version, builds, and pushes to Testlfight"
   lane :push_beta do
+    build_dir = "build"
+    product_name = "Wikipedia"
+    ipa_path = "#{build_dir}/#{product_name}.ipa"
 
     increment_build_number({
       build_number: latest_testflight_build_number + 1
@@ -166,12 +155,14 @@ platform :ios do
     raise "Must specifiy HockeyApp public identifier." unless hockey_prod_id.length > 0
 
     hockey(
+      ipa: ipa_path,
       public_identifier: hockey_prod_id,
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
     )
 
     pilot(
+      ipa: ipa_path,
       skip_waiting_for_build_processing: true,
       skip_submission: false,
       distribute_external: false
@@ -193,7 +184,11 @@ platform :ios do
   lane :submit_release do
     build = ENV['BUILD']
     raise "Must specifiy a BUILD." unless build.length > 0
-
+    
+    build_dir = "build"
+    product_name = "Wikipedia"
+    ipa_path = "#{build_dir}/#{product_name}.ipa"
+    
     sh "git pull"
     sh "git checkout betas/#{sha}"
 
@@ -208,6 +203,7 @@ platform :ios do
     )
 
     deliver(
+      ipa: ipa_path,
       submit_for_review: true,
       automatic_release: false,
       build_number:build.to_i,
