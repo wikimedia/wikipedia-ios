@@ -87,6 +87,18 @@ public class WMFSparklineView : UIView {
         }
     }
     
+    @IBInspectable public var gridlineWidth: CGFloat = 0.5 {
+        didSet {
+            gridlineLayer.lineWidth = gridlineWidth
+        }
+    }
+    
+    @IBInspectable public var sparklineWidth: CGFloat = 1.0 {
+        didSet {
+            sparklineLayer.lineWidth = sparklineWidth
+        }
+    }
+    
     public func updateMinAndMaxFromDataValues() {
         var min = CGFloat.max
         var max = CGFloat.min
@@ -105,12 +117,12 @@ public class WMFSparklineView : UIView {
     
     func setup() {
         gridlineLayer.fillColor = UIColor.clearColor().CGColor
+        gridlineWidth = 0.5
         gridlineLayer.strokeColor = UIColor(white: 0.6, alpha: 0.2).CGColor
-        gridlineLayer.lineWidth = 1.0
         layer.addSublayer(gridlineLayer)
         
         sparklineLayer.fillColor = UIColor.clearColor().CGColor
-        sparklineLayer.lineWidth = 1.5
+        sparklineWidth = 1.5
         sparklineLayer.strokeColor = UIColor.blackColor().CGColor
     
         let startColor = UIColor(red: 51.0/255.0, green:  102.0/255.0, blue: 204.0/255.0, alpha: 1.0).CGColor
