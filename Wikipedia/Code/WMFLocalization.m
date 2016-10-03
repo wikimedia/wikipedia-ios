@@ -1,5 +1,7 @@
 #import "WMFLocalization.h"
 
+static NSString *const WMFLocalizationBundleIdentifier = @"org.wikimedia.WMFUtilities";
+
 NSString *localizedStringForKeyFallingBackOnEnglish(NSString *key) {
     NSString *outStr = NSLocalizedString(key, nil);
     if (![outStr isEqualToString:key]) {
@@ -9,7 +11,7 @@ NSString *localizedStringForKeyFallingBackOnEnglish(NSString *key) {
     static NSBundle *englishBundle = nil;
 
     if (!englishBundle) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"en" ofType:@"lproj"];
+        NSString *path = [[NSBundle bundleWithIdentifier:WMFLocalizationBundleIdentifier] pathForResource:@"en" ofType:@"lproj"];
         englishBundle = [NSBundle bundleWithPath:path];
     }
     return [englishBundle localizedStringForKey:key value:@"" table:nil];
@@ -20,7 +22,7 @@ NSString *localizedStringForURLWithKeyFallingBackOnEnglish(NSURL *url, NSString 
     if (language == nil) {
         language = @"en";
     }
-    NSString *path = [[NSBundle mainBundle] pathForResource:language ofType:@"lproj"];
+    NSString *path = [[NSBundle bundleWithIdentifier:WMFLocalizationBundleIdentifier] pathForResource:language ofType:@"lproj"];
     NSBundle *languageBundle = [NSBundle bundleWithPath:path];
     NSString *translation = nil;
     if (languageBundle) {

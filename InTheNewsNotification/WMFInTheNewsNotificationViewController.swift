@@ -3,6 +3,7 @@ import UserNotifications
 import UserNotificationsUI
 import WMFModel
 import WMFUI
+import WMFUtilities
 
 class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationContentExtension {
     @IBOutlet weak var imageView: UIImageView!
@@ -18,6 +19,8 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
     
     @IBOutlet weak var articleTitleLabelLeadingMargin: NSLayoutConstraint!
     @IBOutlet weak var summaryLabelLeadingMargin: NSLayoutConstraint!
+    
+    let numberFormatter = NSNumberFormatter()
     
     var marginWidthForVisibleImageView: CGFloat = 0
     
@@ -35,6 +38,8 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
     override func viewDidLoad() {
         super.viewDidLoad()
         marginWidthForVisibleImageView = articleTitleLabelLeadingMargin.constant
+        numberFormatter.numberStyle = .DecimalStyle
+        numberFormatter.maximumFractionDigits = 1
     }
     
     func didReceiveNotification(notification: UNNotification) {
@@ -50,6 +55,10 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             summaryLabel.attributedText = attributedString
         }
         
+       
+        
+        timeLabel.text = localizedStringForKeyFallingBackOnEnglish("in-the-news-currently-trending")
+
         
         articleTitleLabel.text = title
         articleSubtitleLabel.text = extract
@@ -67,10 +76,22 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             self.imageViewHidden = true
         }
         
-        if let viewCounts = info[WMFNotificationInfoViewCountsKey] as? [NSNumber] {
+        if let viewCounts = info[WMFNotificationInfoViewCountsKey] as? [NSNumber] where viewCounts.count > 0 {
             sparklineView.dataValues = viewCounts
             sparklineView.showsVerticalGridlines = true
             sparklineView.updateMinAndMaxFromDataValues()
+            
+            if let count = viewCounts.last?.doubleValue
+                , let countString = numberFormatter.stringFromNumber(NSNumber(double:0.001*count)), let readerCountFormat = localizedStringForKeyFallingBackOnEnglish("in-the-news-reader-count-thousands") {
+                
+                let readerCountString = readerCountFormat.stringByReplacingOccurrencesOfString("$1", withString: countString)
+                readerCountLabel.text = readerCountString
+            } else {
+                readerCountLabel.text = ""
+            }
+        } else {
+            readerCountLabel.text = ""
+            
         }
     }
 

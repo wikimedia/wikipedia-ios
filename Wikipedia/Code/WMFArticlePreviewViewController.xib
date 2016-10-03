@@ -72,7 +72,7 @@
                                     <real key="value" value="1.5"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="number" keyPath="gridlineWidth">
-                                    <real key="value" value="0.5"/>
+                                    <real key="value" value="1"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
