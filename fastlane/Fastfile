@@ -137,6 +137,7 @@ platform :ios do
   lane :push_beta do
     build_dir = "build"
     product_name = "Wikipedia"
+    ipa_path = "#{build_dir}/#{product_name}.ipa"
 
     increment_build_number({
       build_number: latest_testflight_build_number + 1
@@ -154,13 +155,14 @@ platform :ios do
     raise "Must specifiy HockeyApp public identifier." unless hockey_prod_id.length > 0
 
     hockey(
-      ipa: "#{build_dir}/#{product_name}.ipa",
+      ipa: ipa_path,
       public_identifier: hockey_prod_id,
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
     )
 
     pilot(
+      ipa: ipa_path,
       skip_waiting_for_build_processing: true,
       skip_submission: false,
       distribute_external: false
@@ -185,6 +187,7 @@ platform :ios do
     
     build_dir = "build"
     product_name = "Wikipedia"
+    ipa_path = "#{build_dir}/#{product_name}.ipa"
     
     sh "git pull"
     sh "git checkout betas/#{sha}"
@@ -200,7 +203,7 @@ platform :ios do
     )
 
     deliver(
-      ipa: "#{build_dir}/#{product_name}.ipa",
+      ipa: ipa_path,
       submit_for_review: true,
       automatic_release: false,
       build_number:build.to_i,
