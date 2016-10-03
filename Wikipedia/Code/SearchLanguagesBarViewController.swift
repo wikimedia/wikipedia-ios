@@ -64,7 +64,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     }
     
     private func languageBarLanguages() -> [MWKLanguageLink] {
-        return MWKLanguageLinkController.sharedInstance().preferredLanguages.enumerate().flatMap{ $0.index < 3 ? $0.element : nil }
+        return Array(MWKLanguageLinkController.sharedInstance().preferredLanguages.prefix(3))
     }
 
     private func selectFirstLanguageIfNoneSelectedOrIfFirstLanguageHasChanged(){
