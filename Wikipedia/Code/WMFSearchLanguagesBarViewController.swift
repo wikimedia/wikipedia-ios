@@ -39,7 +39,9 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        _ = languageButtons.map{$0.tintColor = UIColor.wmf_blueTintColor()}
+        for button in languageButtons {
+            button.tintColor = UIColor.wmf_blueTintColor()
+        }
         otherLanguagesButton?.setBackgroundImage(UIImage.wmf_imageFromColor(UIColor.whiteColor()), forState: .Normal)
         otherLanguagesButton?.setBackgroundImage(UIImage.wmf_imageFromColor(UIColor(white: 0.9, alpha: 1.0)), forState: .Highlighted)
         otherLanguagesButton?.setTitle(localizedStringForKeyFallingBackOnEnglish("main-menu-title"), forState: .Normal)
