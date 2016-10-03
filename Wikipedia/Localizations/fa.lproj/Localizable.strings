@@ -365,6 +365,7 @@
 "home-hide-suggestion-prompt" = "این پیشنهاد را پنهان کن";
 "home-hide-suggestion-cancel" = "لغو";
 "home-accessibility-label" = "ویکی‌پدیا, کاوش";
+// Fuzzy
 "home-button-accessibility-label" = "دکمه خانه";
 "potd-empty-error-description" = "خطا در دریافت تصویر روز برای $1";
 "potd-description-prefix" = "تصویر روز برای $1";

@@ -81,15 +81,12 @@
 "wikitext-upload-result-unknown" = "Không thể xác định kết quả tải lên mã wiki.";
 "wikitext-upload-captcha-error" = "Lỗi khi xác nhận bằng CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Cần xác nhận bằng CAPTCHA.";
-// Fuzzy
-"wikitext-upload-save" = "Đang lưu…";
+"wikitext-upload-save" = "Đang đăng tải…";
 "wikitext-upload-save-sign-in" = "Đăng nhập";
 "wikitext-upload-save-sign-in-benefits" = "Để cho những người dùng sửa đổi có thể liên lạc với bạn & bạn có thể xem những bài bạn đã sửa đổi.";
-// Fuzzy
-"wikitext-upload-save-anonymously" = "Lưu vô danh";
+"wikitext-upload-save-anonymously" = "Đăng vô danh";
 "wikitext-upload-save-anonymously-warning" = "Các sửa đổi sẽ ghi rõ địa chỉ IP của thiết bị của bạn. Bạn có thể $1 để bảo vệ quyền riêng tư của bạn một chút hơn.";
-// Fuzzy
-"wikitext-upload-save-terms-and-license" = "Với việc lưu trang, bạn chấp nhận các $1 và phát hành, một cách không thể hủy bỏ, các đóng góp của bạn theo giấy phép $2.";
+"wikitext-upload-save-terms-and-license" = "Với việc đăng tải, bạn chấp nhận các $1 và phát hành, một cách không thể hủy bỏ, các đóng góp của bạn theo giấy phép $2.";
 "wikitext-upload-save-terms-name" = "Điều khoản Sử dụng";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Mở liên kết";
@@ -172,18 +169,15 @@
 "page-history-downloading" = "Đang tải lịch sử trang…";
 "navbar-title-mode-edit-wikitext" = "Sửa đổi";
 "navbar-title-mode-login" = "Đăng nhập";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "Đăng nhập";
+"navbar-title-mode-login-and-save" = "Đăng nhập và đăng tải";
 "navbar-title-mode-create-account" = "Mở Tài khoản";
-// Fuzzy
-"navbar-title-mode-create-account-and-save" = "Mở tài khoản và lưu giữ";
+"navbar-title-mode-create-account-and-save" = "Mở tài khoản và đăng tải";
 "navbar-title-mode-edit-wikitext-warning" = "Vấn đề Sửa đổi";
 "navbar-title-mode-edit-wikitext-disallow" = "Vấn đề Sửa đổi";
 "navbar-title-mode-edit-wikitext-preview" = "Xem trước";
 "navbar-title-mode-edit-wikitext-captcha" = "Cần Xác nhận Nhanh chóng";
 "navbar-title-mode-edit-wikitext-summary" = "Miêu tả sửa đổi của bạn";
-// Fuzzy
-"navbar-title-mode-edit-wikitext-save" = "Lưu";
+"navbar-title-mode-edit-wikitext-save" = "Đăng";
 "edit-summary-choice-linked-words" = "Đặt liên kết";
 "edit-summary-choice-fixed-grammar" = "Sửa ngữ pháp";
 "edit-summary-choice-fixed-inaccuracy" = "Sửa thông tin sai";
@@ -248,6 +242,7 @@
 "button-next" = "Tiếp";
 "button-done" = "Xong";
 "button-save" = "Lưu";
+"button-publish" = "Đăng";
 "button-ok" = "OK";
 "button-save-for-later" = "Lưu để đọc sau";
 "button-saved-for-later" = "Đã lưu";
@@ -272,15 +267,13 @@
 "table-of-contents-close-accessibility-label" = "Đóng Mục lục";
 "table-of-contents-close-accessibility-hint" = "Đóng";
 "table-of-contents-popover-description" = "Xem cấu trúc bài viết";
-// Fuzzy
-"abuse-filter-warning-heading" = "Sửa đổi này có vẻ không có tính xây dựng. Bạn có chắc chắn muốn lưu nó?";
+"abuse-filter-warning-heading" = "Sửa đổi này có vẻ không có tính xây dựng. Bạn có chắc chắn muốn đăng nó?";
 "abuse-filter-warning-subheading" = "Sửa đổi của bạn có thể có những vấn đề sau:";
 "abuse-filter-warning-caps" = "Viết TOÀN CHỮ HOA";
 "abuse-filter-warning-blanking" = "Tẩy trống bài hoặc thêm rác (spam)";
 "abuse-filter-warning-irrelevant" = "Đặt liên kết ngoài hoặc tập tin không có liên quan";
 "abuse-filter-warning-repeat" = "Ký tự lặp đi lặp lại";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Bạn không thể lưu sửa đổi này. Vui lòng quay lại và thay đổi nó.";
+"abuse-filter-disallow-heading" = "Bạn không thể đăng sửa đổi này. Vui lòng quay lại và thay đổi nó.";
 "abuse-filter-disallow-unconstructive" = "Một bộ lọc tự động đã xác định rằng sửa đổi này có thể không có tính xây dựng hoặc là một âm mưu phá hoại.";
 "abuse-filter-disallow-notable" = "Wikipedia là một bách khoa toàn thư; chỉ có nội dung trung lập và đủ nổi bật được trình bày tại đây.";
 "menu-edit-accessibility-label" = "Sửa đổi";
@@ -356,6 +349,7 @@
 "home-hide-suggestion-prompt" = "Ẩn gợi ý này";
 "home-hide-suggestion-cancel" = "Huỷ bỏ";
 "home-accessibility-label" = "Wikipedia, Khám phá";
+// Fuzzy
 "home-button-accessibility-label" = "Nút Trang chủ";
 "potd-empty-error-description" = "Thất bại khi lấy hình trong ngày cho $1";
 "potd-description-prefix" = "Hình trong ngày cho $1";
@@ -417,4 +411,9 @@
 "find-in-page-popover-description" = "Tìm văn bản trong bài viết";
 "continue-reading-empty-title" = "Không bài nào được đọc gần đây";
 "continue-reading-empty-description" = "Kiếm thêm bài Wikipedia để đọc";
+"top-read-see-more" = "Xem thêm bài đọc nhiều nhất";
 "top-read-see-more-trending" = "Xem thêm xu hướng";
+"top-read-reader-count-thousands" = "$1k";
+"top-read-header-with-language" = "Wikipedia $1";
+"top-read-header-generic" = "Wikipedia";
+"reference-title" = "Chú thích $1";

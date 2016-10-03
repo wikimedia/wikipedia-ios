@@ -14,6 +14,7 @@
 // Author: Shbib Al-Subaie
 // Author: Tarawneh
 // Author: بدارين
+// Author: ديفيد
 // Author: محمد أحمد عبد الفتاح
 // Author: محمد عصام
 
@@ -88,15 +89,12 @@
 "wikitext-upload-result-unknown" = "غير قادر على تحديد نتيجة تحميل النص";
 "wikitext-upload-captcha-error" = "خطأ في التحقق من كابتشا.";
 "wikitext-upload-captcha-needed" = "مطلوب التحقق من كابتشا.";
-// Fuzzy
 "wikitext-upload-save" = "جارٍ الحفظ...";
 "wikitext-upload-save-sign-in" = "تسجيل الدخول";
 "wikitext-upload-save-sign-in-benefits" = "ليستطيع المحررون الزملاء التواصل معك وليكون باستطاعتك رؤية المقالات التي عدَّلتَها.";
-// Fuzzy
-"wikitext-upload-save-anonymously" = "احفظ كمستخدم مجهول";
+"wikitext-upload-save-anonymously" = "انشر بصفة مستخدم مجهول";
 "wikitext-upload-save-anonymously-warning" = "سوف تحفظ التعديلات تحت اسم عنوان الأيبي الخاص بجهازك. لو $1 سوف يتوفر لك المزيد من الخصوصية.";
-// Fuzzy
-"wikitext-upload-save-terms-and-license" = "لو قمت بالحفظ، غأنت توافق على $1، وكذلك تنشر مساهماتك بموجب ترخيص $2 بشكل رجعة فيه.";
+"wikitext-upload-save-terms-and-license" = "لو قمت بالحفظ، فأنت توافق على $1، وكذلك تنشر مساهماتك بموجب ترخيص $2 بشكل لا رجعة فيه.";
 "wikitext-upload-save-terms-name" = "شروط الاستخدام";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "فتح الرابط";
@@ -179,18 +177,15 @@
 "page-history-downloading" = "جارٍ تحميل تاريخ المقالة...";
 "navbar-title-mode-edit-wikitext" = "تعديل";
 "navbar-title-mode-login" = "سجّل الدخول";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "سجل الدخول واحفظ";
 "navbar-title-mode-create-account" = "إنشاء الحساب";
-// Fuzzy
-"navbar-title-mode-create-account-and-save" = "أنشئ حسابًا واحفظ";
+"navbar-title-mode-create-account-and-save" = "أنشئ حسابًا وانشر";
 "navbar-title-mode-edit-wikitext-warning" = "مشاكل في التعديل";
 "navbar-title-mode-edit-wikitext-disallow" = "مشاكل في التعديل";
 "navbar-title-mode-edit-wikitext-preview" = "معاينة";
 "navbar-title-mode-edit-wikitext-captcha" = "تحقق سريع مطلوب";
 "navbar-title-mode-edit-wikitext-summary" = "صف تعديلك";
-// Fuzzy
-"navbar-title-mode-edit-wikitext-save" = "احفظ";
+"navbar-title-mode-edit-wikitext-save" = "انشر";
 "edit-summary-choice-linked-words" = "إضافة وصلات";
 "edit-summary-choice-fixed-grammar" = "تم إصلاح النحو";
 "edit-summary-choice-fixed-inaccuracy" = "تم تعديل عدم الدقة";
@@ -255,6 +250,7 @@
 "button-next" = "التالي";
 "button-done" = "تم";
 "button-save" = "حفظ";
+"button-publish" = "انشر";
 "button-ok" = "حسنا";
 "button-save-for-later" = "احفظها لوقت لاحق";
 "button-saved-for-later" = "احفظها لوقت لاحق";
@@ -279,15 +275,13 @@
 "table-of-contents-close-accessibility-label" = "أغلق قائمة المحتويات";
 "table-of-contents-close-accessibility-hint" = "أغلق";
 "table-of-contents-popover-description" = "احصل على نظرة عامة عن المقالات";
-// Fuzzy
-"abuse-filter-warning-heading" = "يبدو أن هذا التعديل غير مثمر، هل أنت متأكد من أنك ترغب في حفظه؟";
+"abuse-filter-warning-heading" = "يبدو أن هذا التعديل غير مثمر، هل أنت متأكد من أنك ترغب في نشره؟";
 "abuse-filter-warning-subheading" = "قد يحتوي تعديلك على واحد مما يلي أو أكثر:";
 "abuse-filter-warning-caps" = "الكتابة باستخدام أحرف كبيرة";
 "abuse-filter-warning-blanking" = "مسح محتوى المقالات أو محتوى غير مرغوب فيه";
 "abuse-filter-warning-irrelevant" = "روابط أو صور خارجية لا صلة لها بالموضوع";
 "abuse-filter-warning-repeat" = "أحرف متكررررررة بلا داعي";
-// Fuzzy
-"abuse-filter-disallow-heading" = "لا يمكن حفظ هذا التعديل , يرجى الرجوع وتغييره";
+"abuse-filter-disallow-heading" = "لا يمكن نشر هذا التعديل، يرجى الرجوع وتغييره";
 "abuse-filter-disallow-unconstructive" = "لقد حدد أحد المرشحات الآلية أن هذا التعديل قد يكون غير مجدي أو محاولة تخريب.";
 "abuse-filter-disallow-notable" = "ويكيبيديا موسوعة وما يجب إضافته هنا هو محتوى محايد وذي أهمية.";
 "menu-edit-accessibility-label" = "عدل";
@@ -363,6 +357,7 @@
 "home-hide-suggestion-prompt" = "أخف هذا الاقتراح";
 "home-hide-suggestion-cancel" = "إلغاء";
 "home-accessibility-label" = "ويكيبيديا، استكشف";
+// Fuzzy
 "home-button-accessibility-label" = "زر الصفحة الرئيسية";
 "potd-empty-error-description" = "فشل في اجتلاب صورة اليوم في تاريخ $1";
 "potd-description-prefix" = "صورة اليوم في تاريخ $1";
@@ -425,3 +420,6 @@
 "continue-reading-empty-title" = "لا يوجد مقالات قرءت مؤخرا";
 "continue-reading-empty-description" = "تصفح ويكيبيديا لقراءة المزيد من المقالات";
 "top-read-see-more-trending" = "شاهد المزيد من الأمور الرائجة";
+"top-read-header-with-language" = "$1 ويكيبيديا";
+"top-read-header-generic" = "ويكيبيديا";
+"reference-title" = "$1 مرجع";

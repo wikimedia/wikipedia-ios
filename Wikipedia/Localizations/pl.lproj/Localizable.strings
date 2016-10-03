@@ -87,8 +87,7 @@
 "wikitext-upload-captcha-needed" = "Potrzebna weryfikacja CAPTCHA.";
 "wikitext-upload-save" = "Publikowanie...";
 "wikitext-upload-save-sign-in" = "Zaloguj się";
-// Fuzzy
-"wikitext-upload-save-anonymously" = "Zapisz anonimowo";
+"wikitext-upload-save-anonymously" = "Opublikuj anonimowo";
 "wikitext-upload-save-anonymously-warning" = "Zmiany będą oznaczone przez adres IP urządzenia. Jeśli $1, otrzymasz wyższy poziom prywatności.";
 // Fuzzy
 "wikitext-upload-save-terms-and-license" = "Zapisując, zgadzasz się na $1 i nieodwołalnie publikujesz swój wkład na licencji $2.";
@@ -177,8 +176,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Podgląd";
 "navbar-title-mode-edit-wikitext-captcha" = "Szybka weryfikacja wymagana";
 "navbar-title-mode-edit-wikitext-summary" = "Opisz swoją edycję";
-// Fuzzy
-"navbar-title-mode-edit-wikitext-save" = "Zapisz";
+"navbar-title-mode-edit-wikitext-save" = "Opublikuj";
 "edit-summary-choice-linked-words" = "Dodane linki";
 "edit-summary-choice-fixed-grammar" = "Poprawiono pisownię";
 "edit-summary-choice-fixed-inaccuracy" = "Poprawiono nieścisłości";
@@ -240,6 +238,7 @@
 "button-next" = "Następny";
 "button-done" = "Gotowe";
 "button-save" = "Zapisz";
+"button-publish" = "Opublikuj";
 "button-ok" = "OK";
 "button-report-a-bug" = "Zgłoś błąd";
 "onboarding-create-account" = "Utwórz konto";
@@ -267,8 +266,7 @@
 "abuse-filter-warning-blanking" = "Blankowanie lub spamowanie artykułów";
 "abuse-filter-warning-irrelevant" = "Nieodpowiednie linki zewnętrzne lub obrazy";
 "abuse-filter-warning-repeat" = "Powtaaaarzanie znaków";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Nie możesz zapisać tej edycji. Wróć i popraw ją.";
+"abuse-filter-disallow-heading" = "Nie możesz opublikować tej edycji. Wróć i popraw ją.";
 "abuse-filter-disallow-unconstructive" = "Zautomatyzowany filtr rozpoznał tę edycję jako potencjalnie niekonstruktywną albo próbę wandalizmu";
 "abuse-filter-disallow-notable" = "Wikipedia to encyklopedia, a tu dopuszczalne są tylko neutralne i znaczące treści.";
 "menu-edit-accessibility-label" = "Edytuj";

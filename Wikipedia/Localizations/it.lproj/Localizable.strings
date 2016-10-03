@@ -361,6 +361,7 @@
 "home-hide-suggestion-prompt" = "Nascondi questo suggerimento";
 "home-hide-suggestion-cancel" = "Annulla";
 "home-accessibility-label" = "Wikipedia, esplora";
+// Fuzzy
 "home-button-accessibility-label" = "Tasto pagina principale";
 "potd-empty-error-description" = "Impossibile recuperare l'immagine del giorno del $1";
 "potd-description-prefix" = "Immagine del giorno per $1";
@@ -427,3 +428,4 @@
 "top-read-reader-count-thousands" = "$1 mila";
 "top-read-header-with-language" = "Wikipedia in $1";
 "top-read-header-generic" = "Wikipedia";
+"reference-title" = "Riferimento $1";

@@ -349,6 +349,7 @@
 "home-hide-suggestion-prompt" = "Ocultar esta sugestão";
 "home-hide-suggestion-cancel" = "Cancelar";
 "home-accessibility-label" = "Wikipédia, Explora";
+// Fuzzy
 "home-button-accessibility-label" = "Botão de início";
 "potd-empty-error-description" = "Falhou ao obter a imagem do dia de $1";
 "potd-description-prefix" = "Imagem do dia de $1";
@@ -415,3 +416,4 @@
 "top-read-reader-count-thousands" = "$1k";
 "top-read-header-with-language" = "Wikipédia em $1";
 "top-read-header-generic" = "Wikipédia";
+"reference-title" = "Referência $1";

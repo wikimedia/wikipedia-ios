@@ -343,6 +343,7 @@
 "home-hide-suggestion-prompt" = "এই পরামর্শ লুকান";
 "home-hide-suggestion-cancel" = "বাতিল";
 "home-accessibility-label" = "উইকিপিডিয়া, অন্বেষণ";
+// Fuzzy
 "home-button-accessibility-label" = "নিড়পাতা বোতাম";
 "potd-empty-error-description" = "$1 দিনের ছবি পুনরুদ্ধার করতে ব্যর্থ হয়েছে";
 "potd-description-prefix" = "$1 তারিখে আজকের নির্বাচিত ছবি";
@@ -406,3 +407,4 @@
 "top-read-reader-count-thousands" = "$1 হাজার";
 "top-read-header-with-language" = "$1 উইকিপিডিয়া";
 "top-read-header-generic" = "উইকিপিডিয়া";
+"reference-title" = "তথ্যসূত্র $1";

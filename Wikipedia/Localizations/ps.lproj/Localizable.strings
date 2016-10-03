@@ -229,6 +229,7 @@
 "home-last-update-label" = "وروستئ هممهالېدنه: $1";
 "home-last-update-never-label" = "وروستنۍ اوسمهالېدنه: هېڅکله";
 "home-hide-suggestion-cancel" = "ناگارل";
+// Fuzzy
 "home-button-accessibility-label" = "کور تڼۍ";
 "potd-description-prefix" = "د $1 د ورځې انځور";
 "welcome-explore-tell-me-more" = "نور راته ووايه";
