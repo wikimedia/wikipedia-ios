@@ -29,9 +29,13 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
             if let siteURL = NSUserDefaults.wmf_userDefaults().wmf_currentSearchLanguageDomain(), let selectedLanguage = MWKLanguageLinkController.sharedInstance().languageForSiteURL(siteURL) {
                 return selectedLanguage
             }else{
-                let appLang = MWKLanguageLinkController.sharedInstance().appLanguage
-                self.currentlySelectedSearchLanguage = appLang
-                return appLang
+                if let appLang:MWKLanguageLink? = MWKLanguageLinkController.sharedInstance().appLanguage {
+                    self.currentlySelectedSearchLanguage = appLang
+                    return appLang
+                }else{
+                    assert(false, "appLanguage should have been set at this point")
+                    return nil
+                }
             }
         }
         set {
