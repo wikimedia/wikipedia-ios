@@ -135,7 +135,7 @@ platform :ios do
   # 2. Use a .env file
   desc "updates version, builds, and pushes to Testlfight"
   lane :push_beta do
-    build_dir = "../build"
+    build_dir = "build"
     product_name = "Wikipedia"
 
     increment_build_number({
@@ -183,7 +183,7 @@ platform :ios do
     build = ENV['BUILD']
     raise "Must specifiy a BUILD." unless build.length > 0
     
-    build_dir = "../build"
+    build_dir = "build"
     product_name = "Wikipedia"
     
     sh "git pull"
