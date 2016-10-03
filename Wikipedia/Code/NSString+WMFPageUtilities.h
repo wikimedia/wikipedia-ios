@@ -7,17 +7,6 @@ extern NSString *const WMFCitationFragmentSubstring;
 @interface NSString (WMFPageUtilities)
 
 /**
- * Determine if a URL-like string is an internal link.
- *
- * The receiver can either be a relative or absolute URL, or the path component of a URL.
- *
- * @return `YES` if the receiver contains a substring indicating it is an internal-wiki link, otherwise `NO`.
- *
- * @see WMFInternalLinkPrefix
- */
-- (BOOL)wmf_isWikiResource;
-
-/**
  * Determine if a fragment points to a reference.
  *
  * The receiver is usually obtained from the fragment of a link tapped by the user.

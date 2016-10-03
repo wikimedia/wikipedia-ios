@@ -157,7 +157,12 @@ NSString *const WMFCCBySALicenseURL =
                                                return;
                                            }
 
-                                           if ([href wmf_isWikiResource]) {
+                                           NSURL *url = [NSURL URLWithString:href];
+                                           if (!url) {
+                                               return;
+                                           }
+
+                                           if ([url wmf_isWikiResource]) {
                                                NSURL *url = [NSURL URLWithString:href];
                                                if (!url.wmf_domain) {
                                                    url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];
@@ -1050,7 +1055,7 @@ NSString *const WMFCCBySALicenseURL =
 - (void)showReferenceFromLastClickedReferencesGroupAtIndex:(NSInteger)index {
     if (index >= 0 && self.lastClickedReferencesGroup.count > 0) {
         NSDictionary *selectedReference = [self.lastClickedReferencesGroup wmf_safeObjectAtIndex:index];
-        if(selectedReference){
+        if (selectedReference) {
             CGFloat width = MIN(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
             CGRect rect = CGRectZero;
             NSDictionary *rectDict = selectedReference[@"rect"];
