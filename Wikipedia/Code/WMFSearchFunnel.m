@@ -1,7 +1,7 @@
 #import "WMFSearchFunnel.h"
 
 static NSString *const kSchemaName = @"MobileWikiAppSearch";
-static int const kSchemaVersion = 10641988;
+static int const kSchemaVersion = 10641988; // Please email someone in Discovery (Search Team's Product Manager or a Data Analyst) if you change the schema name or version.
 static NSString *const kAppInstallIdKey = @"appInstallID";
 static NSString *const kSearchSessionTokenKey = @"searchSessionToken";
 
