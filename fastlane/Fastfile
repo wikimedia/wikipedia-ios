@@ -125,7 +125,7 @@ platform :ios do
     scheme_name = product_name
     
     sh "xcodebuild -workspace #{project_dir}/#{workspace_name}.xcworkspace -scheme #{scheme_name} -archivePath #{build_dir}/#{product_name}.xcarchive archive"
-    sh "xcodebuild -exportArchive -exportOptionsPlist #{project_dir}/ExportOptions.plist -archivePath #{build_dir}/#{product_name}.xcarchive -exportPath #{build_dir}"
+    sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath #{build_dir}/#{product_name}.xcarchive -exportPath #{build_dir}"
     sh "zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM"
     sh "mv #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.app.dSYM.zip"
   end
