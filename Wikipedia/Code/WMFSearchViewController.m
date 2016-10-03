@@ -35,13 +35,13 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                        WMFRecentSearchesViewControllerDelegate,
                                        UITextFieldDelegate,
                                        WMFArticleListTableViewControllerDelegate,
-                                       SearchLanguagesBarViewControllerDelegate>
+                                       WMFSearchLanguagesBarViewControllerDelegate>
 
 @property (nonatomic, strong) MWKDataStore *dataStore;
 
 @property (nonatomic, strong) RecentSearchesViewController *recentSearchesViewController;
 @property (nonatomic, strong) WMFSearchResultsTableViewController *resultsListController;
-@property (nonatomic, strong) SearchLanguagesBarViewController *searchLanguagesBarViewController;
+@property (nonatomic, strong) WMFSearchLanguagesBarViewController *searchLanguagesBarViewController;
 
 @property (strong, nonatomic) IBOutlet UIView *searchFieldContainer;
 @property (strong, nonatomic) IBOutlet UITextField *searchField;
@@ -244,8 +244,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         self.recentSearchesViewController = segue.destinationViewController;
         [self configureRecentSearchList];
     }
-    if ([segue.destinationViewController isKindOfClass:[SearchLanguagesBarViewController class]]) {
-        self.searchLanguagesBarViewController = (SearchLanguagesBarViewController *)segue.destinationViewController;
+    if ([segue.destinationViewController isKindOfClass:[WMFSearchLanguagesBarViewController class]]) {
+        self.searchLanguagesBarViewController = (WMFSearchLanguagesBarViewController *)segue.destinationViewController;
         self.searchLanguagesBarViewController.delegate = self;
         
         // Allow size of contained VC's view to control container size: http://stackoverflow.com/a/34279613
@@ -253,7 +253,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     }
 }
 
-- (void)searchLanguagesBarViewController:(SearchLanguagesBarViewController *)controller didChangeCurrentlySelectedSearchLanguage:(MWKLanguageLink*)language{
+- (void)searchLanguagesBarViewController:(WMFSearchLanguagesBarViewController *)controller didChangeCurrentlySelectedSearchLanguage:(MWKLanguageLink*)language{
     [self searchForSearchTerm:self.searchField.text];
 }
 

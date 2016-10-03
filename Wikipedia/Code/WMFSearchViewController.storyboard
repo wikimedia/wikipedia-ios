@@ -299,7 +299,7 @@
         <!--Search Languages Bar View Controller-->
         <scene sceneID="hzd-EC-Bmf">
             <objects>
-                <viewController id="jWX-gY-OwH" customClass="SearchLanguagesBarViewController" customModule="Wikipedia" sceneMemberID="viewController">
+                <viewController id="jWX-gY-OwH" customClass="WMFSearchLanguagesBarViewController" customModule="Wikipedia" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KmN-DY-Ftt"/>
                         <viewControllerLayoutGuide type="bottom" id="1Y5-MX-atE"/>

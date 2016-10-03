@@ -92,7 +92,7 @@
 		B0379A3A1D8BC83800D973CF /* WMFPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0379A391D8BC83800D973CF /* WMFPopoverBackgroundView.m */; };
 		B0379A3D1D8BC9BA00D973CF /* WMFReferencePopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0379A3B1D8BC9BA00D973CF /* WMFReferencePopoverBackgroundView.m */; };
 		B04393F21D21C04500FD2BD9 /* WMFImageTagParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B04393F11D21C04500FD2BD9 /* WMFImageTagParserTests.m */; };
-		B04DA3C91D9F740800F45DB7 /* SearchLanguagesBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04DA3C81D9F740800F45DB7 /* SearchLanguagesBarViewController.swift */; };
+		B04DA3C91D9F740800F45DB7 /* WMFSearchLanguagesBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04DA3C81D9F740800F45DB7 /* WMFSearchLanguagesBarViewController.swift */; };
 		B062ABC81D88BF370062BE21 /* WMFArticlePreviewViewControllerVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B062ABC71D88BF370062BE21 /* WMFArticlePreviewViewControllerVisualTests.m */; };
 		B063DE601C63FEE9002F2EDE /* UIToolbar+WMFStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = B063DE5F1C63FEE9002F2EDE /* UIToolbar+WMFStyling.m */; };
 		B06531601C220921003BD7DC /* WMFArticlePreviewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B065315F1C220921003BD7DC /* WMFArticlePreviewDataSource.m */; };
@@ -1211,7 +1211,7 @@
 		B04876371C8FC184008F8920 /* sw */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sw; path = sw.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B04876381C8FC248008F8920 /* uz */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uz; path = uz.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B04876391C8FC248008F8920 /* uz */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uz; path = uz.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		B04DA3C81D9F740800F45DB7 /* SearchLanguagesBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchLanguagesBarViewController.swift; sourceTree = "<group>"; };
+		B04DA3C81D9F740800F45DB7 /* WMFSearchLanguagesBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFSearchLanguagesBarViewController.swift; sourceTree = "<group>"; };
 		B05033A91D1F2CCA002E7D4F /* WMFImageTagParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageTagParser.h; path = Wikipedia/Code/WMFImageTagParser.h; sourceTree = SOURCE_ROOT; };
 		B05033AA1D1F2CCA002E7D4F /* WMFImageTagParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageTagParser.m; path = Wikipedia/Code/WMFImageTagParser.m; sourceTree = SOURCE_ROOT; };
 		B05033AC1D1F9AC9002E7D4F /* WMFImageTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageTag.h; path = Wikipedia/Code/WMFImageTag.h; sourceTree = SOURCE_ROOT; };
@@ -3613,7 +3613,7 @@
 		B04DA3C71D9F044100F45DB7 /* Search Languages Bar */ = {
 			isa = PBXGroup;
 			children = (
-				B04DA3C81D9F740800F45DB7 /* SearchLanguagesBarViewController.swift */,
+				B04DA3C81D9F740800F45DB7 /* WMFSearchLanguagesBarViewController.swift */,
 			);
 			name = "Search Languages Bar";
 			sourceTree = "<group>";
@@ -6979,7 +6979,7 @@
 				B0E806D21C0CEB6E0065EBC0 /* PageHistoryViewController.m in Sources */,
 				D8D5DB311D7A206B00526A69 /* UITextField+BlocksKit.m in Sources */,
 				B0E803CC1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m in Sources */,
-				B04DA3C91D9F740800F45DB7 /* SearchLanguagesBarViewController.swift in Sources */,
+				B04DA3C91D9F740800F45DB7 /* WMFSearchLanguagesBarViewController.swift in Sources */,
 				B0E803FA1C0CDDBA0065EBC0 /* WMFUnderlineButton.m in Sources */,
 				B0E8039E1C0CDB3B0065EBC0 /* WMFArticleRequestSerializer.m in Sources */,
 				B0E804421C0CDF850065EBC0 /* MenuLabel.m in Sources */,

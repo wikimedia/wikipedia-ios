@@ -1,11 +1,11 @@
 import Foundation
 
-@objc protocol SearchLanguagesBarViewControllerDelegate: class {
-    func searchLanguagesBarViewController(controller: SearchLanguagesBarViewController, didChangeCurrentlySelectedSearchLanguage language: MWKLanguageLink)
+@objc protocol WMFSearchLanguagesBarViewControllerDelegate: class {
+    func searchLanguagesBarViewController(controller: WMFSearchLanguagesBarViewController, didChangeCurrentlySelectedSearchLanguage language: MWKLanguageLink)
 }
 
-class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate {
-    weak var delegate: SearchLanguagesBarViewControllerDelegate?
+class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate {
+    weak var delegate: WMFSearchLanguagesBarViewControllerDelegate?
     
     @IBOutlet private var languageButtons: [UIButton] = []
     @IBOutlet private var otherLanguagesButton: UIButton?
