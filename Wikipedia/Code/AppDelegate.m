@@ -5,6 +5,7 @@
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 #import <Tweaks/FBTweakShakeWindow.h>
 #import "NSUserActivity+WMFExtensions.h"
+@import UserNotifications;
 
 @interface AppDelegate ()
 
@@ -80,6 +81,7 @@
     [[NSUserDefaults wmf_userDefaults] wmf_setAppInstallDateIfNil:[NSDate date]];
 
     WMFAppViewController *vc = [WMFAppViewController initialAppViewControllerFromDefaultStoryBoard];
+    [UNUserNotificationCenter currentNotificationCenter].delegate = vc; // this needs to be set before the end of didFinishLaunchingWithOptions:
     [vc launchAppInWindow:self.window];
     self.appViewController = vc;
 
