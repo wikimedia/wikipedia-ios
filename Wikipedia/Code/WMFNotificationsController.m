@@ -5,6 +5,8 @@
 
 NSString *const WMFInTheNewsNotificationCategoryIdentifier = @"inTheNewsNotificationCategoryIdentifier";
 NSString *const WMFInTheNewsNotificationReadNowActionIdentifier = @"inTheNewsNotificationReadNowActionIdentifier";
+NSString *const WMFInTheNewsNotificationSaveForLaterActionIdentifier = @"inTheNewsNotificationSaveForLaterActionIdentifier";
+NSString *const WMFInTheNewsNotificationShareActionIdentifier = @"inTheNewsNotificationShareActionIdentifier";
 
 uint64_t const WMFNotificationUpdateInterval = 10;
 
@@ -50,8 +52,8 @@ NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
 
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     UNNotificationAction *readNowAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationReadNowActionIdentifier title:NSLocalizedString(@"in-the-news-notification-read-now-action-title", nil) options:UNNotificationActionOptionForeground];
-    UNNotificationAction *saveForLaterAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationReadNowActionIdentifier title:NSLocalizedString(@"in-the-news-notification-share-action-title", nil) options:UNNotificationActionOptionForeground];
-    UNNotificationAction *shareAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationReadNowActionIdentifier title:NSLocalizedString(@"in-the-news-notification-save-for-later-action-title", nil) options:UNNotificationActionOptionForeground];
+    UNNotificationAction *saveForLaterAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationShareActionIdentifier title:NSLocalizedString(@"in-the-news-notification-share-action-title", nil) options:UNNotificationActionOptionForeground];
+    UNNotificationAction *shareAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationSaveForLaterActionIdentifier title:NSLocalizedString(@"in-the-news-notification-save-for-later-action-title", nil) options:UNNotificationActionOptionForeground];
 
     UNNotificationCategory *inTheNewsCategory = [UNNotificationCategory categoryWithIdentifier:WMFInTheNewsNotificationCategoryIdentifier actions:@[readNowAction, saveForLaterAction, shareAction] intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
     [center setNotificationCategories:[NSSet setWithObject:inTheNewsCategory]];

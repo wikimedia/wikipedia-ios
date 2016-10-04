@@ -1,5 +1,11 @@
 #import <Foundation/Foundation.h>
 
+
+extern NSString *const WMFInTheNewsNotificationCategoryIdentifier;
+extern NSString *const WMFInTheNewsNotificationReadNowActionIdentifier;
+extern NSString *const WMFInTheNewsNotificationSaveForLaterActionIdentifier;
+extern NSString *const WMFInTheNewsNotificationShareActionIdentifier;
+
 extern NSString *const WMFNotificationInfoStoryHTMLKey;
 extern NSString *const WMFNotificationInfoArticleTitleKey;
 extern NSString *const WMFNotificationInfoArticleURLStringKey;

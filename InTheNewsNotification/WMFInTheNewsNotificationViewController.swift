@@ -22,6 +22,8 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
     
     var marginWidthForVisibleImageView: CGFloat = 0
     
+    var articleURL: NSURL?
+    
     var imageViewHidden = false {
         didSet {
             imageView.hidden = imageViewHidden
@@ -44,18 +46,18 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
         let title = info[WMFNotificationInfoArticleTitleKey] as? String
         let extract = info[WMFNotificationInfoArticleExtractKey] as? String
         
+        if let articleURLString = info[WMFNotificationInfoArticleURLStringKey] as? String {
+            articleURL = NSURL(string: articleURLString)
+        }
+        
         if let html = info[WMFNotificationInfoStoryHTMLKey] as? String {
             let font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote, compatibleWithTraitCollection: nil)
             let linkFont = UIFont.boldSystemFontOfSize(font.pointSize)
             let attributedString = html.wmf_attributedStringByRemovingHTMLWithFont(font, linkFont: linkFont)
             summaryLabel.attributedText = attributedString
         }
-        
-       
-        
-        timeLabel.text = localizedStringForKeyFallingBackOnEnglish("in-the-news-currently-trending")
 
-        
+        timeLabel.text = localizedStringForKeyFallingBackOnEnglish("in-the-news-currently-trending")
         articleTitleLabel.text = title
         articleSubtitleLabel.text = extract
         
@@ -84,11 +86,33 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             }
         } else {
             readerCountLabel.text = ""
-            
         }
     }
 
-    func didReceive(response: UNNotificationResponse, completionHandler completion: (UNNotificationContentExtensionResponseOption) -> Swift.Void) {
+    func didReceiveNotificationResponse(response: UNNotificationResponse, completionHandler completion: (UNNotificationContentExtensionResponseOption) -> Void) {
+        guard let articleURL = articleURL, let extensionContext = extensionContext else {
+            completion(.Dismiss)
+            return
+        }
         
+        switch response.actionIdentifier {
+        case UNNotificationDismissActionIdentifier:
+            completion(.Dismiss)
+        case WMFInTheNewsNotificationSaveForLaterActionIdentifier:
+            let dataStore: MWKUserDataStore = SessionSingleton.sharedInstance().userDataStore
+            dataStore.savedPageList.addSavedPageWithURL(articleURL)
+            completion(.Dismiss)
+        case WMFInTheNewsNotificationShareActionIdentifier:
+            // TODO: NYI
+            completion(.Dismiss)
+        case WMFInTheNewsNotificationReadNowActionIdentifier:
+            fallthrough
+        case UNNotificationDefaultActionIdentifier:
+            fallthrough
+        default:
+            extensionContext.openURL(articleURL.wmf_wikipediaSchemeURL, completionHandler: { (didOpen) in
+                completion(.Dismiss)
+            })
+        }
     }
 }
