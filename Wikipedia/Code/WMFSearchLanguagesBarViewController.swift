@@ -71,10 +71,6 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         super.viewWillAppear(animated)
         updateLanguageBarLanguageButtons()
         hidden = !NSUserDefaults.wmf_userDefaults().wmf_showSearchLanguageBar()
-    }
-
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
 
         var selectedButtonCount = 0
         for button in languageButtons{
