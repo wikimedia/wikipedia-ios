@@ -75,21 +75,14 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        selectFirstLanguageIfNoneSelected()
-    }
-    
-    private func selectFirstLanguageIfNoneSelected(){
-        var isCurrentlySelectedLanguageInLanguageBarLanguages = false
-        if let selectedLang = currentlySelectedSearchLanguage {
-            for lang in languageBarLanguages() {
-                if lang.isEqualToLanguageLink(selectedLang) {
-                    isCurrentlySelectedLanguageInLanguageBarLanguages = true
-                }
+
+        var selectedButtonCount = 0
+        for button in languageButtons{
+            if button.selected {
+                selectedButtonCount += 1
             }
         }
-        if !isCurrentlySelectedLanguageInLanguageBarLanguages {
-            setCurrentlySelectedLanguageToButtonLanguage(withSender:languageButtons.first!)
-        }
+        assert(selectedButtonCount == 1, "One button should be selected by now")
     }
     
     private func languageBarLanguages() -> [MWKLanguageLink] {
