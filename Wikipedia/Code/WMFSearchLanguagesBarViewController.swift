@@ -4,14 +4,13 @@ import Foundation
     func searchLanguagesBarViewController(controller: WMFSearchLanguagesBarViewController, didChangeCurrentlySelectedSearchLanguage language: MWKLanguageLink)
 }
 
-class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate {
+class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, WMFLanguagesViewControllerDelegate {
     weak var delegate: WMFSearchLanguagesBarViewControllerDelegate?
     
     @IBOutlet private var languageButtons: [UIButton] = []
     @IBOutlet private var otherLanguagesButton: UIButton?
     @IBOutlet private var heightConstraint: NSLayoutConstraint?
     
-    private var previousFirstLanguage: MWKLanguageLink?
     private var hidden: Bool = false {
         didSet {
             if(hidden){
@@ -26,7 +25,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
 
     private(set) var currentlySelectedSearchLanguage: MWKLanguageLink? {
         get {
-            if let siteURL = NSUserDefaults.wmf_userDefaults().wmf_currentSearchLanguageDomain(), let selectedLanguage = MWKLanguageLinkController.sharedInstance().languageForSiteURL(siteURL) {
+            if let siteURL = NSUserDefaults.wmf_userDefaults().wmf_currentSearchLanguageDomain(), selectedLanguage = MWKLanguageLinkController.sharedInstance().languageForSiteURL(siteURL) {
                 return selectedLanguage
             }else{
                 if let appLang:MWKLanguageLink? = MWKLanguageLinkController.sharedInstance().appLanguage {
@@ -54,8 +53,16 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         otherLanguagesButton?.setBackgroundImage(UIImage.wmf_imageFromColor(UIColor(white: 0.9, alpha: 1.0)), forState: .Highlighted)
         otherLanguagesButton?.setTitle(localizedStringForKeyFallingBackOnEnglish("main-menu-title"), forState: .Normal)
         otherLanguagesButton?.titleLabel?.font = UIFont.wmf_subtitle()
-        
-        previousFirstLanguage = languageBarLanguages().first
+
+        NSNotificationCenter.defaultCenter().addObserverForName(WMFAppLanguageDidChangeNotification, object: nil, queue: nil) { note in
+            if let langController = note.object, appLanguage = langController.appLanguage {
+                self.currentlySelectedSearchLanguage = appLanguage
+            }
+        }
+    }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -66,34 +73,25 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        selectFirstLanguageIfNoneSelectedOrIfFirstLanguageHasChanged()
-        previousFirstLanguage = languageBarLanguages().first
+        selectFirstLanguageIfNoneSelected()
     }
     
-    private func languageBarLanguages() -> [MWKLanguageLink] {
-        return Array(MWKLanguageLinkController.sharedInstance().preferredLanguages.prefix(3))
-    }
-
-    private func selectFirstLanguageIfNoneSelectedOrIfFirstLanguageHasChanged(){
-        if(isEveryButtonUnselected() || isFirstLanguageDifferentFromLastTime()){
+    private func selectFirstLanguageIfNoneSelected(){
+        var isCurrentlySelectedLanguageInLanguageBarLanguages = false
+        if let selectedLang = currentlySelectedSearchLanguage {
+            for lang in languageBarLanguages() {
+                if lang.isEqualToLanguageLink(selectedLang) {
+                    isCurrentlySelectedLanguageInLanguageBarLanguages = true
+                }
+            }
+        }
+        if !isCurrentlySelectedLanguageInLanguageBarLanguages {
             setCurrentlySelectedLanguageToButtonLanguage(withSender:languageButtons.first!)
         }
     }
     
-    private func isEveryButtonUnselected() -> Bool{
-        for button in languageButtons {
-            if button.selected {
-                return false
-            }
-        }
-        return true
-    }
-
-    private func isFirstLanguageDifferentFromLastTime() -> Bool{
-        guard let first = languageBarLanguages().first, previous = previousFirstLanguage else {
-            return false
-        }
-        return !first.isEqualToLanguageLink(previous)
+    private func languageBarLanguages() -> [MWKLanguageLink] {
+        return Array(MWKLanguageLinkController.sharedInstance().preferredLanguages.prefix(3))
     }
 
     private func updateLanguageBarLanguageButtons(){
@@ -122,11 +120,11 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
     }
     
     @IBAction private func setCurrentlySelectedLanguageToButtonLanguage(withSender sender: UIButton) {
-        let index = languageButtons.indexOf(sender)
-        assert(index != NSNotFound, "Language button not found for language")
-        if (index != NSNotFound) {
-            currentlySelectedSearchLanguage = languageBarLanguages()[index!]
+        guard let buttonIndex = languageButtons.indexOf(sender) where languageBarLanguages().indices.contains(buttonIndex) else {
+            assert(false, "Language button not found for language")
+            return
         }
+        currentlySelectedSearchLanguage = languageBarLanguages()[buttonIndex]
     }
     
     @IBAction private func openLanguagePicker() {
@@ -135,7 +133,12 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         presentViewController(UINavigationController.init(rootViewController: languagesVC), animated: true, completion: nil)
     }
 
-    @objc func languagesController(controller: WMFPreferredLanguagesViewController!, didUpdatePreferredLanguages languages: [MWKLanguageLink]!) {
-        updateLanguageBarLanguageButtons()
+    func languagesController(controller: WMFPreferredLanguagesViewController!, didUpdatePreferredLanguages languages: [MWKLanguageLink]!) {
+        // Reminder: nothing needs to be updated here because it happens in view will/did appear.
+    }
+    
+    func languagesController(controller: WMFLanguagesViewController!, didSelectLanguage language: MWKLanguageLink!) {
+        currentlySelectedSearchLanguage = language
+        controller.dismissViewControllerAnimated(true, completion: nil)
     }
 }
