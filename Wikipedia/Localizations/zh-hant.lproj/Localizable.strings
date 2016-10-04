@@ -417,6 +417,6 @@
 "continue-reading-empty-description" = "瀏覽維基百科以讀取更多條目";
 "top-read-see-more" = "查看更多熱門條目";
 "top-read-see-more-trending" = "查看更多動向";
-"top-read-reader-count-thousands" = "$1千";
+"number-thousands" = "$1千";
 "top-read-header-with-language" = "$1維基百科";
 "top-read-header-generic" = "維基百科";

@@ -403,6 +403,6 @@
 "continue-reading-empty-description" = "আরও নিবন্ধ পাঠ করতে উইকিপিডিয়া অন্বেষণ করুন";
 "top-read-see-more" = "আরও শীর্ষ পঠিত দেখুন";
 "top-read-see-more-trending" = "আরো প্রবণতা দেখুন";
-"top-read-reader-count-thousands" = "$1 হাজার";
+"number-thousands" = "$1 হাজার";
 "top-read-header-with-language" = "$1 উইকিপিডিয়া";
 "top-read-header-generic" = "উইকিপিডিয়া";

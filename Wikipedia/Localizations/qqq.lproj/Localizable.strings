@@ -417,7 +417,7 @@
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "top-read-see-more" = "Text for footer button allowing the user to see more top read articles";
 "top-read-see-more-trending" = "See more trending";
-"top-read-reader-count-thousands" = "$1 is replaced with a number specifying how many people read the article. This number is in thousands. In English the letter 'k' is commonly used after a number to indicate that number is in 'thousands'. So the letter 'k' should be changed to a character or short string indicating thousands.";
+
 "top-read-header-with-language" = "$1 Wikipedia - for example English Wikipedia\n{{Identical|Wikipedia}}";
 "top-read-header-generic" = "Wikipedia\n{{Identical|Wikipedia}}";
 "reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]'";
@@ -426,4 +426,7 @@
 "in-the-news-notification-save-for-later-action-title" = "Title on the 'Save for later' action button";
 "in-the-news-notification-title" = "Title for the 'In the news' notification";
 "in-the-news-currently-trending" = "Currently trending";
-"in-the-news-reader-count-thousands" = "$1k readers";
+
+"number-thousands" = "$1k - $1 is replaced with a number represented in thousands. In English the letter 'k' is commonly used after a number to indicate that number is in 'thousands'. So the letter 'k' should be changed to a character or short string indicating thousands. For example 500,000 would become 500k";
+"number-millions" = "$1M - $1 is replaced with a number represented in millions. In English 'M' is commonly used after a number to indicate that number is in 'millions'. So the 'M' should be changed to a character or short string indicating millions. For example 500,000,000 would become 500M";
+"number-billions" = "$1B - $1 is replaced with a number represented in billions. In English 'B' is commonly used after a number to indicate that number is in 'billions'. So the 'B' should be changed to a character or short string indicating billions. For example 5,000,000,000 would become 5B";

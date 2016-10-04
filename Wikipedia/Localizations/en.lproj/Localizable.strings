@@ -468,7 +468,6 @@
 
 "top-read-see-more" = "See more top read";
 "top-read-see-more-trending" = "See more trending";
-"top-read-reader-count-thousands" = "$1k";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
 
@@ -479,4 +478,7 @@
 "in-the-news-notification-save-for-later-action-title" = "Save for later";
 "in-the-news-notification-title" = "In the news";
 "in-the-news-currently-trending" = "Currently trending";
-"in-the-news-reader-count-thousands" = "$1k readers";
+
+"number-thousands" = "$1k";
+"number-millions" = "$1M";
+"number-billions" = "$1B";

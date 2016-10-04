@@ -407,7 +407,7 @@
 "continue-reading-empty-description" = "Wikipedia für weitere Artikel entdecken";
 "top-read-see-more" = "Weitere meistgelesene Artikel ansehen";
 "top-read-see-more-trending" = "Weiteres Laufendes ansehen";
-"top-read-reader-count-thousands" = "$1 T";
+"number-thousands" = "$1 T";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Einzelnachweis $1";

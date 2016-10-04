@@ -410,6 +410,6 @@
 "continue-reading-empty-description" = "לגלות עוד ערכים לקרוא בוויקיפדיה";
 "top-read-see-more" = "צפייה בערכים פופולריים נוספים";
 "top-read-see-more-trending" = "לראות עוד נושאים חמים";
-"top-read-reader-count-thousands" = "$1k";
+"number-thousands" = "$1k";
 "top-read-header-with-language" = "ויקיפדיה בשפה $1";
 "top-read-header-generic" = "ויקיפדיה";

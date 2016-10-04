@@ -738,6 +738,7 @@
 		D85D34D81D74D0B300845125 /* WMFUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; };
 		D864D6821DA2F8A900B86934 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
 		D864D6841DA2F90F00B86934 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
+		D864D68A1DA3E2D700B86934 /* NSNumberFormatter+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = D864D6891DA3E2D700B86934 /* NSNumberFormatter+WMFExtras.swift */; };
 		D86706BE1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */; };
 		D86706C31D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706C21D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m */; };
 		D87A55991D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87A55971D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.m */; };
@@ -2337,6 +2338,7 @@
 		D85D34C81D74D07500845125 /* WMFTodayTopReadWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFTodayTopReadWidgetViewController.swift; sourceTree = "<group>"; };
 		D85D34CB1D74D07500845125 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		D85D34CD1D74D07500845125 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D864D6891DA3E2D700B86934 /* NSNumberFormatter+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSNumberFormatter+WMFExtras.swift"; sourceTree = SOURCE_ROOT; };
 		D86706BC1D3D4566003AB2FC /* WMFExploreCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFExploreCollectionViewCell.h; path = Wikipedia/Code/WMFExploreCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
 		D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFExploreCollectionViewCell.m; path = Wikipedia/Code/WMFExploreCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
 		D86706C11D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFColumnarCollectionViewLayout.h; path = Wikipedia/Code/WMFColumnarCollectionViewLayout.h; sourceTree = SOURCE_ROOT; };
@@ -5615,6 +5617,7 @@
 		D8494AEF1D6C8BE200337433 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D864D6891DA3E2D700B86934 /* NSNumberFormatter+WMFExtras.swift */,
 				B0E804891C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.h */,
 				B0E8048A1C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.m */,
 				B0E803961C0CDB150065EBC0 /* WMFNumberOfExtractCharacters.h */,
@@ -7507,6 +7510,7 @@
 				D8EEA0FB1D6E21A400D88143 /* NSFileManager+WMFGroup.m in Sources */,
 				D8AC391B1D6F22A6007E3C14 /* NSDateFormatter+WMFExtensions.m in Sources */,
 				D844D9CC1D6CBA530042D692 /* NSArray+WMFPredicate.swift in Sources */,
+				D864D68A1DA3E2D700B86934 /* NSNumberFormatter+WMFExtras.swift in Sources */,
 				D8D270301D75BDD800D093A8 /* NSBundle+WMFInfoUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

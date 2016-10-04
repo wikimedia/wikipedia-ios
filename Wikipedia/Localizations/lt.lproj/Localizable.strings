@@ -336,6 +336,6 @@
 "find-in-page-popover-description" = "Ieškoti teksto straipsniuose";
 "continue-reading-empty-title" = "Nėra neseniai skaitytų straipsnių";
 "top-read-see-more-trending" = "Peržiūrėti daugiau tendencijų";
-"top-read-reader-count-thousands" = "$1 tūkst.";
+"number-thousands" = "$1 tūkst.";
 "top-read-header-with-language" = "$1 Vikipedija";
 "top-read-header-generic" = "Vikipedija";

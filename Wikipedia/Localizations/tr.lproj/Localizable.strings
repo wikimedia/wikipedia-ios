@@ -421,6 +421,6 @@
 "continue-reading-empty-description" = "Daha fazla makale okumak için Vikipedi'yi keşfedin";
 "top-read-see-more" = "En çok okunanları gör";
 "top-read-see-more-trending" = "Trendleri gör";
-"top-read-reader-count-thousands" = "$1b";
+"number-thousands" = "$1b";
 "top-read-header-with-language" = "$1 Vikipedi";
 "top-read-header-generic" = "Vikipedi";

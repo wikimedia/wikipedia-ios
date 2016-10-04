@@ -225,9 +225,8 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 vc.sparklineView.maxDataValue = dataValueMax
                 vc.sparklineView.dataValues = viewCounts
 
-                if let doubleValue = viewCounts.last?.doubleValue, let viewCountsString = numberFormatter.stringFromNumber(NSNumber(double: doubleValue/1000)) {
-                    let format = localizedStringForKeyFallingBackOnEnglish("top-read-reader-count-thousands")
-                    vc.viewCountLabel.text = format.stringByReplacingOccurrencesOfString("$1", withString: viewCountsString)
+                if let count = viewCounts.last {
+                    vc.viewCountLabel.text = numberFormatter.localizedThousandsStringFromNumber(count)
                 } else {
                     vc.viewCountLabel.text = nil
                 }

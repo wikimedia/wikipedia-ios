@@ -81,11 +81,8 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             sparklineView.showsVerticalGridlines = true
             sparklineView.updateMinAndMaxFromDataValues()
             
-            if let count = viewCounts.last?.doubleValue
-                , let countString = numberFormatter.stringFromNumber(NSNumber(double:0.001*count)), let readerCountFormat = localizedStringForKeyFallingBackOnEnglish("in-the-news-reader-count-thousands") {
-                
-                let readerCountString = readerCountFormat.stringByReplacingOccurrencesOfString("$1", withString: countString)
-                readerCountLabel.text = readerCountString
+            if let count = viewCounts.last {
+                readerCountLabel.text = numberFormatter.localizedThousandsStringFromNumber(count)
             } else {
                 readerCountLabel.text = ""
             }

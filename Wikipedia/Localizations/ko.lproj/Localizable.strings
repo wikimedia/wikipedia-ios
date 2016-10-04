@@ -416,6 +416,6 @@
 "find-in-page-popover-description" = "문서에서 텍스트 검색";
 "continue-reading-empty-title" = "최근에 읽은 문서 없음";
 "continue-reading-empty-description" = "더 많은 문서를 읽기 위해 위키백과 둘러보기";
-"top-read-reader-count-thousands" = "$1k";
+"number-thousands" = "$1k";
 "top-read-header-with-language" = "$1 위키백과";
 "top-read-header-generic" = "위키백과";

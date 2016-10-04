@@ -424,6 +424,6 @@
 "continue-reading-empty-description" = "Esplorare Wikipedia per altre voci da leggere";
 "top-read-see-more" = "Vedi i più lettu";
 "top-read-see-more-trending" = "Vedi i più di tendenza";
-"top-read-reader-count-thousands" = "$1 mila";
+"number-thousands" = "$1 mila";
 "top-read-header-with-language" = "Wikipedia in $1";
 "top-read-header-generic" = "Wikipedia";
