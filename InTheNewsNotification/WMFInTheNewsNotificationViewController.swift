@@ -20,8 +20,6 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
     @IBOutlet weak var articleTitleLabelLeadingMargin: NSLayoutConstraint!
     @IBOutlet weak var summaryLabelLeadingMargin: NSLayoutConstraint!
     
-    let numberFormatter = NSNumberFormatter()
-    
     var marginWidthForVisibleImageView: CGFloat = 0
     
     var imageViewHidden = false {
@@ -38,8 +36,6 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
     override func viewDidLoad() {
         super.viewDidLoad()
         marginWidthForVisibleImageView = articleTitleLabelLeadingMargin.constant
-        numberFormatter.numberStyle = .DecimalStyle
-        numberFormatter.maximumFractionDigits = 1
     }
     
     func didReceiveNotification(notification: UNNotification) {
@@ -82,7 +78,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             sparklineView.updateMinAndMaxFromDataValues()
             
             if let count = viewCounts.last {
-                readerCountLabel.text = numberFormatter.localizedThousandsStringFromNumber(count)
+                readerCountLabel.text = NSNumberFormatter.localizedThousandsStringFromNumber(count)
             } else {
                 readerCountLabel.text = ""
             }

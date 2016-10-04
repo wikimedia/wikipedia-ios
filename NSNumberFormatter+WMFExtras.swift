@@ -2,29 +2,40 @@ import Foundation
 
 extension NSNumberFormatter {
     
-    
-    public func localizedThousandsStringFromNumber(number: NSNumber) -> String {
+    public class func localizedThousandsStringFromNumber(number: NSNumber) -> String {
+        struct Static {
+            static var onceToken: dispatch_once_t = 0
+            static var formatter: NSNumberFormatter? = nil
+        }
+        
+        dispatch_once(&Static.onceToken) {
+            Static.formatter = NSNumberFormatter()
+            Static.formatter?.numberStyle = .DecimalStyle
+            Static.formatter?.maximumFractionDigits = 1
+        }
+        
         let doubleValue = number.doubleValue
         let absDoubleValue = abs(doubleValue)
         
-        var adjustedDoubleValue: Double =  0
+        var adjustedDoubleValue: Double = doubleValue
         var formatString: String = "$1"
         
-        if absDoubleValue < 1000000 {
-            adjustedDoubleValue = doubleValue/1000.0
-            formatString = localizedStringForKeyFallingBackOnEnglish("number-thousands")
-        } else if absDoubleValue < 1000000000 {
-            adjustedDoubleValue = doubleValue/1000000.0
-            formatString = localizedStringForKeyFallingBackOnEnglish("number-millions")
-        } else {
+        if absDoubleValue > 1000000000 {
             adjustedDoubleValue = doubleValue/1000000000.0
             formatString = localizedStringForKeyFallingBackOnEnglish("number-billions")
+        } else if absDoubleValue > 1000000 {
+            adjustedDoubleValue = doubleValue/1000000.0
+            formatString = localizedStringForKeyFallingBackOnEnglish("number-millions")
+        } else if absDoubleValue > 1000 {
+            adjustedDoubleValue = doubleValue/1000.0
+            formatString = localizedStringForKeyFallingBackOnEnglish("number-thousands")
         }
         
-        if let numberString = self.stringFromNumber(adjustedDoubleValue) {
+        if let numberString = Static.formatter?.stringFromNumber(adjustedDoubleValue) {
             return formatString.stringByReplacingOccurrencesOfString("$1" , withString: numberString)
         } else {
             return ""
         }
     }
+    
 }
