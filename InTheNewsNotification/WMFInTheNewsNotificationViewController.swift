@@ -103,8 +103,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             dataStore.savedPageList.addSavedPageWithURL(articleURL)
             completion(.Dismiss)
         case WMFInTheNewsNotificationShareActionIdentifier:
-            // TODO: NYI
-            completion(.Dismiss)
+            completion(.DismissAndForwardAction)
         case WMFInTheNewsNotificationReadNowActionIdentifier:
             fallthrough
         case UNNotificationDefaultActionIdentifier:

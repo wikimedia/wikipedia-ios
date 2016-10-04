@@ -126,6 +126,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
                                              selector:@selector(isZeroRatedChanged:)
                                                  name:WMFZeroRatingChanged
                                                object:nil];
+
 }
 
 - (BOOL)isPresentingOnboarding {
@@ -534,15 +535,16 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 #pragma mark - Utilities
 
-- (void)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated {
+- (WMFArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated {
     if (!articleURL.wmf_title) {
-        return;
+        return nil;
     }
-    if ([[self onscreenURL] isEqual:articleURL]) {
-        return;
+    WMFArticleViewController *visibleArticleViewController = self.visibleArticleViewController;
+    if ([visibleArticleViewController.articleURL isEqual:articleURL]) {
+        return visibleArticleViewController;
     }
     [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-    [[self exploreViewController] wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore restoreScrollPosition:YES animated:animated];
+    return [[self exploreViewController] wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore restoreScrollPosition:YES animated:animated];
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
@@ -561,10 +563,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     return [self navigationControllerForTab:WMFAppTabTypeExplore].viewControllers.count > 1;
 }
 
-- (NSURL *)onscreenURL {
+- (WMFArticleViewController *)visibleArticleViewController {
     UINavigationController *navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
-    if ([navVC.topViewController isKindOfClass:[WMFArticleViewController class]]) {
-        return ((WMFArticleViewController *)navVC.topViewController).articleURL;
+    UIViewController *topVC = navVC.topViewController;
+    if ([topVC isKindOfClass:[WMFArticleViewController class]]) {
+        return (WMFArticleViewController *)topVC;
     }
     return nil;
 }
@@ -944,6 +947,13 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 // The method will be called on the delegate when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction. The delegate must be set before the application returns from applicationDidFinishLaunching:.
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler {
     if ([response.actionIdentifier isEqualToString:WMFInTheNewsNotificationShareActionIdentifier]) {
+        NSDictionary *info = response.notification.request.content.userInfo;
+        NSString *articleURLString = info[WMFNotificationInfoArticleURLStringKey];
+        NSURL *articleURL = [NSURL URLWithString:articleURLString];
+        WMFArticleViewController *articleVC = [self showArticleForURL:articleURL animated:NO];
+        [articleVC shareArticle];
+    }
     completionHandler();
 }
+
 @end
