@@ -7,6 +7,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSString *const WMFPreferredLanguagesDidChangeNotification;
 
+extern NSString *const WMFAppLanguageDidChangeNotification;
+
 @interface MWKLanguageLinkController : NSObject <MWKLanguageFilterDataSource>
 
 + (instancetype)sharedInstance;
