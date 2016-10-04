@@ -55,9 +55,11 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         otherLanguagesButton?.titleLabel?.font = UIFont.wmf_subtitle()
 
         NSNotificationCenter.defaultCenter().addObserverForName(WMFAppLanguageDidChangeNotification, object: nil, queue: nil) { note in
-            if let langController = note.object, appLanguage = langController.appLanguage {
-                self.currentlySelectedSearchLanguage = appLanguage
+            guard let langController = note.object, appLanguage = langController.appLanguage else {
+                assert(false, "Could not extract app language from WMFAppLanguageDidChangeNotification")
+                return
             }
+            self.currentlySelectedSearchLanguage = appLanguage
         }
     }
 
