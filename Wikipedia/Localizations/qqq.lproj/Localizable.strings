@@ -428,5 +428,5 @@
 "in-the-news-currently-trending" = "Currently trending";
 
 "number-thousands" = "$1k - $1 is replaced with a number represented in thousands. In English the letter 'k' is commonly used after a number to indicate that number is in 'thousands'. So the letter 'k' should be changed to a character or short string indicating thousands. For example 500,000 would become 500k";
-"number-millions" = "$1M - $1 is replaced with a number represented in millions. In English 'M' is commonly used after a number to indicate that number is in 'millions'. So the 'M' should be changed to a character or short string indicating millions. For example 500,000,000 would become 500M";
-"number-billions" = "$1B - $1 is replaced with a number represented in billions. In English 'B' is commonly used after a number to indicate that number is in 'billions'. So the 'B' should be changed to a character or short string indicating billions. For example 5,000,000,000 would become 5B";
+"number-millions" = "$1m - $1 is replaced with a number represented in millions. In English 'm' is commonly used after a number to indicate that number is in 'millions'. So the 'm' should be changed to a character or short string indicating millions. For example 500,000,000 would become 500m";
+"number-billions" = "$1b - $1 is replaced with a number represented in billions. In English 'b' is commonly used after a number to indicate that number is in 'billions'. So the 'b' should be changed to a character or short string indicating billions. For example 5,000,000,000 would become 5b";

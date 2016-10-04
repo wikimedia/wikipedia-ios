@@ -480,5 +480,5 @@
 "in-the-news-currently-trending" = "Currently trending";
 
 "number-thousands" = "$1k";
-"number-millions" = "$1M";
-"number-billions" = "$1B";
+"number-millions" = "$1m";
+"number-billions" = "$1b";
