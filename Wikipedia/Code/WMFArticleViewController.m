@@ -135,6 +135,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
  */
 @property (nonatomic, assign) BOOL skipFetchOnViewDidAppear;
 
+@property (assign, getter=shouldShareArticleOnLoad) BOOL shareArticleOnLoad;
+
 @end
 
 @implementation WMFArticleViewController
@@ -213,6 +215,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self updateWebviewFootersIfNeeded];
     [self updateTableOfContentsForFootersIfNeeded];
     [self observeArticleUpdates];
+    
+    if (_article && self.shouldShareArticleOnLoad) {
+        self.shareArticleOnLoad = NO;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self shareArticleFromButton:[self shareToolbarItem]];
+        });
+    }
 }
 
 - (MWKHistoryList *)recentPages {
@@ -1229,6 +1238,14 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
     [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromBarButtonItem:self.shareToolbarItem];
+}
+
+- (void)shareArticle {
+    if (self.canShare) {
+        [self shareArticleFromButton:[self shareToolbarItem]];
+    } else {
+        self.shareArticleOnLoad = YES;
+    }
 }
 
 - (void)shareArticleFromButton:(nullable UIBarButtonItem *)button {
