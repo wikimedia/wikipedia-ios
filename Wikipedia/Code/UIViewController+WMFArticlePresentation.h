@@ -9,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (WMFArticlePresentation)
 
-- (void)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated;
+- (WMFArticleViewController *)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated;
 
 - (void)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore animated:(BOOL)animated;
 
