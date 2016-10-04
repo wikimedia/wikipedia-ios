@@ -374,6 +374,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     @weakify(self);
     [self.resultsListController wmf_hideEmptyView];
     NSURL *url = [self currentlySelectedSearchURL];
+    
+    if([self.resultsListController isDisplayingResultsForSearchTerm:searchTerm fromSiteURL:url]){
+        DDLogDebug(@"Bailing out from running search for term because we're already showing results for this search term and search site.");
+        return;
+    }
+    
     [self.fetcher fetchArticlesForSearchTerm:searchTerm siteURL:url resultLimit:WMFMaxSearchResultLimit].thenOn(dispatch_get_main_queue(), ^id(WMFSearchResults *results) {
                                                                                                             @strongify(self);
                                                                                                             if (![results.searchTerm isEqualToString:self.searchField.text]) {
