@@ -348,6 +348,7 @@
 "home-hide-suggestion-prompt" = "Skjul dette forslaget";
 "home-hide-suggestion-cancel" = "Avbryt";
 "home-accessibility-label" = "Wikipedia, Utforsk";
+// Fuzzy
 "home-button-accessibility-label" = "Hjem knappen";
 "potd-empty-error-description" = "Klarte ikke hente dagens bilde $1";
 "potd-description-prefix" = "Dagens bilde $1";

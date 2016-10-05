@@ -353,6 +353,7 @@
 "home-hide-suggestion-prompt" = "اس سجھاؤ کو چھپائیں";
 "home-hide-suggestion-cancel" = "منسوخ";
 "home-accessibility-label" = "ویکیپیڈیا،ایکسپلور";
+// Fuzzy
 "home-button-accessibility-label" = "ہوم بٹن";
 "potd-empty-error-description" = "$1 کے لیے آج کی تصویر اخذ نہیں کی جاسکی";
 "potd-description-prefix" = "$1 کے لیے آج کی تصویر";

@@ -226,6 +226,7 @@
 "button-next" = "Ďalej";
 "button-done" = "Hotovo";
 "button-save" = "Uložiť";
+"button-publish" = "Uverejniť";
 "button-ok" = "OK";
 "button-save-for-later" = "Uložiť na neskôr";
 "button-saved-for-later" = "Uložené na neskôr";
@@ -312,6 +313,7 @@
 "home-updating-label" = "Aktualizácia...";
 "home-hide-suggestion-prompt" = "Skryť túto radu";
 "home-hide-suggestion-cancel" = "Zrušiť";
+// Fuzzy
 "home-button-accessibility-label" = "Tlačidlo Domov";
 "potd-empty-error-description" = "Nepodarilo sa načítať obrázok dňa pre $1";
 "potd-description-prefix" = "Obrázok dňa pre $1";

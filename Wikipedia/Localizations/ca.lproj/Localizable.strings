@@ -59,7 +59,7 @@
 "zero-warn-when-leaving" = "Avisa'm si se surt de Viquipèdia Zero";
 "zero-settings-devmode" = "Zero Devmode";
 "account-creation-captcha-required" = "Verificació de CAPTCHA requerida.";
-"account-creation-captcha-obtaining" = "Obtenint d'un CAPTCHA nou...";
+"account-creation-captcha-obtaining" = "Obtenint un CAPTCHA nou...";
 "account-creation-logging-in" = "Iniciant sessió...";
 "account-creation-passwords-mismatched" = "Les contrasenyes no coincideixen.";
 "account-creation-saving" = "S’està desant…";
@@ -68,7 +68,7 @@
 "account-creation-password-placeholder-text" = "Contrasenya";
 "account-creation-password-confirm-placeholder-text" = "Confirma la contrasenya";
 "account-creation-email-placeholder-text" = "Adreça electrònica (opcional)";
-"account-creation-missing-fields" = "Heu d'introduir un nom d'usuari, contrasenya i confirmació de contrasenya per crear un compte.";
+"account-creation-missing-fields" = "Heu d'introduir un nom d'usuari, contrasenya i confirmació de contrasenya per a crear un compte.";
 "login-name-not-found" = "Cal el nom d'usuari per iniciar una sessió.";
 "login-name-illegal" = "Heu introduït un nom d'usuari invàlid.";
 "login-name-does-not-exist" = "El nom d'usuari que heu proporcionat no existeix.";
@@ -87,14 +87,11 @@
 "wikitext-upload-result-unknown" = "No s'ha pogut determinar el resultat de la càrrega del viquitext.";
 "wikitext-upload-captcha-error" = "Error de verificació de CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Cal verificació de CAPTCHA.";
-// Fuzzy
 "wikitext-upload-save" = "S'està desant...";
 "wikitext-upload-save-sign-in" = "Inicia una sessió";
 "wikitext-upload-save-sign-in-benefits" = "Així, els co-editors poden connectar-se amb tu i podràs veure els articles que has editat.";
-// Fuzzy
 "wikitext-upload-save-anonymously" = "Desa anònimament";
 "wikitext-upload-save-anonymously-warning" = "Les edicions seran atribuïdes a l'adreça IP del dispositiu. Si vostè $1 disposarà de més privadesa.";
-// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Si deseu, accepteu els $1, i accepteu també alliberar irrevocablement les vostres contribucions sota la llicència $2.";
 "wikitext-upload-save-terms-name" = "Condicions d'ús";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -142,7 +139,7 @@
 "main-menu-show-title" = "Mostra'm...";
 "main-menu-show-history" = "Recent";
 "main-menu-show-saved" = "Pàgines desades";
-"main-menu-current-article-save" = "Desa $1 per a lectura fora de línia";
+"main-menu-current-article-save" = "Desa $1 per a una lectura fora de línia";
 "main-menu-random" = "A l'atzar";
 "main-menu-feedback-heading" = "Comentaris";
 "main-menu-send-feedback" = "Escriviu-nos";
@@ -178,17 +175,14 @@
 "page-history-downloading" = "S'està carregant l'historial de l'article...";
 "navbar-title-mode-edit-wikitext" = "Modifica";
 "navbar-title-mode-login" = "Inicia una sessió";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "Inicia una sessió i desa-ho";
 "navbar-title-mode-create-account" = "Crea un compte";
-// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Crea un compte i desa-ho";
 "navbar-title-mode-edit-wikitext-warning" = "Problemes d'edició";
 "navbar-title-mode-edit-wikitext-disallow" = "Problemes d'edició";
 "navbar-title-mode-edit-wikitext-preview" = "Previsualitza";
 "navbar-title-mode-edit-wikitext-captcha" = "Es necessita verificació";
 "navbar-title-mode-edit-wikitext-summary" = "Descriviu la vostra modificació";
-// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Desa";
 "edit-summary-choice-linked-words" = "Enllaços afegits";
 "edit-summary-choice-fixed-grammar" = "Correcció gramatical";
@@ -254,6 +248,7 @@
 "button-next" = "Següent";
 "button-done" = "Fet";
 "button-save" = "Desa";
+"button-publish" = "Desa";
 "button-ok" = "D’acord";
 "button-save-for-later" = "Desa-ho per a més tard";
 "button-saved-for-later" = "Desat per a més tard";
@@ -274,19 +269,16 @@
 "license-footer-text" = "El contingut està disponible sota $1 a menys que s'indiqui el contrari.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Continguts";
-// Fuzzy
 "table-of-contents-button-label" = "Taula de continguts";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Tanca la taula de continguts";
 "table-of-contents-close-accessibility-hint" = "Tanca";
-// Fuzzy
+"table-of-contents-popover-description" = "Mostra la previsualització dels articles";
 "abuse-filter-warning-heading" = "Això sembla una modificació no constructiva. Esteu segur que voleu desar-la?";
 "abuse-filter-warning-subheading" = "La vostra modificació pot contenir un o més dels següents problemes:";
 "abuse-filter-warning-caps" = "Escrivint en MAJÚSCULES";
 "abuse-filter-warning-blanking" = "Blanqueig d'articles o brossa";
 "abuse-filter-warning-irrelevant" = "Enllaços externs o imatges no rellevants";
 "abuse-filter-warning-repeat" = "Caràcters repeeetits";
-// Fuzzy
 "abuse-filter-disallow-heading" = "No podeu desar la modificació. Aneu enrere i canvieu-ho.";
 "abuse-filter-disallow-unconstructive" = "Un filtre automàtic ha identificat la modificació com a potencialment inconstructiva o bé com a intent de vandalisme.";
 "abuse-filter-disallow-notable" = "La Viquipèdia és una enciclopèdia, i només conté informació neutral i notable.";
@@ -363,6 +355,7 @@
 "home-hide-suggestion-prompt" = "Amaga el suggeriment";
 "home-hide-suggestion-cancel" = "Cancel·la";
 "home-accessibility-label" = "Viquipèdia, Explora";
+// Fuzzy
 "home-button-accessibility-label" = "Botó d'inici";
 "potd-empty-error-description" = "Ha fallat en recuperar la imatge del dia per a $1";
 "potd-description-prefix" = "Imatge del dia per a $1";
@@ -404,6 +397,7 @@
 "explore-featured-article-heading" = "Article destacat";
 "explore-continue-reading-heading" = "Continua llegint";
 "explore-nearby-heading" = "Llocs propers";
+"explore-nearby-sub-heading-your-location" = "La vostra ubicació";
 "explore-continue-related-heading" = "Perquè vas llegir";
 "explore-main-page-heading" = "Avui a la Viquipèdia";
 "explore-random-article-heading" = "Article a l'atzar";
@@ -419,3 +413,13 @@
 "request-feedback-on-error" = "L'aplicació s'ha trobat amb un problema que els nostres desenvolupadors voldrien conèixer més en detall. Toqueu aquí per enviar-nos un correu amb els detalls de l'error.";
 "explore-another-random" = "Un altre article a l'atzar";
 "find-in-page-no-matches" = "0 coincidències";
+"find-in-page-button-label" = "Busca una pàgina";
+"find-in-page-popover-description" = "Cerca text als articles";
+"continue-reading-empty-title" = "No hi ha cap article llegit recentment";
+"continue-reading-empty-description" = "Exploreu la Viquipèdia per a llegir més articles";
+"top-read-see-more" = "Vegeu-ne més";
+"top-read-see-more-trending" = "Vegeu més articles en tendència";
+"top-read-reader-count-thousands" = "$1mil";
+"top-read-header-with-language" = "Viquipèdia en $1";
+"top-read-header-generic" = "Viquipèdia";
+"reference-title" = "Referència $1";

@@ -359,6 +359,7 @@
 "home-hide-suggestion-prompt" = "Приховати цю пропозицію";
 "home-hide-suggestion-cancel" = "Скасувати";
 "home-accessibility-label" = "Вікіпедія, Досліджуйте";
+// Fuzzy
 "home-button-accessibility-label" = "Кнопка повернення на головну";
 "potd-empty-error-description" = "Не вдалося отримати зображення дня за $1";
 "potd-description-prefix" = "Зображення дня за $1";

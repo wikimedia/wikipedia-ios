@@ -244,6 +244,7 @@
 "home-potd-heading" = "وێنەی ڕۆژ بۆ $1";
 "home-updating-label" = "نوێکردنەوە...";
 "home-hide-suggestion-cancel" = "ھەڵوەشاندنەوە";
+// Fuzzy
 "home-button-accessibility-label" = "دوگمەی دەستپێک";
 "potd-description-prefix" = "وێنەی ڕۆژ بۆ $1";
 "welcome-explore-tell-me-more" = "زۆرترم پێ بڵێ";

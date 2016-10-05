@@ -339,6 +339,7 @@
 "home-updating-label" = "განახლება...";
 "home-hide-suggestion-prompt" = "შეთავაზებების დამალვა";
 "home-hide-suggestion-cancel" = "გაუქმება";
+// Fuzzy
 "home-button-accessibility-label" = "სახლის ღილაკი";
 "potd-empty-error-description" = "შეუძლებელია $1-სთვის დღის სურათის ჩატვირთვა";
 "potd-description-prefix" = "დღის სურათი $1-სთვის";
