@@ -31,6 +31,10 @@ extension NSNumberFormatter {
             formatString = localizedStringForKeyFallingBackOnEnglish("number-thousands")
         }
         
+        if formatString == "$1" { //check for opt-out translations
+            adjustedDoubleValue = doubleValue
+        }
+        
         if let numberString = Static.formatter?.stringFromNumber(adjustedDoubleValue) {
             return formatString.stringByReplacingOccurrencesOfString("$1" , withString: numberString)
         } else {
