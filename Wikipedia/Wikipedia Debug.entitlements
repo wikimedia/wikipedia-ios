@@ -11,8 +11,6 @@
 		<string>applinks:*.m.wikipedia.org</string>
 		<string>activitycontinuation:*.m.wikipedia.org</string>
 		<string>activitycontinuation:wikipedia.org</string>
-		<string>activitycontinuation:m.wikipedia.org</string>
-		<string>applinks:m.wikipedia.org</string>
 	</array>
 	<key>com.apple.security.application-groups</key>
 	<array>
