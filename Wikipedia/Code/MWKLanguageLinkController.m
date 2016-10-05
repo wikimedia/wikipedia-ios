@@ -5,6 +5,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 NSString *const WMFPreferredLanguagesDidChangeNotification = @"WMFPreferredLanguagesDidChangeNotification";
 
+NSString *const WMFAppLanguageDidChangeNotification = @"WMFAppLanguageDidChangeNotification";
+
 static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesKey";
 
 /**
@@ -192,13 +194,18 @@ static id _sharedInstance;
 }
 
 - (void)savePreferredLanguageCodes:(NSArray<NSString *> *)languageCodes {
+    NSString* previousAppLanguageCode = self.appLanguage.languageCode;
     [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [[NSUserDefaults wmf_userDefaults] setObject:languageCodes forKey:WMFPreviousLanguagesKey];
     [[NSUserDefaults wmf_userDefaults] synchronize];
     [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
+    if (self.appLanguage.languageCode && ![self.appLanguage.languageCode isEqualToString:previousAppLanguageCode]){
+        [[NSNotificationCenter defaultCenter] postNotificationName:WMFAppLanguageDidChangeNotification object:self];
+    }
 }
 
+// Reminder: "resetPreferredLanguages" is for testing only!
 - (void)resetPreferredLanguages {
     [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [[NSUserDefaults wmf_userDefaults] removeObjectForKey:WMFPreviousLanguagesKey];

@@ -428,6 +428,10 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     [[MWKLanguageLinkController sharedInstance] appendPreferredLanguage:language];
     [self reloadDataSections];
     [controller dismissViewControllerAnimated:YES completion:NULL];
+    [self notifyDelegateThatPreferredLanguagesDidUpdate];
+}
+
+- (void)notifyDelegateThatPreferredLanguagesDidUpdate {
     if ([self.delegate respondsToSelector:@selector(languagesController:didUpdatePreferredLanguages:)]) {
         [self.delegate languagesController:self didUpdatePreferredLanguages:[MWKLanguageLinkController sharedInstance].preferredLanguages];
     }
@@ -461,13 +465,13 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     // showing on more than one cell after re-ordering first cell.
     [tableView reloadData];
 
-    [self.delegate languagesController:self didUpdatePreferredLanguages:[MWKLanguageLinkController sharedInstance].preferredLanguages];
+    [self notifyDelegateThatPreferredLanguagesDidUpdate];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     [super tableView:tableView commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
 
-    [self.delegate languagesController:self didUpdatePreferredLanguages:[MWKLanguageLinkController sharedInstance].preferredLanguages];
+    [self notifyDelegateThatPreferredLanguagesDidUpdate];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
