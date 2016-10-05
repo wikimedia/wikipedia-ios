@@ -48,6 +48,8 @@
 
 #import "WMFMostReadListTableViewController.h"
 
+#import "UIViewController+WMFOpenExternalUrl.h"
+
 #define TEST_SHARED_CONTAINER_MIGRATION DEBUG && 0
 
 #if TEST_SHARED_CONTAINER_MIGRATION
@@ -439,6 +441,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
                 return YES;
             }
         } break;
+        case WMFUserActivityTypeGenericLink: {
+            return YES;
+        }
         default:
             return NO;
             break;
@@ -515,6 +520,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
             [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
             [self.exploreViewController showSettings];
+            break;
+        case WMFUserActivityTypeGenericLink:
+            [self wmf_openExternalUrl:activity.webpageURL];
             break;
         default:
             return NO;
