@@ -135,7 +135,9 @@
     if (activity) {
         return [self.appViewController processUserActivity:activity];
     } else {
-        return NO;
+        NSUserActivity *activity = [[NSUserActivity alloc] initWithActivityType:NSUserActivityTypeBrowsingWeb];
+        activity.webpageURL = url;
+        return [self.appViewController processUserActivity:activity];
     }
 }
 
