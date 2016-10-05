@@ -123,10 +123,6 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         languagesVC.delegate = self
         presentViewController(UINavigationController.init(rootViewController: languagesVC), animated: true, completion: nil)
     }
-
-    func languagesController(controller: WMFPreferredLanguagesViewController!, didUpdatePreferredLanguages languages: [MWKLanguageLink]!) {
-        // Reminder: nothing needs to be updated here because it happens in view will/did appear.
-    }
     
     func languagesController(controller: WMFLanguagesViewController!, didSelectLanguage language: MWKLanguageLink!) {
         // If the selected language will not be displayed because we only display max 3 languages, move it to index 2
