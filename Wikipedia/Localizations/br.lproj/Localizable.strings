@@ -349,6 +349,7 @@
 "home-updating-label" = "Oc'h hizivaat...";
 "home-hide-suggestion-cancel" = "Nullañ";
 "home-accessibility-label" = "Wikipédia, Ergerzhet";
+// Fuzzy
 "home-button-accessibility-label" = "Bouton degemer";
 "potd-description-prefix" = "Skeudenn an deiz evit $1";
 "welcome-explore-title" = "Ergerzhet";

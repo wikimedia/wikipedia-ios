@@ -44,7 +44,7 @@
 // Fuzzy
 "account-creation-username-placeholder-text" = "प्रयोक्ता नाम";
 "account-creation-password-placeholder-text" = "कूटशब्द";
-"account-creation-password-confirm-placeholder-text" = "कूटशब्दके जाँच करु";
+"account-creation-password-confirm-placeholder-text" = "कूटशब्द जाँच करी";
 "account-creation-email-placeholder-text" = "ई-पत्र चुनाव";
 "account-creation-missing-fields" = "आहाँ ईं खाता सिर्जना करबाक लेल प्रयोगकर्ता नाम, कुटशब्द, आर कुटशब्द पुष्टि प्रविष्टि करु।";
 // Fuzzy
@@ -64,7 +64,7 @@
 "wikitext-download-success" = "सामग्री भरल अछि ।";
 "wikitext-preview-changes" = "आहाँकें परिवर्तनसभ पूर्वावलोकन निकालइत ...";
 "wikitext-preview-changes-none" = "कुनो परिवर्तन पूर्वावलोकन करल ग्याल अछि ।";
-"wikitext-upload-captcha-error" = "केप्चा प्रमाणिकरण में त्रुटि।";
+"wikitext-upload-captcha-error" = "केप्चा प्रमाणिकरणमे त्रुटि।";
 "wikitext-upload-captcha-needed" = "केप्चा प्रमाणिकरण चाही ।";
 // Fuzzy
 "wikitext-upload-save" = "आहाँ के सम्पादन सुरक्षित भ्यरहल अछि...";

@@ -343,6 +343,7 @@
 "home-hide-suggestion-prompt" = "Бу этиини кистээ";
 "home-hide-suggestion-cancel" = "Бигэргэтимэ";
 "home-accessibility-label" = "Бикипиэдьийэ, Сирдьит";
+// Fuzzy
 "home-button-accessibility-label" = "Дьиэлиир тимэх";
 "potd-empty-error-description" = "$1 күн ойуутун ылар сатаммата";
 "potd-description-prefix" = "Күннээҕи ойуу $1";

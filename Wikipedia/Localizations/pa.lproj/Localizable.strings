@@ -350,6 +350,7 @@
 "home-hide-suggestion-prompt" = "ਇਸ ਸੁਝਾਅ ਨੂੰ ਲੁਕਾਓ";
 "home-hide-suggestion-cancel" = "ਰੱਦ ਕਰੋ";
 "home-accessibility-label" = "ਵਿਕੀਪੀਡੀਆ, ਪੜਚੋਲ";
+// Fuzzy
 "home-button-accessibility-label" = "ਘਰ ਬਟਨ";
 "potd-empty-error-description" = "$1 ਲਈ ਦਿਨ ਦੀ ਤਸਵੀਰ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਫਲ";
 "potd-description-prefix" = "$1 ਲਈ ਦਿਨ ਦੀ ਤਸਵੀਰ";

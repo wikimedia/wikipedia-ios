@@ -349,6 +349,7 @@
 "home-hide-suggestion-prompt" = "Схаваць гэтую прапанову";
 "home-hide-suggestion-cancel" = "Скасаваць";
 "home-accessibility-label" = "Вікіпэдыя, вывучайце";
+// Fuzzy
 "home-button-accessibility-label" = "Кнопка «Дадому»";
 "potd-empty-error-description" = "Выява дня за $1 не была атрыманая";
 "potd-description-prefix" = "Выява дня за $1";
