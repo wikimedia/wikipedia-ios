@@ -74,9 +74,10 @@
 "wikitext-upload-captcha-needed" = "CAPTCHA-Iwwerpréifung obligatoresch.";
 "wikitext-upload-save" = "Verëffentlechen...";
 "wikitext-upload-save-sign-in" = "Aloggen";
+"wikitext-upload-save-sign-in-benefits" = "Aner Auteure kënnen Iech esou kontaktéieren an Dir kënnt gesi watfireng Artikelen Dir geännert hutt.";
 "wikitext-upload-save-anonymously" = "Anonym verëffentlechen";
 "wikitext-upload-save-anonymously-warning" = "Ännerunge gi mat der IP-Adress vun Ärem Apparat gespäichert. Wann Dir $1 dann ass den Dateschutz méi grouss.";
-"wikitext-upload-save-terms-and-license" = "Duerch d'Verëffentlechen sidd Dir mat de(n) $1 a mat der Publikatioun vun Äre Beiträg ënner der $2-Lizenz d'accord.";
+"wikitext-upload-save-terms-and-license" = "Duerch d'Verëffentleche sidd Dir mat de(n) $1 a mat der Publikatioun vun Äre Beiträg ënner der $2-Lizenz d'accord.";
 "wikitext-upload-save-terms-name" = "Benotzungs-Bedingungen";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Link opmaachen";
@@ -106,6 +107,7 @@
 "settings-my-languages" = "Meng Sproochen";
 "settings-help-and-feedback" = "Hëllef a Feedback";
 "settings-primary-language" = "Primär";
+"settings-primary-language-details" = "Déi éischt Sprooch an dëser Lëscht gëtt als primär Sprooch fir d'App consideréiert. D'Ännere vun dëser Sprooch ännert den deeglechen Inhalt (wéi excellent Artikelen) déi bei 'Entdecken' gewise ginn.";
 "main-menu-title" = "Méi";
 "main-menu-heading-about" = "Iwwer";
 "main-menu-language-title" = "Sicht an der Wiki op $1";
@@ -197,6 +199,8 @@
 "about-libraries-license" = "Lizenz";
 "about-libraries-licenses" = "Lizenzen";
 "about-content-license" = "Lizenz vum Inhalt";
+"about-content-license-details" = "Wann et net anescht uginn ass, ass den Inhalt ënnert enger $1 disponibel.";
+"about-content-license-details-share-alike-license" = "Creative-Commons-Attribution-ShareAlike Lizenz";
 "about-libraries-licenses-title" = "Mir appreciéieren Open Source Software $1";
 "about-libraries-complete-list" = "Komplett Lëscht";
 "about-repositories-app-source-license" = "Quellcode disponibel ënner enger $1.";
@@ -332,6 +336,7 @@
 "home-hide-suggestion-prompt" = "Dës Propos verstoppen";
 "home-hide-suggestion-cancel" = "Ofbriechen";
 "home-accessibility-label" = "Wikipedia, Entdecken";
+// Fuzzy
 "home-button-accessibility-label" = "Knäppche fir d'Startsäit";
 "potd-empty-error-description" = "Bild vum Dag vum $1 konnt net erofgeluede ginn";
 "potd-description-prefix" = "Bild vum Dag vum $1";
@@ -384,6 +389,7 @@
 "explore-most-read-footer-for-date" = "Déi am dackste geliest Artikelen de(n) $1";
 "explore-most-read-more-list-title" = "Beléifst Artikelen";
 "explore-most-read-more-list-title-for-date" = "Déi beléifst de(n) $1";
+"no-email-account-alert" = "Configuréiert w.e.g. en E-Mail-Kont op Ärem Apparat a probéiert nach eng Kéier.";
 "request-feedback-on-error" = "Bei der App ass e Feeler geschitt iwwer deen eis Entwéckler méi wësse wëllen. Klickt w.e.g. hei fir eis eng E-Mail mat den Detailer vum Feeler ze schécken.";
 "explore-another-random" = "En aneren zoufällegen Artikel";
 "find-in-page-no-matches" = "Näischt fonnt";
@@ -395,3 +401,4 @@
 "number-thousands" = "$1 D";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
+"reference-title" = "Referenz: $1";

@@ -355,6 +355,7 @@
 "home-hide-suggestion-prompt" = "숨기기";
 "home-hide-suggestion-cancel" = "취소";
 "home-accessibility-label" = "위키백과,찾아보기";
+// Fuzzy
 "home-button-accessibility-label" = "홈 버튼";
 "potd-empty-error-description" = "$1의 사진 가져오기 실패";
 "potd-description-prefix" = "$1의 그림";
@@ -419,3 +420,4 @@
 "number-thousands" = "$1k";
 "top-read-header-with-language" = "$1 위키백과";
 "top-read-header-generic" = "위키백과";
+"reference-title" = "각주 $1";

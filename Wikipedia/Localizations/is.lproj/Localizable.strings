@@ -357,6 +357,7 @@
 "home-hide-suggestion-prompt" = "Fela þessa tillögu";
 "home-hide-suggestion-cancel" = "Hætta við";
 "home-accessibility-label" = "Wikipedia, Könnun";
+// Fuzzy
 "home-button-accessibility-label" = "Heimahnappur";
 "potd-empty-error-description" = "Mistókst að ná í mynd dagsins fyrir $1";
 "potd-description-prefix" = "Mynd dagsins þann $1";

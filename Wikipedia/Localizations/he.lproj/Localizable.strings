@@ -347,6 +347,7 @@
 "home-hide-suggestion-prompt" = "הסתרת ההצעה הזאת";
 "home-hide-suggestion-cancel" = "ביטול";
 "home-accessibility-label" = "ויקיפדיה, לחקור";
+// Fuzzy
 "home-button-accessibility-label" = "כפתור בית";
 "potd-empty-error-description" = "לא הצלחתי לאחזר את תמונת היום של $1";
 "potd-description-prefix" = "תמונת היום של $1";
@@ -413,3 +414,4 @@
 "number-thousands" = "$1k";
 "top-read-header-with-language" = "ויקיפדיה בשפה $1";
 "top-read-header-generic" = "ויקיפדיה";
+"reference-title" = "הערה $1";

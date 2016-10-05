@@ -358,6 +358,7 @@
 "home-hide-suggestion-prompt" = "इस सुझाव को छुपाएँ";
 "home-hide-suggestion-cancel" = "रद्द करें";
 "home-accessibility-label" = "विकिपीडिया,छानबीन";
+// Fuzzy
 "home-button-accessibility-label" = "होम बटन";
 "potd-empty-error-description" = "$1 के लिए आज का चित्र लाने में असमर्थ";
 "potd-description-prefix" = "$1 के लिए आज का चित्र";

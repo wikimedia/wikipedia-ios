@@ -317,6 +317,7 @@
 "image-gallery-fetch-image-info-error-message" = "Kuvien lataaminen tähän artikkeliin ei onnistu. Päivitä artikkeli ja yritä uudelleen.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-question" = "Haluaisitko lähettää kaatumisraportin $1:lle niin Wikimapia voi tarkastaa kaatumisen?";
+"hockeyapp-alert-question-with-response-field" = "Haluatko lähettää kaatumisilmoituksen $1:lle jotta Wikimedia voi tarkistaa kaatumisen? Ole hyvä ja kuvaile mitä tapahtui kun kaatuminen sattui:";
 "hockeyapp-alert-title" = "Anteeksi, sovellus kaatui viime kerralla";
 "hockeyapp-alert-send-report" = "Lähetä raportti";
 "hockeyapp-alert-always-send" = "Lähetä aina";
@@ -348,10 +349,15 @@
 "home-hide-suggestion-prompt" = "Piilota tämä ehdotus";
 "home-hide-suggestion-cancel" = "Peruuta";
 "home-accessibility-label" = "Wikipedia, Tutki";
+// Fuzzy
 "home-button-accessibility-label" = "Koti-painike";
+"potd-empty-error-description" = "Virhe hakiessa päivän kuvaa $1";
+"potd-description-prefix" = "Päivän kuva: $1";
 "welcome-explore-title" = "Tutki";
 "welcome-explore-sub-title" = "Uusi tapa löytää kiinnostavia artikkeleita joka päivä";
 "welcome-explore-tell-me-more" = "Kerro lisää";
+"welcome-explore-tell-me-more-about-explore" = "Lisätietoa tutkimisesta";
+"welcome-explore-tell-me-more-details" = "Kun luet artikkelia, aiheeseen liittyvät artikkelit lisätään automaattisesti sinun tutkimissyötteeseen. Tämä ei muuta sitä miten keräämme tietoa sinusta, ja sinun lukuhistoriasi on silti yksityinen.";
 "welcome-explore-tell-me-more-done-button" = "Selvä";
 "welcome-explore-continue-button" = "Aloitetaan";
 "welcome-languages-title" = "Kielet";
@@ -374,8 +380,10 @@
 "icon-shortcut-search-title" = "Etsi Wikipediasta";
 "icon-shortcut-continue-reading-title" = "Jatka lukemista";
 "icon-shortcut-random-title" = "Satunnainen artikkeli";
+"icon-shortcut-nearby-title" = "Lähellä olevat artikkelit";
 "close-button-accessibility-label" = "Sulje";
 "back-button-accessibility-label" = "Takaisin";
+"compass-direction" = "klo $1";
 "explore-featured-article-heading" = "Suositeltu artikkeli";
 "explore-continue-reading-heading" = "Jatka lukemista";
 "explore-nearby-heading" = "Lähistön paikat";
@@ -391,6 +399,7 @@
 "explore-most-read-footer-for-date" = "Kaikki luetuimmat artikkelit $1";
 "explore-most-read-more-list-title" = "Huippuartikkelit";
 "explore-most-read-more-list-title-for-date" = "Parhaimmistoa $1";
+"no-email-account-alert" = "Ole hyvä ja asenna sähköpostitili laitteeseesi ja yritä uudelleen.";
 "request-feedback-on-error" = "Tämä sovellus on kohdannut virheen, josta kehittäjämme haluaisivat tietää lisää. Napauta tästä lähettääksesi meille sähköpostitse virheen tiedot.";
 "explore-another-random" = "Toinen satunnainen sivu";
 "find-in-page-no-matches" = "0 tulosta";
@@ -398,4 +407,8 @@
 "find-in-page-popover-description" = "Etsi artikkelien teksteistä";
 "continue-reading-empty-title" = "Ei äskettäin luettuja artikkeleja";
 "continue-reading-empty-description" = "Tutki Wikipediaa löytääksesi lisää luettavia artikkeleja";
+"top-read-see-more-trending" = "Katso lisää nousussa olevia";
+"top-read-reader-count-thousands" = "$1t";
+"top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
+"reference-title" = "Lähde $1";

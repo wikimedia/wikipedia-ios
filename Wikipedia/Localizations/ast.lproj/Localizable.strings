@@ -343,6 +343,7 @@
 "home-hide-suggestion-prompt" = "Tapecer esta suxerencia";
 "home-hide-suggestion-cancel" = "Encaboxar";
 "home-accessibility-label" = "Wikipedia, Esplorar";
+// Fuzzy
 "home-button-accessibility-label" = "Botón d'aniciu";
 "potd-empty-error-description" = "Nun pudo algamase la imaxe del día pal $1";
 "potd-description-prefix" = "Imaxe del día pal $1";
@@ -409,3 +410,4 @@
 "number-thousands" = "$1k";
 "top-read-header-with-language" = "Wikipedia $1";
 "top-read-header-generic" = "Wikipedia";
+"reference-title" = "Referencia $1";

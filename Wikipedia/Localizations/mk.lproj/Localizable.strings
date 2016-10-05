@@ -344,6 +344,7 @@
 "home-hide-suggestion-prompt" = "Скриј го предлогов";
 "home-hide-suggestion-cancel" = "Откажи";
 "home-accessibility-label" = "Википедија, Истражете";
+// Fuzzy
 "home-button-accessibility-label" = "Копче за Почетна";
 "potd-empty-error-description" = "Не можев да ја добијам сликата на денот за $1";
 "potd-description-prefix" = "Слика на денот за $1";
@@ -410,3 +411,4 @@
 "number-thousands" = "$1 илј.";
 "top-read-header-with-language" = "Википедија на $1";
 "top-read-header-generic" = "Википедија";
+"reference-title" = "Навод $1";

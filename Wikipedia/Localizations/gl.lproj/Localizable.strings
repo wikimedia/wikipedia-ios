@@ -347,6 +347,7 @@
 "home-hide-suggestion-prompt" = "Ocultar esta suxestión";
 "home-hide-suggestion-cancel" = "Cancelar";
 "home-accessibility-label" = "Wikipedia, Explore";
+// Fuzzy
 "home-button-accessibility-label" = "Botón de comezo";
 "potd-empty-error-description" = "Erro ó recuperar a imaxe do día para $1";
 "potd-description-prefix" = "Imaxe do día para $1";

@@ -77,15 +77,12 @@
 "wikitext-upload-result-unknown" = "विकिमजकूर अपभारण निकाल नक्की करण्यास अक्षम.";
 "wikitext-upload-captcha-error" = "कॅपचा पडताळणीत त्रुटी.";
 "wikitext-upload-captcha-needed" = "कॅपचा पडताळणी करणे आवश्यक.";
-// Fuzzy
-"wikitext-upload-save" = "जतन करीत आहे...";
+"wikitext-upload-save" = "प्रकाशन करीत आहे...";
 "wikitext-upload-save-sign-in" = "सनोंद-प्रवेश";
 "wikitext-upload-save-sign-in-benefits" = "याद्वारे सह-संपादक आपल्याशी जुळू शकत नाहीत व कोणते लेख संपादिलेत ते आपण बघु शकता.";
-// Fuzzy
-"wikitext-upload-save-anonymously" = "अनामिक म्हणून जतन करा";
+"wikitext-upload-save-anonymously" = "अनामिक म्हणून प्रकाशित करा";
 "wikitext-upload-save-anonymously-warning" = "आपल्या उपकरणाच्या अंकपत्त्यास ही संपादने संलग्न होतील. जर आपण $1 केले तर आपणास अधिक एकांत मिळू शकतो.";
-// Fuzzy
-"wikitext-upload-save-terms-and-license" = "जतन करण्याने आपण $1 मान्य करता,व न परताव्याच्या अटींवर आपले योगदान $2 परवान्यांतर्गत विमोचित करता.";
+"wikitext-upload-save-terms-and-license" = "प्रकाशित करण्याने आपण $1 मान्य करता,व न परताव्याच्या अटींवर आपले योगदान $2 परवान्यांतर्गत विमोचित करता.";
 "wikitext-upload-save-terms-name" = "वापराच्या अटी";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "दुवा उघडा";
@@ -168,18 +165,15 @@
 "page-history-downloading" = "लेख इतिहासाचे प्रभारण करीत आहे...";
 "navbar-title-mode-edit-wikitext" = "संपादन";
 "navbar-title-mode-login" = "सनोंद-प्रवेश";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "सनोंद प्रवेशुन जतन करा";
+"navbar-title-mode-login-and-save" = "सनोंद प्रवेश करा व जतन करा";
 "navbar-title-mode-create-account" = "खाते बनवा";
-// Fuzzy
-"navbar-title-mode-create-account-and-save" = "खाते तयार करुन जतन करा";
+"navbar-title-mode-create-account-and-save" = "खाते तयार करुन प्रकाशित करा";
 "navbar-title-mode-edit-wikitext-warning" = "संपादन बाबी";
 "navbar-title-mode-edit-wikitext-disallow" = "संपादन बाबी";
 "navbar-title-mode-edit-wikitext-preview" = "झलक";
 "navbar-title-mode-edit-wikitext-captcha" = "जलद पडताळणी आवश्यक";
 "navbar-title-mode-edit-wikitext-summary" = "आपल्या संपादनाचे वर्णन करा";
-// Fuzzy
-"navbar-title-mode-edit-wikitext-save" = "जतन करा";
+"navbar-title-mode-edit-wikitext-save" = "प्रकाशित करा";
 "edit-summary-choice-linked-words" = "दुवे जोडले";
 "edit-summary-choice-fixed-grammar" = "व्याकरण ठिकठाक केले";
 "edit-summary-choice-fixed-inaccuracy" = "चूक सुधरविली";
@@ -230,6 +224,7 @@
 "button-next" = "पुढील";
 "button-done" = "झाले";
 "button-save" = "जतन करा";
+"button-publish" = "प्रकाशित करा";
 "button-ok" = "ठिक आहे";
 "button-save-for-later" = "नंतरसाठी जतन करा";
 "button-saved-for-later" = "नंतरसाठी जतन केले";
@@ -253,15 +248,13 @@
 "table-of-contents-button-label" = "अनुक्रमणिका";
 "table-of-contents-close-accessibility-label" = "अनुक्रमणिका बंद करा";
 "table-of-contents-close-accessibility-hint" = "बंद करा";
-// Fuzzy
-"abuse-filter-warning-heading" = "हे एक अरचनात्मक संपादनासारखे दिसते. हे जतन करण्याबाबत आपण खात्री देता काय?";
+"abuse-filter-warning-heading" = "हे एक अरचनात्मक संपादनासारखे दिसते. हे प्रकाशित करण्याबाबत आपण खात्री देता काय?";
 "abuse-filter-warning-subheading" = "आपल्या संपादनात खालीलपैकी एक वा एकाधिक गोष्टी असू शकतात:";
 "abuse-filter-warning-caps" = "सर्व ठळक अक्षरे";
 "abuse-filter-warning-blanking" = "लेख कोरा करणे किंवा उपद्रव";
 "abuse-filter-warning-irrelevant" = "असंबंधित बाह्य दूवे किंवा चित्रे";
 "abuse-filter-warning-repeat" = "एकच वर्णाचे अनेक वेळ टंकन";
-// Fuzzy
-"abuse-filter-disallow-heading" = "आपण हे संपादन जतन करु शकत नाही.कृपया परत जाउन ते बदला.";
+"abuse-filter-disallow-heading" = "या संपादनाचे प्रकाशन करु शकत नाही.कृपया परत जाउन ते बदला.";
 "abuse-filter-disallow-unconstructive" = "स्वयंचलित गाळणीने हे संपादन उच्च दर्जाचे अरचनात्मक किंवा उपद्रवी कृती म्हणून नोंदविलेले आहे.";
 "abuse-filter-disallow-notable" = "विकिपीडिया हा विश्वकोश आहे व येथे त्यात फक्त तटस्थ, नोंदविण्याजोगा आशय असतो.";
 "menu-edit-accessibility-label" = "संपादा";
@@ -335,6 +328,7 @@
 "home-hide-suggestion-prompt" = "ही सुचवणी लपवा";
 "home-hide-suggestion-cancel" = "रद्द करा";
 "home-accessibility-label" = "विकिपीडिया,शोधा";
+// Fuzzy
 "home-button-accessibility-label" = "गृह कळ";
 "potd-empty-error-description" = "$1 साठी आजचे चित्र आणण्यात अयशस्वी";
 "potd-description-prefix" = "$1 साठी आजचे चित्र";
@@ -391,3 +385,7 @@
 "no-email-account-alert" = "कृपया आपल्या उपकरणावर विपत्रपत्ता स्थापित करा व पुन्हा प्रयत्न करा.";
 "find-in-page-button-label" = "पानामध्ये शोधा";
 "find-in-page-popover-description" = "लेखात मजकूर शोधा";
+"top-read-reader-count-thousands" = "$1k";
+"top-read-header-with-language" = "$1 विकिपीडिया";
+"top-read-header-generic" = "विकिपीडिया";
+"reference-title" = "संदर्भ $1";

@@ -353,6 +353,7 @@
 "home-hide-suggestion-prompt" = "Ocultar esta sugerencia";
 "home-hide-suggestion-cancel" = "Cancelar";
 "home-accessibility-label" = "Wikipedia, Explorar";
+// Fuzzy
 "home-button-accessibility-label" = "Botón se inicio";
 "potd-empty-error-description" = "No se pudo obtener la foto del día del $1";
 "potd-description-prefix" = "Foto del día del $1";
@@ -419,3 +420,4 @@
 "number-thousands" = "$1k";
 "top-read-header-with-language" = "Wikipedia en $1";
 "top-read-header-generic" = "Wikipedia";
+"reference-title" = "Referencia $1";

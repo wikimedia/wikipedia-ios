@@ -362,6 +362,7 @@
 "home-hide-suggestion-prompt" = "提案を隠す";
 "home-hide-suggestion-cancel" = "中止";
 "home-accessibility-label" = "探してみよう";
+// Fuzzy
 "home-button-accessibility-label" = "ホームボタン";
 "potd-empty-error-description" = "$1日の写真の取得に失敗しました";
 "potd-description-prefix" = "$1日の写真";

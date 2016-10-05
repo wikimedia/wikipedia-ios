@@ -344,6 +344,7 @@
 "home-hide-suggestion-prompt" = "Diesen Vorschlag ausblenden";
 "home-hide-suggestion-cancel" = "Abbrechen";
 "home-accessibility-label" = "Wikipedia, Entdecken";
+// Fuzzy
 "home-button-accessibility-label" = "Startseiten-Knopf";
 "potd-empty-error-description" = "Das Bild des Tages für $1 konnte nicht abgerufen werden";
 "potd-description-prefix" = "Bild des Tages für $1";

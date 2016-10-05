@@ -349,6 +349,7 @@
 "home-hide-suggestion-prompt" = "Ascunde această sugestie";
 "home-hide-suggestion-cancel" = "Revocare";
 "home-accessibility-label" = "Wikipedia, Explorează";
+// Fuzzy
 "home-button-accessibility-label" = "Butonul Acasă";
 "potd-empty-error-description" = "Nu s-a putut găsi imaginea zilei pentru $1";
 "potd-description-prefix" = "Imaginea zilei în $1";

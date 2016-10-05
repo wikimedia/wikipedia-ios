@@ -350,6 +350,7 @@
 "home-hide-suggestion-prompt" = "Javaslat elrejtése";
 "home-hide-suggestion-cancel" = "Mégse";
 "home-accessibility-label" = "Wikipédia, Felfedezés";
+// Fuzzy
 "home-button-accessibility-label" = "Kezdőlap gomb";
 "potd-empty-error-description" = "A $1 nap képének lekérése sikertelen";
 "potd-description-prefix" = "A $1 nap képe";

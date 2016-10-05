@@ -346,6 +346,7 @@
 "home-hide-suggestion-prompt" = "Skjul dette forslag";
 "home-hide-suggestion-cancel" = "Annuller";
 "home-accessibility-label" = "Wikipedia, Opdag";
+// Fuzzy
 "home-button-accessibility-label" = "Hjem Knap";
 "potd-empty-error-description" = "Kunne ikke hente billede af den dag, for $1";
 "potd-description-prefix" = "Dagens billede for $1";
@@ -412,3 +413,4 @@
 "number-thousands" = "$1k";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
+"reference-title" = "Reference $1";

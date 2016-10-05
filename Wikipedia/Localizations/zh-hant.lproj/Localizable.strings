@@ -54,7 +54,7 @@
 "zero-learn-more" = "此維基百科應用程式可免除資料費用。";
 "zero-learn-more-learn-more" = "閱讀更多";
 "zero-learn-more-no-thanks" = "關閉";
-"zero-wikipedia-zero-heading" = "Wikipedia Zero";
+"zero-wikipedia-zero-heading" = "維基百科零";
 "zero-warn-when-leaving" = "離開 Wikipedia Zero 時提示";
 "zero-settings-devmode" = "Zero 開發模式";
 "account-creation-captcha-required" = "需要使用驗証碼驗証。";
@@ -149,7 +149,7 @@
 "main-menu-privacy-policy" = "隱私政策";
 "main-menu-terms-of-use" = "使用條款";
 "main-menu-rate-app" = "付費應用程式";
-"main-menu-heading-zero" = "Wikipedia Zero";
+"main-menu-heading-zero" = "維基百科零";
 "main-menu-heading-legal" = "隱私與條款";
 "main-menu-show-today" = "今日首頁";
 "main-menu-nearby" = "附近";
@@ -354,6 +354,7 @@
 "home-hide-suggestion-prompt" = "隱藏此建議";
 "home-hide-suggestion-cancel" = "取消";
 "home-accessibility-label" = "維基百科，探索";
+// Fuzzy
 "home-button-accessibility-label" = "首頁按鈕";
 "potd-empty-error-description" = "抓取 $1 的每日圖片失敗";
 "potd-description-prefix" = "$1 的每日圖片";
@@ -420,3 +421,4 @@
 "number-thousands" = "$1千";
 "top-read-header-with-language" = "$1維基百科";
 "top-read-header-generic" = "維基百科";
+"reference-title" = "參考資料 $1";

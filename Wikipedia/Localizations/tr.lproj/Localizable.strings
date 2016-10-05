@@ -5,6 +5,7 @@
 // Author: Ayrıntılı Bilgi
 // Author: HakanIST
 // Author: Incelemeelemani
+// Author: Kumkumuk
 // Author: Macofe
 // Author: Mavrikant
 // Author: Mavrikant2
@@ -358,6 +359,7 @@
 "home-hide-suggestion-prompt" = "Bu öneriyi gizle";
 "home-hide-suggestion-cancel" = "Geri al";
 "home-accessibility-label" = "Vikipedi, Keşfet";
+// Fuzzy
 "home-button-accessibility-label" = "Ana Sayfa Düğmesi";
 "potd-empty-error-description" = "$1 tarihli günün resmi alınamadı";
 "potd-description-prefix" = "$1 tarihli günün resmi";
@@ -424,3 +426,4 @@
 "number-thousands" = "$1b";
 "top-read-header-with-language" = "$1 Vikipedi";
 "top-read-header-generic" = "Vikipedi";
+"reference-title" = "$1 referansı";
