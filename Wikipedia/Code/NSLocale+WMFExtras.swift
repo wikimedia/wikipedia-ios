@@ -15,11 +15,16 @@ extension NSLocale {
     public class func wmf_uniqueLanguageCodesForLanguages(languages: [String]) -> [String] {
         var uniqueLanguageCodes = [String]()
         for preferredLanguage in languages {
-            var components = preferredLanguage.componentsSeparatedByString("-")
-            if components.count > 1 {
-                components.removeAtIndex(components.count - 1)
+            var components = preferredLanguage.lowercaseString.componentsSeparatedByString("-")
+            if components.count > 2 {
+                let zhVariants = ["hans", "hant", "cn", "tw", "sg", "hk", "mo"]
+                if (components[0] == "zh" && zhVariants.contains(components[2])) {
+                    components = ["zh", components[2]]
+                } else {
+                    components.removeLast(components.count - 2)
+                }
             }
-            let languageCode = components.joinWithSeparator("-").lowercaseString
+            let languageCode = components.joinWithSeparator("-")
             if uniqueLanguageCodes.contains(languageCode) {
                 continue
             }
