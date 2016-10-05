@@ -103,9 +103,25 @@
     [self.appViewController processShortcutItem:shortcutItem completion:completionHandler];
 }
 
+#pragma mark - NSUserActivity Handling
+
+- (BOOL)application:(UIApplication *)application willContinueUserActivityWithType:(NSString *)userActivityType {
+    return YES;
+}
+
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
     return [self.appViewController processUserActivity:userActivity];
 }
+
+- (void)application:(UIApplication *)application didFailToContinueUserActivityWithType:(NSString *)userActivityType error:(NSError *)error {
+    DDLogDebug(@"didFailToContinueUserActivityWithType: %@ error: %@", userActivityType, error);
+}
+
+- (void)application:(UIApplication *)application didUpdateUserActivity:(NSUserActivity *)userActivity {
+    DDLogDebug(@"didUpdateUserActivity: %@", userActivity);
+}
+
+#pragma mark - NSURL Handling
 
 - (BOOL)application:(UIApplication *)application
               openURL:(NSURL *)url

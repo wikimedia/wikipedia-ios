@@ -232,7 +232,11 @@
     } else if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10] && [self.activityType isEqualToString:CSQueryContinuationActionType]) {
         return WMFUserActivityTypeSearchResults;
     } else {
-        return WMFUserActivityTypeArticle;
+        if (self.webpageURL.wmf_isWikiResource) {
+            return WMFUserActivityTypeArticle;
+        } else {
+            return WMFUserActivityTypeGenericLink;
+        }
     }
 }
 

@@ -9,7 +9,8 @@ typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
     WMFUserActivityTypeSearchResults,
     WMFUserActivityTypeArticle,
     WMFUserActivityTypeSettings,
-    WMFUserActivityTypeTopRead
+    WMFUserActivityTypeTopRead,
+    WMFUserActivityTypeGenericLink
 };
 
 @interface NSUserActivity (WMFExtensions)
