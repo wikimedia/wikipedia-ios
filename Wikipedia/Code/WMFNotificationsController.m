@@ -37,14 +37,14 @@ NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
         if (error) {
             DDLogError(@"Error requesting authentication: %@", error);
         }
-        dispatch_async(self.notificationQueue, ^{
-            self.notificationSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, self.notificationQueue);
-            dispatch_source_set_timer(self.notificationSource, DISPATCH_TIME_NOW, WMFNotificationUpdateInterval * NSEC_PER_SEC, WMFNotificationUpdateInterval * NSEC_PER_SEC / 10);
-            dispatch_source_set_event_handler(self.notificationSource, ^{
-                [self sendNotification];
-            });
-            dispatch_resume(self.notificationSource);
-        });
+        //        dispatch_async(self.notificationQueue, ^{
+        //            self.notificationSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, self.notificationQueue);
+        //            dispatch_source_set_timer(self.notificationSource, DISPATCH_TIME_NOW, WMFNotificationUpdateInterval * NSEC_PER_SEC, WMFNotificationUpdateInterval * NSEC_PER_SEC / 10);
+        //            dispatch_source_set_event_handler(self.notificationSource, ^{
+        //                [self sendNotification];
+        //            });
+        //            dispatch_resume(self.notificationSource);
+        //        });
     }];
 }
 
