@@ -48,8 +48,6 @@
 
 #import "WMFMostReadListTableViewController.h"
 
-#import "UIViewController+WMFOpenExternalUrl.h"
-
 #define TEST_SHARED_CONTAINER_MIGRATION DEBUG && 0
 
 #if TEST_SHARED_CONTAINER_MIGRATION
@@ -419,9 +417,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if (!activity) {
         return NO;
     }
-    if ([activity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
-        return YES;
-    }
     switch ([activity wmf_type]) {
         case WMFUserActivityTypeExplore:
         case WMFUserActivityTypeSavedPages:
@@ -460,17 +455,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     }
     self.unprocessedUserActivity = nil;
     [self dismissViewControllerAnimated:NO completion:NULL];
-
-    if ([activity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
-        NSURL *URL = activity.webpageURL;
-        if (URL.wmf_isWikiResource) {
-            [self showArticleForURL:URL animated:NO];
-        } else {
-            [self wmf_openExternalUrl:URL];
-        }
-        return YES;
-    }
-
     switch ([activity wmf_type]) {
         case WMFUserActivityTypeExplore:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
