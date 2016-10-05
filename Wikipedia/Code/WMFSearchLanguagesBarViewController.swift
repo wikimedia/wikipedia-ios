@@ -61,6 +61,18 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
             }
             self.currentlySelectedSearchLanguage = appLanguage
         }
+
+        NSNotificationCenter.defaultCenter().addObserverForName(WMFPreferredLanguagesDidChangeNotification, object: nil, queue: nil) { note in
+            if let selectedLang = self.currentlySelectedSearchLanguage {
+                // The selected lang won't be in languageBarLanguages() if the user has dragged it down so it's not in top 3 langs...
+                if(self.languageBarLanguages().indexOf(selectedLang) == nil){
+                    // ...so select first lang if the selected lang has been moved down out of the top 3.
+                    self.currentlySelectedSearchLanguage = self.languageBarLanguages().first
+                    // Reminder: cannot use "reorderPreferredLanguage" for this (in "didUpdatePreferredLanguages:") because
+                    // that would undo the dragging the user just did and would also not work for changes made from settings.
+                }
+            }
+        }
     }
 
     deinit {
