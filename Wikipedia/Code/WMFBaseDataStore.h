@@ -30,9 +30,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, strong, nonatomic) YapDatabase *database;
 
 
+- (void)syncDataStoreToDatabase;
+
 
 - (void)registerChangeHandler:(id<WMFDatabaseChangeHandler>)handler;
-
 
 
 - (void)readWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction))block;

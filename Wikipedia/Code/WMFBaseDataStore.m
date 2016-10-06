@@ -1,7 +1,6 @@
 
 #import "WMFBaseDataStore.h"
 #import "YapDatabase+WMFExtensions.h"
-#import "YapDatabase+WMFViews.h"
 #import "YapDatabaseConnection+WMFExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -42,9 +41,30 @@ NS_ASSUME_NONNULL_BEGIN
                                                  selector:@selector(yapDatabaseModified:)
                                                      name:YapDatabaseModifiedNotification
                                                    object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(yapDatabaseModified:)
+                                                     name:YapDatabaseModifiedExternallyNotification
+                                                   object:nil];
     }
     return self;
 }
+
+#pragma mark - Database
+
+- (YapDatabaseConnection *)readConnection {
+    if (!_readConnection) {
+        _readConnection = [self.database wmf_newLongLivedReadConnection];
+    }
+    return _readConnection;
+}
+
+- (YapDatabaseConnection *)writeConnection {
+    if (!_writeConnection) {
+        _writeConnection = [self.database wmf_newWriteConnection];
+    }
+    return _writeConnection;
+}
+
 
 #pragma mark - ChangeHandlers
 
@@ -84,22 +104,27 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - YapDatabaseModified Notification
 
 - (void)yapDatabaseModified:(NSNotification *)notification {
-    
+    [self syncDataStoreToDatabase];
+    [self dataStoreWasUpdatedWithNotification:notification];
+}
+
+- (void)syncDataStoreToDatabase {
     // Jump to the most recent commit.
     // End & Re-Begin the long-lived transaction atomically.
     // Also grab all the notifications for all the commits that I jump.
     // If the UI is a bit backed up, I may jump multiple commits.
     NSArray *notifications = [self.readConnection beginLongLivedReadTransaction];
-    if ([notifications count] == 0) {
-        return;
-    }
+    
+    //Note: we must send notificatons even if they are 0
+    //This is neccesary because when changes happen in other processes
+    //Yap reports 0 changes and simply flushes its caches.
+    //This updates the connections and the DB, but not mappings
+    //To update any mappings, we must propagate "0" notifications
     
     [self.changeHandlers compact];
     for (id<WMFDatabaseChangeHandler> obj in self.changeHandlers) {
         [obj processChanges:notifications onConnection:self.readConnection];
     }
-    
-    [self dataStoreWasUpdatedWithNotification:notification];
 }
 
 - (void)dataStoreWasUpdatedWithNotification:(NSNotification*)notification{
