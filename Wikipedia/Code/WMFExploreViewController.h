@@ -1,16 +1,18 @@
 @import UIKit;
-
 #import "WMFAnalyticsLogging.h"
 
 @class MWKDataStore;
-@class MWKSavedPageList;
-@class MWKHistoryList;
+@class WMFContentGroupDataStore;
+@class WMFArticlePreviewDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFExploreViewController : UICollectionViewController <WMFAnalyticsViewNameProviding>
+@interface WMFExploreViewController : UICollectionViewController<WMFAnalyticsViewNameProviding, WMFAnalyticsContextProviding>
 
-@property (nonatomic, strong) MWKDataStore *dataStore;
+@property (nonatomic, strong) MWKDataStore *userStore;
+@property (nonatomic, strong) WMFContentGroupDataStore *contentStore;
+@property (nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
+
 @property (nonatomic, assign) BOOL canScrollToTop;
 
 - (void)showSettings;
