@@ -1,13 +1,13 @@
 
-#import "WMFTimerFeedSource.h"
+#import "WMFTimerContentSource.h"
 
-@interface WMFTimerFeedSource ()
+@interface WMFTimerContentSource ()
 
 @property (readwrite, nonatomic, strong) NSTimer* updateTimer;
 
 @end
 
-@implementation WMFTimerFeedSource
+@implementation WMFTimerContentSource
 
 - (instancetype)init{
     self = [super init];
@@ -17,7 +17,7 @@
     return self;
 }
 
-#pragma mark - WMFFeedSource
+#pragma mark - WMFContentSource
 
 - (void)startUpdating{
     [self stopUpdating];
@@ -29,7 +29,7 @@
     self.updateTimer = nil;
 }
 
-- (void)updateForce:(BOOL)force{
+- (void)loadNewContentForce:(BOOL)force{
     //nonop - implemented by subclasses
 }
 
@@ -37,7 +37,7 @@
 #pragma mark - Timer Trigger
 
 - (void)updateWithTimer:(NSTimer*)timer{
-    [self updateForce:NO];
+    [self loadNewContentForce:NO];
 }
 
 @end
