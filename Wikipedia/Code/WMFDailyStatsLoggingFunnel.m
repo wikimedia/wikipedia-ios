@@ -1,6 +1,6 @@
 #import "WMFDailyStatsLoggingFunnel.h"
 #import "Wikipedia-Swift.h"
-#import "NSDate+Utilities.h"
+#import "NSCalendar+WMFCommonCalendars.h"
 
 static NSString *const kAppInstallAgeKey = @"appInstallAgeDays";
 static NSString *const kAppInstallIdKey = @"appInstallID";
@@ -16,32 +16,29 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
     return self;
 }
 
-- (BOOL)shouldLogInstallDays {
-    NSDate *date = [[NSUserDefaults wmf_userDefaults] wmf_dateLastDailyLoggingStatsSent];
-    if (date == nil) {
-        return YES;
-    } else if ([[NSCalendar currentCalendar] isDateInToday:date]) {
-        return NO;
-    } else {
-        return YES;
-    }
-}
-
 - (void)logAppNumberOfDaysSinceInstall {
-    if (![self shouldLogInstallDays]) {
-        return;
-    }
-
-    NSDate *installDate = [[NSUserDefaults wmf_userDefaults] wmf_appInstallDate];
+    NSUserDefaults *userDefaults = [NSUserDefaults wmf_userDefaults];
+    
+    NSDate *installDate = [userDefaults wmf_appInstallDate];
     NSParameterAssert(installDate);
     if (!installDate) {
         return;
     }
 
     NSDate *currentDate = [NSDate date];
-    NSInteger days = [installDate distanceInDaysToDate:currentDate];
-    [self log:@{ kAppInstallAgeKey: @(days) }];
-    [[NSUserDefaults wmf_userDefaults] wmf_setDateLastDailyLoggingStatsSent:currentDate];
+    NSInteger daysInstalled = [[NSCalendar wmf_gregorianCalendar] daysFromDate:installDate toDate:currentDate];
+    
+    NSNumber *daysInstalledNumber = [userDefaults wmf_daysInstalled];
+    
+    if (daysInstalledNumber != nil) {
+        NSInteger lastLoggedDaysInstalled = [daysInstalledNumber integerValue];
+        if (lastLoggedDaysInstalled == daysInstalled) {
+            return;
+        }
+    }
+    
+    [self log:@{ kAppInstallAgeKey: @(daysInstalled) }];
+    [userDefaults wmf_setDaysInstalled:@(daysInstalled)];
 }
 
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
