@@ -27,6 +27,7 @@
 
 // Model
 #import "MWKDataStore.h"
+#import "WMFArticlePreviewDataStore.h"
 #import "MWKCitation.h"
 #import "MWKSavedPageList.h"
 #import "MWKArticle+WMFSharing.h"
@@ -68,7 +69,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
 static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 10;
 
 @interface WMFArticleViewController () <UINavigationControllerDelegate,
-                                        WMFImageGalleryViewControllerReferenceViewDelegate,
+                                        /*WMFImageGalleryViewControllerReferenceViewDelegate,*/
                                         SectionEditorViewControllerDelegate,
                                         UIViewControllerPreviewingDelegate,
                                         WMFLanguagesViewControllerDelegate,
@@ -86,6 +87,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (nonatomic, strong, readwrite) NSURL *articleURL;
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
+@property (nonatomic, strong, readwrite) WMFArticlePreviewDataStore *previewStore;
 
 @property (strong, nonatomic, nullable, readwrite) WMFShareFunnel *shareFunnel;
 @property (strong, nonatomic, nullable) WMFShareOptionsController *shareOptionsController;
@@ -147,15 +149,18 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (instancetype)initWithArticleURL:(NSURL *)url
-                         dataStore:(MWKDataStore *)dataStore {
+                         dataStore:(MWKDataStore *)dataStore
+                      previewStore:(WMFArticlePreviewDataStore*)previewStore{
     NSParameterAssert(url.wmf_title);
     NSParameterAssert(dataStore);
+    NSParameterAssert(previewStore);
 
     self = [super init];
     if (self) {
         self.currentFooterIndex = NSNotFound;
         self.articleURL = url;
         self.dataStore = dataStore;
+        self.previewStore = previewStore;
         self.hidesBottomBarWhenPushed = YES;
         self.reachabilityManager = [AFNetworkReachabilityManager manager];
         [self.reachabilityManager startMonitoring];
@@ -167,7 +172,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (WMFArticleFooterMenuViewController *)footerMenuViewController {
     if (!_footerMenuViewController && [self hasAboutThisArticle]) {
-        self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article similarPagesListDelegate:self];
+        self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article dataStore:self.dataStore previewStore:self.previewStore similarPagesListDelegate:self];
     }
     return _footerMenuViewController;
 }
@@ -297,7 +302,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (WMFReadMoreViewController *)readMoreListViewController {
     if (!_readMoreListViewController) {
         _readMoreListViewController = [[WMFReadMoreViewController alloc] initWithURL:self.articleURL
-                                                                           dataStore:self.dataStore];
+                                                                           userStore:self.dataStore
+                                                                        previewStore:self.previewStore];
         _readMoreListViewController.delegate = self;
     }
     return _readMoreListViewController;
@@ -305,7 +311,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (WMFArticleFetcher *)articleFetcher {
     if (!_articleFetcher) {
-        _articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.dataStore];
+        _articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.dataStore previewStore:self.previewStore];
     }
     return _articleFetcher;
 }
@@ -1140,10 +1146,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                          [self.pullToRefresh endRefreshing];
                                          [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
                                          self.article = article;
-                                         /*
-           NOTE(bgerstle): add side effects to setArticle, not here. this ensures they happen even when falling back to
-           cached content
-         */
+                                         
                                      })
                                      .catch(^(NSError *error) {
                                          @strongify(self);
@@ -1206,19 +1209,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 
     @weakify(self);
-    [self.readMoreListViewController fetchIfNeeded].then(^{
-                                                       @strongify(self);
-                                                       if (!self) {
-                                                           return;
-                                                       }
-                                                       // update footers to include read more if there are results
-                                                       [self updateWebviewFootersIfNeeded];
-                                                       [self updateTableOfContentsForFootersIfNeeded];
-                                                   })
-        .catch(^(NSError *error) {
-            DDLogError(@"Read More Fetch Error: %@", error);
+    [self.readMoreListViewController fetchIfNeededWithCompletionBlock:^(WMFRelatedSearchResults *results) {
+        @strongify(self);
+        if (!self) {
+            return;
+        }
+        // update footers to include read more if there are results
+        [self updateWebviewFootersIfNeeded];
+        [self updateTableOfContentsForFootersIfNeeded];
+        
+    } failureBlock:^(NSError *error) {
+        DDLogError(@"Read More Fetch Error: %@", error);
         WMF_TECH_DEBT_TODO(show read more w / an error view and allow user to retry ? );
-        });
+    }];
 }
 
 #pragma mark - Share
@@ -1453,7 +1456,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 
     WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article];
-    fullscreenGallery.referenceViewDelegate = self;
+//    fullscreenGallery.referenceViewDelegate = self;
     if (fullscreenGallery != nil) {
         [self presentViewController:fullscreenGallery animated:YES completion:nil];
     }
@@ -1606,7 +1609,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (UIViewController *)viewControllerForPreviewURL:(NSURL *)url {
     if (url && [url wmf_isPeekable]) {
         if ([url wmf_isWikiResource]) {
-            return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+            return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore previewStore:self.previewStore];
         } else {
             return [[SFSafariViewController alloc] initWithURL:url];
         }
@@ -1632,7 +1635,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)pushArticleViewControllerWithURL:(NSURL *)url contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType animated:(BOOL)animated {
     WMFArticleViewController *articleViewController =
         [[WMFArticleViewController alloc] initWithArticleURL:url
-                                                   dataStore:self.dataStore];
+                                                   dataStore:self.dataStore
+                                                previewStore:self.previewStore];
     [self pushArticleViewController:articleViewController contentType:contentType animated:animated];
 }
 
@@ -1651,7 +1655,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (UIViewController *)listViewController:(WMFArticleListTableViewController *)listController viewControllerForPreviewingArticleURL:(NSURL *)url {
     return [[WMFArticleViewController alloc] initWithArticleURL:url
-                                                      dataStore:self.dataStore];
+                                                      dataStore:self.dataStore
+                                                   previewStore:self.previewStore];
 }
 
 - (void)listViewController:(WMFArticleListTableViewController *)listController didCommitToPreviewedViewController:(UIViewController *)viewController {

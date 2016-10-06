@@ -42,6 +42,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     NSParameterAssert(self.userDataStore);
+    NSParameterAssert(self.previewStore);
     [self updateEmptyAndDeleteState];
 }
 
@@ -70,7 +71,7 @@
         [self.delegate listViewController:self didSelectArticleURL:url];
         return;
     }
-    [self wmf_pushArticleWithURL:url dataStore:self.userDataStore animated:YES];
+    [self wmf_pushArticleWithURL:url dataStore:self.userDataStore previewStore:self.previewStore animated:YES];
 }
 
 #pragma mark - Previewing
@@ -114,7 +115,7 @@
     if (self.delegate) {
         return [self.delegate listViewController:self viewControllerForPreviewingArticleURL:url];
     } else {
-        return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userDataStore];
+        return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userDataStore previewStore:self.previewStore];
     }
 }
 

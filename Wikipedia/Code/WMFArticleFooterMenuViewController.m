@@ -23,6 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleFooterMenuViewController () <UITableViewDelegate, WMFLanguagesViewControllerDelegate, UINavigationControllerDelegate>
 
+@property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
+
+@property (nonatomic, strong, readwrite) WMFArticlePreviewDataStore *previewStore;
+
 @property (nonatomic, strong) WMFArticleFooterMenuDataSource *footerDataSource;
 
 @property (nonatomic, strong) IBOutlet WMFIntrinsicSizeTableView *tableView;
@@ -33,11 +37,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticleFooterMenuViewController
 
-- (instancetype)initWithArticle:(MWKArticle *)article similarPagesListDelegate:(id<WMFArticleListTableViewControllerDelegate>)delegate {
+- (instancetype)initWithArticle:(MWKArticle *)article dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore*)previewStore similarPagesListDelegate:(id<WMFArticleListTableViewControllerDelegate>)delegate{
     NSParameterAssert(article);
     NSParameterAssert(delegate);
+    NSParameterAssert(dataStore);
+    NSParameterAssert(previewStore);
     self = [super init];
     if (self) {
+        self.previewStore = previewStore;
+        self.dataStore = dataStore;
         self.footerDataSource = [[WMFArticleFooterMenuDataSource alloc] initWithArticle:self.article];
         self.similarPagesDelegate = delegate;
     }
@@ -55,11 +63,6 @@ NS_ASSUME_NONNULL_BEGIN
     return self.footerDataSource.article;
 }
 
-#pragma mark - Accessors
-
-- (MWKDataStore *)dataStore {
-    return self.article.dataStore;
-}
 
 #pragma mark - UIViewController
 
@@ -144,7 +147,8 @@ NS_ASSUME_NONNULL_BEGIN
                              completion:^{
                                  WMFArticleViewController *articleContainerVC =
                                      [[WMFArticleViewController alloc] initWithArticleURL:language.articleURL
-                                                                                dataStore:self.dataStore];
+                                                                                dataStore:self.dataStore
+                                                                             previewStore:self.previewStore];
                                  [self.navigationController pushViewController:articleContainerVC animated:YES];
                              }];
 }

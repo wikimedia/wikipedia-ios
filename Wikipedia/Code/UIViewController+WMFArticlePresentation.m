@@ -2,6 +2,7 @@
 #import "Wikipedia-Swift.h"
 
 #import "MWKDataStore.h"
+#import "WMFArticlePreviewDataStore.h"
 
 #import "MWKHistoryList.h"
 #import "MWKHistoryEntry.h"
@@ -15,17 +16,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation UIViewController (WMFArticlePresentation)
 
-- (void)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated {
+- (void)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore*)previewStore restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated{
     if (!restoreScrollPosition) {
         url = [url wmf_URLWithFragment:nil];
     }
 
-    WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore];
+    WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore previewStore:previewStore];
     [self wmf_pushArticleViewController:vc animated:animated];
 }
 
-- (void)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore animated:(BOOL)animated {
-    [self wmf_pushArticleWithURL:url dataStore:dataStore restoreScrollPosition:NO animated:animated];
+- (void)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore*)previewStore animated:(BOOL)animated{
+    [self wmf_pushArticleWithURL:url dataStore:dataStore previewStore:previewStore restoreScrollPosition:NO animated:animated];
 }
 
 - (void)wmf_pushArticleViewController:(WMFArticleViewController *)viewController animated:(BOOL)animated {

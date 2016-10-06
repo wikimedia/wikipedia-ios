@@ -95,6 +95,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 @property (nonatomic, strong) WMFRandomArticleFetcher *randomFetcher;
 @property (nonatomic, strong) SessionSingleton *session;
 
+@property (nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
 @property (nonatomic) BOOL isPresentingOnboarding;
 
 @property (nonatomic, strong) NSUserActivity *unprocessedUserActivity;
@@ -151,11 +152,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [self configureArticleListController:self.savedArticlesViewController];
     [self configureArticleListController:self.recentArticlesViewController];
     [[self class] wmf_setSearchButtonDataStore:self.dataStore];
+    [[self class] wmf_setSearchButtonPreviewStore:self.previewStore];
 }
 
 - (void)configureTabController {
     self.rootTabBarController.delegate = self;
-
     for (WMFAppTabType i = 0; i < WMFAppTabCount; i++) {
         UINavigationController *navigationController = [self navigationControllerForTab:i];
         navigationController.delegate = self;
@@ -164,11 +165,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)configureExploreViewController {
-    [self.exploreViewController setDataStore:[self dataStore]];
+    [self.exploreViewController setUserStore:[self dataStore]];
+    [self.exploreViewController setPreviewStore:self.previewStore];
 }
 
 - (void)configureArticleListController:(WMFArticleListTableViewController *)controller {
-    controller.dataStore = self.session.dataStore;
+    controller.userDataStore = self.session.dataStore;
+    controller.previewStore = self.previewStore;
 }
 
 #pragma mark - Notifications
@@ -263,7 +266,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     @weakify(self)
         [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
             @strongify(self)
-                [self loadMainUI];
+            self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
+            [self loadMainUI];
             [self hideSplashViewAnimated:!didShowOnboarding];
             [self resumeApp];
             [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
@@ -534,7 +538,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         return;
     }
     [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-    [[self exploreViewController] wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore restoreScrollPosition:YES animated:animated];
+    [[self exploreViewController] wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore previewStore:self.previewStore restoreScrollPosition:YES animated:animated];
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
@@ -577,7 +581,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     }
     if (!_savedArticlesFetcher) {
         _savedArticlesFetcher =
-            [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]
+        [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]
+                                           previewStore:self.previewStore
                                               savedPageList:[[self dataStore] savedPageList]];
     }
     return _savedArticlesFetcher;
@@ -772,7 +777,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         }
         success:^(MWKSearchResult *result) {
             NSURL *articleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
-            [[self exploreViewController] wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore animated:YES];
+            [[self exploreViewController] wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore previewStore:self.previewStore animated:YES];
         }];
 }
 

@@ -1,5 +1,6 @@
 #import "WMFHelpViewController.h"
 #import "MWKDataStore.h"
+#import "WMFArticlePreviewDataStore.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "WikipediaAppUtils.h"
 #import "Wikipedia-Swift.h"
@@ -22,9 +23,9 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 
 @implementation WMFHelpViewController
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore*)previewStore {
     NSURL *faqURL = [NSURL URLWithString:WMFSettingsURLFAQ];
-    self = [super initWithArticleURL:faqURL dataStore:dataStore];
+    self = [super initWithArticleURL:faqURL dataStore:dataStore previewStore:previewStore];
     return self;
 }
 

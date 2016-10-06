@@ -1,6 +1,7 @@
 #import <UIKit/UIKit.h>
 #import "UIViewController+WMFEmptyView.h"
 
+@class WMFArticlePreviewDataStore;
 @class MWKDataStore;
 @class WMFArticleListTableViewController;
 
@@ -19,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleListTableViewController : UITableViewController
 
 @property (nonatomic, strong) MWKDataStore *userDataStore;
+@property (nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
 
 /**
  *  Optional delegate which will is informed of selection.
