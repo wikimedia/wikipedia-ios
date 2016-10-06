@@ -25,8 +25,6 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>CFBundleURLIconFile</key>
-			<string></string>
 			<key>CFBundleURLName</key>
 			<string>org.wikimedia.wikipedia</string>
 			<key>CFBundleURLSchemes</key>
