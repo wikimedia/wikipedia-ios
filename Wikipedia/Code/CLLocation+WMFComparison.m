@@ -12,6 +12,14 @@
     }
 }
 
+- (BOOL)wmf_isCloseTo:(CLLocation *)location{
+    if ([self distanceFromLocation:location] < 1000.0) {
+        return YES;
+    }else{
+        return NO;
+    }
+}
+
 @end
 
 @implementation CLPlacemark (WMFComparison)

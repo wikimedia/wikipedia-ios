@@ -62,47 +62,55 @@ NS_ASSUME_NONNULL_BEGIN
                              resultLimit:(NSUInteger)resultLimit
                              cancellable:(inout id<Cancellable> __nullable *__nullable)outCancellable {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        id<Cancellable> cancellable =
-            [self fetchNearbyArticlesWithSiteURL:siteURL
-                                        location:location
-                                     resultLimit:resultLimit
-                                   useDesktopURL:NO
-                                        resolver:resolve];
+        id<Cancellable> cancellable = [self fetchArticlesWithSiteURL:siteURL location:location resultLimit:resultLimit useDesktopURL:NO completion:^(WMFLocationSearchResults * _Nonnull results) {
+            resolve(results);
+            
+        } failure:^(NSError * _Nonnull error) {
+            resolve(error);
+        }];
+        
         WMFSafeAssign(outCancellable, cancellable);
     }];
 }
 
-- (id<Cancellable>)fetchNearbyArticlesWithSiteURL:(NSURL *)siteURL
-                                         location:(CLLocation *)location
-                                      resultLimit:(NSUInteger)resultLimit
-                                    useDesktopURL:(BOOL)useDeskTopURL
-                                         resolver:(PMKResolver)resolve {
-    NSURL *url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:siteURL] : [NSURL wmf_mobileAPIURLForURL:siteURL];
+- (NSURLSessionDataTask* )fetchArticlesWithSiteURL:(NSURL *)siteURL
+                                          location:(CLLocation *)location
+                                       resultLimit:(NSUInteger)resultLimit
+                                        completion:(void (^) (WMFLocationSearchResults* results))completion
+                                           failure:(void(^)(NSError* error))failure{
+    return [self fetchArticlesWithSiteURL:siteURL location:location resultLimit:resultLimit useDesktopURL:NO completion:completion failure:failure];
+}
 
+
+- (NSURLSessionDataTask* )fetchArticlesWithSiteURL:(NSURL *)siteURL
+                        location:(CLLocation *)location
+                     resultLimit:(NSUInteger)resultLimit
+                   useDesktopURL:(BOOL)useDeskTopURL
+                      completion:(void (^) (WMFLocationSearchResults* results))completion
+                         failure:(void(^)(NSError* error))failure{
+    
+    NSURL *url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:siteURL] : [NSURL wmf_mobileAPIURLForURL:siteURL];
+    
     WMFLocationSearchRequestParameters *params = [WMFLocationSearchRequestParameters new];
     params.location = location;
     params.numberOfResults = resultLimit;
-
-    return [self.operationManager GET:url.absoluteString
-        parameters:params
-        progress:NULL
-        success:^(NSURLSessionDataTask *operation, id response) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            WMFLocationSearchResults *results = [[WMFLocationSearchResults alloc] initWithSearchSiteURL:siteURL location:location results:response];
-            resolve(results);
+    
+    return [self.operationManager wmf_GETAndRetryWithURL:url parameters:params retry:NULL success:^(NSURLSessionDataTask *operation, id responseObject) {
+        
+        [[MWNetworkActivityIndicatorManager sharedManager] pop];
+        WMFLocationSearchResults *results = [[WMFLocationSearchResults alloc] initWithSearchSiteURL:siteURL location:location results:responseObject];
+        
+        if(completion){
+            completion(results);
         }
-        failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:siteURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
-                [self fetchNearbyArticlesWithSiteURL:siteURL
-                                            location:location
-                                         resultLimit:resultLimit
-                                       useDesktopURL:YES
-                                            resolver:resolve];
-            } else {
-                [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                resolve(error);
-            }
-        }];
+
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        [[MWNetworkActivityIndicatorManager sharedManager] pop];
+        if(failure){
+            failure(error);
+        }
+    }];
+    
 }
 
 @end

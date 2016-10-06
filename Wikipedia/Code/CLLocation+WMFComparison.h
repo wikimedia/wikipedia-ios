@@ -4,6 +4,8 @@
 
 - (BOOL)wmf_isEqual:(CLLocation *)location;
 
+- (BOOL)wmf_isCloseTo:(CLLocation *)location;
+
 @end
 
 @interface CLPlacemark (WMFComparison)
