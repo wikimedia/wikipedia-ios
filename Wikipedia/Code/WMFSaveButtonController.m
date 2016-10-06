@@ -161,10 +161,10 @@
 
     if (isSaved) {
         [self.savedPagesFunnel logDelete];
-        [[PiwikTracker wmf_configuredInstance] wmf_logActionUnsaveInContext:self.analyticsContext contentType:self.analyticsContentType];
+        [[PiwikTracker wmf_configuredInstance] wmf_logActionUnsaveInContext:self contentType:self];
     } else {
         [self.savedPagesFunnel logSaveNew];
-        [[PiwikTracker wmf_configuredInstance] wmf_logActionSaveInContext:self.analyticsContext contentType:self.analyticsContentType];
+        [[PiwikTracker wmf_configuredInstance] wmf_logActionSaveInContext:self contentType:self];
     }
 
     [self.savedPageList toggleSavedPageForURL:self.url];
