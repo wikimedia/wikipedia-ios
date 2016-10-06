@@ -77,6 +77,15 @@ static NSString *const WMFUserZoomTag = @QUOTE(WMF_USER_ZOOM_TAG);
           [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]);
 #endif
 
+#if WMF_USER_ZOOM_IS_ENABLED
+#if DEBUG
+    [UserzoomSDK setDebugLevel:UZLogVerbose];
+    [UserzoomSDK setDevelopmentMode];
+#endif
+    [UserzoomSDK initWithTag:WMFUserZoomTag
+                     options:launchOptions];
+#endif
+
     [NSUserDefaults wmf_migrateToWMFGroupUserDefaultsIfNecessary];
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
     [PiwikTracker wmf_start];
@@ -90,12 +99,6 @@ static NSString *const WMFUserZoomTag = @QUOTE(WMF_USER_ZOOM_TAG);
 
     [self updateDynamicIconShortcutItems];
 
-#if WMF_USER_ZOOM_IS_ENABLED
-#if DEBUG
-    [UserzoomSDK setDevelopmentMode];
-#endif
-    [UserzoomSDK initWithTag:WMFUserZoomTag options:launchOptions];
-#endif
     return YES;
 }
 
@@ -139,7 +142,7 @@ static NSString *const WMFUserZoomTag = @QUOTE(WMF_USER_ZOOM_TAG);
 #if WMF_USER_ZOOM_IS_ENABLED
     BOOL didHandle = [self application:application openURL:url options:@{}];
     if (!didHandle) {
-        return [UserzoomSDK openURL: url sourceApplication: sourceApplication annotation: annotation];
+        return [UserzoomSDK openURL:url sourceApplication:sourceApplication annotation:annotation];
     }
     return didHandle;
 #else
@@ -178,13 +181,11 @@ static NSString *const WMFUserZoomTag = @QUOTE(WMF_USER_ZOOM_TAG);
 #pragma mark - User Zoom
 
 #if WMF_USER_ZOOM_IS_ENABLED
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
-{
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     [UserzoomSDK continueFlow:notification];
 }
 
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
-{
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
     [UserzoomSDK changePermissions:notificationSettings];
 }
 #endif
