@@ -3,6 +3,7 @@
 #import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
 #import "MWKSearchResult.h"
 #import "MWKLocationSearchResult.h"
+#import "MWKArticle.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -29,28 +30,42 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     [self readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction) {
-        [transaction enumerateKeysAndObjectsInCollection:[WMFExploreSection databaseCollectionName] usingBlock:^(NSString * _Nonnull key, id  _Nonnull object, BOOL * _Nonnull stop) {
+        [transaction enumerateKeysAndObjectsInCollection:[WMFArticlePreview databaseCollectionName] usingBlock:^(NSString * _Nonnull key, id  _Nonnull object, BOOL * _Nonnull stop) {
             block(object, stop);
         }];
     }];
 }
 
-- (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithSearchResult:(MWKSearchResult*)searchResult{
+- (WMFArticlePreview*)newOrExistingPreviewWithURL:(NSURL *)url{
     NSParameterAssert(url.wmf_title);
     WMFArticlePreview* existing = [[self itemForURL:url] copy];
     if(!existing){
         existing = [WMFArticlePreview new];
         existing.url = url;
     }
-    [self updatePreview:existing withSearchResult:searchResult];
-
-    [self readWriteWithBlock:^(YapDatabaseReadWriteTransaction * _Nonnull transaction) {
-        [transaction setObject:existing forKey:[existing databaseKey] inCollection:[WMFArticlePreview databaseCollectionName]];
-    }];
-    
     return existing;
-    
 }
+
+- (void)savePreview:(WMFArticlePreview*)preview{
+    [self readWriteWithBlock:^(YapDatabaseReadWriteTransaction * _Nonnull transaction) {
+        [transaction setObject:preview forKey:[preview databaseKey] inCollection:[WMFArticlePreview databaseCollectionName]];
+    }];
+}
+
+- (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithSearchResult:(MWKSearchResult*)searchResult{
+    WMFArticlePreview* preview = [self newOrExistingPreviewWithURL:url];
+    [self updatePreview:preview withSearchResult:searchResult];
+    [self savePreview:preview];
+    return preview;
+}
+
+- (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithLocationSearchResult:(MWKLocationSearchResult*)searchResult{
+    WMFArticlePreview* preview = [self newOrExistingPreviewWithURL:url];
+    [self updatePreview:preview withLocationSearchResult:searchResult];
+    [self savePreview:preview];
+    return preview;
+}
+
 
 - (void)updatePreview:(WMFArticlePreview*)preview withSearchResult:(MWKSearchResult*)searchResult{
     
@@ -74,6 +89,26 @@ NS_ASSUME_NONNULL_BEGIN
         preview.location = searchResult.location;
     }
 }
+
+- (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithArticle:(MWKArticle*)article{
+    WMFArticlePreview* preview = [self newOrExistingPreviewWithURL:url];
+    if([article.displaytitle length] > 0){
+        preview.displayTitle = article.displaytitle;
+    }
+    if([article.entityDescription length] > 0){
+        preview.wikidataDescription = article.entityDescription;
+    }
+    if([article.summary length] > 0){
+        preview.snippet = article.summary;
+    }
+    if([article bestThumbnailImageURL] != nil){
+        NSURL* thumb = [NSURL URLWithString:[article bestThumbnailImageURL]];
+        preview.thumbnailURL = thumb;
+    }
+    [self savePreview:preview];
+    return preview;
+}
+
 
 
 @end

@@ -1,5 +1,6 @@
 
 #import <Mantle/Mantle.h>
+@import CoreLocation;
 
 @interface WMFArticlePreview : MTLModel
 
