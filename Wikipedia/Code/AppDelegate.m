@@ -6,6 +6,11 @@
 #import <Tweaks/FBTweakShakeWindow.h>
 #import "NSUserActivity+WMFExtensions.h"
 
+#if WMF_USER_ZOOM_IS_ENABLED
+#import <UserzoomSDK/UserzoomSDK.h>
+static NSString *const WMFUserZoomTag = @QUOTE(WMF_USER_ZOOM_TAG);
+#endif
+
 @interface AppDelegate ()
 
 @property (nonatomic, strong) WMFAppViewController *appViewController;
@@ -85,6 +90,12 @@
 
     [self updateDynamicIconShortcutItems];
 
+#if WMF_USER_ZOOM_IS_ENABLED
+#if DEBUG
+    [UserzoomSDK setDevelopmentMode];
+#endif
+    [UserzoomSDK initWithTag:WMFUserZoomTag options:launchOptions];
+#endif
     return YES;
 }
 
@@ -125,7 +136,15 @@
               openURL:(NSURL *)url
     sourceApplication:(NSString *)sourceApplication
            annotation:(id)annotation {
+#if WMF_USER_ZOOM_IS_ENABLED
+    BOOL didHandle = [self application:application openURL:url options:@{}];
+    if (!didHandle) {
+        return [UserzoomSDK openURL: url sourceApplication: sourceApplication annotation: annotation];
+    }
+    return didHandle;
+#else
     return [self application:application openURL:url options:@{}];
+#endif
 }
 
 - (BOOL)application:(UIApplication *)app
@@ -155,5 +174,19 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     [self applicationDidEnterBackground:application];
 }
+
+#pragma mark - User Zoom
+
+#if WMF_USER_ZOOM_IS_ENABLED
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    [UserzoomSDK continueFlow:notification];
+}
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    [UserzoomSDK changePermissions:notificationSettings];
+}
+#endif
 
 @end

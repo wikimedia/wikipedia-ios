@@ -24,10 +24,24 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
-			<string>None</string>
+			<string>Editor</string>
+			<key>CFBundleURLIconFile</key>
+			<string></string>
+			<key>CFBundleURLName</key>
+			<string>org.wikimedia.wikipedia</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>wikipedia</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>userzoomc5224a1</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>userzoomc5224a1</string>
 			</array>
 		</dict>
 	</array>
@@ -100,6 +114,10 @@
 	<string>3</string>
 	<key>WMFPiwikURL</key>
 	<string>https://piwik.wikimedia.org/</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Opt-in user testing</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Opt-in user testing</string>
 	<key>WMFShowDebugMenu</key>
 	<false/>
 </dict>

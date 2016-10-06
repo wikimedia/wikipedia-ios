@@ -57,6 +57,10 @@
 #import "SDImageCache+WMFPersistentCache.h"
 #endif
 
+#if WMF_USER_ZOOM_IS_ENABLED
+#import <UserzoomSDK/UserzoomSDK.h>
+#endif
+
 /**
  *  Enums for each tab in the main tab bar.
  *
@@ -153,6 +157,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [self configureArticleListController:self.savedArticlesViewController];
     [self configureArticleListController:self.recentArticlesViewController];
     [[self class] wmf_setSearchButtonDataStore:self.dataStore];
+    
+#if WMF_USER_ZOOM_IS_ENABLED
+    [UserzoomSDK show];
+#endif
 }
 
 - (void)configureTabController {
