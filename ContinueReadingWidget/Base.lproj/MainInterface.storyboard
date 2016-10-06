@@ -53,11 +53,11 @@
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="5UE-Nc-zWc"/>
+                                    <constraint firstAttribute="height" constant="20" id="5UE-Nc-zWc"/>
                                     <constraint firstItem="pDO-M3-3su" firstAttribute="leading" secondItem="3Uu-vI-59e" secondAttribute="leading" constant="6" id="O6t-YJ-eax"/>
-                                    <constraint firstItem="pDO-M3-3su" firstAttribute="top" secondItem="3Uu-vI-59e" secondAttribute="top" constant="2" id="WId-7B-KqN"/>
+                                    <constraint firstItem="pDO-M3-3su" firstAttribute="top" secondItem="3Uu-vI-59e" secondAttribute="top" id="WId-7B-KqN"/>
                                     <constraint firstAttribute="trailing" secondItem="pDO-M3-3su" secondAttribute="trailing" constant="6" id="dZE-Nv-NeO"/>
-                                    <constraint firstAttribute="bottom" secondItem="pDO-M3-3su" secondAttribute="bottom" constant="2" id="hev-Z5-2XR"/>
+                                    <constraint firstAttribute="bottom" secondItem="pDO-M3-3su" secondAttribute="bottom" id="hev-Z5-2XR"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -103,9 +103,8 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="vq4-5M-Tnk" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="10" id="2e4-f1-47H"/>
-                            <constraint firstItem="3Uu-vI-59e" firstAttribute="top" relation="greaterThanOrEqual" secondItem="CwR-CM-SDN" secondAttribute="bottom" constant="5" id="4Lb-rh-iGP"/>
+                            <constraint firstItem="3Uu-vI-59e" firstAttribute="top" relation="greaterThanOrEqual" secondItem="CwR-CM-SDN" secondAttribute="bottom" constant="8" id="4Lb-rh-iGP"/>
                             <constraint firstItem="ZR6-x7-9Of" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="65O-ga-KaL"/>
-                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="3Uu-vI-59e" secondAttribute="bottom" constant="10" id="9ub-W2-dPU"/>
                             <constraint firstItem="ZR6-x7-9Of" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="BQN-qh-xVn"/>
                             <constraint firstItem="BSk-BH-jRq" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="H7e-h9-nbd"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="3Uu-vI-59e" secondAttribute="bottom" constant="10" id="V4i-bE-94u"/>

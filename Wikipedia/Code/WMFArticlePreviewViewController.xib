@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A319" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,6 +10,7 @@
             <connections>
                 <outlet property="imageView" destination="sBV-nz-BRl" id="wNL-uY-r8g"/>
                 <outlet property="imageWidthConstraint" destination="8QF-Lg-cIG" id="4sW-WV-Szz"/>
+                <outlet property="marginWidthConstraint" destination="EL9-Ju-PN7" id="G0o-Bx-KIO"/>
                 <outlet property="rankLabel" destination="8p9-Hg-81S" id="EA6-S9-EwZ"/>
                 <outlet property="separatorView" destination="xnh-wl-RXW" id="7Cd-KF-RX3"/>
                 <outlet property="sparklineView" destination="vap-0K-H1T" id="qNY-da-Zzw"/>
@@ -88,27 +90,35 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BW7-a2-NhY" userLabel="Margin View">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="14" id="EL9-Ju-PN7"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="sBV-nz-BRl" firstAttribute="leading" secondItem="3sD-Qs-JfB" secondAttribute="trailing" constant="8" id="0Dc-eJ-A6M"/>
                 <constraint firstItem="sBV-nz-BRl" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="0uS-mw-tlE"/>
-                <constraint firstItem="3sD-Qs-JfB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="35" id="4f9-jk-UAA" userLabel="ArticleVC Title Label Leading"/>
-                <constraint firstItem="8p9-Hg-81S" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="9A8-U2-H3W" userLabel="ArticleVC Rank Label Leading"/>
+                <constraint firstItem="8p9-Hg-81S" firstAttribute="leading" secondItem="BW7-a2-NhY" secondAttribute="trailing" id="8cI-CJ-Nmu"/>
                 <constraint firstItem="sBV-nz-BRl" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="DO9-SQ-ZMS"/>
-                <constraint firstItem="xnh-wl-RXW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="EWj-3S-e96"/>
                 <constraint firstItem="6G4-5v-LNq" firstAttribute="top" secondItem="tGB-R2-1JO" secondAttribute="bottom" constant="8" id="F5c-Pq-5GL"/>
                 <constraint firstItem="xnh-wl-RXW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6G4-5v-LNq" secondAttribute="bottom" constant="10" id="J1n-5m-vHU"/>
-                <constraint firstItem="6G4-5v-LNq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="35" id="OXU-mN-YqV"/>
+                <constraint firstItem="3sD-Qs-JfB" firstAttribute="leading" secondItem="BW7-a2-NhY" secondAttribute="trailing" constant="21" id="N3i-rA-rMZ"/>
+                <constraint firstItem="BW7-a2-NhY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="NH6-Mc-ngf"/>
                 <constraint firstAttribute="bottom" secondItem="xnh-wl-RXW" secondAttribute="bottom" id="P8p-Ma-M5h"/>
                 <constraint firstItem="tGB-R2-1JO" firstAttribute="top" secondItem="3sD-Qs-JfB" secondAttribute="bottom" constant="2" id="TIt-oc-VCe" userLabel="ArticleVC Subtitle Label Top"/>
                 <constraint firstItem="8p9-Hg-81S" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="UcO-e5-K5U" userLabel="ArticleVC Rank Label Top"/>
+                <constraint firstItem="BW7-a2-NhY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="VtZ-Ic-71b"/>
+                <constraint firstItem="xnh-wl-RXW" firstAttribute="leading" secondItem="BW7-a2-NhY" secondAttribute="trailing" id="c2b-Q9-KIp"/>
                 <constraint firstAttribute="trailing" secondItem="sBV-nz-BRl" secondAttribute="trailing" constant="15" id="dDa-n0-3wG"/>
+                <constraint firstItem="tGB-R2-1JO" firstAttribute="leading" secondItem="BW7-a2-NhY" secondAttribute="trailing" constant="21" id="dKS-bD-UR4"/>
                 <constraint firstItem="tGB-R2-1JO" firstAttribute="trailing" secondItem="3sD-Qs-JfB" secondAttribute="trailing" id="dnp-xQ-THx"/>
                 <constraint firstItem="3sD-Qs-JfB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="eKF-om-e13" userLabel="ArticleVC Title Label Top"/>
+                <constraint firstAttribute="bottom" secondItem="BW7-a2-NhY" secondAttribute="bottom" id="eox-gb-QIy"/>
                 <constraint firstAttribute="trailing" secondItem="xnh-wl-RXW" secondAttribute="trailing" id="hZ1-Qp-sRR"/>
                 <constraint firstItem="xnh-wl-RXW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="sBV-nz-BRl" secondAttribute="bottom" constant="10" id="pQR-7P-w67"/>
-                <constraint firstItem="tGB-R2-1JO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="35" id="pcI-zM-erP"/>
+                <constraint firstItem="6G4-5v-LNq" firstAttribute="leading" secondItem="BW7-a2-NhY" secondAttribute="trailing" constant="21" id="qfa-4q-zrN"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>

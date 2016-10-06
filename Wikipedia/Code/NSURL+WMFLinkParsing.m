@@ -4,6 +4,22 @@
 #import "NSURLComponents+WMFLinkParsing.h"
 
 NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
+NSString *const WMFMediaWikiDomain = @"mediawiki.org";
+NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
+
+@interface NSString (WMFLinkParsing)
+
+- (BOOL)wmf_isWikiResource;
+
+@end
+
+@implementation NSString (WMFLinkParsing)
+
+- (BOOL)wmf_isWikiResource {
+    return [self containsString:WMFInternalLinkPathPrefix];
+}
+
+@end
 
 @implementation NSURL (WMFLinkParsing)
 
@@ -180,7 +196,13 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
 #pragma mark - Properties
 
 - (BOOL)wmf_isWikiResource {
-    return [self.path wmf_isWikiResource];
+    static NSString *wikiResourceSuffix = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        wikiResourceSuffix = [NSString stringWithFormat:@".%@", WMFDefaultSiteDomain];
+    });
+    NSString *lowercaseHost = self.host.lowercaseString;
+    return (!lowercaseHost || [lowercaseHost isEqualToString:WMFDefaultSiteDomain] || [lowercaseHost hasSuffix:wikiResourceSuffix] || [lowercaseHost isEqualToString:WMFMediaWikiDomain] || [lowercaseHost hasSuffix:WMFMediaWikiDomain]) && [self.path wmf_isWikiResource];
 }
 
 - (BOOL)wmf_isWikiCitation {

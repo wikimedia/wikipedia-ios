@@ -211,6 +211,7 @@
 "button-next" = "Sekva";
 "button-done" = "Farite";
 "button-save" = "Konservi";
+"button-publish" = "Eldoni";
 "button-ok" = "Ek";
 "onboarding-create-account" = "Krei konton";
 "onboarding-login" = "Ensaluti";
@@ -290,4 +291,5 @@
 "explore-random-article-sub-heading" = "Anglalingva Vikipedio";
 "explore-potd-heading" = "Bildo de la tago";
 "find-in-page-button-label" = "Trovi en la paĝo";
+"top-read-header-with-language" = "$1 Vikipedio";
 "top-read-header-generic" = "Vikipedio";

@@ -122,6 +122,7 @@
 		B0379A3A1D8BC83800D973CF /* WMFPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0379A391D8BC83800D973CF /* WMFPopoverBackgroundView.m */; };
 		B0379A3D1D8BC9BA00D973CF /* WMFReferencePopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0379A3B1D8BC9BA00D973CF /* WMFReferencePopoverBackgroundView.m */; };
 		B04393F21D21C04500FD2BD9 /* WMFImageTagParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B04393F11D21C04500FD2BD9 /* WMFImageTagParserTests.m */; };
+		B04DA3C91D9F740800F45DB7 /* WMFSearchLanguagesBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04DA3C81D9F740800F45DB7 /* WMFSearchLanguagesBarViewController.swift */; };
 		B062ABC81D88BF370062BE21 /* WMFArticlePreviewViewControllerVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B062ABC71D88BF370062BE21 /* WMFArticlePreviewViewControllerVisualTests.m */; };
 		B063DE601C63FEE9002F2EDE /* UIToolbar+WMFStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = B063DE5F1C63FEE9002F2EDE /* UIToolbar+WMFStyling.m */; };
 		B06531601C220921003BD7DC /* WMFArticlePreviewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B065315F1C220921003BD7DC /* WMFArticlePreviewDataSource.m */; };
@@ -738,6 +739,7 @@
 		D84F2C031D30162700963D42 /* WMFFirstRandomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2C021D30162700963D42 /* WMFFirstRandomViewController.m */; };
 		D85108AA1D6CC75D009C73C4 /* MWLanguageInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807271C0CED530065EBC0 /* MWLanguageInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D85108AB1D6CC761009C73C4 /* MWLanguageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807281C0CED530065EBC0 /* MWLanguageInfo.m */; };
+		D858A7DF1DA6A04A009C3DEB /* WMFDateCalculationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D858A7DE1DA6A04A009C3DEB /* WMFDateCalculationTests.m */; };
 		D85D34BC1D74CF5200845125 /* NSDictionary+WMFRequiredValueForKey.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAF23151C6CF74C005F2D8D /* NSDictionary+WMFRequiredValueForKey.m */; };
 		D85D34BD1D74CF5600845125 /* NSDictionary+WMFRequiredValueForKey.h in Headers */ = {isa = PBXBuildFile; fileRef = BCAF23141C6CF74C005F2D8D /* NSDictionary+WMFRequiredValueForKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D85D34BF1D74CFAF00845125 /* NSCalendar+WMFCommonCalendars.h in Headers */ = {isa = PBXBuildFile; fileRef = BCD31FFC1C6EB3EE00317D08 /* NSCalendar+WMFCommonCalendars.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1243,6 +1245,7 @@
 		B04876371C8FC184008F8920 /* sw */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sw; path = sw.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B04876381C8FC248008F8920 /* uz */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uz; path = uz.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B04876391C8FC248008F8920 /* uz */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uz; path = uz.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B04DA3C81D9F740800F45DB7 /* WMFSearchLanguagesBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFSearchLanguagesBarViewController.swift; sourceTree = "<group>"; };
 		B05033A91D1F2CCA002E7D4F /* WMFImageTagParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageTagParser.h; path = Wikipedia/Code/WMFImageTagParser.h; sourceTree = SOURCE_ROOT; };
 		B05033AA1D1F2CCA002E7D4F /* WMFImageTagParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageTagParser.m; path = Wikipedia/Code/WMFImageTagParser.m; sourceTree = SOURCE_ROOT; };
 		B05033AC1D1F9AC9002E7D4F /* WMFImageTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageTag.h; path = Wikipedia/Code/WMFImageTag.h; sourceTree = SOURCE_ROOT; };
@@ -2319,6 +2322,7 @@
 		D84F2C011D30162700963D42 /* WMFFirstRandomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFFirstRandomViewController.h; sourceTree = "<group>"; };
 		D84F2C021D30162700963D42 /* WMFFirstRandomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFFirstRandomViewController.m; sourceTree = "<group>"; };
 		D85219371D6DEFBB00084796 /* WMFTodayContinueReadingWidgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFTodayContinueReadingWidgetViewController.swift; sourceTree = "<group>"; };
+		D858A7DE1DA6A04A009C3DEB /* WMFDateCalculationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFDateCalculationTests.m; sourceTree = "<group>"; };
 		D85D34C51D74D07500845125 /* TopReadWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TopReadWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D85D34C81D74D07500845125 /* WMFTodayTopReadWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFTodayTopReadWidgetViewController.swift; sourceTree = "<group>"; };
 		D85D34CB1D74D07500845125 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -3481,6 +3485,7 @@
 				B0E803AF1C0CDBCF0065EBC0 /* WMFSearchDataSource.h */,
 				B0E803B01C0CDBCF0065EBC0 /* WMFSearchDataSource.m */,
 				B0E8033B1C0CD76B0065EBC0 /* WMFSearchViewController.storyboard */,
+				B04DA3C71D9F044100F45DB7 /* Search Languages Bar */,
 			);
 			name = "View Controller";
 			path = Wikipedia/Code;
@@ -3728,6 +3733,14 @@
 				B016DCEA1D497C74005BABA1 /* WMFFindInPageKeyboardBar.xib */,
 			);
 			name = FindInPage;
+			sourceTree = "<group>";
+		};
+		B04DA3C71D9F044100F45DB7 /* Search Languages Bar */ = {
+			isa = PBXGroup;
+			children = (
+				B04DA3C81D9F740800F45DB7 /* WMFSearchLanguagesBarViewController.swift */,
+			);
+			name = "Search Languages Bar";
 			sourceTree = "<group>";
 		};
 		B05033B21D1FA437002E7D4F /* ImageTags */ = {
@@ -5131,6 +5144,7 @@
 			children = (
 				BCB669D11A83F6D300C7B1FE /* MediaWikiKitTests */,
 				B0E808FC1C0D18730065EBC0 /* WMFJoinedPropertyParametersTests.m */,
+				D858A7DE1DA6A04A009C3DEB /* WMFDateCalculationTests.m */,
 				D8BBBCE01D94603800DECA36 /* WMFLocaleTests.m */,
 				D84649AC1D4514F7009DB4A0 /* WMFTaskGroupTests.m */,
 				B0E808FE1C0D18800065EBC0 /* WMFErrorForApiErrorObjectTests.m */,
@@ -6085,7 +6099,7 @@
 					0E8380621D64989F0076EDE4 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = AKK7J2GV64;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -6100,7 +6114,7 @@
 					D4991434181D51DE00E6073C = {
 						DevelopmentTeam = AKK7J2GV64;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -6112,17 +6126,17 @@
 					};
 					D844D96B1D6CB2600042D692 = {
 						CreatedOnToolsVersion = 8.0;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					D84580EB1D67572C00B09640 = {
 						CreatedOnToolsVersion = 8.0;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					D85D34C41D74D07500845125 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = AKK7J2GV64;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -6132,7 +6146,7 @@
 					D8AC39231D6F247F007E3C14 = {
 						CreatedOnToolsVersion = 8.0;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -6819,6 +6833,7 @@
 				B0E8091D1C0D19640065EBC0 /* WMFImageInfoControllerTests.m in Sources */,
 				BC90DE791C57C5AD007E0E81 /* WMFWelcomeLanguageViewControllerVisualTests.m in Sources */,
 				B0E809551C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m in Sources */,
+				D858A7DF1DA6A04A009C3DEB /* WMFDateCalculationTests.m in Sources */,
 				B0E809431C0D1A900065EBC0 /* NSArray+WMFExtensionsTests.m in Sources */,
 				B0E809051C0D18A00065EBC0 /* CircularBitwiseRotationTests.m in Sources */,
 				B0E8095E1C0D1B930065EBC0 /* WMFSearchResultsSerializationTests.m in Sources */,
@@ -6948,6 +6963,7 @@
 				B0E806D21C0CEB6E0065EBC0 /* PageHistoryViewController.m in Sources */,
 				D8D5DB311D7A206B00526A69 /* UITextField+BlocksKit.m in Sources */,
 				B0E803CC1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m in Sources */,
+				B04DA3C91D9F740800F45DB7 /* WMFSearchLanguagesBarViewController.swift in Sources */,
 				B0E803FA1C0CDDBA0065EBC0 /* WMFUnderlineButton.m in Sources */,
 				B0E8039E1C0CDB3B0065EBC0 /* WMFArticleRequestSerializer.m in Sources */,
 				B0E804421C0CDF850065EBC0 /* MenuLabel.m in Sources */,
@@ -7647,7 +7663,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
-				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -7670,7 +7685,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				ONLY_ACTIVE_ARCH = YES;
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
@@ -7695,9 +7710,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_CODE_COVERAGE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 948;
+				CURRENT_PROJECT_VERSION = 955;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -7714,15 +7728,12 @@
 					"WMF_APP_EXTENSION=0",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
-				PROVISIONING_PROFILE = "e3ca5637-d387-4ad9-815d-e0410f664f3b";
-				PROVISIONING_PROFILE_SPECIFIER = "Wikipedia Development";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -7742,7 +7753,6 @@
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -7761,7 +7771,6 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) /Applications/Xcode.app/Contents/Developer/Library/Frameworks/ @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
@@ -7781,7 +7790,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -7793,13 +7801,10 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "446c3da6-aaa7-4a5d-a435-b68e25f5f086";
-				PROVISIONING_PROFILE_SPECIFIER = "Continue Reading Development";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
 			};
@@ -7814,7 +7819,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -7826,14 +7830,11 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "446c3da6-aaa7-4a5d-a435-b68e25f5f086";
-				PROVISIONING_PROFILE_SPECIFIER = "Continue Reading Development";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
 			};
@@ -7848,21 +7849,17 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c95e8855-b9cc-4936-9225-6e070ed51ea9";
-				PROVISIONING_PROFILE_SPECIFIER = "Continue Reading";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
 			};
@@ -7877,21 +7874,17 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c95e8855-b9cc-4936-9225-6e070ed51ea9";
-				PROVISIONING_PROFILE_SPECIFIER = "Continue Reading";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
 			};
@@ -7906,21 +7899,17 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c95e8855-b9cc-4936-9225-6e070ed51ea9";
-				PROVISIONING_PROFILE_SPECIFIER = "Continue Reading";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
 			};
@@ -7935,21 +7924,17 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c95e8855-b9cc-4936-9225-6e070ed51ea9";
-				PROVISIONING_PROFILE_SPECIFIER = "Continue Reading";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
 			};
@@ -7978,7 +7963,6 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -7997,7 +7981,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 2.3;
@@ -8021,9 +8005,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 948;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 955;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_BITCODE = YES;
@@ -8040,14 +8023,11 @@
 					"WMF_APP_EXTENSION=0",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DNDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = Wikipedia;
-				PROVISIONING_PROFILE = "0554f8dd-22e5-4095-bd72-5f5b61829c17";
-				PROVISIONING_PROFILE_SPECIFIER = "org.wikimedia.wikipedia AppStore";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
@@ -8066,7 +8046,6 @@
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = NO;
@@ -8087,7 +8066,6 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) /Applications/Xcode.app/Contents/Developer/Library/Frameworks/ @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
@@ -8121,7 +8099,6 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -8140,7 +8117,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 2.3;
@@ -8164,9 +8141,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 948;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 955;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_BITCODE = YES;
@@ -8183,15 +8159,12 @@
 					"WMF_APP_EXTENSION=0",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
-				PROVISIONING_PROFILE = "0554f8dd-22e5-4095-bd72-5f5b61829c17";
-				PROVISIONING_PROFILE_SPECIFIER = "org.wikimedia.wikipedia AppStore";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
@@ -8210,7 +8183,6 @@
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -8221,7 +8193,6 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) /Applications/Xcode.app/Contents/Developer/Library/Frameworks/ @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
@@ -8256,7 +8227,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
-				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -8277,7 +8247,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				ONLY_ACTIVE_ARCH = NO;
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
@@ -8301,9 +8271,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 948;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 955;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_BITCODE = YES;
@@ -8320,15 +8289,12 @@
 					"WMF_APP_EXTENSION=0",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
-				PROVISIONING_PROFILE = "0554f8dd-22e5-4095-bd72-5f5b61829c17";
-				PROVISIONING_PROFILE_SPECIFIER = "org.wikimedia.wikipedia AppStore";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -8348,7 +8314,6 @@
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -8365,7 +8330,6 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) /Applications/Xcode.app/Contents/Developer/Library/Frameworks/ @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
@@ -8386,7 +8350,6 @@
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -8405,7 +8368,6 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) /Applications/Xcode.app/Contents/Developer/Library/Frameworks/ @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
@@ -8426,7 +8388,6 @@
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = NO;
@@ -8447,7 +8408,6 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) /Applications/Xcode.app/Contents/Developer/Library/Frameworks/ @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
@@ -8482,7 +8442,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
-				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -8504,7 +8463,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				ONLY_ACTIVE_ARCH = YES;
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
@@ -8543,7 +8502,6 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -8561,7 +8519,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -8586,9 +8544,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_CODE_COVERAGE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 948;
+				CURRENT_PROJECT_VERSION = 955;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -8605,15 +8562,12 @@
 					"WMF_APP_EXTENSION=0",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
-				PROVISIONING_PROFILE = "e3ca5637-d387-4ad9-815d-e0410f664f3b";
-				PROVISIONING_PROFILE_SPECIFIER = "Wikipedia Development";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -8632,9 +8586,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 948;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 955;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_BITCODE = YES;
@@ -8650,14 +8603,11 @@
 					"WMF_APP_EXTENSION=0",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DNDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = Wikipedia;
-				PROVISIONING_PROFILE = "0554f8dd-22e5-4095-bd72-5f5b61829c17";
-				PROVISIONING_PROFILE_SPECIFIER = "org.wikimedia.wikipedia AppStore";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
@@ -8675,13 +8625,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 948;
+				CURRENT_PROJECT_VERSION = 955;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 948;
+				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
@@ -8694,7 +8642,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFModel/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFModel;
@@ -8715,13 +8662,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 948;
+				CURRENT_PROJECT_VERSION = 955;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 948;
+				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
@@ -8734,7 +8679,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFModel/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFModel;
@@ -8755,13 +8699,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 948;
+				CURRENT_PROJECT_VERSION = 955;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 948;
+				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
@@ -8774,7 +8716,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFModel/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFModel;
@@ -8795,13 +8736,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 948;
+				CURRENT_PROJECT_VERSION = 955;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 948;
+				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
@@ -8814,7 +8753,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFModel/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFModel;
@@ -8835,13 +8773,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 948;
+				CURRENT_PROJECT_VERSION = 955;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 948;
+				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
@@ -8854,7 +8790,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFModel/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFModel;
@@ -8875,13 +8810,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 948;
+				CURRENT_PROJECT_VERSION = 955;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 948;
+				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
@@ -8894,7 +8827,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFModel/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFModel;
@@ -8916,13 +8848,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 948;
+				CURRENT_PROJECT_VERSION = 955;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 948;
+				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
@@ -8934,7 +8864,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUtilities/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUtilities;
@@ -8957,13 +8886,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 948;
+				CURRENT_PROJECT_VERSION = 955;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 948;
+				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
@@ -8975,7 +8902,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUtilities/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUtilities;
@@ -8998,13 +8924,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 948;
+				CURRENT_PROJECT_VERSION = 955;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 948;
+				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
@@ -9012,7 +8936,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUtilities/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUtilities;
@@ -9034,13 +8957,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 948;
+				CURRENT_PROJECT_VERSION = 955;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 948;
+				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
@@ -9048,7 +8969,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUtilities/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUtilities;
@@ -9070,13 +8990,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 948;
+				CURRENT_PROJECT_VERSION = 955;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 948;
+				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
@@ -9084,7 +9002,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUtilities/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUtilities;
@@ -9106,13 +9023,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 948;
+				CURRENT_PROJECT_VERSION = 955;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 948;
+				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
@@ -9120,7 +9035,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUtilities/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUtilities;
@@ -9141,7 +9055,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -9153,13 +9066,10 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d5f02180-4d60-4f7b-a2fd-afb29fcbba6e";
-				PROVISIONING_PROFILE_SPECIFIER = "Top Read Development";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 2.3;
@@ -9175,7 +9085,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -9187,13 +9096,10 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d5f02180-4d60-4f7b-a2fd-afb29fcbba6e";
-				PROVISIONING_PROFILE_SPECIFIER = "Top Read Development";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 2.3;
@@ -9209,21 +9115,17 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fb63f523-449b-4bf5-988c-9edbe36fd51b";
-				PROVISIONING_PROFILE_SPECIFIER = "Top Read";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
 			};
@@ -9238,21 +9140,17 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fb63f523-449b-4bf5-988c-9edbe36fd51b";
-				PROVISIONING_PROFILE_SPECIFIER = "Top Read";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
 			};
@@ -9267,21 +9165,17 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fb63f523-449b-4bf5-988c-9edbe36fd51b";
-				PROVISIONING_PROFILE_SPECIFIER = "Top Read";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
 			};
@@ -9296,21 +9190,17 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fb63f523-449b-4bf5-988c-9edbe36fd51b";
-				PROVISIONING_PROFILE_SPECIFIER = "Top Read";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
 			};
@@ -9326,13 +9216,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 948;
+				CURRENT_PROJECT_VERSION = 955;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 948;
+				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
@@ -9343,7 +9231,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
@@ -9366,13 +9253,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 948;
+				CURRENT_PROJECT_VERSION = 955;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 948;
+				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
@@ -9383,7 +9268,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
@@ -9406,20 +9290,17 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 948;
+				CURRENT_PROJECT_VERSION = 955;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 948;
+				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
@@ -9441,20 +9322,17 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 948;
+				CURRENT_PROJECT_VERSION = 955;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 948;
+				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
@@ -9476,20 +9354,17 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 948;
+				CURRENT_PROJECT_VERSION = 955;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 948;
+				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
@@ -9511,20 +9386,17 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 948;
+				CURRENT_PROJECT_VERSION = 955;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 948;
+				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;

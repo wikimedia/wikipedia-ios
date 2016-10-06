@@ -24,7 +24,9 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
-			<string>None</string>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>org.wikimedia.wikipedia</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>wikipedia</string>
@@ -32,7 +34,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>948</string>
+	<string>955</string>
 	<key>CoreSpotlightContinuation</key>
 	<true/>
 	<key>ITSAppUsesNonExemptEncryption</key>

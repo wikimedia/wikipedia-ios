@@ -26,6 +26,11 @@ Runs tests on the primary platforms and configurations
 fastlane ios verify
 ```
 Runs unit tests, optionally generating a JUnit report.
+### ios bump_build
+```
+fastlane ios bump_build
+```
+Increment the build number
 ### ios bump_patch
 ```
 fastlane ios bump_patch

@@ -27,7 +27,6 @@
 #import "UIFont+WMFStyle.h"
 
 #import "UIViewController+WMFArticlePresentation.h"
-#import "WMFLanguagesViewController.h"
 #import "UIViewController+WMFEmptyView.h"
 
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
@@ -36,15 +35,14 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                        WMFRecentSearchesViewControllerDelegate,
                                        UITextFieldDelegate,
                                        WMFArticleListTableViewControllerDelegate,
-                                       WMFLanguagesViewControllerDelegate>
+                                       WMFSearchLanguagesBarViewControllerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 @property (nonatomic, strong, readwrite) WMFArticlePreviewDataStore *previewStore;
 
-@property (nonatomic, strong, readonly) NSArray<MWKLanguageLink *> *languageBarLanguages;
-
 @property (nonatomic, strong) RecentSearchesViewController *recentSearchesViewController;
 @property (nonatomic, strong) WMFSearchResultsTableViewController *resultsListController;
+@property (nonatomic, strong) WMFSearchLanguagesBarViewController *searchLanguagesBarViewController;
 
 @property (strong, nonatomic) IBOutlet UIView *searchFieldContainer;
 @property (strong, nonatomic) IBOutlet UITextField *searchField;
@@ -54,12 +52,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (strong, nonatomic) IBOutlet UIView *recentSearchesContainerView;
 @property (weak, nonatomic) IBOutlet UIView *separatorView;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
-@property (strong, nonatomic) IBOutlet UIView *languageBarContainer;
-@property (strong, nonatomic) IBOutlet UIButton *languageOneButton;
-@property (strong, nonatomic) IBOutlet UIButton *languageTwoButton;
-@property (strong, nonatomic) IBOutlet UIButton *languageThreeButton;
-@property (strong, nonatomic) IBOutlet UIButton *otherLanguagesButton;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *languageButtons;
 
 @property (nonatomic, strong) WMFSearchFetcher *fetcher;
 
@@ -178,50 +170,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self.searchField setPlaceholder:MWLocalizedString(@"search-field-placeholder-text", nil)];
 }
 
-- (void)configureLanguageButtons {
-    if ([[NSUserDefaults wmf_userDefaults] wmf_showSearchLanguageBar]) {
-        [self.view addSubview:self.languageBarContainer];
-        [self.languageBarContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.searchFieldContainer.mas_bottom);
-            make.leading.and.trailing.equalTo(self.searchFieldContainer);
-        }];
-        [self.searchContentContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.languageBarContainer.mas_bottom);
-        }];
-
-        [self.languageButtons enumerateObjectsUsingBlock:^(UIButton *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-            obj.tintColor = [UIColor wmf_blueTintColor];
-        }];
-
-        UIImage *buttonBackground = [UIImage wmf_imageFromColor:[UIColor whiteColor]];
-        UIImage *highlightedButtonBackground = [UIImage wmf_imageFromColor:[UIColor colorWithWhite:0.9 alpha:1]];
-        [self.otherLanguagesButton setBackgroundImage:buttonBackground forState:UIControlStateNormal];
-        [self.otherLanguagesButton setBackgroundImage:highlightedButtonBackground forState:UIControlStateHighlighted];
-        [self.otherLanguagesButton.layer setCornerRadius:2.0f];
-        [self.otherLanguagesButton setClipsToBounds:YES];
-
-        [self.otherLanguagesButton setTitle:MWLocalizedString(@"main-menu-title", nil) forState:UIControlStateNormal];
-        self.otherLanguagesButton.titleLabel.font = [UIFont wmf_subtitle];
-
-        [self updateLanguageBarLanguages];
-        [self selectLanguageForURL:[self currentlySelectedSearchURL]];
-    } else {
-        [self.languageBarContainer removeFromSuperview];
-        [self.searchContentContainer mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.searchFieldContainer.mas_bottom);
-        }];
-    }
-}
-
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     [self configureSearchField];
-    [self configureLanguageButtons];
-    [self updateLanguageBarLanguages];
-    [self selectLanguageForURL:[self selectedLanguage].siteURL];
 
     // move search field offscreen, preparing for transition in viewWillAppear
     self.searchFieldTop.constant = -self.searchFieldHeight.constant;
@@ -240,8 +194,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
-    [self configureLanguageButtons];
 
     self.searchFieldTop.constant = 0;
     [self.view setNeedsUpdateConstraints];
@@ -284,10 +236,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
     if (self.traitCollection.verticalSizeClass != newCollection.verticalSizeClass) {
         [self.view setNeedsUpdateConstraints];
-        [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
-            [self.view layoutSubviews];
-        }
-                                     completion:nil];
     }
 }
 
@@ -300,6 +248,17 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         self.recentSearchesViewController = segue.destinationViewController;
         [self configureRecentSearchList];
     }
+    if ([segue.destinationViewController isKindOfClass:[WMFSearchLanguagesBarViewController class]]) {
+        self.searchLanguagesBarViewController = (WMFSearchLanguagesBarViewController *)segue.destinationViewController;
+        self.searchLanguagesBarViewController.delegate = self;
+        
+        // Allow size of contained VC's view to control container size: http://stackoverflow.com/a/34279613
+        self.searchLanguagesBarViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+}
+
+- (void)searchLanguagesBarViewController:(WMFSearchLanguagesBarViewController *)controller didChangeCurrentlySelectedSearchLanguage:(MWKLanguageLink*)language{
+    [self searchForSearchTerm:self.searchField.text];
 }
 
 #pragma mark - Separator View
@@ -400,7 +359,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (NSURL *)currentlySelectedSearchURL {
-    return [self selectedLanguage].siteURL;
+    return self.searchLanguagesBarViewController.currentlySelectedSearchLanguage.siteURL;
 }
 
 - (void)didCancelSearch {
@@ -419,6 +378,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     @weakify(self);
     [self.resultsListController wmf_hideEmptyView];
     NSURL *url = [self currentlySelectedSearchURL];
+    
+    if([self.resultsListController isDisplayingResultsForSearchTerm:searchTerm fromSiteURL:url]){
+        DDLogDebug(@"Bailing out from running search for term because we're already showing results for this search term and search site.");
+        return;
+    }
+    
     [self.fetcher fetchArticlesForSearchTerm:searchTerm siteURL:url resultLimit:WMFMaxSearchResultLimit].thenOn(dispatch_get_main_queue(), ^id(WMFSearchResults *results) {
                                                                                                             @strongify(self);
                                                                                                             if (![results.searchTerm isEqualToString:self.searchField.text]) {
@@ -520,93 +485,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     }
 }
 
-#pragma mark - Languages
-
-- (MWKLanguageLink *)selectedLanguage {
-    NSURL *siteURL = [[NSUserDefaults wmf_userDefaults] wmf_currentSearchLanguageDomain];
-    MWKLanguageLink *lang = nil;
-    if (siteURL) {
-        lang = [[MWKLanguageLinkController sharedInstance] languageForSiteURL:siteURL];
-    } else {
-        lang = [self appLanguage];
-    }
-    return lang;
-}
-
-- (void)setSelectedLanguage:(MWKLanguageLink *)language {
-    [[NSUserDefaults wmf_userDefaults] wmf_setCurrentSearchLanguageDomain:language.siteURL];
-    [self updateLanguageBarLanguages];
-    [self selectLanguageForURL:language.siteURL];
-}
-
-- (NSArray<MWKLanguageLink *> *)languageBarLanguages {
-    return [[MWKLanguageLinkController sharedInstance].preferredLanguages wmf_arrayByTrimmingToLength:3];
-}
-
-- (nullable MWKLanguageLink *)appLanguage {
-    MWKLanguageLink *language = [[MWKLanguageLinkController sharedInstance] appLanguage];
-    NSAssert(language, @"No app language data found");
-    return language;
-}
-
-- (void)updateLanguageBarLanguages {
-    [[self languageBarLanguages] enumerateObjectsUsingBlock:^(MWKLanguageLink *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        if (idx >= [self.languageButtons count]) {
-            *stop = YES;
-        }
-        UIButton *button = self.languageButtons[idx];
-        [button setTitle:[obj localizedName] forState:UIControlStateNormal];
-    }];
-
-    [self.languageButtons enumerateObjectsUsingBlock:^(UIButton *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        if (idx >= [[self languageBarLanguages] count]) {
-            obj.enabled = NO;
-            obj.hidden = YES;
-        } else {
-            obj.enabled = YES;
-            obj.hidden = NO;
-        }
-    }];
-}
-
-- (void)selectLanguageForURL:(NSURL *)url {
-    __block BOOL foundLanguageInBar = NO;
-    [[self languageBarLanguages] enumerateObjectsUsingBlock:^(MWKLanguageLink *_Nonnull language, NSUInteger idx, BOOL *_Nonnull stop) {
-        if ([[language siteURL] isEqual:url]) {
-            UIButton *buttonToSelect = self.languageButtons[idx];
-            [self.languageButtons enumerateObjectsUsingBlock:^(UIButton *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                if (obj == buttonToSelect) {
-                    [obj setSelected:YES];
-                    foundLanguageInBar = YES;
-                } else {
-                    [obj setSelected:NO];
-                }
-            }];
-        }
-    }];
-
-    //If we didn't find the last selected Language, jsut select the first one
-    if (!foundLanguageInBar) {
-        [self setSelectedLanguage:[[self languageBarLanguages] firstObject]];
-        return;
-    }
-
-    NSString *query = self.searchField.text;
-
-    if (![url isEqual:[self.resultsListController.dataSource searchSiteURL]] || [query isEqualToString:[self.resultsListController.dataSource searchResults].searchTerm]) {
-        [self searchForSearchTerm:query];
-    }
-}
-
-- (void)selectLanguageForButton:(UIButton *)button {
-    NSUInteger index = [self.languageButtons indexOfObject:button];
-    NSAssert(index != NSNotFound, @"language button not found for language!");
-    if (index != NSNotFound) {
-        MWKLanguageLink *lang = [self languageBarLanguages][index];
-        [self setSelectedLanguage:lang];
-    }
-}
-
 #pragma mark - WMFRecentSearchesViewControllerDelegate
 
 - (void)recentSearchController:(RecentSearchesViewController *)controller
@@ -625,39 +503,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                          [self updateSearchSuggestion:nil];
                      }];
     [self searchForSearchTerm:self.searchField.text];
-}
-
-- (IBAction)setLanguageWithSender:(id)sender {
-    [self selectLanguageForButton:sender];
-}
-
-- (IBAction)openLanguagePicker:(id)sender {
-    WMFLanguagesViewController *languagesVC = [WMFPreferredLanguagesViewController preferredLanguagesViewController];
-    languagesVC.delegate = self;
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:NULL];
-}
-
-#pragma mark - WMFLanguagesViewControllerDelegate
-
-- (void)languagesController:(WMFLanguagesViewController *)controller didSelectLanguage:(MWKLanguageLink *)language {
-
-    NSUInteger index = [[self languageBarLanguages] indexOfObject:language];
-
-    //The selected preferred language will not be displayed because we only dsiplay max 3 languages, move it to index 2
-    if (index == NSNotFound) {
-        [[MWKLanguageLinkController sharedInstance] reorderPreferredLanguage:language toIndex:2];
-        [self updateLanguageBarLanguages];
-    }
-
-    [self setSelectedLanguage:language];
-    [controller dismissViewControllerAnimated:YES completion:NULL];
-}
-
-#pragma mark - WMFLanguagesViewControllerDelegate
-
-- (void)languagesController:(WMFPreferredLanguagesViewController *)controller didUpdatePreferredLanguages:(NSArray<MWKLanguageLink *> *)languages {
-
-    [self updateLanguageBarLanguages];
 }
 
 #pragma mark - WMFArticleListTableViewControllerDelegate

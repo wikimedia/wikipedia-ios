@@ -359,6 +359,7 @@
 "home-hide-suggestion-prompt" = "Был тәҡдимде йәшереү";
 "home-hide-suggestion-cancel" = "Кире алырға";
 "home-accessibility-label" = "Википедия. Тикшерегеҙ";
+// Fuzzy
 "home-button-accessibility-label" = "Баш биткә күсеү төймәһе";
 "potd-empty-error-description" = "$1-гә көн һүрәтен алып булманы";
 "potd-description-prefix" = " $1 - гә көн һүрәте";

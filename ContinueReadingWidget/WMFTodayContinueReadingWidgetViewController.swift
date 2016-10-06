@@ -21,6 +21,17 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if #available(iOSApplicationExtension 10.0, *) {
+            
+        } else {
+            titleLabel.textColor = UIColor(white: 1, alpha: 1)
+            textLabel.textColor = UIColor(white: 1, alpha: 1)
+            emptyTitleLabel.textColor = UIColor(white: 1, alpha: 1)
+            emptyDescriptionLabel.textColor = UIColor(white: 1, alpha: 0.7)
+            daysAgoLabel.textColor = UIColor(white: 1, alpha: 0.7)
+            daysAgoView.backgroundColor = UIColor(white: 0.3, alpha: 0.3)
+        }
+        
         emptyDescriptionLabel.text = localizedStringForKeyFallingBackOnEnglish("continue-reading-empty-title")
         emptyDescriptionLabel.text = localizedStringForKeyFallingBackOnEnglish("continue-reading-empty-description")
         updateView()
@@ -146,6 +157,11 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         } else {
             self.collapseImageAndWidenLabels = true
         }
+        
+        var fitSize = UILayoutFittingCompressedSize
+        fitSize.width = view.bounds.size.width
+        fitSize = view.systemLayoutSizeFittingSize(fitSize, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityDefaultLow)
+        preferredContentSize = fitSize
         
         return true
     }

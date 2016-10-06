@@ -144,17 +144,13 @@ public extension NSUserDefaults {
         }
     }
     
-    public func wmf_setDateLastDailyLoggingStatsSent(date: NSDate) {
-        self.setObject(date, forKey: "DailyLoggingStatsDate")
+    public func wmf_setDaysInstalled(daysInstalled: NSNumber) {
+        self.setObject(daysInstalled, forKey: "DailyLoggingStatsDaysInstalled")
         self.synchronize()
     }
 
-    public func wmf_dateLastDailyLoggingStatsSent() -> NSDate? {
-        if let date = self.objectForKey("DailyLoggingStatsDate") as? NSDate {
-            return date
-        }else{
-            return nil
-        }
+    public func wmf_daysInstalled() -> NSNumber? {
+        return self.objectForKey("DailyLoggingStatsDaysInstalled") as? NSNumber
     }
 
     public func wmf_setShowSearchLanguageBar(enabled: Bool) {

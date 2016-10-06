@@ -350,6 +350,7 @@
 "home-hide-suggestion-prompt" = "Donn dä Vörschlahch ußblände";
 "home-hide-suggestion-cancel" = "Ophühre";
 "home-accessibility-label" = "Wikkipehdija, Ußfochsche";
+// Fuzzy
 "home-button-accessibility-label" = "Heim-Knopp";
 "potd-empty-error-description" = "Kunnd et Beld vum Daach nit lahde för $1";
 "potd-description-prefix" = "Et Beld vum Daach för $1";

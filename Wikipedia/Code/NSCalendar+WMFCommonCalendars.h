@@ -14,4 +14,26 @@
  */
 + (instancetype)wmf_utcGregorianCalendar;
 
+/**
+ *  UTC Gregorian Calendar
+ *
+ *  Used for comparing @c NSDate objects relative to the the device's current time zone.
+ *
+ *  @return A calendar initialized with the Gregorian calendar identfier and the device's current time zone.
+ */
++ (instancetype)wmf_gregorianCalendar;
+
+
+
+/**
+ *  Used for getting the number of calendar days between dates. For example, if you compare 12 PM on a day to 9 AM on the following day, you would get 1 day between those dates despite the fact that there's less than 24 hours between the dates.
+ *
+ *  @param fromDate the earlier date
+ *  @param toDate the later date
+ *
+ *  @return A calendar initialized with the Gregorian calendar identfier and the device's current time zone.
+ */
+- (NSInteger)daysFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
+
+
 @end

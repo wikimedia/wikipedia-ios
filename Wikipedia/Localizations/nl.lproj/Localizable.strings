@@ -354,6 +354,7 @@
 "home-hide-suggestion-prompt" = "Suggestie verbergen";
 "home-hide-suggestion-cancel" = "Annuleren";
 "home-accessibility-label" = "Wikipedia, Verkennen";
+// Fuzzy
 "home-button-accessibility-label" = "Startscherm";
 "potd-empty-error-description" = "Ophalen van de afbeelding van de dag voor $1 is mislukt";
 "potd-description-prefix" = "Afbeelding van de dag voor $1";

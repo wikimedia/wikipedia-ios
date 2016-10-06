@@ -356,6 +356,7 @@
 "home-hide-suggestion-prompt" = "Скрыть это предложение";
 "home-hide-suggestion-cancel" = "Отмена";
 "home-accessibility-label" = "Википедия, Исследуйте";
+// Fuzzy
 "home-button-accessibility-label" = "Кнопка перехода на Заглавную страницу";
 "potd-empty-error-description" = "Не удалось получить изображение дня за $1";
 "potd-description-prefix" = "Изображение дня за $1";
@@ -422,3 +423,4 @@
 "top-read-reader-count-thousands" = "$1 тыс.";
 "top-read-header-with-language" = "$1 Википедия";
 "top-read-header-generic" = "Википедия";
+"reference-title" = "Примечание $1";

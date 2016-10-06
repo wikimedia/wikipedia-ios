@@ -294,6 +294,7 @@
 "home-updating-label" = "Aktualizace...";
 "home-hide-suggestion-prompt" = "Skrýt tento návrh";
 "home-hide-suggestion-cancel" = "Zrušit";
+// Fuzzy
 "home-button-accessibility-label" = "Tlačítko Domů";
 "potd-description-prefix" = "Obrázek dne pro $1";
 "welcome-explore-title" = "Prozkoumat";
