@@ -18,7 +18,6 @@
     self = [super init];
     if (self) {
         self.article = article;
-        self.dataStore = dataStore;
         self.dataSource =
             [[WMFArticlePreviewDataSource alloc] initWithArticleURLs:self.article.disambiguationURLs
                                                              siteURL:self.article.url
