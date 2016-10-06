@@ -1,9 +1,7 @@
-#import "WMFLocationSearchListViewController.h"
+#import "WMFMorePageListViewController.h"
 
-@interface WMFNearbyListViewController : WMFLocationSearchListViewController
+@interface WMFNearbyListViewController : WMFMorePageListViewController
 
 - (instancetype)initWithSearchSiteURL:(NSURL *)siteURL dataStore:(MWKDataStore *)dataStore;
-
-- (instancetype)initWithLocation:(CLLocation *)location searchSiteURL:(NSURL *)siteURL dataStore:(MWKDataStore *)dataStore NS_UNAVAILABLE;
 
 @end
