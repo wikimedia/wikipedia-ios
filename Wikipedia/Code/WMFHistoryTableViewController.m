@@ -34,11 +34,11 @@
 #pragma mark - Accessors
 
 - (MWKHistoryList *)historyList {
-    return self.dataStore.historyList;
+    return self.userDataStore.historyList;
 }
 
 - (MWKSavedPageList *)savedPageList {
-    return self.dataStore.savedPageList;
+    return self.userDataStore.savedPageList;
 }
 
 #pragma mark - UIViewController
@@ -50,7 +50,7 @@
 
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
 
-    self.dataSource = [self.dataStore historyGroupedByDateDataSource];
+    self.dataSource = [self.userDataStore historyGroupedByDateDataSource];
     self.dataSource.delegate = self;
     [self.tableView reloadData];
     [self updateEmptyAndDeleteState];
@@ -102,7 +102,7 @@
     WMFArticleListTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleListTableViewCell identifier] forIndexPath:indexPath];
 
     MWKHistoryEntry *entry = [self.dataSource objectAtIndexPath:indexPath];
-    MWKArticle *article = [[self dataStore] articleWithURL:entry.url];
+    MWKArticle *article = [[self userDataStore] articleWithURL:entry.url];
     cell.titleText = article.url.wmf_title;
     cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
     [cell setImage:[article bestThumbnailImage]];
