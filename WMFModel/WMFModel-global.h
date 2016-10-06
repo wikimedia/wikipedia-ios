@@ -5,7 +5,7 @@
 
 #import <WMFModel/WMFBaseDataStore.h>
 #import <WMFModel/MWKDataStore.h>
-#import <WMFModel/WMFFeedDataStore.h>
+#import <WMFModel/WMFContentGroupDataStore.h>
 
 #import <WMFModel/WMFDataBaseDataSource.h>
 #import <WMFModel/MWKDataStore+WMFDataSources.h>
@@ -57,7 +57,6 @@
 #import <WMFModel/MWKArticle+WMFSharing.h>
 #import <WMFModel/MWKCitation.h>
 #import <WMFModel/MWKHistoryEntry+WMFDatabaseStorable.h>
-#import <WMFModel/WMFExploreSection+WMFDatabaseStorable.h>
 
 #import <WMFModel/MWKImage+CanonicalFilenames.h>
 #import <WMFModel/MWKImageInfo+MWKImageComparison.h>

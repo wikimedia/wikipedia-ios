@@ -9,26 +9,19 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 @import WMFUtilities;
 
 #import <WMFModel/MWKDataStore.h>
-#import <WMFModel/SessionSingleton.h>
-#import <WMFModel/QueuesSingleton.h>
 
 #import <WMFModel/MWKDataObject.h>
 #import <WMFModel/MWKSiteDataObject.h>
 
-#import <WMFModel/MWKSite.h>
-#import <WMFModel/MWKTitle.h>
 #import <WMFModel/MWKArticle.h>
 #import <WMFModel/MWKSection.h>
 #import <WMFModel/MWKSectionList.h>
 #import <WMFModel/MWKImage.h>
 #import <WMFModel/MWKUser.h>
 
-#import <WMFModel/MWKList.h>
-
 #import <WMFModel/MWKHistoryEntry.h>
-#import <WMFModel/MWKHistoryList.h>
 
-#import <WMFModel/MWKSavedPageEntry.h>
+#import <WMFModel/MWKHistoryList.h>
 #import <WMFModel/MWKSavedPageList.h>
 
 #import <WMFModel/MWKRecentSearchEntry.h>
@@ -44,7 +37,6 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 
 #import <WMFModel/MWLanguageInfo.h>
 
-#import <WMFModel/MWKUserDataStore.h>
 #import <WMFModel/MWKImageInfo.h>
 #import <WMFModel/NSString+WMFExtras.h>
 
@@ -57,7 +49,6 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import <WMFModel/MWKHistoryEntry+WMFDatabaseStorable.h>
 #import <WMFModel/MWKImage+CanonicalFilenames.h>
 #import <WMFModel/MWKImageInfo+MWKImageComparison.h>
-#import <WMFModel/MWKList+Subclass.h>
 #import <WMFModel/MWKSavedPageEntry+ImageMigration.h>
 #import <WMFModel/MWKSavedPageListDataExportConstants.h>
 #import <WMFModel/WikipediaAppUtils.h>
@@ -100,5 +91,18 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import <WMFModel/WMFDataSource.h>
 #import <WMFModel/WMFDatabaseDataSource.h>
 #import <WMFModel/MWKDataStore+WMFDataSources.h>
+#import <WMFModel/WMFContentGroupDataStore.h>
 
 #import <WMFModel/NSUserActivity+WMFExtensions.h>
+
+//Deprecated
+#import <WMFModel/WMFExploreSection.h>
+#import <WMFModel/MWKList.h>
+#import <WMFModel/MWKList+Subclass.h>
+#import <WMFModel/MWKSite.h>
+#import <WMFModel/MWKTitle.h>
+#import <WMFModel/SessionSingleton.h>
+#import <WMFModel/QueuesSingleton.h>
+#import <WMFModel/MWKSavedPageEntry.h>
+
+
