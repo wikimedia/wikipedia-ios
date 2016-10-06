@@ -18,7 +18,6 @@ typedef NS_ENUM(NSUInteger, WMFMorePageListCellType){
 
 @property (nonatomic, assign) WMFMorePageListCellType cellType;
 
-@property (nonatomic, strong, readonly) WMFArticlePreviewDataStore *previewStore;
 @property (nonatomic, strong, readonly) WMFContentGroup* group;
 @property (nonatomic, strong, readonly) NSArray<NSURL*>* articleURLs;
 

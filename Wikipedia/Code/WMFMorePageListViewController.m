@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
-@property (nonatomic, strong, readwrite) WMFArticlePreviewDataStore *previewStore;
 @property (nonatomic, strong, readwrite) WMFContentGroup* group;
 @property (nonatomic, strong, readwrite) NSArray<NSURL*>* articleURLs;
 

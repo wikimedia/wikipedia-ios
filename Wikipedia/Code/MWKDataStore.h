@@ -86,12 +86,6 @@ extern NSString *const MWKURLKey;
 @property (readonly, copy, nonatomic) NSString *basePath;
 
 /**
- *  Call this to manually sync the database.
- *  Useful for when resuming and the DB may have been modified out of process
- */
-- (void)syncDataStoreToDatabase;
-
-/**
  *  Path for the default main data store.
  *  Use this to intitialize a data store with the default path
  *
@@ -239,12 +233,6 @@ extern NSString *const MWKURLKey;
 - (void)stopCacheRemoval;
 
 - (NSArray *)legacyImageURLsForArticle:(MWKArticle *)article;
-
-- (void)readWithBlock:(void (^)(YapDatabaseReadTransaction *_Nonnull transaction))block;
-- (nullable id)readAndReturnResultsWithBlock:(id (^)(YapDatabaseReadTransaction *_Nonnull transaction))block;
-- (void)readViewNamed:(NSString *)viewName withWithBlock:(void (^)(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view))block;
-- (nullable id)readAndReturnResultsWithViewNamed:(NSString *)viewName withWithBlock:(id (^)(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view))block;
-- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction *_Nonnull transaction))block;
 
 @end
 

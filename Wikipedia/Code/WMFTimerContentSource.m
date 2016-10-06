@@ -29,7 +29,7 @@
     self.updateTimer = nil;
 }
 
-- (void)loadNewContentForce:(BOOL)force{
+- (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion{
     //nonop - implemented by subclasses
 }
 
@@ -37,7 +37,7 @@
 #pragma mark - Timer Trigger
 
 - (void)updateWithTimer:(NSTimer*)timer{
-    [self loadNewContentForce:NO];
+    [self loadNewContentForce:NO completion:NULL];
 }
 
 @end

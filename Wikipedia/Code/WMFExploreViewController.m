@@ -461,10 +461,10 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     }else{
         [self.locationManager stopMonitoringLocation];
     }
-    WMFContentGroup* section = [self sectionAtIndex:index];
-    if ([controller conformsToProtocol:@protocol(WMFAnalyticsContentTypeProviding)]) {
-        [[PiwikTracker wmf_configuredInstance] wmf_logActionImpressionInContext:self contentType:section];
-    }
+//    WMFContentGroup* section = [self sectionAtIndex:indexPath.section];
+//    if ([controller conformsToProtocol:@protocol(WMFAnalyticsContentTypeProviding)]) {
+//        [[PiwikTracker wmf_configuredInstance] wmf_logActionImpressionInContext:self contentType:section];
+//    }
     
 }
 

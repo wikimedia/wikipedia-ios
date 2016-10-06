@@ -29,7 +29,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly, strong, nonatomic) YapDatabase *database;
 
-
+/**
+ *  Call this to manually sync the database.
+ *  Useful for when resuming and the DB may have been modified out of process
+ */
 - (void)syncDataStoreToDatabase;
 
 
