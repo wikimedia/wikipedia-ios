@@ -1,4 +1,5 @@
 #import "YapDatabase+WMFExtensions.h"
+#import <YapDatabase/YapDatabaseCrossProcessNotification.h>
 
 @implementation YapDatabase (WMFExtensions)
 
@@ -6,7 +7,13 @@
     static dispatch_once_t onceToken;
     static id sharedInstance;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [[[self class] alloc] initWithPath:[[self class] wmf_databasePath]];
+        YapDatabaseOptions *options = [YapDatabaseOptions new];
+        options.enableMultiProcessSupport = YES;
+        YapDatabase *db = [[YapDatabase alloc] initWithPath:[[self class] wmf_databasePath] options:options];
+        
+        YapDatabaseCrossProcessNotification *cp = [[YapDatabaseCrossProcessNotification alloc] initWithIdentifier:@"Wikipedia"];
+        [db registerExtension:cp withName:@"WikipediaCrossProcess"];
+        sharedInstance = db;
     });
     return sharedInstance;
 }
