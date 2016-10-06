@@ -1,18 +1,17 @@
 #import "WMFSelfSizingArticleListTableViewController.h"
 
+@class MWKDataStore;
+@class WMFArticlePreviewDataStore;
+@class WMFRelatedSearchResults;
+
 @interface WMFReadMoreViewController : WMFSelfSizingArticleListTableViewController
 
 @property (nonatomic, strong, readonly) NSURL *articleURL;
 
-- (instancetype)initWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore;
+- (instancetype)initWithURL:(NSURL *)url userStore:(MWKDataStore *)userDataStore previewStore:(WMFArticlePreviewDataStore*)previewStore;
 
-/**
- *  Idempotently fetch new results.
- *
- *  @return A promise which resolves to @c WMFRelatedSearchResults, which were either fetched from the network or results
- *          from a previous successful fetch.
- */
-- (AnyPromise *)fetchIfNeeded;
+- (void )fetchIfNeededWithCompletionBlock:(void (^)(WMFRelatedSearchResults* results))completion
+                             failureBlock:(void (^)(NSError* error))failure;
 
 - (BOOL)hasResults;
 
