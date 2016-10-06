@@ -647,11 +647,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self performSelector:@selector(fetchSectionIfShowing:) withObject:controller afterDelay:0.25 inModes:@[NSRunLoopCommonModes]];
 
-    if ([controller conformsToProtocol:@protocol(WMFTitleProviding)] && (![controller respondsToSelector:@selector(urlForItemAtIndexPath:)] || [controller shouldSelectItemAtIndexPath:indexPath])) {
-        NSURL *articleURL = [(id<WMFTitleProviding>)controller urlForItemAtIndexPath:indexPath];
-        if (articleURL) {
-            [[PiwikTracker wmf_configuredInstance] wmf_logActionImpressionInContext:self contentType:controller];
-        }
+    if ([controller conformsToProtocol:@protocol(WMFAnalyticsContentTypeProviding)]) {
+        [[PiwikTracker wmf_configuredInstance] wmf_logActionImpressionInContext:self contentType:controller];
     }
 }
 
