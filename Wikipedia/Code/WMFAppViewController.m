@@ -838,7 +838,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
                 [savedArticlesViewController scrollToTop:savedArticlesViewController.userDataStore.savedPageList.numberOfItems > 0];
             } break;
             case WMFAppTabTypeRecent: {
-                WMFArticleListDataSourceTableViewController *historyArticlesViewController = (WMFArticleListDataSourceTableViewController *)[self recentArticlesViewController];
+                WMFArticleListTableViewController *historyArticlesViewController = (WMFArticleListTableViewController *)[self recentArticlesViewController];
                 [historyArticlesViewController scrollToTop:[historyArticlesViewController.userDataStore.historyList numberOfItems] > 0];
             } break;
         }

@@ -1,5 +1,5 @@
 #import <UIKit/UIKit.h>
-#import "WMFArticleListDataSourceTableViewController.h"
+#import "WMFArticleListTableViewController.h"
 
 @class MWKDataStore;
 @class WMFArticlePreviewDataStore;
