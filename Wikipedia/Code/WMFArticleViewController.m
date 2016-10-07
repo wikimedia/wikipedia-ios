@@ -1645,10 +1645,17 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                              handler:^(UIPreviewAction * _Nonnull action,
                                        UIViewController * _Nonnull previewViewController) {
                                  // No need to have articlePreviewingActionsDelegate method for saving since saving doesn't require presenting anything.
-                                 if([self.savedPages isSaved:self.articleURL]){
-                                     [self.savedPages removeEntryWithURL:self.articleURL];
-                                 }else{
-                                     [self.savedPages addSavedPageWithURL:self.articleURL];
+                                 
+                                 // HAX: since we only have self.articleURL below when we return the array of actions, we're only checking
+                                 // the URL for the enwiki main page suffix "Main_page". For other language wikis with different main page
+                                 // names the save button will appear when peeking their main pages, but we don't want to save main pages
+                                 // since they change. Fix this later, but for now just never save if main page.
+                                 if(!self.article.isMain){
+                                     if([self.savedPages isSaved:self.articleURL]){
+                                         [self.savedPages removeEntryWithURL:self.articleURL];
+                                     }else{
+                                         [self.savedPages addSavedPageWithURL:self.articleURL];
+                                     }
                                  }
                              }];
     
@@ -1663,7 +1670,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                  }
                              }];
     
-    return @[readAction, saveAction, shareAction];
+    // HAX: check for enwiki main page suffix... not ideal, but we don't have full MWKArticle at this
+    // point (or we could check its "isMain" property). See related HAX note in the "saveAction" above.
+    return [self.articleURL.absoluteString hasSuffix:@"Main_Page"] ? @[readAction, shareAction]: @[readAction, saveAction, shareAction];
 }
 
 #pragma mark - WMFArticlePreviewingActionsDelegate methods
