@@ -1636,7 +1636,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                              handler:^(UIPreviewAction * _Nonnull action,
                                        UIViewController * _Nonnull previewViewController) {
                                  NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
-                                 [self.articlePreviewingActionsDelegate pushPreviewedArticleViewController:(WMFArticleViewController*)previewViewController];
+                                 [self.articlePreviewingActionsDelegate articleReadMorePreviewAction:action
+                                                                   selectedWithArticleViewController:(WMFArticleViewController*)previewViewController];
                              }];
 
     UIPreviewAction *saveAction =
@@ -1666,7 +1667,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                        UIViewController * _Nonnull previewViewController) {
                                  UIActivityViewController *vc = [self activityViewControllerForSharingArticle:self.article withTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
                                  if (vc){
-                                     [self.articlePreviewingActionsDelegate presentPreviewedArticleShareActivityViewController:vc];
+                                     [self.articlePreviewingActionsDelegate articleSharePreviewAction:action
+                                                       selectedWithArticleShareActivityViewController:vc];
                                  }
                              }];
     
@@ -1677,11 +1679,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - WMFArticlePreviewingActionsDelegate methods
 
-- (void)pushPreviewedArticleViewController:(UIViewController *)articleViewController {
+- (void)articleReadMorePreviewAction:(UIPreviewAction*)previewAction selectedWithArticleViewController:(UIViewController *)articleViewController {
     [self commitViewController:articleViewController];
 }
 
-- (void)presentPreviewedArticleShareActivityViewController:(UIActivityViewController*)shareActivityViewController {
+- (void)articleSharePreviewAction:(UIPreviewAction*)previewAction selectedWithArticleShareActivityViewController:(UIActivityViewController*)shareActivityViewController {
     [self presentViewController:shareActivityViewController animated:YES completion:NULL];
 }
 

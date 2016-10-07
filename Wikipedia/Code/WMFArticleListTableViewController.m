@@ -136,11 +136,11 @@
 
 #pragma mark - WMFArticlePreviewingActionsDelegate
 
-- (void)pushPreviewedArticleViewController:(WMFArticleViewController *)articleViewController {
+- (void)articleReadMorePreviewAction:(UIPreviewAction*)previewAction selectedWithArticleViewController:(WMFArticleViewController *)articleViewController {
     [self commitViewController:articleViewController];
 }
 
-- (void)presentPreviewedArticleShareActivityViewController:(UIActivityViewController*)shareActivityViewController {
+- (void)articleSharePreviewAction:(UIPreviewAction*)previewAction selectedWithArticleShareActivityViewController:(UIActivityViewController*)shareActivityViewController {
     [self presentViewController:shareActivityViewController animated:YES completion:NULL];
 }
 
