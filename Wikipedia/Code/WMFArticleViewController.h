@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)pushPreviewedArticleViewController:(WMFArticleViewController *)articleViewController;
 
-- (void)presentPreviewedArticleShareActivityViewController:(nullable UIActivityViewController*)shareActivityViewController;
+- (void)presentPreviewedArticleShareActivityViewController:(UIActivityViewController*)shareActivityViewController;
 
 @end
 

@@ -992,10 +992,8 @@ NS_ASSUME_NONNULL_BEGIN
     [self wmf_pushArticleViewController:articleViewController animated:YES];
 }
 
-- (void)presentPreviewedArticleShareActivityViewController:(nullable UIActivityViewController*)shareActivityViewController {
-    if (shareActivityViewController){
-        [self presentViewController:shareActivityViewController animated:YES completion:NULL];
-    }
+- (void)presentPreviewedArticleShareActivityViewController:(UIActivityViewController*)shareActivityViewController {
+    [self presentViewController:shareActivityViewController animated:YES completion:NULL];
 }
 
 #pragma mark - UIRefreshControl

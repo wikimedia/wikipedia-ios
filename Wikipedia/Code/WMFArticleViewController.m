@@ -1654,8 +1654,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                              handler:^(UIPreviewAction * _Nonnull action,
                                        UIViewController * _Nonnull previewViewController) {
                                  UIActivityViewController *vc = [self activityViewControllerForSharingArticle:self.article withTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
-
-                                 [self.articlePreviewingActionsDelegate presentPreviewedArticleShareActivityViewController:vc];
+                                 if (vc){
+                                     [self.articlePreviewingActionsDelegate presentPreviewedArticleShareActivityViewController:vc];
+                                 }
                              }];
     
     return @[readAction, saveAction, shareAction];
@@ -1667,10 +1668,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self commitViewController:articleViewController];
 }
 
-- (void)presentPreviewedArticleShareActivityViewController:(nullable UIActivityViewController*)shareActivityViewController {
-    if (shareActivityViewController){
-        [self presentViewController:shareActivityViewController animated:YES completion:NULL];
-    }
+- (void)presentPreviewedArticleShareActivityViewController:(UIActivityViewController*)shareActivityViewController {
+    [self presentViewController:shareActivityViewController animated:YES completion:NULL];
 }
 
 #pragma mark - Article Navigation
