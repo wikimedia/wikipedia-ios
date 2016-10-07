@@ -76,7 +76,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WMFArticleListTableViewControllerDelegate,
                                         WMFFontSliderViewControllerDelegate,
                                         UIPopoverPresentationControllerDelegate,
-                                        WKUIDelegate>
+                                        WKUIDelegate,
+                                        WMFArticlePreviewingActionsDelegate>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -543,7 +544,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         _shareToolbarItem = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                             handler:^(id sender) {
                                                                                 @strongify(self);
-                                                                                [self shareArticleWithTextSnippet:nil fromButton:self->_shareToolbarItem];
+                                                                                [self shareArticle:self.article withTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel];
                                                                             }];
     }
     return _shareToolbarItem;
@@ -1232,23 +1233,26 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)shareArticleFromButton:(nullable UIBarButtonItem *)button {
-    [self shareArticleWithTextSnippet:nil fromButton:button];
+    [self shareArticle:self.article withTextSnippet:nil fromButton:button shareFunnel:self.shareFunnel];
 }
 
-- (void)shareArticleWithTextSnippet:(nullable NSString *)text fromButton:(UIBarButtonItem *)button {
+- (void)shareArticle:(MWKArticle*)article
+     withTextSnippet:(nullable NSString *)text
+          fromButton:(UIBarButtonItem *)button
+         shareFunnel:(nullable WMFShareFunnel *)shareFunnel {
     NSParameterAssert(button);
     if (!button) {
         //If we get no button, we will crash below on iPad
         //The assert above shoud help, but lets make sure we bail in prod
         return;
     }
-    [self.shareFunnel logShareButtonTappedResultingInSelection:text];
+    [shareFunnel logShareButtonTappedResultingInSelection:text];
 
     NSMutableArray *items = [NSMutableArray array];
 
-    [items addObject:[[WMFArticleTextActivitySource alloc] initWithArticle:self.article shareText:text]];
+    [items addObject:[[WMFArticleTextActivitySource alloc] initWithArticle:article shareText:text]];
 
-    NSURL *url = [NSURL wmf_desktopURLForURL:self.articleURL];
+    NSURL *url = [NSURL wmf_desktopURLForURL:article.url];
 
     if (url) {
         url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
@@ -1514,6 +1518,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
         [self.webViewController hideFindInPageWithCompletion:nil];
 
+        if ([[peekVC class] conformsToProtocol:@protocol(WMFArticlePreviewingActionsDelegate)]){
+            ((WMFArticleViewController*)peekVC).articlePreviewingActionsDelegate = self;
+        }
+        
         return peekVC;
     }
     return nil;
@@ -1621,6 +1629,48 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
+}
+
+#pragma mark - Article previewing actions (buttons beneath peeked article when you drag peek view up)
+
+- (NSArray<id<UIPreviewActionItem>> *)previewActions {
+    UIPreviewAction *readAction =
+    [UIPreviewAction actionWithTitle:@"Read now"
+                               style:UIPreviewActionStyleDefault
+                             handler:^(UIPreviewAction * _Nonnull action,
+                                       UIViewController * _Nonnull previewViewController) {
+                                 NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
+                                 [self.articlePreviewingActionsDelegate pushPreviewedArticleViewController:(WMFArticleViewController*)previewViewController];
+                             }];
+
+    UIPreviewAction *saveAction =
+    [UIPreviewAction actionWithTitle:@"Save for later"
+                               style:UIPreviewActionStyleDefault
+                             handler:^(UIPreviewAction * _Nonnull action,
+                                       UIViewController * _Nonnull previewViewController) {
+                                 // No need to have articlePreviewingActionsDelegate method for saving since saving doesn't require presenting anything.
+                                 [self.savedPages addSavedPageWithURL:self.articleURL];
+                             }];
+    
+    UIPreviewAction *shareAction =
+    [UIPreviewAction actionWithTitle:@"Share"
+                               style:UIPreviewActionStyleDefault
+                             handler:^(UIPreviewAction * _Nonnull action,
+                                       UIViewController * _Nonnull previewViewController) {
+                                 [self.articlePreviewingActionsDelegate sharePreviewedArticle:self.article];
+                             }];
+    
+    return @[readAction, saveAction, shareAction];
+}
+
+#pragma mark - WMFArticlePreviewingActionsDelegate methods
+
+- (void)pushPreviewedArticleViewController:(UIViewController *)articleViewController {
+    [self commitViewController:articleViewController];
+}
+
+- (void)sharePreviewedArticle:(MWKArticle*)article {
+    [self shareArticle:article withTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
 }
 
 #pragma mark - Article Navigation

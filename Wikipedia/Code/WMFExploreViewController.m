@@ -64,7 +64,8 @@ NS_ASSUME_NONNULL_BEGIN
                                         UIViewControllerPreviewingDelegate,
                                         WMFAnalyticsContextProviding,
                                         WMFAnalyticsViewNameProviding,
-                                        WMFColumnarCollectionViewLayoutDelegate>
+                                        WMFColumnarCollectionViewLayoutDelegate,
+                                        WMFArticlePreviewingActionsDelegate>
 
 @property (nonatomic, strong, readonly) MWKSavedPageList *savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList *recentPages;
@@ -957,6 +958,11 @@ NS_ASSUME_NONNULL_BEGIN
     UIViewController *vc = [sectionController detailViewControllerForItemAtIndexPath:previewIndexPath];
     self.sectionOfPreviewingTitle = sectionController;
     [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:sectionController];
+    
+    if ([[vc class] conformsToProtocol:@protocol(WMFArticlePreviewingActionsDelegate)]){
+        ((WMFArticleViewController*)vc).articlePreviewingActionsDelegate = self;
+    }
+
     return vc;
 }
 
@@ -978,6 +984,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)analyticsName {
     return [self analyticsContext];
+}
+
+#pragma mark - WMFArticlePreviewingActionsDelegate
+
+- (void)pushPreviewedArticleViewController:(WMFArticleViewController *)articleViewController {
+    [self wmf_pushArticleViewController:articleViewController animated:YES];
+}
+
+- (void)sharePreviewedArticle:(MWKArticle*)article {
+    
 }
 
 #pragma mark - UIRefreshControl

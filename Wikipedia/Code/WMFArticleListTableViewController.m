@@ -6,7 +6,7 @@
 #import "PiwikTracker+WMFExtensions.h"
 #import "UIViewController+WMFHideKeyboard.h"
 
-@interface WMFArticleListTableViewController () <UIViewControllerPreviewingDelegate>
+@interface WMFArticleListTableViewController () <UIViewControllerPreviewingDelegate, WMFArticlePreviewingActionsDelegate>
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
@@ -111,21 +111,37 @@
     }
     [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:contentType];
 
-    if (self.delegate) {
-        return [self.delegate listViewController:self viewControllerForPreviewingArticleURL:url];
-    } else {
-        return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+    UIViewController *vc = self.delegate ?
+        [self.delegate listViewController:self viewControllerForPreviewingArticleURL:url] : [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+    
+    if ([[vc class] conformsToProtocol:@protocol(WMFArticlePreviewingActionsDelegate)]){
+        ((WMFArticleViewController*)vc).articlePreviewingActionsDelegate = self;
     }
+    return vc;
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
-     commitViewController:(UINavigationController *)viewControllerToCommit {
+     commitViewController:(UIViewController *)viewControllerToCommit {
+    [self commitViewController:viewControllerToCommit];
+}
+
+- (void)commitViewController:(UIViewController *)viewControllerToCommit {
     [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:nil];
     if (self.delegate) {
         [self.delegate listViewController:self didCommitToPreviewedViewController:viewControllerToCommit];
     } else {
         [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
     }
+}
+
+#pragma mark - WMFArticlePreviewingActionsDelegate
+
+- (void)pushPreviewedArticleViewController:(WMFArticleViewController *)articleViewController {
+    [self commitViewController:articleViewController];
+}
+
+- (void)sharePreviewedArticle:(MWKArticle*)article {
+    
 }
 
 #pragma mark - Delete Button
