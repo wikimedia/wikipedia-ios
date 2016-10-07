@@ -1652,7 +1652,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                              }];
 
     UIPreviewAction *saveAction =
-    [UIPreviewAction actionWithTitle:[self.savedPages isSaved:self.articleURL] ? MWLocalizedString(@"button-saved-for-later", nil) : MWLocalizedString(@"button-save-for-later", nil)
+    [UIPreviewAction actionWithTitle:[self.savedPages isSaved:self.articleURL] ? MWLocalizedString(@"button-saved-remove", nil) : MWLocalizedString(@"button-save-for-later", nil)
                                style:UIPreviewActionStyleDefault
                              handler:^(UIPreviewAction * _Nonnull action,
                                        UIViewController * _Nonnull previewViewController) {
