@@ -114,7 +114,7 @@
     UIViewController *vc = self.delegate ?
         [self.delegate listViewController:self viewControllerForPreviewingArticleURL:url] : [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
     
-    if ([[vc class] conformsToProtocol:@protocol(WMFArticlePreviewingActionsDelegate)]){
+    if ([vc isKindOfClass:[WMFArticleViewController class]]){
         ((WMFArticleViewController*)vc).articlePreviewingActionsDelegate = self;
     }
     return vc;

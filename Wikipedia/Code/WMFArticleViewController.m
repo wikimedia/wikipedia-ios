@@ -1526,7 +1526,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
         [self.webViewController hideFindInPageWithCompletion:nil];
 
-        if ([[peekVC class] conformsToProtocol:@protocol(WMFArticlePreviewingActionsDelegate)]){
+        if ([peekVC isKindOfClass:[WMFArticleViewController class]]){
             ((WMFArticleViewController*)peekVC).articlePreviewingActionsDelegate = self;
         }
         
