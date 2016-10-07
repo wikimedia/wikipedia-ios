@@ -55,12 +55,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 #pragma mark - Face Detection
 
 + (WMFFaceDetectionCache *)faceDetectionCache {
-    static WMFFaceDetectionCache *_faceDetectionCache = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _faceDetectionCache = [[WMFFaceDetectionCache alloc] init];
-    });
-    return _faceDetectionCache;
+    return [WMFFaceDetectionCache sharedCache];
 }
 
 - (BOOL)wmf_imageRequiresFaceDetection {

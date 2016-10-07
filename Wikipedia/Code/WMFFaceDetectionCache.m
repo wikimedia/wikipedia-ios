@@ -18,6 +18,15 @@
     return self;
 }
 
++ (WMFFaceDetectionCache *)sharedCache {
+    static WMFFaceDetectionCache *sharedCache = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedCache = [[WMFFaceDetectionCache alloc] init];
+    });
+    return sharedCache;
+}
+
 - (BOOL)imageAtURLRequiresFaceDetection:(NSURL *)url {
     return ([self faceDetectionBoundsForURL:url] == nil);
 }
