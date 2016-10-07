@@ -359,7 +359,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSUInteger)maxNumberOfCells{
-    return 3;
+    return 5;
 }
 
 - (nullable NSString *)footerText {
