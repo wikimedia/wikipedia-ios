@@ -1631,7 +1631,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (NSArray<id<UIPreviewActionItem>> *)previewActions {
     UIPreviewAction *readAction =
-    [UIPreviewAction actionWithTitle:@"Read now"
+    [UIPreviewAction actionWithTitle:MWLocalizedString(@"button-read-now", nil)
                                style:UIPreviewActionStyleDefault
                              handler:^(UIPreviewAction * _Nonnull action,
                                        UIViewController * _Nonnull previewViewController) {
@@ -1640,7 +1640,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                              }];
 
     UIPreviewAction *saveAction =
-    [UIPreviewAction actionWithTitle:@"Save for later"
+    [UIPreviewAction actionWithTitle:[self.savedPages isSaved:self.articleURL] ? MWLocalizedString(@"button-saved-for-later", nil) : MWLocalizedString(@"button-save-for-later", nil)
                                style:UIPreviewActionStyleDefault
                              handler:^(UIPreviewAction * _Nonnull action,
                                        UIViewController * _Nonnull previewViewController) {
@@ -1649,7 +1649,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                              }];
     
     UIPreviewAction *shareAction =
-    [UIPreviewAction actionWithTitle:@"Share"
+    [UIPreviewAction actionWithTitle:MWLocalizedString(@"share-custom-menu-item", nil)
                                style:UIPreviewActionStyleDefault
                              handler:^(UIPreviewAction * _Nonnull action,
                                        UIViewController * _Nonnull previewViewController) {
