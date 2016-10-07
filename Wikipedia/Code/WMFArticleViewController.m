@@ -69,7 +69,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
 static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 10;
 
 
-@interface MWKArticle (WMFSharingActivityViewController) // TODO: move this to WMFModel
+@interface MWKArticle (WMFSharingActivityViewController)
 
 - (nullable UIActivityViewController*)sharingActivityViewControllerWithTextSnippet:(nullable NSString *)text
                                                                         fromButton:(UIBarButtonItem *)button
@@ -1648,8 +1648,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                              handler:^(UIPreviewAction * _Nonnull action,
                                        UIViewController * _Nonnull previewViewController) {
                                  NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
-                                 [self.articlePreviewingActionsDelegate articleReadMorePreviewAction:action
-                                                                   selectedWithArticleViewController:(WMFArticleViewController*)previewViewController];
+                                 [self.articlePreviewingActionsDelegate readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController*)previewViewController];
                              }];
 
     UIPreviewAction *saveAction =
@@ -1672,8 +1671,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                        UIViewController * _Nonnull previewViewController) {
                                  UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
                                  if (vc){
-                                     [self.articlePreviewingActionsDelegate articleSharePreviewAction:action
-                                                       selectedWithArticleShareActivityViewController:vc];
+                                     [self.articlePreviewingActionsDelegate shareArticlePreviewActionSelectedWithArticleShareActivityController:vc];
                                  }
                              }];
     
@@ -1682,12 +1680,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - WMFArticlePreviewingActionsDelegate methods
 
-- (void)articleReadMorePreviewAction:(UIPreviewAction*)previewAction selectedWithArticleViewController:(UIViewController *)articleViewController {
-    [self commitViewController:articleViewController];
+- (void)readMoreArticlePreviewActionSelectedWithArticleController:(UIViewController *)articleController {
+    [self commitViewController:articleController];
 }
 
-- (void)articleSharePreviewAction:(UIPreviewAction*)previewAction selectedWithArticleShareActivityViewController:(UIActivityViewController*)shareActivityViewController {
-    [self presentViewController:shareActivityViewController animated:YES completion:NULL];
+- (void)shareArticlePreviewActionSelectedWithArticleShareActivityController:(UIActivityViewController*)shareActivityController {
+    [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 
 #pragma mark - Article Navigation

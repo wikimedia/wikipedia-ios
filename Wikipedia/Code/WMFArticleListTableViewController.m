@@ -136,12 +136,12 @@
 
 #pragma mark - WMFArticlePreviewingActionsDelegate
 
-- (void)articleReadMorePreviewAction:(UIPreviewAction*)previewAction selectedWithArticleViewController:(WMFArticleViewController *)articleViewController {
-    [self commitViewController:articleViewController];
+- (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
+    [self commitViewController:articleController];
 }
 
-- (void)articleSharePreviewAction:(UIPreviewAction*)previewAction selectedWithArticleShareActivityViewController:(UIActivityViewController*)shareActivityViewController {
-    [self presentViewController:shareActivityViewController animated:YES completion:NULL];
+- (void)shareArticlePreviewActionSelectedWithArticleShareActivityController:(UIActivityViewController*)shareActivityController {
+    [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 
 #pragma mark - Delete Button

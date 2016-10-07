@@ -39,9 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFArticlePreviewingActionsDelegate <NSObject>
 
-- (void)articleReadMorePreviewAction:(UIPreviewAction*)previewAction selectedWithArticleViewController:(WMFArticleViewController *)articleViewController;
+- (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController;
 
-- (void)articleSharePreviewAction:(UIPreviewAction*)previewAction selectedWithArticleShareActivityViewController:(UIActivityViewController*)shareActivityViewController;
+- (void)shareArticlePreviewActionSelectedWithArticleShareActivityController:(UIActivityViewController*)shareActivityController;
 
 @end
 

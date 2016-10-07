@@ -988,12 +988,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFArticlePreviewingActionsDelegate
 
-- (void)articleReadMorePreviewAction:(UIPreviewAction*)previewAction selectedWithArticleViewController:(WMFArticleViewController *)articleViewController {
-    [self wmf_pushArticleViewController:articleViewController animated:YES];
+- (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
+    [self wmf_pushArticleViewController:articleController animated:YES];
 }
 
-- (void)articleSharePreviewAction:(UIPreviewAction*)previewAction selectedWithArticleShareActivityViewController:(UIActivityViewController*)shareActivityViewController {
-    [self presentViewController:shareActivityViewController animated:YES completion:NULL];
+- (void)shareArticlePreviewActionSelectedWithArticleShareActivityController:(UIActivityViewController*)shareActivityController {
+    [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 
 #pragma mark - UIRefreshControl
