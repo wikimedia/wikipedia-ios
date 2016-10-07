@@ -16,10 +16,15 @@
 #import "WMFMainPageContentSource.h"
 #import "WMFNearbyContentSource.h"
 #import "WMFContinueReadingContentSource.h"
+#import "WMFFeedContentSource.h"
 
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
 #import "WMFArticlePreview.h"
 #import "MWKHistoryEntry.h"
+
+#import "WMFFeedArticlePreview.h"
+#import "WMFFeedNewsStory.h"
+#import "WMFFeedImage.h"
 
 #import "WMFDataSource.h"
 
@@ -134,7 +139,9 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                             [[WMFMainPageContentSource alloc] initWithSiteURL:[self currentSiteURL] contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore],
                             [[WMFContinueReadingContentSource alloc] initWithContentGroupDataStore:self.contentStore userDataStore:self.userStore articlePreviewDataStore:self.previewStore],
                             
-                            [[WMFNearbyContentSource alloc] initWithSiteURL:[self currentSiteURL] contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore]];
+                            [[WMFNearbyContentSource alloc] initWithSiteURL:[self currentSiteURL] contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore],
+                            
+                            [[WMFFeedContentSource alloc] initWithSiteURL:[self currentSiteURL] contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore]];
     }
     return _contentSources;
 }
@@ -219,15 +226,29 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 - (nullable NSURL*)contentURLForIndexPath:(NSIndexPath*)indexPath{
     WMFContentGroup* section = [self sectionAtIndex:indexPath.section];
-    if([section contentType] != WMFContentTypeURL){
+    if([section contentType] == WMFContentTypeTopReadPreview){
+        
+        NSArray<WMFFeedTopReadArticlePreview*>* content = [self contentForSectionAtIndex:indexPath.section];
+        
+        if(indexPath.row >= [content count]){
+            NSAssert(false, @"Attempting to reference an out of bound index");
+            return nil;
+        }
+
+        return [content[indexPath.row] articleURL];
+        
+    }else if([section contentType] == WMFContentTypeURL){
+        
+        NSArray<NSURL*>* content = [self contentForSectionAtIndex:indexPath.section];
+        if(indexPath.row >= [content count]){
+            NSAssert(false, @"Attempting to reference an out of bound index");
+            return nil;
+        }
+        return content[indexPath.row];
+        
+    }else{
         return nil;
-    }
-    NSArray<NSURL*>* content = [self contentForSectionAtIndex:indexPath.section];
-    if(indexPath.row >= [content count]){
-        NSAssert(false, @"Attempting to reference an out of bound index");
-        return nil;
-    }
-    return content[indexPath.row];
+   }
 }
 
 - (nullable WMFArticlePreview*)previewForIndexPath:(NSIndexPath*)indexPath{
@@ -238,6 +259,11 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     return [self.previewStore itemForURL:url];
 }
 
+- (nullable WMFFeedTopReadArticlePreview*)topReadPreviewForIndexPath:(NSIndexPath*)indexPath{
+    NSArray<WMFFeedTopReadArticlePreview*>* content = [self contentForSectionAtIndex:indexPath.section];
+    return [content objectAtIndex:indexPath.row];
+}
+
 - (nullable MWKHistoryEntry*)userDataForIndexPath:(NSIndexPath*)indexPath{
     NSURL* url = [self contentURLForIndexPath:indexPath];
     if(url == nil){
@@ -246,7 +272,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     return [self.userStore entryForURL:url];
 }
 
-- (nullable MWKImageInfo*)imageInfoForIndexPath:(NSIndexPath*)indexPath{
+- (nullable WMFFeedImage*)imageInfoForIndexPath:(NSIndexPath*)indexPath{
     WMFContentGroup* section = [self sectionAtIndex:indexPath.section];
     if([section contentType] != WMFContentTypeImage){
         return nil;
@@ -370,7 +396,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         }
             break;
         case WMFFeedDisplayTypePhoto:{
-            MWKImageInfo* imageInfo = [self imageInfoForIndexPath:indexPath];
+            WMFFeedImage* imageInfo = [self imageInfoForIndexPath:indexPath];
             WMFPicOfTheDayCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFPicOfTheDayCollectionViewCell wmf_nibName] forIndexPath:indexPath];
             [self configurePhotoCell:cell withImageInfo:imageInfo atIndexPath:indexPath];
             return cell;
@@ -617,7 +643,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [self updateLocationCell:cell location:preview.location];
 }
 
-- (void)configurePhotoCell:(WMFPicOfTheDayCollectionViewCell *)cell withImageInfo:(MWKImageInfo *)imageInfo atIndexPath:(NSIndexPath *)indexPath{
+- (void)configurePhotoCell:(WMFPicOfTheDayCollectionViewCell *)cell withImageInfo:(WMFFeedImage *)imageInfo atIndexPath:(NSIndexPath *)indexPath{
     [cell setImageURL:imageInfo.imageThumbURL];
     if (imageInfo.imageDescription.length) {
         [cell setDisplayTitle:imageInfo.imageDescription];
@@ -751,9 +777,9 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         }
             break;
         case WMFFeedDetailTypeGallery:{
-            MWKImageInfo* image = [self imageInfoForIndexPath:indexPath];
-            WMFPOTDImageGalleryViewController *vc = [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date] selectedImageInfo:image];
-            [self presentViewController:vc animated:animated completion:nil];
+//            WMFFeedImage* image = [self imageInfoForIndexPath:indexPath];
+//            WMFPOTDImageGalleryViewController *vc = [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date] selectedImageInfo:image];
+//            [self presentViewController:vc animated:animated completion:nil];
         }
             break;
         default:
