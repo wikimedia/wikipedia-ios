@@ -46,12 +46,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@protocol WMFArticlePreviewingActionsProviding <NSObject>
-
-@property (weak, nonatomic, nullable) id<WMFArticlePreviewingActionsDelegate> articlePreviewingActionsDelegate;
-
-@end
-
 /**
  *  View controller responsible for displaying article content.
  */
