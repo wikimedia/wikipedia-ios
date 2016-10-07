@@ -315,7 +315,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@implementation WMFMostReadContentGroup (WMFContentManaging)
+@implementation WMFTopReadContentGroup (WMFContentManaging)
 
 - (UIImage *)headerIcon {
     return [UIImage imageNamed:@"trending-mini"];

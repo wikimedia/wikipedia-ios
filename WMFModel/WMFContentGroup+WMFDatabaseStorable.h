@@ -51,7 +51,7 @@
 
 @end
 
-@interface WMFMostReadContentGroup (WMFDatabaseStorable)
+@interface WMFTopReadContentGroup (WMFDatabaseStorable)
 
 + (NSURL *)urlForSiteURL:(NSURL*)url date:(NSDate*)date;
 

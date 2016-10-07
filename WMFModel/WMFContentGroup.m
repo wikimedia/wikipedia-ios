@@ -6,7 +6,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFContentGroup()
 
-@property (nonatomic, assign, readwrite) WMFContentType contentType;
 @property (nonatomic, strong, readwrite) NSDate *date;
 
 @end
@@ -25,12 +24,14 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(date);
     self = [super init];
     if (self) {
-        self.contentType = WMFContentTypeURL;
         self.date = date;
     }
     return self;
 }
 
+- (WMFContentType)contentType{
+    return WMFContentTypeURL;
+}
 
 - (NSInteger)dailySortPriority {
     return 0;
@@ -158,14 +159,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFPictureOfTheDayContentGroup
 
-- (instancetype)initWithDate:(NSDate *)date siteURL:(NSURL *)url{
-    self = [super initWithDate:date siteURL:url];
-    if (self) {
-        self.contentType = WMFContentTypeImage;
-    }
-    return self;
-}
-
 - (NSInteger)dailySortPriority {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         return 4;
@@ -173,6 +166,11 @@ NS_ASSUME_NONNULL_BEGIN
         return 3;
     }
 }
+
+- (WMFContentType)contentType{
+    return WMFContentTypeImage;
+}
+
 @end
 
 @implementation WMFRandomContentGroup
@@ -194,12 +192,16 @@ NS_ASSUME_NONNULL_BEGIN
 }
 @end
 
-@interface WMFMostReadContentGroup()
+@interface WMFTopReadContentGroup()
 
 @property (nonatomic, strong, readwrite) NSDate *mostReadDate;
 
 @end
-@implementation WMFMostReadContentGroup
+@implementation WMFTopReadContentGroup
+
+- (WMFContentType)contentType{
+    return WMFContentTypeTopReadPreview;
+}
 
 - (instancetype)initWithDate:(NSDate *)date mostReadDate:(NSDate*)mostReadDate siteURL:(NSURL *)url{
     self = [super initWithDate:date siteURL:url];
@@ -219,4 +221,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
+@implementation WMFNewsContentGroup
+
+- (WMFContentType)contentType{
+    return WMFContentTypeStory;
+}
+
+- (NSInteger)dailySortPriority {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return 3;
+    } else {
+        return 2;
+    }
+}
+
+@end
 NS_ASSUME_NONNULL_END

@@ -7,6 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSUInteger, WMFContentType){
     WMFContentTypeURL,
     WMFContentTypeImage,
+    WMFContentTypeTopReadPreview,
     WMFContentTypeStory
 };
 
@@ -102,8 +103,6 @@ typedef NS_ENUM(NSUInteger, WMFContentType){
 
 @interface WMFPictureOfTheDayContentGroup : WMFSiteContentGroup
 
-- (instancetype)initWithDate:(NSDate *)date siteURL:(NSURL *)url;
-
 @end
 
 @interface WMFRandomContentGroup : WMFSiteContentGroup
@@ -114,7 +113,7 @@ typedef NS_ENUM(NSUInteger, WMFContentType){
 
 @end
 
-@interface WMFMostReadContentGroup : WMFSiteContentGroup
+@interface WMFTopReadContentGroup : WMFSiteContentGroup
 
 /**
  *  The date for which the most read articles were fetched. Usually yesterday
@@ -123,6 +122,16 @@ typedef NS_ENUM(NSUInteger, WMFContentType){
 
 - (instancetype)initWithDate:(NSDate *)date mostReadDate:(NSDate*)mostReadDate siteURL:(NSURL *)url;
 
+- (instancetype)initWithDate:(NSDate *)date siteURL:(NSURL *)url NS_UNAVAILABLE;
+
 @end
+
+
+@interface WMFNewsContentGroup : WMFSiteContentGroup
+
+
+@end
+
+
 
 NS_ASSUME_NONNULL_END

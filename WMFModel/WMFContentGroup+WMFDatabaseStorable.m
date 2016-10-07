@@ -128,7 +128,7 @@
 
 @end
 
-@implementation WMFMostReadContentGroup (WMFDatabaseStorable)
+@implementation WMFTopReadContentGroup (WMFDatabaseStorable)
 
 + (NSURL *)urlForSiteURL:(NSURL*)url date:(NSDate*)date{
     NSURL* urlKey = [[self baseUrl] URLByAppendingPathComponent:@"top-read"];
