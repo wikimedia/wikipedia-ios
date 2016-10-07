@@ -4,6 +4,7 @@
 #import "MWKSearchResult.h"
 #import "MWKLocationSearchResult.h"
 #import "MWKArticle.h"
+#import "WMFFeedArticlePreview.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -108,6 +109,26 @@ NS_ASSUME_NONNULL_BEGIN
     [self savePreview:preview];
     return preview;
 }
+
+- (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithFeedPreview:(WMFFeedArticlePreview*)feedPreview{
+    
+    WMFArticlePreview* preview = [self newOrExistingPreviewWithURL:url];
+    if([feedPreview.displayTitle length] > 0){
+        preview.displayTitle = feedPreview.displayTitle;
+    }
+    if([feedPreview.wikidataDescription length] > 0){
+        preview.wikidataDescription = feedPreview.wikidataDescription;
+    }
+    if([feedPreview.snippet length] > 0){
+        preview.snippet = feedPreview.snippet;
+    }
+    if(feedPreview.thumbnailURL != nil){
+        preview.thumbnailURL = feedPreview.thumbnailURL;
+    }
+    [self savePreview:preview];
+    return preview;
+}
+
 
 
 

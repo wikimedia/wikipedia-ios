@@ -1,6 +1,6 @@
 #import "WMFBaseDataStore.h"
 
-@class WMFArticlePreview, MWKSearchResult, MWKLocationSearchResult, MWKArticle;
+@class WMFArticlePreview, MWKSearchResult, MWKLocationSearchResult, MWKArticle, WMFFeedArticlePreview;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithLocationSearchResult:(MWKLocationSearchResult*)searchResult;
 
 - (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithArticle:(MWKArticle*)article;
+
+- (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithFeedPreview:(WMFFeedArticlePreview*)feedPreview;
 
 @end
 
