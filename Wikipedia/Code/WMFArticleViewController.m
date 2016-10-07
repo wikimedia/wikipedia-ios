@@ -1669,11 +1669,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                style:UIPreviewActionStyleDefault
                              handler:^(UIPreviewAction * _Nonnull action,
                                        UIViewController * _Nonnull previewViewController) {
-                                 UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
-                                 if (vc){
+                                 UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
+                                 if (shareActivityController){
                                      NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
                                      [self.articlePreviewingActionsDelegate shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController*)previewViewController
-                                                                                                           shareActivityController:vc];
+                                                                                                           shareActivityController:shareActivityController];
                                  }
                              }];
     
