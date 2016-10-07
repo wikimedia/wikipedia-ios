@@ -68,6 +68,47 @@ static const CGFloat WMFArticleViewControllerExpandedTableOfContentsWidthPercent
 static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
 static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 10;
 
+
+@interface MWKArticle (WMFSharingActivityViewController) // TODO: move this to WMFModel
+
+- (nullable UIActivityViewController*)sharingActivityViewControllerWithTextSnippet:(nullable NSString *)text
+                                                                        fromButton:(UIBarButtonItem *)button
+                                                                       shareFunnel:(nullable WMFShareFunnel *)shareFunnel;
+@end
+
+@implementation MWKArticle (WMFSharingActivityViewController)
+
+- (nullable UIActivityViewController*)sharingActivityViewControllerWithTextSnippet:(nullable NSString *)text
+                                                                        fromButton:(UIBarButtonItem *)button
+                                                                       shareFunnel:(nullable WMFShareFunnel *)shareFunnel {
+    NSParameterAssert(button);
+    if (!button) {
+        //If we get no button, we will crash below on iPad
+        //The assert above should help, but lets make sure we bail in prod
+        NSAssert(false, @"Should have a button by now...");
+        return nil;
+    }
+    [shareFunnel logShareButtonTappedResultingInSelection:text];
+    
+    NSMutableArray *items = [NSMutableArray array];
+    
+    [items addObject:[[WMFArticleTextActivitySource alloc] initWithArticle:self shareText:text]];
+    
+    NSURL *url = [NSURL wmf_desktopURLForURL:self.url];
+    
+    if (url) {
+        [items addObject:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@", url.absoluteString, @"wprov=sfsi1"]]];
+    }
+    
+    UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[[[TUSafariActivity alloc] init]]];
+    UIPopoverPresentationController *presenter = [vc popoverPresentationController];
+    presenter.barButtonItem = button;
+    return vc;
+}
+
+@end
+
+
 @interface WMFArticleViewController () <UINavigationControllerDelegate,
                                         WMFImageGalleryViewControllerReferenceViewDelegate,
                                         SectionEditorViewControllerDelegate,
@@ -544,7 +585,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         _shareToolbarItem = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                             handler:^(id sender) {
                                                                                 @strongify(self);
-                                                                                UIActivityViewController *vc = [self activityViewControllerForSharingArticle:self.article withTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel];
+                                                                                UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel];
                                                                                 if (vc){
                                                                                     [self presentViewController:vc animated:YES completion:NULL];
                                                                                 }
@@ -1235,35 +1276,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromBarButtonItem:self.shareToolbarItem];
 }
 
-- (nullable UIActivityViewController*)activityViewControllerForSharingArticle:(MWKArticle*)article
-                                                              withTextSnippet:(nullable NSString *)text
-                                                                   fromButton:(UIBarButtonItem *)button
-                                                                  shareFunnel:(nullable WMFShareFunnel *)shareFunnel {
-    NSParameterAssert(button);
-    if (!button) {
-        //If we get no button, we will crash below on iPad
-        //The assert above should help, but lets make sure we bail in prod
-        NSAssert(false, @"Should have a button by now...");
-        return nil;
-    }
-    [shareFunnel logShareButtonTappedResultingInSelection:text];
-
-    NSMutableArray *items = [NSMutableArray array];
-
-    [items addObject:[[WMFArticleTextActivitySource alloc] initWithArticle:article shareText:text]];
-
-    NSURL *url = [NSURL wmf_desktopURLForURL:article.url];
-
-    if (url) {
-        [items addObject:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@", url.absoluteString, @"wprov=sfsi1"]]];
-    }
-
-    UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[[[TUSafariActivity alloc] init]]];
-    UIPopoverPresentationController *presenter = [vc popoverPresentationController];
-    presenter.barButtonItem = button;
-    return vc;
-}
-
 #pragma mark - Find-in-page
 
 - (void)showFindInPage {
@@ -1665,7 +1677,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                style:UIPreviewActionStyleDefault
                              handler:^(UIPreviewAction * _Nonnull action,
                                        UIViewController * _Nonnull previewViewController) {
-                                 UIActivityViewController *vc = [self activityViewControllerForSharingArticle:self.article withTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
+                                 UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
                                  if (vc){
                                      [self.articlePreviewingActionsDelegate articleSharePreviewAction:action
                                                        selectedWithArticleShareActivityViewController:vc];
