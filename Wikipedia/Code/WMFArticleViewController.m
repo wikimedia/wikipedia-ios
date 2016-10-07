@@ -1645,7 +1645,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                              handler:^(UIPreviewAction * _Nonnull action,
                                        UIViewController * _Nonnull previewViewController) {
                                  // No need to have articlePreviewingActionsDelegate method for saving since saving doesn't require presenting anything.
-                                 [self.savedPages addSavedPageWithURL:self.articleURL];
+                                 if([self.savedPages isSaved:self.articleURL]){
+                                     [self.savedPages removeEntryWithURL:self.articleURL];
+                                 }else{
+                                     [self.savedPages addSavedPageWithURL:self.articleURL];
+                                 }
                              }];
     
     UIPreviewAction *shareAction =
