@@ -41,7 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController;
 
-- (void)shareArticlePreviewActionSelectedWithArticleShareActivityController:(UIActivityViewController*)shareActivityController;
+- (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
+                                       shareActivityController:(UIActivityViewController*)shareActivityController;
 
 @end
 

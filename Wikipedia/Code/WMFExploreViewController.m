@@ -992,7 +992,8 @@ NS_ASSUME_NONNULL_BEGIN
     [self wmf_pushArticleViewController:articleController animated:YES];
 }
 
-- (void)shareArticlePreviewActionSelectedWithArticleShareActivityController:(UIActivityViewController*)shareActivityController {
+- (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
+                                       shareActivityController:(UIActivityViewController*)shareActivityController {
     [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 

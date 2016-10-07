@@ -1671,7 +1671,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                        UIViewController * _Nonnull previewViewController) {
                                  UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
                                  if (vc){
-                                     [self.articlePreviewingActionsDelegate shareArticlePreviewActionSelectedWithArticleShareActivityController:vc];
+                                     NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
+                                     [self.articlePreviewingActionsDelegate shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController*)previewViewController
+                                                                                                           shareActivityController:vc];
                                  }
                              }];
     
@@ -1684,7 +1686,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self commitViewController:articleController];
 }
 
-- (void)shareArticlePreviewActionSelectedWithArticleShareActivityController:(UIActivityViewController*)shareActivityController {
+- (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
+                                       shareActivityController:(UIActivityViewController*)shareActivityController {
     [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 

@@ -140,7 +140,8 @@
     [self commitViewController:articleController];
 }
 
-- (void)shareArticlePreviewActionSelectedWithArticleShareActivityController:(UIActivityViewController*)shareActivityController {
+- (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
+                                       shareActivityController:(UIActivityViewController*)shareActivityController {
     [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 
