@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)pushPreviewedArticleViewController:(WMFArticleViewController *)articleViewController;
 
-- (void)sharePreviewedArticle:(MWKArticle*)article;
+- (void)presentPreviewedArticleShareActivityViewController:(nullable UIActivityViewController*)shareActivityViewController;
 
 @end
 
@@ -86,8 +86,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)hasAboutThisArticle;
 
 - (void)fetchArticleIfNeeded;
-
-- (void)shareArticleFromButton:(nullable UIBarButtonItem *)button;
 
 @end
 

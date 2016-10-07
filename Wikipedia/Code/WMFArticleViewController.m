@@ -544,7 +544,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         _shareToolbarItem = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                             handler:^(id sender) {
                                                                                 @strongify(self);
-                                                                                [self shareArticle:self.article withTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel];
+                                                                                UIActivityViewController *vc = [self activityViewControllerForSharingArticle:self.article withTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel];
+                                                                                if (vc){
+                                                                                    [self presentViewController:vc animated:YES completion:NULL];
+                                                                                }
                                                                             }];
     }
     return _shareToolbarItem;
@@ -1232,19 +1235,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromBarButtonItem:self.shareToolbarItem];
 }
 
-- (void)shareArticleFromButton:(nullable UIBarButtonItem *)button {
-    [self shareArticle:self.article withTextSnippet:nil fromButton:button shareFunnel:self.shareFunnel];
-}
-
-- (void)shareArticle:(MWKArticle*)article
-     withTextSnippet:(nullable NSString *)text
-          fromButton:(UIBarButtonItem *)button
-         shareFunnel:(nullable WMFShareFunnel *)shareFunnel {
+- (nullable UIActivityViewController*)activityViewControllerForSharingArticle:(MWKArticle*)article
+                                                              withTextSnippet:(nullable NSString *)text
+                                                                   fromButton:(UIBarButtonItem *)button
+                                                                  shareFunnel:(nullable WMFShareFunnel *)shareFunnel {
     NSParameterAssert(button);
     if (!button) {
         //If we get no button, we will crash below on iPad
-        //The assert above shoud help, but lets make sure we bail in prod
-        return;
+        //The assert above should help, but lets make sure we bail in prod
+        NSAssert(false, @"Should have a button by now...");
+        return nil;
     }
     [shareFunnel logShareButtonTappedResultingInSelection:text];
 
@@ -1255,17 +1255,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     NSURL *url = [NSURL wmf_desktopURLForURL:article.url];
 
     if (url) {
-        url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
-                                                                       url.absoluteString, @"wprov=sfsi1"]];
-
-        [items addObject:url];
+        [items addObject:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@", url.absoluteString, @"wprov=sfsi1"]]];
     }
 
     UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[[[TUSafariActivity alloc] init]]];
     UIPopoverPresentationController *presenter = [vc popoverPresentationController];
     presenter.barButtonItem = button;
-
-    [self presentViewController:vc animated:YES completion:NULL];
+    return vc;
 }
 
 #pragma mark - Find-in-page
@@ -1657,7 +1653,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                style:UIPreviewActionStyleDefault
                              handler:^(UIPreviewAction * _Nonnull action,
                                        UIViewController * _Nonnull previewViewController) {
-                                 [self.articlePreviewingActionsDelegate sharePreviewedArticle:self.article];
+                                 UIActivityViewController *vc = [self activityViewControllerForSharingArticle:self.article withTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
+
+                                 [self.articlePreviewingActionsDelegate presentPreviewedArticleShareActivityViewController:vc];
                              }];
     
     return @[readAction, saveAction, shareAction];
@@ -1669,8 +1667,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self commitViewController:articleViewController];
 }
 
-- (void)sharePreviewedArticle:(MWKArticle*)article {
-    [self shareArticle:article withTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
+- (void)presentPreviewedArticleShareActivityViewController:(nullable UIActivityViewController*)shareActivityViewController {
+    if (shareActivityViewController){
+        [self presentViewController:shareActivityViewController animated:YES completion:NULL];
+    }
 }
 
 #pragma mark - Article Navigation
