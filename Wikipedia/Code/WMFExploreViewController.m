@@ -959,8 +959,8 @@ NS_ASSUME_NONNULL_BEGIN
     self.sectionOfPreviewingTitle = sectionController;
     [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:sectionController];
     
-    if ([[vc class] conformsToProtocol:@protocol(WMFArticlePreviewingActionsDelegate)]){
-        ((WMFArticleViewController*)vc).articlePreviewingActionsDelegate = self;
+    if ([[vc class] conformsToProtocol:@protocol(WMFArticlePreviewingActionsProviding)]){
+        ((id< WMFArticlePreviewingActionsProviding >)vc).articlePreviewingActionsDelegate = self;
     }
 
     return vc;

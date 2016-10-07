@@ -118,7 +118,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WMFFontSliderViewControllerDelegate,
                                         UIPopoverPresentationControllerDelegate,
                                         WKUIDelegate,
-                                        WMFArticlePreviewingActionsDelegate>
+                                        WMFArticlePreviewingActionsDelegate,
+                                        WMFArticlePreviewingActionsProviding>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -1526,8 +1527,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
         [self.webViewController hideFindInPageWithCompletion:nil];
 
-        if ([[peekVC class] conformsToProtocol:@protocol(WMFArticlePreviewingActionsDelegate)]){
-            ((WMFArticleViewController*)peekVC).articlePreviewingActionsDelegate = self;
+        if ([[peekVC class] conformsToProtocol:@protocol(WMFArticlePreviewingActionsProviding)]){
+            ((id< WMFArticlePreviewingActionsProviding >)peekVC).articlePreviewingActionsDelegate = self;
         }
         
         return peekVC;
