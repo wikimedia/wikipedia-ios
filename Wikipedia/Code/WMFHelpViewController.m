@@ -22,15 +22,33 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 
 @implementation WMFHelpViewController
 
+- (instancetype)initWithArticleURL:(NSURL *)url
+                         dataStore:(MWKDataStore *)dataStore {
+    self = [super initWithArticleURL:url dataStore:dataStore];
+    self.saveOpenArticleTitleEnabled = NO;
+    self.addingArticleToHistoryListEnabled = NO;
+    return self;
+}
+
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
     NSURL *faqURL = [NSURL URLWithString:WMFSettingsURLFAQ];
-    self = [super initWithArticleURL:faqURL dataStore:dataStore];
+    self = [self initWithArticleURL:faqURL dataStore:dataStore];
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.toolbarHidden = NO;
+}
+
+- (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
+    WMFHelpViewController *articleViewController = [[WMFHelpViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+    [self.navigationController pushViewController:articleViewController animated:YES];
 }
 
 - (UIBarButtonItem *)sendEmailToolbarItem {
