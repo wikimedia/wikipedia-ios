@@ -25,7 +25,7 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 - (instancetype)initWithArticleURL:(NSURL *)url
                          dataStore:(MWKDataStore *)dataStore {
     self = [super initWithArticleURL:url dataStore:dataStore];
-    self.saveOpenArticleTitleEnabled = NO;
+    self.savingOpenArticleTitleEnabled = NO;
     self.addingArticleToHistoryListEnabled = NO;
     return self;
 }

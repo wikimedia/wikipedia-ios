@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSInteger currentFooterIndex;                               //doesn't actually update the view, only here for access from Swift category
 @property (nonatomic) NSInteger footerIndexToRestoreScrollOffset;                 //doesn't actually update the view, only here for access from Swift category
 
-@property (nonatomic, getter=isSaveOpenArticleTitleEnabled) BOOL saveOpenArticleTitleEnabled;
+@property (nonatomic, getter=isSavingOpenArticleTitleEnabled) BOOL savingOpenArticleTitleEnabled;
 @property (nonatomic, getter=isAddingArticleToHistoryListEnabled) BOOL addingArticleToHistoryListEnabled;
 
 @end
