@@ -160,6 +160,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.hidesBottomBarWhenPushed = YES;
         self.reachabilityManager = [AFNetworkReachabilityManager manager];
         [self.reachabilityManager startMonitoring];
+        self.saveOpenArticleTitleEnabled = YES;
+        self.addingArticleToHistoryListEnabled = YES;
     }
     return self;
 }
@@ -1376,7 +1378,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)saveOpenArticleTitleWithCurrentlyOnscreenFragment {
-    if (self.navigationController.topViewController != self) {
+    if (self.navigationController.topViewController != self || !self.isSaveOpenArticleTitleEnabled) {
         return;
     }
 

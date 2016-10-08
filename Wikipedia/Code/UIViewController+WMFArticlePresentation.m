@@ -41,10 +41,12 @@ NS_ASSUME_NONNULL_BEGIN
     }
     [[PiwikTracker wmf_configuredInstance] wmf_logView:viewController];
 
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
-        MWKHistoryList *historyList = viewController.dataStore.userDataStore.historyList;
-        [historyList addPageToHistoryWithURL:viewController.articleURL];
-    });
+    if(viewController.isAddingArticleToHistoryListEnabled){
+        dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+            MWKHistoryList *historyList = viewController.dataStore.userDataStore.historyList;
+            [historyList addPageToHistoryWithURL:viewController.articleURL];
+        });
+    }
 }
 
 - (void)wmf_pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
