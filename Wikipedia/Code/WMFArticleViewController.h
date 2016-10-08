@@ -64,6 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, getter=isSavingOpenArticleTitleEnabled) BOOL savingOpenArticleTitleEnabled;
 @property (nonatomic, getter=isAddingArticleToHistoryListEnabled) BOOL addingArticleToHistoryListEnabled;
+@property (nonatomic, getter=isPeekingAllowed) BOOL peekingAllowed;
 
 @end
 

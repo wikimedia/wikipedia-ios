@@ -27,6 +27,7 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
     self = [super initWithArticleURL:url dataStore:dataStore];
     self.savingOpenArticleTitleEnabled = NO;
     self.addingArticleToHistoryListEnabled = NO;
+    self.peekingAllowed = NO;
     return self;
 }
 
