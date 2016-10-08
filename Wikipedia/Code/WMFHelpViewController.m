@@ -66,11 +66,12 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 }
 
 - (NSArray<UIBarButtonItem *> *)articleToolBarItems {
-    return [NSArray arrayWithObjects:
-                        self.sendEmailToolbarItem,
-                        [UIBarButtonItem flexibleSpaceToolbarItem],
-                        self.showTableOfContentsToolbarItem,
-                        nil];
+    return @[
+             self.showTableOfContentsToolbarItem,
+             [UIBarButtonItem flexibleSpaceToolbarItem],
+             self.sendEmailToolbarItem,
+             [UIBarButtonItem wmf_barButtonItemOfFixedWidth:8]
+             ];
 }
 
 - (void)sendEmail {
