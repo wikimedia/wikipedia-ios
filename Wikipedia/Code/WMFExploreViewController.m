@@ -4,6 +4,8 @@
 #import "BlocksKit+UIKit.h"
 #import "Wikipedia-Swift.h"
 
+#import "PiwikTracker+WMFExtensions.h"
+
 #import "WMFContentGroupDataStore.h"
 #import "MWKDataStore.h"
 #import "WMFArticlePreviewDataStore.h"
@@ -54,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterReuseIdentifier";
 
-@interface WMFExploreViewController ()<WMFLocationManagerDelegate, WMFDataSourceDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate>
+@interface WMFExploreViewController ()<WMFLocationManagerDelegate, WMFDataSourceDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
@@ -63,6 +65,8 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @property (nonatomic, strong, nullable) WMFContentGroup* groupForPreviewedCell;
+
+@property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
 @end
 
@@ -97,8 +101,6 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 }
 
 #pragma mark - Accessors
-
-#pragma mark - UIRefreshControl
 
 - (void)setRefreshControl:(UIRefreshControl *)refreshControl {
     [_refreshControl removeFromSuperview];
@@ -155,6 +157,13 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 - (NSUInteger)numberOfSectionsInExploreFeed {
     return [self.sectionDataSource numberOfItems];
+}
+
+- (BOOL)canScrollToTop {
+    WMFContentGroup* group = [self sectionAtIndex:0];
+    NSParameterAssert(group);
+    NSArray* content = [self.contentStore contentForContentGroup:group];
+    return [content count] > 0;
 }
 
 #pragma mark - Actions
@@ -310,11 +319,28 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     self.sectionDataSource.delegate = self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self registerForPreviewingIfAvailable];
+    for (UICollectionViewCell *cell in self.collectionView.visibleCells) {
+        cell.selected = NO;
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     NSParameterAssert(self.contentStore);
     NSParameterAssert(self.userStore);
     NSParameterAssert(self.contentSources);
     [super viewDidAppear:animated];
+    
+    [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
+    [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_exploreViewActivity]];
+
+}
+
+- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    [self registerForPreviewingIfAvailable];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -452,11 +478,8 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     }else{
         [self.locationManager stopMonitoringLocation];
     }
-//    WMFContentGroup* section = [self sectionAtIndex:indexPath.section];
-//    if ([controller conformsToProtocol:@protocol(WMFAnalyticsContentTypeProviding)]) {
-//        [[PiwikTracker wmf_configuredInstance] wmf_logActionImpressionInContext:self contentType:section];
-//    }
-    
+    WMFContentGroup* section = [self sectionAtIndex:indexPath.section];
+    [[PiwikTracker wmf_configuredInstance] wmf_logActionImpressionInContext:self contentType:section];
 }
 
 
@@ -695,7 +718,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 - (void)presentMoreViewControllerForSectionAtIndex:(NSUInteger)sectionIndex animated:(BOOL)animated {
     WMFContentGroup* group = [self sectionAtIndex:sectionIndex];
-    //    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughMoreInContext:self contentType:controllerForSection];
+    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughMoreInContext:self contentType:group];
     NSArray<NSURL*>* URLs = [self contentForSectionAtIndex:sectionIndex];
     
     switch (group.moreType) {
@@ -769,7 +792,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 - (void)presentDetailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated {
     UIViewController* vc = [self detailViewControllerForItemAtIndexPath:indexPath];
     WMFContentGroup* group = [self sectionAtIndex:indexPath.section];
-    //    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:group.contentType];
+    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:group];
     
     switch ([group detailType]) {
         case WMFFeedDetailTypePage:{
@@ -851,6 +874,27 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     //TODO: probably not displaying the error, but maybe?
 }
 
+#pragma mark - Previewing
+
+- (void)registerForPreviewingIfAvailable {
+    [self wmf_ifForceTouchAvailable:^{
+        [self unregisterPreviewing];
+        self.previewingContext = [self registerForPreviewingWithDelegate:self
+                                                              sourceView:self.collectionView];
+    }
+                        unavailable:^{
+                            [self unregisterPreviewing];
+                        }];
+}
+
+- (void)unregisterPreviewing {
+    if (self.previewingContext) {
+        [self unregisterForPreviewingWithContext:self.previewingContext];
+        self.previewingContext = nil;
+    }
+}
+
+
 #pragma mark - WMFArticlePreviewingActionsDelegate
 
 - (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
@@ -896,7 +940,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     previewingContext.sourceRect = [self.collectionView cellForItemAtIndexPath:previewIndexPath].frame;
 
     UIViewController *vc = [self detailViewControllerForItemAtIndexPath:previewIndexPath];
-//    [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:group];
+    [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:group];
     
     if ([vc isKindOfClass:[WMFArticleViewController class]]){
         ((WMFArticleViewController*)vc).articlePreviewingActionsDelegate = self;
@@ -907,7 +951,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController *)viewControllerToCommit {
-//    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:self.groupForPreviewedCell];
+    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:self.groupForPreviewedCell];
     self.groupForPreviewedCell = nil;
 
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {

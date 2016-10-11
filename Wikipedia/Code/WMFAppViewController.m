@@ -215,6 +215,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     });
 }
 
+- (void)appLanguageDidChangeWithNotification:(NSNotification *)note {
+    [self stopContentSources];
+    self.contentSources = nil;
+    [self startContentSources];
+}
+
 #pragma mark - Background Tasks
 
 - (void)startBackgroundTask {
@@ -254,6 +260,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackgroundWithNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appLanguageDidChangeWithNotification:) name:WMFPreferredLanguagesDidChangeNotification object:nil];
 
     [self showSplashView];
 

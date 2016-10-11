@@ -1038,8 +1038,6 @@
 		0E09EAC11C4426470058F2D8 /* WMFHistoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFHistoryTableViewController.m; sourceTree = "<group>"; };
 		0E09EAC21C4426470058F2D8 /* WMFHistoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFHistoryTableViewController.h; sourceTree = "<group>"; };
 		0E10C4FD1C81046300CEB5C2 /* Wikipedia Debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Wikipedia Debug.entitlements"; sourceTree = "<group>"; };
-		0E19B9991DA6E18E00239F3A /* WMFOldExploreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFOldExploreViewController.h; sourceTree = "<group>"; };
-		0E19B99A1DA6E18E00239F3A /* WMFOldExploreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFOldExploreViewController.m; sourceTree = "<group>"; };
 		0E19B99D1DA7CAC200239F3A /* WMFFeedDayResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFFeedDayResponse.h; sourceTree = "<group>"; };
 		0E19B99E1DA7CAC200239F3A /* WMFFeedDayResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFFeedDayResponse.m; sourceTree = "<group>"; };
 		0E19B9A01DA7CB8200239F3A /* WMFFeedArticlePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFFeedArticlePreview.h; sourceTree = "<group>"; };
@@ -3620,16 +3618,6 @@
 			path = CocoaLumberjack;
 			sourceTree = "<group>";
 		};
-		0EEAF0F61B8229E6000D4232 /* Old Explore */ = {
-			isa = PBXGroup;
-			children = (
-				0E19B9991DA6E18E00239F3A /* WMFOldExploreViewController.h */,
-				0E19B99A1DA6E18E00239F3A /* WMFOldExploreViewController.m */,
-			);
-			name = "Old Explore";
-			path = Wikipedia/Code;
-			sourceTree = SOURCE_ROOT;
-		};
 		0EF2249B1CC5536B00FDF78E /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -4403,7 +4391,6 @@
 			children = (
 				0EFB48071B3BAFE900381F99 /* Article */,
 				0E98805F1DA2A0C00058D7F2 /* Feed */,
-				0EEAF0F61B8229E6000D4232 /* Old Explore */,
 				BC45D5B01C330B95007C72F3 /* History */,
 				041A3B5718E11ED90079FF1C /* Languages */,
 				D84F2BF61D2FEE4B00963D42 /* Random */,
