@@ -37,6 +37,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@protocol WMFArticlePreviewingActionsDelegate <NSObject>
+
+- (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController;
+
+- (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
+                                       shareActivityController:(UIActivityViewController*)shareActivityController;
+
+@end
+
 /**
  *  View controller responsible for displaying article content.
  */
@@ -61,6 +70,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) MWKSection *sectionToRestoreScrollOffset; //doesn't actually update the view, only here for access from Swift category
 @property (nonatomic) NSInteger currentFooterIndex;                               //doesn't actually update the view, only here for access from Swift category
 @property (nonatomic) NSInteger footerIndexToRestoreScrollOffset;                 //doesn't actually update the view, only here for access from Swift category
+
+@property (weak, nonatomic, nullable) id<WMFArticlePreviewingActionsDelegate> articlePreviewingActionsDelegate;
 
 @end
 
