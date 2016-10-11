@@ -1152,6 +1152,7 @@
 		526C68377735567706313E68 /* Pods-Foundation-Wikipedia-WikipediaUnitTests.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia-WikipediaUnitTests.alpha.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia-WikipediaUnitTests/Pods-Foundation-Wikipedia-WikipediaUnitTests.alpha.xcconfig"; sourceTree = "<group>"; };
 		54151893418E8B73DED976AC /* Pods-Foundation-InTheNewsNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-InTheNewsNotification.release.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-InTheNewsNotification/Pods-Foundation-InTheNewsNotification.release.xcconfig"; sourceTree = "<group>"; };
 		5497A3D1ED13E6D4B016B70A /* Pods-Foundation-ContinueReadingWidget.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-ContinueReadingWidget.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget.beta.xcconfig"; sourceTree = "<group>"; };
+		54C8502E753B2E24D4659784 /* Pods-Foundation-InTheNewsNotification.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-InTheNewsNotification.alpha.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-InTheNewsNotification/Pods-Foundation-InTheNewsNotification.alpha.xcconfig"; sourceTree = "<group>"; };
 		5620B288F371F68ACC0CF16F /* Pods-Foundation-WMFUI.alphadebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUI.alphadebug.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUI/Pods-Foundation-WMFUI.alphadebug.xcconfig"; sourceTree = "<group>"; };
 		578B536BAC7AEC1351E68A80 /* Pods-Foundation-InTheNewsNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-InTheNewsNotification.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-InTheNewsNotification/Pods-Foundation-InTheNewsNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		58782A8F62026E9624E663AB /* Pods-Foundation-Wikipedia.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.beta.xcconfig"; sourceTree = "<group>"; };
@@ -2440,6 +2441,7 @@
 		D8F1BF241D9C2AFB00036E71 /* WMFNotificationsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNotificationsController.h; sourceTree = "<group>"; };
 		D8F1BF251D9C2AFB00036E71 /* WMFNotificationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFNotificationsController.m; sourceTree = "<group>"; };
 		D8FA39B71D7F556400D89889 /* WMFSparklineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFSparklineView.swift; sourceTree = "<group>"; };
+		DB4121EB6D3959AC738D7F7A /* Pods-Foundation-InTheNewsNotification.alphadebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-InTheNewsNotification.alphadebug.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-InTheNewsNotification/Pods-Foundation-InTheNewsNotification.alphadebug.xcconfig"; sourceTree = "<group>"; };
 		E07BF8E52EA1D0865B77E7D7 /* Pods_Foundation_TopReadWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Foundation_TopReadWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3F0C0C789B0E26275755E1E /* Pods-Foundation-WMFUtilities.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUtilities.test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUtilities/Pods-Foundation-WMFUtilities.test.xcconfig"; sourceTree = "<group>"; };
 		E993048318B41D460E681F5D /* Pods-Foundation-ContinueReadingWidget.alphadebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-ContinueReadingWidget.alphadebug.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget.alphadebug.xcconfig"; sourceTree = "<group>"; };
@@ -3675,6 +3677,8 @@
 				54151893418E8B73DED976AC /* Pods-Foundation-InTheNewsNotification.release.xcconfig */,
 				012DCF68B9E7929D33D5A129 /* Pods-Foundation-InTheNewsNotification.test.xcconfig */,
 				2D5E2AE483FC967CF32C8909 /* Pods-Foundation-InTheNewsNotification.beta.xcconfig */,
+				DB4121EB6D3959AC738D7F7A /* Pods-Foundation-InTheNewsNotification.alphadebug.xcconfig */,
+				54C8502E753B2E24D4659784 /* Pods-Foundation-InTheNewsNotification.alpha.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -9304,8 +9308,13 @@
 		};
 		D84B224B1DAD7DE3007C44AA /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB4121EB6D3959AC738D7F7A /* Pods-Foundation-InTheNewsNotification.alphadebug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
 				PRODUCT_NAME = InTheNewsNotification;
 			};
@@ -9313,8 +9322,12 @@
 		};
 		D84B224C1DAD7DE3007C44AA /* Alpha */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 54C8502E753B2E24D4659784 /* Pods-Foundation-InTheNewsNotification.alpha.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
 				PRODUCT_NAME = InTheNewsNotification;
 			};
@@ -10166,7 +10179,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
