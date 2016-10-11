@@ -37,6 +37,7 @@
 #import "WMFSearchViewController.h"
 #import "WMFHistoryTableViewController.h"
 #import "WMFSavedArticleTableViewController.h"
+#import "WMFFirstRandomViewController.h"
 #import "WMFWelcomeViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFNearbyListViewController.h"
@@ -44,8 +45,6 @@
 #import "UINavigationController+WMFHideEmptyToolbar.h"
 
 #import "AppDelegate.h"
-#import "WMFRandomSectionController.h"
-#import "WMFRandomArticleFetcher.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "WMFAuthenticationManager.h"
 
@@ -97,7 +96,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 @property (nonatomic, strong, readonly) WMFHistoryTableViewController *recentArticlesViewController;
 
 @property (nonatomic, strong) SavedArticlesFetcher *savedArticlesFetcher;
-@property (nonatomic, strong) WMFRandomArticleFetcher *randomFetcher;
 @property (nonatomic, strong) SessionSingleton *session;
 
 @property (nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
@@ -604,17 +602,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     return _savedArticlesFetcher;
 }
 
-- (WMFRandomArticleFetcher *)randomFetcher {
-    if (![self uiIsLoaded]) {
-        return nil;
-    }
-
-    if (_randomFetcher == nil) {
-        _randomFetcher = [[WMFRandomArticleFetcher alloc] init];
-    }
-    return _randomFetcher;
-}
-
 - (SessionSingleton *)session {
     if (![self uiIsLoaded]) {
         return nil;
@@ -787,14 +774,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
     }
     NSURL *siteURL = [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
-    [self.randomFetcher fetchRandomArticleWithSiteURL:siteURL
-        failure:^(NSError *error) {
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-        }
-        success:^(MWKSearchResult *result) {
-            NSURL *articleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
-            [[self exploreViewController] wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore previewStore:self.previewStore animated:YES];
-        }];
+    
+    WMFFirstRandomViewController* vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:siteURL dataStore:[self dataStore] previewStore:self.previewStore];
+    [exploreNavController pushViewController:vc animated:animated];
 }
 
 - (void)showNearbyListAnimated:(BOOL)animated {
