@@ -34,6 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
     return WMFFeedHeaderActionTypeOpenFirstItem;
 }
 
+- (WMFFeedBlacklistOption)blackListOptions{
+    return WMFFeedBlacklistOptionNone;
+}
 
 - (WMFFeedDisplayType)displayType{
     return WMFFeedDisplayTypePage;
@@ -133,6 +136,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFFeedHeaderActionType)headerActionType{
     return WMFFeedHeaderActionTypeOpenHeaderContent;
+}
+
+- (WMFFeedBlacklistOption)blackListOptions{
+    return WMFFeedBlacklistOptionContent;
 }
 
 - (WMFFeedDisplayType)displayType{

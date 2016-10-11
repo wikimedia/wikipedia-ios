@@ -478,64 +478,58 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     header.subTitle = subTitle;
     
     @weakify(self);
+    @weakify(section);
     header.whenTapped = ^{
         @strongify(self);
         [self didTapHeaderInSection:indexPath.section];
     };
-    //
-    //    if ([controller conformsToProtocol:@protocol(WMFHeaderMenuProviding)]) {
-    //        header.rightButtonEnabled = YES;
-    //        [[header rightButton] setImage:[UIImage imageNamed:@"overflow-mini"] forState:UIControlStateNormal];
-    //        [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
-    //        @weakify(controller);
-    //        [header.rightButton bk_addEventHandler:^(id sender) {
-    //            @strongify(controller);
-    //            @strongify(self);
-    //            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-    //                UIAlertController *menuActionSheet = [(id<WMFHeaderMenuProviding>)controller menuActionSheet];
-    //                menuActionSheet.modalPresentationStyle = UIModalPresentationPopover;
-    //                menuActionSheet.popoverPresentationController.sourceView = sender;
-    //                menuActionSheet.popoverPresentationController.sourceRect = [sender bounds];
-    //                menuActionSheet.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
-    //                [self presentViewController:menuActionSheet animated:YES completion:nil];
-    //            } else {
-    //                UIAlertController *menuActionSheet = [(id<WMFHeaderMenuProviding>)controller menuActionSheet];
-    //                menuActionSheet.popoverPresentationController.sourceView = self.navigationController.tabBarController.tabBar.superview;
-    //                menuActionSheet.popoverPresentationController.sourceRect = self.navigationController.tabBarController.tabBar.frame;
-    //                [self presentViewController:menuActionSheet animated:YES completion:nil];
-    //            }
-    //        }
-    //                              forControlEvents:UIControlEventTouchUpInside];
-    //    } else if ([controller conformsToProtocol:@protocol(WMFHeaderActionProviding)] && (![controller respondsToSelector:@selector(isHeaderActionEnabled)] || [(id<WMFHeaderActionProviding>)controller isHeaderActionEnabled])) {
-    //        header.rightButtonEnabled = YES;
-    //        [[header rightButton] setImage:[(id<WMFHeaderActionProviding>)controller headerButtonIcon] forState:UIControlStateNormal];
-    //        [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
-    //        @weakify(controller);
-    //        [header.rightButton bk_addEventHandler:^(id sender) {
-    //            @strongify(controller);
-    //            [(id<WMFHeaderActionProviding>)controller performHeaderButtonAction];
-    //        }
-    //                              forControlEvents:UIControlEventTouchUpInside];
-    //    } else {
-    //        header.rightButtonEnabled = NO;
-    //        [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
-    //    }
+    
+    if(([section blackListOptions] & WMFFeedBlacklistOptionContent) && [section headerContentURL]){
+        header.rightButtonEnabled = YES;
+        [[header rightButton] setImage:[UIImage imageNamed:@"overflow-mini"] forState:UIControlStateNormal];
+        [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
+        [header.rightButton bk_addEventHandler:^(id sender) {
+            @strongify(section);
+            @strongify(self);
+            if(!self || !section){
+                return;
+            }
+            UIAlertController *menuActionSheet = [self menuActionSheetForURL:[section headerContentURL]];
+
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                menuActionSheet.modalPresentationStyle = UIModalPresentationPopover;
+                menuActionSheet.popoverPresentationController.sourceView = sender;
+                menuActionSheet.popoverPresentationController.sourceRect = [sender bounds];
+                menuActionSheet.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+                [self presentViewController:menuActionSheet animated:YES completion:nil];
+            } else {
+                menuActionSheet.popoverPresentationController.sourceView = self.navigationController.tabBarController.tabBar.superview;
+                menuActionSheet.popoverPresentationController.sourceRect = self.navigationController.tabBarController.tabBar.frame;
+                [self presentViewController:menuActionSheet animated:YES completion:nil];
+            }
+        }
+                              forControlEvents:UIControlEventTouchUpInside];
+    }else{
+        header.rightButtonEnabled = NO;
+        [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
+    }
     
     return header;
 }
-//
-//#pragma mark - WMFHeaderMenuProviding
-//
-//- (UIAlertController *)menuActionSheet {
-//    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-//    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil)
-//                                              style:UIAlertActionStyleDestructive
-//                                            handler:^(UIAlertAction *_Nonnull action) {
-//                                                [self.blackList addBlackListArticleURL:self.url];
-//                                            }]];
-//    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
-//    return sheet;
-//}
+
+#pragma mark - WMFHeaderMenuProviding
+
+- (UIAlertController *)menuActionSheetForURL:(NSURL*)url {
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil)
+                                              style:UIAlertActionStyleDestructive
+                                            handler:^(UIAlertAction *_Nonnull action) {
+                                                [self.userStore.blackList addBlackListArticleURL:url];
+                                            }]];
+    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
+    return sheet;
+
+}
 
 
 - (nonnull UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSectionFooterAtIndexPath:(NSIndexPath *)indexPath {
@@ -652,6 +646,21 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [self collectionView:self.collectionView didSelectItemAtIndexPath:indexPath];
 }
 
+
+- (NSIndexPath*)topIndexPathToMaintainFocus{
+   
+    __block NSIndexPath* top = nil;
+    [[self.collectionView indexPathsForVisibleItems] enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        WMFContentGroup* group = [self sectionAtIndex:obj.section];
+        if([group isKindOfClass:[WMFMainPageContentGroup class]]){
+            return;
+        }
+        top = obj;
+        *stop = YES;
+    }];
+    
+    return top;
+}
 
 
 #pragma mark - Header Action
