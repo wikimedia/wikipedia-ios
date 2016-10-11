@@ -5,6 +5,8 @@
 
 @interface WMFFaceDetectionCache : NSObject
 
++ (WMFFaceDetectionCache *)sharedCache;
+
 - (BOOL)imageAtURLRequiresFaceDetection:(NSURL *)url;
 - (void)detectFaceBoundsInImage:(UIImage *)image onGPU:(BOOL)onGPU URL:(NSURL *)url failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success;
 - (NSValue *)faceBoundsForURL:(NSURL *)url;

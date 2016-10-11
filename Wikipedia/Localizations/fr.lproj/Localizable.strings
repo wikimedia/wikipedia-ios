@@ -415,7 +415,7 @@
 "continue-reading-empty-description" = "Explorer Wikipedia pour plus d'articles à lire";
 "top-read-see-more" = "Voir plus de pages les plus regardées";
 "top-read-see-more-trending" = "Voir plus de tendances";
-"top-read-reader-count-thousands" = "$1k";
+"number-thousands" = "$1k";
 "top-read-header-with-language" = "Wikipédia en $1";
 "top-read-header-generic" = "Wikipédia";
 "reference-title" = "Référence $1";

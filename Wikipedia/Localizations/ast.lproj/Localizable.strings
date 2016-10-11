@@ -406,7 +406,7 @@
 "continue-reading-empty-description" = "Esplora Wikipedia p'atopar más artículos pa lleer";
 "top-read-see-more" = "Ver más lleíos";
 "top-read-see-more-trending" = "Ver más tendencies";
-"top-read-reader-count-thousands" = "$1k";
+"number-thousands" = "$1k";
 "top-read-header-with-language" = "Wikipedia $1";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Referencia $1";

@@ -1,6 +1,6 @@
-#import <UIKit/UIKit.h>
+@import UserNotifications;
 
-@interface WMFAppViewController : UIViewController
+@interface WMFAppViewController : UIViewController <UNUserNotificationCenterDelegate>
 
 + (instancetype)initialAppViewControllerFromDefaultStoryBoard;
 
