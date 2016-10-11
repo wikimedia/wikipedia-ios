@@ -104,10 +104,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 @property (nonatomic, strong, readonly) WMFHistoryTableViewController *recentArticlesViewController;
 
 @property (nonatomic, strong) SavedArticlesFetcher *savedArticlesFetcher;
-@property (nonatomic, strong) SessionSingleton *session;
+@property (nonatomic, strong, readonly) SessionSingleton *session;
 
+@property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 @property (nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
-
 @property (nonatomic, strong) WMFContentGroupDataStore *contentStore;
 
 @property (nonatomic, strong) NSArray<id<WMFContentSource>>* contentSources;
@@ -171,7 +171,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [self configureExploreViewController];
     [self configureArticleListController:self.savedArticlesViewController];
     [self configureArticleListController:self.recentArticlesViewController];
-    [[self class] wmf_setSearchButtonDataStore:[self dataStore]];
+    [[self class] wmf_setSearchButtonDataStore:self.dataStore];
     [[self class] wmf_setSearchButtonPreviewStore:self.previewStore];
 }
 
@@ -185,14 +185,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)configureExploreViewController {
-    [self.exploreViewController setUserStore:[self dataStore]];
+    [self.exploreViewController setUserStore:self.dataStore];
     [self.exploreViewController setPreviewStore:self.previewStore];
     [self.exploreViewController setContentStore:self.contentStore];
     [self.exploreViewController setContentSources:self.contentSources];
 }
 
 - (void)configureArticleListController:(WMFArticleListTableViewController *)controller {
-    controller.userDataStore = self.session.dataStore;
+    controller.userDataStore = self.dataStore;
     controller.previewStore = self.previewStore;
 }
 
@@ -315,7 +315,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
 
-    [self.session.dataStore syncDataStoreToDatabase];
+    [self.dataStore syncDataStoreToDatabase];
 
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:NULL failure:NULL];
     [self startContentSources];
@@ -354,7 +354,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [[WMFImageController sharedInstance] clearMemoryCache];
     [self downloadAssetsFilesIfNecessary];
     [self.dataStore startCacheRemoval];
-    [[[SessionSingleton sharedInstance] dataStore] clearMemoryCache];
+    [self.dataStore clearMemoryCache];
     [self.savedArticlesFetcher stop];
     [self stopContentSources];
 
@@ -370,7 +370,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     }
     [super didReceiveMemoryWarning];
     [[WMFImageController sharedInstance] clearMemoryCache];
-    [[[SessionSingleton sharedInstance] dataStore] clearMemoryCache];
+    [self.dataStore clearMemoryCache];
 }
 
 #pragma mark - Logging
@@ -400,6 +400,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 - (void)preloadContentSourcesIfNeededWithCompletion:(void (^)(void))completion {
     
     if([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToNewFeed]){
+        if(completion){
+            completion();
+        }
     }else{
         WMFTaskGroup* group = [WMFTaskGroup new];
         [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -457,14 +460,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 - (NSArray<id<WMFContentSource>>*)contentSources{
     NSParameterAssert(self.contentStore);
-    NSParameterAssert([self dataStore]);
+    NSParameterAssert(self.dataStore);
     NSParameterAssert(self.previewStore);
     NSParameterAssert([self siteURL]);
     if(!_contentSources){
         _contentSources = @[
-                            [[WMFRelatedPagesContentSource alloc] initWithContentGroupDataStore:self.contentStore userDataStore:[self dataStore]articlePreviewDataStore:self.previewStore],
+                            [[WMFRelatedPagesContentSource alloc] initWithContentGroupDataStore:self.contentStore userDataStore:self.dataStore articlePreviewDataStore:self.previewStore],
                             [[WMFMainPageContentSource alloc] initWithSiteURL:[self siteURL] contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore],
-                            [[WMFContinueReadingContentSource alloc] initWithContentGroupDataStore:self.contentStore userDataStore:[self dataStore] articlePreviewDataStore:self.previewStore],
+                            [[WMFContinueReadingContentSource alloc] initWithContentGroupDataStore:self.contentStore userDataStore:self.dataStore articlePreviewDataStore:self.previewStore],
                             [[WMFNearbyContentSource alloc] initWithSiteURL:[self siteURL] contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore],
                             [[WMFFeedContentSource alloc] initWithSiteURL:[self siteURL] contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore],
                             [[WMFRandomContentSource alloc] initWithSiteURL:[self siteURL] contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore]
@@ -698,21 +701,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         _savedArticlesFetcher =
         [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]
                                            previewStore:self.previewStore
-                                              savedPageList:[[self dataStore] savedPageList]];
+                                              savedPageList:[self.dataStore savedPageList]];
     }
     return _savedArticlesFetcher;
 }
 
 - (SessionSingleton *)session {
-    if (![self uiIsLoaded]) {
-        return nil;
-    }
-
-    if (!_session) {
-        _session = [SessionSingleton sharedInstance];
-    }
-
-    return _session;
+    return [SessionSingleton sharedInstance];
 }
 
 - (MWKDataStore *)dataStore {

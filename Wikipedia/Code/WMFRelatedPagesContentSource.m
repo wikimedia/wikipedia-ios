@@ -125,9 +125,24 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)loadContentForDate:(NSDate*)date completion:(nullable dispatch_block_t)completion{
+    WMFTaskGroup* group = [WMFTaskGroup new];
+    
+    [group enter];
     [self.userDataStore enumerateItemsWithBlock:^(MWKHistoryEntry * _Nonnull entry, BOOL * _Nonnull stop) {
-        [self updateRelatedGroupForReference:entry date:date completion:completion];
+        [group enter];
+        [self updateRelatedGroupForReference:entry date:date completion:^{
+            [group leave];
+        }];
     }];
+    [group leave];
+    
+    [group waitInBackgroundWithCompletion:^{
+        [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
+        if(completion){
+            completion();
+        }
+    }];
+
 }
 
 - (void)removeAllContent{
@@ -165,6 +180,9 @@ NS_ASSUME_NONNULL_BEGIN
         [self fetchAndSaveRelatedArticlesForSection:section completion:completion];
     }else if(![reference needsRelatedPagesGroup]) {
         [self removeSectionForReference:reference];
+        if(completion){
+            completion();
+        }
     }
 }
 
@@ -188,6 +206,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchAndSaveRelatedArticlesForSection:(WMFRelatedPagesContentGroup *)group completion:(nullable dispatch_block_t)completion {
     NSArray<NSURL*>* related = [self.contentStore contentForContentGroup:group];
     if([related count] > 0){
+        if(completion){
+            completion();
+        }
         return;
     }
     [self.relatedSearchFetcher fetchArticlesRelatedArticleWithURL:group.articleURL resultLimit:WMFMaxRelatedSearchResultLimit completionBlock:^(WMFRelatedSearchResults * _Nonnull results) {

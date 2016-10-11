@@ -74,7 +74,12 @@
 }
 
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion{
-    if(self.currentLocationManager.location == nil){
+    if(![WMFLocationManager isAuthorized]){
+        [self removeAllContent];
+        if(completion){
+            completion();
+        }
+    }else if(self.currentLocationManager.location == nil){
         self.isFetchingInitialLocation = YES;
         self.completion = completion;
         [self startUpdating];
@@ -170,6 +175,10 @@
     NSArray<NSURL*>* results = [self.contentStore contentForContentGroup:group];
     
     if([results count] > 0){
+        self.isProcessingLocation = NO;
+        if(completion){
+            completion();
+        }
         return;
     }
 
@@ -186,17 +195,16 @@
         [self removeOldSectionsForDate:group.date];
         [self.contentStore addContentGroup:group associatedContent:urls];
         
+        self.isProcessingLocation = NO;
         if(completion){
             completion();
         }
-        self.isProcessingLocation = NO;
 
     } failure:^(NSError * _Nonnull error) {
-        //TODO: Anything to do here?
+        self.isProcessingLocation = NO;
         if(completion){
             completion();
         }
-        self.isProcessingLocation = NO;
     }];
 
 }
