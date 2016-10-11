@@ -729,6 +729,7 @@
 		D85108AA1D6CC75D009C73C4 /* MWLanguageInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807271C0CED530065EBC0 /* MWLanguageInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D85108AB1D6CC761009C73C4 /* MWLanguageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807281C0CED530065EBC0 /* MWLanguageInfo.m */; };
 		D858A7F91DA6DB96009C3DEB /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D858A7F81DA6DB96009C3DEB /* libz.tbd */; };
+		D858A7DF1DA6A04A009C3DEB /* WMFDateCalculationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D858A7DE1DA6A04A009C3DEB /* WMFDateCalculationTests.m */; };
 		D85D34BC1D74CF5200845125 /* NSDictionary+WMFRequiredValueForKey.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAF23151C6CF74C005F2D8D /* NSDictionary+WMFRequiredValueForKey.m */; };
 		D85D34BD1D74CF5600845125 /* NSDictionary+WMFRequiredValueForKey.h in Headers */ = {isa = PBXBuildFile; fileRef = BCAF23141C6CF74C005F2D8D /* NSDictionary+WMFRequiredValueForKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D85D34BF1D74CFAF00845125 /* NSCalendar+WMFCommonCalendars.h in Headers */ = {isa = PBXBuildFile; fileRef = BCD31FFC1C6EB3EE00317D08 /* NSCalendar+WMFCommonCalendars.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2327,6 +2328,7 @@
 		D85219371D6DEFBB00084796 /* WMFTodayContinueReadingWidgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFTodayContinueReadingWidgetViewController.swift; sourceTree = "<group>"; };
 		D858A7F71DA6DB7F009C3DEB /* UserzoomSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserzoomSDK.framework; path = Wikipedia/Frameworks/UserzoomSDK.framework; sourceTree = "<group>"; };
 		D858A7F81DA6DB96009C3DEB /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		D858A7DE1DA6A04A009C3DEB /* WMFDateCalculationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFDateCalculationTests.m; sourceTree = "<group>"; };
 		D85D34C51D74D07500845125 /* TopReadWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TopReadWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D85D34C81D74D07500845125 /* WMFTodayTopReadWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFTodayTopReadWidgetViewController.swift; sourceTree = "<group>"; };
 		D85D34CB1D74D07500845125 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -5150,6 +5152,7 @@
 			children = (
 				BCB669D11A83F6D300C7B1FE /* MediaWikiKitTests */,
 				B0E808FC1C0D18730065EBC0 /* WMFJoinedPropertyParametersTests.m */,
+				D858A7DE1DA6A04A009C3DEB /* WMFDateCalculationTests.m */,
 				D8BBBCE01D94603800DECA36 /* WMFLocaleTests.m */,
 				D84649AC1D4514F7009DB4A0 /* WMFTaskGroupTests.m */,
 				B0E808FE1C0D18800065EBC0 /* WMFErrorForApiErrorObjectTests.m */,
@@ -6884,6 +6887,7 @@
 				B0E8091D1C0D19640065EBC0 /* WMFImageInfoControllerTests.m in Sources */,
 				BC90DE791C57C5AD007E0E81 /* WMFWelcomeLanguageViewControllerVisualTests.m in Sources */,
 				B0E809551C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m in Sources */,
+				D858A7DF1DA6A04A009C3DEB /* WMFDateCalculationTests.m in Sources */,
 				B0E809431C0D1A900065EBC0 /* NSArray+WMFExtensionsTests.m in Sources */,
 				B0E809051C0D18A00065EBC0 /* CircularBitwiseRotationTests.m in Sources */,
 				B0E8095E1C0D1B930065EBC0 /* WMFSearchResultsSerializationTests.m in Sources */,

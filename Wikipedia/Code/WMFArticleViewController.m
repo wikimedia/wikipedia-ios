@@ -68,6 +68,47 @@ static const CGFloat WMFArticleViewControllerExpandedTableOfContentsWidthPercent
 static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
 static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 10;
 
+
+@interface MWKArticle (WMFSharingActivityViewController)
+
+- (nullable UIActivityViewController*)sharingActivityViewControllerWithTextSnippet:(nullable NSString *)text
+                                                                        fromButton:(UIBarButtonItem *)button
+                                                                       shareFunnel:(nullable WMFShareFunnel *)shareFunnel;
+@end
+
+@implementation MWKArticle (WMFSharingActivityViewController)
+
+- (nullable UIActivityViewController*)sharingActivityViewControllerWithTextSnippet:(nullable NSString *)text
+                                                                        fromButton:(UIBarButtonItem *)button
+                                                                       shareFunnel:(nullable WMFShareFunnel *)shareFunnel {
+    NSParameterAssert(button);
+    if (!button) {
+        //If we get no button, we will crash below on iPad
+        //The assert above should help, but lets make sure we bail in prod
+        NSAssert(false, @"Should have a button by now...");
+        return nil;
+    }
+    [shareFunnel logShareButtonTappedResultingInSelection:text];
+    
+    NSMutableArray *items = [NSMutableArray array];
+    
+    [items addObject:[[WMFArticleTextActivitySource alloc] initWithArticle:self shareText:text]];
+    
+    NSURL *url = [NSURL wmf_desktopURLForURL:self.url];
+    
+    if (url) {
+        [items addObject:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@", url.absoluteString, @"wprov=sfsi1"]]];
+    }
+    
+    UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[[[TUSafariActivity alloc] init]]];
+    UIPopoverPresentationController *presenter = [vc popoverPresentationController];
+    presenter.barButtonItem = button;
+    return vc;
+}
+
+@end
+
+
 @interface WMFArticleViewController () <UINavigationControllerDelegate,
                                         WMFImageGalleryViewControllerReferenceViewDelegate,
                                         SectionEditorViewControllerDelegate,
@@ -76,7 +117,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WMFArticleListTableViewControllerDelegate,
                                         WMFFontSliderViewControllerDelegate,
                                         UIPopoverPresentationControllerDelegate,
-                                        WKUIDelegate>
+                                        WKUIDelegate,
+                                        WMFArticlePreviewingActionsDelegate>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -543,7 +585,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         _shareToolbarItem = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                             handler:^(id sender) {
                                                                                 @strongify(self);
-                                                                                [self shareArticleWithTextSnippet:nil fromButton:self->_shareToolbarItem];
+                                                                                UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel];
+                                                                                if (vc){
+                                                                                    [self presentViewController:vc animated:YES completion:NULL];
+                                                                                }
                                                                             }];
     }
     return _shareToolbarItem;
@@ -1231,39 +1276,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromBarButtonItem:self.shareToolbarItem];
 }
 
-- (void)shareArticleFromButton:(nullable UIBarButtonItem *)button {
-    [self shareArticleWithTextSnippet:nil fromButton:button];
-}
-
-- (void)shareArticleWithTextSnippet:(nullable NSString *)text fromButton:(UIBarButtonItem *)button {
-    NSParameterAssert(button);
-    if (!button) {
-        //If we get no button, we will crash below on iPad
-        //The assert above shoud help, but lets make sure we bail in prod
-        return;
-    }
-    [self.shareFunnel logShareButtonTappedResultingInSelection:text];
-
-    NSMutableArray *items = [NSMutableArray array];
-
-    [items addObject:[[WMFArticleTextActivitySource alloc] initWithArticle:self.article shareText:text]];
-
-    NSURL *url = [NSURL wmf_desktopURLForURL:self.articleURL];
-
-    if (url) {
-        url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
-                                                                       url.absoluteString, @"wprov=sfsi1"]];
-
-        [items addObject:url];
-    }
-
-    UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[[[TUSafariActivity alloc] init]]];
-    UIPopoverPresentationController *presenter = [vc popoverPresentationController];
-    presenter.barButtonItem = button;
-
-    [self presentViewController:vc animated:YES completion:NULL];
-}
-
 #pragma mark - Find-in-page
 
 - (void)showFindInPage {
@@ -1514,6 +1526,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
         [self.webViewController hideFindInPageWithCompletion:nil];
 
+        if ([peekVC isKindOfClass:[WMFArticleViewController class]]){
+            ((WMFArticleViewController*)peekVC).articlePreviewingActionsDelegate = self;
+        }
+        
         return peekVC;
     }
     return nil;
@@ -1621,6 +1637,58 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
+}
+
+#pragma mark - Article previewing actions (buttons beneath peeked article when you drag peek view up)
+
+- (NSArray<id<UIPreviewActionItem>> *)previewActions {
+    UIPreviewAction *readAction =
+    [UIPreviewAction actionWithTitle:MWLocalizedString(@"button-read-now", nil)
+                               style:UIPreviewActionStyleDefault
+                             handler:^(UIPreviewAction * _Nonnull action,
+                                       UIViewController * _Nonnull previewViewController) {
+                                 NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
+                                 [self.articlePreviewingActionsDelegate readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController*)previewViewController];
+                             }];
+
+    UIPreviewAction *saveAction =
+    [UIPreviewAction actionWithTitle:[self.savedPages isSaved:self.articleURL] ? MWLocalizedString(@"button-saved-remove", nil) : MWLocalizedString(@"button-save-for-later", nil)
+                               style:UIPreviewActionStyleDefault
+                             handler:^(UIPreviewAction * _Nonnull action,
+                                       UIViewController * _Nonnull previewViewController) {
+                                 // No need to have articlePreviewingActionsDelegate method for saving since saving doesn't require presenting anything.
+                                 if([self.savedPages isSaved:self.articleURL]){
+                                     [self.savedPages removeEntryWithURL:self.articleURL];
+                                 }else{
+                                     [self.savedPages addSavedPageWithURL:self.articleURL];
+                                 }
+                             }];
+    
+    UIPreviewAction *shareAction =
+    [UIPreviewAction actionWithTitle:MWLocalizedString(@"share-custom-menu-item", nil)
+                               style:UIPreviewActionStyleDefault
+                             handler:^(UIPreviewAction * _Nonnull action,
+                                       UIViewController * _Nonnull previewViewController) {
+                                 UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
+                                 if (shareActivityController){
+                                     NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
+                                     [self.articlePreviewingActionsDelegate shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController*)previewViewController
+                                                                                                           shareActivityController:shareActivityController];
+                                 }
+                             }];
+    
+    return @[readAction, saveAction, shareAction];
+}
+
+#pragma mark - WMFArticlePreviewingActionsDelegate methods
+
+- (void)readMoreArticlePreviewActionSelectedWithArticleController:(UIViewController *)articleController {
+    [self commitViewController:articleController];
+}
+
+- (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
+                                       shareActivityController:(UIActivityViewController*)shareActivityController {
+    [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 
 #pragma mark - Article Navigation
