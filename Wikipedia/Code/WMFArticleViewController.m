@@ -261,7 +261,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (_article && self.shouldShareArticleOnLoad) {
         self.shareArticleOnLoad = NO;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self shareArticleFromButton:[self shareToolbarItem]];
+            [self shareArticle];
         });
     }
 }
@@ -594,10 +594,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         _shareToolbarItem = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                             handler:^(id sender) {
                                                                                 @strongify(self);
-                                                                                UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel];
-                                                                                if (vc){
-                                                                                    [self presentViewController:vc animated:YES completion:NULL];
-                                                                                }
+                                                                                [self shareArticle];
                                                                             }];
     }
     return _shareToolbarItem;
@@ -1286,44 +1283,18 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)shareArticle {
+    UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel];
+    if (vc){
+        [self presentViewController:vc animated:YES completion:NULL];
+    }
+}
+
+- (void)shareArticleWhenReady {
     if (self.canShare) {
-        [self shareArticleFromButton:[self shareToolbarItem]];
+        [self shareArticle];
     } else {
         self.shareArticleOnLoad = YES;
     }
-}
-
-- (void)shareArticleFromButton:(nullable UIBarButtonItem *)button {
-    [self shareArticleWithTextSnippet:nil fromButton:button];
-}
-
-- (void)shareArticleWithTextSnippet:(nullable NSString *)text fromButton:(UIBarButtonItem *)button {
-    NSParameterAssert(button);
-    if (!button) {
-        //If we get no button, we will crash below on iPad
-        //The assert above shoud help, but lets make sure we bail in prod
-        return;
-    }
-    [self.shareFunnel logShareButtonTappedResultingInSelection:text];
-
-    NSMutableArray *items = [NSMutableArray array];
-
-    [items addObject:[[WMFArticleTextActivitySource alloc] initWithArticle:self.article shareText:text]];
-
-    NSURL *url = [NSURL wmf_desktopURLForURL:self.articleURL];
-
-    if (url) {
-        url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
-                                                                       url.absoluteString, @"wprov=sfsi1"]];
-
-        [items addObject:url];
-    }
-
-    UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[[[TUSafariActivity alloc] init]]];
-    UIPopoverPresentationController *presenter = [vc popoverPresentationController];
-    presenter.barButtonItem = button;
-
-    [self presentViewController:vc animated:YES completion:NULL];
 }
 
 #pragma mark - Find-in-page
