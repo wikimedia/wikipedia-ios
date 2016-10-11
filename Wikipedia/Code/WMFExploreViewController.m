@@ -49,6 +49,8 @@
 
 #import "WMFArticleViewController.h"
 #import "WMFImageGalleryViewController.h"
+#import "WMFRandomArticleViewController.h"
+#import "WMFFirstRandomViewController.h"
 #import "WMFMorePageListViewController.h"
 #import "WMFSettingsViewController.h"
 
@@ -135,13 +137,11 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     if(!_contentSources){
         _contentSources = @[
                             [[WMFRelatedPagesContentSource alloc] initWithContentGroupDataStore:self.contentStore userDataStore:self.userStore articlePreviewDataStore:self.previewStore],
-                            
                             [[WMFMainPageContentSource alloc] initWithSiteURL:[self currentSiteURL] contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore],
                             [[WMFContinueReadingContentSource alloc] initWithContentGroupDataStore:self.contentStore userDataStore:self.userStore articlePreviewDataStore:self.previewStore],
-                            
                             [[WMFNearbyContentSource alloc] initWithSiteURL:[self currentSiteURL] contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore],
-                            
-                            [[WMFFeedContentSource alloc] initWithSiteURL:[self currentSiteURL] contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore]];
+                            [[WMFFeedContentSource alloc] initWithSiteURL:[self currentSiteURL] contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore],
+                            [[WMFRandomContentSource alloc] initWithSiteURL:[self currentSiteURL] contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore]];
     }
     return _contentSources;
 }
@@ -748,8 +748,8 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
             break;
         case WMFFeedMoreTypePageWithRandomButton:
         {
-            
-            
+            WMFFirstRandomViewController* vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self currentSiteURL] dataStore:self.userStore previewStore:self.previewStore];
+            [self.navigationController pushViewController:vc animated:animated];
         }
             break;
             
@@ -774,6 +774,9 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         }
             break;
         case WMFFeedDetailTypePageWithRandomButton:{
+            NSURL *url = [self contentURLForIndexPath:indexPath];
+            WMFRandomArticleViewController* vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore previewStore:self.previewStore];
+            [self.navigationController pushViewController:vc animated:animated];
         }
             break;
         case WMFFeedDetailTypeGallery:{

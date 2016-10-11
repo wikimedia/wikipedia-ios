@@ -277,6 +277,10 @@ NS_ASSUME_NONNULL_BEGIN
     return MWLocalizedString(@"explore-another-random", nil);
 }
 
+- (WMFFeedDetailType)detailType{
+    return WMFFeedDetailTypePageWithRandomButton;
+}
+
 - (WMFFeedMoreType)moreType{
     return WMFFeedMoreTypePageWithRandomButton;
 }

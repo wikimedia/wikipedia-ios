@@ -1,5 +1,5 @@
 
-#import "WMFTimerContentSource.h"
+#import <Foundation/Foundation.h>
 #import "WMFContentSource.h"
 
 @class WMFContentGroupDataStore;
@@ -7,7 +7,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFFeedContentSource : WMFTimerContentSource<WMFContentSource>
+@interface WMFRandomContentSource : NSObject<WMFContentSource>
 
 @property (readonly, nonatomic, strong) NSURL *siteURL;
 

@@ -10,13 +10,17 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFContentGroupDataStore : WMFBaseDataStore
 
 
-#pragma mark - Content Access
+#pragma mark - Content Group Access
 
 - (WMFContentGroup*)contentGroupForURL:(NSURL*)url;
 
 - (void)enumerateContentGroupsWithBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block;
 
 - (void)enumerateContentGroupsOfKind:(NSString*)kind withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block;
+
+- (nullable WMFContentGroup*)firstGroupOfKind:(NSString*)kind forDate:(NSDate*)date;
+
+- (nullable NSArray<WMFContentGroup*>*)groupsOfKind:(NSString*)kind forDate:(NSDate*)date;
 
 
 #pragma mark - Content Access

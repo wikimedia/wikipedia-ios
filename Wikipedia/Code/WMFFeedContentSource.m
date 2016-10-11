@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WMFFeedContentFetcher *fetcher;
 
 @end
+
 @implementation WMFFeedContentSource
 
 - (instancetype)initWithSiteURL:(NSURL*)siteURL contentGroupDataStore:(WMFContentGroupDataStore*)contentStore articlePreviewDataStore:(WMFArticlePreviewDataStore*)previewStore{
@@ -182,33 +183,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Find Groups
 
-
-- (nullable WMFContentGroup*)kindOfGroup:(NSString*)kind forDate:(NSDate*)date{
-    __block WMFContentGroup* found = nil;
-    
-    [self.contentStore enumerateContentGroupsOfKind:kind withBlock:^(WMFContentGroup * _Nonnull group, BOOL * _Nonnull stop) {
-        if([[group.date dateAtStartOfDay] isEqualToDate:[date dateAtStartOfDay]]){
-            found = (id)group;
-            *stop = YES;
-        }
-    }];
-    return found;
-}
-
 - (nullable WMFFeaturedArticleContentGroup*)featuredForDate:(NSDate*)date{
-    return (id)[self kindOfGroup:[WMFFeaturedArticleContentGroup kind] forDate:date];
+
+    return (id)[self.contentStore firstGroupOfKind:[WMFFeaturedArticleContentGroup kind] forDate:date];
 }
 
 - (nullable WMFPictureOfTheDayContentGroup*)pictureOfTheDayForDate:(NSDate*)date{
-    return (id)[self kindOfGroup:[WMFPictureOfTheDayContentGroup kind] forDate:date];
+    return (id)[self.contentStore firstGroupOfKind:[WMFPictureOfTheDayContentGroup kind] forDate:date];
 }
 
 - (nullable WMFTopReadContentGroup*)topReadForDate:(NSDate*)date{
-    return (id)[self kindOfGroup:[WMFTopReadContentGroup kind] forDate:date];
+    return (id)[self.contentStore firstGroupOfKind:[WMFTopReadContentGroup kind] forDate:date];
 }
 
 - (nullable WMFNewsContentGroup*)newsForDate:(NSDate*)date{
-    return (id)[self kindOfGroup:[WMFNewsContentGroup kind] forDate:date];
+    return (id)[self.contentStore firstGroupOfKind:[WMFNewsContentGroup kind] forDate:date];
 }
 
 
