@@ -349,8 +349,7 @@
 "home-hide-suggestion-prompt" = "Ocultar esta sugestão";
 "home-hide-suggestion-cancel" = "Cancelar";
 "home-accessibility-label" = "Wikipédia, Explora";
-// Fuzzy
-"home-button-accessibility-label" = "Botão de início";
+"home-button-accessibility-label" = "Início";
 "potd-empty-error-description" = "Falhou ao obter a imagem do dia de $1";
 "potd-description-prefix" = "Imagem do dia de $1";
 "welcome-explore-title" = "Explorar";

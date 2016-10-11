@@ -336,8 +336,7 @@
 "home-hide-suggestion-prompt" = "Dës Propos verstoppen";
 "home-hide-suggestion-cancel" = "Ofbriechen";
 "home-accessibility-label" = "Wikipedia, Entdecken";
-// Fuzzy
-"home-button-accessibility-label" = "Knäppche fir d'Startsäit";
+"home-button-accessibility-label" = "Haaptsäit";
 "potd-empty-error-description" = "Bild vum Dag vum $1 konnt net erofgeluede ginn";
 "potd-description-prefix" = "Bild vum Dag vum $1";
 "welcome-explore-title" = "Entdecken";

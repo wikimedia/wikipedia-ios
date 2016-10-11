@@ -42,19 +42,19 @@
 "history-description" = "Anda mungkin menghapus semua dari mereka. Lain kali Anda pergi ke halaman Anda dapat kembali ke sana dari sini.";
 "history-none" = "Tidak ada halaman terbaru di sini.";
 "zero-free-verbiage" = "Akses Wikipedia gratis dari operator selular (biaya data dibebaskan)";
-"zero-charged-verbiage" = "Wikipedia Nol dimatikan";
+"zero-charged-verbiage" = "Wikipedia Zero dimatikan";
 "zero-charged-verbiage-extended" = "Pemuatan artikel lain mungkin dikenakan biaya data. Artikel yang disimpan secara luring tidak menggunakan data dan gratis.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
-"zero-interstitial-title" = "Meninggalkan Wikipedia Nol";
+"zero-interstitial-title" = "Meninggalkan Wikipedia Zero";
 "zero-interstitial-leave-app" = "Biaya data mungkin berlaku. Lanjutkan ke situs eksternal?";
 "zero-interstitial-continue" = "Tinggalkan";
 "zero-interstitial-cancel" = "Tetap di sini";
 "zero-learn-more" = "Biaya data dibebaskan untuk aplikasi Wikipedia ini.";
 "zero-learn-more-learn-more" = "Baca lebih lanjut";
 "zero-learn-more-no-thanks" = "Tutup";
-"zero-wikipedia-zero-heading" = "Wikipedia Nol";
+"zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "zero-warn-when-leaving" = "Peringatkan jika meninggalkan Zero";
-"zero-settings-devmode" = "Mode pengembangan Wikipedia Nol";
+"zero-settings-devmode" = "Mode pengembangan Zero";
 "account-creation-captcha-required" = "Verifikasi CAPTCHA diperlukan.";
 "account-creation-captcha-obtaining" = "Memperoleh CAPTCHA baru...";
 "account-creation-logging-in" = "Sedang masuk log...";
@@ -98,7 +98,7 @@
 "search-searching" = "Mencari...";
 "search-no-matches" = "Tidak ada yang cocok untuk kondisi pencarian.";
 "search-field-placeholder-text" = "Telusuri Wikipedia";
-"search-field-placeholder-text-zero" = "Telusuri Wikipedia Nol";
+"search-field-placeholder-text-zero" = "Telusuri Wikipedia Zero";
 "search-loading-section-zero" = "Memuat bagian pertama dari artikel...";
 "search-loading-section-remaining" = "Memuat sisa artikel...";
 "search-loading-article-loaded" = "Artikel dimuat.";
@@ -123,7 +123,7 @@
 "main-menu-title" = "Lainnya";
 "main-menu-heading-about" = "Tentang";
 "main-menu-language-title" = "Cari Wikipedia $1";
-"main-menu-faq" = "Tanya jawab";
+"main-menu-faq" = "Pertanyaan yang sering diajukan";
 "main-menu-language-toggle-show" = "Tampilkan bahasa";
 "main-menu-language-toggle-hide" = "Sembunyikan bahasa";
 "main-menu-language-selection-saved" = "Pilihan bahasa yang disimpan";
@@ -143,11 +143,11 @@
 "main-menu-show-page-history" = "Riwayat perubahan $1";
 "main-menu-credits" = "Kredit";
 "main-menu-about" = "Tentang aplikasi";
-"main-menu-zero-faq" = "Tanya jawab Wikipedia Nol";
+"main-menu-zero-faq" = "Pertanyaan yang sering diajukan untuk Wikipedia Zero";
 "main-menu-privacy-policy" = "Kebijakan privasi";
 "main-menu-terms-of-use" = "Ketentuan Penggunaan";
 "main-menu-rate-app" = "Beri nilai aplikasi";
-"main-menu-heading-zero" = "Wikipedia Nol";
+"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Privasi dan Ketentuan";
 "main-menu-show-today" = "Hari ini";
 "main-menu-nearby" = "Sekitar";
@@ -352,8 +352,7 @@
 "home-hide-suggestion-prompt" = "Sembunyikan saran ini";
 "home-hide-suggestion-cancel" = "Batal";
 "home-accessibility-label" = "Wikipedia, Jelajah";
-// Fuzzy
-"home-button-accessibility-label" = "Tombol Beranda";
+"home-button-accessibility-label" = "Utama";
 "potd-empty-error-description" = "Gagal untuk menerima gambar hari ini pada $1";
 "potd-description-prefix" = "Gambar hari ini pada $1";
 "welcome-explore-title" = "Jelajah";

@@ -345,8 +345,7 @@
 "home-hide-suggestion-prompt" = "Sembunyikan cadangan ini";
 "home-hide-suggestion-cancel" = "Batalkan";
 "home-accessibility-label" = "Wikipedia, Jelajah";
-// Fuzzy
-"home-button-accessibility-label" = "Butang Beranda";
+"home-button-accessibility-label" = "Laman Utama";
 "potd-empty-error-description" = "Gagal untuk menerima gambar pilihan pada $1";
 "potd-description-prefix" = "Gambar pilihan pada $1";
 "welcome-explore-title" = "Jelajah";

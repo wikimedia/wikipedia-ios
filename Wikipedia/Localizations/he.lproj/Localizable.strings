@@ -347,8 +347,7 @@
 "home-hide-suggestion-prompt" = "הסתרת ההצעה הזאת";
 "home-hide-suggestion-cancel" = "ביטול";
 "home-accessibility-label" = "ויקיפדיה, לחקור";
-// Fuzzy
-"home-button-accessibility-label" = "כפתור בית";
+"home-button-accessibility-label" = "בית";
 "potd-empty-error-description" = "לא הצלחתי לאחזר את תמונת היום של $1";
 "potd-description-prefix" = "תמונת היום של $1";
 "welcome-explore-title" = "לחקור";
