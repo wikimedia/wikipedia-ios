@@ -82,7 +82,7 @@
     }else if(self.currentLocationManager.location == nil){
         self.isFetchingInitialLocation = YES;
         self.completion = completion;
-        [self startUpdating];
+        [self.currentLocationManager startMonitoringLocation];
     }else{
         [self getGroupForLocation:self.currentLocationManager.location completion:^(WMFLocationContentGroup *group) {
             [self fetchResultsForLocationGroup:group completion:completion];
