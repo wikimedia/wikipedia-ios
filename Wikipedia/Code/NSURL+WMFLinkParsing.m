@@ -121,13 +121,13 @@ NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.wmf_title = title;
     components.scheme = @"wikipedia";
-    return components.URL;
+    return components.URL ?: self;
 }
 
-- (nullable NSURL *)wmf_wikipediaSchemeURL {
+- (NSURL *)wmf_wikipediaSchemeURL {
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.scheme = @"wikipedia";
-    return components.URL;
+    return components.URL ?: self;
 }
 
 - (NSURL *)wmf_URLWithTitle:(NSString *)title fragment:(NSString *)fragment {

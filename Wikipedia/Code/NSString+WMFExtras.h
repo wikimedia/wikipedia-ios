@@ -1,3 +1,4 @@
+NS_ASSUME_NONNULL_BEGIN
 @interface NSString (WMFExtras)
 
 /// @return A substring of the receiver going up to @c index, or @c length, whichever is shorter.
@@ -23,6 +24,9 @@
 
 - (NSString *)wmf_stringByRemovingHTML;
 
+- (nonnull NSAttributedString *)wmf_attributedStringByRemovingHTMLWithFont:(nonnull UIFont *)font linkFont:(nonnull UIFont *)linkFont;
+
+
 - (NSString *)wmf_randomlyRepeatMaxTimes:(NSUInteger)maxTimes;
 
 - (NSString *)wmf_stringByReplacingUnderscoresWithSpaces;
@@ -45,3 +49,4 @@
 - (NSString *)wmf_substringAfterString:(NSString *)string;
 
 @end
+NS_ASSUME_NONNULL_END

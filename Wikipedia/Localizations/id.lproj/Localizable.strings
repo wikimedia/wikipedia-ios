@@ -416,7 +416,7 @@
 "continue-reading-empty-description" = "Jelajahi Wikipedia untuk lebih banyak artikel yang ingin dibaca";
 "top-read-see-more" = "Lihat bacaan teratas lainnya";
 "top-read-see-more-trending" = "Lihat sedang tren lainnya";
-"top-read-reader-count-thousands" = "$1 ribu";
+"number-thousands" = "$1 ribu";
 "top-read-header-with-language" = "Wikipedia $1";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Referensi $1";

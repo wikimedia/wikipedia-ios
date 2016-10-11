@@ -12,7 +12,7 @@
 
 - (void)setUp {
     [super setUp];
-    self.recordMode = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
+    self.recordMode = [[NSUserDefaults wmf_userDefaults] wmf_visualTestBatchRecordMode];
     self.deviceAgnostic = YES;
     self.cell = [WMFSettingsTableViewCell wmf_viewFromClassNib];
     [self configureCell:self.cell];

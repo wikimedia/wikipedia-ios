@@ -37,6 +37,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@protocol WMFArticlePreviewingActionsDelegate <NSObject>
+
+- (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController;
+
+- (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
+                                       shareActivityController:(UIActivityViewController*)shareActivityController;
+
+@end
+
 /**
  *  View controller responsible for displaying article content.
  */
@@ -66,6 +75,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, getter=isAddingArticleToHistoryListEnabled) BOOL addingArticleToHistoryListEnabled;
 @property (nonatomic, getter=isPeekingAllowed) BOOL peekingAllowed;
 
+@property (weak, nonatomic, nullable) id<WMFArticlePreviewingActionsDelegate> articlePreviewingActionsDelegate;
+
 @end
 
 @interface WMFArticleViewController (WMFBrowserViewControllerInterface)
@@ -81,7 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchArticleIfNeeded;
 
-- (void)shareArticleFromButton:(nullable UIBarButtonItem *)button;
+- (void)shareArticleWhenReady;
 
 @end
 

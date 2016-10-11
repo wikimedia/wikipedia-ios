@@ -71,6 +71,7 @@
 		19A17B36FFB48307FF04C07F /* SavedPageSpotlightManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */; };
 		535B1AFBBE34CAF0886C6DD9 /* Pods_Foundation_Wikipedia_WikipediaUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEB1B9EA1D15047B919A2C88 /* Pods_Foundation_Wikipedia_WikipediaUnitTests.framework */; };
 		54C6FD426687294BEEC02A80 /* Pods_Foundation_WMFModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B23AE1F4E86498E2A0FC269 /* Pods_Foundation_WMFModel.framework */; };
+		67E20A706067A461E2E9F7A9 /* Pods_Foundation_InTheNewsNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA3A82D5FAD4B378D67DDB65 /* Pods_Foundation_InTheNewsNotification.framework */; };
 		6D15A0B1B710BCF22B3407D4 /* Pods_Foundation_TopReadWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07BF8E52EA1D0865B77E7D7 /* Pods_Foundation_TopReadWidget.framework */; };
 		7C52DC8EA0E04A9663D8260D /* Pods_Foundation_ContinueReadingWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 408BC2932A4F85D05183DA90 /* Pods_Foundation_ContinueReadingWidget.framework */; };
 		B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00050131C52D73800515F70 /* UIApplication+RTL.swift */; };
@@ -513,7 +514,6 @@
 		BCF8DCA81B7009B100149C26 /* MobileView in Resources */ = {isa = PBXBuildFile; fileRef = BCF8DCA71B7009B100149C26 /* MobileView */; };
 		BCFEEA451C286D3200CA2986 /* WMFArticleFetchIfNeededTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFEEA441C286D3200CA2986 /* WMFArticleFetchIfNeededTests.m */; };
 		C46FBA4B1A8530EE00C5730F /* Pods-Foundation-Wikipedia-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = C46FBA4A1A8530EE00C5730F /* Pods-Foundation-Wikipedia-acknowledgements.plist */; };
-		D46CD8C518A1AC4F0042959E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
 		D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
 		D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
@@ -738,9 +738,12 @@
 		D85D34CC1D74D07500845125 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D85D34CA1D74D07500845125 /* MainInterface.storyboard */; };
 		D85D34D01D74D07500845125 /* TopReadWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D85D34C51D74D07500845125 /* TopReadWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D85D34D81D74D0B300845125 /* WMFUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; };
+		D864D6821DA2F8A900B86934 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
+		D864D6841DA2F90F00B86934 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
+		D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D864D68B1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift */; };
+		D864D68E1DA3EDF900B86934 /* NSNumberFormatter+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = D864D68D1DA3EDF900B86934 /* NSNumberFormatter+WMFExtras.swift */; };
 		D86706BE1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */; };
 		D86706C31D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706C21D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m */; };
-		D878A6061D74D1340074B3AC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
 		D87A55991D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87A55971D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.m */; };
 		D87A559A1D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87A55981D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.xib */; };
 		D87A559E1D3CFD2300341B32 /* WMFArticlePreviewCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87A559C1D3CFD2300341B32 /* WMFArticlePreviewCollectionViewCell.m */; };
@@ -751,6 +754,12 @@
 		D87E54011D6CC709005134EF /* WMFMantleJSONResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806321C0CE7680065EBC0 /* WMFMantleJSONResponseSerializer.m */; };
 		D890C84B1D772B02007132C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D890C84D1D772B02007132C9 /* InfoPlist.strings */; };
 		D890C85D1D772ED3007132C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D890C85B1D772ED3007132C9 /* InfoPlist.strings */; };
+		D895D0851D9C1EB8005418C1 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D895D0841D9C1EB8005418C1 /* UserNotifications.framework */; };
+		D895D0871D9C1EB8005418C1 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D895D0861D9C1EB8005418C1 /* UserNotificationsUI.framework */; };
+		D895D08A1D9C1EB8005418C1 /* WMFInTheNewsNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D895D0891D9C1EB8005418C1 /* WMFInTheNewsNotificationViewController.swift */; };
+		D895D08D1D9C1EB8005418C1 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D895D08B1D9C1EB8005418C1 /* MainInterface.storyboard */; };
+		D895D0911D9C1EB8005418C1 /* InTheNewsNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D895D0831D9C1EB8005418C1 /* InTheNewsNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D895D0991D9C28D9005418C1 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D895D0841D9C1EB8005418C1 /* UserNotifications.framework */; };
 		D896C7961D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = D896C7951D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m */; };
 		D896C7991D6F3335007101DF /* WMFUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; };
 		D896C79B1D6F5ADD007101DF /* NSDate+WMFRelativeDate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E78419A1C7CF5CE004F9D36 /* NSDate+WMFRelativeDate.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -781,6 +790,9 @@
 		D8A76D781D6F2A4C00E5A798 /* UIImageView+WMFImageFetchingInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807751C0CEEB00065EBC0 /* UIImageView+WMFImageFetchingInternal.h */; };
 		D8A76D831D6F2B2F00E5A798 /* WMFTaskGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = D8A76D811D6F2B2E00E5A798 /* WMFTaskGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8A76D841D6F2B2F00E5A798 /* WMFTaskGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A76D821D6F2B2E00E5A798 /* WMFTaskGroup.m */; };
+		D8A9E0451D9D5CAC002E2697 /* WMFUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; };
+		D8A9E0491D9D9199002E2697 /* WMFNotificationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F1BF251D9C2AFB00036E71 /* WMFNotificationsController.m */; };
+		D8A9E04A1D9D9328002E2697 /* WMFNotificationsController.h in Headers */ = {isa = PBXBuildFile; fileRef = D8F1BF241D9C2AFB00036E71 /* WMFNotificationsController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8AC391B1D6F22A6007E3C14 /* NSDateFormatter+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804901C0CE0B40065EBC0 /* NSDateFormatter+WMFExtensions.m */; };
 		D8AC391C1D6F22AA007E3C14 /* NSDateFormatter+WMFExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8048F1C0CE0B40065EBC0 /* NSDateFormatter+WMFExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8AC391D1D6F2324007E3C14 /* UIScreen+WMFImageWidth.h in Headers */ = {isa = PBXBuildFile; fileRef = BCA15B151C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -822,7 +834,6 @@
 		D8D5DB441D7A214500526A69 /* NSCache+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB3B1D7A214500526A69 /* NSCache+BlocksKit.m */; };
 		D8D5DB461D7A214500526A69 /* NSObject+A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB3F1D7A214500526A69 /* NSObject+A2BlockDelegate.m */; };
 		D8D5DB471D7A214500526A69 /* NSObject+A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB411D7A214500526A69 /* NSObject+A2DynamicDelegate.m */; };
-		D8DC16E81D6F5E3300D6D9FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
 		D8DC16E91D6F6DA300D6D9FB /* UIColor+WMFStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804F21C0CE0DC0065EBC0 /* UIColor+WMFStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8DC16EA1D6F6DA300D6D9FB /* UIColor+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804F31C0CE0DC0065EBC0 /* UIColor+WMFStyle.m */; };
 		D8DC16EB1D6F6DD600D6D9FB /* MWKSite.h in Headers */ = {isa = PBXBuildFile; fileRef = D8494AD41D6C85C500337433 /* MWKSite.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -904,6 +915,13 @@
 			remoteGlobalIDString = D84580EB1D67572C00B09640;
 			remoteInfo = WMFUtilities;
 		};
+		D895D08F1D9C1EB8005418C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D499142D181D51DE00E6073C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D895D0821D9C1EB8005418C1;
+			remoteInfo = InTheNewsNotification;
+		};
 		D896C7971D6F332A007101DF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D499142D181D51DE00E6073C /* Project object */;
@@ -941,6 +959,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				D895D0911D9C1EB8005418C1 /* InTheNewsNotification.appex in Embed App Extensions */,
 				D85D34D01D74D07500845125 /* TopReadWidget.appex in Embed App Extensions */,
 				0E8380701D64989F0076EDE4 /* ContinueReadingWidget.appex in Embed App Extensions */,
 			);
@@ -973,6 +992,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		012DCF68B9E7929D33D5A129 /* Pods-Foundation-InTheNewsNotification.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-InTheNewsNotification.test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-InTheNewsNotification/Pods-Foundation-InTheNewsNotification.test.xcconfig"; sourceTree = "<group>"; };
 		02678E15A42DC0071031ED67 /* Pods-Foundation-Wikipedia-WikipediaUnitTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia-WikipediaUnitTests.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia-WikipediaUnitTests/Pods-Foundation-Wikipedia-WikipediaUnitTests.adhoc.xcconfig"; sourceTree = "<group>"; };
 		02BE7EDE14437EAA9552821B /* Pods-Foundation-ContinueReadingWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-ContinueReadingWidget.release.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget.release.xcconfig"; sourceTree = "<group>"; };
 		040E5C4E184566F4007AFE6F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -1116,6 +1136,7 @@
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
 		1B9E63EACC9F11D64C58AC2D /* Pods-Foundation-WMFUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUI.release.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUI/Pods-Foundation-WMFUI.release.xcconfig"; sourceTree = "<group>"; };
 		206602671CC9C8518B340372 /* Pods-Foundation-WMFModel.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFModel.test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFModel/Pods-Foundation-WMFModel.test.xcconfig"; sourceTree = "<group>"; };
+		2D5E2AE483FC967CF32C8909 /* Pods-Foundation-InTheNewsNotification.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-InTheNewsNotification.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-InTheNewsNotification/Pods-Foundation-InTheNewsNotification.beta.xcconfig"; sourceTree = "<group>"; };
 		309A81D0C833DBB150D776A4 /* Pods-Foundation-WMFUI.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUI.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUI/Pods-Foundation-WMFUI.adhoc.xcconfig"; sourceTree = "<group>"; };
 		314D87CC9A494CB883C29613 /* Pods-Foundation-WMFModel.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFModel.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFModel/Pods-Foundation-WMFModel.adhoc.xcconfig"; sourceTree = "<group>"; };
 		32431117ED5E4A8F7A5CC48A /* Pods-Foundation-Wikipedia.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.adhoc.xcconfig"; sourceTree = "<group>"; };
@@ -1126,7 +1147,9 @@
 		408BC2932A4F85D05183DA90 /* Pods_Foundation_ContinueReadingWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Foundation_ContinueReadingWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		46F8E51D3907AEFD9D250743 /* Pods-Foundation-TopReadWidget.debug test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-TopReadWidget.debug test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-TopReadWidget/Pods-Foundation-TopReadWidget.debug test.xcconfig"; sourceTree = "<group>"; };
 		4A08C17A1DA9EA24961A2874 /* Pods-Foundation-ContinueReadingWidget.debug test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-ContinueReadingWidget.debug test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget.debug test.xcconfig"; sourceTree = "<group>"; };
+		54151893418E8B73DED976AC /* Pods-Foundation-InTheNewsNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-InTheNewsNotification.release.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-InTheNewsNotification/Pods-Foundation-InTheNewsNotification.release.xcconfig"; sourceTree = "<group>"; };
 		5497A3D1ED13E6D4B016B70A /* Pods-Foundation-ContinueReadingWidget.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-ContinueReadingWidget.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget.beta.xcconfig"; sourceTree = "<group>"; };
+		578B536BAC7AEC1351E68A80 /* Pods-Foundation-InTheNewsNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-InTheNewsNotification.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-InTheNewsNotification/Pods-Foundation-InTheNewsNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		58782A8F62026E9624E663AB /* Pods-Foundation-Wikipedia.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.beta.xcconfig"; sourceTree = "<group>"; };
 		5B23AE1F4E86498E2A0FC269 /* Pods_Foundation_WMFModel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Foundation_WMFModel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E0B410CAFEF5B9D799A60DD /* Pods-Foundation-Wikipedia.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.test.xcconfig"; sourceTree = "<group>"; };
@@ -1138,6 +1161,7 @@
 		7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUtilityMacros.h; sourceTree = "<group>"; };
 		7A9BEAC0DD04CBE5A964C192 /* Pods-Foundation-WMFUI.debug test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUI.debug test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUI/Pods-Foundation-WMFUI.debug test.xcconfig"; sourceTree = "<group>"; };
 		806762DA3ECF4B807307B0A1 /* Pods-Foundation-Wikipedia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.debug.xcconfig"; sourceTree = "<group>"; };
+		811D2D92A31EEB8052FB1DF2 /* Pods-Foundation-InTheNewsNotification.debug test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-InTheNewsNotification.debug test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-InTheNewsNotification/Pods-Foundation-InTheNewsNotification.debug test.xcconfig"; sourceTree = "<group>"; };
 		840E588EB82825440685B50D /* Pods_Foundation_WMFUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Foundation_WMFUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FC62C1575990EDD5D358882 /* Pods-Foundation-WMFUI.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUI.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUI/Pods-Foundation-WMFUI.beta.xcconfig"; sourceTree = "<group>"; };
 		A2C7882B3F58ABBF4AA16465 /* Pods-Foundation-Wikipedia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.release.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.release.xcconfig"; sourceTree = "<group>"; };
@@ -1272,6 +1296,7 @@
 		B0B4CF081CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleLanguagesSectionHeader.h; sourceTree = "<group>"; };
 		B0B4CF091CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleLanguagesSectionHeader.m; sourceTree = "<group>"; };
 		B0B4CF0B1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleLanguagesSectionHeader.xib; sourceTree = "<group>"; };
+		B0BE5193F2308ED270B525B4 /* Pods-Foundation-InTheNewsNotification.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-InTheNewsNotification.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-InTheNewsNotification/Pods-Foundation-InTheNewsNotification.adhoc.xcconfig"; sourceTree = "<group>"; };
 		B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSettingsCellVisualTests.m; sourceTree = "<group>"; };
 		B0CA8D3E1D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKScriptMessage+WMFScriptMessage.h"; path = "Wikipedia/Code/WKScriptMessage+WMFScriptMessage.h"; sourceTree = SOURCE_ROOT; };
 		B0CA8D3F1D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKScriptMessage+WMFScriptMessage.m"; path = "Wikipedia/Code/WKScriptMessage+WMFScriptMessage.m"; sourceTree = SOURCE_ROOT; };
@@ -1994,6 +2019,7 @@
 		B66B13709EB8A393201CA641 /* Pods-Foundation-WMFUtilities.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUtilities.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUtilities/Pods-Foundation-WMFUtilities.adhoc.xcconfig"; sourceTree = "<group>"; };
 		B7B297F128B843A7DEACF4DD /* Pods-Foundation-WMFModel.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFModel.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFModel/Pods-Foundation-WMFModel.beta.xcconfig"; sourceTree = "<group>"; };
 		B9B0B3C84DC8A2BC9AF2E41E /* Pods-Foundation-Wikipedia-WikipediaUnitTests.debug test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia-WikipediaUnitTests.debug test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia-WikipediaUnitTests/Pods-Foundation-Wikipedia-WikipediaUnitTests.debug test.xcconfig"; sourceTree = "<group>"; };
+		BA3A82D5FAD4B378D67DDB65 /* Pods_Foundation_InTheNewsNotification.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Foundation_InTheNewsNotification.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC0069D01C7D4A6600F2C377 /* WMFExploreSectionSchemaTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFExploreSectionSchemaTests.m; sourceTree = "<group>"; };
 		BC0069D21C7D4BBE00F2C377 /* WMFExploreSectionSchema_Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFExploreSectionSchema_Testing.h; path = Wikipedia/Code/WMFExploreSectionSchema_Testing.h; sourceTree = SOURCE_ROOT; };
 		BC0069D31C7D556C00F2C377 /* WMFMockLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFMockLocationManager.h; path = WikipediaUnitTests/Code/WMFMockLocationManager.h; sourceTree = SOURCE_ROOT; };
@@ -2317,6 +2343,8 @@
 		D85D34C81D74D07500845125 /* WMFTodayTopReadWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFTodayTopReadWidgetViewController.swift; sourceTree = "<group>"; };
 		D85D34CB1D74D07500845125 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		D85D34CD1D74D07500845125 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D864D68B1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberFormatterExtrasTests.swift; sourceTree = "<group>"; };
+		D864D68D1DA3EDF900B86934 /* NSNumberFormatter+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSNumberFormatter+WMFExtras.swift"; path = "Wikipedia/Code/NSNumberFormatter+WMFExtras.swift"; sourceTree = SOURCE_ROOT; };
 		D86706BC1D3D4566003AB2FC /* WMFExploreCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFExploreCollectionViewCell.h; path = Wikipedia/Code/WMFExploreCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
 		D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFExploreCollectionViewCell.m; path = Wikipedia/Code/WMFExploreCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
 		D86706C11D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFColumnarCollectionViewLayout.h; path = Wikipedia/Code/WMFColumnarCollectionViewLayout.h; sourceTree = SOURCE_ROOT; };
@@ -2334,11 +2362,18 @@
 		D890C8541D772B4E007132C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D890C85C1D772ED3007132C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D890C85E1D772EE7007132C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D895D0831D9C1EB8005418C1 /* InTheNewsNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = InTheNewsNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D895D0841D9C1EB8005418C1 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		D895D0861D9C1EB8005418C1 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		D895D0891D9C1EB8005418C1 /* WMFInTheNewsNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFInTheNewsNotificationViewController.swift; sourceTree = "<group>"; };
+		D895D08C1D9C1EB8005418C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		D895D08E1D9C1EB8005418C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D896C7941D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"; sourceTree = "<group>"; };
 		D896C7951D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m"; sourceTree = "<group>"; };
 		D8A6E8731D80A4A0002D6D4D /* TopReadWidgetImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TopReadWidgetImages.xcassets; sourceTree = "<group>"; };
 		D8A76D811D6F2B2E00E5A798 /* WMFTaskGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFTaskGroup.h; path = Wikipedia/Code/WMFTaskGroup.h; sourceTree = SOURCE_ROOT; };
 		D8A76D821D6F2B2E00E5A798 /* WMFTaskGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFTaskGroup.m; path = Wikipedia/Code/WMFTaskGroup.m; sourceTree = SOURCE_ROOT; };
+		D8A9E0471D9D5F41002E2697 /* InTheNewsNotification.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InTheNewsNotification.entitlements; sourceTree = "<group>"; };
 		D8AC39241D6F247F007E3C14 /* WMFUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WMFUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8AC39261D6F247F007E3C14 /* WMFUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUI.h; sourceTree = "<group>"; };
 		D8AC39271D6F2480007E3C14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2386,6 +2421,8 @@
 		D8EEA0F31D6E14E800D88143 /* WMFAppModalProgressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFAppModalProgressViewController.xib; sourceTree = "<group>"; };
 		D8EEA0F81D6E21A400D88143 /* NSFileManager+WMFGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+WMFGroup.h"; path = "Wikipedia/Code/NSFileManager+WMFGroup.h"; sourceTree = SOURCE_ROOT; };
 		D8EEA0F91D6E21A400D88143 /* NSFileManager+WMFGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+WMFGroup.m"; path = "Wikipedia/Code/NSFileManager+WMFGroup.m"; sourceTree = SOURCE_ROOT; };
+		D8F1BF241D9C2AFB00036E71 /* WMFNotificationsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNotificationsController.h; sourceTree = "<group>"; };
+		D8F1BF251D9C2AFB00036E71 /* WMFNotificationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFNotificationsController.m; sourceTree = "<group>"; };
 		D8FA39B71D7F556400D89889 /* WMFSparklineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFSparklineView.swift; sourceTree = "<group>"; };
 		E07BF8E52EA1D0865B77E7D7 /* Pods_Foundation_TopReadWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Foundation_TopReadWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3F0C0C789B0E26275755E1E /* Pods-Foundation-WMFUtilities.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUtilities.test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUtilities/Pods-Foundation-WMFUtilities.test.xcconfig"; sourceTree = "<group>"; };
@@ -2422,6 +2459,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D895D0991D9C28D9005418C1 /* UserNotifications.framework in Frameworks */,
 				D8FAC7DC1D6F88A100C2A6BC /* WMFUtilities.framework in Frameworks */,
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
 				D4E8A8A919085CEA00DA4765 /* libsqlite3.dylib in Frameworks */,
@@ -2460,6 +2498,17 @@
 				D85D34D81D74D0B300845125 /* WMFUI.framework in Frameworks */,
 				D85D34C61D74D07500845125 /* NotificationCenter.framework in Frameworks */,
 				6D15A0B1B710BCF22B3407D4 /* Pods_Foundation_TopReadWidget.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D895D0801D9C1EB8005418C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D8A9E0451D9D5CAC002E2697 /* WMFUI.framework in Frameworks */,
+				D895D0871D9C1EB8005418C1 /* UserNotificationsUI.framework in Frameworks */,
+				D895D0851D9C1EB8005418C1 /* UserNotifications.framework in Frameworks */,
+				67E20A706067A461E2E9F7A9 /* Pods_Foundation_InTheNewsNotification.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3588,6 +3637,12 @@
 				3A3058E86C3C5836539E4D8F /* Pods-Foundation-Wikipedia-WikipediaUnitTests.release.xcconfig */,
 				F9C06A3E0AB7282AC49803D1 /* Pods-Foundation-Wikipedia-WikipediaUnitTests.test.xcconfig */,
 				EC760B581D9F8E3567504FB3 /* Pods-Foundation-Wikipedia-WikipediaUnitTests.beta.xcconfig */,
+				578B536BAC7AEC1351E68A80 /* Pods-Foundation-InTheNewsNotification.debug.xcconfig */,
+				811D2D92A31EEB8052FB1DF2 /* Pods-Foundation-InTheNewsNotification.debug test.xcconfig */,
+				B0BE5193F2308ED270B525B4 /* Pods-Foundation-InTheNewsNotification.adhoc.xcconfig */,
+				54151893418E8B73DED976AC /* Pods-Foundation-InTheNewsNotification.release.xcconfig */,
+				012DCF68B9E7929D33D5A129 /* Pods-Foundation-InTheNewsNotification.test.xcconfig */,
+				2D5E2AE483FC967CF32C8909 /* Pods-Foundation-InTheNewsNotification.beta.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -5120,6 +5175,7 @@
 			children = (
 				BCB669D11A83F6D300C7B1FE /* MediaWikiKitTests */,
 				B0E808FC1C0D18730065EBC0 /* WMFJoinedPropertyParametersTests.m */,
+				D864D68B1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift */,
 				D858A7DE1DA6A04A009C3DEB /* WMFDateCalculationTests.m */,
 				D8BBBCE01D94603800DECA36 /* WMFLocaleTests.m */,
 				D84649AC1D4514F7009DB4A0 /* WMFTaskGroupTests.m */,
@@ -5314,6 +5370,7 @@
 				0EE488FE1D4AD5D10088505C /* Vendor */,
 				BC8309941A7BF935003FC5C7 /* Tests */,
 				0E8380661D64989F0076EDE4 /* ContinueReadingWidget */,
+				D895D0881D9C1EB8005418C1 /* InTheNewsNotification */,
 				D85D34C71D74D07500845125 /* TopReadWidget */,
 				D84580ED1D67572C00B09640 /* WMFUtilities */,
 				D844D96D1D6CB2600042D692 /* WMFModel */,
@@ -5334,6 +5391,7 @@
 				D844D96C1D6CB2600042D692 /* WMFModel.framework */,
 				D8AC39241D6F247F007E3C14 /* WMFUI.framework */,
 				D85D34C51D74D07500845125 /* TopReadWidget.appex */,
+				D895D0831D9C1EB8005418C1 /* InTheNewsNotification.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -5359,6 +5417,9 @@
 				840E588EB82825440685B50D /* Pods_Foundation_WMFUtilities.framework */,
 				D3A46BEEA3A328F2B60FD0EA /* Pods_Foundation_Wikipedia.framework */,
 				FEB1B9EA1D15047B919A2C88 /* Pods_Foundation_Wikipedia_WikipediaUnitTests.framework */,
+				D895D0841D9C1EB8005418C1 /* UserNotifications.framework */,
+				D895D0861D9C1EB8005418C1 /* UserNotificationsUI.framework */,
+				BA3A82D5FAD4B378D67DDB65 /* Pods_Foundation_InTheNewsNotification.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -5573,6 +5634,7 @@
 		D8494AEF1D6C8BE200337433 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D864D68D1DA3EDF900B86934 /* NSNumberFormatter+WMFExtras.swift */,
 				B0E804891C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.h */,
 				B0E8048A1C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.m */,
 				B0E803961C0CDB150065EBC0 /* WMFNumberOfExtractCharacters.h */,
@@ -5711,6 +5773,27 @@
 			path = ../Schema;
 			sourceTree = "<group>";
 		};
+		D895D0881D9C1EB8005418C1 /* InTheNewsNotification */ = {
+			isa = PBXGroup;
+			children = (
+				D8A9E0471D9D5F41002E2697 /* InTheNewsNotification.entitlements */,
+				D895D0891D9C1EB8005418C1 /* WMFInTheNewsNotificationViewController.swift */,
+				D895D08B1D9C1EB8005418C1 /* MainInterface.storyboard */,
+				D895D08E1D9C1EB8005418C1 /* Info.plist */,
+			);
+			path = InTheNewsNotification;
+			sourceTree = "<group>";
+		};
+		D895D09A1D9C2983005418C1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D8F1BF241D9C2AFB00036E71 /* WMFNotificationsController.h */,
+				D8F1BF251D9C2AFB00036E71 /* WMFNotificationsController.m */,
+			);
+			name = Controllers;
+			path = ../Wikipedia/Code;
+			sourceTree = "<group>";
+		};
 		D8AC39251D6F247F007E3C14 /* WMFUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -5732,6 +5815,7 @@
 				B0E804F01C0CE0DC0065EBC0 /* UIColor+WMFHexColor.h */,
 				B0E804F11C0CE0DC0065EBC0 /* UIColor+WMFHexColor.m */,
 				D8FA39B71D7F556400D89889 /* WMFSparklineView.swift */,
+				D895D09A1D9C2983005418C1 /* Controllers */,
 				BCD67E871C1F17D4005179E1 /* Face Detection */,
 				D8AC39271D6F2480007E3C14 /* Info.plist */,
 			);
@@ -5940,6 +6024,7 @@
 				D8A76D6E1D6F271500E5A798 /* UIImageView+WMFContentOffset.h in Headers */,
 				D8FAC7DA1D6F74D200C2A6BC /* UIColor+WMFHexColor.h in Headers */,
 				D8D270341D75C6DD00D093A8 /* UIView+WMFDefaultNib.h in Headers */,
+				D8A9E04A1D9D9328002E2697 /* WMFNotificationsController.h in Headers */,
 				D8DC16F91D6F701200D6D9FB /* CIDetector+WMFFaceDetection.h in Headers */,
 				D8F706941D74C100001894C6 /* UIImage+WMFStyle.h in Headers */,
 				D8F706981D74C195001894C6 /* UITableViewCell+WMFEdgeToEdgeSeparator.h in Headers */,
@@ -6009,6 +6094,7 @@
 				D8D5DB4B1D7A260C00526A69 /* ShellScript */,
 				D8D5DB4C1D7A263800526A69 /* ShellScript */,
 				D8D5DB4D1D7A264400526A69 /* ShellScript */,
+				D8A9E0461D9D5E90002E2697 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -6018,6 +6104,7 @@
 				D8AC392A1D6F2480007E3C14 /* PBXTargetDependency */,
 				0E83806F1D64989F0076EDE4 /* PBXTargetDependency */,
 				D85D34CF1D74D07500845125 /* PBXTargetDependency */,
+				D895D0901D9C1EB8005418C1 /* PBXTargetDependency */,
 			);
 			name = Wikipedia;
 			productName = "Wikipedia-iOS";
@@ -6082,6 +6169,25 @@
 			name = TopReadWidget;
 			productName = TopReadWidget;
 			productReference = D85D34C51D74D07500845125 /* TopReadWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		D895D0821D9C1EB8005418C1 /* InTheNewsNotification */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D895D0981D9C1EB8005418C1 /* Build configuration list for PBXNativeTarget "InTheNewsNotification" */;
+			buildPhases = (
+				6057D66C695ABA00CDFD3D2D /* [CP] Check Pods Manifest.lock */,
+				D895D07F1D9C1EB8005418C1 /* Sources */,
+				D895D0801D9C1EB8005418C1 /* Frameworks */,
+				D895D0811D9C1EB8005418C1 /* Resources */,
+				AA48AE459589CE23348C1C63 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = InTheNewsNotification;
+			productName = InTheNewsNotification;
+			productReference = D895D0831D9C1EB8005418C1 /* InTheNewsNotification.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		D8AC39231D6F247F007E3C14 /* WMFUI */ = {
@@ -6154,6 +6260,16 @@
 						ProvisioningStyle = Manual;
 					};
 					D85D34C41D74D07500845125 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = AKK7J2GV64;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
+					D895D0821D9C1EB8005418C1 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = AKK7J2GV64;
 						ProvisioningStyle = Automatic;
@@ -6297,6 +6413,7 @@
 				BC4273511A7C736800068882 /* WikipediaUnitTests */,
 				0E8380621D64989F0076EDE4 /* ContinueReadingWidget */,
 				D85D34C41D74D07500845125 /* TopReadWidget */,
+				D895D0821D9C1EB8005418C1 /* InTheNewsNotification */,
 				D84580EB1D67572C00B09640 /* WMFUtilities */,
 				D844D96B1D6CB2600042D692 /* WMFModel */,
 				D8AC39231D6F247F007E3C14 /* WMFUI */,
@@ -6311,7 +6428,6 @@
 			files = (
 				0E83806C1D64989F0076EDE4 /* MainInterface.storyboard in Resources */,
 				D890C85D1D772ED3007132C9 /* InfoPlist.strings in Resources */,
-				D8DC16E81D6F5E3300D6D9FB /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6358,7 +6474,6 @@
 			files = (
 				D81BA0FC1D50D40B006C38AC /* WMFNearbyArticleTableViewCell.xib in Resources */,
 				B0E807091C0CEBDA0065EBC0 /* ShareOptions.xib in Resources */,
-				D46CD8C518A1AC4F0042959E /* Localizable.strings in Resources */,
 				0E26B07F1C0F4F720004D687 /* WMFWelcome.storyboard in Resources */,
 				B0E8040C1C0CDE480065EBC0 /* CaptchaViewController.storyboard in Resources */,
 				B0E803321C0CD6F20065EBC0 /* WMFExploreSectionFooter.xib in Resources */,
@@ -6412,6 +6527,7 @@
 				B0E806EC1C0CEBA40065EBC0 /* RecentSearchCell.xib in Resources */,
 				D87A55A41D3CFD3700341B32 /* WMFArticlePlaceholderCollectionViewCell.xib in Resources */,
 				0E9B9E321CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib in Resources */,
+				D864D6841DA2F90F00B86934 /* Localizable.strings in Resources */,
 				D84F2BFB1D2FEE6300963D42 /* WMFRandomDiceButton.html in Resources */,
 				B0F956AB1C481C2100691810 /* WMFArticleFooterMenuCell.xib in Resources */,
 				BC6E42881BA9CB930059FBF6 /* InfoPlist.strings in Resources */,
@@ -6430,6 +6546,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D864D6821DA2F8A900B86934 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6437,10 +6554,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D878A6061D74D1340074B3AC /* Localizable.strings in Resources */,
 				D8A6E8741D80A4A0002D6D4D /* TopReadWidgetImages.xcassets in Resources */,
 				D890C84B1D772B02007132C9 /* InfoPlist.strings in Resources */,
 				D85D34CC1D74D07500845125 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D895D0811D9C1EB8005418C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D895D08D1D9C1EB8005418C1 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6513,6 +6637,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-WMFUI/Pods-Foundation-WMFUI-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6057D66C695ABA00CDFD3D2D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		60DCB51E880343418F79B397 /* [CP] Check Pods Manifest.lock */ = {
@@ -6620,6 +6759,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-Wikipedia-WikipediaUnitTests/Pods-Foundation-Wikipedia-WikipediaUnitTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		AA48AE459589CE23348C1C63 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-InTheNewsNotification/Pods-Foundation-InTheNewsNotification-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		AD74094442CF3BBFA5386F88 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -6664,6 +6818,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-TopReadWidget/Pods-Foundation-TopReadWidget-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		D8A9E0461D9D5E90002E2697 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/InTheNewsNotification.appex/Frameworks\"\necho \"RUNNING $EMBEDDED_EXTENSION_PLUGIN_PATH\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\necho \"REMOVED $EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
 		};
 		D8D5DB491D7A25CF00526A69 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -6819,6 +6986,7 @@
 				B0E809231C0D199E0065EBC0 /* ArticleLoadingTests.m in Sources */,
 				BC45FF4E1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.m in Sources */,
 				B0E809031C0D18950065EBC0 /* NSMutableDictionary+MaybeSetTests.m in Sources */,
+				D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */,
 				B0E808921C0D16240065EBC0 /* MWKImage+AssociationTestUtils.m in Sources */,
 				B0E808D31C0D17A60065EBC0 /* MWKHistoryEntry+MWKRandom.m in Sources */,
 				B0E809531C0D1B440065EBC0 /* WMFSaveButtonControllerTests.m in Sources */,
@@ -7362,6 +7530,7 @@
 				D8EEA0FB1D6E21A400D88143 /* NSFileManager+WMFGroup.m in Sources */,
 				D8AC391B1D6F22A6007E3C14 /* NSDateFormatter+WMFExtensions.m in Sources */,
 				D844D9CC1D6CBA530042D692 /* NSArray+WMFPredicate.swift in Sources */,
+				D864D68E1DA3EDF900B86934 /* NSNumberFormatter+WMFExtras.swift in Sources */,
 				D8D270301D75BDD800D093A8 /* NSBundle+WMFInfoUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -7374,6 +7543,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D895D07F1D9C1EB8005418C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D895D08A1D9C1EB8005418C1 /* WMFInTheNewsNotificationViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D8AC391F1D6F247F007E3C14 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -7383,6 +7560,7 @@
 				D8DC16FB1D6F701800D6D9FB /* CIDetector+WMFFaceDetection.m in Sources */,
 				D8DC16EA1D6F6DA300D6D9FB /* UIColor+WMFStyle.m in Sources */,
 				D8FAC7D61D6F73FD00C2A6BC /* WMFFaceDetectionCache.m in Sources */,
+				D8A9E0491D9D9199002E2697 /* WMFNotificationsController.m in Sources */,
 				D8FAC7DB1D6F74D600C2A6BC /* UIColor+WMFHexColor.m in Sources */,
 				D8D2703B1D75ED5000D093A8 /* WMFArticlePreviewViewController.swift in Sources */,
 				D8A76D6D1D6F26FD00E5A798 /* UIImageView+WMFImageFetching.m in Sources */,
@@ -7424,6 +7602,11 @@
 			isa = PBXTargetDependency;
 			target = D84580EB1D67572C00B09640 /* WMFUtilities */;
 			targetProxy = D88DBBBC1D8B322700134A50 /* PBXContainerItemProxy */;
+		};
+		D895D0901D9C1EB8005418C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D895D0821D9C1EB8005418C1 /* InTheNewsNotification */;
+			targetProxy = D895D08F1D9C1EB8005418C1 /* PBXContainerItemProxy */;
 		};
 		D896C7981D6F332A007101DF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -7659,6 +7842,14 @@
 				D890C85E1D772EE7007132C9 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D895D08B1D9C1EB8005418C1 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D895D08C1D9C1EB8005418C1 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -9231,6 +9422,166 @@
 			};
 			name = Beta;
 		};
+		D895D0921D9C1EB8005418C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 578B536BAC7AEC1351E68A80 /* Pods-Foundation-InTheNewsNotification.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = InTheNewsNotification/InTheNewsNotification.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 2.3;
+			};
+			name = Debug;
+		};
+		D895D0931D9C1EB8005418C1 /* Debug Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 811D2D92A31EEB8052FB1DF2 /* Pods-Foundation-InTheNewsNotification.debug test.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = InTheNewsNotification/InTheNewsNotification.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 2.3;
+			};
+			name = "Debug Test";
+		};
+		D895D0941D9C1EB8005418C1 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0BE5193F2308ED270B525B4 /* Pods-Foundation-InTheNewsNotification.adhoc.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = InTheNewsNotification/InTheNewsNotification.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
+			};
+			name = AdHoc;
+		};
+		D895D0951D9C1EB8005418C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 54151893418E8B73DED976AC /* Pods-Foundation-InTheNewsNotification.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = InTheNewsNotification/InTheNewsNotification.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
+			};
+			name = Release;
+		};
+		D895D0961D9C1EB8005418C1 /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 012DCF68B9E7929D33D5A129 /* Pods-Foundation-InTheNewsNotification.test.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = InTheNewsNotification/InTheNewsNotification.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
+			};
+			name = Test;
+		};
+		D895D0971D9C1EB8005418C1 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2D5E2AE483FC967CF32C8909 /* Pods-Foundation-InTheNewsNotification.beta.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = InTheNewsNotification/InTheNewsNotification.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
+			};
+			name = Beta;
+		};
 		D8AC392E1D6F2480007E3C14 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EE101D0AA36D601A273FC5BE /* Pods-Foundation-WMFUI.debug.xcconfig */;
@@ -9523,6 +9874,19 @@
 				D85D34D51D74D07600845125 /* Release */,
 				D85D34D61D74D07600845125 /* Test */,
 				D85D34D71D74D07600845125 /* Beta */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D895D0981D9C1EB8005418C1 /* Build configuration list for PBXNativeTarget "InTheNewsNotification" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D895D0921D9C1EB8005418C1 /* Debug */,
+				D895D0931D9C1EB8005418C1 /* Debug Test */,
+				D895D0941D9C1EB8005418C1 /* AdHoc */,
+				D895D0951D9C1EB8005418C1 /* Release */,
+				D895D0961D9C1EB8005418C1 /* Test */,
+				D895D0971D9C1EB8005418C1 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
