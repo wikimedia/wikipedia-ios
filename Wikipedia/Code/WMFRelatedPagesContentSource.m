@@ -183,6 +183,10 @@ NS_ASSUME_NONNULL_BEGIN
         if(completion){
             completion();
         }
+    }else{
+        if(completion){
+            completion();
+        }
     }
 }
 
