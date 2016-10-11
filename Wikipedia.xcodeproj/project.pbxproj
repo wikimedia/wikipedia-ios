@@ -778,6 +778,7 @@
 		D89F510F1D6CC97F008018E1 /* WMFApiJsonResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8062F1C0CE7670065EBC0 /* WMFApiJsonResponseSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D89F51101D6CC9BA008018E1 /* WMFNetworkUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8067E1C0CE9C70065EBC0 /* WMFNetworkUtilities.m */; };
 		D89F51111D6CC9BD008018E1 /* WMFNetworkUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8067D1C0CE9C70065EBC0 /* WMFNetworkUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D89F77831DAD2A19006FB654 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D89F77821DAD2A19006FB654 /* ImageIO.framework */; };
 		D8A6E8741D80A4A0002D6D4D /* TopReadWidgetImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8A6E8731D80A4A0002D6D4D /* TopReadWidgetImages.xcassets */; };
 		D8A76D6C1D6F26F700E5A798 /* UIImageView+WMFImageFetching.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E805D51C0CE59B0065EBC0 /* UIImageView+WMFImageFetching.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8A76D6D1D6F26FD00E5A798 /* UIImageView+WMFImageFetching.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805D61C0CE59B0065EBC0 /* UIImageView+WMFImageFetching.m */; };
@@ -2370,6 +2371,7 @@
 		D895D08E1D9C1EB8005418C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D896C7941D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"; sourceTree = "<group>"; };
 		D896C7951D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m"; sourceTree = "<group>"; };
+		D89F77821DAD2A19006FB654 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		D8A6E8731D80A4A0002D6D4D /* TopReadWidgetImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TopReadWidgetImages.xcassets; sourceTree = "<group>"; };
 		D8A76D811D6F2B2E00E5A798 /* WMFTaskGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFTaskGroup.h; path = Wikipedia/Code/WMFTaskGroup.h; sourceTree = SOURCE_ROOT; };
 		D8A76D821D6F2B2E00E5A798 /* WMFTaskGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFTaskGroup.m; path = Wikipedia/Code/WMFTaskGroup.m; sourceTree = SOURCE_ROOT; };
@@ -2459,6 +2461,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D89F77831DAD2A19006FB654 /* ImageIO.framework in Frameworks */,
 				D895D0991D9C28D9005418C1 /* UserNotifications.framework in Frameworks */,
 				D8FAC7DC1D6F88A100C2A6BC /* WMFUtilities.framework in Frameworks */,
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
@@ -5399,6 +5402,7 @@
 		D4991437181D51DE00E6073C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D89F77821DAD2A19006FB654 /* ImageIO.framework */,
 				D8DC16FC1D6F709300D6D9FB /* CoreImage.framework */,
 				04649CA619F72B360071E8FA /* libPods.a */,
 				041EFC361996A1F800B2CB28 /* MapKit.framework */,

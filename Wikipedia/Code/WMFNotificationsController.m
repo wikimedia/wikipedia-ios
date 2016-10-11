@@ -1,5 +1,6 @@
 #import "WMFNotificationsController.h"
 #import "WMFFaceDetectionCache.h"
+@import ImageIO;
 @import UserNotifications;
 @import WMFUtilities;
 @import WMFModel;
@@ -18,7 +19,7 @@ NSString *const WMFNotificationInfoArticleExtractKey = @"articleExtract";
 NSString *const WMFNotificationInfoStoryHTMLKey = @"storyHTML";
 NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
 
-const CGFloat WMFNotificationImageCropNormalizedMinDimension = 0.5; //for some reason, cropping isn't respected if a full dimension (1) is indicated
+const CGFloat WMFNotificationImageCropNormalizedMinDimension = 1; //for some reason, cropping isn't respected if a full dimension (1) is indicated
 
 @interface WMFNotificationsController ()
 @property (nonatomic, strong) dispatch_queue_t notificationQueue;
@@ -102,7 +103,7 @@ const CGFloat WMFNotificationImageCropNormalizedMinDimension = 0.5; //for some r
                             CGFloat normalizedHeight = WMFNotificationImageCropNormalizedMinDimension * aspect;
                             CGFloat halfNormalizedHeight = 0.5 * normalizedHeight;
                             CGFloat originY = MAX(0, faceMidY - halfNormalizedHeight);
-                            CGFloat normalizedWidth = MIN(faceRect.size.width, WMFNotificationImageCropNormalizedMinDimension);
+                            CGFloat normalizedWidth = MAX(faceRect.size.width, WMFNotificationImageCropNormalizedMinDimension);
                             CGFloat originX = 0.5 * (1 - normalizedWidth);
                             cropRect = CGRectMake(originX, originY, normalizedWidth, normalizedHeight);
                         } else {
@@ -115,7 +116,20 @@ const CGFloat WMFNotificationImageCropNormalizedMinDimension = 0.5; //for some r
                             cropRect = CGRectMake(originX, originY, normalizedWidth, normalizedHeight);
                         }
                     }
+                    
+                    
+                    cropRect = CGRectApplyAffineTransform(cropRect, CGAffineTransformMakeScale(image.size.width, image.size.height));
+                    
+                    CGImageRef imageRef = CGImageCreateWithImageInRect(image.CGImage, cropRect);
+                    NSMutableData *data = [[NSMutableData alloc] init];
+                    CGImageDestinationRef destinationRef = CGImageDestinationCreateWithData((CFMutableDataRef)data, kUTTypeJPEG, 1, NULL);
+                    CGImageDestinationAddImage(destinationRef, imageRef, NULL);
+                    CGImageDestinationFinalize(destinationRef);
+                    NSURL *croppedURL = [NSURL URLWithString:@"wikimedia://bogus"];
+                    [imageController cacheImageData:data url:croppedURL MIMEType:@"image/jpeg"];
+                    NSString *cachedCroppedImagePath = [imageController cachePathForImageWithURL:croppedURL];
 
+                
                     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
                     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
                     NSString *HTMLString = @"<!--Sep 25--> The <b id=\"mwCw\"><a rel=\"mw:WikiLink\" href=\"./Five_hundred_meter_Aperture_Spherical_Telescope\" title=\"Five hundred meter Aperture Spherical Telescope\" id=\"mwDA\">Five hundred meter Aperture Spherical Telescope</a></b> (FAST) makes its <a rel=\"mw:WikiLink\" href=\"./First_light_(astronomy)\" title=\"First light (astronomy)\" id=\"mwDQ\">first observations</a> in <a rel=\"mw:WikiLink\" href=\"./Guizhou\" title=\"Guizhou\" id=\"mwDg\">Guizhou</a>, China.";
@@ -123,9 +137,8 @@ const CGFloat WMFNotificationImageCropNormalizedMinDimension = 0.5; //for some r
                     content.body = [HTMLString wmf_stringByRemovingHTML];
                     content.categoryIdentifier = WMFInTheNewsNotificationCategoryIdentifier;
                     UNNotificationAttachment *attachement = [UNNotificationAttachment attachmentWithIdentifier:thumbnailURLString
-                                                                                                           URL:[NSURL fileURLWithPath:cachedThumbnailPath]
-                                                                                                       options:@{ UNNotificationAttachmentOptionsTypeHintKey: (id)kUTTypeJPEG,
-                                                                                                                  UNNotificationAttachmentOptionsThumbnailClippingRectKey: (__bridge_transfer NSDictionary *)CGRectCreateDictionaryRepresentation(cropRect) }
+                                                                                                           URL:[NSURL fileURLWithPath:cachedCroppedImagePath]
+                                                                                                       options:@{ UNNotificationAttachmentOptionsTypeHintKey: (id)kUTTypeJPEG, UNNotificationAttachmentOptionsThumbnailClippingRectKey: (__bridge_transfer NSDictionary *)CGRectCreateDictionaryRepresentation(CGRectMake(0, 0, 1, 1)) }
                                                                                                          error:nil];
                     if (attachement) {
                         content.attachments = @[attachement];
