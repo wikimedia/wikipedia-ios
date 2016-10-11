@@ -265,6 +265,8 @@
 "button-ok" = "OK";
 "button-save-for-later" = "Save for later";
 "button-saved-for-later" = "Saved for later";
+"button-saved-remove" = "Remove from saved";
+"button-read-now" = "Read now";
 
 "button-report-a-bug" = "Report a bug";
 
