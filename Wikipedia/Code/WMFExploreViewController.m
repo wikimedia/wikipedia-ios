@@ -17,6 +17,7 @@
 #import "WMFNearbyContentSource.h"
 #import "WMFContinueReadingContentSource.h"
 #import "WMFFeedContentSource.h"
+#import "WMFRandomContentSource.h"
 
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
 #import "WMFArticlePreview.h"
@@ -103,6 +104,23 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 }
 
 #pragma mark - Accessors
+
+#pragma mark - UIRefreshControl
+
+- (void)setRefreshControl:(UIRefreshControl *)refreshControl {
+    [_refreshControl removeFromSuperview];
+    
+    _refreshControl = refreshControl;
+    
+    if (_refreshControl) {
+        if([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10]){
+            self.collectionView.refreshControl = _refreshControl;
+        }else{
+            _refreshControl.layer.zPosition = -100;
+            [self.collectionView addSubview:_refreshControl];
+        }
+    }
+}
 
 - (UIBarButtonItem *)settingsBarButtonItem {
     return [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"]
@@ -201,6 +219,8 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         }];
     }];
     
+    //TODO: nearby doesnt always fire.
+    //May need to time it out or exclude
     [group waitInBackgroundWithCompletion:^{
         [self resetRefreshControl];
     }];
