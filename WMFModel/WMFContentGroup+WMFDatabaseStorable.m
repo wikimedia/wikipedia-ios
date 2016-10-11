@@ -58,13 +58,14 @@
 + (NSURL *)urlForArticleURL:(NSURL*)url{
     NSURL* theURL = [[self baseUrl] URLByAppendingPathComponent:@"related-pages"];
     theURL = [theURL URLByAppendingPathComponent:url.wmf_domain];
+    theURL = [theURL URLByAppendingPathComponent:url.wmf_language];
     theURL = [theURL URLByAppendingPathComponent:url.wmf_title];
     return theURL;
 
 }
 
 - (NSString *)databaseKey {
-    return [[self class] databaseKeyForURL:self.articleURL];
+    return [[self class] databaseKeyForURL:[[self class] urlForArticleURL:self.articleURL]];
 }
 
 @end
