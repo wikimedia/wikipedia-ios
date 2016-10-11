@@ -3391,7 +3391,6 @@
 				D86706C01D3D4AD3003AB2FC /* Layout */,
 				0E52FD631DA4008A00587426 /* Content Display */,
 				0E19B9B31DA844D600239F3A /* More List */,
-				0E6A6F501D9E9A1300189C80 /* Content Sources */,
 				0E19B9AC1DA7DBE300239F3A /* Feed Models */,
 			);
 			name = Feed;
@@ -3898,6 +3897,7 @@
 		BC45D5471C31E1EA007C72F3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0E6A6F501D9E9A1300189C80 /* Content Sources */,
 				0E2B06F81B2D127A00EA2F53 /* Article List */,
 				BC45D5561C31EEBE007C72F3 /* Error Handling */,
 				BC45D5591C31EFF8007C72F3 /* i18n */,

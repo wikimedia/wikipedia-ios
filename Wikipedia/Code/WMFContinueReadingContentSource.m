@@ -42,6 +42,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 
 - (void)startUpdating{
     [self observeSavedPages];
+    [self loadNewContentForce:NO completion:NULL];
 }
 
 - (void)stopUpdating{

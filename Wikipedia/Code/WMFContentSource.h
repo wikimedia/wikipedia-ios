@@ -6,6 +6,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol WMFContentSource <NSObject>
 
 //Start monitoring for content updates
+// If you have any pending data to process you shoud do it now.
 - (void)startUpdating;
 
 //Stop monitoring for content updates

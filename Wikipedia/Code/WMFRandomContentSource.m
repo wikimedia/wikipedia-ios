@@ -44,11 +44,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - WMFContentSource
 
 - (void)startUpdating{
-    
+    [self loadNewContentForce:NO completion:NULL];
 }
 
 - (void)stopUpdating{
-    
     
 }
 

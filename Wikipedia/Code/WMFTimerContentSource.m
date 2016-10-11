@@ -22,6 +22,7 @@
 - (void)startUpdating{
     [self stopUpdating];
     self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:self.updateInterval target:self selector:@selector(updateWithTimer:) userInfo:nil repeats:YES];
+    [self loadNewContentForce:NO completion:NULL];
 }
 
 - (void)stopUpdating{

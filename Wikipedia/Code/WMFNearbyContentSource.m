@@ -66,6 +66,7 @@
 - (void)startUpdating{
     self.isFetchingInitialLocation = NO;
     [self.currentLocationManager startMonitoringLocation];
+    [self loadNewContentForce:NO completion:NULL];
 }
 
 - (void)stopUpdating{
