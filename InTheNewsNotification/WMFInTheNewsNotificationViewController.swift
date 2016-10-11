@@ -99,7 +99,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
         case UNNotificationDismissActionIdentifier:
             completion(.Dismiss)
         case WMFInTheNewsNotificationSaveForLaterActionIdentifier:
-            let dataStore: MWKUserDataStore = SessionSingleton.sharedInstance().userDataStore
+            let dataStore: MWKDataStore = SessionSingleton.sharedInstance().dataStore
             dataStore.savedPageList.addSavedPageWithURL(articleURL)
             completion(.Dismiss)
         case WMFInTheNewsNotificationShareActionIdentifier:
