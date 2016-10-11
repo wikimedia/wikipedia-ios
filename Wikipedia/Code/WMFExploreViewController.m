@@ -144,7 +144,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     NSParameterAssert(self.contentStore);
     if(!_sectionDataSource){
         _sectionDataSource = [self.contentStore contentGroupDataSource];
-        _sectionDataSource.granularDelegateCallbacksEnabled = YES;
+        _sectionDataSource.granularDelegateCallbacksEnabled = NO;
     }
     return _sectionDataSource;
 }
