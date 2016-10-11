@@ -12,13 +12,6 @@
 #import "WMFLocationManager.h"
 #import "CLLocation+WMFBearing.h"
 
-#import "WMFRelatedPagesContentSource.h"
-#import "WMFMainPageContentSource.h"
-#import "WMFNearbyContentSource.h"
-#import "WMFContinueReadingContentSource.h"
-#import "WMFFeedContentSource.h"
-#import "WMFRandomContentSource.h"
-
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
 #import "WMFArticlePreview.h"
 #import "MWKHistoryEntry.h"
@@ -64,8 +57,6 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 @interface WMFExploreViewController ()<WMFLocationManagerDelegate, WMFDataSourceDelegate, WMFColumnarCollectionViewLayoutDelegate>
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
-
-@property (nonatomic, strong) NSArray<id<WMFContentSource>>* contentSources;
 
 @property (nonatomic, strong) id<WMFDataSource> sectionDataSource;
 
@@ -147,23 +138,6 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     return _locationManager;
 }
 
-- (NSArray<id<WMFContentSource>>*)contentSources{
-    NSParameterAssert(self.contentStore);
-    NSParameterAssert(self.userStore);
-    NSParameterAssert(self.previewStore);
-    NSParameterAssert([self currentSiteURL]);
-    if(!_contentSources){
-        _contentSources = @[
-                            [[WMFRelatedPagesContentSource alloc] initWithContentGroupDataStore:self.contentStore userDataStore:self.userStore articlePreviewDataStore:self.previewStore],
-                            [[WMFMainPageContentSource alloc] initWithSiteURL:[self currentSiteURL] contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore],
-                            [[WMFContinueReadingContentSource alloc] initWithContentGroupDataStore:self.contentStore userDataStore:self.userStore articlePreviewDataStore:self.previewStore],
-                            [[WMFNearbyContentSource alloc] initWithSiteURL:[self currentSiteURL] contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore],
-                            [[WMFFeedContentSource alloc] initWithSiteURL:[self currentSiteURL] contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore],
-                            [[WMFRandomContentSource alloc] initWithSiteURL:[self currentSiteURL] contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore]];
-    }
-    return _contentSources;
-}
-
 - (id<WMFDataSource>)sectionDataSource{
     NSParameterAssert(self.contentStore);
     if(!_sectionDataSource){
@@ -197,18 +171,6 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 }
 
 #pragma mark - Feed Sources
-
-- (void)startContentSources{
-    //if we are creating them, lets load todays data
-    if(!_contentSources){
-        [self updateFeedSources];
-    }
-    [self.contentSources makeObjectsPerformSelector:@selector(startUpdating)];
-}
-
-- (void)stopContentSources{
-    [self.contentSources makeObjectsPerformSelector:@selector(stopUpdating)];
-}
 
 - (void)updateFeedSources{
     WMFTaskGroup* group = [WMFTaskGroup new];
@@ -349,27 +311,8 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 - (void)viewDidAppear:(BOOL)animated {
     NSParameterAssert(self.contentStore);
     NSParameterAssert(self.userStore);
+    NSParameterAssert(self.contentSources);
     [super viewDidAppear:animated];
-    
-    if([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToNewFeed]){
-        [self startContentSources];
-    }else{
-        WMFTaskGroup* group = [WMFTaskGroup new];
-        [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            if([obj respondsToSelector:@selector(preloadContentForNumberOfDays:completion:)]){
-                [group enter];
-                [obj preloadContentForNumberOfDays:2 completion:^{
-                    [group leave];
-                }];
-            }
-        }];
-        
-        [group waitInBackgroundWithCompletion:^{
-            [self startContentSources];
-            [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
-        }];
-    }
 }
 
 - (void)didReceiveMemoryWarning {
