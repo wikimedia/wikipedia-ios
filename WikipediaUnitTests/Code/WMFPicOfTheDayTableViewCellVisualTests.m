@@ -19,7 +19,7 @@
 
 - (void)setUp {
     [super setUp];
-    self.recordMode = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
+    self.recordMode = [[NSUserDefaults wmf_userDefaults] wmf_visualTestBatchRecordMode];
     self.deviceAgnostic = YES;
     self.cell = [WMFPicOfTheDayCollectionViewCell wmf_viewFromClassNib];
     [self.cell setDisplayTitle:@"Hey! I'm a display title!"];

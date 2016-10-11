@@ -150,7 +150,7 @@ extern NSString *const WMFDefaultSiteDomain;
  *
  * @return A new URL based on the URL you call this method on but with wikipedia:// as the scheme
  **/
-@property (nullable, nonatomic, copy, readonly) NSURL *wmf_wikipediaSchemeURL;
+@property (nonatomic, copy, readonly) NSURL *wmf_wikipediaSchemeURL;
 
 /**
  * Return a new URL similar to the URL you call this method on but replace the title and fragemnt.

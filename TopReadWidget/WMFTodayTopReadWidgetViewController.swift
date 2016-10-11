@@ -19,7 +19,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     let dataStore: MWKDataStore = SessionSingleton.sharedInstance().dataStore
     let databaseDateFormatter = NSDateFormatter.wmf_englishUTCNonDelimitedYearMonthDayFormatter()
     let headerDateFormatter = NSDateFormatter.wmf_shortMonthNameDayOfMonthNumberDateFormatter()
-    let numberFormatter = NSNumberFormatter()
     let daysToShowInSparkline: NSTimeInterval = 5
     
     @IBOutlet weak var footerLabelLeadingConstraint: NSLayoutConstraint!
@@ -79,12 +78,9 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             footerLabelLeadingConstraint.constant = 0
         }
         
-        numberFormatter.numberStyle = .DecimalStyle
-        numberFormatter.maximumFractionDigits = 1
         headerLabel.text = nil
         footerLabel.text = nil
-       
-        
+    
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:)))
         
         view.addGestureRecognizer(tapGR)
@@ -219,15 +215,14 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             vc.titleLabel.text = result.displayTitle
             vc.subtitleLabel.text = result.extract ?? result.wikidataDescription
             vc.imageView.wmf_reset()
-            vc.rankLabel.text = numberFormatter.stringFromNumber(i + 1)
+            vc.rankLabel.text = NSNumberFormatter.localizedThousandsStringFromNumber(i + 1)
             if let viewCounts = result.viewCounts where viewCounts.count > 0 {
                 vc.sparklineView.minDataValue = dataValueMin
                 vc.sparklineView.maxDataValue = dataValueMax
                 vc.sparklineView.dataValues = viewCounts
 
-                if let doubleValue = viewCounts.last?.doubleValue, let viewCountsString = numberFormatter.stringFromNumber(NSNumber(double: doubleValue/1000)) {
-                    let format = localizedStringForKeyFallingBackOnEnglish("top-read-reader-count-thousands")
-                    vc.viewCountLabel.text = format.stringByReplacingOccurrencesOfString("$1", withString: viewCountsString)
+                if let count = viewCounts.last {
+                    vc.viewCountLabel.text = NSNumberFormatter.localizedThousandsStringFromNumber(count)
                 } else {
                     vc.viewCountLabel.text = nil
                 }

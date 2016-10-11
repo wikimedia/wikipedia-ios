@@ -54,13 +54,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterReuseIdentifier";
 
-@interface WMFExploreViewController ()<WMFLocationManagerDelegate, WMFDataSourceDelegate, WMFColumnarCollectionViewLayoutDelegate>
+@interface WMFExploreViewController ()<WMFLocationManagerDelegate, WMFDataSourceDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate>
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
 @property (nonatomic, strong) id<WMFDataSource> sectionDataSource;
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+
+@property (nonatomic, strong, nullable) WMFContentGroup* groupForPreviewedCell;
 
 @end
 
@@ -726,19 +728,46 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 #pragma mark - Detail View Controller
 
-- (void)presentDetailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated {
+- (nullable UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath{
     WMFContentGroup* group = [self sectionAtIndex:indexPath.section];
-    //    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:group.contentType];
     
     switch ([group detailType]) {
         case WMFFeedDetailTypePage:{
             NSURL *url = [self contentURLForIndexPath:indexPath];
-            [self wmf_pushArticleWithURL:url dataStore:self.userStore previewStore:self.previewStore animated:animated];
+            WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore previewStore:self.previewStore];
+            return vc;
         }
             break;
         case WMFFeedDetailTypePageWithRandomButton:{
             NSURL *url = [self contentURLForIndexPath:indexPath];
             WMFRandomArticleViewController* vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore previewStore:self.previewStore];
+            return vc;
+        }
+            break;
+        case WMFFeedDetailTypeGallery:{
+            //            WMFFeedImage* image = [self imageInfoForIndexPath:indexPath];
+            //            WMFPOTDImageGalleryViewController *vc = [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date] selectedImageInfo:image];
+            //            [self presentViewController:vc animated:animated completion:nil];
+        }
+            break;
+        default:
+            NSAssert(false, @"Unknown Detail Type");
+            break;
+    }
+    return nil;
+}
+
+- (void)presentDetailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated {
+    UIViewController* vc = [self detailViewControllerForItemAtIndexPath:indexPath];
+    WMFContentGroup* group = [self sectionAtIndex:indexPath.section];
+    //    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:group.contentType];
+    
+    switch ([group detailType]) {
+        case WMFFeedDetailTypePage:{
+            [self.navigationController pushViewController:vc animated:animated];
+        }
+            break;
+        case WMFFeedDetailTypePageWithRandomButton:{
             [self.navigationController pushViewController:vc animated:animated];
         }
             break;
@@ -812,6 +841,73 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 - (void)locationManager:(WMFLocationManager *)controller didReceiveError:(NSError *)error {
     //TODO: probably not displaying the error, but maybe?
 }
+
+#pragma mark - WMFArticlePreviewingActionsDelegate
+
+- (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
+    [self wmf_pushArticleViewController:articleController animated:YES];
+}
+
+- (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
+                                       shareActivityController:(UIActivityViewController*)shareActivityController {
+    [self presentViewController:shareActivityController animated:YES completion:NULL];
+}
+
+
+#pragma mark - UIViewControllerPreviewingDelegate
+
+- (nullable UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+                       viewControllerForLocation:(CGPoint)location {
+    UICollectionViewLayoutAttributes *layoutAttributes = nil;
+
+    if ([self.collectionViewLayout respondsToSelector:@selector(layoutAttributesAtPoint:)]) {
+        layoutAttributes = [(id)self.collectionViewLayout layoutAttributesAtPoint:location];
+    }
+
+    if (layoutAttributes == nil) {
+        return nil;
+    }
+
+    NSIndexPath *previewIndexPath = layoutAttributes.indexPath;
+    NSInteger section = previewIndexPath.section;
+    NSInteger sectionCount = [self.collectionView numberOfItemsInSection:section];
+
+    if ([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter] && sectionCount > 0) {
+        //preview the last item in the section when tapping the footer
+        previewIndexPath = [NSIndexPath indexPathForItem:sectionCount - 1 inSection:section];
+    }
+
+    if (previewIndexPath.row >= sectionCount) {
+        return nil;
+    }
+
+    WMFContentGroup* group = [self sectionForIndexPath:previewIndexPath];
+    self.groupForPreviewedCell = group;
+
+    previewingContext.sourceRect = [self.collectionView cellForItemAtIndexPath:previewIndexPath].frame;
+
+    UIViewController *vc = [self detailViewControllerForItemAtIndexPath:previewIndexPath];
+//    [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:group];
+    
+    if ([vc isKindOfClass:[WMFArticleViewController class]]){
+        ((WMFArticleViewController*)vc).articlePreviewingActionsDelegate = self;
+    }
+
+    return vc;
+}
+
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+     commitViewController:(UIViewController *)viewControllerToCommit {
+//    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:self.groupForPreviewedCell];
+    self.groupForPreviewedCell = nil;
+
+    if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
+        [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
+    } else {
+        [self presentViewController:viewControllerToCommit animated:YES completion:nil];
+    }
+}
+
 
 #pragma mark - Analytics
 
