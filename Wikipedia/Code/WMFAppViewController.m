@@ -188,6 +188,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [self.exploreViewController setUserStore:[self dataStore]];
     [self.exploreViewController setPreviewStore:self.previewStore];
     [self.exploreViewController setContentStore:self.contentStore];
+    [self.exploreViewController setContentSources:self.contentSources];
 }
 
 - (void)configureArticleListController:(WMFArticleListTableViewController *)controller {
