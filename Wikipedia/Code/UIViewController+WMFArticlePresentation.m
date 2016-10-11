@@ -43,6 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
     [[PiwikTracker wmf_configuredInstance] wmf_logView:viewController];
 
     if(viewController.isAddingArticleToHistoryListEnabled){
+        // Use slight delay so history interface doesn't try to re-order items during push animation when you select item from history.
         dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
             MWKHistoryList *historyList = viewController.dataStore.userDataStore.historyList;
             [historyList addPageToHistoryWithURL:viewController.articleURL];
