@@ -23,7 +23,7 @@
     [super setUp];
 
     self.deviceAgnostic = YES;
-    self.recordMode = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
+    self.recordMode = [[NSUserDefaults wmf_userDefaults] wmf_visualTestBatchRecordMode];
 
     self.cell = [WMFArticlePreviewTableViewCell wmf_viewFromClassNib];
 

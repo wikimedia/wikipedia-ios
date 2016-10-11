@@ -46,21 +46,20 @@ abstract_target 'Foundation' do
   pod 'HockeySDK', '~> 4.1.0'
 
   pod 'hpple', '~> 0.2'
+  
+  target 'InTheNewsNotification' do
+  end
 
   target 'ContinueReadingWidget' do
-
   end
 
   target 'TopReadWidget' do
-
   end
 
   target 'WMFUtilities' do
-
   end
 
   target 'WMFModel' do
-
   end
 
   target 'WMFUI' do
