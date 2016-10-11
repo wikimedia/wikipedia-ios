@@ -88,6 +88,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchArticleIfNeeded;
 
+- (void)shareArticleWhenReady;
+
 @end
 
 @interface WMFArticleViewController (WMFSubclasses)

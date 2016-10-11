@@ -420,7 +420,7 @@
 "continue-reading-empty-description" = "Исследуйте Википедию, чтоб найти больше статьей для чтения";
 "top-read-see-more" = "Посмотреть ещё наиболее читаемые";
 "top-read-see-more-trending" = "Посмотреть, что ещё в тренде";
-"top-read-reader-count-thousands" = "$1 тыс.";
+"number-thousands" = "$1 тыс.";
 "top-read-header-with-language" = "$1 Википедия";
 "top-read-header-generic" = "Википедия";
 "reference-title" = "Примечание $1";

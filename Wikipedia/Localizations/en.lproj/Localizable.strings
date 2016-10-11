@@ -470,8 +470,17 @@
 
 "top-read-see-more" = "See more top read";
 "top-read-see-more-trending" = "See more trending";
-"top-read-reader-count-thousands" = "$1k";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
 
 "reference-title" = "Reference $1";
+
+"in-the-news-notification-read-now-action-title" = "Read Now";
+"in-the-news-notification-share-action-title" = "Share";
+"in-the-news-notification-save-for-later-action-title" = "Save for later";
+"in-the-news-notification-title" = "In the news";
+"in-the-news-currently-trending" = "Currently trending";
+
+"number-thousands" = "$1k";
+"number-millions" = "$1m";
+"number-billions" = "$1b";

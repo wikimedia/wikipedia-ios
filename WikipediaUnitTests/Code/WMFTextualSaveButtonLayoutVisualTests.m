@@ -12,7 +12,7 @@
 
 - (void)setUp {
     [super setUp];
-    self.recordMode = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
+    self.recordMode = [[NSUserDefaults wmf_userDefaults] wmf_visualTestBatchRecordMode];
     // these tests don't care about device (or window size), only OS version & writing direction
     self.deviceAgnostic = NO;
     // record snapshots at fixed size (regardless of window size) which must be larger than the content itself

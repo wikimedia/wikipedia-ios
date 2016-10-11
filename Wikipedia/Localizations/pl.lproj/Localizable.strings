@@ -354,5 +354,5 @@
 "explore-another-random" = "Inny losowy artykuł";
 "find-in-page-button-label" = "Znajdź na stronie";
 "find-in-page-popover-description" = "Wyszukiwanie tekstu w artykułach";
-"top-read-reader-count-thousands" = "$1 tys.";
+"number-thousands" = "$1 tys.";
 "top-read-header-generic" = "Wikipedia";

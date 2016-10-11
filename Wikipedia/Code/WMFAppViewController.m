@@ -48,6 +48,7 @@
 
 #import "WMFMostReadListTableViewController.h"
 
+#import "WMFNotificationsController.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 
 #define TEST_SHARED_CONTAINER_MIGRATION DEBUG && 0
@@ -105,6 +106,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
 
 @property (nonatomic, strong) WMFDailyStatsLoggingFunnel *statsFunnel;
+
+@property (nonatomic, strong) WMFNotificationsController *notificationsController;
 
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
@@ -312,6 +315,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     //    if (FBTweakValue(@"Alerts", @"General", @"Show message on launch", NO)) {
     //        [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     //    }
+
+    [self.notificationsController start];
+
     DDLogWarn(@"Resuming… Logging Important Statistics");
     [self logImportantStatistics];
 }
@@ -325,6 +331,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [self.dataStore startCacheRemoval];
     [[[SessionSingleton sharedInstance] dataStore] clearMemoryCache];
     [self.savedArticlesFetcher stop];
+    [self.notificationsController stop];
 
     DDLogWarn(@"Backgrounding… Logging Important Statistics");
     [self logImportantStatistics];
@@ -534,15 +541,16 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 #pragma mark - Utilities
 
-- (void)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated {
+- (WMFArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated {
     if (!articleURL.wmf_title) {
-        return;
+        return nil;
     }
-    if ([[self onscreenURL] isEqual:articleURL]) {
-        return;
+    WMFArticleViewController *visibleArticleViewController = self.visibleArticleViewController;
+    if ([visibleArticleViewController.articleURL isEqual:articleURL]) {
+        return visibleArticleViewController;
     }
     [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-    [[self exploreViewController] wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore restoreScrollPosition:YES animated:animated];
+    return [[self exploreViewController] wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore restoreScrollPosition:YES animated:animated];
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
@@ -561,10 +569,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     return [self navigationControllerForTab:WMFAppTabTypeExplore].viewControllers.count > 1;
 }
 
-- (NSURL *)onscreenURL {
+- (WMFArticleViewController *)visibleArticleViewController {
     UINavigationController *navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
-    if ([navVC.topViewController isKindOfClass:[WMFArticleViewController class]]) {
-        return ((WMFArticleViewController *)navVC.topViewController).articleURL;
+    UIViewController *topVC = navVC.topViewController;
+    if ([topVC isKindOfClass:[WMFArticleViewController class]]) {
+        return (WMFArticleViewController *)topVC;
     }
     return nil;
 }
@@ -600,6 +609,18 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         _randomFetcher = [[WMFRandomArticleFetcher alloc] init];
     }
     return _randomFetcher;
+}
+
+- (WMFNotificationsController *)notificationsController {
+    if (![self uiIsLoaded]) {
+        return nil;
+    }
+
+    if (!_notificationsController) {
+        _notificationsController = [[WMFNotificationsController alloc] init];
+    }
+
+    return _notificationsController;
 }
 
 - (SessionSingleton *)session {
@@ -920,6 +941,25 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     [dialog addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil) style:UIAlertActionStyleCancel handler:NULL]];
 
     [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:dialog animated:YES completion:NULL];
+}
+
+#pragma mark - UNUserNotificationCenterDelegate
+
+// The method will be called on the delegate only if the application is in the foreground. If the method is not implemented or the handler is not called in a timely manner then the notification will not be presented. The application can choose to have the notification presented as a sound, badge, alert and/or in the notification list. This decision should be based on whether the information in the notification is otherwise visible to the user.
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+    completionHandler(UNNotificationPresentationOptionAlert);
+}
+
+// The method will be called on the delegate when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction. The delegate must be set before the application returns from applicationDidFinishLaunching:.
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
+    if ([response.actionIdentifier isEqualToString:WMFInTheNewsNotificationShareActionIdentifier]) {
+        NSDictionary *info = response.notification.request.content.userInfo;
+        NSString *articleURLString = info[WMFNotificationInfoArticleURLStringKey];
+        NSURL *articleURL = [NSURL URLWithString:articleURLString];
+        WMFArticleViewController *articleVC = [self showArticleForURL:articleURL animated:NO];
+        [articleVC shareArticleWhenReady];
+    }
+    completionHandler();
 }
 
 @end
