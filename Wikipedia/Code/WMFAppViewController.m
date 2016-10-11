@@ -24,6 +24,7 @@
 // Model
 #import "MWKSearchResult.h"
 #import "MWKLanguageLinkController.h"
+#import "WMFContentGroup.h"
 
 //Content Sources
 #import "WMFRelatedPagesContentSource.h"
@@ -48,7 +49,7 @@
 #import "WMFFirstRandomViewController.h"
 #import "WMFWelcomeViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
-#import "WMFNearbyListViewController.h"
+#import "WMFMorePageListViewController.h"
 #import "UIViewController+WMFSearch.h"
 #import "UINavigationController+WMFHideEmptyToolbar.h"
 
@@ -891,20 +892,30 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
     }
     
-    WMFFirstRandomViewController* vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:[self dataStore] previewStore:self.previewStore];
+    WMFFirstRandomViewController* vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore previewStore:self.previewStore];
     [exploreNavController pushViewController:vc animated:animated];
 }
 
 - (void)showNearbyListAnimated:(BOOL)animated {
-//    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-//    UINavigationController *exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
-//    if (exploreNavController.presentedViewController) {
-//        [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
-//    }
-//    [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
-//    NSURL *siteURL = [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
-//    WMFNearbyListViewController *vc = [[WMFNearbyListViewController alloc] initWithSearchSiteURL:siteURL dataStore:self.dataStore];
-//    [[self navigationControllerForTab:WMFAppTabTypeExplore] pushViewController:vc animated:animated];
+    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+    UINavigationController *exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
+    if (exploreNavController.presentedViewController) {
+        [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
+    }
+    [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+    [[self nearbyContentSource] loadNewContentForce:NO completion:^{
+        WMFContentGroup* nearby = [self.contentStore firstGroupOfKind:[WMFLocationContentGroup kind] forDate:[NSDate date]];
+        if(!nearby){
+            //TODO: show an error?
+            return;
+        }
+        
+        NSArray* urls = [self.contentStore contentForContentGroup:nearby];
+        
+        WMFMorePageListViewController* vc = [[WMFMorePageListViewController alloc] initWithGroup:nearby articleURLs:urls userDataStore:self.dataStore previewStore:self.previewStore];
+        vc.cellType = WMFMorePageListCellTypeLocation;
+        [[self navigationControllerForTab:WMFAppTabTypeExplore] pushViewController:vc animated:animated];
+    }];
 }
 
 #pragma mark - Download Assets
