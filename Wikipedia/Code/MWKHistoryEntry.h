@@ -15,6 +15,8 @@
 @property (readwrite, assign, nonatomic, getter=isBlackListed) BOOL blackListed;
 @property (readwrite, assign, nonatomic) BOOL titleWasSignificantlyViewed;
 
+@property (readwrite, strong, nonatomic) NSDate *inTheNewsNotificationDate;
+
 - (instancetype)initWithURL:(NSURL *)url NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
