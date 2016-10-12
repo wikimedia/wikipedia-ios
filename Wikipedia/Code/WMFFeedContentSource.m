@@ -230,7 +230,7 @@ static NSTimeInterval WMFFeedNotificationArticleRepeatLimit = 30 * 24 * 60 * 60;
 
     for (WMFFeedNewsStory *newsStory in feedDay.newsStories) {
         WMFFeedTopReadArticlePreview *articlePreviewToNotifyAbout = nil;
-        NSMutableArray <NSURL *>*articleURLs = [NSMutableArray arrayWithCapacity:newsStory.articlePreviews.count];
+        NSMutableArray<NSURL *> *articleURLs = [NSMutableArray arrayWithCapacity:newsStory.articlePreviews.count];
         for (WMFFeedArticlePreview *articlePreview in newsStory.articlePreviews) {
             NSURL *articleURL = articlePreview.articleURL;
             if (!articleURL) {
@@ -244,12 +244,14 @@ static NSTimeInterval WMFFeedNotificationArticleRepeatLimit = 30 * 24 * 60 * 60;
             WMFFeedTopReadArticlePreview *topReadArticlePreview = topReadArticlesByKey[key];
             if (topReadArticlePreview) {
                 MWKHistoryEntry *entry = [self.userDataStore entryForURL:articlePreview.articleURL];
-                if (entry.inTheNewsNotificationDate && [entry.inTheNewsNotificationDate timeIntervalSinceNow] < WMFFeedNotificationArticleRepeatLimit) {
+                BOOL notifiedRecently = entry.inTheNewsNotificationDate && [entry.inTheNewsNotificationDate timeIntervalSinceNow] < WMFFeedNotificationArticleRepeatLimit;
+                BOOL viewedRecently = entry.dateViewed && [entry.dateViewed timeIntervalSinceNow] < WMFFeedNotificationArticleRepeatLimit;
+                if (notifiedRecently || viewedRecently) {
                     articlePreviewToNotifyAbout = nil;
                     break;
                 }
                 if (!articlePreviewToNotifyAbout || topReadArticlePreview.rank < articlePreviewToNotifyAbout.rank) {
-                     articlePreviewToNotifyAbout = topReadArticlePreview;
+                    articlePreviewToNotifyAbout = topReadArticlePreview;
                 }
             }
         }
@@ -262,7 +264,6 @@ static NSTimeInterval WMFFeedNotificationArticleRepeatLimit = 30 * 24 * 60 * 60;
 }
 
 - (void)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory articlePreview:(WMFFeedTopReadArticlePreview *)articlePreview {
-    
 }
 
 @end
