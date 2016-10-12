@@ -2,7 +2,6 @@
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "UIViewController+WMFWelcomeNavigation.h"
 #import "UIButton+WMFWelcomeNextButton.h"
 
 @import HockeySDK;
@@ -11,7 +10,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *subTitleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *toggleLabel;
-@property (strong, nonatomic) IBOutlet UIView *dividerAboveNextStepButton;
 @property (strong, nonatomic) IBOutlet UIButton *nextStepButton;
 @property (strong, nonatomic) IBOutlet UISwitch *toggle;
 @property (strong, nonatomic) IBOutlet WelcomeAnalyticsAnimationView *animationView;
@@ -26,7 +24,6 @@
     self.subTitleLabel.text = MWLocalizedString(@"welcome-volunteer-sub-title", nil);
 
     [self.nextStepButton wmf_configureAsWelcomeNextButton];
-    self.dividerAboveNextStepButton.backgroundColor = [UIColor wmf_welcomeNextButtonDividerBackgroundColor];
 
     [self updateToggleLabelTitleForUsageReportsIsOn:NO];
 
@@ -38,8 +35,6 @@
         self.toggle.on = NO;
         [[BITHockeyManager sharedHockeyManager] crashManager].crashManagerStatus = BITCrashManagerStatusAlwaysAsk;
     }
-
-    [self wmf_setupTransparentWelcomeNavigationBarWithBackChevron];
 
     self.animationView.backgroundColor = [UIColor clearColor];
 }
@@ -70,7 +65,6 @@
 - (void)updateToggleLabelTitleForUsageReportsIsOn:(BOOL)isOn {
     NSString *title = isOn ? [MWLocalizedString(@"welcome-volunteer-thanks", nil) stringByReplacingOccurrencesOfString:@"$1" withString:@"😀"] : MWLocalizedString(@"welcome-volunteer-send-usage-reports", nil);
     self.toggleLabel.text = title;
-    self.toggleLabel.textColor = isOn ? [UIColor wmf_green] : [UIColor darkGrayColor];
 }
 
 @end

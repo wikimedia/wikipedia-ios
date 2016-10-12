@@ -21,6 +21,7 @@
 #import "MWNetworkActivityIndicatorManager.h"
 #import "NSFileManager+WMFExtendedFileAttributes.h"
 #import "WMFTaskGroup.h"
+#import "UIViewController+WMFStoryboardUtilities.h"
 
 // View Controllers
 #import "WMFArticleViewController_Private.h"
@@ -28,6 +29,10 @@
 #import "WMFArticleListDataSourceTableViewController.h"
 #import "WMFExploreViewController.h"
 #import "WMFLanguagesViewController.h"
+#import "WMFWelcomeIntroductionViewController.h"
+#import "WMFWelcomeLanguageViewController.h"
+#import "WMFWelcomeAnalyticsViewController.h"
+#import "WMFWelcomeFadeInAndUpOnceViewController.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"

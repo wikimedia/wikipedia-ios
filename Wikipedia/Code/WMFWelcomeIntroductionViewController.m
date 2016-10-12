@@ -28,7 +28,6 @@
     [self.nextButton setTitle:[MWLocalizedString(@"welcome-explore-continue-button", nil) uppercaseStringWithLocale:[NSLocale currentLocale]]
                      forState:UIControlStateNormal];
 
-    [self.nextButton setTitleColor:[UIColor wmf_blueTintColor] forState:UIControlStateNormal];
     self.animationView.backgroundColor = [UIColor clearColor];
 }
 

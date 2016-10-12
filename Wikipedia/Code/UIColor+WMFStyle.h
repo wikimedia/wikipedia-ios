@@ -105,8 +105,6 @@
 
 + (instancetype)wmf_welcomeNextButtonBackgroundColor;
 
-+ (instancetype)wmf_welcomeNextButtonDividerBackgroundColor;
-
 + (instancetype)wmf_primaryLanguageLabelBackgroundColor;
 
 + (instancetype)wmf_barButtonItemPopoverMessageBackgroundColor;

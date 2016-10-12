@@ -4,7 +4,6 @@
 #import "UIView+WMFDefaultNib.h"
 #import "MWKLanguageLink.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "UIViewController+WMFWelcomeNavigation.h"
 #import "UIButton+WMFWelcomeNextButton.h"
 #import "WMFLanguagesViewController.h"
 
@@ -15,7 +14,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *subTitleLabel;
 @property (strong, nonatomic) IBOutlet UIButton *moreLanguagesButton;
 @property (strong, nonatomic) IBOutlet UIButton *nextStepButton;
-@property (strong, nonatomic) IBOutlet UIView *dividerAboveNextStepButton;
 @property (strong, nonatomic) IBOutlet WelcomeLanguagesAnimationView *animationView;
 
 @end
@@ -37,9 +35,6 @@
 
     [self.nextStepButton wmf_configureAsWelcomeNextButton];
 
-    self.dividerAboveNextStepButton.backgroundColor = [UIColor wmf_welcomeNextButtonDividerBackgroundColor];
-
-    [self wmf_setupTransparentWelcomeNavigationBarWithBackChevron];
     self.animationView.backgroundColor = [UIColor clearColor];
 }
 

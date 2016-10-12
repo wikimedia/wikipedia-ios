@@ -341,16 +341,6 @@
     return c;
 }
 
-+ (instancetype)wmf_welcomeNextButtonDividerBackgroundColor {
-    static UIColor *c = nil;
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        c = [UIColor wmf_colorWithHex:0xC5D1EA alpha:1.0];
-    });
-    return c;
-}
-
 + (instancetype)wmf_primaryLanguageLabelBackgroundColor {
     static UIColor *c = nil;
 

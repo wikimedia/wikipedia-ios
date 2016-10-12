@@ -1,5 +1,6 @@
 #import "WMFWelcomeFadeInAndUpOnceViewController.h"
 #import "UIView+WMFWelcomeFadeInAndUp.h"
+#import "Wikipedia-Swift.h"
 
 @interface WMFWelcomeFadeInAndUpOnceViewController ()
 
@@ -23,6 +24,10 @@
         [self.containerView wmf_fadeInAndUpAfterDelay:[self.fadeInAndUpDelay floatValue]];
     }
     self.hasAlreadyFaded = YES;
+}
+
+- (IBAction)next:(id)sender {
+    [self.delegate showNextWelcomePage:self];
 }
 
 @end
