@@ -89,6 +89,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.navigationController.toolbarHidden = YES;
     [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
 }
 
