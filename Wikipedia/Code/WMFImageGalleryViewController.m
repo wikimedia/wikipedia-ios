@@ -670,18 +670,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFPOTDImageGalleryViewController
 
-- (instancetype)initWithDates:(NSArray<NSDate *> *)imageDates selectedImageInfo:(nullable MWKImageInfo *)imageInfo {
+- (instancetype)initWithDates:(NSArray<NSDate *> *)imageDates{
     NSParameterAssert(imageDates);
     NSArray *items = imageDates;
     NSArray<WMFPOTDPhoto *> *photos = [WMFPOTDPhoto photosWithDates:items];
 
-    WMFPOTDPhoto *selected = nil;
-    if (imageInfo) {
-        selected = [photos firstObject];
-        selected.thumbnailImageInfo = imageInfo;
-    }
-
-    self = [super initWithPhotos:photos initialPhoto:selected delegate:nil];
+    self = [super initWithPhotos:photos initialPhoto:nil delegate:nil];
     if (self) {
         self.infoFetcher = [[MWKImageInfoFetcher alloc] init];
     }
