@@ -11,52 +11,50 @@ NSString *const WMFBlackListSortedByURLUngroupedView = @"WMFBlackListSortedByURL
 NSString *const WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignificnatlyViewedAndNotBlacklistedAndNotMainPageView = @"WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignificnatlyViewedAndNotBlacklistedAndNotMainPageView";
 NSString *const WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView = @"WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView";
 
-
 @implementation MWKHistoryEntry (WMFDatabaseViews)
 
-+ (void)registerViewsInDatabase:(YapDatabase*)database{
-    
++ (void)registerViewsInDatabase:(YapDatabase *)database {
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         YapDatabaseViewGrouping *grouping = [self wmf_historyGroupingSingleGroup];
         YapDatabaseViewSorting *sorting = [self wmf_historySortedByDateDescending];
         YapDatabaseView *databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting];
         [database wmf_registerView:databaseView withName:WMFHistorySortedByDateUngroupedView];
-        
+
         grouping = [self wmf_historyGroupingByDate];
         sorting = [self wmf_historySortedByDateDescending];
         databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting];
         [database wmf_registerView:databaseView withName:WMFHistorySortedByDateGroupedByDateView];
-        
+
         grouping = [self wmf_savedGroupingSingleGroup];
         sorting = [self wmf_savedSortedByDateDescending];
         databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting];
         [database wmf_registerView:databaseView withName:WMFSavedSortedByDateUngroupedView];
-        
+
         grouping = [self wmf_historyOrSavedGroupingSingleGroup];
         sorting = [self wmf_historyOrSavedSortedByURL];
         databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting versionTag:@"1"];
         [database wmf_registerView:databaseView withName:WMFHistoryOrSavedSortedByURLUngroupedView];
-        
+
         grouping = [self wmf_blackListGroupingSingleGroup];
         sorting = [self wmf_historyOrSavedSortedByURL];
         databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting];
         [database wmf_registerView:databaseView withName:WMFBlackListSortedByURLUngroupedView];
-        
+
         grouping = [self wmf_notInHistorySavedOrBlackListGroupingSingleGroup];
         sorting = [self wmf_historyOrSavedSortedByURL];
         databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting];
         [database wmf_registerView:databaseView withName:WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView];
-        
+
         YapDatabaseViewFiltering *filtering = [self wmf_historyOrSavedSignificantlyViewedAndNotBlacklistedAndNotMainPageFilter];
         YapDatabaseFilteredView *filteredView =
-        [[YapDatabaseFilteredView alloc] initWithParentViewName:WMFHistoryOrSavedSortedByURLUngroupedView
-                                                      filtering:filtering
-                                                     versionTag:@"3"];
+            [[YapDatabaseFilteredView alloc] initWithParentViewName:WMFHistoryOrSavedSortedByURLUngroupedView
+                                                          filtering:filtering
+                                                         versionTag:@"3"];
         [database wmf_registerView:filteredView withName:WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignificnatlyViewedAndNotBlacklistedAndNotMainPageView];
     });
 }
-
 
 + (YapDatabaseViewGrouping *)wmf_historyGroupingSingleGroup {
     return [YapDatabaseViewGrouping withObjectBlock:^NSString *_Nullable(YapDatabaseReadTransaction *_Nonnull transaction, NSString *_Nonnull collection, NSString *_Nonnull key, MWKHistoryEntry *_Nonnull object) {
@@ -125,14 +123,13 @@ NSString *const WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView = @"WMFN
         if (![collection isEqualToString:[MWKHistoryEntry databaseCollectionName]]) {
             return nil;
         }
-        if (object.dateViewed == nil && object.dateSaved == nil && object.blackListed == NO) {
+        if (object.dateViewed == nil && object.dateSaved == nil && object.blackListed == NO && object.inTheNewsNotificationDate == nil) {
             return @"";
         } else {
             return nil;
         }
     }];
 }
-
 
 + (YapDatabaseViewSorting *)wmf_historySortedByDateDescending {
     return [YapDatabaseViewSorting withObjectBlock:^NSComparisonResult(YapDatabaseReadTransaction *_Nonnull transaction, NSString *_Nonnull group, NSString *_Nonnull collection1, NSString *_Nonnull key1, MWKHistoryEntry *_Nonnull object1, NSString *_Nonnull collection2, NSString *_Nonnull key2, MWKHistoryEntry *_Nonnull object2) {
