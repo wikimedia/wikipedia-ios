@@ -32,6 +32,16 @@
 				<string>wikipedia</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>userzoomc5224a1</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>userzoomc5224a1</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>955</string>
@@ -102,6 +112,10 @@
 	<string>3</string>
 	<key>WMFPiwikURL</key>
 	<string>https://piwik.wikimedia.org/</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Opt-in user testing</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Opt-in user testing</string>
 	<key>WMFShowDebugMenu</key>
 	<false/>
 </dict>
