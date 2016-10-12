@@ -341,8 +341,7 @@
 "home-hide-suggestion-prompt" = "Singidaken saran iki";
 "home-hide-suggestion-cancel" = "Batal";
 "home-accessibility-label" = "Wikipedia, Njelajah";
-// Fuzzy
-"home-button-accessibility-label" = "Tombol Ngarep";
+"home-button-accessibility-label" = "Latar";
 "potd-empty-error-description" = "Gagal kanggo nompo Gambar dina kanggo $1";
 "potd-description-prefix" = "Gambar saka dina kanggo $1";
 "welcome-explore-title" = "Njelajah";

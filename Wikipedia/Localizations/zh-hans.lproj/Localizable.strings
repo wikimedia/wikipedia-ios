@@ -352,8 +352,7 @@
 "home-hide-suggestion-prompt" = "隐藏该建议";
 "home-hide-suggestion-cancel" = "取消";
 "home-accessibility-label" = "维基百科，探索";
-// Fuzzy
-"home-button-accessibility-label" = "首页按钮";
+"home-button-accessibility-label" = "首页";
 "potd-empty-error-description" = "无法检索$1的每日图片";
 "potd-description-prefix" = "$1的每日图片";
 "welcome-explore-title" = "探索";

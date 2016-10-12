@@ -353,8 +353,7 @@
 "home-hide-suggestion-prompt" = "Ocultar esta sugerencia";
 "home-hide-suggestion-cancel" = "Cancelar";
 "home-accessibility-label" = "Wikipedia, Explorar";
-// Fuzzy
-"home-button-accessibility-label" = "Botón se inicio";
+"home-button-accessibility-label" = "Inicio";
 "potd-empty-error-description" = "No se pudo obtener la foto del día del $1";
 "potd-description-prefix" = "Foto del día del $1";
 "welcome-explore-title" = "Explorar";
