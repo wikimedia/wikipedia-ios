@@ -349,8 +349,7 @@
 "home-hide-suggestion-prompt" = "Ẩn gợi ý này";
 "home-hide-suggestion-cancel" = "Huỷ bỏ";
 "home-accessibility-label" = "Wikipedia, Khám phá";
-// Fuzzy
-"home-button-accessibility-label" = "Nút Trang chủ";
+"home-button-accessibility-label" = "Trang chủ";
 "potd-empty-error-description" = "Thất bại khi lấy hình trong ngày cho $1";
 "potd-description-prefix" = "Hình trong ngày cho $1";
 "welcome-explore-title" = "Thám hiểm";

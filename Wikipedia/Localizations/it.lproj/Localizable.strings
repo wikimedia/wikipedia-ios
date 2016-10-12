@@ -361,8 +361,7 @@
 "home-hide-suggestion-prompt" = "Nascondi questo suggerimento";
 "home-hide-suggestion-cancel" = "Annulla";
 "home-accessibility-label" = "Wikipedia, esplora";
-// Fuzzy
-"home-button-accessibility-label" = "Tasto pagina principale";
+"home-button-accessibility-label" = "Pagina principale";
 "potd-empty-error-description" = "Impossibile recuperare l'immagine del giorno del $1";
 "potd-description-prefix" = "Immagine del giorno per $1";
 "welcome-explore-title" = "Esplora";

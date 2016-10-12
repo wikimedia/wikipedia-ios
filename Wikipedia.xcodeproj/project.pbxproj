@@ -1278,6 +1278,8 @@
 		B07D25DA1D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableSet+WMFSafeAdd.m"; path = "Wikipedia/Code/NSMutableSet+WMFSafeAdd.m"; sourceTree = SOURCE_ROOT; };
 		B07D25DC1D27537E00550721 /* WMFUpstreamHTMLFormatChangesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFUpstreamHTMLFormatChangesTests.m; sourceTree = "<group>"; };
 		B07D25DF1D29974E00550721 /* MWKImageEqualityTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageEqualityTests.m; path = WikipediaUnitTests/Code/MWKImageEqualityTests.m; sourceTree = SOURCE_ROOT; };
+		B083371B1DAD77D7002860D2 /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B083371C1DAD77D7002860D2 /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B0866F431CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleLanguagesSectionFooter.h; sourceTree = "<group>"; };
 		B0866F441CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleLanguagesSectionFooter.m; sourceTree = "<group>"; };
 		B0866F451CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleLanguagesSectionFooter.xib; sourceTree = "<group>"; };
@@ -6430,7 +6432,6 @@
 				fy,
 				"gom-latn",
 				"ku-latn",
-				lv,
 				mai,
 				mt,
 				nah,
@@ -6441,6 +6442,7 @@
 				vec,
 				wuu,
 				xmf,
+				lv,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
@@ -7765,6 +7767,7 @@
 				B02B76A11CA9ED4400EDB253 /* ckb */,
 				B09D5C051CFF58C4001C878A /* ur */,
 				B0FCB23A1D3D5BEC00D80D57 /* el */,
+				B083371C1DAD77D7002860D2 /* lv */,
 			);
 			name = InfoPlist.strings;
 			path = Localizations;
@@ -7851,6 +7854,7 @@
 				B02B76A01CA9ED4400EDB253 /* ckb */,
 				B09D5C041CFF58C3001C878A /* ur */,
 				B0FCB2391D3D5BEC00D80D57 /* el */,
+				B083371B1DAD77D7002860D2 /* lv */,
 			);
 			name = Localizable.strings;
 			path = Localizations;

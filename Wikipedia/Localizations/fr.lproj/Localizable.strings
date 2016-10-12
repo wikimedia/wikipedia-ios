@@ -352,8 +352,7 @@
 "home-hide-suggestion-prompt" = "Masquer cette suggestion";
 "home-hide-suggestion-cancel" = "Annuler";
 "home-accessibility-label" = "Wikipédia, Explore";
-// Fuzzy
-"home-button-accessibility-label" = "Bouton Accueil";
+"home-button-accessibility-label" = "Accueil";
 "potd-empty-error-description" = "Échec de récupération de l’image du jour pour $1";
 "potd-description-prefix" = "Image du jour pour $1";
 "welcome-explore-title" = "Explorer";
