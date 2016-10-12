@@ -194,11 +194,9 @@
         
         [self removeOldSectionsForDate:group.date];
         [self.contentStore addContentGroup:group associatedContent:urls];
+        [self.contentStore notifyWhenWriteTransactionsComplete:completion];
         
         self.isProcessingLocation = NO;
-        if(completion){
-            completion();
-        }
 
     } failure:^(NSError * _Nonnull error) {
         self.isProcessingLocation = NO;

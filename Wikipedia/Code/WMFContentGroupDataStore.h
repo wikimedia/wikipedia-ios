@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Content Management
 
-- (void)addContentGroup:(WMFContentGroup*)section associatedContent:(nullable NSArray<NSCoding>*)content;
+- (void)addContentGroup:(WMFContentGroup*)group associatedContent:(NSArray<NSCoding>*)content;
 
 - (void)removeContentGroup:(WMFContentGroup*)group;
 

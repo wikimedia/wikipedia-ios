@@ -52,6 +52,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction* _Nonnull transaction))block;
 
+- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction* _Nonnull transaction))block completion:(dispatch_block_t)completion;
+
+- (void)notifyWhenWriteTransactionsComplete:(nullable dispatch_block_t)completion;
+
 @end
 
 

@@ -101,9 +101,7 @@ NS_ASSUME_NONNULL_BEGIN
                                             [self.previewStore addPreviewWithURL:url updatedWithSearchResult:result];
                                             [self.contentStore addContentGroup:random associatedContent:@[url]];
                                             
-                                            if(completion){
-                                                completion();
-                                            }
+                                            [self.contentStore notifyWhenWriteTransactionsComplete:completion];
                                         }];
 
 }

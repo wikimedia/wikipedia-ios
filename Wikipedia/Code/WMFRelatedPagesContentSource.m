@@ -224,9 +224,8 @@ NS_ASSUME_NONNULL_BEGIN
             [self.previewStore addPreviewWithURL:urls[idx] updatedWithSearchResult:obj];
         }];
         [self.contentStore addContentGroup:group associatedContent:urls];
-        if(completion){
-            completion();
-        }
+        [self.contentStore notifyWhenWriteTransactionsComplete:completion];
+        
     } failureBlock:^(NSError * _Nonnull error) {
         //TODO: how to handle failure?
         if(completion){

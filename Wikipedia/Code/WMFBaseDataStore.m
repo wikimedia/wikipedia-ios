@@ -99,6 +99,15 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
+- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction* _Nonnull transaction))block completion:(dispatch_block_t)completion{
+    [self readWriteWithBlock:block];
+    [self notifyWhenWriteTransactionsComplete:completion];
+}
+
+- (void)notifyWhenWriteTransactionsComplete:(nullable dispatch_block_t)completion{
+    [self.writeConnection flushTransactionsWithCompletionQueue:dispatch_get_main_queue() completionBlock:completion];
+}
+
 
 #pragma mark - YapDatabaseModified Notification
 
