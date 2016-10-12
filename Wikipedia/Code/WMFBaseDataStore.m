@@ -26,8 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init {
     self = [self initWithDatabase:[YapDatabase sharedInstance]];
-    if (self) {
-    }
     return self;
 }
 
@@ -35,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(database);
     self = [super init];
     if (self) {
+        self.databaseSyncingEnabled = YES;
         self.database = database;
         self.changeHandlers = [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsWeakMemory];
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -103,7 +102,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - YapDatabaseModified Notification
 
+- (void)setDatabaseSyncingEnabled:(BOOL)databaseSyncingEnabled{
+    _databaseSyncingEnabled = databaseSyncingEnabled;
+    if(_databaseSyncingEnabled){
+        [self syncDataStoreToDatabase];
+    }
+}
+
 - (void)yapDatabaseModified:(NSNotification *)notification {
+    if(!self.databaseSyncingEnabled){
+        return;
+    }
     [self syncDataStoreToDatabase];
     [self dataStoreWasUpdatedWithNotification:notification];
 }

@@ -29,6 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly, strong, nonatomic) YapDatabase *database;
 
+/*
+ * Updates from databse processed automatically. Default = YES
+ */
+@property (assign, nonatomic) BOOL databaseSyncingEnabled;
+
 /**
  *  Call this to manually sync the database.
  *  Useful for when resuming and the DB may have been modified out of process
