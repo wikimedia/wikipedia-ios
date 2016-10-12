@@ -61,19 +61,25 @@ NS_ASSUME_NONNULL_BEGIN
     [self loadContentForDate:[NSDate date] completion:completion];
 }
 
-- (void)preloadContentForNumberOfDays:(NSInteger)days completion:(nullable dispatch_block_t)completion {
-    NSDate *dateToLoad = [[NSDate date] dateByAddingDays:-days];
-    [self loadContentForDate:dateToLoad
+- (void)loadContentFromDate:(NSDate *)fromDate forwardForDays:(NSInteger)days completion:(nullable dispatch_block_t)completion {
+    if (days <= 0) {
+        if (completion) {
+            completion();
+        }
+        return;
+    }
+    [self loadContentForDate:fromDate
                   completion:^{
-                      NSInteger numberOfDays = days - 1;
-                      if (numberOfDays > 0) {
-                          [self preloadContentForNumberOfDays:numberOfDays completion:completion];
-                      } else {
-                          if (completion) {
-                              completion();
-                          }
-                      }
+                      NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
+                      NSDate *updatedFromDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:fromDate options:NSCalendarMatchStrictly];
+                      [self loadContentFromDate:updatedFromDate forwardForDays:days - 1 completion:completion];
                   }];
+}
+
+- (void)preloadContentForNumberOfDays:(NSInteger)days completion:(nullable dispatch_block_t)completion {
+    NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
+    NSDate *fromDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:-days toDate:[NSDate date] options:NSCalendarMatchStrictly];
+    [self loadContentFromDate:fromDate forwardForDays:days completion:completion];
 }
 
 - (void)loadContentForDate:(NSDate *)date completion:(nullable dispatch_block_t)completion {
@@ -114,11 +120,13 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Save Groups
 
 - (void)saveContentForFeedDay:(WMFFeedDayResponse *)feedDay onDate:(NSDate *)date completion:(dispatch_block_t)completion {
-    [self scheduleNotificationsForFeedDay:feedDay];
+    [self scheduleNotificationsForFeedDay:feedDay onDate:date];
     [self saveGroupForFeaturedPreview:feedDay.featuredArticle date:date];
     [self saveGroupForTopRead:feedDay.topRead date:date];
     [self saveGroupForPictureOfTheDay:feedDay.pictureOfTheDay date:date];
-    //    [self saveGroupForNews:feedDay.newsStories date:date];
+    if ([date wmf_isTodayUTC]) {
+        [self saveGroupForNews:feedDay.newsStories date:date];
+    }
     [self.contentStore notifyWhenWriteTransactionsComplete:completion];
 }
 
@@ -202,7 +210,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Notifications
 
-- (void)scheduleNotificationsForFeedDay:(WMFFeedDayResponse *)feedDay {
+- (void)scheduleNotificationsForFeedDay:(WMFFeedDayResponse *)feedDay onDate:(NSDate *)date {
+    if (![date wmf_isTodayUTC]) { //in the news notifications only valid for the current day
+        return;
+    }
     NSArray<WMFFeedTopReadArticlePreview *> *articlePreviews = feedDay.topRead.articlePreviews;
     NSMutableDictionary<NSString *, WMFFeedTopReadArticlePreview *> *topReadArticlesByKey = [NSMutableDictionary dictionaryWithCapacity:articlePreviews.count];
     for (WMFFeedTopReadArticlePreview *articlePreview in articlePreviews) {
