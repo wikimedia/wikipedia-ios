@@ -490,7 +490,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
                                     articlePreviewDataStore:self.previewStore],
             [[WMFFeedContentSource alloc] initWithSiteURL:[self siteURL]
                                     contentGroupDataStore:self.contentStore
-                                  articlePreviewDataStore:self.previewStore],
+                                  articlePreviewDataStore:self.previewStore
+                                            userDataStore:self.dataStore],
             [[WMFRandomContentSource alloc] initWithSiteURL:[self siteURL]
                                       contentGroupDataStore:self.contentStore
                                     articlePreviewDataStore:self.previewStore]

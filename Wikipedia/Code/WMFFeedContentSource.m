@@ -19,12 +19,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSTimeInterval WMFFeedNotificationArticleRepeatLimit = 30 * 24 * 60 * 60; // 30 days
+
 @interface WMFFeedContentSource ()
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
 
 @property (readwrite, nonatomic, strong) WMFContentGroupDataStore *contentStore;
 @property (readwrite, nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
+@property (readwrite, nonatomic, strong) MWKDataStore *userDataStore;
 
 @property (nonatomic, strong) WMFFeedContentFetcher *fetcher;
 
@@ -32,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFFeedContentSource
 
-- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticlePreviewDataStore *)previewStore {
+- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticlePreviewDataStore *)previewStore userDataStore:(MWKDataStore *)userDataStore {
     NSParameterAssert(siteURL);
     NSParameterAssert(contentStore);
     NSParameterAssert(previewStore);
@@ -41,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
         self.siteURL = siteURL;
         self.contentStore = contentStore;
         self.previewStore = previewStore;
+        self.userDataStore = userDataStore;
         self.updateInterval = 30 * 60;
     }
     return self;
@@ -225,17 +229,40 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     for (WMFFeedNewsStory *newsStory in feedDay.newsStories) {
+        WMFFeedTopReadArticlePreview *articlePreviewToNotifyAbout = nil;
+        NSMutableArray <NSURL *>*articleURLs = [NSMutableArray arrayWithCapacity:newsStory.articlePreviews.count];
         for (WMFFeedArticlePreview *articlePreview in newsStory.articlePreviews) {
-            NSString *key = articlePreview.articleURL.wmf_databaseKey;
+            NSURL *articleURL = articlePreview.articleURL;
+            if (!articleURL) {
+                continue;
+            }
+            NSString *key = articleURL.wmf_databaseKey;
+            if (!key) {
+                continue;
+            }
+            [articleURLs addObject:articleURL];
             WMFFeedTopReadArticlePreview *topReadArticlePreview = topReadArticlesByKey[key];
             if (topReadArticlePreview) {
-                [self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreview];
+                MWKHistoryEntry *entry = [self.userDataStore entryForURL:articlePreview.articleURL];
+                if (entry.inTheNewsNotificationDate && [entry.inTheNewsNotificationDate timeIntervalSinceNow] < WMFFeedNotificationArticleRepeatLimit) {
+                    articlePreviewToNotifyAbout = nil;
+                    break;
+                }
+                if (!articlePreviewToNotifyAbout || topReadArticlePreview.rank < articlePreviewToNotifyAbout.rank) {
+                     articlePreviewToNotifyAbout = topReadArticlePreview;
+                }
             }
+        }
+        if (articlePreviewToNotifyAbout) {
+            [self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreviewToNotifyAbout];
+            [self.userDataStore.historyList setInTheNewsNotificationDate:date forArticlesWithURLs:articleURLs];
+            break;
         }
     }
 }
 
-- (void)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory articlePreview:(WMFFeedArticlePreview *)articlePreview {
+- (void)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory articlePreview:(WMFFeedTopReadArticlePreview *)articlePreview {
+    
 }
 
 @end

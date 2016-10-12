@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, nonatomic, strong) WMFContentGroupDataStore *contentStore;
 @property (readonly, nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
 
-- (instancetype)initWithSiteURL:(NSURL*)siteURL contentGroupDataStore:(WMFContentGroupDataStore*)contentStore articlePreviewDataStore:(WMFArticlePreviewDataStore*)previewStore;
+- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticlePreviewDataStore *)previewStore userDataStore:(MWKDataStore *)userDataStore;
 
 - (instancetype)init NS_UNAVAILABLE;
 
