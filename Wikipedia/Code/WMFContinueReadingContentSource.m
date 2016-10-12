@@ -104,10 +104,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
     NSParameterAssert(preview);
     
     [self.contentStore addContentGroup:group associatedContent:@[lastRead]];
-    
-    if(completion){
-        completion();
-    }
+    [self.contentStore notifyWhenWriteTransactionsComplete:completion];
 }
 
 - (void)removeAllContent{

@@ -111,11 +111,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self saveGroupForTopRead:feedDay.topRead date:date];
     [self saveGroupForPictureOfTheDay:feedDay.pictureOfTheDay date:date];
 //    [self saveGroupForNews:feedDay.newsStories date:date];
-    
-    if(completion){
-        completion();
-    }
-
+    [self.contentStore notifyWhenWriteTransactionsComplete:completion];
 }
 
 - (void)saveGroupForFeaturedPreview:(WMFFeedArticlePreview*)preview date:(NSDate*)date{

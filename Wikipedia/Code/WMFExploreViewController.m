@@ -6,6 +6,7 @@
 
 #import "PiwikTracker+WMFExtensions.h"
 
+#import "YapDatabase+WMFExtensions.h"
 #import "WMFContentGroupDataStore.h"
 #import "MWKDataStore.h"
 #import "WMFArticlePreviewDataStore.h"
@@ -68,6 +69,8 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
+@property (nonatomic, strong) WMFContentGroupDataStore *internalContentStore;
+
 @end
 
 @implementation WMFExploreViewController
@@ -124,6 +127,14 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                                            action:@selector(didTapSettingsButton:)];
 }
 
+- (WMFContentGroupDataStore*)internalContentStore{
+    if(_internalContentStore == nil){
+        _internalContentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
+        _internalContentStore.databaseSyncingEnabled = NO;
+    }
+    return _internalContentStore;
+}
+
 - (MWKSavedPageList *)savedPages {
     NSParameterAssert(self.userStore);
     return self.userStore.savedPageList;
@@ -143,9 +154,9 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 }
 
 - (id<WMFDataSource>)sectionDataSource{
-    NSParameterAssert(self.contentStore);
+    NSParameterAssert(self.internalContentStore);
     if(!_sectionDataSource){
-        _sectionDataSource = [self.contentStore contentGroupDataSource];
+        _sectionDataSource = [self.internalContentStore contentGroupDataSource];
         _sectionDataSource.granularDelegateCallbacksEnabled = NO;
     }
     return _sectionDataSource;
@@ -162,7 +173,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 - (BOOL)canScrollToTop {
     WMFContentGroup* group = [self sectionAtIndex:0];
     NSParameterAssert(group);
-    NSArray* content = [self.contentStore contentForContentGroup:group];
+    NSArray* content = [self.internalContentStore contentForContentGroup:group];
     return [content count] > 0;
 }
 
@@ -196,6 +207,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     //May need to time it out or exclude
     [group waitInBackgroundWithCompletion:^{
         [self resetRefreshControl];
+        [self.internalContentStore syncDataStoreToDatabase];
     }];
 }
 
@@ -213,7 +225,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 - (nullable NSArray<id>*)contentForSectionAtIndex:(NSUInteger)sectionIndex{
     WMFContentGroup* section = [self sectionAtIndex:sectionIndex];
-    NSArray<id>* content = [self.contentStore contentForContentGroup:section];
+    NSArray<id>* content = [self.internalContentStore contentForContentGroup:section];
     return content;
 }
 
@@ -270,7 +282,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     if([section contentType] != WMFContentTypeImage){
         return nil;
     }
-    return [self.contentStore contentForContentGroup:section][indexPath.row];
+    return [self.internalContentStore contentForContentGroup:section][indexPath.row];
 }
 
 #pragma mark - Refresh Control
@@ -331,6 +343,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     NSParameterAssert(self.contentStore);
     NSParameterAssert(self.userStore);
     NSParameterAssert(self.contentSources);
+    NSParameterAssert(self.internalContentStore);
     [super viewDidAppear:animated];
     
     [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
