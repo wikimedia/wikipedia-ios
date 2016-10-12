@@ -169,6 +169,21 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
+- (void)setInTheNewsNotificationDate:(NSDate *)date forArticlesWithURLs:(NSArray <NSURL *>*)articleURLs {
+    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
+        NSMutableArray <NSString *>*databaseKeys = [NSMutableArray arrayWithCapacity:articleURLs.count];
+        for (NSURL *articleURL in articleURLs) {
+            NSString *databaseKey = [MWKHistoryEntry databaseKeyForURL:articleURL];
+            MWKHistoryEntry *entry = [transaction objectForKey:databaseKey inCollection:[MWKHistoryEntry databaseCollectionName]];
+            if (entry) {
+                entry.inTheNewsNotificationDate = date;
+                [transaction setObject:entry forKey:databaseKey inCollection:[MWKHistoryEntry databaseCollectionName]];
+            }
+        }
+        return databaseKeys;
+    }];
+}
+
 - (void)setSignificantlyViewedOnPageInHistoryWithURL:(NSURL *)url {
     if ([url.wmf_title length] == 0) {
         return;

@@ -51,6 +51,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setSignificantlyViewedOnPageInHistoryWithURL:(NSURL *)url;
 
 /**
+ *  Sets the date this article last had an in the news notification about it.
+ *
+ *  @param articleURLs The articleURLs to set an in the news notification date for
+ */
+- (void)setInTheNewsNotificationDate:(NSDate *)date forArticlesWithURLs:(NSArray<NSURL *> *)articleURLs;
+
+/**
  *  Remove a page from the user history
  *
  *  @param url The url of the page to remove
