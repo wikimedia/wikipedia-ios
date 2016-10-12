@@ -10,6 +10,7 @@ let WMFMigrateSavedPageListKey = "WMFMigrateSavedPageListKey"
 let WMFMigrateBlackListKey = "WMFMigrateBlackListKey"
 let WMFDidMigrateToGroupKey = "WMFDidMigrateToGroup"
 let WMFDidMigrateToNewFeedKey = "WMFDidMigrateToNewFeedKey"
+let WMFMostRecentInTheNewsNotificationDate = "WMFMostRecentInTheNewsNotificationDate"
 
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
@@ -287,6 +288,15 @@ public extension NSUserDefaults {
     
     public func wmf_didMigrateToNewFeed() -> Bool {
         return self.boolForKey(WMFDidMigrateToNewFeedKey)
+    }
+    
+    public func wmf_mostRecentInTheNewsNotificationDate() -> NSDate? {
+        return self.wmf_dateForKey(WMFMostRecentInTheNewsNotificationDate)
+    }
+    
+    public func wmf_setMostRecentInTheNewsNotificationDate(date: NSDate) {
+        self.setObject(date, forKey: WMFMostRecentInTheNewsNotificationDate)
+        self.synchronize()
     }
 
 }
