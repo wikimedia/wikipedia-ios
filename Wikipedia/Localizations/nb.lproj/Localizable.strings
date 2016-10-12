@@ -92,7 +92,7 @@
 "open-link-cancel" = "Avbryt";
 "search-title" = "Søk";
 "search-searching" = "Søker…";
-"search-no-matches" = "Ingen treff for søketermen.";
+"search-no-matches" = "Ingen treff for søkebegrepet.";
 "search-field-placeholder-text" = "Søk i Wikipedia";
 "search-field-placeholder-text-zero" = "Søk i Wikipedia Zero";
 "search-loading-section-zero" = "Laster inn første avsnitt i artikkelen…";
@@ -139,7 +139,7 @@
 "main-menu-show-page-history" = "Endringshistorikk for $";
 "main-menu-credits" = "Kreditering";
 "main-menu-about" = "Om appen";
-"main-menu-zero-faq" = "Wikipedia Zero FAQ";
+"main-menu-zero-faq" = "Wikipedia Zero-FAQ";
 "main-menu-privacy-policy" = "Personvernpolitikk";
 "main-menu-terms-of-use" = "Bruksvilkår";
 "main-menu-rate-app" = "Vurder appen";
@@ -162,7 +162,7 @@
 "saved-pages-refresh-cancel-alert-button" = "Forstått";
 "saved-pages-description" = "Lagrede sider er veldig praktisk. De fungerer som bokmerker som du også kan lese når du er uten nett.";
 "saved-pages-none" = "Ingen lagrede sider enda.";
-"saved-pages-image-download-error" = "Klarte ikke laste ned bilder for den lagrete siden.";
+"saved-pages-image-download-error" = "Klarte ikke laste ned bilder for den lagrede siden.";
 "history-title" = "Historikk";
 "page-history-title" = "Artikkelhistorikk";
 "page-history-downloading" = "Laster inn artikkelhistorikk…";
@@ -283,7 +283,7 @@
 "menu-w-accessibility-label" = "Meny";
 "menu-toc-accessibility-label" = "Innhold";
 "menu-search-accessibility-label" = "Søk";
-"menu-reload-accessibility-label" = "Last på ny";
+"menu-reload-accessibility-label" = "Last på nytt";
 "menu-cancel-accessibility-label" = "Avbryt";
 "menu-share-accessibility-label" = "Del";
 "menu-more-accessibility-label" = "Flere innstillinger";
@@ -348,8 +348,7 @@
 "home-hide-suggestion-prompt" = "Skjul dette forslaget";
 "home-hide-suggestion-cancel" = "Avbryt";
 "home-accessibility-label" = "Wikipedia, Utforsk";
-// Fuzzy
-"home-button-accessibility-label" = "Hjem knappen";
+"home-button-accessibility-label" = "Hjem";
 "potd-empty-error-description" = "Klarte ikke hente dagens bilde $1";
 "potd-description-prefix" = "Dagens bilde $1";
 "welcome-explore-title" = "Utforsk";
@@ -415,3 +414,4 @@
 "number-thousands" = "$1 tusen";
 "top-read-header-with-language" = "Wikipedia på $1";
 "top-read-header-generic" = "Wikipedia";
+"reference-title" = "Referanse $1";

@@ -26,12 +26,25 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore*)previewStore {
     NSURL *faqURL = [NSURL URLWithString:WMFSettingsURLFAQ];
     self = [super initWithArticleURL:faqURL dataStore:dataStore previewStore:previewStore];
+    self.savingOpenArticleTitleEnabled = NO;
+    self.addingArticleToHistoryListEnabled = NO;
+    self.peekingAllowed = NO;
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.toolbarHidden = NO;
+}
+
+- (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
+    WMFHelpViewController *articleViewController = [[WMFHelpViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+    [self.navigationController pushViewController:articleViewController animated:YES];
 }
 
 - (UIBarButtonItem *)sendEmailToolbarItem {
@@ -49,11 +62,12 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 }
 
 - (NSArray<UIBarButtonItem *> *)articleToolBarItems {
-    return [NSArray arrayWithObjects:
-                        self.sendEmailToolbarItem,
-                        [UIBarButtonItem flexibleSpaceToolbarItem],
-                        self.showTableOfContentsToolbarItem,
-                        nil];
+    return @[
+             self.showTableOfContentsToolbarItem,
+             [UIBarButtonItem flexibleSpaceToolbarItem],
+             self.sendEmailToolbarItem,
+             [UIBarButtonItem wmf_barButtonItemOfFixedWidth:8]
+             ];
 }
 
 - (void)sendEmail {

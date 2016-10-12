@@ -340,8 +340,7 @@
 "home-hide-suggestion-prompt" = "Сакриј овај предлог";
 "home-hide-suggestion-cancel" = "Откажи";
 "home-accessibility-label" = "Википедија, Истражите";
-// Fuzzy
-"home-button-accessibility-label" = "Дугме за Почетну";
+"home-button-accessibility-label" = "Почетна";
 "potd-empty-error-description" = "Не могу да преузмем слику дана за $1";
 "potd-description-prefix" = "Слика дана за $1";
 "welcome-explore-title" = "Истражите";
