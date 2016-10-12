@@ -1,7 +1,6 @@
 #import "WMFExploreCollectionViewCell.h"
+@import CoreLocation;
 
-@class WMFSearchResultBearingProvider;
-@class WMFSearchResultDistanceProvider;
 @class MWKImage;
 
 @interface WMFNearbyArticleCollectionViewCell : WMFExploreCollectionViewCell
@@ -30,9 +29,9 @@
  */
 - (void)setImageURL:(NSURL *)imageURL;
 
-- (void)setDistanceProvider:(WMFSearchResultDistanceProvider *)distanceProvider;
+- (void)setDistance:(CLLocationDistance)distance;
 
-- (void)setBearingProvider:(WMFSearchResultBearingProvider *)bearingProvider;
+- (void)setBearing:(CLLocationDegrees)bearing;
 
 + (CGFloat)estimatedRowHeight;
 

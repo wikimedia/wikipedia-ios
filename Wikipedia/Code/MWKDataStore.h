@@ -1,20 +1,15 @@
-#import <Foundation/Foundation.h>
+#import "WMFBaseDataStore.h"
 
 @class MWKArticle;
 @class MWKSection;
 @class MWKImage;
+@class MWKHistoryEntry;
 @class MWKHistoryList;
 @class MWKSavedPageList;
 @class MWKRecentSearchList;
-@class MWKUserDataStore;
+@class WMFRelatedSectionBlackList;
 @class MWKImageInfo;
 @class MWKImageList;
-@class YapDatabase;
-@class YapDatabaseConnection;
-@class YapDatabaseViewRowChange;
-@class YapDatabaseReadTransaction;
-@class YapDatabaseReadWriteTransaction;
-@class YapDatabaseViewTransaction;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -38,21 +33,17 @@ extern NSString *const MWKArticleKey;
 /**
  * Subscribe to get notifications when an item is
  * added to saved pages, history, blacklist, etc…
- * The object posting the notification will be the 
- * URL of the item
+ * The url of the item updated will be in the
+ * MWKURLKey of the userInfo
  */
 extern NSString *const MWKItemUpdatedNotification;
+extern NSString *const MWKURLKey;
 
-@protocol WMFDatabaseChangeHandler <NSObject>
 
-- (void)processChanges:(NSArray<YapDatabaseViewRowChange *> *)changes onConnection:(YapDatabaseConnection *)connection;
-
-@end
-
-@interface MWKDataStore : NSObject
+@interface MWKDataStore : WMFBaseDataStore
 
 /**
- *  Initialize with default database and legacyDataBasePath
+ *  Initialize with sharedInstance database and legacyDataBasePath
  *
  *  @return A data store
  */
@@ -61,6 +52,18 @@ extern NSString *const MWKItemUpdatedNotification;
 - (instancetype)initWithDatabase:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath NS_DESIGNATED_INITIALIZER;
 
 + (BOOL)migrateToSharedContainer:(NSError **)error;
+
+@property (readonly, strong, nonatomic) MWKHistoryList *historyList;
+@property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
+@property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
+@property (readonly, strong, nonatomic) WMFRelatedSectionBlackList *blackList;
+
+
+#pragma mark - Entry Access
+
+- (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url;
+
+- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block;
 
 #pragma mark - Legacy Datastore methods
 
@@ -81,14 +84,6 @@ extern NSString *const MWKItemUpdatedNotification;
 - (void)cancelAsynchronousCacheForArticle:(MWKArticle *)article;
 
 @property (readonly, copy, nonatomic) NSString *basePath;
-
-@property (readonly, strong, nonatomic) MWKUserDataStore *userDataStore;
-
-/**
- *  Call this to manually sync the database.
- *  Useful for when resuming and the DB may have been modified out of process
- */
-- (void)syncDataStoreToDatabase;
 
 /**
  *  Path for the default main data store.
@@ -238,12 +233,6 @@ extern NSString *const MWKItemUpdatedNotification;
 - (void)stopCacheRemoval;
 
 - (NSArray *)legacyImageURLsForArticle:(MWKArticle *)article;
-
-- (void)readWithBlock:(void (^)(YapDatabaseReadTransaction *_Nonnull transaction))block;
-- (nullable id)readAndReturnResultsWithBlock:(id (^)(YapDatabaseReadTransaction *_Nonnull transaction))block;
-- (void)readViewNamed:(NSString *)viewName withWithBlock:(void (^)(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view))block;
-- (nullable id)readAndReturnResultsWithViewNamed:(NSString *)viewName withWithBlock:(id (^)(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view))block;
-- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction *_Nonnull transaction))block;
 
 @end
 

@@ -1,6 +1,6 @@
 #import "WMFArticleViewController.h"
 
-@class MWKDataStore;
+@class MWKDataStore, WMFArticlePreviewDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -9,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithArticleURL:(NSURL *)url
                          dataStore:(MWKDataStore *)dataStore NS_UNAVAILABLE;
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore*)previewStore;
 
 @end
 

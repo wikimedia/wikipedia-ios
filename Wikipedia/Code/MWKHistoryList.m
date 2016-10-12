@@ -3,6 +3,7 @@
 #import <YapDataBase/YapDatabase.h>
 #import <YapDataBase/YapDatabaseView.h>
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
+#import "NSDateFormatter+WMFExtensions.h"
 #import <WMFModel/WMFModel-Swift.h>
 
 #define MAX_HISTORY_ENTRIES 100
@@ -80,11 +81,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url {
     return [self.dataSource readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
         MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        return entry;
+        if(entry.dateViewed != nil){
+            return entry;
+        }else{
+            return nil;
+        }
     }];
 }
 
 - (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block {
+    NSParameterAssert(block);
     if (!block) {
         return;
     }

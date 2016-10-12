@@ -1,6 +1,22 @@
 #import "YapDatabase+WMFExtensions.h"
+#import <YapDatabase/YapDatabaseCrossProcessNotification.h>
 
 @implementation YapDatabase (WMFExtensions)
+
++ (instancetype)sharedInstance {
+    static dispatch_once_t onceToken;
+    static id sharedInstance;
+    dispatch_once(&onceToken, ^{
+        YapDatabaseOptions *options = [YapDatabaseOptions new];
+        options.enableMultiProcessSupport = YES;
+        YapDatabase *db = [[YapDatabase alloc] initWithPath:[[self class] wmf_databasePath] options:options];
+        
+        YapDatabaseCrossProcessNotification *cp = [[YapDatabaseCrossProcessNotification alloc] initWithIdentifier:@"Wikipedia"];
+        [db registerExtension:cp withName:@"WikipediaCrossProcess"];
+        sharedInstance = db;
+    });
+    return sharedInstance;
+}
 
 + (NSString *)wmf_databasePath {
     NSString *databaseName = @"WikipediaYap.sqlite";

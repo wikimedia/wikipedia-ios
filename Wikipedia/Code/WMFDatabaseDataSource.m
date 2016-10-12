@@ -64,13 +64,16 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable id)objectAtIndexPath:(NSIndexPath *)indexPath {
-    __block id results = nil;
-    [self.readConnection readWithBlock:^(YapDatabaseReadTransaction *transaction) {
-        YapDatabaseViewTransaction *view = [transaction ext:self.viewName];
-        results = [view objectAtIndexPath:indexPath withMappings:self.mappings];
+    return [self readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction * _Nonnull transaction, YapDatabaseViewTransaction * _Nonnull view) {
+        return [view objectAtIndexPath:indexPath withMappings:self.mappings];
     }];
-    return results;
 }
+
+- (nullable id)metadataAtIndexPath:(NSIndexPath *)indexPath{
+    return [self readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction * _Nonnull transaction, YapDatabaseViewTransaction * _Nonnull view) {
+        return [view metadataAtIndexPath:indexPath withMappings:self.mappings];
+    }];}
+
 
 - (void)processChanges:(NSArray<YapDatabaseViewRowChange *> *)changes onConnection:(YapDatabaseConnection *)connection {
     if (![connection isEqual:self.readConnection]) {

@@ -2,6 +2,7 @@
 #import "WMFRandomArticleFetcher.h"
 #import "Wikipedia-swift.h"
 #import "MWKDataStore.h"
+#import "WMFArticlePreviewDataStore.h"
 #import "SessionSingleton.h"
 #import "MWKSearchResult.h"
 #import "WMFRandomArticleViewController.h"
@@ -9,37 +10,31 @@
 
 @interface WMFFirstRandomViewController ()
 
-@property (nonatomic, strong, nonnull) NSURL *siteURL;
-@property (nonatomic, strong, nonnull) MWKDataStore *dataStore;
-
 @end
 
 @implementation WMFFirstRandomViewController
 
-- (nonnull instancetype)initWithSiteURL:(nonnull NSURL *)siteURL dataStore:(nonnull MWKDataStore *)dataStore {
+- (nonnull instancetype)initWithSiteURL:(nonnull NSURL *)siteURL dataStore:(nonnull MWKDataStore *)dataStore previewStore:(nonnull WMFArticlePreviewDataStore*)previewStore{
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         self.siteURL = siteURL;
         self.dataStore = dataStore;
+        self.previewStore = previewStore;
         self.hidesBottomBarWhenPushed = YES;
     }
     return self;
 }
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    return [self initWithSiteURL:[NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"] dataStore:[SessionSingleton sharedInstance].dataStore];
-}
-
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    return [self initWithNibName:nil bundle:nil];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.hidesBottomBarWhenPushed = YES;
     self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    NSParameterAssert(self.previewStore);
+    NSParameterAssert(self.dataStore);
+    NSParameterAssert(self.siteURL);
     [super viewWillAppear:animated];
 }
 
@@ -53,7 +48,7 @@
         }
         success:^(MWKSearchResult *result) {
             NSURL *titleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
-            WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore];
+            WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore previewStore:self.previewStore];
             NSMutableArray *viewControllers = [self.navigationController.viewControllers mutableCopy];
             [viewControllers replaceObjectAtIndex:viewControllers.count - 1 withObject:randomArticleVC];
             [self.navigationController setViewControllers:viewControllers];

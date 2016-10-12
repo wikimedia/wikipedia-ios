@@ -2,13 +2,6 @@
 
 @implementation CLLocationManager (WMFLocationManagers)
 
-+ (instancetype)wmf_coarseLocationManager {
-    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
-    locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
-    locationManager.activityType = CLActivityTypeFitness;
-    locationManager.distanceFilter = 10;
-    return locationManager;
-}
 
 + (instancetype)wmf_fineLocationManager {
     CLLocationManager *locationManager = [[CLLocationManager alloc] init];
@@ -17,5 +10,21 @@
     locationManager.distanceFilter = 1;
     return locationManager;
 }
+
++ (instancetype)wmf_coarseLocationManager {
+    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+    locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+    locationManager.activityType = CLActivityTypeFitness;
+    locationManager.distanceFilter = 1000;
+    return locationManager;
+}
+
++ (instancetype)wmf_significantLocationManager{
+    //expected to use the significant location changes API
+    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+    locationManager.activityType = CLActivityTypeFitness;
+    return locationManager;
+}
+
 
 @end

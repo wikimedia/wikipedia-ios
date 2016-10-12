@@ -4,7 +4,10 @@
 @interface MWKHistoryEntry : MWKSiteDataObject <MWKListObject>
 
 @property (readwrite, strong, nonatomic) NSDate *dateViewed;
+@property (readonly, assign, nonatomic) BOOL isInHistory;
+
 @property (readwrite, strong, nonatomic) NSDate *dateSaved;
+@property (readonly, assign, nonatomic) BOOL isSaved;
 
 @property (readwrite, assign, nonatomic) CGFloat scrollPosition;
 @property (readwrite, copy, nonatomic) NSString *fragment;

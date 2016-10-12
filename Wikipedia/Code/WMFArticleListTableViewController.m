@@ -41,7 +41,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSParameterAssert(self.dataStore);
+    NSParameterAssert(self.userDataStore);
+    NSParameterAssert(self.previewStore);
     [self updateEmptyAndDeleteState];
 }
 
@@ -70,7 +71,7 @@
         [self.delegate listViewController:self didSelectArticleURL:url];
         return;
     }
-    [self wmf_pushArticleWithURL:url dataStore:self.dataStore animated:YES];
+    [self wmf_pushArticleWithURL:url dataStore:self.userDataStore previewStore:self.previewStore animated:YES];
 }
 
 #pragma mark - Previewing
@@ -112,7 +113,7 @@
     [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:contentType];
 
     UIViewController *vc = self.delegate ?
-        [self.delegate listViewController:self viewControllerForPreviewingArticleURL:url] : [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+        [self.delegate listViewController:self viewControllerForPreviewingArticleURL:url] : [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userDataStore previewStore:self.previewStore];
     
     if ([vc isKindOfClass:[WMFArticleViewController class]]){
         ((WMFArticleViewController*)vc).articlePreviewingActionsDelegate = self;
@@ -190,10 +191,6 @@
 }
 
 #pragma mark - Subclasses
-
-- (NSString *)analyticsContext {
-    return @"Generic Article List";
-}
 
 - (WMFEmptyViewType)emptyViewType {
     return WMFEmptyViewTypeNone;

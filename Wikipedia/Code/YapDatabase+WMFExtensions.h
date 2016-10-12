@@ -4,7 +4,14 @@
 @interface YapDatabase (WMFExtensions)
 
 /**
- *  The default database path
+ *  Returns the shared DB for the app using the path below.
+ *  This also registers all views by calling wmf_registerViews (See YapDatabase+WMFViews.h)
+ */
++ (instancetype)sharedInstance;
+
+/**
+ *  The default database path. 
+ *  This is used for the sharedInstance
  *
  *  @return A path
  */

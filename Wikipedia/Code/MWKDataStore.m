@@ -1,13 +1,14 @@
 #import "YapDatabase+WMFExtensions.h"
-#import "YapDatabase+WMFViews.h"
-#import "YapDatabaseConnection+WMFExtensions.h"
 #import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
-#import <YapDatabase/YapDatabaseCrossProcessNotification.h>
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
+#import "MWKHistoryEntry+WMFDatabaseViews.h"
 #import <WMFModel/WMFModel-Swift.h>
+
+#import "WMFRelatedSectionBlackList.h"
 
 NSString *const MWKArticleSavedNotification = @"MWKArticleSavedNotification";
 NSString *const MWKArticleKey = @"MWKArticleKey";
+
 NSString *const MWKItemUpdatedNotification = @"MWKItemUpdatedNotification";
 NSString *const MWKURLKey = @"MWKURLKey";
 
@@ -21,21 +22,11 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @interface MWKDataStore ()
 
-- (instancetype)initWithDatabase:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath NS_DESIGNATED_INITIALIZER;
+@property (readwrite, strong, nonatomic) MWKHistoryList *historyList;
+@property (readwrite, strong, nonatomic) MWKSavedPageList *savedPageList;
+@property (readwrite, strong, nonatomic) MWKRecentSearchList *recentSearchList;
+@property (readwrite, strong, nonatomic) WMFRelatedSectionBlackList *blackList;
 
-@property (readwrite, strong, nonatomic) YapDatabase *database;
-
-/**
- *  Connection to read article references on.
- *  This connection has cache settings optimized for reading article references in the UI.
- *  It is recommended to use this connection to make sure these cache settings are enforced app wide
- */
-@property (readwrite, strong, nonatomic) YapDatabaseConnection *articleReferenceReadConnection;
-@property (readwrite, strong, nonatomic) YapDatabaseConnection *writeConnection;
-
-@property (readwrite, nonatomic, strong) NSPointerArray *changeHandlers;
-
-@property (readwrite, strong, nonatomic) MWKUserDataStore *userDataStore;
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
 
@@ -122,35 +113,21 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (instancetype)init {
-    YapDatabaseOptions *options = [YapDatabaseOptions new];
-    options.enableMultiProcessSupport = YES;
+    self = [self initWithDatabase:[YapDatabase sharedInstance]];
+    return self;
+}
 
-    YapDatabase *db = [[YapDatabase alloc] initWithPath:[YapDatabase wmf_databasePath] options:options];
-
-    YapDatabaseCrossProcessNotification *cp = [[YapDatabaseCrossProcessNotification alloc] initWithIdentifier:@"Wikipedia"];
-    [db registerExtension:cp withName:@"WikipediaCrossProcess"];
-
-    self = [self initWithDatabase:db legacyDataBasePath:[[MWKDataStore class] mainDataStorePath]];
+- (instancetype)initWithDatabase:(YapDatabase *)database {
+    self = [self initWithDatabase:database legacyDataBasePath:[[MWKDataStore class] mainDataStorePath]];
     return self;
 }
 
 - (instancetype)initWithDatabase:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath {
-    self = [super init];
+    self = [super initWithDatabase:database];
     if (self) {
-        self.changeHandlers = [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsWeakMemory];
-        self.database = database;
-        [self.database wmf_registerViews];
+        [MWKHistoryEntry registerViewsInDatabase:database];
         self.basePath = basePath;
         [self setupLegacyDataStore];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(yapDatabaseModified:)
-                                                     name:YapDatabaseModifiedNotification
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(yapDatabaseModified:)
-                                                     name:YapDatabaseModifiedExternallyNotification
-                                                   object:nil];
-
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
     }
     return self;
@@ -188,79 +165,51 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     [self.articleCache removeAllObjects];
 }
 
-#pragma mark - Database
+#pragma - Accessors
 
-- (YapDatabaseConnection *)articleReferenceReadConnection {
-    if (!_articleReferenceReadConnection) {
-        _articleReferenceReadConnection = [self.database wmf_newLongLivedReadConnection];
+- (MWKHistoryList *)historyList {
+    if (!_historyList) {
+        _historyList = [[MWKHistoryList alloc] initWithDataStore:self];
     }
-    return _articleReferenceReadConnection;
+    return _historyList;
 }
 
-- (YapDatabaseConnection *)writeConnection {
-    if (!_writeConnection) {
-        _writeConnection = [self.database wmf_newWriteConnection];
+- (MWKSavedPageList *)savedPageList {
+    if (!_savedPageList) {
+        _savedPageList = [[MWKSavedPageList alloc] initWithDataStore:self];
     }
-    return _writeConnection;
+    return _savedPageList;
 }
 
-- (void)readWithBlock:(void (^)(YapDatabaseReadTransaction *_Nonnull transaction))block {
-    [self.articleReferenceReadConnection readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction) {
-        block(transaction);
-    }];
+- (MWKRecentSearchList *)recentSearchList {
+    if (!_recentSearchList) {
+        _recentSearchList = [[MWKRecentSearchList alloc] initWithDataStore:self];
+    }
+    return _recentSearchList;
 }
 
-- (nullable id)readAndReturnResultsWithBlock:(id (^)(YapDatabaseReadTransaction *_Nonnull transaction))block {
-    return [self.articleReferenceReadConnection wmf_readAndReturnResultsWithBlock:block];
+- (WMFRelatedSectionBlackList *)blackList {
+    if (!_blackList) {
+        _blackList = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self];
+    }
+    return _blackList;
 }
 
-- (void)readViewNamed:(NSString *)viewName withWithBlock:(void (^)(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view))block {
-    [self.articleReferenceReadConnection wmf_readInViewWithName:viewName withBlock:block];
-}
+#pragma mark - WMFBaseDataStore
 
-- (nullable id)readAndReturnResultsWithViewNamed:(NSString *)viewName withWithBlock:(id (^)(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view))block {
-    return [self.articleReferenceReadConnection wmf_readAndReturnResultsInViewWithName:viewName withBlock:block];
-}
+- (void)dataStoreWasUpdatedWithNotification:(NSNotification*)notification{
 
-- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction *_Nonnull transaction))block {
-    [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
-        block(transaction);
-    }];
-}
-
-- (void)yapDatabaseModified:(NSNotification *)notification {
-
-    [self syncDataStoreToDatabase];
-
-    //Order is important.
-    //Be sure to post notifications after all change handlers are updated.
-    //This way if notifications query a datasource/list, they will be up do date
     NSArray<NSString *> *updatedItemKeys = [notification wmf_updatedItemKeys];
 
     [updatedItemKeys enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:obj];
+        NSURL* url = [NSURL URLWithString:obj];
+        NSAssert(url != nil, @"updated Item with invalid key (should be a URL String)");
+        if(url){
+            [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:self userInfo:@{MWKURLKey:url}];
+        }
     }];
 
     [self cleanup];
-}
-
-- (void)syncDataStoreToDatabase {
-    // Jump to the most recent commit.
-    // End & Re-Begin the long-lived transaction atomically.
-    // Also grab all the notifications for all the commits that I jump.
-    // If the UI is a bit backed up, I may jump multiple commits.
-    NSArray *notifications = [self.articleReferenceReadConnection beginLongLivedReadTransaction];
-
-    //Note: we must send notificatons even if they are 0
-    //This is neccesary because when changes happen in other processes
-    //Yap reports 0 changes and simply flushes its caches.
-    //This updates the connections and the DB, but not mappings
-    //To update any mappings, we must propagate "0" notifications
-
-    [self.changeHandlers compact];
-    for (id<WMFDatabaseChangeHandler> obj in self.changeHandlers) {
-        [obj processChanges:notifications onConnection:self.articleReferenceReadConnection];
-    }
 }
 
 - (void)cleanup {
@@ -285,6 +234,29 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     }
                                                       afterDelay:1];
 }
+
+#pragma mark - Entry Access 
+
+- (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url {
+    return [self readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction) {
+        MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
+        return entry;
+    }];
+}
+
+- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block{
+    NSParameterAssert(block);
+    if (!block) {
+        return;
+    }
+    [self readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction) {
+        [transaction enumerateKeysAndObjectsInCollection:[MWKHistoryEntry databaseCollectionName] usingBlock:^(NSString * _Nonnull key, id  _Nonnull object, BOOL * _Nonnull stop) {
+            block(object, stop);
+        }];
+    }];
+}
+
+
 
 #pragma mark - Legacy DataStore
 
@@ -312,7 +284,6 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     }
     self.articleCache = [[NSCache alloc] init];
     self.articleCache.countLimit = 50;
-    self.userDataStore = [[MWKUserDataStore alloc] initWithDataStore:self];
     self.cacheRemovalQueue = dispatch_queue_create("org.wikimedia.cache_removal", DISPATCH_QUEUE_SERIAL);
     dispatch_async(self.cacheRemovalQueue, ^{
         self.cacheRemovalActive = true;

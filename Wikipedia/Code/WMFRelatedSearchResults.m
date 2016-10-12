@@ -1,4 +1,5 @@
 #import "WMFRelatedSearchResults.h"
+#import "MWKSearchResult.h"
 
 @interface WMFRelatedSearchResults ()
 
@@ -17,5 +18,10 @@
     }
     return self;
 }
+
+- (NSURL*)urlForResult:(MWKSearchResult*)result{
+    return [self.siteURL wmf_URLWithTitle:result.displayTitle];
+}
+
 
 @end

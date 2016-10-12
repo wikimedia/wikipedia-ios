@@ -9,6 +9,7 @@ let WMFMigrateToSharedContainerKey = "WMFMigrateToSharedContainerKey"
 let WMFMigrateSavedPageListKey = "WMFMigrateSavedPageListKey"
 let WMFMigrateBlackListKey = "WMFMigrateBlackListKey"
 let WMFDidMigrateToGroupKey = "WMFDidMigrateToGroup"
+let WMFDidMigrateToNewFeedKey = "WMFDidMigrateToNewFeedKey"
 
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
@@ -277,6 +278,15 @@ public extension NSUserDefaults {
     
     public func wmf_didMigrateToSharedContainer() -> Bool {
         return self.boolForKey(WMFMigrateToSharedContainerKey)
+    }
+
+    public func wmf_setDidMigrateToNewFeed(didMigrate: Bool) {
+        self.setBool(didMigrate, forKey: WMFDidMigrateToNewFeedKey)
+        self.synchronize()
+    }
+    
+    public func wmf_didMigrateToNewFeed() -> Bool {
+        return self.boolForKey(WMFDidMigrateToNewFeedKey)
     }
 
 }

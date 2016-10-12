@@ -82,7 +82,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
 
         session.dataStore.syncDataStoreToDatabase()
         
-        guard let historyEntry = session.userDataStore.historyList.mostRecentEntry() else {
+        guard let historyEntry = session.dataStore.historyList.mostRecentEntry() else {
             return false
         }
         let fragment = historyEntry.fragment
@@ -111,7 +111,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             return false
         }
         
-        guard let historyEntry = session.userDataStore.historyList.mostRecentEntry() else {
+        guard let historyEntry = session.dataStore.historyList.mostRecentEntry() else {
             return false
         }
         

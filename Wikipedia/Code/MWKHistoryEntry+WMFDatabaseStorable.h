@@ -3,6 +3,4 @@
 
 @interface MWKHistoryEntry (WMFDatabaseStorable) <WMFDatabaseStorable>
 
-+ (NSString *)databaseKeyForURL:(NSURL *)url;
-
 @end

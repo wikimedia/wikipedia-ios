@@ -90,7 +90,7 @@
                           imageURL:(NSURL *)imageURL {
     NSURL *url = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:titleText];
 
-    [self.cell setSaveableURL:url savedPageList:self.dataStore.userDataStore.savedPageList];
+    [self.cell setSaveableURL:url savedPageList:self.dataStore.savedPageList];
 
     [self.cell setDescriptionText:description];
 

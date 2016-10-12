@@ -4,7 +4,7 @@
 #import "NSUserActivity+WMFExtensions.h"
 
 #import "MWKDataStore.h"
-#import "MWKUserDataStore.h"
+
 #import "MWKSavedPageList.h"
 
 #import "MWKDataStore+WMFDataSources.h"
@@ -36,7 +36,7 @@
 #pragma mark - Accessors
 
 - (MWKSavedPageList *)savedPageList {
-    return self.dataStore.userDataStore.savedPageList;
+    return self.userDataStore.savedPageList;
 }
 
 #pragma mark - UIViewController
@@ -45,10 +45,9 @@
     [super viewDidLoad];
 
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
-
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
 
-    self.dataSource = [self.dataStore savedDataSource];
+    self.dataSource = [self.userDataStore savedDataSource];
     self.dataSource.delegate = self;
     [self.tableView reloadData];
     [self updateEmptyAndDeleteState];
@@ -84,7 +83,7 @@
     WMFArticleListTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleListTableViewCell identifier] forIndexPath:indexPath];
 
     MWKHistoryEntry *entry = [self.dataSource objectAtIndexPath:indexPath];
-    MWKArticle *article = [[self dataStore] articleWithURL:entry.url];
+    MWKArticle *article = [self.userDataStore articleWithURL:entry.url];
     cell.titleText = article.url.wmf_title;
     cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
     [cell setImage:[article bestThumbnailImage]];
@@ -170,10 +169,6 @@
 
 - (NSString *)deleteCancelText {
     return MWLocalizedString(@"saved-pages-clear-cancel", nil);
-}
-
-- (BOOL)canDeleteItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
 }
 
 - (NSURL *)urlAtIndexPath:(NSIndexPath *)indexPath {

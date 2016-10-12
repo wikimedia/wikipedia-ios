@@ -1,74 +1,103 @@
 #import "WMFReadMoreViewController.h"
 #import "MWKDataStore.h"
-#import "MWKUserDataStore.h"
-#import "WMFRelatedTitleListDataSource.h"
+#import "WMFRelatedSearchFetcher.h"
 #import "WMFRelatedSearchResults.h"
 #import "MWKSearchResult.h"
 #import "WMFArticlePreviewTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "WMFSaveButtonController.h"
+#import "WMFArticlePreviewDataStore.h"
 
 @interface WMFReadMoreViewController () <WMFAnalyticsContentTypeProviding>
 
 @property (nonatomic, strong, readwrite) NSURL *articleURL;
-@property (nonatomic, strong) WMFRelatedTitleListDataSource *dataSource;
+
+@property (nonatomic, strong) WMFRelatedSearchFetcher *relatedSearchFetcher;
+@property (nonatomic, strong, readwrite, nullable) WMFRelatedSearchResults *relatedSearchResults;
 
 @end
 
 @implementation WMFReadMoreViewController
 
-@dynamic dataSource;
-
-- (instancetype)initWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore {
+- (instancetype)initWithURL:(NSURL *)url userStore:(MWKDataStore *)userDataStore previewStore:(WMFArticlePreviewDataStore*)previewStore{
     NSParameterAssert(url.wmf_title);
-    NSParameterAssert(dataStore);
+    NSParameterAssert(userDataStore);
+    NSParameterAssert(previewStore);
     self = [super init];
     if (self) {
         self.articleURL = url;
-        self.dataStore = dataStore;
-        self.dataSource = [[WMFRelatedTitleListDataSource alloc] initWithURL:self.articleURL dataStore:self.dataStore resultLimit:3];
-        self.dataSource.cellClass = [WMFArticlePreviewTableViewCell class];
-
-        @weakify(self);
-        self.dataSource.cellConfigureBlock = ^(WMFArticlePreviewTableViewCell *cell,
-                                               MWKSearchResult *searchResult,
-                                               UITableView *tableView,
-                                               NSIndexPath *indexPath) {
-            @strongify(self);
-            NSURL *url = [self.articleURL wmf_URLWithTitle:searchResult.displayTitle];
-            [cell setSaveableURL:url savedPageList:self.savedPageList];
-            cell.titleText = searchResult.displayTitle;
-            cell.descriptionText = searchResult.wikidataDescription;
-            cell.snippetText = searchResult.extract;
-            [cell setImageURL:searchResult.thumbnailURL];
-            cell.saveButtonController.analyticsContext = self;
-            cell.saveButtonController.analyticsContentType = self;
-        };
+        self.userDataStore = userDataStore;
+        self.previewStore = previewStore;
+        self.relatedSearchFetcher = [[WMFRelatedSearchFetcher alloc] init];
     }
     return self;
 }
 
 - (MWKSavedPageList *)savedPageList {
-    return self.dataStore.userDataStore.savedPageList;
+    return self.userDataStore.savedPageList;
 }
 
-- (AnyPromise *)fetchIfNeeded {
-    if ([self hasResults]) {
-        return [AnyPromise promiseWithValue:self.dataSource.relatedSearchResults];
-    } else {
-        return [self.dataSource fetch];
-    }
-}
-
-- (BOOL)hasResults {
-    return [self.dataSource.relatedSearchResults.results count] > 0;
-}
+#pragma mark - UIViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
+    self.tableView.estimatedRowHeight = [WMFArticlePreviewTableViewCell estimatedRowHeight];
     [self.tableView reloadData];
 }
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.relatedSearchResults.results count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    WMFArticlePreviewTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticlePreviewTableViewCell identifier] forIndexPath:indexPath];
+    
+    MWKSearchResult* preview = [self.relatedSearchResults.results objectAtIndex:indexPath.row];
+    cell.titleText = preview.displayTitle;
+    cell.descriptionText = [preview.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
+    cell.snippetText = preview.extract;
+    [cell setImageURL:preview.thumbnailURL];
+    cell.saveButtonController.analyticsContext = [self analyticsContext];
+    cell.saveButtonController.analyticsContentType = [self analyticsContentType];
+    [cell setSaveableURL:[self.relatedSearchResults urlForResult:preview] savedPageList:self.userDataStore.savedPageList];
+    
+    return cell;
+}
+
+- (void )fetchIfNeededWithCompletionBlock:(void (^)(WMFRelatedSearchResults* results))completion
+                         failureBlock:(void (^)(NSError* error))failure {
+    if ([self hasResults]) {
+        if(completion){
+            completion(self.relatedSearchResults);
+        }
+    } else {
+        @weakify(self);
+        [self.relatedSearchFetcher fetchArticlesRelatedArticleWithURL:self.articleURL resultLimit:3 completionBlock:^(WMFRelatedSearchResults * _Nonnull results) {
+            @strongify(self);
+            self.relatedSearchResults = results;
+            if(completion){
+                completion(results);
+            }
+            
+        } failureBlock:^(NSError * _Nonnull error) {
+            if(failure){
+                failure(error);
+            }
+        }];
+    }
+}
+
+- (BOOL)hasResults {
+    return [self.relatedSearchResults.results count] > 0;
+}
+
 
 - (NSString *)analyticsContext {
     return @"Reader";

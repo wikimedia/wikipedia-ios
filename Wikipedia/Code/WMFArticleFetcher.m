@@ -5,6 +5,7 @@
 //Tried not to do it, but we need it for the useageReports BOOL
 //Plan to refactor settings into an another object, then we can remove this.
 #import "SessionSingleton.h"
+#import "WMFArticlePreviewDataStore.h"
 
 //AFNetworking
 #import "MWNetworkActivityIndicatorManager.h"
@@ -38,16 +39,22 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 @property (nonatomic, strong) dispatch_queue_t operationsQueue;
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
+@property (nonatomic, strong, readwrite) WMFArticlePreviewDataStore *previewStore;
 @property (nonatomic, strong) WMFArticleRevisionFetcher *revisionFetcher;
 
 @end
 
 @implementation WMFArticleFetcher
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore*)previewStore{
     NSParameterAssert(dataStore);
+    NSParameterAssert(previewStore);
     self = [super init];
     if (self) {
+        
+        self.dataStore = dataStore;
+        self.previewStore = previewStore;
+
         self.operationsKeyedByTitle = [NSMapTable strongToWeakObjectsMapTable];
         NSString *queueID = [NSString stringWithFormat:@"org.wikipedia.articlefetcher.accessQueue.%@", [[NSUUID UUID] UUIDString]];
         self.operationsQueue = dispatch_queue_create([queueID cStringUsingEncoding:NSUTF8StringEncoding], DISPATCH_QUEUE_SERIAL);
@@ -56,7 +63,6 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         self.operationManager.requestSerializer = [WMFArticleRequestSerializer serializer];
         self.operationManager.responseSerializer = [WMFArticleResponseSerializer serializer];
 
-        self.dataStore = dataStore;
         self.revisionFetcher = [[WMFArticleRevisionFetcher alloc] init];
 
         /*
@@ -105,6 +111,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                 [[MWNetworkActivityIndicatorManager sharedManager] pop];
                 MWKArticle *article = [self serializedArticleWithURL:articleURL response:response];
                 [self.dataStore asynchronouslyCacheArticle:article];
+                [self.previewStore addPreviewWithURL:articleURL updatedWithArticle:article];
                 resolve(article);
             });
         }

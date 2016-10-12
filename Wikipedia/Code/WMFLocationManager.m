@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFLocationManager () <CLLocationManagerDelegate>
 
+
+@property (nonatomic, assign, readwrite) BOOL significantLocationUpdatesOnly;
+
 @property (nonatomic, strong, readwrite) CLLocationManager *locationManager;
 @property (nonatomic, strong, nullable) id orientationNotificationToken;
 
@@ -61,6 +64,12 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self alloc] initWithLocationManager:[CLLocationManager wmf_coarseLocationManager]];
 }
 
++ (instancetype)significantChangeLocationManager {
+    WMFLocationManager* manager = [[self alloc] initWithLocationManager:[CLLocationManager wmf_significantLocationManager]];
+    manager.significantLocationUpdatesOnly = YES;
+    return manager;
+}
+
 - (instancetype)initWithLocationManager:(CLLocationManager *)locationManager {
     self = [super init];
     if (self) {
@@ -95,7 +104,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Permissions
 
 + (BOOL)isAuthorized {
-    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse;
+    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways;
 }
 
 + (BOOL)isDeniedOrDisabled {
@@ -106,8 +115,13 @@ NS_ASSUME_NONNULL_BEGIN
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
     if (status == kCLAuthorizationStatusNotDetermined) {
         NSParameterAssert([CLLocationManager locationServicesEnabled]);
-        DDLogInfo(@"%@ is requesting authorization to access location when in use.", self);
-        [self.locationManager requestWhenInUseAuthorization];
+        if(self.significantLocationUpdatesOnly){
+            DDLogInfo(@"%@ is requesting authorization to access location always.", self);
+            [self.locationManager requestAlwaysAuthorization];
+        }else{
+            DDLogInfo(@"%@ is requesting authorization to access location when in use.", self);
+            [self.locationManager requestWhenInUseAuthorization];
+        }
         return YES;
     }
     DDLogVerbose(@"%@ is skipping authorization request because status is %d.", self, status);
@@ -145,10 +159,15 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
+
 #pragma mark - Location Updates
 
 - (void)startLocationUpdates {
-    [self.locationManager startUpdatingLocation];
+    if(self.significantLocationUpdatesOnly){
+        [self.locationManager startMonitoringSignificantLocationChanges];
+    }else{
+        [self.locationManager startUpdatingLocation];
+    }
 }
 
 - (void)startHeadingUpdates {
@@ -199,6 +218,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)stopLocationUpdates {
+    [self.locationManager stopMonitoringSignificantLocationChanges];
     [self.locationManager stopUpdatingLocation];
 }
 
@@ -224,9 +244,9 @@ NS_ASSUME_NONNULL_BEGIN
         }
 
         case kCLAuthorizationStatusDenied: {
-            if ([self.delegate respondsToSelector:@selector(nearbyController:didChangeEnabledState:)]) {
+            if ([self.delegate respondsToSelector:@selector(locationManager:didChangeEnabledState:)]) {
                 DDLogInfo(@"Informing delegate about denied access to user's location.");
-                [self.delegate nearbyController:self didChangeEnabledState:NO];
+                [self.delegate locationManager:self didChangeEnabledState:NO];
             }
             break;
         }
@@ -234,8 +254,8 @@ NS_ASSUME_NONNULL_BEGIN
         case kCLAuthorizationStatusAuthorizedWhenInUse:
         case kCLAuthorizationStatusAuthorizedAlways: {
             DDLogInfo(@"%@ was granted access to location when in use, attempting to monitor location.", self);
-            if ([self.delegate respondsToSelector:@selector(nearbyController:didChangeEnabledState:)]) {
-                [self.delegate nearbyController:self didChangeEnabledState:YES];
+            if ([self.delegate respondsToSelector:@selector(locationManager:didChangeEnabledState:)]) {
+                [self.delegate locationManager:self didChangeEnabledState:YES];
             }
             if (self.isRequestingAuthorizationAndStart) { //only start if we requested as a part of a start
                 [self startMonitoringLocation];
@@ -252,7 +272,9 @@ NS_ASSUME_NONNULL_BEGIN
     }
     self.lastLocation = manager.location;
     DDLogVerbose(@"%@ updated location: %@", self, self.lastLocation);
-    [self.delegate nearbyController:self didUpdateLocation:self.lastLocation];
+    if ([self.delegate respondsToSelector:@selector(locationManager:didUpdateLocation:)]) {
+        [self.delegate locationManager:self didUpdateLocation:self.lastLocation];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading {
@@ -262,7 +284,9 @@ NS_ASSUME_NONNULL_BEGIN
     }
     self.lastHeading = newHeading;
     DDLogVerbose(@"%@ updated heading to %@", self, self.lastHeading);
-    [self.delegate nearbyController:self didUpdateHeading:self.lastHeading];
+    if ([self.delegate respondsToSelector:@selector(locationManager:didUpdateHeading:)]) {
+        [self.delegate locationManager:self didUpdateHeading:self.lastHeading];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
@@ -277,22 +301,35 @@ NS_ASSUME_NONNULL_BEGIN
     }
 #endif
     DDLogError(@"%@ encountered error: %@", self, error);
-    [self.delegate nearbyController:self didReceiveError:error];
+    if ([self.delegate respondsToSelector:@selector(locationManager:didReceiveError:)]) {
+        [self.delegate locationManager:self didReceiveError:error];
+    }
 }
 
 #pragma mark - Geocoding
 
 - (AnyPromise *)reverseGeocodeLocation:(CLLocation *)location {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-        [[[CLGeocoder alloc] init] reverseGeocodeLocation:location
-                                        completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks, NSError *_Nullable error) {
-                                            if (error) {
-                                                resolve(error);
-                                            } else {
-                                                resolve(placemarks.firstObject);
-                                            }
-                                        }];
+        [self reverseGeocodeLocation:location
+                          completion:^(CLPlacemark * _Nonnull placemark) {
+                              resolve(placemark);
+                          } failure:^(NSError * _Nonnull error) {
+                              resolve(error);
+                          }];
     }];
+}
+
+- (void)reverseGeocodeLocation:(CLLocation *)location completion:(void (^) (CLPlacemark* placemark))completion
+                       failure:(void(^)(NSError* error))failure{
+    [[[CLGeocoder alloc] init] reverseGeocodeLocation:location
+                                    completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks, NSError *_Nullable error) {
+                                        if (failure && error) {
+                                            failure(error);
+                                        } else if (completion) {
+                                            completion(placemarks.firstObject);
+                                        }
+                                    }];
+
 }
 
 @end

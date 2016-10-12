@@ -19,8 +19,8 @@ __block WMFMockLocationManager *mockLocationManager;
 void (^setupSchemaWithSiteURL)(NSURL *) = ^(NSURL *siteURL) {
     // TODO: setup w/ temp blacklist
     schema = [WMFExploreSectionSchema schemaWithSiteURL:siteURL
-                                             savedPages:dataStore.userDataStore.savedPageList
-                                                history:dataStore.userDataStore.historyList
+                                             savedPages:dataStore.savedPageList
+                                                history:dataStore.historyList
                                               blackList:[WMFRelatedSectionBlackList new]
                                         locationManager:mockLocationManager
                                                    file:[NSURL fileURLWithPath:WMFRandomTemporaryFileOfType(@"plist")]];

@@ -3,7 +3,13 @@
 
 @import WMFUtilities;
 
+#import <WMFModel/WMFBaseDataStore.h>
 #import <WMFModel/MWKDataStore.h>
+#import <WMFModel/WMFContentGroupDataStore.h>
+
+#import <WMFModel/WMFDataBaseDataSource.h>
+#import <WMFModel/MWKDataStore+WMFDataSources.h>
+
 #import <WMFModel/SessionSingleton.h>
 #import <WMFModel/QueuesSingleton.h>
 
@@ -29,6 +35,8 @@
 #import <WMFModel/MWKRecentSearchEntry.h>
 #import <WMFModel/MWKRecentSearchList.h>
 
+#import <WMFModel/WMFExploreSection.h>
+
 #import <WMFModel/WMFImageTagParser.h>
 #import <WMFModel/WMFImageTag.h>
 #import <WMFModel/WMFImageTag+TargetImageWidthURL.h>
@@ -39,7 +47,6 @@
 
 #import <WMFModel/MWLanguageInfo.h>
 
-#import <WMFModel/MWKUserDataStore.h>
 #import <WMFModel/MWKImageInfo.h>
 #import <WMFModel/NSString+WMFExtras.h>
 
@@ -50,6 +57,7 @@
 #import <WMFModel/MWKArticle+WMFSharing.h>
 #import <WMFModel/MWKCitation.h>
 #import <WMFModel/MWKHistoryEntry+WMFDatabaseStorable.h>
+
 #import <WMFModel/MWKImage+CanonicalFilenames.h>
 #import <WMFModel/MWKImageInfo+MWKImageComparison.h>
 #import <WMFModel/MWKList+Subclass.h>

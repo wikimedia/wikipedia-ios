@@ -5,11 +5,6 @@
 
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 
-// Models
-#import "WMFSearchResultDistanceProvider.h"
-#import "WMFSearchResultBearingProvider.h"
-#import "MWKTitle.h"
-
 // Views
 #import "WMFCompassView.h"
 
@@ -30,9 +25,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UIView *distanceLabelBackground;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
-
-@property (strong, nonatomic) WMFSearchResultBearingProvider *bearingProvider;
-@property (strong, nonatomic) WMFSearchResultDistanceProvider *distanceProvider;
 
 @end
 
@@ -58,8 +50,6 @@
     [super prepareForReuse];
     [self configureImageViewWithPlaceholder];
     self.descriptionText = nil;
-    self.distanceProvider = nil;
-    self.bearingProvider = nil;
     self.titleText = nil;
     self.titleLabel.text = nil;
     self.distanceLabel.text = nil;
@@ -74,24 +64,6 @@
 }
 
 #pragma mark - Compass
-
-- (void)setBearingProvider:(WMFSearchResultBearingProvider *)bearingProvider {
-    [self.KVOController unobserve:_bearingProvider];
-    _bearingProvider = bearingProvider;
-    if (_bearingProvider) {
-        self.compassView.hidden = NO;
-        [self.KVOController observe:_bearingProvider
-                            keyPath:WMF_SAFE_KEYPATH(_bearingProvider, bearingToLocation)
-                            options:NSKeyValueObservingOptionInitial
-                              block:^(WMFNearbyArticleTableViewCell *cell,
-                                      WMFSearchResultBearingProvider *provider,
-                                      NSDictionary *change) {
-                                  [cell setBearing:provider.bearingToLocation];
-                              }];
-    } else {
-        self.compassView.hidden = YES;
-    }
-}
 
 - (void)setBearing:(CLLocationDegrees)bearing {
     self.compassView.angleRadians = DEGREES_TO_RADIANS(bearing);
@@ -161,23 +133,6 @@
 }
 
 #pragma mark - Distance
-
-- (void)setDistanceProvider:(WMFSearchResultDistanceProvider *)distanceProvider {
-    [self.KVOController unobserve:_distanceProvider];
-    _distanceProvider = distanceProvider;
-    if (_distanceProvider) {
-        [self.KVOController observe:_distanceProvider
-                            keyPath:WMF_SAFE_KEYPATH(_distanceProvider, distanceToUser)
-                            options:NSKeyValueObservingOptionInitial
-                              block:^(WMFNearbyArticleTableViewCell *cell,
-                                      WMFSearchResultDistanceProvider *provider,
-                                      NSDictionary *change) {
-                                  [cell setDistance:provider.distanceToUser];
-                              }];
-    } else {
-        [self setDistance:0];
-    }
-}
 
 - (void)setDistance:(CLLocationDistance)distance {
     //    if (FBTweakValue(@"Explore", @"Nearby", @"Show raw distance", NO)) {
