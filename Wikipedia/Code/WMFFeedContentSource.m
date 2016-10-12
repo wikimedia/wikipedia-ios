@@ -196,6 +196,32 @@ NS_ASSUME_NONNULL_BEGIN
     return (id)[self.contentStore firstGroupOfKind:[WMFNewsContentGroup kind] forDate:date];
 }
 
+#pragma mark - Notifications
+
+- (void)scheduleNotificationsForFeedDay:(WMFFeedDayResponse *)feedDay {
+    NSArray<WMFFeedTopReadArticlePreview *> *articlePreviews = feedDay.topRead.articlePreviews;
+    NSMutableDictionary<NSString *, WMFFeedTopReadArticlePreview *> *topReadArticlesByKey = [NSMutableDictionary dictionaryWithCapacity:articlePreviews.count];
+    for (WMFFeedTopReadArticlePreview *articlePreview in articlePreviews) {
+        NSString *key = articlePreview.articleURL.wmf_databaseKey;
+        if (!key) {
+            continue;
+        }
+        topReadArticlesByKey[key] = articlePreview;
+    }
+
+    for (WMFFeedNewsStory *newsStory in feedDay.newsStories) {
+        for (WMFFeedArticlePreview *articlePreview in newsStory.articlePreviews) {
+            NSString *key = articlePreview.articleURL.wmf_databaseKey;
+            WMFFeedTopReadArticlePreview *topReadArticlePreview = topReadArticlesByKey[key];
+            if (topReadArticlePreview) {
+                [self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreview];
+            }
+        }
+    }
+}
+
+- (void)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory articlePreview:(WMFFeedArticlePreview *)articlePreview {
+}
 
 @end
 
