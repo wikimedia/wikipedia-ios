@@ -641,7 +641,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 - (void)configurePhotoCell:(WMFPicOfTheDayCollectionViewCell *)cell withImageInfo:(WMFFeedImage *)imageInfo atIndexPath:(NSIndexPath *)indexPath{
     [cell setImageURL:imageInfo.imageThumbURL];
     if (imageInfo.imageDescription.length) {
-        [cell setDisplayTitle:imageInfo.imageDescription];
+        [cell setDisplayTitle:[imageInfo.imageDescription wmf_stringByRemovingHTML]];
     } else {
         [cell setDisplayTitle:imageInfo.canonicalPageTitle];
     }
@@ -790,9 +790,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         }
             break;
         case WMFFeedDetailTypeGallery:{
-            //            WMFFeedImage* image = [self imageInfoForIndexPath:indexPath];
-            //            WMFPOTDImageGalleryViewController *vc = [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date] selectedImageInfo:image];
-            //            [self presentViewController:vc animated:animated completion:nil];
+            return [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date]];
         }
             break;
         default:
@@ -817,9 +815,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         }
             break;
         case WMFFeedDetailTypeGallery:{
-//            WMFFeedImage* image = [self imageInfoForIndexPath:indexPath];
-//            WMFPOTDImageGalleryViewController *vc = [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date] selectedImageInfo:image];
-//            [self presentViewController:vc animated:animated completion:nil];
+            [self presentViewController:vc animated:animated completion:nil];
         }
             break;
         default:

@@ -15,7 +15,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     var date = NSDate()
     var results: [MWKSearchResult] = []
     let articlePreviewFetcher = WMFArticlePreviewFetcher()
-    let mostReadFetcher = WMFMostReadTitleFetcher()
+    let topReadContentSource = WMFFeedContentSource()
     let dataStore: MWKDataStore = SessionSingleton.sharedInstance().dataStore
     let databaseDateFormatter = NSDateFormatter.wmf_englishUTCNonDelimitedYearMonthDayFormatter()
     let headerDateFormatter = NSDateFormatter.wmf_shortMonthNameDayOfMonthNumberDateFormatter()

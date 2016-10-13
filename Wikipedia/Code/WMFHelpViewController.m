@@ -43,7 +43,7 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 }
 
 - (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
-    WMFHelpViewController *articleViewController = [[WMFHelpViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+    WMFHelpViewController *articleViewController = [[WMFHelpViewController alloc] initWithArticleURL:url dataStore:self.dataStore previewStore:self.previewStore];
     [self.navigationController pushViewController:articleViewController animated:YES];
 }
 

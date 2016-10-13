@@ -251,10 +251,6 @@ NS_ASSUME_NONNULL_BEGIN
     return WMFFeedDetailTypeGallery;
 }
 
-- (WMFFeedMoreType)moreType{
-    return WMFFeedMoreTypeNone;
-}
-
 - (NSString *)analyticsContentType {
     return @"Picture of the Day";
 }

@@ -16,7 +16,7 @@ typedef NS_ENUM(NSUInteger, WMFFeedDetailType){
     WMFFeedDetailTypePage,
     WMFFeedDetailTypePageWithRandomButton,
     WMFFeedDetailTypeGallery,
-    WMFFeedDetailTypeStory
+    WMFFeedDetailTypeStory,
 };
 
 typedef NS_ENUM(NSUInteger, WMFFeedHeaderActionType){
@@ -32,7 +32,6 @@ typedef NS_ENUM(NSUInteger, WMFFeedMoreType){
     WMFFeedMoreTypePageList,
     WMFFeedMoreTypePageListWithPreview,
     WMFFeedMoreTypePageListWithLocation,
-    WMFFeedMoreTypeGallery,
 };
 
 typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {

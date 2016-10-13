@@ -7,9 +7,6 @@
 #import <Mantle/Mantle.h>
 #import "WMFBaseRequestSerializer.h"
 
-//Promises
-#import "Wikipedia-Swift.h"
-
 //Models
 #import "WMFLocationSearchResults.h"
 #import "MWKLocationSearchResult.h"
@@ -55,22 +52,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFLocationSearchRequestSerializer *)nearbySerializer {
     return (WMFLocationSearchRequestSerializer *)(self.operationManager.requestSerializer);
-}
-
-- (AnyPromise *)fetchArticlesWithSiteURL:(NSURL *)siteURL
-                                location:(CLLocation *)location
-                             resultLimit:(NSUInteger)resultLimit
-                             cancellable:(inout id<Cancellable> __nullable *__nullable)outCancellable {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        id<Cancellable> cancellable = [self fetchArticlesWithSiteURL:siteURL location:location resultLimit:resultLimit useDesktopURL:NO completion:^(WMFLocationSearchResults * _Nonnull results) {
-            resolve(results);
-            
-        } failure:^(NSError * _Nonnull error) {
-            resolve(error);
-        }];
-        
-        WMFSafeAssign(outCancellable, cancellable);
-    }];
 }
 
 - (NSURLSessionDataTask* )fetchArticlesWithSiteURL:(NSURL *)siteURL

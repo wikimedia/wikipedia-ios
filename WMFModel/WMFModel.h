@@ -73,9 +73,41 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import <WMFModel/WMFAssetsFile.h>
 
 #import <WMFModel/MWNetworkActivityIndicatorManager.h>
-#import <WMFModel/NSDate+WMFMostReadDate.h>
-#import <WMFModel/WMFMostReadTitleFetcher.h>
-#import <WMFModel/WMFMostReadTitlesResponse.h>
+
+#import <WMFModel/WMFContentSource.h>
+#import <WMFModel/WMFTimerContentSource.h>
+#import <WMFModel/WMFRelatedPagesContentSource.h>
+#import <WMFModel/WMFMainPageContentSource.h>
+#import <WMFModel/WMFNearbyContentSource.h>
+#import <WMFModel/WMFContinueReadingContentSource.h>
+#import <WMFModel/WMFFeedContentSource.h>
+#import <WMFModel/WMFRandomContentSource.h>
+
+#import <WMFModel/WMFFeedContentFetcher.h>
+#import <WMFModel/WMFFeedDayResponse.h>
+#import <WMFModel/WMFFeedTopReadResponse.h>
+#import <WMFModel/WMFFeedArticlePreview.h>
+#import <WMFModel/WMFFeedImage.h>
+#import <WMFModel/WMFFeedNewsStory.h>
+
+#import <WMFModel/MWKSiteInfo.h>
+#import <WMFModel/MWKSiteInfoFetcher.h>
+#import <WMFModel/WMFRandomArticleFetcher.h>
+
+#import <WMFModel/WMFLocationManager.h>
+#import <WMFModel/CLLocationManager+WMFLocationManagers.h>
+#import <WMFModel/CLLocation+WMFBearing.h>
+#import <WMFModel/NSString+WMFDistance.h>
+#import <WMFModel/CLLocation+WMFComparison.h>
+
+#import <WMFModel/WMFRelatedSearchFetcher.h>
+#import <WMFModel/WMFRelatedSearchResults.h>
+#import <WMFModel/WMFSearchResponseSerializer.h>
+
+#import <WMFModel/MWKLocationSearchResult.h>
+#import <WMFModel/WMFLocationSearchResults.h>
+#import <WMFModel/WMFLocationSearchFetcher.h>
+#import <WMFModel/MWKLocationSearchResult.h>
 
 #import <WMFModel/EventLogger.h>
 #import <WMFModel/EventLoggingFunnel.h>

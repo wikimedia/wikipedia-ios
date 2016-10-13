@@ -9,6 +9,7 @@
 #import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "WMFRelatedSearchResults.h"
 @import NSDate_Extensions;
+#import <WMFModel/WMFModel-Swift.h>
 
 
 NS_ASSUME_NONNULL_BEGIN
