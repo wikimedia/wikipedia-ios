@@ -14,6 +14,8 @@
 
 @property (nonatomic, copy, readwrite) NSURL *thumbnailURL;
 
-@property (nonatomic, strong, readwrite) CLLocation *location;
+@property (nonatomic, copy, readwrite) CLLocation *location;
+
+@property (nonatomic, copy, readwrite) NSDictionary<NSDate*, NSNumber*>* pageViews;
 
 @end

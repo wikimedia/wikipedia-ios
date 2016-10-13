@@ -54,6 +54,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithSearchResult:(MWKSearchResult*)searchResult{
+    
+    NSParameterAssert(url);
+
     WMFArticlePreview* preview = [self newOrExistingPreviewWithURL:url];
     [self updatePreview:preview withSearchResult:searchResult];
     [self savePreview:preview];
@@ -61,6 +64,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithLocationSearchResult:(MWKLocationSearchResult*)searchResult{
+    
+    NSParameterAssert(url);
+
     WMFArticlePreview* preview = [self newOrExistingPreviewWithURL:url];
     [self updatePreview:preview withLocationSearchResult:searchResult];
     [self savePreview:preview];
@@ -92,6 +98,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithArticle:(MWKArticle*)article{
+    
+    NSParameterAssert(url);
+
     WMFArticlePreview* preview = [self newOrExistingPreviewWithURL:url];
     if([article.displaytitle length] > 0){
         preview.displayTitle = article.displaytitle;
@@ -112,6 +121,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithFeedPreview:(WMFFeedArticlePreview*)feedPreview{
     
+    NSParameterAssert(url);
+
     WMFArticlePreview* preview = [self newOrExistingPreviewWithURL:url];
     if([feedPreview.displayTitle length] > 0){
         preview.displayTitle = feedPreview.displayTitle;
@@ -126,6 +137,31 @@ NS_ASSUME_NONNULL_BEGIN
         preview.thumbnailURL = feedPreview.thumbnailURL;
     }
     [self savePreview:preview];
+    return preview;
+}
+
+
+- (nullable WMFArticlePreview *)updatePreviewWithURL:(NSURL *)url withPageViews:(NSDictionary<NSDate*, NSNumber*>*)pageViews{
+    
+    NSParameterAssert(url);
+    NSParameterAssert(pageViews);
+    
+    if(pageViews == nil || url == nil){
+        return nil;
+    }
+    
+    WMFArticlePreview* preview = [[self itemForURL:url] copy];
+    
+    if(!preview){
+        return nil;
+    }
+
+    if(preview.pageViews == nil){
+        preview.pageViews = pageViews;
+    }else{
+        preview.pageViews = [preview.pageViews mtl_dictionaryByAddingEntriesFromDictionary:pageViews];
+    }
+    
     return preview;
 }
 
