@@ -13,9 +13,20 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         }
     }
     var date = NSDate()
-    var results: [MWKSearchResult] = []
-    let articlePreviewFetcher = WMFArticlePreviewFetcher()
-    let dataStore: MWKDataStore = SessionSingleton.sharedInstance().dataStore
+    var group: WMFTopReadContentGroup?
+    var results: [WMFFeedTopReadArticlePreview] = []
+    
+    let feedContentFetcher = WMFFeedContentFetcher()
+    
+    let contentStore = WMFContentGroupDataStore()
+    let previewStore = WMFArticlePreviewDataStore()
+    let userStore: MWKDataStore = SessionSingleton.sharedInstance().dataStore
+
+    lazy var contentSource: WMFFeedContentSource = {
+        [unowned self] in
+        return WMFFeedContentSource(siteURL: self.siteURL, contentGroupDataStore: self.contentStore, articlePreviewDataStore: self.previewStore, userDataStore: self.userStore, notificationsController: nil)
+    }()
+    
     let databaseDateFormatter = NSDateFormatter.wmf_englishUTCNonDelimitedYearMonthDayFormatter()
     let headerDateFormatter = NSDateFormatter.wmf_shortMonthNameDayOfMonthNumberDateFormatter()
     let daysToShowInSparkline: NSTimeInterval = 5
@@ -157,6 +168,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     func updateView() {
+        
         let count = min(results.count, maximumRowCount)
         guard count > 0 else {
             return
@@ -181,10 +193,11 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         var dataValueMin = CGFloat.max
         var dataValueMax = CGFloat.min
         for result in results[0...maximumRowCount] {
-            guard let dataValues = result.viewCounts else {
+            let articlePreview = self.previewStore.itemForURL(result.articleURL())
+            guard let dataValues = articlePreview?.pageViews else {
                 continue
             }
-            for dataValue in dataValues {
+            for (_, dataValue) in dataValues {
                 let floatValue = CGFloat(dataValue.doubleValue)
                 if (floatValue < dataValueMin) {
                     dataValueMin = floatValue
@@ -212,24 +225,31 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             let result = results[i]
 
             vc.titleLabel.text = result.displayTitle
-            vc.subtitleLabel.text = result.extract ?? result.wikidataDescription
+            vc.subtitleLabel.text = result.snippet ?? result.wikidataDescription
             vc.imageView.wmf_reset()
             vc.rankLabel.text = NSNumberFormatter.localizedThousandsStringFromNumber(i + 1)
-            if let viewCounts = result.viewCounts where viewCounts.count > 0 {
-                vc.sparklineView.minDataValue = dataValueMin
-                vc.sparklineView.maxDataValue = dataValueMax
-                vc.sparklineView.dataValues = viewCounts
-
-                if let count = viewCounts.last {
-                    vc.viewCountLabel.text = NSNumberFormatter.localizedThousandsStringFromNumber(count)
+            
+            if let articlePreview = self.previewStore.itemForURL(result.articleURL()) {
+                if let viewCounts = articlePreview.pageViewsSortedByDate() where viewCounts.count > 0 {
+                    vc.sparklineView.minDataValue = dataValueMin
+                    vc.sparklineView.maxDataValue = dataValueMax
+                    vc.sparklineView.dataValues = viewCounts
+                    
+                    if let count = viewCounts.last {
+                        vc.viewCountLabel.text = NSNumberFormatter.localizedThousandsStringFromNumber(count)
+                    } else {
+                        vc.viewCountLabel.text = nil
+                    }
+                    
+                    vc.viewCountAndSparklineContainerView.hidden = false
                 } else {
-                    vc.viewCountLabel.text = nil
+                    vc.viewCountAndSparklineContainerView.hidden = true
                 }
-                
-                vc.viewCountAndSparklineContainerView.hidden = false
             } else {
                 vc.viewCountAndSparklineContainerView.hidden = true
             }
+
+            
             if let imageURL = result.thumbnailURL {
                 vc.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: { (error) in
                     vc.collapseImageAndWidenLabels = true
@@ -303,94 +323,26 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
-        date = NSDate()//.wmf_bestMostReadFetchDate()
-        fetchForDate(date, siteURL: siteURL, completionHandler: completionHandler)
+        fetch(completionHandler)
     }
-    
-    func fetchForDate(date: NSDate, siteURL: NSURL, completionHandler: ((NCUpdateResult) -> Void)) {
-        guard let host = siteURL.host else {
-            completionHandler(.NoData)
-            return
-        }
-        let databaseKey = databaseDateFormatter.stringFromDate(date)
-        let databaseCollection = "wmftopread:\(host)"
-        
-        guard !skipCache else {
-            self.fetchRemotelyAndStoreInDatabaseCollection(databaseCollection, databaseKey: databaseKey, completionHandler: completionHandler)
-            return
-        }
-        
-        dataStore.readWithBlock { (transaction) in
-            guard let results = transaction.objectForKey(databaseKey, inCollection: databaseCollection) as? [MWKSearchResult] else {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.fetchRemotelyAndStoreInDatabaseCollection(databaseCollection, databaseKey: databaseKey, completionHandler: completionHandler)
-                    })
-                return
-            }
-            
+
+    func fetch(completionHandler: ((NCUpdateResult) -> Void)) {
+        contentSource.loadNewContentForce(false) {
             dispatch_async(dispatch_get_main_queue(), {
-                self.results = results
-                self.updateView()
-                completionHandler(.NewData)
+                if let topRead = self.contentStore.firstGroupOfKind(WMFTopReadContentGroup.kind(), forDate: NSDate()) as? WMFTopReadContentGroup {
+                
+                    if let content = self.contentStore.contentForContentGroup(topRead) as? [WMFFeedTopReadArticlePreview] {
+                        
+                        self.group = topRead
+                        self.results = content
+                        self.updateView()
+                        completionHandler(.NewData)
+                        return
+                    }
+                }
+                completionHandler(.NoData)
             })
         }
-    }
-    
-    func fetchRemotelyAndStoreInDatabaseCollection(databaseCollection: String, databaseKey: String, completionHandler: ((NCUpdateResult) -> Void)) {
-        let siteURL = self.siteURL
-//        mostReadFetcher.fetchMostReadTitlesForSiteURL(siteURL, date: date).then { (result) -> AnyPromise in
-//            
-//            guard let mostReadTitlesResponse = result as? WMFMostReadTitlesResponseItem else {
-//                completionHandler(.NoData)
-//                return AnyPromise(value: nil)
-//            }
-//            
-//            let articleURLs = mostReadTitlesResponse.articles.map({ (article) -> NSURL in
-//                return siteURL.wmf_URLWithTitle(article.titleText)
-//            })
-//
-//            return self.articlePreviewFetcher.fetchArticlePreviewResultsForArticleURLs(articleURLs, siteURL: siteURL, extractLength: WMFNumberOfExtractCharacters, thumbnailWidth: UIScreen.mainScreen().wmf_listThumbnailWidthForScale().unsignedIntegerValue)
-//            }.then { (result) -> AnyPromise in
-//                guard let articlePreviewResponse = result as? [MWKSearchResult] else {
-//                    completionHandler(.NoData)
-//                    return AnyPromise(value: nil)
-//                }
-//                
-//                let results =  articlePreviewResponse.filter({ (result) -> Bool in
-//                    return result.articleID != 0
-//                })
-//                
-//                let group = WMFTaskGroup()                
-//                let resultsThatNeedASparkline = results[0...self.maximumRowCount]
-//                for result in resultsThatNeedASparkline {
-//                    guard let displayTitle = result.displayTitle else {
-//                        continue
-//                    }
-//                    group.enter()
-//                    let startDate = self.date.dateByAddingTimeInterval(-86400*self.daysToShowInSparkline)
-//                    let endDate = self.date.dateByAddingTimeInterval(86400) // One Day after
-//                    let URL = siteURL.wmf_URLWithTitle(displayTitle)
-//                    self.mostReadFetcher.fetchPageviewsForURL(URL, startDate: startDate, endDate: endDate, failure: { (error) in
-//                        group.leave()
-//                        }, success: { (results) in
-//                            result.viewCounts = results
-//                            group.leave()
-//                    })
-//                }
-//                
-//                group.waitInBackgroundWithCompletion({ 
-//                    self.results = results
-//                    
-//                    self.updateView()
-//                    completionHandler(.NewData)
-//                    
-//                    self.dataStore.readWriteWithBlock({ (conn) in
-//                        conn.setObject(results, forKey: databaseKey, inCollection: databaseCollection)
-//                    })
-//                });
-//
-//                return AnyPromise(value: articlePreviewResponse)
-//        }
     }
     
     func showAllTopReadInApp() {
@@ -412,11 +364,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         }
         
         let result = results[index]
-        guard let displayTitle = result.displayTitle else {
-            showAllTopReadInApp()
-            return
-        }
-        
+        let displayTitle = result.displayTitle
         let URL = siteURL.wmf_wikipediaSchemeURLWithTitle(displayTitle)
         self.extensionContext?.openURL(URL, completionHandler: { (success) in
             
