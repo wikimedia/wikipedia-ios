@@ -8,6 +8,8 @@
 #import "WMFArticlePreview.h"
 #import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "MWKArticle.h"
+#import <WMFModel/WMFModel-Swift.h>
+
 
 NS_ASSUME_NONNULL_BEGIN
 

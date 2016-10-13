@@ -8,9 +8,6 @@
 #import <Mantle/Mantle.h>
 #import "WMFBaseRequestSerializer.h"
 
-//Promises
-#import "Wikipedia-Swift.h"
-
 //Models
 #import "WMFRelatedSearchResults.h"
 #import "MWKSearchResult.h"
@@ -57,18 +54,6 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 
 - (BOOL)isFetching {
     return [[self.operationManager operationQueue] operationCount] > 0;
-}
-
-- (AnyPromise *)fetchArticlesRelatedArticleWithURL:(NSURL *)URL
-                                       resultLimit:(NSUInteger)resultLimit {
-    NSParameterAssert(URL.wmf_title);
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        [self fetchArticlesRelatedArticleWithURL:URL resultLimit:resultLimit completionBlock:^(WMFRelatedSearchResults* results){
-            resolve(results);
-        }failureBlock:^(NSError* error){
-            resolve(error);
-        }];
-    }];
 }
 
 - (void)fetchArticlesRelatedArticleWithURL:(NSURL *)URL
