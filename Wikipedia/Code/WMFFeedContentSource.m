@@ -326,18 +326,22 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     NSString *title = NSLocalizedString(@"in-the-news-notification-title", nil);
     NSString *body = [storyHTML wmf_stringByRemovingHTML];
 
-    NSDate *now = [NSDate date];
+    NSDate *notificationDate = [NSDate date];
     NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
-    NSDateComponents *components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:now];
+    NSDateComponents *components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:notificationDate];
     if (components.hour < WMFFeedNotificationMinHour || components.hour > WMFFeedNotificationMaxHour) {
         // Send it tomorrow
-        NSDate *tomorrow = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:now options:NSCalendarMatchStrictly];
-        components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour fromDate:tomorrow];
+        notificationDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:notificationDate options:NSCalendarMatchStrictly];
+        components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour fromDate:notificationDate];
         components.hour = WMFFeedNotificationMinHour;
     }
 
     [self.notificationsController sendNotificationWithTitle:title body:body categoryIdentifier:WMFInTheNewsNotificationCategoryIdentifier userInfo:info atDateComponents:components];
+    NSArray<NSURL *> *articleURLs = [newsStory.articlePreviews wmf_mapAndRejectNil:^NSURL *_Nullable(WMFFeedArticlePreview *_Nonnull obj) {
+        return obj.articleURL;
+    }];
 
+    [self.userDataStore.historyList setInTheNewsNotificationDate:notificationDate forArticlesWithURLs:articleURLs];
     return YES;
 }
 
