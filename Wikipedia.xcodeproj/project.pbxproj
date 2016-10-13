@@ -50,7 +50,7 @@
 		0E28C4801D74D8DF000C5919 /* WMFContentGroup+WMFDatabaseViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E28C47E1D74D8DF000C5919 /* WMFContentGroup+WMFDatabaseViews.m */; };
 		0E28C48A1D75298C000C5919 /* WMFArticlePreview.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C4881D75298C000C5919 /* WMFArticlePreview.h */; };
 		0E28C48B1D75298C000C5919 /* WMFArticlePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E28C4891D75298C000C5919 /* WMFArticlePreview.m */; };
-		0E28C48E1D7529C8000C5919 /* WMFArticlePreviewDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C48C1D7529C8000C5919 /* WMFArticlePreviewDataStore.h */; };
+		0E28C48E1D7529C8000C5919 /* WMFArticlePreviewDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C48C1D7529C8000C5919 /* WMFArticlePreviewDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E28C48F1D7529C8000C5919 /* WMFArticlePreviewDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E28C48D1D7529C8000C5919 /* WMFArticlePreviewDataStore.m */; };
 		0E28C4931D752F59000C5919 /* WMFArticlePreview+WMFDatabaseStorable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C4911D752F59000C5919 /* WMFArticlePreview+WMFDatabaseStorable.h */; };
 		0E28C4941D752F59000C5919 /* WMFArticlePreview+WMFDatabaseStorable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E28C4921D752F59000C5919 /* WMFArticlePreview+WMFDatabaseStorable.m */; };

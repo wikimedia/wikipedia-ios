@@ -126,6 +126,7 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import <WMFModel/WMFDatabaseDataSource.h>
 #import <WMFModel/MWKDataStore+WMFDataSources.h>
 #import <WMFModel/WMFContentGroupDataStore.h>
+#import <WMFModel/WMFArticlePreviewDataStore.h>
 
 #import <WMFModel/NSUserActivity+WMFExtensions.h>
 
@@ -138,5 +139,3 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import <WMFModel/SessionSingleton.h>
 #import <WMFModel/QueuesSingleton.h>
 #import <WMFModel/MWKSavedPageEntry.h>
-
-
