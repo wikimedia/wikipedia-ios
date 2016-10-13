@@ -6,13 +6,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) NSString *displayTitle;
 
-@property (nonatomic, copy, readwrite) NSString *wikidataDescription;
+@property (nonatomic, copy, readwrite, nullable) NSString *wikidataDescription;
 
-@property (nonatomic, copy, readwrite) NSString *snippet;
+@property (nonatomic, copy, readwrite, nullable) NSString *snippet;
 
 @property (nonatomic, copy, readwrite) NSString *language;
 
-@property (nonatomic, copy, readwrite) NSURL *thumbnailURL;
+@property (nonatomic, copy, readwrite, nullable) NSURL *thumbnailURL;
 
 
 - (NSURL*)articleURL;
