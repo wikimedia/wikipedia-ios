@@ -14,6 +14,8 @@
 #import "WMFArticlePreview.h"
 #import "WMFNotificationsController.h"
 
+#import <WMFModel/WMFModel-Swift.h>
+
 #define WMF_ALWAYS_LOAD_FEED_DATA DEBUG && 0
 #define WMF_ALWAYS_NOTIFY DEBUG && 0
 
@@ -23,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSInteger WMFFeedNotificationMinHour = 8;
 static NSInteger WMFFeedNotificationMaxHour = 20;
+static NSInteger WMFFeedNotificationMaxPerDay = 3;
 
 static NSTimeInterval WMFFeedNotificationArticleRepeatLimit = 30 * 24 * 60 * 60; // 30 days
 static NSInteger WMFFeedInTheNewsNotificationMaxRank = 10;
@@ -120,29 +123,33 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
         }
         success:^(WMFFeedDayResponse *_Nonnull feedDay) {
-            
-            NSMutableDictionary<NSURL*, NSDictionary<NSDate*, NSNumber*>*>* pageViews = [NSMutableDictionary dictionary];
-            
-            NSDate* startDate = [self startDateForPageViewsForDate:date];
-            NSDate* endDate = [self endDateForPreviewsForDate:date];
-            
-            WMFTaskGroup* group = [WMFTaskGroup new];
-            
-            [feedDay.topRead.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedTopReadArticlePreview * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                
-                [group enter];
-                [self.fetcher fetchPageviewsForURL:obj.articleURL startDate:startDate endDate:endDate failure:^(NSError * _Nonnull error) {
-                    [group leave];
-                    
-                } success:^(NSDictionary<NSDate *,NSNumber *> * _Nonnull results) {
-                    pageViews[obj.articleURL] = results;
-                    [group leave];
 
-                }];
+            NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *pageViews = [NSMutableDictionary dictionary];
+
+            NSDate *startDate = [self startDateForPageViewsForDate:date];
+            NSDate *endDate = [self endDateForPreviewsForDate:date];
+
+            WMFTaskGroup *group = [WMFTaskGroup new];
+
+            [feedDay.topRead.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedTopReadArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+
+                [group enter];
+                [self.fetcher fetchPageviewsForURL:obj.articleURL
+                    startDate:startDate
+                    endDate:endDate
+                    failure:^(NSError *_Nonnull error) {
+                        [group leave];
+
+                    }
+                    success:^(NSDictionary<NSDate *, NSNumber *> *_Nonnull results) {
+                        pageViews[obj.articleURL] = results;
+                        [group leave];
+
+                    }];
             }];
-            
+
             [group waitInBackgroundWithCompletion:^{
-                
+
                 [self saveContentForFeedDay:feedDay pageViews:pageViews onDate:date completion:completion];
             }];
         }];
@@ -157,7 +164,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 #pragma mark - Save Groups
 
-- (void)saveContentForFeedDay:(WMFFeedDayResponse *)feedDay pageViews:(NSMutableDictionary<NSURL*, NSDictionary<NSDate*, NSNumber*>*>*)pageViews onDate:(NSDate *)date completion:(dispatch_block_t)completion {
+- (void)saveContentForFeedDay:(WMFFeedDayResponse *)feedDay pageViews:(NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews onDate:(NSDate *)date completion:(dispatch_block_t)completion {
     [self saveGroupForFeaturedPreview:feedDay.featuredArticle date:date];
     [self saveGroupForTopRead:feedDay.topRead pageViews:pageViews date:date];
     [self saveGroupForPictureOfTheDay:feedDay.pictureOfTheDay date:date];
@@ -183,7 +190,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     [self.contentStore addContentGroup:featured associatedContent:@[featuredURL]];
 }
 
-- (void)saveGroupForTopRead:(WMFFeedTopReadResponse *)topRead pageViews:(NSMutableDictionary<NSURL*, NSDictionary<NSDate*, NSNumber*>*>*)pageViews date:(NSDate *)date {
+- (void)saveGroupForTopRead:(WMFFeedTopReadResponse *)topRead pageViews:(NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)date {
 
     WMFTopReadContentGroup *group = [self topReadForDate:date];
 
@@ -254,6 +261,17 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (![date wmf_isTodayUTC]) { //in the news notifications only valid for the current day
         return;
     }
+
+    NSCalendar *userCalendar = [NSCalendar autoupdatingCurrentCalendar];
+    NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
+    NSDate *mostRecentDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
+    if ([userCalendar isDateInToday:mostRecentDate]) {
+        NSInteger count = [defaults wmf_inTheNewsMostRecentDateNotificationCount];
+        if (count >= WMFFeedNotificationMaxPerDay) {
+            return;
+        }
+    }
+
     NSArray<WMFFeedTopReadArticlePreview *> *articlePreviews = feedDay.topRead.articlePreviews;
     NSMutableDictionary<NSString *, WMFFeedTopReadArticlePreview *> *topReadArticlesByKey = [NSMutableDictionary dictionaryWithCapacity:articlePreviews.count];
     for (WMFFeedTopReadArticlePreview *articlePreview in articlePreviews) {
@@ -315,7 +333,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     NSString *articleURLString = articlePreview.url.absoluteString;
     NSString *storyHTML = newsStory.storyHTML;
     NSString *displayTitle = articlePreview.displayTitle;
-    NSDictionary* viewCounts = articlePreview.pageViews;
+    NSDictionary *viewCounts = articlePreview.pageViews;
 
     if (!storyHTML || !articleURLString || !displayTitle) {
         return NO;
@@ -354,18 +372,28 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     }];
 
     [self.userDataStore.historyList setInTheNewsNotificationDate:notificationDate forArticlesWithURLs:articleURLs];
+
+    NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
+    NSDate *mostRecentDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
+    if ([calendar isDateInToday:mostRecentDate]) {
+        NSInteger count = [defaults wmf_inTheNewsMostRecentDateNotificationCount] + 1;
+        [defaults wmf_setInTheNewsMostRecentDateNotificationCount:count];
+    } else {
+        [defaults wmf_setMostRecentInTheNewsNotificationDate:notificationDate];
+        [defaults wmf_setInTheNewsMostRecentDateNotificationCount:0];
+    }
+
     return YES;
 }
 
-
 #pragma mark - Utility
 
-- (NSDate*)startDateForPageViewsForDate:(NSDate*)date{
-    NSDate *startDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:-1 - WMFFeedInTheNewsNotificationViewCountDays  toDate:date options:NSCalendarMatchStrictly];
+- (NSDate *)startDateForPageViewsForDate:(NSDate *)date {
+    NSDate *startDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:-1 - WMFFeedInTheNewsNotificationViewCountDays toDate:date options:NSCalendarMatchStrictly];
     return startDate;
 }
 
-- (NSDate*)endDateForPreviewsForDate:(NSDate*)date{
+- (NSDate *)endDateForPreviewsForDate:(NSDate *)date {
     NSDate *endDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:date options:NSCalendarMatchStrictly];
     return endDate;
 }
