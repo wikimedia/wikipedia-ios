@@ -24,11 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 static NSInteger WMFFeedNotificationMinHour = 8;
 static NSInteger WMFFeedNotificationMaxHour = 20;
 
-#if WMF_ALWAYS_NOTIFY
-#else
 static NSTimeInterval WMFFeedNotificationArticleRepeatLimit = 30 * 24 * 60 * 60; // 30 days
 static NSInteger WMFFeedInTheNewsNotificationMaxRank = 10;
-#endif
 static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 @interface WMFFeedContentSource ()
@@ -123,7 +120,31 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
         }
         success:^(WMFFeedDayResponse *_Nonnull feedDay) {
-            [self saveContentForFeedDay:feedDay onDate:date completion:completion];
+            
+            NSMutableDictionary<NSURL*, NSDictionary<NSDate*, NSNumber*>*>* pageViews = [NSMutableDictionary dictionary];
+            
+            NSDate* startDate = [self startDateForPageViewsForDate:date];
+            NSDate* endDate = [self endDateForPreviewsForDate:date];
+            
+            WMFTaskGroup* group = [WMFTaskGroup new];
+            
+            [feedDay.topRead.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedTopReadArticlePreview * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                [group enter];
+                [self.fetcher fetchPageviewsForURL:obj.articleURL startDate:startDate endDate:endDate failure:^(NSError * _Nonnull error) {
+                    [group leave];
+                    
+                } success:^(NSDictionary<NSDate *,NSNumber *> * _Nonnull results) {
+                    pageViews[obj.articleURL] = results;
+                    [group leave];
+
+                }];
+            }];
+            
+            [group waitInBackgroundWithCompletion:^{
+                
+                [self saveContentForFeedDay:feedDay pageViews:pageViews onDate:date completion:completion];
+            }];
         }];
 }
 
@@ -136,14 +157,15 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 #pragma mark - Save Groups
 
-- (void)saveContentForFeedDay:(WMFFeedDayResponse *)feedDay onDate:(NSDate *)date completion:(dispatch_block_t)completion {
-    [self scheduleNotificationsForFeedDay:feedDay onDate:date];
+- (void)saveContentForFeedDay:(WMFFeedDayResponse *)feedDay pageViews:(NSMutableDictionary<NSURL*, NSDictionary<NSDate*, NSNumber*>*>*)pageViews onDate:(NSDate *)date completion:(dispatch_block_t)completion {
     [self saveGroupForFeaturedPreview:feedDay.featuredArticle date:date];
-    [self saveGroupForTopRead:feedDay.topRead date:date];
+    [self saveGroupForTopRead:feedDay.topRead pageViews:pageViews date:date];
     [self saveGroupForPictureOfTheDay:feedDay.pictureOfTheDay date:date];
     if ([date wmf_isTodayUTC]) {
         [self saveGroupForNews:feedDay.newsStories date:date];
     }
+    [self scheduleNotificationsForFeedDay:feedDay onDate:date];
+
     [self.contentStore notifyWhenWriteTransactionsComplete:completion];
 }
 
@@ -161,7 +183,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     [self.contentStore addContentGroup:featured associatedContent:@[featuredURL]];
 }
 
-- (void)saveGroupForTopRead:(WMFFeedTopReadResponse *)topRead date:(NSDate *)date {
+- (void)saveGroupForTopRead:(WMFFeedTopReadResponse *)topRead pageViews:(NSMutableDictionary<NSURL*, NSDictionary<NSDate*, NSNumber*>*>*)pageViews date:(NSDate *)date {
 
     WMFTopReadContentGroup *group = [self topReadForDate:date];
 
@@ -172,6 +194,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     [topRead.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedTopReadArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         NSURL *url = [obj articleURL];
         [self.previewStore addPreviewWithURL:url updatedWithFeedPreview:obj];
+        [self.previewStore updatePreviewWithURL:url withPageViews:pageViews[obj.articleURL]];
     }];
 
     [self.contentStore addContentGroup:group associatedContent:topRead.articlePreviews];
@@ -242,11 +265,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 
     for (WMFFeedNewsStory *newsStory in feedDay.newsStories) {
-#if WMF_ALWAYS_NOTIFY
-        WMFFeedArticlePreview *articlePreviewToNotifyAbout = nil;
-#else
-        WMFFeedTopReadArticlePreview *articlePreviewToNotifyAbout = nil;
-#endif
+        WMFArticlePreview *articlePreviewToNotifyAbout = nil;
+        WMFFeedTopReadArticlePreview *topReadPreviewToNotifyAbout = nil;
 
         NSMutableArray<NSURL *> *articleURLs = [NSMutableArray arrayWithCapacity:newsStory.articlePreviews.count];
         for (WMFFeedArticlePreview *articlePreview in newsStory.articlePreviews) {
@@ -267,6 +287,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 #endif
 #if WMF_ALWAYS_NOTIFY
                 articlePreviewToNotifyAbout = articlePreview;
+                topReadPreviewToNotifyAbout = topReadArticlePreview
 #else
                 MWKHistoryEntry *entry = [self.userDataStore entryForURL:articlePreview.articleURL];
                 BOOL notifiedRecently = entry.inTheNewsNotificationDate && [entry.inTheNewsNotificationDate timeIntervalSinceNow] < WMFFeedNotificationArticleRepeatLimit;
@@ -276,36 +297,27 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
                     break;
                 }
 
-                if (!articlePreviewToNotifyAbout || topReadArticlePreview.rank < articlePreviewToNotifyAbout.rank) {
-                    articlePreviewToNotifyAbout = topReadArticlePreview;
+                if (!articlePreviewToNotifyAbout || topReadArticlePreview.rank < topReadPreviewToNotifyAbout.rank) {
+                    topReadPreviewToNotifyAbout = topReadArticlePreview;
+                    articlePreviewToNotifyAbout = [self.previewStore itemForURL:articleURL];
                 }
 #endif
             }
         }
-        NSURL *articleURLToNotifyAbout = articlePreviewToNotifyAbout.articleURL;
-        if (articlePreviewToNotifyAbout && articleURLToNotifyAbout) {
-            NSDate *startDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:-1 - WMFFeedInTheNewsNotificationViewCountDays toDate:date options:NSCalendarMatchStrictly];
-            NSDate *endDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:date options:NSCalendarMatchStrictly];
-            [self.fetcher fetchPageviewsForURL:articleURLToNotifyAbout
-                startDate:startDate
-                endDate:endDate
-                failure:^(NSError *_Nonnull error) {
-                    DDLogError(@"Error fetching pageviews for article: %@ from: %@ to: %@ error: %@", articleURLToNotifyAbout, startDate, endDate, error);
-                }
-                success:^(NSArray<NSNumber *> *_Nonnull results) {
-                    [self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreviewToNotifyAbout viewCounts:results];
-                }];
+        if (articlePreviewToNotifyAbout && articlePreviewToNotifyAbout.url) {
+            [self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreviewToNotifyAbout];
             break;
         }
     }
 }
 
-- (BOOL)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory articlePreview:(WMFFeedArticlePreview *)articlePreview viewCounts:(NSArray<NSNumber *> *)viewCounts {
-    NSString *articleURLString = articlePreview.articleURL.absoluteString;
+- (BOOL)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory articlePreview:(WMFArticlePreview *)articlePreview {
+    NSString *articleURLString = articlePreview.url.absoluteString;
     NSString *storyHTML = newsStory.storyHTML;
     NSString *displayTitle = articlePreview.displayTitle;
+    NSDictionary* viewCounts = articlePreview.pageViews;
 
-    if (!storyHTML || !articleURLString || !displayTitle || !viewCounts) {
+    if (!storyHTML || !articleURLString || !displayTitle) {
         return NO;
     }
 
@@ -343,6 +355,19 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     [self.userDataStore.historyList setInTheNewsNotificationDate:notificationDate forArticlesWithURLs:articleURLs];
     return YES;
+}
+
+
+#pragma mark - Utility
+
+- (NSDate*)startDateForPageViewsForDate:(NSDate*)date{
+    NSDate *startDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:-1 - WMFFeedInTheNewsNotificationViewCountDays  toDate:date options:NSCalendarMatchStrictly];
+    return startDate;
+}
+
+- (NSDate*)endDateForPreviewsForDate:(NSDate*)date{
+    NSDate *endDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:date options:NSCalendarMatchStrictly];
+    return endDate;
 }
 
 @end
