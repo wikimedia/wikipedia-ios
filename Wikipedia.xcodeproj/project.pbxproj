@@ -41,25 +41,25 @@
 		0E28C46E1D74AE64000C5919 /* WMFExploreSection.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E802CE1C0CD35B0065EBC0 /* WMFExploreSection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E28C4701D74AE6E000C5919 /* WMFContentGroupDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C5D3C1D6C964A00C95BA1 /* WMFContentGroupDataStore.m */; };
 		0E28C4711D74AE6E000C5919 /* WMFExploreSection.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802CF1C0CD35B0065EBC0 /* WMFExploreSection.m */; };
-		0E28C4751D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C4731D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.h */; };
+		0E28C4751D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C4731D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E28C4761D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E28C4741D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.m */; };
-		0E28C4781D74D381000C5919 /* WMFDatabaseViewable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C4771D74D381000C5919 /* WMFDatabaseViewable.h */; };
-		0E28C47B1D74D587000C5919 /* YapDatabaseViewMappings+WMFMappings.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C4791D74D587000C5919 /* YapDatabaseViewMappings+WMFMappings.h */; };
+		0E28C4781D74D381000C5919 /* WMFDatabaseViewable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C4771D74D381000C5919 /* WMFDatabaseViewable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0E28C47B1D74D587000C5919 /* YapDatabaseViewMappings+WMFMappings.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C4791D74D587000C5919 /* YapDatabaseViewMappings+WMFMappings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E28C47C1D74D587000C5919 /* YapDatabaseViewMappings+WMFMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E28C47A1D74D587000C5919 /* YapDatabaseViewMappings+WMFMappings.m */; };
-		0E28C47F1D74D8DF000C5919 /* WMFContentGroup+WMFDatabaseViews.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C47D1D74D8DF000C5919 /* WMFContentGroup+WMFDatabaseViews.h */; };
+		0E28C47F1D74D8DF000C5919 /* WMFContentGroup+WMFDatabaseViews.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C47D1D74D8DF000C5919 /* WMFContentGroup+WMFDatabaseViews.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E28C4801D74D8DF000C5919 /* WMFContentGroup+WMFDatabaseViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E28C47E1D74D8DF000C5919 /* WMFContentGroup+WMFDatabaseViews.m */; };
-		0E28C48A1D75298C000C5919 /* WMFArticlePreview.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C4881D75298C000C5919 /* WMFArticlePreview.h */; };
+		0E28C48A1D75298C000C5919 /* WMFArticlePreview.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C4881D75298C000C5919 /* WMFArticlePreview.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E28C48B1D75298C000C5919 /* WMFArticlePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E28C4891D75298C000C5919 /* WMFArticlePreview.m */; };
 		0E28C48E1D7529C8000C5919 /* WMFArticlePreviewDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C48C1D7529C8000C5919 /* WMFArticlePreviewDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E28C48F1D7529C8000C5919 /* WMFArticlePreviewDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E28C48D1D7529C8000C5919 /* WMFArticlePreviewDataStore.m */; };
-		0E28C4931D752F59000C5919 /* WMFArticlePreview+WMFDatabaseStorable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C4911D752F59000C5919 /* WMFArticlePreview+WMFDatabaseStorable.h */; };
+		0E28C4931D752F59000C5919 /* WMFArticlePreview+WMFDatabaseStorable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C4911D752F59000C5919 /* WMFArticlePreview+WMFDatabaseStorable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E28C4941D752F59000C5919 /* WMFArticlePreview+WMFDatabaseStorable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E28C4921D752F59000C5919 /* WMFArticlePreview+WMFDatabaseStorable.m */; };
 		0E2927941CD1220D00FD8DA8 /* WMFLeadingImageTrailingTextButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2927931CD1220D00FD8DA8 /* WMFLeadingImageTrailingTextButton.m */; };
 		0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		0E37F9021CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37F9011CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift */; };
 		0E3C5D451D6CEF1000C95BA1 /* WMFBaseDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C5D401D6C9C6400C95BA1 /* WMFBaseDataStore.m */; };
 		0E3C5D461D6CF00000C95BA1 /* WMFBaseDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E3C5D3F1D6C9C6400C95BA1 /* WMFBaseDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0E3F644F1D773642007C632C /* WMFContentGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E3F644D1D773642007C632C /* WMFContentGroup.h */; };
+		0E3F644F1D773642007C632C /* WMFContentGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E3F644D1D773642007C632C /* WMFContentGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E3F64501D773642007C632C /* WMFContentGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3F644E1D773642007C632C /* WMFContentGroup.m */; };
 		0E4A34721CBBFCD400A400F6 /* WMFImageGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4A34711CBBFCD400A400F6 /* WMFImageGalleryViewController.m */; };
 		0E4B5FC61C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FC51C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.m */; };
@@ -68,7 +68,7 @@
 		0E61C4881CD00984000B11B3 /* WMFHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E61C4871CD00984000B11B3 /* WMFHelpViewController.m */; };
 		0E69CD5B1C8773410095918B /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E69CD5A1C8773410095918B /* Launch Screen.storyboard */; };
 		0E6A6F531D9E9AB300189C80 /* WMFContentGroup+WMFFeedContentDisplaying.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6A6F521D9E9AB300189C80 /* WMFContentGroup+WMFFeedContentDisplaying.m */; };
-		0E6A6F571D9EB49400189C80 /* WMFContentGroup+WMFDatabaseStorable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E6A6F551D9EB49400189C80 /* WMFContentGroup+WMFDatabaseStorable.h */; };
+		0E6A6F571D9EB49400189C80 /* WMFContentGroup+WMFDatabaseStorable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E6A6F551D9EB49400189C80 /* WMFContentGroup+WMFDatabaseStorable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E6A6F581D9EB49400189C80 /* WMFContentGroup+WMFDatabaseStorable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6A6F561D9EB49400189C80 /* WMFContentGroup+WMFDatabaseStorable.m */; };
 		0E728D1A1DAEE2B50074EB4B /* WMFFeedDayResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E19B99D1DA7CAC200239F3A /* WMFFeedDayResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E728D1B1DAEE2B50074EB4B /* WMFFeedDayResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E19B99E1DA7CAC200239F3A /* WMFFeedDayResponse.m */; };
@@ -652,7 +652,6 @@
 		D844D9B81D6CB7980042D692 /* MWKRecentSearchEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807A61C0CEFE30065EBC0 /* MWKRecentSearchEntry.m */; };
 		D844D9B91D6CB7980042D692 /* MWKRecentSearchList.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807A81C0CEFE30065EBC0 /* MWKRecentSearchList.m */; };
 		D844D9BE1D6CB7B30042D692 /* MWKDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807C11C0CF04A0065EBC0 /* MWKDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D844D9BF1D6CB7B30042D692 /* (null) in Headers */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9C01D6CB7BA0042D692 /* MWKDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807C21C0CF04A0065EBC0 /* MWKDataStore.m */; };
 		D844D9C11D6CB7BA0042D692 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		D844D9C21D6CB7D20042D692 /* MWKImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807C41C0CF04A0065EBC0 /* MWKImageInfo.m */; };
@@ -668,11 +667,11 @@
 		D844D9CE1D6CBA5C0042D692 /* NSArray+BKIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8047C1C0CE0B40065EBC0 /* NSArray+BKIndex.m */; };
 		D844D9CF1D6CBA600042D692 /* NSIndexSet+BKReduce.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804951C0CE0B40065EBC0 /* NSIndexSet+BKReduce.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9D01D6CBA650042D692 /* NSIndexSet+BKReduce.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804961C0CE0B40065EBC0 /* NSIndexSet+BKReduce.m */; };
-		D844D9D11D6CBBA70042D692 /* YapDatabase+WMFExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E01B2AC1D5BF652005E3134 /* YapDatabase+WMFExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		D844D9D11D6CBBA70042D692 /* YapDatabase+WMFExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E01B2AC1D5BF652005E3134 /* YapDatabase+WMFExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9D31D6CBBA70042D692 /* WMFDatabaseStorable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EE4890C1D4C1BEE0088505C /* WMFDatabaseStorable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9D41D6CBBA70042D692 /* MWKHistoryEntry+WMFDatabaseStorable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EE4890E1D4C1C920088505C /* MWKHistoryEntry+WMFDatabaseStorable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D844D9D51D6CBBA70042D692 /* YapDatabaseConnection+WMFExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E33F2B51D57E42E00C6CF94 /* YapDatabaseConnection+WMFExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		D844D9D61D6CBBA70042D692 /* YapDatabaseReadWriteTransaction+WMFCustomNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E01B2B91D5CCBCB005E3134 /* YapDatabaseReadWriteTransaction+WMFCustomNotifications.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		D844D9D51D6CBBA70042D692 /* YapDatabaseConnection+WMFExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E33F2B51D57E42E00C6CF94 /* YapDatabaseConnection+WMFExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D844D9D61D6CBBA70042D692 /* YapDatabaseReadWriteTransaction+WMFCustomNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E01B2B91D5CCBCB005E3134 /* YapDatabaseReadWriteTransaction+WMFCustomNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9D71D6CBBB30042D692 /* YapDatabase+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E01B2AD1D5BF652005E3134 /* YapDatabase+WMFExtensions.m */; };
 		D844D9D91D6CBBB30042D692 /* MWKHistoryEntry+WMFDatabaseStorable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE4890F1D4C1C920088505C /* MWKHistoryEntry+WMFDatabaseStorable.m */; };
 		D844D9DA1D6CBBB30042D692 /* YapDatabaseConnection+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E33F2B61D57E42E00C6CF94 /* YapDatabaseConnection+WMFExtensions.m */; };
@@ -710,7 +709,7 @@
 		D844D9FE1D6CC2320042D692 /* NSFileManager+WMFExtendedFileAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = D81082F61D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844DA011D6CC3C20042D692 /* MWKLanguageLink.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8079A1C0CEFBD0065EBC0 /* MWKLanguageLink.m */; };
 		D844DA021D6CC3C40042D692 /* MWKLanguageLink.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807991C0CEFBD0065EBC0 /* MWKLanguageLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D844DA031D6CC4C90042D692 /* MWKLanguageLinkController_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E806B31C0CEB160065EBC0 /* MWKLanguageLinkController_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		D844DA031D6CC4C90042D692 /* MWKLanguageLinkController_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E806B31C0CEB160065EBC0 /* MWKLanguageLinkController_Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844DA041D6CC4C90042D692 /* MWKLanguageLinkController.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E806B41C0CEB160065EBC0 /* MWKLanguageLinkController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844DA061D6CC4C90042D692 /* MWKLanguageFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EBCA7441C162EE9004F1FD9 /* MWKLanguageFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844DA071D6CC4D40042D692 /* MWKLanguageLinkController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806B51C0CEB160065EBC0 /* MWKLanguageLinkController.m */; };
@@ -761,7 +760,7 @@
 		D849D6551D6CC7DC00D06FC8 /* WMFImageTagList+ImageURLs.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0CADB1D234927009CE8ED /* WMFImageTagList+ImageURLs.m */; };
 		D84B224D1DAFD0F7007C44AA /* WMFNotificationsController.h in Headers */ = {isa = PBXBuildFile; fileRef = D8F1BF241D9C2AFB00036E71 /* WMFNotificationsController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D84B224E1DAFD0FC007C44AA /* WMFNotificationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F1BF251D9C2AFB00036E71 /* WMFNotificationsController.m */; };
-		D84B224F1DAFD14D007C44AA /* WMFFaceDetectionCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E805CF1C0CE5420065EBC0 /* WMFFaceDetectionCache.h */; };
+		D84B224F1DAFD14D007C44AA /* WMFFaceDetectionCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E805CF1C0CE5420065EBC0 /* WMFFaceDetectionCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D84B22501DAFD15A007C44AA /* WMFFaceDetectionCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805D01C0CE5420065EBC0 /* WMFFaceDetectionCache.m */; };
 		D84B22511DAFD1E1007C44AA /* CIContext+WMFImageProcessing.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8046B1C0CE0B40065EBC0 /* CIContext+WMFImageProcessing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D84B22521DAFD1E1007C44AA /* CIContext+WMFImageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8046C1C0CE0B40065EBC0 /* CIContext+WMFImageProcessing.m */; };
@@ -5932,7 +5931,6 @@
 				0E728D3B1DAEEADB0074EB4B /* WMFLocationSearchResults.h in Headers */,
 				D89D44021D74D3ED00F7862E /* MWKSearchResult.h in Headers */,
 				D849D64F1D6CC7D200D06FC8 /* WMFImageTagList.h in Headers */,
-				0E28C4781D74D381000C5919 /* WMFDatabaseViewable.h in Headers */,
 				D844D9E51D6CBF9C0042D692 /* WMFSharing.h in Headers */,
 				D844D9F81D6CC06B0042D692 /* SDWebImageManager+WMFCacheRemoval.h in Headers */,
 				D844D9F11D6CC01C0042D692 /* MWKImageInfo+MWKImageComparison.h in Headers */,
@@ -5946,7 +5944,6 @@
 				D844D9B11D6CB7770042D692 /* MWKSavedPageEntry+ImageMigration.h in Headers */,
 				0E728D4A1DAEEE910074EB4B /* CLLocation+WMFBearing.h in Headers */,
 				D84B22531DAFD1E1007C44AA /* CIDetector+WMFFaceDetection.h in Headers */,
-				D844D9D51D6CBBA70042D692 /* YapDatabaseConnection+WMFExtensions.h in Headers */,
 				D844D9B61D6CB7940042D692 /* MWKRecentSearchEntry.h in Headers */,
 				D84B224D1DAFD0F7007C44AA /* WMFNotificationsController.h in Headers */,
 				D844D9E91D6CBFD10042D692 /* WMFZeroConfigurationFetcher.h in Headers */,
@@ -5959,7 +5956,6 @@
 				0E728D2D1DAEE8FF0074EB4B /* WMFMainPageContentSource.h in Headers */,
 				D844D9F01D6CC01C0042D692 /* MWKLicense.h in Headers */,
 				0E728D1A1DAEE2B50074EB4B /* WMFFeedDayResponse.h in Headers */,
-				0E28C47B1D74D587000C5919 /* YapDatabaseViewMappings+WMFMappings.h in Headers */,
 				D83FA6AF1D74CD46008CAB00 /* AFHTTPSessionManager+WMFDesktopRetry.h in Headers */,
 				D844D9971D6CB5CA0042D692 /* WikipediaAppUtils.h in Headers */,
 				D844D98D1D6CB58E0042D692 /* MWKSectionList.h in Headers */,
@@ -5969,13 +5965,11 @@
 				D85108AA1D6CC75D009C73C4 /* MWLanguageInfo.h in Headers */,
 				D844D9F21D6CC01C0042D692 /* MWKImage+CanonicalFilenames.h in Headers */,
 				D844D9811D6CB34F0042D692 /* MWKUser.h in Headers */,
-				D844D9D11D6CBBA70042D692 /* YapDatabase+WMFExtensions.h in Headers */,
 				D844D9BE1D6CB7B30042D692 /* MWKDataStore.h in Headers */,
 				0E728D491DAEEE910074EB4B /* CLLocationManager+WMFLocationManagers.h in Headers */,
 				D844D98B1D6CB58E0042D692 /* MWKArticle.h in Headers */,
 				D84B22511DAFD1E1007C44AA /* CIContext+WMFImageProcessing.h in Headers */,
 				0E728D3D1DAEEC310074EB4B /* WMFRelatedSearchFetcher.h in Headers */,
-				D844D9D61D6CBBA70042D692 /* YapDatabaseReadWriteTransaction+WMFCustomNotifications.h in Headers */,
 				0E728D2F1DAEE8FF0074EB4B /* WMFNearbyContentSource.h in Headers */,
 				D844D9EA1D6CBFD10042D692 /* WMFZeroConfiguration.h in Headers */,
 				D8B9E2C61D7617B800A465FF /* WMFDataSource.h in Headers */,
@@ -5997,14 +5991,11 @@
 				D844D9DD1D6CBBFE0042D692 /* NSString+WMFHTMLParsing.h in Headers */,
 				D844D97E1D6CB2A10042D692 /* MWKDataObject.h in Headers */,
 				D844D98F1D6CB58E0042D692 /* MWKSection.h in Headers */,
-				0E28C4931D752F59000C5919 /* WMFArticlePreview+WMFDatabaseStorable.h in Headers */,
 				D8C9BFE81D6CC92C0084624F /* MWKLanguageLinkResponseSerializer.h in Headers */,
 				D844D9D41D6CBBA70042D692 /* MWKHistoryEntry+WMFDatabaseStorable.h in Headers */,
-				D844D9BF1D6CB7B30042D692 /* (null) in Headers */,
 				D844D98C1D6CB58E0042D692 /* MWKCitation.h in Headers */,
 				D844D9EE1D6CBFFD0042D692 /* MWKDataStoreList.h in Headers */,
 				D89F510F1D6CC97F008018E1 /* WMFApiJsonResponseSerializer.h in Headers */,
-				0E28C4751D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.h in Headers */,
 				0E728D351DAEE8FF0074EB4B /* WMFRandomContentSource.h in Headers */,
 				0E728D4B1DAEEE910074EB4B /* NSString+WMFDistance.h in Headers */,
 				0E28C46E1D74AE64000C5919 /* WMFExploreSection.h in Headers */,
@@ -6018,15 +6009,12 @@
 				D83FA6BA1D74CE48008CAB00 /* EventLogger.h in Headers */,
 				D83FA6B71D74CDEB008CAB00 /* ReadingActionFunnel.h in Headers */,
 				0E52FD691DA44D7800587426 /* WMFZeroConfigurationManager.h in Headers */,
-				D84B224F1DAFD14D007C44AA /* WMFFaceDetectionCache.h in Headers */,
 				D844D9EF1D6CC0010042D692 /* MWKList+Subclass.h in Headers */,
 				D8DC16EC1D6F6DD600D6D9FB /* MWKTitle.h in Headers */,
 				D844DA021D6CC3C40042D692 /* MWKLanguageLink.h in Headers */,
-				D844DA031D6CC4C90042D692 /* MWKLanguageLinkController_Private.h in Headers */,
 				0E728D331DAEE8FF0074EB4B /* WMFFeedContentSource.h in Headers */,
 				0E728D311DAEE8FF0074EB4B /* WMFContinueReadingContentSource.h in Headers */,
 				D844D9D31D6CBBA70042D692 /* WMFDatabaseStorable.h in Headers */,
-				0E28C48A1D75298C000C5919 /* WMFArticlePreview.h in Headers */,
 				0E728D241DAEE2B50074EB4B /* WMFFeedContentFetcher.h in Headers */,
 				D844D99E1D6CB6350042D692 /* SessionSingleton.h in Headers */,
 				D844D9C31D6CB7D40042D692 /* MWKImageInfo.h in Headers */,
@@ -6035,10 +6023,20 @@
 				0E728D1E1DAEE2B50074EB4B /* WMFFeedArticlePreview.h in Headers */,
 				D844DA041D6CC4C90042D692 /* MWKLanguageLinkController.h in Headers */,
 				D844D99C1D6CB6170042D692 /* NSString+WMFExtras.h in Headers */,
+				D844D9D51D6CBBA70042D692 /* YapDatabaseConnection+WMFExtensions.h in Headers */,
+				D844D9D11D6CBBA70042D692 /* YapDatabase+WMFExtensions.h in Headers */,
+				D844D9D61D6CBBA70042D692 /* YapDatabaseReadWriteTransaction+WMFCustomNotifications.h in Headers */,
+				D844DA031D6CC4C90042D692 /* MWKLanguageLinkController_Private.h in Headers */,
 				D81EFDE31D775B180035F2EB /* NSUserActivity+WMFExtensions.h in Headers */,
 				0E728D221DAEE2B50074EB4B /* WMFFeedNewsStory.h in Headers */,
 				D89D440A1D74D4DB00F7862E /* NSDictionary+WMFCommonParams.h in Headers */,
 				D89F51111D6CC9BD008018E1 /* WMFNetworkUtilities.h in Headers */,
+				0E28C4781D74D381000C5919 /* WMFDatabaseViewable.h in Headers */,
+				0E28C47B1D74D587000C5919 /* YapDatabaseViewMappings+WMFMappings.h in Headers */,
+				0E28C4931D752F59000C5919 /* WMFArticlePreview+WMFDatabaseStorable.h in Headers */,
+				0E28C4751D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.h in Headers */,
+				D84B224F1DAFD14D007C44AA /* WMFFaceDetectionCache.h in Headers */,
+				0E28C48A1D75298C000C5919 /* WMFArticlePreview.h in Headers */,
 				D844D9B71D6CB7940042D692 /* MWKRecentSearchList.h in Headers */,
 				D844D9A01D6CB6600042D692 /* WMFURLCache.h in Headers */,
 				D8DC16ED1D6F6DD600D6D9FB /* WMFAssetsFile.h in Headers */,

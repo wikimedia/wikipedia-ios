@@ -86,6 +86,24 @@
 
 #import <WMFModel/MWNetworkActivityIndicatorManager.h>
 
+#import <WMFModel/MWKHistoryEntry+WMFDatabaseViews.h>
+#import <WMFModel/MWKLanguageLinkController_Private.h>
+#import <WMFModel/WMFArticlePreview+WMFDatabaseStorable.h>
+#import <WMFModel/WMFArticlePreview.h>
+#import <WMFModel/WMFContentGroup.h>
+#import <WMFModel/WMFContentGroup+WMFDatabaseViews.h>
+#import <WMFModel/WMFContentGroup+WMFDatabaseStorable.h>
+#import <WMFModel/WMFDatabaseViewable.h>
+#import <WMFModel/WMFFaceDetectionCache.h>
+#import <WMFModel/YapDatabase+WMFExtensions.h>
+#import <WMFModel/YapDatabaseReadWriteTransaction+WMFCustomNotifications.h>
+#import <WMFModel/YapDatabaseViewMappings+WMFMappings.h>
+#import <WMFModel/YapDatabaseConnection+WMFExtensions.h>
+
+
+#import <WMFModel/CIContext+WMFImageProcessing.h>
+#import <WMFModel/CIDetector+WMFFaceDetection.h>
+
 #import <WMFModel/WMFContentSource.h>
 #import <WMFModel/WMFTimerContentSource.h>
 #import <WMFModel/WMFRelatedPagesContentSource.h>
