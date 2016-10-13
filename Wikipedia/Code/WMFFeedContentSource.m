@@ -200,7 +200,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     [topRead.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedTopReadArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         NSURL *url = [obj articleURL];
-        [self.previewStore addPreviewWithURL:url updatedWithFeedPreview:obj pageViews:pageViews[obj.articleURL]];
+        [self.previewStore addPreviewWithURL:url updatedWithFeedPreview:obj pageViews:pageViews[url]];
     }];
 
     [self.contentStore addContentGroup:group associatedContent:topRead.articlePreviews];
