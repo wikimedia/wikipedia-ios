@@ -12,14 +12,21 @@
 #import "WMFFeedNewsStory.h"
 
 #import "WMFArticlePreview.h"
+#import "WMFNotificationsController.h"
 
-#define WMF_ALWAYS_LOAD_FEED_DATA DEBUG && 0
+#define WMF_ALWAYS_LOAD_FEED_DATA DEBUG && 1
 
 @import NSDate_Extensions;
 
 NS_ASSUME_NONNULL_BEGIN
 
 static NSTimeInterval WMFFeedNotificationArticleRepeatLimit = 30 * 24 * 60 * 60; // 30 days
+
+static NSInteger WMFFeedNotificationMinHour = 8;
+static NSInteger WMFFeedNotificationMaxHour = 20;
+
+static NSInteger WMFFeedInTheNewsNotificationMaxRank = 10;
+static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 @interface WMFFeedContentSource ()
 
@@ -28,14 +35,16 @@ static NSTimeInterval WMFFeedNotificationArticleRepeatLimit = 30 * 24 * 60 * 60;
 @property (readwrite, nonatomic, strong) WMFContentGroupDataStore *contentStore;
 @property (readwrite, nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
 @property (readwrite, nonatomic, strong) MWKDataStore *userDataStore;
+@property (readwrite, nonatomic, strong) WMFNotificationsController *notificationsController;
 
-@property (nonatomic, strong) WMFFeedContentFetcher *fetcher;
+@property (readwrite, nonatomic, strong) WMFFeedContentFetcher *fetcher;
+@property (readwrite, nonatomic, strong) WMFMostReadTitleFetcher *mostReadFetcher;
 
 @end
 
 @implementation WMFFeedContentSource
 
-- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticlePreviewDataStore *)previewStore userDataStore:(MWKDataStore *)userDataStore {
+- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticlePreviewDataStore *)previewStore userDataStore:(MWKDataStore *)userDataStore notificationsController:(WMFNotificationsController *)notificationsController {
     NSParameterAssert(siteURL);
     NSParameterAssert(contentStore);
     NSParameterAssert(previewStore);
@@ -46,6 +55,8 @@ static NSTimeInterval WMFFeedNotificationArticleRepeatLimit = 30 * 24 * 60 * 60;
         self.previewStore = previewStore;
         self.userDataStore = userDataStore;
         self.updateInterval = 30 * 60;
+        self.notificationsController = notificationsController;
+        self.mostReadFetcher = [[WMFMostReadTitleFetcher alloc] init];
     }
     return self;
 }
@@ -242,7 +253,7 @@ static NSTimeInterval WMFFeedNotificationArticleRepeatLimit = 30 * 24 * 60 * 60;
             }
             [articleURLs addObject:articleURL];
             WMFFeedTopReadArticlePreview *topReadArticlePreview = topReadArticlesByKey[key];
-            if (topReadArticlePreview) {
+            if (topReadArticlePreview && topReadArticlePreview.rank.integerValue < WMFFeedInTheNewsNotificationMaxRank) {
                 MWKHistoryEntry *entry = [self.userDataStore entryForURL:articlePreview.articleURL];
                 BOOL notifiedRecently = entry.inTheNewsNotificationDate && [entry.inTheNewsNotificationDate timeIntervalSinceNow] < WMFFeedNotificationArticleRepeatLimit;
                 BOOL viewedRecently = entry.dateViewed && [entry.dateViewed timeIntervalSinceNow] < WMFFeedNotificationArticleRepeatLimit;
@@ -255,15 +266,59 @@ static NSTimeInterval WMFFeedNotificationArticleRepeatLimit = 30 * 24 * 60 * 60;
                 }
             }
         }
-        if (articlePreviewToNotifyAbout) {
-            [self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreviewToNotifyAbout];
-            [self.userDataStore.historyList setInTheNewsNotificationDate:date forArticlesWithURLs:articleURLs];
+        NSURL *articleURLToNotifyAbout = articlePreviewToNotifyAbout.articleURL;
+        if (articlePreviewToNotifyAbout && articleURLToNotifyAbout) {
+            NSDate *startDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:-1 - WMFFeedInTheNewsNotificationViewCountDays  toDate:date options:NSCalendarMatchStrictly];
+            NSDate *endDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:date options:NSCalendarMatchStrictly];
+            [self.mostReadFetcher fetchPageviewsForURL:articlePreviewToNotifyAbout.articleURL startDate:startDate endDate:endDate failure:^(NSError * _Nonnull error) {
+                DDLogError(@"Error fetching pageviews for article: %@ from: %@ to: %@ error: %@", articleURLToNotifyAbout, startDate, endDate, error);
+            } success:^(NSArray<NSNumber *> * _Nonnull results) {
+                [self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreviewToNotifyAbout viewCounts:results];
+            }];
             break;
         }
     }
 }
 
-- (void)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory articlePreview:(WMFFeedTopReadArticlePreview *)articlePreview {
+- (BOOL)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory articlePreview:(WMFFeedTopReadArticlePreview *)articlePreview viewCounts:(NSArray<NSNumber *> *)viewCounts {
+    NSString *articleURLString = articlePreview.articleURL.absoluteString;
+    NSString *storyHTML = newsStory.storyHTML;
+    NSString *displayTitle = articlePreview.displayTitle;
+
+    if (!storyHTML || !articleURLString || !displayTitle || !viewCounts) {
+        return NO;
+    }
+    
+    NSMutableDictionary *info = [NSMutableDictionary dictionaryWithCapacity:4];
+    info[WMFNotificationInfoStoryHTMLKey] = storyHTML;
+    info[WMFNotificationInfoArticleTitleKey] = displayTitle;
+    info[WMFNotificationInfoViewCountsKey] = viewCounts;
+    info[WMFNotificationInfoArticleURLStringKey] = articleURLString;
+    NSString *thumbnailURLString = articlePreview.thumbnailURL.absoluteString;
+    if (thumbnailURLString) {
+        info[WMFNotificationInfoThumbnailURLStringKey] = thumbnailURLString;
+    }
+    NSString *snippet = articlePreview.snippet ?: articlePreview.wikidataDescription;
+    if (snippet) {
+        info[WMFNotificationInfoArticleExtractKey] = snippet;
+    }
+    
+    NSString *title = NSLocalizedString(@"in-the-news-notification-title", nil);
+    NSString *body = [storyHTML wmf_stringByRemovingHTML];
+
+    NSDate *now = [NSDate date];
+    NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
+    NSDateComponents *components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:now];
+    if (components.hour < WMFFeedNotificationMinHour || components.hour > WMFFeedNotificationMaxHour) {
+        // Send it tomorrow
+        NSDate *tomorrow = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:now options:NSCalendarMatchStrictly];
+        components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour fromDate:tomorrow];
+        components.hour = WMFFeedNotificationMinHour;
+    }
+
+    [self.notificationsController sendNotificationWithTitle:title  body:body categoryIdentifier:WMFInTheNewsNotificationCategoryIdentifier userInfo:info atDateComponents:components];
+    
+    return YES;
 }
 
 @end
