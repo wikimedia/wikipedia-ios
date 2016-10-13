@@ -33,19 +33,19 @@ NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
 }
 
 - (void)start {
-    [self requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error) {
-        if (error) {
-            DDLogError(@"Error requesting authentication: %@", error);
-        }
-        //        dispatch_async(self.notificationQueue, ^{
-        //            self.notificationSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, self.notificationQueue);
-        //            dispatch_source_set_timer(self.notificationSource, DISPATCH_TIME_NOW, WMFNotificationUpdateInterval * NSEC_PER_SEC, WMFNotificationUpdateInterval * NSEC_PER_SEC / 10);
-        //            dispatch_source_set_event_handler(self.notificationSource, ^{
-        //                [self sendNotification];
-        //            });
-        //            dispatch_resume(self.notificationSource);
-        //        });
-    }];
+//    [self requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error) {
+//        if (error) {
+//            DDLogError(@"Error requesting authentication: %@", error);
+//        }
+//        //        dispatch_async(self.notificationQueue, ^{
+//        //            self.notificationSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, self.notificationQueue);
+//        //            dispatch_source_set_timer(self.notificationSource, DISPATCH_TIME_NOW, WMFNotificationUpdateInterval * NSEC_PER_SEC, WMFNotificationUpdateInterval * NSEC_PER_SEC / 10);
+//        //            dispatch_source_set_event_handler(self.notificationSource, ^{
+//        //                [self sendNotification];
+//        //            });
+//        //            dispatch_resume(self.notificationSource);
+//        //        });
+//    }];
 }
 
 - (void)requestAuthenticationIfNecessaryWithCompletionHandler:(void (^)(BOOL granted, NSError *__nullable error))completionHandler {
@@ -97,12 +97,12 @@ NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
 }
 
 - (void)stop {
-    dispatch_async(self.notificationQueue, ^{
-        if (self.notificationSource) {
-            dispatch_source_cancel(self.notificationSource);
-            self.notificationSource = NULL;
-        }
-    });
+//    dispatch_async(self.notificationQueue, ^{
+//        if (self.notificationSource) {
+//            dispatch_source_cancel(self.notificationSource);
+//            self.notificationSource = NULL;
+//        }
+//    });
 }
 
 @end
