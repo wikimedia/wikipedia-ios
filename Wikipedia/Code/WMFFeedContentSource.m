@@ -24,7 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 static NSInteger WMFFeedNotificationMinHour = 8;
 static NSInteger WMFFeedNotificationMaxHour = 20;
 
-#if !WMF_ALWAYS_NOTIFY
+#if WMF_ALWAYS_NOTIFY
+#else
 static NSTimeInterval WMFFeedNotificationArticleRepeatLimit = 30 * 24 * 60 * 60; // 30 days
 static NSInteger WMFFeedInTheNewsNotificationMaxRank = 10;
 #endif
@@ -99,7 +100,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 - (void)loadContentForDate:(NSDate *)date completion:(nullable dispatch_block_t)completion {
 
-#if !WMF_ALWAYS_LOAD_FEED_DATA
+#if WMF_ALWAYS_LOAD_FEED_DATA
+#else
     WMFTopReadContentGroup *topRead = [self topReadForDate:date];
 
     //TODO: check which languages support most read???
