@@ -15,4 +15,3 @@ FOUNDATION_EXPORT const unsigned char WMFUIVersionString[];
 #import <WMFUI/UIColor+WMFHexColor.h>
 #import <WMFUI/UITableViewCell+WMFEdgeToEdgeSeparator.h>
 #import <WMFUI/UIView+WMFDefaultNib.h>
-#import <WMFUI/WMFNotificationsController.h>

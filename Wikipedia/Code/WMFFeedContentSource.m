@@ -14,7 +14,7 @@
 #import "WMFArticlePreview.h"
 #import "WMFNotificationsController.h"
 
-#define WMF_ALWAYS_LOAD_FEED_DATA DEBUG && 1
+#define WMF_ALWAYS_LOAD_FEED_DATA DEBUG && 0
 
 @import NSDate_Extensions;
 
@@ -38,7 +38,6 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 @property (readwrite, nonatomic, strong) WMFNotificationsController *notificationsController;
 
 @property (readwrite, nonatomic, strong) WMFFeedContentFetcher *fetcher;
-@property (readwrite, nonatomic, strong) WMFMostReadTitleFetcher *mostReadFetcher;
 
 @end
 
@@ -56,7 +55,6 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         self.userDataStore = userDataStore;
         self.updateInterval = 30 * 60;
         self.notificationsController = notificationsController;
-        self.mostReadFetcher = [[WMFMostReadTitleFetcher alloc] init];
     }
     return self;
 }
@@ -270,7 +268,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         if (articlePreviewToNotifyAbout && articleURLToNotifyAbout) {
             NSDate *startDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:-1 - WMFFeedInTheNewsNotificationViewCountDays  toDate:date options:NSCalendarMatchStrictly];
             NSDate *endDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:date options:NSCalendarMatchStrictly];
-            [self.mostReadFetcher fetchPageviewsForURL:articlePreviewToNotifyAbout.articleURL startDate:startDate endDate:endDate failure:^(NSError * _Nonnull error) {
+            [self.fetcher fetchPageviewsForURL:articlePreviewToNotifyAbout.articleURL startDate:startDate endDate:endDate failure:^(NSError * _Nonnull error) {
                 DDLogError(@"Error fetching pageviews for article: %@ from: %@ to: %@ error: %@", articleURLToNotifyAbout, startDate, endDate, error);
             } success:^(NSArray<NSNumber *> * _Nonnull results) {
                 [self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreviewToNotifyAbout viewCounts:results];

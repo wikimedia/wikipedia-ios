@@ -1,5 +1,4 @@
 @import UIKit;
-@import WMFModel;
 
 @class MWKImage;
 

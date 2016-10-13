@@ -1,11 +1,11 @@
 #import "WMFNotificationsController.h"
 #import "WMFFaceDetectionCache.h"
+#import <WMFModel/WMFModel-Swift.h>
 @import ImageIO;
 @import UserNotifications;
 @import WMFUtilities;
-@import WMFModel;
 
-#define WMF_ALWAYS_ASK_FOR_NOTIFICATION_PERMISSION DEBUG && 1
+#define WMF_ALWAYS_ASK_FOR_NOTIFICATION_PERMISSION DEBUG && 0
 
 NSString *const WMFInTheNewsNotificationCategoryIdentifier = @"inTheNewsNotificationCategoryIdentifier";
 NSString *const WMFInTheNewsNotificationReadNowActionIdentifier = @"inTheNewsNotificationReadNowActionIdentifier";

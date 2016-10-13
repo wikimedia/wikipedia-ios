@@ -15,7 +15,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     var date = NSDate()
     var results: [MWKSearchResult] = []
     let articlePreviewFetcher = WMFArticlePreviewFetcher()
-    let topReadContentSource = WMFFeedContentSource()
     let dataStore: MWKDataStore = SessionSingleton.sharedInstance().dataStore
     let databaseDateFormatter = NSDateFormatter.wmf_englishUTCNonDelimitedYearMonthDayFormatter()
     let headerDateFormatter = NSDateFormatter.wmf_shortMonthNameDayOfMonthNumberDateFormatter()
@@ -304,7 +303,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
-        date = NSDate().wmf_bestMostReadFetchDate()
+        date = NSDate()//.wmf_bestMostReadFetchDate()
         fetchForDate(date, siteURL: siteURL, completionHandler: completionHandler)
     }
     
@@ -339,59 +338,59 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     func fetchRemotelyAndStoreInDatabaseCollection(databaseCollection: String, databaseKey: String, completionHandler: ((NCUpdateResult) -> Void)) {
         let siteURL = self.siteURL
-        mostReadFetcher.fetchMostReadTitlesForSiteURL(siteURL, date: date).then { (result) -> AnyPromise in
-            
-            guard let mostReadTitlesResponse = result as? WMFMostReadTitlesResponseItem else {
-                completionHandler(.NoData)
-                return AnyPromise(value: nil)
-            }
-            
-            let articleURLs = mostReadTitlesResponse.articles.map({ (article) -> NSURL in
-                return siteURL.wmf_URLWithTitle(article.titleText)
-            })
-
-            return self.articlePreviewFetcher.fetchArticlePreviewResultsForArticleURLs(articleURLs, siteURL: siteURL, extractLength: WMFNumberOfExtractCharacters, thumbnailWidth: UIScreen.mainScreen().wmf_listThumbnailWidthForScale().unsignedIntegerValue)
-            }.then { (result) -> AnyPromise in
-                guard let articlePreviewResponse = result as? [MWKSearchResult] else {
-                    completionHandler(.NoData)
-                    return AnyPromise(value: nil)
-                }
-                
-                let results =  articlePreviewResponse.filter({ (result) -> Bool in
-                    return result.articleID != 0
-                })
-                
-                let group = WMFTaskGroup()                
-                let resultsThatNeedASparkline = results[0...self.maximumRowCount]
-                for result in resultsThatNeedASparkline {
-                    guard let displayTitle = result.displayTitle else {
-                        continue
-                    }
-                    group.enter()
-                    let startDate = self.date.dateByAddingTimeInterval(-86400*self.daysToShowInSparkline)
-                    let endDate = self.date.dateByAddingTimeInterval(86400) // One Day after
-                    let URL = siteURL.wmf_URLWithTitle(displayTitle)
-                    self.mostReadFetcher.fetchPageviewsForURL(URL, startDate: startDate, endDate: endDate, failure: { (error) in
-                        group.leave()
-                        }, success: { (results) in
-                            result.viewCounts = results
-                            group.leave()
-                    })
-                }
-                
-                group.waitInBackgroundWithCompletion({ 
-                    self.results = results
-                    
-                    self.updateView()
-                    completionHandler(.NewData)
-                    
-                    self.dataStore.readWriteWithBlock({ (conn) in
-                        conn.setObject(results, forKey: databaseKey, inCollection: databaseCollection)
-                    })
-                });
-
-                return AnyPromise(value: articlePreviewResponse)
-        }
+//        mostReadFetcher.fetchMostReadTitlesForSiteURL(siteURL, date: date).then { (result) -> AnyPromise in
+//            
+//            guard let mostReadTitlesResponse = result as? WMFMostReadTitlesResponseItem else {
+//                completionHandler(.NoData)
+//                return AnyPromise(value: nil)
+//            }
+//            
+//            let articleURLs = mostReadTitlesResponse.articles.map({ (article) -> NSURL in
+//                return siteURL.wmf_URLWithTitle(article.titleText)
+//            })
+//
+//            return self.articlePreviewFetcher.fetchArticlePreviewResultsForArticleURLs(articleURLs, siteURL: siteURL, extractLength: WMFNumberOfExtractCharacters, thumbnailWidth: UIScreen.mainScreen().wmf_listThumbnailWidthForScale().unsignedIntegerValue)
+//            }.then { (result) -> AnyPromise in
+//                guard let articlePreviewResponse = result as? [MWKSearchResult] else {
+//                    completionHandler(.NoData)
+//                    return AnyPromise(value: nil)
+//                }
+//                
+//                let results =  articlePreviewResponse.filter({ (result) -> Bool in
+//                    return result.articleID != 0
+//                })
+//                
+//                let group = WMFTaskGroup()                
+//                let resultsThatNeedASparkline = results[0...self.maximumRowCount]
+//                for result in resultsThatNeedASparkline {
+//                    guard let displayTitle = result.displayTitle else {
+//                        continue
+//                    }
+//                    group.enter()
+//                    let startDate = self.date.dateByAddingTimeInterval(-86400*self.daysToShowInSparkline)
+//                    let endDate = self.date.dateByAddingTimeInterval(86400) // One Day after
+//                    let URL = siteURL.wmf_URLWithTitle(displayTitle)
+//                    self.mostReadFetcher.fetchPageviewsForURL(URL, startDate: startDate, endDate: endDate, failure: { (error) in
+//                        group.leave()
+//                        }, success: { (results) in
+//                            result.viewCounts = results
+//                            group.leave()
+//                    })
+//                }
+//                
+//                group.waitInBackgroundWithCompletion({ 
+//                    self.results = results
+//                    
+//                    self.updateView()
+//                    completionHandler(.NewData)
+//                    
+//                    self.dataStore.readWriteWithBlock({ (conn) in
+//                        conn.setObject(results, forKey: databaseKey, inCollection: databaseCollection)
+//                    })
+//                });
+//
+//                return AnyPromise(value: articlePreviewResponse)
+//        }
     }
     
     func showAllTopReadInApp() {

@@ -72,6 +72,8 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import <WMFModel/NSURL+WMFMainPage.h>
 #import <WMFModel/WMFAssetsFile.h>
 
+#import <WMFModel/WMFNotificationsController.h>
+
 #import <WMFModel/MWNetworkActivityIndicatorManager.h>
 
 #import <WMFModel/WMFContentSource.h>

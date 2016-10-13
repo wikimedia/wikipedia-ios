@@ -759,6 +759,14 @@
 		D849D6531D6CC7DC00D06FC8 /* WMFImageTag+TargetImageWidthURL.m in Sources */ = {isa = PBXBuildFile; fileRef = B05033B01D1FA2FE002E7D4F /* WMFImageTag+TargetImageWidthURL.m */; };
 		D849D6541D6CC7DC00D06FC8 /* WMFImageTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0CAD81D2345CB009CE8ED /* WMFImageTagList.m */; };
 		D849D6551D6CC7DC00D06FC8 /* WMFImageTagList+ImageURLs.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0CADB1D234927009CE8ED /* WMFImageTagList+ImageURLs.m */; };
+		D84B224D1DAFD0F7007C44AA /* WMFNotificationsController.h in Headers */ = {isa = PBXBuildFile; fileRef = D8F1BF241D9C2AFB00036E71 /* WMFNotificationsController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D84B224E1DAFD0FC007C44AA /* WMFNotificationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F1BF251D9C2AFB00036E71 /* WMFNotificationsController.m */; };
+		D84B224F1DAFD14D007C44AA /* WMFFaceDetectionCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E805CF1C0CE5420065EBC0 /* WMFFaceDetectionCache.h */; };
+		D84B22501DAFD15A007C44AA /* WMFFaceDetectionCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805D01C0CE5420065EBC0 /* WMFFaceDetectionCache.m */; };
+		D84B22511DAFD1E1007C44AA /* CIContext+WMFImageProcessing.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8046B1C0CE0B40065EBC0 /* CIContext+WMFImageProcessing.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D84B22521DAFD1E1007C44AA /* CIContext+WMFImageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8046C1C0CE0B40065EBC0 /* CIContext+WMFImageProcessing.m */; };
+		D84B22531DAFD1E1007C44AA /* CIDetector+WMFFaceDetection.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8046D1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D84B22541DAFD1E1007C44AA /* CIDetector+WMFFaceDetection.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8046E1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.m */; };
 		D84F2BF21D2FE7ED00963D42 /* WMFArticleNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2BF11D2FE7ED00963D42 /* WMFArticleNavigationController.m */; };
 		D84F2BF51D2FE80A00963D42 /* WMFRotationRespectingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2BF41D2FE80A00963D42 /* WMFRotationRespectingNavigationController.m */; };
 		D84F2BFB1D2FEE6300963D42 /* WMFRandomDiceButton.html in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BF81D2FEE6300963D42 /* WMFRandomDiceButton.html */; };
@@ -832,8 +840,6 @@
 		D8A76D831D6F2B2F00E5A798 /* WMFTaskGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = D8A76D811D6F2B2E00E5A798 /* WMFTaskGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8A76D841D6F2B2F00E5A798 /* WMFTaskGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A76D821D6F2B2E00E5A798 /* WMFTaskGroup.m */; };
 		D8A9E0451D9D5CAC002E2697 /* WMFUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; };
-		D8A9E0491D9D9199002E2697 /* WMFNotificationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F1BF251D9C2AFB00036E71 /* WMFNotificationsController.m */; };
-		D8A9E04A1D9D9328002E2697 /* WMFNotificationsController.h in Headers */ = {isa = PBXBuildFile; fileRef = D8F1BF241D9C2AFB00036E71 /* WMFNotificationsController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8AC391B1D6F22A6007E3C14 /* NSDateFormatter+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804901C0CE0B40065EBC0 /* NSDateFormatter+WMFExtensions.m */; };
 		D8AC391C1D6F22AA007E3C14 /* NSDateFormatter+WMFExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8048F1C0CE0B40065EBC0 /* NSDateFormatter+WMFExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8AC391D1D6F2324007E3C14 /* UIScreen+WMFImageWidth.h in Headers */ = {isa = PBXBuildFile; fileRef = BCA15B151C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -881,10 +887,6 @@
 		D8DC16F31D6F6F2C00D6D9FB /* NSUserDefaults+WMFExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8494ADC1D6C85C500337433 /* NSUserDefaults+WMFExtensions.swift */; };
 		D8DC16F41D6F6FDB00D6D9FB /* UIImage+WMFImageProcessing.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804FA1C0CE0DC0065EBC0 /* UIImage+WMFImageProcessing.h */; };
 		D8DC16F51D6F6FDB00D6D9FB /* UIImage+WMFImageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804FB1C0CE0DC0065EBC0 /* UIImage+WMFImageProcessing.m */; };
-		D8DC16F81D6F701200D6D9FB /* CIContext+WMFImageProcessing.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8046B1C0CE0B40065EBC0 /* CIContext+WMFImageProcessing.h */; };
-		D8DC16F91D6F701200D6D9FB /* CIDetector+WMFFaceDetection.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8046D1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.h */; };
-		D8DC16FA1D6F701800D6D9FB /* CIContext+WMFImageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8046C1C0CE0B40065EBC0 /* CIContext+WMFImageProcessing.m */; };
-		D8DC16FB1D6F701800D6D9FB /* CIDetector+WMFFaceDetection.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8046E1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.m */; };
 		D8DC16FD1D6F709300D6D9FB /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8DC16FC1D6F709300D6D9FB /* CoreImage.framework */; };
 		D8DC17001D6F718300D6D9FB /* NSURL+WMFMainPage.h in Headers */ = {isa = PBXBuildFile; fileRef = D8DC16FE1D6F718300D6D9FB /* NSURL+WMFMainPage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8DC17011D6F718300D6D9FB /* NSURL+WMFMainPage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DC16FF1D6F718300D6D9FB /* NSURL+WMFMainPage.m */; };
@@ -905,8 +907,6 @@
 		D8F706981D74C195001894C6 /* UITableViewCell+WMFEdgeToEdgeSeparator.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E803DA1C0CDD050065EBC0 /* UITableViewCell+WMFEdgeToEdgeSeparator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8F706991D74C19A001894C6 /* UITableViewCell+WMFEdgeToEdgeSeparator.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803DB1C0CDD050065EBC0 /* UITableViewCell+WMFEdgeToEdgeSeparator.m */; };
 		D8FA39B81D7F556400D89889 /* WMFSparklineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FA39B71D7F556400D89889 /* WMFSparklineView.swift */; };
-		D8FAC7D61D6F73FD00C2A6BC /* WMFFaceDetectionCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805D01C0CE5420065EBC0 /* WMFFaceDetectionCache.m */; };
-		D8FAC7D71D6F740400C2A6BC /* WMFFaceDetectionCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E805CF1C0CE5420065EBC0 /* WMFFaceDetectionCache.h */; };
 		D8FAC7DA1D6F74D200C2A6BC /* UIColor+WMFHexColor.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804F01C0CE0DC0065EBC0 /* UIColor+WMFHexColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FAC7DB1D6F74D600C2A6BC /* UIColor+WMFHexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804F11C0CE0DC0065EBC0 /* UIColor+WMFHexColor.m */; };
 		D8FAC7DC1D6F88A100C2A6BC /* WMFUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; };
@@ -5472,12 +5472,6 @@
 		BCD67E871C1F17D4005179E1 /* Face Detection */ = {
 			isa = PBXGroup;
 			children = (
-				B0E805CF1C0CE5420065EBC0 /* WMFFaceDetectionCache.h */,
-				B0E805D01C0CE5420065EBC0 /* WMFFaceDetectionCache.m */,
-				B0E8046B1C0CE0B40065EBC0 /* CIContext+WMFImageProcessing.h */,
-				B0E8046C1C0CE0B40065EBC0 /* CIContext+WMFImageProcessing.m */,
-				B0E8046D1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.h */,
-				B0E8046E1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.m */,
 				B0E804FA1C0CE0DC0065EBC0 /* UIImage+WMFImageProcessing.h */,
 				B0E804FB1C0CE0DC0065EBC0 /* UIImage+WMFImageProcessing.m */,
 				B0E807751C0CEEB00065EBC0 /* UIImageView+WMFImageFetchingInternal.h */,
@@ -5653,6 +5647,13 @@
 				B0E8072C1C0CED810065EBC0 /* NSString+WMFPageUtilities.m */,
 				B0E8072D1C0CED810065EBC0 /* WikipediaAppUtils.h */,
 				B0E8072E1C0CED810065EBC0 /* WikipediaAppUtils.m */,
+				B0E805CF1C0CE5420065EBC0 /* WMFFaceDetectionCache.h */,
+				B0E805D01C0CE5420065EBC0 /* WMFFaceDetectionCache.m */,
+				B0E8046B1C0CE0B40065EBC0 /* CIContext+WMFImageProcessing.h */,
+				B0E8046C1C0CE0B40065EBC0 /* CIContext+WMFImageProcessing.m */,
+				B0E8046D1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.h */,
+				B0E8046E1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.m */,
+				D895D09A1D9C2983005418C1 /* Controllers */,
 				D844D96F1D6CB2600042D692 /* Info.plist */,
 			);
 			path = WMFModel;
@@ -5856,7 +5857,6 @@
 				B0E804F01C0CE0DC0065EBC0 /* UIColor+WMFHexColor.h */,
 				B0E804F11C0CE0DC0065EBC0 /* UIColor+WMFHexColor.m */,
 				D8FA39B71D7F556400D89889 /* WMFSparklineView.swift */,
-				D895D09A1D9C2983005418C1 /* Controllers */,
 				BCD67E871C1F17D4005179E1 /* Face Detection */,
 				D8AC39271D6F2480007E3C14 /* Info.plist */,
 			);
@@ -5945,8 +5945,10 @@
 				0E3C5D461D6CF00000C95BA1 /* WMFBaseDataStore.h in Headers */,
 				D844D9B11D6CB7770042D692 /* MWKSavedPageEntry+ImageMigration.h in Headers */,
 				0E728D4A1DAEEE910074EB4B /* CLLocation+WMFBearing.h in Headers */,
+				D84B22531DAFD1E1007C44AA /* CIDetector+WMFFaceDetection.h in Headers */,
 				D844D9D51D6CBBA70042D692 /* YapDatabaseConnection+WMFExtensions.h in Headers */,
 				D844D9B61D6CB7940042D692 /* MWKRecentSearchEntry.h in Headers */,
+				D84B224D1DAFD0F7007C44AA /* WMFNotificationsController.h in Headers */,
 				D844D9E91D6CBFD10042D692 /* WMFZeroConfigurationFetcher.h in Headers */,
 				D844D9E61D6CBFAC0042D692 /* MWKArticle+WMFSharing.h in Headers */,
 				D844D9A51D6CB70C0042D692 /* MWKImage.h in Headers */,
@@ -5971,6 +5973,7 @@
 				D844D9BE1D6CB7B30042D692 /* MWKDataStore.h in Headers */,
 				0E728D491DAEEE910074EB4B /* CLLocationManager+WMFLocationManagers.h in Headers */,
 				D844D98B1D6CB58E0042D692 /* MWKArticle.h in Headers */,
+				D84B22511DAFD1E1007C44AA /* CIContext+WMFImageProcessing.h in Headers */,
 				0E728D3D1DAEEC310074EB4B /* WMFRelatedSearchFetcher.h in Headers */,
 				D844D9D61D6CBBA70042D692 /* YapDatabaseReadWriteTransaction+WMFCustomNotifications.h in Headers */,
 				0E728D2F1DAEE8FF0074EB4B /* WMFNearbyContentSource.h in Headers */,
@@ -6015,6 +6018,7 @@
 				D83FA6BA1D74CE48008CAB00 /* EventLogger.h in Headers */,
 				D83FA6B71D74CDEB008CAB00 /* ReadingActionFunnel.h in Headers */,
 				0E52FD691DA44D7800587426 /* WMFZeroConfigurationManager.h in Headers */,
+				D84B224F1DAFD14D007C44AA /* WMFFaceDetectionCache.h in Headers */,
 				D844D9EF1D6CC0010042D692 /* MWKList+Subclass.h in Headers */,
 				D8DC16EC1D6F6DD600D6D9FB /* MWKTitle.h in Headers */,
 				D844DA021D6CC3C40042D692 /* MWKLanguageLink.h in Headers */,
@@ -6093,16 +6097,12 @@
 			files = (
 				D8A76D781D6F2A4C00E5A798 /* UIImageView+WMFImageFetchingInternal.h in Headers */,
 				D8A76D6C1D6F26F700E5A798 /* UIImageView+WMFImageFetching.h in Headers */,
-				D8DC16F81D6F701200D6D9FB /* CIContext+WMFImageProcessing.h in Headers */,
-				D8FAC7D71D6F740400C2A6BC /* WMFFaceDetectionCache.h in Headers */,
 				D8DC16F41D6F6FDB00D6D9FB /* UIImage+WMFImageProcessing.h in Headers */,
 				D8F706951D74C100001894C6 /* UIImageView+WMFPlaceholder.h in Headers */,
 				D8A76D701D6F274200E5A798 /* UIImage+WMFNormalization.h in Headers */,
 				D8A76D6E1D6F271500E5A798 /* UIImageView+WMFContentOffset.h in Headers */,
 				D8FAC7DA1D6F74D200C2A6BC /* UIColor+WMFHexColor.h in Headers */,
 				D8D270341D75C6DD00D093A8 /* UIView+WMFDefaultNib.h in Headers */,
-				D8A9E04A1D9D9328002E2697 /* WMFNotificationsController.h in Headers */,
-				D8DC16F91D6F701200D6D9FB /* CIDetector+WMFFaceDetection.h in Headers */,
 				D8F706941D74C100001894C6 /* UIImage+WMFStyle.h in Headers */,
 				D8F706981D74C195001894C6 /* UITableViewCell+WMFEdgeToEdgeSeparator.h in Headers */,
 				D8AC39281D6F2480007E3C14 /* WMFUI.h in Headers */,
@@ -7469,6 +7469,7 @@
 				D8DC16F01D6F6DEC00D6D9FB /* WMFAssetsFile.m in Sources */,
 				D844D9AA1D6CB7540042D692 /* MWKHistoryEntry.m in Sources */,
 				0E728D431DAEEE880074EB4B /* WMFLocationManager.m in Sources */,
+				D84B224E1DAFD0FC007C44AA /* WMFNotificationsController.m in Sources */,
 				D837D0391D6CC8B8004EFBC6 /* QueuesSingleton.m in Sources */,
 				D849D6511D6CC7DC00D06FC8 /* WMFImageTagParser.m in Sources */,
 				D844D99F1D6CB63D0042D692 /* SessionSingleton.m in Sources */,
@@ -7495,9 +7496,11 @@
 				D89F510E1D6CC97D008018E1 /* WMFApiJsonResponseSerializer.m in Sources */,
 				D89D44051D74D42F00F7862E /* WMFBaseRequestSerializer.m in Sources */,
 				D844D9951D6CB5970042D692 /* MWKSection.m in Sources */,
+				D84B22541DAFD1E1007C44AA /* CIDetector+WMFFaceDetection.m in Sources */,
 				0E728D381DAEEAD60074EB4B /* WMFLocationSearchResults.m in Sources */,
 				0E728D341DAEE8FF0074EB4B /* WMFFeedContentSource.m in Sources */,
 				D844D9A41D6CB7060042D692 /* MWKImage.m in Sources */,
+				D84B22521DAFD1E1007C44AA /* CIContext+WMFImageProcessing.m in Sources */,
 				0E728D1D1DAEE2B50074EB4B /* WMFFeedTopReadResponse.m in Sources */,
 				D844D97D1D6CB29B0042D692 /* MWKDataObject.m in Sources */,
 				D844D9E71D6CBFB00042D692 /* MWKArticle+WMFSharing.m in Sources */,
@@ -7509,6 +7512,7 @@
 				D844D9C11D6CB7BA0042D692 /* (null) in Sources */,
 				0E728D211DAEE2B50074EB4B /* WMFFeedImage.m in Sources */,
 				0E728D301DAEE8FF0074EB4B /* WMFNearbyContentSource.m in Sources */,
+				D84B22501DAFD15A007C44AA /* WMFFaceDetectionCache.m in Sources */,
 				D83FA6B11D74CDAF008CAB00 /* AFHTTPSessionManager+WMFConfig.m in Sources */,
 				0E728D2C1DAEE8FF0074EB4B /* WMFRelatedPagesContentSource.m in Sources */,
 				D85108AB1D6CC761009C73C4 /* MWLanguageInfo.m in Sources */,
@@ -7633,14 +7637,10 @@
 			files = (
 				D8A76D6F1D6F272100E5A798 /* UIImageView+WMFContentOffset.m in Sources */,
 				D8F706961D74C107001894C6 /* UIImage+WMFStyle.m in Sources */,
-				D8DC16FB1D6F701800D6D9FB /* CIDetector+WMFFaceDetection.m in Sources */,
 				D8DC16EA1D6F6DA300D6D9FB /* UIColor+WMFStyle.m in Sources */,
-				D8FAC7D61D6F73FD00C2A6BC /* WMFFaceDetectionCache.m in Sources */,
-				D8A9E0491D9D9199002E2697 /* WMFNotificationsController.m in Sources */,
 				D8FAC7DB1D6F74D600C2A6BC /* UIColor+WMFHexColor.m in Sources */,
 				D8D2703B1D75ED5000D093A8 /* WMFArticlePreviewViewController.swift in Sources */,
 				D8A76D6D1D6F26FD00E5A798 /* UIImageView+WMFImageFetching.m in Sources */,
-				D8DC16FA1D6F701800D6D9FB /* CIContext+WMFImageProcessing.m in Sources */,
 				D8DC16F51D6F6FDB00D6D9FB /* UIImage+WMFImageProcessing.m in Sources */,
 				D8F706991D74C19A001894C6 /* UITableViewCell+WMFEdgeToEdgeSeparator.m in Sources */,
 				D8A76D771D6F2A4900E5A798 /* UIImageView+WMFImageFetchingInternal.m in Sources */,

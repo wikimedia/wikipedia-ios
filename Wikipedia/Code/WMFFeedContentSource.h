@@ -4,6 +4,8 @@
 
 @class WMFContentGroupDataStore;
 @class WMFArticlePreviewDataStore;
+@class WMFNotificationsController;
+@class MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
