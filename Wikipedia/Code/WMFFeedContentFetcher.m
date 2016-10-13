@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
         }];
 }
 
-- (void)fetchPageviewsForURL:(NSURL *)titleURL startDate:(NSDate *)startDate endDate:(NSDate *)endDate failure:(WMFErrorHandler)failure success:(WMFArrayOfNumbersHandler)success {
+- (void)fetchPageviewsForURL:(NSURL *)titleURL startDate:(NSDate *)startDate endDate:(NSDate *)endDate failure:(WMFErrorHandler)failure success:(WMFPageViewsHandler)success {
     NSString *title = [titleURL.wmf_titleWithUnderScores wmf_UTF8StringWithPercentEscapes];
     NSString *language = titleURL.wmf_language;
     NSString *domain = titleURL.wmf_domain;
@@ -106,10 +106,11 @@ NS_ASSUME_NONNULL_BEGIN
                 return;
             }
 
-            NSMutableArray *results = [NSMutableArray arrayWithCapacity:[items count]];
+            NSMutableDictionary *results = [NSMutableDictionary dictionaryWithCapacity:[items count]];
             for (id item in items) {
-                if ([item isKindOfClass:[NSDictionary class]] && [item[@"views"] isKindOfClass:[NSNumber class]]) {
-                    [results addObject:item[@"views"]];
+                if ([item isKindOfClass:[NSDictionary class]] && [item[@"views"] isKindOfClass:[NSNumber class]] && [item[@"timestamp"] isKindOfClass:[NSString class]]) {
+                    NSDate* date = [[NSDateFormatter wmf_englishUTCNonDelimitedYearMonthDayFormatter] dateFromString:item[@"timestamp"]];
+                    results[date] = item[@"views"];
                 }
             }
 
