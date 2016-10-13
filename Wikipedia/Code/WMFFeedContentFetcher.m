@@ -109,7 +109,7 @@ NS_ASSUME_NONNULL_BEGIN
             NSMutableDictionary *results = [NSMutableDictionary dictionaryWithCapacity:[items count]];
             for (id item in items) {
                 if ([item isKindOfClass:[NSDictionary class]] && [item[@"views"] isKindOfClass:[NSNumber class]] && [item[@"timestamp"] isKindOfClass:[NSString class]]) {
-                    NSDate* date = [[NSDateFormatter wmf_englishUTCNonDelimitedYearMonthDayFormatter] dateFromString:item[@"timestamp"]];
+                    NSDate* date = [[NSDateFormatter wmf_englishUTCNonDelimitedYearMonthDayHourFormatter] dateFromString:item[@"timestamp"]];
                     results[date] = item[@"views"];
                 }
             }

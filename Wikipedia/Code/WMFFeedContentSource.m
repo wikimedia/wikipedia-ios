@@ -186,7 +186,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     NSURL *featuredURL = [preview articleURL];
 
-    [self.previewStore addPreviewWithURL:featuredURL updatedWithFeedPreview:preview];
+    [self.previewStore addPreviewWithURL:featuredURL updatedWithFeedPreview:preview pageViews:nil];
     [self.contentStore addContentGroup:featured associatedContent:@[featuredURL]];
 }
 
@@ -200,8 +200,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     [topRead.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedTopReadArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         NSURL *url = [obj articleURL];
-        [self.previewStore addPreviewWithURL:url updatedWithFeedPreview:obj];
-        [self.previewStore updatePreviewWithURL:url withPageViews:pageViews[obj.articleURL]];
+        [self.previewStore addPreviewWithURL:url updatedWithFeedPreview:obj pageViews:pageViews[obj.articleURL]];
     }];
 
     [self.contentStore addContentGroup:group associatedContent:topRead.articlePreviews];
@@ -229,7 +228,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     [news enumerateObjectsUsingBlock:^(WMFFeedNewsStory *_Nonnull story, NSUInteger idx, BOOL *_Nonnull stop) {
         [story.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
             NSURL *url = [obj articleURL];
-            [self.previewStore addPreviewWithURL:url updatedWithFeedPreview:obj];
+            [self.previewStore addPreviewWithURL:url updatedWithFeedPreview:obj pageViews:nil];
         }];
     }];
 

@@ -119,7 +119,7 @@ NS_ASSUME_NONNULL_BEGIN
     return preview;
 }
 
-- (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithFeedPreview:(WMFFeedArticlePreview*)feedPreview{
+- (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithFeedPreview:(WMFFeedArticlePreview*)feedPreview pageViews:(nullable NSDictionary<NSDate*, NSNumber*>*)pageViews{
     
     NSParameterAssert(url);
 
@@ -136,36 +136,17 @@ NS_ASSUME_NONNULL_BEGIN
     if(feedPreview.thumbnailURL != nil){
         preview.thumbnailURL = feedPreview.thumbnailURL;
     }
+    if(pageViews != nil){
+        if(preview.pageViews == nil){
+            preview.pageViews = pageViews;
+        }else{
+            preview.pageViews = [preview.pageViews mtl_dictionaryByAddingEntriesFromDictionary:pageViews];
+        }
+    }
+
     [self savePreview:preview];
     return preview;
 }
-
-
-- (nullable WMFArticlePreview *)updatePreviewWithURL:(NSURL *)url withPageViews:(NSDictionary<NSDate*, NSNumber*>*)pageViews{
-    
-    NSParameterAssert(url);
-    NSParameterAssert(pageViews);
-    
-    if(pageViews == nil || url == nil){
-        return nil;
-    }
-    
-    WMFArticlePreview* preview = [[self itemForURL:url] copy];
-    
-    if(!preview){
-        return nil;
-    }
-
-    if(preview.pageViews == nil){
-        preview.pageViews = pageViews;
-    }else{
-        preview.pageViews = [preview.pageViews mtl_dictionaryByAddingEntriesFromDictionary:pageViews];
-    }
-    
-    return preview;
-}
-
-
 
 
 @end
