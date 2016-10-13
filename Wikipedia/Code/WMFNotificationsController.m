@@ -5,6 +5,8 @@
 @import WMFUtilities;
 @import WMFModel;
 
+#define WMF_ALWAYS_ASK_FOR_NOTIFICATION_PERMISSION DEBUG && 1
+
 NSString *const WMFInTheNewsNotificationCategoryIdentifier = @"inTheNewsNotificationCategoryIdentifier";
 NSString *const WMFInTheNewsNotificationReadNowActionIdentifier = @"inTheNewsNotificationReadNowActionIdentifier";
 NSString *const WMFInTheNewsNotificationSaveForLaterActionIdentifier = @"inTheNewsNotificationSaveForLaterActionIdentifier";
@@ -21,28 +23,70 @@ NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
 
 //const CGFloat WMFNotificationImageCropNormalizedMinDimension = 1; //for some reason, cropping isn't respected if a full dimension (1) is indicated
 
+@interface WMFNotificationsController ()
+
+@property (nonatomic, readwrite, getter=isAuthorized) BOOL authorized;
+
+@end
+
 @implementation WMFNotificationsController
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+#if WMF_ALWAYS_ASK_FOR_NOTIFICATION_PERMISSION
+    [self requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError * _Nullable error) {
+        
+    }];
+#endif
+    }
+    return self;
+}
 
 - (void)requestAuthenticationIfNecessaryWithCompletionHandler:(void (^)(BOOL granted, NSError *__nullable error))completionHandler {
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+        switch (settings.authorizationStatus) {
+            case UNAuthorizationStatusAuthorized:
+                self.authorized = YES;
+                completionHandler(YES, nil);
+                break;
+            case UNAuthorizationStatusDenied:
+                self.authorized = NO;
+                completionHandler(NO, nil);
+                break;
+            case UNAuthorizationStatusNotDetermined:
+                [self requestAuthenticationWithCompletionHandler:completionHandler];
+                break;
+            default:
+                break;
+        }
+    }];
+}
 
+- (void)requestAuthenticationWithCompletionHandler:(void (^)(BOOL, NSError * _Nullable))completionHandler {
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     UNNotificationAction *readNowAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationReadNowActionIdentifier title:MWLocalizedString(@"in-the-news-notification-read-now-action-title", nil) options:UNNotificationActionOptionForeground];
     UNNotificationAction *saveForLaterAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationShareActionIdentifier title:MWLocalizedString(@"in-the-news-notification-share-action-title", nil) options:UNNotificationActionOptionForeground];
     UNNotificationAction *shareAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationSaveForLaterActionIdentifier title:MWLocalizedString(@"in-the-news-notification-save-for-later-action-title", nil) options:UNNotificationActionOptionForeground];
-
+    
     if (!readNowAction || !saveForLaterAction || !shareAction) {
+        self.authorized = NO;
         completionHandler(false, nil);
     }
-
+    
     UNNotificationCategory *inTheNewsCategory = [UNNotificationCategory categoryWithIdentifier:WMFInTheNewsNotificationCategoryIdentifier actions:@[readNowAction, saveForLaterAction, shareAction] intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
-
+    
     if (!inTheNewsCategory) {
+        self.authorized = NO;
         completionHandler(false, nil);
     }
-
+    
     [center setNotificationCategories:[NSSet setWithObject:inTheNewsCategory]];
-    [center requestAuthorizationWithOptions:UNAuthorizationOptionAlert | UNAuthorizationOptionSound completionHandler:completionHandler];
+    [center requestAuthorizationWithOptions:UNAuthorizationOptionAlert | UNAuthorizationOptionSound completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        self.authorized = granted;
+        completionHandler(granted, error);
+    }];
 }
 
 
