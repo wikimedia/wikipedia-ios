@@ -43,6 +43,7 @@ NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
     return self;
 }
 
+
 - (void)requestAuthenticationIfNecessaryWithCompletionHandler:(void (^)(BOOL granted, NSError *__nullable error))completionHandler {
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
