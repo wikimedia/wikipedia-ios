@@ -15,17 +15,19 @@
 #import "WMFNotificationsController.h"
 
 #define WMF_ALWAYS_LOAD_FEED_DATA DEBUG && 0
+#define WMF_ALWAYS_NOTIFY DEBUG && 0
 
 @import NSDate_Extensions;
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSTimeInterval WMFFeedNotificationArticleRepeatLimit = 30 * 24 * 60 * 60; // 30 days
-
 static NSInteger WMFFeedNotificationMinHour = 8;
 static NSInteger WMFFeedNotificationMaxHour = 20;
 
+#if !WMF_ALWAYS_NOTIFY
+static NSTimeInterval WMFFeedNotificationArticleRepeatLimit = 30 * 24 * 60 * 60; // 30 days
 static NSInteger WMFFeedInTheNewsNotificationMaxRank = 10;
+#endif
 static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 @interface WMFFeedContentSource ()
@@ -238,7 +240,12 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 
     for (WMFFeedNewsStory *newsStory in feedDay.newsStories) {
+#if WMF_ALWAYS_NOTIFY
+        WMFFeedArticlePreview *articlePreviewToNotifyAbout = nil;
+#else
         WMFFeedTopReadArticlePreview *articlePreviewToNotifyAbout = nil;
+#endif
+
         NSMutableArray<NSURL *> *articleURLs = [NSMutableArray arrayWithCapacity:newsStory.articlePreviews.count];
         for (WMFFeedArticlePreview *articlePreview in newsStory.articlePreviews) {
             NSURL *articleURL = articlePreview.articleURL;
@@ -250,8 +257,15 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
                 continue;
             }
             [articleURLs addObject:articleURL];
+#if WMF_ALWAYS_NOTIFY
+            if (YES) {
+#else
             WMFFeedTopReadArticlePreview *topReadArticlePreview = topReadArticlesByKey[key];
             if (topReadArticlePreview && topReadArticlePreview.rank.integerValue < WMFFeedInTheNewsNotificationMaxRank) {
+#endif
+#if WMF_ALWAYS_NOTIFY
+                articlePreviewToNotifyAbout = articlePreview;
+#else
                 MWKHistoryEntry *entry = [self.userDataStore entryForURL:articlePreview.articleURL];
                 BOOL notifiedRecently = entry.inTheNewsNotificationDate && [entry.inTheNewsNotificationDate timeIntervalSinceNow] < WMFFeedNotificationArticleRepeatLimit;
                 BOOL viewedRecently = entry.dateViewed && [entry.dateViewed timeIntervalSinceNow] < WMFFeedNotificationArticleRepeatLimit;
@@ -259,26 +273,32 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
                     articlePreviewToNotifyAbout = nil;
                     break;
                 }
+
                 if (!articlePreviewToNotifyAbout || topReadArticlePreview.rank < articlePreviewToNotifyAbout.rank) {
                     articlePreviewToNotifyAbout = topReadArticlePreview;
                 }
+#endif
             }
         }
         NSURL *articleURLToNotifyAbout = articlePreviewToNotifyAbout.articleURL;
         if (articlePreviewToNotifyAbout && articleURLToNotifyAbout) {
-            NSDate *startDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:-1 - WMFFeedInTheNewsNotificationViewCountDays  toDate:date options:NSCalendarMatchStrictly];
+            NSDate *startDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:-1 - WMFFeedInTheNewsNotificationViewCountDays toDate:date options:NSCalendarMatchStrictly];
             NSDate *endDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:date options:NSCalendarMatchStrictly];
-            [self.fetcher fetchPageviewsForURL:articlePreviewToNotifyAbout.articleURL startDate:startDate endDate:endDate failure:^(NSError * _Nonnull error) {
-                DDLogError(@"Error fetching pageviews for article: %@ from: %@ to: %@ error: %@", articleURLToNotifyAbout, startDate, endDate, error);
-            } success:^(NSArray<NSNumber *> * _Nonnull results) {
-                [self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreviewToNotifyAbout viewCounts:results];
-            }];
+            [self.fetcher fetchPageviewsForURL:articleURLToNotifyAbout
+                startDate:startDate
+                endDate:endDate
+                failure:^(NSError *_Nonnull error) {
+                    DDLogError(@"Error fetching pageviews for article: %@ from: %@ to: %@ error: %@", articleURLToNotifyAbout, startDate, endDate, error);
+                }
+                success:^(NSArray<NSNumber *> *_Nonnull results) {
+                    [self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreviewToNotifyAbout viewCounts:results];
+                }];
             break;
         }
     }
 }
 
-- (BOOL)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory articlePreview:(WMFFeedTopReadArticlePreview *)articlePreview viewCounts:(NSArray<NSNumber *> *)viewCounts {
+- (BOOL)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory articlePreview:(WMFFeedArticlePreview *)articlePreview viewCounts:(NSArray<NSNumber *> *)viewCounts {
     NSString *articleURLString = articlePreview.articleURL.absoluteString;
     NSString *storyHTML = newsStory.storyHTML;
     NSString *displayTitle = articlePreview.displayTitle;
@@ -286,7 +306,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (!storyHTML || !articleURLString || !displayTitle || !viewCounts) {
         return NO;
     }
-    
+
     NSMutableDictionary *info = [NSMutableDictionary dictionaryWithCapacity:4];
     info[WMFNotificationInfoStoryHTMLKey] = storyHTML;
     info[WMFNotificationInfoArticleTitleKey] = displayTitle;
@@ -300,7 +320,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (snippet) {
         info[WMFNotificationInfoArticleExtractKey] = snippet;
     }
-    
+
     NSString *title = NSLocalizedString(@"in-the-news-notification-title", nil);
     NSString *body = [storyHTML wmf_stringByRemovingHTML];
 
@@ -314,8 +334,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         components.hour = WMFFeedNotificationMinHour;
     }
 
-    [self.notificationsController sendNotificationWithTitle:title  body:body categoryIdentifier:WMFInTheNewsNotificationCategoryIdentifier userInfo:info atDateComponents:components];
-    
+    [self.notificationsController sendNotificationWithTitle:title body:body categoryIdentifier:WMFInTheNewsNotificationCategoryIdentifier userInfo:info atDateComponents:components];
+
     return YES;
 }
 
