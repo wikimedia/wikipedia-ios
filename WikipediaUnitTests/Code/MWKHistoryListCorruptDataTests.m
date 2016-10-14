@@ -22,19 +22,18 @@
     MWKDataStore *dataStore = [MWKDataStore temporaryDataStore];
     MWKHistoryList *list = [[MWKHistoryList alloc] initWithDataStore:dataStore];
     [list addPageToHistoryWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"Foo"]];
-
+    
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
-    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+    [dataStore notifyWhenWriteTransactionsComplete:^{
         assertThat(@([list numberOfItems]), is(@1));
         [list addPageToHistoryWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@""]];
-
-        dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+        [dataStore notifyWhenWriteTransactionsComplete:^{
             assertThat(@([list numberOfItems]), is(@1));
             [expectation fulfill];
-        });
-    });
-
+        }];
+    }];
+    
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
 
