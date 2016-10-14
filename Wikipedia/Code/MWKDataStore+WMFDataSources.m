@@ -35,7 +35,7 @@
 }
 
 - (id<WMFDataSource>)becauseYouReadSeedsDataSource {
-    return [self registeredDataSourceWithMappings:[YapDatabaseViewMappings wmf_ungroupedMappingsWithView:WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignificnatlyViewedAndNotBlacklistedAndNotMainPageView]];
+    return [self registeredDataSourceWithMappings:[YapDatabaseViewMappings wmf_ungroupedMappingsWithView:WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignificantlyViewedAndNotBlacklistedAndNotMainPageView]];
 }
 
 @end
