@@ -22,7 +22,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
 @implementation WMFRandomArticleViewController
 
-- (instancetype)initWithArticleURL:(NSURL *)articleURL dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore*)previewStore diceButtonItem:(UIBarButtonItem *)diceButtonItem {
+- (instancetype)initWithArticleURL:(NSURL *)articleURL dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore *)previewStore diceButtonItem:(UIBarButtonItem *)diceButtonItem {
     self = [super initWithArticleURL:articleURL dataStore:dataStore previewStore:previewStore];
     self.diceButtonItem = diceButtonItem;
     self.diceButton = (WMFRandomDiceButton *)diceButtonItem.customView;
@@ -138,8 +138,10 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
     if (articleNavgiationController.secondToolbarHidden) {
         BOOL shouldShowRandomButton = newContentOffsetY <= 0 || (!scrollView.tracking && scrollView.decelerating && newContentOffsetY < self.previousContentOffsetY && newContentOffsetY < (scrollView.contentSize.height - scrollView.bounds.size.height));
         shouldHideRandomButton = !shouldShowRandomButton;
-    } else {
+    } else if (scrollView.tracking || scrollView.decelerating) {
         shouldHideRandomButton = newContentOffsetY > 0 && newContentOffsetY > self.previousContentOffsetY;
+    } else {
+        shouldHideRandomButton = articleNavgiationController.secondToolbarHidden;
     }
 
     if (articleNavgiationController.secondToolbarHidden != shouldHideRandomButton) {
