@@ -46,12 +46,12 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 @implementation WMFArticleFetcher
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore*)previewStore{
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore *)previewStore {
     NSParameterAssert(dataStore);
     NSParameterAssert(previewStore);
     self = [super init];
     if (self) {
-        
+
         self.dataStore = dataStore;
         self.previewStore = previewStore;
 
@@ -133,7 +133,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 #pragma mark - Operation Tracking / Cancelling
 
-- (NSURLSessionDataTask *)trackedOperationForArticleURL:(NSURL *)articleURL {
+- (nullable NSURLSessionDataTask *)trackedOperationForArticleURL:(NSURL *)articleURL {
     if ([articleURL.wmf_title length] == 0) {
         return nil;
     }
