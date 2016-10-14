@@ -16,9 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithArticle:(MWKArticle*)article;
 
-- (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithFeedPreview:(WMFFeedArticlePreview*)feedPreview;
-
-- (nullable WMFArticlePreview *)updatePreviewWithURL:(NSURL *)url withPageViews:(NSDictionary<NSDate*, NSNumber*>*)pageViews;
+- (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithFeedPreview:(WMFFeedArticlePreview*)feedPreview pageViews:(nullable NSDictionary<NSDate*, NSNumber*>*)pageViews;
 
 
 @end

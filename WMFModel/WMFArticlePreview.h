@@ -18,4 +18,6 @@
 
 @property (nonatomic, copy, readwrite) NSDictionary<NSDate*, NSNumber*>* pageViews;
 
+- (NSArray<NSNumber*>*)pageViewsSortedByDate;
+
 @end
