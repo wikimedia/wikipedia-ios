@@ -216,6 +216,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)appLanguageDidChangeWithNotification:(NSNotification *)note {
+    if([_contentSources count] == 0){
+        return;
+    }
     [self stopContentSources];
     self.contentSources = nil;
     [self startContentSources];

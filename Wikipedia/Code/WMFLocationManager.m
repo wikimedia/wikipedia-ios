@@ -64,12 +64,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self alloc] initWithLocationManager:[CLLocationManager wmf_coarseLocationManager]];
 }
 
-+ (instancetype)significantChangeLocationManager {
-    WMFLocationManager* manager = [[self alloc] initWithLocationManager:[CLLocationManager wmf_significantLocationManager]];
-    manager.significantLocationUpdatesOnly = YES;
-    return manager;
-}
-
 - (instancetype)initWithLocationManager:(CLLocationManager *)locationManager {
     self = [super init];
     if (self) {
