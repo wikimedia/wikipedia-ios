@@ -111,7 +111,8 @@ NS_ASSUME_NONNULL_BEGIN
     if([article.summary length] > 0){
         preview.snippet = article.summary;
     }
-    if([article bestThumbnailImageURL] != nil){
+    //The thumb from the article is almost always worse, dont use it unless we have to
+    if(preview.thumbnailURL == nil && [article bestThumbnailImageURL] != nil){
         NSURL* thumb = [NSURL URLWithString:[article bestThumbnailImageURL]];
         preview.thumbnailURL = thumb;
     }
