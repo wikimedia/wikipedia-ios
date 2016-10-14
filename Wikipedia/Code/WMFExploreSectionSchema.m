@@ -190,7 +190,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 - (BOOL)update:(BOOL)force {
     [self.locationManager restartLocationMonitoring];
 
-    if (!NO /*FBTweakValue(@"Explore", @"General", @"Always update on launch", NO)*/
+    if (!FBTweakValue(@"Explore", @"General", @"Always update on launch", NO)
         && !force && self.lastUpdatedAt && [[NSDate date] timeIntervalSinceDate:self.lastUpdatedAt] < WMFHomeMinimumAutomaticReloadTime) {
         return [self updateContinueReading];
     }
@@ -353,7 +353,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         [randomArray wmf_safeAddObject:[WMFExploreSection randomSectionWithSiteURL:self.siteURL]];
     }
 
-    NSUInteger max = [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeRandom] /*FBTweakValue(@"Explore", @"Sections", @"Max number of random", [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeRandom])*/;
+    NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of random", [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeRandom]);
 
     //Sort by date
     [randomArray sortWithOptions:NSSortStable
@@ -411,7 +411,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         [mostReadSections addObject:latestMostReadSection];
     }
 
-    NSUInteger max = [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeMostRead] /*FBTweakValue(@"Explore", @"Sections", @"Max number of most read", [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeMostRead])*/;
+    NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of most read", [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeMostRead]);
 
     //Sort by date
     [mostReadSections sortWithOptions:NSSortStable
@@ -451,7 +451,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         [featured wmf_safeAddObject:[WMFExploreSection featuredArticleSectionWithSiteURLIfSupported:self.siteURL]];
     }
 
-    NSUInteger max = [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeFeaturedArticle] /*FBTweakValue(@"Explore", @"Sections", @"Max number of featured", [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeFeaturedArticle])*/;
+    NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of featured", [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeFeaturedArticle]);
 
     //Sort by date
     [featured sortWithOptions:NSSortStable
@@ -513,7 +513,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 - (nullable WMFExploreSection *)continueReadingSection {
     NSDate *resignActiveDate = [[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate];
     BOOL const shouldShowContinueReading =
-        NO /*FBTweakValue(@"Explore", @"Continue Reading", @"Always Show", NO)*/ ||
+        FBTweakValue(@"Explore", @"Continue Reading", @"Always Show", NO) ||
         fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeDisplayingLastReadArticle;
 
     //Only return if
@@ -553,7 +553,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 - (NSArray<WMFExploreSection *> *)historyAndSavedPageSections {
     NSArray<WMFExploreSection *> *existing = [self existingHistoryAndSavedSections];
 
-    NSUInteger max = [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeSaved] + [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeHistory] /*FBTweakValue(@"Explore", @"Sections", @"Max number of history/saved", [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeSaved] + [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeHistory])*/;
+    NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of history/saved", [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeSaved] + [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeHistory]);
 
     NSMutableArray<WMFExploreSection *> *history = [[self sectionsFromHistoryEntriesExcludingExistingTitlesInSections:existing maxLength:max] mutableCopy];
 

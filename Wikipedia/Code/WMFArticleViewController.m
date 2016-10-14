@@ -779,7 +779,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     MWKHistoryList *historyList = self.dataStore.userDataStore.historyList;
     MWKHistoryEntry *entry = [historyList entryForURL:self.articleURL];
     if (!entry.titleWasSignificantlyViewed) {
-        self.significantlyViewedTimer = [NSTimer scheduledTimerWithTimeInterval:30.0 /*FBTweakValue(@"Explore", @"Related items", @"Required viewing time", 30.0)*/ target:self selector:@selector(significantlyViewedTimerFired:) userInfo:nil repeats:NO];
+        self.significantlyViewedTimer = [NSTimer scheduledTimerWithTimeInterval:FBTweakValue(@"Explore", @"Related items", @"Required viewing time", 30.0) target:self selector:@selector(significantlyViewedTimerFired:) userInfo:nil repeats:NO];
     }
 }
 
@@ -1347,16 +1347,14 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (NSArray<NSNumber *> *)fontSizeMultipliers {
-    return @[@70, @85, @100, @115, @130, @145, @160];
-
-    //    return @[@(FBTweakValue(@"Article", @"Font Size", @"Step 1", 70)),
-    //             @(FBTweakValue(@"Article", @"Font Size", @"Step 2", 85)),
-    //             @(FBTweakValue(@"Article", @"Font Size", @"Step 3", 100)),
-    //             @(FBTweakValue(@"Article", @"Font Size", @"Step 4", 115)),
-    //             @(FBTweakValue(@"Article", @"Font Size", @"Step 5", 130)),
-    //             @(FBTweakValue(@"Article", @"Font Size", @"Step 6", 145)),
-    //             @(FBTweakValue(@"Article", @"Font Size", @"Step 7", 160))
-    //    ];
+    return @[@(FBTweakValue(@"Article", @"Font Size", @"Step 1", 70)),
+                 @(FBTweakValue(@"Article", @"Font Size", @"Step 2", 85)),
+                 @(FBTweakValue(@"Article", @"Font Size", @"Step 3", 100)),
+                 @(FBTweakValue(@"Article", @"Font Size", @"Step 4", 115)),
+                 @(FBTweakValue(@"Article", @"Font Size", @"Step 5", 130)),
+                 @(FBTweakValue(@"Article", @"Font Size", @"Step 6", 145)),
+                 @(FBTweakValue(@"Article", @"Font Size", @"Step 7", 160))
+        ];
 }
 
 - (NSUInteger)indexOfCurrentFontSize {

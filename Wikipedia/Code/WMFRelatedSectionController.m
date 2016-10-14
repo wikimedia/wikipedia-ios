@@ -134,7 +134,7 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
 }
 
 - (BOOL)prefersWiderColumn {
-    return YES /*FBTweakValue(@"Explore", @"General", @"Put 'Because You Read' in Wider Column", YES)*/;
+    return FBTweakValue(@"Explore", @"General", @"Put 'Because You Read' in Wider Column", YES);
 }
 
 - (AnyPromise *)fetchData {
