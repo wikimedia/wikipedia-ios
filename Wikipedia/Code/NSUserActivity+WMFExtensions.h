@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
 
 + (void)wmf_makeActivityActive:(NSUserActivity *)activity;
 
-+ (instancetype)wmf_contentActivityWithURL:(NSURL*)url;
++ (instancetype)wmf_contentActivityWithURL:(NSURL *)url;
 
 + (instancetype)wmf_exploreViewActivity;
 + (instancetype)wmf_savedPagesViewActivity;
@@ -39,7 +39,6 @@ typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
 - (NSURL *)wmf_articleURL;
 
 - (NSURL *)wmf_contentURL;
-
 
 + (NSURL *)wmf_baseURLForActivityOfType:(WMFUserActivityType)type;
 

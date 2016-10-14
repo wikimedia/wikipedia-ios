@@ -21,7 +21,7 @@ extern NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey;
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 @property (nonatomic, strong, readonly) WMFArticlePreviewDataStore *previewStore;
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore*)previewStore;
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore *)previewStore;
 
 //Fullfilled promise returns MWKArticle
 - (AnyPromise *)fetchArticleForURL:(NSURL *)articleURL progress:(WMFProgressHandler __nullable)progress;

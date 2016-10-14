@@ -100,7 +100,6 @@
 #import <WMFModel/YapDatabaseViewMappings+WMFMappings.h>
 #import <WMFModel/YapDatabaseConnection+WMFExtensions.h>
 
-
 #import <WMFModel/CIContext+WMFImageProcessing.h>
 #import <WMFModel/CIDetector+WMFFaceDetection.h>
 

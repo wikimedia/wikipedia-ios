@@ -1,4 +1,3 @@
-
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
 #import "NSDate+Utilities.h"
 
@@ -6,43 +5,43 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFContentGroup (WMFContentManaging)
 
-- (UIImage *)headerIcon{
+- (UIImage *)headerIcon {
     return [[UIImage alloc] init];
 }
 
-- (UIColor *)headerIconTintColor{
+- (UIColor *)headerIconTintColor {
     return [UIColor wmf_exploreSectionHeaderIconTintColor];
 }
 
-- (UIColor *)headerIconBackgroundColor{
+- (UIColor *)headerIconBackgroundColor {
     return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
 }
 
-- (NSAttributedString *)headerTitle{
+- (NSAttributedString *)headerTitle {
     return [[NSAttributedString alloc] init];
 }
 
-- (NSAttributedString *)headerSubTitle{
+- (NSAttributedString *)headerSubTitle {
     return [[NSAttributedString alloc] init];
 }
 
-- (nullable NSURL*)headerContentURL{
+- (nullable NSURL *)headerContentURL {
     return nil;
 }
 
-- (WMFFeedHeaderActionType)headerActionType{
+- (WMFFeedHeaderActionType)headerActionType {
     return WMFFeedHeaderActionTypeOpenFirstItem;
 }
 
-- (WMFFeedBlacklistOption)blackListOptions{
+- (WMFFeedBlacklistOption)blackListOptions {
     return WMFFeedBlacklistOptionNone;
 }
 
-- (WMFFeedDisplayType)displayType{
+- (WMFFeedDisplayType)displayType {
     return WMFFeedDisplayTypePage;
 }
 
-- (NSUInteger)maxNumberOfCells{
+- (NSUInteger)maxNumberOfCells {
     return 1;
 }
 
@@ -50,26 +49,25 @@ NS_ASSUME_NONNULL_BEGIN
     return NO;
 }
 
-- (WMFFeedDetailType)detailType{
+- (WMFFeedDetailType)detailType {
     return WMFFeedDetailTypePage;
 }
 
-- (nullable NSString *)footerText{
+- (nullable NSString *)footerText {
     return nil;
 }
 
-- (WMFFeedMoreType)moreType{
+- (WMFFeedMoreType)moreType {
     return WMFFeedMoreTypeNone;
 }
 
-- (nullable NSString *)moreTitle{
+- (nullable NSString *)moreTitle {
     return nil;
 }
 
-- (NSString *)analyticsContentType{
+- (NSString *)analyticsContentType {
     return @"Unknown Content Type";
 }
-
 
 @end
 
@@ -78,7 +76,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIImage *)headerIcon {
     return [UIImage imageNamed:@"home-continue-reading-mini"];
 }
-
 
 - (NSAttributedString *)headerTitle {
     return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-continue-reading-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
@@ -94,7 +91,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @end
-
 
 @implementation WMFMainPageContentGroup (WMFContentManaging)
 
@@ -118,31 +114,31 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFRelatedPagesContentGroup (WMFContentManaging)
 
-- (UIImage *)headerIcon{
+- (UIImage *)headerIcon {
     return [UIImage imageNamed:@"recent-mini"];
 }
 
-- (NSAttributedString *)headerTitle{
+- (NSAttributedString *)headerTitle {
     return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-continue-related-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
-- (NSAttributedString *)headerSubTitle{
+- (NSAttributedString *)headerSubTitle {
     return [[NSAttributedString alloc] initWithString:self.articleURL.wmf_title attributes:@{NSForegroundColorAttributeName: [UIColor wmf_blueTintColor]}];
 }
 
-- (nullable NSURL*)headerContentURL{
+- (nullable NSURL *)headerContentURL {
     return self.articleURL;
 }
 
-- (WMFFeedHeaderActionType)headerActionType{
+- (WMFFeedHeaderActionType)headerActionType {
     return WMFFeedHeaderActionTypeOpenHeaderContent;
 }
 
-- (WMFFeedBlacklistOption)blackListOptions{
+- (WMFFeedBlacklistOption)blackListOptions {
     return WMFFeedBlacklistOptionContent;
 }
 
-- (WMFFeedDisplayType)displayType{
+- (WMFFeedDisplayType)displayType {
     return WMFFeedDisplayTypePageWithPreview;
 }
 
@@ -150,28 +146,27 @@ NS_ASSUME_NONNULL_BEGIN
     return YES /*FBTweakValue(@"Explore", @"General", @"Put 'Because You Read' in Wider Column", YES)*/;
 }
 
-- (NSUInteger)maxNumberOfCells{
+- (NSUInteger)maxNumberOfCells {
     return 3;
 }
 
 - (nullable NSString *)footerText {
     return
-    [MWLocalizedString(@"home-more-like-footer", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                withString:self.articleURL.wmf_title];
+        [MWLocalizedString(@"home-more-like-footer", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                    withString:self.articleURL.wmf_title];
 }
 
-- (WMFFeedMoreType)moreType{
+- (WMFFeedMoreType)moreType {
     return WMFFeedMoreTypePageList;
 }
 
-- (nullable NSString *)moreTitle{
+- (nullable NSString *)moreTitle {
     return [MWLocalizedString(@"home-more-like-footer", nil) stringByReplacingOccurrencesOfString:@"$1" withString:self.articleURL.wmf_title];
 }
 
 - (NSString *)analyticsContentType {
     return @"Recommended";
 }
-
 
 @end
 
@@ -195,15 +190,15 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (WMFFeedHeaderActionType)headerActionType{
+- (WMFFeedHeaderActionType)headerActionType {
     return WMFFeedHeaderActionTypeOpenMore;
 }
 
-- (WMFFeedDisplayType)displayType{
+- (WMFFeedDisplayType)displayType {
     return WMFFeedDisplayTypePageWithLocation;
 }
 
-- (NSUInteger)maxNumberOfCells{
+- (NSUInteger)maxNumberOfCells {
     return 3;
 }
 
@@ -215,11 +210,11 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (WMFFeedMoreType)moreType{
+- (WMFFeedMoreType)moreType {
     return WMFFeedMoreTypePageListWithLocation;
 }
 
-- (nullable NSString *)moreTitle{
+- (nullable NSString *)moreTitle {
     return MWLocalizedString(@"main-menu-nearby", nil);
 }
 
@@ -243,18 +238,17 @@ NS_ASSUME_NONNULL_BEGIN
     return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
-- (WMFFeedDisplayType)displayType{
+- (WMFFeedDisplayType)displayType {
     return WMFFeedDisplayTypePhoto;
 }
 
-- (WMFFeedDetailType)detailType{
+- (WMFFeedDetailType)detailType {
     return WMFFeedDetailTypeGallery;
 }
 
 - (NSString *)analyticsContentType {
     return @"Picture of the Day";
 }
-
 
 @end
 
@@ -272,7 +266,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [[NSAttributedString alloc] initWithString:MWSiteLocalizedString(self.siteURL, @"onboarding-wikipedia", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
-- (WMFFeedDisplayType)displayType{
+- (WMFFeedDisplayType)displayType {
     return WMFFeedDisplayTypePageWithPreview;
 }
 
@@ -280,18 +274,17 @@ NS_ASSUME_NONNULL_BEGIN
     return MWLocalizedString(@"explore-another-random", nil);
 }
 
-- (WMFFeedDetailType)detailType{
+- (WMFFeedDetailType)detailType {
     return WMFFeedDetailTypePageWithRandomButton;
 }
 
-- (WMFFeedMoreType)moreType{
+- (WMFFeedMoreType)moreType {
     return WMFFeedMoreTypePageWithRandomButton;
 }
 
 - (NSString *)analyticsContentType {
     return @"Random";
 }
-
 
 @end
 
@@ -316,7 +309,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
-- (WMFFeedDisplayType)displayType{
+- (WMFFeedDisplayType)displayType {
     return WMFFeedDisplayTypePageWithPreview;
 }
 
@@ -331,25 +324,25 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSAttributedString *)headerTitle {
     // fall back to language code if it can't be localized
     NSString *language = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.siteURL.wmf_language];
-    
+
     NSString *heading = nil;
-    
+
     //crash protection if language is nil
     if (language) {
         heading =
-        [MWLocalizedString(@"explore-most-read-heading", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                        withString:language];
+            [MWLocalizedString(@"explore-most-read-heading", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                            withString:language];
     } else {
         heading = MWLocalizedString(@"explore-most-read-generic-heading", nil);
     }
-    
+
     NSDictionary *attributes = @{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]};
     return [[NSAttributedString alloc] initWithString:heading attributes:attributes];
 }
 
 - (NSAttributedString *)headerSubTitle {
     return [[NSAttributedString alloc]
-            initWithString:[self localDateDisplayString]
+        initWithString:[self localDateDisplayString]
             attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
@@ -361,33 +354,31 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIColor wmf_lightBlueTintColor];
 }
 
-- (WMFFeedHeaderActionType)headerActionType{
+- (WMFFeedHeaderActionType)headerActionType {
     return WMFFeedHeaderActionTypeOpenMore;
 }
 
-- (NSUInteger)maxNumberOfCells{
+- (NSUInteger)maxNumberOfCells {
     return 5;
 }
 
 - (nullable NSString *)footerText {
     return
-    [MWLocalizedString(@"explore-most-read-footer-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                            withString:[self localDateShortDisplayString]];
+        [MWLocalizedString(@"explore-most-read-footer-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                                withString:[self localDateShortDisplayString]];
 }
 
-
-- (WMFFeedMoreType)moreType{
+- (WMFFeedMoreType)moreType {
     return WMFFeedMoreTypePageList;
 }
 
-- (nullable NSString *)moreTitle{
+- (nullable NSString *)moreTitle {
     return [self titleForDate:self.mostReadDate];
 }
 
 - (NSString *)analyticsContentType {
     return @"Most Read";
 }
-
 
 /**
  *  String to display to the user for the receiver's date.
@@ -408,11 +399,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)titleForDate:(NSDate *)date {
     return
-    [MWLocalizedString(@"explore-most-read-more-list-title-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                                     withString:
-     [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date]];
+        [MWLocalizedString(@"explore-most-read-more-list-title-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                                         withString:
+                                                                                                             [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date]];
 }
-
 
 @end
 

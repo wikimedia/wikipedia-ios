@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableDictionary<NSURL *, NSError *> *errorsByArticleTitle;
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
-                     previewStore:(WMFArticlePreviewDataStore*)previewStore
+                     previewStore:(WMFArticlePreviewDataStore *)previewStore
                     savedPageList:(MWKSavedPageList *)savedPageList
                    articleFetcher:(WMFArticleFetcher *)articleFetcher
                   imageController:(WMFImageController *)imageController
@@ -56,7 +56,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
-                     previewStore:(WMFArticlePreviewDataStore*)previewStore
+                     previewStore:(WMFArticlePreviewDataStore *)previewStore
                     savedPageList:(MWKSavedPageList *)savedPageList
                    articleFetcher:(WMFArticleFetcher *)articleFetcher
                   imageController:(WMFImageController *)imageController
@@ -84,7 +84,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
-                     previewStore:(WMFArticlePreviewDataStore*)previewStore
+                     previewStore:(WMFArticlePreviewDataStore *)previewStore
                     savedPageList:(MWKSavedPageList *)savedPageList {
     return [self initWithDataStore:dataStore
                       previewStore:previewStore

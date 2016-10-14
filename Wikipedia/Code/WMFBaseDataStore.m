@@ -1,4 +1,3 @@
-
 #import "WMFBaseDataStore.h"
 #import "YapDatabase+WMFExtensions.h"
 #import "YapDatabaseConnection+WMFExtensions.h"
@@ -64,62 +63,58 @@ NS_ASSUME_NONNULL_BEGIN
     return _writeConnection;
 }
 
-
 #pragma mark - ChangeHandlers
 
 - (void)registerChangeHandler:(id<WMFDatabaseChangeHandler>)handler {
     [self.changeHandlers addPointer:(__bridge void *_Nullable)(handler)];
 }
 
-
 #pragma mark - Read/Write
 
-- (void)readWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction))block{
-    [self.readConnection readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
+- (void)readWithBlock:(void (^)(YapDatabaseReadTransaction *_Nonnull transaction))block {
+    [self.readConnection readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction) {
         block(transaction);
     }];
 }
 
-- (nullable id)readAndReturnResultsWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction))block{
+- (nullable id)readAndReturnResultsWithBlock:(id (^)(YapDatabaseReadTransaction *_Nonnull transaction))block {
     return [self.readConnection wmf_readAndReturnResultsWithBlock:block];
 }
 
-- (void)readViewNamed:(NSString*)viewName withWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block{
+- (void)readViewNamed:(NSString *)viewName withWithBlock:(void (^)(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view))block {
     [self.readConnection wmf_readInViewWithName:viewName withBlock:block];
 }
 
-- (nullable id)readAndReturnResultsWithViewNamed:(NSString*)viewName withWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block{
+- (nullable id)readAndReturnResultsWithViewNamed:(NSString *)viewName withWithBlock:(id (^)(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view))block {
     return [self.readConnection wmf_readAndReturnResultsInViewWithName:viewName withBlock:block];
 }
 
-
-- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction* _Nonnull transaction))block{
-    [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction * _Nonnull transaction) {
+- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction *_Nonnull transaction))block {
+    [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
         block(transaction);
     }];
 }
 
-- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction* _Nonnull transaction))block completion:(dispatch_block_t)completion{
+- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction *_Nonnull transaction))block completion:(dispatch_block_t)completion {
     [self readWriteWithBlock:block];
     [self notifyWhenWriteTransactionsComplete:completion];
 }
 
-- (void)notifyWhenWriteTransactionsComplete:(nullable dispatch_block_t)completion{
+- (void)notifyWhenWriteTransactionsComplete:(nullable dispatch_block_t)completion {
     [self.writeConnection flushTransactionsWithCompletionQueue:dispatch_get_main_queue() completionBlock:completion];
 }
 
-
 #pragma mark - YapDatabaseModified Notification
 
-- (void)setDatabaseSyncingEnabled:(BOOL)databaseSyncingEnabled{
+- (void)setDatabaseSyncingEnabled:(BOOL)databaseSyncingEnabled {
     _databaseSyncingEnabled = databaseSyncingEnabled;
-    if(_databaseSyncingEnabled){
+    if (_databaseSyncingEnabled) {
         [self syncDataStoreToDatabase];
     }
 }
 
 - (void)yapDatabaseModified:(NSNotification *)notification {
-    if(!self.databaseSyncingEnabled){
+    if (!self.databaseSyncingEnabled) {
         return;
     }
     [self syncDataStoreToDatabase];
@@ -132,23 +127,21 @@ NS_ASSUME_NONNULL_BEGIN
     // Also grab all the notifications for all the commits that I jump.
     // If the UI is a bit backed up, I may jump multiple commits.
     NSArray *notifications = [self.readConnection beginLongLivedReadTransaction];
-    
+
     //Note: we must send notificatons even if they are 0
     //This is neccesary because when changes happen in other processes
     //Yap reports 0 changes and simply flushes its caches.
     //This updates the connections and the DB, but not mappings
     //To update any mappings, we must propagate "0" notifications
-    
+
     [self.changeHandlers compact];
     for (id<WMFDatabaseChangeHandler> obj in self.changeHandlers) {
         [obj processChanges:notifications onConnection:self.readConnection];
     }
 }
 
-- (void)dataStoreWasUpdatedWithNotification:(NSNotification*)notification{
-
+- (void)dataStoreWasUpdatedWithNotification:(NSNotification *)notification {
 }
-
 
 @end
 

@@ -1,4 +1,3 @@
-
 #import "WMFTimerContentSource.h"
 #import "WMFContentSource.h"
 
@@ -9,7 +8,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFFeedContentSource : WMFTimerContentSource<WMFContentSource>
+@interface WMFFeedContentSource : WMFTimerContentSource <WMFContentSource>
 
 @property (readonly, nonatomic, strong) NSURL *siteURL;
 

@@ -58,31 +58,29 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 
 - (void)fetchArticlesRelatedArticleWithURL:(NSURL *)URL
                                resultLimit:(NSUInteger)resultLimit
-                           completionBlock:(void (^)(WMFRelatedSearchResults* results))completion
-                              failureBlock:(void (^) (NSError* error))failure{
-    
+                           completionBlock:(void (^)(WMFRelatedSearchResults *results))completion
+                              failureBlock:(void (^)(NSError *error))failure {
+
     WMFRelatedSearchRequestParameters *params = [WMFRelatedSearchRequestParameters new];
     params.articleURL = URL;
     params.numberOfResults = resultLimit;
 
     [self.operationManager wmf_GETAndRetryWithURL:URL
-                                       parameters:params
-                                            retry:NULL
-                                          success:^(NSURLSessionDataTask *operation, id responseObject) {
-                                              [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                                              if(completion){
-                                                  completion([[WMFRelatedSearchResults alloc] initWithURL:URL results:responseObject]);
-                                              }
-                                          }
-                                          failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                                              [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                                              if(failure){
-                                                  failure(error);
-                                              }
-                                          }];
-
+        parameters:params
+        retry:NULL
+        success:^(NSURLSessionDataTask *operation, id responseObject) {
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            if (completion) {
+                completion([[WMFRelatedSearchResults alloc] initWithURL:URL results:responseObject]);
+            }
+        }
+        failure:^(NSURLSessionDataTask *operation, NSError *error) {
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            if (failure) {
+                failure(error);
+            }
+        }];
 }
-
 
 @end
 

@@ -22,7 +22,7 @@
     MWKDataStore *dataStore = [MWKDataStore temporaryDataStore];
     MWKHistoryList *list = [[MWKHistoryList alloc] initWithDataStore:dataStore];
     [list addPageToHistoryWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"Foo"]];
-    
+
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
     [dataStore notifyWhenWriteTransactionsComplete:^{
@@ -33,7 +33,7 @@
             [expectation fulfill];
         }];
     }];
-    
+
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
 

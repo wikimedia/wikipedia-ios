@@ -43,7 +43,7 @@
     return activity;
 }
 
-+ (instancetype)wmf_contentActivityWithURL:(NSURL*)url {
++ (instancetype)wmf_contentActivityWithURL:(NSURL *)url {
     NSUserActivity *activity = [self wmf_activityWithType:@"Content"];
     activity.userInfo = @{ @"WMFURL": url };
     return activity;
@@ -78,8 +78,8 @@
     if (![url.scheme isEqualToString:@"wikipedia"]) {
         return nil;
     }
-    
-    if([url.host isEqualToString:@"content"]) {
+
+    if ([url.host isEqualToString:@"content"]) {
         return [self wmf_contentActivityWithURL:url];
     } else if ([url.host isEqualToString:@"explore"]) {
         return [self wmf_exploreViewActivity];
@@ -205,11 +205,9 @@
         return self.webpageURL;
     }
 }
-- (NSURL *)wmf_contentURL{
+- (NSURL *)wmf_contentURL {
     return self.userInfo[@"WMFURL"];
 }
-
-
 
 + (NSURL *)wmf_baseURLForActivityOfType:(WMFUserActivityType)type {
     NSString *host = nil;

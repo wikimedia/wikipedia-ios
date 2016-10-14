@@ -1,4 +1,3 @@
-
 #import <Mantle/Mantle.h>
 @import CoreLocation;
 
@@ -16,8 +15,8 @@
 
 @property (nonatomic, copy, readwrite) CLLocation *location;
 
-@property (nonatomic, copy, readwrite) NSDictionary<NSDate*, NSNumber*>* pageViews;
+@property (nonatomic, copy, readwrite) NSDictionary<NSDate *, NSNumber *> *pageViews;
 
-- (NSArray<NSNumber*>*)pageViewsSortedByDate;
+- (NSArray<NSNumber *> *)pageViewsSortedByDate;
 
 @end

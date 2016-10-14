@@ -1,4 +1,3 @@
-
 #import "WMFRandomContentSource.h"
 #import "WMFContentGroupDataStore.h"
 #import "WMFArticlePreviewDataStore.h"
@@ -22,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFRandomContentSource
 
-- (instancetype)initWithSiteURL:(NSURL*)siteURL contentGroupDataStore:(WMFContentGroupDataStore*)contentStore articlePreviewDataStore:(WMFArticlePreviewDataStore*)previewStore{
+- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticlePreviewDataStore *)previewStore {
     NSParameterAssert(siteURL);
     NSParameterAssert(contentStore);
     NSParameterAssert(previewStore);
@@ -43,78 +42,74 @@ NS_ASSUME_NONNULL_BEGIN
 }
 #pragma mark - WMFContentSource
 
-- (void)startUpdating{
+- (void)startUpdating {
     [self loadNewContentForce:NO completion:NULL];
 }
 
-- (void)stopUpdating{
-    
+- (void)stopUpdating {
 }
 
-
-- (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion{
+- (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
     [self loadContentForDate:[NSDate date] completion:completion];
 }
 
-- (void)preloadContentForNumberOfDays:(NSInteger)days completion:(nullable dispatch_block_t)completion{
-    NSDate* dateToLoad = [[NSDate date] dateByAddingDays:-days];
-    [self loadContentForDate:dateToLoad completion:^{
-        NSInteger numberOfDays = days-1;
-        if(numberOfDays > 0){
-            [self preloadContentForNumberOfDays:numberOfDays completion:completion];
-        }else{
-            if(completion){
-                completion();
-            }
-        }
-    }];
+- (void)preloadContentForNumberOfDays:(NSInteger)days completion:(nullable dispatch_block_t)completion {
+    NSDate *dateToLoad = [[NSDate date] dateByAddingDays:-days];
+    [self loadContentForDate:dateToLoad
+                  completion:^{
+                      NSInteger numberOfDays = days - 1;
+                      if (numberOfDays > 0) {
+                          [self preloadContentForNumberOfDays:numberOfDays completion:completion];
+                      } else {
+                          if (completion) {
+                              completion();
+                          }
+                      }
+                  }];
 }
 
-- (void)loadContentForDate:(NSDate*)date completion:(nullable dispatch_block_t)completion{
-    
-    WMFRandomContentGroup* random = [self randomForDate:date];
-    
-    if(random != nil){
-        if(completion){
+- (void)loadContentForDate:(NSDate *)date completion:(nullable dispatch_block_t)completion {
+
+    WMFRandomContentGroup *random = [self randomForDate:date];
+
+    if (random != nil) {
+        if (completion) {
             completion();
         }
         return;
     }
-    
+
     @weakify(self)
-    [self.fetcher fetchRandomArticleWithSiteURL:self.siteURL
-                                        failure:^(NSError *error) {
-                                            if(completion){
-                                                completion();
-                                            }
-                                        }
-                                        success:^(MWKSearchResult *result) {
-                                            @strongify(self);
-                                            if (!self) {
-                                                return;
-                                            }
+        [self.fetcher fetchRandomArticleWithSiteURL:self.siteURL
+            failure:^(NSError *error) {
+                if (completion) {
+                    completion();
+                }
+            }
+            success:^(MWKSearchResult *result) {
+                @strongify(self);
+                if (!self) {
+                    return;
+                }
 
-                                            NSURL* url = [self.siteURL wmf_URLWithTitle:result.displayTitle];
+                NSURL *url = [self.siteURL wmf_URLWithTitle:result.displayTitle];
 
-                                            WMFRandomContentGroup* random = [[WMFRandomContentGroup alloc] initWithDate:date siteURL:self.siteURL];
-                                            
-                                            [self.previewStore addPreviewWithURL:url updatedWithSearchResult:result];
-                                            [self.contentStore addContentGroup:random associatedContent:@[url]];
-                                            
-                                            [self.contentStore notifyWhenWriteTransactionsComplete:completion];
-                                        }];
+                WMFRandomContentGroup *random = [[WMFRandomContentGroup alloc] initWithDate:date siteURL:self.siteURL];
 
+                [self.previewStore addPreviewWithURL:url updatedWithSearchResult:result];
+                [self.contentStore addContentGroup:random associatedContent:@[url]];
+
+                [self.contentStore notifyWhenWriteTransactionsComplete:completion];
+            }];
 }
 
-- (void)removeAllContent{
+- (void)removeAllContent {
     [self.contentStore removeAllContentGroupsOfKind:[WMFRandomContentGroup kind]];
 }
 
-
-- (nullable WMFRandomContentGroup*)randomForDate:(NSDate*)date{
+- (nullable WMFRandomContentGroup *)randomForDate:(NSDate *)date {
     return (id)[self.contentStore firstGroupOfKind:[WMFRandomContentGroup kind] forDate:date];
 }
-
 
 @end
 

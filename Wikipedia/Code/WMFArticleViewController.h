@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController;
 
 - (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
-                                       shareActivityController:(UIActivityViewController*)shareActivityController;
+                                       shareActivityController:(UIActivityViewController *)shareActivityController;
 
 @end
 
@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithArticleURL:(NSURL *)url
                          dataStore:(MWKDataStore *)dataStore
-                      previewStore:(WMFArticlePreviewDataStore*)previewStore;
+                      previewStore:(WMFArticlePreviewDataStore *)previewStore;
 
 @property (nonatomic, strong, readonly) NSURL *articleURL;
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;

@@ -8,7 +8,6 @@
 
 @interface YapDatabaseViewMappings (WMFMappings)
 
-
 /**
  *  Mappings for Views without groups.
  *  Since there is only a single group, the group sort is undefined.

@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticleFooterMenuViewController
 
-- (instancetype)initWithArticle:(MWKArticle *)article dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore*)previewStore similarPagesListDelegate:(id<WMFArticleListTableViewControllerDelegate>)delegate{
+- (instancetype)initWithArticle:(MWKArticle *)article dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore *)previewStore similarPagesListDelegate:(id<WMFArticleListTableViewControllerDelegate>)delegate {
     NSParameterAssert(article);
     NSParameterAssert(delegate);
     NSParameterAssert(dataStore);
@@ -62,7 +62,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (MWKArticle *)article {
     return self.footerDataSource.article;
 }
-
 
 #pragma mark - UIViewController
 

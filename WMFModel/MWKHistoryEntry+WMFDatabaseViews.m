@@ -1,4 +1,3 @@
-
 #import "MWKHistoryEntry+WMFDatabaseViews.h"
 #import "YapDatabase+WMFExtensions.h"
 #import "NSDate+Utilities.h"
@@ -19,39 +18,38 @@ NSString *const WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView = @"WMFN
     YapDatabaseViewSorting *sorting = [self wmf_historySortedByDateDescending];
     YapDatabaseView *databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting];
     [database wmf_registerView:databaseView withName:WMFHistorySortedByDateUngroupedView];
-    
+
     grouping = [self wmf_historyGroupingByDate];
     sorting = [self wmf_historySortedByDateDescending];
     databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting];
     [database wmf_registerView:databaseView withName:WMFHistorySortedByDateGroupedByDateView];
-    
+
     grouping = [self wmf_savedGroupingSingleGroup];
     sorting = [self wmf_savedSortedByDateDescending];
     databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting];
     [database wmf_registerView:databaseView withName:WMFSavedSortedByDateUngroupedView];
-    
+
     grouping = [self wmf_historyOrSavedGroupingSingleGroup];
     sorting = [self wmf_historyOrSavedSortedByURL];
     databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting versionTag:@"1"];
     [database wmf_registerView:databaseView withName:WMFHistoryOrSavedSortedByURLUngroupedView];
-    
+
     grouping = [self wmf_blackListGroupingSingleGroup];
     sorting = [self wmf_historyOrSavedSortedByURL];
     databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting];
     [database wmf_registerView:databaseView withName:WMFBlackListSortedByURLUngroupedView];
-    
+
     grouping = [self wmf_notInHistorySavedOrBlackListGroupingSingleGroup];
     sorting = [self wmf_historyOrSavedSortedByURL];
     databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting];
     [database wmf_registerView:databaseView withName:WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView];
-    
+
     YapDatabaseViewFiltering *filtering = [self wmf_historyOrSavedSignificantlyViewedAndNotBlacklistedAndNotMainPageFilter];
     YapDatabaseFilteredView *filteredView =
-    [[YapDatabaseFilteredView alloc] initWithParentViewName:WMFHistoryOrSavedSortedByURLUngroupedView
-                                                  filtering:filtering
-                                                 versionTag:@"3"];
+        [[YapDatabaseFilteredView alloc] initWithParentViewName:WMFHistoryOrSavedSortedByURLUngroupedView
+                                                      filtering:filtering
+                                                     versionTag:@"3"];
     [database wmf_registerView:filteredView withName:WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignificantlyViewedAndNotBlacklistedAndNotMainPageView];
-
 }
 
 + (YapDatabaseViewGrouping *)wmf_historyGroupingSingleGroup {

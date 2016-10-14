@@ -1,10 +1,9 @@
-
 #import <Mantle/Mantle.h>
 @import CoreLocation;
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSUInteger, WMFContentType){
+typedef NS_ENUM(NSUInteger, WMFContentType) {
     WMFContentTypeURL,
     WMFContentTypeImage,
     WMFContentTypeTopReadPreview,
@@ -16,7 +15,7 @@ typedef NS_ENUM(NSUInteger, WMFContentType){
 /**
  *  The kind of content group.
  */
-+ (NSString*)kind;
++ (NSString *)kind;
 
 /**
  *  The type of content that the group contains
@@ -32,7 +31,6 @@ typedef NS_ENUM(NSUInteger, WMFContentType){
 - (instancetype)init;
 
 - (instancetype)initWithDate:(NSDate *)date NS_DESIGNATED_INITIALIZER;
-
 
 - (NSInteger)dailySortPriority;
 
@@ -65,7 +63,6 @@ typedef NS_ENUM(NSUInteger, WMFContentType){
 
 @end
 
-
 @interface WMFContinueReadingContentGroup : WMFContentGroup
 
 @end
@@ -81,7 +78,7 @@ typedef NS_ENUM(NSUInteger, WMFContentType){
  */
 @property (nonatomic, strong, readonly) NSURL *articleURL;
 
-- (instancetype)initWithArticleURL:(NSURL *)url date:(NSDate*)date;
+- (instancetype)initWithArticleURL:(NSURL *)url date:(NSDate *)date;
 
 @end
 
@@ -120,18 +117,14 @@ typedef NS_ENUM(NSUInteger, WMFContentType){
  */
 @property (nonatomic, strong, readonly) NSDate *mostReadDate;
 
-- (instancetype)initWithDate:(NSDate *)date mostReadDate:(NSDate*)mostReadDate siteURL:(NSURL *)url;
+- (instancetype)initWithDate:(NSDate *)date mostReadDate:(NSDate *)mostReadDate siteURL:(NSURL *)url;
 
 - (instancetype)initWithDate:(NSDate *)date siteURL:(NSURL *)url NS_UNAVAILABLE;
 
 @end
 
-
 @interface WMFNewsContentGroup : WMFSiteContentGroup
 
-
 @end
-
-
 
 NS_ASSUME_NONNULL_END

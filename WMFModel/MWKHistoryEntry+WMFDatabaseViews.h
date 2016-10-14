@@ -1,4 +1,3 @@
-
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "WMFDatabaseViewable.h"
 
@@ -45,8 +44,7 @@ extern NSString *const WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignifican
  */
 extern NSString *const WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView;
 
-
-@interface MWKHistoryEntry (WMFDatabaseViews)<WMFDatabaseViewable>
+@interface MWKHistoryEntry (WMFDatabaseViews) <WMFDatabaseViewable>
 
 /**
  *  The following components can be combined to create user data views in the database.

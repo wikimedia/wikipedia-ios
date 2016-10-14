@@ -1,4 +1,3 @@
-
 static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
 
 @implementation NSDateFormatter (WMFExtensions)
@@ -204,6 +203,5 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     });
     return _dateFormatter;
 }
-
 
 @end

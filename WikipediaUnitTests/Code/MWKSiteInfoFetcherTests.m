@@ -58,14 +58,16 @@
 
     XCTestExpectation *expectation = [self expectationWithDescription:@"response"];
 
-    [self.fetcher fetchSiteInfoForSiteURL:testSiteURL completion:^(MWKSiteInfo * _Nonnull result) {
-        assertThat(result.siteURL, is(equalTo(testSiteURL)));
-        assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
-        [expectation fulfill];
-    } failure:^(NSError * _Nonnull error) {
-        NSLog(@"%@", [error localizedDescription]);
-    }];
-    
+    [self.fetcher fetchSiteInfoForSiteURL:testSiteURL
+        completion:^(MWKSiteInfo *_Nonnull result) {
+            assertThat(result.siteURL, is(equalTo(testSiteURL)));
+            assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
+            [expectation fulfill];
+        }
+        failure:^(NSError *_Nonnull error) {
+            NSLog(@"%@", [error localizedDescription]);
+        }];
+
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
 }
 
@@ -92,13 +94,15 @@
 
     XCTestExpectation *expectation = [self expectationWithDescription:@"response"];
 
-    [self.fetcher fetchSiteInfoForSiteURL:testSiteURL completion:^(MWKSiteInfo * _Nonnull result) {
-        assertThat(result.siteURL, is(equalTo(testSiteURL)));
-        assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
-        [expectation fulfill];
-    } failure:^(NSError * _Nonnull error) {
-        NSLog(@"%@", [error localizedDescription]);
-    }];
+    [self.fetcher fetchSiteInfoForSiteURL:testSiteURL
+        completion:^(MWKSiteInfo *_Nonnull result) {
+            assertThat(result.siteURL, is(equalTo(testSiteURL)));
+            assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
+            [expectation fulfill];
+        }
+        failure:^(NSError *_Nonnull error) {
+            NSLog(@"%@", [error localizedDescription]);
+        }];
 
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
 }

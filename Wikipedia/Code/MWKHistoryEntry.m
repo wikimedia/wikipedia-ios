@@ -44,11 +44,11 @@
     return self;
 }
 
-- (BOOL)isInHistory{
+- (BOOL)isInHistory {
     return self.dateViewed != nil;
 }
 
-- (BOOL)isSaved{
+- (BOOL)isSaved {
     return self.dateSaved != nil;
 }
 
@@ -67,7 +67,7 @@
 }
 
 - (BOOL)isEqualToHistoryEntry:(MWKHistoryEntry *)entry {
-    return WMF_IS_EQUAL(self.url, entry.url) && WMF_EQUAL(self.dateViewed, isEqualToDate:, entry.dateViewed) && self.scrollPosition == entry.scrollPosition && ((self.fragment == entry.fragment) || (self.fragment && entry.fragment && [self.fragment isEqualToString:entry.fragment])) && WMF_EQUAL(self.inTheNewsNotificationDate, isEqualToDate:, entry.inTheNewsNotificationDate) ;
+    return WMF_IS_EQUAL(self.url, entry.url) && WMF_EQUAL(self.dateViewed, isEqualToDate:, entry.dateViewed) && self.scrollPosition == entry.scrollPosition && ((self.fragment == entry.fragment) || (self.fragment && entry.fragment && [self.fragment isEqualToString:entry.fragment])) && WMF_EQUAL(self.inTheNewsNotificationDate, isEqualToDate:, entry.inTheNewsNotificationDate);
 }
 
 #pragma mark - MWKListObject

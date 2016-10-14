@@ -48,11 +48,10 @@ extern NSUInteger const WMFMaxRelatedSearchResultLimit;
  *  @see Fetching Extracts
  */
 
-
 - (void)fetchArticlesRelatedArticleWithURL:(NSURL *)URL
                                resultLimit:(NSUInteger)resultLimit
-                           completionBlock:(void (^)(WMFRelatedSearchResults* results))completion
-                              failureBlock:(void (^)(NSError* error))failure;
+                           completionBlock:(void (^)(WMFRelatedSearchResults *results))completion
+                              failureBlock:(void (^)(NSError *error))failure;
 
 @property (nonatomic, assign, readonly) BOOL isFetching;
 

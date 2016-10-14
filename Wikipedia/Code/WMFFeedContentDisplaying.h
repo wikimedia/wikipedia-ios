@@ -1,10 +1,9 @@
-
 @import UIKit;
 #import "WMFAnalyticsLogging.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSUInteger, WMFFeedDisplayType){
+typedef NS_ENUM(NSUInteger, WMFFeedDisplayType) {
     WMFFeedDisplayTypePage,
     WMFFeedDisplayTypePageWithPreview,
     WMFFeedDisplayTypePageWithLocation,
@@ -12,20 +11,20 @@ typedef NS_ENUM(NSUInteger, WMFFeedDisplayType){
     WMFFeedDisplayTypeStory
 };
 
-typedef NS_ENUM(NSUInteger, WMFFeedDetailType){
+typedef NS_ENUM(NSUInteger, WMFFeedDetailType) {
     WMFFeedDetailTypePage,
     WMFFeedDetailTypePageWithRandomButton,
     WMFFeedDetailTypeGallery,
     WMFFeedDetailTypeStory,
 };
 
-typedef NS_ENUM(NSUInteger, WMFFeedHeaderActionType){
+typedef NS_ENUM(NSUInteger, WMFFeedHeaderActionType) {
     WMFFeedHeaderActionTypeOpenHeaderContent,
     WMFFeedHeaderActionTypeOpenFirstItem,
     WMFFeedHeaderActionTypeOpenMore,
 };
 
-typedef NS_ENUM(NSUInteger, WMFFeedMoreType){
+typedef NS_ENUM(NSUInteger, WMFFeedMoreType) {
     WMFFeedMoreTypeNone,
     WMFFeedMoreTypePage,
     WMFFeedMoreTypePageWithRandomButton,
@@ -37,7 +36,7 @@ typedef NS_ENUM(NSUInteger, WMFFeedMoreType){
 typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
     WMFFeedBlacklistOptionNone = 0,
     WMFFeedBlacklistOptionContent = 1 << 0, //blacklist specific sectiion content
-//    WMFFeedBlacklistOptionSection = 1 << 1, //blacklist all sections of this type
+    //    WMFFeedBlacklistOptionSection = 1 << 1, //blacklist all sections of this type
 };
 
 @protocol WMFFeedContentDisplaying <WMFAnalyticsContentTypeProviding>
@@ -81,12 +80,11 @@ typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
  */
 - (NSAttributedString *)headerSubTitle;
 
-
 /*
  * The URL of the content that the header represents
  * Usually an article
  */
-- (nullable NSURL*)headerContentURL;
+- (nullable NSURL *)headerContentURL;
 
 /*
  * The action that shoud be performed when a user taps on the header.
@@ -103,12 +101,9 @@ typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
  */
 - (WMFFeedDisplayType)displayType;
 
-
 - (NSUInteger)maxNumberOfCells;
 
-
 - (BOOL)prefersWiderColumn;
-
 
 - (WMFFeedDetailType)detailType;
 
@@ -130,7 +125,6 @@ typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
  *  Title for the view displayed when tapping more
  */
 - (nullable NSString *)moreTitle;
-
 
 @end
 

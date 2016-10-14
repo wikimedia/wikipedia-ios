@@ -1,4 +1,3 @@
-
 #import <YapDatabase/YapDatabase.h>
 #import <YapDataBase/YapDatabaseView.h>
 #import <YapDataBase/YapDatabaseFilteredView.h>
@@ -10,6 +9,6 @@
  *  All persistent views for a given class you should register it within this method.
  *  This method should be implemented in a way in which multiple calls are supported (dispatch_once)
  */
-+ (void)registerViewsInDatabase:(YapDatabase*)database;
++ (void)registerViewsInDatabase:(YapDatabase *)database;
 
 @end

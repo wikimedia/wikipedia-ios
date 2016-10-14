@@ -16,20 +16,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFMorePageListViewController ()<WMFLocationManagerDelegate>
-
+@interface WMFMorePageListViewController () <WMFLocationManagerDelegate>
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
-@property (nonatomic, strong, readwrite) WMFContentGroup* group;
-@property (nonatomic, strong, readwrite) NSArray<NSURL*>* articleURLs;
+@property (nonatomic, strong, readwrite) WMFContentGroup *group;
+@property (nonatomic, strong, readwrite) NSArray<NSURL *> *articleURLs;
 
 @end
 
 @implementation WMFMorePageListViewController
 
-- (instancetype)initWithGroup:(WMFContentGroup*)group articleURLs:(NSArray<NSURL*>*)urls userDataStore:(MWKDataStore*)userDataStore previewStore:(WMFArticlePreviewDataStore*)previewStore
-{
+- (instancetype)initWithGroup:(WMFContentGroup *)group articleURLs:(NSArray<NSURL *> *)urls userDataStore:(MWKDataStore *)userDataStore previewStore:(WMFArticlePreviewDataStore *)previewStore {
     NSParameterAssert(urls);
     NSParameterAssert(group);
     NSParameterAssert(userDataStore);
@@ -50,15 +48,15 @@ NS_ASSUME_NONNULL_BEGIN
     return self.userDataStore.savedPageList;
 }
 
-- (void)setCellType:(WMFMorePageListCellType)cellType{
+- (void)setCellType:(WMFMorePageListCellType)cellType {
     _cellType = cellType;
-    if([self isViewLoaded]){
+    if ([self isViewLoaded]) {
         [self registerCells];
     }
 }
 
-- (WMFLocationManager*)locationManager{
-    if(!_locationManager){
+- (WMFLocationManager *)locationManager {
+    if (!_locationManager) {
         _locationManager = [WMFLocationManager fineLocationManager];
         _locationManager.delegate = self;
     }
@@ -75,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if(self.cellType == WMFMorePageListCellTypeLocation){
+    if (self.cellType == WMFMorePageListCellTypeLocation) {
         [self.locationManager startMonitoringLocation];
     }
 }
@@ -84,7 +82,6 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewDidDisappear:animated];
     [self.locationManager stopMonitoringLocation];
 }
-
 
 #pragma mark - UITableViewDataSource
 
@@ -100,47 +97,40 @@ NS_ASSUME_NONNULL_BEGIN
     switch (self.cellType) {
         case WMFMorePageListCellTypeNormal: {
             return [self listCellForRowAtIndexPath:indexPath];
-        }
-            break;
+        } break;
         case WMFMorePageListCellTypePreview: {
             return [self previewCellForRowAtIndexPath:indexPath];
-        }
-            break;
+        } break;
         case WMFMorePageListCellTypeLocation: {
             return [self locationCellForRowAtIndexPath:indexPath];
-        }
-            break;
-            
+        } break;
+
         default:
             NSAssert(false, @"Unknown Cell Type");
             return nil;
             break;
     }
-
 }
 
 #pragma mark - Cells
 
-- (void)registerCells{
+- (void)registerCells {
     switch (self.cellType) {
         case WMFMorePageListCellTypeNormal: {
             [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib]
                  forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
             self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
             [self.locationManager stopMonitoringLocation];
-        }
-            break;
+        } break;
         case WMFMorePageListCellTypePreview: {
             [self.tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
             self.tableView.estimatedRowHeight = [WMFArticlePreviewTableViewCell estimatedRowHeight];
             [self.locationManager stopMonitoringLocation];
-        }
-            break;
+        } break;
         case WMFMorePageListCellTypeLocation: {
             [self.tableView registerNib:[WMFNearbyArticleTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFNearbyArticleTableViewCell identifier]];
             self.tableView.estimatedRowHeight = [WMFNearbyArticleTableViewCell estimatedRowHeight];
-        }
-            break;
+        } break;
         default:
             NSAssert(false, @"Unknown Cell Type");
             break;
@@ -148,62 +138,60 @@ NS_ASSUME_NONNULL_BEGIN
     [self.tableView reloadData];
 }
 
-- (WMFArticleListTableViewCell*)listCellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (WMFArticleListTableViewCell *)listCellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticleListTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleListTableViewCell identifier] forIndexPath:indexPath];
-    
-    NSURL* url = self.articleURLs[indexPath.row];
-    WMFArticlePreview* preview = [self.previewStore itemForURL:url];
+
+    NSURL *url = self.articleURLs[indexPath.row];
+    WMFArticlePreview *preview = [self.previewStore itemForURL:url];
     cell.titleText = preview.displayTitle;
     cell.descriptionText = [preview.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     [cell setImageURL:preview.thumbnailURL];
     return cell;
 }
 
-- (WMFArticlePreviewTableViewCell*)previewCellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (WMFArticlePreviewTableViewCell *)previewCellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticlePreviewTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticlePreviewTableViewCell identifier] forIndexPath:indexPath];
-    
-    NSURL* url = self.articleURLs[indexPath.row];
-    WMFArticlePreview* preview = [self.previewStore itemForURL:url];
+
+    NSURL *url = self.articleURLs[indexPath.row];
+    WMFArticlePreview *preview = [self.previewStore itemForURL:url];
     cell.titleText = preview.displayTitle;
     cell.descriptionText = [preview.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     cell.snippetText = preview.snippet;
     [cell setImageURL:preview.thumbnailURL];
     cell.saveButtonController.analyticsContext = [self analyticsContext];
     [cell setSaveableURL:url savedPageList:self.userDataStore.savedPageList];
-    
+
     return cell;
 }
 
-- (WMFNearbyArticleTableViewCell*)locationCellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    WMFNearbyArticleTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFNearbyArticleTableViewCell wmf_nibName] forIndexPath:indexPath];
-    
-    NSURL* url = self.articleURLs[indexPath.row];
-    WMFArticlePreview* preview = [self.previewStore itemForURL:url];
+- (WMFNearbyArticleTableViewCell *)locationCellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    WMFNearbyArticleTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFNearbyArticleTableViewCell wmf_nibName] forIndexPath:indexPath];
+
+    NSURL *url = self.articleURLs[indexPath.row];
+    WMFArticlePreview *preview = [self.previewStore itemForURL:url];
     cell.titleText = preview.displayTitle;
     cell.descriptionText = [preview.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     [cell setImageURL:preview.thumbnailURL];
     [self updateLocationCell:cell location:preview.location];
-    
+
     return cell;
 }
 
 #pragma mark - Location Updates
 
-- (void)updateLocationCells{
-    [[self.tableView indexPathsForVisibleRows] enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        WMFNearbyArticleTableViewCell* cell = [self.tableView cellForRowAtIndexPath:obj];
-        NSURL* url = self.articleURLs[obj.row];
-        WMFArticlePreview* preview = [self.previewStore itemForURL:url];
+- (void)updateLocationCells {
+    [[self.tableView indexPathsForVisibleRows] enumerateObjectsUsingBlock:^(NSIndexPath *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        WMFNearbyArticleTableViewCell *cell = [self.tableView cellForRowAtIndexPath:obj];
+        NSURL *url = self.articleURLs[obj.row];
+        WMFArticlePreview *preview = [self.previewStore itemForURL:url];
         [self updateLocationCell:cell location:preview.location];
     }];
 }
-- (void)updateLocationCell:(WMFNearbyArticleTableViewCell*)cell location:(CLLocation*)location{
+- (void)updateLocationCell:(WMFNearbyArticleTableViewCell *)cell location:(CLLocation *)location {
     [cell setDistance:[self.locationManager.location distanceFromLocation:location]];
     [cell setBearing:[self.locationManager.location wmf_bearingToLocation:location forCurrentHeading:self.locationManager.heading]];
-    
 }
-
 
 #pragma mark - WMFLocationManager
 
@@ -233,13 +221,11 @@ NS_ASSUME_NONNULL_BEGIN
     return self.articleURLs[indexPath.row];
 }
 
-
 #pragma mark - Analytics
 
 - (NSString *)analyticsContext {
     return [@"More " stringByAppendingString:self.group.analyticsContentType];
 }
-
 
 @end
 

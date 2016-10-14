@@ -1,4 +1,3 @@
-
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -33,8 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Load old content into the DB if possible
  */
-- (void)loadContentForDate:(NSDate*)date completion:(nullable dispatch_block_t)completion;
-
+- (void)loadContentForDate:(NSDate *)date completion:(nullable dispatch_block_t)completion;
 
 @end
 

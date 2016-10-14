@@ -9,7 +9,6 @@
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "MWKHistoryList.h"
 
-
 #import "MWKArticle.h"
 #import "MWKSavedPageEntry.h"
 

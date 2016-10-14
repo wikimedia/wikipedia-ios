@@ -20,7 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)coarseLocationManager;
 
-
 /**
  *  Use one of the above factory methods instead.
  *
@@ -47,15 +46,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)restartLocationMonitoring;
 
-
 + (BOOL)isAuthorized;
 
 + (BOOL)isDeniedOrDisabled;
 
 - (AnyPromise *)reverseGeocodeLocation:(CLLocation *)location;
 
-- (void)reverseGeocodeLocation:(CLLocation *)location completion:(void (^) (CLPlacemark* placemark))completion
-                       failure:(void(^)(NSError* error))failure;
+- (void)reverseGeocodeLocation:(CLLocation *)location completion:(void (^)(CLPlacemark *placemark))completion
+                       failure:(void (^)(NSError *error))failure;
 
 @end
 

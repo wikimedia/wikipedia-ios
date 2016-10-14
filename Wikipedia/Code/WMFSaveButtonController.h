@@ -3,7 +3,7 @@
 
 @class MWKSavedPageList, MWKSavedPageList;
 
-@interface WMFSaveButtonController : NSObject<WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding>
+@interface WMFSaveButtonController : NSObject <WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding>
 
 @property (copy, nonatomic) NSURL *url;
 @property (strong, nonatomic) UIControl *control;
@@ -20,7 +20,7 @@
 /**
  *  Set to provide a source for logging saved pages
  */
-@property (copy, nonatomic) NSString* analyticsContext;
-@property (copy, nonatomic) NSString* analyticsContentType;
+@property (copy, nonatomic) NSString *analyticsContext;
+@property (copy, nonatomic) NSString *analyticsContentType;
 
 @end

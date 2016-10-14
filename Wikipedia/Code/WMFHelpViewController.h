@@ -6,7 +6,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFHelpViewController : WMFArticleViewController
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore*)previewStore;
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore *)previewStore;
 
 @end
 
