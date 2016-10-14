@@ -8,7 +8,7 @@ NSString *const WMFHistorySortedByDateUngroupedView = @"WMFHistorySortedByDateUn
 NSString *const WMFSavedSortedByDateUngroupedView = @"WMFSavedSortedByDateUngroupedView";
 NSString *const WMFHistoryOrSavedSortedByURLUngroupedView = @"WMFHistoryOrSavedSortedByURLUngroupedView";
 NSString *const WMFBlackListSortedByURLUngroupedView = @"WMFBlackListSortedByURLUngroupedView";
-NSString *const WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignificnatlyViewedAndNotBlacklistedAndNotMainPageView = @"WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignificnatlyViewedAndNotBlacklistedAndNotMainPageView";
+NSString *const WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignificantlyViewedAndNotBlacklistedAndNotMainPageView = @"WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignificantlyViewedAndNotBlacklistedAndNotMainPageView";
 NSString *const WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView = @"WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView";
 
 @implementation MWKHistoryEntry (WMFDatabaseViews)
@@ -52,7 +52,7 @@ NSString *const WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView = @"WMFN
             [[YapDatabaseFilteredView alloc] initWithParentViewName:WMFHistoryOrSavedSortedByURLUngroupedView
                                                           filtering:filtering
                                                          versionTag:@"3"];
-        [database wmf_registerView:filteredView withName:WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignificnatlyViewedAndNotBlacklistedAndNotMainPageView];
+        [database wmf_registerView:filteredView withName:WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignificantlyViewedAndNotBlacklistedAndNotMainPageView];
     });
 }
 
