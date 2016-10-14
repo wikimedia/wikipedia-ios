@@ -18,14 +18,14 @@ extern NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo);
 
 @interface WMFImageInfoController ()
 
-@property (nonatomic, strong, readonly) NSMutableIndexSet *fetchedIndices;
+@property (nonatomic, strong, readonly, nullable) NSMutableIndexSet *fetchedIndices;
 
 /// Map of canonical filenames to image info objects.
-@property (nonatomic, strong, readonly) NSDictionary *indexedImageInfo;
+@property (nonatomic, strong, readonly, nullable) NSDictionary *indexedImageInfo;
 
-@property (nonatomic, strong) NSArray<MWKImage *> *uniqueArticleImages;
+@property (nonatomic, strong, nullable) NSArray<MWKImage *> *uniqueArticleImages;
 
-@property (nonatomic, strong, readonly) MWKImageInfoFetcher *imageInfoFetcher;
+@property (nonatomic, strong, readonly, nullable) MWKImageInfoFetcher *imageInfoFetcher;
 
 /**
  *  Title of the page that is associated with these image info objects.
@@ -33,7 +33,7 @@ extern NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo);
  *  Technically, image info don't belong to an article, but it was done this way for historical/legacy reasons. Mainly,
  *  that image metadata is also associated with a title.
  */
-@property (nonatomic, strong, readwrite) NSURL *articleURL;
+@property (nonatomic, strong, readwrite, nullable) NSURL *articleURL;
 
 /**
  *  Data store where image info will be read & written.
@@ -46,7 +46,7 @@ extern NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo);
  *  @warning The elements in this array can either be strings or @c NSNull in the event that a "File:" title couldn't
  *           be derived from the image URL.
  */
-@property (nonatomic, strong, readonly) NSArray *imageFilePageTitles;
+@property (nonatomic, strong, nullable, readonly) NSArray *imageFilePageTitles;
 
 - (BOOL)hasFetchedAllItems;
 
