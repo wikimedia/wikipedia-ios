@@ -38,12 +38,14 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
             controller.delegate = self
         }
 
-        var imageView: UIImageView?
-        imageView = UIImageView(image: UIImage(named: "welcome-bg")!)
-        imageView!.translatesAutoresizingMaskIntoConstraints = false
-        imageView!.contentMode = .ScaleAspectFill
-        view.insertSubview(imageView!, atIndex: 0)
-        imageView!.mas_makeConstraints { make in
+        let gradientView = WMFGradientView.init()
+        gradientView.gradientLayer.locations = [0, 1]
+        gradientView.gradientLayer.colors =  [UIColor.wmf_welcomeBackgroundGradientBottomColor().CGColor, UIColor.wmf_welcomeBackgroundGradientTopColor().CGColor]
+        gradientView.gradientLayer.startPoint = CGPoint.init(x: 0.5, y: 1.0)
+        gradientView.gradientLayer.endPoint = CGPoint.init(x: 0.5, y: 0.0)
+        gradientView.userInteractionEnabled = false
+        view.insertSubview(gradientView, atIndex: 0)
+        gradientView.mas_makeConstraints { make in
             make.top.bottom().leading().and().trailing().equalTo()(self.view)
         }
     }

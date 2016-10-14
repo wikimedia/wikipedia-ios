@@ -103,6 +103,10 @@
 
 + (instancetype)wmf_green;
 
++ (instancetype)wmf_welcomeBackgroundGradientTopColor;
+
++ (instancetype)wmf_welcomeBackgroundGradientBottomColor;
+
 + (instancetype)wmf_primaryLanguageLabelBackgroundColor;
 
 + (instancetype)wmf_barButtonItemPopoverMessageBackgroundColor;

@@ -22,6 +22,8 @@
 #import "NSFileManager+WMFExtendedFileAttributes.h"
 #import "WMFTaskGroup.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
+#import "WMFGradientView.h"
+#import "UIColor+WMFHexColor.h"
 
 // View Controllers
 #import "WMFArticleViewController_Private.h"
