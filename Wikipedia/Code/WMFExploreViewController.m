@@ -617,7 +617,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 }
 
 - (void)configureListCell:(WMFArticleListCollectionViewCell *)cell withPreview:(WMFArticlePreview *)preview userData:(MWKHistoryEntry*)userData atIndexPath:(NSIndexPath *)indexPath{
-    cell.titleText = preview.displayTitle;
+    cell.titleText = [preview.displayTitle wmf_stringByRemovingHTML];
     cell.titleLabel.accessibilityLanguage = userData.url.wmf_language;
     cell.descriptionText = preview.wikidataDescription;
     [cell setImageURL:preview.thumbnailURL];
@@ -625,7 +625,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 
 - (void)configurePreviewCell:(WMFArticlePreviewCollectionViewCell *)cell withSection:(WMFContentGroup*)section preview:(WMFArticlePreview *)preview userData:(MWKHistoryEntry*)userData atIndexPath:(NSIndexPath *)indexPath{
-    cell.titleText = preview.displayTitle;
+    cell.titleText = [preview.displayTitle wmf_stringByRemovingHTML];
     cell.descriptionText = preview.wikidataDescription;
     cell.snippetText = preview.snippet;
     [cell setImageURL:preview.thumbnailURL];
@@ -635,7 +635,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 }
 
 - (void)configureNearbyCell:(WMFNearbyArticleCollectionViewCell *)cell withPreview:(WMFArticlePreview *)preview userData:(MWKHistoryEntry*)userData atIndexPath:(NSIndexPath *)indexPath{
-    cell.titleText = preview.displayTitle;
+    cell.titleText = [preview.displayTitle wmf_stringByRemovingHTML];
     cell.descriptionText = [preview.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     [cell setImageURL:preview.thumbnailURL];
     [self updateLocationCell:cell location:preview.location];
