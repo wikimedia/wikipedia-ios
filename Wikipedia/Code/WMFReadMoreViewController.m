@@ -98,6 +98,9 @@
     return [self.relatedSearchResults.results count] > 0;
 }
 
+- (NSURL *)urlAtIndexPath:(NSIndexPath *)indexPath {
+    return [self.relatedSearchResults urlForResult:self.relatedSearchResults.results[indexPath.row]];
+}
 
 - (NSString *)analyticsContext {
     return @"Reader";
