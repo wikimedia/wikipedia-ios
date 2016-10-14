@@ -2,14 +2,21 @@
 
 
 def iterate_and_format(dir)
+  puts dir
   file_types = {h: true, m: true, cpp: true, c: true}
   Dir.foreach(dir) do |filename|
-    next if filename.start_with?('.') || filename.length == 0
+    next if filename.start_with?('.') || filename.length == 0 || filename == "Pods"
+    
+    full_path = dir + '/' + filename
+    if File.directory?(full_path) 
+      iterate_and_format(full_path)
+      next
+    end
+    
     extension = filename.split('.').last
     next if !extension
     next if !file_types[extension.downcase.to_sym]
-    puts filename
-    full_path = dir + '/' + filename
+
     begin
       new_file = ''
       skip = true
@@ -31,9 +38,5 @@ def iterate_and_format(dir)
   end
 end
 
-dirs = ['.']
-
-dirs.each do |dir|
-  iterate_and_format(dir)
-end
+iterate_and_format(Dir.pwd)
 
