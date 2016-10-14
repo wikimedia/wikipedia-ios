@@ -46,8 +46,11 @@
 #import "WMFSearchViewController.h"
 #import "WMFHistoryTableViewController.h"
 #import "WMFSavedArticleTableViewController.h"
+<<<<<<< f9166ae7c6f8b658f54be0a1cff4b21f8b3abc7b
 #import "WMFFirstRandomViewController.h"
 #import "WMFWelcomeViewController.h"
+=======
+>>>>>>> Remove unused objects.
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFMorePageListViewController.h"
 #import "UIViewController+WMFSearch.h"
