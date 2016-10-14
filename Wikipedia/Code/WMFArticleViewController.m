@@ -1642,7 +1642,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return gallery;
 }
 
-- (UIViewController *)viewControllerForPreviewURL:(NSURL *)url {
+- (nullable UIViewController *)viewControllerForPreviewURL:(NSURL *)url {
     if (url && [url wmf_isPeekable]) {
         if ([url wmf_isWikiResource]) {
             return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore previewStore:self.previewStore];
