@@ -283,7 +283,10 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     for (WMFFeedNewsStory *newsStory in feedDay.newsStories) {
         WMFArticlePreview *articlePreviewToNotifyAbout = nil;
-        WMFFeedTopReadArticlePreview *topReadPreviewToNotifyAbout = nil;
+#if WMF_ALWAYS_NOTIFY
+#else
+        NSInteger bestRank = NSIntegerMax;
+#endif
 
         NSMutableArray<NSURL *> *articleURLs = [NSMutableArray arrayWithCapacity:newsStory.articlePreviews.count];
         for (WMFFeedArticlePreview *articlePreview in newsStory.articlePreviews) {
@@ -303,8 +306,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
             if (topReadArticlePreview && topReadArticlePreview.rank.integerValue < WMFFeedInTheNewsNotificationMaxRank) {
 #endif
 #if WMF_ALWAYS_NOTIFY
-                articlePreviewToNotifyAbout = articlePreview;
-                topReadPreviewToNotifyAbout = topReadArticlePreview
+                articlePreviewToNotifyAbout = [self.previewStore itemForURL:articleURL];
 #else
                 MWKHistoryEntry *entry = [self.userDataStore entryForURL:articlePreview.articleURL];
                 BOOL notifiedRecently = entry.inTheNewsNotificationDate && [entry.inTheNewsNotificationDate timeIntervalSinceNow] < WMFFeedNotificationArticleRepeatLimit;
@@ -314,8 +316,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
                     break;
                 }
 
-                if (!articlePreviewToNotifyAbout || topReadArticlePreview.rank < topReadPreviewToNotifyAbout.rank) {
-                    topReadPreviewToNotifyAbout = topReadArticlePreview;
+                if (!articlePreviewToNotifyAbout || topReadArticlePreview.rank.integerValue < bestRank) {
+                    bestRank = topReadArticlePreview.rank.integerValue;
                     articlePreviewToNotifyAbout = [self.previewStore itemForURL:articleURL];
                 }
 #endif
