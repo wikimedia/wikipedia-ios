@@ -44,6 +44,10 @@ NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
 }
 
 - (void)requestAuthenticationIfNecessaryWithCompletionHandler:(void (^)(BOOL granted, NSError *__nullable error))completionHandler {
+    if (![UNUserNotificationCenter class]) {
+        completionHandler(NO, nil);
+        return;
+    }
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings *_Nonnull settings) {
         switch (settings.authorizationStatus) {
@@ -113,6 +117,9 @@ NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
 }
 
 - (void)sendNotificationWithTitle:(NSString *)title body:(NSString *)body categoryIdentifier:(NSString *)categoryIdentifier userInfo:(NSDictionary *)userInfo atDateComponents:(NSDateComponents *)dateComponents {
+    if (![UNUserNotificationCenter class]) {
+        return;
+    }
 
     NSString *thumbnailURLString = userInfo[WMFNotificationInfoThumbnailURLStringKey];
     if (!thumbnailURLString) {
