@@ -383,10 +383,12 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (nullable SSSection *)section_6 {
+#ifndef ALPHA
     if (![[NSBundle mainBundle] wmf_shouldShowDebugMenu]) {
         return nil;
     }
-
+#endif
+    
     SSSection *section =
         [SSSection sectionWithItems:@[
             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DebugCrash],

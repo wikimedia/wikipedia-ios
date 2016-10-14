@@ -14,6 +14,7 @@
 #import "FBTweakStore.h"
 #import "FBTweakCategory.h"
 
+#import <UIKit/UIKit.h>
 #import <libkern/OSAtomic.h>
 #import <mach-o/getsect.h>
 #import <mach-o/dyld.h>
@@ -51,10 +52,18 @@ static FBTweak *_FBTweakCreateWithEntry(NSString *identifier, fb_tweak_entry *en
     tweak.defaultValue = [NSNumber numberWithInt:fb_tweak_entry_block_field(int, entry, value)];
   } else if (strcmp(*entry->encoding, @encode(unsigned int)) == 0) {
     tweak.defaultValue = [NSNumber numberWithUnsignedInt:fb_tweak_entry_block_field(unsigned int, entry, value)];
+  } else if (strcmp(*entry->encoding, @encode(long)) == 0) {
+    tweak.defaultValue = [NSNumber numberWithLong:fb_tweak_entry_block_field(long, entry, value)];
+  } else if (strcmp(*entry->encoding, @encode(unsigned long)) == 0) {
+    tweak.defaultValue = [NSNumber numberWithUnsignedLong:fb_tweak_entry_block_field(unsigned long, entry, value)];
   } else if (strcmp(*entry->encoding, @encode(long long)) == 0) {
     tweak.defaultValue = [NSNumber numberWithLongLong:fb_tweak_entry_block_field(long long, entry, value)];
   } else if (strcmp(*entry->encoding, @encode(unsigned long long)) == 0) {
     tweak.defaultValue = [NSNumber numberWithUnsignedLongLong:fb_tweak_entry_block_field(unsigned long long, entry, value)];
+  } else if (strcmp(*entry->encoding, @encode(NSInteger)) == 0) {
+    tweak.defaultValue = [NSNumber numberWithInteger:fb_tweak_entry_block_field(NSInteger, entry, value)];
+  } else if (strcmp(*entry->encoding, @encode(NSUInteger)) == 0) {
+    tweak.defaultValue = [NSNumber numberWithUnsignedInteger:fb_tweak_entry_block_field(NSUInteger, entry, value)];
   } else if (*entry->encoding[0] == '[') {
     // Assume it's a C string.
     tweak.defaultValue = [NSString stringWithUTF8String:fb_tweak_entry_block_field(char *, entry, value)];
@@ -83,46 +92,48 @@ static FBTweak *_FBTweakCreateWithEntry(NSString *identifier, fb_tweak_entry *en
 #ifdef __LP64__
   typedef uint64_t fb_tweak_value;
   typedef struct section_64 fb_tweak_section;
+  typedef struct mach_header_64 fb_tweak_header;
 #define fb_tweak_getsectbynamefromheader getsectbynamefromheader_64
 #else
   typedef uint32_t fb_tweak_value;
   typedef struct section fb_tweak_section;
+  typedef struct mach_header fb_tweak_header;
 #define fb_tweak_getsectbynamefromheader getsectbynamefromheader
 #endif
   
   FBTweakStore *store = [FBTweakStore sharedInstance];
   
-  Dl_info info;
-  dladdr(&_FBTweakIdentifier, &info);
-  
-  const fb_tweak_value mach_header = (fb_tweak_value)info.dli_fbase;
-  const fb_tweak_section *section = fb_tweak_getsectbynamefromheader((void *)mach_header, FBTweakSegmentName, FBTweakSectionName);
-  
-  if (section == NULL) {
-    return;
-  }
-  
-  for (fb_tweak_value addr = section->offset; addr < section->offset + section->size; addr += sizeof(fb_tweak_entry)) {
-    fb_tweak_entry *entry = (fb_tweak_entry *)(mach_header + addr);
-    
-    FBTweakCategory *category = [store tweakCategoryWithName:*entry->category];
-    if (category == nil) {
-      category = [[FBTweakCategory alloc] initWithName:*entry->category];
-      [store addTweakCategory:category];
-    }
-    
-    FBTweakCollection *collection = [category tweakCollectionWithName:*entry->collection];
-    if (collection == nil) {
-      collection = [[FBTweakCollection alloc] initWithName:*entry->collection];
-      [category addTweakCollection:collection];
-    }
-    
-    NSString *identifier = _FBTweakIdentifier(entry);
-    if ([collection tweakWithIdentifier:identifier] == nil) {
-      FBTweak *tweak = _FBTweakCreateWithEntry(identifier, entry);
+  uint32_t image_count = _dyld_image_count();
+  for (uint32_t image_index = 0; image_index < image_count; image_index++) {
+    const fb_tweak_header *mach_header = (const fb_tweak_header *)_dyld_get_image_header(image_index);
 
-      if (tweak != nil) {
-        [collection addTweak:tweak];
+    unsigned long size;
+    fb_tweak_entry *data = (fb_tweak_entry *)getsectiondata(mach_header, FBTweakSegmentName, FBTweakSectionName, &size);
+    if (data == NULL) {
+      continue;
+    }
+    size_t count = size / sizeof(fb_tweak_entry);
+    for (size_t i = 0; i < count; i++) {
+      fb_tweak_entry *entry = &data[i];
+      FBTweakCategory *category = [store tweakCategoryWithName:*entry->category];
+      if (category == nil) {
+        category = [[FBTweakCategory alloc] initWithName:*entry->category];
+        [store addTweakCategory:category];
+      }
+    
+      FBTweakCollection *collection = [category tweakCollectionWithName:*entry->collection];
+      if (collection == nil) {
+        collection = [[FBTweakCollection alloc] initWithName:*entry->collection];
+        [category addTweakCollection:collection];
+      }
+    
+      NSString *identifier = _FBTweakIdentifier(entry);
+      if ([collection tweakWithIdentifier:identifier] == nil) {
+        FBTweak *tweak = _FBTweakCreateWithEntry(identifier, entry);
+
+        if (tweak != nil) {
+          [collection addTweak:tweak];
+        }
       }
     }
   }

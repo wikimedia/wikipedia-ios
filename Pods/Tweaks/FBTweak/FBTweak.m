@@ -24,6 +24,21 @@
   return self;
 }
 
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+  FBTweakValue minimumValue = [coder decodeObjectForKey:@"minimumValue"];
+  FBTweakValue maximumValue = [coder decodeObjectForKey:@"maximumValue"];
+  self = [self initWithMinimumValue:minimumValue maximumValue:maximumValue];
+
+  return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+  [coder encodeObject:_minimumValue forKey:@"minimumValue"];
+  [coder encodeObject:_maximumValue forKey:@"maximumValue"];
+}
+
 @end
 
 @implementation FBTweak {
@@ -61,7 +76,8 @@
 {
   if ((self = [super init])) {
     _identifier = identifier;
-    _currentValue = [[NSUserDefaults standardUserDefaults] objectForKey:_identifier];
+    NSData *archivedValue = [[NSUserDefaults standardUserDefaults] objectForKey:_identifier];
+    _currentValue = (archivedValue != nil && [archivedValue isKindOfClass:[NSData class]] ? [NSKeyedUnarchiver unarchiveObjectWithData:archivedValue] : archivedValue);
   }
   
   return self;
@@ -160,9 +176,17 @@
   }
 
   if (_currentValue != currentValue) {
+      
+    for (id<FBTweakObserver> observer in [_observers setRepresentation]) {
+      if ([observer respondsToSelector:@selector(tweakWillChange:)]) {
+        [observer tweakWillChange:self];
+      }
+    }
+      
     _currentValue = currentValue;
-    [[NSUserDefaults standardUserDefaults] setObject:_currentValue forKey:_identifier];
-    
+    // we can't store UIColor to the plist file. That is why we archive value to the NSData.
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:_currentValue] forKey:_identifier];
+
     for (id<FBTweakObserver> observer in [_observers setRepresentation]) {
       [observer tweakDidChange:self];
     }
