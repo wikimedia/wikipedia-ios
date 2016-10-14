@@ -1,5 +1,6 @@
 # Tweaks
 Tweaks is an easy way to fine-tune an iOS app.
+[![Build Status](https://travis-ci.org/facebook/Tweaks.svg?branch=master)](https://travis-ci.org/facebook/Tweaks)
 
 ![Tweaks](https://github.com/facebook/Tweaks/blob/master/Images/Tweaks.gif?raw=true)
 
@@ -32,7 +33,7 @@ if (FBTweakValue(@"Category", @"Feature", @"Enabled", YES)) {
 
 In release builds, the `FBTweakValue` macro expands to just the default value, so there's no performance impact. In debug builds, though, it fetches the latest value of the tweak.
 
-You can also pass a fourth parameter, which will constrain the possible values for a tweak. The fourth parameter can be an array, dictionary, or an `FBTweakNumericRange`. If it's a dictionary, the values should be strings to show in the list of choices. Arrays will show the values' `description` as choices. (Note that you have to surround array and dictionary literals with an extra set of parentheses.)
+You can also pass a fifth parameter, which will constrain the possible values for a tweak. The fifth parameter can be an array, dictionary, or an `FBTweakNumericRange`. If it's a dictionary, the values should be strings to show in the list of choices. Arrays will show the values' `description` as choices. (Note that you have to surround array and dictionary literals with an extra set of parentheses.)
 
 ```objective-c
 self.initialMode = FBTweakValue(@"Header", @"Initial", @"Mode", @(FBSimpleMode), (@{ @(FBSimpleMode) : @"Simple", @(FBAdvancedMode) : @"Advanced" }));
@@ -106,8 +107,10 @@ tweak.name = @"Advanced Settings";
 tweak.defaultValue = @NO;
 
 FBTweakStore *store = [FBTweakStore sharedInstance];
-FBTweakCategory *category = [store tweakCategoryWithName:@"Settings"];
-FBTweakCollection *collection = [category tweakCollectionWithName:@"Enable"];
+FBTweakCategory *category = [[FBTweakCategory alloc] initWithName:@"Settings"];
+[store addTweakCategory:category];
+FBTweakCollection *collection = [[FBTweakCollection alloc] initWithName:@"Enable"];
+[category addTweakCollection:collection];
 [collection addTweak:tweak];
 
 [tweak addObserver:self];
@@ -122,7 +125,48 @@ Then, you can watch for when the tweak changes:
 }
 ```
 
+Also you have de ability to implement the optional method `tweakWillChange:` in order to handle the previous value of your tweak:
+
+```objective-c
+- (void)tweakWillChange:(FBTweak *)tweak
+{
+  NSLog(@"%@", tweak.currentValue); // Here current value is the previous value of the tweak
+}
+```
+
 To override when tweaks are enabled, you can define the `FB_TWEAK_ENABLED` macro. It's suggested to avoid including them when submitting to the App Store.
+
+### Using from a Swift Project
+
+*Khan Academy's project [SwiftTweaks](http://engineering.khanacademy.org/posts/introducing-swifttweaks.htm) is designed for Swift, and might be a better choice for Swift projects.*
+
+Tweaks can be used from Swift projects. In this case the handy shortcut macros defined in `FBTweakInline.h` are not available, meaning tweaks need to be created programmatically, similar to this example:
+
+```swift
+let tweak = FBTweak(identifier: "com.tweaks.example.advanced")
+tweak.name = "Advanced settings"
+tweak.defaultValue = false
+
+let collection = FBTweakCollection(name: "Enable");
+collection.addTweak(tweak)
+        
+let category = FBTweakCategory(name: "Settings")
+category.addTweakCollection(collection);
+        
+let store = FBTweakStore.sharedInstance()
+store.addTweakCategory(category)
+
+tweak.addObserver(self)
+```
+
+After setting up a tweak you can watch for when it changes:
+
+```swift
+func tweakDidChange(tweak: FBTweak!)
+{
+    self.advancedSettingsEnabled = tweak.currentValue as Bool;
+}
+```
 
 ### How it works
 In debug builds, the tweak macros use `__attribute__((section))` to statically store data about each tweak in the `__FBTweak` section of the mach-o. Tweaks loads that data at startup and loads the latest values from `NSUserDefaults`.
@@ -132,7 +176,7 @@ In release builds, the macros just expand to the default value. Nothing extra is
 ## Installation
 There are two options:
 
- 1. Tweaks is available as `Tweaks` in [Cocoapods](http://cocoapods.org). (If you have issues with custom Xcode configurations, [this comment](https://github.com/facebook/Tweaks/issues/4#issuecomment-40629741) might help.)
+ 1. Tweaks is available as `Tweaks` in [CocoaPods](http://cocoapods.org). (If you have issues with custom Xcode configurations, [this comment](https://github.com/facebook/Tweaks/issues/4#issuecomment-40629741) might help.)
  2. Manually add the files from `FBTweak/` into your Xcode project. Slightly simpler, but updates are also manual.
 
 Tweaks requires iOS 6 or later.
@@ -144,4 +188,3 @@ See the CONTRIBUTING file for how to help out.
 
 ## License
 Tweaks is BSD-licensed. We also provide an additional patent grant.
-

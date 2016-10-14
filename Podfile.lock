@@ -174,7 +174,7 @@ DEPENDENCIES:
   - SWStepSlider (from `https://github.com/wikimedia/SWStepSlider.git`)
   - TSMessages (from `https://github.com/wikimedia/TSMessages.git`)
   - TUSafariActivity
-  - Tweaks
+  - Tweaks (from `https://github.com/facebook/Tweaks.git`)
   - VTAcknowledgementsViewController
   - YapDatabase
 
@@ -195,6 +195,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/wikimedia/SWStepSlider.git
   TSMessages:
     :git: https://github.com/wikimedia/TSMessages.git
+  Tweaks:
+    :git: https://github.com/facebook/Tweaks.git
 
 CHECKOUT OPTIONS:
   AFNetworking:
@@ -218,6 +220,9 @@ CHECKOUT OPTIONS:
   TSMessages:
     :commit: 01cfd45fad2cdb3e9297327914c178d32e9f6a98
     :git: https://github.com/wikimedia/TSMessages.git
+  Tweaks:
+    :commit: 28d3efedceb1af9be8ca50da6e435814fba667c5
+    :git: https://github.com/facebook/Tweaks.git
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -254,6 +259,6 @@ SPEC CHECKSUMS:
   VTAcknowledgementsViewController: 44da49d57a1dbf414e653688793a130d24af151e
   YapDatabase: b1e43555a34a5298e23a045be96817a5ef0da58f
 
-PODFILE CHECKSUM: fc01b63758ea622b9455bb3ce091bd119b92e896
+PODFILE CHECKSUM: 33cf190d29231c54b305de44490116fca02272ad
 
 COCOAPODS: 1.1.0.rc.2

@@ -1,5 +1,3 @@
-//#import <Tweaks/FBTweakInline.h>
-
 /**
  *  Image width buckets used to ensure image sizes don't vary too wildly.
  *
@@ -29,8 +27,7 @@ typedef NS_ENUM(NSUInteger, WMFImageWidth) {
 @implementation UIScreen (WMFImageWidth)
 
 - (NSUInteger)wmf_maxScale {
-    NSUInteger scaleMultiplierCeiling = 2; /* FBTweakValue(@"Images", @"Scale multiplier", @"Ceiling", 2, 1, 3);*/
-    // Reminder: "MIN" is intentional - we're setting scale multipler cap to 2.
+    NSUInteger scaleMultiplierCeiling = 2;
     return MIN((NSUInteger)self.scale, scaleMultiplierCeiling);
 }
 

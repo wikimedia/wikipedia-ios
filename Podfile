@@ -67,7 +67,7 @@ abstract_target 'Foundation' do
 
   target 'Wikipedia' do
     # Utilities
-    pod 'Tweaks'
+    pod 'Tweaks', :git => 'https://github.com/facebook/Tweaks.git'
 
     # HTML
     pod 'GCDWebServer', '~> 3.3'
