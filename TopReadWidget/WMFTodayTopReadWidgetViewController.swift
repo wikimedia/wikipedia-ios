@@ -346,7 +346,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     func showAllTopReadInApp() {
-        guard let siteURLString = siteURL.absoluteString, let URL = NSUserActivity.wmf_URLForActivityOfType(.TopRead, parameters: ["timestamp": date.timeIntervalSince1970, "siteURL":siteURLString]) else {
+        guard let URL = group?.url() else {
             return
         }
         self.extensionContext?.openURL(URL, completionHandler: { (success) in

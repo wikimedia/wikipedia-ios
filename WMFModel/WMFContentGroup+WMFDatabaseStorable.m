@@ -30,6 +30,11 @@
     return [[self baseUrl] URLByAppendingPathComponent:@"continue-reading"];
 }
 
+- (NSURL *)url{
+   return [[self class] url];
+}
+
+
 - (NSString *)databaseKey {
     return [[self class] databaseKeyForURL:[[self class] url]];
 }
@@ -44,6 +49,10 @@
     NSURL* theURL = [[self baseUrl] URLByAppendingPathComponent:@"main-page"];
     theURL = [theURL URLByAppendingPathComponent:url.wmf_domain];
     return theURL;
+}
+
+- (NSURL *)url{
+    return [[self class] urlForSiteURL:self.siteURL];
 }
 
 - (NSString *)databaseKey {
@@ -64,6 +73,10 @@
 
 }
 
+- (NSURL *)url{
+    return [[self class] urlForArticleURL:self.articleURL];
+}
+
 - (NSString *)databaseKey {
     return [[self class] databaseKeyForURL:[[self class] urlForArticleURL:self.articleURL]];
 }
@@ -78,6 +91,11 @@
     return url;
     
 }
+
+- (NSURL *)url{
+    return [[self class] urlForLocation:self.location];
+}
+
 - (NSString *)databaseKey {
     return [[self class] databaseKeyForURL:[[self class] urlForLocation:self.location]];
 }
@@ -91,6 +109,10 @@
     urlKey = [urlKey URLByAppendingPathComponent:url.wmf_domain];
     urlKey = [urlKey URLByAppendingPathComponent:[[NSDateFormatter wmf_englishUTCSlashDelimitedYearMonthDayFormatter] stringFromDate:date]];
     return urlKey;
+}
+
+- (NSURL *)url{
+    return [[self class] urlForSiteURL:self.siteURL date:self.date];
 }
 
 - (NSString *)databaseKey {
@@ -108,6 +130,10 @@
     return urlKey;
 }
 
+- (NSURL *)url{
+    return [[self class] urlForSiteURL:self.siteURL date:self.date];
+}
+
 - (NSString *)databaseKey {
     return [[self class] databaseKeyForURL:[[self class] urlForSiteURL:self.siteURL date:self.date]];
 }
@@ -123,6 +149,10 @@
     return urlKey;
 }
 
+- (NSURL *)url{
+    return [[self class] urlForSiteURL:self.siteURL date:self.date];
+}
+
 - (NSString *)databaseKey {
     return [[self class] databaseKeyForURL:[[self class] urlForSiteURL:self.siteURL date:self.date]];
 }
@@ -136,6 +166,10 @@
     urlKey = [urlKey URLByAppendingPathComponent:url.wmf_domain];
     urlKey = [urlKey URLByAppendingPathComponent:[[NSDateFormatter wmf_englishUTCSlashDelimitedYearMonthDayFormatter] stringFromDate:date]];
     return urlKey;
+}
+
+- (NSURL *)url{
+    return [[self class] urlForSiteURL:self.siteURL date:self.date];
 }
 
 - (NSString *)databaseKey {

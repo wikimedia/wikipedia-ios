@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSUInteger)numberOfSectionsInExploreFeed;
 
+- (void)presentMoreViewControllerForGroup:(WMFContentGroup*)group animated:(BOOL)animated;
+
 @end
 
 NS_ASSUME_NONNULL_END

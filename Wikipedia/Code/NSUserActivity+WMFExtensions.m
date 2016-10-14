@@ -43,6 +43,12 @@
     return activity;
 }
 
++ (instancetype)wmf_contentActivityWithURL:(NSURL*)url {
+    NSUserActivity *activity = [self wmf_activityWithType:@"Content"];
+    activity.userInfo = @{ @"WMFURL": url };
+    return activity;
+}
+
 + (instancetype)wmf_exploreViewActivity {
     NSUserActivity *activity = [self wmf_pageActivityWithName:@"Explore"];
     return activity;
@@ -72,20 +78,15 @@
     if (![url.scheme isEqualToString:@"wikipedia"]) {
         return nil;
     }
-
-    if ([url.host isEqualToString:@"explore"]) {
+    
+    if([url.host isEqualToString:@"content"]) {
+        return [self wmf_contentActivityWithURL:url];
+    } else if ([url.host isEqualToString:@"explore"]) {
         return [self wmf_exploreViewActivity];
     } else if ([url.host isEqualToString:@"saved"]) {
         return [self wmf_savedPagesViewActivity];
     } else if ([url.host isEqualToString:@"history"]) {
         return [self wmf_recentViewActivity];
-    } else if ([url.host isEqualToString:@"topread"]) {
-        NSString *timestampString = [url wmf_valueForQueryKey:@"timestamp"];
-        long long timestamp = [timestampString longLongValue];
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestamp];
-        NSString *siteURLString = [url wmf_valueForQueryKey:@"siteURL"];
-        NSURL *siteURL = [NSURL URLWithString:siteURLString];
-        return [self wmf_topReadActivityForSiteURL:siteURL date:date];
     } else if ([url wmf_valueForQueryKey:@"search"] != nil) {
         NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
         components.scheme = @"https";
@@ -100,58 +101,6 @@
         }
     }
     return nil;
-}
-
-+ (NSURL *)wmf_URLForActivityOfType:(WMFUserActivityType)type parameters:(NSDictionary *)params {
-    NSString *host = nil;
-    switch (type) {
-        case WMFUserActivityTypeSavedPages:
-            host = @"saved";
-            break;
-        case WMFUserActivityTypeHistory:
-            host = @"history";
-            break;
-        case WMFUserActivityTypeSearchResults:
-        case WMFUserActivityTypeSearch:
-            host = @"search";
-            break;
-        case WMFUserActivityTypeSettings:
-            host = @"settings";
-            break;
-        case WMFUserActivityTypeTopRead:
-            host = @"topread";
-            break;
-        case WMFUserActivityTypeArticle:
-            host = @"article";
-            break;
-        case WMFUserActivityTypeExplore:
-        default:
-            host = @"explore";
-            break;
-    }
-    NSURLComponents *components = [NSURLComponents new];
-    components.host = host;
-    components.scheme = @"wikipedia";
-    components.path = @"/";
-    if (params.count > 0) {
-        NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray arrayWithCapacity:params.count];
-        for (NSString *name in params.allKeys) {
-            id value = params[name];
-            if (!value) {
-                continue;
-            }
-            if (![value isKindOfClass:[NSString class]]) {
-                value = [NSString stringWithFormat:@"%@", value]; // really this should check class and use formatters
-            }
-            NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:name value:value];
-            if (!item) {
-                continue;
-            }
-            [queryItems addObject:item];
-        }
-        components.queryItems = queryItems;
-    }
-    return components.URL;
 }
 
 + (instancetype)wmf_articleViewActivityWithArticle:(MWKArticle *)article {
@@ -178,18 +127,6 @@
         activity.keywords = set;
         activity.expirationDate = [[NSDate date] dateByAddingTimeInterval:60 * 60 * 24 * 7];
         activity.contentAttributeSet = url.searchableItemAttributes;
-    }
-    return activity;
-}
-
-+ (instancetype)wmf_topReadActivityForSiteURL:(NSURL *)siteURL date:(NSDate *)date {
-    NSUserActivity *activity = [self wmf_activityWithType:@"topread"];
-    activity.eligibleForSearch = NO;
-    activity.eligibleForHandoff = NO;
-    activity.eligibleForPublicIndexing = NO;
-    if (siteURL && date) {
-        activity.userInfo = @{ @"siteURL": siteURL,
-                               @"date": date };
     }
     return activity;
 }
@@ -225,8 +162,8 @@
         } else {
             return WMFUserActivityTypeSettings;
         }
-    } else if ([self.activityType hasSuffix:@".topread"]) {
-        return WMFUserActivityTypeTopRead;
+    } else if ([self wmf_contentURL]) {
+        return WMFUserActivityTypeContent;
     } else if ([self.webpageURL.absoluteString containsString:@"/w/index.php?search="]) {
         return WMFUserActivityTypeSearchResults;
     } else if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10] && [self.activityType isEqualToString:CSQueryContinuationActionType]) {
@@ -267,6 +204,45 @@
     } else {
         return self.webpageURL;
     }
+}
+- (NSURL *)wmf_contentURL{
+    return self.userInfo[@"WMFURL"];
+}
+
+
+
++ (NSURL *)wmf_baseURLForActivityOfType:(WMFUserActivityType)type {
+    NSString *host = nil;
+    switch (type) {
+        case WMFUserActivityTypeSavedPages:
+            host = @"saved";
+            break;
+        case WMFUserActivityTypeHistory:
+            host = @"history";
+            break;
+        case WMFUserActivityTypeSearchResults:
+        case WMFUserActivityTypeSearch:
+            host = @"search";
+            break;
+        case WMFUserActivityTypeSettings:
+            host = @"settings";
+            break;
+        case WMFUserActivityTypeContent:
+            host = @"content";
+            break;
+        case WMFUserActivityTypeArticle:
+            host = @"article";
+            break;
+        case WMFUserActivityTypeExplore:
+        default:
+            host = @"explore";
+            break;
+    }
+    NSURLComponents *components = [NSURLComponents new];
+    components.host = host;
+    components.scheme = @"wikipedia";
+    components.path = @"/";
+    return components.URL;
 }
 
 @end

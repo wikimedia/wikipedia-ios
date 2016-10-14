@@ -223,9 +223,27 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 #pragma mark - Content Access
 
+- (nullable NSArray<id>*)contentForGroup:(WMFContentGroup*)group{
+    NSArray<id>* content = [self.internalContentStore contentForContentGroup:group];
+    return content;
+}
+
 - (nullable NSArray<id>*)contentForSectionAtIndex:(NSUInteger)sectionIndex{
     WMFContentGroup* section = [self sectionAtIndex:sectionIndex];
-    NSArray<id>* content = [self.internalContentStore contentForContentGroup:section];
+    return [self contentForGroup:section];
+}
+
+- (nullable NSArray<NSURL*>*)contentURLsForGroup:(WMFContentGroup*)group{
+    NSArray<id>* content = [self.internalContentStore contentForContentGroup:group];
+    
+    if([group contentType] == WMFContentTypeTopReadPreview){
+        content = [content bk_map:^id(WMFFeedTopReadArticlePreview *obj) {
+            return [obj articleURL];
+        }];
+    }else if([group contentType] != WMFContentTypeURL){
+        content = nil;
+    }
+    
     return content;
 }
 
@@ -286,21 +304,6 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 }
 
 #pragma mark - Refresh Control
-
-- (NSString *)lastUpdatedString {
-    //    if (!self.schemaManager.lastUpdatedAt) {
-    return MWLocalizedString(@"home-last-update-never-label", nil);
-    //    }
-    //
-    //    static NSDateFormatter *formatter;
-    //    if (!formatter) {
-    //        formatter = [NSDateFormatter new];
-    //        formatter.dateStyle = NSDateFormatterMediumStyle;
-    //        formatter.timeStyle = NSDateFormatterShortStyle;
-    //    }
-    //
-    //    return [MWLocalizedString(@"home-last-update-label", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[formatter stringFromDate:self.schemaManager.lastUpdatedAt]];
-}
 
 - (void)resetRefreshControl{
     if (![self.refreshControl isRefreshing]) {
@@ -729,10 +732,13 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 #pragma mark - More View Controller
 
-- (void)presentMoreViewControllerForSectionAtIndex:(NSUInteger)sectionIndex animated:(BOOL)animated {
-    WMFContentGroup* group = [self sectionAtIndex:sectionIndex];
+- (void)presentMoreViewControllerForGroup:(WMFContentGroup*)group animated:(BOOL)animated {
     [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughMoreInContext:self contentType:group];
-    NSArray<NSURL*>* URLs = [self contentForSectionAtIndex:sectionIndex];
+    NSArray<NSURL*>* URLs = [self contentURLsForGroup:group];
+    NSAssert([[URLs firstObject] isKindOfClass:[NSURL class]], @"Attempting to present More VC with somehting other than URLs");
+    if(![[URLs firstObject] isKindOfClass:[NSURL class]]){
+        return;
+    }
     
     switch (group.moreType) {
         case WMFFeedMoreTypePageList:
@@ -767,7 +773,12 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
             NSAssert(false, @"Unknown More Type");
             break;
     }
-    
+}
+
+
+- (void)presentMoreViewControllerForSectionAtIndex:(NSUInteger)sectionIndex animated:(BOOL)animated {
+    WMFContentGroup* group = [self sectionAtIndex:sectionIndex];
+    [self presentMoreViewControllerForGroup:group animated:animated];
 }
 
 
