@@ -12,7 +12,7 @@
 #import "YapDatabaseConnection+WMFExtensions.h"
 #import "YapDatabaseViewOptions.h"
 
-@interface BecauseYouReadSeedsDataSourceTests : XCTestCase <WMFDataSourceDelegate>
+@interface BecauseYouReadSeedsDataSourceTests : XCTestCase
 
 @property (nonatomic, strong) MWKDataStore *dataStore;
 @property (nonatomic, strong) MWKHistoryList *historyList;
