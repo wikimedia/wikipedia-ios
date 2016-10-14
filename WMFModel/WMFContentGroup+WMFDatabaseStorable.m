@@ -48,6 +48,7 @@
 + (NSURL *)urlForSiteURL:(NSURL*)url{
     NSURL* theURL = [[self baseUrl] URLByAppendingPathComponent:@"main-page"];
     theURL = [theURL URLByAppendingPathComponent:url.wmf_domain];
+    theURL = [theURL URLByAppendingPathComponent:url.wmf_language];
     return theURL;
 }
 
@@ -126,6 +127,7 @@
 + (NSURL *)urlForSiteURL:(NSURL*)url date:(NSDate*)date{
     NSURL* urlKey = [[self baseUrl] URLByAppendingPathComponent:@"random"];
     urlKey = [urlKey URLByAppendingPathComponent:url.wmf_domain];
+    urlKey = [urlKey URLByAppendingPathComponent:url.wmf_language];
     urlKey = [urlKey URLByAppendingPathComponent:[[NSDateFormatter wmf_englishUTCSlashDelimitedYearMonthDayFormatter] stringFromDate:date]];
     return urlKey;
 }
@@ -145,6 +147,7 @@
 + (NSURL *)urlForSiteURL:(NSURL*)url date:(NSDate*)date{
     NSURL* urlKey = [[self baseUrl] URLByAppendingPathComponent:@"featured-article"];
     urlKey = [urlKey URLByAppendingPathComponent:url.wmf_domain];
+    urlKey = [urlKey URLByAppendingPathComponent:url.wmf_language];
     urlKey = [urlKey URLByAppendingPathComponent:[[NSDateFormatter wmf_englishUTCSlashDelimitedYearMonthDayFormatter] stringFromDate:date]];
     return urlKey;
 }
@@ -164,6 +167,7 @@
 + (NSURL *)urlForSiteURL:(NSURL*)url date:(NSDate*)date{
     NSURL* urlKey = [[self baseUrl] URLByAppendingPathComponent:@"top-read"];
     urlKey = [urlKey URLByAppendingPathComponent:url.wmf_domain];
+    urlKey = [urlKey URLByAppendingPathComponent:url.wmf_language];
     urlKey = [urlKey URLByAppendingPathComponent:[[NSDateFormatter wmf_englishUTCSlashDelimitedYearMonthDayFormatter] stringFromDate:date]];
     return urlKey;
 }
