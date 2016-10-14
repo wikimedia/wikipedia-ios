@@ -41,7 +41,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         var imageView: UIImageView?
         imageView = UIImageView(image: UIImage(named: "welcome-bg")!)
         imageView!.translatesAutoresizingMaskIntoConstraints = false
-        imageView!.contentMode = .ScaleAspectFit
+        imageView!.contentMode = .ScaleAspectFill
         view.insertSubview(imageView!, atIndex: 0)
         imageView!.mas_makeConstraints { make in
             make.top.bottom().leading().and().trailing().equalTo()(self.view)

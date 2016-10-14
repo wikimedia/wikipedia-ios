@@ -798,6 +798,16 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 - (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
     if ([self shouldShowOnboarding]) {
         WMFWelcomePageViewController *vc = [WMFWelcomePageViewController wmf_viewControllerWithIdentifier:@"WMFWelcomePageViewController" fromStoryboardNamed:@"WMFWelcome"];
+        
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            vc.modalPresentationStyle = UIModalPresentationPopover;
+            vc.popoverPresentationController.sourceView = self.view;
+            vc.preferredContentSize = CGSizeMake(480, 640);
+            vc.popoverPresentationController.sourceRect = CGRectMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds), 0, 0);
+            vc.popoverPresentationController.canOverlapSourceViewRect = YES;
+            vc.popoverPresentationController.permittedArrowDirections = 0;
+        }
+        
         vc.completionBlock = ^{
             [self setDidShowOnboarding];
             if (completion) {
