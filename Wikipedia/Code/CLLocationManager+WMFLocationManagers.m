@@ -19,12 +19,4 @@
     return locationManager;
 }
 
-+ (instancetype)wmf_significantLocationManager{
-    //expected to use the significant location changes API
-    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
-    locationManager.activityType = CLActivityTypeFitness;
-    return locationManager;
-}
-
-
 @end

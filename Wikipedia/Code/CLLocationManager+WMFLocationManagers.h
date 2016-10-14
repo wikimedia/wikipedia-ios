@@ -17,10 +17,4 @@
 + (instancetype)wmf_coarseLocationManager;
 
 
-/**
- *  Used to update business logic whenever location changes significantly.
- *
- *  @return A location manager configured for coarse-grained updates.
- */
-+ (instancetype)wmf_significantLocationManager;
 @end
