@@ -96,7 +96,7 @@ NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
                           }];
 }
 
-- (NSString *)sendNotificationWithTitle:(NSString *)title body:(NSString *)body categoryIdentifier:(NSString *)categoryIdentifier userInfo:(NSDictionary *)userInfo atDateComponents:(NSDateComponents *)dateComponents withAttachements:(nullable NSArray<UNNotificationAttachment *> *)attachements {
+- (NSString *)sendNotificationWithTitle:(NSString *)title body:(NSString *)body categoryIdentifier:(NSString *)categoryIdentifier userInfo:(NSDictionary *)userInfo atDateComponents:(nullable NSDateComponents *)dateComponents withAttachements:(nullable NSArray<UNNotificationAttachment *> *)attachements {
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
     content.title = title;
@@ -104,7 +104,12 @@ NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
     content.categoryIdentifier = categoryIdentifier;
     content.attachments = attachements;
     content.userInfo = userInfo;
-    UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:dateComponents repeats:NO];
+    UNNotificationTrigger *trigger = nil;
+    if (dateComponents) {
+        trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:dateComponents repeats:NO];
+    } else {
+        trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:1 repeats:NO];
+    }
     NSString *identifier = [[NSUUID UUID] UUIDString];
     UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:identifier content:content trigger:trigger];
     [center addNotificationRequest:request
@@ -116,7 +121,7 @@ NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
     return identifier;
 }
 
-- (void)sendNotificationWithTitle:(NSString *)title body:(NSString *)body categoryIdentifier:(NSString *)categoryIdentifier userInfo:(NSDictionary *)userInfo atDateComponents:(NSDateComponents *)dateComponents {
+- (void)sendNotificationWithTitle:(NSString *)title body:(NSString *)body categoryIdentifier:(NSString *)categoryIdentifier userInfo:(NSDictionary *)userInfo atDateComponents:(nullable NSDateComponents *)dateComponents {
     if (![UNUserNotificationCenter class]) {
         return;
     }

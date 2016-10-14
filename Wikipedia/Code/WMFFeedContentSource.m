@@ -359,15 +359,20 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     NSDate *notificationDate = [NSDate date];
     NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
-    NSDateComponents *components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:notificationDate];
-    if (components.hour < WMFFeedNotificationMinHour || components.hour > WMFFeedNotificationMaxHour) {
+    NSDateComponents *notificationDateComponents = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:notificationDate];
+    if (notificationDateComponents.hour < WMFFeedNotificationMinHour || notificationDateComponents.hour > WMFFeedNotificationMaxHour) {
         // Send it tomorrow
         notificationDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:notificationDate options:NSCalendarMatchStrictly];
-        components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour fromDate:notificationDate];
-        components.hour = WMFFeedNotificationMinHour;
+        notificationDateComponents = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:notificationDate];
+        notificationDateComponents.hour = WMFFeedNotificationMinHour;
+        notificationDateComponents.minute = 1;
+        notificationDate = [calendar dateFromComponents:notificationDateComponents];
+    } else {
+        // Only nil the components to indicate it should be sent immediately, date should still be [NSDate date]
+        notificationDateComponents = nil;
     }
 
-    [self.notificationsController sendNotificationWithTitle:title body:body categoryIdentifier:WMFInTheNewsNotificationCategoryIdentifier userInfo:info atDateComponents:components];
+    [self.notificationsController sendNotificationWithTitle:title body:body categoryIdentifier:WMFInTheNewsNotificationCategoryIdentifier userInfo:info atDateComponents:notificationDateComponents];
     NSArray<NSURL *> *articleURLs = [newsStory.articlePreviews wmf_mapAndRejectNil:^NSURL *_Nullable(WMFFeedArticlePreview *_Nonnull obj) {
         return obj.articleURL;
     }];
