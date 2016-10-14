@@ -32,13 +32,11 @@
     MWKHistoryEntry *e2 = [self.list addSavedPageWithURL:[NSURL wmf_randomArticleURL]];
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
-
-    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+    [self.dataStore notifyWhenWriteTransactionsComplete:^{
         XCTAssertTrue([self.list numberOfItems] == 2);
         assertThat(self.list.mostRecentEntry, is(e2));
         [expectation fulfill];
-    });
-
+    }];
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
 
@@ -47,12 +45,11 @@
     [self.list addSavedPageWithURL:entry.url];
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
-
-    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+    [self.dataStore notifyWhenWriteTransactionsComplete:^{
         XCTAssertTrue([self.list numberOfItems] == 1);
         assertThat(self.list.mostRecentEntry.url, is(entry.url));
         [expectation fulfill];
-    });
+    }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
@@ -63,15 +60,15 @@
     MWKHistoryEntry *savedEntry = [self.list addSavedPageWithURL:[NSURL wmf_randomArticleURL]];
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
-
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+    [self.dataStore notifyWhenWriteTransactionsComplete:^{
         [self.list toggleSavedPageForURL:savedEntry.url];
-        dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+        [self.dataStore notifyWhenWriteTransactionsComplete:^{
             XCTAssertFalse([self.list isSaved:savedEntry.url]);
             XCTAssertNil([self.list entryForURL:savedEntry.url]);
             [expectation fulfill];
-        });
-    });
+        }];
+
+    }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
@@ -81,12 +78,11 @@
     [self.list toggleSavedPageForURL:unsavedEntry.url];
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
-
-    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+    [self.dataStore notifyWhenWriteTransactionsComplete:^{
         XCTAssertTrue([self.list isSaved:unsavedEntry.url]);
         XCTAssertEqualObjects([self.list entryForURL:unsavedEntry.url].url, unsavedEntry.url);
         [expectation fulfill];
-    });
+    }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
@@ -97,10 +93,10 @@
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
-    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+    [self.dataStore notifyWhenWriteTransactionsComplete:^{
         XCTAssertFalse([self.list isSaved:url]);
         [expectation fulfill];
-    });
+    }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }

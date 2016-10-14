@@ -41,7 +41,7 @@ public class WMFSavedPageSpotlightManager: NSObject {
     
     let dataStore: MWKDataStore
     var savedPageList: MWKSavedPageList {
-        return dataStore.userDataStore.savedPageList
+        return dataStore.savedPageList
     }
     
     public required init(dataStore: MWKDataStore) {

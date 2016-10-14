@@ -1,12 +1,42 @@
-#!/bin/bash
+#!/usr/bin/env ruby
 
-clang-format -style=file -i Wikipedia/Code/*.h
-clang-format -style=file -i Wikipedia/Code/*.m
-clang-format -style=file -i Wikipedia/Code/*.c
-clang-format -style=file -i WikipediaUnitTests/Code/*.h
-clang-format -style=file -i WikipediaUnitTests/Code/*.m
-#clang-format -style=file -i WikipediaUnitTests/Code/*.c
-clang-format -style=file -i WMFKit/*.h
-clang-format -style=file -i WMFKit/*.m
-#clang-format -style=file -i WMFKit/*.c
+
+def iterate_and_format(dir)
+  puts dir
+  file_types = {h: true, m: true, cpp: true, c: true}
+  Dir.foreach(dir) do |filename|
+    next if filename.start_with?('.') || filename.length == 0 || filename == "Pods"
+    
+    full_path = dir + '/' + filename
+    if File.directory?(full_path) 
+      iterate_and_format(full_path)
+      next
+    end
+    
+    extension = filename.split('.').last
+    next if !extension
+    next if !file_types[extension.downcase.to_sym]
+
+    begin
+      new_file = ''
+      skip = true
+      File.foreach(full_path) do |line|
+        if skip && (/^\/\//.match(line) || line.strip.length == 0)
+          
+        else
+          skip = false
+          new_file << line
+        end
+      end
+      File.delete(full_path)
+      f = File.new(full_path, 'w')
+      f.write(new_file)
+      f.close
+    rescue Errno::EISDIR
+    end
+    `clang-format -style=file -i #{full_path}`
+  end
+end
+
+iterate_and_format(Dir.pwd)
 

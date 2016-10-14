@@ -2,6 +2,7 @@
 #import "WMFRandomArticleFetcher.h"
 #import "MWKSearchResult.h"
 #import "Wikipedia-Swift.h"
+#import "WMFArticlePreviewDataStore.h"
 #import "WMFRandomDiceButton.h"
 #import "WMFArticleNavigationController.h"
 #import "UIViewController+WMFArticlePresentation.h"
@@ -21,8 +22,8 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
 @implementation WMFRandomArticleViewController
 
-- (instancetype)initWithArticleURL:(NSURL *)articleURL dataStore:(MWKDataStore *)dataStore diceButtonItem:(UIBarButtonItem *)diceButtonItem {
-    self = [super initWithArticleURL:articleURL dataStore:dataStore];
+- (instancetype)initWithArticleURL:(NSURL *)articleURL dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore *)previewStore diceButtonItem:(UIBarButtonItem *)diceButtonItem {
+    self = [super initWithArticleURL:articleURL dataStore:dataStore previewStore:previewStore];
     self.diceButtonItem = diceButtonItem;
     self.diceButton = (WMFRandomDiceButton *)diceButtonItem.customView;
     return self;
@@ -112,7 +113,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
         }
         success:^(MWKSearchResult *result) {
             NSURL *titleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
-            WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore diceButtonItem:self.diceButtonItem];
+            WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore previewStore:self.previewStore diceButtonItem:self.diceButtonItem];
             [self wmf_pushArticleViewController:randomArticleVC animated:YES];
         }];
 }
@@ -137,8 +138,10 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
     if (articleNavgiationController.secondToolbarHidden) {
         BOOL shouldShowRandomButton = newContentOffsetY <= 0 || (!scrollView.tracking && scrollView.decelerating && newContentOffsetY < self.previousContentOffsetY && newContentOffsetY < (scrollView.contentSize.height - scrollView.bounds.size.height));
         shouldHideRandomButton = !shouldShowRandomButton;
-    } else {
+    } else if (scrollView.tracking || scrollView.decelerating) {
         shouldHideRandomButton = newContentOffsetY > 0 && newContentOffsetY > self.previousContentOffsetY;
+    } else {
+        shouldHideRandomButton = articleNavgiationController.secondToolbarHidden;
     }
 
     if (articleNavgiationController.secondToolbarHidden != shouldHideRandomButton) {

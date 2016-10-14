@@ -52,19 +52,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (AnyPromise *)reverseGeocodeLocation:(CLLocation *)location;
 
+- (void)reverseGeocodeLocation:(CLLocation *)location completion:(void (^)(CLPlacemark *placemark))completion
+                       failure:(void (^)(NSError *error))failure;
+
 @end
 
 @protocol WMFLocationManagerDelegate <NSObject>
 
-- (void)nearbyController:(WMFLocationManager *)controller didUpdateLocation:(CLLocation *)location;
-
-- (void)nearbyController:(WMFLocationManager *)controller didUpdateHeading:(CLHeading *)heading;
-
-- (void)nearbyController:(WMFLocationManager *)controller didReceiveError:(NSError *)error;
-
 @optional
 
-- (void)nearbyController:(WMFLocationManager *)controller didChangeEnabledState:(BOOL)enabled;
+- (void)locationManager:(WMFLocationManager *)controller didUpdateLocation:(CLLocation *)location;
+
+- (void)locationManager:(WMFLocationManager *)controller didUpdateHeading:(CLHeading *)heading;
+
+- (void)locationManager:(WMFLocationManager *)controller didReceiveError:(NSError *)error;
+
+- (void)locationManager:(WMFLocationManager *)controller didChangeEnabledState:(BOOL)enabled;
 
 @end
 

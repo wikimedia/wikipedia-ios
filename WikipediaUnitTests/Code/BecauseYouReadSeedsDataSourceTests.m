@@ -12,7 +12,7 @@
 #import "YapDatabaseConnection+WMFExtensions.h"
 #import "YapDatabaseViewOptions.h"
 
-@interface BecauseYouReadSeedsDataSourceTests : XCTestCase <WMFDataSourceDelegate>
+@interface BecauseYouReadSeedsDataSourceTests : XCTestCase
 
 @property (nonatomic, strong) MWKDataStore *dataStore;
 @property (nonatomic, strong) MWKHistoryList *historyList;
@@ -24,8 +24,6 @@
 @property (nonatomic, strong) WMFRelatedSectionBlackList *blackList;
 
 @property (nonatomic, strong) id<WMFDataSource> becauseYouReadSeedsDataSource;
-
-@property (nonatomic, copy) void (^testBlock)(id<WMFDataSource>);
 
 @end
 
@@ -52,20 +50,10 @@
     self.blackList = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self.dataStore];
 
     self.becauseYouReadSeedsDataSource = [self.dataStore becauseYouReadSeedsDataSource];
-    self.becauseYouReadSeedsDataSource.delegate = self;
 }
 
 - (void)tearDown {
     [super tearDown];
-}
-
-- (void)dataSourceDidUpdateAllData:(id<WMFDataSource>)dataSource {
-    // Yap calls this method a lot - once (or more!) for each item we add to the data source.
-    // So expectation fulfilment was put into testBlock, so we could define these blocks in
-    // test methods.
-    if (self.testBlock) {
-        self.testBlock(dataSource);
-    }
 }
 
 - (void)testSignificantlyViewedItemsFromHistoryListAppearInBecauseYouReadSeedsDataSource {
@@ -78,15 +66,12 @@
     [self.historyList setSignificantlyViewedOnPageInHistoryWithURL:self.sfEntry.url];
 
     @weakify(self);
-    self.testBlock = ^(id<WMFDataSource> dataSource) {
+    [self.dataStore notifyWhenWriteTransactionsComplete:^{
         @strongify(self);
-        if ([dataSource numberOfItems] == 3) {
-            NSArray *expectedItems = @[self.fooEntry, self.laEntry, self.sfEntry];
-            XCTAssertEqualObjects([self itemsFromDataSource:dataSource], expectedItems);
-            self.testBlock = nil;
-            [expectation fulfill];
-        }
-    };
+        NSArray *expectedItems = @[self.fooEntry, self.laEntry, self.sfEntry];
+        XCTAssertEqualObjects([self itemsFromDataSource:self.becauseYouReadSeedsDataSource], expectedItems);
+        [expectation fulfill];
+    }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout
                                  handler:nil];
@@ -98,17 +83,13 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
     [self.historyList setSignificantlyViewedOnPageInHistoryWithURL:self.fooEntry.url];
-
     @weakify(self);
-    self.testBlock = ^(id<WMFDataSource> dataSource) {
+    [self.dataStore notifyWhenWriteTransactionsComplete:^{
         @strongify(self);
-        if ([dataSource numberOfItems] == 1) {
-            NSArray *expectedItems = @[self.fooEntry];
-            XCTAssertEqualObjects([self itemsFromDataSource:dataSource], expectedItems);
-            self.testBlock = nil;
-            [expectation fulfill];
-        }
-    };
+        NSArray *expectedItems = @[self.fooEntry];
+        XCTAssertEqualObjects([self itemsFromDataSource:self.becauseYouReadSeedsDataSource], expectedItems);
+        [expectation fulfill];
+    }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout
                                  handler:nil];
@@ -126,15 +107,12 @@
     [self.blackList addBlackListArticleURL:self.sfEntry.url];
 
     @weakify(self);
-    self.testBlock = ^(id<WMFDataSource> dataSource) {
+    [self.dataStore notifyWhenWriteTransactionsComplete:^{
         @strongify(self);
-        if ([dataSource numberOfItems] == 2) {
-            NSArray *expectedItems = @[self.fooEntry, self.laEntry];
-            XCTAssertEqualObjects([self itemsFromDataSource:dataSource], expectedItems);
-            self.testBlock = nil;
-            [expectation fulfill];
-        }
-    };
+        NSArray *expectedItems = @[self.fooEntry, self.laEntry];
+        XCTAssertEqualObjects([self itemsFromDataSource:self.becauseYouReadSeedsDataSource], expectedItems);
+        [expectation fulfill];
+    }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout
                                  handler:nil];

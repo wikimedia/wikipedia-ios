@@ -7,6 +7,7 @@
 
 @class WMFShareFunnel;
 @class WMFArticleViewController;
+@class WMFArticlePreviewDataStore;
 
 typedef enum : NSUInteger {
     WMFTableOfContentsDisplaySideLeft,
@@ -42,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController;
 
 - (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
-                                       shareActivityController:(UIActivityViewController*)shareActivityController;
+                                       shareActivityController:(UIActivityViewController *)shareActivityController;
 
 @end
 
@@ -52,10 +53,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleViewController : UIViewController <WMFAnalyticsContextProviding, WMFAnalyticsViewNameProviding, WMFWebViewControllerDelegate>
 
 - (instancetype)initWithArticleURL:(NSURL *)url
-                         dataStore:(MWKDataStore *)dataStore;
+                         dataStore:(MWKDataStore *)dataStore
+                      previewStore:(WMFArticlePreviewDataStore *)previewStore;
 
 @property (nonatomic, strong, readonly) NSURL *articleURL;
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
+@property (nonatomic, strong, readonly) WMFArticlePreviewDataStore *previewStore;
 
 @property (nonatomic, strong, readonly, nullable) MWKArticle *article;
 

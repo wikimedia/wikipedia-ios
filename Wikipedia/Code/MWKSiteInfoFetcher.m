@@ -26,30 +26,28 @@
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (AnyPromise *)fetchSiteInfoForSiteURL:(NSURL *)siteURL {
-    NSParameterAssert(siteURL);
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        NSDictionary *params = @{
-            @"action": @"query",
-            @"meta": @"siteinfo",
-            @"format": @"json",
-            @"siprop": @"general"
-        };
+- (void)fetchSiteInfoForSiteURL:(NSURL *)siteURL completion:(void (^)(MWKSiteInfo *data))completion failure:(void (^)(NSError *error))failure {
 
-        [self.operationManager wmf_GETAndRetryWithURL:siteURL
-            parameters:params
-            retry:NULL
-            success:^(NSURLSessionDataTask *operation, id responseObject) {
-                [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                NSDictionary *generalProps = [responseObject valueForKeyPath:@"query.general"];
-                MWKSiteInfo *info = [[MWKSiteInfo alloc] initWithSiteURL:siteURL mainPageTitleText:generalProps[@"mainpage"]];
-                resolve(info);
-            }
-            failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                resolve(error);
-            }];
-    }];
+    NSDictionary *params = @{
+        @"action": @"query",
+        @"meta": @"siteinfo",
+        @"format": @"json",
+        @"siprop": @"general"
+    };
+
+    [self.operationManager wmf_GETAndRetryWithURL:siteURL
+        parameters:params
+        retry:NULL
+        success:^(NSURLSessionDataTask *operation, id responseObject) {
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            NSDictionary *generalProps = [responseObject valueForKeyPath:@"query.general"];
+            MWKSiteInfo *info = [[MWKSiteInfo alloc] initWithSiteURL:siteURL mainPageTitleText:generalProps[@"mainpage"]];
+            completion(info);
+        }
+        failure:^(NSURLSessionDataTask *operation, NSError *error) {
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            failure(error);
+        }];
 }
 
 @end

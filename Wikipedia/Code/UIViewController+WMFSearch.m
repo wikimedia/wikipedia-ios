@@ -2,6 +2,7 @@
 #import "WMFSearchViewController.h"
 #import "UIBarButtonItem+BlocksKit.h"
 #import "SessionSingleton.h"
+#import "WMFArticlePreviewDataStore.h"
 #import "Wikipedia-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -9,11 +10,19 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation UIViewController (WMFSearchButton)
 
 static MWKDataStore *_dataStore = nil;
-static WMFSearchViewController *_sharedSearchViewController = nil;
+static WMFArticlePreviewDataStore *_previewStore = nil;
+
+static WMFSearchViewController *_Nullable _sharedSearchViewController = nil;
 
 + (void)wmf_setSearchButtonDataStore:(MWKDataStore *)dataStore {
     NSParameterAssert(dataStore);
     _dataStore = dataStore;
+    [self wmf_clearSearchViewController];
+}
+
++ (void)wmf_setSearchButtonPreviewStore:(WMFArticlePreviewDataStore *)previewStore {
+    NSParameterAssert(previewStore);
+    _previewStore = previewStore;
     [self wmf_clearSearchViewController];
 }
 
@@ -63,7 +72,8 @@ static WMFSearchViewController *_sharedSearchViewController = nil;
 
     if (!_sharedSearchViewController) {
         WMFSearchViewController *searchVC =
-            [WMFSearchViewController searchViewControllerWithDataStore:_dataStore];
+            [WMFSearchViewController searchViewControllerWithDataStore:_dataStore
+                                                          previewStore:_previewStore];
         _sharedSearchViewController = searchVC;
     }
     [self presentViewController:_sharedSearchViewController animated:animated completion:nil];

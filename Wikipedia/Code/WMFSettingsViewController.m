@@ -1,6 +1,7 @@
 #import "WMFSettingsTableViewCell.h"
 #import "Wikipedia-Swift.h"
 #import "NSUserActivity+WMFExtensions.h"
+#import "WMFArticlePreviewDataStore.h"
 
 // View Controllers
 #import "WMFSettingsViewController.h"
@@ -44,6 +45,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 @interface WMFSettingsViewController () <UITableViewDelegate, WMFPreferredLanguagesViewControllerDelegate, FBTweakViewControllerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
+@property (nonatomic, strong, readwrite) WMFArticlePreviewDataStore *previewStore;
 
 @property (nonatomic, strong) SSSectionedDataSource *elementDataSource;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -52,17 +54,18 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 @implementation WMFSettingsViewController
 
-+ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store {
++ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store previewStore:(WMFArticlePreviewDataStore *)previewStore {
+    NSParameterAssert(store);
+    NSParameterAssert(previewStore);
     WMFSettingsViewController *vc = [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard];
     vc.dataStore = store;
+    vc.previewStore = previewStore;
     return vc;
 }
 
 #pragma mark - Setup
 
 - (void)viewDidLoad {
-    NSParameterAssert(self.dataStore);
-
     [super viewDidLoad];
 
     [self configureBackButton];
@@ -181,7 +184,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLRate] useSafari:YES];
             break;
         case WMFSettingsMenuItemType_SendFeedback: {
-            WMFHelpViewController *vc = [[WMFHelpViewController alloc] initWithDataStore:self.dataStore];
+            WMFHelpViewController *vc = [[WMFHelpViewController alloc] initWithDataStore:self.dataStore previewStore:self.previewStore];
             [self.navigationController pushViewController:vc animated:YES];
         } break;
         case WMFSettingsMenuItemType_About:
@@ -385,7 +388,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         return nil;
     }
 #endif
-    
+
     SSSection *section =
         [SSSection sectionWithItems:@[
             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DebugCrash],

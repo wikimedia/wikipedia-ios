@@ -64,12 +64,15 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable id)objectAtIndexPath:(NSIndexPath *)indexPath {
-    __block id results = nil;
-    [self.readConnection readWithBlock:^(YapDatabaseReadTransaction *transaction) {
-        YapDatabaseViewTransaction *view = [transaction ext:self.viewName];
-        results = [view objectAtIndexPath:indexPath withMappings:self.mappings];
+    return [self readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
+        return [view objectAtIndexPath:indexPath withMappings:self.mappings];
     }];
-    return results;
+}
+
+- (nullable id)metadataAtIndexPath:(NSIndexPath *)indexPath {
+    return [self readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
+        return [view metadataAtIndexPath:indexPath withMappings:self.mappings];
+    }];
 }
 
 - (void)processChanges:(NSArray<YapDatabaseViewRowChange *> *)changes onConnection:(YapDatabaseConnection *)connection {
@@ -84,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
     //Although there are legitimate reasons we get 0 changes,
     //which could be safely ignored, there is no way to differentiate
     //between those reasons and when modifications happen in extensions
-    if (!self.areGranularDelegateCallbacksEnabled || [changes count] == 0) {
+    if (!self.areGranularDelegateCallbacksEnabled || [changes count] == 0 || self.mappings.snapshotOfLastUpdate != connection.snapshot - 1) {
 
         [self.readConnection readWithBlock:^(YapDatabaseReadTransaction *transaction) {
             [self.mappings updateWithTransaction:transaction];

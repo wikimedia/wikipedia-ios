@@ -8,9 +8,6 @@
 
 #import "MWKSearchResult.h"
 
-//Promises
-#import "Wikipedia-Swift.h"
-
 #import <BlocksKit/BlocksKit.h>
 
 NS_ASSUME_NONNULL_BEGIN

@@ -138,7 +138,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Create Card Image
 
-- (UIImage *)cardImageWithArticleImage:(UIImage *)image {
+- (nullable UIImage *)cardImageWithArticleImage:(nullable UIImage *)image {
     WMFShareCardViewController *cardViewController =
         [[WMFShareCardViewController alloc] initWithNibName:@"ShareCard"
                                                      bundle:nil];

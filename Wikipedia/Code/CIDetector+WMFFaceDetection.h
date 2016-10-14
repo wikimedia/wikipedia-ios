@@ -1,5 +1,4 @@
 @import CoreImage;
-@import WMFModel;
 
 NS_ASSUME_NONNULL_BEGIN
 

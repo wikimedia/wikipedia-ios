@@ -15,12 +15,12 @@
 
 - (void)setLocation:(CLLocation *)location {
     self.mockLocation = location;
-    [self.delegate nearbyController:self didUpdateLocation:self.location];
+    [self.delegate locationManager:self didUpdateLocation:self.location];
 }
 
 - (void)setHeading:(CLHeading *)heading {
     self.mockHeading = heading;
-    [self.delegate nearbyController:self didUpdateHeading:self.heading];
+    [self.delegate locationManager:self didUpdateHeading:self.heading];
 }
 
 - (CLHeading *)heading {
@@ -34,10 +34,10 @@
 
 - (void)startMonitoringLocation {
     if (self.location) {
-        [self.delegate nearbyController:self didUpdateLocation:self.location];
+        [self.delegate locationManager:self didUpdateLocation:self.location];
     }
     if (self.heading) {
-        [self.delegate nearbyController:self didUpdateHeading:self.heading];
+        [self.delegate locationManager:self didUpdateHeading:self.heading];
     }
 }
 

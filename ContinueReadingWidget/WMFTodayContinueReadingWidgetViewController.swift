@@ -82,7 +82,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
 
         session.dataStore.syncDataStoreToDatabase()
         
-        guard let historyEntry = session.userDataStore.historyList.mostRecentEntry() else {
+        guard let historyEntry = session.dataStore.historyList.mostRecentEntry() else {
             return false
         }
         let fragment = historyEntry.fragment
@@ -111,7 +111,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             return false
         }
         
-        guard let historyEntry = session.userDataStore.historyList.mostRecentEntry() else {
+        guard let historyEntry = session.dataStore.historyList.mostRecentEntry() else {
             return false
         }
         
@@ -168,9 +168,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     
 
     @IBAction func continueReading(sender: AnyObject) {
-        guard let URLToOpen = articleURL?.wmf_wikipediaSchemeURL ?? NSUserActivity.wmf_URLForActivityOfType(.Explore, parameters: nil) else {
-            return
-        }
+        let URLToOpen = articleURL?.wmf_wikipediaSchemeURL ?? NSUserActivity.wmf_baseURLForActivityOfType(.Explore)
         
         self.extensionContext?.openURL(URLToOpen, completionHandler: { (success) in
             

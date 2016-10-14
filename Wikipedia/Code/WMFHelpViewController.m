@@ -1,5 +1,6 @@
 #import "WMFHelpViewController.h"
 #import "MWKDataStore.h"
+#import "WMFArticlePreviewDataStore.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "WikipediaAppUtils.h"
 #import "Wikipedia-Swift.h"
@@ -22,18 +23,12 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 
 @implementation WMFHelpViewController
 
-- (instancetype)initWithArticleURL:(NSURL *)url
-                         dataStore:(MWKDataStore *)dataStore {
-    self = [super initWithArticleURL:url dataStore:dataStore];
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore *)previewStore {
+    NSURL *faqURL = [NSURL URLWithString:WMFSettingsURLFAQ];
+    self = [super initWithArticleURL:faqURL dataStore:dataStore previewStore:previewStore];
     self.savingOpenArticleTitleEnabled = NO;
     self.addingArticleToHistoryListEnabled = NO;
     self.peekingAllowed = NO;
-    return self;
-}
-
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
-    NSURL *faqURL = [NSURL URLWithString:WMFSettingsURLFAQ];
-    self = [self initWithArticleURL:faqURL dataStore:dataStore];
     return self;
 }
 
@@ -48,7 +43,7 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 }
 
 - (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
-    WMFHelpViewController *articleViewController = [[WMFHelpViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+    WMFHelpViewController *articleViewController = [[WMFHelpViewController alloc] initWithArticleURL:url dataStore:self.dataStore previewStore:self.previewStore];
     [self.navigationController pushViewController:articleViewController animated:YES];
 }
 
@@ -68,11 +63,11 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 
 - (NSArray<UIBarButtonItem *> *)articleToolBarItems {
     return @[
-             self.showTableOfContentsToolbarItem,
-             [UIBarButtonItem flexibleSpaceToolbarItem],
-             self.sendEmailToolbarItem,
-             [UIBarButtonItem wmf_barButtonItemOfFixedWidth:8]
-             ];
+        self.showTableOfContentsToolbarItem,
+        [UIBarButtonItem flexibleSpaceToolbarItem],
+        self.sendEmailToolbarItem,
+        [UIBarButtonItem wmf_barButtonItemOfFixedWidth:8]
+    ];
 }
 
 - (void)sendEmail {

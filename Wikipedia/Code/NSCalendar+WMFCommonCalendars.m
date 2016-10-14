@@ -24,8 +24,16 @@
 - (NSInteger)daysFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate {
     NSDateComponents *fromDateComponents = [self components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:fromDate];
     NSDateComponents *toDateComponents = [self components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:toDate];
-    
+
     return [self components:NSCalendarUnitDay fromDateComponents:fromDateComponents toDateComponents:toDateComponents options:NSCalendarMatchStrictly].day;
+}
+
+@end
+
+@implementation NSDate (WMFComparisons)
+
+- (BOOL)wmf_isTodayUTC {
+    return [[NSCalendar wmf_utcGregorianCalendar] isDateInToday:self];
 }
 
 @end

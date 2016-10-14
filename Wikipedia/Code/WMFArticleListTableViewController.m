@@ -6,7 +6,7 @@
 #import "PiwikTracker+WMFExtensions.h"
 #import "UIViewController+WMFHideKeyboard.h"
 
-@interface WMFArticleListTableViewController () <UIViewControllerPreviewingDelegate, WMFArticlePreviewingActionsDelegate>
+@interface WMFArticleListTableViewController () <UIViewControllerPreviewingDelegate, WMFArticlePreviewingActionsDelegate, WMFAnalyticsContextProviding>
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
@@ -41,7 +41,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSParameterAssert(self.dataStore);
+    NSParameterAssert(self.userDataStore);
+    NSParameterAssert(self.previewStore);
     [self updateEmptyAndDeleteState];
 }
 
@@ -70,7 +71,7 @@
         [self.delegate listViewController:self didSelectArticleURL:url];
         return;
     }
-    [self wmf_pushArticleWithURL:url dataStore:self.dataStore animated:YES];
+    [self wmf_pushArticleWithURL:url dataStore:self.userDataStore previewStore:self.previewStore animated:YES];
 }
 
 #pragma mark - Previewing
@@ -111,11 +112,10 @@
     }
     [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:contentType];
 
-    UIViewController *vc = self.delegate ?
-        [self.delegate listViewController:self viewControllerForPreviewingArticleURL:url] : [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
-    
-    if ([vc isKindOfClass:[WMFArticleViewController class]]){
-        ((WMFArticleViewController*)vc).articlePreviewingActionsDelegate = self;
+    UIViewController *vc = self.delegate ? [self.delegate listViewController:self viewControllerForPreviewingArticleURL:url] : [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userDataStore previewStore:self.previewStore];
+
+    if ([vc isKindOfClass:[WMFArticleViewController class]]) {
+        ((WMFArticleViewController *)vc).articlePreviewingActionsDelegate = self;
     }
     return vc;
 }
@@ -141,7 +141,7 @@
 }
 
 - (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
-                                       shareActivityController:(UIActivityViewController*)shareActivityController {
+                                       shareActivityController:(UIActivityViewController *)shareActivityController {
     [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 
@@ -191,10 +191,6 @@
 
 #pragma mark - Subclasses
 
-- (NSString *)analyticsContext {
-    return @"Generic Article List";
-}
-
 - (WMFEmptyViewType)emptyViewType {
     return WMFEmptyViewTypeNone;
 }
@@ -204,19 +200,19 @@
 }
 
 - (NSString *)deleteButtonText {
-    return nil;
+    return @"";
 }
 
 - (NSString *)deleteAllConfirmationText {
-    return nil;
+    return @"";
 }
 
 - (NSString *)deleteText {
-    return nil;
+    return @"";
 }
 
 - (NSString *)deleteCancelText {
-    return nil;
+    return @"";
 }
 
 - (void)deleteAll {
@@ -227,12 +223,18 @@
 }
 
 - (NSURL *)urlAtIndexPath:(NSIndexPath *)indexPath {
-    return nil;
+    return [NSURL new];
 }
 
 - (void)updateEmptyAndDeleteState {
     [self updateDeleteButton];
     [self updateEmptyState];
+}
+
+#pragma mark - WMFAnalyticsContextProviding
+
+- (NSString *)analyticsContext {
+    return @"Article List";
 }
 
 @end

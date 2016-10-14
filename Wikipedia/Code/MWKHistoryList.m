@@ -3,6 +3,7 @@
 #import <YapDataBase/YapDatabase.h>
 #import <YapDataBase/YapDatabaseView.h>
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
+#import "NSDateFormatter+WMFExtensions.h"
 #import <WMFModel/WMFModel-Swift.h>
 
 #define MAX_HISTORY_ENTRIES 100
@@ -80,11 +81,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url {
     return [self.dataSource readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
         MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        return entry;
+        if (entry.dateViewed != nil) {
+            return entry;
+        } else {
+            return nil;
+        }
     }];
 }
 
 - (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block {
+    NSParameterAssert(block);
     if (!block) {
         return;
     }
@@ -160,6 +166,21 @@ NS_ASSUME_NONNULL_BEGIN
             [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
         }
         return @[[MWKHistoryEntry databaseKeyForURL:url]];
+    }];
+}
+
+- (void)setInTheNewsNotificationDate:(NSDate *)date forArticlesWithURLs:(NSArray<NSURL *> *)articleURLs {
+    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
+        NSMutableArray<NSString *> *databaseKeys = [NSMutableArray arrayWithCapacity:articleURLs.count];
+        for (NSURL *articleURL in articleURLs) {
+            NSString *databaseKey = [MWKHistoryEntry databaseKeyForURL:articleURL];
+            MWKHistoryEntry *entry = [transaction objectForKey:databaseKey inCollection:[MWKHistoryEntry databaseCollectionName]];
+            if (entry) {
+                entry.inTheNewsNotificationDate = date;
+                [transaction setObject:entry forKey:databaseKey inCollection:[MWKHistoryEntry databaseCollectionName]];
+            }
+        }
+        return databaseKeys;
     }];
 }
 

@@ -101,11 +101,15 @@ NS_ASSUME_NONNULL_BEGIN
                                                  error:(NSError *__autoreleasing _Nullable *)error {
     NSDate *date = parameters;
     NSParameterAssert(!date || [date isKindOfClass:[NSDate class]]);
+    NSString *title = @"";
+    if (date) {
+        title = [WMFEnglishFeaturedTitleRequestSerializer titleForDate:date] ?: @"";
+    }
     return [super requestBySerializingRequest:request
                                withParameters:@{
                                    @"action": @"query",
                                    @"format": @"json",
-                                   @"titles": [WMFEnglishFeaturedTitleRequestSerializer titleForDate:date],
+                                   @"titles": title,
                                    // extracts
                                    @"prop": @"extracts",
                                    @"exchars": @100,

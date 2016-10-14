@@ -26,7 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nonnull NSAttributedString *)wmf_attributedStringByRemovingHTMLWithFont:(nonnull UIFont *)font linkFont:(nonnull UIFont *)linkFont;
 
-
 - (NSString *)wmf_randomlyRepeatMaxTimes:(NSUInteger)maxTimes;
 
 - (NSString *)wmf_stringByReplacingUnderscoresWithSpaces;

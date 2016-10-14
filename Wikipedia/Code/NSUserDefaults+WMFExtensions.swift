@@ -9,6 +9,9 @@ let WMFMigrateToSharedContainerKey = "WMFMigrateToSharedContainerKey"
 let WMFMigrateSavedPageListKey = "WMFMigrateSavedPageListKey"
 let WMFMigrateBlackListKey = "WMFMigrateBlackListKey"
 let WMFDidMigrateToGroupKey = "WMFDidMigrateToGroup"
+let WMFDidMigrateToNewFeedKey = "WMFDidMigrateToNewFeedKey"
+let WMFMostRecentInTheNewsNotificationDateKey = "WMFMostRecentInTheNewsNotificationDate"
+let WMFInTheNewsMostRecentDateNotificationCountKey = "WMFInTheNewsMostRecentDateNotificationCount"
 
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
@@ -277,6 +280,33 @@ public extension NSUserDefaults {
     
     public func wmf_didMigrateToSharedContainer() -> Bool {
         return self.boolForKey(WMFMigrateToSharedContainerKey)
+    }
+
+    public func wmf_setDidMigrateToNewFeed(didMigrate: Bool) {
+        self.setBool(didMigrate, forKey: WMFDidMigrateToNewFeedKey)
+        self.synchronize()
+    }
+    
+    public func wmf_didMigrateToNewFeed() -> Bool {
+        return self.boolForKey(WMFDidMigrateToNewFeedKey)
+    }
+    
+    public func wmf_mostRecentInTheNewsNotificationDate() -> NSDate? {
+        return self.wmf_dateForKey(WMFMostRecentInTheNewsNotificationDateKey)
+    }
+    
+    public func wmf_setMostRecentInTheNewsNotificationDate(date: NSDate) {
+        self.setObject(date, forKey: WMFMostRecentInTheNewsNotificationDateKey)
+        self.synchronize()
+    }
+    
+    public func wmf_inTheNewsMostRecentDateNotificationCount() -> Int {
+        return self.integerForKey(WMFInTheNewsMostRecentDateNotificationCountKey)
+    }
+    
+    public func wmf_setInTheNewsMostRecentDateNotificationCount(count: Int) {
+        self.setInteger(count, forKey: WMFInTheNewsMostRecentDateNotificationCountKey)
+        self.synchronize()
     }
 
 }

@@ -4,7 +4,8 @@
 #import "WMFArticleFetcher.h"
 #import "MWKImageInfoFetcher.h"
 
-#import "MWKDataStore+WMFDataSources.h"
+#import "MWKDataStore.h"
+#import "WMFArticlePreviewDataStore.h"
 #import "MWKSavedPageList.h"
 #import "MWKArticle.h"
 #import "MWKImage+CanonicalFilenames.h"
@@ -24,7 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readwrite) dispatch_queue_t accessQueue;
 
 @property (nonatomic, strong) MWKDataStore *dataStore;
-@property (nonatomic, strong) id<WMFDataSource> dataSource;
 @property (nonatomic, strong) MWKSavedPageList *savedPageList;
 @property (nonatomic, strong) WMFArticleFetcher *articleFetcher;
 @property (nonatomic, strong) WMFImageController *imageController;
@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableDictionary<NSURL *, NSError *> *errorsByArticleTitle;
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
+                     previewStore:(WMFArticlePreviewDataStore *)previewStore
                     savedPageList:(MWKSavedPageList *)savedPageList
                    articleFetcher:(WMFArticleFetcher *)articleFetcher
                   imageController:(WMFImageController *)imageController
@@ -55,11 +56,13 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
+                     previewStore:(WMFArticlePreviewDataStore *)previewStore
                     savedPageList:(MWKSavedPageList *)savedPageList
                    articleFetcher:(WMFArticleFetcher *)articleFetcher
                   imageController:(WMFImageController *)imageController
                  imageInfoFetcher:(MWKImageInfoFetcher *)imageInfoFetcher {
     NSParameterAssert(dataStore);
+    NSParameterAssert(previewStore);
     NSParameterAssert(savedPageList);
     NSParameterAssert(articleFetcher);
     NSParameterAssert(imageController);
@@ -74,22 +77,19 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         self.imageController = imageController;
         self.savedPageList = savedPageList;
         self.imageInfoFetcher = imageInfoFetcher;
-        self.dataSource = [self.dataStore savedDataSource];
         self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.dataStore];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
     }
     return self;
 }
 
-- (void)applicationWillEnterForeground:(NSNotification *)note {
-    self.dataSource = [self.dataStore savedDataSource];
-}
-
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
+                     previewStore:(WMFArticlePreviewDataStore *)previewStore
                     savedPageList:(MWKSavedPageList *)savedPageList {
     return [self initWithDataStore:dataStore
+                      previewStore:previewStore
                      savedPageList:savedPageList
-                    articleFetcher:[[WMFArticleFetcher alloc] initWithDataStore:dataStore]
+                    articleFetcher:[[WMFArticleFetcher alloc] initWithDataStore:dataStore previewStore:previewStore]
                    imageController:[WMFImageController sharedInstance]
                   imageInfoFetcher:[[MWKImageInfoFetcher alloc] init]];
 }
@@ -109,16 +109,13 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 #pragma mark - Observing
 
 - (void)itemWasUpdated:(NSNotification *)note {
-    NSString *urlString = note.object;
-    if (urlString) {
-        NSURL *url = [NSURL URLWithString:urlString];
-        if (url) {
-            if ([self.savedPageList isSaved:url]) {
-                [self fetchUncachedArticleURLs:@[url]];
-            } else {
-                [self cancelFetchForArticleURL:url];
-                [self.spotlightManager removeFromIndex:url];
-            }
+    NSURL *url = note.userInfo[MWKURLKey];
+    if (url) {
+        if ([self.savedPageList isSaved:url]) {
+            [self fetchUncachedArticleURLs:@[url]];
+        } else {
+            [self cancelFetchForArticleURL:url];
+            [self.spotlightManager removeFromIndex:url];
         }
     }
 }

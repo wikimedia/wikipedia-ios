@@ -37,7 +37,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                        WMFArticleListTableViewControllerDelegate,
                                        WMFSearchLanguagesBarViewControllerDelegate>
 
-@property (nonatomic, strong) MWKDataStore *dataStore;
+@property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
+@property (nonatomic, strong, readwrite) WMFArticlePreviewDataStore *previewStore;
 
 @property (nonatomic, strong) RecentSearchesViewController *recentSearchesViewController;
 @property (nonatomic, strong) WMFSearchResultsTableViewController *resultsListController;
@@ -81,10 +82,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @implementation WMFSearchViewController
 
-+ (instancetype)searchViewControllerWithDataStore:(MWKDataStore *)dataStore {
++ (instancetype)searchViewControllerWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore *)previewStore {
     NSParameterAssert(dataStore);
+    NSParameterAssert(previewStore);
     WMFSearchViewController *searchVC = [self wmf_initialViewControllerFromClassStoryboard];
     searchVC.dataStore = dataStore;
+    searchVC.previewStore = previewStore;
     searchVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
     searchVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     return searchVC;
@@ -117,7 +120,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)updateRecentSearchesVisibility:(BOOL)animated {
     BOOL hideRecentSearches =
-        [self.searchField.text wmf_trim].length > 0 || [self.dataStore.userDataStore.recentSearchList countOfEntries] == 0;
+        [self.searchField.text wmf_trim].length > 0 || [self.dataStore.recentSearchList countOfEntries] == 0;
 
     [self setRecentSearchesHidden:hideRecentSearches animated:animated];
 }
@@ -151,12 +154,13 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - Setup
 
 - (void)configureArticleList {
-    self.resultsListController.dataStore = self.dataStore;
+    self.resultsListController.userDataStore = self.dataStore;
+    self.resultsListController.previewStore = self.previewStore;
     self.resultsListController.delegate = self;
 }
 
 - (void)configureRecentSearchList {
-    self.recentSearchesViewController.recentSearches = self.dataStore.userDataStore.recentSearchList;
+    self.recentSearchesViewController.recentSearches = self.dataStore.recentSearchList;
     self.recentSearchesViewController.delegate = self;
 }
 
@@ -247,13 +251,13 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     if ([segue.destinationViewController isKindOfClass:[WMFSearchLanguagesBarViewController class]]) {
         self.searchLanguagesBarViewController = (WMFSearchLanguagesBarViewController *)segue.destinationViewController;
         self.searchLanguagesBarViewController.delegate = self;
-        
+
         // Allow size of contained VC's view to control container size: http://stackoverflow.com/a/34279613
         self.searchLanguagesBarViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
     }
 }
 
-- (void)searchLanguagesBarViewController:(WMFSearchLanguagesBarViewController *)controller didChangeCurrentlySelectedSearchLanguage:(MWKLanguageLink*)language{
+- (void)searchLanguagesBarViewController:(WMFSearchLanguagesBarViewController *)controller didChangeCurrentlySelectedSearchLanguage:(MWKLanguageLink *)language {
     [self searchForSearchTerm:self.searchField.text];
 }
 
@@ -374,12 +378,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     @weakify(self);
     [self.resultsListController wmf_hideEmptyView];
     NSURL *url = [self currentlySelectedSearchURL];
-    
-    if([self.resultsListController isDisplayingResultsForSearchTerm:searchTerm fromSiteURL:url]){
+
+    if ([self.resultsListController isDisplayingResultsForSearchTerm:searchTerm fromSiteURL:url]) {
         DDLogDebug(@"Bailing out from running search for term because we're already showing results for this search term and search site.");
         return;
     }
-    
+
     [self.fetcher fetchArticlesForSearchTerm:searchTerm siteURL:url resultLimit:WMFMaxSearchResultLimit].thenOn(dispatch_get_main_queue(), ^id(WMFSearchResults *results) {
                                                                                                             @strongify(self);
                                                                                                             if (![results.searchTerm isEqualToString:self.searchField.text]) {
@@ -475,8 +479,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     if ([self currentResultsSearchTerm]) {
         MWKRecentSearchEntry *entry = [[MWKRecentSearchEntry alloc] initWithURL:[self currentResultsSearchSiteURL]
                                                                      searchTerm:[self currentResultsSearchTerm]];
-        [self.dataStore.userDataStore.recentSearchList addEntry:entry];
-        [self.dataStore.userDataStore.recentSearchList save];
+        [self.dataStore.recentSearchList addEntry:entry];
+        [self.dataStore.recentSearchList save];
         [self.recentSearchesViewController reloadRecentSearches];
     }
 }
@@ -508,12 +512,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     UIViewController *presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES
                              completion:^{
-                                 [presenter wmf_pushArticleWithURL:url dataStore:self.dataStore animated:YES];
+                                 [presenter wmf_pushArticleWithURL:url dataStore:self.dataStore previewStore:self.previewStore animated:YES];
                              }];
 }
 
 - (UIViewController *)listViewController:(WMFArticleListTableViewController *)listController viewControllerForPreviewingArticleURL:(nonnull NSURL *)url {
-    WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+    WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore previewStore:self.previewStore];
     return vc;
 }
 

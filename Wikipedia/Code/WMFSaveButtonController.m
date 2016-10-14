@@ -16,7 +16,6 @@
                             url:(NSURL *)url NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, strong) SavedPagesFunnel *savedPagesFunnel;
-@property (nonatomic, copy) NSString *databaseKey;
 
 @end
 
@@ -55,7 +54,7 @@
 }
 
 - (instancetype)init {
-    return [self initWithControl:nil savedPageList:[[[SessionSingleton sharedInstance] userDataStore] savedPageList] url:nil];
+    return [self initWithControl:nil savedPageList:[[[SessionSingleton sharedInstance] dataStore] savedPageList] url:nil];
 }
 
 #pragma mark - Accessors
@@ -74,7 +73,6 @@
     }
     [self unobserveURL:_url];
     _url = [url copy];
-    self.databaseKey = _url.wmf_databaseKey;
     [self observeURL:_url];
     [self updateSavedButtonState];
 }
@@ -126,7 +124,7 @@
 }
 
 - (void)itemWasUpdatedWithNotification:(NSNotification *)note {
-    if ([note.object isEqual:self.databaseKey]) {
+    if ([note.userInfo[MWKURLKey] isEqual:self.url]) {
         [self updateSavedButtonState];
     }
 }
@@ -163,10 +161,10 @@
 
     if (isSaved) {
         [self.savedPagesFunnel logDelete];
-        [[PiwikTracker wmf_configuredInstance] wmf_logActionUnsaveInContext:self.analyticsContext contentType:self.analyticsContentType];
+        [[PiwikTracker wmf_configuredInstance] wmf_logActionUnsaveInContext:self contentType:self];
     } else {
         [self.savedPagesFunnel logSaveNew];
-        [[PiwikTracker wmf_configuredInstance] wmf_logActionSaveInContext:self.analyticsContext contentType:self.analyticsContentType];
+        [[PiwikTracker wmf_configuredInstance] wmf_logActionSaveInContext:self contentType:self];
     }
 
     [self.savedPageList toggleSavedPageForURL:self.url];

@@ -11,7 +11,7 @@
  *
  *  @return String containing a "x.y.z.y" format version
  */
-+(NSString*) currentVersion;
++ (NSString *)currentVersion;
 
 /**
  *  Initialize the UserzoomSDK with the given tag.
@@ -24,7 +24,7 @@
  *
  *  @param tag of the study (ex. @"QzRUNjAg")
  */
-+(void) initWithTag:(NSString*) tag;
++ (void)initWithTag:(NSString *)tag;
 
 /**
  *  Initialize the UserzoomSDK with the given tag, and the launch options
@@ -32,7 +32,7 @@
  *  @param tag of the study (ex. @"QzRUNjAg")
  *  @param launchOptions
  */
-+(void) initWithTag:(NSString*) tag options:(NSDictionary*)launchOptions;
++ (void)initWithTag:(NSString *)tag options:(NSDictionary *)launchOptions;
 
 /**
  *  It processes the launchOptions of the AppDelegate, defines if the
@@ -43,7 +43,7 @@
  *
  *  @return BOOL
  */
-+(BOOL) processLaunchOptions: (NSDictionary*)launchOptions;
++ (BOOL)processLaunchOptions:(NSDictionary *)launchOptions;
 
 /**
  *  Tracks custom events.
@@ -56,14 +56,14 @@
  *  @param tag2 @"CustomEventParameter 2"
  *  @param tag3 @"CustomEventParameter 3"
  */
-+(void) sendEvent:(NSString*)tag1 tag2:(NSString*)tag2 tag3:(NSString*)tag3;
++ (void)sendEvent:(NSString *)tag1 tag2:(NSString *)tag2 tag3:(NSString *)tag3;
 
 /**
  *  Send information of the search keywords
  *
  *  @param keywords Strings with the search
  */
-+(void) sendKeywords: (NSString*) keywords;
++ (void)sendKeywords:(NSString *)keywords;
 
 /**
  *  Enables/disables view recording.
@@ -74,21 +74,21 @@
  *
  *  @param value YES (disable recording) or NO (enable recording)
  */
-+(void) blockRecord:(BOOL)value;
++ (void)blockRecord:(BOOL)value;
 
 /**
  *  Starts the study initialized with initWithTag:(NSString*) if it is configured
  *  to be shown as 'Customized'. If it is configured as 'Start APP', this method
  *  does nothing
  */
-+(void) show;
++ (void)show;
 
 /**
  *  Starts a study with a different tags than the initialized one
  *
  *  @param tag of the new study to be started
  */
-+(void) show:(NSString*) tag;
++ (void)show:(NSString *)tag;
 
 /**
  *  Finalizes the current study
@@ -96,7 +96,7 @@
  *  Usage Example:
  *  On viewDidAppear    -> [UserzoomSDK finalizeStudy];
  */
-+(void) finalizeStudy;
++ (void)finalizeStudy;
 
 /**
  *  Sets the Debug level of the SDK:
@@ -111,17 +111,17 @@
  *
  *  @param level The desirev level
  */
-+(void) setDebugLevel:(UZLogLevel) level;
++ (void)setDebugLevel:(UZLogLevel)level;
 
 /**
  *  Resumes the study flow after returning from a local notification
  */
-+(void) continueFlow:(UILocalNotification *)notification;
++ (void)continueFlow:(UILocalNotification *)notification;
 
 /**
  *  Lets the SDK know that local notification permissions have been changed
  */
-+(void) changePermissions:(UIUserNotificationSettings*) settings;
++ (void)changePermissions:(UIUserNotificationSettings *)settings;
 
 /**
  *  Starts study using an invitation
@@ -135,7 +135,7 @@
  *
  *  @return true if the url is valid for start a userzoom study
  */
-+(BOOL) openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
++ (BOOL)openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 
 /**
  * To enable the Exit Survey mode.
@@ -143,7 +143,7 @@
  *  By enabling the Exit Survey mode an Exit Alert displays when users leave the app and,
  *  once the alert is accepted, the study begins.
  */
-+(void) useExitSurvey;
++ (void)useExitSurvey;
 
 /**
  *  Sets development mode
@@ -152,27 +152,27 @@
  *
  *  WARNING: This is intended for testing purposes only, do not release an application calling this method
  */
-+(void) setDevelopmentMode;
++ (void)setDevelopmentMode;
 
 /**
  * Clear UserZoom expiration data stored in the App.
  */
-+(void) clearExpirationData;
++ (void)clearExpirationData;
 
 /**
  * Developer callbacks for the current state of the study
  */
-+(void) setDeveloperCallback: (id<UZDelegate>) delegate;
++ (void)setDeveloperCallback:(id<UZDelegate>)delegate;
 
 /**
  * Activate the invitation exclusive mode, where the app will close unless the sdk is started from 
  * an invitation link
  */
-+(void) deactivateAppAfterStudy:(NSDictionary*)launchOptions;
++ (void)deactivateAppAfterStudy:(NSDictionary *)launchOptions;
 
 /**
  * Activate the invitation exclusive mode, where the app will close unless the sdk is started from 
  * an invitation link, specifying the alert's message and button text
  */
-+(void) deactivateAppAfterStudyWithMessage:(NSString*)message andButtonText:(NSString*)buttonText andOptions:(NSDictionary*) launchOptions;
++ (void)deactivateAppAfterStudyWithMessage:(NSString *)message andButtonText:(NSString *)buttonText andOptions:(NSDictionary *)launchOptions;
 @end

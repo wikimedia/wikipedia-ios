@@ -25,11 +25,13 @@
     [list addSavedPageWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@""]];
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
-    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-        assertThat(@([list numberOfItems]), is(@1));
 
+    [dataStore notifyWhenWriteTransactionsComplete:^{
+
+        assertThat(@([list numberOfItems]), is(@1));
         [expectation fulfill];
-    });
+
+    }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }

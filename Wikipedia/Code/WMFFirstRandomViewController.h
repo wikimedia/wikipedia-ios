@@ -1,11 +1,23 @@
 #import <UIKit/UIKit.h>
 
-@class MWKDataStore;
+@class MWKDataStore, WMFArticlePreviewDataStore;
 
 //This VC is a placeholder to load the first random article
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface WMFFirstRandomViewController : UIViewController
 
-- (nonnull instancetype)initWithSiteURL:(nonnull NSURL *)siteURL dataStore:(nonnull MWKDataStore *)dataStore NS_DESIGNATED_INITIALIZER;
+@property (nonatomic, strong, nonnull) NSURL *siteURL;
+@property (nonatomic, strong, nonnull) MWKDataStore *dataStore;
+@property (nonatomic, strong, nonnull) WMFArticlePreviewDataStore *previewStore;
+
+- (nonnull instancetype)initWithSiteURL:(nonnull NSURL *)siteURL dataStore:(nonnull MWKDataStore *)dataStore previewStore:(nonnull WMFArticlePreviewDataStore *)previewStore NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil NS_UNAVAILABLE;
+
+- (instancetype)initWithCoder:(NSCoder *)coder NS_UNAVAILABLE;
 
 @end
+
+NS_ASSUME_NONNULL_END
