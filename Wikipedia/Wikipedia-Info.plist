@@ -44,7 +44,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>955</string>
+	<string>959</string>
 	<key>CoreSpotlightContinuation</key>
 	<true/>
 	<key>ITSAppUsesNonExemptEncryption</key>
@@ -56,8 +56,12 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Opt-in user testing</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Get article recommendations based on your location</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Opt-in user testing</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Save photos from Wikipedia to your photo library</string>
 	<key>NSUserActivityTypes</key>
@@ -112,10 +116,6 @@
 	<string>3</string>
 	<key>WMFPiwikURL</key>
 	<string>https://piwik.wikimedia.org/</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Opt-in user testing</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Opt-in user testing</string>
 	<key>WMFShowDebugMenu</key>
 	<false/>
 </dict>
