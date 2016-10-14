@@ -15,9 +15,6 @@ typedef void (^WMFCellEnumerator)(id cell, NSIndexPath *indexPath, BOOL *stop);
 
 - (void)wmf_enumerateVisibleCellsUsingBlock:(WMFCellEnumerator)block;
 
-- (NSIndexPath *)wmf_indexPathBeforeIndexPath:(NSIndexPath *)indexPath;
-- (NSIndexPath *)wmf_indexPathAfterIndexPath:(NSIndexPath *)indexPath;
-
 /**
  *  Like other UIKit methods, the completion isn't called if you pass animated = false.
  *  This method ensures the completion block is always called.
