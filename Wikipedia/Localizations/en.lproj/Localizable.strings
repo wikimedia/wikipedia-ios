@@ -481,6 +481,6 @@
 "in-the-news-notification-title" = "In the news";
 "in-the-news-currently-trending" = "Currently trending";
 
-"number-thousands" = "$1k";
-"number-millions" = "$1m";
-"number-billions" = "$1b";
+"number-thousands" = "$1K";
+"number-millions" = "$1M";
+"number-billions" = "$1B";
