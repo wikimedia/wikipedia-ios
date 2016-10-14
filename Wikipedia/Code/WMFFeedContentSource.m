@@ -42,6 +42,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 @property (readwrite, nonatomic, strong) WMFFeedContentFetcher *fetcher;
 
+@property (readwrite, getter=isSchedulingNotifications) BOOL schedulingNotifications;
+
 @end
 
 @implementation WMFFeedContentSource
@@ -257,6 +259,12 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 #pragma mark - Notifications
 
 - (void)scheduleNotificationsForFeedDay:(WMFFeedDayResponse *)feedDay onDate:(NSDate *)date {
+    if (self.isSchedulingNotifications) {
+        return;
+    }
+
+    self.schedulingNotifications = YES;
+
     if (![date wmf_isTodayUTC]) { //in the news notifications only valid for the current day
         return;
     }
@@ -328,6 +336,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
             break;
         }
     }
+    self.schedulingNotifications = NO;
 }
 
 - (BOOL)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory articlePreview:(WMFArticlePreview *)articlePreview {
