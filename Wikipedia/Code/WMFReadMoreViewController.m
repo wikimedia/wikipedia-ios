@@ -103,7 +103,7 @@
 }
 
 - (NSString *)analyticsContext {
-    return @"Reader";
+    return @"Article";
 }
 
 - (NSString *)analyticsContentType {
