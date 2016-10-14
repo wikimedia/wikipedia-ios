@@ -18,15 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFContentGroupDataStore
 
-- (instancetype)initWithDatabase:(YapDatabase *)database
-{
-    self = [super initWithDatabase:database];
-    if (self) {
-        [WMFContentGroup registerViewsInDatabase:database];
-    }
-    return self;
-}
-
 #pragma mark - section access
 
 - (void)enumerateContentGroupsWithBlock:(void (^)(WMFContentGroup *_Nonnull section, BOOL *stop))block{

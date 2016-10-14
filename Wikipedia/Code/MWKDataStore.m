@@ -125,7 +125,6 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 - (instancetype)initWithDatabase:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath {
     self = [super initWithDatabase:database];
     if (self) {
-        [MWKHistoryEntry registerViewsInDatabase:database];
         self.basePath = basePath;
         [self setupLegacyDataStore];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];

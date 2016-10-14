@@ -7,16 +7,27 @@
     static dispatch_once_t onceToken;
     static id sharedInstance;
     dispatch_once(&onceToken, ^{
-        YapDatabaseOptions *options = [YapDatabaseOptions new];
-        options.enableMultiProcessSupport = YES;
-        YapDatabase *db = [[YapDatabase alloc] initWithPath:[[self class] wmf_databasePath] options:options];
-        
-        YapDatabaseCrossProcessNotification *cp = [[YapDatabaseCrossProcessNotification alloc] initWithIdentifier:@"Wikipedia"];
-        [db registerExtension:cp withName:@"WikipediaCrossProcess"];
-        sharedInstance = db;
+        sharedInstance = [self wmf_databaseWithDefaultConfiguration];
     });
     return sharedInstance;
 }
+
++ (instancetype)wmf_databaseWithDefaultConfiguration{
+    return [self wmf_databaseWithDefaultConfigurationAtPath:[[self class] wmf_databasePath]];
+}
+
++ (instancetype)wmf_databaseWithDefaultConfigurationAtPath:(NSString*)path{
+    YapDatabaseOptions *options = [YapDatabaseOptions new];
+    options.enableMultiProcessSupport = YES;
+    YapDatabase *db = [[YapDatabase alloc] initWithPath:path options:options];
+    
+    YapDatabaseCrossProcessNotification *cp = [[YapDatabaseCrossProcessNotification alloc] initWithIdentifier:@"Wikipedia"];
+    [db registerExtension:cp withName:@"WikipediaCrossProcess"];
+    [MWKHistoryEntry registerViewsInDatabase:db];
+    [WMFContentGroup registerViewsInDatabase:db];
+    return db;
+}
+
 
 + (NSString *)wmf_databasePath {
     NSString *databaseName = @"WikipediaYap.sqlite";

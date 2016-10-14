@@ -9,6 +9,12 @@
  */
 + (instancetype)sharedInstance;
 
+
++ (instancetype)wmf_databaseWithDefaultConfiguration;
+
+
++ (instancetype)wmf_databaseWithDefaultConfigurationAtPath:(NSString*)path;
+
 /**
  *  The default database path. 
  *  This is used for the sharedInstance
