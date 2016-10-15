@@ -148,7 +148,7 @@
         <!--Welcome Language View Controller-->
         <scene sceneID="SGM-7y-cTS">
             <objects>
-                <viewController storyboardIdentifier="WMFWelcomeLanguageViewController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="HdP-0o-ZZC" customClass="WMFWelcomeLanguageViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WMFWelcomeLanguageViewController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="HdP-0o-ZZC" customClass="WMFWelcomeLanguageViewController" customModule="Wikipedia" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IiS-Tf-ADU"/>
                         <viewControllerLayoutGuide type="bottom" id="7pS-zT-pQN"/>
@@ -518,6 +518,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="8Cb-IM-6Id"/>
+        <segue reference="m99-5i-TGr"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -29,7 +29,6 @@
 		0E26B0801C0F4F720004D687 /* WMFWelcomeAnalyticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E26B0761C0F4F720004D687 /* WMFWelcomeAnalyticsViewController.m */; };
 		0E26B0811C0F4F720004D687 /* WMFWelcomeIntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E26B0781C0F4F720004D687 /* WMFWelcomeIntroductionViewController.m */; };
 		0E26B0821C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E26B07A1C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.m */; };
-		0E26B0831C0F4F720004D687 /* WMFWelcomeLanguageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E26B07C1C0F4F720004D687 /* WMFWelcomeLanguageViewController.m */; };
 		0E28C4681D74ACA7000C5919 /* WMFDatabaseDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E33F2B21D57E15300C6CF94 /* WMFDatabaseDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E28C4691D74ACA7000C5919 /* MWKDataStore+WMFDataSources.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E01B2B31D5BFF13005E3134 /* MWKDataStore+WMFDataSources.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E28C46A1D74ACB1000C5919 /* WMFDatabaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E33F2B31D57E15300C6CF94 /* WMFDatabaseDataSource.m */; };
@@ -151,6 +150,7 @@
 		6D15A0B1B710BCF22B3407D4 /* Pods_Foundation_TopReadWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07BF8E52EA1D0865B77E7D7 /* Pods_Foundation_TopReadWidget.framework */; };
 		7C52DC8EA0E04A9663D8260D /* Pods_Foundation_ContinueReadingWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 408BC2932A4F85D05183DA90 /* Pods_Foundation_ContinueReadingWidget.framework */; };
 		B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00050131C52D73800515F70 /* UIApplication+RTL.swift */; };
+		B00C2F4E1DB2052C00982167 /* WMFWelcomeLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00C2F4C1DB2023000982167 /* WMFWelcomeLanguageViewController.swift */; };
 		B01162E81C24D3B200C3B52B /* WMFPageIssuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B01162E71C24D3B200C3B52B /* WMFPageIssuesViewController.m */; };
 		B011FA4C1D470F5A00AD7C5E /* WMFFindInPageKeyboardBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B011FA491D470F5A00AD7C5E /* WMFFindInPageKeyboardBar.m */; };
 		B014E99B1CD03AFF00A887D9 /* WMFCustomDeleteButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B014E99A1CD03AFF00A887D9 /* WMFCustomDeleteButtonTableViewCell.m */; };
@@ -1081,8 +1081,6 @@
 		0E26B0781C0F4F720004D687 /* WMFWelcomeIntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFWelcomeIntroductionViewController.m; path = Wikipedia/Code/WMFWelcomeIntroductionViewController.m; sourceTree = SOURCE_ROOT; };
 		0E26B0791C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFWelcomeLanguageTableViewCell.h; path = Wikipedia/Code/WMFWelcomeLanguageTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		0E26B07A1C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFWelcomeLanguageTableViewCell.m; path = Wikipedia/Code/WMFWelcomeLanguageTableViewCell.m; sourceTree = SOURCE_ROOT; };
-		0E26B07B1C0F4F720004D687 /* WMFWelcomeLanguageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFWelcomeLanguageViewController.h; path = Wikipedia/Code/WMFWelcomeLanguageViewController.h; sourceTree = SOURCE_ROOT; };
-		0E26B07C1C0F4F720004D687 /* WMFWelcomeLanguageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFWelcomeLanguageViewController.m; path = Wikipedia/Code/WMFWelcomeLanguageViewController.m; sourceTree = SOURCE_ROOT; };
 		0E28C4731D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKHistoryEntry+WMFDatabaseViews.h"; sourceTree = "<group>"; };
 		0E28C4741D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKHistoryEntry+WMFDatabaseViews.m"; sourceTree = "<group>"; };
 		0E28C4771D74D381000C5919 /* WMFDatabaseViewable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFDatabaseViewable.h; sourceTree = "<group>"; };
@@ -1240,6 +1238,7 @@
 		A8C7C5E9470E8762962DAF42 /* Pods-Foundation-TopReadWidget.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-TopReadWidget.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-TopReadWidget/Pods-Foundation-TopReadWidget.adhoc.xcconfig"; sourceTree = "<group>"; };
 		AAFEA54A25EF3EF94A0BFC54 /* Pods-Foundation-WMFModel.alphadebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFModel.alphadebug.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFModel/Pods-Foundation-WMFModel.alphadebug.xcconfig"; sourceTree = "<group>"; };
 		B00050131C52D73800515F70 /* UIApplication+RTL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+RTL.swift"; sourceTree = "<group>"; };
+		B00C2F4C1DB2023000982167 /* WMFWelcomeLanguageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeLanguageViewController.swift; path = Wikipedia/Code/WMFWelcomeLanguageViewController.swift; sourceTree = SOURCE_ROOT; };
 		B01162E61C24D3B200C3B52B /* WMFPageIssuesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFPageIssuesViewController.h; path = WikipediaUnitTests/Code/WMFPageIssuesViewController.h; sourceTree = SOURCE_ROOT; };
 		B01162E71C24D3B200C3B52B /* WMFPageIssuesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFPageIssuesViewController.m; path = WikipediaUnitTests/Code/WMFPageIssuesViewController.m; sourceTree = SOURCE_ROOT; };
 		B011FA481D470F5A00AD7C5E /* WMFFindInPageKeyboardBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFFindInPageKeyboardBar.h; path = Wikipedia/Code/WMFFindInPageKeyboardBar.h; sourceTree = SOURCE_ROOT; };
@@ -2993,8 +2992,7 @@
 			isa = PBXGroup;
 			children = (
 				B083375E1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift */,
-				0E26B07B1C0F4F720004D687 /* WMFWelcomeLanguageViewController.h */,
-				0E26B07C1C0F4F720004D687 /* WMFWelcomeLanguageViewController.m */,
+				B00C2F4C1DB2023000982167 /* WMFWelcomeLanguageViewController.swift */,
 				0E26B0791C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.h */,
 				0E26B07A1C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.m */,
 				BC90DE7A1C57D142007E0E81 /* WMFWelcomeLanguageViewController_Testing.h */,
@@ -7222,7 +7220,6 @@
 				B0E805601C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m in Sources */,
 				B0E806CF1C0CEB6E0065EBC0 /* PageHistoryLabel.m in Sources */,
 				0EC044791C7917860033D773 /* WMFArticleTextActivitySource.m in Sources */,
-				0E26B0831C0F4F720004D687 /* WMFWelcomeLanguageViewController.m in Sources */,
 				B0E5E96F1C818E7100D8E267 /* UIView+WMFWelcomeFadeInAndUp.m in Sources */,
 				0E09EAC51C4426470058F2D8 /* WMFHistoryTableViewController.m in Sources */,
 				B0F7CB581C8A89EA00996DE0 /* WelcomeIntroductionAnimationView.swift in Sources */,
@@ -7246,6 +7243,7 @@
 				B0E804D61C0CE0B40065EBC0 /* NSObject+WMFExtras.m in Sources */,
 				B0866F461CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				D8D5DB331D7A206B00526A69 /* UIWebView+BlocksKit.m in Sources */,
+				B00C2F4E1DB2052C00982167 /* WMFWelcomeLanguageViewController.swift in Sources */,
 				B0E805971C0CE2C60065EBC0 /* WMFSuggestedPagesFunnel.m in Sources */,
 				D8D5DB321D7A206B00526A69 /* UIView+BlocksKit.m in Sources */,
 				B0E804491C0CDF850065EBC0 /* WMFCollectionViewPageLayout.m in Sources */,

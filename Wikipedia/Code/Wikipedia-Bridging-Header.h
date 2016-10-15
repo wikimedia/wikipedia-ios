@@ -34,7 +34,6 @@
 #import "WMFExploreViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "WMFWelcomeIntroductionViewController.h"
-#import "WMFWelcomeLanguageViewController.h"
 #import "WMFWelcomeAnalyticsViewController.h"
 #import "WMFWelcomeFadeInAndUpOnceViewController.h"
 
