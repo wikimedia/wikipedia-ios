@@ -37,7 +37,7 @@
 #import "WMFWelcomeIntroductionViewController.h"
 #import "WMFWelcomeFadeInAndUpOnceViewController.h"
 
-#import "WMFWelcomeLanguageTableViewCell.h"
+#import "WMFCustomDeleteButtonTableViewCell.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"

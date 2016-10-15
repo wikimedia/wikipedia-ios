@@ -27,7 +27,6 @@
 		0E26B0721C0F4F550004D687 /* WMFAppViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0701C0F4F550004D687 /* WMFAppViewController.storyboard */; };
 		0E26B0731C0F4F550004D687 /* WMFTabBarUI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0711C0F4F550004D687 /* WMFTabBarUI.storyboard */; };
 		0E26B0811C0F4F720004D687 /* WMFWelcomeIntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E26B0781C0F4F720004D687 /* WMFWelcomeIntroductionViewController.m */; };
-		0E26B0821C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E26B07A1C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.m */; };
 		0E28C4681D74ACA7000C5919 /* WMFDatabaseDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E33F2B21D57E15300C6CF94 /* WMFDatabaseDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E28C4691D74ACA7000C5919 /* MWKDataStore+WMFDataSources.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E01B2B31D5BFF13005E3134 /* MWKDataStore+WMFDataSources.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E28C46A1D74ACB1000C5919 /* WMFDatabaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E33F2B31D57E15300C6CF94 /* WMFDatabaseDataSource.m */; };
@@ -208,6 +207,7 @@
 		B0DE92271D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0DE92261D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard */; };
 		B0DE922B1D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DE92291D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m */; };
 		B0DF6F811CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */; };
+		B0E294CB1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294CA1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift */; };
 		B0E5E96F1C818E7100D8E267 /* UIView+WMFWelcomeFadeInAndUp.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E5E96E1C818E7100D8E267 /* UIView+WMFWelcomeFadeInAndUp.m */; };
 		B0E5E9721C8237EC00D8E267 /* WMFWelcomeFadeInAndUpOnceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E5E9711C8237EC00D8E267 /* WMFWelcomeFadeInAndUpOnceViewController.m */; };
 		B0E802B81C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802B71C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m */; };
@@ -1077,8 +1077,6 @@
 		0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFWelcome.storyboard; path = Wikipedia/Code/WMFWelcome.storyboard; sourceTree = SOURCE_ROOT; };
 		0E26B0771C0F4F720004D687 /* WMFWelcomeIntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFWelcomeIntroductionViewController.h; path = Wikipedia/Code/WMFWelcomeIntroductionViewController.h; sourceTree = SOURCE_ROOT; };
 		0E26B0781C0F4F720004D687 /* WMFWelcomeIntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFWelcomeIntroductionViewController.m; path = Wikipedia/Code/WMFWelcomeIntroductionViewController.m; sourceTree = SOURCE_ROOT; };
-		0E26B0791C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFWelcomeLanguageTableViewCell.h; path = Wikipedia/Code/WMFWelcomeLanguageTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		0E26B07A1C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFWelcomeLanguageTableViewCell.m; path = Wikipedia/Code/WMFWelcomeLanguageTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		0E28C4731D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKHistoryEntry+WMFDatabaseViews.h"; sourceTree = "<group>"; };
 		0E28C4741D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKHistoryEntry+WMFDatabaseViews.m"; sourceTree = "<group>"; };
 		0E28C4771D74D381000C5919 /* WMFDatabaseViewable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFDatabaseViewable.h; sourceTree = "<group>"; };
@@ -1381,6 +1379,7 @@
 		B0DE92291D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFBarButtonItemPopoverMessageViewController.m; sourceTree = "<group>"; };
 		B0DF6F7F1CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKWebView+WMFWebViewControllerJavascript.h"; path = "Wikipedia/Code/WKWebView+WMFWebViewControllerJavascript.h"; sourceTree = SOURCE_ROOT; };
 		B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKWebView+WMFWebViewControllerJavascript.m"; path = "Wikipedia/Code/WKWebView+WMFWebViewControllerJavascript.m"; sourceTree = SOURCE_ROOT; };
+		B0E294CA1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeLanguageTableViewCell.swift; path = Wikipedia/Code/WMFWelcomeLanguageTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		B0E5E96D1C818E7100D8E267 /* UIView+WMFWelcomeFadeInAndUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+WMFWelcomeFadeInAndUp.h"; path = "Wikipedia/Code/UIView+WMFWelcomeFadeInAndUp.h"; sourceTree = SOURCE_ROOT; };
 		B0E5E96E1C818E7100D8E267 /* UIView+WMFWelcomeFadeInAndUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+WMFWelcomeFadeInAndUp.m"; path = "Wikipedia/Code/UIView+WMFWelcomeFadeInAndUp.m"; sourceTree = SOURCE_ROOT; };
 		B0E5E9701C8237EC00D8E267 /* WMFWelcomeFadeInAndUpOnceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFWelcomeFadeInAndUpOnceViewController.h; path = Wikipedia/Code/WMFWelcomeFadeInAndUpOnceViewController.h; sourceTree = SOURCE_ROOT; };
@@ -2992,8 +2991,7 @@
 			children = (
 				B083375E1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift */,
 				B00C2F4C1DB2023000982167 /* WMFWelcomeLanguageViewController.swift */,
-				0E26B0791C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.h */,
-				0E26B07A1C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.m */,
+				B0E294CA1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift */,
 				BC90DE7A1C57D142007E0E81 /* WMFWelcomeLanguageViewController_Testing.h */,
 				B0F7CB591C8A89EF00996DE0 /* WelcomeLanguagesAnimationView.swift */,
 			);
@@ -7252,7 +7250,6 @@
 				087BFC581C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.m in Sources */,
 				B0E802BB1C0CD2260065EBC0 /* WMFStyleManager.m in Sources */,
 				B0E8053C1C0CE0DC0065EBC0 /* UIButton+WMFMultiLineHeight.swift in Sources */,
-				0E26B0821C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.m in Sources */,
 				B011FA4C1D470F5A00AD7C5E /* WMFFindInPageKeyboardBar.m in Sources */,
 				B0E8066B1C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m in Sources */,
 				D8CDBA9F1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift in Sources */,
@@ -7327,6 +7324,7 @@
 				B0E805481C0CE0DC0065EBC0 /* UIImage+WMFSerialization.m in Sources */,
 				D86706C31D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m in Sources */,
 				B0726DA91C216F4300E57B2A /* WMFArticleFooterMenuViewController.m in Sources */,
+				B0E294CB1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift in Sources */,
 				B0E806D01C0CEB6E0065EBC0 /* PageHistoryResultCell.m in Sources */,
 				B08337611DB17DC5002860D2 /* WMFWelcomeUsageReportViewController.swift in Sources */,
 				BC23E4E51C22429100B5AFDE /* WMFRevisionQueryResults.m in Sources */,
