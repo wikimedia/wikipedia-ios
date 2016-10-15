@@ -26,6 +26,7 @@
 #import "UIColor+WMFHexColor.h"
 #import "BITHockeyManager+WMFExtensions.h"
 #import <HockeySDK/BITCrashManager.h>
+#import "UIViewController+WMFOpenExternalUrl.h"
 
 // View Controllers
 #import "WMFArticleViewController_Private.h"
@@ -34,7 +35,6 @@
 #import "WMFExploreViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "WMFWelcomeIntroductionViewController.h"
-#import "WMFWelcomeAnalyticsViewController.h"
 #import "WMFWelcomeFadeInAndUpOnceViewController.h"
 
 #import "WMFWelcomeLanguageTableViewCell.h"

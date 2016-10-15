@@ -9,7 +9,7 @@
         <!--Welcome Page View Controller-->
         <scene sceneID="ALg-cQ-BjN">
             <objects>
-                <pageViewController storyboardIdentifier="WMFWelcomePageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Moa-oS-JJe" customClass="WMFWelcomePageViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="WMFWelcomePageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Moa-oS-JJe" customClass="WMFWelcomePageViewController" customModule="Wikipedia" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="86g-3V-GKL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1786" y="265"/>
@@ -227,7 +227,7 @@
         <!--Welcome Panel View Controller-->
         <scene sceneID="2BG-1v-r2M">
             <objects>
-                <viewController storyboardIdentifier="WMFWelcomePanelViewController" id="qLZ-5x-Kxd" customClass="WMFWelcomePanelViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WMFWelcomePanelViewController" id="qLZ-5x-Kxd" customClass="WMFWelcomePanelViewController" customModule="Wikipedia" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xwy-I8-ge2"/>
                         <viewControllerLayoutGuide type="bottom" id="SLT-o2-kyd"/>
@@ -306,7 +306,7 @@
         <!--Welcome Analytics View Controller-->
         <scene sceneID="HQg-Lp-5C8">
             <objects>
-                <viewController storyboardIdentifier="WMFWelcomeAnalyticsViewController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="vzW-SM-zih" customClass="WMFWelcomeAnalyticsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WMFWelcomeAnalyticsViewController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="vzW-SM-zih" customClass="WMFWelcomeAnalyticsViewController" customModule="Wikipedia" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="958-28-emo"/>
                         <viewControllerLayoutGuide type="bottom" id="fGr-TX-srS"/>
@@ -385,7 +385,7 @@
         <!--Welcome Language Table View Controller-->
         <scene sceneID="5Vt-or-T7N">
             <objects>
-                <viewController storyboardIdentifier="WMFWelcomeLanguageTableViewController" id="uX3-NZ-3WE" customClass="WMFWelcomeLanguageTableViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WMFWelcomeLanguageTableViewController" id="uX3-NZ-3WE" customClass="WMFWelcomeLanguageTableViewController" customModule="Wikipedia" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TLC-av-U4m"/>
                         <viewControllerLayoutGuide type="bottom" id="QZ0-90-atL"/>
@@ -473,7 +473,7 @@
         <!--Welcome Usage Report View Controller-->
         <scene sceneID="SMZ-9p-jrb">
             <objects>
-                <viewController storyboardIdentifier="WMFWelcomeUsageReportViewController" id="Sz5-Ln-qWW" customClass="WMFWelcomeUsageReportViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WMFWelcomeUsageReportViewController" id="Sz5-Ln-qWW" customClass="WMFWelcomeUsageReportViewController" customModule="Wikipedia" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eCu-K6-R2a"/>
                         <viewControllerLayoutGuide type="bottom" id="Qe4-O6-Yp7"/>
