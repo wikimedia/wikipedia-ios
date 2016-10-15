@@ -34,9 +34,6 @@
 #import "WMFArticleListDataSourceTableViewController.h"
 #import "WMFExploreViewController.h"
 #import "WMFLanguagesViewController.h"
-#import "WMFWelcomeIntroductionViewController.h"
-#import "WMFWelcomeFadeInAndUpOnceViewController.h"
-
 #import "WMFCustomDeleteButtonTableViewCell.h"
 
 // Diagnostics
