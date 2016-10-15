@@ -111,7 +111,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="next:" destination="sbE-3l-bqs" eventType="touchUpInside" id="w0f-il-3gR"/>
+                                    <action selector="nextWithSender:" destination="h5e-he-aXk" eventType="touchUpInside" id="wiW-I1-IEt"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -266,7 +266,7 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="next:" destination="YP5-jr-Q3X" eventType="touchUpInside" id="beE-dm-WGv"/>
+                                    <action selector="nextWithSender:" destination="YP5-jr-Q3X" eventType="touchUpInside" id="6yV-xT-ZbG"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -518,6 +518,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="m99-5i-TGr"/>
+        <segue reference="8Cb-IM-6Id"/>
     </inferredMetricsTieBreakers>
 </document>

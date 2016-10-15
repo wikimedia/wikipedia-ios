@@ -1,8 +1,8 @@
 
 class WMFWelcomeLanguageTableViewController: UIViewController, WMFLanguagesViewControllerDelegate, UITableViewDataSource {
     
-    @IBOutlet var languageTableView:UITableView!
-    @IBOutlet var moreLanguagesButton:UIButton!;
+    @IBOutlet private var languageTableView:UITableView!
+    @IBOutlet private var moreLanguagesButton:UIButton!;
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +22,7 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFLanguagesViewC
         updateDeleteButtonsVisibility()
     }
     
-    func updateDeleteButtonsVisibility(){
+    private func updateDeleteButtonsVisibility(){
         for cell in languageTableView.visibleCells as! [WMFWelcomeLanguageTableViewCell] {
             cell.deleteButton.hidden = (MWKLanguageLinkController.sharedInstance().preferredLanguages.count == 1)
         }
@@ -69,7 +69,7 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFLanguagesViewC
         useFirstPreferredLanguageAsSearchLanguage()
     }
 
-    func useFirstPreferredLanguageAsSearchLanguage() {
+    private func useFirstPreferredLanguageAsSearchLanguage() {
         let firstPreferredLanguage = MWKLanguageLinkController.sharedInstance().appLanguage
         NSUserDefaults.wmf_userDefaults().wmf_setCurrentSearchLanguageDomain(firstPreferredLanguage.siteURL())
     }

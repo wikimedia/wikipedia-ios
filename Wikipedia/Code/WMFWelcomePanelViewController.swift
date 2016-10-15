@@ -1,15 +1,15 @@
 
 class WMFWelcomePanelViewController: UIViewController {
 
-    @IBOutlet var containerView:UIView!
-    @IBOutlet var nextButton:UIButton!
-    @IBOutlet var titleLabel:UILabel!
-    @IBOutlet var subtitleLabel:UILabel!
+    @IBOutlet private var containerView:UIView!
+    @IBOutlet private var nextButton:UIButton!
+    @IBOutlet private var titleLabel:UILabel!
+    @IBOutlet private var subtitleLabel:UILabel!
 
-    var viewControllerForContainerView:UIViewController? = nil
-    var titleString:String? = nil
-    var subtitleString:String? = nil
-    var buttonString:String? = nil
+    private var viewControllerForContainerView:UIViewController? = nil
+    private var titleString:String? = nil
+    private var subtitleString:String? = nil
+    private var buttonString:String? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +20,7 @@ class WMFWelcomePanelViewController: UIViewController {
         nextButton.setTitleColor(UIColor.wmf_blueTintColor(), forState: .Normal)
     }
     
-    func embedViewControllerForContainerView() {
+    private func embedViewControllerForContainerView() {
         if((viewControllerForContainerView) != nil){
             viewControllerForContainerView?.willMoveToParentViewController(self)
             containerView.addSubview((viewControllerForContainerView?.view)!)
@@ -32,14 +32,14 @@ class WMFWelcomePanelViewController: UIViewController {
         }
     }
     
-    internal func useLanguagesConfiguration(){
+    func useLanguagesConfiguration(){
         viewControllerForContainerView = WMFWelcomeLanguageTableViewController.wmf_viewControllerWithIdentifier("WMFWelcomeLanguageTableViewController", fromStoryboardNamed: "WMFWelcome")
         titleString = localizedStringForKeyFallingBackOnEnglish("welcome-languages-title").uppercaseStringWithLocale(NSLocale.currentLocale())
         subtitleString = localizedStringForKeyFallingBackOnEnglish("welcome-languages-sub-title")
         buttonString = localizedStringForKeyFallingBackOnEnglish("welcome-languages-continue-button").uppercaseStringWithLocale(NSLocale.currentLocale())
     }
 
-    internal func useUsageReportsConfiguration(){
+    func useUsageReportsConfiguration(){
         viewControllerForContainerView = WMFWelcomeUsageReportViewController.wmf_viewControllerWithIdentifier("WMFWelcomeUsageReportViewController", fromStoryboardNamed: "WMFWelcome")
         titleString = localizedStringForKeyFallingBackOnEnglish("welcome-volunteer-title").uppercaseStringWithLocale(NSLocale.currentLocale())
         subtitleString = localizedStringForKeyFallingBackOnEnglish("welcome-volunteer-sub-title")

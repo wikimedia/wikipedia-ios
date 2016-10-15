@@ -1,8 +1,8 @@
 
 class WMFWelcomeUsageReportViewController: UIViewController {
 
-    @IBOutlet var toggleLabel:UILabel!
-    @IBOutlet var toggle:UISwitch!
+    @IBOutlet private var toggleLabel:UILabel!
+    @IBOutlet private var toggle:UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +19,7 @@ class WMFWelcomeUsageReportViewController: UIViewController {
         }
     }
     
-    func updateToggleLabelTitleForUsageReportsIsOn(isOn: Bool) {
+    private func updateToggleLabelTitleForUsageReportsIsOn(isOn: Bool) {
         let title = isOn ? localizedStringForKeyFallingBackOnEnglish("welcome-volunteer-thanks").stringByReplacingOccurrencesOfString("$1", withString: "😀") : localizedStringForKeyFallingBackOnEnglish("welcome-volunteer-send-usage-reports")
         toggleLabel.text = title
     }

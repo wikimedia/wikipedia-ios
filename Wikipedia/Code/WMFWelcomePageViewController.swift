@@ -21,7 +21,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         }
     }
     
-    let pageControllers:[UIViewController] = [
+    private let pageControllers:[UIViewController] = [
         WMFWelcomeIntroductionViewController.wmf_viewControllerWithIdentifier("WMFWelcomeIntroductionViewController", fromStoryboardNamed: "WMFWelcome"),
         WMFWelcomeLanguageViewController.wmf_viewControllerWithIdentifier("WMFWelcomeLanguageViewController", fromStoryboardNamed: "WMFWelcome"),
         WMFWelcomeAnalyticsViewController.wmf_viewControllerWithIdentifier("WMFWelcomeAnalyticsViewController", fromStoryboardNamed: "WMFWelcome")
