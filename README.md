@@ -5,7 +5,7 @@ The official Wikipedia iOS client.
 
 * OS target: iOS 9.0 or higher
 * Device target: iPhone, iPod, iPad
-* License: MIT-style
+* License: MIT License
 * Source repo: https://github.com/wikimedia/wikipedia-ios
 * Code review:
   * GitHub: https://github.com/wikimedia/wikipedia-ios
