@@ -809,6 +809,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
             vc.popoverPresentationController.sourceRect = CGRectMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds), 0, 0);
             vc.popoverPresentationController.canOverlapSourceViewRect = YES;
             vc.popoverPresentationController.permittedArrowDirections = 0;
+            vc.popoverPresentationController.passthroughViews = nil;
+            vc.modalInPopover = YES;
         }
         vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         
