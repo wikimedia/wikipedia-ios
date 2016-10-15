@@ -1,5 +1,4 @@
 #import "WMFWelcomeFadeInAndUpOnceViewController.h"
-#import "UIView+WMFWelcomeFadeInAndUp.h"
 #import "Wikipedia-Swift.h"
 
 @interface WMFWelcomeFadeInAndUpOnceViewController ()
