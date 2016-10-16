@@ -92,6 +92,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xhM-X9-Rcd">
                                 <constraints>
+                                    <constraint firstAttribute="width" priority="999" constant="355" id="LXH-Eg-4qN"/>
                                     <constraint firstAttribute="height" constant="60" id="eCf-qK-vYQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -119,12 +120,13 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="uRu-9L-F8k" firstAttribute="top" secondItem="xhM-X9-Rcd" secondAttribute="bottom" id="Axi-Pu-NMV"/>
+                            <constraint firstItem="xhM-X9-Rcd" firstAttribute="centerX" secondItem="wCD-x0-Vga" secondAttribute="centerX" id="BQK-UB-51A"/>
                             <constraint firstItem="xhM-X9-Rcd" firstAttribute="top" secondItem="9dd-dc-1mh" secondAttribute="bottom" id="Cch-DY-M6x"/>
-                            <constraint firstAttribute="trailing" secondItem="xhM-X9-Rcd" secondAttribute="trailing" constant="10" id="N3j-Bi-0rO"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xhM-X9-Rcd" secondAttribute="trailing" constant="10" id="N3j-Bi-0rO"/>
                             <constraint firstItem="9dd-dc-1mh" firstAttribute="leading" secondItem="wCD-x0-Vga" secondAttribute="leading" id="RQB-aW-H7U"/>
                             <constraint firstItem="9dd-dc-1mh" firstAttribute="top" secondItem="wCD-x0-Vga" secondAttribute="top" id="V9F-gb-WGm"/>
                             <constraint firstAttribute="trailing" secondItem="9dd-dc-1mh" secondAttribute="trailing" id="XcV-c7-9Qt"/>
-                            <constraint firstItem="xhM-X9-Rcd" firstAttribute="leading" secondItem="wCD-x0-Vga" secondAttribute="leading" constant="10" id="fj1-Nz-POk"/>
+                            <constraint firstItem="xhM-X9-Rcd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="wCD-x0-Vga" secondAttribute="leading" constant="10" id="fj1-Nz-POk"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="a7n-EJ-oET"/>
