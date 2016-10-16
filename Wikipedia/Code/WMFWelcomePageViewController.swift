@@ -48,6 +48,9 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         gradientView.mas_makeConstraints { make in
             make.top.bottom().leading().and().trailing().equalTo()(self.view)
         }
+        if let scrollView = wmf_subviewOfType(UIScrollView) {
+            scrollView.clipsToBounds = false
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -98,11 +101,6 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     override func shouldAutorotate() -> Bool {
         return false
     }
-    
-    override func viewDidLayoutSubviews() {
-        wmf_extendPagesUnderPageControl()
-        super.viewDidLayoutSubviews()
-    }
 }
 
 extension UIPageViewController {
@@ -113,15 +111,5 @@ extension UIPageViewController {
             }
         }
         return nil
-    }
-    
-    //HAX: information http://stackoverflow.com/a/35679529
-    func wmf_extendPagesUnderPageControl() {
-        if let scrollView = wmf_subviewOfType(UIScrollView), pageControl = wmf_subviewOfType(UIPageControl) {
-            scrollView.frame = view.bounds
-            view.bringSubviewToFront(pageControl)
-        }else{
-            assert(false, "Expected UIPageViewController subviews not found!")
-        }
     }
 }
