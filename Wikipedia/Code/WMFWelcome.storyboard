@@ -101,14 +101,15 @@
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="value" red="1" green="1" blue="1" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="0.0"/>
+                                        <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="0.0"/>
+                                        <real key="value" value="8"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="nextWithSender:" destination="h5e-he-aXk" eventType="touchUpInside" id="wiW-I1-IEt"/>
@@ -119,11 +120,11 @@
                         <constraints>
                             <constraint firstItem="uRu-9L-F8k" firstAttribute="top" secondItem="xhM-X9-Rcd" secondAttribute="bottom" id="Axi-Pu-NMV"/>
                             <constraint firstItem="xhM-X9-Rcd" firstAttribute="top" secondItem="9dd-dc-1mh" secondAttribute="bottom" id="Cch-DY-M6x"/>
-                            <constraint firstAttribute="trailing" secondItem="xhM-X9-Rcd" secondAttribute="trailing" id="N3j-Bi-0rO"/>
+                            <constraint firstAttribute="trailing" secondItem="xhM-X9-Rcd" secondAttribute="trailing" constant="10" id="N3j-Bi-0rO"/>
                             <constraint firstItem="9dd-dc-1mh" firstAttribute="leading" secondItem="wCD-x0-Vga" secondAttribute="leading" id="RQB-aW-H7U"/>
                             <constraint firstItem="9dd-dc-1mh" firstAttribute="top" secondItem="wCD-x0-Vga" secondAttribute="top" id="V9F-gb-WGm"/>
                             <constraint firstAttribute="trailing" secondItem="9dd-dc-1mh" secondAttribute="trailing" id="XcV-c7-9Qt"/>
-                            <constraint firstItem="xhM-X9-Rcd" firstAttribute="leading" secondItem="wCD-x0-Vga" secondAttribute="leading" id="fj1-Nz-POk"/>
+                            <constraint firstItem="xhM-X9-Rcd" firstAttribute="leading" secondItem="wCD-x0-Vga" secondAttribute="leading" constant="10" id="fj1-Nz-POk"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="a7n-EJ-oET"/>
@@ -206,7 +207,7 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="VzI-zt-78F" firstAttribute="centerX" secondItem="lzy-Eu-ayy" secondAttribute="centerX" id="Sqe-CX-Wa1"/>
-                            <constraint firstAttribute="bottom" secondItem="VzI-zt-78F" secondAttribute="bottom" constant="10" id="tQW-OY-94w"/>
+                            <constraint firstAttribute="bottom" secondItem="VzI-zt-78F" secondAttribute="bottom" id="tQW-OY-94w"/>
                             <constraint firstItem="VzI-zt-78F" firstAttribute="top" secondItem="lzy-Eu-ayy" secondAttribute="top" id="u0o-uE-an5"/>
                         </constraints>
                     </view>
@@ -364,7 +365,7 @@
                         <constraints>
                             <constraint firstItem="WBJ-0G-ANz" firstAttribute="leading" secondItem="aer-mo-k0K" secondAttribute="leading" id="0EX-Hd-mKo"/>
                             <constraint firstAttribute="trailing" secondItem="WBJ-0G-ANz" secondAttribute="trailing" id="KQd-tE-jaY"/>
-                            <constraint firstAttribute="bottom" secondItem="WBJ-0G-ANz" secondAttribute="bottom" constant="10" id="NJQ-7f-zMv"/>
+                            <constraint firstAttribute="bottom" secondItem="WBJ-0G-ANz" secondAttribute="bottom" id="NJQ-7f-zMv"/>
                             <constraint firstItem="WBJ-0G-ANz" firstAttribute="top" secondItem="aer-mo-k0K" secondAttribute="top" id="Tbg-GD-gvR"/>
                         </constraints>
                     </view>
