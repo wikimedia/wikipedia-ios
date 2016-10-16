@@ -2950,11 +2950,10 @@
 			isa = PBXGroup;
 			children = (
 				0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */,
-				B083375C1DB16A09002860D2 /* WMFWelcomePanelViewController.swift */,
 				B0E294CC1DB2CF4300861D04 /* UIView+WMFWelcomeFadeInAndUp.swift */,
 				B0E294CE1DB2D67200861D04 /* WMFWelcomeFadeInAndUpOnceViewController.swift */,
 				B0F7CB521C8A87B300996DE0 /* Animation */,
-				0E26B0881C0FD7E00004D687 /* Container */,
+				0E26B0881C0FD7E00004D687 /* Containers */,
 				0E26B0891C0FD7F70004D687 /* Intro */,
 				0E26B08A1C0FD8040004D687 /* Language */,
 				0E26B08B1C0FD80B0004D687 /* Analytics */,
@@ -2963,12 +2962,13 @@
 			path = "UI-V5";
 			sourceTree = "<group>";
 		};
-		0E26B0881C0FD7E00004D687 /* Container */ = {
+		0E26B0881C0FD7E00004D687 /* Containers */ = {
 			isa = PBXGroup;
 			children = (
 				B083371D1DADB251002860D2 /* WMFWelcomePageViewController.swift */,
+				B083375C1DB16A09002860D2 /* WMFWelcomePanelViewController.swift */,
 			);
-			name = Container;
+			name = Containers;
 			sourceTree = "<group>";
 		};
 		0E26B0891C0FD7F70004D687 /* Intro */ = {

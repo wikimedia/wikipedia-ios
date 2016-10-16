@@ -18,6 +18,7 @@ class WMFWelcomePanelViewController: UIViewController {
         subtitleLabel.text = subtitleString
         nextButton.setTitle(buttonString, forState: .Normal)
         nextButton.setTitleColor(UIColor.wmf_blueTintColor(), forState: .Normal)
+        containerView.layer.borderWidth = 1.0 / UIScreen.mainScreen().scale
     }
     
     private func embedViewControllerForContainerView() {
