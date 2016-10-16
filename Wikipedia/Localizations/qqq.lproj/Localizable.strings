@@ -360,8 +360,9 @@
 "potd-empty-error-description" = "Error message when app fails to download Commons Picture of the Day. $1 will be substitued with the date which the app attempted to retrieve.";
 "potd-description-prefix" = "Prefix to picture of the day description which states it was the picture of the day for a specific date. The $1 token is subtituted for the date.";
 "welcome-explore-title" = "Title for welcome screen explaining new exploration features\n{{Identical|Explore}}";
-"welcome-explore-new-ways-title" = "Title for welcome screens including explanation of new notification features";
 "welcome-explore-sub-title" = "Sub-title for exploration welcome screen";
+"welcome-explore-new-ways-title" = "Title for welcome screens including explanation of new notification features";
+"welcome-explore-new-ways-sub-title" = "Sub-title for exploration welcome screen including explanation of new notification features";
 "welcome-explore-tell-me-more" = "Title for link which when tapped shows explaination of new exploration features";
 "welcome-explore-tell-me-more-about-explore" = "Title for detailed explore explanation";
 "welcome-explore-tell-me-more-details" = "A more detailed explanation of new exploration features";

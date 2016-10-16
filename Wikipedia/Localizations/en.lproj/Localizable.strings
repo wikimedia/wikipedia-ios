@@ -394,8 +394,9 @@
 "potd-description-prefix" = "Picture of the day for $1";
 
 "welcome-explore-title" = "Explore";
-"welcome-explore-new-ways-title" = "New ways to explore";
 "welcome-explore-sub-title" = "A new way to discover interesting articles every day";
+"welcome-explore-new-ways-title" = "New ways to explore";
+"welcome-explore-new-ways-sub-title" = "New notifications and widgets to help you discover interesting articles";
 "welcome-explore-tell-me-more" = "Tell me more";
 "welcome-explore-tell-me-more-about-explore" = "More about Explore";
 "welcome-explore-tell-me-more-details" = "When you read an article, related articles are automatically added to your Explore feed. This doesn’t change how we collect your information, and your reading history is still private.";

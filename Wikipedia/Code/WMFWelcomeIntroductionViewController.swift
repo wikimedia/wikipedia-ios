@@ -12,7 +12,7 @@ class WMFWelcomeIntroductionViewController: WMFWelcomeFadeInAndUpOnceViewControl
 
         titleLabel.adjustsFontSizeToFitWidth = true
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-explore-new-ways-title").uppercaseStringWithLocale(NSLocale.currentLocale())
-        subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-explore-sub-title")
+        subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-explore-new-ways-sub-title")
         tellMeMoreButton.setTitle(localizedStringForKeyFallingBackOnEnglish("welcome-explore-tell-me-more"), forState: .Normal)
         nextButton.setTitle(localizedStringForKeyFallingBackOnEnglish("welcome-explore-continue-button").uppercaseStringWithLocale(NSLocale.currentLocale()), forState: .Normal)
         animationView.backgroundColor = UIColor.clearColor()
