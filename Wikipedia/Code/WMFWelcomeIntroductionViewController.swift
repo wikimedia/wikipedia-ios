@@ -10,7 +10,8 @@ class WMFWelcomeIntroductionViewController: WMFWelcomeFadeInAndUpOnceViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-explore-title").uppercaseStringWithLocale(NSLocale.currentLocale())
+        titleLabel.adjustsFontSizeToFitWidth = true
+        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-explore-new-ways-title").uppercaseStringWithLocale(NSLocale.currentLocale())
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-explore-sub-title")
         tellMeMoreButton.setTitle(localizedStringForKeyFallingBackOnEnglish("welcome-explore-tell-me-more"), forState: .Normal)
         nextButton.setTitle(localizedStringForKeyFallingBackOnEnglish("welcome-explore-continue-button").uppercaseStringWithLocale(NSLocale.currentLocale()), forState: .Normal)

@@ -37,8 +37,8 @@
                                                     <constraint firstAttribute="width" constant="143" id="R9n-VI-TEI"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="fva-en-jL2">
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="50"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="fva-en-jL2">
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="34"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -138,7 +138,7 @@
                         <outlet property="nextButton" destination="xhM-X9-Rcd" id="a7u-X1-Y5Q"/>
                         <outlet property="subTitleLabel" destination="SqE-XP-Cxz" id="QbI-tw-p0O"/>
                         <outlet property="tellMeMoreButton" destination="6l1-FL-tma" id="ACB-Ua-og1"/>
-                        <outlet property="titleLabel" destination="fva-en-jL2" id="0TW-Ij-IYt"/>
+                        <outlet property="titleLabel" destination="fva-en-jL2" id="Pbt-4U-hiG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h5e-he-aXk" userLabel="First Responder" sceneMemberID="firstResponder"/>
