@@ -50,6 +50,13 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if let pageControl = wmf_subviewOfType(UIPageControl) {
+            pageControl.userInteractionEnabled = false
+        }
+    }
+
     func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
         return pageControllers.count
     }
