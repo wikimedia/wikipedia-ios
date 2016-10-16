@@ -91,4 +91,30 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     override func shouldAutorotate() -> Bool {
         return false
     }
+    
+    override func viewDidLayoutSubviews() {
+        wmf_extendPagesUnderPageControl()
+        super.viewDidLayoutSubviews()
+    }
+}
+
+extension UIPageViewController {
+    func wmf_subviewOfType<T>(type:T.Type) -> T? {
+        for subview in view.subviews {
+            if subview is T {
+                return subview as? T
+            }
+        }
+        return nil
+    }
+    
+    //HAX: information http://stackoverflow.com/a/35679529
+    func wmf_extendPagesUnderPageControl() {
+        if let scrollView = wmf_subviewOfType(UIScrollView), pageControl = wmf_subviewOfType(UIPageControl) {
+            scrollView.frame = view.bounds
+            view.bringSubviewToFront(pageControl)
+        }else{
+            assert(false, "Expected UIPageViewController subviews not found!")
+        }
+    }
 }
