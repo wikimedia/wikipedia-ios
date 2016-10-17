@@ -234,7 +234,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     [self.contentStore addContentGroup:group associatedContent:@[image]];
 }
 
-- (void)saveGroupForNews:(NSArray<WMFFeedNewsStory *> *)news date:(NSDate *)date {
+- (void)saveGroupForNews:(NSArray<WMFFeedNewsStory *> *)news pageViews:(NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)date {
 
     WMFNewsContentGroup *group = [self newsForDate:date];
 
@@ -245,7 +245,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     [news enumerateObjectsUsingBlock:^(WMFFeedNewsStory *_Nonnull story, NSUInteger idx, BOOL *_Nonnull stop) {
         [story.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
             NSURL *url = [obj articleURL];
-            [self.previewStore addPreviewWithURL:url updatedWithFeedPreview:obj pageViews:nil];
+            [self.previewStore addPreviewWithURL:url updatedWithFeedPreview:obj pageViews:pageViews[url]];
         }];
     }];
 
