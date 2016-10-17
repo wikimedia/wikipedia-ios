@@ -642,9 +642,14 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 }
 
 - (void)configureStoryCell:(WMFArticlePreviewCollectionViewCell *)cell withSection:(WMFNewsContentGroup *)section preview:(WMFArticlePreview *)preview userData:(MWKHistoryEntry *)userData atIndexPath:(NSIndexPath *)indexPath {
+    NSArray<WMFFeedNewsStory *> *stories = [self contentForGroup:section];
+    if (indexPath.item >= stories.count) {
+        return;
+    }
+    WMFFeedNewsStory *story = stories[indexPath.item];
     cell.titleText = [preview.displayTitle wmf_stringByRemovingHTML];
     cell.descriptionText = preview.wikidataDescription;
-    cell.snippetText = preview.snippet;
+    cell.snippetText = [story.storyHTML wmf_stringByRemovingHTML];
     [cell setImageURL:preview.thumbnailURL];
     [cell setSaveableURL:preview.url savedPageList:self.userStore.savedPageList];
     cell.saveButtonController.analyticsContext = [self analyticsContext];
