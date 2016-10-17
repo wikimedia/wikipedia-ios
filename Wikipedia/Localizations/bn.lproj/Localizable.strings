@@ -245,6 +245,8 @@
 "button-ok" = "ঠিক আছে";
 "button-save-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "button-saved-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
+"button-saved-remove" = "সংরক্ষণ থেকে সরান";
+"button-read-now" = "এখন পড়ুন";
 "button-report-a-bug" = "বাগ রিপোর্ট করুন";
 "onboarding-create-account" = "অ্যাকাউন্ট তৈরি করুন";
 "onboarding-login" = "প্রবেশ";
@@ -343,8 +345,7 @@
 "home-hide-suggestion-prompt" = "এই পরামর্শ লুকান";
 "home-hide-suggestion-cancel" = "বাতিল";
 "home-accessibility-label" = "উইকিপিডিয়া, অন্বেষণ";
-// Fuzzy
-"home-button-accessibility-label" = "নিড়পাতা বোতাম";
+"home-button-accessibility-label" = "প্রধান পাতা";
 "potd-empty-error-description" = "$1 দিনের ছবি পুনরুদ্ধার করতে ব্যর্থ হয়েছে";
 "potd-description-prefix" = "$1 তারিখে আজকের নির্বাচিত ছবি";
 "welcome-explore-title" = "অন্বেষণ করুন";
@@ -385,6 +386,7 @@
 "explore-continue-reading-heading" = "পড়া অব্যাহত রাখুন";
 "explore-nearby-heading" = "নিকটবর্তী স্থানগুলি";
 "explore-nearby-sub-heading-your-location" = "আপনার অবস্থান";
+"explore-continue-related-heading" = "কারণ আপনি পড়েছেন";
 "explore-main-page-heading" = "আজ উইকিপিডিয়ায়";
 "explore-random-article-heading" = "অজানা যে-কোনো নিবন্ধ";
 "explore-random-article-sub-heading" = "ইংরেজি উইকিপিডিয়া";
@@ -404,7 +406,7 @@
 "continue-reading-empty-description" = "আরও নিবন্ধ পাঠ করতে উইকিপিডিয়া অন্বেষণ করুন";
 "top-read-see-more" = "আরও শীর্ষ পঠিত দেখুন";
 "top-read-see-more-trending" = "আরো প্রবণতা দেখুন";
-"number-thousands" = "$1 হাজার";
 "top-read-header-with-language" = "$1 উইকিপিডিয়া";
 "top-read-header-generic" = "উইকিপিডিয়া";
 "reference-title" = "তথ্যসূত্র $1";
+"number-thousands" = "$1 হাজার";

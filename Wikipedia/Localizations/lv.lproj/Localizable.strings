@@ -193,7 +193,6 @@
 "find-in-page-no-matches" = "0 atbilstības";
 "find-in-page-button-label" = "Atrast lapā";
 "find-in-page-popover-description" = "Meklēt tekstu rakstos";
-"top-read-reader-count-thousands" = "$1 tūkstoši";
 "top-read-header-with-language" = "$1 Vikipēdija";
 "top-read-header-generic" = "Vikipēdija";
 "reference-title" = "Atsauce $1";
