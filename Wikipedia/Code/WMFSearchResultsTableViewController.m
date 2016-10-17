@@ -75,6 +75,10 @@
     return @"Search";
 }
 
+- (NSString *)analyticsName {
+    return [self analyticsContext];
+}
+
 - (BOOL)isDisplayingResultsForSearchTerm:(NSString *)searchTerm fromSiteURL:(NSURL *)siteURL {
     return (
         self.dataSource.searchResults.results.count > 0 &&                     // we have results already

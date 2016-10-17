@@ -3,8 +3,8 @@
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFSearch.h"
 #import "UIViewController+WMFArticlePresentation.h"
-#import "PiwikTracker+WMFExtensions.h"
 #import "UIViewController+WMFHideKeyboard.h"
+#import "PiwikTracker+WMFExtensions.h"
 
 @interface WMFArticleListTableViewController () <UIViewControllerPreviewingDelegate, WMFArticlePreviewingActionsDelegate, WMFAnalyticsContextProviding>
 
@@ -63,7 +63,7 @@
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:nil];
+    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:self];
     [self wmf_hideKeyboard];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSURL *url = [self urlAtIndexPath:indexPath];
@@ -106,11 +106,7 @@
     previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
 
     NSURL *url = [self urlAtIndexPath:previewIndexPath];
-    id<WMFAnalyticsContentTypeProviding> contentType = nil;
-    if ([self conformsToProtocol:@protocol(WMFAnalyticsContentTypeProviding)]) {
-        contentType = (id<WMFAnalyticsContentTypeProviding>)self;
-    }
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:contentType];
+    [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:self];
 
     UIViewController *vc = self.delegate ? [self.delegate listViewController:self viewControllerForPreviewingArticleURL:url] : [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userDataStore previewStore:self.previewStore];
 
@@ -126,7 +122,7 @@
 }
 
 - (void)commitViewController:(UIViewController *)viewControllerToCommit {
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:nil];
+    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:self];
     if (self.delegate) {
         [self.delegate listViewController:self didCommitToPreviewedViewController:viewControllerToCommit];
     } else {
@@ -190,6 +186,14 @@
 }
 
 #pragma mark - Subclasses
+
+- (NSString *)analyticsContext{
+    return @"Generic Article List";
+}
+
+- (NSString *)analyticsContentType{
+    return @"Generic Article List";
+}
 
 - (WMFEmptyViewType)emptyViewType {
     return WMFEmptyViewTypeNone;
