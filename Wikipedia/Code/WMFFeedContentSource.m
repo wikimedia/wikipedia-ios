@@ -148,6 +148,22 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
                     }];
             }];
+            
+            [feedDay.newsStories enumerateObjectsUsingBlock:^(WMFFeedNewsStory * _Nonnull newsStory, NSUInteger idx, BOOL * _Nonnull stop) {
+                [newsStory.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [group enter];
+                    [self.fetcher fetchPageviewsForURL:obj.articleURL
+                                             startDate:startDate
+                                               endDate:endDate
+                                               failure:^(NSError *_Nonnull error) {
+                                                   [group leave];
+                                               }
+                                               success:^(NSDictionary<NSDate *, NSNumber *> *_Nonnull results) {
+                                                   pageViews[obj.articleURL] = results;
+                                                   [group leave];
+                                               }];
+                }];
+            }];
 
             [group waitInBackgroundWithCompletion:^{
 
