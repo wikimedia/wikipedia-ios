@@ -39,7 +39,6 @@ extern NSString *const MWKArticleKey;
 extern NSString *const MWKItemUpdatedNotification;
 extern NSString *const MWKURLKey;
 
-
 @interface MWKDataStore : WMFBaseDataStore
 
 /**
@@ -57,7 +56,6 @@ extern NSString *const MWKURLKey;
 @property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 @property (readonly, strong, nonatomic) WMFRelatedSectionBlackList *blackList;
-
 
 #pragma mark - Entry Access
 

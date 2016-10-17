@@ -9,7 +9,7 @@
     [self setBackgroundImage:[UIImage imageNamed:@"white-patch"]
           forToolbarPosition:UIBarPositionBottom
                   barMetrics:UIBarMetricsDefault];
-    
+
     self.shadowColor = [UIColor colorWithWhite:0 alpha:0.08];
     self.shadowOffset = CGSizeMake(0.0, -1.0);
     self.shadowRadius = 1.0f;

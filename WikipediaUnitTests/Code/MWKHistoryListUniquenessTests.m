@@ -47,10 +47,10 @@
 
     [dataStore notifyWhenWriteTransactionsComplete:^{
         MWKHistoryList *persistedList = [[MWKHistoryList alloc] initWithDataStore:self->dataStore];
-        
+
         MWKHistoryEntry *losAngeles2 = [persistedList entryForURL:self->titleURLLAEn];
         MWKHistoryEntry *sanFrancisco2 = [persistedList entryForURL:self->titleURLSFFr];
-        
+
         assertThat(losAngeles2, is(losAngeles));
         assertThat(sanFrancisco2, is(sanFrancisco));
         [expectation fulfill];
@@ -68,12 +68,12 @@
 
     [dataStore notifyWhenWriteTransactionsComplete:^{
         MWKHistoryEntry *entry3 = [self->historyList entryForURL:self->titleURLSFEn];
-        
+
         XCTAssertTrue([self->historyList numberOfItems] == 1);
         assertThat(entry3, is(entry2));
         XCTAssertTrue(![entry3 isEqual:entry]);
         [expectation fulfill];
-        
+
     }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
@@ -106,12 +106,12 @@
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
     [dataStore notifyWhenWriteTransactionsComplete:^{
-        
+
         MWKHistoryEntry *entry = [self->historyList mostRecentEntry];
         assertThat(fr, is(entry));
         XCTAssertTrue(![en isEqual:entry]);
         [expectation fulfill];
-        
+
     }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
@@ -143,7 +143,7 @@
         assertThat([self->historyList mostRecentEntry], is(entry2));
         [self->historyList addPageToHistoryWithURL:self->titleURLSFEn];
         [self->dataStore notifyWhenWriteTransactionsComplete:^{
-            
+
             assertThat([self->historyList mostRecentEntry].url, is(entry1.url));
             [expectation fulfill];
         }];

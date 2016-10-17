@@ -54,7 +54,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 @implementation WMFSettingsViewController
 
-+ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store previewStore:(WMFArticlePreviewDataStore*)previewStore{
++ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store previewStore:(WMFArticlePreviewDataStore *)previewStore {
     NSParameterAssert(store);
     NSParameterAssert(previewStore);
     WMFSettingsViewController *vc = [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard];
@@ -388,7 +388,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         return nil;
     }
 #endif
-    
+
     SSSection *section =
         [SSSection sectionWithItems:@[
             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DebugCrash],

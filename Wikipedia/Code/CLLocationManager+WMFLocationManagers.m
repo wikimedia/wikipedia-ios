@@ -2,7 +2,6 @@
 
 @implementation CLLocationManager (WMFLocationManagers)
 
-
 + (instancetype)wmf_fineLocationManager {
     CLLocationManager *locationManager = [[CLLocationManager alloc] init];
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;

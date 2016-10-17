@@ -16,5 +16,4 @@
  */
 + (instancetype)wmf_coarseLocationManager;
 
-
 @end

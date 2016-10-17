@@ -1,10 +1,9 @@
-
 #import "WMFContentGroup.h"
 #import "NSDate+Utilities.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFContentGroup()
+@interface WMFContentGroup ()
 
 @property (nonatomic, strong, readwrite) NSDate *date;
 
@@ -12,15 +11,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFContentGroup
 
-+ (NSString*)kind{
++ (NSString *)kind {
     return NSStringFromClass([self class]);
 }
 
-- (instancetype)init{
+- (instancetype)init {
     return [self initWithDate:[NSDate date]];
 }
 
-- (instancetype)initWithDate:(NSDate *)date{
+- (instancetype)initWithDate:(NSDate *)date {
     NSParameterAssert(date);
     self = [super init];
     if (self) {
@@ -29,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (WMFContentType)contentType{
+- (WMFContentType)contentType {
     return WMFContentTypeURL;
 }
 
@@ -45,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
     } else if ([contentGroup isKindOfClass:[WMFContinueReadingContentGroup class]]) {
         // corollary of above, everything else always goes below continue reading, regardless of date
         return NSOrderedDescending;
-    } else if (![self isKindOfClass:[WMFRelatedPagesContentGroup class]] && ![contentGroup isKindOfClass:[WMFRelatedPagesContentGroup class]]  && [self.date isEqualToDateIgnoringTime:contentGroup.date]) {
+    } else if (![self isKindOfClass:[WMFRelatedPagesContentGroup class]] && ![contentGroup isKindOfClass:[WMFRelatedPagesContentGroup class]] && [self.date isEqualToDateIgnoringTime:contentGroup.date]) {
         // explicit ordering for non-history/-saved items created w/in the same day
         NSInteger selfOrderingIndex = [self dailySortPriority];
         NSInteger otherOrderingIndex = [contentGroup dailySortPriority];
@@ -64,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface WMFSiteContentGroup()
+@interface WMFSiteContentGroup ()
 
 @property (nonatomic, strong, readwrite) NSURL *siteURL;
 
@@ -72,11 +71,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFSiteContentGroup
 
-- (instancetype)initWithSiteURL:(NSURL *)url{
+- (instancetype)initWithSiteURL:(NSURL *)url {
     return [self initWithDate:[NSDate date] siteURL:url];
 }
 
-- (instancetype)initWithDate:(NSDate *)date siteURL:(NSURL *)url{
+- (instancetype)initWithDate:(NSDate *)date siteURL:(NSURL *)url {
     NSParameterAssert(date);
     self = [super initWithDate:date];
     if (self) {
@@ -85,7 +84,6 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 @end
-
 
 @implementation WMFContinueReadingContentGroup
 
@@ -96,8 +94,6 @@ NS_ASSUME_NONNULL_BEGIN
         return 0;
     }
 }
-
-
 
 @end
 
@@ -112,16 +108,15 @@ NS_ASSUME_NONNULL_BEGIN
 }
 @end
 
-@interface WMFRelatedPagesContentGroup()
+@interface WMFRelatedPagesContentGroup ()
 
 @property (nonatomic, strong, readwrite) NSURL *articleURL;
 
 @end
 
-
 @implementation WMFRelatedPagesContentGroup
 
-- (instancetype)initWithArticleURL:(NSURL *)url date:(NSDate*)date{
+- (instancetype)initWithArticleURL:(NSURL *)url date:(NSDate *)date {
     self = [super initWithDate:date siteURL:url.wmf_siteURL];
     if (self) {
         self.articleURL = url;
@@ -134,7 +129,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 @end
 
-@interface WMFLocationContentGroup()
+@interface WMFLocationContentGroup ()
 
 @property (nonatomic, strong, readwrite) CLLocation *location;
 @property (nonatomic, strong, readwrite) CLPlacemark *placemark;
@@ -142,7 +137,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFLocationContentGroup
 
-- (instancetype)initWithLocation:(CLLocation *)location placemark:(nullable CLPlacemark *)placemark siteURL:(NSURL *)url{
+- (instancetype)initWithLocation:(CLLocation *)location placemark:(nullable CLPlacemark *)placemark siteURL:(NSURL *)url {
     self = [super initWithSiteURL:url];
     if (self) {
         self.location = location;
@@ -167,7 +162,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (WMFContentType)contentType{
+- (WMFContentType)contentType {
     return WMFContentTypeImage;
 }
 
@@ -192,18 +187,18 @@ NS_ASSUME_NONNULL_BEGIN
 }
 @end
 
-@interface WMFTopReadContentGroup()
+@interface WMFTopReadContentGroup ()
 
 @property (nonatomic, strong, readwrite) NSDate *mostReadDate;
 
 @end
 @implementation WMFTopReadContentGroup
 
-- (WMFContentType)contentType{
+- (WMFContentType)contentType {
     return WMFContentTypeTopReadPreview;
 }
 
-- (instancetype)initWithDate:(NSDate *)date mostReadDate:(NSDate*)mostReadDate siteURL:(NSURL *)url{
+- (instancetype)initWithDate:(NSDate *)date mostReadDate:(NSDate *)mostReadDate siteURL:(NSURL *)url {
     self = [super initWithDate:date siteURL:url];
     if (self) {
         self.mostReadDate = mostReadDate;
@@ -221,10 +216,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-
 @implementation WMFNewsContentGroup
 
-- (WMFContentType)contentType{
+- (WMFContentType)contentType {
     return WMFContentTypeStory;
 }
 

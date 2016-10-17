@@ -1,4 +1,3 @@
-
 #import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "WMFDatabaseViewable.h"
 
@@ -6,11 +5,10 @@
 
 extern NSString *const WMFContentGroupsSortedByDateView;
 
-@interface WMFContentGroup (WMFDatabaseViews)<WMFDatabaseViewable>
+@interface WMFContentGroup (WMFDatabaseViews) <WMFDatabaseViewable>
 
 + (YapDatabaseViewGrouping *)wmf_contentGroupingSingleGroup;
 
 + (YapDatabaseViewSorting *)wmf_contentGroupsComparisonSorted;
-
 
 @end

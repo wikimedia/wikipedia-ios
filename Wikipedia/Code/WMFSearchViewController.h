@@ -10,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 @property (nonatomic, strong, readonly) WMFArticlePreviewDataStore *previewStore;
 
-+ (instancetype)searchViewControllerWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore*)previewStore;
++ (instancetype)searchViewControllerWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore *)previewStore;
 
 - (void)setSearchTerm:(NSString *)searchTerm;
 

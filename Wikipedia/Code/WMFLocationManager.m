@@ -11,7 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFLocationManager () <CLLocationManagerDelegate>
 
-
 @property (nonatomic, assign, readwrite) BOOL significantLocationUpdatesOnly;
 
 @property (nonatomic, strong, readwrite) CLLocationManager *locationManager;
@@ -109,10 +108,10 @@ NS_ASSUME_NONNULL_BEGIN
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
     if (status == kCLAuthorizationStatusNotDetermined) {
         NSParameterAssert([CLLocationManager locationServicesEnabled]);
-        if(self.significantLocationUpdatesOnly){
+        if (self.significantLocationUpdatesOnly) {
             DDLogInfo(@"%@ is requesting authorization to access location always.", self);
             [self.locationManager requestAlwaysAuthorization];
-        }else{
+        } else {
             DDLogInfo(@"%@ is requesting authorization to access location when in use.", self);
             [self.locationManager requestWhenInUseAuthorization];
         }
@@ -153,13 +152,12 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-
 #pragma mark - Location Updates
 
 - (void)startLocationUpdates {
-    if(self.significantLocationUpdatesOnly){
+    if (self.significantLocationUpdatesOnly) {
         [self.locationManager startMonitoringSignificantLocationChanges];
-    }else{
+    } else {
         [self.locationManager startUpdatingLocation];
     }
 }
@@ -305,16 +303,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (AnyPromise *)reverseGeocodeLocation:(CLLocation *)location {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
         [self reverseGeocodeLocation:location
-                          completion:^(CLPlacemark * _Nonnull placemark) {
-                              resolve(placemark);
-                          } failure:^(NSError * _Nonnull error) {
-                              resolve(error);
-                          }];
+            completion:^(CLPlacemark *_Nonnull placemark) {
+                resolve(placemark);
+            }
+            failure:^(NSError *_Nonnull error) {
+                resolve(error);
+            }];
     }];
 }
 
-- (void)reverseGeocodeLocation:(CLLocation *)location completion:(void (^) (CLPlacemark* placemark))completion
-                       failure:(void(^)(NSError* error))failure{
+- (void)reverseGeocodeLocation:(CLLocation *)location completion:(void (^)(CLPlacemark *placemark))completion
+                       failure:(void (^)(NSError *error))failure {
     [[[CLGeocoder alloc] init] reverseGeocodeLocation:location
                                     completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks, NSError *_Nullable error) {
                                         if (failure && error) {
@@ -323,7 +322,6 @@ NS_ASSUME_NONNULL_BEGIN
                                             completion(placemarks.firstObject);
                                         }
                                     }];
-
 }
 
 @end

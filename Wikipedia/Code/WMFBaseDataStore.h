@@ -1,4 +1,3 @@
-
 #import <Foundation/Foundation.h>
 
 @class YapDatabase;
@@ -40,32 +39,28 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)syncDataStoreToDatabase;
 
-
 - (void)registerChangeHandler:(id<WMFDatabaseChangeHandler>)handler;
 
+- (void)readWithBlock:(void (^)(YapDatabaseReadTransaction *_Nonnull transaction))block;
 
-- (void)readWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction))block;
+- (nullable id)readAndReturnResultsWithBlock:(id (^)(YapDatabaseReadTransaction *_Nonnull transaction))block;
+- (void)readViewNamed:(NSString *)viewName withWithBlock:(void (^)(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view))block;
+- (nullable id)readAndReturnResultsWithViewNamed:(NSString *)viewName withWithBlock:(id (^)(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view))block;
 
-- (nullable id)readAndReturnResultsWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction))block;
-- (void)readViewNamed:(NSString*)viewName withWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block;
-- (nullable id)readAndReturnResultsWithViewNamed:(NSString*)viewName withWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block;
+- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction *_Nonnull transaction))block;
 
-- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction* _Nonnull transaction))block;
-
-- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction* _Nonnull transaction))block completion:(dispatch_block_t)completion;
+- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction *_Nonnull transaction))block completion:(dispatch_block_t)completion;
 
 - (void)notifyWhenWriteTransactionsComplete:(nullable dispatch_block_t)completion;
 
 @end
-
 
 @interface WMFBaseDataStore (WMFSubclasses)
 
 @property (readonly, strong, nonatomic) YapDatabaseConnection *readConnection;
 @property (readonly, strong, nonatomic) YapDatabaseConnection *writeConnection;
 
-
-- (void)dataStoreWasUpdatedWithNotification:(NSNotification*)notification;
+- (void)dataStoreWasUpdatedWithNotification:(NSNotification *)notification;
 
 @end
 

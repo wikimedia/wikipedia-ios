@@ -82,7 +82,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @implementation WMFSearchViewController
 
-+ (instancetype)searchViewControllerWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore*)previewStore{
++ (instancetype)searchViewControllerWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore *)previewStore {
     NSParameterAssert(dataStore);
     NSParameterAssert(previewStore);
     WMFSearchViewController *searchVC = [self wmf_initialViewControllerFromClassStoryboard];
@@ -251,13 +251,13 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     if ([segue.destinationViewController isKindOfClass:[WMFSearchLanguagesBarViewController class]]) {
         self.searchLanguagesBarViewController = (WMFSearchLanguagesBarViewController *)segue.destinationViewController;
         self.searchLanguagesBarViewController.delegate = self;
-        
+
         // Allow size of contained VC's view to control container size: http://stackoverflow.com/a/34279613
         self.searchLanguagesBarViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
     }
 }
 
-- (void)searchLanguagesBarViewController:(WMFSearchLanguagesBarViewController *)controller didChangeCurrentlySelectedSearchLanguage:(MWKLanguageLink*)language{
+- (void)searchLanguagesBarViewController:(WMFSearchLanguagesBarViewController *)controller didChangeCurrentlySelectedSearchLanguage:(MWKLanguageLink *)language {
     [self searchForSearchTerm:self.searchField.text];
 }
 
@@ -378,12 +378,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     @weakify(self);
     [self.resultsListController wmf_hideEmptyView];
     NSURL *url = [self currentlySelectedSearchURL];
-    
-    if([self.resultsListController isDisplayingResultsForSearchTerm:searchTerm fromSiteURL:url]){
+
+    if ([self.resultsListController isDisplayingResultsForSearchTerm:searchTerm fromSiteURL:url]) {
         DDLogDebug(@"Bailing out from running search for term because we're already showing results for this search term and search site.");
         return;
     }
-    
+
     [self.fetcher fetchArticlesForSearchTerm:searchTerm siteURL:url resultLimit:WMFMaxSearchResultLimit].thenOn(dispatch_get_main_queue(), ^id(WMFSearchResults *results) {
                                                                                                             @strongify(self);
                                                                                                             if (![results.searchTerm isEqualToString:self.searchField.text]) {

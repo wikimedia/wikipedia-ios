@@ -81,9 +81,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url {
     return [self.dataSource readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
         MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        if(entry.dateViewed != nil){
+        if (entry.dateViewed != nil) {
             return entry;
-        }else{
+        } else {
             return nil;
         }
     }];
@@ -169,9 +169,9 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (void)setInTheNewsNotificationDate:(NSDate *)date forArticlesWithURLs:(NSArray <NSURL *>*)articleURLs {
+- (void)setInTheNewsNotificationDate:(NSDate *)date forArticlesWithURLs:(NSArray<NSURL *> *)articleURLs {
     [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-        NSMutableArray <NSString *>*databaseKeys = [NSMutableArray arrayWithCapacity:articleURLs.count];
+        NSMutableArray<NSString *> *databaseKeys = [NSMutableArray arrayWithCapacity:articleURLs.count];
         for (NSURL *articleURL in articleURLs) {
             NSString *databaseKey = [MWKHistoryEntry databaseKeyForURL:articleURL];
             MWKHistoryEntry *entry = [transaction objectForKey:databaseKey inCollection:[MWKHistoryEntry databaseCollectionName]];

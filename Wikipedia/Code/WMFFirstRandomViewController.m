@@ -14,7 +14,7 @@
 
 @implementation WMFFirstRandomViewController
 
-- (nonnull instancetype)initWithSiteURL:(nonnull NSURL *)siteURL dataStore:(nonnull MWKDataStore *)dataStore previewStore:(nonnull WMFArticlePreviewDataStore*)previewStore{
+- (nonnull instancetype)initWithSiteURL:(nonnull NSURL *)siteURL dataStore:(nonnull MWKDataStore *)dataStore previewStore:(nonnull WMFArticlePreviewDataStore *)previewStore {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         self.siteURL = siteURL;

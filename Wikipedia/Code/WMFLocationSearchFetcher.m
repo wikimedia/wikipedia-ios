@@ -54,44 +54,46 @@ NS_ASSUME_NONNULL_BEGIN
     return (WMFLocationSearchRequestSerializer *)(self.operationManager.requestSerializer);
 }
 
-- (NSURLSessionDataTask* )fetchArticlesWithSiteURL:(NSURL *)siteURL
+- (NSURLSessionDataTask *)fetchArticlesWithSiteURL:(NSURL *)siteURL
                                           location:(CLLocation *)location
                                        resultLimit:(NSUInteger)resultLimit
-                                        completion:(void (^) (WMFLocationSearchResults* results))completion
-                                           failure:(void(^)(NSError* error))failure{
+                                        completion:(void (^)(WMFLocationSearchResults *results))completion
+                                           failure:(void (^)(NSError *error))failure {
     return [self fetchArticlesWithSiteURL:siteURL location:location resultLimit:resultLimit useDesktopURL:NO completion:completion failure:failure];
 }
 
+- (NSURLSessionDataTask *)fetchArticlesWithSiteURL:(NSURL *)siteURL
+                                          location:(CLLocation *)location
+                                       resultLimit:(NSUInteger)resultLimit
+                                     useDesktopURL:(BOOL)useDeskTopURL
+                                        completion:(void (^)(WMFLocationSearchResults *results))completion
+                                           failure:(void (^)(NSError *error))failure {
 
-- (NSURLSessionDataTask* )fetchArticlesWithSiteURL:(NSURL *)siteURL
-                        location:(CLLocation *)location
-                     resultLimit:(NSUInteger)resultLimit
-                   useDesktopURL:(BOOL)useDeskTopURL
-                      completion:(void (^) (WMFLocationSearchResults* results))completion
-                         failure:(void(^)(NSError* error))failure{
-    
     NSURL *url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:siteURL] : [NSURL wmf_mobileAPIURLForURL:siteURL];
-    
+
     WMFLocationSearchRequestParameters *params = [WMFLocationSearchRequestParameters new];
     params.location = location;
     params.numberOfResults = resultLimit;
-    
-    return [self.operationManager wmf_GETAndRetryWithURL:url parameters:params retry:NULL success:^(NSURLSessionDataTask *operation, id responseObject) {
-        
-        [[MWNetworkActivityIndicatorManager sharedManager] pop];
-        WMFLocationSearchResults *results = [[WMFLocationSearchResults alloc] initWithSearchSiteURL:siteURL location:location results:responseObject];
-        
-        if(completion){
-            completion(results);
-        }
 
-    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        [[MWNetworkActivityIndicatorManager sharedManager] pop];
-        if(failure){
-            failure(error);
+    return [self.operationManager wmf_GETAndRetryWithURL:url
+        parameters:params
+        retry:NULL
+        success:^(NSURLSessionDataTask *operation, id responseObject) {
+
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            WMFLocationSearchResults *results = [[WMFLocationSearchResults alloc] initWithSearchSiteURL:siteURL location:location results:responseObject];
+
+            if (completion) {
+                completion(results);
+            }
+
         }
-    }];
-    
+        failure:^(NSURLSessionDataTask *operation, NSError *error) {
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            if (failure) {
+                failure(error);
+            }
+        }];
 }
 
 @end

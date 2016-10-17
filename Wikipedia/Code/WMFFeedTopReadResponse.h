@@ -1,4 +1,3 @@
-
 #import <Mantle/Mantle.h>
 
 @class WMFFeedTopReadArticlePreview;
@@ -9,7 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, strong, readonly) NSDate *date;
 
-@property (nullable, nonatomic, strong, readonly) NSArray<WMFFeedTopReadArticlePreview*>* articlePreviews;
+@property (nullable, nonatomic, strong, readonly) NSArray<WMFFeedTopReadArticlePreview *> *articlePreviews;
 
 @end
 

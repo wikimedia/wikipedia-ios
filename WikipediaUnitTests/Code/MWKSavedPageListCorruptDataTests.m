@@ -23,16 +23,16 @@
     [list addSavedPageWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"Foo"]];
     [list addSavedPageWithURL:nil];
     [list addSavedPageWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@""]];
-    
+
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
-    
+
     [dataStore notifyWhenWriteTransactionsComplete:^{
 
         assertThat(@([list numberOfItems]), is(@1));
         [expectation fulfill];
-        
+
     }];
-    
+
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
 

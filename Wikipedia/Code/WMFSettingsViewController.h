@@ -4,7 +4,7 @@
 
 @interface WMFSettingsViewController : UIViewController
 
-+ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store previewStore:(WMFArticlePreviewDataStore*)previewStore;
++ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store previewStore:(WMFArticlePreviewDataStore *)previewStore;
 
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 @property (nonatomic, strong, readonly) WMFArticlePreviewDataStore *previewStore;

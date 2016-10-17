@@ -64,7 +64,7 @@
     [self.historyList setSignificantlyViewedOnPageInHistoryWithURL:self.fooEntry.url];
     [self.historyList setSignificantlyViewedOnPageInHistoryWithURL:self.laEntry.url];
     [self.historyList setSignificantlyViewedOnPageInHistoryWithURL:self.sfEntry.url];
-    
+
     @weakify(self);
     [self.dataStore notifyWhenWriteTransactionsComplete:^{
         @strongify(self);
@@ -113,7 +113,6 @@
         XCTAssertEqualObjects([self itemsFromDataSource:self.becauseYouReadSeedsDataSource], expectedItems);
         [expectation fulfill];
     }];
-    
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout
                                  handler:nil];

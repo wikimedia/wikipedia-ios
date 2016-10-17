@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation UIViewController (WMFArticlePresentation)
 
-- (WMFArticleViewController *)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore*)previewStore restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated{
+- (WMFArticleViewController *)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore *)previewStore restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated {
     if (!restoreScrollPosition) {
         url = [url wmf_URLWithFragment:nil];
     }
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
     return vc;
 }
 
-- (void)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore*)previewStore animated:(BOOL)animated{
+- (void)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore *)previewStore animated:(BOOL)animated {
     [self wmf_pushArticleWithURL:url dataStore:dataStore previewStore:previewStore restoreScrollPosition:NO animated:animated];
 }
 
@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
     [[PiwikTracker wmf_configuredInstance] wmf_logView:viewController];
 
-    if(viewController.isAddingArticleToHistoryListEnabled){
+    if (viewController.isAddingArticleToHistoryListEnabled) {
         // Use slight delay so history interface doesn't try to re-order items during push animation when you select item from history.
         dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
             MWKHistoryList *historyList = viewController.dataStore.historyList;

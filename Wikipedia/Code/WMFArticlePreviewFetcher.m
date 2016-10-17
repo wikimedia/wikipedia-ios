@@ -56,45 +56,51 @@ NS_ASSUME_NONNULL_BEGIN
                                                  siteURL:(NSURL *)siteURL
                                            extractLength:(NSUInteger)extractLength
                                           thumbnailWidth:(NSUInteger)thumbnailWidth {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver  _Nonnull resolve) {
-        [self fetchArticlePreviewResultsForArticleURLs:articleURLs siteURL:siteURL extractLength:extractLength thumbnailWidth:thumbnailWidth completion:^(NSArray<MWKSearchResult *> * _Nonnull results) {
-            resolve(results);
-        } failure:^(NSError * _Nonnull error) {
-            resolve(error);
-        }];
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
+        [self fetchArticlePreviewResultsForArticleURLs:articleURLs
+            siteURL:siteURL
+            extractLength:extractLength
+            thumbnailWidth:thumbnailWidth
+            completion:^(NSArray<MWKSearchResult *> *_Nonnull results) {
+                resolve(results);
+            }
+            failure:^(NSError *_Nonnull error) {
+                resolve(error);
+            }];
     }];
 }
 
-
 - (void)fetchArticlePreviewResultsForArticleURLs:(NSArray<NSURL *> *)articleURLs
                                          siteURL:(NSURL *)siteURL
-                                      completion:(void (^) (NSArray<MWKSearchResult*>*results))completion
-                                         failure:(void (^) (NSError *error))failure{
+                                      completion:(void (^)(NSArray<MWKSearchResult *> *results))completion
+                                         failure:(void (^)(NSError *error))failure {
     [self fetchArticlePreviewResultsForArticleURLs:articleURLs siteURL:siteURL extractLength:WMFNumberOfExtractCharacters thumbnailWidth:[[UIScreen mainScreen] wmf_leadImageWidthForScale].unsignedIntegerValue completion:completion failure:failure];
-    
 }
 
 - (void)fetchArticlePreviewResultsForArticleURLs:(NSArray<NSURL *> *)articleURLs
                                          siteURL:(NSURL *)siteURL
                                    extractLength:(NSUInteger)extractLength
                                   thumbnailWidth:(NSUInteger)thumbnailWidth
-                                      completion:(void (^) (NSArray<MWKSearchResult*>*results))completion
-                                         failure:(void (^) (NSError *error))failure{
-    
+                                      completion:(void (^)(NSArray<MWKSearchResult *> *results))completion
+                                         failure:(void (^)(NSError *error))failure {
+
     WMFArticlePreviewRequestParameters *params = [WMFArticlePreviewRequestParameters new];
     params.articleURLs = articleURLs;
     params.extractLength = extractLength;
     params.thumbnailWidth = thumbnailWidth;
 
     @weakify(self);
-    [self.operationManager wmf_GETAndRetryWithURL:siteURL parameters:params retry:NULL success:^(NSURLSessionDataTask *operation, NSArray<MWKSearchResult *> *unsortedPreviews) {
-        @strongify(self);
-        if (!self) {
-            failure([NSError cancelledError]);
-            return;
-        }
+    [self.operationManager wmf_GETAndRetryWithURL:siteURL
+        parameters:params
+        retry:NULL
+        success:^(NSURLSessionDataTask *operation, NSArray<MWKSearchResult *> *unsortedPreviews) {
+            @strongify(self);
+            if (!self) {
+                failure([NSError cancelledError]);
+                return;
+            }
         WMF_TECH_DEBT_TODO(handle case where no preview is retrieved for url)
-        NSArray* results = [articleURLs wmf_mapAndRejectNil:^(NSURL *articleURL) {
+        NSArray *results = [articleURLs wmf_mapAndRejectNil:^(NSURL *articleURL) {
             MWKSearchResult *matchingPreview = [unsortedPreviews bk_match:^BOOL(MWKSearchResult *preview) {
                 return [preview.displayTitle isEqualToString:articleURL.wmf_title];
             }];
@@ -103,12 +109,13 @@ NS_ASSUME_NONNULL_BEGIN
             }
             return matchingPreview;
         }];
-        
+
         completion(results);
 
-    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        failure(error);
-    }];
+        }
+        failure:^(NSURLSessionDataTask *operation, NSError *error) {
+            failure(error);
+        }];
 }
 
 @end

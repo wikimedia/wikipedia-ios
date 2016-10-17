@@ -58,7 +58,7 @@
     if (self.length == 0) {
         return [[NSAttributedString alloc] initWithString:self attributes:nil];
     }
-    
+
     static NSRegularExpression *tagRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -67,31 +67,34 @@
                                                              options:NSRegularExpressionCaseInsensitive
                                                                error:nil];
     });
-    
+
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"" attributes:@{NSFontAttributeName: font}];
     __block BOOL shouldTrimLeadingWhitespace = YES;
-    [tagRegex enumerateMatchesInString:self options:0 range:NSMakeRange(0, self.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
-        *stop = false;
-        NSString *tagContents = [tagRegex replacementStringForResult:result inString:self offset:0 template:@"$2"];
-        if (!tagContents) {
-            return;
-        }
-        if (shouldTrimLeadingWhitespace) {
-            shouldTrimLeadingWhitespace = NO;
-            NSRange range = [tagContents rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet] options:NSAnchoredSearch];
-            while (range.length > 0) {
-                tagContents = [tagContents stringByReplacingCharactersInRange:range withString:@""];
-                range = [tagContents rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet] options:NSAnchoredSearch];
-            }
-        }
-        NSString *tag = [[tagRegex replacementStringForResult:result inString:self offset:0 template:@"$1"] lowercaseString];
-        NSDictionary *attributes = nil;
-        if ([tag hasPrefix:@"<a"]) {
-            attributes = @{NSFontAttributeName: linkFont};
-        }
-        NSAttributedString *attributedNode = [[NSAttributedString alloc] initWithString:tagContents attributes:attributes];
-        [attributedString appendAttributedString:attributedNode];
-    }];
+    [tagRegex enumerateMatchesInString:self
+                               options:0
+                                 range:NSMakeRange(0, self.length)
+                            usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                *stop = false;
+                                NSString *tagContents = [tagRegex replacementStringForResult:result inString:self offset:0 template:@"$2"];
+                                if (!tagContents) {
+                                    return;
+                                }
+                                if (shouldTrimLeadingWhitespace) {
+                                    shouldTrimLeadingWhitespace = NO;
+                                    NSRange range = [tagContents rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet] options:NSAnchoredSearch];
+                                    while (range.length > 0) {
+                                        tagContents = [tagContents stringByReplacingCharactersInRange:range withString:@""];
+                                        range = [tagContents rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet] options:NSAnchoredSearch];
+                                    }
+                                }
+                                NSString *tag = [[tagRegex replacementStringForResult:result inString:self offset:0 template:@"$1"] lowercaseString];
+                                NSDictionary *attributes = nil;
+                                if ([tag hasPrefix:@"<a"]) {
+                                    attributes = @{NSFontAttributeName: linkFont};
+                                }
+                                NSAttributedString *attributedNode = [[NSAttributedString alloc] initWithString:tagContents attributes:attributes];
+                                [attributedString appendAttributedString:attributedNode];
+                            }];
     return [attributedString copy];
 }
 

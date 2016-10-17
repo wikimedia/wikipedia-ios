@@ -19,7 +19,7 @@
 
 @implementation WMFReadMoreViewController
 
-- (instancetype)initWithURL:(NSURL *)url userStore:(MWKDataStore *)userDataStore previewStore:(WMFArticlePreviewDataStore*)previewStore{
+- (instancetype)initWithURL:(NSURL *)url userStore:(MWKDataStore *)userDataStore previewStore:(WMFArticlePreviewDataStore *)previewStore {
     NSParameterAssert(url.wmf_title);
     NSParameterAssert(userDataStore);
     NSParameterAssert(previewStore);
@@ -58,8 +58,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticlePreviewTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticlePreviewTableViewCell identifier] forIndexPath:indexPath];
-    
-    MWKSearchResult* preview = [self.relatedSearchResults.results objectAtIndex:indexPath.row];
+
+    MWKSearchResult *preview = [self.relatedSearchResults.results objectAtIndex:indexPath.row];
     cell.titleText = preview.displayTitle;
     cell.descriptionText = [preview.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     cell.snippetText = preview.extract;
@@ -67,30 +67,33 @@
     cell.saveButtonController.analyticsContext = [self analyticsContext];
     cell.saveButtonController.analyticsContentType = [self analyticsContentType];
     [cell setSaveableURL:[self.relatedSearchResults urlForResult:preview] savedPageList:self.userDataStore.savedPageList];
-    
+
     return cell;
 }
 
-- (void )fetchIfNeededWithCompletionBlock:(void (^)(WMFRelatedSearchResults* results))completion
-                         failureBlock:(void (^)(NSError* error))failure {
+- (void)fetchIfNeededWithCompletionBlock:(void (^)(WMFRelatedSearchResults *results))completion
+                            failureBlock:(void (^)(NSError *error))failure {
     if ([self hasResults]) {
-        if(completion){
+        if (completion) {
             completion(self.relatedSearchResults);
         }
     } else {
         @weakify(self);
-        [self.relatedSearchFetcher fetchArticlesRelatedArticleWithURL:self.articleURL resultLimit:3 completionBlock:^(WMFRelatedSearchResults * _Nonnull results) {
-            @strongify(self);
-            self.relatedSearchResults = results;
-            if(completion){
-                completion(results);
+        [self.relatedSearchFetcher fetchArticlesRelatedArticleWithURL:self.articleURL
+            resultLimit:3
+            completionBlock:^(WMFRelatedSearchResults *_Nonnull results) {
+                @strongify(self);
+                self.relatedSearchResults = results;
+                if (completion) {
+                    completion(results);
+                }
+
             }
-            
-        } failureBlock:^(NSError * _Nonnull error) {
-            if(failure){
-                failure(error);
-            }
-        }];
+            failureBlock:^(NSError *_Nonnull error) {
+                if (failure) {
+                    failure(error);
+                }
+            }];
     }
 }
 

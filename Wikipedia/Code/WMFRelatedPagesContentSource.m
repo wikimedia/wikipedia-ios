@@ -1,4 +1,3 @@
-
 #import "WMFRelatedPagesContentSource.h"
 #import "WMFContentGroupDataStore.h"
 #import "MWKDataStore.h"
@@ -11,52 +10,50 @@
 @import NSDate_Extensions;
 #import <WMFModel/WMFModel-Swift.h>
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKHistoryEntry (WMFRelatedPages)
 
-- (BOOL)needsRelatedPagesGroupForDate:(NSDate*)date;
+- (BOOL)needsRelatedPagesGroupForDate:(NSDate *)date;
 
 @end
 
 @implementation MWKHistoryEntry (WMFRelatedPages)
 
-- (BOOL)needsRelatedPagesGroupForDate:(NSDate*)date{
-    NSDate* beginingOfDay = [date dateAtStartOfDay];
-    if(self.isBlackListed){
+- (BOOL)needsRelatedPagesGroupForDate:(NSDate *)date {
+    NSDate *beginingOfDay = [date dateAtStartOfDay];
+    if (self.isBlackListed) {
         return NO;
-    }else if([self.dateSaved isLaterThanDate:beginingOfDay] ){
+    } else if ([self.dateSaved isLaterThanDate:beginingOfDay]) {
         return YES;
-    }else if (self.titleWasSignificantlyViewed && [self.dateViewed isLaterThanDate:beginingOfDay]){
+    } else if (self.titleWasSignificantlyViewed && [self.dateViewed isLaterThanDate:beginingOfDay]) {
         return YES;
-    }else {
-        return NO;
-    }
-}
-
-- (BOOL)needsRelatedPagesGroup{
-    if(self.isBlackListed){
-        return NO;
-    }else if(self.isSaved){
-        return YES;
-    }else if (self.titleWasSignificantlyViewed && self.isInHistory){
-        return YES;
-    }else {
+    } else {
         return NO;
     }
 }
 
-- (NSDate*)dateForGroup{
-    if(self.dateSaved && self.dateViewed){
+- (BOOL)needsRelatedPagesGroup {
+    if (self.isBlackListed) {
+        return NO;
+    } else if (self.isSaved) {
+        return YES;
+    } else if (self.titleWasSignificantlyViewed && self.isInHistory) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (NSDate *)dateForGroup {
+    if (self.dateSaved && self.dateViewed) {
         return [self.dateViewed earlierDate:self.dateSaved];
-    }else if (self.dateSaved){
+    } else if (self.dateSaved) {
         return self.dateSaved;
-    }else{
+    } else {
         return self.dateViewed;
     }
 }
-
 
 @end
 
@@ -72,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFRelatedPagesContentSource
 
-- (instancetype)initWithContentGroupDataStore:(WMFContentGroupDataStore*)contentStore userDataStore:(MWKDataStore*)userDataStore articlePreviewDataStore:(WMFArticlePreviewDataStore*)previewStore{
+- (instancetype)initWithContentGroupDataStore:(WMFContentGroupDataStore *)contentStore userDataStore:(MWKDataStore *)userDataStore articlePreviewDataStore:(WMFArticlePreviewDataStore *)previewStore {
 
     NSParameterAssert(contentStore);
     NSParameterAssert(userDataStore);
@@ -88,8 +85,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
-- (WMFRelatedSearchFetcher*)relatedSearchFetcher{
-    if(_relatedSearchFetcher == nil){
+- (WMFRelatedSearchFetcher *)relatedSearchFetcher {
+    if (_relatedSearchFetcher == nil) {
         _relatedSearchFetcher = [[WMFRelatedSearchFetcher alloc] init];
     }
     return _relatedSearchFetcher;
@@ -97,59 +94,59 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFContentSource
 
-
-- (void)startUpdating{
+- (void)startUpdating {
     [self observeSavedPages];
     [self loadNewContentForce:NO completion:NULL];
 }
 
-- (void)stopUpdating{
+- (void)stopUpdating {
     [self unobserveSavedPages];
 }
 
-- (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion{
+- (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
     [self loadContentForDate:[self lastDateAdded] completion:completion];
 }
 
-- (void)preloadContentForNumberOfDays:(NSInteger)days completion:(nullable dispatch_block_t)completion{
-    NSDate* dateToLoad = [[NSDate date] dateByAddingDays:-days];
-    [self loadContentForDate:dateToLoad completion:^{
-        NSInteger numberOfDays = days-1;
-        if(numberOfDays > 0){
-            [self preloadContentForNumberOfDays:numberOfDays completion:completion];
-        }else{
-            if(completion){
-                completion();
-            }
-        }
-    }];
+- (void)preloadContentForNumberOfDays:(NSInteger)days completion:(nullable dispatch_block_t)completion {
+    NSDate *dateToLoad = [[NSDate date] dateByAddingDays:-days];
+    [self loadContentForDate:dateToLoad
+                  completion:^{
+                      NSInteger numberOfDays = days - 1;
+                      if (numberOfDays > 0) {
+                          [self preloadContentForNumberOfDays:numberOfDays completion:completion];
+                      } else {
+                          if (completion) {
+                              completion();
+                          }
+                      }
+                  }];
 }
 
-- (void)loadContentForDate:(NSDate*)date completion:(nullable dispatch_block_t)completion{
-    WMFTaskGroup* group = [WMFTaskGroup new];
-    
+- (void)loadContentForDate:(NSDate *)date completion:(nullable dispatch_block_t)completion {
+    WMFTaskGroup *group = [WMFTaskGroup new];
+
     [group enter];
-    [self.userDataStore enumerateItemsWithBlock:^(MWKHistoryEntry * _Nonnull entry, BOOL * _Nonnull stop) {
+    [self.userDataStore enumerateItemsWithBlock:^(MWKHistoryEntry *_Nonnull entry, BOOL *_Nonnull stop) {
         [group enter];
-        [self updateRelatedGroupForReference:entry date:date completion:^{
-            [group leave];
-        }];
+        [self updateRelatedGroupForReference:entry
+                                        date:date
+                                  completion:^{
+                                      [group leave];
+                                  }];
     }];
     [group leave];
-    
+
     [group waitInBackgroundWithCompletion:^{
         [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
-        if(completion){
+        if (completion) {
             completion();
         }
     }];
-
 }
 
-- (void)removeAllContent{
+- (void)removeAllContent {
     [self.contentStore removeAllContentGroupsOfKind:[WMFRelatedPagesContentGroup kind]];
 }
-
 
 #pragma mark - Observing
 
@@ -170,37 +167,37 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Process Changes
 
-- (void)updateMoreLikeSectionForURL:(NSURL*)url date:(NSDate*)date completion:(nullable dispatch_block_t)completion{
-    MWKHistoryEntry* reference = [self.userDataStore entryForURL:url];
+- (void)updateMoreLikeSectionForURL:(NSURL *)url date:(NSDate *)date completion:(nullable dispatch_block_t)completion {
+    MWKHistoryEntry *reference = [self.userDataStore entryForURL:url];
     [self updateRelatedGroupForReference:reference date:date completion:completion];
 }
 
-- (void)updateRelatedGroupForReference:(MWKHistoryEntry*)reference date:(NSDate*)date completion:(nullable dispatch_block_t)completion{
-    if([reference needsRelatedPagesGroupForDate:date]){
-        WMFRelatedPagesContentGroup* section = [self addSectionForReference:reference];
+- (void)updateRelatedGroupForReference:(MWKHistoryEntry *)reference date:(NSDate *)date completion:(nullable dispatch_block_t)completion {
+    if ([reference needsRelatedPagesGroupForDate:date]) {
+        WMFRelatedPagesContentGroup *section = [self addSectionForReference:reference];
         [self fetchAndSaveRelatedArticlesForSection:section completion:completion];
-    }else if(![reference needsRelatedPagesGroup]) {
+    } else if (![reference needsRelatedPagesGroup]) {
         [self removeSectionForReference:reference];
-        if(completion){
+        if (completion) {
             completion();
         }
-    }else{
-        if(completion){
+    } else {
+        if (completion) {
             completion();
         }
     }
 }
 
-- (void)removeSectionForReference:(MWKHistoryEntry*)reference{
-    WMFContentGroup* group = [self.contentStore contentGroupForURL:[WMFRelatedPagesContentGroup urlForArticleURL:reference.url]];
-    if(group){
+- (void)removeSectionForReference:(MWKHistoryEntry *)reference {
+    WMFContentGroup *group = [self.contentStore contentGroupForURL:[WMFRelatedPagesContentGroup urlForArticleURL:reference.url]];
+    if (group) {
         [self.contentStore removeContentGroup:group];
     }
 }
 
-- (WMFRelatedPagesContentGroup* )addSectionForReference:(MWKHistoryEntry*)reference{
-    WMFRelatedPagesContentGroup* group = (id)[self.contentStore contentGroupForURL:[WMFRelatedPagesContentGroup urlForArticleURL:reference.url]];
-    if(!group){
+- (WMFRelatedPagesContentGroup *)addSectionForReference:(MWKHistoryEntry *)reference {
+    WMFRelatedPagesContentGroup *group = (id)[self.contentStore contentGroupForURL:[WMFRelatedPagesContentGroup urlForArticleURL:reference.url]];
+    if (!group) {
         group = [[WMFRelatedPagesContentGroup alloc] initWithArticleURL:reference.url date:[reference dateForGroup]];
     }
     return group;
@@ -209,43 +206,47 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Fetch
 
 - (void)fetchAndSaveRelatedArticlesForSection:(WMFRelatedPagesContentGroup *)group completion:(nullable dispatch_block_t)completion {
-    NSArray<NSURL*>* related = [self.contentStore contentForContentGroup:group];
-    if([related count] > 0){
-        if(completion){
+    NSArray<NSURL *> *related = [self.contentStore contentForContentGroup:group];
+    if ([related count] > 0) {
+        if (completion) {
             completion();
         }
         return;
     }
-    [self.relatedSearchFetcher fetchArticlesRelatedArticleWithURL:group.articleURL resultLimit:WMFMaxRelatedSearchResultLimit completionBlock:^(WMFRelatedSearchResults * _Nonnull results) {
+    [self.relatedSearchFetcher fetchArticlesRelatedArticleWithURL:group.articleURL
+        resultLimit:WMFMaxRelatedSearchResultLimit
+        completionBlock:^(WMFRelatedSearchResults *_Nonnull results) {
 
-        NSArray<NSURL*>* urls = [results.results bk_map:^id(id obj) {
-            return [results urlForResult:obj];
-        }];
-        [results.results enumerateObjectsUsingBlock:^(MWKSearchResult * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [self.previewStore addPreviewWithURL:urls[idx] updatedWithSearchResult:obj];
-        }];
-        [self.contentStore addContentGroup:group associatedContent:urls];
-        [self.contentStore notifyWhenWriteTransactionsComplete:completion];
-        
-    } failureBlock:^(NSError * _Nonnull error) {
-        //TODO: how to handle failure?
-        if(completion){
-            completion();
+            NSArray<NSURL *> *urls = [results.results bk_map:^id(id obj) {
+                return [results urlForResult:obj];
+            }];
+            [results.results enumerateObjectsUsingBlock:^(MWKSearchResult *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+                [self.previewStore addPreviewWithURL:urls[idx] updatedWithSearchResult:obj];
+            }];
+            [self.contentStore addContentGroup:group associatedContent:urls];
+            [self.contentStore notifyWhenWriteTransactionsComplete:completion];
+
         }
-    }];
+        failureBlock:^(NSError *_Nonnull error) {
+            //TODO: how to handle failure?
+            if (completion) {
+                completion();
+            }
+        }];
 }
 
 #pragma mark - Date
 
-- (NSDate*)lastDateAdded{
-    __block NSDate* date = nil;
-    [self.contentStore enumerateContentGroupsOfKind:[WMFRelatedPagesContentGroup kind] withBlock:^(WMFContentGroup * _Nonnull group, BOOL * _Nonnull stop) {
-        if(date == nil || [group.date isLaterThanDate:date]){
-            date = group.date;
-        }
-    }];
-    
-    if(date == nil){
+- (NSDate *)lastDateAdded {
+    __block NSDate *date = nil;
+    [self.contentStore enumerateContentGroupsOfKind:[WMFRelatedPagesContentGroup kind]
+                                          withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
+                                              if (date == nil || [group.date isLaterThanDate:date]) {
+                                                  date = group.date;
+                                              }
+                                          }];
+
+    if (date == nil) {
         date = [NSDate date];
     }
     return date;

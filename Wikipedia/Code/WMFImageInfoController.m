@@ -63,7 +63,7 @@ NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo) {
     _uniqueArticleImages = [uniqueArticleImages copy] ?: @[];
 }
 
-- (NSArray *)imageFilePageTitles {
+- (nullable NSArray *)imageFilePageTitles {
     if (!_imageFilePageTitles) {
         // reduce images to only those who have valid canonical filenames
         _imageFilePageTitles = [[MWKImage mapFilenamesFromImages:_uniqueArticleImages] copy];
@@ -71,7 +71,7 @@ NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo) {
     return _imageFilePageTitles;
 }
 
-- (NSDictionary *)indexedImageInfo {
+- (nullable NSDictionary *)indexedImageInfo {
     if (!_indexedImageInfo) {
         _indexedImageInfo = WMFIndexImageInfo([self.dataStore imageInfoForArticleWithURL:self.articleURL]) ?: [NSMutableDictionary new];
     }
@@ -89,7 +89,7 @@ NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo) {
     }];
 }
 
-- (NSMutableIndexSet *)fetchedIndices {
+- (nullable NSMutableIndexSet *)fetchedIndices {
     if (!_fetchedIndices) {
         _fetchedIndices =
             [self.indexedImageInfo.allValues bk_reduce:[NSMutableIndexSet new]

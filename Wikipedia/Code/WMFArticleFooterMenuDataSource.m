@@ -67,10 +67,10 @@ NS_ASSUME_NONNULL_BEGIN
                                       @"footer-edit-history")];
     } else {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
-                                  [MWSiteLocalizedString(article.url, @"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                                                          withString:[NSString stringWithFormat:@"%ld", (long)[[NSDate date] daysAfterDate:lastModified]]],
-                                  MWSiteLocalizedString(article.url, @"page-edit-history", nil),
-                                  @"footer-edit-history")];
+                                      [MWSiteLocalizedString(article.url, @"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                                                              withString:[NSString stringWithFormat:@"%ld", (long)[[NSDate date] daysAfterDate:lastModified]]],
+                                      MWSiteLocalizedString(article.url, @"page-edit-history", nil),
+                                      @"footer-edit-history")];
     }
 
     if (article.pageIssues.count > 0) {

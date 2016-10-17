@@ -263,7 +263,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.photos indexOfObject:photo];
 }
 
-- (id<WMFPhoto>)photoAtIndex:(NSUInteger)index {
+- (nullable id<WMFPhoto>)photoAtIndex:(NSUInteger)index {
     if (index > self.photos.count) {
         return nil;
     }
@@ -670,7 +670,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFPOTDImageGalleryViewController
 
-- (instancetype)initWithDates:(NSArray<NSDate *> *)imageDates{
+- (instancetype)initWithDates:(NSArray<NSDate *> *)imageDates {
     NSParameterAssert(imageDates);
     NSArray *items = imageDates;
     NSArray<WMFPOTDPhoto *> *photos = [WMFPOTDPhoto photosWithDates:items];

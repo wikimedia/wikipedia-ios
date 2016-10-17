@@ -1,5 +1,3 @@
-/// @name Constants
-
 extern NSString *const WMFNetworkingErrorDomain;
 
 typedef NS_ENUM(NSInteger, WMFNetworkingError) {

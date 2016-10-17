@@ -8,6 +8,6 @@
 
 - (instancetype)initWithURL:(NSURL *)URL results:(NSArray *)results;
 
-- (NSURL*)urlForResult:(MWKSearchResult*)result;
+- (NSURL *)urlForResult:(MWKSearchResult *)result;
 
 @end

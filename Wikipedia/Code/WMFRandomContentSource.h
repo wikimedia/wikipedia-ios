@@ -1,4 +1,3 @@
-
 #import <Foundation/Foundation.h>
 #import "WMFContentSource.h"
 
@@ -7,14 +6,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFRandomContentSource : NSObject<WMFContentSource>
+@interface WMFRandomContentSource : NSObject <WMFContentSource>
 
 @property (readonly, nonatomic, strong) NSURL *siteURL;
 
 @property (readonly, nonatomic, strong) WMFContentGroupDataStore *contentStore;
 @property (readonly, nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
 
-- (instancetype)initWithSiteURL:(NSURL*)siteURL contentGroupDataStore:(WMFContentGroupDataStore*)contentStore articlePreviewDataStore:(WMFArticlePreviewDataStore*)previewStore;
+- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticlePreviewDataStore *)previewStore;
 
 - (instancetype)init NS_UNAVAILABLE;
 

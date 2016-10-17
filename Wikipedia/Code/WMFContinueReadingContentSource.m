@@ -1,5 +1,3 @@
-
-
 #import "WMFContinueReadingContentSource.h"
 #import "WMFContentGroupDataStore.h"
 #import "MWKDataStore.h"
@@ -9,7 +7,6 @@
 #import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "MWKArticle.h"
 #import <WMFModel/WMFModel-Swift.h>
-
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,8 +22,8 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 
 @implementation WMFContinueReadingContentSource
 
-- (instancetype)initWithContentGroupDataStore:(WMFContentGroupDataStore*)contentStore userDataStore:(MWKDataStore*)userDataStore articlePreviewDataStore:(WMFArticlePreviewDataStore*)previewStore{
-    
+- (instancetype)initWithContentGroupDataStore:(WMFContentGroupDataStore *)contentStore userDataStore:(MWKDataStore *)userDataStore articlePreviewDataStore:(WMFArticlePreviewDataStore *)previewStore {
+
     NSParameterAssert(contentStore);
     NSParameterAssert(userDataStore);
     NSParameterAssert(previewStore);
@@ -41,78 +38,76 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 
 #pragma mark - WMFContentSource
 
-
-- (void)startUpdating{
+- (void)startUpdating {
     [self observeSavedPages];
     [self loadNewContentForce:NO completion:NULL];
 }
 
-- (void)stopUpdating{
+- (void)stopUpdating {
     [self unobserveSavedPages];
 }
 
-- (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion{
+- (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
 
     NSURL *lastRead = [[NSUserDefaults wmf_userDefaults] wmf_openArticleURL];
-    
-    if(!lastRead){
-        if(completion){
+
+    if (!lastRead) {
+        if (completion) {
             completion();
         }
         return;
     }
 
     NSDate *resignActiveDate = [[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate];
-    
+
     BOOL const shouldShowContinueReading =
-    NO /*FBTweakValue(@"Explore", @"Continue Reading", @"Always Show", NO)*/ ||
-    fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeDisplayingLastReadArticle;
+        NO /*FBTweakValue(@"Explore", @"Continue Reading", @"Always Show", NO)*/ ||
+        fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeDisplayingLastReadArticle;
 
-    WMFContinueReadingContentGroup* group = (id)[self.contentStore contentGroupForURL:[WMFContinueReadingContentGroup url]];
+    WMFContinueReadingContentGroup *group = (id)[self.contentStore contentGroupForURL:[WMFContinueReadingContentGroup url]];
 
-    if(!shouldShowContinueReading){
-        if(group){
+    if (!shouldShowContinueReading) {
+        if (group) {
             [self.contentStore removeContentGroup:group];
         }
-        if(completion){
+        if (completion) {
             completion();
         }
         return;
     }
-    
-    NSURL* savedURL = [[self.contentStore contentForContentGroup:group] firstObject];
-    
-    if([savedURL isEqual:lastRead]){
-        if(completion){
+
+    NSURL *savedURL = [[self.contentStore contentForContentGroup:group] firstObject];
+
+    if ([savedURL isEqual:lastRead]) {
+        if (completion) {
             completion();
         }
         return;
     }
-    
-    MWKHistoryEntry* userData = [self.userDataStore entryForURL:lastRead];
-    
+
+    MWKHistoryEntry *userData = [self.userDataStore entryForURL:lastRead];
+
     group = [[WMFContinueReadingContentGroup alloc] initWithDate:userData.dateViewed];
-    
-    WMFArticlePreview* preview = [self.previewStore itemForURL:lastRead];
-    
-    WMF_TECH_DEBT_TODO(Remove this in a later version. A preview will always be available available)
-    if(!preview){
-        MWKArticle* article = [self.userDataStore articleWithURL:lastRead];
+
+    WMFArticlePreview *preview = [self.previewStore itemForURL:lastRead];
+
+    WMF_TECH_DEBT_TODO(Remove this in a later version.A preview will always be available available)
+    if (!preview) {
+        MWKArticle *article = [self.userDataStore articleWithURL:lastRead];
         NSParameterAssert(article);
         preview = [self.previewStore addPreviewWithURL:lastRead updatedWithArticle:article];
     }
-    
+
     //preview should already exist for any item in history
     NSParameterAssert(preview);
-    
+
     [self.contentStore addContentGroup:group associatedContent:@[lastRead]];
     [self.contentStore notifyWhenWriteTransactionsComplete:completion];
 }
 
-- (void)removeAllContent{
+- (void)removeAllContent {
     [self.contentStore removeAllContentGroupsOfKind:[WMFContinueReadingContentGroup kind]];
 }
-
 
 #pragma mark - Observing
 
@@ -129,6 +124,5 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 }
 
 @end
-
 
 NS_ASSUME_NONNULL_END

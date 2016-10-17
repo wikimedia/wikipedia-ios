@@ -23,7 +23,7 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 
 @implementation WMFHelpViewController
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore*)previewStore {
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore *)previewStore {
     NSURL *faqURL = [NSURL URLWithString:WMFSettingsURLFAQ];
     self = [super initWithArticleURL:faqURL dataStore:dataStore previewStore:previewStore];
     self.savingOpenArticleTitleEnabled = NO;
@@ -63,11 +63,11 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 
 - (NSArray<UIBarButtonItem *> *)articleToolBarItems {
     return @[
-             self.showTableOfContentsToolbarItem,
-             [UIBarButtonItem flexibleSpaceToolbarItem],
-             self.sendEmailToolbarItem,
-             [UIBarButtonItem wmf_barButtonItemOfFixedWidth:8]
-             ];
+        self.showTableOfContentsToolbarItem,
+        [UIBarButtonItem flexibleSpaceToolbarItem],
+        self.sendEmailToolbarItem,
+        [UIBarButtonItem wmf_barButtonItemOfFixedWidth:8]
+    ];
 }
 
 - (void)sendEmail {

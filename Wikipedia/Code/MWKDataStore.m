@@ -196,15 +196,15 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 #pragma mark - WMFBaseDataStore
 
-- (void)dataStoreWasUpdatedWithNotification:(NSNotification*)notification{
+- (void)dataStoreWasUpdatedWithNotification:(NSNotification *)notification {
 
     NSArray<NSString *> *updatedItemKeys = [notification wmf_updatedItemKeys];
 
     [updatedItemKeys enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        NSURL* url = [NSURL URLWithString:obj];
+        NSURL *url = [NSURL URLWithString:obj];
         NSAssert(url != nil, @"updated Item with invalid key (should be a URL String)");
-        if(url){
-            [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:self userInfo:@{MWKURLKey:url}];
+        if (url) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:self userInfo:@{MWKURLKey: url}];
         }
     }];
 
@@ -234,7 +234,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
                                                       afterDelay:1];
 }
 
-#pragma mark - Entry Access 
+#pragma mark - Entry Access
 
 - (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url {
     return [self readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction) {
@@ -243,19 +243,18 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     }];
 }
 
-- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block{
+- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block {
     NSParameterAssert(block);
     if (!block) {
         return;
     }
     [self readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction) {
-        [transaction enumerateKeysAndObjectsInCollection:[MWKHistoryEntry databaseCollectionName] usingBlock:^(NSString * _Nonnull key, id  _Nonnull object, BOOL * _Nonnull stop) {
-            block(object, stop);
-        }];
+        [transaction enumerateKeysAndObjectsInCollection:[MWKHistoryEntry databaseCollectionName]
+                                              usingBlock:^(NSString *_Nonnull key, id _Nonnull object, BOOL *_Nonnull stop) {
+                                                  block(object, stop);
+                                              }];
     }];
 }
-
-
 
 #pragma mark - Legacy DataStore
 

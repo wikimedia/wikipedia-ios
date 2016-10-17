@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 static MWKDataStore *_dataStore = nil;
 static WMFArticlePreviewDataStore *_previewStore = nil;
 
-static WMFSearchViewController *_sharedSearchViewController = nil;
+static WMFSearchViewController *_Nullable _sharedSearchViewController = nil;
 
 + (void)wmf_setSearchButtonDataStore:(MWKDataStore *)dataStore {
     NSParameterAssert(dataStore);
@@ -72,7 +72,8 @@ static WMFSearchViewController *_sharedSearchViewController = nil;
 
     if (!_sharedSearchViewController) {
         WMFSearchViewController *searchVC =
-            [WMFSearchViewController searchViewControllerWithDataStore:_dataStore previewStore:_previewStore];
+            [WMFSearchViewController searchViewControllerWithDataStore:_dataStore
+                                                          previewStore:_previewStore];
         _sharedSearchViewController = searchVC;
     }
     [self presentViewController:_sharedSearchViewController animated:animated completion:nil];

@@ -7,12 +7,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFLocationSearchFetcher : NSObject
 
-- (NSURLSessionDataTask* )fetchArticlesWithSiteURL:(NSURL *)siteURL
+- (NSURLSessionDataTask *)fetchArticlesWithSiteURL:(NSURL *)siteURL
                                           location:(CLLocation *)location
                                        resultLimit:(NSUInteger)resultLimit
-                                        completion:(void (^) (WMFLocationSearchResults* results))completion
-                                           failure:(void(^)(NSError* error))failure;
-
+                                        completion:(void (^)(WMFLocationSearchResults *results))completion
+                                           failure:(void (^)(NSError *error))failure;
 
 - (BOOL)isFetching;
 

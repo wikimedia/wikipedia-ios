@@ -190,8 +190,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 - (BOOL)update:(BOOL)force {
     [self.locationManager restartLocationMonitoring];
 
-    if (!FBTweakValue(@"Explore", @"General", @"Always update on launch", NO)
-        && !force && self.lastUpdatedAt && [[NSDate date] timeIntervalSinceDate:self.lastUpdatedAt] < WMFHomeMinimumAutomaticReloadTime) {
+    if (!FBTweakValue(@"Explore", @"General", @"Always update on launch", NO) && !force && self.lastUpdatedAt && [[NSDate date] timeIntervalSinceDate:self.lastUpdatedAt] < WMFHomeMinimumAutomaticReloadTime) {
         return [self updateContinueReading];
     }
 

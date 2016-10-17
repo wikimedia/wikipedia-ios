@@ -1,4 +1,3 @@
-
 #import "WMFArticlePreview+WMFDatabaseStorable.h"
 
 @implementation WMFArticlePreview (WMFDatabaseStorable)
@@ -15,6 +14,5 @@
 + (NSString *)databaseCollectionName {
     return @"WMFArticlePreview";
 }
-
 
 @end

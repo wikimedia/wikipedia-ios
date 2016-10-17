@@ -1,4 +1,3 @@
-
 #import "WMFFeedDayResponse.h"
 #import "WMFFeedArticlePreview.h"
 #import "WMFFeedImage.h"
@@ -12,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
     return @{ WMF_SAFE_KEYPATH(WMFFeedDayResponse.new, featuredArticle): @"tfa",
               WMF_SAFE_KEYPATH(WMFFeedDayResponse.new, topRead): @"mostread",
               WMF_SAFE_KEYPATH(WMFFeedDayResponse.new, pictureOfTheDay): @"image",
-              WMF_SAFE_KEYPATH(WMFFeedDayResponse.new, newsStories): @"news"};
+              WMF_SAFE_KEYPATH(WMFFeedDayResponse.new, newsStories): @"news" };
 }
 
 + (NSValueTransformer *)featuredArticleJSONTransformer {

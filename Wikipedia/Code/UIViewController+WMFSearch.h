@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)wmf_setSearchButtonDataStore:(MWKDataStore *)dataStore;
 
-
 /**
  *  This previewStore is passed to the search VC
  *

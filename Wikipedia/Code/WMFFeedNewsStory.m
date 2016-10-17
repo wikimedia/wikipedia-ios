@@ -1,4 +1,3 @@
-
 #import "WMFFeedNewsStory.h"
 #import "WMFFeedArticlePreview.h"
 
@@ -8,7 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{ WMF_SAFE_KEYPATH(WMFFeedNewsStory.new, storyHTML): @"story",
-              WMF_SAFE_KEYPATH(WMFFeedNewsStory.new, articlePreviews): @"links"};
+              WMF_SAFE_KEYPATH(WMFFeedNewsStory.new, articlePreviews): @"links" };
 }
 
 + (NSValueTransformer *)articlePreviewsJSONTransformer {

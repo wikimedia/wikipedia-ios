@@ -1,4 +1,3 @@
-
 #import "WMFBaseDataStore.h"
 #import "WMFDataSource.h"
 
@@ -9,19 +8,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFContentGroupDataStore : WMFBaseDataStore
 
-
 #pragma mark - Content Group Access
 
-- (WMFContentGroup*)contentGroupForURL:(NSURL*)url;
+- (WMFContentGroup *)contentGroupForURL:(NSURL *)url;
 
 - (void)enumerateContentGroupsWithBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block;
 
-- (void)enumerateContentGroupsOfKind:(NSString*)kind withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block;
+- (void)enumerateContentGroupsOfKind:(NSString *)kind withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block;
 
-- (nullable WMFContentGroup*)firstGroupOfKind:(NSString*)kind forDate:(NSDate*)date;
+- (nullable WMFContentGroup *)firstGroupOfKind:(NSString *)kind forDate:(NSDate *)date;
 
-- (nullable NSArray<WMFContentGroup*>*)groupsOfKind:(NSString*)kind forDate:(NSDate*)date;
-
+- (nullable NSArray<WMFContentGroup *> *)groupsOfKind:(NSString *)kind forDate:(NSDate *)date;
 
 #pragma mark - Content Access
 
@@ -29,21 +26,19 @@ NS_ASSUME_NONNULL_BEGIN
  * The content for the given group.
  * The content class is defined by WMFContentGroup.contentType
  */
-- (nullable NSArray<NSCoding>*)contentForContentGroup:(WMFContentGroup*)group;
-
+- (nullable NSArray<NSCoding> *)contentForContentGroup:(WMFContentGroup *)group;
 
 #pragma mark - Content Management
 
-- (void)addContentGroup:(WMFContentGroup*)group associatedContent:(NSArray<NSCoding>*)content;
+- (void)addContentGroup:(WMFContentGroup *)group associatedContent:(NSArray<NSCoding> *)content;
 
-- (void)removeContentGroup:(WMFContentGroup*)group;
+- (void)removeContentGroup:(WMFContentGroup *)group;
 
-- (void)removeContentGroupsWithKeys:(NSArray<NSString*>*)keys;
+- (void)removeContentGroupsWithKeys:(NSArray<NSString *> *)keys;
 
-- (void)removeAllContentGroupsOfKind:(NSString*)kind;
+- (void)removeAllContentGroupsOfKind:(NSString *)kind;
 
 @end
-
 
 @interface WMFContentGroupDataStore (WMFDataSources)
 
