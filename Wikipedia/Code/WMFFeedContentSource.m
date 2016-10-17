@@ -186,7 +186,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     [self saveGroupForTopRead:feedDay.topRead pageViews:pageViews date:date];
     [self saveGroupForPictureOfTheDay:feedDay.pictureOfTheDay date:date];
     if ([date wmf_isTodayUTC]) {
-        //        [self saveGroupForNews:feedDay.newsStories date:date];
+        [self saveGroupForNews:feedDay.newsStories pageViews:pageViews date:date];
     }
     [self scheduleNotificationsForFeedDay:feedDay onDate:date];
 
