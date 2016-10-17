@@ -787,6 +787,14 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         case WMFFeedDetailTypeGallery: {
             return [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date]];
         } break;
+        case WMFFeedDetailTypeStory: {
+            NSArray<WMFFeedNewsStory *> *stories = [self contentForGroup:group];
+            if (indexPath.item >= stories.count) {
+                return nil;
+            }
+            WMFFeedNewsStory *story = stories[indexPath.item];
+            return [[WMFInTheNewsViewController alloc] initWithStory:story];
+        } break;
         default:
             NSAssert(false, @"Unknown Detail Type");
             break;
@@ -796,6 +804,10 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 - (void)presentDetailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated {
     UIViewController *vc = [self detailViewControllerForItemAtIndexPath:indexPath];
+    if (vc == nil) {
+        return;
+    }
+    
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
     [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:group];
 
@@ -807,6 +819,9 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
             [self.navigationController pushViewController:vc animated:animated];
         } break;
         case WMFFeedDetailTypeGallery: {
+            [self presentViewController:vc animated:animated completion:nil];
+        } break;
+        case WMFFeedDetailTypeStory: {
             [self presentViewController:vc animated:animated completion:nil];
         } break;
         default:

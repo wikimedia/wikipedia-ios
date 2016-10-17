@@ -423,34 +423,34 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (UIColor *)headerIconTintColor {
-    return [UIColor wmf_blueTintColor];
+    return [UIColor wmf_exploreSectionHeaderIconTintColor];
 }
 
 - (UIColor *)headerIconBackgroundColor {
-    return [UIColor wmf_lightBlueTintColor];
+    return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
 }
 
 - (WMFFeedHeaderActionType)headerActionType {
-    return WMFFeedHeaderActionTypeOpenMore;
+    return WMFFeedHeaderActionTypeOpenFirstItem;
 }
 
 - (NSUInteger)maxNumberOfCells {
     return 5;
 }
 
-- (nullable NSString *)footerText {
-    return
-        [MWLocalizedString(@"explore-in-the-news-footer-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                                  withString:[self localDateShortDisplayString]];
-}
-
-- (WMFFeedMoreType)moreType {
-    return WMFFeedMoreTypePageList;
-}
-
-- (nullable NSString *)moreTitle {
-    return [self titleForDate:self.date];
-}
+//- (nullable NSString *)footerText {
+//    return
+//        [MWLocalizedString(@"explore-in-the-news-footer-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
+//                                                                                                  withString:[self localDateShortDisplayString]];
+//}
+//
+//- (WMFFeedMoreType)moreType {
+//    return WMFFeedMoreTypePageList;
+//}
+//
+//- (nullable NSString *)moreTitle {
+//    return [self titleForDate:self.date];
+//}
 
 - (NSString *)analyticsContentType {
     return @"In The News";
@@ -458,6 +458,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFFeedDisplayType)displayType {
     return WMFFeedDisplayTypeStory;
+}
+
+- (WMFFeedDetailType)detailType {
+    return WMFFeedDetailTypeStory;
 }
 
 /**
