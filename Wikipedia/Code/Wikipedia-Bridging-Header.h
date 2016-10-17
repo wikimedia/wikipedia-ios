@@ -29,6 +29,9 @@
 #import "WMFExploreViewController.h"
 #import "WMFLanguagesViewController.h"
 
+// Views
+#import "WMFArticleListTableViewCell.h"
+
 // Diagnostics
 #import "ToCInteractionFunnel.h"
 
