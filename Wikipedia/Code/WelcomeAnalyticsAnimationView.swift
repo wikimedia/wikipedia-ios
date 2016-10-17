@@ -20,12 +20,12 @@ public class WelcomeAnalyticsAnimationView : WelcomeAnimationView {
         return CATransform3DMakeScale(1, -1, 1) // -1 to flip Y so bars grow from bottom up.
     }
 
-    var barBlue: CGColor{
-        return UIColor(red: 0.1216, green: 0.5804, blue: 0.8667, alpha: 1.0).CGColor
+    var barOddColor: CGColor{
+        return UIColor.wmf_colorWithHex(0x4A90E2, alpha: 1.0).CGColor
     }
     
-    var barGreen: CGColor{
-        return UIColor(red: 0.0000, green: 0.6941, blue: 0.5490, alpha: 1.0).CGColor
+    var barEvenColor: CGColor{
+        return UIColor.wmf_colorWithHex(0x2A4B8D, alpha: 1.0).CGColor
     }
 
     lazy var bar1: WelcomeBarShapeLayer = {
@@ -34,7 +34,7 @@ public class WelcomeAnalyticsAnimationView : WelcomeAnimationView {
             referenceSize:self.frame.size,
             transform: self.squashedHeightBarTransform
         )
-        bar.fillColor = self.barBlue
+        bar.fillColor = self.barOddColor
         return bar
     }()
     
@@ -44,7 +44,7 @@ public class WelcomeAnalyticsAnimationView : WelcomeAnimationView {
             referenceSize:self.frame.size,
             transform: self.squashedHeightBarTransform
         )
-        bar.fillColor = self.barGreen
+        bar.fillColor = self.barEvenColor
         return bar
     }()
     
@@ -54,7 +54,7 @@ public class WelcomeAnalyticsAnimationView : WelcomeAnimationView {
             referenceSize:self.frame.size,
             transform: self.squashedHeightBarTransform
         )
-        bar.fillColor = self.barBlue
+        bar.fillColor = self.barOddColor
         return bar
     }()
     
@@ -64,7 +64,7 @@ public class WelcomeAnalyticsAnimationView : WelcomeAnimationView {
             referenceSize:self.frame.size,
             transform: self.squashedHeightBarTransform
         )
-        bar.fillColor = self.barGreen
+        bar.fillColor = self.barEvenColor
         return bar
     }()
     
@@ -74,7 +74,7 @@ public class WelcomeAnalyticsAnimationView : WelcomeAnimationView {
             referenceSize:self.frame.size,
             transform: self.squashedHeightBarTransform
         )
-        bar.fillColor = self.barBlue
+        bar.fillColor = self.barOddColor
         return bar
     }()
     
