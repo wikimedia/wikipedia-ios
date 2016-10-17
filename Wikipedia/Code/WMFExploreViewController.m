@@ -241,6 +241,10 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         }];
     } else if ([group contentType] != WMFContentTypeURL) {
         content = nil;
+    } else if ([group contentType] == WMFContentTypeStory) {
+        content = [content wmf_mapAndRejectNil:^id(WMFFeedNewsStory *obj) {
+            return [[[obj articlePreviews] firstObject] articleURL];
+        }];
     }
 
     return content;
@@ -268,6 +272,13 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         }
         return content[indexPath.row];
 
+    } else if ([section contentType] == WMFContentTypeStory) {
+        NSArray<WMFFeedNewsStory *> *content = [self contentForSectionAtIndex:indexPath.section];
+        if (indexPath.row >= [content count]) {
+            NSAssert(false, @"Attempting to reference an out of bound index");
+            return nil;
+        }
+        return [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
     } else {
         return nil;
     }
@@ -404,8 +415,9 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
             return cell;
         } break;
         case WMFFeedDisplayTypeStory: {
-            NSAssert(false, @"Unknown Display Type");
-            return nil;
+            WMFArticlePreviewCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFArticlePreviewCollectionViewCell wmf_nibName] forIndexPath:indexPath];
+            [self configureStoryCell:cell withSection:(WMFNewsContentGroup *)contentGroup preview:preview userData:userData atIndexPath:indexPath];
+            return cell;
         } break;
 
         default:
@@ -445,10 +457,8 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
             return [WMFPicOfTheDayCollectionViewCell estimatedRowHeight];
         } break;
         case WMFFeedDisplayTypeStory: {
-            NSAssert(false, @"Unknown Content Type");
             return [WMFArticleListCollectionViewCell estimatedRowHeight];
         } break;
-
         default:
             NSAssert(false, @"Unknown Content Type");
             return [WMFArticleListCollectionViewCell estimatedRowHeight];
@@ -630,6 +640,16 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         [cell setDisplayTitle:imageInfo.canonicalPageTitle];
     }
     //    self.referenceImageView = cell.potdImageView;
+}
+
+- (void)configureStoryCell:(WMFArticlePreviewCollectionViewCell *)cell withSection:(WMFNewsContentGroup *)section preview:(WMFArticlePreview *)preview userData:(MWKHistoryEntry *)userData atIndexPath:(NSIndexPath *)indexPath {
+    cell.titleText = [preview.displayTitle wmf_stringByRemovingHTML];
+    cell.descriptionText = preview.wikidataDescription;
+    cell.snippetText = preview.snippet;
+    [cell setImageURL:preview.thumbnailURL];
+    [cell setSaveableURL:preview.url savedPageList:self.userStore.savedPageList];
+    cell.saveButtonController.analyticsContext = [self analyticsContext];
+    cell.saveButtonController.analyticsContentType = [section analyticsContentType];
 }
 
 - (BOOL)isDisplayingLocationCell {

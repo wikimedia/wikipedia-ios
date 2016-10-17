@@ -456,6 +456,10 @@ NS_ASSUME_NONNULL_BEGIN
     return @"In The News";
 }
 
+- (WMFFeedDisplayType)displayType {
+    return WMFFeedDisplayTypeStory;
+}
+
 /**
  *  String to display to the user for the receiver's date.
  *
