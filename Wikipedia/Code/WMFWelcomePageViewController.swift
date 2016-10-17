@@ -48,14 +48,14 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         gradientView.mas_makeConstraints { make in
             make.top.bottom().leading().and().trailing().equalTo()(self.view)
         }
-        if let scrollView = wmf_subviewOfType(UIScrollView) {
+        if let scrollView = view.wmf_firstSubviewOfType(UIScrollView) {
             scrollView.clipsToBounds = false
         }
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if let pageControl = wmf_subviewOfType(UIPageControl) {
+        if let pageControl = view.wmf_firstSubviewOfType(UIPageControl) {
             pageControl.userInteractionEnabled = false
         }
     }
@@ -100,16 +100,5 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
 
     override func shouldAutorotate() -> Bool {
         return false
-    }
-}
-
-extension UIPageViewController {
-    func wmf_subviewOfType<T>(type:T.Type) -> T? {
-        for subview in view.subviews {
-            if subview is T {
-                return subview as? T
-            }
-        }
-        return nil
     }
 }
