@@ -239,14 +239,13 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         content = [content bk_map:^id(WMFFeedTopReadArticlePreview *obj) {
             return [obj articleURL];
         }];
-    } else if ([group contentType] != WMFContentTypeURL) {
-        content = nil;
     } else if ([group contentType] == WMFContentTypeStory) {
         content = [content wmf_mapAndRejectNil:^id(WMFFeedNewsStory *obj) {
             return [[[obj articlePreviews] firstObject] articleURL];
         }];
+    } else if ([group contentType] != WMFContentTypeURL) {
+        content = nil;
     }
-
     return content;
 }
 
