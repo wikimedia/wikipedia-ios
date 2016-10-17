@@ -14,6 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
     return [MTLJSONAdapter arrayTransformerWithModelClass:[WMFFeedArticlePreview class]];
 }
 
++ (NSUInteger)modelVersion {
+    return 2;
+}
+
 @end
 
 NS_ASSUME_NONNULL_END

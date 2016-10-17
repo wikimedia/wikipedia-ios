@@ -241,7 +241,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         }];
     } else if ([group contentType] == WMFContentTypeStory) {
         content = [content wmf_mapAndRejectNil:^id(WMFFeedNewsStory *obj) {
-            return [[[obj articlePreviews] firstObject] articleURL];
+            return [[obj mostPopularArticlePreview] articleURL];
         }];
     } else if ([group contentType] != WMFContentTypeURL) {
         content = nil;
@@ -277,7 +277,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
             NSAssert(false, @"Attempting to reference an out of bound index");
             return nil;
         }
-        return [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
+        return [[content[indexPath.row] mostPopularArticlePreview] articleURL];
     } else {
         return nil;
     }

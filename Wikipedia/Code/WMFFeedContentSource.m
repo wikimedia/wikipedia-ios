@@ -243,10 +243,23 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 
     [news enumerateObjectsUsingBlock:^(WMFFeedNewsStory *_Nonnull story, NSUInteger idx, BOOL *_Nonnull stop) {
+        __block unsigned long long mostViews = 0;
+        __block WMFFeedArticlePreview *mostViewedPreview = nil;
         [story.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
             NSURL *url = [obj articleURL];
-            [self.previewStore addPreviewWithURL:url updatedWithFeedPreview:obj pageViews:pageViews[url]];
+            NSDictionary *pageViewsForURL = pageViews[url];
+            NSArray *dates = [pageViewsForURL.allKeys sortedArrayUsingSelector:@selector(compare:)];
+            NSArray *latestDate = [dates lastObject];
+            if (latestDate) {
+                unsigned long long views = [pageViewsForURL[latestDate] unsignedLongLongValue];
+                if (views > mostViews) {
+                    mostViews = views;
+                    mostViewedPreview = obj;
+                }
+            }
+            [self.previewStore addPreviewWithURL:url updatedWithFeedPreview:obj pageViews:pageViewsForURL];
         }];
+        story.mostPopularArticlePreview = mostViewedPreview;
     }];
 
     [self.contentStore addContentGroup:group associatedContent:news];
