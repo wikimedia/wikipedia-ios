@@ -29,14 +29,14 @@ class WMFWelcomeAnimationViewController: UIViewController {
         // Fix for: http://stackoverflow.com/a/39614714
         view.superview?.layoutIfNeeded()
         
-        animationView.addAnimationElementsScaledToCurrentFrameSize()
+        animationView.wmf_addAnimationElementsScaledToCurrentFrameSize()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         if (!hasAlreadyAnimated) {
-            animationView.beginAnimations()
+            animationView.wmf_beginAnimations()
         }
         hasAlreadyAnimated = true
     }

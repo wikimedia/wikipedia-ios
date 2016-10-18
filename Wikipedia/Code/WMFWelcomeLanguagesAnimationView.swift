@@ -104,8 +104,8 @@ public class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
         )
     }()
     
-    override public func addAnimationElementsScaledToCurrentFrameSize(){
-        removeExistingSubviewsAndSublayers()
+    override public func wmf_addAnimationElementsScaledToCurrentFrameSize(){
+        wmf_removeExistingSubviewsAndSublayers()
         
         self.addSubview(self.bubbleLeftImgView)
         self.addSubview(self.bubbleRightImgView)
@@ -124,7 +124,7 @@ public class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
             })
     }
 
-    override public func beginAnimations() {
+    override public func wmf_beginAnimations() {
         CATransaction.begin()
         
         bubbleLeftImgView.layer.wmf_animateToOpacity(1.0,

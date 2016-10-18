@@ -101,8 +101,8 @@ public class WMFWelcomeIntroductionAnimationView : WMFWelcomeAnimationView {
         )
     }()
     
-    override public func addAnimationElementsScaledToCurrentFrameSize(){
-        removeExistingSubviewsAndSublayers()
+    override public func wmf_addAnimationElementsScaledToCurrentFrameSize(){
+        wmf_removeExistingSubviewsAndSublayers()
 
         self.addSubview(self.baseImgView)
         self.addSubview(self.tubeImgView)
@@ -120,7 +120,7 @@ public class WMFWelcomeIntroductionAnimationView : WMFWelcomeAnimationView {
             })
     }
     
-    override public func beginAnimations() {
+    override public func wmf_beginAnimations() {
         CATransaction.begin()
         
         let tubeOvershootRotationTransform = CATransform3D.wmf_rotationTransformWithDegrees(15.0)
