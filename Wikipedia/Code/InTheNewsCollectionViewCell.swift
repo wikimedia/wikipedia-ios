@@ -10,7 +10,7 @@ class InTheNewsCollectionViewCell: UICollectionViewCell {
         imageView.wmf_configureWithDefaultPlaceholder()
     }
     
-    static var estimatedRowHeight:CGFloat = 97
+    static var estimatedRowHeight:CGFloat = 116
 
     var imageURL: NSURL? {
         didSet {
