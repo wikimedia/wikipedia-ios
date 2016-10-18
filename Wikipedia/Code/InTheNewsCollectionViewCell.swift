@@ -5,26 +5,16 @@ class InTheNewsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var label: UILabel!
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        imageView.wmf_configureWithDefaultPlaceholder()
-    }
-    
     static var estimatedRowHeight:CGFloat = 116
 
     var imageURL: NSURL? {
         didSet {
             guard let URL = imageURL else {
                 imageView.wmf_configureWithDefaultPlaceholder()
-                imageView.hidden = true
                 return
             }
             
-            imageView.wmf_setImageWithURL(URL, detectFaces: true, onGPU: true, failure: { (error) in
-                self.imageView.hidden = true
-                }) { 
-                self.imageView.hidden = false
-            }
+            imageView.wmf_setImageWithURL(URL, detectFaces: true, onGPU: true, failure: { (error) in self.imageView.wmf_configureWithDefaultPlaceholder() }) { }
         }
     }
     
