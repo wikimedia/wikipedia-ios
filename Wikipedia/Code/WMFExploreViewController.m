@@ -414,7 +414,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
             return cell;
         } break;
         case WMFFeedDisplayTypeStory: {
-            WMFArticlePreviewCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFArticlePreviewCollectionViewCell wmf_nibName] forIndexPath:indexPath];
+            InTheNewsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[InTheNewsCollectionViewCell wmf_nibName] forIndexPath:indexPath];
             [self configureStoryCell:cell withSection:(WMFNewsContentGroup *)contentGroup preview:preview userData:userData atIndexPath:indexPath];
             return cell;
         } break;
@@ -456,7 +456,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
             return [WMFPicOfTheDayCollectionViewCell estimatedRowHeight];
         } break;
         case WMFFeedDisplayTypeStory: {
-            return [WMFArticleListCollectionViewCell estimatedRowHeight];
+            return [InTheNewsCollectionViewCell estimatedRowHeight];
         } break;
         default:
             NSAssert(false, @"Unknown Content Type");
@@ -605,6 +605,8 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [self.collectionView registerNib:[WMFNearbyArticleCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbyArticleCollectionViewCell wmf_nibName]];
 
     [self.collectionView registerNib:[WMFPicOfTheDayCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFPicOfTheDayCollectionViewCell wmf_nibName]];
+    
+    [self.collectionView registerNib:[InTheNewsCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[InTheNewsCollectionViewCell wmf_nibName]];
 }
 
 - (void)configureListCell:(WMFArticleListCollectionViewCell *)cell withPreview:(WMFArticlePreview *)preview userData:(MWKHistoryEntry *)userData atIndexPath:(NSIndexPath *)indexPath {
@@ -641,19 +643,14 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     //    self.referenceImageView = cell.potdImageView;
 }
 
-- (void)configureStoryCell:(WMFArticlePreviewCollectionViewCell *)cell withSection:(WMFNewsContentGroup *)section preview:(WMFArticlePreview *)preview userData:(MWKHistoryEntry *)userData atIndexPath:(NSIndexPath *)indexPath {
+- (void)configureStoryCell:(InTheNewsCollectionViewCell *)cell withSection:(WMFNewsContentGroup *)section preview:(WMFArticlePreview *)preview userData:(MWKHistoryEntry *)userData atIndexPath:(NSIndexPath *)indexPath {
     NSArray<WMFFeedNewsStory *> *stories = [self contentForGroup:section];
     if (indexPath.item >= stories.count) {
         return;
     }
     WMFFeedNewsStory *story = stories[indexPath.item];
-    cell.titleText = [preview.displayTitle wmf_stringByRemovingHTML];
-    cell.descriptionText = preview.wikidataDescription;
-    cell.snippetText = [story.storyHTML wmf_stringByRemovingHTML];
-    [cell setImageURL:preview.thumbnailURL];
-    [cell setSaveableURL:preview.url savedPageList:self.userStore.savedPageList];
-    cell.saveButtonController.analyticsContext = [self analyticsContext];
-    cell.saveButtonController.analyticsContentType = [section analyticsContentType];
+    cell.bodyHTML = story.storyHTML;
+    cell.imageURL = preview.thumbnailURL;
 }
 
 - (BOOL)isDisplayingLocationCell {
@@ -793,7 +790,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                 return nil;
             }
             WMFFeedNewsStory *story = stories[indexPath.item];
-            return [[WMFInTheNewsViewController alloc] initWithStory:story];
+            return [[InTheNewsViewController alloc] initWithStory:story];
         } break;
         default:
             NSAssert(false, @"Unknown Detail Type");

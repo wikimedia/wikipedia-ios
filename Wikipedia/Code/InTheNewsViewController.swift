@@ -1,6 +1,5 @@
 import UIKit
 
-@objc(WMFInTheNewsViewController)
 class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let story: WMFFeedNewsStory
