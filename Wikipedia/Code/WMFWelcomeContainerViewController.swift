@@ -7,6 +7,8 @@ class WMFWelcomeContainerViewController: WMFWelcomeFadeInAndUpOnceViewController
     var welcomePageType:WMFWelcomePageType = .intro
     private var animationVC:WMFWelcomeAnimationViewController? = nil
 
+    weak var welcomeNavigationDelegate:WMFWelcomeNavigationDelegate? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         embedBottomContainerControllerView()
@@ -45,5 +47,9 @@ class WMFWelcomeContainerViewController: WMFWelcomeFadeInAndUpOnceViewController
             animationVC = segue.destinationViewController as? WMFWelcomeAnimationViewController
             animationVC!.welcomePageType = welcomePageType
         }
+    }
+    
+    @IBAction func next(withSender sender: AnyObject) {
+        welcomeNavigationDelegate?.showNextWelcomePage(self)
     }
 }
