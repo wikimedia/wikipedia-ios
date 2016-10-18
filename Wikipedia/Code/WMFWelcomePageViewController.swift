@@ -21,9 +21,12 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         if index == pageControllers.count - 1 {
             self.dismissViewControllerAnimated(true, completion:completionBlock)
         }else{
+            self.view.userInteractionEnabled = false
             let nextIndex = index! + 1
             indexForDotIndicator = nextIndex
-            self.setViewControllers([pageControllers[nextIndex]], direction: .Forward, animated: true, completion:nil)
+            self.setViewControllers([pageControllers[nextIndex]], direction: .Forward, animated: true, completion: {(Bool) in
+                self.view.userInteractionEnabled = true
+            })
         }
     }
 
