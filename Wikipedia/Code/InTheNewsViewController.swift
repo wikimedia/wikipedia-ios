@@ -36,6 +36,7 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.registerNib(WMFArticleListTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFArticleListTableViewCell.identifier())
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.tableFooterView = UIView(frame: CGRectZero)
         updateUIWithStory(story)
     }
     
