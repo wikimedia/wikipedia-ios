@@ -1,16 +1,15 @@
 
-@objc class WMFWelcomeFadeInAndUpOnceViewController: UIViewController {
+class WMFWelcomeFadeInAndUpOnceViewController: UIViewController {
 
     var hasAlreadyFaded = false
-    weak var delegate:WMFWelcomeNavigationDelegate? = nil
-
-    @IBOutlet private var containerView:UIView!
+    weak var welcomeNavigationDelegate:WMFWelcomeNavigationDelegate? = nil
+    
     @IBOutlet private var fadeInAndUpDelay:NSNumber! = 0
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         if (!hasAlreadyFaded) {
-            containerView.wmf_zeroLayerOpacity()
+            view.wmf_zeroLayerOpacity()
         }
     }
 
@@ -18,12 +17,12 @@
         super.viewDidAppear(animated)
         
         if (!hasAlreadyFaded) {
-            containerView.wmf_fadeInAndUpAfterDelay(CGFloat(fadeInAndUpDelay))
+            view.wmf_fadeInAndUpAfterDelay(CGFloat(fadeInAndUpDelay))
         }
         hasAlreadyFaded = true
     }
     
     @IBAction func next(withSender sender: AnyObject) {
-        delegate?.showNextWelcomePage(self)
+        welcomeNavigationDelegate?.showNextWelcomePage(self)
     }
 }

@@ -1,6 +1,12 @@
 import Foundation
 import UIKit
 
+enum WMFWelcomePageType {
+    case intro
+    case languages
+    case analytics
+}
+
 @objc public protocol WMFWelcomeNavigationDelegate{
     func showNextWelcomePage(sender: AnyObject)
 }
@@ -17,40 +23,59 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         }else{
             let nextIndex = index! + 1
             indexForDotIndicator = nextIndex
-            self.setViewControllers([pageControllers[nextIndex]], direction: .Forward, animated: true, completion: nil)
+            self.setViewControllers([pageControllers[nextIndex]], direction: .Forward, animated: true, completion:nil)
         }
     }
-    
-    private let pageControllers:[UIViewController] = [
-        WMFWelcomeIntroductionViewController.wmf_viewControllerWithIdentifier("WMFWelcomeIntroductionViewController", fromStoryboardNamed: "WMFWelcome"),
-        WMFWelcomeLanguageViewController.wmf_viewControllerWithIdentifier("WMFWelcomeLanguageViewController", fromStoryboardNamed: "WMFWelcome"),
-        WMFWelcomeAnalyticsViewController.wmf_viewControllerWithIdentifier("WMFWelcomeAnalyticsViewController", fromStoryboardNamed: "WMFWelcome")
-    ]
+
+    private lazy var pageControllers: [UIViewController] = {
+
+        let introVC = WMFWelcomeContainerViewController.wmf_viewControllerWithIdentifier("WMFWelcomeContainerViewController", fromStoryboardNamed: "WMFWelcome")
+        introVC.welcomeNavigationDelegate = self
+        introVC.welcomePageType = .intro
+
+        let langVC = WMFWelcomeContainerViewController.wmf_viewControllerWithIdentifier("WMFWelcomeContainerViewController", fromStoryboardNamed: "WMFWelcome")
+        langVC.welcomeNavigationDelegate = self
+        langVC.welcomePageType = .languages
+        
+        let analyticsVC = WMFWelcomeContainerViewController.wmf_viewControllerWithIdentifier("WMFWelcomeContainerViewController", fromStoryboardNamed: "WMFWelcome")
+        analyticsVC.welcomeNavigationDelegate = self
+        analyticsVC.welcomePageType = .analytics
+        
+        return [
+            introVC,
+            langVC,
+            analyticsVC
+        ]
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dataSource = self
         self.setViewControllers([pageControllers.first!], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
 
-        for controller in pageControllers {
-            controller.view.backgroundColor = UIColor.clearColor()
-            let controller = controller as! WMFWelcomeFadeInAndUpOnceViewController
-            controller.delegate = self
+        addGradient()
+        
+        if let scrollView = view.wmf_firstSubviewOfType(UIScrollView) {
+            scrollView.clipsToBounds = false
         }
+    }
 
-        let gradientView = WMFGradientView.init()
-        gradientView.gradientLayer.locations = [0, 1]
-        gradientView.gradientLayer.colors =  [UIColor.wmf_welcomeBackgroundGradientBottomColor().CGColor, UIColor.wmf_welcomeBackgroundGradientTopColor().CGColor]
-        gradientView.gradientLayer.startPoint = CGPoint.init(x: 0.5, y: 1.0)
-        gradientView.gradientLayer.endPoint = CGPoint.init(x: 0.5, y: 0.0)
-        gradientView.userInteractionEnabled = false
+    private func addGradient() {
+        let gradientView = backgroundGradient()
         view.insertSubview(gradientView, atIndex: 0)
         gradientView.mas_makeConstraints { make in
             make.top.bottom().leading().and().trailing().equalTo()(self.view)
         }
-        if let scrollView = view.wmf_firstSubviewOfType(UIScrollView) {
-            scrollView.clipsToBounds = false
-        }
+    }
+
+    private func backgroundGradient() -> WMFGradientView {
+        let gradient = WMFGradientView.init()
+        gradient.gradientLayer.locations = [0, 1]
+        gradient.gradientLayer.colors =  [UIColor.wmf_welcomeBackgroundGradientBottomColor().CGColor, UIColor.wmf_welcomeBackgroundGradientTopColor().CGColor]
+        gradient.gradientLayer.startPoint = CGPoint.init(x: 0.5, y: 1.0)
+        gradient.gradientLayer.endPoint = CGPoint.init(x: 0.5, y: 0.0)
+        gradient.userInteractionEnabled = false
+        return gradient
     }
     
     override func viewDidAppear(animated: Bool) {

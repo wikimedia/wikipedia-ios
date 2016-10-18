@@ -180,8 +180,8 @@ public class WelcomeAnalyticsAnimationView : WelcomeAnimationView {
         )
     }()
     
-    override public func didMoveToSuperview() {
-        super.didMoveToSuperview()
+    override public func addAnimationElementsScaledToCurrentFrameSize(){
+        removeExistingSubviewsAndSublayers()
 
         self.addSubview(self.fileImgView)
         
@@ -211,7 +211,7 @@ public class WelcomeAnalyticsAnimationView : WelcomeAnimationView {
             })
     }
     
-    public func beginAnimations() {
+    override public func beginAnimations() {
         CATransaction.begin()
         
         fileImgView.layer.wmf_animateToOpacity(1.0,

@@ -104,8 +104,8 @@ public class WelcomeLanguagesAnimationView : WelcomeAnimationView {
         )
     }()
     
-    override public func didMoveToSuperview() {
-        super.didMoveToSuperview()
+    override public func addAnimationElementsScaledToCurrentFrameSize(){
+        removeExistingSubviewsAndSublayers()
         
         self.addSubview(self.bubbleLeftImgView)
         self.addSubview(self.bubbleRightImgView)
@@ -124,7 +124,7 @@ public class WelcomeLanguagesAnimationView : WelcomeAnimationView {
             })
     }
 
-    public func beginAnimations() {
+    override public func beginAnimations() {
         CATransaction.begin()
         
         bubbleLeftImgView.layer.wmf_animateToOpacity(1.0,

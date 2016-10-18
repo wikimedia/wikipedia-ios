@@ -44,4 +44,23 @@ public class WelcomeAnimationView : UIView {
         // Fix for: http://stackoverflow.com/a/39614714
         self.layoutIfNeeded()
     }
+    
+    public func beginAnimations() {
+        
+    }
+    
+    public func addAnimationElementsScaledToCurrentFrameSize(){
+    
+    }
+    
+    public func removeExistingSubviewsAndSublayers() {
+        for subview in self.subviews {
+            subview.removeFromSuperview()
+        }
+        if let sublayers = self.layer.sublayers {
+            for sublayer in sublayers {
+                sublayer.removeFromSuperlayer()
+            }
+        }
+    }
 }

@@ -1,33 +1,19 @@
 
-class WMFWelcomeIntroductionViewController: WMFWelcomeFadeInAndUpOnceViewController {
+class WMFWelcomeIntroductionViewController: UIViewController {
     
     @IBOutlet private var titleLabel:UILabel!
     @IBOutlet private var subTitleLabel:UILabel!
     @IBOutlet private var tellMeMoreButton:UIButton!
     @IBOutlet private var nextButton:UIButton!
-    @IBOutlet private var animationView:WelcomeIntroAnimationView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.backgroundColor = UIColor.clearColor()
         titleLabel.adjustsFontSizeToFitWidth = true
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-explore-new-ways-title").uppercaseStringWithLocale(NSLocale.currentLocale())
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-explore-new-ways-sub-title")
         tellMeMoreButton.setTitle(localizedStringForKeyFallingBackOnEnglish("welcome-explore-tell-me-more"), forState: .Normal)
         nextButton.setTitle(localizedStringForKeyFallingBackOnEnglish("welcome-explore-continue-button").uppercaseStringWithLocale(NSLocale.currentLocale()), forState: .Normal)
-        animationView.backgroundColor = UIColor.clearColor()
-    }
-    
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
-    }
-
-    override func viewDidAppear(animated: Bool) {
-        let shouldAnimate = !hasAlreadyFaded
-        super.viewDidAppear(animated)
-        if(shouldAnimate){
-            animationView.beginAnimations()
-        }
     }
     
     @IBAction private func showHowThisWorksAlert(withSender sender: AnyObject) {
