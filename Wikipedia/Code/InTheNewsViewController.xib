@@ -25,6 +25,17 @@
                     <constraints>
                         <constraint firstAttribute="width" secondItem="nzS-WZ-ccx" secondAttribute="height" multiplier="345:211" id="YN3-LK-31c"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pay-gE-IIb">
                     <constraints>
@@ -47,12 +58,11 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="gG9-dB-9ri" firstAttribute="top" secondItem="nzS-WZ-ccx" secondAttribute="bottom" constant="10" id="71f-Ee-wZB"/>
+                <constraint firstItem="gG9-dB-9ri" firstAttribute="top" secondItem="nzS-WZ-ccx" secondAttribute="bottom" constant="18" id="71f-Ee-wZB"/>
                 <constraint firstItem="gG9-dB-9ri" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="FIg-qu-TDB"/>
-                <constraint firstItem="FUR-o6-bp7" firstAttribute="top" secondItem="gG9-dB-9ri" secondAttribute="bottom" constant="10" id="Hm8-KE-5dz"/>
+                <constraint firstItem="FUR-o6-bp7" firstAttribute="top" secondItem="gG9-dB-9ri" secondAttribute="bottom" constant="18" id="Hm8-KE-5dz"/>
                 <constraint firstItem="pay-gE-IIb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="JZY-iZ-HgL"/>
                 <constraint firstItem="nzS-WZ-ccx" firstAttribute="top" secondItem="pay-gE-IIb" secondAttribute="bottom" constant="10" id="L37-NC-vzN"/>
-                <constraint firstItem="FUR-o6-bp7" firstAttribute="top" secondItem="gG9-dB-9ri" secondAttribute="bottom" constant="10" id="N8H-cc-rJP"/>
                 <constraint firstAttribute="bottomMargin" secondItem="FUR-o6-bp7" secondAttribute="bottom" constant="20" id="TM8-JL-KCt"/>
                 <constraint firstItem="pay-gE-IIb" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Yu6-gC-xmX"/>
                 <constraint firstItem="gG9-dB-9ri" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailingMargin" id="e83-7p-78b"/>
@@ -61,6 +71,11 @@
                 <constraint firstAttribute="trailingMargin" secondItem="FUR-o6-bp7" secondAttribute="trailing" id="kgx-r9-SIJ"/>
                 <constraint firstItem="FUR-o6-bp7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="sxk-iI-ZXq"/>
             </constraints>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                    <real key="value" value="10"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="33.5" y="54.5"/>
         </view>
     </objects>

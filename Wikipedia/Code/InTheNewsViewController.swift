@@ -25,6 +25,11 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.alwaysBounceVertical = false
+        tableView.alwaysBounceHorizontal = false
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.whiteColor()
+        tableView.backgroundView = backgroundView
         tableView.registerNib(WMFArticleListTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFArticleListTableViewCell.identifier())
         tableView.dataSource = self
         tableView.delegate = self
@@ -50,15 +55,13 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
         
         var font: UIFont
         if #available(iOS 10.0, *) {
-            font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote, compatibleWithTraitCollection: nil)
+            font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody, compatibleWithTraitCollection: nil)
         } else {
-            font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
+            font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
         }
         let linkFont = UIFont.boldSystemFontOfSize(font.pointSize)
         let attributedString = storyHTML.wmf_attributedStringByRemovingHTMLWithFont(font, linkFont: linkFont)
         storyLabel.attributedText = attributedString
-        
-        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
