@@ -1,6 +1,6 @@
 import UIKit
 
-class InTheNewsCollectionViewCell: UICollectionViewCell {
+class InTheNewsCollectionViewCell: WMFExploreCollectionViewCell {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var label: UILabel!

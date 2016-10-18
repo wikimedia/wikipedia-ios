@@ -22,6 +22,7 @@
 #import "NSFileManager+WMFExtendedFileAttributes.h"
 #import "WMFTaskGroup.h"
 #import "UIViewController+WMFArticlePresentation.h"
+#import "WMFExploreCollectionViewCell.h"
 
 // View Controllers
 #import "WMFArticleViewController_Private.h"
