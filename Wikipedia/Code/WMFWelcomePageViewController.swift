@@ -30,25 +30,19 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         }
     }
 
+    private func containerControllerForWelcomePageType(type: WMFWelcomePageType) -> WMFWelcomeContainerViewController {
+        let controller = WMFWelcomeContainerViewController.wmf_viewControllerWithIdentifier("WMFWelcomeContainerViewController", fromStoryboardNamed: "WMFWelcome")
+        controller.welcomeNavigationDelegate = self
+        controller.welcomePageType = type
+        return controller
+    }
+    
     private lazy var pageControllers: [UIViewController] = {
-
-        let introVC = WMFWelcomeContainerViewController.wmf_viewControllerWithIdentifier("WMFWelcomeContainerViewController", fromStoryboardNamed: "WMFWelcome")
-        introVC.welcomeNavigationDelegate = self
-        introVC.welcomePageType = .intro
-
-        let langVC = WMFWelcomeContainerViewController.wmf_viewControllerWithIdentifier("WMFWelcomeContainerViewController", fromStoryboardNamed: "WMFWelcome")
-        langVC.welcomeNavigationDelegate = self
-        langVC.welcomePageType = .languages
-        
-        let analyticsVC = WMFWelcomeContainerViewController.wmf_viewControllerWithIdentifier("WMFWelcomeContainerViewController", fromStoryboardNamed: "WMFWelcome")
-        analyticsVC.welcomeNavigationDelegate = self
-        analyticsVC.welcomePageType = .analytics
-        
-        return [
-            introVC,
-            langVC,
-            analyticsVC
-        ]
+        var controllers:[UIViewController] = []
+        controllers.append(self.containerControllerForWelcomePageType(.intro))
+        controllers.append(self.containerControllerForWelcomePageType(.languages))
+        controllers.append(self.containerControllerForWelcomePageType(.analytics))
+        return controllers
     }()
     
     override func viewDidLoad() {
