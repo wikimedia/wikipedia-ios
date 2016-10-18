@@ -1,6 +1,6 @@
 import Foundation
 
-public class WMFWelcomeIntroAnimationView : WMFWelcomeAnimationView {
+public class WMFWelcomeIntroductionAnimationView : WMFWelcomeAnimationView {
 
     lazy var tubeImgView: UIImageView = {
         let tubeRotationPoint = CGPointMake(0.576, 0.38)
