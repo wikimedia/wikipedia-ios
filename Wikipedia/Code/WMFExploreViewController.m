@@ -790,7 +790,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                 return nil;
             }
             WMFFeedNewsStory *story = stories[indexPath.item];
-            return [[InTheNewsViewController alloc] initWithStory:story];
+            return [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore previewStore:self.previewStore];
         } break;
         default:
             NSAssert(false, @"Unknown Detail Type");
@@ -819,7 +819,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
             [self presentViewController:vc animated:animated completion:nil];
         } break;
         case WMFFeedDetailTypeStory: {
-            [self presentViewController:vc animated:animated completion:nil];
+            [self.navigationController pushViewController:vc animated:animated];
         } break;
         default:
             NSAssert(false, @"Unknown Detail Type");

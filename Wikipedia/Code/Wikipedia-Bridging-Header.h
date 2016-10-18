@@ -21,6 +21,7 @@
 #import "MWNetworkActivityIndicatorManager.h"
 #import "NSFileManager+WMFExtendedFileAttributes.h"
 #import "WMFTaskGroup.h"
+#import "UIViewController+WMFArticlePresentation.h"
 
 // View Controllers
 #import "WMFArticleViewController_Private.h"

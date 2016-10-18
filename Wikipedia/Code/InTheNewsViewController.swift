@@ -3,14 +3,19 @@ import UIKit
 class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let story: WMFFeedNewsStory
+    let dataStore: MWKDataStore
+    let previewStore: WMFArticlePreviewDataStore
     
     @IBOutlet weak var storyLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     
-    required init(story: WMFFeedNewsStory) {
+    required init(story: WMFFeedNewsStory, dataStore: MWKDataStore, previewStore: WMFArticlePreviewDataStore) {
         self.story = story
+        self.dataStore = dataStore
+        self.previewStore = previewStore
         super.init(nibName: "InTheNewsViewController", bundle: nil)
+        title = localizedStringForKeyFallingBackOnEnglish("in-the-news-title")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -24,15 +29,22 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.alwaysBounceVertical = false
-        tableView.alwaysBounceHorizontal = false
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = UIColor.whiteColor()
-        tableView.backgroundView = backgroundView
+        tableView.backgroundColor = UIColor.wmf_articleListBackgroundColor()
+        tableView.separatorColor = UIColor.wmf_lightGrayColor()
+        tableView.estimatedRowHeight = 64.0
+        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.registerNib(WMFArticleListTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFArticleListTableViewCell.identifier())
         tableView.dataSource = self
         tableView.delegate = self
         updateUIWithStory(story)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRowAtIndexPath(indexPath, animated: animated)
+        }
     }
     
     func updateUIWithStory(story: WMFFeedNewsStory) {
@@ -83,5 +95,17 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
         cell.descriptionText = articlePreview.snippet
         
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard let articlePreviews = story.articlePreviews where articlePreviews.count > indexPath.row else {
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            return
+        }
+        
+        let articlePreview = articlePreviews[indexPath.row]
+        let articleURL = articlePreview.articleURL()
+        
+        wmf_pushArticleWithURL(articleURL, dataStore: dataStore, previewStore: previewStore, animated: true)
     }
 }

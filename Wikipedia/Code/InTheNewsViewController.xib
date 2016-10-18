@@ -4,7 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,53 +22,54 @@
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nzS-WZ-ccx">
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="nzS-WZ-ccx" secondAttribute="height" multiplier="345:211" id="YN3-LK-31c"/>
+                        <constraint firstAttribute="width" secondItem="nzS-WZ-ccx" secondAttribute="height" multiplier="16:9" id="cEm-or-9LG"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                            <real key="value" value="1"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                            <color key="value" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="5"/>
+                            <real key="value" value="0.0"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pay-gE-IIb">
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="rb1-hK-4gK"/>
-                        <constraint firstAttribute="width" constant="50" id="uQ8-4h-QVo"/>
-                    </constraints>
-                    <state key="normal" title="X"/>
-                    <connections>
-                        <action selector="close:" destination="-1" eventType="touchUpInside" id="dSM-V7-jnq"/>
-                    </connections>
-                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gG9-dB-9ri">
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zs0-4Y-bvQ">
+                    <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="YAh-eJ-9VA"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Grn-DI-J6h">
+                    <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="soM-p3-MHA"/>
+                    </constraints>
+                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FUR-o6-bp7">
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="gG9-dB-9ri" firstAttribute="top" secondItem="nzS-WZ-ccx" secondAttribute="bottom" constant="18" id="71f-Ee-wZB"/>
-                <constraint firstItem="gG9-dB-9ri" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="FIg-qu-TDB"/>
-                <constraint firstItem="FUR-o6-bp7" firstAttribute="top" secondItem="gG9-dB-9ri" secondAttribute="bottom" constant="18" id="Hm8-KE-5dz"/>
-                <constraint firstItem="pay-gE-IIb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="JZY-iZ-HgL"/>
-                <constraint firstItem="nzS-WZ-ccx" firstAttribute="top" secondItem="pay-gE-IIb" secondAttribute="bottom" constant="10" id="L37-NC-vzN"/>
-                <constraint firstAttribute="bottomMargin" secondItem="FUR-o6-bp7" secondAttribute="bottom" constant="20" id="TM8-JL-KCt"/>
-                <constraint firstItem="pay-gE-IIb" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Yu6-gC-xmX"/>
-                <constraint firstItem="gG9-dB-9ri" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailingMargin" id="e83-7p-78b"/>
-                <constraint firstItem="nzS-WZ-ccx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="fqc-nt-dQh"/>
-                <constraint firstItem="nzS-WZ-ccx" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailingMargin" id="kXy-kP-mMG"/>
-                <constraint firstAttribute="trailingMargin" secondItem="FUR-o6-bp7" secondAttribute="trailing" id="kgx-r9-SIJ"/>
-                <constraint firstItem="FUR-o6-bp7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="sxk-iI-ZXq"/>
+                <constraint firstItem="Zs0-4Y-bvQ" firstAttribute="top" secondItem="nzS-WZ-ccx" secondAttribute="bottom" id="1HA-MY-Grg"/>
+                <constraint firstItem="Zs0-4Y-bvQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="4e7-Qh-7Cf"/>
+                <constraint firstItem="Zs0-4Y-bvQ" firstAttribute="top" secondItem="nzS-WZ-ccx" secondAttribute="bottom" id="53o-Ih-eDS"/>
+                <constraint firstItem="nzS-WZ-ccx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5ev-1c-xFa"/>
+                <constraint firstItem="gG9-dB-9ri" firstAttribute="top" secondItem="Zs0-4Y-bvQ" secondAttribute="bottom" constant="18" id="9ii-Yl-O4S"/>
+                <constraint firstAttribute="trailing" secondItem="Zs0-4Y-bvQ" secondAttribute="trailing" id="Iwq-UR-YYr"/>
+                <constraint firstItem="FUR-o6-bp7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="MNw-mO-rZj"/>
+                <constraint firstAttribute="bottom" secondItem="FUR-o6-bp7" secondAttribute="bottom" id="OT3-YX-TD0"/>
+                <constraint firstItem="Grn-DI-J6h" firstAttribute="top" secondItem="gG9-dB-9ri" secondAttribute="bottom" constant="18" id="PUl-5D-oYR"/>
+                <constraint firstItem="FUR-o6-bp7" firstAttribute="top" secondItem="Grn-DI-J6h" secondAttribute="bottom" id="cay-kn-VPd"/>
+                <constraint firstAttribute="trailing" secondItem="nzS-WZ-ccx" secondAttribute="trailing" id="dNQ-GQ-tR8"/>
+                <constraint firstAttribute="trailing" secondItem="FUR-o6-bp7" secondAttribute="trailing" id="lLi-ee-xtb"/>
+                <constraint firstAttribute="trailing" secondItem="Grn-DI-J6h" secondAttribute="trailing" id="n3Z-vP-Get"/>
+                <constraint firstItem="Grn-DI-J6h" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qnN-cY-RaP"/>
+                <constraint firstItem="nzS-WZ-ccx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="txG-QG-25x"/>
+                <constraint firstItem="gG9-dB-9ri" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="13" id="uzK-q6-If4"/>
+                <constraint firstAttribute="trailing" secondItem="gG9-dB-9ri" secondAttribute="trailing" constant="13" id="yoL-e7-vYu"/>
             </constraints>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
