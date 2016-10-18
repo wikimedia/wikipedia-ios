@@ -29,8 +29,7 @@ class WMFWelcomeContainerViewController: WMFWelcomeFadeInAndUpOnceViewController
     private func controllerForBottomContainer() -> UIViewController?{
         switch welcomePageType {
         case .intro:
-            let introVC = WMFWelcomeIntroductionViewController.wmf_viewControllerWithIdentifier("WMFWelcomeIntroductionViewController", fromStoryboardNamed: "WMFWelcome")
-            return introVC;
+            return WMFWelcomeIntroductionViewController.wmf_viewControllerWithIdentifier("WMFWelcomeIntroductionViewController", fromStoryboardNamed: "WMFWelcome")
         case .languages:
             let langPanelVC = WMFWelcomePanelViewController.wmf_viewControllerWithIdentifier("WMFWelcomePanelViewController", fromStoryboardNamed: "WMFWelcome")
             langPanelVC.useLanguagesConfiguration()
