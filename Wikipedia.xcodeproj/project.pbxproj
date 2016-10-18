@@ -2160,7 +2160,6 @@
 		BC8B4F1D1C77B29A009B06F7 /* LSNocilla+AnyRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "LSNocilla+AnyRequest.h"; path = "WikipediaUnitTests/Code/LSNocilla+AnyRequest.h"; sourceTree = SOURCE_ROOT; };
 		BC8E58561BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NoSearchResultsWithSuggestion.json; sourceTree = "<group>"; };
 		BC90DE781C57C5AD007E0E81 /* WMFWelcomeLanguageViewControllerVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFWelcomeLanguageViewControllerVisualTests.m; sourceTree = "<group>"; };
-		BC90DE7A1C57D142007E0E81 /* WMFWelcomeLanguageViewController_Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFWelcomeLanguageViewController_Testing.h; path = Wikipedia/Code/WMFWelcomeLanguageViewController_Testing.h; sourceTree = SOURCE_ROOT; };
 		BC9355411BE1A71900697CB0 /* BarackSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BarackSearch.json; sourceTree = "<group>"; };
 		BC97FF081C18897500FA40E3 /* NSUserDefaults+WMFBatchRecordMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSUserDefaults+WMFBatchRecordMode.h"; path = "WikipediaUnitTests/Code/NSUserDefaults+WMFBatchRecordMode.h"; sourceTree = SOURCE_ROOT; };
 		BC97FF091C18897500FA40E3 /* NSUserDefaults+WMFBatchRecordMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSUserDefaults+WMFBatchRecordMode.m"; path = "WikipediaUnitTests/Code/NSUserDefaults+WMFBatchRecordMode.m"; sourceTree = SOURCE_ROOT; };
@@ -2988,7 +2987,6 @@
 			children = (
 				B083375E1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift */,
 				B0E294CA1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift */,
-				BC90DE7A1C57D142007E0E81 /* WMFWelcomeLanguageViewController_Testing.h */,
 				B0F7CB591C8A89EF00996DE0 /* WMFWelcomeLanguagesAnimationView.swift */,
 			);
 			name = Language;
