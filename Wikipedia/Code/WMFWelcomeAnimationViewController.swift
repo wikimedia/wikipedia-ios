@@ -1,8 +1,9 @@
 
 class WMFWelcomeAnimationViewController: UIViewController {
     var welcomePageType:WMFWelcomePageType = .intro
+    var hasAlreadyAnimated = false
 
-    lazy var animationView: WMFWelcomeAnimationView = {
+    private lazy var animationView: WMFWelcomeAnimationView = {
         switch self.welcomePageType {
         case .intro:
             return WMFWelcomeIntroductionAnimationView()
@@ -33,6 +34,10 @@ class WMFWelcomeAnimationViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        animationView.beginAnimations()
+        
+        if (!hasAlreadyAnimated) {
+            animationView.beginAnimations()
+        }
+        hasAlreadyAnimated = true
     }
 }
