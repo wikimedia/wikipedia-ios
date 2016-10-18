@@ -2,14 +2,14 @@
 class WMFWelcomeAnimationViewController: UIViewController {
     var welcomePageType:WMFWelcomePageType = .intro
 
-    lazy var animationView: WelcomeAnimationView = {
+    lazy var animationView: WMFWelcomeAnimationView = {
         switch self.welcomePageType {
         case .intro:
-            return WelcomeIntroAnimationView()
+            return WMFWelcomeIntroAnimationView()
         case .languages:
-            return WelcomeLanguagesAnimationView()
+            return WMFWelcomeLanguagesAnimationView()
         case .analytics:
-            return WelcomeAnalyticsAnimationView()
+            return WMFWelcomeAnalyticsAnimationView()
         }
     }()
     

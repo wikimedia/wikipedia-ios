@@ -1,8 +1,8 @@
 import Foundation
 
-public class WelcomeAnimationView : UIView {
+public class WMFWelcomeAnimationView : UIView {
     
-    // Reminder - these transforms are on WelcomeAnimationView 
+    // Reminder - these transforms are on WMFWelcomeAnimationView 
     // so they can scale proportionally to the view size.
     
     private var wmf_proportionalHorizontalOffset: CGFloat{

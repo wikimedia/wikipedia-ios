@@ -1,6 +1,6 @@
 import Foundation
 
-public class WelcomeLanguagesAnimationView : WelcomeAnimationView {
+public class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
 
     lazy var bubbleLeftImgView: UIImageView = {
         let imgView = UIImageView(frame: self.bounds)

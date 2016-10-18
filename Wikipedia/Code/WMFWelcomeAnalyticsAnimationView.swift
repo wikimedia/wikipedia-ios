@@ -1,6 +1,6 @@
 import Foundation
 
-public class WelcomeAnalyticsAnimationView : WelcomeAnimationView {
+public class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
 
     lazy var fileImgView: UIImageView = {
         let imgView = UIImageView(frame: self.bounds)
