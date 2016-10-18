@@ -15,7 +15,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="116"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1b-hI-QT1">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="249" verticalCompressionResistancePriority="751" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1b-hI-QT1">
                         <string key="text">In publishing and graphic design, lorem ipsum is a filler text commonly used to demonstrate the graphic elements of a document or visual presentation. Replacing meaningful content with placeholder text allows designers to design the form of the content before the content itself has been produced.</string>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                         <nil key="textColor"/>
@@ -45,9 +45,10 @@
             <constraints>
                 <constraint firstItem="F1b-hI-QT1" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="13" id="SDz-6b-ttO"/>
                 <constraint firstItem="21P-np-9RC" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="13" id="Ydn-HN-rrb"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="21P-np-9RC" secondAttribute="bottom" constant="13" id="cKr-RL-zjK"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="F1b-hI-QT1" secondAttribute="bottom" constant="13" id="cdF-XN-Hxo"/>
                 <constraint firstAttribute="trailing" secondItem="21P-np-9RC" secondAttribute="trailing" constant="13" id="kba-64-qL5"/>
-                <constraint firstItem="21P-np-9RC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="F1b-hI-QT1" secondAttribute="trailing" constant="10" id="mId-XY-lKX"/>
+                <constraint firstItem="21P-np-9RC" firstAttribute="leading" secondItem="F1b-hI-QT1" secondAttribute="trailing" constant="10" id="mId-XY-lKX"/>
                 <constraint firstItem="F1b-hI-QT1" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="13" id="wax-Xu-sAA"/>
             </constraints>
             <size key="customSize" width="189" height="-178"/>
