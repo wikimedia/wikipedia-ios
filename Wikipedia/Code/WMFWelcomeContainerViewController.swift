@@ -15,31 +15,29 @@ class WMFWelcomeContainerViewController: WMFWelcomeFadeInAndUpOnceViewController
     }
     
     private func embedBottomContainerControllerView() {
-        if let controller = controllerForBottomContainer() {
-            controller.willMoveToParentViewController(self)
-            bottomContainerView.addSubview((controller.view)!)
-            controller.view.mas_makeConstraints { make in
-                make.top.bottom().leading().and().trailing().equalTo()(self.bottomContainerView)
-            }
-            self.addChildViewController(controller)
-            controller.didMoveToParentViewController(self)
+        bottomContainerController.willMoveToParentViewController(self)
+        bottomContainerView.addSubview((bottomContainerController.view)!)
+        bottomContainerController.view.mas_makeConstraints { make in
+            make.top.bottom().leading().and().trailing().equalTo()(self.bottomContainerView)
         }
+        self.addChildViewController(bottomContainerController)
+        bottomContainerController.didMoveToParentViewController(self)
     }
 
-    private func controllerForBottomContainer() -> UIViewController?{
-        switch welcomePageType {
+    private lazy var bottomContainerController: UIViewController = {
+        switch self.welcomePageType {
         case .intro:
             return WMFWelcomeIntroductionViewController.wmf_viewControllerWithIdentifier("WMFWelcomeIntroductionViewController", fromStoryboardNamed: "WMFWelcome")
         case .languages:
             let langPanelVC = WMFWelcomePanelViewController.wmf_viewControllerWithIdentifier("WMFWelcomePanelViewController", fromStoryboardNamed: "WMFWelcome")
-            langPanelVC.useLanguagesConfiguration()
+            langPanelVC.welcomePageType = .languages
             return langPanelVC;
         case .analytics:
             let analyticsPanelVC = WMFWelcomePanelViewController.wmf_viewControllerWithIdentifier("WMFWelcomePanelViewController", fromStoryboardNamed: "WMFWelcome")
-            analyticsPanelVC.useUsageReportsConfiguration()
+            analyticsPanelVC.welcomePageType = .analytics
             return analyticsPanelVC;
         }
-    }
+    }()
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.destinationViewController.isKindOfClass(WMFWelcomeAnimationViewController)){

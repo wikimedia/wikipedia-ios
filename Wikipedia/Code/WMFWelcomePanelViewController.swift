@@ -7,43 +7,52 @@ class WMFWelcomePanelViewController: UIViewController {
     @IBOutlet private var subtitleLabel:UILabel!
 
     private var viewControllerForContainerView:UIViewController? = nil
-    private var titleString:String? = nil
-    private var subtitleString:String? = nil
-    private var buttonString:String? = nil
+    var welcomePageType:WMFWelcomePageType = .intro
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        embedViewControllerForContainerView()
-        titleLabel.text = titleString
-        subtitleLabel.text = subtitleString
-        nextButton.setTitle(buttonString, forState: .Normal)
+        embedContainerControllerView()
+        updateUIStrings()
         nextButton.setTitleColor(UIColor.wmf_blueTintColor(), forState: .Normal)
         containerView.layer.borderWidth = 1.0 / UIScreen.mainScreen().scale
     }
     
-    private func embedViewControllerForContainerView() {
-        if((viewControllerForContainerView) != nil){
-            viewControllerForContainerView?.willMoveToParentViewController(self)
-            containerView.addSubview((viewControllerForContainerView?.view)!)
-            viewControllerForContainerView?.view.mas_makeConstraints { make in
+    private func embedContainerControllerView() {
+        if let containerController = containerController {
+            containerController.willMoveToParentViewController(self)
+            containerView.addSubview((containerController.view)!)
+            containerController.view.mas_makeConstraints { make in
                 make.top.bottom().leading().and().trailing().equalTo()(self.containerView)
             }
-            self.addChildViewController(viewControllerForContainerView!)
-            viewControllerForContainerView?.didMoveToParentViewController(self)
+            self.addChildViewController(containerController)
+            containerController.didMoveToParentViewController(self)
         }
     }
     
-    func useLanguagesConfiguration(){
-        viewControllerForContainerView = WMFWelcomeLanguageTableViewController.wmf_viewControllerWithIdentifier("WMFWelcomeLanguageTableViewController", fromStoryboardNamed: "WMFWelcome")
-        titleString = localizedStringForKeyFallingBackOnEnglish("welcome-languages-title").uppercaseStringWithLocale(NSLocale.currentLocale())
-        subtitleString = localizedStringForKeyFallingBackOnEnglish("welcome-languages-sub-title")
-        buttonString = localizedStringForKeyFallingBackOnEnglish("welcome-languages-continue-button").uppercaseStringWithLocale(NSLocale.currentLocale())
-    }
+    private lazy var containerController: UIViewController? = {
+        switch self.welcomePageType {
+        case .intro:
+            assert(false, "Intro welcome view is not embedded in a panel.")
+            return nil
+        case .languages:
+            return WMFWelcomeLanguageTableViewController.wmf_viewControllerWithIdentifier("WMFWelcomeLanguageTableViewController", fromStoryboardNamed: "WMFWelcome")
+        case .analytics:
+            return WMFWelcomeAnalyticsViewController.wmf_viewControllerWithIdentifier("WMFWelcomeAnalyticsViewController", fromStoryboardNamed: "WMFWelcome")
+        }
+    }()
 
-    func useUsageReportsConfiguration(){
-        viewControllerForContainerView = WMFWelcomeAnalyticsViewController.wmf_viewControllerWithIdentifier("WMFWelcomeAnalyticsViewController", fromStoryboardNamed: "WMFWelcome")
-        titleString = localizedStringForKeyFallingBackOnEnglish("welcome-volunteer-title").uppercaseStringWithLocale(NSLocale.currentLocale())
-        subtitleString = localizedStringForKeyFallingBackOnEnglish("welcome-volunteer-sub-title")
-        buttonString = localizedStringForKeyFallingBackOnEnglish("button-done").uppercaseStringWithLocale(NSLocale.currentLocale())
+    private func updateUIStrings(){
+        switch self.welcomePageType {
+        case .intro:
+            assert(false, "Intro welcome view is not embedded in a panel.")
+        case .languages:
+            titleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-languages-title").uppercaseStringWithLocale(NSLocale.currentLocale())
+            subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-languages-sub-title")
+            nextButton.setTitle(localizedStringForKeyFallingBackOnEnglish("welcome-languages-continue-button").uppercaseStringWithLocale(NSLocale.currentLocale()), forState: .Normal)
+        case .analytics:
+            titleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-volunteer-title").uppercaseStringWithLocale(NSLocale.currentLocale())
+            subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-volunteer-sub-title")
+            nextButton.setTitle(localizedStringForKeyFallingBackOnEnglish("button-done").uppercaseStringWithLocale(NSLocale.currentLocale()), forState: .Normal)
+        }
     }
 }
