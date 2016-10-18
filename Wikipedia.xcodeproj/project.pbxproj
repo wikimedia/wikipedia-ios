@@ -2970,7 +2970,6 @@
 				B083371D1DADB251002860D2 /* WMFWelcomePageViewController.swift */,
 				B00DDEDC1DB591C400615FA2 /* WMFWelcomeContainerViewController.swift */,
 				B083375C1DB16A09002860D2 /* WMFWelcomePanelViewController.swift */,
-				B00DDEE21DB5B16E00615FA2 /* WMFWelcomeAnimationViewController.swift */,
 			);
 			name = Containers;
 			sourceTree = "<group>";
@@ -4007,6 +4006,7 @@
 		B0F7CB521C8A87B300996DE0 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
+				B00DDEE21DB5B16E00615FA2 /* WMFWelcomeAnimationViewController.swift */,
 				B0F84EEC1C8E444400801560 /* WelcomeAnimationView.swift */,
 				B0F0874F1C860E910086F710 /* WelcomeAnimationExtensions.swift */,
 				B0F7CB531C8A895600996DE0 /* WelcomeAnimationShapeLayers.swift */,
