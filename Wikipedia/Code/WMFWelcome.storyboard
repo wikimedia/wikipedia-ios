@@ -165,7 +165,7 @@
                         <viewControllerLayoutGuide type="bottom" id="7pS-zT-pQN"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="lzy-Eu-ayy">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M5K-6p-DM6">
@@ -347,7 +347,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AIg-9n-U11" id="cgJ-yD-1WU">
-                                            <frame key="frameInset" width="375" height="55.666666666666664"/>
+                                            <frame key="frameInset" width="375" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mhl-Yv-T0c">
@@ -396,10 +396,10 @@
             </objects>
             <point key="canvasLocation" x="3127" y="1259"/>
         </scene>
-        <!--Welcome Usage Report View Controller-->
+        <!--Welcome Analytics View Controller-->
         <scene sceneID="SMZ-9p-jrb">
             <objects>
-                <viewController storyboardIdentifier="WMFWelcomeUsageReportViewController" id="Sz5-Ln-qWW" customClass="WMFWelcomeUsageReportViewController" customModule="Wikipedia" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WMFWelcomeAnalyticsViewController" id="Sz5-Ln-qWW" customClass="WMFWelcomeAnalyticsViewController" customModule="Wikipedia" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eCu-K6-R2a"/>
                         <viewControllerLayoutGuide type="bottom" id="Qe4-O6-Yp7"/>

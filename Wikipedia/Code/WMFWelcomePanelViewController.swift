@@ -41,7 +41,7 @@ class WMFWelcomePanelViewController: UIViewController {
     }
 
     func useUsageReportsConfiguration(){
-        viewControllerForContainerView = WMFWelcomeUsageReportViewController.wmf_viewControllerWithIdentifier("WMFWelcomeUsageReportViewController", fromStoryboardNamed: "WMFWelcome")
+        viewControllerForContainerView = WMFWelcomeAnalyticsViewController.wmf_viewControllerWithIdentifier("WMFWelcomeAnalyticsViewController", fromStoryboardNamed: "WMFWelcome")
         titleString = localizedStringForKeyFallingBackOnEnglish("welcome-volunteer-title").uppercaseStringWithLocale(NSLocale.currentLocale())
         subtitleString = localizedStringForKeyFallingBackOnEnglish("welcome-volunteer-sub-title")
         buttonString = localizedStringForKeyFallingBackOnEnglish("button-done").uppercaseStringWithLocale(NSLocale.currentLocale())

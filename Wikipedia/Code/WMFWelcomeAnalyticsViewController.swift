@@ -1,5 +1,5 @@
 
-class WMFWelcomeUsageReportViewController: UIViewController {
+class WMFWelcomeAnalyticsViewController: UIViewController {
 
     @IBOutlet private var toggleLabel:UILabel!
     @IBOutlet private var toggle:UISwitch!
