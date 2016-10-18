@@ -1,7 +1,7 @@
 
 class WMFWelcomeAnimationViewController: UIViewController {
     var welcomePageType:WMFWelcomePageType = .intro
-    var hasAlreadyAnimated = false
+    private var hasAlreadyAnimated = false
 
     private lazy var animationView: WMFWelcomeAnimationView = {
         switch self.welcomePageType {

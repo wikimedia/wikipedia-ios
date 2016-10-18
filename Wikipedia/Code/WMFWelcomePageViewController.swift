@@ -14,7 +14,7 @@ public protocol WMFWelcomeNavigationDelegate: class{
 class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDataSource, WMFWelcomeNavigationDelegate {
 
     var completionBlock: (() -> Void)?
-    var indexForDotIndicator:Int = 0
+    private var indexForDotIndicator:Int = 0
     
     func showNextWelcomePage(sender: AnyObject){
         let index = pageControllers.indexOf(sender as! UIViewController)

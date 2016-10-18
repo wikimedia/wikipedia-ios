@@ -46,7 +46,7 @@ class WMFWelcomeContainerViewController: WMFWelcomeFadeInAndUpOnceViewController
         }
     }
     
-    @IBAction func next(withSender sender: AnyObject) {
+    @IBAction private func next(withSender sender: AnyObject) {
         welcomeNavigationDelegate?.showNextWelcomePage(self)
     }
 }
