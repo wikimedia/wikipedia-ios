@@ -9,16 +9,22 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="InTheNewsCollectionViewCell" customModule="Wikipedia" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="97"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="97"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1b-hI-QT1">
+                        <string key="text">In publishing and graphic design, lorem ipsum is a filler text commonly used to demonstrate the graphic elements of a document or visual presentation. Replacing meaningful content with placeholder text allows designers to design the form of the content before the content itself has been produced.</string>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="21P-np-9RC">
                         <constraints>
-                            <constraint firstAttribute="width" constant="70" id="QKz-TP-r1w"/>
-                            <constraint firstAttribute="height" constant="70" id="brJ-So-b5b"/>
+                            <constraint firstAttribute="height" constant="70" id="ig0-c8-Q1s"/>
+                            <constraint firstAttribute="width" constant="70" id="lWh-RP-zGl"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -33,22 +39,17 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1b-hI-QT1">
-                        <string key="text">In publishing and graphic design, lorem ipsum is a filler text commonly used to demonstrate the graphic elements of a document or visual presentation. Replacing meaningful content with placeholder text allows designers to design the form of the content before the content itself has been produced.</string>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="21P-np-9RC" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="13" id="9CU-W0-786"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="F1b-hI-QT1" secondAttribute="bottom" constant="13" id="C7W-9w-x0Z"/>
-                <constraint firstItem="F1b-hI-QT1" firstAttribute="leading" secondItem="21P-np-9RC" secondAttribute="trailing" constant="8" id="KU3-QN-jTp"/>
-                <constraint firstItem="21P-np-9RC" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="13" id="bI3-b8-fRX"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="F1b-hI-QT1" secondAttribute="trailing" constant="13" id="rGv-Qj-2aU"/>
-                <constraint firstItem="F1b-hI-QT1" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="13" id="uya-P7-vVv"/>
+                <constraint firstItem="F1b-hI-QT1" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="13" id="SDz-6b-ttO"/>
+                <constraint firstItem="21P-np-9RC" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="13" id="Ydn-HN-rrb"/>
+                <constraint firstAttribute="bottom" secondItem="21P-np-9RC" secondAttribute="bottom" constant="13" id="bf6-H8-W74"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="F1b-hI-QT1" secondAttribute="bottom" constant="13" id="cdF-XN-Hxo"/>
+                <constraint firstAttribute="trailing" secondItem="21P-np-9RC" secondAttribute="trailing" constant="13" id="kba-64-qL5"/>
+                <constraint firstItem="21P-np-9RC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="F1b-hI-QT1" secondAttribute="trailing" constant="8" id="mId-XY-lKX"/>
+                <constraint firstItem="F1b-hI-QT1" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="13" id="wax-Xu-sAA"/>
             </constraints>
             <size key="customSize" width="189" height="-196"/>
             <connections>
