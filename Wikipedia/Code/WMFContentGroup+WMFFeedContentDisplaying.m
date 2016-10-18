@@ -481,13 +481,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
 }
 
-- (NSString *)titleForDate:(NSDate *)date {
-    return
-        [MWLocalizedString(@"explore-in-the-news-more-list-title-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                                           withString:
-                                                                                                               [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date]];
-}
-
 @end
 
 NS_ASSUME_NONNULL_END

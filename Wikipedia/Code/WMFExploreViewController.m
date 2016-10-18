@@ -790,7 +790,15 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                 return nil;
             }
             WMFFeedNewsStory *story = stories[indexPath.item];
-            return [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore previewStore:self.previewStore];
+            InTheNewsViewController *vc = [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore previewStore:self.previewStore];
+            NSString *format = MWLocalizedString(@"in-the-news-title-for-date", nil);
+            NSDate *date = group.date;
+            if (format && date) {
+                NSString *dateString = [[NSDateFormatter wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date];
+                NSString *title = [format stringByReplacingOccurrencesOfString:@"$1" withString:dateString];
+                vc.title = title;
+            }
+            return vc;
         } break;
         default:
             NSAssert(false, @"Unknown Detail Type");
