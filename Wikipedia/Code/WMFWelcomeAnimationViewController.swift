@@ -27,8 +27,7 @@ class WMFWelcomeAnimationViewController: UIViewController {
         
         // Fix for: http://stackoverflow.com/a/39614714
         view.superview?.layoutIfNeeded()
-
-        animationView.layoutIfNeeded()
+        
         animationView.addAnimationElementsScaledToCurrentFrameSize()
     }
     
