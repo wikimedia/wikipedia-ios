@@ -96,7 +96,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)startUpdating {
     [self observeSavedPages];
-    [self loadNewContentForce:NO completion:NULL];
 }
 
 - (void)stopUpdating {

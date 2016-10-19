@@ -1,5 +1,6 @@
 #import "WMFContentGroup+WMFDatabaseViews.h"
 #import "YapDatabase+WMFExtensions.h"
+#import "WMFContentGroup+WMFFeedContentDisplaying.h"
 
 NSString *const WMFContentGroupsSortedByDateView = @"WMFContentGroupsSortedByDateView";
 

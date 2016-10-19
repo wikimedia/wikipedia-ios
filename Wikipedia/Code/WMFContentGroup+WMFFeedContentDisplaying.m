@@ -69,6 +69,35 @@ NS_ASSUME_NONNULL_BEGIN
     return @"Unknown Content Type";
 }
 
+- (NSInteger)dailySortPriority {
+    return 0;
+}
+
+- (NSComparisonResult)compare:(WMFContentGroup *)contentGroup {
+    NSParameterAssert([contentGroup isKindOfClass:[WMFContentGroup class]]);
+    if ([self isKindOfClass:[WMFContinueReadingContentGroup class]]) {
+        // continue reading always goes above everything else, regardless of date
+        return NSOrderedAscending;
+    } else if ([contentGroup isKindOfClass:[WMFContinueReadingContentGroup class]]) {
+        // corollary of above, everything else always goes below continue reading, regardless of date
+        return NSOrderedDescending;
+    } else if (![self isKindOfClass:[WMFRelatedPagesContentGroup class]] && ![contentGroup isKindOfClass:[WMFRelatedPagesContentGroup class]] && [self.date isEqualToDateIgnoringTime:contentGroup.date]) {
+        // explicit ordering for non-history/-saved items created w/in the same day
+        NSInteger selfOrderingIndex = [self dailySortPriority];
+        NSInteger otherOrderingIndex = [contentGroup dailySortPriority];
+        if (selfOrderingIndex > otherOrderingIndex) {
+            return NSOrderedDescending;
+        } else if (selfOrderingIndex < otherOrderingIndex) {
+            return NSOrderedAscending;
+        } else {
+            return NSOrderedSame;
+        }
+    } else {
+        // sort all items from different days and/or history/saved items by date, descending
+        return -[self.date compare:contentGroup.date];
+    }
+}
+
 @end
 
 @implementation WMFContinueReadingContentGroup (WMFContentManaging)
@@ -90,6 +119,14 @@ NS_ASSUME_NONNULL_BEGIN
     return @"Continue Reading";
 }
 
+- (NSInteger)dailySortPriority {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 @end
 
 @implementation WMFMainPageContentGroup (WMFContentManaging)
@@ -108,6 +145,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)analyticsContentType {
     return @"Main Page";
+}
+
+- (NSInteger)dailySortPriority {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return 0;
+    } else {
+        return 4;
+    }
 }
 
 @end
@@ -168,6 +213,10 @@ NS_ASSUME_NONNULL_BEGIN
     return @"Recommended";
 }
 
+- (NSInteger)dailySortPriority {
+    return 7;
+}
+
 @end
 
 @implementation WMFLocationContentGroup (WMFContentManaging)
@@ -222,6 +271,10 @@ NS_ASSUME_NONNULL_BEGIN
     return @"Nearby";
 }
 
+- (NSInteger)dailySortPriority {
+    return 6;
+}
+
 @end
 
 @implementation WMFPictureOfTheDayContentGroup (WMFContentManaging)
@@ -248,6 +301,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)analyticsContentType {
     return @"Picture of the Day";
+}
+
+- (NSInteger)dailySortPriority {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return 4;
+    } else {
+        return 3;
+    }
 }
 
 @end
@@ -286,6 +347,10 @@ NS_ASSUME_NONNULL_BEGIN
     return @"Random";
 }
 
+- (NSInteger)dailySortPriority {
+    return 5;
+}
+
 @end
 
 @implementation WMFFeaturedArticleContentGroup (WMFContentManaging)
@@ -311,6 +376,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFFeedDisplayType)displayType {
     return WMFFeedDisplayTypePageWithPreview;
+}
+
+- (NSInteger)dailySortPriority {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return 2;
+    } else {
+        return 1;
+    }
 }
 
 @end
@@ -402,6 +475,34 @@ NS_ASSUME_NONNULL_BEGIN
         [MWLocalizedString(@"explore-most-read-more-list-title-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
                                                                                                          withString:
                                                                                                              [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date]];
+}
+
+- (NSInteger)dailySortPriority {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return 3;
+    } else {
+        return 2;
+    }
+}
+
+@end
+
+@implementation WMFNewsContentGroup (WMFContentManaging)
+
+- (NSInteger)dailySortPriority {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return 3;
+    } else {
+        return 2;
+    }
+}
+
+@end
+
+@implementation WMFNotificationContentGroup (WMFContentManaging)
+
+- (NSInteger)dailySortPriority {
+    return -1;
 }
 
 @end

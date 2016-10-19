@@ -421,9 +421,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         WMFTaskGroup *group = [WMFTaskGroup new];
         [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
 
-            if ([obj respondsToSelector:@selector(preloadContentForNumberOfDays:completion:)]) {
+            if ([obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
                 [group enter];
-                [obj preloadContentForNumberOfDays:2
+                [(id<WMFDateBasedContentSource>)obj preloadContentForNumberOfDays:2
                                         completion:^{
                                             [group leave];
                                         }];
@@ -459,11 +459,20 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)startContentSources {
-    [self.contentSources makeObjectsPerformSelector:@selector(startUpdating)];
+    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if([obj conformsToProtocol:@protocol(WMFAutoUpdatingContentSource)]){
+            [(id<WMFAutoUpdatingContentSource>) obj startUpdating];
+            [obj loadNewContentForce:NO completion:NULL];
+        }
+    }];
 }
 
 - (void)stopContentSources {
-    [self.contentSources makeObjectsPerformSelector:@selector(stopUpdating)];
+    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if([obj conformsToProtocol:@protocol(WMFAutoUpdatingContentSource)]){
+            [(id<WMFAutoUpdatingContentSource>) obj stopUpdating];
+        }
+    }];
 }
 
 - (WMFNearbyContentSource *)nearbyContentSource {
