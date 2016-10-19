@@ -1,5 +1,5 @@
 
-class WMFWelcomeContainerViewController: WMFWelcomeFadeInAndUpOnceViewController {
+class WMFWelcomeContainerViewController: UIViewController {
     
     @IBOutlet private var topContainerView:UIView!
     @IBOutlet private var bottomContainerView:UIView!
@@ -13,11 +13,40 @@ class WMFWelcomeContainerViewController: WMFWelcomeFadeInAndUpOnceViewController
 
     weak var welcomeNavigationDelegate:WMFWelcomeNavigationDelegate? = nil
     
+    private var hasAlreadyFadedInAndUp = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         embedBottomContainerControllerView()
         useBottomAlignmentIfPhone()
         hideAndCollapseTopContainerViewIfDeviceIsiPhone4s()
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if (shouldFadeInAndUp() && !hasAlreadyFadedInAndUp) {
+            view.wmf_zeroLayerOpacity()
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if (shouldFadeInAndUp() && !hasAlreadyFadedInAndUp) {
+            view.wmf_fadeInAndUpAfterDelay(0.1)
+            hasAlreadyFadedInAndUp = true
+        }
+    }
+    
+    private func shouldFadeInAndUp() -> Bool {
+        switch welcomePageType {
+        case .intro:
+            return false
+        case .languages:
+            return true
+        case .analytics:
+            return true
+        }
     }
 
     private func hideAndCollapseTopContainerViewIfDeviceIsiPhone4s() {

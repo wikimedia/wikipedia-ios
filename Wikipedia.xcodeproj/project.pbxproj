@@ -211,7 +211,6 @@
 		B0DF6F811CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */; };
 		B0E294CB1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294CA1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift */; };
 		B0E294CD1DB2CF4300861D04 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294CC1DB2CF4300861D04 /* UIView+WMFWelcomeFadeInAndUp.swift */; };
-		B0E294CF1DB2D67200861D04 /* WMFWelcomeFadeInAndUpOnceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294CE1DB2D67200861D04 /* WMFWelcomeFadeInAndUpOnceViewController.swift */; };
 		B0E294D31DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294D21DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift */; };
 		B0E802B81C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802B71C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m */; };
 		B0E802BB1C0CD2260065EBC0 /* WMFStyleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802BA1C0CD2260065EBC0 /* WMFStyleManager.m */; };
@@ -1385,7 +1384,6 @@
 		B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKWebView+WMFWebViewControllerJavascript.m"; path = "Wikipedia/Code/WKWebView+WMFWebViewControllerJavascript.m"; sourceTree = SOURCE_ROOT; };
 		B0E294CA1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeLanguageTableViewCell.swift; path = Wikipedia/Code/WMFWelcomeLanguageTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		B0E294CC1DB2CF4300861D04 /* UIView+WMFWelcomeFadeInAndUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+WMFWelcomeFadeInAndUp.swift"; path = "Wikipedia/Code/UIView+WMFWelcomeFadeInAndUp.swift"; sourceTree = SOURCE_ROOT; };
-		B0E294CE1DB2D67200861D04 /* WMFWelcomeFadeInAndUpOnceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeFadeInAndUpOnceViewController.swift; path = Wikipedia/Code/WMFWelcomeFadeInAndUpOnceViewController.swift; sourceTree = SOURCE_ROOT; };
 		B0E294D21DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeIntroductionViewController.swift; path = Wikipedia/Code/WMFWelcomeIntroductionViewController.swift; sourceTree = SOURCE_ROOT; };
 		B0E802B61C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBarButtonItem+WMFButtonConvenience.h"; path = "Wikipedia/Code/UIBarButtonItem+WMFButtonConvenience.h"; sourceTree = SOURCE_ROOT; };
 		B0E802B71C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIBarButtonItem+WMFButtonConvenience.m"; path = "Wikipedia/Code/UIBarButtonItem+WMFButtonConvenience.m"; sourceTree = SOURCE_ROOT; };
@@ -2956,7 +2954,6 @@
 			children = (
 				0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */,
 				B0E294CC1DB2CF4300861D04 /* UIView+WMFWelcomeFadeInAndUp.swift */,
-				B0E294CE1DB2D67200861D04 /* WMFWelcomeFadeInAndUpOnceViewController.swift */,
 				B09B30D01DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift */,
 				B0F7CB521C8A87B300996DE0 /* Animation */,
 				0E26B0881C0FD7E00004D687 /* Containers */,
@@ -7191,7 +7188,6 @@
 				B0E803D21C0CDCBF0065EBC0 /* UIView+WMFShadow.m in Sources */,
 				0E6A6F531D9E9AB300189C80 /* WMFContentGroup+WMFFeedContentDisplaying.m in Sources */,
 				B0E806EB1C0CEBA40065EBC0 /* RecentSearchCell.m in Sources */,
-				B0E294CF1DB2D67200861D04 /* WMFWelcomeFadeInAndUpOnceViewController.swift in Sources */,
 				B0E805941C0CE2C60065EBC0 /* SavedPagesFunnel.m in Sources */,
 				B0E8064A1C0CE7F70065EBC0 /* AssetsFileFetcher.m in Sources */,
 				B0E807DB1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m in Sources */,

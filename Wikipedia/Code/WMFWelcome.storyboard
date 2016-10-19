@@ -216,11 +216,6 @@
                             <constraint firstItem="7pS-zT-pQN" firstAttribute="top" relation="greaterThanOrEqual" secondItem="M5K-6p-DM6" secondAttribute="bottom" priority="999" constant="10" id="uR9-f3-UBk"/>
                         </constraints>
                     </view>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="fadeInAndUpDelay">
-                            <real key="value" value="0.10000000000000001"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="bottomContainerView" destination="FJI-Er-O9h" id="FRh-C6-TYZ"/>
                         <outlet property="overallContainerView" destination="M5K-6p-DM6" id="tAu-1I-sdL"/>
