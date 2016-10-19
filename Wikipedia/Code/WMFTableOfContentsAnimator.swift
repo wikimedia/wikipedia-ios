@@ -102,7 +102,16 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
     }
     
     var tocMultiplier:CGFloat {
-        return displaySide == WMFTableOfContentsDisplaySideLeft ? -1.0 : 1.0
+        switch displaySide {
+        case WMFTableOfContentsDisplaySideLeft:
+            return -1.0
+        case WMFTableOfContentsDisplaySideRight:
+            return 1.0
+        case WMFTableOfContentsDisplaySideCenter:
+            fallthrough
+        default:
+            return UIApplication.sharedApplication().wmf_isRTL ? -1.0 : 1.0
+        }
     }
     
     // MARK: - Animation
