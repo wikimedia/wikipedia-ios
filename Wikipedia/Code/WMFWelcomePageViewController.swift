@@ -31,7 +31,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     }
 
     private func containerControllerForWelcomePageType(type: WMFWelcomePageType) -> WMFWelcomeContainerViewController {
-        let controller = WMFWelcomeContainerViewController.wmf_viewControllerWithIdentifier("WMFWelcomeContainerViewController", fromStoryboardNamed: "WMFWelcome")
+        let controller = WMFWelcomeContainerViewController.wmf_viewControllerFromStoryboardNamed("WMFWelcome")
         controller.welcomeNavigationDelegate = self
         controller.welcomePageType = type
         return controller

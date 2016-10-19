@@ -35,9 +35,9 @@ class WMFWelcomePanelViewController: UIViewController {
             assert(false, "Intro welcome view is not embedded in a panel.")
             return nil
         case .languages:
-            return WMFWelcomeLanguageTableViewController.wmf_viewControllerWithIdentifier("WMFWelcomeLanguageTableViewController", fromStoryboardNamed: "WMFWelcome")
+            return WMFWelcomeLanguageTableViewController.wmf_viewControllerFromStoryboardNamed("WMFWelcome")
         case .analytics:
-            return WMFWelcomeAnalyticsViewController.wmf_viewControllerWithIdentifier("WMFWelcomeAnalyticsViewController", fromStoryboardNamed: "WMFWelcome")
+            return WMFWelcomeAnalyticsViewController.wmf_viewControllerFromStoryboardNamed("WMFWelcome")
         }
     }()
 
