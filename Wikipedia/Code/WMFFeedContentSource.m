@@ -57,7 +57,6 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         self.contentStore = contentStore;
         self.previewStore = previewStore;
         self.userDataStore = userDataStore;
-        self.updateInterval = 30 * 60;
         self.notificationsController = notificationsController;
     }
     return self;

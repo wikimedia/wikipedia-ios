@@ -32,20 +32,6 @@ typedef NS_ENUM(NSUInteger, WMFContentType) {
 
 - (instancetype)initWithDate:(NSDate *)date NS_DESIGNATED_INITIALIZER;
 
-- (NSInteger)dailySortPriority;
-
-/**
- *  Determine ordering between two content groups.
- *
- *  Use this to sort home content groups. Sort currently works like this:
- *  Continue reading is always at the top if present.
- *  The rest of the content groups are sorted by their date descending
- *  If featured, main page, random, and nearby are from the "same day", then special sorting takes precendence:
- *  They are always in the order of featured, main page, random, nearby.
- *
- */
-- (NSComparisonResult)compare:(WMFContentGroup *)contentGroup;
-
 @end
 
 @interface WMFSiteContentGroup : WMFContentGroup
@@ -124,6 +110,11 @@ typedef NS_ENUM(NSUInteger, WMFContentType) {
 @end
 
 @interface WMFNewsContentGroup : WMFSiteContentGroup
+
+@end
+
+
+@interface WMFNotificationContentGroup : WMFContentGroup
 
 @end
 

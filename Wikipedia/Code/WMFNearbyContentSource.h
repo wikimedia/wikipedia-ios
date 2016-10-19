@@ -3,7 +3,7 @@
 @class WMFContentGroupDataStore;
 @class WMFArticlePreviewDataStore;
 
-@interface WMFNearbyContentSource : NSObject <WMFContentSource>
+@interface WMFNearbyContentSource : NSObject <WMFContentSource, WMFAutoUpdatingContentSource>
 
 @property (readonly, nonatomic, strong) NSURL *siteURL;
 @property (readonly, nonatomic, strong) WMFContentGroupDataStore *contentStore;

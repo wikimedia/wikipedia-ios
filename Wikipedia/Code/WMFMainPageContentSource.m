@@ -31,7 +31,6 @@
     NSParameterAssert(siteURL);
     self = [super init];
     if (self) {
-        self.updateInterval = 60.0 * 60.0;
         self.siteURL = siteURL;
         self.contentStore = contentStore;
         self.previewStore = previewStore;
