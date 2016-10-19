@@ -105,9 +105,9 @@
                             <constraint firstItem="xhM-X9-Rcd" firstAttribute="centerX" secondItem="wCD-x0-Vga" secondAttribute="centerX" id="BQK-UB-51A"/>
                             <constraint firstItem="xhM-X9-Rcd" firstAttribute="top" secondItem="faM-dw-L8V" secondAttribute="bottom" priority="999" constant="236" id="G1Y-Nk-Svt"/>
                             <constraint firstItem="xhM-X9-Rcd" firstAttribute="top" secondItem="faM-dw-L8V" secondAttribute="bottom" priority="750" constant="10" id="Mtg-ff-dUj"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xhM-X9-Rcd" secondAttribute="trailing" constant="10" id="N3j-Bi-0rO"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xhM-X9-Rcd" secondAttribute="trailing" id="N3j-Bi-0rO"/>
                             <constraint firstItem="faM-dw-L8V" firstAttribute="top" secondItem="Avm-Oe-OrZ" secondAttribute="bottom" constant="10" id="Yfs-ZD-K1u"/>
-                            <constraint firstItem="xhM-X9-Rcd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="wCD-x0-Vga" secondAttribute="leading" constant="10" id="fj1-Nz-POk"/>
+                            <constraint firstItem="xhM-X9-Rcd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="wCD-x0-Vga" secondAttribute="leading" id="fj1-Nz-POk"/>
                             <constraint firstItem="faM-dw-L8V" firstAttribute="centerX" secondItem="wCD-x0-Vga" secondAttribute="centerX" id="tdL-8H-7YV"/>
                         </constraints>
                     </view>
@@ -202,7 +202,7 @@
                                     <constraint firstAttribute="bottom" secondItem="FJI-Er-O9h" secondAttribute="bottom" id="DE0-V7-KoH"/>
                                     <constraint firstAttribute="trailing" secondItem="FJI-Er-O9h" secondAttribute="trailing" id="Inr-F0-Xa9"/>
                                     <constraint firstItem="FJI-Er-O9h" firstAttribute="top" relation="greaterThanOrEqual" secondItem="7gU-a9-VNf" secondAttribute="bottom" priority="999" constant="40" id="ikp-zU-uDi"/>
-                                    <constraint firstAttribute="width" constant="320" id="rsb-GC-Lmi"/>
+                                    <constraint firstAttribute="width" priority="999" constant="320" id="rsb-GC-Lmi"/>
                                     <constraint firstItem="FJI-Er-O9h" firstAttribute="top" secondItem="7gU-a9-VNf" secondAttribute="bottom" priority="998" constant="10" id="zVO-og-LmL"/>
                                 </constraints>
                             </view>
@@ -212,6 +212,8 @@
                             <constraint firstItem="M5K-6p-DM6" firstAttribute="top" relation="greaterThanOrEqual" secondItem="IiS-Tf-ADU" secondAttribute="bottom" constant="10" id="8lu-dU-ALz"/>
                             <constraint firstItem="M5K-6p-DM6" firstAttribute="centerX" secondItem="lzy-Eu-ayy" secondAttribute="centerX" id="DqZ-8W-cfh"/>
                             <constraint firstItem="M5K-6p-DM6" firstAttribute="centerY" secondItem="lzy-Eu-ayy" secondAttribute="centerY" id="H6y-qj-T8b"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="M5K-6p-DM6" secondAttribute="trailing" constant="10" id="ScE-H5-RBe"/>
+                            <constraint firstItem="M5K-6p-DM6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lzy-Eu-ayy" secondAttribute="leading" constant="10" id="Ufe-nK-vc4"/>
                             <constraint firstItem="7pS-zT-pQN" firstAttribute="top" relation="greaterThanOrEqual" secondItem="M5K-6p-DM6" secondAttribute="bottom" constant="10" id="uR9-f3-UBk"/>
                         </constraints>
                     </view>
