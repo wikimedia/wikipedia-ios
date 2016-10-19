@@ -28,6 +28,7 @@
 #import "WMFArticleListDataSourceTableViewController.h"
 #import "WMFExploreViewController.h"
 #import "WMFLanguagesViewController.h"
+#import "WMFTableOfContentsDisplay.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"

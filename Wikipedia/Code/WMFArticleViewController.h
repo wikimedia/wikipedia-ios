@@ -2,29 +2,13 @@
 #import "WMFAnalyticsLogging.h"
 #import "MWKArticle.h"
 #import "WebViewController.h"
+#import "WMFTableOfContentsDisplay.h"
 
 @class MWKDataStore;
 
 @class WMFShareFunnel;
 @class WMFArticleViewController;
 @class WMFArticlePreviewDataStore;
-
-typedef enum : NSUInteger {
-    WMFTableOfContentsDisplaySideLeft,
-    WMFTableOfContentsDisplaySideRight
-} WMFTableOfContentsDisplaySide;
-
-typedef enum : NSUInteger {
-    WMFTableOfContentsDisplayModeModal,
-    WMFTableOfContentsDisplayModeInline
-} WMFTableOfContentsDisplayMode;
-
-typedef enum : NSUInteger {
-    WMFTableOfContentsDisplayStateInlineVisible,
-    WMFTableOfContentsDisplayStateInlineHidden,
-    WMFTableOfContentsDisplayStateModalVisible,
-    WMFTableOfContentsDisplayStateModalHidden
-} WMFTableOfContentsDisplayState;
 
 NS_ASSUME_NONNULL_BEGIN
 
