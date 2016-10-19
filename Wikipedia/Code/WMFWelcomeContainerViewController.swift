@@ -49,13 +49,13 @@ class WMFWelcomeContainerViewController: WMFWelcomeFadeInAndUpOnceViewController
     private lazy var bottomContainerController: UIViewController = {
         switch self.welcomePageType {
         case .intro:
-            return WMFWelcomeIntroductionViewController.wmf_viewControllerFromStoryboardNamed("WMFWelcome")
+            return WMFWelcomeIntroductionViewController.wmf_viewControllerFromWelcomeStoryboard()
         case .languages:
-            let langPanelVC = WMFWelcomePanelViewController.wmf_viewControllerFromStoryboardNamed("WMFWelcome")
+            let langPanelVC = WMFWelcomePanelViewController.wmf_viewControllerFromWelcomeStoryboard()
             langPanelVC.welcomePageType = .languages
             return langPanelVC;
         case .analytics:
-            let analyticsPanelVC = WMFWelcomePanelViewController.wmf_viewControllerFromStoryboardNamed("WMFWelcome")
+            let analyticsPanelVC = WMFWelcomePanelViewController.wmf_viewControllerFromWelcomeStoryboard()
             analyticsPanelVC.welcomePageType = .analytics
             return analyticsPanelVC;
         }
