@@ -202,7 +202,7 @@
                                     <constraint firstAttribute="bottom" secondItem="FJI-Er-O9h" secondAttribute="bottom" id="DE0-V7-KoH"/>
                                     <constraint firstAttribute="trailing" secondItem="FJI-Er-O9h" secondAttribute="trailing" id="Inr-F0-Xa9"/>
                                     <constraint firstItem="FJI-Er-O9h" firstAttribute="top" relation="greaterThanOrEqual" secondItem="7gU-a9-VNf" secondAttribute="bottom" priority="999" constant="40" id="ikp-zU-uDi"/>
-                                    <constraint firstAttribute="width" priority="999" constant="320" id="rsb-GC-Lmi"/>
+                                    <constraint firstAttribute="width" priority="999" constant="355" id="rsb-GC-Lmi"/>
                                     <constraint firstItem="FJI-Er-O9h" firstAttribute="top" secondItem="7gU-a9-VNf" secondAttribute="bottom" priority="998" constant="10" id="zVO-og-LmL"/>
                                 </constraints>
                             </view>
