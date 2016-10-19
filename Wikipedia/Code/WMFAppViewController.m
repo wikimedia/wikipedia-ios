@@ -797,7 +797,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 - (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
     if ([self shouldShowOnboarding]) {
         WMFWelcomePageViewController *vc = [WMFWelcomePageViewController wmf_viewControllerWithIdentifier:@"WMFWelcomePageViewController" fromStoryboardNamed:@"WMFWelcome"];
-        vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         
         vc.completionBlock = ^{
             [self setDidShowOnboarding];
@@ -805,7 +804,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
                 completion(YES);
             }
         };
-        [self presentViewController:vc animated:YES completion:NULL];
+        [self presentViewController:vc animated:NO completion:NULL];
     } else {
         if (completion) {
             completion(NO);
