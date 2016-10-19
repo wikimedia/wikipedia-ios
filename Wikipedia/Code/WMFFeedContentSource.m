@@ -178,6 +178,9 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 - (void)saveGroupForFeaturedPreview:(WMFFeedArticlePreview *)preview date:(NSDate *)date {
+    if (!preview || !date) {
+        return;
+    }
 
     WMFFeaturedArticleContentGroup *featured = [self featuredForDate:date];
 
@@ -186,7 +189,11 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 
     NSURL *featuredURL = [preview articleURL];
-
+    
+    if (!featuredURL) {
+        return;
+    }
+    
     [self.previewStore addPreviewWithURL:featuredURL updatedWithFeedPreview:preview pageViews:nil];
     [self.contentStore addContentGroup:featured associatedContent:@[featuredURL]];
 }
