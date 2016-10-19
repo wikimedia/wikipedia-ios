@@ -779,7 +779,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 #pragma mark - Onboarding
 
-static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
+static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (BOOL)shouldShowOnboarding {
     if (FBTweakValue(@"Welcome", @"General", @"Show on launch (requires force quit)", NO) || [[NSProcessInfo processInfo] environment][@"WMFShowWelcomeView"].boolValue) {
