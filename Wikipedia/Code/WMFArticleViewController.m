@@ -964,13 +964,21 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     BOOL isCompact = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact;
 
     if (isCompact) {
-        if (FBTweakValue(@"Table of Contents", @"Layout", @"Centered", NO)) {
-            self.tableOfContentsDisplaySide = WMFTableOfContentsDisplaySideCenter;
-        } else if (FBTweakValue(@"Table of Contents", @"Layout", @"Match layout direction", YES)) {
-            self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideLeft : WMFTableOfContentsDisplaySideRight;
-        } else {
-            self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideRight : WMFTableOfContentsDisplaySideLeft;
+        NSInteger style = FBTweakValue(@"Table of contents", @"Style", @"1:old 2:now 3:new", 2);
+        switch (style) {
+            case 1:
+                self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideRight : WMFTableOfContentsDisplaySideLeft;
+                break;
+            case 2:
+                self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideLeft : WMFTableOfContentsDisplaySideRight;
+                break;
+            case 3:
+                self.tableOfContentsDisplaySide = WMFTableOfContentsDisplaySideCenter;
+                break;
+            default:
+                break;
         }
+
     } else {
         self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideLeft : WMFTableOfContentsDisplaySideRight;
     }
