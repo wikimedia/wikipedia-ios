@@ -5,7 +5,7 @@ class InTheNewsCollectionViewCell: WMFExploreCollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var label: UILabel!
     
-    static var estimatedRowHeight:CGFloat = 116
+    static var estimatedRowHeight:CGFloat = 96
 
     var imageURL: NSURL? {
         didSet {
