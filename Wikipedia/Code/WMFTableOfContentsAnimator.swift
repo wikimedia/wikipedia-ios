@@ -1,3 +1,4 @@
+
 import UIKit
 
 // MARK: - Delegate
@@ -14,10 +15,14 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
         self.presentedViewController = presentedViewController
         self.isPresenting = true
         self.isInteractive = false
-        super.init()    }
+        super.init()
+        self.presentingViewController!.view.addGestureRecognizer(self.presentationGesture)
+    }
     
     deinit {
         removeDismissalGestureRecognizer()
+        self.presentationGesture.removeTarget(self, action: #selector(WMFTableOfContentsAnimator.handlePresentationGesture(_:)))
+        self.presentationGesture.view?.removeGestureRecognizer(self.presentationGesture)
     }
     
     weak var presentingViewController: UIViewController?
@@ -150,6 +155,12 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
     
     
     // MARK: - Gestures
+    lazy var presentationGesture: UIPanGestureRecognizer = {
+        let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(WMFTableOfContentsAnimator.handlePresentationGesture(_:)))
+        gesture.maximumNumberOfTouches = 1
+        gesture.delegate = self
+        return gesture
+    }()
     
     var dismissalGesture: UIPanGestureRecognizer?
     
@@ -270,8 +281,22 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
                 return false
             }
             
-        } else {
+        }else if gestureRecognizer == self.presentationGesture {
+            
+            let translation = self.presentationGesture.translationInView(presentationGesture.view)
+            let location = self.presentationGesture.locationInView(presentationGesture.view)
+            let gestureWidth = presentationGesture.view!.frame.width * gesturePercentage
+            let maxLocation = UIApplication.sharedApplication().wmf_tocShouldBeOnLeft ? gestureWidth: presentationGesture.view!.frame.maxX - gestureWidth
+            let isInStartBoundry = UIApplication.sharedApplication().wmf_tocShouldBeOnLeft ? maxLocation - location.x > 0 : location.x - maxLocation > 0
+            if(translation.x * UIApplication.sharedApplication().wmf_tocRTLMultiplier < 0) && isInStartBoundry{
+                return true
+            }else{
+                return false
+            }
+        }else{
             return true
         }
+        
+        
     }
 }
