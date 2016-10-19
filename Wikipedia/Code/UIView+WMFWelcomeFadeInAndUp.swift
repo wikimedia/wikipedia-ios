@@ -4,11 +4,11 @@ extension UIView {
         layer.opacity = 0
     }
 
-    func wmf_fadeInAndUpAfterDelay (delay: CGFloat) {
+    func wmf_fadeInAndUpWithDuration (duration: Double, delay: Double) {
         layer.transform = CATransform3DMakeTranslation(0, 18, 0)
         UIView.animateWithDuration(
-            0.4,
-            delay: Double(delay),
+            duration,
+            delay: delay,
             options: .CurveEaseInOut,
             animations: {
                 self.layer.opacity = 1

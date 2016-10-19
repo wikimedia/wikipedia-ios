@@ -33,7 +33,7 @@ class WMFWelcomeContainerViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if (shouldFadeInAndUp() && !hasAlreadyFadedInAndUp) {
-            view.wmf_fadeInAndUpAfterDelay(0.1)
+            view.wmf_fadeInAndUpWithDuration(0.4, delay: 0.1)
             hasAlreadyFadedInAndUp = true
         }
     }
