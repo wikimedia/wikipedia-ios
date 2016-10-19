@@ -235,10 +235,4 @@
     [self updateEmptyState];
 }
 
-#pragma mark - WMFAnalyticsContextProviding
-
-- (NSString *)analyticsContext {
-    return @"Article List";
-}
-
 @end
