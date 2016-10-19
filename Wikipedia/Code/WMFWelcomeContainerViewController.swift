@@ -4,6 +4,10 @@ class WMFWelcomeContainerViewController: WMFWelcomeFadeInAndUpOnceViewController
     @IBOutlet private var topContainerView:UIView!
     @IBOutlet private var bottomContainerView:UIView!
 
+    @IBOutlet private var overallContainerView:UIView!
+    @IBOutlet private var overallContainerViewCenterYConstraint:NSLayoutConstraint!
+    @IBOutlet private var topContainerViewHeightConstraint:NSLayoutConstraint!
+    
     var welcomePageType:WMFWelcomePageType = .intro
     private var animationVC:WMFWelcomeAnimationViewController? = nil
 
@@ -12,6 +16,24 @@ class WMFWelcomeContainerViewController: WMFWelcomeFadeInAndUpOnceViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         embedBottomContainerControllerView()
+        useBottomAlignmentIfPhone()
+        hideAndCollapseTopContainerViewIfDeviceIsiPhone4s()
+    }
+
+    private func hideAndCollapseTopContainerViewIfDeviceIsiPhone4s() {
+        if view.frame.size.height == 480 {
+            topContainerView.alpha = 0
+            topContainerViewHeightConstraint.constant = 0
+        }
+    }
+    
+    private func useBottomAlignmentIfPhone() {
+        assert(overallContainerViewCenterYConstraint.priority == 999, "The Y centering constraint must not have required '1000' priority because on non-tablets we add a required bottom alignment constraint on overallContainerView which we want to be favored when present.")
+        if (UI_USER_INTERFACE_IDIOM() == .Phone) {
+            overallContainerView.mas_makeConstraints { make in
+                make.bottom.equalTo()(self.mas_bottomLayoutGuideTop)
+            }
+        }
     }
     
     private func embedBottomContainerControllerView() {
