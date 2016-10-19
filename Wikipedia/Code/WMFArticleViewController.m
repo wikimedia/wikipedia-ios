@@ -996,6 +996,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self.readMoreListViewController.tableView.separatorStyle = isCompact ? UITableViewCellSeparatorStyleSingleLine : UITableViewCellSeparatorStyleNone;
     self.footerMenuViewController.tableView.separatorStyle = isCompact ? UITableViewCellSeparatorStyleSingleLine : UITableViewCellSeparatorStyleNone;
+
+    self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
+    self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -1118,6 +1121,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 }
 
                 [self createTableOfContentsViewControllerIfNeeded];
+                self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
+                self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
 
                 if (self.tableOfContentsViewController == nil) {
                     self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineHidden;
@@ -1154,6 +1159,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 self.tableOfContentsViewController = nil;
             }
             [self createTableOfContentsViewControllerIfNeeded];
+            self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
+            self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
+
             switch (self.tableOfContentsDisplayState) {
                 case WMFTableOfContentsDisplayStateInlineVisible:
                     self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalVisible;

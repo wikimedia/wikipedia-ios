@@ -287,7 +287,17 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
     }
     
     // MARK: - UIGestureRecognizerDelegate
+    
     public func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard displayMode == WMFTableOfContentsDisplayModeModal else {
+            return false
+        }
+        
+        let isRTL = UIApplication.sharedApplication().wmf_isRTL
+        guard (displaySide == WMFTableOfContentsDisplaySideCenter) || (isRTL && displaySide == WMFTableOfContentsDisplaySideLeft) || (!isRTL && displaySide == WMFTableOfContentsDisplaySideRight) else  {
+            return false
+        }
+        
         if gestureRecognizer == self.dismissalGesture {
             
             if let translation = self.dismissalGesture?.translationInView(dismissalGesture?.view) {
@@ -316,7 +326,9 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
         }else{
             return true
         }
-        
-        
+    }
+    
+    public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return otherGestureRecognizer.isKindOfClass(UIScreenEdgePanGestureRecognizer)
     }
 }

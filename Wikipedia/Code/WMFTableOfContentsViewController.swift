@@ -100,6 +100,8 @@ public class WMFTableOfContentsViewController: UIViewController,
         if let presentingViewController = presentingViewController {
             animator = WMFTableOfContentsAnimator(presentingViewController: presentingViewController, presentedViewController: self)
             animator?.delegate = self
+            animator?.displaySide = displaySide
+            animator?.displayMode = displayMode
         }
         modalPresentationStyle = .Custom
         transitioningDelegate = self.animator
