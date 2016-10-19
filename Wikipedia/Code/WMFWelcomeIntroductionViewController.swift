@@ -18,8 +18,8 @@ class WMFWelcomeIntroductionViewController: UIViewController {
     
     @IBAction private func showHowThisWorksAlert(withSender sender: AnyObject) {
         let alert = UIAlertController(
-            title:localizedStringForKeyFallingBackOnEnglish("welcome-explore-tell-me-more-about-explore"),
-            message:"\(localizedStringForKeyFallingBackOnEnglish("welcome-explore-tell-me-more-related"))\n\n\(localizedStringForKeyFallingBackOnEnglish("welcome-explore-tell-me-more-privacy"))",
+            title:localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-title"),
+            message:"\(localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-storage"))\n\n\(localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-creation"))",
             preferredStyle:.Alert)
         alert.addAction(UIAlertAction(title:localizedStringForKeyFallingBackOnEnglish("welcome-explore-tell-me-more-done-button"), style:.Cancel, handler:nil))
         presentViewController(alert, animated:true, completion:nil)

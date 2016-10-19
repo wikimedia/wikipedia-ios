@@ -405,6 +405,10 @@
 "welcome-explore-tell-me-more-done-button" = "Got it";
 "welcome-explore-continue-button" = "Get started";
 
+"welcome-notifications-tell-me-more-title" = "More about notifications";
+"welcome-notifications-tell-me-more-storage" = "Notification preferences are stored on device and not based on personal information or activity.";
+"welcome-notifications-tell-me-more-creation" = "Notifications are created and delivered on your device by the app, not from our (or third party) servers.";
+
 "welcome-languages-title" = "Languages";
 "welcome-languages-sub-title" = "Choose your preferred languages to search Wikipedia";
 "welcome-languages-add-button" = "Add another language";

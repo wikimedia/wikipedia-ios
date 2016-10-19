@@ -370,6 +370,9 @@
 "welcome-explore-tell-me-more-privacy" = "An explanation making it clear that no reading list or profile is stored on our servers";
 "welcome-explore-tell-me-more-done-button" = "Text for button dismissing detailed explanation of new features";
 "welcome-explore-continue-button" = "Text for button for moving to next welcome screen\n{{Identical|Get started}}";
+"welcome-notifications-tell-me-more-title" = "Title for detailed notification explanation";
+"welcome-notifications-tell-me-more-storage" = "An explanation of how notifications are stored";
+"welcome-notifications-tell-me-more-creation" = "An explanation of how notifications are created";
 "welcome-languages-title" = "Title for welcome screen allowing user to select additional languages\n{{Identical|Language}}";
 "welcome-languages-sub-title" = "Sub-title for languages welcome screen";
 "welcome-languages-add-button" = "Title for button for adding another language";
