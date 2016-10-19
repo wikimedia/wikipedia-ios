@@ -969,13 +969,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             case 1:
                 self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideRight : WMFTableOfContentsDisplaySideLeft;
                 break;
-            case 2:
-                self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideLeft : WMFTableOfContentsDisplaySideRight;
-                break;
             case 3:
                 self.tableOfContentsDisplaySide = WMFTableOfContentsDisplaySideCenter;
                 break;
+            case 2:
             default:
+                self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideLeft : WMFTableOfContentsDisplaySideRight;
                 break;
         }
 
