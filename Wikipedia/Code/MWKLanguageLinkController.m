@@ -140,17 +140,17 @@ static id _sharedInstance;
 
 - (void)reorderPreferredLanguage:(MWKLanguageLink *)language toIndex:(NSInteger)newIndex {
     NSMutableArray<NSString *> *langCodes = [[self readPreferredLanguageCodes] mutableCopy];
-    NSAssert(newIndex < [langCodes count], @"new language index is out of range");
-    if (newIndex >= [langCodes count]) {
+    NSAssert(newIndex < (NSInteger)[langCodes count], @"new language index is out of range");
+    if (newIndex >= (NSInteger)[langCodes count]) {
         return;
     }
-    NSInteger oldIndex = [langCodes indexOfObject:language.languageCode];
+    NSInteger oldIndex = (NSInteger)[langCodes indexOfObject:language.languageCode];
     NSAssert(oldIndex != NSNotFound, @"Language is not a preferred language");
     if (oldIndex == NSNotFound) {
         return;
     }
     [langCodes removeObject:language.languageCode];
-    [langCodes insertObject:language.languageCode atIndex:newIndex];
+    [langCodes insertObject:language.languageCode atIndex:(NSUInteger)newIndex];
     [self savePreferredLanguageCodes:langCodes];
 }
 
