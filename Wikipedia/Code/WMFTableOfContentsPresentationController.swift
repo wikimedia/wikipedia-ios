@@ -160,9 +160,16 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
             tocWidth = self.maximumTableOfContentsWidth
             bgWidth = frame.size.width - tocWidth
         }
-        if displaySide != WMFTableOfContentsDisplaySideLeft {
+        
+        switch displaySide {
+        case WMFTableOfContentsDisplaySideCenter:
+            frame.origin.x += 0.5*bgWidth
+        case WMFTableOfContentsDisplaySideRight:
             frame.origin.x += bgWidth
+        default:
+            break
         }
+        
         frame.origin.y = UIApplication.sharedApplication().statusBarFrame.size.height + 0.5;
         frame.size.width = tocWidth
         
