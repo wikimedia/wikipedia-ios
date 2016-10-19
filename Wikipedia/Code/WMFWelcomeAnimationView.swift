@@ -45,15 +45,15 @@ public class WMFWelcomeAnimationView : UIView {
         self.layoutIfNeeded()
     }
     
-    public func wmf_beginAnimations() {
+    public func beginAnimations() {
         
     }
     
-    public func wmf_addAnimationElementsScaledToCurrentFrameSize(){
+    public func addAnimationElementsScaledToCurrentFrameSize(){
     
     }
     
-    public func wmf_removeExistingSubviewsAndSublayers() {
+    public func removeExistingSubviewsAndSublayers() {
         for subview in self.subviews {
             subview.removeFromSuperview()
         }
