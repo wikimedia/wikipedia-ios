@@ -32,8 +32,17 @@ public class WMFTableOfContentsViewController: UIViewController,
     
     let tableOfContentsFunnel: ToCInteractionFunnel
     
-    var displaySide = WMFTableOfContentsDisplaySideLeft
-    var displayMode = WMFTableOfContentsDisplayModeModal
+    var displaySide = WMFTableOfContentsDisplaySideLeft {
+        didSet {
+            animator?.displaySide = displaySide
+        }
+    }
+    
+    var displayMode = WMFTableOfContentsDisplayModeModal {
+        didSet {
+            animator?.displayMode = displayMode
+        }
+    }
 
     lazy var tableView: UITableView = {
         
