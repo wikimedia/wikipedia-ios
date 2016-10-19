@@ -796,7 +796,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
     if ([self shouldShowOnboarding]) {
-        WMFWelcomePageViewController *vc = [WMFWelcomePageViewController wmf_viewControllerWithIdentifier:@"WMFWelcomePageViewController" fromStoryboardNamed:@"WMFWelcome"];
+        WMFWelcomePageViewController *vc = [WMFWelcomePageViewController wmf_viewControllerFromWelcomeStoryboard];
         
         vc.completionBlock = ^{
             [self setDidShowOnboarding];
