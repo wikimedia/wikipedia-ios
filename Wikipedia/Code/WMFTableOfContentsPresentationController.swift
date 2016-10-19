@@ -9,6 +9,9 @@ import Masonry
 
 public class WMFTableOfContentsPresentationController: UIPresentationController {
     
+    var displaySide = WMFTableOfContentsDisplaySideLeft
+    var displayMode = WMFTableOfContentsDisplayModeModal
+    
     // MARK: - init
     public required init(presentedViewController: UIViewController, presentingViewController: UIViewController?, tapDelegate: WMFTableOfContentsPresentationControllerTapDelegate) {
         self.tapDelegate = tapDelegate
@@ -157,7 +160,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
             tocWidth = self.maximumTableOfContentsWidth
             bgWidth = frame.size.width - tocWidth
         }
-        if !UIApplication.sharedApplication().wmf_tocShouldBeOnLeft{
+        if displaySide != WMFTableOfContentsDisplaySideLeft {
             frame.origin.x += bgWidth
         }
         frame.origin.y = UIApplication.sharedApplication().statusBarFrame.size.height + 0.5;

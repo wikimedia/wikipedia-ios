@@ -31,6 +31,9 @@ public class WMFTableOfContentsViewController: UIViewController,
                                                WMFTableOfContentsAnimatorDelegate {
     
     let tableOfContentsFunnel: ToCInteractionFunnel
+    
+    var displaySide = WMFTableOfContentsDisplaySideLeft
+    var displayMode = WMFTableOfContentsDisplayModeModal
 
     lazy var tableView: UITableView = {
         

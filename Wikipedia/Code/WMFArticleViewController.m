@@ -1036,6 +1036,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (self.tableOfContentsViewController == nil) {
         return;
     }
+    
+    self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
+    self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
+    
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
             if (sender != self) {
