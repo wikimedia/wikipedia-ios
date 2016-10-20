@@ -147,6 +147,13 @@ sup.reference a::after {
     content: " ";
 }
 
-
-
-
+/* Added from Mediawiki:Common.css to fix display bug for fractions on certain articles*/
+/* Hide (formatting) elements from screen, but not from screenreaders */
+.visualhide {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
