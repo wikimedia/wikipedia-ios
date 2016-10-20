@@ -438,20 +438,6 @@ NS_ASSUME_NONNULL_BEGIN
     return 5;
 }
 
-//- (nullable NSString *)footerText {
-//    return
-//        [MWLocalizedString(@"explore-in-the-news-footer-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
-//                                                                                                  withString:[self localDateShortDisplayString]];
-//}
-//
-//- (WMFFeedMoreType)moreType {
-//    return WMFFeedMoreTypePageList;
-//}
-//
-//- (nullable NSString *)moreTitle {
-//    return [self titleForDate:self.date];
-//}
-
 - (NSString *)analyticsContentType {
     return @"In The News";
 }
@@ -464,15 +450,6 @@ NS_ASSUME_NONNULL_BEGIN
     return WMFFeedDetailTypeStory;
 }
 
-/**
- *  String to display to the user for the receiver's date.
- *
- *  "Most read" articles are computed for UTC dates. UTC time zone is used because converting to the user's time zone
- *  might accidentally change the "day" the app displays based on the the offset between UTC & the device's default time
- *  zone.  For example: 02/12/2016 01:26 UTC converted to EST is 02/11/2016 20:26, one day off!
- *
- *  @return A string formatted with the current locale, in the UTC time zone.
- */
 - (NSString *)localDateDisplayString {
     return [[NSDateFormatter wmf_utcDayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
 }
