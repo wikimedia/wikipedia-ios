@@ -496,7 +496,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [articleToolbarItems addObjectsFromArray:itemGroup];
     }
 
-    NSInteger style = [self tableOfContentsStyleTweakValue];
     UIBarButtonItem *tocItem = [self tableOfContentsToolbarItem];
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
@@ -505,7 +504,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:tocItem.width + 8]];
         case WMFTableOfContentsDisplayModeModal:
         default: {
-            [articleToolbarItems insertObject:tocItem atIndex:0];
+            WMFTableOfContentsDisplayStyle style = [self tableOfContentsStyleTweakValue];
+            if (style == WMFTableOfContentsDisplayStyleOld) {
+                id spacer = [articleToolbarItems objectAtIndex:0];
+                [articleToolbarItems removeObjectAtIndex:0];
+                [articleToolbarItems addObject:spacer];
+                [articleToolbarItems addObject:tocItem];
+            } else {
+                [articleToolbarItems insertObject:tocItem atIndex:0];
+            }
         } break;
     }
     return articleToolbarItems;
@@ -961,7 +968,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (WMFTableOfContentsDisplayStyle)tableOfContentsStyleTweakValue {
-    return FBTweakValue(@"Table of contents", @"Style", @"1:old 2:now 3:new", WMFTableOfContentsDisplayStyleCurrent);
+    return FBTweakValue(@"Table of contents", @"Style", @"0:old 1:now 2:new", WMFTableOfContentsDisplayStyleCurrent);
 }
 
 - (void)updateTableOfContentsDisplayModeWithTraitCollection:(UITraitCollection *)traitCollection {

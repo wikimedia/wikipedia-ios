@@ -21,9 +21,9 @@ typedef enum : NSUInteger {
 
 
 typedef enum : NSInteger {
-    WMFTableOfContentsDisplayStyleOld = 1,
-    WMFTableOfContentsDisplayStyleCurrent = 2,
-    WMFTableOfContentsDisplayStyleNext = 3
+    WMFTableOfContentsDisplayStyleOld = 0,
+    WMFTableOfContentsDisplayStyleCurrent = 1,
+    WMFTableOfContentsDisplayStyleNext = 2
 } WMFTableOfContentsDisplayStyle;
 
 #endif
