@@ -105,7 +105,7 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
         }
         
         let articlePreview = articlePreviews[indexPath.row]
-        let articleURL = articlePreview.articleURL()
+        let articleURL = articlePreview.articleURL
         
         wmf_pushArticleWithURL(articleURL, dataStore: dataStore, previewStore: previewStore, animated: true)
     }

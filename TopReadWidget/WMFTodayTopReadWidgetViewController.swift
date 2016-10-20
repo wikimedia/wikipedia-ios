@@ -193,7 +193,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         var dataValueMin = CGFloat.max
         var dataValueMax = CGFloat.min
         for result in results[0...maximumRowCount] {
-            let articlePreview = self.previewStore.itemForURL(result.articleURL())
+            let articlePreview = self.previewStore.itemForURL(result.articleURL)
             guard let dataValues = articlePreview?.pageViews else {
                 continue
             }
@@ -229,7 +229,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             vc.imageView.wmf_reset()
             vc.rankLabel.text = NSNumberFormatter.localizedThousandsStringFromNumber(i + 1)
             
-            if let articlePreview = self.previewStore.itemForURL(result.articleURL()) {
+            if let articlePreview = self.previewStore.itemForURL(result.articleURL) {
                 if let viewCounts = articlePreview.pageViewsSortedByDate() where viewCounts.count > 0 {
                     vc.sparklineView.minDataValue = dataValueMin
                     vc.sparklineView.maxDataValue = dataValueMax
