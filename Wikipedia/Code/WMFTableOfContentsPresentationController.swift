@@ -164,8 +164,11 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         switch displaySide {
         case WMFTableOfContentsDisplaySideCenter:
             frame.origin.x += 0.5*bgWidth
+            frame.size.height -= 70
+            break
         case WMFTableOfContentsDisplaySideRight:
             frame.origin.x += bgWidth
+            break
         default:
             break
         }
