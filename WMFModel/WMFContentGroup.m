@@ -149,11 +149,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@implementation WMFNotificationContentGroup
-
-- (WMFContentType)contentType {
-    return WMFContentTypeNotification;
-}
-
-@end
 NS_ASSUME_NONNULL_END

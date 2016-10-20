@@ -499,12 +499,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@implementation WMFNotificationContentGroup (WMFContentManaging)
-
-- (NSInteger)dailySortPriority {
-    return -1;
-}
-
-@end
-
 NS_ASSUME_NONNULL_END
