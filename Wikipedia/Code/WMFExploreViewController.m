@@ -612,13 +612,13 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 - (void)configureListCell:(WMFArticleListCollectionViewCell *)cell withPreview:(WMFArticlePreview *)preview userData:(MWKHistoryEntry *)userData atIndexPath:(NSIndexPath *)indexPath {
     cell.titleText = [preview.displayTitle wmf_stringByRemovingHTML];
     cell.titleLabel.accessibilityLanguage = userData.url.wmf_language;
-    cell.descriptionText = preview.wikidataDescription;
+    cell.descriptionText = [preview.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     [cell setImageURL:preview.thumbnailURL];
 }
 
 - (void)configurePreviewCell:(WMFArticlePreviewCollectionViewCell *)cell withSection:(WMFContentGroup *)section preview:(WMFArticlePreview *)preview userData:(MWKHistoryEntry *)userData atIndexPath:(NSIndexPath *)indexPath {
     cell.titleText = [preview.displayTitle wmf_stringByRemovingHTML];
-    cell.descriptionText = preview.wikidataDescription;
+    cell.descriptionText = [preview.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     cell.snippetText = preview.snippet;
     [cell setImageURL:preview.thumbnailURL];
     [cell setSaveableURL:preview.url savedPageList:self.userStore.savedPageList];
