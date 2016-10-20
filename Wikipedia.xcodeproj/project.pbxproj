@@ -792,6 +792,10 @@
 		D87E54011D6CC709005134EF /* WMFMantleJSONResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806321C0CE7680065EBC0 /* WMFMantleJSONResponseSerializer.m */; };
 		D890C84B1D772B02007132C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D890C84D1D772B02007132C9 /* InfoPlist.strings */; };
 		D890C85D1D772ED3007132C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D890C85B1D772ED3007132C9 /* InfoPlist.strings */; };
+		D8940CEF1DB56C8A00E17F9E /* InTheNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8940CED1DB56C8A00E17F9E /* InTheNewsViewController.swift */; };
+		D8940CF01DB56C8A00E17F9E /* InTheNewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8940CEE1DB56C8A00E17F9E /* InTheNewsViewController.xib */; };
+		D8940CF41DB667EF00E17F9E /* InTheNewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8940CF21DB667EF00E17F9E /* InTheNewsCollectionViewCell.swift */; };
+		D8940CF51DB667EF00E17F9E /* InTheNewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8940CF31DB667EF00E17F9E /* InTheNewsCollectionViewCell.xib */; };
 		D895D0851D9C1EB8005418C1 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D895D0841D9C1EB8005418C1 /* UserNotifications.framework */; };
 		D895D0871D9C1EB8005418C1 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D895D0861D9C1EB8005418C1 /* UserNotificationsUI.framework */; };
 		D895D08A1D9C1EB8005418C1 /* WMFInTheNewsNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D895D0891D9C1EB8005418C1 /* WMFInTheNewsNotificationViewController.swift */; };
@@ -2379,6 +2383,10 @@
 		D890C8541D772B4E007132C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D890C85C1D772ED3007132C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D890C85E1D772EE7007132C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D8940CED1DB56C8A00E17F9E /* InTheNewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InTheNewsViewController.swift; sourceTree = "<group>"; };
+		D8940CEE1DB56C8A00E17F9E /* InTheNewsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InTheNewsViewController.xib; sourceTree = "<group>"; };
+		D8940CF21DB667EF00E17F9E /* InTheNewsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InTheNewsCollectionViewCell.swift; path = Wikipedia/Code/InTheNewsCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		D8940CF31DB667EF00E17F9E /* InTheNewsCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InTheNewsCollectionViewCell.xib; path = Wikipedia/Code/InTheNewsCollectionViewCell.xib; sourceTree = SOURCE_ROOT; };
 		D895D0831D9C1EB8005418C1 /* InTheNewsNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = InTheNewsNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D895D0841D9C1EB8005418C1 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		D895D0861D9C1EB8005418C1 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
@@ -3556,6 +3564,7 @@
 				0E03E2861B83948B00C1FBD7 /* Views */,
 				D86706C01D3D4AD3003AB2FC /* Layout */,
 				0E52FD631DA4008A00587426 /* Content Display */,
+				D8940CEA1DB56C0500E17F9E /* In The News */,
 				0E19B9B31DA844D600239F3A /* More List */,
 			);
 			name = Feed;
@@ -3703,6 +3712,7 @@
 		0EE151901BF5402D0039828A /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				D8940CF11DB667CD00E17F9E /* In The News */,
 				0E6A6F541D9EA21F00189C80 /* Article */,
 				BCCB81461C110857008BC602 /* POTD */,
 				0E52FD641DA40E9700587426 /* Main Page */,
@@ -5760,6 +5770,24 @@
 			path = ../Schema;
 			sourceTree = "<group>";
 		};
+		D8940CEA1DB56C0500E17F9E /* In The News */ = {
+			isa = PBXGroup;
+			children = (
+				D8940CED1DB56C8A00E17F9E /* InTheNewsViewController.swift */,
+				D8940CEE1DB56C8A00E17F9E /* InTheNewsViewController.xib */,
+			);
+			name = "In The News";
+			sourceTree = "<group>";
+		};
+		D8940CF11DB667CD00E17F9E /* In The News */ = {
+			isa = PBXGroup;
+			children = (
+				D8940CF21DB667EF00E17F9E /* InTheNewsCollectionViewCell.swift */,
+				D8940CF31DB667EF00E17F9E /* InTheNewsCollectionViewCell.xib */,
+			);
+			name = "In The News";
+			sourceTree = "<group>";
+		};
 		D895D0881D9C1EB8005418C1 /* InTheNewsNotification */ = {
 			isa = PBXGroup;
 			children = (
@@ -6508,6 +6536,7 @@
 				B0E8033D1C0CD76B0065EBC0 /* WMFSearchViewController.storyboard in Resources */,
 				0E26B0731C0F4F550004D687 /* WMFTabBarUI.storyboard in Resources */,
 				D84F2BFD1D2FEE6300963D42 /* WMFRandomDiceButtonRoll.js in Resources */,
+				D8940CF51DB667EF00E17F9E /* InTheNewsCollectionViewCell.xib in Resources */,
 				B0866F471CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.xib in Resources */,
 				0E4D071D1CC5526200AE968B /* WMFLanguageCell.xib in Resources */,
 				0E06FD5F1CC2D5B2002F3A72 /* WMFPreferredLanguagesViewController.storyboard in Resources */,
@@ -6529,6 +6558,7 @@
 				B0E803191C0CD6560065EBC0 /* WMFNearbyPlaceholderCollectionViewCell.xib in Resources */,
 				D8EEA0F51D6E14E800D88143 /* WMFAppModalProgressViewController.xib in Resources */,
 				0E06FD611CC2D5E3002F3A72 /* WMFArticleLanguagesViewController.storyboard in Resources */,
+				D8940CF01DB56C8A00E17F9E /* InTheNewsViewController.xib in Resources */,
 				B016DCEB1D497C74005BABA1 /* WMFFindInPageKeyboardBar.xib in Resources */,
 				B0E802E91C0CD4350065EBC0 /* WMFMainPagePlaceholderCollectionViewCell.xib in Resources */,
 				C46FBA4B1A8530EE00C5730F /* Pods-Foundation-Wikipedia-acknowledgements.plist in Resources */,
@@ -7328,6 +7358,7 @@
 				0EF2249A1CC5536200FDF78E /* WMFLanguageCell.m in Sources */,
 				B0E803381C0CD7550065EBC0 /* UIViewController+WMFSearch.m in Sources */,
 				B0E803991C0CDB280065EBC0 /* WMFArticleFetcher.m in Sources */,
+				D8940CEF1DB56C8A00E17F9E /* InTheNewsViewController.swift in Sources */,
 				D8D5DB2C1D7A206B00526A69 /* UIBarButtonItem+BlocksKit.m in Sources */,
 				B0E8071F1C0CEC8A0065EBC0 /* main.m in Sources */,
 				B0E8070C1C0CEBDA0065EBC0 /* WMFShareOptionsController.m in Sources */,
@@ -7335,6 +7366,7 @@
 				D84F2BFC1D2FEE6300963D42 /* WMFRandomDiceButton.m in Sources */,
 				0E19B99C1DA6E1A400239F3A /* WMFExploreViewController.m in Sources */,
 				B0E806491C0CE7F70065EBC0 /* AccountLogin.m in Sources */,
+				D8940CF41DB667EF00E17F9E /* InTheNewsCollectionViewCell.swift in Sources */,
 				D81083071D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m in Sources */,
 				B0E806B71C0CEB160065EBC0 /* WMFLanguagesViewController.m in Sources */,
 				0E0361801C456C4600FD9642 /* WMFReadMoreViewController.m in Sources */,
@@ -8020,7 +8052,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4A08C17A1DA9EA24961A2874 /* Pods-Foundation-ContinueReadingWidget.debug test.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -8028,7 +8060,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -8049,7 +8080,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 663A7936DBF7991952C0BFE4 /* Pods-Foundation-ContinueReadingWidget.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -8057,7 +8088,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -8079,7 +8109,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5FD286CFE5F5EA9DB6A9200E /* Pods-Foundation-ContinueReadingWidget.adhoc.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -8087,7 +8117,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
@@ -8104,7 +8133,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 02BE7EDE14437EAA9552821B /* Pods-Foundation-ContinueReadingWidget.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -8112,7 +8141,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
@@ -8129,7 +8157,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 403F6218D88D8D336CB3DFFC /* Pods-Foundation-ContinueReadingWidget.test.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -8137,7 +8165,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
@@ -8154,7 +8181,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5497A3D1ED13E6D4B016B70A /* Pods-Foundation-ContinueReadingWidget.beta.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -8162,7 +8189,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
@@ -8860,7 +8886,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F326382DAADC88F346CA00CC /* Pods-Foundation-WMFModel.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -8871,7 +8897,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = "WMFModel/WMFModel-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -8897,7 +8922,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B02BFFDCC11F09C3ED05EB1A /* Pods-Foundation-WMFModel.debug test.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -8908,7 +8933,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = "WMFModel/WMFModel-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -8934,7 +8958,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 314D87CC9A494CB883C29613 /* Pods-Foundation-WMFModel.adhoc.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -8945,7 +8969,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = "WMFModel/WMFModel-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -8971,7 +8994,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6DF957F57C202C51E444A2EE /* Pods-Foundation-WMFModel.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -8982,7 +9005,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = "WMFModel/WMFModel-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -9008,7 +9030,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 206602671CC9C8518B340372 /* Pods-Foundation-WMFModel.test.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9019,7 +9041,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = "WMFModel/WMFModel-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -9045,7 +9066,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B7B297F128B843A7DEACF4DD /* Pods-Foundation-WMFModel.beta.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9056,7 +9077,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = "WMFModel/WMFModel-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -9082,7 +9102,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C6F768F4988D8FA3B1899A74 /* Pods-Foundation-WMFUtilities.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9094,7 +9114,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -9120,7 +9139,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C3C286EC70366D18EF0BE8E8 /* Pods-Foundation-WMFUtilities.debug test.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9132,7 +9151,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -9158,7 +9176,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B66B13709EB8A393201CA641 /* Pods-Foundation-WMFUtilities.adhoc.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9170,7 +9188,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -9191,7 +9208,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C2E933C87666F699F51E0CEB /* Pods-Foundation-WMFUtilities.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9203,7 +9220,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -9224,7 +9240,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E3F0C0C789B0E26275755E1E /* Pods-Foundation-WMFUtilities.test.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9236,7 +9252,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -9257,7 +9272,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EB733F5F7A1AC2B5776C7CD3 /* Pods-Foundation-WMFUtilities.beta.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9269,7 +9284,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -9483,7 +9497,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6248348930650074C5C0BD5C /* Pods-Foundation-ContinueReadingWidget.alpha.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -9491,7 +9505,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
@@ -9508,7 +9521,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 77216B9C0CF7F7B2E78D8B47 /* Pods-Foundation-TopReadWidget.alpha.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -9516,7 +9529,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = TopReadWidget/Info.plist;
@@ -9533,7 +9545,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 71E6CFAEB3AAC33DFB725891 /* Pods-Foundation-WMFUtilities.alpha.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9545,7 +9557,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -9566,7 +9577,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3AAFA9FD767D33F9A29AA788 /* Pods-Foundation-WMFModel.alpha.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9577,7 +9588,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = "WMFModel/WMFModel-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -9603,7 +9613,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5FDE57DD160671543B976ACD /* Pods-Foundation-WMFUI.alpha.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9615,7 +9625,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUI/Info.plist;
@@ -9798,7 +9807,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E993048318B41D460E681F5D /* Pods-Foundation-ContinueReadingWidget.alphadebug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -9806,7 +9815,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -9828,7 +9836,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 598C1BA09F90022958C5B095 /* Pods-Foundation-TopReadWidget.alphadebug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -9836,7 +9844,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -9858,7 +9865,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B041D6E89FE039A8A1F97085 /* Pods-Foundation-WMFUtilities.alphadebug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9870,7 +9877,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -9896,7 +9902,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AAFEA54A25EF3EF94A0BFC54 /* Pods-Foundation-WMFModel.alphadebug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9907,7 +9913,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = "WMFModel/WMFModel-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -9933,7 +9938,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5620B288F371F68ACC0CF16F /* Pods-Foundation-WMFUI.alphadebug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9945,7 +9950,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -9970,7 +9974,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3D43B58595B841B32CE36654 /* Pods-Foundation-TopReadWidget.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -9978,7 +9982,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -10000,7 +10003,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 46F8E51D3907AEFD9D250743 /* Pods-Foundation-TopReadWidget.debug test.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -10008,7 +10011,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -10030,7 +10032,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A8C7C5E9470E8762962DAF42 /* Pods-Foundation-TopReadWidget.adhoc.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -10038,7 +10040,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = TopReadWidget/Info.plist;
@@ -10055,7 +10056,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 139EFB58D1CC85EFEDB9F21C /* Pods-Foundation-TopReadWidget.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -10063,7 +10064,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = TopReadWidget/Info.plist;
@@ -10080,7 +10080,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A38538E50ED6CAB811A15120 /* Pods-Foundation-TopReadWidget.test.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -10088,7 +10088,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = TopReadWidget/Info.plist;
@@ -10105,7 +10104,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3AEB81840FD76A305876F785 /* Pods-Foundation-TopReadWidget.beta.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -10113,7 +10112,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = TopReadWidget/Info.plist;
@@ -10284,7 +10282,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EE101D0AA36D601A273FC5BE /* Pods-Foundation-WMFUI.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -10296,7 +10294,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -10321,7 +10318,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7A9BEAC0DD04CBE5A964C192 /* Pods-Foundation-WMFUI.debug test.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -10333,7 +10330,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -10358,7 +10354,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 309A81D0C833DBB150D776A4 /* Pods-Foundation-WMFUI.adhoc.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -10370,7 +10366,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUI/Info.plist;
@@ -10390,7 +10385,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1B9E63EACC9F11D64C58AC2D /* Pods-Foundation-WMFUI.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -10402,7 +10397,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUI/Info.plist;
@@ -10422,7 +10416,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6EE544F11A53D385F946579F /* Pods-Foundation-WMFUI.test.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -10434,7 +10428,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUI/Info.plist;
@@ -10454,7 +10447,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8FC62C1575990EDD5D358882 /* Pods-Foundation-WMFUI.beta.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -10466,7 +10459,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 955;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUI/Info.plist;

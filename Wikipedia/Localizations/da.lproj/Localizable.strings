@@ -409,7 +409,7 @@
 "continue-reading-empty-description" = "Udforsk Wikipedia for flere artikler at læse";
 "top-read-see-more" = "Se flere mest læste";
 "top-read-see-more-trending" = "Se flere populære";
-"number-thousands" = "$1K";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Reference $1";
+"number-thousands" = "$1K";

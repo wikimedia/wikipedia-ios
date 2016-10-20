@@ -499,4 +499,58 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@implementation WMFNewsContentGroup (WMFContentManaging)
+
+- (UIImage *)headerIcon {
+    return [UIImage imageNamed:@"news-mini"];
+}
+
+- (NSAttributedString *)headerTitle {
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"in-the-news-title", nil)];
+}
+
+- (NSAttributedString *)headerSubTitle {
+    return [[NSAttributedString alloc]
+        initWithString:[self localDateDisplayString]
+            attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+}
+
+- (UIColor *)headerIconTintColor {
+    return [UIColor wmf_exploreSectionHeaderIconTintColor];
+}
+
+- (UIColor *)headerIconBackgroundColor {
+    return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
+}
+
+- (WMFFeedHeaderActionType)headerActionType {
+    return WMFFeedHeaderActionTypeOpenFirstItem;
+}
+
+- (NSUInteger)maxNumberOfCells {
+    return 5;
+}
+
+- (NSString *)analyticsContentType {
+    return @"In The News";
+}
+
+- (WMFFeedDisplayType)displayType {
+    return WMFFeedDisplayTypeStory;
+}
+
+- (WMFFeedDetailType)detailType {
+    return WMFFeedDetailTypeStory;
+}
+
+- (NSString *)localDateDisplayString {
+    return [[NSDateFormatter wmf_utcDayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
+}
+
+- (NSString *)localDateShortDisplayString {
+    return [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
+}
+
+@end
+
 NS_ASSUME_NONNULL_END

@@ -241,6 +241,8 @@
 "button-ok" = "ОК";
 "button-save-for-later" = "Зачувај за подоцна";
 "button-saved-for-later" = "Зачувано за подоцна";
+"button-saved-remove" = "Отстрани од зачувани";
+"button-read-now" = "Прочитајте сега";
 "button-report-a-bug" = "Пријави грешка";
 "onboarding-create-account" = "Направи сметка";
 "onboarding-login" = "Најава";
@@ -344,8 +346,7 @@
 "home-hide-suggestion-prompt" = "Скриј го предлогов";
 "home-hide-suggestion-cancel" = "Откажи";
 "home-accessibility-label" = "Википедија, Истражете";
-// Fuzzy
-"home-button-accessibility-label" = "Копче за Почетна";
+"home-button-accessibility-label" = "Почетна";
 "potd-empty-error-description" = "Не можев да ја добијам сликата на денот за $1";
 "potd-description-prefix" = "Слика на денот за $1";
 "welcome-explore-title" = "Истражете";
@@ -408,7 +409,7 @@
 "continue-reading-empty-description" = "Истражете ја Википедија — прочитајте повеќе статии";
 "top-read-see-more" = "Повеќе најчитани статии";
 "top-read-see-more-trending" = "Видете повеќе најчитани";
-"number-thousands" = "$1 илј.";
 "top-read-header-with-language" = "Википедија на $1";
 "top-read-header-generic" = "Википедија";
 "reference-title" = "Навод $1";
+"number-thousands" = "$1 илј.";

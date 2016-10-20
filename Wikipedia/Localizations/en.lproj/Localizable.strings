@@ -35,7 +35,6 @@
 "zero-free-verbiage" = "Free Wikipedia access from your mobile operator (data charges waived)";
 "zero-charged-verbiage" = "Wikipedia Zero is off";
 "zero-charged-verbiage-extended" = "Loading other articles may incur data charges. Saved articles stored offline do not use data and are free.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Leaving Wikipedia Zero";
 "zero-interstitial-leave-app" = "Data charges may apply. Continue to external site?";
 "zero-interstitial-continue" = "Leave";
@@ -484,8 +483,13 @@
 "in-the-news-notification-read-now-action-title" = "Read Now";
 "in-the-news-notification-share-action-title" = "Share";
 "in-the-news-notification-save-for-later-action-title" = "Save for later";
-"in-the-news-notification-title" = "In the news";
 "in-the-news-currently-trending" = "Currently trending";
+
+"in-the-news-title" = "In the news";
+"in-the-news-title-for-date" = "News on $1";
+
+"explore-in-the-news-footer" = "All in the news";
+"explore-in-the-news-footer-for-date" = "All in the news on $1";
 
 "number-thousands" = "$1K";
 "number-millions" = "$1M";

@@ -1,11 +1,15 @@
 #import "AFHTTPSessionManager+WMFConfig.h"
-#import "AFHTTPRequestSerializer+WMFRequestHeaders.h"
+#import "WMFBaseRequestSerializer.h"
 
 @implementation AFHTTPSessionManager (WMFConfig)
 
 + (instancetype)wmf_createDefaultManager {
-    AFHTTPSessionManager *manager = [self manager];
-    [manager.requestSerializer wmf_applyAppRequestHeaders];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [WMFBaseRequestSerializer serializer];
+    
+    NSMutableIndexSet* set = [manager.responseSerializer.acceptableStatusCodes mutableCopy];
+    [set addIndex:304];
+    manager.responseSerializer.acceptableStatusCodes = set;
     return manager;
 }
 

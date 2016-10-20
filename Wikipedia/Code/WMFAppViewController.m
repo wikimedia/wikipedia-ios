@@ -1093,7 +1093,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [dialog addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-learn-more-learn-more", nil)
                                                style:UIAlertActionStyleDestructive
                                              handler:^(UIAlertAction *_Nonnull action) {
-                                                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MWLocalizedString(@"zero-webpage-url", nil)]];
+                                                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://m.wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ"]];
                                              }]];
 
     [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:dialog animated:YES completion:NULL];
