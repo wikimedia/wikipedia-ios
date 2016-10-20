@@ -11,20 +11,20 @@ public protocol WMFWelcomeNavigationDelegate: class{
     func showNextWelcomePage(sender: AnyObject)
 }
 
-class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDataSource, WMFWelcomeNavigationDelegate {
+class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, WMFWelcomeNavigationDelegate {
 
     var completionBlock: (() -> Void)?
-    private var indexForDotIndicator:Int = 0
     
     func showNextWelcomePage(sender: AnyObject){
         let index = pageControllers.indexOf(sender as! UIViewController)
         if index == pageControllers.count - 1 {
-            self.dismissViewControllerAnimated(true, completion:completionBlock)
+            dismissViewControllerAnimated(true, completion:completionBlock)
         }else{
-            self.view.userInteractionEnabled = false
+            view.userInteractionEnabled = false
             let nextIndex = index! + 1
-            indexForDotIndicator = nextIndex
-            self.setViewControllers([pageControllers[nextIndex]], direction: .Forward, animated: true, completion: {(Bool) in
+
+            let direction:UIPageViewControllerNavigationDirection = UIApplication.sharedApplication().wmf_isRTL ? .Reverse : .Forward
+            self.setViewControllers([pageControllers[nextIndex]], direction: direction, animated: true, completion: {(Bool) in
                 self.view.userInteractionEnabled = true
             })
         }
@@ -45,10 +45,18 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         return controllers
     }()
     
+    private lazy var pageControl: UIPageControl? = {
+        return self.view.wmf_firstSubviewOfType(UIPageControl)
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.dataSource = self
-        self.setViewControllers([pageControllers.first!], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
+        dataSource = self
+        delegate = self
+        
+        let direction:UIPageViewControllerNavigationDirection = UIApplication.sharedApplication().wmf_isRTL ? .Forward : .Reverse
+        
+        setViewControllers([pageControllers.first!], direction: direction, animated: true, completion: nil)
 
         addGradient()
         
@@ -77,7 +85,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if let pageControl = view.wmf_firstSubviewOfType(UIPageControl) {
+        if let pageControl = pageControl {
             pageControl.userInteractionEnabled = false
         }
     }
@@ -87,25 +95,24 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     }
     
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
-        return indexForDotIndicator;
+        guard let viewControllers = viewControllers, currentVC = viewControllers.first, presentationIndex = pageControllers.indexOf(currentVC) else {
+            return 0
+        }
+        return presentationIndex
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        let index = pageControllers.indexOf(viewController)
-        if index == nil || index! + 1 == pageControllers.count {
+        guard let index = pageControllers.indexOf(viewController) else {
             return nil
-        } else {
-            return pageControllers[index! + 1]
         }
+        return index >= pageControllers.count - 1 ? nil : pageControllers[index + 1]
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        let index = pageControllers.indexOf(viewController)
-        if index == nil || index! == 0 {
+        guard let index = pageControllers.indexOf(viewController) else {
             return nil
-        } else {
-            return pageControllers[index! - 1]
         }
+        return index == 0 ? nil : pageControllers[index - 1]
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
