@@ -18,7 +18,7 @@
                            data:(NSData *)data
                           error:(NSError *__autoreleasing *)error {
     NSDictionary *json = [super responseObjectForResponse:response data:data error:error];
-    if (*error || !json) {
+    if (!json || (error != NULL && *error != nil)) {
         return nil;
     }
     NSDictionary *apiError = json[@"error"];
