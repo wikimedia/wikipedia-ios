@@ -21,6 +21,12 @@
 #import "MWNetworkActivityIndicatorManager.h"
 #import "NSFileManager+WMFExtendedFileAttributes.h"
 #import "WMFTaskGroup.h"
+#import "UIViewController+WMFStoryboardUtilities.h"
+#import "WMFGradientView.h"
+#import "UIColor+WMFHexColor.h"
+#import "BITHockeyManager+WMFExtensions.h"
+#import <HockeySDK/BITCrashManager.h>
+#import "UIViewController+WMFOpenExternalUrl.h"
 
 // View Controllers
 #import "WMFArticleViewController_Private.h"
@@ -28,6 +34,7 @@
 #import "WMFArticleListDataSourceTableViewController.h"
 #import "WMFExploreViewController.h"
 #import "WMFLanguagesViewController.h"
+#import "WMFCustomDeleteButtonTableViewCell.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"

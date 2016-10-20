@@ -227,6 +227,12 @@ NS_ASSUME_NONNULL_BEGIN
     return [@"More " stringByAppendingString:self.group.analyticsContentType];
 }
 
+- (NSString *)analyticsName {
+    return [self analyticsContext];
+}
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END

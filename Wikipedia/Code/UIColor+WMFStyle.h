@@ -103,9 +103,9 @@
 
 + (instancetype)wmf_green;
 
-+ (instancetype)wmf_welcomeNextButtonBackgroundColor;
++ (instancetype)wmf_welcomeBackgroundGradientTopColor;
 
-+ (instancetype)wmf_welcomeNextButtonDividerBackgroundColor;
++ (instancetype)wmf_welcomeBackgroundGradientBottomColor;
 
 + (instancetype)wmf_primaryLanguageLabelBackgroundColor;
 
