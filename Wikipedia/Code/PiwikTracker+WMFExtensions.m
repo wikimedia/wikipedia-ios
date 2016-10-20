@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 #endif
 }
 
-- (void)wmf_sendEventWithCategory:(NSString *)category action:(NSString *)action name:(nullable NSString *)name value:(nullable NSNumber *)value {
+- (void)wmf_sendEventWithCategory:(NSString *)category action:(NSString *)action name:(NSString *)name value:(nullable NSNumber *)value {
 #ifndef DEBUG
     [self sendEventWithCategory:category
                          action:action
@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)wmf_logActionPreviewInContext:(id<WMFAnalyticsContextProviding>)context
-                          contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType {
+                          contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Preview"
                                name:[contentType analyticsContentType]
@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)wmf_logActionTapThroughInContext:(id<WMFAnalyticsContextProviding>)context
-                             contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType {
+                             contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Tap Through"
                                name:[contentType analyticsContentType]
@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)wmf_logActionSaveInContext:(id<WMFAnalyticsContextProviding>)context
-                       contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType {
+                       contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Save"
                                name:[contentType analyticsContentType]
@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)wmf_logActionUnsaveInContext:(id<WMFAnalyticsContextProviding>)context
-                         contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType {
+                         contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Unsave"
                                name:[contentType analyticsContentType]
@@ -74,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)wmf_logActionImpressionInContext:(id<WMFAnalyticsContextProviding>)context
-                             contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType {
+                             contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Impression"
                                name:[contentType analyticsContentType]
@@ -82,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)wmf_logActionTapThroughMoreInContext:(id<WMFAnalyticsContextProviding>)context
-                                 contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType {
+                                 contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Tap Through More"
                                name:[contentType analyticsContentType]
@@ -90,7 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)wmf_logActionSwitchLanguageInContext:(id<WMFAnalyticsContextProviding>)context
-                                 contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType {
+                                 contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Switch Language"
                                name:[contentType analyticsContentType]

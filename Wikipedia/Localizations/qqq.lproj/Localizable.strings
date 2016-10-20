@@ -360,6 +360,8 @@
 "potd-description-prefix" = "Prefix to picture of the day description which states it was the picture of the day for a specific date. The $1 token is subtituted for the date.";
 "welcome-explore-title" = "Title for welcome screen explaining new exploration features\n{{Identical|Explore}}";
 "welcome-explore-sub-title" = "Sub-title for exploration welcome screen";
+"welcome-explore-new-ways-title" = "Title for welcome screens including explanation of new notification features";
+"welcome-explore-new-ways-sub-title" = "Sub-title for exploration welcome screen including explanation of new notification features";
 "welcome-explore-tell-me-more" = "Title for link which when tapped shows explaination of new exploration features";
 "welcome-explore-tell-me-more-about-explore" = "Title for detailed explore explanation";
 "welcome-explore-tell-me-more-details" = "A more detailed explanation of new exploration features";
@@ -367,6 +369,9 @@
 "welcome-explore-tell-me-more-privacy" = "An explanation making it clear that no reading list or profile is stored on our servers";
 "welcome-explore-tell-me-more-done-button" = "Text for button dismissing detailed explanation of new features";
 "welcome-explore-continue-button" = "Text for button for moving to next welcome screen\n{{Identical|Get started}}";
+"welcome-notifications-tell-me-more-title" = "Title for detailed notification explanation";
+"welcome-notifications-tell-me-more-storage" = "An explanation of how notifications are stored";
+"welcome-notifications-tell-me-more-creation" = "An explanation of how notifications are created";
 "welcome-languages-title" = "Title for welcome screen allowing user to select additional languages\n{{Identical|Language}}";
 "welcome-languages-sub-title" = "Sub-title for languages welcome screen";
 "welcome-languages-add-button" = "Title for button for adding another language";

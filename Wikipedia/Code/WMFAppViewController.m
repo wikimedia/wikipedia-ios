@@ -47,7 +47,6 @@
 #import "WMFHistoryTableViewController.h"
 #import "WMFSavedArticleTableViewController.h"
 #import "WMFFirstRandomViewController.h"
-#import "WMFWelcomeViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFMorePageListViewController.h"
 #import "UIViewController+WMFSearch.h"
@@ -146,7 +145,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (BOOL)isPresentingOnboarding {
-    return [self.presentedViewController isKindOfClass:[WMFWelcomeViewController class]];
+    return [self.presentedViewController isKindOfClass:[WMFWelcomePageViewController class]];
 }
 
 - (BOOL)uiIsLoaded {
@@ -780,7 +779,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 #pragma mark - Onboarding
 
-static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
+static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (BOOL)shouldShowOnboarding {
     if (FBTweakValue(@"Welcome", @"General", @"Show on launch (requires force quit)", NO) || [[NSProcessInfo processInfo] environment][@"WMFShowWelcomeView"].boolValue) {
@@ -797,7 +796,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
     if ([self shouldShowOnboarding]) {
-        WMFWelcomeViewController *vc = [WMFWelcomeViewController welcomeViewControllerFromDefaultStoryBoard];
+        WMFWelcomePageViewController *vc = [WMFWelcomePageViewController wmf_viewControllerFromWelcomeStoryboard];
+        
         vc.completionBlock = ^{
             [self setDidShowOnboarding];
             if (completion) {

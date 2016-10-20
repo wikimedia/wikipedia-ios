@@ -1,8 +1,8 @@
 import Foundation
 
-public class WelcomeAnimationView : UIView {
+public class WMFWelcomeAnimationView : UIView {
     
-    // Reminder - these transforms are on WelcomeAnimationView 
+    // Reminder - these transforms are on WMFWelcomeAnimationView 
     // so they can scale proportionally to the view size.
     
     private var wmf_proportionalHorizontalOffset: CGFloat{
@@ -43,5 +43,24 @@ public class WelcomeAnimationView : UIView {
         super.didMoveToSuperview()
         // Fix for: http://stackoverflow.com/a/39614714
         self.layoutIfNeeded()
+    }
+    
+    public func beginAnimations() {
+        
+    }
+    
+    public func addAnimationElementsScaledToCurrentFrameSize(){
+    
+    }
+    
+    public func removeExistingSubviewsAndSublayers() {
+        for subview in self.subviews {
+            subview.removeFromSuperview()
+        }
+        if let sublayers = self.layer.sublayers {
+            for sublayer in sublayers {
+                sublayer.removeFromSuperlayer()
+            }
+        }
     }
 }
