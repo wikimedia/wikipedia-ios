@@ -53,7 +53,7 @@ typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
  *  They are always in the order of featured, main page, random, nearby.
  *
  */
-- (NSComparisonResult)compare:(WMFContentGroup *)contentGroup;
+- (NSComparisonResult)compare:(id<WMFFeedContentDisplaying>)contentGroup;
 
 /**
  *  An icon to be displayed in the section's header

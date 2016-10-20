@@ -53,6 +53,18 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
+- (nullable WMFContentGroup *)firstGroupOfKind:(NSString *)kind{
+    
+    __block WMFContentGroup *found = nil;
+    [self enumerateContentGroupsOfKind:kind
+                             withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
+                                 found = (id)group;
+                                 *stop = YES;
+                             }];
+    return found;
+}
+
+
 - (nullable WMFContentGroup *)firstGroupOfKind:(NSString *)kind forDate:(NSDate *)date {
 
     __block WMFContentGroup *found = nil;
