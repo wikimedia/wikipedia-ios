@@ -145,7 +145,17 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
         
         animateTransition(self.isInteractive, duration: self.transitionDuration(transitionContext), animations: { () -> Void in
             var f = presentedControllerView.frame
-            f.origin.x += f.size.width * self.tocMultiplier
+            switch self.displaySide {
+            case WMFTableOfContentsDisplaySideLeft:
+                f.origin.x = -1*f.size.width
+                break
+            case WMFTableOfContentsDisplaySideRight:
+                fallthrough
+            case WMFTableOfContentsDisplaySideCenter:
+                fallthrough
+            default:
+                f.origin.x = transitionContext.containerView().bounds.size.width
+            }
             presentedControllerView.frame = f
 
             }, completion: {(completed: Bool) -> Void in
