@@ -240,7 +240,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
             return [obj articleURL];
         }];
     } else if ([group contentType] == WMFContentTypeStory) {
-        content = [content wmf_mapAndRejectNil:^id(WMFFeedNewsStory *obj) {
+        content = [content bk_map:^id(WMFFeedNewsStory *obj) {
             return [[obj mostPopularArticlePreview] articleURL] ?: [[[obj articlePreviews] firstObject] articleURL];
         }];
     } else if ([group contentType] != WMFContentTypeURL) {
@@ -605,7 +605,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [self.collectionView registerNib:[WMFNearbyArticleCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbyArticleCollectionViewCell wmf_nibName]];
 
     [self.collectionView registerNib:[WMFPicOfTheDayCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFPicOfTheDayCollectionViewCell wmf_nibName]];
-    
+
     [self.collectionView registerNib:[InTheNewsCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[InTheNewsCollectionViewCell wmf_nibName]];
 }
 
@@ -812,7 +812,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     if (vc == nil) {
         return;
     }
-    
+
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
     [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:group];
 
