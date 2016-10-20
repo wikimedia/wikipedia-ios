@@ -62,7 +62,9 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
             }, switchAction: { (isOn) in
                 if (!isOn) {
                     //This (and everything else that references UNUserNotificationCenter in this class) should be moved into WMFNotificationsController
-                    UNUserNotificationCenter.currentNotificationCenter().removeAllPendingNotificationRequests()
+                    if #available(iOS 10.0, *) {
+                        UNUserNotificationCenter.currentNotificationCenter().removeAllPendingNotificationRequests()
+                    }
                 }
             NSUserDefaults.wmf_userDefaults().wmf_setInTheNewsNotificationsEnabled(isOn)
         })]
