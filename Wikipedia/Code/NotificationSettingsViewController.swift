@@ -51,18 +51,26 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
     func sectionsForSystemSettingsAuthorized() -> [NotificationSettingsSection] {
         var updatedSections = [NotificationSettingsSection]()
         
-        let infoItems: [NotificationSettingsItem] = [NotificationSettingsButtonItem(title: localizedStringForKeyFallingBackOnEnglish("settings-notifications-learn-more"), buttonAction: {
+        let infoItems: [NotificationSettingsItem] = [NotificationSettingsButtonItem(title: localizedStringForKeyFallingBackOnEnglish("settings-notifications-learn-more"), buttonAction: { [weak self] in
+            let title = localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-title")
+            let message =  (localizedStringForKeyFallingBackOnEnglish("Notification preferences are stored on device and not based on personal information or activity.") ?? "") + " " + (localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-creation" ) ?? "")
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: localizedStringForKeyFallingBackOnEnglish("ok"), style: UIAlertActionStyle.Default, handler: { (action) in
+            }))
+            self?.presentViewController(alertController, animated: true, completion: nil)
         })]
         
         let infoSection = NotificationSettingsSection(headerTitle: localizedStringForKeyFallingBackOnEnglish("settings-notifications-info"), items: infoItems)
-        updatedSections.append(infoSection);
+        updatedSections.append(infoSection)
         
         let notificationSettingsItems: [NotificationSettingsItem] = [NotificationSettingsSwitchItem(title: localizedStringForKeyFallingBackOnEnglish("settings-notifications-trending"), switchChecker: { () -> Bool in
             return NSUserDefaults.wmf_userDefaults().wmf_inTheNewsNotificationsEnabled()
             }, switchAction: { (isOn) in
-                if (!isOn) {
-                    //This (and everything else that references UNUserNotificationCenter in this class) should be moved into WMFNotificationsController
-                    if #available(iOS 10.0, *) {
+                //This (and everything else that references UNUserNotificationCenter in this class) should be moved into WMFNotificationsController
+                if #available(iOS 10.0, *) {
+                    if (isOn) {
+                        
+                    } else {
                         UNUserNotificationCenter.currentNotificationCenter().removeAllPendingNotificationRequests()
                     }
                 }
@@ -153,13 +161,4 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return sections[indexPath.section].items[indexPath.item] as? NotificationSettingsSwitchItem == nil
     }
-    
-    
-//    "settings-notifications-system-off" = "Notifications are currently turned off for Wikipedia. Go to your iOS Settings to turn on notifications";
-//    "settings-notifications-system-turn-on" = "Turn on Notifications";
-//    "settings-notifications-info" = "Be alerted to trending and top read articles on Wikipedia with our push notifications. All provided with respect to privacy and up to the minute data.";
-//    "settings-notifications-learn-more" = "Learn more about notifications";
-//    "settings-notifications-system-turn-on" = "Turn on Notifications";
-//    "settings-notifications-trending" = "Trending current events";
-
 }
