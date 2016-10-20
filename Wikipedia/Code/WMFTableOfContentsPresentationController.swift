@@ -67,17 +67,32 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
     }()
     
     func updateButtonConstraints() {
-        
         self.closeButton.mas_remakeConstraints({ make in
             make.width.equalTo()(44)
             make.height.equalTo()(44)
-            make.trailing.equalTo()(self.closeButton.superview!.mas_trailing).offset()(0 - self.closeButtonLeadingPadding)
-            if(self.traitCollection.verticalSizeClass == .Compact){
-                make.top.equalTo()(self.closeButtonTopPadding)
-            }else{
-                make.top.equalTo()(self.closeButtonTopPadding + self.statusBarEstimatedHeight)
+            switch self.displaySide {
+            case WMFTableOfContentsDisplaySideLeft:
+                make.trailing.equalTo()(self.closeButton.superview!.mas_trailing).offset()(0 - self.closeButtonLeadingPadding)
+                if(self.traitCollection.verticalSizeClass == .Compact){
+                    make.top.equalTo()(self.closeButtonTopPadding)
+                }else{
+                    make.top.equalTo()(self.closeButtonTopPadding + self.statusBarEstimatedHeight)
+                }
+                break
+            case WMFTableOfContentsDisplaySideRight:
+                make.leading.equalTo()(self.closeButton.superview!.mas_leading).offset()(self.closeButtonLeadingPadding)
+                if(self.traitCollection.verticalSizeClass == .Compact){
+                    make.top.equalTo()(self.closeButtonTopPadding)
+                }else{
+                    make.top.equalTo()(self.closeButtonTopPadding + self.statusBarEstimatedHeight)
+                }
+                break
+            case WMFTableOfContentsDisplaySideCenter:
+                fallthrough
+            default:
+                make.leading.equalTo()(self.closeButton.superview!.mas_leading).offset()(self.closeButtonLeadingPadding)
+                make.bottom.equalTo()(self.closeButton.superview!.mas_bottom).offset()(self.closeButtonTopPadding)
             }
-
             return ()
         })
     }
