@@ -116,6 +116,7 @@
 "search-result-redirected-from" = "Text for search result letting user know if a result is a redirect from another article. Parameters:\n* $1 - article title the current search result redirected from";
 "settings-title" = "Title of the view where app settings are displayed.\n{{Identical|Settings}}";
 "settings-language" = "Title for button letting user choose primary language Wikipedia for the app.";
+"settings-notifications" = "Title for button letting user choose notifications settings.";
 "settings-support" = "Title for button letting user make a donation.";
 "settings-language-bar" = "Title in Settings for toggling the display the language bar in the search view";
 "settings-my-languages" = "Title for list of user's preferred languages";
