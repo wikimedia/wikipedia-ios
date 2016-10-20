@@ -1,6 +1,7 @@
 // Messages for Maithili (मैथिली)
 // Exported from translatewiki.net
 // Author: Bijay chaurasia
+// Author: Krish Dulal
 // Author: NehalDaveND
 // Author: बिप्लब आनन्द
 
@@ -25,7 +26,7 @@
 "history-clear-cancel" = "रद्द करु";
 // Fuzzy
 "history-clear-delete-all" = "सभटाकेँ मेटाउ";
-"zero-free-verbiage" = "अपन दूरभाष अपरेटर (डाटा शुल्क माफ) सँ विकिपिडियाक उपयोग मुफ्तमे करि सकैत अछि ।";
+"zero-free-verbiage" = "अपन मोबाइल अपरेटर (डाटा शुल्क माफ) सँ विकिपिडियाक उपयोग मुफ्तमे करि सकैत अछि।";
 "zero-charged-verbiage" = "शून्य विकिपिडिया बन्द भ गेल अछि";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "शून्य विकिपिडिया निस्क्रमण";

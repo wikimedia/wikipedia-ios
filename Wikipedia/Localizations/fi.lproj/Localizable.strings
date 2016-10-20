@@ -408,7 +408,6 @@
 "continue-reading-empty-title" = "Ei äskettäin luettuja artikkeleja";
 "continue-reading-empty-description" = "Tutki Wikipediaa löytääksesi lisää luettavia artikkeleja";
 "top-read-see-more-trending" = "Katso lisää nousussa olevia";
-"top-read-reader-count-thousands" = "$1t";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Lähde $1";

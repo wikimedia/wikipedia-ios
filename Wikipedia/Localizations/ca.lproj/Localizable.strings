@@ -355,8 +355,7 @@
 "home-hide-suggestion-prompt" = "Amaga el suggeriment";
 "home-hide-suggestion-cancel" = "Cancel·la";
 "home-accessibility-label" = "Viquipèdia, Explora";
-// Fuzzy
-"home-button-accessibility-label" = "Botó d'inici";
+"home-button-accessibility-label" = "Inici";
 "potd-empty-error-description" = "Ha fallat en recuperar la imatge del dia per a $1";
 "potd-description-prefix" = "Imatge del dia per a $1";
 "welcome-explore-title" = "Explora";
@@ -419,7 +418,6 @@
 "continue-reading-empty-description" = "Exploreu la Viquipèdia per a llegir més articles";
 "top-read-see-more" = "Vegeu-ne més";
 "top-read-see-more-trending" = "Vegeu més articles en tendència";
-"top-read-reader-count-thousands" = "$1mil";
 "top-read-header-with-language" = "Viquipèdia en $1";
 "top-read-header-generic" = "Viquipèdia";
 "reference-title" = "Referència $1";
