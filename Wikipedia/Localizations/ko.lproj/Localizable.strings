@@ -252,6 +252,7 @@
 "button-ok" = "확인";
 "button-save-for-later" = "나중에 쓰기 위해 저장";
 "button-saved-for-later" = "나중에 쓰기 위해 저장";
+"button-read-now" = "지금 읽기";
 "button-report-a-bug" = "버그 보고";
 "onboarding-create-account" = "계정 만들기";
 "onboarding-login" = "로그인";
@@ -416,7 +417,7 @@
 "find-in-page-popover-description" = "문서에서 텍스트 검색";
 "continue-reading-empty-title" = "최근에 읽은 문서 없음";
 "continue-reading-empty-description" = "더 많은 문서를 읽기 위해 위키백과 둘러보기";
-"number-thousands" = "$1K";
 "top-read-header-with-language" = "$1 위키백과";
 "top-read-header-generic" = "위키백과";
 "reference-title" = "각주 $1";
+"number-thousands" = "$1K";

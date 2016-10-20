@@ -350,7 +350,7 @@
 "continue-reading-empty-title" = "Nėra neseniai skaitytų straipsnių";
 "top-read-see-more" = "Žiūrėti daugiau skaitomiausių";
 "top-read-see-more-trending" = "Peržiūrėti daugiau tendencijų";
-"number-thousands" = "$1 tūkst.";
 "top-read-header-with-language" = "$1 Vikipedija";
 "top-read-header-generic" = "Vikipedija";
 "reference-title" = "Išnaša $1";
+"number-thousands" = "$1 tūkst.";
