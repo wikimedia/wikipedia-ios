@@ -434,3 +434,7 @@
 "number-billions" = "$1B - $1 is replaced with a number represented in billions. In English 'B' is commonly used after a number to indicate that number is in 'billions'. So the 'B' should be changed to a character or short string indicating billions. For example 5,100,000,000 would become 5.1B. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
 
 "reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}";
+
+"feed-news-notification-text" = "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news";
+"feed-news-notification-button-text" = "Text for button to turn on trending news notifications";
+
