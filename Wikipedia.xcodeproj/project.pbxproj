@@ -4515,11 +4515,11 @@
 		BC45D5871C32F849007C72F3 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				D872C6DF1DB9467500F057C4 /* Notifications */,
 				042A5B1419253D2A0095E172 /* View Controller */,
 				045D871D19FAD2D00035C1F9 /* About The App */,
 				0E8DC0961C7632B500622CBD /* Settings Item */,
 				0E61C4891CD00989000B11B3 /* Help */,
+				D872C6DF1DB9467500F057C4 /* Notifications */,
 			);
 			name = Settings;
 			sourceTree = "<group>";

@@ -123,6 +123,13 @@
 "settings-help-and-feedback" = "Title for showing showing a screen that displays the FAQ and allows users to submit bug reports";
 "settings-primary-language" = "Label shown next to primary language\n{{Identical|Primary}}";
 "settings-primary-language-details" = "Explanation of how the first preferred language is used. \"Explore\" is {{msg-wm|Wikipedia-ios-home-title}}.";
+"settings-notifications-system-off" = "Notifications are currently turned off for Wikipedia. Go to your iOS Settings to turn on notifications";
+"settings-notifications-system-turn-on" = "Turn on Notifications";
+"settings-notifications-info" = "Be alerted to trending and top read articles on Wikipedia with our push notifications. All provided with respect to privacy and up to the minute data.";
+"settings-notifications-learn-more" = "Learn more about notifications";
+"settings-notifications-system-turn-on" = "Turn on Notifications";
+"settings-notifications-trending" = "Trending current events";
+"settings-notifications-push-notifications" = "Push notifications";
 "main-menu-title" = "Title for menu of secondary items.\n{{Identical|More}}";
 "main-menu-heading-about" = "'More' menu section heading for items about the app (e.g. privacy, terms, FAQ).";
 "main-menu-language-title" = "Header text for default search language selection. Parameters:\n* $1 - language domain name";

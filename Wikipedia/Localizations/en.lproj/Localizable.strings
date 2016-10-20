@@ -50,7 +50,7 @@
 "account-creation-captcha-required" = "CAPTCHA verification required.";
 "account-creation-captcha-obtaining" = "Obtaining a new CAPTCHA...";
 "account-creation-logging-in" = "Logging in...";
-"account-creation-passwords-mismatched" = "Password fields do not match.";
+"account-creation-passwords-misatched" = "Password fields do not match.";
 "account-creation-saving" = "Saving...";
 "account-creation-login" = "Already have an account? Log in.";
 "account-creation-username-placeholder-text" = "Username";
@@ -122,6 +122,13 @@
 "settings-help-and-feedback" = "Help and feedback";
 "settings-primary-language" = "Primary";
 "settings-primary-language-details" = "The first language in this list is used as the primary language for the app. Changing this language will change daily content (such as Featured Article) shown on Explore.";
+"settings-notifications-system-off" = "Notifications are currently turned off for Wikipedia. Go to your iOS Settings to turn on notifications";
+"settings-notifications-system-turn-on" = "Turn on Notifications";
+"settings-notifications-info" = "Be alerted to trending and top read articles on Wikipedia with our push notifications. All provided with respect to privacy and up to the minute data.";
+"settings-notifications-learn-more" = "Learn more about notifications";
+"settings-notifications-system-turn-on" = "Turn on Notifications";
+"settings-notifications-trending" = "Trending current events";
+"settings-notifications-push-notifications" = "Push notifications";
 
 "main-menu-title" = "More";
 "main-menu-heading-about" = "About";

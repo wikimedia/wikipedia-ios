@@ -7,6 +7,9 @@
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *disclosureLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *disclosureIcon;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLabelLeadingWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageLeadingWidth;
+@property (nonatomic) CGFloat titleLabelLeadingWidthForVisibleImage;
 
 @end
 
@@ -20,6 +23,13 @@
 - (void)setIconName:(NSString *)iconName {
     _iconName = iconName;
     self.titleIcon.image = [[UIImage imageNamed:iconName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    if (_iconName) {
+        self.titleIcon.hidden = NO;
+        self.titleLabelLeadingWidth.constant = self.titleLabelLeadingWidthForVisibleImage;
+    } else {
+        self.titleIcon.hidden = YES;
+       self.titleLabelLeadingWidth.constant = self.imageLeadingWidth.constant;
+    }
 }
 
 - (void)setDisclosureText:(NSString *)disclosureText {
@@ -92,6 +102,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.disclosureIcon.tintColor = [UIColor wmf_colorWithHex:0xC7C7C7 alpha:1.0];
+    self.titleLabelLeadingWidthForVisibleImage = self.titleLabelLeadingWidth.constant;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -35,6 +35,7 @@
 #import "WMFExploreViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "WMFCustomDeleteButtonTableViewCell.h"
+#import "WMFSettingsTableViewCell.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"
