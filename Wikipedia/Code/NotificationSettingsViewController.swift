@@ -61,9 +61,12 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
         return updatedSections
     }
     
-    
     func sectionsForSystemSettingsUnauthorized()  -> [NotificationSettingsSection] {
         let unauthorizedItems: [NotificationSettingsItem] = [NotificationSettingsButtonItem(title: localizedStringForKeyFallingBackOnEnglish("settings-notifications-system-turn-on"), buttonAction: {
+            guard let URL = NSURL(string: UIApplicationOpenSettingsURLString) else {
+                return
+            }
+            UIApplication.sharedApplication().openURL(URL)
         })]
         return [NotificationSettingsSection(headerTitle: localizedStringForKeyFallingBackOnEnglish("settings-notifications-info"), items: unauthorizedItems)]
     }
