@@ -15,7 +15,6 @@
 
 #import <WMFModel/WMFModel-Swift.h>
 
-#define WMF_ALWAYS_LOAD_FEED_DATA DEBUG && 0
 #define WMF_ALWAYS_NOTIFY DEBUG && 0
 
 @import NSDate_Extensions;
@@ -100,20 +99,6 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 - (void)loadContentForDate:(NSDate *)date completion:(nullable dispatch_block_t)completion {
-
-#if WMF_ALWAYS_LOAD_FEED_DATA
-#else
-    WMFTopReadContentGroup *topRead = [self topReadForDate:date];
-
-    //TODO: check which languages support most read???
-    if (topRead != nil) {
-        //Safe to assume we have everything since Top Read comes in last
-        if (completion) {
-            completion();
-        }
-        return;
-    }
-#endif
 
     [self.fetcher fetchFeedContentForURL:self.siteURL
         date:date
