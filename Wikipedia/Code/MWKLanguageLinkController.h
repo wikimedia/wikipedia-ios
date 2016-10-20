@@ -55,7 +55,7 @@ extern NSString *const WMFAppLanguageDidChangeNotification;
  *  @param language the language to reorder
  *  @param newIndex the new index of the langage
  */
-- (void)reorderPreferredLanguage:(MWKLanguageLink *)language toIndex:(NSUInteger)newIndex;
+- (void)reorderPreferredLanguage:(MWKLanguageLink *)language toIndex:(NSInteger)newIndex;
 
 /**
  *  Removes a preferred language.
