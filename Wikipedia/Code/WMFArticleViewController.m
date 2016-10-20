@@ -496,6 +496,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [articleToolbarItems addObjectsFromArray:itemGroup];
     }
 
+    NSInteger style = [self tableOfContentsStyleTweakValue];
     UIBarButtonItem *tocItem = [self tableOfContentsToolbarItem];
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
@@ -959,25 +960,28 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self layoutForSize:self.view.bounds.size];
 }
 
+- (WMFTableOfContentsDisplayStyle)tableOfContentsStyleTweakValue {
+    return FBTweakValue(@"Table of contents", @"Style", @"1:old 2:now 3:new", WMFTableOfContentsDisplayStyleCurrent);
+}
+
 - (void)updateTableOfContentsDisplayModeWithTraitCollection:(UITraitCollection *)traitCollection {
 
     BOOL isCompact = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact;
 
     if (isCompact) {
-        NSInteger style = FBTweakValue(@"Table of contents", @"Style", @"1:old 2:now 3:new", 2);
+        WMFTableOfContentsDisplayStyle style = [self tableOfContentsStyleTweakValue];
         switch (style) {
-            case 1:
+            case WMFTableOfContentsDisplayStyleOld:
                 self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideRight : WMFTableOfContentsDisplaySideLeft;
                 break;
-            case 3:
+            case WMFTableOfContentsDisplayStyleNext:
                 self.tableOfContentsDisplaySide = WMFTableOfContentsDisplaySideCenter;
                 break;
-            case 2:
+            case WMFTableOfContentsDisplayStyleCurrent:
             default:
                 self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideLeft : WMFTableOfContentsDisplaySideRight;
                 break;
         }
-
     } else {
         self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideLeft : WMFTableOfContentsDisplaySideRight;
     }

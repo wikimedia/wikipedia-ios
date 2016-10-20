@@ -19,4 +19,11 @@ typedef enum : NSUInteger {
     WMFTableOfContentsDisplayStateModalHidden
 } WMFTableOfContentsDisplayState;
 
+
+typedef enum : NSInteger {
+    WMFTableOfContentsDisplayStyleOld = 1,
+    WMFTableOfContentsDisplayStyleCurrent = 2,
+    WMFTableOfContentsDisplayStyleNext = 3
+} WMFTableOfContentsDisplayStyle;
+
 #endif
