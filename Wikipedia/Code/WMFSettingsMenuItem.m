@@ -67,6 +67,16 @@
                                            disclosureText:nil
                                                isSwitchOn:[[NSUserDefaults wmf_userDefaults] wmf_showSearchLanguageBar]];
         }
+        case WMFSettingsMenuItemType_Notifications: {
+            return
+            [[WMFSettingsMenuItem alloc] initWithType:type
+                                                title:MWLocalizedString(@"settings-notifications", nil)
+                                             iconName:@"settings-notifications"
+                                            iconColor:[UIColor wmf_colorWithHex:0xFF1B33 alpha:1.0]
+                                       disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                       disclosureText:nil
+                                           isSwitchOn:NO];
+        }
         case WMFSettingsMenuItemType_PrivacyPolicy: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
