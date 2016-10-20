@@ -1,5 +1,5 @@
 import UIKit
-
+import UserNotifications
 
 protocol NotificationSettingsItem {
     var title: String { get }
@@ -33,22 +33,60 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
         tableView.registerNib(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
         tableView.delegate = self
         tableView.dataSource = self
-        updateSections()
+        
     }
     
-    func updateSections() {
+    override func viewWillAppear(animated: Bool) {
+       super.viewWillAppear(animated)
+       updateSections()
+    }
+    
+    func sectionsForSystemSettingsAuthorized() -> [NotificationSettingsSection] {
         var updatedSections = [NotificationSettingsSection]()
+        
+        let infoItems: [NotificationSettingsItem] = [NotificationSettingsButtonItem(title: localizedStringForKeyFallingBackOnEnglish("settings-notifications-learn-more"), buttonAction: {
+        })]
+        
+        let infoSection = NotificationSettingsSection(headerTitle: localizedStringForKeyFallingBackOnEnglish("settings-notifications-info"), items: infoItems)
+        updatedSections.append(infoSection);
         
         let notificationSettingsItems: [NotificationSettingsItem] = [NotificationSettingsSwitchItem(title: localizedStringForKeyFallingBackOnEnglish("settings-notifications-trending"), switchChecker: { () -> Bool in
             return true
             }, switchAction: { (isOn) in
-            
+                
         })]
         let notificationSettingsSection = NotificationSettingsSection(headerTitle: localizedStringForKeyFallingBackOnEnglish("settings-notifications-push-notifications"), items: notificationSettingsItems)
         
         updatedSections.append(notificationSettingsSection)
-        sections = updatedSections
+        return updatedSections
+    }
+    
+    
+    func sectionsForSystemSettingsUnauthorized()  -> [NotificationSettingsSection] {
+        let unauthorizedItems: [NotificationSettingsItem] = [NotificationSettingsButtonItem(title: localizedStringForKeyFallingBackOnEnglish("settings-notifications-system-turn-on"), buttonAction: {
+        })]
+        return [NotificationSettingsSection(headerTitle: localizedStringForKeyFallingBackOnEnglish("settings-notifications-info"), items: unauthorizedItems)]
+    }
+    
+    func updateSections() {
         tableView.reloadData()
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.currentNotificationCenter().getNotificationSettingsWithCompletionHandler { (settings) in
+                dispatch_async(dispatch_get_main_queue(), { 
+                    switch settings.authorizationStatus {
+                    case .Authorized:
+                        fallthrough
+                    case .NotDetermined:
+                        self.sections = self.sectionsForSystemSettingsAuthorized()
+                        break
+                    case .Denied:
+                        self.sections = self.sectionsForSystemSettingsUnauthorized()
+                        break
+                    }
+                    self.tableView.reloadData()
+                })
+            }
+        }
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -66,11 +104,13 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
         
         let item = sections[indexPath.section].items[indexPath.item]
         cell.title = item.title
+        cell.iconName = nil
         
         if let switchItem = item as? NotificationSettingsSwitchItem {
-            cell.iconName = nil
             cell.disclosureType = .Switch
             cell.disclosureSwitch.on = switchItem.switchChecker()
+        } else {
+            cell.disclosureType = .ViewController
         }
         
         
@@ -79,6 +119,23 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sections[section].headerTitle
+    }
+    
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard let item = sections[indexPath.section].items[indexPath.item] as? NotificationSettingsButtonItem else {
+            return
+        }
+        
+        item.buttonAction()
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+
+    }
+    
+    
+    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return sections[indexPath.section].items[indexPath.item] as? NotificationSettingsSwitchItem == nil
     }
     
     
