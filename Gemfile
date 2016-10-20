@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 group :dev do
-  gem 'cocoapods', '1.1.0.beta.1'
+  gem 'cocoapods', '~> 1.1'
   gem 'listen', '~> 3.1', '>= 3.1.5'
 end
 
