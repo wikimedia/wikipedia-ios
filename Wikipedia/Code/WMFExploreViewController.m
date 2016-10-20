@@ -3,6 +3,8 @@
 #import "BlocksKit+UIKit.h"
 #import "Wikipedia-Swift.h"
 
+#import <Masonry/Masonry.h>
+
 #import "PiwikTracker+WMFExtensions.h"
 
 #import "YapDatabase+WMFExtensions.h"
@@ -34,6 +36,9 @@
 
 #import "WMFExploreSectionHeader.h"
 #import "WMFExploreSectionFooter.h"
+#import "WMFFeedNotificationHeader.h"
+
+#import "WMFLeadingImageTrailingTextButton.h"
 
 #import "WMFArticleListCollectionViewCell.h"
 #import "WMFArticlePreviewCollectionViewCell.h"
@@ -67,6 +72,9 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
 @property (nonatomic, strong) WMFContentGroupDataStore *internalContentStore;
+
+@property (nonatomic, strong, nullable) WMFFeedNotificationHeader *notificationHeader;
+
 
 @end
 
@@ -311,6 +319,64 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [self.refreshControl endRefreshing];
 }
 
+#pragma mark - Notification
+
+
+- (void)showHideNotificationIfNeccesary{
+    
+    if(![[NSUserDefaults wmf_userDefaults] wmf_didShowNewsNotificationCardInFeed]){
+        
+        WMFFeedNotificationHeader* header = [WMFFeedNotificationHeader wmf_viewFromClassNib];
+        [header sizeToFit];
+
+        CGRect f = header.frame;
+        f.origin.y = -f.size.height;
+        f.size.width = self.collectionView.frame.size.width;
+        header.frame = f;
+        [header setNeedsLayout];
+        [header layoutIfNeeded];
+        
+        @weakify(self);
+        [header.enableNotificationsButton bk_addEventHandler:^(id sender) {
+            @strongify(self);
+            [[NSUserDefaults wmf_userDefaults] wmf_setSubscribedToNewsNotifications:YES];
+            [self showHideNotificationIfNeccesary];
+            
+        } forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.collectionView addSubview:header];
+        
+        self.notificationHeader = header;
+        
+        UIEdgeInsets insets = self.collectionView.contentInset;
+        insets.top = f.size.height;
+        self.collectionView.contentInset = insets;
+        
+        [[NSUserDefaults wmf_userDefaults] wmf_setDidShowNewsNotificationCardInFeed:YES];
+
+        
+    }else{
+
+        if(self.notificationHeader){
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                
+                UIEdgeInsets insets = self.collectionView.contentInset;
+                insets.top = 0.0;
+                self.collectionView.contentInset = insets;
+                
+                self.notificationHeader.alpha = 0.0;
+                
+            } completion:^(BOOL finished) {
+                
+                [self.notificationHeader removeFromSuperview];
+                self.notificationHeader = nil;
+                
+            }];
+        }
+    }
+}
+
 #pragma mark - UIViewController
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
@@ -336,6 +402,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForPreviewingIfAvailable];
+    [self showHideNotificationIfNeccesary];
     for (UICollectionViewCell *cell in self.collectionView.visibleCells) {
         cell.selected = NO;
     }
