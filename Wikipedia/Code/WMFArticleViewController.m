@@ -968,7 +968,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (WMFTableOfContentsDisplayStyle)tableOfContentsStyleTweakValue {
-    return FBTweakValue(@"Table of contents", @"Style", @"0:old 1:now 2:new", WMFTableOfContentsDisplayStyleCurrent);
+    return FBTweakValue(@"Table of contents", @"Style", @"0:old 1:now 2:new", 1, 0, 2);
 }
 
 - (void)updateTableOfContentsDisplayModeWithTraitCollection:(UITraitCollection *)traitCollection {
