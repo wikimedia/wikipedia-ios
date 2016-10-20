@@ -69,7 +69,7 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
                 //This (and everything else that references UNUserNotificationCenter in this class) should be moved into WMFNotificationsController
                 if #available(iOS 10.0, *) {
                     if (isOn) {
-                        
+                        //Trigger WMFNotificationsController authorization request here
                     } else {
                         UNUserNotificationCenter.currentNotificationCenter().removeAllPendingNotificationRequests()
                     }
