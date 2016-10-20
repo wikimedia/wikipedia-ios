@@ -83,15 +83,6 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         return gradient
     }
     
-    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool){
-        // HAX: when *swiping* side to side to move between panels on RTL with iOS 9 the dots get out of sync... not sure why. This fix sets the correct dot, but there is a flicker.
-        if UIApplication.sharedApplication().wmf_isRTL && NSProcessInfo.processInfo().wmf_isOperatingSystemMajorVersionLessThan(10) {
-            if let pageControl = pageControl {
-                pageControl.currentPage = presentationIndexForPageViewController(pageViewController)
-            }
-        }
-    }
-    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         if let pageControl = pageControl {
@@ -138,5 +129,36 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
 
     override func shouldAutorotate() -> Bool {
         return false
+    }
+    
+    // MARK: - iOS 9 RTL swiping hack
+    // When *swiping* side-to-side to move between panels on RTL with iOS 9 the dots get out of sync... not sure why. 
+    // This hack sets the correct dot, but first fades the dots out so you don't see it flicker to the wrong dot then the right one.
+    
+    private func isRTLiOS9() -> Bool {
+        return UIApplication.sharedApplication().wmf_isRTL && NSProcessInfo.processInfo().wmf_isOperatingSystemMajorVersionLessThan(10)
+    }
+    
+    func animateIfRightToLeftAndiOS9(animations: () -> Void) {
+        if isRTLiOS9() {
+            UIView.animateWithDuration(0.05, delay: 0.0, options: .CurveEaseOut, animations:animations, completion:nil)
+        }
+    }
+    
+    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
+        animateIfRightToLeftAndiOS9({
+            if let pageControl = self.pageControl {
+                pageControl.alpha = CGFloat(0.0)
+            }
+        })
+    }
+    
+    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool){
+        animateIfRightToLeftAndiOS9({
+            if let pageControl = self.pageControl {
+                pageControl.currentPage = self.presentationIndexForPageViewController(pageViewController)
+                pageControl.alpha = CGFloat(1.0)
+            }
+        })
     }
 }
