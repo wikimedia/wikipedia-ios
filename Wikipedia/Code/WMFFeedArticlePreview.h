@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readwrite, nullable) NSURL *thumbnailURL;
 
-- (NSURL *)articleURL;
+@property (nonatomic, copy, readwrite, nonnull) NSURL *articleURL;
 
 @end
 

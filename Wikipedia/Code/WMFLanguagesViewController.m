@@ -17,7 +17,6 @@
 #import "WMFArticleLanguagesSectionFooter.h"
 #import "BlocksKit+UIKit.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "WMFWelcomeLanguageTableViewCell.h"
 
 static CGFloat const WMFOtherLanguageRowHeight = 138.f;
 static CGFloat const WMFLanguageHeaderHeight = 57.f;

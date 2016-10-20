@@ -81,7 +81,7 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
         dismissViewControllerAnimated(true, completion: nil)
     }
 
-    public func tableOfContentsArticleLanguageURL() -> NSURL {
+    public func tableOfContentsArticleLanguageURL() -> NSURL? {
         if(self.articleURL.wmf_isNonStandardURL){
             return NSURL.wmf_URLWithDefaultSiteAndlanguage("en")
         }else{
