@@ -121,13 +121,13 @@ NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.wmf_title = title;
     components.scheme = @"wikipedia";
-    return components.URL ?: self;
+    return components.URL;
 }
 
 - (NSURL *)wmf_wikipediaSchemeURL {
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.scheme = @"wikipedia";
-    return components.URL ?: self;
+    return components.URL;
 }
 
 - (NSURL *)wmf_URLWithTitle:(NSString *)title fragment:(NSString *)fragment {
@@ -181,16 +181,14 @@ NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
     } else {
         NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
         components.host = [NSURLComponents wmf_hostWithDomain:url.wmf_domain language:url.wmf_language isMobile:YES];
-        NSURL *mobileURL = components.URL ?: url;
-        return mobileURL;
+        return components.URL;
     }
 }
 
 + (NSURL *)wmf_desktopURLForURL:(NSURL *)url {
     NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
     components.host = [NSURLComponents wmf_hostWithDomain:url.wmf_domain language:url.wmf_language isMobile:NO];
-    NSURL *desktopURL = components.URL ?: url;
-    return desktopURL;
+    return components.URL;
 }
 
 #pragma mark - Properties

@@ -411,7 +411,7 @@
 "continue-reading-empty-description" = "Utforsk Wikipedia for flere artikler å lese";
 "top-read-see-more" = "Se flere populære artikler";
 "top-read-see-more-trending" = "Se flere populære artikler";
-"number-thousands" = "$1 tusen";
 "top-read-header-with-language" = "Wikipedia på $1";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Referanse $1";
+"number-thousands" = "$1 tusen";

@@ -238,6 +238,8 @@
 "button-ok" = "Oké";
 "button-save-for-later" = "Simpen kanggo mengko";
 "button-saved-for-later" = "Disimpen kanggo mengko";
+"button-saved-remove" = "Mbusak saka disimpen";
+"button-read-now" = "Maca saiki";
 "button-report-a-bug" = "Laporna bug";
 "onboarding-create-account" = "Gawé akun";
 "onboarding-login" = "Mlebu";
@@ -404,7 +406,6 @@
 "continue-reading-empty-description" = "Njelajah Wikipedia artikel liyane kanggo maca";
 "top-read-see-more" = "Nuduhake maca ndhuwur liyane";
 "top-read-see-more-trending" = "Lihat sedang tren lainnya";
-"top-read-reader-count-thousands" = "$1 ewu";
 "top-read-header-with-language" = "Wikipedia $1";
 "top-read-header-generic" = "Wikipédia";
 "reference-title" = "Rujukan $1";

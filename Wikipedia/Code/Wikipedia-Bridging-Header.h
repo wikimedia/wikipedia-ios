@@ -21,6 +21,8 @@
 #import "MWNetworkActivityIndicatorManager.h"
 #import "NSFileManager+WMFExtendedFileAttributes.h"
 #import "WMFTaskGroup.h"
+#import "UIViewController+WMFArticlePresentation.h"
+#import "WMFExploreCollectionViewCell.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFGradientView.h"
 #import "UIColor+WMFHexColor.h"
@@ -36,6 +38,9 @@
 #import "WMFLanguagesViewController.h"
 #import "WMFCustomDeleteButtonTableViewCell.h"
 #import "WMFSettingsTableViewCell.h"
+
+// Views
+#import "WMFArticleListTableViewCell.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"

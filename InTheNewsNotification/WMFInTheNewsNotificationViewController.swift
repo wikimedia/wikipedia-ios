@@ -109,7 +109,10 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
         case UNNotificationDefaultActionIdentifier:
             fallthrough
         default:
-            extensionContext.openURL(articleURL.wmf_wikipediaSchemeURL, completionHandler: { (didOpen) in
+            guard let wikipediaSchemeURL = articleURL.wmf_wikipediaSchemeURL else {
+                break
+            }
+            extensionContext.openURL(wikipediaSchemeURL, completionHandler: { (didOpen) in
                 completion(.Dismiss)
             })
         }

@@ -253,6 +253,8 @@
 "button-ok" = "OK";
 "button-save-for-later" = "Сохранить на потом";
 "button-saved-for-later" = "Сохранено на потом";
+"button-saved-remove" = "Удалить из сохранённых";
+"button-read-now" = "Читать сейчас";
 "button-report-a-bug" = "Сообщить об ошибке";
 "onboarding-create-account" = "Создать учётную запись";
 "onboarding-login" = "Войти";
@@ -356,8 +358,7 @@
 "home-hide-suggestion-prompt" = "Скрыть это предложение";
 "home-hide-suggestion-cancel" = "Отмена";
 "home-accessibility-label" = "Википедия, Исследуйте";
-// Fuzzy
-"home-button-accessibility-label" = "Кнопка перехода на Заглавную страницу";
+"home-button-accessibility-label" = "Главная";
 "potd-empty-error-description" = "Не удалось получить изображение дня за $1";
 "potd-description-prefix" = "Изображение дня за $1";
 "welcome-explore-title" = "Исследуйте";
@@ -420,7 +421,7 @@
 "continue-reading-empty-description" = "Исследуйте Википедию, чтоб найти больше статьей для чтения";
 "top-read-see-more" = "Посмотреть ещё наиболее читаемые";
 "top-read-see-more-trending" = "Посмотреть, что ещё в тренде";
-"number-thousands" = "$1 тыс.";
 "top-read-header-with-language" = "$1 Википедия";
 "top-read-header-generic" = "Википедия";
 "reference-title" = "Примечание $1";
+"number-thousands" = "$1 тыс.";
