@@ -257,6 +257,8 @@
 "button-ok" = "Tamam";
 "button-save-for-later" = "Sonrası için kaydet";
 "button-saved-for-later" = "Sonrası için kaydedildi";
+"button-saved-remove" = "Kaydedildikten sonra kaldırıldı";
+"button-read-now" = "Şimdi oku";
 "button-report-a-bug" = "Hata bildir";
 "onboarding-create-account" = "Hesap oluştur";
 "onboarding-login" = "Oturum aç";
@@ -423,7 +425,7 @@
 "continue-reading-empty-description" = "Daha fazla makale okumak için Vikipedi'yi keşfedin";
 "top-read-see-more" = "En çok okunanları gör";
 "top-read-see-more-trending" = "Trendleri gör";
-"number-thousands" = "$1B";
 "top-read-header-with-language" = "$1 Vikipedi";
 "top-read-header-generic" = "Vikipedi";
 "reference-title" = "$1 referansı";
+"number-thousands" = "$1B";

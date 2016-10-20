@@ -354,6 +354,6 @@
 "continue-reading-empty-description" = "Procházet další články na Wikipedii";
 "top-read-see-more" = "Zobrazit další nejvíce čtené";
 "top-read-see-more-trending" = "Zobrazit další trendující";
-"number-thousands" = "$1 tisíc";
 "top-read-header-with-language" = "$1 Wikipedie";
 "top-read-header-generic" = "Wikipedie";
+"number-thousands" = "$1 tisíc";

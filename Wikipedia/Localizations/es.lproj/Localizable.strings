@@ -250,6 +250,8 @@
 "button-ok" = "Aceptar";
 "button-save-for-later" = "Guardar para después";
 "button-saved-for-later" = "Guardado para después";
+"button-saved-remove" = "Quitar de los guardados";
+"button-read-now" = "Leer ahora";
 "button-report-a-bug" = "Informar de un error";
 "onboarding-create-account" = "Crear una cuenta";
 "onboarding-login" = "Acceder";
@@ -416,7 +418,7 @@
 "continue-reading-empty-description" = "Explorar más artículos para leer en Wikipedia";
 "top-read-see-more" = "Ver otros de los más leídos";
 "top-read-see-more-trending" = "Ver más tendencias";
-"number-thousands" = "$1K";
 "top-read-header-with-language" = "Wikipedia en $1";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Referencia $1";
+"number-thousands" = "$1K";

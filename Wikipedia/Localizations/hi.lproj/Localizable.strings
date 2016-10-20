@@ -8,6 +8,7 @@
 // Author: Vivek Rai
 // Author: Wikiuser13
 // Author: YmKavishwar
+// Author: Ziyaurr
 // Author: चक्रपाणी
 // Author: संजीव कुमार
 
@@ -252,6 +253,8 @@
 "button-ok" = "ठीक है";
 "button-save-for-later" = "बाद के लिए सहेजें";
 "button-saved-for-later" = "बाद के लिए सहेजा गया";
+"button-saved-remove" = "संग्रहीत से निकालें";
+"button-read-now" = "अब पढ़ें";
 "button-report-a-bug" = "बग की रिपोर्ट करें";
 "onboarding-create-account" = "खाता बनायें";
 "onboarding-login" = "लॉग इन";

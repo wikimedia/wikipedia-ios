@@ -258,6 +258,8 @@
 "button-ok" = "OK";
 "button-save-for-later" = "Salva per dopo";
 "button-saved-for-later" = "Salvato per dopo";
+"button-saved-remove" = "Rimuovi dai salvati";
+"button-read-now" = "Leggi adesso";
 "button-report-a-bug" = "Segnala un errore";
 "onboarding-create-account" = "Crea un'utenza";
 "onboarding-login" = "Accedi";
@@ -322,7 +324,7 @@
 "migration-prompt-title" = "Sembra che sia presente una cronologia!";
 "migration-prompt-message" = "Abbiamo bisogno di spostare le tue pagine recenti e salvate. Questo potrebbe richiedere un minuto...";
 "migration-confirm-button-title" = "Sposta il mio materiale";
-"migration-skip-button-title" = "Elimina";
+"migration-skip-button-title" = "Cancellala";
 "image-gallery-unknown-owner" = "Uploader sconosciuto.";
 "image-gallery-fetch-image-info-error-title" = "Impossibile scaricare le immagini";
 "image-gallery-fetch-image-info-error-message" = "Impossibile scaricare le immagini per questo articolo. Ricarica la pagina e prova ancora.";
@@ -424,7 +426,7 @@
 "continue-reading-empty-description" = "Esplorare Wikipedia per altre voci da leggere";
 "top-read-see-more" = "Vedi i più lettu";
 "top-read-see-more-trending" = "Vedi i più di tendenza";
-"number-thousands" = "$1 mila";
 "top-read-header-with-language" = "Wikipedia in $1";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Riferimento $1";
+"number-thousands" = "$1 mila";
