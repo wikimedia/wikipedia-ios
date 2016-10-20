@@ -68,7 +68,7 @@
                                                                error:nil];
     });
 
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"" attributes:@{NSFontAttributeName: font}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"" attributes:nil];
     __block BOOL shouldTrimLeadingWhitespace = YES;
     [tagRegex enumerateMatchesInString:self
                                options:0
@@ -89,8 +89,10 @@
                                 }
                                 NSString *tag = [[tagRegex replacementStringForResult:result inString:self offset:0 template:@"$1"] lowercaseString];
                                 NSDictionary *attributes = nil;
-                                if ([tag hasPrefix:@"<a"]) {
+                                if ([tag hasPrefix:@"<a"] && linkFont) {
                                     attributes = @{NSFontAttributeName: linkFont};
+                                } else if (font) {
+                                    attributes = @{NSFontAttributeName: font};
                                 }
                                 NSAttributedString *attributedNode = [[NSAttributedString alloc] initWithString:tagContents attributes:attributes];
                                 [attributedString appendAttributedString:attributedNode];
