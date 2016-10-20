@@ -1,5 +1,6 @@
 import UIKit
 import UserNotifications
+import WMFModel
 
 protocol NotificationSettingsItem {
     var title: String { get }
@@ -57,9 +58,13 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
         updatedSections.append(infoSection);
         
         let notificationSettingsItems: [NotificationSettingsItem] = [NotificationSettingsSwitchItem(title: localizedStringForKeyFallingBackOnEnglish("settings-notifications-trending"), switchChecker: { () -> Bool in
-            return true
+            return NSUserDefaults.wmf_userDefaults().wmf_inTheNewsNotificationsEnabled()
             }, switchAction: { (isOn) in
-                
+                if (!isOn) {
+                    //This (and everything else that references UNUserNotificationCenter in this class) should be moved into WMFNotificationsController
+                    UNUserNotificationCenter.currentNotificationCenter().removeAllPendingNotificationRequests()
+                }
+            NSUserDefaults.wmf_userDefaults().wmf_setInTheNewsNotificationsEnabled(isOn)
         })]
         let notificationSettingsSection = NotificationSettingsSection(headerTitle: localizedStringForKeyFallingBackOnEnglish("settings-notifications-push-notifications"), items: notificationSettingsItems)
         

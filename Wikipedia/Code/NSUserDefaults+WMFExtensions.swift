@@ -12,7 +12,7 @@ let WMFDidMigrateToGroupKey = "WMFDidMigrateToGroup"
 let WMFDidMigrateToNewFeedKey = "WMFDidMigrateToNewFeedKey"
 let WMFMostRecentInTheNewsNotificationDateKey = "WMFMostRecentInTheNewsNotificationDate"
 let WMFInTheNewsMostRecentDateNotificationCountKey = "WMFInTheNewsMostRecentDateNotificationCount"
-
+let WMFInTheNewsNotificationsEnabled = "WMFInTheNewsNotificationsEnabled"
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
@@ -306,6 +306,15 @@ public extension NSUserDefaults {
     
     public func wmf_setInTheNewsMostRecentDateNotificationCount(count: Int) {
         self.setInteger(count, forKey: WMFInTheNewsMostRecentDateNotificationCountKey)
+        self.synchronize()
+    }
+    
+    public func wmf_inTheNewsNotificationsEnabled() -> Bool {
+        return self.boolForKey(WMFInTheNewsNotificationsEnabled)
+    }
+    
+    public func wmf_setInTheNewsNotificationsEnabled(enabled: Bool) {
+        self.setBool(enabled, forKey: WMFInTheNewsNotificationsEnabled)
         self.synchronize()
     }
 
