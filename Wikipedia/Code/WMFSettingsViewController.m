@@ -348,12 +348,13 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (SSSection *)section_2 {
-    SSSection *section =
-        [SSSection sectionWithItems:@[
-            [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SearchLanguage],
-            [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SearchLanguageBarVisibility],
-            [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]
-        ]];
+    NSArray *commonItems = @[[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SearchLanguage],
+                             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SearchLanguageBarVisibility]];
+    NSMutableArray *items = [NSMutableArray arrayWithArray:commonItems];
+    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10]) {
+        [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
+    }
+    SSSection *section = [SSSection sectionWithItems:items];
     section.header = nil;
     section.footer = nil;
     return section;
