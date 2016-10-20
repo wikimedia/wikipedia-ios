@@ -46,4 +46,9 @@
     return @"Disambiguation";
 }
 
+- (NSString *)analyticsName {
+    return [self analyticsContext];
+}
+
+
 @end

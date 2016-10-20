@@ -20,13 +20,13 @@ extern NSString *const WMFDefaultSiteDomain;
  *
  * @return A new URL with the default domain and language.
  **/
-+ (NSURL *)wmf_URLWithDefaultSiteAndlanguage:(nullable NSString *)language;
++ (nullable NSURL *)wmf_URLWithDefaultSiteAndlanguage:(nullable NSString *)language;
 
 /// @return A URL with the default domain and the language code returned by @c locale.
-+ (NSURL *)wmf_URLWithDefaultSiteAndLocale:(NSLocale *)locale;
++ (nullable NSURL *)wmf_URLWithDefaultSiteAndLocale:(NSLocale *)locale;
 
 /// @return A site with the default domain and the current locale's language code.
-+ (NSURL *)wmf_URLWithDefaultSiteAndCurrentLocale;
++ (nullable NSURL *)wmf_URLWithDefaultSiteAndCurrentLocale;
 
 /**
  * Initialize a new URL with a Wikimedia `domain` and `language`.
@@ -36,7 +36,7 @@ extern NSString *const WMFDefaultSiteDomain;
  *
  * @return A new URL with the given domain and language.
  **/
-+ (NSURL *)wmf_URLWithDomain:(NSString *)domain language:(nullable NSString *)language;
++ (nullable NSURL *)wmf_URLWithDomain:(NSString *)domain language:(nullable NSString *)language;
 
 /**
  * Initialize a new URL with a Wikimedia `domain`, `language`, `title` and `fragment`.
@@ -48,7 +48,7 @@ extern NSString *const WMFDefaultSiteDomain;
  *
  * @return A new URL with the given domain, language, title and fragment.
  **/
-+ (NSURL *)wmf_URLWithDomain:(NSString *)domain language:(nullable NSString *)language title:(nullable NSString *)title fragment:(nullable NSString *)fragment;
++ (nullable NSURL *)wmf_URLWithDomain:(NSString *)domain language:(nullable NSString *)language title:(nullable NSString *)title fragment:(nullable NSString *)fragment;
 
 /**
  * Return a new URL constructed from the `siteURL`, replacing the `title` and `fragment` with the given values.
@@ -59,7 +59,7 @@ extern NSString *const WMFDefaultSiteDomain;
  *
  * @return A new URL constructed from the `siteURL`, replacing the `title` and `fragment` with the given values.
  **/
-+ (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL title:(nullable NSString *)title fragment:(nullable NSString *)fragment;
++ (nullable NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL title:(nullable NSString *)title fragment:(nullable NSString *)fragment;
 
 /**
  * Return a new URL constructed from the `siteURL`, replacing the `path` with the `internalLink`.
@@ -70,7 +70,7 @@ extern NSString *const WMFDefaultSiteDomain;
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the `internalLink`.
  **/
 //WMF_TECH_DEBT_TODO(this method should be generecized to "path" and handle the presence of / wiki /)
-+ (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL escapedDenormalizedInternalLink:(NSString *)internalLink;
++ (nullable NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL escapedDenormalizedInternalLink:(NSString *)internalLink;
 
 /**
  * Return a new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
@@ -81,7 +81,7 @@ extern NSString *const WMFDefaultSiteDomain;
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
  **/
 //WMF_TECH_DEBT_TODO(this method should be folded into the above method and should handle the presence of a #)
-+ (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL escapedDenormalizedTitleAndFragment:(NSString *)escapedDenormalizedTitleAndFragment;
++ (nullable NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL escapedDenormalizedTitleAndFragment:(NSString *)escapedDenormalizedTitleAndFragment;
 
 /**
  * Return a new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
@@ -91,21 +91,21 @@ extern NSString *const WMFDefaultSiteDomain;
  *
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
  **/
-+ (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL unescapedDenormalizedTitleAndFragment:(NSString *)unescapedDenormalizedTitleAndFragment;
++ (nullable NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL unescapedDenormalizedTitleAndFragment:(NSString *)unescapedDenormalizedTitleAndFragment;
 
 /**
  *  Return a URL for the mobile API Endpoint for the current URL
  *
  *  @return return value description
  */
-+ (NSURL *)wmf_mobileAPIURLForURL:(NSURL *)URL;
++ (nullable NSURL *)wmf_mobileAPIURLForURL:(NSURL *)URL;
 
 /**
  *  Return a URL for the desktop API Endpoint for the current URL
  *
  *  @return return value description
  */
-+ (NSURL *)wmf_desktopAPIURLForURL:(NSURL *)URL;
++ (nullable NSURL *)wmf_desktopAPIURLForURL:(NSURL *)URL;
 
 /**
  *  Return the mobile version of the given URL
@@ -115,7 +115,7 @@ extern NSString *const WMFDefaultSiteDomain;
  *
  *  @return Mobile version of the URL
  */
-+ (NSURL *)wmf_mobileURLForURL:(NSURL *)url;
++ (nullable NSURL *)wmf_mobileURLForURL:(NSURL *)url;
 
 /**
  *  Return the desktop version of the given URL
@@ -125,7 +125,7 @@ extern NSString *const WMFDefaultSiteDomain;
  *
  *  @return Mobile version of the URL
  */
-+ (NSURL *)wmf_desktopURLForURL:(NSURL *)url;
++ (nullable NSURL *)wmf_desktopURLForURL:(NSURL *)url;
 
 /**
  * Return a new URL similar to the URL you call this method on but replace the title.
@@ -134,7 +134,7 @@ extern NSString *const WMFDefaultSiteDomain;
  *
  * @return A new URL based on the URL you call this method on with the given title.
  **/
-- (NSURL *)wmf_URLWithTitle:(NSString *)title;
+- (nullable NSURL *)wmf_URLWithTitle:(NSString *)title;
 
 /**
  * Return a new URL similar to the URL you call this method on but replace the title with the given title and the scheme with the internal scheme (wikipedia://)
@@ -143,14 +143,14 @@ extern NSString *const WMFDefaultSiteDomain;
  *
  * @return A new URL based on the URL you call this method on with the given title.
  **/
-- (NSURL *)wmf_wikipediaSchemeURLWithTitle:(NSString *)title;
+- (nullable NSURL *)wmf_wikipediaSchemeURLWithTitle:(NSString *)title;
 
 /**
  * Return a new URL similar to the URL you call this method on but replace the scheme with the internal scheme (wikipedia://)
  *
  * @return A new URL based on the URL you call this method on but with wikipedia:// as the scheme
  **/
-@property (nonatomic, copy, readonly) NSURL *wmf_wikipediaSchemeURL;
+@property (nonatomic, copy, readonly, nullable) NSURL *wmf_wikipediaSchemeURL;
 
 /**
  * Return a new URL similar to the URL you call this method on but replace the title and fragemnt.
@@ -160,7 +160,7 @@ extern NSString *const WMFDefaultSiteDomain;
  *
  * @return A new URL based on the URL you call this method on with the given title and fragment.
  **/
-- (NSURL *)wmf_URLWithTitle:(NSString *)title fragment:(nullable NSString *)fragment;
+- (nullable NSURL *)wmf_URLWithTitle:(NSString *)title fragment:(nullable NSString *)fragment;
 
 /**
  * Return a new URL similar to the URL you call this method on but replace the fragemnt.
@@ -169,7 +169,7 @@ extern NSString *const WMFDefaultSiteDomain;
  *
  * @return A new URL based on the URL you call this method on with the given fragment.
  **/
-- (NSURL *)wmf_URLWithFragment:(nullable NSString *)fragment;
+- (nullable NSURL *)wmf_URLWithFragment:(nullable NSString *)fragment;
 
 /**
  * Return a new URL similar to the URL you call this method on but replace the path.
@@ -178,7 +178,7 @@ extern NSString *const WMFDefaultSiteDomain;
  *
  * @return A new URL based on the URL you call this method on with the given path.
  **/
-- (NSURL *)wmf_URLWithPath:(NSString *)path isMobile:(BOOL)isMobile;
+- (nullable NSURL *)wmf_URLWithPath:(NSString *)path isMobile:(BOOL)isMobile;
 
 #pragma mark - URL Componenets
 
@@ -188,7 +188,7 @@ extern NSString *const WMFDefaultSiteDomain;
  *
  *  @return The site URL
  */
-@property (nonatomic, copy, readonly) NSURL *wmf_siteURL;
+@property (nonatomic, copy, readonly, nullable) NSURL *wmf_siteURL;
 
 @property (nonatomic, copy, readonly, nullable) NSString *wmf_domain;
 
@@ -196,11 +196,11 @@ extern NSString *const WMFDefaultSiteDomain;
 
 @property (nonatomic, copy, readonly, nullable) NSString *wmf_pathWithoutWikiPrefix;
 
-@property (nonatomic, copy, readonly) NSString *wmf_title;
+@property (nonatomic, copy, readonly, nullable) NSString *wmf_title;
 
-@property (nonatomic, copy, readonly) NSString *wmf_titleWithUnderScores;
+@property (nonatomic, copy, readonly, nullable) NSString *wmf_titleWithUnderScores;
 
-@property (nullable, nonatomic, copy, readonly) NSString *wmf_databaseKey; // string suitable for using as a unique key for the article
+@property (nonatomic, copy, readonly, nullable) NSString *wmf_databaseKey; // string suitable for using as a unique key for the article
 
 #pragma mark - Introspection
 

@@ -1,5 +1,4 @@
 #import "WMFArticleListTableViewController.h"
-#import "WMFAnalyticsLogging.h"
 
 @class WMFContentGroup;
 @class WMFArticlePreviewDataStore;
@@ -12,7 +11,7 @@ typedef NS_ENUM(NSUInteger, WMFMorePageListCellType) {
     WMFMorePageListCellTypeLocation
 };
 
-@interface WMFMorePageListViewController : WMFArticleListTableViewController <WMFAnalyticsContextProviding>
+@interface WMFMorePageListViewController : WMFArticleListTableViewController
 
 - (instancetype)initWithGroup:(WMFContentGroup *)section articleURLs:(NSArray<NSURL *> *)urls userDataStore:(MWKDataStore *)userDataStore previewStore:(WMFArticlePreviewDataStore *)previewStore NS_DESIGNATED_INITIALIZER;
 
