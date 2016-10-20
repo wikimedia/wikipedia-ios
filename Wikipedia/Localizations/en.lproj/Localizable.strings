@@ -35,7 +35,6 @@
 "zero-free-verbiage" = "Free Wikipedia access from your mobile operator (data charges waived)";
 "zero-charged-verbiage" = "Wikipedia Zero is off";
 "zero-charged-verbiage-extended" = "Loading other articles may incur data charges. Saved articles stored offline do not use data and are free.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Leaving Wikipedia Zero";
 "zero-interstitial-leave-app" = "Data charges may apply. Continue to external site?";
 "zero-interstitial-continue" = "Leave";
