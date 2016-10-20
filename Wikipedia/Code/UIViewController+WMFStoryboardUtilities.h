@@ -7,7 +7,7 @@
  * In general this should be used to DRY up the implementation of convienence methods.
  * Avoid using this to init a class externally as it will allow you to circumvent using designated initializers and convienence methods
  *
- *  @return A new instance of the receiver, loaded using the storyboard returned from @c wmf_classStorybard.
+ *  @return A new instance of the receiver, loaded using the storyboard returned from @c wmf_classStoryboard.
  */
 + (instancetype)wmf_initialViewControllerFromClassStoryboard;
 

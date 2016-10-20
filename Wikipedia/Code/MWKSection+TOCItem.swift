@@ -4,7 +4,7 @@ extension MWKSection : TableOfContentsItem {
     public var titleText: String {
         get {
             if(isLeadSection()) {
-                return url.wmf_title
+                return url.wmf_title ?? ""
             } else {
                 return line?.wmf_stringByRemovingHTML() ?? ""
             }
