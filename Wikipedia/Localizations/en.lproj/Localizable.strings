@@ -395,6 +395,8 @@
 
 "welcome-explore-title" = "Explore";
 "welcome-explore-sub-title" = "A new way to discover interesting articles every day";
+"welcome-explore-new-ways-title" = "New ways to explore";
+"welcome-explore-new-ways-sub-title" = "New notifications and widgets to help you discover interesting articles";
 "welcome-explore-tell-me-more" = "Tell me more";
 "welcome-explore-tell-me-more-about-explore" = "More about Explore";
 "welcome-explore-tell-me-more-details" = "When you read an article, related articles are automatically added to your Explore feed. This doesn’t change how we collect your information, and your reading history is still private.";
@@ -402,6 +404,10 @@
 "welcome-explore-tell-me-more-privacy" = "No reading list or profile is stored on our servers.";
 "welcome-explore-tell-me-more-done-button" = "Got it";
 "welcome-explore-continue-button" = "Get started";
+
+"welcome-notifications-tell-me-more-title" = "More about notifications";
+"welcome-notifications-tell-me-more-storage" = "Notification preferences are stored on device and not based on personal information or activity.";
+"welcome-notifications-tell-me-more-creation" = "Notifications are created and delivered on your device by the app, not from our (or third party) servers.";
 
 "welcome-languages-title" = "Languages";
 "welcome-languages-sub-title" = "Choose your preferred languages to search Wikipedia";
