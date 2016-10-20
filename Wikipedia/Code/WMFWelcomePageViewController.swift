@@ -83,6 +83,15 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         return gradient
     }
     
+    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool){
+        // HAX: when *swiping* side to side to move between panels on RTL with iOS 9 the dots get out of sync... not sure why. This fix sets the correct dot, but there is a flicker.
+        if UIApplication.sharedApplication().wmf_isRTL && NSProcessInfo.processInfo().wmf_isOperatingSystemMajorVersionLessThan(10) {
+            if let pageControl = pageControl {
+                pageControl.currentPage = presentationIndexForPageViewController(pageViewController)
+            }
+        }
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         if let pageControl = pageControl {
