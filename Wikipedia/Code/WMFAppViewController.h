@@ -10,4 +10,7 @@
 
 - (BOOL)processUserActivity:(NSUserActivity *)activity;
 
+- (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion;
+
+
 @end

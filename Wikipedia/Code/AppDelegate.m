@@ -198,7 +198,7 @@ static NSString *const WMFUserZoomTag = @QUOTE(WMF_USER_ZOOM_TAG);
 #pragma mark - Background Fetch
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    completionHandler(UIBackgroundFetchResultNoData);
+    [self.appViewController performBackgroundFetchWithCompletion:completionHandler];
 }
 
 @end
