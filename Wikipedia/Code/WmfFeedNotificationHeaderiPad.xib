@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2548a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="IRS-Ww-C7b" customClass="WMFFeedNotificationHeader">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="ZwI-Gm-OMb" customClass="WMFLeadingImageTrailingTextButton">
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="36" id="ukh-eU-hro"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a7Y-Xb-wBs">
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0YV-7y-20p">
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trendUpIcon" translatesAutoresizingMaskIntoConstraints="NO" id="UMe-Pe-nRu"/>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trendUpArrow" translatesAutoresizingMaskIntoConstraints="NO" id="Q6c-Lb-apZ">
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="11" id="3xc-LB-wYC"/>
+                                        <constraint firstAttribute="width" constant="17" id="O6I-u2-Y1d"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="UMe-Pe-nRu" firstAttribute="leading" secondItem="0YV-7y-20p" secondAttribute="leading" id="2Kw-kp-mxd"/>
+                                <constraint firstAttribute="height" constant="37" id="Aeu-ts-xnz"/>
+                                <constraint firstItem="UMe-Pe-nRu" firstAttribute="top" secondItem="0YV-7y-20p" secondAttribute="top" id="SiQ-Oo-O3Z"/>
+                                <constraint firstAttribute="bottom" secondItem="UMe-Pe-nRu" secondAttribute="bottom" id="Xdo-1m-I0b"/>
+                                <constraint firstItem="Q6c-Lb-apZ" firstAttribute="centerY" secondItem="UMe-Pe-nRu" secondAttribute="centerY" id="cIk-KP-KRN"/>
+                                <constraint firstAttribute="trailing" secondItem="UMe-Pe-nRu" secondAttribute="trailing" id="hS0-Ma-Xsr"/>
+                                <constraint firstItem="Q6c-Lb-apZ" firstAttribute="centerX" secondItem="UMe-Pe-nRu" secondAttribute="centerX" id="mj1-Ss-EKA"/>
+                                <constraint firstAttribute="width" constant="37" id="sAy-Ok-HCS"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Something much longer" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WP1-bD-g1C">
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="WP1-bD-g1C" firstAttribute="centerY" secondItem="0YV-7y-20p" secondAttribute="centerY" id="5aT-Rq-8nd"/>
+                        <constraint firstAttribute="trailing" secondItem="WP1-bD-g1C" secondAttribute="trailing" id="6E3-dt-2JW"/>
+                        <constraint firstItem="0YV-7y-20p" firstAttribute="top" secondItem="a7Y-Xb-wBs" secondAttribute="top" id="PtS-dj-ntC"/>
+                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="WP1-bD-g1C" secondAttribute="bottom" constant="18" id="UO4-E7-og6"/>
+                        <constraint firstItem="0YV-7y-20p" firstAttribute="leading" secondItem="a7Y-Xb-wBs" secondAttribute="leading" id="iMq-Sf-74i"/>
+                        <constraint firstAttribute="bottom" secondItem="0YV-7y-20p" secondAttribute="bottom" priority="750" constant="18" id="kz6-Od-o7k"/>
+                        <constraint firstItem="WP1-bD-g1C" firstAttribute="leading" secondItem="0YV-7y-20p" secondAttribute="trailing" constant="20" id="lHW-F6-Iuj"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.91764705879999997" green="0.92549019610000005" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="a7Y-Xb-wBs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="IRS-Ww-C7b" secondAttribute="leading" constant="20" id="MP4-Rv-fno"/>
+                <constraint firstItem="ZwI-Gm-OMb" firstAttribute="top" secondItem="a7Y-Xb-wBs" secondAttribute="bottom" id="Mv7-4H-eDN"/>
+                <constraint firstAttribute="bottom" secondItem="ZwI-Gm-OMb" secondAttribute="bottom" constant="23" id="NQO-Rj-kV9"/>
+                <constraint firstItem="a7Y-Xb-wBs" firstAttribute="centerX" secondItem="IRS-Ww-C7b" secondAttribute="centerX" id="RoT-o4-8xk"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="a7Y-Xb-wBs" secondAttribute="trailing" constant="20" id="aM7-9d-3QU"/>
+                <constraint firstItem="a7Y-Xb-wBs" firstAttribute="top" secondItem="IRS-Ww-C7b" secondAttribute="top" constant="27" id="neY-DF-VlH"/>
+                <constraint firstItem="ZwI-Gm-OMb" firstAttribute="centerX" secondItem="IRS-Ww-C7b" secondAttribute="centerX" id="ymg-b0-WhE"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="enableNotificationsButton" destination="ZwI-Gm-OMb" id="fZ8-bl-FB6"/>
+                <outlet property="textLabel" destination="WP1-bD-g1C" id="AVN-lD-DmX"/>
+            </connections>
+            <point key="canvasLocation" x="-107.5" y="-95.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="trendUpArrow" width="17" height="11"/>
+        <image name="trendUpIcon" width="37" height="37"/>
+    </resources>
+</document>

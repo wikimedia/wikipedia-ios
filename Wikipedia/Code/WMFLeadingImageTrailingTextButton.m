@@ -1,5 +1,6 @@
 #import "WMFLeadingImageTrailingTextButton.h"
 #import <Masonry/Masonry.h>
+#import "Wikipedia-Swift.h"
 
 /**
  *  RTL-compliant control which lays out a button with an icon on the left and text on the right.
@@ -23,15 +24,9 @@
 
 @property (nonatomic, assign, readwrite, getter=isInterfaceBuilderPreviewing) BOOL interfaceBuilderPreviewing;
 
-/**
- *  The image view shown to the left (in LTR) of the text.
- */
-@property (nonatomic, strong) UIImageView *iconImageView;
+@property (nonatomic, strong, readwrite) UIImageView *iconImageView;
 
-/**
- *  The text shown to the right of the image.
- */
-@property (nonatomic, strong) UILabel *textLabel;
+@property (nonatomic, strong, readwrite) UILabel *textLabel;
 
 @end
 
@@ -79,6 +74,11 @@
     [self applyConstraints];
 }
 
+- (void)setEdgeInsets:(UIEdgeInsets)edgeInsets{
+    _edgeInsets = edgeInsets;
+    [self applyConstraints];
+}
+
 - (void)setIconImage:(UIImage *)iconImage {
     _iconImage = iconImage;
     [self applySelectedState:NO];
@@ -122,11 +122,27 @@
 }
 
 - (void)applyConstraints {
-    [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.top.and.bottom.equalTo(self);
+    UIEdgeInsets modified = self.edgeInsets;
+    
+    //right and bottom need negative numbers
+    modified.bottom = -modified.bottom;
+    modified.right = -modified.right;
+
+    //flip left and right for RTL
+    if([[UIApplication sharedApplication] wmf_isRTL]){
+        modified.left = modified.right;
+        modified.right = self.edgeInsets.left;
+    }
+    
+    [self.iconImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.mas_leading).with.offset(modified.left);
+        make.top.equalTo(self.mas_top).with.offset(modified.top);
+        make.bottom.equalTo(self.mas_bottom).with.offset(modified.bottom);
     }];
     [self.textLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.top.and.bottom.equalTo(self);
+        make.trailing.equalTo(self.mas_trailing).with.offset(modified.right);
+        make.top.equalTo(self.mas_top).with.offset(modified.top);
+        make.bottom.equalTo(self.mas_bottom).with.offset(modified.bottom);
         // make sure icon & button aren't squished together
         make.leading.equalTo(self.iconImageView.mas_trailing).with.offset(self.spaceBetweenIconAndText);
     }];
@@ -210,5 +226,19 @@
         return MWLocalizedString(key, nil);
     }
 }
+
+- (void)configureAsNotifyTrendingButton{
+    self.layer.borderColor = [UIColor wmf_blueTintColor].CGColor;
+    self.layer.borderWidth = 1.0;
+    self.layer.cornerRadius = 5.0;
+    self.spaceBetweenIconAndText = 5.0;
+    self.edgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+    self.iconImage = [UIImage imageNamed:@"notificationsIconV1"
+                                inBundle:[NSBundle bundleForClass:[self class]]
+           compatibleWithTraitCollection:self.traitCollection];
+    self.labelText = [self localizedStringForKeyFromCurrentBundle:@"feed-news-notification-button-text"];
+}
+
+
 
 @end

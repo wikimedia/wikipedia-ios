@@ -278,15 +278,18 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 #pragma mark - Notifications
 
 - (void)scheduleNotificationsForFeedDay:(WMFFeedDayResponse *)feedDay onDate:(NSDate *)date {
+    if(![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled]){
+        return;
+    }
     if (self.isSchedulingNotifications) {
         return;
     }
 
-    self.schedulingNotifications = YES;
-
     if (![date wmf_isTodayUTC]) { //in the news notifications only valid for the current day
         return;
     }
+
+    self.schedulingNotifications = YES;
 
     NSCalendar *userCalendar = [NSCalendar autoupdatingCurrentCalendar];
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
