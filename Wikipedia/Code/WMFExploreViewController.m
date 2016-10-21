@@ -395,7 +395,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     @weakify(self);
     [header.enableNotificationsButton bk_addEventHandler:^(id sender) {
         @strongify(self);
-        [[NSUserDefaults wmf_userDefaults] wmf_setSubscribedToNewsNotifications:YES];
+        [[NSUserDefaults wmf_userDefaults] wmf_setInTheNewsNotificationsEnabled:YES];
         [self showHideNotificationIfNeccesary];
         
     } forControlEvents:UIControlEventTouchUpInside];
@@ -407,7 +407,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 - (void)showHideNotificationIfNeccesary{
     
-    if(![[NSUserDefaults wmf_userDefaults] wmf_subscribedToNewsNotifications] && ![[NSUserDefaults wmf_userDefaults] wmf_didShowNewsNotificationCardInFeed]){
+    if(![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled] && ![[NSUserDefaults wmf_userDefaults] wmf_didShowNewsNotificationCardInFeed]){
         [self showNotificationHeader];
 
     }else{

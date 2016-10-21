@@ -278,7 +278,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 #pragma mark - Notifications
 
 - (void)scheduleNotificationsForFeedDay:(WMFFeedDayResponse *)feedDay onDate:(NSDate *)date {
-    if(![[NSUserDefaults wmf_userDefaults] wmf_subscribedToNewsNotifications]){
+    if(![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled]){
         return;
     }
     if (self.isSchedulingNotifications) {

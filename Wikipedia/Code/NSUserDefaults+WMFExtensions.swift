@@ -13,8 +13,8 @@ let WMFDidMigrateToNewFeedKey = "WMFDidMigrateToNewFeedKey"
 let WMFMostRecentInTheNewsNotificationDateKey = "WMFMostRecentInTheNewsNotificationDate"
 let WMFInTheNewsMostRecentDateNotificationCountKey = "WMFInTheNewsMostRecentDateNotificationCount"
 let WMFDidShowNewsNotificatonInFeedKey = "WMFDidShowNewsNotificatonInFeedKey"
-let WMFSubscribeToNewsNotificationsKey = "WMFSubscribeToNewsNotificationsKey"
 let WMFInTheNewsNotificationsEnabled = "WMFInTheNewsNotificationsEnabled"
+
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
@@ -327,14 +327,5 @@ public extension NSUserDefaults {
     
     public func wmf_didShowNewsNotificationCardInFeed() -> Bool {
         return self.boolForKey(WMFDidShowNewsNotificatonInFeedKey)
-    }
-
-    public func wmf_setSubscribedToNewsNotifications(subscribed: Bool) {
-        self.setBool(subscribed, forKey: WMFSubscribeToNewsNotificationsKey)
-        self.synchronize()
-    }
-    
-    public func wmf_subscribedToNewsNotifications() -> Bool {
-        return self.boolForKey(WMFSubscribeToNewsNotificationsKey)
     }
 }
