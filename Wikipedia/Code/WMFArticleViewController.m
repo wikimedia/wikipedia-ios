@@ -642,7 +642,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)languagesController:(WMFLanguagesViewController *)controller didSelectLanguage:(MWKLanguageLink *)language {
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionSwitchLanguageInContext:self contentType:nil];
+    [[PiwikTracker wmf_configuredInstance] wmf_logActionSwitchLanguageInContext:self contentType:self];
     [self dismissViewControllerAnimated:YES
                              completion:^{
                                  [self pushArticleViewControllerWithURL:language.articleURL contentType:nil animated:YES];
@@ -1545,7 +1545,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (nullable UIViewController *)webView:(WKWebView *)webView previewingViewControllerForElement:(WKPreviewElementInfo *)elementInfo defaultActions:(NSArray<id<WKPreviewActionItem>> *)previewActions {
     UIViewController *peekVC = [self peekViewControllerForURL:elementInfo.linkURL];
     if (peekVC) {
-        [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
+        [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:self];
         [self.webViewController hideFindInPageWithCompletion:nil];
 
         if ([peekVC isKindOfClass:[WMFArticleViewController class]]) {
@@ -1566,7 +1566,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (nullable UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                        viewControllerForLocation:(CGPoint)location {
     if (previewingContext == self.leadImagePreviewingContext) {
-        [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
+        [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:self];
         WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article];
         return fullscreenGallery;
     }
@@ -1765,6 +1765,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - WMFAnalyticsContextProviding
 
 - (NSString *)analyticsContext {
+    return @"Article";
+}
+
+- (NSString *)analyticsContentType {
     return @"Article";
 }
 

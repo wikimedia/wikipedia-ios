@@ -94,7 +94,6 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import <WMFModel/CIDetector+WMFFaceDetection.h>
 
 #import <WMFModel/WMFContentSource.h>
-#import <WMFModel/WMFTimerContentSource.h>
 #import <WMFModel/WMFRelatedPagesContentSource.h>
 #import <WMFModel/WMFMainPageContentSource.h>
 #import <WMFModel/WMFNearbyContentSource.h>
@@ -148,7 +147,6 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import <WMFModel/NSUserActivity+WMFExtensions.h>
 
 //Deprecated
-#import <WMFModel/WMFExploreSection.h>
 #import <WMFModel/MWKList.h>
 #import <WMFModel/MWKList+Subclass.h>
 #import <WMFModel/MWKSite.h>

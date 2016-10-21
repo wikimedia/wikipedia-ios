@@ -46,7 +46,7 @@ abstract_target 'Foundation' do
   pod 'HockeySDK', '~> 4.1.0'
 
   pod 'hpple', '~> 0.2'
-  
+
   target 'InTheNewsNotification' do
   end
 
@@ -98,7 +98,6 @@ abstract_target 'Foundation' do
 
 end
 
-
 post_install do |installer|
   plist_buddy = "/usr/libexec/PlistBuddy"
   version = `#{plist_buddy} -c "Print CFBundleShortVersionString" Wikipedia/Wikipedia-Info.plist`.strip
@@ -106,6 +105,7 @@ post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
       config.build_settings['SWIFT_VERSION'] = '2.3'
+      config.build_settings['ENABLE_BITCODE'] = 'NO'
     end
   end
 

@@ -6,7 +6,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFRandomContentSource : NSObject <WMFContentSource>
+@interface WMFRandomContentSource : NSObject <WMFContentSource, WMFDateBasedContentSource>
 
 @property (readonly, nonatomic, strong) NSURL *siteURL;
 
