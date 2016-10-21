@@ -487,6 +487,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
 @implementation WMFNewsContentGroup (WMFContentManaging)
 
 - (NSInteger)dailySortPriority {
@@ -496,10 +497,6 @@ NS_ASSUME_NONNULL_BEGIN
         return 2;
     }
 }
-
-@end
-
-@implementation WMFNewsContentGroup (WMFContentManaging)
 
 - (UIImage *)headerIcon {
     return [UIImage imageNamed:@"news-mini"];
