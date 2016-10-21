@@ -12,8 +12,6 @@ NSString *const WMFInTheNewsNotificationReadNowActionIdentifier = @"inTheNewsNot
 NSString *const WMFInTheNewsNotificationSaveForLaterActionIdentifier = @"inTheNewsNotificationSaveForLaterActionIdentifier";
 NSString *const WMFInTheNewsNotificationShareActionIdentifier = @"inTheNewsNotificationShareActionIdentifier";
 
-uint64_t const WMFNotificationUpdateInterval = 10;
-
 NSString *const WMFNotificationInfoArticleTitleKey = @"articleTitle";
 NSString *const WMFNotificationInfoArticleURLStringKey = @"articleURLString";
 NSString *const WMFNotificationInfoThumbnailURLStringKey = @"thumbnailURLString";
