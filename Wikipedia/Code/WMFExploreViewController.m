@@ -210,6 +210,11 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     }];
 }
 
+- (void)updateFeedWithLatestDatabaseContent{
+    [self.internalContentStore syncDataStoreToDatabase];
+}
+
+
 #pragma mark - Section Access
 
 - (WMFContentGroup *)sectionAtIndex:(NSUInteger)sectionIndex {

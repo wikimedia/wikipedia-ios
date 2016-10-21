@@ -31,9 +31,7 @@
 		0E28C46A1D74ACB1000C5919 /* WMFDatabaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E33F2B31D57E15300C6CF94 /* WMFDatabaseDataSource.m */; };
 		0E28C46B1D74ACB1000C5919 /* MWKDataStore+WMFDataSources.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E01B2B41D5BFF13005E3134 /* MWKDataStore+WMFDataSources.m */; };
 		0E28C46D1D74AE64000C5919 /* WMFContentGroupDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E3C5D3B1D6C964A00C95BA1 /* WMFContentGroupDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0E28C46E1D74AE64000C5919 /* WMFExploreSection.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E802CE1C0CD35B0065EBC0 /* WMFExploreSection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E28C4701D74AE6E000C5919 /* WMFContentGroupDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C5D3C1D6C964A00C95BA1 /* WMFContentGroupDataStore.m */; };
-		0E28C4711D74AE6E000C5919 /* WMFExploreSection.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802CF1C0CD35B0065EBC0 /* WMFExploreSection.m */; };
 		0E28C4751D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C4731D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E28C4761D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E28C4741D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.m */; };
 		0E28C4781D74D381000C5919 /* WMFDatabaseViewable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C4771D74D381000C5919 /* WMFDatabaseViewable.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -76,8 +74,6 @@
 		0E728D241DAEE2B50074EB4B /* WMFFeedContentFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E19B9AD1DA7DC9D00239F3A /* WMFFeedContentFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E728D251DAEE2B50074EB4B /* WMFFeedContentFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E19B9AE1DA7DC9D00239F3A /* WMFFeedContentFetcher.m */; };
 		0E728D281DAEE8FF0074EB4B /* WMFContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E3C5D371D664BFC00C95BA1 /* WMFContentSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0E728D291DAEE8FF0074EB4B /* WMFTimerContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E86DD981D6F41D200B54E71 /* WMFTimerContentSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0E728D2A1DAEE8FF0074EB4B /* WMFTimerContentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E86DD991D6F41D200B54E71 /* WMFTimerContentSource.m */; };
 		0E728D2B1DAEE8FF0074EB4B /* WMFRelatedPagesContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E3C5D381D664CBF00C95BA1 /* WMFRelatedPagesContentSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E728D2C1DAEE8FF0074EB4B /* WMFRelatedPagesContentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C5D391D664CBF00C95BA1 /* WMFRelatedPagesContentSource.m */; };
 		0E728D2D1DAEE8FF0074EB4B /* WMFMainPageContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E3C5D471D6DE9E400C95BA1 /* WMFMainPageContentSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1142,8 +1138,6 @@
 		0E83806B1D64989F0076EDE4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		0E83806D1D64989F0076EDE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E8380781D649DE10076EDE4 /* ContinueReadingWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ContinueReadingWidget.entitlements; sourceTree = "<group>"; };
-		0E86DD981D6F41D200B54E71 /* WMFTimerContentSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFTimerContentSource.h; path = Wikipedia/Code/WMFTimerContentSource.h; sourceTree = SOURCE_ROOT; };
-		0E86DD991D6F41D200B54E71 /* WMFTimerContentSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFTimerContentSource.m; path = Wikipedia/Code/WMFTimerContentSource.m; sourceTree = SOURCE_ROOT; };
 		0E8DC0931C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDailyStatsLoggingFunnel.h; path = Wikipedia/Code/WMFDailyStatsLoggingFunnel.h; sourceTree = SOURCE_ROOT; };
 		0E8DC0941C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFDailyStatsLoggingFunnel.m; path = Wikipedia/Code/WMFDailyStatsLoggingFunnel.m; sourceTree = SOURCE_ROOT; };
 		0E8E94141D55111900066FC0 /* WMFArticleListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleListTableViewController.h; path = Wikipedia/Code/WMFArticleListTableViewController.h; sourceTree = SOURCE_ROOT; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
@@ -1402,8 +1396,6 @@
 		B0E802C61C0CD2F70065EBC0 /* WMFPicOfTheDayCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFPicOfTheDayCollectionViewCell.h; path = Wikipedia/Code/WMFPicOfTheDayCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
 		B0E802C71C0CD2F70065EBC0 /* WMFPicOfTheDayCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFPicOfTheDayCollectionViewCell.m; path = Wikipedia/Code/WMFPicOfTheDayCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
 		B0E802C81C0CD2F70065EBC0 /* WMFPicOfTheDayCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFPicOfTheDayCollectionViewCell.xib; path = Wikipedia/Code/WMFPicOfTheDayCollectionViewCell.xib; sourceTree = SOURCE_ROOT; };
-		B0E802CE1C0CD35B0065EBC0 /* WMFExploreSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFExploreSection.h; path = Wikipedia/Code/WMFExploreSection.h; sourceTree = SOURCE_ROOT; };
-		B0E802CF1C0CD35B0065EBC0 /* WMFExploreSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFExploreSection.m; path = Wikipedia/Code/WMFExploreSection.m; sourceTree = SOURCE_ROOT; };
 		B0E802E01C0CD4350065EBC0 /* WMFMainPagePlaceholderCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFMainPagePlaceholderCollectionViewCell.h; path = Wikipedia/Code/WMFMainPagePlaceholderCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
 		B0E802E11C0CD4350065EBC0 /* WMFMainPagePlaceholderCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMainPagePlaceholderCollectionViewCell.m; path = Wikipedia/Code/WMFMainPagePlaceholderCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
 		B0E802E21C0CD4350065EBC0 /* WMFMainPagePlaceholderCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFMainPagePlaceholderCollectionViewCell.xib; path = Wikipedia/Code/WMFMainPagePlaceholderCollectionViewCell.xib; sourceTree = SOURCE_ROOT; };
@@ -3149,8 +3141,6 @@
 			children = (
 				0E3C5D3B1D6C964A00C95BA1 /* WMFContentGroupDataStore.h */,
 				0E3C5D3C1D6C964A00C95BA1 /* WMFContentGroupDataStore.m */,
-				B0E802CE1C0CD35B0065EBC0 /* WMFExploreSection.h */,
-				B0E802CF1C0CD35B0065EBC0 /* WMFExploreSection.m */,
 				0E3F644D1D773642007C632C /* WMFContentGroup.h */,
 				0E3F644E1D773642007C632C /* WMFContentGroup.m */,
 				0E28C47D1D74D8DF000C5919 /* WMFContentGroup+WMFDatabaseViews.h */,
@@ -3584,8 +3574,6 @@
 			isa = PBXGroup;
 			children = (
 				0E3C5D371D664BFC00C95BA1 /* WMFContentSource.h */,
-				0E86DD981D6F41D200B54E71 /* WMFTimerContentSource.h */,
-				0E86DD991D6F41D200B54E71 /* WMFTimerContentSource.m */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -5963,7 +5951,6 @@
 				D844DA061D6CC4C90042D692 /* MWKLanguageFilter.h in Headers */,
 				0E28C46D1D74AE64000C5919 /* WMFContentGroupDataStore.h in Headers */,
 				D844D9A91D6CB74F0042D692 /* MWKHistoryList.h in Headers */,
-				0E728D291DAEE8FF0074EB4B /* WMFTimerContentSource.h in Headers */,
 				D844D9701D6CB2600042D692 /* WMFModel.h in Headers */,
 				D844D9991D6CB5EB0042D692 /* NSString+WMFPageUtilities.h in Headers */,
 				D849D6501D6CC7D200D06FC8 /* WMFImageTagList+ImageURLs.h in Headers */,
@@ -5984,7 +5971,6 @@
 				D89F510F1D6CC97F008018E1 /* WMFApiJsonResponseSerializer.h in Headers */,
 				0E728D351DAEE8FF0074EB4B /* WMFRandomContentSource.h in Headers */,
 				0E728D4B1DAEEE910074EB4B /* NSString+WMFDistance.h in Headers */,
-				0E28C46E1D74AE64000C5919 /* WMFExploreSection.h in Headers */,
 				0E728D501DAEEEDB0074EB4B /* MWKSiteInfoFetcher.h in Headers */,
 				0E728D3A1DAEEADB0074EB4B /* MWKLocationSearchResult.h in Headers */,
 				0E28C4691D74ACA7000C5919 /* MWKDataStore+WMFDataSources.h in Headers */,
@@ -6307,6 +6293,9 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
 							com.apple.SafariKeychain = {
@@ -7512,7 +7501,6 @@
 				0E728D411DAEEC380074EB4B /* WMFRelatedSearchResults.m in Sources */,
 				D844D9821D6CB3540042D692 /* MWKUser.m in Sources */,
 				D844D9AB1D6CB7540042D692 /* MWKHistoryList.m in Sources */,
-				0E28C4711D74AE6E000C5919 /* WMFExploreSection.m in Sources */,
 				D83FA6B91D74CE45008CAB00 /* EventLogger.m in Sources */,
 				D8DC16EE1D6F6DEC00D6D9FB /* MWKSite.m in Sources */,
 				0E728D251DAEE2B50074EB4B /* WMFFeedContentFetcher.m in Sources */,
@@ -7550,7 +7538,6 @@
 				D844D9FA1D6CC0710042D692 /* SDWebImageManager+WMFCacheRemoval.m in Sources */,
 				0E28C4801D74D8DF000C5919 /* WMFContentGroup+WMFDatabaseViews.m in Sources */,
 				D844D9EC1D6CBFE40042D692 /* WMFZeroConfigurationFetcher.m in Sources */,
-				0E728D2A1DAEE8FF0074EB4B /* WMFTimerContentSource.m in Sources */,
 				D8E2B0F31D6CC5DE006FFB24 /* WMFImageURLParsing.m in Sources */,
 				0E728D4F1DAEEED90074EB4B /* MWKSiteInfoFetcher.m in Sources */,
 				D844D9A71D6CB7280042D692 /* MWKList.m in Sources */,
