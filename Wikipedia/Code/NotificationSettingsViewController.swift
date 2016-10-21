@@ -133,12 +133,21 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
         if let switchItem = item as? NotificationSettingsSwitchItem {
             cell.disclosureType = .Switch
             cell.disclosureSwitch.on = switchItem.switchChecker()
+            cell.disclosureSwitch.addTarget(self, action: #selector(self.handleSwitchValueChange(_:)), forControlEvents: .ValueChanged)
         } else {
             cell.disclosureType = .ViewController
         }
         
         
         return cell
+    }
+    
+    func handleSwitchValueChange(sender: UISwitch) {
+        // FIXME: hardcoded item below
+        let item = sections[1].items[0]
+        if let switchItem = item as? NotificationSettingsSwitchItem {
+            switchItem.switchAction(sender.on)
+        }
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
