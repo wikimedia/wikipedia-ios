@@ -55,6 +55,8 @@
 #import "WMFMorePageListViewController.h"
 #import "WMFSettingsViewController.h"
 
+#import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterReuseIdentifier";
@@ -406,6 +408,10 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 
 - (void)showHideNotificationIfNeccesary{
+    
+    if([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionLessThan:10]){
+        return;
+    }
     
     if(![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled] && ![[NSUserDefaults wmf_userDefaults] wmf_didShowNewsNotificationCardInFeed]){
         [self showNotificationHeader];
