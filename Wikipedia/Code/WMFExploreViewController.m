@@ -321,40 +321,80 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 #pragma mark - Notification
 
+- (void)sizeNotificationHeader{
+    
+    WMFFeedNotificationHeader* header = self.notificationHeader;
+    if(!header.superview){
+        return;
+    }
+    
+    //First layout pass to get height
+    [header mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@(-136));
+        make.leading.trailing.equalTo(self.collectionView.superview);
+    }];
+    
+    [header sizeToFit];
+    [header setNeedsLayout];
+    [header layoutIfNeeded];
+
+    CGRect f = header.frame;
+
+    //Second layout pass to reset the top constraint
+    [header mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@(-f.size.height));
+        make.height.equalTo(@(f.size.height));
+        make.leading.trailing.equalTo(self.collectionView.superview);
+    }];
+    
+    [header sizeToFit];
+    [header setNeedsLayout];
+    [header layoutIfNeeded];
+
+    UIEdgeInsets insets = self.collectionView.contentInset;
+    insets.top = f.size.height;
+    self.collectionView.contentInset = insets;
+}
+
+- (void)setNotificationHeaderBasedOnSizeClass{
+    if(self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact){
+        self.notificationHeader = [WMFFeedNotificationHeader wmf_viewFromClassNib];
+    }else{
+        self.notificationHeader = [[[UINib nibWithNibName:@"WmfFeedNotificationHeaderiPad" bundle:nil]  instantiateWithOwner:nil options:nil] firstObject];
+    }
+}
+
+- (void)showNotificationHeader{
+
+    if(self.notificationHeader){
+        [self.notificationHeader removeFromSuperview];
+        self.notificationHeader = nil;
+    }
+
+    [self setNotificationHeaderBasedOnSizeClass];
+    
+    WMFFeedNotificationHeader* header = self.notificationHeader;
+    [self.collectionView addSubview:self.notificationHeader];
+    [self sizeNotificationHeader];
+    
+    @weakify(self);
+    [header.enableNotificationsButton bk_addEventHandler:^(id sender) {
+        @strongify(self);
+        [[NSUserDefaults wmf_userDefaults] wmf_setSubscribedToNewsNotifications:YES];
+        [self showHideNotificationIfNeccesary];
+        
+    } forControlEvents:UIControlEventTouchUpInside];
+    
+    [[NSUserDefaults wmf_userDefaults] wmf_setDidShowNewsNotificationCardInFeed:YES];
+}
+
+
 
 - (void)showHideNotificationIfNeccesary{
     
-    if(![[NSUserDefaults wmf_userDefaults] wmf_didShowNewsNotificationCardInFeed]){
-        
-        WMFFeedNotificationHeader* header = [WMFFeedNotificationHeader wmf_viewFromClassNib];
-        [header sizeToFit];
+    if(![[NSUserDefaults wmf_userDefaults] wmf_subscribedToNewsNotifications] && ![[NSUserDefaults wmf_userDefaults] wmf_didShowNewsNotificationCardInFeed]){
+        [self showNotificationHeader];
 
-        CGRect f = header.frame;
-        f.origin.y = -f.size.height;
-        f.size.width = self.collectionView.frame.size.width;
-        header.frame = f;
-        [header setNeedsLayout];
-        [header layoutIfNeeded];
-        
-        @weakify(self);
-        [header.enableNotificationsButton bk_addEventHandler:^(id sender) {
-            @strongify(self);
-            [[NSUserDefaults wmf_userDefaults] wmf_setSubscribedToNewsNotifications:YES];
-            [self showHideNotificationIfNeccesary];
-            
-        } forControlEvents:UIControlEventTouchUpInside];
-        
-        [self.collectionView addSubview:header];
-        
-        self.notificationHeader = header;
-        
-        UIEdgeInsets insets = self.collectionView.contentInset;
-        insets.top = f.size.height;
-        self.collectionView.contentInset = insets;
-        
-        [[NSUserDefaults wmf_userDefaults] wmf_setDidShowNewsNotificationCardInFeed:YES];
-
-        
     }else{
 
         if(self.notificationHeader){
@@ -423,6 +463,14 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [super traitCollectionDidChange:previousTraitCollection];
     [self registerForPreviewingIfAvailable];
 }
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    if(self.notificationHeader){
+        [self showNotificationHeader];
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
