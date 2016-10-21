@@ -137,6 +137,7 @@
 		0EF5BB6D1C110C2100DE75E1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB6C1C110C2100DE75E1 /* AppDelegate.m */; };
 		0EF8634E1C19E02700006D2D /* WMFEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EF8634D1C19E02700006D2D /* WMFEmptyView.xib */; };
 		0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
+		0EFC9C221DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EFC9C211DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib */; };
 		19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */; };
 		19A17B36FFB48307FF04C07F /* SavedPageSpotlightManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */; };
 		535B1AFBBE34CAF0886C6DD9 /* Pods_Foundation_Wikipedia_WikipediaUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEB1B9EA1D15047B919A2C88 /* Pods_Foundation_Wikipedia_WikipediaUnitTests.framework */; };
@@ -1184,6 +1185,7 @@
 		0EF8634D1C19E02700006D2D /* WMFEmptyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFEmptyView.xib; path = Wikipedia/Code/WMFEmptyView.xib; sourceTree = SOURCE_ROOT; };
 		0EF8634F1C19E4F100006D2D /* WMFEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFEmptyView.h; path = Wikipedia/Code/WMFEmptyView.h; sourceTree = SOURCE_ROOT; };
 		0EF863501C19E4F100006D2D /* WMFEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFEmptyView.m; path = Wikipedia/Code/WMFEmptyView.m; sourceTree = SOURCE_ROOT; };
+		0EFC9C211DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WmfFeedNotificationHeaderiPad.xib; sourceTree = SOURCE_ROOT; };
 		139EFB58D1CC85EFEDB9F21C /* Pods-Foundation-TopReadWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-TopReadWidget.release.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-TopReadWidget/Pods-Foundation-TopReadWidget.release.xcconfig"; sourceTree = "<group>"; };
 		19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedPageSpotlightManagerTest.m; sourceTree = "<group>"; };
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
@@ -3264,6 +3266,7 @@
 				0E5386941DB834B70046E0F9 /* WMFFeedNotificationHeader.h */,
 				0E5386951DB834B70046E0F9 /* WMFFeedNotificationHeader.m */,
 				0E5386971DB834DD0046E0F9 /* WMFFeedNotificationHeader.xib */,
+				0EFC9C211DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib */,
 				B0E803291C0CD6E10065EBC0 /* WMFExploreSectionHeader.h */,
 				B0E8032A1C0CD6E10065EBC0 /* WMFExploreSectionHeader.m */,
 				B0E8032B1C0CD6E10065EBC0 /* WMFExploreSectionHeader.xib */,
@@ -6494,6 +6497,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EFC9C221DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib in Resources */,
 				D81BA0FC1D50D40B006C38AC /* WMFNearbyArticleTableViewCell.xib in Resources */,
 				B0E807091C0CEBDA0065EBC0 /* ShareOptions.xib in Resources */,
 				B0E8040C1C0CDE480065EBC0 /* CaptchaViewController.storyboard in Resources */,

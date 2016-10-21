@@ -60,7 +60,7 @@
                 <outlet property="enableNotificationsButton" destination="oKI-Cg-ucN" id="3aL-hA-RJa"/>
                 <outlet property="textLabel" destination="7uy-b7-3tZ" id="QH7-WL-cCY"/>
             </connections>
-            <point key="canvasLocation" x="26.5" y="58.5"/>
+            <point key="canvasLocation" x="-308" y="-271"/>
         </view>
     </objects>
     <resources>
