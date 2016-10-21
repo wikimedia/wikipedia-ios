@@ -37,6 +37,7 @@
 #import "WMFExploreViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "WMFCustomDeleteButtonTableViewCell.h"
+#import "WMFSettingsTableViewCell.h"
 
 // Views
 #import "WMFArticleListTableViewCell.h"
