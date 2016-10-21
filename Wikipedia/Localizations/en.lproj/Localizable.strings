@@ -49,7 +49,7 @@
 "account-creation-captcha-required" = "CAPTCHA verification required.";
 "account-creation-captcha-obtaining" = "Obtaining a new CAPTCHA...";
 "account-creation-logging-in" = "Logging in...";
-"account-creation-passwords-misatched" = "Password fields do not match.";
+"account-creation-passwords-mismatched" = "Password fields do not match.";
 "account-creation-saving" = "Saving...";
 "account-creation-login" = "Already have an account? Log in.";
 "account-creation-username-placeholder-text" = "Username";
