@@ -1053,21 +1053,32 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)showReferenceFromLastClickedReferencesGroupAtIndex:(NSInteger)index {
-    if (index >= 0 && self.lastClickedReferencesGroup.count > 0) {
-        NSDictionary *selectedReference = [self.lastClickedReferencesGroup wmf_safeObjectAtIndex:index];
-        if (selectedReference) {
-            CGFloat width = MIN(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
-            CGRect rect = CGRectZero;
-            NSDictionary *rectDict = selectedReference[@"rect"];
-            if (CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(rectDict), &rect)) {
-                [self wmf_presentReferencePopoverViewControllerForSourceRect:CGRectMake(CGRectGetMidX(rect), CGRectGetMidY(rect), 1, 1)
-                                                                    linkText:selectedReference[@"text"]
-                                                                        HTML:selectedReference[@"html"]
-                                                                       width:width];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        if (index >= 0){
+            WMFReferencePageViewController* vc = [WMFReferencePageViewController wmf_viewControllerFromReferencePanelsStoryboard];
+            vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            vc.lastClickedReferencesIndex = index;
+            vc.lastClickedReferencesGroup = self.lastClickedReferencesGroup;
+            [self presentViewController:vc animated:NO completion:nil];
+        }
+    }else{
+        if (index >= 0 && self.lastClickedReferencesGroup.count > 0) {
+            NSDictionary *selectedReference = [self.lastClickedReferencesGroup wmf_safeObjectAtIndex:index];
+            if (selectedReference) {
+                CGFloat width = MIN(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
+                CGRect rect = CGRectZero;
+                NSDictionary *rectDict = selectedReference[@"rect"];
+                if (CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(rectDict), &rect)) {
+                    [self wmf_presentReferencePopoverViewControllerForSourceRect:CGRectMake(CGRectGetMidX(rect), CGRectGetMidY(rect), 1, 1)
+                                                                        linkText:selectedReference[@"text"]
+                                                                            HTML:selectedReference[@"html"]
+                                                                           width:width];
+                }
             }
         }
+        self.indexOfLastReferenceShownFromLastClickedReferencesGroup = index;
     }
-    self.indexOfLastReferenceShownFromLastClickedReferencesGroup = index;
 }
 
 - (void)showNextReferenceFromLastClickedReferencesGroup {

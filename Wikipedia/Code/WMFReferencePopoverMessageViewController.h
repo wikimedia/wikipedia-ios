@@ -10,4 +10,6 @@ extern NSString *const WMFReferencePopoverShowPreviousNotification;
 @property (nonatomic) CGFloat width;
 @property (nonatomic) BOOL scrollEnabled;
 
+- (void) scrollToTop;
+
 @end

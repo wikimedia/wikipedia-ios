@@ -22,8 +22,17 @@ NSString *const WMFReferencePopoverShowPreviousNotification = @"WMFReferencePopo
     self.textView.scrollEnabled = scrollEnabled;
 }
 
+- (void)scrollToTop {
+    [self.textView setContentOffset:CGPointZero animated:NO];
+}
+
 - (BOOL)scrollEnabled {
     return self.textView.scrollEnabled;
+}
+
+- (void)setWidth:(CGFloat)width {
+    _width = width;
+    [self.widthConstraint setConstant:width];
 }
 
 - (void)viewDidLoad {

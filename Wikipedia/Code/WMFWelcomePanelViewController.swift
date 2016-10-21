@@ -20,6 +20,7 @@ class WMFWelcomePanelViewController: UIViewController {
     private func embedContainerControllerView() {
         if let containerController = containerController {
             containerController.willMoveToParentViewController(self)
+            containerController.view.translatesAutoresizingMaskIntoConstraints = false
             containerView.addSubview((containerController.view)!)
             containerController.view.mas_makeConstraints { make in
                 make.top.bottom().leading().and().trailing().equalTo()(self.containerView)

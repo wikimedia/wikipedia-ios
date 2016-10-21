@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Reference Page View Controller-->
+        <scene sceneID="Gfl-52-SGU">
+            <objects>
+                <pageViewController storyboardIdentifier="WMFReferencePageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="gMB-Qr-g12" customClass="WMFReferencePageViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2iW-vu-0Yx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-447" y="99"/>
+        </scene>
+        <!--Reference Panel View Controller-->
+        <scene sceneID="JXo-R8-waf">
+            <objects>
+                <viewController storyboardIdentifier="WMFReferencePanelViewController" id="spA-3k-AHf" customClass="WMFReferencePanelViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BmM-Aa-BQP"/>
+                        <viewControllerLayoutGuide type="bottom" id="41L-we-v7D"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Hh5-za-gpf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="oyN-SJ-kOP">
+                                <constraints>
+                                    <constraint firstAttribute="width" priority="998" constant="355" id="ZhI-Az-3gE"/>
+                                    <constraint firstAttribute="height" constant="266" id="wRj-Ba-5ej"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="41L-we-v7D" firstAttribute="top" secondItem="oyN-SJ-kOP" secondAttribute="bottom" id="0K9-pe-4em"/>
+                            <constraint firstAttribute="trailing" secondItem="oyN-SJ-kOP" secondAttribute="trailing" priority="999" constant="10" id="1aT-ja-Zwy"/>
+                            <constraint firstItem="oyN-SJ-kOP" firstAttribute="centerX" secondItem="Hh5-za-gpf" secondAttribute="centerX" id="Ps7-Ee-vGr"/>
+                            <constraint firstItem="oyN-SJ-kOP" firstAttribute="leading" secondItem="Hh5-za-gpf" secondAttribute="leading" priority="999" constant="10" id="aJ7-Dc-vjz"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="containerView" destination="oyN-SJ-kOP" id="8lO-g4-cGD"/>
+                        <outlet property="containerViewHeightConstraint" destination="wRj-Ba-5ej" id="PWv-Cn-91q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="84V-Tz-jVo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="252" y="105.69715142428787"/>
+        </scene>
+    </scenes>
+</document>
