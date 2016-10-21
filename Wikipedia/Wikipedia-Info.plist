@@ -81,6 +81,10 @@
 	</array>
 	<key>UIApplicationShortcutWidget</key>
 	<string>org.wikimedia.wikipedia.TopReadWidget</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+	</array>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

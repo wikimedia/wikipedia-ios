@@ -249,6 +249,8 @@
 "button-ok" = "确定";
 "button-save-for-later" = "保存以供日后使用";
 "button-saved-for-later" = "已保存以供日后使用";
+"button-saved-remove" = "从已保存内容中移除";
+"button-read-now" = "现在阅读";
 "button-report-a-bug" = "报告错误";
 "onboarding-create-account" = "创建账户";
 "onboarding-login" = "登录";
@@ -415,7 +417,7 @@
 "continue-reading-empty-description" = "浏览维基百科以阅读更多条目吧";
 "top-read-see-more" = "查看更多最多阅读";
 "top-read-see-more-trending" = "查看更多趋势";
-"number-thousands" = "$1千";
 "top-read-header-with-language" = "$1维基百科";
 "top-read-header-generic" = "维基百科";
 "reference-title" = "参考文献$1";
+"number-thousands" = "$1千";

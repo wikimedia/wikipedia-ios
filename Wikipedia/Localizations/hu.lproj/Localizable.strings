@@ -37,6 +37,7 @@
 "zero-free-verbiage" = "Ingyenes Wikipédia-hozzáférés a mobilszolgáltatódtól (adatforgalmi díjak elengedve)";
 "zero-charged-verbiage" = "A Wikipédia Zero ki van kapcsolva";
 "zero-charged-verbiage-extended" = "Más szócikkek betöltése adatforgalmi díjakkal járhat. Az elmentett szócikkek kapcsolat nélkül is elérhetőek, így ingyen megtekinthetőek.";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Wikipedia Zero elhagyása";
 "zero-interstitial-leave-app" = "Adatköltségek merülhetnek fel. Továbblépsz a külső oldalra?";
 "zero-interstitial-continue" = "Elhagy";
@@ -133,6 +134,7 @@
 "main-menu-feedback-heading" = "Visszajelzés";
 "main-menu-send-feedback" = "Írj nekünk";
 "main-menu-show-page-history" = "$1 változásának története";
+"main-menu-credits" = "Készítők";
 "main-menu-about" = "Az appról";
 "main-menu-zero-faq" = "Wikipédia Zéró GYIK";
 "main-menu-privacy-policy" = "Adatvédelmi irányelvek";
@@ -217,6 +219,7 @@
 "share-menu-page-saved" = "Elmentve offline olvasásra.";
 "share-menu-page-saved-access" = "Tipp: az elmentett lapjaid eléréséhez érintsd meg a $1 ikont felül vagy nyomd meg hosszan a $2 ikont lent.";
 "share-custom-menu-item" = "Megosztás";
+"share-a-fact-share-menu-item" = "Ossz-meg-egy-tényt";
 "share-on-twitter-sign-off" = "a @Wikipedia szabad enciklopédián keresztül";
 "share-article-name-on-wikipedia" = "„$1” a @Wikipedia szabad enciklopédiában:";
 "share-article-name-on-wikipedia-with-selected-text" = "„$1” a @Wikipedia szabad enciklopédiában: „$2”";
@@ -239,6 +242,8 @@
 "button-ok" = "OK";
 "button-save-for-later" = "Elmentés későbbre";
 "button-saved-for-later" = "Elmentve későbbre";
+"button-saved-remove" = "Eltávolítás a mentettek közül";
+"button-read-now" = "Olvasás most";
 "button-report-a-bug" = "Hibajelentés";
 "onboarding-create-account" = "Fiók létrehozása";
 "onboarding-login" = "Bejelentkezés";
@@ -383,6 +388,7 @@
 "explore-featured-article-heading" = "Kiemelt szócikk";
 "explore-continue-reading-heading" = "Olvasás folytatása";
 "explore-nearby-heading" = "Helyek a közelben";
+"explore-nearby-sub-heading-your-location" = "Helyed";
 "explore-continue-related-heading" = "Mert ezt olvastad:";
 "explore-main-page-heading" = "Ma a Wikipédián";
 "explore-random-article-heading" = "Lap találomra";
@@ -404,7 +410,6 @@
 "continue-reading-empty-description" = "Fedezd fel a Wikipédiát több szócikkért";
 "top-read-see-more" = "Több felkapott";
 "top-read-see-more-trending" = "Több felkapott";
-"top-read-reader-count-thousands" = "$1 ezer";
 "top-read-header-with-language" = "$1 Wikipédia";
 "top-read-header-generic" = "Wikipédia";
 "reference-title" = "Forráshivatkozás $1";

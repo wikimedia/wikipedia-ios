@@ -230,6 +230,8 @@
 "button-ok" = "ٺيڪ";
 "button-save-for-later" = "بعد لاءِ سانڍيو";
 "button-saved-for-later" = "بعد لاءِ سانڍل";
+"button-saved-remove" = "سانڍيلن مان ھٽايو";
+"button-read-now" = "ھاڻي پڙھو";
 "button-report-a-bug" = "ڪنھن جيت جي رپورٽ ڪريو";
 "onboarding-create-account" = "کاتو کوليو";
 "onboarding-login" = "لاگ ان";
@@ -329,8 +331,7 @@
 "home-hide-suggestion-prompt" = "ھيءَ تجويز لڪايو";
 "home-hide-suggestion-cancel" = "رد";
 "home-accessibility-label" = "وڪيپيڊيا، کوجيو";
-// Fuzzy
-"home-button-accessibility-label" = "گھر بٽڻ";
+"home-button-accessibility-label" = "گھر";
 "potd-empty-error-description" = "$1 لاءِ اڄ جي تصوير حاصل ڪرڻ ۾ ناڪام";
 "potd-description-prefix" = "$1 لاءِ اڄ جي تصوير";
 "welcome-explore-title" = "ايڪسپلور";
@@ -389,9 +390,9 @@
 "find-in-page-button-label" = "صفحي ۾ لھو";
 "find-in-page-popover-description" = "مضمونن ۾ متن ڳوليو";
 "continue-reading-empty-title" = "ڪي بہ تازو پڙھيل مضمون ناھن";
+"continue-reading-empty-description" = "وڪيپيڊيا کي وڌيڪ مضمون پڙھڻ لاءِ کوجيو";
 "top-read-see-more" = "وڌيڪ گھڻو پڙھيل ڏسو";
 "top-read-see-more-trending" = "وڌيڪ رجھان رکندڙ ڏسو";
-"top-read-reader-count-thousands" = "$1ھ";
 "top-read-header-with-language" = "$1 وڪيپيڊيا";
 "top-read-header-generic" = "وڪيپيڊيا";
 "reference-title" = "حوالو $1";

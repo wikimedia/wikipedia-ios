@@ -242,6 +242,8 @@
 "button-ok" = "OK";
 "button-save-for-later" = "Simpan untuk nanti";
 "button-saved-for-later" = "Disimpan untuk nanti";
+"button-saved-remove" = "Padamkan dari disimpan";
+"button-read-now" = "Baca sekarang";
 "button-report-a-bug" = "Laporkan pepijat";
 "onboarding-create-account" = "Buka akaun";
 "onboarding-login" = "Log masuk";
@@ -408,7 +410,6 @@
 "continue-reading-empty-description" = "Jelajahi Wikipedia untuk lebih banyak rencana yang ingin dibaca";
 "top-read-see-more" = "Lihat bacaan teratas lainnya";
 "top-read-see-more-trending" = "Lihat sedang tren lainnya";
-"top-read-reader-count-thousands" = "$1 ribu";
 "top-read-header-with-language" = "Wikipedia Bahasa $1";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Referensi $1";

@@ -46,7 +46,6 @@
 "zero-free-verbiage" = "Alert text for Wikipedia Zero free data access enabled";
 "zero-charged-verbiage" = "Alert text for Wikipedia Zero free data access disabled";
 "zero-charged-verbiage-extended" = "Extended text describing that further usage of the app may in fact incur data charges because Wikipedia Zero is off, but Saved articles are still free.";
-"zero-webpage-url" = "Url for Wikipedia Zero FAQ";
 "zero-interstitial-title" = "Alert text for leaving Wikipedia Zero";
 "zero-interstitial-leave-app" = "Alert text shown if Wikipedia Zero free data access is enabled and user taps external link";
 "zero-interstitial-continue" = "Button text confirming user wants to continue to external site.\n{{Identical|Leave}}";
@@ -173,7 +172,7 @@
 "page-history-title" = "Header text for Page History interface.\n{{Identical|Article history}}";
 "page-history-downloading" = "Alert text shown when obtaining revision history of an article";
 "navbar-title-mode-edit-wikitext" = "Header text shown when wikitext is being edited.\n{{Identical|Edit}}";
-"navbar-title-mode-login" = "Header text shown when user is signing in.\n{{Identical|Sign in}}";
+"navbar-title-mode-login" = "Header text shown when user is signing in.\n{{Identical|Log in}}";
 "navbar-title-mode-login-and-save" = "Header text shown when user is editing wikitext then chooses to sign in and publish";
 "navbar-title-mode-create-account" = "Header text shown when user is creating an account.\n{{Identical|Create account}}";
 "navbar-title-mode-create-account-and-save" = "Header text shown when user is editing wikitext then chooses to create an account and publish";
@@ -424,16 +423,17 @@
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "top-read-see-more" = "Text for footer button allowing the user to see more top read articles";
 "top-read-see-more-trending" = "See more trending";
-
 "top-read-header-with-language" = "$1 Wikipedia - for example English Wikipedia\n{{Identical|Wikipedia}}";
 "top-read-header-generic" = "Wikipedia\n{{Identical|Wikipedia}}";
-
+"reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}";
 "in-the-news-notification-read-now-action-title" = "Title on the 'Read Now' action button";
 "in-the-news-notification-share-action-title" = "Title on the 'Share' action button";
 "in-the-news-notification-save-for-later-action-title" = "Title on the 'Save for later' action button";
-"in-the-news-notification-title" = "Title for the 'In the news' notification";
 "in-the-news-currently-trending" = "Currently trending";
-
+"in-the-news-title" = "Title for the 'In the news' notification & feed section";
+"in-the-news-title-for-date" = "News on $1";
+"explore-in-the-news-footer" = "All in the news";
+"explore-in-the-news-for-date" = "All in the news on $1";
 "number-thousands" = "$1K - $1 is replaced with a number represented in thousands. In English the letter 'K' is commonly used after a number to indicate that number is in 'thousands'. So the letter 'K' should be changed to a character or short string indicating thousands. For example 500,000 would become 500K. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
 "number-millions" = "$1M - $1 is replaced with a number represented in millions. In English 'M' is commonly used after a number to indicate that number is in 'millions'. So the 'M' should be changed to a character or short string indicating millions. For example 500,000,000 would become 500M. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
 "number-billions" = "$1B - $1 is replaced with a number represented in billions. In English 'B' is commonly used after a number to indicate that number is in 'billions'. So the 'B' should be changed to a character or short string indicating billions. For example 5,100,000,000 would become 5.1B. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";

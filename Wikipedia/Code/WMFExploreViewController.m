@@ -218,6 +218,11 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     }];
 }
 
+- (void)updateFeedWithLatestDatabaseContent{
+    [self.internalContentStore syncDataStoreToDatabase];
+}
+
+
 #pragma mark - Section Access
 
 - (WMFContentGroup *)sectionAtIndex:(NSUInteger)sectionIndex {
@@ -247,10 +252,13 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         content = [content bk_map:^id(WMFFeedTopReadArticlePreview *obj) {
             return [obj articleURL];
         }];
+    } else if ([group contentType] == WMFContentTypeStory) {
+        content = [content bk_map:^id(WMFFeedNewsStory *obj) {
+            return [[obj mostPopularArticlePreview] articleURL] ?: [[[obj articlePreviews] firstObject] articleURL];
+        }];
     } else if ([group contentType] != WMFContentTypeURL) {
         content = nil;
     }
-
     return content;
 }
 
@@ -276,6 +284,13 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         }
         return content[indexPath.row];
 
+    } else if ([section contentType] == WMFContentTypeStory) {
+        NSArray<WMFFeedNewsStory *> *content = [self contentForSectionAtIndex:indexPath.section];
+        if (indexPath.row >= [content count]) {
+            NSAssert(false, @"Attempting to reference an out of bound index");
+            return nil;
+        }
+        return [[content[indexPath.row] mostPopularArticlePreview] articleURL] ?: [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
     } else {
         return nil;
     }
@@ -519,8 +534,9 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
             return cell;
         } break;
         case WMFFeedDisplayTypeStory: {
-            NSAssert(false, @"Unknown Display Type");
-            return nil;
+            InTheNewsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[InTheNewsCollectionViewCell wmf_nibName] forIndexPath:indexPath];
+            [self configureStoryCell:cell withSection:(WMFNewsContentGroup *)contentGroup preview:preview userData:userData atIndexPath:indexPath];
+            return cell;
         } break;
 
         default:
@@ -560,10 +576,8 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
             return [WMFPicOfTheDayCollectionViewCell estimatedRowHeight];
         } break;
         case WMFFeedDisplayTypeStory: {
-            NSAssert(false, @"Unknown Content Type");
-            return [WMFArticleListCollectionViewCell estimatedRowHeight];
+            return [InTheNewsCollectionViewCell estimatedRowHeight];
         } break;
-
         default:
             NSAssert(false, @"Unknown Content Type");
             return [WMFArticleListCollectionViewCell estimatedRowHeight];
@@ -711,18 +725,20 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [self.collectionView registerNib:[WMFNearbyArticleCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbyArticleCollectionViewCell wmf_nibName]];
 
     [self.collectionView registerNib:[WMFPicOfTheDayCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFPicOfTheDayCollectionViewCell wmf_nibName]];
+
+    [self.collectionView registerNib:[InTheNewsCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[InTheNewsCollectionViewCell wmf_nibName]];
 }
 
 - (void)configureListCell:(WMFArticleListCollectionViewCell *)cell withPreview:(WMFArticlePreview *)preview userData:(MWKHistoryEntry *)userData atIndexPath:(NSIndexPath *)indexPath {
     cell.titleText = [preview.displayTitle wmf_stringByRemovingHTML];
     cell.titleLabel.accessibilityLanguage = userData.url.wmf_language;
-    cell.descriptionText = preview.wikidataDescription;
+    cell.descriptionText = [preview.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     [cell setImageURL:preview.thumbnailURL];
 }
 
 - (void)configurePreviewCell:(WMFArticlePreviewCollectionViewCell *)cell withSection:(WMFContentGroup *)section preview:(WMFArticlePreview *)preview userData:(MWKHistoryEntry *)userData atIndexPath:(NSIndexPath *)indexPath {
     cell.titleText = [preview.displayTitle wmf_stringByRemovingHTML];
-    cell.descriptionText = preview.wikidataDescription;
+    cell.descriptionText = [preview.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     cell.snippetText = preview.snippet;
     [cell setImageURL:preview.thumbnailURL];
     [cell setSaveableURL:preview.url savedPageList:self.userStore.savedPageList];
@@ -745,6 +761,16 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         [cell setDisplayTitle:imageInfo.canonicalPageTitle];
     }
     //    self.referenceImageView = cell.potdImageView;
+}
+
+- (void)configureStoryCell:(InTheNewsCollectionViewCell *)cell withSection:(WMFNewsContentGroup *)section preview:(WMFArticlePreview *)preview userData:(MWKHistoryEntry *)userData atIndexPath:(NSIndexPath *)indexPath {
+    NSArray<WMFFeedNewsStory *> *stories = [self contentForGroup:section];
+    if (indexPath.item >= stories.count) {
+        return;
+    }
+    WMFFeedNewsStory *story = stories[indexPath.item];
+    cell.bodyHTML = story.storyHTML;
+    cell.imageURL = preview.thumbnailURL;
 }
 
 - (BOOL)isDisplayingLocationCell {
@@ -878,6 +904,22 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         case WMFFeedDetailTypeGallery: {
             return [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date]];
         } break;
+        case WMFFeedDetailTypeStory: {
+            NSArray<WMFFeedNewsStory *> *stories = [self contentForGroup:group];
+            if (indexPath.item >= stories.count) {
+                return nil;
+            }
+            WMFFeedNewsStory *story = stories[indexPath.item];
+            InTheNewsViewController *vc = [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore previewStore:self.previewStore];
+            NSString *format = MWLocalizedString(@"in-the-news-title-for-date", nil);
+            NSDate *date = group.date;
+            if (format && date) {
+                NSString *dateString = [[NSDateFormatter wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date];
+                NSString *title = [format stringByReplacingOccurrencesOfString:@"$1" withString:dateString];
+                vc.title = title;
+            }
+            return vc;
+        } break;
         default:
             NSAssert(false, @"Unknown Detail Type");
             break;
@@ -887,6 +929,10 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 - (void)presentDetailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated {
     UIViewController *vc = [self detailViewControllerForItemAtIndexPath:indexPath];
+    if (vc == nil) {
+        return;
+    }
+
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
     [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:group];
 
@@ -899,6 +945,9 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         } break;
         case WMFFeedDetailTypeGallery: {
             [self presentViewController:vc animated:animated completion:nil];
+        } break;
+        case WMFFeedDetailTypeStory: {
+            [self.navigationController pushViewController:vc animated:animated];
         } break;
         default:
             NSAssert(false, @"Unknown Detail Type");

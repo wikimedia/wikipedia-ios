@@ -250,6 +250,8 @@
 "button-ok" = "OK";
 "button-save-for-later" = "Spara till senare";
 "button-saved-for-later" = "Sparades till senare";
+"button-saved-remove" = "Ta bort från sparade";
+"button-read-now" = "Läs nu";
 "button-report-a-bug" = "Rapportera ett fel";
 "onboarding-create-account" = "Skapa konto";
 "onboarding-login" = "Logga in";
@@ -416,7 +418,7 @@
 "continue-reading-empty-description" = "Utforska Wikipedia för fler artiklar att läsa";
 "top-read-see-more" = "Se fler populära artiklar";
 "top-read-see-more-trending" = "Se fler populära ämnen";
-"number-thousands" = "$1K";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Referens $1";
+"number-thousands" = "$1K";

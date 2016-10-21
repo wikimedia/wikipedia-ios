@@ -235,6 +235,8 @@
 "button-ok" = "OK";
 "button-save-for-later" = "Fir spéider späicheren";
 "button-saved-for-later" = "Fir spéider gespäichert";
+"button-saved-remove" = "Vu gespäichert ewechhuelen";
+"button-read-now" = "Elo liesen";
 "button-report-a-bug" = "E Feeler mellen";
 "onboarding-create-account" = "Benotzerkont opmaachen";
 "onboarding-login" = "Aloggen";
@@ -397,7 +399,7 @@
 "continue-reading-empty-title" = "Keng rezent geliest Artikelen";
 "continue-reading-empty-description" = "Wikipedia fir méi Artikelen entdecken";
 "top-read-see-more" = "Méi dacks geliest Artikele weisen";
-"number-thousands" = "$1 D";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Referenz: $1";
+"number-thousands" = "$1 D";
