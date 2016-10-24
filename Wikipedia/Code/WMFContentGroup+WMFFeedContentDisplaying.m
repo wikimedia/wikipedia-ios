@@ -414,8 +414,13 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSAttributedString *)headerSubTitle {
+    NSString* dateString = [self localDateDisplayString];
+    if(!dateString){
+        dateString = @"";
+    }
+
     return [[NSAttributedString alloc]
-        initWithString:[self localDateDisplayString]
+        initWithString:dateString
             attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
@@ -436,9 +441,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSString *)footerText {
+    NSString* dateString = [self localDateShortDisplayString];
+    if(!dateString){
+        dateString = @"";
+    }
+    
     return
         [MWLocalizedString(@"explore-most-read-footer-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                                withString:[self localDateShortDisplayString]];
+                                                                                                withString:dateString];
 }
 
 - (WMFFeedMoreType)moreType {

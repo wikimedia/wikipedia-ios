@@ -99,13 +99,15 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 - (void)loadContentForDate:(NSDate *)date completion:(nullable dispatch_block_t)completion {
 
+    [self cleanupBadTopReadSections];
+
     [self.fetcher fetchFeedContentForURL:self.siteURL
         date:date
+        force:NO
         failure:^(NSError *_Nonnull error) {
             if (completion) {
                 completion();
             }
-
         }
         success:^(WMFFeedDayResponse *_Nonnull feedDay) {
 
@@ -132,20 +134,20 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
                     }];
             }];
-            
-            [feedDay.newsStories enumerateObjectsUsingBlock:^(WMFFeedNewsStory * _Nonnull newsStory, NSUInteger idx, BOOL * _Nonnull stop) {
-                [newsStory.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+
+            [feedDay.newsStories enumerateObjectsUsingBlock:^(WMFFeedNewsStory *_Nonnull newsStory, NSUInteger idx, BOOL *_Nonnull stop) {
+                [newsStory.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
                     [group enter];
                     [self.fetcher fetchPageviewsForURL:obj.articleURL
-                                             startDate:startDate
-                                               endDate:endDate
-                                               failure:^(NSError *_Nonnull error) {
-                                                   [group leave];
-                                               }
-                                               success:^(NSDictionary<NSDate *, NSNumber *> *_Nonnull results) {
-                                                   pageViews[obj.articleURL] = results;
-                                                   [group leave];
-                                               }];
+                        startDate:startDate
+                        endDate:endDate
+                        failure:^(NSError *_Nonnull error) {
+                            [group leave];
+                        }
+                        success:^(NSDictionary<NSDate *, NSNumber *> *_Nonnull results) {
+                            pageViews[obj.articleURL] = results;
+                            [group leave];
+                        }];
                 }];
             }];
 
@@ -161,6 +163,21 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     [self.contentStore removeAllContentGroupsOfKind:[WMFPictureOfTheDayContentGroup kind]];
     [self.contentStore removeAllContentGroupsOfKind:[WMFTopReadContentGroup kind]];
     [self.contentStore removeAllContentGroupsOfKind:[WMFNewsContentGroup kind]];
+}
+
+- (void)cleanupBadTopReadSections {
+    NSMutableArray *remove = [NSMutableArray array];
+    [self.contentStore enumerateContentGroupsOfKind:[WMFTopReadContentGroup kind]
+                                          withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
+                                              if (![group isKindOfClass:[WMFTopReadContentGroup class]]) {
+                                                  return;
+                                              }
+                                              WMFTopReadContentGroup *tg = (WMFTopReadContentGroup *)group;
+                                              if (tg.date == nil || tg.mostReadDate == nil) {
+                                                  [remove addObject:[tg databaseKey]];
+                                              }
+                                          }];
+    [self.contentStore removeContentGroupsWithKeys:remove];
 }
 
 #pragma mark - Save Groups
@@ -189,16 +206,20 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 
     NSURL *featuredURL = [preview articleURL];
-    
+
     if (!featuredURL) {
         return;
     }
-    
+
     [self.previewStore addPreviewWithURL:featuredURL updatedWithFeedPreview:preview pageViews:nil];
     [self.contentStore addContentGroup:featured associatedContent:@[featuredURL]];
 }
 
 - (void)saveGroupForTopRead:(WMFFeedTopReadResponse *)topRead pageViews:(NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)date {
+    //Sometimes top read is nil, depends on time of day
+    if (topRead == nil || date == nil) {
+        return;
+    }
 
     WMFTopReadContentGroup *group = [self topReadForDate:date];
 
@@ -215,6 +236,9 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 - (void)saveGroupForPictureOfTheDay:(WMFFeedImage *)image date:(NSDate *)date {
+    if (image == nil || date == nil) {
+        return;
+    }
 
     WMFPictureOfTheDayContentGroup *group = [self pictureOfTheDayForDate:date];
 
@@ -226,6 +250,9 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 - (void)saveGroupForNews:(NSArray<WMFFeedNewsStory *> *)news pageViews:(NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)date {
+    if (news == nil || date == nil) {
+        return;
+    }
 
     WMFNewsContentGroup *group = [self newsForDate:date];
 
@@ -278,7 +305,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 #pragma mark - Notifications
 
 - (void)scheduleNotificationsForFeedDay:(WMFFeedDayResponse *)feedDay onDate:(NSDate *)date {
-    if(![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled]){
+    if (![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled]) {
         return;
     }
     if (self.isSchedulingNotifications) {
@@ -365,7 +392,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled]) {
         return NO;
     }
-    
+
     NSString *articleURLString = articlePreview.url.absoluteString;
     NSString *storyHTML = newsStory.storyHTML;
     NSString *displayTitle = articlePreview.displayTitle;

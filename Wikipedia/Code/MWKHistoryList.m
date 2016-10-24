@@ -128,6 +128,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKHistoryEntry *)addPageToHistoryWithURL:(NSURL *)url {
     NSParameterAssert(url);
+    if (!url) {
+        return nil;
+    }
+
     if ([url wmf_isNonStandardURL]) {
         return nil;
     }

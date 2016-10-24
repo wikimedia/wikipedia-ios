@@ -45,8 +45,11 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (WMFContentGroup *)contentGroupForURL:(NSURL *)url {
+- (nullable WMFContentGroup *)contentGroupForURL:(NSURL *)url {
     NSParameterAssert(url);
+    if(!url){
+        return nil;
+    }
     return [self readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction) {
         WMFContentGroup *group = [transaction objectForKey:[WMFContentGroup databaseKeyForURL:url] inCollection:[WMFContentGroup databaseCollectionName]];
         return group;
