@@ -176,10 +176,13 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
             bgWidth = frame.size.width - tocWidth
         }
         
+        frame.origin.y = UIApplication.sharedApplication().statusBarFrame.size.height + 0.5;
+        
         switch displaySide {
         case WMFTableOfContentsDisplaySideCenter:
+            frame.origin.y += 10
             frame.origin.x += 0.5*bgWidth
-            frame.size.height -= 70
+            frame.size.height -= 80
             break
         case WMFTableOfContentsDisplaySideRight:
             frame.origin.x += bgWidth
@@ -187,8 +190,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         default:
             break
         }
-        
-        frame.origin.y = UIApplication.sharedApplication().statusBarFrame.size.height + 0.5;
+
         frame.size.width = tocWidth
         
         return frame
