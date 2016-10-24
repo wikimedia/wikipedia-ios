@@ -397,6 +397,11 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     @weakify(self);
     [header.enableNotificationsButton bk_addEventHandler:^(id sender) {
         @strongify(self);
+        [[WMFNotificationsController sharedNotificationsController] requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError * _Nullable error) {
+            if (error) {
+                [self wmf_showAlertWithError:error];
+            }
+        }];
         [[NSUserDefaults wmf_userDefaults] wmf_setInTheNewsNotificationsEnabled:YES];
         [self showHideNotificationIfNeccesary];
         

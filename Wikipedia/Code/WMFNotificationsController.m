@@ -29,6 +29,15 @@ NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
 
 @implementation WMFNotificationsController
 
++ (WMFNotificationsController *)sharedNotificationsController {
+    static dispatch_once_t onceToken;
+    static WMFNotificationsController *notificationsController;
+    dispatch_once(&onceToken, ^{
+        notificationsController = [[WMFNotificationsController alloc] init];
+    });
+    return notificationsController;
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {

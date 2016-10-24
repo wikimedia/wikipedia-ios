@@ -786,12 +786,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if (![self uiIsLoaded]) {
         return nil;
     }
-
-    if (!_notificationsController) {
-        _notificationsController = [[WMFNotificationsController alloc] init];
-    }
-
-    return _notificationsController;
+    return [WMFNotificationsController sharedNotificationsController];
 }
 
 - (SessionSingleton *)session {
