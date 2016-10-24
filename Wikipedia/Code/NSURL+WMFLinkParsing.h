@@ -2,6 +2,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface WMFSite: NSObject
+@property (nonatomic, readonly) NSString *domain;
+@property (nonatomic, readonly, nullable) NSString *language;
+@end
+
 extern NSString *const WMFDefaultSiteDomain;
 
 @interface NSURL (WMFLinkParsing)
@@ -188,6 +193,9 @@ extern NSString *const WMFDefaultSiteDomain;
  *
  *  @return The site URL
  */
+
+@property (nonatomic, copy, readonly, nullable) WMFSite *wmf_site;
+
 @property (nonatomic, copy, readonly, nullable) NSURL *wmf_siteURL;
 
 @property (nonatomic, copy, readonly, nullable) NSString *wmf_domain;
@@ -229,13 +237,6 @@ extern NSString *const WMFDefaultSiteDomain;
  *  Return YES if the URL does not have a language subdomain
  */
 @property (nonatomic, readonly) BOOL wmf_isNonStandardURL;
-
-
-/**
- *  Return YES if the URL if has both wmf_language && wmf_domain
- */
-@property (nonatomic, readonly) BOOL wmf_hasValidSite;
-
 
 @end
 
