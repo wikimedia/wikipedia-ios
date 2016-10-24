@@ -199,12 +199,17 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 - (void)saveGroupForTopRead:(WMFFeedTopReadResponse *)topRead pageViews:(NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)date {
-
+    //Sometimes top read is nil, depends on time of day
+    if(topRead == nil || date == nil){
+        return;
+    }
+    
     WMFTopReadContentGroup *group = [self topReadForDate:date];
 
     if (group == nil) {
         group = [[WMFTopReadContentGroup alloc] initWithDate:date mostReadDate:topRead.date siteURL:self.siteURL];
     }
+    
 
     [topRead.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedTopReadArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         NSURL *url = [obj articleURL];
@@ -215,7 +220,10 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 - (void)saveGroupForPictureOfTheDay:(WMFFeedImage *)image date:(NSDate *)date {
-
+    if(image == nil || date == nil){
+        return;
+    }
+    
     WMFPictureOfTheDayContentGroup *group = [self pictureOfTheDayForDate:date];
 
     if (group == nil) {
@@ -226,6 +234,9 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 - (void)saveGroupForNews:(NSArray<WMFFeedNewsStory *> *)news pageViews:(NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)date {
+    if(news == nil || date == nil){
+        return;
+    }
 
     WMFNewsContentGroup *group = [self newsForDate:date];
 
