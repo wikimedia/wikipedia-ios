@@ -44,7 +44,6 @@
 "zero-free-verbiage" = "来自您的移动运营商的免费维基百科访问（并减免数据流量费用）";
 "zero-charged-verbiage" = "维基百科零已关闭";
 "zero-charged-verbiage-extended" = "载入其他条目将可能产生流量费用。已保存条目会离线存储并且免流量费用。";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "离开维基百科零";
 "zero-interstitial-leave-app" = "可能产生流量费用。继续访问外部站点吗？";
 "zero-interstitial-continue" = "离开";
@@ -420,4 +419,10 @@
 "top-read-header-with-language" = "$1维基百科";
 "top-read-header-generic" = "维基百科";
 "reference-title" = "参考文献$1";
+"in-the-news-notification-read-now-action-title" = "现在阅读";
+"in-the-news-notification-share-action-title" = "分享";
+"in-the-news-notification-save-for-later-action-title" = "保存以供日后使用";
+"in-the-news-currently-trending" = "当前趋势";
 "number-thousands" = "$1千";
+"number-millions" = "$1百万";
+"number-billions" = "$1十亿";

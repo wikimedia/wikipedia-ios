@@ -44,7 +44,6 @@
 "zero-free-verbiage" = "Accès libre à Wikipédia de la part de votre opérateur mobile (dispensé de frais de données)";
 "zero-charged-verbiage" = "Wikipédia Zéro est désactivé";
 "zero-charged-verbiage-extended" = "Charger d’autres articles pourrait augmenter les frais de données. Les articles enregistrés hors connexion ne consomment pas de données et sont gratuits.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Sortie de Wikipédia Zéro";
 "zero-interstitial-leave-app" = "Des frais de données pourraient s’appliquer. Continuer vers un site externe ?";
 "zero-interstitial-continue" = "Quitter";
@@ -420,4 +419,10 @@
 "top-read-header-with-language" = "Wikipédia en $1";
 "top-read-header-generic" = "Wikipédia";
 "reference-title" = "Référence $1";
+"in-the-news-notification-read-now-action-title" = "Lire maintenant";
+"in-the-news-notification-share-action-title" = "Partager";
+"in-the-news-notification-save-for-later-action-title" = "Enregistrer pour plus tard";
+"in-the-news-currently-trending" = "Actuellement à la mode";
 "number-thousands" = "$1K";
+"number-millions" = "$1M";
+"number-billions" = "$1G";

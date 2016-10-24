@@ -37,7 +37,6 @@
 "zero-free-verbiage" = "आपल्या भ्रमणध्वनी चालकाद्वारे मुक्त विकिपीडिया पोहोच (डाटा चार्जेस लगणार नाहीत)";
 "zero-charged-verbiage" = "विकिपीडिया झिरो बंद आहे";
 "zero-charged-verbiage-extended" = "इतर लेखांचे प्रभारण केल्याने आपणास डाटा चार्जेस लागू शकतात.विनाजाल जतन केलेले लेख डाटा वापरत नाहीत व मुक्त आहेत.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "विकिपीडिया झिरो त्यागत आहे";
 "zero-interstitial-leave-app" = "डाटा चार्जेस लागू शकतील.बाह्य संकेतस्थळास सुरू ठेउ?";
 "zero-interstitial-continue" = "सोडा";
@@ -328,8 +327,7 @@
 "home-hide-suggestion-prompt" = "ही सुचवणी लपवा";
 "home-hide-suggestion-cancel" = "रद्द करा";
 "home-accessibility-label" = "विकिपीडिया,शोधा";
-// Fuzzy
-"home-button-accessibility-label" = "गृह कळ";
+"home-button-accessibility-label" = "स्वगृह";
 "potd-empty-error-description" = "$1 साठी आजचे चित्र आणण्यात अयशस्वी";
 "potd-description-prefix" = "$1 साठी आजचे चित्र";
 "welcome-explore-title" = "शोध करा";
@@ -388,3 +386,9 @@
 "top-read-header-with-language" = "$1 विकिपीडिया";
 "top-read-header-generic" = "विकिपीडिया";
 "reference-title" = "संदर्भ $1";
+"in-the-news-notification-read-now-action-title" = "आता वाचा";
+"in-the-news-notification-share-action-title" = "सहभाग करा";
+"in-the-news-notification-save-for-later-action-title" = "नंतरसाठी जतन करा";
+"number-thousands" = "$1हजार";
+"number-millions" = "$1लक्ष";
+"number-billions" = "$1कोटी";

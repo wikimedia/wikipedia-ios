@@ -36,7 +36,6 @@
 "zero-free-verbiage" = "Бесплатнен пристап до Википедија преку Вашиот мобилен оператор (податочниот сообраќај не се наплаќа)";
 "zero-charged-verbiage" = "Википедија Нулта е исклучена";
 "zero-charged-verbiage-extended" = "Вчитувањето на други статии може да повлече наплата за податочниот промет. Статиите зачувани на уредот не предизвикуваат податочен промет и се бесплатни.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Ја напуштате Википедија Нулта";
 "zero-interstitial-leave-app" = "За ова може да се наплаќа. Да продолжам кон надворешно место?";
 "zero-interstitial-continue" = "Напушти";
@@ -412,4 +411,10 @@
 "top-read-header-with-language" = "Википедија на $1";
 "top-read-header-generic" = "Википедија";
 "reference-title" = "Навод $1";
+"in-the-news-notification-read-now-action-title" = "Прочитај сега";
+"in-the-news-notification-share-action-title" = "Сподели";
+"in-the-news-notification-save-for-later-action-title" = "Зачувај за подоцна";
+"in-the-news-currently-trending" = "Најчитани";
 "number-thousands" = "$1 илј.";
+"number-millions" = "$1 млн.";
+"number-billions" = "$1 млрд.";
