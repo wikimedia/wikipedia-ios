@@ -1055,25 +1055,25 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)showReferenceFromLastClickedReferencesGroupAtIndex:(NSInteger)index {
+    if (index < 0 || self.lastClickedReferencesGroup.count == 0) {
+        NSAssert(false, @"Expected index or reference group not found.");
+        return;
+    }
+    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        if (index >= 0){
-            WMFReferencePageViewController* vc = [WMFReferencePageViewController wmf_viewControllerFromReferencePanelsStoryboard];
-            vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-            vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-            vc.lastClickedReferencesIndex = index;
-            vc.lastClickedReferencesGroup = self.lastClickedReferencesGroup;
-            [self presentViewController:vc animated:NO completion:nil];
-        }
+        WMFReferencePageViewController* vc = [WMFReferencePageViewController wmf_viewControllerFromReferencePanelsStoryboard];
+        vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        vc.lastClickedReferencesIndex = index;
+        vc.lastClickedReferencesGroup = self.lastClickedReferencesGroup;
+        [self presentViewController:vc animated:NO completion:nil];
     }else{
-        if (index >= 0 && self.lastClickedReferencesGroup.count > 0) {
-            WMFReference *selectedReference = [self.lastClickedReferencesGroup wmf_safeObjectAtIndex:index];
-            if (selectedReference) {
-                CGFloat width = MIN(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
-                selectedReference.rect = CGRectMake(CGRectGetMidX(selectedReference.rect), CGRectGetMidY(selectedReference.rect), 1, 1);
-                
-                [self wmf_presentReferencePopoverViewControllerForReference:selectedReference
-                                                                      width:width];
-            }
+        WMFReference *selectedReference = [self.lastClickedReferencesGroup wmf_safeObjectAtIndex:index];
+        if (selectedReference) {
+            CGFloat width = MIN(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
+            selectedReference.rect = CGRectMake(CGRectGetMidX(selectedReference.rect), CGRectGetMidY(selectedReference.rect), 1, 1);
+            [self wmf_presentReferencePopoverViewControllerForReference:selectedReference
+                                                                  width:width];
         }
         self.indexOfLastReferenceShownFromLastClickedReferencesGroup = index;
     }
