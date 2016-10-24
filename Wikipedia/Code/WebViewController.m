@@ -1041,27 +1041,32 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)showReferenceFromLastClickedReferencesGroupAtIndex:(NSInteger)index {
-    if (index < 0 || self.lastClickedReferencesGroup.count == 0) {
+    if (index < 0 || self.lastClickedReferencesGroup.count == 0 || [self.lastClickedReferencesGroup wmf_safeObjectAtIndex:index] == nil) {
         NSAssert(false, @"Expected index or reference group not found.");
         return;
     }
-    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        WMFReferencePageViewController* vc = [WMFReferencePageViewController wmf_viewControllerFromReferencePanelsStoryboard];
-        vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-        vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        vc.lastClickedReferencesIndex = index;
-        vc.lastClickedReferencesGroup = self.lastClickedReferencesGroup;
-        [self presentViewController:vc animated:NO completion:nil];
+        [self showReferencePageViewControllerWithGroup:self.lastClickedReferencesGroup selectedIndex:index];
     }else{
-        WMFReference *selectedReference = [self.lastClickedReferencesGroup wmf_safeObjectAtIndex:index];
-        if (selectedReference) {
-            CGFloat width = MIN(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
-            selectedReference.rect = CGRectMake(CGRectGetMidX(selectedReference.rect), CGRectGetMidY(selectedReference.rect), 1, 1);
-            [self wmf_presentReferencePopoverViewControllerForReference:selectedReference
-                                                                  width:width];
-        }
+        [self showReferencePopoverMessageViewControllerWithGroup:self.lastClickedReferencesGroup selectedIndex:index];
     }
+}
+
+- (void)showReferencePageViewControllerWithGroup:(NSArray<WMFReference *> *)referenceGroup selectedIndex:(NSInteger)selectedIndex {
+    WMFReferencePageViewController* vc = [WMFReferencePageViewController wmf_viewControllerFromReferencePanelsStoryboard];
+    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    vc.lastClickedReferencesIndex = selectedIndex;
+    vc.lastClickedReferencesGroup = referenceGroup;
+    [self presentViewController:vc animated:NO completion:nil];
+}
+
+- (void)showReferencePopoverMessageViewControllerWithGroup:(NSArray<WMFReference *> *)referenceGroup selectedIndex:(NSInteger)selectedIndex {
+    WMFReference *selectedReference = [referenceGroup wmf_safeObjectAtIndex:selectedIndex];
+    CGFloat width = MIN(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
+    selectedReference.rect = CGRectMake(CGRectGetMidX(selectedReference.rect), CGRectGetMidY(selectedReference.rect), 1, 1);
+    [self wmf_presentReferencePopoverViewControllerForReference:selectedReference
+                                                          width:width];
 }
 
 #pragma mark - Share Actions
