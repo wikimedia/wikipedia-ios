@@ -99,6 +99,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 - (void)loadContentForDate:(NSDate *)date completion:(nullable dispatch_block_t)completion {
     
+    [self cleanupBadTopReadSections];
+    
     [self.fetcher fetchFeedContentForURL:self.siteURL
                                     date:date
                                    force:NO
@@ -161,6 +163,16 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     [self.contentStore removeAllContentGroupsOfKind:[WMFPictureOfTheDayContentGroup kind]];
     [self.contentStore removeAllContentGroupsOfKind:[WMFTopReadContentGroup kind]];
     [self.contentStore removeAllContentGroupsOfKind:[WMFNewsContentGroup kind]];
+}
+
+- (void)cleanupBadTopReadSections{
+    NSMutableArray* remove = [NSMutableArray array];
+    [self.contentStore enumerateContentGroupsOfKind:[WMFTopReadContentGroup kind] withBlock:^(WMFTopReadContentGroup * _Nonnull group, BOOL * _Nonnull stop) {
+        if(group.date == nil || group.mostReadDate == nil){
+            [remove addObject:[group databaseKey]];
+        }
+    }];
+    [self.contentStore removeContentGroupsWithKeys:remove];
 }
 
 #pragma mark - Save Groups
