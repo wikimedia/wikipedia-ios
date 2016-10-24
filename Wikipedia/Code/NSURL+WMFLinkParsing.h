@@ -2,11 +2,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFSite: NSObject
-@property (nonatomic, readonly) NSString *domain;
-@property (nonatomic, readonly, nullable) NSString *language;
-@end
-
 extern NSString *const WMFDefaultSiteDomain;
 
 @interface NSURL (WMFLinkParsing)
@@ -193,9 +188,6 @@ extern NSString *const WMFDefaultSiteDomain;
  *
  *  @return The site URL
  */
-
-@property (nonatomic, copy, readonly, nullable) WMFSite *wmf_site;
-
 @property (nonatomic, copy, readonly, nullable) NSURL *wmf_siteURL;
 
 @property (nonatomic, copy, readonly, nullable) NSString *wmf_domain;

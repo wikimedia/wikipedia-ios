@@ -7,24 +7,6 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
 NSString *const WMFMediaWikiDomain = @"mediawiki.org";
 NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
 
-
-@interface WMFSite ()
-@property (nonatomic, copy) NSString *domain;
-@property (nonatomic, copy) NSString *language;
-@end
-
-@implementation WMFSite
-- (instancetype)initWithDomain:(NSString *)domain language:(NSString *)language {
-    self = [super init];
-    if (self) {
-        self.domain = domain;
-        self.language = language;
-    }
-    return self;
-}
-@end
-
-
 @interface NSString (WMFLinkParsing)
 
 - (BOOL)wmf_isWikiResource;
@@ -261,39 +243,28 @@ NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
     return [self.path wmf_pathWithoutWikiPrefix];
 }
 
-- (WMFSite *)wmf_site {
+- (NSString *)wmf_domain {
     NSArray *hostComponents = [self.host componentsSeparatedByString:@"."];
-    
-    NSString *domain = nil;
-    NSString *language = nil;
-    
     if (hostComponents.count < 3) {
-        domain = self.host;
+        return self.host;
     } else {
         NSInteger firstIndex = 1;
         if ([hostComponents[1] isEqualToString:@"m"]) {
             firstIndex = 2;
         }
         NSArray *subarray = [hostComponents subarrayWithRange:NSMakeRange(firstIndex, hostComponents.count - firstIndex)];
-        domain = [subarray componentsJoinedByString:@"."];
-        
-        NSString *potentialLanguage = hostComponents[0];
-        language = [potentialLanguage isEqualToString:@"m"] ? nil : potentialLanguage;
+        return [subarray componentsJoinedByString:@"."];
     }
-    
-    if (!domain) {
-        return nil;
-    }
-    
-    return [[WMFSite alloc] initWithDomain:domain language:language];
-}
-
-- (NSString *)wmf_domain {
-    return self.wmf_site.domain;
 }
 
 - (NSString *)wmf_language {
-    return self.wmf_site.language;
+    NSArray *hostComponents = [self.host componentsSeparatedByString:@"."];
+    if (hostComponents.count < 3) {
+        return nil;
+    } else {
+        NSString *potentialLanguage = hostComponents[0];
+        return [potentialLanguage isEqualToString:@"m"] ? nil : potentialLanguage;
+    }
 }
 
 - (NSURL *)wmf_databaseKeyURL {

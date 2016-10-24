@@ -44,15 +44,17 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFMainPageContentGroup (WMFDatabaseStorable)
 
 + (nullable NSURL *)urlForSiteURL:(NSURL *)url {
-    WMFSite *site = url.wmf_site;
-    NSParameterAssert(site.language);
-    if (!site.language) {
+    NSString *language = url.wmf_language;
+    NSString *domain = url.wmf_domain;
+    NSParameterAssert(domain);
+    NSParameterAssert(language);
+    if (!domain || !language) {
         return nil;
     }
 
     NSURL *theURL = [[self baseUrl] URLByAppendingPathComponent:@"main-page"];
-    theURL = [theURL URLByAppendingPathComponent:site.domain];
-    theURL = [theURL URLByAppendingPathComponent:site.language];
+    theURL = [theURL URLByAppendingPathComponent:domain];
+    theURL = [theURL URLByAppendingPathComponent:language];
     return theURL;
 }
 
@@ -70,16 +72,18 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFRelatedPagesContentGroup (WMFDatabaseStorable)
 
 + (nullable NSURL *)urlForArticleURL:(NSURL *)url {
-    WMFSite *site = url.wmf_site;
     NSString *title = url.wmf_title;
-    NSParameterAssert(site.language);
+    NSString *domain = url.wmf_domain;
+    NSString *language = url.wmf_language;
     NSParameterAssert(title);
-    if (!site.language || !title) {
+    NSParameterAssert(domain);
+    NSParameterAssert(language);
+    if (!title || !domain || !language) {
         return nil;
     }
     NSURL *theURL = [[self baseUrl] URLByAppendingPathComponent:@"related-pages"];
-    theURL = [theURL URLByAppendingPathComponent:site.domain];
-    theURL = [theURL URLByAppendingPathComponent:site.language];
+    theURL = [theURL URLByAppendingPathComponent:domain];
+    theURL = [theURL URLByAppendingPathComponent:language];
     theURL = [theURL URLByAppendingPathComponent:title];
     return theURL;
 }
@@ -115,13 +119,14 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFPictureOfTheDayContentGroup (WMFDatabaseStorable)
 
 + (nullable NSURL *)urlForSiteURL:(NSURL *)url date:(NSDate *)date {
-    NSParameterAssert(url.wmf_domain);
-    if (url.wmf_domain == nil) {
+    NSString *domain = url.wmf_domain;
+    NSParameterAssert(domain);
+    if (!domain) {
         return nil;
     }
 
     NSURL *urlKey = [[self baseUrl] URLByAppendingPathComponent:@"picture-of-the-day"];
-    urlKey = [urlKey URLByAppendingPathComponent:url.wmf_domain];
+    urlKey = [urlKey URLByAppendingPathComponent:domain];
     urlKey = [urlKey URLByAppendingPathComponent:[[NSDateFormatter wmf_englishUTCSlashDelimitedYearMonthDayFormatter] stringFromDate:date]];
     return urlKey;
 }
@@ -139,15 +144,17 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFRandomContentGroup (WMFDatabaseStorable)
 
 + (nullable NSURL *)urlForSiteURL:(NSURL *)url date:(NSDate *)date {
-    WMFSite *site = url.wmf_site;
-    NSParameterAssert(site.language);
-    if (!site.language) {
+    NSString *language = url.wmf_language;
+    NSString *domain = url.wmf_domain;
+    NSParameterAssert(domain);
+    NSParameterAssert(language);
+    if (!domain || !language) {
         return nil;
     }
 
     NSURL *urlKey = [[self baseUrl] URLByAppendingPathComponent:@"random"];
-    urlKey = [urlKey URLByAppendingPathComponent:site.domain];
-    urlKey = [urlKey URLByAppendingPathComponent:site.language];
+    urlKey = [urlKey URLByAppendingPathComponent:domain];
+    urlKey = [urlKey URLByAppendingPathComponent:language];
     urlKey = [urlKey URLByAppendingPathComponent:[[NSDateFormatter wmf_englishUTCSlashDelimitedYearMonthDayFormatter] stringFromDate:date]];
     return urlKey;
 }
@@ -165,15 +172,17 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFFeaturedArticleContentGroup (WMFDatabaseStorable)
 
 + (nullable NSURL *)urlForSiteURL:(NSURL *)url date:(NSDate *)date {
-    WMFSite *site = url.wmf_site;
-    NSParameterAssert(site.language);
-    if (!site.language) {
+    NSString *language = url.wmf_language;
+    NSString *domain = url.wmf_domain;
+    NSParameterAssert(domain);
+    NSParameterAssert(language);
+    if (!domain || !language) {
         return nil;
     }
 
     NSURL *urlKey = [[self baseUrl] URLByAppendingPathComponent:@"featured-article"];
-    urlKey = [urlKey URLByAppendingPathComponent:site.domain];
-    urlKey = [urlKey URLByAppendingPathComponent:site.language];
+    urlKey = [urlKey URLByAppendingPathComponent:domain];
+    urlKey = [urlKey URLByAppendingPathComponent:language];
     urlKey = [urlKey URLByAppendingPathComponent:[[NSDateFormatter wmf_englishUTCSlashDelimitedYearMonthDayFormatter] stringFromDate:date]];
     return urlKey;
 }
@@ -191,15 +200,17 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFTopReadContentGroup (WMFDatabaseStorable)
 
 + (nullable NSURL *)urlForSiteURL:(NSURL *)url date:(NSDate *)date {
-    WMFSite *site = url.wmf_site;
-    NSParameterAssert(site.language);
-    if (!site.language) {
+    NSString *language = url.wmf_language;
+    NSString *domain = url.wmf_domain;
+    NSParameterAssert(domain);
+    NSParameterAssert(language);
+    if (!domain || !language) {
         return nil;
     }
 
     NSURL *urlKey = [[self baseUrl] URLByAppendingPathComponent:@"top-read"];
-    urlKey = [urlKey URLByAppendingPathComponent:site.domain];
-    urlKey = [urlKey URLByAppendingPathComponent:site.language];
+    urlKey = [urlKey URLByAppendingPathComponent:domain];
+    urlKey = [urlKey URLByAppendingPathComponent:language];
     urlKey = [urlKey URLByAppendingPathComponent:[[NSDateFormatter wmf_englishUTCSlashDelimitedYearMonthDayFormatter] stringFromDate:date]];
     return urlKey;
 }
