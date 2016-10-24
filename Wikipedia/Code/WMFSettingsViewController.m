@@ -32,6 +32,7 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "NSBundle+WMFInfoUtils.h"
 #import "WMFAuthenticationManager.h"
+#import "Wikipedia-Swift.h"
 
 #pragma mark - Static URLs
 
@@ -168,6 +169,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_SearchLanguage:
             [self showLanguages];
             break;
+        case WMFSettingsMenuItemType_Notifications:
+            [self showNotifications];
+            break;
         case WMFSettingsMenuItemType_Support:
             [self wmf_openExternalUrl:[self donationURL]];
             break;
@@ -276,6 +280,13 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self reloadVisibleCellOfType:WMFSettingsMenuItemType_SearchLanguageBarVisibility];
 }
 
+#pragma mark - Notifications
+
+- (void)showNotifications {
+    NotificationSettingsViewController *notificationSettingsVC = [[NotificationSettingsViewController alloc] initWithNibName:@"NotificationSettingsViewController" bundle:nil];
+    [self.navigationController pushViewController:notificationSettingsVC animated:YES];
+}
+
 #pragma mark - Debugging
 
 + (void)generateTestCrash {
@@ -337,11 +348,13 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (SSSection *)section_2 {
-    SSSection *section =
-        [SSSection sectionWithItems:@[
-            [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SearchLanguage],
-            [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SearchLanguageBarVisibility]
-        ]];
+    NSArray *commonItems = @[[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SearchLanguage],
+                             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SearchLanguageBarVisibility]];
+    NSMutableArray *items = [NSMutableArray arrayWithArray:commonItems];
+    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10]) {
+        [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
+    }
+    SSSection *section = [SSSection sectionWithItems:items];
     section.header = nil;
     section.footer = nil;
     return section;

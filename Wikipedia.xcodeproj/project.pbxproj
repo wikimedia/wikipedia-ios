@@ -31,9 +31,7 @@
 		0E28C46A1D74ACB1000C5919 /* WMFDatabaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E33F2B31D57E15300C6CF94 /* WMFDatabaseDataSource.m */; };
 		0E28C46B1D74ACB1000C5919 /* MWKDataStore+WMFDataSources.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E01B2B41D5BFF13005E3134 /* MWKDataStore+WMFDataSources.m */; };
 		0E28C46D1D74AE64000C5919 /* WMFContentGroupDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E3C5D3B1D6C964A00C95BA1 /* WMFContentGroupDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0E28C46E1D74AE64000C5919 /* WMFExploreSection.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E802CE1C0CD35B0065EBC0 /* WMFExploreSection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E28C4701D74AE6E000C5919 /* WMFContentGroupDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C5D3C1D6C964A00C95BA1 /* WMFContentGroupDataStore.m */; };
-		0E28C4711D74AE6E000C5919 /* WMFExploreSection.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802CF1C0CD35B0065EBC0 /* WMFExploreSection.m */; };
 		0E28C4751D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C4731D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E28C4761D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E28C4741D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.m */; };
 		0E28C4781D74D381000C5919 /* WMFDatabaseViewable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C4771D74D381000C5919 /* WMFDatabaseViewable.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -58,6 +56,8 @@
 		0E4B5FC61C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FC51C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.m */; };
 		0E4D071D1CC5526200AE968B /* WMFLanguageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E4D071C1CC5526200AE968B /* WMFLanguageCell.xib */; };
 		0E52FD691DA44D7800587426 /* WMFZeroConfigurationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807401C0CED9F0065EBC0 /* WMFZeroConfigurationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0E5386961DB834B70046E0F9 /* WMFFeedNotificationHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5386951DB834B70046E0F9 /* WMFFeedNotificationHeader.m */; };
+		0E5386981DB834DE0046E0F9 /* WMFFeedNotificationHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E5386971DB834DD0046E0F9 /* WMFFeedNotificationHeader.xib */; };
 		0E61C4881CD00984000B11B3 /* WMFHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E61C4871CD00984000B11B3 /* WMFHelpViewController.m */; };
 		0E69CD5B1C8773410095918B /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E69CD5A1C8773410095918B /* Launch Screen.storyboard */; };
 		0E6A6F531D9E9AB300189C80 /* WMFContentGroup+WMFFeedContentDisplaying.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6A6F521D9E9AB300189C80 /* WMFContentGroup+WMFFeedContentDisplaying.m */; };
@@ -76,8 +76,6 @@
 		0E728D241DAEE2B50074EB4B /* WMFFeedContentFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E19B9AD1DA7DC9D00239F3A /* WMFFeedContentFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E728D251DAEE2B50074EB4B /* WMFFeedContentFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E19B9AE1DA7DC9D00239F3A /* WMFFeedContentFetcher.m */; };
 		0E728D281DAEE8FF0074EB4B /* WMFContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E3C5D371D664BFC00C95BA1 /* WMFContentSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0E728D291DAEE8FF0074EB4B /* WMFTimerContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E86DD981D6F41D200B54E71 /* WMFTimerContentSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0E728D2A1DAEE8FF0074EB4B /* WMFTimerContentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E86DD991D6F41D200B54E71 /* WMFTimerContentSource.m */; };
 		0E728D2B1DAEE8FF0074EB4B /* WMFRelatedPagesContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E3C5D381D664CBF00C95BA1 /* WMFRelatedPagesContentSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E728D2C1DAEE8FF0074EB4B /* WMFRelatedPagesContentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C5D391D664CBF00C95BA1 /* WMFRelatedPagesContentSource.m */; };
 		0E728D2D1DAEE8FF0074EB4B /* WMFMainPageContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E3C5D471D6DE9E400C95BA1 /* WMFMainPageContentSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -139,6 +137,7 @@
 		0EF5BB6D1C110C2100DE75E1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB6C1C110C2100DE75E1 /* AppDelegate.m */; };
 		0EF8634E1C19E02700006D2D /* WMFEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EF8634D1C19E02700006D2D /* WMFEmptyView.xib */; };
 		0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
+		0EFC9C221DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EFC9C211DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib */; };
 		19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */; };
 		19A17B36FFB48307FF04C07F /* SavedPageSpotlightManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */; };
 		535B1AFBBE34CAF0886C6DD9 /* Pods_Foundation_Wikipedia_WikipediaUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEB1B9EA1D15047B919A2C88 /* Pods_Foundation_Wikipedia_WikipediaUnitTests.framework */; };
@@ -763,6 +762,9 @@
 		D84B22521DAFD1E1007C44AA /* CIContext+WMFImageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8046C1C0CE0B40065EBC0 /* CIContext+WMFImageProcessing.m */; };
 		D84B22531DAFD1E1007C44AA /* CIDetector+WMFFaceDetection.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8046D1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D84B22541DAFD1E1007C44AA /* CIDetector+WMFFaceDetection.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8046E1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.m */; };
+		D84BF62C1DB96D5900E0C85E /* NotificationSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84BF62A1DB96D5900E0C85E /* NotificationSettingsViewController.xib */; };
+		D84BF62D1DB96E7C00E0C85E /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BF6291DB96D5900E0C85E /* NotificationSettingsViewController.swift */; };
+		D84BF62F1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BF62E1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift */; };
 		D84F2BF21D2FE7ED00963D42 /* WMFArticleNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2BF11D2FE7ED00963D42 /* WMFArticleNavigationController.m */; };
 		D84F2BF51D2FE80A00963D42 /* WMFRotationRespectingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2BF41D2FE80A00963D42 /* WMFRotationRespectingNavigationController.m */; };
 		D84F2BFB1D2FEE6300963D42 /* WMFRandomDiceButton.html in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BF81D2FEE6300963D42 /* WMFRandomDiceButton.html */; };
@@ -1124,6 +1126,9 @@
 		0E4B5FC41C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+WMFArticlePresentation.h"; path = "Wikipedia/Code/UIViewController+WMFArticlePresentation.h"; sourceTree = SOURCE_ROOT; };
 		0E4B5FC51C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFArticlePresentation.m"; path = "Wikipedia/Code/UIViewController+WMFArticlePresentation.m"; sourceTree = SOURCE_ROOT; };
 		0E4D071C1CC5526200AE968B /* WMFLanguageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFLanguageCell.xib; sourceTree = "<group>"; };
+		0E5386941DB834B70046E0F9 /* WMFFeedNotificationHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFFeedNotificationHeader.h; path = Wikipedia/Code/WMFFeedNotificationHeader.h; sourceTree = SOURCE_ROOT; };
+		0E5386951DB834B70046E0F9 /* WMFFeedNotificationHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFFeedNotificationHeader.m; path = Wikipedia/Code/WMFFeedNotificationHeader.m; sourceTree = SOURCE_ROOT; };
+		0E5386971DB834DD0046E0F9 /* WMFFeedNotificationHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFFeedNotificationHeader.xib; path = Wikipedia/Code/WMFFeedNotificationHeader.xib; sourceTree = SOURCE_ROOT; };
 		0E568D471C78273B00E68FC1 /* SavedPageSpotlightManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SavedPageSpotlightManager.swift; path = ../Wikipedia/Code/SavedPageSpotlightManager.swift; sourceTree = "<group>"; };
 		0E5DC8611C6D716100C39A6F /* NSUserActivity+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSUserActivity+WMFExtensions.h"; path = "../Wikipedia/Code/NSUserActivity+WMFExtensions.h"; sourceTree = "<group>"; };
 		0E5DC8621C6D716100C39A6F /* NSUserActivity+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSUserActivity+WMFExtensions.m"; path = "../Wikipedia/Code/NSUserActivity+WMFExtensions.m"; sourceTree = "<group>"; };
@@ -1145,8 +1150,6 @@
 		0E83806B1D64989F0076EDE4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		0E83806D1D64989F0076EDE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E8380781D649DE10076EDE4 /* ContinueReadingWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ContinueReadingWidget.entitlements; sourceTree = "<group>"; };
-		0E86DD981D6F41D200B54E71 /* WMFTimerContentSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFTimerContentSource.h; path = Wikipedia/Code/WMFTimerContentSource.h; sourceTree = SOURCE_ROOT; };
-		0E86DD991D6F41D200B54E71 /* WMFTimerContentSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFTimerContentSource.m; path = Wikipedia/Code/WMFTimerContentSource.m; sourceTree = SOURCE_ROOT; };
 		0E8DC0931C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDailyStatsLoggingFunnel.h; path = Wikipedia/Code/WMFDailyStatsLoggingFunnel.h; sourceTree = SOURCE_ROOT; };
 		0E8DC0941C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFDailyStatsLoggingFunnel.m; path = Wikipedia/Code/WMFDailyStatsLoggingFunnel.m; sourceTree = SOURCE_ROOT; };
 		0E8E94141D55111900066FC0 /* WMFArticleListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleListTableViewController.h; path = Wikipedia/Code/WMFArticleListTableViewController.h; sourceTree = SOURCE_ROOT; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
@@ -1192,6 +1195,7 @@
 		0EF8634D1C19E02700006D2D /* WMFEmptyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFEmptyView.xib; path = Wikipedia/Code/WMFEmptyView.xib; sourceTree = SOURCE_ROOT; };
 		0EF8634F1C19E4F100006D2D /* WMFEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFEmptyView.h; path = Wikipedia/Code/WMFEmptyView.h; sourceTree = SOURCE_ROOT; };
 		0EF863501C19E4F100006D2D /* WMFEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFEmptyView.m; path = Wikipedia/Code/WMFEmptyView.m; sourceTree = SOURCE_ROOT; };
+		0EFC9C211DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WmfFeedNotificationHeaderiPad.xib; path = Wikipedia/Code/WmfFeedNotificationHeaderiPad.xib; sourceTree = SOURCE_ROOT; };
 		139EFB58D1CC85EFEDB9F21C /* Pods-Foundation-TopReadWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-TopReadWidget.release.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-TopReadWidget/Pods-Foundation-TopReadWidget.release.xcconfig"; sourceTree = "<group>"; };
 		19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedPageSpotlightManagerTest.m; sourceTree = "<group>"; };
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
@@ -1408,8 +1412,6 @@
 		B0E802C61C0CD2F70065EBC0 /* WMFPicOfTheDayCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFPicOfTheDayCollectionViewCell.h; path = Wikipedia/Code/WMFPicOfTheDayCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
 		B0E802C71C0CD2F70065EBC0 /* WMFPicOfTheDayCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFPicOfTheDayCollectionViewCell.m; path = Wikipedia/Code/WMFPicOfTheDayCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
 		B0E802C81C0CD2F70065EBC0 /* WMFPicOfTheDayCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFPicOfTheDayCollectionViewCell.xib; path = Wikipedia/Code/WMFPicOfTheDayCollectionViewCell.xib; sourceTree = SOURCE_ROOT; };
-		B0E802CE1C0CD35B0065EBC0 /* WMFExploreSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFExploreSection.h; path = Wikipedia/Code/WMFExploreSection.h; sourceTree = SOURCE_ROOT; };
-		B0E802CF1C0CD35B0065EBC0 /* WMFExploreSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFExploreSection.m; path = Wikipedia/Code/WMFExploreSection.m; sourceTree = SOURCE_ROOT; };
 		B0E802E01C0CD4350065EBC0 /* WMFMainPagePlaceholderCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFMainPagePlaceholderCollectionViewCell.h; path = Wikipedia/Code/WMFMainPagePlaceholderCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
 		B0E802E11C0CD4350065EBC0 /* WMFMainPagePlaceholderCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMainPagePlaceholderCollectionViewCell.m; path = Wikipedia/Code/WMFMainPagePlaceholderCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
 		B0E802E21C0CD4350065EBC0 /* WMFMainPagePlaceholderCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFMainPagePlaceholderCollectionViewCell.xib; path = Wikipedia/Code/WMFMainPagePlaceholderCollectionViewCell.xib; sourceTree = SOURCE_ROOT; };
@@ -2358,6 +2360,9 @@
 		D8494ADC1D6C85C500337433 /* NSUserDefaults+WMFExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSUserDefaults+WMFExtensions.swift"; path = "Wikipedia/Code/NSUserDefaults+WMFExtensions.swift"; sourceTree = SOURCE_ROOT; };
 		D8494ADD1D6C85C500337433 /* WMFAssetsFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAssetsFile.h; path = Wikipedia/Code/WMFAssetsFile.h; sourceTree = SOURCE_ROOT; };
 		D8494ADE1D6C85C500337433 /* WMFAssetsFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFAssetsFile.m; path = Wikipedia/Code/WMFAssetsFile.m; sourceTree = SOURCE_ROOT; };
+		D84BF6291DB96D5900E0C85E /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
+		D84BF62A1DB96D5900E0C85E /* NotificationSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationSettingsViewController.xib; sourceTree = "<group>"; };
+		D84BF62E1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+WMFAlerts.swift"; sourceTree = "<group>"; };
 		D84F2BF01D2FE7ED00963D42 /* WMFArticleNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleNavigationController.h; sourceTree = "<group>"; };
 		D84F2BF11D2FE7ED00963D42 /* WMFArticleNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleNavigationController.m; sourceTree = "<group>"; };
 		D84F2BF31D2FE80A00963D42 /* WMFRotationRespectingNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFRotationRespectingNavigationController.h; sourceTree = "<group>"; };
@@ -2571,8 +2576,6 @@
 			children = (
 				0EF2249D1CC5538200FDF78E /* View Controllers */,
 				BC45D5A71C33090A007C72F3 /* Views */,
-				BC45D5A81C330911007C72F3 /* Controller */,
-				BC45D5A91C330A4C007C72F3 /* Model */,
 			);
 			name = Languages;
 			path = Wikipedia/Code;
@@ -2765,7 +2768,6 @@
 		04C43AB7183442FC006C643B /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				BC45D5861C32F823007C72F3 /* Collections */,
 				BC45D57F1C32F650007C72F3 /* Time & Date */,
 				BC45D5851C32F813007C72F3 /* Strings */,
 				BC45D5831C32F79A007C72F3 /* UIScrollView */,
@@ -2782,7 +2784,6 @@
 		04C757621A1A9DC50084AC39 /* RecentSearches */ = {
 			isa = PBXGroup;
 			children = (
-				BC45D5AC1C330AC5007C72F3 /* Model */,
 				BC45D5AD1C330ACA007C72F3 /* Views */,
 				B0E806E91C0CEBA40065EBC0 /* RecentSearchesViewController.h */,
 				B0E806EA1C0CEBA40065EBC0 /* RecentSearchesViewController.m */,
@@ -2829,13 +2830,6 @@
 			name = PageHistory;
 			path = Wikipedia/Code/PageHistory;
 			sourceTree = SOURCE_ROOT;
-		};
-		0E01B2B21D5BFD33005E3134 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Models;
-			sourceTree = "<group>";
 		};
 		0E03E27E1B82EF7600C1FBD7 /* Nearby */ = {
 			isa = PBXGroup;
@@ -3150,8 +3144,6 @@
 			children = (
 				0E3C5D3B1D6C964A00C95BA1 /* WMFContentGroupDataStore.h */,
 				0E3C5D3C1D6C964A00C95BA1 /* WMFContentGroupDataStore.m */,
-				B0E802CE1C0CD35B0065EBC0 /* WMFExploreSection.h */,
-				B0E802CF1C0CD35B0065EBC0 /* WMFExploreSection.m */,
 				0E3F644D1D773642007C632C /* WMFContentGroup.h */,
 				0E3F644E1D773642007C632C /* WMFContentGroup.m */,
 				0E28C47D1D74D8DF000C5919 /* WMFContentGroup+WMFDatabaseViews.h */,
@@ -3201,14 +3193,6 @@
 			name = Search;
 			path = Wikipedia/Code;
 			sourceTree = SOURCE_ROOT;
-		};
-		0E3C5D3E1D6C98FF00C95BA1 /* DataSources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = DataSources;
-			path = ../Wikipedia/Code;
-			sourceTree = "<group>";
 		};
 		0E4D1CFD1BBDC72F009BEB64 /* Table of Contents */ = {
 			isa = PBXGroup;
@@ -3275,6 +3259,10 @@
 		0E52FD671DA40F8000587426 /* Headers and Footers */ = {
 			isa = PBXGroup;
 			children = (
+				0E5386941DB834B70046E0F9 /* WMFFeedNotificationHeader.h */,
+				0E5386951DB834B70046E0F9 /* WMFFeedNotificationHeader.m */,
+				0E5386971DB834DD0046E0F9 /* WMFFeedNotificationHeader.xib */,
+				0EFC9C211DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib */,
 				B0E803291C0CD6E10065EBC0 /* WMFExploreSectionHeader.h */,
 				B0E8032A1C0CD6E10065EBC0 /* WMFExploreSectionHeader.m */,
 				B0E8032B1C0CD6E10065EBC0 /* WMFExploreSectionHeader.xib */,
@@ -3307,7 +3295,7 @@
 		0E6A6F501D9E9A1300189C80 /* Content Sources */ = {
 			isa = PBXGroup;
 			children = (
-				0E9B6CBA1DA593E100F92DFC /* Base */,
+				0E3C5D371D664BFC00C95BA1 /* WMFContentSource.h */,
 				0E3C5D381D664CBF00C95BA1 /* WMFRelatedPagesContentSource.h */,
 				0E3C5D391D664CBF00C95BA1 /* WMFRelatedPagesContentSource.m */,
 				0E3C5D471D6DE9E400C95BA1 /* WMFMainPageContentSource.h */,
@@ -3581,16 +3569,6 @@
 			name = Feed;
 			sourceTree = "<group>";
 		};
-		0E9B6CBA1DA593E100F92DFC /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				0E3C5D371D664BFC00C95BA1 /* WMFContentSource.h */,
-				0E86DD981D6F41D200B54E71 /* WMFTimerContentSource.h */,
-				0E86DD991D6F41D200B54E71 /* WMFTimerContentSource.m */,
-			);
-			name = Base;
-			sourceTree = "<group>";
-		};
 		0E9B9E341CBF3262001E4C3C /* Overlay View */ = {
 			isa = PBXGroup;
 			children = (
@@ -3605,7 +3583,6 @@
 			isa = PBXGroup;
 			children = (
 				BC23E4DF1C223F1000B5AFDE /* Content */,
-				BCF445821C28ADD700F49E29 /* Previews */,
 				BC23E4DE1C223EAB00B5AFDE /* Revisions */,
 			);
 			name = Networking;
@@ -3620,14 +3597,6 @@
 			);
 			name = Animation;
 			path = Wikipedia/Code/Animation;
-			sourceTree = SOURCE_ROOT;
-		};
-		0EAAAFC91B43301C00E65A95 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Model;
-			path = Wikipedia/Code;
 			sourceTree = SOURCE_ROOT;
 		};
 		0EAED8551BE9507C006B01E6 /* Networking */ = {
@@ -3800,7 +3769,6 @@
 				0E87313E1C62C695008AF0AE /* Presentation */,
 				0E87313F1C62C69E008AF0AE /* View Controller */,
 				BC45D5AB1C330A8E007C72F3 /* Components */,
-				BC45D5AA1C330A75007C72F3 /* Model */,
 				0E9DFEAB1BDEB82E0032606E /* Networking */,
 			);
 			name = Article;
@@ -3810,8 +3778,6 @@
 		0EFB48091B3BB01300381F99 /* Style */ = {
 			isa = PBXGroup;
 			children = (
-				BC45D59D1C330137007C72F3 /* Colors */,
-				BCA15B181C0F48F900D0A3EA /* Images */,
 				BC45D59E1C33013E007C72F3 /* Text */,
 				BC45D5501C31EB4E007C72F3 /* Utilities */,
 				B0E802B91C0CD2260065EBC0 /* WMFStyleManager.h */,
@@ -4221,7 +4187,6 @@
 				04292FFB185FC026002A13FC /* Style Defines */,
 				BC45D5841C32F7B1007C72F3 /* Categories */,
 				BC45D56A1C32E7C5007C72F3 /* Custom Views */,
-				D4EE00BB182445670090790F /* mw-support */,
 			);
 			name = Legacy;
 			sourceTree = "<group>";
@@ -4394,13 +4359,6 @@
 			name = UILabel;
 			sourceTree = "<group>";
 		};
-		BC45D5791C32EFBD007C72F3 /* SDWebImage Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "SDWebImage Extensions";
-			sourceTree = "<group>";
-		};
 		BC45D57A1C32EFCE007C72F3 /* Debugging */ = {
 			isa = PBXGroup;
 			children = (
@@ -4536,16 +4494,10 @@
 			name = Strings;
 			sourceTree = "<group>";
 		};
-		BC45D5861C32F823007C72F3 /* Collections */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Collections;
-			sourceTree = "<group>";
-		};
 		BC45D5871C32F849007C72F3 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				D84BF6281DB96D4700E0C85E /* Notifications */,
 				042A5B1419253D2A0095E172 /* View Controller */,
 				045D871D19FAD2D00035C1F9 /* About The App */,
 				0E8DC0961C7632B500622CBD /* Settings Item */,
@@ -4565,6 +4517,7 @@
 				D8C0C00A1D144FF30019374D /* WMFProxyServer.m */,
 				D80C24B61D673DC300816503 /* WMFTabBarController.h */,
 				D80C24B71D673DC300816503 /* WMFTabBarController.m */,
+				D84BF62E1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -4582,7 +4535,6 @@
 				BC45D5871C32F849007C72F3 /* Settings */,
 				BC45D59F1C33018C007C72F3 /* User */,
 				0E26B0541C0E28E60004D687 /* Welcome */,
-				BCB00EBB1C84F1960070E220 /* Zero */,
 			);
 			name = Features;
 			sourceTree = "<group>";
@@ -4591,16 +4543,8 @@
 			isa = PBXGroup;
 			children = (
 				BCB58F401A890D8200465627 /* Categories */,
-				BCB6697C1A83F6C300C7B1FE /* Metadata */,
 			);
 			name = MediaWikiKit;
-			sourceTree = "<group>";
-		};
-		BC45D59D1C330137007C72F3 /* Colors */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Colors;
 			sourceTree = "<group>";
 		};
 		BC45D59E1C33013E007C72F3 /* Text */ = {
@@ -4625,7 +4569,6 @@
 		BC45D5A01C330393007C72F3 /* Sharing */ = {
 			isa = PBXGroup;
 			children = (
-				0E01B2B21D5BFD33005E3134 /* Models */,
 				0EC0447C1C7974590033D773 /* Share Sources */,
 				0EC0447D1C7974C10033D773 /* Share A Fact */,
 			);
@@ -4681,27 +4624,6 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-		BC45D5A81C330911007C72F3 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Controller;
-			sourceTree = "<group>";
-		};
-		BC45D5A91C330A4C007C72F3 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
-		BC45D5AA1C330A75007C72F3 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
 		BC45D5AB1C330A8E007C72F3 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -4715,13 +4637,6 @@
 				0E8731401C62C6B8008AF0AE /* Read More */,
 			);
 			name = Components;
-			sourceTree = "<group>";
-		};
-		BC45D5AC1C330AC5007C72F3 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Model;
 			sourceTree = "<group>";
 		};
 		BC45D5AD1C330ACA007C72F3 /* Views */ = {
@@ -4750,7 +4665,6 @@
 			children = (
 				0E09EAC21C4426470058F2D8 /* WMFHistoryTableViewController.h */,
 				0E09EAC11C4426470058F2D8 /* WMFHistoryTableViewController.m */,
-				0EAAAFC91B43301C00E65A95 /* Model */,
 			);
 			name = History;
 			sourceTree = "<group>";
@@ -5061,20 +4975,11 @@
 			isa = PBXGroup;
 			children = (
 				BC45D57A1C32EFCE007C72F3 /* Debugging */,
-				BC45D5791C32EFBD007C72F3 /* SDWebImage Extensions */,
 				B0E804FE1C0CE0DC0065EBC0 /* UIImage+WMFSerialization.h */,
 				B0E804FF1C0CE0DC0065EBC0 /* UIImage+WMFSerialization.m */,
 			);
 			name = ImageController;
 			path = Wikipedia/Code/ImageController;
-			sourceTree = SOURCE_ROOT;
-		};
-		BCA15B181C0F48F900D0A3EA /* Images */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Images;
-			path = Wikipedia/Code/Style;
 			sourceTree = SOURCE_ROOT;
 		};
 		BCA6764F1AC05FE200A16160 /* Utilities */ = {
@@ -5132,13 +5037,6 @@
 			path = WikipediaUnitTests/Code/Utilities;
 			sourceTree = SOURCE_ROOT;
 		};
-		BCB00EBB1C84F1960070E220 /* Zero */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Zero;
-			sourceTree = "<group>";
-		};
 		BCB58F401A890D8200465627 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -5162,14 +5060,6 @@
 			);
 			name = Serializers;
 			path = Wikipedia/Code/Serializers;
-			sourceTree = SOURCE_ROOT;
-		};
-		BCB6697C1A83F6C300C7B1FE /* Metadata */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Metadata;
-			path = "Wikipedia/Code/Metadata classes";
 			sourceTree = SOURCE_ROOT;
 		};
 		BCB669A31A83F6C300C7B1FE /* Model */ = {
@@ -5226,13 +5116,6 @@
 			);
 			name = POTD;
 			path = "../Picture of the Day";
-			sourceTree = "<group>";
-		};
-		BCD320071C6EC44300317D08 /* Time Zone Tests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Time Zone Tests";
 			sourceTree = "<group>";
 		};
 		BCD41DDD1B11CC5800231BB1 /* Fixtures */ = {
@@ -5386,7 +5269,6 @@
 				BCD557B71C4584180060A51A /* WMFTextualSaveButtonLayoutVisualTests.m */,
 				BC90DE781C57C5AD007E0E81 /* WMFWelcomeLanguageViewControllerVisualTests.m */,
 				08A3C7B51C5FCC8500682DC0 /* WMFArticlePreviewCellVisualTests.m */,
-				BCD320071C6EC44300317D08 /* Time Zone Tests */,
 				B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */,
 				B0D530EA1CE151C10078BAED /* CodeFileLocationTests.m */,
 				B04393F11D21C04500FD2BD9 /* WMFImageTagParserTests.m */,
@@ -5437,18 +5319,9 @@
 			children = (
 				BC69C3101AB0C16B0090B039 /* Controller */,
 				BCD67E851C1F169B005179E1 /* Fetcher */,
-				BCD67E841C1F167F005179E1 /* Models */,
 			);
 			name = "Image Info";
 			path = "Wikipedia/Code/Image Info";
-			sourceTree = SOURCE_ROOT;
-		};
-		BCD67E841C1F167F005179E1 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Models;
-			path = Wikipedia/Code/Models;
 			sourceTree = SOURCE_ROOT;
 		};
 		BCD67E851C1F169B005179E1 /* Fetcher */ = {
@@ -5486,13 +5359,6 @@
 			name = "Featured Article";
 			path = Wikipedia/Code/Feed;
 			sourceTree = SOURCE_ROOT;
-		};
-		BCF445821C28ADD700F49E29 /* Previews */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Previews;
-			sourceTree = "<group>";
 		};
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
@@ -5578,14 +5444,6 @@
 			);
 			name = Analytics;
 			path = Wikipedia/Code/EventLogging;
-			sourceTree = SOURCE_ROOT;
-		};
-		D4EE00BB182445670090790F /* mw-support */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "mw-support";
-			path = "Wikipedia/Code/mw-support";
 			sourceTree = SOURCE_ROOT;
 		};
 		D844D96D1D6CB2600042D692 /* WMFModel */ = {
@@ -5756,10 +5614,18 @@
 			name = Parsing;
 			sourceTree = "<group>";
 		};
+		D84BF6281DB96D4700E0C85E /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				D84BF6291DB96D5900E0C85E /* NotificationSettingsViewController.swift */,
+				D84BF62A1DB96D5900E0C85E /* NotificationSettingsViewController.xib */,
+			);
+			name = Notifications;
+			sourceTree = "<group>";
+		};
 		D84F2BF61D2FEE4B00963D42 /* Random */ = {
 			isa = PBXGroup;
 			children = (
-				0E3C5D3E1D6C98FF00C95BA1 /* DataSources */,
 				D84F2BFE1D2FEEF600963D42 /* WMFRandomArticleViewController.h */,
 				D84F2BFF1D2FEEF600963D42 /* WMFRandomArticleViewController.m */,
 				D84F2C011D30162700963D42 /* WMFFirstRandomViewController.h */,
@@ -5988,7 +5854,6 @@
 				D844DA061D6CC4C90042D692 /* MWKLanguageFilter.h in Headers */,
 				0E28C46D1D74AE64000C5919 /* WMFContentGroupDataStore.h in Headers */,
 				D844D9A91D6CB74F0042D692 /* MWKHistoryList.h in Headers */,
-				0E728D291DAEE8FF0074EB4B /* WMFTimerContentSource.h in Headers */,
 				D844D9701D6CB2600042D692 /* WMFModel.h in Headers */,
 				D844D9991D6CB5EB0042D692 /* NSString+WMFPageUtilities.h in Headers */,
 				D849D6501D6CC7D200D06FC8 /* WMFImageTagList+ImageURLs.h in Headers */,
@@ -6009,7 +5874,6 @@
 				D89F510F1D6CC97F008018E1 /* WMFApiJsonResponseSerializer.h in Headers */,
 				0E728D351DAEE8FF0074EB4B /* WMFRandomContentSource.h in Headers */,
 				0E728D4B1DAEEE910074EB4B /* NSString+WMFDistance.h in Headers */,
-				0E28C46E1D74AE64000C5919 /* WMFExploreSection.h in Headers */,
 				0E728D501DAEEEDB0074EB4B /* MWKSiteInfoFetcher.h in Headers */,
 				0E728D3A1DAEEADB0074EB4B /* MWKLocationSearchResult.h in Headers */,
 				0E28C4691D74ACA7000C5919 /* MWKDataStore+WMFDataSources.h in Headers */,
@@ -6334,6 +6198,9 @@
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.SafariKeychain = {
 								enabled = 1;
 							};
@@ -6561,6 +6428,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EFC9C221DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib in Resources */,
 				D81BA0FC1D50D40B006C38AC /* WMFNearbyArticleTableViewCell.xib in Resources */,
 				B0E807091C0CEBDA0065EBC0 /* ShareOptions.xib in Resources */,
 				B0E8040C1C0CDE480065EBC0 /* CaptchaViewController.storyboard in Resources */,
@@ -6620,6 +6488,8 @@
 				D87A55A41D3CFD3700341B32 /* WMFArticlePlaceholderCollectionViewCell.xib in Resources */,
 				0E9B9E321CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				D864D6841DA2F90F00B86934 /* Localizable.strings in Resources */,
+				0E5386981DB834DE0046E0F9 /* WMFFeedNotificationHeader.xib in Resources */,
+				D84BF62C1DB96D5900E0C85E /* NotificationSettingsViewController.xib in Resources */,
 				D84F2BFB1D2FEE6300963D42 /* WMFRandomDiceButton.html in Resources */,
 				B0F956AB1C481C2100691810 /* WMFArticleFooterMenuCell.xib in Resources */,
 				BC6E42881BA9CB930059FBF6 /* InfoPlist.strings in Resources */,
@@ -7192,6 +7062,7 @@
 				B083375D1DB16A09002860D2 /* WMFWelcomePanelViewController.swift in Sources */,
 				B0F7CB5A1C8A89EF00996DE0 /* WMFWelcomeLanguagesAnimationView.swift in Sources */,
 				B0379A281D8B747A00D973CF /* WebViewController+WMFReferencePopover.m in Sources */,
+				D84BF62F1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift in Sources */,
 				B0E806471C0CE7F70065EBC0 /* AccountCreationTokenFetcher.m in Sources */,
 				BCCB813E1C110702008BC602 /* NSDate+WMFPOTDTitle.m in Sources */,
 				B0E8066E1C0CE9030065EBC0 /* PreviewHtmlFetcher.m in Sources */,
@@ -7199,6 +7070,7 @@
 				B0E804CC1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.m in Sources */,
 				B0E8044C1C0CDF850065EBC0 /* WMFPageCollectionViewController.m in Sources */,
 				B0E8070D1C0CEBDA0065EBC0 /* WMFShareOptionsView.m in Sources */,
+				D84BF62D1DB96E7C00E0C85E /* NotificationSettingsViewController.swift in Sources */,
 				B0E8053F1C0CE0DC0065EBC0 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */,
 				B09B03EB1CE0FB2600009083 /* WMFPageHistoryRevision.m in Sources */,
 				D8D5DB2F1D7A206B00526A69 /* UIImagePickerController+BlocksKit.m in Sources */,
@@ -7249,6 +7121,7 @@
 				B0E8064A1C0CE7F70065EBC0 /* AssetsFileFetcher.m in Sources */,
 				B0E807DB1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m in Sources */,
 				BC62FFC01C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
+				0E5386961DB834B70046E0F9 /* WMFFeedNotificationHeader.m in Sources */,
 				B0E806341C0CE7680065EBC0 /* MWKImageInfoResponseSerializer.m in Sources */,
 				B0379A3D1D8BC9BA00D973CF /* WMFReferencePopoverBackgroundView.m in Sources */,
 				B0E805C91C0CE5250065EBC0 /* UIImage+Debug.swift in Sources */,
@@ -7540,7 +7413,6 @@
 				0E728D411DAEEC380074EB4B /* WMFRelatedSearchResults.m in Sources */,
 				D844D9821D6CB3540042D692 /* MWKUser.m in Sources */,
 				D844D9AB1D6CB7540042D692 /* MWKHistoryList.m in Sources */,
-				0E28C4711D74AE6E000C5919 /* WMFExploreSection.m in Sources */,
 				D83FA6B91D74CE45008CAB00 /* EventLogger.m in Sources */,
 				D8DC16EE1D6F6DEC00D6D9FB /* MWKSite.m in Sources */,
 				0E728D251DAEE2B50074EB4B /* WMFFeedContentFetcher.m in Sources */,
@@ -7578,7 +7450,6 @@
 				D844D9FA1D6CC0710042D692 /* SDWebImageManager+WMFCacheRemoval.m in Sources */,
 				0E28C4801D74D8DF000C5919 /* WMFContentGroup+WMFDatabaseViews.m in Sources */,
 				D844D9EC1D6CBFE40042D692 /* WMFZeroConfigurationFetcher.m in Sources */,
-				0E728D2A1DAEE8FF0074EB4B /* WMFTimerContentSource.m in Sources */,
 				D8E2B0F31D6CC5DE006FFB24 /* WMFImageURLParsing.m in Sources */,
 				0E728D4F1DAEEED90074EB4B /* MWKSiteInfoFetcher.m in Sources */,
 				D844D9A71D6CB7280042D692 /* MWKList.m in Sources */,
@@ -8018,7 +7889,7 @@
 				CLANG_ENABLE_CODE_COVERAGE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -8314,7 +8185,7 @@
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_BITCODE = NO;
@@ -8451,7 +8322,7 @@
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_BITCODE = NO;
@@ -8582,7 +8453,7 @@
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_BITCODE = NO;
@@ -8856,7 +8727,7 @@
 				CLANG_ENABLE_CODE_COVERAGE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -8899,7 +8770,7 @@
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_BITCODE = NO;
@@ -8938,11 +8809,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -8975,11 +8846,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -9012,11 +8883,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -9049,11 +8920,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -9086,11 +8957,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -9123,11 +8994,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -9161,11 +9032,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -9199,11 +9070,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -9237,11 +9108,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -9270,11 +9141,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -9303,11 +9174,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -9336,11 +9207,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -9473,7 +9344,7 @@
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_BITCODE = NO;
@@ -9614,11 +9485,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -9646,11 +9517,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -9684,11 +9555,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -9777,7 +9648,7 @@
 				CLANG_ENABLE_CODE_COVERAGE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -9939,11 +9810,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -9976,11 +9847,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -10014,11 +9885,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -10371,11 +10242,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -10408,11 +10279,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -10445,11 +10316,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -10477,11 +10348,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -10509,11 +10380,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
@@ -10541,11 +10412,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 955;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 955;
+				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;

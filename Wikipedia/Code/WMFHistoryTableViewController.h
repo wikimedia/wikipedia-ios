@@ -1,6 +1,6 @@
 #import "WMFArticleListTableViewController.h"
 #import "WMFAnalyticsLogging.h"
 
-@interface WMFHistoryTableViewController : WMFArticleListTableViewController
+@interface WMFHistoryTableViewController : WMFArticleListTableViewController<WMFAnalyticsViewNameProviding>
 
 @end

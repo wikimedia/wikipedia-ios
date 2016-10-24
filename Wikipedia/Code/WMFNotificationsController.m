@@ -12,8 +12,6 @@ NSString *const WMFInTheNewsNotificationReadNowActionIdentifier = @"inTheNewsNot
 NSString *const WMFInTheNewsNotificationSaveForLaterActionIdentifier = @"inTheNewsNotificationSaveForLaterActionIdentifier";
 NSString *const WMFInTheNewsNotificationShareActionIdentifier = @"inTheNewsNotificationShareActionIdentifier";
 
-uint64_t const WMFNotificationUpdateInterval = 10;
-
 NSString *const WMFNotificationInfoArticleTitleKey = @"articleTitle";
 NSString *const WMFNotificationInfoArticleURLStringKey = @"articleURLString";
 NSString *const WMFNotificationInfoThumbnailURLStringKey = @"thumbnailURLString";
@@ -30,6 +28,15 @@ NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
 @end
 
 @implementation WMFNotificationsController
+
++ (WMFNotificationsController *)sharedNotificationsController {
+    static dispatch_once_t onceToken;
+    static WMFNotificationsController *notificationsController;
+    dispatch_once(&onceToken, ^{
+        notificationsController = [[WMFNotificationsController alloc] init];
+    });
+    return notificationsController;
+}
 
 - (instancetype)init {
     self = [super init];

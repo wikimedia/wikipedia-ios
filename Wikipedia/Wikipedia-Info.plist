@@ -44,7 +44,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>959</string>
+	<string>0</string>
 	<key>CoreSpotlightContinuation</key>
 	<true/>
 	<key>ITSAppUsesNonExemptEncryption</key>
@@ -81,6 +81,10 @@
 	</array>
 	<key>UIApplicationShortcutWidget</key>
 	<string>org.wikimedia.wikipedia.TopReadWidget</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+	</array>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

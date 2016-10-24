@@ -56,7 +56,6 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         self.contentStore = contentStore;
         self.previewStore = previewStore;
         self.userDataStore = userDataStore;
-        self.updateInterval = 30 * 60;
         self.notificationsController = notificationsController;
     }
     return self;
@@ -279,15 +278,18 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 #pragma mark - Notifications
 
 - (void)scheduleNotificationsForFeedDay:(WMFFeedDayResponse *)feedDay onDate:(NSDate *)date {
+    if(![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled]){
+        return;
+    }
     if (self.isSchedulingNotifications) {
         return;
     }
 
-    self.schedulingNotifications = YES;
-
     if (![date wmf_isTodayUTC]) { //in the news notifications only valid for the current day
         return;
     }
+
+    self.schedulingNotifications = YES;
 
     NSCalendar *userCalendar = [NSCalendar autoupdatingCurrentCalendar];
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
@@ -360,6 +362,10 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 - (BOOL)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory articlePreview:(WMFArticlePreview *)articlePreview {
+    if (![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled]) {
+        return NO;
+    }
+    
     NSString *articleURLString = articlePreview.url.absoluteString;
     NSString *storyHTML = newsStory.storyHTML;
     NSString *displayTitle = articlePreview.displayTitle;

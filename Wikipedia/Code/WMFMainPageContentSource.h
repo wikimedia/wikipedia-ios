@@ -1,10 +1,9 @@
-#import "WMFTimerContentSource.h"
 #import "WMFContentSource.h"
 
 @class WMFContentGroupDataStore;
 @class WMFArticlePreviewDataStore;
 
-@interface WMFMainPageContentSource : WMFTimerContentSource <WMFContentSource>
+@interface WMFMainPageContentSource : NSObject <WMFContentSource>
 
 @property (readonly, nonatomic, strong) NSURL *siteURL;
 @property (readonly, nonatomic, strong) WMFContentGroupDataStore *contentStore;

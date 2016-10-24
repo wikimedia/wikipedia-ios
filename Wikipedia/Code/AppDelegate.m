@@ -7,6 +7,8 @@
 #import "NSUserActivity+WMFExtensions.h"
 @import UserNotifications;
 
+static NSTimeInterval WMFBackgroundFetchInterval = 10800; // 3 Hours
+
 #if WMF_USER_ZOOM_IS_ENABLED
 #import <UserzoomSDK/UserzoomSDK.h>
 static NSString *const WMFUserZoomTag = @QUOTE(WMF_USER_ZOOM_TAG);
@@ -73,6 +75,7 @@ static NSString *const WMFUserZoomTag = @QUOTE(WMF_USER_ZOOM_TAG);
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [application setMinimumBackgroundFetchInterval:WMFBackgroundFetchInterval];
 #if DEBUG
     NSLog(@"\n\nSimulator documents directory:\n\t%@\n\n",
           [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]);
@@ -191,5 +194,11 @@ static NSString *const WMFUserZoomTag = @QUOTE(WMF_USER_ZOOM_TAG);
     [UserzoomSDK changePermissions:notificationSettings];
 }
 #endif
+
+#pragma mark - Background Fetch
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    [self.appViewController performBackgroundFetchWithCompletion:completionHandler];
+}
 
 @end

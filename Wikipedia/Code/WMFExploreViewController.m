@@ -3,6 +3,8 @@
 #import "BlocksKit+UIKit.h"
 #import "Wikipedia-Swift.h"
 
+#import <Masonry/Masonry.h>
+
 #import "PiwikTracker+WMFExtensions.h"
 
 #import "YapDatabase+WMFExtensions.h"
@@ -34,6 +36,9 @@
 
 #import "WMFExploreSectionHeader.h"
 #import "WMFExploreSectionFooter.h"
+#import "WMFFeedNotificationHeader.h"
+
+#import "WMFLeadingImageTrailingTextButton.h"
 
 #import "WMFArticleListCollectionViewCell.h"
 #import "WMFArticlePreviewCollectionViewCell.h"
@@ -49,6 +54,8 @@
 #import "WMFFirstRandomViewController.h"
 #import "WMFMorePageListViewController.h"
 #import "WMFSettingsViewController.h"
+
+#import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -67,6 +74,9 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
 @property (nonatomic, strong) WMFContentGroupDataStore *internalContentStore;
+
+@property (nonatomic, strong, nullable) WMFFeedNotificationHeader *notificationHeader;
+
 
 @end
 
@@ -210,6 +220,11 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     }];
 }
 
+- (void)updateFeedWithLatestDatabaseContent{
+    [self.internalContentStore syncDataStoreToDatabase];
+}
+
+
 #pragma mark - Section Access
 
 - (WMFContentGroup *)sectionAtIndex:(NSUInteger)sectionIndex {
@@ -321,6 +336,113 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [self.refreshControl endRefreshing];
 }
 
+#pragma mark - Notification
+
+- (void)sizeNotificationHeader{
+    
+    WMFFeedNotificationHeader* header = self.notificationHeader;
+    if(!header.superview){
+        return;
+    }
+    
+    //First layout pass to get height
+    [header mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@(-136));
+        make.leading.trailing.equalTo(self.collectionView.superview);
+    }];
+    
+    [header sizeToFit];
+    [header setNeedsLayout];
+    [header layoutIfNeeded];
+
+    CGRect f = header.frame;
+
+    //Second layout pass to reset the top constraint
+    [header mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@(-f.size.height));
+        make.height.equalTo(@(f.size.height));
+        make.leading.trailing.equalTo(self.collectionView.superview);
+    }];
+    
+    [header sizeToFit];
+    [header setNeedsLayout];
+    [header layoutIfNeeded];
+
+    UIEdgeInsets insets = self.collectionView.contentInset;
+    insets.top = f.size.height;
+    self.collectionView.contentInset = insets;
+}
+
+- (void)setNotificationHeaderBasedOnSizeClass{
+    if(self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact){
+        self.notificationHeader = [WMFFeedNotificationHeader wmf_viewFromClassNib];
+    }else{
+        self.notificationHeader = [[[UINib nibWithNibName:@"WmfFeedNotificationHeaderiPad" bundle:nil]  instantiateWithOwner:nil options:nil] firstObject];
+    }
+}
+
+- (void)showNotificationHeader{
+
+    if(self.notificationHeader){
+        [self.notificationHeader removeFromSuperview];
+        self.notificationHeader = nil;
+    }
+
+    [self setNotificationHeaderBasedOnSizeClass];
+    
+    WMFFeedNotificationHeader* header = self.notificationHeader;
+    [self.collectionView addSubview:self.notificationHeader];
+    [self sizeNotificationHeader];
+    
+    @weakify(self);
+    [header.enableNotificationsButton bk_addEventHandler:^(id sender) {
+        @strongify(self);
+        [[WMFNotificationsController sharedNotificationsController] requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError * _Nullable error) {
+            if (error) {
+                [self wmf_showAlertWithError:error];
+            }
+        }];
+        [[NSUserDefaults wmf_userDefaults] wmf_setInTheNewsNotificationsEnabled:YES];
+        [self showHideNotificationIfNeccesary];
+        
+    } forControlEvents:UIControlEventTouchUpInside];
+    
+    [[NSUserDefaults wmf_userDefaults] wmf_setDidShowNewsNotificationCardInFeed:YES];
+}
+
+
+
+- (void)showHideNotificationIfNeccesary{
+    
+    if([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionLessThan:10]){
+        return;
+    }
+    
+    if(![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled] && ![[NSUserDefaults wmf_userDefaults] wmf_didShowNewsNotificationCardInFeed]){
+        [self showNotificationHeader];
+
+    }else{
+
+        if(self.notificationHeader){
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                
+                UIEdgeInsets insets = self.collectionView.contentInset;
+                insets.top = 0.0;
+                self.collectionView.contentInset = insets;
+                
+                self.notificationHeader.alpha = 0.0;
+                
+            } completion:^(BOOL finished) {
+                
+                [self.notificationHeader removeFromSuperview];
+                self.notificationHeader = nil;
+                
+            }];
+        }
+    }
+}
+
 #pragma mark - UIViewController
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
@@ -346,6 +468,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForPreviewingIfAvailable];
+    [self showHideNotificationIfNeccesary];
     for (UICollectionViewCell *cell in self.collectionView.visibleCells) {
         cell.selected = NO;
     }
@@ -366,6 +489,14 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [super traitCollectionDidChange:previousTraitCollection];
     [self registerForPreviewingIfAvailable];
 }
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    if(self.notificationHeader){
+        [self showNotificationHeader];
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

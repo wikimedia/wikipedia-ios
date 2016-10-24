@@ -115,12 +115,19 @@
 "search-result-redirected-from" = "Text for search result letting user know if a result is a redirect from another article. Parameters:\n* $1 - article title the current search result redirected from";
 "settings-title" = "Title of the view where app settings are displayed.\n{{Identical|Settings}}";
 "settings-language" = "Title for button letting user choose primary language Wikipedia for the app.";
+"settings-notifications" = "Title for button letting user choose notifications settings.";
 "settings-support" = "Title for button letting user make a donation.";
 "settings-language-bar" = "Title in Settings for toggling the display the language bar in the search view";
 "settings-my-languages" = "Title for list of user's preferred languages";
 "settings-help-and-feedback" = "Title for showing showing a screen that displays the FAQ and allows users to submit bug reports";
 "settings-primary-language" = "Label shown next to primary language\n{{Identical|Primary}}";
 "settings-primary-language-details" = "Explanation of how the first preferred language is used. \"Explore\" is {{msg-wm|Wikipedia-ios-home-title}}.";
+"settings-notifications-system-off" = "Shown to indicate that notifications are turned off in the system settings";
+"settings-notifications-system-turn-on" = "Title for a button for turnining on notifications in the system settings";
+"settings-notifications-info" = "A short description of notifications shown in settings";
+"settings-notifications-learn-more" = "A title for a button to learn more about notifications";
+"settings-notifications-trending" = "Title for the setting for trending notifications";
+"settings-notifications-push-notifications" = "A title for a list of Push notifications";
 "main-menu-title" = "Title for menu of secondary items.\n{{Identical|More}}";
 "main-menu-heading-about" = "'More' menu section heading for items about the app (e.g. privacy, terms, FAQ).";
 "main-menu-language-title" = "Header text for default search language selection. Parameters:\n* $1 - language domain name";
@@ -429,11 +436,16 @@
 "in-the-news-notification-read-now-action-title" = "Title on the 'Read Now' action button";
 "in-the-news-notification-share-action-title" = "Title on the 'Share' action button";
 "in-the-news-notification-save-for-later-action-title" = "Title on the 'Save for later' action button";
-"in-the-news-currently-trending" = "Currently trending";
+"in-the-news-currently-trending" = "Currently trending - indicates that the story is trending right now";
 "in-the-news-title" = "Title for the 'In the news' notification & feed section";
-"in-the-news-title-for-date" = "News on $1";
-"explore-in-the-news-footer" = "All in the news";
-"explore-in-the-news-for-date" = "All in the news on $1";
+"in-the-news-title-for-date" = "Title for news on a given date - $1 is replaced with the date";
+
 "number-thousands" = "$1K - $1 is replaced with a number represented in thousands. In English the letter 'K' is commonly used after a number to indicate that number is in 'thousands'. So the letter 'K' should be changed to a character or short string indicating thousands. For example 500,000 would become 500K. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
 "number-millions" = "$1M - $1 is replaced with a number represented in millions. In English 'M' is commonly used after a number to indicate that number is in 'millions'. So the 'M' should be changed to a character or short string indicating millions. For example 500,000,000 would become 500M. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
 "number-billions" = "$1B - $1 is replaced with a number represented in billions. In English 'B' is commonly used after a number to indicate that number is in 'billions'. So the 'B' should be changed to a character or short string indicating billions. For example 5,100,000,000 would become 5.1B. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
+
+"reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}";
+
+"feed-news-notification-text" = "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news";
+"feed-news-notification-button-text" = "Text for button to turn on trending news notifications";
+

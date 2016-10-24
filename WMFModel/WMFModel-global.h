@@ -35,8 +35,6 @@
 #import <WMFModel/MWKRecentSearchEntry.h>
 #import <WMFModel/MWKRecentSearchList.h>
 
-#import <WMFModel/WMFExploreSection.h>
-
 #import <WMFModel/WMFImageTagParser.h>
 #import <WMFModel/WMFImageTag.h>
 #import <WMFModel/WMFImageTag+TargetImageWidthURL.h>
@@ -104,7 +102,6 @@
 #import <WMFModel/CIDetector+WMFFaceDetection.h>
 
 #import <WMFModel/WMFContentSource.h>
-#import <WMFModel/WMFTimerContentSource.h>
 #import <WMFModel/WMFRelatedPagesContentSource.h>
 #import <WMFModel/WMFMainPageContentSource.h>
 #import <WMFModel/WMFNearbyContentSource.h>
