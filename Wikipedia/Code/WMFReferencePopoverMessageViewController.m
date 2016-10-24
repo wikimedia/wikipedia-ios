@@ -3,9 +3,6 @@
 #import "UIColor+WMFHexColor.h"
 #import "Wikipedia-Swift.h"
 
-NSString *const WMFReferencePopoverShowNextNotification = @"WMFReferencePopoverShowNextNotification";
-NSString *const WMFReferencePopoverShowPreviousNotification = @"WMFReferencePopoverShowPreviousNotification";
-
 @interface WMFReferencePopoverMessageViewController () <UITextViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextView *textView;
@@ -111,22 +108,6 @@ NSString *const WMFReferencePopoverShowPreviousNotification = @"WMFReferencePopo
 
 - (IBAction)dismiss {
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:NULL];
-}
-
-- (IBAction)showNext {
-    if (![[UIApplication sharedApplication] wmf_isRTL]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:WMFReferencePopoverShowNextNotification object:nil];
-    } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:WMFReferencePopoverShowPreviousNotification object:nil];
-    }
-}
-
-- (IBAction)showPrevious {
-    if (![[UIApplication sharedApplication] wmf_isRTL]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:WMFReferencePopoverShowPreviousNotification object:nil];
-    } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:WMFReferencePopoverShowNextNotification object:nil];
-    }
 }
 
 @end

@@ -68,7 +68,6 @@ NSString *const WMFCCBySALicenseURL =
 @property (nonatomic, readwrite, retain) WMFFindInPageKeyboardBar *inputAccessoryView;
 
 @property (nonatomic, strong) NSArray<WMFReference*> *lastClickedReferencesGroup;
-@property (nonatomic) NSInteger indexOfLastReferenceShownFromLastClickedReferencesGroup;
 
 @end
 
@@ -550,7 +549,6 @@ NSString *const WMFCCBySALicenseURL =
     [super viewDidLoad];
 
     self.lastClickedReferencesGroup = @[];
-    self.indexOfLastReferenceShownFromLastClickedReferencesGroup = 0;
 
     self.contentWidthPercentage = 1;
 
@@ -603,16 +601,6 @@ NSString *const WMFCCBySALicenseURL =
                                              selector:@selector(refererenceLinkTappedWithNotification:)
                                                  name:WMFReferenceLinkTappedNotification
                                                object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showPreviousReferenceFromLastClickedReferencesGroup)
-                                                 name:WMFReferencePopoverShowPreviousNotification
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showNextReferenceFromLastClickedReferencesGroup)
-                                                 name:WMFReferencePopoverShowNextNotification
-                                               object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -621,8 +609,6 @@ NSString *const WMFCCBySALicenseURL =
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroRatingChanged object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFReferenceLinkTappedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFReferencePopoverShowPreviousNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFReferencePopoverShowNextNotification object:nil];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -1075,19 +1061,6 @@ NSString *const WMFCCBySALicenseURL =
             [self wmf_presentReferencePopoverViewControllerForReference:selectedReference
                                                                   width:width];
         }
-        self.indexOfLastReferenceShownFromLastClickedReferencesGroup = index;
-    }
-}
-
-- (void)showNextReferenceFromLastClickedReferencesGroup {
-    if (self.lastClickedReferencesGroup.count > 1 && self.indexOfLastReferenceShownFromLastClickedReferencesGroup < self.lastClickedReferencesGroup.count - 1) {
-        [self showReferenceFromLastClickedReferencesGroupAtIndex:self.indexOfLastReferenceShownFromLastClickedReferencesGroup + 1];
-    }
-}
-
-- (void)showPreviousReferenceFromLastClickedReferencesGroup {
-    if (self.lastClickedReferencesGroup.count > 1 && self.indexOfLastReferenceShownFromLastClickedReferencesGroup > 0) {
-        [self showReferenceFromLastClickedReferencesGroupAtIndex:self.indexOfLastReferenceShownFromLastClickedReferencesGroup - 1];
     }
 }
 
