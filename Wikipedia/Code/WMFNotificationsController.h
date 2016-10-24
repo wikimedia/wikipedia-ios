@@ -16,6 +16,8 @@ extern NSString *const WMFNotificationInfoViewCountsKey;
 
 @interface WMFNotificationsController : NSObject
 
++ (WMFNotificationsController *)sharedNotificationsController;
+
 @property (nonatomic, readonly, getter=isAuthorized) BOOL authorized;
 
 - (void)requestAuthenticationIfNecessaryWithCompletionHandler:(void (^)(BOOL granted, NSError *__nullable error))completionHandler;
