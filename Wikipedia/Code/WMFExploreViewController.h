@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)presentMoreViewControllerForGroup:(WMFContentGroup *)group animated:(BOOL)animated;
 
+- (void)updateFeedWithLatestDatabaseContent;
+
 @end
 
 NS_ASSUME_NONNULL_END

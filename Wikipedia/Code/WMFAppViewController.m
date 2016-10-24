@@ -47,7 +47,6 @@
 #import "WMFHistoryTableViewController.h"
 #import "WMFSavedArticleTableViewController.h"
 #import "WMFFirstRandomViewController.h"
-#import "WMFWelcomeViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFMorePageListViewController.h"
 #import "UIViewController+WMFSearch.h"
@@ -146,7 +145,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (BOOL)isPresentingOnboarding {
-    return [self.presentedViewController isKindOfClass:[WMFWelcomeViewController class]];
+    return [self.presentedViewController isKindOfClass:[WMFWelcomePageViewController class]];
 }
 
 - (BOOL)uiIsLoaded {
@@ -222,6 +221,15 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [self stopContentSources];
     self.contentSources = nil;
     [self startContentSources];
+}
+
+#pragma mark - Background Fetch
+
+
+- (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion{
+    [self updateBackgroundSourcesWithCompletion:^{
+        completion(UIBackgroundFetchResultNewData);
+    }];
 }
 
 #pragma mark - Background Tasks
@@ -331,7 +339,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [self.dataStore syncDataStoreToDatabase];
 
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:NULL failure:NULL];
+
     [self startContentSources];
+    [self updateFeedSourcesWithCompletion:^{
+        [self.exploreViewController updateFeedWithLatestDatabaseContent];
+    }];
+
     [self.savedArticlesFetcher start];
 
     if (self.unprocessedUserActivity) {
@@ -343,7 +356,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     } else if ([self shouldShowExploreScreenOnLaunch]) {
         [self showExplore];
     }
-
+    
+    
     if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
         [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{ NSLocalizedDescriptionKey: @"There was an error" }] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
@@ -375,6 +389,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     DDLogWarn(@"Backgrounding… Logging Important Statistics");
     [self logImportantStatistics];
 }
+
 
 #pragma mark - Memory Warning
 
@@ -421,9 +436,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         WMFTaskGroup *group = [WMFTaskGroup new];
         [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
 
-            if ([obj respondsToSelector:@selector(preloadContentForNumberOfDays:completion:)]) {
+            if ([obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
                 [group enter];
-                [obj preloadContentForNumberOfDays:2
+                [(id<WMFDateBasedContentSource>)obj preloadContentForNumberOfDays:2
                                         completion:^{
                                             [group leave];
                                         }];
@@ -459,13 +474,60 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)startContentSources {
-    [self.contentSources makeObjectsPerformSelector:@selector(startUpdating)];
+    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if([obj conformsToProtocol:@protocol(WMFAutoUpdatingContentSource)]){
+            [(id<WMFAutoUpdatingContentSource>) obj startUpdating];
+        }
+    }];
 }
 
 - (void)stopContentSources {
-    [self.contentSources makeObjectsPerformSelector:@selector(stopUpdating)];
+    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if([obj conformsToProtocol:@protocol(WMFAutoUpdatingContentSource)]){
+            [(id<WMFAutoUpdatingContentSource>) obj stopUpdating];
+        }
+    }];
 }
 
+- (void)updateContentSourcesWithCompletion:(dispatch_block_t)completion{
+    WMFTaskGroup* group = [WMFTaskGroup new];
+    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [group enter];
+        [obj loadNewContentForce:NO completion:^{
+            [group leave];
+        }];
+    }];
+    [group waitInBackgroundWithCompletion:completion];
+}
+
+- (void)updateBackgroundSourcesWithCompletion:(dispatch_block_t)completion{
+    WMFTaskGroup* group = [WMFTaskGroup new];
+    
+    [group enter];
+    [[self feedContentSource] loadNewContentForce:NO completion:^{
+        [group leave];
+    }];
+    
+    [group enter];
+    [[self randomContentSource] loadNewContentForce:NO completion:^{
+        [group leave];
+    }];
+    
+    [group waitInBackgroundWithCompletion:completion];
+}
+
+
+- (WMFFeedContentSource *)feedContentSource {
+    return [self.contentSources bk_match:^BOOL(id<WMFContentSource> obj) {
+        return [obj isKindOfClass:[WMFFeedContentSource class]];
+    }];
+}
+
+- (WMFRandomContentSource *)randomContentSource {
+    return [self.contentSources bk_match:^BOOL(id<WMFContentSource> obj) {
+        return [obj isKindOfClass:[WMFRandomContentSource class]];
+    }];
+}
 - (WMFNearbyContentSource *)nearbyContentSource {
     return [self.contentSources bk_match:^BOOL(id<WMFContentSource> obj) {
         return [obj isKindOfClass:[WMFNearbyContentSource class]];
@@ -780,7 +842,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 #pragma mark - Onboarding
 
-static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
+static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (BOOL)shouldShowOnboarding {
     if (FBTweakValue(@"Welcome", @"General", @"Show on launch (requires force quit)", NO) || [[NSProcessInfo processInfo] environment][@"WMFShowWelcomeView"].boolValue) {
@@ -797,7 +859,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
     if ([self shouldShowOnboarding]) {
-        WMFWelcomeViewController *vc = [WMFWelcomeViewController welcomeViewControllerFromDefaultStoryBoard];
+        WMFWelcomePageViewController *vc = [WMFWelcomePageViewController wmf_viewControllerFromWelcomeStoryboard];
+        
         vc.completionBlock = ^{
             [self setDidShowOnboarding];
             if (completion) {
@@ -1030,7 +1093,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     [dialog addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-learn-more-learn-more", nil)
                                                style:UIAlertActionStyleDestructive
                                              handler:^(UIAlertAction *_Nonnull action) {
-                                                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MWLocalizedString(@"zero-webpage-url", nil)]];
+                                                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://m.wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ"]];
                                              }]];
 
     [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:dialog animated:YES completion:NULL];

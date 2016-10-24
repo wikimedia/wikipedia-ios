@@ -16,6 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
     if (self) {
         AFHTTPSessionManager *manager = [AFHTTPSessionManager wmf_createDefaultManager];
         manager.responseSerializer = [WMFMantleJSONResponseSerializer serializerForInstancesOf:[WMFFeedDayResponse class] fromKeypath:nil];
+        NSMutableIndexSet* set = [manager.responseSerializer.acceptableStatusCodes mutableCopy];
+        [set removeIndex:304];
+        manager.responseSerializer.acceptableStatusCodes = set;
+
         self.operationManager = manager;
 
         AFHTTPSessionManager *unserializedOperationManager = [AFHTTPSessionManager wmf_createDefaultManager];

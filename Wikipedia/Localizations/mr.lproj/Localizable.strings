@@ -385,7 +385,6 @@
 "no-email-account-alert" = "कृपया आपल्या उपकरणावर विपत्रपत्ता स्थापित करा व पुन्हा प्रयत्न करा.";
 "find-in-page-button-label" = "पानामध्ये शोधा";
 "find-in-page-popover-description" = "लेखात मजकूर शोधा";
-"top-read-reader-count-thousands" = "$1K";
 "top-read-header-with-language" = "$1 विकिपीडिया";
 "top-read-header-generic" = "विकिपीडिया";
 "reference-title" = "संदर्भ $1";

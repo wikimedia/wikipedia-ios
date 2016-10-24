@@ -357,8 +357,7 @@
 "home-hide-suggestion-prompt" = "أخف هذا الاقتراح";
 "home-hide-suggestion-cancel" = "إلغاء";
 "home-accessibility-label" = "ويكيبيديا، استكشف";
-// Fuzzy
-"home-button-accessibility-label" = "زر الصفحة الرئيسية";
+"home-button-accessibility-label" = "الصفحة الرئيسية";
 "potd-empty-error-description" = "فشل في اجتلاب صورة اليوم في تاريخ $1";
 "potd-description-prefix" = "صورة اليوم في تاريخ $1";
 "welcome-explore-title" = "استكشف";

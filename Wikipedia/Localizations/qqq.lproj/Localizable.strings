@@ -46,7 +46,6 @@
 "zero-free-verbiage" = "Alert text for Wikipedia Zero free data access enabled";
 "zero-charged-verbiage" = "Alert text for Wikipedia Zero free data access disabled";
 "zero-charged-verbiage-extended" = "Extended text describing that further usage of the app may in fact incur data charges because Wikipedia Zero is off, but Saved articles are still free.";
-"zero-webpage-url" = "Url for Wikipedia Zero FAQ";
 "zero-interstitial-title" = "Alert text for leaving Wikipedia Zero";
 "zero-interstitial-leave-app" = "Alert text shown if Wikipedia Zero free data access is enabled and user taps external link";
 "zero-interstitial-continue" = "Button text confirming user wants to continue to external site.\n{{Identical|Leave}}";
@@ -116,12 +115,19 @@
 "search-result-redirected-from" = "Text for search result letting user know if a result is a redirect from another article. Parameters:\n* $1 - article title the current search result redirected from";
 "settings-title" = "Title of the view where app settings are displayed.\n{{Identical|Settings}}";
 "settings-language" = "Title for button letting user choose primary language Wikipedia for the app.";
+"settings-notifications" = "Title for button letting user choose notifications settings.";
 "settings-support" = "Title for button letting user make a donation.";
 "settings-language-bar" = "Title in Settings for toggling the display the language bar in the search view";
 "settings-my-languages" = "Title for list of user's preferred languages";
 "settings-help-and-feedback" = "Title for showing showing a screen that displays the FAQ and allows users to submit bug reports";
 "settings-primary-language" = "Label shown next to primary language\n{{Identical|Primary}}";
 "settings-primary-language-details" = "Explanation of how the first preferred language is used. \"Explore\" is {{msg-wm|Wikipedia-ios-home-title}}.";
+"settings-notifications-system-off" = "Shown to indicate that notifications are turned off in the system settings";
+"settings-notifications-system-turn-on" = "Title for a button for turnining on notifications in the system settings";
+"settings-notifications-info" = "A short description of notifications shown in settings";
+"settings-notifications-learn-more" = "A title for a button to learn more about notifications";
+"settings-notifications-trending" = "Title for the setting for trending notifications";
+"settings-notifications-push-notifications" = "A title for a list of Push notifications";
 "main-menu-title" = "Title for menu of secondary items.\n{{Identical|More}}";
 "main-menu-heading-about" = "'More' menu section heading for items about the app (e.g. privacy, terms, FAQ).";
 "main-menu-language-title" = "Header text for default search language selection. Parameters:\n* $1 - language domain name";
@@ -173,7 +179,7 @@
 "page-history-title" = "Header text for Page History interface.\n{{Identical|Article history}}";
 "page-history-downloading" = "Alert text shown when obtaining revision history of an article";
 "navbar-title-mode-edit-wikitext" = "Header text shown when wikitext is being edited.\n{{Identical|Edit}}";
-"navbar-title-mode-login" = "Header text shown when user is signing in.\n{{Identical|Sign in}}";
+"navbar-title-mode-login" = "Header text shown when user is signing in.\n{{Identical|Log in}}";
 "navbar-title-mode-login-and-save" = "Header text shown when user is editing wikitext then chooses to sign in and publish";
 "navbar-title-mode-create-account" = "Header text shown when user is creating an account.\n{{Identical|Create account}}";
 "navbar-title-mode-create-account-and-save" = "Header text shown when user is editing wikitext then chooses to create an account and publish";
@@ -361,6 +367,8 @@
 "potd-description-prefix" = "Prefix to picture of the day description which states it was the picture of the day for a specific date. The $1 token is subtituted for the date.";
 "welcome-explore-title" = "Title for welcome screen explaining new exploration features\n{{Identical|Explore}}";
 "welcome-explore-sub-title" = "Sub-title for exploration welcome screen";
+"welcome-explore-new-ways-title" = "Title for welcome screens including explanation of new notification features";
+"welcome-explore-new-ways-sub-title" = "Sub-title for exploration welcome screen including explanation of new notification features";
 "welcome-explore-tell-me-more" = "Title for link which when tapped shows explaination of new exploration features";
 "welcome-explore-tell-me-more-about-explore" = "Title for detailed explore explanation";
 "welcome-explore-tell-me-more-details" = "A more detailed explanation of new exploration features";
@@ -368,6 +376,9 @@
 "welcome-explore-tell-me-more-privacy" = "An explanation making it clear that no reading list or profile is stored on our servers";
 "welcome-explore-tell-me-more-done-button" = "Text for button dismissing detailed explanation of new features";
 "welcome-explore-continue-button" = "Text for button for moving to next welcome screen\n{{Identical|Get started}}";
+"welcome-notifications-tell-me-more-title" = "Title for detailed notification explanation";
+"welcome-notifications-tell-me-more-storage" = "An explanation of how notifications are stored";
+"welcome-notifications-tell-me-more-creation" = "An explanation of how notifications are created";
 "welcome-languages-title" = "Title for welcome screen allowing user to select additional languages\n{{Identical|Language}}";
 "welcome-languages-sub-title" = "Sub-title for languages welcome screen";
 "welcome-languages-add-button" = "Title for button for adding another language";
@@ -419,18 +430,22 @@
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "top-read-see-more" = "Text for footer button allowing the user to see more top read articles";
 "top-read-see-more-trending" = "See more trending";
-
 "top-read-header-with-language" = "$1 Wikipedia - for example English Wikipedia\n{{Identical|Wikipedia}}";
 "top-read-header-generic" = "Wikipedia\n{{Identical|Wikipedia}}";
-
+"reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}";
 "in-the-news-notification-read-now-action-title" = "Title on the 'Read Now' action button";
 "in-the-news-notification-share-action-title" = "Title on the 'Share' action button";
 "in-the-news-notification-save-for-later-action-title" = "Title on the 'Save for later' action button";
-"in-the-news-notification-title" = "Title for the 'In the news' notification";
-"in-the-news-currently-trending" = "Currently trending";
+"in-the-news-currently-trending" = "Currently trending - indicates that the story is trending right now";
+"in-the-news-title" = "Title for the 'In the news' notification & feed section";
+"in-the-news-title-for-date" = "Title for news on a given date - $1 is replaced with the date";
 
 "number-thousands" = "$1K - $1 is replaced with a number represented in thousands. In English the letter 'K' is commonly used after a number to indicate that number is in 'thousands'. So the letter 'K' should be changed to a character or short string indicating thousands. For example 500,000 would become 500K. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
 "number-millions" = "$1M - $1 is replaced with a number represented in millions. In English 'M' is commonly used after a number to indicate that number is in 'millions'. So the 'M' should be changed to a character or short string indicating millions. For example 500,000,000 would become 500M. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
 "number-billions" = "$1B - $1 is replaced with a number represented in billions. In English 'B' is commonly used after a number to indicate that number is in 'billions'. So the 'B' should be changed to a character or short string indicating billions. For example 5,100,000,000 would become 5.1B. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
 
 "reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}";
+
+"feed-news-notification-text" = "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news";
+"feed-news-notification-button-text" = "Text for button to turn on trending news notifications";
+

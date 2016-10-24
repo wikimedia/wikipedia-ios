@@ -6,7 +6,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFRelatedPagesContentSource : NSObject <WMFContentSource>
+@interface WMFRelatedPagesContentSource : NSObject <WMFContentSource, WMFAutoUpdatingContentSource, WMFDateBasedContentSource>
 
 @property (readonly, nonatomic, strong) WMFContentGroupDataStore *contentStore;
 @property (readonly, nonatomic, strong) MWKDataStore *userDataStore;

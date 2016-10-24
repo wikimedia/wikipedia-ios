@@ -20,7 +20,7 @@ public protocol WMFTableOfContentsViewControllerDelegate : AnyObject {
      */
     func tableOfContentsControllerDidCancel(controller: WMFTableOfContentsViewController)
 
-    func tableOfContentsArticleLanguageURL() -> NSURL
+    func tableOfContentsArticleLanguageURL() -> NSURL?
     
     func tableOfContentsDisplayModeIsModal() -> Bool;
 }

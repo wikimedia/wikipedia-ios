@@ -35,7 +35,6 @@
 "zero-free-verbiage" = "Free Wikipedia access from your mobile operator (data charges waived)";
 "zero-charged-verbiage" = "Wikipedia Zero is off";
 "zero-charged-verbiage-extended" = "Loading other articles may incur data charges. Saved articles stored offline do not use data and are free.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Leaving Wikipedia Zero";
 "zero-interstitial-leave-app" = "Data charges may apply. Continue to external site?";
 "zero-interstitial-continue" = "Leave";
@@ -118,9 +117,17 @@
 "settings-support" = "Support Wikipedia";
 "settings-language-bar" = "Show languages on search";
 "settings-my-languages" = "My languages";
+"settings-notifications" = "Notifications";
 "settings-help-and-feedback" = "Help and feedback";
 "settings-primary-language" = "Primary";
 "settings-primary-language-details" = "The first language in this list is used as the primary language for the app. Changing this language will change daily content (such as Featured Article) shown on Explore.";
+"settings-notifications-system-off" = "Notifications are currently turned off for Wikipedia. Go to your iOS Settings to turn on notifications";
+"settings-notifications-system-turn-on" = "Turn on Notifications";
+"settings-notifications-info" = "Be alerted to trending and top read articles on Wikipedia with our push notifications. All provided with respect to privacy and up to the minute data.";
+"settings-notifications-learn-more" = "Learn more about notifications";
+"settings-notifications-system-turn-on" = "Turn on Notifications";
+"settings-notifications-trending" = "Trending current events";
+"settings-notifications-push-notifications" = "Push notifications";
 
 "main-menu-title" = "More";
 "main-menu-heading-about" = "About";
@@ -395,6 +402,8 @@
 
 "welcome-explore-title" = "Explore";
 "welcome-explore-sub-title" = "A new way to discover interesting articles every day";
+"welcome-explore-new-ways-title" = "New ways to explore";
+"welcome-explore-new-ways-sub-title" = "New notifications and widgets to help you discover interesting articles";
 "welcome-explore-tell-me-more" = "Tell me more";
 "welcome-explore-tell-me-more-about-explore" = "More about Explore";
 "welcome-explore-tell-me-more-details" = "When you read an article, related articles are automatically added to your Explore feed. This doesn’t change how we collect your information, and your reading history is still private.";
@@ -402,6 +411,10 @@
 "welcome-explore-tell-me-more-privacy" = "No reading list or profile is stored on our servers.";
 "welcome-explore-tell-me-more-done-button" = "Got it";
 "welcome-explore-continue-button" = "Get started";
+
+"welcome-notifications-tell-me-more-title" = "More about notifications";
+"welcome-notifications-tell-me-more-storage" = "Notification preferences are stored on device and not based on personal information or activity.";
+"welcome-notifications-tell-me-more-creation" = "Notifications are created and delivered on your device by the app, not from our (or third party) servers.";
 
 "welcome-languages-title" = "Languages";
 "welcome-languages-sub-title" = "Choose your preferred languages to search Wikipedia";
@@ -478,9 +491,18 @@
 "in-the-news-notification-read-now-action-title" = "Read Now";
 "in-the-news-notification-share-action-title" = "Share";
 "in-the-news-notification-save-for-later-action-title" = "Save for later";
-"in-the-news-notification-title" = "In the news";
 "in-the-news-currently-trending" = "Currently trending";
+
+"in-the-news-title" = "In the news";
+"in-the-news-title-for-date" = "News on $1";
+
+"explore-in-the-news-footer" = "All in the news";
+"explore-in-the-news-footer-for-date" = "All in the news on $1";
 
 "number-thousands" = "$1K";
 "number-millions" = "$1M";
 "number-billions" = "$1B";
+
+"feed-news-notification-text" = "You can now turn on notifications from Wikipedia articles trending in the news.";
+"feed-news-notification-button-text" = "Notify me about trending news";
+
