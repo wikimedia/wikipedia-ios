@@ -2570,8 +2570,6 @@
 			children = (
 				0EF2249D1CC5538200FDF78E /* View Controllers */,
 				BC45D5A71C33090A007C72F3 /* Views */,
-				BC45D5A81C330911007C72F3 /* Controller */,
-				BC45D5A91C330A4C007C72F3 /* Model */,
 			);
 			name = Languages;
 			path = Wikipedia/Code;
@@ -2764,7 +2762,6 @@
 		04C43AB7183442FC006C643B /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				BC45D5861C32F823007C72F3 /* Collections */,
 				BC45D57F1C32F650007C72F3 /* Time & Date */,
 				BC45D5851C32F813007C72F3 /* Strings */,
 				BC45D5831C32F79A007C72F3 /* UIScrollView */,
@@ -2781,7 +2778,6 @@
 		04C757621A1A9DC50084AC39 /* RecentSearches */ = {
 			isa = PBXGroup;
 			children = (
-				BC45D5AC1C330AC5007C72F3 /* Model */,
 				BC45D5AD1C330ACA007C72F3 /* Views */,
 				B0E806E91C0CEBA40065EBC0 /* RecentSearchesViewController.h */,
 				B0E806EA1C0CEBA40065EBC0 /* RecentSearchesViewController.m */,
@@ -2833,13 +2829,6 @@
 			name = PageHistory;
 			path = Wikipedia/Code/PageHistory;
 			sourceTree = SOURCE_ROOT;
-		};
-		0E01B2B21D5BFD33005E3134 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Models;
-			sourceTree = "<group>";
 		};
 		0E03E27E1B82EF7600C1FBD7 /* Nearby */ = {
 			isa = PBXGroup;
@@ -3203,14 +3192,6 @@
 			name = Search;
 			path = Wikipedia/Code;
 			sourceTree = SOURCE_ROOT;
-		};
-		0E3C5D3E1D6C98FF00C95BA1 /* DataSources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = DataSources;
-			path = ../Wikipedia/Code;
-			sourceTree = "<group>";
 		};
 		0E4D1CFD1BBDC72F009BEB64 /* Table of Contents */ = {
 			isa = PBXGroup;
@@ -3601,7 +3582,6 @@
 			isa = PBXGroup;
 			children = (
 				BC23E4DF1C223F1000B5AFDE /* Content */,
-				BCF445821C28ADD700F49E29 /* Previews */,
 				BC23E4DE1C223EAB00B5AFDE /* Revisions */,
 			);
 			name = Networking;
@@ -3616,14 +3596,6 @@
 			);
 			name = Animation;
 			path = Wikipedia/Code/Animation;
-			sourceTree = SOURCE_ROOT;
-		};
-		0EAAAFC91B43301C00E65A95 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Model;
-			path = Wikipedia/Code;
 			sourceTree = SOURCE_ROOT;
 		};
 		0EAED8551BE9507C006B01E6 /* Networking */ = {
@@ -3796,7 +3768,6 @@
 				0E87313E1C62C695008AF0AE /* Presentation */,
 				0E87313F1C62C69E008AF0AE /* View Controller */,
 				BC45D5AB1C330A8E007C72F3 /* Components */,
-				BC45D5AA1C330A75007C72F3 /* Model */,
 				0E9DFEAB1BDEB82E0032606E /* Networking */,
 			);
 			name = Article;
@@ -3806,8 +3777,6 @@
 		0EFB48091B3BB01300381F99 /* Style */ = {
 			isa = PBXGroup;
 			children = (
-				BC45D59D1C330137007C72F3 /* Colors */,
-				BCA15B181C0F48F900D0A3EA /* Images */,
 				BC45D59E1C33013E007C72F3 /* Text */,
 				BC45D5501C31EB4E007C72F3 /* Utilities */,
 				B0E802B91C0CD2260065EBC0 /* WMFStyleManager.h */,
@@ -4193,7 +4162,6 @@
 				04292FFB185FC026002A13FC /* Style Defines */,
 				BC45D5841C32F7B1007C72F3 /* Categories */,
 				BC45D56A1C32E7C5007C72F3 /* Custom Views */,
-				D4EE00BB182445670090790F /* mw-support */,
 			);
 			name = Legacy;
 			sourceTree = "<group>";
@@ -4366,13 +4334,6 @@
 			name = UILabel;
 			sourceTree = "<group>";
 		};
-		BC45D5791C32EFBD007C72F3 /* SDWebImage Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "SDWebImage Extensions";
-			sourceTree = "<group>";
-		};
 		BC45D57A1C32EFCE007C72F3 /* Debugging */ = {
 			isa = PBXGroup;
 			children = (
@@ -4508,13 +4469,6 @@
 			name = Strings;
 			sourceTree = "<group>";
 		};
-		BC45D5861C32F823007C72F3 /* Collections */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Collections;
-			sourceTree = "<group>";
-		};
 		BC45D5871C32F849007C72F3 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -4556,7 +4510,6 @@
 				BC45D5871C32F849007C72F3 /* Settings */,
 				BC45D59F1C33018C007C72F3 /* User */,
 				0E26B0541C0E28E60004D687 /* Welcome */,
-				BCB00EBB1C84F1960070E220 /* Zero */,
 			);
 			name = Features;
 			sourceTree = "<group>";
@@ -4565,16 +4518,8 @@
 			isa = PBXGroup;
 			children = (
 				BCB58F401A890D8200465627 /* Categories */,
-				BCB6697C1A83F6C300C7B1FE /* Metadata */,
 			);
 			name = MediaWikiKit;
-			sourceTree = "<group>";
-		};
-		BC45D59D1C330137007C72F3 /* Colors */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Colors;
 			sourceTree = "<group>";
 		};
 		BC45D59E1C33013E007C72F3 /* Text */ = {
@@ -4599,7 +4544,6 @@
 		BC45D5A01C330393007C72F3 /* Sharing */ = {
 			isa = PBXGroup;
 			children = (
-				0E01B2B21D5BFD33005E3134 /* Models */,
 				0EC0447C1C7974590033D773 /* Share Sources */,
 				0EC0447D1C7974C10033D773 /* Share A Fact */,
 			);
@@ -4655,27 +4599,6 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-		BC45D5A81C330911007C72F3 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Controller;
-			sourceTree = "<group>";
-		};
-		BC45D5A91C330A4C007C72F3 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
-		BC45D5AA1C330A75007C72F3 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
 		BC45D5AB1C330A8E007C72F3 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -4689,13 +4612,6 @@
 				0E8731401C62C6B8008AF0AE /* Read More */,
 			);
 			name = Components;
-			sourceTree = "<group>";
-		};
-		BC45D5AC1C330AC5007C72F3 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Model;
 			sourceTree = "<group>";
 		};
 		BC45D5AD1C330ACA007C72F3 /* Views */ = {
@@ -4724,7 +4640,6 @@
 			children = (
 				0E09EAC21C4426470058F2D8 /* WMFHistoryTableViewController.h */,
 				0E09EAC11C4426470058F2D8 /* WMFHistoryTableViewController.m */,
-				0EAAAFC91B43301C00E65A95 /* Model */,
 			);
 			name = History;
 			sourceTree = "<group>";
@@ -5035,20 +4950,11 @@
 			isa = PBXGroup;
 			children = (
 				BC45D57A1C32EFCE007C72F3 /* Debugging */,
-				BC45D5791C32EFBD007C72F3 /* SDWebImage Extensions */,
 				B0E804FE1C0CE0DC0065EBC0 /* UIImage+WMFSerialization.h */,
 				B0E804FF1C0CE0DC0065EBC0 /* UIImage+WMFSerialization.m */,
 			);
 			name = ImageController;
 			path = Wikipedia/Code/ImageController;
-			sourceTree = SOURCE_ROOT;
-		};
-		BCA15B181C0F48F900D0A3EA /* Images */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Images;
-			path = Wikipedia/Code/Style;
 			sourceTree = SOURCE_ROOT;
 		};
 		BCA6764F1AC05FE200A16160 /* Utilities */ = {
@@ -5106,13 +5012,6 @@
 			path = WikipediaUnitTests/Code/Utilities;
 			sourceTree = SOURCE_ROOT;
 		};
-		BCB00EBB1C84F1960070E220 /* Zero */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Zero;
-			sourceTree = "<group>";
-		};
 		BCB58F401A890D8200465627 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -5136,14 +5035,6 @@
 			);
 			name = Serializers;
 			path = Wikipedia/Code/Serializers;
-			sourceTree = SOURCE_ROOT;
-		};
-		BCB6697C1A83F6C300C7B1FE /* Metadata */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Metadata;
-			path = "Wikipedia/Code/Metadata classes";
 			sourceTree = SOURCE_ROOT;
 		};
 		BCB669A31A83F6C300C7B1FE /* Model */ = {
@@ -5200,13 +5091,6 @@
 			);
 			name = POTD;
 			path = "../Picture of the Day";
-			sourceTree = "<group>";
-		};
-		BCD320071C6EC44300317D08 /* Time Zone Tests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Time Zone Tests";
 			sourceTree = "<group>";
 		};
 		BCD41DDD1B11CC5800231BB1 /* Fixtures */ = {
@@ -5360,7 +5244,6 @@
 				BCD557B71C4584180060A51A /* WMFTextualSaveButtonLayoutVisualTests.m */,
 				BC90DE781C57C5AD007E0E81 /* WMFWelcomeLanguageViewControllerVisualTests.m */,
 				08A3C7B51C5FCC8500682DC0 /* WMFArticlePreviewCellVisualTests.m */,
-				BCD320071C6EC44300317D08 /* Time Zone Tests */,
 				B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */,
 				B0D530EA1CE151C10078BAED /* CodeFileLocationTests.m */,
 				B04393F11D21C04500FD2BD9 /* WMFImageTagParserTests.m */,
@@ -5411,18 +5294,9 @@
 			children = (
 				BC69C3101AB0C16B0090B039 /* Controller */,
 				BCD67E851C1F169B005179E1 /* Fetcher */,
-				BCD67E841C1F167F005179E1 /* Models */,
 			);
 			name = "Image Info";
 			path = "Wikipedia/Code/Image Info";
-			sourceTree = SOURCE_ROOT;
-		};
-		BCD67E841C1F167F005179E1 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Models;
-			path = Wikipedia/Code/Models;
 			sourceTree = SOURCE_ROOT;
 		};
 		BCD67E851C1F169B005179E1 /* Fetcher */ = {
@@ -5460,13 +5334,6 @@
 			name = "Featured Article";
 			path = Wikipedia/Code/Feed;
 			sourceTree = SOURCE_ROOT;
-		};
-		BCF445821C28ADD700F49E29 /* Previews */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Previews;
-			sourceTree = "<group>";
 		};
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
@@ -5552,14 +5419,6 @@
 			);
 			name = Analytics;
 			path = Wikipedia/Code/EventLogging;
-			sourceTree = SOURCE_ROOT;
-		};
-		D4EE00BB182445670090790F /* mw-support */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "mw-support";
-			path = "Wikipedia/Code/mw-support";
 			sourceTree = SOURCE_ROOT;
 		};
 		D844D96D1D6CB2600042D692 /* WMFModel */ = {
@@ -5742,7 +5601,6 @@
 		D84F2BF61D2FEE4B00963D42 /* Random */ = {
 			isa = PBXGroup;
 			children = (
-				0E3C5D3E1D6C98FF00C95BA1 /* DataSources */,
 				D84F2BFE1D2FEEF600963D42 /* WMFRandomArticleViewController.h */,
 				D84F2BFF1D2FEEF600963D42 /* WMFRandomArticleViewController.m */,
 				D84F2C011D30162700963D42 /* WMFFirstRandomViewController.h */,
