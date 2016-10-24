@@ -167,9 +167,10 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 - (void)cleanupBadTopReadSections{
     NSMutableArray* remove = [NSMutableArray array];
-    [self.contentStore enumerateContentGroupsOfKind:[WMFTopReadContentGroup kind] withBlock:^(WMFTopReadContentGroup * _Nonnull group, BOOL * _Nonnull stop) {
-        if(group.date == nil || group.mostReadDate == nil){
-            [remove addObject:[group databaseKey]];
+    [self.contentStore enumerateContentGroupsOfKind:[WMFTopReadContentGroup kind] withBlock:^(WMFContentGroup * _Nonnull group, BOOL * _Nonnull stop) {
+        WMFTopReadContentGroup* tg = group;
+        if(tg.date == nil || tg.mostReadDate == nil){
+            [remove addObject:[tg databaseKey]];
         }
     }];
     [self.contentStore removeContentGroupsWithKeys:remove];
