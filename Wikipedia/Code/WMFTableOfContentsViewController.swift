@@ -31,6 +31,18 @@ public class WMFTableOfContentsViewController: UIViewController,
                                                WMFTableOfContentsAnimatorDelegate {
     
     let tableOfContentsFunnel: ToCInteractionFunnel
+    
+    var displaySide = WMFTableOfContentsDisplaySideLeft {
+        didSet {
+            animator?.displaySide = displaySide
+        }
+    }
+    
+    var displayMode = WMFTableOfContentsDisplayModeModal {
+        didSet {
+            animator?.displayMode = displayMode
+        }
+    }
 
     lazy var tableView: UITableView = {
         
@@ -88,6 +100,8 @@ public class WMFTableOfContentsViewController: UIViewController,
         if let presentingViewController = presentingViewController {
             animator = WMFTableOfContentsAnimator(presentingViewController: presentingViewController, presentedViewController: self)
             animator?.delegate = self
+            animator?.displaySide = displaySide
+            animator?.displayMode = displayMode
         }
         modalPresentationStyle = .Custom
         transitioningDelegate = self.animator

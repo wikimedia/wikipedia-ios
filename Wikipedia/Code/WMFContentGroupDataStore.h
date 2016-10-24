@@ -10,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Content Group Access
 
-- (WMFContentGroup *)contentGroupForURL:(NSURL *)url;
+- (nullable WMFContentGroup *)contentGroupForURL:(NSURL *)url;
 
 - (void)enumerateContentGroupsWithBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block;
 

@@ -504,7 +504,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:tocItem.width + 8]];
         case WMFTableOfContentsDisplayModeModal:
         default: {
-            [articleToolbarItems insertObject:tocItem atIndex:0];
+            WMFTableOfContentsDisplayStyle style = [self tableOfContentsStyleTweakValue];
+            if (style == WMFTableOfContentsDisplayStyleOld) {
+                id spacer = [articleToolbarItems objectAtIndex:0];
+                [articleToolbarItems removeObjectAtIndex:0];
+                [articleToolbarItems addObject:spacer];
+                [articleToolbarItems addObject:tocItem];
+            } else {
+                [articleToolbarItems insertObject:tocItem atIndex:0];
+            }
         } break;
     }
     return articleToolbarItems;
@@ -959,10 +967,32 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self layoutForSize:self.view.bounds.size];
 }
 
+- (WMFTableOfContentsDisplayStyle)tableOfContentsStyleTweakValue {
+    return FBTweakValue(@"Table of contents", @"Style", @"0:old 1:now 2:new", 1, 0, 2);
+}
+
 - (void)updateTableOfContentsDisplayModeWithTraitCollection:(UITraitCollection *)traitCollection {
 
     BOOL isCompact = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact;
-    self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideLeft : WMFTableOfContentsDisplaySideRight;
+
+    if (isCompact) {
+        WMFTableOfContentsDisplayStyle style = [self tableOfContentsStyleTweakValue];
+        switch (style) {
+            case WMFTableOfContentsDisplayStyleOld:
+                self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideRight : WMFTableOfContentsDisplaySideLeft;
+                break;
+            case WMFTableOfContentsDisplayStyleNext:
+                self.tableOfContentsDisplaySide = WMFTableOfContentsDisplaySideCenter;
+                break;
+            case WMFTableOfContentsDisplayStyleCurrent:
+            default:
+                self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideLeft : WMFTableOfContentsDisplaySideRight;
+                break;
+        }
+    } else {
+        self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideLeft : WMFTableOfContentsDisplaySideRight;
+    }
+
     self.tableOfContentsDisplayMode = isCompact ? WMFTableOfContentsDisplayModeModal : WMFTableOfContentsDisplayModeInline;
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
@@ -976,6 +1006,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self.readMoreListViewController.tableView.separatorStyle = isCompact ? UITableViewCellSeparatorStyleSingleLine : UITableViewCellSeparatorStyleNone;
     self.footerMenuViewController.tableView.separatorStyle = isCompact ? UITableViewCellSeparatorStyleSingleLine : UITableViewCellSeparatorStyleNone;
+
+    self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
+    self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -1036,6 +1069,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (self.tableOfContentsViewController == nil) {
         return;
     }
+
+    self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
+    self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
+
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
             if (sender != self) {
@@ -1094,6 +1131,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 }
 
                 [self createTableOfContentsViewControllerIfNeeded];
+                self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
+                self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
 
                 if (self.tableOfContentsViewController == nil) {
                     self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineHidden;
@@ -1130,6 +1169,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 self.tableOfContentsViewController = nil;
             }
             [self createTableOfContentsViewControllerIfNeeded];
+            self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
+            self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
+
             switch (self.tableOfContentsDisplayState) {
                 case WMFTableOfContentsDisplayStateInlineVisible:
                     self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalVisible;
