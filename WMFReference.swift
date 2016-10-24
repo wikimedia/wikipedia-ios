@@ -21,14 +21,14 @@
     convenience init(scriptMessageDict: NSDictionary) {
         var rect = CGRectZero
         guard
-            let html = scriptMessageDict["html"],
-            let refId = scriptMessageDict["id"],
-            let text = scriptMessageDict["text"],
+            let html = scriptMessageDict["html"] as? String,
+            let refId = scriptMessageDict["id"] as? String,
+            let text = scriptMessageDict["text"] as? String,
             let rectDict = scriptMessageDict["rect"] where
             CGRectMakeWithDictionaryRepresentation(rectDict as! CFDictionary, &rect) == true else {
                 assert(false, "Expected keys not present in 'scriptMessageDict'")
                 self.init()
         }
-        self.init(html:html as! String, refId:refId as! String, rect:rect, text:text as! String)
+        self.init(html:html, refId:refId, rect:rect, text:text)
     }
 }
