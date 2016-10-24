@@ -75,7 +75,7 @@
                                  range:NSMakeRange(0, self.length)
                             usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
                                 *stop = false;
-                                NSString *tagContents = [tagRegex replacementStringForResult:result inString:self offset:0 template:@"$2"];
+                                NSString *tagContents = [[[[[[tagRegex replacementStringForResult:result inString:self offset:0 template:@"$2"] wmf_stringByRecursivelyRemovingParenthesizedContent] wmf_stringByRemovingBracketedContent] wmf_stringByDecodingHTMLNonBreakingSpaces] wmf_stringByDecodingHTMLAndpersands] wmf_stringByDecodingHTMLLessThanAndGreaterThan];
                                 if (!tagContents) {
                                     return;
                                 }
@@ -118,7 +118,7 @@
     NSString *result = [results componentsJoinedByString:@""];
 
     // Also decode any "&amp;" strings.
-    result = [result wmf_decodeHTMLAmp];
+    result = [result wmf_stringByDecodingHTMLAndpersands];
 
     return result;
 }

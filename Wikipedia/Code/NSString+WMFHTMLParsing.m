@@ -31,8 +31,8 @@
 #pragma mark - String simplification and cleanup
 
 - (NSString *)wmf_shareSnippetFromText {
-    return [[[[[[[[self wmf_decodeHTMLAmp]
-        wmf_decodeHTMLGreaterAndLessThan]
+    return [[[[[[[[self wmf_stringByDecodingHTMLAndpersands]
+        wmf_stringByDecodingHTMLLessThanAndGreaterThan]
         wmf_stringByCollapsingConsecutiveNewlines]
         wmf_stringByRecursivelyRemovingParenthesizedContent]
         wmf_stringByRemovingBracketedContent]
@@ -172,11 +172,15 @@
                                                     withTemplate:@""];
 }
 
-- (NSString *)wmf_decodeHTMLAmp {
+- (NSString *)wmf_stringByDecodingHTMLNonBreakingSpaces {
+    return [self stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@" "];
+}
+
+- (NSString *)wmf_stringByDecodingHTMLAndpersands {
     return [self stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
 }
 
-- (NSString *)wmf_decodeHTMLGreaterAndLessThan {
+- (NSString *)wmf_stringByDecodingHTMLLessThanAndGreaterThan {
     return [[self stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
         stringByReplacingOccurrencesOfString:@"&lt;"
                                   withString:@"<"];
@@ -191,8 +195,9 @@
     output = [output wmf_safeSubstringToIndex:WMFNumberOfExtractCharacters];
 
     // Cleanups safe to do on shortened string.
-    return [[[[[output wmf_decodeHTMLAmp]
-        wmf_decodeHTMLGreaterAndLessThan]
+    return [[[[[[output wmf_stringByDecodingHTMLAndpersands]
+        wmf_stringByDecodingHTMLLessThanAndGreaterThan]
+        wmf_stringByDecodingHTMLNonBreakingSpaces]
         wmf_stringByCollapsingAllWhitespaceToSingleSpaces]
         wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes]
         wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons];
