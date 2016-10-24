@@ -414,8 +414,13 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSAttributedString *)headerSubTitle {
+    NSString* dateString = [self localDateDisplayString];
+    if(!dateString){
+        dateString = @"";
+    }
+
     return [[NSAttributedString alloc]
-        initWithString:[self localDateDisplayString]
+        initWithString:dateString
             attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
