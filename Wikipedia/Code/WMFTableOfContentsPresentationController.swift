@@ -124,10 +124,19 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         // Hide the presenting view controller for accessibility
         self.togglePresentingViewControllerAccessibility(false)
 
-        //Add shadow to the presented view
-        self.presentedView()?.layer.shadowOpacity = 0.5
-        self.presentedView()?.layer.shadowOffset = CGSize(width: 3, height: 5)
-        self.presentedView()?.clipsToBounds = false
+        switch displaySide {
+        case WMFTableOfContentsDisplaySideCenter:
+            self.presentedView()?.layer.cornerRadius = 10
+            self.presentedView()?.clipsToBounds = true
+            self.presentedView()?.layer.borderColor = UIColor.wmf_lightGrayColor().CGColor
+            self.presentedView()?.layer.borderWidth = 1.0
+            break
+        default:
+            //Add shadow to the presented view
+            self.presentedView()?.layer.shadowOpacity = 0.5
+            self.presentedView()?.layer.shadowOffset = CGSize(width: 3, height: 5)
+            self.presentedView()?.clipsToBounds = false
+        }
         
         // Fade in the dimming view alongside the transition
         if let transitionCoordinator = self.presentingViewController.transitionCoordinator() {
@@ -160,10 +169,10 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
             self.backgroundView.removeFromSuperview()
             self.togglePresentingViewControllerAccessibility(true)
 
-            //Remove shadow from the presented View
-            self.presentedView()?.layer.shadowOpacity = 0.0
+            self.presentedView()?.layer.cornerRadius = 0
+            self.presentedView()?.layer.borderWidth = 0
+            self.presentedView()?.layer.shadowOpacity = 0
             self.presentedView()?.clipsToBounds = true
-
         }
     }
     
