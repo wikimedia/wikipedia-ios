@@ -24,12 +24,14 @@ class InTheNewsCollectionViewCell: WMFExploreCollectionViewCell {
                 label.text = nil
                 return
             }
-            var font: UIFont
-            if #available(iOS 10.0, *) {
-                font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote, compatibleWithTraitCollection: nil)
-            } else {
-                font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
-            }
+            let font = UIFont.systemFontOfSize(14) // fixed font size until the rest of the app supports dynamic type
+            
+//            var font: UIFont
+//            if #available(iOS 10.0, *) {
+//                font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote, compatibleWithTraitCollection: nil)
+//            } else {
+//                font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
+//            }
             let linkFont = UIFont.boldSystemFontOfSize(font.pointSize)
             let attributedString = bodyHTML.wmf_attributedStringByRemovingHTMLWithFont(font, linkFont: linkFont)
             label.attributedText = attributedString
