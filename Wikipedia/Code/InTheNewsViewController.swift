@@ -16,6 +16,7 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
         self.previewStore = previewStore
         super.init(nibName: "InTheNewsViewController", bundle: nil)
         title = localizedStringForKeyFallingBackOnEnglish("in-the-news-title")
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("back"), style: .Plain, target:nil, action:nil)
     }
     
     required init?(coder aDecoder: NSCoder) {

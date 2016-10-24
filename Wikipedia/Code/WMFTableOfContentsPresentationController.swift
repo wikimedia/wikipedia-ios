@@ -9,6 +9,9 @@ import Masonry
 
 public class WMFTableOfContentsPresentationController: UIPresentationController {
     
+    var displaySide = WMFTableOfContentsDisplaySideLeft
+    var displayMode = WMFTableOfContentsDisplayModeModal
+    
     // MARK: - init
     public required init(presentedViewController: UIViewController, presentingViewController: UIViewController?, tapDelegate: WMFTableOfContentsPresentationControllerTapDelegate) {
         self.tapDelegate = tapDelegate
@@ -64,17 +67,32 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
     }()
     
     func updateButtonConstraints() {
-        
         self.closeButton.mas_remakeConstraints({ make in
             make.width.equalTo()(44)
             make.height.equalTo()(44)
-            make.trailing.equalTo()(self.closeButton.superview!.mas_trailing).offset()(0 - self.closeButtonLeadingPadding)
-            if(self.traitCollection.verticalSizeClass == .Compact){
-                make.top.equalTo()(self.closeButtonTopPadding)
-            }else{
-                make.top.equalTo()(self.closeButtonTopPadding + self.statusBarEstimatedHeight)
+            switch self.displaySide {
+            case WMFTableOfContentsDisplaySideLeft:
+                make.trailing.equalTo()(self.closeButton.superview!.mas_trailing).offset()(0 - self.closeButtonLeadingPadding)
+                if(self.traitCollection.verticalSizeClass == .Compact){
+                    make.top.equalTo()(self.closeButtonTopPadding)
+                }else{
+                    make.top.equalTo()(self.closeButtonTopPadding + self.statusBarEstimatedHeight)
+                }
+                break
+            case WMFTableOfContentsDisplaySideRight:
+                make.leading.equalTo()(self.closeButton.superview!.mas_leading).offset()(self.closeButtonLeadingPadding)
+                if(self.traitCollection.verticalSizeClass == .Compact){
+                    make.top.equalTo()(self.closeButtonTopPadding)
+                }else{
+                    make.top.equalTo()(self.closeButtonTopPadding + self.statusBarEstimatedHeight)
+                }
+                break
+            case WMFTableOfContentsDisplaySideCenter:
+                fallthrough
+            default:
+                make.leading.equalTo()(self.closeButton.superview!.mas_leading).offset()(self.closeButtonLeadingPadding)
+                make.bottom.equalTo()(self.closeButton.superview!.mas_bottom).offset()(self.closeButtonTopPadding)
             }
-
             return ()
         })
     }
@@ -106,10 +124,23 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         // Hide the presenting view controller for accessibility
         self.togglePresentingViewControllerAccessibility(false)
 
-        //Add shadow to the presented view
-        self.presentedView()?.layer.shadowOpacity = 0.5
-        self.presentedView()?.layer.shadowOffset = CGSize(width: 3, height: 5)
-        self.presentedView()?.clipsToBounds = false
+        switch displaySide {
+        case WMFTableOfContentsDisplaySideCenter:
+            self.presentedView()?.layer.cornerRadius = 10
+            self.presentedView()?.clipsToBounds = true
+            self.presentedView()?.layer.borderColor = UIColor.wmf_lightGrayColor().CGColor
+            self.presentedView()?.layer.borderWidth = 1.0
+            self.closeButton.setImage(UIImage(named: "toc-close-blue"), forState: .Normal)
+            self.statusBarBackground.hidden = true
+            break
+        default:
+            //Add shadow to the presented view
+            self.presentedView()?.layer.shadowOpacity = 0.5
+            self.presentedView()?.layer.shadowOffset = CGSize(width: 3, height: 5)
+            self.presentedView()?.clipsToBounds = false
+            self.closeButton.setImage(UIImage(named: "close"), forState: .Normal)
+            self.statusBarBackground.hidden = false
+        }
         
         // Fade in the dimming view alongside the transition
         if let transitionCoordinator = self.presentingViewController.transitionCoordinator() {
@@ -142,10 +173,10 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
             self.backgroundView.removeFromSuperview()
             self.togglePresentingViewControllerAccessibility(true)
 
-            //Remove shadow from the presented View
-            self.presentedView()?.layer.shadowOpacity = 0.0
+            self.presentedView()?.layer.cornerRadius = 0
+            self.presentedView()?.layer.borderWidth = 0
+            self.presentedView()?.layer.shadowOpacity = 0
             self.presentedView()?.clipsToBounds = true
-
         }
     }
     
@@ -157,10 +188,22 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
             tocWidth = self.maximumTableOfContentsWidth
             bgWidth = frame.size.width - tocWidth
         }
-        if !UIApplication.sharedApplication().wmf_tocShouldBeOnLeft{
-            frame.origin.x += bgWidth
-        }
+        
         frame.origin.y = UIApplication.sharedApplication().statusBarFrame.size.height + 0.5;
+        
+        switch displaySide {
+        case WMFTableOfContentsDisplaySideCenter:
+            frame.origin.y += 10
+            frame.origin.x += 0.5*bgWidth
+            frame.size.height -= 80
+            break
+        case WMFTableOfContentsDisplaySideRight:
+            frame.origin.x += bgWidth
+            break
+        default:
+            break
+        }
+
         frame.size.width = tocWidth
         
         return frame

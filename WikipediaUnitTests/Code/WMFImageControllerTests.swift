@@ -115,60 +115,59 @@ class WMFImageControllerTests: XCTestCase {
     }
 
     func testCancellationDoesNotAffectRetry() {
-        let testURL = NSURL(string:"https://foo@\(Int(UIScreen.mainScreen().scale))x.png")!
         let testImage = UIImage(named: "image-placeholder")!
         let stubbedData = UIImagePNGRepresentation(testImage)!
+        let scale = Int(UIScreen.mainScreen().scale)
+        let testURLString = "https://example.com/foo@\(scale)x.png"
+        guard let testURL = NSURL(string:testURLString) else {
+            return
+        }
         
-        [0...100].forEach { _ in
-            NSURLProtocol.registerClass(WMFHTTPHangingProtocol)
-            
-            let expectation = expectationWithDescription("wait for image download");
-            
-            let failure = { (error: ErrorType) in
-                let error = error as NSError
-                XCTAssert(error.code == NSURLErrorCancelled)
-                expectation.fulfill()
-            }
-            
-            let success = { (imgDownload: WMFImageDownload) in
-                XCTFail()
-                expectation.fulfill()
-            }
-            
-            self.imageController.fetchImageWithURL(testURL, failure:failure, success: success)
-            
-            expect(self.imageController.imageManager.imageDownloader.isDownloadingImageAtURL(testURL))
-            .toEventually(beTrue(), timeout: 2)
-
-            imageController.cancelFetchForURL(testURL)
-            
-            waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
-            }
-
-            NSURLProtocol.unregisterClass(WMFHTTPHangingProtocol)
-            LSNocilla.sharedInstance().start()
-            defer {
-                LSNocilla.sharedInstance().stop()
-            }
-            
-            stubRequest("GET", testURL.absoluteString).andReturnRawResponse(stubbedData)
-            
-            let secondExpectation = expectationWithDescription("wait for image download");
-            
-            let secondFailure = { (error: ErrorType) in
-                XCTFail()
-                secondExpectation.fulfill()
-            }
-            
-            let secondsuccess = { (imgDownload: WMFImageDownload) in
-                XCTAssertNotNil(imgDownload.image);
-                secondExpectation.fulfill()
-            }
-            
-            self.imageController.fetchImageWithURL(testURL, failure:secondFailure, success: secondsuccess)
-            
-            waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
-            }
+        NSURLProtocol.registerClass(WMFHTTPHangingProtocol)
+        
+        let expectation = expectationWithDescription("wait for image download");
+        
+        let failure = { (error: ErrorType) in
+            let error = error as NSError
+            XCTAssert(error.code == NSURLErrorCancelled)
+            expectation.fulfill()
+        }
+        
+        let success = { (imgDownload: WMFImageDownload) in
+            XCTFail()
+            expectation.fulfill()
+        }
+        
+        self.imageController.fetchImageWithURL(testURL, failure:failure, success: success)
+        
+        imageController.cancelFetchForURL(testURL)
+        
+        waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
+        }
+        
+        NSURLProtocol.unregisterClass(WMFHTTPHangingProtocol)
+        LSNocilla.sharedInstance().start()
+        defer {
+            LSNocilla.sharedInstance().stop()
+        }
+        
+        stubRequest("GET", testURLString).andReturnRawResponse(stubbedData)
+        
+        let secondExpectation = expectationWithDescription("wait for image download");
+        
+        let secondFailure = { (error: ErrorType) in
+            XCTFail()
+            secondExpectation.fulfill()
+        }
+        
+        let secondsuccess = { (imgDownload: WMFImageDownload) in
+            XCTAssertNotNil(imgDownload.image);
+            secondExpectation.fulfill()
+        }
+        
+        self.imageController.fetchImageWithURL(testURL, failure:secondFailure, success: secondsuccess)
+        
+        waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
         }
     }
     
