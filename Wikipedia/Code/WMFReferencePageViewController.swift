@@ -9,14 +9,14 @@ extension UIViewController {
 
 class WMFReferencePageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     var lastClickedReferencesIndex:Int = 0
-    var lastClickedReferencesGroup = [[String: AnyObject]]()
+    var lastClickedReferencesGroup = [WMFReference]()
     
     private lazy var pageControllers: [UIViewController] = {
         var controllers:[UIViewController] = []
         
-        for referenceDictionary in self.lastClickedReferencesGroup {
+        for reference in self.lastClickedReferencesGroup {
             let panel = WMFReferencePanelViewController.wmf_viewControllerFromReferencePanelsStoryboard()
-            panel.referenceDictionary = referenceDictionary
+            panel.reference = reference
             controllers.append(panel)
         }
         

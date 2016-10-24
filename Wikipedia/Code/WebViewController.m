@@ -67,7 +67,7 @@ NSString *const WMFCCBySALicenseURL =
 @property (nonatomic) BOOL disableMinimizeFindInPage;
 @property (nonatomic, readwrite, retain) WMFFindInPageKeyboardBar *inputAccessoryView;
 
-@property (nonatomic, strong) NSArray *lastClickedReferencesGroup;
+@property (nonatomic, strong) NSArray<WMFReference*> *lastClickedReferencesGroup;
 @property (nonatomic) NSInteger indexOfLastReferenceShownFromLastClickedReferencesGroup;
 
 @end
@@ -226,11 +226,13 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)handleClickReferenceScriptMessage:(NSDictionary *)messageDict {
+    NSAssert(messageDict[@"referencesGroup"], @"Expected key 'referencesGroup' not found in script message dictionary");
+    self.lastClickedReferencesGroup = [messageDict[@"referencesGroup"] bk_map:^id(NSDictionary *referenceDict) {
+        return [[WMFReference alloc] initWithScriptMessageDict:referenceDict];
+    }];
+    
+    NSAssert(messageDict[@"selectedIndex"], @"Expected key 'selectedIndex' not found in script message dictionary");
     NSNumber *selectedIndex = messageDict[@"selectedIndex"];
-    NSArray *referencesGroup = messageDict[@"referencesGroup"];
-
-    self.lastClickedReferencesGroup = referencesGroup;
-
     [self showReferenceFromLastClickedReferencesGroupAtIndex:selectedIndex.integerValue];
 }
 
@@ -1064,17 +1066,13 @@ NSString *const WMFCCBySALicenseURL =
         }
     }else{
         if (index >= 0 && self.lastClickedReferencesGroup.count > 0) {
-            NSDictionary *selectedReference = [self.lastClickedReferencesGroup wmf_safeObjectAtIndex:index];
+            WMFReference *selectedReference = [self.lastClickedReferencesGroup wmf_safeObjectAtIndex:index];
             if (selectedReference) {
                 CGFloat width = MIN(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
-                CGRect rect = CGRectZero;
-                NSDictionary *rectDict = selectedReference[@"rect"];
-                if (CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(rectDict), &rect)) {
-                    [self wmf_presentReferencePopoverViewControllerForSourceRect:CGRectMake(CGRectGetMidX(rect), CGRectGetMidY(rect), 1, 1)
-                                                                        linkText:selectedReference[@"text"]
-                                                                            HTML:selectedReference[@"html"]
-                                                                           width:width];
-                }
+                selectedReference.rect = CGRectMake(CGRectGetMidX(selectedReference.rect), CGRectGetMidY(selectedReference.rect), 1, 1);
+                
+                [self wmf_presentReferencePopoverViewControllerForReference:selectedReference
+                                                                      width:width];
             }
         }
         self.indexOfLastReferenceShownFromLastClickedReferencesGroup = index;

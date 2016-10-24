@@ -3,9 +3,9 @@ import Foundation
 
 class WMFReferencePanelViewController: UIViewController {
     
-    var referenceDictionary = [String: AnyObject]()
     @IBOutlet private var containerViewHeightConstraint:NSLayoutConstraint!
     @IBOutlet private var containerView:UIView!
+    var reference = WMFReference.init()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,12 +38,7 @@ class WMFReferencePanelViewController: UIViewController {
     
     private lazy var containerController: WMFReferencePopoverMessageViewController? = {
         let referenceVC = WMFReferencePopoverMessageViewController.wmf_initialViewControllerFromClassStoryboard()
-        if let text = self.referenceDictionary["text"] as? String {
-            referenceVC.linkText = text
-        }
-        if let html = self.referenceDictionary["html"] as? String {
-            referenceVC.HTML = html
-        }
+        referenceVC.reference = self.reference
         return referenceVC
     }()
 

@@ -50,7 +50,7 @@ NSString *const WMFReferencePopoverShowPreviousNotification = @"WMFReferencePopo
 
     self.closeButton.tintColor = [UIColor wmf_lightGrayColor];
 
-    self.titleLabel.text = [[MWLocalizedString(@"reference-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]] stringByReplacingOccurrencesOfString:@"$1" withString:_linkText];
+    self.titleLabel.text = [[MWLocalizedString(@"reference-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]] stringByReplacingOccurrencesOfString:@"$1" withString:self.reference.text];
 }
 
 - (NSString *)referenceHTMLWithSurroundingHTML {
@@ -79,7 +79,7 @@ NSString *const WMFReferencePopoverShowPreviousNotification = @"WMFReferencePopo
                                     "%@"
                                     "</body>"
                                     "</html>",
-                                   baseUrl, (long)fontSize.integerValue, [[UIColor wmf_referencePopoverTextColor] wmf_hexStringIncludingAlpha:NO], self.HTML];
+                                   baseUrl, (long)fontSize.integerValue, [[UIColor wmf_referencePopoverTextColor] wmf_hexStringIncludingAlpha:NO], self.reference.html];
 }
 
 - (NSAttributedString *)attributedStringForHTML:(NSString *)html {
