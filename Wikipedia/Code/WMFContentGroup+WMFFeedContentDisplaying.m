@@ -436,9 +436,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSString *)footerText {
+    NSString* dateString = [self localDateShortDisplayString];
+    if(!dateString){
+        dateString = @"";
+    }
+    
     return
         [MWLocalizedString(@"explore-most-read-footer-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                                withString:[self localDateShortDisplayString]];
+                                                                                                withString:dateString];
 }
 
 - (WMFFeedMoreType)moreType {

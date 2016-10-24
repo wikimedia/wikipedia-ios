@@ -132,6 +132,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (instancetype)initWithDate:(NSDate *)date mostReadDate:(NSDate *)mostReadDate siteURL:(NSURL *)url {
+    NSParameterAssert(mostReadDate);
     self = [super initWithDate:date siteURL:url];
     if (self) {
         self.mostReadDate = mostReadDate;
