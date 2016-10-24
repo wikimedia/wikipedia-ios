@@ -130,12 +130,14 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
             self.presentedView()?.clipsToBounds = true
             self.presentedView()?.layer.borderColor = UIColor.wmf_lightGrayColor().CGColor
             self.presentedView()?.layer.borderWidth = 1.0
+            self.closeButton.setImage(UIImage(named: "toc-close-blue"), forState: .Normal)
             break
         default:
             //Add shadow to the presented view
             self.presentedView()?.layer.shadowOpacity = 0.5
             self.presentedView()?.layer.shadowOffset = CGSize(width: 3, height: 5)
             self.presentedView()?.clipsToBounds = false
+            self.closeButton.setImage(UIImage(named: "close"), forState: .Normal)
         }
         
         // Fade in the dimming view alongside the transition
