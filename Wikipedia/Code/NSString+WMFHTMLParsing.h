@@ -41,13 +41,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)wmf_stringByCollapsingConsecutiveSpaces;
 - (NSString *)wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons;
 - (NSString *)wmf_stringByCollapsingAllWhitespaceToSingleSpaces;
+- (NSString *)wmf_stringByDecodingHTMLNonBreakingSpaces;
+- (NSString *)wmf_stringByDecodingHTMLAndpersands;
+- (NSString *)wmf_stringByDecodingHTMLLessThanAndGreaterThan;
 
 - (NSString *)wmf_summaryFromText;
 
-/**
- * Decode any "&amp;" strings.
- */
-- (NSString *)wmf_decodeHTMLAmp;
 
 - (void)wmf_enumerateHTMLImageTagContentsWithHandler:(nonnull void (^)(NSString *imageTagContents, NSRange range))handler;
 
