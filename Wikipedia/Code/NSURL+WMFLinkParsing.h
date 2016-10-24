@@ -230,6 +230,13 @@ extern NSString *const WMFDefaultSiteDomain;
  */
 @property (nonatomic, readonly) BOOL wmf_isNonStandardURL;
 
+
+/**
+ *  Return YES if the URL if has both wmf_language && wmf_domain
+ */
+@property (nonatomic, readonly) BOOL wmf_hasValidSite;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

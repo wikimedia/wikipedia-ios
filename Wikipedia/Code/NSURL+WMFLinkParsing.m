@@ -305,4 +305,8 @@ NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
     return self.wmf_language == nil;
 }
 
+- (BOOL)wmf_hasValidSite {
+    return self.wmf_domain != nil && self.wmf_language != nil;
+}
+
 @end

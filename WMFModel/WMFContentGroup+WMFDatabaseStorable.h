@@ -2,6 +2,8 @@
 #import "WMFDatabaseStorable.h"
 @import CoreLocation;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface WMFContentGroup (WMFDatabaseStorable) <WMFDatabaseStorable>
 
 /*
@@ -22,7 +24,7 @@
 
 @interface WMFMainPageContentGroup (WMFDatabaseStorable)
 
-+ (NSURL *)urlForSiteURL:(NSURL *)url;
++ (nullable NSURL *)urlForSiteURL:(NSURL *)url;
 
 - (NSURL *)url;
 
@@ -30,7 +32,7 @@
 
 @interface WMFRelatedPagesContentGroup (WMFDatabaseStorable)
 
-+ (NSURL *)urlForArticleURL:(NSURL *)url;
++ (nullable NSURL *)urlForArticleURL:(NSURL *)url;
 
 - (NSURL *)url;
 
@@ -46,7 +48,7 @@
 
 @interface WMFPictureOfTheDayContentGroup (WMFDatabaseStorable)
 
-+ (NSURL *)urlForSiteURL:(NSURL *)url date:(NSDate *)date;
++ (nullable NSURL *)urlForSiteURL:(NSURL *)url date:(NSDate *)date;
 
 - (NSURL *)url;
 
@@ -54,7 +56,7 @@
 
 @interface WMFRandomContentGroup (WMFDatabaseStorable)
 
-+ (NSURL *)urlForSiteURL:(NSURL *)url date:(NSDate *)date;
++ (nullable NSURL *)urlForSiteURL:(NSURL *)url date:(NSDate *)date;
 
 - (NSURL *)url;
 
@@ -62,7 +64,7 @@
 
 @interface WMFFeaturedArticleContentGroup (WMFDatabaseStorable)
 
-+ (NSURL *)urlForSiteURL:(NSURL *)url date:(NSDate *)date;
++ (nullable NSURL *)urlForSiteURL:(NSURL *)url date:(NSDate *)date;
 
 - (NSURL *)url;
 
@@ -70,8 +72,10 @@
 
 @interface WMFTopReadContentGroup (WMFDatabaseStorable)
 
-+ (NSURL *)urlForSiteURL:(NSURL *)url date:(NSDate *)date;
++ (nullable NSURL *)urlForSiteURL:(NSURL *)url date:(NSDate *)date;
 
 - (NSURL *)url;
 
 @end
+
+NS_ASSUME_NONNULL_END
