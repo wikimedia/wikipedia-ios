@@ -370,8 +370,11 @@ public class WMFImageController : NSObject {
     
     public func cancelAllFetches() {
         dispatch_sync(self.cancellingQueue) {
-            let currentCancellables = self.cancellables.objectEnumerator()!.allObjects as! [Cancellable]
-            currentCancellables.forEach({ $0.cancel() })
+            let dictionary = self.cancellables.dictionaryRepresentation()
+            for (_, value) in dictionary {
+                value.cancel()
+            }
+            self.cancellables.removeAllObjects()
         }
     }
     
