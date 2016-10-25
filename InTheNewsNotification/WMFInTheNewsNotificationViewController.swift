@@ -5,7 +5,7 @@ import WMFModel
 import WMFUI
 import WMFUtilities
 
-class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationContentExtension {
+class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationContentExtension, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding {
     @IBOutlet weak var imageView: UIImageView!
 
     @IBOutlet weak var readerCountLabel: UILabel!
@@ -35,6 +35,22 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
         }
     }
     
+    func analyticsContext() -> String {
+        return "notification"
+    }
+    
+    func analyticsContentType() -> String {
+        guard let articleHost = articleURL?.host else {
+            return "unknown domain"
+        }
+        return articleHost
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        PiwikTracker.wmf_start()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         marginWidthForVisibleImageView = articleTitleLabelLeadingMargin.constant
@@ -49,6 +65,8 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
         if let articleURLString = info[WMFNotificationInfoArticleURLStringKey] as? String {
             articleURL = NSURL(string: articleURLString)
         }
+        
+        PiwikTracker.sharedInstance().wmf_logActionPreviewInContext(self, contentType: self)
         
         if let html = info[WMFNotificationInfoStoryHTMLKey] as? String {
             let font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote, compatibleWithTraitCollection: nil)
@@ -112,6 +130,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             guard let wikipediaSchemeURL = articleURL.wmf_wikipediaSchemeURL else {
                 break
             }
+            PiwikTracker.sharedInstance().wmf_logActionTapThroughInContext(self, contentType: self)
             extensionContext.openURL(wikipediaSchemeURL, completionHandler: { (didOpen) in
                 completion(.Dismiss)
             })
