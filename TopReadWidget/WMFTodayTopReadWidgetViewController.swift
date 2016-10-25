@@ -103,6 +103,8 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             } else {
                 isExpanded = true
                 maximumSize = UIScreen.mainScreen().bounds.size
+                headerViewHeightConstraint.constant = 40
+                footerViewHeightConstraint.constant = 40
             }
             updateViewPropertiesForIsExpanded(isExpanded)
             layoutForSize(view.bounds.size)
