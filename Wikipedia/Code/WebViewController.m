@@ -48,7 +48,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 NSString *const WMFCCBySALicenseURL =
     @"https://creativecommons.org/licenses/by-sa/3.0/";
 
-@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate>
+@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate>
 
 @property (nonatomic, strong) MASConstraint *headerHeight;
 @property (nonatomic, strong) UIView *footerContainerView;
@@ -1054,6 +1054,9 @@ NSString *const WMFCCBySALicenseURL =
 
 - (void)showReferencePageViewControllerWithGroup:(NSArray<WMFReference *> *)referenceGroup selectedIndex:(NSInteger)selectedIndex {
     WMFReferencePageViewController* vc = [WMFReferencePageViewController wmf_viewControllerFromReferencePanelsStoryboard];
+    vc.topOffset = [self.view convertRect:self.view.bounds toView:nil].origin.y;
+    vc.delegate = self;
+    vc.appearanceDelegate = self;
     vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     vc.lastClickedReferencesIndex = selectedIndex;
@@ -1067,6 +1070,32 @@ NSString *const WMFCCBySALicenseURL =
     selectedReference.rect = CGRectMake(CGRectGetMidX(selectedReference.rect), CGRectGetMidY(selectedReference.rect), 1, 1);
     [self wmf_presentReferencePopoverViewControllerForReference:selectedReference
                                                           width:width];
+}
+
+- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray<WMFReferencePanelViewController *> *)pendingViewControllers {
+    for(WMFReferencePanelViewController* panel in pageViewController.viewControllers){
+        [self.webView wmf_unHighlightLinkID:panel.reference.refId];
+    }
+}
+
+- (void)pageViewController:(UIPageViewController *)pageViewController
+        didFinishAnimating:(BOOL)finished
+   previousViewControllers:(NSArray<WMFReferencePanelViewController *> *)previousViewControllers
+       transitionCompleted:(BOOL)completed {
+    
+    WMFReferencePanelViewController *firstRefVC = pageViewController.viewControllers.firstObject;
+    [self.webView wmf_highlightLinkID:firstRefVC.reference.refId];
+}
+
+- (void)referencePageViewControllerWillAppear:(WMFReferencePageViewController *)referencePageViewController {
+    WMFReferencePanelViewController *firstRefVC = referencePageViewController.viewControllers.firstObject;
+    [self.webView wmf_highlightLinkID:firstRefVC.reference.refId];
+}
+
+- (void)referencePageViewControllerWillDisappear:(WMFReferencePageViewController *)referencePageViewController {
+    for(WMFReferencePanelViewController* panel in referencePageViewController.viewControllers){
+        [self.webView wmf_unHighlightLinkID:panel.reference.refId];
+    }
 }
 
 #pragma mark - Share Actions

@@ -7,9 +7,17 @@ extension UIViewController {
     }
 }
 
-class WMFReferencePageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+@objc protocol WMFReferencePageViewAppearanceDelegate : NSObjectProtocol {
+    func referencePageViewControllerWillAppear(referencePageViewController: WMFReferencePageViewController)
+    func referencePageViewControllerWillDisappear(referencePageViewController: WMFReferencePageViewController)
+}
+
+class WMFReferencePageViewController: UIPageViewController, UIPageViewControllerDataSource {
     var lastClickedReferencesIndex:Int = 0
     var lastClickedReferencesGroup = [WMFReference]()
+    internal var topOffset:CGFloat = 0
+    
+    weak internal var appearanceDelegate: WMFReferencePageViewAppearanceDelegate?
     
     private lazy var pageControllers: [UIViewController] = {
         var controllers:[UIViewController] = []
@@ -22,11 +30,14 @@ class WMFReferencePageViewController: UIPageViewController, UIPageViewController
         
         return controllers
     }()
+    
+    lazy var backgroundView: WMFReferencePageBackgroundView = {
+        return WMFReferencePageBackgroundView()
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         dataSource = self
-        delegate = self
         
         let direction:UIPageViewControllerNavigationDirection = UIApplication.sharedApplication().wmf_isRTL ? .Forward : .Reverse
         
@@ -34,11 +45,43 @@ class WMFReferencePageViewController: UIPageViewController, UIPageViewController
         
         setViewControllers([initiallyVisibleController], direction: direction, animated: true, completion: nil)
         
-        view.backgroundColor = UIColor.init(white: 0.0, alpha: 0.5)
+        addBackgroundView()
+
+        backgroundView.clearRect = referenceGroupUnionRect()
         
         if let scrollView = view.wmf_firstSubviewOfType(UIScrollView) {
             scrollView.clipsToBounds = false
         }
+    }
+    
+    private func addBackgroundView() {
+        view.addSubview(backgroundView)
+        view.sendSubviewToBack(backgroundView)
+        backgroundView.mas_makeConstraints { make in
+            make.top.bottom().leading().and().trailing().equalTo()(self.view)
+        }
+    }
+    
+    private func referenceGroupUnionRect() -> CGRect? {
+        if let firstRef = self.lastClickedReferencesGroup.first {
+            var rect = firstRef.rect
+            for reference in self.lastClickedReferencesGroup {
+                rect = CGRectUnion(rect, reference.rect)
+            }
+            rect = CGRectOffset(rect, 0, topOffset + 1)
+            return CGRectInset(rect, -1, -3)
+        }
+        return nil
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        appearanceDelegate?.referencePageViewControllerWillAppear(self)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        appearanceDelegate?.referencePageViewControllerWillDisappear(self)
     }
     
     func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
