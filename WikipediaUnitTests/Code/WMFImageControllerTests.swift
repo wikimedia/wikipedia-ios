@@ -125,7 +125,7 @@ class WMFImageControllerTests: XCTestCase {
         
         NSURLProtocol.registerClass(WMFHTTPHangingProtocol)
         
-        let expectation = expectationWithDescription("wait for image download");
+        let expectation = expectationWithDescription("wait for image cancellation");
         
         let failure = { (error: ErrorType) in
             let error = error as NSError
