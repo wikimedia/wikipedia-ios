@@ -9222,7 +9222,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.InTheNewsNotification;
 				PRODUCT_NAME = InTheNewsNotification;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 			};
@@ -9245,7 +9245,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.InTheNewsNotification;
 				PRODUCT_NAME = InTheNewsNotification;
 			};
 			name = Alpha;
@@ -9417,7 +9417,7 @@
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
@@ -9442,7 +9442,7 @@
 				INFOPLIST_FILE = TopReadWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
@@ -9737,7 +9737,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
@@ -9766,7 +9766,7 @@
 				INFOPLIST_FILE = TopReadWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
