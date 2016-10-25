@@ -69,6 +69,7 @@
                                     "     -webkit-text-size-adjust:%ld%%;"
                                     "     color:#%@;"
                                     "     text-decoration:none;"
+                                    "     direction:%@;"
                                     " }"
                                     "</style>"
                                     "</head>"
@@ -76,7 +77,7 @@
                                     "%@"
                                     "</body>"
                                     "</html>",
-                                   baseUrl, (long)fontSize.integerValue, [[UIColor wmf_referencePopoverTextColor] wmf_hexStringIncludingAlpha:NO], self.reference.html];
+                                   baseUrl, (long)fontSize.integerValue, [[UIColor wmf_referencePopoverTextColor] wmf_hexStringIncludingAlpha:NO], languageInfo.dir, self.reference.html];
 }
 
 - (NSAttributedString *)attributedStringForHTML:(NSString *)html {
