@@ -450,3 +450,7 @@
 "feed-news-notification-button-text" = "Text for button to turn on trending news notifications";
 
 "back" = "Generic 'Back' title for back button";
+
+"welcome-send-data-title" = "Title for welcome screen allowing user to opt in to send usage reports";
+"welcome-send-data-sub-title" = "Sub-title explaining how sending usage reports can help improve the app";
+

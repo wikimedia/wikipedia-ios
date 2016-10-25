@@ -426,6 +426,11 @@
 "welcome-volunteer-send-usage-reports" = "Send usage reports";
 "welcome-volunteer-continue-button" = "Continue";
 "welcome-volunteer-thanks" = "$1 Thank you!";
+"welcome-send-data-title" = "Send Anonymous data";
+"welcome-send-data-sub-title" = "Help Wikimedia make the app better by letting us know how you use the app. Data collected is anonymous. Learn more";
+
+
+
 
 "empty-no-feed-title" = "No Internet Connection";
 "empty-no-feed-message" = "You can see your recommended articles when you have internet";
