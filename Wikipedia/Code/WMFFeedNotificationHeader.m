@@ -41,5 +41,14 @@
     }
 }
 
+- (NSString *)analyticsContext{
+    return @"notification";
+}
+
+- (NSString *)analyticsContentType{
+    return @"current events";
+}
+
+
 
 @end
