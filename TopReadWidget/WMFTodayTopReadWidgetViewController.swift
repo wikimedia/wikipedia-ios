@@ -249,12 +249,15 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 vc.viewCountAndSparklineContainerView.hidden = true
             }
 
-            
-            if let imageURL = result.thumbnailURL {
-                vc.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: { (error) in
+            if #available(iOSApplicationExtension 10.0, *) {
+                if let imageURL = result.thumbnailURL {
+                    vc.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: { (error) in
+                        vc.collapseImageAndWidenLabels = true
+                    }) {
+                        vc.collapseImageAndWidenLabels = false
+                    }
+                } else {
                     vc.collapseImageAndWidenLabels = true
-                }) {
-                    vc.collapseImageAndWidenLabels = false
                 }
             } else {
                 vc.collapseImageAndWidenLabels = true

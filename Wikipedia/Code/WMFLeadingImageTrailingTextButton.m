@@ -237,6 +237,7 @@
                                 inBundle:[NSBundle bundleForClass:[self class]]
            compatibleWithTraitCollection:self.traitCollection];
     self.labelText = [self localizedStringForKeyFromCurrentBundle:@"feed-news-notification-button-text"];
+    self.textLabel.textColor = [UIColor wmf_blueTintColor];
 }
 
 
