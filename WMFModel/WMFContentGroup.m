@@ -32,6 +32,31 @@ NS_ASSUME_NONNULL_BEGIN
     return WMFContentTypeURL;
 }
 
+- (NSComparisonResult)compare:(id)otherObject {
+    if (![otherObject isKindOfClass:[WMFContentGroup class]]) {
+        NSAssert(false, @"Incompatible comparison");
+        return NSOrderedDescending;
+    }
+
+    WMFContentGroup *otherGroup = otherObject;
+
+    NSDate *otherDate = otherGroup.date;
+    NSDate *myDate = self.date;
+
+    if (!otherDate && !myDate) {
+        return NSOrderedSame;
+    }
+
+    if (!otherDate) {
+        return NSOrderedDescending;
+    }
+
+    if (!myDate) {
+        return NSOrderedAscending;
+    }
+
+    return [myDate compare:otherDate];
+}
 
 @end
 
@@ -58,7 +83,6 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @implementation WMFContinueReadingContentGroup
-
 
 @end
 
@@ -112,7 +136,6 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @implementation WMFRandomContentGroup
-
 
 @end
 
