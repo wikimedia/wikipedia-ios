@@ -68,6 +68,10 @@
 #import "SDImageCache+WMFPersistentCache.h"
 #endif
 
+#if WMF_USER_ZOOM_IS_ENABLED
+#import <UserzoomSDK/UserzoomSDK.h>
+#endif
+
 /**
  *  Enums for each tab in the main tab bar.
  *
@@ -176,6 +180,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [self configureArticleListController:self.recentArticlesViewController];
     [[self class] wmf_setSearchButtonDataStore:self.dataStore];
     [[self class] wmf_setSearchButtonPreviewStore:self.previewStore];
+
+#if WMF_USER_ZOOM_IS_ENABLED
+    [UserzoomSDK show];
+#endif
 }
 
 - (void)configureTabController {
@@ -225,8 +233,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 #pragma mark - Background Fetch
 
-
-- (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion{
+- (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion {
     [self updateBackgroundSourcesWithCompletion:^{
         completion(UIBackgroundFetchResultNewData);
     }];
@@ -356,8 +363,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     } else if ([self shouldShowExploreScreenOnLaunch]) {
         [self showExplore];
     }
-    
-    
+
     if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
         [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{ NSLocalizedDescriptionKey: @"There was an error" }] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
@@ -389,7 +395,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     DDLogWarn(@"Backgrounding… Logging Important Statistics");
     [self logImportantStatistics];
 }
-
 
 #pragma mark - Memory Warning
 
@@ -439,9 +444,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             if ([obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
                 [group enter];
                 [(id<WMFDateBasedContentSource>)obj preloadContentForNumberOfDays:2
-                                        completion:^{
-                                            [group leave];
-                                        }];
+                                                                       completion:^{
+                                                                           [group leave];
+                                                                       }];
             }
         }];
 
@@ -474,48 +479,50 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)startContentSources {
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if([obj conformsToProtocol:@protocol(WMFAutoUpdatingContentSource)]){
-            [(id<WMFAutoUpdatingContentSource>) obj startUpdating];
+    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        if ([obj conformsToProtocol:@protocol(WMFAutoUpdatingContentSource)]) {
+            [(id<WMFAutoUpdatingContentSource>)obj startUpdating];
         }
     }];
 }
 
 - (void)stopContentSources {
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if([obj conformsToProtocol:@protocol(WMFAutoUpdatingContentSource)]){
-            [(id<WMFAutoUpdatingContentSource>) obj stopUpdating];
+    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        if ([obj conformsToProtocol:@protocol(WMFAutoUpdatingContentSource)]) {
+            [(id<WMFAutoUpdatingContentSource>)obj stopUpdating];
         }
     }];
 }
 
-- (void)updateContentSourcesWithCompletion:(dispatch_block_t)completion{
-    WMFTaskGroup* group = [WMFTaskGroup new];
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+- (void)updateContentSourcesWithCompletion:(dispatch_block_t)completion {
+    WMFTaskGroup *group = [WMFTaskGroup new];
+    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         [group enter];
-        [obj loadNewContentForce:NO completion:^{
-            [group leave];
-        }];
+        [obj loadNewContentForce:NO
+                      completion:^{
+                          [group leave];
+                      }];
     }];
     [group waitInBackgroundWithCompletion:completion];
 }
 
-- (void)updateBackgroundSourcesWithCompletion:(dispatch_block_t)completion{
-    WMFTaskGroup* group = [WMFTaskGroup new];
-    
+- (void)updateBackgroundSourcesWithCompletion:(dispatch_block_t)completion {
+    WMFTaskGroup *group = [WMFTaskGroup new];
+
     [group enter];
-    [[self feedContentSource] loadNewContentForce:NO completion:^{
-        [group leave];
-    }];
-    
+    [[self feedContentSource] loadNewContentForce:NO
+                                       completion:^{
+                                           [group leave];
+                                       }];
+
     [group enter];
-    [[self randomContentSource] loadNewContentForce:NO completion:^{
-        [group leave];
-    }];
-    
+    [[self randomContentSource] loadNewContentForce:NO
+                                         completion:^{
+                                             [group leave];
+                                         }];
+
     [group waitInBackgroundWithCompletion:completion];
 }
-
 
 - (WMFFeedContentSource *)feedContentSource {
     return [self.contentSources bk_match:^BOOL(id<WMFContentSource> obj) {
@@ -855,7 +862,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
     if ([self shouldShowOnboarding]) {
         WMFWelcomePageViewController *vc = [WMFWelcomePageViewController wmf_viewControllerFromWelcomeStoryboard];
-        
+
         vc.completionBlock = ^{
             [self setDidShowOnboarding];
             if (completion) {
