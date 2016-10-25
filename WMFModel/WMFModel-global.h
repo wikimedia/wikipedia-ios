@@ -152,4 +152,7 @@
 
 #import <WMFModel/NSUserActivity+WMFExtensions.h>
 
+#import <WMFModel/PiwikTracker+WMFExtensions.h>
+
+
 #endif /* WMFModel_global_h */
