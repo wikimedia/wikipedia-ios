@@ -22,7 +22,7 @@ struct NotificationSettingsSection {
     let items: [NotificationSettingsItem]
 }
 
-class NotificationSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class NotificationSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -46,6 +46,14 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
     override func viewWillAppear(animated: Bool) {
        super.viewWillAppear(animated)
        updateSections()
+    }
+    
+    func analyticsContext() -> String {
+        return "notification"
+    }
+    
+    func analyticsContentType() -> String {
+        return "current events"
     }
     
     func sectionsForSystemSettingsAuthorized() -> [NotificationSettingsSection] {
@@ -77,6 +85,12 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
                     } else {
                         UNUserNotificationCenter.currentNotificationCenter().removeAllPendingNotificationRequests()
                     }
+                }
+                
+                if isOn {
+                    PiwikTracker.sharedInstance().wmf_logActionEnableInContext(self, contentType: self)
+                }else{
+                    PiwikTracker.sharedInstance().wmf_logActionDisableInContext(self, contentType: self)
                 }
             NSUserDefaults.wmf_userDefaults().wmf_setInTheNewsNotificationsEnabled(isOn)
         })]

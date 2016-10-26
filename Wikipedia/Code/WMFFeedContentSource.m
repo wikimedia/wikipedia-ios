@@ -29,7 +29,7 @@ static NSTimeInterval WMFFeedNotificationArticleRepeatLimit = 30 * 24 * 60 * 60;
 static NSInteger WMFFeedInTheNewsNotificationMaxRank = 10;
 static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
-@interface WMFFeedContentSource ()
+@interface WMFFeedContentSource ()<WMFAnalyticsContextProviding>
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
 
@@ -101,9 +101,14 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     [self cleanupBadTopReadSections];
 
+    BOOL force = NO;
+#if WMF_ALWAYS_NOTIFY
+    force = YES;
+#endif
+
     [self.fetcher fetchFeedContentForURL:self.siteURL
         date:date
-        force:NO
+        force:force
         failure:^(NSError *_Nonnull error) {
             if (completion) {
                 completion();
@@ -316,8 +321,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         return;
     }
 
-    self.schedulingNotifications = YES;
-
+#if WMF_ALWAYS_NOTIFY
+#else
     NSCalendar *userCalendar = [NSCalendar autoupdatingCurrentCalendar];
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
     NSDate *mostRecentDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
@@ -327,6 +332,9 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
             return;
         }
     }
+#endif
+
+    self.schedulingNotifications = YES;
 
     NSArray<WMFFeedTopReadArticlePreview *> *articlePreviews = feedDay.topRead.articlePreviews;
     NSMutableDictionary<NSString *, WMFFeedTopReadArticlePreview *> *topReadArticlesByKey = [NSMutableDictionary dictionaryWithCapacity:articlePreviews.count];
@@ -381,7 +389,10 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
             }
         }
         if (articlePreviewToNotifyAbout && articlePreviewToNotifyAbout.url) {
-            [self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreviewToNotifyAbout];
+            if([self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreviewToNotifyAbout]){
+                
+                [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:articlePreviewToNotifyAbout.url.host];
+            };
             break;
         }
     }
@@ -452,6 +463,10 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 
     return YES;
+}
+    
+- (NSString*)analyticsContext{
+    return @"notification";
 }
 
 #pragma mark - Utility

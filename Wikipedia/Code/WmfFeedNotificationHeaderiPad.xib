@@ -9,7 +9,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="IRS-Ww-C7b" customClass="WMFFeedNotificationHeader">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="141"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="ZwI-Gm-OMb" customClass="WMFLeadingImageTrailingTextButton">
@@ -53,7 +53,7 @@
                         <constraint firstItem="0YV-7y-20p" firstAttribute="top" secondItem="a7Y-Xb-wBs" secondAttribute="top" id="PtS-dj-ntC"/>
                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="WP1-bD-g1C" secondAttribute="bottom" constant="18" id="UO4-E7-og6"/>
                         <constraint firstItem="0YV-7y-20p" firstAttribute="leading" secondItem="a7Y-Xb-wBs" secondAttribute="leading" id="iMq-Sf-74i"/>
-                        <constraint firstAttribute="bottom" secondItem="0YV-7y-20p" secondAttribute="bottom" priority="750" constant="18" id="kz6-Od-o7k"/>
+                        <constraint firstAttribute="bottom" secondItem="0YV-7y-20p" secondAttribute="bottom" priority="750" constant="3" id="kz6-Od-o7k"/>
                         <constraint firstItem="WP1-bD-g1C" firstAttribute="leading" secondItem="0YV-7y-20p" secondAttribute="trailing" constant="20" id="lHW-F6-Iuj"/>
                     </constraints>
                 </view>
@@ -62,7 +62,7 @@
             <constraints>
                 <constraint firstItem="a7Y-Xb-wBs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="IRS-Ww-C7b" secondAttribute="leading" constant="20" id="MP4-Rv-fno"/>
                 <constraint firstItem="ZwI-Gm-OMb" firstAttribute="top" secondItem="a7Y-Xb-wBs" secondAttribute="bottom" id="Mv7-4H-eDN"/>
-                <constraint firstAttribute="bottom" secondItem="ZwI-Gm-OMb" secondAttribute="bottom" constant="23" id="NQO-Rj-kV9"/>
+                <constraint firstAttribute="bottom" secondItem="ZwI-Gm-OMb" secondAttribute="bottom" constant="8" id="NQO-Rj-kV9"/>
                 <constraint firstItem="a7Y-Xb-wBs" firstAttribute="centerX" secondItem="IRS-Ww-C7b" secondAttribute="centerX" id="RoT-o4-8xk"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="a7Y-Xb-wBs" secondAttribute="trailing" constant="20" id="aM7-9d-3QU"/>
                 <constraint firstItem="a7Y-Xb-wBs" firstAttribute="top" secondItem="IRS-Ww-C7b" secondAttribute="top" constant="27" id="neY-DF-VlH"/>
@@ -76,7 +76,7 @@
                 <outlet property="enableNotificationsButton" destination="ZwI-Gm-OMb" id="fZ8-bl-FB6"/>
                 <outlet property="textLabel" destination="WP1-bD-g1C" id="AVN-lD-DmX"/>
             </connections>
-            <point key="canvasLocation" x="-107.5" y="-95.5"/>
+            <point key="canvasLocation" x="-107.5" y="-101"/>
         </view>
     </objects>
     <resources>
