@@ -35,7 +35,6 @@
 "zero-free-verbiage" = "Accesu llibre a Wikipedia dende l'operador de móviles (facturación de baldre por datos)";
 "zero-charged-verbiage" = "Wikipedia Zero ta apagáu";
 "zero-charged-verbiage-extended" = "Cargar otros artículos pue implicar cargos por tráficu de datos. Los artículos guardaos pa ver sin conexón nun xeneran tráficu y son de baldre.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Saliendo de Wikipedia Zero";
 "zero-interstitial-leave-app" = "Pue aplicase la tarifa de datos. ¿Siguir al sitiu esternu?";
 "zero-interstitial-continue" = "Colar";
@@ -240,6 +239,8 @@
 "button-ok" = "Aceutar";
 "button-save-for-later" = "Guardar pa después";
 "button-saved-for-later" = "Guardao pa después";
+"button-saved-remove" = "Quitar de los guardaos";
+"button-read-now" = "Lleer agora";
 "button-report-a-bug" = "Informar d'un fallu";
 "onboarding-create-account" = "Crear una cuenta";
 "onboarding-login" = "Identificase";
@@ -409,4 +410,10 @@
 "top-read-header-with-language" = "Wikipedia $1";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Referencia $1";
+"in-the-news-notification-read-now-action-title" = "Lleer agora";
+"in-the-news-notification-share-action-title" = "Compartir";
+"in-the-news-notification-save-for-later-action-title" = "Guardar pa después";
+"in-the-news-currently-trending" = "Tendencia agora";
 "number-thousands" = "$1K";
+"number-millions" = "$1M";
+"number-billions" = "$1";

@@ -43,7 +43,6 @@
 "zero-free-verbiage" = "Ilmainen Wikipedian käyttöoikeus matkapuhelinoperaattoriltasi (tiedonsiirtomaksut poistettu)";
 "zero-charged-verbiage" = "Wikipedia Zero on pois käytöstä";
 "zero-charged-verbiage-extended" = "Muiden artikkelien lataamisesta saattaa aiheutua tiedonsiirtokustannuksia. Tallennetut artikkelit eivät käytä verkkoyhteyttä ja ovat ilmaisia.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Poistutaan Wikipedia Zerosta";
 "zero-interstitial-leave-app" = "Haluatko siirtyä ulkoiselle sivulle? Saatat joutua maksamaan tiedonsiirtomaksuja.";
 "zero-interstitial-continue" = "Poistu";
@@ -248,6 +247,8 @@
 "button-ok" = "OK";
 "button-save-for-later" = "Tallenna myöhemmäksi";
 "button-saved-for-later" = "Tallennettu myöhemmäksi";
+"button-saved-remove" = "Poista tallennetuista";
+"button-read-now" = "Lue nyt";
 "button-report-a-bug" = "Ilmoita ongelmasta";
 "onboarding-create-account" = "Luo tunnus";
 "onboarding-login" = "Kirjaudu sisään";
@@ -411,3 +412,10 @@
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Lähde $1";
+"in-the-news-notification-read-now-action-title" = "Lue nyt";
+"in-the-news-notification-share-action-title" = "Jaa";
+"in-the-news-notification-save-for-later-action-title" = "Tallenna myöhemmäksi";
+"in-the-news-currently-trending" = "Tällä hetkellä suosittuja";
+"number-thousands" = "$1 t.";
+"number-millions" = "$1 milj.";
+"number-billions" = "$1 mrd.";
