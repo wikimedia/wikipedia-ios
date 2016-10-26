@@ -146,14 +146,12 @@ class WMFImageControllerTests: XCTestCase {
                 self.imageController.cancelFetchForURL(testURL)
         }
         
-        defer {
-            NSNotificationCenter.defaultCenter().removeObserver(observationToken)
-        }
-        
         imageController.fetchImageWithURL(testURL, failure:failure, success: success)
         
         waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
         }
+        
+        NSNotificationCenter.defaultCenter().removeObserver(observationToken)
         
         NSURLProtocol.unregisterClass(WMFHTTPHangingProtocol)
         LSNocilla.sharedInstance().start()
