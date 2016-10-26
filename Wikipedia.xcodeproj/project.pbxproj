@@ -771,6 +771,8 @@
 		D84F2BFD1D2FEE6300963D42 /* WMFRandomDiceButtonRoll.js in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BFA1D2FEE6300963D42 /* WMFRandomDiceButtonRoll.js */; };
 		D84F2C001D2FEEF600963D42 /* WMFRandomArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2BFF1D2FEEF600963D42 /* WMFRandomArticleViewController.m */; };
 		D84F2C031D30162700963D42 /* WMFFirstRandomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2C021D30162700963D42 /* WMFFirstRandomViewController.m */; };
+		D84F92421DC161DA00114C2F /* NSDictionary+WMFPageViewsSortedByDate.h in Headers */ = {isa = PBXBuildFile; fileRef = D84F92401DC161DA00114C2F /* NSDictionary+WMFPageViewsSortedByDate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D84F92431DC161DA00114C2F /* NSDictionary+WMFPageViewsSortedByDate.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F92411DC161DA00114C2F /* NSDictionary+WMFPageViewsSortedByDate.m */; };
 		D85108AA1D6CC75D009C73C4 /* MWLanguageInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807271C0CED530065EBC0 /* MWLanguageInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D85108AB1D6CC761009C73C4 /* MWLanguageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807281C0CED530065EBC0 /* MWLanguageInfo.m */; };
 		D858A7DF1DA6A04A009C3DEB /* WMFDateCalculationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D858A7DE1DA6A04A009C3DEB /* WMFDateCalculationTests.m */; };
@@ -2371,6 +2373,8 @@
 		D84F2BFF1D2FEEF600963D42 /* WMFRandomArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFRandomArticleViewController.m; sourceTree = "<group>"; };
 		D84F2C011D30162700963D42 /* WMFFirstRandomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFFirstRandomViewController.h; sourceTree = "<group>"; };
 		D84F2C021D30162700963D42 /* WMFFirstRandomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFFirstRandomViewController.m; sourceTree = "<group>"; };
+		D84F92401DC161DA00114C2F /* NSDictionary+WMFPageViewsSortedByDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+WMFPageViewsSortedByDate.h"; path = "Wikipedia/Code/NSDictionary+WMFPageViewsSortedByDate.h"; sourceTree = SOURCE_ROOT; };
+		D84F92411DC161DA00114C2F /* NSDictionary+WMFPageViewsSortedByDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+WMFPageViewsSortedByDate.m"; path = "Wikipedia/Code/NSDictionary+WMFPageViewsSortedByDate.m"; sourceTree = SOURCE_ROOT; };
 		D85219371D6DEFBB00084796 /* WMFTodayContinueReadingWidgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFTodayContinueReadingWidgetViewController.swift; sourceTree = "<group>"; };
 		D858A7DE1DA6A04A009C3DEB /* WMFDateCalculationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFDateCalculationTests.m; sourceTree = "<group>"; };
 		D858A7F71DA6DB7F009C3DEB /* UserzoomSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserzoomSDK.framework; path = Wikipedia/Frameworks/UserzoomSDK.framework; sourceTree = "<group>"; };
@@ -5504,6 +5508,8 @@
 		D8494AEF1D6C8BE200337433 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D84F92401DC161DA00114C2F /* NSDictionary+WMFPageViewsSortedByDate.h */,
+				D84F92411DC161DA00114C2F /* NSDictionary+WMFPageViewsSortedByDate.m */,
 				D864D68D1DA3EDF900B86934 /* NSNumberFormatter+WMFExtras.swift */,
 				B0E804891C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.h */,
 				B0E8048A1C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.m */,
@@ -5915,6 +5921,7 @@
 				D8494B051D6C90AC00337433 /* WMFDirectoryPaths.h in Headers */,
 				D8494AF11D6C8C4400337433 /* WMFHashing.h in Headers */,
 				D85D34BF1D74CFAF00845125 /* NSCalendar+WMFCommonCalendars.h in Headers */,
+				D84F92421DC161DA00114C2F /* NSDictionary+WMFPageViewsSortedByDate.h in Headers */,
 				D844D9C91D6CBA190042D692 /* WMFGeometry.h in Headers */,
 				D8494B041D6C908700337433 /* WMFLogging.h in Headers */,
 				D8494AF91D6C8D4A00337433 /* NSMutableSet+WMFSafeAdd.h in Headers */,
@@ -7453,6 +7460,7 @@
 				D8494AF61D6C8D0600337433 /* NSArray+WMFMapping.m in Sources */,
 				D8494AE61D6C85C500337433 /* NSURLComponents+WMFLinkParsing.m in Sources */,
 				D8494AF71D6C8D2F00337433 /* NSMutableArray+WMFSafeAdd.m in Sources */,
+				D84F92431DC161DA00114C2F /* NSDictionary+WMFPageViewsSortedByDate.m in Sources */,
 				D8494B071D6C90CA00337433 /* WMFLocalization.m in Sources */,
 				D85D34C01D74CFB400845125 /* NSCalendar+WMFCommonCalendars.m in Sources */,
 				D8494B001D6C8D9E00337433 /* NSURL+WMFExtras.m in Sources */,
