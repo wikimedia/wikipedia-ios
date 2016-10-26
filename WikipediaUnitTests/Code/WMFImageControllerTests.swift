@@ -138,7 +138,7 @@ class WMFImageControllerTests: XCTestCase {
             expectation.fulfill()
         }
         
-        self.imageController.fetchImageWithURL(testURL, failure:failure, success: success)
+        imageController.fetchImageWithURL(testURL, failure:failure, success: success)
         
         imageController.cancelFetchForURL(testURL)
         
@@ -165,7 +165,7 @@ class WMFImageControllerTests: XCTestCase {
             secondExpectation.fulfill()
         }
         
-        self.imageController.fetchImageWithURL(testURL, failure:secondFailure, success: secondsuccess)
+        imageController.fetchImageWithURL(testURL, failure:secondFailure, success: secondsuccess)
         
         waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
         }
