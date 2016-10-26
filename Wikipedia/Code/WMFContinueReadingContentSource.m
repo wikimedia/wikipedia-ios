@@ -86,14 +86,13 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
     }
 
     MWKHistoryEntry *userData = [self.userDataStore entryForURL:lastRead];
-    
-    if(userData == nil){
+
+    if (userData == nil) {
         if (completion) {
             completion();
         }
         return;
     }
-    
 
     group = [[WMFContinueReadingContentGroup alloc] initWithDate:userData.dateViewed];
 
@@ -105,9 +104,6 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         NSParameterAssert(article);
         preview = [self.previewStore addPreviewWithURL:lastRead updatedWithArticle:article];
     }
-
-    //preview should already exist for any item in history
-    NSParameterAssert(preview);
 
     [self.contentStore addContentGroup:group associatedContent:@[lastRead]];
     [self.contentStore notifyWhenWriteTransactionsComplete:completion];
