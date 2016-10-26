@@ -92,19 +92,28 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             self.imageViewHidden = true
         }
         
-        if let viewCounts = info[WMFNotificationInfoViewCountsKey] as? [NSNumber] where viewCounts.count > 0 {
-            sparklineView.dataValues = viewCounts
-            sparklineView.showsVerticalGridlines = true
-            sparklineView.updateMinAndMaxFromDataValues()
-            
-            if let count = viewCounts.last {
-                readerCountLabel.text = NSNumberFormatter.localizedThousandsStringFromNumber(count)
-            } else {
-                readerCountLabel.text = ""
-            }
-        } else {
+        guard let viewCountDict = info[WMFNotificationInfoViewCountsKey] as? NSDictionary else {
             readerCountLabel.text = ""
+            return
         }
+        
+        let viewCounts = viewCountDict.wmf_pageViewsSortedByDate
+        
+        guard viewCounts.count > 0 else {
+            readerCountLabel.text = ""
+            return
+        }
+            
+        sparklineView.dataValues = viewCounts
+        sparklineView.showsVerticalGridlines = true
+        sparklineView.updateMinAndMaxFromDataValues()
+        
+        guard let count = viewCounts.last else {
+            readerCountLabel.text = ""
+            return
+        }
+        
+        readerCountLabel.text = NSNumberFormatter.localizedThousandsStringFromNumber(count)
     }
 
     func didReceiveNotificationResponse(response: UNNotificationResponse, completionHandler completion: (UNNotificationContentExtensionResponseOption) -> Void) {
