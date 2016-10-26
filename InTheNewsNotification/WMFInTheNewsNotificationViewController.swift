@@ -48,7 +48,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        PiwikTracker.wmf_start()
+        //PiwikTracker.wmf_start()
     }
     
     override func viewDidLoad() {
@@ -66,7 +66,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             articleURL = NSURL(string: articleURLString)
         }
         
-        PiwikTracker.sharedInstance().wmf_logActionPreviewInContext(self, contentType: self)
+        //PiwikTracker.sharedInstance().wmf_logActionPreviewInContext(self, contentType: self)
         
         if let html = info[WMFNotificationInfoStoryHTMLKey] as? String {
             let font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote, compatibleWithTraitCollection: nil)
@@ -130,7 +130,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             guard let wikipediaSchemeURL = articleURL.wmf_wikipediaSchemeURL else {
                 break
             }
-            PiwikTracker.sharedInstance().wmf_logActionTapThroughInContext(self, contentType: self)
+            //PiwikTracker.sharedInstance().wmf_logActionTapThroughInContext(self, contentType: self)
             extensionContext.openURL(wikipediaSchemeURL, completionHandler: { (didOpen) in
                 completion(.Dismiss)
             })
