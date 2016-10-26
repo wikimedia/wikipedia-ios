@@ -53,7 +53,6 @@
 "zero-free-verbiage" = "Acesso gratuito à Wikipédia disponibilizado pela sua operadora (sem tarifa de dados cobrada)";
 "zero-charged-verbiage" = "Wikipédia Zero está desativada";
 "zero-charged-verbiage-extended" = "A leitura de outros artigos podem ocasionar em tarifas de dados. Artigos salvos e armazenados ''off-line'' não usam dados e o seu acesso é gratuito.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Deixando a Wikipédia Zero";
 "zero-interstitial-leave-app" = "Poderá ser aplicada tarifa de dados. Continuar para o site externo?";
 "zero-interstitial-continue" = "Sair";

@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: HalanTul
 // Author: Ай-Куо
+// Author: Марианна
 // Author: Туллук
 
 "languages-title" = "Тылын уларыт";
@@ -35,7 +36,6 @@
 "zero-free-verbiage" = "Бикипиэдьийэҕэ босхо киириини мобил оператор хааччыйыыта (трафик төлөммөт)";
 "zero-charged-verbiage" = "Wikipedia Zero арахсыбыт";
 "zero-charged-verbiage-extended" = "Ыстатыйаны хачайдаан ыларга төлөбүр ылыахтарын сөп. Эрдэ хараллыбыт ыстатыйалары хачайдыыр ирдэммэт, онон босхо.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Wikipedia Zero-ттан тахсыы";
 "zero-interstitial-leave-app" = "Тас ситим-сиргэ бараҕын дуо? Оччоҕо харчы төлөтүөхтэрин сөп.";
 "zero-interstitial-continue" = "Көс";
@@ -399,3 +399,5 @@
 "request-feedback-on-error" = "Дьибилгэт биллибэт алҕаһы кытта көрүстэ, бу туһунан оҥорооччулар сиһилии билиэхтэрин баҕараллара саарбаҕа суох. бука диэн, маны баттаан биһиэхэ бу туһунан сиһилии сурукта ыыт.";
 "explore-another-random" = "Атын түбэспиччэ ыстатыйа";
 "top-read-header-generic" = "Бикипиэдьийэ";
+"in-the-news-notification-share-action-title" = "Тарҕат";
+"in-the-news-notification-save-for-later-action-title" = "Кэлин бигэргэтиэм";

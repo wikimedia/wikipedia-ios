@@ -39,7 +39,6 @@
 "zero-free-verbiage" = "Acceso gratuíto á Wikipedia a través da súa operadora móbil (non se aplica ningunha tarifa de datos)";
 "zero-charged-verbiage" = "Wikipedia Zero está desactivada";
 "zero-charged-verbiage-extended" = "Cargar outros artigos pode facer que se aplique a súa tarifa de datos. Os artigos gardados e almacenados sen conexión non usan os datos e o seu acceso é gratuíto.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Deixando a Wikipedia Zero";
 "zero-interstitial-leave-app" = "Poden aplicarse cargos por datos. Quere continuar a un sitio externo?";
 "zero-interstitial-continue" = "Saír";
@@ -244,6 +243,8 @@
 "button-ok" = "OK";
 "button-save-for-later" = "Gardar para máis tarde";
 "button-saved-for-later" = "Gardado para máis tarde";
+"button-saved-remove" = "Quitar dos gardados";
+"button-read-now" = "Ler agora";
 "button-report-a-bug" = "Informar dun erro";
 "onboarding-create-account" = "Crear conta";
 "onboarding-login" = "Acceder";
@@ -347,8 +348,7 @@
 "home-hide-suggestion-prompt" = "Ocultar esta suxestión";
 "home-hide-suggestion-cancel" = "Cancelar";
 "home-accessibility-label" = "Wikipedia, Explore";
-// Fuzzy
-"home-button-accessibility-label" = "Botón de comezo";
+"home-button-accessibility-label" = "Inicio";
 "potd-empty-error-description" = "Erro ó recuperar a imaxe do día para $1";
 "potd-description-prefix" = "Imaxe do día para $1";
 "welcome-explore-title" = "Explorar";
@@ -413,4 +413,11 @@
 "top-read-see-more-trending" = "Ver máis tendencias";
 "top-read-header-with-language" = "Wikipedia en $1";
 "top-read-header-generic" = "Wikipedia";
+"reference-title" = "Referenza $1";
+"in-the-news-notification-read-now-action-title" = "Ler agora";
+"in-the-news-notification-share-action-title" = "Compartir";
+"in-the-news-notification-save-for-later-action-title" = "Gardar para máis tarde";
+"in-the-news-currently-trending" = "Popular actualmente";
 "number-thousands" = "$1 mil";
+"number-millions" = "$1M";
+"number-billions" = "$1";
