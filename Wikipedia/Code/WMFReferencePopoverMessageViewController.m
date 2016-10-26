@@ -47,7 +47,11 @@
 
     self.closeButton.tintColor = [UIColor wmf_lightGrayColor];
 
-    self.titleLabel.text = [[MWLocalizedString(@"reference-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]] stringByReplacingOccurrencesOfString:@"$1" withString:self.reference.text];
+    self.titleLabel.attributedText =
+    [[MWLocalizedString(@"reference-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]]
+     attributedStringWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]}
+     substitutionStrings:@[self.reference.text]
+     substitutionAttributes:@[@{NSForegroundColorAttributeName: [UIColor blackColor]}]];
 }
 
 - (NSString *)referenceHTMLWithSurroundingHTML {
