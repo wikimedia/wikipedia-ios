@@ -3,6 +3,7 @@
 // Author: Elisardojm
 // Author: Fitoschido
 // Author: Indiralena
+// Author: Irus
 // Author: Koavf
 // Author: Macofe
 // Author: MadriCR
@@ -45,7 +46,6 @@
 "zero-free-verbiage" = "Acceso gratuito a Wikipedia de tu operador móvil (sin cargos por datos)";
 "zero-charged-verbiage" = "Wikipedia Zero está desactivado";
 "zero-charged-verbiage-extended" = "Cargar otros artículos puede incurrir en cargos por datos. Los artículos almacenados sin conexión no utilizan datos y son gratis.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Salir de Wikipedia Zero";
 "zero-interstitial-leave-app" = "Pueden aplicarse cargos por datos. ¿Continuar a sitio externo?";
 "zero-interstitial-continue" = "Continuar";
@@ -421,4 +421,10 @@
 "top-read-header-with-language" = "Wikipedia en $1";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Referencia $1";
+"in-the-news-notification-read-now-action-title" = "Leer ahora";
+"in-the-news-notification-share-action-title" = "Compartir";
+"in-the-news-notification-save-for-later-action-title" = "Guardar para después";
+"in-the-news-currently-trending" = "En tendencia";
 "number-thousands" = "$1K";
+"number-millions" = "$1M";
+"number-billions" = "$1B";

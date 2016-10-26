@@ -46,7 +46,6 @@
 "zero-free-verbiage" = "이동 통신사에서 무료로 위키백과에 접속하세요 (데이터 요금 면제)";
 "zero-charged-verbiage" = "위키백과 제로가 꺼져 있습니다";
 "zero-charged-verbiage-extended" = "다른 문서를 불러오면 데이터 요금이 부과될 수 있습니다. 저장된 문서는 오프라인으로 저장되어 데이터를 사용하지 않으며 무료입니다.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "위키백과 제로를 떠나고 있습니다";
 "zero-interstitial-leave-app" = "데이터 요금이 부과될 수 있습니다. 바깥 사이트로 계속해서 떠날까요?";
 "zero-interstitial-continue" = "떠나기";
@@ -91,8 +90,7 @@
 "wikitext-upload-save-sign-in-benefits" = "공동 편집자가 당신과 연결할 수 있어서 당신이 편집한 문서를 볼 수 있습니다.";
 "wikitext-upload-save-anonymously" = "익명으로 게시하기";
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인 정보를 더 보호할 수 있습니다.";
-// Fuzzy
-"wikitext-upload-save-terms-and-license" = "저장하면, $1에 동의하고 영구히 $2 라이선스에 따라 기여를 배포하는 데 동의합니다.";
+"wikitext-upload-save-terms-and-license" = "게시하면, $1에 동의하고 영구히 $2 라이선스에 따라 기여를 배포하는 데 동의합니다.";
 "wikitext-upload-save-terms-name" = "이용 약관";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "링크 열기";
@@ -420,4 +418,9 @@
 "top-read-header-with-language" = "$1 위키백과";
 "top-read-header-generic" = "위키백과";
 "reference-title" = "각주 $1";
+"in-the-news-notification-read-now-action-title" = "지금 읽기";
+"in-the-news-notification-share-action-title" = "공유";
+"in-the-news-notification-save-for-later-action-title" = "나중을 위해 저장";
 "number-thousands" = "$1K";
+"number-millions" = "$1M";
+"number-billions" = "$1B";

@@ -39,7 +39,6 @@
 "zero-free-verbiage" = "גישה בחינם לוויקיפדיה דרך ספק התקשורת הניידת שלך (ללא חיוב על נתונים)";
 "zero-charged-verbiage" = "ויקיפדיה אפס כבויה";
 "zero-charged-verbiage-extended" = "טעינת ערכים אחרים עשויה לגרום לחיוב זמן אוויר על נתונים. ערכים שמורים שמאוחסנים באופן בלתי־מקוון אינם מתמשים בנתונים וזמינים חינם.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "אנחנו יוצאים מוויקיפדיה אפס";
 "zero-interstitial-leave-app" = "ייתכן שיחולו חיובים על נתונים.";
 "zero-interstitial-continue" = "להמשיך";
@@ -244,6 +243,8 @@
 "button-ok" = "אישור";
 "button-save-for-later" = "לשמור לאחר־כך";
 "button-saved-for-later" = "נשמרו לאחר־כך";
+"button-saved-remove" = "להסיר משמורים";
+"button-read-now" = "לקרוא עכשיו";
 "button-report-a-bug" = "דיווח באג";
 "onboarding-create-account" = "יצירת חשבון";
 "onboarding-login" = "כניסה";
@@ -413,4 +414,10 @@
 "top-read-header-with-language" = "ויקיפדיה בשפה $1";
 "top-read-header-generic" = "ויקיפדיה";
 "reference-title" = "הערה $1";
+"in-the-news-notification-read-now-action-title" = "לקרוא עכשיו";
+"in-the-news-notification-share-action-title" = "לשתף";
+"in-the-news-notification-save-for-later-action-title" = "לשמור לאחר־כך";
+"in-the-news-currently-trending" = "מבוקש עכשיו";
 "number-thousands" = "$1K";
+"number-millions" = "$1";
+"number-billions" = "$1";

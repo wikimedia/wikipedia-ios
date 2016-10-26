@@ -46,7 +46,6 @@
 "zero-free-verbiage" = "從閣下的電話公司免費存取維基百科 (不需要支出資料費用)";
 "zero-charged-verbiage" = "Wikipedia Zero 已關閉";
 "zero-charged-verbiage-extended" = "讀取其他條目將可能產生資料流量費用。已儲存的條目可離線存取，不會產生額外的流量費用。";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "離開 Wikipedia Zero";
 "zero-interstitial-leave-app" = "可能產生資料資料費用。要繼續前往外部網站嗎？";
 "zero-interstitial-continue" = "離開";
@@ -422,4 +421,10 @@
 "top-read-header-with-language" = "$1維基百科";
 "top-read-header-generic" = "維基百科";
 "reference-title" = "參考資料 $1";
+"in-the-news-notification-read-now-action-title" = "現在讀取";
+"in-the-news-notification-share-action-title" = "分享";
+"in-the-news-notification-save-for-later-action-title" = "稍後儲存";
+"in-the-news-currently-trending" = "最新動態";
 "number-thousands" = "$1千";
+"number-millions" = "$1百萬";
+"number-billions" = "$1十億";
