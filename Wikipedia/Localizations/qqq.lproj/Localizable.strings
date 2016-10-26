@@ -422,7 +422,7 @@
 "explore-most-read-more-list-title-for-date" = "Title with date for the view displaying longer list of top read articles. $1 will be substituted with the date";
 "no-email-account-alert" = "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device";
 "request-feedback-on-error" = "Displayed to beta users when they encounter an error we'd like feedback on";
-"explore-another-random" = "Displayed on buttons that indicate they would load 'Another random article'";
+"explore-randomizer" = "Displayed on a button that loads another random article - it's a 'Randomizer'";
 "find-in-page-no-matches" = "Displayed when zero matches were found for the search term. Space is limited for this message so please try to keep this text small\n{{Identical|Match}}";
 "find-in-page-button-label" = "Accessibility label for the Find in Page button";
 "find-in-page-popover-description" = "Description of Find in Page which can appear over its icon in a tip bubble";
