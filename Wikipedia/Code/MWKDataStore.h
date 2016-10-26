@@ -190,7 +190,7 @@ extern NSString *const MWKURLKey;
  *
  *  @return An article, or @c nil if none was found.
  */
-- (MWKArticle *)articleFromDiskWithURL:(NSURL *)url;
+- (nullable MWKArticle *)articleFromDiskWithURL:(NSURL *)url;
 
 /**
  *  Get or create an article with a given title.
