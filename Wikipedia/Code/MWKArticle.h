@@ -68,9 +68,9 @@ static const NSInteger kMWKArticleSectionNone = -1;
  */
 @property (readonly, strong, nonatomic, nullable) NSArray *citations;
 
-- (instancetype)initWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore;
-- (instancetype)initWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore dict:(NSDictionary *)dict;
-- (instancetype)initWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore searchResultsDict:(NSDictionary *)dict;
+- (instancetype)initWithURL:(NSURL *)url dataStore:(nullable MWKDataStore *)dataStore;
+- (instancetype)initWithURL:(NSURL *)url dataStore:(nullable MWKDataStore *)dataStore dict:(NSDictionary *)dict;
+- (instancetype)initWithURL:(NSURL *)url dataStore:(nullable MWKDataStore *)dataStore searchResultsDict:(NSDictionary *)dict;
 
 /**
  * Import article and section metadata (and text if available)
