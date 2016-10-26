@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (void)processChanges:(NSArray<NSNotification *> *)changes onConnection:(YapDatabaseConnection *)connection {
+- (void)processChanges:(NSArray *)changes onConnection:(YapDatabaseConnection *)connection {
     if (![connection isEqual:self.readConnection]) {
         return;
     }
