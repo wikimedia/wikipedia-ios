@@ -11,7 +11,6 @@
 		041EFC371996A1F800B2CB28 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041EFC361996A1F800B2CB28 /* MapKit.framework */; };
 		0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */; };
 		04D34DB21863D39000610A87 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D34DB11863D39000610A87 /* libxml2.dylib */; };
-		087BFC581C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 087BFC571C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.m */; };
 		08A3C7B61C5FCC8500682DC0 /* WMFArticlePreviewCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A3C7B51C5FCC8500682DC0 /* WMFArticlePreviewCellVisualTests.m */; };
 		0E0361741C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0361731C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m */; };
 		0E03617A1C44905400FD9642 /* WMFMorePageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0361791C44905400FD9642 /* WMFMorePageListViewController.m */; };
@@ -124,6 +123,9 @@
 		0E8E94161D55111900066FC0 /* WMFArticleListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8E94151D55111900066FC0 /* WMFArticleListTableViewController.m */; };
 		0E9B9E321CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */; };
 		0E9B9E331CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9B9E301CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m */; };
+		0EB4108B1DBFA55000A26CE1 /* WMFAnalyticsLogging.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804191C0CDE610065EBC0 /* WMFAnalyticsLogging.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0EB4108C1DBFA55600A26CE1 /* PiwikTracker+WMFExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 087BFC561C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0EB4108D1DBFA55C00A26CE1 /* PiwikTracker+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 087BFC571C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.m */; };
 		0EBB23181D1A2C4A00CA9742 /* WMFAuthenticationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBB23171D1A2C4A00CA9742 /* WMFAuthenticationManager.m */; };
 		0EBCA7481C176389004F1FD9 /* WMFAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7471C176389004F1FD9 /* WMFAlertManager.swift */; };
 		0EBCA7511C17BD6D004F1FD9 /* AlertDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EBCA7501C17BD6D004F1FD9 /* AlertDesign.json */; };
@@ -5416,7 +5418,6 @@
 		D4B0ADFF19365F4600F0AC90 /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
-				BC45D5701C32EA10007C72F3 /* Piwik */,
 				0E7AAEEA1C21F4160046B5B6 /* WIkimedia Event Logging */,
 			);
 			name = Analytics;
@@ -5449,6 +5450,7 @@
 				0E728D161DAEE0F20074EB4B /* HTML Parsing */,
 				0E728D191DAEE2390074EB4B /* Images */,
 				0E728D131DAEE06F0074EB4B /* Search */,
+				BC45D5701C32EA10007C72F3 /* Piwik */,
 				0E568D471C78273B00E68FC1 /* SavedPageSpotlightManager.swift */,
 				0E5DC8611C6D716100C39A6F /* NSUserActivity+WMFExtensions.h */,
 				0E5DC8621C6D716100C39A6F /* NSUserActivity+WMFExtensions.m */,
@@ -5770,6 +5772,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EB4108C1DBFA55600A26CE1 /* PiwikTracker+WMFExtensions.h in Headers */,
 				0E28C47F1D74D8DF000C5919 /* WMFContentGroup+WMFDatabaseViews.h in Headers */,
 				D849D64E1D6CC7D200D06FC8 /* WMFImageTag+TargetImageWidthURL.h in Headers */,
 				0E728D481DAEEE910074EB4B /* WMFLocationManager.h in Headers */,
@@ -5796,6 +5799,7 @@
 				0E728D281DAEE8FF0074EB4B /* WMFContentSource.h in Headers */,
 				0E3C5D461D6CF00000C95BA1 /* WMFBaseDataStore.h in Headers */,
 				D844D9B11D6CB7770042D692 /* MWKSavedPageEntry+ImageMigration.h in Headers */,
+				0EB4108B1DBFA55000A26CE1 /* WMFAnalyticsLogging.h in Headers */,
 				0E728D4A1DAEEE910074EB4B /* CLLocation+WMFBearing.h in Headers */,
 				D84B22531DAFD1E1007C44AA /* CIDetector+WMFFaceDetection.h in Headers */,
 				D844D9B61D6CB7940042D692 /* MWKRecentSearchEntry.h in Headers */,
@@ -7149,7 +7153,6 @@
 				B069FA2E1CEACB8400083D59 /* WeakScriptMessageDelegate.swift in Sources */,
 				B0E804D51C0CE0B40065EBC0 /* NSObject+ConstraintsScale.m in Sources */,
 				B0E8055D1C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift in Sources */,
-				087BFC581C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.m in Sources */,
 				B0E802BB1C0CD2260065EBC0 /* WMFStyleManager.m in Sources */,
 				B0E8053C1C0CE0DC0065EBC0 /* UIButton+WMFMultiLineHeight.swift in Sources */,
 				B0E294CD1DB2CF4300861D04 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */,
@@ -7404,6 +7407,7 @@
 				D844DA0A1D6CC5240042D692 /* NSLocale+WMFExtras.swift in Sources */,
 				D844D9ED1D6CBFE40042D692 /* WMFZeroConfiguration.m in Sources */,
 				D83FA6B41D74CDBC008CAB00 /* AFHTTPRequestSerializer+WMFRequestHeaders.m in Sources */,
+				0EB4108D1DBFA55C00A26CE1 /* PiwikTracker+WMFExtensions.m in Sources */,
 				D844D9961D6CB5970042D692 /* MWKProtectionStatus.m in Sources */,
 				0E28C48B1D75298C000C5919 /* WMFArticlePreview.m in Sources */,
 				D8DC16F31D6F6F2C00D6D9FB /* NSUserDefaults+WMFExtensions.swift in Sources */,
