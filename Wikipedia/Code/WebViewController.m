@@ -930,29 +930,8 @@ NSString *const WMFCCBySALicenseURL =
                                               }];
 }
 
-- (void)scrollToVerticalOffset:(CGFloat)offset {
-    [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(0, offset) animated:NO];
-}
-
 - (CGFloat)currentVerticalOffset {
     return self.webView.scrollView.contentOffset.y;
-}
-
-- (void)tocScrollWebViewToPoint:(CGPoint)point
-                       duration:(CGFloat)duration
-                    thenHideTOC:(BOOL)hideTOC {
-    if (isnan(point.x) || isinf(point.x) || isnan(point.y) || isinf(point.y)) {
-        return;
-        DDLogError(@"Attempted to scroll ToC to Nan value, ignoring");
-    }
-    [UIView animateWithDuration:duration
-                          delay:0.0f
-                        options:UIViewAnimationOptionBeginFromCurrentState
-                     animations:^{
-                         [self.webView.scrollView wmf_safeSetContentOffset:point animated:NO];
-                     }
-                     completion:^(BOOL done){
-                     }];
 }
 
 #pragma mark UIContainerViewControllerCallbacks
