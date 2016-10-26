@@ -146,7 +146,7 @@ extern NSString *const MWKSectionShareSnippetXPath;
  */
 - (BOOL)hasTextData;
 
-- (NSString *)summary;
+- (nullable NSString *)summary;
 
 - (nullable NSArray<NSURL *> *)disambiguationURLs;
 

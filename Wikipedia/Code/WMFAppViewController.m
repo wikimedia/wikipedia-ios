@@ -229,8 +229,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 #pragma mark - Background Fetch
 
-
-- (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion{
+- (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion {
     [self updateBackgroundSourcesWithCompletion:^{
         completion(UIBackgroundFetchResultNewData);
     }];
@@ -289,7 +288,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
     if (![[NSUserDefaults wmf_userDefaults] wmf_didMigrateToSharedContainer]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
             NSError *error = nil;
             if (![MWKDataStore migrateToSharedContainer:&error]) {
                 DDLogError(@"Error migrating data store: %@", error);
@@ -299,8 +297,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
                 DDLogError(@"Error migrating image cache: %@", error);
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-                CFAbsoluteTime end = CFAbsoluteTimeGetCurrent();
-                NSLog(@"%f", end - start);
                 [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:YES];
                 [self finishLaunch];
             });
@@ -360,8 +356,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     } else if ([self shouldShowExploreScreenOnLaunch]) {
         [self showExplore];
     }
-    
-    
+
+#if FB_TWEAKS_ENABLED
     if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
         [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{ NSLocalizedDescriptionKey: @"There was an error" }] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
@@ -374,6 +370,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if (FBTweakValue(@"Alerts", @"General", @"Show message on launch", NO)) {
         [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
+#endif
 
     DDLogWarn(@"Resuming… Logging Important Statistics");
     [self logImportantStatistics];
@@ -399,7 +396,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     DDLogWarn(@"Backgrounding… Logging Important Statistics");
     [self logImportantStatistics];
 }
-
 
 #pragma mark - Memory Warning
 
@@ -449,9 +445,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             if ([obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
                 [group enter];
                 [(id<WMFDateBasedContentSource>)obj preloadContentForNumberOfDays:2
-                                        completion:^{
-                                            [group leave];
-                                        }];
+                                                                       completion:^{
+                                                                           [group leave];
+                                                                       }];
             }
         }];
 
@@ -484,48 +480,50 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)startContentSources {
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if([obj conformsToProtocol:@protocol(WMFAutoUpdatingContentSource)]){
-            [(id<WMFAutoUpdatingContentSource>) obj startUpdating];
+    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        if ([obj conformsToProtocol:@protocol(WMFAutoUpdatingContentSource)]) {
+            [(id<WMFAutoUpdatingContentSource>)obj startUpdating];
         }
     }];
 }
 
 - (void)stopContentSources {
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if([obj conformsToProtocol:@protocol(WMFAutoUpdatingContentSource)]){
-            [(id<WMFAutoUpdatingContentSource>) obj stopUpdating];
+    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        if ([obj conformsToProtocol:@protocol(WMFAutoUpdatingContentSource)]) {
+            [(id<WMFAutoUpdatingContentSource>)obj stopUpdating];
         }
     }];
 }
 
-- (void)updateContentSourcesWithCompletion:(dispatch_block_t)completion{
-    WMFTaskGroup* group = [WMFTaskGroup new];
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+- (void)updateContentSourcesWithCompletion:(dispatch_block_t)completion {
+    WMFTaskGroup *group = [WMFTaskGroup new];
+    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         [group enter];
-        [obj loadNewContentForce:NO completion:^{
-            [group leave];
-        }];
+        [obj loadNewContentForce:NO
+                      completion:^{
+                          [group leave];
+                      }];
     }];
     [group waitInBackgroundWithCompletion:completion];
 }
 
-- (void)updateBackgroundSourcesWithCompletion:(dispatch_block_t)completion{
-    WMFTaskGroup* group = [WMFTaskGroup new];
-    
+- (void)updateBackgroundSourcesWithCompletion:(dispatch_block_t)completion {
+    WMFTaskGroup *group = [WMFTaskGroup new];
+
     [group enter];
-    [[self feedContentSource] loadNewContentForce:NO completion:^{
-        [group leave];
-    }];
-    
+    [[self feedContentSource] loadNewContentForce:NO
+                                       completion:^{
+                                           [group leave];
+                                       }];
+
     [group enter];
-    [[self randomContentSource] loadNewContentForce:NO completion:^{
-        [group leave];
-    }];
-    
+    [[self randomContentSource] loadNewContentForce:NO
+                                         completion:^{
+                                             [group leave];
+                                         }];
+
     [group waitInBackgroundWithCompletion:completion];
 }
-
 
 - (WMFFeedContentSource *)feedContentSource {
     return [self.contentSources bk_match:^BOOL(id<WMFContentSource> obj) {
@@ -865,7 +863,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
     if ([self shouldShowOnboarding]) {
         WMFWelcomePageViewController *vc = [WMFWelcomePageViewController wmf_viewControllerFromWelcomeStoryboard];
-        
+
         vc.completionBlock = ^{
             [self setDidShowOnboarding];
             if (completion) {
@@ -921,6 +919,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return NO;
     }
 
+#if FB_TWEAKS_ENABLED
     if (FBTweakValue(@"Last Open Article", @"General", @"Restore on Launch", YES)) {
         return YES;
     }
@@ -937,6 +936,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 
     return NO;
+#else
+    return YES;
+#endif
 }
 
 - (void)showLastReadArticleAnimated:(BOOL)animated {

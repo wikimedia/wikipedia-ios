@@ -529,7 +529,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     return [[NSFileManager defaultManager] fileExistsAtPath:filePath];
 }
 
-- (MWKImage *)imageWithURL:(NSString *)url article:(MWKArticle *)article {
+- (nullable MWKImage *)imageWithURL:(NSString *)url article:(MWKArticle *)article {
     if (url == nil) {
         return nil;
     }
