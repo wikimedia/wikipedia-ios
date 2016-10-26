@@ -13,6 +13,7 @@ class WMFImageControllerTests: XCTestCase {
     override func setUp() {
         super.setUp()
         imageController = WMFImageController.temporaryController()
+        imageController.deleteAllImages()
     }
 
     override func tearDown() {
@@ -122,6 +123,8 @@ class WMFImageControllerTests: XCTestCase {
         guard let testURL = NSURL(string:testURLString) else {
             return
         }
+        
+        imageController.deleteImageWithURL(testURL)
         
         NSURLProtocol.registerClass(WMFHTTPHangingProtocol)
         
