@@ -13,6 +13,7 @@ class WMFImageControllerTests: XCTestCase {
     override func setUp() {
         super.setUp()
         imageController = WMFImageController.temporaryController()
+        imageController.deleteAllImages()
     }
 
     override func tearDown() {
@@ -123,6 +124,8 @@ class WMFImageControllerTests: XCTestCase {
             return
         }
         
+        imageController.deleteImageWithURL(testURL)
+        
         NSURLProtocol.registerClass(WMFHTTPHangingProtocol)
         
         let expectation = expectationWithDescription("wait for image cancellation");
@@ -138,12 +141,17 @@ class WMFImageControllerTests: XCTestCase {
             expectation.fulfill()
         }
         
-        self.imageController.fetchImageWithURL(testURL, failure:failure, success: success)
+        let observationToken =
+            NSNotificationCenter.defaultCenter().addObserverForName(SDWebImageDownloadStartNotification, object: nil, queue: nil) { _ -> Void in
+                self.imageController.cancelFetchForURL(testURL)
+        }
         
-        imageController.cancelFetchForURL(testURL)
+        imageController.fetchImageWithURL(testURL, failure:failure, success: success)
         
         waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
         }
+        
+        NSNotificationCenter.defaultCenter().removeObserver(observationToken)
         
         NSURLProtocol.unregisterClass(WMFHTTPHangingProtocol)
         LSNocilla.sharedInstance().start()
@@ -165,7 +173,7 @@ class WMFImageControllerTests: XCTestCase {
             secondExpectation.fulfill()
         }
         
-        self.imageController.fetchImageWithURL(testURL, failure:secondFailure, success: secondsuccess)
+        imageController.fetchImageWithURL(testURL, failure:secondFailure, success: secondsuccess)
         
         waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
         }
