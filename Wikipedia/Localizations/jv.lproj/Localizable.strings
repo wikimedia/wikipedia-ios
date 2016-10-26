@@ -33,7 +33,6 @@
 "zero-free-verbiage" = "Akses Wikipedia gratis saka operator ponsel (biaya data dibebaske)";
 "zero-charged-verbiage" = "Wikipedia Zero mati";
 "zero-charged-verbiage-extended" = "Mbukak artikel sanèsipun bisa uga dikenani biaya data. Artikel disimpen yang disimpen offline ora nggunakake data lan bebas.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Ninggalake Wikipédia Zero";
 "zero-interstitial-leave-app" = "Biaya data bisa uga diterapake. Terus jaba?";
 "zero-interstitial-continue" = "Ninggalake";
@@ -409,3 +408,10 @@
 "top-read-header-with-language" = "Wikipedia $1";
 "top-read-header-generic" = "Wikipédia";
 "reference-title" = "Rujukan $1";
+"in-the-news-notification-read-now-action-title" = "Maca Saiki";
+"in-the-news-notification-share-action-title" = "Nuduhake";
+"in-the-news-notification-save-for-later-action-title" = "Simpen kanggo mengko";
+"in-the-news-currently-trending" = "Saiki tren";
+"number-thousands" = "$1 ewu";
+"number-millions" = "$1 yuta";
+"number-billions" = "$1 miliar";

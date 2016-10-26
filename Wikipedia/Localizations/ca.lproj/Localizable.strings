@@ -47,7 +47,6 @@
 "zero-free-verbiage" = "Accés lliure a la Viquipèdia des del vostre operador mòbil (sense càrrecs per transmissió de dades)";
 "zero-charged-verbiage" = "Viquipèdia Zero desactivat";
 "zero-charged-verbiage-extended" = "Carregar articles addicionals pot implicar costos per transmissió de dades. Els articles emmagatzemats sense connexió no impliquen transmissió de dades i són gratuïts.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Sortida de Viquipèdia Zero";
 "zero-interstitial-leave-app" = "Us poden cobrar per l'ús de dades. Segur que voleu anar al lloc extern?";
 "zero-interstitial-continue" = "Sortir";
@@ -252,6 +251,8 @@
 "button-ok" = "D’acord";
 "button-save-for-later" = "Desa-ho per a més tard";
 "button-saved-for-later" = "Desat per a més tard";
+"button-saved-remove" = "Suprimeix dels desats";
+"button-read-now" = "Llegeix-ho ara";
 "button-report-a-bug" = "Informa d'un error";
 "onboarding-create-account" = "Crea un compte";
 "onboarding-login" = "Inicia una sessió";
@@ -421,3 +422,10 @@
 "top-read-header-with-language" = "Viquipèdia en $1";
 "top-read-header-generic" = "Viquipèdia";
 "reference-title" = "Referència $1";
+"in-the-news-notification-read-now-action-title" = "Llegeix-ho ara";
+"in-the-news-notification-share-action-title" = "Comparteix";
+"in-the-news-notification-save-for-later-action-title" = "Desa-ho per a més tard";
+"in-the-news-currently-trending" = "En tendència";
+"number-thousands" = "$1k";
+"number-millions" = "$1M";
+"number-billions" = "$1B";

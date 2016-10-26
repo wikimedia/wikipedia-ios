@@ -45,7 +45,6 @@
 "zero-free-verbiage" = "Gratis Wikipedia-tillgång från din mobiloperatör (utan dataavgifter)";
 "zero-charged-verbiage" = "Wikipedia Zero är avstängt";
 "zero-charged-verbiage-extended" = "Att ladda andra artiklar kan medföra datakostnader. Sparade artiklar som lagras offline använder inte data och är gratis.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Du lämnar nu Wikipedia Zero";
 "zero-interstitial-leave-app" = "Avgifter för datatrafik kan tillkomma. Fortsätt till en extern webbplats?";
 "zero-interstitial-continue" = "Lämna";
@@ -421,4 +420,10 @@
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Referens $1";
+"in-the-news-notification-read-now-action-title" = "Läs nu";
+"in-the-news-notification-share-action-title" = "Dela";
+"in-the-news-notification-save-for-later-action-title" = "Spara till senare";
+"in-the-news-currently-trending" = "Populärt just nu";
 "number-thousands" = "$1K";
+"number-millions" = "$1M";
+"number-billions" = "$1B";

@@ -37,7 +37,6 @@
 "zero-free-verbiage" = "Akses Wikipedia percuma dari operator mudah alih anda (pengecualian caj data)";
 "zero-charged-verbiage" = "Wikipedia Zero off";
 "zero-charged-verbiage-extended" = "Tindakan memuatkan rencana lain mungkin dikenakan caj data. Rencana-rencana yang tersimpan secara 'offline' tidak menelan data, dan oleh itu percuma.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Keluar dari Wikipedia Zero";
 "zero-interstitial-leave-app" = "Caj data mungkin dikenakan. Terus ke laman web luaran?";
 "zero-interstitial-continue" = "Ya";
@@ -413,3 +412,10 @@
 "top-read-header-with-language" = "Wikipedia Bahasa $1";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Referensi $1";
+"in-the-news-notification-read-now-action-title" = "Baca Sekarang";
+"in-the-news-notification-share-action-title" = "Kongsi";
+"in-the-news-notification-save-for-later-action-title" = "Simpan untuk nanti";
+"in-the-news-currently-trending" = "Semasa ini ngetren";
+"number-thousands" = "$1 ribu";
+"number-millions" = "$1 juta";
+"number-billions" = "$1 bilion";

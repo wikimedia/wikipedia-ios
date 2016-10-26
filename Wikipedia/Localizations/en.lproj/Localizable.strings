@@ -497,9 +497,6 @@
 "in-the-news-title" = "In the news";
 "in-the-news-title-for-date" = "News on $1";
 
-"explore-in-the-news-footer" = "All in the news";
-"explore-in-the-news-footer-for-date" = "All in the news on $1";
-
 "number-thousands" = "$1K";
 "number-millions" = "$1M";
 "number-billions" = "$1B";
