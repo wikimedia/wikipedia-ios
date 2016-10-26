@@ -28,19 +28,22 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
     
     
     var sections = [NotificationSettingsSection]()
+    var observationToken: NSObjectProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.registerNib(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
         tableView.delegate = self
         tableView.dataSource = self
-        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { [weak self] (note) in
+        observationToken = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { [weak self] (note) in
             self?.updateSections()
         }
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        if let token = observationToken {
+            NSNotificationCenter.defaultCenter().removeObserver(token)
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
