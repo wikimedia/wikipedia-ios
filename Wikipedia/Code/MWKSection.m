@@ -236,7 +236,7 @@ static NSString *const WMFSectionSummaryXPathSelector = @"\
 ]\
 /text()";
 
-- (NSString *)summary {
+- (nullable NSString *)summary {
     NSArray *textNodes = [self elementsInTextMatchingXPath:WMFSectionSummaryXPathSelector];
     if (!textNodes || !textNodes.count) {
         return nil;

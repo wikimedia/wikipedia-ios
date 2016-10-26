@@ -190,7 +190,7 @@ extern NSString *const MWKURLKey;
  *
  *  @return An article, or @c nil if none was found.
  */
-- (MWKArticle *)articleFromDiskWithURL:(NSURL *)url;
+- (nullable MWKArticle *)articleFromDiskWithURL:(NSURL *)url;
 
 /**
  *  Get or create an article with a given title.
@@ -208,7 +208,7 @@ extern NSString *const MWKURLKey;
 
 - (MWKSection *)sectionWithId:(NSUInteger)sectionId article:(MWKArticle *)article;
 - (NSString *)sectionTextWithId:(NSUInteger)sectionId article:(MWKArticle *)article;
-- (MWKImage *)imageWithURL:(NSString *)url article:(MWKArticle *)article;
+- (nullable MWKImage *)imageWithURL:(NSString *)url article:(MWKArticle *)article;
 - (NSArray *)imageInfoForArticleWithURL:(NSURL *)url;
 
 - (NSArray *)historyListData;

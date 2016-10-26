@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 #endif
 }
 
-+ (instancetype)wmf_configuredInstance {
++ (nullable instancetype)wmf_configuredInstance {
 #ifndef DEBUG
     return [self sharedInstance];
 #else

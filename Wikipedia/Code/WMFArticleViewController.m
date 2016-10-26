@@ -1758,7 +1758,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Article Navigation
 
 - (void)pushArticleViewController:(WMFArticleViewController *)articleViewController contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType animated:(BOOL)animated {
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:contentType];
+    if (contentType) {
+        [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:contentType];
+    }
     [self wmf_pushArticleViewController:articleViewController animated:YES];
 }
 

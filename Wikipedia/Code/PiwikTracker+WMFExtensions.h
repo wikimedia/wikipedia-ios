@@ -4,8 +4,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 //Any string can be used as a content type for convienence
-@interface NSString (WMFAnalyticsContentTypeProviding)<WMFAnalyticsContentTypeProviding>
-
+@interface NSString (WMFAnalyticsContentTypeProviding) <WMFAnalyticsContentTypeProviding>
 
 @end
 
@@ -13,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)wmf_start;
 
-+ (instancetype)wmf_configuredInstance;
++ (nullable instancetype)wmf_configuredInstance;
 
 - (void)wmf_logView:(id<WMFAnalyticsViewNameProviding>)view;
 
