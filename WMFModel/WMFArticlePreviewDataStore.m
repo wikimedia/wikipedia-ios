@@ -1,5 +1,8 @@
 #import "WMFArticlePreviewDataStore.h"
 #import "WMFArticlePreview+WMFDatabaseStorable.h"
+#import "WMFContentGroup+WMFDatabaseStorable.h"
+#import "MWKHistoryEntry+WMFDatabaseStorable.h"
+
 #import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
 #import "MWKSearchResult.h"
 #import "MWKLocationSearchResult.h"
@@ -10,13 +13,76 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticlePreviewDataStore
 
-- (instancetype)initWithDatabase:(YapDatabase *)database {
-    self = [super initWithDatabase:database];
-    if (self) {
-    }
-    return self;
+- (void)cleanup{
+    [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
+        
+        NSMutableArray* keysToRemove = [NSMutableArray array];
+        
+        //add keys for all previews
+        [transaction enumerateKeysInCollection:[WMFArticlePreview databaseCollectionName] usingBlock:^(NSString * _Nonnull key, BOOL * _Nonnull stop) {
+            [keysToRemove addObject:key];
+        }];
+        
+        //remove anything with a matching key in history
+        [transaction enumerateKeysInCollection:[MWKHistoryEntry databaseCollectionName] usingBlock:^(NSString * _Nonnull key, BOOL * _Nonnull stop) {
+            [keysToRemove removeObject:key];
+        }];
+        
+        //remove anything not in the content group store
+        [transaction enumerateRowsInCollection:[WMFContentGroup databaseCollectionName] usingBlock:^(NSString * _Nonnull key, WMFContentGroup*  _Nonnull object, NSArray*  _Nullable metadata, BOOL * _Nonnull stop) {
+
+            //keep any sources of related pages
+            if([object isKindOfClass:[WMFRelatedPagesContentGroup class]]){
+                [keysToRemove removeObject:[((WMFRelatedPagesContentGroup*)object).articleURL absoluteString]];
+            }
+
+            if(![metadata isKindOfClass:[NSArray class]]){
+                NSAssert(NO, @"Unknown Content Type");
+                return;
+            }
+
+            //keep previews for any linked content
+            switch (object.contentType) {
+                case WMFContentTypeURL: {
+                    [metadata enumerateObjectsUsingBlock:^(NSURL*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        [keysToRemove removeObject:[obj absoluteString]];
+                    }];
+                }
+                    break;
+                case WMFContentTypeTopReadPreview: {
+                    [metadata enumerateObjectsUsingBlock:^(WMFFeedTopReadArticlePreview*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        [keysToRemove removeObject:[obj.articleURL absoluteString]];
+                    }];
+
+                }
+                    break;
+                case WMFContentTypeStory: {
+                    [metadata enumerateObjectsUsingBlock:^(WMFFeedNewsStory*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        [obj.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            [keysToRemove removeObject:[obj.articleURL absoluteString]];
+                        }];
+                    }];
+                }
+                    break;
+                case WMFContentTypeImage: {
+                    //Nothing to do
+                }
+                    break;
+                    
+                default:
+                    NSAssert(NO, @"Unknown Content Type");
+                    break;
+            }
+            
+            
+        }];
+    
+        [transaction removeObjectsForKeys:keysToRemove inCollection:[WMFArticlePreview databaseCollectionName]];
+    }];
 }
 
+    
+    
 - (nullable WMFArticlePreview *)itemForURL:(NSURL *)url {
     NSParameterAssert(url.wmf_title);
     return [self readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction) {
