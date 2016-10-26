@@ -38,7 +38,6 @@
 "zero-free-verbiage" = "Gratis Wikipedia adgang fra din mobiloperatør (data gebyrer frafaldes)";
 "zero-charged-verbiage" = "Wikipedia Zero er slået fra";
 "zero-charged-verbiage-extended" = "At hente andre artikler kan medføre datagebyrer. Gemte artikler, der er gemt offline, bruger ikke data, og de er gratis.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Forlader Wikipedia Zero";
 "zero-interstitial-leave-app" = "Datagebyrer opkræves muligvis. Vil du fortsætte til den eksterne side?";
 "zero-interstitial-continue" = "Forlad";
@@ -413,3 +412,5 @@
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Reference $1";
 "number-thousands" = "$1K";
+"number-millions" = "$1 mio.";
+"number-billions" = "$1 mia.";

@@ -44,7 +44,6 @@
 "zero-free-verbiage" = "Akses Wikipedia gratis dari operator selular (biaya data dibebaskan)";
 "zero-charged-verbiage" = "Wikipedia Zero dimatikan";
 "zero-charged-verbiage-extended" = "Pemuatan artikel lain mungkin dikenakan biaya data. Artikel yang disimpan secara luring tidak menggunakan data dan gratis.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Meninggalkan Wikipedia Zero";
 "zero-interstitial-leave-app" = "Biaya data mungkin berlaku. Lanjutkan ke situs eksternal?";
 "zero-interstitial-continue" = "Tinggalkan";
@@ -143,7 +142,7 @@
 "main-menu-show-page-history" = "Riwayat perubahan $1";
 "main-menu-credits" = "Kredit";
 "main-menu-about" = "Tentang aplikasi";
-"main-menu-zero-faq" = "Pertanyaan yang sering diajukan untuk Wikipedia Zero";
+"main-menu-zero-faq" = "Tanya jawab Wikipedia Zero";
 "main-menu-privacy-policy" = "Kebijakan privasi";
 "main-menu-terms-of-use" = "Ketentuan Penggunaan";
 "main-menu-rate-app" = "Beri nilai aplikasi";
@@ -420,4 +419,10 @@
 "top-read-header-with-language" = "Wikipedia $1";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Referensi $1";
+"in-the-news-notification-read-now-action-title" = "Baca Sekarang";
+"in-the-news-notification-share-action-title" = "Bagikan";
+"in-the-news-notification-save-for-later-action-title" = "Simpan untuk nanti";
+"in-the-news-currently-trending" = "Saat ini ngetren";
 "number-thousands" = "$1 ribu";
+"number-millions" = "$1 juta";
+"number-billions" = "$1 miliar";

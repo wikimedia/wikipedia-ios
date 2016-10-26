@@ -35,7 +35,6 @@
 "zero-free-verbiage" = "توهانجي موبائل آپريٽر پاران وڪيپيڊيا تي مفت رسائي (ڊيٽا رقمن تان هٿ کنيل آهي)";
 "zero-charged-verbiage" = "وڪيپيڊيا زيرو بند آهي";
 "zero-charged-verbiage-extended" = "ٻيا مضمون لوڊ ڪرڻ سان ڊيٽا رقمون لاڳو ٿي سگهن ٿيون. سانڍيل يا آف لائيل جمع ڪيل ڊيٽا استعمال نٿا ڪن ۽ مفت آهن.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "وڪيپيڊيا زيرو ڇڏيندي";
 "zero-interstitial-leave-app" = "ڊيٽا رقمون لاڳو ٿي سگهن ٿيون. ٻاهرين سائيٽ ڏي جاري رکون؟";
 "zero-interstitial-continue" = "ڇڏيو";
@@ -396,3 +395,10 @@
 "top-read-header-with-language" = "$1 وڪيپيڊيا";
 "top-read-header-generic" = "وڪيپيڊيا";
 "reference-title" = "حوالو $1";
+"in-the-news-notification-read-now-action-title" = "ھاڻي پڙھو";
+"in-the-news-notification-share-action-title" = "ونڊيو";
+"in-the-news-notification-save-for-later-action-title" = "بعد لاءِ سانڍيو";
+"in-the-news-currently-trending" = "ھاڻوڪا رجحان";
+"number-thousands" = "$1K";
+"number-millions" = "$1M";
+"number-billions" = "$1B";

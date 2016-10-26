@@ -53,7 +53,6 @@
 "zero-free-verbiage" = "Accesso gratuito a Wikipedia dal vostro operatore di telefonia mobile (tariffa dati non applicata)";
 "zero-charged-verbiage" = "Wikipedia Zero è spento";
 "zero-charged-verbiage-extended" = "Scaricare altri articoli può comportare tariffe dati. Gli articoli salvati archiviati offline non utilizzano dati mobili e sono gratuiti.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Stai uscendo da Wikipedia Zero";
 "zero-interstitial-leave-app" = "Potrebbero essere applicati i costi di connessione. Continuare su un sito esterno?";
 "zero-interstitial-continue" = "Lascia";
@@ -429,4 +428,10 @@
 "top-read-header-with-language" = "Wikipedia in $1";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Riferimento $1";
+"in-the-news-notification-read-now-action-title" = "Leggi ora";
+"in-the-news-notification-share-action-title" = "Condividi";
+"in-the-news-notification-save-for-later-action-title" = "Salva per dopo";
+"in-the-news-currently-trending" = "Attualmente popolare";
 "number-thousands" = "$1 mila";
+"number-millions" = "$1";
+"number-billions" = "$1";

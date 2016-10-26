@@ -48,7 +48,6 @@
 "zero-free-verbiage" = "ご利用の携帯電話会社からウィキペディアへのアクセスは無料です (通信料金は免除されます)";
 "zero-charged-verbiage" = "ウィキペディアゼロはオフです";
 "zero-charged-verbiage-extended" = "その他の記事を読み込むとデータ料金が発生する場合があります。保存済みの記事はオフラインで保管されており、データ通信を使用しないため無料です。";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "ウィキペディアゼロを離れる";
 "zero-interstitial-leave-app" = "データ料金がかかるかもしれません。外部サイトへ接続しますか?";
 "zero-interstitial-continue" = "接続する";
