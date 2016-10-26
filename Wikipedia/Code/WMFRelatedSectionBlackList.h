@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param url The url to add
  */
-- (MWKHistoryEntry *)addBlackListArticleURL:(NSURL *)url;
+- (nullable MWKHistoryEntry *)addBlackListArticleURL:(NSURL *)url;
 
 /**
  *  Remove a url to the black list

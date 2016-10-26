@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param url The url of the page to add
  */
-- (MWKHistoryEntry *)addPageToHistoryWithURL:(NSURL *)url;
+- (nullable MWKHistoryEntry *)addPageToHistoryWithURL:(NSURL *)url;
 
 /**
  *  Save the scroll position of a page.

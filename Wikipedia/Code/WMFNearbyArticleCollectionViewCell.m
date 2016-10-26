@@ -133,11 +133,15 @@
 #pragma mark - Distance
 
 - (void)setDistance:(CLLocationDistance)distance {
+#if FB_TWEAKS_ENABLED
     if (FBTweakValue(@"Explore", @"Nearby", @"Show raw distance", NO)) {
         self.distanceLabel.text = [NSString stringWithFormat:@"%f", distance];
     } else {
+#endif
         self.distanceLabel.text = [NSString wmf_localizedStringForDistance:distance];
+#if FB_TWEAKS_ENABLED
     }
+#endif
 }
 
 #pragma mark - Image

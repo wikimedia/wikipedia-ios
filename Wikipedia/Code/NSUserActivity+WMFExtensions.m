@@ -74,7 +74,7 @@
     return activity;
 }
 
-+ (instancetype)wmf_activityForWikipediaScheme:(NSURL *)url {
++ (nullable instancetype)wmf_activityForWikipediaScheme:(NSURL *)url {
     if (![url.scheme isEqualToString:@"wikipedia"]) {
         return nil;
     }
@@ -177,7 +177,7 @@
     }
 }
 
-- (NSString *)wmf_searchTerm {
+- (nullable NSString *)wmf_searchTerm {
     if (self.wmf_type != WMFUserActivityTypeSearchResults) {
         return nil;
     }

@@ -109,7 +109,9 @@ NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
     content.title = title;
     content.body = body;
     content.categoryIdentifier = categoryIdentifier;
-    content.attachments = attachements;
+    if (attachements) {
+        content.attachments = attachements;
+    }
     content.userInfo = userInfo;
     UNNotificationTrigger *trigger = nil;
     if (dateComponents) {

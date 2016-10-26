@@ -48,7 +48,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        PiwikTracker.wmf_start()
+        //PiwikTracker.wmf_start()
     }
     
     override func viewDidLoad() {
@@ -66,7 +66,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             articleURL = NSURL(string: articleURLString)
         }
         
-        PiwikTracker.sharedInstance().wmf_logActionPreviewInContext(self, contentType: self)
+        //PiwikTracker.sharedInstance().wmf_logActionPreviewInContext(self, contentType: self)
         
         if let html = info[WMFNotificationInfoStoryHTMLKey] as? String {
             let font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote, compatibleWithTraitCollection: nil)
@@ -92,19 +92,28 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             self.imageViewHidden = true
         }
         
-        if let viewCounts = info[WMFNotificationInfoViewCountsKey] as? [NSNumber] where viewCounts.count > 0 {
-            sparklineView.dataValues = viewCounts
-            sparklineView.showsVerticalGridlines = true
-            sparklineView.updateMinAndMaxFromDataValues()
-            
-            if let count = viewCounts.last {
-                readerCountLabel.text = NSNumberFormatter.localizedThousandsStringFromNumber(count)
-            } else {
-                readerCountLabel.text = ""
-            }
-        } else {
+        guard let viewCountDict = info[WMFNotificationInfoViewCountsKey] as? NSDictionary else {
             readerCountLabel.text = ""
+            return
         }
+        
+        let viewCounts = viewCountDict.wmf_pageViewsSortedByDate
+        
+        guard viewCounts.count > 0 else {
+            readerCountLabel.text = ""
+            return
+        }
+            
+        sparklineView.dataValues = viewCounts
+        sparklineView.showsVerticalGridlines = true
+        sparklineView.updateMinAndMaxFromDataValues()
+        
+        guard let count = viewCounts.last else {
+            readerCountLabel.text = ""
+            return
+        }
+        
+        readerCountLabel.text = NSNumberFormatter.localizedThousandsStringFromNumber(count)
     }
 
     func didReceiveNotificationResponse(response: UNNotificationResponse, completionHandler completion: (UNNotificationContentExtensionResponseOption) -> Void) {
@@ -130,7 +139,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             guard let wikipediaSchemeURL = articleURL.wmf_wikipediaSchemeURL else {
                 break
             }
-            PiwikTracker.sharedInstance().wmf_logActionTapThroughInContext(self, contentType: self)
+            //PiwikTracker.sharedInstance().wmf_logActionTapThroughInContext(self, contentType: self)
             extensionContext.openURL(wikipediaSchemeURL, completionHandler: { (didOpen) in
                 completion(.Dismiss)
             })

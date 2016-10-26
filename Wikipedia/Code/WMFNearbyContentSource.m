@@ -131,17 +131,20 @@
 
 - (nullable WMFLocationContentGroup *)contentGroupCloseToLocation:(CLLocation *)location {
 
-    WMFLocationContentGroup *group = nil;
+    __block WMFLocationContentGroup *locationContentGroup = nil;
     [self.contentStore enumerateContentGroupsOfKind:[WMFLocationContentGroup kind]
-                                          withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
-                                              WMFLocationContentGroup *locationGroup = (id)group;
-                                              if ([locationGroup.location wmf_isCloseTo:location]) {
-                                                  group = locationGroup;
+                                          withBlock:^(WMFContentGroup *_Nonnull currentGroup, BOOL *_Nonnull stop) {
+                                              if (![currentGroup isKindOfClass:[WMFLocationContentGroup class]]) {
+                                                  return;
+                                              }
+                                              WMFLocationContentGroup *potentiallyCloseLocationGroup = (WMFLocationContentGroup *)currentGroup;
+                                              if ([potentiallyCloseLocationGroup.location wmf_isCloseTo:location]) {
+                                                  locationContentGroup = potentiallyCloseLocationGroup;
                                                   *stop = YES;
                                               }
                                           }];
 
-    return group;
+    return locationContentGroup;
 }
 
 #pragma mark - Fetching
