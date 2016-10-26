@@ -4,7 +4,7 @@ import Foundation
 class WMFReferencePanelViewController: UIViewController {
     
     @IBOutlet private var containerViewHeightConstraint:NSLayoutConstraint!
-    @IBOutlet private var containerView:UIView!
+    @IBOutlet var containerView:UIView!
     var reference = WMFReference.init()
     
     override func viewDidLoad() {
@@ -18,19 +18,17 @@ class WMFReferencePanelViewController: UIViewController {
         embedContainerControllerView()
     }
 
+    private func panelHeight() -> CGFloat {
+        return view.frame.size.height * (UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation) ? 0.4 : 0.6)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        let heightPercentage:CGFloat = UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation) ? 0.4 : 0.6
+        containerViewHeightConstraint.constant = panelHeight()
         
-        adjustContainerViewHeightToPercentageOfScreenHeight(heightPercentage)
-
         containerController.scrollEnabled = true
         containerController.scrollToTop()
-    }
-
-    private func adjustContainerViewHeightToPercentageOfScreenHeight(percentage: CGFloat) {
-        containerViewHeightConstraint.constant = view.frame.size.height * percentage
     }
     
     private lazy var containerController: WMFReferencePopoverMessageViewController = {

@@ -1,12 +1,15 @@
 
 class WMFReferencePageBackgroundView: UIView {
-    internal var clearRect:CGRect? = CGRectZero
+    var clearRect:CGRect = CGRectZero {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
-        if let clearRect = clearRect {
-            UIColor.clearColor().setFill()
-            UIBezierPath.init(roundedRect: clearRect, cornerRadius: 3).fillWithBlendMode(.Copy, alpha: 1.0)
-        }
+        UIColor.clearColor().setFill()
+        UIBezierPath.init(roundedRect: clearRect, cornerRadius: 3).fillWithBlendMode(.Copy, alpha: 1.0)
     }
     
     override func didMoveToSuperview() {

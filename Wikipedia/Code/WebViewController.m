@@ -1054,14 +1054,56 @@ NSString *const WMFCCBySALicenseURL =
 
 - (void)showReferencePageViewControllerWithGroup:(NSArray<WMFReference *> *)referenceGroup selectedIndex:(NSInteger)selectedIndex {
     WMFReferencePageViewController* vc = [WMFReferencePageViewController wmf_viewControllerFromReferencePanelsStoryboard];
-    vc.topOffset = [self.view convertRect:self.view.bounds toView:nil].origin.y;
     vc.delegate = self;
     vc.appearanceDelegate = self;
     vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     vc.lastClickedReferencesIndex = selectedIndex;
     vc.lastClickedReferencesGroup = referenceGroup;
-    [self presentViewController:vc animated:NO completion:nil];
+    [self presentViewController:vc animated:NO completion:^{
+        [self scrollTappedReferenceUpIfNecessaryWithReferencePageViewController:vc];
+    }];
+}
+
+- (void)scrollTappedReferenceUpIfNecessaryWithReferencePageViewController:(WMFReferencePageViewController*)controller {
+    CGRect windowCoordsRefGroupRect = [self windowCoordsReferenceGroupRect];
+    UIView* firstPanel = [controller firstPanelView];
+    if(!CGRectIsEmpty(windowCoordsRefGroupRect) && firstPanel && controller.backgroundView){
+        
+        CGRect panelRectInWindowCoords = [firstPanel convertRect:firstPanel.bounds toView:nil];
+        CGRect panelRectInWebViewCoords = [firstPanel convertRect:firstPanel.bounds toView:self.webView];
+        CGRect refGroupRectInWebViewCoords = [controller.backgroundView convertRect:windowCoordsRefGroupRect toView:self.webView];
+        
+        if(CGRectIntersectsRect(windowCoordsRefGroupRect, panelRectInWindowCoords)){
+            CGFloat distanceFromVerticalCenterAbovePanel = (panelRectInWebViewCoords.origin.y / 2.0) - refGroupRectInWebViewCoords.origin.y - (windowCoordsRefGroupRect.size.height / 2.0);
+
+            [UIView animateWithDuration:0.25f delay:0.0f options:0 animations:^{
+                self.webView.scrollView.contentOffset = CGPointMake(
+                                                                    self.webView.scrollView.contentOffset.x,
+                                                                    self.webView.scrollView.contentOffset.y - distanceFromVerticalCenterAbovePanel
+                                                                    );
+            } completion:^(BOOL finished){
+                controller.backgroundView.clearRect = CGRectOffset(windowCoordsRefGroupRect, 0, distanceFromVerticalCenterAbovePanel);
+            }];
+        }else{
+            controller.backgroundView.clearRect = windowCoordsRefGroupRect;
+        }
+    }
+}
+
+- (CGRect)windowCoordsReferenceGroupRect {
+    WMFReference* firstRef = self.lastClickedReferencesGroup.firstObject;
+    if(firstRef){
+        CGRect rect = firstRef.rect;
+        for (WMFReference* reference in self.lastClickedReferencesGroup) {
+            rect = CGRectUnion(rect, reference.rect);
+        }
+        rect = [self.webView convertRect:rect toView:nil];
+        rect = CGRectOffset(rect, 0, 1);
+        rect = CGRectInset(rect, -1, -3);
+        return rect;
+    }
+    return CGRectNull;
 }
 
 - (void)showReferencePopoverMessageViewControllerWithGroup:(NSArray<WMFReference *> *)referenceGroup selectedIndex:(NSInteger)selectedIndex {

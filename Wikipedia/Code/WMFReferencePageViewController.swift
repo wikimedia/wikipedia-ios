@@ -15,7 +15,6 @@ extension UIViewController {
 class WMFReferencePageViewController: UIPageViewController, UIPageViewControllerDataSource {
     var lastClickedReferencesIndex:Int = 0
     var lastClickedReferencesGroup = [WMFReference]()
-    internal var topOffset:CGFloat = 0
     
     weak internal var appearanceDelegate: WMFReferencePageViewAppearanceDelegate?
     
@@ -47,8 +46,6 @@ class WMFReferencePageViewController: UIPageViewController, UIPageViewController
         
         addBackgroundView()
 
-        backgroundView.clearRect = referenceGroupUnionRect()
-        
         if let scrollView = view.wmf_firstSubviewOfType(UIScrollView) {
             scrollView.clipsToBounds = false
         }
@@ -62,16 +59,11 @@ class WMFReferencePageViewController: UIPageViewController, UIPageViewController
         }
     }
     
-    private func referenceGroupUnionRect() -> CGRect? {
-        if let firstRef = self.lastClickedReferencesGroup.first {
-            var rect = firstRef.rect
-            for reference in self.lastClickedReferencesGroup {
-                rect = CGRectUnion(rect, reference.rect)
-            }
-            rect = CGRectOffset(rect, 0, topOffset + 1)
-            return CGRectInset(rect, -1, -3)
+    internal func firstPanelView() -> UIView? {
+        guard let viewControllers = viewControllers, firstVC = viewControllers.first as? WMFReferencePanelViewController else {
+            return nil
         }
-        return nil
+        return firstVC.containerView
     }
     
     override func viewWillAppear(animated: Bool) {
