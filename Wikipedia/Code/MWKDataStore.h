@@ -208,7 +208,7 @@ extern NSString *const MWKURLKey;
 
 - (MWKSection *)sectionWithId:(NSUInteger)sectionId article:(MWKArticle *)article;
 - (NSString *)sectionTextWithId:(NSUInteger)sectionId article:(MWKArticle *)article;
-- (MWKImage *)imageWithURL:(NSString *)url article:(MWKArticle *)article;
+- (nullable MWKImage *)imageWithURL:(NSString *)url article:(MWKArticle *)article;
 - (NSArray *)imageInfoForArticleWithURL:(NSURL *)url;
 
 - (NSArray *)historyListData;
