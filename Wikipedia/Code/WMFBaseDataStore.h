@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFDatabaseChangeHandler <NSObject>
 
-- (void)processChanges:(NSArray<YapDatabaseViewRowChange *> *)changes onConnection:(YapDatabaseConnection *)connection;
+- (void)processChanges:(NSArray<NSNotification *> *)changes onConnection:(YapDatabaseConnection *)connection;
 
 @end
 
