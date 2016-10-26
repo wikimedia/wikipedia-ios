@@ -103,9 +103,6 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         [self.previewStore addPreviewWithURL:lastRead updatedWithArticle:article];
     }
 
-    //preview should already exist for any item in history
-    NSParameterAssert(preview);
-
     [self.contentStore addContentGroup:group associatedContent:@[lastRead]];
     [self.contentStore notifyWhenWriteTransactionsComplete:completion];
 }
