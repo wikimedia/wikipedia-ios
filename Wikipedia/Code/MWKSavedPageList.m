@@ -160,7 +160,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     }
 }
 
-- (MWKHistoryEntry *)addSavedPageWithURL:(NSURL *)url {
+- (nullable MWKHistoryEntry *)addSavedPageWithURL:(NSURL *)url {
     if ([url wmf_isNonStandardURL]) {
         return nil;
     }
