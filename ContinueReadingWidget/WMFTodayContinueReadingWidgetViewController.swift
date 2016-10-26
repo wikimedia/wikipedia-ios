@@ -147,12 +147,16 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         self.titleLabel.text = article.displaytitle?.wmf_stringByRemovingHTML()
         
         
-        if let string = article.imageURL, let imageURL = NSURL(string: string) {
-            self.imageView.hidden = false
-            self.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: { (error) in
+        if #available(iOSApplicationExtension 10.0, *) {
+            if let string = article.imageURL, let imageURL = NSURL(string: string) {
+                self.imageView.hidden = false
+                self.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: { (error) in
+                    self.collapseImageAndWidenLabels = true
+                }) {
+                    self.collapseImageAndWidenLabels = false
+                }
+            } else {
                 self.collapseImageAndWidenLabels = true
-            }) {
-                self.collapseImageAndWidenLabels = false
             }
         } else {
             self.collapseImageAndWidenLabels = true

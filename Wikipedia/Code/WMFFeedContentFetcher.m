@@ -16,11 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
     if (self) {
         AFHTTPSessionManager *manager = [AFHTTPSessionManager wmf_createDefaultManager];
         manager.responseSerializer = [WMFMantleJSONResponseSerializer serializerForInstancesOf:[WMFFeedDayResponse class] fromKeypath:nil];
-        NSMutableIndexSet* set = [manager.responseSerializer.acceptableStatusCodes mutableCopy];
-        [set removeIndex:304];
-        manager.responseSerializer.acceptableStatusCodes = set;
 
         self.operationManager = manager;
+        [self set304sEnabled:NO];
 
         AFHTTPSessionManager *unserializedOperationManager = [AFHTTPSessionManager wmf_createDefaultManager];
         self.unserializedOperationManager = unserializedOperationManager;
@@ -28,11 +26,27 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
+- (void)set304sEnabled:(BOOL)enabled{
+    NSMutableIndexSet* set = [self.operationManager.responseSerializer.acceptableStatusCodes mutableCopy];
+    if(enabled){
+        [set addIndex:304];
+
+    }else{
+        [set removeIndex:304];
+    }
+    self.operationManager.responseSerializer.acceptableStatusCodes = set;
+}
+
+
 - (BOOL)isFetching {
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
 - (void)fetchFeedContentForURL:(NSURL *)siteURL date:(NSDate *)date failure:(WMFErrorHandler)failure success:(void (^)(WMFFeedDayResponse *feedDay))success {
+    [self fetchFeedContentForURL:siteURL date:date force:NO failure:failure success:success];
+}
+
+- (void)fetchFeedContentForURL:(NSURL *)siteURL date:(NSDate *)date force:(BOOL)force failure:(WMFErrorHandler)failure success:(void (^)(WMFFeedDayResponse *feedDay))success {
     NSParameterAssert(siteURL);
     NSParameterAssert(date);
     if (siteURL == nil || date == nil) {
@@ -42,6 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
+    [self set304sEnabled:force];
     NSString *datePath = [[NSDateFormatter wmf_yearMonthDayPathDateFormatter] stringFromDate:date];
 
     NSString *path = [NSString stringWithFormat:@"/api/rest_v1/feed/featured/%@", datePath];

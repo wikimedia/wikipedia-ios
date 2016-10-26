@@ -61,12 +61,6 @@ We're doing what we can to optimize the build system to have as few dependencies
 
 > **Homebrew and many other tools require the Xcode command line tools, which can be installed by running `xcode-select --install` on newer versions of OS X. They can also be installed via Xcode or downloaded from the [Apple Developer downloads page](https://developer.apple.com/downloads) on older versions of OS X.**
 
-### Carthage
- 
-`brew install carthage`
- 
-[Carthage](https://github.com/Carthage/Carthage) is a dependency manager we use for dependencies that need to be linked as dynamic frameworks.
-
 ### Clang-Format
  
 `brew install clang-format`

@@ -44,7 +44,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>959</string>
+	<string>0</string>
 	<key>CoreSpotlightContinuation</key>
 	<true/>
 	<key>ITSAppUsesNonExemptEncryption</key>
@@ -116,10 +116,6 @@
 	<true/>
 	<key>WMFHockeyAppIdentifier</key>
 	<string>5d80da08a6761e5c6456736af7ebad88</string>
-	<key>WMFPiwikAppIdentifier</key>
-	<string>3</string>
-	<key>WMFPiwikURL</key>
-	<string>https://piwik.wikimedia.org/</string>
 	<key>WMFShowDebugMenu</key>
 	<false/>
 </dict>

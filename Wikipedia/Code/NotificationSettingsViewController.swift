@@ -22,30 +22,41 @@ struct NotificationSettingsSection {
     let items: [NotificationSettingsItem]
 }
 
-class NotificationSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class NotificationSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding {
 
     @IBOutlet weak var tableView: UITableView!
     
     
     var sections = [NotificationSettingsSection]()
+    var observationToken: NSObjectProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.registerNib(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
         tableView.delegate = self
         tableView.dataSource = self
-        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { [weak self] (note) in
+        observationToken = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { [weak self] (note) in
             self?.updateSections()
         }
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        if let token = observationToken {
+            NSNotificationCenter.defaultCenter().removeObserver(token)
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
        super.viewWillAppear(animated)
        updateSections()
+    }
+    
+    func analyticsContext() -> String {
+        return "notification"
+    }
+    
+    func analyticsContentType() -> String {
+        return "current events"
     }
     
     func sectionsForSystemSettingsAuthorized() -> [NotificationSettingsSection] {
@@ -69,10 +80,20 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
                 //This (and everything else that references UNUserNotificationCenter in this class) should be moved into WMFNotificationsController
                 if #available(iOS 10.0, *) {
                     if (isOn) {
-                        //Trigger WMFNotificationsController authorization request here
+                        WMFNotificationsController.sharedNotificationsController().requestAuthenticationIfNecessaryWithCompletionHandler({ (granted, error) in
+                            if let error = error {
+                                self.wmf_showAlertWithError(error)
+                            }
+                        })
                     } else {
                         UNUserNotificationCenter.currentNotificationCenter().removeAllPendingNotificationRequests()
                     }
+                }
+                
+                if isOn {
+                    PiwikTracker.sharedInstance().wmf_logActionEnableInContext(self, contentType: self)
+                }else{
+                    PiwikTracker.sharedInstance().wmf_logActionDisableInContext(self, contentType: self)
                 }
             NSUserDefaults.wmf_userDefaults().wmf_setInTheNewsNotificationsEnabled(isOn)
         })]

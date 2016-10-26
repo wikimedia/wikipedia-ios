@@ -32,6 +32,34 @@ NS_ASSUME_NONNULL_BEGIN
     return WMFContentTypeURL;
 }
 
+- (NSInteger)dailySortPriority {
+    return 0;
+}
+
+- (NSComparisonResult)compare:(WMFContentGroup *)contentGroup {
+    NSParameterAssert([contentGroup isKindOfClass:[WMFContentGroup class]]);
+    if ([self isKindOfClass:[WMFContinueReadingContentGroup class]]) {
+        // continue reading always goes above everything else, regardless of date
+        return NSOrderedAscending;
+    } else if ([contentGroup isKindOfClass:[WMFContinueReadingContentGroup class]]) {
+        // corollary of above, everything else always goes below continue reading, regardless of date
+        return NSOrderedDescending;
+    } else if (![self isKindOfClass:[WMFRelatedPagesContentGroup class]] && ![contentGroup isKindOfClass:[WMFRelatedPagesContentGroup class]] && [self.date isEqualToDateIgnoringTime:contentGroup.date]) {
+        // explicit ordering for non-history/-saved items created w/in the same day
+        NSInteger selfOrderingIndex = [self dailySortPriority];
+        NSInteger otherOrderingIndex = [contentGroup dailySortPriority];
+        if (selfOrderingIndex > otherOrderingIndex) {
+            return NSOrderedDescending;
+        } else if (selfOrderingIndex < otherOrderingIndex) {
+            return NSOrderedAscending;
+        } else {
+            return NSOrderedSame;
+        }
+    } else {
+        // sort all items from different days and/or history/saved items by date, descending
+        return -[self.date compare:contentGroup.date];
+    }
+}
 
 @end
 
@@ -58,7 +86,6 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @implementation WMFContinueReadingContentGroup
-
 
 @end
 
@@ -113,7 +140,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFRandomContentGroup
 
-
 @end
 
 @implementation WMFFeaturedArticleContentGroup
@@ -132,6 +158,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (instancetype)initWithDate:(NSDate *)date mostReadDate:(NSDate *)mostReadDate siteURL:(NSURL *)url {
+    NSParameterAssert(mostReadDate);
     self = [super initWithDate:date siteURL:url];
     if (self) {
         self.mostReadDate = mostReadDate;

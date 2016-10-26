@@ -55,6 +55,8 @@
 #import "WMFMorePageListViewController.h"
 #import "WMFSettingsViewController.h"
 
+#import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterReuseIdentifier";
@@ -395,6 +397,13 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     @weakify(self);
     [header.enableNotificationsButton bk_addEventHandler:^(id sender) {
         @strongify(self);
+        [[PiwikTracker sharedInstance] wmf_logActionEnableInContext:header contentType:header];
+        
+        [[WMFNotificationsController sharedNotificationsController] requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError * _Nullable error) {
+            if (error) {
+                [self wmf_showAlertWithError:error];
+            }
+        }];
         [[NSUserDefaults wmf_userDefaults] wmf_setInTheNewsNotificationsEnabled:YES];
         [self showHideNotificationIfNeccesary];
         
@@ -406,6 +415,10 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 
 - (void)showHideNotificationIfNeccesary{
+    
+    if([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionLessThan:10]){
+        return;
+    }
     
     if(![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled] && ![[NSUserDefaults wmf_userDefaults] wmf_didShowNewsNotificationCardInFeed]){
         [self showNotificationHeader];

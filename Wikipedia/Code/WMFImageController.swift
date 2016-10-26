@@ -359,19 +359,25 @@ public class WMFImageController : NSObject {
             return
         }
         dispatch_sync(self.cancellingQueue) { [weak self] in
-            if let strongSelf = self,
-                cancellable = strongSelf.cancellables.objectForKey(url.absoluteString) as? Cancellable {
-                strongSelf.cancellables.removeObjectForKey(url.absoluteString)
-                DDLogDebug("Cancelling request for image \(url)")
-                cancellable.cancel()
+            guard let key = url.absoluteString, let cancelable = self?.cancellables.objectForKey(key) as? Cancellable else {
+                return
             }
+            cancelable.cancel()
+            self?.cancellables.removeObjectForKey(key)
+            DDLogDebug("Cancelling request for image \(key)")
         }
     }
     
     public func cancelAllFetches() {
-        dispatch_sync(self.cancellingQueue) {
-            let currentCancellables = self.cancellables.objectEnumerator()!.allObjects as! [Cancellable]
-            currentCancellables.forEach({ $0.cancel() })
+        dispatch_sync(self.cancellingQueue) { [weak self] in
+            guard let cancellables = self?.cancellables else {
+                return
+            }
+            let dictionary = cancellables.dictionaryRepresentation()
+            for (_, value) in dictionary {
+                value.cancel()
+            }
+            cancellables.removeAllObjects()
         }
     }
     

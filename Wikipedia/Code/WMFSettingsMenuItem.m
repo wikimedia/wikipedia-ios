@@ -71,7 +71,7 @@
             return
             [[WMFSettingsMenuItem alloc] initWithType:type
                                                 title:MWLocalizedString(@"settings-notifications", nil)
-                                             iconName:@"settings-project" //FIXME: temporarily used the project icon until we get the notifications asset.
+                                             iconName:@"settings-notifications"
                                             iconColor:[UIColor wmf_colorWithHex:0xFF1B33 alpha:1.0]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                        disclosureText:nil

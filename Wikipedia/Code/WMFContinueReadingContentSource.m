@@ -86,6 +86,14 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
     }
 
     MWKHistoryEntry *userData = [self.userDataStore entryForURL:lastRead];
+    
+    if(userData == nil){
+        if (completion) {
+            completion();
+        }
+        return;
+    }
+    
 
     group = [[WMFContinueReadingContentGroup alloc] initWithDate:userData.dateViewed];
 
