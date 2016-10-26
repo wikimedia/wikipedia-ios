@@ -207,21 +207,6 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     }];
 }
 
-- (void)cleanup {
-    [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
-        YapDatabaseViewTransaction *view = [transaction ext:WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView];
-        if ([view numberOfItemsInAllGroups] == 0) {
-            return;
-        }
-        NSMutableArray *keysToRemove = [NSMutableArray array];
-        [view enumerateKeysInGroup:[[view allGroups] firstObject]
-                        usingBlock:^(NSString *_Nonnull collection, NSString *_Nonnull key, NSUInteger index, BOOL *_Nonnull stop) {
-                            [keysToRemove addObject:key];
-                        }];
-        [transaction removeObjectsForKeys:keysToRemove inCollection:[MWKHistoryEntry databaseCollectionName]];
-    }];
-}
-
 #pragma mark - Entry Access
 
 - (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url {
