@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readwrite, nonatomic, strong) NSPointerArray *changeHandlers;
 
+@property (readwrite, atomic, strong, nullable) id previousCleanup;
+
 @end
 
 @implementation WMFBaseDataStore
@@ -119,6 +121,16 @@ NS_ASSUME_NONNULL_BEGIN
     }
     [self syncDataStoreToDatabase];
     [self dataStoreWasUpdatedWithNotification:notification];
+    
+    id previousCleanup = self.previousCleanup;
+    if (previousCleanup != nil) {
+        [NSObject bk_cancelBlock:previousCleanup];
+    }
+    
+    self.previousCleanup = [NSObject bk_performBlockInBackground:^{
+        [self cleanup];
+        self.previousCleanup = nil;
+    } afterDelay:1.0];
 }
 
 - (void)syncDataStoreToDatabase {
@@ -141,6 +153,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)dataStoreWasUpdatedWithNotification:(NSNotification *)notification {
+}
+    
+- (void)cleanup {
 }
 
 @end

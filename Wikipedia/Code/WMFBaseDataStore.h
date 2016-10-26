@@ -62,6 +62,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)dataStoreWasUpdatedWithNotification:(NSNotification *)notification;
 
+//Called an an opportune time to perform cleanup
+- (void)cleanup;
+
 @end
 
 NS_ASSUME_NONNULL_END
