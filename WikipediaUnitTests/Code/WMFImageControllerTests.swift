@@ -141,8 +141,6 @@ class WMFImageControllerTests: XCTestCase {
             expectation.fulfill()
         }
         
-        imageController.fetchImageWithURL(testURL, failure:failure, success: success)
-        
         let observationToken =
             NSNotificationCenter.defaultCenter().addObserverForName(SDWebImageDownloadStartNotification, object: nil, queue: nil) { _ -> Void in
                 self.imageController.cancelFetchForURL(testURL)
@@ -151,6 +149,8 @@ class WMFImageControllerTests: XCTestCase {
         defer {
             NSNotificationCenter.defaultCenter().removeObserver(observationToken)
         }
+        
+        imageController.fetchImageWithURL(testURL, failure:failure, success: success)
         
         waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
         }
