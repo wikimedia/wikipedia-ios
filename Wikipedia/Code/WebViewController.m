@@ -435,20 +435,10 @@ NSString *const WMFCCBySALicenseURL =
     [self.webView getScrollViewRectForHtmlElementWithId:matchSpanId
                                              completion:^(CGRect rect) {
                                                  @strongify(self);
-                                                 [UIView animateWithDuration:0.3
-                                                     delay:0.0f
-                                                     options:UIViewAnimationOptionBeginFromCurrentState
-                                                     animations:^{
-                                                         @strongify(self);
-                                                         self.disableMinimizeFindInPage = YES;
-
-                                                         //TODO: modified to scroll the match to the vertical point between top of keyboard and top of screen
-
-                                                         [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, fmaxf(rect.origin.y - 80.f, 0.f)) animated:NO];
-                                                     }
-                                                     completion:^(BOOL done) {
-                                                         self.disableMinimizeFindInPage = NO;
-                                                     }];
+                                                 self.disableMinimizeFindInPage = YES;
+                                                 [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, fmaxf(rect.origin.y - 80.f, 0.f)) animated:YES completion:^(BOOL done) {
+                                                     self.disableMinimizeFindInPage = NO;
+                                                 }];
                                              }];
 
     [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.useFocusStyleForHighlightedSearchTermWithId('%@')", matchSpanId] completionHandler:nil];
@@ -901,7 +891,8 @@ NSString *const WMFCCBySALicenseURL =
                                                  completion:^(CGRect rect) {
                                                      if (!CGRectIsNull(rect)) {
                                                          [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y)
-                                                                                                  animated:animated];
+                                                                                                  animated:animated
+                                                                                                completion:nil];
                                                      }
                                                  }];
     }
@@ -1055,13 +1046,11 @@ NSString *const WMFCCBySALicenseURL =
         
         if(CGRectIntersectsRect(windowCoordsRefGroupRect, panelRectInWindowCoords)){
             CGFloat distanceFromVerticalCenterAbovePanel = (panelRectInWebViewCoords.origin.y / 2.0) - refGroupRectInWebViewCoords.origin.y - (windowCoordsRefGroupRect.size.height / 2.0);
-
-            [UIView animateWithDuration:0.25f delay:0.0f options:0 animations:^{
-                self.webView.scrollView.contentOffset = CGPointMake(
-                                                                    self.webView.scrollView.contentOffset.x,
-                                                                    self.webView.scrollView.contentOffset.y - distanceFromVerticalCenterAbovePanel
-                                                                    );
-            } completion:^(BOOL finished){
+            CGPoint centeredOffset = CGPointMake(
+                                         self.webView.scrollView.contentOffset.x,
+                                         self.webView.scrollView.contentOffset.y - distanceFromVerticalCenterAbovePanel
+                                         );
+            [self.webView.scrollView wmf_safeSetContentOffset:centeredOffset animated:YES completion:^(BOOL finished){
                 controller.backgroundView.clearRect = CGRectOffset(windowCoordsRefGroupRect, 0, distanceFromVerticalCenterAbovePanel);
             }];
         }else{
