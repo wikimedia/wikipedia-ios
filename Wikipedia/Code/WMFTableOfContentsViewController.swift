@@ -65,6 +65,7 @@ public class WMFTableOfContentsViewController: UIViewController,
         
         tv.contentInset = UIEdgeInsetsMake(UIApplication.sharedApplication().statusBarFrame.size.height, 0, 0, 0)
         tv.separatorStyle = .None
+        
 
         //add to the view now to ensure view did load is kicked off
         self.view.addSubview(tv)
@@ -75,6 +76,7 @@ public class WMFTableOfContentsViewController: UIViewController,
     var items: [TableOfContentsItem] {
         didSet{
             if isViewLoaded() {
+                tableView.semanticContentAttribute = view.semanticContentAttribute
                 let selectedIndexPathBeforeReload = tableView.indexPathForSelectedRow
                 tableView.reloadData()
                 if let indexPathToReselect = selectedIndexPathBeforeReload where indexPathToReselect.section < tableView.numberOfSections && indexPathToReselect.row < tableView.numberOfRowsInSection(indexPathToReselect.section) {
@@ -128,6 +130,7 @@ public class WMFTableOfContentsViewController: UIViewController,
         }
         selectAndScrollToItem(items[index], animated: animated)
     }
+    
     
     public func selectAndScrollToFooterItem(atIndex index: Int, animated: Bool) {
         if let firstFooterIndex = items.indexOf({ return $0 as? TableOfContentsFooterItem != nil }) {
@@ -247,11 +250,14 @@ public class WMFTableOfContentsViewController: UIViewController,
         cell.backgroundColor = tableView.backgroundColor
         cell.contentView.backgroundColor = tableView.backgroundColor
         
+        cell.semanticContentAttribute = view.semanticContentAttribute
+        cell.wmf_applySemanticContentAttributeToAllSubviewsRecursively()
+        
         cell.titleIndentationLevel = item.indentationLevel
         cell.titleLabel.text = item.titleText
         cell.titleLabel.font = item.itemType.titleFont
         cell.titleColor = item.itemType.titleColor
-        
+
         cell.setNeedsLayout()
 
         cell.setSectionSelected(shouldHighlight, animated: false)
@@ -263,6 +269,8 @@ public class WMFTableOfContentsViewController: UIViewController,
             let header = WMFTableOfContentsHeader.wmf_viewFromClassNib()
             header.articleURL = delegate.tableOfContentsArticleLanguageURL()
             header.backgroundColor = tableView.backgroundColor
+            header.semanticContentAttribute = view.semanticContentAttribute
+            header.wmf_applySemanticContentAttributeToAllSubviewsRecursively()
             return header
         } else {
             return nil

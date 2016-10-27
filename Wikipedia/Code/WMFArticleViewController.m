@@ -1079,7 +1079,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (self.tableOfContentsViewController == nil) {
         return;
     }
-
+    
+    self.tableOfContentsViewController.view.semanticContentAttribute = self.view.semanticContentAttribute;
     self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
     self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
 

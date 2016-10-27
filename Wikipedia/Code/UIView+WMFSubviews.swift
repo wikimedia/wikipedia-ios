@@ -8,4 +8,11 @@ extension UIView {
         }
         return nil
     }
+    
+    func wmf_applySemanticContentAttributeToAllSubviewsRecursively() {
+        for view in subviews {
+            view.semanticContentAttribute = semanticContentAttribute
+            view.wmf_applySemanticContentAttributeToAllSubviewsRecursively()
+        }
+    }
 }
