@@ -473,6 +473,7 @@
 "request-feedback-on-error" = "The app has encountered a problem that our developers would like to know more about. Please tap here to send us an email with the error details.";
 
 "explore-another-random" = "Another random article";
+"explore-randomizer" = "Randomizer";
 
 "find-in-page-no-matches" = "0 matches";
 "find-in-page-button-label" = "Find in page";
