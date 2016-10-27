@@ -1077,7 +1077,6 @@ NSString *const WMFCCBySALicenseURL =
 - (void)showReferencePopoverMessageViewControllerWithGroup:(NSArray<WMFReference *> *)referenceGroup selectedIndex:(NSInteger)selectedIndex {
     WMFReference *selectedReference = [referenceGroup wmf_safeObjectAtIndex:selectedIndex];
     CGFloat width = MIN(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
-    selectedReference.rect = CGRectMake(CGRectGetMidX(selectedReference.rect), CGRectGetMidY(selectedReference.rect), 1, 1);
     [self wmf_presentReferencePopoverViewControllerForReference:selectedReference
                                                           width:width];
 }

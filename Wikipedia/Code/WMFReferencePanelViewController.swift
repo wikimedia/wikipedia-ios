@@ -5,7 +5,7 @@ class WMFReferencePanelViewController: UIViewController {
     
     @IBOutlet private var containerViewHeightConstraint:NSLayoutConstraint!
     @IBOutlet var containerView:UIView!
-    var reference = WMFReference.init()
+    var reference:WMFReference?
     
     override func viewDidLoad() {
         super.viewDidLoad()
