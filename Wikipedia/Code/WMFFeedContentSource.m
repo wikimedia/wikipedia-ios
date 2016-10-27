@@ -15,7 +15,6 @@
 
 #import <WMFModel/WMFModel-Swift.h>
 
-#define WMF_ALWAYS_NOTIFY DEBUG && 0
 
 @import NSDate_Extensions;
 
@@ -321,9 +320,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (![date wmf_isTodayUTC]) { //in the news notifications only valid for the current day
         return;
     }
-
-#if WMF_ALWAYS_NOTIFY
-#else
+    
     NSCalendar *userCalendar = [NSCalendar autoupdatingCurrentCalendar];
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
     NSDate *mostRecentDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
@@ -333,7 +330,6 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
             return;
         }
     }
-#endif
 
     self.schedulingNotifications = YES;
 
@@ -349,11 +345,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     for (WMFFeedNewsStory *newsStory in feedDay.newsStories) {
         WMFArticlePreview *articlePreviewToNotifyAbout = nil;
-#if WMF_ALWAYS_NOTIFY
-#else
         NSInteger bestRank = NSIntegerMax;
-#endif
-
         NSMutableArray<NSURL *> *articleURLs = [NSMutableArray arrayWithCapacity:newsStory.articlePreviews.count];
         for (WMFFeedArticlePreview *articlePreview in newsStory.articlePreviews) {
             NSURL *articleURL = articlePreview.articleURL;
@@ -365,15 +357,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
                 continue;
             }
             [articleURLs addObject:articleURL];
-#if WMF_ALWAYS_NOTIFY
-            if (YES) {
-#else
             WMFFeedTopReadArticlePreview *topReadArticlePreview = topReadArticlesByKey[key];
             if (topReadArticlePreview && topReadArticlePreview.rank.integerValue < WMFFeedInTheNewsNotificationMaxRank) {
-#endif
-#if WMF_ALWAYS_NOTIFY
-                articlePreviewToNotifyAbout = [self.previewStore itemForURL:articleURL];
-#else
                 MWKHistoryEntry *entry = [self.userDataStore entryForURL:articlePreview.articleURL];
                 BOOL notifiedRecently = entry.inTheNewsNotificationDate && [entry.inTheNewsNotificationDate timeIntervalSinceNow] < WMFFeedNotificationArticleRepeatLimit;
                 BOOL viewedRecently = entry.dateViewed && [entry.dateViewed timeIntervalSinceNow] < WMFFeedNotificationArticleRepeatLimit;
@@ -386,7 +371,6 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
                     bestRank = topReadArticlePreview.rank.integerValue;
                     articlePreviewToNotifyAbout = [self.previewStore itemForURL:articleURL];
                 }
-#endif
             }
         }
         if (articlePreviewToNotifyAbout && articlePreviewToNotifyAbout.url) {
