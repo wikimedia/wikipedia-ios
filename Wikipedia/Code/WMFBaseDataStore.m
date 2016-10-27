@@ -43,6 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                  selector:@selector(yapDatabaseModified:)
                                                      name:YapDatabaseModifiedExternallyNotification
                                                    object:nil];
+        
     }
     return self;
 }
@@ -142,7 +143,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)dataStoreWasUpdatedWithNotification:(NSNotification *)notification {
 }
-
+    
 @end
 
 NS_ASSUME_NONNULL_END
