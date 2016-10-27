@@ -29,7 +29,7 @@ static NSTimeInterval WMFFeedNotificationArticleRepeatLimit = 30 * 24 * 60 * 60;
 static NSInteger WMFFeedInTheNewsNotificationMaxRank = 10;
 static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
-@interface WMFFeedContentSource ()<WMFAnalyticsContextProviding>
+@interface WMFFeedContentSource () <WMFAnalyticsContextProviding>
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
 
@@ -270,11 +270,12 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         __block WMFFeedArticlePreview *mostViewedPreview = nil;
         [story.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
             NSURL *url = [obj articleURL];
-            NSDictionary *pageViewsForURL = pageViews[url];
+            NSDictionary<NSDate *, NSNumber *> *pageViewsForURL = pageViews[url];
             NSArray *dates = [pageViewsForURL.allKeys sortedArrayUsingSelector:@selector(compare:)];
-            NSArray *latestDate = [dates lastObject];
+            NSDate *latestDate = [dates lastObject];
             if (latestDate) {
-                unsigned long long views = [pageViewsForURL[latestDate] unsignedLongLongValue];
+                NSNumber *pageViewsNumber = pageViewsForURL[latestDate];
+                unsigned long long views = [pageViewsNumber unsignedLongLongValue];
                 if (views > mostViews) {
                     mostViews = views;
                     mostViewedPreview = obj;
@@ -389,8 +390,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
             }
         }
         if (articlePreviewToNotifyAbout && articlePreviewToNotifyAbout.url) {
-            if([self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreviewToNotifyAbout]){
-                
+            if ([self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreviewToNotifyAbout]) {
+
                 [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:articlePreviewToNotifyAbout.url.host];
             };
             break;
@@ -464,8 +465,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     return YES;
 }
-    
-- (NSString*)analyticsContext{
+
+- (NSString *)analyticsContext {
     return @"notification";
 }
 

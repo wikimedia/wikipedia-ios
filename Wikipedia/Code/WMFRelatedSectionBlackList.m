@@ -144,7 +144,7 @@ static NSString *const WMFRelatedSectionBlackListFileExtension = @"plist";
 
 #pragma mark - Update Methods
 
-- (MWKHistoryEntry *)addBlackListArticleURL:(NSURL *)url {
+- (nullable MWKHistoryEntry *)addBlackListArticleURL:(NSURL *)url {
     NSParameterAssert(url);
     if ([url wmf_isNonStandardURL]) {
         return nil;

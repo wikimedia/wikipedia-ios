@@ -131,7 +131,7 @@
         self.dirty = YES;
         return removed;
     } else {
-        return nil;
+        return @[];
     }
 }
 

@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (void)processChanges:(NSArray<YapDatabaseViewRowChange *> *)changes onConnection:(YapDatabaseConnection *)connection {
+- (void)processChanges:(NSArray *)changes onConnection:(YapDatabaseConnection *)connection {
     if (![connection isEqual:self.readConnection]) {
         return;
     }
@@ -103,7 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [[self.readConnection ext:self.viewName] getSectionChanges:&sectionChanges
                                                     rowChanges:&rowChanges
-                                              forNotifications:(id)changes
+                                              forNotifications:changes
                                                   withMappings:self.mappings];
 
     if ([sectionChanges count] == 0 & [rowChanges count] == 0) {
