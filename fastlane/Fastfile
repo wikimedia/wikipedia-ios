@@ -138,10 +138,12 @@ platform :ios do
     build_dir = "build"
     product_name = "Wikipedia"
     ipa_path = "#{build_dir}/#{product_name}.ipa"
-    dsym_path = "#{build_dir}/#{product_name}.app.dSYM.zip"
-    
+    #dsym_path = "#{build_dir}/#{product_name}.app.dSYM.zip"
+    build_number = latest_testflight_build_number + 1
+    version = get_version_number
+
     increment_build_number({
-      build_number: latest_testflight_build_number + 1
+      build_number: build_number
     })
 
     changelog_from_git_commits(
@@ -159,12 +161,10 @@ platform :ios do
       distribute_external: false
     )
     
-    downloaded_dsym_paths = download_dsyms(build_number: build_number.to_s) # Download dSYM files from iTC
-    puts "downloaded dsym paths: #{downloaded_dsym_paths.to_s}"
-    if downloaded_dsym_paths.length > 0 
-      downloaded_dsym_path = downloaded_dsym_paths[0]
-      sh "cp #{downloaded_dsym_path} #{dsym_path}"
-    end
+    download_dsyms(
+      build_number: build_number.to_s,
+      version: version.to_s
+    ) # Download dSYM files from iTC
     
     hockey_prod_id = ENV["HOCKEY_PRODUCTION"]
     raise "Must specifiy HockeyApp public identifier." unless hockey_prod_id.length > 0
@@ -174,6 +174,7 @@ platform :ios do
       public_identifier: hockey_prod_id,
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
+      dsym: "org.wikimedia.wikipedia-#{version}-#{build_number}.dSYM.zip"
     )
     
     tag_beta
@@ -221,9 +222,4 @@ platform :ios do
     tag_release
   end
   
-  lane :dsym_sync do
-    downloaded_dsym_paths = download_dsyms(build_number: '950') # Download dSYM files from iTC
-    puts "downloaded dsym paths: #{downloaded_dsym_paths[0]}"
-  end
-
 end
