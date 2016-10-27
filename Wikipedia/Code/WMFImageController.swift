@@ -358,7 +358,7 @@ public class WMFImageController : NSObject {
         guard let url = url else {
             return
         }
-        dispatch_sync(self.cancellingQueue) { [weak self] in
+        dispatch_async(self.cancellingQueue) { [weak self] in
             guard let key = url.absoluteString, let cancelable = self?.cancellables.objectForKey(key) as? Cancellable else {
                 return
             }
@@ -369,7 +369,7 @@ public class WMFImageController : NSObject {
     }
     
     public func cancelAllFetches() {
-        dispatch_sync(self.cancellingQueue) { [weak self] in
+        dispatch_async(self.cancellingQueue) { [weak self] in
             guard let cancellables = self?.cancellables else {
                 return
             }
@@ -382,7 +382,7 @@ public class WMFImageController : NSObject {
     }
     
     private func addCancellableForURL(cancellable: Cancellable, url: NSURL) {
-        dispatch_sync(self.cancellingQueue) { [weak self] in
+        dispatch_async(self.cancellingQueue) { [weak self] in
             guard let cancellables = self?.cancellables else {
                 return
             }
