@@ -220,5 +220,10 @@ platform :ios do
 
     tag_release
   end
+  
+  lane :dsym_sync do
+    downloaded_dsym_paths = download_dsyms(build_number: '950') # Download dSYM files from iTC
+    puts "downloaded dsym paths: #{downloaded_dsym_paths[0]}"
+  end
 
 end
