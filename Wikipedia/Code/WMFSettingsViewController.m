@@ -36,6 +36,7 @@
 
 #if WMF_USER_ZOOM_IS_ENABLED
 #import <UserzoomSDK/UserzoomSDK.h>
+#import <Tweaks/FBTweakInline.h>
 #endif
 
 #pragma mark - Static URLs
@@ -305,12 +306,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)tweakViewControllerPressedDone:(FBTweakViewController *)tweakViewController {
     [[NSNotificationCenter defaultCenter] postNotificationName:FBTweakShakeViewControllerDidDismissNotification object:tweakViewController];
     [tweakViewController dismissViewControllerAnimated:YES completion:nil];
-#if WMF_USER_ZOOM_IS_ENABLED
-#if FB_TWEAK_ENABLED
+#if WMF_USER_ZOOM_IS_ENABLED && FB_TWEAK_ENABLED
     if (FBTweakValue(@"User studies", @"UserZoom", @"Show", NO)) {
         [UserzoomSDK show];
     }
-#endif
 #endif
 }
 
