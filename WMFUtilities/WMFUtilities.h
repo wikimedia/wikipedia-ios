@@ -46,3 +46,4 @@ FOUNDATION_EXPORT const unsigned char WMFUtilitiesVersionString[];
 #import <WMFUtilities/NSCalendar+WMFCommonCalendars.h>
 #import <WMFUtilities/WMFNumberOfExtractCharacters.h>
 #import <WMFUtilities/NSBundle+WMFInfoUtils.h>
+#import <WMFUtilities/NSDictionary+WMFPageViewsSortedByDate.h>
