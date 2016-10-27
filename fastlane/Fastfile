@@ -160,6 +160,7 @@ platform :ios do
     )
     
     downloaded_dsym_paths = download_dsyms(build_number: build_number.to_s) # Download dSYM files from iTC
+    puts "downloaded dsym paths: #{downloaded_dsym_paths.to_s}"
     if downloaded_dsym_paths.length > 0 
       downloaded_dsym_path = downloaded_dsym_paths[0]
       sh "cp #{downloaded_dsym_path} #{dsym_path}"
