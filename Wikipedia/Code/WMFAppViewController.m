@@ -70,10 +70,6 @@
 #import "SDImageCache+WMFPersistentCache.h"
 #endif
 
-#if WMF_USER_ZOOM_IS_ENABLED
-#import <UserzoomSDK/UserzoomSDK.h>
-#endif
-
 /**
  *  Enums for each tab in the main tab bar.
  *
@@ -184,10 +180,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [self configureArticleListController:self.recentArticlesViewController];
     [[self class] wmf_setSearchButtonDataStore:self.dataStore];
     [[self class] wmf_setSearchButtonPreviewStore:self.previewStore];
-
-#if WMF_USER_ZOOM_IS_ENABLED
-    [UserzoomSDK show];
-#endif
 }
 
 - (void)configureTabController {
@@ -222,6 +214,21 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 - (void)appDidEnterBackgroundWithNotification:(NSNotification *)note {
     [self startBackgroundTask];
     dispatch_async(dispatch_get_main_queue(), ^{
+#if FB_TWEAK_ENABLED
+        if (FBTweakValue(@"Notifications", @"In the news", @"Send on app exit", NO)) {
+            WMFNewsContentGroup *newsContentGroup = (WMFNewsContentGroup *)[self.contentStore firstGroupOfKind:[WMFNewsContentGroup kind]];
+            if (newsContentGroup) {
+                NSArray<WMFFeedNewsStory *> *stories = [self.contentStore contentForContentGroup:newsContentGroup];
+                if (stories.count > 0) {
+                    NSInteger randomIndex = (NSInteger)arc4random_uniform((uint32_t)stories.count);
+                    WMFFeedNewsStory *randomStory = stories[randomIndex];
+                    WMFFeedArticlePreview *feedPreview = randomStory.mostPopularArticlePreview;
+                    WMFArticlePreview *preview = [self.previewStore itemForURL:feedPreview.articleURL];
+                    [[self feedContentSource] scheduleNotificationForNewsStory:randomStory articlePreview:preview];
+                }
+            }
+        }
+#endif
         [self pauseApp];
     });
 }
@@ -365,7 +372,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         [self showExplore];
     }
 
-#if FB_TWEAKS_ENABLED
+#if FB_TWEAK_ENABLED
     if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
         [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{ NSLocalizedDescriptionKey: @"There was an error" }] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
@@ -927,7 +934,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return NO;
     }
 
-#if FB_TWEAKS_ENABLED
+#if FB_TWEAK_ENABLED
     if (FBTweakValue(@"Last Open Article", @"General", @"Restore on Launch", YES)) {
         return YES;
     }
