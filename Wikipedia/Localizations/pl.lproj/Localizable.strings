@@ -115,6 +115,9 @@
 "settings-language" = "Język Wikipedii";
 "settings-support" = "Wspomóż Wikimedię";
 "settings-my-languages" = "Moje języki";
+"settings-notifications" = "Powiadomienia";
+"settings-notifications-system-turn-on" = "Włączenie powiadomień";
+"settings-notifications-learn-more" = "Dowiedz się więcej o powiadomieniach";
 "main-menu-title" = "Więcej";
 "main-menu-heading-about" = "O aplikacji";
 "main-menu-language-title" = "Przeszukaj $ Wikipedię";
@@ -331,6 +334,7 @@
 "potd-description-prefix" = "Ilustracja dnia na $1";
 "welcome-explore-sub-title" = "Nowy sposób, aby odkrywać ciekawe artykuły każdego dnia";
 "welcome-explore-tell-me-more-done-button" = "Wszystko jasne";
+"welcome-notifications-tell-me-more-title" = "Więcej o powiadomieniach";
 "welcome-languages-title" = "Języki";
 "welcome-languages-add-button" = "Dodaj kolejny język";
 "welcome-languages-continue-button" = "Kontynuuj";

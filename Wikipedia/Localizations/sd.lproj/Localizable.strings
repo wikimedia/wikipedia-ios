@@ -77,6 +77,7 @@
 "wikitext-upload-save-sign-in" = "لاگ ان";
 "wikitext-upload-save-sign-in-benefits" = "ٻيا ڀاڱيدار توھان سان رابطو ڪري سگھن ٿا ۽ توھان ڏسي سگھو ٿا تہ توھان ڪھڙا مضمون ترميم ڪيا.";
 "wikitext-upload-save-anonymously" = "گمنامي سان ڇاپيو";
+"wikitext-upload-save-anonymously-warning" = "ترميمون توھان جي ڊوائيس جي آءِپي پتي سان منتسب ڪيون وينديون. جيڪڏھن توھان $1 توھان کي وڌيڪ نويڪلائي آھي.";
 "wikitext-upload-save-terms-and-license" = "ڇاپڻ سان، توھان $1 سان راضپو ڏيکاريو ٿا، ۽ اھو بہ تہ بغير ڪنھن شرط جي پنھنجون ڀاڱيداريون $2 لائسنس جي تحت ڏيو ٿا.";
 "wikitext-upload-save-terms-name" = "استعمال جا شرط";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -105,9 +106,16 @@
 "settings-support" = "وڪيپيڊيا جي مدد ڪريو";
 "settings-language-bar" = "ڳولا تي ٻوليون ڏيکاريو";
 "settings-my-languages" = "منھنجون ٻوليون";
+"settings-notifications" = "اطلاع";
 "settings-help-and-feedback" = "مدد ۽ پذيرائي";
 "settings-primary-language" = "شروعاتي";
 "settings-primary-language-details" = "ھن فھرست جي پھرين ٻولي ايپ جي شروعاتي ٻولي طور استعمال ڪئي وڃي ٿي. اھا ٻولي تبديل ڪرڻ سان روزانو جو مواد تبديل ٿيندو (مثال طور نمايان مضمون) جيڪو ايڪسپلور تي ڏيکاريو وڃي ٿو.";
+// Fuzzy
+"settings-notifications-system-off" = "ھينئر وڪيپيڊيا لاءِ اطلاع آف ٿيل ڪيل آھن. اطلاع آن ڪرڻ لاءِ پنھنجي آءِاوايس جي ترتيبن ۾ وڃو";
+"settings-notifications-system-turn-on" = "اطلاع آن ڪريو";
+"settings-notifications-learn-more" = "اطلاعن بابت وڌيڪ ڄاڻو";
+"settings-notifications-trending" = "لاڙو رکندڙ تازا واقعا";
+"settings-notifications-push-notifications" = "ڌڪيل اطلاع";
 "main-menu-title" = "وڌيڪ";
 "main-menu-heading-about" = "بابت";
 "main-menu-language-title" = "$1 وڪيپيڊيا ڳوليو";
@@ -255,9 +263,11 @@
 "abuse-filter-warning-heading" = "هي هڪ غير تخليقي ترميم لڳي ٿي، ڇا توهان انکي ڇاپڻ چاهيو ٿا؟";
 "abuse-filter-warning-subheading" = "توهان جي ترميم ۾ هيٺين مان هڪ يا ٻه شيون ٿي سگھن ٿيون:";
 "abuse-filter-warning-caps" = "وڏن اکرن ۾ لکندي";
+"abuse-filter-warning-blanking" = "مضمون خالي ڪندي يا بگاڙيندي";
 "abuse-filter-warning-irrelevant" = "غيرمتعلق خارجي ڳنڍڻا يا عڪس";
 "abuse-filter-warning-repeat" = "دهرائجندڙ لفظ";
 "abuse-filter-disallow-heading" = "توهان هي ترميم ڇاپي نٿا سگھو. براءِ مهرباني واپس وڃو ۽ انکي تبديل ڪريو.";
+"abuse-filter-disallow-unconstructive" = "ھڪ خودڪاربڻايل ڇاڻيءَ ھن ترميم کي ممڪنہ طور تي غيرتعميري يا ھڪ وحشياڻي ڪوشش طور سڃاتو آھي.";
 "abuse-filter-disallow-notable" = "وڪيپيڊيا هڪ ڄاڻ انسائيڪلوپيڊيا آهي ۽ اڻڌريو، مشهور مواد جو هتي تعلق آهي.";
 "menu-edit-accessibility-label" = "سنواريو";
 "menu-close-accessibility-label" = "بند ڪريو";
@@ -335,6 +345,8 @@
 "potd-description-prefix" = "$1 لاءِ اڄ جي تصوير";
 "welcome-explore-title" = "ايڪسپلور";
 "welcome-explore-sub-title" = "ھر روز دلچسپ مضمون ڳولڻ جو نئون طريقو";
+"welcome-explore-new-ways-title" = "کوجنا ڪرڻ جا نوان گس";
+"welcome-explore-new-ways-sub-title" = "دلچسپ مضمون لھڻ لاءِ توھان لاءِ نوان اطلاع ۽ وڊجيٽس";
 "welcome-explore-tell-me-more" = "مون کي وڌيڪ ٻڌايو";
 "welcome-explore-tell-me-more-about-explore" = "ايڪسپلور بابت وڌيڪ";
 "welcome-explore-tell-me-more-details" = "جڏھن توھان ڪو مضمون پڙھو ٿا، لاڳاپيل مضمون توھان جي ايڪسپلور فيڊ ۾ خودبخود شامل ڪيا ويندا آھن. اسان معلومات ڪيئن سھيڙيون ٿا اھو ان کي تبديل نٿو ڪري، ۽ توھان جي پڙھڻ جي سوانح اڃان بہ ذاتي آھي.";
@@ -342,6 +354,9 @@
 "welcome-explore-tell-me-more-privacy" = "ڪابہ پڙھڻ جي فھرست يا پروفائيل اسان جي سرورس تي اسٽور نہ ڪيو ويندو آھي.";
 "welcome-explore-tell-me-more-done-button" = "سمجھي ويا";
 "welcome-explore-continue-button" = "شروع ڪريو";
+"welcome-notifications-tell-me-more-title" = "اطلاعن بابت وڌيڪ";
+"welcome-notifications-tell-me-more-storage" = "اطلاعن جو ترجيحون توھان جي ڊوائيس تي سانڍيل آھن ۽ اھي ذاتي معلومات يا سرگرمي تي ٻڌل نہ آھن.";
+"welcome-notifications-tell-me-more-creation" = "اطلاع ايپ پاران توھان جي ڊوائيس تي تخليق ۽ فراھم ڪيا ويا آھن، اسان (يا ٽين ڌر) جي سرورن پاران نہ.";
 "welcome-languages-title" = "ٻوليون";
 "welcome-languages-sub-title" = "وڪيپيڊيا ڳولڻ لاءِ پنھنجيون ترجيحي ٻوليون چونڊيو";
 "welcome-languages-add-button" = "ٻي ٻولي شامل ڪريو";
@@ -384,6 +399,7 @@
 "explore-most-read-more-list-title" = "مٿيان مضمون";
 "explore-most-read-more-list-title-for-date" = "$1 تي مٿيان";
 "no-email-account-alert" = "براءِ مھرباني پنھنجي ڊوائس تي ڪو ايميل کاتو سيٽ اپ ڪريو ۽ ٻيھر ڪوشش ڪريو.";
+"request-feedback-on-error" = "ايپ ھڪ اھڙي مسئلي کي منھن ڏنو آھي جنھن بابت اسان جا ترقيڪار وڌيڪ ڄاڻڻ پسند ڪندا. براءِ مھرباني خرابي جي تفصيلن سان ھڪ برقٽپال موڪلڻ لاءِ ھتي ٽڙڪ ڪريو.";
 "explore-another-random" = "ھڪ ٻيو بلاترتيب مضمون";
 "find-in-page-no-matches" = "0 ملندڙ";
 "find-in-page-button-label" = "صفحي ۾ لھو";
@@ -399,6 +415,11 @@
 "in-the-news-notification-share-action-title" = "ونڊيو";
 "in-the-news-notification-save-for-later-action-title" = "بعد لاءِ سانڍيو";
 "in-the-news-currently-trending" = "ھاڻوڪا رجحان";
+"in-the-news-title" = "خبرن ۾";
+"in-the-news-title-for-date" = "$1 تي خبرون";
 "number-thousands" = "$1K";
 "number-millions" = "$1M";
 "number-billions" = "$1B";
+"feed-news-notification-text" = "ھاڻي توھان خبرن ۾ لاڙو رکندڙ وڪيپيڊيا مضمونن کان اطلاع آن ڪري سگھو ٿا.";
+// Fuzzy
+"feed-news-notification-button-text" = "لاڙو رکندڙ خبرن بابت مون کي اطلاع ڏيو";
