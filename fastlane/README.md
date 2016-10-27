@@ -76,11 +76,6 @@ Runs tests, version, tag, and push to the beta branch
 fastlane ios submit_release
 ```
 Runs tests, version, tag, and push to the beta branch
-### ios dsym_sync
-```
-fastlane ios dsym_sync
-```
-
 
 ----
 

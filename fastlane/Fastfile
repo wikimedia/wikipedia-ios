@@ -141,11 +141,12 @@ platform :ios do
     #dsym_path = "#{build_dir}/#{product_name}.app.dSYM.zip"
     build_number = latest_testflight_build_number + 1
     version = get_version_number
-
+    bundle_identifier = "org.wikimedia.wikipedia"
+    
     increment_build_number({
       build_number: build_number
     })
-
+    
     changelog_from_git_commits(
       pretty: '- (%ae) %s', # Optional, lets you provide a custom format to apply to each commit when generating the changelog text
       tag_match_pattern: 'betas/*', # Optional, lets you search for a tag name that matches a glob(7) pattern
@@ -174,7 +175,7 @@ platform :ios do
       public_identifier: hockey_prod_id,
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
-      dsym: "org.wikimedia.wikipedia-#{version}-#{build_number}.dSYM.zip"
+      dsym: "#{bundle_identifier}-#{version}-#{build_number}.dSYM.zip"
     )
     
     tag_beta
