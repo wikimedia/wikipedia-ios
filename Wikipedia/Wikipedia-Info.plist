@@ -80,7 +80,7 @@
 		<string>Tharlon-Regular.ttf</string>
 	</array>
 	<key>UIApplicationShortcutWidget</key>
-	<string>org.wikimedia.wikipedia.TopReadWidget</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER).TopReadWidget</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
