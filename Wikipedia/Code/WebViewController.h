@@ -38,7 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)getCurrentVisibleSectionCompletion:(void (^)(MWKSection *_Nullable, NSError *__nullable error))completion;
 
-- (void)scrollToVerticalOffset:(CGFloat)offset;
 - (CGFloat)currentVerticalOffset;
 
 - (void)setFontSizeMultiplier:(NSNumber *)fontSize;

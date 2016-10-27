@@ -67,6 +67,7 @@ class WMFWelcomeContainerViewController: UIViewController {
     
     private func embedBottomContainerControllerView() {
         bottomContainerController.willMoveToParentViewController(self)
+        bottomContainerController.view.translatesAutoresizingMaskIntoConstraints = false
         bottomContainerView.addSubview((bottomContainerController.view)!)
         bottomContainerController.view.mas_makeConstraints { make in
             make.top.bottom().leading().and().trailing().equalTo()(self.bottomContainerView)

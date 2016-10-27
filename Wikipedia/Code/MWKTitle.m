@@ -8,8 +8,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSURL *URL;
 
-@property (readwrite, copy, nonatomic) NSString *prefixedDBKey;
-@property (readwrite, copy, nonatomic) NSString *prefixedURL;
 @property (readwrite, copy, nonatomic) NSURL *mobileURL;
 @property (readwrite, copy, nonatomic) NSURL *desktopURL;
 

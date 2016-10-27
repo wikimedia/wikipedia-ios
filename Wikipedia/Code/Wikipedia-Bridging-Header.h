@@ -29,6 +29,7 @@
 #import "BITHockeyManager+WMFExtensions.h"
 #import <HockeySDK/BITCrashManager.h>
 #import "UIViewController+WMFOpenExternalUrl.h"
+#import "UIGestureRecognizer+BlocksKit.h"
 
 // View Controllers
 #import "WMFArticleViewController_Private.h"
@@ -38,6 +39,7 @@
 #import "WMFLanguagesViewController.h"
 #import "WMFTableOfContentsDisplay.h"
 #import "WMFCustomDeleteButtonTableViewCell.h"
+#import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
 
 // Views
