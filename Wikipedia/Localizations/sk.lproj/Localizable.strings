@@ -108,6 +108,7 @@
 "settings-language" = "Jazyk Wikipédie";
 "settings-support" = "Podporte Wikipédiu";
 "settings-my-languages" = "Moje jazyky";
+"settings-notifications" = "Upozornenia";
 "settings-help-and-feedback" = "Pomoc a spätná väzba";
 "main-menu-title" = "Viac";
 "main-menu-heading-about" = "O aplikácii";
@@ -372,6 +373,7 @@
 "in-the-news-notification-share-action-title" = "Zdieľať";
 "in-the-news-notification-save-for-later-action-title" = "Uložiť na neskôr";
 "in-the-news-currently-trending" = "Aktuálne trendy";
+"in-the-news-title" = "Správy";
 "number-thousands" = "$1";
 "number-millions" = "$1";
 "number-billions" = "$1";
