@@ -7,10 +7,10 @@ FOUNDATION_EXPORT double WMFUIVersionNumber;
 //! Project version string for WMFUI.
 FOUNDATION_EXPORT const unsigned char WMFUIVersionString[];
 
-#import <WMFUI/UIImageView+WMFImageFetching.h>
-#import <WMFUI/UIColor+WMFStyle.h>
-#import <WMFUI/UIImage+WMFStyle.h>
-#import <WMFUI/UIImageView+WMFPlaceholder.h>
-#import <WMFUI/UIColor+WMFHexColor.h>
-#import <WMFUI/UITableViewCell+WMFEdgeToEdgeSeparator.h>
-#import <WMFUI/UIView+WMFDefaultNib.h>
+#import "UIImageView+WMFImageFetching.h"
+#import "UIColor+WMFStyle.h"
+#import "UIImage+WMFStyle.h"
+#import "UIImageView+WMFPlaceholder.h"
+#import "UIColor+WMFHexColor.h"
+#import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
+#import "UIView+WMFDefaultNib.h"

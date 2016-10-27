@@ -12,7 +12,6 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
 @interface WMFRandomArticleViewController ()
 @property (nonatomic, strong) WMFRandomDiceButton *diceButton;
-@property (nonatomic, strong) UIButton *anotherRandomArticleButton;
 @property (nonatomic, strong) UIBarButtonItem *diceButtonItem;
 @property (nonatomic, strong) UIView *emptyFadeView;
 @property (nonatomic, strong) WMFRandomArticleFetcher *randomArticleFetcher;
@@ -40,23 +39,18 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
 - (void)setupSecondToolbar {
     if (!self.diceButtonItem) {
-        self.diceButton = [[WMFRandomDiceButton alloc] initWithFrame:CGRectMake(0, 0, 57, 57)];
+        self.diceButton = [[WMFRandomDiceButton alloc] initWithFrame:CGRectMake(0, 0, 184, 44)];
         self.diceButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.diceButton];
     }
 
     UIBarButtonItem *leftFlexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:NULL];
 
-    self.anotherRandomArticleButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [self.anotherRandomArticleButton setTitle:MWLocalizedString(@"explore-another-random", nil) forState:UIControlStateNormal];
-    CGSize size = [self.anotherRandomArticleButton sizeThatFits:CGSizeMake(CGFLOAT_MAX, 57)];
-    self.anotherRandomArticleButton.frame = (CGRect){CGPointZero, size};
-    [self.anotherRandomArticleButton addTarget:self action:@selector(loadAndShowAnotherRandomArticle:) forControlEvents:UIControlEventTouchUpInside];
-    [self.anotherRandomArticleButton setTintColor:[UIColor wmf_blueTintColor]];
-    UIBarButtonItem *anotherRandomItem = [[UIBarButtonItem alloc] initWithCustomView:self.anotherRandomArticleButton];
+
+   
 
     UIBarButtonItem *rightFlexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:NULL];
 
-    self.secondToolbarItems = @[leftFlexibleSpace, self.diceButtonItem, anotherRandomItem, rightFlexibleSpace];
+    self.secondToolbarItems = @[leftFlexibleSpace, self.diceButtonItem, rightFlexibleSpace];
 }
 
 - (void)setupEmptyFadeView {
