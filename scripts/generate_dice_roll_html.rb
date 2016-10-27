@@ -14,10 +14,10 @@ output = "<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
       #container {
       	position: absolute;
-      	left: 10px;
-      	top: 10px;
-      	height: 37px;
-      	width: 37px;
+      	left: 8px;
+      	top: 8px;
+      	height: 28px;
+      	width: 28px;
       	padding: 0 !important;
       	perspective: 1000px;
       	-webkit-perspective: 1000px;
@@ -29,50 +29,50 @@ output = "<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       	transform-style: preserve-3d;
       	height: 100%;
       	width: 100%;
-      	-webkit-transform: translateZ(-25px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+      	-webkit-transform: translateZ(-19px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
       }
 
       #dice > div {
       	backface-visibility: hidden;
-      	height: 37px;
-      	width: 37px;
+      	height: 28px;
+      	width: 28px;
       	position: absolute;
-      	background: #36c;
+      	background: #fff;
       	border-radius: 4px;
       }
 
       #dice > div > span { /*die dot styling */
       	position: absolute;
-      	background: #fff;
-      	height: 8px;
-      	width: 8px;
+      	background: #36c;
+      	height: 6px;
+      	width: 6px;
       	border-radius: 50%;
       	-webkit-transform: translate3d(-50%, -50%, 0);
       	backface-visibility: hidden;
       }
 
       .one {
-      	-webkit-transform: rotateY(0deg) translateZ(15px);
+      	-webkit-transform: rotateY(0deg) translateZ(11px);
       }
 
       .two {
-      	-webkit-transform: rotateX(180deg) translateZ(15px);
+      	-webkit-transform: rotateX(180deg) translateZ(11px);
       }
 
       .three {
-      	-webkit-transform: rotateY(90deg) translateZ(15px);
+      	-webkit-transform: rotateY(90deg) translateZ(11px);
       }
 
       .four {
-      	-webkit-transform: rotateY(-90deg) translateZ(15px);
+      	-webkit-transform: rotateY(-90deg) translateZ(11px);
       }
 
       .five {
-      	-webkit-transform: rotateX(90deg) translateZ(15px);
+      	-webkit-transform: rotateX(90deg) translateZ(11px);
       }
 
       .six {
-      	-webkit-transform: rotateX(-90deg) translateZ(15px);
+      	-webkit-transform: rotateX(-90deg) translateZ(11px);
       }
 
     	.one span, .three span:nth-child(2), .five span:nth-child(5) {
@@ -114,7 +114,7 @@ output = "<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 rx = [   0,   0,   0,   0, -90,  90]
 ry = [   0, 180, -90,  90,   0,   0]
 rz = 0
-tz = -25
+tz = -19
 
 mxes = [1, 1, -1, -1]
 myes = [1, -1, -1, 1]

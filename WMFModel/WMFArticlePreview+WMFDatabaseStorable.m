@@ -4,7 +4,7 @@
 
 + (NSString *)databaseKeyForURL:(NSURL *)url {
     NSParameterAssert(url);
-    return [[NSURL wmf_desktopURLForURL:url] absoluteString];
+    return [[NSURL wmf_desktopURLForURL:url] wmf_databaseKey];
 }
 
 - (NSString *)databaseKey {

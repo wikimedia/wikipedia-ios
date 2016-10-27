@@ -41,7 +41,7 @@ NSString *const WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView = @"WMFN
 
     grouping = [self wmf_notInHistorySavedOrBlackListGroupingSingleGroup];
     sorting = [self wmf_historyOrSavedSortedByURL];
-    databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting];
+    databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting versionTag:@"2"];
     [database wmf_registerView:databaseView withName:WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView];
 
     YapDatabaseViewFiltering *filtering = [self wmf_historyOrSavedSignificantlyViewedAndNotBlacklistedAndNotMainPageFilter];
