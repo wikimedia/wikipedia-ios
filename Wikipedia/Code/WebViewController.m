@@ -48,7 +48,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 NSString *const WMFCCBySALicenseURL =
     @"https://creativecommons.org/licenses/by-sa/3.0/";
 
-@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate>
+@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate>
 
 @property (nonatomic, strong) MASConstraint *headerHeight;
 @property (nonatomic, strong) UIView *footerContainerView;
@@ -67,8 +67,7 @@ NSString *const WMFCCBySALicenseURL =
 @property (nonatomic) BOOL disableMinimizeFindInPage;
 @property (nonatomic, readwrite, retain) WMFFindInPageKeyboardBar *inputAccessoryView;
 
-@property (nonatomic, strong) NSArray *lastClickedReferencesGroup;
-@property (nonatomic) NSInteger indexOfLastReferenceShownFromLastClickedReferencesGroup;
+@property (nonatomic, strong) NSArray<WMFReference*> *lastClickedReferencesGroup;
 
 @end
 
@@ -226,11 +225,13 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)handleClickReferenceScriptMessage:(NSDictionary *)messageDict {
+    NSAssert(messageDict[@"referencesGroup"], @"Expected key 'referencesGroup' not found in script message dictionary");
+    self.lastClickedReferencesGroup = [messageDict[@"referencesGroup"] bk_map:^id(NSDictionary *referenceDict) {
+        return [[WMFReference alloc] initWithScriptMessageDict:referenceDict];
+    }];
+    
+    NSAssert(messageDict[@"selectedIndex"], @"Expected key 'selectedIndex' not found in script message dictionary");
     NSNumber *selectedIndex = messageDict[@"selectedIndex"];
-    NSArray *referencesGroup = messageDict[@"referencesGroup"];
-
-    self.lastClickedReferencesGroup = referencesGroup;
-
     [self showReferenceFromLastClickedReferencesGroupAtIndex:selectedIndex.integerValue];
 }
 
@@ -434,20 +435,10 @@ NSString *const WMFCCBySALicenseURL =
     [self.webView getScrollViewRectForHtmlElementWithId:matchSpanId
                                              completion:^(CGRect rect) {
                                                  @strongify(self);
-                                                 [UIView animateWithDuration:0.3
-                                                     delay:0.0f
-                                                     options:UIViewAnimationOptionBeginFromCurrentState
-                                                     animations:^{
-                                                         @strongify(self);
-                                                         self.disableMinimizeFindInPage = YES;
-
-                                                         //TODO: modified to scroll the match to the vertical point between top of keyboard and top of screen
-
-                                                         [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, fmaxf(rect.origin.y - 80.f, 0.f)) animated:NO];
-                                                     }
-                                                     completion:^(BOOL done) {
-                                                         self.disableMinimizeFindInPage = NO;
-                                                     }];
+                                                 self.disableMinimizeFindInPage = YES;
+                                                 [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, fmaxf(rect.origin.y - 80.f, 0.f)) animated:YES completion:^(BOOL done) {
+                                                     self.disableMinimizeFindInPage = NO;
+                                                 }];
                                              }];
 
     [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.useFocusStyleForHighlightedSearchTermWithId('%@')", matchSpanId] completionHandler:nil];
@@ -548,7 +539,6 @@ NSString *const WMFCCBySALicenseURL =
     [super viewDidLoad];
 
     self.lastClickedReferencesGroup = @[];
-    self.indexOfLastReferenceShownFromLastClickedReferencesGroup = 0;
 
     self.contentWidthPercentage = 1;
 
@@ -601,16 +591,6 @@ NSString *const WMFCCBySALicenseURL =
                                              selector:@selector(refererenceLinkTappedWithNotification:)
                                                  name:WMFReferenceLinkTappedNotification
                                                object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showPreviousReferenceFromLastClickedReferencesGroup)
-                                                 name:WMFReferencePopoverShowPreviousNotification
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showNextReferenceFromLastClickedReferencesGroup)
-                                                 name:WMFReferencePopoverShowNextNotification
-                                               object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -619,8 +599,6 @@ NSString *const WMFCCBySALicenseURL =
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroRatingChanged object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFReferenceLinkTappedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFReferencePopoverShowPreviousNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFReferencePopoverShowNextNotification object:nil];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -913,7 +891,8 @@ NSString *const WMFCCBySALicenseURL =
                                                  completion:^(CGRect rect) {
                                                      if (!CGRectIsNull(rect)) {
                                                          [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y)
-                                                                                                  animated:animated];
+                                                                                                  animated:animated
+                                                                                                completion:nil];
                                                      }
                                                  }];
     }
@@ -942,29 +921,8 @@ NSString *const WMFCCBySALicenseURL =
                                               }];
 }
 
-- (void)scrollToVerticalOffset:(CGFloat)offset {
-    [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(0, offset) animated:NO];
-}
-
 - (CGFloat)currentVerticalOffset {
     return self.webView.scrollView.contentOffset.y;
-}
-
-- (void)tocScrollWebViewToPoint:(CGPoint)point
-                       duration:(CGFloat)duration
-                    thenHideTOC:(BOOL)hideTOC {
-    if (isnan(point.x) || isinf(point.x) || isnan(point.y) || isinf(point.y)) {
-        return;
-        DDLogError(@"Attempted to scroll ToC to Nan value, ignoring");
-    }
-    [UIView animateWithDuration:duration
-                          delay:0.0f
-                        options:UIViewAnimationOptionBeginFromCurrentState
-                     animations:^{
-                         [self.webView.scrollView wmf_safeSetContentOffset:point animated:NO];
-                     }
-                     completion:^(BOOL done){
-                     }];
 }
 
 #pragma mark UIContainerViewControllerCallbacks
@@ -1053,32 +1011,99 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)showReferenceFromLastClickedReferencesGroupAtIndex:(NSInteger)index {
-    if (index >= 0 && self.lastClickedReferencesGroup.count > 0) {
-        NSDictionary *selectedReference = [self.lastClickedReferencesGroup wmf_safeObjectAtIndex:index];
-        if (selectedReference) {
-            CGFloat width = MIN(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
-            CGRect rect = CGRectZero;
-            NSDictionary *rectDict = selectedReference[@"rect"];
-            if (CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(rectDict), &rect)) {
-                [self wmf_presentReferencePopoverViewControllerForSourceRect:CGRectMake(CGRectGetMidX(rect), CGRectGetMidY(rect), 1, 1)
-                                                                    linkText:selectedReference[@"text"]
-                                                                        HTML:selectedReference[@"html"]
-                                                                       width:width];
-            }
+    if (index < 0 || self.lastClickedReferencesGroup.count == 0 || [self.lastClickedReferencesGroup wmf_safeObjectAtIndex:index] == nil) {
+        NSAssert(false, @"Expected index or reference group not found.");
+        return;
+    }
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        [self showReferencePageViewControllerWithGroup:self.lastClickedReferencesGroup selectedIndex:index];
+    }else{
+        [self showReferencePopoverMessageViewControllerWithGroup:self.lastClickedReferencesGroup selectedIndex:index];
+    }
+}
+
+- (void)showReferencePageViewControllerWithGroup:(NSArray<WMFReference *> *)referenceGroup selectedIndex:(NSInteger)selectedIndex {
+    WMFReferencePageViewController* vc = [WMFReferencePageViewController wmf_viewControllerFromReferencePanelsStoryboard];
+    vc.delegate = self;
+    vc.appearanceDelegate = self;
+    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    vc.lastClickedReferencesIndex = selectedIndex;
+    vc.lastClickedReferencesGroup = referenceGroup;
+    [self presentViewController:vc animated:NO completion:^{
+        [self scrollTappedReferenceUpIfNecessaryWithReferencePageViewController:vc];
+    }];
+}
+
+- (void)scrollTappedReferenceUpIfNecessaryWithReferencePageViewController:(WMFReferencePageViewController*)controller {
+    CGRect windowCoordsRefGroupRect = [self windowCoordsReferenceGroupRect];
+    UIView* firstPanel = [controller firstPanelView];
+    if(!CGRectIsEmpty(windowCoordsRefGroupRect) && firstPanel && controller.backgroundView){
+        
+        CGRect panelRectInWindowCoords = [firstPanel convertRect:firstPanel.bounds toView:nil];
+        CGRect panelRectInWebViewCoords = [firstPanel convertRect:firstPanel.bounds toView:self.webView];
+        CGRect refGroupRectInWebViewCoords = [controller.backgroundView convertRect:windowCoordsRefGroupRect toView:self.webView];
+        
+        if(CGRectIntersectsRect(windowCoordsRefGroupRect, panelRectInWindowCoords)){
+            CGFloat distanceFromVerticalCenterAbovePanel = (panelRectInWebViewCoords.origin.y / 2.0) - refGroupRectInWebViewCoords.origin.y - (windowCoordsRefGroupRect.size.height / 2.0);
+            CGPoint centeredOffset = CGPointMake(
+                                         self.webView.scrollView.contentOffset.x,
+                                         self.webView.scrollView.contentOffset.y - distanceFromVerticalCenterAbovePanel
+                                         );
+            [self.webView.scrollView wmf_safeSetContentOffset:centeredOffset animated:YES completion:^(BOOL finished){
+                controller.backgroundView.clearRect = CGRectOffset(windowCoordsRefGroupRect, 0, distanceFromVerticalCenterAbovePanel);
+            }];
+        }else{
+            controller.backgroundView.clearRect = windowCoordsRefGroupRect;
         }
     }
-    self.indexOfLastReferenceShownFromLastClickedReferencesGroup = index;
 }
 
-- (void)showNextReferenceFromLastClickedReferencesGroup {
-    if (self.lastClickedReferencesGroup.count > 1 && self.indexOfLastReferenceShownFromLastClickedReferencesGroup < self.lastClickedReferencesGroup.count - 1) {
-        [self showReferenceFromLastClickedReferencesGroupAtIndex:self.indexOfLastReferenceShownFromLastClickedReferencesGroup + 1];
+- (CGRect)windowCoordsReferenceGroupRect {
+    WMFReference* firstRef = self.lastClickedReferencesGroup.firstObject;
+    if(firstRef){
+        CGRect rect = firstRef.rect;
+        for (WMFReference* reference in self.lastClickedReferencesGroup) {
+            rect = CGRectUnion(rect, reference.rect);
+        }
+        rect = [self.webView convertRect:rect toView:nil];
+        rect = CGRectOffset(rect, 0, 1);
+        rect = CGRectInset(rect, -1, -3);
+        return rect;
+    }
+    return CGRectNull;
+}
+
+- (void)showReferencePopoverMessageViewControllerWithGroup:(NSArray<WMFReference *> *)referenceGroup selectedIndex:(NSInteger)selectedIndex {
+    WMFReference *selectedReference = [referenceGroup wmf_safeObjectAtIndex:selectedIndex];
+    CGFloat width = MIN(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
+    [self wmf_presentReferencePopoverViewControllerForReference:selectedReference
+                                                          width:width];
+}
+
+- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray<WMFReferencePanelViewController *> *)pendingViewControllers {
+    for(WMFReferencePanelViewController* panel in pageViewController.viewControllers){
+        [self.webView wmf_unHighlightLinkID:panel.reference.refId];
     }
 }
 
-- (void)showPreviousReferenceFromLastClickedReferencesGroup {
-    if (self.lastClickedReferencesGroup.count > 1 && self.indexOfLastReferenceShownFromLastClickedReferencesGroup > 0) {
-        [self showReferenceFromLastClickedReferencesGroupAtIndex:self.indexOfLastReferenceShownFromLastClickedReferencesGroup - 1];
+- (void)pageViewController:(UIPageViewController *)pageViewController
+        didFinishAnimating:(BOOL)finished
+   previousViewControllers:(NSArray<WMFReferencePanelViewController *> *)previousViewControllers
+       transitionCompleted:(BOOL)completed {
+    
+    WMFReferencePanelViewController *firstRefVC = pageViewController.viewControllers.firstObject;
+    [self.webView wmf_highlightLinkID:firstRefVC.reference.refId];
+}
+
+- (void)referencePageViewControllerWillAppear:(WMFReferencePageViewController *)referencePageViewController {
+    WMFReferencePanelViewController *firstRefVC = referencePageViewController.viewControllers.firstObject;
+    [self.webView wmf_highlightLinkID:firstRefVC.reference.refId];
+}
+
+- (void)referencePageViewControllerWillDisappear:(WMFReferencePageViewController *)referencePageViewController {
+    for(WMFReferencePanelViewController* panel in referencePageViewController.viewControllers){
+        [self.webView wmf_unHighlightLinkID:panel.reference.refId];
     }
 }
 

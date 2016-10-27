@@ -61,21 +61,13 @@ static int const kMinimumTextSelectionLength = 2;
 }
 
 - (void)wmf_highlightLinkID:(NSString *)linkID {
-    NSString *eval = [NSString stringWithFormat:@"\
-                      document.getElementById('%@').oldBackgroundColor = document.getElementById('%@').style.backgroundColor;\
-                      document.getElementById('%@').style.backgroundColor = '#999';\
-                      document.getElementById('%@').style.borderRadius = 2;\
-                      ",
-                                                linkID, linkID, linkID, linkID];
-    [self evaluateJavaScript:eval completionHandler:NULL];
+    [self evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('%@').classList.add('reference_highlight');", linkID]
+           completionHandler:NULL];
 }
 
 - (void)wmf_unHighlightLinkID:(NSString *)linkID {
-    NSString *eval = [NSString stringWithFormat:@"\
-                      document.getElementById('%@').style.backgroundColor = document.getElementById('%@').oldBackgroundColor;\
-                      ",
-                                                linkID, linkID];
-    [self evaluateJavaScript:eval completionHandler:NULL];
+    [self evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('%@').classList.remove('reference_highlight');", linkID]
+           completionHandler:NULL];
 }
 
 - (void)wmf_getSelectedText:(void (^)(NSString *text))completion {

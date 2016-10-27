@@ -3,9 +3,6 @@
 #import "UIColor+WMFHexColor.h"
 #import "Wikipedia-Swift.h"
 
-NSString *const WMFReferencePopoverShowNextNotification = @"WMFReferencePopoverShowNextNotification";
-NSString *const WMFReferencePopoverShowPreviousNotification = @"WMFReferencePopoverShowPreviousNotification";
-
 @interface WMFReferencePopoverMessageViewController () <UITextViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextView *textView;
@@ -22,8 +19,17 @@ NSString *const WMFReferencePopoverShowPreviousNotification = @"WMFReferencePopo
     self.textView.scrollEnabled = scrollEnabled;
 }
 
+- (void)scrollToTop {
+    [self.textView setContentOffset:CGPointZero animated:NO];
+}
+
 - (BOOL)scrollEnabled {
     return self.textView.scrollEnabled;
+}
+
+- (void)setWidth:(CGFloat)width {
+    _width = width;
+    [self.widthConstraint setConstant:width];
 }
 
 - (void)viewDidLoad {
@@ -41,7 +47,11 @@ NSString *const WMFReferencePopoverShowPreviousNotification = @"WMFReferencePopo
 
     self.closeButton.tintColor = [UIColor wmf_lightGrayColor];
 
-    self.titleLabel.text = [[MWLocalizedString(@"reference-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]] stringByReplacingOccurrencesOfString:@"$1" withString:_linkText];
+    self.titleLabel.attributedText =
+    [[MWLocalizedString(@"reference-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]]
+     attributedStringWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]}
+     substitutionStrings:@[self.reference.text]
+     substitutionAttributes:@[@{NSForegroundColorAttributeName: [UIColor blackColor]}]];
 }
 
 - (NSString *)referenceHTMLWithSurroundingHTML {
@@ -63,6 +73,7 @@ NSString *const WMFReferencePopoverShowPreviousNotification = @"WMFReferencePopo
                                     "     -webkit-text-size-adjust:%ld%%;"
                                     "     color:#%@;"
                                     "     text-decoration:none;"
+                                    "     direction:%@;"
                                     " }"
                                     "</style>"
                                     "</head>"
@@ -70,7 +81,7 @@ NSString *const WMFReferencePopoverShowPreviousNotification = @"WMFReferencePopo
                                     "%@"
                                     "</body>"
                                     "</html>",
-                                   baseUrl, (long)fontSize.integerValue, [[UIColor wmf_referencePopoverTextColor] wmf_hexStringIncludingAlpha:NO], self.HTML];
+                                   baseUrl, (long)fontSize.integerValue, [[UIColor wmf_referencePopoverTextColor] wmf_hexStringIncludingAlpha:NO], languageInfo.dir, self.reference.html];
 }
 
 - (NSAttributedString *)attributedStringForHTML:(NSString *)html {
@@ -102,22 +113,6 @@ NSString *const WMFReferencePopoverShowPreviousNotification = @"WMFReferencePopo
 
 - (IBAction)dismiss {
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:NULL];
-}
-
-- (IBAction)showNext {
-    if (![[UIApplication sharedApplication] wmf_isRTL]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:WMFReferencePopoverShowNextNotification object:nil];
-    } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:WMFReferencePopoverShowPreviousNotification object:nil];
-    }
-}
-
-- (IBAction)showPrevious {
-    if (![[UIApplication sharedApplication] wmf_isRTL]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:WMFReferencePopoverShowPreviousNotification object:nil];
-    } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:WMFReferencePopoverShowNextNotification object:nil];
-    }
 }
 
 @end

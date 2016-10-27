@@ -3,6 +3,7 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFReferencePopoverBackgroundView.h"
 #import "UIColor+WMFStyle.h"
+#import "Wikipedia-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -12,31 +13,26 @@ typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationCont
 
 @implementation WebViewController (WMFReferencePopover)
 
-- (void)wmf_presentReferencePopoverViewControllerForSourceRect:(CGRect)sourceRect
-                                                      linkText:(nullable NSString *)linkText
-                                                          HTML:(nullable NSString *)html
-                                                         width:(CGFloat)width {
+- (void)wmf_presentReferencePopoverViewControllerForReference:(WMFReference*)reference
+                                                        width:(CGFloat)width {
     [self wmf_dismissReferencePopoverAnimated:NO
                                    completion:^{
-                                       [self wmf_presentReferencePopoverViewControllerWithLinkText:linkText
-                                                                                              HTML:html
-                                                                                             width:width
-                                                                   withPresenterConfigurationBlock:^(UIPopoverPresentationController *presenter) {
-                                                                       [presenter setSourceView:self.webView];
-                                                                       [presenter setSourceRect:sourceRect];
-                                                                   }];
+                                       [self wmf_presentReferencePopoverViewControllerWithReference:reference
+                                                                                              width:width
+                                                                    withPresenterConfigurationBlock:^(UIPopoverPresentationController *presenter) {
+                                                                        [presenter setSourceView:self.webView];
+                                                                        [presenter setSourceRect:reference.rect];
+                                                                    }];
                                    }];
 }
 
-- (void)wmf_presentReferencePopoverViewControllerWithLinkText:(nullable NSString *)linkText
-                                                         HTML:(nullable NSString *)html
-                                                        width:(CGFloat)width
-                              withPresenterConfigurationBlock:(WMFReferencePopoverPresentationHandler)presenterConfigurationBlock {
+- (void)wmf_presentReferencePopoverViewControllerWithReference:(WMFReference*)reference
+                                                         width:(CGFloat)width
+                               withPresenterConfigurationBlock:(WMFReferencePopoverPresentationHandler)presenterConfigurationBlock {
 
-    WMFReferencePopoverMessageViewController *popoverVC = [self wmf_referencePopoverViewControllerWithLinkText:linkText
-                                                                                                          HTML:html
-                                                                                                         width:width
-                                                                               withPresenterConfigurationBlock:presenterConfigurationBlock];
+    WMFReferencePopoverMessageViewController *popoverVC = [self wmf_referencePopoverViewControllerWithReference:reference
+                                                                                                          width:width
+                                                                                withPresenterConfigurationBlock:presenterConfigurationBlock];
 
     [self presentViewController:popoverVC
                        animated:NO
@@ -51,17 +47,15 @@ typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationCont
                      }];
 }
 
-- (WMFReferencePopoverMessageViewController *)wmf_referencePopoverViewControllerWithLinkText:(nullable NSString *)linkText
-                                                                                        HTML:(nullable NSString *)html
-                                                                                       width:(CGFloat)width
-                                                             withPresenterConfigurationBlock:(WMFReferencePopoverPresentationHandler)presenterConfigurationBlock {
+- (WMFReferencePopoverMessageViewController *)wmf_referencePopoverViewControllerWithReference:(WMFReference*)reference
+                                                                                        width:(CGFloat)width
+                                                              withPresenterConfigurationBlock:(WMFReferencePopoverPresentationHandler)presenterConfigurationBlock {
 
     WMFReferencePopoverMessageViewController *popoverVC =
         [WMFReferencePopoverMessageViewController wmf_initialViewControllerFromClassStoryboard];
 
     popoverVC.modalPresentationStyle = UIModalPresentationPopover;
-    popoverVC.linkText = linkText;
-    popoverVC.HTML = html;
+    popoverVC.reference = reference;    
     popoverVC.width = width;
 
     popoverVC.view.backgroundColor = [UIColor wmf_referencePopoverBackgroundColor];
