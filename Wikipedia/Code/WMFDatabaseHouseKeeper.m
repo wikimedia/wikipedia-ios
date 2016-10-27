@@ -1,4 +1,3 @@
-
 #import "WMFDatabaseHouseKeeper.h"
 #import "YapDatabase+WMFExtensions.h"
 @import NSDate_Extensions;
@@ -64,7 +63,10 @@
 
                                         //keep any sources of related pages
                                         if ([object isKindOfClass:[WMFRelatedPagesContentGroup class]]) {
-                                            [keysToRemove removeObject:[((WMFRelatedPagesContentGroup *)object).articleURL absoluteString]];
+                                            NSString *key = ((WMFRelatedPagesContentGroup *)object).articleURL.wmf_databaseKey;
+                                            if (key) {
+                                                [keysToRemove removeObject:key];
+                                            }
                                         }
 
                                         if (![metadata isKindOfClass:[NSArray class]]) {
@@ -75,20 +77,32 @@
                                         //keep previews for any linked content
                                         switch (object.contentType) {
                                             case WMFContentTypeURL: {
-                                                [metadata enumerateObjectsUsingBlock:^(NSURL *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                                                    [keysToRemove removeObject:[obj absoluteString]];
+                                                [metadata enumerateObjectsUsingBlock:^(NSURL *_Nonnull URL, NSUInteger idx, BOOL *_Nonnull stop) {
+                                                    NSString *key = URL.wmf_databaseKey;
+                                                    if (!key) {
+                                                        return;
+                                                    }
+                                                    [keysToRemove removeObject:key];
                                                 }];
                                             } break;
                                             case WMFContentTypeTopReadPreview: {
                                                 [metadata enumerateObjectsUsingBlock:^(WMFFeedTopReadArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                                                    [keysToRemove removeObject:[obj.articleURL absoluteString]];
+                                                    NSString *key = obj.articleURL.wmf_databaseKey;
+                                                    if (!key) {
+                                                        return;
+                                                    }
+                                                    [keysToRemove removeObject:key];
                                                 }];
 
                                             } break;
                                             case WMFContentTypeStory: {
                                                 [metadata enumerateObjectsUsingBlock:^(WMFFeedNewsStory *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
                                                     [obj.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                                                        [keysToRemove removeObject:[obj.articleURL absoluteString]];
+                                                        NSString *key = obj.articleURL.wmf_databaseKey;
+                                                        if (!key) {
+                                                            return;
+                                                        }
+                                                        [keysToRemove removeObject:key];
                                                     }];
                                                 }];
                                             } break;
