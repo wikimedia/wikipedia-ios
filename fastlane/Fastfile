@@ -126,8 +126,8 @@ platform :ios do
     
     sh "xcodebuild -workspace #{project_dir}/#{workspace_name}.xcworkspace -scheme #{scheme_name} -archivePath #{build_dir}/#{product_name}.xcarchive archive"
     sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath #{build_dir}/#{product_name}.xcarchive -exportPath #{build_dir}"
-    sh "zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM"
-    sh "mv #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.app.dSYM.zip"
+    #sh "zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM"
+    #sh "mv #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.app.dSYM.zip"
   end
 
   # This lane requires HOCKEY_PRODUCTION environment variable to be set.
@@ -138,7 +138,8 @@ platform :ios do
     build_dir = "build"
     product_name = "Wikipedia"
     ipa_path = "#{build_dir}/#{product_name}.ipa"
-
+    dsym_path = "#{build_dir}/#{product_name}.app.dSYM.zip"
+    
     increment_build_number({
       build_number: latest_testflight_build_number + 1
     })
@@ -151,6 +152,19 @@ platform :ios do
 
     build
 
+    pilot(
+      ipa: ipa_path,
+      skip_waiting_for_build_processing: false,
+      skip_submission: false,
+      distribute_external: false
+    )
+    
+    downloaded_dsym_paths = download_dsyms(build_number: build_number.to_s) # Download dSYM files from iTC
+    if downloaded_dsym_paths.length > 0 
+      downloaded_dsym_path = downloaded_dsym_paths[0]
+      sh "cp #{downloaded_dsym_path} #{dsym_path}"
+    end
+    
     hockey_prod_id = ENV["HOCKEY_PRODUCTION"]
     raise "Must specifiy HockeyApp public identifier." unless hockey_prod_id.length > 0
 
@@ -160,16 +174,10 @@ platform :ios do
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
     )
-
-    pilot(
-      ipa: ipa_path,
-      skip_waiting_for_build_processing: true,
-      skip_submission: false,
-      distribute_external: false
-    )
-
+    
     tag_beta
-
+    
+    clean_build_artifacts
   end
 
   desc "Runs tests, version, tag, and push to the beta branch"
