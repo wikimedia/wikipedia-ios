@@ -26,6 +26,7 @@
 		0E26B0721C0F4F550004D687 /* WMFAppViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0701C0F4F550004D687 /* WMFAppViewController.storyboard */; };
 		0E26B0731C0F4F550004D687 /* WMFTabBarUI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0711C0F4F550004D687 /* WMFTabBarUI.storyboard */; };
 		0E281A0D1DC1389D00FA1AB1 /* WMFDatabaseHouseKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E281A0C1DC1389D00FA1AB1 /* WMFDatabaseHouseKeeper.m */; };
+		0E281A331DC263DE00FA1AB1 /* WMFReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E281A321DC263DE00FA1AB1 /* WMFReference.swift */; };
 		0E28C4681D74ACA7000C5919 /* WMFDatabaseDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E33F2B21D57E15300C6CF94 /* WMFDatabaseDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E28C4691D74ACA7000C5919 /* MWKDataStore+WMFDataSources.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E01B2B31D5BFF13005E3134 /* MWKDataStore+WMFDataSources.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E28C46A1D74ACB1000C5919 /* WMFDatabaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E33F2B31D57E15300C6CF94 /* WMFDatabaseDataSource.m */; };
@@ -152,7 +153,6 @@
 		B00DDEDB1DB4B76B00615FA2 /* UIView+WMFSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00DDEDA1DB4B76B00615FA2 /* UIView+WMFSubviews.swift */; };
 		B00DDEDD1DB591C400615FA2 /* WMFWelcomeContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00DDEDC1DB591C400615FA2 /* WMFWelcomeContainerViewController.swift */; };
 		B00DDEE31DB5B16E00615FA2 /* WMFWelcomeAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00DDEE21DB5B16E00615FA2 /* WMFWelcomeAnimationViewController.swift */; };
-		B01008D51DBE8F42009A965C /* WMFReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01008D41DBE8F42009A965C /* WMFReference.swift */; };
 		B01162E81C24D3B200C3B52B /* WMFPageIssuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B01162E71C24D3B200C3B52B /* WMFPageIssuesViewController.m */; };
 		B011FA4C1D470F5A00AD7C5E /* WMFFindInPageKeyboardBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B011FA491D470F5A00AD7C5E /* WMFFindInPageKeyboardBar.m */; };
 		B01490A11DB96BD6007F5391 /* WMFReferencePanels.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B01490A01DB96BD6007F5391 /* WMFReferencePanels.storyboard */; };
@@ -1095,6 +1095,7 @@
 		0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFWelcome.storyboard; path = Wikipedia/Code/WMFWelcome.storyboard; sourceTree = SOURCE_ROOT; };
 		0E281A0B1DC1389D00FA1AB1 /* WMFDatabaseHouseKeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFDatabaseHouseKeeper.h; sourceTree = "<group>"; };
 		0E281A0C1DC1389D00FA1AB1 /* WMFDatabaseHouseKeeper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFDatabaseHouseKeeper.m; sourceTree = "<group>"; };
+		0E281A321DC263DE00FA1AB1 /* WMFReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFReference.swift; path = Wikipedia/Code/WMFReference.swift; sourceTree = SOURCE_ROOT; };
 		0E28C4731D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKHistoryEntry+WMFDatabaseViews.h"; sourceTree = "<group>"; };
 		0E28C4741D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKHistoryEntry+WMFDatabaseViews.m"; sourceTree = "<group>"; };
 		0E28C4771D74D381000C5919 /* WMFDatabaseViewable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFDatabaseViewable.h; sourceTree = "<group>"; };
@@ -1257,7 +1258,6 @@
 		B00DDEDA1DB4B76B00615FA2 /* UIView+WMFSubviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+WMFSubviews.swift"; path = "Wikipedia/Code/UIView+WMFSubviews.swift"; sourceTree = SOURCE_ROOT; };
 		B00DDEDC1DB591C400615FA2 /* WMFWelcomeContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeContainerViewController.swift; path = Wikipedia/Code/WMFWelcomeContainerViewController.swift; sourceTree = SOURCE_ROOT; };
 		B00DDEE21DB5B16E00615FA2 /* WMFWelcomeAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeAnimationViewController.swift; path = Wikipedia/Code/WMFWelcomeAnimationViewController.swift; sourceTree = SOURCE_ROOT; };
-		B01008D41DBE8F42009A965C /* WMFReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFReference.swift; sourceTree = SOURCE_ROOT; };
 		B01162E61C24D3B200C3B52B /* WMFPageIssuesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFPageIssuesViewController.h; path = WikipediaUnitTests/Code/WMFPageIssuesViewController.h; sourceTree = SOURCE_ROOT; };
 		B01162E71C24D3B200C3B52B /* WMFPageIssuesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFPageIssuesViewController.m; path = WikipediaUnitTests/Code/WMFPageIssuesViewController.m; sourceTree = SOURCE_ROOT; };
 		B011FA481D470F5A00AD7C5E /* WMFFindInPageKeyboardBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFFindInPageKeyboardBar.h; path = Wikipedia/Code/WMFFindInPageKeyboardBar.h; sourceTree = SOURCE_ROOT; };
@@ -2809,6 +2809,7 @@
 		04CCA0BD19830837000E982A /* References */ = {
 			isa = PBXGroup;
 			children = (
+				0E281A321DC263DE00FA1AB1 /* WMFReference.swift */,
 				B014909F1DB96A55007F5391 /* Tablet */,
 				B014909E1DB96A4C007F5391 /* Phone */,
 			);
@@ -3923,7 +3924,6 @@
 				B0379A361D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard */,
 				B0379A3C1D8BC9BA00D973CF /* WMFReferencePopoverBackgroundView.h */,
 				B0379A3B1D8BC9BA00D973CF /* WMFReferencePopoverBackgroundView.m */,
-				B01008D41DBE8F42009A965C /* WMFReference.swift */,
 			);
 			name = Tablet;
 			sourceTree = "<group>";
@@ -7345,7 +7345,7 @@
 				BC23E4E21C223FAE00B5AFDE /* WMFArticleRevision.m in Sources */,
 				B0E804BF1C0CE0B40065EBC0 /* DDLog+WMFLogger.m in Sources */,
 				B09D64E81C2514FF00A29514 /* WMFArticleFooterMenuDataSource.m in Sources */,
-				B01008D51DBE8F42009A965C /* WMFReference.swift in Sources */,
+				0E281A331DC263DE00FA1AB1 /* WMFReference.swift in Sources */,
 				B083371E1DADB251002860D2 /* WMFWelcomePageViewController.swift in Sources */,
 				B02376B11D6EA04C007DBA73 /* WMFBarButtonItemPopoverBackgroundView.m in Sources */,
 				0EBCA7481C176389004F1FD9 /* WMFAlertManager.swift in Sources */,
