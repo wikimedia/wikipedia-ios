@@ -112,9 +112,11 @@
 "settings-support" = "উইকিপিডিয়াকে সাহায্য করুন";
 "settings-language-bar" = "অনুসন্ধানের সময় ভাষাগুলিকে দেখাও";
 "settings-my-languages" = "আমার ভাষাসমূহ";
+"settings-notifications" = "বিজ্ঞপ্তি";
 "settings-help-and-feedback" = "সাহায্য ও প্রতিক্রিয়া";
 "settings-primary-language" = "প্রাথমিক";
 "settings-primary-language-details" = "এই তালিকার প্রথম ভাষাটি অ্যাপলিকেশনের প্রাথমিক ভাষা হিসেবে ব্যবহর করা হয়েছে। এখন ভাষা পরিবর্তন অন্বেষণে দেখানো দৈনিক বিষয়বস্তু (যেমন, বৈশিষ্ট্যযুক্ত নিবন্ধ) পরিবর্তন করতে পারে।";
+"settings-notifications-system-turn-on" = "বিজ্ঞপ্তি বন্ধ করুন";
 "main-menu-title" = "আরও";
 "main-menu-heading-about" = "পরিচিতি";
 "main-menu-language-title" = "$1 ভাষার উইকিতে অনুসন্ধান";
@@ -412,4 +414,5 @@
 "in-the-news-notification-share-action-title" = "বণ্টন";
 "in-the-news-notification-save-for-later-action-title" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "in-the-news-currently-trending" = "বর্তমান প্রবণতা";
+"in-the-news-title" = "সংবাদে";
 "number-thousands" = "$1 হাজার";

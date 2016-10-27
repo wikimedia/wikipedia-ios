@@ -105,9 +105,17 @@
 "settings-support" = "Ndhukung Wikipedia";
 "settings-language-bar" = "Nuduhake basa ing nggoleki";
 "settings-my-languages" = "Basa sandi";
+"settings-notifications" = "Wara-wara";
 "settings-help-and-feedback" = "Pitulung lan saran";
 "settings-primary-language" = "Utami";
 "settings-primary-language-details" = "Basa pisanan ing dhaftar iki digunakake minangka basa utama kanggo aplikasi. Ganti basa iki bakal ngganti isi dina (kayata Artikel Pilihan) ditampilake ing Njelajah.";
+// Fuzzy
+"settings-notifications-system-off" = "Notifikasi lagi dipateni kanggo Wikipedia. Menyang Setelan iOS kanggo nguripake kabar";
+"settings-notifications-system-turn-on" = "Nguripake Wara-wara";
+"settings-notifications-info" = "Dapatkan pemberitahuan kanggo trending lan ndhuwur diwaca artikel ing Wikipedia karo kabar push kita. Kabeh kasedhiya karo bab privasi lan munggah menyang data menit.";
+"settings-notifications-learn-more" = "Info liyane babagan kabar";
+"settings-notifications-trending" = "Acara saiki";
+"settings-notifications-push-notifications" = "Kabar meksa nyembul";
 "main-menu-title" = "Liyané";
 "main-menu-heading-about" = "Bab";
 "main-menu-language-title" = "Golèk Wikipédia $1";
@@ -347,6 +355,8 @@
 "potd-description-prefix" = "Gambar saka dina kanggo $1";
 "welcome-explore-title" = "Njelajah";
 "welcome-explore-sub-title" = "Cara anyar kanggo nemokake artikel saben dina";
+"welcome-explore-new-ways-title" = "Cara anyar kanggo njelajah";
+"welcome-explore-new-ways-sub-title" = "Kabar anyar lan widget kanggo sampeyan nemokake artikel";
 "welcome-explore-tell-me-more" = "Ngomong liyane";
 "welcome-explore-tell-me-more-about-explore" = "Liyane bab Njelajah";
 "welcome-explore-tell-me-more-details" = "Nalika maca artikel, artikel kanthi otomatis ditambahake menyang Njelajah feed. Iki ora ngganti kepriye ngumpulake informasi, lan Sajarah maca isih pribadi.";
@@ -354,6 +364,9 @@
 "welcome-explore-tell-me-more-privacy" = "Ora dhaftar maca utawa profil wis disimpen ing server kita.";
 "welcome-explore-tell-me-more-done-button" = "Tak";
 "welcome-explore-continue-button" = "Miwiti";
+"welcome-notifications-tell-me-more-title" = "Liyane babagan kabar";
+"welcome-notifications-tell-me-more-storage" = "Preferensi notifikasi disimpen ing piranti lan ora adhedhasar informasi pribadhi utawa kegiatan.";
+"welcome-notifications-tell-me-more-creation" = "Kabar sing digawe lan dikirim ing piranti kanthi app, ora saka server kita (utawa pihak katelu).";
 "welcome-languages-title" = "Basa";
 "welcome-languages-sub-title" = "Pilih basa sing disenengi kanggo nelusuri Wikipedia";
 "welcome-languages-add-button" = "Tambah basa liyane";
@@ -412,6 +425,11 @@
 "in-the-news-notification-share-action-title" = "Nuduhake";
 "in-the-news-notification-save-for-later-action-title" = "Simpen kanggo mengko";
 "in-the-news-currently-trending" = "Saiki tren";
+"in-the-news-title" = "Lagi dadi warta";
+"in-the-news-title-for-date" = "Warta ing $1";
 "number-thousands" = "$1 ewu";
 "number-millions" = "$1 yuta";
 "number-billions" = "$1 miliar";
+"feed-news-notification-text" = "Sampeyan saiki bisa nguripake kabar saka artikel Wikipedia tren ing kabar.";
+// Fuzzy
+"feed-news-notification-button-text" = "Menawa pengiriman notifikasi kula bab tren warta";
