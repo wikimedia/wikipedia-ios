@@ -20,6 +20,20 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
 
     self.secondToolbarHidden = YES;
     self.secondToolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
+
+    static UIImage *clearImage = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        UIGraphicsBeginImageContext(CGSizeMake(1, 1));
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        [[UIColor clearColor] setFill];
+        CGContextFillRect(context, CGRectMake(0, 0, 1, 1));
+        clearImage = UIGraphicsGetImageFromCurrentImageContext();
+    });
+
+    [self.secondToolbar setBackgroundImage:clearImage forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    self.secondToolbar.clipsToBounds = YES;
+
     [self.view addSubview:self.secondToolbar];
     [self layoutSecondToolbarForViewBounds:self.view.bounds hidden:self.isSecondToolbarHidden animated:NO];
 }
