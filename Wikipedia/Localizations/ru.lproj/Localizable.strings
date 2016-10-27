@@ -121,9 +121,15 @@
 "settings-support" = "Поддержать Википедию";
 "settings-language-bar" = "Показывать языки при поиске";
 "settings-my-languages" = "Мои языки";
+"settings-notifications" = "Уведомления";
 "settings-help-and-feedback" = "Помощь и обратная связь";
 "settings-primary-language" = "Основной";
 "settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения. Изменение этого языка изменит ежедневное содержимое (такое, как Избранная статья), показываемое на странице Исследуйте.";
+// Fuzzy
+"settings-notifications-system-off" = "В настоящее время уведомления для Википедии выключены. Перейдите в Настройки iOS, чтобы включить уведомления";
+"settings-notifications-system-turn-on" = "Включить уведомления";
+"settings-notifications-learn-more" = "Подробнее об уведомлениях";
+"settings-notifications-push-notifications" = "Push-уведомления";
 "main-menu-title" = "Ещё";
 "main-menu-heading-about" = "Про приложение";
 "main-menu-language-title" = "Поиск $1 Википедии";
@@ -428,6 +434,8 @@
 "in-the-news-notification-share-action-title" = "Поделиться";
 "in-the-news-notification-save-for-later-action-title" = "Сохранить на потом";
 "in-the-news-currently-trending" = "В настоящее время популярные";
+"in-the-news-title" = "В новостях";
+"in-the-news-title-for-date" = "Новости за $1";
 "number-thousands" = "$1 тыс.";
 "number-millions" = "$1М";
 "number-billions" = "$1 млрд.";
