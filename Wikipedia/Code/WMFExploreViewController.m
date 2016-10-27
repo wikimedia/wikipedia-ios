@@ -77,7 +77,6 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 @property (nonatomic, strong, nullable) WMFFeedNotificationHeader *notificationHeader;
 
-
 @end
 
 @implementation WMFExploreViewController
@@ -220,10 +219,9 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     }];
 }
 
-- (void)updateFeedWithLatestDatabaseContent{
+- (void)updateFeedWithLatestDatabaseContent {
     [self.internalContentStore syncDataStoreToDatabase];
 }
-
 
 #pragma mark - Section Access
 
@@ -338,19 +336,19 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 #pragma mark - Notification
 
-- (void)sizeNotificationHeader{
-    
-    WMFFeedNotificationHeader* header = self.notificationHeader;
-    if(!header.superview){
+- (void)sizeNotificationHeader {
+
+    WMFFeedNotificationHeader *header = self.notificationHeader;
+    if (!header.superview) {
         return;
     }
-    
+
     //First layout pass to get height
     [header mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@(-136));
         make.leading.trailing.equalTo(self.collectionView.superview);
     }];
-    
+
     [header sizeToFit];
     [header setNeedsLayout];
     [header layoutIfNeeded];
@@ -363,7 +361,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         make.height.equalTo(@(f.size.height));
         make.leading.trailing.equalTo(self.collectionView.superview);
     }];
-    
+
     [header sizeToFit];
     [header setNeedsLayout];
     [header layoutIfNeeded];
@@ -373,74 +371,75 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     self.collectionView.contentInset = insets;
 }
 
-- (void)setNotificationHeaderBasedOnSizeClass{
-    if(self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact){
+- (void)setNotificationHeaderBasedOnSizeClass {
+    if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) {
         self.notificationHeader = [WMFFeedNotificationHeader wmf_viewFromClassNib];
-    }else{
-        self.notificationHeader = [[[UINib nibWithNibName:@"WmfFeedNotificationHeaderiPad" bundle:nil]  instantiateWithOwner:nil options:nil] firstObject];
+    } else {
+        self.notificationHeader = [[[UINib nibWithNibName:@"WmfFeedNotificationHeaderiPad" bundle:nil] instantiateWithOwner:nil options:nil] firstObject];
     }
 }
 
-- (void)showNotificationHeader{
+- (void)showNotificationHeader {
 
-    if(self.notificationHeader){
+    if (self.notificationHeader) {
         [self.notificationHeader removeFromSuperview];
         self.notificationHeader = nil;
     }
 
     [self setNotificationHeaderBasedOnSizeClass];
-    
-    WMFFeedNotificationHeader* header = self.notificationHeader;
+
+    WMFFeedNotificationHeader *header = self.notificationHeader;
     [self.collectionView addSubview:self.notificationHeader];
     [self sizeNotificationHeader];
-    
+
     @weakify(self);
     [header.enableNotificationsButton bk_addEventHandler:^(id sender) {
         @strongify(self);
         [[PiwikTracker sharedInstance] wmf_logActionEnableInContext:header contentType:header];
-        
-        [[WMFNotificationsController sharedNotificationsController] requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError * _Nullable error) {
+
+        [[WMFNotificationsController sharedNotificationsController] requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error) {
             if (error) {
                 [self wmf_showAlertWithError:error];
             }
         }];
         [[NSUserDefaults wmf_userDefaults] wmf_setInTheNewsNotificationsEnabled:YES];
         [self showHideNotificationIfNeccesary];
-        
-    } forControlEvents:UIControlEventTouchUpInside];
-    
+
+    }
+                                        forControlEvents:UIControlEventTouchUpInside];
+
     [[NSUserDefaults wmf_userDefaults] wmf_setDidShowNewsNotificationCardInFeed:YES];
 }
 
+- (void)showHideNotificationIfNeccesary {
 
-
-- (void)showHideNotificationIfNeccesary{
-    
-    if([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionLessThan:10]){
+    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionLessThan:10]) {
         return;
     }
-    
-    if(![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled] && ![[NSUserDefaults wmf_userDefaults] wmf_didShowNewsNotificationCardInFeed]){
+
+    if (![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled] && ![[NSUserDefaults wmf_userDefaults] wmf_didShowNewsNotificationCardInFeed]) {
         [self showNotificationHeader];
 
-    }else{
+    } else {
 
-        if(self.notificationHeader){
-            
-            [UIView animateWithDuration:0.3 animations:^{
-                
-                UIEdgeInsets insets = self.collectionView.contentInset;
-                insets.top = 0.0;
-                self.collectionView.contentInset = insets;
-                
-                self.notificationHeader.alpha = 0.0;
-                
-            } completion:^(BOOL finished) {
-                
-                [self.notificationHeader removeFromSuperview];
-                self.notificationHeader = nil;
-                
-            }];
+        if (self.notificationHeader) {
+
+            [UIView animateWithDuration:0.3
+                animations:^{
+
+                    UIEdgeInsets insets = self.collectionView.contentInset;
+                    insets.top = 0.0;
+                    self.collectionView.contentInset = insets;
+
+                    self.notificationHeader.alpha = 0.0;
+
+                }
+                completion:^(BOOL finished) {
+
+                    [self.notificationHeader removeFromSuperview];
+                    self.notificationHeader = nil;
+
+                }];
         }
     }
 }
@@ -492,13 +491,12 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [self registerForPreviewingIfAvailable];
 }
 
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    if(self.notificationHeader){
+    if (self.notificationHeader) {
         [self showNotificationHeader];
     }
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -1107,6 +1105,8 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
+    } else if ([viewControllerToCommit isKindOfClass:[InTheNewsViewController class]]) {
+        [self.navigationController pushViewController:viewControllerToCommit animated:YES];
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
