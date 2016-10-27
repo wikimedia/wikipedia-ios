@@ -236,6 +236,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.articleFetcher cancelFetchForArticleURL:self.articleURL];
 
     _article = article;
+    
+    BOOL articleIsRTL = [MWLanguageInfo articleLanguageIsRTL:_article];
+    BOOL interfaceIsRTL = [[UIApplication sharedApplication] wmf_isRTL];
+    if (articleIsRTL && !interfaceIsRTL) {
+        self.view.semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
+    } else if (!articleIsRTL && interfaceIsRTL) {
+        self.view.semanticContentAttribute = UISemanticContentAttributeForceLeftToRight;
+    } else {
+        self.view.semanticContentAttribute = UISemanticContentAttributeUnspecified;
+    }
 
     // always update webVC & headerGallery, even if nil so they are reset if needed
     self.footerMenuViewController.article = _article;
