@@ -1,5 +1,8 @@
 #import "WMFArticlePreviewDataStore.h"
 #import "WMFArticlePreview+WMFDatabaseStorable.h"
+#import "WMFContentGroup+WMFDatabaseStorable.h"
+#import "MWKHistoryEntry+WMFDatabaseStorable.h"
+
 #import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
 #import "MWKSearchResult.h"
 #import "MWKLocationSearchResult.h"
@@ -9,13 +12,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticlePreviewDataStore
-
-- (instancetype)initWithDatabase:(YapDatabase *)database {
-    self = [super initWithDatabase:database];
-    if (self) {
-    }
-    return self;
-}
 
 - (nullable WMFArticlePreview *)itemForURL:(NSURL *)url {
     NSParameterAssert(url.wmf_title);
