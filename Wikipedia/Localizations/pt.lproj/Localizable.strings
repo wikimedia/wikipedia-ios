@@ -120,7 +120,7 @@
 // Fuzzy
 "settings-notifications-system-off" = "As notificações são atualmente desativadas para Wikipédia. Configure as suas definições do sistema iOS para ativá-las.";
 "settings-notifications-system-turn-on" = "Ativar notificações";
-"settings-notifications-info" = "Ser alertado sobre tendências e artigos mais consultados na Wikipédia com nosso sistema de notificações <i>push</i>. Tudo com respeito pela sua privacidade e atualizado ao minuto.";
+"settings-notifications-info" = "Ser alertado sobre tendências e artigos mais consultados na Wikipédia com nosso sistema de notificações push. Tudo com respeito pela sua privacidade e atualizado ao minuto.";
 "settings-notifications-learn-more" = "Saber mais sobre notificações";
 "settings-notifications-trending" = "Eventos atuais";
 "settings-notifications-push-notifications" = "Notificações <i>push</i>";
