@@ -210,6 +210,21 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 - (void)appDidEnterBackgroundWithNotification:(NSNotification *)note {
     [self startBackgroundTask];
     dispatch_async(dispatch_get_main_queue(), ^{
+#if FB_TWEAK_ENABLED
+        if (FBTweakValue(@"Notifications", @"In the news", @"Send on app exit", NO)) {
+            WMFNewsContentGroup *newsContentGroup = (WMFNewsContentGroup *)[self.contentStore firstGroupOfKind:[WMFNewsContentGroup kind]];
+            if (newsContentGroup) {
+                NSArray<WMFFeedNewsStory *> *stories = [self.contentStore contentForContentGroup:newsContentGroup];
+                if (stories.count > 0) {
+                    NSInteger randomIndex = (NSInteger)arc4random_uniform((uint32_t)stories.count);
+                    WMFFeedNewsStory *randomStory = stories[randomIndex];
+                    WMFFeedArticlePreview *feedPreview = randomStory.mostPopularArticlePreview;
+                    WMFArticlePreview *preview = [self.previewStore itemForURL:feedPreview.articleURL];
+                    [[self feedContentSource] scheduleNotificationForNewsStory:randomStory articlePreview:preview];
+                }
+            }
+        }
+#endif
         [self pauseApp];
     });
 }
