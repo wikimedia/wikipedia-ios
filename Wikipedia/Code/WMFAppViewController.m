@@ -353,7 +353,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         [self showExplore];
     }
 
-#if FB_TWEAKS_ENABLED
+#if FB_TWEAK_ENABLED
     if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
         [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{ NSLocalizedDescriptionKey: @"There was an error" }] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
@@ -909,7 +909,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return NO;
     }
 
-#if FB_TWEAKS_ENABLED
+#if FB_TWEAK_ENABLED
     if (FBTweakValue(@"Last Open Article", @"General", @"Restore on Launch", YES)) {
         return YES;
     }
