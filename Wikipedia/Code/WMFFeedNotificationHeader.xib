@@ -49,7 +49,7 @@
                 <constraint firstItem="7uy-b7-3tZ" firstAttribute="top" secondItem="n1G-EZ-wu5" secondAttribute="top" id="g1H-Va-qjs"/>
                 <constraint firstItem="7uy-b7-3tZ" firstAttribute="leading" secondItem="n1G-EZ-wu5" secondAttribute="trailing" constant="20" id="nsM-4w-vDK"/>
                 <constraint firstAttribute="bottom" secondItem="oKI-Cg-ucN" secondAttribute="bottom" constant="23" id="odl-hW-7hU"/>
-                <constraint firstItem="oKI-Cg-ucN" firstAttribute="top" secondItem="n1G-EZ-wu5" secondAttribute="bottom" priority="750" constant="14" id="r1V-V9-7gf"/>
+                <constraint firstItem="oKI-Cg-ucN" firstAttribute="top" relation="greaterThanOrEqual" secondItem="n1G-EZ-wu5" secondAttribute="bottom" priority="750" constant="14" id="r1V-V9-7gf"/>
                 <constraint firstItem="oKI-Cg-ucN" firstAttribute="leading" secondItem="7uy-b7-3tZ" secondAttribute="leading" id="sfY-9b-vaK"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
