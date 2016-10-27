@@ -34,6 +34,11 @@
 #import "WMFAuthenticationManager.h"
 #import "Wikipedia-Swift.h"
 
+#if WMF_USER_ZOOM_IS_ENABLED
+#import <UserzoomSDK/UserzoomSDK.h>
+#import <Tweaks/FBTweakInline.h>
+#endif
+
 #pragma mark - Static URLs
 
 NS_ASSUME_NONNULL_BEGIN
@@ -301,6 +306,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)tweakViewControllerPressedDone:(FBTweakViewController *)tweakViewController {
     [[NSNotificationCenter defaultCenter] postNotificationName:FBTweakShakeViewControllerDidDismissNotification object:tweakViewController];
     [tweakViewController dismissViewControllerAnimated:YES completion:nil];
+#if WMF_USER_ZOOM_IS_ENABLED && FB_TWEAK_ENABLED
+    if (FBTweakValue(@"User studies", @"UserZoom", @"Show", NO)) {
+        [UserzoomSDK show];
+    }
+#endif
 }
 
 #pragma mark - Cell reloading

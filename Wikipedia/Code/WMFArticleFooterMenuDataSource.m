@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSDate *lastModified = article.lastmodified ? article.lastmodified : [NSDate date];
 
-#if FB_TWEAKS_ENABLED
+#if FB_TWEAK_ENABLED
     if (FBTweakValue(@"Article", @"Article Metadata Footer", @"Show last edit timestamp", NO)) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
                                       [lastModified mediumString],
@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                                                                                               withString:[NSString stringWithFormat:@"%ld", (long)[[NSDate date] daysAfterDate:lastModified]]],
                                       MWSiteLocalizedString(article.url, @"page-edit-history", nil),
                                       @"footer-edit-history")];
-#if FB_TWEAKS_ENABLED
+#if FB_TWEAK_ENABLED
     }
 #endif
 
