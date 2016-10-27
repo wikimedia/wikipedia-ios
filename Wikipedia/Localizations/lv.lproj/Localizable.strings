@@ -67,7 +67,10 @@
 "search-recent-clear-delete-all" = "Dzēst visu";
 "settings-title" = "Iestatījumi";
 "settings-my-languages" = "Manas valodas";
+"settings-notifications" = "Paziņojumi";
 "settings-help-and-feedback" = "Palīdzība un atsauksmes";
+"settings-notifications-system-turn-on" = "Ieslēgt paziņojumus";
+"settings-notifications-learn-more" = "Uzziniet vairāk par paziņojumiem";
 "main-menu-title" = "Vairāk";
 "main-menu-heading-about" = "Par";
 "main-menu-faq" = "Bieži uzdotie jautājumi";
@@ -210,3 +213,4 @@
 "reference-title" = "Atsauce $1";
 "in-the-news-notification-share-action-title" = "Dalīties";
 "in-the-news-notification-save-for-later-action-title" = "Saglabāt vēlākam laikam";
+"in-the-news-title" = "Ziņās";

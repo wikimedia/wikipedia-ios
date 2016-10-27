@@ -125,9 +125,12 @@
 "settings-support" = "Sostieni Wikipedia";
 "settings-language-bar" = "Mostra lingue nella ricerca";
 "settings-my-languages" = "Le mie lingue";
+"settings-notifications" = "Notifiche";
 "settings-help-and-feedback" = "Aiuto e feedback";
 "settings-primary-language" = "Primaria";
 "settings-primary-language-details" = "La prima lingua in questo elenco è utilizzata come lingua principale per l'applicazione. La modifica di questa lingua cambierà i contenuti del giorno (come l'articolo in vetrina) mostrato su Esplora.";
+"settings-notifications-system-turn-on" = "Attiva le notifiche";
+"settings-notifications-learn-more" = "Ulteriori informazioni sulle notifiche";
 "main-menu-title" = "Altro";
 "main-menu-heading-about" = "Informazioni";
 "main-menu-language-title" = "Cerca nel wiki in lingua $1";
@@ -367,6 +370,7 @@
 "potd-description-prefix" = "Immagine del giorno per $1";
 "welcome-explore-title" = "Esplora";
 "welcome-explore-sub-title" = "Un nuovo modo di scoprire voci interessanti ogni giorno";
+"welcome-explore-new-ways-title" = "Nuovi modi per esplorare";
 "welcome-explore-tell-me-more" = "Dimmi di più";
 "welcome-explore-tell-me-more-about-explore" = "Altro su Esplorare";
 "welcome-explore-tell-me-more-details" = "Quando leggi una voce, le voci correlate sono aggiunte automaticamente al tuo feed Esplora. Questo non modificherà il modo in cui raccogliamo le tue informazioni, e la tua cronologia di lettura resterà privata.";
@@ -432,6 +436,8 @@
 "in-the-news-notification-share-action-title" = "Condividi";
 "in-the-news-notification-save-for-later-action-title" = "Salva per dopo";
 "in-the-news-currently-trending" = "Attualmente popolare";
+"in-the-news-title" = "Novità";
+"in-the-news-title-for-date" = "Novità del $1";
 "number-thousands" = "$1 mila";
 "number-millions" = "$1";
 "number-billions" = "$1";

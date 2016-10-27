@@ -116,9 +116,17 @@
 "settings-support" = "支持维基百科";
 "settings-language-bar" = "在搜索时显示语言";
 "settings-my-languages" = "我的语言";
+"settings-notifications" = "通知";
 "settings-help-and-feedback" = "帮助和反馈";
 "settings-primary-language" = "首选";
 "settings-primary-language-details" = "此列表中的第一个语言被用于应用程序的首选语言。更改此语言将更改在探索中显示的每日内容（例如特色条目）。";
+// Fuzzy
+"settings-notifications-system-off" = "目前维基百科关闭了通知。请前往您的iOS设置以打开通知";
+"settings-notifications-system-turn-on" = "打开通知";
+"settings-notifications-info" = "通过我们推送的通知，提醒维基百科上的趋势和最多阅读条目。所有通知都已考虑到隐私和最新数据。";
+"settings-notifications-learn-more" = "了解更多有关通知";
+"settings-notifications-trending" = "趋向当前活动";
+"settings-notifications-push-notifications" = "推送通知";
 "main-menu-title" = "更多";
 "main-menu-heading-about" = "关于";
 "main-menu-language-title" = "搜索$1语维基百科";
@@ -358,6 +366,8 @@
 "potd-description-prefix" = "$1的每日图片";
 "welcome-explore-title" = "探索";
 "welcome-explore-sub-title" = "每天发现有趣条目的新方式";
+"welcome-explore-new-ways-title" = "探索的新方式";
+"welcome-explore-new-ways-sub-title" = "帮助您发现感兴趣条目的新通知和小工具";
 "welcome-explore-tell-me-more" = "告诉我更多";
 "welcome-explore-tell-me-more-about-explore" = "更多有关探索";
 "welcome-explore-tell-me-more-details" = "当您阅读一个条目时，相关条目会自动添加至您的探索订阅源中。这不会更改我们收集您信息的方式，并且您的阅读历史仍然是私人的。";
@@ -365,6 +375,9 @@
 "welcome-explore-tell-me-more-privacy" = "在我们的服务器上没有存储阅读列表或概述。";
 "welcome-explore-tell-me-more-done-button" = "明白了";
 "welcome-explore-continue-button" = "入门";
+"welcome-notifications-tell-me-more-title" = "更多有关通知";
+"welcome-notifications-tell-me-more-storage" = "通知参数设置存储在设备上，且不基于个人信息或活动。";
+"welcome-notifications-tell-me-more-creation" = "通知是由应用（而不是从我们或第三方服务器）创建，并递送到您的设备上的。";
 "welcome-languages-title" = "语言";
 "welcome-languages-sub-title" = "选择您的首选语言以搜索维基百科";
 "welcome-languages-add-button" = "添加另一个语言";
@@ -423,6 +436,11 @@
 "in-the-news-notification-share-action-title" = "分享";
 "in-the-news-notification-save-for-later-action-title" = "保存以供日后使用";
 "in-the-news-currently-trending" = "当前趋势";
+"in-the-news-title" = "新闻动态";
+"in-the-news-title-for-date" = "$1上的新闻";
 "number-thousands" = "$1千";
 "number-millions" = "$1百万";
 "number-billions" = "$1十亿";
+"feed-news-notification-text" = "您现在可以从维基百科条目趋势新闻动态中打开通知。";
+// Fuzzy
+"feed-news-notification-button-text" = "通知我有关趋势新闻";
