@@ -116,9 +116,17 @@
 "settings-support" = "Dukung Wikipedia";
 "settings-language-bar" = "Tampilkan bahasa di pencarian";
 "settings-my-languages" = "Bahasa saya";
+"settings-notifications" = "Pemberitahuan";
 "settings-help-and-feedback" = "Bantuan dan masukan";
 "settings-primary-language" = "Utama";
 "settings-primary-language-details" = "Bahasa pertama di daftar ini digunakan sebagai bahasa utama untuk aplikasi. Mengubah bahasa ini akan mengubah konten harian (seperti Artikel Pilihan) yang ditampilkan pada Jelajah.";
+// Fuzzy
+"settings-notifications-system-off" = "Pemberitahuan saat ini dinonaktifkan untuk Wikipedia. Pergi ke Pengaturan iOS untuk mengaktifkan pemberitahuan";
+"settings-notifications-system-turn-on" = "Aktifkan Pemberitahuan";
+"settings-notifications-info" = "Dapatkan pemberitahuan tentang artikel yang sedang tren dan bacaan teratas di Wikipedia dengan pemberitahuan otomatis kami. Semua tersedia sehubungan dengan privasi dan sampai data menit.";
+"settings-notifications-learn-more" = "Pelajari lebih lanjut tentang pemberitahuan";
+"settings-notifications-trending" = "Peristiwa terkini";
+"settings-notifications-push-notifications" = "Pemberitahuan otomatis";
 "main-menu-title" = "Lainnya";
 "main-menu-heading-about" = "Tentang";
 "main-menu-language-title" = "Cari Wikipedia $1";
@@ -358,6 +366,8 @@
 "potd-description-prefix" = "Gambar hari ini pada $1";
 "welcome-explore-title" = "Jelajah";
 "welcome-explore-sub-title" = "Cara baru untuk menemukan artikel yang menarik setiap hari";
+"welcome-explore-new-ways-title" = "Cara baru untuk menjelajah";
+"welcome-explore-new-ways-sub-title" = "Pemberitahuan dan widget baru untuk membantu Anda menemukan artikel menarik";
 "welcome-explore-tell-me-more" = "Beritahu saya lebih lanjut";
 "welcome-explore-tell-me-more-about-explore" = "Lebih lanjut mengenai Jelajah";
 "welcome-explore-tell-me-more-details" = "Ketika Anda membaca artikel, artikel yang terkait ditambahkan ke umpan Jelajah Anda. Hal ini tidak mengubah bagaimana mengumpulkan informasi Anda, dan riwayat bacaan Anda selalu tetap rahasia.";
@@ -365,6 +375,9 @@
 "welcome-explore-tell-me-more-privacy" = "Tidak ada daftar bacaan ataupun profil yang disimpan di server kami.";
 "welcome-explore-tell-me-more-done-button" = "Mengerti";
 "welcome-explore-continue-button" = "Memulai";
+"welcome-notifications-tell-me-more-title" = "Lebih lanjut tentang pemberitahuan";
+"welcome-notifications-tell-me-more-storage" = "Preferensi pemberitahuan disimpan di perangkat dan tidak berdasarkan informasi pribadi atau kegiatan.";
+"welcome-notifications-tell-me-more-creation" = "Pemberitahuan dibuat dan disampaikan pada perangkat Anda dengan aplikasi, tidak dari peladen kami (atau pihak ketiga).";
 "welcome-languages-title" = "Bahasa";
 "welcome-languages-sub-title" = "Pilih bahasa pilihan Anda untuk mencari Wikipedia";
 "welcome-languages-add-button" = "Tambahkan bahasa lainnya";
@@ -423,6 +436,11 @@
 "in-the-news-notification-share-action-title" = "Bagikan";
 "in-the-news-notification-save-for-later-action-title" = "Simpan untuk nanti";
 "in-the-news-currently-trending" = "Saat ini ngetren";
+"in-the-news-title" = "Peristiwa terkini";
+"in-the-news-title-for-date" = "Berita pada $1";
 "number-thousands" = "$1 ribu";
 "number-millions" = "$1 juta";
 "number-billions" = "$1 miliar";
+"feed-news-notification-text" = "Sekarang Anda dapat mengaktifkan pemberitahuan dari artikel Wikipedia yang sedang tren dalam peristiwa terkini.";
+// Fuzzy
+"feed-news-notification-button-text" = "Beritahu saya tentang berita yang sedang tren";

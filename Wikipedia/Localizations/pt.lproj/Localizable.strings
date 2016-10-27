@@ -113,9 +113,17 @@
 "settings-support" = "Apoie a Wikipédia";
 "settings-language-bar" = "Mostrar idiomas na pesquisa";
 "settings-my-languages" = "Meus idiomas";
+"settings-notifications" = "Notificações";
 "settings-help-and-feedback" = "Ajuda e comentários";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "O primeiro idioma desta lista é usado como principal para a aplicação. Ao alterar, o conteúdo diário também será atualizado (como o \"Artigo em destaque\") apresentado em Explorar.";
+// Fuzzy
+"settings-notifications-system-off" = "As notificações são atualmente desativadas para Wikipédia. Configure as suas definições do sistema iOS para ativá-las.";
+"settings-notifications-system-turn-on" = "Ativar notificações";
+"settings-notifications-info" = "Ser alertado sobre tendências e artigos mais consultados na Wikipédia com nosso sistema de notificações push. Tudo com respeito pela sua privacidade e atualizado ao minuto.";
+"settings-notifications-learn-more" = "Saber mais sobre notificações";
+"settings-notifications-trending" = "Eventos atuais";
+"settings-notifications-push-notifications" = "Notificações push";
 "main-menu-title" = "Mais";
 "main-menu-heading-about" = "Sobre";
 "main-menu-language-title" = "Pesquisar na Wikipédia em $1";
@@ -355,6 +363,8 @@
 "potd-description-prefix" = "Imagem do dia de $1";
 "welcome-explore-title" = "Explorar";
 "welcome-explore-sub-title" = "Uma nova forma de descobrir artigos interessantes todos os dias";
+"welcome-explore-new-ways-title" = "Novas formas de explorar";
+"welcome-explore-new-ways-sub-title" = "Novas notificações e widgets para ajudá-lo a descobrir artigos interessantes";
 "welcome-explore-tell-me-more" = "Conte-me mais";
 "welcome-explore-tell-me-more-about-explore" = "Mais sobre Explorar";
 "welcome-explore-tell-me-more-details" = "Quando ler um artigo, os relacionados são automaticamente adicionados ao seu feed Explorar. Isto não muda a forma como recolhemos a sua informação, e o seu histórico de leitura permanece privado.";
@@ -362,6 +372,9 @@
 "welcome-explore-tell-me-more-privacy" = "Nenhuma lista de leitura ou perfil é armazenado nos nossos servidores.";
 "welcome-explore-tell-me-more-done-button" = "Entendi";
 "welcome-explore-continue-button" = "Começar";
+"welcome-notifications-tell-me-more-title" = "Mais sobre notificações";
+"welcome-notifications-tell-me-more-storage" = "As preferências de notificação são armazenadas no dispositivo, e não baseadas em informações pessoais ou atividade.";
+"welcome-notifications-tell-me-more-creation" = "As notificações são criadas e enviadas para o dispositivo através da aplicação, não a partir dos nossos (ou de terceiros) servidores.";
 "welcome-languages-title" = "Idiomas";
 "welcome-languages-sub-title" = "Escolha os seus idiomas pré-definidos para pesquisar na Wikipédia";
 "welcome-languages-add-button" = "Adicionar outro idioma";
@@ -420,6 +433,11 @@
 "in-the-news-notification-share-action-title" = "Partilhar";
 "in-the-news-notification-save-for-later-action-title" = "Guardar para mais tarde";
 "in-the-news-currently-trending" = "Popular atualmente";
+"in-the-news-title" = "Nas notícias";
+"in-the-news-title-for-date" = "Notícias em $1";
 "number-thousands" = "$1K";
 "number-millions" = "$1M";
 "number-billions" = "$1B";
+"feed-news-notification-text" = "Agora pode ativar notificações de artigos da Wikipédia que sejam notícia.";
+// Fuzzy
+"feed-news-notification-button-text" = "Notifique-me sobre notícias";
