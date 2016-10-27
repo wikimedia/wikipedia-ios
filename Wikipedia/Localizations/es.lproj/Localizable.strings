@@ -118,9 +118,13 @@
 "settings-support" = "Apoya a Wikipedia";
 "settings-language-bar" = "Mostrar los idiomas al buscar";
 "settings-my-languages" = "Mis idiomas";
+"settings-notifications" = "Notificaciones";
 "settings-help-and-feedback" = "Ayuda y comentarios";
 "settings-primary-language" = "Primario";
 "settings-primary-language-details" = "El primer idioma de esta lista se emplea como el idioma principal de la aplicación. Al cambiarlo, cambiarás también el contenido diario (por ejemplo, el \"Artículo del día\") mostrado en Explorar.";
+"settings-notifications-system-turn-on" = "Activar las notificaciones";
+"settings-notifications-learn-more" = "Aprender más acerca de las notificaciones";
+"settings-notifications-trending" = "Eventos actuales en tendencia";
 "main-menu-title" = "Más";
 "main-menu-heading-about" = "Acerca de";
 "main-menu-language-title" = "Búsqueda en Wikipedia en $1";
@@ -360,6 +364,7 @@
 "potd-description-prefix" = "Foto del día del $1";
 "welcome-explore-title" = "Explorar";
 "welcome-explore-sub-title" = "Una forma nueva de descubrir artículos interesantes todos los días";
+"welcome-explore-new-ways-title" = "Nuevas formas de explorar";
 "welcome-explore-tell-me-more" = "Más información";
 "welcome-explore-tell-me-more-about-explore" = "Más acerca de Explorar";
 "welcome-explore-tell-me-more-details" = "Cuando lees un artículo, los artículos relacionados se agregan automáticamente a tu canal de Explorar. Esto no cambia la manera en que recopilamos tu información, y tu historial de lectura sigue siendo privado.";
@@ -367,6 +372,7 @@
 "welcome-explore-tell-me-more-privacy" = "En nuestros servidores no se guardan ni perfiles ni listas de lectura.";
 "welcome-explore-tell-me-more-done-button" = "Entendido";
 "welcome-explore-continue-button" = "Empezar";
+"welcome-notifications-tell-me-more-title" = "Más acerca de las notificaciones";
 "welcome-languages-title" = "Idiomas";
 "welcome-languages-sub-title" = "Selecciona tus idiomas preferidos para buscar en Wikipedia";
 "welcome-languages-add-button" = "Añadir otro idioma";
@@ -425,6 +431,10 @@
 "in-the-news-notification-share-action-title" = "Compartir";
 "in-the-news-notification-save-for-later-action-title" = "Guardar para después";
 "in-the-news-currently-trending" = "En tendencia";
+"in-the-news-title" = "Actualidad";
+"in-the-news-title-for-date" = "Noticias del $1";
 "number-thousands" = "$1K";
 "number-millions" = "$1M";
 "number-billions" = "$1B";
+// Fuzzy
+"feed-news-notification-button-text" = "Avisar acerca de noticias en tendencia";
