@@ -14,7 +14,15 @@ class InTheNewsCollectionViewCell: WMFExploreCollectionViewCell {
                 return
             }
             
-            imageView.wmf_setImageWithURL(URL, detectFaces: true, onGPU: true, failure: { (error) in self.imageView.wmf_configureWithDefaultPlaceholder() }) { }
+            imageView.wmf_setImageWithURL(URL,
+                                          detectFaces: true,
+                                          onGPU: true,
+                                          failure: { (error) in
+                                            dispatch_async(dispatch_get_main_queue(), { () in
+                                                self.imageView.wmf_configureWithDefaultPlaceholder()
+                                            })
+                                          },
+                                          success: { () in  })
         }
     }
     
