@@ -135,6 +135,8 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
     dict[@"mainpage"] = @(self.isMain);
 
+    [dict wmf_maybeSetObject:self.acceptLanguageRequestHeader forKey:@"acceptLanguageRequestHeader"];
+
     return [dict copy];
 }
 
@@ -158,6 +160,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
     self.editable = [[self requiredNumber:@"editable" dict:dict] boolValue];
 
+    self.acceptLanguageRequestHeader = [self optionalString:@"acceptLanguageRequestHeader" dict:dict];
     self.revisionId = [self optionalNumber:@"revision" dict:dict];
     self.redirectedURL = [self optionalURL:@"redirected" dict:dict];
     self.displaytitle = [self optionalString:@"displaytitle" dict:dict];

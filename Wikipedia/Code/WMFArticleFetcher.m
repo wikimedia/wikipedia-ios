@@ -173,6 +173,10 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     MWKArticle *article = [[MWKArticle alloc] initWithURL:url dataStore:self.dataStore];
     @try {
         [article importMobileViewJSON:response];
+        if ([article.url.wmf_language isEqualToString:@"zh"]) {
+            NSString* header = [NSLocale wmf_acceptLanguageHeaderForPreferredLanguages];
+            article.acceptLanguageRequestHeader = header;
+        }
         return article;
     } @catch (NSException *e) {
         DDLogError(@"Failed to import article data. Response: %@. Error: %@", response, e);
@@ -189,22 +193,34 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         DDLogError(@"Can't fetch nil title, cancelling implicitly.");
         return [AnyPromise promiseWithValue:[NSError cancelledError]];
     }
-
+    
     MWKArticle *cachedArticle;
-
-    if (!forceDownload) {
+    BOOL isChinese = [url.wmf_language isEqualToString:@"zh"];
+    
+    if (!forceDownload || isChinese) {
         cachedArticle = [self.dataStore existingArticleWithURL:url];
     }
-
+    
+    BOOL forceDownloadForMismatchedHeader = NO;
+    
+    if(isChinese){
+        NSString* header = [NSLocale wmf_acceptLanguageHeaderForPreferredLanguages];
+        if(![cachedArticle.acceptLanguageRequestHeader isEqualToString:header]){
+            forceDownloadForMismatchedHeader = YES;
+        }
+    }
+    
     @weakify(self);
     AnyPromise *promisedArticle;
-    if (forceDownload || !cachedArticle || !cachedArticle.revisionId || [cachedArticle isMain]) {
+    if (forceDownload || forceDownloadForMismatchedHeader || !cachedArticle || !cachedArticle.revisionId || [cachedArticle isMain]) {
         if (forceDownload) {
             DDLogInfo(@"Forcing Download for %@, fetching immediately", url);
         } else if (!cachedArticle) {
             DDLogInfo(@"No cached article found for %@, fetching immediately.", url);
         } else if (!cachedArticle.revisionId) {
             DDLogInfo(@"Cached article for %@ doesn't have revision ID, fetching immediately.", url);
+        } else if (forceDownloadForMismatchedHeader) {
+            DDLogInfo(@"Language Headers are mismatched for %@, assume simplified vs traditional as changed, fetching immediately.", url);
         } else {
             //Main pages dont neccesarily have revisions every day. We can't rely on the revision check
             DDLogInfo(@"Cached article for main page: %@, fetching immediately.", url);
