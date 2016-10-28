@@ -501,7 +501,7 @@
 "number-millions" = "$1M";
 "number-billions" = "$1B";
 
-"feed-news-notification-text" = "You can now turn on notifications from Wikipedia articles trending in the news.";
+"feed-news-notification-text" = "You can now receive notifications about Wikipedia articles trending in the news.";
 "feed-news-notification-button-text" = "Turn on notifications";
 
 "back" = "Back";
