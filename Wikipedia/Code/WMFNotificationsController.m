@@ -16,8 +16,8 @@ NSString *const WMFNotificationInfoArticleTitleKey = @"articleTitle";
 NSString *const WMFNotificationInfoArticleURLStringKey = @"articleURLString";
 NSString *const WMFNotificationInfoThumbnailURLStringKey = @"thumbnailURLString";
 NSString *const WMFNotificationInfoArticleExtractKey = @"articleExtract";
-NSString *const WMFNotificationInfoStoryHTMLKey = @"storyHTML";
 NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
+NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 
 //const CGFloat WMFNotificationImageCropNormalizedMinDimension = 1; //for some reason, cropping isn't respected if a full dimension (1) is indicated
 

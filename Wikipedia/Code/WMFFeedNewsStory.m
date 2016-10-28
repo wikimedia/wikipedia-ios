@@ -7,7 +7,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{ WMF_SAFE_KEYPATH(WMFFeedNewsStory.new, storyHTML): @"story",
-              WMF_SAFE_KEYPATH(WMFFeedNewsStory.new, articlePreviews): @"links" };
+              WMF_SAFE_KEYPATH(WMFFeedNewsStory.new, articlePreviews): @"links",
+              WMF_SAFE_KEYPATH(WMFFeedNewsStory.new, featuredArticlePreview): @"featuredArticlePreview"};
 }
 
 + (NSValueTransformer *)articlePreviewsJSONTransformer {
@@ -15,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (NSUInteger)modelVersion {
-    return 2;
+    return 3;
 }
 
 @end

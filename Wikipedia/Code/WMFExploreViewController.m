@@ -259,7 +259,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         }];
     } else if ([group contentType] == WMFContentTypeStory) {
         content = [content bk_map:^id(WMFFeedNewsStory *obj) {
-            return [[obj mostPopularArticlePreview] articleURL] ?: [[[obj articlePreviews] firstObject] articleURL];
+            return [[obj featuredArticlePreview] articleURL] ?: [[[obj articlePreviews] firstObject] articleURL];
         }];
     } else if ([group contentType] != WMFContentTypeURL) {
         content = nil;
@@ -295,7 +295,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
             NSAssert(false, @"Attempting to reference an out of bound index");
             return nil;
         }
-        return [[content[indexPath.row] mostPopularArticlePreview] articleURL] ?: [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
+        return [[content[indexPath.row] featuredArticlePreview] articleURL] ?: [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
     } else {
         return nil;
     }
@@ -487,7 +487,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     NSParameterAssert(self.internalContentStore);
     [super viewDidAppear:animated];
 
-    [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
+    [[PiwikTracker sharedInstance] wmf_logView:self];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_exploreViewActivity]];
 }
 
@@ -627,7 +627,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         [self.locationManager stopMonitoringLocation];
     }
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionImpressionInContext:self contentType:section];
+    [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:section];
 }
 
 - (nonnull UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSectionHeaderAtIndexPath:(NSIndexPath *)indexPath {
@@ -862,7 +862,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 #pragma mark - More View Controller
 
 - (void)presentMoreViewControllerForGroup:(WMFContentGroup *)group animated:(BOOL)animated {
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughMoreInContext:self contentType:group];
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughMoreInContext:self contentType:group];
     NSArray<NSURL *> *URLs = [self contentURLsForGroup:group];
     NSAssert([[URLs firstObject] isKindOfClass:[NSURL class]], @"Attempting to present More VC with somehting other than URLs");
     if (![[URLs firstObject] isKindOfClass:[NSURL class]]) {
@@ -926,14 +926,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                 return nil;
             }
             WMFFeedNewsStory *story = stories[indexPath.item];
-            InTheNewsViewController *vc = [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore previewStore:self.previewStore];
-            NSString *format = MWLocalizedString(@"in-the-news-title-for-date", nil);
-            NSDate *date = group.date;
-            if (format && date) {
-                NSString *dateString = [[NSDateFormatter wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date];
-                NSString *title = [format stringByReplacingOccurrencesOfString:@"$1" withString:dateString];
-                vc.title = title;
-            }
+            InTheNewsViewController *vc = [self inTheNewsViewControllerForStory:story date:group.date];
             return vc;
         } break;
         default:
@@ -950,7 +943,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     }
 
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:group];
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:group];
 
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
@@ -1094,7 +1087,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     previewingContext.sourceRect = [self.collectionView cellForItemAtIndexPath:previewIndexPath].frame;
 
     UIViewController *vc = [self detailViewControllerForItemAtIndexPath:previewIndexPath];
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:group];
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:group];
 
     if ([vc isKindOfClass:[WMFArticleViewController class]]) {
         ((WMFArticleViewController *)vc).articlePreviewingActionsDelegate = self;
@@ -1105,7 +1098,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController *)viewControllerToCommit {
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:self.groupForPreviewedCell];
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:self.groupForPreviewedCell];
     self.groupForPreviewedCell = nil;
 
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
@@ -1115,6 +1108,26 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
+}
+
+#pragma mark - In The News
+
+- (InTheNewsViewController *)inTheNewsViewControllerForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date {
+    InTheNewsViewController *vc = [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore previewStore:self.previewStore];
+    NSString *format = MWLocalizedString(@"in-the-news-title-for-date", nil);
+    if (format && date) {
+        NSString *dateString = [[NSDateFormatter wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date];
+        NSString *title = [format stringByReplacingOccurrencesOfString:@"$1" withString:dateString];
+        vc.title = title;
+    } else {
+        vc.title = MWLocalizedString(@"in-the-news-title", nil);
+    }
+    return vc;
+}
+
+- (void)showInTheNewsForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date animated:(BOOL)animated {
+    InTheNewsViewController *vc = [self inTheNewsViewControllerForStory:story date:date];
+    [self.navigationController pushViewController:vc animated:animated];
 }
 
 #pragma mark - Analytics

@@ -91,9 +91,9 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
                 }
                 
                 if isOn {
-                    PiwikTracker.sharedInstance().wmf_logActionEnableInContext(self, contentType: self)
+                    PiwikTracker.sharedInstance()?.wmf_logActionEnableInContext(self, contentType: self)
                 }else{
-                    PiwikTracker.sharedInstance().wmf_logActionDisableInContext(self, contentType: self)
+                    PiwikTracker.sharedInstance()?.wmf_logActionDisableInContext(self, contentType: self)
                 }
             NSUserDefaults.wmf_userDefaults().wmf_setInTheNewsNotificationsEnabled(isOn)
         })]

@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateFeedWithLatestDatabaseContent;
 
+- (void)showInTheNewsForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date animated:(BOOL)animated;
+
 @end
 
 NS_ASSUME_NONNULL_END
