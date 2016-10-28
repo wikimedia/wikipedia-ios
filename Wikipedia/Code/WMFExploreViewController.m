@@ -81,6 +81,11 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 @implementation WMFExploreViewController
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.title = MWLocalizedString(@"home-title", nil);
+}
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
