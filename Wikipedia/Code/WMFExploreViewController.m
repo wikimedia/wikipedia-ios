@@ -210,6 +210,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 - (void)updateFeedSources {
     WMFTaskGroup *group = [WMFTaskGroup new];
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        //TODO: nearby doesnt always fire
         [group enter];
         [obj loadNewContentForce:NO
                       completion:^{
@@ -217,12 +218,18 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                       }];
     }];
 
-    //TODO: nearby doesnt always fire.
-    //May need to time it out or exclude
     [group waitInBackgroundWithCompletion:^{
         [self resetRefreshControl];
         [self.internalContentStore syncDataStoreToDatabase];
     }];
+
+    //In case we don't finish in a timely maner, lets reset
+    dispatchOnMainQueueAfterDelayInSeconds(12.0, ^{
+        if (self.refreshControl.refreshing) {
+            [self resetRefreshControl];
+            [self.internalContentStore syncDataStoreToDatabase];
+        }
+    });
 }
 
 - (void)updateFeedWithLatestDatabaseContent {
