@@ -66,13 +66,19 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             articleURL = NSURL(string: articleURLString)
         }
         
-        //PiwikTracker.sharedInstance().wmf_logActionPreviewInContext(self, contentType: self)
+        PiwikTracker.sharedInstance()?.wmf_logActionPreviewInContext(self, contentType: self)
         
-        if let html = info[WMFNotificationInfoStoryHTMLKey] as? String {
-            let font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote, compatibleWithTraitCollection: nil)
-            let linkFont = UIFont.boldSystemFontOfSize(font.pointSize)
-            let attributedString = html.wmf_attributedStringByRemovingHTMLWithFont(font, linkFont: linkFont)
-            summaryLabel.attributedText = attributedString
+        do {
+            if let dictionary = info[WMFNotificationInfoFeedNewsStoryKey] as? [String: AnyObject],
+                let newsStory = try MTLJSONAdapter.modelOfClass(WMFFeedNewsStory.self, fromJSONDictionary: dictionary) as? WMFFeedNewsStory,
+                let html = newsStory.storyHTML  {
+                let font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote, compatibleWithTraitCollection: nil)
+                let linkFont = UIFont.boldSystemFontOfSize(font.pointSize)
+                let attributedString = html.wmf_attributedStringByRemovingHTMLWithFont(font, linkFont: linkFont)
+                summaryLabel.attributedText = attributedString
+            }
+        } catch let error as NSError {
+            DDLogError("erorr deserializing news story \(error)")
         }
 
         timeLabel.text = localizedStringForKeyFallingBackOnEnglish("in-the-news-currently-trending")
@@ -139,7 +145,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             guard let wikipediaSchemeURL = articleURL.wmf_wikipediaSchemeURL else {
                 break
             }
-            //PiwikTracker.sharedInstance().wmf_logActionTapThroughInContext(self, contentType: self)
+            PiwikTracker.sharedInstance()?.wmf_logActionTapThroughInContext(self, contentType: self)
             extensionContext.openURL(wikipediaSchemeURL, completionHandler: { (didOpen) in
                 completion(.Dismiss)
             })

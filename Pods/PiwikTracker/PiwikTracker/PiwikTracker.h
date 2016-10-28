@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "PiwikDebugDispatcher.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class PiwikTransaction;
 
 
@@ -56,7 +58,7 @@ typedef NS_ENUM(NSUInteger, CustomVariableScope) {
  @param baseURL The base URL of the Piwik server. The URL should not include the tracking endpoint path component (/piwik.php)
  @return The newly created PiwikTracker
  */
-+ (instancetype)sharedInstanceWithSiteID:(NSString*)siteID baseURL:(NSURL*)baseURL;
++ (nullable instancetype)sharedInstanceWithSiteID:(NSString*)siteID baseURL:(NSURL*)baseURL;
 
 /**
  Create and configure a shared Piwik tracker (designated initialiser).
@@ -68,7 +70,7 @@ typedef NS_ENUM(NSUInteger, CustomVariableScope) {
  @param dispatcher The dispatcher that will perform the network request to the Piwik server
  @return The newly created PiwikTracker
  */
-+ (instancetype)sharedInstanceWithSiteID:(NSString*)siteID dispatcher:(id<PiwikDispatcher>)dispatcher;
++ (nullable instancetype)sharedInstanceWithSiteID:(NSString*)siteID dispatcher:(id<PiwikDispatcher>)dispatcher;
 
 /**
  Return the shared Piwik tracker.
@@ -78,7 +80,7 @@ typedef NS_ENUM(NSUInteger, CustomVariableScope) {
  @return The existing PiwikTracker object
  @see sharedInstanceWithSiteID:baseURL:
  */
-+ (instancetype)sharedInstance;
++ (nullable instancetype)sharedInstance;
 
 /**
  Piwik site id.
@@ -461,3 +463,5 @@ typedef NS_ENUM(NSUInteger, CustomVariableScope) {
 @property (nonatomic, strong) NSString *appVersion;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -15,7 +15,6 @@
 
 #import <WMFModel/WMFModel-Swift.h>
 
-
 @import NSDate_Extensions;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -377,7 +376,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 - (BOOL)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory
                           articlePreview:(WMFArticlePreview *)articlePreview
                                    force:(BOOL)force {
-    if (![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled]) {
+    if (!force && ![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled]) {
         return NO;
     }
 
@@ -398,13 +397,13 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
             return NO;
         }
     }
-    
+
     NSError *JSONError = nil;
     NSDictionary *JSONDictionary = [MTLJSONAdapter JSONDictionaryFromModel:newsStory error:&JSONError];
     if (JSONError) {
         DDLogError(@"Error serializing news story: %@", JSONError);
     }
-    
+
     NSString *articleURLString = articlePreview.url.absoluteString;
     NSString *storyHTML = newsStory.storyHTML;
     NSString *displayTitle = articlePreview.displayTitle;
@@ -415,7 +414,6 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 
     NSMutableDictionary *info = [NSMutableDictionary dictionaryWithCapacity:4];
-    info[WMFNotificationInfoStoryHTMLKey] = storyHTML;
     info[WMFNotificationInfoArticleTitleKey] = displayTitle;
     info[WMFNotificationInfoViewCountsKey] = viewCounts;
     info[WMFNotificationInfoArticleURLStringKey] = articleURLString;
@@ -435,8 +433,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     NSDate *notificationDate = [NSDate date];
     NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
     NSDateComponents *notificationDateComponents = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:notificationDate];
-    
-    
+
     if (force) {
         // nil the components to indicate it should be sent immediately, date should still be [NSDate date]
         notificationDateComponents = nil;

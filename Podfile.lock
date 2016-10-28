@@ -209,7 +209,7 @@ CHECKOUT OPTIONS:
     :commit: 388ab1b864b742feadc1cf94063968953fc6a6a1
     :git: git@github.com:wikimedia/NSDate-Extensions.git
   PiwikTracker:
-    :commit: 87cf4aa60ad29cdb375a3fe789c9717887ee210e
+    :commit: bac26223df5f6a0fe55f5f877f74c4d98077b3f2
     :git: https://github.com/wikimedia/piwik-sdk-ios.git
   SDWebImage:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a

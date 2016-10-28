@@ -16,7 +16,6 @@ NSString *const WMFNotificationInfoArticleTitleKey = @"articleTitle";
 NSString *const WMFNotificationInfoArticleURLStringKey = @"articleURLString";
 NSString *const WMFNotificationInfoThumbnailURLStringKey = @"thumbnailURLString";
 NSString *const WMFNotificationInfoArticleExtractKey = @"articleExtract";
-NSString *const WMFNotificationInfoStoryHTMLKey = @"storyHTML";
 NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
 NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 
