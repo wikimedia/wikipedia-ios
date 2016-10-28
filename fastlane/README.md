@@ -66,6 +66,16 @@ Build the app for distibution
 fastlane ios push_beta
 ```
 updates version, builds, and pushes to Testlfight
+### ios push_alpha
+```
+fastlane ios push_alpha
+```
+updates version, builds, and pushes alpha to Testlfight
+### ios push
+```
+fastlane ios push
+```
+updates version, builds, and pushes to Testlfight
 ### ios test_and_push_beta
 ```
 fastlane ios test_and_push_beta

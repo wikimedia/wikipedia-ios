@@ -74,9 +74,10 @@ platform :ios do
   end
   
   desc "Increment the build number"
-  lane :bump_build do 
+  lane :bump_build do |options|
+    app_identifer = params[:app_identifier] || "org.wikimedia.wikipedia"
     increment_build_number({
-      build_number: latest_testflight_build_number + 1
+      build_number: latest_testflight_build_number(app_identifier: app_identifier) + 1
     })
   end
 
@@ -116,36 +117,50 @@ platform :ios do
   end
 
   desc "Build the app for distibution"
-  lane :build do
+  lane :build do |options|
     project_dir = ".."
     build_dir = "../build"
     
-    product_name = "Wikipedia"
-    workspace_name = product_name
-    scheme_name = product_name
+    product_name = options[:product_name] || "Wikipedia"
+    workspace_name = options[:workspace] || product_name
+    scheme_name = options[:scheme] || product_name
     
-    sh "xcodebuild -workspace #{project_dir}/#{workspace_name}.xcworkspace -scheme #{scheme_name} -archivePath #{build_dir}/#{product_name}.xcarchive archive"
-    sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath #{build_dir}/#{product_name}.xcarchive -exportPath #{build_dir}"
+    sh "xcodebuild -workspace \"#{project_dir}/#{workspace_name}.xcworkspace\" -scheme \"#{scheme_name}\" -archivePath \"#{build_dir}/#{product_name}.xcarchive\" archive"
+    sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -exportPath \"#{build_dir}\""
     #sh "zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM"
     #sh "mv #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.app.dSYM.zip"
+  end
+  
+  desc "updates version, builds, and pushes to Testlfight"
+  lane :push_beta do |options|
+    push
+  end
+  
+  desc "updates version, builds, and pushes alpha to Testlfight"
+  lane :push_alpha do |options|
+    push(
+      product_name: "Wikipedia Alpha",
+      app_identifier: "org.wikimedia.wikipedia.tfalpha"
+    )
   end
 
   # This lane requires HOCKEY_PRODUCTION environment variable to be set.
   # 1. HOCKEY_PRODUCTION=THE_API_KEY bundle exec fastlane push_beta
   # 2. Use a .env file
   desc "updates version, builds, and pushes to Testlfight"
-  lane :push_beta do
+  lane :push do |options|
     build_dir = "build"
-    product_name = "Wikipedia"
+    product_name = options[:product_name] || "Wikipedia"
     ipa_path = "#{build_dir}/#{product_name}.ipa"
     #dsym_path = "#{build_dir}/#{product_name}.app.dSYM.zip"
-    build_number = latest_testflight_build_number + 1
+    app_identifier = options[:app_identifier] || "org.wikimedia.wikipedia"
+    build_number = latest_testflight_build_number(app_identifier:  app_identifier) + 1
     version = get_version_number
-    bundle_identifier = "org.wikimedia.wikipedia"
     
-    increment_build_number({
+    
+    increment_build_number(
       build_number: build_number
-    })
+    )
     
     changelog_from_git_commits(
       pretty: '- (%ae) %s', # Optional, lets you provide a custom format to apply to each commit when generating the changelog text
@@ -153,7 +168,10 @@ platform :ios do
       include_merges: false # Optional, lets you filter out merge commits
     )
 
-    build
+    build(
+      product_name: product_name,
+      workspace: "Wikipedia"
+    )
 
     pilot(
       ipa: ipa_path,
@@ -175,7 +193,7 @@ platform :ios do
       public_identifier: hockey_prod_id,
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
-      dsym: "#{bundle_identifier}-#{version}-#{build_number}.dSYM.zip"
+      dsym: "#{app_identifier}-#{version}-#{build_number}.dSYM.zip"
     )
     
     tag_beta
