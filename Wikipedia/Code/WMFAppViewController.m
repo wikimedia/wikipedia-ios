@@ -813,9 +813,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (WMFNotificationsController *)notificationsController {
-    if (![self uiIsLoaded]) {
-        return nil;
-    }
     return [WMFNotificationsController sharedNotificationsController];
 }
 
@@ -1167,10 +1164,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [self selectExploreTabAndDismissPresentedViewControllers];
             [self.exploreViewController showInTheNewsForStory:feedNewsStory date:nil animated:NO];
         } else if ([actionIdentifier isEqualToString:UNNotificationDismissActionIdentifier]) {
-            
         }
     }
-    
+
     completionHandler();
 }
 
