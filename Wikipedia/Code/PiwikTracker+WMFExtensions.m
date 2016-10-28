@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation PiwikTracker (WMFExtensions)
 
 + (void)wmf_start {
-#ifndef DEBUG
+#ifdef PIWIK_ENABLED
     static NSTimeInterval const WMFDispatchInterval = 60;
     NSString *piwikHostURLString = @"https://piwik.wikimedia.org/";
     NSString *appID = @"3";
@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (nullable instancetype)wmf_configuredInstance {
-#ifndef DEBUG
+#ifdef PIWIK_ENABLED
     return [self sharedInstance];
 #else
     return nil;
@@ -33,13 +33,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)wmf_logView:(id<WMFAnalyticsViewNameProviding>)view {
     NSParameterAssert([view analyticsName]);
-#ifndef DEBUG
+#ifdef PIWIK_ENABLED
     [self sendView:[view analyticsName]];
 #endif
 }
 
 - (void)wmf_sendEventWithCategory:(NSString *)category action:(NSString *)action name:(NSString *)name value:(nullable NSNumber *)value {
-#ifndef DEBUG
+#ifdef PIWIK_ENABLED
     [self sendEventWithCategory:category
                          action:action
                            name:name
