@@ -173,7 +173,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     MWKArticle *article = [[MWKArticle alloc] initWithURL:url dataStore:self.dataStore];
     @try {
         [article importMobileViewJSON:response];
-        if([NSLocale wmf_isCurrentLocaleChineseVariant]){
+        if ([article.url.wmf_language isEqualToString:@"zh"]) {
             NSString* header = [NSLocale wmf_acceptLanguageHeaderForPreferredLanguages];
             article.acceptLanguageRequestHeader = header;
         }
@@ -195,7 +195,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     }
     
     MWKArticle *cachedArticle;
-    BOOL isChinese = [NSLocale wmf_isCurrentLocaleChineseVariant];
+    BOOL isChinese = [url.wmf_language isEqualToString:@"zh"];
     
     if (!forceDownload || isChinese) {
         cachedArticle = [self.dataStore existingArticleWithURL:url];
