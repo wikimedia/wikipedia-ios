@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable MWKHistoryEntry *)mostRecentEntry {
-    return [self.dataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    return (MWKHistoryEntry *)[self.dataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 }
 
 - (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url {

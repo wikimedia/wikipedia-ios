@@ -40,6 +40,10 @@
     return self.userDataStore.savedPageList;
 }
 
+- (MWKHistoryEntry*)objectAtIndexPath:(NSIndexPath*)indexPath{
+    return (MWKHistoryEntry*)[self.dataSource objectAtIndexPath:indexPath];
+}
+
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
@@ -100,7 +104,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticleListTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleListTableViewCell identifier] forIndexPath:indexPath];
 
-    MWKHistoryEntry *entry = [self.dataSource objectAtIndexPath:indexPath];
+    MWKHistoryEntry *entry = [self objectAtIndexPath:indexPath];
     MWKArticle *article = [[self userDataStore] articleWithURL:entry.url];
     cell.titleText = article.url.wmf_title;
     cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
@@ -196,7 +200,7 @@
 }
 
 - (NSURL *)urlAtIndexPath:(NSIndexPath *)indexPath {
-    return [[self.dataSource objectAtIndexPath:indexPath] url];
+    return [[self objectAtIndexPath:indexPath] url];
 }
 
 - (void)deleteAll {
