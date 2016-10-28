@@ -130,8 +130,8 @@
 
     //flip left and right for RTL
     if([[UIApplication sharedApplication] wmf_isRTL]){
-        modified.left = modified.right;
-        modified.right = self.edgeInsets.left;
+        modified.left = -modified.right;
+        modified.right = -self.edgeInsets.left;
     }
     
     [self.iconImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
