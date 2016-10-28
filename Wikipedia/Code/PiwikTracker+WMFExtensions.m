@@ -3,7 +3,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@implementation NSString (WMFAnalyticsContentTypeProviding)
+@implementation NSString (WMFAnalytics)
+
+- (NSString *)analyticsContext{
+    return self;
+}
 
 - (NSString*)analyticsContentType{
     return self;

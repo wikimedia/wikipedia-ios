@@ -1153,6 +1153,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             WMFArticleViewController *articleVC = [self showArticleForURL:articleURL animated:NO];
             [articleVC shareArticleWhenReady];
         } else if ([actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
+            [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:@"notification" contentType:articleURL.host];
             NSDictionary *JSONDictionary = info[WMFNotificationInfoFeedNewsStoryKey];
             NSError *JSONError = nil;
             WMFFeedNewsStory *feedNewsStory = [MTLJSONAdapter modelOfClass:[WMFFeedNewsStory class] fromJSONDictionary:JSONDictionary error:&JSONError];
