@@ -17,6 +17,7 @@
 #import "CLLocation+WMFBearing.h"
 
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
+#import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "WMFArticlePreview.h"
 #import "MWKHistoryEntry.h"
 
@@ -231,11 +232,15 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 #pragma mark - Section Access
 
 - (WMFContentGroup *)sectionAtIndex:(NSUInteger)sectionIndex {
-    return [self.sectionDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:sectionIndex inSection:0]];
+    return (WMFContentGroup *)[self.sectionDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:sectionIndex inSection:0]];
 }
 
 - (WMFContentGroup *)sectionForIndexPath:(NSIndexPath *)indexPath {
-    return [self.sectionDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.section inSection:0]];
+    return (WMFContentGroup *)[self.sectionDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.section inSection:0]];
+}
+
+- (NSUInteger)indexForSection:(WMFContentGroup *)section {
+    return [self.sectionDataSource indexPathForObject:section].row;
 }
 
 #pragma mark - Content Access
@@ -664,7 +669,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
             if (!self || !section) {
                 return;
             }
-            UIAlertController *menuActionSheet = [self menuActionSheetForURL:[section headerContentURL]];
+            UIAlertController *menuActionSheet = [self menuActionSheetForSection:section];
 
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
                 menuActionSheet.modalPresentationStyle = UIModalPresentationPopover;
@@ -689,12 +694,20 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 #pragma mark - WMFHeaderMenuProviding
 
-- (UIAlertController *)menuActionSheetForURL:(NSURL *)url {
+- (UIAlertController *)menuActionSheetForSection:(WMFContentGroup *)section {
+    NSURL *url = [section headerContentURL];
     UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil)
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction *_Nonnull action) {
                                                 [self.userStore.blackList addBlackListArticleURL:url];
+                                                [self.userStore notifyWhenWriteTransactionsComplete:^{
+                                                    NSUInteger index = [self indexForSection:section];
+                                                    self.sectionDataSource.delegate = nil;
+                                                    [self updateFeedWithLatestDatabaseContent];
+                                                    [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:index]];
+                                                    self.sectionDataSource.delegate = self;
+                                                }];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
     return sheet;
