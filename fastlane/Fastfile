@@ -177,7 +177,8 @@ platform :ios do
       ipa: ipa_path,
       skip_waiting_for_build_processing: false,
       skip_submission: false,
-      distribute_external: false
+      distribute_external: false,
+      app_identifier:  app_identifier
     )
     
     download_dsyms(
