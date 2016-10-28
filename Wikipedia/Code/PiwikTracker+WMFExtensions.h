@@ -3,16 +3,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-//Any string can be used as a content type for convienence
-@interface NSString (WMFAnalyticsContentTypeProviding) <WMFAnalyticsContentTypeProviding>
+//Any string can be used for convienence,
+//but you are encouraged to implement these methods on your custom classes for re-usability
+@interface NSString (WMFAnalytics) <WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding>
 
 @end
 
 @interface PiwikTracker (WMFExtensions)
 
 + (void)wmf_start;
-
-+ (nullable instancetype)wmf_configuredInstance;
 
 - (void)wmf_logView:(id<WMFAnalyticsViewNameProviding>)view;
 

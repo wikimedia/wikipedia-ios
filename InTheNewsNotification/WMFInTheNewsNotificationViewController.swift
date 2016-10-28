@@ -48,7 +48,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        //PiwikTracker.wmf_start()
+        PiwikTracker.wmf_start()
     }
     
     override func viewDidLoad() {

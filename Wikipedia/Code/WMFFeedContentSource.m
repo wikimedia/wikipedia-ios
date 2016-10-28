@@ -99,14 +99,9 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     [self cleanupBadTopReadSections];
 
-    BOOL force = NO;
-#if WMF_ALWAYS_NOTIFY
-    force = YES;
-#endif
-
     [self.fetcher fetchFeedContentForURL:self.siteURL
         date:date
-        force:force
+        force:NO
         failure:^(NSError *_Nonnull error) {
             if (completion) {
                 completion();
