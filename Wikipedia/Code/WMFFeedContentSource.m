@@ -320,16 +320,6 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (![date wmf_isTodayUTC]) { //in the news notifications only valid for the current day
         return;
     }
-    
-    NSCalendar *userCalendar = [NSCalendar autoupdatingCurrentCalendar];
-    NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
-    NSDate *mostRecentDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
-    if ([userCalendar isDateInToday:mostRecentDate]) {
-        NSInteger count = [defaults wmf_inTheNewsMostRecentDateNotificationCount];
-        if (count >= WMFFeedNotificationMaxPerDay) {
-            return;
-        }
-    }
 
     self.schedulingNotifications = YES;
 
@@ -374,7 +364,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
             }
         }
         if (articlePreviewToNotifyAbout && articlePreviewToNotifyAbout.url) {
-            if ([self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreviewToNotifyAbout]) {
+            if ([self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreviewToNotifyAbout force:NO]) {
 
                 [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:articlePreviewToNotifyAbout.url.host];
             };
@@ -384,7 +374,9 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     self.schedulingNotifications = NO;
 }
 
-- (BOOL)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory articlePreview:(WMFArticlePreview *)articlePreview {
+- (BOOL)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory
+                          articlePreview:(WMFArticlePreview *)articlePreview
+                                   force:(BOOL)force {
     if (![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled]) {
         return NO;
     }
@@ -418,16 +410,39 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     NSDate *notificationDate = [NSDate date];
     NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
     NSDateComponents *notificationDateComponents = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:notificationDate];
-    if (notificationDateComponents.hour < WMFFeedNotificationMinHour || notificationDateComponents.hour > WMFFeedNotificationMaxHour) {
-        // Send it tomorrow
-        notificationDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:notificationDate options:NSCalendarMatchStrictly];
-        notificationDateComponents = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:notificationDate];
-        notificationDateComponents.hour = WMFFeedNotificationMinHour;
-        notificationDateComponents.minute = 1;
-        notificationDate = [calendar dateFromComponents:notificationDateComponents];
-    } else {
-        // Only nil the components to indicate it should be sent immediately, date should still be [NSDate date]
+    
+    
+    if (force) {
+        // nil the components to indicate it should be sent immediately, date should still be [NSDate date]
         notificationDateComponents = nil;
+    } else {
+        if (notificationDateComponents.hour < WMFFeedNotificationMinHour) {
+            notificationDateComponents.hour = WMFFeedNotificationMinHour;
+            notificationDateComponents.minute = 1;
+            notificationDate = [calendar dateFromComponents:notificationDateComponents];
+        } else if (notificationDateComponents.hour > WMFFeedNotificationMaxHour) {
+            // Send it tomorrow
+            notificationDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:notificationDate options:NSCalendarMatchStrictly];
+            notificationDateComponents = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:notificationDate];
+            notificationDateComponents.hour = WMFFeedNotificationMinHour;
+            notificationDateComponents.minute = 1;
+            notificationDate = [calendar dateFromComponents:notificationDateComponents];
+        } else {
+            // nil the components to indicate it should be sent immediately, date should still be [NSDate date]
+            notificationDateComponents = nil;
+        }
+        NSCalendar *userCalendar = [NSCalendar autoupdatingCurrentCalendar];
+        NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
+        NSDate *mostRecentDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
+        if ([userCalendar daysFromDate:notificationDate toDate:mostRecentDate] > 0) { // don't send if we have a notification scheduled for tomorrow already
+            return NO;
+        }
+        if ([userCalendar isDate:mostRecentDate inSameDayAsDate:notificationDate]) {
+            NSInteger count = [defaults wmf_inTheNewsMostRecentDateNotificationCount];
+            if (count >= WMFFeedNotificationMaxPerDay) {
+                return NO;
+            }
+        }
     }
 
     [self.notificationsController sendNotificationWithTitle:title body:body categoryIdentifier:WMFInTheNewsNotificationCategoryIdentifier userInfo:info atDateComponents:notificationDateComponents];

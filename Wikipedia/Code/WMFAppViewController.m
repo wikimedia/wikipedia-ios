@@ -224,7 +224,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
                     WMFFeedNewsStory *randomStory = stories[randomIndex];
                     WMFFeedArticlePreview *feedPreview = randomStory.mostPopularArticlePreview;
                     WMFArticlePreview *preview = [self.previewStore itemForURL:feedPreview.articleURL];
-                    [[self feedContentSource] scheduleNotificationForNewsStory:randomStory articlePreview:preview];
+                    [[self feedContentSource] scheduleNotificationForNewsStory:randomStory articlePreview:preview force:YES];
                 }
             }
         }
@@ -400,11 +400,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [self.savedArticlesFetcher stop];
     [self stopContentSources];
     self.houseKeeper = [WMFDatabaseHouseKeeper new];
-    
+
     //TODO: these tasks should be converted to async so we can end the background task as soon as possible
     [self.dataStore clearMemoryCache];
     [self downloadAssetsFilesIfNecessary];
-    
+
     //TODO: implement completion block to cancel download task with the 2 tasks above
     [self.houseKeeper performHouseKeepingWithCompletion:NULL];
 
