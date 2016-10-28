@@ -8,7 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable, readonly) NSString *storyHTML;
 
-@property (nullable, nonatomic, strong, readwrite) WMFFeedArticlePreview *mostPopularArticlePreview;
+@property (nullable, nonatomic, strong, readwrite) WMFFeedArticlePreview *featuredArticlePreview;
 
 @property (nullable, nonatomic, strong, readonly) NSArray<WMFFeedArticlePreview *> *articlePreviews;
 

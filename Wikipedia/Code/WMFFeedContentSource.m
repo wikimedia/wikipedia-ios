@@ -282,7 +282,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
             }
             [self.previewStore addPreviewWithURL:url updatedWithFeedPreview:obj pageViews:pageViewsForURL];
         }];
-        story.mostPopularArticlePreview = mostViewedPreview;
+        story.featuredArticlePreview = mostViewedPreview;
     }];
 
     [self.contentStore addContentGroup:group associatedContent:news];
@@ -381,12 +381,36 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         return NO;
     }
 
+    if (!newsStory.featuredArticlePreview) {
+        NSString *articlePreviewKey = articlePreview.url.wmf_databaseKey;
+        if (!articlePreviewKey) {
+            return NO;
+        }
+        for (WMFFeedArticlePreview *preview in newsStory.articlePreviews) {
+            if ([preview.articleURL.wmf_databaseKey isEqualToString:articlePreviewKey]) {
+                newsStory.featuredArticlePreview = preview;
+                break;
+            } else {
+                newsStory.featuredArticlePreview = preview;
+            }
+        }
+        if (!newsStory.featuredArticlePreview) {
+            return NO;
+        }
+    }
+    
+    NSError *JSONError = nil;
+    NSDictionary *JSONDictionary = [MTLJSONAdapter JSONDictionaryFromModel:newsStory error:&JSONError];
+    if (JSONError) {
+        DDLogError(@"Error serializing news story: %@", JSONError);
+    }
+    
     NSString *articleURLString = articlePreview.url.absoluteString;
     NSString *storyHTML = newsStory.storyHTML;
     NSString *displayTitle = articlePreview.displayTitle;
     NSDictionary *viewCounts = articlePreview.pageViews;
 
-    if (!storyHTML || !articleURLString || !displayTitle) {
+    if (!storyHTML || !articleURLString || !displayTitle || !JSONDictionary) {
         return NO;
     }
 
@@ -395,6 +419,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     info[WMFNotificationInfoArticleTitleKey] = displayTitle;
     info[WMFNotificationInfoViewCountsKey] = viewCounts;
     info[WMFNotificationInfoArticleURLStringKey] = articleURLString;
+    info[WMFNotificationInfoFeedNewsStoryKey] = JSONDictionary;
     NSString *thumbnailURLString = articlePreview.thumbnailURL.absoluteString;
     if (thumbnailURLString) {
         info[WMFNotificationInfoThumbnailURLStringKey] = thumbnailURLString;

@@ -13,6 +13,7 @@ extern NSString *const WMFNotificationInfoArticleURLStringKey;
 extern NSString *const WMFNotificationInfoThumbnailURLStringKey;
 extern NSString *const WMFNotificationInfoArticleExtractKey;
 extern NSString *const WMFNotificationInfoViewCountsKey;
+extern NSString *const WMFNotificationInfoFeedNewsStoryKey;
 
 @interface WMFNotificationsController : NSObject
 

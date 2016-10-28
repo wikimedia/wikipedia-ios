@@ -222,7 +222,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
                 if (stories.count > 0) {
                     NSInteger randomIndex = (NSInteger)arc4random_uniform((uint32_t)stories.count);
                     WMFFeedNewsStory *randomStory = stories[randomIndex];
-                    WMFFeedArticlePreview *feedPreview = randomStory.mostPopularArticlePreview;
+                    WMFFeedArticlePreview *feedPreview = randomStory.featuredArticlePreview ?: randomStory.articlePreviews[0];
                     WMFArticlePreview *preview = [self.previewStore itemForURL:feedPreview.articleURL];
                     [[self feedContentSource] scheduleNotificationForNewsStory:randomStory articlePreview:preview force:YES];
                 }
@@ -745,6 +745,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 #pragma mark - Utilities
 
+- (void)selectExploreTabAndDismissPresentedViewControllers {
+    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+    if (self.exploreViewController.presentedViewController) {
+        [self.exploreViewController dismissViewControllerAnimated:NO completion:NULL];
+    }
+}
+
 - (WMFArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated {
     if (!articleURL.wmf_title) {
         return nil;
@@ -753,8 +760,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if ([visibleArticleViewController.articleURL isEqual:articleURL]) {
         return visibleArticleViewController;
     }
-    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-    return [[self exploreViewController] wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore previewStore:self.previewStore restoreScrollPosition:YES animated:animated];
+    [self selectExploreTabAndDismissPresentedViewControllers];
+    return [self.exploreViewController wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore previewStore:self.previewStore restoreScrollPosition:YES animated:animated];
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
@@ -1139,13 +1146,31 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 // The method will be called on the delegate when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction. The delegate must be set before the application returns from applicationDidFinishLaunching:.
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
-    if ([response.actionIdentifier isEqualToString:WMFInTheNewsNotificationShareActionIdentifier]) {
+    NSString *categoryIdentifier = response.notification.request.content.categoryIdentifier;
+    NSString *actionIdentifier = response.actionIdentifier;
+    if ([categoryIdentifier isEqualToString:WMFInTheNewsNotificationCategoryIdentifier]) {
         NSDictionary *info = response.notification.request.content.userInfo;
         NSString *articleURLString = info[WMFNotificationInfoArticleURLStringKey];
         NSURL *articleURL = [NSURL URLWithString:articleURLString];
-        WMFArticleViewController *articleVC = [self showArticleForURL:articleURL animated:NO];
-        [articleVC shareArticleWhenReady];
+        if ([actionIdentifier isEqualToString:WMFInTheNewsNotificationShareActionIdentifier]) {
+            WMFArticleViewController *articleVC = [self showArticleForURL:articleURL animated:NO];
+            [articleVC shareArticleWhenReady];
+        } else if ([actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
+            NSDictionary *JSONDictionary = info[WMFNotificationInfoFeedNewsStoryKey];
+            NSError *JSONError = nil;
+            WMFFeedNewsStory *feedNewsStory = [MTLJSONAdapter modelOfClass:[WMFFeedNewsStory class] fromJSONDictionary:JSONDictionary error:&JSONError];
+            if (!feedNewsStory || JSONError) {
+                DDLogError(@"Error parsing feed news story: %@", JSONError);
+                [self showArticleForURL:articleURL animated:NO];
+                return;
+            }
+            [self selectExploreTabAndDismissPresentedViewControllers];
+            [self.exploreViewController showInTheNewsForStory:feedNewsStory date:nil animated:NO];
+        } else if ([actionIdentifier isEqualToString:UNNotificationDismissActionIdentifier]) {
+            
+        }
     }
+    
     completionHandler();
 }
 
