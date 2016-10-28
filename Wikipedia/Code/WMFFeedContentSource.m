@@ -415,7 +415,6 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 
     NSMutableDictionary *info = [NSMutableDictionary dictionaryWithCapacity:4];
-    info[WMFNotificationInfoStoryHTMLKey] = storyHTML;
     info[WMFNotificationInfoArticleTitleKey] = displayTitle;
     info[WMFNotificationInfoViewCountsKey] = viewCounts;
     info[WMFNotificationInfoArticleURLStringKey] = articleURLString;
