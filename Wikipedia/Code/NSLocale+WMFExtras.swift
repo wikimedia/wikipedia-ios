@@ -7,13 +7,6 @@ extension NSLocale {
         }
         return (langCode == "en" || langCode.hasPrefix("en-")) ? true : false;
     }
-   
-    public class func wmf_isCurrentLocaleChineseVariant() -> Bool {
-        guard let langCode = NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as? String else {
-            return false
-        }
-        return (langCode == "zh" || langCode.hasPrefix("zh-")) ? true : false;
-    }
 
     public func wmf_localizedLanguageNameForCode(code: String) -> String? {
         return self.displayNameForKey(NSLocaleLanguageCode, value: code)
