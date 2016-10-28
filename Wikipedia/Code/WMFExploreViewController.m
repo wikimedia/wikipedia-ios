@@ -254,7 +254,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         }];
     } else if ([group contentType] == WMFContentTypeStory) {
         content = [content bk_map:^id(WMFFeedNewsStory *obj) {
-            return [[obj mostPopularArticlePreview] articleURL] ?: [[[obj articlePreviews] firstObject] articleURL];
+            return [[obj featuredArticlePreview] articleURL] ?: [[[obj articlePreviews] firstObject] articleURL];
         }];
     } else if ([group contentType] != WMFContentTypeURL) {
         content = nil;
@@ -290,7 +290,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
             NSAssert(false, @"Attempting to reference an out of bound index");
             return nil;
         }
-        return [[content[indexPath.row] mostPopularArticlePreview] articleURL] ?: [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
+        return [[content[indexPath.row] featuredArticlePreview] articleURL] ?: [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
     } else {
         return nil;
     }
@@ -921,14 +921,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                 return nil;
             }
             WMFFeedNewsStory *story = stories[indexPath.item];
-            InTheNewsViewController *vc = [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore previewStore:self.previewStore];
-            NSString *format = MWLocalizedString(@"in-the-news-title-for-date", nil);
-            NSDate *date = group.date;
-            if (format && date) {
-                NSString *dateString = [[NSDateFormatter wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date];
-                NSString *title = [format stringByReplacingOccurrencesOfString:@"$1" withString:dateString];
-                vc.title = title;
-            }
+            InTheNewsViewController *vc = [self inTheNewsViewControllerForStory:story date:group.date];
             return vc;
         } break;
         default:
@@ -1110,6 +1103,26 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
+}
+
+#pragma mark - In The News
+
+- (InTheNewsViewController *)inTheNewsViewControllerForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date {
+    InTheNewsViewController *vc = [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore previewStore:self.previewStore];
+    NSString *format = MWLocalizedString(@"in-the-news-title-for-date", nil);
+    if (format && date) {
+        NSString *dateString = [[NSDateFormatter wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date];
+        NSString *title = [format stringByReplacingOccurrencesOfString:@"$1" withString:dateString];
+        vc.title = title;
+    } else {
+        vc.title = MWLocalizedString(@"in-the-news-title", nil);
+    }
+    return vc;
+}
+
+- (void)showInTheNewsForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date animated:(BOOL)animated {
+    InTheNewsViewController *vc = [self inTheNewsViewControllerForStory:story date:date];
+    [self.navigationController pushViewController:vc animated:animated];
 }
 
 #pragma mark - Analytics

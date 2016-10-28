@@ -126,8 +126,8 @@ platform :ios do
     
     sh "xcodebuild -workspace #{project_dir}/#{workspace_name}.xcworkspace -scheme #{scheme_name} -archivePath #{build_dir}/#{product_name}.xcarchive archive"
     sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath #{build_dir}/#{product_name}.xcarchive -exportPath #{build_dir}"
-    sh "zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM"
-    sh "mv #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.app.dSYM.zip"
+    #sh "zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM"
+    #sh "mv #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.app.dSYM.zip"
   end
 
   # This lane requires HOCKEY_PRODUCTION environment variable to be set.
@@ -138,11 +138,15 @@ platform :ios do
     build_dir = "build"
     product_name = "Wikipedia"
     ipa_path = "#{build_dir}/#{product_name}.ipa"
-
+    #dsym_path = "#{build_dir}/#{product_name}.app.dSYM.zip"
+    build_number = latest_testflight_build_number + 1
+    version = get_version_number
+    bundle_identifier = "org.wikimedia.wikipedia"
+    
     increment_build_number({
-      build_number: latest_testflight_build_number + 1
+      build_number: build_number
     })
-
+    
     changelog_from_git_commits(
       pretty: '- (%ae) %s', # Optional, lets you provide a custom format to apply to each commit when generating the changelog text
       tag_match_pattern: 'betas/*', # Optional, lets you search for a tag name that matches a glob(7) pattern
@@ -151,6 +155,18 @@ platform :ios do
 
     build
 
+    pilot(
+      ipa: ipa_path,
+      skip_waiting_for_build_processing: false,
+      skip_submission: false,
+      distribute_external: false
+    )
+    
+    download_dsyms(
+      build_number: build_number.to_s,
+      version: version.to_s
+    ) # Download dSYM files from iTC
+    
     hockey_prod_id = ENV["HOCKEY_PRODUCTION"]
     raise "Must specifiy HockeyApp public identifier." unless hockey_prod_id.length > 0
 
@@ -159,17 +175,12 @@ platform :ios do
       public_identifier: hockey_prod_id,
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
+      dsym: "#{bundle_identifier}-#{version}-#{build_number}.dSYM.zip"
     )
-
-    pilot(
-      ipa: ipa_path,
-      skip_waiting_for_build_processing: true,
-      skip_submission: false,
-      distribute_external: false
-    )
-
+    
     tag_beta
-
+    
+    clean_build_artifacts
   end
 
   desc "Runs tests, version, tag, and push to the beta branch"
@@ -211,5 +222,5 @@ platform :ios do
 
     tag_release
   end
-
+  
 end

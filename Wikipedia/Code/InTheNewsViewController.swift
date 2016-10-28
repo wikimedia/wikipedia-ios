@@ -52,7 +52,7 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
     func updateUIWithStory(story: WMFFeedNewsStory) {
         tableView.reloadData()
         
-        guard let mainArticlePreview = story.mostPopularArticlePreview ?? story.articlePreviews?.first else {
+        guard let mainArticlePreview = story.featuredArticlePreview ?? story.articlePreviews?.first else {
             return
         }
         
