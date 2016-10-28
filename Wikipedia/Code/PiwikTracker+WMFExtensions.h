@@ -12,8 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)wmf_start;
 
-+ (nullable instancetype)wmf_configuredInstance;
-
 - (void)wmf_logView:(id<WMFAnalyticsViewNameProviding>)view;
 
 - (void)wmf_logActionImpressionInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType;

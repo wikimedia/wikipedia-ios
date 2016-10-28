@@ -19,15 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSString *piwikHostURLString = @"https://piwik.wikimedia.org/";
     NSString *appID = @"3";
     [PiwikTracker sharedInstanceWithSiteID:appID baseURL:[NSURL URLWithString:piwikHostURLString]];
-    [[PiwikTracker wmf_configuredInstance] setDispatchInterval:WMFDispatchInterval];
-#endif
-}
-
-+ (nullable instancetype)wmf_configuredInstance {
-#ifdef PIWIK_ENABLED
-    return [self sharedInstance];
-#else
-    return nil;
+    [[PiwikTracker sharedInstance] setDispatchInterval:WMFDispatchInterval];
 #endif
 }
 

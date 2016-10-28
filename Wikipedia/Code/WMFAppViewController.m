@@ -214,8 +214,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 - (void)appDidEnterBackgroundWithNotification:(NSNotification *)note {
     [self startBackgroundTask];
     dispatch_async(dispatch_get_main_queue(), ^{
-#if FB_TWEAK_ENABLED
-        if (FBTweakValue(@"Notifications", @"In the news", @"Send on app exit", NO)) {
+//#if FB_TWEAK_ENABLED
+//        if (FBTweakValue(@"Notifications", @"In the news", @"Send on app exit", NO)) {
             WMFNewsContentGroup *newsContentGroup = (WMFNewsContentGroup *)[self.contentStore firstGroupOfKind:[WMFNewsContentGroup kind]];
             if (newsContentGroup) {
                 NSArray<WMFFeedNewsStory *> *stories = [self.contentStore contentForContentGroup:newsContentGroup];
@@ -227,8 +227,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
                     [[self feedContentSource] scheduleNotificationForNewsStory:randomStory articlePreview:preview force:YES];
                 }
             }
-        }
-#endif
+//        }
+//#endif
         [self pauseApp];
     });
 }
@@ -332,7 +332,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
                 [self loadMainUI];
                 [self hideSplashViewAnimated:!didShowOnboarding];
                 [self resumeApp];
-                [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
+                [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
             }];
 
         }];
