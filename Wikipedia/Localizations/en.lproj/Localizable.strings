@@ -505,3 +505,9 @@
 "feed-news-notification-button-text" = "Turn on notifications";
 
 "back" = "Back";
+
+"save-action" = "Save";
+"unsave-action" = "Unsave";
+
+"saved-value" = "Saved";
+"unsaved-value" = "Not saved";

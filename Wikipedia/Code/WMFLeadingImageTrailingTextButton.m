@@ -161,9 +161,8 @@
     dispatch_block_t animations = ^{
         self.iconImageView.image = self.selected && self.selectedIconImage ? self.selectedIconImage : self.iconImage;
         self.textLabel.text = self.selected && self.selectedLabelText ? self.selectedLabelText : self.labelText;
-        self.accessibilityLabel = self.textLabel.text;
-        self.accessibilityValue = self.textLabel.text;
-        self.accessibilityHint = self.textLabel.text;
+        self.accessibilityLabel = self.selected ? self.selectedActionText : self.deselectedActionText;
+        self.accessibilityValue = self.selected ? self.selectedValueText : self.deselectedValueText;
     };
     if (!animated) {
         animations();
@@ -213,6 +212,12 @@
 
     self.labelText = [self localizedStringForKeyFromCurrentBundle:@"button-save-for-later"];
     self.selectedLabelText = [self localizedStringForKeyFromCurrentBundle:@"button-saved-for-later"];
+    
+    self.deselectedValueText = [self localizedStringForKeyFromCurrentBundle:@"unsaved-value"];
+    self.selectedValueText = [self localizedStringForKeyFromCurrentBundle:@"saved-value"];
+
+    self.selectedActionText = [self localizedStringForKeyFromCurrentBundle:@"unsave-action"];
+    self.deselectedActionText = [self localizedStringForKeyFromCurrentBundle:@"save-action"];
 }
 
 - (void)configureAsReportBugButton {
