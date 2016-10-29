@@ -16,12 +16,16 @@
 /**
  *  The text shown to the right of the image.
  */
-@property (nonatomic, strong) NSString *labelText;
+@property (nonatomic, copy) NSString *labelText;
 
 /**
  *  The selected text shown to the right of the image.
  */
-@property (nonatomic, strong) NSString *selectedLabelText;
+@property (nonatomic, copy) NSString *selectedLabelText;
+
+@property (nonatomic, copy) NSString *selectedActionText;
+
+@property (nonatomic, copy) NSString *deselectedActionText;
 
 /**
  *  The space between the elements. Default == 12
@@ -33,7 +37,6 @@
  * Left/Right flipped for RTL
  */
 @property (nonatomic, assign) UIEdgeInsets edgeInsets;
-
 
 /**
  *  The image view shown to the left (in LTR) of the text. Exposed for configuration ONLY
@@ -47,7 +50,6 @@
 
  */
 @property (nonatomic, strong, readonly) UILabel *textLabel;
-
 
 @end
 
@@ -63,7 +65,6 @@
  *  Configured button with bug icon and text
  */
 - (void)configureAsReportBugButton;
-
 
 - (void)configureAsNotifyTrendingButton;
 
