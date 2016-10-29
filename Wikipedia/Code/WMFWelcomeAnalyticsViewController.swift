@@ -8,7 +8,7 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
         super.viewDidLoad()
                 
         updateToggleLabelTitleForUsageReportsIsOn(false)
-
+        
         //Set state of the toggle. Also make sure crash manager setting is in sync with this setting - likely to happen on first launch or for previous users.
         if (NSUserDefaults.wmf_userDefaults().wmf_sendUsageReports()) {
             toggle.on = true
@@ -20,8 +20,13 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
     }
     
     private func updateToggleLabelTitleForUsageReportsIsOn(isOn: Bool) {
+        
+        //Hide accessibility of label because switch will become the label by default.
+        toggleLabel.isAccessibilityElement = false
+        
         let title = isOn ? localizedStringForKeyFallingBackOnEnglish("welcome-volunteer-thanks").stringByReplacingOccurrencesOfString("$1", withString: "😀") : localizedStringForKeyFallingBackOnEnglish("welcome-volunteer-send-usage-reports")
         toggleLabel.text = title
+        toggle.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("welcome-volunteer-send-usage-reports")
     }
     
     @IBAction func toggleAnalytics(withSender sender: UISwitch){
