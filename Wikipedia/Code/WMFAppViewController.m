@@ -1049,12 +1049,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     return YES;
 }
-//side project saturday
--(void) updateActiveTitleAccessibilityButton:(UIViewController *)viewController {
+- (void)updateActiveTitleAccessibilityButton:(UIViewController *)viewController {
     if([viewController isKindOfClass:[WMFExploreViewController class]]) {
         WMFExploreViewController * vc = (WMFExploreViewController *) viewController;
         vc.titleButton.accessibilityLabel = MWLocalizedString(@"home-title-accessibility-label", nil);
-
     } else if([viewController isKindOfClass:[WMFArticleViewController class]]) {
         WMFArticleViewController * vc = (WMFArticleViewController *) viewController;
         if(self.rootTabBarController.selectedIndex == WMFAppTabTypeExplore){
