@@ -161,7 +161,7 @@
     dispatch_block_t animations = ^{
         self.iconImageView.image = self.selected && self.selectedIconImage ? self.selectedIconImage : self.iconImage;
         self.textLabel.text = self.selected && self.selectedLabelText ? self.selectedLabelText : self.labelText;
-        self.accessibilityLabel = self.selected ? self.selectedActionText : self.deselectedActionText;
+        self.accessibilityLabel = self.selected ? self.selectedActionText ?: self.textLabel.text : self.deselectedActionText ?: self.textLabel.text;
         self.accessibilityValue = self.selected ? self.selectedValueText : self.deselectedValueText;
     };
     if (!animated) {
