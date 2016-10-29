@@ -1049,7 +1049,23 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     return YES;
 }
+//side project saturday
+-(void) updateActiveTitleAccessibilityButton:(UIViewController *)viewController {
+    if([viewController isKindOfClass:[WMFExploreViewController class]]) {
+        WMFExploreViewController * vc = (WMFExploreViewController *) viewController;
+        vc.titleButton.accessibilityLabel = MWLocalizedString(@"home-title-accessibility-label", nil);
 
+    } else if([viewController isKindOfClass:[WMFArticleViewController class]]) {
+        WMFArticleViewController * vc = (WMFArticleViewController *) viewController;
+        if(self.rootTabBarController.selectedIndex == WMFAppTabTypeExplore){
+            vc.titleButton.accessibilityLabel = MWLocalizedString(@"home-button-explore-accessibility-label", nil);
+        }else  if(self.rootTabBarController.selectedIndex == WMFAppTabTypeSaved){
+            vc.titleButton.accessibilityLabel = MWLocalizedString(@"home-button-saved-accessibility-label", nil);
+        }else if(self.rootTabBarController.selectedIndex == WMFAppTabTypeRecent){
+            vc.titleButton.accessibilityLabel = MWLocalizedString(@"home-button-history-accessibility-label", nil);
+        }
+    }
+}
 #pragma mark - UINavigationControllerDelegate
 
 - (void)navigationController:(UINavigationController *)navigationController
@@ -1057,6 +1073,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                     animated:(BOOL)animated {
     navigationController.interactivePopGestureRecognizer.delegate = self;
     [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
+    [self updateActiveTitleAccessibilityButton: viewController];
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {

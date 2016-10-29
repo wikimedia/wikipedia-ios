@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL canScrollToTop;
 
+-(UIButton *) titleButton;
+
 - (void)showSettings;
 
 - (NSUInteger)numberOfSectionsInExploreFeed;

@@ -805,6 +805,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.significantlyViewedTimer = nil;
 }
 
+-(UIButton *) titleButton {
+    return (UIButton *) self.navigationItem.titleView;
+}
+
+
 #pragma mark - Title Button
 
 - (void)setUpTitleBarButton {
@@ -821,7 +826,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
           forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = b;
     self.navigationItem.titleView.isAccessibilityElement = YES;
-    self.navigationItem.titleView.accessibilityLabel = MWLocalizedString(@"home-button-accessibility-label", nil);
+    
     self.navigationItem.titleView.accessibilityTraits |= UIAccessibilityTraitButton;
 }
 
