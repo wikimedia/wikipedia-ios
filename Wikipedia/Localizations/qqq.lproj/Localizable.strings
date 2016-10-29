@@ -448,6 +448,3 @@
 
 "save-action" = "Accessibility action description for 'Save'";
 "unsave-action" = "Accessibility action description for 'Unsave'";
-
-"saved-value" = "Accessibility description for value of 'Saved'";
-"not-saved-value" = "Accessibility description for value of 'Not saved'";

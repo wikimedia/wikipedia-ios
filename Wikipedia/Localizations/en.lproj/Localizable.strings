@@ -508,6 +508,3 @@
 
 "save-action" = "Save";
 "unsave-action" = "Unsave";
-
-"saved-value" = "Saved";
-"unsaved-value" = "Not saved";

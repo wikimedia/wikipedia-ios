@@ -27,10 +27,6 @@
 
 @property (nonatomic, copy) NSString *deselectedActionText;
 
-@property (nonatomic, copy) NSString *selectedValueText;
-
-@property (nonatomic, copy) NSString *deselectedValueText;
-
 /**
  *  The space between the elements. Default == 12
  */
