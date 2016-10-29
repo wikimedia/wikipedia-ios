@@ -452,6 +452,8 @@
 
 "compass-direction" = "at $1 o'clock";
 
+"top-read-readers-graph-text" = "readers";
+
 "explore-featured-article-heading" = "Featured article";
 "explore-continue-reading-heading" = "Continue reading";
 "explore-nearby-heading" = "Places near";
