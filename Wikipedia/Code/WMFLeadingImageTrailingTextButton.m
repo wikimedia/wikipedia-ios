@@ -212,7 +212,7 @@
 
     self.labelText = [self localizedStringForKeyFromCurrentBundle:@"button-save-for-later"];
     self.selectedLabelText = [self localizedStringForKeyFromCurrentBundle:@"button-saved-for-later"];
-    
+
     self.deselectedValueText = [self localizedStringForKeyFromCurrentBundle:@"unsaved-value"];
     self.selectedValueText = [self localizedStringForKeyFromCurrentBundle:@"saved-value"];
 
@@ -226,6 +226,10 @@
                                 inBundle:[NSBundle bundleForClass:[self class]]
            compatibleWithTraitCollection:self.traitCollection];
     self.labelText = [self localizedStringForKeyFromCurrentBundle:@"button-report-a-bug"];
+    self.deselectedValueText = nil;
+    self.selectedValueText = nil;
+    self.selectedActionText = [self localizedStringForKeyFromCurrentBundle:@"button-report-a-bug"];
+    self.deselectedActionText = [self localizedStringForKeyFromCurrentBundle:@"button-report-a-bug"];
 }
 
 - (NSString *)localizedStringForKeyFromCurrentBundle:(NSString *)key {
@@ -250,6 +254,11 @@
 
     self.textLabel.textColor = [UIColor wmf_blueTintColor];
     self.textLabel.adjustsFontSizeToFitWidth = YES;
+
+    self.deselectedValueText = nil;
+    self.selectedValueText = nil;
+    self.selectedActionText = [self localizedStringForKeyFromCurrentBundle:@"feed-news-notification-button-text"];
+    self.deselectedActionText = [self localizedStringForKeyFromCurrentBundle:@"feed-news-notification-button-text"];
 }
 
 @end
