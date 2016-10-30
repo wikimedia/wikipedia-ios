@@ -145,6 +145,8 @@
     }
     BOOL isSaved = [self isSaved];
     self.control.selected = isSaved;
+    self.control.accessibilityLabel = isSaved ? MWLocalizedString(@"unsave-action", nil) : MWLocalizedString(@"save-action", nil);
+    self.barButtonItem.accessibilityLabel = isSaved ? MWLocalizedString(@"unsave-action", nil) : MWLocalizedString(@"save-action", nil);
     if (isSaved) {
         self.barButtonItem.image = [UIImage imageNamed:@"save-filled"];
     } else {
