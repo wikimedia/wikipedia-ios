@@ -113,8 +113,7 @@
 "settings-help-and-feedback" = "Bantuan dan maklum balas";
 "settings-primary-language" = "Utama";
 "settings-primary-language-details" = "Bahasa pertama dalam senarai ini digunakan sebagai bahasa utama untuk aplikasi. Menukar bahasa ini akan menukar kandungan setiap hari (seperti Rencana Pilihan) yang ditunjukkan pada Jelajah.";
-// Fuzzy
-"settings-notifications-system-off" = "Pemberitahuan sedang dimatikan untuk Wikipedia. Pergi ke Tetapan iOS anda untuk menghidupkan pemberitahuan";
+"settings-notifications-system-off" = "Pemberitahuan sedang dimatikan untuk Wikipedia. Pergi ke tetapan peranti anda untuk menghidupkan pemberitahuan";
 "settings-notifications-system-turn-on" = "Aktifkan Notis";
 "settings-notifications-info" = "Dimaklumkan kepada arah aliran dan membaca bahagian rencana mengenai Wikipedia dengan pemberitahuan menolak kami. Semua yang diperuntukkan berkenaan dengan privasi dan sehingga data minit.";
 "settings-notifications-learn-more" = "Ketahui lebih lanjut mengenai pemberitahuan";
@@ -434,6 +433,8 @@
 "number-thousands" = "$1 ribu";
 "number-millions" = "$1 juta";
 "number-billions" = "$1 bilion";
+// Fuzzy
 "feed-news-notification-text" = "Anda kini boleh menghidupkan pemberitahuan dari rencana Wikipedia tren dalam berita.";
 // Fuzzy
 "feed-news-notification-button-text" = "Beritahu saya mengenai trend berita";
+"back" = "Kembali";

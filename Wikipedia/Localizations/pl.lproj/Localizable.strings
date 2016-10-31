@@ -88,8 +88,7 @@
 "wikitext-upload-save-sign-in" = "Zaloguj się";
 "wikitext-upload-save-anonymously" = "Opublikuj anonimowo";
 "wikitext-upload-save-anonymously-warning" = "Zmiany będą oznaczone przez adres IP urządzenia. Jeśli $1, otrzymasz wyższy poziom prywatności.";
-// Fuzzy
-"wikitext-upload-save-terms-and-license" = "Zapisując, zgadzasz się na $1 i nieodwołalnie publikujesz swój wkład na licencji $2.";
+"wikitext-upload-save-terms-and-license" = "Publikując, zgadzasz się na $1 i nieodwołalnie publikujesz swój wkład na licencji $2.";
 "wikitext-upload-save-terms-name" = "Warunki użytkowania";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Otwórz link";
@@ -168,11 +167,9 @@
 "page-history-downloading" = "Ładowanie historii artykułu...";
 "navbar-title-mode-edit-wikitext" = "Edytuj";
 "navbar-title-mode-login" = "Zaloguj się";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "Zaloguj się i zapisz";
+"navbar-title-mode-login-and-save" = "Zaloguj się i opublikuj to";
 "navbar-title-mode-create-account" = "Utwórz konto";
-// Fuzzy
-"navbar-title-mode-create-account-and-save" = "Załóż konto i zapisz";
+"navbar-title-mode-create-account-and-save" = "Załóż konto i opublikuj to";
 "navbar-title-mode-edit-wikitext-warning" = "Problemy edycji";
 "navbar-title-mode-edit-wikitext-disallow" = "Problemy edycji";
 "navbar-title-mode-edit-wikitext-preview" = "Podgląd";
@@ -348,6 +345,7 @@
 "icon-shortcut-search-title" = "Szukaj w Wikipedii";
 "icon-shortcut-random-title" = "Losowy artykuł";
 "close-button-accessibility-label" = "Zamknij";
+"explore-continue-reading-heading" = "Czytaj dalej";
 "explore-nearby-heading" = "Miejsca w pobliżu";
 "explore-nearby-sub-heading-your-location" = "Twoje położenie";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";
@@ -364,3 +362,4 @@
 "number-thousands" = "$1 tys.";
 "number-millions" = "$1 mln";
 "number-billions" = "$1 mld";
+"back" = "Wstecz";

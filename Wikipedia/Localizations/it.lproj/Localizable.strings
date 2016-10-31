@@ -441,3 +441,4 @@
 "number-thousands" = "$1 mila";
 "number-millions" = "$1";
 "number-billions" = "$1";
+"back" = "Indietro";
