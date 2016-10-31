@@ -487,6 +487,8 @@
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
 
+"readers-accessibility-label" = "$1 readers";
+
 "reference-title" = "Reference $1";
 
 "in-the-news-notification-read-now-action-title" = "Read Now";
