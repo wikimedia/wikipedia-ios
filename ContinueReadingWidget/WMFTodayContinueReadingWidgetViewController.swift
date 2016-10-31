@@ -35,6 +35,17 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         emptyDescriptionLabel.text = localizedStringForKeyFallingBackOnEnglish("continue-reading-empty-title")
         emptyDescriptionLabel.text = localizedStringForKeyFallingBackOnEnglish("continue-reading-empty-description")
         updateView()
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:))))
+    }
+    
+    func handleTapGestureRecognizer(recognizer: UITapGestureRecognizer) {
+        switch recognizer.state {
+        case .Recognized:
+            continueReading(self)
+        default:
+            break
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
