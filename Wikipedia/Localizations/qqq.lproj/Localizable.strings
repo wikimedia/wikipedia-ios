@@ -437,6 +437,7 @@
 "top-read-see-more-trending" = "See more trending";
 "top-read-header-with-language" = "$1 Wikipedia - for example English Wikipedia\n{{Identical|Wikipedia}}";
 "top-read-header-generic" = "Wikipedia\n{{Identical|Wikipedia}}";
+"readers-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate number of readers for a given article - $1 is replaced with the number of readers";
 "reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}";
 "in-the-news-notification-read-now-action-title" = "Title on the 'Read Now' action button";
 "in-the-news-notification-share-action-title" = "Title on the 'Share' action button\n{{Identical|Share}}";
