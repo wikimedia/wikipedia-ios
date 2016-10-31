@@ -120,8 +120,7 @@
 "settings-help-and-feedback" = "Aide et commentaires";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "La première langue dans cette liste est utilisée comme langue principale de votre application. Modifier cette langue changera le contenu quotidien (comme les Articles en vedette) affiché dans Explore.";
-// Fuzzy
-"settings-notifications-system-off" = "Les notifications sont désactivées pour Wikipédia. Allez dans vos Paramètres iOS pour activer les notifications";
+"settings-notifications-system-off" = "Les notifications sont actuellement désactivées pour Wikipédia. Allez dans les paramètres de votre appareil pour activer les notifications";
 "settings-notifications-system-turn-on" = "Activer les notifications";
 "settings-notifications-info" = "Être alerté la tendance et les articles les plus lus sur Wikipédia avec nos notifications envoyées. Tout cela est fourni en respectant la confidentialité et la fraîcheur des données.";
 "settings-notifications-learn-more" = "En savoir plus sur les notifications";
@@ -441,6 +440,8 @@
 "number-thousands" = "$1K";
 "number-millions" = "$1M";
 "number-billions" = "$1G";
+// Fuzzy
 "feed-news-notification-text" = "Vous pouvez maintenant activer les notification pour les articles de Wikipédia dans la tendance de l’actualité.";
 // Fuzzy
 "feed-news-notification-button-text" = "M’avertir de l’actualité des tendances";
+"back" = "Retour";

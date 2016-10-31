@@ -110,8 +110,7 @@
 "settings-help-and-feedback" = "مدد ۽ پذيرائي";
 "settings-primary-language" = "شروعاتي";
 "settings-primary-language-details" = "ھن فھرست جي پھرين ٻولي ايپ جي شروعاتي ٻولي طور استعمال ڪئي وڃي ٿي. اھا ٻولي تبديل ڪرڻ سان روزانو جو مواد تبديل ٿيندو (مثال طور نمايان مضمون) جيڪو ايڪسپلور تي ڏيکاريو وڃي ٿو.";
-// Fuzzy
-"settings-notifications-system-off" = "ھينئر وڪيپيڊيا لاءِ اطلاع آف ٿيل ڪيل آھن. اطلاع آن ڪرڻ لاءِ پنھنجي آءِاوايس جي ترتيبن ۾ وڃو";
+"settings-notifications-system-off" = "ھينئر وڪيپيڊيا لاءِ اطلاع آف ٿيل ڪيل آھن. اطلاع آن ڪرڻ لاءِ پنھنجي ڊوائيس جي ترتيبن ۾ وڃو";
 "settings-notifications-system-turn-on" = "اطلاع آن ڪريو";
 "settings-notifications-learn-more" = "اطلاعن بابت وڌيڪ ڄاڻو";
 "settings-notifications-trending" = "لاڙو رکندڙ تازا واقعا";
@@ -420,6 +419,8 @@
 "number-thousands" = "$1K";
 "number-millions" = "$1M";
 "number-billions" = "$1B";
+// Fuzzy
 "feed-news-notification-text" = "ھاڻي توھان خبرن ۾ لاڙو رکندڙ وڪيپيڊيا مضمونن کان اطلاع آن ڪري سگھو ٿا.";
 // Fuzzy
 "feed-news-notification-button-text" = "لاڙو رکندڙ خبرن بابت مون کي اطلاع ڏيو";
+"back" = "واپس";

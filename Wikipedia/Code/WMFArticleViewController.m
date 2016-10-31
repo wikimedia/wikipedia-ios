@@ -1572,10 +1572,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - SectionEditorViewControllerDelegate
 
-- (void)sectionEditorFinishedEditing:(SectionEditorViewController *)sectionEditorViewController {
+- (void)sectionEditorFinishedEditing:(SectionEditorViewController *)sectionEditorViewController withChanges:(BOOL)didChange {
     self.skipFetchOnViewDidAppear = YES;
     [self dismissViewControllerAnimated:YES completion:NULL];
-    [self fetchArticle];
+    if (didChange) {
+        [self fetchArticle];
+    }
 }
 
 #pragma mark - Article link and image peeking via WKUIDelegate
