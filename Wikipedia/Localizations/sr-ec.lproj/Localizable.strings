@@ -392,3 +392,4 @@
 "no-email-account-alert" = "Подесите е-пошту на вашем уређају па покушајте поново.";
 "top-read-header-with-language" = "Википедија на $1";
 "top-read-header-generic" = "Википедија";
+"back" = "Назад";

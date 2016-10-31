@@ -370,6 +370,7 @@
 "welcome-explore-tell-me-more-privacy" = "未在我們的伺服器裡儲存閱讀清單或設定檔。";
 "welcome-explore-tell-me-more-done-button" = "了解";
 "welcome-explore-continue-button" = "入門";
+"welcome-notifications-tell-me-more-title" = "更多有關通知";
 "welcome-languages-title" = "語言";
 "welcome-languages-sub-title" = "選擇您偏好的語言來搜尋維基百科";
 "welcome-languages-add-button" = "新增另一個語言";
@@ -431,3 +432,4 @@
 "number-thousands" = "$1千";
 "number-millions" = "$1百萬";
 "number-billions" = "$1十億";
+"back" = "返回";
