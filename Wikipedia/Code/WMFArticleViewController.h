@@ -64,6 +64,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic, nullable) id<WMFArticlePreviewingActionsDelegate> articlePreviewingActionsDelegate;
 
+-(UIButton *) titleButton;
+
 @end
 
 @interface WMFArticleViewController (WMFBrowserViewControllerInterface)
