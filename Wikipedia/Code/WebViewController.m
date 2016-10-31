@@ -535,10 +535,6 @@ NSString *const WMFCCBySALicenseURL =
 
 #pragma mark - UIViewController
 
-- (void)didReceiveMemoryWarning {
-    self.zeroStatusLabel.text = @"This is a test message. This is a test message. This is a test message. This is a test message.";
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
