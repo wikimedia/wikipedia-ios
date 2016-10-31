@@ -157,7 +157,7 @@ platform :ios do
     build_number = latest_testflight_build_number(app_identifier:  app_identifier) + 1
     version = get_version_number
     hockey_prod_id = ENV["HOCKEY_PRODUCTION"]
-    raise "Must specifiy HockeyApp public identifier." unless hockey_prod_id.length > 0
+    raise "Must specifiy HockeyApp public identifier." unless hockey_prod_id != nil && hockey_prod_id.length > 0
     
     increment_build_number(
       build_number: build_number
