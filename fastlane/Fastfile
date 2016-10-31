@@ -10,7 +10,7 @@ platform :ios do
      # Set project for commit_version_bump, which seems to get confused by projects in other folders
      ENV['FL_BUILD_NUMBER_PROJECT'] = "Wikipedia.xcodeproj"
      ensure_git_status_clean unless ENV['FL_NO_ENSURE_CLEAN']
-     xcversion version: "~> 8.0.0"
+     xcversion version: "~> 8.0"
   end
 
   desc "Checks out the sha specified in the environment variables or the develop branch"
@@ -149,6 +149,8 @@ platform :ios do
   # 2. Use a .env file
   desc "updates version, builds, and pushes to Testlfight"
   lane :push do |options|
+    hockey_prod_id = ENV["HOCKEY_PRODUCTION"]
+    raise "Must specifiy HockeyApp public identifier." unless hockey_prod_id != nil && hockey_prod_id.length > 0
     build_dir = "build"
     product_name = options[:product_name] || "Wikipedia"
     ipa_path = "#{build_dir}/#{product_name}.ipa"
@@ -156,7 +158,7 @@ platform :ios do
     app_identifier = options[:app_identifier] || "org.wikimedia.wikipedia"
     build_number = latest_testflight_build_number(app_identifier:  app_identifier) + 1
     version = get_version_number
-    
+
     
     increment_build_number(
       build_number: build_number
@@ -185,9 +187,6 @@ platform :ios do
       build_number: build_number.to_s,
       version: version.to_s
     ) # Download dSYM files from iTC
-    
-    hockey_prod_id = ENV["HOCKEY_PRODUCTION"]
-    raise "Must specifiy HockeyApp public identifier." unless hockey_prod_id.length > 0
 
     hockey(
       ipa: ipa_path,
