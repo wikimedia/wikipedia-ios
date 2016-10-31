@@ -91,6 +91,10 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (UIButton *)titleButton {
+    return (UIButton *)self.navigationItem.titleView;
+}
+
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
@@ -107,7 +111,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
               forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.titleView = b;
         self.navigationItem.titleView.isAccessibilityElement = YES;
-        self.navigationItem.titleView.accessibilityLabel = MWLocalizedString(@"home-accessibility-label", nil);
+       
         self.navigationItem.titleView.accessibilityTraits |= UIAccessibilityTraitHeader;
         self.navigationItem.leftBarButtonItem = [self settingsBarButtonItem];
         self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];

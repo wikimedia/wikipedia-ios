@@ -395,7 +395,13 @@
 "home-hide-suggestion-prompt" = "Hide this suggestion";
 "home-hide-suggestion-cancel" = "Cancel";
 "home-accessibility-label" = "Wikipedia, Explore";
+"home-title-accessibility-label" = "Wikipedia, scroll to top of Explore";
 "home-button-accessibility-label" = "Home";
+"home-button-explore-accessibility-label" = "Wikipedia, return to Explore";
+"home-button-saved-accessibility-label" = "Wikipedia, return to Saved";
+"home-button-history-accessibility-label" = "Wikipedia, return to History";
+
+
 
 "potd-empty-error-description" = "Failed to retrieve picture of the day for $1";
 "potd-description-prefix" = "Picture of the day for $1";
@@ -486,6 +492,8 @@
 "top-read-see-more-trending" = "See more trending";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
+
+"readers-accessibility-label" = "$1 readers";
 
 "reference-title" = "Reference $1";
 
