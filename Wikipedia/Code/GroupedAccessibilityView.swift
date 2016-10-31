@@ -1,17 +1,55 @@
 import UIKit
 
 class GroupedAccessibilityView: UIView {
+
+    var arrangedAccessibilityViews: [UIView] = []
+    
+    //convienene outlets
+    @IBOutlet weak var accessibilityView0: UIView?
+    @IBOutlet weak var accessibilityView1: UIView?
+    @IBOutlet weak var accessibilityView2: UIView?
+    @IBOutlet weak var accessibilityView3: UIView?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        wmf_disableLabelAccesibility()
+        wmf_disableSubviewAccesibility()
         isAccessibilityElement = true
         accessibilityTraits = UIAccessibilityTraitLink
+        
+        guard let first = accessibilityView0 else {
+            return
+        }
+        arrangedAccessibilityViews.append(first)
+        
+        guard let second = accessibilityView1 else {
+            return
+        }
+        arrangedAccessibilityViews.append(second)
+        
+        guard let third = accessibilityView2 else {
+            return
+        }
+        arrangedAccessibilityViews.append(third)
+        
+        guard let fourth = accessibilityView3 else {
+            return
+        }
+        arrangedAccessibilityViews.append(fourth)
     }
     
     override var accessibilityLabel: String? {
         get {
-            return wmf_groupedAccessibilityLabel()
+            var combinedAccessibilityLabel = ""
+            if let superLabel = super.accessibilityLabel {
+                combinedAccessibilityLabel += superLabel + "\n"
+            }
+            for view in arrangedAccessibilityViews {
+                guard let accessibilityLabel = view.accessibilityLabel else {
+                    continue
+                }
+                combinedAccessibilityLabel += accessibilityLabel + "\n"
+            }
+            return combinedAccessibilityLabel
         }
         set {
             super.accessibilityLabel = newValue
@@ -22,26 +60,11 @@ class GroupedAccessibilityView: UIView {
 
 
 extension UIView {
-    
-    func wmf_groupedAccessibilityLabel() -> String {
-        var accessibilityLabel = ""
+
+    func wmf_disableSubviewAccesibility() {
         for view in subviews {
-            if let label = view as? UILabel, let text = label.text {
-                accessibilityLabel += text + "\n"
-            } else {
-                accessibilityLabel += view.wmf_groupedAccessibilityLabel()
-            }
-        }
-        return accessibilityLabel
-    }
-    
-    func wmf_disableLabelAccesibility() {
-        for view in subviews {
-            if let label = view as? UILabel {
-                label.isAccessibilityElement = false
-            } else {
-                view.wmf_disableLabelAccesibility()
-            }
+            view.isAccessibilityElement = false
+            view.wmf_disableSubviewAccesibility()
         }
     }
     

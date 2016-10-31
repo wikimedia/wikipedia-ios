@@ -75,6 +75,10 @@
                                 <exclude reference="2MN-78-FCm"/>
                             </mask>
                         </variation>
+                        <connections>
+                            <outlet property="accessibilityView0" destination="Mxi-So-IXe" id="5T8-Tk-39A"/>
+                            <outlet property="accessibilityView1" destination="EoE-JS-HmV" id="WxW-E7-OY5"/>
+                        </connections>
                     </view>
                 </subviews>
             </view>

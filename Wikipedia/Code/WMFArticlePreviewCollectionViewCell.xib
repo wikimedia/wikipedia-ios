@@ -80,6 +80,11 @@
                             <constraint firstItem="oU4-K5-u5M" firstAttribute="top" secondItem="QOE-MP-zLb" secondAttribute="top" id="tM0-Xi-M12"/>
                             <constraint firstAttribute="trailing" secondItem="Fv1-CZ-slW" secondAttribute="trailing" constant="13" id="unu-8C-LP8"/>
                         </constraints>
+                        <connections>
+                            <outlet property="accessibilityView0" destination="oU4-K5-u5M" id="QA9-Cf-sIV"/>
+                            <outlet property="accessibilityView1" destination="Fv1-CZ-slW" id="Uqe-FN-3jc"/>
+                            <outlet property="accessibilityView2" destination="zIr-xI-hgr" id="TCr-Lq-gzd"/>
+                        </connections>
                     </view>
                 </subviews>
             </view>
