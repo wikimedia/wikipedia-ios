@@ -1,6 +1,7 @@
 // Messages for Dutch (Nederlands)
 // Exported from translatewiki.net
 // Author: FabianRM
+// Author: Hex
 // Author: JurgenNL
 // Author: Macofe
 // Author: Mathonius
@@ -118,9 +119,15 @@
 "settings-support" = "Wikipedia steunen";
 "settings-language-bar" = "Talen weergeven bij zoeken";
 "settings-my-languages" = "Mijn talen";
+"settings-notifications" = "Meldingen";
 "settings-help-and-feedback" = "Hulp en feedback";
 "settings-primary-language" = "Primaire";
 "settings-primary-language-details" = "De eerste taal in deze lijst wordt gebruikt als de primaire taal voor de app. Het wijzigen van deze taal zal veranderen dat dagelijks en inhoud (zoals Aanbevolen Artikel) wordt weergegeven op Verkennen.";
+"settings-notifications-system-turn-on" = "Meldingen inschakelen";
+"settings-notifications-info" = "Word op de hoogte gesteld van actuele en populaire artikelen op Wikipedia met onze push-berichten. Allemaal geleverd met respect voor privacy en tot op de minuut vernieuwde gegevens.";
+"settings-notifications-learn-more" = "Meer informatie over meldingen";
+"settings-notifications-trending" = "Huidige actuele gebeurtenissen";
+"settings-notifications-push-notifications" = "Push-berichten";
 "main-menu-title" = "Meer";
 "main-menu-heading-about" = "Over";
 "main-menu-language-title" = "Zoeken in Wikipedia in het $1";
@@ -250,6 +257,7 @@
 "button-ok" = "OK";
 "button-save-for-later" = "Opslaan voor later";
 "button-saved-for-later" = "Opgeslagen voor later";
+"button-read-now" = "Nu lezen";
 "button-report-a-bug" = "Probleem melden";
 "onboarding-create-account" = "Account aanmaken";
 "onboarding-login" = "Aanmelden";
@@ -359,6 +367,8 @@
 "potd-description-prefix" = "Afbeelding van de dag voor $1";
 "welcome-explore-title" = "Verkennen";
 "welcome-explore-sub-title" = "Een nieuwe manier om elke dag interessante pagina's te ontdekken";
+"welcome-explore-new-ways-title" = "Nieuwe manieren om te ontdekken";
+"welcome-explore-new-ways-sub-title" = "Nieuwe meldingen en widgets om u te helpen interessante artikelen te ontdekken";
 "welcome-explore-tell-me-more" = "Vertel me meer";
 "welcome-explore-tell-me-more-about-explore" = "Meer over Verkennen";
 "welcome-explore-tell-me-more-details" = "Wanneer u een pagina leest worden er automatisch gerelateerde pagina's aan \"Verkennen\" toegevoegd. Er zijn geen wijzigingen aangebracht op de manier hoe wij informatie verzamelen, uw leesgeschiedenis blijft privé.";
@@ -366,6 +376,9 @@
 "welcome-explore-tell-me-more-privacy" = "Er worden geen gegevens over uw leesgedrag opgeslagen op onze servers.";
 "welcome-explore-tell-me-more-done-button" = "Begrepen";
 "welcome-explore-continue-button" = "Aan de slag";
+"welcome-notifications-tell-me-more-title" = "Meer informatie over meldingen";
+"welcome-notifications-tell-me-more-storage" = "Meldingsvoorkeuren zijn opgeslagen op het apparaat en niet gebaseerd op persoonlijke informatie of activiteit.";
+"welcome-notifications-tell-me-more-creation" = "Meldingen worden gemaakt en geleverd op uw apparaat door de app, niet door onze servers (of die van derden).";
 "welcome-languages-title" = "Talen";
 "welcome-languages-sub-title" = "Kies de voorkeurstalen waarin u binnen Wikipedia wilt zoeken";
 "welcome-languages-add-button" = "Een andere taal toevoegen";
@@ -419,3 +432,14 @@
 "top-read-header-with-language" = "Wikipedia in het $1";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Referentie $1";
+"in-the-news-notification-read-now-action-title" = "Nu lezen";
+"in-the-news-notification-share-action-title" = "Delen";
+"in-the-news-notification-save-for-later-action-title" = "Opslaan voor later";
+"in-the-news-title" = "Actueel";
+"in-the-news-title-for-date" = "Nieuws van $1";
+"number-thousands" = "$1";
+"number-millions" = "$1";
+"number-billions" = "$1";
+// Fuzzy
+"feed-news-notification-text" = "U kunt nu meldingen ontvangen van Wikipedia-artikelen die nu in het nieuws zijn.";
+"back" = "Terug";

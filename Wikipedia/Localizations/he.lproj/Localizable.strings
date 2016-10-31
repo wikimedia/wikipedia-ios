@@ -115,8 +115,7 @@
 "settings-help-and-feedback" = "עזרה ומשוב";
 "settings-primary-language" = "ראשית";
 "settings-primary-language-details" = "השפה הראשונה ברשימה הזאת היא השפה הראשית עבור היישום. שינוי השפה הזאת ישנה את התוכן היומי (כגון ערך מומלץ) שמוצג ב\"לחקור\".";
-// Fuzzy
-"settings-notifications-system-off" = "עדכונים מוויקיפדיה כבויים עכשיו. אפשר להפעיל את העדכונים בהגדרות ה־iOS שלך";
+"settings-notifications-system-off" = "עדכונים מוויקיפדיה כבויים עכשיו. אפשר להפעיל את העדכונים בהגדרות המכשיר שלך";
 "settings-notifications-system-turn-on" = "הפעלת עדכונים";
 "settings-notifications-info" = "קבלו התראות על ערכים חמים ומבוקשים בוויקיפדיה עם העדכונים שלנו. כל המידע מסופק תוך כדי כיבוד פרטיות המשתמש ונתונים עדכניים.";
 "settings-notifications-learn-more" = "מידע נוסף על עדכונים";
@@ -436,6 +435,7 @@
 "number-thousands" = "$1K";
 "number-millions" = "$1";
 "number-billions" = "$1";
+// Fuzzy
 "feed-news-notification-text" = "עכשיו אפשר להפעיל עדכונים מערכי ויקיפדיה שחמים בחדשות.";
 // Fuzzy
 "feed-news-notification-button-text" = "עדכנו אותי על חדשות חמות";

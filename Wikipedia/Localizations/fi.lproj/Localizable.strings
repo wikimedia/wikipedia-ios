@@ -115,9 +115,13 @@
 "settings-support" = "Tue Wikipediaa";
 "settings-language-bar" = "Näytä kielet haussa";
 "settings-my-languages" = "Omat kielet";
+"settings-notifications" = "Ilmoitukset";
 "settings-help-and-feedback" = "Ohje ja palaute";
 "settings-primary-language" = "Ensisijainen";
 "settings-primary-language-details" = "Tämän listan ensimmäinen kieli on sovelluksen oletuskieli. Asetuksen muuttaminen vaikuttaa esimerkiksi Suositeltu artikkeli -toiminnon sisältöön.";
+"settings-notifications-system-off" = "Ilmoitukset ovat tällä hetkellä pois käytöstä Wikipedia-sovelluksessa. Mene laitteesi Asetukset-valikkoon ottaaksesi käyttöön ilmoitukset";
+"settings-notifications-system-turn-on" = "Ota käyttöön ilmoitukset";
+"settings-notifications-learn-more" = "Lue lisää ilmoituksista";
 "main-menu-title" = "Lisää";
 "main-menu-heading-about" = "Tietoja";
 "main-menu-language-title" = "Etsi wikistä kielellä $1";
@@ -352,7 +356,7 @@
 "home-accessibility-label" = "Wikipedia, Tutki";
 // Fuzzy
 "home-button-accessibility-label" = "Koti-painike";
-"potd-empty-error-description" = "Virhe hakiessa päivän kuvaa $1";
+"potd-empty-error-description" = "Virhe haettaessa päivän kuvaa $1";
 "potd-description-prefix" = "Päivän kuva: $1";
 "welcome-explore-title" = "Tutki";
 "welcome-explore-sub-title" = "Uusi tapa löytää kiinnostavia artikkeleita joka päivä";
@@ -361,6 +365,9 @@
 "welcome-explore-tell-me-more-details" = "Kun luet artikkelia, aiheeseen liittyvät artikkelit lisätään automaattisesti sinun tutkimissyötteeseen. Tämä ei muuta sitä miten keräämme tietoa sinusta, ja sinun lukuhistoriasi on silti yksityinen.";
 "welcome-explore-tell-me-more-done-button" = "Selvä";
 "welcome-explore-continue-button" = "Aloitetaan";
+"welcome-notifications-tell-me-more-title" = "Lisätietoja ilmoituksista";
+"welcome-notifications-tell-me-more-storage" = "Ilmoitusasetukset ovat tallennettuna laitteeseen eivätkä ne pohjaudu henkilökohtaisiin tietoihin tai toimintoihin.";
+"welcome-notifications-tell-me-more-creation" = "Sovellus luo ja toimittaa ilmoitukset, eikä niitä haeta meidän (tai kolmannen osapuolen) palvelimilta.";
 "welcome-languages-title" = "Kielet";
 "welcome-languages-add-button" = "Lisää toinen kieli";
 "welcome-languages-continue-button" = "Jatka";
@@ -416,6 +423,8 @@
 "in-the-news-notification-share-action-title" = "Jaa";
 "in-the-news-notification-save-for-later-action-title" = "Tallenna myöhemmäksi";
 "in-the-news-currently-trending" = "Tällä hetkellä suosittuja";
+"in-the-news-title" = "Uutisissa";
 "number-thousands" = "$1 t.";
 "number-millions" = "$1 milj.";
 "number-billions" = "$1 mrd.";
+"back" = "Takaisin";
