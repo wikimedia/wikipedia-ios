@@ -90,8 +90,8 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
--(UIButton *) titleButton {
-    return (UIButton *) self.navigationItem.titleView;
+- (UIButton *)titleButton {
+    return (UIButton *)self.navigationItem.titleView;
 }
 
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
