@@ -120,8 +120,7 @@
 "settings-help-and-feedback" = "帮助和反馈";
 "settings-primary-language" = "首选";
 "settings-primary-language-details" = "此列表中的第一个语言被用于应用程序的首选语言。更改此语言将更改在探索中显示的每日内容（例如特色条目）。";
-// Fuzzy
-"settings-notifications-system-off" = "目前维基百科关闭了通知。请前往您的iOS设置以打开通知";
+"settings-notifications-system-off" = "目前维基百科关闭了通知。请前往您的设备设置以打开通知";
 "settings-notifications-system-turn-on" = "打开通知";
 "settings-notifications-info" = "通过我们推送的通知，提醒维基百科上的趋势和最多阅读条目。所有通知都已考虑到隐私和最新数据。";
 "settings-notifications-learn-more" = "了解更多有关通知";
@@ -441,6 +440,8 @@
 "number-thousands" = "$1千";
 "number-millions" = "$1百万";
 "number-billions" = "$1十亿";
+// Fuzzy
 "feed-news-notification-text" = "您现在可以从维基百科条目趋势新闻动态中打开通知。";
 // Fuzzy
 "feed-news-notification-button-text" = "通知我有关趋势新闻";
+"back" = "返回";

@@ -124,9 +124,16 @@
 "settings-support" = "Vikipedi'yi destekleyin";
 "settings-language-bar" = "Aramada dilleri göster";
 "settings-my-languages" = "Dillerim";
+"settings-notifications" = "Bildirimler";
 "settings-help-and-feedback" = "Yardım ve geri bildirim";
 "settings-primary-language" = "Birincil";
 "settings-primary-language-details" = "Bu listedeki ilk dil, uygulamanın birincil dili olarak kullanılır. Bu dil değiştirildiğinde, Keşfet'te göysterilen günlük içerik (Seçkin Madde gibi) de değişecektir.";
+"settings-notifications-system-off" = "Şu an Vikipedi için bildirimler kapatılmış durumda. Açmak için cihazınızın Ayarlar menüsüne gidin.";
+"settings-notifications-system-turn-on" = "Bildirimleri aç";
+"settings-notifications-info" = "Anlık bildirimlerimizle, gündemde olan ve en çok okunan Vikipedi makalelerinden haberdar olun. Hepsi, gizliliğe ve güncel verilere bağlı olarak sunulmaktadır.";
+"settings-notifications-learn-more" = "Bildirimler hakkında daha fazla bilgi edinin";
+"settings-notifications-trending" = "Gündemdeki güncel olaylar";
+"settings-notifications-push-notifications" = "Anlık bildirimler";
 "main-menu-title" = "Diğer";
 "main-menu-heading-about" = "Hakkında";
 "main-menu-language-title" = "$1 vikide ara";
@@ -366,6 +373,8 @@
 "potd-description-prefix" = "$1 tarihli günün resmi";
 "welcome-explore-title" = "Keşfet";
 "welcome-explore-sub-title" = "Her gün ilginç maddeler keşfetmek için yeni bir yol";
+"welcome-explore-new-ways-title" = "Keşfetmek için yeni yollar";
+"welcome-explore-new-ways-sub-title" = "Yeni bildirimler ve araçlar ilginç makaleleri keşfetmenize yardımcı olacak";
 "welcome-explore-tell-me-more" = "Daha fazla bilgi";
 "welcome-explore-tell-me-more-about-explore" = "Keşfet hakkında daha fazla bilgi";
 "welcome-explore-tell-me-more-details" = "Bir maddeyi okuduğunuzda, ilgili maddeler otomatik olarak Keşfet bölümünüze eklenir. Bu, bizim bilgi toplama usullerimizi değiştirmez ve okuma geçmişiniz yine gizli kalır.";
@@ -373,6 +382,9 @@
 "welcome-explore-tell-me-more-privacy" = "Sunucularımızda herhangi bir okuma listesi veya profil kaydedilmez.";
 "welcome-explore-tell-me-more-done-button" = "Anladım";
 "welcome-explore-continue-button" = "Kullanmaya başla";
+"welcome-notifications-tell-me-more-title" = "Bildirimler hakkında daha fazla bilgi";
+"welcome-notifications-tell-me-more-storage" = "Bildirim tercihleri cihazda saklanır ve kişisel bilgi veya faaliyete dayalı değildir.";
+"welcome-notifications-tell-me-more-creation" = "Bildirimler, bizim (veya üçüncü tarafların) sunucuları(mız) eliyle değil, sizin cihanız üzerindeki uygulama tarafından oluşturulur ve ulaştırılır.";
 "welcome-languages-title" = "Diller";
 "welcome-languages-sub-title" = "Vikipedi'de arama yapmak için tercih ettiğiniz dilleri seçin";
 "welcome-languages-add-button" = "Başka bir dil ekle";
@@ -427,4 +439,17 @@
 "top-read-header-with-language" = "$1 Vikipedi";
 "top-read-header-generic" = "Vikipedi";
 "reference-title" = "$1 referansı";
+"in-the-news-notification-read-now-action-title" = "Şimdi Oku";
+"in-the-news-notification-share-action-title" = "Paylaş";
+"in-the-news-notification-save-for-later-action-title" = "Sonrası için kaydet";
+"in-the-news-currently-trending" = "Güncel popüler";
+"in-the-news-title" = "Haberlerde";
+"in-the-news-title-for-date" = "$1 haberleri";
 "number-thousands" = "$1B";
+"number-millions" = "$1";
+"number-billions" = "$1";
+// Fuzzy
+"feed-news-notification-text" = "Artık haberlerde gündemde olan Vikipedi makalelerinden bildirimleri açabilirsiniz.";
+// Fuzzy
+"feed-news-notification-button-text" = "Gündemdeki haberler hakkında bana bildirim gönder";
+"back" = "Geri";

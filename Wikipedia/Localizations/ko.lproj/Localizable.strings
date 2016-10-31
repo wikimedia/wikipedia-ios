@@ -118,9 +118,12 @@
 "settings-support" = "위키백과 지원";
 "settings-language-bar" = "검색 결과에 표시할 언어";
 "settings-my-languages" = "내 언어";
+"settings-notifications" = "알림";
 "settings-help-and-feedback" = "도움말 및 의견";
 "settings-primary-language" = "주 언어";
 "settings-primary-language-details" = "이 목록에 처음 사용한 언어가 이 앱의 주 언어로 사용됩니다. 이 언어를 변경하면 찾아보기에서 보이는 오늘의 글(알찬 글 등)이 변경됩니다.";
+"settings-notifications-learn-more" = "알림에 대해 더 알아보기";
+"settings-notifications-push-notifications" = "푸시 알림";
 "main-menu-title" = "더 보기";
 "main-menu-heading-about" = "정보";
 "main-menu-language-title" = "$1 위키백과 검색";
@@ -366,6 +369,8 @@
 "welcome-explore-tell-me-more-privacy" = "서버에 읽기 목록 또는 프로필이 저장되어 있지 않습니다.";
 "welcome-explore-tell-me-more-done-button" = "알겠습니다";
 "welcome-explore-continue-button" = "시작하기";
+"welcome-notifications-tell-me-more-title" = "알림에 대한 더 많은 정보";
+"welcome-notifications-tell-me-more-creation" = "알림은 저희의 (타사) 서버가 아닌, 앱을 통해 장치에서 생성, 전달됩니다.";
 "welcome-languages-title" = "언어";
 "welcome-languages-sub-title" = "위키백과 검색에 선호하는 언어를 선택하십시오";
 "welcome-languages-add-button" = "다른 언어 추가";
@@ -421,6 +426,8 @@
 "in-the-news-notification-read-now-action-title" = "지금 읽기";
 "in-the-news-notification-share-action-title" = "공유";
 "in-the-news-notification-save-for-later-action-title" = "나중을 위해 저장";
+"in-the-news-title" = "새로 들어온 소식";
 "number-thousands" = "$1K";
 "number-millions" = "$1M";
 "number-billions" = "$1B";
+"back" = "뒤로";
