@@ -218,18 +218,11 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                       }];
     }];
 
-    [group waitInBackgroundWithCompletion:^{
-        [self resetRefreshControl];
-        [self.internalContentStore syncDataStoreToDatabase];
-    }];
-
-    //In case we don't finish in a timely maner, lets reset
-    dispatchOnMainQueueAfterDelayInSeconds(12.0, ^{
-        if (self.refreshControl.refreshing) {
-            [self resetRefreshControl];
-            [self.internalContentStore syncDataStoreToDatabase];
-        }
-    });
+    [group waitInBackgroundWithTimeout:12
+                            completion:^{
+                                [self resetRefreshControl];
+                                [self.internalContentStore syncDataStoreToDatabase];
+                            }];
 }
 
 - (void)updateFeedWithLatestDatabaseContent {
