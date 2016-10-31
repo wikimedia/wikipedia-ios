@@ -2,7 +2,7 @@ import Foundation
 
 extension NSNumberFormatter {
     
-    public class var wholeNumberFormatter: NSNumberFormatter? {
+    public class var threeSignificantDigitWholeNumberFormatter: NSNumberFormatter? {
         get {
             struct Static {
                 static var onceToken: dispatch_once_t = 0
@@ -13,6 +13,9 @@ extension NSNumberFormatter {
                 Static.formatter = NSNumberFormatter()
                 Static.formatter?.numberStyle = .DecimalStyle
                 Static.formatter?.maximumFractionDigits = 0
+                Static.formatter?.usesSignificantDigits = true
+                Static.formatter?.maximumSignificantDigits = 3
+                Static.formatter?.roundingMode = .RoundHalfUp
             }
             return Static.formatter
         }
