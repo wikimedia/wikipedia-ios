@@ -807,6 +807,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Title Button
 
+- (UIButton *)titleButton {
+    return (UIButton *)self.navigationItem.titleView;
+}
+
 - (void)setUpTitleBarButton {
     UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
     [b adjustsImageWhenHighlighted];
@@ -821,7 +825,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
           forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = b;
     self.navigationItem.titleView.isAccessibilityElement = YES;
-    self.navigationItem.titleView.accessibilityLabel = MWLocalizedString(@"home-button-accessibility-label", nil);
+
     self.navigationItem.titleView.accessibilityTraits |= UIAccessibilityTraitButton;
 }
 
@@ -1572,10 +1576,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - SectionEditorViewControllerDelegate
 
-- (void)sectionEditorFinishedEditing:(SectionEditorViewController *)sectionEditorViewController {
+- (void)sectionEditorFinishedEditing:(SectionEditorViewController *)sectionEditorViewController withChanges:(BOOL)didChange {
     self.skipFetchOnViewDidAppear = YES;
     [self dismissViewControllerAnimated:YES completion:NULL];
-    [self fetchArticle];
+    if (didChange) {
+        [self fetchArticle];
+    }
 }
 
 #pragma mark - Article link and image peeking via WKUIDelegate

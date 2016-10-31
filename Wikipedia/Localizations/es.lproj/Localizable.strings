@@ -122,9 +122,12 @@
 "settings-help-and-feedback" = "Ayuda y comentarios";
 "settings-primary-language" = "Primario";
 "settings-primary-language-details" = "El primer idioma de esta lista se emplea como el idioma principal de la aplicación. Al cambiarlo, cambiarás también el contenido diario (por ejemplo, el \"Artículo del día\") mostrado en Explorar.";
+"settings-notifications-system-off" = "Actualmente las notificaciones están desactivadas para Wikipedia. Ve a la configuración de tu dispositivo para activarlas";
 "settings-notifications-system-turn-on" = "Activar las notificaciones";
+"settings-notifications-info" = "Mantente en alerta de artículos en tendencia o más leídos en Wikipedia con nuestras notificaciones. Todas ellas proporcionadas con respeto por la privacidad y actualizadas al minuto.";
 "settings-notifications-learn-more" = "Aprender más acerca de las notificaciones";
 "settings-notifications-trending" = "Eventos actuales en tendencia";
+"settings-notifications-push-notifications" = "Notificaciones";
 "main-menu-title" = "Más";
 "main-menu-heading-about" = "Acerca de";
 "main-menu-language-title" = "Búsqueda en Wikipedia en $1";
@@ -365,6 +368,7 @@
 "welcome-explore-title" = "Explorar";
 "welcome-explore-sub-title" = "Una forma nueva de descubrir artículos interesantes todos los días";
 "welcome-explore-new-ways-title" = "Nuevas formas de explorar";
+"welcome-explore-new-ways-sub-title" = "Notificaciones y \"widgets\" nuevos para ayudarte a descubrir artículos interesantes";
 "welcome-explore-tell-me-more" = "Más información";
 "welcome-explore-tell-me-more-about-explore" = "Más acerca de Explorar";
 "welcome-explore-tell-me-more-details" = "Cuando lees un artículo, los artículos relacionados se agregan automáticamente a tu canal de Explorar. Esto no cambia la manera en que recopilamos tu información, y tu historial de lectura sigue siendo privado.";
@@ -373,6 +377,8 @@
 "welcome-explore-tell-me-more-done-button" = "Entendido";
 "welcome-explore-continue-button" = "Empezar";
 "welcome-notifications-tell-me-more-title" = "Más acerca de las notificaciones";
+"welcome-notifications-tell-me-more-storage" = "Las preferencias de notificación se almacenan en el dispositivo y no se basan en información o actividad personal.";
+"welcome-notifications-tell-me-more-creation" = "Las notificaciones las crea y entrega la aplicación en el dispositivo, no desde nuestros servidores (ni desde terceros).";
 "welcome-languages-title" = "Idiomas";
 "welcome-languages-sub-title" = "Selecciona tus idiomas preferidos para buscar en Wikipedia";
 "welcome-languages-add-button" = "Añadir otro idioma";
@@ -437,4 +443,7 @@
 "number-millions" = "$1M";
 "number-billions" = "$1B";
 // Fuzzy
-"feed-news-notification-button-text" = "Avisar acerca de noticias en tendencia";
+"feed-news-notification-text" = "Ahora puedes activar las notificaciones de artículos de Wikipedia en tendencia en las noticias.";
+// Fuzzy
+"feed-news-notification-button-text" = "Avisarme acerca de noticias en tendencia";
+"back" = "Volver";
