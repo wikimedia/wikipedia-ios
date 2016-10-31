@@ -347,6 +347,7 @@
 "potd-description-prefix" = "Bild vum Dag vum $1";
 "welcome-explore-title" = "Entdecken";
 "welcome-explore-sub-title" = "En nei Manéier fir all Dag interessant Artikelen z'entdecken";
+"welcome-explore-new-ways-title" = "Nei Manéiere fir z'entdecken";
 "welcome-explore-tell-me-more" = "Ech wëll méi wëssen";
 "welcome-explore-tell-me-more-about-explore" = "Méi iwwert d'Entdecken";
 "welcome-explore-tell-me-more-related" = "De Feed Entdecken weist Iech Artikelen a Relatioun mat Artikelen déi Dir geliest hutt.";
@@ -419,3 +420,4 @@
 "number-billions" = "$1 Mrd.";
 // Fuzzy
 "feed-news-notification-button-text" = "Mech iwwer aktuell Neiegkeeten informéieren";
+"back" = "Zréck";

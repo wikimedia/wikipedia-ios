@@ -120,8 +120,7 @@
 "settings-help-and-feedback" = "Bantuan dan masukan";
 "settings-primary-language" = "Utama";
 "settings-primary-language-details" = "Bahasa pertama di daftar ini digunakan sebagai bahasa utama untuk aplikasi. Mengubah bahasa ini akan mengubah konten harian (seperti Artikel Pilihan) yang ditampilkan pada Jelajah.";
-// Fuzzy
-"settings-notifications-system-off" = "Pemberitahuan saat ini dinonaktifkan untuk Wikipedia. Pergi ke Pengaturan iOS untuk mengaktifkan pemberitahuan";
+"settings-notifications-system-off" = "Pemberitahuan saat ini dinonaktifkan untuk Wikipedia. Pergi ke pengaturan perangkat Anda untuk mengaktifkan pemberitahuan";
 "settings-notifications-system-turn-on" = "Aktifkan Pemberitahuan";
 "settings-notifications-info" = "Dapatkan pemberitahuan tentang artikel yang sedang tren dan bacaan teratas di Wikipedia dengan pemberitahuan otomatis kami. Semua tersedia sehubungan dengan privasi dan sampai data menit.";
 "settings-notifications-learn-more" = "Pelajari lebih lanjut tentang pemberitahuan";
@@ -441,6 +440,8 @@
 "number-thousands" = "$1 ribu";
 "number-millions" = "$1 juta";
 "number-billions" = "$1 miliar";
+// Fuzzy
 "feed-news-notification-text" = "Sekarang Anda dapat mengaktifkan pemberitahuan dari artikel Wikipedia yang sedang tren dalam peristiwa terkini.";
 // Fuzzy
 "feed-news-notification-button-text" = "Beritahu saya tentang berita yang sedang tren";
+"back" = "Kembali";

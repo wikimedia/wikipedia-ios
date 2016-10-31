@@ -112,8 +112,7 @@
 "settings-help-and-feedback" = "Hilfe und Rückmeldung";
 "settings-primary-language" = "Primär";
 "settings-primary-language-details" = "Die erste Sprache in dieser Liste wird als primäre Sprache für die App verwendet. Das Ändern dieser Sprache ändert den Tagesinhalt (wie den vorgestellten Artikel), der bei „Entdecken“ angezeigt wird.";
-// Fuzzy
-"settings-notifications-system-off" = "Benachrichtigungen sind derzeit für Wikipedia ausgeschaltet. Gehe zu deinen iOS-Einstellungen, um Benachrichtigungen anzuschalten.";
+"settings-notifications-system-off" = "Benachrichtigungen sind derzeit für Wikipedia ausgeschaltet. Gehe zu deinen Geräteeinstellungen, um Benachrichtigungen anzuschalten.";
 "settings-notifications-system-turn-on" = "Benachrichtigungen anschalten";
 "settings-notifications-info" = "Werde benachrichtigt über aktuelle und beliebte Artikel auf Wikipedia mit unseren Push-Benachrichtigungen. Alles wird hinsichtlich des Datenschutzes und bis zu den Minutendaten zur Verfügung gestellt.";
 "settings-notifications-learn-more" = "Mehr über Benachrichtigungen erfahren";
@@ -433,6 +432,8 @@
 "number-thousands" = "$1 T";
 "number-millions" = "$1 Mio.";
 "number-billions" = "$1 Mrd.";
+// Fuzzy
 "feed-news-notification-text" = "Du kannst jetzt Benachrichtigungen von Wikipedia-Artikeln aus den aktuellen Nachrichten anschalten.";
 // Fuzzy
 "feed-news-notification-button-text" = "Benachrichtige mich über aktuelle Nachrichten";
+"back" = "Zurück";
