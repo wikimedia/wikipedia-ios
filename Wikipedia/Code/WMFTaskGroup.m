@@ -38,4 +38,12 @@
     dispatch_group_notify(self.group, dispatch_get_main_queue(), completion);
 }
 
+- (void)waitInBackgroundWithTimeout:(NSTimeInterval)timeout completion:(nonnull dispatch_block_t)completion {
+    dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, timeout * NSEC_PER_SEC);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        dispatch_group_wait(self.group, time);
+        completion();
+    });
+}
+
 @end
