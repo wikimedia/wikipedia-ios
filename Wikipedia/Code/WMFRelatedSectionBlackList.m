@@ -122,7 +122,7 @@ static NSString *const WMFRelatedSectionBlackListFileExtension = @"plist";
 }
 
 - (nullable MWKHistoryEntry *)mostRecentEntry {
-    return [self.dataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    return (MWKHistoryEntry*)[self.dataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 }
 
 - (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block {
