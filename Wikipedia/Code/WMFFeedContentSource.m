@@ -215,7 +215,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 - (void)saveGroupForTopRead:(WMFFeedTopReadResponse *)topRead pageViews:(NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)date {
     //Sometimes top read is nil, depends on time of day
-    if (topRead == nil || date == nil) {
+    if ([topRead.articlePreviews count] == 0 || date == nil) {
         return;
     }
 
@@ -248,7 +248,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 - (void)saveGroupForNews:(NSArray<WMFFeedNewsStory *> *)news pageViews:(NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)date {
-    if (news == nil || date == nil) {
+    if ([news count] == 0 || date == nil) {
         return;
     }
 
