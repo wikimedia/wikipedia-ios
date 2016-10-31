@@ -363,6 +363,10 @@
 "home-hide-suggestion-cancel" = "Title of the button for cancelling the hiding of an explore feed suggestion\n{{Identical|Cancel}}";
 "home-accessibility-label" = "Accessibility heading for the Explore page, indicating both that this is the Wikipedia app (as in the logo that is displayed visually) and that this is the Explore page.";
 "home-button-accessibility-label" = "Accessibility heading for a button on articles allowing users to jump back to the home screen\n{{Identical|Home}}";
+"home-title-accessibility-label" = "Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page";
+"home-button-explore-accessibility-label" = "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore";
+"home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles";
+"home-button-history-accessibility-label" = "Accessibility heading for articles shown within the history articles tab, indicating that tapping it will take you back to the history list";
 "potd-empty-error-description" = "Error message when app fails to download Commons Picture of the Day. $1 will be substitued with the date which the app attempted to retrieve.";
 "potd-description-prefix" = "Prefix to picture of the day description which states it was the picture of the day for a specific date. The $1 token is subtituted for the date.";
 "welcome-explore-title" = "Title for welcome screen explaining new exploration features\n{{Identical|Explore}}";

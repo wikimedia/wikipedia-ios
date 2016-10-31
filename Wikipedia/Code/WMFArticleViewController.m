@@ -807,6 +807,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Title Button
 
+- (UIButton *)titleButton {
+    return (UIButton *)self.navigationItem.titleView;
+}
+
 - (void)setUpTitleBarButton {
     UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
     [b adjustsImageWhenHighlighted];
@@ -821,7 +825,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
           forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = b;
     self.navigationItem.titleView.isAccessibilityElement = YES;
-    self.navigationItem.titleView.accessibilityLabel = MWLocalizedString(@"home-button-accessibility-label", nil);
+
     self.navigationItem.titleView.accessibilityTraits |= UIAccessibilityTraitButton;
 }
 
