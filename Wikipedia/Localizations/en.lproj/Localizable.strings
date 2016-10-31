@@ -395,11 +395,11 @@
 "home-hide-suggestion-prompt" = "Hide this suggestion";
 "home-hide-suggestion-cancel" = "Cancel";
 "home-accessibility-label" = "Wikipedia, Explore";
-"home-title-accessibility-label" = "Wikipedia button, scroll to top of Explore";
+"home-title-accessibility-label" = "Wikipedia, scroll to top of Explore";
 "home-button-accessibility-label" = "Home";
-"home-button-explore-accessibility-label" = "Wikipedia button, return to Explore";
-"home-button-saved-accessibility-label" = "Wikipedia button, return to Saved";
-"home-button-history-accessibility-label" = "Wikipedia button, return to History";
+"home-button-explore-accessibility-label" = "Wikipedia, return to Explore";
+"home-button-saved-accessibility-label" = "Wikipedia, return to Saved";
+"home-button-history-accessibility-label" = "Wikipedia, return to History";
 
 
 
