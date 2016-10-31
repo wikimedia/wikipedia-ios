@@ -18,6 +18,10 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self reset];
+    self.titleLabel.isAccessibilityElement = NO;
+    self.subTitleLabel.isAccessibilityElement = NO;
+    self.isAccessibilityElement = YES;
+    self.accessibilityTraits = UIAccessibilityTraitHeader;
     self.tintColor = [UIColor wmf_blueTintColor];
     self.rightButtonWidthConstraintConstant = self.rightButtonWidthConstraint.constant;
     self.rightButton.hidden = YES;
@@ -45,10 +49,25 @@
 
 - (void)setTitle:(NSAttributedString *)title {
     self.titleLabel.attributedText = title;
+    [self updateAccessibilityLabel];
 }
 
 - (void)setSubTitle:(NSAttributedString *)subTitle {
     self.subTitleLabel.attributedText = subTitle;
+    [self updateAccessibilityLabel];
+}
+
+- (void)updateAccessibilityLabel {
+    NSString *title = self.titleLabel.text;
+    NSString *subtitle = self.subTitleLabel.text;
+    NSMutableArray *components = [NSMutableArray arrayWithCapacity:2];
+    if (title) {
+        [components addObject:title];
+    }
+    if (subtitle) {
+        [components addObject:subtitle];
+    }
+    self.accessibilityLabel = [components componentsJoinedByString:@" "];
 }
 
 - (void)prepareForReuse {

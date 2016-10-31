@@ -446,3 +446,6 @@
 "feed-news-notification-text" = "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news";
 "feed-news-notification-button-text" = "Text for button to turn on trending news notifications";
 "back" = "Generic 'Back' title for back button";
+
+"save-action" = "Accessibility action description for 'Save'";
+"unsave-action" = "Accessibility action description for 'Unsave'";
