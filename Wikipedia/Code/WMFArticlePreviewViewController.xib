@@ -139,8 +139,8 @@
             <connections>
                 <outlet property="accessibilityView0" destination="8p9-Hg-81S" id="fti-YY-Xx2"/>
                 <outlet property="accessibilityView1" destination="3sD-Qs-JfB" id="g5U-ZC-syo"/>
-                <outlet property="accessibilityView2" destination="tGB-R2-1JO" id="JO4-7Y-xgJ"/>
-                <outlet property="accessibilityView3" destination="Hxu-Xo-JQO" id="wli-JN-oSo"/>
+                <outlet property="accessibilityView2" destination="Hxu-Xo-JQO" id="uBY-Gc-dM6"/>
+                <outlet property="accessibilityView3" destination="tGB-R2-1JO" id="18i-Ng-Jzi"/>
             </connections>
             <point key="canvasLocation" x="57.5" y="-237"/>
         </view>
