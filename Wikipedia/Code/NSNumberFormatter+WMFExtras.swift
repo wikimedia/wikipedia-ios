@@ -2,6 +2,22 @@ import Foundation
 
 extension NSNumberFormatter {
     
+    public class var wholeNumberFormatter: NSNumberFormatter? {
+        get {
+            struct Static {
+                static var onceToken: dispatch_once_t = 0
+                static var formatter: NSNumberFormatter? = nil
+            }
+            
+            dispatch_once(&Static.onceToken) {
+                Static.formatter = NSNumberFormatter()
+                Static.formatter?.numberStyle = .DecimalStyle
+                Static.formatter?.maximumFractionDigits = 0
+            }
+            return Static.formatter
+        }
+    }
+    
     public class func localizedThousandsStringFromNumber(number: NSNumber) -> String {
         struct Static {
             static var onceToken: dispatch_once_t = 0

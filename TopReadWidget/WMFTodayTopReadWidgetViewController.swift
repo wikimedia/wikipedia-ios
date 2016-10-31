@@ -230,9 +230,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             vc.subtitleLabel.text = result.snippet ?? result.wikidataDescription
             vc.imageView.wmf_reset()
             vc.rankLabel.text = NSNumberFormatter.localizedThousandsStringFromNumber(i + 1)
-            if let text = vc.viewCountLabel.text {
-                vc.viewCountLabel.accessibilityLabel = text + localizedStringForKeyFallingBackOnEnglish("top-read-readers-graph-text")
-            }
             
             if let articlePreview = self.previewStore.itemForURL(result.articleURL) {
                 if let viewCounts = articlePreview.pageViewsSortedByDate() where viewCounts.count > 0 {
@@ -242,7 +239,12 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                     
                     if let count = viewCounts.last {
                         vc.viewCountLabel.text = NSNumberFormatter.localizedThousandsStringFromNumber(count)
+                        if let numberString = NSNumberFormatter.wholeNumberFormatter?.stringFromNumber(count) {
+                            let format = localizedStringForKeyFallingBackOnEnglish("readers-accessibility-label")
+                            vc.viewCountLabel.accessibilityLabel = format.stringByReplacingOccurrencesOfString("$1", withString: numberString)
+                        }
                     } else {
+                        vc.viewCountLabel.accessibilityLabel = nil
                         vc.viewCountLabel.text = nil
                     }
                     

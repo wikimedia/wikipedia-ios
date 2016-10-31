@@ -452,8 +452,6 @@
 
 "compass-direction" = "at $1 o'clock";
 
-"top-read-readers-graph-text" = "readers";
-
 "explore-featured-article-heading" = "Featured article";
 "explore-continue-reading-heading" = "Continue reading";
 "explore-nearby-heading" = "Places near";
@@ -488,6 +486,8 @@
 "top-read-see-more-trending" = "See more trending";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
+
+"readers-accessibility-label" = "$1 readers";
 
 "reference-title" = "Reference $1";
 
