@@ -22,20 +22,22 @@
         [transaction removeObjectsForKeys:keysToRemove inCollection:[MWKHistoryEntry databaseCollectionName]];
     }];
 
-    //Remove all content groups older than 30 days
+    //Remove all content groups older than 30 days or without content
     [connection asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
 
         NSDate *thirtyDays = [[NSDate date] dateBySubtractingDays:30];
 
         NSMutableArray *keysToRemove = [NSMutableArray array];
 
-        [transaction enumerateKeysAndObjectsInCollection:[WMFContentGroup databaseCollectionName]
-                                              usingBlock:^(NSString *_Nonnull key, WMFContentGroup *_Nonnull object, BOOL *_Nonnull stop) {
+        [transaction enumerateRowsInCollection:[WMFContentGroup databaseCollectionName]
+                                    usingBlock:^(NSString *_Nonnull key, WMFContentGroup *_Nonnull object, NSArray *_Nullable metadata, BOOL *_Nonnull stop) {
 
-                                                  if ([object.date isEarlierThanDate:thirtyDays]) {
-                                                      [keysToRemove addObject:key];
-                                                  }
-                                              }];
+                                        if ([object.date isEarlierThanDate:thirtyDays]) {
+                                            [keysToRemove addObject:key];
+                                        } else if ([metadata count] == 0) {
+                                            [keysToRemove addObject:key];
+                                        }
+                                    }];
 
         [transaction removeObjectsForKeys:keysToRemove inCollection:[WMFContentGroup databaseCollectionName]];
     }];
