@@ -7,7 +7,7 @@
 
 @protocol SectionEditorViewControllerDelegate <NSObject>
 
-- (void)sectionEditorFinishedEditing:(SectionEditorViewController *)sectionEditorViewController;
+- (void)sectionEditorFinishedEditing:(SectionEditorViewController *)sectionEditorViewController withChanges:(BOOL)didChange;
 
 @end
 
