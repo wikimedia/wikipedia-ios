@@ -471,12 +471,12 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
     NSDate *mostRecentDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
-    if ([calendar isDateInToday:mostRecentDate]) {
+    if (mostRecentDate && [calendar isDateInToday:mostRecentDate]) {
         NSInteger count = [defaults wmf_inTheNewsMostRecentDateNotificationCount] + 1;
         [defaults wmf_setInTheNewsMostRecentDateNotificationCount:count];
     } else {
         [defaults wmf_setMostRecentInTheNewsNotificationDate:notificationDate];
-        [defaults wmf_setInTheNewsMostRecentDateNotificationCount:0];
+        [defaults wmf_setInTheNewsMostRecentDateNotificationCount:1];
     }
 
     return YES;
