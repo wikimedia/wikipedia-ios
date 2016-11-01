@@ -4,6 +4,7 @@
 @import NSDate_Extensions;
 
 #import "MWKHistoryEntry+MWKRandom.h"
+#import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "MWKDataStore+TempDataStoreForEach.h"
 #import "NSDateFormatter+WMFExtensions.h"
 #import "MWKDataStore+WMFDataSources.h"
