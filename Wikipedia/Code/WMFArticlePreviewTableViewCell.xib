@@ -69,7 +69,6 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="80H-th-fOm" firstAttribute="leading" secondItem="b9f-lv-xA2" secondAttribute="leading" constant="13" id="0YX-4E-xPI"/>
                             <constraint firstItem="PZm-5D-lWX" firstAttribute="leading" secondItem="b9f-lv-xA2" secondAttribute="leading" constant="13" id="6gY-yK-y4N"/>
