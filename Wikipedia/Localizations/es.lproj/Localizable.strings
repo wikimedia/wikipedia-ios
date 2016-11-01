@@ -3,6 +3,7 @@
 // Author: Elisardojm
 // Author: Fitoschido
 // Author: Indiralena
+// Author: Irus
 // Author: Koavf
 // Author: Macofe
 // Author: MadriCR
@@ -45,7 +46,6 @@
 "zero-free-verbiage" = "Acceso gratuito a Wikipedia de tu operador móvil (sin cargos por datos)";
 "zero-charged-verbiage" = "Wikipedia Zero está desactivado";
 "zero-charged-verbiage-extended" = "Cargar otros artículos puede incurrir en cargos por datos. Los artículos almacenados sin conexión no utilizan datos y son gratis.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Salir de Wikipedia Zero";
 "zero-interstitial-leave-app" = "Pueden aplicarse cargos por datos. ¿Continuar a sitio externo?";
 "zero-interstitial-continue" = "Continuar";
@@ -118,9 +118,16 @@
 "settings-support" = "Apoya a Wikipedia";
 "settings-language-bar" = "Mostrar los idiomas al buscar";
 "settings-my-languages" = "Mis idiomas";
+"settings-notifications" = "Notificaciones";
 "settings-help-and-feedback" = "Ayuda y comentarios";
 "settings-primary-language" = "Primario";
 "settings-primary-language-details" = "El primer idioma de esta lista se emplea como el idioma principal de la aplicación. Al cambiarlo, cambiarás también el contenido diario (por ejemplo, el \"Artículo del día\") mostrado en Explorar.";
+"settings-notifications-system-off" = "Actualmente las notificaciones están desactivadas para Wikipedia. Ve a la configuración de tu dispositivo para activarlas";
+"settings-notifications-system-turn-on" = "Activar las notificaciones";
+"settings-notifications-info" = "Mantente en alerta de artículos en tendencia o más leídos en Wikipedia con nuestras notificaciones. Todas ellas proporcionadas con respeto por la privacidad y actualizadas al minuto.";
+"settings-notifications-learn-more" = "Aprender más acerca de las notificaciones";
+"settings-notifications-trending" = "Eventos actuales en tendencia";
+"settings-notifications-push-notifications" = "Notificaciones";
 "main-menu-title" = "Más";
 "main-menu-heading-about" = "Acerca de";
 "main-menu-language-title" = "Búsqueda en Wikipedia en $1";
@@ -360,6 +367,8 @@
 "potd-description-prefix" = "Foto del día del $1";
 "welcome-explore-title" = "Explorar";
 "welcome-explore-sub-title" = "Una forma nueva de descubrir artículos interesantes todos los días";
+"welcome-explore-new-ways-title" = "Nuevas formas de explorar";
+"welcome-explore-new-ways-sub-title" = "Notificaciones y \"widgets\" nuevos para ayudarte a descubrir artículos interesantes";
 "welcome-explore-tell-me-more" = "Más información";
 "welcome-explore-tell-me-more-about-explore" = "Más acerca de Explorar";
 "welcome-explore-tell-me-more-details" = "Cuando lees un artículo, los artículos relacionados se agregan automáticamente a tu canal de Explorar. Esto no cambia la manera en que recopilamos tu información, y tu historial de lectura sigue siendo privado.";
@@ -367,6 +376,9 @@
 "welcome-explore-tell-me-more-privacy" = "En nuestros servidores no se guardan ni perfiles ni listas de lectura.";
 "welcome-explore-tell-me-more-done-button" = "Entendido";
 "welcome-explore-continue-button" = "Empezar";
+"welcome-notifications-tell-me-more-title" = "Más acerca de las notificaciones";
+"welcome-notifications-tell-me-more-storage" = "Las preferencias de notificación se almacenan en el dispositivo y no se basan en información o actividad personal.";
+"welcome-notifications-tell-me-more-creation" = "Las notificaciones las crea y entrega la aplicación en el dispositivo, no desde nuestros servidores (ni desde terceros).";
 "welcome-languages-title" = "Idiomas";
 "welcome-languages-sub-title" = "Selecciona tus idiomas preferidos para buscar en Wikipedia";
 "welcome-languages-add-button" = "Añadir otro idioma";
@@ -421,4 +433,17 @@
 "top-read-header-with-language" = "Wikipedia en $1";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Referencia $1";
+"in-the-news-notification-read-now-action-title" = "Leer ahora";
+"in-the-news-notification-share-action-title" = "Compartir";
+"in-the-news-notification-save-for-later-action-title" = "Guardar para después";
+"in-the-news-currently-trending" = "En tendencia";
+"in-the-news-title" = "Actualidad";
+"in-the-news-title-for-date" = "Noticias del $1";
 "number-thousands" = "$1K";
+"number-millions" = "$1M";
+"number-billions" = "$1B";
+// Fuzzy
+"feed-news-notification-text" = "Ahora puedes activar las notificaciones de artículos de Wikipedia en tendencia en las noticias.";
+// Fuzzy
+"feed-news-notification-button-text" = "Avisarme acerca de noticias en tendencia";
+"back" = "Volver";

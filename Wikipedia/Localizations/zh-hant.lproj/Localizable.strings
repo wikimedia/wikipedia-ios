@@ -46,7 +46,6 @@
 "zero-free-verbiage" = "從閣下的電話公司免費存取維基百科 (不需要支出資料費用)";
 "zero-charged-verbiage" = "Wikipedia Zero 已關閉";
 "zero-charged-verbiage-extended" = "讀取其他條目將可能產生資料流量費用。已儲存的條目可離線存取，不會產生額外的流量費用。";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "離開 Wikipedia Zero";
 "zero-interstitial-leave-app" = "可能產生資料資料費用。要繼續前往外部網站嗎？";
 "zero-interstitial-continue" = "離開";
@@ -119,9 +118,12 @@
 "settings-support" = "支持維基百科";
 "settings-language-bar" = "搜尋時顯示語言";
 "settings-my-languages" = "我的語言";
+"settings-notifications" = "通知";
 "settings-help-and-feedback" = "說明與回饋";
 "settings-primary-language" = "首選";
 "settings-primary-language-details" = "此列表中最先顯示出的語言被設為此App應用程式的首選語言。更改語言項目將會一同異動瀏覽時秀出的每日內容（如特色條目）";
+"settings-notifications-system-turn-on" = "開啟通知";
+"settings-notifications-learn-more" = "了解更多通知內容";
 "main-menu-title" = "更多";
 "main-menu-heading-about" = "關於";
 "main-menu-language-title" = "搜尋 $1 的維基百科";
@@ -368,6 +370,7 @@
 "welcome-explore-tell-me-more-privacy" = "未在我們的伺服器裡儲存閱讀清單或設定檔。";
 "welcome-explore-tell-me-more-done-button" = "了解";
 "welcome-explore-continue-button" = "入門";
+"welcome-notifications-tell-me-more-title" = "更多有關通知";
 "welcome-languages-title" = "語言";
 "welcome-languages-sub-title" = "選擇您偏好的語言來搜尋維基百科";
 "welcome-languages-add-button" = "新增另一個語言";
@@ -422,4 +425,11 @@
 "top-read-header-with-language" = "$1維基百科";
 "top-read-header-generic" = "維基百科";
 "reference-title" = "參考資料 $1";
+"in-the-news-notification-read-now-action-title" = "現在讀取";
+"in-the-news-notification-share-action-title" = "分享";
+"in-the-news-notification-save-for-later-action-title" = "稍後儲存";
+"in-the-news-currently-trending" = "最新動態";
 "number-thousands" = "$1千";
+"number-millions" = "$1百萬";
+"number-billions" = "$1十億";
+"back" = "返回";

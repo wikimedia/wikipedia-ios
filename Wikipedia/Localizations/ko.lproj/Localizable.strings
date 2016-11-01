@@ -46,7 +46,6 @@
 "zero-free-verbiage" = "이동 통신사에서 무료로 위키백과에 접속하세요 (데이터 요금 면제)";
 "zero-charged-verbiage" = "위키백과 제로가 꺼져 있습니다";
 "zero-charged-verbiage-extended" = "다른 문서를 불러오면 데이터 요금이 부과될 수 있습니다. 저장된 문서는 오프라인으로 저장되어 데이터를 사용하지 않으며 무료입니다.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "위키백과 제로를 떠나고 있습니다";
 "zero-interstitial-leave-app" = "데이터 요금이 부과될 수 있습니다. 바깥 사이트로 계속해서 떠날까요?";
 "zero-interstitial-continue" = "떠나기";
@@ -91,8 +90,7 @@
 "wikitext-upload-save-sign-in-benefits" = "공동 편집자가 당신과 연결할 수 있어서 당신이 편집한 문서를 볼 수 있습니다.";
 "wikitext-upload-save-anonymously" = "익명으로 게시하기";
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인 정보를 더 보호할 수 있습니다.";
-// Fuzzy
-"wikitext-upload-save-terms-and-license" = "저장하면, $1에 동의하고 영구히 $2 라이선스에 따라 기여를 배포하는 데 동의합니다.";
+"wikitext-upload-save-terms-and-license" = "게시하면, $1에 동의하고 영구히 $2 라이선스에 따라 기여를 배포하는 데 동의합니다.";
 "wikitext-upload-save-terms-name" = "이용 약관";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "링크 열기";
@@ -120,9 +118,12 @@
 "settings-support" = "위키백과 지원";
 "settings-language-bar" = "검색 결과에 표시할 언어";
 "settings-my-languages" = "내 언어";
+"settings-notifications" = "알림";
 "settings-help-and-feedback" = "도움말 및 의견";
 "settings-primary-language" = "주 언어";
 "settings-primary-language-details" = "이 목록에 처음 사용한 언어가 이 앱의 주 언어로 사용됩니다. 이 언어를 변경하면 찾아보기에서 보이는 오늘의 글(알찬 글 등)이 변경됩니다.";
+"settings-notifications-learn-more" = "알림에 대해 더 알아보기";
+"settings-notifications-push-notifications" = "푸시 알림";
 "main-menu-title" = "더 보기";
 "main-menu-heading-about" = "정보";
 "main-menu-language-title" = "$1 위키백과 검색";
@@ -368,6 +369,8 @@
 "welcome-explore-tell-me-more-privacy" = "서버에 읽기 목록 또는 프로필이 저장되어 있지 않습니다.";
 "welcome-explore-tell-me-more-done-button" = "알겠습니다";
 "welcome-explore-continue-button" = "시작하기";
+"welcome-notifications-tell-me-more-title" = "알림에 대한 더 많은 정보";
+"welcome-notifications-tell-me-more-creation" = "알림은 저희의 (타사) 서버가 아닌, 앱을 통해 장치에서 생성, 전달됩니다.";
 "welcome-languages-title" = "언어";
 "welcome-languages-sub-title" = "위키백과 검색에 선호하는 언어를 선택하십시오";
 "welcome-languages-add-button" = "다른 언어 추가";
@@ -420,4 +423,11 @@
 "top-read-header-with-language" = "$1 위키백과";
 "top-read-header-generic" = "위키백과";
 "reference-title" = "각주 $1";
+"in-the-news-notification-read-now-action-title" = "지금 읽기";
+"in-the-news-notification-share-action-title" = "공유";
+"in-the-news-notification-save-for-later-action-title" = "나중을 위해 저장";
+"in-the-news-title" = "새로 들어온 소식";
 "number-thousands" = "$1K";
+"number-millions" = "$1M";
+"number-billions" = "$1B";
+"back" = "뒤로";

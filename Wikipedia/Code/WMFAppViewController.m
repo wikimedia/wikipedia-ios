@@ -16,6 +16,8 @@
 #import "MWKDataStore.h"
 #import "WMFContentGroupDataStore.h"
 
+#import "WMFDatabaseHouseKeeper.h"
+
 // Networking
 #import "SavedArticlesFetcher.h"
 #import "SessionSingleton.h"
@@ -110,6 +112,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 @property (nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
 @property (nonatomic, strong) WMFContentGroupDataStore *contentStore;
+
+@property (nonatomic, strong) WMFDatabaseHouseKeeper *houseKeeper;
 
 @property (nonatomic, strong) NSArray<id<WMFContentSource>> *contentSources;
 
@@ -210,6 +214,21 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 - (void)appDidEnterBackgroundWithNotification:(NSNotification *)note {
     [self startBackgroundTask];
     dispatch_async(dispatch_get_main_queue(), ^{
+#if FB_TWEAK_ENABLED
+        if (FBTweakValue(@"Notifications", @"In the news", @"Send on app exit", NO)) {
+            WMFNewsContentGroup *newsContentGroup = (WMFNewsContentGroup *)[self.contentStore firstGroupOfKind:[WMFNewsContentGroup kind]];
+            if (newsContentGroup) {
+                NSArray<WMFFeedNewsStory *> *stories = [self.contentStore contentForContentGroup:newsContentGroup];
+                if (stories.count > 0) {
+                    NSInteger randomIndex = (NSInteger)arc4random_uniform((uint32_t)stories.count);
+                    WMFFeedNewsStory *randomStory = stories[randomIndex];
+                    WMFFeedArticlePreview *feedPreview = randomStory.featuredArticlePreview ?: randomStory.articlePreviews[0];
+                    WMFArticlePreview *preview = [self.previewStore itemForURL:feedPreview.articleURL];
+                    [[self feedContentSource] scheduleNotificationForNewsStory:randomStory articlePreview:preview force:YES];
+                }
+            }
+        }
+#endif
         [self pauseApp];
     });
 }
@@ -225,8 +244,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 #pragma mark - Background Fetch
 
-
-- (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion{
+- (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion {
     [self updateBackgroundSourcesWithCompletion:^{
         completion(UIBackgroundFetchResultNewData);
     }];
@@ -285,7 +303,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
     if (![[NSUserDefaults wmf_userDefaults] wmf_didMigrateToSharedContainer]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
             NSError *error = nil;
             if (![MWKDataStore migrateToSharedContainer:&error]) {
                 DDLogError(@"Error migrating data store: %@", error);
@@ -295,8 +312,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
                 DDLogError(@"Error migrating image cache: %@", error);
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-                CFAbsoluteTime end = CFAbsoluteTimeGetCurrent();
-                NSLog(@"%f", end - start);
                 [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:YES];
                 [self finishLaunch];
             });
@@ -317,7 +332,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
                 [self loadMainUI];
                 [self hideSplashViewAnimated:!didShowOnboarding];
                 [self resumeApp];
-                [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
+                [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
             }];
 
         }];
@@ -356,8 +371,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     } else if ([self shouldShowExploreScreenOnLaunch]) {
         [self showExplore];
     }
-    
-    
+
+#if FB_TWEAK_ENABLED
     if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
         [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{ NSLocalizedDescriptionKey: @"There was an error" }] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
@@ -370,6 +385,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if (FBTweakValue(@"Alerts", @"General", @"Show message on launch", NO)) {
         [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
+#endif
 
     DDLogWarn(@"Resuming… Logging Important Statistics");
     [self logImportantStatistics];
@@ -380,16 +396,21 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         return;
     }
     [[WMFImageController sharedInstance] clearMemoryCache];
-    [self downloadAssetsFilesIfNecessary];
     [self.dataStore startCacheRemoval];
-    [self.dataStore clearMemoryCache];
     [self.savedArticlesFetcher stop];
     [self stopContentSources];
+    self.houseKeeper = [WMFDatabaseHouseKeeper new];
+
+    //TODO: these tasks should be converted to async so we can end the background task as soon as possible
+    [self.dataStore clearMemoryCache];
+    [self downloadAssetsFilesIfNecessary];
+
+    //TODO: implement completion block to cancel download task with the 2 tasks above
+    [self.houseKeeper performHouseKeepingWithCompletion:NULL];
 
     DDLogWarn(@"Backgrounding… Logging Important Statistics");
     [self logImportantStatistics];
 }
-
 
 #pragma mark - Memory Warning
 
@@ -439,9 +460,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             if ([obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
                 [group enter];
                 [(id<WMFDateBasedContentSource>)obj preloadContentForNumberOfDays:2
-                                        completion:^{
-                                            [group leave];
-                                        }];
+                                                                       completion:^{
+                                                                           [group leave];
+                                                                       }];
             }
         }];
 
@@ -474,48 +495,50 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)startContentSources {
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if([obj conformsToProtocol:@protocol(WMFAutoUpdatingContentSource)]){
-            [(id<WMFAutoUpdatingContentSource>) obj startUpdating];
+    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        if ([obj conformsToProtocol:@protocol(WMFAutoUpdatingContentSource)]) {
+            [(id<WMFAutoUpdatingContentSource>)obj startUpdating];
         }
     }];
 }
 
 - (void)stopContentSources {
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if([obj conformsToProtocol:@protocol(WMFAutoUpdatingContentSource)]){
-            [(id<WMFAutoUpdatingContentSource>) obj stopUpdating];
+    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        if ([obj conformsToProtocol:@protocol(WMFAutoUpdatingContentSource)]) {
+            [(id<WMFAutoUpdatingContentSource>)obj stopUpdating];
         }
     }];
 }
 
-- (void)updateContentSourcesWithCompletion:(dispatch_block_t)completion{
-    WMFTaskGroup* group = [WMFTaskGroup new];
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+- (void)updateContentSourcesWithCompletion:(dispatch_block_t)completion {
+    WMFTaskGroup *group = [WMFTaskGroup new];
+    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         [group enter];
-        [obj loadNewContentForce:NO completion:^{
-            [group leave];
-        }];
+        [obj loadNewContentForce:NO
+                      completion:^{
+                          [group leave];
+                      }];
     }];
     [group waitInBackgroundWithCompletion:completion];
 }
 
-- (void)updateBackgroundSourcesWithCompletion:(dispatch_block_t)completion{
-    WMFTaskGroup* group = [WMFTaskGroup new];
-    
+- (void)updateBackgroundSourcesWithCompletion:(dispatch_block_t)completion {
+    WMFTaskGroup *group = [WMFTaskGroup new];
+
     [group enter];
-    [[self feedContentSource] loadNewContentForce:NO completion:^{
-        [group leave];
-    }];
-    
+    [[self feedContentSource] loadNewContentForce:NO
+                                       completion:^{
+                                           [group leave];
+                                       }];
+
     [group enter];
-    [[self randomContentSource] loadNewContentForce:NO completion:^{
-        [group leave];
-    }];
-    
+    [[self randomContentSource] loadNewContentForce:NO
+                                         completion:^{
+                                             [group leave];
+                                         }];
+
     [group waitInBackgroundWithCompletion:completion];
 }
-
 
 - (WMFFeedContentSource *)feedContentSource {
     return [self.contentSources bk_match:^BOOL(id<WMFContentSource> obj) {
@@ -722,6 +745,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 #pragma mark - Utilities
 
+- (void)selectExploreTabAndDismissPresentedViewControllers {
+    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+    if (self.exploreViewController.presentedViewController) {
+        [self.exploreViewController dismissViewControllerAnimated:NO completion:NULL];
+    }
+}
+
 - (WMFArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated {
     if (!articleURL.wmf_title) {
         return nil;
@@ -730,8 +760,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if ([visibleArticleViewController.articleURL isEqual:articleURL]) {
         return visibleArticleViewController;
     }
-    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-    return [[self exploreViewController] wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore previewStore:self.previewStore restoreScrollPosition:YES animated:animated];
+    [self selectExploreTabAndDismissPresentedViewControllers];
+    return [self.exploreViewController wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore previewStore:self.previewStore restoreScrollPosition:YES animated:animated];
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
@@ -783,9 +813,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (WMFNotificationsController *)notificationsController {
-    if (![self uiIsLoaded]) {
-        return nil;
-    }
     return [WMFNotificationsController sharedNotificationsController];
 }
 
@@ -855,7 +882,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
     if ([self shouldShowOnboarding]) {
         WMFWelcomePageViewController *vc = [WMFWelcomePageViewController wmf_viewControllerFromWelcomeStoryboard];
-        
+
         vc.completionBlock = ^{
             [self setDidShowOnboarding];
             if (completion) {
@@ -911,6 +938,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return NO;
     }
 
+#if FB_TWEAK_ENABLED
     if (FBTweakValue(@"Last Open Article", @"General", @"Restore on Launch", YES)) {
         return YES;
     }
@@ -927,6 +955,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 
     return NO;
+#else
+    return YES;
+#endif
 }
 
 - (void)showLastReadArticleAnimated:(BOOL)animated {
@@ -1018,7 +1049,21 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     return YES;
 }
-
+- (void)updateActiveTitleAccessibilityButton:(UIViewController *)viewController {
+    if([viewController isKindOfClass:[WMFExploreViewController class]]) {
+        WMFExploreViewController * vc = (WMFExploreViewController *) viewController;
+        vc.titleButton.accessibilityLabel = MWLocalizedString(@"home-title-accessibility-label", nil);
+    } else if([viewController isKindOfClass:[WMFArticleViewController class]]) {
+        WMFArticleViewController * vc = (WMFArticleViewController *) viewController;
+        if(self.rootTabBarController.selectedIndex == WMFAppTabTypeExplore){
+            vc.titleButton.accessibilityLabel = MWLocalizedString(@"home-button-explore-accessibility-label", nil);
+        }else  if(self.rootTabBarController.selectedIndex == WMFAppTabTypeSaved){
+            vc.titleButton.accessibilityLabel = MWLocalizedString(@"home-button-saved-accessibility-label", nil);
+        }else if(self.rootTabBarController.selectedIndex == WMFAppTabTypeRecent){
+            vc.titleButton.accessibilityLabel = MWLocalizedString(@"home-button-history-accessibility-label", nil);
+        }
+    }
+}
 #pragma mark - UINavigationControllerDelegate
 
 - (void)navigationController:(UINavigationController *)navigationController
@@ -1026,6 +1071,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                     animated:(BOOL)animated {
     navigationController.interactivePopGestureRecognizer.delegate = self;
     [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
+    [self updateActiveTitleAccessibilityButton: viewController];
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
@@ -1112,13 +1158,31 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 // The method will be called on the delegate when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction. The delegate must be set before the application returns from applicationDidFinishLaunching:.
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
-    if ([response.actionIdentifier isEqualToString:WMFInTheNewsNotificationShareActionIdentifier]) {
+    NSString *categoryIdentifier = response.notification.request.content.categoryIdentifier;
+    NSString *actionIdentifier = response.actionIdentifier;
+    if ([categoryIdentifier isEqualToString:WMFInTheNewsNotificationCategoryIdentifier]) {
         NSDictionary *info = response.notification.request.content.userInfo;
         NSString *articleURLString = info[WMFNotificationInfoArticleURLStringKey];
         NSURL *articleURL = [NSURL URLWithString:articleURLString];
-        WMFArticleViewController *articleVC = [self showArticleForURL:articleURL animated:NO];
-        [articleVC shareArticleWhenReady];
+        if ([actionIdentifier isEqualToString:WMFInTheNewsNotificationShareActionIdentifier]) {
+            WMFArticleViewController *articleVC = [self showArticleForURL:articleURL animated:NO];
+            [articleVC shareArticleWhenReady];
+        } else if ([actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
+            [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:@"notification" contentType:articleURL.host];
+            NSDictionary *JSONDictionary = info[WMFNotificationInfoFeedNewsStoryKey];
+            NSError *JSONError = nil;
+            WMFFeedNewsStory *feedNewsStory = [MTLJSONAdapter modelOfClass:[WMFFeedNewsStory class] fromJSONDictionary:JSONDictionary error:&JSONError];
+            if (!feedNewsStory || JSONError) {
+                DDLogError(@"Error parsing feed news story: %@", JSONError);
+                [self showArticleForURL:articleURL animated:NO];
+                return;
+            }
+            [self selectExploreTabAndDismissPresentedViewControllers];
+            [self.exploreViewController showInTheNewsForStory:feedNewsStory date:nil animated:NO];
+        } else if ([actionIdentifier isEqualToString:UNNotificationDismissActionIdentifier]) {
+        }
     }
+
     completionHandler();
 }
 

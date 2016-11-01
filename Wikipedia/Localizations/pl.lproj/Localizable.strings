@@ -45,7 +45,6 @@
 "history-none" = "Brak ostatnich zmian stron.";
 "zero-free-verbiage" = "Bezpłatny dostęp do Wikipedii u twojego operatora telefonii komórkowej (uchylona opłata za ruch)";
 "zero-charged-verbiage" = "Wikipedia Zero jest wyłączona.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Opuszczasz Wikipedię Zero";
 "zero-interstitial-leave-app" = "Przejście do witryny zewnętrznej może się wiązać z opłatami za transmisję danych. Kontynuować?";
 "zero-interstitial-continue" = "Wyjdź";
@@ -89,8 +88,7 @@
 "wikitext-upload-save-sign-in" = "Zaloguj się";
 "wikitext-upload-save-anonymously" = "Opublikuj anonimowo";
 "wikitext-upload-save-anonymously-warning" = "Zmiany będą oznaczone przez adres IP urządzenia. Jeśli $1, otrzymasz wyższy poziom prywatności.";
-// Fuzzy
-"wikitext-upload-save-terms-and-license" = "Zapisując, zgadzasz się na $1 i nieodwołalnie publikujesz swój wkład na licencji $2.";
+"wikitext-upload-save-terms-and-license" = "Publikując, zgadzasz się na $1 i nieodwołalnie publikujesz swój wkład na licencji $2.";
 "wikitext-upload-save-terms-name" = "Warunki użytkowania";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Otwórz link";
@@ -116,6 +114,9 @@
 "settings-language" = "Język Wikipedii";
 "settings-support" = "Wspomóż Wikimedię";
 "settings-my-languages" = "Moje języki";
+"settings-notifications" = "Powiadomienia";
+"settings-notifications-system-turn-on" = "Włączenie powiadomień";
+"settings-notifications-learn-more" = "Dowiedz się więcej o powiadomieniach";
 "main-menu-title" = "Więcej";
 "main-menu-heading-about" = "O aplikacji";
 "main-menu-language-title" = "Przeszukaj $ Wikipedię";
@@ -166,11 +167,9 @@
 "page-history-downloading" = "Ładowanie historii artykułu...";
 "navbar-title-mode-edit-wikitext" = "Edytuj";
 "navbar-title-mode-login" = "Zaloguj się";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "Zaloguj się i zapisz";
+"navbar-title-mode-login-and-save" = "Zaloguj się i opublikuj to";
 "navbar-title-mode-create-account" = "Utwórz konto";
-// Fuzzy
-"navbar-title-mode-create-account-and-save" = "Załóż konto i zapisz";
+"navbar-title-mode-create-account-and-save" = "Załóż konto i opublikuj to";
 "navbar-title-mode-edit-wikitext-warning" = "Problemy edycji";
 "navbar-title-mode-edit-wikitext-disallow" = "Problemy edycji";
 "navbar-title-mode-edit-wikitext-preview" = "Podgląd";
@@ -332,6 +331,7 @@
 "potd-description-prefix" = "Ilustracja dnia na $1";
 "welcome-explore-sub-title" = "Nowy sposób, aby odkrywać ciekawe artykuły każdego dnia";
 "welcome-explore-tell-me-more-done-button" = "Wszystko jasne";
+"welcome-notifications-tell-me-more-title" = "Więcej o powiadomieniach";
 "welcome-languages-title" = "Języki";
 "welcome-languages-add-button" = "Dodaj kolejny język";
 "welcome-languages-continue-button" = "Kontynuuj";
@@ -345,6 +345,7 @@
 "icon-shortcut-search-title" = "Szukaj w Wikipedii";
 "icon-shortcut-random-title" = "Losowy artykuł";
 "close-button-accessibility-label" = "Zamknij";
+"explore-continue-reading-heading" = "Czytaj dalej";
 "explore-nearby-heading" = "Miejsca w pobliżu";
 "explore-nearby-sub-heading-your-location" = "Twoje położenie";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";
@@ -356,4 +357,9 @@
 "find-in-page-popover-description" = "Wyszukiwanie tekstu w artykułach";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Przypis $1";
+"in-the-news-notification-read-now-action-title" = "Przeczytaj teraz";
+"in-the-news-notification-share-action-title" = "Udostępnij";
 "number-thousands" = "$1 tys.";
+"number-millions" = "$1 mln";
+"number-billions" = "$1 mld";
+"back" = "Wstecz";

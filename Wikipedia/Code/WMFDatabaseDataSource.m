@@ -63,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
     return text;
 }
 
-- (nullable id)objectAtIndexPath:(NSIndexPath *)indexPath {
+- (nullable id<WMFDatabaseStorable>)objectAtIndexPath:(NSIndexPath *)indexPath {
     return [self readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
         return [view objectAtIndexPath:indexPath withMappings:self.mappings];
     }];
@@ -75,7 +75,14 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (void)processChanges:(NSArray<YapDatabaseViewRowChange *> *)changes onConnection:(YapDatabaseConnection *)connection {
+- (NSIndexPath*)indexPathForObject:(id<WMFDatabaseStorable>)object{
+    return [self readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction * _Nonnull transaction, YapDatabaseViewTransaction * _Nonnull view) {
+        return [view indexPathForKey:[object databaseKey] inCollection:[[object class] databaseCollectionName] withMappings:self.mappings];
+    }];
+}
+
+
+- (void)processChanges:(NSArray *)changes onConnection:(YapDatabaseConnection *)connection {
     if (![connection isEqual:self.readConnection]) {
         return;
     }
@@ -103,7 +110,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [[self.readConnection ext:self.viewName] getSectionChanges:&sectionChanges
                                                     rowChanges:&rowChanges
-                                              forNotifications:(id)changes
+                                              forNotifications:changes
                                                   withMappings:self.mappings];
 
     if ([sectionChanges count] == 0 & [rowChanges count] == 0) {

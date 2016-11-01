@@ -5,6 +5,7 @@
 // Author: Bsitzmann
 // Author: Dicto23456
 // Author: Dyaydyasasha2015
+// Author: Irus
 // Author: JackLantern
 // Author: Jackie
 // Author: Kaganer
@@ -48,7 +49,6 @@
 "zero-free-verbiage" = "У Вашего оператора бесплатный доступ к Википедии(оплата за трафик не взимается)";
 "zero-charged-verbiage" = "Wikipedia Zero выключена";
 "zero-charged-verbiage-extended" = "При загрузке других статей может взиматься плата за передачу данных. Сохранённые статьи, хранящиеся автономно, не требуют передачи данных и поэтому бесплатны.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Покидаем Wikipedia Zero";
 "zero-interstitial-leave-app" = "Может взиматься плата за передачу данных. Продолжить переход на внешний сайт?";
 "zero-interstitial-continue" = "Перейти";
@@ -121,9 +121,16 @@
 "settings-support" = "Поддержать Википедию";
 "settings-language-bar" = "Показывать языки при поиске";
 "settings-my-languages" = "Мои языки";
+"settings-notifications" = "Уведомления";
 "settings-help-and-feedback" = "Помощь и обратная связь";
 "settings-primary-language" = "Основной";
 "settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения. Изменение этого языка изменит ежедневное содержимое (такое, как Избранная статья), показываемое на странице Исследуйте.";
+"settings-notifications-system-off" = "В настоящее время уведомления для Википедии выключены. Перейдите в Настройки устройства, чтобы включить уведомления";
+"settings-notifications-system-turn-on" = "Включить уведомления";
+"settings-notifications-info" = "Будьте в курсе трендов и топ читать статьи в Википедии с нашими push-уведомления. Все предоставляемые в отношении конфиденциальности и данных.";
+"settings-notifications-learn-more" = "Подробнее об уведомлениях";
+"settings-notifications-trending" = "В тренде текущих событий";
+"settings-notifications-push-notifications" = "Push-уведомления";
 "main-menu-title" = "Ещё";
 "main-menu-heading-about" = "Про приложение";
 "main-menu-language-title" = "Поиск $1 Википедии";
@@ -363,6 +370,8 @@
 "potd-description-prefix" = "Изображение дня за $1";
 "welcome-explore-title" = "Исследуйте";
 "welcome-explore-sub-title" = "Новый способ открывать для себя интересные статьи каждый день";
+"welcome-explore-new-ways-title" = "Новые способы изучения";
+"welcome-explore-new-ways-sub-title" = "Новые уведомления и виджеты, чтобы помочь вам обнаружить интересные статьи";
 "welcome-explore-tell-me-more" = "Расскажите об этом подробнее";
 "welcome-explore-tell-me-more-about-explore" = "Подробнее об Исследовании";
 "welcome-explore-tell-me-more-details" = "Когда вы посещаете статьи, связанные с ними статьи автоматически добавляются в вашу ленту «Исследуйте». Это не изменяет того, как мы собираем вашу информацию, так что ваша история чтения по-прежнему непублична.";
@@ -370,6 +379,9 @@
 "welcome-explore-tell-me-more-privacy" = "Список прочитываемого или профиль не хранится на наших серверах.";
 "welcome-explore-tell-me-more-done-button" = "Понятно";
 "welcome-explore-continue-button" = "Начать";
+"welcome-notifications-tell-me-more-title" = "Подробнее об уведомлениях";
+"welcome-notifications-tell-me-more-storage" = "Уведомления хранятся на устройстве и не основанные на личной информации или деятельности.";
+"welcome-notifications-tell-me-more-creation" = "Уведомления создаются и доставляются на ваше устройство приложение, А не с наших серверов (или третья сторона).";
 "welcome-languages-title" = "Языки";
 "welcome-languages-sub-title" = "Выберите языки, на которых вы хотели бы осуществлять поиск в Википедии";
 "welcome-languages-add-button" = "Добавить ещё один язык";
@@ -424,4 +436,17 @@
 "top-read-header-with-language" = "$1 Википедия";
 "top-read-header-generic" = "Википедия";
 "reference-title" = "Примечание $1";
+"in-the-news-notification-read-now-action-title" = "Прочитать сейчас";
+"in-the-news-notification-share-action-title" = "Поделиться";
+"in-the-news-notification-save-for-later-action-title" = "Сохранить на потом";
+"in-the-news-currently-trending" = "В настоящее время популярные";
+"in-the-news-title" = "В новостях";
+"in-the-news-title-for-date" = "Новости за $1";
 "number-thousands" = "$1 тыс.";
+"number-millions" = "$1М";
+"number-billions" = "$1 млрд.";
+// Fuzzy
+"feed-news-notification-text" = "Сейчас вы можете включить уведомления из статьи Википедии трендов в новостях.";
+// Fuzzy
+"feed-news-notification-button-text" = "Уведомлять меня о свежих новостей";
+"back" = "Назад";

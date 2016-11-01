@@ -103,6 +103,8 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             } else {
                 isExpanded = true
                 maximumSize = UIScreen.mainScreen().bounds.size
+                headerViewHeightConstraint.constant = 40
+                footerViewHeightConstraint.constant = 40
             }
             updateViewPropertiesForIsExpanded(isExpanded)
             layoutForSize(view.bounds.size)
@@ -188,6 +190,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         }
         
         headerLabel.text = headerText.uppercaseString
+        headerLabel.isAccessibilityElement = false
         footerLabel.text = localizedStringForKeyFallingBackOnEnglish("top-read-see-more").uppercaseString
         
         var dataValueMin = CGFloat.max
@@ -227,8 +230,9 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             vc.titleLabel.text = result.displayTitle
             vc.subtitleLabel.text = result.snippet ?? result.wikidataDescription
             vc.imageView.wmf_reset()
-            vc.rankLabel.text = NSNumberFormatter.localizedThousandsStringFromNumber(i + 1)
-            
+            let rankString = NSNumberFormatter.localizedThousandsStringFromNumber(i + 1)
+            vc.rankLabel.text = rankString
+            vc.rankLabel.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("rank-accessibility-label").stringByReplacingOccurrencesOfString("$1", withString: rankString)
             if let articlePreview = self.previewStore.itemForURL(result.articleURL) {
                 if let viewCounts = articlePreview.pageViewsSortedByDate() where viewCounts.count > 0 {
                     vc.sparklineView.minDataValue = dataValueMin
@@ -237,7 +241,12 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                     
                     if let count = viewCounts.last {
                         vc.viewCountLabel.text = NSNumberFormatter.localizedThousandsStringFromNumber(count)
+                        if let numberString = NSNumberFormatter.threeSignificantDigitWholeNumberFormatter?.stringFromNumber(count) {
+                            let format = localizedStringForKeyFallingBackOnEnglish("readers-accessibility-label")
+                            vc.viewCountLabel.accessibilityLabel = format.stringByReplacingOccurrencesOfString("$1", withString: numberString)
+                        }
                     } else {
+                        vc.viewCountLabel.accessibilityLabel = nil
                         vc.viewCountLabel.text = nil
                     }
                     
@@ -249,12 +258,15 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 vc.viewCountAndSparklineContainerView.hidden = true
             }
 
-            
-            if let imageURL = result.thumbnailURL {
-                vc.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: { (error) in
+            if #available(iOSApplicationExtension 10.0, *) {
+                if let imageURL = result.thumbnailURL {
+                    vc.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: { (error) in
+                        vc.collapseImageAndWidenLabels = true
+                    }) {
+                        vc.collapseImageAndWidenLabels = false
+                    }
+                } else {
                     vc.collapseImageAndWidenLabels = true
-                }) {
-                    vc.collapseImageAndWidenLabels = false
                 }
             } else {
                 vc.collapseImageAndWidenLabels = true

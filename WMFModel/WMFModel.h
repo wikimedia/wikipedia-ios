@@ -8,149 +8,152 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 
 @import WMFUtilities;
 
-#import <WMFModel/MWKDataStore.h>
+#import "MWKDataStore.h"
 
-#import <WMFModel/MWKDataObject.h>
-#import <WMFModel/MWKSiteDataObject.h>
+#import "MWKDataObject.h"
+#import "MWKSiteDataObject.h"
 
-#import <WMFModel/MWKArticle.h>
-#import <WMFModel/MWKSection.h>
-#import <WMFModel/MWKSectionList.h>
-#import <WMFModel/MWKImage.h>
-#import <WMFModel/MWKUser.h>
+#import "MWKArticle.h"
+#import "MWKSection.h"
+#import "MWKSectionList.h"
+#import "MWKImage.h"
+#import "MWKUser.h"
 
-#import <WMFModel/MWKHistoryEntry.h>
+#import "MWKHistoryEntry.h"
 
-#import <WMFModel/MWKHistoryList.h>
-#import <WMFModel/MWKSavedPageList.h>
+#import "MWKHistoryList.h"
+#import "MWKSavedPageList.h"
 
-#import <WMFModel/MWKRecentSearchEntry.h>
-#import <WMFModel/MWKRecentSearchList.h>
+#import "MWKRecentSearchEntry.h"
+#import "MWKRecentSearchList.h"
 
-#import <WMFModel/WMFImageTagParser.h>
-#import <WMFModel/WMFImageTag.h>
-#import <WMFModel/WMFImageTag+TargetImageWidthURL.h>
-#import <WMFModel/WMFImageTagList.h>
-#import <WMFModel/WMFImageTagList+ImageURLs.h>
+#import "WMFImageTagParser.h"
+#import "WMFImageTag.h"
+#import "WMFImageTag+TargetImageWidthURL.h"
+#import "WMFImageTagList.h"
+#import "WMFImageTagList+ImageURLs.h"
 
-#import <WMFModel/MWKProtectionStatus.h>
+#import "MWKProtectionStatus.h"
 
-#import <WMFModel/MWLanguageInfo.h>
+#import "MWLanguageInfo.h"
 
-#import <WMFModel/MWKImageInfo.h>
-#import <WMFModel/NSString+WMFExtras.h>
+#import "MWKImageInfo.h"
+#import "NSString+WMFExtras.h"
 
-#import <WMFModel/SDWebImageManager+WMFCacheRemoval.h>
-#import <WMFModel/SDImageCache+WMFPersistentCache.h>
-#import <WMFModel/WMFURLCache.h>
+#import "SDWebImageManager+WMFCacheRemoval.h"
+#import "SDImageCache+WMFPersistentCache.h"
+#import "WMFURLCache.h"
 
-#import <WMFModel/MWKArticle+WMFSharing.h>
-#import <WMFModel/MWKCitation.h>
-#import <WMFModel/MWKHistoryEntry+WMFDatabaseStorable.h>
-#import <WMFModel/MWKImage+CanonicalFilenames.h>
-#import <WMFModel/MWKImageInfo+MWKImageComparison.h>
-#import <WMFModel/MWKSavedPageEntry+ImageMigration.h>
-#import <WMFModel/MWKSavedPageListDataExportConstants.h>
-#import <WMFModel/WikipediaAppUtils.h>
-#import <WMFModel/NSString+WMFHTMLParsing.h>
-#import <WMFModel/WMFImageURLParsing.h>
-#import <WMFModel/WMFZeroConfiguration.h>
-#import <WMFModel/WMFZeroConfigurationFetcher.h>
-#import <WMFModel/MWKSectionMetaData.h>
-#import <WMFModel/MWKLanguageLink.h>
+#import "MWKArticle+WMFSharing.h"
+#import "MWKCitation.h"
+#import "MWKHistoryEntry+WMFDatabaseStorable.h"
+#import "MWKImage+CanonicalFilenames.h"
+#import "MWKImageInfo+MWKImageComparison.h"
+#import "MWKSavedPageEntry+ImageMigration.h"
+#import "MWKSavedPageListDataExportConstants.h"
+#import "WikipediaAppUtils.h"
+#import "NSString+WMFHTMLParsing.h"
+#import "WMFImageURLParsing.h"
+#import "WMFZeroConfiguration.h"
+#import "WMFZeroConfigurationFetcher.h"
+#import "MWKSectionMetaData.h"
+#import "MWKLanguageLink.h"
 
-#import <WMFModel/MWKLanguageLinkController.h>
-#import <WMFModel/MWKLanguageFilter.h>
-#import <WMFModel/WMFApiJsonResponseSerializer.h>
-#import <WMFModel/MWKLanguageLinkResponseSerializer.h>
-#import <WMFModel/WMFMantleJSONResponseSerializer.h>
-#import <WMFModel/WMFNetworkUtilities.h>
-#import <WMFModel/WMFRelatedSectionBlackList.h>
-#import <WMFModel/FetcherBase.h>
+#import "MWKLanguageLinkController.h"
+#import "MWKLanguageFilter.h"
+#import "WMFApiJsonResponseSerializer.h"
+#import "MWKLanguageLinkResponseSerializer.h"
+#import "WMFMantleJSONResponseSerializer.h"
+#import "WMFNetworkUtilities.h"
+#import "WMFRelatedSectionBlackList.h"
+#import "FetcherBase.h"
 
-#import <WMFModel/UIScreen+WMFImageWidth.h>
-#import <WMFModel/NSURL+WMFMainPage.h>
-#import <WMFModel/WMFAssetsFile.h>
+#import "UIScreen+WMFImageWidth.h"
+#import "NSURL+WMFMainPage.h"
+#import "WMFAssetsFile.h"
 
-#import <WMFModel/WMFNotificationsController.h>
+#import "WMFNotificationsController.h"
 
-#import <WMFModel/MWNetworkActivityIndicatorManager.h>
+#import "MWNetworkActivityIndicatorManager.h"
 
-#import <WMFModel/MWKHistoryEntry+WMFDatabaseViews.h>
-#import <WMFModel/MWKLanguageLinkController_Private.h>
-#import <WMFModel/WMFArticlePreview+WMFDatabaseStorable.h>
-#import <WMFModel/WMFArticlePreview.h>
-#import <WMFModel/WMFContentGroup.h>
-#import <WMFModel/WMFContentGroup+WMFDatabaseViews.h>
-#import <WMFModel/WMFContentGroup+WMFDatabaseStorable.h>
-#import <WMFModel/WMFDatabaseViewable.h>
-#import <WMFModel/WMFFaceDetectionCache.h>
-#import <WMFModel/YapDatabase+WMFExtensions.h>
-#import <WMFModel/YapDatabaseReadWriteTransaction+WMFCustomNotifications.h>
-#import <WMFModel/YapDatabaseViewMappings+WMFMappings.h>
-#import <WMFModel/YapDatabaseConnection+WMFExtensions.h>
+#import "MWKHistoryEntry+WMFDatabaseViews.h"
+#import "MWKLanguageLinkController_Private.h"
+#import "WMFArticlePreview+WMFDatabaseStorable.h"
+#import "WMFArticlePreview.h"
+#import "WMFContentGroup.h"
+#import "WMFContentGroup+WMFDatabaseViews.h"
+#import "WMFContentGroup+WMFDatabaseStorable.h"
+#import "WMFDatabaseViewable.h"
+#import "WMFFaceDetectionCache.h"
+#import "YapDatabase+WMFExtensions.h"
+#import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
+#import "YapDatabaseViewMappings+WMFMappings.h"
+#import "YapDatabaseConnection+WMFExtensions.h"
 
-#import <WMFModel/CIContext+WMFImageProcessing.h>
-#import <WMFModel/CIDetector+WMFFaceDetection.h>
+#import "CIContext+WMFImageProcessing.h"
+#import "CIDetector+WMFFaceDetection.h"
 
-#import <WMFModel/WMFContentSource.h>
-#import <WMFModel/WMFRelatedPagesContentSource.h>
-#import <WMFModel/WMFMainPageContentSource.h>
-#import <WMFModel/WMFNearbyContentSource.h>
-#import <WMFModel/WMFContinueReadingContentSource.h>
-#import <WMFModel/WMFFeedContentSource.h>
-#import <WMFModel/WMFRandomContentSource.h>
+#import "WMFContentSource.h"
+#import "WMFRelatedPagesContentSource.h"
+#import "WMFMainPageContentSource.h"
+#import "WMFNearbyContentSource.h"
+#import "WMFContinueReadingContentSource.h"
+#import "WMFFeedContentSource.h"
+#import "WMFRandomContentSource.h"
 
-#import <WMFModel/WMFFeedContentFetcher.h>
-#import <WMFModel/WMFFeedDayResponse.h>
-#import <WMFModel/WMFFeedTopReadResponse.h>
-#import <WMFModel/WMFFeedArticlePreview.h>
-#import <WMFModel/WMFFeedImage.h>
-#import <WMFModel/WMFFeedNewsStory.h>
+#import "WMFFeedContentFetcher.h"
+#import "WMFFeedDayResponse.h"
+#import "WMFFeedTopReadResponse.h"
+#import "WMFFeedArticlePreview.h"
+#import "WMFFeedImage.h"
+#import "WMFFeedNewsStory.h"
 
-#import <WMFModel/MWKSiteInfo.h>
-#import <WMFModel/MWKSiteInfoFetcher.h>
-#import <WMFModel/WMFRandomArticleFetcher.h>
+#import "MWKSiteInfo.h"
+#import "MWKSiteInfoFetcher.h"
+#import "WMFRandomArticleFetcher.h"
 
-#import <WMFModel/WMFLocationManager.h>
-#import <WMFModel/CLLocationManager+WMFLocationManagers.h>
-#import <WMFModel/CLLocation+WMFBearing.h>
-#import <WMFModel/NSString+WMFDistance.h>
-#import <WMFModel/CLLocation+WMFComparison.h>
+#import "WMFLocationManager.h"
+#import "CLLocationManager+WMFLocationManagers.h"
+#import "CLLocation+WMFBearing.h"
+#import "NSString+WMFDistance.h"
+#import "CLLocation+WMFComparison.h"
 
-#import <WMFModel/WMFRelatedSearchFetcher.h>
-#import <WMFModel/WMFRelatedSearchResults.h>
-#import <WMFModel/WMFSearchResponseSerializer.h>
+#import "WMFRelatedSearchFetcher.h"
+#import "WMFRelatedSearchResults.h"
+#import "WMFSearchResponseSerializer.h"
 
-#import <WMFModel/MWKLocationSearchResult.h>
-#import <WMFModel/WMFLocationSearchResults.h>
-#import <WMFModel/WMFLocationSearchFetcher.h>
-#import <WMFModel/MWKLocationSearchResult.h>
+#import "MWKLocationSearchResult.h"
+#import "WMFLocationSearchResults.h"
+#import "WMFLocationSearchFetcher.h"
+#import "MWKLocationSearchResult.h"
 
-#import <WMFModel/EventLogger.h>
-#import <WMFModel/EventLoggingFunnel.h>
-#import <WMFModel/ReadingActionFunnel.h>
-#import <WMFModel/AFHTTPSessionManager+WMFConfig.h>
-#import <WMFModel/AFHTTPRequestSerializer+WMFRequestHeaders.h>
-#import <WMFModel/AFHTTPSessionManager+WMFDesktopRetry.h>
-#import <WMFModel/WMFArticlePreviewFetcher.h>
-#import <WMFModel/WMFBaseRequestSerializer.h>
-#import <WMFModel/MWKSearchResult.h>
-#import <WMFModel/NSDictionary+WMFCommonParams.h>
+#import "EventLogger.h"
+#import "EventLoggingFunnel.h"
+#import "ReadingActionFunnel.h"
+#import "AFHTTPSessionManager+WMFConfig.h"
+#import "AFHTTPRequestSerializer+WMFRequestHeaders.h"
+#import "AFHTTPSessionManager+WMFDesktopRetry.h"
+#import "WMFArticlePreviewFetcher.h"
+#import "WMFBaseRequestSerializer.h"
+#import "MWKSearchResult.h"
+#import "NSDictionary+WMFCommonParams.h"
 
-#import <WMFModel/WMFDataSource.h>
-#import <WMFModel/WMFDatabaseDataSource.h>
-#import <WMFModel/MWKDataStore+WMFDataSources.h>
-#import <WMFModel/WMFContentGroupDataStore.h>
-#import <WMFModel/WMFArticlePreviewDataStore.h>
+#import "WMFDataSource.h"
+#import "WMFDatabaseDataSource.h"
+#import "MWKDataStore+WMFDataSources.h"
+#import "WMFContentGroupDataStore.h"
+#import "WMFArticlePreviewDataStore.h"
 
-#import <WMFModel/NSUserActivity+WMFExtensions.h>
+#import "NSUserActivity+WMFExtensions.h"
+
+#import "PiwikTracker+WMFExtensions.h"
+
 
 //Deprecated
-#import <WMFModel/MWKList.h>
-#import <WMFModel/MWKList+Subclass.h>
-#import <WMFModel/MWKSite.h>
-#import <WMFModel/MWKTitle.h>
-#import <WMFModel/SessionSingleton.h>
-#import <WMFModel/QueuesSingleton.h>
-#import <WMFModel/MWKSavedPageEntry.h>
+#import "MWKList.h"
+#import "MWKList+Subclass.h"
+#import "MWKSite.h"
+#import "MWKTitle.h"
+#import "SessionSingleton.h"
+#import "QueuesSingleton.h"
+#import "MWKSavedPageEntry.h"

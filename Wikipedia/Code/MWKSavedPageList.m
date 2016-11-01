@@ -96,7 +96,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 }
 
 - (nullable MWKHistoryEntry *)mostRecentEntry {
-    return [self.dataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    return (MWKHistoryEntry*)[self.dataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 }
 
 - (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url {
@@ -160,7 +160,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     }
 }
 
-- (MWKHistoryEntry *)addSavedPageWithURL:(NSURL *)url {
+- (nullable MWKHistoryEntry *)addSavedPageWithURL:(NSURL *)url {
     if ([url wmf_isNonStandardURL]) {
         return nil;
     }

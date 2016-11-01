@@ -10,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
               WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, wikidataDescription): @"description",
               WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, snippet): @"extract",
               WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, language): @"lang",
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, articleURL): @[@"lang", @"normalizedtitle"]};
+              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, articleURL): @[@"lang", @"normalizedtitle"] };
 }
 
 + (NSValueTransformer *)thumbnailURLJSONTransformer {
@@ -29,36 +29,38 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSValueTransformer *)articleURLJSONTransformer {
     return [MTLValueTransformer
-            transformerUsingForwardBlock:^NSURL *(NSDictionary *value,
-                                                  BOOL *success,
-                                                  NSError *__autoreleasing *error) {
-                NSString *lang = value[@"lang"];
-                NSString *normalizedTitle = value[@"normalizedtitle"];
-                NSURL *siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:lang];
-                return [siteURL wmf_URLWithTitle:normalizedTitle];
-            }
-            reverseBlock:^NSDictionary *(NSURL *articleURL,
+        transformerUsingForwardBlock:^NSURL *(NSDictionary *value,
+                                              BOOL *success,
+                                              NSError *__autoreleasing *error) {
+            NSString *lang = value[@"lang"];
+            NSString *normalizedTitle = value[@"normalizedtitle"];
+            NSURL *siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:lang];
+            return [siteURL wmf_URLWithTitle:normalizedTitle];
+        }
+        reverseBlock:^NSDictionary *(NSURL *articleURL,
                                      BOOL *success,
                                      NSError *__autoreleasing *error) {
-                NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:@{@"lang": @"", @"normalizedTitle": @""}];
-                NSString *lang = articleURL.wmf_language;
-                if (lang) {
-                    dict[@"lang"] = lang;
-                }
-                NSString *normalizedTitle = articleURL.wmf_title;
-                if (normalizedTitle) {
-                    dict[@"normalizedTitle"] = normalizedTitle;
-                }
-                return dict;
-            }];
+            NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:@{ @"lang": @"",
+                                                                                         @"normalizedtitle": @"" }];
+            NSString *lang = articleURL.wmf_language;
+            if (lang) {
+                dict[@"lang"] = lang;
+            }
+            NSString *normalizedTitle = articleURL.wmf_title;
+            if (normalizedTitle) {
+                dict[@"normalizedtitle"] = normalizedTitle;
+            }
+            return dict;
+        }];
 }
 
-
-- (BOOL)validateValue:(inout id _Nullable * _Nonnull)ioValue forKey:(NSString *)inKey error:(out NSError **)outError {
+- (BOOL)validateValue:(inout id _Nullable *_Nonnull)ioValue forKey:(NSString *)inKey error:(out NSError **)outError {
     static NSDictionary *nonNullKeys = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        nonNullKeys = @{@"articleURL":@YES, @"language":@YES, @"displayTitle":@YES};
+        nonNullKeys = @{ @"articleURL": @YES,
+                         @"language": @YES,
+                         @"displayTitle": @YES };
     });
 
     if (nonNullKeys[inKey]) {

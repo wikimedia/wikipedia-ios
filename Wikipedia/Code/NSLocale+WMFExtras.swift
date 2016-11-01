@@ -7,7 +7,7 @@ extension NSLocale {
         }
         return (langCode == "en" || langCode.hasPrefix("en-")) ? true : false;
     }
-    
+
     public func wmf_localizedLanguageNameForCode(code: String) -> String? {
         return self.displayNameForKey(NSLocaleLanguageCode, value: code)
     }

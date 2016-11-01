@@ -33,8 +33,6 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (readwrite, nonatomic, strong) dispatch_queue_t cacheRemovalQueue;
 @property (readwrite, nonatomic, getter=isCacheRemovalActive) BOOL cacheRemovalActive;
 
-@property (readwrite, atomic, strong) id previousCleanup;
-
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSOperation *> *articleSaveOperations;
 @property (nonatomic, strong) NSOperationQueue *articleSaveQueue;
 
@@ -207,31 +205,6 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
             [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:self userInfo:@{MWKURLKey: url}];
         }
     }];
-
-    [self cleanup];
-}
-
-- (void)cleanup {
-    id previousCleanup = self.previousCleanup;
-    if (previousCleanup != nil) {
-        [NSObject bk_cancelBlock:previousCleanup];
-    }
-    self.previousCleanup = [NSObject bk_performBlockInBackground:^{
-        self.previousCleanup = nil;
-        [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
-            YapDatabaseViewTransaction *view = [transaction ext:WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView];
-            if ([view numberOfItemsInAllGroups] == 0) {
-                return;
-            }
-            NSMutableArray *keysToRemove = [NSMutableArray array];
-            [view enumerateKeysInGroup:[[view allGroups] firstObject]
-                            usingBlock:^(NSString *_Nonnull collection, NSString *_Nonnull key, NSUInteger index, BOOL *_Nonnull stop) {
-                                [keysToRemove addObject:key];
-                            }];
-            [transaction removeObjectsForKeys:keysToRemove inCollection:[MWKHistoryEntry databaseCollectionName]];
-        }];
-    }
-                                                      afterDelay:1];
 }
 
 #pragma mark - Entry Access
@@ -556,7 +529,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     return [[NSFileManager defaultManager] fileExistsAtPath:filePath];
 }
 
-- (MWKImage *)imageWithURL:(NSString *)url article:(MWKArticle *)article {
+- (nullable MWKImage *)imageWithURL:(NSString *)url article:(MWKArticle *)article {
     if (url == nil) {
         return nil;
     }

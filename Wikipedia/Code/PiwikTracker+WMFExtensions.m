@@ -3,37 +3,39 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@implementation NSString (WMFAnalytics)
+
+- (NSString *)analyticsContext{
+    return self;
+}
+
+- (NSString*)analyticsContentType{
+    return self;
+}
+
+@end
+
 @implementation PiwikTracker (WMFExtensions)
 
 + (void)wmf_start {
-#ifndef DEBUG
+#ifdef PIWIK_ENABLED
     static NSTimeInterval const WMFDispatchInterval = 60;
-
-    if (![[NSBundle mainBundle] wmf_isPiwikEnabledAndConfigured]) {
-        DDLogError(@"Not starting Piwik because no URL or app ID was found");
-        return;
-    }
-    NSString *piwikHostURLString = [[NSBundle mainBundle] wmf_piwikURL];
-    NSString *appID = [[NSBundle mainBundle] wmf_piwikAppID];
+    NSString *piwikHostURLString = @"https://piwik.wikimedia.org/";
+    NSString *appID = @"3";
     [PiwikTracker sharedInstanceWithSiteID:appID baseURL:[NSURL URLWithString:piwikHostURLString]];
-    [[PiwikTracker wmf_configuredInstance] setDispatchInterval:WMFDispatchInterval];
-    [PiwikTracker wmf_configuredInstance].sampleRate = 10;
+    [[PiwikTracker sharedInstance] setDispatchInterval:WMFDispatchInterval];
 #endif
-}
-
-+ (instancetype)wmf_configuredInstance {
-    return [[NSBundle mainBundle] wmf_isPiwikEnabledAndConfigured] ? [self sharedInstance] : nil;
 }
 
 - (void)wmf_logView:(id<WMFAnalyticsViewNameProviding>)view {
     NSParameterAssert([view analyticsName]);
-#ifndef DEBUG
+#ifdef PIWIK_ENABLED
     [self sendView:[view analyticsName]];
 #endif
 }
 
 - (void)wmf_sendEventWithCategory:(NSString *)category action:(NSString *)action name:(NSString *)name value:(nullable NSNumber *)value {
-#ifndef DEBUG
+#ifdef PIWIK_ENABLED
     [self sendEventWithCategory:category
                          action:action
                            name:name
@@ -93,6 +95,22 @@ NS_ASSUME_NONNULL_BEGIN
                                  contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Switch Language"
+                               name:[contentType analyticsContentType]
+                              value:nil];
+}
+
+- (void)wmf_logActionEnableInContext:(id<WMFAnalyticsContextProviding>)context
+                                 contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_sendEventWithCategory:[context analyticsContext]
+                             action:@"Enable"
+                               name:[contentType analyticsContentType]
+                              value:nil];
+}
+
+- (void)wmf_logActionDisableInContext:(id<WMFAnalyticsContextProviding>)context
+                         contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_sendEventWithCategory:[context analyticsContext]
+                             action:@"Disable"
                                name:[contentType analyticsContentType]
                               value:nil];
 }

@@ -2,6 +2,25 @@ import Foundation
 
 extension NSNumberFormatter {
     
+    public class var threeSignificantDigitWholeNumberFormatter: NSNumberFormatter? {
+        get {
+            struct Static {
+                static var onceToken: dispatch_once_t = 0
+                static var formatter: NSNumberFormatter? = nil
+            }
+            
+            dispatch_once(&Static.onceToken) {
+                Static.formatter = NSNumberFormatter()
+                Static.formatter?.numberStyle = .DecimalStyle
+                Static.formatter?.maximumFractionDigits = 0
+                Static.formatter?.usesSignificantDigits = true
+                Static.formatter?.maximumSignificantDigits = 3
+                Static.formatter?.roundingMode = .RoundHalfUp
+            }
+            return Static.formatter
+        }
+    }
+    
     public class func localizedThousandsStringFromNumber(number: NSNumber) -> String {
         struct Static {
             static var onceToken: dispatch_once_t = 0

@@ -35,7 +35,6 @@
 "history-none" = "Овде нема скорашњих страница.";
 "zero-free-verbiage" = "Бесплатан приступ Википедији преко вашег мобилног оператера (интернет саобраћај се не наплаћује)";
 "zero-charged-verbiage" = "Wikipedia Zero је искључена";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Напуштање режима Wikipedia Zero";
 "zero-interstitial-leave-app" = "Пренос података ће вам можда бити наплаћен. Наставити на спољни сајт?";
 "zero-interstitial-continue" = "Напусти";
@@ -55,7 +54,7 @@
 "account-creation-username-placeholder-text" = "Корисничко име";
 "account-creation-password-placeholder-text" = "Лозинка";
 "account-creation-password-confirm-placeholder-text" = "Потврда лозинке";
-"account-creation-email-placeholder-text" = "Е-адреса (необавезно)";
+"account-creation-email-placeholder-text" = "Имејл (необавезно)";
 "account-creation-missing-fields" = "За отварање налога је потребно да унесете корисничко име, лозинку и потврду лозинке.";
 "login-name-not-found" = "Потребно је корисничко име.";
 "login-name-illegal" = "Наведено корисничко име је неисправно.";
@@ -393,3 +392,4 @@
 "no-email-account-alert" = "Подесите е-пошту на вашем уређају па покушајте поново.";
 "top-read-header-with-language" = "Википедија на $1";
 "top-read-header-generic" = "Википедија";
+"back" = "Назад";

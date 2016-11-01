@@ -45,7 +45,6 @@
 "zero-free-verbiage" = "Gratis Wikipedia-tillgång från din mobiloperatör (utan dataavgifter)";
 "zero-charged-verbiage" = "Wikipedia Zero är avstängt";
 "zero-charged-verbiage-extended" = "Att ladda andra artiklar kan medföra datakostnader. Sparade artiklar som lagras offline använder inte data och är gratis.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Du lämnar nu Wikipedia Zero";
 "zero-interstitial-leave-app" = "Avgifter för datatrafik kan tillkomma. Fortsätt till en extern webbplats?";
 "zero-interstitial-continue" = "Lämna";
@@ -118,9 +117,16 @@
 "settings-support" = "Stöd Wikipedia";
 "settings-language-bar" = "Visa språk vid sökfältet";
 "settings-my-languages" = "Mina språk";
+"settings-notifications" = "Notiser";
 "settings-help-and-feedback" = "Hjälp och återkoppling";
 "settings-primary-language" = "Primär";
 "settings-primary-language-details" = "Det första språket i denna lista används som appens primära språk. Om språket ändras kommer även det dagliga innehållet ändras (t.ex. Utmärkt artikel) som visas i Utforska.";
+"settings-notifications-system-off" = "Notiser är för tillfället inaktiverade för Wikipedia. Gå till din enhets inställningar för att aktivera notiser";
+"settings-notifications-system-turn-on" = "Aktivera notiser";
+"settings-notifications-info" = "Bli meddelad om trender och populära artiklar på Wikipedia med våra push-notiser. Allting tillhandahålls med respekt för integritet och uppdaterad data.";
+"settings-notifications-learn-more" = "Läs mer om notiser";
+"settings-notifications-trending" = "Populära aktuella händelser";
+"settings-notifications-push-notifications" = "Push-notiser";
 "main-menu-title" = "Mer";
 "main-menu-heading-about" = "Om";
 "main-menu-language-title" = "Sök $1.Wikipedia";
@@ -360,6 +366,8 @@
 "potd-description-prefix" = "Dagens bild för $1";
 "welcome-explore-title" = "Utforska";
 "welcome-explore-sub-title" = "Ett nytt sätt att upptäcka intressanta artiklar varje dag";
+"welcome-explore-new-ways-title" = "Nya sätt att utforska";
+"welcome-explore-new-ways-sub-title" = "Nya notiser och widgets för att hjälpa dig att upptäcka intressanta artiklar";
 "welcome-explore-tell-me-more" = "Berätta mer";
 "welcome-explore-tell-me-more-about-explore" = "Mer om Utforska";
 "welcome-explore-tell-me-more-details" = "När du läser en artikel läggs relaterade artiklar automatiskt till ditt Utforskningsflöde. Detta ändrar inte hur vi samlar in din information och din läsningshistorik är fortfarande privat.";
@@ -367,6 +375,9 @@
 "welcome-explore-tell-me-more-privacy" = "Ingen läsningslista eller profil lagras i våra servrar.";
 "welcome-explore-tell-me-more-done-button" = "Jag förstår";
 "welcome-explore-continue-button" = "Kom igång";
+"welcome-notifications-tell-me-more-title" = "Mer om notiser";
+"welcome-notifications-tell-me-more-storage" = "Notisinställningarna lagras på enheten och bygger inte på personliga uppgifter eller aktiviteter.";
+"welcome-notifications-tell-me-more-creation" = "Notiser skapas och levereras på din enhet genom appen, inte från vår (eller tredje partens) servrar.";
 "welcome-languages-title" = "Språk";
 "welcome-languages-sub-title" = "Välj dina föredragna språk att söka på i Wikipedia";
 "welcome-languages-add-button" = "Lägg till ett annat språk";
@@ -421,4 +432,17 @@
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Referens $1";
+"in-the-news-notification-read-now-action-title" = "Läs nu";
+"in-the-news-notification-share-action-title" = "Dela";
+"in-the-news-notification-save-for-later-action-title" = "Spara till senare";
+"in-the-news-currently-trending" = "Populärt just nu";
+"in-the-news-title" = "På nyheterna";
+"in-the-news-title-for-date" = "Nyheter på $1";
 "number-thousands" = "$1K";
+"number-millions" = "$1M";
+"number-billions" = "$1B";
+// Fuzzy
+"feed-news-notification-text" = "Du kan nu aktivera notiser från Wikipedia-artiklar som är populära på nyheterna.";
+// Fuzzy
+"feed-news-notification-button-text" = "Meddela mig om populära nyheter";
+"back" = "Tillbaka";

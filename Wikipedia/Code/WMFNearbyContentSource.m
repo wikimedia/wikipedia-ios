@@ -131,17 +131,20 @@
 
 - (nullable WMFLocationContentGroup *)contentGroupCloseToLocation:(CLLocation *)location {
 
-    WMFLocationContentGroup *group = nil;
+    __block WMFLocationContentGroup *locationContentGroup = nil;
     [self.contentStore enumerateContentGroupsOfKind:[WMFLocationContentGroup kind]
-                                          withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
-                                              WMFLocationContentGroup *locationGroup = (id)group;
-                                              if ([locationGroup.location wmf_isCloseTo:location]) {
-                                                  group = locationGroup;
+                                          withBlock:^(WMFContentGroup *_Nonnull currentGroup, BOOL *_Nonnull stop) {
+                                              if (![currentGroup isKindOfClass:[WMFLocationContentGroup class]]) {
+                                                  return;
+                                              }
+                                              WMFLocationContentGroup *potentiallyCloseLocationGroup = (WMFLocationContentGroup *)currentGroup;
+                                              if ([potentiallyCloseLocationGroup.location wmf_isCloseTo:location]) {
+                                                  locationContentGroup = potentiallyCloseLocationGroup;
                                                   *stop = YES;
                                               }
                                           }];
 
-    return group;
+    return locationContentGroup;
 }
 
 #pragma mark - Fetching
@@ -191,6 +194,12 @@
         resultLimit:20
         completion:^(WMFLocationSearchResults *_Nonnull results) {
             @strongify(self);
+            self.isProcessingLocation = NO;
+
+            if([results.results count] == 0){
+                return;
+            }
+            
             NSArray<NSURL *> *urls = [results.results bk_map:^id(id obj) {
                 return [results urlForResult:obj];
             }];
@@ -201,9 +210,6 @@
             [self removeOldSectionsForDate:group.date];
             [self.contentStore addContentGroup:group associatedContent:urls];
             [self.contentStore notifyWhenWriteTransactionsComplete:completion];
-
-            self.isProcessingLocation = NO;
-
         }
         failure:^(NSError *_Nonnull error) {
             self.isProcessingLocation = NO;

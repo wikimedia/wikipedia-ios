@@ -37,7 +37,6 @@
 "zero-free-verbiage" = "Akses Wikipedia percuma dari operator mudah alih anda (pengecualian caj data)";
 "zero-charged-verbiage" = "Wikipedia Zero off";
 "zero-charged-verbiage-extended" = "Tindakan memuatkan rencana lain mungkin dikenakan caj data. Rencana-rencana yang tersimpan secara 'offline' tidak menelan data, dan oleh itu percuma.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Keluar dari Wikipedia Zero";
 "zero-interstitial-leave-app" = "Caj data mungkin dikenakan. Terus ke laman web luaran?";
 "zero-interstitial-continue" = "Ya";
@@ -110,9 +109,16 @@
 "settings-support" = "Sokonglah Wikipedia";
 "settings-language-bar" = "Tampilkan bahasa pada carian";
 "settings-my-languages" = "Bahasa saya";
+"settings-notifications" = "Pemberitahuan";
 "settings-help-and-feedback" = "Bantuan dan maklum balas";
 "settings-primary-language" = "Utama";
 "settings-primary-language-details" = "Bahasa pertama dalam senarai ini digunakan sebagai bahasa utama untuk aplikasi. Menukar bahasa ini akan menukar kandungan setiap hari (seperti Rencana Pilihan) yang ditunjukkan pada Jelajah.";
+"settings-notifications-system-off" = "Pemberitahuan sedang dimatikan untuk Wikipedia. Pergi ke tetapan peranti anda untuk menghidupkan pemberitahuan";
+"settings-notifications-system-turn-on" = "Aktifkan Notis";
+"settings-notifications-info" = "Dimaklumkan kepada arah aliran dan membaca bahagian rencana mengenai Wikipedia dengan pemberitahuan menolak kami. Semua yang diperuntukkan berkenaan dengan privasi dan sehingga data minit.";
+"settings-notifications-learn-more" = "Ketahui lebih lanjut mengenai pemberitahuan";
+"settings-notifications-trending" = "Peristiwa semasa";
+"settings-notifications-push-notifications" = "Notis automatik";
 "main-menu-title" = "Lagi";
 "main-menu-heading-about" = "Perihal";
 "main-menu-language-title" = "Cari dalam wiki bahasa $1";
@@ -352,6 +358,8 @@
 "potd-description-prefix" = "Gambar pilihan pada $1";
 "welcome-explore-title" = "Jelajah";
 "welcome-explore-sub-title" = "Cara baru untuk mendapati rencana yang menarik setiap hari";
+"welcome-explore-new-ways-title" = "Cara-cara baru untuk meneroka";
+"welcome-explore-new-ways-sub-title" = "Notifikasi baru dan widget untuk membantu anda menemui rencana yang menarik";
 "welcome-explore-tell-me-more" = "Beritahu saya banyak lagi";
 "welcome-explore-tell-me-more-about-explore" = "Lebih lanjut mengenai Jelajah";
 "welcome-explore-tell-me-more-details" = "Apabila anda membaca rencana, rencana yang berkaitan ditambah secara automatik suapan Jelajah anda. Ini tidak mengubah cara kami mengumpul maklumat anda dan sejarah pembacaan anda senantiasa tetap rahsia.";
@@ -359,6 +367,9 @@
 "welcome-explore-tell-me-more-privacy" = "Tiada senarai bacaan atau profil yang disimpan di pelayan kami.";
 "welcome-explore-tell-me-more-done-button" = "Faham";
 "welcome-explore-continue-button" = "Memulakan";
+"welcome-notifications-tell-me-more-title" = "Lebih lanjut mengenai pemberitahuan";
+"welcome-notifications-tell-me-more-storage" = "Pilihan pemberitahuan disimpan pada peranti dan tidak berdasarkan kepada maklumat peribadi atau aktiviti.";
+"welcome-notifications-tell-me-more-creation" = "Pemberitahuan dicipta dan dihantar pada peranti anda dengan aplikasi, bukan dari pelayan kami (atau pihak ketiga).";
 "welcome-languages-title" = "Bahasa";
 "welcome-languages-sub-title" = "Pilih bahasa pilihan anda untuk mencari Wikipedia";
 "welcome-languages-add-button" = "Tambahkan bahasa lain";
@@ -413,3 +424,17 @@
 "top-read-header-with-language" = "Wikipedia Bahasa $1";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Referensi $1";
+"in-the-news-notification-read-now-action-title" = "Baca Sekarang";
+"in-the-news-notification-share-action-title" = "Kongsi";
+"in-the-news-notification-save-for-later-action-title" = "Simpan untuk nanti";
+"in-the-news-currently-trending" = "Semasa ini ngetren";
+"in-the-news-title" = "Dalam berita";
+"in-the-news-title-for-date" = "Berita pada $1";
+"number-thousands" = "$1 ribu";
+"number-millions" = "$1 juta";
+"number-billions" = "$1 bilion";
+// Fuzzy
+"feed-news-notification-text" = "Anda kini boleh menghidupkan pemberitahuan dari rencana Wikipedia tren dalam berita.";
+// Fuzzy
+"feed-news-notification-button-text" = "Beritahu saya mengenai trend berita";
+"back" = "Kembali";

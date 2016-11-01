@@ -38,7 +38,6 @@
 "history-none" = "Žiadne posledne zobrazené stránky.";
 "zero-free-verbiage" = "Voľný prístup k Wikipédii od vášho mobilného operátora (neplatíte poplatky za prenos dát)";
 "zero-charged-verbiage" = "Wikipédia Zero je vypnutá";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Opúšťate Wikipédiu Zero";
 "zero-interstitial-leave-app" = "Môžu sa objaviť poplatky za prenos dát. Pokračovať na externú stránku?";
 "zero-interstitial-continue" = "Pokračovať";
@@ -109,6 +108,7 @@
 "settings-language" = "Jazyk Wikipédie";
 "settings-support" = "Podporte Wikipédiu";
 "settings-my-languages" = "Moje jazyky";
+"settings-notifications" = "Upozornenia";
 "settings-help-and-feedback" = "Pomoc a spätná väzba";
 "main-menu-title" = "Viac";
 "main-menu-heading-about" = "O aplikácii";
@@ -230,6 +230,8 @@
 "button-ok" = "OK";
 "button-save-for-later" = "Uložiť na neskôr";
 "button-saved-for-later" = "Uložené na neskôr";
+"button-saved-remove" = "Odstrániť z uložených";
+"button-read-now" = "Čítať";
 "button-report-a-bug" = "Nahlásiť chybu";
 "onboarding-create-account" = "Vytvoriť účet";
 "onboarding-login" = "Prihlásiť sa";
@@ -313,8 +315,7 @@
 "home-updating-label" = "Aktualizácia...";
 "home-hide-suggestion-prompt" = "Skryť túto radu";
 "home-hide-suggestion-cancel" = "Zrušiť";
-// Fuzzy
-"home-button-accessibility-label" = "Tlačidlo Domov";
+"home-button-accessibility-label" = "Domov";
 "potd-empty-error-description" = "Nepodarilo sa načítať obrázok dňa pre $1";
 "potd-description-prefix" = "Obrázok dňa pre $1";
 "welcome-explore-sub-title" = "Nová možnosť, ako objavovať zaujímavé články každý deň";
@@ -365,4 +366,15 @@
 "find-in-page-button-label" = "Nájsť na stránke";
 "find-in-page-popover-description" = "Hľadanie textu v článku";
 "continue-reading-empty-title" = "Žiadne nedávno čítané články";
+"top-read-see-more" = "Zobraziť ďalšie najčítanejšie články";
+"top-read-see-more-trending" = "Zobraziť ďalšie trendy";
 "top-read-header-generic" = "Wikipédia";
+"in-the-news-notification-read-now-action-title" = "Čítať";
+"in-the-news-notification-share-action-title" = "Zdieľať";
+"in-the-news-notification-save-for-later-action-title" = "Uložiť na neskôr";
+"in-the-news-currently-trending" = "Aktuálne trendy";
+"in-the-news-title" = "Správy";
+"number-thousands" = "$1";
+"number-millions" = "$1";
+"number-billions" = "$1";
+"back" = "Späť";

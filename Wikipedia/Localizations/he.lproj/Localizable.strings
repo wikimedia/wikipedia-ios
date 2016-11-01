@@ -39,7 +39,6 @@
 "zero-free-verbiage" = "גישה בחינם לוויקיפדיה דרך ספק התקשורת הניידת שלך (ללא חיוב על נתונים)";
 "zero-charged-verbiage" = "ויקיפדיה אפס כבויה";
 "zero-charged-verbiage-extended" = "טעינת ערכים אחרים עשויה לגרום לחיוב זמן אוויר על נתונים. ערכים שמורים שמאוחסנים באופן בלתי־מקוון אינם מתמשים בנתונים וזמינים חינם.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "אנחנו יוצאים מוויקיפדיה אפס";
 "zero-interstitial-leave-app" = "ייתכן שיחולו חיובים על נתונים.";
 "zero-interstitial-continue" = "להמשיך";
@@ -112,9 +111,16 @@
 "settings-support" = "תמיכה בוויקיפדיה";
 "settings-language-bar" = "הצגת שפות בחיפוש";
 "settings-my-languages" = "השפות שלי";
+"settings-notifications" = "עדכונים";
 "settings-help-and-feedback" = "עזרה ומשוב";
 "settings-primary-language" = "ראשית";
 "settings-primary-language-details" = "השפה הראשונה ברשימה הזאת היא השפה הראשית עבור היישום. שינוי השפה הזאת ישנה את התוכן היומי (כגון ערך מומלץ) שמוצג ב\"לחקור\".";
+"settings-notifications-system-off" = "עדכונים מוויקיפדיה כבויים עכשיו. אפשר להפעיל את העדכונים בהגדרות המכשיר שלך";
+"settings-notifications-system-turn-on" = "הפעלת עדכונים";
+"settings-notifications-info" = "קבלו התראות על ערכים חמים ומבוקשים בוויקיפדיה עם העדכונים שלנו. כל המידע מסופק תוך כדי כיבוד פרטיות המשתמש ונתונים עדכניים.";
+"settings-notifications-learn-more" = "מידע נוסף על עדכונים";
+"settings-notifications-trending" = "נושאים אקטואליים חמים";
+"settings-notifications-push-notifications" = "עדכונים";
 "main-menu-title" = "עוד";
 "main-menu-heading-about" = "אודות";
 "main-menu-language-title" = "חיפוש בוויקיפדיה ה$1";
@@ -244,6 +250,8 @@
 "button-ok" = "אישור";
 "button-save-for-later" = "לשמור לאחר־כך";
 "button-saved-for-later" = "נשמרו לאחר־כך";
+"button-saved-remove" = "להסיר משמורים";
+"button-read-now" = "לקרוא עכשיו";
 "button-report-a-bug" = "דיווח באג";
 "onboarding-create-account" = "יצירת חשבון";
 "onboarding-login" = "כניסה";
@@ -352,6 +360,8 @@
 "potd-description-prefix" = "תמונת היום של $1";
 "welcome-explore-title" = "לחקור";
 "welcome-explore-sub-title" = "דרך חדשה לגלות ערכים מעניינים מדי יום";
+"welcome-explore-new-ways-title" = "דרכים חדשות לחקור";
+"welcome-explore-new-ways-sub-title" = "עדכונים וויד׳טים שעוזרים לך לגלות ערכים מעניינים";
 "welcome-explore-tell-me-more" = "ספרו לי עוד";
 "welcome-explore-tell-me-more-about-explore" = "עוד על האפשרות לחקור";
 "welcome-explore-tell-me-more-details" = "בזמן קריאת ערך, ערכים קשורים נוספים באופן אוטומטי להזנת ה\"לחקור\" שלך. זה לא משנה את הצורה שבה אנחנו אוספים את המידע שלך, והיסטוריית הגלישה שלך עדיין פרטית.";
@@ -359,6 +369,9 @@
 "welcome-explore-tell-me-more-privacy" = "איננו שומרים שום רשימת קריאה או פרופיל בשרתים שלנו.";
 "welcome-explore-tell-me-more-done-button" = "הבנתי";
 "welcome-explore-continue-button" = "להתחיל";
+"welcome-notifications-tell-me-more-title" = "מידע נוסף על עדכונים";
+"welcome-notifications-tell-me-more-storage" = "העדפות העדכונים מאוחסנות במכשיר ולא מבוססות על מידע אישי או פעילות אישית.";
+"welcome-notifications-tell-me-more-creation" = "העדכונים מיוצרים ונמסרים במכשיר שלך על־ידי האפליקציה ולא משרתים שלנו (או של צד שלישי).";
 "welcome-languages-title" = "שפות";
 "welcome-languages-sub-title" = "נא לבחור את השפות שבהן ברצונך לחפש בוויקיפדיה";
 "welcome-languages-add-button" = "הוספת שפה אחרת";
@@ -413,4 +426,17 @@
 "top-read-header-with-language" = "ויקיפדיה בשפה $1";
 "top-read-header-generic" = "ויקיפדיה";
 "reference-title" = "הערה $1";
+"in-the-news-notification-read-now-action-title" = "לקרוא עכשיו";
+"in-the-news-notification-share-action-title" = "לשתף";
+"in-the-news-notification-save-for-later-action-title" = "לשמור לאחר־כך";
+"in-the-news-currently-trending" = "מבוקש עכשיו";
+"in-the-news-title" = "בחדשות";
+"in-the-news-title-for-date" = "חדשות ב־$1";
 "number-thousands" = "$1K";
+"number-millions" = "$1";
+"number-billions" = "$1";
+// Fuzzy
+"feed-news-notification-text" = "עכשיו אפשר להפעיל עדכונים מערכי ויקיפדיה שחמים בחדשות.";
+// Fuzzy
+"feed-news-notification-button-text" = "עדכנו אותי על חדשות חמות";
+"back" = "חזרה";

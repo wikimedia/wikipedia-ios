@@ -17,6 +17,7 @@
 #import "CLLocation+WMFBearing.h"
 
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
+#import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "WMFArticlePreview.h"
 #import "MWKHistoryEntry.h"
 
@@ -77,13 +78,21 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 @property (nonatomic, strong, nullable) WMFFeedNotificationHeader *notificationHeader;
 
-
 @end
 
 @implementation WMFExploreViewController
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.title = MWLocalizedString(@"home-title", nil);
+}
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (UIButton *)titleButton {
+    return (UIButton *)self.navigationItem.titleView;
 }
 
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
@@ -102,7 +111,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
               forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.titleView = b;
         self.navigationItem.titleView.isAccessibilityElement = YES;
-        self.navigationItem.titleView.accessibilityLabel = MWLocalizedString(@"home-accessibility-label", nil);
+       
         self.navigationItem.titleView.accessibilityTraits |= UIAccessibilityTraitHeader;
         self.navigationItem.leftBarButtonItem = [self settingsBarButtonItem];
         self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
@@ -205,6 +214,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 - (void)updateFeedSources {
     WMFTaskGroup *group = [WMFTaskGroup new];
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        //TODO: nearby doesnt always fire
         [group enter];
         [obj loadNewContentForce:NO
                       completion:^{
@@ -212,27 +222,29 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                       }];
     }];
 
-    //TODO: nearby doesnt always fire.
-    //May need to time it out or exclude
-    [group waitInBackgroundWithCompletion:^{
-        [self resetRefreshControl];
-        [self.internalContentStore syncDataStoreToDatabase];
-    }];
+    [group waitInBackgroundWithTimeout:12
+                            completion:^{
+                                [self resetRefreshControl];
+                                [self.internalContentStore syncDataStoreToDatabase];
+                            }];
 }
 
-- (void)updateFeedWithLatestDatabaseContent{
+- (void)updateFeedWithLatestDatabaseContent {
     [self.internalContentStore syncDataStoreToDatabase];
 }
-
 
 #pragma mark - Section Access
 
 - (WMFContentGroup *)sectionAtIndex:(NSUInteger)sectionIndex {
-    return [self.sectionDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:sectionIndex inSection:0]];
+    return (WMFContentGroup *)[self.sectionDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:sectionIndex inSection:0]];
 }
 
 - (WMFContentGroup *)sectionForIndexPath:(NSIndexPath *)indexPath {
-    return [self.sectionDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.section inSection:0]];
+    return (WMFContentGroup *)[self.sectionDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.section inSection:0]];
+}
+
+- (NSUInteger)indexForSection:(WMFContentGroup *)section {
+    return [self.sectionDataSource indexPathForObject:section].row;
 }
 
 #pragma mark - Content Access
@@ -256,7 +268,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         }];
     } else if ([group contentType] == WMFContentTypeStory) {
         content = [content bk_map:^id(WMFFeedNewsStory *obj) {
-            return [[obj mostPopularArticlePreview] articleURL] ?: [[[obj articlePreviews] firstObject] articleURL];
+            return [[obj featuredArticlePreview] articleURL] ?: [[[obj articlePreviews] firstObject] articleURL];
         }];
     } else if ([group contentType] != WMFContentTypeURL) {
         content = nil;
@@ -292,7 +304,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
             NSAssert(false, @"Attempting to reference an out of bound index");
             return nil;
         }
-        return [[content[indexPath.row] mostPopularArticlePreview] articleURL] ?: [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
+        return [[content[indexPath.row] featuredArticlePreview] articleURL] ?: [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
     } else {
         return nil;
     }
@@ -338,19 +350,19 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 #pragma mark - Notification
 
-- (void)sizeNotificationHeader{
-    
-    WMFFeedNotificationHeader* header = self.notificationHeader;
-    if(!header.superview){
+- (void)sizeNotificationHeader {
+
+    WMFFeedNotificationHeader *header = self.notificationHeader;
+    if (!header.superview) {
         return;
     }
-    
+
     //First layout pass to get height
     [header mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@(-136));
         make.leading.trailing.equalTo(self.collectionView.superview);
     }];
-    
+
     [header sizeToFit];
     [header setNeedsLayout];
     [header layoutIfNeeded];
@@ -363,7 +375,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         make.height.equalTo(@(f.size.height));
         make.leading.trailing.equalTo(self.collectionView.superview);
     }];
-    
+
     [header sizeToFit];
     [header setNeedsLayout];
     [header layoutIfNeeded];
@@ -373,72 +385,75 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     self.collectionView.contentInset = insets;
 }
 
-- (void)setNotificationHeaderBasedOnSizeClass{
-    if(self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact){
+- (void)setNotificationHeaderBasedOnSizeClass {
+    if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) {
         self.notificationHeader = [WMFFeedNotificationHeader wmf_viewFromClassNib];
-    }else{
-        self.notificationHeader = [[[UINib nibWithNibName:@"WmfFeedNotificationHeaderiPad" bundle:nil]  instantiateWithOwner:nil options:nil] firstObject];
+    } else {
+        self.notificationHeader = [[[UINib nibWithNibName:@"WmfFeedNotificationHeaderiPad" bundle:nil] instantiateWithOwner:nil options:nil] firstObject];
     }
 }
 
-- (void)showNotificationHeader{
+- (void)showNotificationHeader {
 
-    if(self.notificationHeader){
+    if (self.notificationHeader) {
         [self.notificationHeader removeFromSuperview];
         self.notificationHeader = nil;
     }
 
     [self setNotificationHeaderBasedOnSizeClass];
-    
-    WMFFeedNotificationHeader* header = self.notificationHeader;
+
+    WMFFeedNotificationHeader *header = self.notificationHeader;
     [self.collectionView addSubview:self.notificationHeader];
     [self sizeNotificationHeader];
-    
+
     @weakify(self);
     [header.enableNotificationsButton bk_addEventHandler:^(id sender) {
         @strongify(self);
-        [[WMFNotificationsController sharedNotificationsController] requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError * _Nullable error) {
+        [[PiwikTracker sharedInstance] wmf_logActionEnableInContext:header contentType:header];
+
+        [[WMFNotificationsController sharedNotificationsController] requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error) {
             if (error) {
                 [self wmf_showAlertWithError:error];
             }
         }];
         [[NSUserDefaults wmf_userDefaults] wmf_setInTheNewsNotificationsEnabled:YES];
         [self showHideNotificationIfNeccesary];
-        
-    } forControlEvents:UIControlEventTouchUpInside];
-    
+
+    }
+                                        forControlEvents:UIControlEventTouchUpInside];
+
     [[NSUserDefaults wmf_userDefaults] wmf_setDidShowNewsNotificationCardInFeed:YES];
 }
 
+- (void)showHideNotificationIfNeccesary {
 
-
-- (void)showHideNotificationIfNeccesary{
-    
-    if([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionLessThan:10]){
+    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionLessThan:10]) {
         return;
     }
-    
-    if(![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled] && ![[NSUserDefaults wmf_userDefaults] wmf_didShowNewsNotificationCardInFeed]){
+
+    if (![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled] && ![[NSUserDefaults wmf_userDefaults] wmf_didShowNewsNotificationCardInFeed]) {
         [self showNotificationHeader];
 
-    }else{
+    } else {
 
-        if(self.notificationHeader){
-            
-            [UIView animateWithDuration:0.3 animations:^{
-                
-                UIEdgeInsets insets = self.collectionView.contentInset;
-                insets.top = 0.0;
-                self.collectionView.contentInset = insets;
-                
-                self.notificationHeader.alpha = 0.0;
-                
-            } completion:^(BOOL finished) {
-                
-                [self.notificationHeader removeFromSuperview];
-                self.notificationHeader = nil;
-                
-            }];
+        if (self.notificationHeader) {
+
+            [UIView animateWithDuration:0.3
+                animations:^{
+
+                    UIEdgeInsets insets = self.collectionView.contentInset;
+                    insets.top = 0.0;
+                    self.collectionView.contentInset = insets;
+
+                    self.notificationHeader.alpha = 0.0;
+
+                }
+                completion:^(BOOL finished) {
+
+                    [self.notificationHeader removeFromSuperview];
+                    self.notificationHeader = nil;
+
+                }];
         }
     }
 }
@@ -481,7 +496,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     NSParameterAssert(self.internalContentStore);
     [super viewDidAppear:animated];
 
-    [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
+    [[PiwikTracker sharedInstance] wmf_logView:self];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_exploreViewActivity]];
 }
 
@@ -490,13 +505,12 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [self registerForPreviewingIfAvailable];
 }
 
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    if(self.notificationHeader){
+    if (self.notificationHeader) {
         [self showNotificationHeader];
     }
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -622,7 +636,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         [self.locationManager stopMonitoringLocation];
     }
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionImpressionInContext:self contentType:section];
+    [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:section];
 }
 
 - (nonnull UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSectionHeaderAtIndexPath:(NSIndexPath *)indexPath {
@@ -659,7 +673,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
             if (!self || !section) {
                 return;
             }
-            UIAlertController *menuActionSheet = [self menuActionSheetForURL:[section headerContentURL]];
+            UIAlertController *menuActionSheet = [self menuActionSheetForSection:section];
 
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
                 menuActionSheet.modalPresentationStyle = UIModalPresentationPopover;
@@ -684,12 +698,20 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 #pragma mark - WMFHeaderMenuProviding
 
-- (UIAlertController *)menuActionSheetForURL:(NSURL *)url {
+- (UIAlertController *)menuActionSheetForSection:(WMFContentGroup *)section {
+    NSURL *url = [section headerContentURL];
     UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil)
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction *_Nonnull action) {
                                                 [self.userStore.blackList addBlackListArticleURL:url];
+                                                [self.userStore notifyWhenWriteTransactionsComplete:^{
+                                                    NSUInteger index = [self indexForSection:section];
+                                                    self.sectionDataSource.delegate = nil;
+                                                    [self updateFeedWithLatestDatabaseContent];
+                                                    [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:index]];
+                                                    self.sectionDataSource.delegate = self;
+                                                }];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
     return sheet;
@@ -857,7 +879,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 #pragma mark - More View Controller
 
 - (void)presentMoreViewControllerForGroup:(WMFContentGroup *)group animated:(BOOL)animated {
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughMoreInContext:self contentType:group];
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughMoreInContext:self contentType:group];
     NSArray<NSURL *> *URLs = [self contentURLsForGroup:group];
     NSAssert([[URLs firstObject] isKindOfClass:[NSURL class]], @"Attempting to present More VC with somehting other than URLs");
     if (![[URLs firstObject] isKindOfClass:[NSURL class]]) {
@@ -921,14 +943,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                 return nil;
             }
             WMFFeedNewsStory *story = stories[indexPath.item];
-            InTheNewsViewController *vc = [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore previewStore:self.previewStore];
-            NSString *format = MWLocalizedString(@"in-the-news-title-for-date", nil);
-            NSDate *date = group.date;
-            if (format && date) {
-                NSString *dateString = [[NSDateFormatter wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date];
-                NSString *title = [format stringByReplacingOccurrencesOfString:@"$1" withString:dateString];
-                vc.title = title;
-            }
+            InTheNewsViewController *vc = [self inTheNewsViewControllerForStory:story date:group.date];
             return vc;
         } break;
         default:
@@ -945,7 +960,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     }
 
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:group];
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:group];
 
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
@@ -1089,7 +1104,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     previewingContext.sourceRect = [self.collectionView cellForItemAtIndexPath:previewIndexPath].frame;
 
     UIViewController *vc = [self detailViewControllerForItemAtIndexPath:previewIndexPath];
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:group];
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:group];
 
     if ([vc isKindOfClass:[WMFArticleViewController class]]) {
         ((WMFArticleViewController *)vc).articlePreviewingActionsDelegate = self;
@@ -1100,14 +1115,36 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController *)viewControllerToCommit {
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:self.groupForPreviewedCell];
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:self.groupForPreviewedCell];
     self.groupForPreviewedCell = nil;
 
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
+    } else if ([viewControllerToCommit isKindOfClass:[InTheNewsViewController class]]) {
+        [self.navigationController pushViewController:viewControllerToCommit animated:YES];
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
+}
+
+#pragma mark - In The News
+
+- (InTheNewsViewController *)inTheNewsViewControllerForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date {
+    InTheNewsViewController *vc = [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore previewStore:self.previewStore];
+    NSString *format = MWLocalizedString(@"in-the-news-title-for-date", nil);
+    if (format && date) {
+        NSString *dateString = [[NSDateFormatter wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date];
+        NSString *title = [format stringByReplacingOccurrencesOfString:@"$1" withString:dateString];
+        vc.title = title;
+    } else {
+        vc.title = MWLocalizedString(@"in-the-news-title", nil);
+    }
+    return vc;
+}
+
+- (void)showInTheNewsForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date animated:(BOOL)animated {
+    InTheNewsViewController *vc = [self inTheNewsViewControllerForStory:story date:date];
+    [self.navigationController pushViewController:vc animated:animated];
 }
 
 #pragma mark - Analytics

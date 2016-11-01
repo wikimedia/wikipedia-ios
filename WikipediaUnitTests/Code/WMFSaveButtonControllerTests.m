@@ -65,14 +65,15 @@
 
 - (void)testShouldUpdateToSavedStateWhenSetWithSavedTitle {
     [self.savedPagesList addSavedPageWithURL:self.titleSFEn];
-
+    
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
-    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+    [self.dataStore notifyWhenWriteTransactionsComplete:^{
         self.saveButtonController.url = self.titleSFEn;
         assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
         [expectation fulfill];
-    });
+    }];
+
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
@@ -82,13 +83,13 @@
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
-    dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
+    [self.dataStore notifyWhenWriteTransactionsComplete:^{
         self.saveButtonController.url = self.titleSFEn;
         assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
         self.saveButtonController.url = nil;
         assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
         [expectation fulfill];
-    });
+    }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
@@ -98,16 +99,16 @@
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
-    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+    [self.dataStore notifyWhenWriteTransactionsComplete:^{
         self.saveButtonController.url = self.titleSFEn;
         assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
         [self.savedPagesList removeEntryWithURL:self.titleSFEn];
 
-        dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+        [self.dataStore notifyWhenWriteTransactionsComplete:^{
             assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
             [expectation fulfill];
-        });
-    });
+        }];
+    }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
@@ -117,15 +118,15 @@
     assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
-    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+    [self.dataStore notifyWhenWriteTransactionsComplete:^{
         [self.savedPagesList addSavedPageWithURL:self.titleSFEn];
 
-        dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+        [self.dataStore notifyWhenWriteTransactionsComplete:^{
             assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(YES)));
             assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
             [expectation fulfill];
-        });
-    });
+        }];
+    }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
@@ -136,11 +137,11 @@
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
-    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+    [self.dataStore notifyWhenWriteTransactionsComplete:^{
         self.saveButtonController.control = [UIButton new];
         assertThat(@(self.saveButtonController.control.state), is(equalToInt(UIControlStateSelected)));
         [expectation fulfill];
-    });
+    }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
@@ -151,15 +152,15 @@
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
-    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+    [self.dataStore notifyWhenWriteTransactionsComplete:^{
         assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(YES)));
         [self.button sendActionsForControlEvents:UIControlEventTouchUpInside];
 
-        dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+        [self.dataStore notifyWhenWriteTransactionsComplete:^{
             assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(NO)));
             [expectation fulfill];
-        });
-    });
+        }];
+    }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
@@ -171,10 +172,10 @@
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
-    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+    [self.dataStore notifyWhenWriteTransactionsComplete:^{
         assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(YES)));
         [expectation fulfill];
-    });
+    }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
@@ -186,14 +187,14 @@
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
-    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+    [self.dataStore notifyWhenWriteTransactionsComplete:^{
         [self.button sendActionsForControlEvents:UIControlEventTouchUpInside];
-        dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+        [self.dataStore notifyWhenWriteTransactionsComplete:^{
             assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(NO)));
             assertThat(@([self.savedPagesList isSaved:self.titleSFFr]), is(@(YES)));
             [expectation fulfill];
-        });
-    });
+        }];
+    }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }

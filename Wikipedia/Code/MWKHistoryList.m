@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable MWKHistoryEntry *)mostRecentEntry {
-    return [self.dataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    return (MWKHistoryEntry *)[self.dataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 }
 
 - (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url {
@@ -109,7 +109,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Update Methods
 
-- (MWKHistoryEntry *)addEntry:(MWKHistoryEntry *)entry {
+- (nullable MWKHistoryEntry *)addEntry:(MWKHistoryEntry *)entry {
     NSParameterAssert(entry.url);
     if ([entry.url wmf_isNonStandardURL]) {
         return nil;
@@ -126,7 +126,7 @@ NS_ASSUME_NONNULL_BEGIN
     return entry;
 }
 
-- (MWKHistoryEntry *)addPageToHistoryWithURL:(NSURL *)url {
+- (nullable MWKHistoryEntry *)addPageToHistoryWithURL:(NSURL *)url {
     NSParameterAssert(url);
     if (!url) {
         return nil;

@@ -122,7 +122,7 @@ static NSString *const WMFRelatedSectionBlackListFileExtension = @"plist";
 }
 
 - (nullable MWKHistoryEntry *)mostRecentEntry {
-    return [self.dataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    return (MWKHistoryEntry*)[self.dataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 }
 
 - (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block {
@@ -144,7 +144,7 @@ static NSString *const WMFRelatedSectionBlackListFileExtension = @"plist";
 
 #pragma mark - Update Methods
 
-- (MWKHistoryEntry *)addBlackListArticleURL:(NSURL *)url {
+- (nullable MWKHistoryEntry *)addBlackListArticleURL:(NSURL *)url {
     NSParameterAssert(url);
     if ([url wmf_isNonStandardURL]) {
         return nil;

@@ -30,11 +30,11 @@ typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
 
 + (instancetype)wmf_settingsViewActivity;
 
-+ (instancetype)wmf_activityForWikipediaScheme:(NSURL *)url;
++ (nullable instancetype)wmf_activityForWikipediaScheme:(NSURL *)url;
 
 - (WMFUserActivityType)wmf_type;
 
-- (NSString *)wmf_searchTerm;
+- (nullable NSString *)wmf_searchTerm;
 
 - (NSURL *)wmf_articleURL;
 

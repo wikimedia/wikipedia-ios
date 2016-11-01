@@ -14,7 +14,7 @@
     return UIEdgeInsetsInsetRect(CGRectOffset(self.frame, 0, self.contentOffset.y), self.contentInset);
 }
 
-- (void)wmf_safeSetContentOffset:(CGPoint)offset animated:(BOOL)animated {
+- (void)wmf_safeSetContentOffset:(CGPoint)offset animated:(BOOL)animated completion:(void (^ __nullable)(BOOL finished))completion{
     if (!isnan(offset.x) && !isinf(offset.x) && !isnan(offset.y) && !isinf(offset.y)) {
 #if DEBUG
         // log warning, but still scroll, if we get an out-of-bounds offset
@@ -23,10 +23,14 @@
                        NSStringFromCGPoint(offset), self);
         }
 #endif
-        [self setContentOffset:offset
-                      animated:animated];
+        [UIView animateWithDuration:(animated ? 0.3f : 0.0f) delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            self.contentOffset = offset;
+        } completion:completion];
     } else {
         DDLogError(@"Ignoring invalid offset %@ for scroll view %@", NSStringFromCGPoint(offset), self);
+        if(completion){
+            completion(NO);
+        }
     }
 }
 

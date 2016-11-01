@@ -209,7 +209,7 @@ CHECKOUT OPTIONS:
     :commit: 388ab1b864b742feadc1cf94063968953fc6a6a1
     :git: git@github.com:wikimedia/NSDate-Extensions.git
   PiwikTracker:
-    :commit: 87cf4aa60ad29cdb375a3fe789c9717887ee210e
+    :commit: bac26223df5f6a0fe55f5f877f74c4d98077b3f2
     :git: https://github.com/wikimedia/piwik-sdk-ios.git
   SDWebImage:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
@@ -259,6 +259,6 @@ SPEC CHECKSUMS:
   VTAcknowledgementsViewController: 44da49d57a1dbf414e653688793a130d24af151e
   YapDatabase: b1e43555a34a5298e23a045be96817a5ef0da58f
 
-PODFILE CHECKSUM: 71ea2f0bdc1b5fa1953ac241f9de4b1f75f83869
+PODFILE CHECKSUM: a947322b13ef0a2b5a64a97aba22d4ff2ce23d47
 
 COCOAPODS: 1.1.1

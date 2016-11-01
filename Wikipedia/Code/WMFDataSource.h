@@ -1,4 +1,5 @@
 #import <Foundation/Foundation.h>
+#import "WMFDatabaseStorable.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,9 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSString *)titleForSectionIndex:(NSInteger)index;
 
-- (nullable id)objectAtIndexPath:(NSIndexPath *)indexPath;
+- (nullable id<WMFDatabaseStorable>)objectAtIndexPath:(NSIndexPath *)indexPath;
 
 - (nullable id)metadataAtIndexPath:(NSIndexPath *)indexPath;
+
+- (NSIndexPath*)indexPathForObject:(id<WMFDatabaseStorable>)object;
 
 - (void)readWithBlock:(void (^)(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view))block;
 

@@ -5,7 +5,7 @@ import WMFModel
 import WMFUI
 import WMFUtilities
 
-class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationContentExtension {
+class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationContentExtension, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding {
     @IBOutlet weak var imageView: UIImageView!
 
     @IBOutlet weak var readerCountLabel: UILabel!
@@ -35,6 +35,22 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
         }
     }
     
+    func analyticsContext() -> String {
+        return "notification"
+    }
+    
+    func analyticsContentType() -> String {
+        guard let articleHost = articleURL?.host else {
+            return "unknown domain"
+        }
+        return articleHost
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        PiwikTracker.wmf_start()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         marginWidthForVisibleImageView = articleTitleLabelLeadingMargin.constant
@@ -50,11 +66,19 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             articleURL = NSURL(string: articleURLString)
         }
         
-        if let html = info[WMFNotificationInfoStoryHTMLKey] as? String {
-            let font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote, compatibleWithTraitCollection: nil)
-            let linkFont = UIFont.boldSystemFontOfSize(font.pointSize)
-            let attributedString = html.wmf_attributedStringByRemovingHTMLWithFont(font, linkFont: linkFont)
-            summaryLabel.attributedText = attributedString
+        PiwikTracker.sharedInstance()?.wmf_logActionPreviewInContext(self, contentType: self)
+        
+        do {
+            if let dictionary = info[WMFNotificationInfoFeedNewsStoryKey] as? [String: AnyObject],
+                let newsStory = try MTLJSONAdapter.modelOfClass(WMFFeedNewsStory.self, fromJSONDictionary: dictionary) as? WMFFeedNewsStory,
+                let html = newsStory.storyHTML  {
+                let font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote, compatibleWithTraitCollection: nil)
+                let linkFont = UIFont.boldSystemFontOfSize(font.pointSize)
+                let attributedString = html.wmf_attributedStringByRemovingHTMLWithFont(font, linkFont: linkFont)
+                summaryLabel.attributedText = attributedString
+            }
+        } catch let error as NSError {
+            DDLogError("erorr deserializing news story \(error)")
         }
 
         timeLabel.text = localizedStringForKeyFallingBackOnEnglish("in-the-news-currently-trending")
@@ -74,19 +98,28 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             self.imageViewHidden = true
         }
         
-        if let viewCounts = info[WMFNotificationInfoViewCountsKey] as? [NSNumber] where viewCounts.count > 0 {
-            sparklineView.dataValues = viewCounts
-            sparklineView.showsVerticalGridlines = true
-            sparklineView.updateMinAndMaxFromDataValues()
-            
-            if let count = viewCounts.last {
-                readerCountLabel.text = NSNumberFormatter.localizedThousandsStringFromNumber(count)
-            } else {
-                readerCountLabel.text = ""
-            }
-        } else {
+        guard let viewCountDict = info[WMFNotificationInfoViewCountsKey] as? NSDictionary else {
             readerCountLabel.text = ""
+            return
         }
+        
+        let viewCounts = viewCountDict.wmf_pageViewsSortedByDate
+        
+        guard viewCounts.count > 0 else {
+            readerCountLabel.text = ""
+            return
+        }
+            
+        sparklineView.dataValues = viewCounts
+        sparklineView.showsVerticalGridlines = true
+        sparklineView.updateMinAndMaxFromDataValues()
+        
+        guard let count = viewCounts.last else {
+            readerCountLabel.text = ""
+            return
+        }
+        
+        readerCountLabel.text = NSNumberFormatter.localizedThousandsStringFromNumber(count)
     }
 
     func didReceiveNotificationResponse(response: UNNotificationResponse, completionHandler completion: (UNNotificationContentExtensionResponseOption) -> Void) {
@@ -112,6 +145,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             guard let wikipediaSchemeURL = articleURL.wmf_wikipediaSchemeURL else {
                 break
             }
+            PiwikTracker.sharedInstance()?.wmf_logActionTapThroughInContext(self, contentType: self)
             extensionContext.openURL(wikipediaSchemeURL, completionHandler: { (didOpen) in
                 completion(.Dismiss)
             })

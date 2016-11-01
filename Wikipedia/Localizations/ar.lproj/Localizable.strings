@@ -49,7 +49,6 @@
 "zero-free-verbiage" = "وصول مجاني إلى ويكيبيديا مقدم من الشركة المشغلة لخدمات الأجهزة المحمولة (أنت معفى من رسوم استهلاك البيانات)";
 "zero-charged-verbiage" = "ويكيبيديا زيرو معطلة";
 "zero-charged-verbiage-extended" = "تحميل مقالات أخرى قد ينتج عنه احتساب رسوم استهلاك بيانات. المقالات المحفوظة المخزنة للاطلاع عليها دون اتصال بالإنترنت لا تستهلك البيانات وهي معفاة من الرسوم.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "مغادرة ويكيبيديا زيرو";
 "zero-interstitial-leave-app" = "قد يتم احتساب رسوم على البيانات، هل تريد الذهاب إلى الموقع الخارجي؟";
 "zero-interstitial-continue" = "المغادرة";
@@ -254,6 +253,8 @@
 "button-ok" = "حسنا";
 "button-save-for-later" = "احفظها لوقت لاحق";
 "button-saved-for-later" = "احفظها لوقت لاحق";
+"button-saved-remove" = "حذف من المحفوظات";
+"button-read-now" = "اقرأ الآن";
 "button-report-a-bug" = "بلغ عن علة";
 "onboarding-create-account" = "إنشاء حساب";
 "onboarding-login" = "تسجيل الدخول";
@@ -418,7 +419,15 @@
 "find-in-page-popover-description" = "ابحث عن نص في المقالات";
 "continue-reading-empty-title" = "لا يوجد مقالات قرءت مؤخرا";
 "continue-reading-empty-description" = "تصفح ويكيبيديا لقراءة المزيد من المقالات";
+"top-read-see-more" = "طالع المزيد من الأعلى قراءةً";
 "top-read-see-more-trending" = "شاهد المزيد من الأمور الرائجة";
 "top-read-header-with-language" = "$1 ويكيبيديا";
 "top-read-header-generic" = "ويكيبيديا";
 "reference-title" = "$1 مرجع";
+"in-the-news-notification-read-now-action-title" = "اقرأ الآن";
+"in-the-news-notification-share-action-title" = "شارك";
+"in-the-news-notification-save-for-later-action-title" = "احفظها لوقت لاحق";
+"in-the-news-currently-trending" = "الأكثر زيارة حاليا";
+"number-thousands" = "$1 ألف";
+"number-millions" = "$1 مليون";
+"number-billions" = "$1 مليار";

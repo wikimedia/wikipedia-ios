@@ -23,6 +23,8 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @property (readonly, assign, nonatomic) int articleId;                     // required; -> 'id'
 @property (readonly, strong, nonatomic, nullable) NSNumber *revisionId;
 
+@property (copy, nonatomic, nullable) NSString *acceptLanguageRequestHeader;
+
 /**
  * Number of links to other wikis on this page.
  *
@@ -43,7 +45,7 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @property (readonly, copy, nonatomic, nullable) NSString *thumbnailURL; // optional; generated from imageURL
 @property (readwrite, copy, nonatomic, nullable) NSString *imageURL;    // optional; pulled in article request
 
-- (NSString *)bestThumbnailImageURL;
+- (nullable NSString *)bestThumbnailImageURL;
 
 @property (readonly, copy, nonatomic, nullable) NSString *entityDescription; // optional; currently pulled separately via wikidata
 @property (readonly, copy, nonatomic, nullable) NSString *searchSnippet;     //Snippet returned from search results
@@ -57,7 +59,7 @@ static const NSInteger kMWKArticleSectionNone = -1;
 
 @property (readonly, strong, nonatomic, nullable) NSString *summary;
 
-- (MWKImage *)bestThumbnailImage;
+- (nullable MWKImage *)bestThumbnailImage;
 
 /**
  *  Array of `MWKCitation` objects parsed from the receiver's reference list.
@@ -68,9 +70,9 @@ static const NSInteger kMWKArticleSectionNone = -1;
  */
 @property (readonly, strong, nonatomic, nullable) NSArray *citations;
 
-- (instancetype)initWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore;
-- (instancetype)initWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore dict:(NSDictionary *)dict;
-- (instancetype)initWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore searchResultsDict:(NSDictionary *)dict;
+- (instancetype)initWithURL:(NSURL *)url dataStore:(nullable MWKDataStore *)dataStore;
+- (instancetype)initWithURL:(NSURL *)url dataStore:(nullable MWKDataStore *)dataStore dict:(NSDictionary *)dict;
+- (instancetype)initWithURL:(NSURL *)url dataStore:(nullable MWKDataStore *)dataStore searchResultsDict:(NSDictionary *)dict;
 
 /**
  * Import article and section metadata (and text if available)
@@ -79,8 +81,8 @@ static const NSInteger kMWKArticleSectionNone = -1;
  */
 - (void)importMobileViewJSON:(NSDictionary *)jsonDict;
 
-- (MWKImage *)imageWithURL:(NSString *)url;
-- (MWKImage *)existingImageWithURL:(NSString *)url;
+- (nullable MWKImage *)imageWithURL:(NSString *)url;
+- (nullable MWKImage *)existingImageWithURL:(NSString *)url;
 
 /**
  *  Check if the receiver is equal to the given article.

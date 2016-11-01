@@ -80,7 +80,7 @@
 		<string>Tharlon-Regular.ttf</string>
 	</array>
 	<key>UIApplicationShortcutWidget</key>
-	<string>org.wikimedia.wikipedia.TopReadWidget</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER).TopReadWidget</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
@@ -115,11 +115,7 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 	<key>WMFHockeyAppIdentifier</key>
-	<string>5d80da08a6761e5c6456736af7ebad88</string>
-	<key>WMFPiwikAppIdentifier</key>
-	<string>3</string>
-	<key>WMFPiwikURL</key>
-	<string>https://piwik.wikimedia.org/</string>
+	<string>$(WMF_HOCKEYAPP_IDENTIFIER)</string>
 	<key>WMFShowDebugMenu</key>
 	<false/>
 </dict>

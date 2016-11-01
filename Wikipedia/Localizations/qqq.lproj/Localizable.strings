@@ -115,10 +115,10 @@
 "search-result-redirected-from" = "Text for search result letting user know if a result is a redirect from another article. Parameters:\n* $1 - article title the current search result redirected from";
 "settings-title" = "Title of the view where app settings are displayed.\n{{Identical|Settings}}";
 "settings-language" = "Title for button letting user choose primary language Wikipedia for the app.";
-"settings-notifications" = "Title for button letting user choose notifications settings.";
 "settings-support" = "Title for button letting user make a donation.";
 "settings-language-bar" = "Title in Settings for toggling the display the language bar in the search view";
 "settings-my-languages" = "Title for list of user's preferred languages";
+"settings-notifications" = "Title for button letting user choose notifications settings.\n{{Identical|Notification}}";
 "settings-help-and-feedback" = "Title for showing showing a screen that displays the FAQ and allows users to submit bug reports";
 "settings-primary-language" = "Label shown next to primary language\n{{Identical|Primary}}";
 "settings-primary-language-details" = "Explanation of how the first preferred language is used. \"Explore\" is {{msg-wm|Wikipedia-ios-home-title}}.";
@@ -363,6 +363,10 @@
 "home-hide-suggestion-cancel" = "Title of the button for cancelling the hiding of an explore feed suggestion\n{{Identical|Cancel}}";
 "home-accessibility-label" = "Accessibility heading for the Explore page, indicating both that this is the Wikipedia app (as in the logo that is displayed visually) and that this is the Explore page.";
 "home-button-accessibility-label" = "Accessibility heading for a button on articles allowing users to jump back to the home screen\n{{Identical|Home}}";
+"home-title-accessibility-label" = "Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page";
+"home-button-explore-accessibility-label" = "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore";
+"home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles";
+"home-button-history-accessibility-label" = "Accessibility heading for articles shown within the history articles tab, indicating that tapping it will take you back to the history list";
 "potd-empty-error-description" = "Error message when app fails to download Commons Picture of the Day. $1 will be substitued with the date which the app attempted to retrieve.";
 "potd-description-prefix" = "Prefix to picture of the day description which states it was the picture of the day for a specific date. The $1 token is subtituted for the date.";
 "welcome-explore-title" = "Title for welcome screen explaining new exploration features\n{{Identical|Explore}}";
@@ -423,6 +427,7 @@
 "no-email-account-alert" = "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device";
 "request-feedback-on-error" = "Displayed to beta users when they encounter an error we'd like feedback on";
 "explore-another-random" = "Displayed on buttons that indicate they would load 'Another random article'";
+"explore-randomizer" = "Displayed on a button that loads another random article - it's a 'Randomizer'";
 "find-in-page-no-matches" = "Displayed when zero matches were found for the search term. Space is limited for this message so please try to keep this text small\n{{Identical|Match}}";
 "find-in-page-button-label" = "Accessibility label for the Find in Page button";
 "find-in-page-popover-description" = "Description of Find in Page which can appear over its icon in a tip bubble";
@@ -432,25 +437,24 @@
 "top-read-see-more-trending" = "See more trending";
 "top-read-header-with-language" = "$1 Wikipedia - for example English Wikipedia\n{{Identical|Wikipedia}}";
 "top-read-header-generic" = "Wikipedia\n{{Identical|Wikipedia}}";
+"readers-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate number of readers for a given article - $1 is replaced with the number of readers";
+"rank-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate a ranking - Number 1, Number 2, etc. $1 is replaced with the ranking";
 "reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}";
 "in-the-news-notification-read-now-action-title" = "Title on the 'Read Now' action button";
-"in-the-news-notification-share-action-title" = "Title on the 'Share' action button";
+"in-the-news-notification-share-action-title" = "Title on the 'Share' action button\n{{Identical|Share}}";
 "in-the-news-notification-save-for-later-action-title" = "Title on the 'Save for later' action button";
 "in-the-news-currently-trending" = "Currently trending - indicates that the story is trending right now";
 "in-the-news-title" = "Title for the 'In the news' notification & feed section";
 "in-the-news-title-for-date" = "Title for news on a given date - $1 is replaced with the date";
-
 "number-thousands" = "$1K - $1 is replaced with a number represented in thousands. In English the letter 'K' is commonly used after a number to indicate that number is in 'thousands'. So the letter 'K' should be changed to a character or short string indicating thousands. For example 500,000 would become 500K. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
 "number-millions" = "$1M - $1 is replaced with a number represented in millions. In English 'M' is commonly used after a number to indicate that number is in 'millions'. So the 'M' should be changed to a character or short string indicating millions. For example 500,000,000 would become 500M. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
 "number-billions" = "$1B - $1 is replaced with a number represented in billions. In English 'B' is commonly used after a number to indicate that number is in 'billions'. So the 'B' should be changed to a character or short string indicating billions. For example 5,100,000,000 would become 5.1B. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
-
-"reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}";
-
 "feed-news-notification-text" = "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news";
 "feed-news-notification-button-text" = "Text for button to turn on trending news notifications";
-
-"back" = "Generic 'Back' title for back button";
 
 "welcome-send-data-title" = "Title for welcome screen allowing user to opt in to send usage reports";
 "welcome-send-data-sub-title" = "Sub-title explaining how sending usage reports can help improve the app";
 
+"back" = "Generic 'Back' title for back button\n{{Identical|Back}}";
+"save-action" = "Accessibility action description for 'Save'";
+"unsave-action" = "Accessibility action description for 'Unsave'";

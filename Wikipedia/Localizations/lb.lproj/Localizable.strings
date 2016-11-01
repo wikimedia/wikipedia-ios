@@ -34,7 +34,6 @@
 "zero-free-verbiage" = "Gratis Zougang op Wikipedia vun Ärem GSM-Operateur (keng Taxe fir den Datentrafik)";
 "zero-charged-verbiage" = "Wikipedia Zero ass aus";
 "zero-charged-verbiage-extended" = "D'Luede vun aneren Artikele ka Käschte mat sech bréngen. Gespäichert Artikelen déi 'offline' gespäichert si generéiere keen Datentransfer a kaschten näischt.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Wikipedia Zero verloossen";
 "zero-interstitial-leave-app" = "Déi normal Käschte fir Datentransfer sinn eventuell applicabel. Virufueren op den externen Internetsite?";
 "zero-interstitial-continue" = "Fortgoen";
@@ -44,6 +43,7 @@
 "zero-learn-more-no-thanks" = "Verwerfen";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "zero-warn-when-leaving" = "Beim Verloosse vu Zero warnen";
+"zero-settings-devmode" = "Zero-Entwécklermodus";
 "account-creation-captcha-required" = "CAPTCHA-Kontroll obligatoresch.";
 "account-creation-captcha-obtaining" = "En neie CAPTCHA kréien.";
 "account-creation-logging-in" = "Aloggen...";
@@ -105,9 +105,13 @@
 "settings-support" = "Wikipedia ënnerstëtzen";
 "settings-language-bar" = "Sprooche beim Siche weisen";
 "settings-my-languages" = "Meng Sproochen";
+"settings-notifications" = "Notifikatiounen";
 "settings-help-and-feedback" = "Hëllef a Feedback";
 "settings-primary-language" = "Primär";
 "settings-primary-language-details" = "Déi éischt Sprooch an dëser Lëscht gëtt als primär Sprooch fir d'App consideréiert. D'Ännere vun dëser Sprooch ännert den deeglechen Inhalt (wéi excellent Artikelen) déi bei 'Entdecken' gewise ginn.";
+"settings-notifications-system-turn-on" = "Notifikatiounen aschalten";
+"settings-notifications-learn-more" = "Méi iwwer d'Notifikatioune gewuer ginn";
+"settings-notifications-push-notifications" = "Push-Notifikatiounen";
 "main-menu-title" = "Méi";
 "main-menu-heading-about" = "Iwwer";
 "main-menu-language-title" = "Sicht an der Wiki op $1";
@@ -343,12 +347,14 @@
 "potd-description-prefix" = "Bild vum Dag vum $1";
 "welcome-explore-title" = "Entdecken";
 "welcome-explore-sub-title" = "En nei Manéier fir all Dag interessant Artikelen z'entdecken";
+"welcome-explore-new-ways-title" = "Nei Manéiere fir z'entdecken";
 "welcome-explore-tell-me-more" = "Ech wëll méi wëssen";
 "welcome-explore-tell-me-more-about-explore" = "Méi iwwert d'Entdecken";
 "welcome-explore-tell-me-more-related" = "De Feed Entdecken weist Iech Artikelen a Relatioun mat Artikelen déi Dir geliest hutt.";
 "welcome-explore-tell-me-more-privacy" = "Lieslëschten a Profiller ginn net op eise Serveure gespäichert.";
 "welcome-explore-tell-me-more-done-button" = "Verstan";
 "welcome-explore-continue-button" = "Fir unzefänken";
+"welcome-notifications-tell-me-more-title" = "Méi iwwer Notifikatiounen";
 "welcome-languages-title" = "Sproochen";
 "welcome-languages-sub-title" = "Sicht Är léifst Sprooch eraus fir op Wikipedia ze sichen";
 "welcome-languages-add-button" = "Eng aner Sprooch derbäisetzen";
@@ -399,7 +405,19 @@
 "continue-reading-empty-title" = "Keng rezent geliest Artikelen";
 "continue-reading-empty-description" = "Wikipedia fir méi Artikelen entdecken";
 "top-read-see-more" = "Méi dacks geliest Artikele weisen";
+"top-read-see-more-trending" = "Méi Tendenze gesinn";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Referenz: $1";
+"in-the-news-notification-read-now-action-title" = "Elo Liesen";
+"in-the-news-notification-share-action-title" = "Deelen";
+"in-the-news-notification-save-for-later-action-title" = "Fir spéider späicheren";
+"in-the-news-currently-trending" = "Aktuell beléift";
+"in-the-news-title" = "An den Neiegkeeten";
+"in-the-news-title-for-date" = "Neiegkeete vum $1";
 "number-thousands" = "$1 D";
+"number-millions" = "$1 Mio.";
+"number-billions" = "$1 Mrd.";
+// Fuzzy
+"feed-news-notification-button-text" = "Mech iwwer aktuell Neiegkeeten informéieren";
+"back" = "Zréck";

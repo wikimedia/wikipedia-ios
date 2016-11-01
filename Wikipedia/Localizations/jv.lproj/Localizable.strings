@@ -33,7 +33,6 @@
 "zero-free-verbiage" = "Akses Wikipedia gratis saka operator ponsel (biaya data dibebaske)";
 "zero-charged-verbiage" = "Wikipedia Zero mati";
 "zero-charged-verbiage-extended" = "Mbukak artikel sanèsipun bisa uga dikenani biaya data. Artikel disimpen yang disimpen offline ora nggunakake data lan bebas.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Ninggalake Wikipédia Zero";
 "zero-interstitial-leave-app" = "Biaya data bisa uga diterapake. Terus jaba?";
 "zero-interstitial-continue" = "Ninggalake";
@@ -106,9 +105,16 @@
 "settings-support" = "Ndhukung Wikipedia";
 "settings-language-bar" = "Nuduhake basa ing nggoleki";
 "settings-my-languages" = "Basa sandi";
+"settings-notifications" = "Wara-wara";
 "settings-help-and-feedback" = "Pitulung lan saran";
 "settings-primary-language" = "Utami";
 "settings-primary-language-details" = "Basa pisanan ing dhaftar iki digunakake minangka basa utama kanggo aplikasi. Ganti basa iki bakal ngganti isi dina (kayata Artikel Pilihan) ditampilake ing Njelajah.";
+"settings-notifications-system-off" = "Notifikasi lagi dipateni kanggo Wikipedia. Menyang setelan peranti sampeyan kanggo nguripake kabar";
+"settings-notifications-system-turn-on" = "Nguripake Wara-wara";
+"settings-notifications-info" = "Dapatkan pemberitahuan kanggo trending lan ndhuwur diwaca artikel ing Wikipedia karo kabar push kita. Kabeh kasedhiya karo bab privasi lan munggah menyang data menit.";
+"settings-notifications-learn-more" = "Info liyane babagan kabar";
+"settings-notifications-trending" = "Acara saiki";
+"settings-notifications-push-notifications" = "Kabar meksa nyembul";
 "main-menu-title" = "Liyané";
 "main-menu-heading-about" = "Bab";
 "main-menu-language-title" = "Golèk Wikipédia $1";
@@ -348,6 +354,8 @@
 "potd-description-prefix" = "Gambar saka dina kanggo $1";
 "welcome-explore-title" = "Njelajah";
 "welcome-explore-sub-title" = "Cara anyar kanggo nemokake artikel saben dina";
+"welcome-explore-new-ways-title" = "Cara anyar kanggo njelajah";
+"welcome-explore-new-ways-sub-title" = "Kabar anyar lan widget kanggo sampeyan nemokake artikel";
 "welcome-explore-tell-me-more" = "Ngomong liyane";
 "welcome-explore-tell-me-more-about-explore" = "Liyane bab Njelajah";
 "welcome-explore-tell-me-more-details" = "Nalika maca artikel, artikel kanthi otomatis ditambahake menyang Njelajah feed. Iki ora ngganti kepriye ngumpulake informasi, lan Sajarah maca isih pribadi.";
@@ -355,6 +363,9 @@
 "welcome-explore-tell-me-more-privacy" = "Ora dhaftar maca utawa profil wis disimpen ing server kita.";
 "welcome-explore-tell-me-more-done-button" = "Tak";
 "welcome-explore-continue-button" = "Miwiti";
+"welcome-notifications-tell-me-more-title" = "Liyane babagan kabar";
+"welcome-notifications-tell-me-more-storage" = "Preferensi notifikasi disimpen ing piranti lan ora adhedhasar informasi pribadhi utawa kegiatan.";
+"welcome-notifications-tell-me-more-creation" = "Kabar sing digawe lan dikirim ing piranti kanthi app, ora saka server kita (utawa pihak katelu).";
 "welcome-languages-title" = "Basa";
 "welcome-languages-sub-title" = "Pilih basa sing disenengi kanggo nelusuri Wikipedia";
 "welcome-languages-add-button" = "Tambah basa liyane";
@@ -409,3 +420,17 @@
 "top-read-header-with-language" = "Wikipedia $1";
 "top-read-header-generic" = "Wikipédia";
 "reference-title" = "Rujukan $1";
+"in-the-news-notification-read-now-action-title" = "Maca Saiki";
+"in-the-news-notification-share-action-title" = "Nuduhake";
+"in-the-news-notification-save-for-later-action-title" = "Simpen kanggo mengko";
+"in-the-news-currently-trending" = "Saiki tren";
+"in-the-news-title" = "Lagi dadi warta";
+"in-the-news-title-for-date" = "Warta ing $1";
+"number-thousands" = "$1 ewu";
+"number-millions" = "$1 yuta";
+"number-billions" = "$1 miliar";
+// Fuzzy
+"feed-news-notification-text" = "Sampeyan saiki bisa nguripake kabar saka artikel Wikipedia tren ing kabar.";
+// Fuzzy
+"feed-news-notification-button-text" = "Menawa pengiriman notifikasi kula bab tren warta";
+"back" = "Balik";

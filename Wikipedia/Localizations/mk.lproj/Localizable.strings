@@ -36,7 +36,6 @@
 "zero-free-verbiage" = "Бесплатнен пристап до Википедија преку Вашиот мобилен оператор (податочниот сообраќај не се наплаќа)";
 "zero-charged-verbiage" = "Википедија Нулта е исклучена";
 "zero-charged-verbiage-extended" = "Вчитувањето на други статии може да повлече наплата за податочниот промет. Статиите зачувани на уредот не предизвикуваат податочен промет и се бесплатни.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Ја напуштате Википедија Нулта";
 "zero-interstitial-leave-app" = "За ова може да се наплаќа. Да продолжам кон надворешно место?";
 "zero-interstitial-continue" = "Напушти";
@@ -109,9 +108,16 @@
 "settings-support" = "Поддржете ја Википедија";
 "settings-language-bar" = "Прикажувај јазици при пребарувањето";
 "settings-my-languages" = "Мои јазици";
+"settings-notifications" = "Известувања";
 "settings-help-and-feedback" = "Помош и мислења";
 "settings-primary-language" = "Главен";
 "settings-primary-language-details" = "Првиот јазик на овој список ќе се користи како главен за прилогот. Ако го смените јазикот, ќе ја смените и дневната содржина (како на пр. Избраната статија) што се прикажува на „Истражете“.";
+"settings-notifications-system-off" = "Известувањата во моментов се исклучени за Википедија. Одете во поставките за вашиот уред за да ги вклучите.";
+"settings-notifications-system-turn-on" = "Вклучи известувања";
+"settings-notifications-info" = "Бидете во тек со тековните и најчитаните статии на Википедија со нашите доставни известувања. Сите се нудат со најтековни податоци, притоа почитувајќи ја вашата приватност.";
+"settings-notifications-learn-more" = "Дознајте повеќе за известувањата";
+"settings-notifications-trending" = "Тековни настани";
+"settings-notifications-push-notifications" = "Доставни известувања";
 "main-menu-title" = "Повеќе";
 "main-menu-heading-about" = "За прилогот";
 "main-menu-language-title" = "Пребарување на Википедија на $1";
@@ -351,6 +357,8 @@
 "potd-description-prefix" = "Слика на денот за $1";
 "welcome-explore-title" = "Истражете";
 "welcome-explore-sub-title" = "Нов начин да откривате интересни статии секој ден";
+"welcome-explore-new-ways-title" = "Нови начини да се истражува";
+"welcome-explore-new-ways-sub-title" = "Нови известувања и додатоци што ви помагаат да откриете интересни статии";
 "welcome-explore-tell-me-more" = "Сакам да дознаам повеќе";
 "welcome-explore-tell-me-more-about-explore" = "Повеќе за „Истражете“";
 "welcome-explore-tell-me-more-details" = "Кога читате некоја статија, во текот на „Истражете“ автоматски ќе ви се појават поврзани статии. Ова не го менува прибирањето на информации. Историјата на читани статии останува приватна.";
@@ -358,6 +366,9 @@
 "welcome-explore-tell-me-more-privacy" = "На опслужувачите не складираме список на читани страници или профили.";
 "welcome-explore-tell-me-more-done-button" = "Јасно";
 "welcome-explore-continue-button" = "Започни";
+"welcome-notifications-tell-me-more-title" = "Повеќе за известувањата";
+"welcome-notifications-tell-me-more-storage" = "Поставките за известувања се складираат на уредот, и не се водат според вашите лични податоци или активности.";
+"welcome-notifications-tell-me-more-creation" = "Известувањата се создаваат и доставуваат на вашиот уред од прилогот, а не од наши опслужувачи или од трети лица.";
 "welcome-languages-title" = "Јазици";
 "welcome-languages-sub-title" = "Одберете ги вашите претпочитани јазици за пребарување на Википедија";
 "welcome-languages-add-button" = "Додај друг јазик";
@@ -412,4 +423,17 @@
 "top-read-header-with-language" = "Википедија на $1";
 "top-read-header-generic" = "Википедија";
 "reference-title" = "Навод $1";
+"in-the-news-notification-read-now-action-title" = "Прочитај сега";
+"in-the-news-notification-share-action-title" = "Сподели";
+"in-the-news-notification-save-for-later-action-title" = "Зачувај за подоцна";
+"in-the-news-currently-trending" = "Најчитани";
+"in-the-news-title" = "Вести";
+"in-the-news-title-for-date" = "Вести на $1";
 "number-thousands" = "$1 илј.";
+"number-millions" = "$1 млн.";
+"number-billions" = "$1 млрд.";
+// Fuzzy
+"feed-news-notification-text" = "Сега можете да ги вклучите известувањата од статии на Википедија кои се тековни во вестите.";
+// Fuzzy
+"feed-news-notification-button-text" = "Известувај ме за тековни вести";
+"back" = "Назад";

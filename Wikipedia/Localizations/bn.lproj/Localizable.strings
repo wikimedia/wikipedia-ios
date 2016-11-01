@@ -40,7 +40,6 @@
 "zero-free-verbiage" = "মোবাইল অপারেটরদের সৌজন্যে বিনামূল্যে উইকিপিডয়া (ডাটা চার্জ প্রযোজ্য নয়)";
 "zero-charged-verbiage" = "উইকিপিডিয়া জিরো নিষ্ক্রিয়";
 "zero-charged-verbiage-extended" = "অন্যান্য নিবন্ধ লোড করলে ডেটা চার্জ বহন করতে হতে পারে। সংরক্ষিত নিবন্ধ সংরক্ষণ করলে অফলাইনে তা ডেটা ব্যবহার করে না এবং তা বিনামূল্যে।";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "উইকিপিডিয়া জিরো প্রস্থান হচ্ছে";
 "zero-interstitial-leave-app" = "ডাটা চার্জ প্রযোজ্য হতে পারে। অন্য ওয়েবসাইটিতে যেতে চান?";
 "zero-interstitial-continue" = "ছেড়ে চলুন";
@@ -113,9 +112,11 @@
 "settings-support" = "উইকিপিডিয়াকে সাহায্য করুন";
 "settings-language-bar" = "অনুসন্ধানের সময় ভাষাগুলিকে দেখাও";
 "settings-my-languages" = "আমার ভাষাসমূহ";
+"settings-notifications" = "বিজ্ঞপ্তি";
 "settings-help-and-feedback" = "সাহায্য ও প্রতিক্রিয়া";
 "settings-primary-language" = "প্রাথমিক";
 "settings-primary-language-details" = "এই তালিকার প্রথম ভাষাটি অ্যাপলিকেশনের প্রাথমিক ভাষা হিসেবে ব্যবহর করা হয়েছে। এখন ভাষা পরিবর্তন অন্বেষণে দেখানো দৈনিক বিষয়বস্তু (যেমন, বৈশিষ্ট্যযুক্ত নিবন্ধ) পরিবর্তন করতে পারে।";
+"settings-notifications-system-turn-on" = "বিজ্ঞপ্তি বন্ধ করুন";
 "main-menu-title" = "আরও";
 "main-menu-heading-about" = "পরিচিতি";
 "main-menu-language-title" = "$1 ভাষার উইকিতে অনুসন্ধান";
@@ -409,4 +410,10 @@
 "top-read-header-with-language" = "$1 উইকিপিডিয়া";
 "top-read-header-generic" = "উইকিপিডিয়া";
 "reference-title" = "তথ্যসূত্র $1";
+"in-the-news-notification-read-now-action-title" = "এখন পড়ুন";
+"in-the-news-notification-share-action-title" = "বণ্টন";
+"in-the-news-notification-save-for-later-action-title" = "পরবর্তীর জন্য সংরক্ষণ করুন";
+"in-the-news-currently-trending" = "বর্তমান প্রবণতা";
+"in-the-news-title" = "সংবাদে";
 "number-thousands" = "$1 হাজার";
+"back" = "পিছনে";

@@ -135,6 +135,8 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
     dict[@"mainpage"] = @(self.isMain);
 
+    [dict wmf_maybeSetObject:self.acceptLanguageRequestHeader forKey:@"acceptLanguageRequestHeader"];
+
     return [dict copy];
 }
 
@@ -158,6 +160,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
     self.editable = [[self requiredNumber:@"editable" dict:dict] boolValue];
 
+    self.acceptLanguageRequestHeader = [self optionalString:@"acceptLanguageRequestHeader" dict:dict];
     self.revisionId = [self optionalNumber:@"revision" dict:dict];
     self.redirectedURL = [self optionalURL:@"redirected" dict:dict];
     self.displaytitle = [self optionalString:@"displaytitle" dict:dict];
@@ -201,11 +204,11 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 #pragma mark - Image Helpers
 
-- (MWKImage *)imageWithURL:(NSString *)url {
+- (nullable MWKImage *)imageWithURL:(NSString *)url {
     return [self.dataStore imageWithURL:url article:self];
 }
 
-- (NSString *)bestThumbnailImageURL {
+- (nullable NSString *)bestThumbnailImageURL {
     if (self.thumbnailURL) {
         return self.thumbnailURL;
     }
@@ -221,7 +224,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
  * Return image object if folder for that image exists
  * else return nil
  */
-- (MWKImage *)existingImageWithURL:(NSString *)url {
+- (nullable MWKImage *)existingImageWithURL:(NSString *)url {
     NSString *imageCacheFolderPath = [self.dataStore pathForImageURL:url forArticleURL:self.url];
     if (!imageCacheFolderPath) {
         return nil;
@@ -308,7 +311,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return nil;
 }
 
-- (MWKImage *)bestThumbnailImage {
+- (nullable MWKImage *)bestThumbnailImage {
     if (self.thumbnailURL) {
         return [self thumbnail];
     }

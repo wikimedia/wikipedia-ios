@@ -37,7 +37,6 @@
 "zero-free-verbiage" = "Ingyenes Wikipédia-hozzáférés a mobilszolgáltatódtól (adatforgalmi díjak elengedve)";
 "zero-charged-verbiage" = "A Wikipédia Zero ki van kapcsolva";
 "zero-charged-verbiage-extended" = "Más szócikkek betöltése adatforgalmi díjakkal járhat. Az elmentett szócikkek kapcsolat nélkül is elérhetőek, így ingyen megtekinthetőek.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Wikipedia Zero elhagyása";
 "zero-interstitial-leave-app" = "Adatköltségek merülhetnek fel. Továbblépsz a külső oldalra?";
 "zero-interstitial-continue" = "Elhagy";
@@ -110,9 +109,14 @@
 "settings-support" = "Támogasd a Wikipédiát!";
 "settings-language-bar" = "Nyelvek megjelenítése keresésnél";
 "settings-my-languages" = "Saját nyelvek";
+"settings-notifications" = "Értesítések";
 "settings-help-and-feedback" = "Súgó és visszajelzés";
 "settings-primary-language" = "Elsődleges";
 "settings-primary-language-details" = "A listában szereplő első nyelv az alkalmazás elsődleges nyelve. Ennek megváltoztatása módosítja a napi tartalmat (mint a kiemelt szócikket) a Felfedezés lapon.";
+"settings-notifications-system-off" = "A Wikipédia értesítései jelenleg ki vannak kapcsolva. Menj az eszközöd beállításaiba a bekapcsolásukhoz";
+"settings-notifications-system-turn-on" = "Értesítések bekapcsolása";
+"settings-notifications-learn-more" = "További információ az értesítésekről";
+"settings-notifications-push-notifications" = "Push értesítések";
 "main-menu-title" = "Több";
 "main-menu-heading-about" = "Névjegy";
 "main-menu-language-title" = "Keresés a(z) $1 Wikipédiában";
@@ -352,6 +356,8 @@
 "potd-description-prefix" = "A $1 nap képe";
 "welcome-explore-title" = "Felfedezés";
 "welcome-explore-sub-title" = "Egy új mód, hogy érdekes szócikkeket fedezz fel nap mint nap";
+"welcome-explore-new-ways-title" = "Új módok a felfedezésre";
+"welcome-explore-new-ways-sub-title" = "Új értesítések és widgetek segítenek felfedezni érdekes szócikkeket";
 "welcome-explore-tell-me-more" = "További információk";
 "welcome-explore-tell-me-more-about-explore" = "További információk a Felfedezésről";
 "welcome-explore-tell-me-more-details" = "Amikor elolvasol egy szócikket, néhány kapcsolódó cikk megjelenik a Felfedezés hírfolyamodban. Ez nem változtat azon, hogy hogyan gyűjtjük az adataidat, és az általad olvasott cikkek listája továbbra is privát.";
@@ -359,6 +365,9 @@
 "welcome-explore-tell-me-more-privacy" = "Nem tárolunk semmilyen olvasólistát vagy profilt a szervereinken.";
 "welcome-explore-tell-me-more-done-button" = "Értem";
 "welcome-explore-continue-button" = "Kezdés";
+"welcome-notifications-tell-me-more-title" = "További információk az értesítésekről";
+"welcome-notifications-tell-me-more-storage" = "Az értesítések beállításai az eszközön tárolódnak és nem használnak személyes információkat vagy tevékenységadatokat.";
+"welcome-notifications-tell-me-more-creation" = "Az értesítéseket az alkalmazás készíti és továbbítja a készülékedre, nem a mi (vagy harmadik felek) szerverei.";
 "welcome-languages-title" = "Nyelvek";
 "welcome-languages-sub-title" = "Válaszd ki a Wikipédia kereséséhez preferált nyelveket";
 "welcome-languages-add-button" = "Másik nyelv hozzáadása";
@@ -413,3 +422,12 @@
 "top-read-header-with-language" = "$1 Wikipédia";
 "top-read-header-generic" = "Wikipédia";
 "reference-title" = "Forráshivatkozás $1";
+"in-the-news-notification-read-now-action-title" = "Olvasás most";
+"in-the-news-notification-share-action-title" = "Megosztás";
+"in-the-news-notification-save-for-later-action-title" = "Elmentés későbbre";
+"in-the-news-title" = "A hírekben";
+"in-the-news-title-for-date" = "Hírek – $1";
+"number-thousands" = "$1k";
+"number-millions" = "$1M";
+"number-billions" = "$1 Mrd";
+"back" = "Vissza";

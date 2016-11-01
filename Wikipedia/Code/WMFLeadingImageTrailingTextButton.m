@@ -74,7 +74,7 @@
     [self applyConstraints];
 }
 
-- (void)setEdgeInsets:(UIEdgeInsets)edgeInsets{
+- (void)setEdgeInsets:(UIEdgeInsets)edgeInsets {
     _edgeInsets = edgeInsets;
     [self applyConstraints];
 }
@@ -105,6 +105,7 @@
     self.iconImageView = [UIImageView new];
     self.iconImageView.contentMode = UIViewContentModeCenter;
     self.iconImageView.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
+    self.iconImageView.isAccessibilityElement = NO;
     [self addSubview:self.iconImageView];
 
     // imageView must hug content, otherwise it will expand and "push" label towards opposite edge
@@ -116,6 +117,7 @@
     self.textLabel.font = [UIFont boldSystemFontOfSize:14.f];
     self.textLabel.highlightedTextColor = [UIColor lightGrayColor];
     self.textLabel.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
+    self.textLabel.isAccessibilityElement = NO;
     [self.textLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     [self addSubview:self.textLabel];
     [self applyConstraints];
@@ -123,17 +125,17 @@
 
 - (void)applyConstraints {
     UIEdgeInsets modified = self.edgeInsets;
-    
+
     //right and bottom need negative numbers
     modified.bottom = -modified.bottom;
     modified.right = -modified.right;
 
     //flip left and right for RTL
-    if([[UIApplication sharedApplication] wmf_isRTL]){
-        modified.left = modified.right;
-        modified.right = self.edgeInsets.left;
+    if ([[UIApplication sharedApplication] wmf_isRTL]) {
+        modified.left = -modified.right;
+        modified.right = -self.edgeInsets.left;
     }
-    
+
     [self.iconImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.mas_leading).with.offset(modified.left);
         make.top.equalTo(self.mas_top).with.offset(modified.top);
@@ -151,13 +153,15 @@
 - (void)applyInitialState {
     [self applySelectedState:NO];
     [self applyTintColor];
+    self.isAccessibilityElement = YES;
+    self.accessibilityTraits = UIAccessibilityTraitButton;
 }
 
 - (void)applySelectedState:(BOOL)animated {
     dispatch_block_t animations = ^{
         self.iconImageView.image = self.selected && self.selectedIconImage ? self.selectedIconImage : self.iconImage;
         self.textLabel.text = self.selected && self.selectedLabelText ? self.selectedLabelText : self.labelText;
-        self.accessibilityHint = self.textLabel.text;
+        self.accessibilityLabel = self.selected ? self.selectedActionText ?: self.textLabel.text : self.deselectedActionText ?: self.textLabel.text;
     };
     if (!animated) {
         animations();
@@ -206,8 +210,10 @@
                    compatibleWithTraitCollection:self.traitCollection];
 
     self.labelText = [self localizedStringForKeyFromCurrentBundle:@"button-save-for-later"];
-
     self.selectedLabelText = [self localizedStringForKeyFromCurrentBundle:@"button-saved-for-later"];
+    
+    self.selectedActionText = [self localizedStringForKeyFromCurrentBundle:@"unsave-action"];
+    self.deselectedActionText = [self localizedStringForKeyFromCurrentBundle:@"save-action"];
 }
 
 - (void)configureAsReportBugButton {
@@ -216,6 +222,8 @@
                                 inBundle:[NSBundle bundleForClass:[self class]]
            compatibleWithTraitCollection:self.traitCollection];
     self.labelText = [self localizedStringForKeyFromCurrentBundle:@"button-report-a-bug"];
+    self.selectedActionText = [self localizedStringForKeyFromCurrentBundle:@"button-report-a-bug"];
+    self.deselectedActionText = [self localizedStringForKeyFromCurrentBundle:@"button-report-a-bug"];
 }
 
 - (NSString *)localizedStringForKeyFromCurrentBundle:(NSString *)key {
@@ -227,7 +235,7 @@
     }
 }
 
-- (void)configureAsNotifyTrendingButton{
+- (void)configureAsNotifyTrendingButton {
     self.layer.borderColor = [UIColor wmf_blueTintColor].CGColor;
     self.layer.borderWidth = 1.0;
     self.layer.cornerRadius = 5.0;
@@ -237,8 +245,12 @@
                                 inBundle:[NSBundle bundleForClass:[self class]]
            compatibleWithTraitCollection:self.traitCollection];
     self.labelText = [self localizedStringForKeyFromCurrentBundle:@"feed-news-notification-button-text"];
+
+    self.textLabel.textColor = [UIColor wmf_blueTintColor];
+    self.textLabel.adjustsFontSizeToFitWidth = YES;
+
+    self.selectedActionText = [self localizedStringForKeyFromCurrentBundle:@"feed-news-notification-button-text"];
+    self.deselectedActionText = [self localizedStringForKeyFromCurrentBundle:@"feed-news-notification-button-text"];
 }
-
-
 
 @end

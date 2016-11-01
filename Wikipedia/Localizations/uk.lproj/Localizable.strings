@@ -43,7 +43,6 @@
 "zero-free-verbiage" = "Безкоштовний доступ до Вікіпедії у вашого мобільного оператора (оплата за трафік не стягується)";
 "zero-charged-verbiage" = "Вікіпедія Zero вимкнена";
 "zero-charged-verbiage-extended" = "Під час завантаження інших статей може стягуватися плата за передачу даних. Збережені статті, що накопичуються автономно, не вимагають передачі даних і є безкоштовними.";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Покидаємо Вікіпедія Zero";
 "zero-interstitial-leave-app" = "Можливе стягнення за передачу даних. Продовжити перехід на зовнішній сайт?";
 "zero-interstitial-continue" = "Перейти";
@@ -83,14 +82,11 @@
 "wikitext-upload-result-unknown" = "Не вдається визначити результат завантаження вікі-тексту.";
 "wikitext-upload-captcha-error" = "Помилка перевірки CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Потрібна перевірка captcha.";
-// Fuzzy
-"wikitext-upload-save" = "Збереження...";
+"wikitext-upload-save" = "Збереження…";
 "wikitext-upload-save-sign-in" = "Увійти";
 "wikitext-upload-save-sign-in-benefits" = "Так співредактори можуть з'єднатися з Вами і Ви можете бачити, які статті Ви відредагували.";
-// Fuzzy
 "wikitext-upload-save-anonymously" = "Зберегти анонімно";
 "wikitext-upload-save-anonymously-warning" = "Редагування буде приписано ІР-адресі Вашого пристрою. Якщо Ви $1, це буде більш конфіденційно.";
-// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Зберігаючи зміни, Ви погоджуєтесь із $1 й невідклично публікуєте Ваш внесок під ліценцією $2.";
 "wikitext-upload-save-terms-name" = "Умови використання";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -174,17 +170,14 @@
 "page-history-downloading" = "Завантаження історії статті…";
 "navbar-title-mode-edit-wikitext" = "Змінити";
 "navbar-title-mode-login" = "Увійти";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "Увійти та зберегти";
 "navbar-title-mode-create-account" = "Створити обліковий запис";
-// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Створити обліковий запис і зберегти";
 "navbar-title-mode-edit-wikitext-warning" = "Проблеми редагування";
 "navbar-title-mode-edit-wikitext-disallow" = "Проблеми редагування";
 "navbar-title-mode-edit-wikitext-preview" = "Перегляд";
 "navbar-title-mode-edit-wikitext-captcha" = "Потрібна швидка перевірка";
 "navbar-title-mode-edit-wikitext-summary" = "Опишіть вашу зміну";
-// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Зберегти";
 "edit-summary-choice-linked-words" = "Додані посилання";
 "edit-summary-choice-fixed-grammar" = "Виправлений правопис";
@@ -250,9 +243,12 @@
 "button-next" = "Далі";
 "button-done" = "Готово";
 "button-save" = "Зберегти";
+"button-publish" = "Зберегти";
 "button-ok" = "Гаразд";
 "button-save-for-later" = "Зберегти наперед";
 "button-saved-for-later" = "Збережено наперед";
+"button-saved-remove" = "Вилучити зі збережених";
+"button-read-now" = "Читати зараз";
 "button-report-a-bug" = "Повідомити про помилку";
 "onboarding-create-account" = "Зареєструватися";
 "onboarding-login" = "Увійти до системи";
@@ -270,19 +266,16 @@
 "license-footer-text" = "Вміст доступний на умовах $1, якщо не вказано інше.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Вміст";
-// Fuzzy
 "table-of-contents-button-label" = "Зміст";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Закрити зміст";
 "table-of-contents-close-accessibility-hint" = "Закрити";
-// Fuzzy
-"abuse-filter-warning-heading" = "Ця зміна виглядає руйнівною. Ви справді волієте її зберегти?";
+"table-of-contents-popover-description" = "Отримати огляд статей";
+"abuse-filter-warning-heading" = "Це редагування схоже на неконструктивне. Ви справді бажаєте його зберегти?";
 "abuse-filter-warning-subheading" = "Ваші зміни можуть містити одну із наступних дій:";
 "abuse-filter-warning-caps" = "Набір ВЕЛИКИМ ЛІТЕРАМИ";
 "abuse-filter-warning-blanking" = "Очищення вмісту статті або спам";
 "abuse-filter-warning-irrelevant" = "Нерелевантні зовнішні посилання або зображення";
 "abuse-filter-warning-repeat" = "Повторююююювані символи";
-// Fuzzy
 "abuse-filter-disallow-heading" = "Ви не можете зберегти це редагування. Будь ласка, поверніться назад і змініть його.";
 "abuse-filter-disallow-unconstructive" = "Автоматизований фільтр визначила цю зміну як потенційно руйнівну або як спробу вандалізму.";
 "abuse-filter-disallow-notable" = "Вікіпедія - це енциклопедія і тут допустимий лише нейтральний або значущий вміст.";
@@ -359,8 +352,7 @@
 "home-hide-suggestion-prompt" = "Приховати цю пропозицію";
 "home-hide-suggestion-cancel" = "Скасувати";
 "home-accessibility-label" = "Вікіпедія, Досліджуйте";
-// Fuzzy
-"home-button-accessibility-label" = "Кнопка повернення на головну";
+"home-button-accessibility-label" = "Домівка";
 "potd-empty-error-description" = "Не вдалося отримати зображення дня за $1";
 "potd-description-prefix" = "Зображення дня за $1";
 "welcome-explore-title" = "Досліджуйте";
@@ -401,6 +393,7 @@
 "explore-featured-article-heading" = "Вибрана стаття";
 "explore-continue-reading-heading" = "Продовжити читання";
 "explore-nearby-heading" = "Місця поблизу";
+"explore-nearby-sub-heading-your-location" = "Ваше місце розташування";
 "explore-continue-related-heading" = "Тому, що Ви читали";
 "explore-main-page-heading" = "Сьогодні у Вікіпедії";
 "explore-random-article-heading" = "Випадкова стаття";
@@ -416,3 +409,19 @@
 "request-feedback-on-error" = "Програмка зіткнулася з проблемою, про яку нашим розробникам хотілося б знати більше. Будь ласка, натисніть тут, щоб надіслати нам листа з деталями помилки.";
 "explore-another-random" = "Інша випадкова стаття";
 "find-in-page-no-matches" = "0 збігів";
+"find-in-page-button-label" = "Знайти на сторінці";
+"find-in-page-popover-description" = "Шукати текст у статтях";
+"continue-reading-empty-title" = "Немає нещодавно прочитаних статей";
+"continue-reading-empty-description" = "Подосліджуйте Вікіпедію, щоб знайти більше статей для читання";
+"top-read-see-more" = "Див. більше найкращих";
+"top-read-see-more-trending" = "Див. більше популярних";
+"top-read-header-with-language" = "$1 Вікіпедія";
+"top-read-header-generic" = "Вікіпедія";
+"reference-title" = "Посилання $1";
+"in-the-news-notification-read-now-action-title" = "Читати зараз";
+"in-the-news-notification-share-action-title" = "Поділитися";
+"in-the-news-notification-save-for-later-action-title" = "Зберегти на потім";
+"in-the-news-currently-trending" = "Зараз популярні";
+"number-thousands" = "$1 тис.";
+"number-millions" = "$1 млн";
+"number-billions" = "$1 млрд";
