@@ -215,7 +215,9 @@ NS_ASSUME_NONNULL_BEGIN
     [self.relatedSearchFetcher fetchArticlesRelatedArticleWithURL:group.articleURL
         resultLimit:WMFMaxRelatedSearchResultLimit
         completionBlock:^(WMFRelatedSearchResults *_Nonnull results) {
-
+            if([results.results count] == 0){
+                return;
+            }
             NSArray<NSURL *> *urls = [results.results bk_map:^id(id obj) {
                 return [results urlForResult:obj];
             }];
