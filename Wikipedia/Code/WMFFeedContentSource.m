@@ -360,7 +360,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         if (articlePreviewToNotifyAbout && articlePreviewToNotifyAbout.url) {
             if ([self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreviewToNotifyAbout force:NO]) {
 
-                [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:articlePreviewToNotifyAbout.url.host];
+                [[PiwikTracker sharedInstance] wmf_logActionPushInContext:self contentType:articlePreviewToNotifyAbout.url.host date:[NSDate date]];
             };
             break;
         }

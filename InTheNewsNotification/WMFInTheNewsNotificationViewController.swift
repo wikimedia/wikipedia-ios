@@ -66,7 +66,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             articleURL = NSURL(string: articleURLString)
         }
         
-        PiwikTracker.sharedInstance()?.wmf_logActionPreviewInContext(self, contentType: self)
+        PiwikTracker.sharedInstance()?.wmf_logActionPreviewInContext(self, contentType: self, date: NSDate())
         
         do {
             if let dictionary = info[WMFNotificationInfoFeedNewsStoryKey] as? [String: AnyObject],
