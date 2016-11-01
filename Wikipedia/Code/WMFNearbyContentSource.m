@@ -194,6 +194,12 @@
         resultLimit:20
         completion:^(WMFLocationSearchResults *_Nonnull results) {
             @strongify(self);
+            self.isProcessingLocation = NO;
+
+            if([results.results count] == 0){
+                return;
+            }
+            
             NSArray<NSURL *> *urls = [results.results bk_map:^id(id obj) {
                 return [results urlForResult:obj];
             }];
@@ -204,9 +210,6 @@
             [self removeOldSectionsForDate:group.date];
             [self.contentStore addContentGroup:group associatedContent:urls];
             [self.contentStore notifyWhenWriteTransactionsComplete:completion];
-
-            self.isProcessingLocation = NO;
-
         }
         failure:^(NSError *_Nonnull error) {
             self.isProcessingLocation = NO;
