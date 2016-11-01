@@ -122,6 +122,19 @@ NS_ASSUME_NONNULL_BEGIN
                               value:nil];
 }
 
+- (void)wmf_logActionPushInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType date:(nullable NSDate*)date{
+    [self wmf_sendEventWithCategory:[context analyticsContext]
+                             action:@"Push"
+                               name:[contentType analyticsContentType]
+                              value:[self hourTimeValueFromDate:date]];
+}
+
+
+- (NSNumber*)hourTimeValueFromDate:(nullable NSDate*)date{
+    return @([date hour]);
+}
+
+
 @end
 
 NS_ASSUME_NONNULL_END
