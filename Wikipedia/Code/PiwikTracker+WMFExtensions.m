@@ -1,5 +1,6 @@
 #import "PiwikTracker+WMFExtensions.h"
 #import "NSBundle+WMFInfoUtils.h"
+@import NSDate_Extensions;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -45,11 +46,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)wmf_logActionPreviewInContext:(id<WMFAnalyticsContextProviding>)context
                           contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_logActionPreviewInContext:context contentType:contentType date:nil];
+  }
+
+- (void)wmf_logActionPreviewInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType date:(nullable NSDate*)date{
+    
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Preview"
                                name:[contentType analyticsContentType]
                               value:nil];
 }
+
 
 - (void)wmf_logActionTapThroughInContext:(id<WMFAnalyticsContextProviding>)context
                              contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
