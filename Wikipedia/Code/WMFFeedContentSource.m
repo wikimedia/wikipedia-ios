@@ -417,7 +417,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (thumbnailURLString) {
         info[WMFNotificationInfoThumbnailURLStringKey] = thumbnailURLString;
     }
-    NSString *snippet = articlePreview.snippet ?: articlePreview.wikidataDescription;
+    NSString *snippet = articlePreview.wikidataDescription ?: articlePreview.snippet;
     if (snippet) {
         info[WMFNotificationInfoArticleExtractKey] = snippet;
     }
