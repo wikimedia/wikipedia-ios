@@ -75,7 +75,7 @@ typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationCont
 }
 
 - (void)wmf_dismissReferencePopoverAnimated:(BOOL)flag completion:(void (^__nullable)(void))completion {
-    if ([self.presentedViewController isMemberOfClass:[WMFReferencePopoverMessageViewController class]]) {
+    if ([self.presentedViewController isMemberOfClass:[WMFReferencePopoverMessageViewController class]] || [self.presentedViewController isMemberOfClass:[WMFReferencePageViewController class]]) {
         [self dismissViewControllerAnimated:flag completion:completion];
     } else {
         if (completion) {
