@@ -190,6 +190,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         }
         
         headerLabel.text = headerText.uppercaseString
+        headerLabel.isAccessibilityElement = false
         footerLabel.text = localizedStringForKeyFallingBackOnEnglish("top-read-see-more").uppercaseString
         
         var dataValueMin = CGFloat.max

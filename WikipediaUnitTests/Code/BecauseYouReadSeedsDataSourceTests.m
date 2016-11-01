@@ -121,7 +121,7 @@
 - (NSArray *)itemsFromDataSource:(id<WMFDataSource>)dataSource {
     NSMutableArray *items = [[NSMutableArray alloc] init];
     for (int i = 0; i < [dataSource numberOfItemsInSection:0]; i++) {
-        MWKHistoryEntry *entry = [dataSource objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        MWKHistoryEntry *entry = (MWKHistoryEntry *)[dataSource objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
         [items addObject:entry];
     }
     return items;
