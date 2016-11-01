@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -47,39 +46,39 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b9f-lv-xA2" customClass="GroupedAccessibilityView" customModule="WMFUI">
-                        <rect key="frame" x="0.0" y="181" width="361" height="111"/>
+                        <rect key="frame" x="13" y="187" width="335" height="106"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Acr-bf-9iA" userLabel="Title Label">
-                                <rect key="frame" x="13" y="0.0" width="335" height="24"/>
+                                <rect key="frame" x="0.0" y="0.0" width="335" height="24"/>
                                 <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="21"/>
                                 <nil key="highlightedColor"/>
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PZm-5D-lWX" userLabel="Description Label">
-                                <rect key="frame" x="13" y="24" width="335" height="17"/>
+                                <rect key="frame" x="0.0" y="28" width="335" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.56862745100000001" green="0.59215686270000001" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="1000" text="Extract" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="80H-th-fOm" userLabel="Summary Label">
-                                <rect key="frame" x="13" y="41" width="335" height="70"/>
+                                <rect key="frame" x="0.0" y="51" width="335" height="55"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                 <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="80H-th-fOm" firstAttribute="leading" secondItem="b9f-lv-xA2" secondAttribute="leading" constant="13" id="0YX-4E-xPI"/>
-                            <constraint firstItem="PZm-5D-lWX" firstAttribute="leading" secondItem="b9f-lv-xA2" secondAttribute="leading" constant="13" id="6gY-yK-y4N"/>
+                            <constraint firstItem="80H-th-fOm" firstAttribute="leading" secondItem="b9f-lv-xA2" secondAttribute="leading" id="0YX-4E-xPI"/>
+                            <constraint firstItem="PZm-5D-lWX" firstAttribute="leading" secondItem="b9f-lv-xA2" secondAttribute="leading" id="6gY-yK-y4N"/>
                             <constraint firstAttribute="bottom" secondItem="80H-th-fOm" secondAttribute="bottom" id="Id7-73-LvM"/>
                             <constraint firstItem="Acr-bf-9iA" firstAttribute="top" secondItem="b9f-lv-xA2" secondAttribute="top" id="Jlc-a9-kAJ"/>
-                            <constraint firstAttribute="trailing" secondItem="PZm-5D-lWX" secondAttribute="trailing" constant="13" id="Lfo-Jc-e7S"/>
-                            <constraint firstItem="Acr-bf-9iA" firstAttribute="leading" secondItem="b9f-lv-xA2" secondAttribute="leading" constant="13" id="Ohl-OL-wxG"/>
-                            <constraint firstAttribute="trailing" secondItem="80H-th-fOm" secondAttribute="trailing" constant="13" id="V9x-aw-KPN"/>
-                            <constraint firstItem="PZm-5D-lWX" firstAttribute="top" secondItem="Acr-bf-9iA" secondAttribute="bottom" id="hSw-Hy-Bsd"/>
-                            <constraint firstItem="80H-th-fOm" firstAttribute="top" secondItem="PZm-5D-lWX" secondAttribute="bottom" id="rjQ-s5-qJh"/>
-                            <constraint firstAttribute="trailing" secondItem="Acr-bf-9iA" secondAttribute="trailing" constant="13" id="zNg-yo-gj8"/>
+                            <constraint firstAttribute="trailing" secondItem="PZm-5D-lWX" secondAttribute="trailing" id="Lfo-Jc-e7S"/>
+                            <constraint firstItem="Acr-bf-9iA" firstAttribute="leading" secondItem="b9f-lv-xA2" secondAttribute="leading" id="Ohl-OL-wxG"/>
+                            <constraint firstAttribute="trailing" secondItem="80H-th-fOm" secondAttribute="trailing" id="V9x-aw-KPN"/>
+                            <constraint firstItem="PZm-5D-lWX" firstAttribute="top" secondItem="Acr-bf-9iA" secondAttribute="bottom" constant="4" id="hSw-Hy-Bsd"/>
+                            <constraint firstItem="80H-th-fOm" firstAttribute="top" secondItem="PZm-5D-lWX" secondAttribute="bottom" constant="6" id="rjQ-s5-qJh"/>
+                            <constraint firstAttribute="trailing" secondItem="Acr-bf-9iA" secondAttribute="trailing" id="zNg-yo-gj8"/>
                         </constraints>
                         <connections>
                             <outlet property="accessibilityView0" destination="Acr-bf-9iA" id="PVn-O2-CXj"/>
@@ -89,16 +88,16 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="owd-9L-ejU" secondAttribute="trailing" constant="5" id="0sQ-N6-Qrn"/>
                     <constraint firstAttribute="bottom" secondItem="Dw6-G9-a5t" secondAttribute="bottom" constant="6" id="5QY-Pz-9c7"/>
-                    <constraint firstItem="Dw6-G9-a5t" firstAttribute="top" secondItem="b9f-lv-xA2" secondAttribute="bottom" constant="7" id="DTY-2v-IFX"/>
+                    <constraint firstItem="Dw6-G9-a5t" firstAttribute="top" secondItem="b9f-lv-xA2" secondAttribute="bottom" constant="6" id="DTY-2v-IFX"/>
                     <constraint firstItem="owd-9L-ejU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="GNk-Wg-WeK"/>
-                    <constraint firstAttribute="trailing" secondItem="Dw6-G9-a5t" secondAttribute="trailing" constant="13" id="JZh-0s-mZr"/>
-                    <constraint firstItem="owd-9L-ejU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="5" id="SUu-tA-yXs"/>
-                    <constraint firstItem="b9f-lv-xA2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="TOo-f1-kn3"/>
-                    <constraint firstItem="Dw6-G9-a5t" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="fRf-r2-5Pg"/>
-                    <constraint firstItem="b9f-lv-xA2" firstAttribute="top" secondItem="owd-9L-ejU" secondAttribute="bottom" constant="8" id="g4U-oA-6H4"/>
-                    <constraint firstAttribute="trailing" secondItem="b9f-lv-xA2" secondAttribute="trailing" id="stq-0e-gcA"/>
+                    <constraint firstItem="owd-9L-ejU" firstAttribute="trailing" secondItem="b9f-lv-xA2" secondAttribute="trailing" id="SYd-yl-nGb"/>
+                    <constraint firstItem="b9f-lv-xA2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="TOo-f1-kn3"/>
+                    <constraint firstItem="Dw6-G9-a5t" firstAttribute="trailing" secondItem="b9f-lv-xA2" secondAttribute="trailing" id="cMO-2T-JaU"/>
+                    <constraint firstItem="b9f-lv-xA2" firstAttribute="top" secondItem="owd-9L-ejU" secondAttribute="bottom" constant="14" id="g4U-oA-6H4"/>
+                    <constraint firstAttribute="trailing" secondItem="b9f-lv-xA2" secondAttribute="trailing" constant="13" id="stq-0e-gcA"/>
+                    <constraint firstItem="owd-9L-ejU" firstAttribute="leading" secondItem="b9f-lv-xA2" secondAttribute="leading" id="txJ-nV-oyB"/>
+                    <constraint firstItem="Dw6-G9-a5t" firstAttribute="leading" secondItem="b9f-lv-xA2" secondAttribute="leading" id="vko-KY-O7o"/>
                 </constraints>
             </tableViewCellContentView>
             <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
