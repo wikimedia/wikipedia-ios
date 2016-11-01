@@ -105,6 +105,10 @@
                 <outlet property="articleImageView" destination="owd-9L-ejU" id="P8F-yH-9wj"/>
                 <outlet property="descriptionLabel" destination="PZm-5D-lWX" id="8gY-ss-1Nd"/>
                 <outlet property="imageHeightConstraint" destination="EnI-0P-X4A" id="wjM-va-eFa"/>
+                <outlet property="paddingConstraintAboveDescription" destination="hSw-Hy-Bsd" id="Gd3-Sh-SQD"/>
+                <outlet property="paddingConstraintBelowDescription" destination="rjQ-s5-qJh" id="wCX-wi-Myn"/>
+                <outlet property="paddingConstraintLeading" destination="TOo-f1-kn3" id="ctG-iP-BRC"/>
+                <outlet property="paddingConstraintTrailing" destination="stq-0e-gcA" id="cUa-vx-ZRk"/>
                 <outlet property="saveButton" destination="Dw6-G9-a5t" id="ggS-7J-XMK"/>
                 <outlet property="snippetLabel" destination="80H-th-fOm" id="dEo-Qi-cOS"/>
                 <outlet property="titleLabel" destination="Acr-bf-9iA" id="Gcg-St-OpZ"/>
