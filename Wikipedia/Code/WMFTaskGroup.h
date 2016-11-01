@@ -7,4 +7,6 @@
 
 - (void)waitInBackgroundWithCompletion:(nonnull dispatch_block_t)completion;
 
+- (void)waitInBackgroundWithTimeout:(NSTimeInterval)timeout completion:(nonnull dispatch_block_t)completion;
+
 @end
