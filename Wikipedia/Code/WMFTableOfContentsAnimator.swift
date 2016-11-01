@@ -215,7 +215,7 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
             self.presentingViewController?.presentViewController(self.presentedViewController!, animated: true, completion: nil)
         case (.Changed):
             let translation = gesture.translationInView(gesture.view)
-            let transitionProgress = translation.x * -tocMultiplier / CGRectGetMaxX(self.presentedViewController!.view.bounds)
+            let transitionProgress = max(min(translation.x * -tocMultiplier / CGRectGetMaxX(self.presentedViewController!.view.bounds), 0.99), 0.01)
             self.updateInteractiveTransition(transitionProgress)
         case (.Ended):
             self.isInteractive = false
@@ -259,7 +259,8 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
             self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
         case .Changed:
             let translation = gesture.translationInView(gesture.view)
-            let transitionProgress = translation.x * tocMultiplier / CGRectGetMaxX(self.presentedViewController!.view.bounds)
+            let transitionProgress = max(min(translation.x * tocMultiplier / CGRectGetMaxX(self.presentedViewController!.view.bounds), 0.99), 0.01)
+        
             self.updateInteractiveTransition(transitionProgress)
             DDLogVerbose("TOC transition progress: \(transitionProgress)")
         case .Ended:
