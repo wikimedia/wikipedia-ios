@@ -46,9 +46,9 @@ Increment the app version minor
 fastlane ios bump_major
 ```
 Increment the app version major
-### ios tag_beta
+### ios tag
 ```
-fastlane ios tag_beta
+fastlane ios tag
 ```
 Add a tag for the current build number and push to repo.
 ### ios tag_release
@@ -86,6 +86,11 @@ Runs tests, version, tag, and push to the beta branch
 fastlane ios submit_release
 ```
 Runs tests, version, tag, and push to the beta branch
+### ios dsyms
+```
+fastlane ios dsyms
+```
+Download dSYMs from iTunes Connect and upload them to HockeyApp
 
 ----
 

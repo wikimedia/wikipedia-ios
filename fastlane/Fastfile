@@ -103,8 +103,10 @@ platform :ios do
   end
 
   desc "Add a tag for the current build number and push to repo."
-  lane :tag_beta do |options|
-    tag_name = "betas/#{get_build_number}"
+  lane :tag do |options|
+    prefix = options[:prefix] || "betas"
+    build_number = options[:build_number] || get_build_number
+    tag_name = "#{prefix}/#{build_number}"
     add_git_tag(tag: tag_name)
     sh "git push origin --tags"
   end
@@ -133,33 +135,35 @@ platform :ios do
   
   desc "updates version, builds, and pushes to Testlfight"
   lane :push_beta do |options|
-    push
+    push(
+      product_name: "Wikipedia",
+      app_identifier: "org.wikimedia.wikipedia",
+      tag_prefix: "betas",
+      hockey_app_id: "5d80da08a6761e5c6456736af7ebad88"
+    )
   end
   
   desc "updates version, builds, and pushes alpha to Testlfight"
   lane :push_alpha do |options|
     push(
       product_name: "Wikipedia Alpha",
-      app_identifier: "org.wikimedia.wikipedia.tfalpha"
+      app_identifier: "org.wikimedia.wikipedia.tfalpha",
+      tag_prefix: "alphas",
+      hockey_app_id: "2295c3698bbd0b050f257772dd2bdbb2"
     )
   end
 
-  # This lane requires HOCKEY_PRODUCTION environment variable to be set.
-  # 1. HOCKEY_PRODUCTION=THE_API_KEY bundle exec fastlane push_beta
-  # 2. Use a .env file
   desc "updates version, builds, and pushes to Testlfight"
   lane :push do |options|
-    hockey_prod_id = ENV["HOCKEY_PRODUCTION"]
-    raise "Must specifiy HockeyApp public identifier." unless hockey_prod_id != nil && hockey_prod_id.length > 0
     build_dir = "build"
     product_name = options[:product_name] || "Wikipedia"
     ipa_path = "#{build_dir}/#{product_name}.ipa"
-    #dsym_path = "#{build_dir}/#{product_name}.app.dSYM.zip"
+    hockey_app_id = options[:hockey_app_id] || "5d80da08a6761e5c6456736af7ebad88"
     app_identifier = options[:app_identifier] || "org.wikimedia.wikipedia"
     build_number = latest_testflight_build_number(app_identifier:  app_identifier) + 1
     version = get_version_number
+    tag_prefix = options[:tag_prefix]
 
-    
     increment_build_number(
       build_number: build_number
     )
@@ -183,22 +187,18 @@ platform :ios do
       app_identifier:  app_identifier
     )
     
-    download_dsyms(
-      build_number: build_number.to_s,
-      version: version.to_s
-    ) # Download dSYM files from iTC
-
-    hockey(
-      ipa: ipa_path,
-      public_identifier: hockey_prod_id,
-      notify: '0', # Means do not notify
-      status: '1', # Means do not make available for download
-      dsym: "#{app_identifier}-#{version}-#{build_number}.dSYM.zip"
+    tag(
+      prefix: tag_prefix,
+      build_number: build_number
     )
     
-    tag_beta
-    
-    clean_build_artifacts
+    dsyms(
+      app_identifier: app_identifier,
+      version: version,
+      build_number: build_number,
+      hockey_app_id: hockey_app_id,
+      ipa_path: ipa_path
+    )
   end
 
   desc "Runs tests, version, tag, and push to the beta branch"
@@ -240,5 +240,39 @@ platform :ios do
 
     tag_release
   end
+  
+  
+    # This lane requires HOCKEY_PRODUCTION environment variable to be set or a hockey_api_token param
+    # 0. bundle exec fastlane push_beta hockey_api_token:THE_API_KEY
+    # 1. HOCKEY_PRODUCTION=THE_API_KEY bundle exec fastlane push_beta
+    # 2. Use a .env file
+  desc "Download dSYMs from iTunes Connect and upload them to HockeyApp"
+  lane :dsyms do |options|
+    app_identifier = options[:app_identifier]
+    version = options[:version]
+    build_number = options[:build_number]
+    hockey_app_id = options[:hockey_app_id]
+    ipa_path = options[:ipa_path]
+    hockey_api_token = options[:hockey_api_token] || ENV["HOCKEY_PRODUCTION"]
+    
+    raise "Missing parameters" unless app_identifier && version && build_number && hockey_app_id && ipa_path && hockey_api_token
+    
+    download_dsyms(
+      build_number: build_number.to_s,
+      version: version.to_s,
+      app_identifier: app_identifier
+    ) # Download dSYM files from iTC
+
+    hockey(
+      ipa: ipa_path,
+      public_identifier: hockey_app_id,
+      api_token: hockey_api_token,
+      notify: '0', # Means do not notify
+      status: '1', # Means do not make available for download
+      dsym: "#{app_identifier}-#{version}-#{build_number}.dSYM.zip"
+    )
+    clean_build_artifacts
+  end
+
   
 end
