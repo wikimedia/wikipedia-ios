@@ -451,6 +451,10 @@
 "number-billions" = "$1B - $1 is replaced with a number represented in billions. In English 'B' is commonly used after a number to indicate that number is in 'billions'. So the 'B' should be changed to a character or short string indicating billions. For example 5,100,000,000 would become 5.1B. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
 "feed-news-notification-text" = "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news";
 "feed-news-notification-button-text" = "Text for button to turn on trending news notifications";
+
+"welcome-send-data-title" = "Title for welcome screen allowing user to opt in to send usage reports";
+"welcome-send-data-sub-title" = "Sub-title explaining how sending usage reports can help improve the app";
+
 "back" = "Generic 'Back' title for back button\n{{Identical|Back}}";
 "save-action" = "Accessibility action description for 'Save'";
 "unsave-action" = "Accessibility action description for 'Unsave'";
