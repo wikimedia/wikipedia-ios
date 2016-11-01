@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A319" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,11 +18,12 @@
                         <viewControllerLayoutGuide type="top" id="Ft6-oW-KC0"/>
                         <viewControllerLayoutGuide type="bottom" id="FKl-LY-JtV"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
+                    <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN" customClass="GroupedAccessibilityView" customModule="WMFUI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="af3-Uc-bMS">
+                                <rect key="frame" x="219" y="7" width="86" height="86"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="86" id="Nz9-5s-phP"/>
                                     <constraint firstAttribute="width" constant="86" id="tPS-cg-OC1"/>
@@ -31,11 +35,13 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vq4-5M-Tnk">
+                                <rect key="frame" x="16" y="10" width="195" height="20.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CwR-CM-SDN">
+                                <rect key="frame" x="16" y="30.5" width="195" height="31.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="750" constant="39" id="HZt-Qf-DQT"/>
                                 </constraints>
@@ -44,8 +50,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Uu-vI-59e">
+                                <rect key="frame" x="16" y="70" width="15.5" height="20"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pDO-M3-3su">
+                                        <rect key="frame" x="6" y="0.0" width="3.5" height="20"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                         <color key="textColor" red="0.33333333333333331" green="0.3529411764705882" blue="0.37254901960784315" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -65,14 +73,11 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BSk-BH-jRq">
-                                <connections>
-                                    <action selector="continueReading:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="r0x-p5-uLh"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZR6-x7-9Of">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZR6-x7-9Of" customClass="GroupedAccessibilityView" customModule="WMFUI">
+                                <rect key="frame" x="16" y="20.5" width="288" height="59"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explore Wikipedia for more articles to read" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMd-L0-hne">
+                                        <rect key="frame" x="0.0" y="21" width="288" height="38"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="bOM-vw-pko"/>
                                         </constraints>
@@ -81,6 +86,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No recently read articles" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ejf-xt-rvu">
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="Vl6-d1-Ot9"/>
                                         </constraints>
@@ -99,6 +105,10 @@
                                     <constraint firstAttribute="bottom" secondItem="rMd-L0-hne" secondAttribute="bottom" id="fpD-K2-V7D"/>
                                     <constraint firstItem="Ejf-xt-rvu" firstAttribute="leading" secondItem="ZR6-x7-9Of" secondAttribute="leading" id="j4t-9z-J3E"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="accessibilityView0" destination="rMd-L0-hne" id="Cof-pV-laR"/>
+                                    <outlet property="accessibilityView1" destination="Ejf-xt-rvu" id="est-B3-rBt"/>
+                                </connections>
                             </view>
                         </subviews>
                         <constraints>
@@ -106,21 +116,22 @@
                             <constraint firstItem="3Uu-vI-59e" firstAttribute="top" relation="greaterThanOrEqual" secondItem="CwR-CM-SDN" secondAttribute="bottom" constant="8" id="4Lb-rh-iGP"/>
                             <constraint firstItem="ZR6-x7-9Of" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="65O-ga-KaL"/>
                             <constraint firstItem="ZR6-x7-9Of" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="BQN-qh-xVn"/>
-                            <constraint firstItem="BSk-BH-jRq" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="H7e-h9-nbd"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="3Uu-vI-59e" secondAttribute="bottom" constant="10" id="V4i-bE-94u"/>
                             <constraint firstItem="CwR-CM-SDN" firstAttribute="top" secondItem="vq4-5M-Tnk" secondAttribute="bottom" id="YIo-3p-DKd"/>
                             <constraint firstItem="CwR-CM-SDN" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="Yqs-Mz-SgU"/>
                             <constraint firstItem="3Uu-vI-59e" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="YxV-va-6jY"/>
-                            <constraint firstAttribute="trailing" secondItem="BSk-BH-jRq" secondAttribute="trailing" id="ZUD-Y6-aY4"/>
                             <constraint firstItem="CwR-CM-SDN" firstAttribute="width" secondItem="vq4-5M-Tnk" secondAttribute="width" id="dlu-4c-Js5"/>
                             <constraint firstAttribute="trailing" secondItem="af3-Uc-bMS" secondAttribute="trailing" constant="15" id="mWN-ky-uf3"/>
                             <constraint firstItem="vq4-5M-Tnk" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="n9q-aN-sgE"/>
                             <constraint firstItem="ZR6-x7-9Of" firstAttribute="trailing" secondItem="S3S-Oj-5AN" secondAttribute="trailingMargin" id="pFm-6j-Ldv"/>
                             <constraint firstItem="af3-Uc-bMS" firstAttribute="leading" secondItem="vq4-5M-Tnk" secondAttribute="trailing" constant="8" id="pVG-3w-TAN"/>
-                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="BSk-BH-jRq" secondAttribute="bottom" id="qB8-lW-aTH"/>
                             <constraint firstItem="af3-Uc-bMS" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="raJ-27-DZf"/>
-                            <constraint firstItem="BSk-BH-jRq" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="slu-kn-2dO"/>
                         </constraints>
+                        <connections>
+                            <outlet property="accessibilityView0" destination="vq4-5M-Tnk" id="bMV-lJ-rl5"/>
+                            <outlet property="accessibilityView1" destination="CwR-CM-SDN" id="qPB-vx-063"/>
+                            <outlet property="accessibilityView2" destination="pDO-M3-3su" id="JSB-jk-er5"/>
+                        </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <nil key="simulatedStatusBarMetrics"/>
