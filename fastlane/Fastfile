@@ -159,7 +159,6 @@ platform :ios do
     product_name = options[:product_name] || "Wikipedia"
     ipa_path = "#{build_dir}/#{product_name}.ipa"
     hockey_app_id = options[:hockey_app_id] || "5d80da08a6761e5c6456736af7ebad88"
-    #dsym_path = "#{build_dir}/#{product_name}.app.dSYM.zip"
     app_identifier = options[:app_identifier] || "org.wikimedia.wikipedia"
     build_number = latest_testflight_build_number(app_identifier:  app_identifier) + 1
     version = get_version_number
