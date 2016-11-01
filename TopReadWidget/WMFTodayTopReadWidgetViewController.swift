@@ -190,6 +190,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         }
         
         headerLabel.text = headerText.uppercaseString
+        headerLabel.isAccessibilityElement = false
         footerLabel.text = localizedStringForKeyFallingBackOnEnglish("top-read-see-more").uppercaseString
         
         var dataValueMin = CGFloat.max
@@ -229,8 +230,9 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             vc.titleLabel.text = result.displayTitle
             vc.subtitleLabel.text = result.snippet ?? result.wikidataDescription
             vc.imageView.wmf_reset()
-            vc.rankLabel.text = NSNumberFormatter.localizedThousandsStringFromNumber(i + 1)
-            
+            let rankString = NSNumberFormatter.localizedThousandsStringFromNumber(i + 1)
+            vc.rankLabel.text = rankString
+            vc.rankLabel.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("rank-accessibility-label").stringByReplacingOccurrencesOfString("$1", withString: rankString)
             if let articlePreview = self.previewStore.itemForURL(result.articleURL) {
                 if let viewCounts = articlePreview.pageViewsSortedByDate() where viewCounts.count > 0 {
                     vc.sparklineView.minDataValue = dataValueMin

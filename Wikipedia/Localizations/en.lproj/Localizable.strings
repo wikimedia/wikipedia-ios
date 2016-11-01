@@ -494,6 +494,7 @@
 "top-read-header-generic" = "Wikipedia";
 
 "readers-accessibility-label" = "$1 readers";
+"rank-accessibility-label" = "Number $1";
 
 "reference-title" = "Reference $1";
 
