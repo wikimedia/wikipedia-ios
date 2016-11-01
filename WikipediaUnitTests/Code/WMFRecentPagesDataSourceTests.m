@@ -82,10 +82,10 @@
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
     dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-        MWKHistoryEntry *entry = [self.recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        MWKHistoryEntry *entry = (MWKHistoryEntry *)[self.recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         expect([entry.dateViewed dateAtStartOfDay]).to(equal([today dateAtStartOfDay]));
         for (int i = 0; i < [self.recentPagesDataSource numberOfItemsInSection:0]; i++) {
-            MWKHistoryEntry *entry = [self.recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            MWKHistoryEntry *entry = (MWKHistoryEntry *)[self.recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
             expect(entry).to(equal(self.todaysTitles[i]));
         }
         NSString *title = [self.recentPagesDataSource titleForSectionIndex:0];
@@ -105,11 +105,11 @@
     NSDate *yesterday = [today dateBySubtractingDays:1];
 
     dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-        MWKHistoryEntry *entry = [self.recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+        MWKHistoryEntry *entry = (MWKHistoryEntry *)[self.recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
         expect([entry.dateViewed dateAtStartOfDay]).to(equal([yesterday dateAtStartOfDay]));
 
         for (int i = 0; i < [self.recentPagesDataSource numberOfItemsInSection:1]; i++) {
-            MWKHistoryEntry *entry = [self.recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1]];
+            MWKHistoryEntry *entry = (MWKHistoryEntry *)[self.recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1]];
             expect(entry).to(equal(self.yesterdaysTitles[i]));
         }
 
@@ -130,11 +130,11 @@
     NSDate *lastWeek = [today dateBySubtractingDays:7];
 
     dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-        MWKHistoryEntry *entry = [self.recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
+        MWKHistoryEntry *entry = (MWKHistoryEntry *)[self.recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
         expect([entry.dateViewed dateAtStartOfDay]).to(equal([lastWeek dateAtStartOfDay]));
 
         for (int i = 0; i < [self.recentPagesDataSource numberOfItemsInSection:2]; i++) {
-            MWKHistoryEntry *entry = [self.recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:2]];
+            MWKHistoryEntry *entry = (MWKHistoryEntry *)[self.recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:2]];
             expect(entry).to(equal(self.lastWeeksTitles[i]));
         }
 
