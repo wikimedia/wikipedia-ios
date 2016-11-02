@@ -206,17 +206,19 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 #pragma mark - Notifications
 
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
+    self.notificationsController.applicationActive = YES;
     self.unprocessedUserActivity = nil;
     self.unprocessedShortcutItem = nil;
     [self resumeApp];
 }
 
 - (void)appDidEnterBackgroundWithNotification:(NSNotification *)note {
+    self.notificationsController.applicationActive = NO;
     [self startBackgroundTask];
     dispatch_async(dispatch_get_main_queue(), ^{
 #if FB_TWEAK_ENABLED
         if (FBTweakValue(@"Notifications", @"In the news", @"Send on app exit", NO)) {
-            [self.notificationsController requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError * _Nullable error) {
+            [self.notificationsController requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error) {
                 if (!granted) {
                     return;
                 }
@@ -232,7 +234,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
                     }
                 }
             }];
-            
         }
 #endif
         [self pauseApp];
@@ -819,7 +820,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (WMFNotificationsController *)notificationsController {
-    return [WMFNotificationsController sharedNotificationsController];
+    WMFNotificationsController *controller = [WMFNotificationsController sharedNotificationsController];
+    controller.applicationActive = [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive;
+    return controller;
 }
 
 - (SessionSingleton *)session {
@@ -1056,16 +1059,16 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     return YES;
 }
 - (void)updateActiveTitleAccessibilityButton:(UIViewController *)viewController {
-    if([viewController isKindOfClass:[WMFExploreViewController class]]) {
-        WMFExploreViewController * vc = (WMFExploreViewController *) viewController;
+    if ([viewController isKindOfClass:[WMFExploreViewController class]]) {
+        WMFExploreViewController *vc = (WMFExploreViewController *)viewController;
         vc.titleButton.accessibilityLabel = MWLocalizedString(@"home-title-accessibility-label", nil);
-    } else if([viewController isKindOfClass:[WMFArticleViewController class]]) {
-        WMFArticleViewController * vc = (WMFArticleViewController *) viewController;
-        if(self.rootTabBarController.selectedIndex == WMFAppTabTypeExplore){
+    } else if ([viewController isKindOfClass:[WMFArticleViewController class]]) {
+        WMFArticleViewController *vc = (WMFArticleViewController *)viewController;
+        if (self.rootTabBarController.selectedIndex == WMFAppTabTypeExplore) {
             vc.titleButton.accessibilityLabel = MWLocalizedString(@"home-button-explore-accessibility-label", nil);
-        }else  if(self.rootTabBarController.selectedIndex == WMFAppTabTypeSaved){
+        } else if (self.rootTabBarController.selectedIndex == WMFAppTabTypeSaved) {
             vc.titleButton.accessibilityLabel = MWLocalizedString(@"home-button-saved-accessibility-label", nil);
-        }else if(self.rootTabBarController.selectedIndex == WMFAppTabTypeRecent){
+        } else if (self.rootTabBarController.selectedIndex == WMFAppTabTypeRecent) {
             vc.titleButton.accessibilityLabel = MWLocalizedString(@"home-button-history-accessibility-label", nil);
         }
     }
@@ -1077,7 +1080,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                     animated:(BOOL)animated {
     navigationController.interactivePopGestureRecognizer.delegate = self;
     [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
-    [self updateActiveTitleAccessibilityButton: viewController];
+    [self updateActiveTitleAccessibilityButton:viewController];
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
