@@ -136,19 +136,21 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
 #pragma mark - Update Methods
 
-- (void)addEntry:(MWKHistoryEntry *)entry {
+- (MWKHistoryEntry *)addEntry:(MWKHistoryEntry *)entry {
     NSParameterAssert(entry.url);
     if ([entry.url wmf_isNonStandardURL]) {
-        return;
+        return nil;
     }
     if ([entry.url.wmf_title length] == 0) {
-        return;
+        return nil;
     }
 
     [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
         [transaction setObject:entry forKey:[entry databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
         return @[[entry databaseKey]];
     }];
+
+    return entry;
 }
 - (void)toggleSavedPageForURL:(NSURL *)url {
     if ([self isSaved:url]) {
@@ -158,12 +160,12 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     }
 }
 
-- (void)addSavedPageWithURL:(NSURL *)url {
+- (nullable MWKHistoryEntry *)addSavedPageWithURL:(NSURL *)url {
     if ([url wmf_isNonStandardURL]) {
-        return;
+        return nil;
     }
     if ([url.wmf_title length] == 0) {
-        return;
+        return nil;
     }
 
     __block MWKHistoryEntry *entry = nil;
@@ -181,6 +183,8 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
         return @[[entry databaseKey]];
     }];
+
+    return entry;
 }
 
 - (void)removeEntryWithURL:(NSURL *)url {

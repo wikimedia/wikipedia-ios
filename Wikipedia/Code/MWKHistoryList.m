@@ -109,32 +109,34 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Update Methods
 
-- (void)addEntry:(MWKHistoryEntry *)entry {
+- (nullable MWKHistoryEntry *)addEntry:(MWKHistoryEntry *)entry {
     NSParameterAssert(entry.url);
     if ([entry.url wmf_isNonStandardURL]) {
-        return;
+        return nil;
     }
     if ([entry.url.wmf_title length] == 0) {
-        return;
+        return nil;
     }
 
     [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
         [transaction setObject:entry forKey:[entry databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
         return @[[entry databaseKey]];
     }];
+
+    return entry;
 }
 
-- (void)addPageToHistoryWithURL:(NSURL *)url {
+- (nullable MWKHistoryEntry *)addPageToHistoryWithURL:(NSURL *)url {
     NSParameterAssert(url);
     if (!url) {
-        return;
+        return nil;
     }
 
     if ([url wmf_isNonStandardURL]) {
-        return;
+        return nil;
     }
     if ([url.wmf_title length] == 0) {
-        return;
+        return nil;
     }
 
     __block MWKHistoryEntry *entry = nil;
@@ -151,6 +153,8 @@ NS_ASSUME_NONNULL_BEGIN
         [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
         return @[[MWKHistoryEntry databaseKeyForURL:url]];
     }];
+
+    return entry;
 }
 
 - (void)setFragment:(nullable NSString *)fragment scrollPosition:(CGFloat)scrollposition onPageInHistoryWithURL:(NSURL *)url {
