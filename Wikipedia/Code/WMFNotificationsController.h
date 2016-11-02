@@ -19,6 +19,7 @@ extern NSString *const WMFNotificationInfoFeedNewsStoryKey;
 + (WMFNotificationsController *)sharedNotificationsController;
 
 @property (nonatomic, readonly, getter=isAuthorized) BOOL authorized;
+@property (nonatomic, getter=isApplicationActive) BOOL applicationActive;
 
 - (void)requestAuthenticationIfNecessaryWithCompletionHandler:(void (^)(BOOL granted, NSError *__nullable error))completionHandler;
 
