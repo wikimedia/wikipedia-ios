@@ -33,6 +33,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addPageToHistoryWithURL:(NSURL *)url;
 
 /**
+ *  Add pages to the user history.
+ *
+ *  Calling this on a page already in the history will simply update its @c date.
+ *
+ *  @param urls The urls of the pages to add
+ */
+- (void)addPagesToHistoryWithURLs:(NSArray<NSURL *> *)URLs;
+
+/**
  *  Save the scroll position of a page.
  *
  *  @param fragment     The fragment to save

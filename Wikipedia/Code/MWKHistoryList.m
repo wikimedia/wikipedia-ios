@@ -124,6 +124,41 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
+- (void)addPagesToHistoryWithURLs:(NSArray<NSURL *> *)URLs {
+    NSParameterAssert(URLs);
+    if (!URLs) {
+        return;
+    }
+    
+    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
+        
+        NSMutableArray *updatedKeys = [NSMutableArray arrayWithCapacity:URLs.count];
+        for (NSURL *URL in URLs) {
+            if ([URL wmf_isNonStandardURL]) {
+                break;
+            }
+            if ([URL.wmf_title length] == 0) {
+                break;
+            }
+            
+            NSString *databaseKey = [MWKHistoryEntry databaseKeyForURL:URL];
+            MWKHistoryEntry *entry = [transaction objectForKey:databaseKey inCollection:[MWKHistoryEntry databaseCollectionName]];
+            if (!entry) {
+                entry = [[MWKHistoryEntry alloc] initWithURL:URL];
+            } else {
+                entry = [entry copy];
+            }
+            entry.dateViewed = [NSDate date];
+            
+            [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:URL] inCollection:[MWKHistoryEntry databaseCollectionName]];
+            
+            [updatedKeys addObject:databaseKey];
+        }
+        
+        return updatedKeys;
+    }];
+}
+
 - (void)addPageToHistoryWithURL:(NSURL *)url {
     NSParameterAssert(url);
     if (!url) {
