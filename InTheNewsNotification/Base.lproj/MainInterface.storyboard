@@ -69,7 +69,7 @@
                                 <rect key="frame" x="0.0" y="170" width="360" height="55"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p2R-i4-v4Z">
-                                        <rect key="frame" x="25" y="2" width="125" height="51.5"/>
+                                        <rect key="frame" x="25" y="3" width="125" height="51.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" preservesSuperviewLayoutMargins="YES" text="Currently trending" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKK-rP-yXi">
                                                 <rect key="frame" x="0.0" y="0.0" width="125" height="18"/>
@@ -113,10 +113,9 @@
                                 <constraints>
                                     <constraint firstItem="p2R-i4-v4Z" firstAttribute="top" relation="greaterThanOrEqual" secondItem="GrZ-um-Wi1" secondAttribute="top" id="5G7-Qy-XFP"/>
                                     <constraint firstAttribute="trailing" secondItem="pi7-p1-x0L" secondAttribute="trailing" constant="25" id="AMD-1H-UwO"/>
-                                    <constraint firstItem="p2R-i4-v4Z" firstAttribute="centerY" secondItem="GrZ-um-Wi1" secondAttribute="centerY" id="CL7-TB-gfM"/>
                                     <constraint firstItem="pi7-p1-x0L" firstAttribute="centerY" secondItem="GrZ-um-Wi1" secondAttribute="centerY" id="TCb-f8-6Q1"/>
-                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pi7-p1-x0L" secondAttribute="bottom" id="YSo-ow-JHw"/>
-                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="p2R-i4-v4Z" secondAttribute="bottom" id="bqC-va-tLK"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pi7-p1-x0L" secondAttribute="bottom" constant="4" id="YSo-ow-JHw"/>
+                                    <constraint firstAttribute="bottom" secondItem="p2R-i4-v4Z" secondAttribute="bottom" id="bqC-va-tLK"/>
                                     <constraint firstItem="pi7-p1-x0L" firstAttribute="top" relation="greaterThanOrEqual" secondItem="GrZ-um-Wi1" secondAttribute="top" id="dYm-fe-8UY"/>
                                     <constraint firstItem="p2R-i4-v4Z" firstAttribute="leading" secondItem="GrZ-um-Wi1" secondAttribute="leading" constant="25" id="wbA-QM-Cdd"/>
                                 </constraints>
