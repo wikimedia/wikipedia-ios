@@ -170,11 +170,20 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
             switchItem.switchAction(sender.on)
         }
     }
-    
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section].headerTitle
+
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = WMFTableHeaderLabelView.wmf_viewFromClassNib()
+        header.textLabel.text = sections[section].headerTitle
+        return header;
     }
     
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let header = WMFTableHeaderLabelView.wmf_viewFromClassNib()
+        header.textLabel.preferredMaxLayoutWidth = self.view.frame.width-30
+        header.textLabel.text = sections[section].headerTitle
+        let size = header.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
+        return size.height
+    }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         guard let item = sections[indexPath.section].items[indexPath.item] as? NotificationSettingsButtonItem else {
@@ -182,9 +191,7 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
         }
         
         item.buttonAction()
-        
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-
     }
     
     
