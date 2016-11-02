@@ -43,6 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                  selector:@selector(yapDatabaseModified:)
                                                      name:YapDatabaseModifiedExternallyNotification
                                                    object:nil];
+        
     }
     return self;
 }
@@ -90,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction *_Nonnull transaction))block {
-    [self.writeConnection asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
+    [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
         block(transaction);
     }];
 }
@@ -142,7 +143,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)dataStoreWasUpdatedWithNotification:(NSNotification *)notification {
 }
-
+    
 @end
 
 NS_ASSUME_NONNULL_END
