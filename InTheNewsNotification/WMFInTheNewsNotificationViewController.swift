@@ -143,6 +143,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             fallthrough
         default:
             guard let wikipediaSchemeURL = articleURL.wmf_wikipediaSchemeURL else {
+                completion(.Dismiss)
                 break
             }
             PiwikTracker.sharedInstance()?.wmf_logActionTapThroughInContext(self, contentType: self)
