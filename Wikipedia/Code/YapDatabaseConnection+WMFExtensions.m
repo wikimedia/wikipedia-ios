@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)wmf_readWriteAndReturnUpdatedKeysInViewWithName:(NSString *)viewName withBlock:(NSArray<NSString *> * (^)(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view))block {
     NSParameterAssert(block);
-    [self readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
+    [self asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
         YapDatabaseViewTransaction *view = [transaction ext:viewName];
         NSParameterAssert(view);
         NSArray *keys = block(transaction, view);

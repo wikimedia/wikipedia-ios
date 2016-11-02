@@ -109,34 +109,67 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Update Methods
 
-- (nullable MWKHistoryEntry *)addEntry:(MWKHistoryEntry *)entry {
+- (void)addEntry:(MWKHistoryEntry *)entry {
     NSParameterAssert(entry.url);
     if ([entry.url wmf_isNonStandardURL]) {
-        return nil;
+        return;
     }
     if ([entry.url.wmf_title length] == 0) {
-        return nil;
+        return;
     }
 
     [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
         [transaction setObject:entry forKey:[entry databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
         return @[[entry databaseKey]];
     }];
-
-    return entry;
 }
 
-- (nullable MWKHistoryEntry *)addPageToHistoryWithURL:(NSURL *)url {
+- (void)addPagesToHistoryWithURLs:(NSArray<NSURL *> *)URLs {
+    NSParameterAssert(URLs);
+    if (!URLs) {
+        return;
+    }
+    
+    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
+        
+        NSMutableArray *updatedKeys = [NSMutableArray arrayWithCapacity:URLs.count];
+        for (NSURL *URL in URLs) {
+            if ([URL wmf_isNonStandardURL]) {
+                break;
+            }
+            if ([URL.wmf_title length] == 0) {
+                break;
+            }
+            
+            NSString *databaseKey = [MWKHistoryEntry databaseKeyForURL:URL];
+            MWKHistoryEntry *entry = [transaction objectForKey:databaseKey inCollection:[MWKHistoryEntry databaseCollectionName]];
+            if (!entry) {
+                entry = [[MWKHistoryEntry alloc] initWithURL:URL];
+            } else {
+                entry = [entry copy];
+            }
+            entry.dateViewed = [NSDate date];
+            
+            [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:URL] inCollection:[MWKHistoryEntry databaseCollectionName]];
+            
+            [updatedKeys addObject:databaseKey];
+        }
+        
+        return updatedKeys;
+    }];
+}
+
+- (void)addPageToHistoryWithURL:(NSURL *)url {
     NSParameterAssert(url);
     if (!url) {
-        return nil;
+        return;
     }
 
     if ([url wmf_isNonStandardURL]) {
-        return nil;
+        return;
     }
     if ([url.wmf_title length] == 0) {
-        return nil;
+        return;
     }
 
     __block MWKHistoryEntry *entry = nil;
@@ -153,8 +186,6 @@ NS_ASSUME_NONNULL_BEGIN
         [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
         return @[[MWKHistoryEntry databaseKeyForURL:url]];
     }];
-
-    return entry;
 }
 
 - (void)setFragment:(nullable NSString *)fragment scrollPosition:(CGFloat)scrollposition onPageInHistoryWithURL:(NSURL *)url {
