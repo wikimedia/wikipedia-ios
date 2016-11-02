@@ -308,7 +308,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         return;
     }
     
-    if (!self.notificationsController.isApplicationActive) {
+    if (self.notificationsController.isApplicationActive) {
         return;
     }
     
