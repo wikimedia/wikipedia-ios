@@ -2,5 +2,6 @@
 #import <UIKit/UIKit.h>
 
 @interface WMFTableHeaderLabelView : UIView
-@property (strong, nonatomic) IBOutlet UILabel *textLabel;
+@property (copy, nonatomic) NSString* text;
+- (CGFloat)heightWithExpectedWidth:(CGFloat)width;
 @end

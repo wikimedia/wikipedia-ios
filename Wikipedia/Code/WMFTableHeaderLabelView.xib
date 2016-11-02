@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wqc-Ot-wfb">
-                    <rect key="frame" x="15" y="15" width="345" height="19"/>
+                    <rect key="frame" x="15" y="15" width="345" height="24"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -24,7 +24,7 @@
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Wqc-Ot-wfb" secondAttribute="trailing" constant="15" id="AXE-t4-9Uh"/>
-                <constraint firstAttribute="bottom" secondItem="Wqc-Ot-wfb" secondAttribute="bottom" constant="10" id="Kuh-mg-jeb"/>
+                <constraint firstAttribute="bottom" secondItem="Wqc-Ot-wfb" secondAttribute="bottom" constant="5" id="Kuh-mg-jeb"/>
                 <constraint firstItem="Wqc-Ot-wfb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="QZd-bg-5X9"/>
                 <constraint firstItem="Wqc-Ot-wfb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="ZFk-HO-p6f"/>
             </constraints>
@@ -33,7 +33,9 @@
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="leadingConstraint" destination="QZd-bg-5X9" id="s04-2c-lFu"/>
                 <outlet property="textLabel" destination="Wqc-Ot-wfb" id="gPP-jo-vco"/>
+                <outlet property="trailingConstraint" destination="AXE-t4-9Uh" id="k3G-Mb-Ggz"/>
             </connections>
             <point key="canvasLocation" x="69" y="-410"/>
         </view>

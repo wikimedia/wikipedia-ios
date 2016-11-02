@@ -32,6 +32,7 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
         tableView.registerNib(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
         tableView.delegate = self
         tableView.dataSource = self
@@ -66,7 +67,7 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
             let title = localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-title")
             let message =  (localizedStringForKeyFallingBackOnEnglish("Notification preferences are stored on device and not based on personal information or activity.") ?? "") + " " + (localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-creation" ) ?? "")
             let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: localizedStringForKeyFallingBackOnEnglish("ok"), style: UIAlertActionStyle.Default, handler: { (action) in
+            alertController.addAction(UIAlertAction(title: localizedStringForKeyFallingBackOnEnglish("button-ok"), style: UIAlertActionStyle.Default, handler: { (action) in
             }))
             self?.presentViewController(alertController, animated: true, completion: nil)
         })]
@@ -173,16 +174,14 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
 
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = WMFTableHeaderLabelView.wmf_viewFromClassNib()
-        header.textLabel.text = sections[section].headerTitle
+        header.text = sections[section].headerTitle
         return header;
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let header = WMFTableHeaderLabelView.wmf_viewFromClassNib()
-        header.textLabel.preferredMaxLayoutWidth = self.view.frame.width-30
-        header.textLabel.text = sections[section].headerTitle
-        let size = header.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
-        return size.height
+        header.text = sections[section].headerTitle
+        return header.heightWithExpectedWidth(self.view.frame.width)
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
