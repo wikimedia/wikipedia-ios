@@ -44,6 +44,8 @@
 
 // Views
 #import "WMFArticleListTableViewCell.h"
+#import "WMFTableHeaderLabelView.h"
+
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"
