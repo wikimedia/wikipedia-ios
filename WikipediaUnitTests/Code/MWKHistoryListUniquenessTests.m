@@ -150,7 +150,7 @@
         MWKHistoryEntry *entry2 = [self->historyList entryForURL:self->titleURLLAEn];
         XCTAssertTrue([[entry2.dateViewed laterDate:entry1.dateViewed] isEqualToDate:entry2.dateViewed],
                       @"Test assumes new entries are created w/ the current date.");
-        XCTAssertEqual([self->historyList mostRecentEntry], entry2);
+        XCTAssertEqualObjects([self->historyList mostRecentEntry], entry2);
         [expectation fulfill];
     }];
 
@@ -164,9 +164,8 @@
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
     [dataStore notifyWhenWriteTransactionsComplete:^{
-        MWKHistoryEntry *entry1 = [self->historyList entryForURL:self->titleURLSFEn];
         MWKHistoryEntry *entry2 = [self->historyList entryForURL:self->titleURLLAEn];
-        XCTAssertEqual([self->historyList mostRecentEntry], entry2);
+        XCTAssertEqualObjects([self->historyList mostRecentEntry], entry2);
         [expectation fulfill];
     }];
 
@@ -175,7 +174,8 @@
     __block XCTestExpectation *secondExpectation = [self expectationWithDescription:@"Should resolve"];
     [historyList addPageToHistoryWithURL:titleURLSFEn];
     [dataStore notifyWhenWriteTransactionsComplete:^{
-        XCTAssertEqual([self->historyList mostRecentEntry].url.wmf_databaseKey, self->titleURLSFEn.wmf_databaseKey);
+        NSString *mostRecentKey = [self->historyList mostRecentEntry].url.wmf_databaseKey;
+        XCTAssertEqualObjects(mostRecentKey, self->titleURLSFEn.wmf_databaseKey);
         [secondExpectation fulfill];
     }];
 
