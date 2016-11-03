@@ -206,14 +206,25 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 #pragma mark - Notifications
 
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
-    self.notificationsController.applicationActive = YES;
     self.unprocessedUserActivity = nil;
     self.unprocessedShortcutItem = nil;
     [self resumeApp];
 }
 
-- (void)appDidEnterBackgroundWithNotification:(NSNotification *)note {
+- (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
+    self.notificationsController.applicationActive = YES;
+    [self.dataStore syncDataStoreToDatabase];
+    [self.previewStore syncDataStoreToDatabase];
+    [self.contentStore syncDataStoreToDatabase];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKSetupDataSourcesNotification object:nil];
+}
+
+- (void)appWillResignActiveWithNotification:(NSNotification *)note {
     self.notificationsController.applicationActive = NO;
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKTeardownDataSourcesNotification object:nil];
+}
+
+- (void)appDidEnterBackgroundWithNotification:(NSNotification *)note {
     [self startBackgroundTask];
     dispatch_async(dispatch_get_main_queue(), ^{
 #if FB_TWEAK_ENABLED
@@ -295,6 +306,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [window makeKeyAndVisible];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActiveWithNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackgroundWithNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appLanguageDidChangeWithNotification:) name:WMFPreferredLanguagesDidChangeNotification object:nil];
 
@@ -357,8 +370,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     }
 
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
-
-    [self.dataStore syncDataStoreToDatabase];
 
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:NULL failure:NULL];
 

@@ -12,6 +12,9 @@ NSString *const MWKArticleKey = @"MWKArticleKey";
 NSString *const MWKItemUpdatedNotification = @"MWKItemUpdatedNotification";
 NSString *const MWKURLKey = @"MWKURLKey";
 
+NSString *const MWKSetupDataSourcesNotification = @"MWKSetupDataSourcesNotification";
+NSString *const MWKTeardownDataSourcesNotification = @"MWKTeardownDataSourcesNotification";
+
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 
 NSString *MWKCreateImageURLWithPath(NSString *path) {
