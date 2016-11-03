@@ -6,8 +6,6 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
     let dataStore: MWKDataStore
     let previewStore: WMFArticlePreviewDataStore
     
-    @IBOutlet weak var storyLabel: UILabel!
-    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     
     required init(story: WMFFeedNewsStory, dataStore: MWKDataStore, previewStore: WMFArticlePreviewDataStore) {
@@ -35,10 +33,12 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.estimatedRowHeight = 64.0
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.registerNib(WMFArticleListTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFArticleListTableViewCell.identifier())
+        tableView.registerNib(MultilineLabelTableViewCell.wmf_classNib(), forCellReuseIdentifier: MultilineLabelTableViewCell.identifier)
+        tableView.registerNib(FullSizeImageTableViewCell.wmf_classNib(), forCellReuseIdentifier: FullSizeImageTableViewCell.identifier)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView(frame: CGRectZero)
-        updateUIWithStory(story)
+        tableView.reloadData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -49,63 +49,88 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
-    func updateUIWithStory(story: WMFFeedNewsStory) {
-        tableView.reloadData()
-        
-        guard let mainArticlePreview = story.featuredArticlePreview ?? story.articlePreviews?.first else {
-            return
-        }
-        
-        if let thumbnailURL = mainArticlePreview.thumbnailURL {
-            imageView.wmf_setImageWithURL(thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in }) { }
-        } else {
-            imageView.image = nil
-        }
-        
-        guard let storyHTML = story.storyHTML else {
-            return
-        }
-        
-        var font: UIFont
-        if #available(iOS 10.0, *) {
-            font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody, compatibleWithTraitCollection: nil)
-        } else {
-            font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-        }
-        let linkFont = UIFont.boldSystemFontOfSize(font.pointSize)
-        let attributedString = storyHTML.wmf_attributedStringByRemovingHTMLWithFont(font, linkFont: linkFont)
-        storyLabel.attributedText = attributedString
-    }
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return story.articlePreviews?.count ?? 0
+        guard let count = story.articlePreviews?.count else {
+            return 2
+        }
+        return count + 2
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCellWithIdentifier(WMFArticleListTableViewCell.identifier(), forIndexPath: indexPath) as? WMFArticleListTableViewCell else {
+        guard let mainArticlePreview = story.featuredArticlePreview ?? story.articlePreviews?.first else {
             return UITableViewCell()
         }
-        
-        guard let articlePreview = story.articlePreviews?[indexPath.row] else {
-            return UITableViewCell()
+        switch indexPath.row {
+        case 0:
+            guard let cell = tableView.dequeueReusableCellWithIdentifier(FullSizeImageTableViewCell.identifier, forIndexPath: indexPath) as? FullSizeImageTableViewCell else {
+                return UITableViewCell()
+            }
+            
+            guard let thumbnailURL = mainArticlePreview.thumbnailURL  else {
+                cell.fullSizeImageView.image = nil
+                return cell
+            }
+            
+            cell.fullSizeImageView.wmf_setImageWithURL(thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in }) {}
+            
+            return cell
+        case 1:
+            guard let cell = tableView.dequeueReusableCellWithIdentifier(MultilineLabelTableViewCell.identifier, forIndexPath: indexPath) as? MultilineLabelTableViewCell else {
+                return UITableViewCell()
+            }
+            
+            guard let storyHTML = story.storyHTML else {
+                return cell
+            }
+            
+            var font: UIFont
+            if #available(iOS 10.0, *) {
+                font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody, compatibleWithTraitCollection: nil)
+            } else {
+                font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+            }
+            let linkFont = UIFont.boldSystemFontOfSize(font.pointSize)
+            let attributedString = storyHTML.wmf_attributedStringByRemovingHTMLWithFont(font, linkFont: linkFont)
+            cell.multilineLabel.attributedText = attributedString
+           
+            return cell
+        default:
+            guard let cell = tableView.dequeueReusableCellWithIdentifier(WMFArticleListTableViewCell.identifier(), forIndexPath: indexPath) as? WMFArticleListTableViewCell else {
+                return UITableViewCell()
+            }
+            
+            let index = indexPath.row - 2
+            guard let articlePreview = story.articlePreviews?[index] else {
+                return UITableViewCell()
+            }
+            
+            cell.setImageURL(articlePreview.thumbnailURL)
+            
+            cell.titleText = articlePreview.displayTitle
+            cell.descriptionText = articlePreview.snippet
+            
+            return cell
         }
-        
-        cell.setImageURL(articlePreview.thumbnailURL)
-        
-        cell.titleText = articlePreview.displayTitle
-        cell.descriptionText = articlePreview.snippet
-        
-        return cell
+       
+    }
+    
+    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return indexPath.row > 1
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        guard let articlePreviews = story.articlePreviews where articlePreviews.count > indexPath.row else {
+        let index = indexPath.row - 2
+        guard index >= 0 else {
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            return
+        }
+        guard let articlePreviews = story.articlePreviews where articlePreviews.count > index else {
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
             return
         }
         
-        let articlePreview = articlePreviews[indexPath.row]
+        let articlePreview = articlePreviews[index]
         let articleURL = articlePreview.articleURL
         
         wmf_pushArticleWithURL(articleURL, dataStore: dataStore, previewStore: previewStore, animated: true)
