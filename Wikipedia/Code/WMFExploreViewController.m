@@ -66,7 +66,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
-@property (nonatomic, strong) id<WMFDataSource> sectionDataSource;
+@property (nonatomic, strong, nullable) id<WMFDataSource> sectionDataSource;
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
@@ -111,7 +111,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
               forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.titleView = b;
         self.navigationItem.titleView.isAccessibilityElement = YES;
-       
+
         self.navigationItem.titleView.accessibilityTraits |= UIAccessibilityTraitHeader;
         self.navigationItem.leftBarButtonItem = [self settingsBarButtonItem];
         self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
@@ -167,15 +167,6 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         _locationManager.delegate = self;
     }
     return _locationManager;
-}
-
-- (id<WMFDataSource>)sectionDataSource {
-    NSParameterAssert(self.internalContentStore);
-    if (!_sectionDataSource) {
-        _sectionDataSource = [self.internalContentStore contentGroupDataSource];
-        _sectionDataSource.granularDelegateCallbacksEnabled = NO;
-    }
-    return _sectionDataSource;
 }
 
 - (NSURL *)currentSiteURL {
@@ -477,7 +468,17 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     }
                            forControlEvents:UIControlEventValueChanged];
     [self resetRefreshControl];
-    self.sectionDataSource.delegate = self;
+
+    [self setupDataSource];
+}
+
+- (void)setupDataSource {
+    if (!self.sectionDataSource) {
+        self.sectionDataSource = [self.internalContentStore contentGroupDataSource];
+        self.sectionDataSource.granularDelegateCallbacksEnabled = NO;
+        self.sectionDataSource.delegate = self;
+        [self.collectionView reloadData];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -498,6 +499,10 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
     [[PiwikTracker sharedInstance] wmf_logView:self];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_exploreViewActivity]];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
