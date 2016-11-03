@@ -30,6 +30,10 @@
     self.title = MWLocalizedString(@"history-title", nil);
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - Accessors
 
 - (MWKHistoryList *)historyList {
