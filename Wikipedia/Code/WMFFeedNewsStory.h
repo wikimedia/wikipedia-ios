@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, strong, readonly) NSArray<WMFFeedArticlePreview *> *articlePreviews;
 
++ (nullable NSString *)semanticFeaturedArticleTitleFromStoryHTML:(NSString *)storyHTML;
+
 @end
 
 NS_ASSUME_NONNULL_END
