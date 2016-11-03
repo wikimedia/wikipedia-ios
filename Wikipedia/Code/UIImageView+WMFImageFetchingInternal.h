@@ -22,6 +22,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable, setter=wmf_setImageURL:) NSURL *wmf_imageURL;
 
 /**
+ *  The image URL associated with the currently loading image
+ *
+ */
+@property (nonatomic, strong, nullable, setter=wmf_setImageURLToCancel:) NSURL *wmf_imageURLToCancel;
+
+/**
  *  The metadata associated with the receiver.
  *
  *  This is preferred over @c wmf_imageURL since it allows for normalized face detection data to be read from and written
