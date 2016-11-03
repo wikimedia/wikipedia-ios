@@ -77,7 +77,7 @@ platform :ios do
   lane :bump_build do |options|
     app_identifer = params[:app_identifier] || "org.wikimedia.wikipedia"
     increment_build_number({
-      build_number: latest_testflight_build_number(app_identifier: app_identifier) + 1
+      build_number: get_latest_alpha_or_beta_build_number + 1
     })
   end
 
@@ -152,15 +152,21 @@ platform :ios do
       hockey_app_id: "2295c3698bbd0b050f257772dd2bdbb2"
     )
   end
+  
+  lane :get_latest_alpha_or_beta_build_number do |options|
+    latest_alpha_build_number = latest_testflight_build_number(app_identifier:  "org.wikimedia.wikipedia.tfalpha")
+    latest_beta_build_number = latest_testflight_build_number(app_identifier:  "org.wikimedia.wikipedia")
+    [latest_alpha_build_number.to_i, latest_beta_build_number.to_i].max
+  end
 
   desc "updates version, builds, and pushes to Testlfight"
   lane :push do |options|
     build_dir = "build"
     product_name = options[:product_name] || "Wikipedia"
-    ipa_path = "#{build_dir}/#{product_name}.ipa"
     hockey_app_id = options[:hockey_app_id] || "5d80da08a6761e5c6456736af7ebad88"
     app_identifier = options[:app_identifier] || "org.wikimedia.wikipedia"
-    build_number = latest_testflight_build_number(app_identifier:  app_identifier) + 1
+    ipa_path = "#{build_dir}/#{product_name}.ipa"
+    build_number =  get_latest_alpha_or_beta_build_number + 1
     version = get_version_number
     tag_prefix = options[:tag_prefix]
 
@@ -196,8 +202,8 @@ platform :ios do
       app_identifier: app_identifier,
       version: version,
       build_number: build_number,
-      hockey_app_id: hockey_app_id,
-      ipa_path: ipa_path
+      ipa_path: ipa_path,
+      hockey_app_id: hockey_app_id
     )
   end
 
@@ -250,10 +256,10 @@ platform :ios do
   lane :dsyms do |options|
     app_identifier = options[:app_identifier]
     version = options[:version]
-    build_number = options[:build_number]
+    build_number = options[:build_number]  || latest_testflight_build_number(app_identifier: app_identifier)
     hockey_app_id = options[:hockey_app_id]
-    ipa_path = options[:ipa_path]
     hockey_api_token = options[:hockey_api_token] || ENV["HOCKEY_PRODUCTION"]
+    ipa_path = options[:ipa_path]
     
     raise "Missing parameters" unless app_identifier && version && build_number && hockey_app_id && ipa_path && hockey_api_token
     
@@ -264,15 +270,42 @@ platform :ios do
     ) # Download dSYM files from iTC
 
     hockey(
-      ipa: ipa_path,
       public_identifier: hockey_app_id,
       api_token: hockey_api_token,
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
-      dsym: "#{app_identifier}-#{version}-#{build_number}.dSYM.zip"
+      dsym: "#{app_identifier}-#{version}-#{build_number}.dSYM.zip",
+      ipa: ipa_path
     )
     clean_build_artifacts
   end
-
+  
+  lane :dsyms_alpha do |options|
+    app_identifier = "org.wikimedia.wikipedia.tfalpha"
+    hockey_app_id = "2295c3698bbd0b050f257772dd2bdbb2"
+    ipa_path = "build/Wikipedia Alpha.ipa"
+    version = options[:version] || get_version_number
+    dsyms(
+      app_identifier: app_identifier,
+      version: version,
+      build_number: options[:build_number],
+      hockey_app_id: hockey_app_id,
+      ipa_path: ipa_path
+    )
+  end
+  
+  lane :dsyms_beta do |options|
+    app_identifier = "org.wikimedia.wikipedia"
+    hockey_app_id = "5d80da08a6761e5c6456736af7ebad88"
+    ipa_path = "build/Wikipedia.ipa"
+    version = options[:version] || get_version_number
+    dsyms(
+      app_identifier: app_identifier,
+      version: version,
+      build_number: options[:build_number],
+      hockey_app_id: hockey_app_id,
+      ipa_path: ipa_path
+    )
+  end
   
 end

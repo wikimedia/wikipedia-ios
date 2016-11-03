@@ -71,6 +71,11 @@ updates version, builds, and pushes to Testlfight
 fastlane ios push_alpha
 ```
 updates version, builds, and pushes alpha to Testlfight
+### ios get_latest_alpha_or_beta_build_number
+```
+fastlane ios get_latest_alpha_or_beta_build_number
+```
+
 ### ios push
 ```
 fastlane ios push
@@ -91,6 +96,16 @@ Runs tests, version, tag, and push to the beta branch
 fastlane ios dsyms
 ```
 Download dSYMs from iTunes Connect and upload them to HockeyApp
+### ios dsyms_alpha
+```
+fastlane ios dsyms_alpha
+```
+
+### ios dsyms_beta
+```
+fastlane ios dsyms_beta
+```
+
 
 ----
 
