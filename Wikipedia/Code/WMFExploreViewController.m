@@ -969,7 +969,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
-            [self.navigationController pushViewController:vc animated:animated];
+            [self wmf_pushArticleViewController:(WMFArticleViewController *)vc animated:animated];
         } break;
         case WMFFeedDetailTypePageWithRandomButton: {
             [self.navigationController pushViewController:vc animated:animated];
