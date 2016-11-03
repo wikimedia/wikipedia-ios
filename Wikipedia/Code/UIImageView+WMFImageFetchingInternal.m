@@ -9,6 +9,8 @@
 
 static const char *const MWKURLAssociationKey = "MWKURL";
 
+static const char *const MWKURLToCancelAssociationKey = "MWKURLToCancel";
+
 static const char *const MWKImageAssociationKey = "MWKImage";
 
 static const char *const WMFImageControllerAssociationKey = "WMFImageController";
@@ -43,6 +45,14 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 
 - (void)wmf_setImageURL:(nullable NSURL *)imageURL {
     [self bk_associateValue:imageURL withKey:MWKURLAssociationKey];
+}
+
+- (NSURL *__nullable)wmf_imageURLToCancel {
+    return [self bk_associatedValueForKey:MWKURLToCancelAssociationKey];
+}
+
+- (void)wmf_setImageURLToCancel:(nullable NSURL *)imageURL {
+    [self bk_associateValue:imageURL withKey:MWKURLToCancelAssociationKey];
 }
 
 #pragma mark - Cached Image
@@ -101,15 +111,17 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     }
 
     @weakify(self);
-
+    self.wmf_imageURLToCancel = imageURL;
     [self.wmf_imageController fetchImageWithURL:imageURL
                                         failure:failure
                                         success:^(WMFImageDownload *_Nonnull download) {
                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                 @strongify(self);
                                                 if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
+                                                    self.wmf_imageURLToCancel = nil;
                                                     failure([NSError cancelledError]);
                                                 } else {
+                                                    self.wmf_imageURLToCancel = nil;
                                                     [self wmf_setImage:download.image detectFaces:detectFaces onGPU:onGPU animated:YES failure:failure success:success];
                                                 }
                                             });
@@ -177,9 +189,10 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 }
 
 - (void)wmf_cancelImageDownload {
-    [self.wmf_imageController cancelFetchForURL:[self wmf_imageURLToFetch]];
+    [self.wmf_imageController cancelFetchForURL:[self wmf_imageURLToCancel]];
     self.wmf_imageURL = nil;
     self.wmf_imageMetadata = nil;
+    self.wmf_imageURLToCancel = nil;
 }
 
 @end
