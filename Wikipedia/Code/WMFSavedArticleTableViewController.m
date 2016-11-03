@@ -59,17 +59,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupNotification:) name:MWKSetupDataSourcesNotification object:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self setupDataSource];
-}
-
 - (void)setupDataSource {
-    self.dataSource = [self.userDataStore savedDataSource];
-    self.dataSource.granularDelegateCallbacksEnabled = YES;
-    self.dataSource.delegate = self;
-    [self.tableView reloadData];
-    [self updateEmptyAndDeleteState];
+    if (!self.dataSource) {
+        self.dataSource = [self.userDataStore savedDataSource];
+        self.dataSource.granularDelegateCallbacksEnabled = YES;
+        self.dataSource.delegate = self;
+        [self.tableView reloadData];
+        [self updateEmptyAndDeleteState];
+    }
 }
 
 - (void)teardownDataSource {
@@ -82,6 +79,11 @@
 }
 
 - (void)setupNotification:(NSNotification *)note {
+    [self setupDataSource];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self setupDataSource];
 }
 

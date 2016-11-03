@@ -40,8 +40,8 @@
     return self.userDataStore.savedPageList;
 }
 
-- (MWKHistoryEntry*)objectAtIndexPath:(NSIndexPath*)indexPath{
-    return (MWKHistoryEntry*)[self.dataSource objectAtIndexPath:indexPath];
+- (MWKHistoryEntry *)objectAtIndexPath:(NSIndexPath *)indexPath {
+    return (MWKHistoryEntry *)[self.dataSource objectAtIndexPath:indexPath];
 }
 
 #pragma mark - UIViewController
@@ -52,16 +52,36 @@
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(teardownNotification:) name:MWKTeardownDataSourcesNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupNotification:) name:MWKSetupDataSourcesNotification object:nil];
+}
 
-    self.dataSource = [self.userDataStore historyGroupedByDateDataSource];
-    self.dataSource.delegate = self;
-    [self.tableView reloadData];
-    [self updateEmptyAndDeleteState];
+- (void)setupDataSource {
+    if (!self.dataSource) {
+        self.dataSource = [self.userDataStore savedDataSource];
+        self.dataSource.granularDelegateCallbacksEnabled = YES;
+        self.dataSource.delegate = self;
+        [self.tableView reloadData];
+        [self updateEmptyAndDeleteState];
+    }
+}
+
+- (void)teardownDataSource {
+    self.dataSource.delegate = nil;
+    self.dataSource = nil;
+}
+
+- (void)teardownNotification:(NSNotification *)note {
+    [self teardownDataSource];
+}
+
+- (void)setupNotification:(NSNotification *)note {
+    [self setupDataSource];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.dataSource.granularDelegateCallbacksEnabled = YES;
+    [self setupDataSource];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -72,7 +92,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    self.dataSource.granularDelegateCallbacksEnabled = NO;
+    [self teardownDataSource];
 }
 
 #pragma mark - UITableViewDataSource
