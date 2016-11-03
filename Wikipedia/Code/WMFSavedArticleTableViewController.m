@@ -33,6 +33,10 @@
     self.title = MWLocalizedString(@"saved-title", nil);
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - Accessors
 
 - (MWKSavedPageList *)savedPageList {
@@ -50,16 +54,35 @@
 
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(teardownNotification:) name:MWKTeardownDataSourcesNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupNotification:) name:MWKSetupDataSourcesNotification object:nil];
+}
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self setupDataSource];
+}
+
+- (void)setupDataSource {
     self.dataSource = [self.userDataStore savedDataSource];
+    self.dataSource.granularDelegateCallbacksEnabled = YES;
     self.dataSource.delegate = self;
     [self.tableView reloadData];
     [self updateEmptyAndDeleteState];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.dataSource.granularDelegateCallbacksEnabled = YES;
+- (void)teardownDataSource {
+    self.dataSource.delegate = nil;
+    self.dataSource = nil;
+}
+
+- (void)teardownNotification:(NSNotification *)note {
+    [self teardownDataSource];
+}
+
+- (void)setupNotification:(NSNotification *)note {
+    [self setupDataSource];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -70,7 +93,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    self.dataSource.granularDelegateCallbacksEnabled = NO;
+    [self teardownDataSource];
 }
 
 #pragma mark - UITableViewDataSource

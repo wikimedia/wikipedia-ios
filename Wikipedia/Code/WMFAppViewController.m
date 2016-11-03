@@ -216,10 +216,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [self.dataStore syncDataStoreToDatabase];
     [self.previewStore syncDataStoreToDatabase];
     [self.contentStore syncDataStoreToDatabase];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKSetupDataSourcesNotification object:nil];
 }
 
 - (void)appWillResignActiveWithNotification:(NSNotification *)note {
     self.notificationsController.applicationActive = NO;
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKTeardownDataSourcesNotification object:nil];
 }
 
 - (void)appDidEnterBackgroundWithNotification:(NSNotification *)note {
