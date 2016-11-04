@@ -17,20 +17,21 @@
         "titleFontSize": 14
     },
     "message": {
-        "backgroundColor": "#333333",
+        "backgroundColor": "#eaecf0",
         "blurBackground": false,
         "borderColor": "#727C83",
         "borderHeight": 1,
         "buttonImageName": "close-mini",
         "buttonTintColor": "#727272",
-        "contentFontSize": 12,
-        "contentTextColor": "#FFFFFF",
+        "contentFontSize": 14,
+        "contentFontName": "SanFranciscoText-Semibold",
+        "contentTextColor": "#222222",
         "imageName": "",
-        "shadowColor": "#EBEEF1",
         "shadowOffsetX": 0,
         "shadowOffsetY": 0,
-        "textColor": "#FFFFFF",
-        "titleFontSize": 14
+        "textColor": "#222222",
+        "titleFontSize": 12,
+        "titleFontName": "SanFranciscoText-Regular"
     },
     "warning": {
         "backgroundColor": "#333333",
