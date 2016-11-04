@@ -245,7 +245,7 @@
 "share-menu-page-saved" = "Saved for offline reading.";
 "share-menu-page-saved-access" = "Tip: to access your saved pages, tap $1 above or long-press $2 below.";
 
-"share-custom-menu-item" = "Share";
+"share-custom-menu-item" = "Share...";
 "share-a-fact-share-menu-item" = "Share-a-fact";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" on @Wikipedia:";
@@ -504,7 +504,7 @@
 "reference-title" = "Reference $1";
 
 "in-the-news-notification-read-now-action-title" = "Read Now";
-"in-the-news-notification-share-action-title" = "Share";
+"in-the-news-notification-share-action-title" = "Share...";
 "in-the-news-notification-save-for-later-action-title" = "Save for later";
 "in-the-news-currently-trending" = "Currently trending";
 
