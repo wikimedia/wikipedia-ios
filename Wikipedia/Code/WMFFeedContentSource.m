@@ -262,7 +262,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         __block unsigned long long mostViews = 0;
         __block WMFFeedArticlePreview *mostViewedPreview = nil;
         __block WMFFeedArticlePreview *semanticFeaturedPreview = nil;
-        
+
         NSString *featuredArticleTitleBasedOnSemanticLookup = [WMFFeedNewsStory semanticFeaturedArticleTitleFromStoryHTML:story.storyHTML];
         NSURL *featuredArticleURL = [NSURL wmf_URLWithSiteURL:self.siteURL title:featuredArticleTitleBasedOnSemanticLookup fragment:nil];
         NSString *featuredArticleDabaseKey = [featuredArticleURL wmf_databaseKey];
@@ -504,12 +504,12 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 #pragma mark - Utility
 
 - (NSDate *)startDateForPageViewsForDate:(NSDate *)date {
-    NSDate *startDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:-1 - WMFFeedInTheNewsNotificationViewCountDays toDate:date options:NSCalendarMatchStrictly];
+    NSDate *startDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:0 - WMFFeedInTheNewsNotificationViewCountDays toDate:date options:NSCalendarMatchStrictly];
     return startDate;
 }
 
 - (NSDate *)endDateForPreviewsForDate:(NSDate *)date {
-    NSDate *endDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:date options:NSCalendarMatchStrictly];
+    NSDate *endDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:0 toDate:date options:NSCalendarMatchStrictly];
     return endDate;
 }
 
