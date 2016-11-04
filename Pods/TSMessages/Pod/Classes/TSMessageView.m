@@ -47,15 +47,17 @@ static NSMutableDictionary *_notificationDesign;
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 @property (nonatomic, strong) UIView *backgroundView; // Only used in iOS 7
 
+@property (nonatomic, assign, readwrite) TSMessageNotificationType notificationType;
+
 @property (copy) void (^callback)();
 @property (copy) void (^buttonCallback)();
 
 @end
 
 
-@implementation TSMessageView{
-    TSMessageNotificationType notificationType;
-}
+@implementation TSMessageView
+@synthesize notificationType = notificationType;
+
 -(void) setContentFont:(UIFont *)contentFont{
     _contentFont = contentFont;
     [self.contentLabel setFont:contentFont];

@@ -47,7 +47,7 @@ PODS:
   - Mantle (2.0.7):
     - Mantle/extobjc (= 2.0.7)
   - Mantle/extobjc (2.0.7)
-  - Masonry (1.0.1)
+  - Masonry (1.0.2)
   - Nimble (4.0.1)
   - Nocilla (0.11.0)
   - NSDate-Extensions (0.0.1)
@@ -172,7 +172,7 @@ DEPENDENCIES:
   - SDWebImage (from `https://github.com/wikimedia/SDWebImage.git`, commit `bb49df83e72f2231a191e9477a85f0effe13430a`)
   - SSDataSources (~> 0.8.0)
   - SWStepSlider (from `https://github.com/wikimedia/SWStepSlider.git`)
-  - TSMessages (from `https://github.com/wikimedia/TSMessages.git`)
+  - TSMessages (from `https://github.com/wikimedia/TSMessages.git`, commit `d3506e0`)
   - TUSafariActivity
   - Tweaks (from `https://github.com/facebook/Tweaks.git`)
   - VTAcknowledgementsViewController
@@ -194,6 +194,7 @@ EXTERNAL SOURCES:
   SWStepSlider:
     :git: https://github.com/wikimedia/SWStepSlider.git
   TSMessages:
+    :commit: d3506e0
     :git: https://github.com/wikimedia/TSMessages.git
   Tweaks:
     :git: https://github.com/facebook/Tweaks.git
@@ -218,7 +219,7 @@ CHECKOUT OPTIONS:
     :commit: 2e857008b8e251a2cd669f7c288944592e02e7c4
     :git: https://github.com/wikimedia/SWStepSlider.git
   TSMessages:
-    :commit: 01cfd45fad2cdb3e9297327914c178d32e9f6a98
+    :commit: d3506e0
     :git: https://github.com/wikimedia/TSMessages.git
   Tweaks:
     :commit: 28d3efedceb1af9be8ca50da6e435814fba667c5
@@ -238,7 +239,7 @@ SPEC CHECKSUMS:
   KVOController: 321b5fc59300fcaabd42c0f679baa7a27efbb2fd
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Mantle: bc40bb061d8c2c6fb48d5083e04d928c3b7f73d9
-  Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
   Nocilla: 7af7a386071150cc8aa5da4da97d060f049dd61c
   NSDate-Extensions: 5bd64f8815dc6b3c9d08e1f620229567e2b4771c
@@ -259,6 +260,6 @@ SPEC CHECKSUMS:
   VTAcknowledgementsViewController: 44da49d57a1dbf414e653688793a130d24af151e
   YapDatabase: b1e43555a34a5298e23a045be96817a5ef0da58f
 
-PODFILE CHECKSUM: a947322b13ef0a2b5a64a97aba22d4ff2ce23d47
+PODFILE CHECKSUM: ccffc528c9b7d1a2ba0160cfb7ff1eef45b673f9
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.0.1
