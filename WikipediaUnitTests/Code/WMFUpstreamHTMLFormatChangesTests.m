@@ -43,7 +43,7 @@
         [self expectationWithDescription:@"Fetch img tag html for a piece of image wikitext. Thus way we can be notified when image tag formatting changes in any way so we can ensure image widening/caching/proxying still work with whatever changes are made."];
 
     NSString *imgWikitext = @"[[File:Example.jpg|20px|link=MediaWiki]]";
-    NSURL *baseURL = [NSURL URLWithString:@"http://en.wikipedia.beta.wmflabs.org/"];
+
     NSString *urlString = [NSString stringWithFormat:@"http://en.wikipedia.beta.wmflabs.org/w/api.php"
                                                       "?action=parse"
                                                       "&format=json"
@@ -59,20 +59,17 @@
                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                 NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
                                                 NSString *html = json[@"parse"][@"text"][@"*"];
-                                                [html wmf_enumerateHTMLImageTagContentsWithHandler:^(NSString * _Nonnull imageTagContents, NSRange range) {
-                                                    WMFImageTag *tag = [[WMFImageTag alloc] initWithImageTagContents:imageTagContents baseURL:baseURL];
-                                                    
-                                                    XCTAssertEqualObjects(tag.width, @(20));
-                                                    XCTAssertEqualObjects(tag.height, @(21));
-                                                    XCTAssertEqualObjects(tag.dataFileWidth, @(172));
-                                                    XCTAssertEqualObjects(tag.dataFileHeight, @(178));
-                                                    XCTAssertEqualObjects(tag.src, @"//upload.beta.wmflabs.org/wikipedia/commons/thumb/a/a9/Example.jpg/20px-Example.jpg");
-                                                    
-                                                    // alt has never been parsed - should it be?
-                                                    //XCTAssertEqualObjects(tag.alt, @"Example.jpg");
-                                                    
-                                                    
-                                                }];
+
+                                                NSString *expectedHTML = @""
+                                                                          "<div class=\"mf-section-0\"><p><a href=\"/wiki/MediaWiki\" title=\"MediaWiki\">"
+                                                                          "<img alt=\"Example.jpg\" src=\"//upload.beta.wmflabs.org/wikipedia/commons/thumb/a/a9/Example.jpg/20px-Example.jpg\" width=\"20\" height=\"21\" srcset=\"//upload.beta.wmflabs.org/wikipedia/commons/thumb/a/a9/Example.jpg/30px-Example.jpg 1.5x, //upload.beta.wmflabs.org/wikipedia/commons/thumb/a/a9/Example.jpg/40px-Example.jpg 2x\" data-file-width=\"172\" data-file-height=\"178\">"
+                                                                          "</a></p>\n\n\n\n\n\n</div>";
+
+                                                // Don't fail on whitespace changes.
+                                                html = [html wmf_trimAndNormalizeWhiteSpaceAndNewlinesToSingleSpace];
+                                                expectedHTML = [expectedHTML wmf_trimAndNormalizeWhiteSpaceAndNewlinesToSingleSpace];
+
+                                                XCTAssert([html isEqualToString:expectedHTML]);
                                                 [expectation fulfill];
 
                                             }];
