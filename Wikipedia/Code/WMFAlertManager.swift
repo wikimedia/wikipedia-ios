@@ -28,10 +28,33 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeView
     public static let sharedInstance = WMFAlertManager()
 
     override init() {
-        TSMessage.addCustomDesignFromFileWithName("AlertDesign.json")
         super.init()
+        TSMessage.addCustomDesignFromFileWithName("AlertDesign.json")
+        TSMessage.sharedMessage().delegate = self
     }
     
+    
+    public func showInTheNewsAlert(message: String, sticky:Bool, dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
+        
+        if (message ?? "").isEmpty {
+            return
+        }
+        self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
+            TSMessage.showNotificationInViewController(nil,
+                title: localizedStringForKeyFallingBackOnEnglish("in-the-news-title"),
+                subtitle: message,
+                image: UIImage(named:"trending-notification-icon"),
+                type: .Message,
+                duration: sticky ? -1 : 2,
+                callback: tapCallBack,
+                buttonTitle: nil,
+                buttonCallback: {},
+                atPosition: .Top,
+                canBeDismissedByUser: true)
+        })
+    }
+    
+
     public func showAlert(message: String, sticky:Bool, dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
     
          if (message ?? "").isEmpty {
@@ -144,7 +167,10 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeView
 
     public func customizeMessageView(messageView: TSMessageView!) {
         
-        
+        if(messageView.notificationType == .Message){
+         messageView.contentFont = UIFont.systemFontOfSize(14, weight: UIFontWeightSemibold)
+            messageView.titleFont = UIFont.systemFontOfSize(12)
+        }
     }
     
     public func showEmailFeedbackAlertViewWithError(error: NSError) {
