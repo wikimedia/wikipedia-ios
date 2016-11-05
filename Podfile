@@ -73,7 +73,7 @@ abstract_target 'Foundation' do
     pod 'GCDWebServer', '~> 3.3'
 
     # Views
-    pod 'TSMessages', :git => 'https://github.com/wikimedia/TSMessages.git', :commit => 'd3506e0'
+    pod 'TSMessages', :git => 'https://github.com/wikimedia/TSMessages.git', :commit => '8c66db6ce8ed8ffe8112b231e6edc71f8580a139'
     pod "SWStepSlider", :git => 'https://github.com/wikimedia/SWStepSlider.git'
 
     # Activities
