@@ -657,7 +657,7 @@
 		D844D9B91D6CB7980042D692 /* MWKRecentSearchList.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807A81C0CEFE30065EBC0 /* MWKRecentSearchList.m */; };
 		D844D9BE1D6CB7B30042D692 /* MWKDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807C11C0CF04A0065EBC0 /* MWKDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9C01D6CB7BA0042D692 /* MWKDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807C21C0CF04A0065EBC0 /* MWKDataStore.m */; };
-		D844D9C11D6CB7BA0042D692 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		D844D9C11D6CB7BA0042D692 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		D844D9C21D6CB7D20042D692 /* MWKImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807C41C0CF04A0065EBC0 /* MWKImageInfo.m */; };
 		D844D9C31D6CB7D40042D692 /* MWKImageInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807C31C0CF04A0065EBC0 /* MWKImageInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9C41D6CB9330042D692 /* NSMutableDictionary+WMFMaybeSet.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8049A1C0CE0B40065EBC0 /* NSMutableDictionary+WMFMaybeSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -6050,7 +6050,6 @@
 				0E8380601D64989F0076EDE4 /* Frameworks */,
 				0E8380611D64989F0076EDE4 /* Resources */,
 				E1BB699403B6FE1C6C95835F /* [CP] Copy Pods Resources */,
-				547D05A43C48BD931BF6EC5A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -6167,7 +6166,6 @@
 				D85D34C21D74D07500845125 /* Frameworks */,
 				D85D34C31D74D07500845125 /* Resources */,
 				B85E79F9DBF588873F41FAB7 /* [CP] Copy Pods Resources */,
-				2161029F7527886249CD01B1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -6187,7 +6185,6 @@
 				D895D0801D9C1EB8005418C1 /* Frameworks */,
 				D895D0811D9C1EB8005418C1 /* Resources */,
 				AA48AE459589CE23348C1C63 /* [CP] Copy Pods Resources */,
-				7DAA59843325392C5AC7CE5E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -6614,22 +6611,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		2161029F7527886249CD01B1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-TopReadWidget/Pods-Foundation-TopReadWidget-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		414AAE43509FC7B76217B6DE /* [CP] Embed Pods Frameworks */ = {
@@ -6677,21 +6659,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-WMFUI/Pods-Foundation-WMFUI-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		547D05A43C48BD931BF6EC5A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		6057D66C695ABA00CDFD3D2D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -6704,7 +6671,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		60DCB51E880343418F79B397 /* [CP] Check Pods Manifest.lock */ = {
@@ -6719,7 +6686,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		6C76A39E89C19E71FCF71E81 /* [CP] Copy Pods Resources */ = {
@@ -6737,21 +6704,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-WMFModel/Pods-Foundation-WMFModel-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7DAA59843325392C5AC7CE5E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-InTheNewsNotification/Pods-Foundation-InTheNewsNotification-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		800B232266DB295768D40D1C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -6764,7 +6716,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		8714DBB6A40D257D7A1C555F /* [CP] Check Pods Manifest.lock */ = {
@@ -6779,7 +6731,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		91F96FD96A29DBFB4627CA05 /* [CP] Copy Pods Resources */ = {
@@ -6809,7 +6761,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		A1B9E72D5C449AD97B66586A /* [CP] Embed Pods Frameworks */ = {
@@ -6869,7 +6821,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		B85E79F9DBF588873F41FAB7 /* [CP] Copy Pods Resources */ = {
@@ -6992,7 +6944,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -7506,7 +7458,7 @@
 				0E728D321DAEE8FF0074EB4B /* WMFContinueReadingContentSource.m in Sources */,
 				D844D9C21D6CB7D20042D692 /* MWKImageInfo.m in Sources */,
 				0E28C48F1D7529C8000C5919 /* WMFArticlePreviewDataStore.m in Sources */,
-				D844D9C11D6CB7BA0042D692 /* (null) in Sources */,
+				D844D9C11D6CB7BA0042D692 /* BuildFile in Sources */,
 				0E728D211DAEE2B50074EB4B /* WMFFeedImage.m in Sources */,
 				0E728D301DAEE8FF0074EB4B /* WMFNearbyContentSource.m in Sources */,
 				D84B22501DAFD15A007C44AA /* WMFFaceDetectionCache.m in Sources */,
@@ -8059,7 +8011,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
+					"$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
@@ -8343,7 +8295,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
+					"$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
@@ -8472,7 +8424,7 @@
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
+					"$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
@@ -8611,7 +8563,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
+					"$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
@@ -8649,7 +8601,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
+					"$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
@@ -8689,7 +8641,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
+					"$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
@@ -9498,7 +9450,7 @@
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
+					"$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
@@ -9802,7 +9754,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
+					"$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
