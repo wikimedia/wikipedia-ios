@@ -61,3 +61,4 @@ node_modules/
 # Git
 *.orig
 *.cer
+.env.default
