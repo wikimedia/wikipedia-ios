@@ -136,8 +136,10 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
                 PiwikTracker.sharedInstance()?.wmf_logActionSaveInContext(self, contentType: self)
                 let dataStore: MWKDataStore = SessionSingleton.sharedInstance().dataStore
                 dataStore.savedPageList.addSavedPageWithURL(articleURL)
-                dispatch_async(dispatch_get_main_queue(), {
-                    completion(.Dismiss)
+                dataStore.notifyWhenWriteTransactionsComplete({ 
+                    dispatch_async(dispatch_get_main_queue(), {
+                        completion(.Dismiss)
+                    })
                 })
             })
         case WMFInTheNewsNotificationShareActionIdentifier:

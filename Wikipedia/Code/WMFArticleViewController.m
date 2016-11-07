@@ -199,6 +199,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self = [super init];
     if (self) {
+        self.addingArticleToHistoryListEnabled = YES;
+        self.savingOpenArticleTitleEnabled = YES;
         self.currentFooterIndex = NSNotFound;
         self.articleURL = url;
         self.dataStore = dataStore;

@@ -262,7 +262,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         __block unsigned long long mostViews = 0;
         __block WMFFeedArticlePreview *mostViewedPreview = nil;
         __block WMFFeedArticlePreview *semanticFeaturedPreview = nil;
-        
+
         NSString *featuredArticleTitleBasedOnSemanticLookup = [WMFFeedNewsStory semanticFeaturedArticleTitleFromStoryHTML:story.storyHTML];
         NSURL *featuredArticleURL = [NSURL wmf_URLWithSiteURL:self.siteURL title:featuredArticleTitleBasedOnSemanticLookup fragment:nil];
         NSString *featuredArticleDabaseKey = [featuredArticleURL wmf_databaseKey];
@@ -316,11 +316,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled]) {
         return;
     }
-    
-    if (self.notificationsController.isApplicationActive) {
-        return;
-    }
-    
+
     if (self.isSchedulingNotifications) {
         return;
     }
@@ -328,12 +324,12 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (![date wmf_isTodayUTC]) { //in the news notifications only valid for the current day
         return;
     }
-    
+
     NSCalendar *userCalendar = [NSCalendar autoupdatingCurrentCalendar];
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
     NSDate *mostRecentDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
     BOOL ignoreTopReadRequirement = !mostRecentDate || ([userCalendar daysFromDate:mostRecentDate toDate:[NSDate date]] >= 3);
-    
+
     self.schedulingNotifications = YES;
 
     NSArray<WMFFeedTopReadArticlePreview *> *articlePreviews = feedDay.topRead.articlePreviews;
@@ -393,7 +389,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (!force && (![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled])) {
         return NO;
     }
-    
+
     if (!newsStory.featuredArticlePreview) {
         NSString *articlePreviewKey = articlePreview.url.wmf_databaseKey;
         if (!articlePreviewKey) {
@@ -508,12 +504,12 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 #pragma mark - Utility
 
 - (NSDate *)startDateForPageViewsForDate:(NSDate *)date {
-    NSDate *startDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:-1 - WMFFeedInTheNewsNotificationViewCountDays toDate:date options:NSCalendarMatchStrictly];
+    NSDate *startDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:0 - WMFFeedInTheNewsNotificationViewCountDays toDate:date options:NSCalendarMatchStrictly];
     return startDate;
 }
 
 - (NSDate *)endDateForPreviewsForDate:(NSDate *)date {
-    NSDate *endDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:date options:NSCalendarMatchStrictly];
+    NSDate *endDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:0 toDate:date options:NSCalendarMatchStrictly];
     return endDate;
 }
 

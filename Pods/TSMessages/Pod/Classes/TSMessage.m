@@ -235,20 +235,10 @@ __weak static UIViewController *_defaultViewController;
         [[[self class] appWindow] addSubview:currentView];
     }
 
-    [currentView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.leading.and.trailing.equalTo(currentView.superview);
-        if (currentView.messagePosition == TSMessageNotificationPositionBottom){
-            make.top.equalTo(currentView.superview.mas_bottom);
-        }else{
-            make.bottom.equalTo(currentView.superview.mas_top);
-        }
-    }];
-    [currentView layoutIfNeeded];
-
     if ([TSMessage iOS7StyleEnabled] || isViewIsUnderStatusBar) {
         addStatusBarHeightToVerticalOffset();
     }
-
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(customizeMessageView:)])
     {
         [self.delegate customizeMessageView:currentView];
@@ -259,16 +249,25 @@ __weak static UIViewController *_defaultViewController;
         verticalOffset += [self.delegate messageLocationOfMessageView:currentView];
     }
 
+    [currentView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.leading.and.trailing.equalTo(currentView.superview);
+        if (currentView.messagePosition == TSMessageNotificationPositionBottom){
+            make.bottom.equalTo(currentView.superview.mas_bottom);
+        }else{
+            make.top.equalTo(currentView.superview.mas_top).with.offset(verticalOffset);
+        }
+    }];
+
+    [currentView layoutIfNeeded];
+
+    if (currentView.messagePosition == TSMessageNotificationPositionBottom){
+        currentView.layer.transform = CATransform3DMakeTranslation(0, currentView.frame.size.height, 0.0);
+    }else{
+        currentView.layer.transform = CATransform3DMakeTranslation(0, -currentView.frame.size.height, 0.0);
+    }
+
     dispatch_block_t animationBlock = ^{
-        [currentView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.leading.and.trailing.equalTo(currentView.superview);
-            if (currentView.messagePosition == TSMessageNotificationPositionBottom){
-                make.bottom.equalTo(currentView.superview.mas_bottom);
-            }else{
-                make.top.equalTo(currentView.superview.mas_top).with.offset(verticalOffset);
-            }
-        }];
-        [currentView layoutIfNeeded];
+        currentView.layer.transform = CATransform3DIdentity;
         if (![TSMessage iOS7StyleEnabled]) {
             currentView.alpha = TSMessageViewAlpha;
         }
@@ -343,15 +342,11 @@ __weak static UIViewController *_defaultViewController;
          if (!currentView.superview) {
              return;
          }
-         [currentView mas_remakeConstraints:^(MASConstraintMaker *make) {
-             make.leading.and.trailing.equalTo(currentView.superview);
-             if (currentView.messagePosition == TSMessageNotificationPositionBottom){
-                 make.top.equalTo(currentView.superview.mas_bottom);
-             }else{
-                 make.bottom.equalTo(currentView.superview.mas_top);
-             }
-         }];
-         [currentView layoutIfNeeded];
+         if (currentView.messagePosition == TSMessageNotificationPositionBottom){
+             currentView.layer.transform = CATransform3DMakeTranslation(0, currentView.frame.size.height, 0.0);
+         }else{
+             currentView.layer.transform = CATransform3DMakeTranslation(0, -currentView.frame.size.height, 0.0);
+         }
          
          if (![TSMessage iOS7StyleEnabled]) {
              currentView.alpha = 0.f;

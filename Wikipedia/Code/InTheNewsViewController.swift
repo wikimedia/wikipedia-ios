@@ -115,13 +115,22 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
        
     }
     
+    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return indexPath.row > 1
+    }
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        guard let articlePreviews = story.articlePreviews where articlePreviews.count > indexPath.row else {
+        let index = indexPath.row - 2
+        guard index >= 0 else {
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            return
+        }
+        guard let articlePreviews = story.articlePreviews where articlePreviews.count > index else {
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
             return
         }
         
-        let articlePreview = articlePreviews[indexPath.row]
+        let articlePreview = articlePreviews[index]
         let articleURL = articlePreview.articleURL
         
         wmf_pushArticleWithURL(articleURL, dataStore: dataStore, previewStore: previewStore, animated: true)
