@@ -588,6 +588,7 @@
 		D81FB2661D47B5BA0000C685 /* WMFCVLAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB2651D47B5BA0000C685 /* WMFCVLAttributes.m */; };
 		D81FB2691D47B5DC0000C685 /* WMFCVLInvalidationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB2681D47B5DC0000C685 /* WMFCVLInvalidationContext.m */; };
 		D81FB26C1D493E6A0000C685 /* WMFCVLMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB26B1D493E6A0000C685 /* WMFCVLMetrics.m */; };
+		D820F78B1DD0E5E100806045 /* WMFNotificationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D820F78A1DD0E5E100806045 /* WMFNotificationTests.m */; };
 		D82F601C1D6CE10400388574 /* FetcherBase.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E806381C0CE7B00065EBC0 /* FetcherBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D82F601D1D6CE10800388574 /* FetcherBase.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806391C0CE7B00065EBC0 /* FetcherBase.m */; };
 		D837D0381D6CC8B3004EFBC6 /* QueuesSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E806721C0CE9850065EBC0 /* QueuesSingleton.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -657,7 +658,7 @@
 		D844D9B91D6CB7980042D692 /* MWKRecentSearchList.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807A81C0CEFE30065EBC0 /* MWKRecentSearchList.m */; };
 		D844D9BE1D6CB7B30042D692 /* MWKDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807C11C0CF04A0065EBC0 /* MWKDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9C01D6CB7BA0042D692 /* MWKDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807C21C0CF04A0065EBC0 /* MWKDataStore.m */; };
-		D844D9C11D6CB7BA0042D692 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		D844D9C11D6CB7BA0042D692 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		D844D9C21D6CB7D20042D692 /* MWKImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807C41C0CF04A0065EBC0 /* MWKImageInfo.m */; };
 		D844D9C31D6CB7D40042D692 /* MWKImageInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807C31C0CF04A0065EBC0 /* MWKImageInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9C41D6CB9330042D692 /* NSMutableDictionary+WMFMaybeSet.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8049A1C0CE0B40065EBC0 /* NSMutableDictionary+WMFMaybeSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2362,6 +2363,7 @@
 		D81FB2681D47B5DC0000C685 /* WMFCVLInvalidationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCVLInvalidationContext.m; path = Wikipedia/Code/WMFCVLInvalidationContext.m; sourceTree = SOURCE_ROOT; };
 		D81FB26A1D493E6A0000C685 /* WMFCVLMetrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFCVLMetrics.h; path = Wikipedia/Code/WMFCVLMetrics.h; sourceTree = SOURCE_ROOT; };
 		D81FB26B1D493E6A0000C685 /* WMFCVLMetrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCVLMetrics.m; path = Wikipedia/Code/WMFCVLMetrics.m; sourceTree = SOURCE_ROOT; };
+		D820F78A1DD0E5E100806045 /* WMFNotificationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFNotificationTests.m; sourceTree = "<group>"; };
 		D844D96C1D6CB2600042D692 /* WMFModel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WMFModel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D844D96E1D6CB2600042D692 /* WMFModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFModel.h; sourceTree = "<group>"; };
 		D844D96F1D6CB2600042D692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -5318,6 +5320,7 @@
 				19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */,
 				19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */,
 				B0DE03211D90CB6C00BE5968 /* BecauseYouReadSeedsDataSourceTests.m */,
+				D820F78A1DD0E5E100806045 /* WMFNotificationTests.m */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests/Code;
@@ -7027,6 +7030,7 @@
 				B07D25DE1D27538D00550721 /* WMFUpstreamHTMLFormatChangesTests.m in Sources */,
 				B0E8095A1C0D1B6D0065EBC0 /* SavedArticlesFetcherTests.m in Sources */,
 				B0E809601C0D1BA30065EBC0 /* WMFSearchFetcherTests.m in Sources */,
+				D820F78B1DD0E5E100806045 /* WMFNotificationTests.m in Sources */,
 				B01662B31D1B8CAB006F4544 /* NSURL+WMFQueryParametersTests.m in Sources */,
 				B0E8088F1C0D16140065EBC0 /* WMFAsyncTestCase.m in Sources */,
 				0E7FC4631C517B00000E878B /* WMFBlacklistTests.m in Sources */,
@@ -7458,7 +7462,7 @@
 				0E728D321DAEE8FF0074EB4B /* WMFContinueReadingContentSource.m in Sources */,
 				D844D9C21D6CB7D20042D692 /* MWKImageInfo.m in Sources */,
 				0E28C48F1D7529C8000C5919 /* WMFArticlePreviewDataStore.m in Sources */,
-				D844D9C11D6CB7BA0042D692 /* BuildFile in Sources */,
+				D844D9C11D6CB7BA0042D692 /* (null) in Sources */,
 				0E728D211DAEE2B50074EB4B /* WMFFeedImage.m in Sources */,
 				0E728D301DAEE8FF0074EB4B /* WMFNearbyContentSource.m in Sources */,
 				D84B22501DAFD15A007C44AA /* WMFFaceDetectionCache.m in Sources */,
@@ -8011,7 +8015,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					"$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources",
+					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
@@ -8295,7 +8299,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					"$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources",
+					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
@@ -8424,7 +8428,7 @@
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					"$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources",
+					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
@@ -8563,7 +8567,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					"$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources",
+					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
@@ -8601,7 +8605,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					"$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources",
+					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
@@ -8641,7 +8645,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					"$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources",
+					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
@@ -9450,7 +9454,7 @@
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					"$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources",
+					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
@@ -9754,7 +9758,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					"$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources",
+					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
