@@ -274,11 +274,11 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
         NSString *featuredArticleTitleBasedOnSemanticLookup = [WMFFeedNewsStory semanticFeaturedArticleTitleFromStoryHTML:story.storyHTML];
         NSURL *featuredArticleURL = [NSURL wmf_URLWithSiteURL:self.siteURL title:featuredArticleTitleBasedOnSemanticLookup fragment:nil];
-        NSString *featuredArticleDabaseKey = [featuredArticleURL wmf_databaseKey];
+        NSString *featuredArticleDabaseKey = [featuredArticleURL wmf_articleDatabaseKey];
 
         [story.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
             NSURL *url = [obj articleURL];
-            if (featuredArticleDabaseKey && [[url wmf_databaseKey] isEqualToString:featuredArticleDabaseKey]) {
+            if (featuredArticleDabaseKey && [[url wmf_articleDatabaseKey] isEqualToString:featuredArticleDabaseKey]) {
                 semanticFeaturedPreview = obj;
             }
             NSDictionary<NSDate *, NSNumber *> *pageViewsForURL = pageViews[url];
@@ -344,7 +344,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     NSArray<WMFFeedTopReadArticlePreview *> *articlePreviews = feedDay.topRead.articlePreviews;
     NSMutableDictionary<NSString *, WMFFeedTopReadArticlePreview *> *topReadArticlesByKey = [NSMutableDictionary dictionaryWithCapacity:articlePreviews.count];
     for (WMFFeedTopReadArticlePreview *articlePreview in articlePreviews) {
-        NSString *key = articlePreview.articleURL.wmf_databaseKey;
+        NSString *key = articlePreview.articleURL.wmf_articleDatabaseKey;
         if (!key) {
             continue;
         }
@@ -360,7 +360,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
             if (!articleURL) {
                 continue;
             }
-            NSString *key = articleURL.wmf_databaseKey;
+            NSString *key = articleURL.wmf_articleDatabaseKey;
             if (!key) {
                 continue;
             }
@@ -396,12 +396,12 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
                           articlePreview:(WMFArticlePreview *)articlePreview
                                    force:(BOOL)force {
     if (!newsStory.featuredArticlePreview) {
-        NSString *articlePreviewKey = articlePreview.url.wmf_databaseKey;
+        NSString *articlePreviewKey = articlePreview.url.wmf_articleDatabaseKey;
         if (!articlePreviewKey) {
             return NO;
         }
         for (WMFFeedArticlePreview *preview in newsStory.articlePreviews) {
-            if ([preview.articleURL.wmf_databaseKey isEqualToString:articlePreviewKey]) {
+            if ([preview.articleURL.wmf_articleDatabaseKey isEqualToString:articlePreviewKey]) {
                 newsStory.featuredArticlePreview = preview;
                 break;
             } else {

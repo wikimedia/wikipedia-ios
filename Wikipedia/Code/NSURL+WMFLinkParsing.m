@@ -267,20 +267,17 @@ NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
     }
 }
 
-- (NSURL *)wmf_databaseKeyURL {
+- (NSURL *)wmf_articleDatabaseKeyURL {
+    NSParameterAssert(self.wmf_title);
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
-    if ([components.scheme isEqualToString:@"http"]) {
-        components.scheme = @"https";
-    }
-    if ([components.scheme isEqualToString:@"https"] && self.wmf_isMobile) {
-        components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:NO];
-    }
+    components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:NO];
     components.fragment = nil;
+    components.scheme = @"https";
     return components.URL;
 }
 
-- (NSString *)wmf_databaseKey {
-    return self.wmf_databaseKeyURL.absoluteString.precomposedStringWithCanonicalMapping;
+- (NSString *)wmf_articleDatabaseKey {
+    return self.wmf_articleDatabaseKeyURL.absoluteString.precomposedStringWithCanonicalMapping;
 }
 
 - (NSString *)wmf_title {
