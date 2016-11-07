@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode8
+osx_image: xcode8.1
 env:
     - IOS_VER="10.0" FL_ARGS="verify" FASTLANE_XCODE_LIST_TIMEOUT=120
     # - IOS_VER="9.3" FL_ARGS="verify" FASTLANE_XCODE_LIST_TIMEOUT=120
