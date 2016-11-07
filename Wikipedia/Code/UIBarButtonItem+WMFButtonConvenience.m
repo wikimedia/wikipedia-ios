@@ -7,6 +7,7 @@
     UIButton *button = [UIButton wmf_buttonType:type handler:action];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:button];
     item.width = button.intrinsicContentSize.width;
+    item.accessibilityLabel = MWLocalizedString(@"close-button-accessibility-label", nil);
     return item;
 }
 
