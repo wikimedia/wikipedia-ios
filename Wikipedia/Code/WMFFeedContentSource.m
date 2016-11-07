@@ -72,11 +72,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
     NSDate *date = [NSDate date];
-    NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
-    NSDateComponents *dateComponents = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
-    NSCalendar *UTCCalendar = [NSCalendar wmf_utcGregorianCalendar];
-    NSDate *dateUTC = [UTCCalendar dateFromComponents:dateComponents];
-    [self loadContentForDate:dateUTC completion:completion];
+    [self loadContentForDate:date completion:completion];
 }
 
 - (void)loadContentFromDate:(NSDate *)fromDate forwardForDays:(NSInteger)days completion:(nullable dispatch_block_t)completion {
@@ -88,7 +84,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
     [self loadContentForDate:fromDate
                   completion:^{
-                      NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
+                      NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
                       NSDate *updatedFromDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:fromDate options:NSCalendarMatchStrictly];
                       [self loadContentFromDate:updatedFromDate forwardForDays:days - 1 completion:completion];
                   }];
@@ -96,11 +92,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 - (void)preloadContentForNumberOfDays:(NSInteger)days completion:(nullable dispatch_block_t)completion {
     NSDate *date = [NSDate date];
-    NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
-    NSDateComponents *dateComponents = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
-    NSCalendar *UTCCalendar = [NSCalendar wmf_utcGregorianCalendar];
-    NSDate *dateUTC = [UTCCalendar dateFromComponents:dateComponents];
-    NSDate *fromDate = [UTCCalendar dateByAddingUnit:NSCalendarUnitDay value:-days toDate:dateUTC options:NSCalendarMatchStrictly];
+    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
+    NSDate *fromDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:-days toDate:date options:NSCalendarMatchStrictly];
     [self loadContentFromDate:fromDate forwardForDays:days completion:completion];
 }
 
@@ -193,7 +186,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     [self saveGroupForFeaturedPreview:feedDay.featuredArticle date:date];
     [self saveGroupForTopRead:feedDay.topRead pageViews:pageViews date:date];
     [self saveGroupForPictureOfTheDay:feedDay.pictureOfTheDay date:date];
-    if ([date wmf_isTodayUTC]) {
+    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
+    if ([calendar isDateInToday:date]) {
         [self saveGroupForNews:feedDay.newsStories pageViews:pageViews date:date];
     }
     [self.contentStore notifyWhenWriteTransactionsComplete:^{
@@ -336,11 +330,11 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         return;
     }
 
-    if (![date wmf_isTodayUTC]) { //in the news notifications only valid for the current day
+    NSCalendar *userCalendar = [NSCalendar wmf_gregorianCalendar];
+    if (![userCalendar isDateInToday:date]) { //in the news notifications only valid for the current day
         return;
     }
 
-    NSCalendar *userCalendar = [NSCalendar autoupdatingCurrentCalendar];
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
     NSDate *mostRecentDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
     BOOL ignoreTopReadRequirement = !mostRecentDate || ([userCalendar daysFromDate:mostRecentDate toDate:[NSDate date]] >= 3);
