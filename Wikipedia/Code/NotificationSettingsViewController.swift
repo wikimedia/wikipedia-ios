@@ -67,7 +67,7 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
             let title = localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-title")
             let message = "\(localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-storage"))\n\n\(localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-creation"))"
             let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: localizedStringForKeyFallingBackOnEnglish("button-ok"), style: UIAlertActionStyle.Default, handler: { (action) in
+            alertController.addAction(UIAlertAction(title: localizedStringForKeyFallingBackOnEnglish("welcome-explore-tell-me-more-done-button"), style: UIAlertActionStyle.Default, handler: { (action) in
             }))
             self?.presentViewController(alertController, animated: true, completion: nil)
         })]
