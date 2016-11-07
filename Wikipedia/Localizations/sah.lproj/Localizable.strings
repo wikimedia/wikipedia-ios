@@ -222,6 +222,7 @@
 "share-menu-save-page" = "Сирэйи бигэргэт";
 "share-menu-page-saved" = "Ситимэ суох ааҕарга харалынна.";
 "share-menu-page-saved-access" = "Сүбэ: харайбыт сирэйдэргин көрөргө үөһэ маны $1 баттаа, биитэр аллара маны $2 уһуннук баттаа.";
+// Fuzzy
 "share-custom-menu-item" = "Тарҕат";
 "share-a-fact-share-menu-item" = "Чахчыны-үллэһин";
 "share-on-twitter-sign-off" = "@Wikipedia нөҥүө";
@@ -411,6 +412,7 @@
 "no-email-account-alert" = "Бука диэн, ҕааддьыккар электрон почталаах бэлиэ-аатта оҥоһун, онтон киирэн көрөөр.";
 "request-feedback-on-error" = "Дьибилгэт биллибэт алҕаһы кытта көрүстэ, бу туһунан оҥорооччулар сиһилии билиэхтэрин баҕараллара саарбаҕа суох. бука диэн, маны баттаан биһиэхэ бу туһунан сиһилии сурукта ыыт.";
 "explore-another-random" = "Атын түбэспиччэ ыстатыйа";
+"explore-randomizer" = "Рандомизатор";
 "find-in-page-no-matches" = "0 сөп түбэһии";
 "find-in-page-button-label" = "Бу сирэйтэн бул";
 "find-in-page-popover-description" = "Ыстатыйалартан тиэкиһи булуу";
@@ -422,6 +424,7 @@
 "top-read-header-generic" = "Бикипиэдьийэ";
 "reference-title" = "Быһаарыы $1";
 "in-the-news-notification-read-now-action-title" = "Билигин ааҕыам";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Тарҕат";
 "in-the-news-notification-save-for-later-action-title" = "Кэлин бигэргэтиэм";
 "in-the-news-currently-trending" = "Билигин ордук сэргэнэр";
@@ -433,3 +436,4 @@
 // Fuzzy
 "feed-news-notification-button-text" = "Саҥа сонуннар таҕыстахтарына миэхэ биллэр";
 "back" = "Төнүн";
+"save-action" = "Бигэргэт";

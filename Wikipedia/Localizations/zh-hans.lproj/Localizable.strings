@@ -231,6 +231,7 @@
 "share-menu-save-page" = "保存条目";
 "share-menu-page-saved" = "页面已保存";
 "share-menu-page-saved-access" = "提示：要访问您保存的页面，在上面轻触$1或在下面按住$2。";
+// Fuzzy
 "share-custom-menu-item" = "分享";
 "share-a-fact-share-menu-item" = "分享预览";
 "share-on-twitter-sign-off" = "通过@Wikipedia";
@@ -421,6 +422,7 @@
 "no-email-account-alert" = "请在您的设备上设置一个电子邮件地址，并重试。";
 "request-feedback-on-error" = "应用程序遇到问题，需要我们开发人员了解更多关于它的信息。请在此点按以向我们发送带有错误详情的电子邮件。";
 "explore-another-random" = "其他随机条目";
+"explore-randomizer" = "随机产生条目器";
 "find-in-page-no-matches" = "0个匹配";
 "find-in-page-button-label" = "在页面中查找";
 "find-in-page-popover-description" = "搜索条目中的文本";
@@ -432,6 +434,7 @@
 "top-read-header-generic" = "维基百科";
 "reference-title" = "参考文献$1";
 "in-the-news-notification-read-now-action-title" = "现在阅读";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "分享";
 "in-the-news-notification-save-for-later-action-title" = "保存以供日后使用";
 "in-the-news-currently-trending" = "当前趋势";
@@ -440,8 +443,8 @@
 "number-thousands" = "$1千";
 "number-millions" = "$1百万";
 "number-billions" = "$1十亿";
-// Fuzzy
-"feed-news-notification-text" = "您现在可以从维基百科条目趋势新闻动态中打开通知。";
-// Fuzzy
-"feed-news-notification-button-text" = "通知我有关趋势新闻";
+"feed-news-notification-text" = "您现在可以接收到有关维基百科条目趋势新闻的通知。";
+"feed-news-notification-button-text" = "打开通知";
 "back" = "返回";
+"save-action" = "保存";
+"unsave-action" = "不保存";

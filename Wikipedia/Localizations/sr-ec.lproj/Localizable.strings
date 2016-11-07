@@ -214,6 +214,7 @@
 "share-menu-save-page" = "Сачувај страницу";
 "share-menu-page-saved" = "Сачувано за читање ван мреже.";
 "share-menu-page-saved-access" = "Савет: да бисте приступили сачуваним страницама, додирните $1 изнад или задржите прст на $2.";
+// Fuzzy
 "share-custom-menu-item" = "Дели";
 "share-a-fact-share-menu-item" = "Дели чињеницу";
 "share-on-twitter-sign-off" = "преко @Wikipedia";
@@ -390,6 +391,8 @@
 "explore-most-read-more-list-title" = "Најчитанији чланци";
 "explore-most-read-more-list-title-for-date" = "Најчитанији на $1";
 "no-email-account-alert" = "Подесите е-пошту на вашем уређају па покушајте поново.";
+"explore-randomizer" = "Случајан чланак";
 "top-read-header-with-language" = "Википедија на $1";
 "top-read-header-generic" = "Википедија";
 "back" = "Назад";
+"save-action" = "Сачувај";

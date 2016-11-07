@@ -72,11 +72,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
     NSDate *date = [NSDate date];
-    NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
-    NSDateComponents *dateComponents = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
-    NSCalendar *UTCCalendar = [NSCalendar wmf_utcGregorianCalendar];
-    NSDate *dateUTC = [UTCCalendar dateFromComponents:dateComponents];
-    [self loadContentForDate:dateUTC completion:completion];
+    [self loadContentForDate:date completion:completion];
 }
 
 - (void)loadContentFromDate:(NSDate *)fromDate forwardForDays:(NSInteger)days completion:(nullable dispatch_block_t)completion {
@@ -88,7 +84,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
     [self loadContentForDate:fromDate
                   completion:^{
-                      NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
+                      NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
                       NSDate *updatedFromDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:fromDate options:NSCalendarMatchStrictly];
                       [self loadContentFromDate:updatedFromDate forwardForDays:days - 1 completion:completion];
                   }];
@@ -96,11 +92,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 - (void)preloadContentForNumberOfDays:(NSInteger)days completion:(nullable dispatch_block_t)completion {
     NSDate *date = [NSDate date];
-    NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
-    NSDateComponents *dateComponents = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
-    NSCalendar *UTCCalendar = [NSCalendar wmf_utcGregorianCalendar];
-    NSDate *dateUTC = [UTCCalendar dateFromComponents:dateComponents];
-    NSDate *fromDate = [UTCCalendar dateByAddingUnit:NSCalendarUnitDay value:-days toDate:dateUTC options:NSCalendarMatchStrictly];
+    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
+    NSDate *fromDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:-days toDate:date options:NSCalendarMatchStrictly];
     [self loadContentFromDate:fromDate forwardForDays:days completion:completion];
 }
 
@@ -193,7 +186,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     [self saveGroupForFeaturedPreview:feedDay.featuredArticle date:date];
     [self saveGroupForTopRead:feedDay.topRead pageViews:pageViews date:date];
     [self saveGroupForPictureOfTheDay:feedDay.pictureOfTheDay date:date];
-    if ([date wmf_isTodayUTC]) {
+    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
+    if ([calendar isDateInToday:date]) {
         [self saveGroupForNews:feedDay.newsStories pageViews:pageViews date:date];
     }
     [self.contentStore notifyWhenWriteTransactionsComplete:^{
@@ -279,28 +273,32 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         __block WMFFeedArticlePreview *semanticFeaturedPreview = nil;
 
         NSString *featuredArticleTitleBasedOnSemanticLookup = [WMFFeedNewsStory semanticFeaturedArticleTitleFromStoryHTML:story.storyHTML];
-        NSURL *featuredArticleURL = [NSURL wmf_URLWithSiteURL:self.siteURL title:featuredArticleTitleBasedOnSemanticLookup fragment:nil];
-        NSString *featuredArticleDabaseKey = [featuredArticleURL wmf_databaseKey];
-
-        [story.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-            NSURL *url = [obj articleURL];
-            if (featuredArticleDabaseKey && [[url wmf_databaseKey] isEqualToString:featuredArticleDabaseKey]) {
-                semanticFeaturedPreview = obj;
-            }
-            NSDictionary<NSDate *, NSNumber *> *pageViewsForURL = pageViews[url];
-            NSArray *dates = [pageViewsForURL.allKeys sortedArrayUsingSelector:@selector(compare:)];
-            NSDate *latestDate = [dates lastObject];
-            if (latestDate) {
-                NSNumber *pageViewsNumber = pageViewsForURL[latestDate];
-                unsigned long long views = [pageViewsNumber unsignedLongLongValue];
-                if (views > mostViews) {
-                    mostViews = views;
-                    mostViewedPreview = obj;
+        if (featuredArticleTitleBasedOnSemanticLookup) {
+            NSURL *featuredArticleURL = [NSURL wmf_URLWithSiteURL:self.siteURL title:featuredArticleTitleBasedOnSemanticLookup fragment:nil];
+            NSString *featuredArticleDabaseKey = [featuredArticleURL wmf_articleDatabaseKey];
+            [story.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+                NSURL *url = [obj articleURL];
+                if (featuredArticleDabaseKey && [[url wmf_articleDatabaseKey] isEqualToString:featuredArticleDabaseKey]) {
+                    semanticFeaturedPreview = obj;
                 }
-            }
-            [self.previewStore addPreviewWithURL:url updatedWithFeedPreview:obj pageViews:pageViewsForURL];
-        }];
-        story.featuredArticlePreview = semanticFeaturedPreview ? semanticFeaturedPreview : mostViewedPreview;
+                NSDictionary<NSDate *, NSNumber *> *pageViewsForURL = pageViews[url];
+                NSArray *dates = [pageViewsForURL.allKeys sortedArrayUsingSelector:@selector(compare:)];
+                NSDate *latestDate = [dates lastObject];
+                if (latestDate) {
+                    NSNumber *pageViewsNumber = pageViewsForURL[latestDate];
+                    unsigned long long views = [pageViewsNumber unsignedLongLongValue];
+                    if (views > mostViews) {
+                        mostViews = views;
+                        mostViewedPreview = obj;
+                    }
+                }
+                [self.previewStore addPreviewWithURL:url updatedWithFeedPreview:obj pageViews:pageViewsForURL];
+            }];
+            story.featuredArticlePreview = semanticFeaturedPreview ? semanticFeaturedPreview : mostViewedPreview;
+        } else {
+            story.featuredArticlePreview = [[story articlePreviews] firstObject];
+        }
+
     }];
 
     [self.contentStore addContentGroup:group associatedContent:news];
@@ -336,11 +334,11 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         return;
     }
 
-    if (![date wmf_isTodayUTC]) { //in the news notifications only valid for the current day
+    NSCalendar *userCalendar = [NSCalendar wmf_gregorianCalendar];
+    if (![userCalendar isDateInToday:date]) { //in the news notifications only valid for the current day
         return;
     }
 
-    NSCalendar *userCalendar = [NSCalendar autoupdatingCurrentCalendar];
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
     NSDate *mostRecentDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
     BOOL ignoreTopReadRequirement = !mostRecentDate || ([userCalendar daysFromDate:mostRecentDate toDate:[NSDate date]] >= 3);
@@ -350,7 +348,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     NSArray<WMFFeedTopReadArticlePreview *> *articlePreviews = feedDay.topRead.articlePreviews;
     NSMutableDictionary<NSString *, WMFFeedTopReadArticlePreview *> *topReadArticlesByKey = [NSMutableDictionary dictionaryWithCapacity:articlePreviews.count];
     for (WMFFeedTopReadArticlePreview *articlePreview in articlePreviews) {
-        NSString *key = articlePreview.articleURL.wmf_databaseKey;
+        NSString *key = articlePreview.articleURL.wmf_articleDatabaseKey;
         if (!key) {
             continue;
         }
@@ -366,7 +364,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
             if (!articleURL) {
                 continue;
             }
-            NSString *key = articleURL.wmf_databaseKey;
+            NSString *key = articleURL.wmf_articleDatabaseKey;
             if (!key) {
                 continue;
             }
@@ -402,12 +400,12 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
                           articlePreview:(WMFArticlePreview *)articlePreview
                                    force:(BOOL)force {
     if (!newsStory.featuredArticlePreview) {
-        NSString *articlePreviewKey = articlePreview.url.wmf_databaseKey;
+        NSString *articlePreviewKey = articlePreview.url.wmf_articleDatabaseKey;
         if (!articlePreviewKey) {
             return NO;
         }
         for (WMFFeedArticlePreview *preview in newsStory.articlePreviews) {
-            if ([preview.articleURL.wmf_databaseKey isEqualToString:articlePreviewKey]) {
+            if ([preview.articleURL.wmf_articleDatabaseKey isEqualToString:articlePreviewKey]) {
                 newsStory.featuredArticlePreview = preview;
                 break;
             } else {

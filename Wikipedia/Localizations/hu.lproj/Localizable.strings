@@ -222,6 +222,7 @@
 "share-menu-save-page" = "Lap mentése";
 "share-menu-page-saved" = "Elmentve offline olvasásra.";
 "share-menu-page-saved-access" = "Tipp: az elmentett lapjaid eléréséhez érintsd meg a $1 ikont felül vagy nyomd meg hosszan a $2 ikont lent.";
+// Fuzzy
 "share-custom-menu-item" = "Megosztás";
 "share-a-fact-share-menu-item" = "Ossz-meg-egy-tényt";
 "share-on-twitter-sign-off" = "a @Wikipedia szabad enciklopédián keresztül";
@@ -423,6 +424,7 @@
 "top-read-header-generic" = "Wikipédia";
 "reference-title" = "Forráshivatkozás $1";
 "in-the-news-notification-read-now-action-title" = "Olvasás most";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Megosztás";
 "in-the-news-notification-save-for-later-action-title" = "Elmentés későbbre";
 "in-the-news-title" = "A hírekben";

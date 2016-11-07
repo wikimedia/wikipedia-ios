@@ -207,6 +207,7 @@
 "share-menu-save-page" = "लेखपान जतन करा";
 "share-menu-page-saved" = "विनाजाल वाचनासाठी जतन केले";
 "share-menu-page-saved-access" = "सूचना:आपण जतन केलेल्या पानांवर पोहोचेसाठी,वर असलेल्या $1 ला थपकवा किंवा खाली असलेल्या $2 ला थोडा अधिक वेळ दाबा.";
+// Fuzzy
 "share-custom-menu-item" = "सहभाग करा";
 "share-as-image" = "चित्र म्हणून सहभागा";
 "share-as-text" = "मजकूर म्हणून सहभागा";
@@ -387,6 +388,7 @@
 "top-read-header-generic" = "विकिपीडिया";
 "reference-title" = "संदर्भ $1";
 "in-the-news-notification-read-now-action-title" = "आता वाचा";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "सहभाग करा";
 "in-the-news-notification-save-for-later-action-title" = "नंतरसाठी जतन करा";
 "number-thousands" = "$1हजार";

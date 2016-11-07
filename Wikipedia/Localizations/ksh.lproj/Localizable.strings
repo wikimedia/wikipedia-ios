@@ -221,6 +221,7 @@
 "share-menu-save-page" = "De Sigg faßhallde";
 "share-menu-page-saved" = "För et Lässe der ohne Internet faßjehallde.";
 "share-menu-page-saved-access" = "Om op Ding faßjehallde Sigge zohzejrihfe, tibb op $1 bovve udder donn $2 onge lang jedrök hallde.";
+// Fuzzy
 "share-custom-menu-item" = "Wigger jävve";
 "share-on-twitter-sign-off" = "vun de @Wikipedia";
 "share-article-name-on-wikipedia" = "„$1“ op @Wikipedia:";

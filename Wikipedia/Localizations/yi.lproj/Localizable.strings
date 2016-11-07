@@ -149,6 +149,7 @@
 "about-product-of" = "געמאכט דורך $1 מיטן הילף פון וואלונטערן ווי איר";
 "about-wikimedia-foundation" = "די וויקימעדיע פֿונדאַציע";
 "share-menu-save-page" = "אױפֿהיטן בלאַט";
+// Fuzzy
 "share-custom-menu-item" = "טיילן";
 "share-article-name-on-wikipedia" = "\"$1\" אויף @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" אויף @Wikipedia: \"$2\"";

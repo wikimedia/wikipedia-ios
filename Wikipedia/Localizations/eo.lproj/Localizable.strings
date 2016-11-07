@@ -191,6 +191,7 @@
 "about-wikimedia-foundation" = "Fondaĵo Vikimedio";
 "share-menu-save-page" = "Konservi paĝon";
 "share-menu-page-saved" = "Konservita por legado senreta";
+// Fuzzy
 "share-custom-menu-item" = "Kundividi";
 "share-on-twitter-sign-off" = "per @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" ĉe @Wikipedia:";

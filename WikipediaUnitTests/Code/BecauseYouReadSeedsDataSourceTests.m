@@ -68,7 +68,7 @@
     @weakify(self);
     [self.dataStore notifyWhenWriteTransactionsComplete:^{
         @strongify(self);
-        NSArray *expectedItems = @[self.fooURL.wmf_databaseKey, self.laURL.wmf_databaseKey, self.sfURL.wmf_databaseKey];
+        NSArray *expectedItems = @[self.fooURL.wmf_articleDatabaseKey, self.laURL.wmf_articleDatabaseKey, self.sfURL.wmf_articleDatabaseKey];
 
         XCTAssertEqualObjects([self itemsFromDataSource:self.becauseYouReadSeedsDataSource], expectedItems);
         [expectation fulfill];
@@ -87,7 +87,7 @@
     @weakify(self);
     [self.dataStore notifyWhenWriteTransactionsComplete:^{
         @strongify(self);
-        NSArray *expectedItems = @[self.fooURL.wmf_databaseKey];
+        NSArray *expectedItems = @[self.fooURL.wmf_articleDatabaseKey];
         XCTAssertEqualObjects([self itemsFromDataSource:self.becauseYouReadSeedsDataSource], expectedItems);
         [expectation fulfill];
     }];
@@ -110,7 +110,7 @@
     @weakify(self);
     [self.dataStore notifyWhenWriteTransactionsComplete:^{
         @strongify(self);
-        NSArray *expectedItems = @[self.fooURL.wmf_databaseKey, self.laURL.wmf_databaseKey];
+        NSArray *expectedItems = @[self.fooURL.wmf_articleDatabaseKey, self.laURL.wmf_articleDatabaseKey];
         XCTAssertEqualObjects([self itemsFromDataSource:self.becauseYouReadSeedsDataSource], expectedItems);
         [expectation fulfill];
     }];
@@ -123,7 +123,7 @@
     NSMutableArray *items = [[NSMutableArray alloc] init];
     for (int i = 0; i < [dataSource numberOfItemsInSection:0]; i++) {
         MWKHistoryEntry *entry = (MWKHistoryEntry *)[dataSource objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-        [items addObject:entry.url.wmf_databaseKey];
+        [items addObject:entry.url.wmf_articleDatabaseKey];
     }
     return items;
 }
