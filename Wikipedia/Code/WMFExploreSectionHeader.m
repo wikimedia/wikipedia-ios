@@ -6,6 +6,7 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *rightButtonWidthConstraint;
 @property (assign, nonatomic) CGFloat rightButtonWidthConstraintConstant;
 
+@property (strong, nonatomic) IBOutlet UIView *containerView;
 @property (strong, nonatomic) IBOutlet UIImageView *icon;
 @property (strong, nonatomic) IBOutlet UIView *iconContainerView;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
@@ -20,12 +21,14 @@
     [self reset];
     self.titleLabel.isAccessibilityElement = NO;
     self.subTitleLabel.isAccessibilityElement = NO;
-    self.isAccessibilityElement = YES;
+    self.containerView.isAccessibilityElement = YES;
     self.accessibilityTraits = UIAccessibilityTraitHeader;
     self.tintColor = [UIColor wmf_blueTintColor];
     self.rightButtonWidthConstraintConstant = self.rightButtonWidthConstraint.constant;
     self.rightButton.hidden = YES;
     self.rightButton.tintColor = [UIColor wmf_blueTintColor];
+    self.rightButton.isAccessibilityElement = YES;
+    self.rightButton.accessibilityTraits = UIAccessibilityTraitButton;
     @weakify(self);
     [self bk_whenTapped:^{
         @strongify(self);
@@ -67,7 +70,7 @@
     if (subtitle) {
         [components addObject:subtitle];
     }
-    self.accessibilityLabel = [components componentsJoinedByString:@" "];
+    self.containerView.accessibilityLabel = [components componentsJoinedByString:@" "];
 }
 
 - (void)prepareForReuse {

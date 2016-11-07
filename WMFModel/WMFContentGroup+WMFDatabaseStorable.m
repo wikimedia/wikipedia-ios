@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)databaseKeyForURL:(NSURL *)url {
     NSParameterAssert(url);
-    return [url wmf_databaseKey];
+    return [[url absoluteString] precomposedStringWithCanonicalMapping];
 }
 
 - (NSString *)databaseKey {
