@@ -48,8 +48,8 @@
         MWKHistoryEntry *losAngeles2 = [persistedList entryForURL:self->titleURLLAEn];
         MWKHistoryEntry *sanFrancisco2 = [persistedList entryForURL:self->titleURLSFFr];
 
-        XCTAssertEqualObjects(losAngeles2.url.wmf_databaseKey, self->titleURLLAEn.wmf_databaseKey);
-        XCTAssertEqualObjects(sanFrancisco2.url.wmf_databaseKey, self->titleURLSFFr.wmf_databaseKey);
+        XCTAssertEqualObjects(losAngeles2.url.wmf_articleDatabaseKey, self->titleURLLAEn.wmf_articleDatabaseKey);
+        XCTAssertEqualObjects(sanFrancisco2.url.wmf_articleDatabaseKey, self->titleURLSFFr.wmf_articleDatabaseKey);
         [expectation fulfill];
     }];
 
@@ -130,8 +130,8 @@
     [dataStore notifyWhenWriteTransactionsComplete:^{
 
         MWKHistoryEntry *entry = [self->historyList mostRecentEntry];
-        XCTAssertEqualObjects(entry.url.wmf_databaseKey, self->titleURLSFFr.wmf_databaseKey);
-        XCTAssertNotEqualObjects(entry.url.wmf_databaseKey, self->titleURLSFEn.wmf_databaseKey);
+        XCTAssertEqualObjects(entry.url.wmf_articleDatabaseKey, self->titleURLSFFr.wmf_articleDatabaseKey);
+        XCTAssertNotEqualObjects(entry.url.wmf_articleDatabaseKey, self->titleURLSFEn.wmf_articleDatabaseKey);
         [expectation fulfill];
 
     }];
@@ -174,8 +174,8 @@
     __block XCTestExpectation *secondExpectation = [self expectationWithDescription:@"Should resolve"];
     [historyList addPageToHistoryWithURL:titleURLSFEn];
     [dataStore notifyWhenWriteTransactionsComplete:^{
-        NSString *mostRecentKey = [self->historyList mostRecentEntry].url.wmf_databaseKey;
-        XCTAssertEqualObjects(mostRecentKey, self->titleURLSFEn.wmf_databaseKey);
+        NSString *mostRecentKey = [self->historyList mostRecentEntry].url.wmf_articleDatabaseKey;
+        XCTAssertEqualObjects(mostRecentKey, self->titleURLSFEn.wmf_articleDatabaseKey);
         [secondExpectation fulfill];
     }];
 

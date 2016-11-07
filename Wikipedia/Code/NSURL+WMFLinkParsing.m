@@ -267,7 +267,8 @@ NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
     }
 }
 
-- (NSURL *)wmf_databaseKeyURL {
+- (NSURL *)wmf_articleDatabaseKeyURL {
+    NSParameterAssert(self.wmf_title);
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:NO];
     components.fragment = nil;
@@ -275,8 +276,8 @@ NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
     return components.URL;
 }
 
-- (NSString *)wmf_databaseKey {
-    return self.wmf_databaseKeyURL.absoluteString.precomposedStringWithCanonicalMapping;
+- (NSString *)wmf_articleDatabaseKey {
+    return self.wmf_articleDatabaseKeyURL.absoluteString.precomposedStringWithCanonicalMapping;
 }
 
 - (NSString *)wmf_title {
