@@ -1,4 +1,4 @@
-// Messages for Bengali (বাংলা)
+// Messages for Bangla (বাংলা)
 // Exported from translatewiki.net
 // Author: Aftab1995
 // Author: Aftabuzzaman
@@ -222,6 +222,7 @@
 "share-menu-save-page" = "পাতা সংরক্ষণ করুন";
 "share-menu-page-saved" = "নিবন্ধ সংরক্ষিত";
 "share-menu-page-saved-access" = "পরামর্শ: আপনার সংরক্ষিত পাতায় প্রবেশ করতে, $1-এর উপরে টোকা দিন বা $2-এর নিচে দীর্ঘ-প্রেস করুন।";
+// Fuzzy
 "share-custom-menu-item" = "বণ্টন";
 "share-a-fact-share-menu-item" = "একটি ফ্যাক্ট শেয়ার করুন";
 "share-on-twitter-sign-off" = "মাধ্যম  @উইকিপিডিয়া";
@@ -411,9 +412,11 @@
 "top-read-header-generic" = "উইকিপিডিয়া";
 "reference-title" = "তথ্যসূত্র $1";
 "in-the-news-notification-read-now-action-title" = "এখন পড়ুন";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "বণ্টন";
 "in-the-news-notification-save-for-later-action-title" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "in-the-news-currently-trending" = "বর্তমান প্রবণতা";
 "in-the-news-title" = "সংবাদে";
 "number-thousands" = "$1 হাজার";
 "back" = "পিছনে";
+"save-action" = "সংরক্ষণ";

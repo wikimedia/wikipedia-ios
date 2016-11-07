@@ -105,7 +105,7 @@
 "edit-summary-choice-added-missing-info" = "छुटेका जानकारी थपियो";
 "edit-summary-choice-added-clarification" = "स्पष्टिकरण थपियो";
 "edit-summary-choice-other" = "अन्य";
-"edit-summary-description" = "एक विशिष्ट सारांश सह-सम्पादकहरूलाई चाँडै तपाईँका सम्पादनहरू समीक्षा गर्न मद्दत गर्छ। तपाईँले तलका ट्यागहरूबाट पनि छान्न सक्नुहुन्छ।";
+"edit-summary-description" = "एक विशिष्ट सारांश सह-सम्पादकहरूलाई चाँडै तपाईंका सम्पादनहरू समीक्षा गर्न मद्दत गर्छ। तपाईंले तलका ट्यागहरूबाट पनि छान्न सक्नुहुन्छ।";
 "edit-summary-field-placeholder-text" = "तपाईंले लेखमा सुधार गर्नुभएका अन्य तरिकाहरू";
 "fetching-random-article" = "अनियमित लेख ल्याउँदै";
 "article-pull-to-refresh-prompt" = "लेख ताजा गर्न तान्नुहोस्";
@@ -123,6 +123,7 @@
 "about-wikimedia-foundation" = "विकिमीडिया फाउण्डेशन";
 "share-menu-save-page" = "पृष्ठ संग्रह गर्ने";
 "share-menu-page-saved" = "अफलाइन पढ्नको लागि बचत गर्नुहोस्";
+// Fuzzy
 "share-custom-menu-item" = "बाड्ने";
 "share-article-name-on-wikipedia" = "@Wikipedia पर \"$1\" :";
 "share-article-name-on-wikipedia-with-selected-text" = "@Wikipedia पर \"$1\" : \"$2\"";

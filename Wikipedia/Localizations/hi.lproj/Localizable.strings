@@ -229,6 +229,7 @@
 "share-menu-save-page" = "पृष्ठ सहेजें";
 "share-menu-page-saved" = "ऑफ़लाइन पढ़ने के लिए सहेजा।";
 "share-menu-page-saved-access" = "सुझाव: अपने द्वारा सहेजे गये पृष्ठों तक पहुँचने के लिए ऊपर $1 दबायें अथवा नीचे $2 को लम्बा दबायें।";
+// Fuzzy
 "share-custom-menu-item" = "साझा करें";
 "share-a-fact-share-menu-item" = "तथ्य-साझा-करें";
 "share-on-twitter-sign-off" = "@विकिपीडिया के माध्यम से";

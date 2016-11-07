@@ -232,6 +232,7 @@
 "share-menu-save-page" = "Spara artikeln";
 "share-menu-page-saved" = "Sparades för läsning offline.";
 "share-menu-page-saved-access" = "Tips: för att komma åt dina sparade sidor, klicka på $1 ovan eller tryck länge på $2 nedan.";
+// Fuzzy
 "share-custom-menu-item" = "Dela";
 "share-a-fact-share-menu-item" = "Dela-ett-faktum";
 "share-on-twitter-sign-off" = "via @Wikipedia";
@@ -422,6 +423,7 @@
 "no-email-account-alert" = "Lägg in ett e-postkonto på din enhet och försök igen.";
 "request-feedback-on-error" = "Appen har stött på ett problem som våra utvecklare vill veta mer om. Tryck här för att skicka ett e-postmeddelanden till oss med information om felet.";
 "explore-another-random" = "En annan slumpmässig artikel";
+"explore-randomizer" = "Randomiserare";
 "find-in-page-no-matches" = "0 träffar";
 "find-in-page-button-label" = "Sök på sidan";
 "find-in-page-popover-description" = "Sök efter text i artiklar";
@@ -433,6 +435,7 @@
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Referens $1";
 "in-the-news-notification-read-now-action-title" = "Läs nu";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Dela";
 "in-the-news-notification-save-for-later-action-title" = "Spara till senare";
 "in-the-news-currently-trending" = "Populärt just nu";
@@ -441,8 +444,8 @@
 "number-thousands" = "$1K";
 "number-millions" = "$1M";
 "number-billions" = "$1B";
-// Fuzzy
-"feed-news-notification-text" = "Du kan nu aktivera notiser från Wikipedia-artiklar som är populära på nyheterna.";
-// Fuzzy
-"feed-news-notification-button-text" = "Meddela mig om populära nyheter";
+"feed-news-notification-text" = "Du kan nu få notiser om Wikipedia-artiklar som är populära på nyheterna.";
+"feed-news-notification-button-text" = "Aktivera notiser";
 "back" = "Tillbaka";
+"save-action" = "Spara";
+"unsave-action" = "Spara inte";

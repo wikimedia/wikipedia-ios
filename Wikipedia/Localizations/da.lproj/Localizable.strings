@@ -110,9 +110,16 @@
 "settings-support" = "Støt Wikipedia";
 "settings-language-bar" = "Vis sprog ved søgning";
 "settings-my-languages" = "Mine sprog";
+"settings-notifications" = "Notifikationer";
 "settings-help-and-feedback" = "Hjælp og tilbagemelding";
 "settings-primary-language" = "Primær";
 "settings-primary-language-details" = "Det første sprog i denne liste bruges som appens primære sprog. Ændres sprog ændres dagligt indhold (såsom Fremhævet artikel) som vises i Udforsk.";
+"settings-notifications-system-off" = "Notifikationer er i øjeblikket slået fra for Wikipedia. Gå til enheds Indstillinger for at slå notifikationer til.";
+"settings-notifications-system-turn-on" = "Slå notifikationer til";
+"settings-notifications-info" = "Få meldinger om populære artikler på Wikipedia med vores push-notifikationer. Alle leveret med respekt for privatliv og sidste nye data.";
+"settings-notifications-learn-more" = "Lær mere om notifikationer";
+"settings-notifications-trending" = "Populære aktuelle begivenheder";
+"settings-notifications-push-notifications" = "Push-notifikationer";
 "main-menu-title" = "Mere";
 "main-menu-heading-about" = "Om";
 "main-menu-language-title" = "Søg i Wikipedia på $1";
@@ -218,6 +225,7 @@
 "share-menu-save-page" = "Gem side";
 "share-menu-page-saved" = "Gemt til læsning offline.";
 "share-menu-page-saved-access" = "Tip: for at få adgang til dine gemte sider, tryk på $1 ovenfor eller tryk længe på $2 nedenfor.";
+// Fuzzy
 "share-custom-menu-item" = "Del";
 "share-a-fact-share-menu-item" = "Del-et-fact";
 "share-on-twitter-sign-off" = "via @Wikipedia";
@@ -242,6 +250,8 @@
 "button-ok" = "OK";
 "button-save-for-later" = "Gem til senere";
 "button-saved-for-later" = "Gemt til senere";
+"button-saved-remove" = "Fjern fra gemte";
+"button-read-now" = "Læs nu";
 "button-report-a-bug" = "Rapportér en fejl";
 "onboarding-create-account" = "Opret konto";
 "onboarding-login" = "Log på";
@@ -350,6 +360,8 @@
 "potd-description-prefix" = "Dagens billede for $1";
 "welcome-explore-title" = "Udforsk";
 "welcome-explore-sub-title" = "En ny måde at opdage interessante artikler hver dag";
+"welcome-explore-new-ways-title" = "Nye måder at udforske";
+"welcome-explore-new-ways-sub-title" = "Nye notifikationer og widgets til at hjælpe dig med at opdage interessante artikler";
 "welcome-explore-tell-me-more" = "Fortæl mig mere";
 "welcome-explore-tell-me-more-about-explore" = "Mere om at Udforske";
 "welcome-explore-tell-me-more-details" = "Når du læser en artikel bliver relaterede artikler automatisk tilføjet til dit Udforsk-feed. Dette ændrer ikke på hvordan vi indsamler dine oplysninger og din læsehistorik er stadig privat.";
@@ -357,6 +369,9 @@
 "welcome-explore-tell-me-more-privacy" = "Ingen læseliste eller profil gemmes på vores servere.";
 "welcome-explore-tell-me-more-done-button" = "Forstået";
 "welcome-explore-continue-button" = "Kom i gang";
+"welcome-notifications-tell-me-more-title" = "Mere om notifikationer";
+"welcome-notifications-tell-me-more-storage" = "Indstillinger for notifikationer gemmes på enheden og er ikke baseret på personlige informationer eller aktivitet.";
+"welcome-notifications-tell-me-more-creation" = "Notifikationer skabes og leveres på din enhed af appen, ikke fra vores (eller tredjeparters) servere.";
 "welcome-languages-title" = "Sprog";
 "welcome-languages-sub-title" = "Vælg dine foretrukne sprog at søge på i Wikipedia";
 "welcome-languages-add-button" = "Tilføj et andet sprog";
@@ -401,6 +416,7 @@
 "no-email-account-alert" = "Opsæt venligst en e-mail-konto på din enhed og forsøg igen.";
 "request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
 "explore-another-random" = "En anden tilfældig artikel";
+"explore-randomizer" = "Tilfældighedsgenerator";
 "find-in-page-no-matches" = "0 træf";
 "find-in-page-button-label" = "Søg på siden";
 "find-in-page-popover-description" = "Søg efter tekst i artikler";
@@ -411,6 +427,18 @@
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Reference $1";
+"in-the-news-notification-read-now-action-title" = "Læs nu";
+// Fuzzy
+"in-the-news-notification-share-action-title" = "Del";
+"in-the-news-notification-save-for-later-action-title" = "Gem til senere";
+"in-the-news-currently-trending" = "Populært nu";
+"in-the-news-title" = "I nyhederne";
+"in-the-news-title-for-date" = "Nyheder for $1";
 "number-thousands" = "$1K";
 "number-millions" = "$1 mio.";
 "number-billions" = "$1 mia.";
+"feed-news-notification-text" = "Du kan nu modtage notifikationer om Wikipedia-artikler der er populære i nyhederne.";
+"feed-news-notification-button-text" = "Slå notifikationer til";
+"back" = "Tilbage";
+"save-action" = "Gem";
+"unsave-action" = "Gem ikke";

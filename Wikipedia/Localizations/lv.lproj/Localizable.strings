@@ -121,6 +121,7 @@
 "about-libraries-licenses" = "Licences";
 "about-content-license" = "Satura licence";
 "share-menu-save-page" = "Saglabāt lapu";
+// Fuzzy
 "share-custom-menu-item" = "Dalīties";
 "share-as-image" = "Kopīgot kā attēlu";
 "share-as-text" = "Kopīgot kā tekstu";
@@ -211,6 +212,7 @@
 "top-read-header-with-language" = "$1 Vikipēdija";
 "top-read-header-generic" = "Vikipēdija";
 "reference-title" = "Atsauce $1";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Dalīties";
 "in-the-news-notification-save-for-later-action-title" = "Saglabāt vēlākam laikam";
 "in-the-news-title" = "Ziņās";

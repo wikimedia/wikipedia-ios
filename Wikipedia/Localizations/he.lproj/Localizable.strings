@@ -226,6 +226,7 @@
 "share-menu-save-page" = "שמירת דף";
 "share-menu-page-saved" = "הדף נשמר";
 "share-menu-page-saved-access" = "עצה: כדי לגשת לדפים השמורים שלך, יש ללחוץ על $1 למעלה או לעשות לחיצה ארוכה על $2 למטה.";
+// Fuzzy
 "share-custom-menu-item" = "שיתוף";
 "share-a-fact-share-menu-item" = "שיתוף עובדה";
 "share-on-twitter-sign-off" = "דרך @Wikipedia";
@@ -416,6 +417,7 @@
 "no-email-account-alert" = "נא להגדיר חשבון דואר אלקטרוני במכשיר שלך ולנסות שוב.";
 "request-feedback-on-error" = "היישום נתקל בבעיה והמפתחים שלנו היו רוצים לדעת עליה יותר. נא ללחוץ כאן כדי לשלוח לנו דואר אלקטרוני עם מידע על השגיאה.";
 "explore-another-random" = "ערך אקראי נוסף";
+"explore-randomizer" = "הגרלה";
 "find-in-page-no-matches" = "אין התאמות";
 "find-in-page-button-label" = "למצוא בדף";
 "find-in-page-popover-description" = "חיפוש טקסט בערכים";
@@ -427,6 +429,7 @@
 "top-read-header-generic" = "ויקיפדיה";
 "reference-title" = "הערה $1";
 "in-the-news-notification-read-now-action-title" = "לקרוא עכשיו";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "לשתף";
 "in-the-news-notification-save-for-later-action-title" = "לשמור לאחר־כך";
 "in-the-news-currently-trending" = "מבוקש עכשיו";
@@ -435,8 +438,8 @@
 "number-thousands" = "$1K";
 "number-millions" = "$1";
 "number-billions" = "$1";
-// Fuzzy
-"feed-news-notification-text" = "עכשיו אפשר להפעיל עדכונים מערכי ויקיפדיה שחמים בחדשות.";
-// Fuzzy
-"feed-news-notification-button-text" = "עדכנו אותי על חדשות חמות";
+"feed-news-notification-text" = "עכשיו אפשר לקבל עדכונים על ערכי ויקיפדיה שחמים בחדשות.";
+"feed-news-notification-button-text" = "הפעלת עדכונים";
 "back" = "חזרה";
+"save-action" = "שמירה";
+"unsave-action" = "ביטול שמירה";

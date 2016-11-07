@@ -109,6 +109,7 @@
 "settings-help-and-feedback" = "Hëllef a Feedback";
 "settings-primary-language" = "Primär";
 "settings-primary-language-details" = "Déi éischt Sprooch an dëser Lëscht gëtt als primär Sprooch fir d'App consideréiert. D'Ännere vun dëser Sprooch ännert den deeglechen Inhalt (wéi excellent Artikelen) déi bei 'Entdecken' gewise ginn.";
+"settings-notifications-system-off" = "Notifikatioune sinn elo fir Wikipedia ausgeschalt. Gitt an d'Astellunge vun Ärem Apparat fir d'Notifikatiounen anzeschalten";
 "settings-notifications-system-turn-on" = "Notifikatiounen aschalten";
 "settings-notifications-learn-more" = "Méi iwwer d'Notifikatioune gewuer ginn";
 "settings-notifications-push-notifications" = "Push-Notifikatiounen";
@@ -215,6 +216,7 @@
 "share-menu-save-page" = "Artikel späicheren";
 "share-menu-page-saved" = "Säit gespäichert";
 "share-menu-page-saved-access" = "Tipp: fir op Är gespäichert Säiten ze goen, tippt $1 hei driwwer oder dréckt laang op $2 hei drënner.";
+// Fuzzy
 "share-custom-menu-item" = "Deelen";
 "share-a-fact-share-menu-item" = "E-Fait-deelen";
 "share-on-twitter-sign-off" = "iwwer @Wikipedia";
@@ -355,6 +357,8 @@
 "welcome-explore-tell-me-more-done-button" = "Verstan";
 "welcome-explore-continue-button" = "Fir unzefänken";
 "welcome-notifications-tell-me-more-title" = "Méi iwwer Notifikatiounen";
+"welcome-notifications-tell-me-more-storage" = "D'Astellunge fir d'Notifikatioune sinn um Apparat gespäichert a baséieren net op perséinlechen Informatiounen oder der Aktivitéit.";
+"welcome-notifications-tell-me-more-creation" = "Notifikatioune ginn duerch d'App op Ärem Apparat ugeluecht an ausgeliwwert, net vun eise Serveren (oder enger drëtter Säit).";
 "welcome-languages-title" = "Sproochen";
 "welcome-languages-sub-title" = "Sicht Är léifst Sprooch eraus fir op Wikipedia ze sichen";
 "welcome-languages-add-button" = "Eng aner Sprooch derbäisetzen";
@@ -399,6 +403,7 @@
 "no-email-account-alert" = "Configuréiert w.e.g. en E-Mail-Kont op Ärem Apparat a probéiert nach eng Kéier.";
 "request-feedback-on-error" = "Bei der App ass e Feeler geschitt iwwer deen eis Entwéckler méi wësse wëllen. Klickt w.e.g. hei fir eis eng E-Mail mat den Detailer vum Feeler ze schécken.";
 "explore-another-random" = "En aneren zoufällegen Artikel";
+"explore-randomizer" = "Zoufallsgenerator";
 "find-in-page-no-matches" = "Näischt fonnt";
 "find-in-page-button-label" = "Op der Säit sichen";
 "find-in-page-popover-description" = "Text an den Artikele sichen";
@@ -410,6 +415,7 @@
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Referenz: $1";
 "in-the-news-notification-read-now-action-title" = "Elo Liesen";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Deelen";
 "in-the-news-notification-save-for-later-action-title" = "Fir spéider späicheren";
 "in-the-news-currently-trending" = "Aktuell beléift";
@@ -418,6 +424,8 @@
 "number-thousands" = "$1 D";
 "number-millions" = "$1 Mio.";
 "number-billions" = "$1 Mrd.";
-// Fuzzy
-"feed-news-notification-button-text" = "Mech iwwer aktuell Neiegkeeten informéieren";
+"feed-news-notification-text" = "Et ass elo méiglech Notifikatioune vu Wikipedia-Artikelen ze kréien déi Sujeten aus der Aktualitéit concernéieren.";
+"feed-news-notification-button-text" = "Notifikatiounen aschalten";
 "back" = "Zréck";
+"save-action" = "Späicheren";
+"unsave-action" = "Net späicheren";

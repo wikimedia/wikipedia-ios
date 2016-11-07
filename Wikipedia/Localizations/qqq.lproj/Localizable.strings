@@ -362,8 +362,8 @@
 "home-hide-suggestion-prompt" = "Title of button shown for users to confirm the hiding of a suggestion in the explore feed";
 "home-hide-suggestion-cancel" = "Title of the button for cancelling the hiding of an explore feed suggestion\n{{Identical|Cancel}}";
 "home-accessibility-label" = "Accessibility heading for the Explore page, indicating both that this is the Wikipedia app (as in the logo that is displayed visually) and that this is the Explore page.";
-"home-button-accessibility-label" = "Accessibility heading for a button on articles allowing users to jump back to the home screen\n{{Identical|Home}}";
 "home-title-accessibility-label" = "Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page";
+"home-button-accessibility-label" = "Accessibility heading for a button on articles allowing users to jump back to the home screen\n{{Identical|Home}}";
 "home-button-explore-accessibility-label" = "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore";
 "home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles";
 "home-button-history-accessibility-label" = "Accessibility heading for articles shown within the history articles tab, indicating that tapping it will take you back to the history list";
@@ -392,6 +392,8 @@
 "welcome-volunteer-send-usage-reports" = "Text for switch allowing user to choose whether to send usage reports";
 "welcome-volunteer-continue-button" = "Text for button for dismissming the last welcome screen\n{{Identical|Continue}}";
 "welcome-volunteer-thanks" = "Text which is shown if the user decides to send usage reports. $1 will be substituted with a positive image or emoji such as a smiley face or a thumbs-up.\n{{Identical|Thank you}}";
+"welcome-send-data-title" = "Title for welcome screen allowing user to opt in to send usage reports";
+"welcome-send-data-sub-title" = "Sub-title explaining how sending usage reports can help improve the app";
 "empty-no-feed-title" = "Title of messsage shown in place of feed when no content could be loaded. Indicates there is no internet available";
 "empty-no-feed-message" = "Body of messsage shown in place of content when no feed could be loaded. Tells users they can see the articles when the interent is restored";
 "empty-no-feed-action-message" = "Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline";
@@ -451,10 +453,6 @@
 "number-billions" = "$1B - $1 is replaced with a number represented in billions. In English 'B' is commonly used after a number to indicate that number is in 'billions'. So the 'B' should be changed to a character or short string indicating billions. For example 5,100,000,000 would become 5.1B. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
 "feed-news-notification-text" = "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news";
 "feed-news-notification-button-text" = "Text for button to turn on trending news notifications";
-
-"welcome-send-data-title" = "Title for welcome screen allowing user to opt in to send usage reports";
-"welcome-send-data-sub-title" = "Sub-title explaining how sending usage reports can help improve the app";
-
 "back" = "Generic 'Back' title for back button\n{{Identical|Back}}";
-"save-action" = "Accessibility action description for 'Save'";
+"save-action" = "Accessibility action description for 'Save'\n{{Identical|Save}}";
 "unsave-action" = "Accessibility action description for 'Unsave'";

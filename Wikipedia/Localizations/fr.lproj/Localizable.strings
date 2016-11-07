@@ -231,6 +231,7 @@
 "share-menu-save-page" = "Enregistrer la page";
 "share-menu-page-saved" = "Page enregistrée";
 "share-menu-page-saved-access" = "Conseil : pour accéder à vos pages enregistrées, tapez $1 ci-dessus ou appuyez longuement sur $2 ci-dessous.";
+// Fuzzy
 "share-custom-menu-item" = "Partager";
 "share-a-fact-share-menu-item" = "Partager-un-fait";
 "share-on-twitter-sign-off" = "via @Wikipedia";
@@ -421,6 +422,7 @@
 "no-email-account-alert" = "Veuillez configurer un compte de messagerie sur votre appareil et réessayer.";
 "request-feedback-on-error" = "L’application a rencontré un problème à propos duquel nos développeurs aimeraient en savoir plus. Veuillez toucher ici pour nous envoyer un courriel avec les détails de l’erreur.";
 "explore-another-random" = "Un autre article au hasard";
+"explore-randomizer" = "Tirage aléatoire";
 "find-in-page-no-matches" = "Aucune correspondance";
 "find-in-page-button-label" = "Trouver dans la page";
 "find-in-page-popover-description" = "Rechercher le texte dans les articles";
@@ -432,6 +434,7 @@
 "top-read-header-generic" = "Wikipédia";
 "reference-title" = "Référence $1";
 "in-the-news-notification-read-now-action-title" = "Lire maintenant";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Partager";
 "in-the-news-notification-save-for-later-action-title" = "Enregistrer pour plus tard";
 "in-the-news-currently-trending" = "Actuellement à la mode";
@@ -440,8 +443,8 @@
 "number-thousands" = "$1K";
 "number-millions" = "$1M";
 "number-billions" = "$1G";
-// Fuzzy
-"feed-news-notification-text" = "Vous pouvez maintenant activer les notification pour les articles de Wikipédia dans la tendance de l’actualité.";
-// Fuzzy
-"feed-news-notification-button-text" = "M’avertir de l’actualité des tendances";
+"feed-news-notification-text" = "Vous pouvez maintenant recevoir des notifications concernant les articles de Wikipédia dans la tendance de l’actualité.";
+"feed-news-notification-button-text" = "Activer les notifications";
 "back" = "Retour";
+"save-action" = "Enregistrer";
+"unsave-action" = "Annuler l’enregistrement";
