@@ -176,6 +176,7 @@
 "about-wikimedia-foundation" = "Wikimedia Fundazioa";
 "share-menu-save-page" = "Gorde orria";
 "share-menu-page-saved" = "Offline irakurtzeko gordea.";
+// Fuzzy
 "share-custom-menu-item" = "Partekatu";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-as-image" = "Partekatu irudi gisa";

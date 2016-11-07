@@ -221,6 +221,7 @@
 "share-menu-save-page" = "Lưu Bài";
 "share-menu-page-saved" = "Đã Lưu Bài";
 "share-menu-page-saved-access" = "Mẹo: Để truy cập các trang đã lưu của bạn, chạm vào $1 bên trên hoặc bấm lâu $2 bên dưới.";
+// Fuzzy
 "share-custom-menu-item" = "Chia sẻ";
 "share-a-fact-share-menu-item" = "Chia sẻ một sự thật";
 "share-on-twitter-sign-off" = "qua @Wikipedia";

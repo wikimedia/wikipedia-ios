@@ -223,6 +223,7 @@
 "share-menu-save-page" = "Зачувај страница";
 "share-menu-page-saved" = "Страницата е зачувана";
 "share-menu-page-saved-access" = "Совет: за да дојдете до вашите зачувани страници, допрете го $1 погоре или подржете на $2 подолу.";
+// Fuzzy
 "share-custom-menu-item" = "Сподели";
 "share-a-fact-share-menu-item" = "Сподели факт";
 "share-on-twitter-sign-off" = "преку @Wikipedia";
@@ -413,6 +414,7 @@
 "no-email-account-alert" = "Зададете е-пошта на вашиот уред и обидете се повторно.";
 "request-feedback-on-error" = "Прилогот наиде на проблем за кој нашите програмери сакаат да дознаат повеќе. Допрете тука за да ни испратите е-пошта со поединости за грешката.";
 "explore-another-random" = "Друга случајна статија";
+"explore-randomizer" = "Случаен избирач";
 "find-in-page-no-matches" = "0 совпаѓања";
 "find-in-page-button-label" = "Најди на страницата";
 "find-in-page-popover-description" = "Пребарај текст во статиите";
@@ -424,6 +426,7 @@
 "top-read-header-generic" = "Википедија";
 "reference-title" = "Навод $1";
 "in-the-news-notification-read-now-action-title" = "Прочитај сега";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Сподели";
 "in-the-news-notification-save-for-later-action-title" = "Зачувај за подоцна";
 "in-the-news-currently-trending" = "Најчитани";
@@ -432,8 +435,8 @@
 "number-thousands" = "$1 илј.";
 "number-millions" = "$1 млн.";
 "number-billions" = "$1 млрд.";
-// Fuzzy
-"feed-news-notification-text" = "Сега можете да ги вклучите известувањата од статии на Википедија кои се тековни во вестите.";
-// Fuzzy
-"feed-news-notification-button-text" = "Известувај ме за тековни вести";
+"feed-news-notification-text" = "Сега можете да примате известувања од статии за Википедија кои се тековни во вестите.";
+"feed-news-notification-button-text" = "Вклучи известувања";
 "back" = "Назад";
+"save-action" = "Зачувај";
+"unsave-action" = "Одзачувај";

@@ -193,6 +193,7 @@
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Goym síðu";
 "share-menu-page-saved" = "Síðan er goymd";
+// Fuzzy
 "share-custom-menu-item" = "Deil";
 "share-article-name-on-wikipedia" = "\"$1\" á @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" á @Wikipedia: \"$2\"";
