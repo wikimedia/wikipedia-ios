@@ -65,9 +65,9 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
         
         let infoItems: [NotificationSettingsItem] = [NotificationSettingsButtonItem(title: localizedStringForKeyFallingBackOnEnglish("settings-notifications-learn-more"), buttonAction: { [weak self] in
             let title = localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-title")
-            let message =  (localizedStringForKeyFallingBackOnEnglish("Notification preferences are stored on device and not based on personal information or activity.") ?? "") + " " + (localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-creation" ) ?? "")
+            let message = "\(localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-storage"))\n\n\(localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-creation"))"
             let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: localizedStringForKeyFallingBackOnEnglish("button-ok"), style: UIAlertActionStyle.Default, handler: { (action) in
+            alertController.addAction(UIAlertAction(title: localizedStringForKeyFallingBackOnEnglish("welcome-explore-tell-me-more-done-button"), style: UIAlertActionStyle.Default, handler: { (action) in
             }))
             self?.presentViewController(alertController, animated: true, completion: nil)
         })]
