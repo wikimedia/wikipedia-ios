@@ -71,7 +71,12 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 #pragma mark - WMFContentSource
 
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    [self loadContentForDate:[NSDate date] completion:completion];
+    NSDate *date = [NSDate date];
+    NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
+    NSDateComponents *dateComponents = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+    NSCalendar *UTCCalendar = [NSCalendar wmf_utcGregorianCalendar];
+    NSDate *dateUTC = [UTCCalendar dateFromComponents:dateComponents];
+    [self loadContentForDate:dateUTC completion:completion];
 }
 
 - (void)loadContentFromDate:(NSDate *)fromDate forwardForDays:(NSInteger)days completion:(nullable dispatch_block_t)completion {
@@ -90,8 +95,12 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 - (void)preloadContentForNumberOfDays:(NSInteger)days completion:(nullable dispatch_block_t)completion {
-    NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
-    NSDate *fromDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:-days toDate:[NSDate date] options:NSCalendarMatchStrictly];
+    NSDate *date = [NSDate date];
+    NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
+    NSDateComponents *dateComponents = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+    NSCalendar *UTCCalendar = [NSCalendar wmf_utcGregorianCalendar];
+    NSDate *dateUTC = [UTCCalendar dateFromComponents:dateComponents];
+    NSDate *fromDate = [UTCCalendar dateByAddingUnit:NSCalendarUnitDay value:-days toDate:dateUTC options:NSCalendarMatchStrictly];
     [self loadContentFromDate:fromDate forwardForDays:days completion:completion];
 }
 
