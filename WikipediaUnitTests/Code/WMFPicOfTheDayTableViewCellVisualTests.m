@@ -43,11 +43,12 @@
 
 - (void)testShowsCaptionWhenImageIsFinallyDownloaded {
     [[LSNocilla sharedInstance] start];
-    NSURL *testURL = [NSURL URLWithString:@"http://dummyimage.com/foo"];
-
     // using a plain-white image to ensure the gradient is visible
     UIImage *testImage = [UIImage wmf_imageFromColor:[UIColor whiteColor]];
-
+    NSRegularExpression *anyThumbRequest = [NSRegularExpression regularExpressionWithPattern:@"https://upload.wikimedia.org/wikipedia/commons/thumb/.*" options:0 error:nil];
+    stubRequest(@"GET", anyThumbRequest).andReturnRawResponse(UIImageJPEGRepresentation(testImage, 0));
+    
+    NSURL *testURL = [NSURL URLWithString:@"http://dummyimage.com/foo"];
     NSData *imageData = UIImagePNGRepresentation(testImage);
 
     stubRequest(@"GET", testURL.absoluteString)
