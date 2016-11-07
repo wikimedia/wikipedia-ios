@@ -223,6 +223,7 @@
 "share-menu-save-page" = "Seite speichern";
 "share-menu-page-saved" = "Seite gespeichert";
 "share-menu-page-saved-access" = "Tipp: Um auf deine gespeicherten Seiten zuzugreifen, tippe oben auf $1 oder halte unten $2 gedrückt.";
+// Fuzzy
 "share-custom-menu-item" = "Teilen";
 "share-a-fact-share-menu-item" = "Teile-einen-Fakt";
 "share-on-twitter-sign-off" = "über @Wikipedia";
@@ -413,6 +414,7 @@
 "no-email-account-alert" = "Bitte richte auf deinem Gerät ein E-Mail-Konto ein und versuche es erneut.";
 "request-feedback-on-error" = "Die App hat ein Problem festgestellt und unsere Entwickler möchten gerne mehr darüber wissen. Bitte tippe hier, um eine E-Mail mit den Einzelheiten zum Fehler an uns zu senden.";
 "explore-another-random" = "Ein anderer zufälliger Artikel";
+"explore-randomizer" = "Zufallsgenerator";
 "find-in-page-no-matches" = "Keine Treffer";
 "find-in-page-button-label" = "In Seite finden";
 "find-in-page-popover-description" = "Text in Artikeln suchen";
@@ -424,6 +426,7 @@
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Einzelnachweis $1";
 "in-the-news-notification-read-now-action-title" = "Jetzt lesen";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Teilen";
 "in-the-news-notification-save-for-later-action-title" = "Für später speichern";
 "in-the-news-currently-trending" = "Aktuell beliebt";
@@ -432,8 +435,8 @@
 "number-thousands" = "$1 T";
 "number-millions" = "$1 Mio.";
 "number-billions" = "$1 Mrd.";
-// Fuzzy
-"feed-news-notification-text" = "Du kannst jetzt Benachrichtigungen von Wikipedia-Artikeln aus den aktuellen Nachrichten anschalten.";
-// Fuzzy
-"feed-news-notification-button-text" = "Benachrichtige mich über aktuelle Nachrichten";
+"feed-news-notification-text" = "Du kannst jetzt Benachrichtigungen über Wikipedia-Artikel aus den aktuellen Nachrichten erhalten.";
+"feed-news-notification-button-text" = "Benachrichtigungen anschalten";
 "back" = "Zurück";
+"save-action" = "Speichern";
+"unsave-action" = "Speichern abbrechen";

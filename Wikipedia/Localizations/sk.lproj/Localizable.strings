@@ -208,6 +208,7 @@
 "share-menu-save-page" = "Uložiť článok";
 "share-menu-page-saved" = "Uložené pre offline čítanie.";
 "share-menu-page-saved-access" = "Tip: ak chcete otvoriť uložené stránky, ťuknite na položku $1 vyššie alebo dlho stlačte $2 nižšie.";
+// Fuzzy
 "share-custom-menu-item" = "Zdieľať";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédii:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" na @Wikipedii: \"$2\"";
@@ -362,6 +363,7 @@
 "no-email-account-alert" = "Prosím, nastavte si na vašom zariadení e-mailový účet a skúste to znova.";
 "request-feedback-on-error" = "Aplikácia narazila na problém, o ktorom by naši vývojári chceli vedieť viac. Prosím, odošlite nám e-mail s podrobnosťami o chybe.";
 "explore-another-random" = "Ďalší náhodný článok";
+"explore-randomizer" = "Randomizér";
 "find-in-page-no-matches" = "0 zhôd";
 "find-in-page-button-label" = "Nájsť na stránke";
 "find-in-page-popover-description" = "Hľadanie textu v článku";
@@ -370,6 +372,7 @@
 "top-read-see-more-trending" = "Zobraziť ďalšie trendy";
 "top-read-header-generic" = "Wikipédia";
 "in-the-news-notification-read-now-action-title" = "Čítať";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Zdieľať";
 "in-the-news-notification-save-for-later-action-title" = "Uložiť na neskôr";
 "in-the-news-currently-trending" = "Aktuálne trendy";
@@ -378,3 +381,4 @@
 "number-millions" = "$1";
 "number-billions" = "$1";
 "back" = "Späť";
+"save-action" = "Uložiť";

@@ -178,6 +178,7 @@
 "about-translators-details" = "Përkthyer nga vullnetarët në $1";
 "share-menu-save-page" = "Ruaj faqen";
 "share-menu-page-saved" = "Ruajtur për lexim pa internet.";
+// Fuzzy
 "share-custom-menu-item" = "Shpërndaje";
 "share-article-name-on-wikipedia" = "\"$1\" në @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" në @Wikipedia: \"$2\"";

@@ -239,6 +239,7 @@
 "share-menu-save-page" = "Makaleyi Kaydet";
 "share-menu-page-saved" = "Makale Kaydedildi";
 "share-menu-page-saved-access" = "İpucu: Kaydedilen sayfalarınıza erişmek için, üstteki $1 tuşuna dokunun veya aşağıdaki $2 tuşuna uzun basın.";
+// Fuzzy
 "share-custom-menu-item" = "Paylaş";
 "share-a-fact-share-menu-item" = "Bir bilgi paylaş";
 "share-on-twitter-sign-off" = "@Wikipedia aracılığıyla";
@@ -440,6 +441,7 @@
 "top-read-header-generic" = "Vikipedi";
 "reference-title" = "$1 referansı";
 "in-the-news-notification-read-now-action-title" = "Şimdi Oku";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Paylaş";
 "in-the-news-notification-save-for-later-action-title" = "Sonrası için kaydet";
 "in-the-news-currently-trending" = "Güncel popüler";

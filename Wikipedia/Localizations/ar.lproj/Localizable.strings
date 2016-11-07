@@ -229,6 +229,7 @@
 "share-menu-save-page" = "احفظ الصفحة";
 "share-menu-page-saved" = "تم الحفظ بغرض المطالعة دون اتصال.";
 "share-menu-page-saved-access" = "تلميح: كي تصل إلى صفحاتك المحفوظة، انقر على $1 أعلاه أو اضغط لفترة طويلة على $2 أدناه.";
+// Fuzzy
 "share-custom-menu-item" = "شارك";
 "share-a-fact-share-menu-item" = "شارك حقيقة";
 "share-on-twitter-sign-off" = "عبر @Wikipedia";
@@ -425,6 +426,7 @@
 "top-read-header-generic" = "ويكيبيديا";
 "reference-title" = "$1 مرجع";
 "in-the-news-notification-read-now-action-title" = "اقرأ الآن";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "شارك";
 "in-the-news-notification-save-for-later-action-title" = "احفظها لوقت لاحق";
 "in-the-news-currently-trending" = "الأكثر زيارة حاليا";

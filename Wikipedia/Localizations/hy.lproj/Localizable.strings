@@ -1,6 +1,7 @@
 // Messages for Armenian (Հայերեն)
 // Exported from translatewiki.net
 // Author: Aram1985
+// Author: Kareyac
 // Author: Vahe Gharakhanyan
 // Author: Xelgen
 // Author: Աշոտ1997
@@ -156,6 +157,7 @@
 "about-wikimedia-foundation" = "Վիքիմեդիա Հիմնադրամ";
 "share-menu-save-page" = "Հիշել էջը";
 "share-menu-page-saved" = "Պահպանվել է օֆլայն կարդալու համար";
+// Fuzzy
 "share-custom-menu-item" = "Կիսվել";
 "share-as-image" = "Կիսվել որպես պատկեր";
 "share-as-text" = "Կիսվել որպես տեքստ";
@@ -221,3 +223,4 @@
 "page-issues" = "Էջի քննարկումներ";
 "page-similar-titles" = "Նմանատիպ էջեր";
 "home-hide-suggestion-cancel" = "Չեղարկել";
+"save-action" = "Հիշել";

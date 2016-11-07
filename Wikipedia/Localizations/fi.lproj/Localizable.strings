@@ -227,6 +227,7 @@
 "share-menu-save-page" = "Tallenna artikkeli";
 "share-menu-page-saved" = "Artikkeli tallennettu";
 "share-menu-page-saved-access" = "Vihje: Päästäksesi tallentamillesi sivuille näpäytä kuvaketta $1 tai paina pitkään kuvaketta $2.";
+// Fuzzy
 "share-custom-menu-item" = "Jaa";
 "share-a-fact-share-menu-item" = "Jaa fakta";
 "share-on-twitter-sign-off" = "@Wikipedia'n kautta";
@@ -420,6 +421,7 @@
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Lähde $1";
 "in-the-news-notification-read-now-action-title" = "Lue nyt";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Jaa";
 "in-the-news-notification-save-for-later-action-title" = "Tallenna myöhemmäksi";
 "in-the-news-currently-trending" = "Tällä hetkellä suosittuja";

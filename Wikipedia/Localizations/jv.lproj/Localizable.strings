@@ -220,6 +220,7 @@
 "share-menu-save-page" = "Simpen kaca";
 "share-menu-page-saved" = "Disimpen kanggo maca offline.";
 "share-menu-page-saved-access" = "Tip: kanggo ngakses kaca disimpen, ketuk $1 ndhuwur utawa dawa-pencet $2 ing ngisor iki.";
+// Fuzzy
 "share-custom-menu-item" = "Nuduhake";
 "share-a-fact-share-menu-item" = "Nuduhake-bukti";
 "share-on-twitter-sign-off" = "melalui @Wikipedia";
@@ -410,6 +411,7 @@
 "no-email-account-alert" = "Mangga persiyapan akun email ing piranti lan coba manèh.";
 "request-feedback-on-error" = "Aplikasi wis pinanggih masalah sing gawe kita kaya ngerti liyane babagan. Mangga tunyuk kene kanggo ngirim kita email karo rincian kesalahan.";
 "explore-another-random" = "Artikel waton liyane";
+"explore-randomizer" = "Artikel acak";
 "find-in-page-no-matches" = "Ora cocog";
 "find-in-page-button-label" = "Golèk ing kaca";
 "find-in-page-popover-description" = "Golèk teks ing artikel";
@@ -421,6 +423,7 @@
 "top-read-header-generic" = "Wikipédia";
 "reference-title" = "Rujukan $1";
 "in-the-news-notification-read-now-action-title" = "Maca Saiki";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Nuduhake";
 "in-the-news-notification-save-for-later-action-title" = "Simpen kanggo mengko";
 "in-the-news-currently-trending" = "Saiki tren";
@@ -429,8 +432,8 @@
 "number-thousands" = "$1 ewu";
 "number-millions" = "$1 yuta";
 "number-billions" = "$1 miliar";
-// Fuzzy
-"feed-news-notification-text" = "Sampeyan saiki bisa nguripake kabar saka artikel Wikipedia tren ing kabar.";
-// Fuzzy
-"feed-news-notification-button-text" = "Menawa pengiriman notifikasi kula bab tren warta";
+"feed-news-notification-text" = "Sampeyan saiki bisa nampa kabar bab artikel Wikipedia tren ing kabar.";
+"feed-news-notification-button-text" = "Nguripake kabar";
 "back" = "Balik";
+"save-action" = "Simpen";
+"unsave-action" = "Durung kasimpen";
