@@ -456,26 +456,22 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 #pragma mark - Content Sources
 
 - (void)preloadContentSourcesIfNeededWithCompletion:(void (^)(void))completion {
-    
+
     if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToNewFeed]) {
         if (completion) {
             completion();
         }
     } else {
-        [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [obj removeAllContent];
+        YapDatabaseConnection *conn = [[YapDatabase sharedInstance] wmf_newWriteConnection];
+        [conn readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
+            [transaction removeAllObjectsInCollection:[WMFContentGroup databaseCollectionName]];
         }];
-        
+
         [self.contentStore notifyWhenWriteTransactionsComplete:^{
-            
-            [self.contentStore enumerateContentGroupsWithBlock:^(WMFContentGroup * _Nonnull group, BOOL * _Nonnull stop) {
-                NSLog(@"%@", [group description]); //why are these here!!!
-            }];
-            
-            
+
             WMFTaskGroup *group = [WMFTaskGroup new];
             [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                
+
                 if ([obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
                     [group enter];
                     [(id<WMFDateBasedContentSource>)obj preloadContentForNumberOfDays:4
@@ -484,7 +480,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
                                                                            }];
                 }
             }];
-            
+
             [group waitInBackgroundWithCompletion:^{
                 [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
                 if (completion) {
@@ -492,10 +488,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
                 }
             }];
         }];
-
-        
-        
-       
     }
 }
 
