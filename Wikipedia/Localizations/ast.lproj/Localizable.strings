@@ -107,9 +107,16 @@
 "settings-support" = "Sofita Wikimedia";
 "settings-language-bar" = "Amosar les llingües na gueta";
 "settings-my-languages" = "Les mios llingües";
+"settings-notifications" = "Avisos";
 "settings-help-and-feedback" = "Ayuda y comentarios";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "La primera llingua d'esta llista emplégase como l'idioma principal de l'aplicación. Al camudalu, vas camudar tamién el conteníu diariu (por casu, l'Artículu de portada) que s'amuesa n'Esplorar.";
+"settings-notifications-system-off" = "Anguaño tán desactivaos los avisos pa Wikipedia. Ve a la configuración del preséu p'activalos";
+"settings-notifications-system-turn-on" = "Activar los Avisos";
+"settings-notifications-info" = "Recibe alertes d'artículos n'enclín o más lleíos de Wikipedia coles nueses notificaciones. Toes elles proporcionaes con respetu pola privacidá y actualizaes al minutu.";
+"settings-notifications-learn-more" = "Más información tocante a los avisos";
+"settings-notifications-trending" = "Enclín nes actividaes actuales";
+"settings-notifications-push-notifications" = "Avisos tipu push";
 "main-menu-title" = "Más";
 "main-menu-heading-about" = "Tocante a";
 "main-menu-language-title" = "Guetar la wiki en llingua $1";
@@ -215,6 +222,7 @@
 "share-menu-save-page" = "Guardar artículu";
 "share-menu-page-saved" = "Artículu guardáu";
 "share-menu-page-saved-access" = "Gabitu: pa tener accesu a les páxines guardaes, toca $1 arriba o fai un toque llargu en $2 abaxo.";
+// Fuzzy
 "share-custom-menu-item" = "Compartir";
 "share-a-fact-share-menu-item" = "Comparte-un-fechu";
 "share-on-twitter-sign-off" = "via @Wikipedia";
@@ -349,6 +357,8 @@
 "potd-description-prefix" = "Imaxe del día pal $1";
 "welcome-explore-title" = "Esplorar";
 "welcome-explore-sub-title" = "Una forma nueva de descubrir artículos interesantes caldía";
+"welcome-explore-new-ways-title" = "Nueves formes d'esplorar";
+"welcome-explore-new-ways-sub-title" = "Nuevos avisos y «widgets» p'ayudate a atopar artículos interesantes";
 "welcome-explore-tell-me-more" = "Cúntame más";
 "welcome-explore-tell-me-more-about-explore" = "Más sobre Esplorar";
 "welcome-explore-tell-me-more-details" = "Cuando llees un artículu, amiéstense automáticamente artículos rellacionaos a la to canal Esplorar. Esto nun cambia la manera de collechar la to información, ya'l to historial de llectura sigue siendo priváu.";
@@ -356,6 +366,9 @@
 "welcome-explore-tell-me-more-privacy" = "Nun se guarden nin llistes de llectura nin perfiles nos nuesos sirvidores.";
 "welcome-explore-tell-me-more-done-button" = "Entendílo";
 "welcome-explore-continue-button" = "Primeros pasos";
+"welcome-notifications-tell-me-more-title" = "Más tocante a los avisos";
+"welcome-notifications-tell-me-more-storage" = "Les preferencies d'avisos guárdense nel preséu y nun se basen n'información o actividá personal.";
+"welcome-notifications-tell-me-more-creation" = "Los avisos creense y entréguense nel preséu pola app, non polos nuesos sirvidores (nin de terceros).";
 "welcome-languages-title" = "Llingües";
 "welcome-languages-sub-title" = "Esbilla les llingües que prefieres pa guetar en Wikipedia";
 "welcome-languages-add-button" = "Amestar otra llingua";
@@ -400,6 +413,7 @@
 "no-email-account-alert" = "Configura una cuenta de corréu electrónicu nel preséu y téntalo otra vuelta.";
 "request-feedback-on-error" = "L'aplicación detectó un problema del que los nuesos desendolcadores quedríen saber más. Toca equí pa unvianos un corréu electrónicu colos detalles del fallu.";
 "explore-another-random" = "Otru artículu al debalu";
+"explore-randomizer" = "Al debalu";
 "find-in-page-no-matches" = "0 coincidencies";
 "find-in-page-button-label" = "Alcontrar na páxina";
 "find-in-page-popover-description" = "Buscar un testu nos artículos";
@@ -411,9 +425,17 @@
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Referencia $1";
 "in-the-news-notification-read-now-action-title" = "Lleer agora";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Compartir";
 "in-the-news-notification-save-for-later-action-title" = "Guardar pa después";
 "in-the-news-currently-trending" = "Tendencia agora";
+"in-the-news-title" = "Actualidá";
+"in-the-news-title-for-date" = "Noticies del $1";
 "number-thousands" = "$1K";
 "number-millions" = "$1M";
 "number-billions" = "$1";
+"feed-news-notification-text" = "Agora puedes recibir avisos sobre artículos de Wikipedia que son enclín nes noticies.";
+"feed-news-notification-button-text" = "Activar los avisos";
+"back" = "Anterior";
+"save-action" = "Guardar";
+"unsave-action" = "Anular el guardáu";

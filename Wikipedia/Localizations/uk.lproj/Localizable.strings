@@ -223,6 +223,7 @@
 "share-menu-save-page" = "Зберегти статтю";
 "share-menu-page-saved" = "Статтю збережено";
 "share-menu-page-saved-access" = "Порада: щоб отримати доступ до ваших збережених сторінок, торкніться кнопки  $1  вище або довгий натиск на $2 нижче.";
+// Fuzzy
 "share-custom-menu-item" = "Поділитися";
 "share-a-fact-share-menu-item" = "Поділіться фактом";
 "share-on-twitter-sign-off" = "через @Wikipedia";
@@ -419,6 +420,7 @@
 "top-read-header-generic" = "Вікіпедія";
 "reference-title" = "Посилання $1";
 "in-the-news-notification-read-now-action-title" = "Читати зараз";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Поділитися";
 "in-the-news-notification-save-for-later-action-title" = "Зберегти на потім";
 "in-the-news-currently-trending" = "Зараз популярні";

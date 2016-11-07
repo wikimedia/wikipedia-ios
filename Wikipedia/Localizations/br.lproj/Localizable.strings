@@ -218,6 +218,7 @@
 "share-menu-save-page" = "Enrollañ ar pennad";
 "share-menu-page-saved" = "Pennad enrollet";
 "share-menu-page-saved-access" = "Ali : evit monet d'ho pajennoù enrollet, bizskrivañ $1 amañ a-us pe pouezit pell war $2 amañ dindan.";
+// Fuzzy
 "share-custom-menu-item" = "Rannañ";
 "share-a-fact-share-menu-item" = "Rannañ-ur-fed";
 "share-on-twitter-sign-off" = "via @Wikipedia";
@@ -405,6 +406,7 @@
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Daveenn $1";
 "in-the-news-notification-read-now-action-title" = "Lenn bremañ";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Rannañ";
 "in-the-news-notification-save-for-later-action-title" = "Enrollañ evit diwezhatoc'h";
 "in-the-news-currently-trending" = "Diouzh ar c'hiz bremañ";

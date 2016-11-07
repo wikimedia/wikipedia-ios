@@ -181,6 +181,7 @@
 "about-wikimedia-foundation" = "មូលនិធិវិគីមេឌា";
 "share-menu-save-page" = "រក្សាទុកទំព័រ";
 "share-menu-page-saved" = "រក្សាទុកសម្រាប់អាននៅក្រៅបណ្ដាញ";
+// Fuzzy
 "share-custom-menu-item" = "ចែករំលែក";
 "share-article-name-on-wikipedia" = "\"$1\" នៅលើ @Wikipedia៖";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" នៅលើ @Wikipedia៖ \"$2\"";

@@ -139,6 +139,7 @@
 "about-wikimedia-foundation" = "Fondacion Wikimèdia";
 "share-menu-save-page" = "Enregistrar la pagina";
 "share-menu-page-saved" = "Pagina enregistrada";
+// Fuzzy
 "share-custom-menu-item" = "Partejar";
 "share-article-name-on-wikipedia" = "« $1 » sus @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "« $1 » sus @Wikipedia : « $2 »";
