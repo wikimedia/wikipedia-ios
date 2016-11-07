@@ -401,10 +401,6 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 - (BOOL)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory
                           articlePreview:(WMFArticlePreview *)articlePreview
                                    force:(BOOL)force {
-    if (!force && (![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled])) {
-        return NO;
-    }
-
     if (!newsStory.featuredArticlePreview) {
         NSString *articlePreviewKey = articlePreview.url.wmf_databaseKey;
         if (!articlePreviewKey) {
