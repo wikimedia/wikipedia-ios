@@ -589,6 +589,8 @@
 		D81FB2691D47B5DC0000C685 /* WMFCVLInvalidationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB2681D47B5DC0000C685 /* WMFCVLInvalidationContext.m */; };
 		D81FB26C1D493E6A0000C685 /* WMFCVLMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB26B1D493E6A0000C685 /* WMFCVLMetrics.m */; };
 		D820F78B1DD0E5E100806045 /* WMFNotificationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D820F78A1DD0E5E100806045 /* WMFNotificationTests.m */; };
+		D820F78D1DD0F11500806045 /* MCSFeed.json in Resources */ = {isa = PBXBuildFile; fileRef = D820F78C1DD0F11500806045 /* MCSFeed.json */; };
+		D820F78F1DD0F89700806045 /* PageViews.json in Resources */ = {isa = PBXBuildFile; fileRef = D820F78E1DD0F89700806045 /* PageViews.json */; };
 		D82F601C1D6CE10400388574 /* FetcherBase.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E806381C0CE7B00065EBC0 /* FetcherBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D82F601D1D6CE10800388574 /* FetcherBase.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806391C0CE7B00065EBC0 /* FetcherBase.m */; };
 		D837D0381D6CC8B3004EFBC6 /* QueuesSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E806721C0CE9850065EBC0 /* QueuesSingleton.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2364,6 +2366,8 @@
 		D81FB26A1D493E6A0000C685 /* WMFCVLMetrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFCVLMetrics.h; path = Wikipedia/Code/WMFCVLMetrics.h; sourceTree = SOURCE_ROOT; };
 		D81FB26B1D493E6A0000C685 /* WMFCVLMetrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCVLMetrics.m; path = Wikipedia/Code/WMFCVLMetrics.m; sourceTree = SOURCE_ROOT; };
 		D820F78A1DD0E5E100806045 /* WMFNotificationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFNotificationTests.m; sourceTree = "<group>"; };
+		D820F78C1DD0F11500806045 /* MCSFeed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MCSFeed.json; sourceTree = "<group>"; };
+		D820F78E1DD0F89700806045 /* PageViews.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PageViews.json; sourceTree = "<group>"; };
 		D844D96C1D6CB2600042D692 /* WMFModel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WMFModel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D844D96E1D6CB2600042D692 /* WMFModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFModel.h; sourceTree = "<group>"; };
 		D844D96F1D6CB2600042D692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -5193,6 +5197,8 @@
 				BCE839581BF14DB900F5BBA4 /* TitlePreviewQuery.json */,
 				BC8E58561BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json */,
 				BCCB814C1C110A84008BC602 /* ImageInfo.json */,
+				D820F78E1DD0F89700806045 /* PageViews.json */,
+				D820F78C1DD0F11500806045 /* MCSFeed.json */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -6450,6 +6456,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC9DBEA11BF50406005546A1 /* TFATitleExtract.json in Resources */,
+				D820F78F1DD0F89700806045 /* PageViews.json in Resources */,
 				BC56209D1B6BAB910013FFB0 /* Exoplanet.mobileview.json in Resources */,
 				BCCEC1251B1F68CF00A8B522 /* protection-empty.json in Resources */,
 				BCCEC1261B1F68CF00A8B522 /* protection-obama.json in Resources */,
@@ -6472,6 +6479,7 @@
 				BCCEC12A1B1F68CF00A8B522 /* test-notes.txt in Resources */,
 				BC5620931B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg in Resources */,
 				BCCEC1271B1F68CF00A8B522 /* section0.json in Resources */,
+				D820F78D1DD0F11500806045 /* MCSFeed.json in Resources */,
 				BC5FE5721B1DF38A00273BC0 /* NOWikiSiteInfo.json in Resources */,
 				BC15E74C1BF437A200679AA9 /* MonetFullTextSearch.json in Resources */,
 				BC5FE5701B1DF02900273BC0 /* ENWikiSiteInfo.json in Resources */,
