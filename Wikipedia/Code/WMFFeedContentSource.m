@@ -112,7 +112,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
             NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *pageViews = [NSMutableDictionary dictionary];
 
             NSDate *startDate = [self startDateForPageViewsForDate:date];
-            NSDate *endDate = [self endDateForPreviewsForDate:date];
+            NSDate *endDate = [self endDateForPageViewsForDate:date];
 
             WMFTaskGroup *group = [WMFTaskGroup new];
 
@@ -504,13 +504,18 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 #pragma mark - Utility
 
 - (NSDate *)startDateForPageViewsForDate:(NSDate *)date {
-    NSDate *startDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:0 - WMFFeedInTheNewsNotificationViewCountDays toDate:date options:NSCalendarMatchStrictly];
+    NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
+    NSDateComponents *dateComponents = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+    NSDate *dateUTC = [calendar dateFromComponents:dateComponents];
+    NSDate *startDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:0 - WMFFeedInTheNewsNotificationViewCountDays toDate:dateUTC options:NSCalendarMatchStrictly];
     return startDate;
 }
 
-- (NSDate *)endDateForPreviewsForDate:(NSDate *)date {
-    NSDate *endDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:0 toDate:date options:NSCalendarMatchStrictly];
-    return endDate;
+- (NSDate *)endDateForPageViewsForDate:(NSDate *)date {
+    NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
+    NSDateComponents *dateComponents = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+    NSDate *dateUTC = [calendar dateFromComponents:dateComponents];
+    return dateUTC;
 }
 
 @end
