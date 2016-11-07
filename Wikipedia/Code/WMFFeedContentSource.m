@@ -197,11 +197,13 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         [self saveGroupForNews:feedDay.newsStories pageViews:pageViews date:date];
     }
     [self.contentStore notifyWhenWriteTransactionsComplete:^{
-        [self scheduleNotificationsForFeedDay:feedDay onDate:date];
-        if (!completion) {
-            return;
-        }
-        completion();
+        [self.previewStore notifyWhenWriteTransactionsComplete:^{
+            [self scheduleNotificationsForFeedDay:feedDay onDate:date];
+            if (!completion) {
+                return;
+            }
+            completion();
+        }];
     }];
 }
 
