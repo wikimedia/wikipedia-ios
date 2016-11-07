@@ -484,7 +484,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         if ([userCalendar daysFromDate:notificationDate toDate:mostRecentDate] > 0) { // don't send if we have a notification scheduled for tomorrow already
             return NO;
         }
-        if ([userCalendar isDate:mostRecentDate inSameDayAsDate:notificationDate]) {
+        if (mostRecentDate && [userCalendar isDate:mostRecentDate inSameDayAsDate:notificationDate]) {
             NSInteger count = [defaults wmf_inTheNewsMostRecentDateNotificationCount];
             if (count >= WMFFeedNotificationMaxPerDay) {
                 return NO;
