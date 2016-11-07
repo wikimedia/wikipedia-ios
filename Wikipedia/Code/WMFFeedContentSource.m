@@ -71,7 +71,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 #pragma mark - WMFContentSource
 
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    [self loadContentForDate:[NSDate date] completion:completion];
+    NSDate *date = [NSDate date];
+    [self loadContentForDate:date completion:completion];
 }
 
 - (void)loadContentFromDate:(NSDate *)fromDate forwardForDays:(NSInteger)days completion:(nullable dispatch_block_t)completion {
@@ -83,15 +84,16 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
     [self loadContentForDate:fromDate
                   completion:^{
-                      NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
+                      NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
                       NSDate *updatedFromDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:fromDate options:NSCalendarMatchStrictly];
                       [self loadContentFromDate:updatedFromDate forwardForDays:days - 1 completion:completion];
                   }];
 }
 
 - (void)preloadContentForNumberOfDays:(NSInteger)days completion:(nullable dispatch_block_t)completion {
-    NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
-    NSDate *fromDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:-days toDate:[NSDate date] options:NSCalendarMatchStrictly];
+    NSDate *date = [NSDate date];
+    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
+    NSDate *fromDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:-days toDate:date options:NSCalendarMatchStrictly];
     [self loadContentFromDate:fromDate forwardForDays:days completion:completion];
 }
 
@@ -112,7 +114,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
             NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *pageViews = [NSMutableDictionary dictionary];
 
             NSDate *startDate = [self startDateForPageViewsForDate:date];
-            NSDate *endDate = [self endDateForPreviewsForDate:date];
+            NSDate *endDate = [self endDateForPageViewsForDate:date];
 
             WMFTaskGroup *group = [WMFTaskGroup new];
 
@@ -184,12 +186,19 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     [self saveGroupForFeaturedPreview:feedDay.featuredArticle date:date];
     [self saveGroupForTopRead:feedDay.topRead pageViews:pageViews date:date];
     [self saveGroupForPictureOfTheDay:feedDay.pictureOfTheDay date:date];
-    if ([date wmf_isTodayUTC]) {
+    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
+    if ([calendar isDateInToday:date]) {
         [self saveGroupForNews:feedDay.newsStories pageViews:pageViews date:date];
     }
-    [self scheduleNotificationsForFeedDay:feedDay onDate:date];
-
-    [self.contentStore notifyWhenWriteTransactionsComplete:completion];
+    [self.contentStore notifyWhenWriteTransactionsComplete:^{
+        [self.previewStore notifyWhenWriteTransactionsComplete:^{
+            [self scheduleNotificationsForFeedDay:feedDay onDate:date];
+            if (!completion) {
+                return;
+            }
+            completion();
+        }];
+    }];
 }
 
 - (void)saveGroupForFeaturedPreview:(WMFFeedArticlePreview *)preview date:(NSDate *)date {
@@ -321,11 +330,11 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         return;
     }
 
-    if (![date wmf_isTodayUTC]) { //in the news notifications only valid for the current day
+    NSCalendar *userCalendar = [NSCalendar wmf_gregorianCalendar];
+    if (![userCalendar isDateInToday:date]) { //in the news notifications only valid for the current day
         return;
     }
 
-    NSCalendar *userCalendar = [NSCalendar autoupdatingCurrentCalendar];
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
     NSDate *mostRecentDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
     BOOL ignoreTopReadRequirement = !mostRecentDate || ([userCalendar daysFromDate:mostRecentDate toDate:[NSDate date]] >= 3);
@@ -386,10 +395,6 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 - (BOOL)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory
                           articlePreview:(WMFArticlePreview *)articlePreview
                                    force:(BOOL)force {
-    if (!force && (![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled])) {
-        return NO;
-    }
-
     if (!newsStory.featuredArticlePreview) {
         NSString *articlePreviewKey = articlePreview.url.wmf_databaseKey;
         if (!articlePreviewKey) {
@@ -469,7 +474,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         if ([userCalendar daysFromDate:notificationDate toDate:mostRecentDate] > 0) { // don't send if we have a notification scheduled for tomorrow already
             return NO;
         }
-        if ([userCalendar isDate:mostRecentDate inSameDayAsDate:notificationDate]) {
+        if (mostRecentDate && [userCalendar isDate:mostRecentDate inSameDayAsDate:notificationDate]) {
             NSInteger count = [defaults wmf_inTheNewsMostRecentDateNotificationCount];
             if (count >= WMFFeedNotificationMaxPerDay) {
                 return NO;
@@ -504,13 +509,18 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 #pragma mark - Utility
 
 - (NSDate *)startDateForPageViewsForDate:(NSDate *)date {
-    NSDate *startDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:0 - WMFFeedInTheNewsNotificationViewCountDays toDate:date options:NSCalendarMatchStrictly];
+    NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
+    NSDateComponents *dateComponents = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+    NSDate *dateUTC = [calendar dateFromComponents:dateComponents];
+    NSDate *startDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:0 - WMFFeedInTheNewsNotificationViewCountDays toDate:dateUTC options:NSCalendarMatchStrictly];
     return startDate;
 }
 
-- (NSDate *)endDateForPreviewsForDate:(NSDate *)date {
-    NSDate *endDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:0 toDate:date options:NSCalendarMatchStrictly];
-    return endDate;
+- (NSDate *)endDateForPageViewsForDate:(NSDate *)date {
+    NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
+    NSDateComponents *dateComponents = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+    NSDate *dateUTC = [calendar dateFromComponents:dateComponents];
+    return dateUTC;
 }
 
 @end
