@@ -55,7 +55,7 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
         [button sizeToFit];
         [button addTarget:self action:@selector(sendEmail) forControlEvents:UIControlEventTouchUpInside];
         _sendEmailToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-        _sendEmailToolbarItem.accessibilityLabel = MWLocalizedString(@"table-of-contents-button-label", nil);
+        _sendEmailToolbarItem.accessibilityLabel = MWLocalizedString(@"button-report-a-bug", nil);
         return _sendEmailToolbarItem;
     }
     return _sendEmailToolbarItem;
