@@ -67,7 +67,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     NSOperationQueue *queue = [self articleSaveQueue];
     NSMutableDictionary *operations = [self articleSaveOperations];
     @synchronized(queue) {
-        NSString *key = article.url.wmf_databaseKey;
+        NSString *key = article.url.wmf_articleDatabaseKey;
         if (!key) {
             return;
         }
@@ -100,7 +100,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     NSOperationQueue *queue = [self articleSaveQueue];
     NSMutableDictionary *operations = [self articleSaveOperations];
     @synchronized(queue) {
-        NSString *key = article.url.wmf_databaseKey;
+        NSString *key = article.url.wmf_articleDatabaseKey;
         NSOperation *op = operations[key];
         [op cancel];
         [operations removeObjectForKey:key];

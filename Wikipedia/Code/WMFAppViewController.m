@@ -462,23 +462,31 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             completion();
         }
     } else {
-        WMFTaskGroup *group = [WMFTaskGroup new];
-        [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-
-            if ([obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
-                [group enter];
-                [(id<WMFDateBasedContentSource>)obj preloadContentForNumberOfDays:2
-                                                                       completion:^{
-                                                                           [group leave];
-                                                                       }];
-            }
+        YapDatabaseConnection *conn = [[YapDatabase sharedInstance] wmf_newWriteConnection];
+        [conn readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
+            [transaction removeAllObjectsInCollection:[WMFContentGroup databaseCollectionName]];
         }];
 
-        [group waitInBackgroundWithCompletion:^{
-            [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
-            if (completion) {
-                completion();
-            }
+        [self.contentStore notifyWhenWriteTransactionsComplete:^{
+
+            WMFTaskGroup *group = [WMFTaskGroup new];
+            [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+
+                if ([obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
+                    [group enter];
+                    [(id<WMFDateBasedContentSource>)obj preloadContentForNumberOfDays:4
+                                                                           completion:^{
+                                                                               [group leave];
+                                                                           }];
+                }
+            }];
+
+            [group waitInBackgroundWithCompletion:^{
+                [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
+                if (completion) {
+                    completion();
+                }
+            }];
         }];
     }
 }
