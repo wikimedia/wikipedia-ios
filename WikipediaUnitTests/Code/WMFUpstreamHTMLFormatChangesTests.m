@@ -66,7 +66,7 @@
                                                     XCTAssertEqualObjects(tag.height, @(21));
                                                     XCTAssertEqualObjects(tag.dataFileWidth, @(172));
                                                     XCTAssertEqualObjects(tag.dataFileHeight, @(178));
-                                                    XCTAssertEqualObjects(tag.src, @"//upload.beta.wmflabs.org/wikipedia/commons/thumb/a/a9/Example.jpg/20px-Example.jpg");
+                                                    XCTAssertTrue([tag.src wmf_isEqualToStringIgnoringCase:@"//upload.beta.wmflabs.org/wikipedia/commons/thumb/a/a9/Example.jpg/20px-Example.jpg"]);
 
                                                     // alt has never been parsed - should it be?
                                                     //XCTAssertEqualObjects(tag.alt, @"Example.jpg");
