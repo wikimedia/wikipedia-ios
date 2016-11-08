@@ -1,3 +1,20 @@
+/**
+ * This file is copied from a separate project:
+ * https://github.com/tonymillion/Reachability
+ * 
+ * Unfortunately, the Podspec for this project hasn't been updated for tvOS & watchOS.
+ * However, the source code itself works just fine.
+ * So we're simply including the code directly for now.
+ *
+ * We may revert to the official project if its Podspec is updated.
+ * Or switch to another if a suitable alternative open-source project is found.
+**/
+
+#import <Availability.h>
+#import <TargetConditionals.h>
+
+#if !TARGET_OS_WATCH
+
 /*
  Copyright (c) 2011, Tony Million.
  All rights reserved.
@@ -38,38 +55,38 @@
 #define NS_ENUM(_type, _name) enum _name : _type _name; enum _name : _type
 #endif
 
-extern NSString *const kReachabilityChangedNotification;
+extern NSString *const kYapReachabilityChangedNotification;
 
-typedef NS_ENUM(NSInteger, NetworkStatus) {
+typedef NS_ENUM(NSInteger, YapReachabilityStatus) {
     // Apple NetworkStatus Compatible Names.
-    NotReachable = 0,
-    ReachableViaWiFi = 2,
-    ReachableViaWWAN = 1
+    YapReachabilityStatus_NotReachable = 0,
+    YapReachabilityStatus_ReachableViaWiFi = 2,
+    YapReachabilityStatus_ReachableViaWWAN = 1
 };
 
-@class Reachability;
+@class YapReachability;
 
-typedef void (^NetworkReachable)(Reachability * reachability);
-typedef void (^NetworkUnreachable)(Reachability * reachability);
+typedef void (^NetworkReachableBlock)(YapReachability * reachability);
+typedef void (^NetworkUnreachableBlock)(YapReachability * reachability);
 
 
-@interface Reachability : NSObject
+@interface YapReachability : NSObject
 
-@property (nonatomic, copy) NetworkReachable    reachableBlock;
-@property (nonatomic, copy) NetworkUnreachable  unreachableBlock;
+@property (nonatomic, copy) NetworkReachableBlock    reachableBlock;
+@property (nonatomic, copy) NetworkUnreachableBlock  unreachableBlock;
 
 @property (nonatomic, assign) BOOL reachableOnWWAN;
 
 
-+(Reachability*)reachabilityWithHostname:(NSString*)hostname;
++(YapReachability*)reachabilityWithHostname:(NSString*)hostname;
 // This is identical to the function above, but is here to maintain
 //compatibility with Apples original code. (see .m)
-+(Reachability*)reachabilityWithHostName:(NSString*)hostname;
-+(Reachability*)reachabilityForInternetConnection;
-+(Reachability*)reachabilityWithAddress:(void *)hostAddress;
-+(Reachability*)reachabilityForLocalWiFi;
++(YapReachability*)reachabilityWithHostName:(NSString*)hostname;
++(YapReachability*)reachabilityForInternetConnection;
++(YapReachability*)reachabilityWithAddress:(void *)hostAddress;
++(YapReachability*)reachabilityForLocalWiFi;
 
--(Reachability *)initWithReachabilityRef:(SCNetworkReachabilityRef)ref;
+-(YapReachability *)initWithReachabilityRef:(SCNetworkReachabilityRef)ref;
 
 -(BOOL)startNotifier;
 -(void)stopNotifier;
@@ -87,9 +104,11 @@ typedef void (^NetworkUnreachable)(Reachability * reachability);
 // Is user intervention required?
 -(BOOL)isInterventionRequired;
 
--(NetworkStatus)currentReachabilityStatus;
+-(YapReachabilityStatus)currentReachabilityStatus;
 -(SCNetworkReachabilityFlags)reachabilityFlags;
 -(NSString*)currentReachabilityString;
 -(NSString*)currentReachabilityFlags;
 
 @end
+
+#endif

@@ -30,7 +30,7 @@ abstract_target 'Foundation' do
   pod 'NSDate-Extensions', :git => 'git@github.com:wikimedia/NSDate-Extensions.git'
 
   # Database
-  pod 'YapDatabase'
+  pod 'YapDatabase', :git => 'git@github.com:wikimedia/YapDatabase.git'
 
   # Promises
   pod 'PromiseKit', '~> 3.4'

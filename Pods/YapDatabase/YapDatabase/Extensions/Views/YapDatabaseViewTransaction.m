@@ -3860,9 +3860,11 @@
 		__unsafe_unretained NSDictionary *keyMappingsForPage = (NSDictionary *)dictObj;
 		
 		NSString *group = [viewConnection->state groupForPageKey:pageKey];
-		NSAssert(group != nil, @"Unknown group for pageKey: %@", pageKey);
-		
-		[self removeRowidsWithKeyMappings:keyMappingsForPage pageKey:pageKey inGroup:group];
+		//NSAssert(group != nil, @"Unknown group for pageKey: %@", pageKey);
+        
+        if (group != nil) {
+            [self removeRowidsWithKeyMappings:keyMappingsForPage pageKey:pageKey inGroup:group];
+        }
 	}];
 	
 	// Subclass hook
