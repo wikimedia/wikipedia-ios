@@ -228,11 +228,17 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)appWillResignActiveWithNotification:(NSNotification *)note {
+    if (![self uiIsLoaded]) {
+        return;
+    }
     self.notificationsController.applicationActive = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKTeardownDataSourcesNotification object:nil];
 }
 
 - (void)appDidEnterBackgroundWithNotification:(NSNotification *)note {
+    if (![self uiIsLoaded]) {
+        return;
+    }
     [self startBackgroundTask];
     dispatch_async(dispatch_get_main_queue(), ^{
 #if FB_TWEAK_ENABLED
