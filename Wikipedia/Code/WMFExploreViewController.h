@@ -26,8 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)presentMoreViewControllerForGroup:(WMFContentGroup *)group animated:(BOOL)animated;
 
-- (void)updateFeedWithLatestDatabaseContent;
-
 - (void)showInTheNewsForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date animated:(BOOL)animated;
 
 @end
