@@ -319,15 +319,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [fm removeItemAtPath:[SDImageCache wmf_imageCacheDirectory] error:nil];
     [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:NO];
 #endif
-    
+
     [self migrateToSharedContainerIfNecessaryWithCompletion:^{
         [self migrateToNewFeedIfNecessaryWithCompletion:^{
             [self finishLaunch];
         }];
     }];
 }
-
-
 
 - (void)migrateToSharedContainerIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
     if (![[NSUserDefaults wmf_userDefaults] wmf_didMigrateToSharedContainer]) {
@@ -353,7 +351,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 - (void)migrateToNewFeedIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
     YapDatabase *db = [YapDatabase sharedInstance];
     if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToNewFeed]) {
-        [YapDatabase wmf_registerViewsInDatabase:db];
         self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
         self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
         completion();
@@ -364,7 +361,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         }
             completionQueue:dispatch_get_main_queue()
             completionBlock:^{
-                [YapDatabase wmf_registerViewsInDatabase:db];
                 self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
                 self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
                 [self preloadContentSourcesForced:YES
@@ -493,7 +489,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 #pragma mark - Content Sources
-
 
 - (void)preloadContentSourcesForced:(BOOL)force completion:(void (^)(void))completion {
     WMFTaskGroup *group = [WMFTaskGroup new];
@@ -1192,20 +1187,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 // The method will be called on the delegate only if the application is in the foreground. If the method is not implemented or the handler is not called in a timely manner then the notification will not be presented. The application can choose to have the notification presented as a sound, badge, alert and/or in the notification list. This decision should be based on whether the information in the notification is otherwise visible to the user.
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
-    NSDictionary *info = notification.request.content.userInfo;
-    NSString *articleURLString = info[WMFNotificationInfoArticleURLStringKey];
-    NSURL *articleURL = [NSURL URLWithString:articleURLString];
-    NSString *content = notification.request.content.body;
-    [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:@"notification" contentType:articleURL.host date:[NSDate date]];
-
-    [[WMFAlertManager sharedInstance] showInTheNewsAlert:content
-                                                  sticky:NO
-                                   dismissPreviousAlerts:NO
-                                             tapCallBack:^{
-                                                 [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:@"notification" contentType:articleURL.host];
-                                                 [self showInTheNewsForNotificationInfo:info];
-                                             }];
-    completionHandler(UNNotificationPresentationOptionNone);
+    completionHandler(UNNotificationPresentationOptionAlert);
 }
 
 // The method will be called on the delegate when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction. The delegate must be set before the application returns from applicationDidFinishLaunching:.

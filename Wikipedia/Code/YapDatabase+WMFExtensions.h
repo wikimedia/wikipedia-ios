@@ -13,8 +13,6 @@
 
 + (instancetype)wmf_databaseWithDefaultConfigurationAtPath:(NSString *)path;
 
-+ (void)wmf_registerViewsInDatabase:(YapDatabase *)db;
-
 /**
  *  The default database path. 
  *  This is used for the sharedInstance

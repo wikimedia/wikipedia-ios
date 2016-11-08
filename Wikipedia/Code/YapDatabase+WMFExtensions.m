@@ -27,6 +27,7 @@
     YapDatabaseOptions *options = [YapDatabaseOptions new];
     options.enableMultiProcessSupport = YES;
     YapDatabase *db = [[YapDatabase alloc] initWithPath:path options:options];
+    [YapDatabase wmf_registerViewsInDatabase:db];
     return db;
 }
 
