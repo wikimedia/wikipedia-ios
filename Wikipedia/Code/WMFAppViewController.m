@@ -339,7 +339,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 - (void)migrateToNewFeedIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
     if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToNewFeed]) {
-        [self finishLaunch];
+        completion();
     } else {
         YapDatabaseConnection *conn = [[YapDatabase sharedInstance] wmf_newWriteConnection];
         [conn asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
@@ -348,7 +348,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             completionQueue:dispatch_get_main_queue()
             completionBlock:^{
                 [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
-                [self finishLaunch];
+                completion();
             }];
     }
 }
