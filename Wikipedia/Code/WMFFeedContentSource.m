@@ -381,8 +381,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
             if ((ignoreTopReadRequirement || topReadArticlePreview) && topReadArticlePreview.rank.integerValue < WMFFeedInTheNewsNotificationMaxRank) {
                 MWKHistoryEntry *entry = [self.userDataStore entryForURL:articlePreview.articleURL];
                 BOOL notifiedRecently = entry.inTheNewsNotificationDate && [entry.inTheNewsNotificationDate timeIntervalSinceNow] < WMFFeedNotificationArticleRepeatLimit;
-                BOOL viewedRecently = entry.dateViewed && [entry.dateViewed timeIntervalSinceNow] < WMFFeedNotificationArticleRepeatLimit;
-                if (notifiedRecently || viewedRecently) {
+                if (notifiedRecently || entry.isBlackListed) {
                     articlePreviewToNotifyAbout = nil;
                     break;
                 }
