@@ -8,7 +8,6 @@
     static id sharedInstance;
     dispatch_once(&onceToken, ^{
         sharedInstance = [self wmf_databaseWithDefaultConfiguration];
-        [YapDatabase wmf_registerViewsInDatabase:sharedInstance];
     });
     return sharedInstance;
 }
@@ -28,6 +27,7 @@
     YapDatabaseOptions *options = [YapDatabaseOptions new];
     options.enableMultiProcessSupport = YES;
     YapDatabase *db = [[YapDatabase alloc] initWithPath:path options:options];
+    [YapDatabase wmf_registerViewsInDatabase:db];
     return db;
 }
 
