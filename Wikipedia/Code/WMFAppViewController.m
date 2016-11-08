@@ -319,15 +319,15 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [fm removeItemAtPath:[SDImageCache wmf_imageCacheDirectory] error:nil];
     [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:NO];
 #endif
-
+    
     [self migrateToSharedContainerIfNecessaryWithCompletion:^{
         [self migrateToNewFeedIfNecessaryWithCompletion:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self finishLaunch];
-            });
+            [self finishLaunch];
         }];
     }];
 }
+
+
 
 - (void)migrateToSharedContainerIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
     if (![[NSUserDefaults wmf_userDefaults] wmf_didMigrateToSharedContainer]) {
@@ -340,8 +340,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             if (![SDImageCache migrateToSharedContainer:&error]) {
                 DDLogError(@"Error migrating image cache: %@", error);
             }
-            [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:YES];
-            completion();
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:YES];
+                completion();
+            });
         });
     } else {
         completion();
@@ -492,6 +494,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 #pragma mark - Content Sources
 
+
 - (void)preloadContentSourcesForced:(BOOL)force completion:(void (^)(void))completion {
     WMFTaskGroup *group = [WMFTaskGroup new];
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
@@ -506,11 +509,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         }
     }];
 
-    [group waitInBackgroundWithCompletion:^{
-        if (completion) {
-            completion();
-        }
-    }];
+    [group waitInBackgroundWithCompletion:completion];
 }
 
 - (void)updateFeedSourcesWithCompletion:(dispatch_block_t)completion {
