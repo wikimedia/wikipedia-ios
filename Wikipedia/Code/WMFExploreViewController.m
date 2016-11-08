@@ -222,8 +222,10 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
     [group waitInBackgroundWithTimeout:12
                             completion:^{
-                                [self resetRefreshControl];
-                                [self.internalContentStore syncDataStoreToDatabase];
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [self resetRefreshControl];
+                                    [self.internalContentStore syncDataStoreToDatabase];
+                                });
                             }];
 }
 
@@ -715,18 +717,18 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                                                 [self.userStore notifyWhenWriteTransactionsComplete:^{
                                                     [self.contentStore notifyWhenWriteTransactionsComplete:^{
                                                         NSUInteger index = [self indexForSection:section];
-                                                        
+
                                                         [self.collectionView performBatchUpdates:^{
-                                                            
+
                                                             [self updateFeedWithLatestDatabaseContent];
                                                             [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:index]];
-                                                            
+
                                                         }
-                                                                                      completion:^(BOOL finished) {
-                                                                                          self.sectionDataSource.delegate = self;
-                                                                                          [self.collectionView reloadData];
-                                                                                      }];
-                                                        
+                                                            completion:^(BOOL finished) {
+                                                                self.sectionDataSource.delegate = self;
+                                                                [self.collectionView reloadData];
+                                                            }];
+
                                                     }];
                                                 }];
                                             }]];
@@ -1005,33 +1007,27 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 }
 
 - (void)dataSourceWillBeginUpdates:(id<WMFDataSource>)dataSource {
-    
 }
 
 - (void)dataSource:(id<WMFDataSource>)dataSource didDeleteSectionsAtIndexes:(NSIndexSet *)indexes {
-
 }
 
 - (void)dataSource:(id<WMFDataSource>)dataSource didInsertSectionsAtIndexes:(NSIndexSet *)indexes {
-
 }
 
 - (void)dataSource:(id<WMFDataSource>)dataSource didDeleteRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-
 }
 - (void)dataSource:(id<WMFDataSource>)dataSource didInsertRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-
 }
 
 - (void)dataSource:(id<WMFDataSource>)dataSource didMoveRowFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-
 }
 
 - (void)dataSource:(id<WMFDataSource>)dataSource didUpdateRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
 }
 
 - (void)dataSourceDidFinishUpdates:(id<WMFDataSource>)dataSource {
-      [self.collectionView reloadData];
+    [self.collectionView reloadData];
 }
 
 #pragma mark - WMFLocationManager
