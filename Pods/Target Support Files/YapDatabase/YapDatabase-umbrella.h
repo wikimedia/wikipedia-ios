@@ -19,6 +19,7 @@
 #import "YapDatabaseExtensionConnection.h"
 #import "YapDatabaseExtensionTransaction.h"
 #import "YapDatabaseExtensionTypes.h"
+#import "YapReachability.h"
 #import "YapActionable.h"
 #import "YapActionItem.h"
 #import "YapDatabaseActionManager.h"
