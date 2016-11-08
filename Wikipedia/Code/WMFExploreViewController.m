@@ -224,7 +224,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [group waitInBackgroundWithTimeout:12
                             completion:^{
                                 [self resetRefreshControl];
-                                [self updateFeedWithLatestDatabaseContent];
+                                [self.internalContentStore syncDataStoreToDatabase];
                             }];
 }
 
