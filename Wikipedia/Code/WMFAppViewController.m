@@ -349,28 +349,28 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)migrateToNewFeedIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
-    self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
-    self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
-
+    YapDatabase *db = [YapDatabase sharedInstance];
     if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToNewFeed]) {
+        [YapDatabase wmf_registerViewsInDatabase:db];
+        self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
+        self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
         completion();
     } else {
-        WMFDatabaseHouseKeeper *houseKeeper = [WMFDatabaseHouseKeeper new];
-        [houseKeeper performHouseKeepingWithCompletion:^{
-            WMFFeedContentSource *feedContentSource = [self feedContentSource];
-            if (!feedContentSource) {
-                [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
-                completion();
-                return;
-            }
-
-            [feedContentSource preloadContentForNumberOfDays:3
-                                                       force:YES
-                                                  completion:^{
-                                                      [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
-                                                      completion();
-                                                  }];
-        }];
+        YapDatabaseConnection *conn = [db wmf_newWriteConnection];
+        [conn asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
+            [transaction removeAllObjectsInCollection:[WMFContentGroup databaseCollectionName]];
+        }
+            completionQueue:dispatch_get_main_queue()
+            completionBlock:^{
+                [YapDatabase wmf_registerViewsInDatabase:db];
+                self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
+                self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
+                [self preloadContentSourcesForced:YES
+                                       completion:^{
+                                           [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
+                                           completion();
+                                       }];
+            }];
     }
 }
 
@@ -378,13 +378,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     @weakify(self)
         [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
             @strongify(self)
-                [self preloadContentSourcesIfNeededWithCompletion:^{
-                    [self loadMainUI];
-                    [self hideSplashViewAnimated:!didShowOnboarding];
-                    [self resumeApp];
-                    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
-                }];
-
+                [self loadMainUI];
+            [self hideSplashViewAnimated:!didShowOnboarding];
+            [self resumeApp];
+            [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
         }];
 }
 
@@ -495,14 +492,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 #pragma mark - Content Sources
 
-- (void)preloadContentSourcesIfNeededWithCompletion:(void (^)(void))completion {
+- (void)preloadContentSourcesForced:(BOOL)force completion:(void (^)(void))completion {
     WMFTaskGroup *group = [WMFTaskGroup new];
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
 
         if ([obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
             [group enter];
             [(id<WMFDateBasedContentSource>)obj preloadContentForNumberOfDays:3
-                                                                        force:NO
+                                                                        force:force
                                                                    completion:^{
                                                                        [group leave];
                                                                    }];
