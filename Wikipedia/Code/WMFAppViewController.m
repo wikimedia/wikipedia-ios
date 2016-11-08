@@ -349,18 +349,28 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)migrateToNewFeedIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
+    self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
+    self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
+
     if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToNewFeed]) {
         completion();
     } else {
-        YapDatabaseConnection *conn = [[YapDatabase sharedInstance] wmf_newWriteConnection];
-        [conn asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
-            [transaction removeAllObjectsInCollection:[WMFContentGroup databaseCollectionName]];
-        }
-            completionQueue:dispatch_get_main_queue()
-            completionBlock:^{
+        WMFDatabaseHouseKeeper *houseKeeper = [WMFDatabaseHouseKeeper new];
+        [houseKeeper performHouseKeepingWithCompletion:^{
+            WMFFeedContentSource *feedContentSource = [self feedContentSource];
+            if (!feedContentSource) {
                 [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
                 completion();
-            }];
+                return;
+            }
+
+            [feedContentSource preloadContentForNumberOfDays:3
+                                                       force:YES
+                                                  completion:^{
+                                                      [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
+                                                      completion();
+                                                  }];
+        }];
     }
 }
 
@@ -368,15 +378,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     @weakify(self)
         [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
             @strongify(self)
-                self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
-            self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
-
-            [self preloadContentSourcesIfNeededWithCompletion:^{
-                [self loadMainUI];
-                [self hideSplashViewAnimated:!didShowOnboarding];
-                [self resumeApp];
-                [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
-            }];
+                [self preloadContentSourcesIfNeededWithCompletion:^{
+                    [self loadMainUI];
+                    [self hideSplashViewAnimated:!didShowOnboarding];
+                    [self resumeApp];
+                    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
+                }];
 
         }];
 }
@@ -494,7 +501,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
         if ([obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
             [group enter];
-            [(id<WMFDateBasedContentSource>)obj preloadContentForNumberOfDays:4
+            [(id<WMFDateBasedContentSource>)obj preloadContentForNumberOfDays:3
+                                                                        force:NO
                                                                    completion:^{
                                                                        [group leave];
                                                                    }];
