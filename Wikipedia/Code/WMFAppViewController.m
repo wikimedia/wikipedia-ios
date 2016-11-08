@@ -400,7 +400,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
     [self startContentSources];
     [self updateFeedSourcesWithCompletion:^{
-        [self.exploreViewController updateFeedWithLatestDatabaseContent];
+
     }];
 
     [self.savedArticlesFetcher start];
