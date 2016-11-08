@@ -313,9 +313,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
     [self migrateToSharedContainerIfNecessaryWithCompletion:^{
         [self migrateToNewFeedIfNecessaryWithCompletion:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self finishLaunch];
-            });
+            [self finishLaunch];
         }];
     }];
 }
@@ -332,7 +330,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
                 DDLogError(@"Error migrating image cache: %@", error);
             }
             [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:YES];
-            completion();
+            dispatch_async(dispatch_get_main_queue(), completion);
         });
     } else {
         completion();
