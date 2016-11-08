@@ -66,7 +66,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
-@property (nonatomic, strong, nullable) id<WMFDataSource> sectionDataSource;
+@property (nonatomic, strong, null_resettable) id<WMFDataSource> sectionDataSource;
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
@@ -143,6 +143,14 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                                            action:@selector(didTapSettingsButton:)];
 }
 
+- (id<WMFDataSource>)sectionDataSource {
+    if (!_sectionDataSource) {
+        _sectionDataSource = [self.internalContentStore contentGroupDataSource];
+        _sectionDataSource.granularDelegateCallbacksEnabled = NO;
+    }
+    return _sectionDataSource;
+}
+
 - (WMFContentGroupDataStore *)internalContentStore {
     if (_internalContentStore == nil) {
         _internalContentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
@@ -216,12 +224,15 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [group waitInBackgroundWithTimeout:12
                             completion:^{
                                 [self resetRefreshControl];
-                                [self.internalContentStore syncDataStoreToDatabase];
+                                [self updateFeedWithLatestDatabaseContent];
                             }];
 }
 
 - (void)updateFeedWithLatestDatabaseContent {
+    self.sectionDataSource.delegate = nil;
+    self.sectionDataSource = nil;
     [self.internalContentStore syncDataStoreToDatabase];
+    self.sectionDataSource.delegate = self;
 }
 
 #pragma mark - Section Access
@@ -469,16 +480,8 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                            forControlEvents:UIControlEventValueChanged];
     [self resetRefreshControl];
 
-    [self setupDataSource];
-}
-
-- (void)setupDataSource {
-    if (!self.sectionDataSource) {
-        self.sectionDataSource = [self.internalContentStore contentGroupDataSource];
-        self.sectionDataSource.granularDelegateCallbacksEnabled = NO;
-        self.sectionDataSource.delegate = self;
-        [self.collectionView reloadData];
-    }
+    self.sectionDataSource.delegate = self;
+    [self.collectionView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -711,11 +714,21 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                                             handler:^(UIAlertAction *_Nonnull action) {
                                                 [self.userStore.blackList addBlackListArticleURL:url];
                                                 [self.userStore notifyWhenWriteTransactionsComplete:^{
-                                                    NSUInteger index = [self indexForSection:section];
-                                                    self.sectionDataSource.delegate = nil;
-                                                    [self updateFeedWithLatestDatabaseContent];
-                                                    [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:index]];
-                                                    self.sectionDataSource.delegate = self;
+                                                    [self.contentStore notifyWhenWriteTransactionsComplete:^{
+                                                        NSUInteger index = [self indexForSection:section];
+
+                                                        [self.collectionView performBatchUpdates:^{
+
+                                                            [self updateFeedWithLatestDatabaseContent];
+                                                            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:index]];
+
+                                                        }
+                                                            completion:^(BOOL finished) {
+                                                                self.sectionDataSource.delegate = self;
+                                                                [self.collectionView reloadData];
+                                                            }];
+
+                                                    }];
                                                 }];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
