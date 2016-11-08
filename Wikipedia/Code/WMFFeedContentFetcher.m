@@ -30,7 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableIndexSet* set = [self.operationManager.responseSerializer.acceptableStatusCodes mutableCopy];
     if(enabled){
         [set addIndex:304];
-
     }else{
         [set removeIndex:304];
     }

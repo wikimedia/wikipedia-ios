@@ -72,38 +72,43 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
     NSDate *date = [NSDate date];
-    [self loadContentForDate:date completion:completion];
+    [self loadContentForDate:date force:force completion:completion];
 }
 
-- (void)loadContentFromDate:(NSDate *)fromDate forwardForDays:(NSInteger)days completion:(nullable dispatch_block_t)completion {
-    if (days <= 0) {
+- (void)preloadContentForNumberOfDays:(NSInteger)days force:(BOOL)force completion:(nullable dispatch_block_t)completion {
+    if (days < 1) {
         if (completion) {
             completion();
         }
         return;
     }
-    [self loadContentForDate:fromDate
-                  completion:^{
-                      NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
-                      NSDate *updatedFromDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:fromDate options:NSCalendarMatchStrictly];
-                      [self loadContentFromDate:updatedFromDate forwardForDays:days - 1 completion:completion];
-                  }];
-}
-
-- (void)preloadContentForNumberOfDays:(NSInteger)days completion:(nullable dispatch_block_t)completion {
-    NSDate *date = [NSDate date];
+    
+    NSDate *now = [NSDate date];
+    
     NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
-    NSDate *fromDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:-days toDate:date options:NSCalendarMatchStrictly];
-    [self loadContentFromDate:fromDate forwardForDays:days completion:completion];
+ 
+    WMFTaskGroup *group = [WMFTaskGroup new];
+    
+    for (NSUInteger i = 0; i < days; i++) {
+        [group enter];
+        NSDate *date = [calendar dateByAddingUnit:NSCalendarUnitDay value:-i toDate:now options:NSCalendarMatchStrictly];
+        [self loadContentForDate:date
+                           force:force
+                      completion:^{
+                          [group leave];
+                      }];
+    }
+    
+    [group waitInBackgroundWithCompletion:completion];
 }
 
-- (void)loadContentForDate:(NSDate *)date completion:(nullable dispatch_block_t)completion {
+- (void)loadContentForDate:(NSDate *)date force:(BOOL)force completion:(nullable dispatch_block_t)completion {
 
     [self cleanupBadTopReadSections];
 
     [self.fetcher fetchFeedContentForURL:self.siteURL
         date:date
-        force:NO
+        force:force
         failure:^(NSError *_Nonnull error) {
             if (completion) {
                 completion();
