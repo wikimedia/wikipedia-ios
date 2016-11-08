@@ -532,9 +532,6 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     return dateUTC;
 }
 
-- (void)clearCache:(nonnull dispatch_block_t)completion {
-    [self.fetcher clearCache:completion];
-}
 @end
 
 NS_ASSUME_NONNULL_END

@@ -30,7 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableIndexSet* set = [self.operationManager.responseSerializer.acceptableStatusCodes mutableCopy];
     if(enabled){
         [set addIndex:304];
-
     }else{
         [set removeIndex:304];
     }
@@ -137,33 +136,6 @@ NS_ASSUME_NONNULL_BEGIN
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
             failure(error);
         }];
-}
-
-- (void)clearCache:(nonnull dispatch_block_t)completion {
-    NSURLSession *serializedSession = self.operationManager.session;
-    NSURLSession *unserializedSession = self.unserializedOperationManager.session;
-    if (!serializedSession && !unserializedSession) {
-        completion();
-        return;
-    }
-    
-    WMFTaskGroup *group = [WMFTaskGroup new];
-    
-    if (serializedSession) {
-        [group enter];
-        [serializedSession resetWithCompletionHandler:^{
-            [group leave];
-        }];
-    }
-    
-    if (unserializedSession) {
-        [group enter];
-        [unserializedSession resetWithCompletionHandler:^{
-            [group leave];
-        }];
-    }
-    
-    [group waitInBackgroundWithCompletion:completion];
 }
 
 @end
