@@ -84,6 +84,7 @@ PODS:
   - PromiseKit/UIKit (3.5.0):
     - PromiseKit/CorePromise
   - Quick (0.9.3)
+  - Reachability (3.2)
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
@@ -95,54 +96,55 @@ PODS:
   - TUSafariActivity (1.0.4)
   - Tweaks (2.0.0)
   - VTAcknowledgementsViewController (1.1)
-  - YapDatabase (2.9.3):
-    - YapDatabase/Standard (= 2.9.3)
-  - YapDatabase/Standard (2.9.3):
-    - YapDatabase/Standard/Core (= 2.9.3)
-    - YapDatabase/Standard/Extensions (= 2.9.3)
-  - YapDatabase/Standard/Core (2.9.3):
+  - YapDatabase (2.9.2):
+    - YapDatabase/Standard (= 2.9.2)
+  - YapDatabase/Standard (2.9.2):
+    - YapDatabase/Standard/Core (= 2.9.2)
+    - YapDatabase/Standard/Extensions (= 2.9.2)
+  - YapDatabase/Standard/Core (2.9.2):
     - CocoaLumberjack (~> 2)
-  - YapDatabase/Standard/Extensions (2.9.3):
+  - YapDatabase/Standard/Extensions (2.9.2):
     - YapDatabase/Standard/Core
-    - YapDatabase/Standard/Extensions/ActionManager (= 2.9.3)
-    - YapDatabase/Standard/Extensions/CloudKit (= 2.9.3)
-    - YapDatabase/Standard/Extensions/ConnectionProxy (= 2.9.3)
-    - YapDatabase/Standard/Extensions/CrossProcessNotification (= 2.9.3)
-    - YapDatabase/Standard/Extensions/FilteredViews (= 2.9.3)
-    - YapDatabase/Standard/Extensions/FullTextSearch (= 2.9.3)
-    - YapDatabase/Standard/Extensions/Hooks (= 2.9.3)
-    - YapDatabase/Standard/Extensions/Relationships (= 2.9.3)
-    - YapDatabase/Standard/Extensions/RTreeIndex (= 2.9.3)
-    - YapDatabase/Standard/Extensions/SearchResults (= 2.9.3)
-    - YapDatabase/Standard/Extensions/SecondaryIndex (= 2.9.3)
-    - YapDatabase/Standard/Extensions/Views (= 2.9.3)
-  - YapDatabase/Standard/Extensions/ActionManager (2.9.3):
-    - YapDatabase/Standard/Core
-    - YapDatabase/Standard/Extensions/Views
-  - YapDatabase/Standard/Extensions/CloudKit (2.9.3):
-    - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/ConnectionProxy (2.9.3):
-    - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/CrossProcessNotification (2.9.3):
-    - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/FilteredViews (2.9.3):
+    - YapDatabase/Standard/Extensions/ActionManager (= 2.9.2)
+    - YapDatabase/Standard/Extensions/CloudKit (= 2.9.2)
+    - YapDatabase/Standard/Extensions/ConnectionProxy (= 2.9.2)
+    - YapDatabase/Standard/Extensions/CrossProcessNotification (= 2.9.2)
+    - YapDatabase/Standard/Extensions/FilteredViews (= 2.9.2)
+    - YapDatabase/Standard/Extensions/FullTextSearch (= 2.9.2)
+    - YapDatabase/Standard/Extensions/Hooks (= 2.9.2)
+    - YapDatabase/Standard/Extensions/Relationships (= 2.9.2)
+    - YapDatabase/Standard/Extensions/RTreeIndex (= 2.9.2)
+    - YapDatabase/Standard/Extensions/SearchResults (= 2.9.2)
+    - YapDatabase/Standard/Extensions/SecondaryIndex (= 2.9.2)
+    - YapDatabase/Standard/Extensions/Views (= 2.9.2)
+  - YapDatabase/Standard/Extensions/ActionManager (2.9.2):
+    - Reachability (~> 3)
     - YapDatabase/Standard/Core
     - YapDatabase/Standard/Extensions/Views
-  - YapDatabase/Standard/Extensions/FullTextSearch (2.9.3):
+  - YapDatabase/Standard/Extensions/CloudKit (2.9.2):
     - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/Hooks (2.9.3):
+  - YapDatabase/Standard/Extensions/ConnectionProxy (2.9.2):
     - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/Relationships (2.9.3):
+  - YapDatabase/Standard/Extensions/CrossProcessNotification (2.9.2):
     - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/RTreeIndex (2.9.3):
+  - YapDatabase/Standard/Extensions/FilteredViews (2.9.2):
     - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/SearchResults (2.9.3):
+    - YapDatabase/Standard/Extensions/Views
+  - YapDatabase/Standard/Extensions/FullTextSearch (2.9.2):
+    - YapDatabase/Standard/Core
+  - YapDatabase/Standard/Extensions/Hooks (2.9.2):
+    - YapDatabase/Standard/Core
+  - YapDatabase/Standard/Extensions/Relationships (2.9.2):
+    - YapDatabase/Standard/Core
+  - YapDatabase/Standard/Extensions/RTreeIndex (2.9.2):
+    - YapDatabase/Standard/Core
+  - YapDatabase/Standard/Extensions/SearchResults (2.9.2):
     - YapDatabase/Standard/Core
     - YapDatabase/Standard/Extensions/FullTextSearch
     - YapDatabase/Standard/Extensions/Views
-  - YapDatabase/Standard/Extensions/SecondaryIndex (2.9.3):
+  - YapDatabase/Standard/Extensions/SecondaryIndex (2.9.2):
     - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/Views (2.9.3):
+  - YapDatabase/Standard/Extensions/Views (2.9.2):
     - YapDatabase/Standard/Core
 
 DEPENDENCIES:
@@ -174,7 +176,7 @@ DEPENDENCIES:
   - TUSafariActivity
   - Tweaks (from `https://github.com/facebook/Tweaks.git`)
   - VTAcknowledgementsViewController
-  - YapDatabase (from `git@github.com:wikimedia/YapDatabase.git`)
+  - YapDatabase
 
 EXTERNAL SOURCES:
   AFNetworking:
@@ -196,8 +198,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/wikimedia/TSMessages.git
   Tweaks:
     :git: https://github.com/facebook/Tweaks.git
-  YapDatabase:
-    :git: git@github.com:wikimedia/YapDatabase.git
 
 CHECKOUT OPTIONS:
   AFNetworking:
@@ -224,9 +224,6 @@ CHECKOUT OPTIONS:
   Tweaks:
     :commit: 28d3efedceb1af9be8ca50da6e435814fba667c5
     :git: https://github.com/facebook/Tweaks.git
-  YapDatabase:
-    :commit: 2b8beff2f952771b7a3a3f29f5ef8ba5b15a1a3f
-    :git: git@github.com:wikimedia/YapDatabase.git
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -253,6 +250,7 @@ SPEC CHECKSUMS:
   PiwikTracker: 7147287d30a3192289bef9cddb2b5342d67dae43
   PromiseKit: 3a8a529c0571f8c2c423dba0897ff39bc060bf92
   Quick: 13a2a2b19a5d8e3ed4fd0c36ee46597fd77ebf71
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
   SWStepSlider: a714a255526dbba7c6290d67ea7226ba8724b56c
@@ -260,8 +258,8 @@ SPEC CHECKSUMS:
   TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
   VTAcknowledgementsViewController: 44da49d57a1dbf414e653688793a130d24af151e
-  YapDatabase: 07a2439595d04068f37546be0d3484c2a426b173
+  YapDatabase: b1e43555a34a5298e23a045be96817a5ef0da58f
 
-PODFILE CHECKSUM: 19d03a983b61d7acca494aafb1b50c1fc4c9af64
+PODFILE CHECKSUM: 1c5d52b75b7ed2cf358c054294ab40046a59f50e
 
 COCOAPODS: 1.1.1

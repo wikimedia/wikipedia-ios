@@ -180,8 +180,8 @@ NS_ASSUME_NONNULL_BEGIN
  * @param sourceCollection (optional)
  *   The edge.sourceCollection to match.
  * 
- * @param destinationFileURL (optional)
- *   The edge.destinationFileURL to match.
+ * @param destinationFilePath (optional)
+ *   The edge.destinationFilePath to match.
  *
  * If you pass a non-nil sourceKey, and sourceCollection is nil,
  * then the sourceCollection is treated as the empty string, just like the rest of the YapDatabase framework.
@@ -311,10 +311,10 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * - name only
  * - sourceKey & sourceCollection only
- * - destinationFileURL
+ * - destinationFilePath
  * - name + sourceKey & sourceCollection
- * - name + destinationFileURL
- * - name + sourceKey & sourceCollection + destinationFileURL
+ * - name + destinationFilePath
+ * - name + sourceKey & sourceCollection + destinationFilePath
  *
  * @param name (optional)
  *   The name of the edge (case sensitive).

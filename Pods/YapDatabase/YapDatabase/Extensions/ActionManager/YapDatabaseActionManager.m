@@ -7,6 +7,7 @@
 #import "NSDate+YapDatabase.h"
 
 #import <libkern/OSAtomic.h>
+#import <Reachability/Reachability.h>
 
 /**
  * Define log level for this file: OFF, ERROR, WARN, INFO, VERBOSE
@@ -21,38 +22,22 @@
 
 
 @interface YapDatabaseActionManager ()
-
-@property (nonatomic, weak, readwrite) YapDatabaseConnection *weakDbConnection;
-@property (atomic, strong, readwrite) YapDatabaseConnection *strongDbConnection;
-
 @property (atomic, assign, readwrite) BOOL hasInternet;
-
 @end
 
 @implementation YapDatabaseActionManager
 {
-	BOOL useWeakDbConnection;
+	YapDatabaseConnection *databaseConnection;
 	
 	NSMutableDictionary *actionItemsDict;
 	
 	dispatch_source_t timer;
 	dispatch_queue_t timerQueue;
 	BOOL timerSuspended;
-	
-	NSUInteger suspendCount;
-	OSSpinLock suspendCountLock;
 }
 
-@synthesize weakDbConnection = weakDbConnection;
-@synthesize strongDbConnection = _mustGoThroughAtomicProperty_strongDbConnection;
-
-#if !TARGET_OS_WATCH
 @synthesize reachability = _mustGoThroughAtomicProperty_reachability;
-#endif
 @synthesize hasInternet = _mustGoThroughAtomicGetter_hasInternet;
-
-@dynamic isSuspended;
-@dynamic suspendCount;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark Invalid
@@ -81,15 +66,10 @@
 
 - (instancetype)init
 {
-	return [self initWithConnection:nil options:nil];
+	return [self initWithOptions:nil];
 }
 
-- (instancetype)initWithConnection:(YapDatabaseConnection *)inConnection
-{
-	return [self initWithConnection:inConnection options:nil];
-}
-
-- (instancetype)initWithConnection:(YapDatabaseConnection *)inConnection options:(YapDatabaseViewOptions *)inOptions
+- (instancetype)initWithOptions:(YapDatabaseViewOptions *)inOptions
 {
 	// Create and configure view
 	
@@ -109,17 +89,9 @@
 		return NSOrderedSame;
 	}];
 	
-	// Create instance
-	
 	if ((self = [super initWithGrouping:groupingStub sorting:sortingStub versionTag:nil options:inOptions]))
 	{
-		self.weakDbConnection = inConnection;
-		useWeakDbConnection = (inConnection != nil);
-		
 		actionItemsDict = [[NSMutableDictionary alloc] init];
-		
-		suspendCount = 0;
-		suspendCountLock = OS_SPINLOCK_INIT;
 	}
 	return self;
 }
@@ -241,13 +213,10 @@
 **/
 - (void)didRegisterExtension
 {
-#if TARGET_OS_WATCH
-	self.hasInternet = YES;
-#else
-	YapReachability *reachability = self.reachability;
+	Reachability *reachability = self.reachability;
 	if (reachability == nil)
 	{
-		reachability = [YapReachability reachabilityForInternetConnection];
+		reachability = [Reachability reachabilityForInternetConnection];
 		self.reachability = reachability;
 	}
 	
@@ -256,9 +225,8 @@
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
 	                                         selector:@selector(reachabilityChanged:)
-	                                             name:kYapReachabilityChangedNotification
+	                                             name:kReachabilityChangedNotification
 	                                           object:reachability];
-#endif
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
 	                                         selector:@selector(databaseModified:)
@@ -267,119 +235,14 @@
 	
 	// We're all ready to go.
 	// Start the engine !
-	
-	[self startIfPossible];
-}
-
-- (void)startIfPossible
-{
-	// self.registeredName is set just before `didRegisterExtension` is called.
-	BOOL isNotRegistered = (self.registeredName == nil);
-	
-	if (self.isSuspended || isNotRegistered) {
-		return;
-	}
-	
-	if (!useWeakDbConnection) {
-		self.strongDbConnection = [self.registeredDatabase newConnection];
-	}
+	//
+	databaseConnection = [self.registeredDatabase newConnection];
 	[self checkForActions_init];
 }
 
 - (YapDatabaseExtensionConnection *)newConnection:(YapDatabaseConnection *)connection
 {
 	return [[YapDatabaseActionManagerConnection alloc] initWithView:self databaseConnection:connection];
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark Suspend & Resume
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-- (BOOL)isSuspended
-{
-	return ([self suspendCount] > 0);
-}
-
-- (NSUInteger)suspendCount
-{
-	NSUInteger currentSuspendCount = 0;
-	
-	OSSpinLockLock(&suspendCountLock);
-	{
-		currentSuspendCount = suspendCount;
-	}
-	OSSpinLockUnlock(&suspendCountLock);
-	
-	return currentSuspendCount;
-}
-
-- (NSUInteger)suspend
-{
-	return [self suspendWithCount:1];
-}
-
-- (NSUInteger)suspendWithCount:(NSUInteger)suspendCountIncrement
-{
-	BOOL overflow = NO;
-	NSUInteger oldSuspendCount = 0;
-	NSUInteger newSuspendCount = 0;
-	
-	OSSpinLockLock(&suspendCountLock);
-	{
-		oldSuspendCount = suspendCount;
-		
-		if (suspendCount <= (NSUIntegerMax - suspendCountIncrement))
-			suspendCount += suspendCountIncrement;
-		else {
-			suspendCount = NSUIntegerMax;
-			overflow = YES;
-		}
-		
-		newSuspendCount = suspendCount;
-	}
-	OSSpinLockUnlock(&suspendCountLock);
-	
-	if (overflow) {
-		YDBLogWarn(@"%@ - The suspendCount has reached NSUIntegerMax!", THIS_METHOD);
-	}
-	
-	if ((oldSuspendCount == 0) && (newSuspendCount > 0))
-	{
-		self.strongDbConnection = nil;
-	}
-	
-	return newSuspendCount;
-}
-
-- (NSUInteger)resume
-{
-	BOOL underflow = 0;
-	NSUInteger oldSuspendCount = 0;
-	NSUInteger newSuspendCount = 0;
-	
-	OSSpinLockLock(&suspendCountLock);
-	{
-		oldSuspendCount = suspendCount;
-		
-		if (suspendCount > 0)
-			suspendCount--;
-		else
-			underflow = YES;
-		
-		newSuspendCount = suspendCount;
-	}
-	OSSpinLockUnlock(&suspendCountLock);
-	
-	if (underflow) {
-		YDBLogWarn(@"%@ - Attempting to resume with suspendCount already at zero.", THIS_METHOD);
-	}
-	
-	if ((oldSuspendCount > 0) && (newSuspendCount == 0))
-	{
-		[self startIfPossible];
-	}
-	
-	return newSuspendCount;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -391,9 +254,9 @@
 	// We can check to see if the changes had any impact on our views.
 	// If not we can skip the unnecessary processing.
 	
-	YapDatabaseConnection *databaseConnection = useWeakDbConnection ? self.weakDbConnection : self.strongDbConnection;
+	NSString *viewName = self.registeredName;
 	
-	if ([[databaseConnection ext:self.registeredName] hasChangesForNotifications:@[ notification ]])
+	if ([[databaseConnection ext:viewName] hasChangesForNotifications:@[ notification ]])
 	{
 		[self checkForActions_databaseModified:notification];
 	}
@@ -401,13 +264,11 @@
 
 - (void)reachabilityChanged:(NSNotification *)notification
 {
-#if !TARGET_OS_WATCH
-	YapReachability *reachability = self.reachability;
+	Reachability *reachability = self.reachability;
 	if (reachability)
 		self.hasInternet = reachability.isReachable;
 	else
 		self.hasInternet = YES; // safety net
-#endif
 	
 	if (notification) {
 		[self checkForActions_reachabilityChanged];
@@ -425,12 +286,6 @@
 {
 	YDBLogAutoTrace();
 	
-	if (self.isSuspended) {
-		return;
-	}
-	
-	YapDatabaseConnection *databaseConnection = useWeakDbConnection ? self.weakDbConnection : self.strongDbConnection;
-	
 	[databaseConnection asyncReadWithBlock:^(YapDatabaseReadTransaction *transaction) {
 		
 		[self updateActionItemsDictWithTransaction:transaction databaseModifiedNotification:nil];
@@ -445,12 +300,6 @@
 - (void)checkForActions_timerFire
 {
 	YDBLogAutoTrace();
-	
-	if (self.isSuspended) {
-		return;
-	}
-	
-	YapDatabaseConnection *databaseConnection = useWeakDbConnection ? self.weakDbConnection : self.strongDbConnection;
 	
 	[databaseConnection asyncReadWithBlock:^(YapDatabaseReadTransaction *transaction) {
 		
@@ -469,12 +318,6 @@
 {
 	YDBLogAutoTrace();
 	
-	if (self.isSuspended) {
-		return;
-	}
-	
-	YapDatabaseConnection *databaseConnection = useWeakDbConnection ? self.weakDbConnection : self.strongDbConnection;
-	
 	[databaseConnection asyncReadWithBlock:^(YapDatabaseReadTransaction *transaction) {
 		
 		// If it's just a reachability change, then there's no need to check the database.
@@ -486,12 +329,6 @@
 - (void)checkForActions_databaseModified:(NSNotification *)notification
 {
 	YDBLogAutoTrace();
-	
-	if (self.isSuspended) {
-		return;
-	}
-	
-	YapDatabaseConnection *databaseConnection = useWeakDbConnection ? self.weakDbConnection : self.strongDbConnection;
 	
 	[databaseConnection asyncReadWithBlock:^(YapDatabaseReadTransaction *transaction) {
 		
@@ -543,7 +380,7 @@
 			}
 			else
 			{
-				if ([transaction.connection hasChangeForKey:key inCollection:collection inNotifications:dbNotifications])
+				if ([databaseConnection hasChangeForKey:key inCollection:collection inNotifications:dbNotifications])
 					return YES; // process row
 				else
 					return NO;  // skip row (no need to process since it hasn't changed)
