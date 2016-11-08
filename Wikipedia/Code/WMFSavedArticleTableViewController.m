@@ -62,7 +62,6 @@
 - (void)setupDataSource {
     if (!self.dataSource) {
         self.dataSource = [self.userDataStore savedDataSource];
-        self.dataSource.granularDelegateCallbacksEnabled = YES;
         self.dataSource.delegate = self;
         [self.tableView reloadData];
         [self updateEmptyAndDeleteState];

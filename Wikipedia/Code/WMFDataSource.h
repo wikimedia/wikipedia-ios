@@ -9,8 +9,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<WMFDataSourceDelegate> delegate;
 
-@property (nonatomic, getter=areGranularDelegateCallbacksEnabled) BOOL granularDelegateCallbacksEnabled; //determines whether or not the data source will call the optional WMFDataSourceDelegate methods that notify the delagate of indvidual changes.
-
 - (NSInteger)numberOfItems;
 
 - (NSInteger)numberOfSections;
