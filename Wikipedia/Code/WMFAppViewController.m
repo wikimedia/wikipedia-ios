@@ -493,7 +493,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     }];
 
     [group waitInBackgroundWithCompletion:^{
-        [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
         if (completion) {
             completion();
         }
