@@ -33,12 +33,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Load old content into the DB if possible
  */
-- (void)preloadContentForNumberOfDays:(NSInteger)days completion:(nullable dispatch_block_t)completion;
+- (void)preloadContentForNumberOfDays:(NSInteger)days force:(BOOL)force completion:(nullable dispatch_block_t)completion;
 
 /**
  * Load content for a specific date into the DB
  */
-- (void)loadContentForDate:(NSDate *)date completion:(nullable dispatch_block_t)completion;
+- (void)loadContentForDate:(NSDate *)date force:(BOOL)force completion:(nullable dispatch_block_t)completion;
 
 @end
 

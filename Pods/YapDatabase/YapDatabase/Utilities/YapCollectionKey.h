@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isEqualToCollectionKey:(YapCollectionKey *)collectionKey;
 
 // These methods are overriden and optimized:
-- (BOOL)isEqual:(nullable id)anObject;
+- (BOOL)isEqual:(id)anObject;
 - (NSUInteger)hash;
 
 // C versions for low-level optimizations:

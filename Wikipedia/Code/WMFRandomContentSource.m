@@ -50,16 +50,17 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    [self loadContentForDate:[NSDate date] completion:completion];
+    [self loadContentForDate:[NSDate date] force:force completion:completion];
 }
 
-- (void)preloadContentForNumberOfDays:(NSInteger)days completion:(nullable dispatch_block_t)completion {
+- (void)preloadContentForNumberOfDays:(NSInteger)days force:(BOOL)force completion:(nullable dispatch_block_t)completion {
     NSDate *dateToLoad = [[NSDate date] dateByAddingDays:-days];
     [self loadContentForDate:dateToLoad
+                       force:force
                   completion:^{
                       NSInteger numberOfDays = days - 1;
                       if (numberOfDays > 0) {
-                          [self preloadContentForNumberOfDays:numberOfDays completion:completion];
+                          [self preloadContentForNumberOfDays:numberOfDays force:force completion:completion];
                       } else {
                           if (completion) {
                               completion();
@@ -68,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
                   }];
 }
 
-- (void)loadContentForDate:(NSDate *)date completion:(nullable dispatch_block_t)completion {
+- (void)loadContentForDate:(NSDate *)date force:(BOOL)force completion:(nullable dispatch_block_t)completion {
 
     WMFRandomContentGroup *random = [self randomForDate:date];
 

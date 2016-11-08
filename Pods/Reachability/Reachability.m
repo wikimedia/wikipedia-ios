@@ -1,20 +1,3 @@
-/**
- * This file is copied from a separate project:
- * https://github.com/tonymillion/Reachability
- *
- * Unfortunately, the Podspec for this project hasn't been updated for tvOS & watchOS.
- * However, the source code itself works just fine.
- * So we're simply including the code directly for now.
- *
- * We may revert to the official project if its Podspec is updated.
- * Or switch to another if a suitable alternative open-source project is found.
-**/
-
-#import <Availability.h>
-#import <TargetConditionals.h>
-
-#if !TARGET_OS_WATCH
-
 /*
  Copyright (c) 2011, Tony Million.
  All rights reserved.
@@ -42,7 +25,7 @@
  POSSIBILITY OF SUCH DAMAGE. 
  */
 
-#import "YapReachability.h"
+#import "Reachability.h"
 
 #import <sys/socket.h>
 #import <netinet/in.h>
@@ -52,10 +35,10 @@
 #import <netdb.h>
 
 
-NSString *const kYapReachabilityChangedNotification = @"kYapReachabilityChangedNotification";
+NSString *const kReachabilityChangedNotification = @"kReachabilityChangedNotification";
 
 
-@interface YapReachability ()
+@interface Reachability ()
 
 @property (nonatomic, assign) SCNetworkReachabilityRef  reachabilityRef;
 @property (nonatomic, strong) dispatch_queue_t          reachabilitySerialQueue;
@@ -90,7 +73,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 {
 #pragma unused (target)
 
-    YapReachability *reachability = ((__bridge YapReachability*)info);
+    Reachability *reachability = ((__bridge Reachability*)info);
 
     // We probably don't need an autoreleasepool here, as GCD docs state each queue has its own autorelease pool,
     // but what the heck eh?
@@ -101,16 +84,16 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 }
 
 
-@implementation YapReachability
+@implementation Reachability
 
 #pragma mark - Class Constructor Methods
 
-+(YapReachability*)reachabilityWithHostName:(NSString*)hostname
++(Reachability*)reachabilityWithHostName:(NSString*)hostname
 {
-    return [YapReachability reachabilityWithHostname:hostname];
+    return [Reachability reachabilityWithHostname:hostname];
 }
 
-+(YapReachability*)reachabilityWithHostname:(NSString*)hostname
++(Reachability*)reachabilityWithHostname:(NSString*)hostname
 {
     SCNetworkReachabilityRef ref = SCNetworkReachabilityCreateWithName(NULL, [hostname UTF8String]);
     if (ref) 
@@ -123,7 +106,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     return nil;
 }
 
-+(YapReachability *)reachabilityWithAddress:(void *)hostAddress
++(Reachability *)reachabilityWithAddress:(void *)hostAddress
 {
     SCNetworkReachabilityRef ref = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr*)hostAddress);
     if (ref) 
@@ -136,7 +119,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     return nil;
 }
 
-+(YapReachability *)reachabilityForInternetConnection
++(Reachability *)reachabilityForInternetConnection 
 {   
     struct sockaddr_in zeroAddress;
     bzero(&zeroAddress, sizeof(zeroAddress));
@@ -146,7 +129,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     return [self reachabilityWithAddress:&zeroAddress];
 }
 
-+(YapReachability*)reachabilityForLocalWiFi
++(Reachability*)reachabilityForLocalWiFi
 {
     struct sockaddr_in localWifiAddress;
     bzero(&localWifiAddress, sizeof(localWifiAddress));
@@ -161,7 +144,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 
 // Initialization methods
 
--(YapReachability *)initWithReachabilityRef:(SCNetworkReachabilityRef)ref
+-(Reachability *)initWithReachabilityRef:(SCNetworkReachabilityRef)ref 
 {
     self = [super init];
     if (self != nil) 
@@ -399,19 +382,19 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 
 #pragma mark - reachability status stuff
 
--(YapReachabilityStatus)currentReachabilityStatus
+-(NetworkStatus)currentReachabilityStatus
 {
     if([self isReachable])
     {
         if([self isReachableViaWiFi])
-            return YapReachabilityStatus_ReachableViaWiFi;
+            return ReachableViaWiFi;
         
 #if	TARGET_OS_IPHONE
-        return YapReachabilityStatus_ReachableViaWWAN;
+        return ReachableViaWWAN;
 #endif
     }
     
-    return YapReachabilityStatus_NotReachable;
+    return NotReachable;
 }
 
 -(SCNetworkReachabilityFlags)reachabilityFlags
@@ -428,14 +411,14 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 
 -(NSString*)currentReachabilityString
 {
-	YapReachabilityStatus temp = [self currentReachabilityStatus];
+	NetworkStatus temp = [self currentReachabilityStatus];
 	
-	if(temp == YapReachabilityStatus_ReachableViaWWAN)
+	if(temp == ReachableViaWWAN)
 	{
         // Updated for the fact that we have CDMA phones now!
 		return NSLocalizedString(@"Cellular", @"");
 	}
-	if (temp == YapReachabilityStatus_ReachableViaWiFi) 
+	if (temp == ReachableViaWiFi) 
 	{
 		return NSLocalizedString(@"WiFi", @"");
 	}
@@ -469,7 +452,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     
     // this makes sure the change notification happens on the MAIN THREAD
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:kYapReachabilityChangedNotification
+        [[NSNotificationCenter defaultCenter] postNotificationName:kReachabilityChangedNotification 
                                                             object:self];
     });
 }
@@ -484,5 +467,3 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 }
 
 @end
-
-#endif

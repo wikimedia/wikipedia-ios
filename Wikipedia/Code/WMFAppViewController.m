@@ -212,6 +212,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
+    if (![self uiIsLoaded]) {
+        return;
+    }
     self.notificationsController.applicationActive = YES;
     [self.dataStore syncDataStoreToDatabase];
     [self.previewStore syncDataStoreToDatabase];
@@ -225,11 +228,17 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)appWillResignActiveWithNotification:(NSNotification *)note {
+    if (![self uiIsLoaded]) {
+        return;
+    }
     self.notificationsController.applicationActive = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKTeardownDataSourcesNotification object:nil];
 }
 
 - (void)appDidEnterBackgroundWithNotification:(NSNotification *)note {
+    if (![self uiIsLoaded]) {
+        return;
+    }
     [self startBackgroundTask];
     dispatch_async(dispatch_get_main_queue(), ^{
 #if FB_TWEAK_ENABLED
@@ -310,15 +319,15 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [fm removeItemAtPath:[SDImageCache wmf_imageCacheDirectory] error:nil];
     [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:NO];
 #endif
-
+    
     [self migrateToSharedContainerIfNecessaryWithCompletion:^{
         [self migrateToNewFeedIfNecessaryWithCompletion:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self finishLaunch];
-            });
+            [self finishLaunch];
         }];
     }];
 }
+
+
 
 - (void)migrateToSharedContainerIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
     if (![[NSUserDefaults wmf_userDefaults] wmf_didMigrateToSharedContainer]) {
@@ -331,8 +340,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             if (![SDImageCache migrateToSharedContainer:&error]) {
                 DDLogError(@"Error migrating image cache: %@", error);
             }
-            [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:YES];
-            completion();
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:YES];
+                completion();
+            });
         });
     } else {
         completion();
@@ -340,17 +351,27 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)migrateToNewFeedIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
+    YapDatabase *db = [YapDatabase sharedInstance];
     if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToNewFeed]) {
+        [YapDatabase wmf_registerViewsInDatabase:db];
+        self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
+        self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
         completion();
     } else {
-        YapDatabaseConnection *conn = [[YapDatabase sharedInstance] wmf_newWriteConnection];
+        YapDatabaseConnection *conn = [db wmf_newWriteConnection];
         [conn asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
             [transaction removeAllObjectsInCollection:[WMFContentGroup databaseCollectionName]];
         }
             completionQueue:dispatch_get_main_queue()
             completionBlock:^{
-                [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
-                completion();
+                [YapDatabase wmf_registerViewsInDatabase:db];
+                self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
+                self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
+                [self preloadContentSourcesForced:YES
+                                       completion:^{
+                                           [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
+                                           completion();
+                                       }];
             }];
     }
 }
@@ -359,16 +380,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     @weakify(self)
         [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
             @strongify(self)
-                self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
-            self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
-
-            [self preloadContentSourcesIfNeededWithCompletion:^{
                 [self loadMainUI];
-                [self hideSplashViewAnimated:!didShowOnboarding];
-                [self resumeApp];
-                [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
-            }];
-
+            [self hideSplashViewAnimated:!didShowOnboarding];
+            [self resumeApp];
+            [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
         }];
 }
 
@@ -479,25 +494,22 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 #pragma mark - Content Sources
 
-- (void)preloadContentSourcesIfNeededWithCompletion:(void (^)(void))completion {
+
+- (void)preloadContentSourcesForced:(BOOL)force completion:(void (^)(void))completion {
     WMFTaskGroup *group = [WMFTaskGroup new];
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
 
         if ([obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
             [group enter];
-            [(id<WMFDateBasedContentSource>)obj preloadContentForNumberOfDays:4
+            [(id<WMFDateBasedContentSource>)obj preloadContentForNumberOfDays:3
+                                                                        force:force
                                                                    completion:^{
                                                                        [group leave];
                                                                    }];
         }
     }];
 
-    [group waitInBackgroundWithCompletion:^{
-        [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
-        if (completion) {
-            completion();
-        }
-    }];
+    [group waitInBackgroundWithCompletion:completion];
 }
 
 - (void)updateFeedSourcesWithCompletion:(dispatch_block_t)completion {
