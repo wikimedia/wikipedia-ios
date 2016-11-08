@@ -212,6 +212,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
+    if (![self uiIsLoaded]) {
+        return;
+    }
     self.notificationsController.applicationActive = YES;
     [self.dataStore syncDataStoreToDatabase];
     [self.previewStore syncDataStoreToDatabase];
