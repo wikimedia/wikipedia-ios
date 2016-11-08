@@ -8,6 +8,7 @@
     static id sharedInstance;
     dispatch_once(&onceToken, ^{
         sharedInstance = [self wmf_databaseWithDefaultConfiguration];
+        [YapDatabase wmf_registerViewsInDatabase:sharedInstance];
     });
     return sharedInstance;
 }

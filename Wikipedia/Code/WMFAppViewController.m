@@ -351,7 +351,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 - (void)migrateToNewFeedIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
     YapDatabase *db = [YapDatabase sharedInstance];
     if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToNewFeed]) {
-        [YapDatabase wmf_registerViewsInDatabase:db];
         self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
         self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
         completion();
@@ -362,7 +361,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         }
             completionQueue:dispatch_get_main_queue()
             completionBlock:^{
-                [YapDatabase wmf_registerViewsInDatabase:db];
                 self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
                 self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
                 [self preloadContentSourcesForced:YES
