@@ -280,8 +280,13 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         __block WMFFeedArticlePreview *semanticFeaturedPreview = nil;
 
         NSString *featuredArticleTitleBasedOnSemanticLookup = [WMFFeedNewsStory semanticFeaturedArticleTitleFromStoryHTML:story.storyHTML];
-        NSURL *featuredArticleURL = [NSURL wmf_URLWithSiteURL:self.siteURL title:featuredArticleTitleBasedOnSemanticLookup fragment:nil];
-        NSString *featuredArticleDabaseKey = [featuredArticleURL wmf_articleDatabaseKey];
+
+        NSString *featuredArticleDabaseKey = nil;
+        if (featuredArticleTitleBasedOnSemanticLookup) {
+            NSURL *featuredArticleURL = [NSURL wmf_URLWithSiteURL:self.siteURL title:featuredArticleTitleBasedOnSemanticLookup fragment:nil];
+            featuredArticleDabaseKey = [featuredArticleURL wmf_articleDatabaseKey];
+        }
+
         [story.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
             NSURL *url = [obj articleURL];
             if (featuredArticleDabaseKey && [[url wmf_articleDatabaseKey] isEqualToString:featuredArticleDabaseKey]) {
