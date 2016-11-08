@@ -311,14 +311,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:NO];
 #endif
 
-    [self migrateToSharedContainerIfNecessaryWithCompletion:^{
-        [self migrateToNewFeedIfNecessaryWithCompletion:^{
-            [self finishLaunch];
-        }];
-    }];
-}
-
-- (void)migrateToSharedContainerIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
     if (![[NSUserDefaults wmf_userDefaults] wmf_didMigrateToSharedContainer]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             NSError *error = nil;
@@ -329,27 +321,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             if (![SDImageCache migrateToSharedContainer:&error]) {
                 DDLogError(@"Error migrating image cache: %@", error);
             }
-            [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:YES];
-            dispatch_async(dispatch_get_main_queue(), completion);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:YES];
+                [self finishLaunch];
+            });
         });
     } else {
-        completion();
-    }
-}
-
-- (void)migrateToNewFeedIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
-    if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToNewFeed]) {
         [self finishLaunch];
-    } else {
-        YapDatabaseConnection *conn = [[YapDatabase sharedInstance] wmf_newWriteConnection];
-        [conn asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
-            [transaction removeAllObjectsInCollection:[WMFContentGroup databaseCollectionName]];
-        }
-            completionQueue:dispatch_get_main_queue()
-            completionBlock:^{
-                [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
-                [self finishLaunch];
-            }];
     }
 }
 
@@ -478,24 +456,39 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 #pragma mark - Content Sources
 
 - (void)preloadContentSourcesIfNeededWithCompletion:(void (^)(void))completion {
-    WMFTaskGroup *group = [WMFTaskGroup new];
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
 
-        if ([obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
-            [group enter];
-            [(id<WMFDateBasedContentSource>)obj preloadContentForNumberOfDays:4
-                                                                   completion:^{
-                                                                       [group leave];
-                                                                   }];
-        }
-    }];
-
-    [group waitInBackgroundWithCompletion:^{
-        [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
+    if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToNewFeed]) {
         if (completion) {
             completion();
         }
-    }];
+    } else {
+        YapDatabaseConnection *conn = [[YapDatabase sharedInstance] wmf_newWriteConnection];
+        [conn readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
+            [transaction removeAllObjectsInCollection:[WMFContentGroup databaseCollectionName]];
+        }];
+
+        [self.contentStore notifyWhenWriteTransactionsComplete:^{
+
+            WMFTaskGroup *group = [WMFTaskGroup new];
+            [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+
+                if ([obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
+                    [group enter];
+                    [(id<WMFDateBasedContentSource>)obj preloadContentForNumberOfDays:4
+                                                                           completion:^{
+                                                                               [group leave];
+                                                                           }];
+                }
+            }];
+
+            [group waitInBackgroundWithCompletion:^{
+                [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
+                if (completion) {
+                    completion();
+                }
+            }];
+        }];
+    }
 }
 
 - (void)updateFeedSourcesWithCompletion:(dispatch_block_t)completion {
