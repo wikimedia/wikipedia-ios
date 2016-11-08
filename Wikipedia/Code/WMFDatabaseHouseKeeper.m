@@ -29,7 +29,7 @@
 
         NSMutableArray *keysToRemove = [NSMutableArray array];
 
-        [transaction enumerateRowsInCollection:[WMFContentGroup databaseCollectionName]
+        [transaction enumerateRowsInCollection:[WMFContentGroup  databaseCollectionName]
                                     usingBlock:^(NSString *_Nonnull key, WMFContentGroup *_Nonnull object, NSArray *_Nullable metadata, BOOL *_Nonnull stop) {
 
                                         if ([object.date isEarlierThanDate:thirtyDays]) {
@@ -46,7 +46,6 @@
     [connection asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
 
         NSMutableArray *keysToRemove = [NSMutableArray array];
-        NSMutableArray *contentKeysToRemove = [NSMutableArray array];
 
         //add keys for all previews
         [transaction enumerateKeysInCollection:[WMFArticlePreview databaseCollectionName]
@@ -63,10 +62,6 @@
         //remove anything not in the content group store
         [transaction enumerateRowsInCollection:[WMFContentGroup databaseCollectionName]
                                     usingBlock:^(NSString *_Nonnull key, WMFContentGroup *_Nonnull object, NSArray *_Nullable metadata, BOOL *_Nonnull stop) {
-                                        if ([key hasPrefix:@"https://content"]) {
-                                            [contentKeysToRemove addObject:key];
-                                            return;
-                                        }
 
                                         //keep any sources of related pages
                                         if ([object isKindOfClass:[WMFRelatedPagesContentGroup class]]) {
@@ -123,7 +118,7 @@
                                         }
 
                                     }];
-        [transaction removeObjectsForKeys:contentKeysToRemove inCollection:[WMFContentGroup databaseCollectionName]];
+
         [transaction removeObjectsForKeys:keysToRemove inCollection:[WMFArticlePreview databaseCollectionName]];
     }];
 
