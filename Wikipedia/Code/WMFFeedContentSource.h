@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory articlePreview:(WMFArticlePreview *)articlePreview force:(BOOL)force;
 
+- (void)clearCache:(nonnull dispatch_block_t)completion;
+
 @end
 
 NS_ASSUME_NONNULL_END

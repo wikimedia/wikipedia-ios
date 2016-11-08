@@ -75,7 +75,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     [self loadContentForDate:date completion:completion];
 }
 
-- (void)loadContentFromDate:(NSDate *)fromDate forwardForDays:(NSInteger)days completion:(nullable dispatch_block_t)completion {
+- (void)loadContentFromDate:(NSDate *)fromDate backwardForDays:(NSInteger)days completion:(nullable dispatch_block_t)completion {
     if (days <= 0) {
         if (completion) {
             completion();
@@ -85,16 +85,14 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     [self loadContentForDate:fromDate
                   completion:^{
                       NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
-                      NSDate *updatedFromDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:fromDate options:NSCalendarMatchStrictly];
-                      [self loadContentFromDate:updatedFromDate forwardForDays:days - 1 completion:completion];
+                      NSDate *updatedFromDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:fromDate options:NSCalendarMatchStrictly];
+                      [self loadContentFromDate:updatedFromDate backwardForDays:days - 1 completion:completion];
                   }];
 }
 
 - (void)preloadContentForNumberOfDays:(NSInteger)days completion:(nullable dispatch_block_t)completion {
     NSDate *date = [NSDate date];
-    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
-    NSDate *fromDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:-days toDate:date options:NSCalendarMatchStrictly];
-    [self loadContentFromDate:fromDate forwardForDays:days completion:completion];
+    [self loadContentFromDate:date backwardForDays:days completion:completion];
 }
 
 - (void)loadContentForDate:(NSDate *)date completion:(nullable dispatch_block_t)completion {
@@ -527,6 +525,9 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     return dateUTC;
 }
 
+- (void)clearCache:(nonnull dispatch_block_t)completion {
+    [self.fetcher clearCache:completion];
+}
 @end
 
 NS_ASSUME_NONNULL_END

@@ -139,6 +139,33 @@ NS_ASSUME_NONNULL_BEGIN
         }];
 }
 
+- (void)clearCache:(nonnull dispatch_block_t)completion {
+    NSURLSession *serializedSession = self.operationManager.session;
+    NSURLSession *unserializedSession = self.unserializedOperationManager.session;
+    if (!serializedSession && !unserializedSession) {
+        completion();
+        return;
+    }
+    
+    WMFTaskGroup *group = [WMFTaskGroup new];
+    
+    if (serializedSession) {
+        [group enter];
+        [serializedSession resetWithCompletionHandler:^{
+            [group leave];
+        }];
+    }
+    
+    if (unserializedSession) {
+        [group enter];
+        [unserializedSession resetWithCompletionHandler:^{
+            [group leave];
+        }];
+    }
+    
+    [group waitInBackgroundWithCompletion:completion];
+}
+
 @end
 
 NS_ASSUME_NONNULL_END
