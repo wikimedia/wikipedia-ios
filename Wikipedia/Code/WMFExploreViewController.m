@@ -227,6 +227,12 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                             }];
 }
 
+- (void)updateFeedWithLatestDatabaseContent {
+    self.sectionDataSource.delegate = nil;
+    self.sectionDataSource = nil;
+    [self.internalContentStore syncDataStoreToDatabase];
+    self.sectionDataSource.delegate = self;
+}
 
 #pragma mark - Section Access
 
@@ -707,9 +713,21 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                                             handler:^(UIAlertAction *_Nonnull action) {
                                                 [self.userStore.blackList addBlackListArticleURL:url];
                                                 [self.userStore notifyWhenWriteTransactionsComplete:^{
-                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                        [self.collectionView reloadData];
-                                                    });
+                                                    [self.contentStore notifyWhenWriteTransactionsComplete:^{
+                                                        NSUInteger index = [self indexForSection:section];
+                                                        
+                                                        [self.collectionView performBatchUpdates:^{
+                                                            
+                                                            [self updateFeedWithLatestDatabaseContent];
+                                                            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:index]];
+                                                            
+                                                        }
+                                                                                      completion:^(BOOL finished) {
+                                                                                          self.sectionDataSource.delegate = self;
+                                                                                          [self.collectionView reloadData];
+                                                                                      }];
+                                                        
+                                                    }];
                                                 }];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
