@@ -337,22 +337,33 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
         fetch(completionHandler)
     }
+    
+    func updateUIWithTopReadFromContentStore() -> Bool {
+        if let topRead = self.contentStore.firstGroupOfKind(WMFTopReadContentGroup.kind(), forDate: NSDate()) as? WMFTopReadContentGroup {
+            if let content = self.contentStore.contentForContentGroup(topRead) as? [WMFFeedTopReadArticlePreview] {
+                
+                self.group = topRead
+                self.results = content
+                self.updateView()
+                return true
+            }
+        }
+        return false
+    }
 
     func fetch(completionHandler: ((NCUpdateResult) -> Void)) {
+        guard !updateUIWithTopReadFromContentStore() else {
+            completionHandler(.NewData)
+            return
+        }
+        
         contentSource.loadNewContentForce(false) {
             dispatch_async(dispatch_get_main_queue(), {
-                if let topRead = self.contentStore.firstGroupOfKind(WMFTopReadContentGroup.kind(), forDate: NSDate()) as? WMFTopReadContentGroup {
-                
-                    if let content = self.contentStore.contentForContentGroup(topRead) as? [WMFFeedTopReadArticlePreview] {
-                        
-                        self.group = topRead
-                        self.results = content
-                        self.updateView()
-                        completionHandler(.NewData)
-                        return
-                    }
+                if self.updateUIWithTopReadFromContentStore() {
+                    completionHandler(.NewData)
+                } else {
+                    completionHandler(.NoData)
                 }
-                completionHandler(.NoData)
             })
         }
     }
