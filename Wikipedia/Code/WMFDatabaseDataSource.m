@@ -19,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFDatabaseDataSource
 
 @synthesize delegate;
-@synthesize granularDelegateCallbacksEnabled;
 
 - (instancetype)initWithReadConnection:(YapDatabaseConnection *)readConnection writeConnection:(YapDatabaseConnection *)writeConnection mappings:(YapDatabaseViewMappings *)mappings {
     NSParameterAssert(readConnection);
@@ -94,7 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
     //Although there are legitimate reasons we get 0 changes,
     //which could be safely ignored, there is no way to differentiate
     //between those reasons and when modifications happen in extensions
-    if (!self.areGranularDelegateCallbacksEnabled || [changes count] == 0 || self.mappings.snapshotOfLastUpdate != connection.snapshot - 1) {
+    if ([changes count] == 0 || self.mappings.snapshotOfLastUpdate != connection.snapshot - 1) {
 
         [self.readConnection readWithBlock:^(YapDatabaseReadTransaction *transaction) {
             [self.mappings updateWithTransaction:transaction];

@@ -66,7 +66,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
-@property (nonatomic, strong, nullable) id<WMFDataSource> sectionDataSource;
+@property (nonatomic, strong, null_resettable) id<WMFDataSource> sectionDataSource;
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
@@ -143,6 +143,13 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                                            action:@selector(didTapSettingsButton:)];
 }
 
+- (id<WMFDataSource>)sectionDataSource {
+    if (!_sectionDataSource) {
+        _sectionDataSource = [self.internalContentStore contentGroupDataSource];
+    }
+    return _sectionDataSource;
+}
+
 - (WMFContentGroupDataStore *)internalContentStore {
     if (_internalContentStore == nil) {
         _internalContentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
@@ -215,13 +222,18 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
     [group waitInBackgroundWithTimeout:12
                             completion:^{
-                                [self resetRefreshControl];
-                                [self.internalContentStore syncDataStoreToDatabase];
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [self resetRefreshControl];
+                                    [self.internalContentStore syncDataStoreToDatabase];
+                                });
                             }];
 }
 
 - (void)updateFeedWithLatestDatabaseContent {
+    self.sectionDataSource.delegate = nil;
+    self.sectionDataSource = nil;
     [self.internalContentStore syncDataStoreToDatabase];
+    self.sectionDataSource.delegate = self;
 }
 
 #pragma mark - Section Access
@@ -469,16 +481,8 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                            forControlEvents:UIControlEventValueChanged];
     [self resetRefreshControl];
 
-    [self setupDataSource];
-}
-
-- (void)setupDataSource {
-    if (!self.sectionDataSource) {
-        self.sectionDataSource = [self.internalContentStore contentGroupDataSource];
-        self.sectionDataSource.granularDelegateCallbacksEnabled = NO;
-        self.sectionDataSource.delegate = self;
-        [self.collectionView reloadData];
-    }
+    self.sectionDataSource.delegate = self;
+    [self.collectionView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -711,11 +715,21 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                                             handler:^(UIAlertAction *_Nonnull action) {
                                                 [self.userStore.blackList addBlackListArticleURL:url];
                                                 [self.userStore notifyWhenWriteTransactionsComplete:^{
-                                                    NSUInteger index = [self indexForSection:section];
-                                                    self.sectionDataSource.delegate = nil;
-                                                    [self updateFeedWithLatestDatabaseContent];
-                                                    [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:index]];
-                                                    self.sectionDataSource.delegate = self;
+                                                    [self.contentStore notifyWhenWriteTransactionsComplete:^{
+                                                        NSUInteger index = [self indexForSection:section];
+
+                                                        [self.collectionView performBatchUpdates:^{
+
+                                                            [self updateFeedWithLatestDatabaseContent];
+                                                            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:index]];
+
+                                                        }
+                                                            completion:^(BOOL finished) {
+                                                                self.sectionDataSource.delegate = self;
+                                                                [self.collectionView reloadData];
+                                                            }];
+
+                                                    }];
                                                 }];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
@@ -992,43 +1006,28 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [self.collectionView reloadData];
 }
 
-- (void)dataSource:(id<WMFDataSource>)dataSource didDeleteSectionsAtIndexes:(NSIndexSet *)indexes {
-    [self.collectionView reloadData];
-    //    [self.collectionView performBatchUpdates:^{
-    //        [self.collectionView deleteSections:indexes];
-    //    } completion:NULL];
+- (void)dataSourceWillBeginUpdates:(id<WMFDataSource>)dataSource {
 }
+
+- (void)dataSource:(id<WMFDataSource>)dataSource didDeleteSectionsAtIndexes:(NSIndexSet *)indexes {
+}
+
 - (void)dataSource:(id<WMFDataSource>)dataSource didInsertSectionsAtIndexes:(NSIndexSet *)indexes {
-    [self.collectionView reloadData];
-    //    [self.collectionView performBatchUpdates:^{
-    //        [self.collectionView insertSections:indexes];
-    //    } completion:NULL];
 }
 
 - (void)dataSource:(id<WMFDataSource>)dataSource didDeleteRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-    [self.collectionView reloadData];
-    //    [self.collectionView performBatchUpdates:^{
-    //        [self.collectionView deleteItemsAtIndexPaths:indexPaths];
-    //    } completion:NULL];
 }
 - (void)dataSource:(id<WMFDataSource>)dataSource didInsertRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-    [self.collectionView reloadData];
-    //    [self.collectionView performBatchUpdates:^{
-    //        [self.collectionView insertItemsAtIndexPaths:indexPaths];
-    //    } completion:NULL];
 }
+
 - (void)dataSource:(id<WMFDataSource>)dataSource didMoveRowFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-    [self.collectionView reloadData];
-    //    [self.collectionView performBatchUpdates:^{
-    //        [self.collectionView deleteItemsAtIndexPaths:@[fromIndexPath]];
-    //        [self.collectionView insertItemsAtIndexPaths:@[toIndexPath]];
-    //    } completion:NULL];
 }
+
 - (void)dataSource:(id<WMFDataSource>)dataSource didUpdateRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
+}
+
+- (void)dataSourceDidFinishUpdates:(id<WMFDataSource>)dataSource {
     [self.collectionView reloadData];
-    //    [self.collectionView performBatchUpdates:^{
-    //        [self.collectionView reloadItemsAtIndexPaths:indexPaths];
-    //    } completion:NULL];
 }
 
 #pragma mark - WMFLocationManager
