@@ -23,6 +23,8 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
     var marginWidthForVisibleImageView: CGFloat = 0
     
     var articleURL: NSURL?
+
+    var dataStore: MWKDataStore?
     
     var imageViewHidden = false {
         didSet {
@@ -132,16 +134,18 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
         case UNNotificationDismissActionIdentifier:
             completion(.Dismiss)
         case WMFInTheNewsNotificationSaveForLaterActionIdentifier:
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                PiwikTracker.sharedInstance()?.wmf_logActionSaveInContext(self, contentType: self)
-                let dataStore: MWKDataStore = SessionSingleton.sharedInstance().dataStore
+            dataStore = SessionSingleton.sharedInstance().dataStore
+            PiwikTracker.sharedInstance()?.wmf_logActionSaveInContext(self, contentType: self)
+            if let dataStore = dataStore {
                 dataStore.savedPageList.addSavedPageWithURL(articleURL)
-                dataStore.notifyWhenWriteTransactionsComplete({ 
+                dataStore.notifyWhenWriteTransactionsComplete({
                     dispatch_async(dispatch_get_main_queue(), {
                         completion(.Dismiss)
                     })
                 })
-            })
+            } else {
+                completion(.Dismiss)
+            }
         case WMFInTheNewsNotificationShareActionIdentifier:
             PiwikTracker.sharedInstance()?.wmf_logActionTapThroughInContext(self, contentType: self)
             completion(.DismissAndForwardAction)
