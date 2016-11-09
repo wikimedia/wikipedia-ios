@@ -187,7 +187,7 @@ platform :ios do
 
     pilot(
       ipa: ipa_path,
-      skip_waiting_for_build_processing: false,
+      skip_waiting_for_build_processing: true,
       skip_submission: false,
       distribute_external: false,
       app_identifier:  app_identifier
@@ -198,13 +198,13 @@ platform :ios do
       build_number: build_number
     )
     
-    dsyms(
-      app_identifier: app_identifier,
-      version: version,
-      build_number: build_number,
-      ipa_path: ipa_path,
-      hockey_app_id: hockey_app_id
-    )
+    # dsyms(
+    #   app_identifier: app_identifier,
+    #   version: version,
+    #   build_number: build_number,
+    #   ipa_path: ipa_path,
+    #   hockey_app_id: hockey_app_id
+    # )
   end
 
   desc "Runs tests, version, tag, and push to the beta branch"
