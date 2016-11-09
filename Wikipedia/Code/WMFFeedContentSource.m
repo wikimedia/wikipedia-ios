@@ -407,7 +407,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         articlePreviewToNotifyAbout = [self.previewStore itemForURL:articleURL];
     }
 
-    if (!articlePreviewToNotifyAbout || !articlePreviewToNotifyAbout.url) {
+    if (!articlePreviewToNotifyAbout.url) {
         done();
         return;
     }
