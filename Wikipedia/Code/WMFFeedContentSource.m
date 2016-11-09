@@ -392,24 +392,32 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         return;
     }
 
-    WMFFeedTopReadArticlePreview *topReadArticlePreview = topReadArticlesByKey[key];
-    if ((ignoreTopReadRequirement || topReadArticlePreview) && topReadArticlePreview.rank.integerValue < WMFFeedInTheNewsNotificationMaxRank) {
-        MWKHistoryEntry *entry = [self.userDataStore entryForURL:articlePreview.articleURL];
+    MWKHistoryEntry *entry = [self.userDataStore entryForURL:articlePreview.articleURL];
+    if (entry) {
         BOOL notifiedRecently = entry.inTheNewsNotificationDate && [entry.inTheNewsNotificationDate timeIntervalSinceNow] < WMFFeedNotificationArticleRepeatLimit;
         if (notifiedRecently || entry.isBlackListed) {
             articlePreviewToNotifyAbout = nil;
             done();
             return;
         }
+    }
 
+    WMFFeedTopReadArticlePreview *topReadArticlePreview = topReadArticlesByKey[key];
+    if (ignoreTopReadRequirement || (topReadArticlePreview && (topReadArticlePreview.rank.integerValue < WMFFeedInTheNewsNotificationMaxRank))) {
         articlePreviewToNotifyAbout = [self.previewStore itemForURL:articleURL];
     }
 
-    if (articlePreviewToNotifyAbout && articlePreviewToNotifyAbout.url) {
-        if ([self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreviewToNotifyAbout force:NO]) {
-            [[PiwikTracker sharedInstance] wmf_logActionPushInContext:self contentType:articlePreviewToNotifyAbout.url.host date:[NSDate date]];
-        };
+    if (!articlePreviewToNotifyAbout || !articlePreviewToNotifyAbout.url) {
+        done();
+        return;
     }
+
+    if (![self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreviewToNotifyAbout force:NO]) {
+        done();
+        return;
+    }
+
+    [[PiwikTracker sharedInstance] wmf_logActionPushInContext:self contentType:articlePreviewToNotifyAbout.url.host date:[NSDate date]];
 
     done();
 }
