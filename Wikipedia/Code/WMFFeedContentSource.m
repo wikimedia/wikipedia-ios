@@ -365,33 +365,33 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     for (WMFFeedNewsStory *newsStory in feedDay.newsStories) {
         WMFArticlePreview *articlePreviewToNotifyAbout = nil;
-        NSInteger bestRank = NSIntegerMax;
-        NSMutableArray<NSURL *> *articleURLs = [NSMutableArray arrayWithCapacity:newsStory.articlePreviews.count];
-        for (WMFFeedArticlePreview *articlePreview in newsStory.articlePreviews) {
-            NSURL *articleURL = articlePreview.articleURL;
-            if (!articleURL) {
-                continue;
-            }
-            NSString *key = articleURL.wmf_articleDatabaseKey;
-            if (!key) {
-                continue;
-            }
-            [articleURLs addObject:articleURL];
-            WMFFeedTopReadArticlePreview *topReadArticlePreview = topReadArticlesByKey[key];
-            if ((ignoreTopReadRequirement || topReadArticlePreview) && topReadArticlePreview.rank.integerValue < WMFFeedInTheNewsNotificationMaxRank) {
-                MWKHistoryEntry *entry = [self.userDataStore entryForURL:articlePreview.articleURL];
-                BOOL notifiedRecently = entry.inTheNewsNotificationDate && [entry.inTheNewsNotificationDate timeIntervalSinceNow] < WMFFeedNotificationArticleRepeatLimit;
-                if (notifiedRecently || entry.isBlackListed) {
-                    articlePreviewToNotifyAbout = nil;
-                    break;
-                }
-
-                if (!articlePreviewToNotifyAbout || (topReadArticlePreview && topReadArticlePreview.rank.integerValue < bestRank)) {
-                    bestRank = topReadArticlePreview ? topReadArticlePreview.rank.integerValue : NSIntegerMax;
-                    articlePreviewToNotifyAbout = [self.previewStore itemForURL:articleURL];
-                }
-            }
+        WMFFeedArticlePreview *articlePreview = newsStory.featuredArticlePreview;
+        if (!articlePreview) {
+            continue;
         }
+        
+        NSURL *articleURL = articlePreview.articleURL;
+        if (!articleURL) {
+            continue;
+        }
+        
+        NSString *key = articleURL.wmf_articleDatabaseKey;
+        if (!key) {
+            continue;
+        }
+        
+        WMFFeedTopReadArticlePreview *topReadArticlePreview = topReadArticlesByKey[key];
+        if ((ignoreTopReadRequirement || topReadArticlePreview) && topReadArticlePreview.rank.integerValue < WMFFeedInTheNewsNotificationMaxRank) {
+            MWKHistoryEntry *entry = [self.userDataStore entryForURL:articlePreview.articleURL];
+            BOOL notifiedRecently = entry.inTheNewsNotificationDate && [entry.inTheNewsNotificationDate timeIntervalSinceNow] < WMFFeedNotificationArticleRepeatLimit;
+            if (notifiedRecently || entry.isBlackListed) {
+                articlePreviewToNotifyAbout = nil;
+                break;
+            }
+            
+            articlePreviewToNotifyAbout = [self.previewStore itemForURL:articleURL];
+        }
+        
         if (articlePreviewToNotifyAbout && articlePreviewToNotifyAbout.url) {
             if ([self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreviewToNotifyAbout force:NO]) {
 
