@@ -10,7 +10,11 @@
  *
  *  @return The URL returned needs to be as close to equal to the targetWidth as possible. Because the image scaler will not scale raster images above their canonical resolution the URL returned here needs to sometimes be modified to just use the canonical URL.
  */
-- (NSURL *)URLForTargetWidth:(NSUInteger)targetWidth {
+- (NSURL *)URLForTargetWidth:(NSInteger)targetWidth {
+    if (targetWidth < 1) {
+        targetWidth = 320;
+    }
+    
     NSString *tagSrc = self.src;
 
     NSInteger sizeFromSrcUrl = WMFParseSizePrefixFromSourceURL(tagSrc);
@@ -28,7 +32,7 @@
 
         // We know we have a "px-" thumb variant at this point. Get as close to the
         // targetWidth as we can.
-        NSUInteger width = MAX(sizeFromSrcUrl, safeCanonicalWidthAssumption.integerValue);
+        NSInteger width = MAX(sizeFromSrcUrl, safeCanonicalWidthAssumption.integerValue);
         width = MIN(width, targetWidth);
 
         if (width == self.dataFileWidth.integerValue) {
