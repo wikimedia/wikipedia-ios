@@ -62,6 +62,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for content to load"];
 
     [self.feedContentSource loadContentForDate:self.date
+                                         force:NO
                                     completion:^{
                                         NSDate *notificationDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
                                         XCTAssertTrue([self.calendar isDateInToday:notificationDate] || [self.calendar daysFromDate:now toDate:notificationDate] == 1);
@@ -86,6 +87,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for content to load"];
 
     [self.feedContentSource loadContentForDate:self.date
+                                         force:YES
                                     completion:^{
                                         XCTAssertTrue([defaults wmf_inTheNewsMostRecentDateNotificationCount] == 3);
                                         [expectation fulfill];
@@ -111,6 +113,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for content to load"];
 
     [self.feedContentSource loadContentForDate:self.date
+                                         force:YES
                                     completion:^{
                                         XCTAssertTrue([defaults wmf_inTheNewsMostRecentDateNotificationCount] == 2);
                                         [expectation fulfill];
@@ -133,6 +136,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for content to load"];
 
     [self.feedContentSource loadContentForDate:self.date
+                                         force:YES
                                     completion:^{
                                         XCTAssertTrue([defaults wmf_inTheNewsMostRecentDateNotificationCount] == 3);
                                         [expectation fulfill];
