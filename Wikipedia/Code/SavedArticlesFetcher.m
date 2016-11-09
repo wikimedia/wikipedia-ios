@@ -242,11 +242,11 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     //  Copies saved article images cached by versions 5.0.4 and older to the locations where 5.0.5 and newer are looking for them. Previously, the app cached at the width of the largest image in the srcset. Currently, we request a thumbnail at wmf_articleImageWidthForScale (or original if it's narrower than that width). By copying from the old size to the new expected sizes, we ensure that articles saved with these older versions will still have images availble offline in the newer versions.
     WMFImageController *imageController = [WMFImageController sharedInstance];
     NSArray *legacyImageURLs = [self.dataStore legacyImageURLsForArticle:article];
-    NSUInteger articleImageWidth = [[UIScreen mainScreen] wmf_articleImageWidthForScale];
+    NSInteger articleImageWidth = [[UIScreen mainScreen] wmf_articleImageWidthForScale];
     for (NSURL *legacyImageURL in legacyImageURLs) {
         @autoreleasepool {
             NSString *legacyImageURLString = legacyImageURL.absoluteString;
-            NSUInteger width = WMFParseSizePrefixFromSourceURL(legacyImageURLString);
+            NSInteger width = WMFParseSizePrefixFromSourceURL(legacyImageURLString);
             if (width != articleImageWidth && width != NSNotFound) {
                 if (legacyImageURL != nil && [imageController hasDataOnDiskForImageWithURL:legacyImageURL]) {
                     NSURL *cachedFileURL = [NSURL fileURLWithPath:[imageController cachePathForImageWithURL:legacyImageURL] isDirectory:NO];

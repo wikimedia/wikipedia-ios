@@ -282,7 +282,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 }
 
 - (NSString *)thumbnailURLFromImageURL:(NSString *)imageURL {
-    return WMFChangeImageSourceURLSizePrefix(imageURL, [[UIScreen mainScreen] wmf_listThumbnailWidthForScale].unsignedIntegerValue);
+    return WMFChangeImageSourceURLSizePrefix(imageURL, [[UIScreen mainScreen] wmf_listThumbnailWidthForScale].integerValue);
 }
 
 - (void)setThumbnailURL:(NSString *)thumbnailURL {
