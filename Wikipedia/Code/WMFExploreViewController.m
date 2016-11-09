@@ -78,6 +78,8 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 @property (nonatomic, strong, nullable) WMFFeedNotificationHeader *notificationHeader;
 
+@property (nonatomic, strong, nullable) AFNetworkReachabilityManager *reachabilityManager;
+
 @end
 
 @implementation WMFExploreViewController
@@ -222,10 +224,11 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
     [group waitInBackgroundWithTimeout:12
                             completion:^{
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                    [self resetRefreshControl];
-                                    [self.internalContentStore syncDataStoreToDatabase];
-                                });
+                                [self resetRefreshControl];
+                                [self.internalContentStore syncDataStoreToDatabase];
+                                [self startMonitoringReachabilityIfNeeded];
+                                [self showOfflineEmptyViewIfNeeded];
+                                [self showHideNotificationIfNeccesary];
                             }];
 }
 
@@ -429,6 +432,9 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 }
 
 - (void)showHideNotificationIfNeccesary {
+    if ([self.sectionDataSource numberOfItems] == 0) {
+        return;
+    }
 
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionLessThan:10]) {
         return;
@@ -474,6 +480,8 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
 
+    self.reachabilityManager = [AFNetworkReachabilityManager manager];
+
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl bk_addEventHandler:^(id sender) {
         [self updateFeedSources];
@@ -503,10 +511,13 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
     [[PiwikTracker sharedInstance] wmf_logView:self];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_exploreViewActivity]];
+    [self startMonitoringReachabilityIfNeeded];
+    [self showOfflineEmptyViewIfNeeded];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+    [self stopMonitoringReachability];
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
@@ -523,6 +534,57 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark - Offline Handling
+
+- (void)stopMonitoringReachability {
+    [self.reachabilityManager setReachabilityStatusChangeBlock:NULL];
+    [self.reachabilityManager stopMonitoring];
+}
+
+- (void)startMonitoringReachabilityIfNeeded {
+    if ([self.sectionDataSource numberOfItems] > 0) {
+        [self stopMonitoringReachability];
+    } else {
+        [self.reachabilityManager startMonitoring];
+        @weakify(self);
+        [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            @strongify(self);
+            dispatchOnMainQueue(^{
+                switch (status) {
+                    case AFNetworkReachabilityStatusReachableViaWWAN:
+                    case AFNetworkReachabilityStatusReachableViaWiFi: {
+                        [self updateFeedSources];
+                    } break;
+                    case AFNetworkReachabilityStatusNotReachable: {
+                        [self showOfflineEmptyViewIfNeeded];
+                    }
+                    default:
+                        break;
+                }
+
+            });
+        }];
+    }
+}
+
+- (void)showOfflineEmptyViewIfNeeded {
+    NSParameterAssert(self.isViewLoaded);
+    if ([self.sectionDataSource numberOfItems] > 0) {
+        [self wmf_hideEmptyView];
+    } else {
+        if ([self wmf_isShowingEmptyView]) {
+            return;
+        }
+
+        if (self.reachabilityManager.networkReachabilityStatus != AFNetworkReachabilityStatusNotReachable) {
+            return;
+        }
+
+        [self.refreshControl endRefreshing];
+        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
+    }
 }
 
 #pragma mark - UICollectionViewDataSource
