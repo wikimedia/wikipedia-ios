@@ -3,7 +3,7 @@
  *
  *  This prevents us from fragmenting the image thumbnail caches on the back-end.
  */
-typedef NS_ENUM(NSUInteger, WMFImageWidth) {
+typedef NS_ENUM(NSInteger, WMFImageWidth) {
     /**
      *  The smallest image width we will show, e.g. in search cell thumbnails.
      *
@@ -26,7 +26,7 @@ typedef NS_ENUM(NSUInteger, WMFImageWidth) {
 
 @implementation UIScreen (WMFImageWidth)
 
-- (NSUInteger)wmf_maxScale {
+- (NSInteger)wmf_maxScale {
     NSUInteger scaleMultiplierCeiling = 2;
     return MIN((NSUInteger)self.scale, scaleMultiplierCeiling);
 }
@@ -51,7 +51,7 @@ typedef NS_ENUM(NSUInteger, WMFImageWidth) {
     return @(self.wmf_maxScale * WMFImageWidthLarge);
 }
 
-- (NSUInteger)wmf_articleImageWidthForScale {
+- (NSInteger)wmf_articleImageWidthForScale {
     return self.wmf_maxScale * WMFImageWidthMedium;
 }
 

@@ -40,6 +40,6 @@
 /**
  *  @return The thumbnail width to request for the article, according to the receiver's @c scale.
  */
-- (NSUInteger)wmf_articleImageWidthForScale;
+- (NSInteger)wmf_articleImageWidthForScale;
 
 @end
