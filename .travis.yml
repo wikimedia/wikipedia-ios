@@ -15,6 +15,7 @@ before_script:
   - SIMULATOR_ID=$(xcrun instruments -s | grep -o "iPhone 6 (${IOS_VER}) \[.*\]" | grep -o "\[.*\]" | sed "s/^\[\(.*\)\]$/\1/")
 
 script:
+  - bundle install
   - echo $SIMULATOR_ID
   - open -b com.apple.iphonesimulator --args -CurrentDeviceUDID $SIMULATOR_ID
   - set -o pipefail
