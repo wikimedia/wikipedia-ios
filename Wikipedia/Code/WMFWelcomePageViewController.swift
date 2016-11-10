@@ -136,7 +136,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     // This hack sets the correct dot, but first fades the dots out so you don't see it flicker to the wrong dot then the right one.
     
     private func isRTLiOS9() -> Bool {
-        return UIApplication.sharedApplication().wmf_isRTL && NSProcessInfo.processInfo().wmf_isOperatingSystemMajorVersionLessThan(10)
+        return UIApplication.sharedApplication().wmf_isRTL && NSProcessInfo().wmf_isOperatingSystemMajorVersionLessThan(10)
     }
     
     func animateIfRightToLeftAndiOS9(animations: () -> Void) {
