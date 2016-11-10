@@ -9,7 +9,7 @@ platform :ios do
   before_all do
      # Set project for commit_version_bump, which seems to get confused by projects in other folders
      ENV['FL_BUILD_NUMBER_PROJECT'] = "Wikipedia.xcodeproj"
-     ensure_git_status_clean unless ENV['FL_NO_ENSURE_CLEAN']
+     ensure_git_status_clean if ENV['FL_ENSURE_CLEAN']
      xcversion version: "~> 8.0"
   end
 
