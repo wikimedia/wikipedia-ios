@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchPageviewsForURL:(NSURL *)titleURL startDate:(NSDate *)startDate endDate:(NSDate *)endDate failure:(WMFErrorHandler)failure success:(WMFPageViewsHandler)success;
 
++ (NSURL *)feedContentURLForSiteURL:(NSURL *)siteURL onDate:(NSDate *)date;
+
 @end
 
 NS_ASSUME_NONNULL_END

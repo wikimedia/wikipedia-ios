@@ -45,6 +45,14 @@ NS_ASSUME_NONNULL_BEGIN
     [self fetchFeedContentForURL:siteURL date:date force:NO failure:failure success:success];
 }
 
++ (NSURL *)feedContentURLForSiteURL:(NSURL *)siteURL onDate:(NSDate *)date {
+    NSString *datePath = [[NSDateFormatter wmf_yearMonthDayPathDateFormatter] stringFromDate:date];
+    
+    NSString *path = [NSString stringWithFormat:@"/api/rest_v1/feed/featured/%@", datePath];
+    
+    return [siteURL wmf_URLWithPath:path isMobile:NO];
+}
+
 - (void)fetchFeedContentForURL:(NSURL *)siteURL date:(NSDate *)date force:(BOOL)force failure:(WMFErrorHandler)failure success:(void (^)(WMFFeedDayResponse *feedDay))success {
     NSParameterAssert(siteURL);
     NSParameterAssert(date);
@@ -56,12 +64,9 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     [self set304sEnabled:force];
-    NSString *datePath = [[NSDateFormatter wmf_yearMonthDayPathDateFormatter] stringFromDate:date];
 
-    NSString *path = [NSString stringWithFormat:@"/api/rest_v1/feed/featured/%@", datePath];
-
-    NSURL *url = [siteURL wmf_URLWithPath:path isMobile:NO];
-
+    NSURL *url = [[self class] feedContentURLForSiteURL:siteURL onDate:date];
+    
     [self.operationManager GET:[url absoluteString]
         parameters:nil
         progress:NULL
