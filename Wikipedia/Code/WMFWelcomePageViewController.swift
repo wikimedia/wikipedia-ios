@@ -95,7 +95,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     }
     
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
-        guard let viewControllers = viewControllers, currentVC = viewControllers.first, let presentationIndex = pageControllers.indexOf(currentVC) else {
+        guard let viewControllers = viewControllers, let currentVC = viewControllers.first, let presentationIndex = pageControllers.indexOf(currentVC) else {
             return 0
         }
         return presentationIndex
