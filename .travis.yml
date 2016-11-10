@@ -9,6 +9,7 @@ env:
     #  - IOS_VER="8.4" FL_ARGS="verify sim_os:${IOS_VER} scheme:WikipediaRTL"
 
 install:
+  - bundle install
   - make travis-get-deps
 
 before_script:
