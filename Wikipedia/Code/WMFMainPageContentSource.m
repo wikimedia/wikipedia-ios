@@ -83,7 +83,7 @@
                                                   [oldSectionKeys addObject:[section databaseKey]];
                                               }
                                           }];
-    [self.contentStore readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
+    [self.contentStore asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
         [transaction removeObjectsForKeys:oldSectionKeys inCollection:[WMFContentGroup databaseCollectionName]];
     }];
 }
