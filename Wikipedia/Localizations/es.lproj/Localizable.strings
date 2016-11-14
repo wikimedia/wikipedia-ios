@@ -125,7 +125,7 @@
 "settings-notifications-system-off" = "Actualmente las notificaciones están desactivadas para Wikipedia. Ve a la configuración de tu dispositivo para activarlas";
 "settings-notifications-system-turn-on" = "Activar las notificaciones";
 "settings-notifications-info" = "Mantente en alerta de artículos en tendencia o más leídos en Wikipedia con nuestras notificaciones. Todas ellas proporcionadas con respeto por la privacidad y actualizadas al minuto.";
-"settings-notifications-learn-more" = "Aprender más acerca de las notificaciones";
+"settings-notifications-learn-more" = "Conocer más acerca de las notificaciones";
 "settings-notifications-trending" = "Eventos actuales en tendencia";
 "settings-notifications-push-notifications" = "Notificaciones";
 "main-menu-title" = "Más";
@@ -163,7 +163,7 @@
 "main-menu-heading-debug" = "Depurar";
 "main-menu-debug-crash" = "Fallar";
 "main-menu-debug-tweaks" = "Configuración del desarrollador";
-"saved-title" = "Guardado";
+"saved-title" = "Guardados";
 "saved-pages-title" = "Páginas guardadas";
 "saved-pages-clear-confirmation-heading" = "¿Estás seguro de que quieres borrar todas las páginas guardadas?";
 "saved-pages-clear-confirmation-sub-heading" = "Esta acción no se puede deshacer.";
@@ -233,8 +233,7 @@
 "share-menu-save-page" = "Guardar página";
 "share-menu-page-saved" = "Guardado para leer sin conexión.";
 "share-menu-page-saved-access" = "Consejo: para acceder a tus páginas guardadas, pulsa $1 arriba o mantén apretado $2 abajo.";
-// Fuzzy
-"share-custom-menu-item" = "Compartir";
+"share-custom-menu-item" = "Compartir...";
 "share-a-fact-share-menu-item" = "Comparte-un-hecho";
 "share-on-twitter-sign-off" = "vía @Wikipedia";
 "share-article-name-on-wikipedia" = "«$1» en @Wikipedia:";
@@ -363,7 +362,11 @@
 "home-hide-suggestion-prompt" = "Ocultar esta sugerencia";
 "home-hide-suggestion-cancel" = "Cancelar";
 "home-accessibility-label" = "Wikipedia, Explorar";
+"home-title-accessibility-label" = "Wikipedia, desplazarse a la parte superior de Explorar";
 "home-button-accessibility-label" = "Inicio";
+"home-button-explore-accessibility-label" = "Wikipedia, volver a Explorar";
+"home-button-saved-accessibility-label" = "Wikipedia, volver a Guardados";
+"home-button-history-accessibility-label" = "Wikipedia, volver al Historial";
 "potd-empty-error-description" = "No se pudo obtener la foto del día del $1";
 "potd-description-prefix" = "Foto del día del $1";
 "welcome-explore-title" = "Explorar";
@@ -389,6 +392,9 @@
 "welcome-volunteer-send-usage-reports" = "Enviar informes de uso";
 "welcome-volunteer-continue-button" = "Continuar";
 "welcome-volunteer-thanks" = "$1 ¡Gracias!";
+"welcome-send-data-title" = "Enviar datos anónimos";
+// Fuzzy
+"welcome-send-data-sub-title" = "Ayuda a mejorar la aplicación de Wikipedia diciéndonos cómo la usas. Los datos recolectados son anónimos. Aprende más";
 "empty-no-feed-title" = "No hay conexión a Internet";
 "empty-no-feed-message" = "Puedes ver tus artículos recomendados cuando tengas Internet";
 "empty-no-feed-action-message" = "Aún puedes leer las páginas guardadas";
@@ -434,10 +440,11 @@
 "top-read-see-more-trending" = "Ver más tendencias";
 "top-read-header-with-language" = "Wikipedia en $1";
 "top-read-header-generic" = "Wikipedia";
+"readers-accessibility-label" = "$1 lectores";
+"rank-accessibility-label" = "Número $1";
 "reference-title" = "Referencia $1";
 "in-the-news-notification-read-now-action-title" = "Leer ahora";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Compartir";
+"in-the-news-notification-share-action-title" = "Compartir...";
 "in-the-news-notification-save-for-later-action-title" = "Guardar para después";
 "in-the-news-currently-trending" = "En tendencia";
 "in-the-news-title" = "Actualidad";

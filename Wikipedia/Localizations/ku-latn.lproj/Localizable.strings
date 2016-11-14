@@ -106,8 +106,7 @@
 "about-libraries-license" = "Destûr";
 "about-libraries-licenses" = "Destûr";
 "share-menu-save-page" = "Rûpelê tomar bike";
-// Fuzzy
-"share-custom-menu-item" = "Parve bike";
+"share-custom-menu-item" = "Parve bike...";
 "share-on-twitter-sign-off" = "bi rêya @Wîkîpediya";
 "share-as-image" = "Wek wêne parve bike";
 "share-as-text" = "Wek nivîs parve bike";
@@ -169,3 +168,8 @@
 "explore-continue-related-heading" = "Ji ber ku tu dixwînî";
 "explore-random-article-heading" = "Gotara ketober";
 "explore-potd-heading" = "Wêneyê rojê";
+"rank-accessibility-label" = "Hejmara $1em/yem";
+"in-the-news-notification-share-action-title" = "Parve bike...";
+"in-the-news-title" = "Di nûçeyan de";
+"in-the-news-title-for-date" = "Nûçeyên li ser $1";
+"save-action" = "Tomar bike";
