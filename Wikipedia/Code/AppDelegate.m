@@ -7,7 +7,7 @@
 #import "NSUserActivity+WMFExtensions.h"
 @import UserNotifications;
 
-static NSTimeInterval WMFBackgroundFetchInterval = 30 * 60; // 30 minutes
+static NSTimeInterval WMFBackgroundFetchInterval = 180 * 60; // 3 hours
 
 #if WMF_USER_ZOOM_IS_ENABLED
 #import <UserzoomSDK/UserzoomSDK.h>
