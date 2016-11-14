@@ -335,11 +335,11 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
-        fetch(completionHandler)
+        fetchForDate(NSDate(), attempt: 1, completionHandler: completionHandler)
     }
     
-    func updateUIWithTopReadFromContentStore() -> Bool {
-        if let topRead = self.contentStore.firstGroupOfKind(WMFTopReadContentGroup.kind(), forDate: NSDate()) as? WMFTopReadContentGroup {
+    func updateUIWithTopReadFromContentStoreForDate(date: NSDate) -> Bool {
+        if let topRead = self.contentStore.firstGroupOfKind(WMFTopReadContentGroup.kind(), forDate: date) as? WMFTopReadContentGroup {
             if let content = self.contentStore.contentForContentGroup(topRead) as? [WMFFeedTopReadArticlePreview] {
                 
                 self.group = topRead
@@ -350,20 +350,33 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         }
         return false
     }
+    
+    
 
-    func fetch(completionHandler: ((NCUpdateResult) -> Void)) {
-        guard !updateUIWithTopReadFromContentStore() else {
+    func fetchForDate(date: NSDate, attempt: Int, completionHandler: ((NCUpdateResult) -> Void)) {
+        guard !updateUIWithTopReadFromContentStoreForDate(date) else {
             completionHandler(.NewData)
+            return
+        }
+        
+        guard attempt < 3 else {
+            completionHandler(.NoData)
             return
         }
         
         contentSource.loadNewContentForce(false) {
             dispatch_async(dispatch_get_main_queue(), {
-                if self.updateUIWithTopReadFromContentStore() {
-                    completionHandler(.NewData)
-                } else {
-                    completionHandler(.NoData)
+                guard self.updateUIWithTopReadFromContentStoreForDate(date) else {
+                    guard let previousDate = NSCalendar.wmf_gregorianCalendar().dateByAddingUnit(.Day, value: -1, toDate: date, options: .MatchStrictly) else {
+                        completionHandler(.NoData)
+                        return
+                    }
+                    
+                    self.fetchForDate(previousDate, attempt: attempt + 1, completionHandler: completionHandler)
+                    return
                 }
+                
+                completionHandler(.NewData)
             })
         }
     }
