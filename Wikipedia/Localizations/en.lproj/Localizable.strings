@@ -524,5 +524,5 @@
 "unsave-action" = "Unsave";
 
 
-"status-saving-for-later" = "Saving for later";
-"status-saved-for-later" = "Saved!";
+"status-saving-for-later" = "Saving for later...";
+"status-saved-for-later" = "Saved for later";
