@@ -47,9 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)readViewNamed:(NSString *)viewName withWithBlock:(void (^)(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view))block;
 - (nullable id)readAndReturnResultsWithViewNamed:(NSString *)viewName withWithBlock:(id (^)(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view))block;
 
-- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction *_Nonnull transaction))block;
+- (void)asyncReadWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction *_Nonnull transaction))block;
 
-- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction *_Nonnull transaction))block completion:(dispatch_block_t)completion;
+- (void)asyncReadWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction *_Nonnull transaction))block completion:(nullable dispatch_block_t)completion;
 
 - (void)notifyWhenWriteTransactionsComplete:(nullable dispatch_block_t)completion;
 

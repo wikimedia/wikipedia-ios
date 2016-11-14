@@ -108,20 +108,20 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - section add / remove
 
 - (void)addContentGroup:(WMFContentGroup *)group associatedContent:(NSArray<NSCoding> *)content {
-    [self readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
+    [self asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
         [transaction setObject:group forKey:[group databaseKey] inCollection:[[group class] databaseCollectionName] withMetadata:content];
     }];
 }
 
 - (void)removeContentGroup:(WMFContentGroup *)group {
     NSParameterAssert(group);
-    [self readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
+    [self asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
         [transaction removeObjectForKey:[group databaseKey] inCollection:[WMFContentGroup databaseCollectionName]];
     }];
 }
 
 - (void)removeContentGroupsWithKeys:(NSArray<NSString *> *)keys {
-    [self readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
+    [self asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
         [transaction removeObjectsForKeys:keys inCollection:[WMFContentGroup databaseCollectionName]];
     }];
 }
