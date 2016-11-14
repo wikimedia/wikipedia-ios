@@ -8,6 +8,9 @@ import WMFUtilities
 class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationContentExtension, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding {
     @IBOutlet weak var imageView: UIImageView!
 
+    @IBOutlet weak var statusView: UIVisualEffectView!
+    @IBOutlet weak var statusLabel: UILabel!
+    
     @IBOutlet weak var readerCountLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var sparklineView: WMFSparklineView!
@@ -57,6 +60,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
     }
     
     func didReceiveNotification(notification: UNNotification) {
+        statusView.hidden = true
         summaryLabel.text = notification.request.content.body
         let info = notification.request.content.userInfo
         let title = info[WMFNotificationInfoArticleTitleKey] as? String
@@ -132,12 +136,18 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
         case UNNotificationDismissActionIdentifier:
             completion(.Dismiss)
         case WMFInTheNewsNotificationSaveForLaterActionIdentifier:
+            statusView.hidden = false
+            statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saving-for-later")
+            
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 PiwikTracker.sharedInstance()?.wmf_logActionSaveInContext(self, contentType: self)
                 let dataStore: MWKDataStore = SessionSingleton.sharedInstance().dataStore
                 dataStore.savedPageList.addSavedPageWithURL(articleURL)
                 dataStore.notifyWhenWriteTransactionsComplete({ 
                     dispatch_async(dispatch_get_main_queue(), {
+                        
+                        self.statusView.hidden = false
+                        self.statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saved-for-later")
                         completion(.Dismiss)
                     })
                 })
