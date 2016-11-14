@@ -183,6 +183,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.title = MWLocalizedString(@"search-title", nil);
     self.resultsListController.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     self.resultsListController.tableView.backgroundColor = [UIColor clearColor];
+    
+    self.closeButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish(@"close-button-accessibility-label");
 
     [self updateUIWithResults:nil];
     [self updateRecentSearchesVisibility:NO];
