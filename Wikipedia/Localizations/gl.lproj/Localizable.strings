@@ -226,8 +226,7 @@
 "share-menu-save-page" = "Gardar a páxina";
 "share-menu-page-saved" = "Gardado para ler sen conexión.";
 "share-menu-page-saved-access" = "Consello: para acceder ás súas páxinas gardadas, prema $1 arriba ou manteña apretado $2 abaixo.";
-// Fuzzy
-"share-custom-menu-item" = "Compartir";
+"share-custom-menu-item" = "Compartir...";
 "share-a-fact-share-menu-item" = "Comparta-un-feito";
 "share-on-twitter-sign-off" = "vía @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" en @Wikipedia:";
@@ -356,7 +355,11 @@
 "home-hide-suggestion-prompt" = "Ocultar esta suxestión";
 "home-hide-suggestion-cancel" = "Cancelar";
 "home-accessibility-label" = "Wikipedia, Explore";
+"home-title-accessibility-label" = "Wikipedia, subir a Explorar";
 "home-button-accessibility-label" = "Inicio";
+"home-button-explore-accessibility-label" = "Wikipedia, volver a Explorar";
+"home-button-saved-accessibility-label" = "Wikipedia, volver a Gardado";
+"home-button-history-accessibility-label" = "Wikipedia, volver a Historico";
 "potd-empty-error-description" = "Erro ó recuperar a imaxe do día para $1";
 "potd-description-prefix" = "Imaxe do día para $1";
 "welcome-explore-title" = "Explorar";
@@ -382,6 +385,9 @@
 "welcome-volunteer-send-usage-reports" = "Enviar informes de uso";
 "welcome-volunteer-continue-button" = "Continuar";
 "welcome-volunteer-thanks" = "$1 Grazas!";
+"welcome-send-data-title" = "Enviar datos anónimos";
+// Fuzzy
+"welcome-send-data-sub-title" = "Axuda a Wikimedia a mellorar esta aplicación contándonos como a usas. Os datos recollidos son anónimos. Saver máis";
 "empty-no-feed-title" = "Sen conexión a Internet";
 "empty-no-feed-message" = "Pode ver os seus artigos recomendados cando teña conexión a Internet";
 "empty-no-feed-action-message" = "Aínda pode ler as páxinas gardadas";
@@ -427,10 +433,11 @@
 "top-read-see-more-trending" = "Ver máis tendencias";
 "top-read-header-with-language" = "Wikipedia en $1";
 "top-read-header-generic" = "Wikipedia";
+"readers-accessibility-label" = "$1 lectores";
+"rank-accessibility-label" = "Número $1";
 "reference-title" = "Referenza $1";
 "in-the-news-notification-read-now-action-title" = "Ler agora";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Compartir";
+"in-the-news-notification-share-action-title" = "Compartir...";
 "in-the-news-notification-save-for-later-action-title" = "Gardar para máis tarde";
 "in-the-news-currently-trending" = "Popular actualmente";
 "in-the-news-title" = "Actualidade";

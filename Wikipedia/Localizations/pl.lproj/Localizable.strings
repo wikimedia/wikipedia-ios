@@ -115,6 +115,7 @@
 "settings-support" = "Wspomóż Wikimedię";
 "settings-my-languages" = "Moje języki";
 "settings-notifications" = "Powiadomienia";
+"settings-help-and-feedback" = "Pomoc i opinie";
 "settings-notifications-system-turn-on" = "Włączenie powiadomień";
 "settings-notifications-learn-more" = "Dowiedz się więcej o powiadomieniach";
 "main-menu-title" = "Więcej";
@@ -219,8 +220,7 @@
 "share-menu-save-page" = "Zapisz stronę";
 "share-menu-page-saved" = "Zapisano do czytania w trybie offline.";
 "share-menu-page-saved-access" = "Wskazówka: aby uzyskać dostęp do zapisanych stron, kliknij powyżej $1 lub przytrzymaj poniżej $2.";
-// Fuzzy
-"share-custom-menu-item" = "Udostępnij";
+"share-custom-menu-item" = "Udostępnij...";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" na @Wikipedia: \"$2\"";
 "share-as-image" = "Udostępnij jako obraz";
@@ -331,6 +331,7 @@
 "home-hide-suggestion-cancel" = "Anuluj";
 "potd-description-prefix" = "Ilustracja dnia na $1";
 "welcome-explore-sub-title" = "Nowy sposób, aby odkrywać ciekawe artykuły każdego dnia";
+"welcome-explore-tell-me-more" = "Powiedz mi więcej";
 "welcome-explore-tell-me-more-done-button" = "Wszystko jasne";
 "welcome-notifications-tell-me-more-title" = "Więcej o powiadomieniach";
 "welcome-languages-title" = "Języki";
@@ -339,28 +340,34 @@
 "welcome-volunteer-continue-button" = "Kontynuuj";
 "welcome-volunteer-thanks" = "Dziękujemy $1!";
 "empty-no-feed-title" = "Brak połączenia z internetem";
+"empty-no-article-message" = "Niestety nie udało się wczytać artykułu";
 "empty-no-search-results-message" = "Nie znaleziono";
 "empty-no-saved-pages-title" = "Nie zapisano jeszcze żadnych stron";
 "empty-no-history-title" = "Nie ma historii do pokazania";
 "alert-no-internet" = "Nie ma połączenia internetowego";
 "icon-shortcut-search-title" = "Szukaj w Wikipedii";
+"icon-shortcut-continue-reading-title" = "Czytaj dalej";
 "icon-shortcut-random-title" = "Losowy artykuł";
 "close-button-accessibility-label" = "Zamknij";
+"back-button-accessibility-label" = "Wstecz";
 "explore-continue-reading-heading" = "Czytaj dalej";
 "explore-nearby-heading" = "Miejsca w pobliżu";
 "explore-nearby-sub-heading-your-location" = "Twoje położenie";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";
+"explore-random-article-heading" = "Losowy artykuł";
+"explore-potd-heading" = "Grafika dnia";
 "explore-most-read-generic-heading" = "Najczęściej czytane";
+"explore-most-read-footer" = "Wszystkie najczęściej czytane artykuły";
 "explore-most-read-more-list-title" = "Najczęściej czytane artykuły";
 "no-email-account-alert" = "Skonfiguruj konto e-mail w tym urządzeniu i spróbuj jeszcze raz.";
 "explore-another-random" = "Inny losowy artykuł";
 "find-in-page-button-label" = "Znajdź na stronie";
 "find-in-page-popover-description" = "Wyszukiwanie tekstu w artykułach";
 "top-read-header-generic" = "Wikipedia";
+"readers-accessibility-label" = "$1 czytelników";
 "reference-title" = "Przypis $1";
 "in-the-news-notification-read-now-action-title" = "Przeczytaj teraz";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Udostępnij";
+"in-the-news-notification-share-action-title" = "Udostępnij...";
 "number-thousands" = "$1 tys.";
 "number-millions" = "$1 mln";
 "number-billions" = "$1 mld";

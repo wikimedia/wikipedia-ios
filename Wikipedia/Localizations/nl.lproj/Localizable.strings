@@ -233,8 +233,7 @@
 "share-menu-save-page" = "Pagina opslaan";
 "share-menu-page-saved" = "Pgina opgeslagen voor offline lezen.";
 "share-menu-page-saved-access" = "Tip: om uw opgeslagen pagina's te bekijken, klikt u op $1 bovenaan of houdt u $2 lang ingedrukt.";
-// Fuzzy
-"share-custom-menu-item" = "Delen";
+"share-custom-menu-item" = "Delen...";
 "share-a-fact-share-menu-item" = "Deel-een-feit";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
@@ -434,10 +433,11 @@
 "top-read-see-more-trending" = "Meer populaire pagina's bekijken";
 "top-read-header-with-language" = "Wikipedia in het $1";
 "top-read-header-generic" = "Wikipedia";
+"readers-accessibility-label" = "$1 lezers";
+"rank-accessibility-label" = "Nummer $1";
 "reference-title" = "Referentie $1";
 "in-the-news-notification-read-now-action-title" = "Nu lezen";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Delen";
+"in-the-news-notification-share-action-title" = "Delen...";
 "in-the-news-notification-save-for-later-action-title" = "Opslaan voor later";
 "in-the-news-currently-trending" = "Op dit moment populair";
 "in-the-news-title" = "Actueel";

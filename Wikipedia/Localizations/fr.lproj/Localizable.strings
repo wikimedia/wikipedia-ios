@@ -231,8 +231,7 @@
 "share-menu-save-page" = "Enregistrer la page";
 "share-menu-page-saved" = "Page enregistrée";
 "share-menu-page-saved-access" = "Conseil : pour accéder à vos pages enregistrées, tapez $1 ci-dessus ou appuyez longuement sur $2 ci-dessous.";
-// Fuzzy
-"share-custom-menu-item" = "Partager";
+"share-custom-menu-item" = "Partager…";
 "share-a-fact-share-menu-item" = "Partager-un-fait";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-article-name-on-wikipedia" = "« $1 » sur @Wikipedia:";
@@ -361,7 +360,11 @@
 "home-hide-suggestion-prompt" = "Masquer cette suggestion";
 "home-hide-suggestion-cancel" = "Annuler";
 "home-accessibility-label" = "Wikipédia, Explore";
+"home-title-accessibility-label" = "Wikipédia, faire défiler vers le haut pour Explorer";
 "home-button-accessibility-label" = "Accueil";
+"home-button-explore-accessibility-label" = "Wikipédia, revenir à Explorer";
+"home-button-saved-accessibility-label" = "Wikipédia, revenir à Enregistrés";
+"home-button-history-accessibility-label" = "Wikipédia, revenir à Historique";
 "potd-empty-error-description" = "Échec de récupération de l’image du jour pour $1";
 "potd-description-prefix" = "Image du jour pour $1";
 "welcome-explore-title" = "Explorer";
@@ -387,6 +390,9 @@
 "welcome-volunteer-send-usage-reports" = "Envoyer les rapports d’utilisation";
 "welcome-volunteer-continue-button" = "Continuer";
 "welcome-volunteer-thanks" = "$1 Merci !";
+"welcome-send-data-title" = "Envoyer des données anonymes";
+// Fuzzy
+"welcome-send-data-sub-title" = "Aider Wikimédia à améliorer l’application en nous faisant savoir comment vous l’utilisez. Les données collectées sont anonymes. En savoir plus";
 "empty-no-feed-title" = "Pas de connexion à Internet";
 "empty-no-feed-message" = "Vous pouvez voir vos articles recommandés quand vous avez Internet";
 "empty-no-feed-action-message" = "Vous pouvez toujours lire les pages enregistrées";
@@ -432,10 +438,11 @@
 "top-read-see-more-trending" = "Voir plus de tendances";
 "top-read-header-with-language" = "Wikipédia en $1";
 "top-read-header-generic" = "Wikipédia";
+"readers-accessibility-label" = "$1 lecteurs";
+"rank-accessibility-label" = "Numéro $1";
 "reference-title" = "Référence $1";
 "in-the-news-notification-read-now-action-title" = "Lire maintenant";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Partager";
+"in-the-news-notification-share-action-title" = "Partager…";
 "in-the-news-notification-save-for-later-action-title" = "Enregistrer pour plus tard";
 "in-the-news-currently-trending" = "Actuellement à la mode";
 "in-the-news-title" = "Dans l’actualité";
