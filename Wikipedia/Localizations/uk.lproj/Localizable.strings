@@ -437,7 +437,7 @@
 "top-read-see-more-trending" = "Див. більше популярних";
 "top-read-header-with-language" = "$1 Вікіпедія";
 "top-read-header-generic" = "Вікіпедія";
-"readers-accessibility-label" = "{{PLURAL:$1|$1 читач|$1 читачі|$1 читачів}}";
+"readers-accessibility-label" = "$1 читачів";
 "rank-accessibility-label" = "Номер $1";
 "reference-title" = "Посилання $1";
 "in-the-news-notification-read-now-action-title" = "Читати зараз";
