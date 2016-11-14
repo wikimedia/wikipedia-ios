@@ -21,6 +21,7 @@
     self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
     self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
     self.feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore userDataStore:[SessionSingleton sharedInstance].dataStore notificationsController:[WMFNotificationsController sharedNotificationsController]];
+    self.feedContentSource.notificationSchedulingEnabled = YES;
 
     self.calendar = [NSCalendar wmf_gregorianCalendar];
     self.date = [NSDate date];
@@ -61,6 +62,23 @@
     XCTAssertTrue([self.calendar daysFromDate:[defaults wmf_mostRecentInTheNewsNotificationDate] toDate:now] >= 3);
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for content to load"];
 
+    [self.feedContentSource loadContentForDate:self.date
+                                         force:NO
+                                    completion:^{
+                                        NSDate *notificationDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
+                                        XCTAssertTrue([self.calendar isDateInToday:notificationDate] || [self.calendar daysFromDate:now toDate:notificationDate] == 1);
+                                        XCTAssertTrue([defaults wmf_inTheNewsMostRecentDateNotificationCount] == 1);
+                                        [expectation fulfill];
+                                    }];
+
+    [self waitForExpectationsWithTimeout:10
+                                 handler:^(NSError *_Nullable error) {
+                                     if (error) {
+                                         XCTFail();
+                                     }
+                                 }];
+
+    expectation = [self expectationWithDescription:@"Wait for content to load"];
     [self.feedContentSource loadContentForDate:self.date
                                          force:NO
                                     completion:^{
