@@ -76,6 +76,23 @@
                                          XCTFail();
                                      }
                                  }];
+
+    expectation = [self expectationWithDescription:@"Wait for content to load"];
+    [self.feedContentSource loadContentForDate:self.date
+                                         force:NO
+                                    completion:^{
+                                        NSDate *notificationDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
+                                        XCTAssertTrue([self.calendar isDateInToday:notificationDate] || [self.calendar daysFromDate:now toDate:notificationDate] == 1);
+                                        XCTAssertTrue([defaults wmf_inTheNewsMostRecentDateNotificationCount] == 1);
+                                        [expectation fulfill];
+                                    }];
+
+    [self waitForExpectationsWithTimeout:10
+                                 handler:^(NSError *_Nullable error) {
+                                     if (error) {
+                                         XCTFail();
+                                     }
+                                 }];
 }
 
 - (void)testIncrementsNotificationCount {
