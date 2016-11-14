@@ -595,6 +595,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     NSParameterAssert(self.previewStore);
     NSParameterAssert([self siteURL]);
     if (!_contentSources) {
+        WMFFeedContentSource *feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:[self siteURL]
+                                                                          contentGroupDataStore:self.contentStore
+                                                                        articlePreviewDataStore:self.previewStore
+                                                                                  userDataStore:self.dataStore
+                                                                        notificationsController:self.notificationsController];
+        feedContentSource.notificationSchedulingEnabled = YES;
         _contentSources = @[
             [[WMFRelatedPagesContentSource alloc] initWithContentGroupDataStore:self.contentStore
                                                                   userDataStore:self.dataStore
@@ -608,11 +614,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             [[WMFNearbyContentSource alloc] initWithSiteURL:[self siteURL]
                                       contentGroupDataStore:self.contentStore
                                     articlePreviewDataStore:self.previewStore],
-            [[WMFFeedContentSource alloc] initWithSiteURL:[self siteURL]
-                                    contentGroupDataStore:self.contentStore
-                                  articlePreviewDataStore:self.previewStore
-                                            userDataStore:self.dataStore
-                                  notificationsController:self.notificationsController],
+            feedContentSource,
             [[WMFRandomContentSource alloc] initWithSiteURL:[self siteURL]
                                       contentGroupDataStore:self.contentStore
                                     articlePreviewDataStore:self.previewStore]
