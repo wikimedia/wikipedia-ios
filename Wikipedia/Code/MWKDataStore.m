@@ -4,6 +4,7 @@
 #import "MWKHistoryEntry+WMFDatabaseViews.h"
 #import <WMFModel/WMFModel-Swift.h>
 #import "WMFRelatedSectionBlackList.h"
+#include <notify.h>
 
 @import CoreData;
 
@@ -43,6 +44,8 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, strong) NSManagedObjectContext *viewContext;
 
+@property (nonatomic, strong) NSString *crossProcessNotificationChannelName;
+@property (nonatomic) int crossProcessNotificationToken;
 
 @end
 
@@ -128,6 +131,15 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     return self;
 }
 
+static pid_t currentPid() {
+    static dispatch_once_t onceToken;
+    static pid_t pid;
+    dispatch_once(&onceToken, ^{
+        pid = getpid();
+    });
+    return pid;
+}
+
 - (instancetype)initWithDatabase:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath {
     self = [super initWithDatabase:database];
     if (self) {
@@ -140,22 +152,90 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
         NSURL *coreDataDBURL = [baseURL URLByAppendingPathComponent:coreDataDBName isDirectory:NO];
         NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
         [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:coreDataDBURL options:nil error:nil];
+
+        self.crossProcessNotificationChannelName = @"org.wikimedia.cd";
+        const char *name = [self.crossProcessNotificationChannelName UTF8String];
+        notify_register_dispatch(name, &_crossProcessNotificationToken, dispatch_get_main_queue(), ^(int token) {
+            uint64_t fromPid;
+            notify_get_state(token, &fromPid);
+            BOOL isExternal = fromPid != currentPid();
+            if (isExternal) {
+                NSURL *baseURL = [[NSFileManager defaultManager] wmf_containerURL];
+                NSString *fileName = [NSString stringWithFormat:@"%llu.changes", fromPid];
+                NSURL *fileURL = [baseURL URLByAppendingPathComponent:fileName isDirectory:NO];
+                NSData *data = [NSData dataWithContentsOfURL:fileURL];
+                NSDictionary *userInfo = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                [NSManagedObjectContext mergeChangesFromRemoteContextSave:userInfo intoContexts:@[self.viewContext]];
+            }
+        });
+
         self.persistentStoreCoordinator = persistentStoreCoordinator;
         self.viewContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
         self.viewContext.persistentStoreCoordinator = persistentStoreCoordinator;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextChanged:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
+
         [self migrateSavedAndHistoryToCoreData:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
     }
     return self;
 }
 
-- (void)viewContextChanged:(NSNotification *)note {
+- (nullable id)archiveableNotificationValueForValue:(id)value {
+    if ([value isKindOfClass:[NSManagedObject class]]) {
+        return [[value objectID] URIRepresentation];
+    } else if ([value isKindOfClass:[NSManagedObjectID class]]) {
+        return [value URIRepresentation];
+    } else if ([value isKindOfClass:[NSSet class]] || [value isKindOfClass:[NSArray class]]) {
+        return [value bk_map:^id(id obj) {
+            return [self archiveableNotificationValueForValue:obj];
+        }];
+    } else if ([value conformsToProtocol:@protocol(NSCoding)]) {
+        return value;
+    } else {
+        return nil;
+    }
+}
+
+- (NSDictionary *)archivableNotificationUserInfoForUserInfo:(NSDictionary *)userInfo {
+    NSMutableDictionary *archiveableUserInfo = [NSMutableDictionary dictionaryWithCapacity:userInfo.count];
+    NSArray *allKeys = userInfo.allKeys;
+    for (NSString *key in allKeys) {
+        id value = userInfo[key];
+        if ([value isKindOfClass:[NSDictionary class]]) {
+            value = [self archivableNotificationUserInfoForUserInfo:value];
+        } else {
+            value = [self archiveableNotificationValueForValue:value];
+        }
+        if (value) {
+            archiveableUserInfo[key] = value;
+        }
+    }
+    return archiveableUserInfo;
+}
+
+- (void)viewContextDidSave:(NSNotification *)note {
     NSManagedObjectContext *moc = self.viewContext;
     if (!moc) {
         return;
     }
-    [NSManagedObjectContext mergeChangesFromRemoteContextSave:[note userInfo] intoContexts:@[moc]];
+
+    NSDictionary *userInfo = note.userInfo;
+    if (!userInfo) {
+        return;
+    }
+
+    uint64_t pid = currentPid();
+
+    NSDictionary *archiveableUserInfo = [self archivableNotificationUserInfoForUserInfo:userInfo];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:archiveableUserInfo];
+    NSURL *baseURL = [[NSFileManager defaultManager] wmf_containerURL];
+    NSString *fileName = [NSString stringWithFormat:@"%llu.changes", pid];
+    NSURL *fileURL = [baseURL URLByAppendingPathComponent:fileName isDirectory:NO];
+    [data writeToURL:fileURL atomically:YES];
+
+    const char *name = [self.crossProcessNotificationChannelName UTF8String];
+    notify_set_state(_crossProcessNotificationToken, pid);
+    notify_post(name);
 }
 
 + (BOOL)migrateToSharedContainer:(NSError **)error {
@@ -187,7 +267,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 - (BOOL)migrateSavedAndHistoryToCoreData:(NSError **)error {
     NSManagedObjectContext *moc = self.viewContext;
     NSMutableDictionary<NSString *, MWKHistoryEntry *> *historyEntries = [NSMutableDictionary dictionaryWithCapacity:100];
-    
+
     [self.savedDataSource readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
         if ([view numberOfItemsInAllGroups] == 0) {
             return;
@@ -200,7 +280,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
                                       historyEntries[key] = entry;
                                   }];
     }];
-    
+
     [self.historyDataSource readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
         if ([view numberOfItemsInAllGroups] == 0) {
             return;
@@ -213,15 +293,15 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
                                       historyEntries[key] = entry;
                                   }];
     }];
-    
+
     NSArray *allKeys = historyEntries.allKeys;
     NSFetchRequest *existingObjectFetchRequest = [WMFArticle fetchRequest];
     existingObjectFetchRequest.predicate = [NSPredicate predicateWithFormat:@"key in %@", allKeys];
     NSArray<WMFArticle *> *allExistingObjects = [moc executeFetchRequest:existingObjectFetchRequest error:nil];
 
     NSMutableSet *keysToAdd = [NSMutableSet setWithArray:allKeys];
-    
-    void (^updateBlock) (MWKHistoryEntry *, WMFArticle *) = ^(MWKHistoryEntry *entry, WMFArticle *article) {
+
+    void (^updateBlock)(MWKHistoryEntry *, WMFArticle *) = ^(MWKHistoryEntry *entry, WMFArticle *article) {
         article.lastViewedDate = entry.dateViewed;
         article.lastViewedFragment = entry.fragment;
         article.lastViewedScrollPosition = entry.scrollPosition;
@@ -231,7 +311,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
         article.newsNotificationDate = entry.inTheNewsNotificationDate;
         article.lastViewedScrollPosition = entry.scrollPosition;
     };
-    
+
     for (WMFArticle *article in allExistingObjects) {
         NSString *key = article.key;
         if (!key) {
@@ -246,7 +326,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
         [keysToAdd removeObject:key];
         updateBlock(entry, article);
     }
-    
+
     NSEntityDescription *articleEntityDescription = [NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:moc];
     for (NSString *key in keysToAdd) {
         MWKHistoryEntry *entry = historyEntries[key];
@@ -257,7 +337,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
         article.key = key;
         updateBlock(entry, article);
     }
-    
+
     return [moc save:error];
 }
 
