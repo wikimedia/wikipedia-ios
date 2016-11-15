@@ -103,7 +103,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 
-- (void)fetchContentForDate:(NSDate *)date force:(BOOL)force completion:(void (^)(WMFFeedDayResponse* __nullable feedResponse, NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *>  * __nullable pageViews))completion{
+- (void)fetchContentForDate:(NSDate *)date force:(BOOL)force completion:(void (^)(WMFFeedDayResponse* __nullable feedResponse, NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *>  * __nullable pageViews))completion{
     
     [self.fetcher fetchFeedContentForURL:self.siteURL
                                     date:date
@@ -170,7 +170,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     [self cleanupBadTopReadSections];
     
-    [self fetchContentForDate:date force:force completion:^(WMFFeedDayResponse * _Nullable feedResponse, NSMutableDictionary<NSURL *,NSDictionary<NSDate *,NSNumber *> *> * _Nullable pageViews) {
+    [self fetchContentForDate:date force:force completion:^(WMFFeedDayResponse * _Nullable feedResponse, NSDictionary<NSURL *,NSDictionary<NSDate *,NSNumber *> *> * _Nullable pageViews) {
         if(feedResponse == nil){
             completion();
         }else{
@@ -203,7 +203,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 #pragma mark - Save Groups
 
-- (void)saveContentForFeedDay:(WMFFeedDayResponse *)feedDay pageViews:(NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews onDate:(NSDate *)date completion:(dispatch_block_t)completion {
+- (void)saveContentForFeedDay:(WMFFeedDayResponse *)feedDay pageViews:(NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews onDate:(NSDate *)date completion:(dispatch_block_t)completion {
     [self saveGroupForFeaturedPreview:feedDay.featuredArticle date:date];
     [self saveGroupForTopRead:feedDay.topRead pageViews:pageViews date:date];
     [self saveGroupForPictureOfTheDay:feedDay.pictureOfTheDay date:date];
@@ -243,7 +243,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     [self.contentStore addContentGroup:featured associatedContent:@[featuredURL]];
 }
 
-- (void)saveGroupForTopRead:(WMFFeedTopReadResponse *)topRead pageViews:(NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)date {
+- (void)saveGroupForTopRead:(WMFFeedTopReadResponse *)topRead pageViews:(NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)date {
     //Sometimes top read is nil, depends on time of day
     if ([topRead.articlePreviews count] == 0 || date == nil) {
         return;
@@ -277,7 +277,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     [self.contentStore addContentGroup:group associatedContent:@[image]];
 }
 
-- (void)saveGroupForNews:(NSArray<WMFFeedNewsStory *> *)news pageViews:(NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)date {
+- (void)saveGroupForNews:(NSArray<WMFFeedNewsStory *> *)news pageViews:(NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)date {
     if ([news count] == 0 || date == nil) {
         return;
     }

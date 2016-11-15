@@ -15,7 +15,8 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     var date = NSDate()
     var group: WMFTopReadContentGroup?
     var results: [WMFFeedTopReadArticlePreview] = []
-    
+    var previews: [NSURL:WMFArticlePreview] = [:]
+
     let feedContentFetcher = WMFFeedContentFetcher()
     
     let contentStore = WMFContentGroupDataStore()
@@ -196,7 +197,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         var dataValueMin = CGFloat.max
         var dataValueMax = CGFloat.min
         for result in results[0...maximumRowCount] {
-            let articlePreview = self.previewStore.itemForURL(result.articleURL)
+            let articlePreview = previews[result.articleURL]
             guard let dataValues = articlePreview?.pageViews else {
                 continue
             }
@@ -233,7 +234,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             let rankString = NSNumberFormatter.localizedThousandsStringFromNumber(i + 1)
             vc.rankLabel.text = rankString
             vc.rankLabel.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("rank-accessibility-label").stringByReplacingOccurrencesOfString("$1", withString: rankString)
-            if let articlePreview = self.previewStore.itemForURL(result.articleURL) {
+            if let articlePreview = previews[result.articleURL] {
                 if let viewCounts = articlePreview.pageViewsSortedByDate() where viewCounts.count > 0 {
                     vc.sparklineView.minDataValue = dataValueMin
                     vc.sparklineView.maxDataValue = dataValueMax
@@ -341,7 +342,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             return
         }
         completionHandler(.NewData)
-        //fetchForDate(NSDate(), attempt: 1, completionHandler: completionHandler)
+        fetchForDate(NSDate(), attempt: 1, completionHandler: completionHandler)
     }
     
     func updateUIWithTopReadFromContentStoreForDate(date: NSDate) -> Bool {
@@ -350,6 +351,13 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 
                 self.group = topRead
                 self.results = content
+                previews.removeAll()
+                for result in results[0...maximumRowCount] {
+                    guard let articlePreview = self.previewStore.itemForURL(result.articleURL) else{
+                        continue
+                    }
+                    previews[result.articleURL] = articlePreview
+                }
                 self.updateView()
                 return true
             }
@@ -357,19 +365,63 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         return false
     }
     
-    
+    func updateUIWithTopReadResponse(topRead: WMFFeedTopReadResponse, pageViews: [NSURL:[NSDate:NSNumber]], date: NSDate){
+        self.group = topReadContentGroupWithTopReadResponse(topRead, date: date)
+        self.results = topRead.articlePreviews!
+        previews.removeAll()
+        for result in results[0...maximumRowCount] {
+            let articlePreview = previewWithFeedPreview(result.articleURL, feedPreview: result, pageViews: pageViews[result.articleURL])
+            previews[result.articleURL] = articlePreview
+        }
 
-//    func fetchForDate(date: NSDate, attempt: Int, completionHandler: ((NCUpdateResult) -> Void)) {
-//        guard !updateUIWithTopReadFromContentStoreForDate(date) else {
-//            completionHandler(.NewData)
-//            return
-//        }
-//        
-//        guard attempt < 3 else {
-//            completionHandler(.NoData)
-//            return
-//        }
-//        
+        self.updateView()
+    }
+
+    func topReadContentGroupWithTopReadResponse(topRead: WMFFeedTopReadResponse, date: NSDate) -> WMFTopReadContentGroup {
+        return WMFTopReadContentGroup(date: date, mostReadDate: topRead.date!, siteURL: self.siteURL)
+    }
+    
+    func previewWithFeedPreview(url: NSURL, feedPreview: WMFFeedArticlePreview, pageViews: [NSDate:NSNumber]?) -> WMFArticlePreview {
+        
+        let preview = WMFArticlePreview()
+        preview.url = url
+        preview.displayTitle = feedPreview.displayTitle;
+        preview.wikidataDescription = feedPreview.wikidataDescription;
+        preview.wikidataDescription = feedPreview.wikidataDescription;
+        preview.thumbnailURL = feedPreview.thumbnailURL;
+        preview.pageViews = pageViews;
+        return preview
+    }
+    
+    func fetchForDate(date: NSDate, attempt: Int, completionHandler: ((NCUpdateResult) -> Void)) {
+        guard !updateUIWithTopReadFromContentStoreForDate(date) else {
+            completionHandler(.NewData)
+            return
+        }
+        
+        guard attempt < 3 else {
+            completionHandler(.NoData)
+            return
+        }
+        
+        contentSource.fetchContentForDate(date, force: false) { (feedDay, pageViews) in
+            dispatch_async(dispatch_get_main_queue(), {
+                guard let topRead = feedDay?.topRead, let pageViews = pageViews else{
+                    guard let previousDate = NSCalendar.wmf_gregorianCalendar().dateByAddingUnit(.Day, value: -1, toDate: date, options: .MatchStrictly) else {
+                        completionHandler(.NoData)
+                        return
+                    }
+                    
+                    self.fetchForDate(previousDate, attempt: attempt + 1, completionHandler: completionHandler)
+                    return
+                }
+                
+                self.updateUIWithTopReadResponse(topRead, pageViews: pageViews, date: date)
+                
+                completionHandler(.NewData)
+            })
+
+        }
 //        contentSource.loadNewContentForce(false) {
 //            dispatch_async(dispatch_get_main_queue(), {
 //                guard self.updateUIWithTopReadFromContentStoreForDate(date) else {
@@ -385,7 +437,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
 //                completionHandler(.NewData)
 //            })
 //        }
-//    }
+    }
     
     func showAllTopReadInApp() {
         guard let URL = group?.url() else {
