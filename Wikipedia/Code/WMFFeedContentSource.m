@@ -102,65 +102,81 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     [group waitInBackgroundWithCompletion:completion];
 }
 
+
+- (void)fetchContentForDate:(NSDate *)date force:(BOOL)force completion:(void (^)(WMFFeedDayResponse* __nullable feedResponse, NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *>  * __nullable pageViews))completion{
+    
+    [self.fetcher fetchFeedContentForURL:self.siteURL
+                                    date:date
+                                   force:force
+                                 failure:^(NSError *_Nonnull error) {
+                                     if (completion) {
+                                         completion(nil, nil);
+                                     }
+                                 }
+                                 success:^(WMFFeedDayResponse *_Nonnull feedDay) {
+                                     
+                                     NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *pageViews = [NSMutableDictionary dictionary];
+                                     
+                                     NSDate *startDate = [self startDateForPageViewsForDate:date];
+                                     NSDate *endDate = [self endDateForPageViewsForDate:date];
+                                     
+                                     WMFTaskGroup *group = [WMFTaskGroup new];
+                                     
+                                     [feedDay.topRead.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedTopReadArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+                                         
+                                         [group enter];
+                                         [self.fetcher fetchPageviewsForURL:obj.articleURL
+                                                                  startDate:startDate
+                                                                    endDate:endDate
+                                                                    failure:^(NSError *_Nonnull error) {
+                                                                        [group leave];
+                                                                        
+                                                                    }
+                                                                    success:^(NSDictionary<NSDate *, NSNumber *> *_Nonnull results) {
+                                                                        pageViews[obj.articleURL] = results;
+                                                                        [group leave];
+                                                                        
+                                                                    }];
+                                     }];
+                                     
+                                     [feedDay.newsStories enumerateObjectsUsingBlock:^(WMFFeedNewsStory *_Nonnull newsStory, NSUInteger idx, BOOL *_Nonnull stop) {
+                                         [newsStory.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+                                             [group enter];
+                                             [self.fetcher fetchPageviewsForURL:obj.articleURL
+                                                                      startDate:startDate
+                                                                        endDate:endDate
+                                                                        failure:^(NSError *_Nonnull error) {
+                                                                            [group leave];
+                                                                        }
+                                                                        success:^(NSDictionary<NSDate *, NSNumber *> *_Nonnull results) {
+                                                                            pageViews[obj.articleURL] = results;
+                                                                            [group leave];
+                                                                        }];
+                                         }];
+                                     }];
+                                     
+                                     [group waitInBackgroundWithCompletion:^{
+                                         
+                                         completion(feedDay, pageViews);
+                                         
+                                     }];
+                                 }];
+
+    
+}
+
+
 - (void)loadContentForDate:(NSDate *)date force:(BOOL)force completion:(nullable dispatch_block_t)completion {
 
     [self cleanupBadTopReadSections];
-
-    [self.fetcher fetchFeedContentForURL:self.siteURL
-        date:date
-        force:force
-        failure:^(NSError *_Nonnull error) {
-            if (completion) {
-                completion();
-            }
+    
+    [self fetchContentForDate:date force:force completion:^(WMFFeedDayResponse * _Nullable feedResponse, NSMutableDictionary<NSURL *,NSDictionary<NSDate *,NSNumber *> *> * _Nullable pageViews) {
+        if(feedResponse == nil){
+            completion();
+        }else{
+            [self saveContentForFeedDay:feedResponse pageViews:pageViews onDate:date completion:completion];
         }
-        success:^(WMFFeedDayResponse *_Nonnull feedDay) {
-
-            NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *pageViews = [NSMutableDictionary dictionary];
-
-            NSDate *startDate = [self startDateForPageViewsForDate:date];
-            NSDate *endDate = [self endDateForPageViewsForDate:date];
-
-            WMFTaskGroup *group = [WMFTaskGroup new];
-
-            [feedDay.topRead.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedTopReadArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-
-                [group enter];
-                [self.fetcher fetchPageviewsForURL:obj.articleURL
-                    startDate:startDate
-                    endDate:endDate
-                    failure:^(NSError *_Nonnull error) {
-                        [group leave];
-
-                    }
-                    success:^(NSDictionary<NSDate *, NSNumber *> *_Nonnull results) {
-                        pageViews[obj.articleURL] = results;
-                        [group leave];
-
-                    }];
-            }];
-
-            [feedDay.newsStories enumerateObjectsUsingBlock:^(WMFFeedNewsStory *_Nonnull newsStory, NSUInteger idx, BOOL *_Nonnull stop) {
-                [newsStory.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                    [group enter];
-                    [self.fetcher fetchPageviewsForURL:obj.articleURL
-                        startDate:startDate
-                        endDate:endDate
-                        failure:^(NSError *_Nonnull error) {
-                            [group leave];
-                        }
-                        success:^(NSDictionary<NSDate *, NSNumber *> *_Nonnull results) {
-                            pageViews[obj.articleURL] = results;
-                            [group leave];
-                        }];
-                }];
-            }];
-
-            [group waitInBackgroundWithCompletion:^{
-
-                [self saveContentForFeedDay:feedDay pageViews:pageViews onDate:date completion:completion];
-            }];
-        }];
+    }];
 }
 
 - (void)removeAllContent {
