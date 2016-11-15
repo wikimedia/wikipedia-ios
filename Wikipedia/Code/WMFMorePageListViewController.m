@@ -27,15 +27,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFMorePageListViewController
 
-- (instancetype)initWithGroup:(WMFContentGroup *)group articleURLs:(NSArray<NSURL *> *)urls userDataStore:(MWKDataStore *)userDataStore previewStore:(WMFArticlePreviewDataStore *)previewStore {
+- (instancetype)initWithGroup:(WMFContentGroup *)group articleURLs:(NSArray<NSURL *> *)urls {
     NSParameterAssert(urls);
     NSParameterAssert(group);
-    NSParameterAssert(userDataStore);
-    NSParameterAssert(previewStore);
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
-        self.userDataStore = userDataStore;
-        self.previewStore = previewStore;
         self.group = group;
         self.articleURLs = urls;
     }
@@ -45,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Accessors
 
 - (MWKSavedPageList *)savedPageList {
-    return self.userDataStore.savedPageList;
+    return [[WMFDatabaseStack sharedInstance] userStore].savedPageList;
 }
 
 - (void)setCellType:(WMFMorePageListCellType)cellType {
@@ -142,7 +138,7 @@ NS_ASSUME_NONNULL_BEGIN
     WMFArticleListTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleListTableViewCell identifier] forIndexPath:indexPath];
 
     NSURL *url = self.articleURLs[indexPath.row];
-    WMFArticlePreview *preview = [self.previewStore itemForURL:url];
+    WMFArticlePreview *preview = [[[WMFDatabaseStack sharedInstance] previewStore] itemForURL:url];
     cell.titleText = preview.displayTitle;
     cell.descriptionText = [preview.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     [cell setImageURL:preview.thumbnailURL];
@@ -153,13 +149,13 @@ NS_ASSUME_NONNULL_BEGIN
     WMFArticlePreviewTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticlePreviewTableViewCell identifier] forIndexPath:indexPath];
 
     NSURL *url = self.articleURLs[indexPath.row];
-    WMFArticlePreview *preview = [self.previewStore itemForURL:url];
+    WMFArticlePreview *preview = [[[WMFDatabaseStack sharedInstance] previewStore] itemForURL:url];
     cell.titleText = preview.displayTitle;
     cell.descriptionText = [preview.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     cell.snippetText = preview.snippet;
     [cell setImageURL:preview.thumbnailURL];
     cell.saveButtonController.analyticsContext = [self analyticsContext];
-    [cell setSaveableURL:url savedPageList:self.userDataStore.savedPageList];
+    [cell setSaveableURL:url savedPageList:[self savedPageList]];
 
     return cell;
 }
@@ -169,7 +165,7 @@ NS_ASSUME_NONNULL_BEGIN
     WMFNearbyArticleTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFNearbyArticleTableViewCell wmf_nibName] forIndexPath:indexPath];
 
     NSURL *url = self.articleURLs[indexPath.row];
-    WMFArticlePreview *preview = [self.previewStore itemForURL:url];
+    WMFArticlePreview *preview = [[[WMFDatabaseStack sharedInstance] previewStore] itemForURL:url];
     cell.titleText = preview.displayTitle;
     cell.descriptionText = [preview.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     [cell setImageURL:preview.thumbnailURL];
@@ -184,7 +180,7 @@ NS_ASSUME_NONNULL_BEGIN
     [[self.tableView indexPathsForVisibleRows] enumerateObjectsUsingBlock:^(NSIndexPath *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         WMFNearbyArticleTableViewCell *cell = [self.tableView cellForRowAtIndexPath:obj];
         NSURL *url = self.articleURLs[obj.row];
-        WMFArticlePreview *preview = [self.previewStore itemForURL:url];
+        WMFArticlePreview *preview = [[[WMFDatabaseStack sharedInstance] previewStore] itemForURL:url];
         [self updateLocationCell:cell location:preview.location];
     }];
 }

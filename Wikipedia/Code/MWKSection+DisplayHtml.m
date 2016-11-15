@@ -1,5 +1,4 @@
 #import "MWKSection+DisplayHtml.h"
-#import "SessionSingleton.h"
 #import "Defines.h"
 #import "NSString+WMFExtras.h"
 
@@ -19,7 +18,7 @@
         ;
     }
 
-    BOOL isMainPage = [SessionSingleton sharedInstance].currentArticle.isMain;
+    BOOL isMainPage = self.article.isMain;
 
     return [NSString stringWithFormat:
                          @"<div id='section_heading_and_content_block_%d'>%@<div id='content_block_%d' class='content_block'>%@%@%@</div></div>",

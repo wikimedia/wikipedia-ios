@@ -27,7 +27,15 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
     
     var articleURL: NSURL?
 
-    var dataStore: MWKDataStore?
+    lazy var databaseStack: WMFDatabaseStack = {
+        [unowned self] in
+        WMFDatabaseStack.sharedInstance().setupStack()
+        return WMFDatabaseStack.sharedInstance()
+        }()
+    
+    deinit {
+        databaseStack.tearDownStack()
+    }
     
     var imageViewHidden = false {
         didSet {
@@ -140,21 +148,16 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
         case WMFInTheNewsNotificationSaveForLaterActionIdentifier:
             statusView.hidden = false
             statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saving-for-later")
-            dataStore = SessionSingleton.sharedInstance().dataStore
             PiwikTracker.sharedInstance()?.wmf_logActionSaveInContext(self, contentType: self)
-            if let dataStore = dataStore {
-                dataStore.savedPageList.addSavedPageWithURL(articleURL)
-                dataStore.notifyWhenWriteTransactionsComplete({
-                    dispatch_async(dispatch_get_main_queue(), {
-                        
-                        self.statusView.hidden = false
-                        self.statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saved-for-later")
-                        completion(.Dismiss)
-                    })
+            self.databaseStack.userStore.savedPageList.addSavedPageWithURL(articleURL)
+            self.databaseStack.userStore.notifyWhenWriteTransactionsComplete({
+                dispatch_async(dispatch_get_main_queue(), {
+                    
+                    self.statusView.hidden = false
+                    self.statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saved-for-later")
+                    completion(.Dismiss)
                 })
-            } else {
-                completion(.Dismiss)
-            }
+            })
         case WMFInTheNewsNotificationShareActionIdentifier:
             PiwikTracker.sharedInstance()?.wmf_logActionTapThroughInContext(self, contentType: self)
             completion(.DismissAndForwardAction)

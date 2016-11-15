@@ -20,14 +20,14 @@
 - (void)setUp {
     [super setUp];
 
-    self.session = [[SessionSingleton alloc] initWithDataStore:[MWKDataStore temporaryDataStore]];
-    self.webVC = [[WebViewController alloc] initWithSession:self.session];
+//    self.session = [[SessionSingleton alloc] initWithDataStore:[MWKDataStore temporaryDataStore]];
+//    self.webVC = [[WebViewController alloc] initWithSession:self.session];
 
     // disable TOC stuff since it breaks when the WebVC isn't properly attached to a window/parent-VC
 }
 
 - (void)tearDown {
-    [self.session.dataStore removeFolderAtBasePath];
+//    [self.session.dataStore removeFolderAtBasePath];
     [super tearDown];
 }
 

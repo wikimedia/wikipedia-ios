@@ -79,27 +79,6 @@ NSString *const WMFCCBySALicenseURL =
     [self unobserveScrollViewContentSize];
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        self.session = [SessionSingleton sharedInstance];
-    }
-    return self;
-}
-
-- (instancetype)init {
-    return [self initWithSession:[SessionSingleton sharedInstance]];
-}
-
-- (instancetype)initWithSession:(SessionSingleton *)aSession {
-    NSParameterAssert(aSession);
-    self = [super init];
-    if (self) {
-        self.session = aSession;
-    }
-    return self;
-}
-
 #pragma mark - WKScriptMessageHandler
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
@@ -943,9 +922,6 @@ NSString *const WMFCCBySALicenseURL =
 - (void)setArticle:(MWKArticle *)article {
     _article = article;
 
-    WMF_TECH_DEBT_TODO(remove dependency on session current article)
-    self.session.currentArticle = article;
-
     if ([self isViewLoaded]) {
         [self displayArticle];
     }
@@ -989,7 +965,7 @@ NSString *const WMFCCBySALicenseURL =
                                        NSAssert(URL != nil, @"WMFReferenceLinkTappedNotification NSURL was unexpectedly nil");
 
                                        if (URL != nil) {
-                                           NSString *domain = [SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language;
+                                           NSString *domain = self.article.url.wmf_language;
                                            MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];
                                            NSString *baseUrl = [NSString stringWithFormat:@"https://%@.wikipedia.org/", languageInfo.code];
                                            if ([URL.absoluteString hasPrefix:[NSString stringWithFormat:@"%@%@", baseUrl, @"#"]]) {

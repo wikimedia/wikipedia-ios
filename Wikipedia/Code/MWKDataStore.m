@@ -113,11 +113,6 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (instancetype)init {
-    self = [self initWithDatabase:[YapDatabase sharedInstance]];
-    return self;
-}
-
 - (instancetype)initWithDatabase:(YapDatabase *)database {
     self = [self initWithDatabase:database legacyDataBasePath:[[MWKDataStore class] mainDataStorePath]];
     return self;

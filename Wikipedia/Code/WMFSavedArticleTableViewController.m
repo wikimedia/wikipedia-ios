@@ -40,7 +40,7 @@
 #pragma mark - Accessors
 
 - (MWKSavedPageList *)savedPageList {
-    return self.userDataStore.savedPageList;
+    return [[WMFDatabaseStack sharedInstance] userStore].savedPageList;
 }
 
 - (MWKHistoryEntry*)objectAtIndexPath:(NSIndexPath*)indexPath{
@@ -51,6 +51,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setupDataSource];
 
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
@@ -61,7 +62,8 @@
 
 - (void)setupDataSource {
     if (!self.dataSource) {
-        self.dataSource = [self.userDataStore savedDataSource];
+        NSParameterAssert([[WMFDatabaseStack sharedInstance] userStore]);
+        self.dataSource = [[[WMFDatabaseStack sharedInstance] userStore] savedDataSource];
         self.dataSource.delegate = self;
         [self.tableView reloadData];
         [self updateEmptyAndDeleteState];
@@ -94,7 +96,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self teardownDataSource];
+//    [self teardownDataSource];
 }
 
 #pragma mark - UITableViewDataSource
@@ -111,7 +113,7 @@
     WMFArticleListTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleListTableViewCell identifier] forIndexPath:indexPath];
 
     MWKHistoryEntry *entry = [self objectAtIndexPath:indexPath];
-    MWKArticle *article = [self.userDataStore articleWithURL:entry.url];
+    MWKArticle *article = [[[WMFDatabaseStack sharedInstance] userStore] articleWithURL:entry.url];
     cell.titleText = article.url.wmf_title;
     cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
     [cell setImage:[article bestThumbnailImage]];
@@ -130,40 +132,49 @@
 #pragma mark - WMFDataSourceDelegate
 
 - (void)dataSourceDidUpdateAllData:(id<WMFDataSource>)dataSource {
+    NSAssert(dataSource == self.dataSource, @"not my datasource");
     [self.tableView reloadData];
 }
 
 - (void)dataSourceWillBeginUpdates:(id<WMFDataSource>)dataSource {
+    NSAssert(dataSource == self.dataSource, @"not my datasource");
     [self.tableView beginUpdates];
 }
 
 - (void)dataSourceDidFinishUpdates:(id<WMFDataSource>)dataSource {
+    NSAssert(dataSource == self.dataSource, @"not my datasource");
     [self.tableView endUpdates];
     [self updateEmptyAndDeleteState];
 }
 
 - (void)dataSource:(id<WMFDataSource>)dataSource didDeleteSectionsAtIndexes:(NSIndexSet *)indexes {
+    NSAssert(dataSource == self.dataSource, @"not my datasource");
     [self.tableView deleteSections:indexes withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)dataSource:(id<WMFDataSource>)dataSource didInsertSectionsAtIndexes:(NSIndexSet *)indexes {
+    NSAssert(dataSource == self.dataSource, @"not my datasource");
     [self.tableView insertSections:indexes withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)dataSource:(id<WMFDataSource>)dataSource didDeleteRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
+    NSAssert(dataSource == self.dataSource, @"not my datasource");
     [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)dataSource:(id<WMFDataSource>)dataSource didInsertRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
+    NSAssert(dataSource == self.dataSource, @"not my datasource");
     [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)dataSource:(id<WMFDataSource>)dataSource didMoveRowFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+    NSAssert(dataSource == self.dataSource, @"not my datasource");
     [self.tableView deleteRowsAtIndexPaths:@[fromIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     [self.tableView insertRowsAtIndexPaths:@[toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)dataSource:(id<WMFDataSource>)dataSource didUpdateRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
+    NSAssert(dataSource == self.dataSource, @"not my datasource");
     [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 

@@ -55,7 +55,8 @@ typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationCont
         [WMFReferencePopoverMessageViewController wmf_initialViewControllerFromClassStoryboard];
 
     popoverVC.modalPresentationStyle = UIModalPresentationPopover;
-    popoverVC.reference = reference;    
+    popoverVC.reference = reference;
+    popoverVC.articleURL = self.article.url;
     popoverVC.width = width;
 
     popoverVC.view.backgroundColor = [UIColor wmf_referencePopoverBackgroundColor];

@@ -355,9 +355,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (WMFReadMoreViewController *)readMoreListViewController {
     if (!_readMoreListViewController) {
-        _readMoreListViewController = [[WMFReadMoreViewController alloc] initWithURL:self.articleURL
-                                                                           userStore:self.dataStore
-                                                                        previewStore:self.previewStore];
+        _readMoreListViewController = [[WMFReadMoreViewController alloc] initWithURL:self.articleURL];
         _readMoreListViewController.delegate = self;
         _readMoreListViewController.view.backgroundColor = [UIColor whiteColor];
     }
@@ -876,6 +874,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    WMF_TECH_DEBT_TODO(remove dependency on session current article)
+    [SessionSingleton sharedInstance].currentArticleSiteURL = self.articleURL.wmf_siteURL;
     [self.reachabilityManager startMonitoring];
 }
 

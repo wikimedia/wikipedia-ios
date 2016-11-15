@@ -57,7 +57,7 @@
 - (NSString *)referenceHTMLWithSurroundingHTML {
     NSNumber *fontSize = [[NSUserDefaults wmf_userDefaults] wmf_readingFontSize];
 
-    NSString *domain = [SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language;
+    NSString *domain = self.articleURL.wmf_language;
     MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];
     NSString *baseUrl = [NSString stringWithFormat:@"https://%@.wikipedia.org/", languageInfo.code];
 

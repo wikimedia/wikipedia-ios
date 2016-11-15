@@ -37,11 +37,11 @@
 #pragma mark - Accessors
 
 - (MWKHistoryList *)historyList {
-    return self.userDataStore.historyList;
+    return [[WMFDatabaseStack sharedInstance] userStore].historyList;
 }
 
 - (MWKSavedPageList *)savedPageList {
-    return self.userDataStore.savedPageList;
+    return [[WMFDatabaseStack sharedInstance] userStore].savedPageList;
 }
 
 - (MWKHistoryEntry *)objectAtIndexPath:(NSIndexPath *)indexPath {
@@ -62,7 +62,8 @@
 
 - (void)setupDataSource {
     if (!self.dataSource) {
-        self.dataSource = [self.userDataStore historyGroupedByDateDataSource];
+        NSParameterAssert([[WMFDatabaseStack sharedInstance] userStore]);
+        self.dataSource = [[[WMFDatabaseStack sharedInstance] userStore] historyGroupedByDateDataSource];
         self.dataSource.delegate = self;
         [self.tableView reloadData];
         [self updateEmptyAndDeleteState];
@@ -128,7 +129,7 @@
     WMFArticleListTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleListTableViewCell identifier] forIndexPath:indexPath];
 
     MWKHistoryEntry *entry = [self objectAtIndexPath:indexPath];
-    MWKArticle *article = [[self userDataStore] articleWithURL:entry.url];
+    MWKArticle *article = [[[WMFDatabaseStack sharedInstance] userStore] articleWithURL:entry.url];
     cell.titleText = article.url.wmf_title;
     cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
     [cell setImage:[article bestThumbnailImage]];

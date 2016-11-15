@@ -85,6 +85,7 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "WMFDatabaseViewable.h"
 #import "WMFFaceDetectionCache.h"
+#import "WMFDatabaseStack.h"
 #import "YapDatabase+WMFExtensions.h"
 #import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
 #import "YapDatabaseViewMappings+WMFMappings.h"

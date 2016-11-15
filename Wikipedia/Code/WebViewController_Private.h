@@ -32,8 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable, readwrite) MWKArticle *article;
 @property (nonatomic, strong, nullable, readwrite) NSURL *articleURL;
 
-@property (nonatomic, strong) SessionSingleton *session;
-
 @property (strong, nonatomic) NSDictionary *adjacentHistoryIDs;
 @property (strong, nonatomic) NSString *externalUrl;
 
@@ -43,13 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) IBOutlet PaddedLabel *zeroStatusLabel;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *webViewBottomConstraint;
-
-/**
- * Designated initializer.
- * @param session The current session, defaults to `+[SessionSingleton sharedInstance]`.
- * @return A new `WebViewController` with the given session.
- */
-- (instancetype)initWithSession:(SessionSingleton *)session;
 
 @end
 

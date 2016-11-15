@@ -1,5 +1,4 @@
 #import "WMFBaseDataStore.h"
-#import "YapDatabase+WMFExtensions.h"
 #import "YapDatabaseConnection+WMFExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -21,11 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (instancetype)init {
-    self = [self initWithDatabase:[YapDatabase sharedInstance]];
-    return self;
 }
 
 - (instancetype)initWithDatabase:(YapDatabase *)database {

@@ -7,16 +7,13 @@
 
 @property (strong, nonatomic) WMFAssetsFile *mainPages;
 
-@property (strong, nonatomic, readwrite) NSURL *currentArticleSiteURL;
-
-@property (strong, nonatomic) NSURL *currentArticleURL;
-
 @end
 
 @implementation SessionSingleton
-@synthesize currentArticle = _currentArticle;
 
 #pragma mark - Setup
+
+static SessionSingleton *sharedInstance;
 
 + (SessionSingleton *)sharedInstance {
     static dispatch_once_t onceToken;
@@ -27,22 +24,17 @@
     return sharedInstance;
 }
 
-- (instancetype)init {
-    return [self initWithDataStore:[[MWKDataStore alloc] init]];
-}
-
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
+- (instancetype)init
+{
     self = [super init];
     if (self) {
         WMFURLCache *urlCache = [[WMFURLCache alloc] initWithMemoryCapacity:MegabytesToBytes(64)
                                                                diskCapacity:MegabytesToBytes(128)
                                                                    diskPath:nil];
         [NSURLCache setSharedURLCache:urlCache];
-
+        
         self.zeroConfigurationManager = [[WMFZeroConfigurationManager alloc] init];
-
-        self.dataStore = dataStore;
-
+        
         _currentArticleSiteURL = [self lastKnownSite];
     }
     return self;
@@ -60,56 +52,10 @@
     [[NSUserDefaults wmf_userDefaults] synchronize];
 }
 
-#pragma mark - Article
-
-- (void)setCurrentArticleURL:(NSURL *)currentArticleURL {
-    NSParameterAssert(currentArticleURL);
-    if (!_currentArticleURL || [_currentArticleURL isEqual:currentArticleURL]) {
-        return;
-    }
-    _currentArticleURL = currentArticleURL;
-    [[NSUserDefaults wmf_userDefaults] setObject:currentArticleURL.wmf_title forKey:@"CurrentArticleTitle"];
-    [[NSUserDefaults wmf_userDefaults] synchronize];
-}
-
-- (void)setCurrentArticle:(MWKArticle *)currentArticle {
-    if (!currentArticle || [_currentArticle isEqual:currentArticle]) {
-        return;
-    }
-    _currentArticle = currentArticle;
-    self.currentArticleURL = currentArticle.url;
-    self.currentArticleSiteURL = currentArticle.url;
-}
-
-- (MWKArticle *)currentArticle {
-    if (!_currentArticle) {
-        self.currentArticle = [self lastLoadedArticle];
-    }
-    return _currentArticle;
-}
-
 #pragma mark - Last known/loaded
 
 - (NSURL *)lastKnownSite {
     return [NSURL wmf_URLWithDefaultSiteAndlanguage:[[NSUserDefaults wmf_userDefaults] objectForKey:@"CurrentArticleDomain"]];
-}
-
-- (NSURL *)lastLoadedArticleURL {
-    NSURL *lastKnownSite = [self lastKnownSite];
-    NSString *titleText = [[NSUserDefaults wmf_userDefaults] objectForKey:@"CurrentArticleTitle"];
-    if (!titleText.length) {
-        return nil;
-    }
-    return [lastKnownSite wmf_URLWithTitle:titleText];
-}
-
-- (MWKArticle *)lastLoadedArticle {
-    NSURL *lastLoadedURL = [self lastLoadedArticleURL];
-    if (!lastLoadedURL) {
-        return nil;
-    }
-    MWKArticle *article = [self.dataStore articleWithURL:lastLoadedURL];
-    return article;
 }
 
 #pragma mark - Language URL
