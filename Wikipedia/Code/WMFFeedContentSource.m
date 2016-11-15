@@ -24,7 +24,7 @@ static NSInteger WMFFeedNotificationMaxHour = 20;
 static NSInteger WMFFeedNotificationMaxPerDay = 3;
 
 static NSTimeInterval WMFFeedNotificationArticleRepeatLimit = 30 * 24 * 60 * 60; // 30 days
-static NSInteger WMFFeedInTheNewsNotificationMaxRank = 10;
+static NSInteger WMFFeedInTheNewsNotificationMaxRank = 40;
 static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 @interface WMFFeedContentSource () <WMFAnalyticsContextProviding>
@@ -337,7 +337,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (!self.isNotificationSchedulingEnabled) {
         return;
     }
-    
+
     if (![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled]) {
         return;
     }
