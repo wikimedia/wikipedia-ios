@@ -7,6 +7,7 @@
 @property (nonatomic) CGFloat width;
 @property (nonatomic) BOOL scrollEnabled;
 
+@property(strong, nonatomic) NSURL *articleURL;
 @property(strong, nonatomic) WMFReference *reference;
 
 - (void) scrollToTop;
