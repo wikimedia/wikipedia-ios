@@ -10,6 +10,7 @@
 @class WMFRelatedSectionBlackList;
 @class MWKImageInfo;
 @class MWKImageList;
+@class WMFArticle;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -60,9 +61,18 @@ extern NSString *const MWKURLKey;
 @property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 @property (readonly, strong, nonatomic) WMFRelatedSectionBlackList *blackList;
 
+@property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
+
 #pragma mark - Entry Access
 
 - (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url;
+
+- (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL;
+- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key;
+- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL;
+
+- (BOOL)save:(NSError **)error;
+
 
 - (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block;
 

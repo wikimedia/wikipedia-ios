@@ -144,14 +144,9 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             PiwikTracker.sharedInstance()?.wmf_logActionSaveInContext(self, contentType: self)
             if let dataStore = dataStore {
                 dataStore.savedPageList.addSavedPageWithURL(articleURL)
-                dataStore.notifyWhenWriteTransactionsComplete({
-                    dispatch_async(dispatch_get_main_queue(), {
-                        
-                        self.statusView.hidden = false
-                        self.statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saved-for-later")
-                        completion(.Dismiss)
-                    })
-                })
+                self.statusView.hidden = false
+                self.statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saved-for-later")
+                completion(.Dismiss)
             } else {
                 completion(.Dismiss)
             }

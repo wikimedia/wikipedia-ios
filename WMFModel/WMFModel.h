@@ -144,6 +144,8 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import "WMFContentGroupDataStore.h"
 #import "WMFArticlePreviewDataStore.h"
 
+#import "WMFArticle+Extensions.h"
+
 #import "NSUserActivity+WMFExtensions.h"
 
 #import "PiwikTracker+WMFExtensions.h"

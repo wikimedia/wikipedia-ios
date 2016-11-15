@@ -41,7 +41,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (nonatomic, strong) NSOperationQueue *articleSaveQueue;
 
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (nonatomic, strong) NSManagedObjectContext *mainThreadManagedObjectContext;
+@property (nonatomic, strong) NSManagedObjectContext *viewContext;
 
 
 @end
@@ -141,12 +141,21 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
         NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
         [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:coreDataDBURL options:nil error:nil];
         self.persistentStoreCoordinator = persistentStoreCoordinator;
-        self.mainThreadManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-        self.mainThreadManagedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator;
+        self.viewContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        self.viewContext.persistentStoreCoordinator = persistentStoreCoordinator;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextChanged:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
         [self migrateSavedAndHistoryToCoreData:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
     }
     return self;
+}
+
+- (void)viewContextChanged:(NSNotification *)note {
+    NSManagedObjectContext *moc = self.viewContext;
+    if (!moc) {
+        return;
+    }
+    [NSManagedObjectContext mergeChangesFromRemoteContextSave:[note userInfo] intoContexts:@[moc]];
 }
 
 + (BOOL)migrateToSharedContainer:(NSError **)error {
@@ -176,22 +185,33 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (BOOL)migrateSavedAndHistoryToCoreData:(NSError **)error {
-    NSManagedObjectContext *moc = self.mainThreadManagedObjectContext;
+    NSManagedObjectContext *moc = self.viewContext;
     NSMutableDictionary<NSString *, MWKHistoryEntry *> *historyEntries = [NSMutableDictionary dictionaryWithCapacity:100];
-    [self.savedPageList enumerateItemsWithBlock:^(MWKHistoryEntry * _Nonnull entry, BOOL * _Nonnull stop) {
-        NSString *key = entry.url.wmf_articleDatabaseKey;
-        if (!key) {
+    
+    [self.savedDataSource readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
+        if ([view numberOfItemsInAllGroups] == 0) {
             return;
         }
-        historyEntries[key] = entry;
+        [view enumerateKeysAndObjectsInGroup:[[view allGroups] firstObject]
+                                  usingBlock:^(NSString *_Nonnull collection, NSString *_Nonnull key, MWKHistoryEntry *_Nonnull entry, NSUInteger index, BOOL *_Nonnull stop) {
+                                      if (!key || !entry) {
+                                          return;
+                                      }
+                                      historyEntries[key] = entry;
+                                  }];
     }];
-    [self.historyList enumerateItemsWithBlock:^(MWKHistoryEntry * _Nonnull entry, BOOL * _Nonnull stop) {
-        NSString *key = entry.url.wmf_articleDatabaseKey;
-        if (!key) {
+    
+    [self.historyDataSource readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
+        if ([view numberOfItemsInAllGroups] == 0) {
             return;
         }
-        historyEntries[key] = entry;
-
+        [view enumerateKeysAndObjectsInGroup:[[view allGroups] firstObject]
+                                  usingBlock:^(NSString *_Nonnull collection, NSString *_Nonnull key, MWKHistoryEntry *_Nonnull entry, NSUInteger index, BOOL *_Nonnull stop) {
+                                      if (!key || !entry) {
+                                          return;
+                                      }
+                                      historyEntries[key] = entry;
+                                  }];
     }];
     
     NSArray *allKeys = historyEntries.allKeys;
@@ -205,8 +225,6 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
         article.lastViewedDate = entry.dateViewed;
         article.lastViewedFragment = entry.fragment;
         article.lastViewedScrollPosition = entry.scrollPosition;
-        article.language = entry.url.wmf_language;
-        article.title = entry.url.wmf_title;
         article.savedDate = entry.dateSaved;
         article.blocked = entry.blackListed;
         article.wasSignificantlyViewed = entry.titleWasSignificantlyViewed;
@@ -803,6 +821,45 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 - (void)clearMemoryCache {
     [self.articleCache removeAllObjects];
+}
+
+#pragma mark - Core Data
+
+- (BOOL)save:(NSError **)error {
+    return [self.viewContext save:error];
+}
+
+- (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL {
+    return [self fetchArticleWithKey:[URL wmf_articleDatabaseKey]];
+}
+
+- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key {
+    if (!key) {
+        return nil;
+    }
+    NSAssert([NSThread isMainThread], @"View context can only be accessed on the main thread");
+    NSManagedObjectContext *moc = self.viewContext;
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"key == %@", key]];
+    return [[moc executeFetchRequest:request error:nil] firstObject];
+}
+
+- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL {
+    NSString *language = URL.wmf_language;
+    NSString *title = URL.wmf_title;
+    NSString *key = [URL wmf_articleDatabaseKey];
+    if (!language || !title || !key) {
+        return nil;
+    }
+
+    NSAssert([NSThread isMainThread], @"View context can only be accessed on the main thread");
+    NSManagedObjectContext *moc = self.viewContext;
+    WMFArticle *article = [self fetchArticleWithKey:key];
+    if (!article) {
+        article = [[WMFArticle alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:moc] insertIntoManagedObjectContext:moc];
+        article.key = key;
+    }
+    return article;
 }
 
 @end

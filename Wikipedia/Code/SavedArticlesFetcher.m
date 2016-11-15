@@ -12,6 +12,7 @@
 #import "WMFURLCache.h"
 #import "WMFImageURLParsing.h"
 #import "WMFTaskGroup.h"
+#import <WMFModel/WMFModel.h>
 
 static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;
 
@@ -145,17 +146,21 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     }
 
     WMFTaskGroup *group = [WMFTaskGroup new];
-    [self.savedPageList enumerateItemsWithBlock:^(MWKHistoryEntry *_Nonnull entry, BOOL *_Nonnull stop) {
+    [self.savedPageList enumerateItemsWithBlock:^(WMFArticle *_Nonnull entry, BOOL *_Nonnull stop) {
         [group enter];
         dispatch_async(self.accessQueue, ^{
             @autoreleasepool {
-                [self fetchArticleURL:entry.url
-                    failure:^(NSError *error) {
-                        [group leave];
-                    }
-                    success:^{
-                        [group leave];
-                    }];
+                NSURL *articleURL = [NSURL URLWithString:entry.key];
+                if (articleURL) {
+                    [self fetchArticleURL:articleURL
+                                  failure:^(NSError *error) {
+                                      [group leave];
+                                  }
+                                  success:^{
+                                      [group leave];
+                                  }];
+                }
+                
             }
         });
     }];
@@ -357,9 +362,9 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)cancelFetchForSavedPages {
     BOOL wasFetching = self.fetchOperationsByArticleTitle.count > 0;
-    [self.savedPageList enumerateItemsWithBlock:^(MWKHistoryEntry *_Nonnull entry, BOOL *_Nonnull stop) {
+    [self.savedPageList enumerateItemsWithBlock:^(WMFArticle *_Nonnull entry, BOOL *_Nonnull stop) {
         dispatch_async(self.accessQueue, ^{
-            [self cancelFetchForArticleURL:entry.url];
+            [self cancelFetchForArticleURL:entry.URL];
         });
     }];
     if (wasFetching) {

@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-@class MWKHistoryEntry, MWKDataStore;
+@class WMFArticle, MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,11 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSInteger)numberOfItems;
 
-- (nullable MWKHistoryEntry *)mostRecentEntry;
+- (nullable WMFArticle *)mostRecentEntry;
 
-- (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url;
+- (nullable WMFArticle *)entryForURL:(NSURL *)url;
 
-- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block;
+- (void)enumerateItemsWithBlock:(void (^)(WMFArticle *_Nonnull entry, BOOL *stop))block;
 
 - (BOOL)isSaved:(NSURL *)url;
 
