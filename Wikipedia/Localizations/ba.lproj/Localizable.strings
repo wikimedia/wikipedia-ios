@@ -231,8 +231,7 @@
 "share-menu-save-page" = "Яҙҙырып ҡуйырға";
 "share-menu-page-saved" = "Мәҡәлә һаҡланған";
 "share-menu-page-saved-access" = "Кәңәш:һаҡланған битегеҙҙе асыу өсөн, өҫтән $1, аҫтан$2 төймәләренә баҫығыҙ";
-// Fuzzy
-"share-custom-menu-item" = "Уртаҡлашырға";
+"share-custom-menu-item" = "Уртаҡлашырға...";
 "share-a-fact-share-menu-item" = "Факт менән уртаҡлашығыҙ";
 "share-on-twitter-sign-off" = "@Wikipedia аша";
 "share-article-name-on-wikipedia" = " @Wikipedia-ла «$1»";
