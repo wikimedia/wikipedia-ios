@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly, nonatomic, strong) NSURL *siteURL;
 
+@property (nonatomic, getter=isNotificationSchedulingEnabled) BOOL notificationSchedulingEnabled;
+
 @property (readonly, nonatomic, strong) WMFContentGroupDataStore *contentStore;
 @property (readonly, nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
 

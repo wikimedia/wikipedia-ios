@@ -569,6 +569,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     NSParameterAssert([[WMFDatabaseStack sharedInstance] previewStore]);
     NSParameterAssert([self siteURL]);
     if (!_contentSources) {
+        WMFFeedContentSource *feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:[self siteURL]
+                                                                          contentGroupDataStore:[[WMFDatabaseStack sharedInstance] contentStore]
+                                                                        articlePreviewDataStore:[[WMFDatabaseStack sharedInstance] previewStore]
+                                                                                  userDataStore:[[WMFDatabaseStack sharedInstance] userStore]
+                                                                        notificationsController:self.notificationsController];
+        feedContentSource.notificationSchedulingEnabled = YES;
         _contentSources = @[
             [[WMFRelatedPagesContentSource alloc] initWithContentGroupDataStore:[[WMFDatabaseStack sharedInstance] contentStore]
                                                                   userDataStore:[[WMFDatabaseStack sharedInstance] userStore]
@@ -582,11 +588,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             [[WMFNearbyContentSource alloc] initWithSiteURL:[self siteURL]
                                       contentGroupDataStore:[[WMFDatabaseStack sharedInstance] contentStore]
                                     articlePreviewDataStore:[[WMFDatabaseStack sharedInstance] previewStore]],
-            [[WMFFeedContentSource alloc] initWithSiteURL:[self siteURL]
-                                    contentGroupDataStore:[[WMFDatabaseStack sharedInstance] contentStore]
-                                  articlePreviewDataStore:[[WMFDatabaseStack sharedInstance] previewStore]
-                                            userDataStore:[[WMFDatabaseStack sharedInstance] userStore]
-                                  notificationsController:self.notificationsController],
+                                    feedContentSource,
             [[WMFRandomContentSource alloc] initWithSiteURL:[self siteURL]
                                       contentGroupDataStore:[[WMFDatabaseStack sharedInstance] contentStore]
                                     articlePreviewDataStore:[[WMFDatabaseStack sharedInstance] previewStore]]

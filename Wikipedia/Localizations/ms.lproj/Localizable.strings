@@ -224,8 +224,7 @@
 "share-menu-save-page" = "Simpan Rencana";
 "share-menu-page-saved" = "Rencana Disimpan";
 "share-menu-page-saved-access" = "Tip: untuk mengakses laman-laman simpanan anda, ketik $1 di atas atau tekan lama-lama $2 di bawah.";
-// Fuzzy
-"share-custom-menu-item" = "Sebarkan";
+"share-custom-menu-item" = "Sebarkan...";
 "share-a-fact-share-menu-item" = "Bagikan-fakta";
 "share-on-twitter-sign-off" = "melalui @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" di @Wikipedia:";
@@ -354,7 +353,11 @@
 "home-hide-suggestion-prompt" = "Sembunyikan cadangan ini";
 "home-hide-suggestion-cancel" = "Batalkan";
 "home-accessibility-label" = "Wikipedia, Jelajah";
+"home-title-accessibility-label" = "Wikipedia, tatal ke bahagian atas laman Jelajah";
 "home-button-accessibility-label" = "Laman Utama";
+"home-button-explore-accessibility-label" = "Wikipedia, kembali ke laman Jelajah";
+"home-button-saved-accessibility-label" = "Wikipedia, kembali ke Tersimpan";
+"home-button-history-accessibility-label" = "Wikipedia, kembali ke Sejarah";
 "potd-empty-error-description" = "Gagal untuk menerima gambar pilihan pada $1";
 "potd-description-prefix" = "Gambar pilihan pada $1";
 "welcome-explore-title" = "Jelajah";
@@ -380,6 +383,9 @@
 "welcome-volunteer-send-usage-reports" = "Hantar laporan penggunaan";
 "welcome-volunteer-continue-button" = "Teruskan";
 "welcome-volunteer-thanks" = "Terima kasih! $1";
+"welcome-send-data-title" = "Hantar data tanpa nama";
+// Fuzzy
+"welcome-send-data-sub-title" = "Bantuan Wikimedia membuat aplikasi yang lebih baik dengan membiarkan kita tahu bagaimana anda menggunakan aplikasi. Data yang dikumpul adalah tanpa nama. Ketahui lebih lanjut";
 "empty-no-feed-title" = "Tiada Sambungan Internet";
 "empty-no-feed-message" = "Anda boleh lihat rencana cadangan anda apabila anda mempunyai internet";
 "empty-no-feed-action-message" = "Anda masih boleh membaca laman tersimpan";
@@ -425,10 +431,11 @@
 "top-read-see-more-trending" = "Lihat sedang tren lainnya";
 "top-read-header-with-language" = "Wikipedia Bahasa $1";
 "top-read-header-generic" = "Wikipedia";
+"readers-accessibility-label" = "$1 pembaca";
+"rank-accessibility-label" = "Nombor $1";
 "reference-title" = "Referensi $1";
 "in-the-news-notification-read-now-action-title" = "Baca Sekarang";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Kongsi";
+"in-the-news-notification-share-action-title" = "Sebarkan...";
 "in-the-news-notification-save-for-later-action-title" = "Simpan untuk nanti";
 "in-the-news-currently-trending" = "Semasa ini ngetren";
 "in-the-news-title" = "Dalam berita";

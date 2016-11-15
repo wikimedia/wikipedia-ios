@@ -216,8 +216,7 @@
 "share-menu-save-page" = "Artikel späicheren";
 "share-menu-page-saved" = "Säit gespäichert";
 "share-menu-page-saved-access" = "Tipp: fir op Är gespäichert Säiten ze goen, tippt $1 hei driwwer oder dréckt laang op $2 hei drënner.";
-// Fuzzy
-"share-custom-menu-item" = "Deelen";
+"share-custom-menu-item" = "Deelen...";
 "share-a-fact-share-menu-item" = "E-Fait-deelen";
 "share-on-twitter-sign-off" = "iwwer @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
@@ -345,6 +344,8 @@
 "home-hide-suggestion-cancel" = "Ofbriechen";
 "home-accessibility-label" = "Wikipedia, Entdecken";
 "home-button-accessibility-label" = "Haaptsäit";
+"home-button-saved-accessibility-label" = "Wikipedia, zréck op Gespäichert";
+"home-button-history-accessibility-label" = "Wikipedia, zréck op d'Versiounen";
 "potd-empty-error-description" = "Bild vum Dag vum $1 konnt net erofgeluede ginn";
 "potd-description-prefix" = "Bild vum Dag vum $1";
 "welcome-explore-title" = "Entdecken";
@@ -368,6 +369,7 @@
 "welcome-volunteer-send-usage-reports" = "Rapporten iwwer d'Benotze schécken";
 "welcome-volunteer-continue-button" = "Virufueren";
 "welcome-volunteer-thanks" = "$1 Merci!";
+"welcome-send-data-title" = "Anonym Donnéeë schécken";
 "empty-no-feed-title" = "Keng Internetverbindung";
 "empty-no-feed-message" = "Dir kënnt Är recommandéiert Artikele gesi wann Dir Internet hutt.";
 "empty-no-feed-action-message" = "Dir kënnt trotzdem gespäichert Säite liesen";
@@ -413,10 +415,11 @@
 "top-read-see-more-trending" = "Méi Tendenze gesinn";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
+"readers-accessibility-label" = "$1 Lieser";
+"rank-accessibility-label" = "Nummer $1";
 "reference-title" = "Referenz: $1";
 "in-the-news-notification-read-now-action-title" = "Elo Liesen";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Deelen";
+"in-the-news-notification-share-action-title" = "Deelen...";
 "in-the-news-notification-save-for-later-action-title" = "Fir spéider späicheren";
 "in-the-news-currently-trending" = "Aktuell beléift";
 "in-the-news-title" = "An den Neiegkeeten";
