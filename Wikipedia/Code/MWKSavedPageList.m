@@ -34,13 +34,38 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
         self.dataStore = dataStore;
         self.dataSource = [self.dataStore savedDataSource];
         [self migrateLegacyDataIfNeeded];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     }
     return self;
 }
 
-- (void)applicationWillEnterForeground:(NSNotification *)note {
-    self.dataSource = [self.dataStore savedDataSource];
+- (void)applicationDidBecomeActive:(NSNotification *)note {
+    NSURL *containerURL = [[NSFileManager defaultManager] wmf_containerURL];
+    NSString *filename = @"Saved.articles";
+    NSURL *savedArticlesURL = [containerURL URLByAppendingPathComponent:filename isDirectory:NO];
+    if (!savedArticlesURL) {
+        return;
+    }
+    
+    NSData *savedArticlesData = [NSData dataWithContentsOfURL:savedArticlesURL];
+    if (!savedArticlesData) {
+        return;
+    }
+    
+    NSArray<NSString *> *articlesToSave = [NSKeyedUnarchiver unarchiveObjectWithData:savedArticlesData];
+    if (articlesToSave.count == 0) {
+        return;
+    }
+    
+    for (NSString *articleToSave in articlesToSave) {
+        NSURL *articleURL = [NSURL URLWithString:articleToSave];
+        if (!articleURL) {
+            continue;
+        }
+        [self addSavedPageWithURL:articleURL];
+    }
+   
+    [[NSFileManager defaultManager] removeItemAtURL:savedArticlesURL error:nil];
 }
 
 #pragma mark - Legacy Migration
