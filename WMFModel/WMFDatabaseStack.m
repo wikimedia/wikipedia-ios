@@ -26,20 +26,27 @@
     return sharedInstance;
 }
 
-- (void)tearDownStack{
-    self.database = nil;
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.database = [YapDatabase wmf_databaseWithDefaultConfiguration];
+        self.database.maxConnectionPoolCount = 0;
+    }
+    return self;
+}
+
+- (void)tearDownStack {
     self.previewStore = nil;
     self.contentStore = nil;
     self.userStore = nil;
     self.exploreUIContentStore = nil;
 }
 
-- (void)setupStack{
-    self.database = [YapDatabase wmf_databaseWithDefaultConfiguration];
+- (void)setupStack {
     self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:self.database];
     self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:self.database];
     self.userStore = [[MWKDataStore alloc] initWithDatabase:self.database];
-    WMFContentGroupDataStore* uiStore = [[WMFContentGroupDataStore alloc] initWithDatabase:self.database];
+    WMFContentGroupDataStore *uiStore = [[WMFContentGroupDataStore alloc] initWithDatabase:self.database];
     uiStore.databaseSyncingEnabled = NO;
     self.exploreUIContentStore = uiStore;
 }
