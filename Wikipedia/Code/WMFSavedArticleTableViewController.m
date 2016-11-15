@@ -54,7 +54,7 @@
     NSFetchRequest *articleRequest = [WMFArticle fetchRequest];
     articleRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL"];
     articleRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:NO]];
-    NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:articleRequest managedObjectContext:self.userDataStore.viewContext sectionNameKeyPath:nil cacheName:@"org.wikipedia.saved"];
+    NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:articleRequest managedObjectContext:self.userDataStore.viewContext sectionNameKeyPath:nil cacheName:nil];
     frc.delegate = self;
     [frc performFetch:nil];
     self.fetchedResultsController = frc;
