@@ -139,6 +139,8 @@
 		0EE2438F1DC988AA00066CBD /* WMFTableHeaderLabelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EE2438E1DC988AA00066CBD /* WMFTableHeaderLabelView.xib */; };
 		0EE489031D4ADCA00088505C /* UITableViewController+WMFScrollToTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE489021D4ADCA00088505C /* UITableViewController+WMFScrollToTop.swift */; };
 		0EE489051D4AE0900088505C /* CocoaLumberjack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE489041D4AE0900088505C /* CocoaLumberjack.swift */; };
+		0EE54C1D1DDAAF6700ED71E1 /* WMFDatabaseStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EE54C1B1DDAAF6700ED71E1 /* WMFDatabaseStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0EE54C1E1DDAAF6700ED71E1 /* WMFDatabaseStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE54C1C1DDAAF6700ED71E1 /* WMFDatabaseStack.m */; };
 		0EF2249A1CC5536200FDF78E /* WMFLanguageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF224991CC5536200FDF78E /* WMFLanguageCell.m */; };
 		0EF5BB6D1C110C2100DE75E1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB6C1C110C2100DE75E1 /* AppDelegate.m */; };
 		0EF8634E1C19E02700006D2D /* WMFEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EF8634D1C19E02700006D2D /* WMFEmptyView.xib */; };
@@ -1206,6 +1208,8 @@
 		0EE4890C1D4C1BEE0088505C /* WMFDatabaseStorable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDatabaseStorable.h; path = Wikipedia/Code/WMFDatabaseStorable.h; sourceTree = SOURCE_ROOT; };
 		0EE4890E1D4C1C920088505C /* MWKHistoryEntry+WMFDatabaseStorable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKHistoryEntry+WMFDatabaseStorable.h"; path = "Wikipedia/Code/MWKHistoryEntry+WMFDatabaseStorable.h"; sourceTree = SOURCE_ROOT; };
 		0EE4890F1D4C1C920088505C /* MWKHistoryEntry+WMFDatabaseStorable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKHistoryEntry+WMFDatabaseStorable.m"; path = "Wikipedia/Code/MWKHistoryEntry+WMFDatabaseStorable.m"; sourceTree = SOURCE_ROOT; };
+		0EE54C1B1DDAAF6700ED71E1 /* WMFDatabaseStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFDatabaseStack.h; sourceTree = "<group>"; };
+		0EE54C1C1DDAAF6700ED71E1 /* WMFDatabaseStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFDatabaseStack.m; sourceTree = "<group>"; };
 		0EF224991CC5536200FDF78E /* WMFLanguageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLanguageCell.m; sourceTree = "<group>"; };
 		0EF5BB651C110BFC00DE75E1 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Global.h; path = Wikipedia/Code/Global.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB661C110BFC00DE75E1 /* WMFBlockDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBlockDefinitions.h; path = Wikipedia/Code/WMFBlockDefinitions.h; sourceTree = SOURCE_ROOT; };
@@ -3121,6 +3125,8 @@
 				0E01B2BA1D5CCBCB005E3134 /* YapDatabaseReadWriteTransaction+WMFCustomNotifications.m */,
 				0E28C4791D74D587000C5919 /* YapDatabaseViewMappings+WMFMappings.h */,
 				0E28C47A1D74D587000C5919 /* YapDatabaseViewMappings+WMFMappings.m */,
+				0EE54C1B1DDAAF6700ED71E1 /* WMFDatabaseStack.h */,
+				0EE54C1C1DDAAF6700ED71E1 /* WMFDatabaseStack.m */,
 			);
 			name = YapDatabase;
 			sourceTree = "<group>";
@@ -5886,6 +5892,7 @@
 				D844D9B11D6CB7770042D692 /* MWKSavedPageEntry+ImageMigration.h in Headers */,
 				0EB4108B1DBFA55000A26CE1 /* WMFAnalyticsLogging.h in Headers */,
 				0E728D4A1DAEEE910074EB4B /* CLLocation+WMFBearing.h in Headers */,
+				0EE54C1D1DDAAF6700ED71E1 /* WMFDatabaseStack.h in Headers */,
 				D84B22531DAFD1E1007C44AA /* CIDetector+WMFFaceDetection.h in Headers */,
 				D844D9B61D6CB7940042D692 /* MWKRecentSearchEntry.h in Headers */,
 				D84B224D1DAFD0F7007C44AA /* WMFNotificationsController.h in Headers */,
@@ -7422,6 +7429,7 @@
 				D844D9C01D6CB7BA0042D692 /* MWKDataStore.m in Sources */,
 				D844D9FB1D6CC0710042D692 /* SDImageCache+WMFPersistentCache.m in Sources */,
 				D844D9DB1D6CBBB30042D692 /* YapDatabaseReadWriteTransaction+WMFCustomNotifications.m in Sources */,
+				0EE54C1E1DDAAF6700ED71E1 /* WMFDatabaseStack.m in Sources */,
 				D844D9D91D6CBBB30042D692 /* MWKHistoryEntry+WMFDatabaseStorable.m in Sources */,
 				0E28C46A1D74ACB1000C5919 /* WMFDatabaseDataSource.m in Sources */,
 				0E728D4E1DAEEEA00074EB4B /* WMFRandomArticleFetcher.m in Sources */,

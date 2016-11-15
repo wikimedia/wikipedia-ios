@@ -7,6 +7,8 @@
 #import "MWKDataStore.h"
 #import "WMFContentGroupDataStore.h"
 
+#import "WMFDatabaseStack.h"
+
 #import "WMFDataBaseDataSource.h"
 #import "MWKDataStore+WMFDataSources.h"
 
