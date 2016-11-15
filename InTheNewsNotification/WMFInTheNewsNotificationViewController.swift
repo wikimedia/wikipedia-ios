@@ -26,8 +26,6 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
     var marginWidthForVisibleImageView: CGFloat = 0
     
     var articleURL: NSURL?
-
-    var dataStore: MWKDataStore?
     
     var imageViewHidden = false {
         didSet {
@@ -140,21 +138,36 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
         case WMFInTheNewsNotificationSaveForLaterActionIdentifier:
             statusView.hidden = false
             statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saving-for-later")
-            dataStore = SessionSingleton.sharedInstance().dataStore
             PiwikTracker.sharedInstance()?.wmf_logActionSaveInContext(self, contentType: self)
-            if let dataStore = dataStore {
-                dataStore.savedPageList.addSavedPageWithURL(articleURL)
-                dataStore.notifyWhenWriteTransactionsComplete({
-                    dispatch_async(dispatch_get_main_queue(), {
-                        
-                        self.statusView.hidden = false
-                        self.statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saved-for-later")
-                        completion(.Dismiss)
-                    })
-                })
-            } else {
+            let containerURL = NSFileManager.defaultManager().wmf_containerURL();
+            let filename = "Saved.articles"
+            guard let savedArticlesURL = containerURL.URLByAppendingPathComponent(filename, isDirectory: false) else {
                 completion(.Dismiss)
+                break
             }
+            
+            var savedArticles = [NSString]()
+            
+            if let data = NSData(contentsOfURL: savedArticlesURL), let array = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? [NSString] {
+               savedArticles = array
+            }
+            
+            if let savedArticleString = articleURL.absoluteString {
+                savedArticles.append(savedArticleString)
+            }
+            
+            let data = NSKeyedArchiver.archivedDataWithRootObject(savedArticles)
+            
+            do {
+                try data.writeToURL(savedArticlesURL, options: .DataWritingAtomic)
+            } catch let error {
+                DDLogError("error saving: \(error)")
+            }
+            
+            statusView.hidden = false
+            statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saved-for-later")
+            completion(.Dismiss)
+
         case WMFInTheNewsNotificationShareActionIdentifier:
             PiwikTracker.sharedInstance()?.wmf_logActionTapThroughInContext(self, contentType: self)
             completion(.DismissAndForwardAction)
