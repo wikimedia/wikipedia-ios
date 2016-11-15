@@ -7,6 +7,7 @@
 
 #import "PiwikTracker+WMFExtensions.h"
 
+#import "WMFDatabaseStack.h"
 #import "YapDatabase+WMFExtensions.h"
 #import "WMFContentGroupDataStore.h"
 #import "MWKDataStore.h"
@@ -74,8 +75,6 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
-@property (nonatomic, strong) WMFContentGroupDataStore *internalContentStore;
-
 @property (nonatomic, strong, nullable) WMFFeedNotificationHeader *notificationHeader;
 
 @property (nonatomic, strong, nullable) AFNetworkReachabilityManager *reachabilityManager;
@@ -117,8 +116,29 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         self.navigationItem.titleView.accessibilityTraits |= UIAccessibilityTraitHeader;
         self.navigationItem.leftBarButtonItem = [self settingsBarButtonItem];
         self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(teardownNotification:) name:MWKTeardownDataSourcesNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupNotification:) name:MWKSetupDataSourcesNotification object:nil];
+
     }
     return self;
+}
+
+- (void)tearDownDataSource{
+    self.sectionDataSource.delegate = nil;
+    self.sectionDataSource = nil;
+}
+
+- (void)setupDataSource{
+    self.sectionDataSource = [[[WMFDatabaseStack sharedInstance] exploreUIContentStore] contentGroupDataSource];
+    self.sectionDataSource.delegate = self;
+}
+
+- (void)teardownNotification:(NSNotification *)note {
+    [self tearDownDataSource];
+}
+
+- (void)setupNotification:(NSNotification *)note {
+    [self setupDataSource];
 }
 
 #pragma mark - Accessors
@@ -145,29 +165,14 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                                            action:@selector(didTapSettingsButton:)];
 }
 
-- (id<WMFDataSource>)sectionDataSource {
-    if (!_sectionDataSource) {
-        _sectionDataSource = [self.internalContentStore contentGroupDataSource];
-    }
-    return _sectionDataSource;
-}
-
-- (WMFContentGroupDataStore *)internalContentStore {
-    if (_internalContentStore == nil) {
-        _internalContentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
-        _internalContentStore.databaseSyncingEnabled = NO;
-    }
-    return _internalContentStore;
-}
-
 - (MWKSavedPageList *)savedPages {
-    NSParameterAssert(self.userStore);
-    return self.userStore.savedPageList;
+    NSParameterAssert([[WMFDatabaseStack sharedInstance] userStore]);
+    return [[WMFDatabaseStack sharedInstance] userStore].savedPageList;
 }
 
 - (MWKHistoryList *)history {
-    NSParameterAssert(self.userStore);
-    return self.userStore.historyList;
+    NSParameterAssert([[WMFDatabaseStack sharedInstance] userStore]);
+    return [[WMFDatabaseStack sharedInstance] userStore].historyList;
 }
 
 - (WMFLocationManager *)locationManager {
@@ -189,7 +194,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 - (BOOL)canScrollToTop {
     WMFContentGroup *group = [self sectionAtIndex:0];
     NSParameterAssert(group);
-    NSArray *content = [self.internalContentStore contentForContentGroup:group];
+    NSArray *content = [[[WMFDatabaseStack sharedInstance] exploreUIContentStore] contentForContentGroup:group];
     return [content count] > 0;
 }
 
@@ -202,8 +207,8 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 - (void)showSettings {
     UINavigationController *settingsContainer =
         [[UINavigationController alloc] initWithRootViewController:
-                                            [WMFSettingsViewController settingsViewControllerWithDataStore:self.userStore
-                                                                                              previewStore:self.previewStore]];
+                                            [WMFSettingsViewController settingsViewControllerWithDataStore:[[WMFDatabaseStack sharedInstance] userStore]
+                                                                                              previewStore:[[WMFDatabaseStack sharedInstance] previewStore]]];
     [self presentViewController:settingsContainer
                        animated:YES
                      completion:nil];
@@ -225,7 +230,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [group waitInBackgroundWithTimeout:12
                             completion:^{
                                 [self resetRefreshControl];
-                                [self.internalContentStore syncDataStoreToDatabase];
+                                [[[WMFDatabaseStack sharedInstance] exploreUIContentStore] syncDataStoreToDatabase];
                                 [self startMonitoringReachabilityIfNeeded];
                                 [self showOfflineEmptyViewIfNeeded];
                                 [self showHideNotificationIfNeccesary];
@@ -233,10 +238,9 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 }
 
 - (void)updateFeedWithLatestDatabaseContent {
-    self.sectionDataSource.delegate = nil;
-    self.sectionDataSource = nil;
-    [self.internalContentStore syncDataStoreToDatabase];
-    self.sectionDataSource.delegate = self;
+    [self tearDownDataSource];
+    [[[WMFDatabaseStack sharedInstance] exploreUIContentStore] syncDataStoreToDatabase];
+    [self setupDataSource];
 }
 
 #pragma mark - Section Access
@@ -256,7 +260,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 #pragma mark - Content Access
 
 - (nullable NSArray<id> *)contentForGroup:(WMFContentGroup *)group {
-    NSArray<id> *content = [self.internalContentStore contentForContentGroup:group];
+    NSArray<id> *content = [[[WMFDatabaseStack sharedInstance] exploreUIContentStore] contentForContentGroup:group];
     return content;
 }
 
@@ -266,7 +270,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 }
 
 - (nullable NSArray<NSURL *> *)contentURLsForGroup:(WMFContentGroup *)group {
-    NSArray<id> *content = [self.internalContentStore contentForContentGroup:group];
+    NSArray<id> *content = [[[WMFDatabaseStack sharedInstance] exploreUIContentStore] contentForContentGroup:group];
 
     if ([group contentType] == WMFContentTypeTopReadPreview) {
         content = [content bk_map:^id(WMFFeedTopReadArticlePreview *obj) {
@@ -321,7 +325,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     if (url == nil) {
         return nil;
     }
-    return [self.previewStore itemForURL:url];
+    return [[[WMFDatabaseStack sharedInstance] previewStore] itemForURL:url];
 }
 
 - (nullable WMFFeedTopReadArticlePreview *)topReadPreviewForIndexPath:(NSIndexPath *)indexPath {
@@ -334,7 +338,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     if (url == nil) {
         return nil;
     }
-    return [self.userStore entryForURL:url];
+    return [[[WMFDatabaseStack sharedInstance] userStore] entryForURL:url];
 }
 
 - (nullable WMFFeedImage *)imageInfoForIndexPath:(NSIndexPath *)indexPath {
@@ -342,7 +346,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     if ([section contentType] != WMFContentTypeImage) {
         return nil;
     }
-    return [self.internalContentStore contentForContentGroup:section][indexPath.row];
+    return [[[WMFDatabaseStack sharedInstance] exploreUIContentStore] contentForContentGroup:section][indexPath.row];
 }
 
 #pragma mark - Refresh Control
@@ -497,16 +501,17 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [super viewWillAppear:animated];
     [self registerForPreviewingIfAvailable];
     [self showHideNotificationIfNeccesary];
+    [self setupDataSource];
     for (UICollectionViewCell *cell in self.collectionView.visibleCells) {
         cell.selected = NO;
     }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    NSParameterAssert(self.contentStore);
-    NSParameterAssert(self.userStore);
+    NSParameterAssert([[WMFDatabaseStack sharedInstance] contentStore]);
+    NSParameterAssert([[WMFDatabaseStack sharedInstance] userStore]);
+    NSParameterAssert([[WMFDatabaseStack sharedInstance] exploreUIContentStore]);
     NSParameterAssert(self.contentSources);
-    NSParameterAssert(self.internalContentStore);
     [super viewDidAppear:animated];
 
     [[PiwikTracker sharedInstance] wmf_logView:self];
@@ -775,9 +780,9 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil)
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction *_Nonnull action) {
-                                                [self.userStore.blackList addBlackListArticleURL:url];
-                                                [self.userStore notifyWhenWriteTransactionsComplete:^{
-                                                    [self.contentStore notifyWhenWriteTransactionsComplete:^{
+                                                [[[WMFDatabaseStack sharedInstance] userStore].blackList addBlackListArticleURL:url];
+                                                [[[WMFDatabaseStack sharedInstance] userStore] notifyWhenWriteTransactionsComplete:^{
+                                                    [[[WMFDatabaseStack sharedInstance] contentStore] notifyWhenWriteTransactionsComplete:^{
                                                         NSUInteger index = [self indexForSection:section];
 
                                                         [self.collectionView performBatchUpdates:^{
@@ -855,7 +860,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     cell.descriptionText = [preview.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     cell.snippetText = preview.snippet;
     [cell setImageURL:preview.thumbnailURL];
-    [cell setSaveableURL:preview.url savedPageList:self.userStore.savedPageList];
+    [cell setSaveableURL:preview.url savedPageList:[[WMFDatabaseStack sharedInstance] userStore].savedPageList];
     cell.saveButtonController.analyticsContext = [self analyticsContext];
     cell.saveButtonController.analyticsContentType = [section analyticsContentType];
 }
@@ -943,7 +948,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     switch ([group headerActionType]) {
         case WMFFeedHeaderActionTypeOpenHeaderContent: {
             NSURL *url = [group headerContentURL];
-            [self wmf_pushArticleWithURL:url dataStore:self.userStore previewStore:self.previewStore animated:YES];
+            [self wmf_pushArticleWithURL:url dataStore:[[WMFDatabaseStack sharedInstance] userStore] previewStore:[[WMFDatabaseStack sharedInstance] previewStore] animated:YES];
         } break;
         case WMFFeedHeaderActionTypeOpenFirstItem: {
             [self selectItem:0 inSection:section];
@@ -969,22 +974,22 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
     switch (group.moreType) {
         case WMFFeedMoreTypePageList: {
-            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs userDataStore:self.userStore previewStore:self.previewStore];
+            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs];
             vc.cellType = WMFMorePageListCellTypeNormal;
             [self.navigationController pushViewController:vc animated:animated];
         } break;
         case WMFFeedMoreTypePageListWithPreview: {
-            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs userDataStore:self.userStore previewStore:self.previewStore];
+            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs];
             vc.cellType = WMFMorePageListCellTypePreview;
             [self.navigationController pushViewController:vc animated:animated];
         } break;
         case WMFFeedMoreTypePageListWithLocation: {
-            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs userDataStore:self.userStore previewStore:self.previewStore];
+            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs];
             vc.cellType = WMFMorePageListCellTypeLocation;
             [self.navigationController pushViewController:vc animated:animated];
         } break;
         case WMFFeedMoreTypePageWithRandomButton: {
-            WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self currentSiteURL] dataStore:self.userStore previewStore:self.previewStore];
+            WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self currentSiteURL] dataStore:[[WMFDatabaseStack sharedInstance] userStore] previewStore:[[WMFDatabaseStack sharedInstance] previewStore]];
             [self.navigationController pushViewController:vc animated:animated];
         } break;
 
@@ -1007,12 +1012,12 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
-            WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore previewStore:self.previewStore];
+            WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:[[WMFDatabaseStack sharedInstance] userStore] previewStore:[[WMFDatabaseStack sharedInstance] previewStore]];
             return vc;
         } break;
         case WMFFeedDetailTypePageWithRandomButton: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
-            WMFRandomArticleViewController *vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore previewStore:self.previewStore];
+            WMFRandomArticleViewController *vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:[[WMFDatabaseStack sharedInstance] userStore] previewStore:[[WMFDatabaseStack sharedInstance] previewStore]];
             return vc;
         } break;
         case WMFFeedDetailTypeGallery: {
@@ -1196,7 +1201,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 #pragma mark - In The News
 
 - (InTheNewsViewController *)inTheNewsViewControllerForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date {
-    InTheNewsViewController *vc = [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore previewStore:self.previewStore];
+    InTheNewsViewController *vc = [[InTheNewsViewController alloc] initWithStory:story dataStore:[[WMFDatabaseStack sharedInstance] userStore] previewStore:[[WMFDatabaseStack sharedInstance] previewStore]];
     NSString *format = MWLocalizedString(@"in-the-news-title-for-date", nil);
     if (format && date) {
         NSString *dateString = [[NSDateFormatter wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date];
