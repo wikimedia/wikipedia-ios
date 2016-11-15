@@ -351,10 +351,6 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         return;
     }
 
-    NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
-    NSDate *mostRecentDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
-    BOOL ignoreTopReadRequirement = !mostRecentDate || ([userCalendar daysFromDate:mostRecentDate toDate:[NSDate date]] >= 3);
-
     self.schedulingNotifications = YES;
     dispatch_block_t done = ^{
         self.schedulingNotifications = NO;
@@ -407,7 +403,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 
     WMFFeedTopReadArticlePreview *topReadArticlePreview = topReadArticlesByKey[key];
-    if (ignoreTopReadRequirement || (topReadArticlePreview && (topReadArticlePreview.rank.integerValue < WMFFeedInTheNewsNotificationMaxRank))) {
+    if (topReadArticlePreview && (topReadArticlePreview.rank.integerValue < WMFFeedInTheNewsNotificationMaxRank)) {
         articlePreviewToNotifyAbout = [self.previewStore itemForURL:articleURL];
     }
 
