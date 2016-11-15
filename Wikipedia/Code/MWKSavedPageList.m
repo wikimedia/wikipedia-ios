@@ -15,7 +15,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
 @property (readwrite, weak, nonatomic) MWKDataStore *dataStore;
 
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, readonly) NSFetchRequest *savedPageListFetchRequest;
 
 @end
 
@@ -33,7 +33,6 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     if (self) {
         self.dataStore = dataStore;
         [self migrateLegacyDataIfNeeded];
-        [self setupFetchedResultsController];
     }
     return self;
 }
@@ -85,24 +84,23 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 //    }
 }
 
-- (void)setupFetchedResultsController {
-    NSFetchRequest *articleRequest = [WMFArticle fetchRequest];
-    articleRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL"];
-    articleRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:NO]];
-    NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:articleRequest managedObjectContext:self.dataStore.viewContext sectionNameKeyPath:nil cacheName:@"org.wikipedia.saved"];
-    frc.delegate = self;
-    [frc performFetch:nil];
-    self.fetchedResultsController = frc;
-}
-
 #pragma mark - Convienence Methods
 
+- (NSFetchRequest *)savedPageListFetchRequest {
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:NO]];
+    return request;
+}
+
 - (NSInteger)numberOfItems {
-    return [[[self.fetchedResultsController sections] firstObject] numberOfObjects];
+    return [self.dataStore.viewContext countForFetchRequest:self.savedPageListFetchRequest error:nil];
 }
 
 - (nullable WMFArticle *)mostRecentEntry {
-    return (WMFArticle*)[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    NSFetchRequest *request = self.savedPageListFetchRequest;
+    request.fetchLimit = 1;
+    return [[self.dataStore.viewContext executeFetchRequest:request error:nil] firstObject];
 }
 
 - (nullable WMFArticle *)entryForURL:(NSURL *)url {
@@ -121,7 +119,10 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     if (!block) {
         return;
     }
-    [[self.fetchedResultsController fetchedObjects] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    
+    NSFetchRequest *request = self.savedPageListFetchRequest;
+    NSArray<WMFArticle *> *allEntries = [self.dataStore.viewContext executeFetchRequest:request error:nil];
+    [allEntries enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         block(obj, stop);
     }];
 }
@@ -185,40 +186,5 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 + (NSArray<NSDictionary *> *)savedEntryDataFromListWithUnknownSchema:(NSDictionary *)data {
     return [data[MWKSavedPageExportedEntriesKey] wmf_reverseArray];
 }
-
-#pragma mark - NSFetchedResultsControllerDelegate 
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(nullable NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(nullable NSIndexPath *)newIndexPath {
-    
-}
-
-/* Notifies the delegate of added or removed sections.  Enables NSFetchedResultsController change tracking.
- 
-	controller - controller instance that noticed the change on its sections
-	sectionInfo - changed section
-	index - index of changed section
-	type - indicates if the change was an insert or delete
- 
-	Changes on section info are reported before changes on fetchedObjects.
- */
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-    
-}
-
-/* Notifies the delegate that section and object changes are about to be processed and notifications will be sent.  Enables NSFetchedResultsController change tracking.
- Clients may prepare for a batch of updates by using this method to begin an update block for their view.
- */
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    
-}
-
-/* Notifies the delegate that all section and object changes have been sent. Enables NSFetchedResultsController change tracking.
- Clients may prepare for a batch of updates by using this method to begin an update block for their view.
- Providing an empty implementation will enable change tracking if you do not care about the individual callbacks.
- */
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    
-}
-
 
 @end

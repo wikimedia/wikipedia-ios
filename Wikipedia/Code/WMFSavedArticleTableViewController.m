@@ -11,17 +11,14 @@
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 
 #import "MWKArticle.h"
-#import "MWKHistoryEntry.h"
 
 #import "WMFSaveButtonController.h"
 
 #import "WMFArticleListTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 
-@interface WMFSavedArticleTableViewController () <WMFDataSourceDelegate>
-
-@property (nonatomic, strong) id<WMFDataSource> dataSource;
-
+@interface WMFSavedArticleTableViewController () <NSFetchedResultsControllerDelegate>
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @end
 
 @implementation WMFSavedArticleTableViewController
@@ -34,7 +31,6 @@
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Accessors
@@ -43,8 +39,8 @@
     return self.userDataStore.savedPageList;
 }
 
-- (MWKHistoryEntry*)objectAtIndexPath:(NSIndexPath*)indexPath{
-    return (MWKHistoryEntry*)[self.dataSource objectAtIndexPath:indexPath];
+- (WMFArticle *)objectAtIndexPath:(NSIndexPath*)indexPath{
+    return (WMFArticle*)[self.fetchedResultsController objectAtIndexPath:indexPath];
 }
 
 #pragma mark - UIViewController
@@ -55,35 +51,14 @@
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(teardownNotification:) name:MWKTeardownDataSourcesNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupNotification:) name:MWKSetupDataSourcesNotification object:nil];
-}
-
-- (void)setupDataSource {
-    if (!self.dataSource) {
-        self.dataSource = [self.userDataStore savedDataSource];
-        self.dataSource.delegate = self;
-        [self.tableView reloadData];
-        [self updateEmptyAndDeleteState];
-    }
-}
-
-- (void)teardownDataSource {
-    self.dataSource.delegate = nil;
-    self.dataSource = nil;
-}
-
-- (void)teardownNotification:(NSNotification *)note {
-    [self teardownDataSource];
-}
-
-- (void)setupNotification:(NSNotification *)note {
-    [self setupDataSource];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self setupDataSource];
+    NSFetchRequest *articleRequest = [WMFArticle fetchRequest];
+    articleRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL"];
+    articleRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:NO]];
+    NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:articleRequest managedObjectContext:self.userDataStore.viewContext sectionNameKeyPath:nil cacheName:@"org.wikipedia.saved"];
+    frc.delegate = self;
+    [frc performFetch:nil];
+    self.fetchedResultsController = frc;
+    [self.tableView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -91,27 +66,25 @@
     [[PiwikTracker sharedInstance] wmf_logView:self];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_savedPagesViewActivity]];
 }
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    [self teardownDataSource];
-}
-
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self.dataSource numberOfSections];
+    return self.fetchedResultsController.sections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.dataSource numberOfItemsInSection:section];
+    NSArray<id<NSFetchedResultsSectionInfo>> *sections = self.fetchedResultsController.sections;
+    if (section >= sections.count) {
+        return 0;
+    }
+    return [sections[section] numberOfObjects];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticleListTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleListTableViewCell identifier] forIndexPath:indexPath];
 
-    MWKHistoryEntry *entry = [self objectAtIndexPath:indexPath];
-    MWKArticle *article = [self.userDataStore articleWithURL:entry.url];
+    WMFArticle *entry = [self objectAtIndexPath:indexPath];
+    MWKArticle *article = [self.userDataStore articleWithURL:entry.URL];
     cell.titleText = article.url.wmf_title;
     cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
     [cell setImage:[article bestThumbnailImage]];
@@ -127,44 +100,22 @@
     [[self savedPageList] removeEntryWithURL:[self urlAtIndexPath:indexPath]];
 }
 
-#pragma mark - WMFDataSourceDelegate
+#pragma mark - NSFetchedResultsControllerDelegate
 
-- (void)dataSourceDidUpdateAllData:(id<WMFDataSource>)dataSource {
+//- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(nullable NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(nullable NSIndexPath *)newIndexPath {
+//    
+//}
+//
+//- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+//    
+//}
+//
+//- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+//    [self.tableView beginUpdates];
+//}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView reloadData];
-}
-
-- (void)dataSourceWillBeginUpdates:(id<WMFDataSource>)dataSource {
-    [self.tableView beginUpdates];
-}
-
-- (void)dataSourceDidFinishUpdates:(id<WMFDataSource>)dataSource {
-    [self.tableView endUpdates];
-    [self updateEmptyAndDeleteState];
-}
-
-- (void)dataSource:(id<WMFDataSource>)dataSource didDeleteSectionsAtIndexes:(NSIndexSet *)indexes {
-    [self.tableView deleteSections:indexes withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-- (void)dataSource:(id<WMFDataSource>)dataSource didInsertSectionsAtIndexes:(NSIndexSet *)indexes {
-    [self.tableView insertSections:indexes withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-- (void)dataSource:(id<WMFDataSource>)dataSource didDeleteRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-    [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-- (void)dataSource:(id<WMFDataSource>)dataSource didInsertRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-    [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-- (void)dataSource:(id<WMFDataSource>)dataSource didMoveRowFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-    [self.tableView deleteRowsAtIndexPaths:@[fromIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.tableView insertRowsAtIndexPaths:@[toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-- (void)dataSource:(id<WMFDataSource>)dataSource didUpdateRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (WMFEmptyViewType)emptyViewType {
@@ -200,7 +151,7 @@
 }
 
 - (NSURL *)urlAtIndexPath:(NSIndexPath *)indexPath {
-    return [[self objectAtIndexPath:indexPath] url];
+    return [[self objectAtIndexPath:indexPath] URL];
 }
 
 - (void)deleteAll {
@@ -208,7 +159,7 @@
 }
 
 - (NSInteger)numberOfItems {
-    return [self.dataSource numberOfItems];
+    return [self tableView:self.tableView numberOfRowsInSection:0];
 }
 
 @end

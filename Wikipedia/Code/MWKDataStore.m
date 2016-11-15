@@ -146,7 +146,6 @@ static pid_t currentPid() {
         self.basePath = basePath;
         [self setupLegacyDataStore];
 
-        
         NSDictionary *infoDictionary = [self loadSharedInfoDictionaryWithContainerURL:containerURL];
         self.crossProcessNotificationChannelName = infoDictionary[@"CrossProcessNotificiationChannelName"];
         [self setupCrossProcessNotifier];
@@ -164,13 +163,12 @@ static pid_t currentPid() {
     NSDictionary *infoDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:infoDictionaryData];
     if (!infoDictionary[@"CrossProcessNotificiationChannelName"]) {
         NSString *channelName = [NSString stringWithFormat:@"org.wikimedia.wikipedia.cd-cpn-%@", [NSUUID new].UUIDString].lowercaseString;
-        infoDictionary = @{@"CrossProcessNotificiationChannelName": channelName};
+        infoDictionary = @{ @"CrossProcessNotificiationChannelName": channelName };
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:infoDictionary];
         [data writeToURL:infoDictionaryURL atomically:YES];
     }
     return infoDictionary;
 }
-
 
 - (void)setupCrossProcessNotifier {
     NSString *channelName = self.crossProcessNotificationChannelName;
@@ -199,11 +197,11 @@ static pid_t currentPid() {
     NSURL *modelURL = [[NSBundle bundleWithIdentifier:@"org.wikimedia.WMFModel"] URLForResource:@"Wikipedia" withExtension:@"momd"];
     NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     NSString *coreDataDBName = @"Wikipedia.sqlite";
-    
+
     NSURL *coreDataDBURL = [containerURL URLByAppendingPathComponent:coreDataDBName isDirectory:NO];
     NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
     [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:coreDataDBURL options:nil error:nil];
-    
+
     self.persistentStoreCoordinator = persistentStoreCoordinator;
     self.viewContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     self.viewContext.persistentStoreCoordinator = persistentStoreCoordinator;
