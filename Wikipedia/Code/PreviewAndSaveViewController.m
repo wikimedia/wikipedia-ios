@@ -4,7 +4,6 @@
 #import "WikiTextSectionUploader.h"
 #import "UIViewController+WMFHideKeyboard.h"
 #import "EditTokenFetcher.h"
-#import "SessionSingleton.h"
 #import "PreviewWebViewContainer.h"
 #import "Defines.h"
 #import "WMF_Colors.h"
@@ -735,7 +734,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     self.captchaViewController.captchaTextBox.text = @"";
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
     [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language
+        (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:self.section.article.url.wmf_language
                                                         withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
                                                  thenNotifyDelegate:self];
     }];

@@ -876,6 +876,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    WMF_TECH_DEBT_TODO(remove dependency on session current article)
+    [SessionSingleton sharedInstance].currentArticleSiteURL = self.articleURL.wmf_siteURL;
     [self.reachabilityManager startMonitoring];
 }
 
