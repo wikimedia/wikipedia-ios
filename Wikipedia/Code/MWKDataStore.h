@@ -52,7 +52,7 @@ extern NSString *const MWKURLKey;
  */
 - (instancetype)init;
 
-- (instancetype)initWithDatabase:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithContainerURL:(NSURL *)containerURL database:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath NS_DESIGNATED_INITIALIZER;
 
 + (BOOL)migrateToSharedContainer:(NSError **)error;
 
@@ -72,7 +72,6 @@ extern NSString *const MWKURLKey;
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL;
 
 - (BOOL)save:(NSError **)error;
-
 
 - (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block;
 

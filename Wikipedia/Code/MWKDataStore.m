@@ -127,7 +127,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (instancetype)initWithDatabase:(YapDatabase *)database {
-    self = [self initWithDatabase:database legacyDataBasePath:[[MWKDataStore class] mainDataStorePath]];
+    self = [self initWithContainerURL:[[NSFileManager defaultManager] wmf_containerURL] database:database legacyDataBasePath:[[MWKDataStore class] mainDataStorePath]];
     return self;
 }
 
@@ -140,44 +140,74 @@ static pid_t currentPid() {
     return pid;
 }
 
-- (instancetype)initWithDatabase:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath {
+- (instancetype)initWithContainerURL:(NSURL *)containerURL database:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath {
     self = [super initWithDatabase:database];
     if (self) {
         self.basePath = basePath;
         [self setupLegacyDataStore];
-        NSURL *modelURL = [[NSBundle bundleWithIdentifier:@"org.wikimedia.WMFModel"] URLForResource:@"Wikipedia" withExtension:@"momd"];
-        NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-        NSString *coreDataDBName = @"Wikipedia.sqlite";
-        NSURL *baseURL = [[NSFileManager defaultManager] wmf_containerURL];
-        NSURL *coreDataDBURL = [baseURL URLByAppendingPathComponent:coreDataDBName isDirectory:NO];
-        NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-        [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:coreDataDBURL options:nil error:nil];
 
-        self.crossProcessNotificationChannelName = @"org.wikimedia.cd";
-        const char *name = [self.crossProcessNotificationChannelName UTF8String];
-        notify_register_dispatch(name, &_crossProcessNotificationToken, dispatch_get_main_queue(), ^(int token) {
-            uint64_t fromPid;
-            notify_get_state(token, &fromPid);
-            BOOL isExternal = fromPid != currentPid();
-            if (isExternal) {
-                NSURL *baseURL = [[NSFileManager defaultManager] wmf_containerURL];
-                NSString *fileName = [NSString stringWithFormat:@"%llu.changes", fromPid];
-                NSURL *fileURL = [baseURL URLByAppendingPathComponent:fileName isDirectory:NO];
-                NSData *data = [NSData dataWithContentsOfURL:fileURL];
-                NSDictionary *userInfo = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-                [NSManagedObjectContext mergeChangesFromRemoteContextSave:userInfo intoContexts:@[self.viewContext]];
-            }
-        });
-
-        self.persistentStoreCoordinator = persistentStoreCoordinator;
-        self.viewContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-        self.viewContext.persistentStoreCoordinator = persistentStoreCoordinator;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
+        
+        NSDictionary *infoDictionary = [self loadSharedInfoDictionaryWithContainerURL:containerURL];
+        self.crossProcessNotificationChannelName = infoDictionary[@"CrossProcessNotificiationChannelName"];
+        [self setupCrossProcessNotifier];
+        [self setupCoreDataStackWithContainerURL:containerURL];
 
         [self migrateSavedAndHistoryToCoreData:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
     }
     return self;
+}
+
+- (NSDictionary *)loadSharedInfoDictionaryWithContainerURL:(NSURL *)containerURL {
+    NSURL *infoDictionaryURL = [containerURL URLByAppendingPathComponent:@"Wikipedia.info" isDirectory:NO];
+    NSData *infoDictionaryData = [NSData dataWithContentsOfURL:infoDictionaryURL];
+    NSDictionary *infoDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:infoDictionaryData];
+    if (!infoDictionary[@"CrossProcessNotificiationChannelName"]) {
+        NSString *channelName = [NSString stringWithFormat:@"org.wikimedia.wikipedia.cd-cpn-%@", [NSUUID new].UUIDString].lowercaseString;
+        infoDictionary = @{@"CrossProcessNotificiationChannelName": channelName};
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:infoDictionary];
+        [data writeToURL:infoDictionaryURL atomically:YES];
+    }
+    return infoDictionary;
+}
+
+
+- (void)setupCrossProcessNotifier {
+    NSString *channelName = self.crossProcessNotificationChannelName;
+    assert(channelName);
+    if (!channelName) {
+        DDLogError(@"missing channel name");
+        return;
+    }
+    const char *name = [channelName UTF8String];
+    notify_register_dispatch(name, &_crossProcessNotificationToken, dispatch_get_main_queue(), ^(int token) {
+        uint64_t fromPid;
+        notify_get_state(token, &fromPid);
+        BOOL isExternal = fromPid != currentPid();
+        if (isExternal) {
+            NSURL *baseURL = [[NSFileManager defaultManager] wmf_containerURL];
+            NSString *fileName = [NSString stringWithFormat:@"%llu.changes", fromPid];
+            NSURL *fileURL = [baseURL URLByAppendingPathComponent:fileName isDirectory:NO];
+            NSData *data = [NSData dataWithContentsOfURL:fileURL];
+            NSDictionary *userInfo = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            [NSManagedObjectContext mergeChangesFromRemoteContextSave:userInfo intoContexts:@[self.viewContext]];
+        }
+    });
+}
+
+- (void)setupCoreDataStackWithContainerURL:(NSURL *)containerURL {
+    NSURL *modelURL = [[NSBundle bundleWithIdentifier:@"org.wikimedia.WMFModel"] URLForResource:@"Wikipedia" withExtension:@"momd"];
+    NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    NSString *coreDataDBName = @"Wikipedia.sqlite";
+    
+    NSURL *coreDataDBURL = [containerURL URLByAppendingPathComponent:coreDataDBName isDirectory:NO];
+    NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
+    [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:coreDataDBURL options:nil error:nil];
+    
+    self.persistentStoreCoordinator = persistentStoreCoordinator;
+    self.viewContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    self.viewContext.persistentStoreCoordinator = persistentStoreCoordinator;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
 }
 
 - (nullable id)archiveableNotificationValueForValue:(id)value {
