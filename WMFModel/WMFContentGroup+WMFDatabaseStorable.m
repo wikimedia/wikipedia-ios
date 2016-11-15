@@ -72,6 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFRelatedPagesContentGroup (WMFDatabaseStorable)
 
 + (nullable NSURL *)urlForArticleURL:(NSURL *)url {
+    NSParameterAssert(url);
     NSString *title = url.wmf_title;
     NSString *domain = url.wmf_domain;
     NSString *language = url.wmf_language;

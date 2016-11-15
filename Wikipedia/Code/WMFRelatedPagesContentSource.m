@@ -176,7 +176,7 @@ NS_ASSUME_NONNULL_BEGIN
     if ([reference needsRelatedPagesGroupForDate:date]) {
         WMFRelatedPagesContentGroup *section = [self addSectionForReference:reference];
         [self fetchAndSaveRelatedArticlesForSection:section completion:completion];
-    } else if (![reference needsRelatedPagesGroup]) {
+    } else if (reference && ![reference needsRelatedPagesGroup]) {
         [self removeSectionForReference:reference];
         if (completion) {
             completion();
@@ -189,7 +189,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)removeSectionForReference:(MWKHistoryEntry *)reference {
-    WMFContentGroup *group = [self.contentStore contentGroupForURL:[WMFRelatedPagesContentGroup urlForArticleURL:reference.url]];
+    NSURL *URL = reference.url;
+    if (!URL) {
+        return;
+    }
+    WMFContentGroup *group = [self.contentStore contentGroupForURL:[WMFRelatedPagesContentGroup urlForArticleURL:URL]];
     if (group) {
         [self.contentStore removeContentGroup:group];
     }
