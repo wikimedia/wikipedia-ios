@@ -211,7 +211,6 @@ static pid_t currentPid() {
 
     self.persistentStoreCoordinator = persistentStoreCoordinator;
     self.viewContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-    self.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
     self.viewContext.persistentStoreCoordinator = persistentStoreCoordinator;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
