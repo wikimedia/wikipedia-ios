@@ -196,8 +196,7 @@
 "about-wikimedia-foundation" = "Vikimedijos fondas";
 "share-menu-save-page" = "Įrašyti puslapį";
 "share-menu-page-saved" = "Išsaugoti skaitymui neprisijungus.";
-// Fuzzy
-"share-custom-menu-item" = "Dalintis";
+"share-custom-menu-item" = "Dalintis...";
 "share-a-fact-share-menu-item" = "Dalintis faktu";
 "share-on-twitter-sign-off" = "per @Wikipedia";
 "share-as-image" = "Dalintis kaip vaizdu";
@@ -306,6 +305,8 @@
 "home-accessibility-label" = "Vikipedija, tyrinėti";
 // Fuzzy
 "home-button-accessibility-label" = "Pradžia";
+"home-button-saved-accessibility-label" = "Vikipedija, grįžti į Išsaugota";
+"home-button-history-accessibility-label" = "Vikipedija, grįžti į Istoriją";
 "potd-empty-error-description" = "Nepavyko gauti $1 dienos nuotraukos";
 "potd-description-prefix" = "Dienos nuotrauka $1";
 "welcome-explore-title" = "Tyrinėti";
@@ -324,6 +325,7 @@
 "welcome-volunteer-send-usage-reports" = "Siųsti naudojimo ataskaitas";
 "welcome-volunteer-continue-button" = "Tęsti";
 "welcome-volunteer-thanks" = "$1 Ačiū!";
+"welcome-send-data-title" = "Siųsti Anoniminius duomenis";
 "empty-no-feed-title" = "Nėra interneto ryšio";
 "empty-no-feed-action-message" = "Jūs dar galite skaityti išsaugotus puslapius";
 "empty-no-search-results-message" = "Rezultatų nerasta";
@@ -362,7 +364,10 @@
 "top-read-see-more-trending" = "Peržiūrėti daugiau tendencijų";
 "top-read-header-with-language" = "$1 Vikipedija";
 "top-read-header-generic" = "Vikipedija";
+"readers-accessibility-label" = "$1 skaitytojai";
+"rank-accessibility-label" = "Numeris $1";
 "reference-title" = "Išnaša $1";
+"in-the-news-notification-share-action-title" = "Dalintis...";
 "in-the-news-title" = "Naujienose";
 "in-the-news-title-for-date" = "Naujienos apie $1";
 "number-thousands" = "$1 tūkst.";

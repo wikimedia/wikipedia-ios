@@ -225,8 +225,7 @@
 "share-menu-save-page" = "Gem side";
 "share-menu-page-saved" = "Gemt til læsning offline.";
 "share-menu-page-saved-access" = "Tip: for at få adgang til dine gemte sider, tryk på $1 ovenfor eller tryk længe på $2 nedenfor.";
-// Fuzzy
-"share-custom-menu-item" = "Del";
+"share-custom-menu-item" = "Del...";
 "share-a-fact-share-menu-item" = "Del-et-fact";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-article-name-on-wikipedia" = "«$1» på @Wikipedia:";
@@ -428,8 +427,7 @@
 "top-read-header-generic" = "Wikipedia";
 "reference-title" = "Reference $1";
 "in-the-news-notification-read-now-action-title" = "Læs nu";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Del";
+"in-the-news-notification-share-action-title" = "Del...";
 "in-the-news-notification-save-for-later-action-title" = "Gem til senere";
 "in-the-news-currently-trending" = "Populært nu";
 "in-the-news-title" = "I nyhederne";

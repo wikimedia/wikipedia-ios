@@ -227,8 +227,7 @@
 "share-menu-save-page" = "Tallenna artikkeli";
 "share-menu-page-saved" = "Artikkeli tallennettu";
 "share-menu-page-saved-access" = "Vihje: Päästäksesi tallentamillesi sivuille näpäytä kuvaketta $1 tai paina pitkään kuvaketta $2.";
-// Fuzzy
-"share-custom-menu-item" = "Jaa";
+"share-custom-menu-item" = "Jaa...";
 "share-a-fact-share-menu-item" = "Jaa fakta";
 "share-on-twitter-sign-off" = "@Wikipedia'n kautta";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia'ssa:";
@@ -377,6 +376,8 @@
 "welcome-volunteer-send-usage-reports" = "Lähetä käyttöraportteja";
 "welcome-volunteer-continue-button" = "Jatka";
 "welcome-volunteer-thanks" = "$1 Kiitos!";
+// Fuzzy
+"welcome-send-data-sub-title" = "Auta Wikimediaa tekemään sovelluksesta parempi kertomalla meille miten käytät sovellusta. Kerätyt tiedot ovat anonyymejä. Lue lisää";
 "empty-no-feed-title" = "Ei Internet-yhteyttä";
 "empty-no-feed-message" = "Näet suositellut artikkelisi kun sinulla on Internet-yhteys";
 "empty-no-feed-action-message" = "Voit silti lukea tallennettuja sivuja";
@@ -419,14 +420,17 @@
 "top-read-see-more-trending" = "Katso lisää nousussa olevia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
+"readers-accessibility-label" = "$1 lukijaa";
 "reference-title" = "Lähde $1";
 "in-the-news-notification-read-now-action-title" = "Lue nyt";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Jaa";
+"in-the-news-notification-share-action-title" = "Jaa...";
 "in-the-news-notification-save-for-later-action-title" = "Tallenna myöhemmäksi";
 "in-the-news-currently-trending" = "Tällä hetkellä suosittuja";
 "in-the-news-title" = "Uutisissa";
 "number-thousands" = "$1 t.";
 "number-millions" = "$1 milj.";
 "number-billions" = "$1 mrd.";
+"feed-news-notification-button-text" = "Ota käyttöön ilmoitukset";
 "back" = "Takaisin";
+"save-action" = "Tallenna";
+"unsave-action" = "Peruuta tallennus";

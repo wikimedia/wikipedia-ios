@@ -1,6 +1,7 @@
 // Messages for Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
 // Exported from translatewiki.net
 // Author: Jim-by
+// Author: Kareyac
 // Author: Red Winged Duck
 // Author: Renessaince
 
@@ -383,3 +384,4 @@
 "explore-random-article-heading" = "Выпадковы артыкул";
 "explore-random-article-sub-heading" = "Ангельская Вікіпэдыя";
 "explore-potd-heading" = "Выява дня";
+"back" = "Назад";

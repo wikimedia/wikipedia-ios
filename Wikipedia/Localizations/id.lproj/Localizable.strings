@@ -9,6 +9,7 @@
 // Author: Fate Kage
 // Author: Iwan Novirion
 // Author: Kenrick95
+// Author: Presidenvolksraad
 // Author: Relly Komaruzaman
 // Author: Rizkiahmadz
 // Author: WongKentir
@@ -120,7 +121,7 @@
 "settings-help-and-feedback" = "Bantuan dan masukan";
 "settings-primary-language" = "Utama";
 "settings-primary-language-details" = "Bahasa pertama di daftar ini digunakan sebagai bahasa utama untuk aplikasi. Mengubah bahasa ini akan mengubah konten harian (seperti Artikel Pilihan) yang ditampilkan pada Jelajah.";
-"settings-notifications-system-off" = "Pemberitahuan saat ini dinonaktifkan untuk Wikipedia. Pergi ke pengaturan perangkat Anda untuk mengaktifkan pemberitahuan";
+"settings-notifications-system-off" = "Pemberitahuan saat ini dinonaktifkan pada Wikipedia. Beralih ke pengaturan perangkat anda untuk mengaktifkan pemberitahuan";
 "settings-notifications-system-turn-on" = "Aktifkan Pemberitahuan";
 "settings-notifications-info" = "Dapatkan pemberitahuan tentang artikel yang sedang tren dan bacaan teratas di Wikipedia dengan pemberitahuan otomatis kami. Semua tersedia sehubungan dengan privasi dan sampai data menit.";
 "settings-notifications-learn-more" = "Pelajari lebih lanjut tentang pemberitahuan";
@@ -231,8 +232,7 @@
 "share-menu-save-page" = "Simpan Artikel";
 "share-menu-page-saved" = "Artikel Disimpan";
 "share-menu-page-saved-access" = "Tip: untuk mengakses halaman tersimpan Anda, ketuk $1 di atas atau tekan lebih lama $2 di bawah.";
-// Fuzzy
-"share-custom-menu-item" = "Bagikan";
+"share-custom-menu-item" = "Bagikan...";
 "share-a-fact-share-menu-item" = "Bagikan-fakta";
 "share-on-twitter-sign-off" = "melalui @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" pada @Wikipedia:";
@@ -361,13 +361,17 @@
 "home-hide-suggestion-prompt" = "Sembunyikan saran ini";
 "home-hide-suggestion-cancel" = "Batal";
 "home-accessibility-label" = "Wikipedia, Jelajah";
+"home-title-accessibility-label" = "Wikipedia, gulir ke bagian atas halaman Jelajah";
 "home-button-accessibility-label" = "Utama";
+"home-button-explore-accessibility-label" = "Wikipedia, kembali ke halaman Jelajah";
+"home-button-saved-accessibility-label" = "Wikipedia, kembali ke Tersimpan";
+"home-button-history-accessibility-label" = "Wikipedia, kembali ke Riwayat";
 "potd-empty-error-description" = "Gagal untuk menerima gambar hari ini pada $1";
 "potd-description-prefix" = "Gambar hari ini pada $1";
 "welcome-explore-title" = "Jelajah";
 "welcome-explore-sub-title" = "Cara baru untuk menemukan artikel yang menarik setiap hari";
 "welcome-explore-new-ways-title" = "Cara baru untuk menjelajah";
-"welcome-explore-new-ways-sub-title" = "Pemberitahuan dan widget baru untuk membantu Anda menemukan artikel menarik";
+"welcome-explore-new-ways-sub-title" = "Pemberitahuan baru dan widget untuk membantu anda menemukan artikel menarik";
 "welcome-explore-tell-me-more" = "Beritahu saya lebih lanjut";
 "welcome-explore-tell-me-more-about-explore" = "Lebih lanjut mengenai Jelajah";
 "welcome-explore-tell-me-more-details" = "Ketika Anda membaca artikel, artikel yang terkait ditambahkan ke umpan Jelajah Anda. Hal ini tidak mengubah bagaimana mengumpulkan informasi Anda, dan riwayat bacaan Anda selalu tetap rahasia.";
@@ -376,8 +380,8 @@
 "welcome-explore-tell-me-more-done-button" = "Mengerti";
 "welcome-explore-continue-button" = "Memulai";
 "welcome-notifications-tell-me-more-title" = "Lebih lanjut tentang pemberitahuan";
-"welcome-notifications-tell-me-more-storage" = "Preferensi pemberitahuan disimpan di perangkat dan tidak berdasarkan informasi pribadi atau kegiatan.";
-"welcome-notifications-tell-me-more-creation" = "Pemberitahuan dibuat dan disampaikan pada perangkat Anda dengan aplikasi, tidak dari peladen kami (atau pihak ketiga).";
+"welcome-notifications-tell-me-more-storage" = "Preferensi pemberitahuan disimpan di perangkat dan tidak berdasarkan informasi pribadi atau aktivitas.";
+"welcome-notifications-tell-me-more-creation" = "Pemberitahuan dibuat dan disampaikan pada perangkat Anda dengan aplikasi, bukan dari server (atau pihak ketiga) kami.";
 "welcome-languages-title" = "Bahasa";
 "welcome-languages-sub-title" = "Pilih bahasa pilihan Anda untuk mencari Wikipedia";
 "welcome-languages-add-button" = "Tambahkan bahasa lainnya";
@@ -387,6 +391,9 @@
 "welcome-volunteer-send-usage-reports" = "Kirim laporan penggunaan";
 "welcome-volunteer-continue-button" = "Lanjutkan";
 "welcome-volunteer-thanks" = "Terima kasih! $1";
+"welcome-send-data-title" = "Kirim data anonim";
+// Fuzzy
+"welcome-send-data-sub-title" = "Bantu Wikimedia membuat aplikasi yang lebih baik dengan membiarkan kami tahu bagaimana Anda menggunakan aplikasi. Data yang dikumpulkan bersifat anonim. Pelajari lebih lanjut";
 "empty-no-feed-title" = "Tidak ada sambungan internet";
 "empty-no-feed-message" = "Anda bisa melihat artikel yang disarankan untuk Anda saat Anda mempunyai sambungan intenet";
 "empty-no-feed-action-message" = "Anda masih dapat membaca halaman tersimpan";
@@ -432,13 +439,14 @@
 "top-read-see-more-trending" = "Lihat sedang tren lainnya";
 "top-read-header-with-language" = "Wikipedia $1";
 "top-read-header-generic" = "Wikipedia";
+"readers-accessibility-label" = "$1 pembaca";
+"rank-accessibility-label" = "Peringkat $1";
 "reference-title" = "Referensi $1";
 "in-the-news-notification-read-now-action-title" = "Baca Sekarang";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Bagikan";
+"in-the-news-notification-share-action-title" = "Bagikan...";
 "in-the-news-notification-save-for-later-action-title" = "Simpan untuk nanti";
 "in-the-news-currently-trending" = "Saat ini ngetren";
-"in-the-news-title" = "Peristiwa terkini";
+"in-the-news-title" = "Dalam berita";
 "in-the-news-title-for-date" = "Berita pada $1";
 "number-thousands" = "$1 ribu";
 "number-millions" = "$1 juta";

@@ -26,6 +26,7 @@
 + (instancetype)wmf_databaseWithDefaultConfigurationAtPath:(NSString *)path {
     YapDatabaseOptions *options = [YapDatabaseOptions new];
     options.enableMultiProcessSupport = YES;
+    options.aggressiveWALTruncationSize = 100 * 1024 * 1024; // 100 MB
     YapDatabase *db = [[YapDatabase alloc] initWithPath:path options:options];
     [YapDatabase wmf_registerViewsInDatabase:db];
     return db;

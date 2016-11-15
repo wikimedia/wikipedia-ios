@@ -129,9 +129,9 @@ NS_ASSUME_NONNULL_BEGIN
     if (!URLs) {
         return;
     }
-    
+
     [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-        
+
         NSMutableArray *updatedKeys = [NSMutableArray arrayWithCapacity:URLs.count];
         for (NSURL *URL in URLs) {
             if ([URL wmf_isNonStandardURL]) {
@@ -140,7 +140,7 @@ NS_ASSUME_NONNULL_BEGIN
             if ([URL.wmf_title length] == 0) {
                 break;
             }
-            
+
             NSString *databaseKey = [MWKHistoryEntry databaseKeyForURL:URL];
             MWKHistoryEntry *entry = [transaction objectForKey:databaseKey inCollection:[MWKHistoryEntry databaseCollectionName]];
             if (!entry) {
@@ -149,12 +149,12 @@ NS_ASSUME_NONNULL_BEGIN
                 entry = [entry copy];
             }
             entry.dateViewed = [NSDate date];
-            
+
             [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:URL] inCollection:[MWKHistoryEntry databaseCollectionName]];
-            
+
             [updatedKeys addObject:databaseKey];
         }
-        
+
         return updatedKeys;
     }];
 }
@@ -183,8 +183,15 @@ NS_ASSUME_NONNULL_BEGIN
         }
         entry.dateViewed = [NSDate date];
 
-        [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        return @[[MWKHistoryEntry databaseKeyForURL:url]];
+        NSString *key = [MWKHistoryEntry databaseKeyForURL:url];
+
+        if (!key) {
+            return @[];
+        }
+
+        [transaction setObject:entry forKey:key inCollection:[MWKHistoryEntry databaseCollectionName]];
+
+        return @[key];
     }];
 }
 
