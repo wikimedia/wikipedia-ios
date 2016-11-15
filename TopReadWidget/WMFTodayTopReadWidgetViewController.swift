@@ -338,11 +338,10 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
         date = NSDate()
         guard updateUIWithTopReadFromContentStoreForDate(date) else {
-            completionHandler(.NoData)
+            fetchForDate(NSDate(), attempt: 1, completionHandler: completionHandler)
             return
         }
         completionHandler(.NewData)
-        fetchForDate(NSDate(), attempt: 1, completionHandler: completionHandler)
     }
     
     func updateUIWithTopReadFromContentStoreForDate(date: NSDate) -> Bool {
