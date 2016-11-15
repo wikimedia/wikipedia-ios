@@ -6,6 +6,10 @@ import WMFModel
 
 class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
+    deinit {
+        databaseStack.tearDownStack()
+    }
+    
     // Model
     var siteURL: NSURL {
         get {
@@ -18,13 +22,15 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     let feedContentFetcher = WMFFeedContentFetcher()
     
-    let contentStore = WMFContentGroupDataStore()
-    let previewStore = WMFArticlePreviewDataStore()
-    let userStore: MWKDataStore = SessionSingleton.sharedInstance().dataStore
+    lazy var databaseStack: WMFDatabaseStack = {
+        [unowned self] in
+        WMFDatabaseStack.sharedInstance().setupStack()
+        return WMFDatabaseStack.sharedInstance()
+        }()
 
     lazy var contentSource: WMFFeedContentSource = {
         [unowned self] in
-        return WMFFeedContentSource(siteURL: self.siteURL, contentGroupDataStore: self.contentStore, articlePreviewDataStore: self.previewStore, userDataStore: self.userStore, notificationsController: nil)
+        return WMFFeedContentSource(siteURL: self.siteURL, contentGroupDataStore: self.databaseStack.contentStore, articlePreviewDataStore: self.databaseStack.previewStore, userDataStore: self.databaseStack.userStore, notificationsController: nil)
     }()
     
     let databaseDateFormatter = NSDateFormatter.wmf_englishUTCNonDelimitedYearMonthDayFormatter()
@@ -196,7 +202,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         var dataValueMin = CGFloat.max
         var dataValueMax = CGFloat.min
         for result in results[0...maximumRowCount] {
-            let articlePreview = self.previewStore.itemForURL(result.articleURL)
+            let articlePreview = self.databaseStack.previewStore.itemForURL(result.articleURL)
             guard let dataValues = articlePreview?.pageViews else {
                 continue
             }
@@ -233,7 +239,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             let rankString = NSNumberFormatter.localizedThousandsStringFromNumber(i + 1)
             vc.rankLabel.text = rankString
             vc.rankLabel.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("rank-accessibility-label").stringByReplacingOccurrencesOfString("$1", withString: rankString)
-            if let articlePreview = self.previewStore.itemForURL(result.articleURL) {
+            if let articlePreview = self.databaseStack.previewStore.itemForURL(result.articleURL) {
                 if let viewCounts = articlePreview.pageViewsSortedByDate() where viewCounts.count > 0 {
                     vc.sparklineView.minDataValue = dataValueMin
                     vc.sparklineView.maxDataValue = dataValueMax
@@ -339,8 +345,8 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     func updateUIWithTopReadFromContentStoreForDate(date: NSDate) -> Bool {
-        if let topRead = self.contentStore.firstGroupOfKind(WMFTopReadContentGroup.kind(), forDate: date) as? WMFTopReadContentGroup {
-            if let content = self.contentStore.contentForContentGroup(topRead) as? [WMFFeedTopReadArticlePreview] {
+        if let topRead = self.databaseStack.contentStore.firstGroupOfKind(WMFTopReadContentGroup.kind(), forDate: date) as? WMFTopReadContentGroup {
+            if let content = self.databaseStack.contentStore.contentForContentGroup(topRead) as? [WMFFeedTopReadArticlePreview] {
                 
                 self.group = topRead
                 self.results = content

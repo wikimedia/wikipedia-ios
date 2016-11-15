@@ -1,12 +1,13 @@
 #import "WMFDatabaseHouseKeeper.h"
 #import "YapDatabase+WMFExtensions.h"
+#import "WMFDatabaseStack.h"
 @import NSDate_Extensions;
 
 @implementation WMFDatabaseHouseKeeper
 
 - (void)performHouseKeepingWithCompletion:(dispatch_block_t)completion {
 
-    YapDatabaseConnection *connection = [[YapDatabase sharedInstance] wmf_newWriteConnection];
+    YapDatabaseConnection *connection = [[[WMFDatabaseStack sharedInstance] database] wmf_newWriteConnection];
 
     //Remove User Data that is unneeded
     [connection asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {

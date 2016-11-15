@@ -44,13 +44,6 @@ extern NSString *const MWKURLKey;
 
 @interface MWKDataStore : WMFBaseDataStore
 
-/**
- *  Initialize with sharedInstance database and legacyDataBasePath
- *
- *  @return A data store
- */
-- (instancetype)init;
-
 - (instancetype)initWithDatabase:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath NS_DESIGNATED_INITIALIZER;
 
 + (BOOL)migrateToSharedContainer:(NSError **)error;

@@ -54,7 +54,7 @@
 }
 
 - (instancetype)init {
-    return [self initWithControl:nil savedPageList:[[[SessionSingleton sharedInstance] dataStore] savedPageList] url:nil];
+    return [self initWithControl:nil savedPageList:[[[WMFDatabaseStack sharedInstance] userStore] savedPageList] url:nil];
 }
 
 #pragma mark - Accessors

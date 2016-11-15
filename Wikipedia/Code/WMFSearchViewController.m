@@ -154,8 +154,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - Setup
 
 - (void)configureArticleList {
-    self.resultsListController.userDataStore = self.dataStore;
-    self.resultsListController.previewStore = self.previewStore;
     self.resultsListController.delegate = self;
 }
 

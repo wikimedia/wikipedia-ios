@@ -22,14 +22,14 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A data store
  */
-- (instancetype)init;
+- (instancetype)init NS_UNAVAILABLE; 
 
 - (instancetype)initWithDatabase:(YapDatabase *)database NS_DESIGNATED_INITIALIZER;
 
 @property (readonly, strong, nonatomic) YapDatabase *database;
 
 /*
- * Updates from databse processed automatically. Default = YES
+ * Updates from database processed automatically. Default = YES
  */
 @property (assign, nonatomic) BOOL databaseSyncingEnabled;
 

@@ -8,7 +8,7 @@
 
 @property (nonatomic, strong, readonly) NSURL *articleURL;
 
-- (instancetype)initWithURL:(NSURL *)url userStore:(MWKDataStore *)userDataStore previewStore:(WMFArticlePreviewDataStore *)previewStore;
+- (instancetype)initWithURL:(NSURL *)url;
 
 - (void)fetchIfNeededWithCompletionBlock:(void (^)(WMFRelatedSearchResults *results))completion
                             failureBlock:(void (^)(NSError *error))failure;

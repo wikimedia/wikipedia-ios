@@ -355,9 +355,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (WMFReadMoreViewController *)readMoreListViewController {
     if (!_readMoreListViewController) {
-        _readMoreListViewController = [[WMFReadMoreViewController alloc] initWithURL:self.articleURL
-                                                                           userStore:self.dataStore
-                                                                        previewStore:self.previewStore];
+        _readMoreListViewController = [[WMFReadMoreViewController alloc] initWithURL:self.articleURL];
         _readMoreListViewController.delegate = self;
         _readMoreListViewController.view.backgroundColor = [UIColor whiteColor];
     }

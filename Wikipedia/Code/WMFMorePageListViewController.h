@@ -13,7 +13,7 @@ typedef NS_ENUM(NSUInteger, WMFMorePageListCellType) {
 
 @interface WMFMorePageListViewController : WMFArticleListTableViewController
 
-- (instancetype)initWithGroup:(WMFContentGroup *)section articleURLs:(NSArray<NSURL *> *)urls userDataStore:(MWKDataStore *)userDataStore previewStore:(WMFArticlePreviewDataStore *)previewStore NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithGroup:(WMFContentGroup *)section articleURLs:(NSArray<NSURL *> *)urls NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, assign) WMFMorePageListCellType cellType;
 

@@ -19,6 +19,16 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     
     var articleURL: NSURL?
     
+    lazy var databaseStack: WMFDatabaseStack = {
+        [unowned self] in
+        WMFDatabaseStack.sharedInstance().setupStack()
+        return WMFDatabaseStack.sharedInstance()
+        }()
+
+    deinit {
+        databaseStack.tearDownStack()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if #available(iOSApplicationExtension 10.0, *) {
@@ -34,6 +44,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         
         emptyDescriptionLabel.text = localizedStringForKeyFallingBackOnEnglish("continue-reading-empty-title")
         emptyDescriptionLabel.text = localizedStringForKeyFallingBackOnEnglish("continue-reading-empty-description")
+        
         updateView()
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:))))
@@ -87,13 +98,9 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     
     func hasNewData() -> Bool{
         
-        guard let session = SessionSingleton.sharedInstance() else {
-            return false
-        }
-
-        session.dataStore.syncDataStoreToDatabase()
+        self.databaseStack.userStore.syncDataStoreToDatabase()
         
-        guard let historyEntry = session.dataStore.historyList.mostRecentEntry() else {
+        guard let historyEntry = self.databaseStack.userStore.historyList.mostRecentEntry() else {
             return false
         }
         let fragment = historyEntry.fragment
@@ -116,12 +123,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         daysAgoLabel.text = nil
         daysAgoView.hidden = true
         
-        guard let session = SessionSingleton.sharedInstance() else {
-            emptyViewHidden = false
-            return false
-        }
-        
-        guard let historyEntry = session.dataStore.historyList.mostRecentEntry() else {
+        guard let historyEntry = self.databaseStack.userStore.historyList.mostRecentEntry() else {
             return false
         }
         
@@ -133,7 +135,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             return false
         }
         
-        guard let article = session.dataStore.existingArticleWithURL(lastReadArticleURL) else {
+        guard let article = self.databaseStack.userStore.existingArticleWithURL(lastReadArticleURL) else {
             emptyViewHidden = false
             return false
         }

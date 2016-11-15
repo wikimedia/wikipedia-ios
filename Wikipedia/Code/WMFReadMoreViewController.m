@@ -19,22 +19,18 @@
 
 @implementation WMFReadMoreViewController
 
-- (instancetype)initWithURL:(NSURL *)url userStore:(MWKDataStore *)userDataStore previewStore:(WMFArticlePreviewDataStore *)previewStore {
+- (instancetype)initWithURL:(NSURL *)url {
     NSParameterAssert(url.wmf_title);
-    NSParameterAssert(userDataStore);
-    NSParameterAssert(previewStore);
     self = [super init];
     if (self) {
         self.articleURL = url;
-        self.userDataStore = userDataStore;
-        self.previewStore = previewStore;
         self.relatedSearchFetcher = [[WMFRelatedSearchFetcher alloc] init];
     }
     return self;
 }
 
 - (MWKSavedPageList *)savedPageList {
-    return self.userDataStore.savedPageList;
+    return [[WMFDatabaseStack sharedInstance] userStore].savedPageList;
 }
 
 #pragma mark - UIViewController
@@ -66,7 +62,7 @@
     [cell setImageURL:preview.thumbnailURL];
     cell.saveButtonController.analyticsContext = [self analyticsContext];
     cell.saveButtonController.analyticsContentType = [self analyticsContentType];
-    [cell setSaveableURL:[self.relatedSearchResults urlForResult:preview] savedPageList:self.userDataStore.savedPageList];
+    [cell setSaveableURL:[self.relatedSearchResults urlForResult:preview] savedPageList:[self savedPageList]];
 
     return cell;
 }
