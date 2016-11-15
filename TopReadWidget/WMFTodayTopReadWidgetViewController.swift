@@ -335,7 +335,13 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
-        fetchForDate(NSDate(), attempt: 1, completionHandler: completionHandler)
+        date = NSDate()
+        guard updateUIWithTopReadFromContentStoreForDate(date) else {
+            completionHandler(.NoData)
+            return
+        }
+        completionHandler(.NewData)
+        //fetchForDate(NSDate(), attempt: 1, completionHandler: completionHandler)
     }
     
     func updateUIWithTopReadFromContentStoreForDate(date: NSDate) -> Bool {
@@ -353,33 +359,33 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     
 
-    func fetchForDate(date: NSDate, attempt: Int, completionHandler: ((NCUpdateResult) -> Void)) {
-        guard !updateUIWithTopReadFromContentStoreForDate(date) else {
-            completionHandler(.NewData)
-            return
-        }
-        
-        guard attempt < 3 else {
-            completionHandler(.NoData)
-            return
-        }
-        
-        contentSource.loadNewContentForce(false) {
-            dispatch_async(dispatch_get_main_queue(), {
-                guard self.updateUIWithTopReadFromContentStoreForDate(date) else {
-                    guard let previousDate = NSCalendar.wmf_gregorianCalendar().dateByAddingUnit(.Day, value: -1, toDate: date, options: .MatchStrictly) else {
-                        completionHandler(.NoData)
-                        return
-                    }
-                    
-                    self.fetchForDate(previousDate, attempt: attempt + 1, completionHandler: completionHandler)
-                    return
-                }
-                
-                completionHandler(.NewData)
-            })
-        }
-    }
+//    func fetchForDate(date: NSDate, attempt: Int, completionHandler: ((NCUpdateResult) -> Void)) {
+//        guard !updateUIWithTopReadFromContentStoreForDate(date) else {
+//            completionHandler(.NewData)
+//            return
+//        }
+//        
+//        guard attempt < 3 else {
+//            completionHandler(.NoData)
+//            return
+//        }
+//        
+//        contentSource.loadNewContentForce(false) {
+//            dispatch_async(dispatch_get_main_queue(), {
+//                guard self.updateUIWithTopReadFromContentStoreForDate(date) else {
+//                    guard let previousDate = NSCalendar.wmf_gregorianCalendar().dateByAddingUnit(.Day, value: -1, toDate: date, options: .MatchStrictly) else {
+//                        completionHandler(.NoData)
+//                        return
+//                    }
+//                    
+//                    self.fetchForDate(previousDate, attempt: attempt + 1, completionHandler: completionHandler)
+//                    return
+//                }
+//                
+//                completionHandler(.NewData)
+//            })
+//        }
+//    }
     
     func showAllTopReadInApp() {
         guard let URL = group?.url() else {
