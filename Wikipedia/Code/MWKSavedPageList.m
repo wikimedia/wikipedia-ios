@@ -136,14 +136,15 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
 #pragma mark - Update Methods
 
-- (void)toggleSavedPageForURL:(NSURL *)url {
+- (BOOL)toggleSavedPageForURL:(NSURL *)url {
     if ([self isSaved:url]) {
         [self removeEntryWithURL:url];
+        return NO;
     } else {
         [self addSavedPageWithURL:url];
+        return YES;
     }
 }
-
 
 - (void)addSavedPageWithURL:(NSURL *)url {
     WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:url];

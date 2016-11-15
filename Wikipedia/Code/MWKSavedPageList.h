@@ -29,8 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
  * Toggle the save state for `url`.
  *
  * @param url URL to toggle state for, either saving or un-saving it.
+ * @return whether or not the URL is now saved
  */
-- (void)toggleSavedPageForURL:(NSURL *)url;
+- (BOOL)toggleSavedPageForURL:(NSURL *)url;
 
 /**
  *  Add a saved page

@@ -47,6 +47,8 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (nonatomic, strong) NSString *crossProcessNotificationChannelName;
 @property (nonatomic) int crossProcessNotificationToken;
 
+@property (nonatomic, strong) NSURL *containerURL;
+
 @end
 
 @implementation MWKDataStore
@@ -143,12 +145,13 @@ static pid_t currentPid() {
 - (instancetype)initWithContainerURL:(NSURL *)containerURL database:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath {
     self = [super initWithDatabase:database];
     if (self) {
+        self.containerURL = containerURL;
         self.basePath = basePath;
         [self setupLegacyDataStore];
 
         NSDictionary *infoDictionary = [self loadSharedInfoDictionaryWithContainerURL:containerURL];
         self.crossProcessNotificationChannelName = infoDictionary[@"CrossProcessNotificiationChannelName"];
-        [self setupCrossProcessNotifier];
+        [self setupCrossProcessCoreDataNotifier];
         [self setupCoreDataStackWithContainerURL:containerURL];
 
         [self migrateSavedAndHistoryToCoreData:nil];
@@ -170,7 +173,7 @@ static pid_t currentPid() {
     return infoDictionary;
 }
 
-- (void)setupCrossProcessNotifier {
+- (void)setupCrossProcessCoreDataNotifier {
     NSString *channelName = self.crossProcessNotificationChannelName;
     assert(channelName);
     if (!channelName) {
@@ -183,14 +186,18 @@ static pid_t currentPid() {
         notify_get_state(token, &fromPid);
         BOOL isExternal = fromPid != currentPid();
         if (isExternal) {
-            NSURL *baseURL = [[NSFileManager defaultManager] wmf_containerURL];
-            NSString *fileName = [NSString stringWithFormat:@"%llu.changes", fromPid];
-            NSURL *fileURL = [baseURL URLByAppendingPathComponent:fileName isDirectory:NO];
-            NSData *data = [NSData dataWithContentsOfURL:fileURL];
-            NSDictionary *userInfo = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-            [NSManagedObjectContext mergeChangesFromRemoteContextSave:userInfo intoContexts:@[self.viewContext]];
+            [self handleCrossProcessCoreDataNotificationWithPID:fromPid];
         }
     });
+}
+
+- (void)handleCrossProcessCoreDataNotificationWithPID:(uint64_t)fromPID {
+    NSURL *baseURL = self.containerURL;
+    NSString *fileName = [NSString stringWithFormat:@"%llu.changes", fromPID];
+    NSURL *fileURL = [baseURL URLByAppendingPathComponent:fileName isDirectory:NO];
+    NSData *data = [NSData dataWithContentsOfURL:fileURL];
+    NSDictionary *userInfo = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    [NSManagedObjectContext mergeChangesFromRemoteContextSave:userInfo intoContexts:@[self.viewContext]];
 }
 
 - (void)setupCoreDataStackWithContainerURL:(NSURL *)containerURL {
@@ -204,8 +211,10 @@ static pid_t currentPid() {
 
     self.persistentStoreCoordinator = persistentStoreCoordinator;
     self.viewContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    self.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
     self.viewContext.persistentStoreCoordinator = persistentStoreCoordinator;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
 }
 
 - (nullable id)archiveableNotificationValueForValue:(id)value {
@@ -264,6 +273,22 @@ static pid_t currentPid() {
     const char *name = [self.crossProcessNotificationChannelName UTF8String];
     notify_set_state(_crossProcessNotificationToken, pid);
     notify_post(name);
+}
+
+- (void)viewContextDidChange:(NSNotification *)note {
+    NSDictionary *userInfo = note.userInfo;
+    NSArray<NSString *> *keys = @[NSInsertedObjectsKey, NSUpdatedObjectsKey, NSDeletedObjectsKey, NSRefreshedObjectsKey, NSInvalidatedObjectsKey];
+    for (NSString *key in keys) {
+        NSSet<NSManagedObject *> *changedObjects = userInfo[key];
+        for (NSManagedObject *object in changedObjects) {
+            if ([object isKindOfClass:[WMFArticle class]]) {
+                NSURL *URL = [(WMFArticle *)object URL];
+                if (URL) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:self userInfo:@{MWKURLKey: URL}];
+                }
+            }
+        }
+    }
 }
 
 + (BOOL)migrateToSharedContainer:(NSError **)error {

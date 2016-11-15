@@ -159,17 +159,15 @@
 }
 
 - (void)toggleSave:(id)sender {
-    BOOL isSaved = [self.savedPageList isSaved:self.url];
+    BOOL isSaved = [self.savedPageList toggleSavedPageForURL:self.url];
 
     if (isSaved) {
-        [self.savedPagesFunnel logDelete];
-        [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
-    } else {
         [self.savedPagesFunnel logSaveNew];
         [[PiwikTracker sharedInstance] wmf_logActionSaveInContext:self contentType:self];
+    } else {
+        [self.savedPagesFunnel logDelete];
+        [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
     }
-
-    [self.savedPageList toggleSavedPageForURL:self.url];
 }
 
 @end
