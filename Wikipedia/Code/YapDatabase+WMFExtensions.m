@@ -3,15 +3,6 @@
 
 @implementation YapDatabase (WMFExtensions)
 
-+ (instancetype)sharedInstance {
-    static dispatch_once_t onceToken;
-    static id sharedInstance;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [self wmf_databaseWithDefaultConfiguration];
-    });
-    return sharedInstance;
-}
-
 + (instancetype)wmf_databaseWithDefaultConfiguration {
     return [self wmf_databaseWithDefaultConfigurationAtPath:[[self class] wmf_databasePath]];
 }
