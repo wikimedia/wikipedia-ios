@@ -3,8 +3,9 @@
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "MWKHistoryEntry+WMFDatabaseViews.h"
 #import <WMFModel/WMFModel-Swift.h>
-
 #import "WMFRelatedSectionBlackList.h"
+
+@import CoreData;
 
 NSString *const MWKArticleSavedNotification = @"MWKArticleSavedNotification";
 NSString *const MWKArticleKey = @"MWKArticleKey";
@@ -38,6 +39,10 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSOperation *> *articleSaveOperations;
 @property (nonatomic, strong) NSOperationQueue *articleSaveQueue;
+
+@property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, strong) NSManagedObjectContext *mainThreadManagedObjectContext;
+
 
 @end
 
@@ -128,6 +133,17 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     if (self) {
         self.basePath = basePath;
         [self setupLegacyDataStore];
+        NSURL *modelURL = [[NSBundle bundleWithIdentifier:@"org.wikimedia.WMFModel"] URLForResource:@"Wikipedia" withExtension:@"momd"];
+        NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+        NSString *coreDataDBName = @"Wikipedia.sqlite";
+        NSURL *baseURL = [[NSFileManager defaultManager] wmf_containerURL];
+        NSURL *coreDataDBURL = [baseURL URLByAppendingPathComponent:coreDataDBName isDirectory:NO];
+        NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
+        [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:coreDataDBURL options:nil error:nil];
+        self.persistentStoreCoordinator = persistentStoreCoordinator;
+        self.mainThreadManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        self.mainThreadManagedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator;
+        [self migrateSavedAndHistoryToCoreData:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
     }
     return self;
@@ -157,6 +173,74 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     }
 
     return YES;
+}
+
+- (BOOL)migrateSavedAndHistoryToCoreData:(NSError **)error {
+    NSManagedObjectContext *moc = self.mainThreadManagedObjectContext;
+    NSMutableDictionary<NSString *, MWKHistoryEntry *> *historyEntries = [NSMutableDictionary dictionaryWithCapacity:100];
+    [self.savedPageList enumerateItemsWithBlock:^(MWKHistoryEntry * _Nonnull entry, BOOL * _Nonnull stop) {
+        NSString *key = entry.url.wmf_articleDatabaseKey;
+        if (!key) {
+            return;
+        }
+        historyEntries[key] = entry;
+    }];
+    [self.historyList enumerateItemsWithBlock:^(MWKHistoryEntry * _Nonnull entry, BOOL * _Nonnull stop) {
+        NSString *key = entry.url.wmf_articleDatabaseKey;
+        if (!key) {
+            return;
+        }
+        historyEntries[key] = entry;
+
+    }];
+    
+    NSArray *allKeys = historyEntries.allKeys;
+    NSFetchRequest *existingObjectFetchRequest = [WMFArticle fetchRequest];
+    existingObjectFetchRequest.predicate = [NSPredicate predicateWithFormat:@"key in %@", allKeys];
+    NSArray<WMFArticle *> *allExistingObjects = [moc executeFetchRequest:existingObjectFetchRequest error:nil];
+
+    NSMutableSet *keysToAdd = [NSMutableSet setWithArray:allKeys];
+    
+    void (^updateBlock) (MWKHistoryEntry *, WMFArticle *) = ^(MWKHistoryEntry *entry, WMFArticle *article) {
+        article.lastViewedDate = entry.dateViewed;
+        article.lastViewedFragment = entry.fragment;
+        article.lastViewedScrollPosition = entry.scrollPosition;
+        article.language = entry.url.wmf_language;
+        article.title = entry.url.wmf_title;
+        article.savedDate = entry.dateSaved;
+        article.blocked = entry.blackListed;
+        article.wasSignificantlyViewed = entry.titleWasSignificantlyViewed;
+        article.newsNotificationDate = entry.inTheNewsNotificationDate;
+        article.lastViewedScrollPosition = entry.scrollPosition;
+    };
+    
+    for (WMFArticle *article in allExistingObjects) {
+        NSString *key = article.key;
+        if (!key) {
+            [moc deleteObject:article];
+            continue;
+        }
+        MWKHistoryEntry *entry = historyEntries[key];
+        if (!entry) {
+            [moc deleteObject:article];
+            continue;
+        }
+        [keysToAdd removeObject:key];
+        updateBlock(entry, article);
+    }
+    
+    NSEntityDescription *articleEntityDescription = [NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:moc];
+    for (NSString *key in keysToAdd) {
+        MWKHistoryEntry *entry = historyEntries[key];
+        if (!entry) {
+            continue;
+        }
+        WMFArticle *article = [[WMFArticle alloc] initWithEntity:articleEntityDescription insertIntoManagedObjectContext:moc];
+        article.key = key;
+        updateBlock(entry, article);
+    }
+    
+    return [moc save:error];
 }
 
 #pragma mark - Memory

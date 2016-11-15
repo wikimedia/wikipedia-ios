@@ -154,5 +154,6 @@
 
 #import "PiwikTracker+WMFExtensions.h"
 
+#import "WMFArticle+CoreDataClass.h"
 
 #endif /* WMFModel_global_h */

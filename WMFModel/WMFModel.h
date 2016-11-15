@@ -148,7 +148,6 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 
 #import "PiwikTracker+WMFExtensions.h"
 
-
 //Deprecated
 #import "MWKList.h"
 #import "MWKList+Subclass.h"
