@@ -46,41 +46,43 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 }
 
 - (void)migrateLegacyDataIfNeeded {
-//    if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateSavedPageList]) {
-//        return;
-//    }
-//
-//    NSArray<MWKSavedPageEntry *> *entries =
-//        [[MWKSavedPageList savedEntryDataFromExportedData:[self.dataStore savedPageListData]] wmf_mapAndRejectNil:^id(id obj) {
-//            @try {
-//                return [[MWKSavedPageEntry alloc] initWithDict:obj];
-//            } @catch (NSException *e) {
-//                return nil;
-//            }
-//        }];
-//
-//    if ([entries count] > 0) {
-//        [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray<NSString *> *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-//            NSMutableArray *urls = [NSMutableArray arrayWithCapacity:[entries count]];
-//            [entries enumerateObjectsUsingBlock:^(MWKSavedPageEntry *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-//                if (obj.url.wmf_title.length == 0) {
-//                    //HACK: Added check from pre-existing logic. Apparently there was a time when this URL could be bad. Copying here to keep exisitng functionality
-//                    return;
-//                }
-//                MWKHistoryEntry *history = [self historyEntryWithSavedPageEntry:obj];
-//                MWKHistoryEntry *existing = [transaction objectForKey:[history databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
-//                if (existing) {
-//                    existing.dateSaved = history.dateSaved;
-//                    history = existing;
-//                }
-//                [transaction setObject:history forKey:[history databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
-//                [urls addObject:[history databaseKey]];
-//            }];
-//            return urls;
-//        }];
-//
-//        [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateSavedPageList:YES];
-//    }
+    NSAssert([NSThread isMainThread], @"Legacy migration must happen on the main thread");
+
+    if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateSavedPageList]) {
+        return;
+    }
+
+    NSArray<MWKSavedPageEntry *> *entries =
+        [[MWKSavedPageList savedEntryDataFromExportedData:[self.dataStore savedPageListData]] wmf_mapAndRejectNil:^id(id obj) {
+            @try {
+                return [[MWKSavedPageEntry alloc] initWithDict:obj];
+            } @catch (NSException *e) {
+                return nil;
+            }
+        }];
+
+    if ([entries count] == 0) {
+        [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateSavedPageList:YES];
+        return;
+    }
+
+    [entries enumerateObjectsUsingBlock:^(MWKSavedPageEntry *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        if (obj.url.wmf_title.length == 0) {
+            //HACK: Added check from pre-existing logic. Apparently there was a time when this URL could be bad. Copying here to keep exisitng functionality
+            return;
+        }
+
+        WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:obj.url];
+        article.savedDate = obj.date;
+    }];
+
+    NSError *migrationError = nil;
+    if (![self.dataStore save:&migrationError]) {
+        DDLogError(@"Error migrating legacy saved pages: %@", migrationError);
+        return;
+    }
+
+    [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateSavedPageList:YES];
 }
 
 #pragma mark - Convienence Methods
@@ -118,10 +120,10 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     if (!block) {
         return;
     }
-    
+
     NSFetchRequest *request = self.savedPageListFetchRequest;
     NSArray<WMFArticle *> *allEntries = [self.dataStore.viewContext executeFetchRequest:request error:nil];
-    [allEntries enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [allEntries enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         block(obj, stop);
     }];
 }
@@ -161,7 +163,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 }
 
 - (void)removeAllEntries {
-    [self enumerateItemsWithBlock:^(WMFArticle * _Nonnull entry, BOOL * _Nonnull stop) {
+    [self enumerateItemsWithBlock:^(WMFArticle *_Nonnull entry, BOOL *_Nonnull stop) {
         entry.savedDate = nil;
     }];
     [self.dataStore save:nil];
