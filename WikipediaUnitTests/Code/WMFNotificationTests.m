@@ -48,54 +48,6 @@
     [[LSNocilla sharedInstance] stop];
 }
 
-- (void)testNotifiesWhenMostRecentDateIsMoreThanThreeDaysAgo {
-    NSData *feedJSONData = [[self wmf_bundle] wmf_dataFromContentsOfFile:@"MCSFeed" ofType:@"json"];
-    stubRequest(@"GET", self.feedURL.absoluteString).andReturn(200).withHeaders(@{ @"Content-Type": @"application/json" }).withBody(feedJSONData); // News item isn't in top read - test force notify
-
-    NSDate *now = [NSDate date];
-    NSDate *daysAgo = [self.calendar dateByAddingUnit:NSCalendarUnitDay value:-4 toDate:now options:NSCalendarMatchStrictly];
-    NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
-    [defaults wmf_setInTheNewsNotificationsEnabled:YES];
-    [defaults wmf_setMostRecentInTheNewsNotificationDate:daysAgo];
-    [defaults wmf_setInTheNewsMostRecentDateNotificationCount:4];
-
-    XCTAssertTrue([self.calendar daysFromDate:[defaults wmf_mostRecentInTheNewsNotificationDate] toDate:now] >= 3);
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for content to load"];
-
-    [self.feedContentSource loadContentForDate:self.date
-                                         force:NO
-                                    completion:^{
-                                        NSDate *notificationDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
-                                        XCTAssertTrue([self.calendar isDateInToday:notificationDate] || [self.calendar daysFromDate:now toDate:notificationDate] == 1);
-                                        XCTAssertTrue([defaults wmf_inTheNewsMostRecentDateNotificationCount] == 1);
-                                        [expectation fulfill];
-                                    }];
-
-    [self waitForExpectationsWithTimeout:10
-                                 handler:^(NSError *_Nullable error) {
-                                     if (error) {
-                                         XCTFail();
-                                     }
-                                 }];
-
-    expectation = [self expectationWithDescription:@"Wait for content to load"];
-    [self.feedContentSource loadContentForDate:self.date
-                                         force:NO
-                                    completion:^{
-                                        NSDate *notificationDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
-                                        XCTAssertTrue([self.calendar isDateInToday:notificationDate] || [self.calendar daysFromDate:now toDate:notificationDate] == 1);
-                                        XCTAssertTrue([defaults wmf_inTheNewsMostRecentDateNotificationCount] == 1);
-                                        [expectation fulfill];
-                                    }];
-
-    [self waitForExpectationsWithTimeout:10
-                                 handler:^(NSError *_Nullable error) {
-                                     if (error) {
-                                         XCTFail();
-                                     }
-                                 }];
-}
-
 - (void)testIncrementsNotificationCount {
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
     [defaults wmf_setInTheNewsNotificationsEnabled:YES];

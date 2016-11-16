@@ -132,7 +132,7 @@ NS_ASSUME_NONNULL_BEGIN
         preview.wikidataDescription = feedPreview.wikidataDescription;
     }
     if ([feedPreview.snippet length] > 0) {
-        preview.snippet = feedPreview.snippet;
+        preview.wikidataDescription = feedPreview.wikidataDescription;
     }
     if (feedPreview.thumbnailURL != nil) {
         preview.thumbnailURL = feedPreview.thumbnailURL;
