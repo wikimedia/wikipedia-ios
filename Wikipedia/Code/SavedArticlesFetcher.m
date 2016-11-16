@@ -69,7 +69,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     NSParameterAssert(imageInfoFetcher);
     self = [super init];
     if (self) {
-        self.accessQueue = dispatch_queue_create("org.wikipedia.savedarticlesarticleFetcher.accessQueue", DISPATCH_QUEUE_SERIAL);
+        self.accessQueue = dispatch_get_main_queue(); //dispatch_queue_create("org.wikipedia.savedarticlesarticleFetcher.accessQueue", DISPATCH_QUEUE_SERIAL);
         self.fetchOperationsByArticleTitle = [NSMutableDictionary new];
         self.errorsByArticleTitle = [NSMutableDictionary new];
         self.dataStore = dataStore;
@@ -153,14 +153,13 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                 NSURL *articleURL = [NSURL URLWithString:entry.key];
                 if (articleURL) {
                     [self fetchArticleURL:articleURL
-                                  failure:^(NSError *error) {
-                                      [group leave];
-                                  }
-                                  success:^{
-                                      [group leave];
-                                  }];
+                        failure:^(NSError *error) {
+                            [group leave];
+                        }
+                        success:^{
+                            [group leave];
+                        }];
                 }
-                
             }
         });
     }];
