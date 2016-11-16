@@ -39,12 +39,6 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
 #pragma mark - Legacy Migration
 
-- (MWKHistoryEntry *)historyEntryWithSavedPageEntry:(MWKSavedPageEntry *)entry {
-    MWKHistoryEntry *history = [[MWKHistoryEntry alloc] initWithURL:entry.url];
-    history.dateSaved = entry.date;
-    return history;
-}
-
 - (void)migrateLegacyDataIfNeeded {
     NSAssert([NSThread isMainThread], @"Legacy migration must happen on the main thread");
 

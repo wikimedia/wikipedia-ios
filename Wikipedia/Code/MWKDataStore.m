@@ -957,6 +957,13 @@ static pid_t currentPid() {
 
 #pragma mark - Core Data
 
+#if DEBUG
+- (NSManagedObjectContext *)viewContext {
+    NSAssert([NSThread isMainThread], @"View context must only be accessed on the main thread");
+    return _viewContext;
+}
+#endif
+
 - (BOOL)save:(NSError **)error {
     return [self.viewContext save:error];
 }

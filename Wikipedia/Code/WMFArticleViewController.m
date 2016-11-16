@@ -281,7 +281,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return self.dataStore.savedPageList;
 }
 
-- (MWKHistoryEntry *)historyEntry {
+- (WMFArticle *)historyEntry {
     return [self.recentPages entryForURL:self.articleURL];
 }
 
@@ -791,8 +791,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
     MWKHistoryList *historyList = self.dataStore.historyList;
-    MWKHistoryEntry *entry = [historyList entryForURL:self.articleURL];
-    if (!entry.titleWasSignificantlyViewed) {
+    WMFArticle *entry = [historyList entryForURL:self.articleURL];
+    if (!entry.wasSignificantlyViewed) {
         self.significantlyViewedTimer = [NSTimer scheduledTimerWithTimeInterval:FBTweakValue(@"Explore", @"Related items", @"Required viewing time", 30.0) target:self selector:@selector(significantlyViewedTimerFired:) userInfo:nil repeats:NO];
     }
 }
