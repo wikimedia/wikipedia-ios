@@ -1,4 +1,4 @@
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
 #import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 
@@ -7,17 +7,17 @@
 #import "MWKArticle.h"
 #import "WMFFeedArticlePreview.h"
 @import CoreData;
-#import "WMFArticlePreview+Extensions.h"
+#import "WMFArticle+Extensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFArticlePreviewDataStore ()
+@interface WMFArticleDataStore ()
 
 @property (nonatomic, strong) MWKDataStore *dataStore;
 
 @end
 
-@implementation WMFArticlePreviewDataStore
+@implementation WMFArticleDataStore
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
     self = [super init];
@@ -27,52 +27,44 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (nullable WMFArticlePreview *)itemForURL:(NSURL *)url {
-    return [self.dataStore fetchArticlePreviewForURL:url];
+- (nullable WMFArticle *)itemForURL:(NSURL *)url {
+    return [self.dataStore fetchArticleForURL:url];
 }
 
-- (void)enumerateItemsWithBlock:(void (^)(WMFArticlePreview *_Nonnull item, BOOL *stop))block {
-    if (!block) {
-        return;
-    }
-    
-    NSFetchRequest *request = [WMFArticlePreview fetchRequest];
-    NSArray<WMFArticlePreview *> *allArticlePreviews = [self.dataStore.viewContext executeFetchRequest:request error:nil];
-    [allArticlePreviews enumerateObjectsUsingBlock:^(WMFArticlePreview * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        block(obj, stop);
-    }];
+- (void)enumerateItemsWithBlock:(void (^)(WMFArticle *_Nonnull item, BOOL *stop))block {
+    [self.dataStore enumerateArticlesWithBlock:block];
 }
 
-- (WMFArticlePreview *)newOrExistingPreviewWithURL:(NSURL *)url {
+- (WMFArticle *)newOrExistingPreviewWithURL:(NSURL *)url {
     NSParameterAssert(url.wmf_title);
-    return [self.dataStore fetchOrCreateArticlePreviewForURL:url];
+    return [self.dataStore fetchOrCreateArticleForURL:url];
 }
 
-- (void)savePreview:(WMFArticlePreview *)preview {
+- (void)savePreview:(WMFArticle *)preview {
     [self.dataStore save:nil];
 }
 
-- (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithSearchResult:(MWKSearchResult *)searchResult {
+- (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithSearchResult:(MWKSearchResult *)searchResult {
 
     NSParameterAssert(url);
 
-    WMFArticlePreview *preview = [self newOrExistingPreviewWithURL:url];
+    WMFArticle *preview = [self newOrExistingPreviewWithURL:url];
     [self updatePreview:preview withSearchResult:searchResult];
     [self savePreview:preview];
     return preview;
 }
 
-- (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithLocationSearchResult:(MWKLocationSearchResult *)searchResult {
+- (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithLocationSearchResult:(MWKLocationSearchResult *)searchResult {
 
     NSParameterAssert(url);
 
-    WMFArticlePreview *preview = [self newOrExistingPreviewWithURL:url];
+    WMFArticle *preview = [self newOrExistingPreviewWithURL:url];
     [self updatePreview:preview withLocationSearchResult:searchResult];
     [self savePreview:preview];
     return preview;
 }
 
-- (void)updatePreview:(WMFArticlePreview *)preview withSearchResult:(MWKSearchResult *)searchResult {
+- (void)updatePreview:(WMFArticle *)preview withSearchResult:(MWKSearchResult *)searchResult {
 
     if ([searchResult.displayTitle length] > 0) {
         preview.displayTitle = searchResult.displayTitle;
@@ -88,21 +80,21 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)updatePreview:(WMFArticlePreview *)preview withLocationSearchResult:(MWKLocationSearchResult *)searchResult {
+- (void)updatePreview:(WMFArticle *)preview withLocationSearchResult:(MWKLocationSearchResult *)searchResult {
     [self updatePreview:preview withSearchResult:searchResult];
     if (searchResult.location != nil) {
         preview.location = searchResult.location;
     }
 }
 
-- (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithArticle:(MWKArticle *)article {
+- (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithArticle:(MWKArticle *)article {
 
     NSParameterAssert(url);
     if (!url) {
         return nil;
     }
 
-    WMFArticlePreview *preview = [self newOrExistingPreviewWithURL:url];
+    WMFArticle *preview = [self newOrExistingPreviewWithURL:url];
     if ([article.displaytitle length] > 0) {
         preview.displayTitle = article.displaytitle;
     }
@@ -121,13 +113,13 @@ NS_ASSUME_NONNULL_BEGIN
     return preview;
 }
 
-- (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithFeedPreview:(WMFFeedArticlePreview *)feedPreview pageViews:(nullable NSDictionary<NSDate *, NSNumber *> *)pageViews {
+- (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithFeedPreview:(WMFFeedArticlePreview *)feedPreview pageViews:(nullable NSDictionary<NSDate *, NSNumber *> *)pageViews {
     NSParameterAssert(url);
     if (!url) {
         return nil;
     }
 
-    WMFArticlePreview *preview = [self newOrExistingPreviewWithURL:url];
+    WMFArticle *preview = [self newOrExistingPreviewWithURL:url];
     if ([feedPreview.displayTitle length] > 0) {
         preview.displayTitle = feedPreview.displayTitle;
     }

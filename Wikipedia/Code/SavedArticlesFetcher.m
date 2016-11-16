@@ -5,7 +5,7 @@
 #import "MWKImageInfoFetcher.h"
 
 #import "MWKDataStore.h"
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
 #import "MWKSavedPageList.h"
 #import "MWKArticle.h"
 #import "MWKImage+CanonicalFilenames.h"
@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableDictionary<NSURL *, NSError *> *errorsByArticleTitle;
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
-                     previewStore:(WMFArticlePreviewDataStore *)previewStore
+                     previewStore:(WMFArticleDataStore *)previewStore
                     savedPageList:(MWKSavedPageList *)savedPageList
                    articleFetcher:(WMFArticleFetcher *)articleFetcher
                   imageController:(WMFImageController *)imageController
@@ -56,7 +56,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
-                     previewStore:(WMFArticlePreviewDataStore *)previewStore
+                     previewStore:(WMFArticleDataStore *)previewStore
                     savedPageList:(MWKSavedPageList *)savedPageList
                    articleFetcher:(WMFArticleFetcher *)articleFetcher
                   imageController:(WMFImageController *)imageController
@@ -83,7 +83,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
-                     previewStore:(WMFArticlePreviewDataStore *)previewStore
+                     previewStore:(WMFArticleDataStore *)previewStore
                     savedPageList:(MWKSavedPageList *)savedPageList {
     return [self initWithDataStore:dataStore
                       previewStore:previewStore

@@ -50,7 +50,7 @@
 //        NSMutableArray *keysToRemove = [NSMutableArray array];
 //
 //        //add keys for all previews
-//        [transaction enumerateKeysInCollection:[WMFArticlePreview databaseCollectionName]
+//        [transaction enumerateKeysInCollection:[WMFArticle databaseCollectionName]
 //                                    usingBlock:^(NSString *_Nonnull key, BOOL *_Nonnull stop) {
 //                                        [keysToRemove addObject:key];
 //                                    }];
@@ -121,7 +121,7 @@
 //
 //                                    }];
 //
-//        [transaction removeObjectsForKeys:keysToRemove inCollection:[WMFArticlePreview databaseCollectionName]];
+//        [transaction removeObjectsForKeys:keysToRemove inCollection:[WMFArticle databaseCollectionName]];
 //    }];
 //
 //    [connection flushTransactionsWithCompletionQueue:dispatch_get_main_queue()

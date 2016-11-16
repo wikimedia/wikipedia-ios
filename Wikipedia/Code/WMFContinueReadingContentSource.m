@@ -1,7 +1,7 @@
 #import "WMFContinueReadingContentSource.h"
 #import "WMFContentGroupDataStore.h"
 #import "MWKDataStore.h"
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
 #import "MWKHistoryEntry.h"
 #import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "MWKArticle.h"
@@ -15,13 +15,13 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 
 @property (readwrite, nonatomic, strong) WMFContentGroupDataStore *contentStore;
 @property (readwrite, nonatomic, strong) MWKDataStore *userDataStore;
-@property (readwrite, nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
+@property (readwrite, nonatomic, strong) WMFArticleDataStore *previewStore;
 
 @end
 
 @implementation WMFContinueReadingContentSource
 
-- (instancetype)initWithContentGroupDataStore:(WMFContentGroupDataStore *)contentStore userDataStore:(MWKDataStore *)userDataStore articlePreviewDataStore:(WMFArticlePreviewDataStore *)previewStore {
+- (instancetype)initWithContentGroupDataStore:(WMFContentGroupDataStore *)contentStore userDataStore:(MWKDataStore *)userDataStore articlePreviewDataStore:(WMFArticleDataStore *)previewStore {
 
     NSParameterAssert(contentStore);
     NSParameterAssert(userDataStore);

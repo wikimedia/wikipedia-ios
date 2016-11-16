@@ -16,6 +16,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSDate *newsNotificationDate;
 @property (nullable, nonatomic, copy) NSDate *savedDate;
 @property (nonatomic) BOOL wasSignificantlyViewed;
+@property (nullable, nonatomic, copy) NSString *displayTitle;
+@property (nullable, nonatomic, copy) NSString *wikidataDescription;
+@property (nullable, nonatomic, copy) NSString *snippet;
+@property (nullable, nonatomic, copy) NSString *thumbnailURLString;
+@property (nonatomic) double latitude;
+@property (nonatomic) double longitude;
+@property (nullable, nonatomic, retain) NSDictionary *pageViews;
 
 @end
 

@@ -1,7 +1,7 @@
 #import "WMFSettingsTableViewCell.h"
 #import "Wikipedia-Swift.h"
 #import "NSUserActivity+WMFExtensions.h"
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
 
 // View Controllers
 #import "WMFSettingsViewController.h"
@@ -51,7 +51,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 @interface WMFSettingsViewController () <UITableViewDelegate, WMFPreferredLanguagesViewControllerDelegate, FBTweakViewControllerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
-@property (nonatomic, strong, readwrite) WMFArticlePreviewDataStore *previewStore;
+@property (nonatomic, strong, readwrite) WMFArticleDataStore *previewStore;
 
 @property (nonatomic, strong) SSSectionedDataSource *elementDataSource;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -60,7 +60,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 @implementation WMFSettingsViewController
 
-+ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store previewStore:(WMFArticlePreviewDataStore *)previewStore {
++ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store previewStore:(WMFArticleDataStore *)previewStore {
     NSParameterAssert(store);
     NSParameterAssert(previewStore);
     WMFSettingsViewController *vc = [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard];

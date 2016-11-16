@@ -1002,34 +1002,4 @@ static pid_t currentPid() {
     return article;
 }
 
-- (nullable WMFArticlePreview *)fetchArticlePreviewForURL:(NSURL *)URL {
-    return [self fetchArticlePreviewForKey:[URL wmf_articleDatabaseKey]];
-}
-
-- (nullable WMFArticlePreview *)fetchArticlePreviewForKey:(NSString *)key {
-    if (!key) {
-        return nil;
-    }
-    NSManagedObjectContext *moc = self.viewContext;
-    NSFetchRequest *request = [WMFArticlePreview fetchRequest];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"key == %@", key]];
-    return [[moc executeFetchRequest:request error:nil] firstObject];
-}
-
-- (nullable WMFArticlePreview *)fetchOrCreateArticlePreviewForURL:(NSURL *)URL {
-    NSString *language = URL.wmf_language;
-    NSString *title = URL.wmf_title;
-    NSString *key = [URL wmf_articleDatabaseKey];
-    if (!language || !title || !key) {
-        return nil;
-    }
-        NSManagedObjectContext *moc = self.viewContext;
-    WMFArticlePreview *articlePreview = [self fetchArticlePreviewForKey:key];
-    if (!articlePreview) {
-        articlePreview = [[WMFArticlePreview alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticlePreview" inManagedObjectContext:moc] insertIntoManagedObjectContext:moc];
-        articlePreview.key = key;
-    }
-    return articlePreview;
-}
-
 @end

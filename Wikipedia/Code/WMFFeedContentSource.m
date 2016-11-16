@@ -1,6 +1,6 @@
 #import "WMFFeedContentSource.h"
 #import "WMFContentGroupDataStore.h"
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
 #import "WMFFeedContentFetcher.h"
 #import "WMFContentGroup.h"
 
@@ -31,7 +31,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
 
 @property (readwrite, nonatomic, strong) WMFContentGroupDataStore *contentStore;
-@property (readwrite, nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
+@property (readwrite, nonatomic, strong) WMFArticleDataStore *previewStore;
 @property (readwrite, nonatomic, strong) MWKDataStore *userDataStore;
 @property (readwrite, nonatomic, strong) WMFNotificationsController *notificationsController;
 
@@ -43,7 +43,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 @implementation WMFFeedContentSource
 
-- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticlePreviewDataStore *)previewStore userDataStore:(MWKDataStore *)userDataStore notificationsController:(nullable WMFNotificationsController *)notificationsController {
+- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticleDataStore *)previewStore userDataStore:(MWKDataStore *)userDataStore notificationsController:(nullable WMFNotificationsController *)notificationsController {
     NSParameterAssert(siteURL);
     NSParameterAssert(contentStore);
     NSParameterAssert(previewStore);
@@ -386,7 +386,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         return;
     }
 
-    WMFArticlePreview *articlePreviewToNotifyAbout = nil;
+    WMFArticle *articlePreviewToNotifyAbout = nil;
     WMFFeedArticlePreview *articlePreview = newsStory.featuredArticlePreview;
     if (!articlePreview) {
         done();
@@ -436,7 +436,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 - (BOOL)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory
-                          articlePreview:(WMFArticlePreview *)articlePreview
+                          articlePreview:(WMFArticle *)articlePreview
                                    force:(BOOL)force {
     if (!newsStory.featuredArticlePreview) {
         NSString *articlePreviewKey = articlePreview.URL.wmf_articleDatabaseKey;

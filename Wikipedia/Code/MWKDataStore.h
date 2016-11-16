@@ -11,7 +11,6 @@
 @class MWKImageInfo;
 @class MWKImageList;
 @class WMFArticle;
-@class WMFArticlePreview;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -68,10 +67,6 @@ extern NSString *const MWKURLKey;
 - (nullable WMFArticle *)fetchArticleForURL:(NSURL *)URL;
 - (nullable WMFArticle *)fetchArticleForKey:(NSString *)key;
 - (nullable WMFArticle *)fetchOrCreateArticleForURL:(NSURL *)URL;
-
-- (nullable WMFArticlePreview *)fetchArticlePreviewForURL:(NSURL *)URL;
-- (nullable WMFArticlePreview *)fetchArticlePreviewForKey:(NSString *)key;
-- (nullable WMFArticlePreview *)fetchOrCreateArticlePreviewForURL:(NSURL *)URL;
 
 - (BOOL)save:(NSError **)error;
 

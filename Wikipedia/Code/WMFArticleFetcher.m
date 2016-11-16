@@ -5,7 +5,7 @@
 //Tried not to do it, but we need it for the useageReports BOOL
 //Plan to refactor settings into an another object, then we can remove this.
 #import "SessionSingleton.h"
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
 
 //AFNetworking
 #import "MWNetworkActivityIndicatorManager.h"
@@ -39,14 +39,14 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 @property (nonatomic, strong) dispatch_queue_t operationsQueue;
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
-@property (nonatomic, strong, readwrite) WMFArticlePreviewDataStore *previewStore;
+@property (nonatomic, strong, readwrite) WMFArticleDataStore *previewStore;
 @property (nonatomic, strong) WMFArticleRevisionFetcher *revisionFetcher;
 
 @end
 
 @implementation WMFArticleFetcher
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore *)previewStore {
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticleDataStore *)previewStore {
     NSParameterAssert(dataStore);
     NSParameterAssert(previewStore);
     self = [super init];

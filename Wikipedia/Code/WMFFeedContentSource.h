@@ -1,12 +1,12 @@
 #import "WMFContentSource.h"
 
 @class WMFContentGroupDataStore;
-@class WMFArticlePreviewDataStore;
+@class WMFArticleDataStore;
 @class WMFNotificationsController;
 @class MWKDataStore;
 @class WMFFeedNewsStory;
 @class WMFFeedDayResponse;
-@class WMFArticlePreview;
+@class WMFArticle;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,13 +17,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, getter=isNotificationSchedulingEnabled) BOOL notificationSchedulingEnabled;
 
 @property (readonly, nonatomic, strong) WMFContentGroupDataStore *contentStore;
-@property (readonly, nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
+@property (readonly, nonatomic, strong) WMFArticleDataStore *previewStore;
 
-- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticlePreviewDataStore *)previewStore userDataStore:(MWKDataStore *)userDataStore notificationsController:(nullable WMFNotificationsController *)notificationsController;
+- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticleDataStore *)previewStore userDataStore:(MWKDataStore *)userDataStore notificationsController:(nullable WMFNotificationsController *)notificationsController;
 
 - (instancetype)init NS_UNAVAILABLE;
 
-- (BOOL)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory articlePreview:(WMFArticlePreview *)articlePreview force:(BOOL)force;
+- (BOOL)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory articlePreview:(WMFArticle *)articlePreview force:(BOOL)force;
 
 //Use this method to fetch content directly. Using this will not persist the results
 - (void)fetchContentForDate:(NSDate *)date force:(BOOL)force completion:(void (^)(WMFFeedDayResponse *__nullable feedResponse, NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *__nullable pageViews))completion;

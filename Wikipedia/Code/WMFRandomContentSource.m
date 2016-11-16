@@ -1,6 +1,6 @@
 #import "WMFRandomContentSource.h"
 #import "WMFContentGroupDataStore.h"
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
 #import "WMFRandomArticleFetcher.h"
 #import "WMFContentGroup.h"
 
@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
 
 @property (readwrite, nonatomic, strong) WMFContentGroupDataStore *contentStore;
-@property (readwrite, nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
+@property (readwrite, nonatomic, strong) WMFArticleDataStore *previewStore;
 
 @property (nonatomic, strong) WMFRandomArticleFetcher *fetcher;
 
@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFRandomContentSource
 
-- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticlePreviewDataStore *)previewStore {
+- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticleDataStore *)previewStore {
     NSParameterAssert(siteURL);
     NSParameterAssert(contentStore);
     NSParameterAssert(previewStore);

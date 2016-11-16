@@ -8,7 +8,7 @@
 
 @class WMFShareFunnel;
 @class WMFArticleViewController;
-@class WMFArticlePreviewDataStore;
+@class WMFArticleDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -38,11 +38,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithArticleURL:(NSURL *)url
                          dataStore:(MWKDataStore *)dataStore
-                      previewStore:(WMFArticlePreviewDataStore *)previewStore;
+                      previewStore:(WMFArticleDataStore *)previewStore;
 
 @property (nonatomic, strong, readonly) NSURL *articleURL;
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
-@property (nonatomic, strong, readonly) WMFArticlePreviewDataStore *previewStore;
+@property (nonatomic, strong, readonly) WMFArticleDataStore *previewStore;
 
 @property (nonatomic, strong, readonly, nullable) MWKArticle *article;
 

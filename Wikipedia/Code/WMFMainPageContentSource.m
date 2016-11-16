@@ -4,7 +4,7 @@
 @import NSDate_Extensions;
 
 #import "WMFContentGroupDataStore.h"
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
 #import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "MWKSiteInfoFetcher.h"
 #import "WMFArticlePreviewFetcher.h"
@@ -14,7 +14,7 @@
 @interface WMFMainPageContentSource ()
 
 @property (readwrite, nonatomic, strong) WMFContentGroupDataStore *contentStore;
-@property (readwrite, nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
+@property (readwrite, nonatomic, strong) WMFArticleDataStore *previewStore;
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
 
@@ -25,7 +25,7 @@
 
 @implementation WMFMainPageContentSource
 
-- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticlePreviewDataStore *)previewStore {
+- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticleDataStore *)previewStore {
     NSParameterAssert(contentStore);
     NSParameterAssert(previewStore);
     NSParameterAssert(siteURL);

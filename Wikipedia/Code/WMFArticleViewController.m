@@ -27,7 +27,7 @@
 
 // Model
 #import "MWKDataStore.h"
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
 #import "MWKCitation.h"
 #import "MWKSavedPageList.h"
 #import "MWKArticle+WMFSharing.h"
@@ -127,7 +127,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (nonatomic, strong, readwrite) NSURL *articleURL;
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
-@property (nonatomic, strong, readwrite) WMFArticlePreviewDataStore *previewStore;
+@property (nonatomic, strong, readwrite) WMFArticleDataStore *previewStore;
 
 @property (strong, nonatomic, nullable, readwrite) WMFShareFunnel *shareFunnel;
 @property (strong, nonatomic, nullable) WMFShareOptionsController *shareOptionsController;
@@ -192,7 +192,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (instancetype)initWithArticleURL:(NSURL *)url
                          dataStore:(MWKDataStore *)dataStore
-                      previewStore:(WMFArticlePreviewDataStore *)previewStore {
+                      previewStore:(WMFArticleDataStore *)previewStore {
     NSParameterAssert(url.wmf_title);
     NSParameterAssert(dataStore);
     NSParameterAssert(previewStore);
@@ -1745,7 +1745,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return @[readAction, saveAction, shareAction];
 }
 
-#pragma mark - WMFArticlePreviewingActionsDelegate methods
+#pragma mark - WMFArticleingActionsDelegate methods
 
 - (void)readMoreArticlePreviewActionSelectedWithArticleController:(UIViewController *)articleController {
     [self commitViewController:articleController];

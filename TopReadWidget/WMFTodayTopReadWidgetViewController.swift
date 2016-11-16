@@ -15,12 +15,12 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     var date = NSDate()
     var group: WMFTopReadContentGroup?
     var results: [WMFFeedTopReadArticlePreview] = []
-    var previews: [NSURL:WMFArticlePreview] = [:]
+    var previews: [NSURL:WMFArticle] = [:]
 
     let feedContentFetcher = WMFFeedContentFetcher()
     
     let contentStore = WMFContentGroupDataStore()
-    let previewStore = WMFArticlePreviewDataStore()
+    let previewStore = WMFArticleDataStore()
     let userStore: MWKDataStore = SessionSingleton.sharedInstance().dataStore
 
     lazy var contentSource: WMFFeedContentSource = {
@@ -352,7 +352,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 self.results = content
                 previews.removeAll()
                 for result in results[0...maximumRowCount] {
-                    guard let articlePreview = self.previewStore.itemForURL(result.articleURL) else{
+                    guard let articlePreview = self.userStore.fetchArticleForURL(result.articleURL) else{
                         continue
                     }
                     previews[result.articleURL] = articlePreview
@@ -380,9 +380,9 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         return WMFTopReadContentGroup(date: date, mostReadDate: topRead.date!, siteURL: self.siteURL)
     }
     
-    func previewWithFeedPreview(url: NSURL, feedPreview: WMFFeedArticlePreview, pageViews: [NSDate:NSNumber]?) -> WMFArticlePreview {
+    func previewWithFeedPreview(url: NSURL, feedPreview: WMFFeedArticlePreview, pageViews: [NSDate:NSNumber]?) -> WMFArticle {
         
-        let preview = WMFArticlePreview()
+        let preview = WMFArticle()
         preview.key = url.wmf_articleDatabaseKey
         preview.displayTitle = feedPreview.displayTitle;
         preview.wikidataDescription = feedPreview.wikidataDescription;

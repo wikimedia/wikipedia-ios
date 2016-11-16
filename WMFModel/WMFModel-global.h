@@ -139,7 +139,7 @@
 #import "AFHTTPSessionManager+WMFConfig.h"
 #import "AFHTTPRequestSerializer+WMFRequestHeaders.h"
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"
-#import "WMFArticlePreviewFetcher.h"
+#import "WMFArticleFetcher.h"
 #import "WMFBaseRequestSerializer.h"
 #import "MWKSearchResult.h"
 #import "NSDictionary+WMFCommonParams.h"

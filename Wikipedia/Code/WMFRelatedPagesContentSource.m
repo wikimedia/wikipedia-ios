@@ -1,7 +1,7 @@
 #import "WMFRelatedPagesContentSource.h"
 #import "WMFContentGroupDataStore.h"
 #import "MWKDataStore.h"
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
 #import "MWKHistoryEntry.h"
 #import "MWKSearchResult.h"
 #import "WMFRelatedSearchFetcher.h"
@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readwrite, nonatomic, strong) WMFContentGroupDataStore *contentStore;
 @property (readwrite, nonatomic, strong) MWKDataStore *userDataStore;
-@property (readwrite, nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
+@property (readwrite, nonatomic, strong) WMFArticleDataStore *previewStore;
 
 @property (nonatomic, strong) WMFRelatedSearchFetcher *relatedSearchFetcher;
 
@@ -69,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFRelatedPagesContentSource
 
-- (instancetype)initWithContentGroupDataStore:(WMFContentGroupDataStore *)contentStore userDataStore:(MWKDataStore *)userDataStore articlePreviewDataStore:(WMFArticlePreviewDataStore *)previewStore {
+- (instancetype)initWithContentGroupDataStore:(WMFContentGroupDataStore *)contentStore userDataStore:(MWKDataStore *)userDataStore articlePreviewDataStore:(WMFArticleDataStore *)previewStore {
 
     NSParameterAssert(contentStore);
     NSParameterAssert(userDataStore);

@@ -2,7 +2,7 @@
 
 @class WMFContentGroupDataStore;
 @class MWKDataStore;
-@class WMFArticlePreviewDataStore;
+@class WMFArticleDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -10,9 +10,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly, nonatomic, strong) WMFContentGroupDataStore *contentStore;
 @property (readonly, nonatomic, strong) MWKDataStore *userDataStore;
-@property (readonly, nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
+@property (readonly, nonatomic, strong) WMFArticleDataStore *previewStore;
 
-- (instancetype)initWithContentGroupDataStore:(WMFContentGroupDataStore *)contentStore userDataStore:(MWKDataStore *)userDataStore articlePreviewDataStore:(WMFArticlePreviewDataStore *)previewStore;
+- (instancetype)initWithContentGroupDataStore:(WMFContentGroupDataStore *)contentStore userDataStore:(MWKDataStore *)userDataStore articlePreviewDataStore:(WMFArticleDataStore *)previewStore;
 
 - (instancetype)init NS_UNAVAILABLE;
 

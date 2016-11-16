@@ -12,7 +12,7 @@
 #import "NSUserActivity+WMFExtensions.h"
 
 #import "YapDatabase+WMFExtensions.h"
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
 #import "MWKDataStore.h"
 #import "WMFContentGroupDataStore.h"
 
@@ -110,7 +110,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 @property (nonatomic, strong, readonly) SessionSingleton *session;
 
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
-@property (nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
+@property (nonatomic, strong) WMFArticleDataStore *previewStore;
 @property (nonatomic, strong) WMFContentGroupDataStore *contentStore;
 
 @property (nonatomic, strong) WMFDatabaseHouseKeeper *houseKeeper;
@@ -350,7 +350,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 - (void)migrateToNewFeedIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
     YapDatabase *db = [YapDatabase sharedInstance];
     if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToNewFeed]) {
-        self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDataStore:self.dataStore];
+        self.previewStore = [[WMFArticleDataStore alloc] initWithDataStore:self.dataStore];
         self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
         completion();
     } else {
@@ -360,7 +360,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         }
             completionQueue:dispatch_get_main_queue()
             completionBlock:^{
-                self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDataStore:self.dataStore];
+                self.previewStore = [[WMFArticleDataStore alloc] initWithDataStore:self.dataStore];
                 self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
                 [self preloadContentSourcesForced:YES
                                        completion:^{
@@ -1242,7 +1242,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                         NSInteger randomIndex = (NSInteger)arc4random_uniform((uint32_t)stories.count);
                         WMFFeedNewsStory *randomStory = stories[randomIndex];
                         WMFFeedArticlePreview *feedPreview = randomStory.featuredArticlePreview ?: randomStory.articlePreviews[0];
-                        WMFArticlePreview *preview = [self.previewStore itemForURL:feedPreview.articleURL];
+                        WMFArticle *preview = [self.previewStore itemForURL:feedPreview.articleURL];
                         [[self feedContentSource] scheduleNotificationForNewsStory:randomStory articlePreview:preview force:YES];
                     }
                 }

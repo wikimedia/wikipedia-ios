@@ -1,6 +1,6 @@
 #import "WMFNearbyContentSource.h"
 #import "WMFContentGroupDataStore.h"
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
 
 #import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "WMFLocationSearchResults.h"
@@ -17,7 +17,7 @@
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
 @property (readwrite, nonatomic, strong) WMFContentGroupDataStore *contentStore;
-@property (readwrite, nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
+@property (readwrite, nonatomic, strong) WMFArticleDataStore *previewStore;
 
 @property (nonatomic, strong, readwrite) WMFLocationManager *currentLocationManager;
 @property (nonatomic, strong) WMFLocationSearchFetcher *locationSearchFetcher;
@@ -32,7 +32,7 @@
 
 @implementation WMFNearbyContentSource
 
-- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticlePreviewDataStore *)previewStore {
+- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticleDataStore *)previewStore {
     NSParameterAssert(siteURL);
     NSParameterAssert(contentStore);
     NSParameterAssert(previewStore);

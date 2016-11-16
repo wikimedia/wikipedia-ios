@@ -15,5 +15,12 @@
 @dynamic savedDate;
 @dynamic wasSignificantlyViewed;
 @dynamic viewedCalendarDate;
+@dynamic displayTitle;
+@dynamic wikidataDescription;
+@dynamic snippet;
+@dynamic thumbnailURLString;
+@dynamic latitude;
+@dynamic longitude;
+@dynamic pageViews;
 
 @end

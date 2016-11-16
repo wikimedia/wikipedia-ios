@@ -40,8 +40,8 @@
 		0E28C47C1D74D587000C5919 /* YapDatabaseViewMappings+WMFMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E28C47A1D74D587000C5919 /* YapDatabaseViewMappings+WMFMappings.m */; };
 		0E28C47F1D74D8DF000C5919 /* WMFContentGroup+WMFDatabaseViews.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C47D1D74D8DF000C5919 /* WMFContentGroup+WMFDatabaseViews.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E28C4801D74D8DF000C5919 /* WMFContentGroup+WMFDatabaseViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E28C47E1D74D8DF000C5919 /* WMFContentGroup+WMFDatabaseViews.m */; };
-		0E28C48E1D7529C8000C5919 /* WMFArticlePreviewDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C48C1D7529C8000C5919 /* WMFArticlePreviewDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0E28C48F1D7529C8000C5919 /* WMFArticlePreviewDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E28C48D1D7529C8000C5919 /* WMFArticlePreviewDataStore.m */; };
+		0E28C48E1D7529C8000C5919 /* WMFArticleDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C48C1D7529C8000C5919 /* WMFArticleDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0E28C48F1D7529C8000C5919 /* WMFArticleDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E28C48D1D7529C8000C5919 /* WMFArticleDataStore.m */; };
 		0E2927941CD1220D00FD8DA8 /* WMFLeadingImageTrailingTextButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2927931CD1220D00FD8DA8 /* WMFLeadingImageTrailingTextButton.m */; };
 		0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		0E37F9021CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37F9011CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift */; };
@@ -612,12 +612,6 @@
 		D84448291DDB632100425630 /* WMFArticle+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D84448251DDB632100425630 /* WMFArticle+CoreDataClass.m */; };
 		D844482A1DDB632100425630 /* WMFArticle+CoreDataProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = D84448261DDB632100425630 /* WMFArticle+CoreDataProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844482B1DDB632100425630 /* WMFArticle+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D84448271DDB632100425630 /* WMFArticle+CoreDataProperties.m */; };
-		D844484C1DDCA97000425630 /* WMFArticlePreview+CoreDataClass.h in Headers */ = {isa = PBXBuildFile; fileRef = D84448481DDCA97000425630 /* WMFArticlePreview+CoreDataClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D844484D1DDCA97000425630 /* WMFArticlePreview+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D84448491DDCA97000425630 /* WMFArticlePreview+CoreDataClass.m */; };
-		D844484E1DDCA97000425630 /* WMFArticlePreview+CoreDataProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = D844484A1DDCA97000425630 /* WMFArticlePreview+CoreDataProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D844484F1DDCA97000425630 /* WMFArticlePreview+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D844484B1DDCA97000425630 /* WMFArticlePreview+CoreDataProperties.m */; };
-		D84448521DDCA9F800425630 /* WMFArticlePreview+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D84448501DDCA9F800425630 /* WMFArticlePreview+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D84448531DDCA9F800425630 /* WMFArticlePreview+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D84448511DDCA9F800425630 /* WMFArticlePreview+Extensions.m */; };
 		D844D9701D6CB2600042D692 /* WMFModel.h in Headers */ = {isa = PBXBuildFile; fileRef = D844D96E1D6CB2600042D692 /* WMFModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9731D6CB2600042D692 /* WMFModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; };
 		D844D97C1D6CB2670042D692 /* WMFUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; };
@@ -1122,8 +1116,8 @@
 		0E28C47D1D74D8DF000C5919 /* WMFContentGroup+WMFDatabaseViews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMFContentGroup+WMFDatabaseViews.h"; sourceTree = "<group>"; };
 		0E28C47E1D74D8DF000C5919 /* WMFContentGroup+WMFDatabaseViews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMFContentGroup+WMFDatabaseViews.m"; sourceTree = "<group>"; };
 		0E28C4871D751ED6000C5919 /* WMFFeedContentDisplaying.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFFeedContentDisplaying.h; sourceTree = "<group>"; };
-		0E28C48C1D7529C8000C5919 /* WMFArticlePreviewDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticlePreviewDataStore.h; sourceTree = "<group>"; };
-		0E28C48D1D7529C8000C5919 /* WMFArticlePreviewDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticlePreviewDataStore.m; sourceTree = "<group>"; };
+		0E28C48C1D7529C8000C5919 /* WMFArticleDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleDataStore.h; sourceTree = "<group>"; };
+		0E28C48D1D7529C8000C5919 /* WMFArticleDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleDataStore.m; sourceTree = "<group>"; };
 		0E2927921CD1220D00FD8DA8 /* WMFLeadingImageTrailingTextButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFLeadingImageTrailingTextButton.h; sourceTree = "<group>"; };
 		0E2927931CD1220D00FD8DA8 /* WMFLeadingImageTrailingTextButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLeadingImageTrailingTextButton.m; sourceTree = "<group>"; };
 		0E331BF31C49647600DDE02A /* WMFRelatedSectionBlackList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFRelatedSectionBlackList.h; path = Wikipedia/Code/WMFRelatedSectionBlackList.h; sourceTree = SOURCE_ROOT; };
@@ -2378,12 +2372,6 @@
 		D84448251DDB632100425630 /* WMFArticle+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMFArticle+CoreDataClass.m"; sourceTree = "<group>"; };
 		D84448261DDB632100425630 /* WMFArticle+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMFArticle+CoreDataProperties.h"; sourceTree = "<group>"; };
 		D84448271DDB632100425630 /* WMFArticle+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMFArticle+CoreDataProperties.m"; sourceTree = "<group>"; };
-		D84448481DDCA97000425630 /* WMFArticlePreview+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMFArticlePreview+CoreDataClass.h"; sourceTree = "<group>"; };
-		D84448491DDCA97000425630 /* WMFArticlePreview+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMFArticlePreview+CoreDataClass.m"; sourceTree = "<group>"; };
-		D844484A1DDCA97000425630 /* WMFArticlePreview+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMFArticlePreview+CoreDataProperties.h"; sourceTree = "<group>"; };
-		D844484B1DDCA97000425630 /* WMFArticlePreview+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMFArticlePreview+CoreDataProperties.m"; sourceTree = "<group>"; };
-		D84448501DDCA9F800425630 /* WMFArticlePreview+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMFArticlePreview+Extensions.h"; sourceTree = "<group>"; };
-		D84448511DDCA9F800425630 /* WMFArticlePreview+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMFArticlePreview+Extensions.m"; sourceTree = "<group>"; };
 		D844D96C1D6CB2600042D692 /* WMFModel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WMFModel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D844D96E1D6CB2600042D692 /* WMFModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFModel.h; sourceTree = "<group>"; };
 		D844D96F1D6CB2600042D692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -3215,13 +3203,13 @@
 			name = "Content Group DataStore";
 			sourceTree = "<group>";
 		};
-		0E28C4901D752F23000C5919 /* Article Preview DataStore */ = {
+		0E28C4901D752F23000C5919 /* Article DataStore */ = {
 			isa = PBXGroup;
 			children = (
-				0E28C48C1D7529C8000C5919 /* WMFArticlePreviewDataStore.h */,
-				0E28C48D1D7529C8000C5919 /* WMFArticlePreviewDataStore.m */,
+				0E28C48C1D7529C8000C5919 /* WMFArticleDataStore.h */,
+				0E28C48D1D7529C8000C5919 /* WMFArticleDataStore.m */,
 			);
-			name = "Article Preview DataStore";
+			name = "Article DataStore";
 			sourceTree = "<group>";
 		};
 		0E2B06F81B2D127A00EA2F53 /* Article List */ = {
@@ -5514,12 +5502,6 @@
 				D844D9831D6CB3830042D692 /* WMFModel-global.h */,
 				D844D9841D6CB3900042D692 /* WMFModel-prefix.pch */,
 				D844480D1DDA33D900425630 /* Wikipedia.xcdatamodeld */,
-				D84448481DDCA97000425630 /* WMFArticlePreview+CoreDataClass.h */,
-				D84448491DDCA97000425630 /* WMFArticlePreview+CoreDataClass.m */,
-				D844484A1DDCA97000425630 /* WMFArticlePreview+CoreDataProperties.h */,
-				D844484B1DDCA97000425630 /* WMFArticlePreview+CoreDataProperties.m */,
-				D84448501DDCA9F800425630 /* WMFArticlePreview+Extensions.h */,
-				D84448511DDCA9F800425630 /* WMFArticlePreview+Extensions.m */,
 				D84448241DDB632100425630 /* WMFArticle+CoreDataClass.h */,
 				D84448251DDB632100425630 /* WMFArticle+CoreDataClass.m */,
 				D84448261DDB632100425630 /* WMFArticle+CoreDataProperties.h */,
@@ -5538,7 +5520,7 @@
 				0E28C4661D74AB6F000C5919 /* Base DataStore and DataSources */,
 				0E28C4641D74AAB0000C5919 /* User DataStore */,
 				0E28C46C1D74ADE7000C5919 /* Content Group DataStore */,
-				0E28C4901D752F23000C5919 /* Article Preview DataStore */,
+				0E28C4901D752F23000C5919 /* Article DataStore */,
 				0E6A6F501D9E9A1300189C80 /* Content Sources */,
 				0E28C4601D74A68D000C5919 /* Language */,
 				0E28C4611D74AA55000C5919 /* Article Content */,
@@ -5882,7 +5864,6 @@
 				0E28C47F1D74D8DF000C5919 /* WMFContentGroup+WMFDatabaseViews.h in Headers */,
 				D849D64E1D6CC7D200D06FC8 /* WMFImageTag+TargetImageWidthURL.h in Headers */,
 				0E728D481DAEEE910074EB4B /* WMFLocationManager.h in Headers */,
-				D84448521DDCA9F800425630 /* WMFArticlePreview+Extensions.h in Headers */,
 				D844D97F1D6CB32D0042D692 /* MWKSiteDataObject.h in Headers */,
 				0E6A6F571D9EB49400189C80 /* WMFContentGroup+WMFDatabaseStorable.h in Headers */,
 				D8EA02E21D6CC9F8008E8A47 /* WMFRelatedSectionBlackList.h in Headers */,
@@ -5908,7 +5889,6 @@
 				D844D9B11D6CB7770042D692 /* MWKSavedPageEntry+ImageMigration.h in Headers */,
 				0EB4108B1DBFA55000A26CE1 /* WMFAnalyticsLogging.h in Headers */,
 				0E728D4A1DAEEE910074EB4B /* CLLocation+WMFBearing.h in Headers */,
-				D844484C1DDCA97000425630 /* WMFArticlePreview+CoreDataClass.h in Headers */,
 				D84B22531DAFD1E1007C44AA /* CIDetector+WMFFaceDetection.h in Headers */,
 				D844D9B61D6CB7940042D692 /* MWKRecentSearchEntry.h in Headers */,
 				D84B224D1DAFD0F7007C44AA /* WMFNotificationsController.h in Headers */,
@@ -5938,7 +5918,6 @@
 				D84B22511DAFD1E1007C44AA /* CIContext+WMFImageProcessing.h in Headers */,
 				0E728D3D1DAEEC310074EB4B /* WMFRelatedSearchFetcher.h in Headers */,
 				0E728D2F1DAEE8FF0074EB4B /* WMFNearbyContentSource.h in Headers */,
-				D844484E1DDCA97000425630 /* WMFArticlePreview+CoreDataProperties.h in Headers */,
 				D844D9EA1D6CBFD10042D692 /* WMFZeroConfiguration.h in Headers */,
 				D8B9E2C61D7617B800A465FF /* WMFDataSource.h in Headers */,
 				0E728D2B1DAEE8FF0074EB4B /* WMFRelatedPagesContentSource.h in Headers */,
@@ -5949,7 +5928,7 @@
 				D844D9991D6CB5EB0042D692 /* NSString+WMFPageUtilities.h in Headers */,
 				D849D6501D6CC7D200D06FC8 /* WMFImageTagList+ImageURLs.h in Headers */,
 				0E728D521DAEEFAC0074EB4B /* MWKSiteInfo.h in Headers */,
-				0E28C48E1D7529C8000C5919 /* WMFArticlePreviewDataStore.h in Headers */,
+				0E28C48E1D7529C8000C5919 /* WMFArticleDataStore.h in Headers */,
 				D83F8A331D74BC4E009E7D40 /* MWNetworkActivityIndicatorManager.h in Headers */,
 				D844D9A61D6CB7230042D692 /* MWKList.h in Headers */,
 				D83FA6B51D74CDE0008CAB00 /* EventLoggingFunnel.h in Headers */,
@@ -7479,7 +7458,6 @@
 				D844DA011D6CC3C20042D692 /* MWKLanguageLink.m in Sources */,
 				0E6A6F581D9EB49400189C80 /* WMFContentGroup+WMFDatabaseStorable.m in Sources */,
 				D844D9F71D6CC05F0042D692 /* WMFImageDownload.swift in Sources */,
-				D84448531DDCA9F800425630 /* WMFArticlePreview+Extensions.m in Sources */,
 				0E728D531DAEEFB00074EB4B /* MWKSiteInfo.m in Sources */,
 				0E728D361DAEE8FF0074EB4B /* WMFRandomContentSource.m in Sources */,
 				0E728D451DAEEE880074EB4B /* CLLocation+WMFBearing.m in Sources */,
@@ -7501,7 +7479,7 @@
 				D844D9B91D6CB7980042D692 /* MWKRecentSearchList.m in Sources */,
 				0E728D321DAEE8FF0074EB4B /* WMFContinueReadingContentSource.m in Sources */,
 				D844D9C21D6CB7D20042D692 /* MWKImageInfo.m in Sources */,
-				0E28C48F1D7529C8000C5919 /* WMFArticlePreviewDataStore.m in Sources */,
+				0E28C48F1D7529C8000C5919 /* WMFArticleDataStore.m in Sources */,
 				0E728D211DAEE2B50074EB4B /* WMFFeedImage.m in Sources */,
 				0E728D301DAEE8FF0074EB4B /* WMFNearbyContentSource.m in Sources */,
 				D84B22501DAFD15A007C44AA /* WMFFaceDetectionCache.m in Sources */,
@@ -7529,7 +7507,6 @@
 				D8B29B8C1D77251F00161291 /* WMFImageController.swift in Sources */,
 				D844D9DA1D6CBBB30042D692 /* YapDatabaseConnection+WMFExtensions.m in Sources */,
 				D849D6521D6CC7DC00D06FC8 /* WMFImageTag.m in Sources */,
-				D844484F1DDCA97000425630 /* WMFArticlePreview+CoreDataProperties.m in Sources */,
 				D844D99D1D6CB61B0042D692 /* NSString+WMFExtras.m in Sources */,
 				0E728D421DAEEC380074EB4B /* WMFSearchResponseSerializer.m in Sources */,
 				D844D9D71D6CBBB30042D692 /* YapDatabase+WMFExtensions.m in Sources */,
@@ -7540,7 +7517,6 @@
 				0EB4108D1DBFA55C00A26CE1 /* PiwikTracker+WMFExtensions.m in Sources */,
 				D844D9961D6CB5970042D692 /* MWKProtectionStatus.m in Sources */,
 				D844480F1DDA33D900425630 /* Wikipedia.xcdatamodeld in Sources */,
-				D844484D1DDCA97000425630 /* WMFArticlePreview+CoreDataClass.m in Sources */,
 				D8DC16F31D6F6F2C00D6D9FB /* NSUserDefaults+WMFExtensions.swift in Sources */,
 				0E728D1B1DAEE2B50074EB4B /* WMFFeedDayResponse.m in Sources */,
 				D89D43FF1D74D35F00F7862E /* WMFArticlePreviewFetcher.m in Sources */,
