@@ -37,7 +37,6 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     return self;
 }
 
-
 #pragma mark - Legacy Migration
 
 - (MWKHistoryEntry *)historyEntryWithSavedPageEntry:(MWKSavedPageEntry *)entry {

@@ -26,8 +26,6 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
     var marginWidthForVisibleImageView: CGFloat = 0
     
     var articleURL: NSURL?
-
-    var dataStore: MWKDataStore?
     
     var imageViewHidden = false {
         didSet {
@@ -140,15 +138,15 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
         case WMFInTheNewsNotificationSaveForLaterActionIdentifier:
             statusView.hidden = false
             statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saving-for-later")
-            dataStore = SessionSingleton.sharedInstance().dataStore
             PiwikTracker.sharedInstance()?.wmf_logActionSaveInContext(self, contentType: self)
-            if let dataStore = dataStore {
+            if let dataStore = SessionSingleton.sharedInstance().dataStore {
                 dataStore.savedPageList.addSavedPageWithURL(articleURL)
                 self.statusView.hidden = false
                 self.statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saved-for-later")
                 completion(.Dismiss)
             } else {
                 completion(.Dismiss)
+                break
             }
         case WMFInTheNewsNotificationShareActionIdentifier:
             PiwikTracker.sharedInstance()?.wmf_logActionTapThroughInContext(self, contentType: self)
