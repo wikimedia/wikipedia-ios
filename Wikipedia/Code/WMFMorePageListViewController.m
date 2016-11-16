@@ -4,7 +4,6 @@
 #import "WMFLocationManager.h"
 #import "CLLocation+WMFBearing.h"
 
-#import "WMFArticlePreview.h"
 #import "WMFContentGroup+WMFFeedContentDisplaying.m"
 
 #import "WMFArticleListTableViewCell.h"

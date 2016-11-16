@@ -18,15 +18,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@implementation MWKHistoryEntry (WMFRelatedPages)
+@implementation WMFArticle (WMFRelatedPages)
 
 - (BOOL)needsRelatedPagesGroupForDate:(NSDate *)date {
     NSDate *beginingOfDay = [date dateAtStartOfDay];
-    if (self.isBlackListed) {
+    if (self.isBlocked) {
         return NO;
-    } else if ([self.dateSaved isLaterThanDate:beginingOfDay]) {
+    } else if ([self.savedDate isLaterThanDate:beginingOfDay]) {
         return YES;
-    } else if (self.titleWasSignificantlyViewed && [self.dateViewed isLaterThanDate:beginingOfDay]) {
+    } else if (self.wasSignificantlyViewed && [self.viewedDate isLaterThanDate:beginingOfDay]) {
         return YES;
     } else {
         return NO;
@@ -34,11 +34,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)needsRelatedPagesGroup {
-    if (self.isBlackListed) {
+    if (self.isBlocked) {
         return NO;
-    } else if (self.isSaved) {
+    } else if (self.savedDate != nil) {
         return YES;
-    } else if (self.titleWasSignificantlyViewed && self.isInHistory) {
+    } else if (self.wasSignificantlyViewed && (self.viewedDate != nil)) {
         return YES;
     } else {
         return NO;
@@ -46,12 +46,12 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSDate *)dateForGroup {
-    if (self.dateSaved && self.dateViewed) {
-        return [self.dateViewed earlierDate:self.dateSaved];
-    } else if (self.dateSaved) {
-        return self.dateSaved;
+    if (self.savedDate && self.viewedDate) {
+        return [self.viewedDate earlierDate:self.savedDate];
+    } else if (self.savedDate) {
+        return self.savedDate;
     } else {
-        return self.dateViewed;
+        return self.viewedDate;
     }
 }
 
@@ -126,7 +126,7 @@ NS_ASSUME_NONNULL_BEGIN
     WMFTaskGroup *group = [WMFTaskGroup new];
 
     [group enter];
-    [self.userDataStore enumerateItemsWithBlock:^(MWKHistoryEntry *_Nonnull entry, BOOL *_Nonnull stop) {
+    [self.userDataStore enumerateArticlesWithBlock:^(WMFArticle *_Nonnull entry, BOOL *_Nonnull stop) {
         [group enter];
         [self updateRelatedGroupForReference:entry
                                         date:date
@@ -168,11 +168,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Process Changes
 
 - (void)updateMoreLikeSectionForURL:(NSURL *)url date:(NSDate *)date completion:(nullable dispatch_block_t)completion {
-    MWKHistoryEntry *reference = [self.userDataStore entryForURL:url];
+    WMFArticle *reference = [self.userDataStore fetchArticleForURL:url];
     [self updateRelatedGroupForReference:reference date:date completion:completion];
 }
 
-- (void)updateRelatedGroupForReference:(MWKHistoryEntry *)reference date:(NSDate *)date completion:(nullable dispatch_block_t)completion {
+- (void)updateRelatedGroupForReference:(WMFArticle *)reference date:(NSDate *)date completion:(nullable dispatch_block_t)completion {
     if ([reference needsRelatedPagesGroupForDate:date]) {
         WMFRelatedPagesContentGroup *section = [self addSectionForReference:reference];
         [self fetchAndSaveRelatedArticlesForSection:section completion:completion];
@@ -188,8 +188,8 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)removeSectionForReference:(MWKHistoryEntry *)reference {
-    NSURL *URL = reference.url;
+- (void)removeSectionForReference:(WMFArticle *)reference {
+    NSURL *URL = reference.URL;
     if (!URL) {
         return;
     }
@@ -199,10 +199,10 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (WMFRelatedPagesContentGroup *)addSectionForReference:(MWKHistoryEntry *)reference {
-    WMFRelatedPagesContentGroup *group = (id)[self.contentStore contentGroupForURL:[WMFRelatedPagesContentGroup urlForArticleURL:reference.url]];
+- (WMFRelatedPagesContentGroup *)addSectionForReference:(WMFArticle *)reference {
+    WMFRelatedPagesContentGroup *group = (id)[self.contentStore contentGroupForURL:[WMFRelatedPagesContentGroup urlForArticleURL:reference.URL]];
     if (!group) {
-        group = [[WMFRelatedPagesContentGroup alloc] initWithArticleURL:reference.url date:[reference dateForGroup]];
+        group = [[WMFRelatedPagesContentGroup alloc] initWithArticleURL:reference.URL date:[reference dateForGroup]];
     }
     return group;
 }

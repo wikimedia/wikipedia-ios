@@ -66,7 +66,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
             return;
         }
 
-        WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:obj.url];
+        WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:obj.url];
         article.savedDate = obj.date;
     }];
 
@@ -142,13 +142,13 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 }
 
 - (void)addSavedPageWithURL:(NSURL *)url {
-    WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:url];
+    WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:url];
     article.savedDate = [NSDate date];
     [self.dataStore save:nil];
 }
 
 - (void)removeEntryWithURL:(NSURL *)url {
-    WMFArticle *article = [self.dataStore fetchArticleWithURL:url];
+    WMFArticle *article = [self.dataStore fetchArticleForURL:url];
     if (!article) {
         return;
     }

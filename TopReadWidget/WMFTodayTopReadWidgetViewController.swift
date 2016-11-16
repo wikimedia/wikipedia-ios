@@ -235,7 +235,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             vc.rankLabel.text = rankString
             vc.rankLabel.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("rank-accessibility-label").stringByReplacingOccurrencesOfString("$1", withString: rankString)
             if let articlePreview = previews[result.articleURL] {
-                if let viewCounts = articlePreview.pageViewsSortedByDate() where viewCounts.count > 0 {
+                if let viewCounts = articlePreview.pageViewsSortedByDate where viewCounts.count > 0 {
                     vc.sparklineView.minDataValue = dataValueMin
                     vc.sparklineView.maxDataValue = dataValueMax
                     vc.sparklineView.dataValues = viewCounts
@@ -383,7 +383,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     func previewWithFeedPreview(url: NSURL, feedPreview: WMFFeedArticlePreview, pageViews: [NSDate:NSNumber]?) -> WMFArticlePreview {
         
         let preview = WMFArticlePreview()
-        preview.url = url
+        preview.key = url.wmf_articleDatabaseKey
         preview.displayTitle = feedPreview.displayTitle;
         preview.wikidataDescription = feedPreview.wikidataDescription;
         preview.wikidataDescription = feedPreview.wikidataDescription;

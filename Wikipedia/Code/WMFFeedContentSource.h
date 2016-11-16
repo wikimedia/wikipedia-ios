@@ -6,6 +6,7 @@
 @class MWKDataStore;
 @class WMFFeedNewsStory;
 @class WMFFeedDayResponse;
+@class WMFArticlePreview;
 
 NS_ASSUME_NONNULL_BEGIN
 

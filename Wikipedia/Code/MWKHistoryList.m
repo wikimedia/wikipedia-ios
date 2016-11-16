@@ -56,10 +56,10 @@ NS_ASSUME_NONNULL_BEGIN
     
     
     [entries enumerateObjectsUsingBlock:^(MWKHistoryEntry *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:obj.url];
-        article.lastViewedDate = obj.dateViewed;
+        WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:obj.url];
+        article.viewedDate = obj.dateViewed;
         article.wasSignificantlyViewed = obj.titleWasSignificantlyViewed;
-        article.blocked = obj.isBlackListed;
+        article.isBlocked = obj.isBlackListed;
     }];
     
     NSError *migrationError = nil;
@@ -76,8 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSFetchRequest *)historyListFetchRequest {
     NSFetchRequest *request = [WMFArticle fetchRequest];
-    request.predicate = [NSPredicate predicateWithFormat:@"lastViewedDate != NULL"];
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"lastViewedDate" ascending:NO]];
+    request.predicate = [NSPredicate predicateWithFormat:@"viewedDate != NULL"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"viewedDate" ascending:NO]];
     return request;
 }
 
@@ -98,7 +98,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
     NSManagedObjectContext *moc = self.dataStore.viewContext;
     NSFetchRequest *request = [WMFArticle fetchRequest];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"key == %@ && lastViewedDate != NULL", key]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"key == %@ && viewedDate != NULL", key]];
     NSArray<WMFArticle *> *results = [moc executeFetchRequest:request error:nil];
     return [results firstObject];
 }
@@ -131,8 +131,8 @@ NS_ASSUME_NONNULL_BEGIN
         if ([URL.wmf_title length] == 0) {
             continue;
         }
-        WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:URL];
-        article.lastViewedDate = now;
+        WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:URL];
+        article.viewedDate = now;
     }
     
     NSError *error = nil;
@@ -157,8 +157,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSDate *now = [NSDate date];
     
-    WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:URL];
-    article.lastViewedDate = now;
+    WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:URL];
+    article.viewedDate = now;
     
     NSError *error = nil;
     if (![self.dataStore save:&error]) {
@@ -175,9 +175,9 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     
-    WMFArticle *article = [self.dataStore fetchArticleWithURL:URL];
-    article.lastViewedFragment = fragment;
-    article.lastViewedScrollPosition = scrollposition;
+    WMFArticle *article = [self.dataStore fetchArticleForURL:URL];
+    article.viewedFragment = fragment;
+    article.viewedScrollPosition = scrollposition;
     
     NSError *error = nil;
     if (![self.dataStore save:&error]) {
@@ -193,7 +193,7 @@ NS_ASSUME_NONNULL_BEGIN
         if ([URL.wmf_title length] == 0) {
             continue;
         }
-        WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:URL];
+        WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:URL];
         article.newsNotificationDate = date;
     }
     
@@ -212,7 +212,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     
-    WMFArticle *article = [self.dataStore fetchArticleWithURL:URL];
+    WMFArticle *article = [self.dataStore fetchArticleForURL:URL];
     article.wasSignificantlyViewed = YES;
     
     NSError *error = nil;
@@ -230,8 +230,8 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     
-    WMFArticle *article = [self.dataStore fetchArticleWithURL:URL];
-    article.lastViewedDate = nil;
+    WMFArticle *article = [self.dataStore fetchArticleForURL:URL];
+    article.viewedDate = nil;
     
     NSError *error = nil;
     if (![self.dataStore save:&error]) {
@@ -241,7 +241,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)removeAllEntries {
     [self enumerateItemsWithBlock:^(WMFArticle * _Nonnull entry, BOOL * _Nonnull stop) {
-        entry.lastViewedDate = nil;
+        entry.viewedDate = nil;
     }];
     
     NSError *error = nil;

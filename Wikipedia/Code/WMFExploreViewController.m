@@ -18,7 +18,6 @@
 
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
 #import "WMFContentGroup+WMFDatabaseStorable.h"
-#import "WMFArticlePreview.h"
 #import "MWKHistoryEntry.h"
 
 #import "WMFFeedArticlePreview.h"
@@ -329,12 +328,12 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     return [content objectAtIndex:indexPath.row];
 }
 
-- (nullable MWKHistoryEntry *)userDataForIndexPath:(NSIndexPath *)indexPath {
+- (nullable WMFArticle *)userDataForIndexPath:(NSIndexPath *)indexPath {
     NSURL *url = [self contentURLForIndexPath:indexPath];
     if (url == nil) {
         return nil;
     }
-    return [self.userStore entryForURL:url];
+    return [self.userStore fetchArticleForURL:url];
 }
 
 - (nullable WMFFeedImage *)imageInfoForIndexPath:(NSIndexPath *)indexPath {
@@ -604,7 +603,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     WMFContentGroup *contentGroup = [self sectionForIndexPath:indexPath];
     NSParameterAssert(contentGroup);
     WMFArticlePreview *preview = [self previewForIndexPath:indexPath];
-    MWKHistoryEntry *userData = [self userDataForIndexPath:indexPath];
+    WMFArticle *userData = [self userDataForIndexPath:indexPath];
 
     switch ([contentGroup displayType]) {
         case WMFFeedDisplayTypePage: {
@@ -843,24 +842,24 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [self.collectionView registerNib:[InTheNewsCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[InTheNewsCollectionViewCell wmf_nibName]];
 }
 
-- (void)configureListCell:(WMFArticleListCollectionViewCell *)cell withPreview:(WMFArticlePreview *)preview userData:(MWKHistoryEntry *)userData atIndexPath:(NSIndexPath *)indexPath {
+- (void)configureListCell:(WMFArticleListCollectionViewCell *)cell withPreview:(WMFArticlePreview *)preview userData:(WMFArticle *)userData atIndexPath:(NSIndexPath *)indexPath {
     cell.titleText = [preview.displayTitle wmf_stringByRemovingHTML];
-    cell.titleLabel.accessibilityLanguage = userData.url.wmf_language;
+    cell.titleLabel.accessibilityLanguage = userData.URL.wmf_language;
     cell.descriptionText = [preview.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     [cell setImageURL:preview.thumbnailURL];
 }
 
-- (void)configurePreviewCell:(WMFArticlePreviewCollectionViewCell *)cell withSection:(WMFContentGroup *)section preview:(WMFArticlePreview *)preview userData:(MWKHistoryEntry *)userData atIndexPath:(NSIndexPath *)indexPath {
+- (void)configurePreviewCell:(WMFArticlePreviewCollectionViewCell *)cell withSection:(WMFContentGroup *)section preview:(WMFArticlePreview *)preview userData:(WMFArticle *)userData atIndexPath:(NSIndexPath *)indexPath {
     cell.titleText = [preview.displayTitle wmf_stringByRemovingHTML];
     cell.descriptionText = [preview.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     cell.snippetText = preview.snippet;
     [cell setImageURL:preview.thumbnailURL];
-    [cell setSaveableURL:preview.url savedPageList:self.userStore.savedPageList];
+    [cell setSaveableURL:preview.URL savedPageList:self.userStore.savedPageList];
     cell.saveButtonController.analyticsContext = [self analyticsContext];
     cell.saveButtonController.analyticsContentType = [section analyticsContentType];
 }
 
-- (void)configureNearbyCell:(WMFNearbyArticleCollectionViewCell *)cell withPreview:(WMFArticlePreview *)preview userData:(MWKHistoryEntry *)userData atIndexPath:(NSIndexPath *)indexPath {
+- (void)configureNearbyCell:(WMFNearbyArticleCollectionViewCell *)cell withPreview:(WMFArticlePreview *)preview userData:(WMFArticle *)userData atIndexPath:(NSIndexPath *)indexPath {
     cell.titleText = [preview.displayTitle wmf_stringByRemovingHTML];
     cell.descriptionText = [preview.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     [cell setImageURL:preview.thumbnailURL];
@@ -877,7 +876,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     //    self.referenceImageView = cell.potdImageView;
 }
 
-- (void)configureStoryCell:(InTheNewsCollectionViewCell *)cell withSection:(WMFNewsContentGroup *)section preview:(WMFArticlePreview *)preview userData:(MWKHistoryEntry *)userData atIndexPath:(NSIndexPath *)indexPath {
+- (void)configureStoryCell:(InTheNewsCollectionViewCell *)cell withSection:(WMFNewsContentGroup *)section preview:(WMFArticlePreview *)preview userData:(WMFArticle *)userData atIndexPath:(NSIndexPath *)indexPath {
     NSArray<WMFFeedNewsStory *> *stories = [self contentForGroup:section];
     if (indexPath.item >= stories.count) {
         return;

@@ -4,39 +4,39 @@
 
 #pragma mark - Transient properties
 
-- (NSDate *)lastViewedCalendarDate {
-    NSString *key = @"lastViewedCalendarDate";
+- (NSDate *)viewedCalendarDate {
+    NSString *key = @"viewedCalendarDate";
     [self willAccessValueForKey:key];
-    NSDate *lastViewedCalendarDate = [self primitiveValueForKey:key];
+    NSDate *viewedCalendarDate = [self primitiveValueForKey:key];
     [self didAccessValueForKey:key];
     
-    if (!lastViewedCalendarDate) {
-        NSDate *lastViewedDate = self.lastViewedDate;
-        if (lastViewedDate) {
+    if (!viewedCalendarDate) {
+        NSDate *viewedDate = self.viewedDate;
+        if (viewedDate) {
             NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
-            NSDateComponents *components = [calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:lastViewedDate];
-            lastViewedCalendarDate = [calendar dateFromComponents:components];
-            [self setPrimitiveValue:lastViewedCalendarDate forKey:key];
+            NSDateComponents *components = [calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:viewedDate];
+            viewedCalendarDate = [calendar dateFromComponents:components];
+            [self setPrimitiveValue:viewedCalendarDate forKey:key];
         }
     }
-    return lastViewedCalendarDate;
+    return viewedCalendarDate;
 }
 
-- (void)setLastViewedDate:(NSDate *)lastViewedDate {
-    NSString *key = @"lastViewedDate";
+- (void)setviewedDate:(NSDate *)viewedDate {
+    NSString *key = @"viewedDate";
     [self willChangeValueForKey:key];
-    [self setPrimitiveValue:nil forKey:@"lastViewedCalendarDate"];
-    [self setPrimitiveValue:lastViewedDate forKey:key];
+    [self setPrimitiveValue:nil forKey:@"viewedCalendarDate"];
+    [self setPrimitiveValue:viewedDate forKey:key];
     [self didChangeValueForKey:key];
 }
 
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
     NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-    if ([key isEqualToString:@"lastViewedCalendarDate"]) {
+    if ([key isEqualToString:@"viewedCalendarDate"]) {
         if (keyPaths) {
-            keyPaths = [keyPaths setByAddingObject:@"lastViewedDate"];
+            keyPaths = [keyPaths setByAddingObject:@"viewedDate"];
         } else {
-            keyPaths = [NSSet setWithObject:@"lastViewedDate"];
+            keyPaths = [NSSet setWithObject:@"viewedDate"];
         }
     }
     return keyPaths;

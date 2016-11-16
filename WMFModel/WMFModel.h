@@ -78,8 +78,6 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 
 #import "MWKHistoryEntry+WMFDatabaseViews.h"
 #import "MWKLanguageLinkController_Private.h"
-#import "WMFArticlePreview+WMFDatabaseStorable.h"
-#import "WMFArticlePreview.h"
 #import "WMFContentGroup.h"
 #import "WMFContentGroup+WMFDatabaseViews.h"
 #import "WMFContentGroup+WMFDatabaseStorable.h"
@@ -145,6 +143,7 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import "WMFArticlePreviewDataStore.h"
 
 #import "WMFArticle+Extensions.h"
+#import "WMFArticlePreview+Extensions.h"
 
 #import "NSUserActivity+WMFExtensions.h"
 

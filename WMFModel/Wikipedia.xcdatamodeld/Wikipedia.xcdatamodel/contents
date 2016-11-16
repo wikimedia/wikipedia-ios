@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11542" systemVersion="16B2555" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
-        <attribute name="blocked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isBlocked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="key" attributeType="String" indexed="YES" syncable="YES"/>
-        <attribute name="lastViewedCalendarDate" optional="YES" transient="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="lastViewedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
-        <attribute name="lastViewedFragment" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="lastViewedScrollPosition" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="newsNotificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="savedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="viewedCalendarDate" optional="YES" transient="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="viewedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="viewedFragment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="viewedScrollPosition" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="wasSignificantlyViewed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="WMFArticleContent" representedClassName="WMFArticleContent" syncable="YES">
+        <attribute name="key" attributeType="String" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="WMFArticlePreview" representedClassName="WMFArticlePreview" syncable="YES">
+        <attribute name="displayTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="key" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="pageViews" optional="YES" attributeType="Transformable" customClassName="NSDictionary" syncable="YES"/>
+        <attribute name="snippet" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thumbnailURLString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wikidataDescription" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="180"/>
+        <element name="WMFArticleContent" positionX="-18" positionY="99" width="128" height="60"/>
+        <element name="WMFArticlePreview" positionX="18" positionY="108" width="128" height="165"/>
     </elements>
 </model>

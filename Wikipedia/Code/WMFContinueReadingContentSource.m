@@ -3,7 +3,6 @@
 #import "MWKDataStore.h"
 #import "WMFArticlePreviewDataStore.h"
 #import "MWKHistoryEntry.h"
-#import "WMFArticlePreview.h"
 #import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "MWKArticle.h"
 #import <WMFModel/WMFModel-Swift.h>
@@ -85,7 +84,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         return;
     }
 
-    MWKHistoryEntry *userData = [self.userDataStore entryForURL:lastRead];
+    WMFArticle *userData = [self.userDataStore fetchArticleForURL:lastRead];
 
     if (userData == nil) {
         if (completion) {
@@ -94,7 +93,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         return;
     }
 
-    group = [[WMFContinueReadingContentGroup alloc] initWithDate:userData.dateViewed];
+    group = [[WMFContinueReadingContentGroup alloc] initWithDate:userData.viewedDate];
 
     WMF_TECH_DEBT_TODO(Remove this in a later version.A preview will always be available available)
     if (![self.previewStore itemForURL:lastRead]) {

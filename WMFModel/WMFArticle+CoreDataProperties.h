@@ -7,12 +7,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<WMFArticle *> *)fetchRequest;
 
-@property (nonatomic) BOOL blocked;
+@property (nonatomic) BOOL isBlocked;
 @property (nullable, nonatomic, copy) NSString *key;
-@property (nullable, nonatomic, copy) NSDate *lastViewedDate;
-@property (nullable, nonatomic, copy) NSDate *lastViewedCalendarDate;
-@property (nullable, nonatomic, copy) NSString *lastViewedFragment;
-@property (nonatomic) double lastViewedScrollPosition;
+@property (nullable, nonatomic, copy) NSDate *viewedDate;
+@property (nullable, nonatomic, copy) NSDate *viewedCalendarDate;
+@property (nullable, nonatomic, copy) NSString *viewedFragment;
+@property (nonatomic) double viewedScrollPosition;
 @property (nullable, nonatomic, copy) NSDate *newsNotificationDate;
 @property (nullable, nonatomic, copy) NSDate *savedDate;
 @property (nonatomic) BOOL wasSignificantlyViewed;

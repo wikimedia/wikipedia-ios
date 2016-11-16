@@ -11,6 +11,7 @@
 @class MWKImageInfo;
 @class MWKImageList;
 @class WMFArticle;
+@class WMFArticlePreview;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -63,17 +64,19 @@ extern NSString *const MWKURLKey;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
 
-#pragma mark - Entry Access
 
-- (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url;
+- (nullable WMFArticle *)fetchArticleForURL:(NSURL *)URL;
+- (nullable WMFArticle *)fetchArticleForKey:(NSString *)key;
+- (nullable WMFArticle *)fetchOrCreateArticleForURL:(NSURL *)URL;
 
-- (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL;
-- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key;
-- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL;
+- (nullable WMFArticlePreview *)fetchArticlePreviewForURL:(NSURL *)URL;
+- (nullable WMFArticlePreview *)fetchArticlePreviewForKey:(NSString *)key;
+- (nullable WMFArticlePreview *)fetchOrCreateArticlePreviewForURL:(NSURL *)URL;
 
 - (BOOL)save:(NSError **)error;
 
 - (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block;
+- (void)enumerateArticlesWithBlock:(void (^)(WMFArticle *_Nonnull entry, BOOL *stop))block;
 
 #pragma mark - Legacy Datastore methods
 

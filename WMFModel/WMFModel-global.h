@@ -86,8 +86,6 @@
 
 #import "MWKHistoryEntry+WMFDatabaseViews.h"
 #import "MWKLanguageLinkController_Private.h"
-#import "WMFArticlePreview+WMFDatabaseStorable.h"
-#import "WMFArticlePreview.h"
 #import "WMFContentGroup.h"
 #import "WMFContentGroup+WMFDatabaseViews.h"
 #import "WMFContentGroup+WMFDatabaseStorable.h"

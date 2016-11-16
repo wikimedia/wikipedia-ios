@@ -56,9 +56,9 @@
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
 
     NSFetchRequest *articleRequest = [WMFArticle fetchRequest];
-    articleRequest.predicate = [NSPredicate predicateWithFormat:@"lastViewedDate != NULL"];
-    articleRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"lastViewedDate" ascending:NO]];
-    NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:articleRequest managedObjectContext:self.userDataStore.viewContext sectionNameKeyPath:@"lastViewedCalendarDate" cacheName:nil];
+    articleRequest.predicate = [NSPredicate predicateWithFormat:@"viewedDate != NULL"];
+    articleRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"viewedDate" ascending:NO]];
+    NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:articleRequest managedObjectContext:self.userDataStore.viewContext sectionNameKeyPath:@"viewedCalendarDate" cacheName:nil];
     frc.delegate = self;
     [frc performFetch:nil];
     self.fetchedResultsController = frc;
@@ -87,7 +87,7 @@
         return @"";
     }
     
-    NSDate *date = [[[sectionInfo objects] firstObject] lastViewedCalendarDate];
+    NSDate *date = [[[sectionInfo objects] firstObject] viewedCalendarDate];
 
     //HACK: Table views for some reason aren't adding padding to the left of the default headers. Injecting some manually.
     NSString *padding = @"    ";

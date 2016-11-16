@@ -96,7 +96,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         guard let historyEntry = session.dataStore.historyList.mostRecentEntry() else {
             return false
         }
-        let fragment = historyEntry.lastViewedFragment
+        let fragment = historyEntry.viewedFragment
         
         let newURL = historyEntry.URL?.wmf_URLWithFragment(fragment)
         
@@ -125,7 +125,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             return false
         }
         
-        let fragment = historyEntry.lastViewedFragment
+        let fragment = historyEntry.viewedFragment
         articleURL = historyEntry.URL?.wmf_URLWithFragment(fragment)
         
         guard let lastReadArticleURL = articleURL else {

@@ -6,14 +6,14 @@
 	return [[NSFetchRequest alloc] initWithEntityName:@"WMFArticle"];
 }
 
-@dynamic blocked;
+@dynamic isBlocked;
 @dynamic key;
-@dynamic lastViewedDate;
-@dynamic lastViewedFragment;
-@dynamic lastViewedScrollPosition;
+@dynamic viewedDate;
+@dynamic viewedFragment;
+@dynamic viewedScrollPosition;
 @dynamic newsNotificationDate;
 @dynamic savedDate;
 @dynamic wasSignificantlyViewed;
-@dynamic lastViewedCalendarDate;
+@dynamic viewedCalendarDate;
 
 @end

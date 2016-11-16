@@ -10,7 +10,6 @@
 #import "WMFFeedTopReadResponse.h"
 #import "WMFFeedNewsStory.h"
 
-#import "WMFArticlePreview.h"
 #import "WMFNotificationsController.h"
 
 #import <WMFModel/WMFModel-Swift.h>
@@ -212,13 +211,11 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         [self saveGroupForNews:feedDay.newsStories pageViews:pageViews date:date];
     }
     [self.contentStore notifyWhenWriteTransactionsComplete:^{
-        [self.previewStore notifyWhenWriteTransactionsComplete:^{
-            [self scheduleNotificationsForFeedDay:feedDay onDate:date];
-            if (!completion) {
-                return;
-            }
-            completion();
-        }];
+        [self scheduleNotificationsForFeedDay:feedDay onDate:date];
+        if (!completion) {
+            return;
+        }
+        completion();
     }];
 }
 
@@ -408,10 +405,10 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         return;
     }
 
-    MWKHistoryEntry *entry = [self.userDataStore entryForURL:articlePreview.articleURL];
+    WMFArticle *entry = [self.userDataStore fetchArticleForURL:articlePreview.articleURL];
     if (entry) {
-        BOOL notifiedRecently = entry.inTheNewsNotificationDate && [entry.inTheNewsNotificationDate timeIntervalSinceNow] < WMFFeedNotificationArticleRepeatLimit;
-        if (notifiedRecently || entry.isBlackListed) {
+        BOOL notifiedRecently = entry.newsNotificationDate && [entry.newsNotificationDate timeIntervalSinceNow] < WMFFeedNotificationArticleRepeatLimit;
+        if (notifiedRecently || entry.isBlocked) {
             articlePreviewToNotifyAbout = nil;
             done();
             return;
@@ -423,7 +420,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         articlePreviewToNotifyAbout = [self.previewStore itemForURL:articleURL];
     }
 
-    if (!articlePreviewToNotifyAbout.url) {
+    if (!articlePreviewToNotifyAbout.URL) {
         done();
         return;
     }
@@ -433,7 +430,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         return;
     }
 
-    [[PiwikTracker sharedInstance] wmf_logActionPushInContext:self contentType:articlePreviewToNotifyAbout.url.host date:[NSDate date]];
+    [[PiwikTracker sharedInstance] wmf_logActionPushInContext:self contentType:articlePreviewToNotifyAbout.URL.host date:[NSDate date]];
 
     done();
 }
@@ -442,7 +439,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
                           articlePreview:(WMFArticlePreview *)articlePreview
                                    force:(BOOL)force {
     if (!newsStory.featuredArticlePreview) {
-        NSString *articlePreviewKey = articlePreview.url.wmf_articleDatabaseKey;
+        NSString *articlePreviewKey = articlePreview.URL.wmf_articleDatabaseKey;
         if (!articlePreviewKey) {
             return NO;
         }
@@ -465,7 +462,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         DDLogError(@"Error serializing news story: %@", JSONError);
     }
 
-    NSString *articleURLString = articlePreview.url.absoluteString;
+    NSString *articleURLString = articlePreview.URL.absoluteString;
     NSString *storyHTML = newsStory.storyHTML;
     NSString *displayTitle = articlePreview.displayTitle;
     NSDictionary *viewCounts = articlePreview.pageViews;

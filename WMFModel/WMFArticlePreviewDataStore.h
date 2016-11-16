@@ -4,7 +4,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFArticlePreviewDataStore : WMFBaseDataStore
+@interface WMFArticlePreviewDataStore : NSObject
+
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
 
 - (nullable WMFArticlePreview *)itemForURL:(NSURL *)url;
 

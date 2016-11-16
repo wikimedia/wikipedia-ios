@@ -1,52 +1,55 @@
 #import "WMFArticlePreviewDataStore.h"
-#import "WMFArticlePreview+WMFDatabaseStorable.h"
 #import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 
-#import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
 #import "MWKSearchResult.h"
 #import "MWKLocationSearchResult.h"
 #import "MWKArticle.h"
 #import "WMFFeedArticlePreview.h"
+@import CoreData;
+#import "WMFArticlePreview+Extensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface WMFArticlePreviewDataStore ()
+
+@property (nonatomic, strong) MWKDataStore *dataStore;
+
+@end
+
 @implementation WMFArticlePreviewDataStore
 
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
+    self = [super init];
+    if (self) {
+        self.dataStore = dataStore;
+    }
+    return self;
+}
+
 - (nullable WMFArticlePreview *)itemForURL:(NSURL *)url {
-    NSParameterAssert(url.wmf_title);
-    return [self readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction) {
-        WMFArticlePreview *item = [transaction objectForKey:[WMFArticlePreview databaseKeyForURL:url] inCollection:[WMFArticlePreview databaseCollectionName]];
-        return item;
-    }];
+    return [self.dataStore fetchArticlePreviewForURL:url];
 }
 
 - (void)enumerateItemsWithBlock:(void (^)(WMFArticlePreview *_Nonnull item, BOOL *stop))block {
     if (!block) {
         return;
     }
-    [self readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction) {
-        [transaction enumerateKeysAndObjectsInCollection:[WMFArticlePreview databaseCollectionName]
-                                              usingBlock:^(NSString *_Nonnull key, id _Nonnull object, BOOL *_Nonnull stop) {
-                                                  block(object, stop);
-                                              }];
+    
+    NSFetchRequest *request = [WMFArticlePreview fetchRequest];
+    NSArray<WMFArticlePreview *> *allArticlePreviews = [self.dataStore.viewContext executeFetchRequest:request error:nil];
+    [allArticlePreviews enumerateObjectsUsingBlock:^(WMFArticlePreview * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        block(obj, stop);
     }];
 }
 
 - (WMFArticlePreview *)newOrExistingPreviewWithURL:(NSURL *)url {
     NSParameterAssert(url.wmf_title);
-    WMFArticlePreview *existing = [[self itemForURL:url] copy];
-    if (!existing) {
-        existing = [WMFArticlePreview new];
-        existing.url = url;
-    }
-    return existing;
+    return [self.dataStore fetchOrCreateArticlePreviewForURL:url];
 }
 
 - (void)savePreview:(WMFArticlePreview *)preview {
-    [self asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
-        [transaction setObject:preview forKey:[preview databaseKey] inCollection:[WMFArticlePreview databaseCollectionName]];
-    }];
+    [self.dataStore save:nil];
 }
 
 - (nullable WMFArticlePreview *)addPreviewWithURL:(NSURL *)url updatedWithSearchResult:(MWKSearchResult *)searchResult {

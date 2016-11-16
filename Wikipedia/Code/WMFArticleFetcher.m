@@ -111,8 +111,10 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                 [[MWNetworkActivityIndicatorManager sharedManager] pop];
                 MWKArticle *article = [self serializedArticleWithURL:articleURL response:response];
                 [self.dataStore asynchronouslyCacheArticle:article];
-                [self.previewStore addPreviewWithURL:articleURL updatedWithArticle:article];
-                resolve(article);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.previewStore addPreviewWithURL:articleURL updatedWithArticle:article];
+                    resolve(article);
+                });
             });
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {

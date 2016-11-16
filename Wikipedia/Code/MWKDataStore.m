@@ -354,14 +354,14 @@ static pid_t currentPid() {
     NSMutableSet *keysToAdd = [NSMutableSet setWithArray:allKeys];
 
     void (^updateBlock)(MWKHistoryEntry *, WMFArticle *) = ^(MWKHistoryEntry *entry, WMFArticle *article) {
-        article.lastViewedDate = entry.dateViewed;
-        article.lastViewedFragment = entry.fragment;
-        article.lastViewedScrollPosition = entry.scrollPosition;
+        article.viewedDate = entry.dateViewed;
+        article.viewedFragment = entry.fragment;
+        article.viewedScrollPosition = entry.scrollPosition;
         article.savedDate = entry.dateSaved;
-        article.blocked = entry.blackListed;
+        article.isBlocked = entry.blackListed;
         article.wasSignificantlyViewed = entry.titleWasSignificantlyViewed;
         article.newsNotificationDate = entry.inTheNewsNotificationDate;
-        article.lastViewedScrollPosition = entry.scrollPosition;
+        article.viewedScrollPosition = entry.scrollPosition;
     };
 
     for (WMFArticle *article in allExistingObjects) {
@@ -446,13 +446,17 @@ static pid_t currentPid() {
 
 #pragma mark - Entry Access
 
-- (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url {
-    return [self readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction) {
-        MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        return entry;
+- (void)enumerateArticlesWithBlock:(void (^)(WMFArticle *_Nonnull entry, BOOL *stop))block {
+    NSParameterAssert(block);
+    if (!block) {
+        return;
+    }
+    NSArray<WMFArticle *> *allArticles = [self.viewContext executeFetchRequest:[WMFArticle fetchRequest] error:nil];
+    [allArticles enumerateObjectsUsingBlock:^(WMFArticle * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        block(obj, stop);
     }];
-}
 
+}
 - (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block {
     NSParameterAssert(block);
     if (!block) {
@@ -968,37 +972,64 @@ static pid_t currentPid() {
     return [self.viewContext save:error];
 }
 
-- (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL {
-    return [self fetchArticleWithKey:[URL wmf_articleDatabaseKey]];
+- (nullable WMFArticle *)fetchArticleForURL:(NSURL *)URL {
+    return [self fetchArticleForKey:[URL wmf_articleDatabaseKey]];
 }
 
-- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key {
+- (nullable WMFArticle *)fetchArticleForKey:(NSString *)key {
     if (!key) {
         return nil;
     }
-    NSAssert([NSThread isMainThread], @"View context can only be accessed on the main thread");
     NSManagedObjectContext *moc = self.viewContext;
     NSFetchRequest *request = [WMFArticle fetchRequest];
     [request setPredicate:[NSPredicate predicateWithFormat:@"key == %@", key]];
     return [[moc executeFetchRequest:request error:nil] firstObject];
 }
 
-- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL {
+- (nullable WMFArticle *)fetchOrCreateArticleForURL:(NSURL *)URL {
     NSString *language = URL.wmf_language;
     NSString *title = URL.wmf_title;
     NSString *key = [URL wmf_articleDatabaseKey];
     if (!language || !title || !key) {
         return nil;
     }
-
-    NSAssert([NSThread isMainThread], @"View context can only be accessed on the main thread");
     NSManagedObjectContext *moc = self.viewContext;
-    WMFArticle *article = [self fetchArticleWithKey:key];
+    WMFArticle *article = [self fetchArticleForKey:key];
     if (!article) {
         article = [[WMFArticle alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:moc] insertIntoManagedObjectContext:moc];
         article.key = key;
     }
     return article;
+}
+
+- (nullable WMFArticlePreview *)fetchArticlePreviewForURL:(NSURL *)URL {
+    return [self fetchArticlePreviewForKey:[URL wmf_articleDatabaseKey]];
+}
+
+- (nullable WMFArticlePreview *)fetchArticlePreviewForKey:(NSString *)key {
+    if (!key) {
+        return nil;
+    }
+    NSManagedObjectContext *moc = self.viewContext;
+    NSFetchRequest *request = [WMFArticlePreview fetchRequest];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"key == %@", key]];
+    return [[moc executeFetchRequest:request error:nil] firstObject];
+}
+
+- (nullable WMFArticlePreview *)fetchOrCreateArticlePreviewForURL:(NSURL *)URL {
+    NSString *language = URL.wmf_language;
+    NSString *title = URL.wmf_title;
+    NSString *key = [URL wmf_articleDatabaseKey];
+    if (!language || !title || !key) {
+        return nil;
+    }
+        NSManagedObjectContext *moc = self.viewContext;
+    WMFArticlePreview *articlePreview = [self fetchArticlePreviewForKey:key];
+    if (!articlePreview) {
+        articlePreview = [[WMFArticlePreview alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticlePreview" inManagedObjectContext:moc] insertIntoManagedObjectContext:moc];
+        articlePreview.key = key;
+    }
+    return articlePreview;
 }
 
 @end
