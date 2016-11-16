@@ -15,10 +15,8 @@
 #import "WMFArticleListTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 
-@interface WMFHistoryTableViewController () <WMFDataSourceDelegate>
-
-@property (nonatomic, strong) id<WMFDataSource> dataSource;
-
+@interface WMFHistoryTableViewController () <NSFetchedResultsControllerDelegate>
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @end
 
 @implementation WMFHistoryTableViewController
@@ -44,8 +42,8 @@
     return self.userDataStore.savedPageList;
 }
 
-- (MWKHistoryEntry *)objectAtIndexPath:(NSIndexPath *)indexPath {
-    return (MWKHistoryEntry *)[self.dataSource objectAtIndexPath:indexPath];
+- (WMFArticle *)objectAtIndexPath:(NSIndexPath *)indexPath {
+    return (WMFArticle *)[self.fetchedResultsController objectAtIndexPath:indexPath];
 }
 
 #pragma mark - UIViewController
@@ -56,35 +54,15 @@
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(teardownNotification:) name:MWKTeardownDataSourcesNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupNotification:) name:MWKSetupDataSourcesNotification object:nil];
-}
 
-- (void)setupDataSource {
-    if (!self.dataSource) {
-        self.dataSource = [self.userDataStore historyGroupedByDateDataSource];
-        self.dataSource.delegate = self;
-        [self.tableView reloadData];
-        [self updateEmptyAndDeleteState];
-    }
-}
-
-- (void)teardownDataSource {
-    self.dataSource.delegate = nil;
-    self.dataSource = nil;
-}
-
-- (void)teardownNotification:(NSNotification *)note {
-    [self teardownDataSource];
-}
-
-- (void)setupNotification:(NSNotification *)note {
-    [self setupDataSource];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self setupDataSource];
+    NSFetchRequest *articleRequest = [WMFArticle fetchRequest];
+    articleRequest.predicate = [NSPredicate predicateWithFormat:@"lastViewedDate != NULL"];
+    articleRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"lastViewedDate" ascending:NO]];
+    NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:articleRequest managedObjectContext:self.userDataStore.viewContext sectionNameKeyPath:@"lastViewedCalendarDate" cacheName:nil];
+    frc.delegate = self;
+    [frc performFetch:nil];
+    self.fetchedResultsController = frc;
+    [self.tableView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -93,24 +71,23 @@
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_recentViewActivity]];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    [self teardownDataSource];
-}
-
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self.dataSource numberOfSections];
+    return self.fetchedResultsController.sections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.dataSource numberOfItemsInSection:section];
+    return [self.fetchedResultsController.sections[section] numberOfObjects];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSString *dateString = [self.dataSource titleForSectionIndex:section];
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[dateString doubleValue]];
+    id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
+    if ([sectionInfo numberOfObjects] == 0) {
+        return @"";
+    }
+    
+    NSDate *date = [[[sectionInfo objects] firstObject] lastViewedCalendarDate];
 
     //HACK: Table views for some reason aren't adding padding to the left of the default headers. Injecting some manually.
     NSString *padding = @"    ";
@@ -124,14 +101,18 @@
     }
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    WMFArticleListTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleListTableViewCell identifier] forIndexPath:indexPath];
-
-    MWKHistoryEntry *entry = [self objectAtIndexPath:indexPath];
-    MWKArticle *article = [[self userDataStore] articleWithURL:entry.url];
+- (void)configureCell:(WMFArticleListTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    WMFArticle *entry = [self objectAtIndexPath:indexPath];
+    MWKArticle *article = [[self userDataStore] articleWithURL:entry.URL];
     cell.titleText = article.url.wmf_title;
     cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
     [cell setImage:[article bestThumbnailImage]];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    WMFArticleListTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleListTableViewCell identifier] forIndexPath:indexPath];
+
+    [self configureCell:cell forRowAtIndexPath:indexPath];
 
     return cell;
 }
@@ -144,44 +125,46 @@
     [[self historyList] removeEntryWithURL:[self urlAtIndexPath:indexPath]];
 }
 
-#pragma mark - WMFDataSourceDelegate
+#pragma mark - NSFetchedResultsControllerDelegate
 
-- (void)dataSourceDidUpdateAllData:(id<WMFDataSource>)dataSource {
-    [self.tableView reloadData];
-}
-
-- (void)dataSourceWillBeginUpdates:(id<WMFDataSource>)dataSource {
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView beginUpdates];
 }
 
-- (void)dataSourceDidFinishUpdates:(id<WMFDataSource>)dataSource {
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    switch (type) {
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeMove:
+        case NSFetchedResultsChangeUpdate:
+            break;
+    }
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    switch (type) {
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:[self.tableView cellForRowAtIndexPath:indexPath] forRowAtIndexPath:indexPath];
+            break;
+        case NSFetchedResultsChangeMove:
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView endUpdates];
-    [self updateEmptyAndDeleteState];
-}
-
-- (void)dataSource:(id<WMFDataSource>)dataSource didDeleteSectionsAtIndexes:(NSIndexSet *)indexes {
-    [self.tableView deleteSections:indexes withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-- (void)dataSource:(id<WMFDataSource>)dataSource didInsertSectionsAtIndexes:(NSIndexSet *)indexes {
-    [self.tableView insertSections:indexes withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-- (void)dataSource:(id<WMFDataSource>)dataSource didDeleteRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-    [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-- (void)dataSource:(id<WMFDataSource>)dataSource didInsertRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-    [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-- (void)dataSource:(id<WMFDataSource>)dataSource didMoveRowFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-    [self.tableView deleteRowsAtIndexPaths:@[fromIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.tableView insertRowsAtIndexPaths:@[toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-- (void)dataSource:(id<WMFDataSource>)dataSource didUpdateRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - WMFArticleListTableViewController
@@ -223,15 +206,15 @@
 }
 
 - (NSURL *)urlAtIndexPath:(NSIndexPath *)indexPath {
-    return [[self objectAtIndexPath:indexPath] url];
+    return [[self objectAtIndexPath:indexPath] URL];
 }
 
 - (void)deleteAll {
     [[self historyList] removeAllEntries];
 }
 
-- (NSInteger)numberOfItems {
-    return [self.dataSource numberOfItems];
+- (BOOL)isEmpty {
+    return self.fetchedResultsController.sections.count == 0;
 }
 
 @end

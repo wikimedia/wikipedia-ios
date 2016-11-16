@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)deleteAll;
 
-- (NSInteger)numberOfItems;
+@property (nonatomic, readonly, getter=isEmpty) BOOL empty;
 
 - (NSURL *)urlAtIndexPath:(NSIndexPath *)indexPath;
 

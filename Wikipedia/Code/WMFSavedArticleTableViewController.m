@@ -184,8 +184,8 @@
     [[self savedPageList] removeAllEntries];
 }
 
-- (NSInteger)numberOfItems {
-    return [self tableView:self.tableView numberOfRowsInSection:0];
+- (BOOL)isEmpty {
+    return [self tableView:self.tableView numberOfRowsInSection:0] == 0;
 }
 
 @end

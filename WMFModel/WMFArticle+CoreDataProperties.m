@@ -14,5 +14,6 @@
 @dynamic newsNotificationDate;
 @dynamic savedDate;
 @dynamic wasSignificantlyViewed;
+@dynamic lastViewedCalendarDate;
 
 @end

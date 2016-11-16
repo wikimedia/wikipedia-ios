@@ -3,6 +3,7 @@
     <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
         <attribute name="blocked" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="key" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="lastViewedCalendarDate" optional="YES" transient="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="lastViewedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
         <attribute name="lastViewedFragment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastViewedScrollPosition" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
@@ -11,6 +12,6 @@
         <attribute name="wasSignificantlyViewed" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="165"/>
+        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="180"/>
     </elements>
 </model>

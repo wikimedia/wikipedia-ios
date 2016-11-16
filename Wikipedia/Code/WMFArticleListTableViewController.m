@@ -165,7 +165,7 @@
                                                                                       }];
         }
 
-        if ([self numberOfItems] > 0) {
+        if (!self.isEmpty) {
             self.navigationItem.leftBarButtonItem.enabled = YES;
         } else {
             self.navigationItem.leftBarButtonItem.enabled = NO;
@@ -178,7 +178,7 @@
 #pragma mark - Empty State
 
 - (void)updateEmptyState {
-    if ([self numberOfItems] > 0) {
+    if (!self.isEmpty) {
         [self wmf_hideEmptyView];
     } else {
         [self wmf_showEmptyViewOfType:[self emptyViewType]];
@@ -222,8 +222,8 @@
 - (void)deleteAll {
 }
 
-- (NSInteger)numberOfItems {
-    return 0;
+- (BOOL)isEmpty {
+    return NO;
 }
 
 - (NSURL *)urlAtIndexPath:(NSIndexPath *)indexPath {
