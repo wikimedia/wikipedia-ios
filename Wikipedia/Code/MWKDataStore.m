@@ -2,6 +2,7 @@
 #import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "MWKHistoryEntry+WMFDatabaseViews.h"
+#import "WMFArticlePreview+WMFDatabaseStorable.h"
 #import <WMFModel/WMFModel-Swift.h>
 #include <notify.h>
 
@@ -318,27 +319,39 @@ static pid_t currentPid() {
 
 - (BOOL)migrateToCoreData:(NSError **)error {
     NSManagedObjectContext *moc = self.viewContext;
+    NSMutableSet *allKeys = [NSMutableSet setWithCapacity:200];
     NSMutableDictionary<NSString *, MWKHistoryEntry *> *historyEntries = [NSMutableDictionary dictionaryWithCapacity:100];
+    NSMutableDictionary<NSString *, WMFArticlePreview *> *articlePreviews = [NSMutableDictionary dictionaryWithCapacity:100];
 
     YapDatabase *db = [YapDatabase sharedInstance];
     YapDatabaseConnection *connection = [db wmf_newReadConnection];
     [connection readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
-        [transaction enumerateRowsInCollection:@"MWKHistoryEntry" usingBlock:^(NSString * _Nonnull key, MWKHistoryEntry *_Nonnull entry, id  _Nullable metadata, BOOL * _Nonnull stop) {
+        [transaction enumerateRowsInCollection:[MWKHistoryEntry databaseCollectionName] usingBlock:^(NSString * _Nonnull key, MWKHistoryEntry *_Nonnull entry, id  _Nullable metadata, BOOL * _Nonnull stop) {
             if (!key || !entry) {
                 return;
             }
+            [allKeys addObject:key];
             historyEntries[key] = entry;
         }];
     }];
+    
+    [connection readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
+        [transaction enumerateRowsInCollection:[WMFArticlePreview databaseCollectionName] usingBlock:^(NSString * _Nonnull key, WMFArticlePreview *_Nonnull articlePreview, id  _Nullable metadata, BOOL * _Nonnull stop) {
+            if (!key || !articlePreview) {
+                return;
+            }
+            [allKeys addObject:key];
+            articlePreviews[key] = articlePreview;
+        }];
+    }];
 
-    NSArray *allKeys = historyEntries.allKeys;
     NSFetchRequest *existingObjectFetchRequest = [WMFArticle fetchRequest];
     existingObjectFetchRequest.predicate = [NSPredicate predicateWithFormat:@"key in %@", allKeys];
     NSArray<WMFArticle *> *allExistingObjects = [moc executeFetchRequest:existingObjectFetchRequest error:nil];
 
-    NSMutableSet *keysToAdd = [NSMutableSet setWithArray:allKeys];
+    NSMutableSet *keysToAdd = [NSMutableSet setWithSet:allKeys];
 
-    void (^updateBlock)(MWKHistoryEntry *, WMFArticle *) = ^(MWKHistoryEntry *entry, WMFArticle *article) {
+    void (^updateBlock)(MWKHistoryEntry *, WMFArticlePreview *, WMFArticle *) = ^(MWKHistoryEntry *entry, WMFArticlePreview *preview, WMFArticle *article) {
         article.viewedDate = entry.dateViewed;
         article.viewedFragment = entry.fragment;
         article.viewedScrollPosition = entry.scrollPosition;
@@ -347,6 +360,12 @@ static pid_t currentPid() {
         article.wasSignificantlyViewed = entry.titleWasSignificantlyViewed;
         article.newsNotificationDate = entry.inTheNewsNotificationDate;
         article.viewedScrollPosition = entry.scrollPosition;
+        article.displayTitle = preview.displayTitle;
+        article.wikidataDescription = preview.wikidataDescription;
+        article.snippet = preview.snippet;
+        article.thumbnailURL = preview.thumbnailURL;
+        article.location = preview.location;
+        article.pageViews = preview.pageViews;
     };
 
     for (WMFArticle *article in allExistingObjects) {
@@ -356,23 +375,18 @@ static pid_t currentPid() {
             continue;
         }
         MWKHistoryEntry *entry = historyEntries[key];
-        if (!entry) {
-            [moc deleteObject:article];
-            continue;
-        }
+        WMFArticlePreview *preview = articlePreviews[key];
         [keysToAdd removeObject:key];
-        updateBlock(entry, article);
+        updateBlock(entry, preview, article);
     }
 
     NSEntityDescription *articleEntityDescription = [NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:moc];
     for (NSString *key in keysToAdd) {
         MWKHistoryEntry *entry = historyEntries[key];
-        if (!entry) {
-            continue;
-        }
+        WMFArticlePreview *preview = articlePreviews[key];
         WMFArticle *article = [[WMFArticle alloc] initWithEntity:articleEntityDescription insertIntoManagedObjectContext:moc];
         article.key = key;
-        updateBlock(entry, article);
+        updateBlock(entry, preview, article);
     }
 
     return [moc save:error];

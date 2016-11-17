@@ -787,6 +787,10 @@
 		D85108AB1D6CC761009C73C4 /* MWLanguageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807281C0CED530065EBC0 /* MWLanguageInfo.m */; };
 		D858A7DF1DA6A04A009C3DEB /* WMFDateCalculationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D858A7DE1DA6A04A009C3DEB /* WMFDateCalculationTests.m */; };
 		D858A7F91DA6DB96009C3DEB /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D858A7F81DA6DB96009C3DEB /* libz.tbd */; };
+		D85CEFD61DDE2C000084A4E8 /* WMFArticlePreview.h in Headers */ = {isa = PBXBuildFile; fileRef = D85CEFD41DDE2C000084A4E8 /* WMFArticlePreview.h */; };
+		D85CEFD71DDE2C000084A4E8 /* WMFArticlePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = D85CEFD51DDE2C000084A4E8 /* WMFArticlePreview.m */; };
+		D85CEFDA1DDE2C4D0084A4E8 /* WMFArticlePreview+WMFDatabaseStorable.h in Headers */ = {isa = PBXBuildFile; fileRef = D85CEFD81DDE2C4D0084A4E8 /* WMFArticlePreview+WMFDatabaseStorable.h */; };
+		D85CEFDB1DDE2C4D0084A4E8 /* WMFArticlePreview+WMFDatabaseStorable.m in Sources */ = {isa = PBXBuildFile; fileRef = D85CEFD91DDE2C4D0084A4E8 /* WMFArticlePreview+WMFDatabaseStorable.m */; };
 		D85D34BC1D74CF5200845125 /* NSDictionary+WMFRequiredValueForKey.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAF23151C6CF74C005F2D8D /* NSDictionary+WMFRequiredValueForKey.m */; };
 		D85D34BD1D74CF5600845125 /* NSDictionary+WMFRequiredValueForKey.h in Headers */ = {isa = PBXBuildFile; fileRef = BCAF23141C6CF74C005F2D8D /* NSDictionary+WMFRequiredValueForKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D85D34BF1D74CFAF00845125 /* NSCalendar+WMFCommonCalendars.h in Headers */ = {isa = PBXBuildFile; fileRef = BCD31FFC1C6EB3EE00317D08 /* NSCalendar+WMFCommonCalendars.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2399,6 +2403,10 @@
 		D858A7DE1DA6A04A009C3DEB /* WMFDateCalculationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFDateCalculationTests.m; sourceTree = "<group>"; };
 		D858A7F71DA6DB7F009C3DEB /* UserzoomSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserzoomSDK.framework; path = Wikipedia/Frameworks/UserzoomSDK.framework; sourceTree = "<group>"; };
 		D858A7F81DA6DB96009C3DEB /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		D85CEFD41DDE2C000084A4E8 /* WMFArticlePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticlePreview.h; sourceTree = "<group>"; };
+		D85CEFD51DDE2C000084A4E8 /* WMFArticlePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticlePreview.m; sourceTree = "<group>"; };
+		D85CEFD81DDE2C4D0084A4E8 /* WMFArticlePreview+WMFDatabaseStorable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMFArticlePreview+WMFDatabaseStorable.h"; sourceTree = "<group>"; };
+		D85CEFD91DDE2C4D0084A4E8 /* WMFArticlePreview+WMFDatabaseStorable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMFArticlePreview+WMFDatabaseStorable.m"; sourceTree = "<group>"; };
 		D85D34C51D74D07500845125 /* TopReadWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TopReadWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D85D34C81D74D07500845125 /* WMFTodayTopReadWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFTodayTopReadWidgetViewController.swift; sourceTree = "<group>"; };
 		D85D34CB1D74D07500845125 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -3055,6 +3063,16 @@
 				D8494AD51D6C85C500337433 /* MWKSite.m */,
 				D8494AD61D6C85C500337433 /* MWKTitle.h */,
 				D8494AD71D6C85C500337433 /* MWKTitle.m */,
+				B0E807AB1C0CEFF70065EBC0 /* MWKHistoryEntry.h */,
+				B0E807AC1C0CEFF70065EBC0 /* MWKHistoryEntry.m */,
+				0EE4890E1D4C1C920088505C /* MWKHistoryEntry+WMFDatabaseStorable.h */,
+				0EE4890F1D4C1C920088505C /* MWKHistoryEntry+WMFDatabaseStorable.m */,
+				0E28C4731D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.h */,
+				0E28C4741D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.m */,
+				D85CEFD41DDE2C000084A4E8 /* WMFArticlePreview.h */,
+				D85CEFD51DDE2C000084A4E8 /* WMFArticlePreview.m */,
+				D85CEFD81DDE2C4D0084A4E8 /* WMFArticlePreview+WMFDatabaseStorable.h */,
+				D85CEFD91DDE2C4D0084A4E8 /* WMFArticlePreview+WMFDatabaseStorable.m */,
 			);
 			name = "Legacy Models";
 			sourceTree = "<group>";
@@ -3132,12 +3150,6 @@
 			children = (
 				B0E807C11C0CF04A0065EBC0 /* MWKDataStore.h */,
 				B0E807C21C0CF04A0065EBC0 /* MWKDataStore.m */,
-				B0E807AB1C0CEFF70065EBC0 /* MWKHistoryEntry.h */,
-				B0E807AC1C0CEFF70065EBC0 /* MWKHistoryEntry.m */,
-				0EE4890E1D4C1C920088505C /* MWKHistoryEntry+WMFDatabaseStorable.h */,
-				0EE4890F1D4C1C920088505C /* MWKHistoryEntry+WMFDatabaseStorable.m */,
-				0E28C4731D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.h */,
-				0E28C4741D74D35B000C5919 /* MWKHistoryEntry+WMFDatabaseViews.m */,
 				B0E807B41C0CF0180065EBC0 /* MWKSavedPageList.h */,
 				B0E807B51C0CF0180065EBC0 /* MWKSavedPageList.m */,
 				B0E807B61C0CF0180065EBC0 /* MWKSavedPageListDataExportConstants.h */,
@@ -5845,6 +5857,7 @@
 				D844485E1DDCE4E500425630 /* WMFContentGroup+Extensions.h in Headers */,
 				D844D97F1D6CB32D0042D692 /* MWKSiteDataObject.h in Headers */,
 				D8AC391D1D6F2324007E3C14 /* UIScreen+WMFImageWidth.h in Headers */,
+				D85CEFD61DDE2C000084A4E8 /* WMFArticlePreview.h in Headers */,
 				D8DC17001D6F718300D6D9FB /* NSURL+WMFMainPage.h in Headers */,
 				D8DC16EB1D6F6DD600D6D9FB /* MWKSite.h in Headers */,
 				D844D9901D6CB58E0042D692 /* MWKProtectionStatus.h in Headers */,
@@ -5902,6 +5915,7 @@
 				D844D9A91D6CB74F0042D692 /* MWKHistoryList.h in Headers */,
 				D844D9701D6CB2600042D692 /* WMFModel.h in Headers */,
 				D844D9991D6CB5EB0042D692 /* NSString+WMFPageUtilities.h in Headers */,
+				D85CEFDA1DDE2C4D0084A4E8 /* WMFArticlePreview+WMFDatabaseStorable.h in Headers */,
 				D849D6501D6CC7D200D06FC8 /* WMFImageTagList+ImageURLs.h in Headers */,
 				0E728D521DAEEFAC0074EB4B /* MWKSiteInfo.h in Headers */,
 				0E28C48E1D7529C8000C5919 /* WMFArticleDataStore.h in Headers */,
@@ -7408,6 +7422,7 @@
 				D844D9921D6CB5970042D692 /* MWKCitation.m in Sources */,
 				D81EFDE41D775B6B0035F2EB /* SavedPageSpotlightManager.swift in Sources */,
 				D81EFDE21D775B140035F2EB /* NSUserActivity+WMFExtensions.m in Sources */,
+				D85CEFDB1DDE2C4D0084A4E8 /* WMFArticlePreview+WMFDatabaseStorable.m in Sources */,
 				D8DC16F01D6F6DEC00D6D9FB /* WMFAssetsFile.m in Sources */,
 				D844D9AA1D6CB7540042D692 /* MWKHistoryEntry.m in Sources */,
 				0E728D431DAEEE880074EB4B /* WMFLocationManager.m in Sources */,
@@ -7459,6 +7474,7 @@
 				0E728D2C1DAEE8FF0074EB4B /* WMFRelatedPagesContentSource.m in Sources */,
 				D85108AB1D6CC761009C73C4 /* MWLanguageInfo.m in Sources */,
 				D89D44091D74D4D700F7862E /* NSDictionary+WMFCommonParams.m in Sources */,
+				D85CEFD71DDE2C000084A4E8 /* WMFArticlePreview.m in Sources */,
 				D87E54011D6CC709005134EF /* WMFMantleJSONResponseSerializer.m in Sources */,
 				D8DC16EF1D6F6DEC00D6D9FB /* MWKTitle.m in Sources */,
 				D844485B1DDCE49D00425630 /* WMFContentGroup+CoreDataProperties.m in Sources */,
