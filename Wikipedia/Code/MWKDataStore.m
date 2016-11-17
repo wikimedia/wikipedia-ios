@@ -320,30 +320,34 @@ static pid_t currentPid() {
 - (void)migrateKeys:(NSArray<NSString *> *)keys fromConnection:(YapDatabaseConnection *)connection toManagedObjectContext:(NSManagedObjectContext *)moc {
     NSMutableDictionary<NSString *, MWKHistoryEntry *> *historyEntries = [NSMutableDictionary dictionaryWithCapacity:keys.count];
     NSMutableDictionary<NSString *, WMFArticlePreview *> *articlePreviews = [NSMutableDictionary dictionaryWithCapacity:keys.count];
-    
-    [connection readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
-        [transaction enumerateRowsForKeys:keys inCollection:[MWKHistoryEntry databaseCollectionName] unorderedUsingBlock:^(NSUInteger keyIndex, MWKHistoryEntry *_Nullable entry, id  _Nullable metadata, BOOL * _Nonnull stop) {
-            if (!entry) {
-                return;
-            }
-            NSString *key = keys[keyIndex];
-            historyEntries[key] = entry;
-        }];
-        [transaction enumerateRowsForKeys:keys inCollection:[WMFArticlePreview databaseCollectionName] unorderedUsingBlock:^(NSUInteger keyIndex, WMFArticlePreview *_Nullable preview, id  _Nullable metadata, BOOL * _Nonnull stop) {
-            if (!preview) {
-                return;
-            }
-            NSString *key = keys[keyIndex];
-            articlePreviews[key] = preview;
-        }];
-        
+
+    [connection readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction) {
+        [transaction enumerateRowsForKeys:keys
+                             inCollection:[MWKHistoryEntry databaseCollectionName]
+                      unorderedUsingBlock:^(NSUInteger keyIndex, MWKHistoryEntry *_Nullable entry, id _Nullable metadata, BOOL *_Nonnull stop) {
+                          if (!entry) {
+                              return;
+                          }
+                          NSString *key = keys[keyIndex];
+                          historyEntries[key] = entry;
+                      }];
+        [transaction enumerateRowsForKeys:keys
+                             inCollection:[WMFArticlePreview databaseCollectionName]
+                      unorderedUsingBlock:^(NSUInteger keyIndex, WMFArticlePreview *_Nullable preview, id _Nullable metadata, BOOL *_Nonnull stop) {
+                          if (!preview) {
+                              return;
+                          }
+                          NSString *key = keys[keyIndex];
+                          articlePreviews[key] = preview;
+                      }];
+
     }];
     NSFetchRequest *existingObjectFetchRequest = [WMFArticle fetchRequest];
     existingObjectFetchRequest.predicate = [NSPredicate predicateWithFormat:@"key in %@", keys];
     NSArray<WMFArticle *> *allExistingObjects = [moc executeFetchRequest:existingObjectFetchRequest error:nil];
-    
+
     NSMutableSet *keysToAdd = [NSMutableSet setWithArray:keys];
-    
+
     void (^updateBlock)(MWKHistoryEntry *, WMFArticlePreview *, WMFArticle *) = ^(MWKHistoryEntry *entry, WMFArticlePreview *preview, WMFArticle *article) {
         article.viewedDate = entry.dateViewed;
         article.viewedFragment = entry.fragment;
@@ -360,7 +364,7 @@ static pid_t currentPid() {
         article.location = preview.location;
         article.pageViews = preview.pageViews;
     };
-    
+
     for (WMFArticle *article in allExistingObjects) {
         NSString *key = article.key;
         if (!key) {
@@ -372,7 +376,7 @@ static pid_t currentPid() {
         [keysToAdd removeObject:key];
         updateBlock(entry, preview, article);
     }
-    
+
     NSEntityDescription *articleEntityDescription = [NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:moc];
     for (NSString *key in keysToAdd) {
         MWKHistoryEntry *entry = historyEntries[key];
@@ -381,7 +385,7 @@ static pid_t currentPid() {
         article.key = key;
         updateBlock(entry, preview, article);
     }
-    
+
     NSError *batchSaveError = nil;
     if (![moc save:&batchSaveError]) {
         DDLogError(@"Migration batch error: %@", batchSaveError);
@@ -399,20 +403,22 @@ static pid_t currentPid() {
 
     YapDatabase *db = [YapDatabase sharedInstance];
     YapDatabaseConnection *connection = [db wmf_newReadConnection];
-    [connection readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
-        [transaction enumerateKeysInCollection:[MWKHistoryEntry databaseCollectionName] usingBlock:^(NSString * _Nonnull key, BOOL * _Nonnull stop) {
-            [setOfAllKeys addObject:key];
-        }];
-        [transaction enumerateKeysInCollection:[WMFArticlePreview databaseCollectionName] usingBlock:^(NSString * _Nonnull key, BOOL * _Nonnull stop) {
-            [setOfAllKeys addObject:key];
-        }];
+    [connection readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction) {
+        [transaction enumerateKeysInCollection:[MWKHistoryEntry databaseCollectionName]
+                                    usingBlock:^(NSString *_Nonnull key, BOOL *_Nonnull stop) {
+                                        [setOfAllKeys addObject:key];
+                                    }];
+        [transaction enumerateKeysInCollection:[WMFArticlePreview databaseCollectionName]
+                                    usingBlock:^(NSString *_Nonnull key, BOOL *_Nonnull stop) {
+                                        [setOfAllKeys addObject:key];
+                                    }];
     }];
-    
+
     NSArray *allKeys = [setOfAllKeys allObjects];
     NSInteger countOfAllKeys = allKeys.count;
     NSInteger location = 0;
-    NSInteger batchSize = 100;
-    
+    NSInteger batchSize = 500;
+
     while (location < countOfAllKeys) {
         @autoreleasepool {
             if (location + batchSize >= countOfAllKeys) {
@@ -423,10 +429,10 @@ static pid_t currentPid() {
         }
         location = location + batchSize;
     }
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
-    
+
     return [moc save:error];
 }
 
