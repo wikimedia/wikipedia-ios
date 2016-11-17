@@ -275,17 +275,26 @@ static pid_t currentPid() {
 - (void)viewContextDidChange:(NSNotification *)note {
     NSDictionary *userInfo = note.userInfo;
     NSArray<NSString *> *keys = @[NSInsertedObjectsKey, NSUpdatedObjectsKey, NSDeletedObjectsKey, NSRefreshedObjectsKey, NSInvalidatedObjectsKey];
+    NSMutableArray<NSURL *> *URLsToNotifyAbout = [NSMutableArray arrayWithCapacity:1];
     for (NSString *key in keys) {
         NSSet<NSManagedObject *> *changedObjects = userInfo[key];
         for (NSManagedObject *object in changedObjects) {
             if ([object isKindOfClass:[WMFArticle class]]) {
                 NSURL *URL = [(WMFArticle *)object URL];
                 if (URL) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:self userInfo:@{MWKURLKey: URL}];
+                    [URLsToNotifyAbout addObject:URL];
                 }
             }
         }
     }
+    if (URLsToNotifyAbout.count == 0) {
+        return;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        for (NSURL *URL in URLsToNotifyAbout) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:self userInfo:@{MWKURLKey: URL}];
+        }
+    });
 }
 
 + (BOOL)migrateToSharedContainer:(NSError **)error {
@@ -443,10 +452,9 @@ static pid_t currentPid() {
         return;
     }
     NSArray<WMFArticle *> *allArticles = [self.viewContext executeFetchRequest:[WMFArticle fetchRequest] error:nil];
-    [allArticles enumerateObjectsUsingBlock:^(WMFArticle * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [allArticles enumerateObjectsUsingBlock:^(WMFArticle *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         block(obj, stop);
     }];
-
 }
 - (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block {
     NSParameterAssert(block);
@@ -1009,7 +1017,7 @@ static pid_t currentPid() {
     if ([articleURL.wmf_title length] == 0) {
         return;
     }
-    
+
     WMFArticle *article = [self fetchOrCreateArticleForURL:articleURL];
     article.isBlocked = isExcludedFromFeed;
     [self save:nil];
