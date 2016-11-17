@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSArray<WMFContentGroup *> *)groupsOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date;
 
+- (BOOL)save:(NSError **)saveError;
+
 #pragma mark - Content Management
 
 - (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent;

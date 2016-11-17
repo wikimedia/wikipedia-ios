@@ -37,17 +37,12 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.dataStore fetchOrCreateArticleForURL:url];
 }
 
-- (void)savePreview:(WMFArticle *)preview {
-    [self.dataStore save:nil];
-}
-
 - (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithSearchResult:(MWKSearchResult *)searchResult {
 
     NSParameterAssert(url);
 
     WMFArticle *preview = [self newOrExistingPreviewWithURL:url];
     [self updatePreview:preview withSearchResult:searchResult];
-    [self savePreview:preview];
     return preview;
 }
 
@@ -57,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     WMFArticle *preview = [self newOrExistingPreviewWithURL:url];
     [self updatePreview:preview withLocationSearchResult:searchResult];
-    [self savePreview:preview];
+
     return preview;
 }
 
@@ -106,7 +101,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSURL *thumb = [NSURL URLWithString:[article bestThumbnailImageURL]];
         preview.thumbnailURL = thumb;
     }
-    [self savePreview:preview];
+
     return preview;
 }
 
@@ -137,7 +132,6 @@ NS_ASSUME_NONNULL_BEGIN
         }
     }
 
-    [self savePreview:preview];
     return preview;
 }
 

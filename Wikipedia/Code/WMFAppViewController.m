@@ -270,7 +270,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if (self.backgroundTaskIdentifier != UIBackgroundTaskInvalid) {
         return;
     }
-
+    NSError *saveError = nil;
+    if (![self.dataStore save:&saveError]) {
+        DDLogError(@"Error saving dataStore: %@", saveError);
+    }
     self.backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         [self.dataStore stopCacheRemoval];
         [self endBackgroundTask];

@@ -81,6 +81,10 @@
                                                   [self.contentStore removeContentGroup:section];
                                               }
                                           }];
+    NSError *saveError = nil;
+    if (![self.contentStore save:&saveError]) {
+        DDLogError(@"Error cleaning up sections %@", saveError);
+    }
 }
 
 #pragma mark - Fetch

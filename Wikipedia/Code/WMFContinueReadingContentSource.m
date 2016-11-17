@@ -100,6 +100,15 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         NSParameterAssert(article);
         [self.previewStore addPreviewWithURL:lastRead updatedWithArticle:article];
     }
+    
+    NSError *saveError = nil;
+    if (![self.contentStore save:&saveError]) {
+        DDLogError(@"Error saving feed content %@", saveError);
+    }
+    
+    if (completion) {
+        completion();
+    }
 }
 
 - (void)removeAllContent {

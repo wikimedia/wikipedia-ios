@@ -142,12 +142,6 @@ NS_ASSUME_NONNULL_BEGIN
     [group updateContentType];
     [group updateDailySortPriority];
     
-    NSError *saveError = nil;
-    if (![self.dataStore save:&saveError]) {
-        DDLogError(@"Error creating content group: %@", saveError);
-        return nil;
-    }
-    
     return group;
 }
 
@@ -157,32 +151,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addContentGroup:(WMFContentGroup *)group associatedContent:(NSArray<NSCoding> *)content {
     group.content = content;
-    NSError *saveError = nil;
-    if (![self.dataStore save:&saveError]) {
-        DDLogError(@"Error creating content group: %@", saveError);
-        return;
-    }
 }
 
 - (void)removeContentGroup:(WMFContentGroup *)group {
     NSParameterAssert(group);
     [self.dataStore.viewContext deleteObject:group];
-    NSError *saveError = nil;
-    if (![self.dataStore save:&saveError]) {
-        DDLogError(@"Error deleting content group: %@", saveError);
-        return;
-    }
 }
 
 - (void)removeContentGroups:(NSArray<WMFContentGroup *> *)contentGroups {
     for (WMFContentGroup *group in contentGroups) {
         [self.dataStore.viewContext deleteObject:group];
     }
-    NSError *saveError = nil;
-    if (![self.dataStore save:&saveError]) {
-        DDLogError(@"Error deleting content groups: %@", saveError);
-        return;
-    }
+}
+
+- (BOOL)save:(NSError **)saveError {
+    return [self.dataStore save:saveError];
 }
 
 - (void)removeContentGroupsWithKeys:(NSArray<NSString *> *)keys {

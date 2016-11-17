@@ -136,7 +136,6 @@ NS_ASSUME_NONNULL_BEGIN
     [group leave];
 
     [group waitInBackgroundWithCompletion:^{
-        [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
         if (completion) {
             completion();
         }
@@ -231,6 +230,10 @@ NS_ASSUME_NONNULL_BEGIN
                 [self.previewStore addPreviewWithURL:urls[idx] updatedWithSearchResult:obj];
             }];
             [self.contentStore addContentGroup:group associatedContent:urls];
+            NSError *saveError = nil;
+            if (![self.contentStore save:&saveError]) {
+                DDLogError(@"Error saving feed content %@", saveError);
+            }
         }
         failureBlock:^(NSError *_Nonnull error) {
             //TODO: how to handle failure?

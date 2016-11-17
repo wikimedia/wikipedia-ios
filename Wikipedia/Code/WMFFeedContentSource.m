@@ -192,6 +192,12 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         [self saveGroupForNews:feedDay.newsStories pageViews:pageViews date:date];
     }
     [self scheduleNotificationsForFeedDay:feedDay onDate:date];
+    
+    NSError *saveError = nil;
+    if (![self.contentStore save:&saveError]) {
+        DDLogError(@"Error saving feed content %@", saveError);
+    }
+    
     if (!completion) {
         return;
     }
