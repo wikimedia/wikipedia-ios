@@ -3,7 +3,7 @@
 @implementation WMFArticle (CoreDataProperties)
 
 + (NSFetchRequest<WMFArticle *> *)fetchRequest {
-	return [[NSFetchRequest alloc] initWithEntityName:@"WMFArticle"];
+    return [[NSFetchRequest alloc] initWithEntityName:@"WMFArticle"];
 }
 
 @dynamic isBlocked;
@@ -23,15 +23,14 @@
 @dynamic longitude;
 @dynamic pageViews;
 
-
 #pragma mark - Transient properties
 
-- (NSDate *)viewdDateWithoutTime {
+- (NSDate *)viewedDateWithoutTime {
     NSString *key = @"viewedDateWithoutTime";
     [self willAccessValueForKey:key];
     NSDate *viewedDateWithoutTime = [self primitiveValueForKey:key];
     [self didAccessValueForKey:key];
-    
+
     if (!viewedDateWithoutTime) {
         NSDate *viewedDate = self.viewedDate;
         if (viewedDate) {
@@ -63,6 +62,5 @@
     }
     return keyPaths;
 }
-
 
 @end
