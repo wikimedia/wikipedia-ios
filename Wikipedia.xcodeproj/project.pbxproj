@@ -213,6 +213,7 @@
 		B0C0B07E1C6D989000859AD5 /* WMFSettingsCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */; };
 		B0CA8D401D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B0CA8D3F1D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.m */; };
 		B0D1B45A1DDD02BC004FCAE6 /* WMFDynamicTypeExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D1B4591DDD02BB004FCAE6 /* WMFDynamicTypeExtentions.swift */; };
+		B0D1B45F1DDE49B0004FCAE6 /* UITabBarItem+WMFStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D1B45E1DDE49B0004FCAE6 /* UITabBarItem+WMFStyling.m */; };
 		B0D530EB1CE151C10078BAED /* CodeFileLocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D530EA1CE151C10078BAED /* CodeFileLocationTests.m */; };
 		B0D7FC4F1D0A192500CDC2F0 /* ImageProxyParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D7FC4E1D0A192500CDC2F0 /* ImageProxyParsingTests.m */; };
 		B0DE03221D90CB6C00BE5968 /* BecauseYouReadSeedsDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DE03211D90CB6C00BE5968 /* BecauseYouReadSeedsDataSourceTests.m */; };
@@ -1415,6 +1416,8 @@
 		B0CA8D3E1D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKScriptMessage+WMFScriptMessage.h"; path = "Wikipedia/Code/WKScriptMessage+WMFScriptMessage.h"; sourceTree = SOURCE_ROOT; };
 		B0CA8D3F1D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKScriptMessage+WMFScriptMessage.m"; path = "Wikipedia/Code/WKScriptMessage+WMFScriptMessage.m"; sourceTree = SOURCE_ROOT; };
 		B0D1B4591DDD02BB004FCAE6 /* WMFDynamicTypeExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFDynamicTypeExtentions.swift; path = Wikipedia/Code/WMFDynamicTypeExtentions.swift; sourceTree = SOURCE_ROOT; };
+		B0D1B45D1DDE49B0004FCAE6 /* UITabBarItem+WMFStyling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITabBarItem+WMFStyling.h"; path = "Wikipedia/Code/UITabBarItem+WMFStyling.h"; sourceTree = SOURCE_ROOT; };
+		B0D1B45E1DDE49B0004FCAE6 /* UITabBarItem+WMFStyling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITabBarItem+WMFStyling.m"; path = "Wikipedia/Code/UITabBarItem+WMFStyling.m"; sourceTree = SOURCE_ROOT; };
 		B0D530EA1CE151C10078BAED /* CodeFileLocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeFileLocationTests.m; sourceTree = "<group>"; };
 		B0D7FC4E1D0A192500CDC2F0 /* ImageProxyParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageProxyParsingTests.m; sourceTree = "<group>"; };
 		B0DE03211D90CB6C00BE5968 /* BecauseYouReadSeedsDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BecauseYouReadSeedsDataSourceTests.m; sourceTree = "<group>"; };
@@ -3833,6 +3836,8 @@
 				BC45D5501C31EB4E007C72F3 /* Utilities */,
 				B0E802B91C0CD2260065EBC0 /* WMFStyleManager.h */,
 				B0E802BA1C0CD2260065EBC0 /* WMFStyleManager.m */,
+				B0D1B45D1DDE49B0004FCAE6 /* UITabBarItem+WMFStyling.h */,
+				B0D1B45E1DDE49B0004FCAE6 /* UITabBarItem+WMFStyling.m */,
 			);
 			name = Style;
 			path = Wikipedia/Code/Style;
@@ -7375,6 +7380,7 @@
 				D8C0C00B1D144FF30019374D /* WMFProxyServer.m in Sources */,
 				B063DE601C63FEE9002F2EDE /* UIToolbar+WMFStyling.m in Sources */,
 				D81BA0FB1D50D40B006C38AC /* WMFNearbyArticleTableViewCell.m in Sources */,
+				B0D1B45F1DDE49B0004FCAE6 /* UITabBarItem+WMFStyling.m in Sources */,
 				B0CA8D401D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.m in Sources */,
 				0E4A34721CBBFCD400A400F6 /* WMFImageGalleryViewController.m in Sources */,
 				B0E803F11C0CDD950065EBC0 /* WMFAsyncBlockOperation.m in Sources */,
