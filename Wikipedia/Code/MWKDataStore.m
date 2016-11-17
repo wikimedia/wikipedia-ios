@@ -122,12 +122,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (instancetype)init {
-    self = [self initWithDatabase:[YapDatabase sharedInstance]];
-    return self;
-}
-
-- (instancetype)initWithDatabase:(YapDatabase *)database {
-    self = [self initWithContainerURL:[[NSFileManager defaultManager] wmf_containerURL] database:database legacyDataBasePath:[[MWKDataStore class] mainDataStorePath]];
+    self = [self initWithContainerURL:[[NSFileManager defaultManager] wmf_containerURL] legacyDataBasePath:[[MWKDataStore class] mainDataStorePath]];
     return self;
 }
 
@@ -140,8 +135,8 @@ static pid_t currentPid() {
     return pid;
 }
 
-- (instancetype)initWithContainerURL:(NSURL *)containerURL database:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath {
-    self = [super initWithDatabase:database];
+- (instancetype)initWithContainerURL:(NSURL *)containerURL legacyDataBasePath:(NSString *)basePath {
+    self = [super init];
     if (self) {
         self.containerURL = containerURL;
         self.basePath = basePath;
@@ -325,30 +320,15 @@ static pid_t currentPid() {
     NSManagedObjectContext *moc = self.viewContext;
     NSMutableDictionary<NSString *, MWKHistoryEntry *> *historyEntries = [NSMutableDictionary dictionaryWithCapacity:100];
 
-    [self.savedDataSource readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-        if ([view numberOfItemsInAllGroups] == 0) {
-            return;
-        }
-        [view enumerateKeysAndObjectsInGroup:[[view allGroups] firstObject]
-                                  usingBlock:^(NSString *_Nonnull collection, NSString *_Nonnull key, MWKHistoryEntry *_Nonnull entry, NSUInteger index, BOOL *_Nonnull stop) {
-                                      if (!key || !entry) {
-                                          return;
-                                      }
-                                      historyEntries[key] = entry;
-                                  }];
-    }];
-
-    [self.historyDataSource readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-        if ([view numberOfItemsInAllGroups] == 0) {
-            return;
-        }
-        [view enumerateKeysAndObjectsInGroup:[[view allGroups] firstObject]
-                                  usingBlock:^(NSString *_Nonnull collection, NSString *_Nonnull key, MWKHistoryEntry *_Nonnull entry, NSUInteger index, BOOL *_Nonnull stop) {
-                                      if (!key || !entry) {
-                                          return;
-                                      }
-                                      historyEntries[key] = entry;
-                                  }];
+    YapDatabase *db = [YapDatabase sharedInstance];
+    YapDatabaseConnection *connection = [db wmf_newReadConnection];
+    [connection readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
+        [transaction enumerateRowsInCollection:@"MWKHistoryEntry" usingBlock:^(NSString * _Nonnull key, MWKHistoryEntry *_Nonnull entry, id  _Nullable metadata, BOOL * _Nonnull stop) {
+            if (!key || !entry) {
+                return;
+            }
+            historyEntries[key] = entry;
+        }];
     }];
 
     NSArray *allKeys = historyEntries.allKeys;
@@ -452,18 +432,6 @@ static pid_t currentPid() {
     NSArray<WMFArticle *> *allArticles = [self.viewContext executeFetchRequest:[WMFArticle fetchRequest] error:nil];
     [allArticles enumerateObjectsUsingBlock:^(WMFArticle *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         block(obj, stop);
-    }];
-}
-- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block {
-    NSParameterAssert(block);
-    if (!block) {
-        return;
-    }
-    [self readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction) {
-        [transaction enumerateKeysAndObjectsInCollection:[MWKHistoryEntry databaseCollectionName]
-                                              usingBlock:^(NSString *_Nonnull key, id _Nonnull object, BOOL *_Nonnull stop) {
-                                                  block(object, stop);
-                                              }];
     }];
 }
 

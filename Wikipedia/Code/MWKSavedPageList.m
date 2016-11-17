@@ -1,7 +1,4 @@
 #import "MWKSavedPageList.h"
-#import "MWKDataStore+WMFDataSources.h"
-#import <YapDataBase/YapDatabase.h>
-#import <YapDataBase/YapDatabaseView.h>
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import <WMFModel/WMFModel-Swift.h>
 

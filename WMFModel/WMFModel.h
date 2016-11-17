@@ -132,9 +132,6 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import "MWKSearchResult.h"
 #import "NSDictionary+WMFCommonParams.h"
 
-#import "WMFDataSource.h"
-#import "WMFDatabaseDataSource.h"
-#import "MWKDataStore+WMFDataSources.h"
 #import "WMFContentGroupDataStore.h"
 #import "WMFArticleDataStore.h"
 

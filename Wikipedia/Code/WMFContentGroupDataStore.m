@@ -2,7 +2,6 @@
 #import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
 #import "YapDatabase+WMFExtensions.h"
 #import "YapDatabaseViewMappings+WMFMappings.h"
-#import "WMFDatabaseDataSource.h"
 
 @import NSDate_Extensions;
 

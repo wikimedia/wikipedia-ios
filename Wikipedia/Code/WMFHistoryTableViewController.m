@@ -5,7 +5,6 @@
 #import "NSString+WMFExtras.h"
 #import "NSDate+Utilities.h"
 
-#import "MWKDataStore+WMFDataSources.h"
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "MWKHistoryList.h"
 

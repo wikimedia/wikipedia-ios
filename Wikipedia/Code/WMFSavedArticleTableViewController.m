@@ -7,9 +7,6 @@
 
 #import "MWKSavedPageList.h"
 
-#import "MWKDataStore+WMFDataSources.h"
-#import "MWKHistoryEntry+WMFDatabaseStorable.h"
-
 #import "MWKArticle.h"
 
 #import "WMFSaveButtonController.h"

@@ -215,7 +215,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         return;
     }
     self.notificationsController.applicationActive = YES;
-    [self.dataStore syncDataStoreToDatabase];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKSetupDataSourcesNotification object:nil];
 #if FB_TWEAK_ENABLED

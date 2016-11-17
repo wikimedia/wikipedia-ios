@@ -90,8 +90,6 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         guard let session = SessionSingleton.sharedInstance() else {
             return false
         }
-
-        session.dataStore.syncDataStoreToDatabase()
         
         guard let historyEntry = session.dataStore.historyList.mostRecentEntry() else {
             return false

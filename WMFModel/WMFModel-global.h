@@ -7,9 +7,6 @@
 #import "MWKDataStore.h"
 #import "WMFContentGroupDataStore.h"
 
-#import "WMFDataBaseDataSource.h"
-#import "MWKDataStore+WMFDataSources.h"
-
 #import "SessionSingleton.h"
 #import "QueuesSingleton.h"
 
@@ -139,10 +136,6 @@
 #import "WMFBaseRequestSerializer.h"
 #import "MWKSearchResult.h"
 #import "NSDictionary+WMFCommonParams.h"
-
-#import "WMFDataSource.h"
-#import "WMFDatabaseDataSource.h"
-#import "MWKDataStore+WMFDataSources.h"
 
 #import "NSUserActivity+WMFExtensions.h"
 

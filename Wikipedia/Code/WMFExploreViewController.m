@@ -23,8 +23,6 @@
 #import "WMFFeedNewsStory.h"
 #import "WMFFeedImage.h"
 
-#import "WMFDataSource.h"
-
 #import "WMFSaveButtonController.h"
 
 #import "WMFColumnarCollectionViewLayout.h"
@@ -1046,36 +1044,6 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
             NSAssert(false, @"Unknown Detail Type");
             break;
     }
-}
-
-#pragma mark - WMFDataSourceDelegate
-
-- (void)dataSourceDidUpdateAllData:(id<WMFDataSource>)dataSource {
-    [self.collectionView reloadData];
-}
-
-- (void)dataSourceWillBeginUpdates:(id<WMFDataSource>)dataSource {
-}
-
-- (void)dataSource:(id<WMFDataSource>)dataSource didDeleteSectionsAtIndexes:(NSIndexSet *)indexes {
-}
-
-- (void)dataSource:(id<WMFDataSource>)dataSource didInsertSectionsAtIndexes:(NSIndexSet *)indexes {
-}
-
-- (void)dataSource:(id<WMFDataSource>)dataSource didDeleteRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-}
-- (void)dataSource:(id<WMFDataSource>)dataSource didInsertRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-}
-
-- (void)dataSource:(id<WMFDataSource>)dataSource didMoveRowFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-
-- (void)dataSource:(id<WMFDataSource>)dataSource didUpdateRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-}
-
-- (void)dataSourceDidFinishUpdates:(id<WMFDataSource>)dataSource {
-    [self.collectionView reloadData];
 }
 
 #pragma mark - WMFLocationManager

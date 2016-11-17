@@ -1,5 +1,3 @@
-#import "WMFBaseDataStore.h"
-
 @class MWKArticle;
 @class MWKSection;
 @class MWKImage;
@@ -42,7 +40,7 @@ extern NSString *const MWKTeardownDataSourcesNotification;
 extern NSString *const MWKItemUpdatedNotification;
 extern NSString *const MWKURLKey;
 
-@interface MWKDataStore : WMFBaseDataStore
+@interface MWKDataStore : NSObject
 
 /**
  *  Initialize with sharedInstance database and legacyDataBasePath
@@ -51,7 +49,7 @@ extern NSString *const MWKURLKey;
  */
 - (instancetype)init;
 
-- (instancetype)initWithContainerURL:(NSURL *)containerURL database:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithContainerURL:(NSURL *)containerURL legacyDataBasePath:(NSString *)basePath NS_DESIGNATED_INITIALIZER;
 
 + (BOOL)migrateToSharedContainer:(NSError **)error;
 - (BOOL)migrateToCoreData:(NSError **)error;
@@ -72,7 +70,6 @@ extern NSString *const MWKURLKey;
 
 - (BOOL)save:(NSError **)error;
 
-- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block;
 - (void)enumerateArticlesWithBlock:(void (^)(WMFArticle *_Nonnull entry, BOOL *stop))block;
 
 #pragma mark - Legacy Datastore methods
