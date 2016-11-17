@@ -60,6 +60,31 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterReuseIdentifier";
 
+@interface WMFChange : NSObject
+@property (nonatomic) NSFetchedResultsChangeType type;
+@end
+
+@implementation WMFChange
+
+@end
+
+@interface WMFSectionChange : WMFChange
+@property (nonatomic) NSInteger sectionIndex;
+@end
+
+@implementation WMFSectionChange
+
+@end
+
+@interface WMFObjectChange : WMFChange
+@property (nonatomic, strong) NSIndexPath *fromIndexPath;
+@property (nonatomic, strong) NSIndexPath *toIndexPath;
+@end
+
+@implementation WMFObjectChange
+
+@end
+
 @interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
@@ -78,6 +103,9 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 @property (nonatomic, strong, nullable) AFNetworkReachabilityManager *reachabilityManager;
 
+@property (nonatomic, strong) NSMutableArray<WMFSectionChange *> *sectionChanges;
+@property (nonatomic, strong) NSMutableArray<WMFObjectChange *> *objectChanges;
+
 @end
 
 @implementation WMFExploreViewController
@@ -85,6 +113,8 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.title = MWLocalizedString(@"home-title", nil);
+    self.sectionChanges = [NSMutableArray array];
+    self.objectChanges = [NSMutableArray array];
 }
 
 - (void)dealloc {
@@ -1175,13 +1205,55 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    WMFSectionChange *sectionChange = [WMFSectionChange new];
+    sectionChange.type = type;
+    sectionChange.sectionIndex = sectionIndex;
+    [self.sectionChanges addObject:sectionChange];
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(nullable NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(nullable NSIndexPath *)newIndexPath {
+    WMFObjectChange *objectChange = [WMFObjectChange new];
+    objectChange.type = type;
+    objectChange.fromIndexPath = indexPath;
+    objectChange.toIndexPath = indexPath;
+    [self.objectChanges addObject:objectChange];
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.collectionView reloadData];
+    if (self.objectChanges.count > 0) {
+        NSMutableIndexSet *sectionsToDelete = [NSMutableIndexSet new];
+        BOOL shouldReload = NO;
+        for (WMFObjectChange *change in self.objectChanges) {
+            switch (change.type) {
+                case NSFetchedResultsChangeInsert:
+                    shouldReload = YES;
+                    break;
+                case NSFetchedResultsChangeDelete:
+                    [sectionsToDelete addIndex:change.fromIndexPath.item];
+                    shouldReload = sectionsToDelete.count > 1;
+                    break;
+                case NSFetchedResultsChangeUpdate:
+                    shouldReload = YES;
+                    break;
+                case NSFetchedResultsChangeMove:
+                    shouldReload = YES;
+                    break;
+            }
+        }
+        if (shouldReload) {
+            [self.collectionView reloadData];
+        } else {
+            [self.collectionView performBatchUpdates:^{
+                [self.collectionView deleteSections:sectionsToDelete];
+            }
+                                          completion:nil];
+        }
+    } else {
+        [self.collectionView reloadData];
+    }
+
+    [self.objectChanges removeAllObjects];
+    [self.sectionChanges removeAllObjects];
 }
 
 #pragma mark - Analytics
