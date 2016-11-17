@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)savedArticlesFetcher:(SavedArticlesFetcher *)savedArticlesFetcher
                  didFetchURL:(NSURL *)url
                      article:(MWKArticle *__nullable)article
-                    progress:(CGFloat)progress
                        error:(NSError *__nullable)error;
 
 @end
@@ -38,8 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
                      previewStore:(WMFArticleDataStore *)previewStore
                     savedPageList:(MWKSavedPageList *)savedPageList;
-
-- (void)getProgress:(WMFProgressHandler)progressBlock;
 
 - (void)start;
 

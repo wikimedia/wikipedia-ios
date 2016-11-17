@@ -69,7 +69,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     NSParameterAssert(imageInfoFetcher);
     self = [super init];
     if (self) {
-        self.accessQueue = dispatch_get_main_queue(); //dispatch_queue_create("org.wikipedia.savedarticlesarticleFetcher.accessQueue", DISPATCH_QUEUE_SERIAL);
+        self.accessQueue = dispatch_queue_create("org.wikipedia.savedarticlesarticleFetcher.accessQueue", DISPATCH_QUEUE_SERIAL);
         self.fetchOperationsByArticleTitle = [NSMutableDictionary new];
         self.errorsByArticleTitle = [NSMutableDictionary new];
         self.dataStore = dataStore;
@@ -385,31 +385,6 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         [self.fetchOperationsByArticleTitle removeObjectForKey:URL];
 }
 
-#pragma mark - Progress
-
-- (void)getProgress:(WMFProgressHandler)progressBlock {
-    dispatch_async(self.accessQueue, ^{
-        CGFloat progress = [self progress];
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            progressBlock(progress);
-        });
-    });
-}
-
-/// Only invoke within accessQueue
-- (CGFloat)progress {
-    /*
-       FIXME: Handle progress when only downloading a subset of saved pages (e.g. if some were already downloaded in
-       a previous session)?
-     */
-    if ([self.savedPageList numberOfItems] == 0) {
-        return 0.0;
-    }
-
-    return (CGFloat)([self.savedPageList numberOfItems] - [self.fetchOperationsByArticleTitle count]) / (CGFloat)[self.savedPageList numberOfItems];
-}
-
 #pragma mark - Delegate Notification
 
 /// Only invoke within accessQueue
@@ -427,12 +402,10 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     // stop tracking operation, effectively advancing the progress
     [self.fetchOperationsByArticleTitle removeObjectForKey:url];
 
-    CGFloat progress = [self progress];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.fetchFinishedDelegate savedArticlesFetcher:self
                                              didFetchURL:url
                                                  article:fetchedArticle
-                                                progress:progress
                                                    error:error];
     });
 
