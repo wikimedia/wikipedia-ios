@@ -317,40 +317,33 @@ static pid_t currentPid() {
     return YES;
 }
 
-- (BOOL)migrateToCoreData:(NSError **)error {
-    NSManagedObjectContext *moc = self.viewContext;
-    NSMutableSet *allKeys = [NSMutableSet setWithCapacity:200];
-    NSMutableDictionary<NSString *, MWKHistoryEntry *> *historyEntries = [NSMutableDictionary dictionaryWithCapacity:100];
-    NSMutableDictionary<NSString *, WMFArticlePreview *> *articlePreviews = [NSMutableDictionary dictionaryWithCapacity:100];
-
-    YapDatabase *db = [YapDatabase sharedInstance];
-    YapDatabaseConnection *connection = [db wmf_newReadConnection];
-    [connection readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
-        [transaction enumerateRowsInCollection:[MWKHistoryEntry databaseCollectionName] usingBlock:^(NSString * _Nonnull key, MWKHistoryEntry *_Nonnull entry, id  _Nullable metadata, BOOL * _Nonnull stop) {
-            if (!key || !entry) {
-                return;
-            }
-            [allKeys addObject:key];
-            historyEntries[key] = entry;
-        }];
-    }];
+- (void)migrateKeys:(NSArray<NSString *> *)keys fromConnection:(YapDatabaseConnection *)connection toManagedObjectContext:(NSManagedObjectContext *)moc {
+    NSMutableDictionary<NSString *, MWKHistoryEntry *> *historyEntries = [NSMutableDictionary dictionaryWithCapacity:keys.count];
+    NSMutableDictionary<NSString *, WMFArticlePreview *> *articlePreviews = [NSMutableDictionary dictionaryWithCapacity:keys.count];
     
     [connection readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
-        [transaction enumerateRowsInCollection:[WMFArticlePreview databaseCollectionName] usingBlock:^(NSString * _Nonnull key, WMFArticlePreview *_Nonnull articlePreview, id  _Nullable metadata, BOOL * _Nonnull stop) {
-            if (!key || !articlePreview) {
+        [transaction enumerateRowsForKeys:keys inCollection:[MWKHistoryEntry databaseCollectionName] unorderedUsingBlock:^(NSUInteger keyIndex, MWKHistoryEntry *_Nullable entry, id  _Nullable metadata, BOOL * _Nonnull stop) {
+            if (!entry) {
                 return;
             }
-            [allKeys addObject:key];
-            articlePreviews[key] = articlePreview;
+            NSString *key = keys[keyIndex];
+            historyEntries[key] = entry;
         }];
+        [transaction enumerateRowsForKeys:keys inCollection:[WMFArticlePreview databaseCollectionName] unorderedUsingBlock:^(NSUInteger keyIndex, WMFArticlePreview *_Nullable preview, id  _Nullable metadata, BOOL * _Nonnull stop) {
+            if (!preview) {
+                return;
+            }
+            NSString *key = keys[keyIndex];
+            articlePreviews[key] = preview;
+        }];
+        
     }];
-
     NSFetchRequest *existingObjectFetchRequest = [WMFArticle fetchRequest];
-    existingObjectFetchRequest.predicate = [NSPredicate predicateWithFormat:@"key in %@", allKeys];
+    existingObjectFetchRequest.predicate = [NSPredicate predicateWithFormat:@"key in %@", keys];
     NSArray<WMFArticle *> *allExistingObjects = [moc executeFetchRequest:existingObjectFetchRequest error:nil];
-
-    NSMutableSet *keysToAdd = [NSMutableSet setWithSet:allKeys];
-
+    
+    NSMutableSet *keysToAdd = [NSMutableSet setWithArray:keys];
+    
     void (^updateBlock)(MWKHistoryEntry *, WMFArticlePreview *, WMFArticle *) = ^(MWKHistoryEntry *entry, WMFArticlePreview *preview, WMFArticle *article) {
         article.viewedDate = entry.dateViewed;
         article.viewedFragment = entry.fragment;
@@ -367,7 +360,7 @@ static pid_t currentPid() {
         article.location = preview.location;
         article.pageViews = preview.pageViews;
     };
-
+    
     for (WMFArticle *article in allExistingObjects) {
         NSString *key = article.key;
         if (!key) {
@@ -379,7 +372,7 @@ static pid_t currentPid() {
         [keysToAdd removeObject:key];
         updateBlock(entry, preview, article);
     }
-
+    
     NSEntityDescription *articleEntityDescription = [NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:moc];
     for (NSString *key in keysToAdd) {
         MWKHistoryEntry *entry = historyEntries[key];
@@ -388,7 +381,52 @@ static pid_t currentPid() {
         article.key = key;
         updateBlock(entry, preview, article);
     }
+    
+    NSError *batchSaveError = nil;
+    if (![moc save:&batchSaveError]) {
+        DDLogError(@"Migration batch error: %@", batchSaveError);
+    }
+    [moc reset];
+    [connection flushMemoryWithFlags:YapDatabaseConnectionFlushMemoryFlags_All];
+}
 
+- (BOOL)migrateToCoreData:(NSError **)error {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
+
+    NSManagedObjectContext *moc = self.viewContext;
+    NSMutableSet *setOfAllKeys = [NSMutableSet setWithCapacity:200];
+
+    YapDatabase *db = [YapDatabase sharedInstance];
+    YapDatabaseConnection *connection = [db wmf_newReadConnection];
+    [connection readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
+        [transaction enumerateKeysInCollection:[MWKHistoryEntry databaseCollectionName] usingBlock:^(NSString * _Nonnull key, BOOL * _Nonnull stop) {
+            [setOfAllKeys addObject:key];
+        }];
+        [transaction enumerateKeysInCollection:[WMFArticlePreview databaseCollectionName] usingBlock:^(NSString * _Nonnull key, BOOL * _Nonnull stop) {
+            [setOfAllKeys addObject:key];
+        }];
+    }];
+    
+    NSArray *allKeys = [setOfAllKeys allObjects];
+    NSInteger countOfAllKeys = allKeys.count;
+    NSInteger location = 0;
+    NSInteger batchSize = 100;
+    
+    while (location < countOfAllKeys) {
+        @autoreleasepool {
+            if (location + batchSize >= countOfAllKeys) {
+                batchSize = countOfAllKeys - location;
+            }
+            NSArray *subsetOfKeys = [allKeys subarrayWithRange:NSMakeRange(location, batchSize)];
+            [self migrateKeys:subsetOfKeys fromConnection:connection toManagedObjectContext:moc];
+        }
+        location = location + batchSize;
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
+    
     return [moc save:error];
 }
 
