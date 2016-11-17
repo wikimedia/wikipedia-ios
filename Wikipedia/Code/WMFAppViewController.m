@@ -349,27 +349,21 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 - (void)migrateToNewFeedIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
     self.previewStore = [[WMFArticleDataStore alloc] initWithDataStore:self.dataStore];
     self.contentStore = [[WMFContentGroupDataStore alloc] initWithDataStore:self.dataStore];
-    completion();
-    
-//    YapDatabase *db = [YapDatabase sharedInstance];
-//    if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToNewFeed]) {
-//
-//    } else {
-//        YapDatabaseConnection *conn = [db wmf_newWriteConnection];
-//        [conn asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
-//            [transaction removeAllObjectsInCollection:[WMFContentGroup databaseCollectionName]];
-//        }
-//            completionQueue:dispatch_get_main_queue()
-//            completionBlock:^{
-//                self.previewStore = [[WMFArticleDataStore alloc] initWithDataStore:self.dataStore];
-//                self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
-//                [self preloadContentSourcesForced:YES
-//                                       completion:^{
-//                                           [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
-//                                           completion();
-//                                       }];
-//            }];
-//    }
+
+    if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToNewFeed]) {
+        completion();
+    } else {
+        NSError *migrationError = nil;
+        [self.dataStore migrateToCoreData:&migrationError];
+        if (migrationError) {
+            DDLogError(@"Error migrating: %@", migrationError);
+        }
+        [self preloadContentSourcesForced:YES
+                               completion:^{
+                                   [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
+                                   completion();
+                               }];
+    }
 }
 
 - (void)finishLaunch {
@@ -494,7 +488,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     WMFTaskGroup *group = [WMFTaskGroup new];
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
 
-        if ([obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
+        if ([obj isKindOfClass:[WMFFeedContentSource class]] || [obj isKindOfClass:[WMFRelatedPagesContentSource class]]) {
             [group enter];
             [(id<WMFDateBasedContentSource>)obj preloadContentForNumberOfDays:3
                                                                         force:force

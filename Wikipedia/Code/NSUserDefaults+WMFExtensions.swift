@@ -9,7 +9,7 @@ let WMFMigrateToSharedContainerKey = "WMFMigrateToSharedContainerKey"
 let WMFMigrateSavedPageListKey = "WMFMigrateSavedPageListKey"
 let WMFMigrateBlackListKey = "WMFMigrateBlackListKey"
 let WMFDidMigrateToGroupKey = "WMFDidMigrateToGroup"
-let WMFDidMigrateToDatabaseFeedKey = "WMFDidMigrateToDatabaseFeedKey"
+let WMFDidMigrateToCoreDataFeedKey = "WMFDidMigrateToCoreDataFeedKey"
 let WMFMostRecentInTheNewsNotificationDateKey = "WMFMostRecentInTheNewsNotificationDate"
 let WMFInTheNewsMostRecentDateNotificationCountKey = "WMFInTheNewsMostRecentDateNotificationCount"
 let WMFDidShowNewsNotificatonInFeedKey = "WMFDidShowNewsNotificatonInFeedKey"
@@ -285,12 +285,12 @@ public extension NSUserDefaults {
     }
 
     public func wmf_setDidMigrateToNewFeed(didMigrate: Bool) {
-        self.setBool(didMigrate, forKey: WMFDidMigrateToDatabaseFeedKey)
+        self.setBool(didMigrate, forKey: WMFDidMigrateToCoreDataFeedKey)
         self.synchronize()
     }
     
     public func wmf_didMigrateToNewFeed() -> Bool {
-        return self.boolForKey(WMFDidMigrateToDatabaseFeedKey)
+        return self.boolForKey(WMFDidMigrateToCoreDataFeedKey)
     }
     
     public func wmf_mostRecentInTheNewsNotificationDate() -> NSDate? {

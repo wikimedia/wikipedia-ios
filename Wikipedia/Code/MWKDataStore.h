@@ -54,6 +54,7 @@ extern NSString *const MWKURLKey;
 - (instancetype)initWithContainerURL:(NSURL *)containerURL database:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath NS_DESIGNATED_INITIALIZER;
 
 + (BOOL)migrateToSharedContainer:(NSError **)error;
+- (BOOL)migrateToCoreData:(NSError **)error;
 
 @property (readonly, strong, nonatomic) MWKHistoryList *historyList;
 @property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;

@@ -151,8 +151,6 @@ static pid_t currentPid() {
         self.crossProcessNotificationChannelName = infoDictionary[@"CrossProcessNotificiationChannelName"];
         [self setupCrossProcessCoreDataNotifier];
         [self setupCoreDataStackWithContainerURL:containerURL];
-
-        [self migrateSavedAndHistoryToCoreData:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
     }
     return self;
@@ -323,7 +321,7 @@ static pid_t currentPid() {
     return YES;
 }
 
-- (BOOL)migrateSavedAndHistoryToCoreData:(NSError **)error {
+- (BOOL)migrateToCoreData:(NSError **)error {
     NSManagedObjectContext *moc = self.viewContext;
     NSMutableDictionary<NSString *, MWKHistoryEntry *> *historyEntries = [NSMutableDictionary dictionaryWithCapacity:100];
 
