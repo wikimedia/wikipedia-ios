@@ -1,8 +1,6 @@
 #import "WMFNearbyContentSource.h"
 #import "WMFContentGroupDataStore.h"
 #import "WMFArticleDataStore.h"
-
-#import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "WMFLocationSearchResults.h"
 #import "MWKLocationSearchResult.h"
 
@@ -83,7 +81,7 @@
         [self.currentLocationManager startMonitoringLocation];
     } else {
         [self getGroupForLocation:self.currentLocationManager.location
-            completion:^(WMFLocationContentGroup *group) {
+            completion:^(WMFContentGroup *group) {
                 [self fetchResultsForLocationGroup:group completion:completion];
             }
             failure:^(NSError *error) {
@@ -95,7 +93,7 @@
 }
 
 - (void)removeAllContent {
-    [self.contentStore removeAllContentGroupsOfKind:[WMFLocationContentGroup kind]];
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
 }
 
 #pragma mark - WMFLocationManagerDelegate
@@ -106,7 +104,7 @@
     }
     self.isFetchingInitialLocation = NO;
     [self getGroupForLocation:location
-        completion:^(WMFLocationContentGroup *group) {
+        completion:^(WMFContentGroup *group) {
             [self fetchResultsForLocationGroup:group completion:self.completion];
             self.completion = nil;
         }
@@ -129,15 +127,12 @@
     self.completion = nil;
 }
 
-- (nullable WMFLocationContentGroup *)contentGroupCloseToLocation:(CLLocation *)location {
+- (nullable WMFContentGroup *)contentGroupCloseToLocation:(CLLocation *)location {
 
-    __block WMFLocationContentGroup *locationContentGroup = nil;
-    [self.contentStore enumerateContentGroupsOfKind:[WMFLocationContentGroup kind]
+    __block WMFContentGroup *locationContentGroup = nil;
+    [self.contentStore enumerateContentGroupsOfKind:WMFContentGroupKindLocation
                                           withBlock:^(WMFContentGroup *_Nonnull currentGroup, BOOL *_Nonnull stop) {
-                                              if (![currentGroup isKindOfClass:[WMFLocationContentGroup class]]) {
-                                                  return;
-                                              }
-                                              WMFLocationContentGroup *potentiallyCloseLocationGroup = (WMFLocationContentGroup *)currentGroup;
+                                              WMFContentGroup *potentiallyCloseLocationGroup = (WMFContentGroup *)currentGroup;
                                               if ([potentiallyCloseLocationGroup.location wmf_isCloseTo:location]) {
                                                   locationContentGroup = potentiallyCloseLocationGroup;
                                                   *stop = YES;
@@ -149,7 +144,7 @@
 
 #pragma mark - Fetching
 
-- (void)getGroupForLocation:(CLLocation *)location completion:(void (^)(WMFLocationContentGroup *group))completion
+- (void)getGroupForLocation:(CLLocation *)location completion:(void (^)(WMFContentGroup *group))completion
                     failure:(void (^)(NSError *error))failure {
 
     if (self.isProcessingLocation) {
@@ -158,7 +153,7 @@
     }
     self.isProcessingLocation = YES;
 
-    WMFLocationContentGroup *group = [self contentGroupCloseToLocation:location];
+    WMFContentGroup *group = [self contentGroupCloseToLocation:location];
     if (group) {
         completion(group);
         return;
@@ -166,7 +161,10 @@
 
     [self.currentLocationManager reverseGeocodeLocation:location
         completion:^(CLPlacemark *_Nonnull placemark) {
-            WMFLocationContentGroup *group = [[WMFLocationContentGroup alloc] initWithLocation:location placemark:placemark siteURL:self.siteURL];
+            WMFContentGroup *group = [self.contentStore createGroupOfKind:WMFContentGroupKindLocation forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:nil customizationBlock:^(WMFContentGroup * _Nonnull group) {
+                group.location = location;
+                group.placemark = placemark;
+            }];
             completion(group);
 
         }
@@ -176,9 +174,9 @@
         }];
 }
 
-- (void)fetchResultsForLocationGroup:(WMFLocationContentGroup *)group completion:(nullable dispatch_block_t)completion {
+- (void)fetchResultsForLocationGroup:(WMFContentGroup *)group completion:(nullable dispatch_block_t)completion {
 
-    NSArray<NSURL *> *results = [self.contentStore contentForContentGroup:group];
+    NSArray<NSURL *> *results = (NSArray<NSURL *> *)group.content;
 
     if ([results count] > 0) {
         self.isProcessingLocation = NO;
@@ -207,9 +205,8 @@
                 [self.previewStore addPreviewWithURL:urls[idx] updatedWithLocationSearchResult:obj];
             }];
 
-            [self removeOldSectionsForDate:group.date];
+            [self removeOldSectionsForDate:group.midnightUTCDate];
             [self.contentStore addContentGroup:group associatedContent:urls];
-            [self.contentStore notifyWhenWriteTransactionsComplete:completion];
         }
         failure:^(NSError *_Nonnull error) {
             self.isProcessingLocation = NO;
@@ -221,15 +218,13 @@
 
 - (void)removeOldSectionsForDate:(NSDate *)date {
     NSMutableArray *oldSectionKeys = [NSMutableArray array];
-    [self.contentStore enumerateContentGroupsOfKind:[WMFLocationContentGroup kind]
+    [self.contentStore enumerateContentGroupsOfKind:WMFContentGroupKindLocation
                                           withBlock:^(WMFContentGroup *_Nonnull section, BOOL *_Nonnull stop) {
-                                              if ([[section.date dateAtStartOfDay] isEqualToDate:[date dateAtStartOfDay]]) {
-                                                  [oldSectionKeys addObject:[section databaseKey]];
+                                              if ([section isForLocalDate:date]) {
+                                                  [oldSectionKeys addObject:section.key];
                                               }
                                           }];
-    [self.contentStore asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
-        [transaction removeObjectsForKeys:oldSectionKeys inCollection:[WMFContentGroup databaseCollectionName]];
-    }];
+    [self.contentStore removeContentGroupsWithKeys:oldSectionKeys];
 }
 
 @end

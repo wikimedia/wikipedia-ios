@@ -1,7 +1,4 @@
 #import "WMFArticleDataStore.h"
-#import "WMFContentGroup+WMFDatabaseStorable.h"
-#import "MWKHistoryEntry+WMFDatabaseStorable.h"
-
 #import "MWKSearchResult.h"
 #import "MWKLocationSearchResult.h"
 #import "MWKArticle.h"

@@ -5,7 +5,6 @@
 #import "MWKHistoryEntry.h"
 #import "MWKSearchResult.h"
 #import "WMFRelatedSearchFetcher.h"
-#import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "WMFRelatedSearchResults.h"
 @import NSDate_Extensions;
 #import <WMFModel/WMFModel-Swift.h>
@@ -145,7 +144,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)removeAllContent {
-    [self.contentStore removeAllContentGroupsOfKind:[WMFRelatedPagesContentGroup kind]];
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindRelatedPages];
 }
 
 #pragma mark - Observing
@@ -174,7 +173,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateRelatedGroupForReference:(WMFArticle *)reference date:(NSDate *)date completion:(nullable dispatch_block_t)completion {
     if ([reference needsRelatedPagesGroupForDate:date]) {
-        WMFRelatedPagesContentGroup *section = [self addSectionForReference:reference];
+        WMFContentGroup *section = [self addSectionForReference:reference];
         [self fetchAndSaveRelatedArticlesForSection:section completion:completion];
     } else if (reference && ![reference needsRelatedPagesGroup]) {
         [self removeSectionForReference:reference];
@@ -193,24 +192,26 @@ NS_ASSUME_NONNULL_BEGIN
     if (!URL) {
         return;
     }
-    WMFContentGroup *group = [self.contentStore contentGroupForURL:[WMFRelatedPagesContentGroup urlForArticleURL:URL]];
+    WMFContentGroup *group = [self.contentStore contentGroupForURL:[WMFContentGroup relatedPagesContentGroupURLForArticleURL:URL]];
     if (group) {
         [self.contentStore removeContentGroup:group];
     }
 }
 
-- (WMFRelatedPagesContentGroup *)addSectionForReference:(WMFArticle *)reference {
-    WMFRelatedPagesContentGroup *group = (id)[self.contentStore contentGroupForURL:[WMFRelatedPagesContentGroup urlForArticleURL:reference.URL]];
+- (WMFContentGroup *)addSectionForReference:(WMFArticle *)reference {
+    WMFContentGroup *group = (id)[self.contentStore contentGroupForURL:[WMFContentGroup relatedPagesContentGroupURLForArticleURL:reference.URL]];
     if (!group) {
-        group = [[WMFRelatedPagesContentGroup alloc] initWithArticleURL:reference.URL date:[reference dateForGroup]];
+        group = [self.contentStore createGroupOfKind:WMFContentGroupKindRelatedPages forDate:[reference dateForGroup] withSiteURL:reference.URL.wmf_siteURL associatedContent:nil customizationBlock:^(WMFContentGroup * _Nonnull group) {
+            group.articleURL = reference.URL;
+        }];
     }
     return group;
 }
 
 #pragma mark - Fetch
 
-- (void)fetchAndSaveRelatedArticlesForSection:(WMFRelatedPagesContentGroup *)group completion:(nullable dispatch_block_t)completion {
-    NSArray<NSURL *> *related = [self.contentStore contentForContentGroup:group];
+- (void)fetchAndSaveRelatedArticlesForSection:(WMFContentGroup *)group completion:(nullable dispatch_block_t)completion {
+    NSArray<NSURL *> *related = (NSArray<NSURL *> *)group.content;
     if ([related count] > 0) {
         if (completion) {
             completion();
@@ -230,8 +231,6 @@ NS_ASSUME_NONNULL_BEGIN
                 [self.previewStore addPreviewWithURL:urls[idx] updatedWithSearchResult:obj];
             }];
             [self.contentStore addContentGroup:group associatedContent:urls];
-            [self.contentStore notifyWhenWriteTransactionsComplete:completion];
-
         }
         failureBlock:^(NSError *_Nonnull error) {
             //TODO: how to handle failure?
@@ -245,10 +244,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSDate *)lastDateAdded {
     __block NSDate *date = nil;
-    [self.contentStore enumerateContentGroupsOfKind:[WMFRelatedPagesContentGroup kind]
+    [self.contentStore enumerateContentGroupsOfKind:WMFContentGroupKindRelatedPages
                                           withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
-                                              if (date == nil || [group.date isLaterThanDate:date]) {
-                                                  date = group.date;
+                                              if (date == nil || [group.midnightUTCDate isLaterThanDate:date]) {
+                                                  date = group.midnightUTCDate;
                                               }
                                           }];
 

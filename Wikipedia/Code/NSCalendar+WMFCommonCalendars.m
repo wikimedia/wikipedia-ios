@@ -36,4 +36,27 @@
     return [[NSCalendar wmf_utcGregorianCalendar] isDateInToday:self];
 }
 
+- (BOOL)wmf_UTCDateIsSameDateAsLocalDate:(NSDate *)date {
+    NSCalendar *localCalendar = [NSCalendar wmf_gregorianCalendar];
+    NSDateComponents *localComponents = [localCalendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+    localComponents.timeZone = nil;
+    NSCalendar *UTCCalendar = [NSCalendar wmf_utcGregorianCalendar];
+    NSDateComponents *UTCComponents = [UTCCalendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+    UTCComponents.timeZone = nil;
+    return [UTCComponents isEqual:localComponents];
+}
+
+- (BOOL)wmf_UTCDateIsTodayLocal {
+    return [self wmf_UTCDateIsSameDateAsLocalDate:[NSDate date]];
+}
+
+- (NSDate *)midnightUTCDate {
+    NSCalendar *localCalendar = [NSCalendar wmf_gregorianCalendar];
+    NSDateComponents *timelessDateComponents = [localCalendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self];
+    timelessDateComponents.timeZone = nil;
+    NSCalendar *UTCCalendar = [NSCalendar wmf_utcGregorianCalendar];
+    NSDate *timelessUTCDate = [UTCCalendar dateFromComponents:timelessDateComponents];
+    return timelessUTCDate;
+}
+
 @end

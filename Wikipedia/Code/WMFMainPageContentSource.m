@@ -5,7 +5,6 @@
 
 #import "WMFContentGroupDataStore.h"
 #import "WMFArticleDataStore.h"
-#import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "MWKSiteInfoFetcher.h"
 #import "WMFArticlePreviewFetcher.h"
 #import "MWKSiteInfo.h"
@@ -62,36 +61,32 @@
 }
 
 - (void)removeAllContent {
-    [self.contentStore removeAllContentGroupsOfKind:[WMFMainPageContentGroup kind]];
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindMainPage];
 }
 
 #pragma mark - Add / Remove Sections
 
 - (WMFContentGroup *)getMainPageForSiteURL:(NSURL *)siteURL {
-    WMFContentGroup *section = [self.contentStore contentGroupForURL:[WMFMainPageContentGroup urlForSiteURL:siteURL]];
-    if (![section.date isToday]) {
-        section = [[WMFMainPageContentGroup alloc] initWithSiteURL:self.siteURL];
+    WMFContentGroup *section = [self.contentStore contentGroupForURL:[WMFContentGroup  mainPageURLForSiteURL:siteURL]];
+    if (!section.isForToday) {
+        section = [self.contentStore createGroupOfKind:WMFContentGroupKindMainPage forDate:[NSDate date] withSiteURL:siteURL associatedContent:nil];
     }
     return section;
 }
 
 - (void)cleanupOldSections {
-    NSMutableArray *oldSectionKeys = [NSMutableArray array];
-    [self.contentStore enumerateContentGroupsOfKind:[WMFMainPageContentGroup kind]
+    [self.contentStore enumerateContentGroupsOfKind:WMFContentGroupKindMainPage
                                           withBlock:^(WMFContentGroup *_Nonnull section, BOOL *_Nonnull stop) {
-                                              if (![section.date isToday]) {
-                                                  [oldSectionKeys addObject:[section databaseKey]];
+                                              if (!section.isForToday) {
+                                                  [self.contentStore removeContentGroup:section];
                                               }
                                           }];
-    [self.contentStore asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
-        [transaction removeObjectsForKeys:oldSectionKeys inCollection:[WMFContentGroup databaseCollectionName]];
-    }];
 }
 
 #pragma mark - Fetch
 
 - (void)fetchAndSaveMainPageForSection:(WMFContentGroup *)section completion:(nullable dispatch_block_t)completion {
-    if ([section.date isToday] && [self.contentStore contentForContentGroup:section] != nil) {
+    if (section.isForToday && section.content != nil) {
         if (completion) {
             completion();
         }
@@ -121,7 +116,6 @@
                     [self.previewStore addPreviewWithURL:data.mainPageURL updatedWithSearchResult:[results firstObject]];
                     [self.contentStore addContentGroup:section associatedContent:@[data.mainPageURL]];
                     [self cleanupOldSections];
-                    [self.contentStore notifyWhenWriteTransactionsComplete:completion];
 
                 }
                 failure:^(NSError *_Nonnull error) {

@@ -7,7 +7,6 @@
 @class MWKHistoryList;
 @class MWKSavedPageList;
 @class MWKRecentSearchList;
-@class WMFRelatedSectionBlackList;
 @class MWKImageInfo;
 @class MWKImageList;
 @class WMFArticle;
@@ -36,7 +35,7 @@ extern NSString *const MWKTeardownDataSourcesNotification;
 
 /**
  * Subscribe to get notifications when an item is
- * added to saved pages, history, blacklist, etc…
+ * added to saved pages, history, etc…
  * The url of the item updated will be in the
  * MWKURLKey of the userInfo
  */
@@ -59,7 +58,6 @@ extern NSString *const MWKURLKey;
 @property (readonly, strong, nonatomic) MWKHistoryList *historyList;
 @property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
-@property (readonly, strong, nonatomic) WMFRelatedSectionBlackList *blackList;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
 
@@ -67,6 +65,9 @@ extern NSString *const MWKURLKey;
 - (nullable WMFArticle *)fetchArticleForURL:(NSURL *)URL;
 - (nullable WMFArticle *)fetchArticleForKey:(NSString *)key;
 - (nullable WMFArticle *)fetchOrCreateArticleForURL:(NSURL *)URL;
+
+- (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL;
+- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed forArticleURL:(NSURL *)articleURL;
 
 - (BOOL)save:(NSError **)error;
 

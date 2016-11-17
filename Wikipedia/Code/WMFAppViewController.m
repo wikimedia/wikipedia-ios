@@ -26,7 +26,6 @@
 // Model
 #import "MWKSearchResult.h"
 #import "MWKLanguageLinkController.h"
-#import "WMFContentGroup.h"
 
 //Content Sources
 #import "WMFRelatedPagesContentSource.h"
@@ -217,7 +216,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     }
     self.notificationsController.applicationActive = YES;
     [self.dataStore syncDataStoreToDatabase];
-    [self.contentStore syncDataStoreToDatabase];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKSetupDataSourcesNotification object:nil];
 #if FB_TWEAK_ENABLED
     if (FBTweakValue(@"Notifications", @"In the news", @"Send on app open", NO)) {
@@ -348,27 +347,29 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)migrateToNewFeedIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
-    YapDatabase *db = [YapDatabase sharedInstance];
-    if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToNewFeed]) {
-        self.previewStore = [[WMFArticleDataStore alloc] initWithDataStore:self.dataStore];
-        self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
-        completion();
-    } else {
-        YapDatabaseConnection *conn = [db wmf_newWriteConnection];
-        [conn asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
-            [transaction removeAllObjectsInCollection:[WMFContentGroup databaseCollectionName]];
-        }
-            completionQueue:dispatch_get_main_queue()
-            completionBlock:^{
-                self.previewStore = [[WMFArticleDataStore alloc] initWithDataStore:self.dataStore];
-                self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
-                [self preloadContentSourcesForced:YES
-                                       completion:^{
-                                           [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
-                                           completion();
-                                       }];
-            }];
-    }
+    self.previewStore = [[WMFArticleDataStore alloc] initWithDataStore:self.dataStore];
+    self.contentStore = [[WMFContentGroupDataStore alloc] initWithDataStore:self.dataStore];
+    completion();
+    
+//    YapDatabase *db = [YapDatabase sharedInstance];
+//    if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToNewFeed]) {
+//
+//    } else {
+//        YapDatabaseConnection *conn = [db wmf_newWriteConnection];
+//        [conn asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
+//            [transaction removeAllObjectsInCollection:[WMFContentGroup databaseCollectionName]];
+//        }
+//            completionQueue:dispatch_get_main_queue()
+//            completionBlock:^{
+//                self.previewStore = [[WMFArticleDataStore alloc] initWithDataStore:self.dataStore];
+//                self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
+//                [self preloadContentSourcesForced:YES
+//                                       completion:^{
+//                                           [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
+//                                           completion();
+//                                       }];
+//            }];
+//    }
 }
 
 - (void)finishLaunch {
@@ -1033,13 +1034,13 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
     [[self nearbyContentSource] loadNewContentForce:NO
                                          completion:^{
-                                             WMFContentGroup *nearby = [self.contentStore firstGroupOfKind:[WMFLocationContentGroup kind] forDate:[NSDate date]];
+                                             WMFContentGroup *nearby = [self.contentStore firstGroupOfKind:WMFContentGroupKindLocation forDate:[NSDate date]];
                                              if (!nearby) {
                                                  //TODO: show an error?
                                                  return;
                                              }
 
-                                             NSArray *urls = [self.contentStore contentForContentGroup:nearby];
+                                             NSArray *urls = nearby.content;
 
                                              WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:nearby articleURLs:urls userDataStore:self.dataStore previewStore:self.previewStore];
                                              vc.cellType = WMFMorePageListCellTypeLocation;
@@ -1235,9 +1236,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                 return;
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-                WMFNewsContentGroup *newsContentGroup = (WMFNewsContentGroup *)[self.contentStore firstGroupOfKind:[WMFNewsContentGroup kind]];
+                WMFContentGroup *newsContentGroup = [self.contentStore firstGroupOfKind:WMFContentGroupKindNews];
                 if (newsContentGroup) {
-                    NSArray<WMFFeedNewsStory *> *stories = [self.contentStore contentForContentGroup:newsContentGroup];
+                    NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)newsContentGroup.content;
                     if (stories.count > 0) {
                         NSInteger randomIndex = (NSInteger)arc4random_uniform((uint32_t)stories.count);
                         WMFFeedNewsStory *randomStory = stories[randomIndex];

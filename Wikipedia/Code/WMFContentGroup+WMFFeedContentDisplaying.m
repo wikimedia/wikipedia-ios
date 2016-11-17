@@ -6,432 +6,523 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFContentGroup (WMFContentManaging)
 
 - (UIImage *)headerIcon {
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindContinueReading:
+            return [UIImage imageNamed:@"home-continue-reading-mini"];
+        case WMFContentGroupKindMainPage:
+            return [UIImage imageNamed:@"news-mini"];
+        case WMFContentGroupKindRelatedPages:
+            return [UIImage imageNamed:@"recent-mini"];
+        case WMFContentGroupKindLocation:
+            return [UIImage imageNamed:@"nearby-mini"];
+        case WMFContentGroupKindPictureOfTheDay:
+            return [UIImage imageNamed:@"potd-mini"];
+        case WMFContentGroupKindRandom:
+            return [UIImage imageNamed:@"random-mini"];
+        case WMFContentGroupKindFeaturedArticle:
+            return [UIImage imageNamed:@"featured-mini"];
+        case WMFContentGroupKindTopRead:
+            return [UIImage imageNamed:@"trending-mini"];
+        case WMFContentGroupKindNews:
+            return [UIImage imageNamed:@"news-mini"];
+        case WMFContentGroupKindNotification:
+        case WMFContentGroupKindUnknown:
+        default:
+            break;
+    }
     return [[UIImage alloc] init];
 }
 
 - (UIColor *)headerIconTintColor {
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindContinueReading:
+            break;
+        case WMFContentGroupKindMainPage:
+            break;
+        case WMFContentGroupKindRelatedPages:
+            break;
+        case WMFContentGroupKindLocation:
+            break;
+        case WMFContentGroupKindPictureOfTheDay:
+            break;
+        case WMFContentGroupKindRandom:
+            break;
+        case WMFContentGroupKindFeaturedArticle:
+            return [UIColor wmf_colorWithHex:0xE6B84F alpha:1.0];
+        case WMFContentGroupKindTopRead:
+            return [UIColor wmf_blueTintColor];
+        case WMFContentGroupKindNews:
+        case WMFContentGroupKindNotification:
+        case WMFContentGroupKindUnknown:
+        default:
+            break;
+    }
     return [UIColor wmf_exploreSectionHeaderIconTintColor];
 }
 
 - (UIColor *)headerIconBackgroundColor {
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindContinueReading:
+            break;
+        case WMFContentGroupKindMainPage:
+            break;
+        case WMFContentGroupKindRelatedPages:
+            break;
+        case WMFContentGroupKindLocation:
+            break;
+        case WMFContentGroupKindPictureOfTheDay:
+            break;
+        case WMFContentGroupKindRandom:
+            break;
+        case WMFContentGroupKindFeaturedArticle:
+            return [UIColor wmf_colorWithHex:0xFCF5E4 alpha:1.0];
+        case WMFContentGroupKindTopRead:
+            return [UIColor wmf_lightBlueTintColor];
+        case WMFContentGroupKindNews:
+            return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
+        case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindUnknown:
+        default:
+            break;
+    }
     return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
 }
 
 - (NSAttributedString *)headerTitle {
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindContinueReading:
+            return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-continue-reading-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+        case WMFContentGroupKindMainPage:
+            return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-main-page-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+        case WMFContentGroupKindRelatedPages:
+            return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-continue-related-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+        case WMFContentGroupKindLocation:
+             return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-nearby-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+        case WMFContentGroupKindPictureOfTheDay:
+            return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-potd-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+        case WMFContentGroupKindRandom:
+            return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-random-article-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+        case WMFContentGroupKindFeaturedArticle:
+            return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-featured-article-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+        case WMFContentGroupKindTopRead:
+        {
+            // fall back to language code if it can't be localized
+            NSString *language = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.siteURL.wmf_language];
+            
+            NSString *heading = nil;
+            
+            //crash protection if language is nil
+            if (language) {
+                heading =
+                [MWLocalizedString(@"explore-most-read-heading", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                                withString:language];
+            } else {
+                heading = MWLocalizedString(@"explore-most-read-generic-heading", nil);
+            }
+            
+            NSDictionary *attributes = @{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]};
+            return [[NSAttributedString alloc] initWithString:heading attributes:attributes];
+        }
+        case WMFContentGroupKindNews:
+            return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"in-the-news-title", nil)];
+        case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindUnknown:
+        default:
+            break;
+    }
     return [[NSAttributedString alloc] init];
 }
 
 - (NSAttributedString *)headerSubTitle {
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindContinueReading:
+        {
+            NSString *relativeTimeString = [self.date wmf_relativeTimestamp];
+            return [[NSAttributedString alloc] initWithString:[relativeTimeString wmf_stringByCapitalizingFirstCharacter] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+        }
+            break;
+        case WMFContentGroupKindMainPage:
+            return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:[NSDate date]] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+            break;
+        case WMFContentGroupKindRelatedPages:
+            return [[NSAttributedString alloc] initWithString:self.articleURL.wmf_title attributes:@{NSForegroundColorAttributeName: [UIColor wmf_blueTintColor]}];
+        case WMFContentGroupKindLocation:
+        {
+            if (self.isForToday) {
+                return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-nearby-sub-heading-your-location", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+            } else if (self.placemark) {
+                return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@, %@", self.placemark.name, self.placemark.locality] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+            } else {
+                return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%f, %f", self.location.coordinate.latitude, self.location.coordinate.longitude] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+            }
+        }
+            break;
+        case WMFContentGroupKindPictureOfTheDay:
+            return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+        case WMFContentGroupKindRandom:
+            return [[NSAttributedString alloc] initWithString:MWSiteLocalizedString(self.siteURL, @"onboarding-wikipedia", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+        case WMFContentGroupKindFeaturedArticle:
+            return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+        case WMFContentGroupKindTopRead:
+        {
+            NSString* dateString = [self localContentDateDisplayString];
+            if(!dateString){
+                dateString = @"";
+            }
+            
+            return [[NSAttributedString alloc]
+                    initWithString:dateString
+                    attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+        }
+        case WMFContentGroupKindNews:
+            return [[NSAttributedString alloc]
+                    initWithString:[self localDateDisplayString]
+                    attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+        case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindUnknown:
+        default:
+            break;
+    }
     return [[NSAttributedString alloc] init];
 }
 
 - (nullable NSURL *)headerContentURL {
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindContinueReading:
+            break;
+        case WMFContentGroupKindMainPage:
+            break;
+        case WMFContentGroupKindRelatedPages:
+            return self.articleURL;
+        case WMFContentGroupKindLocation:
+            break;
+        case WMFContentGroupKindPictureOfTheDay:
+            break;
+        case WMFContentGroupKindRandom:
+            break;
+        case WMFContentGroupKindFeaturedArticle:
+            break;
+        case WMFContentGroupKindTopRead:
+            break;
+        case WMFContentGroupKindNews:
+            break;
+        case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindUnknown:
+        default:
+            break;
+    }
     return nil;
 }
 
 - (WMFFeedHeaderActionType)headerActionType {
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindContinueReading:
+            break;
+        case WMFContentGroupKindMainPage:
+            break;
+        case WMFContentGroupKindRelatedPages:
+            return WMFFeedHeaderActionTypeOpenHeaderContent;
+        case WMFContentGroupKindLocation:
+            return WMFFeedHeaderActionTypeOpenMore;
+        case WMFContentGroupKindPictureOfTheDay:
+            break;
+        case WMFContentGroupKindRandom:
+            break;
+        case WMFContentGroupKindFeaturedArticle:
+            break;
+        case WMFContentGroupKindTopRead:
+            return WMFFeedHeaderActionTypeOpenMore;
+        case WMFContentGroupKindNews:
+            return WMFFeedHeaderActionTypeOpenFirstItem;
+        case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindUnknown:
+        default:
+            break;
+    }
     return WMFFeedHeaderActionTypeOpenFirstItem;
 }
 
 - (WMFFeedBlacklistOption)blackListOptions {
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindContinueReading:
+            break;
+        case WMFContentGroupKindMainPage:
+            break;
+        case WMFContentGroupKindRelatedPages:
+            return WMFFeedBlacklistOptionContent;
+        case WMFContentGroupKindLocation:
+            break;
+        case WMFContentGroupKindPictureOfTheDay:
+            break;
+        case WMFContentGroupKindRandom:
+            break;
+        case WMFContentGroupKindFeaturedArticle:
+            break;
+        case WMFContentGroupKindTopRead:
+            break;
+        case WMFContentGroupKindNews:
+            break;
+        case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindUnknown:
+        default:
+            break;
+    }
     return WMFFeedBlacklistOptionNone;
 }
 
 - (WMFFeedDisplayType)displayType {
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindContinueReading:
+            break;
+        case WMFContentGroupKindMainPage:
+            break;
+        case WMFContentGroupKindRelatedPages:
+            return WMFFeedDisplayTypePageWithPreview;
+        case WMFContentGroupKindLocation:
+            return WMFFeedDisplayTypePageWithLocation;
+        case WMFContentGroupKindPictureOfTheDay:
+            return WMFFeedDisplayTypePhoto;
+        case WMFContentGroupKindRandom:
+            return WMFFeedDisplayTypePageWithPreview;
+        case WMFContentGroupKindFeaturedArticle:
+            return WMFFeedDisplayTypePageWithPreview;
+        case WMFContentGroupKindTopRead:
+            break;
+        case WMFContentGroupKindNews:
+            return WMFFeedDisplayTypeStory;
+        case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindUnknown:
+        default:
+            break;
+    }
     return WMFFeedDisplayTypePage;
 }
 
 - (NSUInteger)maxNumberOfCells {
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindContinueReading:
+            break;
+        case WMFContentGroupKindMainPage:
+            break;
+        case WMFContentGroupKindRelatedPages:
+            return 3;
+        case WMFContentGroupKindLocation:
+            return 3;
+        case WMFContentGroupKindPictureOfTheDay:
+            break;
+        case WMFContentGroupKindRandom:
+            break;
+        case WMFContentGroupKindFeaturedArticle:
+            break;
+        case WMFContentGroupKindTopRead:
+            return 5;
+        case WMFContentGroupKindNews:
+            return 5;
+        case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindUnknown:
+        default:
+            break;
+    }
     return 1;
 }
 
 - (BOOL)prefersWiderColumn {
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindContinueReading:
+            break;
+        case WMFContentGroupKindMainPage:
+            break;
+        case WMFContentGroupKindRelatedPages:
+            return YES /*FBTweakValue(@"Explore", @"General", @"Put 'Because You Read' in Wider Column", YES)*/;
+        case WMFContentGroupKindLocation:
+            break;
+        case WMFContentGroupKindPictureOfTheDay:
+            break;
+        case WMFContentGroupKindRandom:
+            break;
+        case WMFContentGroupKindFeaturedArticle:
+            break;
+        case WMFContentGroupKindTopRead:
+            break;
+        case WMFContentGroupKindNews:
+            break;
+        case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindUnknown:
+        default:
+            break;
+    }
     return NO;
 }
 
 - (WMFFeedDetailType)detailType {
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindContinueReading:
+            break;
+        case WMFContentGroupKindMainPage:
+            break;
+        case WMFContentGroupKindRelatedPages:
+            break;
+        case WMFContentGroupKindLocation:
+            break;
+        case WMFContentGroupKindPictureOfTheDay:
+            return WMFFeedDetailTypeGallery;
+        case WMFContentGroupKindRandom:
+            return WMFFeedDetailTypePageWithRandomButton;
+        case WMFContentGroupKindFeaturedArticle:
+            break;
+        case WMFContentGroupKindTopRead:
+            break;
+        case WMFContentGroupKindNews:
+            return WMFFeedDetailTypeStory;
+        case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindUnknown:
+        default:
+            break;
+    }
     return WMFFeedDetailTypePage;
 }
 
 - (nullable NSString *)footerText {
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindContinueReading:
+            break;
+        case WMFContentGroupKindMainPage:
+            break;
+        case WMFContentGroupKindRelatedPages:
+            return
+            [MWLocalizedString(@"home-more-like-footer", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                        withString:self.articleURL.wmf_title];
+        case WMFContentGroupKindLocation:
+        {
+            if (self.isForToday) {
+                return MWLocalizedString(@"home-nearby-footer", nil);
+            } else {
+                return [MWLocalizedString(@"home-nearby-location-footer", nil) stringByReplacingOccurrencesOfString:@"$1" withString:self.placemark.name];
+            }
+        }
+        case WMFContentGroupKindPictureOfTheDay:
+            break;
+        case WMFContentGroupKindRandom:
+            return MWLocalizedString(@"explore-another-random", nil);
+        case WMFContentGroupKindFeaturedArticle:
+            break;
+        case WMFContentGroupKindTopRead:
+        {
+            NSString* dateString = [self localContentDateShortDisplayString];
+            if(!dateString){
+                dateString = @"";
+            }
+            
+            return
+            [MWLocalizedString(@"explore-most-read-footer-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                                    withString:dateString];
+        }
+        case WMFContentGroupKindNews:
+            break;
+        case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindUnknown:
+        default:
+            break;
+    }
     return nil;
 }
 
 - (WMFFeedMoreType)moreType {
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindContinueReading:
+            break;
+        case WMFContentGroupKindMainPage:
+            break;
+        case WMFContentGroupKindRelatedPages:
+            return WMFFeedMoreTypePageList;
+        case WMFContentGroupKindLocation:
+            return WMFFeedMoreTypePageListWithLocation;
+        case WMFContentGroupKindPictureOfTheDay:
+            break;
+        case WMFContentGroupKindRandom:
+            return WMFFeedMoreTypePageWithRandomButton;
+        case WMFContentGroupKindFeaturedArticle:
+            break;
+        case WMFContentGroupKindTopRead:
+            return WMFFeedMoreTypePageList;
+        case WMFContentGroupKindNews:
+            break;
+        case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindUnknown:
+        default:
+            break;
+    }
     return WMFFeedMoreTypeNone;
 }
 
 - (nullable NSString *)moreTitle {
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindContinueReading:
+            break;
+        case WMFContentGroupKindMainPage:
+            break;
+        case WMFContentGroupKindRelatedPages:
+            return [MWLocalizedString(@"home-more-like-footer", nil) stringByReplacingOccurrencesOfString:@"$1" withString:self.articleURL.wmf_title];
+        case WMFContentGroupKindLocation:
+            return MWLocalizedString(@"main-menu-nearby", nil);
+        case WMFContentGroupKindPictureOfTheDay:
+            break;
+        case WMFContentGroupKindRandom:
+            break;
+        case WMFContentGroupKindFeaturedArticle:
+            break;
+        case WMFContentGroupKindTopRead:
+            return [self topReadMoreTitleForDate:self.contentMidnightUTCDate];
+        case WMFContentGroupKindNews:
+            break;
+        case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindUnknown:
+        default:
+            break;
+    }
     return nil;
 }
 
 - (NSString *)analyticsContentType {
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindContinueReading:
+            return @"Continue Reading";
+        case WMFContentGroupKindMainPage:
+            return @"Main Page";
+        case WMFContentGroupKindRelatedPages:
+            return @"Recommended";
+        case WMFContentGroupKindLocation:
+            return @"Nearby";
+        case WMFContentGroupKindPictureOfTheDay:
+            return @"Picture of the Day";
+        case WMFContentGroupKindRandom:
+            return @"Random";
+        case WMFContentGroupKindFeaturedArticle:
+            return @"Featured";
+        case WMFContentGroupKindTopRead:
+            return @"Most Read";
+        case WMFContentGroupKindNews:
+            return @"In The News";
+        case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindUnknown:
+        default:
+            break;
+    }
     return @"Unknown Content Type";
-}
-
-@end
-
-@implementation WMFContinueReadingContentGroup (WMFContentManaging)
-
-- (UIImage *)headerIcon {
-    return [UIImage imageNamed:@"home-continue-reading-mini"];
-}
-
-- (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-continue-reading-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
-}
-
-- (NSAttributedString *)headerSubTitle {
-    NSString *relativeTimeString = [self.date wmf_relativeTimestamp];
-    return [[NSAttributedString alloc] initWithString:[relativeTimeString wmf_stringByCapitalizingFirstCharacter] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
-}
-
-- (NSString *)analyticsContentType {
-    return @"Continue Reading";
-}
-
-- (NSInteger)dailySortPriority {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
-@end
-
-@implementation WMFMainPageContentGroup (WMFContentManaging)
-
-- (UIImage *)headerIcon {
-    return [UIImage imageNamed:@"news-mini"];
-}
-
-- (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-main-page-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
-}
-
-- (NSAttributedString *)headerSubTitle {
-    return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:[NSDate date]] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
-}
-
-- (NSString *)analyticsContentType {
-    return @"Main Page";
-}
-
-- (NSInteger)dailySortPriority {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        return 0;
-    } else {
-        return 4;
-    }
-}
-
-@end
-
-@implementation WMFRelatedPagesContentGroup (WMFContentManaging)
-
-- (UIImage *)headerIcon {
-    return [UIImage imageNamed:@"recent-mini"];
-}
-
-- (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-continue-related-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
-}
-
-- (NSAttributedString *)headerSubTitle {
-    return [[NSAttributedString alloc] initWithString:self.articleURL.wmf_title attributes:@{NSForegroundColorAttributeName: [UIColor wmf_blueTintColor]}];
-}
-
-- (nullable NSURL *)headerContentURL {
-    return self.articleURL;
-}
-
-- (WMFFeedHeaderActionType)headerActionType {
-    return WMFFeedHeaderActionTypeOpenHeaderContent;
-}
-
-- (WMFFeedBlacklistOption)blackListOptions {
-    return WMFFeedBlacklistOptionContent;
-}
-
-- (WMFFeedDisplayType)displayType {
-    return WMFFeedDisplayTypePageWithPreview;
-}
-
-- (BOOL)prefersWiderColumn {
-    return YES /*FBTweakValue(@"Explore", @"General", @"Put 'Because You Read' in Wider Column", YES)*/;
-}
-
-- (NSUInteger)maxNumberOfCells {
-    return 3;
-}
-
-- (nullable NSString *)footerText {
-    return
-        [MWLocalizedString(@"home-more-like-footer", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                    withString:self.articleURL.wmf_title];
-}
-
-- (WMFFeedMoreType)moreType {
-    return WMFFeedMoreTypePageList;
-}
-
-- (nullable NSString *)moreTitle {
-    return [MWLocalizedString(@"home-more-like-footer", nil) stringByReplacingOccurrencesOfString:@"$1" withString:self.articleURL.wmf_title];
-}
-
-- (NSString *)analyticsContentType {
-    return @"Recommended";
-}
-
-- (NSInteger)dailySortPriority {
-    return 7;
-}
-
-@end
-
-@implementation WMFLocationContentGroup (WMFContentManaging)
-
-- (UIImage *)headerIcon {
-    return [UIImage imageNamed:@"nearby-mini"];
-}
-
-- (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-nearby-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
-}
-
-- (NSAttributedString *)headerSubTitle {
-    if ([self.date isToday]) {
-        return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-nearby-sub-heading-your-location", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
-    } else if (self.placemark) {
-        return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@, %@", self.placemark.name, self.placemark.locality] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
-    } else {
-        return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%f, %f", self.location.coordinate.latitude, self.location.coordinate.longitude] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
-    }
-}
-
-- (WMFFeedHeaderActionType)headerActionType {
-    return WMFFeedHeaderActionTypeOpenMore;
-}
-
-- (WMFFeedDisplayType)displayType {
-    return WMFFeedDisplayTypePageWithLocation;
-}
-
-- (NSUInteger)maxNumberOfCells {
-    return 3;
-}
-
-- (nullable NSString *)footerText {
-    if ([self.date isToday]) {
-        return MWLocalizedString(@"home-nearby-footer", nil);
-    } else {
-        return [MWLocalizedString(@"home-nearby-location-footer", nil) stringByReplacingOccurrencesOfString:@"$1" withString:self.placemark.name];
-    }
-}
-
-- (WMFFeedMoreType)moreType {
-    return WMFFeedMoreTypePageListWithLocation;
-}
-
-- (nullable NSString *)moreTitle {
-    return MWLocalizedString(@"main-menu-nearby", nil);
-}
-
-- (NSString *)analyticsContentType {
-    return @"Nearby";
-}
-
-- (NSInteger)dailySortPriority {
-    return 6;
-}
-
-@end
-
-@implementation WMFPictureOfTheDayContentGroup (WMFContentManaging)
-
-- (UIImage *)headerIcon {
-    return [UIImage imageNamed:@"potd-mini"];
-}
-
-- (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-potd-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
-}
-
-- (NSAttributedString *)headerSubTitle {
-    return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
-}
-
-- (WMFFeedDisplayType)displayType {
-    return WMFFeedDisplayTypePhoto;
-}
-
-- (WMFFeedDetailType)detailType {
-    return WMFFeedDetailTypeGallery;
-}
-
-- (NSString *)analyticsContentType {
-    return @"Picture of the Day";
-}
-
-- (NSInteger)dailySortPriority {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        return 4;
-    } else {
-        return 3;
-    }
-}
-
-@end
-
-@implementation WMFRandomContentGroup (WMFContentManaging)
-
-- (UIImage *)headerIcon {
-    return [UIImage imageNamed:@"random-mini"];
-}
-
-- (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-random-article-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
-}
-
-- (NSAttributedString *)headerSubTitle {
-    return [[NSAttributedString alloc] initWithString:MWSiteLocalizedString(self.siteURL, @"onboarding-wikipedia", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
-}
-
-- (WMFFeedDisplayType)displayType {
-    return WMFFeedDisplayTypePageWithPreview;
-}
-
-- (nullable NSString *)footerText {
-    return MWLocalizedString(@"explore-another-random", nil);
-}
-
-- (WMFFeedDetailType)detailType {
-    return WMFFeedDetailTypePageWithRandomButton;
-}
-
-- (WMFFeedMoreType)moreType {
-    return WMFFeedMoreTypePageWithRandomButton;
-}
-
-- (NSString *)analyticsContentType {
-    return @"Random";
-}
-
-- (NSInteger)dailySortPriority {
-    return 5;
-}
-
-@end
-
-@implementation WMFFeaturedArticleContentGroup (WMFContentManaging)
-- (UIImage *)headerIcon {
-    return [UIImage imageNamed:@"featured-mini"];
-}
-
-- (UIColor *)headerIconTintColor {
-    return [UIColor wmf_colorWithHex:0xE6B84F alpha:1.0];
-}
-
-- (UIColor *)headerIconBackgroundColor {
-    return [UIColor wmf_colorWithHex:0xFCF5E4 alpha:1.0];
-}
-
-- (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-featured-article-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
-}
-
-- (NSAttributedString *)headerSubTitle {
-    return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
-}
-
-- (WMFFeedDisplayType)displayType {
-    return WMFFeedDisplayTypePageWithPreview;
-}
-
-- (NSInteger)dailySortPriority {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        return 2;
-    } else {
-        return 1;
-    }
-}
-
-@end
-
-@implementation WMFTopReadContentGroup (WMFContentManaging)
-
-- (UIImage *)headerIcon {
-    return [UIImage imageNamed:@"trending-mini"];
-}
-
-- (NSAttributedString *)headerTitle {
-    // fall back to language code if it can't be localized
-    NSString *language = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.siteURL.wmf_language];
-
-    NSString *heading = nil;
-
-    //crash protection if language is nil
-    if (language) {
-        heading =
-            [MWLocalizedString(@"explore-most-read-heading", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                            withString:language];
-    } else {
-        heading = MWLocalizedString(@"explore-most-read-generic-heading", nil);
-    }
-
-    NSDictionary *attributes = @{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]};
-    return [[NSAttributedString alloc] initWithString:heading attributes:attributes];
-}
-
-- (NSAttributedString *)headerSubTitle {
-    NSString* dateString = [self localDateDisplayString];
-    if(!dateString){
-        dateString = @"";
-    }
-
-    return [[NSAttributedString alloc]
-        initWithString:dateString
-            attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
-}
-
-- (UIColor *)headerIconTintColor {
-    return [UIColor wmf_blueTintColor];
-}
-
-- (UIColor *)headerIconBackgroundColor {
-    return [UIColor wmf_lightBlueTintColor];
-}
-
-- (WMFFeedHeaderActionType)headerActionType {
-    return WMFFeedHeaderActionTypeOpenMore;
-}
-
-- (NSUInteger)maxNumberOfCells {
-    return 5;
-}
-
-- (nullable NSString *)footerText {
-    NSString* dateString = [self localDateShortDisplayString];
-    if(!dateString){
-        dateString = @"";
-    }
-    
-    return
-        [MWLocalizedString(@"explore-most-read-footer-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                                withString:dateString];
-}
-
-- (WMFFeedMoreType)moreType {
-    return WMFFeedMoreTypePageList;
-}
-
-- (nullable NSString *)moreTitle {
-    return [self titleForDate:self.mostReadDate];
-}
-
-- (NSString *)analyticsContentType {
-    return @"Most Read";
 }
 
 /**
@@ -443,91 +534,28 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A string formatted with the current locale, in the UTC time zone.
  */
-- (NSString *)localDateDisplayString {
-    return [[NSDateFormatter wmf_utcDayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.mostReadDate];
+- (NSString *)localContentDateDisplayString {
+    return [[NSDateFormatter wmf_utcDayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.contentMidnightUTCDate];
 }
 
-- (NSString *)localDateShortDisplayString {
-    return [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.mostReadDate];
+- (NSString *)localContentDateShortDisplayString {
+    return [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.contentMidnightUTCDate];
 }
 
-- (NSString *)titleForDate:(NSDate *)date {
+- (NSString *)topReadMoreTitleForDate:(NSDate *)date {
     return
-        [MWLocalizedString(@"explore-most-read-more-list-title-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                                         withString:
-                                                                                                             [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date]];
-}
-
-- (NSInteger)dailySortPriority {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        return 3;
-    } else {
-        return 2;
-    }
-}
-
-@end
-
-
-@implementation WMFNewsContentGroup (WMFContentManaging)
-
-- (NSInteger)dailySortPriority {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        return 3;
-    } else {
-        return 2;
-    }
-}
-
-- (UIImage *)headerIcon {
-    return [UIImage imageNamed:@"news-mini"];
-}
-
-- (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"in-the-news-title", nil)];
-}
-
-- (NSAttributedString *)headerSubTitle {
-    return [[NSAttributedString alloc]
-        initWithString:[self localDateDisplayString]
-            attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
-}
-
-- (UIColor *)headerIconTintColor {
-    return [UIColor wmf_exploreSectionHeaderIconTintColor];
-}
-
-- (UIColor *)headerIconBackgroundColor {
-    return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
-}
-
-- (WMFFeedHeaderActionType)headerActionType {
-    return WMFFeedHeaderActionTypeOpenFirstItem;
-}
-
-- (NSUInteger)maxNumberOfCells {
-    return 5;
-}
-
-- (NSString *)analyticsContentType {
-    return @"In The News";
-}
-
-- (WMFFeedDisplayType)displayType {
-    return WMFFeedDisplayTypeStory;
-}
-
-- (WMFFeedDetailType)detailType {
-    return WMFFeedDetailTypeStory;
+    [MWLocalizedString(@"explore-most-read-more-list-title-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                                     withString:
+     [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date]];
 }
 
 - (NSString *)localDateDisplayString {
-    return [[NSDateFormatter wmf_utcDayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
+    return [[NSDateFormatter wmf_utcDayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.midnightUTCDate];
 }
 
-- (NSString *)localDateShortDisplayString {
-    return [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
-}
+//- (NSString *)localDateShortDisplayString {
+//    return [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.midnightUTCDate];
+//}
 
 @end
 

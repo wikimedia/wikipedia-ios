@@ -20,7 +20,6 @@
     YapDatabaseCrossProcessNotification *cp = [[YapDatabaseCrossProcessNotification alloc] initWithIdentifier:@"Wikipedia"];
     [db registerExtension:cp withName:@"WikipediaCrossProcess"];
     [MWKHistoryEntry registerViewsInDatabase:db];
-    [WMFContentGroup registerViewsInDatabase:db];
 }
 
 + (instancetype)wmf_databaseWithDefaultConfigurationAtPath:(NSString *)path {

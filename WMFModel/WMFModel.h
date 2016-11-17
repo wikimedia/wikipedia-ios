@@ -65,7 +65,6 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import "MWKLanguageLinkResponseSerializer.h"
 #import "WMFMantleJSONResponseSerializer.h"
 #import "WMFNetworkUtilities.h"
-#import "WMFRelatedSectionBlackList.h"
 #import "FetcherBase.h"
 
 #import "UIScreen+WMFImageWidth.h"
@@ -78,9 +77,6 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 
 #import "MWKHistoryEntry+WMFDatabaseViews.h"
 #import "MWKLanguageLinkController_Private.h"
-#import "WMFContentGroup.h"
-#import "WMFContentGroup+WMFDatabaseViews.h"
-#import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "WMFDatabaseViewable.h"
 #import "WMFFaceDetectionCache.h"
 #import "YapDatabase+WMFExtensions.h"
@@ -143,6 +139,8 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import "WMFArticleDataStore.h"
 
 #import "WMFArticle+Extensions.h"
+#import "WMFContentGroup+Extensions.h"
+
 
 #import "NSUserActivity+WMFExtensions.h"
 

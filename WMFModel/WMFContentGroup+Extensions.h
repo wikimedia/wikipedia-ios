@@ -1,0 +1,54 @@
+#import "WMFContentGroup+CoreDataClass.h"
+
+@import CoreLocation;
+
+NS_ASSUME_NONNULL_BEGIN
+
+typedef NS_ENUM(int16_t, WMFContentType) {
+    WMFContentTypeUnknown = 0,
+    WMFContentTypeURL = 1,
+    WMFContentTypeImage = 2,
+    WMFContentTypeTopReadPreview = 3,
+    WMFContentTypeStory = 4
+};
+
+typedef NS_ENUM(int32_t, WMFContentGroupKind) {
+    WMFContentGroupKindUnknown = 0,
+    WMFContentGroupKindContinueReading = 1,
+    WMFContentGroupKindMainPage = 2,
+    WMFContentGroupKindRelatedPages = 3,
+    WMFContentGroupKindLocation = 4,
+    WMFContentGroupKindPictureOfTheDay = 5,
+    WMFContentGroupKindRandom = 6,
+    WMFContentGroupKindFeaturedArticle = 7,
+    WMFContentGroupKindTopRead = 8,
+    WMFContentGroupKindNews = 9,
+    WMFContentGroupKindNotification = 10
+};
+
+@interface WMFContentGroup (Extensions)
+
++ (NSString *)databaseKeyForURL:(NSURL *)URL;
+
+@property (nonatomic, assign) WMFContentType contentType;
+
+@property (nonatomic, assign) WMFContentGroupKind contentGroupKind;
+
+@property (nonatomic, strong, nullable) NSURL *URL;
+@property (nonatomic, strong, nullable) NSURL *articleURL;
+@property (nonatomic, strong, nullable) NSURL *siteURL;
+
+- (void)updateKey; //Sets key property based on content group kind
+- (void)updateContentType;
+- (void)updateDailySortPriority;
+
++ (nullable NSURL *)mainPageURLForSiteURL:(NSURL *)URL;
++ (nullable NSURL *)continueReadingContentGroupURL;
++ (nullable NSURL *)relatedPagesContentGroupURLForArticleURL:(NSURL *)articleURL;
+
+- (BOOL)isForLocalDate:(NSDate *)date; //date is a date in the user's time zone
+@property (nonatomic, readonly) BOOL isForToday; //is for today in the user's time zone
+
+@end
+
+NS_ASSUME_NONNULL_END

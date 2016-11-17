@@ -58,7 +58,7 @@
     NSFetchRequest *articleRequest = [WMFArticle fetchRequest];
     articleRequest.predicate = [NSPredicate predicateWithFormat:@"viewedDate != NULL"];
     articleRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"viewedDate" ascending:NO]];
-    NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:articleRequest managedObjectContext:self.userDataStore.viewContext sectionNameKeyPath:@"viewedCalendarDate" cacheName:nil];
+    NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:articleRequest managedObjectContext:self.userDataStore.viewContext sectionNameKeyPath:@"viewedDateWithoutTime" cacheName:nil];
     frc.delegate = self;
     [frc performFetch:nil];
     self.fetchedResultsController = frc;
@@ -87,7 +87,7 @@
         return @"";
     }
     
-    NSDate *date = [[[sectionInfo objects] firstObject] viewedCalendarDate];
+    NSDate *date = [[[sectionInfo objects] firstObject] viewedDateWithoutTime];
 
     //HACK: Table views for some reason aren't adding padding to the left of the default headers. Injecting some manually.
     NSString *padding = @"    ";

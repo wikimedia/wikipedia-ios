@@ -3,7 +3,6 @@
 #import "MWKDataStore.h"
 #import "WMFArticleDataStore.h"
 #import "MWKHistoryEntry.h"
-#import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "MWKArticle.h"
 #import <WMFModel/WMFModel-Swift.h>
 
@@ -63,7 +62,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         NO /*FBTweakValue(@"Explore", @"Continue Reading", @"Always Show", NO)*/ ||
         fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeDisplayingLastReadArticle;
 
-    WMFContinueReadingContentGroup *group = (id)[self.contentStore contentGroupForURL:[WMFContinueReadingContentGroup url]];
+    WMFContentGroup *group = (id)[self.contentStore contentGroupForURL:[WMFContentGroup continueReadingContentGroupURL]];
 
     if (!shouldShowContinueReading) {
         if (group) {
@@ -75,7 +74,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         return;
     }
 
-    NSURL *savedURL = [[self.contentStore contentForContentGroup:group] firstObject];
+    NSURL *savedURL = (NSURL *)[group.content firstObject];
 
     if ([savedURL isEqual:lastRead]) {
         if (completion) {
@@ -93,7 +92,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         return;
     }
 
-    group = [[WMFContinueReadingContentGroup alloc] initWithDate:userData.viewedDate];
+    group = [self.contentStore createGroupOfKind:WMFContentGroupKindContinueReading forDate:userData.viewedDate withSiteURL:nil associatedContent:@[lastRead]];
 
     WMF_TECH_DEBT_TODO(Remove this in a later version.A preview will always be available available)
     if (![self.previewStore itemForURL:lastRead]) {
@@ -101,13 +100,10 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         NSParameterAssert(article);
         [self.previewStore addPreviewWithURL:lastRead updatedWithArticle:article];
     }
-
-    [self.contentStore addContentGroup:group associatedContent:@[lastRead]];
-    [self.contentStore notifyWhenWriteTransactionsComplete:completion];
 }
 
 - (void)removeAllContent {
-    [self.contentStore removeAllContentGroupsOfKind:[WMFContinueReadingContentGroup kind]];
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindContinueReading];
 }
 
 #pragma mark - Observing

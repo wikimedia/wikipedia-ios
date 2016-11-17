@@ -3,7 +3,6 @@
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "MWKHistoryEntry+WMFDatabaseViews.h"
 #import <WMFModel/WMFModel-Swift.h>
-#import "WMFRelatedSectionBlackList.h"
 #include <notify.h>
 
 @import CoreData;
@@ -30,7 +29,6 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (readwrite, strong, nonatomic) MWKHistoryList *historyList;
 @property (readwrite, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readwrite, strong, nonatomic) MWKRecentSearchList *recentSearchList;
-@property (readwrite, strong, nonatomic) WMFRelatedSectionBlackList *blackList;
 
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
@@ -420,13 +418,6 @@ static pid_t currentPid() {
         _recentSearchList = [[MWKRecentSearchList alloc] initWithDataStore:self];
     }
     return _recentSearchList;
-}
-
-- (WMFRelatedSectionBlackList *)blackList {
-    if (!_blackList) {
-        _blackList = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self];
-    }
-    return _blackList;
 }
 
 #pragma mark - WMFBaseDataStore
@@ -1000,6 +991,28 @@ static pid_t currentPid() {
         article.key = key;
     }
     return article;
+}
+
+- (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL {
+    WMFArticle *article = [self fetchArticleForURL:articleURL];
+    if (!article) {
+        return NO;
+    }
+    return article.isBlocked;
+}
+
+- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed forArticleURL:(NSURL *)articleURL {
+    NSParameterAssert(articleURL);
+    if ([articleURL wmf_isNonStandardURL]) {
+        return;
+    }
+    if ([articleURL.wmf_title length] == 0) {
+        return;
+    }
+    
+    WMFArticle *article = [self fetchOrCreateArticleForURL:articleURL];
+    article.isBlocked = isExcludedFromFeed;
+    [self save:nil];
 }
 
 @end

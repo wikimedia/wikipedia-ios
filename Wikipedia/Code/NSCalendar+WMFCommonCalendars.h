@@ -38,5 +38,7 @@
 @interface NSDate (WMFComparisons)
 
 - (BOOL)wmf_isTodayUTC;
-
+- (BOOL)wmf_UTCDateIsTodayLocal; //TimeZone insensitive compare, assumes reciever is UTC date
+- (BOOL)wmf_UTCDateIsSameDateAsLocalDate:(NSDate *)date; //TimeZone insensitive compare, assumes reciever is UTC date
+@property (nonatomic, readonly) NSDate *midnightUTCDate; //Assumes the receiever is a local date, returns midnight UTC on the same day, month, and year.
 @end

@@ -17,7 +17,6 @@
 #import "CLLocation+WMFBearing.h"
 
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
-#import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "MWKHistoryEntry.h"
 
 #import "WMFFeedArticlePreview.h"
@@ -61,11 +60,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterReuseIdentifier";
 
-@interface WMFExploreViewController () <WMFLocationManagerDelegate, WMFDataSourceDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate>
+@interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
-@property (nonatomic, strong, null_resettable) id<WMFDataSource> sectionDataSource;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
@@ -144,17 +143,9 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                                            action:@selector(didTapSettingsButton:)];
 }
 
-- (id<WMFDataSource>)sectionDataSource {
-    if (!_sectionDataSource) {
-        _sectionDataSource = [self.internalContentStore contentGroupDataSource];
-    }
-    return _sectionDataSource;
-}
-
 - (WMFContentGroupDataStore *)internalContentStore {
     if (_internalContentStore == nil) {
-        _internalContentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
-        _internalContentStore.databaseSyncingEnabled = NO;
+        _internalContentStore = [[WMFContentGroupDataStore alloc] initWithDataStore:self.userStore];
     }
     return _internalContentStore;
 }
@@ -182,13 +173,13 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 }
 
 - (NSUInteger)numberOfSectionsInExploreFeed {
-    return [self.sectionDataSource numberOfItems];
+    return [[self.fetchedResultsController.sections firstObject] numberOfObjects];
 }
 
 - (BOOL)canScrollToTop {
     WMFContentGroup *group = [self sectionAtIndex:0];
     NSParameterAssert(group);
-    NSArray *content = [self.internalContentStore contentForContentGroup:group];
+    NSArray *content = group.content;
     return [content count] > 0;
 }
 
@@ -224,39 +215,26 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [group waitInBackgroundWithTimeout:12
                             completion:^{
                                 [self resetRefreshControl];
-                                [self.internalContentStore syncDataStoreToDatabase];
                                 [self startMonitoringReachabilityIfNeeded];
                                 [self showOfflineEmptyViewIfNeeded];
                                 [self showHideNotificationIfNeccesary];
                             }];
 }
 
-- (void)updateFeedWithLatestDatabaseContent {
-    self.sectionDataSource.delegate = nil;
-    self.sectionDataSource = nil;
-    [self.internalContentStore syncDataStoreToDatabase];
-    self.sectionDataSource.delegate = self;
-}
-
 #pragma mark - Section Access
 
 - (WMFContentGroup *)sectionAtIndex:(NSUInteger)sectionIndex {
-    return (WMFContentGroup *)[self.sectionDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:sectionIndex inSection:0]];
+    return (WMFContentGroup *)[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:sectionIndex inSection:0]];
 }
 
 - (WMFContentGroup *)sectionForIndexPath:(NSIndexPath *)indexPath {
-    return (WMFContentGroup *)[self.sectionDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.section inSection:0]];
-}
-
-- (NSUInteger)indexForSection:(WMFContentGroup *)section {
-    return [self.sectionDataSource indexPathForObject:section].row;
+    return (WMFContentGroup *)[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.section inSection:0]];
 }
 
 #pragma mark - Content Access
 
 - (nullable NSArray<id> *)contentForGroup:(WMFContentGroup *)group {
-    NSArray<id> *content = [self.internalContentStore contentForContentGroup:group];
-    return content;
+    return group.content;
 }
 
 - (nullable NSArray<id> *)contentForSectionAtIndex:(NSUInteger)sectionIndex {
@@ -265,7 +243,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 }
 
 - (nullable NSArray<NSURL *> *)contentURLsForGroup:(WMFContentGroup *)group {
-    NSArray<id> *content = [self.internalContentStore contentForContentGroup:group];
+    NSArray<id> *content = group.content;
 
     if ([group contentType] == WMFContentTypeTopReadPreview) {
         content = [content bk_map:^id(WMFFeedTopReadArticlePreview *obj) {
@@ -333,7 +311,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     if ([section contentType] != WMFContentTypeImage) {
         return nil;
     }
-    return [self.internalContentStore contentForContentGroup:section][indexPath.row];
+    return (WMFFeedImage *)section.content[indexPath.row];
 }
 
 #pragma mark - Refresh Control
@@ -423,7 +401,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 }
 
 - (void)showHideNotificationIfNeccesary {
-    if ([self.sectionDataSource numberOfItems] == 0) {
+    if (self.numberOfSectionsInExploreFeed == 0) {
         return;
     }
 
@@ -480,7 +458,13 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                            forControlEvents:UIControlEventValueChanged];
     [self resetRefreshControl];
 
-    self.sectionDataSource.delegate = self;
+    
+    NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
+    NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.userStore.viewContext sectionNameKeyPath:nil cacheName:nil];
+    frc.delegate = self;
+    [frc performFetch:nil];
+    self.fetchedResultsController = frc;
     [self.collectionView reloadData];
 }
 
@@ -535,7 +519,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 }
 
 - (void)startMonitoringReachabilityIfNeeded {
-    if ([self.sectionDataSource numberOfItems] > 0) {
+    if (self.numberOfSectionsInExploreFeed > 0) {
         [self stopMonitoringReachability];
     } else {
         [self.reachabilityManager startMonitoring];
@@ -562,7 +546,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 - (void)showOfflineEmptyViewIfNeeded {
     NSParameterAssert(self.isViewLoaded);
-    if ([self.sectionDataSource numberOfItems] > 0) {
+    if (self.numberOfSectionsInExploreFeed > 0) {
         [self wmf_hideEmptyView];
     } else {
         if ([self wmf_isShowingEmptyView]) {
@@ -581,7 +565,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return [self.sectionDataSource numberOfItems];
+    return self.numberOfSectionsInExploreFeed;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -621,7 +605,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         } break;
         case WMFFeedDisplayTypeStory: {
             InTheNewsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[InTheNewsCollectionViewCell wmf_nibName] forIndexPath:indexPath];
-            [self configureStoryCell:cell withSection:(WMFNewsContentGroup *)contentGroup article:article atIndexPath:indexPath];
+            [self configureStoryCell:cell withSection:contentGroup article:article atIndexPath:indexPath];
             return cell;
         } break;
 
@@ -765,24 +749,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil)
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction *_Nonnull action) {
-                                                [self.userStore.blackList addBlackListArticleURL:url];
-                                                [self.userStore notifyWhenWriteTransactionsComplete:^{
-                                                    [self.contentStore notifyWhenWriteTransactionsComplete:^{
-                                                        NSUInteger index = [self indexForSection:section];
-
-                                                        [self.collectionView performBatchUpdates:^{
-
-                                                            [self updateFeedWithLatestDatabaseContent];
-                                                            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:index]];
-
-                                                        }
-                                                            completion:^(BOOL finished) {
-                                                                self.sectionDataSource.delegate = self;
-                                                                [self.collectionView reloadData];
-                                                            }];
-
-                                                    }];
-                                                }];
+                                                [self.userStore setIsExcludedFromFeed:YES forArticleURL:url];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
     return sheet;
@@ -867,7 +834,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     //    self.referenceImageView = cell.potdImageView;
 }
 
-- (void)configureStoryCell:(InTheNewsCollectionViewCell *)cell withSection:(WMFNewsContentGroup *)section article:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath {
+- (void)configureStoryCell:(InTheNewsCollectionViewCell *)cell withSection:(WMFContentGroup *)section article:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath {
     NSArray<WMFFeedNewsStory *> *stories = [self contentForGroup:section];
     if (indexPath.item >= stories.count) {
         return;
@@ -915,7 +882,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     __block NSIndexPath *top = nil;
     [[self.collectionView indexPathsForVisibleItems] enumerateObjectsUsingBlock:^(NSIndexPath *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         WMFContentGroup *group = [self sectionAtIndex:obj.section];
-        if ([group isKindOfClass:[WMFMainPageContentGroup class]]) {
+        if (group.contentGroupKind != WMFContentGroupKindMainPage) {
             return;
         }
         top = obj;
@@ -1201,6 +1168,24 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 - (void)showInTheNewsForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date animated:(BOOL)animated {
     InTheNewsViewController *vc = [self inTheNewsViewControllerForStory:story date:date];
     [self.navigationController pushViewController:vc animated:animated];
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+   
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(nullable NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(nullable NSIndexPath *)newIndexPath {
+
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.collectionView reloadData];
 }
 
 #pragma mark - Analytics

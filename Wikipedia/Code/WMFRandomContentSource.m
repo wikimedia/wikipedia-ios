@@ -2,7 +2,6 @@
 #import "WMFContentGroupDataStore.h"
 #import "WMFArticleDataStore.h"
 #import "WMFRandomArticleFetcher.h"
-#import "WMFContentGroup.h"
 
 @import NSDate_Extensions;
 
@@ -70,8 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)loadContentForDate:(NSDate *)date force:(BOOL)force completion:(nullable dispatch_block_t)completion {
-
-    WMFRandomContentGroup *random = [self randomForDate:date];
+    WMFContentGroup *random = [self randomForDate:date];
 
     if (random != nil) {
         if (completion) {
@@ -95,21 +93,17 @@ NS_ASSUME_NONNULL_BEGIN
 
                 NSURL *url = [self.siteURL wmf_URLWithTitle:result.displayTitle];
 
-                WMFRandomContentGroup *random = [[WMFRandomContentGroup alloc] initWithDate:date siteURL:self.siteURL];
-
+                [self.contentStore createGroupOfKind:WMFContentGroupKindRandom forDate:date withSiteURL:self.siteURL associatedContent:@[url]];
                 [self.previewStore addPreviewWithURL:url updatedWithSearchResult:result];
-                [self.contentStore addContentGroup:random associatedContent:@[url]];
-
-                [self.contentStore notifyWhenWriteTransactionsComplete:completion];
             }];
 }
 
 - (void)removeAllContent {
-    [self.contentStore removeAllContentGroupsOfKind:[WMFRandomContentGroup kind]];
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindRandom];
 }
 
-- (nullable WMFRandomContentGroup *)randomForDate:(NSDate *)date {
-    return (id)[self.contentStore firstGroupOfKind:[WMFRandomContentGroup kind] forDate:date];
+- (nullable WMFContentGroup *)randomForDate:(NSDate *)date {
+    return (id)[self.contentStore firstGroupOfKind:WMFContentGroupKindRandom forDate:date];
 }
 
 @end

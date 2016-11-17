@@ -2,7 +2,6 @@
 #import "WMFContentGroupDataStore.h"
 #import "WMFArticleDataStore.h"
 #import "WMFFeedContentFetcher.h"
-#import "WMFContentGroup.h"
 
 #import "WMFFeedDayResponse.h"
 #import "WMFFeedArticlePreview.h"
@@ -166,9 +165,6 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 
 - (void)loadContentForDate:(NSDate *)date force:(BOOL)force completion:(nullable dispatch_block_t)completion {
-
-    [self cleanupBadTopReadSections];
-    
     [self fetchContentForDate:date force:force completion:^(WMFFeedDayResponse * _Nullable feedResponse, NSDictionary<NSURL *,NSDictionary<NSDate *,NSNumber *> *> * _Nullable pageViews) {
         if(feedResponse == nil){
             completion();
@@ -179,25 +175,10 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 - (void)removeAllContent {
-    [self.contentStore removeAllContentGroupsOfKind:[WMFFeaturedArticleContentGroup kind]];
-    [self.contentStore removeAllContentGroupsOfKind:[WMFPictureOfTheDayContentGroup kind]];
-    [self.contentStore removeAllContentGroupsOfKind:[WMFTopReadContentGroup kind]];
-    [self.contentStore removeAllContentGroupsOfKind:[WMFNewsContentGroup kind]];
-}
-
-- (void)cleanupBadTopReadSections {
-    NSMutableArray *remove = [NSMutableArray array];
-    [self.contentStore enumerateContentGroupsOfKind:[WMFTopReadContentGroup kind]
-                                          withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
-                                              if (![group isKindOfClass:[WMFTopReadContentGroup class]]) {
-                                                  return;
-                                              }
-                                              WMFTopReadContentGroup *tg = (WMFTopReadContentGroup *)group;
-                                              if (tg.date == nil || tg.mostReadDate == nil) {
-                                                  [remove addObject:[tg databaseKey]];
-                                              }
-                                          }];
-    [self.contentStore removeContentGroupsWithKeys:remove];
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindFeaturedArticle];
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindPictureOfTheDay];
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindTopRead];
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindNews];
 }
 
 #pragma mark - Save Groups
@@ -210,13 +191,11 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     if ([calendar isDateInToday:date]) {
         [self saveGroupForNews:feedDay.newsStories pageViews:pageViews date:date];
     }
-    [self.contentStore notifyWhenWriteTransactionsComplete:^{
-        [self scheduleNotificationsForFeedDay:feedDay onDate:date];
-        if (!completion) {
-            return;
-        }
-        completion();
-    }];
+    [self scheduleNotificationsForFeedDay:feedDay onDate:date];
+    if (!completion) {
+        return;
+    }
+    completion();
 }
 
 - (void)saveGroupForFeaturedPreview:(WMFFeedArticlePreview *)preview date:(NSDate *)date {
@@ -224,20 +203,20 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         return;
     }
 
-    WMFFeaturedArticleContentGroup *featured = [self featuredForDate:date];
-
-    if (featured == nil) {
-        featured = [[WMFFeaturedArticleContentGroup alloc] initWithDate:date siteURL:self.siteURL];
-    }
-
+    WMFContentGroup *featured = [self featuredForDate:date];
     NSURL *featuredURL = [preview articleURL];
-
+    
     if (!featuredURL) {
         return;
     }
 
+    if (featured == nil) {
+        featured = [self.contentStore createGroupOfKind:WMFContentGroupKindFeaturedArticle forDate:date withSiteURL:self.siteURL associatedContent:@[featuredURL]];
+    } else {
+        [self.contentStore addContentGroup:featured associatedContent:@[featuredURL]];
+    }
+    
     [self.previewStore addPreviewWithURL:featuredURL updatedWithFeedPreview:preview pageViews:nil];
-    [self.contentStore addContentGroup:featured associatedContent:@[featuredURL]];
 }
 
 - (void)saveGroupForTopRead:(WMFFeedTopReadResponse *)topRead pageViews:(NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)date {
@@ -245,19 +224,23 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     if ([topRead.articlePreviews count] == 0 || date == nil) {
         return;
     }
-
-    WMFTopReadContentGroup *group = [self topReadForDate:date];
-
-    if (group == nil) {
-        group = [[WMFTopReadContentGroup alloc] initWithDate:date mostReadDate:topRead.date siteURL:self.siteURL];
-    }
-
+    
     [topRead.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedTopReadArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         NSURL *url = [obj articleURL];
         [self.previewStore addPreviewWithURL:url updatedWithFeedPreview:obj pageViews:pageViews[url]];
     }];
-
-    [self.contentStore addContentGroup:group associatedContent:topRead.articlePreviews];
+    
+    
+    WMFContentGroup *group = [self topReadForDate:date];
+    
+    
+    if (group) {
+        [self.contentStore addContentGroup:group associatedContent:topRead.articlePreviews];
+    } else {
+        group = [self.contentStore createGroupOfKind:WMFContentGroupKindTopRead forDate:date withSiteURL:self.siteURL associatedContent:topRead.articlePreviews customizationBlock:^(WMFContentGroup * _Nonnull group) {
+            group.contentMidnightUTCDate = topRead.date.midnightUTCDate;
+        }];
+    }
 }
 
 - (void)saveGroupForPictureOfTheDay:(WMFFeedImage *)image date:(NSDate *)date {
@@ -265,13 +248,14 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         return;
     }
 
-    WMFPictureOfTheDayContentGroup *group = [self pictureOfTheDayForDate:date];
+    
+    WMFContentGroup *group = [self pictureOfTheDayForDate:date];
 
     if (group == nil) {
-        group = [[WMFPictureOfTheDayContentGroup alloc] initWithDate:date siteURL:self.siteURL];
+         group = [self.contentStore createGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date withSiteURL:self.siteURL associatedContent:@[image]];
+    } else {
+        [self.contentStore addContentGroup:group associatedContent:@[image]];
     }
-
-    [self.contentStore addContentGroup:group associatedContent:@[image]];
 }
 
 - (void)saveGroupForNews:(NSArray<WMFFeedNewsStory *> *)news pageViews:(NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)date {
@@ -279,10 +263,12 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         return;
     }
 
-    WMFNewsContentGroup *group = [self newsForDate:date];
+    WMFContentGroup *group = [self newsForDate:date];
 
     if (group == nil) {
-        group = [[WMFNewsContentGroup alloc] initWithDate:date siteURL:self.siteURL];
+        group = [self.contentStore createGroupOfKind:WMFContentGroupKindNews forDate:date withSiteURL:self.siteURL associatedContent:news];
+    } else {
+        [self.contentStore addContentGroup:group associatedContent:news];
     }
 
     [news enumerateObjectsUsingBlock:^(WMFFeedNewsStory *_Nonnull story, NSUInteger idx, BOOL *_Nonnull stop) {
@@ -322,26 +308,26 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     }];
 
-    [self.contentStore addContentGroup:group associatedContent:news];
+    
 }
 
 #pragma mark - Find Groups
 
-- (nullable WMFFeaturedArticleContentGroup *)featuredForDate:(NSDate *)date {
+- (nullable WMFContentGroup *)featuredForDate:(NSDate *)date {
 
-    return (id)[self.contentStore firstGroupOfKind:[WMFFeaturedArticleContentGroup kind] forDate:date];
+    return (id)[self.contentStore firstGroupOfKind:WMFContentGroupKindFeaturedArticle forDate:date];
 }
 
-- (nullable WMFPictureOfTheDayContentGroup *)pictureOfTheDayForDate:(NSDate *)date {
-    return (id)[self.contentStore firstGroupOfKind:[WMFPictureOfTheDayContentGroup kind] forDate:date];
+- (nullable WMFContentGroup *)pictureOfTheDayForDate:(NSDate *)date {
+    return (id)[self.contentStore firstGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date];
 }
 
-- (nullable WMFTopReadContentGroup *)topReadForDate:(NSDate *)date {
-    return (id)[self.contentStore firstGroupOfKind:[WMFTopReadContentGroup kind] forDate:date];
+- (nullable WMFContentGroup *)topReadForDate:(NSDate *)date {
+    return (id)[self.contentStore firstGroupOfKind:WMFContentGroupKindTopRead forDate:date];
 }
 
-- (nullable WMFNewsContentGroup *)newsForDate:(NSDate *)date {
-    return (id)[self.contentStore firstGroupOfKind:[WMFNewsContentGroup kind] forDate:date];
+- (nullable WMFContentGroup *)newsForDate:(NSDate *)date {
+    return (id)[self.contentStore firstGroupOfKind:WMFContentGroupKindNews forDate:date];
 }
 
 #pragma mark - Notifications

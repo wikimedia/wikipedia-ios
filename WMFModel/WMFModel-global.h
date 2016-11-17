@@ -75,7 +75,6 @@
 #import "MWKLanguageLinkResponseSerializer.h"
 #import "WMFMantleJSONResponseSerializer.h"
 #import "WMFNetworkUtilities.h"
-#import "WMFRelatedSectionBlackList.h"
 #import "FetcherBase.h"
 
 #import "UIScreen+WMFImageWidth.h"
@@ -86,9 +85,6 @@
 
 #import "MWKHistoryEntry+WMFDatabaseViews.h"
 #import "MWKLanguageLinkController_Private.h"
-#import "WMFContentGroup.h"
-#import "WMFContentGroup+WMFDatabaseViews.h"
-#import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "WMFDatabaseViewable.h"
 #import "WMFFaceDetectionCache.h"
 #import "YapDatabase+WMFExtensions.h"

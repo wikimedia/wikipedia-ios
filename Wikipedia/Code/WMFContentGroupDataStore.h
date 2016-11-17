@@ -1,12 +1,10 @@
-#import "WMFBaseDataStore.h"
-#import "WMFDataSource.h"
-
-@class WMFContentGroup;
-@class WMFRelatedPagesContentGroup;
+#import "WMFContentGroup+Extensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFContentGroupDataStore : WMFBaseDataStore
+@interface WMFContentGroupDataStore : NSObject
+
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
 
 #pragma mark - Content Group Access
 
@@ -14,23 +12,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)enumerateContentGroupsWithBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block;
 
-- (void)enumerateContentGroupsOfKind:(NSString *)kind withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block;
+- (void)enumerateContentGroupsOfKind:(WMFContentGroupKind)kind withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block;
 
-- (nullable WMFContentGroup *)firstGroupOfKind:(NSString *)kind;
+- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind;
 
-- (nullable WMFContentGroup *)firstGroupOfKind:(NSString *)kind forDate:(NSDate *)date;
+- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date;
 
-- (nullable NSArray<WMFContentGroup *> *)groupsOfKind:(NSString *)kind forDate:(NSDate *)date;
-
-#pragma mark - Content Access
-
-/*
- * The content for the given group.
- * The content class is defined by WMFContentGroup.contentType
- */
-- (nullable NSArray<NSCoding> *)contentForContentGroup:(WMFContentGroup *)group;
+- (nullable NSArray<WMFContentGroup *> *)groupsOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date;
 
 #pragma mark - Content Management
+
+- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent;
+
+- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock;
 
 - (void)addContentGroup:(WMFContentGroup *)group associatedContent:(NSArray<NSCoding> *)content;
 
@@ -38,13 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)removeContentGroupsWithKeys:(NSArray<NSString *> *)keys;
 
-- (void)removeAllContentGroupsOfKind:(NSString *)kind;
-
-@end
-
-@interface WMFContentGroupDataStore (WMFDataSources)
-
-- (id<WMFDataSource>)contentGroupDataSource;
+- (void)removeAllContentGroupsOfKind:(WMFContentGroupKind)kind;
 
 @end
 

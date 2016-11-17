@@ -10,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL isBlocked;
 @property (nullable, nonatomic, copy) NSString *key;
 @property (nullable, nonatomic, copy) NSDate *viewedDate;
-@property (nullable, nonatomic, copy) NSDate *viewedCalendarDate;
+@property (nullable, nonatomic, copy) NSDate *viewedDateWithoutTime;
 @property (nullable, nonatomic, copy) NSString *viewedFragment;
 @property (nonatomic) double viewedScrollPosition;
 @property (nullable, nonatomic, copy) NSDate *newsNotificationDate;
