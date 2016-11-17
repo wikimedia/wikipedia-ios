@@ -343,7 +343,7 @@ static pid_t currentPid() {
         article.viewedFragment = entry.fragment;
         article.viewedScrollPosition = entry.scrollPosition;
         article.savedDate = entry.dateSaved;
-        article.isBlocked = entry.blackListed;
+        article.isExcludedFromFeed = entry.blackListed;
         article.wasSignificantlyViewed = entry.titleWasSignificantlyViewed;
         article.newsNotificationDate = entry.inTheNewsNotificationDate;
         article.viewedScrollPosition = entry.scrollPosition;
@@ -972,7 +972,7 @@ static pid_t currentPid() {
     if (!article) {
         return NO;
     }
-    return article.isBlocked;
+    return article.isExcludedFromFeed;
 }
 
 - (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed forArticleURL:(NSURL *)articleURL {
@@ -985,7 +985,7 @@ static pid_t currentPid() {
     }
 
     WMFArticle *article = [self fetchOrCreateArticleForURL:articleURL];
-    article.isBlocked = isExcludedFromFeed;
+    article.isExcludedFromFeed = isExcludedFromFeed;
     [self save:nil];
 }
 

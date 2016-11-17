@@ -6,7 +6,7 @@
     return [[NSFetchRequest alloc] initWithEntityName:@"WMFArticle"];
 }
 
-@dynamic isBlocked;
+@dynamic isExcludedFromFeed;
 @dynamic key;
 @dynamic viewedDate;
 @dynamic viewedFragment;

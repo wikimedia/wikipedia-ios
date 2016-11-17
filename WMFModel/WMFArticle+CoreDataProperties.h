@@ -1,13 +1,12 @@
 #import "WMFArticle+CoreDataClass.h"
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticle (CoreDataProperties)
 
 + (NSFetchRequest<WMFArticle *> *)fetchRequest;
 
-@property (nonatomic) BOOL isBlocked;
+@property (nonatomic) BOOL isExcludedFromFeed;
 @property (nullable, nonatomic, copy) NSString *key;
 @property (nullable, nonatomic, copy) NSDate *viewedDate;
 @property (nullable, nonatomic, copy) NSDate *viewedDateWithoutTime;

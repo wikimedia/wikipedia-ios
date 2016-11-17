@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)needsRelatedPagesGroupForDate:(NSDate *)date {
     NSDate *beginingOfDay = [date dateAtStartOfDay];
-    if (self.isBlocked) {
+    if (self.isExcludedFromFeed) {
         return NO;
     } else if ([self.savedDate isLaterThanDate:beginingOfDay]) {
         return YES;
@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)needsRelatedPagesGroup {
-    if (self.isBlocked) {
+    if (self.isExcludedFromFeed) {
         return NO;
     } else if (self.savedDate != nil) {
         return YES;

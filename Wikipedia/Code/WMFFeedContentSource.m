@@ -394,7 +394,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     WMFArticle *entry = [self.userDataStore fetchArticleForURL:articlePreview.articleURL];
     if (entry) {
         BOOL notifiedRecently = entry.newsNotificationDate && [entry.newsNotificationDate timeIntervalSinceNow] < WMFFeedNotificationArticleRepeatLimit;
-        if (notifiedRecently || entry.isBlocked) {
+        if (notifiedRecently || entry.isExcludedFromFeed) {
             articlePreviewToNotifyAbout = nil;
             done();
             return;

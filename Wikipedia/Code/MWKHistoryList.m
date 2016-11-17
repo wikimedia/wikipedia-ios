@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
         WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:obj.url];
         article.viewedDate = obj.dateViewed;
         article.wasSignificantlyViewed = obj.titleWasSignificantlyViewed;
-        article.isBlocked = obj.isBlackListed;
+        article.isExcludedFromFeed = obj.isBlackListed;
     }];
     
     NSError *migrationError = nil;
