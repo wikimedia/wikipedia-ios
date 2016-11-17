@@ -487,7 +487,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     WMFTaskGroup *group = [WMFTaskGroup new];
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
 
-        if ([obj isKindOfClass:[WMFFeedContentSource class]] || [obj isKindOfClass:[WMFRelatedPagesContentSource class]]) {
+        if ([obj isKindOfClass:[WMFFeedContentSource class]]) {
             [group enter];
             [(id<WMFDateBasedContentSource>)obj preloadContentForNumberOfDays:3
                                                                         force:force

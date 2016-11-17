@@ -7,25 +7,18 @@ import WMFModel
 class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     // Model
-    var siteURL: NSURL {
-        get {
-            return MWKLanguageLinkController.sharedInstance().appLanguage.siteURL()
-        }
-    }
+    var siteURL: NSURL!
     var date = NSDate()
     var group: WMFContentGroup?
     var results: [WMFFeedTopReadArticlePreview] = []
     
-    let feedContentFetcher = WMFFeedContentFetcher()
+    var feedContentFetcher = WMFFeedContentFetcher()
     
-    let contentStore = WMFContentGroupDataStore()
-    let previewStore = WMFArticleDataStore()
-    let userStore: MWKDataStore = SessionSingleton.sharedInstance().dataStore
-    
-    lazy var contentSource: WMFFeedContentSource = {
-        [unowned self] in
-        return WMFFeedContentSource(siteURL: self.siteURL, contentGroupDataStore: self.contentStore, articlePreviewDataStore: self.previewStore, userDataStore: self.userStore, notificationsController: nil)
-        }()
+    var userStore: MWKDataStore!
+    var contentStore: WMFContentGroupDataStore!
+    var previewStore: WMFArticleDataStore!
+    var contentSource: WMFFeedContentSource!
+
     
     let databaseDateFormatter = NSDateFormatter.wmf_englishUTCNonDelimitedYearMonthDayFormatter()
     let headerDateFormatter = NSDateFormatter.wmf_shortMonthNameDayOfMonthNumberDateFormatter()
@@ -74,9 +67,15 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     // Controllers
     var articlePreviewViewControllers: [WMFArticlePreviewViewController] = []
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        siteURL = MWKLanguageLinkController.sharedInstance().appLanguage.siteURL()
+        userStore = SessionSingleton.sharedInstance().dataStore
+        contentStore = WMFContentGroupDataStore(dataStore: userStore)
+        previewStore = WMFArticleDataStore(dataStore: userStore)
+        contentSource = WMFFeedContentSource(siteURL: siteURL, contentGroupDataStore: contentStore, articlePreviewDataStore: previewStore, userDataStore: userStore, notificationsController: nil)
         
         if #available(iOSApplicationExtension 10.0, *) {
             headerLabel.textColor = UIColor.wmf_darkGray()

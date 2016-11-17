@@ -17,7 +17,7 @@ public class WMFArticlePreviewViewController: UIViewController {
 
     public required init() {
         let bundle = NSBundle(identifier: "org.wikimedia.WMFUI")
-        super.init(nibName: "WMFArticleViewController", bundle: bundle)
+        super.init(nibName: "WMFArticlePreviewViewController", bundle: bundle)
     }
     
     public required init?(coder aDecoder: NSCoder) {
