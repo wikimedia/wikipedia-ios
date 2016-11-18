@@ -7,6 +7,7 @@
 #import <Masonry/Masonry.h>
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
 #import "WMFLeadingImageTrailingTextButton.h"
+#import "Wikipedia-Swift.h"
 
 @interface WMFArticlePreviewCollectionViewCell ()
 
@@ -61,6 +62,8 @@
     [self wmf_makeCellDividerBeEdgeToEdge];
     [self setupBlurViewAndLoadingIndicator];
     self.loading = NO;
+    
+    [self wmf_configureSubviewsForDynamicType];
 }
 
 - (void)setupBlurViewAndLoadingIndicator {
@@ -110,29 +113,14 @@
 
 - (void)setSnippetText:(NSString *)snippetText {
     if (!snippetText.length) {
-        self.snippetLabel.attributedText = nil;
+        self.snippetLabel.text = nil;
         return;
     }
-    self.snippetLabel.attributedText = [[NSAttributedString alloc] initWithString:snippetText attributes:[[self class] snippetAttributes]];
+    self.snippetLabel.text = snippetText;
 }
 
 - (NSString *)snippetText {
-    return self.snippetLabel.attributedText.string;
-}
-
-+ (NSDictionary *)snippetAttributes {
-    static NSDictionary *attributes;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
-        pStyle.lineBreakMode = NSLineBreakByTruncatingTail;
-        pStyle.baseWritingDirection = NSWritingDirectionNatural;
-        pStyle.lineHeightMultiple = 1.35;
-        attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0],
-                       NSForegroundColorAttributeName: [UIColor darkGrayColor],
-                       NSParagraphStyleAttributeName: pStyle};
-    });
-    return attributes;
+    return self.snippetLabel.text;
 }
 
 #pragma mark - Image

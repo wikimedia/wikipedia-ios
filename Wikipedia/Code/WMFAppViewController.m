@@ -148,10 +148,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
                                                  name:WMFZeroRatingChanged
                                                object:nil];
 
+    @weakify(self);
     [[NSNotificationCenter defaultCenter] addObserverForName: UIContentSizeCategoryDidChangeNotification
                                                       object: nil
                                                        queue: [NSOperationQueue mainQueue]
                                                   usingBlock: ^(NSNotification *note) {
+                                                      @strongify(self);
                                                       [self updateTabBarItemsTitleTextAttributesForNewDynamicTypeContentSize];
     }];
 }

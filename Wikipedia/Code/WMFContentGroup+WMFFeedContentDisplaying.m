@@ -17,12 +17,20 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
 }
 
-- (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] init];
+- (NSString *)headerTitle {
+    return [[NSString alloc] init];
 }
 
-- (NSAttributedString *)headerSubTitle {
-    return [[NSAttributedString alloc] init];
+- (NSString *)headerSubTitle {
+    return [[NSString alloc] init];
+}
+
+- (UIColor *)headerTitleColor {
+    return [UIColor blackColor];
+}
+
+- (UIColor *)headerSubTitleColor {
+    return [UIColor grayColor];
 }
 
 - (nullable NSURL *)headerContentURL {
@@ -77,13 +85,20 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIImage imageNamed:@"home-continue-reading-mini"];
 }
 
-- (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-continue-reading-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+- (NSString *)headerTitle {
+    return MWLocalizedString(@"explore-continue-reading-heading", nil);
 }
 
-- (NSAttributedString *)headerSubTitle {
-    NSString *relativeTimeString = [self.date wmf_relativeTimestamp];
-    return [[NSAttributedString alloc] initWithString:[relativeTimeString wmf_stringByCapitalizingFirstCharacter] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+- (NSString *)headerSubTitle {
+    return [[self.date wmf_relativeTimestamp] wmf_stringByCapitalizingFirstCharacter];
+}
+
+- (UIColor *)headerTitleColor {
+    return [UIColor wmf_exploreSectionHeaderTitleColor];
+}
+
+- (UIColor *)headerSubTitleColor {
+    return [UIColor wmf_exploreSectionHeaderSubTitleColor];
 }
 
 - (NSString *)analyticsContentType {
@@ -106,12 +121,20 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIImage imageNamed:@"news-mini"];
 }
 
-- (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-main-page-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+- (NSString *)headerTitle {
+    return MWLocalizedString(@"explore-main-page-heading", nil);
 }
 
-- (NSAttributedString *)headerSubTitle {
-    return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:[NSDate date]] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+- (NSString *)headerSubTitle {
+    return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:[NSDate date]];
+}
+
+- (UIColor *)headerTitleColor {
+    return [UIColor wmf_exploreSectionHeaderTitleColor];
+}
+
+- (UIColor *)headerSubTitleColor {
+    return [UIColor wmf_exploreSectionHeaderSubTitleColor];
 }
 
 - (NSString *)analyticsContentType {
@@ -134,12 +157,20 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIImage imageNamed:@"recent-mini"];
 }
 
-- (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-continue-related-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+- (NSString *)headerTitle {
+    return MWLocalizedString(@"explore-continue-related-heading", nil);
 }
 
-- (NSAttributedString *)headerSubTitle {
-    return [[NSAttributedString alloc] initWithString:self.articleURL.wmf_title attributes:@{NSForegroundColorAttributeName: [UIColor wmf_blueTintColor]}];
+- (NSString *)headerSubTitle {
+    return self.articleURL.wmf_title;
+}
+
+- (UIColor *)headerTitleColor {
+    return [UIColor wmf_exploreSectionHeaderTitleColor];
+}
+
+- (UIColor *)headerSubTitleColor {
+    return [UIColor wmf_blueTintColor];
 }
 
 - (nullable NSURL *)headerContentURL {
@@ -196,18 +227,26 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIImage imageNamed:@"nearby-mini"];
 }
 
-- (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-nearby-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+- (NSString *)headerTitle {
+    return MWLocalizedString(@"explore-nearby-heading", nil);
 }
 
-- (NSAttributedString *)headerSubTitle {
+- (NSString *)headerSubTitle {
     if ([self.date isToday]) {
-        return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-nearby-sub-heading-your-location", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+        return MWLocalizedString(@"explore-nearby-sub-heading-your-location", nil);
     } else if (self.placemark) {
-        return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@, %@", self.placemark.name, self.placemark.locality] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+        return [NSString stringWithFormat:@"%@, %@", self.placemark.name, self.placemark.locality];
     } else {
-        return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%f, %f", self.location.coordinate.latitude, self.location.coordinate.longitude] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+        return [NSString stringWithFormat:@"%f, %f", self.location.coordinate.latitude, self.location.coordinate.longitude];
     }
+}
+
+- (UIColor *)headerTitleColor {
+    return [UIColor wmf_exploreSectionHeaderTitleColor];
+}
+
+- (UIColor *)headerSubTitleColor {
+    return [UIColor wmf_exploreSectionHeaderSubTitleColor];
 }
 
 - (WMFFeedHeaderActionType)headerActionType {
@@ -254,12 +293,20 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIImage imageNamed:@"potd-mini"];
 }
 
-- (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-potd-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+- (NSString *)headerTitle {
+    return MWLocalizedString(@"explore-potd-heading", nil);
 }
 
-- (NSAttributedString *)headerSubTitle {
-    return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+- (NSString *)headerSubTitle {
+    return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
+}
+
+- (UIColor *)headerTitleColor {
+    return [UIColor wmf_exploreSectionHeaderTitleColor];
+}
+
+- (UIColor *)headerSubTitleColor {
+    return [UIColor wmf_exploreSectionHeaderSubTitleColor];
 }
 
 - (WMFFeedDisplayType)displayType {
@@ -290,12 +337,20 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIImage imageNamed:@"random-mini"];
 }
 
-- (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-random-article-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+- (NSString *)headerTitle {
+    return MWLocalizedString(@"explore-random-article-heading", nil);
 }
 
-- (NSAttributedString *)headerSubTitle {
-    return [[NSAttributedString alloc] initWithString:MWSiteLocalizedString(self.siteURL, @"onboarding-wikipedia", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+- (NSString *)headerSubTitle {
+    return MWSiteLocalizedString(self.siteURL, @"onboarding-wikipedia", nil);
+}
+
+- (UIColor *)headerTitleColor {
+    return [UIColor wmf_exploreSectionHeaderTitleColor];
+}
+
+- (UIColor *)headerSubTitleColor {
+    return [UIColor wmf_exploreSectionHeaderSubTitleColor];
 }
 
 - (WMFFeedDisplayType)displayType {
@@ -337,12 +392,20 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIColor wmf_colorWithHex:0xFCF5E4 alpha:1.0];
 }
 
-- (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-featured-article-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+- (NSString *)headerTitle {
+    return MWLocalizedString(@"explore-featured-article-heading", nil);
 }
 
-- (NSAttributedString *)headerSubTitle {
-    return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+- (NSString *)headerSubTitle {
+    return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
+}
+
+- (UIColor *)headerTitleColor {
+    return [UIColor wmf_exploreSectionHeaderTitleColor];
+}
+
+- (UIColor *)headerSubTitleColor {
+    return [UIColor wmf_exploreSectionHeaderSubTitleColor];
 }
 
 - (WMFFeedDisplayType)displayType {
@@ -365,7 +428,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIImage imageNamed:@"trending-mini"];
 }
 
-- (NSAttributedString *)headerTitle {
+- (NSString *)headerTitle {
     // fall back to language code if it can't be localized
     NSString *language = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.siteURL.wmf_language];
 
@@ -380,19 +443,24 @@ NS_ASSUME_NONNULL_BEGIN
         heading = MWLocalizedString(@"explore-most-read-generic-heading", nil);
     }
 
-    NSDictionary *attributes = @{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]};
-    return [[NSAttributedString alloc] initWithString:heading attributes:attributes];
+    return heading;
 }
 
-- (NSAttributedString *)headerSubTitle {
+- (NSString *)headerSubTitle {
     NSString* dateString = [self localDateDisplayString];
     if(!dateString){
         dateString = @"";
     }
 
-    return [[NSAttributedString alloc]
-        initWithString:dateString
-            attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+    return dateString;
+}
+
+- (UIColor *)headerTitleColor {
+    return [UIColor wmf_exploreSectionHeaderTitleColor];
+}
+
+- (UIColor *)headerSubTitleColor {
+    return [UIColor wmf_exploreSectionHeaderTitleColor];
 }
 
 - (UIColor *)headerIconTintColor {
@@ -483,14 +551,20 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIImage imageNamed:@"news-mini"];
 }
 
-- (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"in-the-news-title", nil)];
+- (NSString *)headerTitle {
+    return MWLocalizedString(@"in-the-news-title", nil);
 }
 
-- (NSAttributedString *)headerSubTitle {
-    return [[NSAttributedString alloc]
-        initWithString:[self localDateDisplayString]
-            attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+- (NSString *)headerSubTitle {
+    return [self localDateDisplayString];
+}
+
+- (UIColor *)headerTitleColor {
+    return [UIColor wmf_exploreSectionHeaderTitleColor];
+}
+
+- (UIColor *)headerSubTitleColor {
+    return [UIColor wmf_exploreSectionHeaderTitleColor];
 }
 
 - (UIColor *)headerIconTintColor {

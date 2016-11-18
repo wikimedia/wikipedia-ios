@@ -19,7 +19,4 @@
 + (instancetype)wmf_subtitle;
 + (instancetype)wmf_nearbyDistanceFont;
 
-+ (instancetype)wmf_exploreSectionHeaderTitleFont;
-+ (instancetype)wmf_exploreSectionHeaderSubTitleFont;
-
 @end

@@ -6,8 +6,11 @@
 - (void)setImageTintColor:(UIColor *)imageTintColor;
 - (void)setImageBackgroundColor:(UIColor *)imageBackgroundColor;
 
-- (void)setTitle:(NSAttributedString *)title;
-- (void)setSubTitle:(NSAttributedString *)subTitle;
+- (void)setTitle:(NSString *)title;
+- (void)setSubTitle:(NSString *)subTitle;
+
+- (void)setTitleColor:(UIColor *)titleColor;
+- (void)setSubTitleColor:(UIColor *)subTitleColor;
 
 @property (strong, nonatomic) IBOutlet UIButton *rightButton;
 
