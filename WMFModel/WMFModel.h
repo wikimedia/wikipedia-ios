@@ -75,7 +75,6 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 
 #import "MWNetworkActivityIndicatorManager.h"
 
-#import "MWKHistoryEntry+WMFDatabaseViews.h"
 #import "MWKLanguageLinkController_Private.h"
 #import "WMFDatabaseViewable.h"
 #import "WMFFaceDetectionCache.h"

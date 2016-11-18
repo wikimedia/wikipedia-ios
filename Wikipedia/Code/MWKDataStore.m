@@ -1,7 +1,6 @@
 #import "YapDatabase+WMFExtensions.h"
 #import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
-#import "MWKHistoryEntry+WMFDatabaseViews.h"
 #import "WMFArticlePreview+WMFDatabaseStorable.h"
 #import <WMFModel/WMFModel-Swift.h>
 #include <notify.h>
