@@ -10,14 +10,14 @@
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "WMFSaveButtonController.h"
 
-@interface WMFArticleCellVisualTests : FBSnapshotTestCase
+@interface WMFArticlePreviewCellVisualTests : FBSnapshotTestCase
 
 @property (nonatomic, strong) WMFArticlePreviewTableViewCell *cell;
 @property (nonatomic, strong) MWKDataStore *dataStore;
 
 @end
 
-@implementation WMFArticleCellVisualTests
+@implementation WMFArticlePreviewCellVisualTests
 
 - (void)setUp {
     [super setUp];

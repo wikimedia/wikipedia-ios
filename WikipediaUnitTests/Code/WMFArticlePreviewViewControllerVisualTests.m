@@ -3,10 +3,10 @@
 #import <UIKit/UIKit.h>
 #import "FBSnapshotTestCase+WMFConvenience.h"
 
-@interface WMFArticleViewController (WMFArticleViewControllerVisualTesting)
+@interface WMFArticlePreviewViewController (WMFArticleViewControllerVisualTesting)
 @end
 
-@implementation WMFArticleViewController (WMFArticleViewControllerVisualTesting)
+@implementation WMFArticlePreviewViewController (WMFArticleViewControllerVisualTesting)
 
 - (void)wmf_configureForVisualTestingByOnlyShowingBordersForCertainViews {
     for (UIView *view in @[self.imageView, self.titleLabel, self.rankLabel, self.subtitleLabel, self.viewCountAndSparklineContainerView]) {
@@ -24,17 +24,17 @@
 
 @end
 
-@interface WMFArticleViewControllerVisualTests : FBSnapshotTestCase
-@property (nonatomic, strong) WMFArticleViewController *controller;
+@interface WMFArticlePreviewViewControllerVisualTests : FBSnapshotTestCase
+@property (nonatomic, strong) WMFArticlePreviewViewController *controller;
 @end
 
-@implementation WMFArticleViewControllerVisualTests
+@implementation WMFArticlePreviewViewControllerVisualTests
 
 - (void)setUp {
     [super setUp];
     self.recordMode = [[NSUserDefaults wmf_userDefaults] wmf_visualTestBatchRecordMode];
     self.deviceAgnostic = YES;
-    self.controller = [[WMFArticleViewController alloc] init];
+    self.controller = [[WMFArticlePreviewViewController alloc] init];
     [self.controller.view setHidden:NO];
     [self.controller wmf_configureForVisualTestingByOnlyShowingBordersForCertainViews];
 }

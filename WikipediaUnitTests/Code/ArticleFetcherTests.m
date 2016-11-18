@@ -29,7 +29,7 @@
 - (void)setUp {
     [super setUp];
     self.tempDataStore = [MWKDataStore temporaryDataStore];
-    self.previewStore = [[WMFArticleDataStore alloc] initWithDatabase:[YapDatabase wmf_databaseWithDefaultConfigurationAtPath:WMFRandomTemporaryPath()]];
+    self.previewStore = [[WMFArticleDataStore alloc] initWithDataStore:self.tempDataStore];
 
     self.articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.tempDataStore previewStore:self.previewStore];
     [[LSNocilla sharedInstance] start];

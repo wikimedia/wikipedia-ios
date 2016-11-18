@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
                     format:@"Failed to copy legacy data from %@ to %@. %@",
                            absFolderPath, tmpCopyPath, error];
     }
-    return [[MWKDataStore alloc] initWithDatabase:[YapDatabase wmf_databaseWithDefaultConfigurationAtPath:WMFRandomTemporaryPath()] legacyDataBasePath:tmpCopyPath];
+    return [[MWKDataStore alloc] initWithContainerURL:[NSURL fileURLWithPath:tmpCopyPath]];
 }
 
 @end
