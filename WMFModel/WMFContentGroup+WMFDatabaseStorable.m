@@ -225,4 +225,33 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@implementation WMFAnnouncementContentGroup (WMFDatabaseStorable)
+
++ (nullable NSURL *)urlForSiteURL:(NSURL *)url identifier:(NSString *)identifier {
+    NSParameterAssert(identifier);
+    NSString *language = url.wmf_language;
+    NSString *domain = url.wmf_domain;
+    NSParameterAssert(domain);
+    NSParameterAssert(language);
+    if (!domain || !language) {
+        return nil;
+    }
+    
+    NSURL *urlKey = [[self baseUrl] URLByAppendingPathComponent:@"announcements"];
+    urlKey = [urlKey URLByAppendingPathComponent:domain];
+    urlKey = [urlKey URLByAppendingPathComponent:language];
+    urlKey = [urlKey URLByAppendingPathComponent:identifier];
+    return urlKey;
+}
+
+- (NSURL *)url {
+    return [[self class] urlForSiteURL:self.siteURL identifier:self.identifier];
+}
+
+- (NSString *)databaseKey {
+    return [[self class] databaseKeyForURL:[[self class] urlForSiteURL:self.siteURL identifier:self.identifier]];
+}
+
+@end
+
 NS_ASSUME_NONNULL_END

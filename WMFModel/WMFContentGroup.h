@@ -7,7 +7,8 @@ typedef NS_ENUM(NSUInteger, WMFContentType) {
     WMFContentTypeURL,
     WMFContentTypeImage,
     WMFContentTypeTopReadPreview,
-    WMFContentTypeStory
+    WMFContentTypeStory,
+    WMFContentTypeAnnouncement
 };
 
 @interface WMFContentGroup : MTLModel
@@ -128,6 +129,22 @@ typedef NS_ENUM(NSUInteger, WMFContentType) {
 @end
 
 @interface WMFNotificationContentGroup : WMFContentGroup
+
+@end
+
+@interface WMFAnnouncementContentGroup : WMFSiteContentGroup
+
+@property (nonatomic, strong, readonly) NSString *identifier;
+
+@property (nonatomic, strong, readonly) NSDate *visibilityStartDate;
+@property (nonatomic, strong, readonly) NSDate *visibilityEndDate;
+
+@property (nonatomic, assign, readonly) BOOL isVisible;
+
+- (instancetype)initWithDate:(NSDate *)date visibilityStartDate:(NSDate *)start visibilityEndDate:(NSDate *)end siteURL:(NSURL *)url identifier:(NSString*)identifier;
+
+//Returns YES if the visibility was updated, otherwise NO
+- (BOOL)updateVisibilityBasedOnStartAndEndDates;
 
 @end
 
