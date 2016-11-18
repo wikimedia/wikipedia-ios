@@ -1110,7 +1110,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         case WMFTableOfContentsDisplayModeInline: {
             if (self.tableOfContentsViewController.parentViewController != self) {
                 if (self.presentedViewController == self.tableOfContentsViewController) {
-                    [self dismissViewControllerAnimated:NO completion:NULL];
+                    [self.tableOfContentsViewController dismissViewControllerAnimated:NO completion:NULL];
                 }
                 self.tableOfContentsViewController = nil;
 
