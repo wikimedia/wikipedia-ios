@@ -445,7 +445,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [self downloadAssetsFilesIfNecessary];
 
     //TODO: implement completion block to cancel download task with the 2 tasks above
-    [self.houseKeeper performHouseKeepingWithCompletion:NULL];
+    NSError *housekeepingError = nil;
+    [self.houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext error:&housekeepingError];
+    if (housekeepingError) {
+        DDLogError(@"Error on cleanup: %@", housekeepingError);
+    }
 
     DDLogWarn(@"Backgrounding… Logging Important Statistics");
     [self logImportantStatistics];

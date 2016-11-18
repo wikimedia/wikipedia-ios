@@ -4,13 +4,48 @@
 
 @implementation WMFDatabaseHouseKeeper
 
-- (void)performHouseKeepingWithCompletion:(dispatch_block_t)completion {
-    if (completion) {
-        completion();
+- (BOOL)performHouseKeepingOnManagedObjectContext:(NSManagedObjectContext *)moc error:(NSError **)outError {
+    
+    BOOL (^done)(NSError *) = ^BOOL(NSError *blockError) {
+        if (outError) {
+            *outError = blockError;
+        }
+        return blockError == nil;
+    };
+
+    NSError *error = nil;
+    
+    NSDate *midnightTodayUTC = [[NSDate date] midnightUTCDate];
+    NSCalendar *utcCalendar = [NSCalendar wmf_utcGregorianCalendar];
+    NSDate *thirtyDaysAgoMidnightUTC = [utcCalendar dateByAddingUnit:NSCalendarUnitDay value:-30 toDate:midnightTodayUTC options:NSCalendarMatchStrictly];
+    
+    NSFetchRequest *contentGroupFetchRequest = [WMFContentGroup fetchRequest];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"midnightUTCDate < %@", thirtyDaysAgoMidnightUTC];
+    contentGroupFetchRequest.predicate = predicate;
+    
+    NSArray *oldContentGroups = [moc executeFetchRequest:contentGroupFetchRequest error:&error];
+    
+    if (error) {
+        return done(error);
     }
+    
+    for (WMFContentGroup *group in oldContentGroups) {
+         [moc deleteObject:group];
+    }
+    
+    [moc save:&error];
+    
+    if (error) {
+        return done(error);
+    }
+    
+    return done(nil);
+
+    //Remove User Data that is unneeded
+    
 //    YapDatabaseConnection *connection = [[YapDatabase sharedInstance] wmf_newWriteConnection];
 //
-//    //Remove User Data that is unneeded
+//
 //    [connection asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
 //        YapDatabaseViewTransaction *view = [transaction ext:WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView];
 //        if ([view numberOfItemsInAllGroups] == 0) {
