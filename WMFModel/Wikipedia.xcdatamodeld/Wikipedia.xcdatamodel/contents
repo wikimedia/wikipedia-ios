@@ -17,6 +17,14 @@
         <attribute name="viewedScrollPosition" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="wasSignificantlyViewed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="wikidataDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="viewedDate"/>
+                <index value="savedDate"/>
+                <index value="isExcludedFromFeed"/>
+                <index value="key"/>
+            </compoundIndex>
+        </compoundIndexes>
     </entity>
     <entity name="WMFContentGroup" representedClassName="WMFContentGroup" syncable="YES">
         <attribute name="articleURLString" optional="YES" attributeType="String" syncable="YES"/>
