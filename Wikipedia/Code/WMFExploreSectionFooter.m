@@ -1,6 +1,7 @@
 #import "WMFExploreSectionFooter.h"
 #import "BlocksKit+UIKit.h"
 #import "UIImage+WMFStyle.h"
+#import "Wikipedia-Swift.h"
 
 @interface WMFExploreSectionFooter ()
 
@@ -22,6 +23,7 @@
             self.whenTapped();
         }
     }];
+    [self wmf_configureSubviewsForDynamicType];
 }
 
 @end
