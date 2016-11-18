@@ -245,7 +245,7 @@
 "share-menu-page-saved" = "Saved for offline reading.";
 "share-menu-page-saved-access" = "Tip: to access your saved pages, tap $1 above or long-press $2 below.";
 
-"share-custom-menu-item" = "Share";
+"share-custom-menu-item" = "Share...";
 "share-a-fact-share-menu-item" = "Share-a-fact";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" on @Wikipedia:";
@@ -395,7 +395,13 @@
 "home-hide-suggestion-prompt" = "Hide this suggestion";
 "home-hide-suggestion-cancel" = "Cancel";
 "home-accessibility-label" = "Wikipedia, Explore";
+"home-title-accessibility-label" = "Wikipedia, scroll to top of Explore";
 "home-button-accessibility-label" = "Home";
+"home-button-explore-accessibility-label" = "Wikipedia, return to Explore";
+"home-button-saved-accessibility-label" = "Wikipedia, return to Saved";
+"home-button-history-accessibility-label" = "Wikipedia, return to History";
+
+
 
 "potd-empty-error-description" = "Failed to retrieve picture of the day for $1";
 "potd-description-prefix" = "Picture of the day for $1";
@@ -426,6 +432,11 @@
 "welcome-volunteer-send-usage-reports" = "Send usage reports";
 "welcome-volunteer-continue-button" = "Continue";
 "welcome-volunteer-thanks" = "$1 Thank you!";
+"welcome-send-data-title" = "Send Anonymous data";
+"welcome-send-data-sub-title" = "Help Wikimedia make the app better by letting us know how you use the app. Data collected is anonymous";
+
+
+
 
 "empty-no-feed-title" = "No Internet Connection";
 "empty-no-feed-message" = "You can see your recommended articles when you have internet";
@@ -487,10 +498,13 @@
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
 
+"readers-accessibility-label" = "$1 readers";
+"rank-accessibility-label" = "Number $1";
+
 "reference-title" = "Reference $1";
 
 "in-the-news-notification-read-now-action-title" = "Read Now";
-"in-the-news-notification-share-action-title" = "Share";
+"in-the-news-notification-share-action-title" = "Share...";
 "in-the-news-notification-save-for-later-action-title" = "Save for later";
 "in-the-news-currently-trending" = "Currently trending";
 
@@ -505,3 +519,10 @@
 "feed-news-notification-button-text" = "Turn on notifications";
 
 "back" = "Back";
+
+"save-action" = "Save";
+"unsave-action" = "Unsave";
+
+
+"status-saving-for-later" = "Saving for later...";
+"status-saved-for-later" = "Saved for later";

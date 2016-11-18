@@ -17,16 +17,19 @@
     MWKDataStore *dataStore = [MWKDataStore temporaryDataStore];
     MWKHistoryList *list = [[MWKHistoryList alloc] initWithDataStore:dataStore];
     int count = 1000;
+    NSMutableArray *randomURLs = [NSMutableArray arrayWithCapacity:1000];
     for (int i = 0; i < count; i++) {
-        [list addPageToHistoryWithURL:[NSURL wmf_randomArticleURL]];
+        [randomURLs addObject:[NSURL wmf_randomArticleURL]];
     }
+
+    [list addPagesToHistoryWithURLs:randomURLs];
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
-    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+    [dataStore notifyWhenWriteTransactionsComplete:^{
         XCTAssertEqual([list numberOfItems], count);
         [expectation fulfill];
-    });
+    }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }

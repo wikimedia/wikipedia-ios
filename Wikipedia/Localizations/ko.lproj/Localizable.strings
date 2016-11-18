@@ -4,6 +4,7 @@
 // Author: HDNua
 // Author: Hwangjy9
 // Author: Idh0854
+// Author: Jerrykim306
 // Author: Namoroka
 // Author: Priviet
 // Author: Revi
@@ -118,9 +119,13 @@
 "settings-support" = "위키백과 지원";
 "settings-language-bar" = "검색 결과에 표시할 언어";
 "settings-my-languages" = "내 언어";
+"settings-notifications" = "알림";
 "settings-help-and-feedback" = "도움말 및 의견";
 "settings-primary-language" = "주 언어";
 "settings-primary-language-details" = "이 목록에 처음 사용한 언어가 이 앱의 주 언어로 사용됩니다. 이 언어를 변경하면 찾아보기에서 보이는 오늘의 글(알찬 글 등)이 변경됩니다.";
+"settings-notifications-system-turn-on" = "알림 켜기";
+"settings-notifications-learn-more" = "알림에 대해 더 알아보기";
+"settings-notifications-push-notifications" = "푸시 알림";
 "main-menu-title" = "더 보기";
 "main-menu-heading-about" = "정보";
 "main-menu-language-title" = "$1 위키백과 검색";
@@ -226,7 +231,7 @@
 "share-menu-save-page" = "문서 저장";
 "share-menu-page-saved" = "문서가 저장되었습니다";
 "share-menu-page-saved-access" = "팁: 저장된 문서에 접근하려면, 위의 $1를 탭하거나 아래의 $2를 길게 누르세요.";
-"share-custom-menu-item" = "공유";
+"share-custom-menu-item" = "공유...";
 "share-a-fact-share-menu-item" = "사실을 공유";
 "share-on-twitter-sign-off" = "@Wikipedia에서";
 "share-article-name-on-wikipedia" = "@Wikipedia의 \"$1\":";
@@ -250,6 +255,7 @@
 "button-ok" = "확인";
 "button-save-for-later" = "나중에 쓰기 위해 저장";
 "button-saved-for-later" = "나중에 쓰기 위해 저장";
+"button-saved-remove" = "저장된 항목에서 제거";
 "button-read-now" = "지금 읽기";
 "button-report-a-bug" = "버그 보고";
 "onboarding-create-account" = "계정 만들기";
@@ -366,6 +372,8 @@
 "welcome-explore-tell-me-more-privacy" = "서버에 읽기 목록 또는 프로필이 저장되어 있지 않습니다.";
 "welcome-explore-tell-me-more-done-button" = "알겠습니다";
 "welcome-explore-continue-button" = "시작하기";
+"welcome-notifications-tell-me-more-title" = "알림에 대한 더 많은 정보";
+"welcome-notifications-tell-me-more-creation" = "알림은 저희의 (타사) 서버가 아닌, 앱을 통해 장치에서 생성, 전달됩니다.";
 "welcome-languages-title" = "언어";
 "welcome-languages-sub-title" = "위키백과 검색에 선호하는 언어를 선택하십시오";
 "welcome-languages-add-button" = "다른 언어 추가";
@@ -375,6 +383,7 @@
 "welcome-volunteer-send-usage-reports" = "사용 보고서 보내기";
 "welcome-volunteer-continue-button" = "계속";
 "welcome-volunteer-thanks" = "감사합니다 $1!";
+"welcome-send-data-title" = "익명 데이터 보내기";
 "empty-no-feed-title" = "인터넷 연결 없음";
 "empty-no-feed-message" = "인터넷 이용이 가능할 때 추천 문서를 읽을 수 있습니다.";
 "empty-no-feed-action-message" = "여전히 저장된 페이지를 읽을 수 있습니다.";
@@ -410,6 +419,7 @@
 "no-email-account-alert" = "장치에 이메일 계정을 설정한 뒤 다시 시도하세요.";
 "request-feedback-on-error" = "이 앱은 우리 개발자들이 관심이 있는 문제를 마주쳤습니다. 여기를 탭하여 자세한 오류 설명과 함께 이메일을 저희에게 보내 주세요.";
 "explore-another-random" = "다른 임의 문서";
+"explore-randomizer" = "임의 문서 보기";
 "find-in-page-no-matches" = "0개 일치";
 "find-in-page-button-label" = "문서에서 찾기";
 "find-in-page-popover-description" = "문서에서 텍스트 검색";
@@ -417,10 +427,17 @@
 "continue-reading-empty-description" = "더 많은 문서를 읽기 위해 위키백과 둘러보기";
 "top-read-header-with-language" = "$1 위키백과";
 "top-read-header-generic" = "위키백과";
+"readers-accessibility-label" = "$1명의 독자";
 "reference-title" = "각주 $1";
 "in-the-news-notification-read-now-action-title" = "지금 읽기";
-"in-the-news-notification-share-action-title" = "공유";
+"in-the-news-notification-share-action-title" = "공유...";
 "in-the-news-notification-save-for-later-action-title" = "나중을 위해 저장";
+"in-the-news-title" = "새로 들어온 소식";
+"in-the-news-title-for-date" = "$1 소식";
 "number-thousands" = "$1K";
 "number-millions" = "$1M";
 "number-billions" = "$1B";
+"feed-news-notification-button-text" = "알림 켜기";
+"back" = "뒤로";
+"save-action" = "저장";
+"unsave-action" = "저장하지 않음";

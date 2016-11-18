@@ -119,6 +119,7 @@
 "settings-support" = "Doneu suport a la Viquipèdia";
 "settings-language-bar" = "Mostra llengües a la cerca";
 "settings-my-languages" = "Les meves llengües";
+"settings-notifications" = "Notificacions";
 "settings-help-and-feedback" = "Ajuda i comentaris";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "La primera llengua de la llista s'utilitza com a llengua primària de l'aplicació. En canviar l'aplicació canviarà el contingut diari (com ara l'article destacat) que es mostra a 'Explora'.";
@@ -227,6 +228,7 @@
 "share-menu-save-page" = "Desa l'article";
 "share-menu-page-saved" = "Article desat per a lectura fora de línia.";
 "share-menu-page-saved-access" = "Consell: per accedir a les vostres pàgines desades, puntegeu en $1 a dalt o premeu uns moments $2 a sota.";
+// Fuzzy
 "share-custom-menu-item" = "Comparteix";
 "share-a-fact-share-menu-item" = "Compateix-un-fet";
 "share-on-twitter-sign-off" = "via @Viquipedia";
@@ -412,6 +414,7 @@
 "no-email-account-alert" = "Configureu un compte de correu en el vostre dispositiu i torneu-ho a provar.";
 "request-feedback-on-error" = "L'aplicació s'ha trobat amb un problema que els nostres desenvolupadors voldrien conèixer més en detall. Toqueu aquí per enviar-nos un correu amb els detalls de l'error.";
 "explore-another-random" = "Un altre article a l'atzar";
+"explore-randomizer" = "Article a l’atzar";
 "find-in-page-no-matches" = "0 coincidències";
 "find-in-page-button-label" = "Busca una pàgina";
 "find-in-page-popover-description" = "Cerca text als articles";
@@ -423,9 +426,11 @@
 "top-read-header-generic" = "Viquipèdia";
 "reference-title" = "Referència $1";
 "in-the-news-notification-read-now-action-title" = "Llegeix-ho ara";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Comparteix";
 "in-the-news-notification-save-for-later-action-title" = "Desa-ho per a més tard";
 "in-the-news-currently-trending" = "En tendència";
 "number-thousands" = "$1k";
 "number-millions" = "$1M";
 "number-billions" = "$1B";
+"back" = "Enrere";

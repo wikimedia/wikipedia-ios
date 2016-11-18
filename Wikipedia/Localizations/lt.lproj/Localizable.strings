@@ -98,8 +98,13 @@
 "settings-support" = "Paremti Vikipediją";
 "settings-language-bar" = "Rodyti kalbas paieškoje";
 "settings-my-languages" = "Mano kalbos";
+"settings-notifications" = "Pranešimai";
 "settings-help-and-feedback" = "Pagalba ir atsiliepimai";
 "settings-primary-language" = "Pagrindinis";
+"settings-notifications-system-off" = "Vikipedijos pranešimai šiuo metu yra išjungti. Eikite į savo prietaiso Nustatymus, kad įjungtumėte pranešimus";
+"settings-notifications-system-turn-on" = "Įjungti Pranešimus";
+"settings-notifications-learn-more" = "Sužinokite daugiau apie pranešimus";
+"settings-notifications-push-notifications" = "Push pranešimai";
 "main-menu-title" = "Daugiau";
 "main-menu-heading-about" = "Apie";
 "main-menu-language-title" = "Paieška $1 Vikipedijoje";
@@ -191,7 +196,7 @@
 "about-wikimedia-foundation" = "Vikimedijos fondas";
 "share-menu-save-page" = "Įrašyti puslapį";
 "share-menu-page-saved" = "Išsaugoti skaitymui neprisijungus.";
-"share-custom-menu-item" = "Dalintis";
+"share-custom-menu-item" = "Dalintis...";
 "share-a-fact-share-menu-item" = "Dalintis faktu";
 "share-on-twitter-sign-off" = "per @Wikipedia";
 "share-as-image" = "Dalintis kaip vaizdu";
@@ -300,6 +305,8 @@
 "home-accessibility-label" = "Vikipedija, tyrinėti";
 // Fuzzy
 "home-button-accessibility-label" = "Pradžia";
+"home-button-saved-accessibility-label" = "Vikipedija, grįžti į Išsaugota";
+"home-button-history-accessibility-label" = "Vikipedija, grįžti į Istoriją";
 "potd-empty-error-description" = "Nepavyko gauti $1 dienos nuotraukos";
 "potd-description-prefix" = "Dienos nuotrauka $1";
 "welcome-explore-title" = "Tyrinėti";
@@ -308,6 +315,9 @@
 "welcome-explore-tell-me-more-about-explore" = "Daugiau apie „Tyrinėti“";
 "welcome-explore-tell-me-more-done-button" = "Supratau";
 "welcome-explore-continue-button" = "Pradėti";
+"welcome-notifications-tell-me-more-title" = "Daugiau apie pranešimus";
+"welcome-notifications-tell-me-more-storage" = "Pranešimų nustatymai laikomi įrenginyje ir nėra paremti asmenine informacija ar veikla.";
+"welcome-notifications-tell-me-more-creation" = "Pranešimus sukuria ir pristato programėlė jūsų įrenginyje, o ne mūsų (ar trečiųjų šalių) serveriai.";
 "welcome-languages-title" = "Kalbos";
 "welcome-languages-add-button" = "Pridėti kitą kalbą";
 "welcome-languages-continue-button" = "Tęsti";
@@ -315,6 +325,7 @@
 "welcome-volunteer-send-usage-reports" = "Siųsti naudojimo ataskaitas";
 "welcome-volunteer-continue-button" = "Tęsti";
 "welcome-volunteer-thanks" = "$1 Ačiū!";
+"welcome-send-data-title" = "Siųsti Anoniminius duomenis";
 "empty-no-feed-title" = "Nėra interneto ryšio";
 "empty-no-feed-action-message" = "Jūs dar galite skaityti išsaugotus puslapius";
 "empty-no-search-results-message" = "Rezultatų nerasta";
@@ -344,6 +355,7 @@
 "explore-most-read-more-list-title-for-date" = "Viršuje $1";
 "no-email-account-alert" = "Prašome nustatyti el. pašto paskyrą savo įrenginyje ir bandyti dar kartą.";
 "explore-another-random" = "Kitas atsitiktinis straipsnis";
+"explore-randomizer" = "Atsitiktinis";
 "find-in-page-no-matches" = "0 atitikimų";
 "find-in-page-button-label" = "Rasti puslapyje";
 "find-in-page-popover-description" = "Ieškoti teksto straipsniuose";
@@ -352,5 +364,14 @@
 "top-read-see-more-trending" = "Peržiūrėti daugiau tendencijų";
 "top-read-header-with-language" = "$1 Vikipedija";
 "top-read-header-generic" = "Vikipedija";
+"readers-accessibility-label" = "$1 skaitytojai";
+"rank-accessibility-label" = "Numeris $1";
 "reference-title" = "Išnaša $1";
+"in-the-news-notification-share-action-title" = "Dalintis...";
+"in-the-news-title" = "Naujienose";
+"in-the-news-title-for-date" = "Naujienos apie $1";
 "number-thousands" = "$1 tūkst.";
+"feed-news-notification-button-text" = "Įjungti pranešimus";
+"back" = "Atgal";
+"save-action" = "Išsaugoti";
+"unsave-action" = "Neišsaugoti";

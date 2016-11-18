@@ -16,15 +16,19 @@
     return [self wmf_databaseWithDefaultConfigurationAtPath:[[self class] wmf_databasePath]];
 }
 
-+ (instancetype)wmf_databaseWithDefaultConfigurationAtPath:(NSString *)path {
-    YapDatabaseOptions *options = [YapDatabaseOptions new];
-    options.enableMultiProcessSupport = YES;
-    YapDatabase *db = [[YapDatabase alloc] initWithPath:path options:options];
-
++ (void)wmf_registerViewsInDatabase:(YapDatabase *)db {
     YapDatabaseCrossProcessNotification *cp = [[YapDatabaseCrossProcessNotification alloc] initWithIdentifier:@"Wikipedia"];
     [db registerExtension:cp withName:@"WikipediaCrossProcess"];
     [MWKHistoryEntry registerViewsInDatabase:db];
     [WMFContentGroup registerViewsInDatabase:db];
+}
+
++ (instancetype)wmf_databaseWithDefaultConfigurationAtPath:(NSString *)path {
+    YapDatabaseOptions *options = [YapDatabaseOptions new];
+    options.enableMultiProcessSupport = YES;
+    options.aggressiveWALTruncationSize = 100 * 1024 * 1024; // 100 MB
+    YapDatabase *db = [[YapDatabase alloc] initWithPath:path options:options];
+    [YapDatabase wmf_registerViewsInDatabase:db];
     return db;
 }
 

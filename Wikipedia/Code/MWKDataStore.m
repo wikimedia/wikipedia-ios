@@ -12,6 +12,9 @@ NSString *const MWKArticleKey = @"MWKArticleKey";
 NSString *const MWKItemUpdatedNotification = @"MWKItemUpdatedNotification";
 NSString *const MWKURLKey = @"MWKURLKey";
 
+NSString *const MWKSetupDataSourcesNotification = @"MWKSetupDataSourcesNotification";
+NSString *const MWKTeardownDataSourcesNotification = @"MWKTeardownDataSourcesNotification";
+
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 
 NSString *MWKCreateImageURLWithPath(NSString *path) {
@@ -64,7 +67,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     NSOperationQueue *queue = [self articleSaveQueue];
     NSMutableDictionary *operations = [self articleSaveOperations];
     @synchronized(queue) {
-        NSString *key = article.url.wmf_databaseKey;
+        NSString *key = article.url.wmf_articleDatabaseKey;
         if (!key) {
             return;
         }
@@ -97,7 +100,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     NSOperationQueue *queue = [self articleSaveQueue];
     NSMutableDictionary *operations = [self articleSaveOperations];
     @synchronized(queue) {
-        NSString *key = article.url.wmf_databaseKey;
+        NSString *key = article.url.wmf_articleDatabaseKey;
         NSOperation *op = operations[key];
         [op cancel];
         [operations removeObjectForKey:key];
@@ -135,7 +138,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
     NSError *copyError = nil;
     if (![fm copyItemAtPath:[YapDatabase wmf_appSpecificDatabasePath] toPath:[YapDatabase wmf_databasePath] error:&copyError]) {
-        if (copyError.code != NSFileNoSuchFileError) {
+        if (copyError.code != NSFileNoSuchFileError && copyError.code != NSFileReadNoSuchFileError) {
             if (error) {
                 *error = copyError;
             }
@@ -145,7 +148,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
     NSError *moveError = nil;
     if (![fm moveItemAtPath:[MWKDataStore appSpecificMainDataStorePath] toPath:[MWKDataStore mainDataStorePath] error:&moveError]) {
-        if (moveError.code != NSFileNoSuchFileError) {
+        if (moveError.code != NSFileNoSuchFileError && moveError.code != NSFileReadNoSuchFileError) {
             if (error) {
                 *error = moveError;
             }

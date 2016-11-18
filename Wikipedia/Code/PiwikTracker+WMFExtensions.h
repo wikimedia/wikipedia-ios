@@ -3,8 +3,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-//Any string can be used as a content type for convienence
-@interface NSString (WMFAnalyticsContentTypeProviding) <WMFAnalyticsContentTypeProviding>
+//Any string can be used for convienence,
+//but you are encouraged to implement these methods on your custom classes for re-usability
+@interface NSString (WMFAnalytics) <WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding>
 
 @end
 
@@ -12,12 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)wmf_start;
 
-+ (nullable instancetype)wmf_configuredInstance;
-
 - (void)wmf_logView:(id<WMFAnalyticsViewNameProviding>)view;
 
 - (void)wmf_logActionImpressionInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType;
+
 - (void)wmf_logActionPreviewInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType;
+- (void)wmf_logActionPreviewInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType date:(nullable NSDate *)date;
+
 - (void)wmf_logActionTapThroughInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType;
 - (void)wmf_logActionTapThroughMoreInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType;
 
@@ -28,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)wmf_logActionEnableInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType;
 - (void)wmf_logActionDisableInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType;
+
+- (void)wmf_logActionPushInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType date:(nullable NSDate *)date;
 
 @end
 

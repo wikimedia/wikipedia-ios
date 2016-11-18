@@ -110,8 +110,7 @@
 "settings-help-and-feedback" = "مدد ۽ پذيرائي";
 "settings-primary-language" = "شروعاتي";
 "settings-primary-language-details" = "ھن فھرست جي پھرين ٻولي ايپ جي شروعاتي ٻولي طور استعمال ڪئي وڃي ٿي. اھا ٻولي تبديل ڪرڻ سان روزانو جو مواد تبديل ٿيندو (مثال طور نمايان مضمون) جيڪو ايڪسپلور تي ڏيکاريو وڃي ٿو.";
-// Fuzzy
-"settings-notifications-system-off" = "ھينئر وڪيپيڊيا لاءِ اطلاع آف ٿيل ڪيل آھن. اطلاع آن ڪرڻ لاءِ پنھنجي آءِاوايس جي ترتيبن ۾ وڃو";
+"settings-notifications-system-off" = "ھينئر وڪيپيڊيا لاءِ اطلاع آف ٿيل ڪيل آھن. اطلاع آن ڪرڻ لاءِ پنھنجي ڊوائيس جي ترتيبن ۾ وڃو";
 "settings-notifications-system-turn-on" = "اطلاع آن ڪريو";
 "settings-notifications-learn-more" = "اطلاعن بابت وڌيڪ ڄاڻو";
 "settings-notifications-trending" = "لاڙو رکندڙ تازا واقعا";
@@ -213,7 +212,7 @@
 "share-menu-save-page" = "صفحو سانڍيو";
 "share-menu-page-saved" = "آف لائين پڙهائي لاءِ سانڍيل.";
 "share-menu-page-saved-access" = "ٽوٽڪو: پنهنجن سانڍيل صفحن تائين رسائي حاصل ڪرڻ لاءِ،  $1 تي مٿي ٽيپ ڪريو يا هيٺ $2 تي ڊگهو زور ڏيو.";
-"share-custom-menu-item" = "ونڊيو";
+"share-custom-menu-item" = "ونڊيو...";
 "share-a-fact-share-menu-item" = "ھڪ-حقيقت-ونڊيو";
 "share-on-twitter-sign-off" = "وايہ @وڪيپيڊيا";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia تي:";
@@ -341,6 +340,9 @@
 "home-hide-suggestion-cancel" = "رد";
 "home-accessibility-label" = "وڪيپيڊيا، کوجيو";
 "home-button-accessibility-label" = "گھر";
+"home-button-explore-accessibility-label" = "وڪيپيڊيا، ايڪسپلور ڏانھن ورو";
+"home-button-saved-accessibility-label" = "وڪيپيڊيا، سانڍيل ڏانھن ورو";
+"home-button-history-accessibility-label" = "وڪيپيڊيا، سوانح ڏانھن ورو";
 "potd-empty-error-description" = "$1 لاءِ اڄ جي تصوير حاصل ڪرڻ ۾ ناڪام";
 "potd-description-prefix" = "$1 لاءِ اڄ جي تصوير";
 "welcome-explore-title" = "ايڪسپلور";
@@ -366,6 +368,7 @@
 "welcome-volunteer-send-usage-reports" = "استعمال ڪرڻ جون رپورٽون موڪليو";
 "welcome-volunteer-continue-button" = "جاري رکو";
 "welcome-volunteer-thanks" = "$1 توھان جي مھرباني!";
+"welcome-send-data-title" = "اڻڄاتل ڊيٽا موڪليو";
 "empty-no-feed-title" = "باهمڄار ڳانڍاپو نه آھي";
 "empty-no-feed-message" = "جڏهن توهان کي انٽرنيٽ ڳانڍاپو آهي تہ توهان پنهنجا سفارش ڪيل مضمون ڏسي سگهو ٿا";
 "empty-no-feed-action-message" = "توھان اڃان بہ سانڍيل صفحا پڙھي سگھو ٿا";
@@ -401,6 +404,7 @@
 "no-email-account-alert" = "براءِ مھرباني پنھنجي ڊوائس تي ڪو ايميل کاتو سيٽ اپ ڪريو ۽ ٻيھر ڪوشش ڪريو.";
 "request-feedback-on-error" = "ايپ ھڪ اھڙي مسئلي کي منھن ڏنو آھي جنھن بابت اسان جا ترقيڪار وڌيڪ ڄاڻڻ پسند ڪندا. براءِ مھرباني خرابي جي تفصيلن سان ھڪ برقٽپال موڪلڻ لاءِ ھتي ٽڙڪ ڪريو.";
 "explore-another-random" = "ھڪ ٻيو بلاترتيب مضمون";
+"explore-randomizer" = "بلاترتيبڪار";
 "find-in-page-no-matches" = "0 ملندڙ";
 "find-in-page-button-label" = "صفحي ۾ لھو";
 "find-in-page-popover-description" = "مضمونن ۾ متن ڳوليو";
@@ -410,9 +414,11 @@
 "top-read-see-more-trending" = "وڌيڪ رجھان رکندڙ ڏسو";
 "top-read-header-with-language" = "$1 وڪيپيڊيا";
 "top-read-header-generic" = "وڪيپيڊيا";
+"readers-accessibility-label" = "$1 پڙھندڙ";
+"rank-accessibility-label" = "انگ $1";
 "reference-title" = "حوالو $1";
 "in-the-news-notification-read-now-action-title" = "ھاڻي پڙھو";
-"in-the-news-notification-share-action-title" = "ونڊيو";
+"in-the-news-notification-share-action-title" = "ونڊيو...";
 "in-the-news-notification-save-for-later-action-title" = "بعد لاءِ سانڍيو";
 "in-the-news-currently-trending" = "ھاڻوڪا رجحان";
 "in-the-news-title" = "خبرن ۾";
@@ -420,6 +426,8 @@
 "number-thousands" = "$1K";
 "number-millions" = "$1M";
 "number-billions" = "$1B";
-"feed-news-notification-text" = "ھاڻي توھان خبرن ۾ لاڙو رکندڙ وڪيپيڊيا مضمونن کان اطلاع آن ڪري سگھو ٿا.";
-// Fuzzy
-"feed-news-notification-button-text" = "لاڙو رکندڙ خبرن بابت مون کي اطلاع ڏيو";
+"feed-news-notification-text" = "ھاڻي توھان خبرن ۾ لاڙو رکندڙ وڪيپيڊيا مضمونن بابت اطلاع حاصل ڪري سگھو ٿا.";
+"feed-news-notification-button-text" = "اطلاع آن ڪريو";
+"back" = "واپس";
+"save-action" = "سانڍيو";
+"unsave-action" = "اڻسانڍيو";

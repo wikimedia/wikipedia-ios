@@ -22,20 +22,22 @@
         [transaction removeObjectsForKeys:keysToRemove inCollection:[MWKHistoryEntry databaseCollectionName]];
     }];
 
-    //Remove all content groups older than 30 days
+    //Remove all content groups older than 30 days or without content
     [connection asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
 
         NSDate *thirtyDays = [[NSDate date] dateBySubtractingDays:30];
 
         NSMutableArray *keysToRemove = [NSMutableArray array];
 
-        [transaction enumerateKeysAndObjectsInCollection:[WMFContentGroup databaseCollectionName]
-                                              usingBlock:^(NSString *_Nonnull key, WMFContentGroup *_Nonnull object, BOOL *_Nonnull stop) {
+        [transaction enumerateRowsInCollection:[WMFContentGroup  databaseCollectionName]
+                                    usingBlock:^(NSString *_Nonnull key, WMFContentGroup *_Nonnull object, NSArray *_Nullable metadata, BOOL *_Nonnull stop) {
 
-                                                  if ([object.date isEarlierThanDate:thirtyDays]) {
-                                                      [keysToRemove addObject:key];
-                                                  }
-                                              }];
+                                        if ([object.date isEarlierThanDate:thirtyDays]) {
+                                            [keysToRemove addObject:key];
+                                        } else if ([metadata count] == 0) {
+                                            [keysToRemove addObject:key];
+                                        }
+                                    }];
 
         [transaction removeObjectsForKeys:keysToRemove inCollection:[WMFContentGroup databaseCollectionName]];
     }];
@@ -63,7 +65,7 @@
 
                                         //keep any sources of related pages
                                         if ([object isKindOfClass:[WMFRelatedPagesContentGroup class]]) {
-                                            NSString *key = ((WMFRelatedPagesContentGroup *)object).articleURL.wmf_databaseKey;
+                                            NSString *key = ((WMFRelatedPagesContentGroup *)object).articleURL.wmf_articleDatabaseKey;
                                             if (key) {
                                                 [keysToRemove removeObject:key];
                                             }
@@ -78,7 +80,7 @@
                                         switch (object.contentType) {
                                             case WMFContentTypeURL: {
                                                 [metadata enumerateObjectsUsingBlock:^(NSURL *_Nonnull URL, NSUInteger idx, BOOL *_Nonnull stop) {
-                                                    NSString *key = URL.wmf_databaseKey;
+                                                    NSString *key = URL.wmf_articleDatabaseKey;
                                                     if (!key) {
                                                         return;
                                                     }
@@ -87,7 +89,7 @@
                                             } break;
                                             case WMFContentTypeTopReadPreview: {
                                                 [metadata enumerateObjectsUsingBlock:^(WMFFeedTopReadArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                                                    NSString *key = obj.articleURL.wmf_databaseKey;
+                                                    NSString *key = obj.articleURL.wmf_articleDatabaseKey;
                                                     if (!key) {
                                                         return;
                                                     }
@@ -98,7 +100,7 @@
                                             case WMFContentTypeStory: {
                                                 [metadata enumerateObjectsUsingBlock:^(WMFFeedNewsStory *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
                                                     [obj.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                                                        NSString *key = obj.articleURL.wmf_databaseKey;
+                                                        NSString *key = obj.articleURL.wmf_articleDatabaseKey;
                                                         if (!key) {
                                                             return;
                                                         }

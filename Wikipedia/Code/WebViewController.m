@@ -546,15 +546,13 @@ NSString *const WMFCCBySALicenseURL =
     [self addHeaderView];
     [self addFooterView];
 
-    self.view.clipsToBounds = NO;
-
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.containerView insertSubview:self.webView atIndex:0];
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.trailing.top.and.bottom.equalTo(self.containerView);
+        make.top.equalTo(self.mas_topLayoutGuide);
+        make.bottom.equalTo(self.mas_bottomLayoutGuide);
+        make.leading.and.trailing.equalTo(self.containerView);
     }];
-    self.webView.clipsToBounds = NO;
-    self.webView.scrollView.clipsToBounds = NO;
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     self.webView.scrollView.backgroundColor = [UIColor wmf_articleBackgroundColor];

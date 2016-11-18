@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
     } else {
         NSAssert(0, @"Unexpected view controller hierarchy");
     }
-    [[PiwikTracker wmf_configuredInstance] wmf_logView:viewController];
+    [[PiwikTracker sharedInstance] wmf_logView:viewController];
 
     if (viewController.isAddingArticleToHistoryListEnabled) {
         // Use slight delay so history interface doesn't try to re-order items during push animation when you select item from history.

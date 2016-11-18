@@ -141,6 +141,7 @@
 "about-repositories-app-source-license-mit" = "MIT منښتليک";
 "about-wikimedia-foundation" = "ويکيمېډيا بنسټ";
 "share-menu-save-page" = "مخ خوندي کول";
+// Fuzzy
 "share-custom-menu-item" = "شريکول";
 "share-on-twitter-sign-off" = "د @ويکيپېډيا له لارې";
 "share-article-name-on-wikipedia" = "\"$1\" په @Wikipedia کې:";

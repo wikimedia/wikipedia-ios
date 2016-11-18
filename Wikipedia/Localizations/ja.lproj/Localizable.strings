@@ -234,6 +234,7 @@
 "share-menu-save-page" = "ページを保存";
 "share-menu-page-saved" = "記事を保存しました";
 "share-menu-page-saved-access" = "ヒント: 保存したページにアクセスするには、上部の$1をタップするか、下部の$2を長押しします。";
+// Fuzzy
 "share-custom-menu-item" = "共有";
 "share-a-fact-share-menu-item" = "引用してシェア";
 "share-on-twitter-sign-off" = "@Wikipedia から";
@@ -420,3 +421,5 @@
 "find-in-page-no-matches" = "該当するものはありません";
 "find-in-page-button-label" = "ページ内検索";
 "find-in-page-popover-description" = "記事内のテキストを検索します";
+"back" = "戻る";
+"save-action" = "保存";

@@ -7,18 +7,19 @@ extern NSString *const WMFInTheNewsNotificationReadNowActionIdentifier;
 extern NSString *const WMFInTheNewsNotificationSaveForLaterActionIdentifier;
 extern NSString *const WMFInTheNewsNotificationShareActionIdentifier;
 
-extern NSString *const WMFNotificationInfoStoryHTMLKey;
 extern NSString *const WMFNotificationInfoArticleTitleKey;
 extern NSString *const WMFNotificationInfoArticleURLStringKey;
 extern NSString *const WMFNotificationInfoThumbnailURLStringKey;
 extern NSString *const WMFNotificationInfoArticleExtractKey;
 extern NSString *const WMFNotificationInfoViewCountsKey;
+extern NSString *const WMFNotificationInfoFeedNewsStoryKey;
 
 @interface WMFNotificationsController : NSObject
 
 + (WMFNotificationsController *)sharedNotificationsController;
 
 @property (nonatomic, readonly, getter=isAuthorized) BOOL authorized;
+@property (nonatomic, getter=isApplicationActive) BOOL applicationActive;
 
 - (void)requestAuthenticationIfNecessaryWithCompletionHandler:(void (^)(BOOL granted, NSError *__nullable error))completionHandler;
 

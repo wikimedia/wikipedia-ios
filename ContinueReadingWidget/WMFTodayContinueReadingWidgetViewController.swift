@@ -35,6 +35,17 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         emptyDescriptionLabel.text = localizedStringForKeyFallingBackOnEnglish("continue-reading-empty-title")
         emptyDescriptionLabel.text = localizedStringForKeyFallingBackOnEnglish("continue-reading-empty-description")
         updateView()
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:))))
+    }
+    
+    func handleTapGestureRecognizer(recognizer: UITapGestureRecognizer) {
+        switch recognizer.state {
+        case .Recognized:
+            continueReading(self)
+        default:
+            break
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -101,7 +112,6 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         textLabel.text = nil
         titleLabel.text = nil
         imageView.image = nil
-        collapseImageAndWidenLabels = true
         imageView.hidden = true
         daysAgoLabel.text = nil
         daysAgoView.hidden = true
@@ -149,7 +159,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         
         if #available(iOSApplicationExtension 10.0, *) {
             if let string = article.imageURL, let imageURL = NSURL(string: string) {
-                self.imageView.hidden = false
+                self.collapseImageAndWidenLabels = false
                 self.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: { (error) in
                     self.collapseImageAndWidenLabels = true
                 }) {

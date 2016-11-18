@@ -2,9 +2,6 @@
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "WMFAsyncTestCase.h"
 
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
-
 @interface MWKHistoryListUniquenessTests : MWKTestCase
 
 @end
@@ -40,8 +37,8 @@
 }
 
 - (void)testStatePersistsWhenSaved {
-    MWKHistoryEntry *losAngeles = [historyList addPageToHistoryWithURL:titleURLLAEn];
-    MWKHistoryEntry *sanFrancisco = [historyList addPageToHistoryWithURL:titleURLSFFr];
+    [historyList addPageToHistoryWithURL:titleURLLAEn];
+    [historyList addPageToHistoryWithURL:titleURLSFFr];
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
@@ -51,8 +48,8 @@
         MWKHistoryEntry *losAngeles2 = [persistedList entryForURL:self->titleURLLAEn];
         MWKHistoryEntry *sanFrancisco2 = [persistedList entryForURL:self->titleURLSFFr];
 
-        assertThat(losAngeles2, is(losAngeles));
-        assertThat(sanFrancisco2, is(sanFrancisco));
+        XCTAssertEqualObjects(losAngeles2.url.wmf_articleDatabaseKey, self->titleURLLAEn.wmf_articleDatabaseKey);
+        XCTAssertEqualObjects(sanFrancisco2.url.wmf_articleDatabaseKey, self->titleURLSFFr.wmf_articleDatabaseKey);
         [expectation fulfill];
     }];
 
@@ -60,19 +57,31 @@
 }
 
 - (void)testAddingIdenticalObjectUpdatesExistingEntryDate {
-    MWKHistoryEntry *entry = [historyList addPageToHistoryWithURL:titleURLSFEn];
+    [historyList addPageToHistoryWithURL:titleURLSFEn];
 
-    MWKHistoryEntry *entry2 = [historyList addPageToHistoryWithURL:titleURLSFEn];
+    __block NSDate *originalDateViewed = nil;
 
-    __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
+    __block XCTestExpectation *expectation = [self expectationWithDescription:@"First save"];
 
     [dataStore notifyWhenWriteTransactionsComplete:^{
-        MWKHistoryEntry *entry3 = [self->historyList entryForURL:self->titleURLSFEn];
+        MWKHistoryEntry *entry = [self->historyList entryForURL:self->titleURLSFEn];
+        originalDateViewed = entry.dateViewed;
+        [expectation fulfill];
+
+    }];
+
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
+
+    [historyList addPageToHistoryWithURL:titleURLSFEn];
+
+    __block XCTestExpectation *secondExpectation = [self expectationWithDescription:@"Second save"];
+
+    [dataStore notifyWhenWriteTransactionsComplete:^{
+        MWKHistoryEntry *entry = [self->historyList entryForURL:self->titleURLSFEn];
 
         XCTAssertTrue([self->historyList numberOfItems] == 1);
-        assertThat(entry3, is(entry2));
-        XCTAssertTrue(![entry3 isEqual:entry]);
-        [expectation fulfill];
+        XCTAssertNotEqualObjects(entry.dateViewed, originalDateViewed);
+        [secondExpectation fulfill];
 
     }];
 
@@ -81,35 +90,48 @@
 
 - (void)testAddingEquivalentObjectUpdatesExistingEntryDate {
     NSURL *title1 = [titleURLSFEn wmf_URLWithTitle:@"This is a title"];
-    MWKHistoryEntry *entry1 = [historyList addPageToHistoryWithURL:title1];
+    [historyList addPageToHistoryWithURL:title1];
+
+    __block NSDate *originalDateViewed = nil;
+
+    __block XCTestExpectation *expectation = [self expectationWithDescription:@"First save"];
+
+    [dataStore notifyWhenWriteTransactionsComplete:^{
+        MWKHistoryEntry *entry = [self->historyList entryForURL:title1];
+        originalDateViewed = entry.dateViewed;
+        [expectation fulfill];
+
+    }];
+
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 
     NSURL *copyOfTitle1 = [titleURLSFEn wmf_URLWithTitle:@"This is a title"];
-    MWKHistoryEntry *copyOfEntry1 = [historyList addPageToHistoryWithURL:copyOfTitle1];
+    [historyList addPageToHistoryWithURL:copyOfTitle1];
 
-    __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
+    __block XCTestExpectation *secondExpectation = [self expectationWithDescription:@"Second save"];
 
-    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-        MWKHistoryEntry *copyOfEntry2 = [self->historyList entryForURL:copyOfTitle1];
+    [dataStore notifyWhenWriteTransactionsComplete:^{
+        MWKHistoryEntry *entry = [self->historyList entryForURL:copyOfTitle1];
 
-        assertThat(copyOfEntry2, is(copyOfEntry1));
-        XCTAssertTrue(![copyOfEntry2 isEqual:entry1]);
-        [expectation fulfill];
-    });
+        XCTAssertTrue([self->historyList numberOfItems] == 1);
+        XCTAssertNotEqualObjects(entry.dateViewed, originalDateViewed);
+        [secondExpectation fulfill];
+    }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
 
 - (void)testAddingTheSameTitleFromDifferentSites {
-    MWKHistoryEntry *en = [historyList addPageToHistoryWithURL:titleURLSFEn];
-    MWKHistoryEntry *fr = [historyList addPageToHistoryWithURL:titleURLSFFr];
+    [historyList addPageToHistoryWithURL:titleURLSFEn];
+    [historyList addPageToHistoryWithURL:titleURLSFFr];
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
     [dataStore notifyWhenWriteTransactionsComplete:^{
 
         MWKHistoryEntry *entry = [self->historyList mostRecentEntry];
-        assertThat(fr, is(entry));
-        XCTAssertTrue(![en isEqual:entry]);
+        XCTAssertEqualObjects(entry.url.wmf_articleDatabaseKey, self->titleURLSFFr.wmf_articleDatabaseKey);
+        XCTAssertNotEqualObjects(entry.url.wmf_articleDatabaseKey, self->titleURLSFEn.wmf_articleDatabaseKey);
         [expectation fulfill];
 
     }];
@@ -118,15 +140,17 @@
 }
 
 - (void)testListOrdersByDateDescending {
-    MWKHistoryEntry *entry1 = [historyList addPageToHistoryWithURL:titleURLSFEn];
-    MWKHistoryEntry *entry2 = [historyList addPageToHistoryWithURL:titleURLLAEn];
-    XCTAssertTrue([[entry2.dateViewed laterDate:entry1.dateViewed] isEqualToDate:entry2.dateViewed],
-                  @"Test assumes new entries are created w/ the current date.");
+    [historyList addPageToHistoryWithURL:titleURLSFEn];
+    [historyList addPageToHistoryWithURL:titleURLLAEn];
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
     [dataStore notifyWhenWriteTransactionsComplete:^{
-        assertThat([self->historyList mostRecentEntry], is(entry2));
+        MWKHistoryEntry *entry1 = [self->historyList entryForURL:self->titleURLSFEn];
+        MWKHistoryEntry *entry2 = [self->historyList entryForURL:self->titleURLLAEn];
+        XCTAssertTrue([[entry2.dateViewed laterDate:entry1.dateViewed] isEqualToDate:entry2.dateViewed],
+                      @"Test assumes new entries are created w/ the current date.");
+        XCTAssertEqualObjects([self->historyList mostRecentEntry], entry2);
         [expectation fulfill];
     }];
 
@@ -134,19 +158,25 @@
 }
 
 - (void)testListOrderAfterAddingSameEntry {
-    MWKHistoryEntry *entry1 = [historyList addPageToHistoryWithURL:titleURLSFEn];
-    MWKHistoryEntry *entry2 = [historyList addPageToHistoryWithURL:titleURLLAEn];
+    [historyList addPageToHistoryWithURL:titleURLSFEn];
+    [historyList addPageToHistoryWithURL:titleURLLAEn];
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
     [dataStore notifyWhenWriteTransactionsComplete:^{
-        assertThat([self->historyList mostRecentEntry], is(entry2));
-        [self->historyList addPageToHistoryWithURL:self->titleURLSFEn];
-        [self->dataStore notifyWhenWriteTransactionsComplete:^{
+        MWKHistoryEntry *entry2 = [self->historyList entryForURL:self->titleURLLAEn];
+        XCTAssertEqualObjects([self->historyList mostRecentEntry], entry2);
+        [expectation fulfill];
+    }];
 
-            assertThat([self->historyList mostRecentEntry].url, is(entry1.url));
-            [expectation fulfill];
-        }];
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
+
+    __block XCTestExpectation *secondExpectation = [self expectationWithDescription:@"Should resolve"];
+    [historyList addPageToHistoryWithURL:titleURLSFEn];
+    [dataStore notifyWhenWriteTransactionsComplete:^{
+        NSString *mostRecentKey = [self->historyList mostRecentEntry].url.wmf_articleDatabaseKey;
+        XCTAssertEqualObjects(mostRecentKey, self->titleURLSFEn.wmf_articleDatabaseKey);
+        [secondExpectation fulfill];
     }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];

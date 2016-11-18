@@ -111,7 +111,7 @@
 "settings-primary-language-details" = "Први језик на овом списку ће се користити као главни језик апликације. Ако га промените, променићете и дневни садржај (нпр. Изабрани чланак) који се приказује у одељку „Истражи“.";
 "main-menu-title" = "Више";
 "main-menu-heading-about" = "О апликацији";
-"main-menu-language-title" = "Претрага $1 Википедије";
+"main-menu-language-title" = "Претрага Википедије на $1";
 "main-menu-faq" = "Често постављана питања";
 "main-menu-language-toggle-show" = "Прикажи језике";
 "main-menu-language-toggle-hide" = "Сакриј језике";
@@ -214,7 +214,7 @@
 "share-menu-save-page" = "Сачувај страницу";
 "share-menu-page-saved" = "Сачувано за читање ван мреже.";
 "share-menu-page-saved-access" = "Савет: да бисте приступили сачуваним страницама, додирните $1 изнад или задржите прст на $2.";
-"share-custom-menu-item" = "Дели";
+"share-custom-menu-item" = "Дели...";
 "share-a-fact-share-menu-item" = "Дели чињеницу";
 "share-on-twitter-sign-off" = "преко @Wikipedia";
 "share-article-name-on-wikipedia" = "„$1“ на @Wikipedia:";
@@ -320,7 +320,7 @@
 "captcha-reload" = "Прикажи другу слику";
 "captcha-prompt" = "Унесите текст са слике";
 "mwk-empty-title-error" = "Не могу да извршим операцију са празним насловом.";
-"home-title" = "Истражите";
+"home-title" = "Истражи";
 "home-empty-section" = "Нема резултата";
 "home-empty-section-check-again" = "Покушај поново";
 "home-continue-reading-heading" = "Настави читање";
@@ -340,6 +340,9 @@
 "home-hide-suggestion-cancel" = "Откажи";
 "home-accessibility-label" = "Википедија, Истражите";
 "home-button-accessibility-label" = "Почетна";
+"home-button-explore-accessibility-label" = "Назад на истраживач";
+"home-button-saved-accessibility-label" = "Назад на сачуване";
+"home-button-history-accessibility-label" = "Назад на историју";
 "potd-empty-error-description" = "Не могу да преузмем слику дана за $1";
 "potd-description-prefix" = "Слика дана за $1";
 "welcome-explore-title" = "Истражите";
@@ -390,5 +393,11 @@
 "explore-most-read-more-list-title" = "Најчитанији чланци";
 "explore-most-read-more-list-title-for-date" = "Најчитанији на $1";
 "no-email-account-alert" = "Подесите е-пошту на вашем уређају па покушајте поново.";
+"explore-randomizer" = "Случајан чланак";
 "top-read-header-with-language" = "Википедија на $1";
 "top-read-header-generic" = "Википедија";
+"readers-accessibility-label" = "Читалаца: $1";
+"rank-accessibility-label" = "Број: $1";
+"in-the-news-notification-share-action-title" = "Дели...";
+"back" = "Назад";
+"save-action" = "Сачувај";

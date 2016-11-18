@@ -30,6 +30,10 @@
     self.title = MWLocalizedString(@"history-title", nil);
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - Accessors
 
 - (MWKHistoryList *)historyList {
@@ -40,6 +44,10 @@
     return self.userDataStore.savedPageList;
 }
 
+- (MWKHistoryEntry *)objectAtIndexPath:(NSIndexPath *)indexPath {
+    return (MWKHistoryEntry *)[self.dataSource objectAtIndexPath:indexPath];
+}
+
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
@@ -48,27 +56,46 @@
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(teardownNotification:) name:MWKTeardownDataSourcesNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupNotification:) name:MWKSetupDataSourcesNotification object:nil];
+}
 
-    self.dataSource = [self.userDataStore historyGroupedByDateDataSource];
-    self.dataSource.delegate = self;
-    [self.tableView reloadData];
-    [self updateEmptyAndDeleteState];
+- (void)setupDataSource {
+    if (!self.dataSource) {
+        self.dataSource = [self.userDataStore historyGroupedByDateDataSource];
+        self.dataSource.delegate = self;
+        [self.tableView reloadData];
+        [self updateEmptyAndDeleteState];
+    }
+}
+
+- (void)teardownDataSource {
+    self.dataSource.delegate = nil;
+    self.dataSource = nil;
+}
+
+- (void)teardownNotification:(NSNotification *)note {
+    [self teardownDataSource];
+}
+
+- (void)setupNotification:(NSNotification *)note {
+    [self setupDataSource];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.dataSource.granularDelegateCallbacksEnabled = YES;
+    [self setupDataSource];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
+    [[PiwikTracker sharedInstance] wmf_logView:self];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_recentViewActivity]];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    self.dataSource.granularDelegateCallbacksEnabled = NO;
+    [self teardownDataSource];
 }
 
 #pragma mark - UITableViewDataSource
@@ -100,7 +127,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticleListTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleListTableViewCell identifier] forIndexPath:indexPath];
 
-    MWKHistoryEntry *entry = [self.dataSource objectAtIndexPath:indexPath];
+    MWKHistoryEntry *entry = [self objectAtIndexPath:indexPath];
     MWKArticle *article = [[self userDataStore] articleWithURL:entry.url];
     cell.titleText = article.url.wmf_title;
     cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
@@ -196,7 +223,7 @@
 }
 
 - (NSURL *)urlAtIndexPath:(NSIndexPath *)indexPath {
-    return [[self.dataSource objectAtIndexPath:indexPath] url];
+    return [[self objectAtIndexPath:indexPath] url];
 }
 
 - (void)deleteAll {

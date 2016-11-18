@@ -16,6 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
         transformerUsingForwardBlock:^NSURL *(NSString *urlString,
                                               BOOL *success,
                                               NSError *__autoreleasing *error) {
+            NSInteger sizePrefix = WMFParseSizePrefixFromSourceURL(urlString);
+            if (sizePrefix < 640) {
+                urlString = WMFChangeImageSourceURLSizePrefix(urlString, 640);
+            }
             return [NSURL wmf_optionalURLWithString:urlString];
         }
         reverseBlock:^NSString *(NSURL *thumbnailURL,

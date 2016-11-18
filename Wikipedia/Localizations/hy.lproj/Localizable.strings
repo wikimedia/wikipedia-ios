@@ -1,6 +1,7 @@
 // Messages for Armenian (Հայերեն)
 // Exported from translatewiki.net
 // Author: Aram1985
+// Author: Kareyac
 // Author: Vahe Gharakhanyan
 // Author: Xelgen
 // Author: Աշոտ1997
@@ -80,6 +81,9 @@
 "search-recent-clear-confirmation-heading" = "Հեռացնե՞լ բոլոր վերջին որոնումները:";
 "search-recent-clear-cancel" = "Չեղարկել";
 "search-recent-clear-delete-all" = "Ջնջել ամբողջը";
+"settings-notifications" = "Ծանուցումներ";
+"settings-notifications-system-turn-on" = "Միացնել ծանուցումներ";
+"settings-notifications-learn-more" = "Կարդալ ավելին ծանուցումների մասին";
 "main-menu-title" = "Ավելին";
 "main-menu-heading-about" = "Ծրագրի մասին";
 "main-menu-language-title" = "Որոնել $1 Վիքիպեդիա";
@@ -221,3 +225,14 @@
 "page-issues" = "Էջի քննարկումներ";
 "page-similar-titles" = "Նմանատիպ էջեր";
 "home-hide-suggestion-cancel" = "Չեղարկել";
+"home-button-saved-accessibility-label" = "Վիքիպեդիա, վերադառնալ Պահված";
+"home-button-history-accessibility-label" = "Վիքիփեդիա, վերադառնալ Պատմության";
+"welcome-explore-new-ways-title" = "Նոր ուսումնասիրության եղանակներ";
+"welcome-send-data-title" = "Ուղարկել անանուն տվյալներ";
+"readers-accessibility-label" = "$1 ընթերցողներ";
+"rank-accessibility-label" = "Քանակ $1";
+"in-the-news-notification-share-action-title" = "Կիսվել...";
+"in-the-news-title" = "Նորություններում";
+"in-the-news-title-for-date" = "Լուրեր $1";
+"back" = "Հետ";
+"save-action" = "Հիշել";

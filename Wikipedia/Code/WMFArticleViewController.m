@@ -199,6 +199,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self = [super init];
     if (self) {
+        self.addingArticleToHistoryListEnabled = YES;
+        self.savingOpenArticleTitleEnabled = YES;
         self.currentFooterIndex = NSNotFound;
         self.articleURL = url;
         self.dataStore = dataStore;
@@ -367,6 +369,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                                            userStore:self.dataStore
                                                                         previewStore:self.previewStore];
         _readMoreListViewController.delegate = self;
+        _readMoreListViewController.view.backgroundColor = [UIColor whiteColor];
     }
     return _readMoreListViewController;
 }
@@ -660,7 +663,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)languagesController:(WMFLanguagesViewController *)controller didSelectLanguage:(MWKLanguageLink *)language {
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionSwitchLanguageInContext:self contentType:self];
+    [[PiwikTracker sharedInstance] wmf_logActionSwitchLanguageInContext:self contentType:self];
     [self dismissViewControllerAnimated:YES
                              completion:^{
                                  [self pushArticleViewControllerWithURL:language.articleURL contentType:nil animated:YES];
@@ -817,6 +820,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Title Button
 
+- (UIButton *)titleButton {
+    return (UIButton *)self.navigationItem.titleView;
+}
+
 - (void)setUpTitleBarButton {
     UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
     [b adjustsImageWhenHighlighted];
@@ -831,7 +838,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
           forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = b;
     self.navigationItem.titleView.isAccessibilityElement = YES;
-    self.navigationItem.titleView.accessibilityLabel = MWLocalizedString(@"home-button-accessibility-label", nil);
+
     self.navigationItem.titleView.accessibilityTraits |= UIAccessibilityTraitButton;
 }
 
@@ -843,7 +850,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.navigationController.toolbar wmf_applySolidWhiteBackgroundWithTopShadow];
 
     [self setUpTitleBarButton];
-    self.automaticallyAdjustsScrollViewInsets = YES;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
 
     self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
@@ -1021,14 +1028,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
 }
 
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
-        [self layoutForSize:size];
-    }
-                                 completion:NULL];
-}
-
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
     [self updateTableOfContentsDisplayModeWithTraitCollection:newCollection];
@@ -1122,7 +1121,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         case WMFTableOfContentsDisplayModeInline: {
             if (self.tableOfContentsViewController.parentViewController != self) {
                 if (self.presentedViewController == self.tableOfContentsViewController) {
-                    [self dismissViewControllerAnimated:NO completion:NULL];
+                    [self.tableOfContentsViewController dismissViewControllerAnimated:NO completion:NULL];
                 }
                 self.tableOfContentsViewController = nil;
 
@@ -1583,10 +1582,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - SectionEditorViewControllerDelegate
 
-- (void)sectionEditorFinishedEditing:(SectionEditorViewController *)sectionEditorViewController {
+- (void)sectionEditorFinishedEditing:(SectionEditorViewController *)sectionEditorViewController withChanges:(BOOL)didChange {
     self.skipFetchOnViewDidAppear = YES;
     [self dismissViewControllerAnimated:YES completion:NULL];
-    [self fetchArticle];
+    if (didChange) {
+        [self fetchArticle];
+    }
 }
 
 #pragma mark - Article link and image peeking via WKUIDelegate
@@ -1598,7 +1599,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (nullable UIViewController *)webView:(WKWebView *)webView previewingViewControllerForElement:(WKPreviewElementInfo *)elementInfo defaultActions:(NSArray<id<WKPreviewActionItem>> *)previewActions {
     UIViewController *peekVC = [self peekViewControllerForURL:elementInfo.linkURL];
     if (peekVC) {
-        [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:self];
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:self];
         [self.webViewController hideFindInPageWithCompletion:nil];
 
         if ([peekVC isKindOfClass:[WMFArticleViewController class]]) {
@@ -1619,7 +1620,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (nullable UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                        viewControllerForLocation:(CGPoint)location {
     if (previewingContext == self.leadImagePreviewingContext) {
-        [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:self];
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:self];
         WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article];
         return fullscreenGallery;
     }
@@ -1770,7 +1771,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)pushArticleViewController:(WMFArticleViewController *)articleViewController contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType animated:(BOOL)animated {
     if (contentType) {
-        [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:contentType];
+        [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:contentType];
     }
     [self wmf_pushArticleViewController:articleViewController animated:YES];
 }

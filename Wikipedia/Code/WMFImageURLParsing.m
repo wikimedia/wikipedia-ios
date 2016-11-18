@@ -94,7 +94,11 @@ NSString *WMFOriginalImageURLStringFromURLString(NSString *URLString) {
     return URLString;
 }
 
-NSString *WMFChangeImageSourceURLSizePrefix(NSString *sourceURL, NSUInteger newSizePrefix) __attribute__((overloadable)) {
+NSString *WMFChangeImageSourceURLSizePrefix(NSString *sourceURL, NSInteger newSizePrefix) __attribute__((overloadable)) {
+    if (newSizePrefix < 1) {
+        newSizePrefix = 1;
+    }
+    
     NSString *wikipediaString = @"/wikipedia/";
     NSRange wikipediaStringRange = [sourceURL rangeOfString:wikipediaString];
 

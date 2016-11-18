@@ -8,6 +8,9 @@ import WMFUtilities
 class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationContentExtension, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding {
     @IBOutlet weak var imageView: UIImageView!
 
+    @IBOutlet weak var statusView: UIVisualEffectView!
+    @IBOutlet weak var statusLabel: UILabel!
+    
     @IBOutlet weak var readerCountLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var sparklineView: WMFSparklineView!
@@ -48,7 +51,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        //PiwikTracker.wmf_start()
+        PiwikTracker.wmf_start()
     }
     
     override func viewDidLoad() {
@@ -57,6 +60,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
     }
     
     func didReceiveNotification(notification: UNNotification) {
+        statusView.hidden = true
         summaryLabel.text = notification.request.content.body
         let info = notification.request.content.userInfo
         let title = info[WMFNotificationInfoArticleTitleKey] as? String
@@ -66,13 +70,19 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             articleURL = NSURL(string: articleURLString)
         }
         
-        //PiwikTracker.sharedInstance().wmf_logActionPreviewInContext(self, contentType: self)
+        PiwikTracker.sharedInstance()?.wmf_logActionPreviewInContext(self, contentType: self, date: NSDate())
         
-        if let html = info[WMFNotificationInfoStoryHTMLKey] as? String {
-            let font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote, compatibleWithTraitCollection: nil)
-            let linkFont = UIFont.boldSystemFontOfSize(font.pointSize)
-            let attributedString = html.wmf_attributedStringByRemovingHTMLWithFont(font, linkFont: linkFont)
-            summaryLabel.attributedText = attributedString
+        do {
+            if let dictionary = info[WMFNotificationInfoFeedNewsStoryKey] as? [String: AnyObject],
+                let newsStory = try MTLJSONAdapter.modelOfClass(WMFFeedNewsStory.self, fromJSONDictionary: dictionary) as? WMFFeedNewsStory,
+                let html = newsStory.storyHTML  {
+                let font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote, compatibleWithTraitCollection: nil)
+                let linkFont = UIFont.boldSystemFontOfSize(font.pointSize)
+                let attributedString = html.wmf_attributedStringByRemovingHTMLWithFont(font, linkFont: linkFont)
+                summaryLabel.attributedText = attributedString
+            }
+        } catch let error as NSError {
+            DDLogError("erorr deserializing news story \(error)")
         }
 
         timeLabel.text = localizedStringForKeyFallingBackOnEnglish("in-the-news-currently-trending")
@@ -126,10 +136,40 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
         case UNNotificationDismissActionIdentifier:
             completion(.Dismiss)
         case WMFInTheNewsNotificationSaveForLaterActionIdentifier:
-            let dataStore: MWKDataStore = SessionSingleton.sharedInstance().dataStore
-            dataStore.savedPageList.addSavedPageWithURL(articleURL)
+            statusView.hidden = false
+            statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saving-for-later")
+            PiwikTracker.sharedInstance()?.wmf_logActionSaveInContext(self, contentType: self)
+            let containerURL = NSFileManager.defaultManager().wmf_containerURL();
+            let filename = "Saved.articles"
+            guard let savedArticlesURL = containerURL.URLByAppendingPathComponent(filename, isDirectory: false) else {
+                completion(.Dismiss)
+                break
+            }
+            
+            var savedArticles = [NSString]()
+            
+            if let data = NSData(contentsOfURL: savedArticlesURL), let array = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? [NSString] {
+               savedArticles = array
+            }
+            
+            if let savedArticleString = articleURL.absoluteString {
+                savedArticles.append(savedArticleString)
+            }
+            
+            let data = NSKeyedArchiver.archivedDataWithRootObject(savedArticles)
+            
+            do {
+                try data.writeToURL(savedArticlesURL, options: .DataWritingAtomic)
+            } catch let error {
+                DDLogError("error saving: \(error)")
+            }
+            
+            statusView.hidden = false
+            statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saved-for-later")
             completion(.Dismiss)
+
         case WMFInTheNewsNotificationShareActionIdentifier:
+            PiwikTracker.sharedInstance()?.wmf_logActionTapThroughInContext(self, contentType: self)
             completion(.DismissAndForwardAction)
         case WMFInTheNewsNotificationReadNowActionIdentifier:
             fallthrough
@@ -137,9 +177,10 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             fallthrough
         default:
             guard let wikipediaSchemeURL = articleURL.wmf_wikipediaSchemeURL else {
+                completion(.Dismiss)
                 break
             }
-            //PiwikTracker.sharedInstance().wmf_logActionTapThroughInContext(self, contentType: self)
+            PiwikTracker.sharedInstance()?.wmf_logActionTapThroughInContext(self, contentType: self)
             extensionContext.openURL(wikipediaSchemeURL, completionHandler: { (didOpen) in
                 completion(.Dismiss)
             })

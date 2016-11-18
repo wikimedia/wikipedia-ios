@@ -16,8 +16,8 @@ NSString *const WMFNotificationInfoArticleTitleKey = @"articleTitle";
 NSString *const WMFNotificationInfoArticleURLStringKey = @"articleURLString";
 NSString *const WMFNotificationInfoThumbnailURLStringKey = @"thumbnailURLString";
 NSString *const WMFNotificationInfoArticleExtractKey = @"articleExtract";
-NSString *const WMFNotificationInfoStoryHTMLKey = @"storyHTML";
 NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
+NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 
 //const CGFloat WMFNotificationImageCropNormalizedMinDimension = 1; //for some reason, cropping isn't respected if a full dimension (1) is indicated
 
@@ -46,6 +46,7 @@ NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
 
         }];
 #endif
+        [self updateCategories];
     }
     return self;
 }
@@ -75,27 +76,30 @@ NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
     }];
 }
 
-- (void)requestAuthenticationWithCompletionHandler:(void (^)(BOOL, NSError *_Nullable))completionHandler {
+- (void)updateCategories {
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     UNNotificationAction *readNowAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationReadNowActionIdentifier title:MWLocalizedString(@"in-the-news-notification-read-now-action-title", nil) options:UNNotificationActionOptionForeground];
-    UNNotificationAction *saveForLaterAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationShareActionIdentifier title:MWLocalizedString(@"in-the-news-notification-share-action-title", nil) options:UNNotificationActionOptionForeground];
-    UNNotificationAction *shareAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationSaveForLaterActionIdentifier title:MWLocalizedString(@"in-the-news-notification-save-for-later-action-title", nil) options:UNNotificationActionOptionForeground];
+    UNNotificationAction *shareAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationShareActionIdentifier title:MWLocalizedString(@"in-the-news-notification-share-action-title", nil) options:UNNotificationActionOptionForeground];
+    UNNotificationAction *saveForLaterAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationSaveForLaterActionIdentifier title:MWLocalizedString(@"in-the-news-notification-save-for-later-action-title", nil) options:UNNotificationActionOptionNone];
 
     if (!readNowAction || !saveForLaterAction || !shareAction) {
-        self.authorized = NO;
-        completionHandler(false, nil);
+        DDLogError(@"Unable to create notification categories");
         return;
     }
 
     UNNotificationCategory *inTheNewsCategory = [UNNotificationCategory categoryWithIdentifier:WMFInTheNewsNotificationCategoryIdentifier actions:@[readNowAction, saveForLaterAction, shareAction] intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
 
     if (!inTheNewsCategory) {
-        self.authorized = NO;
-        completionHandler(false, nil);
+        DDLogError(@"Unable to create notification categories");
         return;
     }
 
     [center setNotificationCategories:[NSSet setWithObject:inTheNewsCategory]];
+}
+
+- (void)requestAuthenticationWithCompletionHandler:(void (^)(BOOL, NSError *_Nullable))completionHandler {
+    [self updateCategories];
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     [center requestAuthorizationWithOptions:UNAuthorizationOptionAlert | UNAuthorizationOptionSound
                           completionHandler:^(BOOL granted, NSError *_Nullable error) {
                               self.authorized = granted;

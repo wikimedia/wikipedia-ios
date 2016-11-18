@@ -83,7 +83,7 @@
                                                   [oldSectionKeys addObject:[section databaseKey]];
                                               }
                                           }];
-    [self.contentStore readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
+    [self.contentStore asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
         [transaction removeObjectsForKeys:oldSectionKeys inCollection:[WMFContentGroup databaseCollectionName]];
     }];
 }
@@ -99,10 +99,25 @@
 
     [self.siteInfoFetcher fetchSiteInfoForSiteURL:self.siteURL
         completion:^(MWKSiteInfo *_Nonnull data) {
+            if(data.mainPageURL == nil){
+                if (completion) {
+                    completion();
+                }
+                return;
+            }
+            
 
             [self.previewFetcher fetchArticlePreviewResultsForArticleURLs:@[data.mainPageURL]
                 siteURL:self.siteURL
                 completion:^(NSArray<MWKSearchResult *> *_Nonnull results) {
+                    if([results count] == 0){
+                        if (completion) {
+                            completion();
+                        }
+                        return;
+                    }
+                    
+                    
                     [self.previewStore addPreviewWithURL:data.mainPageURL updatedWithSearchResult:[results firstObject]];
                     [self.contentStore addContentGroup:section associatedContent:@[data.mainPageURL]];
                     [self cleanupOldSections];

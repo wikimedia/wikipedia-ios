@@ -6,6 +6,7 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *rightButtonWidthConstraint;
 @property (assign, nonatomic) CGFloat rightButtonWidthConstraintConstant;
 
+@property (strong, nonatomic) IBOutlet UIView *containerView;
 @property (strong, nonatomic) IBOutlet UIImageView *icon;
 @property (strong, nonatomic) IBOutlet UIView *iconContainerView;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
@@ -18,10 +19,16 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self reset];
+    self.titleLabel.isAccessibilityElement = NO;
+    self.subTitleLabel.isAccessibilityElement = NO;
+    self.containerView.isAccessibilityElement = YES;
+    self.accessibilityTraits = UIAccessibilityTraitHeader;
     self.tintColor = [UIColor wmf_blueTintColor];
     self.rightButtonWidthConstraintConstant = self.rightButtonWidthConstraint.constant;
     self.rightButton.hidden = YES;
     self.rightButton.tintColor = [UIColor wmf_blueTintColor];
+    self.rightButton.isAccessibilityElement = YES;
+    self.rightButton.accessibilityTraits = UIAccessibilityTraitButton;
     @weakify(self);
     [self bk_whenTapped:^{
         @strongify(self);
@@ -45,10 +52,25 @@
 
 - (void)setTitle:(NSAttributedString *)title {
     self.titleLabel.attributedText = title;
+    [self updateAccessibilityLabel];
 }
 
 - (void)setSubTitle:(NSAttributedString *)subTitle {
     self.subTitleLabel.attributedText = subTitle;
+    [self updateAccessibilityLabel];
+}
+
+- (void)updateAccessibilityLabel {
+    NSString *title = self.titleLabel.text;
+    NSString *subtitle = self.subTitleLabel.text;
+    NSMutableArray *components = [NSMutableArray arrayWithCapacity:2];
+    if (title) {
+        [components addObject:title];
+    }
+    if (subtitle) {
+        [components addObject:subtitle];
+    }
+    self.containerView.accessibilityLabel = [components componentsJoinedByString:@" "];
 }
 
 - (void)prepareForReuse {

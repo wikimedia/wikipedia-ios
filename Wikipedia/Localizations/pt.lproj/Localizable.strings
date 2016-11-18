@@ -229,6 +229,7 @@
 "share-menu-save-page" = "Guardar página";
 "share-menu-page-saved" = "Página guardada";
 "share-menu-page-saved-access" = "Dica: Para aceder às suas páginas guardadas, toque em $1 acima ou pressione $2 abaixo.";
+// Fuzzy
 "share-custom-menu-item" = "Partilhar";
 "share-a-fact-share-menu-item" = "Partilhar um fact";
 "share-on-twitter-sign-off" = "via @Wikipédia";
@@ -430,6 +431,7 @@
 "top-read-header-generic" = "Wikipédia";
 "reference-title" = "Referência $1";
 "in-the-news-notification-read-now-action-title" = "Ler agora";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "Partilhar";
 "in-the-news-notification-save-for-later-action-title" = "Guardar para mais tarde";
 "in-the-news-currently-trending" = "Popular atualmente";
@@ -438,6 +440,7 @@
 "number-thousands" = "$1K";
 "number-millions" = "$1M";
 "number-billions" = "$1B";
+// Fuzzy
 "feed-news-notification-text" = "Agora pode ativar notificações de artigos da Wikipédia que sejam notícia.";
 // Fuzzy
 "feed-news-notification-button-text" = "Notifique-me sobre notícias";

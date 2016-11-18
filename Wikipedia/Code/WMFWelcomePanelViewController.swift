@@ -51,8 +51,8 @@ class WMFWelcomePanelViewController: UIViewController {
             subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-languages-sub-title")
             nextButton.setTitle(localizedStringForKeyFallingBackOnEnglish("welcome-languages-continue-button").uppercaseStringWithLocale(NSLocale.currentLocale()), forState: .Normal)
         case .analytics:
-            titleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-volunteer-title").uppercaseStringWithLocale(NSLocale.currentLocale())
-            subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-volunteer-sub-title")
+            titleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-send-data-title").uppercaseStringWithLocale(NSLocale.currentLocale())
+            subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-send-data-sub-title")
             nextButton.setTitle(localizedStringForKeyFallingBackOnEnglish("button-done").uppercaseStringWithLocale(NSLocale.currentLocale()), forState: .Normal)
         }
     }

@@ -216,6 +216,7 @@
 "share-menu-save-page" = "Cahmai khon ding";
 "share-menu-page-saved" = "offline rel ding caah khon cang.";
 "share-menu-page-saved-access" = "Tip: na khonmi cahmai pawl zoh nakding ah acung $1 kha hmehpiak asiloah atang $2 kha saupi hmehpiak.";
+// Fuzzy
 "share-custom-menu-item" = "Hrawmh";
 "share-article-name-on-wikipedia" = "@Wikipedia ah \"$1\"";
 "share-article-name-on-wikipedia-with-selected-text" = "@Wikipedia ah \"$1\": \"$2\"";

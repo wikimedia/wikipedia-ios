@@ -145,6 +145,8 @@
     }
     BOOL isSaved = [self isSaved];
     self.control.selected = isSaved;
+    self.control.accessibilityLabel = isSaved ? MWLocalizedString(@"unsave-action", nil) : MWLocalizedString(@"save-action", nil);
+    self.barButtonItem.accessibilityLabel = isSaved ? MWLocalizedString(@"unsave-action", nil) : MWLocalizedString(@"save-action", nil);
     if (isSaved) {
         self.barButtonItem.image = [UIImage imageNamed:@"save-filled"];
     } else {
@@ -161,10 +163,10 @@
 
     if (isSaved) {
         [self.savedPagesFunnel logDelete];
-        [[PiwikTracker wmf_configuredInstance] wmf_logActionUnsaveInContext:self contentType:self];
+        [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
     } else {
         [self.savedPagesFunnel logSaveNew];
-        [[PiwikTracker wmf_configuredInstance] wmf_logActionSaveInContext:self contentType:self];
+        [[PiwikTracker sharedInstance] wmf_logActionSaveInContext:self contentType:self];
     }
 
     [self.savedPageList toggleSavedPageForURL:self.url];

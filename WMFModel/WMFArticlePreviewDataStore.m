@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)savePreview:(WMFArticlePreview *)preview {
-    [self readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
+    [self asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
         [transaction setObject:preview forKey:[preview databaseKey] inCollection:[WMFArticlePreview databaseCollectionName]];
     }];
 }
@@ -132,7 +132,7 @@ NS_ASSUME_NONNULL_BEGIN
         preview.wikidataDescription = feedPreview.wikidataDescription;
     }
     if ([feedPreview.snippet length] > 0) {
-        preview.snippet = feedPreview.snippet;
+        preview.wikidataDescription = feedPreview.wikidataDescription;
     }
     if (feedPreview.thumbnailURL != nil) {
         preview.thumbnailURL = feedPreview.thumbnailURL;

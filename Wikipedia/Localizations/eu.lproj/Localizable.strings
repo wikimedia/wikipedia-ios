@@ -62,7 +62,7 @@
 "wikitext-preview-changes-none" = "Ez da aurrebistan erakusteko aldaketarik egin.";
 // Fuzzy
 "wikitext-upload-save" = "Gordetzen...";
-"wikitext-upload-save-sign-in" = "Saioa hasi";
+"wikitext-upload-save-sign-in" = "Hasi saioa";
 // Fuzzy
 "wikitext-upload-save-anonymously" = "Gorde anonimo bezala";
 "wikitext-upload-save-terms-name" = "Erabilera Baldintzak";
@@ -136,9 +136,8 @@
 "page-history-title" = "Artikuluaren historia";
 "page-history-downloading" = "Artikuluaren historia kargatzen...";
 "navbar-title-mode-edit-wikitext" = "Aldatu";
-"navbar-title-mode-login" = "Saioa hasi";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "Saioa hasi eta gorde";
+"navbar-title-mode-login" = "Hasi saioa";
+"navbar-title-mode-login-and-save" = "Hasi eta gorde saioa";
 "navbar-title-mode-create-account" = "Kontua sortu";
 // Fuzzy
 "navbar-title-mode-create-account-and-save" = "Kontua sortu eta gorde";
@@ -176,6 +175,7 @@
 "about-wikimedia-foundation" = "Wikimedia Fundazioa";
 "share-menu-save-page" = "Gorde orria";
 "share-menu-page-saved" = "Offline irakurtzeko gordea.";
+// Fuzzy
 "share-custom-menu-item" = "Partekatu";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-as-image" = "Partekatu irudi gisa";
@@ -197,7 +197,7 @@
 "button-saved-for-later" = "Gorde gerorako";
 "button-report-a-bug" = "Akats bat jakinarazi";
 "onboarding-create-account" = "Kontua sortu";
-"onboarding-login" = "Saioa hasi";
+"onboarding-login" = "Hasi saioa";
 "onboarding-already-have-account" = "Baduzu erabiltzaile kontua? $1.";
 "onboarding-skip" = "Utzi";
 "onboarding-wikipedia" = "Wikipedia";

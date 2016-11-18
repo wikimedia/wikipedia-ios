@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param url The url of the page to add
  */
-- (nullable MWKHistoryEntry *)addSavedPageWithURL:(NSURL *)url;
+- (void)addSavedPageWithURL:(NSURL *)url;
 
 /**
  *  Remove a saved page

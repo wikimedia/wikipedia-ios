@@ -109,8 +109,7 @@
 "settings-help-and-feedback" = "Pitulung lan saran";
 "settings-primary-language" = "Utami";
 "settings-primary-language-details" = "Basa pisanan ing dhaftar iki digunakake minangka basa utama kanggo aplikasi. Ganti basa iki bakal ngganti isi dina (kayata Artikel Pilihan) ditampilake ing Njelajah.";
-// Fuzzy
-"settings-notifications-system-off" = "Notifikasi lagi dipateni kanggo Wikipedia. Menyang Setelan iOS kanggo nguripake kabar";
+"settings-notifications-system-off" = "Notifikasi lagi dipateni kanggo Wikipedia. Menyang setelan peranti sampeyan kanggo nguripake kabar";
 "settings-notifications-system-turn-on" = "Nguripake Wara-wara";
 "settings-notifications-info" = "Dapatkan pemberitahuan kanggo trending lan ndhuwur diwaca artikel ing Wikipedia karo kabar push kita. Kabeh kasedhiya karo bab privasi lan munggah menyang data menit.";
 "settings-notifications-learn-more" = "Info liyane babagan kabar";
@@ -221,7 +220,7 @@
 "share-menu-save-page" = "Simpen kaca";
 "share-menu-page-saved" = "Disimpen kanggo maca offline.";
 "share-menu-page-saved-access" = "Tip: kanggo ngakses kaca disimpen, ketuk $1 ndhuwur utawa dawa-pencet $2 ing ngisor iki.";
-"share-custom-menu-item" = "Nuduhake";
+"share-custom-menu-item" = "Nuduhake...";
 "share-a-fact-share-menu-item" = "Nuduhake-bukti";
 "share-on-twitter-sign-off" = "melalui @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" ing @Wikipedia:";
@@ -350,7 +349,11 @@
 "home-hide-suggestion-prompt" = "Singidaken saran iki";
 "home-hide-suggestion-cancel" = "Batal";
 "home-accessibility-label" = "Wikipedia, Njelajah";
+"home-title-accessibility-label" = "Wikipedia, gulung menyang ndhuwur Langkawi";
 "home-button-accessibility-label" = "Latar";
+"home-button-explore-accessibility-label" = "Wikipedia, bali menyang Langkawi";
+"home-button-saved-accessibility-label" = "Wikipedia, bali menyang Kasimpen";
+"home-button-history-accessibility-label" = "Wikipedia, bali menyang Sajarah";
 "potd-empty-error-description" = "Gagal kanggo nompo Gambar dina kanggo $1";
 "potd-description-prefix" = "Gambar saka dina kanggo $1";
 "welcome-explore-title" = "Njelajah";
@@ -376,6 +379,9 @@
 "welcome-volunteer-send-usage-reports" = "Ngirim laporan panggunan";
 "welcome-volunteer-continue-button" = "Banjuraké";
 "welcome-volunteer-thanks" = "Matur nuwun! $1";
+"welcome-send-data-title" = "Kirimi data anonim";
+// Fuzzy
+"welcome-send-data-sub-title" = "Bantuan Wikimedia nggawe aplikasi sing luwih apik ngeculke kita ngerti carane nganggo aplikasi. Data dikumpulake iku anonim. Selengkapnya";
 "empty-no-feed-title" = "Ora ana sambungan internet";
 "empty-no-feed-message" = "Sampeyan bisa ndeleng artikel dianjurake nalika duwe internet";
 "empty-no-feed-action-message" = "Sampeyan isih bisa maca kaca disimpen";
@@ -411,6 +417,7 @@
 "no-email-account-alert" = "Mangga persiyapan akun email ing piranti lan coba manèh.";
 "request-feedback-on-error" = "Aplikasi wis pinanggih masalah sing gawe kita kaya ngerti liyane babagan. Mangga tunyuk kene kanggo ngirim kita email karo rincian kesalahan.";
 "explore-another-random" = "Artikel waton liyane";
+"explore-randomizer" = "Artikel acak";
 "find-in-page-no-matches" = "Ora cocog";
 "find-in-page-button-label" = "Golèk ing kaca";
 "find-in-page-popover-description" = "Golèk teks ing artikel";
@@ -420,9 +427,11 @@
 "top-read-see-more-trending" = "Lihat sedang tren lainnya";
 "top-read-header-with-language" = "Wikipedia $1";
 "top-read-header-generic" = "Wikipédia";
+"readers-accessibility-label" = "$1 maca";
+"rank-accessibility-label" = "Nomer $1";
 "reference-title" = "Rujukan $1";
 "in-the-news-notification-read-now-action-title" = "Maca Saiki";
-"in-the-news-notification-share-action-title" = "Nuduhake";
+"in-the-news-notification-share-action-title" = "Nuduhake...";
 "in-the-news-notification-save-for-later-action-title" = "Simpen kanggo mengko";
 "in-the-news-currently-trending" = "Saiki tren";
 "in-the-news-title" = "Lagi dadi warta";
@@ -430,6 +439,8 @@
 "number-thousands" = "$1 ewu";
 "number-millions" = "$1 yuta";
 "number-billions" = "$1 miliar";
-"feed-news-notification-text" = "Sampeyan saiki bisa nguripake kabar saka artikel Wikipedia tren ing kabar.";
-// Fuzzy
-"feed-news-notification-button-text" = "Menawa pengiriman notifikasi kula bab tren warta";
+"feed-news-notification-text" = "Sampeyan saiki bisa nampa kabar bab artikel Wikipedia tren ing kabar.";
+"feed-news-notification-button-text" = "Nguripake kabar";
+"back" = "Balik";
+"save-action" = "Simpen";
+"unsave-action" = "Durung kasimpen";

@@ -40,8 +40,7 @@
 "login-password-placeholder-text" = "Senhal";
 "wikitext-downloading" = "Cargament del contengut...";
 "wikitext-download-success" = "Contengut cargat.";
-// Fuzzy
-"wikitext-upload-save" = "Enregistrament en cors…";
+"wikitext-upload-save" = "Publicacion en cors…";
 "wikitext-upload-save-sign-in" = "Se connectar";
 "wikitext-upload-save-terms-name" = "Condicions d'utilizacion";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -108,8 +107,7 @@
 "navbar-title-mode-edit-wikitext-disallow" = "Modificar los problèmas";
 "navbar-title-mode-edit-wikitext-preview" = "Apercebut";
 "navbar-title-mode-edit-wikitext-captcha" = "Verificacion rapida necessària";
-// Fuzzy
-"navbar-title-mode-edit-wikitext-save" = "Enregistrar";
+"navbar-title-mode-edit-wikitext-save" = "Publicar";
 "edit-summary-choice-linked-words" = "Ligams aponduts";
 "edit-summary-choice-fixed-grammar" = "Correccion gramaticala";
 "edit-summary-choice-fixed-inaccuracy" = "Inexactitud corregida";
@@ -139,7 +137,7 @@
 "about-wikimedia-foundation" = "Fondacion Wikimèdia";
 "share-menu-save-page" = "Enregistrar la pagina";
 "share-menu-page-saved" = "Pagina enregistrada";
-"share-custom-menu-item" = "Partejar";
+"share-custom-menu-item" = "Partejar…";
 "share-article-name-on-wikipedia" = "« $1 » sus @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "« $1 » sus @Wikipedia : « $2 »";
 "share-as-image" = "Partejar coma imatge";

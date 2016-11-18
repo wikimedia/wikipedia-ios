@@ -17,9 +17,9 @@
 @property (nonatomic, strong) MWKDataStore *dataStore;
 @property (nonatomic, strong) MWKHistoryList *historyList;
 
-@property (nonatomic, strong) MWKHistoryEntry *fooEntry;
-@property (nonatomic, strong) MWKHistoryEntry *sfEntry;
-@property (nonatomic, strong) MWKHistoryEntry *laEntry;
+@property (nonatomic, strong) NSURL *fooURL;
+@property (nonatomic, strong) NSURL *sfURL;
+@property (nonatomic, strong) NSURL *laURL;
 
 @property (nonatomic, strong) WMFRelatedSectionBlackList *blackList;
 
@@ -35,17 +35,17 @@
 - (void)setUp {
     [super setUp];
 
-    NSURL *fooURL = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"Foo"];
-    NSURL *sfURL = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"San Francisco"];
-    NSURL *laURL = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"Los Angeles"];
+    self.fooURL = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"Foo"];
+    self.sfURL = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"San Francisco"];
+    self.laURL = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"Los Angeles"];
 
     self.dataStore = [MWKDataStore temporaryDataStore];
 
     self.historyList = [[MWKHistoryList alloc] initWithDataStore:self.dataStore];
 
-    self.fooEntry = [self.historyList addPageToHistoryWithURL:fooURL];
-    self.sfEntry = [self.historyList addPageToHistoryWithURL:sfURL];
-    self.laEntry = [self.historyList addPageToHistoryWithURL:laURL];
+    [self.historyList addPageToHistoryWithURL:self.fooURL];
+    [self.historyList addPageToHistoryWithURL:self.sfURL];
+    [self.historyList addPageToHistoryWithURL:self.laURL];
 
     self.blackList = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self.dataStore];
 
@@ -61,14 +61,15 @@
 
     XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
-    [self.historyList setSignificantlyViewedOnPageInHistoryWithURL:self.fooEntry.url];
-    [self.historyList setSignificantlyViewedOnPageInHistoryWithURL:self.laEntry.url];
-    [self.historyList setSignificantlyViewedOnPageInHistoryWithURL:self.sfEntry.url];
+    [self.historyList setSignificantlyViewedOnPageInHistoryWithURL:self.fooURL];
+    [self.historyList setSignificantlyViewedOnPageInHistoryWithURL:self.laURL];
+    [self.historyList setSignificantlyViewedOnPageInHistoryWithURL:self.sfURL];
 
     @weakify(self);
     [self.dataStore notifyWhenWriteTransactionsComplete:^{
         @strongify(self);
-        NSArray *expectedItems = @[self.fooEntry, self.laEntry, self.sfEntry];
+        NSArray *expectedItems = @[self.fooURL.wmf_articleDatabaseKey, self.laURL.wmf_articleDatabaseKey, self.sfURL.wmf_articleDatabaseKey];
+
         XCTAssertEqualObjects([self itemsFromDataSource:self.becauseYouReadSeedsDataSource], expectedItems);
         [expectation fulfill];
     }];
@@ -82,11 +83,11 @@
 
     XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
-    [self.historyList setSignificantlyViewedOnPageInHistoryWithURL:self.fooEntry.url];
+    [self.historyList setSignificantlyViewedOnPageInHistoryWithURL:self.fooURL];
     @weakify(self);
     [self.dataStore notifyWhenWriteTransactionsComplete:^{
         @strongify(self);
-        NSArray *expectedItems = @[self.fooEntry];
+        NSArray *expectedItems = @[self.fooURL.wmf_articleDatabaseKey];
         XCTAssertEqualObjects([self itemsFromDataSource:self.becauseYouReadSeedsDataSource], expectedItems);
         [expectation fulfill];
     }];
@@ -100,16 +101,16 @@
 
     XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
-    [self.historyList setSignificantlyViewedOnPageInHistoryWithURL:self.fooEntry.url];
-    [self.historyList setSignificantlyViewedOnPageInHistoryWithURL:self.sfEntry.url];
-    [self.historyList setSignificantlyViewedOnPageInHistoryWithURL:self.laEntry.url];
+    [self.historyList setSignificantlyViewedOnPageInHistoryWithURL:self.fooURL];
+    [self.historyList setSignificantlyViewedOnPageInHistoryWithURL:self.sfURL];
+    [self.historyList setSignificantlyViewedOnPageInHistoryWithURL:self.laURL];
 
-    [self.blackList addBlackListArticleURL:self.sfEntry.url];
+    [self.blackList addBlackListArticleURL:self.sfURL];
 
     @weakify(self);
     [self.dataStore notifyWhenWriteTransactionsComplete:^{
         @strongify(self);
-        NSArray *expectedItems = @[self.fooEntry, self.laEntry];
+        NSArray *expectedItems = @[self.fooURL.wmf_articleDatabaseKey, self.laURL.wmf_articleDatabaseKey];
         XCTAssertEqualObjects([self itemsFromDataSource:self.becauseYouReadSeedsDataSource], expectedItems);
         [expectation fulfill];
     }];
@@ -121,8 +122,8 @@
 - (NSArray *)itemsFromDataSource:(id<WMFDataSource>)dataSource {
     NSMutableArray *items = [[NSMutableArray alloc] init];
     for (int i = 0; i < [dataSource numberOfItemsInSection:0]; i++) {
-        MWKHistoryEntry *entry = [dataSource objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-        [items addObject:entry];
+        MWKHistoryEntry *entry = (MWKHistoryEntry *)[dataSource objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        [items addObject:entry.url.wmf_articleDatabaseKey];
     }
     return items;
 }

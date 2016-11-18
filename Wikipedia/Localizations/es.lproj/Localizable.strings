@@ -122,9 +122,12 @@
 "settings-help-and-feedback" = "Ayuda y comentarios";
 "settings-primary-language" = "Primario";
 "settings-primary-language-details" = "El primer idioma de esta lista se emplea como el idioma principal de la aplicación. Al cambiarlo, cambiarás también el contenido diario (por ejemplo, el \"Artículo del día\") mostrado en Explorar.";
+"settings-notifications-system-off" = "Actualmente las notificaciones están desactivadas para Wikipedia. Ve a la configuración de tu dispositivo para activarlas";
 "settings-notifications-system-turn-on" = "Activar las notificaciones";
-"settings-notifications-learn-more" = "Aprender más acerca de las notificaciones";
+"settings-notifications-info" = "Mantente en alerta de artículos en tendencia o más leídos en Wikipedia con nuestras notificaciones. Todas ellas proporcionadas con respeto por la privacidad y actualizadas al minuto.";
+"settings-notifications-learn-more" = "Conocer más acerca de las notificaciones";
 "settings-notifications-trending" = "Eventos actuales en tendencia";
+"settings-notifications-push-notifications" = "Notificaciones";
 "main-menu-title" = "Más";
 "main-menu-heading-about" = "Acerca de";
 "main-menu-language-title" = "Búsqueda en Wikipedia en $1";
@@ -160,7 +163,7 @@
 "main-menu-heading-debug" = "Depurar";
 "main-menu-debug-crash" = "Fallar";
 "main-menu-debug-tweaks" = "Configuración del desarrollador";
-"saved-title" = "Guardado";
+"saved-title" = "Guardados";
 "saved-pages-title" = "Páginas guardadas";
 "saved-pages-clear-confirmation-heading" = "¿Estás seguro de que quieres borrar todas las páginas guardadas?";
 "saved-pages-clear-confirmation-sub-heading" = "Esta acción no se puede deshacer.";
@@ -230,7 +233,7 @@
 "share-menu-save-page" = "Guardar página";
 "share-menu-page-saved" = "Guardado para leer sin conexión.";
 "share-menu-page-saved-access" = "Consejo: para acceder a tus páginas guardadas, pulsa $1 arriba o mantén apretado $2 abajo.";
-"share-custom-menu-item" = "Compartir";
+"share-custom-menu-item" = "Compartir...";
 "share-a-fact-share-menu-item" = "Comparte-un-hecho";
 "share-on-twitter-sign-off" = "vía @Wikipedia";
 "share-article-name-on-wikipedia" = "«$1» en @Wikipedia:";
@@ -359,12 +362,17 @@
 "home-hide-suggestion-prompt" = "Ocultar esta sugerencia";
 "home-hide-suggestion-cancel" = "Cancelar";
 "home-accessibility-label" = "Wikipedia, Explorar";
+"home-title-accessibility-label" = "Wikipedia, desplazarse a la parte superior de Explorar";
 "home-button-accessibility-label" = "Inicio";
+"home-button-explore-accessibility-label" = "Wikipedia, volver a Explorar";
+"home-button-saved-accessibility-label" = "Wikipedia, volver a Guardados";
+"home-button-history-accessibility-label" = "Wikipedia, volver al Historial";
 "potd-empty-error-description" = "No se pudo obtener la foto del día del $1";
 "potd-description-prefix" = "Foto del día del $1";
 "welcome-explore-title" = "Explorar";
 "welcome-explore-sub-title" = "Una forma nueva de descubrir artículos interesantes todos los días";
 "welcome-explore-new-ways-title" = "Nuevas formas de explorar";
+"welcome-explore-new-ways-sub-title" = "Notificaciones y \"widgets\" nuevos para ayudarte a descubrir artículos interesantes";
 "welcome-explore-tell-me-more" = "Más información";
 "welcome-explore-tell-me-more-about-explore" = "Más acerca de Explorar";
 "welcome-explore-tell-me-more-details" = "Cuando lees un artículo, los artículos relacionados se agregan automáticamente a tu canal de Explorar. Esto no cambia la manera en que recopilamos tu información, y tu historial de lectura sigue siendo privado.";
@@ -373,6 +381,8 @@
 "welcome-explore-tell-me-more-done-button" = "Entendido";
 "welcome-explore-continue-button" = "Empezar";
 "welcome-notifications-tell-me-more-title" = "Más acerca de las notificaciones";
+"welcome-notifications-tell-me-more-storage" = "Las preferencias de notificación se almacenan en el dispositivo y no se basan en información o actividad personal.";
+"welcome-notifications-tell-me-more-creation" = "Las notificaciones las crea y entrega la aplicación en el dispositivo, no desde nuestros servidores (ni desde terceros).";
 "welcome-languages-title" = "Idiomas";
 "welcome-languages-sub-title" = "Selecciona tus idiomas preferidos para buscar en Wikipedia";
 "welcome-languages-add-button" = "Añadir otro idioma";
@@ -382,6 +392,9 @@
 "welcome-volunteer-send-usage-reports" = "Enviar informes de uso";
 "welcome-volunteer-continue-button" = "Continuar";
 "welcome-volunteer-thanks" = "$1 ¡Gracias!";
+"welcome-send-data-title" = "Enviar datos anónimos";
+// Fuzzy
+"welcome-send-data-sub-title" = "Ayuda a mejorar la aplicación de Wikipedia diciéndonos cómo la usas. Los datos recolectados son anónimos. Aprende más";
 "empty-no-feed-title" = "No hay conexión a Internet";
 "empty-no-feed-message" = "Puedes ver tus artículos recomendados cuando tengas Internet";
 "empty-no-feed-action-message" = "Aún puedes leer las páginas guardadas";
@@ -417,6 +430,7 @@
 "no-email-account-alert" = "Configura una cuenta de correo electrónico en tu dispositivo e inténtalo de nuevo.";
 "request-feedback-on-error" = "La aplicación ha detectado un problema sobre el cual nuestros desarrolladores les gustaría saber más. Pulsa aquí para enviarnos un correo electrónico con los detalles del error.";
 "explore-another-random" = "Otro artículo aleatorio";
+"explore-randomizer" = "Aleatorio";
 "find-in-page-no-matches" = "0 coincidencias";
 "find-in-page-button-label" = "Buscar en la página";
 "find-in-page-popover-description" = "Búsqueda de texto en los artículos";
@@ -426,9 +440,11 @@
 "top-read-see-more-trending" = "Ver más tendencias";
 "top-read-header-with-language" = "Wikipedia en $1";
 "top-read-header-generic" = "Wikipedia";
+"readers-accessibility-label" = "$1 lectores";
+"rank-accessibility-label" = "Número $1";
 "reference-title" = "Referencia $1";
 "in-the-news-notification-read-now-action-title" = "Leer ahora";
-"in-the-news-notification-share-action-title" = "Compartir";
+"in-the-news-notification-share-action-title" = "Compartir...";
 "in-the-news-notification-save-for-later-action-title" = "Guardar para después";
 "in-the-news-currently-trending" = "En tendencia";
 "in-the-news-title" = "Actualidad";
@@ -436,5 +452,8 @@
 "number-thousands" = "$1K";
 "number-millions" = "$1M";
 "number-billions" = "$1B";
-// Fuzzy
-"feed-news-notification-button-text" = "Avisar acerca de noticias en tendencia";
+"feed-news-notification-text" = "Ahora puedes recibir notificaciones sobre artículos de Wikipedia en tendencia en las noticias.";
+"feed-news-notification-button-text" = "Activar las notificaciones";
+"back" = "Volver";
+"save-action" = "Guardar";
+"unsave-action" = "Deshacer el guardado";

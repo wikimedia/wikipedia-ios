@@ -42,8 +42,8 @@
 "history-label" = "Recenti";
 "history-section-today" = "Oggi";
 "history-section-yesterday" = "Ieri";
-"history-section-lastweek" = "Ultima settimana";
-"history-section-lastmonth" = "Ultimo mese";
+"history-section-lastweek" = "Settimana scorsa";
+"history-section-lastmonth" = "Mese scorso";
 "history-clear-confirmation-heading" = "Sei sicuro di voler cancellare tutti i tuoi elementi recenti?";
 "history-clear-confirmation-sub-heading" = "Questa azione non può essere annullata!";
 "history-clear-cancel" = "Annulla";
@@ -236,7 +236,7 @@
 "share-menu-save-page" = "Salva la pagina";
 "share-menu-page-saved" = "Salvata per la lettura offline.";
 "share-menu-page-saved-access" = "Suggerimento: per accedere alle pagine salvate, tocca $1 sopra o premi a lungo $2 sotto.";
-"share-custom-menu-item" = "Condividi";
+"share-custom-menu-item" = "Condividi...";
 "share-a-fact-share-menu-item" = "Condividi-un-fatto";
 "share-on-twitter-sign-off" = "tramite @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" su @Wikipedia";
@@ -366,6 +366,8 @@
 "home-hide-suggestion-cancel" = "Annulla";
 "home-accessibility-label" = "Wikipedia, esplora";
 "home-button-accessibility-label" = "Pagina principale";
+"home-button-saved-accessibility-label" = "Wikipedia, ritorna alle pagine salvate";
+"home-button-history-accessibility-label" = "Wikipedia, ritorna alla cronologia";
 "potd-empty-error-description" = "Impossibile recuperare l'immagine del giorno del $1";
 "potd-description-prefix" = "Immagine del giorno per $1";
 "welcome-explore-title" = "Esplora";
@@ -422,6 +424,7 @@
 "no-email-account-alert" = "Configura un account di posta elettronica sul tuo dispositivo e riprova.";
 "request-feedback-on-error" = "L'applicazione ha riscontrato un problema su cui i nostri sviluppatori vorrebbero saperne di più. Si prega di toccare qui per inviarci una email con i dettagli dell'errore.";
 "explore-another-random" = "Un'altra voce a caso";
+"explore-randomizer" = "Una pagina a caso";
 "find-in-page-no-matches" = "0 corrispondenze";
 "find-in-page-button-label" = "Trova nella pagina";
 "find-in-page-popover-description" = "Ricerca testo nelle voci";
@@ -431,9 +434,11 @@
 "top-read-see-more-trending" = "Vedi i più di tendenza";
 "top-read-header-with-language" = "Wikipedia in $1";
 "top-read-header-generic" = "Wikipedia";
+"readers-accessibility-label" = "$1 lettori";
+"rank-accessibility-label" = "Numero $1";
 "reference-title" = "Riferimento $1";
 "in-the-news-notification-read-now-action-title" = "Leggi ora";
-"in-the-news-notification-share-action-title" = "Condividi";
+"in-the-news-notification-share-action-title" = "Condividi...";
 "in-the-news-notification-save-for-later-action-title" = "Salva per dopo";
 "in-the-news-currently-trending" = "Attualmente popolare";
 "in-the-news-title" = "Novità";
@@ -441,3 +446,7 @@
 "number-thousands" = "$1 mila";
 "number-millions" = "$1";
 "number-billions" = "$1";
+"feed-news-notification-button-text" = "Attiva le notifiche";
+"back" = "Indietro";
+"save-action" = "Salva";
+"unsave-action" = "Non salvare";

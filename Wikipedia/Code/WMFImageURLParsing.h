@@ -34,4 +34,4 @@ FOUNDATION_EXPORT NSString *WMFOriginalImageURLStringFromURLString(NSString *URL
  * @param newSizePrefix A new size prefix number. If the sourceURL had a prefix number, this number will replace it. If it did not have a size prefix it will be added as will the "/thumb/" portion.
  * @return An image url in the form of "https://upload.wikimedia.org/wikipedia/commonsOrLangCode/thumb/.../Filename.jpg/XXXpx-Filename.jpg" where the image size prefix has been changed to newSizePrefix
  */
-FOUNDATION_EXPORT NSString *WMFChangeImageSourceURLSizePrefix(NSString *sourceURL, NSUInteger newSizePrefix) __attribute__((overloadable));
+FOUNDATION_EXPORT NSString *WMFChangeImageSourceURLSizePrefix(NSString *sourceURL, NSInteger newSizePrefix) __attribute__((overloadable));

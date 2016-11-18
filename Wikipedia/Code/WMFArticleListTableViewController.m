@@ -63,7 +63,7 @@
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:self];
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:self];
     [self wmf_hideKeyboard];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSURL *url = [self urlAtIndexPath:indexPath];
@@ -106,7 +106,7 @@
     previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
 
     NSURL *url = [self urlAtIndexPath:previewIndexPath];
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:self];
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:self];
 
     UIViewController *vc = self.delegate ? [self.delegate listViewController:self viewControllerForPreviewingArticleURL:url] : [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userDataStore previewStore:self.previewStore];
 
@@ -122,7 +122,7 @@
 }
 
 - (void)commitViewController:(UIViewController *)viewControllerToCommit {
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:self];
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:self];
     if (self.delegate) {
         [self.delegate listViewController:self didCommitToPreviewedViewController:viewControllerToCommit];
     } else {

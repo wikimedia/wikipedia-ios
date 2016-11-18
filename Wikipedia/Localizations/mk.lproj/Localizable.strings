@@ -112,8 +112,7 @@
 "settings-help-and-feedback" = "Помош и мислења";
 "settings-primary-language" = "Главен";
 "settings-primary-language-details" = "Првиот јазик на овој список ќе се користи како главен за прилогот. Ако го смените јазикот, ќе ја смените и дневната содржина (како на пр. Избраната статија) што се прикажува на „Истражете“.";
-// Fuzzy
-"settings-notifications-system-off" = "Известувањата во моментов се исклучени за Википедија. Одете во поставките за вашиот iOS за да ги вклучите.";
+"settings-notifications-system-off" = "Известувањата во моментов се исклучени за Википедија. Одете во поставките за вашиот уред за да ги вклучите.";
 "settings-notifications-system-turn-on" = "Вклучи известувања";
 "settings-notifications-info" = "Бидете во тек со тековните и најчитаните статии на Википедија со нашите доставни известувања. Сите се нудат со најтековни податоци, притоа почитувајќи ја вашата приватност.";
 "settings-notifications-learn-more" = "Дознајте повеќе за известувањата";
@@ -224,7 +223,7 @@
 "share-menu-save-page" = "Зачувај страница";
 "share-menu-page-saved" = "Страницата е зачувана";
 "share-menu-page-saved-access" = "Совет: за да дојдете до вашите зачувани страници, допрете го $1 погоре или подржете на $2 подолу.";
-"share-custom-menu-item" = "Сподели";
+"share-custom-menu-item" = "Сподели...";
 "share-a-fact-share-menu-item" = "Сподели факт";
 "share-on-twitter-sign-off" = "преку @Wikipedia";
 "share-article-name-on-wikipedia" = "„$1“ на @Wikipedia:";
@@ -353,7 +352,11 @@
 "home-hide-suggestion-prompt" = "Скриј го предлогов";
 "home-hide-suggestion-cancel" = "Откажи";
 "home-accessibility-label" = "Википедија, Истражете";
+"home-title-accessibility-label" = "Википедија, пролизгајте најгоре до Истражете";
 "home-button-accessibility-label" = "Почетна";
+"home-button-explore-accessibility-label" = "Википедија, назад на Истражете";
+"home-button-saved-accessibility-label" = "Википедија, назад на Зачувано";
+"home-button-history-accessibility-label" = "Википедија, назад на Историја";
 "potd-empty-error-description" = "Не можев да ја добијам сликата на денот за $1";
 "potd-description-prefix" = "Слика на денот за $1";
 "welcome-explore-title" = "Истражете";
@@ -379,6 +382,9 @@
 "welcome-volunteer-send-usage-reports" = "Испраќај извештаи за употребата";
 "welcome-volunteer-continue-button" = "Продолжи";
 "welcome-volunteer-thanks" = "$1 Благодариме!";
+"welcome-send-data-title" = "Испраќај анонимни податоци";
+// Fuzzy
+"welcome-send-data-sub-title" = "Помогнете ѝ на Википедија да го подобри прилогов со тоа што ќе имаме сознанија за тоа како го користите. Податоците ќе се добиваат анонимно. Дознајте повеќе.";
 "empty-no-feed-title" = "Не сте поврзани со семрежјето";
 "empty-no-feed-message" = "Препорачаните статии ќе ги видите кога ќе се поврзете со семрежјето";
 "empty-no-feed-action-message" = "Но сепак, можете да ги читате зачуваните";
@@ -403,7 +409,7 @@
 "explore-continue-related-heading" = "Бидејќи читавте";
 "explore-main-page-heading" = "Денес на Википедија";
 "explore-random-article-heading" = "Случајна статија";
-"explore-random-article-sub-heading" = "англиска Википедија";
+"explore-random-article-sub-heading" = "Википедија на англиски";
 "explore-potd-heading" = "Слика на денот";
 "explore-most-read-heading" = "Најчистано на Википедија на $1";
 "explore-most-read-generic-heading" = "Најчитани";
@@ -414,6 +420,7 @@
 "no-email-account-alert" = "Зададете е-пошта на вашиот уред и обидете се повторно.";
 "request-feedback-on-error" = "Прилогот наиде на проблем за кој нашите програмери сакаат да дознаат повеќе. Допрете тука за да ни испратите е-пошта со поединости за грешката.";
 "explore-another-random" = "Друга случајна статија";
+"explore-randomizer" = "Случаен избирач";
 "find-in-page-no-matches" = "0 совпаѓања";
 "find-in-page-button-label" = "Најди на страницата";
 "find-in-page-popover-description" = "Пребарај текст во статиите";
@@ -423,9 +430,11 @@
 "top-read-see-more-trending" = "Видете повеќе најчитани";
 "top-read-header-with-language" = "Википедија на $1";
 "top-read-header-generic" = "Википедија";
+"readers-accessibility-label" = "$1 читатели";
+"rank-accessibility-label" = "Број $1";
 "reference-title" = "Навод $1";
 "in-the-news-notification-read-now-action-title" = "Прочитај сега";
-"in-the-news-notification-share-action-title" = "Сподели";
+"in-the-news-notification-share-action-title" = "Сподели...";
 "in-the-news-notification-save-for-later-action-title" = "Зачувај за подоцна";
 "in-the-news-currently-trending" = "Најчитани";
 "in-the-news-title" = "Вести";
@@ -433,6 +442,8 @@
 "number-thousands" = "$1 илј.";
 "number-millions" = "$1 млн.";
 "number-billions" = "$1 млрд.";
-"feed-news-notification-text" = "Сега можете да ги вклучите известувањата од статии на Википедија кои се тековни во вестите.";
-// Fuzzy
-"feed-news-notification-button-text" = "Известувај ме за тековни вести";
+"feed-news-notification-text" = "Сега можете да примате известувања од статии за Википедија кои се тековни во вестите.";
+"feed-news-notification-button-text" = "Вклучи известувања";
+"back" = "Назад";
+"save-action" = "Зачувај";
+"unsave-action" = "Одзачувај";

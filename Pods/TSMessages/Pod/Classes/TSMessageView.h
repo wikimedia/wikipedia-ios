@@ -29,6 +29,9 @@
 /** The position of the message (top or bottom) */
 @property (nonatomic, assign) TSMessageNotificationPosition messagePosition;
 
+/** The type of the message */
+@property (nonatomic, assign, readonly) TSMessageNotificationType notificationType;
+
 /** Is the message currenlty fully displayed? Is set as soon as the message is really fully visible */
 @property (nonatomic, assign) BOOL messageIsFullyDisplayed;
 

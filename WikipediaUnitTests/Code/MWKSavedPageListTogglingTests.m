@@ -28,11 +28,13 @@
 #pragma mark - Manual Saving
 
 - (void)testAddedTitlesArePrepended {
+    NSURL *second = [NSURL wmf_randomArticleURL];
     [self.list addSavedPageWithURL:[NSURL wmf_randomArticleURL]];
-    MWKHistoryEntry *e2 = [self.list addSavedPageWithURL:[NSURL wmf_randomArticleURL]];
+    [self.list addSavedPageWithURL:second];
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
     [self.dataStore notifyWhenWriteTransactionsComplete:^{
+        MWKHistoryEntry *e2 = [self.list entryForURL:second];
         XCTAssertTrue([self.list numberOfItems] == 2);
         assertThat(self.list.mostRecentEntry, is(e2));
         [expectation fulfill];
@@ -41,11 +43,13 @@
 }
 
 - (void)testAddingExistingSavedPageIsIgnored {
-    MWKHistoryEntry *entry = [self.list addSavedPageWithURL:[NSURL wmf_randomArticleURL]];
-    [self.list addSavedPageWithURL:entry.url];
+    NSURL *url = [NSURL wmf_randomArticleURL];
+    [self.list addSavedPageWithURL:url];
+    [self.list addSavedPageWithURL:url];
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
     [self.dataStore notifyWhenWriteTransactionsComplete:^{
+        MWKHistoryEntry *entry = [self.list entryForURL:url];
         XCTAssertTrue([self.list numberOfItems] == 1);
         assertThat(self.list.mostRecentEntry.url, is(entry.url));
         [expectation fulfill];
@@ -57,10 +61,12 @@
 #pragma mark - Toggling
 
 - (void)testTogglingSavedPageReturnsNoAndRemovesFromList {
-    MWKHistoryEntry *savedEntry = [self.list addSavedPageWithURL:[NSURL wmf_randomArticleURL]];
+    NSURL *url = [NSURL wmf_randomArticleURL];
+    [self.list addSavedPageWithURL:url];
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
     [self.dataStore notifyWhenWriteTransactionsComplete:^{
+        MWKHistoryEntry *savedEntry = [self.list entryForURL:url];
         [self.list toggleSavedPageForURL:savedEntry.url];
         [self.dataStore notifyWhenWriteTransactionsComplete:^{
             XCTAssertFalse([self.list isSaved:savedEntry.url]);

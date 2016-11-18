@@ -19,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFDatabaseDataSource
 
 @synthesize delegate;
-@synthesize granularDelegateCallbacksEnabled;
 
 - (instancetype)initWithReadConnection:(YapDatabaseConnection *)readConnection writeConnection:(YapDatabaseConnection *)writeConnection mappings:(YapDatabaseViewMappings *)mappings {
     NSParameterAssert(readConnection);
@@ -63,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
     return text;
 }
 
-- (nullable id)objectAtIndexPath:(NSIndexPath *)indexPath {
+- (nullable id<WMFDatabaseStorable>)objectAtIndexPath:(NSIndexPath *)indexPath {
     return [self readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
         return [view objectAtIndexPath:indexPath withMappings:self.mappings];
     }];
@@ -74,6 +73,13 @@ NS_ASSUME_NONNULL_BEGIN
         return [view metadataAtIndexPath:indexPath withMappings:self.mappings];
     }];
 }
+
+- (NSIndexPath*)indexPathForObject:(id<WMFDatabaseStorable>)object{
+    return [self readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction * _Nonnull transaction, YapDatabaseViewTransaction * _Nonnull view) {
+        return [view indexPathForKey:[object databaseKey] inCollection:[[object class] databaseCollectionName] withMappings:self.mappings];
+    }];
+}
+
 
 - (void)processChanges:(NSArray *)changes onConnection:(YapDatabaseConnection *)connection {
     if (![connection isEqual:self.readConnection]) {
@@ -87,7 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
     //Although there are legitimate reasons we get 0 changes,
     //which could be safely ignored, there is no way to differentiate
     //between those reasons and when modifications happen in extensions
-    if (!self.areGranularDelegateCallbacksEnabled || [changes count] == 0 || self.mappings.snapshotOfLastUpdate != connection.snapshot - 1) {
+    if ([changes count] == 0 || self.mappings.snapshotOfLastUpdate != connection.snapshot - 1) {
 
         [self.readConnection readWithBlock:^(YapDatabaseReadTransaction *transaction) {
             [self.mappings updateWithTransaction:transaction];

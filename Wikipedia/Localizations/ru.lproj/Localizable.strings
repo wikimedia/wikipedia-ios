@@ -9,6 +9,7 @@
 // Author: JackLantern
 // Author: Jackie
 // Author: Kaganer
+// Author: Kareyac
 // Author: Kopcap94
 // Author: Macofe
 // Author: Mailman
@@ -125,10 +126,11 @@
 "settings-help-and-feedback" = "Помощь и обратная связь";
 "settings-primary-language" = "Основной";
 "settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения. Изменение этого языка изменит ежедневное содержимое (такое, как Избранная статья), показываемое на странице Исследуйте.";
-// Fuzzy
-"settings-notifications-system-off" = "В настоящее время уведомления для Википедии выключены. Перейдите в Настройки iOS, чтобы включить уведомления";
+"settings-notifications-system-off" = "В настоящее время уведомления для Википедии выключены. Перейдите в Настройки устройства, чтобы включить уведомления";
 "settings-notifications-system-turn-on" = "Включить уведомления";
+"settings-notifications-info" = "Будьте в курсе трендов и топ читать статьи в Википедии с нашими push-уведомления. Все предоставляемые в отношении конфиденциальности и данных.";
 "settings-notifications-learn-more" = "Подробнее об уведомлениях";
+"settings-notifications-trending" = "В тренде текущих событий";
 "settings-notifications-push-notifications" = "Push-уведомления";
 "main-menu-title" = "Ещё";
 "main-menu-heading-about" = "Про приложение";
@@ -235,7 +237,7 @@
 "share-menu-save-page" = "Сохранить статью";
 "share-menu-page-saved" = "Статья сохранена";
 "share-menu-page-saved-access" = "Совет: чтобы получить доступ к вашим сохраненным страницам, нажмите на $1 выше или зажмите $2 ниже.";
-"share-custom-menu-item" = "Поделиться";
+"share-custom-menu-item" = "Поделиться...";
 "share-a-fact-share-menu-item" = "Поделитесь-фактом";
 "share-on-twitter-sign-off" = "через @Wikipedia";
 "share-article-name-on-wikipedia" = "«$1» в @Wikipedia:";
@@ -364,11 +366,17 @@
 "home-hide-suggestion-prompt" = "Скрыть это предложение";
 "home-hide-suggestion-cancel" = "Отмена";
 "home-accessibility-label" = "Википедия, Исследуйте";
+"home-title-accessibility-label" = "Википедия, промотать к верхней части раздела Исследуйте";
 "home-button-accessibility-label" = "Главная";
+"home-button-explore-accessibility-label" = "Википедия, вернуться к разделу Исследуйте";
+"home-button-saved-accessibility-label" = "Википедии, вернуться к Сохраненным";
+"home-button-history-accessibility-label" = "Википедия, вернуться к Истории";
 "potd-empty-error-description" = "Не удалось получить изображение дня за $1";
 "potd-description-prefix" = "Изображение дня за $1";
 "welcome-explore-title" = "Исследуйте";
 "welcome-explore-sub-title" = "Новый способ открывать для себя интересные статьи каждый день";
+"welcome-explore-new-ways-title" = "Новые способы изучения";
+"welcome-explore-new-ways-sub-title" = "Новые уведомления и виджеты, чтобы помочь вам обнаружить интересные статьи";
 "welcome-explore-tell-me-more" = "Расскажите об этом подробнее";
 "welcome-explore-tell-me-more-about-explore" = "Подробнее об Исследовании";
 "welcome-explore-tell-me-more-details" = "Когда вы посещаете статьи, связанные с ними статьи автоматически добавляются в вашу ленту «Исследуйте». Это не изменяет того, как мы собираем вашу информацию, так что ваша история чтения по-прежнему непублична.";
@@ -376,6 +384,9 @@
 "welcome-explore-tell-me-more-privacy" = "Список прочитываемого или профиль не хранится на наших серверах.";
 "welcome-explore-tell-me-more-done-button" = "Понятно";
 "welcome-explore-continue-button" = "Начать";
+"welcome-notifications-tell-me-more-title" = "Подробнее об уведомлениях";
+"welcome-notifications-tell-me-more-storage" = "Уведомления хранятся на устройстве и не основанные на личной информации или деятельности.";
+"welcome-notifications-tell-me-more-creation" = "Уведомления создаются и доставляются на ваше устройство приложение, А не с наших серверов (или третья сторона).";
 "welcome-languages-title" = "Языки";
 "welcome-languages-sub-title" = "Выберите языки, на которых вы хотели бы осуществлять поиск в Википедии";
 "welcome-languages-add-button" = "Добавить ещё один язык";
@@ -385,6 +396,9 @@
 "welcome-volunteer-send-usage-reports" = "Отправлять отчёты об использовании";
 "welcome-volunteer-continue-button" = "Продолжить";
 "welcome-volunteer-thanks" = "$1 Спасибо!";
+"welcome-send-data-title" = "Отправить анонимные данные";
+// Fuzzy
+"welcome-send-data-sub-title" = "Помогите Викимедиа сделать приложение лучше, позволив нам знать, как вы используете приложение. Собранные данные являются анонимными. Узнать больше";
 "empty-no-feed-title" = "Нет подключения к интернету";
 "empty-no-feed-message" = "Вы можете увидеть рекомендованные статьи, когда у вас есть доступ в интернет";
 "empty-no-feed-action-message" = "Пока вы можете почитать ранее сохранённые страницы";
@@ -420,6 +434,7 @@
 "no-email-account-alert" = "Пожалуйста, настройте на вашем устройстве учетную запись электронной почты и попробуйте ещё раз.";
 "request-feedback-on-error" = "Приложение столкнулся с проблемой, о которой нашим разработчикам хотелось бы знать побольше. Пожалуйста, нажмите здесь, чтобы отправить нам электронное письмо с подробной информацией об ошибке.";
 "explore-another-random" = "Другая случайная статья";
+"explore-randomizer" = "Рандомизатор";
 "find-in-page-no-matches" = "0 совпадений";
 "find-in-page-button-label" = "Найти на странице";
 "find-in-page-popover-description" = "Поиск текста в статьях";
@@ -429,9 +444,11 @@
 "top-read-see-more-trending" = "Посмотреть, что ещё в тренде";
 "top-read-header-with-language" = "$1 Википедия";
 "top-read-header-generic" = "Википедия";
+"readers-accessibility-label" = "$1 читателей";
+"rank-accessibility-label" = "Количество $1";
 "reference-title" = "Примечание $1";
 "in-the-news-notification-read-now-action-title" = "Прочитать сейчас";
-"in-the-news-notification-share-action-title" = "Поделиться";
+"in-the-news-notification-share-action-title" = "Поделиться...";
 "in-the-news-notification-save-for-later-action-title" = "Сохранить на потом";
 "in-the-news-currently-trending" = "В настоящее время популярные";
 "in-the-news-title" = "В новостях";
@@ -439,3 +456,8 @@
 "number-thousands" = "$1 тыс.";
 "number-millions" = "$1М";
 "number-billions" = "$1 млрд.";
+"feed-news-notification-text" = "Теперь вы можете получать уведомления о статьях Википедии трендов в новостях.";
+"feed-news-notification-button-text" = "Включить уведомления";
+"back" = "Назад";
+"save-action" = "Сохранить";
+"unsave-action" = "Не сохранено";

@@ -40,10 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
                                                      name:YapDatabaseModifiedNotification
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(yapDatabaseModified:)
+                                                 selector:@selector(yapDatabaseModifiedExternally:)
                                                      name:YapDatabaseModifiedExternallyNotification
                                                    object:nil];
-        
     }
     return self;
 }
@@ -90,15 +89,14 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.readConnection wmf_readAndReturnResultsInViewWithName:viewName withBlock:block];
 }
 
-- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction *_Nonnull transaction))block {
-    [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
+- (void)asyncReadWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction *_Nonnull transaction))block completion:(nullable dispatch_block_t)completion {
+    [self.writeConnection asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
         block(transaction);
-    }];
+    } completionQueue:dispatch_get_main_queue()  completionBlock:completion];
 }
 
-- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction *_Nonnull transaction))block completion:(dispatch_block_t)completion {
-    [self readWriteWithBlock:block];
-    [self notifyWhenWriteTransactionsComplete:completion];
+- (void)asyncReadWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction *_Nonnull transaction))block {
+    [self asyncReadWriteWithBlock:block completion:NULL];
 }
 
 - (void)notifyWhenWriteTransactionsComplete:(nullable dispatch_block_t)completion {
@@ -112,6 +110,10 @@ NS_ASSUME_NONNULL_BEGIN
     if (_databaseSyncingEnabled) {
         [self syncDataStoreToDatabase];
     }
+}
+
+- (void)yapDatabaseModifiedExternally:(NSNotification *)notification {
+    [self yapDatabaseModified:notification];
 }
 
 - (void)yapDatabaseModified:(NSNotification *)notification {
@@ -143,7 +145,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)dataStoreWasUpdatedWithNotification:(NSNotification *)notification {
 }
-    
+
 @end
 
 NS_ASSUME_NONNULL_END

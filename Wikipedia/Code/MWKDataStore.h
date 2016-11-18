@@ -30,6 +30,9 @@ extern NSString *MWKCreateImageURLWithPath(NSString *path);
 extern NSString *const MWKArticleSavedNotification;
 extern NSString *const MWKArticleKey;
 
+extern NSString *const MWKSetupDataSourcesNotification;
+extern NSString *const MWKTeardownDataSourcesNotification;
+
 /**
  * Subscribe to get notifications when an item is
  * added to saved pages, history, blacklist, etc…

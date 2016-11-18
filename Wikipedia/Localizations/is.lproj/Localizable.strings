@@ -225,6 +225,7 @@
 "share-menu-save-page" = "Vista síðu";
 "share-menu-page-saved" = "Vista $1 fyrir tengingarlausan lestur";
 "share-menu-page-saved-access" = "Smáráð: til að fá aðgang að vistuðu síðunum þínum, bankaðu á $1 fyrir ofan eða ýttu og haltu niðri á $2 fyrir neðan.";
+// Fuzzy
 "share-custom-menu-item" = "Deila";
 "share-a-fact-share-menu-item" = "Deila-staðreynd";
 "share-on-twitter-sign-off" = "með @Wikipedia";

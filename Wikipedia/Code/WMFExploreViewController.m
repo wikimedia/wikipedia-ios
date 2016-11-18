@@ -17,6 +17,7 @@
 #import "CLLocation+WMFBearing.h"
 
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
+#import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "WMFArticlePreview.h"
 #import "MWKHistoryEntry.h"
 
@@ -65,7 +66,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
-@property (nonatomic, strong) id<WMFDataSource> sectionDataSource;
+@property (nonatomic, strong, null_resettable) id<WMFDataSource> sectionDataSource;
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
@@ -76,6 +77,8 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 @property (nonatomic, strong) WMFContentGroupDataStore *internalContentStore;
 
 @property (nonatomic, strong, nullable) WMFFeedNotificationHeader *notificationHeader;
+
+@property (nonatomic, strong, nullable) AFNetworkReachabilityManager *reachabilityManager;
 
 @end
 
@@ -88,6 +91,10 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (UIButton *)titleButton {
+    return (UIButton *)self.navigationItem.titleView;
 }
 
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
@@ -106,7 +113,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
               forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.titleView = b;
         self.navigationItem.titleView.isAccessibilityElement = YES;
-        self.navigationItem.titleView.accessibilityLabel = MWLocalizedString(@"home-accessibility-label", nil);
+
         self.navigationItem.titleView.accessibilityTraits |= UIAccessibilityTraitHeader;
         self.navigationItem.leftBarButtonItem = [self settingsBarButtonItem];
         self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
@@ -138,6 +145,13 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                                            action:@selector(didTapSettingsButton:)];
 }
 
+- (id<WMFDataSource>)sectionDataSource {
+    if (!_sectionDataSource) {
+        _sectionDataSource = [self.internalContentStore contentGroupDataSource];
+    }
+    return _sectionDataSource;
+}
+
 - (WMFContentGroupDataStore *)internalContentStore {
     if (_internalContentStore == nil) {
         _internalContentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
@@ -162,15 +176,6 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         _locationManager.delegate = self;
     }
     return _locationManager;
-}
-
-- (id<WMFDataSource>)sectionDataSource {
-    NSParameterAssert(self.internalContentStore);
-    if (!_sectionDataSource) {
-        _sectionDataSource = [self.internalContentStore contentGroupDataSource];
-        _sectionDataSource.granularDelegateCallbacksEnabled = NO;
-    }
-    return _sectionDataSource;
 }
 
 - (NSURL *)currentSiteURL {
@@ -209,6 +214,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 - (void)updateFeedSources {
     WMFTaskGroup *group = [WMFTaskGroup new];
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        //TODO: nearby doesnt always fire
         [group enter];
         [obj loadNewContentForce:NO
                       completion:^{
@@ -216,26 +222,35 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                       }];
     }];
 
-    //TODO: nearby doesnt always fire.
-    //May need to time it out or exclude
-    [group waitInBackgroundWithCompletion:^{
-        [self resetRefreshControl];
-        [self.internalContentStore syncDataStoreToDatabase];
-    }];
+    [group waitInBackgroundWithTimeout:12
+                            completion:^{
+                                [self resetRefreshControl];
+                                [self.internalContentStore syncDataStoreToDatabase];
+                                [self startMonitoringReachabilityIfNeeded];
+                                [self showOfflineEmptyViewIfNeeded];
+                                [self showHideNotificationIfNeccesary];
+                            }];
 }
 
 - (void)updateFeedWithLatestDatabaseContent {
+    self.sectionDataSource.delegate = nil;
+    self.sectionDataSource = nil;
     [self.internalContentStore syncDataStoreToDatabase];
+    self.sectionDataSource.delegate = self;
 }
 
 #pragma mark - Section Access
 
 - (WMFContentGroup *)sectionAtIndex:(NSUInteger)sectionIndex {
-    return [self.sectionDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:sectionIndex inSection:0]];
+    return (WMFContentGroup *)[self.sectionDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:sectionIndex inSection:0]];
 }
 
 - (WMFContentGroup *)sectionForIndexPath:(NSIndexPath *)indexPath {
-    return [self.sectionDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.section inSection:0]];
+    return (WMFContentGroup *)[self.sectionDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.section inSection:0]];
+}
+
+- (NSUInteger)indexForSection:(WMFContentGroup *)section {
+    return [self.sectionDataSource indexPathForObject:section].row;
 }
 
 #pragma mark - Content Access
@@ -259,7 +274,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         }];
     } else if ([group contentType] == WMFContentTypeStory) {
         content = [content bk_map:^id(WMFFeedNewsStory *obj) {
-            return [[obj mostPopularArticlePreview] articleURL] ?: [[[obj articlePreviews] firstObject] articleURL];
+            return [[obj featuredArticlePreview] articleURL] ?: [[[obj articlePreviews] firstObject] articleURL];
         }];
     } else if ([group contentType] != WMFContentTypeURL) {
         content = nil;
@@ -295,7 +310,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
             NSAssert(false, @"Attempting to reference an out of bound index");
             return nil;
         }
-        return [[content[indexPath.row] mostPopularArticlePreview] articleURL] ?: [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
+        return [[content[indexPath.row] featuredArticlePreview] articleURL] ?: [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
     } else {
         return nil;
     }
@@ -417,6 +432,9 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 }
 
 - (void)showHideNotificationIfNeccesary {
+    if ([self.sectionDataSource numberOfItems] == 0) {
+        return;
+    }
 
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionLessThan:10]) {
         return;
@@ -462,13 +480,17 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
 
+    self.reachabilityManager = [AFNetworkReachabilityManager manager];
+
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl bk_addEventHandler:^(id sender) {
         [self updateFeedSources];
     }
                            forControlEvents:UIControlEventValueChanged];
     [self resetRefreshControl];
+
     self.sectionDataSource.delegate = self;
+    [self.collectionView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -487,8 +509,15 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     NSParameterAssert(self.internalContentStore);
     [super viewDidAppear:animated];
 
-    [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
+    [[PiwikTracker sharedInstance] wmf_logView:self];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_exploreViewActivity]];
+    [self startMonitoringReachabilityIfNeeded];
+    [self showOfflineEmptyViewIfNeeded];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self stopMonitoringReachability];
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
@@ -505,6 +534,57 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark - Offline Handling
+
+- (void)stopMonitoringReachability {
+    [self.reachabilityManager setReachabilityStatusChangeBlock:NULL];
+    [self.reachabilityManager stopMonitoring];
+}
+
+- (void)startMonitoringReachabilityIfNeeded {
+    if ([self.sectionDataSource numberOfItems] > 0) {
+        [self stopMonitoringReachability];
+    } else {
+        [self.reachabilityManager startMonitoring];
+        @weakify(self);
+        [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            @strongify(self);
+            dispatchOnMainQueue(^{
+                switch (status) {
+                    case AFNetworkReachabilityStatusReachableViaWWAN:
+                    case AFNetworkReachabilityStatusReachableViaWiFi: {
+                        [self updateFeedSources];
+                    } break;
+                    case AFNetworkReachabilityStatusNotReachable: {
+                        [self showOfflineEmptyViewIfNeeded];
+                    }
+                    default:
+                        break;
+                }
+
+            });
+        }];
+    }
+}
+
+- (void)showOfflineEmptyViewIfNeeded {
+    NSParameterAssert(self.isViewLoaded);
+    if ([self.sectionDataSource numberOfItems] > 0) {
+        [self wmf_hideEmptyView];
+    } else {
+        if ([self wmf_isShowingEmptyView]) {
+            return;
+        }
+
+        if (self.reachabilityManager.networkReachabilityStatus != AFNetworkReachabilityStatusNotReachable) {
+            return;
+        }
+
+        [self.refreshControl endRefreshing];
+        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
+    }
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -627,7 +707,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
         [self.locationManager stopMonitoringLocation];
     }
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionImpressionInContext:self contentType:section];
+    [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:section];
 }
 
 - (nonnull UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSectionHeaderAtIndexPath:(NSIndexPath *)indexPath {
@@ -664,7 +744,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
             if (!self || !section) {
                 return;
             }
-            UIAlertController *menuActionSheet = [self menuActionSheetForURL:[section headerContentURL]];
+            UIAlertController *menuActionSheet = [self menuActionSheetForSection:section];
 
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
                 menuActionSheet.modalPresentationStyle = UIModalPresentationPopover;
@@ -689,12 +769,30 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 #pragma mark - WMFHeaderMenuProviding
 
-- (UIAlertController *)menuActionSheetForURL:(NSURL *)url {
+- (UIAlertController *)menuActionSheetForSection:(WMFContentGroup *)section {
+    NSURL *url = [section headerContentURL];
     UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil)
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction *_Nonnull action) {
                                                 [self.userStore.blackList addBlackListArticleURL:url];
+                                                [self.userStore notifyWhenWriteTransactionsComplete:^{
+                                                    [self.contentStore notifyWhenWriteTransactionsComplete:^{
+                                                        NSUInteger index = [self indexForSection:section];
+
+                                                        [self.collectionView performBatchUpdates:^{
+
+                                                            [self updateFeedWithLatestDatabaseContent];
+                                                            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:index]];
+
+                                                        }
+                                                            completion:^(BOOL finished) {
+                                                                self.sectionDataSource.delegate = self;
+                                                                [self.collectionView reloadData];
+                                                            }];
+
+                                                    }];
+                                                }];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
     return sheet;
@@ -862,7 +960,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 #pragma mark - More View Controller
 
 - (void)presentMoreViewControllerForGroup:(WMFContentGroup *)group animated:(BOOL)animated {
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughMoreInContext:self contentType:group];
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughMoreInContext:self contentType:group];
     NSArray<NSURL *> *URLs = [self contentURLsForGroup:group];
     NSAssert([[URLs firstObject] isKindOfClass:[NSURL class]], @"Attempting to present More VC with somehting other than URLs");
     if (![[URLs firstObject] isKindOfClass:[NSURL class]]) {
@@ -926,14 +1024,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
                 return nil;
             }
             WMFFeedNewsStory *story = stories[indexPath.item];
-            InTheNewsViewController *vc = [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore previewStore:self.previewStore];
-            NSString *format = MWLocalizedString(@"in-the-news-title-for-date", nil);
-            NSDate *date = group.date;
-            if (format && date) {
-                NSString *dateString = [[NSDateFormatter wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date];
-                NSString *title = [format stringByReplacingOccurrencesOfString:@"$1" withString:dateString];
-                vc.title = title;
-            }
+            InTheNewsViewController *vc = [self inTheNewsViewControllerForStory:story date:group.date];
             return vc;
         } break;
         default:
@@ -950,11 +1041,11 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     }
 
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:group];
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:group];
 
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
-            [self.navigationController pushViewController:vc animated:animated];
+            [self wmf_pushArticleViewController:(WMFArticleViewController *)vc animated:animated];
         } break;
         case WMFFeedDetailTypePageWithRandomButton: {
             [self.navigationController pushViewController:vc animated:animated];
@@ -977,43 +1068,28 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [self.collectionView reloadData];
 }
 
-- (void)dataSource:(id<WMFDataSource>)dataSource didDeleteSectionsAtIndexes:(NSIndexSet *)indexes {
-    [self.collectionView reloadData];
-    //    [self.collectionView performBatchUpdates:^{
-    //        [self.collectionView deleteSections:indexes];
-    //    } completion:NULL];
+- (void)dataSourceWillBeginUpdates:(id<WMFDataSource>)dataSource {
 }
+
+- (void)dataSource:(id<WMFDataSource>)dataSource didDeleteSectionsAtIndexes:(NSIndexSet *)indexes {
+}
+
 - (void)dataSource:(id<WMFDataSource>)dataSource didInsertSectionsAtIndexes:(NSIndexSet *)indexes {
-    [self.collectionView reloadData];
-    //    [self.collectionView performBatchUpdates:^{
-    //        [self.collectionView insertSections:indexes];
-    //    } completion:NULL];
 }
 
 - (void)dataSource:(id<WMFDataSource>)dataSource didDeleteRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-    [self.collectionView reloadData];
-    //    [self.collectionView performBatchUpdates:^{
-    //        [self.collectionView deleteItemsAtIndexPaths:indexPaths];
-    //    } completion:NULL];
 }
 - (void)dataSource:(id<WMFDataSource>)dataSource didInsertRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-    [self.collectionView reloadData];
-    //    [self.collectionView performBatchUpdates:^{
-    //        [self.collectionView insertItemsAtIndexPaths:indexPaths];
-    //    } completion:NULL];
 }
+
 - (void)dataSource:(id<WMFDataSource>)dataSource didMoveRowFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-    [self.collectionView reloadData];
-    //    [self.collectionView performBatchUpdates:^{
-    //        [self.collectionView deleteItemsAtIndexPaths:@[fromIndexPath]];
-    //        [self.collectionView insertItemsAtIndexPaths:@[toIndexPath]];
-    //    } completion:NULL];
 }
+
 - (void)dataSource:(id<WMFDataSource>)dataSource didUpdateRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
+}
+
+- (void)dataSourceDidFinishUpdates:(id<WMFDataSource>)dataSource {
     [self.collectionView reloadData];
-    //    [self.collectionView performBatchUpdates:^{
-    //        [self.collectionView reloadItemsAtIndexPaths:indexPaths];
-    //    } completion:NULL];
 }
 
 #pragma mark - WMFLocationManager
@@ -1094,7 +1170,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     previewingContext.sourceRect = [self.collectionView cellForItemAtIndexPath:previewIndexPath].frame;
 
     UIViewController *vc = [self detailViewControllerForItemAtIndexPath:previewIndexPath];
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:group];
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:group];
 
     if ([vc isKindOfClass:[WMFArticleViewController class]]) {
         ((WMFArticleViewController *)vc).articlePreviewingActionsDelegate = self;
@@ -1105,7 +1181,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController *)viewControllerToCommit {
-    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:self.groupForPreviewedCell];
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:self.groupForPreviewedCell];
     self.groupForPreviewedCell = nil;
 
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
@@ -1115,6 +1191,26 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
+}
+
+#pragma mark - In The News
+
+- (InTheNewsViewController *)inTheNewsViewControllerForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date {
+    InTheNewsViewController *vc = [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore previewStore:self.previewStore];
+    NSString *format = MWLocalizedString(@"in-the-news-title-for-date", nil);
+    if (format && date) {
+        NSString *dateString = [[NSDateFormatter wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date];
+        NSString *title = [format stringByReplacingOccurrencesOfString:@"$1" withString:dateString];
+        vc.title = title;
+    } else {
+        vc.title = MWLocalizedString(@"in-the-news-title", nil);
+    }
+    return vc;
+}
+
+- (void)showInTheNewsForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date animated:(BOOL)animated {
+    InTheNewsViewController *vc = [self inTheNewsViewControllerForStory:story date:date];
+    [self.navigationController pushViewController:vc animated:animated];
 }
 
 #pragma mark - Analytics
