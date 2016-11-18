@@ -305,7 +305,7 @@ static pid_t currentPid() {
 
     NSError *moveError = nil;
     if (![fm moveItemAtPath:[MWKDataStore appSpecificMainDataStorePath] toPath:[MWKDataStore mainDataStorePath] error:&moveError]) {
-        if (moveError.code != NSFileNoSuchFileError && copyError.code != NSFileReadNoSuchFileError) {
+        if (moveError.code != NSFileNoSuchFileError && moveError.code != NSFileReadNoSuchFileError) {
             if (error) {
                 *error = moveError;
             }
