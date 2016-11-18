@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <collectionViewCell contentMode="scaleToFill" id="KGk-i7-Jjw" customClass="WMFArticleListCollectionViewCell">
+        <collectionViewCell clipsSubviews="YES" contentMode="scaleToFill" id="KGk-i7-Jjw" customClass="WMFArticleListCollectionViewCell">
             <rect key="frame" x="0.0" y="0.0" width="458" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -30,11 +30,11 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6JK-c4-FJw" userLabel="Clipping Container View" customClass="GroupedAccessibilityView" customModule="WMFUI">
-                        <rect key="frame" x="55" y="0.0" width="403" height="60"/>
+                        <rect key="frame" x="55" y="10.5" width="403" height="40"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="999" verticalCompressionResistancePriority="751" text="Title" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Mxi-So-IXe">
-                                <rect key="frame" x="15" y="10" width="373" height="20"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="999" verticalCompressionResistancePriority="1000" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mxi-So-IXe">
+                                <rect key="frame" x="15" y="0.0" width="373" height="20.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -43,12 +43,12 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EoE-JS-HmV">
-                                <rect key="frame" x="15" y="33" width="373" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="1000" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EoE-JS-HmV">
+                                <rect key="frame" x="15" y="22" width="373" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="500" constant="15" id="xb2-rO-Dug"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <color key="textColor" red="0.56862745100000001" green="0.59215686270000001" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -60,21 +60,16 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Mxi-So-IXe" firstAttribute="height" relation="lessThanOrEqual" secondItem="6JK-c4-FJw" secondAttribute="height" constant="-20" id="2MN-78-FCm"/>
-                            <constraint firstAttribute="height" constant="60" id="54n-kw-kHR"/>
+                            <constraint firstAttribute="height" priority="999" constant="40" id="54n-kw-kHR"/>
                             <constraint firstAttribute="trailing" secondItem="Mxi-So-IXe" secondAttribute="trailing" constant="15" id="71h-ee-Xuj"/>
-                            <constraint firstItem="Mxi-So-IXe" firstAttribute="top" secondItem="6JK-c4-FJw" secondAttribute="top" constant="10" id="B6B-CY-Vxk"/>
+                            <constraint firstItem="Mxi-So-IXe" firstAttribute="top" secondItem="6JK-c4-FJw" secondAttribute="top" id="B6B-CY-Vxk"/>
                             <constraint firstItem="EoE-JS-HmV" firstAttribute="leading" secondItem="Mxi-So-IXe" secondAttribute="leading" id="Dpn-74-mgq"/>
-                            <constraint firstAttribute="bottom" secondItem="EoE-JS-HmV" secondAttribute="bottom" constant="10" id="HXf-2u-QTR"/>
-                            <constraint firstItem="EoE-JS-HmV" firstAttribute="top" secondItem="Mxi-So-IXe" secondAttribute="bottom" constant="3" id="NVF-BW-N86"/>
+                            <constraint firstAttribute="bottom" secondItem="EoE-JS-HmV" secondAttribute="bottom" id="HXf-2u-QTR"/>
+                            <constraint firstItem="EoE-JS-HmV" firstAttribute="top" relation="lessThanOrEqual" secondItem="Mxi-So-IXe" secondAttribute="bottom" constant="3" id="NVF-BW-N86"/>
                             <constraint firstItem="Mxi-So-IXe" firstAttribute="leading" secondItem="6JK-c4-FJw" secondAttribute="leading" constant="15" id="WPQ-vR-tAX"/>
                             <constraint firstItem="EoE-JS-HmV" firstAttribute="trailing" secondItem="Mxi-So-IXe" secondAttribute="trailing" id="dTO-Xl-ygJ"/>
+                            <constraint firstItem="EoE-JS-HmV" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Mxi-So-IXe" secondAttribute="bottom" id="wrU-M4-vGV"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="2MN-78-FCm"/>
-                            </mask>
-                        </variation>
                         <connections>
                             <outlet property="accessibilityView0" destination="Mxi-So-IXe" id="5T8-Tk-39A"/>
                             <outlet property="accessibilityView1" destination="EoE-JS-HmV" id="WxW-E7-OY5"/>
@@ -85,12 +80,12 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="RMa-GF-kKq" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="10" id="0FL-Bb-pTQ"/>
-                <constraint firstItem="6JK-c4-FJw" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" id="Cre-Ui-7AM"/>
+                <constraint firstItem="6JK-c4-FJw" firstAttribute="centerY" secondItem="KGk-i7-Jjw" secondAttribute="centerY" priority="999" id="GY0-Wk-Uoq"/>
+                <constraint firstItem="6JK-c4-FJw" firstAttribute="top" relation="greaterThanOrEqual" secondItem="KGk-i7-Jjw" secondAttribute="top" id="HeW-tc-eCS"/>
                 <constraint firstAttribute="bottom" secondItem="RMa-GF-kKq" secondAttribute="bottom" constant="10" id="KBp-WI-wU6"/>
                 <constraint firstItem="6JK-c4-FJw" firstAttribute="leading" secondItem="RMa-GF-kKq" secondAttribute="trailing" id="W1o-QG-sBU"/>
                 <constraint firstItem="RMa-GF-kKq" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="15" id="Zfh-bn-2Mj"/>
                 <constraint firstAttribute="trailing" secondItem="6JK-c4-FJw" secondAttribute="trailing" id="bMC-sz-hcv"/>
-                <constraint firstAttribute="bottom" secondItem="6JK-c4-FJw" secondAttribute="bottom" id="biR-ko-NB1"/>
                 <constraint firstItem="RMa-GF-kKq" firstAttribute="centerY" secondItem="KGk-i7-Jjw" secondAttribute="centerY" id="nl1-L3-ph3"/>
             </constraints>
             <size key="customSize" width="458" height="61"/>
