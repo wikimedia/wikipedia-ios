@@ -123,7 +123,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (instancetype)init {
-    self = [self initWithContainerURL:[[NSFileManager defaultManager] wmf_containerURL] legacyDataBasePath:[[MWKDataStore class] mainDataStorePath]];
+    self = [self initWithContainerURL:[[NSFileManager defaultManager] wmf_containerURL]];
     return self;
 }
 
@@ -136,13 +136,12 @@ static pid_t currentPid() {
     return pid;
 }
 
-- (instancetype)initWithContainerURL:(NSURL *)containerURL legacyDataBasePath:(NSString *)basePath {
+- (instancetype)initWithContainerURL:(NSURL *)containerURL {
     self = [super init];
     if (self) {
         self.containerURL = containerURL;
-        self.basePath = basePath;
+        self.basePath = [self.containerURL URLByAppendingPathComponent:@"Data" isDirectory:YES].path;
         [self setupLegacyDataStore];
-
         NSDictionary *infoDictionary = [self loadSharedInfoDictionaryWithContainerURL:containerURL];
         self.crossProcessNotificationChannelName = infoDictionary[@"CrossProcessNotificiationChannelName"];
         [self setupCrossProcessCoreDataNotifier];
@@ -296,7 +295,7 @@ static pid_t currentPid() {
 
     NSError *copyError = nil;
     if (![fm copyItemAtPath:[YapDatabase wmf_appSpecificDatabasePath] toPath:[YapDatabase wmf_databasePath] error:&copyError]) {
-        if (copyError.code != NSFileNoSuchFileError) {
+        if (copyError.code != NSFileNoSuchFileError && copyError.code != NSFileReadNoSuchFileError) {
             if (error) {
                 *error = copyError;
             }
@@ -306,7 +305,7 @@ static pid_t currentPid() {
 
     NSError *moveError = nil;
     if (![fm moveItemAtPath:[MWKDataStore appSpecificMainDataStorePath] toPath:[MWKDataStore mainDataStorePath] error:&moveError]) {
-        if (moveError.code != NSFileNoSuchFileError) {
+        if (moveError.code != NSFileNoSuchFileError && copyError.code != NSFileReadNoSuchFileError) {
             if (error) {
                 *error = moveError;
             }

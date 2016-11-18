@@ -49,7 +49,7 @@ extern NSString *const MWKURLKey;
  */
 - (instancetype)init;
 
-- (instancetype)initWithContainerURL:(NSURL *)containerURL legacyDataBasePath:(NSString *)basePath NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithContainerURL:(NSURL *)containerURL NS_DESIGNATED_INITIALIZER;
 
 + (BOOL)migrateToSharedContainer:(NSError **)error;
 - (BOOL)migrateToCoreData:(NSError **)error;
@@ -59,7 +59,6 @@ extern NSString *const MWKURLKey;
 @property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
-
 
 - (nullable WMFArticle *)fetchArticleForURL:(NSURL *)URL;
 - (nullable WMFArticle *)fetchArticleForKey:(NSString *)key;
