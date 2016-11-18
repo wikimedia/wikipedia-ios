@@ -56,7 +56,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterReuseIdentifier";
+static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 
 @interface WMFChange : NSObject
 @property (nonatomic) NSFetchedResultsChangeType type;
@@ -114,6 +114,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     self.sectionChanges = [NSMutableArray array];
     self.objectChanges = [NSMutableArray array];
 }
+
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -487,6 +488,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     [self resetRefreshControl];
 
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isVisible == %@", @(YES)];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"midnightUTCDate" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"dailySortPriority" ascending:YES]];
     NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.userStore.viewContext sectionNameKeyPath:nil cacheName:nil];
     frc.delegate = self;
@@ -683,7 +685,12 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView estimatedHeightForHeaderInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth {
-    return 66;
+    WMFContentGroup *sectionObject = [self sectionAtIndex:section];
+    if ([sectionObject headerType] == WMFFeedHeaderTypeNone) {
+        return 0.0;
+    } else {
+        return 66;
+    }
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView estimatedHeightForFooterInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth {
@@ -714,6 +721,14 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 - (nonnull UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSectionHeaderAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
     NSParameterAssert(section);
+
+    if ([section headerType] == WMFFeedHeaderTypeNone) {
+        return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier forIndexPath:indexPath];
+    }
+    NSParameterAssert([section headerIcon]);
+    NSParameterAssert([section headerTitle]);
+    NSParameterAssert([section headerSubTitle]);
+
     WMFExploreSectionHeader *header = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFExploreSectionHeader wmf_nibName] forIndexPath:indexPath];
 
     header.image = [[section headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
@@ -787,7 +802,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
     NSParameterAssert(group);
 
     if ([group moreType] == WMFFeedMoreTypeNone) {
-        return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyFooterReuseIdentifier forIndexPath:indexPath];
+        return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier forIndexPath:indexPath];
     }
 
     WMFExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
@@ -814,7 +829,7 @@ static NSString *const WMFFeedEmptyFooterReuseIdentifier = @"WMFFeedEmptyFooterR
 
     [self.collectionView registerNib:[WMFExploreSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName]];
 
-    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyFooterReuseIdentifier];
+    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier];
 
     [self.collectionView registerNib:[WMFArticleListCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticleListCollectionViewCell wmf_nibName]];
 

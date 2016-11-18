@@ -18,5 +18,7 @@
 @dynamic placemark;
 @dynamic siteURLString;
 @dynamic content;
+@dynamic isVisible;
+@dynamic metadata;
 
 @end

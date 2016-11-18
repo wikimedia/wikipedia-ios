@@ -16,7 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t contentGroupKindInteger;
 @property (nonatomic) int16_t contentTypeInteger;
 
+@property (nonatomic) BOOL isVisible;
+
 @property (nullable, nonatomic, copy) NSArray<id<NSCoding>> *content;
+@property (nullable, nonatomic, copy) NSDictionary<NSString *, id<NSCoding>> *metadata;
 
 @property (nonatomic) int32_t dailySortPriority;
 

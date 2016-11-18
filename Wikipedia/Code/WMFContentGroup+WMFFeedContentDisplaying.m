@@ -5,7 +5,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFContentGroup (WMFContentManaging)
 
-- (UIImage *)headerIcon {
+- (nullable UIImage *)headerIcon {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading:
             return [UIImage imageNamed:@"home-continue-reading-mini"];
@@ -26,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNews:
             return [UIImage imageNamed:@"news-mini"];
         case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindAnnouncement:
+            break;
         case WMFContentGroupKindUnknown:
         default:
             break;
@@ -33,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [[UIImage alloc] init];
 }
 
-- (UIColor *)headerIconTintColor {
+- (nullable UIColor *)headerIconTintColor {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading:
             break;
@@ -52,7 +55,11 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindTopRead:
             return [UIColor wmf_blueTintColor];
         case WMFContentGroupKindNews:
+            break;
         case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindAnnouncement:
+            return nil;
         case WMFContentGroupKindUnknown:
         default:
             break;
@@ -60,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIColor wmf_exploreSectionHeaderIconTintColor];
 }
 
-- (UIColor *)headerIconBackgroundColor {
+- (nullable UIColor *)headerIconBackgroundColor {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading:
             break;
@@ -82,6 +89,8 @@ NS_ASSUME_NONNULL_BEGIN
             return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
         case WMFContentGroupKindNotification:
             break;
+        case WMFContentGroupKindAnnouncement:
+            return nil;
         case WMFContentGroupKindUnknown:
         default:
             break;
@@ -89,7 +98,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
 }
 
-- (NSAttributedString *)headerTitle {
+- (nullable NSAttributedString *)headerTitle {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading:
             return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-continue-reading-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
@@ -128,6 +137,8 @@ NS_ASSUME_NONNULL_BEGIN
             return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"in-the-news-title", nil)];
         case WMFContentGroupKindNotification:
             break;
+        case WMFContentGroupKindAnnouncement:
+            break;
         case WMFContentGroupKindUnknown:
         default:
             break;
@@ -135,7 +146,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [[NSAttributedString alloc] init];
 }
 
-- (NSAttributedString *)headerSubTitle {
+- (nullable NSAttributedString *)headerSubTitle {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading:
         {
@@ -182,6 +193,8 @@ NS_ASSUME_NONNULL_BEGIN
                     attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
         case WMFContentGroupKindNotification:
             break;
+        case WMFContentGroupKindAnnouncement:
+            break;
         case WMFContentGroupKindUnknown:
         default:
             break;
@@ -210,6 +223,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNews:
             break;
         case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindAnnouncement:
             break;
         case WMFContentGroupKindUnknown:
         default:
@@ -240,6 +255,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFFeedHeaderActionTypeOpenFirstItem;
         case WMFContentGroupKindNotification:
             break;
+        case WMFContentGroupKindAnnouncement:
+            return WMFFeedHeaderActionTypeOpenHeaderNone;
         case WMFContentGroupKindUnknown:
         default:
             break;
@@ -268,6 +285,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNews:
             break;
         case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindAnnouncement:
             break;
         case WMFContentGroupKindUnknown:
         default:
@@ -298,6 +317,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFFeedDisplayTypeStory;
         case WMFContentGroupKindNotification:
             break;
+        case WMFContentGroupKindAnnouncement:
+            return WMFFeedDisplayTypeAnnouncement;
         case WMFContentGroupKindUnknown:
         default:
             break;
@@ -327,6 +348,8 @@ NS_ASSUME_NONNULL_BEGIN
             return 5;
         case WMFContentGroupKindNotification:
             break;
+        case WMFContentGroupKindAnnouncement:
+            return NSUIntegerMax;
         case WMFContentGroupKindUnknown:
         default:
             break;
@@ -356,6 +379,8 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         case WMFContentGroupKindNotification:
             break;
+        case WMFContentGroupKindAnnouncement:
+            return YES;
         case WMFContentGroupKindUnknown:
         default:
             break;
@@ -385,6 +410,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFFeedDetailTypeStory;
         case WMFContentGroupKindNotification:
             break;
+        case WMFContentGroupKindAnnouncement:
+            return WMFFeedDetailTypeNone;
         case WMFContentGroupKindUnknown:
         default:
             break;
@@ -431,6 +458,8 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         case WMFContentGroupKindNotification:
             break;
+        case WMFContentGroupKindAnnouncement:
+            break;
         case WMFContentGroupKindUnknown:
         default:
             break;
@@ -459,6 +488,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNews:
             break;
         case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindAnnouncement:
             break;
         case WMFContentGroupKindUnknown:
         default:
@@ -489,6 +520,8 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         case WMFContentGroupKindNotification:
             break;
+        case WMFContentGroupKindAnnouncement:
+            break;
         case WMFContentGroupKindUnknown:
         default:
             break;
@@ -517,12 +550,44 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNews:
             return @"In The News";
         case WMFContentGroupKindNotification:
-            break;
+            return @"Notifications";
+        case WMFContentGroupKindAnnouncement:
+            return @"Announcements";
         case WMFContentGroupKindUnknown:
         default:
             break;
     }
     return @"Unknown Content Type";
+}
+
+- (WMFFeedHeaderType)headerType{    switch (self.contentGroupKind) {
+    case WMFContentGroupKindContinueReading:
+        break;
+    case WMFContentGroupKindMainPage:
+        break;
+    case WMFContentGroupKindRelatedPages:
+        break;
+    case WMFContentGroupKindLocation:
+        break;
+    case WMFContentGroupKindPictureOfTheDay:
+        break;
+    case WMFContentGroupKindRandom:
+        break;
+    case WMFContentGroupKindFeaturedArticle:
+        break;
+    case WMFContentGroupKindTopRead:
+        break;
+    case WMFContentGroupKindNews:
+        break;
+    case WMFContentGroupKindNotification:
+        return WMFFeedHeaderTypeNone;
+    case WMFContentGroupKindAnnouncement:
+        return WMFFeedHeaderTypeNone;
+    case WMFContentGroupKindUnknown:
+    default:
+        break;
+    }
+    return WMFFeedHeaderTypeStandard;
 }
 
 /**
@@ -552,10 +617,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)localDateDisplayString {
     return [[NSDateFormatter wmf_utcDayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.midnightUTCDate];
 }
-
-//- (NSString *)localDateShortDisplayString {
-//    return [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.midnightUTCDate];
-//}
 
 @end
 

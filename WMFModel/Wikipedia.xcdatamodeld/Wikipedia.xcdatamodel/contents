@@ -34,14 +34,23 @@
         <attribute name="contentTypeInteger" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="dailySortPriority" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="isVisible" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="key" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="Transformable" customClassName="CLLocation" syncable="YES"/>
-        <attribute name="midnightUTCDate" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="metadata" optional="YES" attributeType="Transformable" valueTransformerName="NSDictionary" syncable="YES"/>
+        <attribute name="midnightUTCDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="placemark" optional="YES" attributeType="Transformable" customClassName="CLPlacemark" syncable="YES"/>
         <attribute name="siteURLString" optional="YES" attributeType="String" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="isVisible"/>
+                <index value="midnightUTCDate"/>
+                <index value="dailySortPriority"/>
+            </compoundIndex>
+        </compoundIndexes>
     </entity>
     <elements>
         <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="285"/>
-        <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="30"/>
+        <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="255"/>
     </elements>
 </model>

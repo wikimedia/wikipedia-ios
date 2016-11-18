@@ -1,4 +1,5 @@
 #import "WMFContentGroup+Extensions.h"
+#import "WMFAnnouncement.h"
 
 @implementation WMFContentGroup (Extensions)
 
@@ -55,6 +56,8 @@
         case WMFContentGroupKindNotification:
             URL = [WMFContentGroup notificationContentGroupURL];
             break;
+        case WMFContentGroupKindAnnouncement:
+            URL = [WMFContentGroup announcementURLForSiteURL:self.siteURL identifier:[(WMFAnnouncement *)self.content.firstObject identifier]];
         default:
             break;
     }
@@ -76,6 +79,9 @@
         case WMFContentGroupKindUnknown:
             assert(false);
             self.contentType = WMFContentTypeUnknown;
+            break;
+        case WMFContentGroupKindAnnouncement:
+            self.contentType = WMFContentTypeAnnouncement;
             break;
         case WMFContentGroupKindContinueReading:
         case WMFContentGroupKindMainPage:
@@ -124,6 +130,9 @@
             break;
         case WMFContentGroupKindNotification:
             self.dailySortPriority = -1;
+            break;
+        case WMFContentGroupKindAnnouncement:
+            self.dailySortPriority = -2;
             break;
         default:
             break;
@@ -211,7 +220,7 @@
     return url;
 }
 
-+ (nullable NSURL *)contentGroupURLForSiteURL:(NSURL *)siteURL date:(NSDate *)date groupKindString:(NSString *)groupKindString {
++ (nullable NSURL *)contentGroupURLForSiteURL:(NSURL *)siteURL groupKindString:(NSString *)groupKindString {
     NSString *language = siteURL.wmf_language;
     NSString *domain = siteURL.wmf_domain;
     NSParameterAssert(domain);
@@ -223,6 +232,11 @@
     NSURL *urlKey = [[self baseURL] URLByAppendingPathComponent:groupKindString];
     urlKey = [urlKey URLByAppendingPathComponent:domain];
     urlKey = [urlKey URLByAppendingPathComponent:language];
+    return urlKey;
+}
+
++ (nullable NSURL *)contentGroupURLForSiteURL:(NSURL *)siteURL date:(NSDate *)date groupKindString:(NSString *)groupKindString {
+    NSURL *urlKey = [self contentGroupURLForSiteURL:siteURL groupKindString:groupKindString];
     urlKey = [urlKey URLByAppendingPathComponent:[[NSDateFormatter wmf_englishUTCSlashDelimitedYearMonthDayFormatter] stringFromDate:date]];
     return urlKey;
 }
@@ -251,6 +265,10 @@
     return [[self baseURL] URLByAppendingPathComponent:@"notification"];
 }
 
++ (nullable NSURL *)announcementURLForSiteURL:(NSURL *)siteURL identifier:(NSString *)identifier {
+    return [[self contentGroupURLForSiteURL:siteURL groupKindString:@"announcement"] URLByAppendingPathComponent:identifier];
+}
+
 - (BOOL)isForLocalDate:(NSDate *)date {
     return [self.midnightUTCDate wmf_UTCDateIsSameDateAsLocalDate:date];
 }
@@ -258,5 +276,41 @@
 - (BOOL)isForToday {
     return [self.midnightUTCDate wmf_UTCDateIsTodayLocal];
 }
+
+- (void)updateVisibilityBasedOnStartAndEndDates {
+    if (self.contentType != WMFContentTypeAnnouncement) {
+        return;
+    }
+    
+    NSArray *content = self.content;
+    
+    if (![content isKindOfClass:[NSArray class]]) {
+        return;
+    }
+    
+    WMFAnnouncement *announcement = (WMFAnnouncement *)content.firstObject;
+    if (![announcement isKindOfClass:[WMFAnnouncement class]]) {
+        return;
+    }
+    
+    if (!announcement.startTime || !announcement.endTime) {
+        return;
+    }
+    
+    NSDate* now = [NSDate date];
+    if([now timeIntervalSinceDate:announcement.startTime] > 0 && [announcement.endTime timeIntervalSinceDate:now] > 0){
+        if(!self.isVisible){
+            self.isVisible = YES;
+            return;
+        }
+    }else{
+        if(self.isVisible){
+            self.isVisible = NO;
+            return;
+        }
+    }
+    return;
+}
+
 
 @end

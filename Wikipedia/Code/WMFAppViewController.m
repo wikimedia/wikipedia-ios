@@ -34,6 +34,7 @@
 #import "WMFContinueReadingContentSource.h"
 #import "WMFFeedContentSource.h"
 #import "WMFRandomContentSource.h"
+#import "WMFAnnouncementsContentSource.h"
 
 // Views
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -617,7 +618,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             feedContentSource,
             [[WMFRandomContentSource alloc] initWithSiteURL:[self siteURL]
                                       contentGroupDataStore:self.contentStore
-                                    articlePreviewDataStore:self.previewStore]
+                                    articlePreviewDataStore:self.previewStore],
+            [[WMFAnnouncementsContentSource alloc] initWithSiteURL:[self siteURL] contentGroupDataStore:self.contentStore]
         ];
     }
     return _contentSources;

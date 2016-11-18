@@ -145,6 +145,20 @@ NS_ASSUME_NONNULL_BEGIN
     return group;
 }
 
+- (nullable WMFContentGroup *)fetchOrCreateGroupForURL:(NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
+    
+    WMFContentGroup *group = [self contentGroupForURL:URL];
+    if (group) {
+        if (customizationBlock) {
+            customizationBlock(group);
+        }
+    } else {
+        group = [self createGroupOfKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent customizationBlock:customizationBlock];
+    }
+    
+    return group;
+}
+
 - (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent {
     return [self createGroupOfKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent customizationBlock:NULL];
 }
