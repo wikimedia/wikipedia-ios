@@ -170,7 +170,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)removeContentGroupsWithKeys:(NSArray<NSString *> *)keys {
     NSFetchRequest *request = [WMFContentGroup fetchRequest];
-    request.predicate = [NSPredicate predicateWithFormat:@"keys IN %@", keys];
+    request.predicate = [NSPredicate predicateWithFormat:@"key IN %@", keys];
     NSError *fetchError = nil;
     NSArray<WMFContentGroup *> *groups = [self.dataStore.viewContext executeFetchRequest:request error:&fetchError];
     if (fetchError) {
