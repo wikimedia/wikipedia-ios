@@ -87,7 +87,10 @@
             case WMFContentTypeImage: {
                 //Nothing to do
             } break;
-
+            case WMFContentTypeAnnouncement: {
+                
+            }
+                break;
             default:
                 NSAssert(NO, @"Unknown Content Type");
                 break;

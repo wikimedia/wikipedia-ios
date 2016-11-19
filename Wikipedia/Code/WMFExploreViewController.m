@@ -51,7 +51,7 @@
 #import "WMFFirstRandomViewController.h"
 #import "WMFMorePageListViewController.h"
 #import "WMFSettingsViewController.h"
-
+#import "WMFAnnouncement.h"
 #import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -637,7 +637,13 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
             [self configureStoryCell:cell withSection:contentGroup article:article atIndexPath:indexPath];
             return cell;
         } break;
-
+        case WMFFeedDisplayTypeAnnouncement: {
+            WMFArticleListCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFArticleListCollectionViewCell wmf_nibName] forIndexPath:indexPath];
+            WMFAnnouncement *announcement = (WMFAnnouncement *)contentGroup.content.firstObject;
+            cell.titleText = announcement.actionTitle;
+            cell.descriptionText = announcement.text;
+            return cell;
+        } break;
         default:
             NSAssert(false, @"Unknown Display Type");
             return nil;
@@ -677,8 +683,11 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         case WMFFeedDisplayTypeStory: {
             return [InTheNewsCollectionViewCell estimatedRowHeight];
         } break;
+        case WMFFeedDisplayTypeAnnouncement: {
+            return [WMFArticleListCollectionViewCell estimatedRowHeight];
+        } break;
         default:
-            NSAssert(false, @"Unknown Content Type");
+            NSAssert(false, @"Unknown display Type");
             return [WMFArticleListCollectionViewCell estimatedRowHeight];
             break;
     }
@@ -1026,6 +1035,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
             InTheNewsViewController *vc = [self inTheNewsViewControllerForStory:story date:group.date];
             return vc;
         } break;
+        case WMFFeedDetailTypeAnnouncement: {
+            return nil;
+        } break;
         default:
             NSAssert(false, @"Unknown Detail Type");
             break;
@@ -1035,13 +1047,14 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 - (void)presentDetailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated {
     UIViewController *vc = [self detailViewControllerForItemAtIndexPath:indexPath];
-    if (vc == nil) {
-        return;
-    }
 
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
     [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:group];
-
+    
+    if (vc == nil && [group detailType] != WMFFeedDetailTypeAnnouncement) {
+        return;
+    }
+    
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
             [self wmf_pushArticleViewController:(WMFArticleViewController *)vc animated:animated];
@@ -1055,6 +1068,10 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         case WMFFeedDetailTypeStory: {
             [self.navigationController pushViewController:vc animated:animated];
         } break;
+        case WMFFeedDetailTypeAnnouncement: {
+            WMFAnnouncement *announcement = (WMFAnnouncement *)group.content.firstObject;
+            [self wmf_openExternalUrl:announcement.actionURL];
+        }break;
         default:
             NSAssert(false, @"Unknown Detail Type");
             break;
