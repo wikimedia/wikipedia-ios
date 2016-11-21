@@ -42,16 +42,22 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView beginUpdates];
+    NSMutableIndexSet *insertedSections = [NSMutableIndexSet indexSet];
+    NSMutableIndexSet *deletedSections = [NSMutableIndexSet indexSet];
+    NSMutableIndexSet *updatedSections = [NSMutableIndexSet indexSet];
     for (WMFSectionChange *change in self.sectionChanges) {
         switch (change.type) {
             case NSFetchedResultsChangeInsert:
                 [self.tableView insertSections:[NSIndexSet indexSetWithIndex:change.sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [insertedSections addIndex:change.sectionIndex];
                 break;
             case NSFetchedResultsChangeDelete:
                 [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:change.sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [deletedSections addIndex:change.sectionIndex];
                 break;
             case NSFetchedResultsChangeUpdate:
                 [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:change.sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [updatedSections addIndex:change.sectionIndex];
                 break;
             case NSFetchedResultsChangeMove:
                 break;
@@ -69,7 +75,11 @@
                 if (change.fromIndexPath && [change.toIndexPath isEqual:change.fromIndexPath]) {
                     [self.tableView reloadRowsAtIndexPaths:@[change.toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                 } else if (change.toIndexPath && change.fromIndexPath) {
-                    [self.tableView moveRowAtIndexPath:change.fromIndexPath toIndexPath:change.toIndexPath];
+                    if ([deletedSections containsIndex:change.fromIndexPath.section]) {
+                       [self.tableView insertRowsAtIndexPaths:@[change.toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    } else {
+                        [self.tableView moveRowAtIndexPath:change.fromIndexPath toIndexPath:change.toIndexPath];
+                    }
                 } else if (change.toIndexPath) {
                     [self.tableView reloadRowsAtIndexPaths:@[change.toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                 } else if (change.fromIndexPath) {
