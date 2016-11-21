@@ -2,7 +2,7 @@
 #import "WMFAnnouncementCollectionViewCell.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 
-@interface WMFAnnouncementCollectionViewCell ()<UITextViewDelegate>
+@interface WMFAnnouncementCollectionViewCell () <UITextViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UILabel *messageLabel;
@@ -19,10 +19,11 @@
     [super awakeFromNib];
     self.captionTextView.delegate = self;
     self.captionTextView.linkTextAttributes = @{
-                                                NSForegroundColorAttributeName: [UIColor wmf_referencePopoverLinkColor],
-                                                NSUnderlineStyleAttributeName: @1
-                                                };
+        NSForegroundColorAttributeName: [UIColor wmf_referencePopoverLinkColor],
+        NSUnderlineStyleAttributeName: @1
+    };
     self.actionButton.layer.borderColor = self.actionButton.tintColor.CGColor;
+    self.captionTextView.textContainerInset = UIEdgeInsetsZero;
 }
 
 - (void)prepareForReuse {
@@ -38,7 +39,7 @@
 
 #pragma mark - Image
 
-- (void)setImageURL:(NSURL *)imageURL{
+- (void)setImageURL:(NSURL *)imageURL {
     if (imageURL) {
         [self.imageView wmf_setImageWithURL:imageURL detectFaces:YES failure:NULL success:NULL];
         [self restoreImageToFullHeight];
@@ -56,18 +57,17 @@
     self.imageHeightConstraint.constant = 150;
 }
 
+- (void)setMessageText:(NSString *)text {
+    NSError *error = nil;
+    NSMutableAttributedString *string = [[[NSAttributedString alloc]
+              initWithData:[text dataUsingEncoding:NSUTF8StringEncoding]
+                   options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+        documentAttributes:nil
+                     error:&error] mutableCopy];
 
-- (void)setMessageText:(NSString*)text{
-    NSError* error = nil;
-    NSMutableAttributedString* string = [[[NSAttributedString alloc]
-                                  initWithData: [text dataUsingEncoding:NSUTF8StringEncoding]
-                                  options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                  documentAttributes: nil
-                                  error:&error] mutableCopy];
-
-    if(error){
+    if (error) {
         [self.messageLabel setText:text];
-    }else{
+    } else {
         static NSDictionary *attributes;
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
@@ -77,29 +77,28 @@
             pStyle.lineHeightMultiple = 1.35;
             pStyle.alignment = NSTextAlignmentCenter;
             attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0],
-                           NSForegroundColorAttributeName: [UIColor darkGrayColor],
+                           NSForegroundColorAttributeName: [UIColor blackColor],
                            NSParagraphStyleAttributeName: pStyle};
         });
 
         [string addAttributes:attributes range:NSMakeRange(0, string.length)];
         [self.messageLabel setAttributedText:string];
     }
-    
 }
-- (void)setActionText:(NSString*)text{
+- (void)setActionText:(NSString *)text {
     [self.actionButton setTitle:text forState:UIControlStateNormal];
 }
 
-- (void)setCaptionHTML:(NSString*)text{
-    NSError* error = nil;
-    NSMutableAttributedString* string = [[[NSAttributedString alloc]
-     initWithData: [text dataUsingEncoding:NSUTF8StringEncoding]
-     options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-     documentAttributes: nil
-     error:&error] mutableCopy];
-    if(error){
+- (void)setCaptionHTML:(NSString *)text {
+    NSError *error = nil;
+    NSMutableAttributedString *string = [[[NSAttributedString alloc]
+              initWithData:[text dataUsingEncoding:NSUTF8StringEncoding]
+                   options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+        documentAttributes:nil
+                     error:&error] mutableCopy];
+    if (error) {
         [self.captionTextView setText:text];
-    }else{
+    } else {
         static NSDictionary *attributes;
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
@@ -109,7 +108,7 @@
             pStyle.lineHeightMultiple = 1.35;
             pStyle.alignment = NSTextAlignmentCenter;
             attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:12.0],
-                           NSForegroundColorAttributeName: [UIColor darkGrayColor],
+                           NSForegroundColorAttributeName: [UIColor wmf_colorWithHex:0x72777D alpha:1.0],
                            NSParagraphStyleAttributeName: pStyle};
         });
         [string addAttributes:attributes range:NSMakeRange(0, string.length)];
@@ -120,8 +119,7 @@
     [self.captionTextView layoutIfNeeded];
 }
 
-
-- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction{
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
     //TODO: handle URL
     return NO;
 }
@@ -129,6 +127,5 @@
 + (CGFloat)estimatedRowHeight {
     return 250;
 }
-
 
 @end
