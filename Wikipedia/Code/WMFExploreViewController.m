@@ -24,6 +24,7 @@
 #import "WMFFeedArticlePreview.h"
 #import "WMFFeedNewsStory.h"
 #import "WMFFeedImage.h"
+#import "WMFAnnouncement.h"
 
 #import "WMFDataSource.h"
 
@@ -45,6 +46,7 @@
 #import "WMFArticlePreviewCollectionViewCell.h"
 #import "WMFPicOfTheDayCollectionViewCell.h"
 #import "WMFNearbyArticleCollectionViewCell.h"
+#import "WMFAnnouncementCollectionViewCell.h"
 
 #import "UIViewController+WMFArticlePresentation.h"
 #import "UIViewController+WMFSearch.h"
@@ -62,7 +64,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 
-@interface WMFExploreViewController () <WMFLocationManagerDelegate, WMFDataSourceDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate>
+@interface WMFExploreViewController () <WMFLocationManagerDelegate, WMFDataSourceDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate,
+    WMFAnnouncementCollectionViewCellDelegate>
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
@@ -635,6 +638,11 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
             return cell;
         } break;
 
+        case WMFFeedDisplayTypeAnnouncement: {
+            WMFAnnouncementCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName] forIndexPath:indexPath];
+            [self configureAnouncementCell:cell withSection:(WMFAnnouncementContentGroup*)contentGroup atIndexPath:indexPath];
+            return cell;
+        } break;
         default:
             NSAssert(false, @"Unknown Display Type");
             return nil;
@@ -673,6 +681,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         } break;
         case WMFFeedDisplayTypeStory: {
             return [InTheNewsCollectionViewCell estimatedRowHeight];
+        } break;
+        case WMFFeedDisplayTypeAnnouncement: {
+            return [WMFAnnouncementCollectionViewCell estimatedRowHeight];
         } break;
         default:
             NSAssert(false, @"Unknown Content Type");
@@ -831,6 +842,28 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     return footer;
 }
 
+
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath{
+    WMFContentGroup *contentGroup = [self sectionForIndexPath:indexPath];
+    NSParameterAssert(contentGroup);
+    if([contentGroup isKindOfClass:[WMFAnnouncementContentGroup class]]){
+        return NO;
+    }else{
+        return YES;
+    }
+}
+
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    WMFContentGroup *contentGroup = [self sectionForIndexPath:indexPath];
+    NSParameterAssert(contentGroup);
+    if([contentGroup isKindOfClass:[WMFAnnouncementContentGroup class]]){
+        return NO;
+    }else{
+        return YES;
+    }
+}
+
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     [self presentDetailViewControllerForItemAtIndexPath:indexPath animated:YES];
 }
@@ -844,6 +877,8 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     [self.collectionView registerNib:[WMFExploreSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName]];
 
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier];
+
+    [self.collectionView registerNib:[WMFAnnouncementCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName]];
 
     [self.collectionView registerNib:[WMFArticleListCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticleListCollectionViewCell wmf_nibName]];
 
@@ -898,6 +933,19 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     WMFFeedNewsStory *story = stories[indexPath.item];
     cell.bodyHTML = story.storyHTML;
     cell.imageURL = preview.thumbnailURL;
+}
+
+- (void)configureAnouncementCell:(WMFAnnouncementCollectionViewCell *)cell withSection:(WMFAnnouncementContentGroup *)section atIndexPath:(NSIndexPath *)indexPath {
+    NSArray<WMFAnnouncement *> *announcements = [self contentForGroup:section];
+    if (indexPath.item >= announcements.count) {
+        return;
+    }
+    WMFAnnouncement *announcement = announcements[indexPath.item];
+    [cell setImageURL:announcement.imageURL];
+    [cell setMessageText:announcement.text];
+    [cell setActionText:announcement.actionTitle];
+    [cell setCaptionHTML:announcement.captionHTML];
+    cell.delegate = self;
 }
 
 - (BOOL)isDisplayingLocationCell {
@@ -1040,6 +1088,8 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
             InTheNewsViewController *vc = [self inTheNewsViewControllerForStory:story date:group.date];
             return vc;
         } break;
+        case WMFFeedDetailTypeNone:
+            break;
         default:
             NSAssert(false, @"Unknown Detail Type");
             break;
@@ -1225,6 +1275,29 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     InTheNewsViewController *vc = [self inTheNewsViewControllerForStory:story date:date];
     [self.navigationController pushViewController:vc animated:animated];
 }
+
+#pragma mark - WMFAnnouncementCollectionViewCellDelegate
+
+- (void)announcementCellDidTapDismiss:(WMFAnnouncementCollectionViewCell*)cell{
+    //TODO: dismiss announcement
+}
+
+- (void)announcementCellDidTapActionButton:(WMFAnnouncementCollectionViewCell*)cell{
+    NSIndexPath* indexPath = [self.collectionView indexPathForCell:cell];
+    WMFContentGroup* group = [self sectionAtIndex:indexPath.section];
+    NSArray<WMFAnnouncement *> *announcements = [self contentForGroup:group];
+    if (indexPath.item >= announcements.count) {
+        return;
+    }
+    WMFAnnouncement *announcement = announcements[indexPath.item];
+    NSURL* url = announcement.actionURL;
+    [self wmf_openExternalUrl:url];
+}
+
+- (void)announcementCell:(WMFAnnouncementCollectionViewCell*)cell didTapLinkURL:(NSURL*)url{
+    [self wmf_openExternalUrl:url];
+}
+
 
 #pragma mark - Analytics
 
