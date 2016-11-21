@@ -72,18 +72,19 @@
                 [self.tableView deleteRowsAtIndexPaths:@[change.fromIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                 break;
             case NSFetchedResultsChangeUpdate:
-                if (change.fromIndexPath && [change.toIndexPath isEqual:change.fromIndexPath]) {
-                    [self.tableView reloadRowsAtIndexPaths:@[change.toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-                } else if (change.toIndexPath && change.fromIndexPath) {
+                if (change.toIndexPath && change.fromIndexPath && ![change.toIndexPath isEqual:change.fromIndexPath]) {
                     if ([deletedSections containsIndex:change.fromIndexPath.section]) {
-                       [self.tableView insertRowsAtIndexPaths:@[change.toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        [self.tableView insertRowsAtIndexPaths:@[change.toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     } else {
                         [self.tableView moveRowAtIndexPath:change.fromIndexPath toIndexPath:change.toIndexPath];
                     }
-                } else if (change.toIndexPath) {
-                    [self.tableView reloadRowsAtIndexPaths:@[change.toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-                } else if (change.fromIndexPath) {
-                    [self.tableView reloadRowsAtIndexPaths:@[change.fromIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                } else {
+                    NSIndexPath *updatedIndexPath = change.toIndexPath ? : change.fromIndexPath;
+                    if ([insertedSections containsIndex:updatedIndexPath.section]) {
+                        [self.tableView insertRowsAtIndexPaths:@[updatedIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    } else {
+                        [self.tableView reloadRowsAtIndexPaths:@[updatedIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    }
                 }
                 break;
             case NSFetchedResultsChangeMove:
