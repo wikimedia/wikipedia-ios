@@ -115,7 +115,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     self.objectChanges = [NSMutableArray array];
 }
 
-
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -1050,11 +1049,11 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
     [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:group];
-    
+
     if (vc == nil && [group detailType] != WMFFeedDetailTypeAnnouncement) {
         return;
     }
-    
+
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
             [self wmf_pushArticleViewController:(WMFArticleViewController *)vc animated:animated];
@@ -1071,7 +1070,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         case WMFFeedDetailTypeAnnouncement: {
             WMFAnnouncement *announcement = (WMFAnnouncement *)group.content.firstObject;
             [self wmf_openExternalUrl:announcement.actionURL];
-        }break;
+        } break;
         default:
             NSAssert(false, @"Unknown Detail Type");
             break;
@@ -1215,7 +1214,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     WMFObjectChange *objectChange = [WMFObjectChange new];
     objectChange.type = type;
     objectChange.fromIndexPath = indexPath;
-    objectChange.toIndexPath = indexPath;
+    objectChange.toIndexPath = newIndexPath;
     [self.objectChanges addObject:objectChange];
 }
 
