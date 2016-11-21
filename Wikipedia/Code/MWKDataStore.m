@@ -348,6 +348,7 @@ static pid_t currentPid() {
 
     void (^updateBlock)(MWKHistoryEntry *, WMFArticlePreview *, WMFArticle *) = ^(MWKHistoryEntry *entry, WMFArticlePreview *preview, WMFArticle *article) {
         article.viewedDate = entry.dateViewed;
+        [article updateViewedDateWithoutTime];
         article.viewedFragment = entry.fragment;
         article.viewedScrollPosition = entry.scrollPosition;
         article.savedDate = entry.dateSaved;

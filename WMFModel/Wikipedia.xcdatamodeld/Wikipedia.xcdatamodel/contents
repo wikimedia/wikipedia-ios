@@ -11,8 +11,8 @@
         <attribute name="savedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
         <attribute name="snippet" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thumbnailURLString" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="viewedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
-        <attribute name="viewedDateWithoutTime" optional="YES" transient="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="viewedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="viewedDateWithoutTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="viewedFragment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="viewedScrollPosition" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="wasSignificantlyViewed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
@@ -23,6 +23,10 @@
                 <index value="savedDate"/>
                 <index value="isExcludedFromFeed"/>
                 <index value="key"/>
+            </compoundIndex>
+            <compoundIndex>
+                <index value="viewedDateWithoutTime"/>
+                <index value="viewedDate"/>
             </compoundIndex>
         </compoundIndexes>
     </entity>

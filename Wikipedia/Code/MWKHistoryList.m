@@ -57,6 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
     [entries enumerateObjectsUsingBlock:^(MWKHistoryEntry *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:obj.url];
         article.viewedDate = obj.dateViewed;
+        [article updateViewedDateWithoutTime];
         article.wasSignificantlyViewed = obj.titleWasSignificantlyViewed;
         article.isExcludedFromFeed = obj.isBlackListed;
     }];
@@ -132,6 +133,7 @@ NS_ASSUME_NONNULL_BEGIN
         }
         WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:URL];
         article.viewedDate = now;
+        [article updateViewedDateWithoutTime];
     }
     
     NSError *error = nil;
@@ -158,6 +160,7 @@ NS_ASSUME_NONNULL_BEGIN
     
     WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:URL];
     article.viewedDate = now;
+    [article updateViewedDateWithoutTime];
     
     NSError *error = nil;
     if (![self.dataStore save:&error]) {
@@ -231,6 +234,7 @@ NS_ASSUME_NONNULL_BEGIN
     
     WMFArticle *article = [self.dataStore fetchArticleForURL:URL];
     article.viewedDate = nil;
+    [article updateViewedDateWithoutTime];
     
     NSError *error = nil;
     if (![self.dataStore save:&error]) {
@@ -241,6 +245,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeAllEntries {
     [self enumerateItemsWithBlock:^(WMFArticle * _Nonnull entry, BOOL * _Nonnull stop) {
         entry.viewedDate = nil;
+        [entry updateViewedDateWithoutTime];
     }];
     
     NSError *error = nil;

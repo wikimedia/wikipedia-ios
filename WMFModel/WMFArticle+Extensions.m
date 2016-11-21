@@ -35,4 +35,15 @@
     return self.pageViews.wmf_pageViewsSortedByDate;
 }
 
+- (void)updateViewedDateWithoutTime {
+    NSDate *viewedDate = self.viewedDate;
+    if (viewedDate) {
+        NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
+        NSDateComponents *components = [calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:viewedDate];
+        self.viewedDateWithoutTime = [calendar dateFromComponents:components];
+    } else {
+        self.viewedDateWithoutTime = nil;
+    }
+}
+
 @end

@@ -10,4 +10,6 @@
 
 @property (nonatomic, readonly, nullable) NSArray<NSNumber *> *pageViewsSortedByDate;
 
+- (void)updateViewedDateWithoutTime; // call after setting viewedDate
+
 @end
