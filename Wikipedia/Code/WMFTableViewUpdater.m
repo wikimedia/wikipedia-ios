@@ -68,8 +68,10 @@
             case NSFetchedResultsChangeUpdate:
                 if (change.fromIndexPath && [change.toIndexPath isEqual:change.fromIndexPath]) {
                     [self.tableView reloadRowsAtIndexPaths:@[change.toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                } else if (change.toIndexPath && change.fromIndexPath) {
+                    [self.tableView moveRowAtIndexPath:change.fromIndexPath toIndexPath:change.toIndexPath];
                 } else if (change.toIndexPath) {
-                    [self.tableView insertRowsAtIndexPaths:@[change.toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [self.tableView reloadRowsAtIndexPaths:@[change.toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                 } else if (change.fromIndexPath) {
                     [self.tableView reloadRowsAtIndexPaths:@[change.fromIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                 }
