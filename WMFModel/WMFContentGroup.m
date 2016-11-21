@@ -249,6 +249,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readwrite) NSString *identifier;
 @property (nonatomic, strong, readwrite) NSDate *visibilityStartDate;
 @property (nonatomic, strong, readwrite) NSDate *visibilityEndDate;
+@property (nonatomic, assign, readwrite) BOOL wasDismissed;
 @property (nonatomic, assign, readwrite) BOOL isVisible;
 
 @end
@@ -267,7 +268,17 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (BOOL)updateVisibilityBasedOnStartAndEndDates{
+- (void)markDismissed{
+    self.wasDismissed = YES;
+}
+
+- (BOOL)updateVisibility{
+    if(self.wasDismissed){
+        if(self.isVisible){
+            self.isVisible = NO;
+            return YES;
+        }
+    }
     NSDate* now = [NSDate date];
     if([now isLaterThanDate:self.visibilityStartDate] && [now isEarlierThanDate:self.visibilityEndDate]){
         if(!self.isVisible){

@@ -62,7 +62,7 @@
         WMFAnnouncementContentGroup* group = [self groupForAnnouncement:obj];
         //Make these visible immediately for previous users
         if([[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate] != nil){
-            [group updateVisibilityBasedOnStartAndEndDates];
+            [group updateVisibility];
         }
         [self.contentStore addContentGroup:group associatedContent:@[obj]];
     }];
@@ -77,10 +77,16 @@
     
     NSURL* URL = [WMFAnnouncementContentGroup urlForSiteURL:self.siteURL identifier:announcement.identifier];
     
-    WMFAnnouncementContentGroup* group = [(WMFAnnouncementContentGroup*)[self.contentStore contentGroupForURL:URL] copy];
+    WMFAnnouncementContentGroup* foundGroup = [(WMFAnnouncementContentGroup*)[self.contentStore contentGroupForURL:URL] copy];
+    WMFAnnouncementContentGroup* group = [[WMFAnnouncementContentGroup alloc] initWithDate:[NSDate date] visibilityStartDate:announcement.startTime visibilityEndDate:announcement.endTime siteURL:self.siteURL identifier:announcement.identifier];;
     
-    if(group == nil){
-        group = [[WMFAnnouncementContentGroup alloc] initWithDate:[NSDate date] visibilityStartDate:announcement.startTime visibilityEndDate:announcement.endTime siteURL:self.siteURL identifier:announcement.identifier];
+    if(foundGroup != nil){
+        if(foundGroup.wasDismissed){
+            [group markDismissed];
+        }
+        if([foundGroup isVisible]){
+            [group updateVisibility];
+        }
     }
     
     return group;
@@ -98,7 +104,7 @@
     [self.contentStore enumerateContentGroupsOfKind:[WMFAnnouncementContentGroup kind] withBlock:^(WMFContentGroup * _Nonnull group, BOOL * _Nonnull stop) {
         
         WMFAnnouncementContentGroup* aGroup = (WMFAnnouncementContentGroup*)group;
-        if([aGroup updateVisibilityBasedOnStartAndEndDates]){
+        if([aGroup updateVisibility]){
             [groups addObject:aGroup];
         }
     }];

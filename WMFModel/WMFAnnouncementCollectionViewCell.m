@@ -23,7 +23,10 @@
         NSUnderlineStyleAttributeName: @1
     };
     self.actionButton.layer.borderColor = self.actionButton.tintColor.CGColor;
+    [self.actionButton addTarget:self action:@selector(performAction) forControlEvents:UIControlEventTouchUpInside];
     self.captionTextView.textContainerInset = UIEdgeInsetsZero;
+    [self.dismissButton setTitle:MWLocalizedString(@"announcements-dismiss", nil) forState:UIControlStateNormal];
+    [self.dismissButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)prepareForReuse {
@@ -114,14 +117,21 @@
         [string addAttributes:attributes range:NSMakeRange(0, string.length)];
         [self.captionTextView setAttributedText:string];
     }
-    CGSize sizeThatFitsTextView = [self.captionTextView sizeThatFits:CGSizeMake(self.captionTextView.frame.size.width, MAXFLOAT)];
     [self.captionTextView setNeedsLayout];
     [self.captionTextView layoutIfNeeded];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
-    //TODO: handle URL
+    [self.delegate announcementCell:self didTapLinkURL:URL];
     return NO;
+}
+
+- (void)dismiss {
+    [self.delegate announcementCellDidTapDismiss:self];
+}
+
+- (void)performAction {
+    [self.delegate announcementCellDidTapActionButton:self];
 }
 
 + (CGFloat)estimatedRowHeight {

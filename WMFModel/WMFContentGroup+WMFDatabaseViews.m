@@ -9,7 +9,7 @@ NSString *const WMFContentGroupsSortedByDateView = @"WMFContentGroupsSortedByDat
 + (void)registerViewsInDatabase:(YapDatabase *)database {
     YapDatabaseViewGrouping *grouping = [self wmf_contentGroupingSingleGroup];
     YapDatabaseViewSorting *sorting = [self wmf_contentGroupsComparisonSorted];
-    YapDatabaseView *databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting versionTag:@"3"];
+    YapDatabaseView *databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting versionTag:@"4"];
     [database wmf_registerView:databaseView withName:WMFContentGroupsSortedByDateView];
 }
 + (YapDatabaseViewGrouping *)wmf_contentGroupingSingleGroup {

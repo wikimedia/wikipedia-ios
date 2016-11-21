@@ -14,22 +14,14 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager wmf_createDefaultManager];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager wmf_createIgnoreCacheManager];
         manager.responseSerializer = [WMFMantleJSONResponseSerializer serializerForArrayOf:[WMFAnnouncement class] fromKeypath:@"announce"];
+        NSMutableIndexSet* set = [manager.responseSerializer.acceptableStatusCodes mutableCopy];
+        [set removeIndex:304];
+        manager.responseSerializer.acceptableStatusCodes = set;
         self.operationManager = manager;
-        [self set304sEnabled:NO];
     }
     return self;
-}
-
-- (void)set304sEnabled:(BOOL)enabled{
-    NSMutableIndexSet* set = [self.operationManager.responseSerializer.acceptableStatusCodes mutableCopy];
-    if(enabled){
-        [set addIndex:304];
-    }else{
-        [set removeIndex:304];
-    }
-    self.operationManager.responseSerializer.acceptableStatusCodes = set;
 }
 
 - (BOOL)isFetching {
@@ -45,8 +37,6 @@
         return;
     }
     
-    [self set304sEnabled:force];
-
     NSURL *url = [siteURL wmf_URLWithPath:@"/api/rest_v1/feed/announcements" isMobile:NO];
 
     [self.operationManager GET:[url absoluteString]
@@ -59,8 +49,9 @@
                                                          userInfo:nil]);
                                
                            } else {
+                               NSString* geoIPCookie = [self geoIPCookieString];
                                NSString* setCookieHeader = [(NSHTTPURLResponse*)operation.response allHeaderFields][@"Set-Cookie"];
-                               success([self filterAnnouncementsForiOSPlatform: [self filterAnnouncements:responseObject withCurrentCountryInIPHeader:setCookieHeader]]);
+                               success([self filterAnnouncementsForiOSPlatform: [self filterAnnouncements:responseObject withCurrentCountryInIPHeader:setCookieHeader geoIPCookieValue:geoIPCookie]]);
                            }
                        }
                        failure:^(NSURLSessionDataTask *operation, NSError *error) {
@@ -68,12 +59,16 @@
                        }];
 }
 
-- (NSArray<WMFAnnouncement *> *)filterAnnouncements:(NSArray<WMFAnnouncement *> *)announcements withCurrentCountryInIPHeader:(NSString*)header {
+- (NSArray<WMFAnnouncement *> *)filterAnnouncements:(NSArray<WMFAnnouncement *> *)announcements withCurrentCountryInIPHeader:(NSString*)header geoIPCookieValue:(NSString*)cookieValue {
     
     NSArray<WMFAnnouncement *> *validAnnouncements = [announcements bk_select:^BOOL(WMFAnnouncement* obj) {
         __block BOOL valid = NO;
         [[obj countries] enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if([header containsString:[NSString stringWithFormat:@"GeoIP=%@", obj]]){
+                valid = YES;
+                *stop = YES;
+            }
+            if([cookieValue containsString:obj]){
                 valid = YES;
                 *stop = YES;
             }
@@ -93,6 +88,19 @@
         }
     }];
     return validAnnouncements;
+}
+
+- (NSString*)geoIPCookieString{
+     NSArray<NSHTTPCookie *> * cookies =[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+    NSHTTPCookie* cookie = [cookies bk_match:^BOOL(NSHTTPCookie* obj) {
+        if([[obj name] containsString:@"GeoIP"]){
+            return YES;
+        }else{
+            return NO;
+        }
+    }];
+    
+    return [cookie value];
 }
 
 

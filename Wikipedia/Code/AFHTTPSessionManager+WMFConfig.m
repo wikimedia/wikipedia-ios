@@ -13,4 +13,14 @@
     return manager;
 }
 
+
++ (instancetype)wmf_createIgnoreCacheManager{
+    NSURLSessionConfiguration* config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    config.requestCachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:config];
+    manager.requestSerializer = [WMFBaseRequestSerializer serializer];
+    return manager;
+}
+
+
 @end
