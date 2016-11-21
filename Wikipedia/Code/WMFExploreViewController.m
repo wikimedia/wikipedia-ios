@@ -1220,33 +1220,29 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     if (self.objectChanges.count > 0) {
-        NSMutableIndexSet *sectionsToDelete = [NSMutableIndexSet new];
-        BOOL shouldReload = NO;
-        for (WMFObjectChange *change in self.objectChanges) {
-            switch (change.type) {
-                case NSFetchedResultsChangeInsert:
-                    shouldReload = YES;
-                    break;
-                case NSFetchedResultsChangeDelete:
-                    [sectionsToDelete addIndex:change.fromIndexPath.item];
-                    shouldReload = sectionsToDelete.count > 1;
-                    break;
-                case NSFetchedResultsChangeUpdate:
-                    shouldReload = YES;
-                    break;
-                case NSFetchedResultsChangeMove:
-                    shouldReload = YES;
-                    break;
+        [self.collectionView performBatchUpdates:^{
+            for (WMFObjectChange *change in self.objectChanges) {
+                NSInteger fromSectionIndex = change.fromIndexPath.row;
+                NSInteger toSectionIndex = change.toIndexPath.row;
+                switch (change.type) {
+                    case NSFetchedResultsChangeInsert:
+                        [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:toSectionIndex]];
+                        break;
+                    case NSFetchedResultsChangeDelete:
+                        [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:fromSectionIndex]];
+                        break;
+                    case NSFetchedResultsChangeUpdate:
+                        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:fromSectionIndex]];
+                        break;
+                    case NSFetchedResultsChangeMove:
+                        [self.collectionView moveSection:fromSectionIndex toSection:toSectionIndex];
+                        break;
+                }
             }
         }
-        if (shouldReload) {
-            [self.collectionView reloadData];
-        } else {
-            [self.collectionView performBatchUpdates:^{
-                [self.collectionView deleteSections:sectionsToDelete];
-            }
-                                          completion:nil];
-        }
+                                      completion:^(BOOL finished){
+
+                                      }];
     } else {
         [self.collectionView reloadData];
     }
