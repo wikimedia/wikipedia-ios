@@ -9,12 +9,14 @@ NSString *const WMFContentGroupsSortedByDateView = @"WMFContentGroupsSortedByDat
 + (void)registerViewsInDatabase:(YapDatabase *)database {
     YapDatabaseViewGrouping *grouping = [self wmf_contentGroupingSingleGroup];
     YapDatabaseViewSorting *sorting = [self wmf_contentGroupsComparisonSorted];
-    YapDatabaseView *databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting versionTag:@"2"];
+    YapDatabaseView *databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting versionTag:@"3"];
     [database wmf_registerView:databaseView withName:WMFContentGroupsSortedByDateView];
 }
 + (YapDatabaseViewGrouping *)wmf_contentGroupingSingleGroup {
     return [YapDatabaseViewGrouping withObjectBlock:^NSString *_Nullable(YapDatabaseReadTransaction *_Nonnull transaction, NSString *_Nonnull collection, NSString *_Nonnull key, WMFContentGroup *_Nonnull object) {
         if (![collection isEqualToString:[WMFContentGroup databaseCollectionName]]) {
+            return nil;
+        } else if ([object isKindOfClass:[WMFAnnouncementContentGroup class]] && ![(WMFAnnouncementContentGroup *)object isVisible]) {
             return nil;
         } else {
             return @"";
