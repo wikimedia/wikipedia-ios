@@ -63,7 +63,7 @@
 
     self.fetchedResultsController = frc;
     self.tableViewUpdater = [[WMFTableViewUpdater alloc] initWithFetchedResultsController:self.fetchedResultsController tableView:self.tableView];
-    
+
     [self.fetchedResultsController performFetch:nil];
     [self.tableView reloadData];
 }
@@ -85,12 +85,16 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
+    id<NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
     if ([sectionInfo numberOfObjects] == 0) {
         return @"";
     }
-    
+
     NSDate *date = [[[sectionInfo objects] firstObject] viewedDateWithoutTime];
+
+    if (!date) {
+        return @"";
+    }
 
     //HACK: Table views for some reason aren't adding padding to the left of the default headers. Injecting some manually.
     NSString *padding = @"    ";
