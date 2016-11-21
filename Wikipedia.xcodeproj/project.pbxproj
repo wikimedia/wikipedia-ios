@@ -931,6 +931,8 @@
 		D8FB78171DCB677000606794 /* MultilineLabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8FB78151DCB677000606794 /* MultilineLabelTableViewCell.xib */; };
 		D8FB781A1DCB684500606794 /* FullSizeImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FB78181DCB684500606794 /* FullSizeImageTableViewCell.swift */; };
 		D8FB781B1DCB684500606794 /* FullSizeImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8FB78191DCB684500606794 /* FullSizeImageTableViewCell.xib */; };
+		D8FEECCA1DE3715300B883F0 /* WMFTableViewUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FEECC91DE3715300B883F0 /* WMFTableViewUpdater.m */; };
+		D8FEECCD1DE3729400B883F0 /* WMFChange.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FEECCC1DE3729400B883F0 /* WMFChange.m */; };
 		EBCDF624997206E230918CCD /* Pods_Foundation_WMFUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840E588EB82825440685B50D /* Pods_Foundation_WMFUtilities.framework */; };
 /* End PBXBuildFile section */
 
@@ -2503,6 +2505,10 @@
 		D8FB78151DCB677000606794 /* MultilineLabelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultilineLabelTableViewCell.xib; sourceTree = "<group>"; };
 		D8FB78181DCB684500606794 /* FullSizeImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullSizeImageTableViewCell.swift; sourceTree = "<group>"; };
 		D8FB78191DCB684500606794 /* FullSizeImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FullSizeImageTableViewCell.xib; sourceTree = "<group>"; };
+		D8FEECC81DE3715300B883F0 /* WMFTableViewUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFTableViewUpdater.h; sourceTree = "<group>"; };
+		D8FEECC91DE3715300B883F0 /* WMFTableViewUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFTableViewUpdater.m; sourceTree = "<group>"; };
+		D8FEECCB1DE3729400B883F0 /* WMFChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFChange.h; sourceTree = "<group>"; };
+		D8FEECCC1DE3729400B883F0 /* WMFChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFChange.m; sourceTree = "<group>"; };
 		DB4121EB6D3959AC738D7F7A /* Pods-Foundation-InTheNewsNotification.alphadebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-InTheNewsNotification.alphadebug.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-InTheNewsNotification/Pods-Foundation-InTheNewsNotification.alphadebug.xcconfig"; sourceTree = "<group>"; };
 		E07BF8E52EA1D0865B77E7D7 /* Pods_Foundation_TopReadWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Foundation_TopReadWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3F0C0C789B0E26275755E1E /* Pods-Foundation-WMFUtilities.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUtilities.test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUtilities/Pods-Foundation-WMFUtilities.test.xcconfig"; sourceTree = "<group>"; };
@@ -4564,6 +4570,10 @@
 				D80C24B61D673DC300816503 /* WMFTabBarController.h */,
 				D80C24B71D673DC300816503 /* WMFTabBarController.m */,
 				D84BF62E1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift */,
+				D8FEECCB1DE3729400B883F0 /* WMFChange.h */,
+				D8FEECCC1DE3729400B883F0 /* WMFChange.m */,
+				D8FEECC81DE3715300B883F0 /* WMFTableViewUpdater.h */,
+				D8FEECC91DE3715300B883F0 /* WMFTableViewUpdater.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -7127,6 +7137,7 @@
 				0E26628D1D09ED08006D4A46 /* WMFAuthManagerInfo.m in Sources */,
 				B06531721C237538003BD7DC /* WMFDisambiguationPagesViewController.m in Sources */,
 				B01490A51DB96EA7007F5391 /* WMFReferencePanelViewController.swift in Sources */,
+				D8FEECCA1DE3715300B883F0 /* WMFTableViewUpdater.m in Sources */,
 				D81BA0FD1D50D40B006C38AC /* WMFNearbyPlaceholderTableViewCell.m in Sources */,
 				B0E802BE1C0CD2360065EBC0 /* UIButton+WMFButton.m in Sources */,
 				B0E803711C0CD9A80065EBC0 /* WMFTableOfContentsAnimator.swift in Sources */,
@@ -7199,6 +7210,7 @@
 				B0E806EB1C0CEBA40065EBC0 /* RecentSearchCell.m in Sources */,
 				B0E805941C0CE2C60065EBC0 /* SavedPagesFunnel.m in Sources */,
 				B0E8064A1C0CE7F70065EBC0 /* AssetsFileFetcher.m in Sources */,
+				D8FEECCD1DE3729400B883F0 /* WMFChange.m in Sources */,
 				B0E807DB1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m in Sources */,
 				BC62FFC01C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
 				0E5386961DB834B70046E0F9 /* WMFFeedNotificationHeader.m in Sources */,
@@ -7518,7 +7530,6 @@
 				D844480F1DDA33D900425630 /* Wikipedia.xcdatamodeld in Sources */,
 				0E87683B1DDE00D600B8CACD /* WMFAnnouncementsFetcher.m in Sources */,
 				0E8768401DDE012300B8CACD /* WMFAnnouncement.m in Sources */,
-				0E28C48B1D75298C000C5919 /* WMFArticlePreview.m in Sources */,
 				D8DC16F31D6F6F2C00D6D9FB /* NSUserDefaults+WMFExtensions.swift in Sources */,
 				0E728D1B1DAEE2B50074EB4B /* WMFFeedDayResponse.m in Sources */,
 				D89D43FF1D74D35F00F7862E /* WMFArticlePreviewFetcher.m in Sources */,

@@ -53,35 +53,11 @@
 #import "WMFSettingsViewController.h"
 #import "WMFAnnouncement.h"
 #import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
+#import "WMFChange.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
-
-@interface WMFChange : NSObject
-@property (nonatomic) NSFetchedResultsChangeType type;
-@end
-
-@implementation WMFChange
-
-@end
-
-@interface WMFSectionChange : WMFChange
-@property (nonatomic) NSInteger sectionIndex;
-@end
-
-@implementation WMFSectionChange
-
-@end
-
-@interface WMFObjectChange : WMFChange
-@property (nonatomic, strong) NSIndexPath *fromIndexPath;
-@property (nonatomic, strong) NSIndexPath *toIndexPath;
-@end
-
-@implementation WMFObjectChange
-
-@end
 
 @interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate>
 
