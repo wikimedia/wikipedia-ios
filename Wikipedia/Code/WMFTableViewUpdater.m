@@ -22,7 +22,6 @@
     return self;
 }
 
-
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
 }
 
@@ -42,29 +41,46 @@
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    if (self.sectionChanges.count > 0) {
-        [self.tableView reloadData];
-    } else if (self.objectChanges.count > 0) {
-        [self.tableView beginUpdates];
-        for (WMFObjectChange *change in self.objectChanges) {
-            switch (change.type) {
-                case NSFetchedResultsChangeInsert:
-                    [self.tableView insertRowsAtIndexPaths:@[change.toIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-                    break;
-                case NSFetchedResultsChangeDelete:
-                    [self.tableView deleteRowsAtIndexPaths:@[change.fromIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-                    break;
-                case NSFetchedResultsChangeUpdate:
-                    [self.tableView reloadRowsAtIndexPaths:@[change.toIndexPath] withRowAnimation:UITableViewRowAnimationNone];
-                    break;
-                case NSFetchedResultsChangeMove:
-                    [self.tableView moveRowAtIndexPath:change.fromIndexPath toIndexPath:change.toIndexPath];
-                    break;
-            }
+    [self.tableView beginUpdates];
+    for (WMFSectionChange *change in self.sectionChanges) {
+        switch (change.type) {
+            case NSFetchedResultsChangeInsert:
+                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:change.sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+                break;
+            case NSFetchedResultsChangeDelete:
+                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:change.sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+                break;
+            case NSFetchedResultsChangeUpdate:
+                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:change.sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+                break;
+            case NSFetchedResultsChangeMove:
+                break;
         }
-        [self.tableView endUpdates];
     }
-    
+    for (WMFObjectChange *change in self.objectChanges) {
+        switch (change.type) {
+            case NSFetchedResultsChangeInsert:
+                [self.tableView insertRowsAtIndexPaths:@[change.toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                break;
+            case NSFetchedResultsChangeDelete:
+                [self.tableView deleteRowsAtIndexPaths:@[change.fromIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                break;
+            case NSFetchedResultsChangeUpdate:
+                if (change.fromIndexPath && [change.toIndexPath isEqual:change.fromIndexPath]) {
+                    [self.tableView reloadRowsAtIndexPaths:@[change.toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                } else if (change.toIndexPath) {
+                    [self.tableView insertRowsAtIndexPaths:@[change.toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                } else if (change.fromIndexPath) {
+                    [self.tableView reloadRowsAtIndexPaths:@[change.fromIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                }
+                break;
+            case NSFetchedResultsChangeMove:
+                [self.tableView moveRowAtIndexPath:change.fromIndexPath toIndexPath:change.toIndexPath];
+                break;
+        }
+    }
+    [self.tableView endUpdates];
+
     [self.objectChanges removeAllObjects];
     [self.sectionChanges removeAllObjects];
 }
