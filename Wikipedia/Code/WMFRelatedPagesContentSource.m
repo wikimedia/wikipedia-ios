@@ -93,14 +93,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFContentSource
 
-- (void)startUpdating {
-    [self observeSavedPages];
-}
-
-- (void)stopUpdating {
-    [self unobserveSavedPages];
-}
-
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
     [self loadContentForDate:[self lastDateAdded] force:force completion:completion];
 }
@@ -144,23 +136,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)removeAllContent {
     [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindRelatedPages];
-}
-
-#pragma mark - Observing
-
-- (void)itemWasUpdated:(NSNotification *)note {
-    NSURL *url = note.userInfo[MWKURLKey];
-    if (url) {
-        [self updateMoreLikeSectionForURL:url date:[NSDate date] completion:NULL];
-    }
-}
-
-- (void)observeSavedPages {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemWasUpdated:) name:MWKItemUpdatedNotification object:nil];
-}
-
-- (void)unobserveSavedPages {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Process Changes
