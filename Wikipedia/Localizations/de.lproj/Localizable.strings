@@ -383,8 +383,7 @@
 "welcome-volunteer-continue-button" = "Fortfahren";
 "welcome-volunteer-thanks" = "$1 Vielen Dank!";
 "welcome-send-data-title" = "Anonymisierte Daten senden";
-// Fuzzy
-"welcome-send-data-sub-title" = "Hilf der Wikimedia, die App zu verbessern, indem du uns wissen lässt, wie du sie verwendest. Die gesammelten Daten sind anonym. Mehr erfahren.";
+"welcome-send-data-sub-title" = "Hilf der Wikimedia, die App zu verbessern, indem du uns wissen lässt, wie du sie nutzt. Die gesammelten Daten sind anonym.";
 "empty-no-feed-title" = "Keine Internetverbindung";
 "empty-no-feed-message" = "Du kannst deine empfohlenen Artikel ansehen, wenn du Internet hast.";
 "empty-no-feed-action-message" = "Du kannst trotzdem gespeicherte Seiten lesen";
