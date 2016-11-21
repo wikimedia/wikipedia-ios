@@ -47,6 +47,8 @@
 		0E28C4931D752F59000C5919 /* WMFArticlePreview+WMFDatabaseStorable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C4911D752F59000C5919 /* WMFArticlePreview+WMFDatabaseStorable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E28C4941D752F59000C5919 /* WMFArticlePreview+WMFDatabaseStorable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E28C4921D752F59000C5919 /* WMFArticlePreview+WMFDatabaseStorable.m */; };
 		0E2927941CD1220D00FD8DA8 /* WMFLeadingImageTrailingTextButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2927931CD1220D00FD8DA8 /* WMFLeadingImageTrailingTextButton.m */; };
+		0E2E4BB21DE33FB900AD9DFD /* WMFAnnouncementCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E4BB11DE33FB900AD9DFD /* WMFAnnouncementCollectionViewCell.m */; };
+		0E2E4BB41DE33FDF00AD9DFD /* WMFAnnouncementCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E2E4BB31DE33FDF00AD9DFD /* WMFAnnouncementCollectionViewCell.xib */; };
 		0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		0E37F9021CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37F9011CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift */; };
 		0E3C5D451D6CEF1000C95BA1 /* WMFBaseDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C5D401D6C9C6400C95BA1 /* WMFBaseDataStore.m */; };
@@ -1129,6 +1131,9 @@
 		0E28C4921D752F59000C5919 /* WMFArticlePreview+WMFDatabaseStorable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMFArticlePreview+WMFDatabaseStorable.m"; sourceTree = "<group>"; };
 		0E2927921CD1220D00FD8DA8 /* WMFLeadingImageTrailingTextButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFLeadingImageTrailingTextButton.h; sourceTree = "<group>"; };
 		0E2927931CD1220D00FD8DA8 /* WMFLeadingImageTrailingTextButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLeadingImageTrailingTextButton.m; sourceTree = "<group>"; };
+		0E2E4BB01DE33FB900AD9DFD /* WMFAnnouncementCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAnnouncementCollectionViewCell.h; path = WMFModel/WMFAnnouncementCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
+		0E2E4BB11DE33FB900AD9DFD /* WMFAnnouncementCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFAnnouncementCollectionViewCell.m; path = WMFModel/WMFAnnouncementCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
+		0E2E4BB31DE33FDF00AD9DFD /* WMFAnnouncementCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFAnnouncementCollectionViewCell.xib; path = WMFModel/WMFAnnouncementCollectionViewCell.xib; sourceTree = SOURCE_ROOT; };
 		0E331BF31C49647600DDE02A /* WMFRelatedSectionBlackList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFRelatedSectionBlackList.h; path = Wikipedia/Code/WMFRelatedSectionBlackList.h; sourceTree = SOURCE_ROOT; };
 		0E331BF41C49647600DDE02A /* WMFRelatedSectionBlackList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFRelatedSectionBlackList.m; path = Wikipedia/Code/WMFRelatedSectionBlackList.m; sourceTree = SOURCE_ROOT; };
 		0E33F2B11D57E0C500C6CF94 /* WMFDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDataSource.h; path = ../Wikipedia/Code/WMFDataSource.h; sourceTree = "<group>"; };
@@ -3253,6 +3258,16 @@
 			path = Wikipedia/Code;
 			sourceTree = SOURCE_ROOT;
 		};
+		0E2E4BB51DE3429800AD9DFD /* Announcement */ = {
+			isa = PBXGroup;
+			children = (
+				0E2E4BB01DE33FB900AD9DFD /* WMFAnnouncementCollectionViewCell.h */,
+				0E2E4BB11DE33FB900AD9DFD /* WMFAnnouncementCollectionViewCell.m */,
+				0E2E4BB31DE33FDF00AD9DFD /* WMFAnnouncementCollectionViewCell.xib */,
+			);
+			name = Announcement;
+			sourceTree = "<group>";
+		};
 		0E4D1CFD1BBDC72F009BEB64 /* Table of Contents */ = {
 			isa = PBXGroup;
 			children = (
@@ -3767,6 +3782,7 @@
 		0EE151901BF5402D0039828A /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				0E2E4BB51DE3429800AD9DFD /* Announcement */,
 				D8940CF11DB667CD00E17F9E /* In The News */,
 				0E6A6F541D9EA21F00189C80 /* Article */,
 				BCCB81461C110857008BC602 /* POTD */,
@@ -6540,6 +6556,7 @@
 				0E26B0731C0F4F550004D687 /* WMFTabBarUI.storyboard in Resources */,
 				D84F2BFD1D2FEE6300963D42 /* WMFRandomDiceButtonRoll.js in Resources */,
 				D8940CF51DB667EF00E17F9E /* InTheNewsCollectionViewCell.xib in Resources */,
+				0E2E4BB41DE33FDF00AD9DFD /* WMFAnnouncementCollectionViewCell.xib in Resources */,
 				D8FB78171DCB677000606794 /* MultilineLabelTableViewCell.xib in Resources */,
 				B0866F471CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.xib in Resources */,
 				0E4D071D1CC5526200AE968B /* WMFLanguageCell.xib in Resources */,
@@ -7414,6 +7431,7 @@
 				B0E8054E1C0CE0DC0065EBC0 /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
 				B0E8037B1C0CD9D30065EBC0 /* WMFTableOfContentsItem.swift in Sources */,
 				0E9B9E331CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m in Sources */,
+				0E2E4BB21DE33FB900AD9DFD /* WMFAnnouncementCollectionViewCell.m in Sources */,
 				B0E8033C1C0CD76B0065EBC0 /* WMFSearchViewController.m in Sources */,
 				B0E8044B1C0CDF850065EBC0 /* WMFGradientView.m in Sources */,
 				BC23E4E21C223FAE00B5AFDE /* WMFArticleRevision.m in Sources */,
