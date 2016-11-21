@@ -10,6 +10,8 @@
 @property (nonatomic, strong, readonly) NSArray<NSString *> *platforms;
 @property (nonatomic, strong, readonly) NSArray<NSString *> *countries;
 
+@property (nonatomic, strong, readonly) NSURL *imageURL;
+
 @property (nonatomic, strong, readonly) NSString *text;
 
 @property (nonatomic, strong, readonly) NSString *actionTitle;
