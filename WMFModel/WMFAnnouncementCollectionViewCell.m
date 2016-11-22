@@ -27,6 +27,8 @@
     self.captionTextView.textContainerInset = UIEdgeInsetsZero;
     [self.dismissButton setTitle:MWLocalizedString(@"announcements-dismiss", nil) forState:UIControlStateNormal];
     [self.dismissButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+    [self.dismissButton setNeedsLayout];
+    [self.dismissButton layoutIfNeeded];
 }
 
 - (void)prepareForReuse {
@@ -87,6 +89,8 @@
         [string addAttributes:attributes range:NSMakeRange(0, string.length)];
         [self.messageLabel setAttributedText:string];
     }
+    [self.messageLabel setNeedsLayout];
+    [self.messageLabel layoutIfNeeded];
 }
 - (void)setActionText:(NSString *)text {
     [self.actionButton setTitle:text forState:UIControlStateNormal];
