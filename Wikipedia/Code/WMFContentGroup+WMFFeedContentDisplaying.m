@@ -17,19 +17,19 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
 }
 
-- (NSString *)headerTitle {
+- (nullable NSString *)headerTitle {
     return [[NSString alloc] init];
 }
 
-- (NSString *)headerSubTitle {
+- (nullable NSString *)headerSubTitle {
     return [[NSString alloc] init];
 }
 
-- (UIColor *)headerTitleColor {
+- (nullable UIColor *)headerTitleColor {
     return [UIColor blackColor];
 }
 
-- (UIColor *)headerSubTitleColor {
+- (nullable UIColor *)headerSubTitleColor {
     return [UIColor grayColor];
 }
 
@@ -85,19 +85,19 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIImage imageNamed:@"home-continue-reading-mini"];
 }
 
-- (NSString *)headerTitle {
+- (nullable NSString *)headerTitle {
     return MWLocalizedString(@"explore-continue-reading-heading", nil);
 }
 
-- (NSString *)headerSubTitle {
+- (nullable NSString *)headerSubTitle {
     return [[self.date wmf_relativeTimestamp] wmf_stringByCapitalizingFirstCharacter];
 }
 
-- (UIColor *)headerTitleColor {
+- (nullable UIColor *)headerTitleColor {
     return [UIColor wmf_exploreSectionHeaderTitleColor];
 }
 
-- (UIColor *)headerSubTitleColor {
+- (nullable UIColor *)headerSubTitleColor {
     return [UIColor wmf_exploreSectionHeaderSubTitleColor];
 }
 
@@ -121,19 +121,19 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIImage imageNamed:@"news-mini"];
 }
 
-- (NSString *)headerTitle {
+- (nullable NSString *)headerTitle {
     return MWLocalizedString(@"explore-main-page-heading", nil);
 }
 
-- (NSString *)headerSubTitle {
+- (nullable NSString *)headerSubTitle {
     return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:[NSDate date]];
 }
 
-- (UIColor *)headerTitleColor {
+- (nullable UIColor *)headerTitleColor {
     return [UIColor wmf_exploreSectionHeaderTitleColor];
 }
 
-- (UIColor *)headerSubTitleColor {
+- (nullable UIColor *)headerSubTitleColor {
     return [UIColor wmf_exploreSectionHeaderSubTitleColor];
 }
 
@@ -157,19 +157,19 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIImage imageNamed:@"recent-mini"];
 }
 
-- (NSString *)headerTitle {
+- (nullable NSString *)headerTitle {
     return MWLocalizedString(@"explore-continue-related-heading", nil);
 }
 
-- (NSString *)headerSubTitle {
+- (nullable NSString *)headerSubTitle {
     return self.articleURL.wmf_title;
 }
 
-- (UIColor *)headerTitleColor {
+- (nullable UIColor *)headerTitleColor {
     return [UIColor wmf_exploreSectionHeaderTitleColor];
 }
 
-- (UIColor *)headerSubTitleColor {
+- (nullable UIColor *)headerSubTitleColor {
     return [UIColor wmf_blueTintColor];
 }
 
@@ -227,11 +227,11 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIImage imageNamed:@"nearby-mini"];
 }
 
-- (NSString *)headerTitle {
+- (nullable NSString *)headerTitle {
     return MWLocalizedString(@"explore-nearby-heading", nil);
 }
 
-- (NSString *)headerSubTitle {
+- (nullable NSString *)headerSubTitle {
     if ([self.date isToday]) {
         return MWLocalizedString(@"explore-nearby-sub-heading-your-location", nil);
     } else if (self.placemark) {
@@ -241,11 +241,11 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (UIColor *)headerTitleColor {
+- (nullable UIColor *)headerTitleColor {
     return [UIColor wmf_exploreSectionHeaderTitleColor];
 }
 
-- (UIColor *)headerSubTitleColor {
+- (nullable UIColor *)headerSubTitleColor {
     return [UIColor wmf_exploreSectionHeaderSubTitleColor];
 }
 
@@ -293,19 +293,19 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIImage imageNamed:@"potd-mini"];
 }
 
-- (NSString *)headerTitle {
+- (nullable NSString *)headerTitle {
     return MWLocalizedString(@"explore-potd-heading", nil);
 }
 
-- (NSString *)headerSubTitle {
+- (nullable NSString *)headerSubTitle {
     return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
 }
 
-- (UIColor *)headerTitleColor {
+- (nullable UIColor *)headerTitleColor {
     return [UIColor wmf_exploreSectionHeaderTitleColor];
 }
 
-- (UIColor *)headerSubTitleColor {
+- (nullable UIColor *)headerSubTitleColor {
     return [UIColor wmf_exploreSectionHeaderSubTitleColor];
 }
 
@@ -337,19 +337,19 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIImage imageNamed:@"random-mini"];
 }
 
-- (NSString *)headerTitle {
+- (nullable NSString *)headerTitle {
     return MWLocalizedString(@"explore-random-article-heading", nil);
 }
 
-- (NSString *)headerSubTitle {
+- (nullable NSString *)headerSubTitle {
     return MWSiteLocalizedString(self.siteURL, @"onboarding-wikipedia", nil);
 }
 
-- (UIColor *)headerTitleColor {
+- (nullable UIColor *)headerTitleColor {
     return [UIColor wmf_exploreSectionHeaderTitleColor];
 }
 
-- (UIColor *)headerSubTitleColor {
+- (nullable UIColor *)headerSubTitleColor {
     return [UIColor wmf_exploreSectionHeaderSubTitleColor];
 }
 
@@ -392,19 +392,19 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIColor wmf_colorWithHex:0xFCF5E4 alpha:1.0];
 }
 
-- (NSString *)headerTitle {
+- (nullable NSString *)headerTitle {
     return MWLocalizedString(@"explore-featured-article-heading", nil);
 }
 
-- (NSString *)headerSubTitle {
+- (nullable NSString *)headerSubTitle {
     return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
 }
 
-- (UIColor *)headerTitleColor {
+- (nullable UIColor *)headerTitleColor {
     return [UIColor wmf_exploreSectionHeaderTitleColor];
 }
 
-- (UIColor *)headerSubTitleColor {
+- (nullable UIColor *)headerSubTitleColor {
     return [UIColor wmf_exploreSectionHeaderSubTitleColor];
 }
 
@@ -428,7 +428,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIImage imageNamed:@"trending-mini"];
 }
 
-- (NSString *)headerTitle {
+- (nullable NSString *)headerTitle {
     // fall back to language code if it can't be localized
     NSString *language = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.siteURL.wmf_language];
 
@@ -446,7 +446,7 @@ NS_ASSUME_NONNULL_BEGIN
     return heading;
 }
 
-- (NSString *)headerSubTitle {
+- (nullable NSString *)headerSubTitle {
     NSString* dateString = [self localDateDisplayString];
     if(!dateString){
         dateString = @"";
@@ -455,11 +455,11 @@ NS_ASSUME_NONNULL_BEGIN
     return dateString;
 }
 
-- (UIColor *)headerTitleColor {
+- (nullable UIColor *)headerTitleColor {
     return [UIColor wmf_exploreSectionHeaderTitleColor];
 }
 
-- (UIColor *)headerSubTitleColor {
+- (nullable UIColor *)headerSubTitleColor {
     return [UIColor wmf_exploreSectionHeaderTitleColor];
 }
 
@@ -551,19 +551,19 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIImage imageNamed:@"news-mini"];
 }
 
-- (NSString *)headerTitle {
+- (nullable NSString *)headerTitle {
     return MWLocalizedString(@"in-the-news-title", nil);
 }
 
-- (NSString *)headerSubTitle {
+- (nullable NSString *)headerSubTitle {
     return [self localDateDisplayString];
 }
 
-- (UIColor *)headerTitleColor {
+- (nullable UIColor *)headerTitleColor {
     return [UIColor wmf_exploreSectionHeaderTitleColor];
 }
 
-- (UIColor *)headerSubTitleColor {
+- (nullable UIColor *)headerSubTitleColor {
     return [UIColor wmf_exploreSectionHeaderTitleColor];
 }
 
