@@ -19,6 +19,6 @@
 @dynamic siteURLString;
 @dynamic content;
 @dynamic isVisible;
-@dynamic metadata;
+@dynamic wasDismissed;
 
 @end

@@ -277,39 +277,49 @@
     return [self.midnightUTCDate wmf_UTCDateIsTodayLocal];
 }
 
-- (void)updateVisibilityBasedOnStartAndEndDates {
+- (void)markDismissed{
+    self.wasDismissed = YES;
+}
+
+- (BOOL)updateVisibility{
     if (self.contentType != WMFContentTypeAnnouncement) {
-        return;
+        return NO;
     }
     
     NSArray *content = self.content;
     
     if (![content isKindOfClass:[NSArray class]]) {
-        return;
+        return NO;
     }
     
     WMFAnnouncement *announcement = (WMFAnnouncement *)content.firstObject;
     if (![announcement isKindOfClass:[WMFAnnouncement class]]) {
-        return;
+        return NO;
     }
     
     if (!announcement.startTime || !announcement.endTime) {
-        return;
+        return NO;
     }
     
-    NSDate* now = [NSDate date];
-    if([now timeIntervalSinceDate:announcement.startTime] > 0 && [announcement.endTime timeIntervalSinceDate:now] > 0){
-        if(!self.isVisible){
-            self.isVisible = YES;
-            return;
-        }
-    }else{
+    if(self.wasDismissed){
         if(self.isVisible){
             self.isVisible = NO;
-            return;
+            return YES;
         }
     }
-    return;
+    NSDate* now = [NSDate date];
+    if([now timeIntervalSinceDate:announcement.startTime] > 0 && [announcement.endTime timeIntervalSinceDate:now] > 0) {
+        if(!self.isVisible){
+            self.isVisible = YES;
+            return YES;
+        }
+    } else{
+        if(self.isVisible){
+            self.isVisible = NO;
+            return YES;
+        }
+    }
+    return NO;
 }
 
 

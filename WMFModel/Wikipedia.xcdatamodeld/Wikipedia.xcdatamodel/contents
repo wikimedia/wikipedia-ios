@@ -41,10 +41,10 @@
         <attribute name="isVisible" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="key" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="Transformable" customClassName="CLLocation" syncable="YES"/>
-        <attribute name="metadata" optional="YES" attributeType="Transformable" valueTransformerName="NSDictionary" syncable="YES"/>
         <attribute name="midnightUTCDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="placemark" optional="YES" attributeType="Transformable" customClassName="CLPlacemark" syncable="YES"/>
         <attribute name="siteURLString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wasDismissed" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <compoundIndexes>
             <compoundIndex>
                 <index value="isVisible"/>

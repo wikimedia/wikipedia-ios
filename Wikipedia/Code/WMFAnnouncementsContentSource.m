@@ -64,13 +64,9 @@
         }];
         //Make these visible immediately for previous users
         if([[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate] != nil){
-            [group updateVisibilityBasedOnStartAndEndDates];
+            [group updateVisibility];
         }
     }];
-    
-    if(completion){
-        completion();
-    }
 }
 
 
@@ -81,11 +77,10 @@
         return;
     }
 
-    [self.contentStore enumerateContentGroupsOfKind:WMFContentGroupKindAnnouncement withBlock:^(WMFContentGroup * _Nonnull group, BOOL * _Nonnull stop) {
-        [group updateVisibilityBasedOnStartAndEndDates];
-    }];
 
-    
+    [self.contentStore enumerateContentGroupsOfKind:WMFContentGroupKindAnnouncement withBlock:^(WMFContentGroup * _Nonnull group, BOOL * _Nonnull stop) {
+        [group updateVisibility];
+    }];
 }
 
 

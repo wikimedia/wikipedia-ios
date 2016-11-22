@@ -26,20 +26,30 @@ NS_ASSUME_NONNULL_BEGIN
     if (self) {
         self.dataStore = dataStore;
         [self migrateLegacyDataIfNeeded];
+        [self addPageToHistoryWithURL:[NSURL URLWithString:@"https://en.wikipedia.org/wiki/Barack_Obama"]];
+
+        [self addPageToHistoryWithURL:[NSURL URLWithString:@"https://en.wikipedia.org/wiki/Hillary_Clinton"]];
+
+        WMFArticle *entry = [self entryForURL:[NSURL URLWithString:@"https://en.wikipedia.org/wiki/Hillary_Clinton"]];
+
+        entry.viewedDate = [NSDate dateWithTimeIntervalSinceNow:-86400];
+
+        [entry updateViewedDateWithoutTime];
+
+        [self.dataStore save:nil];
     }
     return self;
 }
 
 #pragma mark - Legacy Migration
 
-
 - (void)migrateLegacyDataIfNeeded {
     NSAssert([NSThread isMainThread], @"Legacy migration must happen on the main thread");
-    
+
     if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateHistoryList]) {
         return;
     }
-    
+
     NSArray<MWKHistoryEntry *> *entries = [[self.dataStore historyListData] wmf_mapAndRejectNil:^id(id obj) {
         @try {
             return [[MWKHistoryEntry alloc] initWithDict:obj];
@@ -47,13 +57,12 @@ NS_ASSUME_NONNULL_BEGIN
             return nil;
         }
     }];
-    
+
     if ([entries count] == 0) {
         [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateHistoryList:YES];
         return;
     }
-    
-    
+
     [entries enumerateObjectsUsingBlock:^(MWKHistoryEntry *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:obj.url];
         article.viewedDate = obj.dateViewed;
@@ -61,16 +70,15 @@ NS_ASSUME_NONNULL_BEGIN
         article.wasSignificantlyViewed = obj.titleWasSignificantlyViewed;
         article.isExcludedFromFeed = obj.isBlackListed;
     }];
-    
+
     NSError *migrationError = nil;
     if (![self.dataStore save:&migrationError]) {
         DDLogError(@"Error migrating legacy history list: %@", migrationError);
         return;
     }
-    
+
     [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateHistoryList:YES];
 }
-
 
 #pragma mark - Convienence Methods
 
@@ -109,7 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     NSArray *allHistoryListItems = [self.dataStore.viewContext executeFetchRequest:self.historyListFetchRequest error:nil];
-    [allHistoryListItems enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [allHistoryListItems enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         block(obj, stop);
     }];
 }
@@ -121,9 +129,9 @@ NS_ASSUME_NONNULL_BEGIN
     if (!URLs) {
         return;
     }
-    
+
     NSDate *now = [NSDate date];
-    
+
     for (NSURL *URL in URLs) {
         if ([URL wmf_isNonStandardURL]) {
             continue;
@@ -135,7 +143,7 @@ NS_ASSUME_NONNULL_BEGIN
         article.viewedDate = now;
         [article updateViewedDateWithoutTime];
     }
-    
+
     NSError *error = nil;
     if (![self.dataStore save:&error]) {
         DDLogError(@"Error adding pages to history: %@", error);
@@ -151,17 +159,17 @@ NS_ASSUME_NONNULL_BEGIN
     if ([URL wmf_isNonStandardURL]) {
         return;
     }
-    
+
     if ([URL.wmf_title length] == 0) {
         return;
     }
 
     NSDate *now = [NSDate date];
-    
+
     WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:URL];
     article.viewedDate = now;
     [article updateViewedDateWithoutTime];
-    
+
     NSError *error = nil;
     if (![self.dataStore save:&error]) {
         DDLogError(@"Error adding pages to history: %@", error);
@@ -172,15 +180,15 @@ NS_ASSUME_NONNULL_BEGIN
     if ([URL wmf_isNonStandardURL]) {
         return;
     }
-    
+
     if ([URL.wmf_title length] == 0) {
         return;
     }
-    
+
     WMFArticle *article = [self.dataStore fetchArticleForURL:URL];
     article.viewedFragment = fragment;
     article.viewedScrollPosition = scrollposition;
-    
+
     NSError *error = nil;
     if (![self.dataStore save:&error]) {
         DDLogError(@"Error setting fragment and scroll position: %@", error);
@@ -198,7 +206,7 @@ NS_ASSUME_NONNULL_BEGIN
         WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:URL];
         article.newsNotificationDate = date;
     }
-    
+
     NSError *error = nil;
     if (![self.dataStore save:&error]) {
         DDLogError(@"Error setting in the news notification date: %@", error);
@@ -209,14 +217,14 @@ NS_ASSUME_NONNULL_BEGIN
     if ([URL wmf_isNonStandardURL]) {
         return;
     }
-    
+
     if ([URL.wmf_title length] == 0) {
         return;
     }
-    
+
     WMFArticle *article = [self.dataStore fetchArticleForURL:URL];
     article.wasSignificantlyViewed = YES;
-    
+
     NSError *error = nil;
     if (![self.dataStore save:&error]) {
         DDLogError(@"Error setting significantly viewed: %@", error);
@@ -227,15 +235,15 @@ NS_ASSUME_NONNULL_BEGIN
     if ([URL wmf_isNonStandardURL]) {
         return;
     }
-    
+
     if ([URL.wmf_title length] == 0) {
         return;
     }
-    
+
     WMFArticle *article = [self.dataStore fetchArticleForURL:URL];
     article.viewedDate = nil;
     [article updateViewedDateWithoutTime];
-    
+
     NSError *error = nil;
     if (![self.dataStore save:&error]) {
         DDLogError(@"Error setting last viewed date: %@", error);
@@ -243,11 +251,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)removeAllEntries {
-    [self enumerateItemsWithBlock:^(WMFArticle * _Nonnull entry, BOOL * _Nonnull stop) {
+    [self enumerateItemsWithBlock:^(WMFArticle *_Nonnull entry, BOOL *_Nonnull stop) {
         entry.viewedDate = nil;
         [entry updateViewedDateWithoutTime];
     }];
-    
+
     NSError *error = nil;
     if (![self.dataStore save:&error]) {
         DDLogError(@"Error removing all entries: %@", error);
