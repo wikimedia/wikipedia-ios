@@ -5,6 +5,7 @@
 #import "UIImageView+WMFPlaceholder.h"
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
 #import "UIImageView+WMFImageFetching.h"
+#import "Wikipedia-Swift.h"
 
 @interface WMFArticleListTableViewCell ()
 
@@ -56,6 +57,7 @@
     [self wmf_makeCellDividerBeEdgeToEdge];
     self.titleLabel.textAlignment = NSTextAlignmentNatural;
     self.descriptionLabel.textAlignment = NSTextAlignmentNatural;
+    [self wmf_configureSubviewsForDynamicType];
 }
 
 #pragma mark - Title
