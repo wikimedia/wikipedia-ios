@@ -73,7 +73,7 @@ public class WMFImageController : NSObject {
         cache.shouldDecompressImages = false
         downloader.shouldDecompressImages = false
         
-        let maxConcurrentDownloads = Int(4*memory/526778368)
+        let maxConcurrentDownloads = Int(2*memory/526778368)
         downloader.maxConcurrentDownloads = maxConcurrentDownloads
         
         return WMFImageController(manager: SDWebImageManager(downloader: downloader, cache: cache),
