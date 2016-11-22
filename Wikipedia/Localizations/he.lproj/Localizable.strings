@@ -6,6 +6,7 @@
 // Author: LaG roiL
 // Author: Macofe
 // Author: Matanya
+// Author: Or
 // Author: איתן96
 
 "languages-title" = "שינוי שפה";
@@ -386,8 +387,7 @@
 "welcome-volunteer-continue-button" = "המשך";
 "welcome-volunteer-thanks" = "$1 תודה!";
 "welcome-send-data-title" = "שליחת נתונים ללא פרטים מזהים";
-// Fuzzy
-"welcome-send-data-sub-title" = "עזרו לוויקימדיה לשפר את האפליקציה על־ידי זה שתספרו לנו איך אתם משתמשים בה. המידע שנאסף אינו מכיל פרטים מזהים. מידע נוסף";
+"welcome-send-data-sub-title" = "עזרו לוויקימדיה לשפר את האפליקציה על־ידי זה שתספרו לנו איך אתם משתמשים בה. המידע שנאסף אינו מכיל פרטים מזהים.";
 "empty-no-feed-title" = "אין חיבור אינטרנט";
 "empty-no-feed-message" = "אפשר לראות הצעות לערכים כשיהיה לך אינטרנט";
 "empty-no-feed-action-message" = "עדיין אפשר לקרוא דפים שמורים";

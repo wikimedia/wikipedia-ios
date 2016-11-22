@@ -362,7 +362,11 @@
 "home-hide-suggestion-prompt" = "Suggestie verbergen";
 "home-hide-suggestion-cancel" = "Annuleren";
 "home-accessibility-label" = "Wikipedia, Verkennen";
+"home-title-accessibility-label" = "Wikipedia, scroll naar boven om te verkennen";
 "home-button-accessibility-label" = "Hoofdmenu";
+"home-button-explore-accessibility-label" = "Wikipedia, terug om te verkennen";
+"home-button-saved-accessibility-label" = "Wikipedia, terug naar opgslagen";
+"home-button-history-accessibility-label" = "Wikipedia, terug naar geschiedenis";
 "potd-empty-error-description" = "Ophalen van de afbeelding van de dag voor $1 is mislukt";
 "potd-description-prefix" = "Afbeelding van de dag voor $1";
 "welcome-explore-title" = "Verkennen";
@@ -388,6 +392,8 @@
 "welcome-volunteer-send-usage-reports" = "Gebruiksrapporten verzenden";
 "welcome-volunteer-continue-button" = "Doorgaan";
 "welcome-volunteer-thanks" = "$1 Bedankt!";
+"welcome-send-data-title" = "Anoniem gegevens zenden";
+"welcome-send-data-sub-title" = "Help Wikimedia de app beter te maken door ons te laten weten hoe u de app gebruikt. De gegevens worden anoniem verzameld.";
 "empty-no-feed-title" = "Geen internetverbinding";
 "empty-no-feed-message" = "U kunt aanbevolen pagina's bekijken wanneer u bent verbonden met het internet";
 "empty-no-feed-action-message" = "U kunt nog steeds opgeslagen pagina's lezen";

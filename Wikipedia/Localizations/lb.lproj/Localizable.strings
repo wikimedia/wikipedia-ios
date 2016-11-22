@@ -351,6 +351,7 @@
 "welcome-explore-title" = "Entdecken";
 "welcome-explore-sub-title" = "En nei Manéier fir all Dag interessant Artikelen z'entdecken";
 "welcome-explore-new-ways-title" = "Nei Manéiere fir z'entdecken";
+"welcome-explore-new-ways-sub-title" = "Nei Notifikatiounen a Widgets déi Iech hëllefe fir interessant Artikelen ze fannen";
 "welcome-explore-tell-me-more" = "Ech wëll méi wëssen";
 "welcome-explore-tell-me-more-about-explore" = "Méi iwwert d'Entdecken";
 "welcome-explore-tell-me-more-related" = "De Feed Entdecken weist Iech Artikelen a Relatioun mat Artikelen déi Dir geliest hutt.";
@@ -370,6 +371,7 @@
 "welcome-volunteer-continue-button" = "Virufueren";
 "welcome-volunteer-thanks" = "$1 Merci!";
 "welcome-send-data-title" = "Anonym Donnéeë schécken";
+"welcome-send-data-sub-title" = "Hëlleft Wikimedia d'App besser ze maachen andeem Dir eis wësse loosst wéi Dir d'App benotzt. Déi gesammelt Date sinn anonym.";
 "empty-no-feed-title" = "Keng Internetverbindung";
 "empty-no-feed-message" = "Dir kënnt Är recommandéiert Artikele gesi wann Dir Internet hutt.";
 "empty-no-feed-action-message" = "Dir kënnt trotzdem gespäichert Säite liesen";
