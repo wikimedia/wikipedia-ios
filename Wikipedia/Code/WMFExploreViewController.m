@@ -1063,7 +1063,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
     [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:group];
 
-    if (vc == nil && [group detailType] != WMFFeedDetailTypeAnnouncement) {
+    if (vc == nil) {
         return;
     }
 
@@ -1079,10 +1079,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         } break;
         case WMFFeedDetailTypeStory: {
             [self.navigationController pushViewController:vc animated:animated];
-        } break;
-        case WMFFeedDetailTypeAnnouncement: {
-            WMFAnnouncement *announcement = (WMFAnnouncement *)group.content.firstObject;
-            [self wmf_openExternalUrl:announcement.actionURL];
         } break;
         default:
             NSAssert(false, @"Unknown Detail Type");
@@ -1288,16 +1284,20 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     [self wmf_openExternalUrl:url];
 }
 
-
 - (void)dismissAnnouncementCell:(WMFAnnouncementCollectionViewCell*)cell{
     NSIndexPath* indexPath = [self.collectionView indexPathForCell:cell];
-    WMFContentGroup *contentGroup = [(id)[self sectionForIndexPath:indexPath] copy];
+    WMFContentGroup *contentGroup = [self sectionForIndexPath:indexPath];
     NSParameterAssert(contentGroup);
     if(contentGroup.contentGroupKind != WMFContentGroupKindAnnouncement){
         return;
     }
     [contentGroup markDismissed];
     [contentGroup updateVisibility];
+    NSError *saveError = nil;
+    [self.userStore save:&saveError];
+    if (saveError) {
+        DDLogError(@"Error saving after announcement dismissal: %@", saveError);
+    }
 }
 
 #pragma mark - Analytics

@@ -281,45 +281,45 @@
     self.wasDismissed = YES;
 }
 
-- (BOOL)updateVisibility{
+- (void)updateVisibility {
+    if (self.wasDismissed) {
+        if (self.isVisible) {
+            self.isVisible = NO;
+        }
+        return;
+    }
+    
     if (self.contentType != WMFContentTypeAnnouncement) {
-        return NO;
+        return;
     }
     
     NSArray *content = self.content;
     
     if (![content isKindOfClass:[NSArray class]]) {
-        return NO;
+        return;
     }
     
     WMFAnnouncement *announcement = (WMFAnnouncement *)content.firstObject;
     if (![announcement isKindOfClass:[WMFAnnouncement class]]) {
-        return NO;
+        return;
     }
     
     if (!announcement.startTime || !announcement.endTime) {
-        return NO;
+        return;
     }
     
-    if(self.wasDismissed){
-        if(self.isVisible){
-            self.isVisible = NO;
-            return YES;
-        }
-    }
     NSDate* now = [NSDate date];
     if([now timeIntervalSinceDate:announcement.startTime] > 0 && [announcement.endTime timeIntervalSinceDate:now] > 0) {
         if(!self.isVisible){
             self.isVisible = YES;
-            return YES;
+            return;
         }
     } else{
         if(self.isVisible){
             self.isVisible = NO;
-            return YES;
+            return;
         }
     }
-    return NO;
 }
 
 
