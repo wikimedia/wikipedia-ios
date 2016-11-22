@@ -174,7 +174,6 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-
 @end
 
 @implementation WMFRandomContentGroup
@@ -217,7 +216,6 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-
 - (NSInteger)dailySortPriority {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         return 3;
@@ -255,7 +253,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 @implementation WMFAnnouncementContentGroup
 
-- (instancetype)initWithDate:(NSDate *)date visibilityStartDate:(NSDate *)start visibilityEndDate:(NSDate *)end siteURL:(NSURL *)url identifier:(NSString*)identifier{
+- (instancetype)initWithDate:(NSDate *)date visibilityStartDate:(NSDate *)start visibilityEndDate:(NSDate *)end siteURL:(NSURL *)url identifier:(NSString *)identifier {
     NSParameterAssert(start);
     NSParameterAssert(end);
     NSParameterAssert(identifier);
@@ -268,27 +266,28 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (void)markDismissed{
+- (void)markDismissed {
     self.wasDismissed = YES;
 }
 
-- (BOOL)updateVisibility{
-    if(self.wasDismissed){
-        if(self.isVisible){
+- (BOOL)updateVisibility {
+    if (self.wasDismissed) {
+        if (self.isVisible) {
             self.isVisible = NO;
             return YES;
         }
-    }
-    NSDate* now = [NSDate date];
-    if([now isLaterThanDate:self.visibilityStartDate] && [now isEarlierThanDate:self.visibilityEndDate]){
-        if(!self.isVisible){
-            self.isVisible = YES;
-            return YES;
-        }
-    }else{
-        if(self.isVisible){
-            self.isVisible = NO;
-            return YES;
+    } else {
+        NSDate *now = [NSDate date];
+        if ([now isLaterThanDate:self.visibilityStartDate] && [now isEarlierThanDate:self.visibilityEndDate]) {
+            if (!self.isVisible) {
+                self.isVisible = YES;
+                return YES;
+            }
+        } else {
+            if (self.isVisible) {
+                self.isVisible = NO;
+                return YES;
+            }
         }
     }
     return NO;
