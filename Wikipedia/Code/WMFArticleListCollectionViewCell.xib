@@ -60,7 +60,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" priority="999" constant="40" id="54n-kw-kHR"/>
+                            <constraint firstAttribute="height" priority="998" constant="40" id="54n-kw-kHR"/>
                             <constraint firstAttribute="trailing" secondItem="Mxi-So-IXe" secondAttribute="trailing" constant="15" id="71h-ee-Xuj"/>
                             <constraint firstItem="Mxi-So-IXe" firstAttribute="top" secondItem="6JK-c4-FJw" secondAttribute="top" id="B6B-CY-Vxk"/>
                             <constraint firstItem="EoE-JS-HmV" firstAttribute="leading" secondItem="Mxi-So-IXe" secondAttribute="leading" id="Dpn-74-mgq"/>
