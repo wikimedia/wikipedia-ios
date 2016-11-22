@@ -46,6 +46,9 @@
     } success:^(NSArray<WMFAnnouncement *> *announcements) {
         [self saveAnnouncements:announcements completion:^{
             [self updateVisibilityOfAnnouncements];
+            if(completion){
+                completion();
+            }
         }];
     }];
     
