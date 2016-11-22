@@ -391,8 +391,7 @@
 "welcome-volunteer-continue-button" = "继续";
 "welcome-volunteer-thanks" = "$1感谢您！";
 "welcome-send-data-title" = "发送匿名数据";
-// Fuzzy
-"welcome-send-data-sub-title" = "通过让我们了解您如何应用，帮助维基媒体使应用做的更好。数据收集是匿名的。了解更多";
+"welcome-send-data-sub-title" = "通过让我们了解您如何应用，帮助维基媒体使应用做的更好。数据收集是匿名的";
 "empty-no-feed-title" = "没有网络连接";
 "empty-no-feed-message" = "当您有网络连接时，您可以查看您推荐的条目";
 "empty-no-feed-action-message" = "您仍然可以阅读保存的页面";
