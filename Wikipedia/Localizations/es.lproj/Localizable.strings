@@ -14,6 +14,7 @@
 // Author: Vivaelcelta
 // Author: Wifidel
 // Author: Yllelder
+// Author: Zpizza
 
 "languages-title" = "Cambiar idioma";
 "article-languages-label" = "Elige un idioma";
@@ -393,8 +394,7 @@
 "welcome-volunteer-continue-button" = "Continuar";
 "welcome-volunteer-thanks" = "$1 ¡Gracias!";
 "welcome-send-data-title" = "Enviar datos anónimos";
-// Fuzzy
-"welcome-send-data-sub-title" = "Ayuda a mejorar la aplicación de Wikipedia diciéndonos cómo la usas. Los datos recolectados son anónimos. Aprende más";
+"welcome-send-data-sub-title" = "Ayuda a mejorar la aplicación de Wikipedia diciéndonos cómo la usas. Los datos recolectados son anónimos.";
 "empty-no-feed-title" = "No hay conexión a Internet";
 "empty-no-feed-message" = "Puedes ver tus artículos recomendados cuando tengas Internet";
 "empty-no-feed-action-message" = "Aún puedes leer las páginas guardadas";

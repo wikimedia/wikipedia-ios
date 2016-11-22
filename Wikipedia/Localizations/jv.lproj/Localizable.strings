@@ -380,8 +380,7 @@
 "welcome-volunteer-continue-button" = "Banjuraké";
 "welcome-volunteer-thanks" = "Matur nuwun! $1";
 "welcome-send-data-title" = "Kirimi data anonim";
-// Fuzzy
-"welcome-send-data-sub-title" = "Bantuan Wikimedia nggawe aplikasi sing luwih apik ngeculke kita ngerti carane nganggo aplikasi. Data dikumpulake iku anonim. Selengkapnya";
+"welcome-send-data-sub-title" = "Bantuan Wikimedia nggawe aplikasi sing luwih apik ngeculke kita ngerti carane nganggo aplikasi. Data dikumpulake iku anonim";
 "empty-no-feed-title" = "Ora ana sambungan internet";
 "empty-no-feed-message" = "Sampeyan bisa ndeleng artikel dianjurake nalika duwe internet";
 "empty-no-feed-action-message" = "Sampeyan isih bisa maca kaca disimpen";
