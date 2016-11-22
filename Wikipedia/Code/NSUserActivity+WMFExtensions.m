@@ -199,12 +199,20 @@
 }
 
 - (NSURL *)wmf_articleURL {
+    NSURL *originalURL = nil;
     if (self.userInfo[CSSearchableItemActivityIdentifier] != nil) {
-        return [NSURL URLWithString:self.userInfo[CSSearchableItemActivityIdentifier]];
+        originalURL = [NSURL URLWithString:self.userInfo[CSSearchableItemActivityIdentifier]];
     } else {
-        return self.webpageURL;
+        originalURL = self.webpageURL;
     }
+    NSString *articleDatabaseKey = [originalURL wmf_articleDatabaseKey];
+    if (articleDatabaseKey == nil) {
+        return nil;
+    }
+
+    return [NSURL URLWithString:articleDatabaseKey];
 }
+
 - (NSURL *)wmf_contentURL {
     return self.userInfo[@"WMFURL"];
 }
