@@ -121,7 +121,7 @@
 "settings-help-and-feedback" = "Bantuan dan masukan";
 "settings-primary-language" = "Utama";
 "settings-primary-language-details" = "Bahasa pertama di daftar ini digunakan sebagai bahasa utama untuk aplikasi. Mengubah bahasa ini akan mengubah konten harian (seperti Artikel Pilihan) yang ditampilkan pada Jelajah.";
-"settings-notifications-system-off" = "Pemberitahuan saat ini dinonaktifkan pada Wikipedia. Beralih ke pengaturan perangkat anda untuk mengaktifkan pemberitahuan";
+"settings-notifications-system-off" = "Pemberitahuan saat ini dinonaktifkan untuk Wikipedia. Pergi ke pengaturan perangkat Anda untuk mengaktifkan pemberitahuan";
 "settings-notifications-system-turn-on" = "Aktifkan Pemberitahuan";
 "settings-notifications-info" = "Dapatkan pemberitahuan tentang artikel yang sedang tren dan bacaan teratas di Wikipedia dengan pemberitahuan otomatis kami. Semua tersedia sehubungan dengan privasi dan sampai data menit.";
 "settings-notifications-learn-more" = "Pelajari lebih lanjut tentang pemberitahuan";
@@ -130,7 +130,7 @@
 "main-menu-title" = "Lainnya";
 "main-menu-heading-about" = "Tentang";
 "main-menu-language-title" = "Cari Wikipedia $1";
-"main-menu-faq" = "Pertanyaan yang sering diajukan";
+"main-menu-faq" = "Pertanyaan yang sering ditanyakan";
 "main-menu-language-toggle-show" = "Tampilkan bahasa";
 "main-menu-language-toggle-hide" = "Sembunyikan bahasa";
 "main-menu-language-selection-saved" = "Pilihan bahasa yang disimpan";
@@ -371,7 +371,7 @@
 "welcome-explore-title" = "Jelajah";
 "welcome-explore-sub-title" = "Cara baru untuk menemukan artikel yang menarik setiap hari";
 "welcome-explore-new-ways-title" = "Cara baru untuk menjelajah";
-"welcome-explore-new-ways-sub-title" = "Pemberitahuan baru dan widget untuk membantu anda menemukan artikel menarik";
+"welcome-explore-new-ways-sub-title" = "Pemberitahuan baru dan widget untuk membantu Anda menemukan artikel menarik";
 "welcome-explore-tell-me-more" = "Beritahu saya lebih lanjut";
 "welcome-explore-tell-me-more-about-explore" = "Lebih lanjut mengenai Jelajah";
 "welcome-explore-tell-me-more-details" = "Ketika Anda membaca artikel, artikel yang terkait ditambahkan ke umpan Jelajah Anda. Hal ini tidak mengubah bagaimana mengumpulkan informasi Anda, dan riwayat bacaan Anda selalu tetap rahasia.";
@@ -381,7 +381,7 @@
 "welcome-explore-continue-button" = "Memulai";
 "welcome-notifications-tell-me-more-title" = "Lebih lanjut tentang pemberitahuan";
 "welcome-notifications-tell-me-more-storage" = "Preferensi pemberitahuan disimpan di perangkat dan tidak berdasarkan informasi pribadi atau aktivitas.";
-"welcome-notifications-tell-me-more-creation" = "Pemberitahuan dibuat dan disampaikan pada perangkat Anda dengan aplikasi, bukan dari server (atau pihak ketiga) kami.";
+"welcome-notifications-tell-me-more-creation" = "Pemberitahuan dibuat dan disampaikan pada perangkat Anda dengan aplikasi, bukan dari peladen kami (atau pihak ketiga).";
 "welcome-languages-title" = "Bahasa";
 "welcome-languages-sub-title" = "Pilih bahasa pilihan Anda untuk mencari Wikipedia";
 "welcome-languages-add-button" = "Tambahkan bahasa lainnya";
@@ -392,8 +392,7 @@
 "welcome-volunteer-continue-button" = "Lanjutkan";
 "welcome-volunteer-thanks" = "Terima kasih! $1";
 "welcome-send-data-title" = "Kirim data anonim";
-// Fuzzy
-"welcome-send-data-sub-title" = "Bantu Wikimedia membuat aplikasi yang lebih baik dengan membiarkan kami tahu bagaimana Anda menggunakan aplikasi. Data yang dikumpulkan bersifat anonim. Pelajari lebih lanjut";
+"welcome-send-data-sub-title" = "Bantu Wikimedia membuat aplikasi yang lebih baik dengan membiarkan kami tahu bagaimana Anda menggunakan aplikasi. Data yang dikumpulkan bersifat anonim";
 "empty-no-feed-title" = "Tidak ada sambungan internet";
 "empty-no-feed-message" = "Anda bisa melihat artikel yang disarankan untuk Anda saat Anda mempunyai sambungan intenet";
 "empty-no-feed-action-message" = "Anda masih dapat membaca halaman tersimpan";
@@ -446,7 +445,7 @@
 "in-the-news-notification-share-action-title" = "Bagikan...";
 "in-the-news-notification-save-for-later-action-title" = "Simpan untuk nanti";
 "in-the-news-currently-trending" = "Saat ini ngetren";
-"in-the-news-title" = "Dalam berita";
+"in-the-news-title" = "Peristiwa terkini";
 "in-the-news-title-for-date" = "Berita pada $1";
 "number-thousands" = "$1 ribu";
 "number-millions" = "$1 juta";

@@ -456,6 +456,6 @@
 "back" = "Generic 'Back' title for back button\n{{Identical|Back}}";
 "save-action" = "Accessibility action description for 'Save'\n{{Identical|Save}}";
 "unsave-action" = "Accessibility action description for 'Unsave'";
-
 "status-saving-for-later" = "Indicates to the user that the article is being saved for later";
 "status-saved-for-later" = "Indicates to the user that the article has been saved for later";
+"announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement";

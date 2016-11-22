@@ -384,8 +384,7 @@
 "welcome-volunteer-continue-button" = "Teruskan";
 "welcome-volunteer-thanks" = "Terima kasih! $1";
 "welcome-send-data-title" = "Hantar data tanpa nama";
-// Fuzzy
-"welcome-send-data-sub-title" = "Bantuan Wikimedia membuat aplikasi yang lebih baik dengan membiarkan kita tahu bagaimana anda menggunakan aplikasi. Data yang dikumpul adalah tanpa nama. Ketahui lebih lanjut";
+"welcome-send-data-sub-title" = "Bantuan Wikimedia membuat aplikasi yang lebih baik dengan membiarkan kita tahu bagaimana anda menggunakan aplikasi. Data yang dikumpul adalah tanpa nama";
 "empty-no-feed-title" = "Tiada Sambungan Internet";
 "empty-no-feed-message" = "Anda boleh lihat rencana cadangan anda apabila anda mempunyai internet";
 "empty-no-feed-action-message" = "Anda masih boleh membaca laman tersimpan";

@@ -78,4 +78,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface WMFAnnouncementContentGroup (WMFDatabaseStorable)
+
++ (nullable NSURL *)urlForSiteURL:(NSURL *)url identifier:(NSString *)identifier;
+
+- (NSURL *)url;
+
+@end
+
 NS_ASSUME_NONNULL_END

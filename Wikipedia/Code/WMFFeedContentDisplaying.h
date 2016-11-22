@@ -8,17 +8,25 @@ typedef NS_ENUM(NSUInteger, WMFFeedDisplayType) {
     WMFFeedDisplayTypePageWithPreview,
     WMFFeedDisplayTypePageWithLocation,
     WMFFeedDisplayTypePhoto,
-    WMFFeedDisplayTypeStory
+    WMFFeedDisplayTypeStory,
+    WMFFeedDisplayTypeAnnouncement
 };
 
 typedef NS_ENUM(NSUInteger, WMFFeedDetailType) {
+    WMFFeedDetailTypeNone,
     WMFFeedDetailTypePage,
     WMFFeedDetailTypePageWithRandomButton,
     WMFFeedDetailTypeGallery,
     WMFFeedDetailTypeStory,
 };
 
+typedef NS_ENUM(NSUInteger, WMFFeedHeaderType) {
+    WMFFeedHeaderTypeNone,
+    WMFFeedHeaderTypeStandard,
+};
+
 typedef NS_ENUM(NSUInteger, WMFFeedHeaderActionType) {
+    WMFFeedHeaderActionTypeOpenHeaderNone,
     WMFFeedHeaderActionTypeOpenHeaderContent,
     WMFFeedHeaderActionTypeOpenFirstItem,
     WMFFeedHeaderActionTypeOpenMore,
@@ -35,32 +43,39 @@ typedef NS_ENUM(NSUInteger, WMFFeedMoreType) {
 
 typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
     WMFFeedBlacklistOptionNone = 0,
-    WMFFeedBlacklistOptionContent = 1 << 0, //blacklist specific sectiion content
+    WMFFeedBlacklistOptionContent = 1 << 0, //blacklist specific section content
     //    WMFFeedBlacklistOptionSection = 1 << 1, //blacklist all sections of this type
 };
 
 @protocol WMFFeedContentDisplaying <WMFAnalyticsContentTypeProviding>
 
 /**
+ *  The type of header to display for the section
+ *
+ *  @return An image
+ */
+- (WMFFeedHeaderType)headerType;
+
+/**
  *  An icon to be displayed in the section's header
  *
  *  @return An image
  */
-- (UIImage *)headerIcon;
+- (nullable UIImage *)headerIcon;
 
 /**
  *  Color used for icon tint
  *
  *  @return A color
  */
-- (UIColor *)headerIconTintColor;
+- (nullable UIColor *)headerIconTintColor;
 
 /**
  *  Background color of section's header icon container view
  *
  *  @return A color
  */
-- (UIColor *)headerIconBackgroundColor;
+- (nullable UIColor *)headerIconBackgroundColor;
 
 /**
  *  Color of section's header title

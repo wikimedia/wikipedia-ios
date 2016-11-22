@@ -384,6 +384,7 @@
 "welcome-volunteer-continue-button" = "계속";
 "welcome-volunteer-thanks" = "감사합니다 $1!";
 "welcome-send-data-title" = "익명 데이터 보내기";
+"welcome-send-data-sub-title" = "위키미디어의 앱 개선을 지원하기 위해 앱을 어떻게 사용하고 계신지 알려주세요. 수집된 데이터는 익명 처리됩니다";
 "empty-no-feed-title" = "인터넷 연결 없음";
 "empty-no-feed-message" = "인터넷 이용이 가능할 때 추천 문서를 읽을 수 있습니다.";
 "empty-no-feed-action-message" = "여전히 저장된 페이지를 읽을 수 있습니다.";
