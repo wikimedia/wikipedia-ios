@@ -72,11 +72,10 @@ public class WMFImageController : NSObject {
         //https://github.com/rs/SDWebImage/issues/586
         cache.shouldDecompressImages = false
         downloader.shouldDecompressImages = false
-        if memory < 805306368 {
-            downloader.maxConcurrentDownloads = 4
-        }else{
-            downloader.maxConcurrentDownloads = 6
-        }
+        
+        let maxConcurrentDownloads = Int(4*memory/526778368)
+        downloader.maxConcurrentDownloads = maxConcurrentDownloads
+        
         return WMFImageController(manager: SDWebImageManager(downloader: downloader, cache: cache),
                                   namespace: defaultNamespace)
     }()
