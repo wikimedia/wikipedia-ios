@@ -389,6 +389,7 @@
 "welcome-volunteer-send-usage-reports" = "Invia rapporti sull'utilizzo";
 "welcome-volunteer-continue-button" = "Continua";
 "welcome-volunteer-thanks" = "$1 Grazie!";
+"welcome-send-data-sub-title" = "Aiuto Wikimedia a rendere migliore l'applicazione, facendoci sapere come la utilizzi. I dati raccolti sono anonimi";
 "empty-no-feed-title" = "Nessuna connessione internet";
 "empty-no-feed-message" = "Puoi vedere le tue voci consigliate quando si dispone di internet";
 "empty-no-feed-action-message" = "Puoi ancora leggere le pagine salvate";

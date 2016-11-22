@@ -247,7 +247,7 @@
 "button-done" = "Feito";
 "button-save" = "Gardar";
 "button-publish" = "Publicar";
-"button-ok" = "OK";
+"button-ok" = "Aceptar";
 "button-save-for-later" = "Gardar para máis tarde";
 "button-saved-for-later" = "Gardado para máis tarde";
 "button-saved-remove" = "Quitar dos gardados";
@@ -320,7 +320,7 @@
 "image-gallery-unknown-owner" = "Descoñécese a persoa que cargou o ficheiro.";
 "image-gallery-fetch-image-info-error-title" = "Imposible descargar as imaxes";
 "image-gallery-fetch-image-info-error-message" = "Imposible descargar as imaxes para este artigo. Por favor, refrescre o artigo e inténteo de novo.";
-"image-gallery-fetch-image-info-error-ok" = "OK";
+"image-gallery-fetch-image-info-error-ok" = "Aceptar";
 "hockeyapp-alert-question" = "Quere enviar un informe de erro a $1 para que así Wikimedia poida revisar o seu erro?";
 "hockeyapp-alert-question-with-response-field" = "Quere enviar un informe de erro a $1 para que así Wikimedia poida revisar o seu erro? Por favor descreba que ocorreu cando sucedeu o erro:";
 "hockeyapp-alert-title" = "Sentímolo, a aplicación tivo un erro a última vez";
@@ -386,8 +386,7 @@
 "welcome-volunteer-continue-button" = "Continuar";
 "welcome-volunteer-thanks" = "$1 Grazas!";
 "welcome-send-data-title" = "Enviar datos anónimos";
-// Fuzzy
-"welcome-send-data-sub-title" = "Axuda a Wikimedia a mellorar esta aplicación contándonos como a usas. Os datos recollidos son anónimos. Saver máis";
+"welcome-send-data-sub-title" = "Axude á Wikimedia a mellorar este aplicativo contándonos como o utiliza. Os datos recollidos son anónimos";
 "empty-no-feed-title" = "Sen conexión a Internet";
 "empty-no-feed-message" = "Pode ver os seus artigos recomendados cando teña conexión a Internet";
 "empty-no-feed-action-message" = "Aínda pode ler as páxinas gardadas";
