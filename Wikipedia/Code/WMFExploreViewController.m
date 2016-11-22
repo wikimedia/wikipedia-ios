@@ -212,8 +212,10 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         //TODO: nearby doesnt always fire
         [group enter];
+        //DDLogDebug(@">>>>Enter %@<<<<", NSStringFromClass([obj class]));
         [obj loadNewContentForce:NO
                       completion:^{
+                          //DDLogDebug(@">>>>Leave %@<<<<", NSStringFromClass([obj class]));
                           [group leave];
                       }];
     }];
@@ -802,27 +804,25 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     return footer;
 }
 
-
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath{
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *contentGroup = [self sectionForIndexPath:indexPath];
     NSParameterAssert(contentGroup);
-    if(contentGroup.contentGroupKind == WMFContentGroupKindAnnouncement){
+    if (contentGroup.contentGroupKind == WMFContentGroupKindAnnouncement) {
         return NO;
-    }else{
+    } else {
         return YES;
     }
 }
 
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *contentGroup = [self sectionForIndexPath:indexPath];
     NSParameterAssert(contentGroup);
-    if(contentGroup.contentGroupKind == WMFContentGroupKindAnnouncement){
+    if (contentGroup.contentGroupKind == WMFContentGroupKindAnnouncement) {
         return NO;
-    }else{
+    } else {
         return YES;
     }
 }
-
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     [self presentDetailViewControllerForItemAtIndexPath:indexPath animated:YES];
@@ -1207,7 +1207,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     [self.navigationController pushViewController:vc animated:animated];
 }
 
-
 #pragma mark - NSFetchedResultsControllerDelegate
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
@@ -1263,32 +1262,32 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 #pragma mark - WMFAnnouncementCollectionViewCellDelegate
 
-- (void)announcementCellDidTapDismiss:(WMFAnnouncementCollectionViewCell*)cell{
+- (void)announcementCellDidTapDismiss:(WMFAnnouncementCollectionViewCell *)cell {
     [self dismissAnnouncementCell:cell];
 }
 
-- (void)announcementCellDidTapActionButton:(WMFAnnouncementCollectionViewCell*)cell{
-    NSIndexPath* indexPath = [self.collectionView indexPathForCell:cell];
-    WMFContentGroup* group = [self sectionAtIndex:indexPath.section];
+- (void)announcementCellDidTapActionButton:(WMFAnnouncementCollectionViewCell *)cell {
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+    WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
     NSArray<WMFAnnouncement *> *announcements = [self contentForGroup:group];
     if (indexPath.item >= announcements.count) {
         return;
     }
     WMFAnnouncement *announcement = announcements[indexPath.item];
-    NSURL* url = announcement.actionURL;
+    NSURL *url = announcement.actionURL;
     [self wmf_openExternalUrl:url];
     [self dismissAnnouncementCell:cell];
 }
 
-- (void)announcementCell:(WMFAnnouncementCollectionViewCell*)cell didTapLinkURL:(NSURL*)url{
+- (void)announcementCell:(WMFAnnouncementCollectionViewCell *)cell didTapLinkURL:(NSURL *)url {
     [self wmf_openExternalUrl:url];
 }
 
-- (void)dismissAnnouncementCell:(WMFAnnouncementCollectionViewCell*)cell{
-    NSIndexPath* indexPath = [self.collectionView indexPathForCell:cell];
+- (void)dismissAnnouncementCell:(WMFAnnouncementCollectionViewCell *)cell {
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     WMFContentGroup *contentGroup = [self sectionForIndexPath:indexPath];
     NSParameterAssert(contentGroup);
-    if(contentGroup.contentGroupKind != WMFContentGroupKindAnnouncement){
+    if (contentGroup.contentGroupKind != WMFContentGroupKindAnnouncement) {
         return;
     }
     [contentGroup markDismissed];
