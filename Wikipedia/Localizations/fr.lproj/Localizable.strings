@@ -391,8 +391,7 @@
 "welcome-volunteer-continue-button" = "Continuer";
 "welcome-volunteer-thanks" = "$1 Merci !";
 "welcome-send-data-title" = "Envoyer des données anonymes";
-// Fuzzy
-"welcome-send-data-sub-title" = "Aider Wikimédia à améliorer l’application en nous faisant savoir comment vous l’utilisez. Les données collectées sont anonymes. En savoir plus";
+"welcome-send-data-sub-title" = "Aider Wikimédia à améliorer l’application en nous faisant savoir comment vous l’utilisez. Les données collectées sont anonymes.";
 "empty-no-feed-title" = "Pas de connexion à Internet";
 "empty-no-feed-message" = "Vous pouvez voir vos articles recommandés quand vous avez Internet";
 "empty-no-feed-action-message" = "Vous pouvez toujours lire les pages enregistrées";

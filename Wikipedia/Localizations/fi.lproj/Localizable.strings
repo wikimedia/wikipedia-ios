@@ -11,6 +11,7 @@
 // Author: Silvonen
 // Author: Stryn
 // Author: SuperPete
+// Author: Valtlait
 
 "languages-title" = "Kielenvaihto";
 "article-languages-label" = "Valitse kieli";
@@ -120,7 +121,7 @@
 "settings-primary-language" = "Ensisijainen";
 "settings-primary-language-details" = "Tämän listan ensimmäinen kieli on sovelluksen oletuskieli. Asetuksen muuttaminen vaikuttaa esimerkiksi Suositeltu artikkeli -toiminnon sisältöön.";
 "settings-notifications-system-off" = "Ilmoitukset ovat tällä hetkellä pois käytöstä Wikipedia-sovelluksessa. Mene laitteesi Asetukset-valikkoon ottaaksesi käyttöön ilmoitukset";
-"settings-notifications-system-turn-on" = "Ota käyttöön ilmoitukset";
+"settings-notifications-system-turn-on" = "Ota ilmoitukset käyttöön";
 "settings-notifications-learn-more" = "Lue lisää ilmoituksista";
 "main-menu-title" = "Lisää";
 "main-menu-heading-about" = "Tietoja";
@@ -430,7 +431,7 @@
 "number-thousands" = "$1 t.";
 "number-millions" = "$1 milj.";
 "number-billions" = "$1 mrd.";
-"feed-news-notification-button-text" = "Ota käyttöön ilmoitukset";
+"feed-news-notification-button-text" = "Ota ilmoitukset käyttöön";
 "back" = "Takaisin";
 "save-action" = "Tallenna";
 "unsave-action" = "Peruuta tallennus";

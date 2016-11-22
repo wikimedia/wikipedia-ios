@@ -167,7 +167,7 @@
 "saved-pages-description" = "Gemte sider er ret seje. Tænk på dem som bogmærker, som du kan læse, selv når du er offline.";
 "saved-pages-none" = "Du har ingen gemte sider.";
 "saved-pages-image-download-error" = "Hentning af billeder mislykkedes for denne gemte side.";
-"history-title" = "Historie";
+"history-title" = "Historik";
 "page-history-title" = "Artikelhistorik";
 "page-history-downloading" = "Indlæser artikelhistorik...";
 "navbar-title-mode-edit-wikitext" = "Redigerer";
@@ -354,7 +354,11 @@
 "home-hide-suggestion-prompt" = "Skjul dette forslag";
 "home-hide-suggestion-cancel" = "Annuller";
 "home-accessibility-label" = "Wikipedia, Opdag";
+"home-title-accessibility-label" = "Wikipedia, rul til begyndelsen af Udforsk";
 "home-button-accessibility-label" = "Hjem";
+"home-button-explore-accessibility-label" = "Wikipedia, vend tilbage til Udforsk";
+"home-button-saved-accessibility-label" = "Wikipedia, vend tilbage til Gemt";
+"home-button-history-accessibility-label" = "Wikipedia, vend tilbage til Historik";
 "potd-empty-error-description" = "Kunne ikke hente billede af den dag, for $1";
 "potd-description-prefix" = "Dagens billede for $1";
 "welcome-explore-title" = "Udforsk";
@@ -380,6 +384,8 @@
 "welcome-volunteer-send-usage-reports" = "Send anvendelsesrapporter";
 "welcome-volunteer-continue-button" = "Fortsæt";
 "welcome-volunteer-thanks" = "$1 Tak!";
+"welcome-send-data-title" = "Send anonyme data";
+"welcome-send-data-sub-title" = "Hjælp Wikipedia med at gøre appen bedre ved at oplyse os om hvordan du bruger den. Data indsamles anonymt.";
 "empty-no-feed-title" = "Ingen internetforbindelse";
 "empty-no-feed-message" = "Du kan se dine anbefalede artikler når du har internetforbindelse";
 "empty-no-feed-action-message" = "Du kan stadig læse gemte sider";
@@ -425,6 +431,8 @@
 "top-read-see-more-trending" = "Se flere populære";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
+"readers-accessibility-label" = "$1 læsere";
+"rank-accessibility-label" = "Nummer $1";
 "reference-title" = "Reference $1";
 "in-the-news-notification-read-now-action-title" = "Læs nu";
 "in-the-news-notification-share-action-title" = "Del...";
