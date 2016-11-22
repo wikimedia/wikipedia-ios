@@ -38,8 +38,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSComparisonResult)compare:(WMFContentGroup *)contentGroup {
     NSParameterAssert([contentGroup isKindOfClass:[WMFContentGroup class]]);
-    if ([self isKindOfClass:[WMFContinueReadingContentGroup class]]) {
-        // continue reading always goes above everything else, regardless of date
+    if ([self isKindOfClass:[WMFAnnouncementContentGroup class]]) {
+        // announcements always go above everything else, regardless of date
+        return NSOrderedAscending;
+    } else if ([contentGroup isKindOfClass:[WMFAnnouncementContentGroup class]]) {
+        // corollary of above
+        return NSOrderedDescending;
+    } else if ([self isKindOfClass:[WMFContinueReadingContentGroup class]]) {
+        // continue reading always goes above everything else but announcements, regardless of date
         return NSOrderedAscending;
     } else if ([contentGroup isKindOfClass:[WMFContinueReadingContentGroup class]]) {
         // corollary of above, everything else always goes below continue reading, regardless of date
@@ -87,9 +93,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFContinueReadingContentGroup
 
+- (NSInteger)dailySortPriority {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 @end
 
 @implementation WMFMainPageContentGroup
+
+- (NSInteger)dailySortPriority {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return 0;
+    } else {
+        return 4;
+    }
+}
 
 @end
 
@@ -107,6 +129,10 @@ NS_ASSUME_NONNULL_BEGIN
         self.articleURL = url;
     }
     return self;
+}
+
+- (NSInteger)dailySortPriority {
+    return 7;
 }
 
 @end
@@ -128,6 +154,10 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
+- (NSInteger)dailySortPriority {
+    return 6;
+}
+
 @end
 
 @implementation WMFPictureOfTheDayContentGroup
@@ -136,13 +166,33 @@ NS_ASSUME_NONNULL_BEGIN
     return WMFContentTypeImage;
 }
 
+- (NSInteger)dailySortPriority {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return 4;
+    } else {
+        return 3;
+    }
+}
+
 @end
 
 @implementation WMFRandomContentGroup
 
+- (NSInteger)dailySortPriority {
+    return 5;
+}
+
 @end
 
 @implementation WMFFeaturedArticleContentGroup
+
+- (NSInteger)dailySortPriority {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return 2;
+    } else {
+        return 1;
+    }
+}
 
 @end
 
@@ -166,12 +216,85 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
+- (NSInteger)dailySortPriority {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return 3;
+    } else {
+        return 2;
+    }
+}
+
 @end
 
 @implementation WMFNewsContentGroup
 
 - (WMFContentType)contentType {
     return WMFContentTypeStory;
+}
+
+- (NSInteger)dailySortPriority {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return 3;
+    } else {
+        return 2;
+    }
+}
+
+@end
+
+@interface WMFAnnouncementContentGroup ()
+
+@property (nonatomic, strong, readwrite) NSString *identifier;
+@property (nonatomic, strong, readwrite) NSDate *visibilityStartDate;
+@property (nonatomic, strong, readwrite) NSDate *visibilityEndDate;
+@property (nonatomic, assign, readwrite) BOOL wasDismissed;
+@property (nonatomic, assign, readwrite) BOOL isVisible;
+
+@end
+@implementation WMFAnnouncementContentGroup
+
+- (instancetype)initWithDate:(NSDate *)date visibilityStartDate:(NSDate *)start visibilityEndDate:(NSDate *)end siteURL:(NSURL *)url identifier:(NSString *)identifier {
+    NSParameterAssert(start);
+    NSParameterAssert(end);
+    NSParameterAssert(identifier);
+    self = [super initWithDate:date siteURL:url];
+    if (self) {
+        self.visibilityStartDate = start;
+        self.visibilityEndDate = end;
+        self.identifier = identifier;
+    }
+    return self;
+}
+
+- (void)markDismissed {
+    self.wasDismissed = YES;
+}
+
+- (BOOL)updateVisibility {
+    if (self.wasDismissed) {
+        if (self.isVisible) {
+            self.isVisible = NO;
+            return YES;
+        }
+    } else {
+        NSDate *now = [NSDate date];
+        if ([now isLaterThanDate:self.visibilityStartDate] && [now isEarlierThanDate:self.visibilityEndDate]) {
+            if (!self.isVisible) {
+                self.isVisible = YES;
+                return YES;
+            }
+        } else {
+            if (self.isVisible) {
+                self.isVisible = NO;
+                return YES;
+            }
+        }
+    }
+    return NO;
+}
+
+- (WMFContentType)contentType {
+    return WMFContentTypeAnnouncement;
 }
 
 @end
