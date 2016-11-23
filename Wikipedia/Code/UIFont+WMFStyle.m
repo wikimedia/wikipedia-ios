@@ -39,15 +39,15 @@
 }
 
 + (instancetype)wmf_nearbyTitleFont {
-    return [UIFont fontWithName:@"Georgia" size:20.0];
+    return [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 
 + (instancetype)wmf_subtitle {
-    return [UIFont systemFontOfSize:14.0f];
+    return [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
 }
 
 + (instancetype)wmf_nearbyDistanceFont {
-    return [UIFont systemFontOfSize:12.0f];
+    return [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
 }
 
 @end
