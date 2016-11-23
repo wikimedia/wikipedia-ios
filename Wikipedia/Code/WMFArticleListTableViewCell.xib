@@ -32,10 +32,10 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6JK-c4-FJw" userLabel="Clipping Container View" customClass="GroupedAccessibilityView" customModule="WMFUI">
-                        <rect key="frame" x="55" y="10" width="403" height="40"/>
+                        <rect key="frame" x="55" y="9" width="403" height="41.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="999" verticalCompressionResistancePriority="1000" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mxi-So-IXe">
-                                <rect key="frame" x="15" y="0.0" width="373" height="21"/>
+                                <rect key="frame" x="15" y="0.0" width="373" height="20.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -46,7 +46,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="1000" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EoE-JS-HmV">
-                                <rect key="frame" x="15" y="22" width="373" height="18"/>
+                                <rect key="frame" x="15" y="23.5" width="373" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="500" constant="15" id="xb2-rO-Dug"/>
                                 </constraints>
@@ -66,11 +66,9 @@
                             <constraint firstAttribute="trailing" secondItem="Mxi-So-IXe" secondAttribute="trailing" constant="15" id="71h-ee-Xuj"/>
                             <constraint firstItem="Mxi-So-IXe" firstAttribute="top" secondItem="6JK-c4-FJw" secondAttribute="top" id="B6B-CY-Vxk"/>
                             <constraint firstItem="EoE-JS-HmV" firstAttribute="leading" secondItem="Mxi-So-IXe" secondAttribute="leading" id="Dpn-74-mgq"/>
-                            <constraint firstItem="EoE-JS-HmV" firstAttribute="top" relation="lessThanOrEqual" secondItem="Mxi-So-IXe" secondAttribute="bottom" constant="3" id="NVF-BW-N86"/>
+                            <constraint firstItem="EoE-JS-HmV" firstAttribute="top" secondItem="Mxi-So-IXe" secondAttribute="bottom" constant="3" id="NVF-BW-N86"/>
                             <constraint firstItem="Mxi-So-IXe" firstAttribute="leading" secondItem="6JK-c4-FJw" secondAttribute="leading" constant="15" id="WPQ-vR-tAX"/>
-                            <constraint firstAttribute="height" priority="998" constant="40" id="a9h-qy-VOf"/>
                             <constraint firstItem="EoE-JS-HmV" firstAttribute="trailing" secondItem="Mxi-So-IXe" secondAttribute="trailing" id="dTO-Xl-ygJ"/>
-                            <constraint firstItem="EoE-JS-HmV" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Mxi-So-IXe" secondAttribute="bottom" id="pzS-N5-UAG"/>
                         </constraints>
                         <connections>
                             <outlet property="accessibilityView0" destination="Mxi-So-IXe" id="Ehd-mC-7Qa"/>
@@ -79,13 +77,15 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="RMa-GF-kKq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="0FL-Bb-pTQ"/>
-                    <constraint firstItem="6JK-c4-FJw" firstAttribute="top" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="top" id="Cre-Ui-7AM"/>
-                    <constraint firstAttribute="bottom" secondItem="RMa-GF-kKq" secondAttribute="bottom" constant="10" id="KBp-WI-wU6"/>
+                    <constraint firstItem="RMa-GF-kKq" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="9Fw-Qi-XwG"/>
+                    <constraint firstItem="6JK-c4-FJw" firstAttribute="top" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="Cre-Ui-7AM"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="RMa-GF-kKq" secondAttribute="bottom" constant="10" id="I2d-TJ-sPq"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6JK-c4-FJw" secondAttribute="bottom" constant="6" id="UW7-bG-heJ"/>
                     <constraint firstItem="6JK-c4-FJw" firstAttribute="leading" secondItem="RMa-GF-kKq" secondAttribute="trailing" id="W1o-QG-sBU"/>
                     <constraint firstItem="RMa-GF-kKq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Zfh-bn-2Mj"/>
                     <constraint firstAttribute="trailing" secondItem="6JK-c4-FJw" secondAttribute="trailing" id="bMC-sz-hcv"/>
-                    <constraint firstItem="6JK-c4-FJw" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" priority="999" id="oCy-Js-Age"/>
+                    <constraint firstItem="6JK-c4-FJw" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="oCy-Js-Age"/>
+                    <constraint firstItem="RMa-GF-kKq" firstAttribute="top" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="uJa-vc-y9M"/>
                 </constraints>
             </tableViewCellContentView>
             <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
