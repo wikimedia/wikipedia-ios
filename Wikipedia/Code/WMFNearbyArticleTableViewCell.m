@@ -17,6 +17,7 @@
 #import "UITableViewCell+SelectedBackground.h"
 #import "UIImageView+WMFPlaceholder.h"
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
+#import "Wikipedia-Swift.h"
 
 @interface WMFNearbyArticleTableViewCell ()
 
@@ -44,6 +45,7 @@
     self.distanceLabel.textColor = [UIColor wmf_customGray];
     [self wmf_addSelectedBackgroundView];
     [self wmf_makeCellDividerBeEdgeToEdge];
+    [self wmf_configureSubviewsForDynamicType];
 }
 
 - (void)prepareForReuse {
