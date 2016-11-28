@@ -207,6 +207,23 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 #pragma mark - Feed Sources
 
+- (void)updateRelatedPages {
+    WMFTaskGroup *group = [WMFTaskGroup new];
+    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        if ([obj isKindOfClass:[WMFRelatedPagesContentSource class]]) {
+            [group enter];
+            [obj loadNewContentForce:NO
+                          completion:^{
+                              [group leave];
+                          }];
+        }
+    }];
+
+    [group waitInBackgroundWithTimeout:12
+                            completion:^{
+                            }];
+}
+
 - (void)updateFeedSources {
     WMFTaskGroup *group = [WMFTaskGroup new];
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
@@ -779,6 +796,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction *_Nonnull action) {
                                                 [self.userStore setIsExcludedFromFeed:YES forArticleURL:url];
+                                                [self updateRelatedPages];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
     return sheet;
