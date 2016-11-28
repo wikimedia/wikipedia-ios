@@ -341,8 +341,7 @@
 "welcome-volunteer-continue-button" = "Pokračovať";
 "welcome-volunteer-thanks" = "$1 Ďakujeme!";
 "welcome-send-data-title" = "Odosielať anonymné údaje";
-// Fuzzy
-"welcome-send-data-sub-title" = "Pomôžte Wikimedii vylepšiť aplikáciu tak, že budete zdielať údaje o vašom používaní aplikácie. Zozbierané údaje sú anonymné. Ďalšie informácie.";
+"welcome-send-data-sub-title" = "Pomôžte Wikimedii vylepšiť aplikáciu tak, že budete zdielať údaje o vašom používaní aplikácie. Zozbierané údaje sú anonymné";
 "empty-no-feed-title" = "Žiadne pripojenie na internet";
 "empty-no-feed-message" = "Odporúčané články uvidíte keď budete pripojení na internet";
 "empty-no-feed-action-message" = "Medzitým si môžete čítať uložené stránky";
@@ -398,3 +397,5 @@
 "feed-news-notification-button-text" = "Zapnúť upozornenia";
 "back" = "Späť";
 "save-action" = "Uložiť";
+"status-saving-for-later" = "Ukladanie na neskôr...";
+"status-saved-for-later" = "Uložené na neskôr";
