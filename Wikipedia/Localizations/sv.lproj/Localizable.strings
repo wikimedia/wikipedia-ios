@@ -392,8 +392,7 @@
 "welcome-volunteer-continue-button" = "Fortsätt";
 "welcome-volunteer-thanks" = "$1 Tack!";
 "welcome-send-data-title" = "Skicka anonym data";
-// Fuzzy
-"welcome-send-data-sub-title" = "Hjälp Wikimedia göra appen bättre genom att låta oss veta hur du använder appen. All data som samlas in är anonym. Läs mer.";
+"welcome-send-data-sub-title" = "Hjälp Wikimedia göra appen bättre genom att låta oss veta hur du använder appen. All data som samlas in är anonym.";
 "empty-no-feed-title" = "Ingen internetanslutning";
 "empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har internetåtkomst";
 "empty-no-feed-action-message" = "Du kan fortfarande läsa sparade sidor";
