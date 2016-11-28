@@ -216,11 +216,14 @@ NS_ASSUME_NONNULL_BEGIN
         NSMutableArray<NSString *> *databaseKeys = [NSMutableArray arrayWithCapacity:articleURLs.count];
         for (NSURL *articleURL in articleURLs) {
             NSString *databaseKey = [MWKHistoryEntry databaseKeyForURL:articleURL];
+
             MWKHistoryEntry *entry = [transaction objectForKey:databaseKey inCollection:[MWKHistoryEntry databaseCollectionName]];
-            if (entry) {
-                entry.inTheNewsNotificationDate = date;
-                [transaction setObject:entry forKey:databaseKey inCollection:[MWKHistoryEntry databaseCollectionName]];
+            if (!entry) {
+                entry = [[MWKHistoryEntry alloc] initWithURL:articleURL];
             }
+
+            entry.inTheNewsNotificationDate = date;
+            [transaction setObject:entry forKey:databaseKey inCollection:[MWKHistoryEntry databaseCollectionName]];
         }
         return databaseKeys;
     }];

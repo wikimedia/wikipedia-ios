@@ -17,6 +17,7 @@
 // Author: Oashnic
 // Author: Okras
 // Author: WindEwriX
+// Author: Zpizza
 // Author: Александр Сигачёв
 
 "languages-title" = "Изменить язык";
@@ -460,3 +461,5 @@
 "back" = "Назад";
 "save-action" = "Сохранить";
 "unsave-action" = "Не сохранено";
+"status-saving-for-later" = "Экономия на потом...";
+"status-saved-for-later" = "Сохранено на потом";

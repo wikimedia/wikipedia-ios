@@ -451,3 +451,5 @@
 "back" = "Indietro";
 "save-action" = "Salva";
 "unsave-action" = "Non salvare";
+"status-saving-for-later" = "Salvataggio per dopo...";
+"status-saved-for-later" = "Salvato per dopo";

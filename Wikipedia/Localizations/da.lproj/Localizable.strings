@@ -3,6 +3,7 @@
 // Author: Anders Feder
 // Author: Christian List
 // Author: Gorbi
+// Author: Jhertel
 // Author: Mads Haupt
 // Author: Mortenelling
 // Author: Sarrus
@@ -114,7 +115,7 @@
 "settings-help-and-feedback" = "Hjælp og tilbagemelding";
 "settings-primary-language" = "Primær";
 "settings-primary-language-details" = "Det første sprog i denne liste bruges som appens primære sprog. Ændres sprog ændres dagligt indhold (såsom Fremhævet artikel) som vises i Udforsk.";
-"settings-notifications-system-off" = "Notifikationer er i øjeblikket slået fra for Wikipedia. Gå til enheds Indstillinger for at slå notifikationer til.";
+"settings-notifications-system-off" = "Notifikationer er i øjeblikket slået fra for Wikipedia. Gå til Indstillinger for din enhed for at slå notifikationer til.";
 "settings-notifications-system-turn-on" = "Slå notifikationer til";
 "settings-notifications-info" = "Få meldinger om populære artikler på Wikipedia med vores push-notifikationer. Alle leveret med respekt for privatliv og sidste nye data.";
 "settings-notifications-learn-more" = "Lær mere om notifikationer";
@@ -421,7 +422,7 @@
 "no-email-account-alert" = "Opsæt venligst en e-mail-konto på din enhed og forsøg igen.";
 "request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
 "explore-another-random" = "En anden tilfældig artikel";
-"explore-randomizer" = "Tilfældighedsgenerator";
+"explore-randomizer" = "Tilfældig artikel";
 "find-in-page-no-matches" = "0 træf";
 "find-in-page-button-label" = "Søg på siden";
 "find-in-page-popover-description" = "Søg efter tekst i artikler";
