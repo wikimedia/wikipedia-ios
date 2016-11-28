@@ -507,6 +507,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     frc.delegate = self;
     [frc performFetch:nil];
     self.fetchedResultsController = frc;
+    self.countOfSections = self.fetchedResultsController.sections.firstObject.numberOfObjects;
     [self.collectionView reloadData];
 }
 
@@ -1249,7 +1250,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 #pragma mark - NSFetchedResultsControllerDelegate
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    self.countOfSections = self.fetchedResultsController.sections.firstObject.numberOfObjects;
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
@@ -1268,7 +1268,40 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    if (self.sectionChanges.count == 0) {
+
+    BOOL shouldReload = self.sectionChanges.count > 0;
+
+    NSInteger previousNumberOfSections = self.countOfSections;
+
+    NSInteger sectionDelta = 0;
+    for (WMFObjectChange *change in self.objectChanges) {
+        switch (change.type) {
+            case NSFetchedResultsChangeInsert:
+                sectionDelta++;
+                break;
+            case NSFetchedResultsChangeDelete:
+                sectionDelta--;
+                break;
+            case NSFetchedResultsChangeUpdate:
+                shouldReload = YES;
+                break;
+            case NSFetchedResultsChangeMove:
+                break;
+        }
+    }
+
+    NSInteger currentNumberOfSections = self.fetchedResultsController.sections.firstObject.numberOfObjects;
+    BOOL sectionCountsMatch = ((sectionDelta + previousNumberOfSections) == currentNumberOfSections);
+
+    if (!sectionCountsMatch) {
+        DDLogError(@"Mismatched section update counts: %@ + %@ != %@", @(sectionDelta), @(previousNumberOfSections), @(currentNumberOfSections));
+    }
+
+    shouldReload = shouldReload || !sectionCountsMatch;
+
+    if (shouldReload) {
+        [self.collectionView reloadData];
+    } else {
         [self.collectionView performBatchUpdates:^{
             for (WMFObjectChange *change in self.objectChanges) {
                 NSInteger fromSectionIndex = change.fromIndexPath.row;
@@ -1293,12 +1326,11 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                                       completion:^(BOOL finished){
 
                                       }];
-    } else {
-        [self.collectionView reloadData];
     }
 
     [self.objectChanges removeAllObjects];
     [self.sectionChanges removeAllObjects];
+    self.countOfSections = self.fetchedResultsController.sections.firstObject.numberOfObjects;
 }
 
 #pragma mark - WMFAnnouncementCollectionViewCellDelegate
