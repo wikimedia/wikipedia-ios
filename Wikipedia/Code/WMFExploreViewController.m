@@ -81,7 +81,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 @property (nonatomic, strong) NSMutableArray<WMFSectionChange *> *sectionChanges;
 @property (nonatomic, strong) NSMutableArray<WMFObjectChange *> *objectChanges;
-@property (nonatomic, strong) NSMutableArray<NSNumber *> *sectionCounts;
+@property (nonatomic) NSInteger countOfSections;
 
 @property (nonatomic, strong, nullable) WMFTaskGroup *feedUpdateTaskGroup;
 @property (nonatomic, strong, nullable) WMFTaskGroup *relatedUpdatedTaskGroup;
@@ -95,7 +95,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     self.title = MWLocalizedString(@"home-title", nil);
     self.sectionChanges = [NSMutableArray array];
     self.objectChanges = [NSMutableArray array];
-    self.sectionCounts = [NSMutableArray array];
 }
 
 - (void)dealloc {
@@ -1250,11 +1249,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 #pragma mark - NSFetchedResultsControllerDelegate
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    [self.sectionCounts removeAllObjects];
-    NSArray *contentGroups = self.fetchedResultsController.sections.firstObject.objects;
-    for (WMFContentGroup *contentGroup in contentGroups) {
-        [self.sectionCounts addObject:@([self numberOfItemsInContentGroup:contentGroup])];
-    }
+    self.countOfSections = self.fetchedResultsController.sections.firstObject.numberOfObjects;
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
@@ -1275,14 +1270,22 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     BOOL shouldReload = self.sectionChanges.count > 0;
 
+    NSInteger previousNumberOfSections = self.countOfSections;
+
     NSInteger sectionDelta = 0;
     for (WMFObjectChange *change in self.objectChanges) {
         switch (change.type) {
             case NSFetchedResultsChangeInsert:
                 sectionDelta++;
+                if (change.toIndexPath.row > previousNumberOfSections) {
+                    shouldReload = YES;
+                }
                 break;
             case NSFetchedResultsChangeDelete:
                 sectionDelta--;
+                if (change.fromIndexPath.row > previousNumberOfSections) {
+                    shouldReload = YES;
+                }
                 break;
             case NSFetchedResultsChangeUpdate:
                 shouldReload = YES;
@@ -1293,7 +1296,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         }
     }
 
-    NSInteger previousNumberOfSections = self.sectionCounts.count;
     NSInteger currentNumberOfSections = self.fetchedResultsController.sections.firstObject.numberOfObjects;
     BOOL sectionCountsMatch = ((sectionDelta + previousNumberOfSections) == currentNumberOfSections);
 
