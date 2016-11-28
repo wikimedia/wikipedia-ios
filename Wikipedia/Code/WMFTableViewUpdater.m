@@ -76,7 +76,8 @@
                     if ([deletedSections containsIndex:change.fromIndexPath.section]) {
                         [self.tableView insertRowsAtIndexPaths:@[change.toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     } else {
-                        [self.tableView moveRowAtIndexPath:change.fromIndexPath toIndexPath:change.toIndexPath];
+                        [self.tableView deleteRowsAtIndexPaths:@[change.fromIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        [self.tableView insertRowsAtIndexPaths:@[change.toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     }
                 } else {
                     NSIndexPath *updatedIndexPath = change.toIndexPath ?: change.fromIndexPath;
@@ -88,11 +89,8 @@
                 }
                 break;
             case NSFetchedResultsChangeMove:
-                if ([insertedSections containsIndex:change.toIndexPath.section] || [deletedSections containsIndex:change.fromIndexPath.section]) {
-                    [self.tableView insertRowsAtIndexPaths:@[change.toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-                } else {
-                    [self.tableView moveRowAtIndexPath:change.fromIndexPath toIndexPath:change.toIndexPath];
-                }
+                [self.tableView deleteRowsAtIndexPaths:@[change.fromIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [self.tableView insertRowsAtIndexPaths:@[change.toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                 break;
         }
     }
