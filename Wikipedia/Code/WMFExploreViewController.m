@@ -659,6 +659,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         case WMFFeedDisplayTypeAnnouncement: {
             WMFAnnouncementCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName] forIndexPath:indexPath];
             [self configureAnouncementCell:cell withSection:contentGroup atIndexPath:indexPath];
+
             return cell;
         } break;
         default:
@@ -1365,6 +1366,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     }
     [contentGroup markDismissed];
     [contentGroup updateVisibility];
+
     NSError *saveError = nil;
     [self.userStore save:&saveError];
     if (saveError) {
