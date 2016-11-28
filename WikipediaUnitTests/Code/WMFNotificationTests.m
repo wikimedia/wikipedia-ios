@@ -1,5 +1,6 @@
 #import <XCTest/XCTest.h>
 #import <Nocilla/LSNocilla.h>
+#import "MWKDataStore+TemporaryDataStore.h"
 
 @interface WMFNotificationTests : XCTestCase
 
@@ -20,7 +21,8 @@
     NSURL *siteURL = [NSURL URLWithString:@"https://en.wikipedia.org"];
     self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
     self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
-    self.feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore userDataStore:[SessionSingleton sharedInstance].dataStore notificationsController:[WMFNotificationsController sharedNotificationsController]];
+    MWKDataStore *dataStore = [MWKDataStore temporaryDataStore];
+    self.feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore userDataStore:dataStore notificationsController:[WMFNotificationsController sharedNotificationsController]];
     self.feedContentSource.notificationSchedulingEnabled = YES;
 
     self.calendar = [NSCalendar wmf_gregorianCalendar];
