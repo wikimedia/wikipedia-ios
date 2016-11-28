@@ -375,3 +375,5 @@
 "back" = "Atgal";
 "save-action" = "Išsaugoti";
 "unsave-action" = "Neišsaugoti";
+"status-saving-for-later" = "Išsaugoma ateičiai...";
+"status-saved-for-later" = "Išsaugota ateičiai";

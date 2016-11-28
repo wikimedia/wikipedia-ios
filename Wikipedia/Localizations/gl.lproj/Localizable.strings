@@ -449,3 +449,5 @@
 "back" = "Volver";
 "save-action" = "Gardar";
 "unsave-action" = "Anular o gardado";
+"status-saving-for-later" = "Gardando para máis tarde...";
+"status-saved-for-later" = "Gardado para máis tarde";
