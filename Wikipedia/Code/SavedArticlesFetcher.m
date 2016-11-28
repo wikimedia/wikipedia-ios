@@ -183,6 +183,11 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (void)fetchArticleURL:(NSURL *)articleURL failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+    if (!articleURL.wmf_title) {
+        DDLogError(@"Attempted to save articleURL without title: %@", articleURL);
+        failure([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
+        return;
+    }
     // NOTE: must check isCached to determine that all article data has been downloaded
     MWKArticle *articleFromDisk = [self.dataStore articleWithURL:articleURL];
     @weakify(self);
