@@ -455,3 +455,5 @@
 "back" = "Kembali";
 "save-action" = "Simpan";
 "unsave-action" = "Jangan simpan";
+"status-saving-for-later" = "Menyimpan untuk nanti...";
+"status-saved-for-later" = "Disimpan untuk nanti";

@@ -422,6 +422,7 @@
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
 "readers-accessibility-label" = "$1 lukijaa";
+"rank-accessibility-label" = "Numero $1";
 "reference-title" = "Lähde $1";
 "in-the-news-notification-read-now-action-title" = "Lue nyt";
 "in-the-news-notification-share-action-title" = "Jaa...";
@@ -435,3 +436,5 @@
 "back" = "Takaisin";
 "save-action" = "Tallenna";
 "unsave-action" = "Peruuta tallennus";
+"status-saving-for-later" = "Tallennetaan myöhempää varten...";
+"status-saved-for-later" = "Tallennettu myöhempää varten";
