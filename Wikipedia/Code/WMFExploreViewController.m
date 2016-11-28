@@ -1268,36 +1268,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    BOOL shouldReload = self.sectionChanges.count > 0;
-
-    NSInteger previousNumberOfSections = self.countOfSections;
-
-    NSInteger sectionDelta = 0;
-    for (WMFObjectChange *change in self.objectChanges) {
-        switch (change.type) {
-            case NSFetchedResultsChangeInsert:
-                sectionDelta++;
-                break;
-            case NSFetchedResultsChangeDelete:
-                sectionDelta--;
-                break;
-            case NSFetchedResultsChangeUpdate:
-                shouldReload = YES;
-                break;
-            case NSFetchedResultsChangeMove:
-                shouldReload = YES;
-                break;
-        }
-    }
-
-    NSInteger currentNumberOfSections = self.fetchedResultsController.sections.firstObject.numberOfObjects;
-    BOOL sectionCountsMatch = ((sectionDelta + previousNumberOfSections) == currentNumberOfSections);
-
-    if (!sectionCountsMatch) {
-        DDLogError(@"Mismatched section update counts: %@ + %@ != %@", @(sectionDelta), @(previousNumberOfSections), @(currentNumberOfSections));
-    }
-
-    if (!shouldReload && sectionCountsMatch) {
+    if (self.sectionChanges.count == 0) {
         [self.collectionView performBatchUpdates:^{
             for (WMFObjectChange *change in self.objectChanges) {
                 NSInteger fromSectionIndex = change.fromIndexPath.row;
@@ -1313,7 +1284,8 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                         [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:fromSectionIndex]];
                         break;
                     case NSFetchedResultsChangeMove:
-                        [self.collectionView moveSection:fromSectionIndex toSection:toSectionIndex];
+                        [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:fromSectionIndex]];
+                        [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:toSectionIndex]];
                         break;
                 }
             }
