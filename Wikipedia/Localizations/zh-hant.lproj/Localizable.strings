@@ -393,8 +393,7 @@
 "welcome-volunteer-continue-button" = "繼續";
 "welcome-volunteer-thanks" = "$1 謝謝您!";
 "welcome-send-data-title" = "寄送匿名資料";
-// Fuzzy
-"welcome-send-data-sub-title" = "為了幫助維基媒體將此應用程式改善，請告訴我們您如何使用此應用程式。所有蒐集的資料都採用匿名方式。了解更多";
+"welcome-send-data-sub-title" = "為了幫助維基媒體將此應用程式改善，請告訴我們您如何使用此應用程式。所有蒐集的資料都採用匿名方式。";
 "empty-no-feed-title" = "無網際網路連線";
 "empty-no-feed-message" = "在有網際網路時，您可以看到推薦的條目";
 "empty-no-feed-action-message" = "與此同時，您仍然可以閱讀儲存的條目";
@@ -457,3 +456,5 @@
 "back" = "返回";
 "save-action" = "儲存";
 "unsave-action" = "不儲存";
+"status-saving-for-later" = "正在儲存供日後使用...";
+"status-saved-for-later" = "已儲存供日後使用";
