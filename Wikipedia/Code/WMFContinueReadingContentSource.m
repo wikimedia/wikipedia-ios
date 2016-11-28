@@ -37,12 +37,10 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 #pragma mark - WMFContentSource
 
 - (void)startUpdating {
-    [self observeSavedPages];
     [self loadNewContentForce:NO completion:NULL];
 }
 
 - (void)stopUpdating {
-    [self unobserveSavedPages];
 }
 
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
@@ -100,12 +98,12 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         NSParameterAssert(article);
         [self.previewStore addPreviewWithURL:lastRead updatedWithArticle:article];
     }
-    
+
     NSError *saveError = nil;
     if (![self.contentStore save:&saveError]) {
         DDLogError(@"Error saving feed content %@", saveError);
     }
-    
+
     if (completion) {
         completion();
     }
@@ -113,20 +111,6 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 
 - (void)removeAllContent {
     [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindContinueReading];
-}
-
-#pragma mark - Observing
-
-- (void)itemWasUpdated:(NSNotification *)note {
-    [self loadNewContentForce:NO completion:NULL];
-}
-
-- (void)observeSavedPages {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemWasUpdated:) name:MWKItemUpdatedNotification object:nil];
-}
-
-- (void)unobserveSavedPages {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
