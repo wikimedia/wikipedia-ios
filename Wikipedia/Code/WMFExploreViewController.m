@@ -1277,15 +1277,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         switch (change.type) {
             case NSFetchedResultsChangeInsert:
                 sectionDelta++;
-                if (change.toIndexPath.row > previousNumberOfSections) {
-                    shouldReload = YES;
-                }
                 break;
             case NSFetchedResultsChangeDelete:
                 sectionDelta--;
-                if (change.fromIndexPath.row > previousNumberOfSections) {
-                    shouldReload = YES;
-                }
                 break;
             case NSFetchedResultsChangeUpdate:
                 shouldReload = YES;
