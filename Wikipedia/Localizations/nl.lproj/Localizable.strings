@@ -91,7 +91,7 @@
 "wikitext-upload-save-sign-in-benefits" = "Zodat mederedacteuren met u kunnen communiceren en zodat u kunt zien welke pagina's u hebt bewerkt.";
 "wikitext-upload-save-anonymously" = "Anoniem publiceren";
 "wikitext-upload-save-anonymously-warning" = "Bewerkingen worden toegeschreven aan uw IP-adres. Door $1 heeft u meer privacy.";
-"wikitext-upload-save-terms-and-license" = "Door te publiceren gaat u akkoord met de $1 en worden uw bijdragen onherroepelijk vrijgegeven onder de $2-licentie.";
+"wikitext-upload-save-terms-and-license" = "Door te publiceren gaat u akkoord met de $1 en worden uw bijdragen onherroepelijk vrijgegeven onder de licentie $2.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaarden";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Koppeling openen";
@@ -115,7 +115,7 @@
 "search-recent-clear-delete-all" = "Alles verwijderen";
 "search-result-redirected-from" = "Doorverwezen vanaf: $1";
 "settings-title" = "Instellingen";
-"settings-language" = "Wikipedia-taal";
+"settings-language" = "Wikipediataal";
 "settings-support" = "Wikipedia steunen";
 "settings-language-bar" = "Talen weergeven bij zoeken";
 "settings-my-languages" = "Mijn talen";
@@ -127,7 +127,7 @@
 "settings-notifications-info" = "Word op de hoogte gesteld van actuele en populaire artikelen op Wikipedia met onze push-berichten. Allemaal geleverd met respect voor privacy en tot op de minuut vernieuwde gegevens.";
 "settings-notifications-learn-more" = "Meer informatie over meldingen";
 "settings-notifications-trending" = "Huidige actuele gebeurtenissen";
-"settings-notifications-push-notifications" = "Push-berichten";
+"settings-notifications-push-notifications" = "Pushberichten";
 "main-menu-title" = "Meer";
 "main-menu-heading-about" = "Over";
 "main-menu-language-title" = "Zoeken in Wikipedia in het $1";
@@ -279,7 +279,7 @@
 "table-of-contents-button-label" = "Inhoudsopgave";
 "table-of-contents-close-accessibility-label" = "Inhoudsopgave sluiten";
 "table-of-contents-close-accessibility-hint" = "Sluiten";
-"table-of-contents-popover-description" = "Een overzicht van het artikel krijgen";
+"table-of-contents-popover-description" = "Een overzicht van de pagina krijgen";
 "abuse-filter-warning-heading" = "Dit lijkt een niet-constructieve bewerking. Weet u zeker dat u die wilt publiceren?";
 "abuse-filter-warning-subheading" = "Uw bewerking kan een of meer van het volgende bevatten:";
 "abuse-filter-warning-caps" = "Tekst in HOOFDLETTERS";
@@ -456,3 +456,5 @@
 "back" = "Terug";
 "save-action" = "Opslaan";
 "unsave-action" = "Opslaan ongedaan maken";
+"status-saving-for-later" = "Aan het opslaan voor later...";
+"status-saved-for-later" = "Opgeslagen voor later";

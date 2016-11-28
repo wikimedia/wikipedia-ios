@@ -239,8 +239,7 @@
 "share-menu-save-page" = "Makaleyi Kaydet";
 "share-menu-page-saved" = "Makale Kaydedildi";
 "share-menu-page-saved-access" = "İpucu: Kaydedilen sayfalarınıza erişmek için, üstteki $1 tuşuna dokunun veya aşağıdaki $2 tuşuna uzun basın.";
-// Fuzzy
-"share-custom-menu-item" = "Paylaş";
+"share-custom-menu-item" = "Paylaş...";
 "share-a-fact-share-menu-item" = "Bir bilgi paylaş";
 "share-on-twitter-sign-off" = "@Wikipedia aracılığıyla";
 "share-article-name-on-wikipedia" = "@Wikipedia üzerinde \"$1\":";
@@ -369,7 +368,11 @@
 "home-hide-suggestion-prompt" = "Bu öneriyi gizle";
 "home-hide-suggestion-cancel" = "Geri al";
 "home-accessibility-label" = "Vikipedi, Keşfet";
+"home-title-accessibility-label" = "Vikipedi, Keşfet'in başına git";
 "home-button-accessibility-label" = "Ana Sayfa";
+"home-button-explore-accessibility-label" = "Vikipedi, Keşfet'e dön";
+"home-button-saved-accessibility-label" = "Vikipedi, Kaydedilenler'e dön";
+"home-button-history-accessibility-label" = "Vikipedi, Geçmiş'e dön";
 "potd-empty-error-description" = "$1 tarihli günün resmi alınamadı";
 "potd-description-prefix" = "$1 tarihli günün resmi";
 "welcome-explore-title" = "Keşfet";
@@ -395,6 +398,8 @@
 "welcome-volunteer-send-usage-reports" = "Kullanım raporlarını gönder";
 "welcome-volunteer-continue-button" = "Devam";
 "welcome-volunteer-thanks" = "$1 Teşekkürler!";
+"welcome-send-data-title" = "Anonim veri gönder";
+"welcome-send-data-sub-title" = "Uygulamayı nasıl kullandığınızı bilmemize izin vererek Wikimedia'nın uygulamayı iyileştirmesine yardım edin. Veriler anonim olarak toplanır";
 "empty-no-feed-title" = "İnternet Bağlantısı Yok";
 "empty-no-feed-message" = "İnternet bağlantınız olduğunda, size önerilen makaleleri görebilirsiniz";
 "empty-no-feed-action-message" = "Hala kayıtlı sayfaları okuyabilirsiniz";
@@ -430,6 +435,7 @@
 "no-email-account-alert" = "Lütfen cihazınızda bir e-posta hesabı kurulumu yapıp, yeniden deneyin.";
 "request-feedback-on-error" = "Uygulama bir sorunla karşılaştı ve geliştiricilerimiz bu konu hakkında daha fazla şey bilmek isteyecektir. Lütfen hata detaylarını bize e-posta ile göndermek için buraya dokunun.";
 "explore-another-random" = "Rastgele başka bir madde";
+"explore-randomizer" = "Rastgele";
 "find-in-page-no-matches" = "Eşleşme yok";
 "find-in-page-button-label" = "Sayfada bul";
 "find-in-page-popover-description" = "Maddelerde metin ara";
@@ -439,10 +445,11 @@
 "top-read-see-more-trending" = "Trendleri gör";
 "top-read-header-with-language" = "$1 Vikipedi";
 "top-read-header-generic" = "Vikipedi";
+"readers-accessibility-label" = "$1 okuyucu";
+"rank-accessibility-label" = "Sıra $1";
 "reference-title" = "$1 referansı";
 "in-the-news-notification-read-now-action-title" = "Şimdi Oku";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Paylaş";
+"in-the-news-notification-share-action-title" = "Paylaş...";
 "in-the-news-notification-save-for-later-action-title" = "Sonrası için kaydet";
 "in-the-news-currently-trending" = "Güncel popüler";
 "in-the-news-title" = "Haberlerde";
@@ -450,8 +457,10 @@
 "number-thousands" = "$1B";
 "number-millions" = "$1";
 "number-billions" = "$1";
-// Fuzzy
-"feed-news-notification-text" = "Artık haberlerde gündemde olan Vikipedi makalelerinden bildirimleri açabilirsiniz.";
-// Fuzzy
-"feed-news-notification-button-text" = "Gündemdeki haberler hakkında bana bildirim gönder";
+"feed-news-notification-text" = "Artık haberlerde gündemde olan Vikipedi makaleleri hakkında bildirimler alabilirsiniz.";
+"feed-news-notification-button-text" = "Bildirimleri aç";
 "back" = "Geri";
+"save-action" = "Kaydet";
+"unsave-action" = "Geri al";
+"status-saving-for-later" = "Daha sonrası için kaydediliyor...";
+"status-saved-for-later" = "Sonrası için kaydedildi";

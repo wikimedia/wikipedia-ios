@@ -450,3 +450,5 @@
 "back" = "חזרה";
 "save-action" = "שמירה";
 "unsave-action" = "ביטול שמירה";
+"status-saving-for-later" = "שמירה לאחר־כך...";
+"status-saved-for-later" = "נשמר לאחר־כך";

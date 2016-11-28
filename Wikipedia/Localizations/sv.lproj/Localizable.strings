@@ -455,3 +455,5 @@
 "back" = "Tillbaka";
 "save-action" = "Spara";
 "unsave-action" = "Spara inte";
+"status-saving-for-later" = "Spara till senare...";
+"status-saved-for-later" = "Sparades till senare";
