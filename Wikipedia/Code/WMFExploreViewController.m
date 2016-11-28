@@ -81,6 +81,10 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 @property (nonatomic, strong) NSMutableArray<WMFSectionChange *> *sectionChanges;
 @property (nonatomic, strong) NSMutableArray<WMFObjectChange *> *objectChanges;
+@property (nonatomic, strong) NSMutableArray<NSNumber *> *sectionCounts;
+
+@property (nonatomic, strong, nullable) WMFTaskGroup *feedUpdateTaskGroup;
+@property (nonatomic, strong, nullable) WMFTaskGroup *relatedUpdatedTaskGroup;
 
 @end
 
@@ -91,6 +95,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     self.title = MWLocalizedString(@"home-title", nil);
     self.sectionChanges = [NSMutableArray array];
     self.objectChanges = [NSMutableArray array];
+    self.sectionCounts = [NSMutableArray array];
 }
 
 - (void)dealloc {
@@ -208,7 +213,12 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 #pragma mark - Feed Sources
 
 - (void)updateRelatedPages {
+    NSAssert([NSThread isMainThread], @"Must be called on the main thread");
+    if (self.relatedUpdatedTaskGroup) {
+        return;
+    }
     WMFTaskGroup *group = [WMFTaskGroup new];
+    self.relatedUpdatedTaskGroup = group;
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([obj isKindOfClass:[WMFRelatedPagesContentSource class]]) {
             [group enter];
@@ -221,11 +231,18 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
     [group waitInBackgroundWithTimeout:12
                             completion:^{
+                                NSAssert([NSThread isMainThread], @"Must be called on the main thread");
+                                self.relatedUpdatedTaskGroup = nil;
                             }];
 }
 
 - (void)updateFeedSources {
+    NSAssert([NSThread isMainThread], @"Must be called on the main thread");
+    if (self.feedUpdateTaskGroup) {
+        return;
+    }
     WMFTaskGroup *group = [WMFTaskGroup new];
+    self.feedUpdateTaskGroup = group;
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         //TODO: nearby doesnt always fire
         [group enter];
@@ -243,6 +260,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                                 [self startMonitoringReachabilityIfNeeded];
                                 [self showOfflineEmptyViewIfNeeded];
                                 [self showHideNotificationIfNeccesary];
+                                self.feedUpdateTaskGroup = nil;
                             }];
 }
 
@@ -587,6 +605,12 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     }
 }
 
+- (NSInteger)numberOfItemsInContentGroup:(WMFContentGroup *)contentGroup {
+    NSParameterAssert(contentGroup);
+    NSArray *feedContent = contentGroup.content;
+    return MIN([feedContent count], [contentGroup maxNumberOfCells]);
+}
+
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -595,9 +619,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     WMFContentGroup *contentGroup = [self sectionAtIndex:section];
-    NSParameterAssert(contentGroup);
-    NSArray *feedContent = [self contentForSectionAtIndex:section];
-    return MIN([feedContent count], [contentGroup maxNumberOfCells]);
+    return [self numberOfItemsInContentGroup:contentGroup];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -1228,6 +1250,11 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 #pragma mark - NSFetchedResultsControllerDelegate
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self.sectionCounts removeAllObjects];
+    NSArray *contentGroups = self.fetchedResultsController.sections.firstObject.objects;
+    for (WMFContentGroup *contentGroup in contentGroups) {
+        [self.sectionCounts addObject:@([self numberOfItemsInContentGroup:contentGroup])];
+    }
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
@@ -1246,7 +1273,35 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    if (self.objectChanges.count == 1) {
+    BOOL shouldReload = self.sectionChanges.count > 0;
+
+    NSInteger sectionDelta = 0;
+    for (WMFObjectChange *change in self.objectChanges) {
+        switch (change.type) {
+            case NSFetchedResultsChangeInsert:
+                sectionDelta++;
+                break;
+            case NSFetchedResultsChangeDelete:
+                sectionDelta--;
+                break;
+            case NSFetchedResultsChangeUpdate:
+                shouldReload = YES;
+                break;
+            case NSFetchedResultsChangeMove:
+                shouldReload = YES;
+                break;
+        }
+    }
+
+    NSInteger previousNumberOfSections = self.sectionCounts.count;
+    NSInteger currentNumberOfSections = self.fetchedResultsController.sections.firstObject.numberOfObjects;
+    BOOL sectionCountsMatch = ((sectionDelta + previousNumberOfSections) == currentNumberOfSections);
+
+    if (!sectionCountsMatch) {
+        DDLogError(@"Mismatched section update counts: %@ + %@ != %@", @(sectionDelta), @(previousNumberOfSections), @(currentNumberOfSections));
+    }
+
+    if (!shouldReload && sectionCountsMatch) {
         [self.collectionView performBatchUpdates:^{
             for (WMFObjectChange *change in self.objectChanges) {
                 NSInteger fromSectionIndex = change.fromIndexPath.row;
