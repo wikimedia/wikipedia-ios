@@ -229,10 +229,10 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         //TODO: nearby doesnt always fire
         [group enter];
-        //DDLogDebug(@">>>>Enter %@<<<<", NSStringFromClass([obj class]));
+        DDLogDebug(@">>>>Enter %@<<<<", NSStringFromClass([obj class]));
         [obj loadNewContentForce:NO
                       completion:^{
-                          //DDLogDebug(@">>>>Leave %@<<<<", NSStringFromClass([obj class]));
+                          DDLogDebug(@">>>>Leave %@<<<<", NSStringFromClass([obj class]));
                           [group leave];
                       }];
     }];
