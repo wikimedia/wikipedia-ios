@@ -26,17 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
     if (self) {
         self.dataStore = dataStore;
         [self migrateLegacyDataIfNeeded];
-        [self addPageToHistoryWithURL:[NSURL URLWithString:@"https://en.wikipedia.org/wiki/Barack_Obama"]];
-
-        [self addPageToHistoryWithURL:[NSURL URLWithString:@"https://en.wikipedia.org/wiki/Hillary_Clinton"]];
-
-        WMFArticle *entry = [self entryForURL:[NSURL URLWithString:@"https://en.wikipedia.org/wiki/Hillary_Clinton"]];
-
-        entry.viewedDate = [NSDate dateWithTimeIntervalSinceNow:-86400];
-
-        [entry updateViewedDateWithoutTime];
-
-        [self.dataStore save:nil];
     }
     return self;
 }
