@@ -3,16 +3,20 @@
 @implementation WMFExploreCollectionViewCell
 
 - (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)attributesToFit {
-    CGSize sizeToFit = attributesToFit.size;
-    sizeToFit.height = UIViewNoIntrinsicMetric;
 
-    CGSize fitSize = [self.contentView systemLayoutSizeFittingSize:sizeToFit withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
+    CGFloat requiredWidth = attributesToFit.size.width;
+
+    NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:requiredWidth];
+
+    [self addConstraint:widthConstraint];
+    CGSize fitSize = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
+    [self removeConstraint:widthConstraint];
 
     if (CGSizeEqualToSize(fitSize, attributesToFit.size)) {
         return attributesToFit;
     } else {
         UICollectionViewLayoutAttributes *fitAttributes = [attributesToFit copy];
-        fitSize.width = sizeToFit.width;
+        fitSize.width = requiredWidth;
         if (fitSize.height == CGFLOAT_MAX) {
             fitSize.height = attributesToFit.size.height;
         }
