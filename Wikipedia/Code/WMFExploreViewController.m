@@ -803,6 +803,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                                                 [self.userStore notifyWhenWriteTransactionsComplete:^{
                                                     [self.contentStore notifyWhenWriteTransactionsComplete:^{
                                                         NSAssert([NSThread isMainThread], @"Ensure callback is on the main thread");
+                                                        [self updateFeedWithLatestDatabaseContent];
                                                         [self.collectionView reloadData];
                                                     }];
                                                 }];
@@ -1299,6 +1300,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     [self.contentStore addContentGroup:contentGroup associatedContent:content];
     [self.contentStore notifyWhenWriteTransactionsComplete:^{
         NSAssert([NSThread isMainThread], @"Ensure callback is on the main thread");
+        [self updateFeedWithLatestDatabaseContent];
         [self.collectionView reloadData];
     }];
 }
