@@ -79,7 +79,7 @@
                         [self.tableView moveRowAtIndexPath:change.fromIndexPath toIndexPath:change.toIndexPath];
                     }
                 } else {
-                    NSIndexPath *updatedIndexPath = change.toIndexPath ? : change.fromIndexPath;
+                    NSIndexPath *updatedIndexPath = change.toIndexPath ?: change.fromIndexPath;
                     if ([insertedSections containsIndex:updatedIndexPath.section]) {
                         [self.tableView insertRowsAtIndexPaths:@[updatedIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     } else {
@@ -88,7 +88,11 @@
                 }
                 break;
             case NSFetchedResultsChangeMove:
-                [self.tableView moveRowAtIndexPath:change.fromIndexPath toIndexPath:change.toIndexPath];
+                if ([insertedSections containsIndex:change.toIndexPath.section] || [deletedSections containsIndex:change.fromIndexPath.section]) {
+                    [self.tableView insertRowsAtIndexPaths:@[change.toIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                } else {
+                    [self.tableView moveRowAtIndexPath:change.fromIndexPath toIndexPath:change.toIndexPath];
+                }
                 break;
         }
     }
