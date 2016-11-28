@@ -175,9 +175,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFContentGroup *)addSectionForReference:(WMFArticle *)reference {
     WMFContentGroup *group = (id)[self.contentStore contentGroupForURL:[WMFContentGroup relatedPagesContentGroupURLForArticleURL:reference.URL]];
     if (!group) {
-        group = [self.contentStore createGroupOfKind:WMFContentGroupKindRelatedPages forDate:[reference dateForGroup] withSiteURL:reference.URL.wmf_siteURL associatedContent:nil customizationBlock:^(WMFContentGroup * _Nonnull group) {
-            group.articleURL = reference.URL;
-        }];
+        group = [self.contentStore createGroupOfKind:WMFContentGroupKindRelatedPages
+                                             forDate:[reference dateForGroup]
+                                         withSiteURL:reference.URL.wmf_siteURL
+                                   associatedContent:nil
+                                  customizationBlock:^(WMFContentGroup *_Nonnull group) {
+                                      group.articleURL = reference.URL;
+                                  }];
     }
     return group;
 }
@@ -195,7 +199,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self.relatedSearchFetcher fetchArticlesRelatedArticleWithURL:group.articleURL
         resultLimit:WMFMaxRelatedSearchResultLimit
         completionBlock:^(WMFRelatedSearchResults *_Nonnull results) {
-            if([results.results count] == 0){
+            if ([results.results count] == 0) {
                 return;
             }
             NSArray<NSURL *> *urls = [results.results bk_map:^id(id obj) {
@@ -208,6 +212,9 @@ NS_ASSUME_NONNULL_BEGIN
             NSError *saveError = nil;
             if (![self.contentStore save:&saveError]) {
                 DDLogError(@"Error saving feed content %@", saveError);
+            }
+            if (completion) {
+                completion();
             }
         }
         failureBlock:^(NSError *_Nonnull error) {
