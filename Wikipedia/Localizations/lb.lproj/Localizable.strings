@@ -112,6 +112,7 @@
 "settings-notifications-system-off" = "Notifikatioune sinn elo fir Wikipedia ausgeschalt. Gitt an d'Astellunge vun Ärem Apparat fir d'Notifikatiounen anzeschalten";
 "settings-notifications-system-turn-on" = "Notifikatiounen aschalten";
 "settings-notifications-learn-more" = "Méi iwwer d'Notifikatioune gewuer ginn";
+"settings-notifications-trending" = "Aktuell Evenementer";
 "settings-notifications-push-notifications" = "Push-Notifikatiounen";
 "main-menu-title" = "Méi";
 "main-menu-heading-about" = "Iwwer";
@@ -344,6 +345,7 @@
 "home-hide-suggestion-cancel" = "Ofbriechen";
 "home-accessibility-label" = "Wikipedia, Entdecken";
 "home-button-accessibility-label" = "Haaptsäit";
+"home-button-explore-accessibility-label" = "Wikipedia, zréck bei d'Entdecken";
 "home-button-saved-accessibility-label" = "Wikipedia, zréck op Gespäichert";
 "home-button-history-accessibility-label" = "Wikipedia, zréck op d'Versiounen";
 "potd-empty-error-description" = "Bild vum Dag vum $1 konnt net erofgeluede ginn";
@@ -434,3 +436,5 @@
 "back" = "Zréck";
 "save-action" = "Späicheren";
 "unsave-action" = "Net späicheren";
+"status-saving-for-later" = "Fir spéider späicheren...";
+"status-saved-for-later" = "Fir spéider gespäichert";

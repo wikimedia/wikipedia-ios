@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Diniscoelho
 // Author: Fúlvio
+// Author: Hamilton Abreu
 // Author: Imperadeiro98
 // Author: Jkb8
 // Author: Macofe
@@ -22,7 +23,7 @@
 "article-related-articles-title" = "Artigos relacionados";
 "article-languages-yours" = "Os seus idiomas";
 "article-languages-others" = "Outros idiomas";
-"info-box-title" = "Fatos rápidos";
+"info-box-title" = "Factos rápidos";
 "info-box-close-text" = "Fechar";
 "table-title-other" = "Mais informação";
 "saved-clear-all" = "Limpar";
@@ -32,20 +33,20 @@
 "history-section-yesterday" = "Ontem";
 "history-section-lastweek" = "Última semana";
 "history-section-lastmonth" = "Último mês";
-"history-clear-confirmation-heading" = "Tem certeza de que deseja eliminar todos os seus itens recentes?";
+"history-clear-confirmation-heading" = "Tem a certeza de que deseja eliminar todos os seus itens recentes?";
 "history-clear-confirmation-sub-heading" = "Esta ação não pode ser desfeita!";
 "history-clear-cancel" = "Cancelar";
 "history-clear-delete-all" = "Sim, apagar tudo";
-"history-description" = "Provavelmente apagou todas. Da próxima vez que aceder a uma página, poderá voltar a partir daqui.";
-"history-none" = "Sem páginas recentes aqui.";
+"history-description" = "Provavelmente apagou todas. Da próxima vez que aceder a uma página, poderá voltar a ela mais tarde a partir daqui.";
+"history-none" = "Não há páginas recentes aqui.";
 "zero-free-verbiage" = "Acesso gratuito à Wikipédia disponibilizado pela sua operadora (sem taxa de dados cobrada)";
 "zero-charged-verbiage" = "Wikipédia Zero está desativada";
-"zero-charged-verbiage-extended" = "A leitura de outros artigos podem incorrer em taxas de dados. Artigos gravados e armazenados off-line não usam dados e o seu acesso é gratuito.";
+"zero-charged-verbiage-extended" = "A leitura de outros artigos pode resultar em encargos de transferência de dados. Artigos gravados e armazenados off-line não geram tráfego de dados e o seu acesso é gratuito.";
 "zero-interstitial-title" = "A deixar a Wikipédia Zero";
-"zero-interstitial-leave-app" = "Poderá ser aplicada taxa de dados. Continuar para o sítio externo?";
+"zero-interstitial-leave-app" = "Poderá incorrer em encargos de transferência de dados. Continuar para o sítio externo?";
 "zero-interstitial-continue" = "Sair";
 "zero-interstitial-cancel" = "Permanecer aqui";
-"zero-learn-more" = "São dispensadas taxas de dados para esta aplicação Wikipédia.";
+"zero-learn-more" = "Não incorre em encargos de transferência de dados para esta aplicação Wikipédia.";
 "zero-learn-more-learn-more" = "Ler mais";
 "zero-learn-more-no-thanks" = "Ignorar";
 "zero-wikipedia-zero-heading" = "Wikipédia Zero";
@@ -76,23 +77,23 @@
 "wikitext-download-failed" = "Não é possível obter a revisão mais recente.";
 "wikitext-download-success" = "Conteúdo carregado.";
 "wikitext-preview-changes" = "A recuperar antevisão das suas alterações...";
-"wikitext-preview-changes-none" = "Nenhuma alteração feita para ser revisada.";
-"wikitext-upload-result-unknown" = "Não é possível determinar o resultado do envio do wikitexto.";
+"wikitext-preview-changes-none" = "Não existem alterações para antever.";
+"wikitext-upload-result-unknown" = "Não é possível determinar o resultado do envio do texto wiki.";
 "wikitext-upload-captcha-error" = "Erro de verificação do código CAPTCHA.";
-"wikitext-upload-captcha-needed" = "Verificação de código CAPTCHA necessária.";
+"wikitext-upload-captcha-needed" = "É necessária a verificação do código CAPTCHA.";
 "wikitext-upload-save" = "A publicar...";
 "wikitext-upload-save-sign-in" = "Entrar";
-"wikitext-upload-save-sign-in-benefits" = "Assim, co-editores poderão contactá-lo e poderá ver quais artigos editou.";
+"wikitext-upload-save-sign-in-benefits" = "Outros editores poderão entrar em contacto consigo e poderá ver que artigos editou.";
 "wikitext-upload-save-anonymously" = "Publicar anonimamente";
-"wikitext-upload-save-anonymously-warning" = "O seu endereço de IP estará visível nas edições do seu dispositivo. Se $1, terá mais privacidade.";
-"wikitext-upload-save-terms-and-license" = "Ao publicar, concorda com $1, e em irrevogavelmente publicar a sua contribuição sob a licença $2.";
+"wikitext-upload-save-anonymously-warning" = "As suas edições serão atribuídas ao endereço IP do seu dispositivo. Se $1, terá mais privacidade.";
+"wikitext-upload-save-terms-and-license" = "Ao publicar, concorda com $1, e em irrevogavelmente publicar a sua contribuição ao abrigo da licença $2.";
 "wikitext-upload-save-terms-name" = "Condições de uso";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Abrir ligação";
 "open-link-cancel" = "Cancelar";
 "search-title" = "Pesquisar";
 "search-searching" = "A pesquisar...";
-"search-no-matches" = "Nenhum resultado encontrado para o termo de pesquisa.";
+"search-no-matches" = "Não há resultados para o termo pesquisado.";
 "search-field-placeholder-text" = "Procurar na Wikipédia";
 "search-field-placeholder-text-zero" = "Procurar na Wikipédia Zero";
 "search-loading-section-zero" = "A carregar a primeira secção do artigo...";
@@ -102,7 +103,7 @@
 "search-titles" = "Títulos";
 "search-within-articles" = "Dentro de artigos";
 "search-did-you-mean" = "Será que quis dizer $1?";
-"search-recent-title" = "Recentemente pesquisado";
+"search-recent-title" = "Pesquisado recentemente";
 "search-recent-clear-confirmation-heading" = "Apagar todas as pesquisas recentes?";
 "search-recent-clear-confirmation-sub-heading" = "Esta ação não pode ser desfeita!";
 "search-recent-clear-cancel" = "Cancelar";
@@ -117,13 +118,12 @@
 "settings-help-and-feedback" = "Ajuda e comentários";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "O primeiro idioma desta lista é usado como principal para a aplicação. Ao alterar, o conteúdo diário também será atualizado (como o \"Artigo em destaque\") apresentado em Explorar.";
-// Fuzzy
-"settings-notifications-system-off" = "As notificações são atualmente desativadas para Wikipédia. Configure as suas definições do sistema iOS para ativá-las.";
+"settings-notifications-system-off" = "As notificações estão desativadas para a Wikipédia. Vá às definições do seu dispositivo para ativá-las.";
 "settings-notifications-system-turn-on" = "Ativar notificações";
-"settings-notifications-info" = "Ser alertado sobre tendências e artigos mais consultados na Wikipédia com nosso sistema de notificações push. Tudo com respeito pela sua privacidade e atualizado ao minuto.";
+"settings-notifications-info" = "Receber alertas sobre os artigos em voga e os mais consultados na Wikipédia com o nosso sistema de notificações. Tudo fornecido com respeito pela sua privacidade e atualizado ao minuto.";
 "settings-notifications-learn-more" = "Saber mais sobre notificações";
-"settings-notifications-trending" = "Eventos atuais";
-"settings-notifications-push-notifications" = "Notificações push";
+"settings-notifications-trending" = "Atualidades em voga";
+"settings-notifications-push-notifications" = "Notificações";
 "main-menu-title" = "Mais";
 "main-menu-heading-about" = "Sobre";
 "main-menu-language-title" = "Pesquisar na Wikipédia em $1";
@@ -152,7 +152,7 @@
 "main-menu-terms-of-use" = "Condições de uso";
 "main-menu-rate-app" = "Avaliar aplicação";
 "main-menu-heading-zero" = "Wikipédia Zero";
-"main-menu-heading-legal" = "Privacidade e Termos";
+"main-menu-heading-legal" = "Privacidade e Condições";
 "main-menu-show-today" = "Hoje";
 "main-menu-nearby" = "Nas redondezas";
 "main-menu-more" = "Mais...";
@@ -168,8 +168,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Atualização cancelada";
 "saved-pages-refresh-cancel-alert-message" = "Os artigos da Wikipédia são atualizados a todo o instante. Toque em atualizar para obter as versões mais recentes de todos os artigos.";
 "saved-pages-refresh-cancel-alert-button" = "Percebido";
-"saved-pages-description" = "As páginas guardadas são bastante úteis. Pense como se fossem marcadores que pode ler mesmo quando estiver offline.";
-"saved-pages-none" = "Sem páginas guardadas ainda.";
+"saved-pages-description" = "As páginas guardadas são bastante úteis. Pense nelas como marcadores que pode ler mesmo quando estiver off-line.";
+"saved-pages-none" = "Ainda não tem páginas guardadas.";
 "saved-pages-image-download-error" = "Falha ao descarregar as imagens desta página guardada.";
 "history-title" = "Histórico";
 "page-history-title" = "Histórico do artigo";
@@ -194,7 +194,7 @@
 "edit-summary-choice-added-missing-info" = "Adicionada informação em falta";
 "edit-summary-choice-added-clarification" = "Adicionado esclarecimento";
 "edit-summary-choice-other" = "Outro";
-"edit-summary-description" = "Um resumo específico ajuda os co-editores a rever as suas edições. Pode escolher também uma das etiquetas abaixo.";
+"edit-summary-description" = "Um resumo específico ajuda os outros editores a rever as suas edições. Pode escolher também uma das etiquetas abaixo.";
 "edit-summary-field-placeholder-text" = "Outras maneiras de melhorar o artigo";
 "edit-summary-title" = "De que forma contribuiu para melhorar a página?";
 "fetching-random-article" = "A obter um artigo aleatório";
@@ -204,7 +204,7 @@
 "credits-wikimedia-repos" = "Repositórios Wikimedia";
 "credits-gerrit-repo" = "Rep. principal da aplicação (Gerrit)";
 "credits-github-mirror" = "Mirror da aplicação (GitHub)";
-"credits-external-libraries" = "Externo";
+"credits-external-libraries" = "Repositórios externos";
 "about-title" = "Sobre";
 "about-wikipedia" = "Wikipédia";
 "about-contributors" = "Contribuidores";
@@ -216,22 +216,21 @@
 "about-libraries-license" = "Licença";
 "about-libraries-licenses" = "Licenças";
 "about-content-license" = "Licença de conteúdo";
-"about-content-license-details" = "A menos que seja indicado o contrário, o conteúdo está disponível sob a $1.";
+"about-content-license-details" = "A menos que seja indicado o contrário, o conteúdo está disponível ao abrigo da $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons - Atribuição - Partilha nos Mesmos Termos";
 "about-libraries-licenses-title" = "Adoramos software em código aberto $1";
 "about-libraries-complete-list" = "Lista completa";
 "about-repositories" = "Repositórios";
-"about-repositories-app-source-license" = "Código-fonte disponível sob a $1.";
+"about-repositories-app-source-license" = "Código-fonte disponível ao abrigo da $1.";
 "about-repositories-app-source-license-mit" = "Licença MIT";
 "about-send-feedback" = "Enviar comentários sobre a aplicação";
 "about-product-of" = "Feito por $1 com a ajuda de voluntários como você";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Guardar página";
-"share-menu-page-saved" = "Página guardada";
+"share-menu-page-saved" = "Página guardada para leitura off-line";
 "share-menu-page-saved-access" = "Dica: Para aceder às suas páginas guardadas, toque em $1 acima ou pressione $2 abaixo.";
-// Fuzzy
-"share-custom-menu-item" = "Partilhar";
-"share-a-fact-share-menu-item" = "Partilhar um fact";
+"share-custom-menu-item" = "Partilhar...";
+"share-a-fact-share-menu-item" = "Partilhar um facto";
 "share-on-twitter-sign-off" = "via @Wikipédia";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" na @Wikipédia: \"$2\"";
@@ -259,13 +258,13 @@
 "button-report-a-bug" = "Reportar um erro";
 "onboarding-create-account" = "Criar conta";
 "onboarding-login" = "Entrar";
-"onboarding-already-have-account" = "Já possui uma conta? $1";
+"onboarding-already-have-account" = "Já tem uma conta? $1";
 "onboarding-skip" = "Ignorar";
 "onboarding-wikipedia" = "Wikipédia";
 "onboarding-free-encyclopedia" = "A enciclopédia livre";
 "preference_title_eventlogging_opt_in" = "Enviar relatórios de uso";
 "preference_summary_eventlogging_opt_in" = "Permitir que a Wikimedia recolha informações sobre o uso da aplicação para elaborar melhorias";
-"page_protected_autoconfirmed" = "Esta página foi semi-protegida.";
+"page_protected_autoconfirmed" = "Esta página foi semiprotegida.";
 "page_protected_sysop" = "Esta página foi totalmente protegida.";
 "page_protected_other" = "Esta página está protegida para os seguintes níveis: $1";
 "page_protected_can_not_edit" = "Não tem permissão para editar esta página";
@@ -277,15 +276,15 @@
 "table-of-contents-close-accessibility-label" = "Fechar Índice";
 "table-of-contents-close-accessibility-hint" = "Fechar";
 "table-of-contents-popover-description" = "Obter um resumo dos artigos";
-"abuse-filter-warning-heading" = "Esta edição poderá não ser construtiva. Tem a certeza que pretende publicá-la?";
+"abuse-filter-warning-heading" = "Esta edição poderá não ser construtiva. Tem a certeza de que pretende publicá-la?";
 "abuse-filter-warning-subheading" = "A sua edição pode conter um ou mais dos seguintes erros:";
 "abuse-filter-warning-caps" = "Todo o texto em MAIÚSCULAS";
-"abuse-filter-warning-blanking" = "Branqueamento de artigos ou ''spam''";
+"abuse-filter-warning-blanking" = "Esvaziamento de artigos ou ''spam''";
 "abuse-filter-warning-irrelevant" = "Ligações ou imagens externas irrelevantes";
 "abuse-filter-warning-repeat" = "Repeeeetição de caracteres";
 "abuse-filter-disallow-heading" = "Não pode publicar esta edição. Por favor, volte atrás e altere-a.";
 "abuse-filter-disallow-unconstructive" = "Um filtro automatizado identificou esta edição como sendo potencialmente inconstrutiva ou uma tentativa de vandalismo.";
-"abuse-filter-disallow-notable" = "A Wikipédia é uma enciclopédia exclusivamente neutra, conteúdo notório pertence aqui.";
+"abuse-filter-disallow-notable" = "A Wikipédia é uma enciclopédia e só conteúdos neutros e importantes têm lugar cá.";
 "menu-edit-accessibility-label" = "Editar";
 "menu-close-accessibility-label" = "Fechar";
 "menu-preview-accessibility-label" = "Antevisão";
