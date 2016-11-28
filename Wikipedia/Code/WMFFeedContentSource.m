@@ -517,10 +517,10 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         NSCalendar *userCalendar = [NSCalendar autoupdatingCurrentCalendar];
         NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
         NSDate *mostRecentDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
-        if ([userCalendar daysFromDate:notificationDate toDate:mostRecentDate] > 0) { // don't send if we have a notification scheduled for tomorrow already
+        if (notificationDate && mostRecentDate && [userCalendar daysFromDate:notificationDate toDate:mostRecentDate] > 0) { // don't send if we have a notification scheduled for tomorrow already
             return NO;
         }
-        if (mostRecentDate && [userCalendar isDate:mostRecentDate inSameDayAsDate:notificationDate]) {
+        if (mostRecentDate && notificationDate && [userCalendar isDate:mostRecentDate inSameDayAsDate:notificationDate]) {
             NSInteger count = [defaults wmf_inTheNewsMostRecentDateNotificationCount];
             if (count >= WMFFeedNotificationMaxPerDay) {
                 return NO;
