@@ -12,6 +12,18 @@
 }
 
 - (NSMutableDictionary *)paramsForURL:(NSURL *)url {
+    NSString *title = [url wmf_title];
+    if (!title) {
+        DDLogError(@"Missing title for article request serialization: %@", url);
+        return @{}.mutableCopy;
+    }
+
+    NSNumber *thumbnailWidth = [[UIScreen mainScreen] wmf_leadImageWidthForScale];
+    if (!thumbnailWidth) {
+        DDLogError(@"Missing thumbnail width for article request serialization: %@", url);
+        thumbnailWidth = @640;
+    }
+
     NSMutableDictionary *params = @{
         @"format": @"json",
         @"action": @"mobileview",
@@ -19,8 +31,8 @@
                                                       @"fromtitle", @"index"]),
         @"noheadings": @"true",
         @"sections": @"all",
-        @"page": url.wmf_title,
-        @"thumbwidth": [[UIScreen mainScreen] wmf_leadImageWidthForScale],
+        @"page": title,
+        @"thumbwidth": thumbnailWidth,
         @"prop": WMFJoinedPropertyParameters(@[@"sections", @"text", @"lastmodified", @"lastmodifiedby",
                                                @"languagecount", @"id", @"protection", @"editable", @"displaytitle",
                                                @"thumb", @"description", @"image", @"revision"])
