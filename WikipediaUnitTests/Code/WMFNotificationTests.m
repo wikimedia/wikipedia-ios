@@ -2,6 +2,8 @@
 #import "MWKDataStore+TemporaryDataStore.h"
 #import <WMFModel/WMFModel.h>
 #import <Nocilla/LSNocilla.h>
+#import "MWKDataStore+TemporaryDataStore.h"
+#import "WMFRandomFileUtilities.h"
 
 @interface WMFNotificationTests : XCTestCase
 
