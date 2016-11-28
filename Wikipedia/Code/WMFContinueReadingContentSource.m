@@ -60,7 +60,8 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         NO /*FBTweakValue(@"Explore", @"Continue Reading", @"Always Show", NO)*/ ||
         fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeDisplayingLastReadArticle;
 
-    WMFContentGroup *group = (id)[self.contentStore contentGroupForURL:[WMFContentGroup continueReadingContentGroupURL]];
+    NSURL *continueReadingURL = [WMFContentGroup continueReadingContentGroupURL];
+    WMFContentGroup *group = (id)[self.contentStore contentGroupForURL:continueReadingURL];
 
     if (!shouldShowContinueReading) {
         if (group) {
@@ -90,7 +91,9 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         return;
     }
 
-    group = [self.contentStore createGroupOfKind:WMFContentGroupKindContinueReading forDate:userData.viewedDate withSiteURL:nil associatedContent:@[lastRead]];
+    group = [self.contentStore fetchOrCreateGroupForURL:continueReadingURL ofKind:WMFContentGroupKindContinueReading forDate:userData.viewedDate withSiteURL:nil associatedContent:@[lastRead] customizationBlock:^(WMFContentGroup * _Nonnull group) {
+        
+    }];
 
     WMF_TECH_DEBT_TODO(Remove this in a later version.A preview will always be available available)
     if (![self.previewStore itemForURL:lastRead]) {

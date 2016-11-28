@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
         DDLogError(@"Error fetching content groups: %@", fetchError);
         return;
     }
-    [contentGroups enumerateObjectsUsingBlock:^(WMFContentGroup *_Nonnull section, NSUInteger idx, BOOL * _Nonnull stop) {
+    [contentGroups enumerateObjectsUsingBlock:^(WMFContentGroup *_Nonnull section, NSUInteger idx, BOOL *_Nonnull stop) {
         block(section, stop);
     }];
 }
@@ -58,22 +58,22 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     NSArray<WMFContentGroup *> *contentGroups = [self contentGroupsOfKind:kind];
-    [contentGroups enumerateObjectsUsingBlock:^(WMFContentGroup *_Nonnull section, NSUInteger idx, BOOL * _Nonnull stop) {
+    [contentGroups enumerateObjectsUsingBlock:^(WMFContentGroup *_Nonnull section, NSUInteger idx, BOOL *_Nonnull stop) {
         block(section, stop);
     }];
 }
 
 - (nullable WMFContentGroup *)contentGroupForURL:(NSURL *)URL {
     NSParameterAssert(URL);
-    if (!URL){
+    if (!URL) {
         return nil;
     }
-    
+
     NSString *key = [WMFContentGroup databaseKeyForURL:URL];
     if (!key) {
         return nil;
     }
-    
+
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
     fetchRequest.fetchLimit = 1;
@@ -86,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [contentGroups firstObject];
 }
 
-- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind{
+- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(kind)];
     fetchRequest.fetchLimit = 1;
@@ -133,29 +133,34 @@ NS_ASSUME_NONNULL_BEGIN
     group.contentGroupKind = kind;
     group.siteURLString = siteURL.absoluteString;
     group.content = associatedContent;
-    
+
     if (customizationBlock) {
         customizationBlock(group);
     }
-    
+
     [group updateKey];
     [group updateContentType];
     [group updateDailySortPriority];
-    
+
     return group;
 }
 
 - (nullable WMFContentGroup *)fetchOrCreateGroupForURL:(NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
-    
+
     WMFContentGroup *group = [self contentGroupForURL:URL];
     if (group) {
+        group.date = date;
+        group.midnightUTCDate = date.midnightUTCDate;
+        group.contentGroupKind = kind;
+        group.content = associatedContent;
+        group.siteURLString = siteURL.absoluteString;
         if (customizationBlock) {
             customizationBlock(group);
         }
     } else {
         group = [self createGroupOfKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent customizationBlock:customizationBlock];
     }
-    
+
     return group;
 }
 
