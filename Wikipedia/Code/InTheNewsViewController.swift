@@ -108,7 +108,11 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
             cell.setImageURL(articlePreview.thumbnailURL)
             
             cell.titleText = articlePreview.displayTitle
-            cell.descriptionText = articlePreview.snippet
+            if let wikidataDescription = articlePreview.wikidataDescription {
+                cell.descriptionText = wikidataDescription.wmf_stringByCapitalizingFirstCharacter()
+            }else{
+                cell.descriptionText = articlePreview.snippet
+            }
             
             return cell
         }
