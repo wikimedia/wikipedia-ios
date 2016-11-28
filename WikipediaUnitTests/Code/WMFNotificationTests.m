@@ -74,6 +74,46 @@
                                  }];
 }
 
+- (void)testDoesntIncrementNotificationCountForSameArticles {
+
+    NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
+    [defaults wmf_setInTheNewsNotificationsEnabled:YES];
+    [defaults wmf_setMostRecentInTheNewsNotificationDate:self.date];
+    [defaults wmf_setInTheNewsMostRecentDateNotificationCount:1];
+
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for content to load"];
+
+    [self.feedContentSource loadContentForDate:self.date
+                                         force:YES
+                                    completion:^{
+                                        XCTAssertTrue([defaults wmf_inTheNewsMostRecentDateNotificationCount] == 2);
+                                        [expectation fulfill];
+                                    }];
+
+    [self waitForExpectationsWithTimeout:10
+                                 handler:^(NSError *_Nullable error) {
+                                     if (error) {
+                                         XCTFail();
+                                     }
+                                 }];
+
+    expectation = [self expectationWithDescription:@"Wait for content to load"];
+
+    [self.feedContentSource loadContentForDate:self.date
+                                         force:YES
+                                    completion:^{
+                                        XCTAssertTrue([defaults wmf_inTheNewsMostRecentDateNotificationCount] == 2);
+                                        [expectation fulfill];
+                                    }];
+
+    [self waitForExpectationsWithTimeout:10
+                                 handler:^(NSError *_Nullable error) {
+                                     if (error) {
+                                         XCTFail();
+                                     }
+                                 }];
+}
+
 - (void)testDoesntIncrementNotificationCount {
     NSData *feedJSONData = [[self wmf_bundle] wmf_dataFromContentsOfFile:@"MCSFeed" ofType:@"json"];
     stubRequest(@"GET", self.feedURL.absoluteString).andReturn(200).withHeaders(@{ @"Content-Type": @"application/json" }).withBody(feedJSONData); // News item isn't in top read - test skip notify
