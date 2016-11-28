@@ -997,6 +997,9 @@ static pid_t currentPid() {
 #endif
 
 - (BOOL)save:(NSError **)error {
+    if (![self.viewContext hasChanges]) {
+        return YES;
+    }
     return [self.viewContext save:error];
 }
 
