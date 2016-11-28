@@ -67,7 +67,7 @@
 #pragma mark - Add / Remove Sections
 
 - (WMFContentGroup *)getMainPageForSiteURL:(NSURL *)siteURL {
-    WMFContentGroup *section = [self.contentStore contentGroupForURL:[WMFContentGroup  mainPageURLForSiteURL:siteURL]];
+    WMFContentGroup *section = [self.contentStore contentGroupForURL:[WMFContentGroup mainPageURLForSiteURL:siteURL]];
     if (!section.isForToday) {
         section = [self.contentStore createGroupOfKind:WMFContentGroupKindMainPage forDate:[NSDate date] withSiteURL:siteURL associatedContent:nil];
     }
@@ -75,9 +75,14 @@
 }
 
 - (void)cleanupOldSections {
+    __block BOOL foundTodaysSection = NO;
     [self.contentStore enumerateContentGroupsOfKind:WMFContentGroupKindMainPage
                                           withBlock:^(WMFContentGroup *_Nonnull section, BOOL *_Nonnull stop) {
-                                              if (!section.isForToday) {
+                                              if (!foundTodaysSection) {
+                                                  foundTodaysSection = section.isForToday;
+                                                  return;
+                                              }
+                                              if (foundTodaysSection || !section.isForToday) {
                                                   [self.contentStore removeContentGroup:section];
                                               }
                                           }];
@@ -98,25 +103,23 @@
 
     [self.siteInfoFetcher fetchSiteInfoForSiteURL:self.siteURL
         completion:^(MWKSiteInfo *_Nonnull data) {
-            if(data.mainPageURL == nil){
+            if (data.mainPageURL == nil) {
                 if (completion) {
                     completion();
                 }
                 return;
             }
-            
 
             [self.previewFetcher fetchArticlePreviewResultsForArticleURLs:@[data.mainPageURL]
                 siteURL:self.siteURL
                 completion:^(NSArray<MWKSearchResult *> *_Nonnull results) {
-                    if([results count] == 0){
+                    if ([results count] == 0) {
                         if (completion) {
                             completion();
                         }
                         return;
                     }
-                    
-                    
+
                     [self.previewStore addPreviewWithURL:data.mainPageURL updatedWithSearchResult:[results firstObject]];
                     [self.contentStore addContentGroup:section associatedContent:@[data.mainPageURL]];
                     [self cleanupOldSections];
