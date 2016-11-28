@@ -1246,7 +1246,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    if (self.objectChanges.count > 0) {
+    if (self.objectChanges.count == 1) {
         [self.collectionView performBatchUpdates:^{
             for (WMFObjectChange *change in self.objectChanges) {
                 NSInteger fromSectionIndex = change.fromIndexPath.row;
