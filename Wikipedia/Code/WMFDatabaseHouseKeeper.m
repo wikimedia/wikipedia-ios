@@ -29,7 +29,7 @@
 
         NSMutableArray *keysToRemove = [NSMutableArray array];
 
-        [transaction enumerateRowsInCollection:[WMFContentGroup  databaseCollectionName]
+        [transaction enumerateRowsInCollection:[WMFContentGroup databaseCollectionName]
                                     usingBlock:^(NSString *_Nonnull key, WMFContentGroup *_Nonnull object, NSArray *_Nullable metadata, BOOL *_Nonnull stop) {
 
                                         if ([object.date isEarlierThanDate:thirtyDays]) {
@@ -111,7 +111,9 @@
                                             case WMFContentTypeImage: {
                                                 //Nothing to do
                                             } break;
+                                            case WMFContentTypeAnnouncement: {
 
+                                            } break;
                                             default:
                                                 NSAssert(NO, @"Unknown Content Type");
                                                 break;
