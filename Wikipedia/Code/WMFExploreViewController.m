@@ -1366,7 +1366,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     }
     [contentGroup markDismissed];
     [contentGroup updateVisibility];
-
     NSError *saveError = nil;
     [self.userStore save:&saveError];
     if (saveError) {
