@@ -81,7 +81,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 @property (nonatomic, strong) NSMutableArray<WMFSectionChange *> *sectionChanges;
 @property (nonatomic, strong) NSMutableArray<WMFObjectChange *> *objectChanges;
-@property (nonatomic) NSInteger countOfSections;
+@property (nonatomic, strong) NSMutableArray<NSNumber *> *sectionCounts;
 
 @property (nonatomic, strong, nullable) WMFTaskGroup *feedUpdateTaskGroup;
 @property (nonatomic, strong, nullable) WMFTaskGroup *relatedUpdatedTaskGroup;
@@ -93,8 +93,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.title = MWLocalizedString(@"home-title", nil);
-    self.sectionChanges = [NSMutableArray array];
-    self.objectChanges = [NSMutableArray array];
+    self.sectionChanges = [NSMutableArray arrayWithCapacity:10];
+    self.objectChanges = [NSMutableArray arrayWithCapacity:10];
+    self.sectionCounts = [NSMutableArray arrayWithCapacity:100];
 }
 
 - (void)dealloc {
@@ -507,7 +508,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     frc.delegate = self;
     [frc performFetch:nil];
     self.fetchedResultsController = frc;
-    self.countOfSections = self.numberOfSectionsInExploreFeed;
+    [self updateSectionCounts];
     [self.collectionView reloadData];
 }
 
@@ -611,6 +612,20 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     return MIN([feedContent count], [contentGroup maxNumberOfCells]);
 }
 
+- (void)updateSectionCounts {
+    [self.sectionCounts removeAllObjects];
+    NSInteger sectionCount = self.numberOfSectionsInExploreFeed;
+
+    for (NSInteger i = 0; i < sectionCount; i++) {
+        [self.sectionCounts addObject:@([self numberOfItemsInSection:i])];
+    }
+}
+
+- (NSInteger)numberOfItemsInSection:(NSInteger)section {
+    WMFContentGroup *contentGroup = [self sectionAtIndex:section];
+    return [self numberOfItemsInContentGroup:contentGroup];
+}
+
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -618,8 +633,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    WMFContentGroup *contentGroup = [self sectionAtIndex:section];
-    return [self numberOfItemsInContentGroup:contentGroup];
+    return [self numberOfItemsInSection:section];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -1188,7 +1202,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
     NSIndexPath *previewIndexPath = layoutAttributes.indexPath;
     NSInteger section = previewIndexPath.section;
-    NSInteger sectionCount = [self.collectionView numberOfItemsInSection:section];
+    NSInteger sectionCount = [self numberOfItemsInSection:section];
 
     if ([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter] && sectionCount > 0) {
         //preview the last item in the section when tapping the footer
@@ -1272,7 +1286,8 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
     BOOL shouldReload = self.sectionChanges.count > 0;
 
-    NSInteger previousNumberOfSections = self.countOfSections;
+    NSArray *previousSectionCounts = [self.sectionCounts copy];
+    NSInteger previousNumberOfSections = previousSectionCounts.count;
 
     NSInteger sectionDelta = 0;
     for (WMFObjectChange *change in self.objectChanges) {
@@ -1284,14 +1299,14 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                 sectionDelta--;
                 break;
             case NSFetchedResultsChangeUpdate:
-                shouldReload = YES;
                 break;
             case NSFetchedResultsChangeMove:
                 break;
         }
     }
 
-    NSInteger currentNumberOfSections = self.numberOfSectionsInExploreFeed;
+    [self updateSectionCounts];
+    NSInteger currentNumberOfSections = self.sectionCounts.count;
     BOOL sectionCountsMatch = ((sectionDelta + previousNumberOfSections) == currentNumberOfSections);
 
     if (!sectionCountsMatch) {
@@ -1314,9 +1329,26 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                     case NSFetchedResultsChangeDelete:
                         [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:fromSectionIndex]];
                         break;
-                    case NSFetchedResultsChangeUpdate:
+                    case NSFetchedResultsChangeUpdate: {
+                        NSInteger previousCount = [previousSectionCounts[fromSectionIndex] integerValue];
+                        NSInteger currentCount = [self.sectionCounts[fromSectionIndex] integerValue];
+                        if (previousCount == currentCount) {
+                            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:fromSectionIndex]];
+                            return;
+                        }
+
+                        while (previousCount > currentCount) {
+                            [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount - 1 inSection:fromSectionIndex]]];
+                            previousCount--;
+                        }
+
+                        while (previousCount < currentCount) {
+                            [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount inSection:fromSectionIndex]]];
+                            previousCount++;
+                        }
+
                         [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:fromSectionIndex]];
-                        break;
+                    } break;
                     case NSFetchedResultsChangeMove:
                         [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:fromSectionIndex]];
                         [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:toSectionIndex]];
@@ -1331,7 +1363,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
     [self.objectChanges removeAllObjects];
     [self.sectionChanges removeAllObjects];
-    self.countOfSections = self.numberOfSectionsInExploreFeed;
 }
 
 #pragma mark - WMFAnnouncementCollectionViewCellDelegate
