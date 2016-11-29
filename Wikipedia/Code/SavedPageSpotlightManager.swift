@@ -76,8 +76,6 @@ public class WMFSavedPageSpotlightManager: NSObject {
         CSSearchableIndex.defaultSearchableIndex().indexSearchableItems([item]) { (error: NSError?) -> Void in
             if let error = error {
                 DDLogError("Indexing error: \(error.localizedDescription)")
-            } else {
-                DDLogVerbose("Search item successfully indexed!")
             }
         }
     }
@@ -89,10 +87,7 @@ public class WMFSavedPageSpotlightManager: NSObject {
         CSSearchableIndex.defaultSearchableIndex().deleteSearchableItemsWithIdentifiers([identifier]) { (error: NSError?) -> Void in
             if let error = error {
                 DDLogError("Deindexing error: \(error.localizedDescription)")
-            } else {
-                DDLogVerbose("Search item successfully removed!")
             }
-            
         }
     }
 
