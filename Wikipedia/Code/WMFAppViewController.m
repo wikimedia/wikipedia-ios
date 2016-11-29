@@ -499,7 +499,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     WMFTaskGroup *group = [WMFTaskGroup new];
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
 
-        if ([obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
+        if ([obj isKindOfClass:[WMFFeedContentSource class]]) {
             [group enter];
             [(id<WMFDateBasedContentSource>)obj preloadContentForNumberOfDays:3
                                                                         force:force
