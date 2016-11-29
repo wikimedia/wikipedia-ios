@@ -233,6 +233,12 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     if (![self uiIsLoaded]) {
         return;
     }
+
+    NSError *saveError = nil;
+    if (![self.dataStore save:&saveError]) {
+        DDLogError(@"Error saving dataStore: %@", saveError);
+    }
+
     self.notificationsController.applicationActive = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKTeardownDataSourcesNotification object:nil];
 }
@@ -274,10 +280,6 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
 - (void)startBackgroundTask {
     if (self.backgroundTaskIdentifier != UIBackgroundTaskInvalid) {
         return;
-    }
-    NSError *saveError = nil;
-    if (![self.dataStore save:&saveError]) {
-        DDLogError(@"Error saving dataStore: %@", saveError);
     }
     self.backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         [self.dataStore stopCacheRemoval];
