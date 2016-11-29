@@ -79,6 +79,10 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 @property (nonatomic, strong, nullable) AFNetworkReachabilityManager *reachabilityManager;
 
+@property (nonatomic, strong) NSMutableArray<WMFSectionChange *> *sectionChanges;
+@property (nonatomic, strong) NSMutableArray<WMFObjectChange *> *objectChanges;
+@property (nonatomic) NSInteger countOfSections;
+
 @property (nonatomic, strong, nullable) WMFTaskGroup *feedUpdateTaskGroup;
 @property (nonatomic, strong, nullable) WMFTaskGroup *relatedUpdatedTaskGroup;
 
@@ -89,6 +93,8 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.title = MWLocalizedString(@"home-title", nil);
+    self.sectionChanges = [NSMutableArray array];
+    self.objectChanges = [NSMutableArray array];
 }
 
 - (void)dealloc {
@@ -501,6 +507,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     frc.delegate = self;
     [frc performFetch:nil];
     self.fetchedResultsController = frc;
+    self.countOfSections = self.numberOfSectionsInExploreFeed;
     [self.collectionView reloadData];
 }
 
@@ -1243,9 +1250,89 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 #pragma mark - NSFetchedResultsControllerDelegate
 
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    WMFSectionChange *sectionChange = [WMFSectionChange new];
+    sectionChange.type = type;
+    sectionChange.sectionIndex = sectionIndex;
+    [self.sectionChanges addObject:sectionChange];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(nullable NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(nullable NSIndexPath *)newIndexPath {
+    WMFObjectChange *objectChange = [WMFObjectChange new];
+    objectChange.type = type;
+    objectChange.fromIndexPath = indexPath;
+    objectChange.toIndexPath = newIndexPath;
+    [self.objectChanges addObject:objectChange];
+}
+
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.collectionViewLayout invalidateLayout];
-    [self.collectionView reloadData];
+
+    BOOL shouldReload = self.sectionChanges.count > 0;
+
+    NSInteger previousNumberOfSections = self.countOfSections;
+
+    NSInteger sectionDelta = 0;
+    for (WMFObjectChange *change in self.objectChanges) {
+        switch (change.type) {
+            case NSFetchedResultsChangeInsert:
+                sectionDelta++;
+                break;
+            case NSFetchedResultsChangeDelete:
+                sectionDelta--;
+                break;
+            case NSFetchedResultsChangeUpdate:
+                shouldReload = YES;
+                break;
+            case NSFetchedResultsChangeMove:
+                break;
+        }
+    }
+
+    NSInteger currentNumberOfSections = self.numberOfSectionsInExploreFeed;
+    BOOL sectionCountsMatch = ((sectionDelta + previousNumberOfSections) == currentNumberOfSections);
+
+    if (!sectionCountsMatch) {
+        DDLogError(@"Mismatched section update counts: %@ + %@ != %@", @(sectionDelta), @(previousNumberOfSections), @(currentNumberOfSections));
+    }
+
+    shouldReload = shouldReload || !sectionCountsMatch;
+
+    if (shouldReload) {
+        [self.collectionViewLayout invalidateLayout];
+        [self.collectionView reloadData];
+    } else {
+        [self.collectionView performBatchUpdates:^{
+            for (WMFObjectChange *change in self.objectChanges) {
+                NSInteger fromSectionIndex = change.fromIndexPath.row;
+                NSInteger toSectionIndex = change.toIndexPath.row;
+                switch (change.type) {
+                    case NSFetchedResultsChangeInsert:
+                        [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:toSectionIndex]];
+                        break;
+                    case NSFetchedResultsChangeDelete:
+                        [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:fromSectionIndex]];
+                        break;
+                    case NSFetchedResultsChangeUpdate:
+                        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:fromSectionIndex]];
+                        break;
+                    case NSFetchedResultsChangeMove:
+                        [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:fromSectionIndex]];
+                        [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:toSectionIndex]];
+                        break;
+                }
+            }
+        }
+                                      completion:^(BOOL finished){
+
+                                      }];
+    }
+
+    [self.objectChanges removeAllObjects];
+    [self.sectionChanges removeAllObjects];
+    self.countOfSections = self.numberOfSectionsInExploreFeed;
 }
 
 #pragma mark - WMFAnnouncementCollectionViewCellDelegate
