@@ -98,6 +98,10 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
+static NSTimeInterval WMFFeedRefreshForegroundTimeout = 7;
+
+static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
+
 @interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView *splashView;
@@ -505,7 +509,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         }
     }];
 
-    [group waitInBackgroundWithCompletion:completion];
+    [group waitInBackgroundWithTimeout:WMFFeedRefreshForegroundTimeout completion:completion];
 }
 
 - (void)updateFeedSourcesWithCompletion:(dispatch_block_t)completion {
@@ -520,11 +524,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
     //TODO: nearby doesnt always fire.
     //May need to time it out or exclude
-    [group waitInBackgroundWithCompletion:^{
-        if (completion) {
-            completion();
-        }
-    }];
+    [group waitInBackgroundWithTimeout:WMFFeedRefreshForegroundTimeout
+                            completion:^{
+                                if (completion) {
+                                    completion();
+                                }
+                            }];
 }
 
 - (void)startContentSources {
@@ -543,18 +548,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     }];
 }
 
-- (void)updateContentSourcesWithCompletion:(dispatch_block_t)completion {
-    WMFTaskGroup *group = [WMFTaskGroup new];
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        [group enter];
-        [obj loadNewContentForce:NO
-                      completion:^{
-                          [group leave];
-                      }];
-    }];
-    [group waitInBackgroundWithCompletion:completion];
-}
-
 - (void)updateBackgroundSourcesWithCompletion:(dispatch_block_t)completion {
     WMFTaskGroup *group = [WMFTaskGroup new];
 
@@ -570,7 +563,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
                                              [group leave];
                                          }];
 
-    [group waitInBackgroundWithCompletion:completion];
+    [group waitInBackgroundWithTimeout:WMFFeedRefreshBackgroundTimeout completion:completion];
 }
 
 - (WMFFeedContentSource *)feedContentSource {
@@ -619,7 +612,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             [[WMFRandomContentSource alloc] initWithSiteURL:[self siteURL]
                                       contentGroupDataStore:self.contentStore
                                     articlePreviewDataStore:self.previewStore],
-            [[WMFAnnouncementsContentSource alloc] initWithSiteURL:[self siteURL] contentGroupDataStore:self.contentStore]
+            [[WMFAnnouncementsContentSource alloc] initWithSiteURL:[self siteURL]
+                                             contentGroupDataStore:self.contentStore]
         ];
     }
     return _contentSources;
