@@ -1,5 +1,6 @@
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
 #import "NSDate+Utilities.h"
+#import "WMFAnnouncement.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -521,6 +522,51 @@ NS_ASSUME_NONNULL_BEGIN
     return nil;
 }
 
+- (nullable NSNumber *)analyticsValue {
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindContinueReading:
+            break;
+        case WMFContentGroupKindMainPage:
+            break;
+        case WMFContentGroupKindRelatedPages:
+            break;
+        case WMFContentGroupKindLocation:
+            break;
+        case WMFContentGroupKindPictureOfTheDay:
+            break;
+        case WMFContentGroupKindRandom:
+            break;
+        case WMFContentGroupKindFeaturedArticle:
+            break;
+        case WMFContentGroupKindTopRead:
+            break;
+        case WMFContentGroupKindNews:
+            break;
+        case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindAnnouncement: {
+            static dispatch_once_t onceToken;
+            static NSCharacterSet *nonNumericCharacterSet;
+            dispatch_once(&onceToken, ^{
+                nonNumericCharacterSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+            });
+            
+            WMFAnnouncement * _Nullable announcement = (WMFAnnouncement * _Nullable)self.content.firstObject;
+            if (![announcement isKindOfClass:[WMFAnnouncement class]]) {
+                return nil;
+            }
+            
+            NSString *numberString = [announcement.identifier stringByTrimmingCharactersInSet:nonNumericCharacterSet];
+            NSInteger integer = [numberString integerValue];
+            return @(integer);
+        }
+        case WMFContentGroupKindUnknown:
+        default:
+            break;
+    }
+    return nil;
+}
+    
 - (NSString *)analyticsContentType {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading:
@@ -544,7 +590,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNotification:
             return @"Notifications";
         case WMFContentGroupKindAnnouncement:
-            return @"Announcements";
+            return @"Announcement";
         case WMFContentGroupKindUnknown:
         default:
             break;
