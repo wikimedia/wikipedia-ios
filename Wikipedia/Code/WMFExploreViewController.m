@@ -943,7 +943,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     }
     WMFAnnouncement *announcement = announcements[indexPath.item];
     [cell setImageURL:announcement.imageURL];
-    [cell setMessageText:[announcement.text copy]];
+    [cell setMessageText:announcement.text];
     [cell setActionText:announcement.actionTitle];
     [cell setCaptionHTML:announcement.captionHTML];
     cell.delegate = self;
