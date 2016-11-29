@@ -60,15 +60,21 @@ static NSString *const WMFURLCacheZeroConfigQueryNameValue = @"action=zeroconfig
             return cachedResponse;
         }
     }
-    
-    NSCachedURLResponse* response = [super cachedResponseForRequest:request];
-     NSHTTPURLResponse* httpResponse = (id)(response.response);
-    
-    if(httpResponse.statusCode == 200 && httpResponse.allHeaderFields[@"ETAG"] != nil){
-        
+
+    NSCachedURLResponse *response = [super cachedResponseForRequest:request];
+    NSURLResponse *maybeHTTPResponse = response.response;
+
+    if (![maybeHTTPResponse isKindOfClass:[NSHTTPURLResponse class]]) {
+        return response;
+    }
+
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)maybeHTTPResponse;
+
+    if (httpResponse.statusCode == 200 && httpResponse.allHeaderFields[@"ETAG"] != nil) {
+
         //This is coming from the cache and has an ETAG, lets actually use the correct 304 response code
-        NSHTTPURLResponse* newHTTPResponse = [[NSHTTPURLResponse alloc] initWithURL:httpResponse.URL statusCode:304 HTTPVersion:@"HTTP/1.1" headerFields:httpResponse.allHeaderFields];
-        
+        NSHTTPURLResponse *newHTTPResponse = [[NSHTTPURLResponse alloc] initWithURL:httpResponse.URL statusCode:304 HTTPVersion:@"HTTP/1.1" headerFields:httpResponse.allHeaderFields];
+
         response = [[NSCachedURLResponse alloc] initWithResponse:newHTTPResponse data:response.data];
     }
 

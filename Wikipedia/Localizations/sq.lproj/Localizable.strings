@@ -1,20 +1,25 @@
 // Messages for Albanian (shqip)
 // Exported from translatewiki.net
+// Author: Kosovastar
 // Author: Olsi
 
-// Fuzzy
-"languages-title" = "Gjuhët";
+"languages-title" = "Ndrysho gjuhën";
 "article-languages-label" = "Zgjidhni gjuhën";
 "article-languages-cancel" = "Anulo";
 "article-languages-downloading" = "Duke ngarkuar gjuhët e artikullit...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Filtrimi i gjuhës";
+"article-languages-filter-placeholder" = "Gjeni gjuhën";
 "article-read-more-title" = "Lexo më shumë";
+"article-about-title" = "Rreth këtij artikulli";
 "article-unable-to-load-section" = "Nuk mund të ngarkohet ky seksion. Provoni të rihapni artikullin për të parë nëse rregullohet problemi.";
 "article-unable-to-load-article" = "Nuk mund të ngarkohet artikulli.";
+"article-related-articles-title" = "Artikuj të ngjashëm";
+"article-languages-yours" = "Gjuhët tuaja";
+"article-languages-others" = "Gjuhët e tjera";
 "info-box-title" = "Fakte të shpejta";
 "info-box-close-text" = "Mbylle";
 "table-title-other" = "Më shumë informacion";
+"saved-clear-all" = "Pastro";
+"history-clear-all" = "Pastro";
 "history-label" = "Të fundit";
 "history-section-today" = "Sot";
 "history-section-yesterday" = "Dje";
@@ -74,8 +79,7 @@
 "wikitext-download-success" = "Përmbajtja u ngarkua.";
 "wikitext-preview-changes" = "Duke marrë një parapamje të ndryshimeve tuaja...";
 "wikitext-preview-changes-none" = "Nuk u bë asnjë ndryshim për parapamje.";
-// Fuzzy
-"wikitext-upload-save" = "Duke ruajtur...";
+"wikitext-upload-save" = "Duke publikuar...";
 "wikitext-upload-save-sign-in" = "Hyni";
 // Fuzzy
 "wikitext-upload-save-anonymously" = "Ruaj në mënyrë anonime";
@@ -98,6 +102,7 @@
 "search-recent-clear-cancel" = "Anulo";
 "search-recent-clear-delete-all" = "Fshi të gjitha";
 "settings-title" = "Cilësimet";
+"settings-primary-language" = "Primar";
 "main-menu-title" = "Më tepër...";
 "main-menu-heading-about" = "Rreth";
 "main-menu-language-title" = "Kërko në Wikipedian në gjuhën $1";
@@ -176,6 +181,7 @@
 // Fuzzy
 "about-translators" = "përkthyesit";
 "about-translators-details" = "Përkthyer nga vullnetarët në $1";
+"about-wikimedia-foundation" = "Fondacioni Wikimedia";
 "share-menu-save-page" = "Ruaj faqen";
 "share-menu-page-saved" = "Ruajtur për lexim pa internet.";
 // Fuzzy
@@ -195,6 +201,10 @@
 "button-next" = "Më pas";
 "button-done" = "Përfunduar";
 "button-save" = "Ruaje";
+"button-publish" = "Publiko";
+"button-ok" = "Në rregull";
+"button-save-for-later" = "Ruani për më vonë";
+"button-saved-for-later" = "Ruajtur për më vonë";
 "onboarding-create-account" = "Krijo llogari";
 "onboarding-login" = "Hyni";
 "onboarding-already-have-account" = "Keni një llogari?$1";
@@ -207,15 +217,15 @@
 "page_protected_can_not_edit_title" = "Kjo faqe është e mbrojtur";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Përmbajtja";
-// Fuzzy
-"abuse-filter-warning-heading" = "Ky duket si një redaktim jokonstruktiv, jeni të sigurt që dëshironi ta ruani?";
+"table-of-contents-close-accessibility-hint" = "Mbyll";
+"table-of-contents-popover-description" = "Merrni një pasqyrë të artikujve";
+"abuse-filter-warning-heading" = "Ky duket si një redaktim jokonstruktiv, jeni të sigurt që dëshironi ta publikoni?";
 "abuse-filter-warning-subheading" = "Redaktimi juaj mund të përmbajë një ose më shumë nga të mëposhtmet:";
 "abuse-filter-warning-caps" = "Shkrim ME SHKRONJA TË MËDHA";
 "abuse-filter-warning-blanking" = "Zbrazje e artikujve ose spam";
 "abuse-filter-warning-irrelevant" = "Imazhe ose lidhje të jashtme të papërshtatshme";
 "abuse-filter-warning-repeat" = "Përsëëëëëëritje karakteresh";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Ju nuk mund ta ruani këtë redaktim. Ju lutemi kthehuni prapa dhe ndryshojeni.";
+"abuse-filter-disallow-heading" = "Ju nuk mund ta publikoni këtë redaktim. Ju lutemi kthehuni prapa dhe ndryshojeni.";
 "abuse-filter-disallow-unconstructive" = "Një filter i automatizuar e ka indenftikuar këtë redaktim si potencialisht jokonstruktiv ose si një përpjekje për vandalizëm.";
 "menu-edit-accessibility-label" = "Redakto";
 "menu-close-accessibility-label" = "Mbylle";
@@ -251,3 +261,22 @@
 "captcha-reload" = "Trego një captcha tjetër";
 // Fuzzy
 "captcha-prompt" = "Fusni tekstin CAPTCHA nga imazhi lart";
+"explore-featured-article-heading" = "Artikujt e veçuar";
+"explore-continue-reading-heading" = "Vazhdo leximin";
+"explore-nearby-heading" = "Vendet në afërsi";
+"explore-nearby-sub-heading-your-location" = "Vendndodhja juaj";
+"explore-continue-related-heading" = "Sepse ju lexoni";
+"explore-main-page-heading" = "Sot në Wikipedia";
+"explore-random-article-heading" = "Artikull i rastit";
+"explore-random-article-sub-heading" = "Wikipedia Anglisht";
+"explore-potd-heading" = "Fotografia e ditës";
+"explore-most-read-more-list-title" = "Artikujt më të lexuar";
+"number-thousands" = "$1K";
+"number-millions" = "$1M";
+"number-billions" = "$1B";
+"feed-news-notification-button-text" = "Aktivizo njoftimet";
+"back" = "Prapa";
+"save-action" = "Ruaj";
+"unsave-action" = "Mos ruaj";
+"status-saving-for-later" = "Duke ruajtur për më vonë...";
+"status-saved-for-later" = "Ruajtur për më vonë";

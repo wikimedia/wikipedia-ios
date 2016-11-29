@@ -141,7 +141,7 @@
 "main-menu-show-history" = "Recent";
 "main-menu-show-saved" = "Pàgines desades";
 "main-menu-current-article-save" = "Desa $1 per a una lectura fora de línia";
-"main-menu-random" = "A l'atzar";
+"main-menu-random" = "A l’atzar";
 "main-menu-feedback-heading" = "Comentaris";
 "main-menu-send-feedback" = "Escriviu-nos";
 "main-menu-show-page-history" = "Història dels canvis a $1";
@@ -391,7 +391,7 @@
 "alert-no-internet" = "No hi ha connexió a internet";
 "icon-shortcut-search-title" = "Cerca a la Viquipèdia";
 "icon-shortcut-continue-reading-title" = "Continua llegint";
-"icon-shortcut-random-title" = "Article a l'atzar";
+"icon-shortcut-random-title" = "Article a l’atzar";
 "icon-shortcut-nearby-title" = "Articles propers";
 "close-button-accessibility-label" = "Tanca";
 "back-button-accessibility-label" = "Enrere";
@@ -402,7 +402,7 @@
 "explore-nearby-sub-heading-your-location" = "La vostra ubicació";
 "explore-continue-related-heading" = "Perquè vas llegir";
 "explore-main-page-heading" = "Avui a la Viquipèdia";
-"explore-random-article-heading" = "Article a l'atzar";
+"explore-random-article-heading" = "Article a l’atzar";
 "explore-random-article-sub-heading" = "Viquipèdia en anglès";
 "explore-potd-heading" = "Foto del dia";
 "explore-most-read-heading" = "Els més llegits a la Viquipèdia en $1";

@@ -65,7 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 
 @interface WMFExploreViewController () <WMFLocationManagerDelegate, WMFDataSourceDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate,
-    WMFAnnouncementCollectionViewCellDelegate>
+                                        WMFAnnouncementCollectionViewCellDelegate>
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
@@ -640,7 +640,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
         case WMFFeedDisplayTypeAnnouncement: {
             WMFAnnouncementCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName] forIndexPath:indexPath];
-            [self configureAnouncementCell:cell withSection:(WMFAnnouncementContentGroup*)contentGroup atIndexPath:indexPath];
+            [self configureAnouncementCell:cell withSection:(WMFAnnouncementContentGroup *)contentGroup atIndexPath:indexPath];
             return cell;
         } break;
         default:
@@ -802,19 +802,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                                                 [self.userStore.blackList addBlackListArticleURL:url];
                                                 [self.userStore notifyWhenWriteTransactionsComplete:^{
                                                     [self.contentStore notifyWhenWriteTransactionsComplete:^{
-                                                        NSUInteger index = [self indexForSection:section];
-
-                                                        [self.collectionView performBatchUpdates:^{
-
-                                                            [self updateFeedWithLatestDatabaseContent];
-                                                            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:index]];
-
-                                                        }
-                                                            completion:^(BOOL finished) {
-                                                                self.sectionDataSource.delegate = self;
-                                                                [self.collectionView reloadData];
-                                                            }];
-
+                                                        NSAssert([NSThread isMainThread], @"Ensure callback is on the main thread");
+                                                        [self updateFeedWithLatestDatabaseContent];
+                                                        [self.collectionView reloadData];
                                                     }];
                                                 }];
                                             }]];
@@ -842,27 +832,25 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     return footer;
 }
 
-
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath{
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *contentGroup = [self sectionForIndexPath:indexPath];
     NSParameterAssert(contentGroup);
-    if([contentGroup isKindOfClass:[WMFAnnouncementContentGroup class]]){
+    if ([contentGroup isKindOfClass:[WMFAnnouncementContentGroup class]]) {
         return NO;
-    }else{
+    } else {
         return YES;
     }
 }
 
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *contentGroup = [self sectionForIndexPath:indexPath];
     NSParameterAssert(contentGroup);
-    if([contentGroup isKindOfClass:[WMFAnnouncementContentGroup class]]){
+    if ([contentGroup isKindOfClass:[WMFAnnouncementContentGroup class]]) {
         return NO;
-    }else{
+    } else {
         return YES;
     }
 }
-
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     [self presentDetailViewControllerForItemAtIndexPath:indexPath animated:YES];
@@ -1278,53 +1266,44 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 #pragma mark - WMFAnnouncementCollectionViewCellDelegate
 
-- (void)announcementCellDidTapDismiss:(WMFAnnouncementCollectionViewCell*)cell{
+- (void)announcementCellDidTapDismiss:(WMFAnnouncementCollectionViewCell *)cell {
     [self dismissAnnouncementCell:cell];
 }
 
-- (void)announcementCellDidTapActionButton:(WMFAnnouncementCollectionViewCell*)cell{
-    NSIndexPath* indexPath = [self.collectionView indexPathForCell:cell];
-    WMFContentGroup* group = [self sectionAtIndex:indexPath.section];
+- (void)announcementCellDidTapActionButton:(WMFAnnouncementCollectionViewCell *)cell {
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+    WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
     NSArray<WMFAnnouncement *> *announcements = [self contentForGroup:group];
     if (indexPath.item >= announcements.count) {
         return;
     }
     WMFAnnouncement *announcement = announcements[indexPath.item];
-    NSURL* url = announcement.actionURL;
+    NSURL *url = announcement.actionURL;
     [self wmf_openExternalUrl:url];
     [self dismissAnnouncementCell:cell];
 }
 
-- (void)announcementCell:(WMFAnnouncementCollectionViewCell*)cell didTapLinkURL:(NSURL*)url{
+- (void)announcementCell:(WMFAnnouncementCollectionViewCell *)cell didTapLinkURL:(NSURL *)url {
     [self wmf_openExternalUrl:url];
 }
 
-
-- (void)dismissAnnouncementCell:(WMFAnnouncementCollectionViewCell*)cell{
-    NSIndexPath* indexPath = [self.collectionView indexPathForCell:cell];
+- (void)dismissAnnouncementCell:(WMFAnnouncementCollectionViewCell *)cell {
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     WMFAnnouncementContentGroup *contentGroup = [(id)[self sectionForIndexPath:indexPath] copy];
     NSParameterAssert(contentGroup);
-    if(![contentGroup isKindOfClass:[WMFAnnouncementContentGroup class]]){
+    if (![contentGroup isKindOfClass:[WMFAnnouncementContentGroup class]]) {
         return;
     }
     [contentGroup markDismissed];
     [contentGroup updateVisibility];
-    NSArray* content = [self.contentStore contentForContentGroup:contentGroup];
+    NSArray *content = [self.contentStore contentForContentGroup:contentGroup];
     [self.contentStore addContentGroup:contentGroup associatedContent:content];
     [self.contentStore notifyWhenWriteTransactionsComplete:^{
-        NSUInteger index = [self indexForSection:contentGroup];
-        [self.collectionView performBatchUpdates:^{
-            [self updateFeedWithLatestDatabaseContent];
-            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:index]];
-            
-        }
-                                      completion:^(BOOL finished) {
-                                          self.sectionDataSource.delegate = self;
-                                          [self.collectionView reloadData];
-                                      }];
+        NSAssert([NSThread isMainThread], @"Ensure callback is on the main thread");
+        [self updateFeedWithLatestDatabaseContent];
+        [self.collectionView reloadData];
     }];
 }
-
 
 #pragma mark - Analytics
 
