@@ -107,19 +107,30 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)preloadContentForNumberOfDays:(NSInteger)days force:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    NSDate *dateToLoad = [[NSDate date] dateByAddingDays:-days];
-    [self loadContentForDate:dateToLoad
-                       force:force
-                  completion:^{
-                      NSInteger numberOfDays = days - 1;
-                      if (numberOfDays > 0) {
-                          [self preloadContentForNumberOfDays:numberOfDays force:force completion:completion];
-                      } else {
-                          if (completion) {
-                              completion();
-                          }
-                      }
-                  }];
+    if (days < 1) {
+        if (completion) {
+            completion();
+        }
+        return;
+    }
+    
+    NSDate *now = [NSDate date];
+    
+    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
+    
+    WMFTaskGroup *group = [WMFTaskGroup new];
+    
+    for (NSUInteger i = 0; i < days; i++) {
+        [group enter];
+        NSDate *date = [calendar dateByAddingUnit:NSCalendarUnitDay value:-i toDate:now options:NSCalendarMatchStrictly];
+        [self loadContentForDate:date
+                           force:force
+                      completion:^{
+                          [group leave];
+                      }];
+    }
+    
+    [group waitInBackgroundWithCompletion:completion];
 }
 
 - (void)loadContentForDate:(NSDate *)date force:(BOOL)force completion:(nullable dispatch_block_t)completion {
