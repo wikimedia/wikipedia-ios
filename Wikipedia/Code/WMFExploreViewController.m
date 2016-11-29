@@ -183,7 +183,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 }
 
 - (NSUInteger)numberOfSectionsInExploreFeed {
-    return [[self.fetchedResultsController.sections firstObject] numberOfObjects];
+    return [self.fetchedResultsController.sections.firstObject numberOfObjects];
 }
 
 - (BOOL)canScrollToTop {
@@ -507,7 +507,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     frc.delegate = self;
     [frc performFetch:nil];
     self.fetchedResultsController = frc;
-    self.countOfSections = self.fetchedResultsController.sections.firstObject.numberOfObjects;
+    self.countOfSections = self.numberOfSectionsInExploreFeed;
     [self.collectionView reloadData];
 }
 
@@ -1291,7 +1291,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         }
     }
 
-    NSInteger currentNumberOfSections = self.fetchedResultsController.sections.firstObject.numberOfObjects;
+    NSInteger currentNumberOfSections = self.numberOfSectionsInExploreFeed;
     BOOL sectionCountsMatch = ((sectionDelta + previousNumberOfSections) == currentNumberOfSections);
 
     if (!sectionCountsMatch) {
@@ -1331,7 +1331,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
     [self.objectChanges removeAllObjects];
     [self.sectionChanges removeAllObjects];
-    self.countOfSections = self.fetchedResultsController.sections.firstObject.numberOfObjects;
+    self.countOfSections = self.numberOfSectionsInExploreFeed;
 }
 
 #pragma mark - WMFAnnouncementCollectionViewCellDelegate
