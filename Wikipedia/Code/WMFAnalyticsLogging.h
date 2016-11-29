@@ -20,4 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@protocol WMFAnalyticsValueProviding <NSObject>
+
+- (nullable NSNumber *)analyticsValue;
+
+@end
+
 NS_ASSUME_NONNULL_END

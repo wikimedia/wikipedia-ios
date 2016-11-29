@@ -81,6 +81,10 @@ NS_ASSUME_NONNULL_BEGIN
     return @"Unknown Content Type";
 }
 
+- (nullable NSNumber *)analyticsValue {
+    return nil;
+}
+
 @end
 
 @implementation WMFContinueReadingContentGroup (WMFContentManaging)
@@ -573,7 +577,18 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString *)analyticsContentType {
-    return @"Announcements";
+    return @"Announcement";
+}
+
+- (nullable NSNumber *)analyticsValue {
+    static dispatch_once_t onceToken;
+    static NSCharacterSet *nonNumericCharacterSet;
+    dispatch_once(&onceToken, ^{
+        nonNumericCharacterSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+    });
+    NSString *numberString = [self.identifier stringByTrimmingCharactersInSet:nonNumericCharacterSet];
+    NSInteger integer = [numberString integerValue];
+    return @(integer);
 }
 
 - (WMFFeedDisplayType)displayType {

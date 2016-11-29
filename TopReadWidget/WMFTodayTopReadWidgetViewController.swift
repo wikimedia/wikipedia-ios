@@ -229,7 +229,11 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             let result = results[i]
 
             vc.titleLabel.text = result.displayTitle
-            vc.subtitleLabel.text = result.snippet ?? result.wikidataDescription
+            if let wikidataDescription = result.wikidataDescription {
+                vc.subtitleLabel.text = wikidataDescription.wmf_stringByCapitalizingFirstCharacter()
+            }else{
+                vc.subtitleLabel.text = result.snippet
+            }
             vc.imageView.wmf_reset()
             let rankString = NSNumberFormatter.localizedThousandsStringFromNumber(i + 1)
             vc.rankLabel.text = rankString
