@@ -1301,7 +1301,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     shouldReload = shouldReload || !sectionCountsMatch;
 
     if (shouldReload) {
-        [self.collectionViewLayout invalidateLayout];
         [self.collectionView reloadData];
     } else {
         [self.collectionView performBatchUpdates:^{
