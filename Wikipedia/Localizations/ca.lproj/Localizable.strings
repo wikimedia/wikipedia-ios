@@ -123,6 +123,7 @@
 "settings-help-and-feedback" = "Ajuda i comentaris";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "La primera llengua de la llista s'utilitza com a llengua primària de l'aplicació. En canviar l'aplicació canviarà el contingut diari (com ara l'article destacat) que es mostra a 'Explora'.";
+"settings-notifications-system-turn-on" = "Activa les notificacions";
 "main-menu-title" = "Més";
 "main-menu-heading-about" = "Quant a";
 "main-menu-language-title" = "Cerca la wiki en llengua $1";
@@ -140,7 +141,7 @@
 "main-menu-show-history" = "Recent";
 "main-menu-show-saved" = "Pàgines desades";
 "main-menu-current-article-save" = "Desa $1 per a una lectura fora de línia";
-"main-menu-random" = "A l'atzar";
+"main-menu-random" = "A l’atzar";
 "main-menu-feedback-heading" = "Comentaris";
 "main-menu-send-feedback" = "Escriviu-nos";
 "main-menu-show-page-history" = "Història dels canvis a $1";
@@ -228,8 +229,7 @@
 "share-menu-save-page" = "Desa l'article";
 "share-menu-page-saved" = "Article desat per a lectura fora de línia.";
 "share-menu-page-saved-access" = "Consell: per accedir a les vostres pàgines desades, puntegeu en $1 a dalt o premeu uns moments $2 a sota.";
-// Fuzzy
-"share-custom-menu-item" = "Comparteix";
+"share-custom-menu-item" = "Comparteix...";
 "share-a-fact-share-menu-item" = "Compateix-un-fet";
 "share-on-twitter-sign-off" = "via @Viquipedia";
 "share-article-name-on-wikipedia" = "«$1» a la @Viquipedia:";
@@ -391,7 +391,7 @@
 "alert-no-internet" = "No hi ha connexió a internet";
 "icon-shortcut-search-title" = "Cerca a la Viquipèdia";
 "icon-shortcut-continue-reading-title" = "Continua llegint";
-"icon-shortcut-random-title" = "Article a l'atzar";
+"icon-shortcut-random-title" = "Article a l’atzar";
 "icon-shortcut-nearby-title" = "Articles propers";
 "close-button-accessibility-label" = "Tanca";
 "back-button-accessibility-label" = "Enrere";
@@ -402,7 +402,7 @@
 "explore-nearby-sub-heading-your-location" = "La vostra ubicació";
 "explore-continue-related-heading" = "Perquè vas llegir";
 "explore-main-page-heading" = "Avui a la Viquipèdia";
-"explore-random-article-heading" = "Article a l'atzar";
+"explore-random-article-heading" = "Article a l’atzar";
 "explore-random-article-sub-heading" = "Viquipèdia en anglès";
 "explore-potd-heading" = "Foto del dia";
 "explore-most-read-heading" = "Els més llegits a la Viquipèdia en $1";
@@ -424,6 +424,8 @@
 "top-read-see-more-trending" = "Vegeu més articles en tendència";
 "top-read-header-with-language" = "Viquipèdia en $1";
 "top-read-header-generic" = "Viquipèdia";
+"readers-accessibility-label" = "$1 lectors";
+"rank-accessibility-label" = "Número $1";
 "reference-title" = "Referència $1";
 "in-the-news-notification-read-now-action-title" = "Llegeix-ho ara";
 // Fuzzy
@@ -434,3 +436,5 @@
 "number-millions" = "$1M";
 "number-billions" = "$1B";
 "back" = "Enrere";
+"save-action" = "Desa";
+"unsave-action" = "No desis";

@@ -24,7 +24,7 @@
 + (BOOL)migrateToSharedContainer:(NSError **)error {
     NSError *moveError = nil;
     if (![[NSFileManager defaultManager] moveItemAtPath:[self wmf_legacyImageCacheDirectory] toPath:[self wmf_imageCacheDirectory] error:&moveError]) {
-        if (moveError.code != NSFileNoSuchFileError) {
+        if (moveError.code != NSFileNoSuchFileError && moveError.code != NSFileReadNoSuchFileError) {
             if (error) {
                 *error = moveError;
             }

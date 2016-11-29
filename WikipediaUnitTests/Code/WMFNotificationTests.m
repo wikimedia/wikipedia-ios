@@ -1,5 +1,7 @@
 #import <XCTest/XCTest.h>
 #import <Nocilla/LSNocilla.h>
+#import "MWKDataStore+TemporaryDataStore.h"
+#import "WMFRandomFileUtilities.h"
 
 @interface WMFNotificationTests : XCTestCase
 
@@ -18,9 +20,12 @@
 - (void)setUp {
     [super setUp];
     NSURL *siteURL = [NSURL URLWithString:@"https://en.wikipedia.org"];
-    self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
-    self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
-    self.feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore userDataStore:[SessionSingleton sharedInstance].dataStore notificationsController:[WMFNotificationsController sharedNotificationsController]];
+    MWKDataStore *dataStore = [MWKDataStore temporaryDataStore];
+    YapDatabase *db = [YapDatabase wmf_databaseWithDefaultConfigurationAtPath:WMFRandomTemporaryPath()];
+    self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:db];
+    self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:db];
+    self.feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore userDataStore:dataStore notificationsController:[WMFNotificationsController sharedNotificationsController]];
+    self.feedContentSource.notificationSchedulingEnabled = YES;
 
     self.calendar = [NSCalendar wmf_gregorianCalendar];
     self.date = [NSDate date];
@@ -45,37 +50,6 @@
 - (void)tearDown {
     [super tearDown];
     [[LSNocilla sharedInstance] stop];
-}
-
-- (void)testNotifiesWhenMostRecentDateIsMoreThanThreeDaysAgo {
-    NSData *feedJSONData = [[self wmf_bundle] wmf_dataFromContentsOfFile:@"MCSFeed" ofType:@"json"];
-    stubRequest(@"GET", self.feedURL.absoluteString).andReturn(200).withHeaders(@{ @"Content-Type": @"application/json" }).withBody(feedJSONData); // News item isn't in top read - test force notify
-
-    NSDate *now = [NSDate date];
-    NSDate *daysAgo = [self.calendar dateByAddingUnit:NSCalendarUnitDay value:-4 toDate:now options:NSCalendarMatchStrictly];
-    NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
-    [defaults wmf_setInTheNewsNotificationsEnabled:YES];
-    [defaults wmf_setMostRecentInTheNewsNotificationDate:daysAgo];
-    [defaults wmf_setInTheNewsMostRecentDateNotificationCount:4];
-
-    XCTAssertTrue([self.calendar daysFromDate:[defaults wmf_mostRecentInTheNewsNotificationDate] toDate:now] >= 3);
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for content to load"];
-
-    [self.feedContentSource loadContentForDate:self.date
-                                         force:NO
-                                    completion:^{
-                                        NSDate *notificationDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
-                                        XCTAssertTrue([self.calendar isDateInToday:notificationDate] || [self.calendar daysFromDate:now toDate:notificationDate] == 1);
-                                        XCTAssertTrue([defaults wmf_inTheNewsMostRecentDateNotificationCount] == 1);
-                                        [expectation fulfill];
-                                    }];
-
-    [self waitForExpectationsWithTimeout:10
-                                 handler:^(NSError *_Nullable error) {
-                                     if (error) {
-                                         XCTFail();
-                                     }
-                                 }];
 }
 
 - (void)testIncrementsNotificationCount {

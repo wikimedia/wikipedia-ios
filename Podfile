@@ -3,7 +3,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 # Configurations which are not compiled for release on the App Store
 # NOT_APP_STORE_CONFIGS = ['Debug', 'Alpha', 'Beta', 'AdHoc'].freeze
 
-platform :ios, :deployment_target => '9.0'
+platform :ios, :deployment_target => '9.3'
 
 inhibit_all_warnings!
 use_frameworks!

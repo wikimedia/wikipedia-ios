@@ -110,6 +110,10 @@
 "settings-my-languages" = "Moje jazyky";
 "settings-notifications" = "Upozornenia";
 "settings-help-and-feedback" = "Pomoc a spätná väzba";
+"settings-notifications-system-off" = "Upozornenia sú v súčasnosti vypnuté. Pre ich zapnutie prejdite do nastavení svojho zariadenia.";
+"settings-notifications-system-turn-on" = "Zapnúť upozornenia";
+"settings-notifications-learn-more" = "Ďalšie informácie o upozorneniach";
+"settings-notifications-push-notifications" = "Push upozornenia";
 "main-menu-title" = "Viac";
 "main-menu-heading-about" = "O aplikácii";
 "main-menu-language-title" = "Hľadať v $1 Wikipédii";
@@ -208,8 +212,7 @@
 "share-menu-save-page" = "Uložiť článok";
 "share-menu-page-saved" = "Uložené pre offline čítanie.";
 "share-menu-page-saved-access" = "Tip: ak chcete otvoriť uložené stránky, ťuknite na položku $1 vyššie alebo dlho stlačte $2 nižšie.";
-// Fuzzy
-"share-custom-menu-item" = "Zdieľať";
+"share-custom-menu-item" = "Zdieľať...";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédii:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" na @Wikipedii: \"$2\"";
 "share-as-image" = "Zdieľať ako obrázok";
@@ -253,6 +256,7 @@
 "table-of-contents-button-label" = "Obsah";
 "table-of-contents-close-accessibility-label" = "Zavrieť obsah";
 "table-of-contents-close-accessibility-hint" = "Zavrieť";
+"table-of-contents-popover-description" = "Zobrazovať náhľad článkov";
 "abuse-filter-warning-heading" = "Toto vyzerá ako nekonštruktívna úprava. Naozaj ju chcete uložiť?";
 "abuse-filter-warning-caps" = "Píšete veľkými písmenami";
 "abuse-filter-disallow-heading" = "Túto úpravu nie je možné uložiť. Prosím, vráťte sa späť a zmeňte ju.";
@@ -320,10 +324,14 @@
 "potd-empty-error-description" = "Nepodarilo sa načítať obrázok dňa pre $1";
 "potd-description-prefix" = "Obrázok dňa pre $1";
 "welcome-explore-sub-title" = "Nová možnosť, ako objavovať zaujímavé články každý deň";
+"welcome-explore-new-ways-sub-title" = "Nové upozornenia a miniaplikácie vám pomáhajú objaviť zaujímavé články";
 "welcome-explore-tell-me-more" = "Zistiť viac";
 "welcome-explore-tell-me-more-privacy" = "Na našich serveroch nie je uložený žiadny zoznam na prečítanie alebo profil.";
 "welcome-explore-tell-me-more-done-button" = "Rozumiem";
 "welcome-explore-continue-button" = "Začíname";
+"welcome-notifications-tell-me-more-title" = "Ďalšie informácie o upozorneniach";
+"welcome-notifications-tell-me-more-storage" = "Nastavenia upozornení sú uložené na vašom zariadení a nie sú založené na osobných údajoch alebo aktivite.";
+"welcome-notifications-tell-me-more-creation" = "Upozornenia sú vytvárané a doručované na vaše zariadenie aplikáciou, nie našimi servermi (alebo servermi tretích strán).";
 "welcome-languages-title" = "Jazyky";
 "welcome-languages-sub-title" = "Zvoľte si jazyk, ktorý pri vyhľadávaní na Wikipédii uprednostňujete";
 "welcome-languages-add-button" = "Pridať ďalší jazyk";
@@ -332,6 +340,8 @@
 "welcome-volunteer-send-usage-reports" = "Odosielať správu o používaní";
 "welcome-volunteer-continue-button" = "Pokračovať";
 "welcome-volunteer-thanks" = "$1 Ďakujeme!";
+"welcome-send-data-title" = "Odosielať anonymné údaje";
+"welcome-send-data-sub-title" = "Pomôžte Wikimedii vylepšiť aplikáciu tak, že budete zdielať údaje o vašom používaní aplikácie. Zozbierané údaje sú anonymné";
 "empty-no-feed-title" = "Žiadne pripojenie na internet";
 "empty-no-feed-message" = "Odporúčané články uvidíte keď budete pripojení na internet";
 "empty-no-feed-action-message" = "Medzitým si môžete čítať uložené stránky";
@@ -371,14 +381,21 @@
 "top-read-see-more" = "Zobraziť ďalšie najčítanejšie články";
 "top-read-see-more-trending" = "Zobraziť ďalšie trendy";
 "top-read-header-generic" = "Wikipédia";
+"readers-accessibility-label" = "$1 čitateľov";
+"rank-accessibility-label" = "Číslo $1";
+"reference-title" = "Referencia $1";
 "in-the-news-notification-read-now-action-title" = "Čítať";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Zdieľať";
+"in-the-news-notification-share-action-title" = "Zdieľať...";
 "in-the-news-notification-save-for-later-action-title" = "Uložiť na neskôr";
 "in-the-news-currently-trending" = "Aktuálne trendy";
 "in-the-news-title" = "Správy";
+"in-the-news-title-for-date" = "Správy z $1";
 "number-thousands" = "$1";
 "number-millions" = "$1";
 "number-billions" = "$1";
+"feed-news-notification-text" = "Odteraz môžete dostávať upozornenia ohľadom článkov na Wikipédii, ktoré sú populárne v médiách.";
+"feed-news-notification-button-text" = "Zapnúť upozornenia";
 "back" = "Späť";
 "save-action" = "Uložiť";
+"status-saving-for-later" = "Ukladanie na neskôr...";
+"status-saved-for-later" = "Uložené na neskôr";

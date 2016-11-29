@@ -223,8 +223,7 @@
 "share-menu-save-page" = "Seite speichern";
 "share-menu-page-saved" = "Seite gespeichert";
 "share-menu-page-saved-access" = "Tipp: Um auf deine gespeicherten Seiten zuzugreifen, tippe oben auf $1 oder halte unten $2 gedrückt.";
-// Fuzzy
-"share-custom-menu-item" = "Teilen";
+"share-custom-menu-item" = "Teilen …";
 "share-a-fact-share-menu-item" = "Teile-einen-Fakt";
 "share-on-twitter-sign-off" = "über @Wikipedia";
 "share-article-name-on-wikipedia" = "„$1“ auf @Wikipedia:";
@@ -353,7 +352,11 @@
 "home-hide-suggestion-prompt" = "Diesen Vorschlag ausblenden";
 "home-hide-suggestion-cancel" = "Abbrechen";
 "home-accessibility-label" = "Wikipedia, Entdecken";
+"home-title-accessibility-label" = "Wikipedia, zum Anfang von Entdecken scrollen";
 "home-button-accessibility-label" = "Startseite";
+"home-button-explore-accessibility-label" = "Wikipedia, zurück zu Entdecken";
+"home-button-saved-accessibility-label" = "Wikipedia, zurück zu Gespeichert";
+"home-button-history-accessibility-label" = "Wikipedia, zurück zu Verlauf";
 "potd-empty-error-description" = "Das Bild des Tages für $1 konnte nicht abgerufen werden";
 "potd-description-prefix" = "Bild des Tages für $1";
 "welcome-explore-title" = "Entdecken";
@@ -379,6 +382,8 @@
 "welcome-volunteer-send-usage-reports" = "Nutzungsberichte senden";
 "welcome-volunteer-continue-button" = "Fortfahren";
 "welcome-volunteer-thanks" = "$1 Vielen Dank!";
+"welcome-send-data-title" = "Anonymisierte Daten senden";
+"welcome-send-data-sub-title" = "Hilf der Wikimedia, die App zu verbessern, indem du uns wissen lässt, wie du sie nutzt. Die gesammelten Daten sind anonym.";
 "empty-no-feed-title" = "Keine Internetverbindung";
 "empty-no-feed-message" = "Du kannst deine empfohlenen Artikel ansehen, wenn du Internet hast.";
 "empty-no-feed-action-message" = "Du kannst trotzdem gespeicherte Seiten lesen";
@@ -424,10 +429,11 @@
 "top-read-see-more-trending" = "Weiteres Laufendes ansehen";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
+"readers-accessibility-label" = "$1 Leser";
+"rank-accessibility-label" = "Platz $1";
 "reference-title" = "Einzelnachweis $1";
 "in-the-news-notification-read-now-action-title" = "Jetzt lesen";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Teilen";
+"in-the-news-notification-share-action-title" = "Teilen …";
 "in-the-news-notification-save-for-later-action-title" = "Für später speichern";
 "in-the-news-currently-trending" = "Aktuell beliebt";
 "in-the-news-title" = "In den Nachrichten";
@@ -440,3 +446,5 @@
 "back" = "Zurück";
 "save-action" = "Speichern";
 "unsave-action" = "Speichern abbrechen";
+"status-saving-for-later" = "Für später speichern …";
+"status-saved-for-later" = "Für später gespeichert";

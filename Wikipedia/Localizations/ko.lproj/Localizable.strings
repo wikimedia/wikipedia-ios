@@ -231,8 +231,7 @@
 "share-menu-save-page" = "문서 저장";
 "share-menu-page-saved" = "문서가 저장되었습니다";
 "share-menu-page-saved-access" = "팁: 저장된 문서에 접근하려면, 위의 $1를 탭하거나 아래의 $2를 길게 누르세요.";
-// Fuzzy
-"share-custom-menu-item" = "공유";
+"share-custom-menu-item" = "공유...";
 "share-a-fact-share-menu-item" = "사실을 공유";
 "share-on-twitter-sign-off" = "@Wikipedia에서";
 "share-article-name-on-wikipedia" = "@Wikipedia의 \"$1\":";
@@ -384,6 +383,8 @@
 "welcome-volunteer-send-usage-reports" = "사용 보고서 보내기";
 "welcome-volunteer-continue-button" = "계속";
 "welcome-volunteer-thanks" = "감사합니다 $1!";
+"welcome-send-data-title" = "익명 데이터 보내기";
+"welcome-send-data-sub-title" = "위키미디어의 앱 개선을 지원하기 위해 앱을 어떻게 사용하고 계신지 알려주세요. 수집된 데이터는 익명 처리됩니다";
 "empty-no-feed-title" = "인터넷 연결 없음";
 "empty-no-feed-message" = "인터넷 이용이 가능할 때 추천 문서를 읽을 수 있습니다.";
 "empty-no-feed-action-message" = "여전히 저장된 페이지를 읽을 수 있습니다.";
@@ -427,10 +428,10 @@
 "continue-reading-empty-description" = "더 많은 문서를 읽기 위해 위키백과 둘러보기";
 "top-read-header-with-language" = "$1 위키백과";
 "top-read-header-generic" = "위키백과";
+"readers-accessibility-label" = "$1명의 독자";
 "reference-title" = "각주 $1";
 "in-the-news-notification-read-now-action-title" = "지금 읽기";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "공유";
+"in-the-news-notification-share-action-title" = "공유...";
 "in-the-news-notification-save-for-later-action-title" = "나중을 위해 저장";
 "in-the-news-title" = "새로 들어온 소식";
 "in-the-news-title-for-date" = "$1 소식";
@@ -441,3 +442,5 @@
 "back" = "뒤로";
 "save-action" = "저장";
 "unsave-action" = "저장하지 않음";
+"status-saving-for-later" = "나중을 위해 저장하는 중...";
+"status-saved-for-later" = "나중을 위해 저장됨";

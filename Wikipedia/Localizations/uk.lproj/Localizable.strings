@@ -115,9 +115,16 @@
 "settings-support" = "Підтримати Вікіпедію";
 "settings-language-bar" = "Показувати мови при пошуці";
 "settings-my-languages" = "Мої мови";
+"settings-notifications" = "Сповіщення";
 "settings-help-and-feedback" = "Допомога та зворотній зв'язок";
 "settings-primary-language" = "Основний";
 "settings-primary-language-details" = "Перша мова в цьому списку використовується як основна мова додатку. Зміна цієї мови буде змінювати щоденний контент, наприклад обрані статті.";
+"settings-notifications-system-off" = "Станом на зараз, сповіщення вимкнені для Вікіпедії. Перейдіть до налаштувань свого пристрою, щоб увімкнути сповіщення";
+"settings-notifications-system-turn-on" = "Увімкнути сповіщення";
+"settings-notifications-info" = "Будьте в курсі трендових і найбільш популярних статей у Вікіпедії, з нашими push-сповіщеннями. Уся інформація надається зі збереженням конфіденційності і з точністю до хвилини.";
+"settings-notifications-learn-more" = "Дізнатись більше про сповіщення";
+"settings-notifications-trending" = "В тренді поточних подій";
+"settings-notifications-push-notifications" = "Push-сповіщення";
 "main-menu-title" = "Ще";
 "main-menu-heading-about" = "Про застосунок";
 "main-menu-language-title" = "$1 мова для пошуку на вікі";
@@ -223,8 +230,7 @@
 "share-menu-save-page" = "Зберегти статтю";
 "share-menu-page-saved" = "Статтю збережено";
 "share-menu-page-saved-access" = "Порада: щоб отримати доступ до ваших збережених сторінок, торкніться кнопки  $1  вище або довгий натиск на $2 нижче.";
-// Fuzzy
-"share-custom-menu-item" = "Поділитися";
+"share-custom-menu-item" = "Поділитися...";
 "share-a-fact-share-menu-item" = "Поділіться фактом";
 "share-on-twitter-sign-off" = "через @Wikipedia";
 "share-article-name-on-wikipedia" = "«$1» в @Wikipedia:";
@@ -353,11 +359,17 @@
 "home-hide-suggestion-prompt" = "Приховати цю пропозицію";
 "home-hide-suggestion-cancel" = "Скасувати";
 "home-accessibility-label" = "Вікіпедія, Досліджуйте";
+"home-title-accessibility-label" = "Вікіпедія, прокрутити вгору розділу Досліджуйте";
 "home-button-accessibility-label" = "Домівка";
+"home-button-explore-accessibility-label" = "Вікіпедія, повернутися до розділу Досліджуйте";
+"home-button-saved-accessibility-label" = "Вікіпедія, повернутися до Збереженого";
+"home-button-history-accessibility-label" = "Вікіпедія, повернутися до Історії";
 "potd-empty-error-description" = "Не вдалося отримати зображення дня за $1";
 "potd-description-prefix" = "Зображення дня за $1";
 "welcome-explore-title" = "Досліджуйте";
 "welcome-explore-sub-title" = "Новий спосіб відкривати для себе цікаві статті щодня";
+"welcome-explore-new-ways-title" = "Нові способи дослідження";
+"welcome-explore-new-ways-sub-title" = "Нові сповіщення і віджети, що допоможуть Вам відкрити для себе цікаві статті";
 "welcome-explore-tell-me-more" = "Розкажіть мені більше";
 "welcome-explore-tell-me-more-about-explore" = "Детальніше про Дослідження";
 "welcome-explore-tell-me-more-details" = "Коли Ви читаєте статтю, пов'язані з нею статті автоматично додаються до стрічки «Досліджуйте». Це не змінює того, як ми накопичуємо Вашу інформацію, і Ваша історія переглядів залишається конфіденційною.";
@@ -365,6 +377,9 @@
 "welcome-explore-tell-me-more-privacy" = "Жоден список прочитаних статей чи читацький профіль не зберігається на наших серверах.";
 "welcome-explore-tell-me-more-done-button" = "Зрозуміло";
 "welcome-explore-continue-button" = "Розпочати";
+"welcome-notifications-tell-me-more-title" = "Більше про сповіщення";
+"welcome-notifications-tell-me-more-storage" = "Налаштування сповіщень зберігаються на пристрої і не базуються на конфіденційній інформації чи діяльності.";
+"welcome-notifications-tell-me-more-creation" = "Сповіщення створюються і доставляються до Вашого пристрою через відповідний додаток, а не через наші (чи сторонні) сервери.";
 "welcome-languages-title" = "Мови";
 "welcome-languages-sub-title" = "Оберіть мови для пошуку у Вікіпедії";
 "welcome-languages-add-button" = "Додати ще одну мову";
@@ -374,6 +389,8 @@
 "welcome-volunteer-send-usage-reports" = "Надсилати звіти про використання";
 "welcome-volunteer-continue-button" = "Продовжити";
 "welcome-volunteer-thanks" = "$1 Дякуємо!";
+"welcome-send-data-title" = "Надіслати анонімні дані";
+"welcome-send-data-sub-title" = "Допоможіть Вікімедіа зробити цей додаток кращим, повідомивши нас, яким чином Ви ним користуєтесь. Зібрані дані є анонімними";
 "empty-no-feed-title" = "Не має з'єднання з інтернетом";
 "empty-no-feed-message" = "Ви можете побачити ваші рекомендовані статті, коли у вас є інтернет";
 "empty-no-feed-action-message" = "Ви все ще можете читати збережені сторінки";
@@ -409,6 +426,7 @@
 "no-email-account-alert" = "Будь ласка, налаштуйте обліковий запис електронної пошти на Вашому пристрої і спробуйте знову.";
 "request-feedback-on-error" = "Програмка зіткнулася з проблемою, про яку нашим розробникам хотілося б знати більше. Будь ласка, натисніть тут, щоб надіслати нам листа з деталями помилки.";
 "explore-another-random" = "Інша випадкова стаття";
+"explore-randomizer" = "Рандомайзер";
 "find-in-page-no-matches" = "0 збігів";
 "find-in-page-button-label" = "Знайти на сторінці";
 "find-in-page-popover-description" = "Шукати текст у статтях";
@@ -418,12 +436,22 @@
 "top-read-see-more-trending" = "Див. більше популярних";
 "top-read-header-with-language" = "$1 Вікіпедія";
 "top-read-header-generic" = "Вікіпедія";
+"readers-accessibility-label" = "$1 читачів";
+"rank-accessibility-label" = "Номер $1";
 "reference-title" = "Посилання $1";
 "in-the-news-notification-read-now-action-title" = "Читати зараз";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Поділитися";
+"in-the-news-notification-share-action-title" = "Поділитися...";
 "in-the-news-notification-save-for-later-action-title" = "Зберегти на потім";
 "in-the-news-currently-trending" = "Зараз популярні";
+"in-the-news-title" = "У новинах";
+"in-the-news-title-for-date" = "Новини за $1";
 "number-thousands" = "$1 тис.";
 "number-millions" = "$1 млн";
 "number-billions" = "$1 млрд";
+"feed-news-notification-text" = "Тепер Ви можете отримувати сповіщення про статті Вікіпедії, пов'язані з останніми новинами.";
+"feed-news-notification-button-text" = "Увімкнути сповіщення";
+"back" = "Назад";
+"save-action" = "Зберегти";
+"unsave-action" = "Не зберігати";
+"status-saving-for-later" = "Збереження на потім...";
+"status-saved-for-later" = "Збережено на потім";

@@ -220,8 +220,7 @@
 "share-menu-save-page" = "Simpen kaca";
 "share-menu-page-saved" = "Disimpen kanggo maca offline.";
 "share-menu-page-saved-access" = "Tip: kanggo ngakses kaca disimpen, ketuk $1 ndhuwur utawa dawa-pencet $2 ing ngisor iki.";
-// Fuzzy
-"share-custom-menu-item" = "Nuduhake";
+"share-custom-menu-item" = "Nuduhake...";
 "share-a-fact-share-menu-item" = "Nuduhake-bukti";
 "share-on-twitter-sign-off" = "melalui @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" ing @Wikipedia:";
@@ -350,7 +349,11 @@
 "home-hide-suggestion-prompt" = "Singidaken saran iki";
 "home-hide-suggestion-cancel" = "Batal";
 "home-accessibility-label" = "Wikipedia, Njelajah";
+"home-title-accessibility-label" = "Wikipedia, gulung menyang ndhuwur Langkawi";
 "home-button-accessibility-label" = "Latar";
+"home-button-explore-accessibility-label" = "Wikipedia, bali menyang Langkawi";
+"home-button-saved-accessibility-label" = "Wikipedia, bali menyang Kasimpen";
+"home-button-history-accessibility-label" = "Wikipedia, bali menyang Sajarah";
 "potd-empty-error-description" = "Gagal kanggo nompo Gambar dina kanggo $1";
 "potd-description-prefix" = "Gambar saka dina kanggo $1";
 "welcome-explore-title" = "Njelajah";
@@ -376,6 +379,8 @@
 "welcome-volunteer-send-usage-reports" = "Ngirim laporan panggunan";
 "welcome-volunteer-continue-button" = "Banjuraké";
 "welcome-volunteer-thanks" = "Matur nuwun! $1";
+"welcome-send-data-title" = "Kirimi data anonim";
+"welcome-send-data-sub-title" = "Bantuan Wikimedia nggawe aplikasi sing luwih apik ngeculke kita ngerti carane nganggo aplikasi. Data dikumpulake iku anonim";
 "empty-no-feed-title" = "Ora ana sambungan internet";
 "empty-no-feed-message" = "Sampeyan bisa ndeleng artikel dianjurake nalika duwe internet";
 "empty-no-feed-action-message" = "Sampeyan isih bisa maca kaca disimpen";
@@ -421,10 +426,11 @@
 "top-read-see-more-trending" = "Lihat sedang tren lainnya";
 "top-read-header-with-language" = "Wikipedia $1";
 "top-read-header-generic" = "Wikipédia";
+"readers-accessibility-label" = "$1 maca";
+"rank-accessibility-label" = "Nomer $1";
 "reference-title" = "Rujukan $1";
 "in-the-news-notification-read-now-action-title" = "Maca Saiki";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Nuduhake";
+"in-the-news-notification-share-action-title" = "Nuduhake...";
 "in-the-news-notification-save-for-later-action-title" = "Simpen kanggo mengko";
 "in-the-news-currently-trending" = "Saiki tren";
 "in-the-news-title" = "Lagi dadi warta";
@@ -437,3 +443,5 @@
 "back" = "Balik";
 "save-action" = "Simpen";
 "unsave-action" = "Durung kasimpen";
+"status-saving-for-later" = "Nyimpen kanggo mengko...";
+"status-saved-for-later" = "Disimpen kanggo mengko";

@@ -112,6 +112,7 @@
 "settings-notifications-system-off" = "Notifikatioune sinn elo fir Wikipedia ausgeschalt. Gitt an d'Astellunge vun Ärem Apparat fir d'Notifikatiounen anzeschalten";
 "settings-notifications-system-turn-on" = "Notifikatiounen aschalten";
 "settings-notifications-learn-more" = "Méi iwwer d'Notifikatioune gewuer ginn";
+"settings-notifications-trending" = "Aktuell Evenementer";
 "settings-notifications-push-notifications" = "Push-Notifikatiounen";
 "main-menu-title" = "Méi";
 "main-menu-heading-about" = "Iwwer";
@@ -216,8 +217,7 @@
 "share-menu-save-page" = "Artikel späicheren";
 "share-menu-page-saved" = "Säit gespäichert";
 "share-menu-page-saved-access" = "Tipp: fir op Är gespäichert Säiten ze goen, tippt $1 hei driwwer oder dréckt laang op $2 hei drënner.";
-// Fuzzy
-"share-custom-menu-item" = "Deelen";
+"share-custom-menu-item" = "Deelen...";
 "share-a-fact-share-menu-item" = "E-Fait-deelen";
 "share-on-twitter-sign-off" = "iwwer @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
@@ -345,11 +345,15 @@
 "home-hide-suggestion-cancel" = "Ofbriechen";
 "home-accessibility-label" = "Wikipedia, Entdecken";
 "home-button-accessibility-label" = "Haaptsäit";
+"home-button-explore-accessibility-label" = "Wikipedia, zréck bei d'Entdecken";
+"home-button-saved-accessibility-label" = "Wikipedia, zréck op Gespäichert";
+"home-button-history-accessibility-label" = "Wikipedia, zréck op d'Versiounen";
 "potd-empty-error-description" = "Bild vum Dag vum $1 konnt net erofgeluede ginn";
 "potd-description-prefix" = "Bild vum Dag vum $1";
 "welcome-explore-title" = "Entdecken";
 "welcome-explore-sub-title" = "En nei Manéier fir all Dag interessant Artikelen z'entdecken";
 "welcome-explore-new-ways-title" = "Nei Manéiere fir z'entdecken";
+"welcome-explore-new-ways-sub-title" = "Nei Notifikatiounen a Widgets déi Iech hëllefe fir interessant Artikelen ze fannen";
 "welcome-explore-tell-me-more" = "Ech wëll méi wëssen";
 "welcome-explore-tell-me-more-about-explore" = "Méi iwwert d'Entdecken";
 "welcome-explore-tell-me-more-related" = "De Feed Entdecken weist Iech Artikelen a Relatioun mat Artikelen déi Dir geliest hutt.";
@@ -368,6 +372,8 @@
 "welcome-volunteer-send-usage-reports" = "Rapporten iwwer d'Benotze schécken";
 "welcome-volunteer-continue-button" = "Virufueren";
 "welcome-volunteer-thanks" = "$1 Merci!";
+"welcome-send-data-title" = "Anonym Donnéeë schécken";
+"welcome-send-data-sub-title" = "Hëlleft Wikimedia d'App besser ze maachen andeem Dir eis wësse loosst wéi Dir d'App benotzt. Déi gesammelt Date sinn anonym.";
 "empty-no-feed-title" = "Keng Internetverbindung";
 "empty-no-feed-message" = "Dir kënnt Är recommandéiert Artikele gesi wann Dir Internet hutt.";
 "empty-no-feed-action-message" = "Dir kënnt trotzdem gespäichert Säite liesen";
@@ -413,10 +419,11 @@
 "top-read-see-more-trending" = "Méi Tendenze gesinn";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
+"readers-accessibility-label" = "$1 Lieser";
+"rank-accessibility-label" = "Nummer $1";
 "reference-title" = "Referenz: $1";
 "in-the-news-notification-read-now-action-title" = "Elo Liesen";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Deelen";
+"in-the-news-notification-share-action-title" = "Deelen...";
 "in-the-news-notification-save-for-later-action-title" = "Fir spéider späicheren";
 "in-the-news-currently-trending" = "Aktuell beléift";
 "in-the-news-title" = "An den Neiegkeeten";
@@ -429,3 +436,5 @@
 "back" = "Zréck";
 "save-action" = "Späicheren";
 "unsave-action" = "Net späicheren";
+"status-saving-for-later" = "Fir spéider späicheren...";
+"status-saved-for-later" = "Fir spéider gespäichert";

@@ -3,6 +3,7 @@
 // Author: Anders Feder
 // Author: Christian List
 // Author: Gorbi
+// Author: Jhertel
 // Author: Mads Haupt
 // Author: Mortenelling
 // Author: Sarrus
@@ -114,7 +115,7 @@
 "settings-help-and-feedback" = "Hjælp og tilbagemelding";
 "settings-primary-language" = "Primær";
 "settings-primary-language-details" = "Det første sprog i denne liste bruges som appens primære sprog. Ændres sprog ændres dagligt indhold (såsom Fremhævet artikel) som vises i Udforsk.";
-"settings-notifications-system-off" = "Notifikationer er i øjeblikket slået fra for Wikipedia. Gå til enheds Indstillinger for at slå notifikationer til.";
+"settings-notifications-system-off" = "Notifikationer er i øjeblikket slået fra for Wikipedia. Gå til Indstillinger for din enhed for at slå notifikationer til.";
 "settings-notifications-system-turn-on" = "Slå notifikationer til";
 "settings-notifications-info" = "Få meldinger om populære artikler på Wikipedia med vores push-notifikationer. Alle leveret med respekt for privatliv og sidste nye data.";
 "settings-notifications-learn-more" = "Lær mere om notifikationer";
@@ -167,7 +168,7 @@
 "saved-pages-description" = "Gemte sider er ret seje. Tænk på dem som bogmærker, som du kan læse, selv når du er offline.";
 "saved-pages-none" = "Du har ingen gemte sider.";
 "saved-pages-image-download-error" = "Hentning af billeder mislykkedes for denne gemte side.";
-"history-title" = "Historie";
+"history-title" = "Historik";
 "page-history-title" = "Artikelhistorik";
 "page-history-downloading" = "Indlæser artikelhistorik...";
 "navbar-title-mode-edit-wikitext" = "Redigerer";
@@ -225,8 +226,7 @@
 "share-menu-save-page" = "Gem side";
 "share-menu-page-saved" = "Gemt til læsning offline.";
 "share-menu-page-saved-access" = "Tip: for at få adgang til dine gemte sider, tryk på $1 ovenfor eller tryk længe på $2 nedenfor.";
-// Fuzzy
-"share-custom-menu-item" = "Del";
+"share-custom-menu-item" = "Del...";
 "share-a-fact-share-menu-item" = "Del-et-fact";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-article-name-on-wikipedia" = "«$1» på @Wikipedia:";
@@ -355,7 +355,11 @@
 "home-hide-suggestion-prompt" = "Skjul dette forslag";
 "home-hide-suggestion-cancel" = "Annuller";
 "home-accessibility-label" = "Wikipedia, Opdag";
+"home-title-accessibility-label" = "Wikipedia, rul til begyndelsen af Udforsk";
 "home-button-accessibility-label" = "Hjem";
+"home-button-explore-accessibility-label" = "Wikipedia, vend tilbage til Udforsk";
+"home-button-saved-accessibility-label" = "Wikipedia, vend tilbage til Gemt";
+"home-button-history-accessibility-label" = "Wikipedia, vend tilbage til Historik";
 "potd-empty-error-description" = "Kunne ikke hente billede af den dag, for $1";
 "potd-description-prefix" = "Dagens billede for $1";
 "welcome-explore-title" = "Udforsk";
@@ -381,6 +385,8 @@
 "welcome-volunteer-send-usage-reports" = "Send anvendelsesrapporter";
 "welcome-volunteer-continue-button" = "Fortsæt";
 "welcome-volunteer-thanks" = "$1 Tak!";
+"welcome-send-data-title" = "Send anonyme data";
+"welcome-send-data-sub-title" = "Hjælp Wikipedia med at gøre appen bedre ved at oplyse os om hvordan du bruger den. Data indsamles anonymt.";
 "empty-no-feed-title" = "Ingen internetforbindelse";
 "empty-no-feed-message" = "Du kan se dine anbefalede artikler når du har internetforbindelse";
 "empty-no-feed-action-message" = "Du kan stadig læse gemte sider";
@@ -416,7 +422,7 @@
 "no-email-account-alert" = "Opsæt venligst en e-mail-konto på din enhed og forsøg igen.";
 "request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
 "explore-another-random" = "En anden tilfældig artikel";
-"explore-randomizer" = "Tilfældighedsgenerator";
+"explore-randomizer" = "Tilfældig artikel";
 "find-in-page-no-matches" = "0 træf";
 "find-in-page-button-label" = "Søg på siden";
 "find-in-page-popover-description" = "Søg efter tekst i artikler";
@@ -426,10 +432,11 @@
 "top-read-see-more-trending" = "Se flere populære";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
+"readers-accessibility-label" = "$1 læsere";
+"rank-accessibility-label" = "Nummer $1";
 "reference-title" = "Reference $1";
 "in-the-news-notification-read-now-action-title" = "Læs nu";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Del";
+"in-the-news-notification-share-action-title" = "Del...";
 "in-the-news-notification-save-for-later-action-title" = "Gem til senere";
 "in-the-news-currently-trending" = "Populært nu";
 "in-the-news-title" = "I nyhederne";

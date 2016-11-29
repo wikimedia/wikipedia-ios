@@ -17,6 +17,7 @@
 // Author: Oashnic
 // Author: Okras
 // Author: WindEwriX
+// Author: Zpizza
 // Author: Александр Сигачёв
 
 "languages-title" = "Изменить язык";
@@ -237,8 +238,7 @@
 "share-menu-save-page" = "Сохранить статью";
 "share-menu-page-saved" = "Статья сохранена";
 "share-menu-page-saved-access" = "Совет: чтобы получить доступ к вашим сохраненным страницам, нажмите на $1 выше или зажмите $2 ниже.";
-// Fuzzy
-"share-custom-menu-item" = "Поделиться";
+"share-custom-menu-item" = "Поделиться...";
 "share-a-fact-share-menu-item" = "Поделитесь-фактом";
 "share-on-twitter-sign-off" = "через @Wikipedia";
 "share-article-name-on-wikipedia" = "«$1» в @Wikipedia:";
@@ -367,7 +367,11 @@
 "home-hide-suggestion-prompt" = "Скрыть это предложение";
 "home-hide-suggestion-cancel" = "Отмена";
 "home-accessibility-label" = "Википедия, Исследуйте";
+"home-title-accessibility-label" = "Википедия, промотать к верхней части раздела Исследуйте";
 "home-button-accessibility-label" = "Главная";
+"home-button-explore-accessibility-label" = "Википедия, вернуться к разделу Исследуйте";
+"home-button-saved-accessibility-label" = "Википедии, вернуться к Сохраненным";
+"home-button-history-accessibility-label" = "Википедия, вернуться к Истории";
 "potd-empty-error-description" = "Не удалось получить изображение дня за $1";
 "potd-description-prefix" = "Изображение дня за $1";
 "welcome-explore-title" = "Исследуйте";
@@ -393,6 +397,8 @@
 "welcome-volunteer-send-usage-reports" = "Отправлять отчёты об использовании";
 "welcome-volunteer-continue-button" = "Продолжить";
 "welcome-volunteer-thanks" = "$1 Спасибо!";
+"welcome-send-data-title" = "Отправить анонимные данные";
+"welcome-send-data-sub-title" = "Помогите Викимедиа сделать приложение лучше, позволив нам знать, как вы используете приложение. Собранные данные являются анонимными.";
 "empty-no-feed-title" = "Нет подключения к интернету";
 "empty-no-feed-message" = "Вы можете увидеть рекомендованные статьи, когда у вас есть доступ в интернет";
 "empty-no-feed-action-message" = "Пока вы можете почитать ранее сохранённые страницы";
@@ -438,10 +444,11 @@
 "top-read-see-more-trending" = "Посмотреть, что ещё в тренде";
 "top-read-header-with-language" = "$1 Википедия";
 "top-read-header-generic" = "Википедия";
+"readers-accessibility-label" = "$1 читателей";
+"rank-accessibility-label" = "Количество $1";
 "reference-title" = "Примечание $1";
 "in-the-news-notification-read-now-action-title" = "Прочитать сейчас";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Поделиться";
+"in-the-news-notification-share-action-title" = "Поделиться...";
 "in-the-news-notification-save-for-later-action-title" = "Сохранить на потом";
 "in-the-news-currently-trending" = "В настоящее время популярные";
 "in-the-news-title" = "В новостях";
@@ -454,3 +461,5 @@
 "back" = "Назад";
 "save-action" = "Сохранить";
 "unsave-action" = "Не сохранено";
+"status-saving-for-later" = "Экономия на потом...";
+"status-saved-for-later" = "Сохранено на потом";

@@ -138,7 +138,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
     NSError *copyError = nil;
     if (![fm copyItemAtPath:[YapDatabase wmf_appSpecificDatabasePath] toPath:[YapDatabase wmf_databasePath] error:&copyError]) {
-        if (copyError.code != NSFileNoSuchFileError) {
+        if (copyError.code != NSFileNoSuchFileError && copyError.code != NSFileReadNoSuchFileError) {
             if (error) {
                 *error = copyError;
             }
@@ -148,7 +148,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
     NSError *moveError = nil;
     if (![fm moveItemAtPath:[MWKDataStore appSpecificMainDataStorePath] toPath:[MWKDataStore mainDataStorePath] error:&moveError]) {
-        if (moveError.code != NSFileNoSuchFileError) {
+        if (moveError.code != NSFileNoSuchFileError && moveError.code != NSFileReadNoSuchFileError) {
             if (error) {
                 *error = moveError;
             }

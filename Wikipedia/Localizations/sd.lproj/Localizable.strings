@@ -212,8 +212,7 @@
 "share-menu-save-page" = "صفحو سانڍيو";
 "share-menu-page-saved" = "آف لائين پڙهائي لاءِ سانڍيل.";
 "share-menu-page-saved-access" = "ٽوٽڪو: پنهنجن سانڍيل صفحن تائين رسائي حاصل ڪرڻ لاءِ،  $1 تي مٿي ٽيپ ڪريو يا هيٺ $2 تي ڊگهو زور ڏيو.";
-// Fuzzy
-"share-custom-menu-item" = "ونڊيو";
+"share-custom-menu-item" = "ونڊيو...";
 "share-a-fact-share-menu-item" = "ھڪ-حقيقت-ونڊيو";
 "share-on-twitter-sign-off" = "وايہ @وڪيپيڊيا";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia تي:";
@@ -341,6 +340,9 @@
 "home-hide-suggestion-cancel" = "رد";
 "home-accessibility-label" = "وڪيپيڊيا، کوجيو";
 "home-button-accessibility-label" = "گھر";
+"home-button-explore-accessibility-label" = "وڪيپيڊيا، ايڪسپلور ڏانھن ورو";
+"home-button-saved-accessibility-label" = "وڪيپيڊيا، سانڍيل ڏانھن ورو";
+"home-button-history-accessibility-label" = "وڪيپيڊيا، سوانح ڏانھن ورو";
 "potd-empty-error-description" = "$1 لاءِ اڄ جي تصوير حاصل ڪرڻ ۾ ناڪام";
 "potd-description-prefix" = "$1 لاءِ اڄ جي تصوير";
 "welcome-explore-title" = "ايڪسپلور";
@@ -366,6 +368,7 @@
 "welcome-volunteer-send-usage-reports" = "استعمال ڪرڻ جون رپورٽون موڪليو";
 "welcome-volunteer-continue-button" = "جاري رکو";
 "welcome-volunteer-thanks" = "$1 توھان جي مھرباني!";
+"welcome-send-data-title" = "اڻڄاتل ڊيٽا موڪليو";
 "empty-no-feed-title" = "باهمڄار ڳانڍاپو نه آھي";
 "empty-no-feed-message" = "جڏهن توهان کي انٽرنيٽ ڳانڍاپو آهي تہ توهان پنهنجا سفارش ڪيل مضمون ڏسي سگهو ٿا";
 "empty-no-feed-action-message" = "توھان اڃان بہ سانڍيل صفحا پڙھي سگھو ٿا";
@@ -411,10 +414,11 @@
 "top-read-see-more-trending" = "وڌيڪ رجھان رکندڙ ڏسو";
 "top-read-header-with-language" = "$1 وڪيپيڊيا";
 "top-read-header-generic" = "وڪيپيڊيا";
+"readers-accessibility-label" = "$1 پڙھندڙ";
+"rank-accessibility-label" = "انگ $1";
 "reference-title" = "حوالو $1";
 "in-the-news-notification-read-now-action-title" = "ھاڻي پڙھو";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "ونڊيو";
+"in-the-news-notification-share-action-title" = "ونڊيو...";
 "in-the-news-notification-save-for-later-action-title" = "بعد لاءِ سانڍيو";
 "in-the-news-currently-trending" = "ھاڻوڪا رجحان";
 "in-the-news-title" = "خبرن ۾";

@@ -6,6 +6,7 @@
 // Author: LaG roiL
 // Author: Macofe
 // Author: Matanya
+// Author: Or
 // Author: איתן96
 
 "languages-title" = "שינוי שפה";
@@ -226,8 +227,7 @@
 "share-menu-save-page" = "שמירת דף";
 "share-menu-page-saved" = "הדף נשמר";
 "share-menu-page-saved-access" = "עצה: כדי לגשת לדפים השמורים שלך, יש ללחוץ על $1 למעלה או לעשות לחיצה ארוכה על $2 למטה.";
-// Fuzzy
-"share-custom-menu-item" = "שיתוף";
+"share-custom-menu-item" = "שיתוף...";
 "share-a-fact-share-menu-item" = "שיתוף עובדה";
 "share-on-twitter-sign-off" = "דרך @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" באתר @wikipedia:";
@@ -356,7 +356,11 @@
 "home-hide-suggestion-prompt" = "הסתרת ההצעה הזאת";
 "home-hide-suggestion-cancel" = "ביטול";
 "home-accessibility-label" = "ויקיפדיה, לחקור";
+"home-title-accessibility-label" = "ויקיפדיה, גלילה עד למעלה ב\"לחקור\"";
 "home-button-accessibility-label" = "בית";
+"home-button-explore-accessibility-label" = "ויקיפדיה, חזרה ל\"לחקור\"";
+"home-button-saved-accessibility-label" = "ויקיפדיה, חזרה ל\"נשמר\"";
+"home-button-history-accessibility-label" = "ויקיפדיה, חזרה ל\"היסטוריה\"";
 "potd-empty-error-description" = "לא הצלחתי לאחזר את תמונת היום של $1";
 "potd-description-prefix" = "תמונת היום של $1";
 "welcome-explore-title" = "לחקור";
@@ -382,6 +386,8 @@
 "welcome-volunteer-send-usage-reports" = "לשלוח דיווחי שימוש";
 "welcome-volunteer-continue-button" = "המשך";
 "welcome-volunteer-thanks" = "$1 תודה!";
+"welcome-send-data-title" = "שליחת נתונים ללא פרטים מזהים";
+"welcome-send-data-sub-title" = "עזרו לוויקימדיה לשפר את האפליקציה על־ידי זה שתספרו לנו איך אתם משתמשים בה. המידע שנאסף אינו מכיל פרטים מזהים.";
 "empty-no-feed-title" = "אין חיבור אינטרנט";
 "empty-no-feed-message" = "אפשר לראות הצעות לערכים כשיהיה לך אינטרנט";
 "empty-no-feed-action-message" = "עדיין אפשר לקרוא דפים שמורים";
@@ -427,10 +433,11 @@
 "top-read-see-more-trending" = "לראות עוד נושאים חמים";
 "top-read-header-with-language" = "ויקיפדיה בשפה $1";
 "top-read-header-generic" = "ויקיפדיה";
+"readers-accessibility-label" = "$1 קוראים";
+"rank-accessibility-label" = "מספר $1";
 "reference-title" = "הערה $1";
 "in-the-news-notification-read-now-action-title" = "לקרוא עכשיו";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "לשתף";
+"in-the-news-notification-share-action-title" = "לשתף...";
 "in-the-news-notification-save-for-later-action-title" = "לשמור לאחר־כך";
 "in-the-news-currently-trending" = "מבוקש עכשיו";
 "in-the-news-title" = "בחדשות";
@@ -443,3 +450,5 @@
 "back" = "חזרה";
 "save-action" = "שמירה";
 "unsave-action" = "ביטול שמירה";
+"status-saving-for-later" = "שמירה לאחר־כך...";
+"status-saved-for-later" = "נשמר לאחר־כך";

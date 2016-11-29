@@ -232,8 +232,7 @@
 "share-menu-save-page" = "Spara artikeln";
 "share-menu-page-saved" = "Sparades för läsning offline.";
 "share-menu-page-saved-access" = "Tips: för att komma åt dina sparade sidor, klicka på $1 ovan eller tryck länge på $2 nedan.";
-// Fuzzy
-"share-custom-menu-item" = "Dela";
+"share-custom-menu-item" = "Dela...";
 "share-a-fact-share-menu-item" = "Dela-ett-faktum";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" på @Wikipedia:";
@@ -362,7 +361,11 @@
 "home-hide-suggestion-prompt" = "Dölj detta förslag";
 "home-hide-suggestion-cancel" = "Avbryt";
 "home-accessibility-label" = "Wikipedia, Utforska";
+"home-title-accessibility-label" = "Wikipedia, rulla upp till Utforska";
 "home-button-accessibility-label" = "Hem";
+"home-button-explore-accessibility-label" = "Wikipedia, tillbaka till Utforska";
+"home-button-saved-accessibility-label" = "Wikipedia, tillbaka till Sparade";
+"home-button-history-accessibility-label" = "Wikipedia, tillbaka till Historik";
 "potd-empty-error-description" = "Kunde inte hämta dagens bild för $1";
 "potd-description-prefix" = "Dagens bild för $1";
 "welcome-explore-title" = "Utforska";
@@ -388,6 +391,8 @@
 "welcome-volunteer-send-usage-reports" = "Skicka användningsrapporter";
 "welcome-volunteer-continue-button" = "Fortsätt";
 "welcome-volunteer-thanks" = "$1 Tack!";
+"welcome-send-data-title" = "Skicka anonym data";
+"welcome-send-data-sub-title" = "Hjälp Wikimedia göra appen bättre genom att låta oss veta hur du använder appen. All data som samlas in är anonym.";
 "empty-no-feed-title" = "Ingen internetanslutning";
 "empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har internetåtkomst";
 "empty-no-feed-action-message" = "Du kan fortfarande läsa sparade sidor";
@@ -433,10 +438,11 @@
 "top-read-see-more-trending" = "Se fler populära ämnen";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
+"readers-accessibility-label" = "$1 läsare";
+"rank-accessibility-label" = "Nummer $1";
 "reference-title" = "Referens $1";
 "in-the-news-notification-read-now-action-title" = "Läs nu";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Dela";
+"in-the-news-notification-share-action-title" = "Dela...";
 "in-the-news-notification-save-for-later-action-title" = "Spara till senare";
 "in-the-news-currently-trending" = "Populärt just nu";
 "in-the-news-title" = "På nyheterna";
@@ -449,3 +455,5 @@
 "back" = "Tillbaka";
 "save-action" = "Spara";
 "unsave-action" = "Spara inte";
+"status-saving-for-later" = "Spara till senare...";
+"status-saved-for-later" = "Sparades till senare";

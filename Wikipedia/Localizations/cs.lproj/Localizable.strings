@@ -9,6 +9,7 @@
 // Author: H4nek
 // Author: Juandev
 // Author: Marek Pavlica
+// Author: Matěj Suchánek
 // Author: Mirek2
 // Author: Mormegil
 // Author: Niedzielski
@@ -91,6 +92,7 @@
 "wikitext-upload-save-sign-in-benefits" = "Takto se s vámi mohou spojit spolueditoři a podívat se, které články editujete.";
 "wikitext-upload-save-anonymously" = "Publikovat anonymně";
 "wikitext-upload-save-anonymously-warning" = "Jako autor editace bude uvedena IP adresa vašeho zařízení. Pokud kliknete na $1, budete mít více soukromí.";
+"wikitext-upload-save-terms-and-license" = "Zveřejněním souhlasíte s $1 a neodvolatelným uvolněním svých příspěvky pod licencí $2.";
 "wikitext-upload-save-terms-name" = "Podmínky užití";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Otevřít odkaz";
@@ -116,9 +118,16 @@
 "settings-title" = "Nastavení";
 "settings-language" = "Jazyk Wikipedie";
 "settings-support" = "Podpořte Wikipedii";
+"settings-language-bar" = "Ukazovat jazyky při vyhledávání";
 "settings-my-languages" = "Moje jazyky";
+"settings-notifications" = "Upozornění";
 "settings-help-and-feedback" = "Pomoc a zpětná vazba";
 "settings-primary-language" = "Hlavní";
+"settings-primary-language-details" = "První jazyk v seznamu bude použit jako primární jazyk pro aplikaci. Změna tohoto jazyku změní denní obsah (jako Doporučený Článek), znázorněných na \"Prozkoumat\".";
+"settings-notifications-system-off" = "Oznámení jsou v současné době pro Wikipedii vypnutí. Přejděte do Nastavení vašeho zařízení a zapněte si je";
+"settings-notifications-system-turn-on" = "Zapnout upozornění";
+"settings-notifications-learn-more" = "Další informace o upozorněních";
+"settings-notifications-push-notifications" = "Push oznámení";
 "main-menu-title" = "Více";
 "main-menu-heading-about" = "O aplikaci";
 "main-menu-language-title" = "Vyhledávat v $1 Wikipedii";
@@ -161,6 +170,7 @@
 "saved-pages-clear-cancel" = "Zrušit";
 "saved-pages-clear-delete-all" = "Smazat vše";
 "saved-pages-refresh-cancel-alert-title" = "Aktualizace zrušena";
+"saved-pages-refresh-cancel-alert-message" = "Články z wikipedie jsou aktualizovány každou chvíli. Klepněte na tlačítko aktualizovat  a získejte nejnovější verze všech článků.";
 "saved-pages-refresh-cancel-alert-button" = "Jasně";
 "saved-pages-none" = "Zatím žádné uložené stránky.";
 "history-title" = "Historie";

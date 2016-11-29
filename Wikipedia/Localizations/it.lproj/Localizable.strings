@@ -42,8 +42,8 @@
 "history-label" = "Recenti";
 "history-section-today" = "Oggi";
 "history-section-yesterday" = "Ieri";
-"history-section-lastweek" = "Ultima settimana";
-"history-section-lastmonth" = "Ultimo mese";
+"history-section-lastweek" = "Settimana scorsa";
+"history-section-lastmonth" = "Mese scorso";
 "history-clear-confirmation-heading" = "Sei sicuro di voler cancellare tutti i tuoi elementi recenti?";
 "history-clear-confirmation-sub-heading" = "Questa azione non può essere annullata!";
 "history-clear-cancel" = "Annulla";
@@ -236,8 +236,7 @@
 "share-menu-save-page" = "Salva la pagina";
 "share-menu-page-saved" = "Salvata per la lettura offline.";
 "share-menu-page-saved-access" = "Suggerimento: per accedere alle pagine salvate, tocca $1 sopra o premi a lungo $2 sotto.";
-// Fuzzy
-"share-custom-menu-item" = "Condividi";
+"share-custom-menu-item" = "Condividi...";
 "share-a-fact-share-menu-item" = "Condividi-un-fatto";
 "share-on-twitter-sign-off" = "tramite @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" su @Wikipedia";
@@ -367,6 +366,8 @@
 "home-hide-suggestion-cancel" = "Annulla";
 "home-accessibility-label" = "Wikipedia, esplora";
 "home-button-accessibility-label" = "Pagina principale";
+"home-button-saved-accessibility-label" = "Wikipedia, ritorna alle pagine salvate";
+"home-button-history-accessibility-label" = "Wikipedia, ritorna alla cronologia";
 "potd-empty-error-description" = "Impossibile recuperare l'immagine del giorno del $1";
 "potd-description-prefix" = "Immagine del giorno per $1";
 "welcome-explore-title" = "Esplora";
@@ -388,6 +389,7 @@
 "welcome-volunteer-send-usage-reports" = "Invia rapporti sull'utilizzo";
 "welcome-volunteer-continue-button" = "Continua";
 "welcome-volunteer-thanks" = "$1 Grazie!";
+"welcome-send-data-sub-title" = "Aiuto Wikimedia a rendere migliore l'applicazione, facendoci sapere come la utilizzi. I dati raccolti sono anonimi";
 "empty-no-feed-title" = "Nessuna connessione internet";
 "empty-no-feed-message" = "Puoi vedere le tue voci consigliate quando si dispone di internet";
 "empty-no-feed-action-message" = "Puoi ancora leggere le pagine salvate";
@@ -433,10 +435,11 @@
 "top-read-see-more-trending" = "Vedi i più di tendenza";
 "top-read-header-with-language" = "Wikipedia in $1";
 "top-read-header-generic" = "Wikipedia";
+"readers-accessibility-label" = "$1 lettori";
+"rank-accessibility-label" = "Numero $1";
 "reference-title" = "Riferimento $1";
 "in-the-news-notification-read-now-action-title" = "Leggi ora";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Condividi";
+"in-the-news-notification-share-action-title" = "Condividi...";
 "in-the-news-notification-save-for-later-action-title" = "Salva per dopo";
 "in-the-news-currently-trending" = "Attualmente popolare";
 "in-the-news-title" = "Novità";
@@ -448,3 +451,5 @@
 "back" = "Indietro";
 "save-action" = "Salva";
 "unsave-action" = "Non salvare";
+"status-saving-for-later" = "Salvataggio per dopo...";
+"status-saved-for-later" = "Salvato per dopo";

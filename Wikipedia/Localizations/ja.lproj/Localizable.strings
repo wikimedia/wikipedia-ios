@@ -11,10 +11,12 @@
 // Author: Ridmevo
 // Author: Shirayuki
 // Author: SkyDaisy9
+// Author: Suchichi02
 // Author: Sujiniku
 // Author: Surgical21
 // Author: Takot
 // Author: Thibaut120094
+// Author: WwLMvmT
 // Author: 아라
 
 "languages-title" = "言語を変更";
@@ -87,15 +89,12 @@
 "wikitext-upload-result-unknown" = "ウィキテキストのアップロード結果が不明です。";
 "wikitext-upload-captcha-error" = "CAPTCHA認証エラーです。";
 "wikitext-upload-captcha-needed" = "CAPTCHA認証が必要です。";
-// Fuzzy
-"wikitext-upload-save" = "保存中...";
+"wikitext-upload-save" = "公開中...";
 "wikitext-upload-save-sign-in" = "ログイン";
 "wikitext-upload-save-sign-in-benefits" = "他の編集者があなたに連絡をとれたり、自分が編集した記事を確認できたりします。";
-// Fuzzy
-"wikitext-upload-save-anonymously" = "匿名で保存";
+"wikitext-upload-save-anonymously" = "匿名で公開";
 "wikitext-upload-save-anonymously-warning" = "編集はあなたの機器のIPアドレスに関連付けられます。$1すれば、よりプライバシーが高まります。";
-// Fuzzy
-"wikitext-upload-save-terms-and-license" = "変更内容を保存すると、あなたは $1 に同意し、自分の投稿内容を $2 ライセンスのもとで公開することに同意したと見なされます。";
+"wikitext-upload-save-terms-and-license" = "変更内容を公開することで、あなたは $1 に同意し、自分の投稿内容を $2 ライセンスのもとで公開することに同意したと見なされます。";
 "wikitext-upload-save-terms-name" = "利用規約";
 "wikitext-upload-save-license-name" = "クリエイティブ・コモンズ 表示-継承 3.0";
 "open-link-title" = "リンクを開く";
@@ -123,9 +122,11 @@
 "settings-support" = "ウィキペディアを支援する";
 "settings-language-bar" = "検索結果に表示する言語";
 "settings-my-languages" = "お使いになる言語";
+"settings-notifications" = "通知";
 "settings-help-and-feedback" = "ヘルプとフィードバック";
 "settings-primary-language" = "メインの言語";
 "settings-primary-language-details" = "このリストの先頭の言語が、このアプリのメインの言語として使用されます。言語を変更すると、「探してみよう」フィードに表示される日替わりコンテンツ(例えば、秀逸な記事など)も変更されます。";
+"settings-notifications-system-off" = "システムの設定により、通知機能は現在無効化されていません。有効化するには、システムの設定を変更してください。";
 "main-menu-title" = "その他";
 "main-menu-heading-about" = "このアプリについて";
 "main-menu-language-title" = "$1版ウィキペディア内を検索";
@@ -178,18 +179,15 @@
 "page-history-downloading" = "記事の履歴を読み込み中...";
 "navbar-title-mode-edit-wikitext" = "編集";
 "navbar-title-mode-login" = "ログイン";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "ログインして保存";
+"navbar-title-mode-login-and-save" = "ログインして公開";
 "navbar-title-mode-create-account" = "アカウント作成";
-// Fuzzy
-"navbar-title-mode-create-account-and-save" = "アカウントを作成して保存";
+"navbar-title-mode-create-account-and-save" = "アカウントを作成して公開";
 "navbar-title-mode-edit-wikitext-warning" = "編集の問題点";
 "navbar-title-mode-edit-wikitext-disallow" = "編集の問題点";
 "navbar-title-mode-edit-wikitext-preview" = "プレビュー";
 "navbar-title-mode-edit-wikitext-captcha" = "簡易確認が必要";
 "navbar-title-mode-edit-wikitext-summary" = "あなたの編集について説明してください";
-// Fuzzy
-"navbar-title-mode-edit-wikitext-save" = "保存";
+"navbar-title-mode-edit-wikitext-save" = "公開";
 "edit-summary-choice-linked-words" = "リンクを追加";
 "edit-summary-choice-fixed-grammar" = "文法を修正";
 "edit-summary-choice-fixed-inaccuracy" = "不正確な点を修正";
@@ -234,8 +232,7 @@
 "share-menu-save-page" = "ページを保存";
 "share-menu-page-saved" = "記事を保存しました";
 "share-menu-page-saved-access" = "ヒント: 保存したページにアクセスするには、上部の$1をタップするか、下部の$2を長押しします。";
-// Fuzzy
-"share-custom-menu-item" = "共有";
+"share-custom-menu-item" = "共有...";
 "share-a-fact-share-menu-item" = "引用してシェア";
 "share-on-twitter-sign-off" = "@Wikipedia から";
 "share-article-name-on-wikipedia" = "「$1」の記事を @Wikipedia で読む";
@@ -255,9 +252,12 @@
 "button-next" = "次へ";
 "button-done" = "完了";
 "button-save" = "保存";
+"button-publish" = "投稿";
 "button-ok" = "OK";
 "button-save-for-later" = "保存してあとで読む";
 "button-saved-for-later" = "保存しました";
+"button-saved-remove" = "保存したページから除去";
+"button-read-now" = "今から読む";
 "button-report-a-bug" = "バグを報告";
 "onboarding-create-account" = "アカウントを作成";
 "onboarding-login" = "ログイン";
@@ -278,15 +278,13 @@
 "table-of-contents-button-label" = "目次";
 "table-of-contents-close-accessibility-label" = "目次を閉じる";
 "table-of-contents-close-accessibility-hint" = "閉じる";
-// Fuzzy
-"abuse-filter-warning-heading" = "これは建設的な編集ではないようです。それでも保存しますか？";
+"abuse-filter-warning-heading" = "これは建設的な編集ではないようです。それでも公開しますか？";
 "abuse-filter-warning-subheading" = "あなたの編集は以下に該当しているかもしれません。";
 "abuse-filter-warning-caps" = "すべて大文字での入力";
 "abuse-filter-warning-blanking" = "記事の白紙化やスパム行為";
 "abuse-filter-warning-irrelevant" = "不適切な外部リンクや画像";
 "abuse-filter-warning-repeat" = "文字の無意味な繰り返し";
-// Fuzzy
-"abuse-filter-disallow-heading" = "この編集は保存できません。戻って変更してください。";
+"abuse-filter-disallow-heading" = "この編集は公開できません。戻って修正してください。";
 "abuse-filter-disallow-unconstructive" = "自動フィルターがこの編集を非建設的あるいは荒らし行為の可能性があると判断しました。";
 "abuse-filter-disallow-notable" = "ウィキペディアは百科事典であり、中立的で特筆性のあるコンテンツのみを収録します。";
 "menu-edit-accessibility-label" = "編集";
@@ -362,8 +360,7 @@
 "home-hide-suggestion-prompt" = "提案を隠す";
 "home-hide-suggestion-cancel" = "中止";
 "home-accessibility-label" = "探してみよう";
-// Fuzzy
-"home-button-accessibility-label" = "ホームボタン";
+"home-button-accessibility-label" = "ホーム";
 "potd-empty-error-description" = "$1日の写真の取得に失敗しました";
 "potd-description-prefix" = "$1日の写真";
 "welcome-explore-title" = "探してみよう";
@@ -404,6 +401,7 @@
 "explore-featured-article-heading" = "秀逸な記事";
 "explore-continue-reading-heading" = "続けて読む";
 "explore-nearby-heading" = "近くのスポット";
+"explore-nearby-sub-heading-your-location" = "自分の位置";
 "explore-continue-related-heading" = "こんな記事も読まれています";
 "explore-main-page-heading" = "今日についての記事";
 "explore-random-article-heading" = "おまかせ記事";
@@ -418,8 +416,22 @@
 "no-email-account-alert" = "アカウントのメールアドレスを設定してから、もう一度お試しください。";
 "request-feedback-on-error" = "アプリが遭遇した問題について、開発者はもっと詳しく知りたいと考えています。こちらをタップして、エラーの詳細についてメールをご送信ください。";
 "explore-another-random" = "おまかせで別の記事";
+"explore-randomizer" = "おまかせ表示";
 "find-in-page-no-matches" = "該当するものはありません";
 "find-in-page-button-label" = "ページ内検索";
 "find-in-page-popover-description" = "記事内のテキストを検索します";
+"continue-reading-empty-title" = "最近読んだ記事はありません";
+"top-read-header-with-language" = "$1ウィキペディア";
+"top-read-header-generic" = "ウィキペディア";
+"readers-accessibility-label" = "$1人の読者";
+"reference-title" = "出典$1";
+"in-the-news-notification-share-action-title" = "共有...";
+"in-the-news-notification-save-for-later-action-title" = "保存してあとで読む";
+"number-thousands" = "$1千";
+"number-millions" = "$1百万";
+"number-billions" = "$1十億";
 "back" = "戻る";
 "save-action" = "保存";
+"unsave-action" = "保存しない";
+"status-saving-for-later" = "保存しています...";
+"status-saved-for-later" = "保存しました";

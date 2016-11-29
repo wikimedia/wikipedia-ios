@@ -66,6 +66,7 @@
 "search-recent-clear-cancel" = "Atcelt";
 "search-recent-clear-delete-all" = "Dzēst visu";
 "settings-title" = "Iestatījumi";
+"settings-support" = "Atbalsti Vikipēdiju";
 "settings-my-languages" = "Manas valodas";
 "settings-notifications" = "Paziņojumi";
 "settings-help-and-feedback" = "Palīdzība un atsauksmes";
@@ -217,3 +218,5 @@
 "in-the-news-notification-save-for-later-action-title" = "Saglabāt vēlākam laikam";
 "in-the-news-title" = "Ziņās";
 "back" = "Atpakaļ";
+"status-saving-for-later" = "Saglabā vēlākam laikam...";
+"status-saved-for-later" = "Saglabāts vēlākam laikam";

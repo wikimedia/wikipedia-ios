@@ -362,11 +362,11 @@
 "home-hide-suggestion-prompt" = "Title of button shown for users to confirm the hiding of a suggestion in the explore feed";
 "home-hide-suggestion-cancel" = "Title of the button for cancelling the hiding of an explore feed suggestion\n{{Identical|Cancel}}";
 "home-accessibility-label" = "Accessibility heading for the Explore page, indicating both that this is the Wikipedia app (as in the logo that is displayed visually) and that this is the Explore page.";
-"home-title-accessibility-label" = "Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page";
+"home-title-accessibility-label" = "Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.";
 "home-button-accessibility-label" = "Accessibility heading for a button on articles allowing users to jump back to the home screen\n{{Identical|Home}}";
-"home-button-explore-accessibility-label" = "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore";
-"home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles";
-"home-button-history-accessibility-label" = "Accessibility heading for articles shown within the history articles tab, indicating that tapping it will take you back to the history list";
+"home-button-explore-accessibility-label" = "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.";
+"home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.";
+"home-button-history-accessibility-label" = "Accessibility heading for articles shown within the history articles tab, indicating that tapping it will take you back to the history list. \"History\" is the same as {{msg-wikimedia|Wikipedia-ios-history-title}}.";
 "potd-empty-error-description" = "Error message when app fails to download Commons Picture of the Day. $1 will be substitued with the date which the app attempted to retrieve.";
 "potd-description-prefix" = "Prefix to picture of the day description which states it was the picture of the day for a specific date. The $1 token is subtituted for the date.";
 "welcome-explore-title" = "Title for welcome screen explaining new exploration features\n{{Identical|Explore}}";
@@ -439,8 +439,8 @@
 "top-read-see-more-trending" = "See more trending";
 "top-read-header-with-language" = "$1 Wikipedia - for example English Wikipedia\n{{Identical|Wikipedia}}";
 "top-read-header-generic" = "Wikipedia\n{{Identical|Wikipedia}}";
-"readers-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate number of readers for a given article - $1 is replaced with the number of readers";
-"rank-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate a ranking - Number 1, Number 2, etc. $1 is replaced with the ranking";
+"readers-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate number of readers for a given article - $1 is replaced with the number of readers\n{{Identical|Reader}}";
+"rank-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate a ranking - Number 1, Number 2, etc. $1 is replaced with the ranking\n{{Identical|Number}}";
 "reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}";
 "in-the-news-notification-read-now-action-title" = "Title on the 'Read Now' action button";
 "in-the-news-notification-share-action-title" = "Title on the 'Share' action button\n{{Identical|Share}}";
@@ -456,6 +456,6 @@
 "back" = "Generic 'Back' title for back button\n{{Identical|Back}}";
 "save-action" = "Accessibility action description for 'Save'\n{{Identical|Save}}";
 "unsave-action" = "Accessibility action description for 'Unsave'";
-
 "status-saving-for-later" = "Indicates to the user that the article is being saved for later";
 "status-saved-for-later" = "Indicates to the user that the article has been saved for later";
+"announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement";

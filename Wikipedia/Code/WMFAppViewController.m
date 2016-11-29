@@ -35,6 +35,7 @@
 #import "WMFContinueReadingContentSource.h"
 #import "WMFFeedContentSource.h"
 #import "WMFRandomContentSource.h"
+#import "WMFAnnouncementsContentSource.h"
 
 // Views
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -96,6 +97,10 @@ typedef NS_ENUM(NSUInteger, WMFAppTabType) {
 static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
+
+static NSTimeInterval WMFFeedRefreshForegroundTimeout = 7;
+
+static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
 
 @interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 
@@ -504,7 +509,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         }
     }];
 
-    [group waitInBackgroundWithCompletion:completion];
+    [group waitInBackgroundWithTimeout:WMFFeedRefreshForegroundTimeout completion:completion];
 }
 
 - (void)updateFeedSourcesWithCompletion:(dispatch_block_t)completion {
@@ -519,11 +524,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
     //TODO: nearby doesnt always fire.
     //May need to time it out or exclude
-    [group waitInBackgroundWithCompletion:^{
-        if (completion) {
-            completion();
-        }
-    }];
+    [group waitInBackgroundWithTimeout:WMFFeedRefreshForegroundTimeout
+                            completion:^{
+                                if (completion) {
+                                    completion();
+                                }
+                            }];
 }
 
 - (void)startContentSources {
@@ -542,18 +548,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     }];
 }
 
-- (void)updateContentSourcesWithCompletion:(dispatch_block_t)completion {
-    WMFTaskGroup *group = [WMFTaskGroup new];
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        [group enter];
-        [obj loadNewContentForce:NO
-                      completion:^{
-                          [group leave];
-                      }];
-    }];
-    [group waitInBackgroundWithCompletion:completion];
-}
-
 - (void)updateBackgroundSourcesWithCompletion:(dispatch_block_t)completion {
     WMFTaskGroup *group = [WMFTaskGroup new];
 
@@ -569,7 +563,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
                                              [group leave];
                                          }];
 
-    [group waitInBackgroundWithCompletion:completion];
+    [group waitInBackgroundWithTimeout:WMFFeedRefreshBackgroundTimeout completion:completion];
 }
 
 - (WMFFeedContentSource *)feedContentSource {
@@ -595,6 +589,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     NSParameterAssert(self.previewStore);
     NSParameterAssert([self siteURL]);
     if (!_contentSources) {
+        WMFFeedContentSource *feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:[self siteURL]
+                                                                          contentGroupDataStore:self.contentStore
+                                                                        articlePreviewDataStore:self.previewStore
+                                                                                  userDataStore:self.dataStore
+                                                                        notificationsController:self.notificationsController];
+        feedContentSource.notificationSchedulingEnabled = YES;
         _contentSources = @[
             [[WMFRelatedPagesContentSource alloc] initWithContentGroupDataStore:self.contentStore
                                                                   userDataStore:self.dataStore
@@ -608,14 +608,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             [[WMFNearbyContentSource alloc] initWithSiteURL:[self siteURL]
                                       contentGroupDataStore:self.contentStore
                                     articlePreviewDataStore:self.previewStore],
-            [[WMFFeedContentSource alloc] initWithSiteURL:[self siteURL]
-                                    contentGroupDataStore:self.contentStore
-                                  articlePreviewDataStore:self.previewStore
-                                            userDataStore:self.dataStore
-                                  notificationsController:self.notificationsController],
+            feedContentSource,
             [[WMFRandomContentSource alloc] initWithSiteURL:[self siteURL]
                                       contentGroupDataStore:self.contentStore
-                                    articlePreviewDataStore:self.previewStore]
+                                    articlePreviewDataStore:self.previewStore],
+            [[WMFAnnouncementsContentSource alloc] initWithSiteURL:[self siteURL]
+                                             contentGroupDataStore:self.contentStore]
         ];
     }
     return _contentSources;
