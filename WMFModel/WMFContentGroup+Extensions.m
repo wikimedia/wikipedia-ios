@@ -105,28 +105,28 @@
             self.dailySortPriority = isPad ? 1 : 0;
             break;
         case WMFContentGroupKindMainPage:
-            self.dailySortPriority = isPad ? 0 : 5;
+            self.dailySortPriority = isPad ? 0 : 6;
             break;
         case WMFContentGroupKindRelatedPages:
-            self.dailySortPriority = 8;
-            break;
-        case WMFContentGroupKindLocation:
-            self.dailySortPriority = 7;
-            break;
-        case WMFContentGroupKindPictureOfTheDay:
-            self.dailySortPriority = isPad ? 5 : 4;
-            break;
-        case WMFContentGroupKindRandom:
-            self.dailySortPriority = 6;
-            break;
-        case WMFContentGroupKindFeaturedArticle:
             self.dailySortPriority = isPad ? 2 : 1;
             break;
-        case WMFContentGroupKindTopRead:
+        case WMFContentGroupKindLocation:
+            self.dailySortPriority = 8;
+            break;
+        case WMFContentGroupKindPictureOfTheDay:
+            self.dailySortPriority = isPad ? 6 : 5;
+            break;
+        case WMFContentGroupKindRandom:
+            self.dailySortPriority = 7;
+            break;
+        case WMFContentGroupKindFeaturedArticle:
             self.dailySortPriority = isPad ? 3 : 2;
             break;
-        case WMFContentGroupKindNews:
+        case WMFContentGroupKindTopRead:
             self.dailySortPriority = isPad ? 4 : 3;
+            break;
+        case WMFContentGroupKindNews:
+            self.dailySortPriority = isPad ? 5 : 4;
             break;
         case WMFContentGroupKindNotification:
             self.dailySortPriority = -1;
@@ -137,7 +137,6 @@
         default:
             break;
     }
-    
 }
 
 - (WMFContentType)contentType {
@@ -185,7 +184,7 @@
     if (!domain || !language) {
         return nil;
     }
-    
+
     NSURL *theURL = [[self baseURL] URLByAppendingPathComponent:@"main-page"];
     theURL = [theURL URLByAppendingPathComponent:domain];
     theURL = [theURL URLByAppendingPathComponent:language];
@@ -228,7 +227,7 @@
     if (!domain || !language) {
         return nil;
     }
-    
+
     NSURL *urlKey = [[self baseURL] URLByAppendingPathComponent:groupKindString];
     urlKey = [urlKey URLByAppendingPathComponent:domain];
     urlKey = [urlKey URLByAppendingPathComponent:language];
@@ -246,11 +245,11 @@
 }
 
 + (nullable NSURL *)randomContentGroupURLForSiteURL:(NSURL *)url date:(NSDate *)date {
-   return [self contentGroupURLForSiteURL:url date:date groupKindString:@"random"];
+    return [self contentGroupURLForSiteURL:url date:date groupKindString:@"random"];
 }
 
 + (nullable NSURL *)featuredArticleContentGroupURLForSiteURL:(NSURL *)url date:(NSDate *)date {
-   return [self contentGroupURLForSiteURL:url date:date groupKindString:@"featuredArticle"];
+    return [self contentGroupURLForSiteURL:url date:date groupKindString:@"featuredArticle"];
 }
 
 + (nullable NSURL *)topReadContentGroupURLForSiteURL:(NSURL *)url date:(NSDate *)date {
@@ -277,7 +276,7 @@
     return [self.midnightUTCDate wmf_UTCDateIsTodayLocal];
 }
 
-- (void)markDismissed{
+- (void)markDismissed {
     self.wasDismissed = YES;
 }
 
@@ -288,39 +287,38 @@
         }
         return;
     }
-    
+
     if (self.contentType != WMFContentTypeAnnouncement) {
         return;
     }
-    
+
     NSArray *content = self.content;
-    
+
     if (![content isKindOfClass:[NSArray class]]) {
         return;
     }
-    
+
     WMFAnnouncement *announcement = (WMFAnnouncement *)content.firstObject;
     if (![announcement isKindOfClass:[WMFAnnouncement class]]) {
         return;
     }
-    
+
     if (!announcement.startTime || !announcement.endTime) {
         return;
     }
-    
-    NSDate* now = [NSDate date];
-    if([now timeIntervalSinceDate:announcement.startTime] > 0 && [announcement.endTime timeIntervalSinceDate:now] > 0) {
-        if(!self.isVisible){
+
+    NSDate *now = [NSDate date];
+    if ([now timeIntervalSinceDate:announcement.startTime] > 0 && [announcement.endTime timeIntervalSinceDate:now] > 0) {
+        if (!self.isVisible) {
             self.isVisible = YES;
             return;
         }
-    } else{
-        if(self.isVisible){
+    } else {
+        if (self.isVisible) {
             self.isVisible = NO;
             return;
         }
     }
 }
-
 
 @end
