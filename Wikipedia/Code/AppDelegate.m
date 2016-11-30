@@ -12,6 +12,7 @@
 static NSString *const WMFAppSeeAPIKey = @QUOTE(WMF_APP_SEE_API_KEY);
 #endif
 
+
 @interface AppDelegate ()
 
 @property (nonatomic, strong) WMFAppViewController *appViewController;
@@ -78,7 +79,7 @@ static NSString *const WMFAppSeeAPIKey = @QUOTE(WMF_APP_SEE_API_KEY);
     NSLog(@"\n\nSimulator documents directory:\n\t%@\n\n",
           [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]);
 #endif
-
+    
 #if WMF_UX_STUDY_ENABLED
     if (WMFAppSeeAPIKey.length > 0) {
         [Appsee start:WMFAppSeeAPIKey];
@@ -96,23 +97,6 @@ static NSString *const WMFAppSeeAPIKey = @QUOTE(WMF_APP_SEE_API_KEY);
     [UNUserNotificationCenter currentNotificationCenter].delegate = vc; // this needs to be set before the end of didFinishLaunchingWithOptions:
     [vc launchAppInWindow:self.window];
     self.appViewController = vc;
-
-#if WMF_UX_STUDY_ENABLED
-    UIAlertController *controller = [UIAlertController alertControllerWithTitle:WMFAppSeeAPIKey message:WMFAppSeeAPIKey preferredStyle:UIAlertControllerStyleAlert];
-    [controller addAction:[UIAlertAction actionWithTitle:@"Cancel"
-                                                   style:UIAlertActionStyleCancel
-                                                 handler:^(UIAlertAction *_Nonnull action) {
-                                                     [controller dismissViewControllerAnimated:YES
-                                                                                    completion:^{
-
-                                                                                    }];
-                                                 }]];
-    [vc presentViewController:controller
-                     animated:YES
-                   completion:^{
-
-                   }];
-#endif
 
     [self updateDynamicIconShortcutItems];
 
