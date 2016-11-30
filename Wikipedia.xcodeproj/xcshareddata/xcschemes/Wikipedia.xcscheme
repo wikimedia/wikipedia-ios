@@ -142,7 +142,7 @@
       </DeviceAppData>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "AdHoc"
+      buildConfiguration = "Debug"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
