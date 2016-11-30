@@ -81,7 +81,9 @@ static NSString *const WMFAppSeeAPIKey = @QUOTE(WMF_APP_SEE_API_KEY);
 #endif
     
 #if WMF_UX_STUDY_ENABLED
-    [Appsee start:WMFAppSeeAPIKey];
+    if (WMFAppSeeAPIKey.length > 0) {
+        [Appsee start:WMFAppSeeAPIKey];
+    }
 #endif
 
     [NSUserDefaults wmf_migrateToWMFGroupUserDefaultsIfNecessary];

@@ -126,7 +126,7 @@ platform :ios do
     product_name = options[:product_name] || "Wikipedia"
     workspace_name = options[:workspace] || product_name
     scheme_name = options[:scheme] || product_name
-    app_see_api_key = ENV['WMF_APP_SEE_API_KEY'] || 'bogus'
+    app_see_api_key = ENV['WMF_APP_SEE_API_KEY'] || ''
     
     sh "xcodebuild -workspace \"#{project_dir}/#{workspace_name}.xcworkspace\" -scheme \"#{scheme_name}\" -archivePath \"#{build_dir}/#{product_name}.xcarchive\" WMF_APP_SEE_API_KEY=#{app_see_api_key} archive"
     sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -exportPath \"#{build_dir}\""
