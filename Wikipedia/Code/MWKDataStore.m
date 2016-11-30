@@ -434,6 +434,38 @@ static pid_t currentPid() {
         }
         location = location + batchSize;
     }
+    
+    [connection readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
+        [transaction enumerateRowsInCollection:@"WMFContentGroup" usingBlock:^(NSString * _Nonnull key, id  _Nonnull object, id  _Nullable metadata, BOOL * _Nonnull stop) {
+            if (![object isKindOfClass:[WMFAnnouncementContentGroup class]]) {
+                return;
+            }
+            if (![metadata isKindOfClass:[NSArray class]]) {
+                return;
+            }
+            NSFetchRequest *request = [WMFContentGroup fetchRequest];
+            request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
+            request.fetchLimit = 1;
+            WMFAnnouncementContentGroup *oldAnnouncement = (WMFAnnouncementContentGroup *)object;
+            WMFContentGroup *announcement = [[moc executeFetchRequest:request error:nil] firstObject];
+            if (!announcement) {
+                announcement = [NSEntityDescription insertNewObjectForEntityForName:@"WMFContentGroup" inManagedObjectContext:moc];
+            }
+            announcement.contentGroupKind = WMFContentGroupKindAnnouncement;
+            announcement.contentType = WMFContentTypeAnnouncement;
+            announcement.date = oldAnnouncement.date;
+            announcement.midnightUTCDate = oldAnnouncement.date.midnightUTCDate;
+            announcement.siteURL = oldAnnouncement.siteURL;
+            announcement.wasDismissed = oldAnnouncement.wasDismissed;
+            announcement.content = metadata;
+            [announcement updateKey];
+            [announcement updateContentType];
+            [announcement updateDailySortPriority];
+            [announcement updateVisibility];
+        } withFilter:^BOOL(NSString * _Nonnull key) {
+            return [key hasPrefix:@"wikipedia://content/announcements/"];
+        }];
+    }];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
@@ -1056,3 +1088,4 @@ static pid_t currentPid() {
 }
 
 @end
+

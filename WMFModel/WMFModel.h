@@ -19,8 +19,6 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import "MWKImage.h"
 #import "MWKUser.h"
 
-#import "MWKHistoryEntry.h"
-
 #import "MWKHistoryList.h"
 #import "MWKSavedPageList.h"
 
@@ -143,6 +141,7 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import "PiwikTracker+WMFExtensions.h"
 
 //Deprecated
+#import "MWKHistoryEntry.h"
 #import "MWKList.h"
 #import "MWKList+Subclass.h"
 #import "MWKSite.h"
@@ -150,3 +149,4 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import "SessionSingleton.h"
 #import "QueuesSingleton.h"
 #import "MWKSavedPageEntry.h"
+#import "WMFAnnouncementContentGroup.h"
