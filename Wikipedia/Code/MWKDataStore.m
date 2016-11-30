@@ -32,6 +32,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
+@property (readwrite, strong, nonatomic) NSCache *articlePreviewCache;
 
 @property (readwrite, nonatomic, strong) dispatch_queue_t cacheRemovalQueue;
 @property (readwrite, nonatomic, getter=isCacheRemovalActive) BOOL cacheRemovalActive;
@@ -278,6 +279,7 @@ static pid_t currentPid() {
         NSSet<NSManagedObject *> *changedObjects = userInfo[key];
         for (NSManagedObject *object in changedObjects) {
             if ([object isKindOfClass:[WMFArticle class]]) {
+                [self.articlePreviewCache removeObjectForKey:[(WMFArticle *)object key]];
                 NSURL *URL = [(WMFArticle *)object URL];
                 if (URL) {
                     [URLsToNotifyAbout addObject:URL];
@@ -434,37 +436,39 @@ static pid_t currentPid() {
         }
         location = location + batchSize;
     }
-    
-    [connection readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
-        [transaction enumerateRowsInCollection:@"WMFContentGroup" usingBlock:^(NSString * _Nonnull key, id  _Nonnull object, id  _Nullable metadata, BOOL * _Nonnull stop) {
-            if (![object isKindOfClass:[WMFAnnouncementContentGroup class]]) {
-                return;
+
+    [connection readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction) {
+        [transaction enumerateRowsInCollection:@"WMFContentGroup"
+            usingBlock:^(NSString *_Nonnull key, id _Nonnull object, id _Nullable metadata, BOOL *_Nonnull stop) {
+                if (![object isKindOfClass:[WMFAnnouncementContentGroup class]]) {
+                    return;
+                }
+                if (![metadata isKindOfClass:[NSArray class]]) {
+                    return;
+                }
+                NSFetchRequest *request = [WMFContentGroup fetchRequest];
+                request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
+                request.fetchLimit = 1;
+                WMFAnnouncementContentGroup *oldAnnouncement = (WMFAnnouncementContentGroup *)object;
+                WMFContentGroup *announcement = [[moc executeFetchRequest:request error:nil] firstObject];
+                if (!announcement) {
+                    announcement = [NSEntityDescription insertNewObjectForEntityForName:@"WMFContentGroup" inManagedObjectContext:moc];
+                }
+                announcement.contentGroupKind = WMFContentGroupKindAnnouncement;
+                announcement.contentType = WMFContentTypeAnnouncement;
+                announcement.date = oldAnnouncement.date;
+                announcement.midnightUTCDate = oldAnnouncement.date.midnightUTCDate;
+                announcement.siteURL = oldAnnouncement.siteURL;
+                announcement.wasDismissed = oldAnnouncement.wasDismissed;
+                announcement.content = metadata;
+                [announcement updateKey];
+                [announcement updateContentType];
+                [announcement updateDailySortPriority];
+                [announcement updateVisibility];
             }
-            if (![metadata isKindOfClass:[NSArray class]]) {
-                return;
-            }
-            NSFetchRequest *request = [WMFContentGroup fetchRequest];
-            request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
-            request.fetchLimit = 1;
-            WMFAnnouncementContentGroup *oldAnnouncement = (WMFAnnouncementContentGroup *)object;
-            WMFContentGroup *announcement = [[moc executeFetchRequest:request error:nil] firstObject];
-            if (!announcement) {
-                announcement = [NSEntityDescription insertNewObjectForEntityForName:@"WMFContentGroup" inManagedObjectContext:moc];
-            }
-            announcement.contentGroupKind = WMFContentGroupKindAnnouncement;
-            announcement.contentType = WMFContentTypeAnnouncement;
-            announcement.date = oldAnnouncement.date;
-            announcement.midnightUTCDate = oldAnnouncement.date.midnightUTCDate;
-            announcement.siteURL = oldAnnouncement.siteURL;
-            announcement.wasDismissed = oldAnnouncement.wasDismissed;
-            announcement.content = metadata;
-            [announcement updateKey];
-            [announcement updateContentType];
-            [announcement updateDailySortPriority];
-            [announcement updateVisibility];
-        } withFilter:^BOOL(NSString * _Nonnull key) {
-            return [key hasPrefix:@"wikipedia://content/announcements/"];
-        }];
+            withFilter:^BOOL(NSString *_Nonnull key) {
+                return [key hasPrefix:@"wikipedia://content/announcements/"];
+            }];
     }];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
@@ -556,6 +560,10 @@ static pid_t currentPid() {
     }
     self.articleCache = [[NSCache alloc] init];
     self.articleCache.countLimit = 50;
+
+    self.articlePreviewCache = [[NSCache alloc] init];
+    self.articlePreviewCache.countLimit = 100;
+
     self.cacheRemovalQueue = dispatch_queue_create("org.wikimedia.cache_removal", DISPATCH_QUEUE_SERIAL);
     dispatch_async(self.cacheRemovalQueue, ^{
         self.cacheRemovalActive = true;
@@ -1017,6 +1025,7 @@ static pid_t currentPid() {
 
 - (void)clearMemoryCache {
     [self.articleCache removeAllObjects];
+    [self.articlePreviewCache removeAllObjects];
 }
 
 #pragma mark - Core Data
@@ -1043,10 +1052,22 @@ static pid_t currentPid() {
     if (!key) {
         return nil;
     }
+
+    WMFArticle *article = [self.articlePreviewCache objectForKey:key];
+    if (article) {
+        return article;
+    }
+
     NSManagedObjectContext *moc = self.viewContext;
     NSFetchRequest *request = [WMFArticle fetchRequest];
     [request setPredicate:[NSPredicate predicateWithFormat:@"key == %@", key]];
-    return [[moc executeFetchRequest:request error:nil] firstObject];
+    article = [[moc executeFetchRequest:request error:nil] firstObject];
+
+    if (article) {
+        [self.articlePreviewCache setObject:article forKey:key];
+    }
+
+    return article;
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleForURL:(NSURL *)URL {
@@ -1061,6 +1082,7 @@ static pid_t currentPid() {
     if (!article) {
         article = [[WMFArticle alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:moc] insertIntoManagedObjectContext:moc];
         article.key = key;
+        [self.articlePreviewCache setObject:article forKey:key];
     }
     return article;
 }
@@ -1088,4 +1110,3 @@ static pid_t currentPid() {
 }
 
 @end
-
