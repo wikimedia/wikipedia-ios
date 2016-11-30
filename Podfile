@@ -1,14 +1,11 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-# Configurations which are not compiled for release on the App Store
-# NOT_APP_STORE_CONFIGS = ['Debug', 'Alpha', 'Beta', 'AdHoc'].freeze
-
 platform :ios, :deployment_target => '9.3'
 
 inhibit_all_warnings!
 use_frameworks!
 
-project 'Wikipedia'
+project 'Wikipedia', Debug' => :debug, 'Release' => :release, 'Alpha' => :release, 'AlphaDebug' => :release, 'Test' => :debug
 
 abstract_target 'Foundation' do
   # Networking / Parsing
@@ -66,6 +63,8 @@ abstract_target 'Foundation' do
   end
 
   target 'Wikipedia' do
+  	pod 'Appsee', :configurations => ['Alpha', 'AlphaDebug']
+	
     # Utilities
     pod 'Tweaks', :git => 'https://github.com/facebook/Tweaks.git'
 
