@@ -2,10 +2,6 @@
 #import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
 #import "YapDatabase+WMFExtensions.h"
 #import "YapDatabaseViewMappings+WMFMappings.h"
-#import "WMFDatabaseDataSource.h"
-#import "WMFContentGroup.h"
-#import "WMFContentGroup+WMFDatabaseStorable.h"
-#import "WMFContentGroup+WMFDatabaseViews.h"
 
 @import NSDate_Extensions;
 
@@ -13,9 +9,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFContentGroupDataStore ()
 
+@property (nonatomic, strong) MWKDataStore *dataStore;
+
 @end
 
 @implementation WMFContentGroupDataStore
+
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
+    self = [super init];
+    if (self) {
+        self.dataStore = dataStore;
+    }
+    return self;
+}
 
 #pragma mark - section access
 
@@ -23,130 +29,179 @@ NS_ASSUME_NONNULL_BEGIN
     if (!block) {
         return;
     }
-    [self readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction) {
-        [transaction enumerateKeysAndObjectsInCollection:[WMFContentGroup databaseCollectionName]
-                                              usingBlock:^(NSString *_Nonnull key, id _Nonnull object, BOOL *_Nonnull stop) {
-                                                  block(object, stop);
-                                              }];
+    NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
+    NSError *fetchError = nil;
+    NSArray *contentGroups = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
+    if (fetchError) {
+        DDLogError(@"Error fetching content groups: %@", fetchError);
+        return;
+    }
+    [contentGroups enumerateObjectsUsingBlock:^(WMFContentGroup *_Nonnull section, NSUInteger idx, BOOL *_Nonnull stop) {
+        block(section, stop);
     }];
 }
 
-- (void)enumerateContentGroupsOfKind:(NSString *)kind withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block {
+- (NSArray<WMFContentGroup *> *)contentGroupsOfKind:(WMFContentGroupKind)kind {
+    NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(kind)];
+    NSError *fetchError = nil;
+    NSArray *contentGroups = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
+    if (fetchError || !contentGroups) {
+        DDLogError(@"Error fetching content groups: %@", fetchError);
+        return @[];
+    }
+    return contentGroups;
+}
+
+- (void)enumerateContentGroupsOfKind:(WMFContentGroupKind)kind withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block {
     if (!block) {
         return;
     }
-    [self readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction) {
-        [transaction enumerateKeysAndObjectsInCollection:[WMFContentGroup databaseCollectionName]
-                                              usingBlock:^(NSString *_Nonnull key, WMFContentGroup *_Nonnull object, BOOL *_Nonnull stop) {
-                                                  if ([[[object class] kind] isEqualToString:kind]) {
-                                                      block(object, stop);
-                                                  }
-                                              }];
+    NSArray<WMFContentGroup *> *contentGroups = [self contentGroupsOfKind:kind];
+    [contentGroups enumerateObjectsUsingBlock:^(WMFContentGroup *_Nonnull section, NSUInteger idx, BOOL *_Nonnull stop) {
+        block(section, stop);
     }];
 }
 
-- (nullable WMFContentGroup *)contentGroupForURL:(NSURL *)url {
-    NSParameterAssert(url);
-    if(!url){
+- (nullable WMFContentGroup *)contentGroupForURL:(NSURL *)URL {
+    NSParameterAssert(URL);
+    if (!URL) {
         return nil;
     }
-    return [self readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction) {
-        WMFContentGroup *group = [transaction objectForKey:[WMFContentGroup databaseKeyForURL:url] inCollection:[WMFContentGroup databaseCollectionName]];
-        return group;
-    }];
-}
 
-- (nullable WMFContentGroup *)firstGroupOfKind:(NSString *)kind{
-    
-    __block WMFContentGroup *found = nil;
-    [self enumerateContentGroupsOfKind:kind
-                             withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
-                                 found = (id)group;
-                                 *stop = YES;
-                             }];
-    return found;
-}
-
-
-- (nullable WMFContentGroup *)firstGroupOfKind:(NSString *)kind forDate:(NSDate *)date {
-
-    __block WMFContentGroup *found = nil;
-    [self enumerateContentGroupsOfKind:kind
-                             withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
-                                 if ([[group.date dateAtStartOfDay] isEqualToDate:[date dateAtStartOfDay]]) {
-                                     found = (id)group;
-                                     *stop = YES;
-                                 }
-                             }];
-    return found;
-}
-
-- (nullable NSArray<WMFContentGroup *> *)groupsOfKind:(NSString *)kind forDate:(NSDate *)date {
-
-    NSMutableArray *found = [NSMutableArray array];
-    [self enumerateContentGroupsOfKind:kind
-                             withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
-                                 if ([[group.date dateAtStartOfDay] isEqualToDate:[date dateAtStartOfDay]]) {
-                                     [found addObject:group];
-                                 }
-                             }];
-    return found;
-}
-
-- (nullable NSArray<id> *)contentForContentGroup:(WMFContentGroup *)group {
-    NSArray<NSURL *> *content = [self readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction) {
-        id content = [transaction metadataForKey:[group databaseKey] inCollection:[[group class] databaseCollectionName]];
-        return content;
-    }];
-
-    if ([content count] > 0) {
-        NSAssert([content isKindOfClass:[NSArray class]], @"Content is not an array!");
+    NSString *key = [WMFContentGroup databaseKeyForURL:URL];
+    if (!key) {
+        return nil;
     }
-    return content;
+
+    NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
+    fetchRequest.fetchLimit = 1;
+    NSError *fetchError = nil;
+    NSArray *contentGroups = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
+    if (fetchError) {
+        DDLogError(@"Error fetching content groups: %@", fetchError);
+        return nil;
+    }
+    return [contentGroups firstObject];
+}
+
+- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind {
+    NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(kind)];
+    fetchRequest.fetchLimit = 1;
+    NSError *fetchError = nil;
+    NSArray *contentGroups = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
+    if (fetchError) {
+        DDLogError(@"Error fetching content groups: %@", fetchError);
+        return nil;
+    }
+    return [contentGroups firstObject];
+}
+
+- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date {
+    NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@", @(kind), date.midnightUTCDate];
+    fetchRequest.fetchLimit = 1;
+    NSError *fetchError = nil;
+    NSArray *contentGroups = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
+    if (fetchError) {
+        DDLogError(@"Error fetching content groups: %@", fetchError);
+        return nil;
+    }
+    return [contentGroups firstObject];
+}
+
+- (nullable NSArray<WMFContentGroup *> *)groupsOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date {
+    NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@", @(kind), date.midnightUTCDate];
+    NSError *fetchError = nil;
+    NSArray *contentGroups = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
+    if (fetchError) {
+        DDLogError(@"Error fetching content groups: %@", fetchError);
+        return nil;
+    }
+    return contentGroups;
 }
 
 #pragma mark - section add / remove
 
+- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
+    WMFContentGroup *group = [NSEntityDescription insertNewObjectForEntityForName:@"WMFContentGroup" inManagedObjectContext:self.dataStore.viewContext];
+    group.date = date;
+    group.midnightUTCDate = date.midnightUTCDate;
+    group.contentGroupKind = kind;
+    group.siteURLString = siteURL.absoluteString;
+    group.content = associatedContent;
+
+    if (customizationBlock) {
+        customizationBlock(group);
+    }
+
+    [group updateKey];
+    [group updateContentType];
+    [group updateDailySortPriority];
+
+    return group;
+}
+
+- (nullable WMFContentGroup *)fetchOrCreateGroupForURL:(NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
+
+    WMFContentGroup *group = [self contentGroupForURL:URL];
+    if (group) {
+        group.date = date;
+        group.midnightUTCDate = date.midnightUTCDate;
+        group.contentGroupKind = kind;
+        group.content = associatedContent;
+        group.siteURLString = siteURL.absoluteString;
+        if (customizationBlock) {
+            customizationBlock(group);
+        }
+    } else {
+        group = [self createGroupOfKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent customizationBlock:customizationBlock];
+    }
+
+    return group;
+}
+
+- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent {
+    return [self createGroupOfKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent customizationBlock:NULL];
+}
+
 - (void)addContentGroup:(WMFContentGroup *)group associatedContent:(NSArray<NSCoding> *)content {
-    [self asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
-        [transaction setObject:group forKey:[group databaseKey] inCollection:[[group class] databaseCollectionName] withMetadata:content];
-    }];
+    group.content = content;
 }
 
 - (void)removeContentGroup:(WMFContentGroup *)group {
     NSParameterAssert(group);
-    [self asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
-        [transaction removeObjectForKey:[group databaseKey] inCollection:[WMFContentGroup databaseCollectionName]];
-    }];
+    [self.dataStore.viewContext deleteObject:group];
+}
+
+- (void)removeContentGroups:(NSArray<WMFContentGroup *> *)contentGroups {
+    for (WMFContentGroup *group in contentGroups) {
+        [self.dataStore.viewContext deleteObject:group];
+    }
+}
+
+- (BOOL)save:(NSError **)saveError {
+    return [self.dataStore save:saveError];
 }
 
 - (void)removeContentGroupsWithKeys:(NSArray<NSString *> *)keys {
-    [self asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
-        [transaction removeObjectsForKeys:keys inCollection:[WMFContentGroup databaseCollectionName]];
-    }];
+    NSFetchRequest *request = [WMFContentGroup fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"key IN %@", keys];
+    NSError *fetchError = nil;
+    NSArray<WMFContentGroup *> *groups = [self.dataStore.viewContext executeFetchRequest:request error:&fetchError];
+    if (fetchError) {
+        DDLogError(@"Error fetching content groups for deletion: %@", fetchError);
+        return;
+    }
+    [self removeContentGroups:groups];
 }
 
-- (void)removeAllContentGroupsOfKind:(NSString *)kind {
-    NSMutableArray *keys = [NSMutableArray array];
-    [self enumerateContentGroupsOfKind:kind
-                             withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
-                                 [keys addObject:[group databaseKey]];
-                             }];
-
-    [self removeContentGroupsWithKeys:keys];
-}
-
-@end
-
-@implementation WMFContentGroupDataStore (WMFDataSources)
-
-- (id<WMFDataSource>)contentGroupDataSource {
-
-    YapDatabaseViewMappings *mappings = [YapDatabaseViewMappings wmf_ungroupedMappingsWithView:WMFContentGroupsSortedByDateView];
-
-    WMFDatabaseDataSource *datasource = [[WMFDatabaseDataSource alloc] initWithReadConnection:self.readConnection writeConnection:self.writeConnection mappings:mappings];
-    [self registerChangeHandler:datasource];
-    return datasource;
+- (void)removeAllContentGroupsOfKind:(WMFContentGroupKind)kind {
+    NSArray *groups = [self contentGroupsOfKind:kind];
+    [self removeContentGroups:groups];
 }
 
 @end

@@ -1,10 +1,8 @@
 #import "WMFContinueReadingContentSource.h"
 #import "WMFContentGroupDataStore.h"
 #import "MWKDataStore.h"
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
 #import "MWKHistoryEntry.h"
-#import "WMFArticlePreview.h"
-#import "WMFContentGroup+WMFDatabaseStorable.h"
 #import "MWKArticle.h"
 #import <WMFModel/WMFModel-Swift.h>
 
@@ -16,13 +14,13 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 
 @property (readwrite, nonatomic, strong) WMFContentGroupDataStore *contentStore;
 @property (readwrite, nonatomic, strong) MWKDataStore *userDataStore;
-@property (readwrite, nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
+@property (readwrite, nonatomic, strong) WMFArticleDataStore *previewStore;
 
 @end
 
 @implementation WMFContinueReadingContentSource
 
-- (instancetype)initWithContentGroupDataStore:(WMFContentGroupDataStore *)contentStore userDataStore:(MWKDataStore *)userDataStore articlePreviewDataStore:(WMFArticlePreviewDataStore *)previewStore {
+- (instancetype)initWithContentGroupDataStore:(WMFContentGroupDataStore *)contentStore userDataStore:(MWKDataStore *)userDataStore articlePreviewDataStore:(WMFArticleDataStore *)previewStore {
 
     NSParameterAssert(contentStore);
     NSParameterAssert(userDataStore);
@@ -39,12 +37,10 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 #pragma mark - WMFContentSource
 
 - (void)startUpdating {
-    [self observeSavedPages];
     [self loadNewContentForce:NO completion:NULL];
 }
 
 - (void)stopUpdating {
-    [self unobserveSavedPages];
 }
 
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
@@ -64,7 +60,8 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         NO /*FBTweakValue(@"Explore", @"Continue Reading", @"Always Show", NO)*/ ||
         fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeDisplayingLastReadArticle;
 
-    WMFContinueReadingContentGroup *group = (id)[self.contentStore contentGroupForURL:[WMFContinueReadingContentGroup url]];
+    NSURL *continueReadingURL = [WMFContentGroup continueReadingContentGroupURL];
+    WMFContentGroup *group = (id)[self.contentStore contentGroupForURL:continueReadingURL];
 
     if (!shouldShowContinueReading) {
         if (group) {
@@ -76,7 +73,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         return;
     }
 
-    NSURL *savedURL = [[self.contentStore contentForContentGroup:group] firstObject];
+    NSURL *savedURL = (NSURL *)[group.content firstObject];
 
     if ([savedURL isEqual:lastRead]) {
         if (completion) {
@@ -85,7 +82,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         return;
     }
 
-    MWKHistoryEntry *userData = [self.userDataStore entryForURL:lastRead];
+    WMFArticle *userData = [self.userDataStore fetchArticleForURL:lastRead];
 
     if (userData == nil) {
         if (completion) {
@@ -94,7 +91,9 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         return;
     }
 
-    group = [[WMFContinueReadingContentGroup alloc] initWithDate:userData.dateViewed];
+    group = [self.contentStore fetchOrCreateGroupForURL:continueReadingURL ofKind:WMFContentGroupKindContinueReading forDate:userData.viewedDate withSiteURL:nil associatedContent:@[lastRead] customizationBlock:^(WMFContentGroup * _Nonnull group) {
+        
+    }];
 
     WMF_TECH_DEBT_TODO(Remove this in a later version.A preview will always be available available)
     if (![self.previewStore itemForURL:lastRead]) {
@@ -103,26 +102,18 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         [self.previewStore addPreviewWithURL:lastRead updatedWithArticle:article];
     }
 
-    [self.contentStore addContentGroup:group associatedContent:@[lastRead]];
-    [self.contentStore notifyWhenWriteTransactionsComplete:completion];
+    NSError *saveError = nil;
+    if (![self.contentStore save:&saveError]) {
+        DDLogError(@"Error saving feed content %@", saveError);
+    }
+
+    if (completion) {
+        completion();
+    }
 }
 
 - (void)removeAllContent {
-    [self.contentStore removeAllContentGroupsOfKind:[WMFContinueReadingContentGroup kind]];
-}
-
-#pragma mark - Observing
-
-- (void)itemWasUpdated:(NSNotification *)note {
-    [self loadNewContentForce:NO completion:NULL];
-}
-
-- (void)observeSavedPages {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemWasUpdated:) name:MWKItemUpdatedNotification object:nil];
-}
-
-- (void)unobserveSavedPages {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindContinueReading];
 }
 
 @end

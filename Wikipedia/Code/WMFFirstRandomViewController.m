@@ -2,7 +2,7 @@
 #import "WMFRandomArticleFetcher.h"
 #import "Wikipedia-swift.h"
 #import "MWKDataStore.h"
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
 #import "SessionSingleton.h"
 #import "MWKSearchResult.h"
 #import "WMFRandomArticleViewController.h"
@@ -14,7 +14,7 @@
 
 @implementation WMFFirstRandomViewController
 
-- (nonnull instancetype)initWithSiteURL:(nonnull NSURL *)siteURL dataStore:(nonnull MWKDataStore *)dataStore previewStore:(nonnull WMFArticlePreviewDataStore *)previewStore {
+- (nonnull instancetype)initWithSiteURL:(nonnull NSURL *)siteURL dataStore:(nonnull MWKDataStore *)dataStore previewStore:(nonnull WMFArticleDataStore *)previewStore {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         self.siteURL = siteURL;

@@ -85,6 +85,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)fetchPageviewsForURL:(NSURL *)titleURL startDate:(NSDate *)startDate endDate:(NSDate *)endDate failure:(WMFErrorHandler)failure success:(WMFPageViewsHandler)success {
+    NSParameterAssert(titleURL);
+    
     NSString *title = [titleURL.wmf_titleWithUnderScores wmf_UTF8StringWithPercentEscapes];
     NSString *language = titleURL.wmf_language;
     NSString *domain = titleURL.wmf_domain;
@@ -117,6 +119,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSString *requestURLString = [WMFWikimediaRestAPIURLStringWithVersion(1) stringByAppendingString:path];
 
+    NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
+    
     [self.unserializedOperationManager GET:requestURLString
         parameters:nil
         progress:NULL
@@ -134,6 +138,15 @@ NS_ASSUME_NONNULL_BEGIN
                     NSDate *date = [[NSDateFormatter wmf_englishUTCNonDelimitedYearMonthDayHourFormatter] dateFromString:item[@"timestamp"]];
                     results[date] = item[@"views"];
                 }
+            }
+            
+            NSDate *date = startDate;
+            
+            while ([date compare:endDate] == NSOrderedAscending) {
+                if (results[date] == nil) {
+                    results[date] = @(0);
+                }
+                date = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:date options:NSCalendarMatchStrictly];
             }
 
             success([results copy]);

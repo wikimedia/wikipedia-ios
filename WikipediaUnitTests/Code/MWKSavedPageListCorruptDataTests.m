@@ -5,9 +5,6 @@
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "WMFAsyncTestCase.h"
 
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
-
 @interface MWKSavedPageListCorruptDataTests : XCTestCase
 
 @end
@@ -22,18 +19,12 @@
     MWKSavedPageList *list = [[MWKSavedPageList alloc] initWithDataStore:dataStore];
     [list addSavedPageWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"Foo"]];
     [list addSavedPageWithURL:nil];
-    [list addSavedPageWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@""]];
-
-    __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
-
-    [dataStore notifyWhenWriteTransactionsComplete:^{
-
-        assertThat(@([list numberOfItems]), is(@1));
-        [expectation fulfill];
-
-    }];
-
-    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
+    @try {
+        [list addSavedPageWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@""]];
+    } @catch (NSException *exception) {
+        
+    }
+    XCTAssertEqual([list numberOfItems], 1);
 }
 
 #pragma clang diagnostic pop

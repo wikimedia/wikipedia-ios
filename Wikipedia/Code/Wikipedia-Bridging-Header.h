@@ -1,7 +1,6 @@
 #import "Global.h"
 
 // Model
-#import "WMFDatabaseDataSource.h"
 #import "MWKLanguageLink.h"
 
 // Utilities

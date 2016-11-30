@@ -1,5 +1,4 @@
 #import "MWKHistoryList.h"
-#import "MWKDataStore+WMFDataSources.h"
 #import <YapDataBase/YapDatabase.h>
 #import <YapDataBase/YapDatabaseView.h>
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
@@ -12,9 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKHistoryList ()
 
-@property (nonatomic, strong) id<WMFDataSource> dataSource;
-
 @property (readwrite, weak, nonatomic) MWKDataStore *dataStore;
+@property (nonatomic, readonly) NSFetchRequest *historyListFetchRequest;
 
 @end
 
@@ -27,7 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super init];
     if (self) {
         self.dataStore = dataStore;
-        self.dataSource = [self.dataStore historyDataSource];
         [self migrateLegacyDataIfNeeded];
     }
     return self;
@@ -36,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Legacy Migration
 
 - (void)migrateLegacyDataIfNeeded {
+    NSAssert([NSThread isMainThread], @"Legacy migration must happen on the main thread");
+
     if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateHistoryList]) {
         return;
     }
@@ -48,81 +47,71 @@ NS_ASSUME_NONNULL_BEGIN
         }
     }];
 
-    if ([entries count] > 0) {
-        [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-            NSMutableArray *urls = [NSMutableArray arrayWithCapacity:[entries count]];
-            [entries enumerateObjectsUsingBlock:^(MWKHistoryEntry *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                MWKHistoryEntry *existing = [transaction objectForKey:[obj databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
-                if (existing) {
-                    obj.dateSaved = existing.dateSaved;
-                    obj.blackListed = existing.isBlackListed;
-                }
-
-                [transaction setObject:obj forKey:[obj databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
-                [urls addObject:[obj databaseKey]];
-            }];
-            return urls;
-        }];
-
+    if ([entries count] == 0) {
         [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateHistoryList:YES];
+        return;
     }
+
+    [entries enumerateObjectsUsingBlock:^(MWKHistoryEntry *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:obj.url];
+        article.viewedDate = obj.dateViewed;
+        [article updateViewedDateWithoutTime];
+        article.wasSignificantlyViewed = obj.titleWasSignificantlyViewed;
+        article.isExcludedFromFeed = obj.isBlackListed;
+    }];
+
+    NSError *migrationError = nil;
+    if (![self.dataStore save:&migrationError]) {
+        DDLogError(@"Error migrating legacy history list: %@", migrationError);
+        return;
+    }
+
+    [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateHistoryList:YES];
 }
 
 #pragma mark - Convienence Methods
 
+- (NSFetchRequest *)historyListFetchRequest {
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"viewedDate != NULL"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"viewedDate" ascending:NO]];
+    return request;
+}
+
 - (NSInteger)numberOfItems {
-    return [self.dataSource numberOfItems];
+    return [self.dataStore.viewContext countForFetchRequest:self.historyListFetchRequest error:nil];
 }
 
-- (nullable MWKHistoryEntry *)mostRecentEntry {
-    return (MWKHistoryEntry *)[self.dataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+- (nullable WMFArticle *)mostRecentEntry {
+    NSFetchRequest *request = self.historyListFetchRequest;
+    request.fetchLimit = 1;
+    return [[self.dataStore.viewContext executeFetchRequest:request error:nil] firstObject];
 }
 
-- (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url {
-    return [self.dataSource readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-        MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        if (entry.dateViewed != nil) {
-            return entry;
-        } else {
-            return nil;
-        }
-    }];
+- (nullable WMFArticle *)entryForURL:(NSURL *)url {
+    NSString *key = [url wmf_articleDatabaseKey];
+    if (!key) {
+        return nil;
+    }
+    NSManagedObjectContext *moc = self.dataStore.viewContext;
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"key == %@ && viewedDate != NULL", key]];
+    NSArray<WMFArticle *> *results = [moc executeFetchRequest:request error:nil];
+    return [results firstObject];
 }
 
-- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block {
+- (void)enumerateItemsWithBlock:(void (^)(WMFArticle *_Nonnull entry, BOOL *stop))block {
     NSParameterAssert(block);
     if (!block) {
         return;
     }
-    [self.dataSource readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-        if ([view numberOfItemsInAllGroups] == 0) {
-            return;
-        }
-        [view enumerateKeysAndObjectsInGroup:[[view allGroups] firstObject]
-                                  usingBlock:^(NSString *_Nonnull collection, NSString *_Nonnull key, MWKHistoryEntry *_Nonnull object, NSUInteger index, BOOL *_Nonnull stop) {
-                                      if (object.dateViewed) {
-                                          block(object, stop);
-                                      }
-                                  }];
+    NSArray *allHistoryListItems = [self.dataStore.viewContext executeFetchRequest:self.historyListFetchRequest error:nil];
+    [allHistoryListItems enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        block(obj, stop);
     }];
 }
 
 #pragma mark - Update Methods
-
-- (void)addEntry:(MWKHistoryEntry *)entry {
-    NSParameterAssert(entry.url);
-    if ([entry.url wmf_isNonStandardURL]) {
-        return;
-    }
-    if ([entry.url.wmf_title length] == 0) {
-        return;
-    }
-
-    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-        [transaction setObject:entry forKey:[entry databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        return @[[entry databaseKey]];
-    }];
-}
 
 - (void)addPagesToHistoryWithURLs:(NSArray<NSURL *> *)URLs {
     NSParameterAssert(URLs);
@@ -130,147 +119,136 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
+    NSDate *now = [NSDate date];
 
-        NSMutableArray *updatedKeys = [NSMutableArray arrayWithCapacity:URLs.count];
-        for (NSURL *URL in URLs) {
-            if ([URL wmf_isNonStandardURL]) {
-                break;
-            }
-            if ([URL.wmf_title length] == 0) {
-                break;
-            }
-
-            NSString *databaseKey = [MWKHistoryEntry databaseKeyForURL:URL];
-            MWKHistoryEntry *entry = [transaction objectForKey:databaseKey inCollection:[MWKHistoryEntry databaseCollectionName]];
-            if (!entry) {
-                entry = [[MWKHistoryEntry alloc] initWithURL:URL];
-            } else {
-                entry = [entry copy];
-            }
-            entry.dateViewed = [NSDate date];
-
-            [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:URL] inCollection:[MWKHistoryEntry databaseCollectionName]];
-
-            [updatedKeys addObject:databaseKey];
+    for (NSURL *URL in URLs) {
+        if ([URL wmf_isNonStandardURL]) {
+            continue;
         }
+        if ([URL.wmf_title length] == 0) {
+            continue;
+        }
+        WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:URL];
+        article.viewedDate = now;
+        [article updateViewedDateWithoutTime];
+    }
 
-        return updatedKeys;
-    }];
+    NSError *error = nil;
+    if (![self.dataStore save:&error]) {
+        DDLogError(@"Error adding pages to history: %@", error);
+    }
 }
 
-- (void)addPageToHistoryWithURL:(NSURL *)url {
-    NSParameterAssert(url);
-    if (!url) {
+- (void)addPageToHistoryWithURL:(NSURL *)URL {
+    NSParameterAssert(URL);
+    if (!URL) {
         return;
     }
 
-    if ([url wmf_isNonStandardURL]) {
-        return;
-    }
-    if ([url.wmf_title length] == 0) {
+    if ([URL wmf_isNonStandardURL]) {
         return;
     }
 
-    __block MWKHistoryEntry *entry = nil;
+    if ([URL.wmf_title length] == 0) {
+        return;
+    }
 
-    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-        entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        if (!entry) {
-            entry = [[MWKHistoryEntry alloc] initWithURL:url];
-        } else {
-            entry = [entry copy];
-        }
-        entry.dateViewed = [NSDate date];
+    NSDate *now = [NSDate date];
 
-        NSString *key = [MWKHistoryEntry databaseKeyForURL:url];
+    WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:URL];
+    article.viewedDate = now;
+    [article updateViewedDateWithoutTime];
 
-        if (!key) {
-            return @[];
-        }
-
-        [transaction setObject:entry forKey:key inCollection:[MWKHistoryEntry databaseCollectionName]];
-
-        return @[key];
-    }];
+    NSError *error = nil;
+    if (![self.dataStore save:&error]) {
+        DDLogError(@"Error adding pages to history: %@", error);
+    }
 }
 
-- (void)setFragment:(nullable NSString *)fragment scrollPosition:(CGFloat)scrollposition onPageInHistoryWithURL:(NSURL *)url {
-    if ([url.wmf_title length] == 0) {
+- (void)setFragment:(nullable NSString *)fragment scrollPosition:(CGFloat)scrollposition onPageInHistoryWithURL:(NSURL *)URL {
+    if ([URL wmf_isNonStandardURL]) {
         return;
     }
 
-    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-        MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        if (entry) {
-            entry.fragment = fragment;
-            entry.scrollPosition = scrollposition;
-            [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        }
-        return @[[MWKHistoryEntry databaseKeyForURL:url]];
-    }];
+    if ([URL.wmf_title length] == 0) {
+        return;
+    }
+
+    WMFArticle *article = [self.dataStore fetchArticleForURL:URL];
+    article.viewedFragment = fragment;
+    article.viewedScrollPosition = scrollposition;
+
+    NSError *error = nil;
+    if (![self.dataStore save:&error]) {
+        DDLogError(@"Error setting fragment and scroll position: %@", error);
+    }
 }
 
 - (void)setInTheNewsNotificationDate:(NSDate *)date forArticlesWithURLs:(NSArray<NSURL *> *)articleURLs {
-    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-        NSMutableArray<NSString *> *databaseKeys = [NSMutableArray arrayWithCapacity:articleURLs.count];
-        for (NSURL *articleURL in articleURLs) {
-            NSString *databaseKey = [MWKHistoryEntry databaseKeyForURL:articleURL];
-
-            MWKHistoryEntry *entry = [transaction objectForKey:databaseKey inCollection:[MWKHistoryEntry databaseCollectionName]];
-            if (!entry) {
-                entry = [[MWKHistoryEntry alloc] initWithURL:articleURL];
-            }
-
-            entry.inTheNewsNotificationDate = date;
-            [transaction setObject:entry forKey:databaseKey inCollection:[MWKHistoryEntry databaseCollectionName]];
+    for (NSURL *URL in articleURLs) {
+        if ([URL wmf_isNonStandardURL]) {
+            continue;
         }
-        return databaseKeys;
-    }];
+        if ([URL.wmf_title length] == 0) {
+            continue;
+        }
+        WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:URL];
+        article.newsNotificationDate = date;
+    }
+
+    NSError *error = nil;
+    if (![self.dataStore save:&error]) {
+        DDLogError(@"Error setting in the news notification date: %@", error);
+    }
 }
 
-- (void)setSignificantlyViewedOnPageInHistoryWithURL:(NSURL *)url {
-    if ([url.wmf_title length] == 0) {
+- (void)setSignificantlyViewedOnPageInHistoryWithURL:(NSURL *)URL {
+    if ([URL wmf_isNonStandardURL]) {
         return;
     }
-    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-        MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        if (entry) {
-            entry.titleWasSignificantlyViewed = YES;
-            [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        }
-        return @[[MWKHistoryEntry databaseKeyForURL:url]];
-    }];
+
+    if ([URL.wmf_title length] == 0) {
+        return;
+    }
+
+    WMFArticle *article = [self.dataStore fetchArticleForURL:URL];
+    article.wasSignificantlyViewed = YES;
+
+    NSError *error = nil;
+    if (![self.dataStore save:&error]) {
+        DDLogError(@"Error setting significantly viewed: %@", error);
+    }
 }
 
-- (void)removeEntryWithURL:(NSURL *)url {
-    if ([[url wmf_title] length] == 0) {
+- (void)removeEntryWithURL:(NSURL *)URL {
+    if ([URL wmf_isNonStandardURL]) {
         return;
     }
-    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-        MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        entry.dateViewed = nil;
-        [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        return @[[MWKHistoryEntry databaseKeyForURL:url]];
-    }];
+
+    if ([URL.wmf_title length] == 0) {
+        return;
+    }
+
+    WMFArticle *article = [self.dataStore fetchArticleForURL:URL];
+    article.viewedDate = nil;
+    [article updateViewedDateWithoutTime];
+
+    NSError *error = nil;
+    if (![self.dataStore save:&error]) {
+        DDLogError(@"Error setting last viewed date: %@", error);
+    }
 }
 
 - (void)removeAllEntries {
-    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray<NSString *> *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-        NSMutableArray<NSString *> *keys = [NSMutableArray arrayWithCapacity:[self numberOfItems]];
-        [transaction enumerateKeysAndObjectsInCollection:[MWKHistoryEntry databaseCollectionName]
-                                              usingBlock:^(NSString *_Nonnull key, MWKHistoryEntry *_Nonnull object, BOOL *_Nonnull stop) {
-                                                  if (object.dateViewed != nil) {
-                                                      [keys addObject:key];
-                                                  }
-                                              }];
-        [keys enumerateObjectsUsingBlock:^(NSString *_Nonnull key, NSUInteger idx, BOOL *_Nonnull stop) {
-            MWKHistoryEntry *entry = [[transaction objectForKey:key inCollection:[MWKHistoryEntry databaseCollectionName]] copy];
-            entry.dateViewed = nil;
-            [transaction setObject:entry forKey:key inCollection:[MWKHistoryEntry databaseCollectionName]];
-        }];
-        return keys;
+    [self enumerateItemsWithBlock:^(WMFArticle *_Nonnull entry, BOOL *_Nonnull stop) {
+        entry.viewedDate = nil;
+        [entry updateViewedDateWithoutTime];
     }];
+
+    NSError *error = nil;
+    if (![self.dataStore save:&error]) {
+        DDLogError(@"Error removing all entries: %@", error);
+    }
 }
 
 @end

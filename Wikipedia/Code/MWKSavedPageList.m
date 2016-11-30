@@ -1,7 +1,4 @@
 #import "MWKSavedPageList.h"
-#import "MWKDataStore+WMFDataSources.h"
-#import <YapDataBase/YapDatabase.h>
-#import <YapDataBase/YapDatabaseView.h>
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import <WMFModel/WMFModel-Swift.h>
 
@@ -11,11 +8,11 @@
 NSString *const MWKSavedPageExportedEntriesKey = @"entries";
 NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
-@interface MWKSavedPageList ()
-
-@property (nonatomic, strong) id<WMFDataSource> dataSource;
+@interface MWKSavedPageList () <NSFetchedResultsControllerDelegate>
 
 @property (readwrite, weak, nonatomic) MWKDataStore *dataStore;
+
+@property (nonatomic, readonly) NSFetchRequest *savedPageListFetchRequest;
 
 @end
 
@@ -32,51 +29,16 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     self = [super init];
     if (self) {
         self.dataStore = dataStore;
-        self.dataSource = [self.dataStore savedDataSource];
         [self migrateLegacyDataIfNeeded];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     }
     return self;
 }
 
-- (void)applicationDidBecomeActive:(NSNotification *)note {
-    NSURL *containerURL = [[NSFileManager defaultManager] wmf_containerURL];
-    NSString *filename = @"Saved.articles";
-    NSURL *savedArticlesURL = [containerURL URLByAppendingPathComponent:filename isDirectory:NO];
-    if (!savedArticlesURL) {
-        return;
-    }
-    
-    NSData *savedArticlesData = [NSData dataWithContentsOfURL:savedArticlesURL];
-    if (!savedArticlesData) {
-        return;
-    }
-    
-    NSArray<NSString *> *articlesToSave = [NSKeyedUnarchiver unarchiveObjectWithData:savedArticlesData];
-    if (articlesToSave.count == 0) {
-        return;
-    }
-    
-    for (NSString *articleToSave in articlesToSave) {
-        NSURL *articleURL = [NSURL URLWithString:articleToSave];
-        if (!articleURL) {
-            continue;
-        }
-        [self addSavedPageWithURL:articleURL];
-    }
-   
-    [[NSFileManager defaultManager] removeItemAtURL:savedArticlesURL error:nil];
-}
-
 #pragma mark - Legacy Migration
 
-- (MWKHistoryEntry *)historyEntryWithSavedPageEntry:(MWKSavedPageEntry *)entry {
-    MWKHistoryEntry *history = [[MWKHistoryEntry alloc] initWithURL:entry.url];
-    history.dateSaved = entry.date;
-    return history;
-}
-
 - (void)migrateLegacyDataIfNeeded {
+    NSAssert([NSThread isMainThread], @"Legacy migration must happen on the main thread");
+
     if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateSavedPageList]) {
         return;
     }
@@ -90,65 +52,70 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
             }
         }];
 
-    if ([entries count] > 0) {
-        [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray<NSString *> *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-            NSMutableArray *urls = [NSMutableArray arrayWithCapacity:[entries count]];
-            [entries enumerateObjectsUsingBlock:^(MWKSavedPageEntry *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                if (obj.url.wmf_title.length == 0) {
-                    //HACK: Added check from pre-existing logic. Apparently there was a time when this URL could be bad. Copying here to keep exisitng functionality
-                    return;
-                }
-                MWKHistoryEntry *history = [self historyEntryWithSavedPageEntry:obj];
-                MWKHistoryEntry *existing = [transaction objectForKey:[history databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
-                if (existing) {
-                    existing.dateSaved = history.dateSaved;
-                    history = existing;
-                }
-                [transaction setObject:history forKey:[history databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
-                [urls addObject:[history databaseKey]];
-            }];
-            return urls;
-        }];
-
+    if ([entries count] == 0) {
         [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateSavedPageList:YES];
+        return;
     }
+
+    [entries enumerateObjectsUsingBlock:^(MWKSavedPageEntry *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        if (obj.url.wmf_title.length == 0) {
+            //HACK: Added check from pre-existing logic. Apparently there was a time when this URL could be bad. Copying here to keep exisitng functionality
+            return;
+        }
+
+        WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:obj.url];
+        article.savedDate = obj.date;
+    }];
+
+    NSError *migrationError = nil;
+    if (![self.dataStore save:&migrationError]) {
+        DDLogError(@"Error migrating legacy saved pages: %@", migrationError);
+        return;
+    }
+
+    [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateSavedPageList:YES];
 }
 
 #pragma mark - Convienence Methods
 
+- (NSFetchRequest *)savedPageListFetchRequest {
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:NO]];
+    return request;
+}
+
 - (NSInteger)numberOfItems {
-    return [self.dataSource numberOfItems];
+    return [self.dataStore.viewContext countForFetchRequest:self.savedPageListFetchRequest error:nil];
 }
 
-- (nullable MWKHistoryEntry *)mostRecentEntry {
-    return (MWKHistoryEntry*)[self.dataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+- (nullable WMFArticle *)mostRecentEntry {
+    NSFetchRequest *request = self.savedPageListFetchRequest;
+    request.fetchLimit = 1;
+    return [[self.dataStore.viewContext executeFetchRequest:request error:nil] firstObject];
 }
 
-- (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url {
-    return [self.dataSource readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-        MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        if (entry.dateSaved != nil) {
-            return entry;
-        } else {
-            return nil;
-        }
-    }];
+- (nullable WMFArticle *)entryForURL:(NSURL *)url {
+    NSString *key = [url wmf_articleDatabaseKey];
+    if (!key) {
+        return nil;
+    }
+    NSManagedObjectContext *moc = self.dataStore.viewContext;
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"key == %@ && savedDate != NULL", key]];
+    NSArray<WMFArticle *> *results = [moc executeFetchRequest:request error:nil];
+    return [results firstObject];
 }
 
-- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block {
+- (void)enumerateItemsWithBlock:(void (^)(WMFArticle *_Nonnull entry, BOOL *stop))block {
     if (!block) {
         return;
     }
-    [self.dataSource readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-        if ([view numberOfItemsInAllGroups] == 0) {
-            return;
-        }
-        [view enumerateKeysAndObjectsInGroup:[[view allGroups] firstObject]
-                                  usingBlock:^(NSString *_Nonnull collection, NSString *_Nonnull key, MWKHistoryEntry *_Nonnull object, NSUInteger index, BOOL *_Nonnull stop) {
-                                      if (object.dateSaved) {
-                                          block(object, stop);
-                                      }
-                                  }];
+
+    NSFetchRequest *request = self.savedPageListFetchRequest;
+    NSArray<WMFArticle *> *allEntries = [self.dataStore.viewContext executeFetchRequest:request error:nil];
+    [allEntries enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        block(obj, stop);
     }];
 }
 
@@ -156,86 +123,41 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     if ([url.wmf_title length] == 0) {
         return NO;
     }
-    return [self entryForURL:url].dateSaved != nil;
+    return [self entryForURL:url] != nil;
 }
 
 #pragma mark - Update Methods
 
-- (void)addEntry:(MWKHistoryEntry *)entry {
-    NSParameterAssert(entry.url);
-    if ([entry.url wmf_isNonStandardURL]) {
-        return;
-    }
-    if ([entry.url.wmf_title length] == 0) {
-        return;
-    }
-
-    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-        [transaction setObject:entry forKey:[entry databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        return @[[entry databaseKey]];
-    }];
-}
-- (void)toggleSavedPageForURL:(NSURL *)url {
+- (BOOL)toggleSavedPageForURL:(NSURL *)url {
     if ([self isSaved:url]) {
         [self removeEntryWithURL:url];
+        return NO;
     } else {
         [self addSavedPageWithURL:url];
+        return YES;
     }
 }
 
 - (void)addSavedPageWithURL:(NSURL *)url {
-    if ([url wmf_isNonStandardURL]) {
-        return;
-    }
-    if ([url.wmf_title length] == 0) {
-        return;
-    }
-
-    __block MWKHistoryEntry *entry = nil;
-
-    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray<NSString *> *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-        entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        if (!entry) {
-            entry = [[MWKHistoryEntry alloc] initWithURL:url];
-        }
-        if (!entry.dateSaved) {
-            entry.dateSaved = [NSDate date];
-        }
-
-        [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-
-        return @[[entry databaseKey]];
-    }];
+    WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:url];
+    article.savedDate = [NSDate date];
+    [self.dataStore save:nil];
 }
 
 - (void)removeEntryWithURL:(NSURL *)url {
-    if ([url.wmf_title length] == 0) {
+    WMFArticle *article = [self.dataStore fetchArticleForURL:url];
+    if (!article) {
         return;
     }
-    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray<NSString *> *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-        MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        entry.dateSaved = nil;
-        [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        return @[[MWKHistoryEntry databaseKeyForURL:url]];
-    }];
+    article.savedDate = nil;
+    [self.dataStore save:nil];
 }
 
 - (void)removeAllEntries {
-    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray<NSString *> *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-        NSMutableArray<NSString *> *keys = [NSMutableArray arrayWithCapacity:[self numberOfItems]];
-        [transaction enumerateKeysAndObjectsInCollection:[MWKHistoryEntry databaseCollectionName]
-                                              usingBlock:^(NSString *_Nonnull key, MWKHistoryEntry *_Nonnull object, BOOL *_Nonnull stop) {
-                                                  if (object.dateSaved != nil) {
-                                                      [keys addObject:key];
-                                                  }
-                                              }];
-        [keys enumerateObjectsUsingBlock:^(NSString *_Nonnull key, NSUInteger idx, BOOL *_Nonnull stop) {
-            MWKHistoryEntry *entry = [[transaction objectForKey:key inCollection:[MWKHistoryEntry databaseCollectionName]] copy];
-            entry.dateSaved = nil;
-            [transaction setObject:entry forKey:key inCollection:[MWKHistoryEntry databaseCollectionName]];
-        }];
-        return keys;
+    [self enumerateItemsWithBlock:^(WMFArticle *_Nonnull entry, BOOL *_Nonnull stop) {
+        entry.savedDate = nil;
     }];
+    [self.dataStore save:nil];
 }
 
 #pragma mark - Legacy Schema Migration
