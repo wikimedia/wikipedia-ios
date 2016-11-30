@@ -2410,7 +2410,6 @@
 		D84F92411DC161DA00114C2F /* NSDictionary+WMFPageViewsSortedByDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+WMFPageViewsSortedByDate.m"; path = "Wikipedia/Code/NSDictionary+WMFPageViewsSortedByDate.m"; sourceTree = SOURCE_ROOT; };
 		D85219371D6DEFBB00084796 /* WMFTodayContinueReadingWidgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFTodayContinueReadingWidgetViewController.swift; sourceTree = "<group>"; };
 		D858A7DE1DA6A04A009C3DEB /* WMFDateCalculationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFDateCalculationTests.m; sourceTree = "<group>"; };
-		D858A7F71DA6DB7F009C3DEB /* UserzoomSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserzoomSDK.framework; path = Wikipedia/Frameworks/UserzoomSDK.framework; sourceTree = "<group>"; };
 		D858A7F81DA6DB96009C3DEB /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		D85CEFD41DDE2C000084A4E8 /* WMFArticlePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticlePreview.h; sourceTree = "<group>"; };
 		D85CEFD51DDE2C000084A4E8 /* WMFArticlePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticlePreview.m; sourceTree = "<group>"; };
@@ -5470,7 +5469,6 @@
 			isa = PBXGroup;
 			children = (
 				D858A7F81DA6DB96009C3DEB /* libz.tbd */,
-				D858A7F71DA6DB7F009C3DEB /* UserzoomSDK.framework */,
 				D8DC16FC1D6F709300D6D9FB /* CoreImage.framework */,
 				04649CA619F72B360071E8FA /* libPods.a */,
 				041EFC361996A1F800B2CB28 /* MapKit.framework */,
@@ -9397,7 +9395,6 @@
 					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
 					"$(inherited)",
 					"ALPHA=1",
-					"ENABLE_USERZOOM=1",
 					"PIWIK_ENABLED=1",
 				);
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
@@ -9468,8 +9465,6 @@
 					SystemConfiguration,
 					"-framework",
 					AVFoundation,
-					"-framework",
-					UserzoomSDK,
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha;
@@ -9763,8 +9758,6 @@
 					CoreMedia,
 					"-framework",
 					AVFoundation,
-					"-framework",
-					UserzoomSDK,
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha;

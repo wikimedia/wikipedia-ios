@@ -32,16 +32,6 @@
 				<string>wikipedia</string>
 			</array>
 		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>userzoomc5224a1</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>userzoomc5224a1</string>
-			</array>
-		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>0</string>
