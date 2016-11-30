@@ -22,7 +22,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     let databaseDateFormatter = NSDateFormatter.wmf_englishUTCNonDelimitedYearMonthDayFormatter()
     let headerDateFormatter = NSDateFormatter.wmf_shortMonthNameDayOfMonthNumberDateFormatter()
-    let daysToShowInSparkline: NSTimeInterval = 5
+    let daysToShowInSparkline = 5
     
     @IBOutlet weak var footerLabelLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var headerLabelLeadingConstraint: NSLayoutConstraint!
@@ -237,9 +237,13 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             vc.rankLabel.text = rankString
             vc.rankLabel.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("rank-accessibility-label").stringByReplacingOccurrencesOfString("$1", withString: rankString)
             if let articlePreview = self.previewStore.itemForURL(result.articleURL) {
-                if let viewCounts = articlePreview.pageViewsSortedByDate where viewCounts.count > 0 {
+                if var viewCounts = articlePreview.pageViewsSortedByDate where viewCounts.count >= daysToShowInSparkline {
                     vc.sparklineView.minDataValue = dataValueMin
                     vc.sparklineView.maxDataValue = dataValueMax
+                    let countToRemove = viewCounts.count - daysToShowInSparkline
+                    if countToRemove > 0 {
+                        viewCounts.removeFirst(countToRemove)
+                    }
                     vc.sparklineView.dataValues = viewCounts
                     
                     if let count = viewCounts.last {
