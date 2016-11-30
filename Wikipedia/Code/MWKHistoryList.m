@@ -93,11 +93,13 @@ NS_ASSUME_NONNULL_BEGIN
     if (!key) {
         return nil;
     }
-    NSManagedObjectContext *moc = self.dataStore.viewContext;
-    NSFetchRequest *request = [WMFArticle fetchRequest];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"key == %@ && viewedDate != NULL", key]];
-    NSArray<WMFArticle *> *results = [moc executeFetchRequest:request error:nil];
-    return [results firstObject];
+    
+    WMFArticle *article = [self.dataStore fetchArticleForKey:key];
+    if (article.viewedDate) {
+        return article;
+    } else {
+        return nil;
+    }
 }
 
 - (void)enumerateItemsWithBlock:(void (^)(WMFArticle *_Nonnull entry, BOOL *stop))block {

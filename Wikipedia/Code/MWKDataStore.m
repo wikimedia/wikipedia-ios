@@ -1060,7 +1060,8 @@ static pid_t currentPid() {
 
     NSManagedObjectContext *moc = self.viewContext;
     NSFetchRequest *request = [WMFArticle fetchRequest];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"key == %@", key]];
+    request.fetchLimit = 1;
+    request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
     article = [[moc executeFetchRequest:request error:nil] firstObject];
 
     if (article) {
