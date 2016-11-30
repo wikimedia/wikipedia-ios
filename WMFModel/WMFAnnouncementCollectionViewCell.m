@@ -1,6 +1,7 @@
 
 #import "WMFAnnouncementCollectionViewCell.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
+#import "Wikipedia-Swift.h"
 
 @interface WMFAnnouncementCollectionViewCell () <UITextViewDelegate>
 
@@ -29,6 +30,9 @@
     [self.dismissButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
     [self.dismissButton setNeedsLayout];
     [self.dismissButton layoutIfNeeded];
+    [self.dismissButton setTitleColor:[UIColor wmf_777777Color] forState:UIControlStateNormal];
+    
+    [self wmf_configureSubviewsForDynamicType];
 }
 
 - (void)prepareForReuse {
@@ -63,66 +67,44 @@
 }
 
 - (void)setMessageText:(NSString *)text {
-    NSError *error = nil;
-    NSMutableAttributedString *string = [[[NSAttributedString alloc]
-              initWithData:[text dataUsingEncoding:NSUTF8StringEncoding]
-                   options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-        documentAttributes:nil
-                     error:&error] mutableCopy];
-
-    if (error) {
-        [self.messageLabel setText:text];
-    } else {
-        static NSDictionary *attributes;
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
-            pStyle.lineBreakMode = NSLineBreakByTruncatingTail;
-            pStyle.baseWritingDirection = NSWritingDirectionNatural;
-            pStyle.lineHeightMultiple = 1.35;
-            pStyle.alignment = NSTextAlignmentCenter;
-            attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0],
-                           NSForegroundColorAttributeName: [UIColor blackColor],
-                           NSParagraphStyleAttributeName: pStyle};
-        });
-
-        [string addAttributes:attributes range:NSMakeRange(0, string.length)];
-        [self.messageLabel setAttributedText:string];
-    }
-    [self.messageLabel setNeedsLayout];
-    [self.messageLabel layoutIfNeeded];
+    [self.messageLabel setText:text];
 }
+
 - (void)setActionText:(NSString *)text {
     [self.actionButton setTitle:text forState:UIControlStateNormal];
 }
 
 - (void)setCaptionHTML:(NSString *)text {
-    NSError *error = nil;
-    NSMutableAttributedString *string = [[[NSAttributedString alloc]
-              initWithData:[text dataUsingEncoding:NSUTF8StringEncoding]
-                   options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-        documentAttributes:nil
-                     error:&error] mutableCopy];
-    if (error) {
-        [self.captionTextView setText:text];
+    NSAttributedString *attributedString = [self attributedStringForCaptionHTML:text];
+    if (attributedString) {
+        [self.captionTextView setAttributedText:attributedString];
     } else {
-        static NSDictionary *attributes;
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
-            pStyle.lineBreakMode = NSLineBreakByTruncatingTail;
-            pStyle.baseWritingDirection = NSWritingDirectionNatural;
-            pStyle.lineHeightMultiple = 1.35;
-            pStyle.alignment = NSTextAlignmentCenter;
-            attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:12.0],
-                           NSForegroundColorAttributeName: [UIColor wmf_colorWithHex:0x72777D alpha:1.0],
-                           NSParagraphStyleAttributeName: pStyle};
-        });
-        [string addAttributes:attributes range:NSMakeRange(0, string.length)];
-        [self.captionTextView setAttributedText:string];
+        [self.captionTextView setText:text];
     }
     [self.captionTextView setNeedsLayout];
     [self.captionTextView layoutIfNeeded];
+}
+
+- (nullable NSAttributedString*)attributedStringForCaptionHTML:(NSString *)text {
+    
+    NSError *error = nil;
+    NSMutableAttributedString *string = [[[NSAttributedString alloc] initWithData:[text dataUsingEncoding:NSUTF8StringEncoding]
+                                                                          options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                                               documentAttributes:nil
+                                                                            error:&error] mutableCopy];
+    if (error) {
+        return nil;
+    } else {
+        NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
+        pStyle.lineBreakMode = NSLineBreakByWordWrapping;
+        pStyle.baseWritingDirection = NSWritingDirectionNatural;
+        pStyle.alignment = NSTextAlignmentCenter;
+        NSDictionary *attributes = @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote],
+                                     NSForegroundColorAttributeName: [UIColor wmf_777777Color],
+                                     NSParagraphStyleAttributeName: pStyle};
+        [string addAttributes:attributes range:NSMakeRange(0, string.length)];
+        return string;
+    }
 }
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {

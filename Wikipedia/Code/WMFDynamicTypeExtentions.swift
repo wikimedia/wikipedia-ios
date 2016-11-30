@@ -8,8 +8,6 @@ extension UIButton {
             self.titleLabel!.numberOfLines = 1
             self.titleLabel!.clipsToBounds = false
             self.titleLabel!.lineBreakMode = .ByWordWrapping
-            self.titleLabel!.setContentCompressionResistancePriority(UILayoutPriorityFittingSizeLevel, forAxis: .Horizontal)
-            self.setContentCompressionResistancePriority(UILayoutPriorityFittingSizeLevel, forAxis: .Horizontal)
         }
     }
 }
