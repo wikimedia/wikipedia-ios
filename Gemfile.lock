@@ -109,8 +109,7 @@ GEM
       xcode-install (~> 2.0.0)
       xcodeproj (>= 0.20, < 2.0.0)
       xcpretty (>= 0.2.4, < 1.0.0)
-    fastlane_core (0.57.1)
-      babosa
+    fastlane_core (0.57.2)
       colored
       commander (>= 4.4.0, <= 5.0.0)
       credentials_manager (>= 0.16.2, < 1.0.0)
@@ -252,7 +251,8 @@ GEM
       fastlane_core (>= 0.57.0, < 1.0.0)
       plist (>= 3.1.0, < 4.0.0)
       xcpretty (>= 0.2.4, < 1.0.0)
-    spaceship (0.38.3)
+    spaceship (0.38.4)
+      babosa (= 1.0.2)
       colored
       credentials_manager (>= 0.16.0)
       faraday (~> 0.9)
