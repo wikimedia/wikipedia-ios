@@ -155,6 +155,12 @@
 }
 
 - (NSLocale *)getLocaleForCurrentSearchDomain {
+    static dispatch_once_t onceToken;
+    static NSMutableDictionary *localeCache;
+    dispatch_once(&onceToken, ^{
+        localeCache = [NSMutableDictionary dictionaryWithCapacity:1];
+    });
+
     NSString *domain = [SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language;
 
     MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];
@@ -163,13 +169,24 @@
 
     NSLocale *locale = nil;
 
-    if (code && [[NSLocale availableLocaleIdentifiers] containsObject:code]) {
+    if (!code) {
+        return [NSLocale currentLocale];
+    }
+
+    locale = [localeCache objectForKey:code];
+    if (locale) {
+        return locale;
+    }
+
+    if ([[NSLocale availableLocaleIdentifiers] containsObject:code]) {
         locale = [[NSLocale alloc] initWithLocaleIdentifier:code];
     }
 
     if (!locale) {
         locale = [NSLocale currentLocale];
     }
+
+    [localeCache setObject:locale forKey:code];
 
     return locale;
 }
