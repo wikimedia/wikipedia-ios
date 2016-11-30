@@ -7931,175 +7931,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		0E51935D1D65F019003D6CF6 /* Debug Test */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_NS_ASSERTIONS = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"TEST=1",
-					"DEBUG=1",
-					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				RUN_CLANG_STATIC_ANALYZER = NO;
-				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 2.3;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				WARNING_CFLAGS = (
-					"$(inherited)",
-					"-Wno-error=nullability-completeness",
-					"-Wno-error=format",
-				);
-			};
-			name = "Debug Test";
-		};
-		0E51935E1D65F019003D6CF6 /* Debug Test */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6BC421D2B6EAA49F9B7861F0 /* Pods-Foundation-Wikipedia.debug test.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_CODE_COVERAGE = YES;
-				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"WMF_APP_EXTENSION=0",
-				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
-				PRODUCT_MODULE_NAME = Wikipedia;
-				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
-				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 2.3;
-				WMF_HOCKEYAPP_IDENTIFIER = 7138507aefac3ee74c295f75a0b857e4;
-				WMF_USER_ZOOM_TAG = "";
-				WRAPPER_EXTENSION = app;
-			};
-			name = "Debug Test";
-		};
-		0E51935F1D65F019003D6CF6 /* Debug Test */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B9B0B3C84DC8A2BC9AF2E41E /* Pods-Foundation-Wikipedia-WikipediaUnitTests.debug test.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_CODE_COVERAGE = NO;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				DEFINES_MODULE = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
-					"MKT_SHORTHAND=1",
-					"HC_SHORTHAND=1",
-					"LOCALIZATIONS_DIR=@\\\"\"$(SOURCE_ROOT)/Wikipedia/Localizations\"\\\"",
-					"SOURCE_ROOT_DIR=@\\\"\"$(SOURCE_ROOT)\"\\\"",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				HEADER_SEARCH_PATHS = (
-					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) /Applications/Xcode.app/Contents/Developer/Library/Frameworks/ @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 2.3;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
-			};
-			name = "Debug Test";
-		};
-		0E5193601D65F019003D6CF6 /* Debug Test */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4A08C17A1DA9EA24961A2874 /* Pods-Foundation-ContinueReadingWidget.debug test.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
-			};
-			name = "Debug Test";
-		};
 		0E8380711D64989F0076EDE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 663A7936DBF7991952C0BFE4 /* Pods-Foundation-ContinueReadingWidget.debug.xcconfig */;
@@ -8127,29 +7958,6 @@
 				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
-		};
-		0E8380721D64989F0076EDE4 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5FD286CFE5F5EA9DB6A9200E /* Pods-Foundation-ContinueReadingWidget.adhoc.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
-			};
-			name = AdHoc;
 		};
 		0E8380731D64989F0076EDE4 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -8196,29 +8004,6 @@
 				SWIFT_VERSION = 2.3;
 			};
 			name = Test;
-		};
-		0E8380751D64989F0076EDE4 /* Beta */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5497A3D1ED13E6D4B016B70A /* Pods-Foundation-ContinueReadingWidget.beta.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
-			};
-			name = Beta;
 		};
 		0EAB7A201D47AF8000E7CF8E /* Test */ = {
 			isa = XCBuildConfiguration;
@@ -8312,7 +8097,6 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
 				WMF_HOCKEYAPP_IDENTIFIER = 5d80da08a6761e5c6456736af7ebad88;
-				WMF_USER_ZOOM_TAG = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Test;
@@ -8356,274 +8140,6 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
 			name = Test;
-		};
-		A69698A61AC9D08700208A11 /* Beta */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				ENABLE_NS_ASSERTIONS = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"BETA=1",
-					"DEBUG=1",
-					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
-					"$(inherited)",
-					"PIWIK_ENABLED=1",
-				);
-				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 2.3;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				WARNING_CFLAGS = (
-					"$(inherited)",
-					"-Wno-error=nullability-completeness",
-					"-Wno-error=format",
-				);
-			};
-			name = Beta;
-		};
-		A69698A71AC9D08700208A11 /* Beta */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 58782A8F62026E9624E663AB /* Pods-Foundation-Wikipedia.beta.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_CODE_COVERAGE = NO;
-				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_TESTABILITY = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"WMF_APP_EXTENSION=0",
-				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
-				PRODUCT_MODULE_NAME = Wikipedia;
-				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
-				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
-				SWIFT_VERSION = 2.3;
-				WMF_HOCKEYAPP_IDENTIFIER = 2295c3698bbd0b050f257772dd2bdbb2;
-				WMF_USER_ZOOM_TAG = "";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Beta;
-		};
-		A69698A81AC9D08700208A11 /* Beta */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = EC760B581D9F8E3567504FB3 /* Pods-Foundation-Wikipedia-WikipediaUnitTests.beta.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_CODE_COVERAGE = NO;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				DEFINES_MODULE = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				HEADER_SEARCH_PATHS = (
-					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) /Applications/Xcode.app/Contents/Developer/Library/Frameworks/ @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 2.3;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
-			};
-			name = Beta;
-		};
-		BC12F23E1B7968900042DB3C /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				ENABLE_NS_ASSERTIONS = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"BETA=1",
-					"DEBUG=1",
-					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
-					"$(inherited)",
-					"PIWIK_ENABLED=1",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				ONLY_ACTIVE_ARCH = NO;
-				RUN_CLANG_STATIC_ANALYZER = NO;
-				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 2.3;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				WARNING_CFLAGS = (
-					"$(inherited)",
-					"-Wno-error=nullability-completeness",
-					"-Wno-error=format",
-				);
-			};
-			name = AdHoc;
-		};
-		BC12F23F1B7968900042DB3C /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 32431117ED5E4A8F7A5CC48A /* Pods-Foundation-Wikipedia.adhoc.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_CODE_COVERAGE = NO;
-				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_TESTABILITY = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"WMF_APP_EXTENSION=0",
-				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
-				PRODUCT_MODULE_NAME = Wikipedia;
-				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
-				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 2.3;
-				WMF_HOCKEYAPP_IDENTIFIER = 7138507aefac3ee74c295f75a0b857e4;
-				WMF_USER_ZOOM_TAG = "";
-				WRAPPER_EXTENSION = app;
-			};
-			name = AdHoc;
-		};
-		BC12F2401B7968900042DB3C /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 02678E15A42DC0071031ED67 /* Pods-Foundation-Wikipedia-WikipediaUnitTests.adhoc.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_CODE_COVERAGE = NO;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				DEFINES_MODULE = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"FB_REFERENCE_IMAGE_DIR=\"$(PROJECT_DIR)/WikipediaUnitTests/Reference Snapshots\"",
-					"MKT_SHORTHAND=1",
-					"HC_SHORTHAND=1",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				HEADER_SEARCH_PATHS = (
-					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) /Applications/Xcode.app/Contents/Developer/Library/Frameworks/ @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 2.3;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
-			};
-			name = AdHoc;
 		};
 		BC42735B1A7C736800068882 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -8859,7 +8375,6 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
 				WMF_HOCKEYAPP_IDENTIFIER = 7138507aefac3ee74c295f75a0b857e4;
-				WMF_USER_ZOOM_TAG = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -8898,7 +8413,6 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
 				WMF_HOCKEYAPP_IDENTIFIER = 5d80da08a6761e5c6456736af7ebad88;
-				WMF_USER_ZOOM_TAG = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -8937,76 +8451,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		D844D9761D6CB2600042D692 /* Debug Test */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B02BFFDCC11F09C3ED05EB1A /* Pods-Foundation-WMFModel.debug test.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 0;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				GCC_PREFIX_HEADER = "WMFModel/WMFModel-prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"WMF_APP_EXTENSION=1",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFModel/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFModel;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 2.3;
-				VERSION_INFO_PREFIX = "";
-			};
-			name = "Debug Test";
-		};
-		D844D9771D6CB2600042D692 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 314D87CC9A494CB883C29613 /* Pods-Foundation-WMFModel.adhoc.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 0;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				GCC_PREFIX_HEADER = "WMFModel/WMFModel-prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"WMF_APP_EXTENSION=1",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFModel/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFModel;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 2.3;
-				VERSION_INFO_PREFIX = "";
-			};
-			name = AdHoc;
 		};
 		D844D9781D6CB2600042D692 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -9078,41 +8522,6 @@
 			};
 			name = Test;
 		};
-		D844D97A1D6CB2600042D692 /* Beta */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B7B297F128B843A7DEACF4DD /* Pods-Foundation-WMFModel.beta.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 0;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				GCC_PREFIX_HEADER = "WMFModel/WMFModel-prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"WMF_APP_EXTENSION=1",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFModel/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFModel;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 2.3;
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Beta;
-		};
 		D84581031D67572D00B09640 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C6F768F4988D8FA3B1899A74 /* Pods-Foundation-WMFUtilities.debug.xcconfig */;
@@ -9148,73 +8557,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		D84581041D67572D00B09640 /* Debug Test */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3C286EC70366D18EF0BE8E8 /* Pods-Foundation-WMFUtilities.debug test.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 0;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFUtilities/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUtilities;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 2.3;
-				VERSION_INFO_PREFIX = "";
-			};
-			name = "Debug Test";
-		};
-		D84581051D67572D00B09640 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B66B13709EB8A393201CA641 /* Pods-Foundation-WMFUtilities.adhoc.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 0;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFUtilities/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUtilities;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 2.3;
-				VERSION_INFO_PREFIX = "";
-			};
-			name = AdHoc;
 		};
 		D84581061D67572D00B09640 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -9277,37 +8619,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Test;
-		};
-		D84581081D67572D00B09640 /* Beta */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = EB733F5F7A1AC2B5776C7CD3 /* Pods-Foundation-WMFUtilities.beta.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 0;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFUtilities/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUtilities;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 2.3;
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Beta;
 		};
 		D84B224B1DAD7DE3007C44AA /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
@@ -9448,8 +8759,8 @@
 					"$(inherited)",
 					"COCOAPODS=1",
 					"WMF_APP_EXTENSION=0",
-					"WMF_USER_ZOOM_IS_ENABLED=1",
-					"WMF_USER_ZOOM_TAG=$(WMF_USER_ZOOM_TAG)",
+					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
+					"WMF_UX_STUDY_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -9474,7 +8785,6 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
 				WMF_HOCKEYAPP_IDENTIFIER = 2295c3698bbd0b050f257772dd2bdbb2;
-				WMF_USER_ZOOM_TAG = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Alpha;
@@ -9739,10 +9049,10 @@
 					"$(inherited)",
 					"COCOAPODS=1",
 					"WMF_APP_EXTENSION=0",
-					"WMF_USER_ZOOM_IS_ENABLED=1",
 					"ALPHA=1",
 					"BETA=1",
-					"WMF_USER_ZOOM_TAG=$(WMF_USER_ZOOM_TAG)",
+					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
+					"WMF_UX_STUDY_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -9768,7 +9078,6 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
 				WMF_HOCKEYAPP_IDENTIFIER = 2295c3698bbd0b050f257772dd2bdbb2;
-				WMF_USER_ZOOM_TAG = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = AlphaDebug;
@@ -10001,57 +9310,6 @@
 			};
 			name = Debug;
 		};
-		D85D34D31D74D07600845125 /* Debug Test */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46F8E51D3907AEFD9D250743 /* Pods-Foundation-TopReadWidget.debug test.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 2.3;
-			};
-			name = "Debug Test";
-		};
-		D85D34D41D74D07600845125 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A8C7C5E9470E8762962DAF42 /* Pods-Foundation-TopReadWidget.adhoc.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
-			};
-			name = AdHoc;
-		};
 		D85D34D51D74D07600845125 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 139EFB58D1CC85EFEDB9F21C /* Pods-Foundation-TopReadWidget.release.xcconfig */;
@@ -10098,29 +9356,6 @@
 			};
 			name = Test;
 		};
-		D85D34D71D74D07600845125 /* Beta */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3AEB81840FD76A305876F785 /* Pods-Foundation-TopReadWidget.beta.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
-			};
-			name = Beta;
-		};
 		D895D0921D9C1EB8005418C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 578B536BAC7AEC1351E68A80 /* Pods-Foundation-InTheNewsNotification.debug.xcconfig */;
@@ -10148,62 +9383,6 @@
 				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
-		};
-		D895D0931D9C1EB8005418C1 /* Debug Test */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 811D2D92A31EEB8052FB1DF2 /* Pods-Foundation-InTheNewsNotification.debug test.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = InTheNewsNotification/InTheNewsNotification.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 2.3;
-			};
-			name = "Debug Test";
-		};
-		D895D0941D9C1EB8005418C1 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B0BE5193F2308ED270B525B4 /* Pods-Foundation-InTheNewsNotification.adhoc.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = InTheNewsNotification/InTheNewsNotification.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"PIWIK_ENABLED=1",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
-			};
-			name = AdHoc;
 		};
 		D895D0951D9C1EB8005418C1 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -10251,29 +9430,6 @@
 			};
 			name = Test;
 		};
-		D895D0971D9C1EB8005418C1 /* Beta */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2D5E2AE483FC967CF32C8909 /* Pods-Foundation-InTheNewsNotification.beta.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = InTheNewsNotification/InTheNewsNotification.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
-			};
-			name = Beta;
-		};
 		D8AC392E1D6F2480007E3C14 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EE101D0AA36D601A273FC5BE /* Pods-Foundation-WMFUI.debug.xcconfig */;
@@ -10308,71 +9464,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		D8AC392F1D6F2480007E3C14 /* Debug Test */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7A9BEAC0DD04CBE5A964C192 /* Pods-Foundation-WMFUI.debug test.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 0;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFUI/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 2.3;
-				VERSION_INFO_PREFIX = "";
-			};
-			name = "Debug Test";
-		};
-		D8AC39301D6F2480007E3C14 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 309A81D0C833DBB150D776A4 /* Pods-Foundation-WMFUI.adhoc.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 0;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFUI/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 2.3;
-				VERSION_INFO_PREFIX = "";
-			};
-			name = AdHoc;
 		};
 		D8AC39311D6F2480007E3C14 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -10434,36 +9525,6 @@
 			};
 			name = Test;
 		};
-		D8AC39331D6F2480007E3C14 /* Beta */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8FC62C1575990EDD5D358882 /* Pods-Foundation-WMFUI.beta.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 0;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFUI/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 2.3;
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Beta;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -10472,11 +9533,8 @@
 			buildConfigurations = (
 				0E8380711D64989F0076EDE4 /* Debug */,
 				D858A8051DA6DD00009C3DEB /* AlphaDebug */,
-				0E5193601D65F019003D6CF6 /* Debug Test */,
-				0E8380721D64989F0076EDE4 /* AdHoc */,
 				0E8380731D64989F0076EDE4 /* Release */,
 				0E8380741D64989F0076EDE4 /* Test */,
-				0E8380751D64989F0076EDE4 /* Beta */,
 				D858A7FD1DA6DBC8009C3DEB /* Alpha */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -10487,11 +9545,8 @@
 			buildConfigurations = (
 				BC42735B1A7C736800068882 /* Debug */,
 				D858A8041DA6DD00009C3DEB /* AlphaDebug */,
-				0E51935F1D65F019003D6CF6 /* Debug Test */,
-				BC12F2401B7968900042DB3C /* AdHoc */,
 				BC42735C1A7C736800068882 /* Release */,
 				0EAB7A221D47AF8000E7CF8E /* Test */,
-				A69698A81AC9D08700208A11 /* Beta */,
 				D858A7FC1DA6DBC8009C3DEB /* Alpha */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -10502,11 +9557,8 @@
 			buildConfigurations = (
 				D4991468181D51DF00E6073C /* Debug */,
 				D858A8021DA6DD00009C3DEB /* AlphaDebug */,
-				0E51935D1D65F019003D6CF6 /* Debug Test */,
-				BC12F23E1B7968900042DB3C /* AdHoc */,
 				D4991469181D51DF00E6073C /* Release */,
 				0EAB7A201D47AF8000E7CF8E /* Test */,
-				A69698A61AC9D08700208A11 /* Beta */,
 				D858A7FA1DA6DBC8009C3DEB /* Alpha */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -10517,11 +9569,8 @@
 			buildConfigurations = (
 				D499146B181D51DF00E6073C /* Debug */,
 				D858A8031DA6DD00009C3DEB /* AlphaDebug */,
-				0E51935E1D65F019003D6CF6 /* Debug Test */,
-				BC12F23F1B7968900042DB3C /* AdHoc */,
 				D499146C181D51DF00E6073C /* Release */,
 				0EAB7A211D47AF8000E7CF8E /* Test */,
-				A69698A71AC9D08700208A11 /* Beta */,
 				D858A7FB1DA6DBC8009C3DEB /* Alpha */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -10532,11 +9581,8 @@
 			buildConfigurations = (
 				D844D9751D6CB2600042D692 /* Debug */,
 				D858A8081DA6DD00009C3DEB /* AlphaDebug */,
-				D844D9761D6CB2600042D692 /* Debug Test */,
-				D844D9771D6CB2600042D692 /* AdHoc */,
 				D844D9781D6CB2600042D692 /* Release */,
 				D844D9791D6CB2600042D692 /* Test */,
-				D844D97A1D6CB2600042D692 /* Beta */,
 				D858A8001DA6DBC8009C3DEB /* Alpha */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -10547,11 +9593,8 @@
 			buildConfigurations = (
 				D84581031D67572D00B09640 /* Debug */,
 				D858A8071DA6DD00009C3DEB /* AlphaDebug */,
-				D84581041D67572D00B09640 /* Debug Test */,
-				D84581051D67572D00B09640 /* AdHoc */,
 				D84581061D67572D00B09640 /* Release */,
 				D84581071D67572D00B09640 /* Test */,
-				D84581081D67572D00B09640 /* Beta */,
 				D858A7FF1DA6DBC8009C3DEB /* Alpha */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -10562,11 +9605,8 @@
 			buildConfigurations = (
 				D85D34D21D74D07600845125 /* Debug */,
 				D858A8061DA6DD00009C3DEB /* AlphaDebug */,
-				D85D34D31D74D07600845125 /* Debug Test */,
-				D85D34D41D74D07600845125 /* AdHoc */,
 				D85D34D51D74D07600845125 /* Release */,
 				D85D34D61D74D07600845125 /* Test */,
-				D85D34D71D74D07600845125 /* Beta */,
 				D858A7FE1DA6DBC8009C3DEB /* Alpha */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -10576,11 +9616,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D895D0921D9C1EB8005418C1 /* Debug */,
-				D895D0931D9C1EB8005418C1 /* Debug Test */,
-				D895D0941D9C1EB8005418C1 /* AdHoc */,
 				D895D0951D9C1EB8005418C1 /* Release */,
 				D895D0961D9C1EB8005418C1 /* Test */,
-				D895D0971D9C1EB8005418C1 /* Beta */,
 				D84B224B1DAD7DE3007C44AA /* AlphaDebug */,
 				D84B224C1DAD7DE3007C44AA /* Alpha */,
 			);
@@ -10592,11 +9629,8 @@
 			buildConfigurations = (
 				D8AC392E1D6F2480007E3C14 /* Debug */,
 				D858A8091DA6DD00009C3DEB /* AlphaDebug */,
-				D8AC392F1D6F2480007E3C14 /* Debug Test */,
-				D8AC39301D6F2480007E3C14 /* AdHoc */,
 				D8AC39311D6F2480007E3C14 /* Release */,
 				D8AC39321D6F2480007E3C14 /* Test */,
-				D8AC39331D6F2480007E3C14 /* Beta */,
 				D858A8011DA6DBC8009C3DEB /* Alpha */,
 			);
 			defaultConfigurationIsVisible = 0;
