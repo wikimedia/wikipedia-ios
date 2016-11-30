@@ -50,6 +50,7 @@
                 <index value="isVisible"/>
                 <index value="midnightUTCDate"/>
                 <index value="dailySortPriority"/>
+                <index value="date"/>
             </compoundIndex>
         </compoundIndexes>
     </entity>
