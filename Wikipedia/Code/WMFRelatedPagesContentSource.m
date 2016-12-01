@@ -104,13 +104,13 @@ NS_ASSUME_NONNULL_BEGIN
         }
         return;
     }
-    
+
     NSDate *now = [NSDate date];
-    
+
     NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
-    
+
     WMFTaskGroup *group = [WMFTaskGroup new];
-    
+
     for (NSUInteger i = 0; i < days; i++) {
         [group enter];
         NSDate *date = [calendar dateByAddingUnit:NSCalendarUnitDay value:-i toDate:now options:NSCalendarMatchStrictly];
@@ -120,7 +120,7 @@ NS_ASSUME_NONNULL_BEGIN
                           [group leave];
                       }];
     }
-    
+
     [group waitInBackgroundWithCompletion:completion];
 }
 
@@ -158,8 +158,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateRelatedGroupForReference:(WMFArticle *)reference date:(NSDate *)date completion:(nullable dispatch_block_t)completion {
     if ([reference needsRelatedPagesGroupForDate:date]) {
-        WMFContentGroup *section = [self addSectionForReference:reference];
-        [self fetchAndSaveRelatedArticlesForSection:section completion:completion];
+        [self fetchAndSaveRelatedArticlesForArticle:reference completion:completion];
     } else if (reference && ![reference needsRelatedPagesGroup]) {
         [self removeSectionForReference:reference];
         if (completion) {
@@ -183,31 +182,19 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (WMFContentGroup *)addSectionForReference:(WMFArticle *)reference {
-    WMFContentGroup *group = (id)[self.contentStore contentGroupForURL:[WMFContentGroup relatedPagesContentGroupURLForArticleURL:reference.URL]];
-    if (!group) {
-        group = [self.contentStore createGroupOfKind:WMFContentGroupKindRelatedPages
-                                             forDate:[reference dateForGroup]
-                                         withSiteURL:reference.URL.wmf_siteURL
-                                   associatedContent:nil
-                                  customizationBlock:^(WMFContentGroup *_Nonnull group) {
-                                      group.articleURL = reference.URL;
-                                  }];
-    }
-    return group;
-}
-
 #pragma mark - Fetch
 
-- (void)fetchAndSaveRelatedArticlesForSection:(WMFContentGroup *)group completion:(nullable dispatch_block_t)completion {
-    NSArray<NSURL *> *related = (NSArray<NSURL *> *)group.content;
+- (void)fetchAndSaveRelatedArticlesForArticle:(WMFArticle *)article completion:(nullable dispatch_block_t)completion {
+    NSURL *groupURL = [WMFContentGroup relatedPagesContentGroupURLForArticleURL:article.URL];
+    WMFContentGroup *existingGroup = [self.contentStore contentGroupForURL:groupURL];
+    NSArray<NSURL *> *related = (NSArray<NSURL *> *)existingGroup.content;
     if ([related count] > 0) {
         if (completion) {
             completion();
         }
         return;
     }
-    [self.relatedSearchFetcher fetchArticlesRelatedArticleWithURL:group.articleURL
+    [self.relatedSearchFetcher fetchArticlesRelatedArticleWithURL:article.URL
         resultLimit:WMFMaxRelatedSearchResultLimit
         completionBlock:^(WMFRelatedSearchResults *_Nonnull results) {
             if ([results.results count] == 0) {
@@ -219,11 +206,14 @@ NS_ASSUME_NONNULL_BEGIN
             [results.results enumerateObjectsUsingBlock:^(MWKSearchResult *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
                 [self.previewStore addPreviewWithURL:urls[idx] updatedWithSearchResult:obj];
             }];
-            [self.contentStore addContentGroup:group associatedContent:urls];
-            NSError *saveError = nil;
-            if (![self.contentStore save:&saveError]) {
-                DDLogError(@"Error saving feed content %@", saveError);
-            }
+            [self.contentStore fetchOrCreateGroupForURL:groupURL
+                                                 ofKind:WMFContentGroupKindRelatedPages
+                                                forDate:[article dateForGroup]
+                                            withSiteURL:article.URL.wmf_siteURL
+                                      associatedContent:urls
+                                     customizationBlock:^(WMFContentGroup *_Nonnull group) {
+                                         group.articleURL = article.URL;
+                                     }];
             if (completion) {
                 completion();
             }
