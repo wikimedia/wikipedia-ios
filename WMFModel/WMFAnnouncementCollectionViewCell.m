@@ -77,7 +77,7 @@
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
-            pStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+            pStyle.lineBreakMode = NSLineBreakByWordWrapping;
             pStyle.baseWritingDirection = NSWritingDirectionNatural;
             pStyle.lineHeightMultiple = 1.35;
             pStyle.alignment = NSTextAlignmentCenter;
@@ -110,7 +110,7 @@
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
-            pStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+            pStyle.lineBreakMode = NSLineBreakByWordWrapping;
             pStyle.baseWritingDirection = NSWritingDirectionNatural;
             pStyle.lineHeightMultiple = 1.35;
             pStyle.alignment = NSTextAlignmentCenter;
