@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setArticle:(MWKArticle *_Nullable)article articleURL:(NSURL *)articleURL;
 
+- (void)reloadAritcle;
+
 /**
  *  Scroll to the @c anchor of the given section.
  *
