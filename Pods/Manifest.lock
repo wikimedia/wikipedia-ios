@@ -2,26 +2,12 @@ PODS:
   - AnimatedGIFImageSerialization (0.2.0)
   - Appsee (2.3)
   - BlocksKit/Core (2.2.5)
-  - FBSnapshotTestCase (2.1.2):
-    - FBSnapshotTestCase/SwiftSupport (= 2.1.2)
-  - FBSnapshotTestCase/Core (2.1.2)
-  - FBSnapshotTestCase/SwiftSupport (2.1.2):
-    - FBSnapshotTestCase/Core
   - HexColors (2.3.0)
   - hpple (0.2.0)
-  - libextobjc/EXTScope (0.4.1):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/RuntimeExtensions (0.4.1)
   - Masonry (1.0.2)
-  - Nimble (4.0.1)
-  - Nocilla (0.11.0)
-  - OCHamcrest (4.2.0)
-  - OCMockito (1.4.0):
-    - OCHamcrest (~> 4.0)
   - PiwikTracker (3.3.0):
     - PiwikTracker/Core (= 3.3.0)
   - PiwikTracker/Core (3.3.0)
-  - Quick (0.9.3)
   - SSDataSources (0.8.5)
   - SWStepSlider (1.0.0)
   - TSMessages (0.9.13):
@@ -34,15 +20,8 @@ DEPENDENCIES:
   - AnimatedGIFImageSerialization (from `https://github.com/wikimedia/AnimatedGIFImageSerialization.git`)
   - Appsee
   - BlocksKit/Core (~> 2.2.0)
-  - FBSnapshotTestCase
   - hpple (~> 0.2)
-  - libextobjc/EXTScope (~> 0.4.1)
-  - Nimble (~> 4.0.0)
-  - Nocilla
-  - OCHamcrest (~> 4.2.0)
-  - OCMockito (~> 1.4.0)
   - PiwikTracker (from `https://github.com/wikimedia/piwik-sdk-ios.git`)
-  - Quick (~> 0.9.0)
   - SSDataSources (~> 0.8.0)
   - SWStepSlider (from `https://github.com/wikimedia/SWStepSlider.git`)
   - TSMessages (from `https://github.com/wikimedia/TSMessages.git`, commit `8c66db6ce8ed8ffe8112b231e6edc71f8580a139`)
@@ -83,23 +62,16 @@ SPEC CHECKSUMS:
   AnimatedGIFImageSerialization: b0f0cfe71eac1ee45a3d57ae533c23b8e6f29501
   Appsee: 3f57734813c0bb22f5c0c6bb412c6140f23fd2fb
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
-  FBSnapshotTestCase: 918c55861356ee83aee7843d759f55a18ff6982b
   HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
-  libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
-  Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
-  Nocilla: 7af7a386071150cc8aa5da4da97d060f049dd61c
-  OCHamcrest: c14c0b3f4c4e99363e5b87d97bae38c4438b6d5d
-  OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
   PiwikTracker: 7147287d30a3192289bef9cddb2b5342d67dae43
-  Quick: 13a2a2b19a5d8e3ed4fd0c36ee46597fd77ebf71
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
   SWStepSlider: a714a255526dbba7c6290d67ea7226ba8724b56c
   TSMessages: 5460d0b3ea087d2843ce6e01d87797992dbe1911
   TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
   Tweaks: 5d07acb4f984f63b24ee2b85c8c773a1ce494d61
 
-PODFILE CHECKSUM: 636f8d1aadfea3adacff490d69631b22232b4ab8
+PODFILE CHECKSUM: aa652c3958e49c7bc4f9c5af14bf4d93a18943b7
 
 COCOAPODS: 1.1.1

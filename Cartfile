@@ -10,3 +10,10 @@ github "bitstadium/HockeySDK-iOS" ~> 4.1.0
 github "swisspol/GCDWebServer" ~> 3.3
 github "vtourraine/VTAcknowledgementsViewController"
 github "NYTimes/NYTPhotoViewer"
+github "jonreid/OCMockito" ~> 4.0
+github "hamcrest/OCHamcrest" ~> 6.0
+github "luisobo/Nocilla"
+github "facebook/ios-snapshot-test-case" == 2.1.3
+github "Quick/Quick" == 0.9.3
+github "Quick/Nimble" ~> 4.0.0
+github "jspahrsummers/libextobjc"

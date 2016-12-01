@@ -11,7 +11,6 @@ abstract_target 'Foundation' do
   pod 'AnimatedGIFImageSerialization', :git => 'https://github.com/wikimedia/AnimatedGIFImageSerialization.git'
 
   # Utilities
-  pod 'libextobjc/EXTScope', '~> 0.4.1'
   pod 'BlocksKit/Core', '~> 2.2.0'
 	
   # Datasources
@@ -54,12 +53,6 @@ abstract_target 'Foundation' do
     pod 'TUSafariActivity'
 	
     target 'WikipediaUnitTests' do
-      pod 'OCMockito', '~> 1.4.0'
-      pod 'OCHamcrest', '~> 4.2.0'
-      pod 'Nocilla'
-      pod 'FBSnapshotTestCase'
-      pod 'Quick', '~> 0.9.0'
-      pod 'Nimble', '~> 4.0.0'
     end
 
   end
