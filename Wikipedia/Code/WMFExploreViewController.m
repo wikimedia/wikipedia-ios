@@ -243,13 +243,22 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     }
     WMFTaskGroup *group = [WMFTaskGroup new];
     self.feedUpdateTaskGroup = group;
+#if DEBUG
+    NSMutableSet *entered = [NSMutableSet setWithCapacity:self.contentSources.count];
+#endif
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         //TODO: nearby doesnt always fire
         [group enter];
-        DDLogDebug(@">>>>Enter %@<<<<", NSStringFromClass([obj class]));
+#if DEBUG
+        NSString *classString = NSStringFromClass([obj class]);
+        [entered addObject:classString];
+#endif
+
         [obj loadNewContentForce:NO
                       completion:^{
-                          DDLogDebug(@">>>>Leave %@<<<<", NSStringFromClass([obj class]));
+#if DEBUG
+                          [entered removeObject:classString];
+#endif
                           [group leave];
                       }];
     }];
@@ -261,6 +270,11 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                                 [self showOfflineEmptyViewIfNeeded];
                                 [self showHideNotificationIfNeccesary];
                                 self.feedUpdateTaskGroup = nil;
+#if DEBUG
+                                if ([entered count] > 0) {
+                                    DDLogError(@"Didn't leave: %@", entered);
+                                }
+#endif
                             }];
 }
 
