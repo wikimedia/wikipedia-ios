@@ -521,6 +521,7 @@ NSString *const WMFCCBySALicenseURL =
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.userContentController = userContentController;
     configuration.processPool = [WKProcessPool wmf_sharedProcessPool];
+    configuration.dataDetectorTypes = UIDataDetectorTypeNone;
     return configuration;
 }
 
