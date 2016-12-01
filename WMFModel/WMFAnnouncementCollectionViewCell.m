@@ -1,14 +1,15 @@
 
 #import "WMFAnnouncementCollectionViewCell.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
+@import TTTAttributedLabel;
 
-@interface WMFAnnouncementCollectionViewCell () <UITextViewDelegate>
+@interface WMFAnnouncementCollectionViewCell () <TTTAttributedLabelDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UILabel *messageLabel;
 @property (strong, nonatomic) IBOutlet UIButton *actionButton;
 @property (strong, nonatomic) IBOutlet UIButton *dismissButton;
-@property (strong, nonatomic) IBOutlet UITextView *captionTextView;
+@property (strong, nonatomic) IBOutlet TTTAttributedLabel *captionLabel;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *imageHeightConstraint;
 
 @end
@@ -17,14 +18,14 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.captionTextView.delegate = self;
-    self.captionTextView.linkTextAttributes = @{
+    self.captionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.captionLabel.delegate = self;
+    self.captionLabel.linkAttributes = @{
         NSForegroundColorAttributeName: [UIColor wmf_referencePopoverLinkColor],
         NSUnderlineStyleAttributeName: @1
     };
     self.actionButton.layer.borderColor = self.actionButton.tintColor.CGColor;
     [self.actionButton addTarget:self action:@selector(performAction) forControlEvents:UIControlEventTouchUpInside];
-    self.captionTextView.textContainerInset = UIEdgeInsetsZero;
     [self.dismissButton setTitle:MWLocalizedString(@"announcements-dismiss", nil) forState:UIControlStateNormal];
     [self.dismissButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
     [self.dismissButton setNeedsLayout];
@@ -35,9 +36,8 @@
     [super prepareForReuse];
     [self collapseImageHeightToZero];
     self.messageLabel.attributedText = nil;
-    self.captionTextView.attributedText = nil;
+    self.captionLabel.text = nil;
     self.messageLabel.text = nil;
-    self.captionTextView.text = nil;
     [self.actionButton setTitle:nil forState:UIControlStateNormal];
     self.delegate = nil;
 }
@@ -104,7 +104,7 @@
         documentAttributes:nil
                      error:&error] mutableCopy];
     if (error) {
-        [self.captionTextView setText:text];
+        [self.captionLabel setText:text];
     } else {
         static NSDictionary *attributes;
         static dispatch_once_t onceToken;
@@ -119,15 +119,15 @@
                            NSParagraphStyleAttributeName: pStyle};
         });
         [string addAttributes:attributes range:NSMakeRange(0, string.length)];
-        [self.captionTextView setAttributedText:string];
+        [self.captionLabel setText:string];
     }
-    [self.captionTextView setNeedsLayout];
-    [self.captionTextView layoutIfNeeded];
+    [self.captionLabel setNeedsLayout];
+    [self.captionLabel layoutIfNeeded];
 }
 
-- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
-    [self.delegate announcementCell:self didTapLinkURL:URL];
-    return NO;
+- (void)attributedLabel:(TTTAttributedLabel *)label
+    didSelectLinkWithURL:(NSURL *)url {
+    [self.delegate announcementCell:self didTapLinkURL:url];
 }
 
 - (void)dismiss {
