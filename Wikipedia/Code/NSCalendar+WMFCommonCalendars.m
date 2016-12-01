@@ -49,7 +49,7 @@
     NSDateComponents *localComponents = [localCalendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
     localComponents.timeZone = nil;
     NSCalendar *UTCCalendar = [NSCalendar wmf_utcGregorianCalendar];
-    NSDateComponents *UTCComponents = [UTCCalendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+    NSDateComponents *UTCComponents = [UTCCalendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self];
     UTCComponents.timeZone = nil;
     return [UTCComponents isEqual:localComponents];
 }
