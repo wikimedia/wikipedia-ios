@@ -57,13 +57,18 @@ NS_ASSUME_NONNULL_BEGIN
                               value:nil];
 }
 
-
 - (void)wmf_logActionTapThroughInContext:(id<WMFAnalyticsContextProviding>)context
-                             contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+                             contentType:(id<WMFAnalyticsContentTypeProviding>)contentType
+                                   value:(id<WMFAnalyticsValueProviding>)value {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Tap Through"
                                name:[contentType analyticsContentType]
-                              value:nil];
+                              value:[value analyticsValue]];
+}
+
+- (void)wmf_logActionTapThroughInContext:(id<WMFAnalyticsContextProviding>)context
+                             contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_logActionTapThroughInContext:context contentType:contentType value:nil];
 }
 
 - (void)wmf_logActionSaveInContext:(id<WMFAnalyticsContextProviding>)context
@@ -84,18 +89,30 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)wmf_logActionImpressionInContext:(id<WMFAnalyticsContextProviding>)context
                              contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_logActionImpressionInContext:context contentType:contentType value:nil];
+}
+
+- (void)wmf_logActionImpressionInContext:(id<WMFAnalyticsContextProviding>)context
+                             contentType:(id<WMFAnalyticsContentTypeProviding>)contentType
+                                   value:(id<WMFAnalyticsValueProviding>)value {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Impression"
                                name:[contentType analyticsContentType]
-                              value:nil];
+                              value:[value analyticsValue]];
 }
 
 - (void)wmf_logActionTapThroughMoreInContext:(id<WMFAnalyticsContextProviding>)context
                                  contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_logActionTapThroughMoreInContext:context contentType:contentType value:nil];
+}
+
+- (void)wmf_logActionTapThroughMoreInContext:(id<WMFAnalyticsContextProviding>)context
+                                 contentType:(id<WMFAnalyticsContentTypeProviding>)contentType
+                                       value:(id<WMFAnalyticsValueProviding>)value {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Tap Through More"
                                name:[contentType analyticsContentType]
-                              value:nil];
+                              value:[value analyticsValue]];
 }
 
 - (void)wmf_logActionSwitchLanguageInContext:(id<WMFAnalyticsContextProviding>)context
@@ -127,6 +144,14 @@ NS_ASSUME_NONNULL_BEGIN
                              action:@"Push"
                                name:[contentType analyticsContentType]
                               value:[self hourTimeValueFromDate:date]];
+}
+
+
+- (void)wmf_logActionDismissInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType value:(id<WMFAnalyticsValueProviding>)value {
+    [self wmf_sendEventWithCategory:[context analyticsContext]
+                             action:@"Disable"
+                               name:[contentType analyticsContentType]
+                              value:[value analyticsValue]];
 }
 
 
