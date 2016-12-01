@@ -1,7 +1,6 @@
 #import "WMFMainPageContentSource.h"
 
 @import YapDatabase;
-@import NSDate_Extensions;
 
 #import "WMFContentGroupDataStore.h"
 #import "WMFArticleDataStore.h"

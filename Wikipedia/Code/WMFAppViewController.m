@@ -8,7 +8,6 @@
 #import "PiwikTracker+WMFExtensions.h"
 
 // Utility
-#import "NSDate+Utilities.h"
 #import "NSUserActivity+WMFExtensions.h"
 
 #import "YapDatabase+WMFExtensions.h"

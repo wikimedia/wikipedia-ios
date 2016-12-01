@@ -1,5 +1,4 @@
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
-#import "NSDate+Utilities.h"
 #import "WMFAnnouncement.h"
 
 NS_ASSUME_NONNULL_BEGIN

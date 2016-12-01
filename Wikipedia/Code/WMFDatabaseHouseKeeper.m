@@ -1,6 +1,5 @@
 #import "WMFDatabaseHouseKeeper.h"
 #import "YapDatabase+WMFExtensions.h"
-@import NSDate_Extensions;
 
 @implementation WMFDatabaseHouseKeeper
 
@@ -14,7 +13,7 @@
 
     NSError *error = nil;
     
-    NSDate *midnightTodayUTC = [[NSDate date] midnightUTCDate];
+    NSDate *midnightTodayUTC = [[NSDate date] wmf_midnightUTCDate];
     NSCalendar *utcCalendar = [NSCalendar wmf_utcGregorianCalendar];
     NSDate *thirtyDaysAgoMidnightUTC = [utcCalendar dateByAddingUnit:NSCalendarUnitDay value:-30 toDate:midnightTodayUTC options:NSCalendarMatchStrictly];
 
@@ -28,7 +27,7 @@
     
     NSMutableSet *referencedArticleKeys = [NSMutableSet setWithCapacity:allContentGroups.count*5 + 1];
     for (WMFContentGroup *group in allContentGroups) {
-        if ([group.midnightUTCDate isEarlierThanDate:thirtyDaysAgoMidnightUTC]) {
+        if ([group.midnightUTCDate compare:thirtyDaysAgoMidnightUTC] == NSOrderedAscending) {
             [moc deleteObject:group];
             continue;
         }

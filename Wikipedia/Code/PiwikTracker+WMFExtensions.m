@@ -1,6 +1,5 @@
 #import "PiwikTracker+WMFExtensions.h"
 #import "NSBundle+WMFInfoUtils.h"
-@import NSDate_Extensions;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -152,7 +151,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSNumber *)hourTimeValueFromDate:(nullable NSDate *)date {
-    return @([date hour]);
+    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
+    NSInteger hour = [calendar component:NSCalendarUnitHour fromDate:date];
+    return @(hour);
 }
 
 @end

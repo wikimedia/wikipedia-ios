@@ -3,8 +3,6 @@
 #import "YapDatabase+WMFExtensions.h"
 #import "YapDatabaseViewMappings+WMFMappings.h"
 
-@import NSDate_Extensions;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFContentGroupDataStore ()
@@ -101,7 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@", @(kind), date.midnightUTCDate];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@", @(kind), date.wmf_midnightUTCDate];
     fetchRequest.fetchLimit = 1;
     NSError *fetchError = nil;
     NSArray *contentGroups = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
@@ -114,7 +112,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSArray<WMFContentGroup *> *)groupsOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@", @(kind), date.midnightUTCDate];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@", @(kind), date.wmf_midnightUTCDate];
     NSError *fetchError = nil;
     NSArray *contentGroups = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError) {
@@ -129,7 +127,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
     WMFContentGroup *group = [NSEntityDescription insertNewObjectForEntityForName:@"WMFContentGroup" inManagedObjectContext:self.dataStore.viewContext];
     group.date = date;
-    group.midnightUTCDate = date.midnightUTCDate;
+    group.midnightUTCDate = date.wmf_midnightUTCDate;
     group.contentGroupKind = kind;
     group.siteURLString = siteURL.absoluteString;
     group.content = associatedContent;
@@ -150,7 +148,7 @@ NS_ASSUME_NONNULL_BEGIN
     WMFContentGroup *group = [self contentGroupForURL:URL];
     if (group) {
         group.date = date;
-        group.midnightUTCDate = date.midnightUTCDate;
+        group.midnightUTCDate = date.wmf_midnightUTCDate;
         group.contentGroupKind = kind;
         group.content = associatedContent;
         group.siteURLString = siteURL.absoluteString;

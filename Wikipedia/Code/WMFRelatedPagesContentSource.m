@@ -6,7 +6,6 @@
 #import "MWKSearchResult.h"
 #import "WMFRelatedSearchFetcher.h"
 #import "WMFRelatedSearchResults.h"
-@import NSDate_Extensions;
 #import <WMFModel/WMFModel-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -20,12 +19,12 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFArticle (WMFRelatedPages)
 
 - (BOOL)needsRelatedPagesGroupForDate:(NSDate *)date {
-    NSDate *beginingOfDay = [date dateAtStartOfDay];
+    NSDate *beginingOfDay = [date wmf_midnightDate];
     if (self.isExcludedFromFeed) {
         return NO;
-    } else if ([self.savedDate isLaterThanDate:beginingOfDay]) {
+    } else if ([self.savedDate compare:beginingOfDay] == NSOrderedDescending) {
         return YES;
-    } else if (self.wasSignificantlyViewed && [self.viewedDate isLaterThanDate:beginingOfDay]) {
+    } else if (self.wasSignificantlyViewed && [self.viewedDate compare:beginingOfDay] == NSOrderedDescending) {
         return YES;
     } else {
         return NO;
@@ -232,7 +231,7 @@ NS_ASSUME_NONNULL_BEGIN
     __block NSDate *date = nil;
     [self.contentStore enumerateContentGroupsOfKind:WMFContentGroupKindRelatedPages
                                           withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
-                                              if (date == nil || [group.midnightUTCDate isLaterThanDate:date]) {
+                                              if (date == nil || [group.midnightUTCDate compare:date] == NSOrderedDescending) {
                                                   date = group.midnightUTCDate;
                                               }
                                           }];

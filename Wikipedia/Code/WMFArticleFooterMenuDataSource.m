@@ -1,7 +1,6 @@
 #import "WMFArticleFooterMenuDataSource.h"
 #import "WMFArticleFooterMenuItem.h"
 #import "MWKArticle.h"
-#import "NSDate+Utilities.h"
 #import "WMFArticleFooterMenuCell.h"
 #import <Tweaks/FBTweakInline.h>
 
@@ -60,22 +59,13 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSDate *lastModified = article.lastmodified ? article.lastmodified : [NSDate date];
 
-#if FB_TWEAK_ENABLED
-    if (FBTweakValue(@"Article", @"Article Metadata Footer", @"Show last edit timestamp", NO)) {
-        [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
-                                      [lastModified mediumString],
-                                      MWSiteLocalizedString(article.url, @"page-edit-history", nil),
-                                      @"footer-edit-history")];
-    } else {
-#endif
+    NSInteger days = [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:lastModified toDate:[NSDate date]];
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
                                       [MWSiteLocalizedString(article.url, @"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                                                              withString:[NSString stringWithFormat:@"%ld", (long)[[NSDate date] daysAfterDate:lastModified]]],
+                                                                                                                              withString:[NSString stringWithFormat:@"%ld", (long)days]],
                                       MWSiteLocalizedString(article.url, @"page-edit-history", nil),
                                       @"footer-edit-history")];
-#if FB_TWEAK_ENABLED
-    }
-#endif
+
 
     if (article.pageIssues.count > 0) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypePageIssues,

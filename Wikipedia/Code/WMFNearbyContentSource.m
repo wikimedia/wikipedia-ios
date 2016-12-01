@@ -8,7 +8,6 @@
 #import "WMFLocationSearchFetcher.h"
 #import "CLLocation+WMFComparison.h"
 
-@import NSDate_Extensions;
 @import YapDatabase;
 
 @interface WMFNearbyContentSource () <WMFLocationManagerDelegate>

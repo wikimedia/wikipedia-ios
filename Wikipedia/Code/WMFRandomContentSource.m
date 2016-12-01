@@ -3,8 +3,6 @@
 #import "WMFArticleDataStore.h"
 #import "WMFRandomArticleFetcher.h"
 
-@import NSDate_Extensions;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFRandomContentSource ()

@@ -457,7 +457,7 @@ static pid_t currentPid() {
                 announcement.contentGroupKind = WMFContentGroupKindAnnouncement;
                 announcement.contentType = WMFContentTypeAnnouncement;
                 announcement.date = oldAnnouncement.date;
-                announcement.midnightUTCDate = oldAnnouncement.date.midnightUTCDate;
+                announcement.midnightUTCDate = oldAnnouncement.date.wmf_midnightUTCDate;
                 announcement.siteURL = oldAnnouncement.siteURL;
                 announcement.wasDismissed = oldAnnouncement.wasDismissed;
                 announcement.content = metadata;

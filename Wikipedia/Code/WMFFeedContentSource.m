@@ -13,8 +13,6 @@
 
 #import <WMFModel/WMFModel-Swift.h>
 
-@import NSDate_Extensions;
-
 NS_ASSUME_NONNULL_BEGIN
 
 static NSInteger WMFFeedNotificationMinHour = 8;
@@ -266,7 +264,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
                                          withSiteURL:self.siteURL
                                    associatedContent:topRead.articlePreviews
                                   customizationBlock:^(WMFContentGroup *_Nonnull group) {
-                                      group.contentMidnightUTCDate = topRead.date.midnightUTCDate;
+                                      group.contentMidnightUTCDate = topRead.date.wmf_midnightUTCDate;
                                   }];
     }
 }
@@ -525,7 +523,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         NSCalendar *userCalendar = [NSCalendar wmf_gregorianCalendar];
         NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
         NSDate *mostRecentDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
-        if (notificationDate && mostRecentDate && [userCalendar daysFromDate:notificationDate toDate:mostRecentDate] > 0) { // don't send if we have a notification scheduled for tomorrow already
+        if (notificationDate && mostRecentDate && [userCalendar wmf_daysFromDate:notificationDate toDate:mostRecentDate] > 0) { // don't send if we have a notification scheduled for tomorrow already
             return NO;
         }
         if (mostRecentDate && notificationDate && [userCalendar isDate:mostRecentDate inSameDayAsDate:notificationDate]) {

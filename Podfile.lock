@@ -51,7 +51,6 @@ PODS:
   - Masonry (1.0.2)
   - Nimble (4.0.1)
   - Nocilla (0.11.0)
-  - NSDate-Extensions (0.0.1)
   - NYTPhotoViewer (1.2.0):
     - NYTPhotoViewer/AnimatedGifSupport (= 1.2.0)
     - NYTPhotoViewer/Core (= 1.2.0)
@@ -164,7 +163,6 @@ DEPENDENCIES:
   - Masonry (~> 1.0)
   - Nimble (~> 4.0.0)
   - Nocilla
-  - NSDate-Extensions (from `git@github.com:wikimedia/NSDate-Extensions.git`)
   - NYTPhotoViewer
   - OCHamcrest (~> 4.2.0)
   - OCMockito (~> 1.4.0)
@@ -186,8 +184,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/wikimedia/AFNetworking.git
   AnimatedGIFImageSerialization:
     :git: https://github.com/wikimedia/AnimatedGIFImageSerialization.git
-  NSDate-Extensions:
-    :git: git@github.com:wikimedia/NSDate-Extensions.git
   PiwikTracker:
     :git: https://github.com/wikimedia/piwik-sdk-ios.git
   SDWebImage:
@@ -208,9 +204,6 @@ CHECKOUT OPTIONS:
   AnimatedGIFImageSerialization:
     :commit: f0fcaa7d474672ecfdd8b7fd26ca2fca31940e0b
     :git: https://github.com/wikimedia/AnimatedGIFImageSerialization.git
-  NSDate-Extensions:
-    :commit: 388ab1b864b742feadc1cf94063968953fc6a6a1
-    :git: git@github.com:wikimedia/NSDate-Extensions.git
   PiwikTracker:
     :commit: bac26223df5f6a0fe55f5f877f74c4d98077b3f2
     :git: https://github.com/wikimedia/piwik-sdk-ios.git
@@ -245,7 +238,6 @@ SPEC CHECKSUMS:
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
   Nocilla: 7af7a386071150cc8aa5da4da97d060f049dd61c
-  NSDate-Extensions: 5bd64f8815dc6b3c9d08e1f620229567e2b4771c
   NYTPhotoViewer: 323217e4590a1586eb3c9674b3fefb0fb8b57896
   OCHamcrest: c14c0b3f4c4e99363e5b87d97bae38c4438b6d5d
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
@@ -263,6 +255,6 @@ SPEC CHECKSUMS:
   VTAcknowledgementsViewController: 44da49d57a1dbf414e653688793a130d24af151e
   YapDatabase: b1e43555a34a5298e23a045be96817a5ef0da58f
 
-PODFILE CHECKSUM: 093f50f9a2e5e0ec9083275cd7e0bbd7cc33b627
+PODFILE CHECKSUM: 13b1f72f7dcf730027a76e742971c0e2cbe0ae9a
 
 COCOAPODS: 1.1.1

@@ -5,7 +5,7 @@ platform :ios, :deployment_target => '9.3'
 inhibit_all_warnings!
 use_frameworks!
 
-project 'Wikipedia', Debug' => :debug, 'Release' => :release, 'Alpha' => :release, 'AlphaDebug' => :release, 'Test' => :debug
+project 'Wikipedia'
 
 abstract_target 'Foundation' do
   # Networking / Parsing
@@ -22,9 +22,6 @@ abstract_target 'Foundation' do
   pod 'KVOController', '= 1.1.0'
 
   pod 'CocoaLumberjack/Swift'
-
-  # Dates
-  pod 'NSDate-Extensions', :git => 'git@github.com:wikimedia/NSDate-Extensions.git'
 
   # Database
   pod 'YapDatabase'

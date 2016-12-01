@@ -3,7 +3,6 @@
 #import "NSUserActivity+WMFExtensions.h"
 
 #import "NSString+WMFExtras.h"
-#import "NSDate+Utilities.h"
 
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "MWKHistoryList.h"
@@ -99,9 +98,10 @@
     //HACK: Table views for some reason aren't adding padding to the left of the default headers. Injecting some manually.
     NSString *padding = @"    ";
 
-    if ([date isToday]) {
+    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
+    if ([calendar isDateInToday:date]) {
         return [padding stringByAppendingString:[MWLocalizedString(@"history-section-today", nil) uppercaseString]];
-    } else if ([date isYesterday]) {
+    } else if ([calendar isDateInYesterday:date]) {
         return [padding stringByAppendingString:[MWLocalizedString(@"history-section-yesterday", nil) uppercaseString]];
     } else {
         return [padding stringByAppendingString:[[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:date]];
