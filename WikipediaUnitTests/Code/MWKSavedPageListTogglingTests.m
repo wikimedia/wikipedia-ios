@@ -4,7 +4,6 @@
 #import "MWKHistoryEntry+MWKRandom.h"
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "WMFAsyncTestCase.h"
-#import "NSDate+Utilities.h"
 
 @interface MWKSavedPageListTogglingTests : XCTestCase
 @property (nonatomic, strong) MWKSavedPageList *list;
@@ -25,7 +24,7 @@
     NSURL *second = [NSURL wmf_randomArticleURL];
     [self.list addSavedPageWithURL:[NSURL wmf_randomArticleURL]];
     [self.list addSavedPageWithURL:second];
-    
+
     WMFArticle *e2 = [self.list entryForURL:second];
     XCTAssertTrue([self.list numberOfItems] == 2);
     XCTAssertEqualObjects(self.list.mostRecentEntry, e2);
@@ -35,7 +34,7 @@
     NSURL *url = [NSURL wmf_randomArticleURL];
     [self.list addSavedPageWithURL:url];
     [self.list addSavedPageWithURL:url];
-    
+
     WMFArticle *entry = [self.list entryForURL:url];
     XCTAssertTrue([self.list numberOfItems] == 1);
     XCTAssertEqualObjects(self.list.mostRecentEntry.key, entry.key);
@@ -67,7 +66,6 @@
     } @catch (NSException *exception) {
         XCTAssertTrue(exception != nil);
     } @finally {
-        
     }
     XCTAssertFalse([self.list isSaved:url]);
 }
