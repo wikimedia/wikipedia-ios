@@ -31,8 +31,6 @@
     [self.dismissButton setNeedsLayout];
     [self.dismissButton layoutIfNeeded];
     [self.dismissButton setTitleColor:[UIColor wmf_777777Color] forState:UIControlStateNormal];
-
-    [self wmf_configureSubviewsForDynamicType];
 }
 
 - (void)prepareForReuse {
