@@ -686,7 +686,7 @@ NSString *const WMFCCBySALicenseURL =
 #pragma mark - Headers & Footers
 
 - (nullable UIView *)footerAtIndex:(NSInteger)index {
-    UIView *footerView = [[self.footerViewControllers wmf_safeObjectAtIndex:index] view];
+    UIView *footerView = (UIView *)[[self.footerViewControllers wmf_safeObjectAtIndex:index] view];
     UIView *footerViewHeader = self.footerViewHeadersByIndex[@(index)];
     return footerViewHeader ?: footerView;
 }

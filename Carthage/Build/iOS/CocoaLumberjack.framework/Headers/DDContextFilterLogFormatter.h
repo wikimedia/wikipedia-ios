@@ -65,7 +65,7 @@
 /**
  *  Return the whitelist
  */
-@property (readonly, copy) NSArray<NSNumber *> *whitelist;
+@property (readonly, copy) NSArray *whitelist;
 
 /**
  *  Check if a context is on the whitelist
@@ -104,7 +104,7 @@
 /**
  *  Return the blacklist
  */
-@property (readonly, copy) NSArray<NSNumber *> *blacklist;
+@property (readonly, copy) NSArray *blacklist;
 
 
 /**

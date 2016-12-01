@@ -12,20 +12,13 @@ abstract_target 'Foundation' do
 
   # Utilities
   pod 'libextobjc/EXTScope', '~> 0.4.1'
-  pod 'KVOController', '= 1.1.0'
-
-  # Promises
-  pod 'PromiseKit', '~> 3.4'
-
+  pod 'BlocksKit/Core', '~> 2.2.0'
+	
   # Datasources
   pod 'SSDataSources', '~> 0.8.0'
 
-  # Autolayout
-  pod 'Masonry', '~> 1.0'
-
   # Diagnostics
   pod 'PiwikTracker', :git => 'https://github.com/wikimedia/piwik-sdk-ios.git'
-  pod 'HockeySDK', '~> 4.1.0'
 
   pod 'hpple', '~> 0.2'
 
@@ -49,26 +42,17 @@ abstract_target 'Foundation' do
 
   target 'Wikipedia' do
   	pod 'Appsee', :configurations => ['Alpha', 'AlphaDebug']
-	
-    # Utilities
+    
+	# Utilities
     pod 'Tweaks', :git => 'https://github.com/facebook/Tweaks.git'
-
-    # HTML
-    pod 'GCDWebServer', '~> 3.3'
-
+	   
     # Views
-    pod 'TSMessages', :git => 'https://github.com/wikimedia/TSMessages.git', :commit => '8c66db6ce8ed8ffe8112b231e6edc71f8580a139'
+	pod 'TSMessages', :git => 'https://github.com/wikimedia/TSMessages.git', :commit => '8c66db6ce8ed8ffe8112b231e6edc71f8580a139'
     pod "SWStepSlider", :git => 'https://github.com/wikimedia/SWStepSlider.git'
-
-    # Activities
+    
+	# Activities
     pod 'TUSafariActivity'
-
-    # Licenses
-    pod 'VTAcknowledgementsViewController'
-
-    # Photo Gallery
-    pod 'NYTPhotoViewer'
-
+	
     target 'WikipediaUnitTests' do
       pod 'OCMockito', '~> 1.4.0'
       pod 'OCHamcrest', '~> 4.2.0'

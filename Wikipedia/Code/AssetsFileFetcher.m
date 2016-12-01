@@ -1,5 +1,4 @@
 #import "AssetsFileFetcher.h"
-#import "AFHTTPSessionManager.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "WMFAssetsFile.h"
 

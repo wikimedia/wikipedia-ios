@@ -29,7 +29,6 @@
 #endif
 
 @class DDLogMessage;
-@class DDLoggerInformation;
 @protocol DDLogger;
 @protocol DDLogFormatter;
 
@@ -298,7 +297,7 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy);
        line:(NSUInteger)line
         tag:(id)tag
      format:(NSString *)format
-       args:(va_list)argList NS_SWIFT_NAME(log(asynchronous:level:flag:context:file:function:line:tag:format:arguments:));
+       args:(va_list)argList;
 
 /**
  * Logging Primitive.
@@ -326,7 +325,7 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy);
        line:(NSUInteger)line
         tag:(id)tag
      format:(NSString *)format
-       args:(va_list)argList NS_SWIFT_NAME(log(asynchronous:level:flag:context:file:function:line:tag:format:arguments:));
+       args:(va_list)argList;
 
 /**
  * Logging Primitive.
@@ -337,7 +336,7 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy);
  *  @param logMessage   the log message stored in a `DDLogMessage` model object
  */
 + (void)log:(BOOL)asynchronous
-    message:(DDLogMessage *)logMessage NS_SWIFT_NAME(log(asynchronous:message:));
+    message:(DDLogMessage *)logMessage;
 
 /**
  * Logging Primitive.
@@ -348,7 +347,7 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy);
  *  @param logMessage   the log message stored in a `DDLogMessage` model object
  */
 - (void)log:(BOOL)asynchronous
-    message:(DDLogMessage *)logMessage NS_SWIFT_NAME(log(asynchronous:message:));
+    message:(DDLogMessage *)logMessage;
 
 /**
  * Since logging can be asynchronous, there may be times when you want to flush the logs.
@@ -485,22 +484,22 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy);
 /**
  *  Return all the current loggers
  */
-+ (NSArray<id<DDLogger>> *)allLoggers;
++ (NSArray *)allLoggers;
 
 /**
  *  Return all the current loggers
  */
-- (NSArray<id<DDLogger>> *)allLoggers;
+- (NSArray *)allLoggers;
 
 /**
  *  Return all the current loggers with their level (aka DDLoggerInformation).
  */
-+ (NSArray<DDLoggerInformation *> *)allLoggersWithLevel;
++ (NSArray *)allLoggersWithLevel;
 
 /**
  *  Return all the current loggers with their level (aka DDLoggerInformation).
  */
-- (NSArray<DDLoggerInformation *> *)allLoggersWithLevel;
+- (NSArray *)allLoggersWithLevel;
 
 /**
  * Registered Dynamic Logging
@@ -512,12 +511,12 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy);
 /**
  *  Returns an array with the classes that are using registered dynamic logging
  */
-+ (NSArray<Class> *)registeredClasses;
++ (NSArray *)registeredClasses;
 
 /**
  *  Returns an array with the classes names that are using registered dynamic logging
  */
-+ (NSArray<NSString *> *)registeredClassNames;
++ (NSArray *)registeredClassNames;
 
 /**
  *  Returns the current log level for a certain class
@@ -567,7 +566,7 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy);
  *
  *  @param logMessage the message (model)
  */
-- (void)logMessage:(DDLogMessage *)logMessage NS_SWIFT_NAME(log(message:));
+- (void)logMessage:(DDLogMessage *)logMessage;
 
 /**
  * Formatters may optionally be added to any logger.
@@ -647,7 +646,7 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy);
  * The formatter may also optionally filter the log message by returning nil,
  * in which case the logger will not log the message.
  **/
-- (NSString *)formatLogMessage:(DDLogMessage *)logMessage NS_SWIFT_NAME(format(message:));
+- (NSString *)formatLogMessage:(DDLogMessage *)logMessage;
 
 @optional
 

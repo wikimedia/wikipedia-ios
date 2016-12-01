@@ -1,15 +1,12 @@
 github "https://github.com/wikimedia/AFNetworking.git" "release/3.1.1"
 github "Mantle/Mantle" ~> 2.0.0
 github "https://github.com/wikimedia/SDWebImage.git" "bb49df83e72f2231a191e9477a85f0effe13430a"
-github "CocoaLumberjack/CocoaLumberjack"
+github "CocoaLumberjack/CocoaLumberjack" ~> 2.4.0
 github "yapstudios/YapDatabase"
 github "facebook/KVOController" == 1.1.0
 github "mxcl/PromiseKit" ~> 3.4
 github "SnapKit/Masonry" ~> 1.0
 github "bitstadium/HockeySDK-iOS" ~> 4.1.0
-github "https://github.com/facebook/Tweaks.git"
 github "swisspol/GCDWebServer" ~> 3.3
-github "https://github.com/wikimedia/TSMessages.git" "8c66db6ce8ed8ffe8112b231e6edc71f8580a139"
-github "davbeck/TUSafariActivity"
 github "vtourraine/VTAcknowledgementsViewController"
 github "NYTimes/NYTPhotoViewer"

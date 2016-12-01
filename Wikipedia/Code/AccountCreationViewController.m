@@ -16,7 +16,7 @@
 #import "PaddedLabel.h"
 #import "MWKLanguageLinkController.h"
 #import "WMFAuthenticationManager.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import <WebImage/WebImage.h>
 
 @interface AccountCreationViewController ()
 

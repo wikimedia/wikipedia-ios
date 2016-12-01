@@ -1,6 +1,6 @@
 {
   "name": "Tweaks",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "license": {
     "type": "BSD"
   },
@@ -12,7 +12,7 @@
   "summary": "Easily adjust parameters for iOS apps in development.",
   "source": {
     "git": "https://github.com/facebook/Tweaks.git",
-    "tag": "2.0.0"
+    "tag": "2.1.0"
   },
   "source_files": "FBTweak/*.{h,m}",
   "requires_arc": true,

@@ -10,7 +10,6 @@
 #import "Wikipedia-Swift.h"
 #import <VTAcknowledgementsViewController/VTAcknowledgementsViewController.h>
 #import <Masonry/Masonry.h>
-#import <VTAcknowledgementsViewController/VTAcknowledgement.h>
 
 static NSString *const kWMFAboutHTMLFile = @"about.html";
 static NSString *const kWMFAboutPlistName = @"AboutViewController";
@@ -70,23 +69,6 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
 - (void)wmf_preventTextFromExpandingOnRotation {
     [self evaluateJavaScript:@"document.getElementsByTagName('body')[0].style['-webkit-text-size-adjust'] = 'none';" completionHandler:nil];
-}
-
-@end
-
-@interface TharlonFontAcknowledgement : VTAcknowledgement
-@end
-
-@implementation TharlonFontAcknowledgement
-
-- (instancetype)init {
-    NSError *error;
-    NSString *licenseText = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"OFL" ofType:@"txt"]
-                                                      encoding:NSUTF8StringEncoding
-                                                         error:&error];
-    NSAssert(!error, @"License copy not retrieved");
-    return [super initWithTitle:@"TharLon Myanmar Unicode Font"
-                           text:licenseText];
 }
 
 @end
@@ -262,10 +244,21 @@ static NSString *const kWMFContributorsKey = @"contributors";
     NSURL *requestURL = navigationAction.request.URL;
 
     if ([[self class] isLicenseURL:requestURL]) {
-        VTAcknowledgementsViewController *vc = [[VTAcknowledgementsViewController alloc] initWithFileNamed:@"Pods-Foundation-Wikipedia-acknowledgements"];
+        
+        NSString *acknowledgementsPath = [[NSBundle mainBundle] pathForResource:@"Pods-Foundation-Wikipedia-acknowledgements" ofType:@"plist"];
+        
+        
+//        NSError *error;
+//        NSString *licenseText = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"OFL" ofType:@"txt"]
+//                                                          encoding:NSUTF8StringEncoding
+//                                                             error:&error];
+//        NSAssert(!error, @"License copy not retrieved");
+//        return [super initWithTitle:@"TharLon Myanmar Unicode Font" text:@"" license:licenseText];
+        
+        VTAcknowledgementsViewController *vc = [[VTAcknowledgementsViewController alloc] initWithPath:acknowledgementsPath];
         vc.headerText = [MWLocalizedString(@"about-libraries-licenses-title", nil) stringByReplacingOccurrencesOfString:@"$1" withString:@"💖"];
 
-        vc.acknowledgements = [vc.acknowledgements arrayByAddingObjectsFromArray:@[[[TharlonFontAcknowledgement alloc] init]]];
+        //vc.acknowledgements = [vc.acknowledgements arrayByAddingObjectsFromArray:@[[[TharlonFontAcknowledgement alloc] init]]];
 
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];
