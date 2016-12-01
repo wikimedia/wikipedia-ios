@@ -494,6 +494,15 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
     self.sectionDataSource.delegate = self;
     [self.collectionView reloadData];
+    
+    @weakify(self);
+    [[NSNotificationCenter defaultCenter] addObserverForName: UIContentSizeCategoryDidChangeNotification
+                                                      object: nil
+                                                       queue: [NSOperationQueue mainQueue]
+                                                  usingBlock: ^(NSNotification *note) {
+                                                      @strongify(self);
+                                                      [self.collectionView reloadData];
+                                                  }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -743,14 +752,12 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     header.imageTintColor = [section headerIconTintColor];
     header.imageBackgroundColor = [section headerIconBackgroundColor];
 
-    NSMutableAttributedString *title = [[section headerTitle] mutableCopy];
-    [title addAttribute:NSFontAttributeName value:[UIFont wmf_exploreSectionHeaderTitleFont] range:NSMakeRange(0, title.length)];
-    header.title = title;
-
-    NSMutableAttributedString *subTitle = [[section headerSubTitle] mutableCopy];
-    [subTitle addAttribute:NSFontAttributeName value:[UIFont wmf_exploreSectionHeaderSubTitleFont] range:NSMakeRange(0, subTitle.length)];
-    header.subTitle = subTitle;
-
+    header.title = [[section headerTitle] mutableCopy];
+    [header setTitleColor:[section headerTitleColor]];
+    
+    header.subTitle = [[section headerSubTitle] mutableCopy];
+    [header setSubTitleColor:[section headerSubTitleColor]];
+    
     @weakify(self);
     @weakify(section);
     header.whenTapped = ^{

@@ -10,6 +10,8 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFLanguagesViewC
         languageTableView.alwaysBounceVertical = false
         moreLanguagesButton.setTitle(localizedStringForKeyFallingBackOnEnglish("welcome-languages-add-button"), forState: .Normal)
         moreLanguagesButton.setTitleColor(UIColor.wmf_blueTintColor(), forState: .Normal)
+        self.view.wmf_configureSubviewsForDynamicType()
+
     }
     
     override func viewWillDisappear(animated: Bool) {

@@ -43,6 +43,7 @@
 #import "UIFont+WMFStyle.h"
 #import "WMFStyleManager.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
+#import "UITabBarItem+WMFStyling.h"
 
 // View Controllers
 #import "WMFExploreViewController.h"
@@ -151,6 +152,22 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
                                              selector:@selector(isZeroRatedChanged:)
                                                  name:WMFZeroRatingChanged
                                                object:nil];
+
+    @weakify(self);
+    [[NSNotificationCenter defaultCenter] addObserverForName: UIContentSizeCategoryDidChangeNotification
+                                                      object: nil
+                                                       queue: [NSOperationQueue mainQueue]
+                                                  usingBlock: ^(NSNotification *note) {
+                                                      @strongify(self);
+                                                      [self updateTabBarItemsTitleTextAttributesForNewDynamicTypeContentSize];
+    }];
+}
+
+- (void)updateTabBarItemsTitleTextAttributesForNewDynamicTypeContentSize {
+    for (UITabBarItem* item in self.rootTabBarController.tabBar.items){
+        [item setTitleTextAttributes:[UITabBarItem wmf_rootTabBarItemStyleForState:UIControlStateNormal] forState:UIControlStateNormal];
+        [item setTitleTextAttributes:[UITabBarItem wmf_rootTabBarItemStyleForState:UIControlStateSelected] forState:UIControlStateSelected];
+    }
 }
 
 - (BOOL)isPresentingOnboarding {
