@@ -723,7 +723,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         [self.locationManager stopMonitoringLocation];
     }
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
-    [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:section];
+    [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:section value:section];
 }
 
 - (nonnull UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSectionHeaderAtIndexPath:(NSIndexPath *)indexPath {
@@ -1009,7 +1009,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 #pragma mark - More View Controller
 
 - (void)presentMoreViewControllerForGroup:(WMFContentGroup *)group animated:(BOOL)animated {
-    [[PiwikTracker sharedInstance] wmf_logActionTapThroughMoreInContext:self contentType:group];
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughMoreInContext:self contentType:group value:group];
     NSArray<NSURL *> *URLs = [self contentURLsForGroup:group];
     NSAssert([[URLs firstObject] isKindOfClass:[NSURL class]], @"Attempting to present More VC with somehting other than URLs");
     if (![[URLs firstObject] isKindOfClass:[NSURL class]]) {
@@ -1092,7 +1092,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     }
 
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
-    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:group];
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:group value:group];
 
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
@@ -1267,12 +1267,16 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 #pragma mark - WMFAnnouncementCollectionViewCellDelegate
 
 - (void)announcementCellDidTapDismiss:(WMFAnnouncementCollectionViewCell *)cell {
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+    WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
+    [[PiwikTracker sharedInstance] wmf_logActionDismissInContext:self contentType:group value:group];
     [self dismissAnnouncementCell:cell];
 }
 
 - (void)announcementCellDidTapActionButton:(WMFAnnouncementCollectionViewCell *)cell {
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:group value:group];
     NSArray<WMFAnnouncement *> *announcements = [self contentForGroup:group];
     if (indexPath.item >= announcements.count) {
         return;
