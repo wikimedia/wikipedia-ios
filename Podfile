@@ -8,23 +8,11 @@ use_frameworks!
 project 'Wikipedia'
 
 abstract_target 'Foundation' do
-  # Networking / Parsing
-  pod 'AFNetworking', :git => 'https://github.com/wikimedia/AFNetworking.git', :branch => 'release/3.1.1'
-  pod 'Mantle', '~> 2.0.0'
-
-  # Images
-  pod 'SDWebImage', :git => 'https://github.com/wikimedia/SDWebImage.git', :commit => 'bb49df83e72f2231a191e9477a85f0effe13430a'
   pod 'AnimatedGIFImageSerialization', :git => 'https://github.com/wikimedia/AnimatedGIFImageSerialization.git'
 
   # Utilities
   pod 'libextobjc/EXTScope', '~> 0.4.1'
-  pod 'BlocksKit/Core', '~> 2.2.0'
   pod 'KVOController', '= 1.1.0'
-
-  pod 'CocoaLumberjack/Swift'
-
-  # Database
-  pod 'YapDatabase'
 
   # Promises
   pod 'PromiseKit', '~> 3.4'
