@@ -93,6 +93,7 @@ PODS:
   - TSMessages (0.9.13):
     - HexColors (~> 2.3.0)
     - Masonry (~> 1.0)
+  - TTTAttributedLabel (2.0.0)
   - TUSafariActivity (1.0.4)
   - Tweaks (2.0.0)
   - VTAcknowledgementsViewController (1.1)
@@ -173,6 +174,7 @@ DEPENDENCIES:
   - SSDataSources (~> 0.8.0)
   - SWStepSlider (from `https://github.com/wikimedia/SWStepSlider.git`)
   - TSMessages (from `https://github.com/wikimedia/TSMessages.git`, commit `8c66db6ce8ed8ffe8112b231e6edc71f8580a139`)
+  - TTTAttributedLabel
   - TUSafariActivity
   - Tweaks (from `https://github.com/facebook/Tweaks.git`)
   - VTAcknowledgementsViewController
@@ -255,11 +257,12 @@ SPEC CHECKSUMS:
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
   SWStepSlider: a714a255526dbba7c6290d67ea7226ba8724b56c
   TSMessages: 5460d0b3ea087d2843ce6e01d87797992dbe1911
+  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
   VTAcknowledgementsViewController: 44da49d57a1dbf414e653688793a130d24af151e
   YapDatabase: b1e43555a34a5298e23a045be96817a5ef0da58f
 
-PODFILE CHECKSUM: a0384e54f7347c2567d19f600a034a250806e65d
+PODFILE CHECKSUM: 3f0067b217d9a7cad3aeb9a5e6d01e0e2df855d0
 
 COCOAPODS: 1.1.1
