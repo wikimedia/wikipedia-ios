@@ -233,14 +233,14 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (!featuredURL) {
         return;
     }
+    
+    [self.previewStore addPreviewWithURL:featuredURL updatedWithFeedPreview:preview pageViews:nil];
 
     if (featured == nil) {
-        featured = [self.contentStore createGroupOfKind:WMFContentGroupKindFeaturedArticle forDate:date withSiteURL:self.siteURL associatedContent:@[featuredURL]];
+        [self.contentStore createGroupOfKind:WMFContentGroupKindFeaturedArticle forDate:date withSiteURL:self.siteURL associatedContent:@[featuredURL]];
     } else {
         [self.contentStore addContentGroup:featured associatedContent:@[featuredURL]];
     }
-
-    [self.previewStore addPreviewWithURL:featuredURL updatedWithFeedPreview:preview pageViews:nil];
 }
 
 - (void)saveGroupForTopRead:(WMFFeedTopReadResponse *)topRead pageViews:(NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)date {
@@ -259,7 +259,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (group) {
         [self.contentStore addContentGroup:group associatedContent:topRead.articlePreviews];
     } else {
-        group = [self.contentStore createGroupOfKind:WMFContentGroupKindTopRead
+        [self.contentStore createGroupOfKind:WMFContentGroupKindTopRead
                                              forDate:date
                                          withSiteURL:self.siteURL
                                    associatedContent:topRead.articlePreviews
@@ -277,7 +277,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     WMFContentGroup *group = [self pictureOfTheDayForDate:date];
 
     if (group == nil) {
-        group = [self.contentStore createGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date withSiteURL:self.siteURL associatedContent:@[image]];
+        [self.contentStore createGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date withSiteURL:self.siteURL associatedContent:@[image]];
     } else {
         [self.contentStore addContentGroup:group associatedContent:@[image]];
     }
@@ -291,7 +291,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     WMFContentGroup *group = [self newsForDate:date];
 
     if (group == nil) {
-        group = [self.contentStore createGroupOfKind:WMFContentGroupKindNews forDate:date withSiteURL:self.siteURL associatedContent:news];
+        [self.contentStore createGroupOfKind:WMFContentGroupKindNews forDate:date withSiteURL:self.siteURL associatedContent:news];
     } else {
         [self.contentStore addContentGroup:group associatedContent:news];
     }

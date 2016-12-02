@@ -90,22 +90,15 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         }
         return;
     }
-
-    group = [self.contentStore fetchOrCreateGroupForURL:continueReadingURL ofKind:WMFContentGroupKindContinueReading forDate:userData.viewedDate withSiteURL:nil associatedContent:@[lastRead] customizationBlock:^(WMFContentGroup * _Nonnull group) {
-        
-    }];
-
+    
     WMF_TECH_DEBT_TODO(Remove this in a later version.A preview will always be available available)
     if (![self.previewStore itemForURL:lastRead]) {
         MWKArticle *article = [self.userDataStore articleWithURL:lastRead];
         NSParameterAssert(article);
         [self.previewStore addPreviewWithURL:lastRead updatedWithArticle:article];
     }
-
-    NSError *saveError = nil;
-    if (![self.contentStore save:&saveError]) {
-        DDLogError(@"Error saving feed content %@", saveError);
-    }
+    
+    [self.contentStore fetchOrCreateGroupForURL:continueReadingURL ofKind:WMFContentGroupKindContinueReading forDate:userData.viewedDate withSiteURL:nil associatedContent:@[lastRead] customizationBlock:NULL];
 
     if (completion) {
         completion();
