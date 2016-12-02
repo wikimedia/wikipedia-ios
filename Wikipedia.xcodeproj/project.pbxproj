@@ -944,6 +944,7 @@
 		D8AC392C1D6F2480007E3C14 /* WMFUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D8AC393B1D6F25A4007E3C14 /* WMFUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = D8AC39371D6F25A4007E3C14 /* WMFUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8B29B8C1D77251F00161291 /* WMFImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805C41C0CE5250065EBC0 /* WMFImageController.swift */; };
+		D8BA1F211DF1E19700502877 /* Acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8BA1F201DF1E19700502877 /* Acknowledgements.plist */; };
 		D8BBBCDA1D9456AC00DECA36 /* NSLocale+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E804971C0CE0B40065EBC0 /* NSLocale+WMFExtras.swift */; };
 		D8BBBCE11D94603800DECA36 /* WMFLocaleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BBBCE01D94603800DECA36 /* WMFLocaleTests.m */; };
 		D8C0C00B1D144FF30019374D /* WMFProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C0C00A1D144FF30019374D /* WMFProxyServer.m */; };
@@ -2525,6 +2526,7 @@
 		D8AC39351D6F25A3007E3C14 /* WMFUtilities-global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WMFUtilities-global.h"; path = "WMFUtilities/WMFUtilities-global.h"; sourceTree = SOURCE_ROOT; };
 		D8AC39361D6F25A3007E3C14 /* WMFUtilities-prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WMFUtilities-prefix.pch"; path = "WMFUtilities/WMFUtilities-prefix.pch"; sourceTree = SOURCE_ROOT; };
 		D8AC39371D6F25A4007E3C14 /* WMFUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFUtilities.h; path = WMFUtilities/WMFUtilities.h; sourceTree = SOURCE_ROOT; };
+		D8BA1F201DF1E19700502877 /* Acknowledgements.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Acknowledgements.plist; sourceTree = "<group>"; };
 		D8BBBCE01D94603800DECA36 /* WMFLocaleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLocaleTests.m; sourceTree = "<group>"; };
 		D8C0C0091D144FF30019374D /* WMFProxyServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFProxyServer.h; sourceTree = "<group>"; };
 		D8C0C00A1D144FF30019374D /* WMFProxyServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFProxyServer.m; sourceTree = "<group>"; };
@@ -5544,6 +5546,7 @@
 				BC7C3A371C0FF94A0057F023 /* Code */,
 				BC2F420D1BEA60350033E185 /* Localizations */,
 				BCF012321AD2FA38008D3675 /* assets */,
+				D8BA1F1F1DF1E19700502877 /* Resources */,
 				0442F57C1900718600F55DF9 /* Fonts */,
 			);
 			path = Wikipedia;
@@ -5927,6 +5930,14 @@
 				D8AC39271D6F2480007E3C14 /* Info.plist */,
 			);
 			path = WMFUI;
+			sourceTree = "<group>";
+		};
+		D8BA1F1F1DF1E19700502877 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D8BA1F201DF1E19700502877 /* Acknowledgements.plist */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		D8D5513E1DF1A33D00B90177 /* Third Party */ = {
@@ -6600,6 +6611,7 @@
 				D87A559A1D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.xib in Resources */,
 				0E26B0721C0F4F550004D687 /* WMFAppViewController.storyboard in Resources */,
 				B0E806D11C0CEB6E0065EBC0 /* PageHistoryResultPrototypeView.xib in Resources */,
+				D8BA1F211DF1E19700502877 /* Acknowledgements.plist in Resources */,
 				0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */,
 				B0E803771C0CD9C10065EBC0 /* WMFTableOfContentsCell.xib in Resources */,
 				B0379A371D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
