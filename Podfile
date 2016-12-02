@@ -8,12 +8,6 @@ use_frameworks!
 project 'Wikipedia'
 
 abstract_target 'Foundation' do
-
-  # Diagnostics
-  pod 'PiwikTracker', :git => 'https://github.com/wikimedia/piwik-sdk-ios.git'
-
-  pod 'hpple', '~> 0.2'
-
   target 'InTheNewsNotification' do
   end
 

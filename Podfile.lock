@@ -1,11 +1,7 @@
 PODS:
   - Appsee (2.3)
   - HexColors (2.3.0)
-  - hpple (0.2.0)
   - Masonry (1.0.2)
-  - PiwikTracker (3.3.0):
-    - PiwikTracker/Core (= 3.3.0)
-  - PiwikTracker/Core (3.3.0)
   - SWStepSlider (1.0.0)
   - TSMessages (0.9.13):
     - HexColors (~> 2.3.0)
@@ -15,16 +11,12 @@ PODS:
 
 DEPENDENCIES:
   - Appsee
-  - hpple (~> 0.2)
-  - PiwikTracker (from `https://github.com/wikimedia/piwik-sdk-ios.git`)
   - SWStepSlider (from `https://github.com/wikimedia/SWStepSlider.git`)
   - TSMessages (from `https://github.com/wikimedia/TSMessages.git`, commit `8c66db6ce8ed8ffe8112b231e6edc71f8580a139`)
   - TUSafariActivity
   - Tweaks (from `https://github.com/facebook/Tweaks.git`)
 
 EXTERNAL SOURCES:
-  PiwikTracker:
-    :git: https://github.com/wikimedia/piwik-sdk-ios.git
   SWStepSlider:
     :git: https://github.com/wikimedia/SWStepSlider.git
   TSMessages:
@@ -34,9 +26,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/facebook/Tweaks.git
 
 CHECKOUT OPTIONS:
-  PiwikTracker:
-    :commit: bac26223df5f6a0fe55f5f877f74c4d98077b3f2
-    :git: https://github.com/wikimedia/piwik-sdk-ios.git
   SWStepSlider:
     :commit: 2e857008b8e251a2cd669f7c288944592e02e7c4
     :git: https://github.com/wikimedia/SWStepSlider.git
@@ -50,14 +39,12 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Appsee: 3f57734813c0bb22f5c0c6bb412c6140f23fd2fb
   HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
-  hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
-  PiwikTracker: 7147287d30a3192289bef9cddb2b5342d67dae43
   SWStepSlider: a714a255526dbba7c6290d67ea7226ba8724b56c
   TSMessages: 5460d0b3ea087d2843ce6e01d87797992dbe1911
   TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
   Tweaks: 5d07acb4f984f63b24ee2b85c8c773a1ce494d61
 
-PODFILE CHECKSUM: 605549157e522e08246925bb18f5654a5e3fa778
+PODFILE CHECKSUM: a74f1d398e15805d46d2b64215e654e7bb9dd464
 
 COCOAPODS: 1.1.1

@@ -980,6 +980,21 @@
 		D8D551461DF1A33D00B90177 /* EXTScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D551411DF1A33D00B90177 /* EXTScope.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8D551471DF1A33D00B90177 /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D551421DF1A33D00B90177 /* EXTScope.m */; };
 		D8D551481DF1A33D00B90177 /* metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D551431DF1A33D00B90177 /* metamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8D551701DF1A7AC00B90177 /* Piwik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5516F1DF1A7AC00B90177 /* Piwik.framework */; };
+		D8D551711DF1A7AC00B90177 /* Piwik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5516F1DF1A7AC00B90177 /* Piwik.framework */; };
+		D8D551721DF1A7AC00B90177 /* Piwik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5516F1DF1A7AC00B90177 /* Piwik.framework */; };
+		D8D551731DF1A7AC00B90177 /* Piwik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5516F1DF1A7AC00B90177 /* Piwik.framework */; };
+		D8D551741DF1A7AC00B90177 /* Piwik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5516F1DF1A7AC00B90177 /* Piwik.framework */; };
+		D8D551751DF1A7AC00B90177 /* Piwik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5516F1DF1A7AC00B90177 /* Piwik.framework */; };
+		D8D551761DF1A7AC00B90177 /* Piwik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5516F1DF1A7AC00B90177 /* Piwik.framework */; };
+		D8D5519F1DF1AE4B00B90177 /* hpple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; };
+		D8D551A01DF1AE4B00B90177 /* hpple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; };
+		D8D551A11DF1AE4B00B90177 /* hpple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; };
+		D8D551A21DF1AE4B00B90177 /* hpple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; };
+		D8D551A31DF1AE4B00B90177 /* hpple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; };
+		D8D551A41DF1AE4B00B90177 /* hpple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; };
+		D8D551A51DF1AE4B00B90177 /* hpple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; };
+		D8D551A71DF1AE9B00B90177 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551A61DF1AE9B00B90177 /* libxml2.tbd */; };
 		D8DC16E91D6F6DA300D6D9FB /* UIColor+WMFStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804F21C0CE0DC0065EBC0 /* UIColor+WMFStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8DC16EA1D6F6DA300D6D9FB /* UIColor+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804F31C0CE0DC0065EBC0 /* UIColor+WMFStyle.m */; };
 		D8DC16EB1D6F6DD600D6D9FB /* MWKSite.h in Headers */ = {isa = PBXBuildFile; fileRef = D8494AD41D6C85C500337433 /* MWKSite.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2553,6 +2568,9 @@
 		D8D551411DF1A33D00B90177 /* EXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTScope.h; sourceTree = "<group>"; };
 		D8D551421DF1A33D00B90177 /* EXTScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTScope.m; sourceTree = "<group>"; };
 		D8D551431DF1A33D00B90177 /* metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
+		D8D5516F1DF1A7AC00B90177 /* Piwik.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Piwik.framework; path = Carthage/Build/iOS/Piwik.framework; sourceTree = SOURCE_ROOT; };
+		D8D5519E1DF1AE4B00B90177 /* hpple.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = hpple.framework; path = Carthage/Build/iOS/hpple.framework; sourceTree = SOURCE_ROOT; };
+		D8D551A61DF1AE9B00B90177 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		D8DC16FC1D6F709300D6D9FB /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		D8DC16FE1D6F718300D6D9FB /* NSURL+WMFMainPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+WMFMainPage.h"; path = "Wikipedia/Code/NSURL+WMFMainPage.h"; sourceTree = SOURCE_ROOT; };
 		D8DC16FF1D6F718300D6D9FB /* NSURL+WMFMainPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+WMFMainPage.m"; path = "Wikipedia/Code/NSURL+WMFMainPage.m"; sourceTree = SOURCE_ROOT; };
@@ -2593,6 +2611,7 @@
 				D8D550D41DF1908800B90177 /* BlocksKit.framework in Frameworks */,
 				D82FDB251DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
 				D82FDAE61DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
+				D8D551A11DF1AE4B00B90177 /* hpple.framework in Frameworks */,
 				D82FDADD1DF0A99E00DDF311 /* AFNetworking.framework in Frameworks */,
 				D82FDAEF1DF0A9E700DDF311 /* WebImage.framework in Frameworks */,
 				D82FDAF91DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */,
@@ -2602,6 +2621,7 @@
 				D82FDB361DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
 				7C52DC8EA0E04A9663D8260D /* Pods_Foundation_ContinueReadingWidget.framework in Frameworks */,
 				D8D551361DF1A0CD00B90177 /* SSDataSources.framework in Frameworks */,
+				D8D551721DF1A7AC00B90177 /* Piwik.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2623,12 +2643,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8D551A71DF1AE9B00B90177 /* libxml2.tbd in Frameworks */,
 				D82FDB221DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
 				D82FDB3C1DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D858A7F91DA6DB96009C3DEB /* libz.tbd in Frameworks */,
 				D895D0991D9C28D9005418C1 /* UserNotifications.framework in Frameworks */,
 				D82FDB2E1DF0ABBF00DDF311 /* NYTPhotoViewer.framework in Frameworks */,
 				D82FDB2D1DF0ABBF00DDF311 /* GCDWebServers.framework in Frameworks */,
+				D8D5519F1DF1AE4B00B90177 /* hpple.framework in Frameworks */,
 				D8FAC7DC1D6F88A100C2A6BC /* WMFUtilities.framework in Frameworks */,
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
 				D82FDB2F1DF0ABBF00DDF311 /* VTAcknowledgementsViewController.framework in Frameworks */,
@@ -2637,6 +2659,7 @@
 				D82FDB331DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
 				D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */,
 				D8AC392B1D6F2480007E3C14 /* WMFUI.framework in Frameworks */,
+				D8D551701DF1A7AC00B90177 /* Piwik.framework in Frameworks */,
 				D82FDADA1DF0A99E00DDF311 /* AFNetworking.framework in Frameworks */,
 				D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */,
 				D8D550E01DF1953E00B90177 /* BlocksKitUIKitExtensions.framework in Frameworks */,
@@ -2662,6 +2685,7 @@
 				D82FDB421DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D844D97C1D6CB2670042D692 /* WMFUtilities.framework in Frameworks */,
 				D82FDAF21DF0A9E700DDF311 /* WebImage.framework in Frameworks */,
+				D8D551A41DF1AE4B00B90177 /* hpple.framework in Frameworks */,
 				D82FDAFC1DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D8D551391DF1A0CD00B90177 /* SSDataSources.framework in Frameworks */,
 				D82FDB161DF0AABB00DDF311 /* PromiseKit.framework in Frameworks */,
@@ -2672,6 +2696,7 @@
 				54C6FD426687294BEEC02A80 /* Pods_Foundation_WMFModel.framework in Frameworks */,
 				D82FDB0E1DF0AABB00DDF311 /* KVOController.framework in Frameworks */,
 				D8D550D71DF1908800B90177 /* BlocksKit.framework in Frameworks */,
+				D8D551751DF1A7AC00B90177 /* Piwik.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2680,10 +2705,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBCDF624997206E230918CCD /* Pods_Foundation_WMFUtilities.framework in Frameworks */,
+				D8D551741DF1A7AC00B90177 /* Piwik.framework in Frameworks */,
 				D8D550D61DF1908800B90177 /* BlocksKit.framework in Frameworks */,
 				D82FDB411DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D82FDADF1DF0A99E00DDF311 /* AFNetworking.framework in Frameworks */,
 				D82FDB381DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
+				D8D551A31DF1AE4B00B90177 /* hpple.framework in Frameworks */,
 				D82FDB271DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
 				D82FDB031DF0AA8B00DDF311 /* YapDatabase.framework in Frameworks */,
 				D82FDAE81DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
@@ -2705,6 +2732,7 @@
 				D8D550D51DF1908800B90177 /* BlocksKit.framework in Frameworks */,
 				D82FDB261DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
 				D82FDAE71DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
+				D8D551A21DF1AE4B00B90177 /* hpple.framework in Frameworks */,
 				D82FDADE1DF0A99E00DDF311 /* AFNetworking.framework in Frameworks */,
 				D82FDAF01DF0A9E700DDF311 /* WebImage.framework in Frameworks */,
 				D82FDAFA1DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */,
@@ -2714,6 +2742,7 @@
 				D82FDB371DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
 				6D15A0B1B710BCF22B3407D4 /* Pods_Foundation_TopReadWidget.framework in Frameworks */,
 				D8D551371DF1A0CD00B90177 /* SSDataSources.framework in Frameworks */,
+				D8D551731DF1A7AC00B90177 /* Piwik.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2733,7 +2762,9 @@
 				D82FDB091DF0AABB00DDF311 /* KVOController.framework in Frameworks */,
 				D82FDAFF1DF0AA8B00DDF311 /* YapDatabase.framework in Frameworks */,
 				D8D550D21DF1908800B90177 /* BlocksKit.framework in Frameworks */,
+				D8D551A01DF1AE4B00B90177 /* hpple.framework in Frameworks */,
 				D82FDAED1DF0A9E700DDF311 /* WebImage.framework in Frameworks */,
+				D8D551711DF1A7AC00B90177 /* Piwik.framework in Frameworks */,
 				D82FDB3D1DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				67E20A706067A461E2E9F7A9 /* Pods_Foundation_InTheNewsNotification.framework in Frameworks */,
 				D82FDAE41DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
@@ -2750,6 +2781,7 @@
 				D8D550D81DF1908800B90177 /* BlocksKit.framework in Frameworks */,
 				D82FDB291DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
 				D82FDAEA1DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
+				D8D551A51DF1AE4B00B90177 /* hpple.framework in Frameworks */,
 				D82FDAE11DF0A99F00DDF311 /* AFNetworking.framework in Frameworks */,
 				D82FDAF31DF0A9E800DDF311 /* WebImage.framework in Frameworks */,
 				D82FDAFD1DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */,
@@ -2759,6 +2791,7 @@
 				D82FDB3A1DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
 				B9868CAAA46414F8D54D995A /* Pods_Foundation_WMFUI.framework in Frameworks */,
 				D8D5513A1DF1A0CD00B90177 /* SSDataSources.framework in Frameworks */,
+				D8D551761DF1A7AC00B90177 /* Piwik.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5562,6 +5595,7 @@
 		D4991437181D51DE00E6073C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D8D551A61DF1AE9B00B90177 /* libxml2.tbd */,
 				D82FDAD81DF0A96E00DDF311 /* Carthage */,
 				D858A7F81DA6DB96009C3DEB /* libz.tbd */,
 				D8DC16FC1D6F709300D6D9FB /* CoreImage.framework */,
@@ -5609,6 +5643,8 @@
 		D82FDAD81DF0A96E00DDF311 /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
+				D8D5519E1DF1AE4B00B90177 /* hpple.framework */,
+				D8D5516F1DF1A7AC00B90177 /* Piwik.framework */,
 				D8D551331DF1A0CD00B90177 /* SSDataSources.framework */,
 				D8D550DF1DF1953E00B90177 /* BlocksKitUIKitExtensions.framework */,
 				D8D550D01DF1908800B90177 /* BlocksKit.framework */,
@@ -7004,6 +7040,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/BlocksKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/BlocksKitUIKitExtensions.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SSDataSources.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Piwik.framework",
 			);
 			outputPaths = (
 			);

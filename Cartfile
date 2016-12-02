@@ -18,3 +18,5 @@ github "Quick/Quick" == 0.9.3
 github "Quick/Nimble" ~> 4.0.0
 github "wikimedia/BlocksKit" "master"
 github "wikimedia/SSDataSources" "master"
+github "wikimedia/piwik-sdk-ios" "master"
+github "wikimedia/hpple" "master"
