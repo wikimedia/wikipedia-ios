@@ -5,7 +5,7 @@ def iterate_and_format(dir)
   puts dir
   file_types = {h: true, m: true, cpp: true, c: true}
   Dir.foreach(dir) do |filename|
-    next if filename.start_with?('.') || filename.length == 0 || filename == "Pods"
+    next if filename.start_with?('.') || filename.length == 0 || filename == "Pods" || filename == "Carthage"
     
     full_path = dir + '/' + filename
     if File.directory?(full_path) 
