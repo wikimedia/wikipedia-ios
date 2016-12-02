@@ -7041,6 +7041,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/BlocksKitUIKitExtensions.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SSDataSources.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Piwik.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/hpple.framework",
 			);
 			outputPaths = (
 			);
