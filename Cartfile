@@ -1,6 +1,4 @@
-github "https://github.com/wikimedia/AFNetworking.git" "release/3.1.1"
 github "Mantle/Mantle" ~> 2.0.0
-github "https://github.com/wikimedia/SDWebImage.git" "bb49df83e72f2231a191e9477a85f0effe13430a"
 github "CocoaLumberjack/CocoaLumberjack" ~> 2.4.0
 github "yapstudios/YapDatabase"
 github "facebook/KVOController" == 1.1.0
@@ -16,6 +14,10 @@ github "luisobo/Nocilla"
 github "facebook/ios-snapshot-test-case" == 2.1.3
 github "Quick/Quick" == 0.9.3
 github "Quick/Nimble" ~> 4.0.0
+
+github "wikimedia/AFNetworking" "release/3.1.1"
+github "wikimedia/SDWebImage" "bb49df83e72f2231a191e9477a85f0effe13430a"
+
 github "wikimedia/BlocksKit" "master"
 github "wikimedia/SSDataSources" "master"
 github "wikimedia/piwik-sdk-ios" "master"
