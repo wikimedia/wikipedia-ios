@@ -1,0 +1,462 @@
+BCSymbolMap Version: 2.0
+-[_FBTweakTableViewCell initWithReuseIdentifier:]
+-[_FBTweakTableViewCell dealloc]
+-[_FBTweakTableViewCell layoutSubviews]
+-[_FBTweakTableViewCell setTweak:]
+-[_FBTweakTableViewCell _updateMode:]
+-[_FBTweakTableViewCell _switchChanged:]
+-[_FBTweakTableViewCell textFieldShouldReturn:]
+-[_FBTweakTableViewCell textFieldDidEndEditing:]
+-[_FBTweakTableViewCell _stepperChanged:]
+-[_FBTweakTableViewCell _updateValue:primary:write:]
+-[_FBTweakTableViewCell tweak]
+-[_FBTweakTableViewCell .cxx_destruct]
+_OBJC_IVAR_$__FBTweakTableViewCell._accessoryView
+_OBJC_IVAR_$__FBTweakTableViewCell._switch
+_OBJC_IVAR_$__FBTweakTableViewCell._textField
+_OBJC_IVAR_$__FBTweakTableViewCell._stepper
+_OBJC_IVAR_$__FBTweakTableViewCell._mode
+_OBJC_IVAR_$__FBTweakTableViewCell._tweak
+l_OBJC_PROTOCOL_$_NSObject
+l_OBJC_LABEL_PROTOCOL_$_NSObject
+l_OBJC_PROTOCOL_$_UITextFieldDelegate
+l_OBJC_LABEL_PROTOCOL_$_UITextFieldDelegate
+Apple LLVM version 8.0.0 (clang-800.0.42.1)
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBTweakTableViewCell.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBTweakTableViewCell.h
+_FBCreateColorCellsThumbnail
+CGRectMake
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.1.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CGGeometry.h
+-[_FBTweakDictionaryViewController initWithTweak:]
+-[_FBTweakDictionaryViewController viewDidLoad]
+-[_FBTweakDictionaryViewController dealloc]
+-[_FBTweakDictionaryViewController numberOfSectionsInTableView:]
+-[_FBTweakDictionaryViewController tableView:numberOfRowsInSection:]
+-[_FBTweakDictionaryViewController tableView:cellForRowAtIndexPath:]
+-[_FBTweakDictionaryViewController tableView:didSelectRowAtIndexPath:]
+-[_FBTweakDictionaryViewController allTweakKeys]
+___48-[_FBTweakDictionaryViewController allTweakKeys]_block_invoke
+___copy_helper_block_
+___destroy_helper_block_
+-[_FBTweakDictionaryViewController tweak]
+-[_FBTweakDictionaryViewController .cxx_destruct]
+_OBJC_IVAR_$__FBTweakDictionaryViewController._tweak
+_OBJC_IVAR_$__FBTweakDictionaryViewController._tableView
+___block_descriptor_tmp
+l_OBJC_PROTOCOL_$_UITableViewDataSource
+l_OBJC_LABEL_PROTOCOL_$_UITableViewDataSource
+l_OBJC_PROTOCOL_$_UIScrollViewDelegate
+l_OBJC_LABEL_PROTOCOL_$_UIScrollViewDelegate
+l_OBJC_PROTOCOL_$_UITableViewDelegate
+l_OBJC_LABEL_PROTOCOL_$_UITableViewDelegate
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBTweakDictionaryViewController.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBTweakDictionaryViewController.h
+__destroy_helper_block_
+__copy_helper_block_
+__48-[_FBTweakDictionaryViewController allTweakKeys]_block_invoke
+-[_FBTweakCategoryViewController initWithStore:]
+___48-[_FBTweakCategoryViewController initWithStore:]_block_invoke
+-[_FBTweakCategoryViewController viewDidLoad]
+-[_FBTweakCategoryViewController dealloc]
+-[_FBTweakCategoryViewController _done]
+-[_FBTweakCategoryViewController _reset]
+___40-[_FBTweakCategoryViewController _reset]_block_invoke
+___40-[_FBTweakCategoryViewController _reset]_block_invoke_2
+-[_FBTweakCategoryViewController _export]
+-[_FBTweakCategoryViewController viewWillAppear:]
+-[_FBTweakCategoryViewController numberOfSectionsInTableView:]
+-[_FBTweakCategoryViewController tableView:numberOfRowsInSection:]
+-[_FBTweakCategoryViewController tableView:cellForRowAtIndexPath:]
+-[_FBTweakCategoryViewController tableView:didSelectRowAtIndexPath:]
+-[_FBTweakCategoryViewController mailComposeController:didFinishWithResult:error:]
+-[_FBTweakCategoryViewController store]
+-[_FBTweakCategoryViewController delegate]
+-[_FBTweakCategoryViewController setDelegate:]
+-[_FBTweakCategoryViewController .cxx_destruct]
+_OBJC_IVAR_$__FBTweakCategoryViewController._store
+___block_literal_global
+_OBJC_IVAR_$__FBTweakCategoryViewController._sortedCategories
+_OBJC_IVAR_$__FBTweakCategoryViewController._toolbar
+_OBJC_IVAR_$__FBTweakCategoryViewController._tableView
+_OBJC_IVAR_$__FBTweakCategoryViewController._delegate
+___block_descriptor_tmp.93
+___block_literal_global.94
+___block_descriptor_tmp.101
+l_OBJC_PROTOCOL_$_MFMailComposeViewControllerDelegate
+l_OBJC_LABEL_PROTOCOL_$_MFMailComposeViewControllerDelegate
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBTweakCategoryViewController.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBTweakCategoryViewController.h
+__40-[_FBTweakCategoryViewController _reset]_block_invoke_2
+__40-[_FBTweakCategoryViewController _reset]_block_invoke
+__48-[_FBTweakCategoryViewController initWithStore:]_block_invoke
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/FBTweakInline.m
+-[_FBKeyboardManager init]
+-[_FBKeyboardManager initWithViewScrollView:]
+-[_FBKeyboardManager enable]
+-[_FBKeyboardManager disable]
+-[_FBKeyboardManager dealloc]
+-[_FBKeyboardManager _keyboardFrameChanged:]
+___44-[_FBKeyboardManager _keyboardFrameChanged:]_block_invoke
+-[_FBKeyboardManager .cxx_destruct]
+_OBJC_IVAR_$__FBKeyboardManager._scrollView
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBKeyboardManager.m
+__44-[_FBKeyboardManager _keyboardFrameChanged:]_block_invoke
+-[FBTweakShakeWindow initWithFrame:]
+__FBTweakShakeWindowCommonInit
+-[FBTweakShakeWindow initWithCoder:]
+-[FBTweakShakeWindow dealloc]
+-[FBTweakShakeWindow _applicationWillResignActiveWithNotification:]
+-[FBTweakShakeWindow _applicationDidBecomeActiveWithNotification:]
+-[FBTweakShakeWindow tweakViewControllerPressedDone:]
+-[FBTweakShakeWindow _presentTweaks]
+-[FBTweakShakeWindow _shouldPresentTweaks]
+-[FBTweakShakeWindow motionBegan:withEvent:]
+___44-[FBTweakShakeWindow motionBegan:withEvent:]_block_invoke
+-[FBTweakShakeWindow motionEnded:withEvent:]
+-[FBTweakShakeWindow shakeEnabled]
+-[FBTweakShakeWindow setShakeEnabled:]
+_OBJC_IVAR_$_FBTweakShakeWindow._active
+_OBJC_IVAR_$_FBTweakShakeWindow._shaking
+_OBJC_IVAR_$_FBTweakShakeWindow._shakeEnabled
+l_OBJC_PROTOCOL_$_UINavigationControllerDelegate
+l_OBJC_LABEL_PROTOCOL_$_UINavigationControllerDelegate
+l_OBJC_PROTOCOL_$_FBTweakViewControllerDelegate
+l_OBJC_LABEL_PROTOCOL_$_FBTweakViewControllerDelegate
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/FBTweakShakeWindow.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/FBTweakShakeWindow.h
+__44-[FBTweakShakeWindow motionBegan:withEvent:]_block_invoke
+_FBTweakShakeWindowCommonInit
+-[_FBTweakColorViewController initWithTweak:]
+-[_FBTweakColorViewController dealloc]
+-[_FBTweakColorViewController viewDidLoad]
+-[_FBTweakColorViewController viewWillAppear:]
+-[_FBTweakColorViewController viewWillDisappear:]
+-[_FBTweakColorViewController observeValueForKeyPath:ofObject:change:context:]
+-[_FBTweakColorViewController tableView:heightForRowAtIndexPath:]
+-[_FBTweakColorViewController _colorValue]
+-[_FBTweakColorViewController _segmentControlDidChangeValue:]
+-[_FBTweakColorViewController dataSourceForSegementIndex:]
+-[_FBTweakColorViewController tweak]
+-[_FBTweakColorViewController .cxx_destruct]
+_OBJC_IVAR_$__FBTweakColorViewController._tweak
+_OBJC_IVAR_$__FBTweakColorViewController._rgbDataSource
+_OBJC_IVAR_$__FBTweakColorViewController._hsbDataSource
+_OBJC_IVAR_$__FBTweakColorViewController._hexDataSource
+_kContext
+_OBJC_IVAR_$__FBTweakColorViewController._tableView
+_OBJC_IVAR_$__FBTweakColorViewController._keyboardManager
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBTweakColorViewController.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBTweakColorViewController.h
+-[FBTweakCategory initWithCoder:]
+-[FBTweakCategory initWithName:]
+-[FBTweakCategory encodeWithCoder:]
+-[FBTweakCategory tweakCollectionWithName:]
+-[FBTweakCategory tweakCollections]
+-[FBTweakCategory addTweakCollection:]
+-[FBTweakCategory removeTweakCollection:]
+-[FBTweakCategory name]
+-[FBTweakCategory .cxx_destruct]
+_OBJC_IVAR_$_FBTweakCategory._orderedCollections
+_OBJC_IVAR_$_FBTweakCategory._namedCollections
+_OBJC_IVAR_$_FBTweakCategory._name
+l_OBJC_PROTOCOL_$_NSCoding
+l_OBJC_LABEL_PROTOCOL_$_NSCoding
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/FBTweakCategory.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/FBTweakCategory.h
+-[_FBTweakArrayViewController initWithTweak:]
+-[_FBTweakArrayViewController viewDidLoad]
+-[_FBTweakArrayViewController dealloc]
+-[_FBTweakArrayViewController numberOfSectionsInTableView:]
+-[_FBTweakArrayViewController tableView:numberOfRowsInSection:]
+-[_FBTweakArrayViewController tableView:cellForRowAtIndexPath:]
+-[_FBTweakArrayViewController tableView:didSelectRowAtIndexPath:]
+-[_FBTweakArrayViewController tweak]
+-[_FBTweakArrayViewController .cxx_destruct]
+_OBJC_IVAR_$__FBTweakArrayViewController._tweak
+_OBJC_IVAR_$__FBTweakArrayViewController._tableView
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBTweakArrayViewController.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBTweakArrayViewController.h
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBColorUtils.m
+_FBCreateColorWheelImage
+_FBGetColorWheelSaturation
+CGPointMake
+_FBGetColorWheelHue
+_FBRGBColorComponents
+_FBHSB2RGB
+_FBRGB2HSB
+-[_FBTweakColorViewControllerRGBDataSource init]
+-[_FBTweakColorViewControllerRGBDataSource setValue:]
+-[_FBTweakColorViewControllerRGBDataSource value]
+-[_FBTweakColorViewControllerRGBDataSource numberOfSectionsInTableView:]
+-[_FBTweakColorViewControllerRGBDataSource tableView:numberOfRowsInSection:]
+-[_FBTweakColorViewControllerRGBDataSource tableView:cellForRowAtIndexPath:]
+-[_FBTweakColorViewControllerRGBDataSource colorComponentCell:didChangeValue:]
+-[_FBTweakColorViewControllerRGBDataSource _reloadData]
+-[_FBTweakColorViewControllerRGBDataSource _createCells]
+-[_FBTweakColorViewControllerRGBDataSource _colorComponentsWithRGB:]
+-[_FBTweakColorViewControllerRGBDataSource _colorsWithComponents:colorIndex:]
+-[_FBTweakColorViewControllerRGBDataSource _setValue:forColorComponent:]
+-[_FBTweakColorViewControllerRGBDataSource .cxx_destruct]
+_OBJC_IVAR_$__FBTweakColorViewControllerRGBDataSource._titles
+_OBJC_IVAR_$__FBTweakColorViewControllerRGBDataSource._maxValues
+_OBJC_IVAR_$__FBTweakColorViewControllerRGBDataSource._colorComponents
+_OBJC_IVAR_$__FBTweakColorViewControllerRGBDataSource._colorComponentCells
+_OBJC_IVAR_$__FBTweakColorViewControllerRGBDataSource._colorSampleCell
+l_OBJC_PROTOCOL_$__FBColorComponentCellDelegate
+l_OBJC_LABEL_PROTOCOL_$__FBColorComponentCellDelegate
+l_OBJC_PROTOCOL_$__FBTweakColorViewControllerDataSource
+l_OBJC_LABEL_PROTOCOL_$__FBTweakColorViewControllerDataSource
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBTweakColorViewControllerRGBDataSource.m
++[FBTweakStore sharedInstance]
+___30+[FBTweakStore sharedInstance]_block_invoke
+-[FBTweakStore initWithCoder:]
+-[FBTweakStore init]
+-[FBTweakStore encodeWithCoder:]
+-[FBTweakStore tweakCategories]
+-[FBTweakStore tweakCategoryWithName:]
+-[FBTweakStore addTweakCategory:]
+-[FBTweakStore removeTweakCategory:]
+-[FBTweakStore reset]
+-[FBTweakStore .cxx_destruct]
+_sharedInstance.sharedInstance
+_sharedInstance.onceToken
+_OBJC_IVAR_$_FBTweakStore._orderedCategories
+_OBJC_IVAR_$_FBTweakStore._namedCategories
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/FBTweakStore.m
+__30+[FBTweakStore sharedInstance]_block_invoke
+_dispatch_once
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.1.sdk/usr/include/dispatch/once.h
+-[_FBTweakBindObserver initWithTweak:block:]
+-[_FBTweakBindObserver tweakDidChange:]
+-[_FBTweakBindObserver attachToObject:]
+-[_FBTweakBindObserver .cxx_destruct]
+_OBJC_IVAR_$__FBTweakBindObserver._tweak
+_OBJC_IVAR_$__FBTweakBindObserver._block
+_OBJC_IVAR_$__FBTweakBindObserver._object
+l_OBJC_PROTOCOL_$_FBTweakObserver
+l_OBJC_LABEL_PROTOCOL_$_FBTweakObserver
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBTweakBindObserver.m
+-[_FBColorComponentCell init]
+-[_FBColorComponentCell setTitle:]
+-[_FBColorComponentCell setMinimumValue:]
+-[_FBColorComponentCell setMaximumValue:]
+-[_FBColorComponentCell setValue:]
+-[_FBColorComponentCell title]
+-[_FBColorComponentCell minimumValue]
+-[_FBColorComponentCell maximumValue]
+-[_FBColorComponentCell value]
+-[_FBColorComponentCell setColors:]
+-[_FBColorComponentCell colors]
+-[_FBColorComponentCell textFieldDidEndEditing:]
+-[_FBColorComponentCell textFieldShouldReturn:]
+-[_FBColorComponentCell textField:shouldChangeCharactersInRange:replacementString:]
+-[_FBColorComponentCell layoutSubviews]
+-[_FBColorComponentCell _didChangeSliderValue:]
+-[_FBColorComponentCell _invertedDecimalDigitAndDotCharacterSet]
+-[_FBColorComponentCell format]
+-[_FBColorComponentCell setFormat:]
+-[_FBColorComponentCell delegate]
+-[_FBColorComponentCell setDelegate:]
+-[_FBColorComponentCell .cxx_destruct]
+_OBJC_IVAR_$__FBColorComponentCell._format
+_OBJC_IVAR_$__FBColorComponentCell._label
+_OBJC_IVAR_$__FBColorComponentCell._slider
+_OBJC_IVAR_$__FBColorComponentCell._textField
+_OBJC_IVAR_$__FBColorComponentCell._delegate
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBColorComponentCell.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBColorComponentCell.h
+-[FBTweakViewController initWithStore:]
+-[FBTweakViewController initWithStore:category:]
+-[FBTweakViewController tweakCategoryViewController:selectedCategory:]
+-[FBTweakViewController tweakCategoryViewControllerSelectedDone:]
+-[FBTweakViewController tweakCollectionViewControllerSelectedDone:]
+-[FBTweakViewController tweaksDelegate]
+-[FBTweakViewController setTweaksDelegate:]
+-[FBTweakViewController .cxx_destruct]
+_OBJC_IVAR_$_FBTweakViewController._store
+_OBJC_IVAR_$_FBTweakViewController._tweaksDelegate
+l_OBJC_PROTOCOL_$__FBTweakCategoryViewControllerDelegate
+l_OBJC_LABEL_PROTOCOL_$__FBTweakCategoryViewControllerDelegate
+l_OBJC_PROTOCOL_$__FBTweakCollectionViewControllerDelegate
+l_OBJC_LABEL_PROTOCOL_$__FBTweakCollectionViewControllerDelegate
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/FBTweakViewController.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/FBTweakViewController.h
+-[_FBTweakCollectionViewController initWithTweakCategory:]
+-[_FBTweakCollectionViewController viewDidLoad]
+-[_FBTweakCollectionViewController dealloc]
+-[_FBTweakCollectionViewController viewWillAppear:]
+-[_FBTweakCollectionViewController viewWillDisappear:]
+-[_FBTweakCollectionViewController _reloadData]
+___47-[_FBTweakCollectionViewController _reloadData]_block_invoke
+-[_FBTweakCollectionViewController _done]
+-[_FBTweakCollectionViewController numberOfSectionsInTableView:]
+-[_FBTweakCollectionViewController tableView:numberOfRowsInSection:]
+-[_FBTweakCollectionViewController tableView:titleForHeaderInSection:]
+-[_FBTweakCollectionViewController tableView:cellForRowAtIndexPath:]
+-[_FBTweakCollectionViewController tableView:didSelectRowAtIndexPath:]
+-[_FBTweakCollectionViewController tweakCategory]
+-[_FBTweakCollectionViewController delegate]
+-[_FBTweakCollectionViewController setDelegate:]
+-[_FBTweakCollectionViewController .cxx_destruct]
+_OBJC_IVAR_$__FBTweakCollectionViewController._tweakCategory
+_OBJC_IVAR_$__FBTweakCollectionViewController._tableView
+_OBJC_IVAR_$__FBTweakCollectionViewController._keyboardManager
+_OBJC_IVAR_$__FBTweakCollectionViewController._sortedCollections
+_OBJC_IVAR_$__FBTweakCollectionViewController._delegate
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBTweakCollectionViewController.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBTweakCollectionViewController.h
+__47-[_FBTweakCollectionViewController _reloadData]_block_invoke
+-[_FBColorWheelCell initWithStyle:reuseIdentifier:]
+-[_FBColorWheelCell setHue:]
+-[_FBColorWheelCell setSaturation:]
+-[_FBColorWheelCell layoutSubviews]
+-[_FBColorWheelCell gestureRecognizer:shouldReceiveTouch:]
+-[_FBColorWheelCell _createIndicatorLayer]
+-[_FBColorWheelCell _shouldHandleTouchAtPosition:]
+-[_FBColorWheelCell _handlePanGesture:]
+-[_FBColorWheelCell _setSelectedPoint:]
+-[_FBColorWheelCell _selectedPoint]
+-[_FBColorWheelCell hue]
+-[_FBColorWheelCell saturation]
+-[_FBColorWheelCell delegate]
+-[_FBColorWheelCell setDelegate:]
+-[_FBColorWheelCell .cxx_destruct]
+_OBJC_IVAR_$__FBColorWheelCell._colorWheelLayer
+_OBJC_IVAR_$__FBColorWheelCell._indicatorLayer
+_OBJC_IVAR_$__FBColorWheelCell._hue
+_OBJC_IVAR_$__FBColorWheelCell._saturation
+_OBJC_IVAR_$__FBColorWheelCell._delegate
+l_OBJC_PROTOCOL_$_UIGestureRecognizerDelegate
+l_OBJC_LABEL_PROTOCOL_$_UIGestureRecognizerDelegate
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBColorWheelCell.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBColorWheelCell.h
+-[_FBSliderView initWithFrame:]
+-[_FBSliderView intrinsicContentSize]
+-[_FBSliderView setValue:]
+-[_FBSliderView setColors:]
+-[_FBSliderView colors]
+-[_FBSliderView beginTrackingWithTouch:withEvent:]
+-[_FBSliderView continueTrackingWithTouch:withEvent:]
+-[_FBSliderView endTrackingWithTouch:withEvent:]
+-[_FBSliderView layoutSublayersOfLayer:]
+-[_FBSliderView _setValueWithPosition:]
+-[_FBSliderView _updateLocations]
+-[_FBSliderView _updateThumbPositionWithValue:]
+-[_FBSliderView value]
+-[_FBSliderView minimumValue]
+-[_FBSliderView setMinimumValue:]
+-[_FBSliderView maximumValue]
+-[_FBSliderView setMaximumValue:]
+-[_FBSliderView .cxx_destruct]
+_OBJC_IVAR_$__FBSliderView._minimumValue
+_OBJC_IVAR_$__FBSliderView._maximumValue
+_OBJC_IVAR_$__FBSliderView._value
+_OBJC_IVAR_$__FBSliderView._trackLayer
+_OBJC_IVAR_$__FBSliderView._thumbLayer
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBSliderView.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBSliderView.h
+CGSizeMake
+-[FBTweakCollection initWithCoder:]
+-[FBTweakCollection initWithName:]
+-[FBTweakCollection encodeWithCoder:]
+-[FBTweakCollection tweakWithIdentifier:]
+-[FBTweakCollection tweaks]
+-[FBTweakCollection addTweak:]
+-[FBTweakCollection removeTweak:]
+-[FBTweakCollection name]
+-[FBTweakCollection .cxx_destruct]
+_OBJC_IVAR_$_FBTweakCollection._orderedTweaks
+_OBJC_IVAR_$_FBTweakCollection._identifierTweaks
+_OBJC_IVAR_$_FBTweakCollection._name
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/FBTweakCollection.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/FBTweakCollection.h
+-[_FBTweakColorViewControllerHSBDataSource init]
+-[_FBTweakColorViewControllerHSBDataSource setValue:]
+-[_FBTweakColorViewControllerHSBDataSource value]
+-[_FBTweakColorViewControllerHSBDataSource colorComponentCell:didChangeValue:]
+-[_FBTweakColorViewControllerHSBDataSource colorWheelCellDidChangeColor:]
+-[_FBTweakColorViewControllerHSBDataSource numberOfSectionsInTableView:]
+-[_FBTweakColorViewControllerHSBDataSource tableView:numberOfRowsInSection:]
+-[_FBTweakColorViewControllerHSBDataSource tableView:cellForRowAtIndexPath:]
+-[_FBTweakColorViewControllerHSBDataSource _reloadData]
+-[_FBTweakColorViewControllerHSBDataSource _createCells]
+-[_FBTweakColorViewControllerHSBDataSource _setValue:forColorComponent:]
+-[_FBTweakColorViewControllerHSBDataSource _colorComponentsWithHSB:]
+-[_FBTweakColorViewControllerHSBDataSource .cxx_destruct]
+_OBJC_IVAR_$__FBTweakColorViewControllerHSBDataSource._titles
+_OBJC_IVAR_$__FBTweakColorViewControllerHSBDataSource._maxValues
+_OBJC_IVAR_$__FBTweakColorViewControllerHSBDataSource._colorComponents
+_OBJC_IVAR_$__FBTweakColorViewControllerHSBDataSource._colorComponentCells
+_OBJC_IVAR_$__FBTweakColorViewControllerHSBDataSource._colorSampleCell
+_OBJC_IVAR_$__FBTweakColorViewControllerHSBDataSource._colorWheelCell
+l_OBJC_PROTOCOL_$__FBColorWheelCellDelegate
+l_OBJC_LABEL_PROTOCOL_$__FBColorWheelCellDelegate
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBTweakColorViewControllerHSBDataSource.m
+-[_FBTweakColorViewControllerHexDataSource init]
+-[_FBTweakColorViewControllerHexDataSource dealloc]
+-[_FBTweakColorViewControllerHexDataSource value]
+-[_FBTweakColorViewControllerHexDataSource setValue:]
+-[_FBTweakColorViewControllerHexDataSource numberOfSectionsInTableView:]
+-[_FBTweakColorViewControllerHexDataSource tableView:numberOfRowsInSection:]
+-[_FBTweakColorViewControllerHexDataSource tableView:cellForRowAtIndexPath:]
+-[_FBTweakColorViewControllerHexDataSource hexCell]
+-[_FBTweakColorViewControllerHexDataSource tweakDidChange:]
++[_FBTweakColorViewControllerHexDataSource colorToHexString:]
++[_FBTweakColorViewControllerHexDataSource colorFromHexString:]
+-[_FBTweakColorViewControllerHexDataSource color]
+-[_FBTweakColorViewControllerHexDataSource setColor:]
+-[_FBTweakColorViewControllerHexDataSource tweak]
+-[_FBTweakColorViewControllerHexDataSource setTweak:]
+-[_FBTweakColorViewControllerHexDataSource .cxx_destruct]
+_OBJC_IVAR_$__FBTweakColorViewControllerHexDataSource._colorSampleCell
+_OBJC_IVAR_$__FBTweakColorViewControllerHexDataSource._color
+_OBJC_IVAR_$__FBTweakColorViewControllerHexDataSource._tweak
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/_FBTweakColorViewControllerHexDataSource.m
+-[FBTweakNumericRange initWithMinimumValue:maximumValue:]
+-[FBTweakNumericRange initWithCoder:]
+-[FBTweakNumericRange encodeWithCoder:]
+-[FBTweakNumericRange minimumValue]
+-[FBTweakNumericRange setMinimumValue:]
+-[FBTweakNumericRange maximumValue]
+-[FBTweakNumericRange setMaximumValue:]
+-[FBTweakNumericRange .cxx_destruct]
+-[FBTweak initWithCoder:]
+-[FBTweak initWithIdentifier:]
+-[FBTweak encodeWithCoder:]
+-[FBTweak isAction]
+___19-[FBTweak isAction]_block_invoke
+-[FBTweak minimumValue]
+-[FBTweak setMinimumValue:]
+-[FBTweak maximumValue]
+-[FBTweak setMaximumValue:]
+-[FBTweak setCurrentValue:]
+-[FBTweak addObserver:]
+-[FBTweak removeObserver:]
+-[FBTweak identifier]
+-[FBTweak name]
+-[FBTweak setName:]
+-[FBTweak defaultValue]
+-[FBTweak setDefaultValue:]
+-[FBTweak currentValue]
+-[FBTweak possibleValues]
+-[FBTweak setPossibleValues:]
+-[FBTweak stepValue]
+-[FBTweak setStepValue:]
+-[FBTweak precisionValue]
+-[FBTweak setPrecisionValue:]
+-[FBTweak .cxx_destruct]
+_OBJC_IVAR_$_FBTweakNumericRange._minimumValue
+_OBJC_IVAR_$_FBTweakNumericRange._maximumValue
+_OBJC_IVAR_$_FBTweak._name
+_OBJC_IVAR_$_FBTweak._defaultValue
+_OBJC_IVAR_$_FBTweak._possibleValues
+_OBJC_IVAR_$_FBTweak._precisionValue
+_OBJC_IVAR_$_FBTweak._stepValue
+_OBJC_IVAR_$_FBTweak._currentValue
+_OBJC_IVAR_$_FBTweak._identifier
+_OBJC_IVAR_$_FBTweak._observers
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/FBTweak.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/Tweaks/FBTweak/FBTweak.h
+__19-[FBTweak isAction]_block_invoke
+/Users/joe/Library/Developer/Xcode/DerivedData/FBTweakExample-bptkhaiavrhlrkgyzjehfqvldmue/Build/Intermediates/FBTweak.build/Release-iphoneos/Tweak.build/DerivedSources/Tweak_vers.c

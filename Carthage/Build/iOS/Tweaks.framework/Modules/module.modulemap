@@ -1,5 +1,5 @@
 framework module Tweaks {
-  umbrella header "Tweaks-umbrella.h"
+  umbrella header "Tweaks.h"
 
   export *
   module * { export * }
