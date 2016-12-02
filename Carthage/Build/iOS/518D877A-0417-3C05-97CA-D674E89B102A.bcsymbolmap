@@ -1,0 +1,91 @@
+BCSymbolMap Version: 2.0
+-[VTAcknowledgement init]
+-[VTAcknowledgement initWithTitle:text:license:]
+-[VTAcknowledgement title]
+-[VTAcknowledgement setTitle:]
+-[VTAcknowledgement text]
+-[VTAcknowledgement setText:]
+-[VTAcknowledgement license]
+-[VTAcknowledgement setLicense:]
+-[VTAcknowledgement .cxx_destruct]
+_OBJC_IVAR_$_VTAcknowledgement._title
+_OBJC_IVAR_$_VTAcknowledgement._text
+_OBJC_IVAR_$_VTAcknowledgement._license
+Apple LLVM version 8.0.0 (clang-800.0.42.1)
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/VTAcknowledgementsViewController/Classes/VTAcknowledgement.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/VTAcknowledgementsViewController
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/VTAcknowledgementsViewController/Classes/VTAcknowledgement.h
++[VTAcknowledgementsViewController acknowledgementsPlistPathForName:]
++[VTAcknowledgementsViewController defaultAcknowledgementsPlistPath]
++[VTAcknowledgementsViewController acknowledgementsViewController]
+-[VTAcknowledgementsViewController initWithPath:]
+-[VTAcknowledgementsViewController initWithAcknowledgementsPlistPath:]
+-[VTAcknowledgementsViewController initWithFileNamed:]
+-[VTAcknowledgementsViewController initWithAcknowledgementsFileNamed:]
+-[VTAcknowledgementsViewController awakeFromNib]
+-[VTAcknowledgementsViewController commonInitWithAcknowledgementsPlistPath:]
+___76-[VTAcknowledgementsViewController commonInitWithAcknowledgementsPlistPath:]_block_invoke
++[VTAcknowledgementsViewController localizedStringForKey:withDefault:]
++[VTAcknowledgementsViewController localizedTitle]
++[VTAcknowledgementsViewController localizedCocoaPodsFooterText]
+-[VTAcknowledgementsViewController viewDidLoad]
+-[VTAcknowledgementsViewController headerFooterFont]
+-[VTAcknowledgementsViewController configureHeaderView]
+-[VTAcknowledgementsViewController configureFooterView]
+-[VTAcknowledgementsViewController heightForLabelWithText:andWidth:]
+-[VTAcknowledgementsViewController viewWillAppear:]
+-[VTAcknowledgementsViewController viewDidAppear:]
+-[VTAcknowledgementsViewController didRotateFromInterfaceOrientation:]
+-[VTAcknowledgementsViewController openCocoaPodsWebsite:]
+-[VTAcknowledgementsViewController dismissViewController:]
+-[VTAcknowledgementsViewController tableView:numberOfRowsInSection:]
+-[VTAcknowledgementsViewController tableView:estimatedHeightForRowAtIndexPath:]
+-[VTAcknowledgementsViewController tableView:cellForRowAtIndexPath:]
+-[VTAcknowledgementsViewController tableView:didSelectRowAtIndexPath:]
+-[VTAcknowledgementsViewController acknowledgements]
+-[VTAcknowledgementsViewController setAcknowledgements:]
+-[VTAcknowledgementsViewController headerText]
+-[VTAcknowledgementsViewController setHeaderText:]
+-[VTAcknowledgementsViewController footerText]
+-[VTAcknowledgementsViewController setFooterText:]
+-[VTAcknowledgementsViewController acknowledgementsPlistName]
+-[VTAcknowledgementsViewController setAcknowledgementsPlistName:]
+-[VTAcknowledgementsViewController .cxx_destruct]
+___block_descriptor_tmp
+___block_literal_global
+_localizedStringForKey:withDefault:.bundle
+_OBJC_IVAR_$_VTAcknowledgementsViewController._acknowledgements
+_OBJC_IVAR_$_VTAcknowledgementsViewController._headerText
+_OBJC_IVAR_$_VTAcknowledgementsViewController._footerText
+_OBJC_IVAR_$_VTAcknowledgementsViewController._acknowledgementsPlistName
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/VTAcknowledgementsViewController/Classes/VTAcknowledgementsViewController.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/VTAcknowledgementsViewController/Classes/VTAcknowledgementsViewController.h
+__76-[VTAcknowledgementsViewController commonInitWithAcknowledgementsPlistPath:]_block_invoke
+NSMakeRange
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.1.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSRange.h
+-[VTAcknowledgementsParser init]
+-[VTAcknowledgementsParser initWithAcknowledgementsPlistPath:]
+-[VTAcknowledgementsParser header]
+-[VTAcknowledgementsParser setHeader:]
+-[VTAcknowledgementsParser footer]
+-[VTAcknowledgementsParser setFooter:]
+-[VTAcknowledgementsParser acknowledgements]
+-[VTAcknowledgementsParser setAcknowledgements:]
+-[VTAcknowledgementsParser .cxx_destruct]
+_OBJC_IVAR_$_VTAcknowledgementsParser._header
+_OBJC_IVAR_$_VTAcknowledgementsParser._footer
+_OBJC_IVAR_$_VTAcknowledgementsParser._acknowledgements
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/VTAcknowledgementsViewController/Classes/VTAcknowledgementsParser.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/VTAcknowledgementsViewController/Classes/VTAcknowledgementsParser.h
+-[VTAcknowledgementViewController initWithTitle:text:]
+-[VTAcknowledgementViewController loadView]
+-[VTAcknowledgementViewController textView]
+-[VTAcknowledgementViewController setTextView:]
+-[VTAcknowledgementViewController text]
+-[VTAcknowledgementViewController setText:]
+-[VTAcknowledgementViewController .cxx_destruct]
+_OBJC_IVAR_$_VTAcknowledgementViewController._textView
+_OBJC_IVAR_$_VTAcknowledgementViewController._text
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/VTAcknowledgementsViewController/Classes/VTAcknowledgementViewController.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/VTAcknowledgementsViewController/Classes/VTAcknowledgementViewController.h
+/Users/joe/Library/Developer/Xcode/DerivedData/VTAcknowledgementsViewController-evkughrfmpjtmrggojyhezdcrsbe/Build/Intermediates/VTAcknowledgementsViewController.build/Release-iphoneos/VTAcknowledgementsViewController.build/DerivedSources/VTAcknowledgementsViewController_vers.c

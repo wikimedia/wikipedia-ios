@@ -1,6 +1,6 @@
 #import "WMFExploreSectionHeader.h"
-#import "BlocksKit+UIKit.h"
 #import "Wikipedia-Swift.h"
+@import BlocksKitUIKitExtensions;
 
 @interface WMFExploreSectionHeader ()
 

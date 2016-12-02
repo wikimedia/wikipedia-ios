@@ -1,6 +1,0 @@
-framework module Pods_Foundation_WMFModel {
-  umbrella header "Pods-Foundation-WMFModel-umbrella.h"
-
-  export *
-  module * { export * }
-}

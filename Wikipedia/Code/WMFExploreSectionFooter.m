@@ -1,7 +1,7 @@
 #import "WMFExploreSectionFooter.h"
-#import "BlocksKit+UIKit.h"
 #import "UIImage+WMFStyle.h"
 #import "Wikipedia-Swift.h"
+@import BlocksKitUIKitExtensions;
 
 @interface WMFExploreSectionFooter ()
 

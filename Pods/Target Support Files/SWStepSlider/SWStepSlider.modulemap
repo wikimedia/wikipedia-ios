@@ -1,6 +1,0 @@
-framework module SWStepSlider {
-  umbrella header "SWStepSlider-umbrella.h"
-
-  export *
-  module * { export * }
-}

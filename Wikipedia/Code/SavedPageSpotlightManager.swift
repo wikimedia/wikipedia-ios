@@ -1,6 +1,7 @@
 import UIKit
 import MobileCoreServices
 import CoreSpotlight
+import CocoaLumberjackSwift
 
 public extension NSURL {
     @available(iOS 9.0, *)

@@ -8,4 +8,4 @@
 #import "WMFHTTPHangingProtocol.h"
 #import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
 #import <Nocilla/Nocilla.h>
-#import <CocoaLumberjack/CocoaLumberjack.h>
+#import <CocoaLumberjackSwift/CocoaLumberjackSwift.h>

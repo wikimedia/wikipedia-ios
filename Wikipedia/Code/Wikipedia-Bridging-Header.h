@@ -6,6 +6,9 @@
 // Utilities
 #import "WikipediaAppUtils.h"
 #import "WMFTabBarController.h"
+#import "TSBlurView.h"
+#import "TSMessage.h"
+#import "TSMessageView.h"
 
 #import "NSString+WMFExtras.h"
 #import "NSString+FormattedAttributedString.h"
@@ -28,7 +31,6 @@
 #import "BITHockeyManager+WMFExtensions.h"
 #import <HockeySDK/BITCrashManager.h>
 #import "UIViewController+WMFOpenExternalUrl.h"
-#import "UIGestureRecognizer+BlocksKit.h"
 
 // View Controllers
 #import "WMFArticleViewController_Private.h"

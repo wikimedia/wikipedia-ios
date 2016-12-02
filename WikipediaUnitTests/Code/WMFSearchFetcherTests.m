@@ -10,7 +10,6 @@
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
-#import "HCIsCollectionContainingInAnyOrder+WMFCollectionMatcherUtils.h"
 
 @interface WMFSearchFetcherTests : XCTestCase
 @property (nonatomic, strong) WMFSearchFetcher *fetcher;

@@ -2,9 +2,9 @@
 #import "WikipediaAppUtils.h"
 #import "PreviewAndSaveViewController.h"
 #import "Defines.h"
-#import "BlocksKit+UIKit.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
+@import BlocksKitUIKitExtensions;
 
 #define MAX_SUMMARY_LENGTH 255
 

@@ -73,21 +73,21 @@ NSString *const kHockeyAppPrivacyUrl = @"http://hockeyapp.net/privacy/";
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction *_Nonnull action) {
                                                               BITCrashMetaData *crashMetaData = [BITCrashMetaData new];
-                                                              crashMetaData.userDescription = [[[customAlertView textFields] firstObject] text];
+                                                              crashMetaData.userProvidedDescription = [[[customAlertView textFields] firstObject] text];
                                                               [[BITHockeyManager sharedHockeyManager].crashManager handleUserInput:BITCrashManagerUserInputSend withUserProvidedMetaData:crashMetaData];
                                                           }]];
         [customAlertView addAction:[UIAlertAction actionWithTitle:[[self class] crashAlwaysSendText]
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction *_Nonnull action) {
                                                               BITCrashMetaData *crashMetaData = [BITCrashMetaData new];
-                                                              crashMetaData.userDescription = [[[customAlertView textFields] firstObject] text];
+                                                              crashMetaData.userProvidedDescription = [[[customAlertView textFields] firstObject] text];
                                                               [[BITHockeyManager sharedHockeyManager].crashManager handleUserInput:BITCrashManagerUserInputAlwaysSend withUserProvidedMetaData:crashMetaData];
                                                           }]];
         [customAlertView addAction:[UIAlertAction actionWithTitle:[[self class] crashDoNotSendText]
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction *_Nonnull action) {
                                                               BITCrashMetaData *crashMetaData = [BITCrashMetaData new];
-                                                              crashMetaData.userDescription = [[[customAlertView textFields] firstObject] text];
+                                                              crashMetaData.userProvidedDescription = [[[customAlertView textFields] firstObject] text];
                                                               [[BITHockeyManager sharedHockeyManager].crashManager handleUserInput:BITCrashManagerUserInputDontSend withUserProvidedMetaData:nil];
                                                           }]];
         [customAlertView addAction:[UIAlertAction actionWithTitle:[MWLocalizedString(kHockeyAppPrivacyStringsKey, nil)

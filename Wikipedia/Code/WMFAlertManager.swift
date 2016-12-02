@@ -1,6 +1,5 @@
 import UIKit
 import MessageUI
-import TSMessages
 
 extension NSError {
     

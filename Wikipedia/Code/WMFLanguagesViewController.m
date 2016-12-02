@@ -15,7 +15,6 @@
 #import "Wikipedia-Swift.h"
 #import "WMFArticleLanguagesSectionHeader.h"
 #import "WMFArticleLanguagesSectionFooter.h"
-#import "BlocksKit+UIKit.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 
 static CGFloat const WMFOtherLanguageRowHeight = 138.f;

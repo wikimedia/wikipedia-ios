@@ -18,7 +18,6 @@
 
 // Frameworks
 #import <HockeySDK/HockeySDK.h>
-#import "BlocksKit+UIKit.h"
 #import <Tweaks/FBTweakViewController.h>
 #import <Tweaks/FBTweakStore.h>
 #import <SSDataSources/SSDataSources.h>
@@ -33,6 +32,7 @@
 #import "NSBundle+WMFInfoUtils.h"
 #import "WMFAuthenticationManager.h"
 #import "Wikipedia-Swift.h"
+@import BlocksKitUIKitExtensions;
 
 #pragma mark - Static URLs
 

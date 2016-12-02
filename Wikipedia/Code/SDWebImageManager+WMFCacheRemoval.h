@@ -1,4 +1,4 @@
-#import <SDWebImage/SDWebImageManager.h>
+#import <WebImage/WebImage.h>
 
 @interface SDWebImageManager (WMFCacheRemoval)
 

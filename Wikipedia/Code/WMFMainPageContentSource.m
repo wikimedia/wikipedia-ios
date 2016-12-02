@@ -118,7 +118,10 @@
                     [self.previewStore addPreviewWithURL:data.mainPageURL updatedWithSearchResult:[results firstObject]];
                     [self.contentStore addContentGroup:section associatedContent:@[data.mainPageURL]];
                     [self cleanupOldSections];
-
+                    
+                    if (completion) {
+                        completion();
+                    }
                 }
                 failure:^(NSError *_Nonnull error) {
                     //TODO??

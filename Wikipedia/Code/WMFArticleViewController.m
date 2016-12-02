@@ -5,7 +5,6 @@
 
 // Frameworks
 #import <Masonry/Masonry.h>
-#import "BlocksKit+UIKit.h"
 
 // Controller
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -47,7 +46,7 @@
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "NSArray+WMFLayoutDirectionUtilities.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
-#import <TUSafariActivity/TUSafariActivity.h>
+#import "TUSafariActivity.h"
 #import "WMFArticleTextActivitySource.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIImageView+WMFPlaceholder.h"
@@ -61,6 +60,8 @@
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
 
 @import SafariServices;
+@import BlocksKitUIKitExtensions;
+
 
 NS_ASSUME_NONNULL_BEGIN
 
