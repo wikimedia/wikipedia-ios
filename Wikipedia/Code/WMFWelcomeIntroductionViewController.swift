@@ -14,6 +14,7 @@ class WMFWelcomeIntroductionViewController: UIViewController {
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-explore-new-ways-sub-title")
         tellMeMoreButton.setTitle(localizedStringForKeyFallingBackOnEnglish("welcome-explore-tell-me-more"), forState: .Normal)
         nextButton.setTitle(localizedStringForKeyFallingBackOnEnglish("welcome-explore-continue-button").uppercaseStringWithLocale(NSLocale.currentLocale()), forState: .Normal)
+        self.view.wmf_configureSubviewsForDynamicType()
     }
     
     @IBAction private func showHowThisWorksAlert(withSender sender: AnyObject) {

@@ -33,6 +33,7 @@ static NSString *const pListFileName = @"Recent.plist";
 
     [self updateTrashButtonEnabledState];
     [self updateHeaderVisibility];
+    [self.view wmf_configureSubviewsForDynamicType];
 }
 
 - (void)setupTable {

@@ -196,6 +196,71 @@ NS_ASSUME_NONNULL_BEGIN
     return [[NSAttributedString alloc] init];
 }
 
+- (nullable UIColor *)headerTitleColor {
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindContinueReading:
+            return [UIColor wmf_exploreSectionHeaderTitleColor];
+        case WMFContentGroupKindMainPage:
+            return [UIColor wmf_exploreSectionHeaderTitleColor];
+
+        case WMFContentGroupKindRelatedPages:
+            return [UIColor wmf_exploreSectionHeaderTitleColor];
+
+        case WMFContentGroupKindLocation:
+            return [UIColor wmf_exploreSectionHeaderTitleColor];
+        case WMFContentGroupKindPictureOfTheDay:
+             return [UIColor wmf_exploreSectionHeaderTitleColor];
+        case WMFContentGroupKindRandom:
+            return [UIColor wmf_exploreSectionHeaderTitleColor];
+        case WMFContentGroupKindFeaturedArticle:
+            return [UIColor wmf_exploreSectionHeaderTitleColor];
+        case WMFContentGroupKindTopRead:
+            return [UIColor wmf_exploreSectionHeaderTitleColor];
+        case WMFContentGroupKindNews:
+                return [UIColor wmf_exploreSectionHeaderTitleColor];
+        case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindAnnouncement:
+            break;
+        case WMFContentGroupKindUnknown:
+        default:
+            break;
+    }
+    return [UIColor blackColor];
+}
+
+- (nullable UIColor *)headerSubTitleColor {
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindContinueReading:
+            return [UIColor wmf_exploreSectionHeaderSubTitleColor];
+        case WMFContentGroupKindMainPage:
+            return [UIColor wmf_exploreSectionHeaderSubTitleColor];
+        case WMFContentGroupKindRelatedPages:
+            return [UIColor wmf_blueTintColor];
+        case WMFContentGroupKindLocation:
+            return [UIColor wmf_exploreSectionHeaderSubTitleColor];
+        case WMFContentGroupKindPictureOfTheDay:
+             return [UIColor wmf_exploreSectionHeaderSubTitleColor];
+        case WMFContentGroupKindRandom:
+            return [UIColor wmf_exploreSectionHeaderSubTitleColor];
+        case WMFContentGroupKindFeaturedArticle:
+            return [UIColor wmf_exploreSectionHeaderSubTitleColor];
+        case WMFContentGroupKindTopRead:
+            return [UIColor wmf_exploreSectionHeaderTitleColor];
+        case WMFContentGroupKindNews:
+            return [UIColor wmf_exploreSectionHeaderTitleColor];
+
+        case WMFContentGroupKindNotification:
+            break;
+        case WMFContentGroupKindAnnouncement:
+            break;
+        case WMFContentGroupKindUnknown:
+        default:
+            break;
+    }
+    return [UIColor grayColor];
+}
+
 - (nullable NSURL *)headerContentURL {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading:
@@ -563,6 +628,7 @@ NS_ASSUME_NONNULL_BEGIN
         default:
             break;
     }
+    
     return nil;
 }
     

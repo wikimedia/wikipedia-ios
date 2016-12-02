@@ -32,18 +32,22 @@ class InTheNewsCollectionViewCell: WMFExploreCollectionViewCell {
                 label.text = nil
                 return
             }
-            let font = UIFont.systemFontOfSize(14) // fixed font size until the rest of the app supports dynamic type
+            let font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+            var linkFont = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+
+            // Above UIContentSizeCategoryExtraExtraExtraLarge the UIFontTextStyleBody and UIFontTextStyleHeadline preferred font sizes diverge.
+            // In such cases don't use a different linkFont otherwise it looks super weird.
+            if font.pointSize != linkFont.pointSize {
+                linkFont = font
+            }
             
-//            var font: UIFont
-//            if #available(iOS 10.0, *) {
-//                font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote, compatibleWithTraitCollection: nil)
-//            } else {
-//                font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
-//            }
-            let linkFont = UIFont.boldSystemFontOfSize(font.pointSize)
             let attributedString = bodyHTML.wmf_attributedStringByRemovingHTMLWithFont(font, linkFont: linkFont)
             label.attributedText = attributedString
         }
     }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.wmf_configureSubviewsForDynamicType()
+    }
 }
