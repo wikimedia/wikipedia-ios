@@ -6204,7 +6204,7 @@
 				D4991433181D51DE00E6073C /* Resources */,
 				0E8380771D64989F0076EDE4 /* Embed App Extensions */,
 				D84581101D67572D00B09640 /* Embed Frameworks */,
-				D82FDB301DF0B28B00DDF311 /* ShellScript */,
+				D82FDB301DF0B28B00DDF311 /* Embed Frameworks from Carthage */,
 			);
 			buildRules = (
 			);
@@ -6697,7 +6697,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D82FDB301DF0B28B00DDF311 /* ShellScript */ = {
+		D82FDB301DF0B28B00DDF311 /* Embed Frameworks from Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -6724,6 +6724,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/hpple.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Tweaks.framework",
 			);
+			name = "Embed Frameworks from Carthage";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
