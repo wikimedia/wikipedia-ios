@@ -1,8 +1,5 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-# Configurations which are not compiled for release on the App Store
-# NOT_APP_STORE_CONFIGS = ['Debug', 'Alpha', 'Beta', 'AdHoc'].freeze
-
 platform :ios, :deployment_target => '9.3'
 
 inhibit_all_warnings!
@@ -25,9 +22,6 @@ abstract_target 'Foundation' do
   pod 'KVOController', '= 1.1.0'
 
   pod 'CocoaLumberjack/Swift'
-
-  # Dates
-  pod 'NSDate-Extensions', :git => 'git@github.com:wikimedia/NSDate-Extensions.git'
 
   # Database
   pod 'YapDatabase'
@@ -66,6 +60,8 @@ abstract_target 'Foundation' do
   end
 
   target 'Wikipedia' do
+  	pod 'Appsee', :configurations => ['Alpha', 'AlphaDebug']
+	
     # Utilities
     pod 'Tweaks', :git => 'https://github.com/facebook/Tweaks.git'
 

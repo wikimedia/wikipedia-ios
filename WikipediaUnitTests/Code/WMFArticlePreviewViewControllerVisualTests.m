@@ -3,10 +3,10 @@
 #import <UIKit/UIKit.h>
 #import "FBSnapshotTestCase+WMFConvenience.h"
 
-@interface WMFArticlePreviewViewController (WMFArticlePreviewViewControllerVisualTesting)
+@interface WMFArticlePreviewViewController (WMFArticleViewControllerVisualTesting)
 @end
 
-@implementation WMFArticlePreviewViewController (WMFArticlePreviewViewControllerVisualTesting)
+@implementation WMFArticlePreviewViewController (WMFArticleViewControllerVisualTesting)
 
 - (void)wmf_configureForVisualTestingByOnlyShowingBordersForCertainViews {
     for (UIView *view in @[self.imageView, self.titleLabel, self.rankLabel, self.subtitleLabel, self.viewCountAndSparklineContainerView]) {

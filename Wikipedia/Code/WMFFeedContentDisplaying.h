@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, WMFFeedDetailType) {
     WMFFeedDetailTypePage,
     WMFFeedDetailTypePageWithRandomButton,
     WMFFeedDetailTypeGallery,
-    WMFFeedDetailTypeStory,
+    WMFFeedDetailTypeStory
 };
 
 typedef NS_ENUM(NSUInteger, WMFFeedHeaderType) {

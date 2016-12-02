@@ -31,12 +31,15 @@
  *
  *  @return A calendar initialized with the Gregorian calendar identfier and the device's current time zone.
  */
-- (NSInteger)daysFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
+- (NSInteger)wmf_daysFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
 
 @end
 
 @interface NSDate (WMFComparisons)
 
 - (BOOL)wmf_isTodayUTC;
-
+- (BOOL)wmf_UTCDateIsTodayLocal; //TimeZone insensitive compare, assumes reciever is UTC date
+- (BOOL)wmf_UTCDateIsSameDateAsLocalDate:(NSDate *)date; //TimeZone insensitive compare, assumes reciever is UTC date
+@property (nonatomic, readonly) NSDate *wmf_midnightUTCDate; //Assumes the receiever is a local date, returns midnight UTC on the same day, month, and year.
+@property (nonatomic, readonly) NSDate *wmf_midnightDate;
 @end

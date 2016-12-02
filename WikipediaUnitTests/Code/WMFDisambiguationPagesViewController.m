@@ -1,9 +1,9 @@
 #import "WMFDisambiguationPagesViewController.h"
 #import "WMFArticlePreviewDataSource.h"
 #import "MWKArticle.h"
-#import "WMFArticlePreviewFetcher.h"
+#import "WMFArticleFetcher.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "WMFArticlePreviewFetcher.h"
+#import "WMFArticleFetcher.h"
 #import "MWKDataStore.h"
 
 @interface WMFDisambiguationPagesViewController ()

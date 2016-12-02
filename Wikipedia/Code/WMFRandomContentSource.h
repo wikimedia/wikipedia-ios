@@ -2,7 +2,7 @@
 #import "WMFContentSource.h"
 
 @class WMFContentGroupDataStore;
-@class WMFArticlePreviewDataStore;
+@class WMFArticleDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -11,9 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, nonatomic, strong) NSURL *siteURL;
 
 @property (readonly, nonatomic, strong) WMFContentGroupDataStore *contentStore;
-@property (readonly, nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
+@property (readonly, nonatomic, strong) WMFArticleDataStore *previewStore;
 
-- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticlePreviewDataStore *)previewStore;
+- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticleDataStore *)previewStore;
 
 - (instancetype)init NS_UNAVAILABLE;
 

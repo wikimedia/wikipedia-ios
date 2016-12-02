@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
-@property (nonatomic, strong, readwrite) WMFArticlePreviewDataStore *previewStore;
+@property (nonatomic, strong, readwrite) WMFArticleDataStore *previewStore;
 
 @property (nonatomic, strong) WMFArticleFooterMenuDataSource *footerDataSource;
 
@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticleFooterMenuViewController
 
-- (instancetype)initWithArticle:(MWKArticle *)article dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore *)previewStore similarPagesListDelegate:(id<WMFArticleListTableViewControllerDelegate>)delegate {
+- (instancetype)initWithArticle:(MWKArticle *)article dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticleDataStore *)previewStore similarPagesListDelegate:(id<WMFArticleListTableViewControllerDelegate>)delegate {
     NSParameterAssert(article);
     NSParameterAssert(delegate);
     NSParameterAssert(dataStore);

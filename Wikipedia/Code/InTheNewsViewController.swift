@@ -4,11 +4,11 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
     
     let story: WMFFeedNewsStory
     let dataStore: MWKDataStore
-    let previewStore: WMFArticlePreviewDataStore
+    let previewStore: WMFArticleDataStore
     
     @IBOutlet weak var tableView: UITableView!
     
-    required init(story: WMFFeedNewsStory, dataStore: MWKDataStore, previewStore: WMFArticlePreviewDataStore) {
+    required init(story: WMFFeedNewsStory, dataStore: MWKDataStore, previewStore: WMFArticleDataStore) {
         self.story = story
         self.dataStore = dataStore
         self.previewStore = previewStore

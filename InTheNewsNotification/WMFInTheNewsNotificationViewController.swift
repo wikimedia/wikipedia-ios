@@ -139,35 +139,15 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             statusView.hidden = false
             statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saving-for-later")
             PiwikTracker.sharedInstance()?.wmf_logActionSaveInContext(self, contentType: self)
-            let containerURL = NSFileManager.defaultManager().wmf_containerURL();
-            let filename = "Saved.articles"
-            guard let savedArticlesURL = containerURL.URLByAppendingPathComponent(filename, isDirectory: false) else {
+            if let dataStore = SessionSingleton.sharedInstance().dataStore {
+                dataStore.savedPageList.addSavedPageWithURL(articleURL)
+                self.statusView.hidden = false
+                self.statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saved-for-later")
+                completion(.Dismiss)
+            } else {
                 completion(.Dismiss)
                 break
             }
-            
-            var savedArticles = [NSString]()
-            
-            if let data = NSData(contentsOfURL: savedArticlesURL), let array = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? [NSString] {
-               savedArticles = array
-            }
-            
-            if let savedArticleString = articleURL.absoluteString {
-                savedArticles.append(savedArticleString)
-            }
-            
-            let data = NSKeyedArchiver.archivedDataWithRootObject(savedArticles)
-            
-            do {
-                try data.writeToURL(savedArticlesURL, options: .DataWritingAtomic)
-            } catch let error {
-                DDLogError("error saving: \(error)")
-            }
-            
-            statusView.hidden = false
-            statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saved-for-later")
-            completion(.Dismiss)
-
         case WMFInTheNewsNotificationShareActionIdentifier:
             PiwikTracker.sharedInstance()?.wmf_logActionTapThroughInContext(self, contentType: self)
             completion(.DismissAndForwardAction)

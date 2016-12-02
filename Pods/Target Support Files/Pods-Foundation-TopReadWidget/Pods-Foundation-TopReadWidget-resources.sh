@@ -79,19 +79,10 @@ fi
 if [[ "$CONFIGURATION" == "AlphaDebug" ]]; then
   install_resource "$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle"
 fi
-if [[ "$CONFIGURATION" == "Debug Test" ]]; then
-  install_resource "$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle"
-fi
-if [[ "$CONFIGURATION" == "AdHoc" ]]; then
-  install_resource "$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle"
-fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle"
 fi
 if [[ "$CONFIGURATION" == "Test" ]]; then
-  install_resource "$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle"
-fi
-if [[ "$CONFIGURATION" == "Beta" ]]; then
   install_resource "$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle"
 fi
 if [[ "$CONFIGURATION" == "Alpha" ]]; then

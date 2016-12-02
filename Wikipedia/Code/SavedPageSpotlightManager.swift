@@ -55,7 +55,10 @@ public class WMFSavedPageSpotlightManager: NSObject {
     
     public func reindexSavedPages() {
         self.savedPageList.enumerateItemsWithBlock { (item, stop) in
-            self.addToIndex(item.url)
+            guard let URL = item.URL else {
+                return
+            }
+            self.addToIndex(URL)
         }
     }
     
@@ -73,8 +76,6 @@ public class WMFSavedPageSpotlightManager: NSObject {
         CSSearchableIndex.defaultSearchableIndex().indexSearchableItems([item]) { (error: NSError?) -> Void in
             if let error = error {
                 DDLogError("Indexing error: \(error.localizedDescription)")
-            } else {
-                DDLogVerbose("Search item successfully indexed!")
             }
         }
     }
@@ -86,10 +87,7 @@ public class WMFSavedPageSpotlightManager: NSObject {
         CSSearchableIndex.defaultSearchableIndex().deleteSearchableItemsWithIdentifiers([identifier]) { (error: NSError?) -> Void in
             if let error = error {
                 DDLogError("Deindexing error: \(error.localizedDescription)")
-            } else {
-                DDLogVerbose("Search item successfully removed!")
             }
-            
         }
     }
 

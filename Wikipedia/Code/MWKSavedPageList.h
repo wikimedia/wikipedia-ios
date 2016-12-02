@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-@class MWKHistoryEntry, MWKDataStore;
+@class WMFArticle, MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,11 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSInteger)numberOfItems;
 
-- (nullable MWKHistoryEntry *)mostRecentEntry;
+- (nullable WMFArticle *)mostRecentEntry;
 
-- (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url;
+- (nullable WMFArticle *)entryForURL:(NSURL *)url;
 
-- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block;
+- (void)enumerateItemsWithBlock:(void (^)(WMFArticle *_Nonnull entry, BOOL *stop))block;
 
 - (BOOL)isSaved:(NSURL *)url;
 
@@ -29,8 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
  * Toggle the save state for `url`.
  *
  * @param url URL to toggle state for, either saving or un-saving it.
+ * @return whether or not the URL is now saved
  */
-- (void)toggleSavedPageForURL:(NSURL *)url;
+- (BOOL)toggleSavedPageForURL:(NSURL *)url;
 
 /**
  *  Add a saved page

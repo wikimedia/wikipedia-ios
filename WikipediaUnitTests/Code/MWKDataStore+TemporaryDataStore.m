@@ -8,7 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation MWKDataStore (Testing)
 
 + (instancetype)temporaryDataStore {
-    return [[MWKDataStore alloc] initWithDatabase:[YapDatabase wmf_databaseWithDefaultConfigurationAtPath:WMFRandomTemporaryPath()] legacyDataBasePath:WMFRandomTemporaryPath()];
+    return [[MWKDataStore alloc] initWithContainerURL:[NSURL fileURLWithPath:WMFRandomTemporaryPath()]];
 }
 
 @end
