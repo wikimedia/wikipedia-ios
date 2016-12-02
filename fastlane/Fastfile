@@ -26,7 +26,7 @@ platform :ios do
   desc "Runs linting (and eventually static analysis)"
   lane :analyze do
     xcodebuild(
-      workspace: "Wikipedia.xcworkspace",
+      project: "Wikipedia.xcodeproj",
       scheme: "Wikipedia",
       configuration: "Debug",
       sdk: 'iphonesimulator',
@@ -183,7 +183,7 @@ platform :ios do
 
     build(
       product_name: product_name,
-      workspace: "Wikipedia"
+      project: "Wikipedia"
     )
 
     pilot(
