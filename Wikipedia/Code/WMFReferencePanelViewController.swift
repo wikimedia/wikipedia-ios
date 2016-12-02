@@ -1,5 +1,6 @@
 
 import Foundation
+import BlocksKitUIKitExtensions
 
 class WMFReferencePanelViewController: UIViewController {
     

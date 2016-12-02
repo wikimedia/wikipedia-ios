@@ -4,7 +4,6 @@
 
 @import WebKit;
 #import <Masonry/Masonry.h>
-#import "BlocksKit+UIKit.h"
 #import "NSString+WMFHTMLParsing.h"
 
 #import "MWKArticle.h"
@@ -33,6 +32,7 @@
 #import "UIView+WMFDefaultNib.h"
 #import "WebViewController+WMFReferencePopover.h"
 #import "WMFReferencePopoverMessageViewController.h"
+@import BlocksKitUIKitExtensions;
 
 typedef NS_ENUM(NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,

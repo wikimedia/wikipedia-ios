@@ -16,3 +16,4 @@ github "luisobo/Nocilla"
 github "facebook/ios-snapshot-test-case" == 2.1.3
 github "Quick/Quick" == 0.9.3
 github "Quick/Nimble" ~> 4.0.0
+github "https://github.com/wikimedia/BlocksKit" "master"

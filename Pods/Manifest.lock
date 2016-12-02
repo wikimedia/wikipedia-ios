@@ -1,7 +1,5 @@
 PODS:
-  - AnimatedGIFImageSerialization (0.2.0)
   - Appsee (2.3)
-  - BlocksKit/Core (2.2.5)
   - HexColors (2.3.0)
   - hpple (0.2.0)
   - Masonry (1.0.2)
@@ -17,9 +15,7 @@ PODS:
   - Tweaks (2.1.0)
 
 DEPENDENCIES:
-  - AnimatedGIFImageSerialization (from `https://github.com/wikimedia/AnimatedGIFImageSerialization.git`)
   - Appsee
-  - BlocksKit/Core (~> 2.2.0)
   - hpple (~> 0.2)
   - PiwikTracker (from `https://github.com/wikimedia/piwik-sdk-ios.git`)
   - SSDataSources (~> 0.8.0)
@@ -29,8 +25,6 @@ DEPENDENCIES:
   - Tweaks (from `https://github.com/facebook/Tweaks.git`)
 
 EXTERNAL SOURCES:
-  AnimatedGIFImageSerialization:
-    :git: https://github.com/wikimedia/AnimatedGIFImageSerialization.git
   PiwikTracker:
     :git: https://github.com/wikimedia/piwik-sdk-ios.git
   SWStepSlider:
@@ -42,9 +36,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/facebook/Tweaks.git
 
 CHECKOUT OPTIONS:
-  AnimatedGIFImageSerialization:
-    :commit: f0fcaa7d474672ecfdd8b7fd26ca2fca31940e0b
-    :git: https://github.com/wikimedia/AnimatedGIFImageSerialization.git
   PiwikTracker:
     :commit: bac26223df5f6a0fe55f5f877f74c4d98077b3f2
     :git: https://github.com/wikimedia/piwik-sdk-ios.git
@@ -59,9 +50,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/facebook/Tweaks.git
 
 SPEC CHECKSUMS:
-  AnimatedGIFImageSerialization: b0f0cfe71eac1ee45a3d57ae533c23b8e6f29501
   Appsee: 3f57734813c0bb22f5c0c6bb412c6140f23fd2fb
-  BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
@@ -72,6 +61,6 @@ SPEC CHECKSUMS:
   TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
   Tweaks: 5d07acb4f984f63b24ee2b85c8c773a1ce494d61
 
-PODFILE CHECKSUM: aa652c3958e49c7bc4f9c5af14bf4d93a18943b7
+PODFILE CHECKSUM: e309ce0ca98682797d355918ba829bcb42bcbfb9
 
 COCOAPODS: 1.1.1

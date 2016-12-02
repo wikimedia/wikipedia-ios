@@ -1,5 +1,5 @@
 #import "WMFExploreSectionHeader.h"
-#import "BlocksKit+UIKit.h"
+@import BlocksKitUIKitExtensions;
 
 @interface WMFExploreSectionHeader ()
 

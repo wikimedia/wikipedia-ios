@@ -1,0 +1,32 @@
+framework module BlocksKitUIKitExtensions {
+  umbrella header "BlocksKitUIKitExtensions.h"
+  requires objc
+
+  module Dynamic {
+    module MessageUI {
+      header "BlocksKit+MessageUI.h"
+      link framework "MessageUI"
+      export Dynamic
+      export *
+    }
+
+    module QuickLook {
+      header "BlocksKit+QuickLook.h"
+      link framework "QuickLook"
+      export Dynamic
+      export *
+    }
+
+    module UIKit {
+      header "BlocksKit+UIKit.h"
+      link framework "UIKit"
+      export Dynamic
+      export *
+    }
+
+    export Foundation
+  }
+
+  export *
+  module * { export * }
+}

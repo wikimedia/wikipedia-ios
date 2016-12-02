@@ -1,9 +1,9 @@
 #import "UIViewController+WMFSearch.h"
 #import "WMFSearchViewController.h"
-#import "UIBarButtonItem+BlocksKit.h"
 #import "SessionSingleton.h"
 #import "WMFArticleDataStore.h"
 #import "Wikipedia-Swift.h"
+@import BlocksKitUIKitExtensions;
 
 NS_ASSUME_NONNULL_BEGIN
 

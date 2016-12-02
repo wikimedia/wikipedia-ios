@@ -963,18 +963,16 @@
 		D8D2703B1D75ED5000D093A8 /* WMFArticlePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D270391D75ED5000D093A8 /* WMFArticlePreviewViewController.swift */; };
 		D8D2703C1D75ED5000D093A8 /* WMFArticlePreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8D2703A1D75ED5000D093A8 /* WMFArticlePreviewViewController.xib */; };
 		D8D550811DF0D2BD00B90177 /* NSArray+WMFMatching.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D550801DF0D2BD00B90177 /* NSArray+WMFMatching.m */; };
-		D8D5DB2C1D7A206B00526A69 /* UIBarButtonItem+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB1A1D7A206B00526A69 /* UIBarButtonItem+BlocksKit.m */; };
-		D8D5DB2D1D7A206B00526A69 /* UIControl+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB1C1D7A206B00526A69 /* UIControl+BlocksKit.m */; };
-		D8D5DB2E1D7A206B00526A69 /* UIGestureRecognizer+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB1E1D7A206B00526A69 /* UIGestureRecognizer+BlocksKit.m */; };
-		D8D5DB2F1D7A206B00526A69 /* UIImagePickerController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB201D7A206B00526A69 /* UIImagePickerController+BlocksKit.m */; };
-		D8D5DB311D7A206B00526A69 /* UITextField+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB241D7A206B00526A69 /* UITextField+BlocksKit.m */; };
-		D8D5DB321D7A206B00526A69 /* UIView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB261D7A206B00526A69 /* UIView+BlocksKit.m */; };
-		D8D5DB331D7A206B00526A69 /* UIWebView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB281D7A206B00526A69 /* UIWebView+BlocksKit.m */; };
-		D8D5DB421D7A214500526A69 /* A2BlockInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB361D7A214500526A69 /* A2BlockInvocation.m */; };
-		D8D5DB431D7A214500526A69 /* A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB381D7A214500526A69 /* A2DynamicDelegate.m */; };
-		D8D5DB441D7A214500526A69 /* NSCache+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB3B1D7A214500526A69 /* NSCache+BlocksKit.m */; };
-		D8D5DB461D7A214500526A69 /* NSObject+A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB3F1D7A214500526A69 /* NSObject+A2BlockDelegate.m */; };
-		D8D5DB471D7A214500526A69 /* NSObject+A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB411D7A214500526A69 /* NSObject+A2DynamicDelegate.m */; };
+		D8D5508A1DF1822800B90177 /* AnimatedGIFImageSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D550881DF1822800B90177 /* AnimatedGIFImageSerialization.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8D5508B1DF1822800B90177 /* AnimatedGIFImageSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D550891DF1822800B90177 /* AnimatedGIFImageSerialization.m */; };
+		D8D550D11DF1908800B90177 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D550D01DF1908800B90177 /* BlocksKit.framework */; };
+		D8D550D21DF1908800B90177 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D550D01DF1908800B90177 /* BlocksKit.framework */; };
+		D8D550D41DF1908800B90177 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D550D01DF1908800B90177 /* BlocksKit.framework */; };
+		D8D550D51DF1908800B90177 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D550D01DF1908800B90177 /* BlocksKit.framework */; };
+		D8D550D61DF1908800B90177 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D550D01DF1908800B90177 /* BlocksKit.framework */; };
+		D8D550D71DF1908800B90177 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D550D01DF1908800B90177 /* BlocksKit.framework */; };
+		D8D550D81DF1908800B90177 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D550D01DF1908800B90177 /* BlocksKit.framework */; };
+		D8D550E01DF1953E00B90177 /* BlocksKitUIKitExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D550DF1DF1953E00B90177 /* BlocksKitUIKitExtensions.framework */; };
 		D8DC16E91D6F6DA300D6D9FB /* UIColor+WMFStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804F21C0CE0DC0065EBC0 /* UIColor+WMFStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8DC16EA1D6F6DA300D6D9FB /* UIColor+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804F31C0CE0DC0065EBC0 /* UIColor+WMFStyle.m */; };
 		D8DC16EB1D6F6DD600D6D9FB /* MWKSite.h in Headers */ = {isa = PBXBuildFile; fileRef = D8494AD41D6C85C500337433 /* MWKSite.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2543,31 +2541,10 @@
 		D8D2703A1D75ED5000D093A8 /* WMFArticlePreviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFArticlePreviewViewController.xib; path = Wikipedia/Code/WMFArticlePreviewViewController.xib; sourceTree = SOURCE_ROOT; };
 		D8D5507F1DF0D2BD00B90177 /* NSArray+WMFMatching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+WMFMatching.h"; path = "WikipediaUnitTests/Code/NSArray+WMFMatching.h"; sourceTree = SOURCE_ROOT; };
 		D8D550801DF0D2BD00B90177 /* NSArray+WMFMatching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+WMFMatching.m"; path = "WikipediaUnitTests/Code/NSArray+WMFMatching.m"; sourceTree = SOURCE_ROOT; };
-		D8D5DB191D7A206B00526A69 /* UIBarButtonItem+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+BlocksKit.h"; sourceTree = "<group>"; };
-		D8D5DB1A1D7A206B00526A69 /* UIBarButtonItem+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+BlocksKit.m"; sourceTree = "<group>"; };
-		D8D5DB1B1D7A206B00526A69 /* UIControl+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+BlocksKit.h"; sourceTree = "<group>"; };
-		D8D5DB1C1D7A206B00526A69 /* UIControl+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+BlocksKit.m"; sourceTree = "<group>"; };
-		D8D5DB1D1D7A206B00526A69 /* UIGestureRecognizer+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+BlocksKit.h"; sourceTree = "<group>"; };
-		D8D5DB1E1D7A206B00526A69 /* UIGestureRecognizer+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+BlocksKit.m"; sourceTree = "<group>"; };
-		D8D5DB1F1D7A206B00526A69 /* UIImagePickerController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+BlocksKit.h"; sourceTree = "<group>"; };
-		D8D5DB201D7A206B00526A69 /* UIImagePickerController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+BlocksKit.m"; sourceTree = "<group>"; };
-		D8D5DB231D7A206B00526A69 /* UITextField+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+BlocksKit.h"; sourceTree = "<group>"; };
-		D8D5DB241D7A206B00526A69 /* UITextField+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+BlocksKit.m"; sourceTree = "<group>"; };
-		D8D5DB251D7A206B00526A69 /* UIView+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BlocksKit.h"; sourceTree = "<group>"; };
-		D8D5DB261D7A206B00526A69 /* UIView+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BlocksKit.m"; sourceTree = "<group>"; };
-		D8D5DB271D7A206B00526A69 /* UIWebView+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+BlocksKit.h"; sourceTree = "<group>"; };
-		D8D5DB281D7A206B00526A69 /* UIWebView+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+BlocksKit.m"; sourceTree = "<group>"; };
-		D8D5DB291D7A206B00526A69 /* BlocksKit+UIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BlocksKit+UIKit.h"; sourceTree = "<group>"; };
-		D8D5DB351D7A214500526A69 /* A2BlockInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2BlockInvocation.h; sourceTree = "<group>"; };
-		D8D5DB361D7A214500526A69 /* A2BlockInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2BlockInvocation.m; sourceTree = "<group>"; };
-		D8D5DB371D7A214500526A69 /* A2DynamicDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2DynamicDelegate.h; sourceTree = "<group>"; };
-		D8D5DB381D7A214500526A69 /* A2DynamicDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2DynamicDelegate.m; sourceTree = "<group>"; };
-		D8D5DB3A1D7A214500526A69 /* NSCache+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCache+BlocksKit.h"; sourceTree = "<group>"; };
-		D8D5DB3B1D7A214500526A69 /* NSCache+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCache+BlocksKit.m"; sourceTree = "<group>"; };
-		D8D5DB3E1D7A214500526A69 /* NSObject+A2BlockDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+A2BlockDelegate.h"; sourceTree = "<group>"; };
-		D8D5DB3F1D7A214500526A69 /* NSObject+A2BlockDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+A2BlockDelegate.m"; sourceTree = "<group>"; };
-		D8D5DB401D7A214500526A69 /* NSObject+A2DynamicDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+A2DynamicDelegate.h"; sourceTree = "<group>"; };
-		D8D5DB411D7A214500526A69 /* NSObject+A2DynamicDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+A2DynamicDelegate.m"; sourceTree = "<group>"; };
+		D8D550881DF1822800B90177 /* AnimatedGIFImageSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedGIFImageSerialization.h; sourceTree = SOURCE_ROOT; };
+		D8D550891DF1822800B90177 /* AnimatedGIFImageSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedGIFImageSerialization.m; sourceTree = SOURCE_ROOT; };
+		D8D550D01DF1908800B90177 /* BlocksKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BlocksKit.framework; path = Carthage/Build/iOS/BlocksKit.framework; sourceTree = SOURCE_ROOT; };
+		D8D550DF1DF1953E00B90177 /* BlocksKitUIKitExtensions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BlocksKitUIKitExtensions.framework; path = Carthage/Build/iOS/BlocksKitUIKitExtensions.framework; sourceTree = SOURCE_ROOT; };
 		D8DC16FC1D6F709300D6D9FB /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		D8DC16FE1D6F718300D6D9FB /* NSURL+WMFMainPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+WMFMainPage.h"; path = "Wikipedia/Code/NSURL+WMFMainPage.h"; sourceTree = SOURCE_ROOT; };
 		D8DC16FF1D6F718300D6D9FB /* NSURL+WMFMainPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+WMFMainPage.m"; path = "Wikipedia/Code/NSURL+WMFMainPage.m"; sourceTree = SOURCE_ROOT; };
@@ -2605,6 +2582,7 @@
 				D82FDB3F1DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D82FDB011DF0AA8B00DDF311 /* YapDatabase.framework in Frameworks */,
 				D896C7991D6F3335007101DF /* WMFUI.framework in Frameworks */,
+				D8D550D41DF1908800B90177 /* BlocksKit.framework in Frameworks */,
 				D82FDB251DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
 				D82FDAE61DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
 				D82FDADD1DF0A99E00DDF311 /* AFNetworking.framework in Frameworks */,
@@ -2652,6 +2630,7 @@
 				D8AC392B1D6F2480007E3C14 /* WMFUI.framework in Frameworks */,
 				D82FDADA1DF0A99E00DDF311 /* AFNetworking.framework in Frameworks */,
 				D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */,
+				D8D550E01DF1953E00B90177 /* BlocksKitUIKitExtensions.framework in Frameworks */,
 				D82FDB081DF0AABB00DDF311 /* KVOController.framework in Frameworks */,
 				D82FDAE31DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
 				D82FDAF61DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */,
@@ -2661,6 +2640,7 @@
 				01B3BBA2F445A4CDB1A8D0BD /* Pods_Foundation_Wikipedia.framework in Frameworks */,
 				D82FDAEC1DF0A9E700DDF311 /* WebImage.framework in Frameworks */,
 				D82FDB1A1DF0AAFF00DDF311 /* HockeySDK.framework in Frameworks */,
+				D8D550D11DF1908800B90177 /* BlocksKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2680,6 +2660,7 @@
 				D82FDB041DF0AA8B00DDF311 /* YapDatabase.framework in Frameworks */,
 				54C6FD426687294BEEC02A80 /* Pods_Foundation_WMFModel.framework in Frameworks */,
 				D82FDB0E1DF0AABB00DDF311 /* KVOController.framework in Frameworks */,
+				D8D550D71DF1908800B90177 /* BlocksKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2688,6 +2669,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBCDF624997206E230918CCD /* Pods_Foundation_WMFUtilities.framework in Frameworks */,
+				D8D550D61DF1908800B90177 /* BlocksKit.framework in Frameworks */,
 				D82FDB411DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D82FDADF1DF0A99E00DDF311 /* AFNetworking.framework in Frameworks */,
 				D82FDB381DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
@@ -2708,6 +2690,7 @@
 				D82FDB401DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D82FDB021DF0AA8B00DDF311 /* YapDatabase.framework in Frameworks */,
 				D85D34D81D74D0B300845125 /* WMFUI.framework in Frameworks */,
+				D8D550D51DF1908800B90177 /* BlocksKit.framework in Frameworks */,
 				D82FDB261DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
 				D82FDAE71DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
 				D82FDADE1DF0A99E00DDF311 /* AFNetworking.framework in Frameworks */,
@@ -2735,6 +2718,7 @@
 				D82FDB231DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
 				D82FDB091DF0AABB00DDF311 /* KVOController.framework in Frameworks */,
 				D82FDAFF1DF0AA8B00DDF311 /* YapDatabase.framework in Frameworks */,
+				D8D550D21DF1908800B90177 /* BlocksKit.framework in Frameworks */,
 				D82FDAED1DF0A9E700DDF311 /* WebImage.framework in Frameworks */,
 				D82FDB3D1DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				67E20A706067A461E2E9F7A9 /* Pods_Foundation_InTheNewsNotification.framework in Frameworks */,
@@ -2749,6 +2733,7 @@
 				D82FDB431DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D82FDB051DF0AA8B00DDF311 /* YapDatabase.framework in Frameworks */,
 				D8DC16FD1D6F709300D6D9FB /* CoreImage.framework in Frameworks */,
+				D8D550D81DF1908800B90177 /* BlocksKit.framework in Frameworks */,
 				D82FDB291DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
 				D82FDAEA1DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
 				D82FDAE11DF0A99F00DDF311 /* AFNetworking.framework in Frameworks */,
@@ -5037,8 +5022,6 @@
 		BC7C3A371C0FF94A0057F023 /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				D8D5DB141D7A206B00526A69 /* BlocksKit+UIKit */,
-				D8D5DB291D7A206B00526A69 /* BlocksKit+UIKit.h */,
 				BC45D5451C31E092007C72F3 /* Application */,
 				BC45D5471C31E1EA007C72F3 /* Common */,
 				BC45D58D1C32FD58007C72F3 /* Features */,
@@ -5611,6 +5594,8 @@
 		D82FDAD81DF0A96E00DDF311 /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
+				D8D550DF1DF1953E00B90177 /* BlocksKitUIKitExtensions.framework */,
+				D8D550D01DF1908800B90177 /* BlocksKit.framework */,
 				D85F00141DF0C5B800A56797 /* Quick.framework */,
 				D85F00121DF0C59300A56797 /* OCMockito.framework */,
 				D85F00101DF0C57700A56797 /* OCHamcrest.framework */,
@@ -5721,9 +5706,7 @@
 				D8AC39351D6F25A3007E3C14 /* WMFUtilities-global.h */,
 				D8AC39361D6F25A3007E3C14 /* WMFUtilities-prefix.pch */,
 				D8AC39371D6F25A4007E3C14 /* WMFUtilities.h */,
-				D85F001A1DF0CBF600A56797 /* metamacros.h */,
-				D85F00161DF0CB8D00A56797 /* EXTScope.h */,
-				D85F00181DF0CBCB00A56797 /* EXTScope.m */,
+				D8D550831DF181F900B90177 /* Third Party */,
 				D8494AEF1D6C8BE200337433 /* Utilities */,
 			);
 			name = WMFUtilities;
@@ -5957,51 +5940,16 @@
 			path = WMFUI;
 			sourceTree = "<group>";
 		};
-		D8D5DB141D7A206B00526A69 /* BlocksKit+UIKit */ = {
+		D8D550831DF181F900B90177 /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
-				D8D5DB191D7A206B00526A69 /* UIBarButtonItem+BlocksKit.h */,
-				D8D5DB1A1D7A206B00526A69 /* UIBarButtonItem+BlocksKit.m */,
-				D8D5DB1B1D7A206B00526A69 /* UIControl+BlocksKit.h */,
-				D8D5DB1C1D7A206B00526A69 /* UIControl+BlocksKit.m */,
-				D8D5DB1D1D7A206B00526A69 /* UIGestureRecognizer+BlocksKit.h */,
-				D8D5DB1E1D7A206B00526A69 /* UIGestureRecognizer+BlocksKit.m */,
-				D8D5DB1F1D7A206B00526A69 /* UIImagePickerController+BlocksKit.h */,
-				D8D5DB201D7A206B00526A69 /* UIImagePickerController+BlocksKit.m */,
-				D8D5DB231D7A206B00526A69 /* UITextField+BlocksKit.h */,
-				D8D5DB241D7A206B00526A69 /* UITextField+BlocksKit.m */,
-				D8D5DB251D7A206B00526A69 /* UIView+BlocksKit.h */,
-				D8D5DB261D7A206B00526A69 /* UIView+BlocksKit.m */,
-				D8D5DB271D7A206B00526A69 /* UIWebView+BlocksKit.h */,
-				D8D5DB281D7A206B00526A69 /* UIWebView+BlocksKit.m */,
-				D8D5DB341D7A214500526A69 /* DynamicDelegate */,
+				D85F001A1DF0CBF600A56797 /* metamacros.h */,
+				D85F00161DF0CB8D00A56797 /* EXTScope.h */,
+				D85F00181DF0CBCB00A56797 /* EXTScope.m */,
+				D8D550881DF1822800B90177 /* AnimatedGIFImageSerialization.h */,
+				D8D550891DF1822800B90177 /* AnimatedGIFImageSerialization.m */,
 			);
-			path = "BlocksKit+UIKit";
-			sourceTree = "<group>";
-		};
-		D8D5DB341D7A214500526A69 /* DynamicDelegate */ = {
-			isa = PBXGroup;
-			children = (
-				D8D5DB351D7A214500526A69 /* A2BlockInvocation.h */,
-				D8D5DB361D7A214500526A69 /* A2BlockInvocation.m */,
-				D8D5DB371D7A214500526A69 /* A2DynamicDelegate.h */,
-				D8D5DB381D7A214500526A69 /* A2DynamicDelegate.m */,
-				D8D5DB391D7A214500526A69 /* Foundation */,
-				D8D5DB3E1D7A214500526A69 /* NSObject+A2BlockDelegate.h */,
-				D8D5DB3F1D7A214500526A69 /* NSObject+A2BlockDelegate.m */,
-				D8D5DB401D7A214500526A69 /* NSObject+A2DynamicDelegate.h */,
-				D8D5DB411D7A214500526A69 /* NSObject+A2DynamicDelegate.m */,
-			);
-			path = DynamicDelegate;
-			sourceTree = "<group>";
-		};
-		D8D5DB391D7A214500526A69 /* Foundation */ = {
-			isa = PBXGroup;
-			children = (
-				D8D5DB3A1D7A214500526A69 /* NSCache+BlocksKit.h */,
-				D8D5DB3B1D7A214500526A69 /* NSCache+BlocksKit.m */,
-			);
-			path = Foundation;
+			name = "Third Party";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -6154,6 +6102,7 @@
 				D8D270311D75BDDB00D093A8 /* NSBundle+WMFInfoUtils.h in Headers */,
 				D8AC393B1D6F25A4007E3C14 /* WMFUtilities.h in Headers */,
 				D85F00171DF0CB8D00A56797 /* EXTScope.h in Headers */,
+				D8D5508A1DF1822800B90177 /* AnimatedGIFImageSerialization.h in Headers */,
 				D844D9E01D6CBC2C0042D692 /* NSURL+WMFQueryParameters.h in Headers */,
 				D8494B051D6C90AC00337433 /* WMFDirectoryPaths.h in Headers */,
 				D8494AF11D6C8C4400337433 /* WMFHashing.h in Headers */,
@@ -7035,6 +6984,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/FLAnimatedImage.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/BlocksKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/BlocksKitUIKitExtensions.framework",
 			);
 			outputPaths = (
 			);
@@ -7352,7 +7303,6 @@
 				D84BF62D1DB96E7C00E0C85E /* NotificationSettingsViewController.swift in Sources */,
 				B0E8053F1C0CE0DC0065EBC0 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */,
 				B09B03EB1CE0FB2600009083 /* WMFPageHistoryRevision.m in Sources */,
-				D8D5DB2F1D7A206B00526A69 /* UIImagePickerController+BlocksKit.m in Sources */,
 				B0E803A41C0CDB5A0065EBC0 /* WMFArticleFooterView.swift in Sources */,
 				D81FB2601D47B5940000C685 /* WMFCVLColumn.m in Sources */,
 				B0E8069C1C0CEAD20065EBC0 /* CaptchaViewController.m in Sources */,
@@ -7382,7 +7332,6 @@
 				0ED2E9FA1CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				B0E8055E1C0CE0DC0065EBC0 /* UIViewController+WMFChildViewController.m in Sources */,
 				B0E806D21C0CEB6E0065EBC0 /* PageHistoryViewController.m in Sources */,
-				D8D5DB311D7A206B00526A69 /* UITextField+BlocksKit.m in Sources */,
 				B0E803CC1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m in Sources */,
 				B04DA3C91D9F740800F45DB7 /* WMFSearchLanguagesBarViewController.swift in Sources */,
 				B0E803FA1C0CDDBA0065EBC0 /* WMFUnderlineButton.m in Sources */,
@@ -7445,13 +7394,9 @@
 				D80C24B81D673DC300816503 /* WMFTabBarController.m in Sources */,
 				B0E804D61C0CE0B40065EBC0 /* NSObject+WMFExtras.m in Sources */,
 				B0866F461CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m in Sources */,
-				D8D5DB331D7A206B00526A69 /* UIWebView+BlocksKit.m in Sources */,
 				B0E805971C0CE2C60065EBC0 /* WMFSuggestedPagesFunnel.m in Sources */,
 				B00DDEDD1DB591C400615FA2 /* WMFWelcomeContainerViewController.swift in Sources */,
-				D8D5DB321D7A206B00526A69 /* UIView+BlocksKit.m in Sources */,
 				B0E804491C0CDF850065EBC0 /* WMFCollectionViewPageLayout.m in Sources */,
-				D8D5DB461D7A214500526A69 /* NSObject+A2BlockDelegate.m in Sources */,
-				D8D5DB441D7A214500526A69 /* NSCache+BlocksKit.m in Sources */,
 				B069FA2E1CEACB8400083D59 /* WeakScriptMessageDelegate.swift in Sources */,
 				B0E804D51C0CE0B40065EBC0 /* NSObject+ConstraintsScale.m in Sources */,
 				B0E8055D1C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift in Sources */,
@@ -7465,7 +7410,6 @@
 				B0F84EED1C8E444400801560 /* WMFWelcomeAnimationView.swift in Sources */,
 				0EC0447B1C796FEF0033D773 /* WMFImageTextActivitySource.swift in Sources */,
 				B0E806E21C0CEB930065EBC0 /* PreviewAndSaveViewController.m in Sources */,
-				D8D5DB431D7A214500526A69 /* A2DynamicDelegate.m in Sources */,
 				B0E805951C0CE2C60065EBC0 /* ToCInteractionFunnel.m in Sources */,
 				0E37F9021CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift in Sources */,
 				B0E8031C1C0CD6820065EBC0 /* WMFCompassView.m in Sources */,
@@ -7481,7 +7425,6 @@
 				B0E805591C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m in Sources */,
 				B00DDEE31DB5B16E00615FA2 /* WMFWelcomeAnimationViewController.swift in Sources */,
 				B0E803761C0CD9C10065EBC0 /* WMFTableOfContentsCell.swift in Sources */,
-				D8D5DB471D7A214500526A69 /* NSObject+A2DynamicDelegate.m in Sources */,
 				B0E805571C0CE0DC0065EBC0 /* UIView+TemporaryAnimatedXF.m in Sources */,
 				B0B0EC221C6999A9006F0D9C /* WMFSettingsMenuItem.m in Sources */,
 				B0E8032C1C0CD6E10065EBC0 /* WMFExploreSectionHeader.m in Sources */,
@@ -7510,7 +7453,6 @@
 				B0E805501C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.m in Sources */,
 				0E09EAC41C4426470058F2D8 /* WMFSavedArticleTableViewController.m in Sources */,
 				B0E803481C0CD7AA0065EBC0 /* WMFSearchResults.m in Sources */,
-				D8D5DB2D1D7A206B00526A69 /* UIControl+BlocksKit.m in Sources */,
 				B0DE922B1D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
 				B0E804431C0CDF850065EBC0 /* PaddedLabel.m in Sources */,
 				B01490A31DB96E5F007F5391 /* WMFReferencePageViewController.swift in Sources */,
@@ -7538,7 +7480,6 @@
 				B08337611DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift in Sources */,
 				BC23E4E51C22429100B5AFDE /* WMFRevisionQueryResults.m in Sources */,
 				B0E802C11C0CD27F0065EBC0 /* WMFAppViewController.m in Sources */,
-				D8D5DB2E1D7A206B00526A69 /* UIGestureRecognizer+BlocksKit.m in Sources */,
 				B0E805561C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m in Sources */,
 				B0E806F91C0CEBC70065EBC0 /* SectionEditorViewController.m in Sources */,
 				D81FB26C1D493E6A0000C685 /* WMFCVLMetrics.m in Sources */,
@@ -7551,7 +7492,6 @@
 				B0E803381C0CD7550065EBC0 /* UIViewController+WMFSearch.m in Sources */,
 				B0E803991C0CDB280065EBC0 /* WMFArticleFetcher.m in Sources */,
 				D8940CEF1DB56C8A00E17F9E /* InTheNewsViewController.swift in Sources */,
-				D8D5DB2C1D7A206B00526A69 /* UIBarButtonItem+BlocksKit.m in Sources */,
 				B0E8071F1C0CEC8A0065EBC0 /* main.m in Sources */,
 				B0E8070C1C0CEBDA0065EBC0 /* WMFShareOptionsController.m in Sources */,
 				0E8DC0951C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m in Sources */,
@@ -7563,7 +7503,6 @@
 				B0E806B71C0CEB160065EBC0 /* WMFLanguagesViewController.m in Sources */,
 				0E0361801C456C4600FD9642 /* WMFReadMoreViewController.m in Sources */,
 				0E03617A1C44905400FD9642 /* WMFMorePageListViewController.m in Sources */,
-				D8D5DB421D7A214500526A69 /* A2BlockInvocation.m in Sources */,
 				B0E8037D1C0CD9E10065EBC0 /* TableOfContentsReadMoreItem.swift in Sources */,
 				D84F2C031D30162700963D42 /* WMFFirstRandomViewController.m in Sources */,
 				B0E803F71C0CDDA80065EBC0 /* WMFIntrinsicSizeTableView.m in Sources */,
@@ -7770,6 +7709,7 @@
 				D844D9FD1D6CC22F0042D692 /* NSFileManager+WMFExtendedFileAttributes.m in Sources */,
 				D844D9CB1D6CBA4E0042D692 /* NSArray+WMFExtensions.swift in Sources */,
 				D8494B0A1D6C90FE00337433 /* NSError+WMFExtensions.m in Sources */,
+				D8D5508B1DF1822800B90177 /* AnimatedGIFImageSerialization.m in Sources */,
 				D844D9D01D6CBA650042D692 /* NSIndexSet+BKReduce.m in Sources */,
 				D8494AE41D6C85C500337433 /* NSURL+WMFLinkParsing.m in Sources */,
 				D844D9E11D6CBC320042D692 /* NSURL+WMFProxyServer.m in Sources */,
@@ -8121,6 +8061,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -8153,6 +8094,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
@@ -8180,6 +8122,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
@@ -8270,6 +8213,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -8310,6 +8254,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -8352,6 +8297,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -8394,6 +8340,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -8557,6 +8504,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -8599,6 +8547,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -8641,6 +8590,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREFIX_HEADER = "WMFModel/WMFModel-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -8680,6 +8630,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREFIX_HEADER = "WMFModel/WMFModel-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -8719,6 +8670,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREFIX_HEADER = "WMFModel/WMFModel-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -8759,6 +8711,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -8799,6 +8752,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -8834,6 +8788,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -8864,6 +8819,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -8895,6 +8851,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -8988,6 +8945,7 @@
 					"$(inherited)",
 					Wikipedia/Frameworks/,
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -9042,6 +9000,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -9075,6 +9034,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
@@ -9102,6 +9062,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = TopReadWidget/Info.plist;
@@ -9133,6 +9094,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -9167,6 +9129,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREFIX_HEADER = "WMFModel/WMFModel-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -9207,6 +9170,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUI/Info.plist;
@@ -9302,6 +9266,7 @@
 					"$(inherited)",
 					Wikipedia/Frameworks/,
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -9358,6 +9323,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -9399,6 +9365,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -9431,6 +9398,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -9467,6 +9435,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -9506,6 +9475,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREFIX_HEADER = "WMFModel/WMFModel-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -9546,6 +9516,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -9581,6 +9552,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -9613,6 +9585,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = TopReadWidget/Info.plist;
@@ -9640,6 +9613,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = TopReadWidget/Info.plist;
@@ -9666,6 +9640,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -9698,6 +9673,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
@@ -9725,6 +9701,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
@@ -9757,6 +9734,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -9796,6 +9774,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUI/Info.plist;
@@ -9830,6 +9809,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/WMFUI",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUI/Info.plist;

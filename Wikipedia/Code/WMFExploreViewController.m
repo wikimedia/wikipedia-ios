@@ -1,6 +1,5 @@
 #import "WMFExploreViewController.h"
 
-#import "BlocksKit+UIKit.h"
 #import "Wikipedia-Swift.h"
 
 #import <Masonry/Masonry.h>
@@ -56,6 +55,7 @@
 #import "WMFAnnouncement.h"
 #import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
 #import "WMFChange.h"
+@import BlocksKitUIKitExtensions;
 
 NS_ASSUME_NONNULL_BEGIN
 

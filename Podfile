@@ -8,11 +8,6 @@ use_frameworks!
 project 'Wikipedia'
 
 abstract_target 'Foundation' do
-  pod 'AnimatedGIFImageSerialization', :git => 'https://github.com/wikimedia/AnimatedGIFImageSerialization.git'
-
-  # Utilities
-  pod 'BlocksKit/Core', '~> 2.2.0'
-	
   # Datasources
   pod 'SSDataSources', '~> 0.8.0'
 

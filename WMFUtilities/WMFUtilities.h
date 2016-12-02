@@ -11,7 +11,6 @@ FOUNDATION_EXPORT const unsigned char WMFUtilitiesVersionString[];
 #import <BlocksKit/BlocksKit.h>
 #import <PromiseKit/PromiseKit.h>
 
-#import "EXTScope.h"
 #import "NSURL+WMFLinkParsing.h"
 #import "NSURLComponents+WMFLinkParsing.h"
 #import "WMFBlockDefinitions.h"
@@ -48,3 +47,6 @@ FOUNDATION_EXPORT const unsigned char WMFUtilitiesVersionString[];
 #import "WMFNumberOfExtractCharacters.h"
 #import "NSBundle+WMFInfoUtils.h"
 #import "NSDictionary+WMFPageViewsSortedByDate.h"
+
+#import "EXTScope.h"
+#import "AnimatedGIFImageSerialization.h"

@@ -28,7 +28,6 @@
 #import "BITHockeyManager+WMFExtensions.h"
 #import <HockeySDK/BITCrashManager.h>
 #import "UIViewController+WMFOpenExternalUrl.h"
-#import "UIGestureRecognizer+BlocksKit.h"
 
 // View Controllers
 #import "WMFArticleViewController_Private.h"

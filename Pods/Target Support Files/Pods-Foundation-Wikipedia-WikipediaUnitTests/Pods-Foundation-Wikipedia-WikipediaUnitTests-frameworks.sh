@@ -84,8 +84,6 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/AnimatedGIFImageSerialization/AnimatedGIFImageSerialization.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/BlocksKit/BlocksKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/PiwikTracker/PiwikTracker.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SSDataSources/SSDataSources.framework"
   install_framework "$BUILT_PRODUCTS_DIR/hpple/hpple.framework"
@@ -97,8 +95,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Tweaks/Tweaks.framework"
 fi
 if [[ "$CONFIGURATION" == "AlphaDebug" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/AnimatedGIFImageSerialization/AnimatedGIFImageSerialization.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/BlocksKit/BlocksKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/PiwikTracker/PiwikTracker.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SSDataSources/SSDataSources.framework"
   install_framework "$BUILT_PRODUCTS_DIR/hpple/hpple.framework"
@@ -110,8 +106,6 @@ if [[ "$CONFIGURATION" == "AlphaDebug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Tweaks/Tweaks.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/AnimatedGIFImageSerialization/AnimatedGIFImageSerialization.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/BlocksKit/BlocksKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/PiwikTracker/PiwikTracker.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SSDataSources/SSDataSources.framework"
   install_framework "$BUILT_PRODUCTS_DIR/hpple/hpple.framework"
@@ -123,8 +117,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Tweaks/Tweaks.framework"
 fi
 if [[ "$CONFIGURATION" == "Test" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/AnimatedGIFImageSerialization/AnimatedGIFImageSerialization.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/BlocksKit/BlocksKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/PiwikTracker/PiwikTracker.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SSDataSources/SSDataSources.framework"
   install_framework "$BUILT_PRODUCTS_DIR/hpple/hpple.framework"
@@ -136,8 +128,6 @@ if [[ "$CONFIGURATION" == "Test" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Tweaks/Tweaks.framework"
 fi
 if [[ "$CONFIGURATION" == "Alpha" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/AnimatedGIFImageSerialization/AnimatedGIFImageSerialization.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/BlocksKit/BlocksKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/PiwikTracker/PiwikTracker.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SSDataSources/SSDataSources.framework"
   install_framework "$BUILT_PRODUCTS_DIR/hpple/hpple.framework"

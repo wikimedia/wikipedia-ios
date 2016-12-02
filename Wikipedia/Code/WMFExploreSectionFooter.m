@@ -1,6 +1,6 @@
 #import "WMFExploreSectionFooter.h"
-#import "BlocksKit+UIKit.h"
 #import "UIImage+WMFStyle.h"
+@import BlocksKitUIKitExtensions;
 
 @interface WMFExploreSectionFooter ()
 

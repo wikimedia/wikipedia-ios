@@ -5,7 +5,6 @@
 
 // Frameworks
 #import <Masonry/Masonry.h>
-#import "BlocksKit+UIKit.h"
 
 // Controller
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -61,6 +60,8 @@
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
 
 @import SafariServices;
+@import BlocksKitUIKitExtensions;
+
 
 NS_ASSUME_NONNULL_BEGIN
 
