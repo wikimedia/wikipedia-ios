@@ -6,6 +6,9 @@
 // Utilities
 #import "WikipediaAppUtils.h"
 #import "WMFTabBarController.h"
+#import "TSBlurView.h"
+#import "TSMessage.h"
+#import "TSMessageView.h"
 
 #import "NSString+WMFExtras.h"
 #import "NSString+FormattedAttributedString.h"
