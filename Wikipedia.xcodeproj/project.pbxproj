@@ -6699,7 +6699,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		D82FDB301DF0B28B00DDF311 /* Embed Frameworks from Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
