@@ -85,7 +85,6 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/PiwikTracker/PiwikTracker.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/SSDataSources/SSDataSources.framework"
   install_framework "$BUILT_PRODUCTS_DIR/hpple/hpple.framework"
   install_framework "$BUILT_PRODUCTS_DIR/HexColors/HexColors.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Masonry/Masonry.framework"
@@ -96,7 +95,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "AlphaDebug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/PiwikTracker/PiwikTracker.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/SSDataSources/SSDataSources.framework"
   install_framework "$BUILT_PRODUCTS_DIR/hpple/hpple.framework"
   install_framework "$BUILT_PRODUCTS_DIR/HexColors/HexColors.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Masonry/Masonry.framework"
@@ -107,7 +105,6 @@ if [[ "$CONFIGURATION" == "AlphaDebug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/PiwikTracker/PiwikTracker.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/SSDataSources/SSDataSources.framework"
   install_framework "$BUILT_PRODUCTS_DIR/hpple/hpple.framework"
   install_framework "$BUILT_PRODUCTS_DIR/HexColors/HexColors.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Masonry/Masonry.framework"
@@ -118,7 +115,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Test" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/PiwikTracker/PiwikTracker.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/SSDataSources/SSDataSources.framework"
   install_framework "$BUILT_PRODUCTS_DIR/hpple/hpple.framework"
   install_framework "$BUILT_PRODUCTS_DIR/HexColors/HexColors.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Masonry/Masonry.framework"
@@ -129,7 +125,6 @@ if [[ "$CONFIGURATION" == "Test" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Alpha" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/PiwikTracker/PiwikTracker.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/SSDataSources/SSDataSources.framework"
   install_framework "$BUILT_PRODUCTS_DIR/hpple/hpple.framework"
   install_framework "$BUILT_PRODUCTS_DIR/HexColors/HexColors.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Masonry/Masonry.framework"

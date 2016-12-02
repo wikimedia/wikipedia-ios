@@ -6,7 +6,6 @@ PODS:
   - PiwikTracker (3.3.0):
     - PiwikTracker/Core (= 3.3.0)
   - PiwikTracker/Core (3.3.0)
-  - SSDataSources (0.8.5)
   - SWStepSlider (1.0.0)
   - TSMessages (0.9.13):
     - HexColors (~> 2.3.0)
@@ -18,7 +17,6 @@ DEPENDENCIES:
   - Appsee
   - hpple (~> 0.2)
   - PiwikTracker (from `https://github.com/wikimedia/piwik-sdk-ios.git`)
-  - SSDataSources (~> 0.8.0)
   - SWStepSlider (from `https://github.com/wikimedia/SWStepSlider.git`)
   - TSMessages (from `https://github.com/wikimedia/TSMessages.git`, commit `8c66db6ce8ed8ffe8112b231e6edc71f8580a139`)
   - TUSafariActivity
@@ -55,12 +53,11 @@ SPEC CHECKSUMS:
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   PiwikTracker: 7147287d30a3192289bef9cddb2b5342d67dae43
-  SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
   SWStepSlider: a714a255526dbba7c6290d67ea7226ba8724b56c
   TSMessages: 5460d0b3ea087d2843ce6e01d87797992dbe1911
   TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
   Tweaks: 5d07acb4f984f63b24ee2b85c8c773a1ce494d61
 
-PODFILE CHECKSUM: e309ce0ca98682797d355918ba829bcb42bcbfb9
+PODFILE CHECKSUM: 605549157e522e08246925bb18f5654a5e3fa778
 
 COCOAPODS: 1.1.1

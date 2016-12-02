@@ -8,8 +8,6 @@ use_frameworks!
 project 'Wikipedia'
 
 abstract_target 'Foundation' do
-  # Datasources
-  pod 'SSDataSources', '~> 0.8.0'
 
   # Diagnostics
   pod 'PiwikTracker', :git => 'https://github.com/wikimedia/piwik-sdk-ios.git'

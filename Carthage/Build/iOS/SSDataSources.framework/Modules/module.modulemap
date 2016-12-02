@@ -1,5 +1,5 @@
 framework module SSDataSources {
-  umbrella header "SSDataSources-umbrella.h"
+  umbrella header "SSDataSources.h"
 
   export *
   module * { export * }
