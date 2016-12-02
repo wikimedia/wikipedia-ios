@@ -1,5 +1,4 @@
 #import "ThumbnailFetcher.h"
-#import "AFHTTPSessionManager.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 #import "NSObject+WMFExtras.h"

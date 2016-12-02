@@ -1,5 +1,4 @@
 #import <XCTest/XCTest.h>
-#import "NSDate+Utilities.h"
 #import "NSCalendar+WMFCommonCalendars.h"
 
 @interface WMFDateCalculationTests : XCTestCase
@@ -25,7 +24,7 @@
 
     NSDate *fromDate = [calendar dateFromComponents:fromDateComponents];
     NSDate *toDate = [calendar dateFromComponents:toDateComponents];
-    NSInteger days = [calendar daysFromDate:fromDate toDate:toDate];
+    NSInteger days = [calendar wmf_daysFromDate:fromDate toDate:toDate];
     XCTAssertTrue(days == 1);
 }
 
@@ -46,7 +45,7 @@
 
     NSDate *fromDate = [calendar dateFromComponents:fromDateComponents];
     NSDate *toDate = [calendar dateFromComponents:toDateComponents];
-    NSInteger days = [calendar daysFromDate:fromDate toDate:toDate];
+    NSInteger days = [calendar wmf_daysFromDate:fromDate toDate:toDate];
     XCTAssertTrue(days == 1);
 }
 
@@ -67,7 +66,7 @@
 
     NSDate *fromDate = [calendar dateFromComponents:fromDateComponents];
     NSDate *toDate = [calendar dateFromComponents:toDateComponents];
-    NSInteger days = [calendar daysFromDate:fromDate toDate:toDate];
+    NSInteger days = [calendar wmf_daysFromDate:fromDate toDate:toDate];
     XCTAssertTrue(days == 2);
 }
 
@@ -88,7 +87,7 @@
 
     NSDate *fromDate = [calendar dateFromComponents:fromDateComponents];
     NSDate *toDate = [calendar dateFromComponents:toDateComponents];
-    NSInteger days = [calendar daysFromDate:fromDate toDate:toDate];
+    NSInteger days = [calendar wmf_daysFromDate:fromDate toDate:toDate];
     XCTAssertTrue(days == 1);
 }
 

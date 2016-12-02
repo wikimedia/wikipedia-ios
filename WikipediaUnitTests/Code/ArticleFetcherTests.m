@@ -8,7 +8,7 @@
 #import <Nocilla/Nocilla.h>
 #import "Wikipedia-Swift.h"
 #import "WMFArticleBaseFetcher_Testing.h"
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
 #import "XCTestCase+PromiseKit.h"
 #import "WMFRandomFileUtilities.h"
 #import "YapDatabase+WMFExtensions.h"
@@ -19,7 +19,7 @@
 @interface ArticleFetcherTests : XCTestCase
 
 @property (strong, nonatomic) MWKDataStore *tempDataStore;
-@property (strong, nonatomic) WMFArticlePreviewDataStore *previewStore;
+@property (strong, nonatomic) WMFArticleDataStore *previewStore;
 @property (strong, nonatomic) WMFArticleFetcher *articleFetcher;
 
 @end
@@ -29,7 +29,7 @@
 - (void)setUp {
     [super setUp];
     self.tempDataStore = [MWKDataStore temporaryDataStore];
-    self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:[YapDatabase wmf_databaseWithDefaultConfigurationAtPath:WMFRandomTemporaryPath()]];
+    self.previewStore = [[WMFArticleDataStore alloc] initWithDataStore:self.tempDataStore];
 
     self.articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.tempDataStore previewStore:self.previewStore];
     [[LSNocilla sharedInstance] start];

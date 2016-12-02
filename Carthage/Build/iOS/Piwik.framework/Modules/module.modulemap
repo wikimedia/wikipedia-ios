@@ -1,0 +1,6 @@
+framework module Piwik {
+  umbrella header "Piwik.h"
+
+  export *
+  module * { export * }
+}

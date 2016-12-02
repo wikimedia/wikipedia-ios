@@ -1,9 +1,10 @@
 #import "UIButton+WMFButton.h"
-#import "UIControl+BlocksKit.h"
 #import "UIFont+WMFStyle.h"
 #import "UIView+TemporaryAnimatedXF.h"
 #import "WikipediaAppUtils.h"
 #import "UIImage+WMFStyle.h"
+@import BlocksKitUIKitExtensions;
+
 
 NS_ASSUME_NONNULL_BEGIN
 

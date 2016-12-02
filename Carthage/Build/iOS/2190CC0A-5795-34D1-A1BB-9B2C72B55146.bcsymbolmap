@@ -1,0 +1,648 @@
+BCSymbolMap Version: 1.0
+-[_FBKVOInfo initWithController:keyPath:options:block:action:context:]
+-[_FBKVOInfo initWithController:keyPath:options:block:]
+-[_FBKVOInfo initWithController:keyPath:options:action:]
+-[_FBKVOInfo initWithController:keyPath:options:context:]
+-[_FBKVOInfo initWithController:keyPath:]
+-[_FBKVOInfo hash]
+-[_FBKVOInfo isEqual:]
+-[_FBKVOInfo debugDescription]
+-[_FBKVOInfo .cxx_destruct]
++[_FBKVOSharedController sharedController]
+__42+[_FBKVOSharedController sharedController]_block_invoke
+-[_FBKVOSharedController init]
+-[_FBKVOSharedController debugDescription]
+-[_FBKVOSharedController observe:info:]
+-[_FBKVOSharedController unobserve:info:]
+-[_FBKVOSharedController unobserve:infos:]
+-[_FBKVOSharedController observeValueForKeyPath:ofObject:change:context:]
+-[_FBKVOSharedController .cxx_destruct]
++[FBKVOController controllerWithObserver:]
+-[FBKVOController initWithObserver:retainObserved:]
+-[FBKVOController initWithObserver:]
+-[FBKVOController dealloc]
+-[FBKVOController debugDescription]
+__35-[FBKVOController debugDescription]_block_invoke
+__copy_helper_block_
+__destroy_helper_block_
+-[FBKVOController _observe:info:]
+-[FBKVOController _unobserve:info:]
+-[FBKVOController _unobserve:]
+-[FBKVOController _unobserveAll]
+-[FBKVOController observe:keyPath:options:block:]
+-[FBKVOController observe:keyPaths:options:block:]
+-[FBKVOController observe:keyPath:options:action:]
+-[FBKVOController observe:keyPaths:options:action:]
+-[FBKVOController observe:keyPath:options:context:]
+-[FBKVOController observe:keyPaths:options:context:]
+-[FBKVOController unobserve:keyPath:]
+-[FBKVOController unobserve:]
+-[FBKVOController unobserveAll]
+-[FBKVOController observer]
+-[FBKVOController .cxx_destruct]
+describe_option
+OBJC_CLASSLIST_SUP_REFS_$_
+OBJC_METH_VAR_NAME_
+OBJC_SELECTOR_REFERENCES_
+OBJC_METH_VAR_NAME_.1
+OBJC_SELECTOR_REFERENCES_.2
+OBJC_METH_VAR_NAME_.3
+OBJC_SELECTOR_REFERENCES_.4
+OBJC_METH_VAR_NAME_.5
+OBJC_SELECTOR_REFERENCES_.6
+OBJC_METH_VAR_NAME_.7
+OBJC_SELECTOR_REFERENCES_.8
+OBJC_METH_VAR_NAME_.9
+OBJC_SELECTOR_REFERENCES_.10
+OBJC_METH_VAR_NAME_.11
+OBJC_SELECTOR_REFERENCES_.12
+OBJC_CLASSLIST_REFERENCES_$_
+.str
+_unnamed_cfstring_
+OBJC_METH_VAR_NAME_.13
+OBJC_SELECTOR_REFERENCES_.14
+.str.15
+_unnamed_cfstring_.16
+OBJC_METH_VAR_NAME_.17
+OBJC_SELECTOR_REFERENCES_.18
+.str.19
+_unnamed_cfstring_.20
+.str.21
+_unnamed_cfstring_.22
+.str.23
+_unnamed_cfstring_.24
+.str.25
+_unnamed_cfstring_.26
+OBJC_METH_VAR_NAME_.27
+OBJC_SELECTOR_REFERENCES_.28
+OBJC_CLASS_NAME_
+l_OBJC_METACLASS_RO_$__FBKVOInfo
+OBJC_CLASS_NAME_.29
+OBJC_METH_VAR_TYPE_
+OBJC_METH_VAR_NAME_.30
+OBJC_METH_VAR_TYPE_.31
+OBJC_METH_VAR_NAME_.32
+OBJC_METH_VAR_TYPE_.33
+OBJC_METH_VAR_NAME_.34
+OBJC_METH_VAR_TYPE_.35
+OBJC_METH_VAR_NAME_.36
+OBJC_METH_VAR_TYPE_.37
+OBJC_METH_VAR_TYPE_.38
+OBJC_METH_VAR_NAME_.39
+OBJC_METH_VAR_TYPE_.40
+OBJC_METH_VAR_NAME_.41
+OBJC_METH_VAR_TYPE_.42
+OBJC_METH_VAR_NAME_.43
+OBJC_METH_VAR_TYPE_.44
+l_OBJC_$_INSTANCE_METHODS__FBKVOInfo
+OBJC_METH_VAR_NAME_.45
+OBJC_METH_VAR_TYPE_.46
+OBJC_METH_VAR_NAME_.47
+OBJC_METH_VAR_TYPE_.48
+OBJC_METH_VAR_NAME_.49
+OBJC_METH_VAR_TYPE_.50
+OBJC_METH_VAR_NAME_.51
+OBJC_METH_VAR_TYPE_.52
+OBJC_METH_VAR_NAME_.53
+OBJC_METH_VAR_TYPE_.54
+OBJC_METH_VAR_NAME_.55
+OBJC_METH_VAR_TYPE_.56
+OBJC_METH_VAR_NAME_.57
+OBJC_METH_VAR_TYPE_.58
+l_OBJC_$_INSTANCE_VARIABLES__FBKVOInfo
+OBJC_CLASS_NAME_.59
+l_OBJC_CLASS_RO_$__FBKVOInfo
+sharedController._controller
+sharedController.onceToken
+OBJC_CLASSLIST_REFERENCES_$_.60
+OBJC_METH_VAR_NAME_.61
+OBJC_SELECTOR_REFERENCES_.62
+.str.63
+__block_descriptor_tmp
+__block_literal_global
+OBJC_CLASSLIST_SUP_REFS_$_.64
+OBJC_CLASSLIST_REFERENCES_$_.65
+OBJC_METH_VAR_NAME_.66
+OBJC_SELECTOR_REFERENCES_.67
+OBJC_IVAR_$__FBKVOSharedController._infos
+OBJC_IVAR_$__FBKVOSharedController._lock
+.str.68
+_unnamed_cfstring_.69
+OBJC_CLASSLIST_REFERENCES_$_.70
+OBJC_METH_VAR_NAME_.71
+OBJC_SELECTOR_REFERENCES_.72
+OBJC_METH_VAR_NAME_.73
+OBJC_SELECTOR_REFERENCES_.74
+OBJC_METH_VAR_NAME_.75
+OBJC_SELECTOR_REFERENCES_.76
+OBJC_SELECTOR_REFERENCES_.77
+OBJC_METH_VAR_NAME_.78
+OBJC_SELECTOR_REFERENCES_.79
+.str.80
+_unnamed_cfstring_.81
+OBJC_METH_VAR_NAME_.82
+OBJC_SELECTOR_REFERENCES_.83
+OBJC_METH_VAR_NAME_.84
+OBJC_SELECTOR_REFERENCES_.85
+OBJC_METH_VAR_NAME_.86
+OBJC_SELECTOR_REFERENCES_.87
+OBJC_METH_VAR_NAME_.88
+OBJC_SELECTOR_REFERENCES_.89
+OBJC_METH_VAR_NAME_.90
+OBJC_SELECTOR_REFERENCES_.91
+OBJC_METH_VAR_NAME_.92
+OBJC_SELECTOR_REFERENCES_.93
+OBJC_METH_VAR_NAME_.94
+OBJC_SELECTOR_REFERENCES_.95
+OBJC_CLASS_NAME_.96
+OBJC_METH_VAR_NAME_.97
+l_OBJC_$_CLASS_METHODS__FBKVOSharedController
+l_OBJC_METACLASS_RO_$__FBKVOSharedController
+OBJC_CLASS_NAME_.98
+OBJC_METH_VAR_NAME_.99
+OBJC_METH_VAR_TYPE_.100
+OBJC_METH_VAR_NAME_.101
+OBJC_METH_VAR_NAME_.102
+OBJC_METH_VAR_TYPE_.103
+l_OBJC_$_INSTANCE_METHODS__FBKVOSharedController
+OBJC_METH_VAR_NAME_.104
+OBJC_METH_VAR_TYPE_.105
+OBJC_METH_VAR_NAME_.106
+OBJC_METH_VAR_TYPE_.107
+l_OBJC_$_INSTANCE_VARIABLES__FBKVOSharedController
+l_OBJC_CLASS_RO_$__FBKVOSharedController
+OBJC_METH_VAR_NAME_.108
+OBJC_SELECTOR_REFERENCES_.109
+OBJC_CLASSLIST_SUP_REFS_$_.110
+OBJC_IVAR_$_FBKVOController._observer
+OBJC_CLASSLIST_REFERENCES_$_.111
+OBJC_METH_VAR_NAME_.112
+OBJC_SELECTOR_REFERENCES_.113
+OBJC_IVAR_$_FBKVOController._objectInfosMap
+OBJC_IVAR_$_FBKVOController._lock
+OBJC_METH_VAR_NAME_.114
+OBJC_SELECTOR_REFERENCES_.115
+OBJC_METH_VAR_NAME_.116
+OBJC_SELECTOR_REFERENCES_.117
+OBJC_METH_VAR_NAME_.118
+OBJC_SELECTOR_REFERENCES_.119
+.str.120
+_unnamed_cfstring_.121
+.str.122
+_unnamed_cfstring_.123
+OBJC_METH_VAR_NAME_.124
+OBJC_SELECTOR_REFERENCES_.125
+.str.126
+__block_descriptor_tmp.127
+OBJC_METH_VAR_NAME_.128
+OBJC_SELECTOR_REFERENCES_.129
+.str.130
+_unnamed_cfstring_.131
+OBJC_CLASSLIST_REFERENCES_$_.132
+OBJC_METH_VAR_NAME_.133
+OBJC_SELECTOR_REFERENCES_.134
+OBJC_METH_VAR_NAME_.135
+OBJC_SELECTOR_REFERENCES_.136
+OBJC_SELECTOR_REFERENCES_.137
+OBJC_SELECTOR_REFERENCES_.138
+OBJC_METH_VAR_NAME_.139
+OBJC_SELECTOR_REFERENCES_.140
+OBJC_SELECTOR_REFERENCES_.141
+OBJC_SELECTOR_REFERENCES_.142
+OBJC_METH_VAR_NAME_.143
+OBJC_SELECTOR_REFERENCES_.144
+OBJC_METH_VAR_NAME_.145
+OBJC_SELECTOR_REFERENCES_.146
+OBJC_CLASSLIST_REFERENCES_$_.147
+OBJC_SELECTOR_REFERENCES_.148
+OBJC_METH_VAR_NAME_.149
+OBJC_SELECTOR_REFERENCES_.150
+OBJC_METH_VAR_NAME_.151
+OBJC_SELECTOR_REFERENCES_.152
+OBJC_SELECTOR_REFERENCES_.153
+OBJC_METH_VAR_NAME_.154
+OBJC_SELECTOR_REFERENCES_.155
+OBJC_SELECTOR_REFERENCES_.156
+OBJC_METH_VAR_NAME_.157
+OBJC_SELECTOR_REFERENCES_.158
+OBJC_SELECTOR_REFERENCES_.159
+OBJC_METH_VAR_NAME_.160
+OBJC_SELECTOR_REFERENCES_.161
+OBJC_METH_VAR_NAME_.162
+OBJC_SELECTOR_REFERENCES_.163
+OBJC_METH_VAR_NAME_.164
+OBJC_SELECTOR_REFERENCES_.165
+OBJC_CLASS_NAME_.166
+OBJC_METH_VAR_NAME_.167
+OBJC_METH_VAR_TYPE_.168
+l_OBJC_$_CLASS_METHODS_FBKVOController
+l_OBJC_METACLASS_RO_$_FBKVOController
+OBJC_CLASS_NAME_.169
+OBJC_METH_VAR_TYPE_.170
+OBJC_METH_VAR_TYPE_.171
+OBJC_METH_VAR_TYPE_.172
+OBJC_METH_VAR_NAME_.173
+OBJC_METH_VAR_TYPE_.174
+OBJC_METH_VAR_NAME_.175
+OBJC_METH_VAR_TYPE_.176
+OBJC_METH_VAR_NAME_.177
+OBJC_METH_VAR_NAME_.178
+OBJC_METH_VAR_NAME_.179
+l_OBJC_$_INSTANCE_METHODS_FBKVOController
+OBJC_METH_VAR_NAME_.180
+OBJC_METH_VAR_TYPE_.181
+OBJC_METH_VAR_NAME_.182
+OBJC_METH_VAR_TYPE_.183
+l_OBJC_$_INSTANCE_VARIABLES_FBKVOController
+OBJC_CLASS_NAME_.184
+OBJC_PROP_NAME_ATTR_
+OBJC_PROP_NAME_ATTR_.185
+l_OBJC_$_PROP_LIST_FBKVOController
+l_OBJC_CLASS_RO_$_FBKVOController
+OBJC_METH_VAR_NAME_.186
+OBJC_SELECTOR_REFERENCES_.187
+.str.188
+_unnamed_cfstring_.189
+.str.190
+_unnamed_cfstring_.191
+.str.192
+_unnamed_cfstring_.193
+.str.194
+_unnamed_cfstring_.195
+.str.196
+_unnamed_cfstring_.197
+OBJC_LABEL_CLASS_$
+Apple LLVM version 7.3.0 (clang-703.0.31)
+_dispatch_once
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/usr/include/dispatch/once.h
+/Users/nlutsenko/src/oss/kvocontroller
+/Users/nlutsenko/src/oss/kvocontroller/FBKVOController/FBKVOController.m
+append_option_description
+enumerate_flags
+describe_options
+-[FBKVOController .cxx_destruct]
+-[FBKVOController observer]
+/Users/nlutsenko/src/oss/kvocontroller/FBKVOController/FBKVOController.h
+-[FBKVOController unobserveAll]
+-[FBKVOController unobserve:]
+-[FBKVOController unobserve:keyPath:]
+-[FBKVOController observe:keyPaths:options:context:]
+-[FBKVOController observe:keyPath:options:context:]
+-[FBKVOController observe:keyPaths:options:action:]
+-[FBKVOController observe:keyPath:options:action:]
+-[FBKVOController observe:keyPaths:options:block:]
+-[FBKVOController observe:keyPath:options:block:]
+-[FBKVOController _unobserveAll]
+-[FBKVOController _unobserve:]
+-[FBKVOController _unobserve:info:]
+-[FBKVOController _observe:info:]
+-[FBKVOController debugDescription]
+-[FBKVOController dealloc]
+-[FBKVOController initWithObserver:]
+-[FBKVOController initWithObserver:retainObserved:]
++[FBKVOController controllerWithObserver:]
+-[_FBKVOSharedController .cxx_destruct]
+-[_FBKVOSharedController observeValueForKeyPath:ofObject:change:context:]
+-[_FBKVOSharedController unobserve:infos:]
+-[_FBKVOSharedController unobserve:info:]
+-[_FBKVOSharedController observe:info:]
+-[_FBKVOSharedController debugDescription]
+-[_FBKVOSharedController init]
++[_FBKVOSharedController sharedController]
+-[_FBKVOInfo .cxx_destruct]
+-[_FBKVOInfo debugDescription]
+-[_FBKVOInfo isEqual:]
+-[_FBKVOInfo hash]
+-[_FBKVOInfo initWithController:keyPath:]
+-[_FBKVOInfo initWithController:keyPath:options:context:]
+-[_FBKVOInfo initWithController:keyPath:options:action:]
+-[_FBKVOInfo initWithController:keyPath:options:block:]
+-[_FBKVOInfo initWithController:keyPath:options:block:action:context:]
+-[NSObject(FBKVOController) KVOController]
+-[NSObject(FBKVOController) setKVOController:]
+-[NSObject(FBKVOController) KVOControllerNonRetaining]
+-[NSObject(FBKVOController) setKVOControllerNonRetaining:]
+NSObjectKVOControllerKey
+NSObjectKVOControllerNonRetainingKey
+OBJC_METH_VAR_TYPE_.10
+l_OBJC_$_CATEGORY_INSTANCE_METHODS_NSObject_$_FBKVOController
+OBJC_PROP_NAME_ATTR_.12
+OBJC_PROP_NAME_ATTR_.13
+l_OBJC_$_PROP_LIST_NSObject_$_FBKVOController
+l_OBJC_$_CATEGORY_NSObject_$_FBKVOController
+OBJC_LABEL_CATEGORY_$
+-[NSObject(FBKVOController) setKVOControllerNonRetaining:]
+/Users/nlutsenko/src/oss/kvocontroller/FBKVOController/NSObject+FBKVOController.m
+-[NSObject(FBKVOController) KVOControllerNonRetaining]
+-[NSObject(FBKVOController) setKVOController:]
+-[NSObject(FBKVOController) KVOController]
+/Users/nlutsenko/Desktop/XcodeDerivedData/FBKVOController-govpluxdzzjmalclnrhffhrjxode/Build/Intermediates/FBKVOController.build/Release-iphoneos/FBKVOController-iOS-Dynamic.build/DerivedSources/KVOController_vers.c
+_ZL15__ARCLite__loadv
+_ZL30add_image_hook_autoreleasepoolPK11mach_headerl
+_ZL34__arclite_objc_autoreleasePoolPushv
+_ZL33__arclite_objc_autoreleasePoolPopPv
+_ZL19patch_lazy_pointersPK11mach_headerP7patch_tm
+_ZL42__arclite_NSArray_objectAtIndexedSubscriptP7NSArrayP13objc_selectorj
+_ZL53__arclite_NSMutableArray_setObject_atIndexedSubscriptP14NSMutableArrayP13objc_selectorP11objc_objectj
+_ZL46__arclite_NSDictionary_objectForKeyedSubscriptP12NSDictionaryP13objc_selectorP11objc_object
+_ZL47__arclite_NSOrderedSet_objectAtIndexedSubscriptP12NSOrderedSetP13objc_selectorj
+_ZL58__arclite_NSMutableOrderedSet_setObject_atIndexedSubscriptP19NSMutableOrderedSetP13objc_selectorP11objc_objectj
+_ZL58__arclite_NSMutableDictionary__setObject_forKeyedSubscriptP19NSMutableDictionaryP13objc_selectorP11objc_objectS4_
+_ZL18add_image_hook_ARCPK11mach_headerl
+_ZL36__arclite_object_setInstanceVariableP11objc_objectPKcPv
+_ZL24__arclite_object_setIvarP11objc_objectP9objc_ivarS0_
+_ZL21__arclite_object_copyP11objc_objectm
+_ZL21__arclite_objc_retainP11objc_object
+_ZL26__arclite_objc_retainBlockP11objc_object
+_ZL22__arclite_objc_releaseP11objc_object
+_ZL26__arclite_objc_autoreleaseP11objc_object
+_ZL32__arclite_objc_retainAutoreleaseP11objc_object
+_ZL37__arclite_objc_autoreleaseReturnValueP11objc_object
+_ZL43__arclite_objc_retainAutoreleaseReturnValueP11objc_object
+_ZL44__arclite_objc_retainAutoreleasedReturnValueP11objc_object
+_ZL26__arclite_objc_storeStrongPP11objc_objectS0_
+_ZL22add_image_hook_swiftV1PK11mach_headerl
+_ZL42__arclite_NSUndoManagerProxy_isKindOfClassP11objc_objectP13objc_selectorP10objc_class
+_ZL13replaceMethodP10objc_classP13objc_selectorPFP11objc_objectS4_S2_zEPS6_
+_ZL30__arclite_NSManagedObject_initP11objc_objectP13objc_selector
+_ZL41__arclite_NSManagedObject_allocWithEntityP11objc_objectP13objc_selectorS0_
+_ZL36__arclite_NSManagedObject_allocBatchP11objc_objectP13objc_selectorPS0_S0_j
+_ZL37__arclite_NSKKMS_fastIndexForKnownKeyP11objc_objectP13objc_selectorS0_
+_ZL28__arclite_NSKKMS_indexForKeyP11objc_objectP13objc_selectorS0_
+_ZL29__arclite_NSKKsD_objectForKeyP11objc_objectP13objc_selectorS0_
+_ZL35__arclite_NSKKsD_removeObjectForKeyP11objc_objectP13objc_selectorS0_
+_ZL33__arclite_NSKKsD_setObject_forKeyP11objc_objectP13objc_selectorS0_S0_
+_ZL41__arclite_NSKKsD_addEntriesFromDictionaryP11objc_objectP13objc_selectorP12NSDictionary
+_ZL28__arclite_objc_readClassPairP10objc_classPK15objc_image_info
+_ZL32__arclite_objc_allocateClassPairP10objc_classPKcm
+_ZL32__arclite_object_getIndexedIvarsP11objc_object
+_ZL23__arclite_objc_getClassPKc
+_ZL27__arclite_objc_getMetaClassPKc
+_ZL31__arclite_objc_getRequiredClassPKc
+_ZL26__arclite_objc_lookUpClassPKc
+_ZL26__arclite_objc_getProtocolPKc
+_ZL23__arclite_class_getNameP10objc_class
+_ZL26__arclite_protocol_getNameP8Protocol
+_ZL37__arclite_objc_copyClassNamesForImagePKcPj
+_ZL17transcribeMethodsP10objc_classP15glue_class_ro_t
+_ZL19transcribeProtocolsP10objc_classP15glue_class_ro_t
+_ZL20transcribePropertiesP10objc_classP15glue_class_ro_t
+_ZL14initialize_impP11objc_objectP13objc_selector
+_ZL18allocateMaybeSwiftP18glue_swift_class_tm
+_ZL22copySwiftV1MangledNamePKcb
+_ZL13demangledNamePKcb
+_ZL16scanMangledFieldRPKcS0_S1_Ri
+_ZL30arclite_uninitialized_functionv
+_ZL12cxxConstructP11objc_object
+_ZL20fixStringForCoreDataP11objc_object
+OBJC_METACLASS_$___ARCLite__
+_ZL24OBJC_CLASS_$___ARCLite__
+_ZL31OBJC_METACLASS_RO_$___ARCLite__
+_non_lazy_classes
+_ZL27OBJC_CLASS_RO_$___ARCLite__
+_ZL11_class_name
+_ZL32OBJC_$_CLASS_METHODS___ARCLite__
+_ZL17_load_method_name
+_ZL17_load_method_type
+_ZL23NSAutoreleasePool_class
+_ZZL30add_image_hook_autoreleasepoolPK11mach_headerlE7patches
+_ZGVZL30add_image_hook_autoreleasepoolPK11mach_headerlE7patches
+.str.1
+.str.2
+.str.5
+.str.6
+.str.7
+OBJC_METH_VAR_NAME_.8
+OBJC_SELECTOR_REFERENCES_.9
+.str.10
+.str.13
+OBJC_METH_VAR_NAME_.14
+OBJC_SELECTOR_REFERENCES_.15
+.str.16
+.str.17
+OBJC_METH_VAR_NAME_.18
+OBJC_SELECTOR_REFERENCES_.19
+OBJC_METH_VAR_TYPE_.20
+l_OBJC_$_PROTOCOL_INSTANCE_METHODS___ARCLiteIndexedSubscripting__
+l_OBJC_$_PROTOCOL_METHOD_TYPES___ARCLiteIndexedSubscripting__
+l_OBJC_PROTOCOL_$___ARCLiteIndexedSubscripting__
+l_OBJC_LABEL_PROTOCOL_$___ARCLiteIndexedSubscripting__
+l_OBJC_PROTOCOL_REFERENCE_$___ARCLiteIndexedSubscripting__
+OBJC_METH_VAR_NAME_.21
+OBJC_SELECTOR_REFERENCES_.22
+OBJC_METH_VAR_NAME_.23
+OBJC_SELECTOR_REFERENCES_.24
+OBJC_METH_VAR_NAME_.25
+OBJC_SELECTOR_REFERENCES_.26
+OBJC_METH_VAR_TYPE_.29
+OBJC_CLASS_NAME_.32
+l_OBJC_$_PROTOCOL_INSTANCE_METHODS___ARCLiteKeyedSubscripting__
+l_OBJC_$_PROTOCOL_METHOD_TYPES___ARCLiteKeyedSubscripting__
+l_OBJC_PROTOCOL_$___ARCLiteKeyedSubscripting__
+l_OBJC_LABEL_PROTOCOL_$___ARCLiteKeyedSubscripting__
+l_OBJC_PROTOCOL_REFERENCE_$___ARCLiteKeyedSubscripting__
+OBJC_METH_VAR_NAME_.33
+OBJC_SELECTOR_REFERENCES_.34
+.str.35
+OBJC_SELECTOR_REFERENCES_.36
+OBJC_METH_VAR_NAME_.37
+OBJC_SELECTOR_REFERENCES_.38
+OBJC_SELECTOR_REFERENCES_.40
+_ZZL18add_image_hook_ARCPK11mach_headerlE7patches
+_ZGVZL18add_image_hook_ARCPK11mach_headerlE7patches
+.str.41
+.str.42
+.str.43
+.str.44
+.str.45
+.str.46
+.str.47
+.str.48
+.str.49
+.str.50
+.str.51
+.str.52
+OBJC_SELECTOR_REFERENCES_.54
+OBJC_SELECTOR_REFERENCES_.56
+OBJC_SELECTOR_REFERENCES_.58
+.str.59
+.str.60
+_ZL30NSUndoManagerProxy_targetClass
+.str.64
+OBJC_METH_VAR_NAME_.65
+OBJC_SELECTOR_REFERENCES_.66
+_ZL29original_NSManagedObject_init
+OBJC_METH_VAR_NAME_.67
+OBJC_SELECTOR_REFERENCES_.68
+_ZL40original_NSManagedObject_allocWithEntity
+OBJC_METH_VAR_NAME_.69
+OBJC_SELECTOR_REFERENCES_.70
+_ZL35original_NSManagedObject_allocBatch
+_ZL25NSMutableDictionary_class
+.str.71
+_ZL22NSConstantString_class
+.str.72
+_ZL14NSString_class
+.str.73
+OBJC_METH_VAR_NAME_.74
+OBJC_SELECTOR_REFERENCES_.75
+_ZL36original_NSKKMS_fastIndexForKnownKey
+OBJC_METH_VAR_NAME_.76
+_ZL27original_NSKKMS_indexForKey
+.str.78
+_ZL28original_NSKKsD_objectForKey
+_ZL34original_NSKKsD_removeObjectForKey
+_ZL32original_NSKKsD_setObject_forKey
+OBJC_METH_VAR_NAME_.79
+OBJC_SELECTOR_REFERENCES_.80
+_ZL40original_NSKKsD_addEntriesFromDictionary
+_ZZL22add_image_hook_swiftV1PK11mach_headerlE7patches
+_ZGVZL22add_image_hook_swiftV1PK11mach_headerlE7patches
+.str.81
+.str.82
+_ZL31original_objc_allocateClassPair
+.str.83
+_ZL31original_object_getIndexedIvars
+.str.84
+_ZL22original_objc_getClass
+.str.85
+_ZL26original_objc_getMetaClass
+.str.86
+_ZL30original_objc_getRequiredClass
+.str.87
+_ZL25original_objc_lookUpClass
+.str.88
+_ZL25original_objc_getProtocol
+.str.89
+_ZL22original_class_getName
+.str.90
+_ZL25original_protocol_getName
+.str.91
+_ZL36original_objc_copyClassNamesForImage
+.str.96
+.str.97
+.str.98
+.str.99
+.str.100
+.str.101
+.str.102
+.str.103
+_ZL12demangleLock
+_ZL9Demangled
+.str.104
+.str.105
+OBJC_SELECTOR_REFERENCES_.107
+OBJC_METH_VAR_NAME_.110
+OBJC_SELECTOR_REFERENCES_.111
+Apple LLVM version 7.3.0 (clang-703.0.21)
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ -arch armv7 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=c++11 -Wno-trigraphs -fno-exceptions -fno-rtti -mpascal-strings -Os -Wno-missing-field-initializers -Wmissing-prototypes -Wno-implicit-atomic-properties -Wno-arc-repeated-use-of-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -D NDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.Internal.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -miphoneos-version-min=4.3 -g -fno-threadsafe-statics -Wno-sign-conversion -fembed-bitcode -iquote /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-generated-files.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-own-target-headers.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-all-target-headers.hmap -iquote /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-project-headers.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/Symbols/BuiltProducts/include -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources/armv7 -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources -F/Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/Symbols/BuiltProducts -F/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.Internal.sdk/System/Library/PrivateFrameworks -Wall -Wextra -Wno-gcc-compat -fgnu-inline-asm -MMD -MT dependencies -MF /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/armv7/arclite.d --serialize-diagnostics /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/armv7/arclite.dia -c /Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65/source/arclite.mm -o /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/armv7/arclite.o -mlinker-version=264.3 -march=armv7a
+__arclite_NSKKsD_addEntriesFromDictionary
+/Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65/source/arclite.mm
+/Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65
+__arclite_NSKKsD_setObject_forKey
+__arclite_NSKKsD_removeObjectForKey
+__arclite_NSKKsD_objectForKey
+__arclite_NSKKMS_indexForKey
+fixStringForCoreData
+__arclite_NSKKMS_fastIndexForKnownKey
+__arclite_NSManagedObject_allocBatch
+__arclite_NSManagedObject_allocWithEntity
+cxxConstruct
+__arclite_NSManagedObject_init
+arclite_uninitialized_function
+replaceMethod
+__arclite_NSUndoManagerProxy_isKindOfClass
+patch_t<const char **(const char *, unsigned int *)>
+__arclite_objc_copyClassNamesForImage
+patch_t<const char *(Protocol *)>
+__arclite_protocol_getName
+patch_t<const char *(Class)>
+__isctype
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.Internal.sdk/usr/include/ctype.h
+isdigit
+scanMangledField
+copySwiftV1DemangledName
+demangledName
+__arclite_class_getName
+patch_t<Protocol *(const char *)>
+__arclite_objc_getProtocol
+__arclite_objc_lookUpClass
+__arclite_objc_getRequiredClass
+__arclite_objc_getMetaClass
+patch_t<Class (const char *)>
+copySwiftV1MangledName
+__arclite_objc_getClass
+patch_t<void *(id)>
+word_align
+__arclite_object_getIndexedIvars
+patch_t<Class (Class, const char *, unsigned long)>
+allocateMaybeSwift
+isSwift
+metaclass
+__arclite_objc_allocateClassPair
+patch_t<Class (Class, const objc_image_info *)>
+initialize_imp
+property_list_nth
+transcribeProperties
+transcribeProtocols
+method_list_nth
+transcribeMethods
+alignment
+max
+ivar_list_nth
+transcribeIvars
+fastFlags
+ro
+__arclite_objc_readClassPair
+add_image_hook_swiftV1
+install_swiftV1
+patch_t<void (id *, id)>
+__arclite_objc_storeStrong
+__arclite_objc_retainAutoreleasedReturnValue
+__arclite_objc_retainAutoreleaseReturnValue
+__arclite_objc_autoreleaseReturnValue
+__arclite_objc_retainAutorelease
+__arclite_objc_autorelease
+patch_t<void (id)>
+__arclite_objc_release
+__arclite_objc_retainBlock
+patch_t<id (id)>
+__arclite_objc_retain
+patch_t<id (id, unsigned long)>
+fixupCopiedReferences
+classOrSuperClassesUseARR
+__arclite_object_copy
+patch_t<void (id, objc_ivar *, id)>
+isScannedOffset
+alignedInstanceStart
+_class_getInstanceStart
+data
+__arclite_class_usesAutomaticRetainRelease
+_ivar_getClass
+__arclite_object_setIvar
+patch_t<objc_ivar *(id, const char *, void *)>
+__arclite_object_setInstanceVariable
+add_image_hook_ARC
+install_ARC
+objc_collectingEnabled
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.Internal.sdk/usr/include/objc/objc-auto.h
+__arclite_NSMutableDictionary__setObject_forKeyedSubscript
+addOrReplaceMethod
+install_dict_nil_value
+__arclite_NSMutableOrderedSet_setObject_atIndexedSubscript
+__arclite_NSOrderedSet_objectAtIndexedSubscript
+keyedGetter
+__arclite_NSDictionary_objectForKeyedSubscript
+__arclite_NSMutableArray_setObject_atIndexedSubscript
+indexedGetter
+__arclite_NSArray_objectAtIndexedSubscript
+addMethod
+install_subscripting
+patch_lazy_pointers
+patch_t<void (void *)>
+__arclite_objc_autoreleasePoolPop
+patch_t<void *()>
+__arclite_objc_autoreleasePoolPush
+add_image_hook_autoreleasepool
+install_autoreleasepool
+__ARCLite__load

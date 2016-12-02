@@ -8,11 +8,10 @@
 #import "PiwikTracker+WMFExtensions.h"
 
 // Utility
-#import "NSDate+Utilities.h"
 #import "NSUserActivity+WMFExtensions.h"
 
 #import "YapDatabase+WMFExtensions.h"
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
 #import "MWKDataStore.h"
 #import "WMFContentGroupDataStore.h"
 
@@ -26,7 +25,6 @@
 // Model
 #import "MWKSearchResult.h"
 #import "MWKLanguageLinkController.h"
-#import "WMFContentGroup.h"
 
 //Content Sources
 #import "WMFRelatedPagesContentSource.h"
@@ -115,7 +113,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
 @property (nonatomic, strong, readonly) SessionSingleton *session;
 
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
-@property (nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
+@property (nonatomic, strong) WMFArticleDataStore *previewStore;
 @property (nonatomic, strong) WMFContentGroupDataStore *contentStore;
 
 @property (nonatomic, strong) WMFDatabaseHouseKeeper *houseKeeper;
@@ -221,9 +219,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
         return;
     }
     self.notificationsController.applicationActive = YES;
-    [self.dataStore syncDataStoreToDatabase];
-    [self.previewStore syncDataStoreToDatabase];
-    [self.contentStore syncDataStoreToDatabase];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKSetupDataSourcesNotification object:nil];
 #if FB_TWEAK_ENABLED
     if (FBTweakValue(@"Notifications", @"In the news", @"Send on app open", NO)) {
@@ -236,6 +232,12 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     if (![self uiIsLoaded]) {
         return;
     }
+
+    NSError *saveError = nil;
+    if (![self.dataStore save:&saveError]) {
+        DDLogError(@"Error saving dataStore: %@", saveError);
+    }
+
     self.notificationsController.applicationActive = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKTeardownDataSourcesNotification object:nil];
 }
@@ -278,7 +280,6 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     if (self.backgroundTaskIdentifier != UIBackgroundTaskInvalid) {
         return;
     }
-
     self.backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         [self.dataStore stopCacheRemoval];
         [self endBackgroundTask];
@@ -354,26 +355,22 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
 }
 
 - (void)migrateToNewFeedIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
-    YapDatabase *db = [YapDatabase sharedInstance];
+    self.previewStore = [[WMFArticleDataStore alloc] initWithDataStore:self.dataStore];
+    self.contentStore = [[WMFContentGroupDataStore alloc] initWithDataStore:self.dataStore];
+
     if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToNewFeed]) {
-        self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
-        self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
         completion();
     } else {
-        YapDatabaseConnection *conn = [db wmf_newWriteConnection];
-        [conn asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
-            [transaction removeAllObjectsInCollection:[WMFContentGroup databaseCollectionName]];
+        NSError *migrationError = nil;
+        [self.dataStore migrateToCoreData:&migrationError];
+        if (migrationError) {
+            DDLogError(@"Error migrating: %@", migrationError);
         }
-            completionQueue:dispatch_get_main_queue()
-            completionBlock:^{
-                self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
-                self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:[YapDatabase sharedInstance]];
-                [self preloadContentSourcesForced:YES
-                                       completion:^{
-                                           [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
-                                           completion();
-                                       }];
-            }];
+        [self preloadContentSourcesForced:YES
+                               completion:^{
+                                   [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
+                                   completion();
+                               }];
     }
 }
 
@@ -454,7 +451,11 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     [self downloadAssetsFilesIfNecessary];
 
     //TODO: implement completion block to cancel download task with the 2 tasks above
-    [self.houseKeeper performHouseKeepingWithCompletion:NULL];
+    NSError *housekeepingError = nil;
+    [self.houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext error:&housekeepingError];
+    if (housekeepingError) {
+        DDLogError(@"Error on cleanup: %@", housekeepingError);
+    }
 
     DDLogWarn(@"Backgrounding… Logging Important Statistics");
     [self logImportantStatistics];
@@ -499,7 +500,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     WMFTaskGroup *group = [WMFTaskGroup new];
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
 
-        if ([obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
+        if ([obj isKindOfClass:[WMFFeedContentSource class]]) {
             [group enter];
             [(id<WMFDateBasedContentSource>)obj preloadContentForNumberOfDays:3
                                                                         force:force
@@ -1030,13 +1031,13 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
     [[self nearbyContentSource] loadNewContentForce:NO
                                          completion:^{
-                                             WMFContentGroup *nearby = [self.contentStore firstGroupOfKind:[WMFLocationContentGroup kind] forDate:[NSDate date]];
+                                             WMFContentGroup *nearby = [self.contentStore firstGroupOfKind:WMFContentGroupKindLocation forDate:[NSDate date]];
                                              if (!nearby) {
                                                  //TODO: show an error?
                                                  return;
                                              }
 
-                                             NSArray *urls = [self.contentStore contentForContentGroup:nearby];
+                                             NSArray *urls = nearby.content;
 
                                              WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:nearby articleURLs:urls userDataStore:self.dataStore previewStore:self.previewStore];
                                              vc.cellType = WMFMorePageListCellTypeLocation;
@@ -1231,17 +1232,19 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             if (!granted) {
                 return;
             }
-            WMFNewsContentGroup *newsContentGroup = (WMFNewsContentGroup *)[self.contentStore firstGroupOfKind:[WMFNewsContentGroup kind]];
-            if (newsContentGroup) {
-                NSArray<WMFFeedNewsStory *> *stories = [self.contentStore contentForContentGroup:newsContentGroup];
-                if (stories.count > 0) {
-                    NSInteger randomIndex = (NSInteger)arc4random_uniform((uint32_t)stories.count);
-                    WMFFeedNewsStory *randomStory = stories[randomIndex];
-                    WMFFeedArticlePreview *feedPreview = randomStory.featuredArticlePreview ?: randomStory.articlePreviews[0];
-                    WMFArticlePreview *preview = [self.previewStore itemForURL:feedPreview.articleURL];
-                    [[self feedContentSource] scheduleNotificationForNewsStory:randomStory articlePreview:preview force:YES];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                WMFContentGroup *newsContentGroup = [self.contentStore firstGroupOfKind:WMFContentGroupKindNews];
+                if (newsContentGroup) {
+                    NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)newsContentGroup.content;
+                    if (stories.count > 0) {
+                        NSInteger randomIndex = (NSInteger)arc4random_uniform((uint32_t)stories.count);
+                        WMFFeedNewsStory *randomStory = stories[randomIndex];
+                        WMFFeedArticlePreview *feedPreview = randomStory.featuredArticlePreview ?: randomStory.articlePreviews[0];
+                        WMFArticle *preview = [self.previewStore itemForURL:feedPreview.articleURL];
+                        [[self feedContentSource] scheduleNotificationForNewsStory:randomStory articlePreview:preview force:YES];
+                    }
                 }
-            }
+            });
         }];
     });
 }

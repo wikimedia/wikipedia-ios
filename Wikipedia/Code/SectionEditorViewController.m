@@ -7,11 +7,11 @@
 #import "WMF_Colors.h"
 #import "MWLanguageInfo.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "BlocksKit+UIKit.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIScrollView+WMFScrollsToTop.h"
 #import "Wikipedia-Swift.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
+@import BlocksKitUIKitExtensions;
 
 #define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:16.0f * MENUS_SCALE_MULTIPLIER]
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f * MENUS_SCALE_MULTIPLIER)

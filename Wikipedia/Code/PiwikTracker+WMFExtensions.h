@@ -1,4 +1,4 @@
-#import <PiwikTracker/PiwikTracker.h>
+#import <Piwik/PiwikTracker.h>
 #import "WMFAnalyticsLogging.h"
 
 NS_ASSUME_NONNULL_BEGIN

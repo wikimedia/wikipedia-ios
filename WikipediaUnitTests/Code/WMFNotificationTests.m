@@ -1,4 +1,6 @@
 #import <XCTest/XCTest.h>
+#import "MWKDataStore+TemporaryDataStore.h"
+#import <WMFModel/WMFModel.h>
 #import <Nocilla/LSNocilla.h>
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "WMFRandomFileUtilities.h"
@@ -6,7 +8,7 @@
 @interface WMFNotificationTests : XCTestCase
 
 @property (nonnull, nonatomic, strong) WMFFeedContentSource *feedContentSource;
-@property (nonnull, nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
+@property (nonnull, nonatomic, strong) WMFArticleDataStore *previewStore;
 @property (nonnull, nonatomic, strong) WMFContentGroupDataStore *contentStore;
 
 @property (nonnull, nonatomic, strong) NSCalendar *calendar;
@@ -19,11 +21,10 @@
 
 - (void)setUp {
     [super setUp];
-    NSURL *siteURL = [NSURL URLWithString:@"https://en.wikipedia.org"];
     MWKDataStore *dataStore = [MWKDataStore temporaryDataStore];
-    YapDatabase *db = [YapDatabase wmf_databaseWithDefaultConfigurationAtPath:WMFRandomTemporaryPath()];
-    self.previewStore = [[WMFArticlePreviewDataStore alloc] initWithDatabase:db];
-    self.contentStore = [[WMFContentGroupDataStore alloc] initWithDatabase:db];
+    NSURL *siteURL = [NSURL URLWithString:@"https://en.wikipedia.org"];
+    self.previewStore = [[WMFArticleDataStore alloc] initWithDataStore:dataStore];
+    self.contentStore = [[WMFContentGroupDataStore alloc] initWithDataStore:dataStore];
     self.feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore userDataStore:dataStore notificationsController:[WMFNotificationsController sharedNotificationsController]];
     self.feedContentSource.notificationSchedulingEnabled = YES;
 
@@ -64,6 +65,46 @@
                                          force:YES
                                     completion:^{
                                         XCTAssertTrue([defaults wmf_inTheNewsMostRecentDateNotificationCount] == 3);
+                                        [expectation fulfill];
+                                    }];
+
+    [self waitForExpectationsWithTimeout:10
+                                 handler:^(NSError *_Nullable error) {
+                                     if (error) {
+                                         XCTFail();
+                                     }
+                                 }];
+}
+
+- (void)testDoesntIncrementNotificationCountForSameArticles {
+
+    NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
+    [defaults wmf_setInTheNewsNotificationsEnabled:YES];
+    [defaults wmf_setMostRecentInTheNewsNotificationDate:self.date];
+    [defaults wmf_setInTheNewsMostRecentDateNotificationCount:1];
+
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for content to load"];
+
+    [self.feedContentSource loadContentForDate:self.date
+                                         force:YES
+                                    completion:^{
+                                        XCTAssertTrue([defaults wmf_inTheNewsMostRecentDateNotificationCount] == 2);
+                                        [expectation fulfill];
+                                    }];
+
+    [self waitForExpectationsWithTimeout:10
+                                 handler:^(NSError *_Nullable error) {
+                                     if (error) {
+                                         XCTFail();
+                                     }
+                                 }];
+
+    expectation = [self expectationWithDescription:@"Wait for content to load"];
+
+    [self.feedContentSource loadContentForDate:self.date
+                                         force:YES
+                                    completion:^{
+                                        XCTAssertTrue([defaults wmf_inTheNewsMostRecentDateNotificationCount] == 2);
                                         [expectation fulfill];
                                     }];
 

@@ -2,7 +2,7 @@
 #import "WMFRandomArticleFetcher.h"
 #import "MWKSearchResult.h"
 #import "Wikipedia-Swift.h"
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
 #import "WMFRandomDiceButton.h"
 #import "WMFArticleNavigationController.h"
 #import "UIViewController+WMFArticlePresentation.h"
@@ -21,7 +21,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
 @implementation WMFRandomArticleViewController
 
-- (instancetype)initWithArticleURL:(NSURL *)articleURL dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore *)previewStore diceButtonItem:(UIBarButtonItem *)diceButtonItem {
+- (instancetype)initWithArticleURL:(NSURL *)articleURL dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticleDataStore *)previewStore diceButtonItem:(UIBarButtonItem *)diceButtonItem {
     self = [super initWithArticleURL:articleURL dataStore:dataStore previewStore:previewStore];
     self.diceButtonItem = diceButtonItem;
     self.diceButton = (WMFRandomDiceButton *)diceButtonItem.customView;

@@ -1,6 +1,0 @@
-framework module Tweaks {
-  umbrella header "Tweaks-umbrella.h"
-
-  export *
-  module * { export * }
-}

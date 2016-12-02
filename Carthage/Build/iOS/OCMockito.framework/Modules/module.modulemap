@@ -1,0 +1,6 @@
+framework module OCMockito {
+  umbrella header "OCMockito.h"
+
+  export *
+  module * { export * }
+}

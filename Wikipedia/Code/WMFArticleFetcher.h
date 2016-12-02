@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 
 @class MWKDataStore;
-@class WMFArticlePreviewDataStore;
+@class WMFArticleDataStore;
 @class MWKArticle;
 @class AFHTTPSessionManager;
 
@@ -19,9 +19,9 @@ extern NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey;
 - (void)cancelAllFetches;
 
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
-@property (nonatomic, strong, readonly) WMFArticlePreviewDataStore *previewStore;
+@property (nonatomic, strong, readonly) WMFArticleDataStore *previewStore;
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticlePreviewDataStore *)previewStore;
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticleDataStore *)previewStore;
 
 //Fullfilled promise returns MWKArticle
 - (AnyPromise *)fetchArticleForURL:(NSURL *)articleURL progress:(WMFProgressHandler __nullable)progress;

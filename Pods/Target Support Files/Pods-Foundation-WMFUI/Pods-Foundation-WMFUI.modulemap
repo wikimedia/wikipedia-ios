@@ -1,6 +1,0 @@
-framework module Pods_Foundation_WMFUI {
-  umbrella header "Pods-Foundation-WMFUI-umbrella.h"
-
-  export *
-  module * { export * }
-}

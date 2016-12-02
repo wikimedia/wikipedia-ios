@@ -1,0 +1,6 @@
+framework module KVOController {
+  umbrella header "KVOController.h"
+
+  export *
+  module * { export * }
+}

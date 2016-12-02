@@ -1,5 +1,6 @@
 
 import Foundation
+import BlocksKitUIKitExtensions
 
 class WMFReferencePanelViewController: UIViewController {
     
@@ -14,7 +15,7 @@ class WMFReferencePanelViewController: UIViewController {
                 self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
             }
         }
-        view.addGestureRecognizer((tapRecognizer as? UITapGestureRecognizer)!)
+        view.addGestureRecognizer(tapRecognizer)
         embedContainerControllerView()
     }
 

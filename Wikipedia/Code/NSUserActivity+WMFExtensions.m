@@ -198,7 +198,7 @@
     }
 }
 
-- (NSURL *)wmf_articleURL {
+- (nullable NSURL *)wmf_articleURL {
     NSURL *originalURL = nil;
     if (self.userInfo[CSSearchableItemActivityIdentifier] != nil) {
         originalURL = [NSURL URLWithString:self.userInfo[CSSearchableItemActivityIdentifier]];

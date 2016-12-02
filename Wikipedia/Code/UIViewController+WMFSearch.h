@@ -2,7 +2,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class MWKDataStore, WMFArticlePreviewDataStore, WMFSearchViewController;
+@class MWKDataStore, WMFArticleDataStore, WMFSearchViewController;
 
 @interface UIViewController (WMFSearchButton)
 
@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param dataStore The datastore
  */
-+ (void)wmf_setSearchButtonPreviewStore:(WMFArticlePreviewDataStore *)previewStore;
++ (void)wmf_setSearchButtonPreviewStore:(WMFArticleDataStore *)previewStore;
 
 /**
  *  Standard way of creating a search button for installation in the receiver's toolbar or navigation bar.

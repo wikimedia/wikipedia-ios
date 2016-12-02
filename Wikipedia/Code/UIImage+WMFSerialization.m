@@ -1,5 +1,4 @@
 #import "UIImage+WMFSerialization.h"
-#import <AnimatedGIFImageSerialization/AnimatedGIFImageSerialization.h>
 
 @implementation UIImage (WMFSerialization)
 
