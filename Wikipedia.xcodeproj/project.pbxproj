@@ -995,6 +995,11 @@
 		D8D551A41DF1AE4B00B90177 /* hpple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; };
 		D8D551A51DF1AE4B00B90177 /* hpple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; };
 		D8D551A71DF1AE9B00B90177 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551A61DF1AE9B00B90177 /* libxml2.tbd */; };
+		D8D553601DF1B62D00B90177 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5535E1DF1B5CD00B90177 /* AVFoundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		D8D553621DF1B63200B90177 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		D8D553641DF1B64300B90177 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553631DF1B64300B90177 /* CoreMedia.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		D8D553661DF1B64E00B90177 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553651DF1B64D00B90177 /* CoreVideo.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		D8D553681DF1B66500B90177 /* Appsee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553671DF1B66500B90177 /* Appsee.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D8DC16E91D6F6DA300D6D9FB /* UIColor+WMFStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804F21C0CE0DC0065EBC0 /* UIColor+WMFStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8DC16EA1D6F6DA300D6D9FB /* UIColor+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804F31C0CE0DC0065EBC0 /* UIColor+WMFStyle.m */; };
 		D8DC16EB1D6F6DD600D6D9FB /* MWKSite.h in Headers */ = {isa = PBXBuildFile; fileRef = D8494AD41D6C85C500337433 /* MWKSite.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2571,6 +2576,12 @@
 		D8D5516F1DF1A7AC00B90177 /* Piwik.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Piwik.framework; path = Carthage/Build/iOS/Piwik.framework; sourceTree = SOURCE_ROOT; };
 		D8D5519E1DF1AE4B00B90177 /* hpple.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = hpple.framework; path = Carthage/Build/iOS/hpple.framework; sourceTree = SOURCE_ROOT; };
 		D8D551A61DF1AE9B00B90177 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		D8D5535D1DF1B56A00B90177 /* Wikipedia copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Wikipedia copy-Info.plist"; path = "/Users/joe/Source/wikipedia-ios/Wikipedia copy-Info.plist"; sourceTree = "<absolute>"; };
+		D8D5535E1DF1B5CD00B90177 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		D8D553611DF1B63200B90177 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D8D553631DF1B64300B90177 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		D8D553651DF1B64D00B90177 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		D8D553671DF1B66500B90177 /* Appsee.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Appsee.framework; path = Wikipedia/Frameworks/Appsee.framework; sourceTree = "<group>"; };
 		D8DC16FC1D6F709300D6D9FB /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		D8DC16FE1D6F718300D6D9FB /* NSURL+WMFMainPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+WMFMainPage.h"; path = "Wikipedia/Code/NSURL+WMFMainPage.h"; sourceTree = SOURCE_ROOT; };
 		D8DC16FF1D6F718300D6D9FB /* NSURL+WMFMainPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+WMFMainPage.m"; path = "Wikipedia/Code/NSURL+WMFMainPage.m"; sourceTree = SOURCE_ROOT; };
@@ -2643,6 +2654,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8D553661DF1B64E00B90177 /* CoreVideo.framework in Frameworks */,
+				D8D553641DF1B64300B90177 /* CoreMedia.framework in Frameworks */,
+				D8D553621DF1B63200B90177 /* QuartzCore.framework in Frameworks */,
+				D8D553601DF1B62D00B90177 /* AVFoundation.framework in Frameworks */,
+				D8D553681DF1B66500B90177 /* Appsee.framework in Frameworks */,
 				D8D551A71DF1AE9B00B90177 /* libxml2.tbd in Frameworks */,
 				D82FDB221DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
 				D82FDB3C1DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
@@ -5574,6 +5590,7 @@
 				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
 				197D5C182AEC136E6D29D543 /* Pods */,
+				D8D5535D1DF1B56A00B90177 /* Wikipedia copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -5595,6 +5612,11 @@
 		D4991437181D51DE00E6073C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D8D553671DF1B66500B90177 /* Appsee.framework */,
+				D8D553651DF1B64D00B90177 /* CoreVideo.framework */,
+				D8D553631DF1B64300B90177 /* CoreMedia.framework */,
+				D8D553611DF1B63200B90177 /* QuartzCore.framework */,
+				D8D5535E1DF1B5CD00B90177 /* AVFoundation.framework */,
 				D8D551A61DF1AE9B00B90177 /* libxml2.tbd */,
 				D82FDAD81DF0A96E00DDF311 /* Carthage */,
 				D858A7F81DA6DB96009C3DEB /* libz.tbd */,
@@ -8270,6 +8292,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/WMFUI",
+					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -8561,6 +8584,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/WMFUI",
+					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -8604,6 +8628,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/WMFUI",
+					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -9002,6 +9027,7 @@
 					Wikipedia/Frameworks/,
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/WMFUI",
+					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -9323,6 +9349,7 @@
 					Wikipedia/Frameworks/,
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/WMFUI",
+					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

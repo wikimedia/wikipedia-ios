@@ -27,8 +27,6 @@ abstract_target 'Foundation' do
   end
 
   target 'Wikipedia' do
-  	pod 'Appsee', :configurations => ['Alpha', 'AlphaDebug']
-    
 	# Utilities
     pod 'Tweaks', :git => 'https://github.com/facebook/Tweaks.git'
 	   

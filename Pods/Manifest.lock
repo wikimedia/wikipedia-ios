@@ -1,5 +1,4 @@
 PODS:
-  - Appsee (2.3)
   - HexColors (2.3.0)
   - Masonry (1.0.2)
   - SWStepSlider (1.0.0)
@@ -10,7 +9,6 @@ PODS:
   - Tweaks (2.1.0)
 
 DEPENDENCIES:
-  - Appsee
   - SWStepSlider (from `https://github.com/wikimedia/SWStepSlider.git`)
   - TSMessages (from `https://github.com/wikimedia/TSMessages.git`, commit `8c66db6ce8ed8ffe8112b231e6edc71f8580a139`)
   - TUSafariActivity
@@ -37,7 +35,6 @@ CHECKOUT OPTIONS:
     :git: https://github.com/facebook/Tweaks.git
 
 SPEC CHECKSUMS:
-  Appsee: 3f57734813c0bb22f5c0c6bb412c6140f23fd2fb
   HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   SWStepSlider: a714a255526dbba7c6290d67ea7226ba8724b56c
@@ -45,6 +42,6 @@ SPEC CHECKSUMS:
   TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
   Tweaks: 5d07acb4f984f63b24ee2b85c8c773a1ce494d61
 
-PODFILE CHECKSUM: a74f1d398e15805d46d2b64215e654e7bb9dd464
+PODFILE CHECKSUM: 19ffcbd66eb406f826b91191b505117d0fc17e39
 
 COCOAPODS: 1.1.1
