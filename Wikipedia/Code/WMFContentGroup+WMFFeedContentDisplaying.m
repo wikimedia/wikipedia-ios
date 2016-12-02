@@ -98,22 +98,22 @@ NS_ASSUME_NONNULL_BEGIN
     return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
 }
 
-- (nullable NSAttributedString *)headerTitle {
+- (nullable NSString *)headerTitle {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading:
-            return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-continue-reading-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+            return MWLocalizedString(@"explore-continue-reading-heading", nil);
         case WMFContentGroupKindMainPage:
-            return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-main-page-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+            return MWLocalizedString(@"explore-main-page-heading", nil);
         case WMFContentGroupKindRelatedPages:
-            return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-continue-related-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+            return MWLocalizedString(@"explore-continue-related-heading", nil);
         case WMFContentGroupKindLocation:
-            return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-nearby-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+            return MWLocalizedString(@"explore-nearby-heading", nil);
         case WMFContentGroupKindPictureOfTheDay:
-            return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-potd-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+            return MWLocalizedString(@"explore-potd-heading", nil);
         case WMFContentGroupKindRandom:
-            return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-random-article-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+            return MWLocalizedString(@"explore-random-article-heading", nil);
         case WMFContentGroupKindFeaturedArticle:
-            return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-featured-article-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+            return MWLocalizedString(@"explore-featured-article-heading", nil);
         case WMFContentGroupKindTopRead: {
             // fall back to language code if it can't be localized
             NSString *language = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.siteURL.wmf_language];
@@ -129,11 +129,10 @@ NS_ASSUME_NONNULL_BEGIN
                 heading = MWLocalizedString(@"explore-most-read-generic-heading", nil);
             }
 
-            NSDictionary *attributes = @{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]};
-            return [[NSAttributedString alloc] initWithString:heading attributes:attributes];
+            return heading;
         }
         case WMFContentGroupKindNews:
-            return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"in-the-news-title", nil)];
+            return MWLocalizedString(@"in-the-news-title", nil);
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:
@@ -142,49 +141,45 @@ NS_ASSUME_NONNULL_BEGIN
         default:
             break;
     }
-    return [[NSAttributedString alloc] init];
+    return [[NSString alloc] init];
 }
 
-- (nullable NSAttributedString *)headerSubTitle {
+- (nullable NSString *)headerSubTitle {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading: {
             NSString *relativeTimeString = [self.date wmf_relativeTimestamp];
-            return [[NSAttributedString alloc] initWithString:[relativeTimeString wmf_stringByCapitalizingFirstCharacter] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+            return [relativeTimeString wmf_stringByCapitalizingFirstCharacter];
         } break;
         case WMFContentGroupKindMainPage:
-            return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:[NSDate date]] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+            return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:[NSDate date]];
             break;
         case WMFContentGroupKindRelatedPages:
-            return [[NSAttributedString alloc] initWithString:self.articleURL.wmf_title attributes:@{NSForegroundColorAttributeName: [UIColor wmf_blueTintColor]}];
+            return self.articleURL.wmf_title;
         case WMFContentGroupKindLocation: {
             if (self.isForToday) {
-                return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-nearby-sub-heading-your-location", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+                return MWLocalizedString(@"explore-nearby-sub-heading-your-location", nil);
             } else if (self.placemark) {
-                return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@, %@", self.placemark.name, self.placemark.locality] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+                return [NSString stringWithFormat:@"%@, %@", self.placemark.name, self.placemark.locality];
             } else {
-                return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%f, %f", self.location.coordinate.latitude, self.location.coordinate.longitude] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+                return [NSString stringWithFormat:@"%f, %f", self.location.coordinate.latitude, self.location.coordinate.longitude];
             }
         } break;
         case WMFContentGroupKindPictureOfTheDay:
-            return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+            return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
         case WMFContentGroupKindRandom:
-            return [[NSAttributedString alloc] initWithString:MWSiteLocalizedString(self.siteURL, @"onboarding-wikipedia", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+            return MWSiteLocalizedString(self.siteURL, @"onboarding-wikipedia", nil);
         case WMFContentGroupKindFeaturedArticle:
-            return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+            return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
         case WMFContentGroupKindTopRead: {
             NSString *dateString = [self localContentDateDisplayString];
             if (!dateString) {
                 dateString = @"";
             }
 
-            return [[NSAttributedString alloc]
-                initWithString:dateString
-                    attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+            return dateString;
         }
         case WMFContentGroupKindNews:
-            return [[NSAttributedString alloc]
-                initWithString:[self localDateDisplayString]
-                    attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+            return [self localDateDisplayString];
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:
@@ -193,7 +188,7 @@ NS_ASSUME_NONNULL_BEGIN
         default:
             break;
     }
-    return [[NSAttributedString alloc] init];
+    return [[NSString alloc] init];
 }
 
 - (nullable UIColor *)headerTitleColor {
@@ -209,7 +204,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindLocation:
             return [UIColor wmf_exploreSectionHeaderTitleColor];
         case WMFContentGroupKindPictureOfTheDay:
-             return [UIColor wmf_exploreSectionHeaderTitleColor];
+            return [UIColor wmf_exploreSectionHeaderTitleColor];
         case WMFContentGroupKindRandom:
             return [UIColor wmf_exploreSectionHeaderTitleColor];
         case WMFContentGroupKindFeaturedArticle:
@@ -217,7 +212,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindTopRead:
             return [UIColor wmf_exploreSectionHeaderTitleColor];
         case WMFContentGroupKindNews:
-                return [UIColor wmf_exploreSectionHeaderTitleColor];
+            return [UIColor wmf_exploreSectionHeaderTitleColor];
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:
@@ -240,7 +235,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindLocation:
             return [UIColor wmf_exploreSectionHeaderSubTitleColor];
         case WMFContentGroupKindPictureOfTheDay:
-             return [UIColor wmf_exploreSectionHeaderSubTitleColor];
+            return [UIColor wmf_exploreSectionHeaderSubTitleColor];
         case WMFContentGroupKindRandom:
             return [UIColor wmf_exploreSectionHeaderSubTitleColor];
         case WMFContentGroupKindFeaturedArticle:
@@ -614,12 +609,12 @@ NS_ASSUME_NONNULL_BEGIN
             dispatch_once(&onceToken, ^{
                 nonNumericCharacterSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
             });
-            
-            WMFAnnouncement * _Nullable announcement = (WMFAnnouncement * _Nullable)self.content.firstObject;
+
+            WMFAnnouncement *_Nullable announcement = (WMFAnnouncement * _Nullable)self.content.firstObject;
             if (![announcement isKindOfClass:[WMFAnnouncement class]]) {
                 return nil;
             }
-            
+
             NSString *numberString = [announcement.identifier stringByTrimmingCharactersInSet:nonNumericCharacterSet];
             NSInteger integer = [numberString integerValue];
             return @(integer);
@@ -628,10 +623,10 @@ NS_ASSUME_NONNULL_BEGIN
         default:
             break;
     }
-    
+
     return nil;
 }
-    
+
 - (NSString *)analyticsContentType {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading:
