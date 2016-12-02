@@ -1348,7 +1348,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                         NSInteger currentCount = [self.sectionCounts[fromSectionIndex] integerValue];
                         if (previousCount == currentCount) {
                             [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:fromSectionIndex]];
-                            return;
+                            continue;
                         }
 
                         while (previousCount > currentCount) {
