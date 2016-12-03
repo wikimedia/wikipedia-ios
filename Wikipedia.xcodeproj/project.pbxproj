@@ -553,6 +553,7 @@
 		D81BA0FC1D50D40B006C38AC /* WMFNearbyArticleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D81BA0F71D50D40B006C38AC /* WMFNearbyArticleTableViewCell.xib */; };
 		D81BA0FD1D50D40B006C38AC /* WMFNearbyPlaceholderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D81BA0F91D50D40B006C38AC /* WMFNearbyPlaceholderTableViewCell.m */; };
 		D81BA0FE1D50D40B006C38AC /* WMFNearbyPlaceholderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D81BA0FA1D50D40B006C38AC /* WMFNearbyPlaceholderTableViewCell.xib */; };
+		D81DBCD41DF2659A0035281A /* TUSafariActivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81DBCD31DF2659A0035281A /* TUSafariActivity.framework */; };
 		D81EFDE21D775B140035F2EB /* NSUserActivity+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5DC8621C6D716100C39A6F /* NSUserActivity+WMFExtensions.m */; };
 		D81EFDE31D775B180035F2EB /* NSUserActivity+WMFExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E5DC8611C6D716100C39A6F /* NSUserActivity+WMFExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D81EFDE41D775B6B0035F2EB /* SavedPageSpotlightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E568D471C78273B00E68FC1 /* SavedPageSpotlightManager.swift */; };
@@ -642,7 +643,6 @@
 		D82FDB411DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
 		D82FDB421DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
 		D82FDB431DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
-		D8301C271DF1C48D00135DC6 /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D8301C261DF1C48D00135DC6 /* TUSafariActivity.m */; };
 		D8301C2E1DF1C4D300135DC6 /* TSBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8301C291DF1C4D300135DC6 /* TSBlurView.m */; };
 		D8301C2F1DF1C4D300135DC6 /* TSMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8301C2B1DF1C4D300135DC6 /* TSMessage.m */; };
 		D8301C301DF1C4D300135DC6 /* TSMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8301C2D1DF1C4D300135DC6 /* TSMessageView.m */; };
@@ -2388,6 +2388,7 @@
 		D81BA0F81D50D40B006C38AC /* WMFNearbyPlaceholderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFNearbyPlaceholderTableViewCell.h; path = Wikipedia/Code/WMFNearbyPlaceholderTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		D81BA0F91D50D40B006C38AC /* WMFNearbyPlaceholderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFNearbyPlaceholderTableViewCell.m; path = Wikipedia/Code/WMFNearbyPlaceholderTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		D81BA0FA1D50D40B006C38AC /* WMFNearbyPlaceholderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFNearbyPlaceholderTableViewCell.xib; path = Wikipedia/Code/WMFNearbyPlaceholderTableViewCell.xib; sourceTree = SOURCE_ROOT; };
+		D81DBCD31DF2659A0035281A /* TUSafariActivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TUSafariActivity.framework; path = Carthage/Build/iOS/TUSafariActivity.framework; sourceTree = SOURCE_ROOT; };
 		D81FB25B1D47B5830000C685 /* WMFCVLInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFCVLInfo.h; path = Wikipedia/Code/WMFCVLInfo.h; sourceTree = SOURCE_ROOT; };
 		D81FB25C1D47B5830000C685 /* WMFCVLInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCVLInfo.m; path = Wikipedia/Code/WMFCVLInfo.m; sourceTree = SOURCE_ROOT; };
 		D81FB25E1D47B5940000C685 /* WMFCVLColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFCVLColumn.h; path = Wikipedia/Code/WMFCVLColumn.h; sourceTree = SOURCE_ROOT; };
@@ -2418,8 +2419,6 @@
 		D82FDB2C1DF0ABBF00DDF311 /* VTAcknowledgementsViewController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VTAcknowledgementsViewController.framework; path = Carthage/Build/iOS/VTAcknowledgementsViewController.framework; sourceTree = SOURCE_ROOT; };
 		D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = Carthage/Build/iOS/CocoaLumberjack.framework; sourceTree = SOURCE_ROOT; };
 		D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FLAnimatedImage.framework; path = Carthage/Build/iOS/FLAnimatedImage.framework; sourceTree = SOURCE_ROOT; };
-		D8301C251DF1C48D00135DC6 /* TUSafariActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUSafariActivity.h; sourceTree = "<group>"; };
-		D8301C261DF1C48D00135DC6 /* TUSafariActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUSafariActivity.m; sourceTree = "<group>"; };
 		D8301C281DF1C4D300135DC6 /* TSBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSBlurView.h; sourceTree = "<group>"; };
 		D8301C291DF1C4D300135DC6 /* TSBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSBlurView.m; sourceTree = "<group>"; };
 		D8301C2A1DF1C4D300135DC6 /* TSMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMessage.h; sourceTree = "<group>"; };
@@ -2650,6 +2649,7 @@
 				D8D553641DF1B64300B90177 /* CoreMedia.framework in Frameworks */,
 				D8D553621DF1B63200B90177 /* QuartzCore.framework in Frameworks */,
 				D8D553601DF1B62D00B90177 /* AVFoundation.framework in Frameworks */,
+				D81DBCD41DF2659A0035281A /* TUSafariActivity.framework in Frameworks */,
 				D8D553681DF1B66500B90177 /* Appsee.framework in Frameworks */,
 				D8D551A71DF1AE9B00B90177 /* libxml2.tbd in Frameworks */,
 				D82FDB221DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
@@ -5598,8 +5598,6 @@
 				D8301C331DF1C74B00135DC6 /* HexColors.h */,
 				D8301C341DF1C74B00135DC6 /* HexColors.m */,
 				D8301C311DF1C55100135DC6 /* SWStepSlider.swift */,
-				D8301C251DF1C48D00135DC6 /* TUSafariActivity.h */,
-				D8301C261DF1C48D00135DC6 /* TUSafariActivity.m */,
 				D8301C281DF1C4D300135DC6 /* TSBlurView.h */,
 				D8301C291DF1C4D300135DC6 /* TSBlurView.m */,
 				D8301C2A1DF1C4D300135DC6 /* TSMessage.h */,
@@ -5613,6 +5611,7 @@
 		D82FDAD81DF0A96E00DDF311 /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
+				D81DBCD31DF2659A0035281A /* TUSafariActivity.framework */,
 				D810C3481DF1C0A4003427DA /* Tweaks.framework */,
 				D8D5519E1DF1AE4B00B90177 /* hpple.framework */,
 				D8D5516F1DF1A7AC00B90177 /* Piwik.framework */,
@@ -6799,6 +6798,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Piwik.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/hpple.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Tweaks.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/TUSafariActivity.framework",
 			);
 			name = "Embed Frameworks from Carthage";
 			outputPaths = (
@@ -7050,7 +7050,6 @@
 				B0E806E31C0CEB930065EBC0 /* PreviewLicenseView.m in Sources */,
 				B0E806811C0CE9C70065EBC0 /* WMFFixtureRecording.m in Sources */,
 				B0E8055A1C0CE0DC0065EBC0 /* UIView+WMFRoundCorners.m in Sources */,
-				D8301C271DF1C48D00135DC6 /* TUSafariActivity.m in Sources */,
 				B0E803D21C0CDCBF0065EBC0 /* UIView+WMFShadow.m in Sources */,
 				0E6A6F531D9E9AB300189C80 /* WMFContentGroup+WMFFeedContentDisplaying.m in Sources */,
 				B0E806EB1C0CEBA40065EBC0 /* RecentSearchCell.m in Sources */,
