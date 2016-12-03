@@ -210,12 +210,16 @@ NS_ASSUME_NONNULL_BEGIN
             [self.shareOptions.shareAsCardLabel addGestureRecognizer:tapForCardOnButtonRecognizer];
             [self.shareOptions.shareAsTextLabel addGestureRecognizer:tapForTextRecognizer];
             @weakify(self);
-            [self.shareOptions.cancelLabel bk_whenTapped:^{
-                [self dismissShareOptionsWithCompletion:^{
-                    @strongify(self);
-                    [self cleanup];
-                }];
+            UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] bk_initWithHandler:^(UIGestureRecognizer * _Nonnull sender, UIGestureRecognizerState state, CGPoint location) {
+                @strongify(self);
+                if (state == UIGestureRecognizerStateRecognized) {
+                    [self dismissShareOptionsWithCompletion:^{
+                        @strongify(self);
+                        [self cleanup];
+                    }];
+                }
             }];
+            [self.shareOptions.cancelLabel addGestureRecognizer:tapGR];
             UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.shareOptions);
         }];
 }
