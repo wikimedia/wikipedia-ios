@@ -18,10 +18,8 @@
     @weakify(self);
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] bk_initWithHandler:^(UIGestureRecognizer *_Nonnull sender, UIGestureRecognizerState state, CGPoint location) {
         @strongify(self);
-        if (state == UIGestureRecognizerStateRecognized) {
-            if (self.whenTapped) {
-                self.whenTapped();
-            }
+        if (self.whenTapped) {
+            self.whenTapped();
         }
     }];
     [self addGestureRecognizer:tapGR];

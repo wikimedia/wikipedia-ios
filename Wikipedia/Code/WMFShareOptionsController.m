@@ -212,12 +212,10 @@ NS_ASSUME_NONNULL_BEGIN
             @weakify(self);
             UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] bk_initWithHandler:^(UIGestureRecognizer * _Nonnull sender, UIGestureRecognizerState state, CGPoint location) {
                 @strongify(self);
-                if (state == UIGestureRecognizerStateRecognized) {
-                    [self dismissShareOptionsWithCompletion:^{
-                        @strongify(self);
-                        [self cleanup];
-                    }];
-                }
+                [self dismissShareOptionsWithCompletion:^{
+                    @strongify(self);
+                    [self cleanup];
+                }];
             }];
             [self.shareOptions.cancelLabel addGestureRecognizer:tapGR];
             UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.shareOptions);
