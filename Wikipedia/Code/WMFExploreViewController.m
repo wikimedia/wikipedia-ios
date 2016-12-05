@@ -256,6 +256,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         [obj loadNewContentForce:NO
                       completion:^{
 #if DEBUG
+                          assert([entered containsObject:classString]);
                           [entered removeObject:classString];
 #endif
                           [group leave];
