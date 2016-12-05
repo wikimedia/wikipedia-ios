@@ -419,7 +419,7 @@ static uint64_t bundleHash() {
         DDLogError(@"Failed to prepare query: %s", errmsg);
         return YES;
     }
-    
+
     [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFContinueReadingContentGroup"];
     [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFMainPageContentGroup"];
     [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFRelatedPagesContentGroup"];
@@ -484,7 +484,7 @@ static uint64_t bundleHash() {
                     if (!metadata) {
                         continue;
                     }
-                    
+
                     WMFContentGroupKind contentGroupKind = WMFContentGroupKindUnknown;
                     if ([key hasPrefix:@"wikipedia://content/announcements/"]) {
                         contentGroupKind = WMFContentGroupKindAnnouncement;
@@ -511,7 +511,7 @@ static uint64_t bundleHash() {
                     } else {
                         continue;
                     }
-                    
+
                     WMFContentGroup *newContentGroup = [NSEntityDescription insertNewObjectForEntityForName:@"WMFContentGroup" inManagedObjectContext:moc];
                     newContentGroup.contentGroupKind = contentGroupKind;
                     newContentGroup.date = oldContentGroup.date;
@@ -527,7 +527,7 @@ static uint64_t bundleHash() {
                     [newContentGroup updateContentType];
                     [newContentGroup updateDailySortPriority];
                     [newContentGroup updateVisibility];
-                    
+
                     //New key differs from old key, so use the calculated key on newContentGroup rather than the old key
                     NSFetchRequest *request = [WMFContentGroup fetchRequest];
                     request.predicate = [NSPredicate predicateWithFormat:@"key == %@", newContentGroup.key];
@@ -541,12 +541,12 @@ static uint64_t bundleHash() {
             } @catch (NSException *exception) {
                 DDLogError(@"Exception trying to import legacy object for key: %@", key);
             }
-        }
 
-        if (entries.count + previews.count > batchSize) {
-            [self migrateArticlePreviews:previews historyEntries:entries toManagedObjectContext:moc];
-            [entries removeAllObjects];
-            [previews removeAllObjects];
+            if (entries.count + previews.count > batchSize) {
+                [self migrateArticlePreviews:previews historyEntries:entries toManagedObjectContext:moc];
+                [entries removeAllObjects];
+                [previews removeAllObjects];
+            }
         }
     }
 
