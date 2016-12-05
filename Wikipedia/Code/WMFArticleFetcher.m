@@ -88,6 +88,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                           success:(WMFArticleHandler)success {
     if (!articleURL.wmf_title) {
         failure([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
+        return nil;
     }
 
     // Force desktop domain if not Zero rated.
