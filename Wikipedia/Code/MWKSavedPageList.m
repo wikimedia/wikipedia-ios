@@ -1,5 +1,4 @@
 #import "MWKSavedPageList.h"
-#import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import <WMFModel/WMFModel-Swift.h>
 
 //Legacy

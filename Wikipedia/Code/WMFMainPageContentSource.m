@@ -1,7 +1,5 @@
 #import "WMFMainPageContentSource.h"
 
-@import YapDatabase;
-
 #import "WMFContentGroupDataStore.h"
 #import "WMFArticleDataStore.h"
 #import "MWKSiteInfoFetcher.h"

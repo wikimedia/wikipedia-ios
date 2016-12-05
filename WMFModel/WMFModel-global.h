@@ -3,7 +3,6 @@
 
 @import WMFUtilities;
 
-#import "WMFBaseDataStore.h"
 #import "MWKDataStore.h"
 #import "WMFContentGroupDataStore.h"
 
@@ -51,7 +50,6 @@
 
 #import "MWKArticle+WMFSharing.h"
 #import "MWKCitation.h"
-#import "MWKHistoryEntry+WMFDatabaseStorable.h"
 
 #import "MWKImage+CanonicalFilenames.h"
 #import "MWKImageInfo+MWKImageComparison.h"
@@ -81,12 +79,7 @@
 #import "MWNetworkActivityIndicatorManager.h"
 
 #import "MWKLanguageLinkController_Private.h"
-#import "WMFDatabaseViewable.h"
 #import "WMFFaceDetectionCache.h"
-#import "YapDatabase+WMFExtensions.h"
-#import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
-#import "YapDatabaseViewMappings+WMFMappings.h"
-#import "YapDatabaseConnection+WMFExtensions.h"
 
 #import "CIContext+WMFImageProcessing.h"
 #import "CIDetector+WMFFaceDetection.h"

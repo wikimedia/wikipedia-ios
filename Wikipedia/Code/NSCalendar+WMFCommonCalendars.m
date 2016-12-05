@@ -58,7 +58,15 @@
     return [self wmf_UTCDateIsSameDateAsLocalDate:[NSDate date]];
 }
 
-- (NSDate *)wmf_midnightUTCDate {
+- (NSDate *)wmf_midnightUTCDateFromUTCDate {
+    NSCalendar *UTCCalendar = [NSCalendar wmf_utcGregorianCalendar];
+    NSDateComponents *timelessDateComponents = [UTCCalendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self];
+    timelessDateComponents.timeZone = nil;
+    NSDate *timelessUTCDate = [UTCCalendar dateFromComponents:timelessDateComponents];
+    return timelessUTCDate;
+}
+
+- (NSDate *)wmf_midnightUTCDateFromLocalDate {
     NSCalendar *localCalendar = [NSCalendar wmf_gregorianCalendar];
     NSDateComponents *timelessDateComponents = [localCalendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self];
     timelessDateComponents.timeZone = nil;

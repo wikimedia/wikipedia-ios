@@ -1,7 +1,4 @@
 #import "MWKHistoryList.h"
-#import <YapDataBase/YapDatabase.h>
-#import <YapDataBase/YapDatabaseView.h>
-#import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "NSDateFormatter+WMFExtensions.h"
 #import <WMFModel/WMFModel-Swift.h>
 
