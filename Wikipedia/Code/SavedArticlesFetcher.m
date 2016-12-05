@@ -342,6 +342,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             }
             success:^(id _Nonnull object) {
                 if (!object || [object isEqual:[NSNull null]]) {
+                    [group leave];
                     return;
                 }
                 [infoObjects addObject:object];
