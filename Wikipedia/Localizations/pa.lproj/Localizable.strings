@@ -5,6 +5,7 @@
 // Author: Jimidar
 // Author: Nachhattardhammu
 // Author: Satdeep gill
+// Author: Sony dandiwal
 // Author: Tow
 // Author: ਪ੍ਰਚਾਰਕ
 
@@ -78,11 +79,9 @@
 "wikitext-upload-result-unknown" = "ਵਿਕੀਲਿਖਤ ਦੀ ਚੜ੍ਹਾਈ ਦੇ ਨਤੀਜੇ ਦਾ ਪਤਾ ਨਹੀਂ ਲੱਗ ਰਿਹਾ।";
 "wikitext-upload-captcha-error" = "ਕੈਪਚਾ ਤਸਦੀਕੀ ਵਿੱਚ ਦੋਸ਼।";
 "wikitext-upload-captcha-needed" = "ਕੈਪਚਾ ਤਸਦੀਕੀ ਲੁੜੀਂਦੀ।";
-// Fuzzy
 "wikitext-upload-save" = "ਸਾਂਭਿਆ ਜਾ ਰਿਹਾ ਹੈ...";
 "wikitext-upload-save-sign-in" = "ਦਾਖ਼ਲ ਹੋਵੋ";
 "wikitext-upload-save-sign-in-benefits" = "ਸੋ ਸਹਿ-ਸੰਪਾਦਕ ਤੁਹਾਡੇ ਨਾਲ਼ ਰਾਬਤਾ ਬਣਾ ਸਕਦੇ ਹਨ ਅਤੇ ਤੁਸੀਂ ਆਪਣੇ ਵੱਲੋਂ ਸੋਧੇ ਹੋਏ ਲੇਖ ਵੇਖ ਸਕਦੇ ਹੋ";
-// Fuzzy
 "wikitext-upload-save-anonymously" = "ਅਣਪਛਾਤੇ ਵਜੋਂ ਸਾਂਭੋ";
 "wikitext-upload-save-anonymously-warning" = "ਸੋਧਾਂ ਦਾ ਸਿਹਰਾ ਤੁਹਾਡੇ ਆਈ.ਪੀ. ਪਤੇ ਸਿਰ ਦਿੱਤਾ ਜਾਵੇਗਾ। ਜੇਕਰ ਤੁਸੀਂ $1 ਹੋ ਤਾਂ ਤੁਹਾਡੇ ਕੋਲ਼ ਵਧੇਰੇ ਪਰਦੇਦਾਰੀ ਹੋਵੇਗੀ।";
 "wikitext-upload-save-terms-name" = "ਵਰਤੋਂ ਦੀਆਂ ਸ਼ਰਤਾਂ";
@@ -112,9 +111,12 @@
 "settings-support" = "ਵਿਕੀਪੀਡੀਆ ਨੂੰ ਸਹਿਯੋਗ ਦੇਵੋ";
 "settings-language-bar" = "ਖੋਜ ਵਿੱਚ ਭਾਸ਼ਾਵਾੰ ਵਿਖਾਓ";
 "settings-my-languages" = "ਮੇਰੀਆੰ ਭਾਸ਼ਾਵਾੰ";
+"settings-notifications" = "ਸੂਚਨਾਵਾਂ";
 "settings-help-and-feedback" = "ਮਦਦ ਅਤੇ ਫੀਡਬੈਕ";
 "settings-primary-language" = "ਮੁੱਢਲਾ";
 "settings-primary-language-details" = "ਇਸ ਸੂਚੀ ਦੀ ਪਹਿਲੀ ਭਾਸ਼ਾ ਐਪ ਦੀ ਮੁੱਖ ਭਾਸ਼ਾ ਦੇ ਤੌਰ ਤੇ ਵਰਤੀ ਜਾੰਦੀ ਹੈ। ਇਸ ਨੂੰ ਬਦਲਣ ਨਾਲ ਤੁਹਾਡੀ ਰੋਜ਼ਾਨਾ ਸਮੱਗਰੀ (ਜਿਵੇੰ ਵਿਸ਼ੇਸ਼ ਲੇਖ) ਜੋ ਕਿ ਪੜਚੋਲ ਵਿੱਚ ਵਿਖਾਈ ਜਾੰਦੀ ਹੈ ਵੀ ਬਦਲ ਜਾਏਗੀ।";
+"settings-notifications-system-turn-on" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
+"settings-notifications-learn-more" = "ਸੂਚਨਾਵਾਂ ਬਾਰੇ ਹੋਰ ਪਡ਼੍ਹੋ";
 "main-menu-title" = "ਹੋਰ";
 "main-menu-heading-about" = "ਸਾਡੇ ਬਾਰੇ";
 "main-menu-language-title" = "$1 ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਭਾਲੋ਼";
@@ -167,17 +169,14 @@
 "page-history-downloading" = "ਲੇਖ ਦਾ ਅਤੀਤ ਲੱਦਿਆ ਜਾ ਰਿਹਾ ਹੈ...";
 "navbar-title-mode-edit-wikitext" = "ਸੋਧ";
 "navbar-title-mode-login" = "ਦਾਖ਼ਲਾ";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "ਦਾਖ਼ਲ ਹੋਵੋ ਅਤੇ ਸਾਂਭੋ";
 "navbar-title-mode-create-account" = "ਖਾਤਾ ਬਣਾਉ";
-// Fuzzy
 "navbar-title-mode-create-account-and-save" = "ਖਾਤਾ ਬਣਾਉ ਅਤੇ ਸਾਂਭੋ";
 "navbar-title-mode-edit-wikitext-warning" = "ਸੋਧ ਦੇ ਮੁੱਦੇ";
 "navbar-title-mode-edit-wikitext-disallow" = "ਸੋਧ ਦੇ ਮੁੱਦੇ";
 "navbar-title-mode-edit-wikitext-preview" = "ਝਾਤ";
 "navbar-title-mode-edit-wikitext-captcha" = "ਜਲਦੀ ਤਸਦੀਕੀ ਲੁੜੀਂਦੀ";
 "navbar-title-mode-edit-wikitext-summary" = "ਆਪਣੀ ਸੋਧ ਦਾ ਵੇਰਵਾ ਦਿਉ";
-// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "ਸਾਂਭੋ";
 "edit-summary-choice-linked-words" = "ਕੜੀਆਂ ਜੋੜੀਆਂ";
 "edit-summary-choice-fixed-grammar" = "ਵਿਆਕਰਨ ਸਹੀ ਕੀਤੀ";
@@ -223,8 +222,7 @@
 "share-menu-save-page" = "ਸਫ਼ਾ ਸਾਂਭੋ";
 "share-menu-page-saved" = "ਲੀਹੋਂ ਲਹਿ ਕੇ ਪੜ੍ਹਨ ਵਾਸਤੇ ਸਾਂਭਿਆ ਗਿਆ।";
 "share-menu-page-saved-access" = "ਗੁਰ: ਆਪਣੇ ਸਾਂਭੇ ਹੋਏ ਸਫ਼ਿਆਂ ਤੱਕ ਜਾਣ ਵਾਸਤੇ ਉੱਤੇ ਦਿੱਤਾ $1 ਠਕੋਰੋ ਜਾਂ ਹੇਠਾਂ ਦਿੱਤੇ $2 ਨੂੰ ਲੰਮੇ ਸਮੇਂ ਤੱਕ ਨੱਪੋ।";
-// Fuzzy
-"share-custom-menu-item" = "ਸਾਂਝਾ ਕਰੋ";
+"share-custom-menu-item" = "ਸਾਂਝਾ ਕਰੋ...";
 "share-a-fact-share-menu-item" = "ਤੱਥ ਸਾੰਝਾ ਕਰੋ";
 "share-on-twitter-sign-off" = "@Wikipedia ਦੁਆਰਾ";
 "share-article-name-on-wikipedia" = "@ਵਿਕੀਪੀਡੀਆ ੳੁੱਤੋੇ '\"$1\":";
@@ -244,9 +242,12 @@
 "button-next" = "ਅੱਗੇ";
 "button-done" = "ਹੋ ਗਿਆ";
 "button-save" = "ਸਾਂਭੋ";
+"button-publish" = "ਸਾਂਭੋ";
 "button-ok" = "ਠੀਕ";
 "button-save-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲੋ";
 "button-saved-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲਿਆ";
+"button-saved-remove" = "ਸੰਭਾਲਿਆਂ ਵਿੱਚੋਂ ਹਟਾਓ";
+"button-read-now" = "ਪਡ਼੍ਹੋ";
 "button-report-a-bug" = "ਕਿਸੇ ਦੋਸ਼ ਦੀ ਇਤਲਾਹ ਦਿਉ";
 "onboarding-create-account" = "ਖਾਤਾ ਬਣਾਉ";
 "onboarding-login" = "ਦਾਖ਼ਲਾ";
@@ -264,20 +265,16 @@
 "license-footer-text" = "ਇਹ ਸਮੱਗਰੀ $1 ਹੇਠ ਮੌਜੂਦ ਹੈ। ਅਜਿਹਾ ਨਾ ਹੋਣ ਉੱਤੇ ਵਿਸ਼ੇਸ਼ ਤੌਰ ਉੱਤੇ ਦੱਸਿਆ ਜਾਵੇਗਾ।";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "ਸਮੱਗਰੀ";
-// Fuzzy
 "table-of-contents-button-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ ਬੰਦ ਕਰੋ";
 "table-of-contents-close-accessibility-hint" = "ਬੰਦ";
-// Fuzzy
-"abuse-filter-warning-heading" = "ਇਹ ਇੱਕ ਬੇਉਸਾਰੂ ਸੋਧ ਜਾਪਦੀ ਹੈ, ਕੀ ਤੁਸੀਂ ਸੱਚੀਂ ਇਹਨੂੰ ਸਾਂਭਣਾ ਚਾਹੁੰਦੇ ਹੋ?";
+"abuse-filter-warning-heading" = "ਇਹ ਇੱਕ ਬੇਉਸਾਰੂ ਸੋਧ ਜਾਪਦੀ ਹੈ, ਕੀ ਤੁਸੀਂ ਸੱਚੀਂ ਇਸਨੂੰ ਸਾਂਭਣਾ ਚਾਹੁੰਦੇ ਹੋ?";
 "abuse-filter-warning-subheading" = "ਤੁਹਾਡੀ ਸੋਧ ਵਿੱਚ ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਇੱਕ ਜਾਂ ਇੱਕ ਤੋਂ ਵੱਧ ਹੋ ਸਕਦੇ ਹਨ:";
 "abuse-filter-warning-caps" = "ਸਾਰੇ ਵੱਡੇ ਅੱਖਰਾਂ 'ਚ ਲਿਖ ਰਿਹਾ ਹੈ";
 "abuse-filter-warning-blanking" = "ਖ਼ਾਲੀ ਕੀਤੇ ਲੇਖ ਜਾਂ ਊਲ-ਜਲੂਲ";
 "abuse-filter-warning-irrelevant" = "ਬੇਤੁਕੇ ਬਾਹਰੀ ਜੋੜ ਜਾਂ ਤਸਵੀਰਾਂ";
 "abuse-filter-warning-repeat" = "ਦੁਹਰਾਏਏਏ ਚਿੰਨ";
-// Fuzzy
-"abuse-filter-disallow-heading" = "ਤੁਸੀਂ ਇਹ ਸੋਧ ਸਾਂਭ ਨਹੀਂ ਸਕਦੇ। ਪਿੱਛੇ ਜਾ ਕੇ ਇਹਨੂੰ ਬਦਲੋ ਜੀ।";
+"abuse-filter-disallow-heading" = "ਤੁਸੀਂ ਇਹ ਸੋਧ ਸਾਂਭ ਨਹੀਂ ਸਕਦੇ। ਕਿਰਪਾ ਕਰਕੇ ਪਿੱਛੇ ਜਾ ਕੇ ਇਸਨੂੰ ਬਦਲੋ ਜੀ।";
 "abuse-filter-disallow-unconstructive" = "ਇੱਕ ਆਪੇ ਚੱਲਦੀ ਛਾਨਣੀ ਨੇ ਇਸ ਸੋਧ ਨੂੰ ਬੇਉਸਾਰੂ ਜਾਂ ਉਜਾੜੇ ਦੀ ਕੋਸ਼ਿਸ਼ ਵਜੋਂ ਪਛਾਣਿਆ ਹੈ।";
 "abuse-filter-disallow-notable" = "ਵਿਕੀਪੀਡੀਆ ਇੱਕ ਗਿਆਨਕੋਸ਼ ਹੈ ਅਤੇ ਸਿਰਫ਼ ਨਿਰਪੱਖ ਅਤੇ ਉੱਘੀ ਸਮੱਗਰੀ ਹੀ ਇਹਦਾ ਹਿੱਸਾ ਹੋ ਸਕਦੀ ਹੈ।";
 "menu-edit-accessibility-label" = "ਸੋਧੋ";
@@ -388,6 +385,7 @@
 "explore-featured-article-heading" = "ਫੀਚਰ ਲੇਖ";
 "explore-continue-reading-heading" = "ਰੀਡਿੰਗ ਜਾਰੀ ਰੱਖੋ";
 "explore-nearby-heading" = "ਥਾਵਾਂ ਨੇੜੇ";
+"explore-nearby-sub-heading-your-location" = "ਤੁਹਾਡੀ ਸਥਿਤੀ";
 "explore-continue-related-heading" = "ਕਿਉਂਕਿ ਤੁਸੀਂ ਪੜ੍ਹਿਆ ਸੀ";
 "explore-main-page-heading" = "ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਅੱਜ";
 "explore-random-article-heading" = "ਰਲ਼ਵਾਂ ਲੇਖ";
@@ -402,3 +400,23 @@
 "no-email-account-alert" = "ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਜੰਤਰ ਤੇ ਇੱਕ ਈਮੇਲ ਖਾਤਾ ਸਥਾਪਤ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।";
 "explore-another-random" = "ਇੱਕ ਹੋਰ ਰਲ਼ਵਾਂ ਲੇਖ";
 "find-in-page-no-matches" = "0 ਮਿਲਦੇ";
+"top-read-header-with-language" = "$1 ਵਿਕੀਪੀਡੀਆ";
+"top-read-header-generic" = "ਵਿਕੀਪੀਡੀਆ";
+"readers-accessibility-label" = "$1 ਪਡ਼੍ਹਨ ਵਾਲੇ";
+"rank-accessibility-label" = "ਨੰਬਰ $1";
+"reference-title" = "ਹਵਾਲਾ $1";
+"in-the-news-notification-read-now-action-title" = "ਹੁਣ ਪਡ਼੍ਹੋ";
+"in-the-news-notification-share-action-title" = "ਸਾਂਝਾ ਕਰੋ...";
+"in-the-news-notification-save-for-later-action-title" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲੋ";
+"in-the-news-title" = "ਖ਼ਬਰਾਂ 'ਚ";
+"in-the-news-title-for-date" = "$1 'ਤੇ ਖ਼ਬਰਾਂ";
+"number-thousands" = "$1K";
+"number-millions" = "$1M";
+"number-billions" = "$1B";
+"feed-news-notification-button-text" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
+"back" = "ਪਿੱਛੇ";
+"save-action" = "ਸੰਭਾਲੋ";
+"unsave-action" = "ਅਣ-ਸਾਂਭਿਆ";
+"status-saving-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲੋ";
+"status-saved-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲਿਆ";
+"announcements-dismiss" = "ਨਹੀਂ, ਸ਼ੁਕਰੀਆ";

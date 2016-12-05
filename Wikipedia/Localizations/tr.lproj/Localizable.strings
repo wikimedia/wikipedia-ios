@@ -1,6 +1,7 @@
 // Messages for Turkish (Türkçe)
 // Exported from translatewiki.net
 // Author: 1917 Ekim Devrimi
+// Author: Alikaan
 // Author: Alpkant
 // Author: Ayrıntılı Bilgi
 // Author: HakanIST
@@ -464,3 +465,4 @@
 "unsave-action" = "Geri al";
 "status-saving-for-later" = "Daha sonrası için kaydediliyor...";
 "status-saved-for-later" = "Sonrası için kaydedildi";
+"announcements-dismiss" = "Hayır, teşekkürler";
