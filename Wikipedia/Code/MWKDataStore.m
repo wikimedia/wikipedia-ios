@@ -396,12 +396,6 @@ static uint64_t bundleHash() {
         article.key = key;
         updateBlock(entry, preview, article);
     }
-
-    NSError *batchSaveError = nil;
-    if (![moc save:&batchSaveError]) {
-        DDLogError(@"Migration batch error: %@", batchSaveError);
-    }
-    [moc reset];
 }
 
 - (BOOL)migrateToCoreData:(NSError **)error {
@@ -541,23 +535,38 @@ static uint64_t bundleHash() {
             } @catch (NSException *exception) {
                 DDLogError(@"Exception trying to import legacy object for key: %@", key);
             }
-        }
 
-        if (entries.count + previews.count > batchSize) {
-            [self migrateArticlePreviews:previews historyEntries:entries toManagedObjectContext:moc];
-            [entries removeAllObjects];
-            [previews removeAllObjects];
+            if (entries.count + previews.count > batchSize) {
+                [self migrateArticlePreviews:previews historyEntries:entries toManagedObjectContext:moc];
+                [entries removeAllObjects];
+                [previews removeAllObjects];
+                NSError *batchSaveError = nil;
+                if (![moc save:&batchSaveError]) {
+                    DDLogError(@"Migration batch error: %@", batchSaveError);
+                }
+                [moc reset];
+            }
         }
     }
 
-    [self migrateArticlePreviews:previews historyEntries:entries toManagedObjectContext:moc];
-    [entries removeAllObjects];
-    [previews removeAllObjects];
+    if (previews.count + entries.count > 0) {
+        [self migrateArticlePreviews:previews historyEntries:entries toManagedObjectContext:moc];
+    }
+
+    NSError *saveError = nil;
+    BOOL didSave = [moc save:&saveError];
+    if (!didSave) {
+        if (error) {
+            *error = saveError;
+        }
+        DDLogError(@"Migration batch error: %@", saveError);
+    }
+    [moc reset];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
 
-    return [moc save:error];
+    return didSave;
 }
 
 #pragma mark - Memory
