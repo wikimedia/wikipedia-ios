@@ -9,8 +9,6 @@
  */
 + (instancetype)wmf_createDefaultManager;
 
-
 + (instancetype)wmf_createIgnoreCacheManager;
-
 
 @end

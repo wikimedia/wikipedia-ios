@@ -1,4 +1,3 @@
-
 #import "WMFAnnouncementCollectionViewCell.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 

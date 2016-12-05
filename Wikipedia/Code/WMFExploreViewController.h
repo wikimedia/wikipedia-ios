@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL canScrollToTop;
 
--(UIButton *) titleButton;
+- (UIButton *)titleButton;
 
 - (void)showSettings;
 

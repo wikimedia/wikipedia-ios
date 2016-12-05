@@ -233,7 +233,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (!featuredURL) {
         return;
     }
-    
+
     [self.previewStore addPreviewWithURL:featuredURL updatedWithFeedPreview:preview pageViews:nil];
 
     if (featured == nil) {
@@ -260,12 +260,12 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         [self.contentStore addContentGroup:group associatedContent:topRead.articlePreviews];
     } else {
         [self.contentStore createGroupOfKind:WMFContentGroupKindTopRead
-                                             forDate:date
-                                         withSiteURL:self.siteURL
-                                   associatedContent:topRead.articlePreviews
-                                  customizationBlock:^(WMFContentGroup *_Nonnull group) {
-                                      group.contentMidnightUTCDate = topRead.date.wmf_midnightUTCDateFromLocalDate;
-                                  }];
+                                     forDate:date
+                                 withSiteURL:self.siteURL
+                           associatedContent:topRead.articlePreviews
+                          customizationBlock:^(WMFContentGroup *_Nonnull group) {
+                              group.contentMidnightUTCDate = topRead.date.wmf_midnightUTCDateFromLocalDate;
+                          }];
     }
 }
 

@@ -53,12 +53,24 @@
         .withHeader(@"Content-Type", @"application/json")
         .withBody([[self wmf_bundle] wmf_stringFromContentsOfFile:@"TitlePreviewQuery" ofType:@"json"]);
 
-    expectResolution(^AnyPromise * {
-        return [self.fetcher fetchFeaturedArticlePreviewForDate:[testDateComponents date]]
-            .then(^(MWKSearchResult *result) {
-                XCTAssertEqualObjects(result.displayTitle, @"Mackensen-class battlecruiser");
-            });
-    });
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for article fetch"];
+
+    [self.fetcher fetchFeaturedArticlePreviewForDate:[testDateComponents date]
+        failure:^(NSError *error) {
+            XCTFail(@"Error");
+            [expectation fulfill];
+        }
+        success:^(MWKSearchResult *result) {
+            XCTAssertEqualObjects(result.displayTitle, @"Mackensen-class battlecruiser");
+            [expectation fulfill];
+        }];
+
+    [self waitForExpectationsWithTimeout:10
+                                 handler:^(NSError *_Nullable error) {
+                                     if (error) {
+                                         XCTFail(@"Error");
+                                     }
+                                 }];
 }
 
 @end

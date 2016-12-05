@@ -147,21 +147,30 @@
 
 #pragma mark - Save
 
-- (void)save {
+- (void)saveWithFailure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     dispatchOnMainQueue(^{
         if (self.dirty) {
             [self performSaveWithCompletion:^{
                 self.dirty = NO;
-                //resolve(nil);
+                success();
             }
-                                      error:^(NSError *error) {
-                                          //resolve(error);
-                                      }];
+                error:^(NSError *error) {
+                    failure(error);
+                }];
         } else {
             self.dirty = NO;
-            //resolve(nil);
+            success();
         }
     });
+}
+
+- (void)save {
+    [self saveWithFailure:^(NSError *_Nonnull error) {
+
+    }
+                  success:^{
+
+                  }];
 }
 
 - (void)performSaveWithCompletion:(dispatch_block_t)completion error:(WMFErrorHandler)errorHandler {

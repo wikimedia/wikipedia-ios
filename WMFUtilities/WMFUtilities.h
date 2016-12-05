@@ -6,7 +6,6 @@ FOUNDATION_EXPORT double WMFUtilitiesVersionNumber;
 //! Project version string for WMFUtilities.
 FOUNDATION_EXPORT const unsigned char WMFUtilitiesVersionString[];
 
-
 #import <KVOController/KVOController.h>
 #import <BlocksKit/BlocksKit.h>
 
@@ -46,7 +45,6 @@ FOUNDATION_EXPORT const unsigned char WMFUtilitiesVersionString[];
 #import "WMFNumberOfExtractCharacters.h"
 #import "NSBundle+WMFInfoUtils.h"
 #import "NSDictionary+WMFPageViewsSortedByDate.h"
-#import "NSError+Cancellation.h"
 
 #import "EXTScope.h"
 #import "AnimatedGIFImageSerialization.h"

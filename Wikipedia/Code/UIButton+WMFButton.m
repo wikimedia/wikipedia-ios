@@ -5,7 +5,6 @@
 #import "UIImage+WMFStyle.h"
 @import BlocksKitUIKitExtensions;
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation UIButton (WMFButton)

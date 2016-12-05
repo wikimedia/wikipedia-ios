@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -9,7 +8,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  This uses the TFA_title template which is (at time of writing and to the best of my knowledge) specific to EN wiki.
  */
 @interface WMFEnglishFeaturedTitleFetcher : NSObject
-
 
 - (void)fetchFeaturedArticlePreviewForDate:(NSDate *)date failure:(WMFErrorHandler)failure success:(WMFMWKSearchResultHandler)success;
 

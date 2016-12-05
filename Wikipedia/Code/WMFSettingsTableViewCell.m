@@ -28,7 +28,7 @@
         self.titleLabelLeadingWidth.constant = self.titleLabelLeadingWidthForVisibleImage;
     } else {
         self.titleIcon.hidden = YES;
-       self.titleLabelLeadingWidth.constant = self.imageLeadingWidth.constant;
+        self.titleLabelLeadingWidth.constant = self.imageLeadingWidth.constant;
     }
 }
 

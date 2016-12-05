@@ -82,10 +82,10 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 #pragma mark - Fetching
 
 - (nullable NSURLSessionTask *)fetchArticleForURL:(NSURL *)articleURL
-             useDesktopURL:(BOOL)useDeskTopURL
-                  progress:(WMFProgressHandler __nullable)progress
-                  failure:(WMFErrorHandler)failure
-                   success:(WMFArticleHandler)success {
+                                    useDesktopURL:(BOOL)useDeskTopURL
+                                         progress:(WMFProgressHandler __nullable)progress
+                                          failure:(WMFErrorHandler)failure
+                                          success:(WMFArticleHandler)success {
     if (!articleURL.wmf_title) {
         failure([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
     }
@@ -178,7 +178,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     @try {
         [article importMobileViewJSON:response];
         if ([article.url.wmf_language isEqualToString:@"zh"]) {
-            NSString* header = [NSLocale wmf_acceptLanguageHeaderForPreferredLanguages];
+            NSString *header = [NSLocale wmf_acceptLanguageHeaderForPreferredLanguages];
             article.acceptLanguageRequestHeader = header;
         }
         return article;
@@ -189,10 +189,10 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 }
 
 - (nullable NSURLSessionTask *)fetchLatestVersionOfArticleWithURL:(NSURL *)url
-                                     forceDownload:(BOOL)forceDownload
-                                          progress:(WMFProgressHandler __nullable)progress
-                                   failure:(WMFErrorHandler)failure
-                                   success:(WMFSuccessIdHandler)success {
+                                                    forceDownload:(BOOL)forceDownload
+                                                         progress:(WMFProgressHandler __nullable)progress
+                                                          failure:(WMFErrorHandler)failure
+                                                          success:(WMFArticleHandler)success {
 
     NSParameterAssert(url.wmf_title);
     if (!url.wmf_title) {
@@ -200,23 +200,23 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         failure([NSError wmf_cancelledError]);
         return nil;
     }
-    
+
     MWKArticle *cachedArticle;
     BOOL isChinese = [url.wmf_language isEqualToString:@"zh"];
-    
+
     if (!forceDownload || isChinese) {
         cachedArticle = [self.dataStore existingArticleWithURL:url];
     }
-    
+
     BOOL forceDownloadForMismatchedHeader = NO;
-    
-    if(isChinese){
-        NSString* header = [NSLocale wmf_acceptLanguageHeaderForPreferredLanguages];
-        if(![cachedArticle.acceptLanguageRequestHeader isEqualToString:header]){
+
+    if (isChinese) {
+        NSString *header = [NSLocale wmf_acceptLanguageHeaderForPreferredLanguages];
+        if (![cachedArticle.acceptLanguageRequestHeader isEqualToString:header]) {
             forceDownloadForMismatchedHeader = YES;
         }
     }
-    
+
     @weakify(self);
     NSURLSessionTask *task;
     if (forceDownload || forceDownloadForMismatchedHeader || !cachedArticle || !cachedArticle.revisionId || [cachedArticle isMain]) {
@@ -235,9 +235,10 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         task = [self fetchArticleForURL:url progress:progress failure:failure success:success];
     } else {
         task = [self.revisionFetcher fetchLatestRevisionsForArticleURL:url
-                                                                      resultLimit:1
-                                                               endingWithRevision:cachedArticle.revisionId.unsignedIntegerValue failure:failure
-                                                               success:^(id  _Nonnull results) {
+                                                           resultLimit:1
+                                                    endingWithRevision:cachedArticle.revisionId.unsignedIntegerValue
+                                                               failure:failure
+                                                               success:^(id _Nonnull results) {
                                                                    @strongify(self);
                                                                    if (!self) {
                                                                        failure([NSError wmf_cancelledError]);
@@ -260,16 +261,16 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 }
 
 - (nullable NSURLSessionTask *)fetchLatestVersionOfArticleWithURLIfNeeded:(NSURL *)url
-                                                                 progress:(WMFProgressHandler __nullable)progress                                    failure:(WMFErrorHandler)failure
-                                                                  success:(WMFArticleHandler)success  {
+                                                                 progress:(WMFProgressHandler __nullable)progress
+                                                                  failure:(WMFErrorHandler)failure
+                                                                  success:(WMFArticleHandler)success {
     return [self fetchLatestVersionOfArticleWithURL:url forceDownload:NO progress:progress failure:failure success:success];
 }
 
-- (nullable NSURLSessionTask *)fetchArticleForURL:(NSURL *)articleURL progress:(WMFProgressHandler __nullable)progress failure:(WMFErrorHandler)failure success:(WMFArticleHandler)success  {
+- (nullable NSURLSessionTask *)fetchArticleForURL:(NSURL *)articleURL progress:(WMFProgressHandler __nullable)progress failure:(WMFErrorHandler)failure success:(WMFArticleHandler)success {
     NSAssert(articleURL.wmf_title != nil, @"Title text nil");
     NSAssert(self.dataStore != nil, @"Store nil");
     NSAssert(self.operationManager != nil, @"Manager nil");
-
     return [self fetchArticleForURL:articleURL useDesktopURL:NO progress:progress failure:failure success:success];
 }
 

@@ -187,11 +187,11 @@
 
 #pragma mark - Subclasses
 
-- (NSString *)analyticsContext{
+- (NSString *)analyticsContext {
     return @"Generic Article List";
 }
 
-- (NSString *)analyticsContentType{
+- (NSString *)analyticsContentType {
     return @"Generic Article List";
 }
 

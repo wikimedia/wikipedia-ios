@@ -40,8 +40,8 @@
  * @param success is passed @c MWKImageInfo containing info the images found on the specified pages.
  */
 - (void)fetchPartialInfoForImagesOnPages:(NSArray *)pageTitles
-                                     fromSiteURL:(NSURL *)siteURL
-                                metadataLanguage:(NSString *)metadataLanguage
+                             fromSiteURL:(NSURL *)siteURL
+                        metadataLanguage:(NSString *)metadataLanguage
                                  failure:(WMFErrorHandler)failure
                                  success:(WMFSuccessIdHandler)success;
 
@@ -60,8 +60,8 @@
  */
 
 - (void)fetchGalleryInfoForImagesOnPages:(NSArray *)pageTitles
-                                     fromSiteURL:(NSURL *)siteURL
-                                metadataLanguage:(NSString *)metadataLanguage
+                             fromSiteURL:(NSURL *)siteURL
+                        metadataLanguage:(NSString *)metadataLanguage
                                  failure:(WMFErrorHandler)failure
                                  success:(WMFSuccessIdHandler)success;
 

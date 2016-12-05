@@ -36,7 +36,9 @@ extern NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey;
  *  @param success block
  */
 - (nullable NSURLSessionTask *)fetchLatestVersionOfArticleWithURLIfNeeded:(NSURL *)URL
-                                                  progress:(WMFProgressHandler __nullable)progress failure:(WMFErrorHandler)failure success:(WMFArticleHandler)success;
+                                                                 progress:(WMFProgressHandler __nullable)progress
+                                                                  failure:(WMFErrorHandler)failure
+                                                                  success:(WMFArticleHandler)success;
 
 /**
  *  Fetch the latest version of @c URL, if the locally stored revision is not the latest. If forceDownload is passed, the latest version is always downloaded ignoring any cahced data
@@ -50,8 +52,10 @@ extern NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey;
  *  @param success block
  */
 - (nullable NSURLSessionTask *)fetchLatestVersionOfArticleWithURL:(NSURL *)URL
-                                     forceDownload:(BOOL)forceDownload
-                                          progress:(WMFProgressHandler __nullable)progress failure:(WMFErrorHandler)failure success:(WMFArticleHandler)success;
+                                                    forceDownload:(BOOL)forceDownload
+                                                         progress:(WMFProgressHandler __nullable)progress
+                                                          failure:(WMFErrorHandler)failure
+                                                          success:(WMFArticleHandler)success;
 
 @property (nonatomic, assign, readonly) BOOL isFetching;
 

@@ -549,12 +549,12 @@ NS_ASSUME_NONNULL_BEGIN
             dispatch_once(&onceToken, ^{
                 nonNumericCharacterSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
             });
-            
-            WMFAnnouncement * _Nullable announcement = (WMFAnnouncement * _Nullable)self.content.firstObject;
+
+            WMFAnnouncement *_Nullable announcement = (WMFAnnouncement * _Nullable)self.content.firstObject;
             if (![announcement isKindOfClass:[WMFAnnouncement class]]) {
                 return nil;
             }
-            
+
             NSString *numberString = [announcement.identifier stringByTrimmingCharactersInSet:nonNumericCharacterSet];
             NSInteger integer = [numberString integerValue];
             return @(integer);
@@ -565,7 +565,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
     return nil;
 }
-    
+
 - (NSString *)analyticsContentType {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading:

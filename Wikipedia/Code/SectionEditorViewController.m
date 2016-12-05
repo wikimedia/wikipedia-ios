@@ -42,7 +42,8 @@
         UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
                                                            handler:^(id sender) {
                                                                @strongify(self)
-                                                                   [self.delegate sectionEditorFinishedEditing:self withChanges:NO];
+                                                                   [self.delegate sectionEditorFinishedEditing:self
+                                                                                                   withChanges:NO];
                                                            }];
     buttonX.accessibilityLabel = MWLocalizedString(@"back-button-accessibility-label", nil);
     self.navigationItem.leftBarButtonItem = buttonX;

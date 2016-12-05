@@ -45,20 +45,19 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
 - (void)fetchArticlesForSearchTerm:(NSString *)searchTerm
                            siteURL:(NSURL *)siteURL
                        resultLimit:(NSUInteger)resultLimit
-                             failure:(WMFErrorHandler)failure
+                           failure:(WMFErrorHandler)failure
                            success:(WMFSearchResultsHandler)success {
     [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:NO appendToPreviousResults:nil failure:failure success:success];
 }
 
 - (void)fetchArticlesForSearchTerm:(NSString *)searchTerm
-                                   siteURL:(NSURL *)siteURL
-                               resultLimit:(NSUInteger)resultLimit
-                            fullTextSearch:(BOOL)fullTextSearch
-                   appendToPreviousResults:(nullable WMFSearchResults *)results
-                             failure:(WMFErrorHandler)failure
+                           siteURL:(NSURL *)siteURL
+                       resultLimit:(NSUInteger)resultLimit
+                    fullTextSearch:(BOOL)fullTextSearch
+           appendToPreviousResults:(nullable WMFSearchResults *)results
+                           failure:(WMFErrorHandler)failure
                            success:(WMFSearchResultsHandler)success {
     [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:fullTextSearch appendToPreviousResults:results useDesktopURL:NO failure:failure success:success];
-
 }
 
 - (void)fetchArticlesForSearchTerm:(NSString *)searchTerm
@@ -67,7 +66,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                     fullTextSearch:(BOOL)fullTextSearch
            appendToPreviousResults:(nullable WMFSearchResults *)previousResults
                      useDesktopURL:(BOOL)useDeskTopURL
-                             failure:(WMFErrorHandler)failure
+                           failure:(WMFErrorHandler)failure
                            success:(WMFSearchResultsHandler)success {
     NSParameterAssert(siteURL);
     NSURL *url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:siteURL] : [NSURL wmf_mobileAPIURLForURL:siteURL];

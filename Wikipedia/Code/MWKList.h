@@ -55,6 +55,7 @@ typedef id<NSCopying, NSObject> MWKListIndex;
 
 #pragma mark - Persisting Changes to the List
 
+- (void)saveWithFailure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
 - (void)save;
 
 @end

@@ -113,7 +113,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
                                                            [self.webView loadHTMLFromAssetsFile:kWMFAboutHTMLFile
                                                                              scrolledToFragment:nil];
                                                    }];
-    
+
     self.buttonX.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish(@"menu-cancel-accessibility-label");
     self.buttonCaretLeft.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish(@"back-button-accessibility-label");
 
@@ -244,7 +244,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
     NSURL *requestURL = navigationAction.request.URL;
 
     if ([[self class] isLicenseURL:requestURL]) {
-        
+
         NSString *acknowledgementsPath = [[NSBundle mainBundle] pathForResource:@"Acknowledgements" ofType:@"plist"];
 
         VTAcknowledgementsViewController *vc = [[VTAcknowledgementsViewController alloc] initWithPath:acknowledgementsPath];

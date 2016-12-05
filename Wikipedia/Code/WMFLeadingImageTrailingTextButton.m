@@ -211,7 +211,7 @@
 
     self.labelText = [self localizedStringForKeyFromCurrentBundle:@"button-save-for-later"];
     self.selectedLabelText = [self localizedStringForKeyFromCurrentBundle:@"button-saved-for-later"];
-    
+
     self.selectedActionText = [self localizedStringForKeyFromCurrentBundle:@"unsave-action"];
     self.deselectedActionText = [self localizedStringForKeyFromCurrentBundle:@"save-action"];
 }

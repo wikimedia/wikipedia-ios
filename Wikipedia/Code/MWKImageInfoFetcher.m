@@ -49,8 +49,8 @@
 }
 
 - (void)fetchGalleryInfoForImagesOnPages:(NSArray *)pageTitles
-                                     fromSiteURL:(NSURL *)siteURL
-                                metadataLanguage:(NSString *)metadataLanguage
+                             fromSiteURL:(NSURL *)siteURL
+                        metadataLanguage:(NSString *)metadataLanguage
                                  failure:(WMFErrorHandler)failure
                                  success:(WMFSuccessIdHandler)success {
     [self fetchInfoForTitles:pageTitles
@@ -64,8 +64,8 @@
 }
 
 - (void)fetchPartialInfoForImagesOnPages:(NSArray *)pageTitles
-                                     fromSiteURL:(NSURL *)siteURL
-                                metadataLanguage:(nullable NSString *)metadataLanguage
+                             fromSiteURL:(NSURL *)siteURL
+                        metadataLanguage:(nullable NSString *)metadataLanguage
                                  failure:(WMFErrorHandler)failure
                                  success:(WMFSuccessIdHandler)success {
     [self fetchInfoForTitles:pageTitles

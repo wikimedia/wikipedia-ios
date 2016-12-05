@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface WMFArticleListTableViewController : UITableViewController<WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding>
+@interface WMFArticleListTableViewController : UITableViewController <WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding>
 
 @property (nonatomic, strong) MWKDataStore *userDataStore;
 @property (nonatomic, strong) WMFArticleDataStore *previewStore;

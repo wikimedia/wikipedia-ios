@@ -60,33 +60,41 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchFeaturedArticlePreviewForDate:(NSDate *)date failure:(WMFErrorHandler)failure success:(WMFMWKSearchResultHandler)success {
     @weakify(self);
     NSURL *siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
-    [self.featuredTitleOperationManager wmf_GETAndRetryWithURL:siteURL parameters:date retry:^(NSURLSessionDataTask *retryOperation, NSError *error) {
-        
-    } success:^(NSURLSessionDataTask *operation, id responseObject) {
-        @strongify(self);
-        if (!self) {
-            failure([NSError wmf_cancelledError]);
-            return;
+    [self.featuredTitleOperationManager wmf_GETAndRetryWithURL:siteURL
+        parameters:date
+        retry:^(NSURLSessionDataTask *retryOperation, NSError *error) {
+
         }
-        if (![responseObject isKindOfClass:[NSString class]]) {
-            failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]);
-            return;
-        }
-        NSString *title = responseObject;
-        [self.titlePreviewOperationManager wmf_GETAndRetryWithURL:siteURL parameters:title retry:^(NSURLSessionDataTask *retryOperation, NSError *error) {
-            
-        } success:^(NSURLSessionDataTask *operation, id responseObject) {
-            if (![responseObject isKindOfClass:[NSArray class]]) {
+        success:^(NSURLSessionDataTask *operation, id responseObject) {
+            @strongify(self);
+            if (!self) {
+                failure([NSError wmf_cancelledError]);
+                return;
+            }
+            if (![responseObject isKindOfClass:[NSString class]]) {
                 failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]);
                 return;
             }
-            success([responseObject firstObject]);
-        } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+            NSString *title = responseObject;
+            [self.titlePreviewOperationManager wmf_GETAndRetryWithURL:siteURL
+                parameters:title
+                retry:^(NSURLSessionDataTask *retryOperation, NSError *error) {
+
+                }
+                success:^(NSURLSessionDataTask *operation, id responseObject) {
+                    if (![responseObject isKindOfClass:[NSArray class]]) {
+                        failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]);
+                        return;
+                    }
+                    success([responseObject firstObject]);
+                }
+                failure:^(NSURLSessionDataTask *operation, NSError *error) {
+                    failure(error);
+                }];
+        }
+        failure:^(NSURLSessionDataTask *operation, NSError *error) {
             failure(error);
         }];
-    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        failure(error);
-    }];
 }
 
 @end

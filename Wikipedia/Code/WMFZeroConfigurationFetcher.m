@@ -26,19 +26,19 @@
 
 - (void)fetchZeroConfigurationForSiteURL:(NSURL *)siteURL failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
-                                                                                  @"action": @"zeroconfig",
-                                                                                  @"type": @"message",
-                                                                                  @"agent": [WikipediaAppUtils versionedUserAgent]
-                                                                                  }];
+        @"action": @"zeroconfig",
+        @"type": @"message",
+        @"agent": [WikipediaAppUtils versionedUserAgent]
+    }];
     [self.operationManager GET:[[NSURL wmf_mobileAPIURLForURL:siteURL] absoluteString]
-                    parameters:params
-                      progress:NULL
-                       success:^(NSURLSessionDataTask *_Nonnull _, id _Nonnull responseObject) {
-                           success(responseObject);
-                       }
-                       failure:^(NSURLSessionDataTask *_Nullable _, NSError *_Nonnull error) {
-                           failure(error);
-                       }];
+        parameters:params
+        progress:NULL
+        success:^(NSURLSessionDataTask *_Nonnull _, id _Nonnull responseObject) {
+            success(responseObject);
+        }
+        failure:^(NSURLSessionDataTask *_Nullable _, NSError *_Nonnull error) {
+            failure(error);
+        }];
 }
 
 - (void)cancelAllFetches {

@@ -18,7 +18,7 @@
 
 - (void)setup {
     self.backgroundColor = [UIColor wmf_colorWithHex:0x3366cc alpha:1];
-    
+
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.suppressesIncrementalRendering = YES;
 
@@ -37,7 +37,7 @@
     NSURL *diceHTMLURL = [[NSBundle mainBundle] URLForResource:@"WMFRandomDiceButton" withExtension:@"html"];
     NSString *diceHTML = [NSString stringWithContentsOfURL:diceHTMLURL encoding:NSUTF8StringEncoding error:nil];
     [self.webView loadHTMLString:diceHTML baseURL:nil];
-    
+
     self.label = [[UILabel alloc] initWithFrame:CGRectZero];
     self.label.textColor = [UIColor whiteColor];
     self.label.font = [UIFont systemFontOfSize:16];
@@ -57,10 +57,9 @@
                    }];
 }
 
-
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
+
     CGFloat margin = 15;
     self.webView.frame = CGRectMake(margin, 0, self.bounds.size.height, self.bounds.size.height);
 
@@ -69,18 +68,14 @@
     self.label.frame = CGRectMake(labelOriginY, 0, self.bounds.size.width - labelOriginY - margin - spacing, self.bounds.size.height);
 }
 
-
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
-    self.layer.cornerRadius = 0.5*frame.size.height;
+    self.layer.cornerRadius = 0.5 * frame.size.height;
 }
 
 - (void)setBounds:(CGRect)bounds {
     [super setBounds:bounds];
-    self.layer.cornerRadius = 0.5*bounds.size.height;
+    self.layer.cornerRadius = 0.5 * bounds.size.height;
 }
-
-
-
 
 @end

@@ -11,16 +11,15 @@ extern NSUInteger const WMFMaxSearchResultLimit;
 - (void)fetchArticlesForSearchTerm:(NSString *)searchTerm
                            siteURL:(NSURL *)siteURL
                        resultLimit:(NSUInteger)resultLimit
-                             failure:(WMFErrorHandler)failure
+                           failure:(WMFErrorHandler)failure
                            success:(WMFSearchResultsHandler)success;
 
-
 - (void)fetchArticlesForSearchTerm:(NSString *)searchTerm
-                                   siteURL:(NSURL *)siteURL
-                               resultLimit:(NSUInteger)resultLimit
-                            fullTextSearch:(BOOL)fullTextSearch
-                   appendToPreviousResults:(nullable WMFSearchResults *)results
-                             failure:(WMFErrorHandler)failure
+                           siteURL:(NSURL *)siteURL
+                       resultLimit:(NSUInteger)resultLimit
+                    fullTextSearch:(BOOL)fullTextSearch
+           appendToPreviousResults:(nullable WMFSearchResults *)results
+                           failure:(WMFErrorHandler)failure
                            success:(WMFSearchResultsHandler)success;
 
 @end

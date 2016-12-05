@@ -91,22 +91,23 @@ NSString *const WMFZeroXCarrierMeta = @"X-Carrier-Meta";
     //TODO: ensure thread safety so we can do this work off the main thread...
     dispatch_async(dispatch_get_main_queue(), ^{
         @weakify(self);
-        [self fetchZeroConfigurationWithFailure:^(NSError * _Nonnull error) {
+        [self fetchZeroConfigurationWithFailure:^(NSError *_Nonnull error) {
             @strongify(self);
             self.isZeroRated = NO;
-        } succcess:^(WMFZeroConfiguration *zeroConfiguration) {
-            @strongify(self);
-            
-            // If the config is not enabled its "message" will be nil, so if we detect a nil message
-            // set the isZeroRated to NO before we post the WMFZeroRatingChanged notification.
-            if (zeroConfiguration.message == nil) {
-                self.isZeroRated = NO;
-                // Reminder: don't nil out self.zeroConfiguration here or the carrier's exit message won't be available.
-            } else {
-                self.zeroConfiguration = zeroConfiguration;
-                self.isZeroRated = YES;
-            }
-        }];
+        }
+            succcess:^(WMFZeroConfiguration *zeroConfiguration) {
+                @strongify(self);
+
+                // If the config is not enabled its "message" will be nil, so if we detect a nil message
+                // set the isZeroRated to NO before we post the WMFZeroRatingChanged notification.
+                if (zeroConfiguration.message == nil) {
+                    self.isZeroRated = NO;
+                    // Reminder: don't nil out self.zeroConfiguration here or the carrier's exit message won't be available.
+                } else {
+                    self.zeroConfiguration = zeroConfiguration;
+                    self.isZeroRated = YES;
+                }
+            }];
     });
 }
 

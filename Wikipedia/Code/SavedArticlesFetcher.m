@@ -201,31 +201,33 @@ static SavedArticlesFetcher *_articleFetcher = nil;
          */
         self.fetchOperationsByArticleTitle[articleURL] =
             [self.articleFetcher fetchArticleForURL:articleURL
-                                           progress:NULL failure:^(NSError * _Nonnull error) {
-                                               if (!self) {
-                                                   return;
-                                               }
-                                               dispatch_async(self.accessQueue, ^{
-                                                   [self didFetchArticle:nil url:articleURL error:error];
-                                               });
-                                           } success:^(MWKArticle * _Nonnull article) {
-                                               dispatch_async(self.accessQueue, ^{
-                                                   @strongify(self);
-                                                   [self downloadImageDataForArticle:article
-                                                                             failure:^(NSError *error) {
-                                                                                 dispatch_async(self.accessQueue, ^{
-                                                                                     [self didFetchArticle:article url:articleURL error:error];
-                                                                                     failure(error);
-                                                                                 });
-                                                                             }
-                                                                             success:^{
-                                                                                 dispatch_async(self.accessQueue, ^{
-                                                                                     [self didFetchArticle:article url:articleURL error:nil];
-                                                                                     success();
-                                                                                 });
-                                                                             }];
-                                               });
-                                           }];
+                progress:NULL
+                failure:^(NSError *_Nonnull error) {
+                    if (!self) {
+                        return;
+                    }
+                    dispatch_async(self.accessQueue, ^{
+                        [self didFetchArticle:nil url:articleURL error:error];
+                    });
+                }
+                success:^(MWKArticle *_Nonnull article) {
+                    dispatch_async(self.accessQueue, ^{
+                        @strongify(self);
+                        [self downloadImageDataForArticle:article
+                            failure:^(NSError *error) {
+                                dispatch_async(self.accessQueue, ^{
+                                    [self didFetchArticle:article url:articleURL error:error];
+                                    failure(error);
+                                });
+                            }
+                            success:^{
+                                dispatch_async(self.accessQueue, ^{
+                                    [self didFetchArticle:article url:articleURL error:nil];
+                                    success();
+                                });
+                            }];
+                    });
+                }];
     }
 }
 
@@ -333,17 +335,20 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     WMFTaskGroup *group = [WMFTaskGroup new];
     for (NSString *canonicalFilename in imageFileTitles) {
         [group enter];
-        [self.imageInfoFetcher fetchGalleryInfoForImage:canonicalFilename fromSiteURL:article.url failure:^(NSError * _Nonnull error) {
-            [group leave];
-        } success:^(id  _Nonnull object) {
-            if (!object || [object isEqual:[NSNull null]]) {
-                return;
+        [self.imageInfoFetcher fetchGalleryInfoForImage:canonicalFilename
+            fromSiteURL:article.url
+            failure:^(NSError *_Nonnull error) {
+                [group leave];
             }
-            [infoObjects addObject:object];
-            [group leave];
-        }];
+            success:^(id _Nonnull object) {
+                if (!object || [object isEqual:[NSNull null]]) {
+                    return;
+                }
+                [infoObjects addObject:object];
+                [group leave];
+            }];
     }
-    
+
     [group waitInBackgroundWithCompletion:^{
         success(infoObjects);
     }];

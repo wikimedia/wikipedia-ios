@@ -182,7 +182,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.title = MWLocalizedString(@"search-title", nil);
     self.resultsListController.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     self.resultsListController.tableView.backgroundColor = [UIColor clearColor];
-    
+
     self.closeButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish(@"close-button-accessibility-label");
 
     [self updateUIWithResults:nil];
@@ -377,7 +377,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         return;
     }
     @weakify(self);
-    
+
     WMFErrorHandler failure = ^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             @strongify(self);
@@ -388,7 +388,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             }
         });
     };
-    
+
     WMFSuccessIdHandler success = ^(WMFSearchResults *results) {
         dispatch_async(dispatch_get_main_queue(), ^{
             @strongify(self);
@@ -400,7 +400,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                     });
                 }
             }
-            
+
             // change recent search visibility if no prefix results returned, and update suggestion if needed
             [UIView animateWithDuration:0.25
                              animations:^{
@@ -408,7 +408,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                              }];
         });
     };
-    
+
     [self.resultsListController wmf_hideEmptyView];
     NSURL *url = [self currentlySelectedSearchURL];
 
@@ -417,40 +417,46 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         return;
     }
 
-    [self.fetcher fetchArticlesForSearchTerm:searchTerm siteURL:url resultLimit:WMFMaxSearchResultLimit failure:^(NSError * _Nonnull error) {
-        
-    } success:^(WMFSearchResults * _Nonnull results) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            @strongify(self);
-            if (![results.searchTerm isEqualToString:self.searchField.text]) {
-                failure([NSError wmf_cancelledError]);
-                return;
-            }
-            
-            /*
+    [self.fetcher fetchArticlesForSearchTerm:searchTerm
+        siteURL:url
+        resultLimit:WMFMaxSearchResultLimit
+        failure:^(NSError *_Nonnull error) {
+
+        }
+        success:^(WMFSearchResults *_Nonnull results) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                @strongify(self);
+                if (![results.searchTerm isEqualToString:self.searchField.text]) {
+                    failure([NSError wmf_cancelledError]);
+                    return;
+                }
+
+                /*
              HAX: must set dataSource before starting the animation since dataSource is _unsafely_ assigned to the
              collection view, meaning there's a chance the collectionView accesses deallocated memory during an animation
              */
-            WMFSearchDataSource *dataSource =
-            [[WMFSearchDataSource alloc] initWithSearchSiteURL:url
-                                                 searchResults:results];
-            
-            self.resultsListController.dataSource = dataSource;
-            
-            [self updateUIWithResults:results];
-            [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivitySearchSiteURL:url searchTerm:results.searchTerm]];
-            
-            if ([results.results count] < kWMFMinResultsBeforeAutoFullTextSearch) {
-                [self.fetcher fetchArticlesForSearchTerm:searchTerm
-                                                        siteURL:url
-                                                    resultLimit:WMFMaxSearchResultLimit
-                                                 fullTextSearch:YES
-                                        appendToPreviousResults:results failure:failure success:success];
-                return;
-            }
-            
-            success(results);
-        });
+                WMFSearchDataSource *dataSource =
+                    [[WMFSearchDataSource alloc] initWithSearchSiteURL:url
+                                                         searchResults:results];
+
+                self.resultsListController.dataSource = dataSource;
+
+                [self updateUIWithResults:results];
+                [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivitySearchSiteURL:url searchTerm:results.searchTerm]];
+
+                if ([results.results count] < kWMFMinResultsBeforeAutoFullTextSearch) {
+                    [self.fetcher fetchArticlesForSearchTerm:searchTerm
+                                                     siteURL:url
+                                                 resultLimit:WMFMaxSearchResultLimit
+                                              fullTextSearch:YES
+                                     appendToPreviousResults:results
+                                                     failure:failure
+                                                     success:success];
+                    return;
+                }
+
+                success(results);
+            });
         }];
 }
 

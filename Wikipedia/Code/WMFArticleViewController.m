@@ -62,7 +62,6 @@
 @import SafariServices;
 @import BlocksKitUIKitExtensions;
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 static const CGFloat WMFArticleViewControllerExpandedTableOfContentsWidthPercentage = 0.33;
@@ -1231,59 +1230,60 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     @weakify(self);
     self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfArticleWithURL:self.articleURL
-                                                                           forceDownload:force
-                                                                                progress:^(CGFloat progress) {
-                                                                                    [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
-                                                                                } failure:^(NSError * _Nonnull error) {
-                                                                                    @strongify(self);
-                                                                                    DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
-                                                                                    [self.pullToRefresh endRefreshing];
-                                                                                    [self hideProgressViewAnimated:YES];
-                                                                                    [self.delegate articleControllerDidLoadArticle:self];
-                                                                                    
-                                                                                    MWKArticle *cachedFallback = error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey];
-                                                                                    if (cachedFallback) {
-                                                                                        self.article = cachedFallback;
-                                                                                        if (![error wmf_isNetworkConnectionError]) {
-                                                                                            // don't show offline banner for cached articles
-                                                                                            [[WMFAlertManager sharedInstance] showErrorAlert:error
-                                                                                                                                      sticky:NO
-                                                                                                                       dismissPreviousAlerts:NO
-                                                                                                                                 tapCallBack:NULL];
-                                                                                        }
-                                                                                    } else {
-                                                                                        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
-                                                                                        [self.view bringSubviewToFront:self.progressView];
-                                                                                        [[WMFAlertManager sharedInstance] showErrorAlert:error
-                                                                                                                                  sticky:NO
-                                                                                                                   dismissPreviousAlerts:NO
-                                                                                                                             tapCallBack:NULL];
-                                                                                        
-                                                                                        if ([error wmf_isNetworkConnectionError]) {
-                                                                                            @weakify(self);
-                                                                                            [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-                                                                                                switch (status) {
-                                                                                                    case AFNetworkReachabilityStatusReachableViaWWAN:
-                                                                                                    case AFNetworkReachabilityStatusReachableViaWiFi: {
-                                                                                                        @strongify(self);
-                                                                                                        [self fetchArticleIfNeeded];
-                                                                                                    } break;
-                                                                                                    default:
-                                                                                                        break;
-                                                                                                }
-                                                                                            }];
-                                                                                        }
-                                                                                    }
-                                                                                    self.articleFetcherPromise = nil;
-                                                                                } success:^(MWKArticle * _Nonnull article) {
-                                                                                    @strongify(self);
-                                                                                    [self.pullToRefresh endRefreshing];
-                                                                                    [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
-                                                                                    self.article = article;
-                                                                                    self.articleFetcherPromise = nil;
-                                                                                    
-                                                                                }];
+        forceDownload:force
+        progress:^(CGFloat progress) {
+            [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
+        }
+        failure:^(NSError *_Nonnull error) {
+            @strongify(self);
+            DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
+            [self.pullToRefresh endRefreshing];
+            [self hideProgressViewAnimated:YES];
+            [self.delegate articleControllerDidLoadArticle:self];
 
+            MWKArticle *cachedFallback = error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey];
+            if (cachedFallback) {
+                self.article = cachedFallback;
+                if (![error wmf_isNetworkConnectionError]) {
+                    // don't show offline banner for cached articles
+                    [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                              sticky:NO
+                                               dismissPreviousAlerts:NO
+                                                         tapCallBack:NULL];
+                }
+            } else {
+                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
+                [self.view bringSubviewToFront:self.progressView];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                          sticky:NO
+                                           dismissPreviousAlerts:NO
+                                                     tapCallBack:NULL];
+
+                if ([error wmf_isNetworkConnectionError]) {
+                    @weakify(self);
+                    [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+                        switch (status) {
+                            case AFNetworkReachabilityStatusReachableViaWWAN:
+                            case AFNetworkReachabilityStatusReachableViaWiFi: {
+                                @strongify(self);
+                                [self fetchArticleIfNeeded];
+                            } break;
+                            default:
+                                break;
+                        }
+                    }];
+                }
+            }
+            self.articleFetcherPromise = nil;
+        }
+        success:^(MWKArticle *_Nonnull article) {
+            @strongify(self);
+            [self.pullToRefresh endRefreshing];
+            [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
+            self.article = article;
+            self.articleFetcherPromise = nil;
+
+        }];
 }
 
 - (void)fetchArticle {

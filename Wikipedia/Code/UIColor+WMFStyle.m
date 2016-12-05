@@ -343,7 +343,7 @@
 
 + (instancetype)wmf_welcomeBackgroundGradientBottomColor {
     static UIColor *c = nil;
-    
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         c = [UIColor wmf_colorWithHex:0x0af89 alpha:1.0];
