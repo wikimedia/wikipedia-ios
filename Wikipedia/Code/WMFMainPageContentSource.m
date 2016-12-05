@@ -92,6 +92,7 @@
         if (completion) {
             completion();
         }
+        return;
     }
 
     [self.siteInfoFetcher fetchSiteInfoForSiteURL:self.siteURL
