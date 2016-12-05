@@ -363,6 +363,7 @@
 "potd-description-prefix" = "Imatge del dia per a $1";
 "welcome-explore-title" = "Explora";
 "welcome-explore-sub-title" = "Una forma nova de descobrir articles interessants cada dia";
+"welcome-explore-new-ways-title" = "Noves formes d'explorar";
 "welcome-explore-tell-me-more" = "Més informació";
 "welcome-explore-tell-me-more-about-explore" = "Més informació sobre «Explora»";
 "welcome-explore-tell-me-more-details" = "Quan llegiu un articles, els articles relacionats s'afegeixen automàticament al canal Explora. Això no fa canviar com recollim la vostra informació, i el vostre historial de lectura continua essent privat.";
@@ -428,13 +429,14 @@
 "rank-accessibility-label" = "Número $1";
 "reference-title" = "Referència $1";
 "in-the-news-notification-read-now-action-title" = "Llegeix-ho ara";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Comparteix";
+"in-the-news-notification-share-action-title" = "Comparteix...";
 "in-the-news-notification-save-for-later-action-title" = "Desa-ho per a més tard";
 "in-the-news-currently-trending" = "En tendència";
+"in-the-news-title" = "Actualitat";
 "number-thousands" = "$1k";
 "number-millions" = "$1M";
 "number-billions" = "$1B";
 "back" = "Enrere";
 "save-action" = "Desa";
 "unsave-action" = "No desis";
+"announcements-dismiss" = "No, gràcies";
