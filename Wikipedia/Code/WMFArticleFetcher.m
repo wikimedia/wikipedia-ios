@@ -217,6 +217,14 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         }
     }
 
+    failure = ^(NSError *error) {
+        NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:error.userInfo ?: @{}];
+        userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] = cachedArticle;
+        failure([NSError errorWithDomain:error.domain
+                                    code:error.code
+                                userInfo:userInfo]);
+    };
+
     @weakify(self);
     NSURLSessionTask *task;
     if (forceDownload || forceDownloadForMismatchedHeader || !cachedArticle || !cachedArticle.revisionId || [cachedArticle isMain]) {
