@@ -249,7 +249,7 @@
 }
 
 + (nullable NSURL *)featuredArticleContentGroupURLForSiteURL:(NSURL *)url date:(NSDate *)date {
-    return [self contentGroupURLForSiteURL:url date:date groupKindString:@"featuredArticle"];
+    return [self contentGroupURLForSiteURL:url date:date groupKindString:@"featured-article"];
 }
 
 + (nullable NSURL *)topReadContentGroupURLForSiteURL:(NSURL *)url date:(NSDate *)date {

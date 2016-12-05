@@ -143,4 +143,4 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import "SessionSingleton.h"
 #import "QueuesSingleton.h"
 #import "MWKSavedPageEntry.h"
-#import "WMFAnnouncementContentGroup.h"
+#import "WMFLegacyContentGroup.h"

@@ -419,6 +419,18 @@ static uint64_t bundleHash() {
         DDLogError(@"Failed to prepare query: %s", errmsg);
         return YES;
     }
+    
+    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFContinueReadingContentGroup"];
+    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFMainPageContentGroup"];
+    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFRelatedPagesContentGroup"];
+    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFLocationContentGroup"];
+    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFPictureOfTheDayContentGroup"];
+    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFRandomContentGroup"];
+    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFFeaturedArticleContentGroup"];
+    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFTopReadContentGroup"];
+    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFNewsContentGroup"];
+    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFNotificationContentGroup"];
+    [NSKeyedUnarchiver setClass:[WMFLegacyContentGroup class] forClassName:@"WMFAnnouncementContentGroup"];
 
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
@@ -463,33 +475,68 @@ static uint64_t bundleHash() {
                 } else if ([collectionName isEqualToString:@"WMFArticlePreview"]) {
                     WMFArticlePreview *preview = [NSKeyedUnarchiver unarchiveObjectWithData:objectData];
                     previews[key] = preview;
-                } else if ([key hasPrefix:@"wikipedia://content/announcements/"]) {
-                    WMFAnnouncementContentGroup *oldAnnouncement = [NSKeyedUnarchiver unarchiveObjectWithData:objectData];
-                    if (!oldAnnouncement.wasDismissed) {
-                        continue;
-                    }
+                } else if ([collectionName isEqualToString:@"WMFContentGroup"]) {
+                    WMFLegacyContentGroup *oldContentGroup = [NSKeyedUnarchiver unarchiveObjectWithData:objectData];
                     id metadata = nil;
                     if (metadataData) {
                         metadata = [NSKeyedUnarchiver unarchiveObjectWithData:metadataData];
                     }
-                    NSFetchRequest *request = [WMFContentGroup fetchRequest];
-                    request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
-                    request.fetchLimit = 1;
-                    WMFContentGroup *announcement = [[moc executeFetchRequest:request error:nil] firstObject];
-                    if (!announcement) {
-                        announcement = [NSEntityDescription insertNewObjectForEntityForName:@"WMFContentGroup" inManagedObjectContext:moc];
+                    if (!metadata) {
+                        continue;
                     }
-                    announcement.contentGroupKind = WMFContentGroupKindAnnouncement;
-                    announcement.contentType = WMFContentTypeAnnouncement;
-                    announcement.date = oldAnnouncement.date;
-                    announcement.midnightUTCDate = oldAnnouncement.date.wmf_midnightUTCDate;
-                    announcement.siteURL = oldAnnouncement.siteURL;
-                    announcement.wasDismissed = oldAnnouncement.wasDismissed;
-                    announcement.content = metadata;
-                    [announcement updateKey];
-                    [announcement updateContentType];
-                    [announcement updateDailySortPriority];
-                    [announcement updateVisibility];
+                    
+                    WMFContentGroupKind contentGroupKind = WMFContentGroupKindUnknown;
+                    if ([key hasPrefix:@"wikipedia://content/announcements/"]) {
+                        contentGroupKind = WMFContentGroupKindAnnouncement;
+                    } else if ([key hasPrefix:@"wikipedia://content/main-page/"]) {
+                        contentGroupKind = WMFContentGroupKindMainPage;
+                    } else if ([key hasPrefix:@"wikipedia://content/continue-reading/"]) {
+                        contentGroupKind = WMFContentGroupKindContinueReading;
+                    } else if ([key hasPrefix:@"wikipedia://content/nearby/"]) {
+                        contentGroupKind = WMFContentGroupKindLocation;
+                    } else if ([key hasPrefix:@"wikipedia://content/picture-of-the-day/"]) {
+                        contentGroupKind = WMFContentGroupKindPictureOfTheDay;
+                    } else if ([key hasPrefix:@"wikipedia://content/random/"]) {
+                        contentGroupKind = WMFContentGroupKindRandom;
+                    } else if ([key hasPrefix:@"wikipedia://content/featured-article/"]) {
+                        contentGroupKind = WMFContentGroupKindFeaturedArticle;
+                    } else if ([key hasPrefix:@"wikipedia://content/notification/"]) {
+                        contentGroupKind = WMFContentGroupKindNotification;
+                    } else if ([key hasPrefix:@"wikipedia://content/news/"]) {
+                        contentGroupKind = WMFContentGroupKindNews;
+                    } else if ([key hasPrefix:@"wikipedia://content/top-read/"]) {
+                        contentGroupKind = WMFContentGroupKindTopRead;
+                    } else if ([key hasPrefix:@"wikipedia://content/related-pages/"]) {
+                        contentGroupKind = WMFContentGroupKindRelatedPages;
+                    } else {
+                        continue;
+                    }
+                    
+                    WMFContentGroup *newContentGroup = [NSEntityDescription insertNewObjectForEntityForName:@"WMFContentGroup" inManagedObjectContext:moc];
+                    newContentGroup.contentGroupKind = contentGroupKind;
+                    newContentGroup.date = oldContentGroup.date;
+                    newContentGroup.midnightUTCDate = oldContentGroup.date.wmf_midnightUTCDateFromUTCDate;
+                    newContentGroup.siteURL = oldContentGroup.siteURL;
+                    newContentGroup.articleURL = oldContentGroup.articleURL;
+                    newContentGroup.location = oldContentGroup.location;
+                    newContentGroup.placemark = oldContentGroup.placemark;
+                    newContentGroup.contentMidnightUTCDate = oldContentGroup.mostReadDate.wmf_midnightUTCDateFromUTCDate;
+                    newContentGroup.wasDismissed = oldContentGroup.wasDismissed;
+                    newContentGroup.content = metadata;
+                    [newContentGroup updateKey];
+                    [newContentGroup updateContentType];
+                    [newContentGroup updateDailySortPriority];
+                    [newContentGroup updateVisibility];
+                    
+                    //New key differs from old key, so use the calculated key on newContentGroup rather than the old key
+                    NSFetchRequest *request = [WMFContentGroup fetchRequest];
+                    request.predicate = [NSPredicate predicateWithFormat:@"key == %@", newContentGroup.key];
+                    NSArray *contentGroups = [moc executeFetchRequest:request error:nil];
+                    for (WMFContentGroup *group in contentGroups) {
+                        if (![group.objectID isEqual:newContentGroup.objectID]) {
+                            [moc deleteObject:group];
+                        }
+                    }
                 }
             } @catch (NSException *exception) {
                 DDLogError(@"Exception trying to import legacy object for key: %@", key);

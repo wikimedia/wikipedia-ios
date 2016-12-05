@@ -636,8 +636,8 @@
 		D8301C301DF1C4D300135DC6 /* TSMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8301C2D1DF1C4D300135DC6 /* TSMessageView.m */; };
 		D8301C321DF1C55100135DC6 /* SWStepSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8301C311DF1C55100135DC6 /* SWStepSlider.swift */; };
 		D8301C351DF1C74B00135DC6 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = D8301C341DF1C74B00135DC6 /* HexColors.m */; };
-		D830D2451DEF3E50005ACB0E /* WMFAnnouncementContentGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = D830D2431DEF3E50005ACB0E /* WMFAnnouncementContentGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D830D2461DEF3E50005ACB0E /* WMFAnnouncementContentGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = D830D2441DEF3E50005ACB0E /* WMFAnnouncementContentGroup.m */; };
+		D830D2451DEF3E50005ACB0E /* WMFLegacyContentGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = D830D2431DEF3E50005ACB0E /* WMFLegacyContentGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D830D2461DEF3E50005ACB0E /* WMFLegacyContentGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = D830D2441DEF3E50005ACB0E /* WMFLegacyContentGroup.m */; };
 		D837D0381D6CC8B3004EFBC6 /* QueuesSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E806721C0CE9850065EBC0 /* QueuesSingleton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D837D0391D6CC8B8004EFBC6 /* QueuesSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806731C0CE9850065EBC0 /* QueuesSingleton.m */; };
 		D83F8A331D74BC4E009E7D40 /* MWNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807231C0CED1F0065EBC0 /* MWNetworkActivityIndicatorManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2392,8 +2392,8 @@
 		D8301C311DF1C55100135DC6 /* SWStepSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWStepSlider.swift; sourceTree = "<group>"; };
 		D8301C331DF1C74B00135DC6 /* HexColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HexColors.h; sourceTree = "<group>"; };
 		D8301C341DF1C74B00135DC6 /* HexColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HexColors.m; sourceTree = "<group>"; };
-		D830D2431DEF3E50005ACB0E /* WMFAnnouncementContentGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFAnnouncementContentGroup.h; sourceTree = "<group>"; };
-		D830D2441DEF3E50005ACB0E /* WMFAnnouncementContentGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFAnnouncementContentGroup.m; sourceTree = "<group>"; };
+		D830D2431DEF3E50005ACB0E /* WMFLegacyContentGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFLegacyContentGroup.h; sourceTree = "<group>"; };
+		D830D2441DEF3E50005ACB0E /* WMFLegacyContentGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLegacyContentGroup.m; sourceTree = "<group>"; };
 		D844480E1DDA33D900425630 /* Wikipedia.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Wikipedia.xcdatamodel; sourceTree = "<group>"; };
 		D84448201DDB60FF00425630 /* WMFArticle+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMFArticle+Extensions.h"; sourceTree = "<group>"; };
 		D84448211DDB60FF00425630 /* WMFArticle+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMFArticle+Extensions.m"; sourceTree = "<group>"; };
@@ -3220,8 +3220,8 @@
 				B0E807AC1C0CEFF70065EBC0 /* MWKHistoryEntry.m */,
 				D85CEFD41DDE2C000084A4E8 /* WMFArticlePreview.h */,
 				D85CEFD51DDE2C000084A4E8 /* WMFArticlePreview.m */,
-				D830D2431DEF3E50005ACB0E /* WMFAnnouncementContentGroup.h */,
-				D830D2441DEF3E50005ACB0E /* WMFAnnouncementContentGroup.m */,
+				D830D2431DEF3E50005ACB0E /* WMFLegacyContentGroup.h */,
+				D830D2441DEF3E50005ACB0E /* WMFLegacyContentGroup.m */,
 			);
 			name = "Legacy Models";
 			sourceTree = "<group>";
@@ -6012,7 +6012,7 @@
 				D83F8A331D74BC4E009E7D40 /* MWNetworkActivityIndicatorManager.h in Headers */,
 				D844D9A61D6CB7230042D692 /* MWKList.h in Headers */,
 				D83FA6B51D74CDE0008CAB00 /* EventLoggingFunnel.h in Headers */,
-				D830D2451DEF3E50005ACB0E /* WMFAnnouncementContentGroup.h in Headers */,
+				D830D2451DEF3E50005ACB0E /* WMFLegacyContentGroup.h in Headers */,
 				D89D44001D74D36100F7862E /* WMFArticlePreviewFetcher.h in Headers */,
 				0E728D3F1DAEEC310074EB4B /* WMFSearchResponseSerializer.h in Headers */,
 				0E8768361DDE002C00B8CACD /* WMFAnnouncementsContentSource.h in Headers */,
@@ -7190,7 +7190,7 @@
 			files = (
 				D844D9C01D6CB7BA0042D692 /* MWKDataStore.m in Sources */,
 				D844D9FB1D6CC0710042D692 /* SDImageCache+WMFPersistentCache.m in Sources */,
-				D830D2461DEF3E50005ACB0E /* WMFAnnouncementContentGroup.m in Sources */,
+				D830D2461DEF3E50005ACB0E /* WMFLegacyContentGroup.m in Sources */,
 				D844482B1DDB632100425630 /* WMFArticle+CoreDataProperties.m in Sources */,
 				0E728D4E1DAEEEA00074EB4B /* WMFRandomArticleFetcher.m in Sources */,
 				D89F51101D6CC9BA008018E1 /* WMFNetworkUtilities.m in Sources */,

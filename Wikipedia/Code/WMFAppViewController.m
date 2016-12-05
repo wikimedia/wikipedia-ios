@@ -364,11 +364,8 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
         if (migrationError) {
             DDLogError(@"Error migrating: %@", migrationError);
         }
-        [self preloadContentSourcesForced:YES
-                               completion:^{
-                                   [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
-                                   completion();
-                               }];
+        [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
+        completion();
     }
 }
 
@@ -493,23 +490,6 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
 }
 
 #pragma mark - Content Sources
-
-- (void)preloadContentSourcesForced:(BOOL)force completion:(void (^)(void))completion {
-    WMFTaskGroup *group = [WMFTaskGroup new];
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-
-        if ([obj isKindOfClass:[WMFFeedContentSource class]]) {
-            [group enter];
-            [(id<WMFDateBasedContentSource>)obj preloadContentForNumberOfDays:3
-                                                                        force:force
-                                                                   completion:^{
-                                                                       [group leave];
-                                                                   }];
-        }
-    }];
-
-    [group waitInBackgroundWithTimeout:WMFFeedRefreshForegroundTimeout completion:completion];
-}
 
 - (void)updateFeedSourcesWithCompletion:(dispatch_block_t)completion {
     WMFTaskGroup *group = [WMFTaskGroup new];

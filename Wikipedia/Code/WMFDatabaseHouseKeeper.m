@@ -12,7 +12,7 @@
 
     NSError *error = nil;
     
-    NSDate *midnightTodayUTC = [[NSDate date] wmf_midnightUTCDate];
+    NSDate *midnightTodayUTC = [[NSDate date] wmf_midnightUTCDateFromLocalDate];
     NSCalendar *utcCalendar = [NSCalendar wmf_utcGregorianCalendar];
     NSDate *thirtyDaysAgoMidnightUTC = [utcCalendar dateByAddingUnit:NSCalendarUnitDay value:-30 toDate:midnightTodayUTC options:NSCalendarMatchStrictly];
 
