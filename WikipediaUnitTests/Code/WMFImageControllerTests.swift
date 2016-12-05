@@ -1,13 +1,10 @@
 import UIKit
 import XCTest
 @testable import Wikipedia
-import PromiseKit
 import Nimble
 import Nocilla
 
 class WMFImageControllerTests: XCTestCase {
-    private typealias ImageDownloadPromiseErrorCallback = (Promise<WMFImageDownload>) -> ((ErrorType) -> Void) -> Void
-
     var imageController: WMFImageController!
 
     override func setUp() {

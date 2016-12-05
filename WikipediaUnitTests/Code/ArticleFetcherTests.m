@@ -9,8 +9,8 @@
 #import "Wikipedia-Swift.h"
 #import "WMFArticleBaseFetcher_Testing.h"
 #import "WMFArticleDataStore.h"
-#import "XCTestCase+PromiseKit.h"
 #import "WMFRandomFileUtilities.h"
+#import "WMFAsyncTestCase.h"
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>

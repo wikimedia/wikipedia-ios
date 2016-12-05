@@ -4,7 +4,6 @@
 #import "MWKDataStoreList.h"
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "WMFAsyncTestCase.h"
-#import "XCTestCase+PromiseKit.h"
 
 #import <BlocksKit/BlocksKit.h>
 

@@ -2,9 +2,9 @@
 #import <FBSnapshotTestCase/FBSnapshotTestCase.h>
 
 #import "FBSnapshotTestCase+WMFConvenience.h"
-#import "XCTestCase+PromiseKit.h"
 #import "WMFImageController+Testing.h"
 #import "Wikipedia-Swift.h"
+#import "WMFAsyncTestCase.h"
 #import <Nocilla/Nocilla.h>
 
 #import "UIImageView+WMFImageFetchingInternal.h"
