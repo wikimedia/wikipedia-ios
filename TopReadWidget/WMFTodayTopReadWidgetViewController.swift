@@ -1,6 +1,5 @@
 import UIKit
 import NotificationCenter
-import YapDatabase
 import WMFUI
 import WMFModel
 

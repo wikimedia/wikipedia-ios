@@ -3,8 +3,6 @@
 #import "NSUserActivity+WMFExtensions.h"
 
 #import "NSString+WMFExtras.h"
-
-#import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "MWKHistoryList.h"
 
 #import "MWKArticle.h"

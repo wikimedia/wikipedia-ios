@@ -1,5 +1,3 @@
-#import "WMFBaseDataStore.h"
-
 @class MWKSearchResult, MWKLocationSearchResult, MWKArticle, WMFFeedArticlePreview, WMFArticle;
 
 NS_ASSUME_NONNULL_BEGIN
