@@ -1,6 +1,6 @@
 #import "WMFExploreSectionFooter.h"
-#import "BlocksKit+UIKit.h"
 #import "UIImage+WMFStyle.h"
+@import BlocksKitUIKitExtensions;
 
 @interface WMFExploreSectionFooter ()
 
@@ -16,12 +16,13 @@
     self.clipsToBounds = NO;
     self.moreChevronImageView.image = [UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-right"];
     @weakify(self);
-    [self bk_whenTapped:^{
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] bk_initWithHandler:^(UIGestureRecognizer *_Nonnull sender, UIGestureRecognizerState state, CGPoint location) {
         @strongify(self);
         if (self.whenTapped) {
             self.whenTapped();
         }
     }];
+    [self addGestureRecognizer:tapGR];
 }
 
 @end

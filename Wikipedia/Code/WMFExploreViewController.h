@@ -4,7 +4,7 @@
 
 @class MWKDataStore;
 @class WMFContentGroupDataStore;
-@class WMFArticlePreviewDataStore;
+@class WMFArticleDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) MWKDataStore *userStore;
 @property (nonatomic, strong) WMFContentGroupDataStore *contentStore;
-@property (nonatomic, strong) WMFArticlePreviewDataStore *previewStore;
+@property (nonatomic, strong) WMFArticleDataStore *previewStore;
 
 @property (nonatomic, assign) BOOL canScrollToTop;
 

@@ -1,7 +1,6 @@
 #import "PageHistoryViewController.h"
 #import "PageHistoryResultCell.h"
 #import "WikipediaAppUtils.h"
-#import "NSDate+Utilities.h"
 #import "WikiGlyph_Chars.h"
 #import "Defines.h"
 #import "PaddedLabel.h"

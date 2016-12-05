@@ -1,5 +1,4 @@
 #import "WMFFindInPageKeyboardBar.h"
-#import "UIControl+BlocksKit.h"
 
 @interface WMFFindInPageKeyboardBar () <UITextFieldDelegate>
 

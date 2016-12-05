@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, WMFFeedDetailType) {
     WMFFeedDetailTypePage,
     WMFFeedDetailTypePageWithRandomButton,
     WMFFeedDetailTypeGallery,
-    WMFFeedDetailTypeStory,
+    WMFFeedDetailTypeStory
 };
 
 typedef NS_ENUM(NSUInteger, WMFFeedHeaderType) {
@@ -47,7 +47,7 @@ typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
     //    WMFFeedBlacklistOptionSection = 1 << 1, //blacklist all sections of this type
 };
 
-@protocol WMFFeedContentDisplaying <WMFAnalyticsContentTypeProviding>
+@protocol WMFFeedContentDisplaying <WMFAnalyticsContentTypeProviding, WMFAnalyticsValueProviding>
 
 /**
  *  The type of header to display for the section

@@ -1,9 +1,5 @@
 #import "WMFProxyServer.h"
-
-#import "GCDWebServer.h"
-#import "GCDWebServerDataResponse.h"
-#import "GCDWebServerErrorResponse.h"
-#import "GCDWebServerFunctions.h"
+@import GCDWebServers;
 #import "NSURL+WMFExtras.h"
 #import "NSString+WMFExtras.h"
 #import "NSURL+WMFProxyServer.h"

@@ -5,13 +5,14 @@
 #import "MWKImageInfoFetcher.h"
 
 #import "MWKDataStore.h"
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
 #import "MWKSavedPageList.h"
 #import "MWKArticle.h"
 #import "MWKImage+CanonicalFilenames.h"
 #import "WMFURLCache.h"
 #import "WMFImageURLParsing.h"
 #import "WMFTaskGroup.h"
+#import <WMFModel/WMFModel.h>
 
 static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;
 
@@ -35,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableDictionary<NSURL *, NSError *> *errorsByArticleTitle;
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
-                     previewStore:(WMFArticlePreviewDataStore *)previewStore
+                     previewStore:(WMFArticleDataStore *)previewStore
                     savedPageList:(MWKSavedPageList *)savedPageList
                    articleFetcher:(WMFArticleFetcher *)articleFetcher
                   imageController:(WMFImageController *)imageController
@@ -55,7 +56,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
-                     previewStore:(WMFArticlePreviewDataStore *)previewStore
+                     previewStore:(WMFArticleDataStore *)previewStore
                     savedPageList:(MWKSavedPageList *)savedPageList
                    articleFetcher:(WMFArticleFetcher *)articleFetcher
                   imageController:(WMFImageController *)imageController
@@ -82,7 +83,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
-                     previewStore:(WMFArticlePreviewDataStore *)previewStore
+                     previewStore:(WMFArticleDataStore *)previewStore
                     savedPageList:(MWKSavedPageList *)savedPageList {
     return [self initWithDataStore:dataStore
                       previewStore:previewStore
@@ -145,17 +146,20 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     }
 
     WMFTaskGroup *group = [WMFTaskGroup new];
-    [self.savedPageList enumerateItemsWithBlock:^(MWKHistoryEntry *_Nonnull entry, BOOL *_Nonnull stop) {
+    [self.savedPageList enumerateItemsWithBlock:^(WMFArticle *_Nonnull entry, BOOL *_Nonnull stop) {
         [group enter];
         dispatch_async(self.accessQueue, ^{
             @autoreleasepool {
-                [self fetchArticleURL:entry.url
-                    failure:^(NSError *error) {
-                        [group leave];
-                    }
-                    success:^{
-                        [group leave];
-                    }];
+                NSURL *articleURL = [NSURL URLWithString:entry.key];
+                if (articleURL) {
+                    [self fetchArticleURL:articleURL
+                        failure:^(NSError *error) {
+                            [group leave];
+                        }
+                        success:^{
+                            [group leave];
+                        }];
+                }
             }
         });
     }];
@@ -362,9 +366,9 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)cancelFetchForSavedPages {
     BOOL wasFetching = self.fetchOperationsByArticleTitle.count > 0;
-    [self.savedPageList enumerateItemsWithBlock:^(MWKHistoryEntry *_Nonnull entry, BOOL *_Nonnull stop) {
+    [self.savedPageList enumerateItemsWithBlock:^(WMFArticle *_Nonnull entry, BOOL *_Nonnull stop) {
         dispatch_async(self.accessQueue, ^{
-            [self cancelFetchForArticleURL:entry.url];
+            [self cancelFetchForArticleURL:entry.URL];
         });
     }];
     if (wasFetching) {
@@ -386,31 +390,6 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         [self.fetchOperationsByArticleTitle removeObjectForKey:URL];
 }
 
-#pragma mark - Progress
-
-- (void)getProgress:(WMFProgressHandler)progressBlock {
-    dispatch_async(self.accessQueue, ^{
-        CGFloat progress = [self progress];
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            progressBlock(progress);
-        });
-    });
-}
-
-/// Only invoke within accessQueue
-- (CGFloat)progress {
-    /*
-       FIXME: Handle progress when only downloading a subset of saved pages (e.g. if some were already downloaded in
-       a previous session)?
-     */
-    if ([self.savedPageList numberOfItems] == 0) {
-        return 0.0;
-    }
-
-    return (CGFloat)([self.savedPageList numberOfItems] - [self.fetchOperationsByArticleTitle count]) / (CGFloat)[self.savedPageList numberOfItems];
-}
-
 #pragma mark - Delegate Notification
 
 /// Only invoke within accessQueue
@@ -428,12 +407,10 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     // stop tracking operation, effectively advancing the progress
     [self.fetchOperationsByArticleTitle removeObjectForKey:url];
 
-    CGFloat progress = [self progress];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.fetchFinishedDelegate savedArticlesFetcher:self
                                              didFetchURL:url
                                                  article:fetchedArticle
-                                                progress:progress
                                                    error:error];
     });
 

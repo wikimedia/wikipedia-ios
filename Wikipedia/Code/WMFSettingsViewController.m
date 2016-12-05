@@ -1,7 +1,7 @@
 #import "WMFSettingsTableViewCell.h"
 #import "Wikipedia-Swift.h"
 #import "NSUserActivity+WMFExtensions.h"
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
 
 // View Controllers
 #import "WMFSettingsViewController.h"
@@ -18,7 +18,6 @@
 
 // Frameworks
 #import <HockeySDK/HockeySDK.h>
-#import "BlocksKit+UIKit.h"
 #import <Tweaks/FBTweakViewController.h>
 #import <Tweaks/FBTweakStore.h>
 #import <SSDataSources/SSDataSources.h>
@@ -33,11 +32,7 @@
 #import "NSBundle+WMFInfoUtils.h"
 #import "WMFAuthenticationManager.h"
 #import "Wikipedia-Swift.h"
-
-#if WMF_USER_ZOOM_IS_ENABLED
-#import <UserzoomSDK/UserzoomSDK.h>
-#import <Tweaks/FBTweakInline.h>
-#endif
+@import BlocksKitUIKitExtensions;
 
 #pragma mark - Static URLs
 
@@ -51,7 +46,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 @interface WMFSettingsViewController () <UITableViewDelegate, WMFPreferredLanguagesViewControllerDelegate, FBTweakViewControllerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
-@property (nonatomic, strong, readwrite) WMFArticlePreviewDataStore *previewStore;
+@property (nonatomic, strong, readwrite) WMFArticleDataStore *previewStore;
 
 @property (nonatomic, strong) SSSectionedDataSource *elementDataSource;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -60,7 +55,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 @implementation WMFSettingsViewController
 
-+ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store previewStore:(WMFArticlePreviewDataStore *)previewStore {
++ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store previewStore:(WMFArticleDataStore *)previewStore {
     NSParameterAssert(store);
     NSParameterAssert(previewStore);
     WMFSettingsViewController *vc = [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard];
@@ -312,11 +307,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)tweakViewControllerPressedDone:(FBTweakViewController *)tweakViewController {
     [[NSNotificationCenter defaultCenter] postNotificationName:FBTweakShakeViewControllerDidDismissNotification object:tweakViewController];
     [tweakViewController dismissViewControllerAnimated:YES completion:nil];
-#if WMF_USER_ZOOM_IS_ENABLED && FB_TWEAK_ENABLED
-    if (FBTweakValue(@"User studies", @"UserZoom", @"Show", NO)) {
-        [UserzoomSDK show];
-    }
-#endif
 }
 
 #pragma mark - Cell reloading

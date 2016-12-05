@@ -19,8 +19,6 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import "MWKImage.h"
 #import "MWKUser.h"
 
-#import "MWKHistoryEntry.h"
-
 #import "MWKHistoryList.h"
 #import "MWKSavedPageList.h"
 
@@ -46,7 +44,6 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 
 #import "MWKArticle+WMFSharing.h"
 #import "MWKCitation.h"
-#import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "MWKImage+CanonicalFilenames.h"
 #import "MWKImageInfo+MWKImageComparison.h"
 #import "MWKSavedPageEntry+ImageMigration.h"
@@ -65,7 +62,6 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import "MWKLanguageLinkResponseSerializer.h"
 #import "WMFMantleJSONResponseSerializer.h"
 #import "WMFNetworkUtilities.h"
-#import "WMFRelatedSectionBlackList.h"
 #import "FetcherBase.h"
 
 #import "UIScreen+WMFImageWidth.h"
@@ -76,19 +72,8 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 
 #import "MWNetworkActivityIndicatorManager.h"
 
-#import "MWKHistoryEntry+WMFDatabaseViews.h"
 #import "MWKLanguageLinkController_Private.h"
-#import "WMFArticlePreview+WMFDatabaseStorable.h"
-#import "WMFArticlePreview.h"
-#import "WMFContentGroup.h"
-#import "WMFContentGroup+WMFDatabaseViews.h"
-#import "WMFContentGroup+WMFDatabaseStorable.h"
-#import "WMFDatabaseViewable.h"
 #import "WMFFaceDetectionCache.h"
-#import "YapDatabase+WMFExtensions.h"
-#import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
-#import "YapDatabaseViewMappings+WMFMappings.h"
-#import "YapDatabaseConnection+WMFExtensions.h"
 
 #import "CIContext+WMFImageProcessing.h"
 #import "CIDetector+WMFFaceDetection.h"
@@ -138,18 +123,19 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import "MWKSearchResult.h"
 #import "NSDictionary+WMFCommonParams.h"
 
-#import "WMFDataSource.h"
-#import "WMFDatabaseDataSource.h"
-#import "MWKDataStore+WMFDataSources.h"
 #import "WMFContentGroupDataStore.h"
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
+
+#import "WMFArticle+Extensions.h"
+#import "WMFContentGroup+Extensions.h"
+
 
 #import "NSUserActivity+WMFExtensions.h"
 
 #import "PiwikTracker+WMFExtensions.h"
 
-
 //Deprecated
+#import "MWKHistoryEntry.h"
 #import "MWKList.h"
 #import "MWKList+Subclass.h"
 #import "MWKSite.h"
@@ -157,3 +143,4 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import "SessionSingleton.h"
 #import "QueuesSingleton.h"
 #import "MWKSavedPageEntry.h"
+#import "WMFLegacyContentGroup.h"

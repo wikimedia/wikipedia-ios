@@ -1,4 +1,4 @@
-#import <CocoaLumberjack/CocoaLumberjack.h>
+@import CocoaLumberjackSwift;
 
 // Log level defaults to DEBUG in debug mode, and WARN in release.
 #if DEBUG

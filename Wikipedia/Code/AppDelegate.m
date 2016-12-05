@@ -7,10 +7,11 @@
 #import "NSUserActivity+WMFExtensions.h"
 @import UserNotifications;
 
-#if WMF_USER_ZOOM_IS_ENABLED
-#import <UserzoomSDK/UserzoomSDK.h>
-static NSString *const WMFUserZoomTag = @QUOTE(WMF_USER_ZOOM_TAG);
+#if WMF_UX_STUDY_ENABLED
+#import <Appsee/Appsee.h>
+static NSString *const WMFAppSeeAPIKey = @QUOTE(WMF_APP_SEE_API_KEY);
 #endif
+
 
 @interface AppDelegate ()
 
@@ -78,14 +79,11 @@ static NSString *const WMFUserZoomTag = @QUOTE(WMF_USER_ZOOM_TAG);
     NSLog(@"\n\nSimulator documents directory:\n\t%@\n\n",
           [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]);
 #endif
-
-#if WMF_USER_ZOOM_IS_ENABLED
-#if DEBUG
-    [UserzoomSDK setDebugLevel:UZLogVerbose];
-    [UserzoomSDK setDevelopmentMode];
-#endif
-    [UserzoomSDK initWithTag:WMFUserZoomTag
-                     options:launchOptions];
+    
+#if WMF_UX_STUDY_ENABLED
+    if (WMFAppSeeAPIKey.length > 0) {
+        [Appsee start:WMFAppSeeAPIKey];
+    }
 #endif
 
     [NSUserDefaults wmf_migrateToWMFGroupUserDefaultsIfNecessary];
@@ -142,15 +140,7 @@ static NSString *const WMFUserZoomTag = @QUOTE(WMF_USER_ZOOM_TAG);
               openURL:(NSURL *)url
     sourceApplication:(NSString *)sourceApplication
            annotation:(id)annotation {
-#if WMF_USER_ZOOM_IS_ENABLED
-    BOOL didHandle = [self application:application openURL:url options:@{}];
-    if (!didHandle) {
-        return [UserzoomSDK openURL:url sourceApplication:sourceApplication annotation:annotation];
-    }
-    return didHandle;
-#else
     return [self application:application openURL:url options:@{}];
-#endif
 }
 
 - (BOOL)application:(UIApplication *)app
@@ -180,18 +170,6 @@ static NSString *const WMFUserZoomTag = @QUOTE(WMF_USER_ZOOM_TAG);
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     [self applicationDidEnterBackground:application];
 }
-
-#pragma mark - User Zoom
-
-#if WMF_USER_ZOOM_IS_ENABLED
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    [UserzoomSDK continueFlow:notification];
-}
-
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
-    [UserzoomSDK changePermissions:notificationSettings];
-}
-#endif
 
 #pragma mark - Background Fetch
 

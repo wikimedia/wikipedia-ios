@@ -3,12 +3,8 @@
 
 @import WMFUtilities;
 
-#import "WMFBaseDataStore.h"
 #import "MWKDataStore.h"
 #import "WMFContentGroupDataStore.h"
-
-#import "WMFDataBaseDataSource.h"
-#import "MWKDataStore+WMFDataSources.h"
 
 #import "SessionSingleton.h"
 #import "QueuesSingleton.h"
@@ -54,7 +50,6 @@
 
 #import "MWKArticle+WMFSharing.h"
 #import "MWKCitation.h"
-#import "MWKHistoryEntry+WMFDatabaseStorable.h"
 
 #import "MWKImage+CanonicalFilenames.h"
 #import "MWKImageInfo+MWKImageComparison.h"
@@ -75,7 +70,6 @@
 #import "MWKLanguageLinkResponseSerializer.h"
 #import "WMFMantleJSONResponseSerializer.h"
 #import "WMFNetworkUtilities.h"
-#import "WMFRelatedSectionBlackList.h"
 #import "FetcherBase.h"
 
 #import "UIScreen+WMFImageWidth.h"
@@ -84,19 +78,8 @@
 
 #import "MWNetworkActivityIndicatorManager.h"
 
-#import "MWKHistoryEntry+WMFDatabaseViews.h"
 #import "MWKLanguageLinkController_Private.h"
-#import "WMFArticlePreview+WMFDatabaseStorable.h"
-#import "WMFArticlePreview.h"
-#import "WMFContentGroup.h"
-#import "WMFContentGroup+WMFDatabaseViews.h"
-#import "WMFContentGroup+WMFDatabaseStorable.h"
-#import "WMFDatabaseViewable.h"
 #import "WMFFaceDetectionCache.h"
-#import "YapDatabase+WMFExtensions.h"
-#import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
-#import "YapDatabaseViewMappings+WMFMappings.h"
-#import "YapDatabaseConnection+WMFExtensions.h"
 
 #import "CIContext+WMFImageProcessing.h"
 #import "CIDetector+WMFFaceDetection.h"
@@ -141,18 +124,13 @@
 #import "AFHTTPSessionManager+WMFConfig.h"
 #import "AFHTTPRequestSerializer+WMFRequestHeaders.h"
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"
-#import "WMFArticlePreviewFetcher.h"
+#import "WMFArticleFetcher.h"
 #import "WMFBaseRequestSerializer.h"
 #import "MWKSearchResult.h"
 #import "NSDictionary+WMFCommonParams.h"
 
-#import "WMFDataSource.h"
-#import "WMFDatabaseDataSource.h"
-#import "MWKDataStore+WMFDataSources.h"
-
 #import "NSUserActivity+WMFExtensions.h"
 
 #import "PiwikTracker+WMFExtensions.h"
-
 
 #endif /* WMFModel_global_h */

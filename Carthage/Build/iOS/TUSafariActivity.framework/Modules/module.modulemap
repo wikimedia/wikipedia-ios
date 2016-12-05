@@ -1,0 +1,6 @@
+framework module TUSafariActivity {
+  umbrella header "TUSafariActivity.h"
+
+  export *
+  module * { export * }
+}

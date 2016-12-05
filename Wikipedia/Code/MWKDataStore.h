@@ -1,5 +1,3 @@
-#import "WMFBaseDataStore.h"
-
 @class MWKArticle;
 @class MWKSection;
 @class MWKImage;
@@ -7,9 +5,9 @@
 @class MWKHistoryList;
 @class MWKSavedPageList;
 @class MWKRecentSearchList;
-@class WMFRelatedSectionBlackList;
 @class MWKImageInfo;
 @class MWKImageList;
+@class WMFArticle;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -35,14 +33,14 @@ extern NSString *const MWKTeardownDataSourcesNotification;
 
 /**
  * Subscribe to get notifications when an item is
- * added to saved pages, history, blacklist, etc…
+ * added to saved pages, history, etc…
  * The url of the item updated will be in the
  * MWKURLKey of the userInfo
  */
 extern NSString *const MWKItemUpdatedNotification;
 extern NSString *const MWKURLKey;
 
-@interface MWKDataStore : WMFBaseDataStore
+@interface MWKDataStore : NSObject
 
 /**
  *  Initialize with sharedInstance database and legacyDataBasePath
@@ -51,20 +49,27 @@ extern NSString *const MWKURLKey;
  */
 - (instancetype)init;
 
-- (instancetype)initWithDatabase:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithContainerURL:(NSURL *)containerURL NS_DESIGNATED_INITIALIZER;
 
 + (BOOL)migrateToSharedContainer:(NSError **)error;
+- (BOOL)migrateToCoreData:(NSError **)error;
 
 @property (readonly, strong, nonatomic) MWKHistoryList *historyList;
 @property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
-@property (readonly, strong, nonatomic) WMFRelatedSectionBlackList *blackList;
 
-#pragma mark - Entry Access
+@property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
 
-- (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url;
+- (nullable WMFArticle *)fetchArticleForURL:(NSURL *)URL;
+- (nullable WMFArticle *)fetchArticleForKey:(NSString *)key;
+- (nullable WMFArticle *)fetchOrCreateArticleForURL:(NSURL *)URL;
 
-- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block;
+- (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL;
+- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed forArticleURL:(NSURL *)articleURL;
+
+- (BOOL)save:(NSError **)error;
+
+- (void)enumerateArticlesWithBlock:(void (^)(WMFArticle *_Nonnull entry, BOOL *stop))block;
 
 #pragma mark - Legacy Datastore methods
 

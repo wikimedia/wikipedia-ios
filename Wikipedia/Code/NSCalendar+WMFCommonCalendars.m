@@ -21,7 +21,7 @@
     return gregorianCalendar;
 }
 
-- (NSInteger)daysFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate {
+- (NSInteger)wmf_daysFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate {
     if (!fromDate || !toDate) {
         return 0;
     }
@@ -42,6 +42,44 @@
 
 - (BOOL)wmf_isTodayUTC {
     return [[NSCalendar wmf_utcGregorianCalendar] isDateInToday:self];
+}
+
+- (BOOL)wmf_UTCDateIsSameDateAsLocalDate:(NSDate *)date {
+    NSCalendar *localCalendar = [NSCalendar wmf_gregorianCalendar];
+    NSDateComponents *localComponents = [localCalendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+    localComponents.timeZone = nil;
+    NSCalendar *UTCCalendar = [NSCalendar wmf_utcGregorianCalendar];
+    NSDateComponents *UTCComponents = [UTCCalendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self];
+    UTCComponents.timeZone = nil;
+    return [UTCComponents isEqual:localComponents];
+}
+
+- (BOOL)wmf_UTCDateIsTodayLocal {
+    return [self wmf_UTCDateIsSameDateAsLocalDate:[NSDate date]];
+}
+
+- (NSDate *)wmf_midnightUTCDateFromUTCDate {
+    NSCalendar *UTCCalendar = [NSCalendar wmf_utcGregorianCalendar];
+    NSDateComponents *timelessDateComponents = [UTCCalendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self];
+    timelessDateComponents.timeZone = nil;
+    NSDate *timelessUTCDate = [UTCCalendar dateFromComponents:timelessDateComponents];
+    return timelessUTCDate;
+}
+
+- (NSDate *)wmf_midnightUTCDateFromLocalDate {
+    NSCalendar *localCalendar = [NSCalendar wmf_gregorianCalendar];
+    NSDateComponents *timelessDateComponents = [localCalendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self];
+    timelessDateComponents.timeZone = nil;
+    NSCalendar *UTCCalendar = [NSCalendar wmf_utcGregorianCalendar];
+    NSDate *timelessUTCDate = [UTCCalendar dateFromComponents:timelessDateComponents];
+    return timelessUTCDate;
+}
+
+- (NSDate *)wmf_midnightDate {
+    NSCalendar *localCalendar = [NSCalendar wmf_gregorianCalendar];
+    NSDateComponents *timelessDateComponents = [localCalendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self];
+    NSDate *timelessDate = [localCalendar dateFromComponents:timelessDateComponents];
+    return timelessDate;
 }
 
 @end

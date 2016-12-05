@@ -24,14 +24,7 @@
 
     [list addPagesToHistoryWithURLs:randomURLs];
 
-    __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
-
-    [dataStore notifyWhenWriteTransactionsComplete:^{
-        XCTAssertEqual([list numberOfItems], count);
-        [expectation fulfill];
-    }];
-
-    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
+    XCTAssertEqual([list numberOfItems], count);
 }
 
 @end

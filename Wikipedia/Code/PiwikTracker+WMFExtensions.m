@@ -1,16 +1,15 @@
 #import "PiwikTracker+WMFExtensions.h"
 #import "NSBundle+WMFInfoUtils.h"
-@import NSDate_Extensions;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation NSString (WMFAnalytics)
 
-- (NSString *)analyticsContext{
+- (NSString *)analyticsContext {
     return self;
 }
 
-- (NSString*)analyticsContentType{
+- (NSString *)analyticsContentType {
     return self;
 }
 
@@ -19,13 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation PiwikTracker (WMFExtensions)
 
 + (void)wmf_start {
-#ifdef PIWIK_ENABLED
     static NSTimeInterval const WMFDispatchInterval = 60;
     NSString *piwikHostURLString = @"https://piwik.wikimedia.org/";
     NSString *appID = @"3";
     [PiwikTracker sharedInstanceWithSiteID:appID baseURL:[NSURL URLWithString:piwikHostURLString]];
     [[PiwikTracker sharedInstance] setDispatchInterval:WMFDispatchInterval];
-#endif
 }
 
 - (void)wmf_logView:(id<WMFAnalyticsViewNameProviding>)view {
@@ -47,23 +44,28 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)wmf_logActionPreviewInContext:(id<WMFAnalyticsContextProviding>)context
                           contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
     [self wmf_logActionPreviewInContext:context contentType:contentType date:nil];
-  }
+}
 
-- (void)wmf_logActionPreviewInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType date:(nullable NSDate*)date{
-    
+- (void)wmf_logActionPreviewInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType date:(nullable NSDate *)date {
+
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Preview"
                                name:[contentType analyticsContentType]
                               value:nil];
 }
 
-
 - (void)wmf_logActionTapThroughInContext:(id<WMFAnalyticsContextProviding>)context
-                             contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+                             contentType:(id<WMFAnalyticsContentTypeProviding>)contentType
+                                   value:(id<WMFAnalyticsValueProviding>)value {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Tap Through"
                                name:[contentType analyticsContentType]
-                              value:nil];
+                              value:[value analyticsValue]];
+}
+
+- (void)wmf_logActionTapThroughInContext:(id<WMFAnalyticsContextProviding>)context
+                             contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_logActionTapThroughInContext:context contentType:contentType value:nil];
 }
 
 - (void)wmf_logActionSaveInContext:(id<WMFAnalyticsContextProviding>)context
@@ -84,18 +86,30 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)wmf_logActionImpressionInContext:(id<WMFAnalyticsContextProviding>)context
                              contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_logActionImpressionInContext:context contentType:contentType value:nil];
+}
+
+- (void)wmf_logActionImpressionInContext:(id<WMFAnalyticsContextProviding>)context
+                             contentType:(id<WMFAnalyticsContentTypeProviding>)contentType
+                                   value:(id<WMFAnalyticsValueProviding>)value {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Impression"
                                name:[contentType analyticsContentType]
-                              value:nil];
+                              value:[value analyticsValue]];
 }
 
 - (void)wmf_logActionTapThroughMoreInContext:(id<WMFAnalyticsContextProviding>)context
                                  contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_logActionTapThroughMoreInContext:context contentType:contentType value:nil];
+}
+
+- (void)wmf_logActionTapThroughMoreInContext:(id<WMFAnalyticsContextProviding>)context
+                                 contentType:(id<WMFAnalyticsContentTypeProviding>)contentType
+                                       value:(id<WMFAnalyticsValueProviding>)value {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Tap Through More"
                                name:[contentType analyticsContentType]
-                              value:nil];
+                              value:[value analyticsValue]];
 }
 
 - (void)wmf_logActionSwitchLanguageInContext:(id<WMFAnalyticsContextProviding>)context
@@ -107,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)wmf_logActionEnableInContext:(id<WMFAnalyticsContextProviding>)context
-                                 contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+                         contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Enable"
                                name:[contentType analyticsContentType]
@@ -115,25 +129,32 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)wmf_logActionDisableInContext:(id<WMFAnalyticsContextProviding>)context
-                         contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+                          contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Disable"
                                name:[contentType analyticsContentType]
                               value:nil];
 }
 
-- (void)wmf_logActionPushInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType date:(nullable NSDate*)date{
+- (void)wmf_logActionPushInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType date:(nullable NSDate *)date {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Push"
                                name:[contentType analyticsContentType]
                               value:[self hourTimeValueFromDate:date]];
 }
 
-
-- (NSNumber*)hourTimeValueFromDate:(nullable NSDate*)date{
-    return @([date hour]);
+- (void)wmf_logActionDismissInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType value:(id<WMFAnalyticsValueProviding>)value {
+    [self wmf_sendEventWithCategory:[context analyticsContext]
+                             action:@"Disable"
+                               name:[contentType analyticsContentType]
+                              value:[value analyticsValue]];
 }
 
+- (NSNumber *)hourTimeValueFromDate:(nullable NSDate *)date {
+    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
+    NSInteger hour = [calendar component:NSCalendarUnitHour fromDate:date];
+    return @(hour);
+}
 
 @end
 

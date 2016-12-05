@@ -1,0 +1,360 @@
+BCSymbolMap Version: 2.0
++[SSBaseHeaderFooterView identifier]
+-[SSBaseHeaderFooterView init]
+Apple LLVM version 8.0.0 (clang-800.0.42.1)
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/SSDataSources/SSDataSources/SSBaseHeaderFooterView.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/SSDataSources
+-[SSExpandingDataSource isSectionExpandedAtIndex:]
+-[SSExpandingDataSource isItemVisibleAtIndexPath:]
+-[SSExpandingDataSource expandedSectionIndexes]
+___47-[SSExpandingDataSource expandedSectionIndexes]_block_invoke
+___copy_helper_block_
+___destroy_helper_block_
+-[SSExpandingDataSource numberOfCollapsedRowsInSection:]
+-[SSExpandingDataSource toggleSectionAtIndex:]
+-[SSExpandingDataSource setSection:expanded:]
+-[SSExpandingDataSource setSectionAtIndex:expanded:]
+-[SSExpandingDataSource numberOfItemsInSection:]
+-[SSExpandingDataSource insertItem:atIndexPath:]
+-[SSExpandingDataSource appendItems:toSection:]
+-[SSExpandingDataSource insertItems:atIndexes:inSection:]
+___57-[SSExpandingDataSource insertItems:atIndexes:inSection:]_block_invoke
+___57-[SSExpandingDataSource insertItems:atIndexes:inSection:]_block_invoke_2
+___copy_helper_block_.65
+___destroy_helper_block_.66
+___copy_helper_block_.69
+___destroy_helper_block_.70
+-[SSExpandingDataSource replaceItemAtIndexPath:withItem:]
+-[SSExpandingDataSource removeItemAtIndexPath:]
+-[SSExpandingDataSource removeItemsInRange:inSection:]
+-[SSExpandingDataSource removeItemsAtIndexes:inSection:]
+___56-[SSExpandingDataSource removeItemsAtIndexes:inSection:]_block_invoke
+___56-[SSExpandingDataSource removeItemsAtIndexes:inSection:]_block_invoke_2
+___copy_helper_block_.89
+___destroy_helper_block_.90
+___copy_helper_block_.92
+___destroy_helper_block_.93
+-[SSExpandingDataSource performBatchUpdates:]
+-[SSExpandingDataSource collapsedSectionCountBlock]
+-[SSExpandingDataSource setCollapsedSectionCountBlock:]
+-[SSExpandingDataSource .cxx_destruct]
+___block_descriptor_tmp
+___block_descriptor_tmp.68
+___block_descriptor_tmp.72
+___block_descriptor_tmp.91
+___block_descriptor_tmp.94
+_OBJC_IVAR_$_SSExpandingDataSource._collapsedSectionCountBlock
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/SSDataSources/SSDataSources/SSExpandingDataSource.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/SSDataSources/SSDataSources/SSExpandingDataSource.h
+__destroy_helper_block_
+__copy_helper_block_
+__56-[SSExpandingDataSource removeItemsAtIndexes:inSection:]_block_invoke_2
+__56-[SSExpandingDataSource removeItemsAtIndexes:inSection:]_block_invoke
+__57-[SSExpandingDataSource insertItems:atIndexes:inSection:]_block_invoke_2
+__57-[SSExpandingDataSource insertItems:atIndexes:inSection:]_block_invoke
+__47-[SSExpandingDataSource expandedSectionIndexes]_block_invoke
++[SSBaseCollectionCell identifier]
++[SSBaseCollectionCell cellForCollectionView:indexPath:]
+-[SSBaseCollectionCell configureCell]
+-[SSBaseCollectionCell didCompleteSetup]
+-[SSBaseCollectionCell setDidCompleteSetup:]
+_OBJC_IVAR_$_SSBaseCollectionCell._didCompleteSetup
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/SSDataSources/SSDataSources/SSBaseCollectionCell.m
+-[SSCoreDataSource init]
+-[SSCoreDataSource initWithFetchedResultsController:]
+-[SSCoreDataSource initWithFetchRequest:inContext:sectionNameKeyPath:]
+-[SSCoreDataSource dealloc]
+-[SSCoreDataSource _performFetch]
+-[SSCoreDataSource numberOfSections]
+-[SSCoreDataSource numberOfItemsInSection:]
+-[SSCoreDataSource itemAtIndexPath:]
+-[SSCoreDataSource indexPathForItemWithId:]
+___43-[SSCoreDataSource indexPathForItemWithId:]_block_invoke
+-[SSCoreDataSource tableView:sectionForSectionIndexTitle:atIndex:]
+-[SSCoreDataSource sectionIndexTitlesForTableView:]
+-[SSCoreDataSource tableView:titleForHeaderInSection:]
+-[SSCoreDataSource tableView:moveRowAtIndexPath:toIndexPath:]
+-[SSCoreDataSource controller:sectionIndexTitleForSectionName:]
+-[SSCoreDataSource controllerWillChangeContent:]
+-[SSCoreDataSource controller:didChangeObject:atIndexPath:forChangeType:newIndexPath:]
+-[SSCoreDataSource controller:didChangeSection:atIndex:forChangeType:]
+-[SSCoreDataSource controllerDidChangeContent:]
+___47-[SSCoreDataSource controllerDidChangeContent:]_block_invoke
+___47-[SSCoreDataSource controllerDidChangeContent:]_block_invoke_2
+___copy_helper_block_.109
+___destroy_helper_block_.110
+___copy_helper_block_.115
+___destroy_helper_block_.116
+___47-[SSCoreDataSource controllerDidChangeContent:]_block_invoke.119
+___copy_helper_block_.124
+___destroy_helper_block_.125
+___47-[SSCoreDataSource controllerDidChangeContent:]_block_invoke.130
+___47-[SSCoreDataSource controllerDidChangeContent:]_block_invoke_2.131
+___copy_helper_block_.140
+___destroy_helper_block_.141
+___copy_helper_block_.143
+___destroy_helper_block_.144
+___47-[SSCoreDataSource controllerDidChangeContent:]_block_invoke.146
+___copy_helper_block_.147
+___destroy_helper_block_.148
+-[SSCoreDataSource controller]
+-[SSCoreDataSource setController:]
+-[SSCoreDataSource fetchError]
+-[SSCoreDataSource coreDataMoveRowBlock]
+-[SSCoreDataSource setCoreDataMoveRowBlock:]
+-[SSCoreDataSource sectionUpdates]
+-[SSCoreDataSource setSectionUpdates:]
+-[SSCoreDataSource objectUpdates]
+-[SSCoreDataSource setObjectUpdates:]
+-[SSCoreDataSource .cxx_destruct]
+_OBJC_IVAR_$_SSCoreDataSource._sectionUpdates
+_OBJC_IVAR_$_SSCoreDataSource._objectUpdates
+_OBJC_IVAR_$_SSCoreDataSource._controller
+_OBJC_IVAR_$_SSCoreDataSource._fetchError
+___block_descriptor_tmp.112
+___block_descriptor_tmp.118
+___block_descriptor_tmp.127
+___block_descriptor_tmp.142
+___block_descriptor_tmp.145
+___block_descriptor_tmp.149
+_OBJC_IVAR_$_SSCoreDataSource._coreDataMoveRowBlock
+l_OBJC_PROTOCOL_$_NSObject
+l_OBJC_LABEL_PROTOCOL_$_NSObject
+l_OBJC_PROTOCOL_$_NSFetchedResultsControllerDelegate
+l_OBJC_LABEL_PROTOCOL_$_NSFetchedResultsControllerDelegate
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/SSDataSources/SSDataSources/SSCoreDataSource.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/SSDataSources/SSDataSources/SSCoreDataSource.h
+__47-[SSCoreDataSource controllerDidChangeContent:]_block_invoke.146
+__47-[SSCoreDataSource controllerDidChangeContent:]_block_invoke_2.131
+__47-[SSCoreDataSource controllerDidChangeContent:]_block_invoke.130
+__47-[SSCoreDataSource controllerDidChangeContent:]_block_invoke.119
+__47-[SSCoreDataSource controllerDidChangeContent:]_block_invoke_2
+__47-[SSCoreDataSource controllerDidChangeContent:]_block_invoke
+__43-[SSCoreDataSource indexPathForItemWithId:]_block_invoke
+-[SSBaseDataSource init]
+-[SSBaseDataSource dealloc]
+-[SSBaseDataSource itemAtIndexPath:]
+-[SSBaseDataSource numberOfSections]
+-[SSBaseDataSource numberOfItemsInSection:]
+-[SSBaseDataSource numberOfItems]
+-[SSBaseDataSource indexPathForItem:]
+-[SSBaseDataSource configureCell:forItem:parentView:indexPath:]
+-[SSBaseDataSource setTableView:]
+-[SSBaseDataSource setCollectionView:]
+-[SSBaseDataSource tableView:cellForRowAtIndexPath:]
+-[SSBaseDataSource numberOfSectionsInTableView:]
+-[SSBaseDataSource tableView:numberOfRowsInSection:]
+-[SSBaseDataSource tableView:canMoveRowAtIndexPath:]
+-[SSBaseDataSource tableView:canEditRowAtIndexPath:]
+-[SSBaseDataSource tableView:commitEditingStyle:forRowAtIndexPath:]
+-[SSBaseDataSource collectionView:cellForItemAtIndexPath:]
+-[SSBaseDataSource numberOfSectionsInCollectionView:]
+-[SSBaseDataSource collectionView:numberOfItemsInSection:]
+-[SSBaseDataSource collectionView:viewForSupplementaryElementOfKind:atIndexPath:]
+-[SSBaseDataSource setEmptyView:]
+-[SSBaseDataSource _updateEmptyView]
++[SSBaseDataSource indexPathArrayWithIndexSet:inSection:]
+___57+[SSBaseDataSource indexPathArrayWithIndexSet:inSection:]_block_invoke
++[SSBaseDataSource indexPathArrayWithRange:inSection:]
+-[SSBaseDataSource insertCellsAtIndexPaths:]
+-[SSBaseDataSource deleteCellsAtIndexPaths:]
+-[SSBaseDataSource reloadCellsAtIndexPaths:]
+-[SSBaseDataSource moveCellAtIndexPath:toIndexPath:]
+-[SSBaseDataSource moveSectionAtIndex:toIndex:]
+-[SSBaseDataSource insertSectionsAtIndexes:]
+-[SSBaseDataSource deleteSectionsAtIndexes:]
+-[SSBaseDataSource reloadSectionsAtIndexes:]
+-[SSBaseDataSource reloadData]
+-[SSBaseDataSource cellClass]
+-[SSBaseDataSource setCellClass:]
+-[SSBaseDataSource cellConfigureBlock]
+-[SSBaseDataSource setCellConfigureBlock:]
+-[SSBaseDataSource cellCreationBlock]
+-[SSBaseDataSource setCellCreationBlock:]
+-[SSBaseDataSource emptyView]
+-[SSBaseDataSource tableView]
+-[SSBaseDataSource rowAnimation]
+-[SSBaseDataSource setRowAnimation:]
+-[SSBaseDataSource tableActionBlock]
+-[SSBaseDataSource setTableActionBlock:]
+-[SSBaseDataSource tableDeletionBlock]
+-[SSBaseDataSource setTableDeletionBlock:]
+-[SSBaseDataSource collectionView]
+-[SSBaseDataSource collectionViewSupplementaryElementClass]
+-[SSBaseDataSource setCollectionViewSupplementaryElementClass:]
+-[SSBaseDataSource collectionSupplementaryCreationBlock]
+-[SSBaseDataSource setCollectionSupplementaryCreationBlock:]
+-[SSBaseDataSource collectionSupplementaryConfigureBlock]
+-[SSBaseDataSource setCollectionSupplementaryConfigureBlock:]
+-[SSBaseDataSource cachedSeparatorStyle]
+-[SSBaseDataSource setCachedSeparatorStyle:]
+-[SSBaseDataSource .cxx_destruct]
+_OBJC_IVAR_$_SSBaseDataSource._tableView
+_OBJC_IVAR_$_SSBaseDataSource._collectionView
+_OBJC_IVAR_$_SSBaseDataSource._emptyView
+_OBJC_IVAR_$_SSBaseDataSource._cellClass
+_OBJC_IVAR_$_SSBaseDataSource._cellConfigureBlock
+_OBJC_IVAR_$_SSBaseDataSource._cellCreationBlock
+_OBJC_IVAR_$_SSBaseDataSource._rowAnimation
+_OBJC_IVAR_$_SSBaseDataSource._tableActionBlock
+_OBJC_IVAR_$_SSBaseDataSource._tableDeletionBlock
+_OBJC_IVAR_$_SSBaseDataSource._collectionViewSupplementaryElementClass
+_OBJC_IVAR_$_SSBaseDataSource._collectionSupplementaryCreationBlock
+_OBJC_IVAR_$_SSBaseDataSource._collectionSupplementaryConfigureBlock
+_OBJC_IVAR_$_SSBaseDataSource._cachedSeparatorStyle
+l_OBJC_PROTOCOL_$_UITableViewDataSource
+l_OBJC_LABEL_PROTOCOL_$_UITableViewDataSource
+l_OBJC_PROTOCOL_$_UICollectionViewDataSource
+l_OBJC_LABEL_PROTOCOL_$_UICollectionViewDataSource
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/SSDataSources/SSDataSources/SSBaseDataSource.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/SSDataSources/SSDataSources/SSBaseDataSource.h
+__57+[SSBaseDataSource indexPathArrayWithIndexSet:inSection:]_block_invoke
+UIEdgeInsetsInsetRect
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.1.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIGeometry.h
+-[SSSectionedDataSource init]
+-[SSSectionedDataSource initWithItems:]
+-[SSSectionedDataSource initWithSection:]
+-[SSSectionedDataSource initWithSections:]
+-[SSSectionedDataSource numberOfSections]
+-[SSSectionedDataSource numberOfItemsInSection:]
+-[SSSectionedDataSource itemAtIndexPath:]
+-[SSSectionedDataSource sectionAtIndex:]
+-[SSSectionedDataSource sectionWithIdentifier:]
+-[SSSectionedDataSource indexOfSectionWithIdentifier:]
+___54-[SSSectionedDataSource indexOfSectionWithIdentifier:]_block_invoke
+-[SSSectionedDataSource tableView:titleForHeaderInSection:]
+-[SSSectionedDataSource tableView:titleForFooterInSection:]
+-[SSSectionedDataSource tableView:moveRowAtIndexPath:toIndexPath:]
+-[SSSectionedDataSource moveSectionAtIndex:toIndex:]
+-[SSSectionedDataSource appendSection:]
+-[SSSectionedDataSource insertSection:atIndex:]
+-[SSSectionedDataSource insertSections:atIndexes:]
+___50-[SSSectionedDataSource insertSections:atIndexes:]_block_invoke
+___copy_helper_block_.67
+___destroy_helper_block_.68
+-[SSSectionedDataSource insertItem:atIndexPath:]
+-[SSSectionedDataSource insertItems:atIndexes:inSection:]
+-[SSSectionedDataSource appendItems:toSection:]
+-[SSSectionedDataSource replaceItemAtIndexPath:withItem:]
+-[SSSectionedDataSource adjustSectionAtIndex:toNumberOfItems:]
+-[SSSectionedDataSource clearSections]
+-[SSSectionedDataSource removeAllSections]
+-[SSSectionedDataSource removeSectionAtIndex:]
+-[SSSectionedDataSource removeSectionsInRange:]
+-[SSSectionedDataSource removeSectionsAtIndexes:]
+-[SSSectionedDataSource removeSectionWithIdentifier:]
+-[SSSectionedDataSource removeItemAtIndexPath:]
+-[SSSectionedDataSource removeItemsInRange:inSection:]
+-[SSSectionedDataSource removeItemsAtIndexes:inSection:]
+-[SSSectionedDataSource headerFooterViewWithClass:]
+-[SSSectionedDataSource viewForHeaderInSection:]
+-[SSSectionedDataSource viewForFooterInSection:]
+-[SSSectionedDataSource heightForHeaderInSection:]
+-[SSSectionedDataSource heightForFooterInSection:]
+-[SSSectionedDataSource titleForHeaderInSection:]
+-[SSSectionedDataSource titleForFooterInSection:]
+-[SSSectionedDataSource shouldRemoveEmptySections]
+-[SSSectionedDataSource setShouldRemoveEmptySections:]
+-[SSSectionedDataSource sections]
+-[SSSectionedDataSource .cxx_destruct]
+_OBJC_IVAR_$_SSSectionedDataSource._sections
+_OBJC_IVAR_$_SSSectionedDataSource._shouldRemoveEmptySections
+___block_descriptor_tmp.70
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/SSDataSources/SSDataSources/SSSectionedDataSource.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/SSDataSources/SSDataSources/SSSectionedDataSource.h
+__50-[SSSectionedDataSource insertSections:atIndexes:]_block_invoke
+__54-[SSSectionedDataSource indexOfSectionWithIdentifier:]_block_invoke
++[SSBaseTableCell identifier]
++[SSBaseTableCell cellStyle]
++[SSBaseTableCell cellForTableView:]
+-[SSBaseTableCell configureCell]
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/SSDataSources/SSDataSources/SSBaseTableCell.m
++[SSBaseCollectionReusableView identifier]
++[SSBaseCollectionReusableView supplementaryViewForCollectionView:kind:indexPath:]
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/SSDataSources/SSDataSources/SSBaseCollectionReusableView.m
+-[SSArrayDataSourceItemsContainer initWithItems:]
+-[SSArrayDataSourceItemsContainer items]
+-[SSArrayDataSourceItemsContainer setItems:]
+-[SSArrayDataSourceItemsContainer .cxx_destruct]
+-[SSArrayDataSource initWithItems:]
+-[SSArrayDataSource initWithTarget:keyPath:]
+-[SSArrayDataSource dealloc]
+-[SSArrayDataSource items]
+-[SSArrayDataSource numberOfSections]
+-[SSArrayDataSource numberOfItemsInSection:]
+-[SSArrayDataSource itemAtIndexPath:]
+-[SSArrayDataSource clearItems]
+-[SSArrayDataSource removeAllItems]
+-[SSArrayDataSource updateItems:]
+-[SSArrayDataSource allItems]
+-[SSArrayDataSource appendItem:]
+-[SSArrayDataSource appendItems:]
+-[SSArrayDataSource insertItem:atIndex:]
+-[SSArrayDataSource insertItems:atIndexes:]
+-[SSArrayDataSource replaceItemAtIndex:withItem:]
+-[SSArrayDataSource replaceItemsInRange:withItemsFromArray:]
+-[SSArrayDataSource replaceItemsAtIndexes:withItemsFromArray:]
+-[SSArrayDataSource moveItemAtIndex:toIndex:]
+-[SSArrayDataSource removeItemsInRange:]
+-[SSArrayDataSource removeItemAtIndex:]
+-[SSArrayDataSource removeItemsAtIndexes:]
+-[SSArrayDataSource removeItems:]
+-[SSArrayDataSource indexPathForItemWithId:]
+___44-[SSArrayDataSource indexPathForItemWithId:]_block_invoke
+-[SSArrayDataSource tableView:moveRowAtIndexPath:toIndexPath:]
+-[SSArrayDataSource registerKVO]
+-[SSArrayDataSource unregisterKVO]
+-[SSArrayDataSource observeValueForKeyPath:ofObject:change:context:]
+-[SSArrayDataSource target]
+-[SSArrayDataSource setTarget:]
+-[SSArrayDataSource keyPath]
+-[SSArrayDataSource setKeyPath:]
+-[SSArrayDataSource setItems:]
+-[SSArrayDataSource .cxx_destruct]
+_OBJC_IVAR_$_SSArrayDataSourceItemsContainer._items
+_OBJC_IVAR_$_SSArrayDataSource._items
+_SSArrayKeyPathDataSourceContext
+_OBJC_IVAR_$_SSArrayDataSource._target
+_OBJC_IVAR_$_SSArrayDataSource._keyPath
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/SSDataSources/SSDataSources/SSArrayDataSource.m
+__44-[SSArrayDataSource indexPathForItemWithId:]_block_invoke
+-[SSSection init]
++[SSSection sectionWithItems:]
++[SSSection sectionWithItems:header:footer:identifier:]
++[SSSection sectionWithNumberOfItems:]
++[SSSection sectionWithNumberOfItems:header:footer:identifier:]
+-[SSSection numberOfItems]
+-[SSSection itemAtIndex:]
+-[SSSection copyWithZone:]
+-[SSSection items]
+-[SSSection sectionIdentifier]
+-[SSSection setSectionIdentifier:]
+-[SSSection header]
+-[SSSection setHeader:]
+-[SSSection footer]
+-[SSSection setFooter:]
+-[SSSection headerClass]
+-[SSSection setHeaderClass:]
+-[SSSection footerClass]
+-[SSSection setFooterClass:]
+-[SSSection headerHeight]
+-[SSSection setHeaderHeight:]
+-[SSSection footerHeight]
+-[SSSection setFooterHeight:]
+-[SSSection isExpanded]
+-[SSSection setExpanded:]
+-[SSSection .cxx_destruct]
+_OBJC_IVAR_$_SSSection._items
+_OBJC_IVAR_$_SSSection._headerClass
+_OBJC_IVAR_$_SSSection._footerClass
+_OBJC_IVAR_$_SSSection._headerHeight
+_OBJC_IVAR_$_SSSection._footerHeight
+_OBJC_IVAR_$_SSSection._expanded
+_OBJC_IVAR_$_SSSection._sectionIdentifier
+_OBJC_IVAR_$_SSSection._header
+_OBJC_IVAR_$_SSSection._footer
+l_OBJC_PROTOCOL_$_NSCopying
+l_OBJC_LABEL_PROTOCOL_$_NSCopying
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/SSDataSources/SSDataSources/SSSection.m
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/SSDataSources/SSDataSources/SSSection.h
+/Users/joe/Library/Developer/Xcode/DerivedData/SSDataSources-byfdpdlbgfoszwczouacfycldtyh/Build/Intermediates/SSDataSources.build/Release-iphoneos/SSDataSources.build/DerivedSources/SSDataSources_vers.c

@@ -1,47 +1,38 @@
 import UIKit
 import NotificationCenter
-import YapDatabase
 import WMFUI
 import WMFModel
 
 class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     // Model
-    var siteURL: NSURL {
-        get {
-             return MWKLanguageLinkController.sharedInstance().appLanguage.siteURL()
-        }
-    }
+    var siteURL: NSURL!
     var date = NSDate()
-    var group: WMFTopReadContentGroup?
+    var group: WMFContentGroup?
     var results: [WMFFeedTopReadArticlePreview] = []
-    var previews: [NSURL:WMFArticlePreview] = [:]
-
-    let feedContentFetcher = WMFFeedContentFetcher()
     
-    let contentStore = WMFContentGroupDataStore()
-    let previewStore = WMFArticlePreviewDataStore()
-    let userStore: MWKDataStore = SessionSingleton.sharedInstance().dataStore
+    var feedContentFetcher = WMFFeedContentFetcher()
+    
+    var userStore: MWKDataStore!
+    var contentStore: WMFContentGroupDataStore!
+    var previewStore: WMFArticleDataStore!
+    var contentSource: WMFFeedContentSource!
 
-    lazy var contentSource: WMFFeedContentSource = {
-        [unowned self] in
-        return WMFFeedContentSource(siteURL: self.siteURL, contentGroupDataStore: self.contentStore, articlePreviewDataStore: self.previewStore, userDataStore: self.userStore, notificationsController: nil)
-    }()
     
     let databaseDateFormatter = NSDateFormatter.wmf_englishUTCNonDelimitedYearMonthDayFormatter()
     let headerDateFormatter = NSDateFormatter.wmf_shortMonthNameDayOfMonthNumberDateFormatter()
-    let daysToShowInSparkline: NSTimeInterval = 5
+    let daysToShowInSparkline = 5
     
     @IBOutlet weak var footerLabelLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var headerLabelLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
-
+    
     #if DEBUG
     let skipCache = false
     #else
     let skipCache = false
     #endif
-
+    
     // Views & View State
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var headerLabel: UILabel!
@@ -79,6 +70,12 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        siteURL = MWKLanguageLinkController.sharedInstance().appLanguage.siteURL()
+        userStore = SessionSingleton.sharedInstance().dataStore
+        contentStore = WMFContentGroupDataStore(dataStore: userStore)
+        previewStore = WMFArticleDataStore(dataStore: userStore)
+        contentSource = WMFFeedContentSource(siteURL: siteURL, contentGroupDataStore: contentStore, articlePreviewDataStore: previewStore, userDataStore: userStore, notificationsController: nil)
+        
         if #available(iOSApplicationExtension 10.0, *) {
             headerLabel.textColor = UIColor.wmf_darkGray()
             footerLabel.textColor = UIColor.wmf_darkGray()
@@ -91,7 +88,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         
         headerLabel.text = nil
         footerLabel.text = nil
-    
+        
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:)))
         
         view.addGestureRecognizer(tapGR)
@@ -196,8 +193,8 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         
         var dataValueMin = CGFloat.max
         var dataValueMax = CGFloat.min
-        for result in results[0...maximumRowCount] {
-            let articlePreview = previews[result.articleURL]
+        for result in results[0...(maximumRowCount - 1)] {
+            let articlePreview = self.previewStore.itemForURL(result.articleURL)
             guard let dataValues = articlePreview?.pageViews else {
                 continue
             }
@@ -227,17 +224,25 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 vc.didMoveToParentViewController(self)
             }
             let result = results[i]
-
+            
             vc.titleLabel.text = result.displayTitle
-            vc.subtitleLabel.text = result.snippet ?? result.wikidataDescription
+            if let wikidataDescription = result.wikidataDescription {
+                vc.subtitleLabel.text = wikidataDescription.wmf_stringByCapitalizingFirstCharacter()
+            }else{
+                vc.subtitleLabel.text = result.snippet
+            }
             vc.imageView.wmf_reset()
             let rankString = NSNumberFormatter.localizedThousandsStringFromNumber(i + 1)
             vc.rankLabel.text = rankString
             vc.rankLabel.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("rank-accessibility-label").stringByReplacingOccurrencesOfString("$1", withString: rankString)
-            if let articlePreview = previews[result.articleURL] {
-                if let viewCounts = articlePreview.pageViewsSortedByDate() where viewCounts.count > 0 {
+            if let articlePreview = self.previewStore.itemForURL(result.articleURL) {
+                if var viewCounts = articlePreview.pageViewsSortedByDate where viewCounts.count >= daysToShowInSparkline {
                     vc.sparklineView.minDataValue = dataValueMin
                     vc.sparklineView.maxDataValue = dataValueMax
+                    let countToRemove = viewCounts.count - daysToShowInSparkline
+                    if countToRemove > 0 {
+                        viewCounts.removeFirst(countToRemove)
+                    }
                     vc.sparklineView.dataValues = viewCounts
                     
                     if let count = viewCounts.last {
@@ -258,7 +263,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             } else {
                 vc.viewCountAndSparklineContainerView.hidden = true
             }
-
+            
             if #available(iOSApplicationExtension 10.0, *) {
                 if let imageURL = result.thumbnailURL {
                     vc.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: { (error) in
@@ -279,7 +284,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 vc.separatorView.hidden = false
             }
             if #available(iOSApplicationExtension 10.0, *) {
-   
+                
             } else {
                 vc.marginWidthConstraint.constant = 0
                 vc.titleLabel.textColor = UIColor(white: 1, alpha: 1)
@@ -288,10 +293,10 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 vc.viewCountLabel.textColor = UIColor(white: 1, alpha: 0.7)
                 vc.viewCountAndSparklineContainerView.backgroundColor = UIColor(white: 0.3, alpha: 0.3)
             }
-
+            
             i += 1
         }
-
+        
         stackViewHeightConstraint.active = false
         stackViewWidthConstraint.constant = maximumSize.width
         var sizeToFit = UILayoutFittingCompressedSize
@@ -301,7 +306,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         stackViewHeightConstraint.active = true
         
         stackViewHeightConstraint.constant = size.height
-
+        
         view.layoutIfNeeded()
         
         let headerHeight = headerViewHeightConstraint.constant
@@ -319,7 +324,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         
         activityIndicatorHidden = true
     }
-
+    
     var activityIndicatorHidden: Bool = false {
         didSet {
             activityIndicatorView.hidden = activityIndicatorHidden
@@ -336,27 +341,14 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
-        date = NSDate()
-        guard updateUIWithTopReadFromContentStoreForDate(date) else {
-            fetchForDate(NSDate(), attempt: 1, completionHandler: completionHandler)
-            return
-        }
-        completionHandler(.NewData)
+        fetchForDate(NSDate(), attempt: 1, completionHandler: completionHandler)
     }
     
     func updateUIWithTopReadFromContentStoreForDate(date: NSDate) -> Bool {
-        if let topRead = self.contentStore.firstGroupOfKind(WMFTopReadContentGroup.kind(), forDate: date) as? WMFTopReadContentGroup {
-            if let content = self.contentStore.contentForContentGroup(topRead) as? [WMFFeedTopReadArticlePreview] {
-                
+        if let topRead = self.contentStore.firstGroupOfKind(.TopRead, forDate: date) {
+            if let content = topRead.content as? [WMFFeedTopReadArticlePreview] {
                 self.group = topRead
                 self.results = content
-                previews.removeAll()
-                for result in results[0...maximumRowCount] {
-                    guard let articlePreview = self.previewStore.itemForURL(result.articleURL) else{
-                        continue
-                    }
-                    previews[result.articleURL] = articlePreview
-                }
                 self.updateView()
                 return true
             }
@@ -364,33 +356,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         return false
     }
     
-    func updateUIWithTopReadResponse(topRead: WMFFeedTopReadResponse, pageViews: [NSURL:[NSDate:NSNumber]], date: NSDate){
-        self.group = topReadContentGroupWithTopReadResponse(topRead, date: date)
-        self.results = topRead.articlePreviews!
-        previews.removeAll()
-        for result in results[0...maximumRowCount] {
-            let articlePreview = previewWithFeedPreview(result.articleURL, feedPreview: result, pageViews: pageViews[result.articleURL])
-            previews[result.articleURL] = articlePreview
-        }
-
-        self.updateView()
-    }
-
-    func topReadContentGroupWithTopReadResponse(topRead: WMFFeedTopReadResponse, date: NSDate) -> WMFTopReadContentGroup {
-        return WMFTopReadContentGroup(date: date, mostReadDate: topRead.date!, siteURL: self.siteURL)
-    }
     
-    func previewWithFeedPreview(url: NSURL, feedPreview: WMFFeedArticlePreview, pageViews: [NSDate:NSNumber]?) -> WMFArticlePreview {
-        
-        let preview = WMFArticlePreview()
-        preview.url = url
-        preview.displayTitle = feedPreview.displayTitle;
-        preview.wikidataDescription = feedPreview.wikidataDescription;
-        preview.wikidataDescription = feedPreview.wikidataDescription;
-        preview.thumbnailURL = feedPreview.thumbnailURL;
-        preview.pageViews = pageViews;
-        return preview
-    }
     
     func fetchForDate(date: NSDate, attempt: Int, completionHandler: ((NCUpdateResult) -> Void)) {
         guard !updateUIWithTopReadFromContentStoreForDate(date) else {
@@ -403,9 +369,9 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             return
         }
         
-        contentSource.fetchContentForDate(date, force: false) { (feedDay, pageViews) in
+        contentSource.loadNewContentForce(false) {
             dispatch_async(dispatch_get_main_queue(), {
-                guard let topRead = feedDay?.topRead, let pageViews = pageViews else{
+                guard self.updateUIWithTopReadFromContentStoreForDate(date) else {
                     guard let previousDate = NSCalendar.wmf_gregorianCalendar().dateByAddingUnit(.Day, value: -1, toDate: date, options: .MatchStrictly) else {
                         completionHandler(.NoData)
                         return
@@ -415,31 +381,13 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                     return
                 }
                 
-                self.updateUIWithTopReadResponse(topRead, pageViews: pageViews, date: date)
-                
                 completionHandler(.NewData)
             })
-
         }
-//        contentSource.loadNewContentForce(false) {
-//            dispatch_async(dispatch_get_main_queue(), {
-//                guard self.updateUIWithTopReadFromContentStoreForDate(date) else {
-//                    guard let previousDate = NSCalendar.wmf_gregorianCalendar().dateByAddingUnit(.Day, value: -1, toDate: date, options: .MatchStrictly) else {
-//                        completionHandler(.NoData)
-//                        return
-//                    }
-//                    
-//                    self.fetchForDate(previousDate, attempt: attempt + 1, completionHandler: completionHandler)
-//                    return
-//                }
-//                
-//                completionHandler(.NewData)
-//            })
-//        }
     }
     
     func showAllTopReadInApp() {
-        guard let URL = group?.url() else {
+        guard let URL = group?.URL else {
             return
         }
         self.extensionContext?.openURL(URL, completionHandler: { (success) in
