@@ -8,8 +8,6 @@
 #import "WMFLocationSearchFetcher.h"
 #import "CLLocation+WMFComparison.h"
 
-@import YapDatabase;
-
 @interface WMFNearbyContentSource () <WMFLocationManagerDelegate>
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;

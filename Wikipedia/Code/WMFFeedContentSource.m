@@ -264,7 +264,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
                                          withSiteURL:self.siteURL
                                    associatedContent:topRead.articlePreviews
                                   customizationBlock:^(WMFContentGroup *_Nonnull group) {
-                                      group.contentMidnightUTCDate = topRead.date.wmf_midnightUTCDate;
+                                      group.contentMidnightUTCDate = topRead.date.wmf_midnightUTCDateFromLocalDate;
                                   }];
     }
 }

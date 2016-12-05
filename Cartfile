@@ -1,6 +1,5 @@
 github "Mantle/Mantle" ~> 2.0.0
 github "CocoaLumberjack/CocoaLumberjack" ~> 2.4.0
-github "yapstudios/YapDatabase"
 github "facebook/KVOController" == 1.1.0
 github "mxcl/PromiseKit" ~> 3.4
 github "SnapKit/Masonry" ~> 1.0
@@ -23,3 +22,4 @@ github "wikimedia/SSDataSources" "master"
 github "wikimedia/piwik-sdk-ios" "master"
 github "wikimedia/hpple" "master"
 github "wikimedia/Tweaks" "master"
+github "wikimedia/TUSafariActivity" "master"

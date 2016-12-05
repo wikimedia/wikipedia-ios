@@ -344,6 +344,7 @@
 "home-hide-suggestion-prompt" = "Dës Propos verstoppen";
 "home-hide-suggestion-cancel" = "Ofbriechen";
 "home-accessibility-label" = "Wikipedia, Entdecken";
+"home-title-accessibility-label" = "Wikipedia, no uewe scrolle fir z'Entdecken";
 "home-button-accessibility-label" = "Haaptsäit";
 "home-button-explore-accessibility-label" = "Wikipedia, zréck bei d'Entdecken";
 "home-button-saved-accessibility-label" = "Wikipedia, zréck op Gespäichert";
@@ -438,3 +439,4 @@
 "unsave-action" = "Net späicheren";
 "status-saving-for-later" = "Fir spéider späicheren...";
 "status-saved-for-later" = "Fir spéider gespäichert";
+"announcements-dismiss" = "Nee, merci";

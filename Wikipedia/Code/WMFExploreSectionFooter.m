@@ -17,13 +17,14 @@
     self.clipsToBounds = NO;
     self.moreChevronImageView.image = [UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-right"];
     @weakify(self);
-    [self bk_whenTapped:^{
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] bk_initWithHandler:^(UIGestureRecognizer *_Nonnull sender, UIGestureRecognizerState state, CGPoint location) {
         @strongify(self);
         if (self.whenTapped) {
             self.whenTapped();
         }
     }];
     [self wmf_configureSubviewsForDynamicType];
+    [self addGestureRecognizer:tapGR];
 }
 
 @end

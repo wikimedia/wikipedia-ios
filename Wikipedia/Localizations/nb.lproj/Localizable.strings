@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Chameleon222
 // Author: Danmichaelo
+// Author: Jeblad
 // Author: Jon Harald Søby
 // Author: Kingu
 // Author: Laaknor
@@ -321,7 +322,7 @@
 "hockeyapp-alert-always-send" = "Alltid send";
 "hockeyapp-alert-do-not-send" = "Ikke send";
 "hockeyapp-alert-privacy" = "$ personvern";
-"page-issues" = "Problemer med siden";
+"page-issues" = "Merknader for siden";
 "page-similar-titles" = "Lignende sider";
 "page-read-in-other-languages" = "Tilgjengelig på $1 annet språk";
 "page-last-edited" = "Redigert for $1 dager siden";
