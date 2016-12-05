@@ -6,7 +6,6 @@
 
 #import "PiwikTracker+WMFExtensions.h"
 
-#import "YapDatabase+WMFExtensions.h"
 #import "WMFContentGroupDataStore.h"
 #import "MWKDataStore.h"
 #import "WMFArticleDataStore.h"

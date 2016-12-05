@@ -44,7 +44,6 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 
 #import "MWKArticle+WMFSharing.h"
 #import "MWKCitation.h"
-#import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "MWKImage+CanonicalFilenames.h"
 #import "MWKImageInfo+MWKImageComparison.h"
 #import "MWKSavedPageEntry+ImageMigration.h"
@@ -74,12 +73,7 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import "MWNetworkActivityIndicatorManager.h"
 
 #import "MWKLanguageLinkController_Private.h"
-#import "WMFDatabaseViewable.h"
 #import "WMFFaceDetectionCache.h"
-#import "YapDatabase+WMFExtensions.h"
-#import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
-#import "YapDatabaseViewMappings+WMFMappings.h"
-#import "YapDatabaseConnection+WMFExtensions.h"
 
 #import "CIContext+WMFImageProcessing.h"
 #import "CIDetector+WMFFaceDetection.h"
@@ -149,4 +143,4 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import "SessionSingleton.h"
 #import "QueuesSingleton.h"
 #import "MWKSavedPageEntry.h"
-#import "WMFAnnouncementContentGroup.h"
+#import "WMFLegacyContentGroup.h"

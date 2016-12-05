@@ -11,7 +11,6 @@
 #import "WMFArticleDataStore.h"
 #import "XCTestCase+PromiseKit.h"
 #import "WMFRandomFileUtilities.h"
-#import "YapDatabase+WMFExtensions.h"
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
