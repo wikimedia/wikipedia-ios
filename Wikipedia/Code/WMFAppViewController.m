@@ -4,13 +4,11 @@
 // Frameworks
 #import <Masonry/Masonry.h>
 #import <Tweaks/FBTweakInline.h>
-#import <YapDatabase/YapDatabase.h>
 #import "PiwikTracker+WMFExtensions.h"
 
 // Utility
 #import "NSUserActivity+WMFExtensions.h"
 
-#import "YapDatabase+WMFExtensions.h"
 #import "WMFArticleDataStore.h"
 #import "MWKDataStore.h"
 #import "WMFContentGroupDataStore.h"

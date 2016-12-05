@@ -1,5 +1,4 @@
 #import "WMFDatabaseHouseKeeper.h"
-#import "YapDatabase+WMFExtensions.h"
 
 @implementation WMFDatabaseHouseKeeper
 

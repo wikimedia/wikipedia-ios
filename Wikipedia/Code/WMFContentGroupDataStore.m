@@ -1,7 +1,4 @@
 #import "WMFContentGroupDataStore.h"
-#import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
-#import "YapDatabase+WMFExtensions.h"
-#import "YapDatabaseViewMappings+WMFMappings.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
