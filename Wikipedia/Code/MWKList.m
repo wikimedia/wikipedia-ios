@@ -147,23 +147,21 @@
 
 #pragma mark - Save
 
-- (AnyPromise *)save {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        dispatchOnMainQueue(^{
-            if (self.dirty) {
-                [self performSaveWithCompletion:^{
-                    self.dirty = NO;
-                    resolve(nil);
-                }
-                    error:^(NSError *error) {
-                        resolve(error);
-                    }];
-            } else {
+- (void)save {
+    dispatchOnMainQueue(^{
+        if (self.dirty) {
+            [self performSaveWithCompletion:^{
                 self.dirty = NO;
-                resolve(nil);
+                //resolve(nil);
             }
-        });
-    }];
+                                      error:^(NSError *error) {
+                                          //resolve(error);
+                                      }];
+        } else {
+            self.dirty = NO;
+            //resolve(nil);
+        }
+    });
 }
 
 - (void)performSaveWithCompletion:(dispatch_block_t)completion error:(WMFErrorHandler)errorHandler {

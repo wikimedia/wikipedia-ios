@@ -3,7 +3,6 @@
 #import "MWKDataStore+TempDataStoreForEach.h"
 #import "LSNocilla+Quick.h"
 #import "LSStubResponseDSL+WithJSON.h"
-#import "XCTestCase+PromiseKit.h"
 #import "WMFArticleFetcher.h"
 
 static inline id articleRevisionResponseWithRevId(NSUInteger revID) {

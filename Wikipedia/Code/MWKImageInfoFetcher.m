@@ -39,45 +39,43 @@
     return self;
 }
 
-- (AnyPromise *)fetchGalleryInfoForImage:(NSString *)canonicalPageTitle fromSiteURL:(NSURL *)siteURL {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-        [self fetchGalleryInfoForImageFiles:@[canonicalPageTitle]
-                                fromSiteURL:siteURL
-                                    success:^(NSArray *infoObjects) {
-                                        resolve(infoObjects.firstObject);
-                                    }
-                                    failure:resolve];
-    }];
+- (void)fetchGalleryInfoForImage:(NSString *)canonicalPageTitle fromSiteURL:(NSURL *)siteURL failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
+    [self fetchGalleryInfoForImageFiles:@[canonicalPageTitle]
+                            fromSiteURL:siteURL
+                                success:^(NSArray *infoObjects) {
+                                    success(infoObjects.firstObject);
+                                }
+                                failure:failure];
 }
 
-- (AnyPromise *)fetchGalleryInfoForImagesOnPages:(NSArray *)pageTitles
+- (void)fetchGalleryInfoForImagesOnPages:(NSArray *)pageTitles
                                      fromSiteURL:(NSURL *)siteURL
-                                metadataLanguage:(NSString *)metadataLanguage {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-        [self fetchInfoForTitles:pageTitles
-                     fromSiteURL:siteURL
-                  thumbnailWidth:[[UIScreen mainScreen] wmf_galleryImageWidthForScale]
-                 extmetadataKeys:[MWKImageInfoResponseSerializer galleryExtMetadataKeys]
-                metadataLanguage:metadataLanguage
-                    useGenerator:YES
-                         success:resolve
-                         failure:resolve];
-    }];
+                                metadataLanguage:(NSString *)metadataLanguage
+                                 failure:(WMFErrorHandler)failure
+                                 success:(WMFSuccessIdHandler)success {
+    [self fetchInfoForTitles:pageTitles
+                 fromSiteURL:siteURL
+              thumbnailWidth:[[UIScreen mainScreen] wmf_galleryImageWidthForScale]
+             extmetadataKeys:[MWKImageInfoResponseSerializer galleryExtMetadataKeys]
+            metadataLanguage:metadataLanguage
+                useGenerator:YES
+                     success:success
+                     failure:failure];
 }
 
-- (AnyPromise *)fetchPartialInfoForImagesOnPages:(NSArray *)pageTitles
+- (void)fetchPartialInfoForImagesOnPages:(NSArray *)pageTitles
                                      fromSiteURL:(NSURL *)siteURL
-                                metadataLanguage:(nullable NSString *)metadataLanguage {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-        [self fetchInfoForTitles:pageTitles
-                     fromSiteURL:siteURL
-                  thumbnailWidth:[[UIScreen mainScreen] wmf_potdImageWidthForScale]
-                 extmetadataKeys:[MWKImageInfoResponseSerializer picOfTheDayExtMetadataKeys]
-                metadataLanguage:metadataLanguage
-                    useGenerator:YES
-                         success:resolve
-                         failure:resolve];
-    }];
+                                metadataLanguage:(nullable NSString *)metadataLanguage
+                                 failure:(WMFErrorHandler)failure
+                                 success:(WMFSuccessIdHandler)success {
+    [self fetchInfoForTitles:pageTitles
+                 fromSiteURL:siteURL
+              thumbnailWidth:[[UIScreen mainScreen] wmf_potdImageWidthForScale]
+             extmetadataKeys:[MWKImageInfoResponseSerializer picOfTheDayExtMetadataKeys]
+            metadataLanguage:metadataLanguage
+                useGenerator:YES
+                     success:success
+                     failure:failure];
 }
 
 - (id<MWKImageInfoRequest>)fetchGalleryInfoForImageFiles:(NSArray *)imageTitles

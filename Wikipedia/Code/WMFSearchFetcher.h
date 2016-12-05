@@ -8,15 +8,20 @@ extern NSUInteger const WMFMaxSearchResultLimit;
 
 @interface WMFSearchFetcher : NSObject
 
-- (AnyPromise *)fetchArticlesForSearchTerm:(NSString *)searchTerm
-                                   siteURL:(NSURL *)siteURL
-                               resultLimit:(NSUInteger)resultLimit;
+- (void)fetchArticlesForSearchTerm:(NSString *)searchTerm
+                           siteURL:(NSURL *)siteURL
+                       resultLimit:(NSUInteger)resultLimit
+                             failure:(WMFErrorHandler)failure
+                           success:(WMFSearchResultsHandler)success;
 
-- (AnyPromise *)fetchArticlesForSearchTerm:(NSString *)searchTerm
+
+- (void)fetchArticlesForSearchTerm:(NSString *)searchTerm
                                    siteURL:(NSURL *)siteURL
                                resultLimit:(NSUInteger)resultLimit
                             fullTextSearch:(BOOL)fullTextSearch
-                   appendToPreviousResults:(nullable WMFSearchResults *)results;
+                   appendToPreviousResults:(nullable WMFSearchResults *)results
+                             failure:(WMFErrorHandler)failure
+                           success:(WMFSearchResultsHandler)success;
 
 @end
 

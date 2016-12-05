@@ -716,16 +716,14 @@ NS_ASSUME_NONNULL_BEGIN
 
     @weakify(self);
     [self.infoFetcher fetchPicOfTheDayGalleryInfoForDate:date
-                                        metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]]
-        .then(^(MWKImageInfo *info) {
-            @strongify(self);
-            galleryImage.imageInfo = info;
-            [self updateOverlayInformation];
-            [self fetchImageForPhoto:galleryImage];
-        })
-        .catch(^(NSError *error){
-            //show error
-        });
+                                        metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode] failure:^(NSError * _Nonnull error) {
+                                             //show error
+                                        } success:^(id  _Nonnull info) {
+                                            @strongify(self);
+                                            galleryImage.imageInfo = info;
+                                            [self updateOverlayInformation];
+                                            [self fetchImageForPhoto:galleryImage];
+                                        }];
 }
 
 - (void)fetchImageForPhoto:(WMFPOTDPhoto *)galleryImage {

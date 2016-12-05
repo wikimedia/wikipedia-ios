@@ -6,7 +6,6 @@
 #import "Wikipedia-Swift.h"
 
 #import "LSStubResponseDSL+WithJSON.h"
-#import "XCTestCase+PromiseKit.h"
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
@@ -35,7 +34,15 @@
     stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@"generator=prefixsearch.*foo.*" options:0 error:nil])
         .andReturn(200)
         .withJSON(json);
+    
 
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for articles"];
+    
+    
+    
+    [self waitForExpectationsWithTimeout:10 handler:^(NSError * _Nullable error) {
+        
+    }];
     expectResolutionWithTimeout(10, ^{
         return [self.fetcher fetchArticlesForSearchTerm:@"foo" siteURL:[NSURL wmf_randomSiteURL] resultLimit:15]
             .then(^(WMFSearchResults *result) {

@@ -85,15 +85,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetch {
     @weakify(self);
-    [self.titlesSearchFetcher fetchArticlePreviewResultsForArticleURLs:self.urls siteURL:self.siteURL]
-        .then(^(NSArray<MWKSearchResult *> *searchResults) {
-            @strongify(self);
-            if (!self) {
-                return;
-            }
-            self.previewResults = searchResults;
-            [self updateItems:searchResults];
-        });
+    [self.titlesSearchFetcher fetchArticlePreviewResultsForArticleURLs:self.urls siteURL:self.siteURL completion:^(NSArray<MWKSearchResult *> * _Nonnull searchResults) {
+        @strongify(self);
+        if (!self) {
+            return;
+        }
+        self.previewResults = searchResults;
+        [self updateItems:searchResults];
+    } failure:^(NSError * _Nonnull error) {
+    }];
 }
 
 #pragma mark - WMFArticleListDataSource

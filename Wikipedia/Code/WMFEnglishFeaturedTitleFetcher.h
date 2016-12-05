@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 
-@class AnyPromise;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -11,14 +10,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface WMFEnglishFeaturedTitleFetcher : NSObject
 
-/**
- *  Fetch a preview for a day's featured article.
- *
- *  @param date The date to fetch the featured article for.
- *
- *  @return A promise with resolves to an @c MWKSearchResult.
- */
-- (AnyPromise *)fetchFeaturedArticlePreviewForDate:(NSDate *)date;
+
+- (void)fetchFeaturedArticlePreviewForDate:(NSDate *)date failure:(WMFErrorHandler)failure success:(WMFMWKSearchResultHandler)success;
 
 @property (nonatomic, assign, readonly) BOOL isFetching;
 

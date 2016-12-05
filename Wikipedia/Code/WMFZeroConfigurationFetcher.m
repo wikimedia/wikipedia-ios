@@ -24,26 +24,21 @@
     return self;
 }
 
-- (AnyPromise *)fetchZeroConfigurationForSiteURL:(NSURL *)siteURL {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
-            @"action": @"zeroconfig",
-            @"type": @"message",
-            @"agent": [WikipediaAppUtils versionedUserAgent]
-        }];
-        //        if ([FBTweak wmf_shouldMockWikipediaZeroHeaders]) {
-        //            params[WMFZeroXCarrier] = @"TEST";
-        //        }
-        [self.operationManager GET:[[NSURL wmf_mobileAPIURLForURL:siteURL] absoluteString]
-            parameters:params
-            progress:NULL
-            success:^(NSURLSessionDataTask *_Nonnull _, id _Nonnull responseObject) {
-                resolve(responseObject);
-            }
-            failure:^(NSURLSessionDataTask *_Nullable _, NSError *_Nonnull error) {
-                resolve(error);
-            }];
-    }];
+- (void)fetchZeroConfigurationForSiteURL:(NSURL *)siteURL failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                  @"action": @"zeroconfig",
+                                                                                  @"type": @"message",
+                                                                                  @"agent": [WikipediaAppUtils versionedUserAgent]
+                                                                                  }];
+    [self.operationManager GET:[[NSURL wmf_mobileAPIURLForURL:siteURL] absoluteString]
+                    parameters:params
+                      progress:NULL
+                       success:^(NSURLSessionDataTask *_Nonnull _, id _Nonnull responseObject) {
+                           success(responseObject);
+                       }
+                       failure:^(NSURLSessionDataTask *_Nullable _, NSError *_Nonnull error) {
+                           failure(error);
+                       }];
 }
 
 - (void)cancelAllFetches {

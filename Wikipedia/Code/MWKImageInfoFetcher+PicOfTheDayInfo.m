@@ -53,21 +53,23 @@ static MWKImageInfoResolve addPictureOfTheDayToDescriptionForDate(NSDate *date) 
 
 @implementation MWKImageInfoFetcher (PicOfTheDayInfo)
 
-- (AnyPromise *)fetchPicOfTheDaySectionInfoForDate:(NSDate *)date
-                                  metadataLanguage:(nullable NSString *)metadataLanguage {
-    return [self fetchPartialInfoForImagesOnPages:@[[date wmf_picOfTheDayPageTitle]]
-                                      fromSiteURL:[NSURL wmf_wikimediaCommonsURL]
-                                 metadataLanguage:metadataLanguage]
-        .then(selectFirstImageInfo(date));
+- (void)fetchPicOfTheDaySectionInfoForDate:(NSDate *)date
+                                  metadataLanguage:(nullable NSString *)metadataLanguage
+                                   failure:(WMFErrorHandler)failure
+                                   success:(WMFSuccessIdHandler)success {
+    [self fetchPartialInfoForImagesOnPages:@[[date wmf_picOfTheDayPageTitle]] fromSiteURL:[NSURL wmf_wikimediaCommonsURL] metadataLanguage:metadataLanguage failure:failure success:^(id  _Nonnull object) {
+        success(selectFirstImageInfo(date)(object));
+    }];
+
 }
 
-- (AnyPromise *)fetchPicOfTheDayGalleryInfoForDate:(NSDate *)date
-                                  metadataLanguage:(nullable NSString *)metadataLanguage {
-    return [self fetchGalleryInfoForImagesOnPages:@[[date wmf_picOfTheDayPageTitle]]
-                                      fromSiteURL:[NSURL wmf_wikimediaCommonsURL]
-                                 metadataLanguage:metadataLanguage]
-        .then(selectFirstImageInfo(date))
-        .then(addPictureOfTheDayToDescriptionForDate(date));
+- (void)fetchPicOfTheDayGalleryInfoForDate:(NSDate *)date
+                                  metadataLanguage:(nullable NSString *)metadataLanguage
+                                   failure:(WMFErrorHandler)failure
+                                   success:(WMFSuccessIdHandler)success {
+    [self fetchGalleryInfoForImagesOnPages:@[[date wmf_picOfTheDayPageTitle]] fromSiteURL:[NSURL wmf_wikimediaCommonsURL] metadataLanguage:metadataLanguage failure:failure success:^(id  _Nonnull object) {
+        success(addPictureOfTheDayToDescriptionForDate(date)(selectFirstImageInfo(date)(object)));
+    }];
 }
 
 @end

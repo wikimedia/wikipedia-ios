@@ -72,23 +72,21 @@
     self.isLoadingData = YES;
 
     @weakify(self);
-    [self.pageHistoryFetcher fetchRevisionInfo:self.article.url requestParams:self.historyFetcherParams].then(^(HistoryFetchResults *historyFetchResults) {
-                                                                                                            @strongify(self);
-                                                                                                            [self.pageHistoryDataArray addObjectsFromArray:historyFetchResults.items];
-                                                                                                            self.historyFetcherParams = [historyFetchResults getPageHistoryRequestParameters:self.article.url];
-                                                                                                            self.batchComplete = historyFetchResults.batchComplete;
-                                                                                                            [[WMFAlertManager sharedInstance] dismissAlert];
-                                                                                                            [self.tableView reloadData];
-                                                                                                        })
-        .catch(^(NSError *error) {
-            @strongify(self);
-            DDLogError(@"Failed to fetch items for section %@. %@", self, error);
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
-        })
-        .finally(^{
-            @strongify(self);
-            self.isLoadingData = NO;
-        });
+    [self.pageHistoryFetcher fetchRevisionInfo:self.article.url requestParams:self.historyFetcherParams failure:^(NSError * _Nonnull error) {
+        @strongify(self);
+        DDLogError(@"Failed to fetch items for section %@. %@", self, error);
+        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
+        self.isLoadingData = NO;
+    } success:^(HistoryFetchResults * _Nonnull historyFetchResults) {
+        @strongify(self);
+        [self.pageHistoryDataArray addObjectsFromArray:historyFetchResults.items];
+        self.historyFetcherParams = [historyFetchResults getPageHistoryRequestParameters:self.article.url];
+        self.batchComplete = historyFetchResults.batchComplete;
+        [[WMFAlertManager sharedInstance] dismissAlert];
+        [self.tableView reloadData];
+        self.isLoadingData = NO;
+
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

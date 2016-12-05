@@ -390,10 +390,8 @@
 		B0E808921C0D16240065EBC0 /* MWKImage+AssociationTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808911C0D16240065EBC0 /* MWKImage+AssociationTestUtils.m */; };
 		B0E808951C0D16330065EBC0 /* NSArray+WMFShuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808941C0D16330065EBC0 /* NSArray+WMFShuffle.m */; };
 		B0E808981C0D16430065EBC0 /* XCTestCase+WMFLocaleTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808971C0D16430065EBC0 /* XCTestCase+WMFLocaleTesting.m */; };
-		B0E8089A1C0D16500065EBC0 /* XCTestCase+PromiseKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E808991C0D16500065EBC0 /* XCTestCase+PromiseKit.swift */; };
 		B0E8089C1C0D165B0065EBC0 /* XCTestCase+SwiftDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8089B1C0D165B0065EBC0 /* XCTestCase+SwiftDefaults.swift */; };
 		B0E8089F1C0D16680065EBC0 /* WMFImageController+Testing.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8089E1C0D16680065EBC0 /* WMFImageController+Testing.m */; };
-		B0E808A31C0D167F0065EBC0 /* XCTestCase+PromiseKit.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808A21C0D167F0065EBC0 /* XCTestCase+PromiseKit.m */; };
 		B0E808A61C0D168F0065EBC0 /* XCTestCase+WMFVisualTestConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808A51C0D168F0065EBC0 /* XCTestCase+WMFVisualTestConvenience.m */; };
 		B0E808A91C0D16A00065EBC0 /* UIView+VisualTestSizingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808A81C0D16A00065EBC0 /* UIView+VisualTestSizingUtils.m */; };
 		B0E808AC1C0D16B30065EBC0 /* FBSnapshotTestCase+WMFConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808AB1C0D16B30065EBC0 /* FBSnapshotTestCase+WMFConvenience.m */; };
@@ -466,8 +464,6 @@
 		B0E809601C0D1BA30065EBC0 /* WMFSearchFetcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8095F1C0D1BA30065EBC0 /* WMFSearchFetcherTests.m */; };
 		B0E809621C0D1BAD0065EBC0 /* WMFSearchResultsMergeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809611C0D1BAD0065EBC0 /* WMFSearchResultsMergeTests.m */; };
 		B0E809641C0D1BB90065EBC0 /* WMFENFeaturedTitleFetcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809631C0D1BB90065EBC0 /* WMFENFeaturedTitleFetcherTests.m */; };
-		B0E809681C0D1BFA0065EBC0 /* XCTestCase+PromiseKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809671C0D1BFA0065EBC0 /* XCTestCase+PromiseKitTests.m */; };
-		B0E8096A1C0D1C070065EBC0 /* XCTestCase+PromiseSwiftKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E809691C0D1C070065EBC0 /* XCTestCase+PromiseSwiftKitTests.swift */; };
 		B0E8096C1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8096B1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m */; };
 		B0EEB8571D29B0B200F2099B /* MWKImageVarianceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EEB8561D29B0B200F2099B /* MWKImageVarianceTests.m */; };
 		B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EF42CF1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m */; };
@@ -597,13 +593,6 @@
 		D82FDB0D1DF0AABB00DDF311 /* KVOController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB061DF0AABB00DDF311 /* KVOController.framework */; };
 		D82FDB0E1DF0AABB00DDF311 /* KVOController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB061DF0AABB00DDF311 /* KVOController.framework */; };
 		D82FDB0F1DF0AABB00DDF311 /* KVOController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB061DF0AABB00DDF311 /* KVOController.framework */; };
-		D82FDB101DF0AABB00DDF311 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB071DF0AABB00DDF311 /* PromiseKit.framework */; };
-		D82FDB111DF0AABB00DDF311 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB071DF0AABB00DDF311 /* PromiseKit.framework */; };
-		D82FDB131DF0AABB00DDF311 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB071DF0AABB00DDF311 /* PromiseKit.framework */; };
-		D82FDB141DF0AABB00DDF311 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB071DF0AABB00DDF311 /* PromiseKit.framework */; };
-		D82FDB151DF0AABB00DDF311 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB071DF0AABB00DDF311 /* PromiseKit.framework */; };
-		D82FDB161DF0AABB00DDF311 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB071DF0AABB00DDF311 /* PromiseKit.framework */; };
-		D82FDB171DF0AABB00DDF311 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB071DF0AABB00DDF311 /* PromiseKit.framework */; };
 		D82FDB1A1DF0AAFF00DDF311 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB181DF0AAFF00DDF311 /* HockeySDK.framework */; };
 		D82FDB221DF0AAFF00DDF311 /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB191DF0AAFF00DDF311 /* Masonry.framework */; };
 		D82FDB231DF0AAFF00DDF311 /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB191DF0AAFF00DDF311 /* Masonry.framework */; };
@@ -976,6 +965,8 @@
 		D8D553681DF1B66500B90177 /* Appsee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553671DF1B66500B90177 /* Appsee.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D8D906941DF58D1900853BFD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D906931DF58D1800853BFD /* libsqlite3.tbd */; };
 		D8D906951DF58D2C00853BFD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D906931DF58D1800853BFD /* libsqlite3.tbd */; };
+		D8D906981DF5BB5000853BFD /* NSError+Cancellation.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D906961DF5BB5000853BFD /* NSError+Cancellation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8D906991DF5BB5000853BFD /* NSError+Cancellation.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D906971DF5BB5000853BFD /* NSError+Cancellation.m */; };
 		D8D92B5A1DF22E1700B95311 /* NotificationBackgroundError.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B491DF22E1700B95311 /* NotificationBackgroundError.png */; };
 		D8D92B5B1DF22E1700B95311 /* NotificationBackgroundError@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B4A1DF22E1700B95311 /* NotificationBackgroundError@2x.png */; };
 		D8D92B5C1DF22E1700B95311 /* NotificationBackgroundErrorIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B4B1DF22E1700B95311 /* NotificationBackgroundErrorIcon.png */; };
@@ -1993,13 +1984,10 @@
 		B0E808941C0D16330065EBC0 /* NSArray+WMFShuffle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+WMFShuffle.m"; path = "WikipediaUnitTests/Code/NSArray+WMFShuffle.m"; sourceTree = SOURCE_ROOT; };
 		B0E808961C0D16430065EBC0 /* XCTestCase+WMFLocaleTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "XCTestCase+WMFLocaleTesting.h"; path = "WikipediaUnitTests/Code/XCTestCase+WMFLocaleTesting.h"; sourceTree = SOURCE_ROOT; };
 		B0E808971C0D16430065EBC0 /* XCTestCase+WMFLocaleTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "XCTestCase+WMFLocaleTesting.m"; path = "WikipediaUnitTests/Code/XCTestCase+WMFLocaleTesting.m"; sourceTree = SOURCE_ROOT; };
-		B0E808991C0D16500065EBC0 /* XCTestCase+PromiseKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "XCTestCase+PromiseKit.swift"; path = "WikipediaUnitTests/Code/XCTestCase+PromiseKit.swift"; sourceTree = SOURCE_ROOT; };
 		B0E8089B1C0D165B0065EBC0 /* XCTestCase+SwiftDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "XCTestCase+SwiftDefaults.swift"; path = "WikipediaUnitTests/Code/XCTestCase+SwiftDefaults.swift"; sourceTree = SOURCE_ROOT; };
 		B0E8089D1C0D16680065EBC0 /* WMFImageController+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WMFImageController+Testing.h"; path = "WikipediaUnitTests/Code/WMFImageController+Testing.h"; sourceTree = SOURCE_ROOT; };
 		B0E8089E1C0D16680065EBC0 /* WMFImageController+Testing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WMFImageController+Testing.m"; path = "WikipediaUnitTests/Code/WMFImageController+Testing.m"; sourceTree = SOURCE_ROOT; };
 		B0E808A01C0D16730065EBC0 /* XCTAssert+CGGeometry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "XCTAssert+CGGeometry.h"; path = "WikipediaUnitTests/Code/XCTAssert+CGGeometry.h"; sourceTree = SOURCE_ROOT; };
-		B0E808A11C0D167F0065EBC0 /* XCTestCase+PromiseKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "XCTestCase+PromiseKit.h"; path = "WikipediaUnitTests/Code/XCTestCase+PromiseKit.h"; sourceTree = SOURCE_ROOT; };
-		B0E808A21C0D167F0065EBC0 /* XCTestCase+PromiseKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "XCTestCase+PromiseKit.m"; path = "WikipediaUnitTests/Code/XCTestCase+PromiseKit.m"; sourceTree = SOURCE_ROOT; };
 		B0E808A41C0D168F0065EBC0 /* XCTestCase+WMFVisualTestConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "XCTestCase+WMFVisualTestConvenience.h"; path = "WikipediaUnitTests/Code/XCTestCase+WMFVisualTestConvenience.h"; sourceTree = SOURCE_ROOT; };
 		B0E808A51C0D168F0065EBC0 /* XCTestCase+WMFVisualTestConvenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "XCTestCase+WMFVisualTestConvenience.m"; path = "WikipediaUnitTests/Code/XCTestCase+WMFVisualTestConvenience.m"; sourceTree = SOURCE_ROOT; };
 		B0E808A71C0D16A00065EBC0 /* UIView+VisualTestSizingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+VisualTestSizingUtils.h"; path = "WikipediaUnitTests/Code/UIView+VisualTestSizingUtils.h"; sourceTree = SOURCE_ROOT; };
@@ -2086,8 +2074,6 @@
 		B0E8095F1C0D1BA30065EBC0 /* WMFSearchFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSearchFetcherTests.m; path = WikipediaUnitTests/Code/WMFSearchFetcherTests.m; sourceTree = SOURCE_ROOT; };
 		B0E809611C0D1BAD0065EBC0 /* WMFSearchResultsMergeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSearchResultsMergeTests.m; path = WikipediaUnitTests/Code/WMFSearchResultsMergeTests.m; sourceTree = SOURCE_ROOT; };
 		B0E809631C0D1BB90065EBC0 /* WMFENFeaturedTitleFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFENFeaturedTitleFetcherTests.m; path = WikipediaUnitTests/Code/WMFENFeaturedTitleFetcherTests.m; sourceTree = SOURCE_ROOT; };
-		B0E809671C0D1BFA0065EBC0 /* XCTestCase+PromiseKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "XCTestCase+PromiseKitTests.m"; path = "WikipediaUnitTests/Code/XCTestCase+PromiseKitTests.m"; sourceTree = SOURCE_ROOT; };
-		B0E809691C0D1C070065EBC0 /* XCTestCase+PromiseSwiftKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "XCTestCase+PromiseSwiftKitTests.swift"; path = "WikipediaUnitTests/Code/XCTestCase+PromiseSwiftKitTests.swift"; sourceTree = SOURCE_ROOT; };
 		B0E8096B1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFPicOfTheDayTableViewCellVisualTests.m; path = WikipediaUnitTests/Code/WMFPicOfTheDayTableViewCellVisualTests.m; sourceTree = SOURCE_ROOT; };
 		B0E8096D1C0D1DD50065EBC0 /* WikipediaUnitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "WikipediaUnitTests-Bridging-Header.h"; path = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		B0E8096E1C0D21530065EBC0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2371,7 +2357,6 @@
 		D82FDAEB1DF0A9E700DDF311 /* WebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebImage.framework; path = Carthage/Build/iOS/WebImage.framework; sourceTree = SOURCE_ROOT; };
 		D82FDAF41DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = Carthage/Build/iOS/CocoaLumberjackSwift.framework; sourceTree = SOURCE_ROOT; };
 		D82FDB061DF0AABB00DDF311 /* KVOController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KVOController.framework; path = Carthage/Build/iOS/KVOController.framework; sourceTree = SOURCE_ROOT; };
-		D82FDB071DF0AABB00DDF311 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = SOURCE_ROOT; };
 		D82FDB181DF0AAFF00DDF311 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Carthage/Build/iOS/HockeySDK.framework; sourceTree = SOURCE_ROOT; };
 		D82FDB191DF0AAFF00DDF311 /* Masonry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Masonry.framework; path = Carthage/Build/iOS/Masonry.framework; sourceTree = SOURCE_ROOT; };
 		D82FDB2A1DF0ABBF00DDF311 /* GCDWebServers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GCDWebServers.framework; path = Carthage/Build/iOS/GCDWebServers.framework; sourceTree = SOURCE_ROOT; };
@@ -2525,6 +2510,8 @@
 		D8D553651DF1B64D00B90177 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		D8D553671DF1B66500B90177 /* Appsee.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Appsee.framework; path = Wikipedia/Frameworks/Appsee.framework; sourceTree = "<group>"; };
 		D8D906931DF58D1800853BFD /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		D8D906961DF5BB5000853BFD /* NSError+Cancellation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+Cancellation.h"; sourceTree = SOURCE_ROOT; };
+		D8D906971DF5BB5000853BFD /* NSError+Cancellation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+Cancellation.m"; sourceTree = SOURCE_ROOT; };
 		D8D92B491DF22E1700B95311 /* NotificationBackgroundError.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotificationBackgroundError.png; sourceTree = "<group>"; };
 		D8D92B4A1DF22E1700B95311 /* NotificationBackgroundError@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NotificationBackgroundError@2x.png"; sourceTree = "<group>"; };
 		D8D92B4B1DF22E1700B95311 /* NotificationBackgroundErrorIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotificationBackgroundErrorIcon.png; sourceTree = "<group>"; };
@@ -2578,7 +2565,6 @@
 				D82FDAEF1DF0A9E700DDF311 /* WebImage.framework in Frameworks */,
 				D82FDAF91DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D82FDB0B1DF0AABB00DDF311 /* KVOController.framework in Frameworks */,
-				D82FDB131DF0AABB00DDF311 /* PromiseKit.framework in Frameworks */,
 				0E8380651D64989F0076EDE4 /* NotificationCenter.framework in Frameworks */,
 				D82FDB361DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
 				D8D551361DF1A0CD00B90177 /* SSDataSources.framework in Frameworks */,
@@ -2622,7 +2608,6 @@
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
 				D82FDB2F1DF0ABBF00DDF311 /* VTAcknowledgementsViewController.framework in Frameworks */,
 				D844D9731D6CB2600042D692 /* WMFModel.framework in Frameworks */,
-				D82FDB101DF0AABB00DDF311 /* PromiseKit.framework in Frameworks */,
 				D82FDB331DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
 				D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */,
 				D810C3491DF1C0A4003427DA /* Tweaks.framework in Frameworks */,
@@ -2655,7 +2640,6 @@
 				D8D551A41DF1AE4B00B90177 /* hpple.framework in Frameworks */,
 				D82FDAFC1DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D8D551391DF1A0CD00B90177 /* SSDataSources.framework in Frameworks */,
-				D82FDB161DF0AABB00DDF311 /* PromiseKit.framework in Frameworks */,
 				D82FDB391DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
 				D82FDAE91DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
 				D82FDAE01DF0A99F00DDF311 /* AFNetworking.framework in Frameworks */,
@@ -2681,7 +2665,6 @@
 				D82FDAF11DF0A9E700DDF311 /* WebImage.framework in Frameworks */,
 				D8D551381DF1A0CD00B90177 /* SSDataSources.framework in Frameworks */,
 				D82FDAFB1DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */,
-				D82FDB151DF0AABB00DDF311 /* PromiseKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2699,7 +2682,6 @@
 				D82FDAF01DF0A9E700DDF311 /* WebImage.framework in Frameworks */,
 				D82FDAFA1DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D82FDB0C1DF0AABB00DDF311 /* KVOController.framework in Frameworks */,
-				D82FDB141DF0AABB00DDF311 /* PromiseKit.framework in Frameworks */,
 				D85D34C61D74D07500845125 /* NotificationCenter.framework in Frameworks */,
 				D82FDB371DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
 				D8D551371DF1A0CD00B90177 /* SSDataSources.framework in Frameworks */,
@@ -2717,7 +2699,6 @@
 				D895D0871D9C1EB8005418C1 /* UserNotificationsUI.framework in Frameworks */,
 				D895D0851D9C1EB8005418C1 /* UserNotifications.framework in Frameworks */,
 				D82FDAF71DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */,
-				D82FDB111DF0AABB00DDF311 /* PromiseKit.framework in Frameworks */,
 				D8D551351DF1A0CD00B90177 /* SSDataSources.framework in Frameworks */,
 				D82FDB231DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
 				D82FDB091DF0AABB00DDF311 /* KVOController.framework in Frameworks */,
@@ -2744,7 +2725,6 @@
 				D82FDAF31DF0A9E800DDF311 /* WebImage.framework in Frameworks */,
 				D82FDAFD1DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D82FDB0F1DF0AABB00DDF311 /* KVOController.framework in Frameworks */,
-				D82FDB171DF0AABB00DDF311 /* PromiseKit.framework in Frameworks */,
 				D8A76D741D6F279F00E5A798 /* WMFModel.framework in Frameworks */,
 				D82FDB3A1DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
 				D8D5513A1DF1A0CD00B90177 /* SSDataSources.framework in Frameworks */,
@@ -5071,13 +5051,10 @@
 				B0E808941C0D16330065EBC0 /* NSArray+WMFShuffle.m */,
 				B0E808961C0D16430065EBC0 /* XCTestCase+WMFLocaleTesting.h */,
 				B0E808971C0D16430065EBC0 /* XCTestCase+WMFLocaleTesting.m */,
-				B0E808991C0D16500065EBC0 /* XCTestCase+PromiseKit.swift */,
 				B0E8089B1C0D165B0065EBC0 /* XCTestCase+SwiftDefaults.swift */,
 				B0E8089D1C0D16680065EBC0 /* WMFImageController+Testing.h */,
 				B0E8089E1C0D16680065EBC0 /* WMFImageController+Testing.m */,
 				B0E808A01C0D16730065EBC0 /* XCTAssert+CGGeometry.h */,
-				B0E808A11C0D167F0065EBC0 /* XCTestCase+PromiseKit.h */,
-				B0E808A21C0D167F0065EBC0 /* XCTestCase+PromiseKit.m */,
 				B0E808A41C0D168F0065EBC0 /* XCTestCase+WMFVisualTestConvenience.h */,
 				B0E808A51C0D168F0065EBC0 /* XCTestCase+WMFVisualTestConvenience.m */,
 				B0E808A71C0D16A00065EBC0 /* UIView+VisualTestSizingUtils.h */,
@@ -5333,8 +5310,6 @@
 				B0E8095F1C0D1BA30065EBC0 /* WMFSearchFetcherTests.m */,
 				B0E809611C0D1BAD0065EBC0 /* WMFSearchResultsMergeTests.m */,
 				B0E809631C0D1BB90065EBC0 /* WMFENFeaturedTitleFetcherTests.m */,
-				B0E809671C0D1BFA0065EBC0 /* XCTestCase+PromiseKitTests.m */,
-				B0E809691C0D1C070065EBC0 /* XCTestCase+PromiseSwiftKitTests.swift */,
 				B0E8096B1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m */,
 				BCCB814A1C110A65008BC602 /* MWKImageInfoSerializationTest.m */,
 				BCC4D3541C11F39700F00D58 /* NSDate+WMFPOTDTitleTests.m */,
@@ -5554,7 +5529,6 @@
 				D82FDB181DF0AAFF00DDF311 /* HockeySDK.framework */,
 				D82FDB191DF0AAFF00DDF311 /* Masonry.framework */,
 				D82FDB061DF0AABB00DDF311 /* KVOController.framework */,
-				D82FDB071DF0AABB00DDF311 /* PromiseKit.framework */,
 				D82FDAF41DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework */,
 				D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */,
 				D82FDAEB1DF0A9E700DDF311 /* WebImage.framework */,
@@ -5706,6 +5680,8 @@
 				D8494AFC1D6C8D6700337433 /* System */,
 				BC45D5711C32EADD007C72F3 /* NSObject */,
 				BC45D5661C32E6E8007C72F3 /* Grand Central Dispatch */,
+				D8D906961DF5BB5000853BFD /* NSError+Cancellation.h */,
+				D8D906971DF5BB5000853BFD /* NSError+Cancellation.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -6101,6 +6077,7 @@
 				D8494AF81D6C8D3200337433 /* NSMutableArray+WMFSafeAdd.h in Headers */,
 				D844D9CD1D6CBA570042D692 /* NSArray+BKIndex.h in Headers */,
 				D8D551481DF1A33D00B90177 /* metamacros.h in Headers */,
+				D8D906981DF5BB5000853BFD /* NSError+Cancellation.h in Headers */,
 				D89D44011D74D39900F7862E /* WMFNumberOfExtractCharacters.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6695,7 +6672,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/HockeySDK.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Masonry.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/KVOController.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/PromiseKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjackSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/WebImage.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
@@ -6798,7 +6774,6 @@
 				BC97FF0A1C18897500FA40E3 /* NSUserDefaults+WMFBatchRecordMode.m in Sources */,
 				B0E808EC1C0D18070065EBC0 /* MWKImageInfo+MWKImageComparisonTests.m in Sources */,
 				B0E8089F1C0D16680065EBC0 /* WMFImageController+Testing.m in Sources */,
-				B0E8096A1C0D1C070065EBC0 /* XCTestCase+PromiseSwiftKitTests.swift in Sources */,
 				B0E8092F1C0D1A0B0065EBC0 /* NSURL+WMFExtrasTests.m in Sources */,
 				B0E808FD1C0D18730065EBC0 /* WMFJoinedPropertyParametersTests.m in Sources */,
 				B0E808771C0D155A0065EBC0 /* XCTestCase+WMFBundleConvenience.m in Sources */,
@@ -6843,11 +6818,9 @@
 				BC45FF481C1B1F9F00BAE501 /* NSUserDefaults+WMFReset.m in Sources */,
 				B0E809291C0D19D00065EBC0 /* MWKArticleExtractionTests.m in Sources */,
 				B0E808C71C0D176A0065EBC0 /* MWKListTestBase.m in Sources */,
-				B0E8089A1C0D16500065EBC0 /* XCTestCase+PromiseKit.swift in Sources */,
 				B0E809351C0D1A2F0065EBC0 /* WMFGeometryTests.m in Sources */,
 				B0E8090B1C0D18D90065EBC0 /* NSString+FormattedAttributedStringTests.m in Sources */,
 				B0E8091B1C0D19420065EBC0 /* WMFImageControllerTests.swift in Sources */,
-				B0E808A31C0D167F0065EBC0 /* XCTestCase+PromiseKit.m in Sources */,
 				B0E809071C0D18B10065EBC0 /* NSArray+BKIndexTests.m in Sources */,
 				B0E809471C0D1AB20065EBC0 /* MWKImageFaceDetectionTests.m in Sources */,
 				B0E809451C0D1A9F0065EBC0 /* MWKArticleEqualityCheckTests.m in Sources */,
@@ -6859,7 +6832,6 @@
 				B0E808831C0D15A20065EBC0 /* MWKDataStore+TemporaryDataStore.m in Sources */,
 				B0E809571C0D1B5F0065EBC0 /* WMFArticleListCellVisualTests.m in Sources */,
 				B0E8086D1C0D15170065EBC0 /* WMFCodingStyle.m in Sources */,
-				B0E809681C0D1BFA0065EBC0 /* XCTestCase+PromiseKitTests.m in Sources */,
 				B0E809391C0D1A4C0065EBC0 /* MWKLanguageLinkFetcherTests.m in Sources */,
 				B0E808A61C0D168F0065EBC0 /* XCTestCase+WMFVisualTestConvenience.m in Sources */,
 				B0E809491C0D1AC00065EBC0 /* UIImageView+WMFImageFetchingVisualTests.m in Sources */,
@@ -7325,6 +7297,7 @@
 				D844D9D01D6CBA650042D692 /* NSIndexSet+BKReduce.m in Sources */,
 				D8494AE41D6C85C500337433 /* NSURL+WMFLinkParsing.m in Sources */,
 				D844D9E11D6CBC320042D692 /* NSURL+WMFProxyServer.m in Sources */,
+				D8D906991DF5BB5000853BFD /* NSError+Cancellation.m in Sources */,
 				D8A76D841D6F2B2F00E5A798 /* WMFTaskGroup.m in Sources */,
 				D844D9CA1D6CBA1D0042D692 /* WMFGeometry.c in Sources */,
 				D8494AFA1D6C8D4E00337433 /* NSMutableSet+WMFSafeAdd.m in Sources */,

@@ -1,5 +1,4 @@
 #import <XCTest/XCTest.h>
-#import "XCTestCase+PromiseKit.h"
 #import "WMFEnglishFeaturedTitleFetcher.h"
 #import "MWKSearchResult.h"
 

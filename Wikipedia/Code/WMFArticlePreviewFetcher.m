@@ -44,32 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (AnyPromise *)fetchArticlePreviewResultsForArticleURLs:(NSArray<NSURL *> *)articleURLs
-                                                 siteURL:(NSURL *)siteURL {
-    return [self fetchArticlePreviewResultsForArticleURLs:articleURLs
-                                                  siteURL:siteURL
-                                            extractLength:WMFNumberOfExtractCharacters
-                                           thumbnailWidth:[[UIScreen mainScreen] wmf_leadImageWidthForScale].unsignedIntegerValue];
-}
-
-- (AnyPromise *)fetchArticlePreviewResultsForArticleURLs:(NSArray<NSURL *> *)articleURLs
-                                                 siteURL:(NSURL *)siteURL
-                                           extractLength:(NSUInteger)extractLength
-                                          thumbnailWidth:(NSUInteger)thumbnailWidth {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-        [self fetchArticlePreviewResultsForArticleURLs:articleURLs
-            siteURL:siteURL
-            extractLength:extractLength
-            thumbnailWidth:thumbnailWidth
-            completion:^(NSArray<MWKSearchResult *> *_Nonnull results) {
-                resolve(results);
-            }
-            failure:^(NSError *_Nonnull error) {
-                resolve(error);
-            }];
-    }];
-}
-
 - (void)fetchArticlePreviewResultsForArticleURLs:(NSArray<NSURL *> *)articleURLs
                                          siteURL:(NSURL *)siteURL
                                       completion:(void (^)(NSArray<MWKSearchResult *> *results))completion
@@ -96,7 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
         success:^(NSURLSessionDataTask *operation, NSArray<MWKSearchResult *> *unsortedPreviews) {
             @strongify(self);
             if (!self) {
-                failure([NSError cancelledError]);
+                failure([NSError wmf_cancelledError]);
                 return;
             }
         WMF_TECH_DEBT_TODO(handle case where no preview is retrieved for url)

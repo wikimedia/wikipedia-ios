@@ -9,7 +9,6 @@ FOUNDATION_EXPORT const unsigned char WMFUtilitiesVersionString[];
 
 #import <KVOController/KVOController.h>
 #import <BlocksKit/BlocksKit.h>
-#import <PromiseKit/PromiseKit.h>
 
 #import "NSURL+WMFLinkParsing.h"
 #import "NSURLComponents+WMFLinkParsing.h"
@@ -47,6 +46,7 @@ FOUNDATION_EXPORT const unsigned char WMFUtilitiesVersionString[];
 #import "WMFNumberOfExtractCharacters.h"
 #import "NSBundle+WMFInfoUtils.h"
 #import "NSDictionary+WMFPageViewsSortedByDate.h"
+#import "NSError+Cancellation.h"
 
 #import "EXTScope.h"
 #import "AnimatedGIFImageSerialization.h"

@@ -9,6 +9,7 @@
 #import "TSBlurView.h"
 #import "TSMessage.h"
 #import "TSMessageView.h"
+#import "WMFBlockDefinitions.h"
 
 #import "NSString+WMFExtras.h"
 #import "NSString+FormattedAttributedString.h"
