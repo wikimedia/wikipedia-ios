@@ -126,13 +126,13 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     return self;
 }
 
-static pid_t currentPid() {
+static uint64_t bundleHash() {
     static dispatch_once_t onceToken;
-    static pid_t pid;
+    static uint64_t bundleHash;
     dispatch_once(&onceToken, ^{
-        pid = getpid();
+        bundleHash = (uint64_t)[[[NSBundle mainBundle] bundleIdentifier] hash];
     });
-    return pid;
+    return bundleHash;
 }
 
 - (instancetype)initWithContainerURL:(NSURL *)containerURL {
@@ -172,18 +172,18 @@ static pid_t currentPid() {
     }
     const char *name = [channelName UTF8String];
     notify_register_dispatch(name, &_crossProcessNotificationToken, dispatch_get_main_queue(), ^(int token) {
-        uint64_t fromPid;
-        notify_get_state(token, &fromPid);
-        BOOL isExternal = fromPid != currentPid();
+        uint64_t state;
+        notify_get_state(token, &state);
+        BOOL isExternal = state != bundleHash();
         if (isExternal) {
-            [self handleCrossProcessCoreDataNotificationWithPID:fromPid];
+            [self handleCrossProcessCoreDataNotificationWithState:state];
         }
     });
 }
 
-- (void)handleCrossProcessCoreDataNotificationWithPID:(uint64_t)fromPID {
+- (void)handleCrossProcessCoreDataNotificationWithState:(uint64_t)state {
     NSURL *baseURL = self.containerURL;
-    NSString *fileName = [NSString stringWithFormat:@"%llu.changes", fromPID];
+    NSString *fileName = [NSString stringWithFormat:@"%llu.changes", state];
     NSURL *fileURL = [baseURL URLByAppendingPathComponent:fileName isDirectory:NO];
     NSData *data = [NSData dataWithContentsOfURL:fileURL];
     NSDictionary *userInfo = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -256,17 +256,17 @@ static pid_t currentPid() {
         return;
     }
 
-    uint64_t pid = currentPid();
+    uint64_t state = bundleHash();
 
     NSDictionary *archiveableUserInfo = [self archivableNotificationUserInfoForUserInfo:userInfo];
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:archiveableUserInfo];
     NSURL *baseURL = [[NSFileManager defaultManager] wmf_containerURL];
-    NSString *fileName = [NSString stringWithFormat:@"%llu.changes", pid];
+    NSString *fileName = [NSString stringWithFormat:@"%llu.changes", state];
     NSURL *fileURL = [baseURL URLByAppendingPathComponent:fileName isDirectory:NO];
     [data writeToURL:fileURL atomically:YES];
 
     const char *name = [self.crossProcessNotificationChannelName UTF8String];
-    notify_set_state(_crossProcessNotificationToken, pid);
+    notify_set_state(_crossProcessNotificationToken, state);
     notify_post(name);
 }
 
@@ -298,26 +298,26 @@ static pid_t currentPid() {
 
 + (NSString *)legacyYapDatabasePath {
     NSString *databaseName = @"WikipediaYap.sqlite";
-    
+
     NSURL *baseURL = [[NSFileManager defaultManager] wmf_containerURL];
-    
+
     NSURL *databaseURL = [baseURL URLByAppendingPathComponent:databaseName isDirectory:NO];
-    
+
     return databaseURL.filePathURL.path;
 }
 
 + (BOOL)migrateToSharedContainer:(NSError **)error {
     NSFileManager *fm = [NSFileManager defaultManager];
-    
+
     NSString *databaseName = @"WikipediaYap.sqlite";
     NSURL *baseURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
-                                                                inDomain:NSUserDomainMask
-                                                       appropriateForURL:nil
-                                                                  create:YES
-                                                                   error:NULL];
-        
+                                                            inDomain:NSUserDomainMask
+                                                   appropriateForURL:nil
+                                                              create:YES
+                                                               error:NULL];
+
     NSURL *databaseURL = [baseURL URLByAppendingPathComponent:databaseName isDirectory:NO];
-        
+
     NSString *appSpecificDatabasePath = databaseURL.filePathURL.path;
     NSError *copyError = nil;
     if (![fm copyItemAtPath:appSpecificDatabasePath toPath:[self legacyYapDatabasePath] error:&copyError]) {
@@ -342,14 +342,14 @@ static pid_t currentPid() {
     return YES;
 }
 
-- (void)migrateArticlePreviews:(NSDictionary<NSString *, WMFArticlePreview *> *)articlePreviews historyEntries:(NSDictionary <NSString *, MWKHistoryEntry *> *)historyEntries toManagedObjectContext:(NSManagedObjectContext *)moc {
+- (void)migrateArticlePreviews:(NSDictionary<NSString *, WMFArticlePreview *> *)articlePreviews historyEntries:(NSDictionary<NSString *, MWKHistoryEntry *> *)historyEntries toManagedObjectContext:(NSManagedObjectContext *)moc {
     if (articlePreviews.count == 0 && historyEntries.count == 0) {
         return;
     }
-    
+
     NSMutableSet *keysToAdd = [NSMutableSet setWithArray:articlePreviews.allKeys];
     [keysToAdd unionSet:[NSSet setWithArray:historyEntries.allKeys]];
-   
+
     NSFetchRequest *existingObjectFetchRequest = [WMFArticle fetchRequest];
     existingObjectFetchRequest.predicate = [NSPredicate predicateWithFormat:@"key in %@", keysToAdd];
     NSArray<WMFArticle *> *allExistingObjects = [moc executeFetchRequest:existingObjectFetchRequest error:nil];
@@ -411,7 +411,7 @@ static pid_t currentPid() {
         DDLogError(@"Failed to open legacy db");
         return YES;
     }
-    
+
     sqlite3_stmt *statement;
     const char *query = "SELECT * FROM database2;";
     if (sqlite3_prepare_v2(db, query, -1, &statement, NULL) != SQLITE_OK) {
@@ -419,17 +419,17 @@ static pid_t currentPid() {
         DDLogError(@"Failed to prepare query: %s", errmsg);
         return YES;
     }
-    
+
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
-    
+
     NSManagedObjectContext *moc = self.viewContext;
-   
+
     NSInteger batchSize = 500;
-    
+
     NSMutableDictionary *previews = [NSMutableDictionary dictionaryWithCapacity:250];
     NSMutableDictionary *entries = [NSMutableDictionary dictionaryWithCapacity:250];
-    
+
     while (sqlite3_step(statement) == SQLITE_ROW) {
         @autoreleasepool {
             const unsigned char *collectionNameBytes = sqlite3_column_text(statement, 1);
@@ -440,11 +440,11 @@ static pid_t currentPid() {
             int objectBlobLength = sqlite3_column_bytes(statement, 3);
             const void *metadataBlob = sqlite3_column_blob(statement, 4);
             int metadataBlobLength = sqlite3_column_bytes(statement, 4);
-            
+
             if (collectionNameBytesLength == 0 || keyBytesLength == 0 || objectBlobLength == 0) {
                 continue;
             }
-            
+
             NSString *collectionName = [[NSString alloc] initWithBytes:collectionNameBytes length:collectionNameBytesLength encoding:NSUTF8StringEncoding];
             NSString *key = [[NSString alloc] initWithBytes:keyBytes length:keyBytesLength encoding:NSUTF8StringEncoding];
             NSData *objectData = [[NSData alloc] initWithBytes:objectBlob length:objectBlobLength];
@@ -452,7 +452,7 @@ static pid_t currentPid() {
             if (metadataBlobLength > 0) {
                 metadataData = [[NSData alloc] initWithBytes:metadataBlob length:metadataBlobLength];
             }
-            
+
             if (!collectionName || !key || !objectData) {
                 continue;
             }
@@ -495,18 +495,18 @@ static pid_t currentPid() {
                 DDLogError(@"Exception trying to import legacy object for key: %@", key);
             }
         }
-        
+
         if (entries.count + previews.count > batchSize) {
             [self migrateArticlePreviews:previews historyEntries:entries toManagedObjectContext:moc];
             [entries removeAllObjects];
             [previews removeAllObjects];
         }
     }
-    
+
     [self migrateArticlePreviews:previews historyEntries:entries toManagedObjectContext:moc];
     [entries removeAllObjects];
     [previews removeAllObjects];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
 
