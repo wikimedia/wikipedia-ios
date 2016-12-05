@@ -26,16 +26,15 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (void)set304sEnabled:(BOOL)enabled{
-    NSMutableIndexSet* set = [self.operationManager.responseSerializer.acceptableStatusCodes mutableCopy];
-    if(enabled){
+- (void)set304sEnabled:(BOOL)enabled {
+    NSMutableIndexSet *set = [self.operationManager.responseSerializer.acceptableStatusCodes mutableCopy];
+    if (enabled) {
         [set addIndex:304];
-    }else{
+    } else {
         [set removeIndex:304];
     }
     self.operationManager.responseSerializer.acceptableStatusCodes = set;
 }
-
 
 - (BOOL)isFetching {
     return [[self.operationManager operationQueue] operationCount] > 0;
@@ -47,9 +46,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSURL *)feedContentURLForSiteURL:(NSURL *)siteURL onDate:(NSDate *)date {
     NSString *datePath = [[NSDateFormatter wmf_yearMonthDayPathDateFormatter] stringFromDate:date];
-    
+
     NSString *path = [NSString stringWithFormat:@"/api/rest_v1/feed/featured/%@", datePath];
-    
+
     return [siteURL wmf_URLWithPath:path isMobile:NO];
 }
 
@@ -66,7 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self set304sEnabled:force];
 
     NSURL *url = [[self class] feedContentURLForSiteURL:siteURL onDate:date];
-    
+
     [self.operationManager GET:[url absoluteString]
         parameters:nil
         progress:NULL
@@ -85,6 +84,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)fetchPageviewsForURL:(NSURL *)titleURL startDate:(NSDate *)startDate endDate:(NSDate *)endDate failure:(WMFErrorHandler)failure success:(WMFPageViewsHandler)success {
+    NSParameterAssert(titleURL);
+
     NSString *title = [titleURL.wmf_titleWithUnderScores wmf_UTF8StringWithPercentEscapes];
     NSString *language = titleURL.wmf_language;
     NSString *domain = titleURL.wmf_domain;
@@ -117,6 +118,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSString *requestURLString = [WMFWikimediaRestAPIURLStringWithVersion(1) stringByAppendingString:path];
 
+    NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
+
     [self.unserializedOperationManager GET:requestURLString
         parameters:nil
         progress:NULL
@@ -134,6 +137,16 @@ NS_ASSUME_NONNULL_BEGIN
                     NSDate *date = [[NSDateFormatter wmf_englishUTCNonDelimitedYearMonthDayHourFormatter] dateFromString:item[@"timestamp"]];
                     results[date] = item[@"views"];
                 }
+            }
+
+            NSDate *date = startDate;
+
+            while ([date compare:endDate] == NSOrderedAscending) {
+                if (results[date]) {
+                    break;
+                }
+                results[date] = @(0);
+                date = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:date options:NSCalendarMatchStrictly];
             }
 
             success([results copy]);

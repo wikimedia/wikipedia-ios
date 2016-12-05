@@ -1,7 +1,6 @@
 #import "WMFPageHistoryRevision.h"
 #import "NSString+WMFExtras.h"
 #import "WikiGlyph_Chars.h"
-#import "NSDate+Utilities.h"
 
 @implementation WMFPageHistoryRevision
 
@@ -35,7 +34,9 @@
 }
 
 - (NSInteger)daysFromToday {
-    return [self.revisionDate distanceInDaysToDate:[NSDate date]];
+    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
+    NSInteger days = [calendar wmf_daysFromDate:self.revisionDate toDate:[NSDate date]];
+    return days;
 }
 
 @end

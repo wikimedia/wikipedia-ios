@@ -1,0 +1,6 @@
+framework module SSDataSources {
+  umbrella header "SSDataSources.h"
+
+  export *
+  module * { export * }
+}

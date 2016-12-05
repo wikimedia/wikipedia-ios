@@ -5,7 +5,6 @@
 
 // Frameworks
 #import <Masonry/Masonry.h>
-#import "BlocksKit+UIKit.h"
 
 // Controller
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -27,7 +26,7 @@
 
 // Model
 #import "MWKDataStore.h"
-#import "WMFArticlePreviewDataStore.h"
+#import "WMFArticleDataStore.h"
 #import "MWKCitation.h"
 #import "MWKSavedPageList.h"
 #import "MWKArticle+WMFSharing.h"
@@ -61,6 +60,8 @@
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
 
 @import SafariServices;
+@import BlocksKitUIKitExtensions;
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -127,7 +128,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (nonatomic, strong, readwrite) NSURL *articleURL;
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
-@property (nonatomic, strong, readwrite) WMFArticlePreviewDataStore *previewStore;
+@property (nonatomic, strong, readwrite) WMFArticleDataStore *previewStore;
 
 @property (strong, nonatomic, nullable, readwrite) WMFShareFunnel *shareFunnel;
 @property (strong, nonatomic, nullable) WMFShareOptionsController *shareOptionsController;
@@ -192,7 +193,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (instancetype)initWithArticleURL:(NSURL *)url
                          dataStore:(MWKDataStore *)dataStore
-                      previewStore:(WMFArticlePreviewDataStore *)previewStore {
+                      previewStore:(WMFArticleDataStore *)previewStore {
     NSParameterAssert(url.wmf_title);
     NSParameterAssert(dataStore);
     NSParameterAssert(previewStore);
@@ -281,7 +282,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return self.dataStore.savedPageList;
 }
 
-- (MWKHistoryEntry *)historyEntry {
+- (WMFArticle *)historyEntry {
     return [self.recentPages entryForURL:self.articleURL];
 }
 
@@ -791,8 +792,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
     MWKHistoryList *historyList = self.dataStore.historyList;
-    MWKHistoryEntry *entry = [historyList entryForURL:self.articleURL];
-    if (!entry.titleWasSignificantlyViewed) {
+    WMFArticle *entry = [historyList entryForURL:self.articleURL];
+    if (!entry.wasSignificantlyViewed) {
         self.significantlyViewedTimer = [NSTimer scheduledTimerWithTimeInterval:FBTweakValue(@"Explore", @"Related items", @"Required viewing time", 30.0) target:self selector:@selector(significantlyViewedTimerFired:) userInfo:nil repeats:NO];
     }
 }
@@ -1747,7 +1748,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return @[readAction, saveAction, shareAction];
 }
 
-#pragma mark - WMFArticlePreviewingActionsDelegate methods
+#pragma mark - WMFArticleingActionsDelegate methods
 
 - (void)readMoreArticlePreviewActionSelectedWithArticleController:(UIViewController *)articleController {
     [self commitViewController:articleController];

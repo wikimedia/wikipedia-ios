@@ -26,7 +26,7 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
     }
 
     NSDate *currentDate = [NSDate date];
-    NSInteger daysInstalled = [[NSCalendar wmf_gregorianCalendar] daysFromDate:installDate toDate:currentDate];
+    NSInteger daysInstalled = [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:installDate toDate:currentDate];
 
     NSNumber *daysInstalledNumber = [userDefaults wmf_daysInstalled];
 

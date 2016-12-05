@@ -1,5 +1,6 @@
 import Foundation
-import SDWebImage
+import WebImage
+import CocoaLumberjackSwift
 
 ///
 /// @name Constants

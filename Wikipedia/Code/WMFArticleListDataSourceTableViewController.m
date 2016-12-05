@@ -1,7 +1,5 @@
 #import "WMFArticleListDataSourceTableViewController.h"
 
-#import "BlocksKit+UIKit.h"
-
 #import "MWKDataStore.h"
 #import "MWKArticle.h"
 

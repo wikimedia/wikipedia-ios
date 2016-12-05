@@ -8,7 +8,6 @@
 #import "UIView+Debugging.h"
 #import "NSObject+ConstraintsScale.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "BlocksKit+UIKit.h"
 #import "UIViewController+WMFChildViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "SectionEditorViewController.h"
@@ -16,7 +15,8 @@
 #import "PaddedLabel.h"
 #import "MWKLanguageLinkController.h"
 #import "WMFAuthenticationManager.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import <WebImage/WebImage.h>
+@import BlocksKitUIKitExtensions;
 
 @interface AccountCreationViewController ()
 

@@ -1,7 +1,7 @@
 #import "SDWebImageManager+WMFCacheRemoval.h"
 
 #if DEBUG
-#define LOG_POST_REMOVAL_CACHE_SIZE 1
+#define LOG_POST_REMOVAL_CACHE_SIZE 0
 #else
 #define LOG_POST_REMOVAL_CACHE_SIZE 0
 #endif

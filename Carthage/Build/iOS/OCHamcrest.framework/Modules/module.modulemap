@@ -1,0 +1,6 @@
+framework module OCHamcrest {
+  umbrella header "OCHamcrest.h"
+
+  export *
+  module * { export * }
+}

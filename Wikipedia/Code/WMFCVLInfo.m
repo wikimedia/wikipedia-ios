@@ -189,7 +189,7 @@
         for (NSInteger i = 0; i < numberOfColumns; i++) {
             WMFCVLColumn *column = [WMFCVLColumn new];
             CGFloat columnWeight = [columnWeights[i] doubleValue];
-            CGFloat columnWidth = columnWeight * baselineColumnWidth;
+            CGFloat columnWidth = round(columnWeight * baselineColumnWidth);
             if (columnWidth > widestColumnWidth) {
                 widestColumnWidth = columnWidth;
                 widestColumnIndex = i;
@@ -215,9 +215,9 @@
 #if DEBUG
             CGFloat availableWidth = size.width - contentInsets.left - contentInsets.right - ((numberOfColumns - 1) * interColumnSpacing);
 
-            CGFloat baselineColumnWidth = floor(availableWidth / numberOfColumns);
-            CGFloat columnWidthToCheck = [columnWeights[column.index] doubleValue] * baselineColumnWidth;
-            assert(column.frame.size.width == columnWidthToCheck);
+            CGFloat baselineColumnWidth = round(availableWidth / numberOfColumns);
+            CGFloat columnWidthToCheck = round([columnWeights[column.index] doubleValue] * baselineColumnWidth);
+            assert(ABS(column.frame.size.width - columnWidthToCheck) < 1);
 #endif
             i++;
         }

@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import <CocoaLumberjack/DDDispatchQueueLogFormatter.h>
+@import CocoaLumberjack.DDDispatchQueueLogFormatter;
 
 @interface WMFLogFormatter : DDDispatchQueueLogFormatter
 

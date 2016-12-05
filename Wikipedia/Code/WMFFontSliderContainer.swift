@@ -1,5 +1,4 @@
 import UIKit
-import SWStepSlider
 
 @objc public protocol WMFFontSliderViewControllerDelegate{
     

@@ -1,5 +1,5 @@
 #import "WMFExploreSectionHeader.h"
-#import "BlocksKit+UIKit.h"
+@import BlocksKitUIKitExtensions;
 
 @interface WMFExploreSectionHeader ()
 
@@ -30,12 +30,13 @@
     self.rightButton.isAccessibilityElement = YES;
     self.rightButton.accessibilityTraits = UIAccessibilityTraitButton;
     @weakify(self);
-    [self bk_whenTapped:^{
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] bk_initWithHandler:^(UIGestureRecognizer * _Nonnull sender, UIGestureRecognizerState state, CGPoint location) {
         @strongify(self);
         if (self.whenTapped) {
             self.whenTapped();
         }
     }];
+    [self addGestureRecognizer:tapGR];
 }
 
 - (void)setImage:(UIImage *)image {

@@ -1,6 +1,6 @@
 #import "WMFImageController+Testing.h"
-#import <SDWebImage/SDWebImageManager.h>
-#import <SDWebImage/SDImageCache.h>
+
+#import <WebImage/WebImage.h>
 #import "WMFRandomFileUtilities.h"
 
 @implementation WMFImageController (Testing)

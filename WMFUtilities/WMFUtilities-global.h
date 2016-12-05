@@ -1,7 +1,7 @@
 #ifndef WMFUtilities_Global_h
 #define WMFUtilities_Global_h
 
-#import <libextobjc/EXTScope.h>
+#import "EXTScope.h"
 #import <KVOController/KVOController.h>
 #import <BlocksKit/BlocksKit.h>
 #import <PromiseKit/PromiseKit.h>

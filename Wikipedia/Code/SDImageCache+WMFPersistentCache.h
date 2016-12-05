@@ -1,4 +1,4 @@
-#import <SDWebImage/SDImageCache.h>
+#import <WebImage/WebImage.h>
 
 @interface SDImageCache (WMFPersistentCache)
 

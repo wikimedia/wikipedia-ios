@@ -1,6 +1,0 @@
-framework module Pods_Foundation_WMFUtilities {
-  umbrella header "Pods-Foundation-WMFUtilities-umbrella.h"
-
-  export *
-  module * { export * }
-}

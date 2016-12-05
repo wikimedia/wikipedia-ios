@@ -2,8 +2,7 @@
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
-
-#import "HCIsCollectionContainingInAnyOrder+WMFCollectionMatcherUtils.h"
+#import "NSArray+WMFMatching.h"
 
 @implementation MWKListSharedTests
 
@@ -19,7 +18,7 @@
 - (void)testContainsAllUniqueEntriesPassedToInit {
     MWKList *list = [self listWithEntries:self.testObjects];
     assertThat(list.entries, hasCountOf(self.testObjects.count));
-    assertThat(list.entries, containsItemsInCollectionInAnyOrder(self.testObjects));
+    XCTAssertTrue([list.entries wmf_containsObjectsInAnyOrder:self.testObjects]);
     assertThat(@(list.dirty), isFalse());
 }
 
@@ -58,7 +57,8 @@
     [list addEntry:self.testObjects[1]];
     [list addEntry:self.testObjects[2]];
     [list addEntry:self.testObjects[3]];
-    assertThat(list.entries, containsItemsInCollectionInAnyOrder([self.testObjects subarrayWithRange:NSMakeRange(0, 4)]));
+    
+    XCTAssertTrue([list.entries wmf_containsObjectsInAnyOrder:[self.testObjects subarrayWithRange:NSMakeRange(0, 4)]]);
 }
 
 - (void)testAddThenRemove {

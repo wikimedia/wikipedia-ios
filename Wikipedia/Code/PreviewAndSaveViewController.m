@@ -18,7 +18,6 @@
 #import "AbuseFilterAlert.h"
 #import "MWLanguageInfo.h"
 #import "NSObject+ConstraintsScale.h"
-#import "BlocksKit+UIKit.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFChildViewController.h"
@@ -33,6 +32,7 @@
 #import "WKWebView+LoadAssetsHtml.h"
 #import "WMFAuthenticationManager.h"
 #import "KeychainCredentials.h"
+@import BlocksKitUIKitExtensions;
 
 #define TERMS_LINK @"https://wikimediafoundation.org/wiki/Terms_of_Use"
 #define LICENSE_LINK @"https://creativecommons.org/licenses/by-sa/3.0/"

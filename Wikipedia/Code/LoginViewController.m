@@ -14,12 +14,12 @@
 #import "Defines.h"
 #import "NSObject+ConstraintsScale.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "BlocksKit+UIKit.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "Wikipedia-Swift.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "MWKLanguageLinkController.h"
 #import "WMFAuthenticationManager.h"
+@import BlocksKitUIKitExtensions;
 
 @interface LoginViewController () {
 }

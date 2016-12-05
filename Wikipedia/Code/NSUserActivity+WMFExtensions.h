@@ -36,7 +36,7 @@ typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
 
 - (nullable NSString *)wmf_searchTerm;
 
-- (NSURL *)wmf_articleURL;
+- (nullable NSURL *)wmf_articleURL;
 
 - (NSURL *)wmf_contentURL;
 

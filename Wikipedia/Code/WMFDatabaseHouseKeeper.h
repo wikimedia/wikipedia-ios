@@ -3,6 +3,6 @@
 
 @interface WMFDatabaseHouseKeeper : NSObject
 
-- (void)performHouseKeepingWithCompletion:(dispatch_block_t)completion;
+- (BOOL)performHouseKeepingOnManagedObjectContext:(NSManagedObjectContext *)moc error:(NSError **)outError;
 
 @end
