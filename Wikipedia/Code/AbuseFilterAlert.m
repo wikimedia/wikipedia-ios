@@ -2,7 +2,7 @@
 #import "PaddedLabel.h"
 #import "WikiGlyphLabel.h"
 #import "WikiGlyph_Chars.h"
-#import "WMF_Colors.h"
+#import "UIColor+WMFStyle.h"
 #import "WikipediaAppUtils.h"
 #import "BulletedLabel.h"
 
@@ -80,7 +80,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
                           @{
                               @"type": @(VIEW_TYPE_ICON),
                               @"string": ((self.alertType == ABUSE_FILTER_DISALLOW) ? WIKIGLYPH_X : WIKIGLYPH_FLAG),
-                              @"backgroundColor": ((self.alertType == ABUSE_FILTER_DISALLOW) ? WMF_COLOR_RED : WMF_COLOR_ORANGE),
+                              @"backgroundColor": ((self.alertType == ABUSE_FILTER_DISALLOW) ? [UIColor wmf_red] : [UIColor wmf_orange]),
                               @"fontColor": [UIColor whiteColor],
                               @"baselineOffset": @((self.alertType == ABUSE_FILTER_DISALLOW) ? 8.4 : 5.5)
                           }.mutableCopy];

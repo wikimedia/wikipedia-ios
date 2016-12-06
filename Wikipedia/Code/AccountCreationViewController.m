@@ -14,7 +14,6 @@
 #import "MWKLanguageLinkController.h"
 #import "WMFAuthenticationManager.h"
 #import <WebImage/WebImage.h>
-#import "WMF_Colors.h"
 
 @import BlocksKitUIKitExtensions;
 
@@ -140,7 +139,7 @@
     self.passwordConfirmUnderlineHeight.constant = self.usernameUnderlineHeight.constant;
     self.emailUnderlineHeight.constant = self.usernameUnderlineHeight.constant;
 
-    self.loginButton.textColor = WMF_COLOR_BLUE;
+    self.loginButton.textColor = [UIColor wmf_blueTintColor];
     self.loginButton.padding = UIEdgeInsetsMake(10, 10, 10, 10);
     self.loginButton.text = MWLocalizedString(@"account-creation-login", nil);
     self.loginButton.userInteractionEnabled = YES;

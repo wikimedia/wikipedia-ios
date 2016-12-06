@@ -1729,7 +1729,6 @@
 		B0E805361C0CE0DC0065EBC0 /* WKWebView+WMFSuppressSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKWebView+WMFSuppressSelection.m"; path = "Wikipedia/Code/WKWebView+WMFSuppressSelection.m"; sourceTree = SOURCE_ROOT; };
 		B0E805391C0CE0DC0065EBC0 /* WMFOpenExternalLinkDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFOpenExternalLinkDelegateProtocol.h; path = Wikipedia/Code/WMFOpenExternalLinkDelegateProtocol.h; sourceTree = SOURCE_ROOT; };
 		B0E805741C0CE24B0065EBC0 /* WikiGlyph_Chars.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WikiGlyph_Chars.h; path = Wikipedia/Code/WikiGlyph_Chars.h; sourceTree = SOURCE_ROOT; };
-		B0E805751C0CE24B0065EBC0 /* WMF_Colors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMF_Colors.h; path = Wikipedia/Code/WMF_Colors.h; sourceTree = SOURCE_ROOT; };
 		B0E805761C0CE24B0065EBC0 /* WMFDeprecationMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFDeprecationMacros.h; path = Wikipedia/Code/WMFDeprecationMacros.h; sourceTree = SOURCE_ROOT; };
 		B0E805771C0CE2C60065EBC0 /* CreateAccountFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateAccountFunnel.h; path = Wikipedia/Code/CreateAccountFunnel.h; sourceTree = SOURCE_ROOT; };
 		B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateAccountFunnel.m; path = Wikipedia/Code/CreateAccountFunnel.m; sourceTree = SOURCE_ROOT; };
@@ -2795,7 +2794,6 @@
 			isa = PBXGroup;
 			children = (
 				B0E805741C0CE24B0065EBC0 /* WikiGlyph_Chars.h */,
-				B0E805751C0CE24B0065EBC0 /* WMF_Colors.h */,
 			);
 			name = "Style Defines";
 			path = Wikipedia/Code/Defines;

@@ -5,7 +5,6 @@
 #import "SessionSingleton.h"
 #import "NSHTTPCookieStorage+WMFCloneCookie.h"
 #import "AccountCreationViewController.h"
-#import "WMF_Colors.h"
 #import "PaddedLabel.h"
 #import "CreateAccountFunnel.h"
 #import "PreviewAndSaveViewController.h"
@@ -71,7 +70,7 @@
     self.passwordField.font = [UIFont boldSystemFontOfSize:18.0f];
     self.createAccountButton.font = [UIFont boldSystemFontOfSize:14.0f];
 
-    self.createAccountButton.textColor = WMF_COLOR_BLUE;
+    self.createAccountButton.textColor = [UIColor wmf_blueTintColor];
     self.createAccountButton.padding = UIEdgeInsetsMake(10, 10, 10, 10);
     self.createAccountButton.text = MWLocalizedString(@"login-account-creation", nil);
     self.createAccountButton.userInteractionEnabled = YES;

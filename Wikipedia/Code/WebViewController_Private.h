@@ -9,7 +9,6 @@
 #import "EditFunnel.h"
 #import "AccountCreationViewController.h"
 #import "WikiGlyph_Chars.h"
-#import "WMF_Colors.h"
 #import "WikiGlyphLabel.h"
 #import "NSString+FormattedAttributedString.h"
 #import "SavedPagesFunnel.h"

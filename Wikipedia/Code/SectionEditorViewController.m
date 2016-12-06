@@ -3,7 +3,6 @@
 #import "WikipediaAppUtils.h"
 #import "WikiTextSectionFetcher.h"
 #import "PreviewAndSaveViewController.h"
-#import "WMF_Colors.h"
 #import "MWLanguageInfo.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"

@@ -6,7 +6,6 @@
 #import "EditTokenFetcher.h"
 #import "SessionSingleton.h"
 #import "PreviewWebViewContainer.h"
-#import "WMF_Colors.h"
 #import "PaddedLabel.h"
 #import "NSString+WMFExtras.h"
 #import "MenuButton.h"
