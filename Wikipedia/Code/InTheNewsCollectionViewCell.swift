@@ -5,6 +5,10 @@ class InTheNewsCollectionViewCell: WMFExploreCollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var label: UILabel!
     
+    static let textStyle = UIFontTextStyleSubheadline
+    var font = UIFont.preferredFontForTextStyle(textStyle)
+    var linkFont = UIFont.preferredFontForTextStyle(textStyle)
+    
     static var estimatedRowHeight:CGFloat = 86
 
     var imageURL: NSURL? {
@@ -26,23 +30,25 @@ class InTheNewsCollectionViewCell: WMFExploreCollectionViewCell {
         }
     }
     
+    override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        font = UIFont.preferredFontForTextStyle(InTheNewsCollectionViewCell.textStyle)
+        linkFont = UIFont.boldSystemFontOfSize(font.pointSize)
+        updateBodyHTMLStyle()
+    }
+    
+    func updateBodyHTMLStyle() {
+        guard let bodyHTML = bodyHTML else {
+            label.text = nil
+            return
+        }
+        let attributedString = bodyHTML.wmf_attributedStringByRemovingHTMLWithFont(font, linkFont: linkFont)
+        label.attributedText = attributedString
+    }
+    
     var bodyHTML: String? {
         didSet {
-            guard let bodyHTML = bodyHTML else {
-                label.text = nil
-                return
-            }
-            let font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-            var linkFont = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
-
-            // Above UIContentSizeCategoryExtraExtraExtraLarge the UIFontTextStyleBody and UIFontTextStyleHeadline preferred font sizes diverge.
-            // In such cases don't use a different linkFont otherwise it looks super weird.
-            if font.pointSize != linkFont.pointSize {
-                linkFont = font
-            }
-            
-            let attributedString = bodyHTML.wmf_attributedStringByRemovingHTMLWithFont(font, linkFont: linkFont)
-            label.attributedText = attributedString
+            updateBodyHTMLStyle()
         }
     }
 
