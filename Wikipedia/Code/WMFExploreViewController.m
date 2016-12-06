@@ -1324,6 +1324,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
             case NSFetchedResultsChangeMove:
                 break;
         }
+#if DEBUG
+        NSLog(@"%@ - %@ - %@", @(change.type), change.fromIndexPath, change.toIndexPath);
+#endif
     }
 
     [self updateSectionCounts];

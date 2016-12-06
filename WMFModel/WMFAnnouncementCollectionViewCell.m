@@ -87,10 +87,8 @@
 - (nullable NSAttributedString *)attributedStringForCaptionHTML:(NSString *)text {
 
     NSError *error = nil;
-    NSMutableAttributedString *string = [[[NSAttributedString alloc] initWithData:[text dataUsingEncoding:NSUTF8StringEncoding]
-                                                                          options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                                               documentAttributes:nil
-                                                                            error:&error] mutableCopy];
+
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"" attributes:nil];
     if (error) {
         return nil;
     } else {

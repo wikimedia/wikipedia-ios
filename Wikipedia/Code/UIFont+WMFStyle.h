@@ -9,9 +9,6 @@
 
 + (UIFont *)wmf_htmlBodyFont;
 
-+ (instancetype)wmf_tableOfContentsSectionFont;
-+ (instancetype)wmf_tableOfContentsSubsectionFont;
-
 + (instancetype)wmf_nearbyTitleFont;
 + (instancetype)wmf_subtitle;
 + (instancetype)wmf_nearbyDistanceFont;

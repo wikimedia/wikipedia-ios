@@ -19,20 +19,6 @@
     return [self fontWithSize:self.pointSize * scalar];
 }
 
-+ (instancetype)wmf_tableOfContentsSectionFont {
-    static UIFont *f = nil;
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        f = [UIFont fontWithName:@"Georgia" size:18];
-    });
-    return f;
-}
-
-+ (instancetype)wmf_tableOfContentsSubsectionFont {
-    return [UIFont systemFontOfSize:14];
-}
-
 + (instancetype)wmf_nearbyTitleFont {
     return [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
