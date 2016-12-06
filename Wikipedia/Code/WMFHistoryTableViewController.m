@@ -122,14 +122,6 @@
     return cell;
 }
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [[self historyList] removeEntryWithURL:[self urlAtIndexPath:indexPath]];
-}
-
 #pragma mark - WMFArticleListTableViewController
 
 - (WMFEmptyViewType)emptyViewType {
@@ -164,12 +156,16 @@
     return MWLocalizedString(@"history-clear-cancel", nil);
 }
 
+- (NSURL *)urlAtIndexPath:(NSIndexPath *)indexPath {
+    return [[self objectAtIndexPath:indexPath] URL];
+}
+
 - (BOOL)canDeleteItemAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
 
-- (NSURL *)urlAtIndexPath:(NSIndexPath *)indexPath {
-    return [[self objectAtIndexPath:indexPath] URL];
+- (void)deleteItemAtIndexPath:(NSIndexPath*)indexPath{
+    [[self historyList] removeEntryWithURL:[self urlAtIndexPath:indexPath]];
 }
 
 - (void)deleteAll {
