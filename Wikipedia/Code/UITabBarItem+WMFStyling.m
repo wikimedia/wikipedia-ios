@@ -3,7 +3,7 @@
 @implementation UITabBarItem (WMFStyling)
 
 + (NSDictionary*)wmf_rootTabBarItemStyleForState:(UIControlState)state {
-    UIFont *tabBarItemFont = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
+    UIFont *tabBarItemFont = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
     switch (state) {
         case UIControlStateSelected:
             return @{
