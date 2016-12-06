@@ -914,6 +914,7 @@
 		D8C9BFE81D6CC92C0084624F /* MWKLanguageLinkResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8062D1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8C9BFE91D6CC9310084624F /* MWKLanguageLinkResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062E1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.m */; };
 		D8CDBA9F1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */; };
+		D8D0CC371DF6F8C30031EDD9 /* UIFont+WMFDynamicType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D0CC361DF6F8C30031EDD9 /* UIFont+WMFDynamicType.swift */; };
 		D8D270301D75BDD800D093A8 /* NSBundle+WMFInfoUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8048A1C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.m */; };
 		D8D270311D75BDDB00D093A8 /* NSBundle+WMFInfoUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804891C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8D270331D75C6DB00D093A8 /* UIView+WMFDefaultNib.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8051E1C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.m */; };
@@ -2483,6 +2484,7 @@
 		D8C0C0091D144FF30019374D /* WMFProxyServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFProxyServer.h; sourceTree = "<group>"; };
 		D8C0C00A1D144FF30019374D /* WMFProxyServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFProxyServer.m; sourceTree = "<group>"; };
 		D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableOfContentsAboutThisArticleItem.swift; path = Wikipedia/Code/TableOfContentsAboutThisArticleItem.swift; sourceTree = SOURCE_ROOT; };
+		D8D0CC361DF6F8C30031EDD9 /* UIFont+WMFDynamicType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+WMFDynamicType.swift"; sourceTree = "<group>"; };
 		D8D270321D75BE8100D093A8 /* TopReadWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TopReadWidget.entitlements; sourceTree = "<group>"; };
 		D8D270391D75ED5000D093A8 /* WMFArticlePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFArticlePreviewViewController.swift; path = Wikipedia/Code/WMFArticlePreviewViewController.swift; sourceTree = SOURCE_ROOT; };
 		D8D2703A1D75ED5000D093A8 /* WMFArticlePreviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFArticlePreviewViewController.xib; path = Wikipedia/Code/WMFArticlePreviewViewController.xib; sourceTree = SOURCE_ROOT; };
@@ -5839,6 +5841,7 @@
 				B0E804F31C0CE0DC0065EBC0 /* UIColor+WMFStyle.m */,
 				B0E804F01C0CE0DC0065EBC0 /* UIColor+WMFHexColor.h */,
 				B0E804F11C0CE0DC0065EBC0 /* UIColor+WMFHexColor.m */,
+				D8D0CC361DF6F8C30031EDD9 /* UIFont+WMFDynamicType.swift */,
 				D8FA39B71D7F556400D89889 /* WMFSparklineView.swift */,
 				BCD67E871C1F17D4005179E1 /* Face Detection */,
 				D8AC39271D6F2480007E3C14 /* Info.plist */,
@@ -7318,6 +7321,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8D0CC371DF6F8C30031EDD9 /* UIFont+WMFDynamicType.swift in Sources */,
 				D8A76D6F1D6F272100E5A798 /* UIImageView+WMFContentOffset.m in Sources */,
 				D8F706961D74C107001894C6 /* UIImage+WMFStyle.m in Sources */,
 				D8DC16EA1D6F6DA300D6D9FB /* UIColor+WMFStyle.m in Sources */,
