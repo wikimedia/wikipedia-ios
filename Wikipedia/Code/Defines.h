@@ -1,7 +1,5 @@
 #pragma mark Defines
 
-#import "WMF_Colors.h"
-
 #define CHROME_MENUS_HEIGHT_TABLET 66.0
 #define CHROME_MENUS_HEIGHT_PHONE 46.0
 

@@ -16,6 +16,8 @@
 #import "MWKLanguageLinkController.h"
 #import "WMFAuthenticationManager.h"
 #import <WebImage/WebImage.h>
+#import "WMF_Colors.h"
+
 @import BlocksKitUIKitExtensions;
 
 @interface AccountCreationViewController ()
