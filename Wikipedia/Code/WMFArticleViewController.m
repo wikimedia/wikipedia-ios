@@ -347,6 +347,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         _headerImageView.userInteractionEnabled = YES;
         _headerImageView.clipsToBounds = YES;
         _headerImageView.wmf_placeholderView.alpha = 1;
+        _headerImageView.contentMode = UIViewContentModeScaleToFill;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewDidTap:)];
         [_headerImageView addGestureRecognizer:tap];
     }

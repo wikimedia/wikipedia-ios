@@ -19,8 +19,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="179"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="g1T-ga-Eaj">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="g1T-ga-Eaj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="179.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="g1T-ga-Eaj" secondAttribute="height" multiplier="16:9" id="nW9-1X-ILd"/>
                         </constraints>
