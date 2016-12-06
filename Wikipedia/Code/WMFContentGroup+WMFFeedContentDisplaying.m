@@ -422,15 +422,15 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindLocation:
             break;
         case WMFContentGroupKindPictureOfTheDay:
-            break;
+            return YES;
         case WMFContentGroupKindRandom:
             break;
         case WMFContentGroupKindFeaturedArticle:
-            break;
+            return YES;
         case WMFContentGroupKindTopRead:
             break;
         case WMFContentGroupKindNews:
-            break;
+            return YES;
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:
