@@ -154,7 +154,7 @@
             context.contentOffsetAdjustment = CGPointMake(0, context.contentSizeAdjustment.height);
         }
     } else {
-        if (context.invalidateEverything) {
+        if (context.invalidateEverything || context.invalidateDataSourceCounts) {
             [self reset];
         }
         [self layoutWithMetrics:metrics delegate:delegate collectionView:collectionView invalidationContext:nil]; //context is intentionally nil - apparently .invalidateEverything and .invalidateDataSourceCounts contexts shouldn't be updated
