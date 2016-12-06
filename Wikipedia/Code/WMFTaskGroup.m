@@ -34,11 +34,15 @@
     }
 }
 
-- (void)waitInBackgroundWithCompletion:(nonnull dispatch_block_t)completion {
-    if (!completion) {
+- (void)waitInBackgroundAndNotifyOnQueue:(nonnull dispatch_queue_t)queue withBlock:(nonnull dispatch_block_t)block {
+    if (!block) {
         return;
     }
-    dispatch_group_notify(self.group, dispatch_get_main_queue(), completion);
+    dispatch_group_notify(self.group, queue, block);
+}
+
+- (void)waitInBackgroundWithCompletion:(nonnull dispatch_block_t)completion {
+    [self waitInBackgroundAndNotifyOnQueue:dispatch_get_main_queue() withBlock:completion];
 }
 
 - (void)waitInBackgroundWithTimeout:(NSTimeInterval)timeout completion:(nonnull dispatch_block_t)completion {

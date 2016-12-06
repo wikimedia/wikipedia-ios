@@ -350,9 +350,17 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             }];
     }
 
-    [group waitInBackgroundWithCompletion:^{
-        success(infoObjects);
-    }];
+    @weakify(self);
+    [group waitInBackgroundAndNotifyOnQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)
+                                  withBlock:^{
+                                      @strongify(self);
+                                      if (!self) {
+                                          failure([NSError wmf_cancelledError]);
+                                          return;
+                                      }
+                                      [self.dataStore saveImageInfo:infoObjects forArticleURL:article.url];
+                                      success(infoObjects);
+                                  }];
 }
 
 - (void)cacheImagesWithURLsInBackground:(NSArray<NSURL *> *)imageURLs failure:(void (^_Nonnull)(NSError *_Nonnull error))failure success:(void (^_Nonnull)(void))success {
