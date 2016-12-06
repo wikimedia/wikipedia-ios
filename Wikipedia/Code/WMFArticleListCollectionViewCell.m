@@ -22,7 +22,7 @@
 }
 
 - (void)configureImageViewWithPlaceholder {
-    self.articleImageView.wmf_placeholderView.alpha = 1;
+    [self.articleImageView wmf_showPlaceholder];
 }
 
 - (void)configureCell {

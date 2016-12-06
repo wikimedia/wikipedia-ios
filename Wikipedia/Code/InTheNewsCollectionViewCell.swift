@@ -14,7 +14,7 @@ class InTheNewsCollectionViewCell: WMFExploreCollectionViewCell {
     var imageURL: NSURL? {
         didSet {
             guard let URL = imageURL else {
-                imageView.wmf_placeholderView.alpha = 1
+                imageView.wmf_showPlaceholder()
                 return
             }
             
@@ -23,7 +23,7 @@ class InTheNewsCollectionViewCell: WMFExploreCollectionViewCell {
                                           onGPU: true,
                                           failure: { (error) in
                                             dispatch_async(dispatch_get_main_queue(), { () in
-                                                self.imageView.wmf_placeholderView.alpha = 1
+                                                self.imageView.wmf_showPlaceholder()
                                             })
                                           },
                                           success: { () in  })

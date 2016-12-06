@@ -14,6 +14,7 @@ static const void *WMFPlaceholderKey = &WMFPlaceholderKey;
 }
 
 - (void)wmf_showPlaceholder {
+    self.image = nil;
     self.wmf_placeholderView.alpha = 1;
 }
 

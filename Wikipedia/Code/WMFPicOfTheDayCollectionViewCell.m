@@ -35,7 +35,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.potdImageView.wmf_placeholderView.alpha = 1;
+    [self.potdImageView wmf_showPlaceholder];
     [self.KVOControllerNonRetaining observe:self.potdImageView
                                     keyPath:WMF_SAFE_KEYPATH(self.potdImageView, image)
                                     options:NSKeyValueObservingOptionInitial
@@ -54,7 +54,7 @@
 - (void)prepareForReuse {
     [super awakeFromNib];
     self.displayTitleLabel.text = @"";
-    self.potdImageView.wmf_placeholderView.alpha = 1;
+    [self.potdImageView wmf_showPlaceholder];
 }
 
 @end
