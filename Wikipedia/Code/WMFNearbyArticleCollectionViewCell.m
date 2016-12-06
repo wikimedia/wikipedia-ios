@@ -54,7 +54,7 @@
 }
 
 - (void)configureImageViewWithPlaceholder {
-    [self.articleImageView wmf_configureWithDefaultPlaceholder];
+    self.articleImageView.wmf_placeholderView.alpha = 1;
 }
 
 + (CGFloat)estimatedRowHeight {

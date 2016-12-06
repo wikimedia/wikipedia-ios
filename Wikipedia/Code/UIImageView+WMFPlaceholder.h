@@ -2,6 +2,9 @@
 
 @interface UIImageView (WMFPlaceholder)
 
-- (void)wmf_configureWithDefaultPlaceholder;
+- (void)wmf_hidePlaceholder;
+- (void)wmf_showPlaceholder;
+
+@property (nonatomic, readonly) UIImageView *wmf_placeholderView;
 
 @end

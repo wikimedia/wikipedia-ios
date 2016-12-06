@@ -21,15 +21,7 @@
 }
 
 - (void)configureImageViewWithPlaceholder {
-    [self.articleImageView wmf_configureWithDefaultPlaceholder];
-
-    // apply customizations for base class only
-    if ([self isMemberOfClass:[WMFArticleListCollectionViewCell class]]) {
-        // need to aspect-fit placeholder since our image view is too small
-        self.articleImageView.contentMode = UIViewContentModeScaleAspectFit;
-        // use clear background, gray default looks bad w/ this cell
-        self.articleImageView.backgroundColor = [UIColor clearColor];
-    }
+    self.articleImageView.wmf_placeholderView.alpha = 1;
 }
 
 - (void)configureCell {
@@ -53,6 +45,13 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    // apply customizations for base class only
+    if ([self isMemberOfClass:[WMFArticleListCollectionViewCell class]]) {
+        // need to aspect-fit placeholder since our image view is too small
+        // use clear background, gray default looks bad w/ this cell
+        self.articleImageView.wmf_placeholderView.contentMode = UIViewContentModeScaleAspectFit;
+        self.articleImageView.backgroundColor = [UIColor clearColor];
+    }
     [self configureImageViewWithPlaceholder];
     [self wmf_makeCellDividerBeEdgeToEdge];
     self.titleLabel.textAlignment = NSTextAlignmentNatural;
