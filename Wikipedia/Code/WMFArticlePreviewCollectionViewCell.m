@@ -62,19 +62,13 @@
     [self wmf_makeCellDividerBeEdgeToEdge];
     [self setupBlurViewAndLoadingIndicator];
     self.loading = NO;
-    
     [self wmf_configureSubviewsForDynamicType];
-    [self updateFontsWithTraitCollection:self.traitCollection];
-}
-
-- (void)updateFontsWithTraitCollection:(UITraitCollection *)traitCollection {
-    UIFont *font = [UIFont preferredGeorgiaFontForTextStyle:UIFontTextStyleTitle2 compatibleWithTraitCollection:traitCollection];
-    self.titleLabel.font = font;
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    [self updateFontsWithTraitCollection:self.traitCollection];
+    UIFont *titleLabelFont = [UIFont preferredGeorgiaFontForTextStyle:UIFontTextStyleTitle2 compatibleWithTraitCollection:self.traitCollection];
+    self.titleLabel.font = titleLabelFont;
 }
 
 - (void)setupBlurViewAndLoadingIndicator {
