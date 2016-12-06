@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="420"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="article-card-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="RoZ-Ue-BfV">
+                    <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="article-card-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="RoZ-Ue-BfV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="420"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="420" id="cRc-7K-8PK"/>
@@ -30,9 +30,8 @@
                             </mask>
                         </variation>
                     </imageView>
-                    <button userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pC6-LC-20b" userLabel="Save Button" customClass="WMFTitleInsetRespectingButton">
+                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pC6-LC-20b" userLabel="Save Button" customClass="WMFTitleInsetRespectingButton">
                         <rect key="frame" x="13" y="372" width="341" height="40"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" priority="999" constant="40" id="AEV-vl-3YX"/>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="nQE-Ht-SAz"/>
