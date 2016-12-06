@@ -117,4 +117,8 @@
 
 + (instancetype)wmf_referencePopoverTextColor;
 
++ (instancetype)wmf_red;
+
++ (instancetype)wmf_orange;
+
 @end

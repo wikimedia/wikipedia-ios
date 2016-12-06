@@ -4,9 +4,7 @@
 #import "UIScrollView+ScrollSubviewToLocation.h"
 #import "LoginViewController.h"
 #import "PreviewAndSaveViewController.h"
-#import "Defines.h"
 #import "UIView+Debugging.h"
-#import "NSObject+ConstraintsScale.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFChildViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -16,6 +14,7 @@
 #import "MWKLanguageLinkController.h"
 #import "WMFAuthenticationManager.h"
 #import <WebImage/WebImage.h>
+
 @import BlocksKitUIKitExtensions;
 
 @interface AccountCreationViewController ()
@@ -98,14 +97,12 @@
                                                          }];
     self.navigationItem.rightBarButtonItem = self.rightButton;
 
-    self.titleLabel.font = [UIFont boldSystemFontOfSize:23.0f * MENUS_SCALE_MULTIPLIER];
-    self.usernameField.font = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
-    self.passwordField.font = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
-    self.passwordRepeatField.font = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
-    self.emailField.font = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
-    self.loginButton.font = [UIFont boldSystemFontOfSize:14.0f * MENUS_SCALE_MULTIPLIER];
-
-    [self adjustConstraintsScaleForViews:@[self.createAccountContainerView, self.captchaContainer, self.titleLabel, self.usernameField, self.passwordField, self.passwordRepeatField, self.emailField, self.loginButton]];
+    self.titleLabel.font = [UIFont boldSystemFontOfSize:23.0f];
+    self.usernameField.font = [UIFont boldSystemFontOfSize:18.0f];
+    self.passwordField.font = [UIFont boldSystemFontOfSize:18.0f];
+    self.passwordRepeatField.font = [UIFont boldSystemFontOfSize:18.0f];
+    self.emailField.font = [UIFont boldSystemFontOfSize:18.0f];
+    self.loginButton.font = [UIFont boldSystemFontOfSize:14.0f];
 
     self.captchaId = @"";
     self.captchaUrl = nil;
@@ -142,7 +139,7 @@
     self.passwordConfirmUnderlineHeight.constant = self.usernameUnderlineHeight.constant;
     self.emailUnderlineHeight.constant = self.usernameUnderlineHeight.constant;
 
-    self.loginButton.textColor = WMF_COLOR_BLUE;
+    self.loginButton.textColor = [UIColor wmf_blueTintColor];
     self.loginButton.padding = UIEdgeInsetsMake(10, 10, 10, 10);
     self.loginButton.text = MWLocalizedString(@"account-creation-login", nil);
     self.loginButton.userInteractionEnabled = YES;

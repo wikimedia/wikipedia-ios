@@ -1,7 +1,6 @@
 #import "EditSummaryViewController.h"
 #import "WikipediaAppUtils.h"
 #import "PreviewAndSaveViewController.h"
-#import "Defines.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 @import BlocksKitUIKitExtensions;
@@ -52,13 +51,13 @@
 
     self.placeholderLabel.text = MWLocalizedString(@"edit-summary-field-placeholder-text", nil);
     self.placeholderLabel.textAlignment = NSTextAlignmentNatural;
-    self.placeholderLabel.font = [UIFont systemFontOfSize:(14.0 * MENUS_SCALE_MULTIPLIER)];
+    self.placeholderLabel.font = [UIFont systemFontOfSize:14.0];
 
     self.summaryTextField.textColor = [UIColor darkGrayColor];
     self.summaryTextField.returnKeyType = UIReturnKeyDone;
     self.summaryTextField.delegate = self;
     self.summaryTextField.textAlignment = NSTextAlignmentNatural;
-    self.summaryTextField.font = [UIFont systemFontOfSize:(14.0 * MENUS_SCALE_MULTIPLIER)];
+    self.summaryTextField.font = [UIFont systemFontOfSize:14.0];
 
     self.bottomLineHeightConstraint.constant = 1.0f / [UIScreen mainScreen].scale;
 }
