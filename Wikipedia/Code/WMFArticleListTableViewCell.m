@@ -5,6 +5,7 @@
 #import "UIImageView+WMFPlaceholder.h"
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
 #import "UIImageView+WMFImageFetching.h"
+#import "Wikipedia-Swift.h"
 
 @interface WMFArticleListTableViewCell ()
 
@@ -55,6 +56,7 @@
         // use clear background, gray default looks bad w/ this cell
         self.articleImageView.wmf_placeholderView.backgroundColor = [UIColor whiteColor];
     }
+    [self wmf_configureSubviewsForDynamicType];
 }
 
 #pragma mark - Title

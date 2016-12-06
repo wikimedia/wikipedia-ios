@@ -7,9 +7,6 @@
 /// @return A copy of the receiver whose font size has been multiplied by @c scalar.
 - (instancetype)wmf_copyWithSizeScaledBy:(CGFloat)scalar;
 
-/// @return A copy of the receiver whose font size has been multipiled by `MENUS_SCALE_MULTIPLIER`.
-- (instancetype)wmf_copyWithSizeScaledByMenuMultiplier;
-
 + (UIFont *)wmf_htmlBodyFont;
 
 + (instancetype)wmf_tableOfContentsSectionFont;
@@ -18,8 +15,5 @@
 + (instancetype)wmf_nearbyTitleFont;
 + (instancetype)wmf_subtitle;
 + (instancetype)wmf_nearbyDistanceFont;
-
-+ (instancetype)wmf_exploreSectionHeaderTitleFont;
-+ (instancetype)wmf_exploreSectionHeaderSubTitleFont;
 
 @end

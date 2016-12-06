@@ -2,6 +2,7 @@
 #import "UIImageView+WMFPlaceholder.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "WMFGradientView.h"
+#import "Wikipedia-Swift.h"
 
 @interface WMFPicOfTheDayCollectionViewCell ()
 
@@ -47,6 +48,7 @@
                                           cell.displayTitleLabel.alpha = didSetDesiredImage ? 1.0 : 0.0;
                                           cell.displayTitleBackgroundView.alpha = cell.displayTitleLabel.alpha;
                                       }];
+    [self wmf_configureSubviewsForDynamicType];
 }
 
 - (void)prepareForReuse {

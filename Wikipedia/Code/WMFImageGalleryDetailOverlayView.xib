@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A319" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -11,12 +15,14 @@
             <rect key="frame" x="0.0" y="0.0" width="438" height="262"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="749" placeholderIntrinsicWidth="388" placeholderIntrinsicHeight="100" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="I6f-Vm-XuX" userLabel="Image Description">
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="749" placeholderIntrinsicWidth="388" placeholderIntrinsicHeight="100" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="I6f-Vm-XuX" userLabel="Image Description">
+                    <rect key="frame" x="20" y="112" width="398" height="100"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" showsTouchWhenHighlighted="YES" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l6E-b6-poB">
+                    <rect key="frame" x="20" y="224" width="30" height="26"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="26" id="i4d-bC-Kui"/>
                     </constraints>
@@ -29,8 +35,11 @@
                         <action selector="didTapOwnerButton" destination="iN0-l3-epB" eventType="touchUpInside" id="jaw-0w-iI9"/>
                     </connections>
                 </button>
-                <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VQe-aq-b55"/>
+                <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VQe-aq-b55">
+                    <rect key="frame" x="20" y="224" width="30" height="26"/>
+                </stackView>
                 <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dn-jB-W86">
+                    <rect key="frame" x="392" y="224" width="26" height="26"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="26" id="627-10-9JQ"/>
                         <constraint firstAttribute="height" constant="26" id="roC-kk-GQT"/>

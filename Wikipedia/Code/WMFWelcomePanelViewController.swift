@@ -15,6 +15,7 @@ class WMFWelcomePanelViewController: UIViewController {
         updateUIStrings()
         nextButton.setTitleColor(UIColor.wmf_blueTintColor(), forState: .Normal)
         containerView.layer.borderWidth = 1.0 / UIScreen.mainScreen().scale
+        self.view.wmf_configureSubviewsForDynamicType()
     }
     
     private func embedContainerControllerView() {

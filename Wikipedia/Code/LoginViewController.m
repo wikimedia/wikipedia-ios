@@ -5,14 +5,11 @@
 #import "SessionSingleton.h"
 #import "NSHTTPCookieStorage+WMFCloneCookie.h"
 #import "AccountCreationViewController.h"
-#import "WMF_Colors.h"
 #import "PaddedLabel.h"
 #import "CreateAccountFunnel.h"
 #import "PreviewAndSaveViewController.h"
 #import "SectionEditorViewController.h"
 #import "AccountCreationViewController.h"
-#import "Defines.h"
-#import "NSObject+ConstraintsScale.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "Wikipedia-Swift.h"
@@ -68,12 +65,12 @@
     self.failBlock = ^() {
     };
 
-    self.titleLabel.font = [UIFont boldSystemFontOfSize:23.0f * MENUS_SCALE_MULTIPLIER];
-    self.usernameField.font = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
-    self.passwordField.font = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
-    self.createAccountButton.font = [UIFont boldSystemFontOfSize:14.0f * MENUS_SCALE_MULTIPLIER];
+    self.titleLabel.font = [UIFont boldSystemFontOfSize:23.0f];
+    self.usernameField.font = [UIFont boldSystemFontOfSize:18.0f];
+    self.passwordField.font = [UIFont boldSystemFontOfSize:18.0f];
+    self.createAccountButton.font = [UIFont boldSystemFontOfSize:14.0f];
 
-    self.createAccountButton.textColor = WMF_COLOR_BLUE;
+    self.createAccountButton.textColor = [UIColor wmf_blueTintColor];
     self.createAccountButton.padding = UIEdgeInsetsMake(10, 10, 10, 10);
     self.createAccountButton.text = MWLocalizedString(@"login-account-creation", nil);
     self.createAccountButton.userInteractionEnabled = YES;
@@ -103,22 +100,6 @@
 
     self.usernameField.textAlignment = NSTextAlignmentNatural;
     self.passwordField.textAlignment = NSTextAlignmentNatural;
-
-    if (self.loginContainerView) {
-        // Only do this if self.loginContainerView is not nil. This is because the
-        // account areation view controller can create a "detached" instance of the
-        // login view controller after it creates an account - which it uses to
-        // login to the new account. (This detached object object won't have views
-        // so the array below will cause a crash.)
-        [self adjustConstraintsScaleForViews:
-                  @[
-                     self.loginContainerView,
-                     self.titleLabel,
-                     self.usernameField,
-                     self.passwordField,
-                     self.createAccountButton
-                  ]];
-    }
 }
 
 - (NSAttributedString *)getAttributedPlaceholderForString:(NSString *)string {

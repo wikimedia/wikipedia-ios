@@ -1,5 +1,4 @@
 #import "UIFont+WMFStyle.h"
-#import "Defines.h"
 
 @implementation UIFont (WMF_Style)
 
@@ -20,10 +19,6 @@
     return [self fontWithSize:self.pointSize * scalar];
 }
 
-- (instancetype)wmf_copyWithSizeScaledByMenuMultiplier {
-    return [self wmf_copyWithSizeScaledBy:MENUS_SCALE_MULTIPLIER];
-}
-
 + (instancetype)wmf_tableOfContentsSectionFont {
     static UIFont *f = nil;
 
@@ -39,23 +34,15 @@
 }
 
 + (instancetype)wmf_nearbyTitleFont {
-    return [UIFont fontWithName:@"Georgia" size:20.0];
+    return [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 
 + (instancetype)wmf_subtitle {
-    return [UIFont systemFontOfSize:14.0f];
+    return [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
 }
 
 + (instancetype)wmf_nearbyDistanceFont {
-    return [UIFont systemFontOfSize:12.0f];
-}
-
-+ (instancetype)wmf_exploreSectionHeaderTitleFont {
-    return [UIFont systemFontOfSize:12.0];
-}
-
-+ (instancetype)wmf_exploreSectionHeaderSubTitleFont {
-    return [UIFont boldSystemFontOfSize:14.0];
+    return [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
 }
 
 @end

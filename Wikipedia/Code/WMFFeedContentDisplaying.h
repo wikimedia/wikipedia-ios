@@ -78,22 +78,34 @@ typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
 - (nullable UIColor *)headerIconBackgroundColor;
 
 /**
+ *  Color of section's header title
+ *
+ *  @return A color
+ */
+- (nullable UIColor *)headerTitleColor;
+
+/**
+ *  Color of section's header subTitle
+ *
+ *  @return A color
+ */
+- (nullable UIColor *)headerSubTitleColor;
+
+/**
  *  The text to be displayed on the first line of the header.
- *  Note this is an attributed stirng to allow links to be embeded
  *  Additional styling will be added before display time.
  *
  *  @return The header title string
  */
-- (nullable NSAttributedString *)headerTitle;
+- (nullable NSString *)headerTitle;
 
 /**
  *  The text to be displayed on the second line of the header.
- *  Note this is an attributed stirng to allow links to be embeded
  *  Additional styling will be added bfore display time.
  *
  *  @return The header sub-title string
  */
-- (nullable NSAttributedString *)headerSubTitle;
+- (nullable NSString *)headerSubTitle;
 
 /*
  * The URL of the content that the header represents
