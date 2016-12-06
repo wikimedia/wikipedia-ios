@@ -34,24 +34,24 @@ public extension UIFont {
                     UIContentSizeCategoryExtraExtraExtraLarge: 26,
                     UIContentSizeCategoryExtraExtraLarge: 24,
                     UIContentSizeCategoryExtraLarge: 22,
-                    UIContentSizeCategoryLarge: 22,
-                    UIContentSizeCategoryMedium: 21,
-                    UIContentSizeCategorySmall: 20,
-                    UIContentSizeCategoryExtraSmall: 19
+                    UIContentSizeCategoryLarge: 21,
+                    UIContentSizeCategoryMedium: 20,
+                    UIContentSizeCategorySmall: 19,
+                    UIContentSizeCategoryExtraSmall: 18
                 ],
                 UIFontTextStyleTitle3: [
-                    UIContentSizeCategoryAccessibilityExtraExtraExtraLarge: 26,
-                    UIContentSizeCategoryAccessibilityExtraExtraLarge: 26,
-                    UIContentSizeCategoryAccessibilityExtraLarge: 26,
-                    UIContentSizeCategoryAccessibilityLarge: 26,
-                    UIContentSizeCategoryAccessibilityMedium: 26,
-                    UIContentSizeCategoryExtraExtraExtraLarge: 24,
-                    UIContentSizeCategoryExtraExtraLarge: 22,
-                    UIContentSizeCategoryExtraLarge: 20,
-                    UIContentSizeCategoryLarge: 19,
-                    UIContentSizeCategoryMedium: 18,
-                    UIContentSizeCategorySmall: 17,
-                    UIContentSizeCategoryExtraSmall: 16
+                    UIContentSizeCategoryAccessibilityExtraExtraExtraLarge: 24,
+                    UIContentSizeCategoryAccessibilityExtraExtraLarge: 24,
+                    UIContentSizeCategoryAccessibilityExtraLarge: 24,
+                    UIContentSizeCategoryAccessibilityLarge: 24,
+                    UIContentSizeCategoryAccessibilityMedium: 24,
+                    UIContentSizeCategoryExtraExtraExtraLarge: 22,
+                    UIContentSizeCategoryExtraExtraLarge: 20,
+                    UIContentSizeCategoryExtraLarge: 19,
+                    UIContentSizeCategoryLarge: 18,
+                    UIContentSizeCategoryMedium: 17,
+                    UIContentSizeCategorySmall: 16,
+                    UIContentSizeCategoryExtraSmall: 15
                 ]]
             ]
         }
