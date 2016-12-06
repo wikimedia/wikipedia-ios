@@ -350,7 +350,14 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             }];
     }
 
+    @weakify(self);
     [group waitInBackgroundWithCompletion:^{
+        @strongify(self);
+        if (!self) {
+            failure([NSError wmf_cancelledError]);
+            return;
+        }
+        [self.dataStore saveImageInfo:infoObjects forArticleURL:article.url];
         success(infoObjects);
     }];
 }
