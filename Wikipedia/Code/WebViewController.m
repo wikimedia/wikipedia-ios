@@ -557,7 +557,7 @@ NSString *const WMFCCBySALicenseURL =
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     self.webView.scrollView.backgroundColor = [UIColor wmf_articleBackgroundColor];
 
-    self.zeroStatusLabel.font = [UIFont systemFontOfSize:ALERT_FONT_SIZE];
+    self.zeroStatusLabel.font = [UIFont systemFontOfSize:12];
     self.zeroStatusLabel.text = @"";
 
     self.webView.backgroundColor = [UIColor whiteColor];

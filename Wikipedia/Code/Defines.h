@@ -12,14 +12,4 @@
 // and use UIView+ConstraintsScale methods to make layout also work with iPads.
 #define MENUS_SCALE_MULTIPLIER (CHROME_MENUS_HEIGHT / CHROME_MENUS_HEIGHT_PHONE)
 
-#define HIDE_KEYBOARD_ON_SCROLL_THRESHOLD 55.0f
-
 #define CHROME_COLOR [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0]
-
-#define ALERT_FONT_SIZE (12.0 * MENUS_SCALE_MULTIPLIER)
-#define ALERT_BACKGROUND_COLOR [UIColor grayColor]
-#define ALERT_TEXT_COLOR [UIColor whiteColor]
-#define ALERT_PADDING UIEdgeInsetsMake(2.0, 10.0, 2.0, 10.0)
-
-#define CHROME_OUTLINE_COLOR ALERT_BACKGROUND_COLOR
-#define CHROME_OUTLINE_WIDTH (1.0f / [UIScreen mainScreen].scale)
