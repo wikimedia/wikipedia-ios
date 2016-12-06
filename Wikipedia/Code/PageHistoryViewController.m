@@ -2,7 +2,6 @@
 #import "PageHistoryResultCell.h"
 #import "WikipediaAppUtils.h"
 #import "WikiGlyph_Chars.h"
-#import "Defines.h"
 #import "PaddedLabel.h"
 #import "UITableView+DynamicCellHeight.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
@@ -55,7 +54,7 @@
 
     self.pageHistoryDataArray = @[].mutableCopy;
 
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0 * MENUS_SCALE_MULTIPLIER, 10.0 * MENUS_SCALE_MULTIPLIER)];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, 10.0)];
     self.tableView.tableFooterView.backgroundColor = [UIColor whiteColor];
 
     [self.tableView registerNib:[UINib nibWithNibName:@"PageHistoryResultPrototypeView" bundle:nil]
@@ -122,11 +121,11 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
-    view.backgroundColor = CHROME_COLOR;
+    view.backgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
     view.autoresizesSubviews = YES;
     PaddedLabel *label = [[PaddedLabel alloc] init];
 
-    CGFloat leadingIndent = 10.0 * MENUS_SCALE_MULTIPLIER;
+    CGFloat leadingIndent = 10.0;
     label.padding = UIEdgeInsetsMake(0, leadingIndent, 0, 0);
 
     label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
@@ -146,7 +145,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 27.0 * MENUS_SCALE_MULTIPLIER;
+    return 27.0;
 }
 
 - (BOOL)shouldLoadNewData {

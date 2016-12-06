@@ -1,5 +1,4 @@
 #import "UIFont+WMFStyle.h"
-#import "Defines.h"
 
 @implementation UIFont (WMF_Style)
 
@@ -18,10 +17,6 @@
 
 - (instancetype)wmf_copyWithSizeScaledBy:(CGFloat)scalar {
     return [self fontWithSize:self.pointSize * scalar];
-}
-
-- (instancetype)wmf_copyWithSizeScaledByMenuMultiplier {
-    return [self wmf_copyWithSizeScaledBy:MENUS_SCALE_MULTIPLIER];
 }
 
 + (instancetype)wmf_tableOfContentsSectionFont {

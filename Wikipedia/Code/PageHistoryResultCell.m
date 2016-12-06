@@ -1,5 +1,4 @@
 #import "PageHistoryResultCell.h"
-#import "Defines.h"
 #import "NSString+WMFExtras.h"
 #import "UIFont+WMFStyle.h"
 #import "Wikipedia-Swift.h"

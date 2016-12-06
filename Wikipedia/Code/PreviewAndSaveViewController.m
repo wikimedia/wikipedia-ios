@@ -6,7 +6,6 @@
 #import "EditTokenFetcher.h"
 #import "SessionSingleton.h"
 #import "PreviewWebViewContainer.h"
-#import "Defines.h"
 #import "WMF_Colors.h"
 #import "PaddedLabel.h"
 #import "NSString+WMFExtras.h"
@@ -17,7 +16,6 @@
 #import "UIScrollView+ScrollSubviewToLocation.h"
 #import "AbuseFilterAlert.h"
 #import "MWLanguageInfo.h"
-#import "NSObject+ConstraintsScale.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFChildViewController.h"
@@ -234,7 +232,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
     self.summaryText = @"";
 
-    self.previewLabel.font = [UIFont boldSystemFontOfSize:15.0 * MENUS_SCALE_MULTIPLIER];
+    self.previewLabel.font = [UIFont boldSystemFontOfSize:15.0];
 
     self.previewLabel.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-preview", nil);
 
@@ -336,8 +334,6 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
                                                   views:views]
     ];
     [self.editSummaryContainer addConstraints:[constraints valueForKeyPath:@"@unionOfArrays.self"]];
-
-    [self adjustConstraintsScaleForViews:@[self.cannedSummary01, self.cannedSummary02, self.cannedSummary03, self.cannedSummary04, self.editSummaryContainer, self.aboutLabel]];
 }
 
 - (void)setupEditSummaryContainerSubviews {
@@ -369,7 +365,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     // Setup the canned edit summaries label.
     self.aboutLabel = [[UILabel alloc] init];
     self.aboutLabel.numberOfLines = 0;
-    self.aboutLabel.font = [UIFont boldSystemFontOfSize:24.0 * MENUS_SCALE_MULTIPLIER];
+    self.aboutLabel.font = [UIFont boldSystemFontOfSize:24.0];
     self.aboutLabel.textColor = [UIColor darkGrayColor];
     self.aboutLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.aboutLabel.translatesAutoresizingMaskIntoConstraints = NO;

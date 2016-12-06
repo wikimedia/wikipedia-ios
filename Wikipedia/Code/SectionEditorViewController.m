@@ -1,7 +1,6 @@
 #import "SectionEditorViewController.h"
 
 #import "WikipediaAppUtils.h"
-#import "Defines.h"
 #import "WikiTextSectionFetcher.h"
 #import "PreviewAndSaveViewController.h"
 #import "WMF_Colors.h"
@@ -13,9 +12,9 @@
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 @import BlocksKitUIKitExtensions;
 
-#define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:16.0f * MENUS_SCALE_MULTIPLIER]
-#define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f * MENUS_SCALE_MULTIPLIER)
-#define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX (25.0f * MENUS_SCALE_MULTIPLIER)
+#define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:16.0f]
+#define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f)
+#define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX (25.0f)
 
 @interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate>
 

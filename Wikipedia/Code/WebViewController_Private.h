@@ -3,7 +3,6 @@
 #import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
 #import "MWLanguageInfo.h"
-#import "Defines.h"
 #import "WKWebView+ElementLocation.h"
 #import "NSString+WMFExtras.h"
 #import "PaddedLabel.h"

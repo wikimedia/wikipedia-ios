@@ -1,7 +1,6 @@
 #import "MenuButton.h"
 #import "MenuLabel.h"
 #import "UIView+RemoveConstraints.h"
-#import "Defines.h"
 
 @interface MenuButton ()
 
@@ -24,11 +23,11 @@
 @implementation MenuButton
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
-    return [self initWithText:@"" fontSize:16.0 * MENUS_SCALE_MULTIPLIER bold:NO color:[UIColor blackColor] padding:UIEdgeInsetsZero margin:UIEdgeInsetsZero];
+    return [self initWithText:@"" fontSize:16.0 bold:NO color:[UIColor blackColor] padding:UIEdgeInsetsZero margin:UIEdgeInsetsZero];
 }
 
 - (instancetype)init {
-    return [self initWithText:@"" fontSize:16.0 * MENUS_SCALE_MULTIPLIER bold:NO color:[UIColor blackColor] padding:UIEdgeInsetsZero margin:UIEdgeInsetsZero];
+    return [self initWithText:@"" fontSize:16.0 bold:NO color:[UIColor blackColor] padding:UIEdgeInsetsZero margin:UIEdgeInsetsZero];
 }
 
 - (instancetype)initWithText:(NSString *)text
@@ -40,7 +39,7 @@
     self = [super init];
     if (self) {
         self.translatesAutoresizingMaskIntoConstraints = NO;
-        self.fontSize = size * MENUS_SCALE_MULTIPLIER;
+        self.fontSize = size;
         self.padding = padding;
         self.text = text;
         self.enabled = NO;
@@ -83,10 +82,10 @@
     [self.label removeConstraintsOfViewFromView:self];
 
     NSDictionary *metrics = @{
-        @"marginTop": @(self.margin.top * MENUS_SCALE_MULTIPLIER),
-        @"marginLeft": @(self.margin.left * MENUS_SCALE_MULTIPLIER),
-        @"marginBottom": @(self.margin.bottom * MENUS_SCALE_MULTIPLIER),
-        @"marginRight": @(self.margin.right * MENUS_SCALE_MULTIPLIER)
+        @"marginTop": @(self.margin.top),
+        @"marginLeft": @(self.margin.left),
+        @"marginBottom": @(self.margin.bottom),
+        @"marginRight": @(self.margin.right)
     };
 
     NSDictionary *views = @{

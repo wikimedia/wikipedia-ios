@@ -1,6 +1,5 @@
 #import "AbuseFilterAlert.h"
 #import "PaddedLabel.h"
-#import "Defines.h"
 #import "WikiGlyphLabel.h"
 #import "WikiGlyph_Chars.h"
 #import "WMF_Colors.h"
@@ -48,7 +47,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
 - (void)addTopMask {
     // Prevents white bar from appearing above the icon view if user pulls down.
     UIView *topMask = [[UIView alloc] init];
-    topMask.backgroundColor = CHROME_COLOR;
+    topMask.backgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
     topMask.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:topMask];
 
@@ -169,7 +168,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
                 viewData[@"bottomPadding"] = @0;
                 viewData[@"leftPadding"] = @0;
                 viewData[@"rightPadding"] = @0;
-                viewData[@"fontSize"] = @((self.alertType == ABUSE_FILTER_DISALLOW) ? (74.0 * MENUS_SCALE_MULTIPLIER) : (70.0 * MENUS_SCALE_MULTIPLIER));
+                viewData[@"fontSize"] = @((self.alertType == ABUSE_FILTER_DISALLOW) ? 74.0 : 70.0);
                 break;
             case VIEW_TYPE_HEADING:
                 viewData[@"topPadding"] = @35;
@@ -178,7 +177,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
                 viewData[@"rightPadding"] = @20;
                 viewData[@"lineSpacing"] = @3;
                 viewData[@"kearning"] = @0.4;
-                viewData[@"font"] = [UIFont boldSystemFontOfSize:23.0 * MENUS_SCALE_MULTIPLIER];
+                viewData[@"font"] = [UIFont boldSystemFontOfSize:23.0];
                 break;
             case VIEW_TYPE_SUBHEADING:
                 viewData[@"topPadding"] = @0;
@@ -187,7 +186,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
                 viewData[@"rightPadding"] = @20;
                 viewData[@"lineSpacing"] = @2;
                 viewData[@"kearning"] = @0;
-                viewData[@"font"] = [UIFont systemFontOfSize:16.0 * MENUS_SCALE_MULTIPLIER];
+                viewData[@"font"] = [UIFont systemFontOfSize:16.0];
                 break;
             case VIEW_TYPE_ITEM:
                 viewData[@"topPadding"] = @0;
@@ -197,7 +196,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
                 viewData[@"lineSpacing"] = @6;
                 viewData[@"kearning"] = @0;
                 viewData[@"bulletType"] = (self.alertType == ABUSE_FILTER_WARNING) ? @(BULLET_TYPE_ROUND) : @(BULLET_TYPE_NONE);
-                viewData[@"font"] = [UIFont systemFontOfSize:16.0 * MENUS_SCALE_MULTIPLIER];
+                viewData[@"font"] = [UIFont systemFontOfSize:16.0];
                 break;
             default:
                 break;
@@ -213,7 +212,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
         switch (type.integerValue) {
             case VIEW_TYPE_ICON: {
                 UIView *view = [[UIView alloc] init];
-                view.backgroundColor = CHROME_COLOR;
+                view.backgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
 
                 WikiGlyphLabel *label = [[WikiGlyphLabel alloc] init];
                 label.translatesAutoresizingMaskIntoConstraints = NO;
@@ -228,8 +227,8 @@ typedef NS_ENUM(NSInteger, ViewType) {
                               size:fontSize.floatValue
                     baselineOffset:baselineOffset.floatValue];
 
-                CGFloat iconHeight = 78.0 * MENUS_SCALE_MULTIPLIER;
-                CGFloat topBarHeight = 125.0 * MENUS_SCALE_MULTIPLIER;
+                CGFloat iconHeight = 78.0;
+                CGFloat topBarHeight = 125.0;
                 label.layer.cornerRadius = iconHeight / 2.0;
                 label.clipsToBounds = YES;
 
