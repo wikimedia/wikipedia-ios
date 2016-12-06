@@ -115,4 +115,9 @@
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:NULL];
 }
 
+- (BOOL)accessibilityPerformEscape {
+    [self dismiss];
+    return true;
+}
+
 @end
