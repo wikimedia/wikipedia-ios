@@ -5,6 +5,7 @@
 #import "UIImageView+WMFPlaceholder.h"
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
 #import "UIImageView+WMFImageFetching.h"
+#import "Wikipedia-Swift.h"
 
 @interface WMFArticleListTableViewCell ()
 
@@ -21,15 +22,7 @@
 }
 
 - (void)configureImageViewWithPlaceholder {
-    [self.articleImageView wmf_configureWithDefaultPlaceholder];
-
-    // apply customizations for base class only
-    if ([self isMemberOfClass:[WMFArticleListTableViewCell class]]) {
-        // need to aspect-fit placeholder since our image view is too small
-        self.articleImageView.contentMode = UIViewContentModeScaleAspectFit;
-        // use clear background, gray default looks bad w/ this cell
-        self.articleImageView.backgroundColor = [UIColor clearColor];
-    }
+    [self.articleImageView wmf_showPlaceholder];
 }
 
 - (void)configureCell {
@@ -56,6 +49,14 @@
     [self wmf_makeCellDividerBeEdgeToEdge];
     self.titleLabel.textAlignment = NSTextAlignmentNatural;
     self.descriptionLabel.textAlignment = NSTextAlignmentNatural;
+    // apply customizations for base class only
+    if ([self isMemberOfClass:[WMFArticleListTableViewCell class]]) {
+        // need to aspect-fit placeholder since our image view is too small
+        self.articleImageView.wmf_placeholderView.contentMode = UIViewContentModeScaleAspectFit;
+        // use clear background, gray default looks bad w/ this cell
+        self.articleImageView.wmf_placeholderView.backgroundColor = [UIColor whiteColor];
+    }
+    [self wmf_configureSubviewsForDynamicType];
 }
 
 #pragma mark - Title

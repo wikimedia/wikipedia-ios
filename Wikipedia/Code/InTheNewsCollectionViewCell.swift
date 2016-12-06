@@ -5,12 +5,16 @@ class InTheNewsCollectionViewCell: WMFExploreCollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var label: UILabel!
     
+    static let textStyle = UIFontTextStyleSubheadline
+    var font = UIFont.preferredFontForTextStyle(textStyle)
+    var linkFont = UIFont.preferredFontForTextStyle(textStyle)
+    
     static var estimatedRowHeight:CGFloat = 86
 
     var imageURL: NSURL? {
         didSet {
             guard let URL = imageURL else {
-                imageView.wmf_configureWithDefaultPlaceholder()
+                imageView.wmf_showPlaceholder()
                 return
             }
             
@@ -19,31 +23,37 @@ class InTheNewsCollectionViewCell: WMFExploreCollectionViewCell {
                                           onGPU: true,
                                           failure: { (error) in
                                             dispatch_async(dispatch_get_main_queue(), { () in
-                                                self.imageView.wmf_configureWithDefaultPlaceholder()
+                                                self.imageView.wmf_showPlaceholder()
                                             })
                                           },
                                           success: { () in  })
         }
     }
     
+    override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        font = UIFont.preferredFontForTextStyle(InTheNewsCollectionViewCell.textStyle)
+        linkFont = UIFont.boldSystemFontOfSize(font.pointSize)
+        updateBodyHTMLStyle()
+    }
+    
+    func updateBodyHTMLStyle() {
+        guard let bodyHTML = bodyHTML else {
+            label.text = nil
+            return
+        }
+        let attributedString = bodyHTML.wmf_attributedStringByRemovingHTMLWithFont(font, linkFont: linkFont)
+        label.attributedText = attributedString
+    }
+    
     var bodyHTML: String? {
         didSet {
-            guard let bodyHTML = bodyHTML else {
-                label.text = nil
-                return
-            }
-            let font = UIFont.systemFontOfSize(14) // fixed font size until the rest of the app supports dynamic type
-            
-//            var font: UIFont
-//            if #available(iOS 10.0, *) {
-//                font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote, compatibleWithTraitCollection: nil)
-//            } else {
-//                font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
-//            }
-            let linkFont = UIFont.boldSystemFontOfSize(font.pointSize)
-            let attributedString = bodyHTML.wmf_attributedStringByRemovingHTMLWithFont(font, linkFont: linkFont)
-            label.attributedText = attributedString
+            updateBodyHTMLStyle()
         }
     }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.wmf_configureSubviewsForDynamicType()
+    }
 }

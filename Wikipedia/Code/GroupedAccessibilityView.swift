@@ -12,7 +12,7 @@ class GroupedAccessibilityView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        wmf_disableSubviewAccesibility()
+        wmf_disableSubviewAccessibility()
         isAccessibilityElement = true
         accessibilityTraits = UIAccessibilityTraitLink
         
@@ -61,10 +61,10 @@ class GroupedAccessibilityView: UIView {
 
 extension UIView {
 
-    func wmf_disableSubviewAccesibility() {
+    func wmf_disableSubviewAccessibility() {
         for view in subviews {
             view.isAccessibilityElement = false
-            view.wmf_disableSubviewAccesibility()
+            view.wmf_disableSubviewAccessibility()
         }
     }
     

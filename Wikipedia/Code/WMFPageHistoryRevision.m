@@ -1,11 +1,10 @@
 #import "WMFPageHistoryRevision.h"
 #import "NSString+WMFExtras.h"
-#import "WikiGlyph_Chars.h"
 
 @implementation WMFPageHistoryRevision
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError *__autoreleasing *)error {
-    NSDictionary *defaults = @{WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, authorIcon): WIKIGLYPH_USER_SMILE};
+    NSDictionary *defaults = @{WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, isAnon): @NO};
     dictionaryValue = [defaults mtl_dictionaryByAddingEntriesFromDictionary:dictionaryValue];
     return [super initWithDictionary:dictionaryValue error:error];
 }
@@ -17,7 +16,7 @@
               WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, parentID): @"parentid",
               WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, revisionID): @"revid",
               WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, articleSizeAtRevision): @"size",
-              WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, authorIcon): @"anon",
+              WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, isAnon): @"anon",
     };
 }
 
@@ -27,9 +26,9 @@
     }];
 }
 
-+ (NSValueTransformer *)authorIconJSONTransformer {
-    return [MTLValueTransformer transformerUsingForwardBlock:^(NSString *anon, BOOL *success, NSError *__autoreleasing *error) {
-        return WIKIGLYPH_USER_SLEEP;
++ (NSValueTransformer *)isAnonJSONTransformer {
+    return [MTLValueTransformer transformerUsingForwardBlock:^(NSString *value, BOOL *success, NSError *__autoreleasing *error) {
+        return @YES;
     }];
 }
 
