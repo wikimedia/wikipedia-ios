@@ -337,20 +337,19 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 #pragma mark - Find Groups
 
 - (nullable WMFContentGroup *)featuredForDate:(NSDate *)date {
-
-    return (id)[self.contentStore firstGroupOfKind:WMFContentGroupKindFeaturedArticle forDate:date];
+    return (id)[self.contentStore firstGroupOfKind:WMFContentGroupKindFeaturedArticle forDate:date siteURL:self.siteURL];
 }
 
 - (nullable WMFContentGroup *)pictureOfTheDayForDate:(NSDate *)date {
-    return (id)[self.contentStore firstGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date];
+    return (id)[self.contentStore firstGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date siteURL:self.siteURL];
 }
 
 - (nullable WMFContentGroup *)topReadForDate:(NSDate *)date {
-    return (id)[self.contentStore firstGroupOfKind:WMFContentGroupKindTopRead forDate:date];
+    return (id)[self.contentStore firstGroupOfKind:WMFContentGroupKindTopRead forDate:date siteURL:self.siteURL];
 }
 
 - (nullable WMFContentGroup *)newsForDate:(NSDate *)date {
-    return (id)[self.contentStore firstGroupOfKind:WMFContentGroupKindNews forDate:date];
+    return (id)[self.contentStore firstGroupOfKind:WMFContentGroupKindNews forDate:date siteURL:self.siteURL];
 }
 
 #pragma mark - Notifications
