@@ -48,9 +48,9 @@
     // apply customizations for base class only
     if ([self isMemberOfClass:[WMFArticleListCollectionViewCell class]]) {
         // need to aspect-fit placeholder since our image view is too small
-        // use clear background, gray default looks bad w/ this cell
         self.articleImageView.wmf_placeholderView.contentMode = UIViewContentModeScaleAspectFit;
-        self.articleImageView.backgroundColor = [UIColor clearColor];
+        // use white background, gray default looks bad w/ this cell
+        self.articleImageView.wmf_placeholderView.backgroundColor = [UIColor whiteColor];
     }
     [self configureImageViewWithPlaceholder];
     [self wmf_makeCellDividerBeEdgeToEdge];

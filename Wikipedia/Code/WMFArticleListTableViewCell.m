@@ -53,7 +53,7 @@
         // need to aspect-fit placeholder since our image view is too small
         self.articleImageView.wmf_placeholderView.contentMode = UIViewContentModeScaleAspectFit;
         // use clear background, gray default looks bad w/ this cell
-        self.articleImageView.backgroundColor = [UIColor clearColor];
+        self.articleImageView.wmf_placeholderView.backgroundColor = [UIColor whiteColor];
     }
 }
 
