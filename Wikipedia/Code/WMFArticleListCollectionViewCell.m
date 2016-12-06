@@ -18,7 +18,7 @@
 @implementation WMFArticleListCollectionViewCell
 
 + (CGFloat)estimatedRowHeight {
-    return 62;
+    return 60.f;
 }
 
 - (void)configureImageViewWithPlaceholder {
