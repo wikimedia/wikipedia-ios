@@ -261,6 +261,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     }
     [self stopContentSources];
     self.contentSources = nil;
+    [self configureExploreViewController];
     [self startContentSources];
 }
 
@@ -312,7 +313,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActiveWithNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackgroundWithNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appLanguageDidChangeWithNotification:) name:WMFPreferredLanguagesDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appLanguageDidChangeWithNotification:) name:WMFAppLanguageDidChangeNotification object:nil];
 
     [self showSplashView];
 
