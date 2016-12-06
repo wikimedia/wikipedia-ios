@@ -355,7 +355,6 @@
 		B0E806B81C0CEB160065EBC0 /* WMFLanguagesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E806B21C0CEB160065EBC0 /* WMFLanguagesViewController.storyboard */; };
 		B0E806BC1C0CEB260065EBC0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806BB1C0CEB260065EBC0 /* LoginViewController.m */; };
 		B0E806C41C0CEB380065EBC0 /* WMFSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806C11C0CEB380065EBC0 /* WMFSettingsViewController.m */; };
-		B0E806CF1C0CEB6E0065EBC0 /* PageHistoryLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806C91C0CEB6E0065EBC0 /* PageHistoryLabel.m */; };
 		B0E806D01C0CEB6E0065EBC0 /* PageHistoryResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CB1C0CEB6E0065EBC0 /* PageHistoryResultCell.m */; };
 		B0E806D11C0CEB6E0065EBC0 /* PageHistoryResultPrototypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806CC1C0CEB6E0065EBC0 /* PageHistoryResultPrototypeView.xib */; };
 		B0E806D21C0CEB6E0065EBC0 /* PageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CE1C0CEB6E0065EBC0 /* PageHistoryViewController.m */; };
@@ -1852,8 +1851,6 @@
 		B0E806BB1C0CEB260065EBC0 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = Wikipedia/Code/LoginViewController.m; sourceTree = SOURCE_ROOT; };
 		B0E806C01C0CEB380065EBC0 /* WMFSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSettingsViewController.h; path = Wikipedia/Code/WMFSettingsViewController.h; sourceTree = SOURCE_ROOT; };
 		B0E806C11C0CEB380065EBC0 /* WMFSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSettingsViewController.m; path = Wikipedia/Code/WMFSettingsViewController.m; sourceTree = SOURCE_ROOT; };
-		B0E806C81C0CEB6E0065EBC0 /* PageHistoryLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageHistoryLabel.h; path = Wikipedia/Code/PageHistoryLabel.h; sourceTree = SOURCE_ROOT; };
-		B0E806C91C0CEB6E0065EBC0 /* PageHistoryLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PageHistoryLabel.m; path = Wikipedia/Code/PageHistoryLabel.m; sourceTree = SOURCE_ROOT; };
 		B0E806CA1C0CEB6E0065EBC0 /* PageHistoryResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageHistoryResultCell.h; path = Wikipedia/Code/PageHistoryResultCell.h; sourceTree = SOURCE_ROOT; };
 		B0E806CB1C0CEB6E0065EBC0 /* PageHistoryResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PageHistoryResultCell.m; path = Wikipedia/Code/PageHistoryResultCell.m; sourceTree = SOURCE_ROOT; };
 		B0E806CC1C0CEB6E0065EBC0 /* PageHistoryResultPrototypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PageHistoryResultPrototypeView.xib; path = Wikipedia/Code/PageHistoryResultPrototypeView.xib; sourceTree = SOURCE_ROOT; };
@@ -3012,8 +3009,6 @@
 			isa = PBXGroup;
 			children = (
 				B0E804021C0CDE480065EBC0 /* PageHistoryViewController.storyboard */,
-				B0E806C81C0CEB6E0065EBC0 /* PageHistoryLabel.h */,
-				B0E806C91C0CEB6E0065EBC0 /* PageHistoryLabel.m */,
 				B0E806CA1C0CEB6E0065EBC0 /* PageHistoryResultCell.h */,
 				B0E806CB1C0CEB6E0065EBC0 /* PageHistoryResultCell.m */,
 				B0E806CC1C0CEB6E0065EBC0 /* PageHistoryResultPrototypeView.xib */,
@@ -7004,7 +6999,6 @@
 				B0DF6F811CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
 				0E4B5FC61C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.m in Sources */,
 				B0E805601C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m in Sources */,
-				B0E806CF1C0CEB6E0065EBC0 /* PageHistoryLabel.m in Sources */,
 				0EC044791C7917860033D773 /* WMFArticleTextActivitySource.m in Sources */,
 				0E09EAC51C4426470058F2D8 /* WMFHistoryTableViewController.m in Sources */,
 				B0F7CB581C8A89EA00996DE0 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,

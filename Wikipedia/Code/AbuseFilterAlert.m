@@ -86,7 +86,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
                               @"baselineOffset": @((self.alertType == ABUSE_FILTER_DISALLOW) ? 8.4 : 5.5)
                           }.mutableCopy];
 
-    UIColor *grayColor = UIColorFromRGBWithAlpha(0x999999, 1.0);
+    UIColor *grayColor = [UIColor wmf_999999Color];
 
     switch (self.alertType) {
         case ABUSE_FILTER_WARNING:
