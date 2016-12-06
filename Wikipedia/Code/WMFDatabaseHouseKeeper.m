@@ -3,7 +3,8 @@
 @implementation WMFDatabaseHouseKeeper
 
 - (BOOL)performHouseKeepingOnManagedObjectContext:(NSManagedObjectContext *)moc error:(NSError **)outError {
-    BOOL (^done)(NSError *) = ^BOOL(NSError *blockError) {
+    BOOL (^done)
+    (NSError *) = ^BOOL(NSError *blockError) {
         if (outError) {
             *outError = blockError;
         }
@@ -11,37 +12,36 @@
     };
 
     NSError *error = nil;
-    
+
     NSDate *midnightTodayUTC = [[NSDate date] wmf_midnightUTCDateFromLocalDate];
     NSCalendar *utcCalendar = [NSCalendar wmf_utcGregorianCalendar];
     NSDate *thirtyDaysAgoMidnightUTC = [utcCalendar dateByAddingUnit:NSCalendarUnitDay value:-30 toDate:midnightTodayUTC options:NSCalendarMatchStrictly];
 
-    
     NSFetchRequest *allContentGroupFetchRequest = [WMFContentGroup fetchRequest];
     allContentGroupFetchRequest.propertiesToFetch = @[@"key", @"midnightUTCDate", @"content", @"articleURLString"];
     NSArray *allContentGroups = [moc executeFetchRequest:allContentGroupFetchRequest error:&error];
     if (error) {
         return done(error);
     }
-    
-    NSMutableSet *referencedArticleKeys = [NSMutableSet setWithCapacity:allContentGroups.count*5 + 1];
+
+    NSMutableSet *referencedArticleKeys = [NSMutableSet setWithCapacity:allContentGroups.count * 5 + 1];
     for (WMFContentGroup *group in allContentGroups) {
         if ([group.midnightUTCDate compare:thirtyDaysAgoMidnightUTC] == NSOrderedAscending) {
             [moc deleteObject:group];
             continue;
         }
-        
+
         NSString *articleURLDatabaseKey = group.articleURL.wmf_articleDatabaseKey;
         if (articleURLDatabaseKey) {
             [referencedArticleKeys addObject:articleURLDatabaseKey];
         }
-        
+
         NSArray *content = group.content;
         if (![content isKindOfClass:[NSArray class]]) {
             NSAssert(NO, @"Unknown Content Type");
             continue;
         }
-        
+
         switch (group.contentType) {
             case WMFContentTypeURL: {
                 [content enumerateObjectsUsingBlock:^(NSURL *_Nonnull URL, NSUInteger idx, BOOL *_Nonnull stop) {
@@ -86,17 +86,16 @@
                 //Nothing to do
             } break;
             case WMFContentTypeAnnouncement: {
-                
-            }
-                break;
+
+            } break;
             default:
                 NSAssert(NO, @"Unknown Content Type");
                 break;
         }
     }
-    
+
     NSFetchRequest *articlesToDeleteFetchRequest = [WMFArticle fetchRequest];
-    NSPredicate *articlesToDeletePredicate = [NSPredicate predicateWithFormat:@"viewedDate == NULL && savedDate == NULL && isExcludedFromFeed == %@",  @(NO)];
+    NSPredicate *articlesToDeletePredicate = [NSPredicate predicateWithFormat:@"viewedDate == NULL && savedDate == NULL && isExcludedFromFeed == %@", @(NO)];
     if (referencedArticleKeys.count > 0) {
         NSPredicate *referencedKeysPredicate = [NSPredicate predicateWithFormat:@"!(key IN %@)", referencedArticleKeys];
         articlesToDeletePredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[articlesToDeletePredicate, referencedKeysPredicate]];
@@ -107,19 +106,19 @@
     if (error) {
         return done(error);
     }
-    
+
     for (WMFArticle *article in articlesToDelete) {
         [moc deleteObject:article];
     }
-    
+
     if ([moc hasChanges]) {
         [moc save:&error];
     }
-    
+
     if (error) {
         return done(error);
     }
-    
+
     return done(nil);
 }
 

@@ -7,8 +7,8 @@
 @property (nonatomic) CGFloat width;
 @property (nonatomic) BOOL scrollEnabled;
 
-@property(strong, nonatomic) WMFReference *reference;
+@property (strong, nonatomic) WMFReference *reference;
 
-- (void) scrollToTop;
+- (void)scrollToTop;
 
 @end

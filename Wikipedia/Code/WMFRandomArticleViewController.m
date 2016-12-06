@@ -45,9 +45,6 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
     UIBarButtonItem *leftFlexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:NULL];
 
-
-   
-
     UIBarButtonItem *rightFlexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:NULL];
 
     self.secondToolbarItems = @[leftFlexibleSpace, self.diceButtonItem, rightFlexibleSpace];

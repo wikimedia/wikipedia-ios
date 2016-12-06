@@ -3,7 +3,7 @@
 #import "UIView+VisualTestSizingUtils.h"
 #import "Wikipedia-Swift.h"
 #import <Nocilla/Nocilla.h>
-#import "XCTestCase+PromiseKit.h"
+#import "WMFAsyncTestCase.h"
 #import "NSUserDefaults+WMFBatchRecordMode.h"
 
 #import "WMFArticlePreviewTableViewCell.h"

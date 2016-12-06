@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MWKImageInfoFetcher *imageInfoFetcher;
 @property (nonatomic, strong) WMFSavedPageSpotlightManager *spotlightManager;
 
-@property (nonatomic, strong) NSMutableDictionary<NSURL *, AnyPromise *> *fetchOperationsByArticleTitle;
+@property (nonatomic, strong) NSMutableDictionary<NSURL *, NSURLSessionTask *> *fetchOperationsByArticleTitle;
 @property (nonatomic, strong) NSMutableDictionary<NSURL *, NSError *> *errorsByArticleTitle;
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
@@ -201,31 +201,33 @@ static SavedArticlesFetcher *_articleFetcher = nil;
          */
         self.fetchOperationsByArticleTitle[articleURL] =
             [self.articleFetcher fetchArticleForURL:articleURL
-                                           progress:NULL]
-                .thenOn(self.accessQueue, ^(MWKArticle *article) {
-                    @strongify(self);
-                    [self downloadImageDataForArticle:article
-                        failure:^(NSError *error) {
-                            dispatch_async(self.accessQueue, ^{
-                                [self didFetchArticle:article url:articleURL error:error];
-                                failure(error);
-                            });
-                        }
-                        success:^{
-                            dispatch_async(self.accessQueue, ^{
-                                [self didFetchArticle:article url:articleURL error:nil];
-                                success();
-                            });
-                        }];
-                })
-                .catch(^(NSError *error) {
+                progress:NULL
+                failure:^(NSError *_Nonnull error) {
                     if (!self) {
                         return;
                     }
                     dispatch_async(self.accessQueue, ^{
                         [self didFetchArticle:nil url:articleURL error:error];
                     });
-                });
+                }
+                success:^(MWKArticle *_Nonnull article) {
+                    dispatch_async(self.accessQueue, ^{
+                        @strongify(self);
+                        [self downloadImageDataForArticle:article
+                            failure:^(NSError *error) {
+                                dispatch_async(self.accessQueue, ^{
+                                    [self didFetchArticle:article url:articleURL error:error];
+                                    failure(error);
+                                });
+                            }
+                            success:^{
+                                dispatch_async(self.accessQueue, ^{
+                                    [self didFetchArticle:article url:articleURL error:nil];
+                                    success();
+                                });
+                            }];
+                    });
+                }];
     }
 }
 
@@ -305,7 +307,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         success:^(NSArray *info) {
             @strongify(self);
             if (!self) {
-                failure([NSError cancelledError]);
+                failure([NSError wmf_cancelledError]);
                 return;
             }
             if (info.count == 0) {
@@ -320,7 +322,6 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (void)fetchImageInfoForImagesInArticle:(MWKArticle *)article failure:(WMFErrorHandler)failure success:(WMFSuccessNSArrayHandler)success {
-    @weakify(self);
     NSArray<NSString *> *imageFileTitles =
         [MWKImage mapFilenamesFromImages:[article imagesForGallery]];
 
@@ -330,23 +331,36 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         return;
     }
 
+    NSMutableArray *infoObjects = [NSMutableArray arrayWithCapacity:imageFileTitles.count];
+    WMFTaskGroup *group = [WMFTaskGroup new];
     for (NSString *canonicalFilename in imageFileTitles) {
-        [self.imageInfoFetcher fetchGalleryInfoForImage:canonicalFilename fromSiteURL:article.url];
+        [group enter];
+        [self.imageInfoFetcher fetchGalleryInfoForImage:canonicalFilename
+            fromSiteURL:article.url
+            failure:^(NSError *_Nonnull error) {
+                [group leave];
+            }
+            success:^(id _Nonnull object) {
+                if (!object || [object isEqual:[NSNull null]]) {
+                    [group leave];
+                    return;
+                }
+                [infoObjects addObject:object];
+                [group leave];
+            }];
     }
 
-    PMKJoin([[imageFileTitles bk_map:^AnyPromise *(NSString *canonicalFilename) {
-        return [self.imageInfoFetcher fetchGalleryInfoForImage:canonicalFilename fromSiteURL:article.url];
-    }] bk_reject:^BOOL(id obj) {
-        return [obj isEqual:[NSNull null]];
-    }]).thenInBackground(^id(NSArray *infoObjects) {
-        @strongify(self);
-        if (!self) {
-            return [NSError cancelledError];
-        }
-        [self.dataStore saveImageInfo:infoObjects forArticleURL:article.url];
-        success(infoObjects);
-        return infoObjects;
-    });
+    @weakify(self);
+    [group waitInBackgroundAndNotifyOnQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)
+                                  withBlock:^{
+                                      @strongify(self);
+                                      if (!self) {
+                                          failure([NSError wmf_cancelledError]);
+                                          return;
+                                      }
+                                      [self.dataStore saveImageInfo:infoObjects forArticleURL:article.url];
+                                      success(infoObjects);
+                                  }];
 }
 
 - (void)cacheImagesWithURLsInBackground:(NSArray<NSURL *> *)imageURLs failure:(void (^_Nonnull)(NSError *_Nonnull error))failure success:(void (^_Nonnull)(void))success {

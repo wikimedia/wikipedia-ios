@@ -2,7 +2,7 @@
 
 @interface WMFZeroConfigurationFetcher : NSObject
 
-- (AnyPromise *)fetchZeroConfigurationForSiteURL:(NSURL *)siteURL;
+- (void)fetchZeroConfigurationForSiteURL:(NSURL *)siteURL failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success;
 
 - (void)cancelAllFetches;
 

@@ -57,20 +57,44 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self.featuredTitleOperationManager operationQueue] operationCount] > 0 || [[self.titlePreviewOperationManager operationQueue] operationCount] > 0;
 }
 
-- (AnyPromise *)fetchFeaturedArticlePreviewForDate:(NSDate *)date {
+- (void)fetchFeaturedArticlePreviewForDate:(NSDate *)date failure:(WMFErrorHandler)failure success:(WMFMWKSearchResultHandler)success {
     @weakify(self);
     NSURL *siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
-    return [self.featuredTitleOperationManager wmf_GETAndRetryWithURL:siteURL parameters:date]
-        .thenInBackground(^(NSString *title) {
+    [self.featuredTitleOperationManager wmf_GETAndRetryWithURL:siteURL
+        parameters:date
+        retry:^(NSURLSessionDataTask *retryOperation, NSError *error) {
+
+        }
+        success:^(NSURLSessionDataTask *operation, id responseObject) {
             @strongify(self);
             if (!self) {
-                return [AnyPromise promiseWithValue:[NSError cancelledError]];
+                failure([NSError wmf_cancelledError]);
+                return;
             }
-            return [self.titlePreviewOperationManager wmf_GETAndRetryWithURL:siteURL parameters:title]
-                .then(^(NSArray<MWKSearchResult *> *featuredTitlePreviews) {
-                    return featuredTitlePreviews.firstObject;
-                });
-        });
+            if (![responseObject isKindOfClass:[NSString class]]) {
+                failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]);
+                return;
+            }
+            NSString *title = responseObject;
+            [self.titlePreviewOperationManager wmf_GETAndRetryWithURL:siteURL
+                parameters:title
+                retry:^(NSURLSessionDataTask *retryOperation, NSError *error) {
+
+                }
+                success:^(NSURLSessionDataTask *operation, id responseObject) {
+                    if (![responseObject isKindOfClass:[NSArray class]]) {
+                        failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]);
+                        return;
+                    }
+                    success([responseObject firstObject]);
+                }
+                failure:^(NSURLSessionDataTask *operation, NSError *error) {
+                    failure(error);
+                }];
+        }
+        failure:^(NSURLSessionDataTask *operation, NSError *error) {
+            failure(error);
+        }];
 }
 
 @end

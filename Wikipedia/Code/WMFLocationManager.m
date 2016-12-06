@@ -300,18 +300,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Geocoding
 
-- (AnyPromise *)reverseGeocodeLocation:(CLLocation *)location {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-        [self reverseGeocodeLocation:location
-            completion:^(CLPlacemark *_Nonnull placemark) {
-                resolve(placemark);
-            }
-            failure:^(NSError *_Nonnull error) {
-                resolve(error);
-            }];
-    }];
-}
-
 - (void)reverseGeocodeLocation:(CLLocation *)location completion:(void (^)(CLPlacemark *placemark))completion
                        failure:(void (^)(NSError *error))failure {
     [[[CLGeocoder alloc] init] reverseGeocodeLocation:location

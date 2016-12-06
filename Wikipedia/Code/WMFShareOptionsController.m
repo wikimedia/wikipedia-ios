@@ -210,7 +210,7 @@ NS_ASSUME_NONNULL_BEGIN
             [self.shareOptions.shareAsCardLabel addGestureRecognizer:tapForCardOnButtonRecognizer];
             [self.shareOptions.shareAsTextLabel addGestureRecognizer:tapForTextRecognizer];
             @weakify(self);
-            UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] bk_initWithHandler:^(UIGestureRecognizer * _Nonnull sender, UIGestureRecognizerState state, CGPoint location) {
+            UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] bk_initWithHandler:^(UIGestureRecognizer *_Nonnull sender, UIGestureRecognizerState state, CGPoint location) {
                 @strongify(self);
                 [self dismissShareOptionsWithCompletion:^{
                     @strongify(self);

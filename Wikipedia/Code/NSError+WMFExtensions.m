@@ -18,6 +18,10 @@ NSString *const WMFFailingRequestParametersUserInfoKey = @"WMFFailingRequestPara
     return [self wmf_errorWithType:WMFErrorTypeArticleResponseSerialization userInfo:reason ? @{NSLocalizedDescriptionKey: reason} : nil];
 }
 
++ (NSError *)wmf_cancelledError {
+    return [NSError errorWithDomain:WMFErrorDomain code:WMFErrorTypeCancelled userInfo:nil];
+}
+
 - (BOOL)wmf_isWMFErrorDomain {
     if ([self.domain isEqualToString:WMFErrorDomain]) {
         return YES;

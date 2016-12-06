@@ -57,7 +57,7 @@
 
     self.fetchedResultsController = frc;
     self.tableViewUpdater = [[WMFTableViewUpdater alloc] initWithFetchedResultsController:self.fetchedResultsController tableView:self.tableView];
-    
+
     [self.fetchedResultsController performFetch:nil];
     [self.tableView reloadData];
 }

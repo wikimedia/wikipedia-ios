@@ -4,7 +4,6 @@
 #import "EXTScope.h"
 #import <KVOController/KVOController.h>
 #import <BlocksKit/BlocksKit.h>
-#import <PromiseKit/PromiseKit.h>
 
 #import "NSURL+WMFLinkParsing.h"
 #import "NSURLComponents+WMFLinkParsing.h"

@@ -17,7 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-
 @protocol WMFAutoUpdatingContentSource <NSObject>
 
 //Start monitoring for content updates
@@ -41,6 +40,5 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)loadContentForDate:(NSDate *)date force:(BOOL)force completion:(nullable dispatch_block_t)completion;
 
 @end
-
 
 NS_ASSUME_NONNULL_END

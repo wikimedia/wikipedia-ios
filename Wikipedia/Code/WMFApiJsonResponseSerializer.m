@@ -3,11 +3,10 @@
 
 @implementation WMFApiJsonResponseSerializer
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
-        NSMutableIndexSet* set = [self.acceptableStatusCodes mutableCopy];
+        NSMutableIndexSet *set = [self.acceptableStatusCodes mutableCopy];
         [set addIndex:304];
         self.acceptableStatusCodes = set;
     }

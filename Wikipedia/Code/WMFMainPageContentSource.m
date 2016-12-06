@@ -92,6 +92,7 @@
         if (completion) {
             completion();
         }
+        return;
     }
 
     [self.siteInfoFetcher fetchSiteInfoForSiteURL:self.siteURL
@@ -116,7 +117,7 @@
                     [self.previewStore addPreviewWithURL:data.mainPageURL updatedWithSearchResult:[results firstObject]];
                     [self.contentStore addContentGroup:section associatedContent:@[data.mainPageURL]];
                     [self cleanupOldSections];
-                    
+
                     if (completion) {
                         completion();
                     }

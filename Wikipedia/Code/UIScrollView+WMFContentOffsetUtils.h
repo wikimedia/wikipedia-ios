@@ -38,6 +38,6 @@
  *
  *  @see setContentOffset:animated:
  */
-- (void)wmf_safeSetContentOffset:(CGPoint)offset animated:(BOOL)animated completion:(void (^ __nullable)(BOOL finished))completion;
+- (void)wmf_safeSetContentOffset:(CGPoint)offset animated:(BOOL)animated completion:(void (^__nullable)(BOOL finished))completion;
 
 @end

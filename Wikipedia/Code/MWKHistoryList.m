@@ -90,7 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!key) {
         return nil;
     }
-    
+
     WMFArticle *article = [self.dataStore fetchArticleForKey:key];
     if (article.viewedDate) {
         return article;

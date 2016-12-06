@@ -19,7 +19,6 @@ typedef enum : NSUInteger {
     WMFTableOfContentsDisplayStateModalHidden
 } WMFTableOfContentsDisplayState;
 
-
 typedef enum : NSInteger {
     WMFTableOfContentsDisplayStyleOld = 0,
     WMFTableOfContentsDisplayStyleCurrent = 1,

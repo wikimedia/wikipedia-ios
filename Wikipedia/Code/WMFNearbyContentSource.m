@@ -158,10 +158,14 @@
 
     [self.currentLocationManager reverseGeocodeLocation:location
         completion:^(CLPlacemark *_Nonnull placemark) {
-            WMFContentGroup *group = [self.contentStore createGroupOfKind:WMFContentGroupKindLocation forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:nil customizationBlock:^(WMFContentGroup * _Nonnull group) {
-                group.location = location;
-                group.placemark = placemark;
-            }];
+            WMFContentGroup *group = [self.contentStore createGroupOfKind:WMFContentGroupKindLocation
+                                                                  forDate:[NSDate date]
+                                                              withSiteURL:self.siteURL
+                                                        associatedContent:nil
+                                                       customizationBlock:^(WMFContentGroup *_Nonnull group) {
+                                                           group.location = location;
+                                                           group.placemark = placemark;
+                                                       }];
             completion(group);
 
         }
@@ -191,10 +195,10 @@
             @strongify(self);
             self.isProcessingLocation = NO;
 
-            if([results.results count] == 0){
+            if ([results.results count] == 0) {
                 return;
             }
-            
+
             NSArray<NSURL *> *urls = [results.results bk_map:^id(id obj) {
                 return [results urlForResult:obj];
             }];

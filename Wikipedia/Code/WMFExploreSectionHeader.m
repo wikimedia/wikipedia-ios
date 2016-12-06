@@ -30,7 +30,7 @@
     self.rightButton.isAccessibilityElement = YES;
     self.rightButton.accessibilityTraits = UIAccessibilityTraitButton;
     @weakify(self);
-    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] bk_initWithHandler:^(UIGestureRecognizer * _Nonnull sender, UIGestureRecognizerState state, CGPoint location) {
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] bk_initWithHandler:^(UIGestureRecognizer *_Nonnull sender, UIGestureRecognizerState state, CGPoint location) {
         @strongify(self);
         if (self.whenTapped) {
             self.whenTapped();

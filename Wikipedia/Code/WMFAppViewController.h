@@ -12,5 +12,4 @@
 
 - (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion;
 
-
 @end

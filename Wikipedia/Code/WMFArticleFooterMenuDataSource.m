@@ -60,12 +60,11 @@ NS_ASSUME_NONNULL_BEGIN
     NSDate *lastModified = article.lastmodified ? article.lastmodified : [NSDate date];
 
     NSInteger days = [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:lastModified toDate:[NSDate date]];
-        [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
-                                      [MWSiteLocalizedString(article.url, @"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                                                              withString:[NSString stringWithFormat:@"%ld", (long)days]],
-                                      MWSiteLocalizedString(article.url, @"page-edit-history", nil),
-                                      @"footer-edit-history")];
-
+    [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
+                                  [MWSiteLocalizedString(article.url, @"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                                                          withString:[NSString stringWithFormat:@"%ld", (long)days]],
+                                  MWSiteLocalizedString(article.url, @"page-edit-history", nil),
+                                  @"footer-edit-history")];
 
     if (article.pageIssues.count > 0) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypePageIssues,

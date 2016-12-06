@@ -1,6 +1,7 @@
 import Foundation
 import AFNetworking
 import Mantle
+import WMFUtilities
 
 public class PageHistoryFetcher: NSObject {
     private let operationManager: AFHTTPSessionManager = {
@@ -10,23 +11,21 @@ public class PageHistoryFetcher: NSObject {
         return manager
     }()
 
-    public func fetchRevisionInfo(siteURL: NSURL, requestParams: PageHistoryRequestParameters) -> AnyPromise {
-        return AnyPromise(resolverBlock: { [weak self] (resolve) in
-            guard let strongSelf = self else { return }
-            strongSelf.operationManager.wmf_GETAndRetryWithURL(siteURL,
-                                                        parameters: requestParams,
-                                                        retry: nil,
-                                                        success: { (operation, responseObject) in
-                                                        MWNetworkActivityIndicatorManager.sharedManager().pop()
-                                                            guard let results = responseObject as? HistoryFetchResults else { return }
-                                                            results.tackOn(requestParams.lastRevisionFromPreviousCall)
-                                                            resolve(results)
-                                                            },
-                                                        failure: { (operation, error) in
-                                                                MWNetworkActivityIndicatorManager.sharedManager().pop()
-                                                                resolve(error)
-                                                        })
+    public func fetchRevisionInfo(siteURL: NSURL, requestParams: PageHistoryRequestParameters, failure: WMFErrorHandler, success: (HistoryFetchResults) -> Void) -> Void {
+        operationManager.wmf_GETAndRetryWithURL(siteURL,
+                                                parameters: requestParams,
+                                                retry: nil,
+                                                success: { (operation, responseObject) in
+                                                    MWNetworkActivityIndicatorManager.sharedManager().pop()
+                                                    guard let results = responseObject as? HistoryFetchResults else { return }
+                                                    results.tackOn(requestParams.lastRevisionFromPreviousCall)
+                                                    success(results)
+            },
+                                                failure: { (operation, error) in
+                                                    MWNetworkActivityIndicatorManager.sharedManager().pop()
+                                                    failure(error)
         })
+
     }
 }
 

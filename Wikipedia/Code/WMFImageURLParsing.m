@@ -98,7 +98,7 @@ NSString *WMFChangeImageSourceURLSizePrefix(NSString *sourceURL, NSInteger newSi
     if (newSizePrefix < 1) {
         newSizePrefix = 1;
     }
-    
+
     NSString *wikipediaString = @"/wikipedia/";
     NSRange wikipediaStringRange = [sourceURL rangeOfString:wikipediaString];
 
