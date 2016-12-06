@@ -88,7 +88,10 @@
 
     NSError *error = nil;
 
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"" attributes:nil];
+    NSMutableAttributedString *string = [[[NSAttributedString alloc] initWithData:[text dataUsingEncoding:NSUTF8StringEncoding]
+                                                                          options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                                               documentAttributes:nil
+                                                                            error:&error] mutableCopy];
     if (error) {
         return nil;
     } else {
