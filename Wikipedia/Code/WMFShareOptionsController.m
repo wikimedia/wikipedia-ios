@@ -246,6 +246,7 @@ NS_ASSUME_NONNULL_BEGIN
             [self.shareOptions removeFromSuperview];
             self.grayOverlay = nil;
             self.shareOptions = nil;
+            self.containerViewController = nil;
             [self setContainerViewControllerActionsEnabled:YES];
             if (completion) {
                 completion();
