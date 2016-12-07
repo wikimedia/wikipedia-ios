@@ -6,6 +6,7 @@
 #import "UIImage+WMFNormalization.h"
 #import "CIDetector+WMFFaceDetection.h"
 #import "WMFFaceDetectionCache.h"
+#import "UIImageView+WMFPlaceholder.h"
 
 static const char *const MWKURLAssociationKey = "MWKURL";
 
@@ -174,18 +175,20 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     } else {
         [self wmf_resetContentsRect];
     }
-
-    [UIView transitionWithView:self
-        duration:animated ? [CATransaction animationDuration] : 0.0
-        options:UIViewAnimationOptionTransitionCrossDissolve
-        animations:^{
-            self.contentMode = UIViewContentModeScaleAspectFill;
-            self.backgroundColor = [UIColor whiteColor];
-            self.image = image;
-        }
-        completion:^(BOOL finished) {
+    
+    dispatch_block_t animations = ^{
+        [self wmf_hidePlaceholder];
+    };
+    
+    self.image = image;
+    if (animated) {
+        [UIView animateWithDuration:[CATransaction animationDuration] animations:animations completion:^(BOOL finished) {
             success();
         }];
+    } else {
+        animations();
+        success();
+    }
 }
 
 - (void)wmf_cancelImageDownload {

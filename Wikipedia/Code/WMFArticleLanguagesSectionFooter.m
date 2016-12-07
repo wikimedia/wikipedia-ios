@@ -1,6 +1,5 @@
 #import "WMFArticleLanguagesSectionFooter.h"
-
-static CGFloat const WMFLanguageFooterFontSize = 14.f;
+#import "Wikipedia-Swift.h"
 
 @interface WMFArticleLanguagesSectionFooter ()
 
@@ -21,13 +20,11 @@ static CGFloat const WMFLanguageFooterFontSize = 14.f;
     UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
     backgroundView.backgroundColor = [UIColor wmf_settingsBackgroundColor];
     self.backgroundView = backgroundView;
-
-    self.titleLabel.font = [UIFont systemFontOfSize:WMFLanguageFooterFontSize];
     self.titleLabel.textColor = [UIColor wmf_777777Color];
-
     [self.addButton setTitle:MWLocalizedString(@"welcome-languages-add-button", nil)
                     forState:UIControlStateNormal];
     [self.addButton setTitleColor:[UIColor wmf_blueTintColor] forState:UIControlStateNormal];
+    [self wmf_configureSubviewsForDynamicType];
 }
 
 @end

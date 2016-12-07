@@ -154,7 +154,7 @@
             context.contentOffsetAdjustment = CGPointMake(0, context.contentSizeAdjustment.height);
         }
     } else {
-        if (context.invalidateEverything) {
+        if (context.invalidateEverything || context.invalidateDataSourceCounts) {
             [self reset];
         }
         [self layoutWithMetrics:metrics delegate:delegate collectionView:collectionView invalidationContext:nil]; //context is intentionally nil - apparently .invalidateEverything and .invalidateDataSourceCounts contexts shouldn't be updated
@@ -234,9 +234,20 @@
     NSMutableArray *invalidatedFooterIndexPaths = [NSMutableArray array];
 
     for (NSInteger sectionIndex = 0; sectionIndex < numberOfSections; sectionIndex++) {
+        WMFCVLColumn *shortestColumn = nil;
+        CGFloat shortestColumnHeight = CGFLOAT_MAX;
+        for (NSInteger columnIndex = 0; columnIndex < numberOfColumns; columnIndex++) {
+            WMFCVLColumn *column = self.columns[columnIndex];
+            CGFloat columnHeight = column.frame.size.height;
+            if (columnHeight < shortestColumnHeight) {
+                shortestColumn = column;
+                shortestColumnHeight = columnHeight;
+            }
+        }
+
         WMFCVLSection *section = nil;
 
-        NSInteger currentColumnIndex = numberOfColumns == 1 ? 0 : [delegate collectionView:collectionView prefersWiderColumnForSectionAtIndex:sectionIndex] ? widestColumnIndex : defaultColumnIndex;
+        NSInteger currentColumnIndex = numberOfColumns == 1 ? 0 : [delegate collectionView:collectionView prefersWiderColumnForSectionAtIndex:sectionIndex] ? widestColumnIndex : shortestColumn.index;
         WMFCVLColumn *column = self.columns[currentColumnIndex];
 
         if (sectionIndex >= [_sections count]) {

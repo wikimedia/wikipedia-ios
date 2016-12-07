@@ -1,59 +1,26 @@
 #import "WMFArticleListTableViewCell+WMFSearch.h"
-#import "NSParagraphStyle+WMFParagraphStyles.h"
 
 @implementation WMFArticleListTableViewCell (WMFSearch)
 
-+ (CGFloat)titleLabelFontSize {
-    return 16.f;
-}
-
 + (UIFont *)titleLabelFont {
-    return [UIFont systemFontOfSize:[self titleLabelFontSize]];
-}
-
-+ (UIFont *)boldTitleLabelFont {
-    return [UIFont boldSystemFontOfSize:[self titleLabelFontSize]];
+    return [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 
 - (void)wmf_setTitleText:(NSString *)text highlightingText:(NSString *)highlightText {
-    if (highlightText.length == 0) {
-        self.titleLabel.text = text;
-        return;
-    }
-
-    NSRange highlightRange = [text rangeOfString:highlightText options:NSCaseInsensitiveSearch];
-    if (WMFRangeIsNotFoundOrEmpty(highlightRange)) {
-        self.titleLabel.text = text;
-        return;
-    }
-
     NSMutableAttributedString *attributedTitle =
         [[NSMutableAttributedString alloc] initWithString:text
-                                               attributes:nil];
+                                               attributes:@{
+                                                   NSFontAttributeName: [[self class] titleLabelFont]
+                                               }];
 
-    NSRange beforeHighlight = NSMakeRange(0, highlightRange.location);
-    if (!WMFRangeIsNotFoundOrEmpty(beforeHighlight)) {
-        [attributedTitle addAttribute:NSFontAttributeName
-                                value:[[self class] titleLabelFont]
-                                range:beforeHighlight];
+    if (highlightText) {
+        NSRange highlightRange = [text rangeOfString:highlightText options:NSCaseInsensitiveSearch];
+        if (!WMFRangeIsNotFoundOrEmpty(highlightRange)) {
+            [attributedTitle addAttribute:NSBackgroundColorAttributeName
+                                    value:[UIColor colorWithRed:1.0 green:0.8 blue:0.2 alpha:0.3]
+                                    range:highlightRange];
+        }
     }
-
-    [attributedTitle addAttribute:NSFontAttributeName
-                            value:[[self class] boldTitleLabelFont]
-                            range:highlightRange];
-
-    NSUInteger afterHighlightStart = WMFRangeGetMaxIndex(highlightRange) - 1;
-    NSRange afterHighlight = NSMakeRange(afterHighlightStart, text.length - afterHighlightStart);
-    if (!WMFRangeIsNotFoundOrEmpty(afterHighlight)) {
-        [attributedTitle addAttribute:NSFontAttributeName
-                                value:[[self class] titleLabelFont]
-                                range:beforeHighlight];
-    }
-
-    [attributedTitle addAttribute:NSParagraphStyleAttributeName
-                            value:[NSParagraphStyle wmf_tailTruncatingNaturalAlignmentStyle]
-                            range:NSMakeRange(0, text.length)];
-
     self.titleLabel.attributedText = attributedTitle;
 }
 
@@ -61,56 +28,23 @@
 
 @implementation WMFArticleListCollectionViewCell (WMFSearch)
 
-+ (CGFloat)titleLabelFontSize {
-    return 16.f;
-}
-
 + (UIFont *)titleLabelFont {
-    return [UIFont systemFontOfSize:[self titleLabelFontSize]];
-}
-
-+ (UIFont *)boldTitleLabelFont {
-    return [UIFont boldSystemFontOfSize:[self titleLabelFontSize]];
+    return [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 
 - (void)wmf_setTitleText:(NSString *)text highlightingText:(NSString *)highlightText {
-    if (highlightText.length == 0) {
-        self.titleLabel.text = text;
-        return;
-    }
-
-    NSRange highlightRange = [text rangeOfString:highlightText options:NSCaseInsensitiveSearch];
-    if (WMFRangeIsNotFoundOrEmpty(highlightRange)) {
-        self.titleLabel.text = text;
-        return;
-    }
-
     NSMutableAttributedString *attributedTitle =
         [[NSMutableAttributedString alloc] initWithString:text
-                                               attributes:nil];
+                                               attributes:@{
+                                                   NSFontAttributeName: [[self class] titleLabelFont]
+                                               }];
 
-    NSRange beforeHighlight = NSMakeRange(0, highlightRange.location);
-    if (!WMFRangeIsNotFoundOrEmpty(beforeHighlight)) {
-        [attributedTitle addAttribute:NSFontAttributeName
-                                value:[[self class] titleLabelFont]
-                                range:beforeHighlight];
+    NSRange highlightRange = [text rangeOfString:highlightText options:NSCaseInsensitiveSearch];
+    if (!WMFRangeIsNotFoundOrEmpty(highlightRange)) {
+        [attributedTitle addAttribute:NSBackgroundColorAttributeName
+                                value:[UIColor colorWithRed:1.0 green:0.8 blue:0.2 alpha:0.3]
+                                range:highlightRange];
     }
-
-    [attributedTitle addAttribute:NSFontAttributeName
-                            value:[[self class] boldTitleLabelFont]
-                            range:highlightRange];
-
-    NSUInteger afterHighlightStart = WMFRangeGetMaxIndex(highlightRange) - 1;
-    NSRange afterHighlight = NSMakeRange(afterHighlightStart, text.length - afterHighlightStart);
-    if (!WMFRangeIsNotFoundOrEmpty(afterHighlight)) {
-        [attributedTitle addAttribute:NSFontAttributeName
-                                value:[[self class] titleLabelFont]
-                                range:beforeHighlight];
-    }
-
-    [attributedTitle addAttribute:NSParagraphStyleAttributeName
-                            value:[NSParagraphStyle wmf_tailTruncatingNaturalAlignmentStyle]
-                            range:NSMakeRange(0, text.length)];
 
     self.titleLabel.attributedText = attributedTitle;
 }

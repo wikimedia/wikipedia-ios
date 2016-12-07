@@ -1,7 +1,6 @@
 #import "AboutViewController.h"
 #import "WikipediaAppUtils.h"
 #import "WKWebView+LoadAssetsHtml.h"
-#import "Defines.h"
 #import "NSString+WMFExtras.h"
 #import <BlocksKit/BlocksKit.h>
 #import "NSBundle+WMFInfoUtils.h"
@@ -63,7 +62,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 }
 
 - (void)wmf_setTextFontSize {
-    NSString *fontSizeJS = [NSString stringWithFormat:@"document.body.style.fontSize = '%f%%'", (MENUS_SCALE_MULTIPLIER * 100.0f)];
+    NSString *fontSizeJS = [NSString stringWithFormat:@"document.body.style.fontSize = '%f%%'", 100.0f];
     [self evaluateJavaScript:fontSizeJS completionHandler:nil];
 }
 

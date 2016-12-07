@@ -20,6 +20,19 @@
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 
     self.tableView.estimatedRowHeight = 60.0f;
+    
+    @weakify(self);
+    [[NSNotificationCenter defaultCenter] addObserverForName: UIContentSizeCategoryDidChangeNotification
+                                                      object: nil
+                                                       queue: [NSOperationQueue mainQueue]
+                                                  usingBlock: ^(NSNotification *note) {
+                                                      @strongify(self);
+                                                      [self.tableView reloadData];
+                                                  }];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setDataSource:(WMFSearchDataSource *)dataSource {
