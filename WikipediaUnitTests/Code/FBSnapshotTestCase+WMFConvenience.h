@@ -21,7 +21,7 @@
  *  @param view The view to verify.
  */
 #define WMFSnapshotVerifyViewForOSAndWritingDirection(view) \
-    FBSnapshotVerifyView((view), [[UIApplication sharedApplication] wmf_systemVersionAndWritingDirection]);
+    FBSnapshotVerifyViewWithOptions((view), [[UIApplication sharedApplication] wmf_systemVersionAndWritingDirection], FBSnapshotTestCaseDefaultSuffixes(), 0.1);
 
 @interface FBSnapshotTestCase (WMFConvenience)
 
