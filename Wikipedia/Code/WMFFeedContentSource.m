@@ -341,7 +341,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 - (nullable WMFContentGroup *)pictureOfTheDayForDate:(NSDate *)date {
-    return (id)[self.contentStore firstGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date siteURL:self.siteURL];
+    //NOTE: POTDs are the same across languages so we do not not want to constrain our search by site URL as this will cause duplicates
+    return (id)[self.contentStore firstGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date];
 }
 
 - (nullable WMFContentGroup *)topReadForDate:(NSDate *)date {
