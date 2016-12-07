@@ -179,7 +179,11 @@
 #pragma mark - Height Estimation
 
 + (CGFloat)estimatedRowHeight {
-    return 420.f;
+    return 420;
+}
+
++ (CGFloat)estimatedRowHeightWithoutImage {
+    return 232;
 }
 
 @end
