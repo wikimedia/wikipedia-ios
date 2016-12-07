@@ -9,7 +9,6 @@ class WMFWelcomeIntroductionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.clearColor()
-        titleLabel.adjustsFontSizeToFitWidth = true
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-explore-new-ways-title").uppercaseStringWithLocale(NSLocale.currentLocale())
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-explore-new-ways-sub-title")
         tellMeMoreButton.setTitle(localizedStringForKeyFallingBackOnEnglish("welcome-explore-tell-me-more"), forState: .Normal)
@@ -17,6 +16,11 @@ class WMFWelcomeIntroductionViewController: UIViewController {
         self.view.wmf_configureSubviewsForDynamicType()
     }
     
+    override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        titleLabel.font = UIFont.preferredFontForFontFamily(.SystemBlack, withTextStyle: UIFontTextStyleTitle1, compatibleWithTraitCollection: self.traitCollection)
+    }
+
     @IBAction private func showHowThisWorksAlert(withSender sender: AnyObject) {
         let alert = UIAlertController(
             title:localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-title"),
