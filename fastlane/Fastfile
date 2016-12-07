@@ -129,6 +129,7 @@ platform :ios do
     app_see_api_key = ENV['WMF_APP_SEE_API_KEY'] || ''
     
     sh "xcodebuild -project \"#{project_dir}/#{project_name}.xcodeproj\" -scheme \"#{scheme_name}\" -archivePath \"#{build_dir}/#{product_name}.xcarchive\" WMF_APP_SEE_API_KEY=#{app_see_api_key} archive"
+    sh "open \"#{build_dir}/#{product_name}.xcarchive\"" #import the build to xcode
     sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -exportPath \"#{build_dir}\""
     #sh "zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM"
     #sh "mv #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.app.dSYM.zip"
