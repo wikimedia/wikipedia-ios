@@ -95,14 +95,6 @@
     return cell;
 }
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [[self savedPageList] removeEntryWithURL:[self urlAtIndexPath:indexPath]];
-}
-
 - (WMFEmptyViewType)emptyViewType {
     return WMFEmptyViewTypeNoSavedPages;
 }
@@ -137,6 +129,14 @@
 
 - (NSURL *)urlAtIndexPath:(NSIndexPath *)indexPath {
     return [[self objectAtIndexPath:indexPath] URL];
+}
+
+- (BOOL)canDeleteItemAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)deleteItemAtIndexPath:(NSIndexPath*)indexPath{
+    [[self savedPageList] removeEntryWithURL:[self urlAtIndexPath:indexPath]];
 }
 
 - (void)deleteAll {
