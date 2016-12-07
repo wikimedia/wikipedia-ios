@@ -8,7 +8,7 @@ import UIKit
 
 public extension UIFont {
 
-    public class func preferredFontForFontFamily(fontFamily: WMFFontFamily, withTextStyle style: String, compatibleWithTraitCollection traitCollection: UITraitCollection) -> UIFont? {
+    public class func wmf_preferredFontForFontFamily(fontFamily: WMFFontFamily, withTextStyle style: String, compatibleWithTraitCollection traitCollection: UITraitCollection) -> UIFont? {
         
         guard fontFamily != .System else {
             if #available(iOSApplicationExtension 10.0, *) {
@@ -86,6 +86,7 @@ public extension UIFont {
         case .SystemBlack:
             return UIFont.systemFontOfSize(size, weight: UIFontWeightBlack)
         case .System:
+            assert(false, "Should never reach this point. System font is guarded against at beginning of method.")
             return nil
         }
     }

@@ -18,7 +18,7 @@ class WMFWelcomeIntroductionViewController: UIViewController {
     
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        titleLabel.font = UIFont.preferredFontForFontFamily(.SystemBlack, withTextStyle: UIFontTextStyleTitle1, compatibleWithTraitCollection: self.traitCollection)
+        titleLabel.font = UIFont.wmf_preferredFontForFontFamily(.SystemBlack, withTextStyle: UIFontTextStyleTitle1, compatibleWithTraitCollection: self.traitCollection)
     }
 
     @IBAction private func showHowThisWorksAlert(withSender sender: AnyObject) {
