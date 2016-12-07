@@ -43,24 +43,6 @@
                                          failure:(void (^)(NSURLSessionDataTask *operation, NSError *error))failure;
 
 /**
- *  Send a @c GET request to the mobile endpoint (see -[NSURL wmf_mobileAPIURL])
- *  for the given url, falling back to desktop endpoint (-[NSURL wmf_desktopAPIURL])
- *  if the mobile endpoint fails.
- *
- *  Convenience, promise-based alternative to block-based API.  Omits the retry parameter & operation return for the
- *  simple case which doesn't need cancellation.
- *
- *  @param URL The URL to derive the endpoints from. First mobile, then desktop.
- *
- *  @param parameters The parameters which will be passed to the receiver's @c requestSerializer.
- *
- *  @return A promise which will be resolved with the successful response of the request, or rejected with any errors
- *          that occur.
- *
- *  @see wmf_GETWithMobileURLString:desktopURLString:parameters:retry:success:failure:
- */
-- (AnyPromise *)wmf_GETAndRetryWithURL:(NSURL *)URL parameters:(id)parameters;
-/**
  *  Executes a POST using a mobile url.
  *  If the request fails with the mobile URL for a known reason,
  *  the request will automatically be re-attempted with the desktop URL

@@ -50,5 +50,4 @@
     return [self analyticsContext];
 }
 
-
 @end

@@ -3,8 +3,6 @@
 #import "WikipediaAppUtils.h"
 #import "NSString+FormattedAttributedString.h"
 #import "WikiGlyph_Chars.h"
-#import "Defines.h"
-#import "NSObject+ConstraintsScale.h"
 #import "UIFont+WMFStyle.h"
 #import "Wikipedia-Swift.h"
 
@@ -36,8 +34,8 @@
 - (void)didMoveToSuperview {
     self.licenseTitleLabel.padding = UIEdgeInsetsMake(2, 0, 0, 0);
 
-    self.licenseTitleLabel.font = [UIFont systemFontOfSize:11.0 * MENUS_SCALE_MULTIPLIER];
-    self.licenseLoginLabel.font = [UIFont systemFontOfSize:11.0 * MENUS_SCALE_MULTIPLIER];
+    self.licenseTitleLabel.font = [UIFont systemFontOfSize:11.0];
+    self.licenseLoginLabel.font = [UIFont systemFontOfSize:11.0];
 
     self.licenseTitleLabel.text = MWLocalizedString(@"wikitext-upload-save-terms-and-license", nil);
     [self styleLinks:self.licenseTitleLabel];
@@ -47,8 +45,6 @@
     [self underlineSignIn:self.licenseLoginLabel];
 
     self.licenseCCLabel.attributedText = [self getCCIconAttributedString];
-
-    [self adjustConstraintsScaleForViews:@[self.licenseCCLabel, self.licenseTitleLabel, self.licenseLoginLabel]];
 
     self.bottomDividerHeight.constant = self.hideBottomDivider ? 0.0 : 1.0f / [UIScreen mainScreen].scale;
 
@@ -122,7 +118,7 @@
 - (NSAttributedString *)getCCIconAttributedString {
     return [[NSAttributedString alloc] initWithString:WIKIGLYPH_CC
                                            attributes:@{
-                                               NSFontAttributeName: [UIFont wmf_glyphFontOfSize:42.0 * MENUS_SCALE_MULTIPLIER],
+                                               NSFontAttributeName: [UIFont wmf_glyphFontOfSize:42.0],
                                                NSForegroundColorAttributeName: PREVIEW_BLUE_COLOR,
                                                NSBaselineOffsetAttributeName: @1.5
                                            }];

@@ -6,7 +6,6 @@
 #import "Wikipedia-Swift.h"
 
 #import "LSStubResponseDSL+WithJSON.h"
-#import "XCTestCase+PromiseKit.h"
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
@@ -36,12 +35,24 @@
         .andReturn(200)
         .withJSON(json);
 
-    expectResolutionWithTimeout(10, ^{
-        return [self.fetcher fetchArticlesForSearchTerm:@"foo" siteURL:[NSURL wmf_randomSiteURL] resultLimit:15]
-            .then(^(WMFSearchResults *result) {
-                assertThat(result.results, hasCountOf([[json valueForKeyPath:@"query.pages"] count]));
-            });
-    });
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for articles"];
+
+    [self.fetcher fetchArticlesForSearchTerm:@"foo"
+        siteURL:[NSURL wmf_randomSiteURL]
+        resultLimit:15
+        failure:^(NSError *error) {
+            XCTFail(@"Error");
+            [expectation fulfill];
+        }
+        success:^(WMFSearchResults *result) {
+            assertThat(result.results, hasCountOf([[json valueForKeyPath:@"query.pages"] count]));
+            [expectation fulfill];
+        }];
+
+    [self waitForExpectationsWithTimeout:10
+                                 handler:^(NSError *_Nullable error) {
+                                     XCTFail(@"Timeout");
+                                 }];
 }
 
 - (void)testEmptyPrefixResponse {
@@ -52,13 +63,25 @@
         .andReturn(200)
         .withJSON(json);
 
-    expectResolutionWithTimeout(10, ^{
-        return [self.fetcher fetchArticlesForSearchTerm:@"foo" siteURL:[NSURL wmf_randomSiteURL] resultLimit:15]
-            .then(^(WMFSearchResults *result) {
-                assertThat(result.searchSuggestion, is([json valueForKeyPath:@"query.searchinfo.suggestion"]));
-                assertThat(result.results, isEmpty());
-            });
-    });
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for articles"];
+
+    [self.fetcher fetchArticlesForSearchTerm:@"foo"
+        siteURL:[NSURL wmf_randomSiteURL]
+        resultLimit:15
+        failure:^(NSError *error) {
+            XCTFail(@"Error");
+            [expectation fulfill];
+        }
+        success:^(WMFSearchResults *result) {
+            assertThat(result.searchSuggestion, is([json valueForKeyPath:@"query.searchinfo.suggestion"]));
+            assertThat(result.results, isEmpty());
+            [expectation fulfill];
+        }];
+
+    [self waitForExpectationsWithTimeout:10
+                                 handler:^(NSError *_Nullable error) {
+                                     XCTFail(@"Timeout");
+                                 }];
 }
 
 - (void)testAppendingToPrefixResults {
@@ -106,16 +129,20 @@
 
     __block WMFSearchResults *appendedResults;
 
-    expectResolutionWithTimeout(10, ^{
-        return [self.fetcher fetchArticlesForSearchTerm:expectedMergedResults.searchTerm
-                                                siteURL:[NSURL wmf_randomSiteURL]
-                                            resultLimit:15
-                                         fullTextSearch:YES
-                                appendToPreviousResults:prefixResults]
-            .then(^(WMFSearchResults *fullTextResults) {
-                appendedResults = fullTextResults;
-            });
-    });
+    XCTestExpectation *expectation = [self expectationWithDescription:@"fetch articles"];
+    [self.fetcher fetchArticlesForSearchTerm:expectedMergedResults.searchTerm
+        siteURL:[NSURL wmf_randomSiteURL]
+        resultLimit:15
+        fullTextSearch:YES
+        appendToPreviousResults:prefixResults
+        failure:^(NSError *error) {
+            XCTFail(@"Error");
+            [expectation fulfill];
+        }
+        success:^(WMFSearchResults *fullTextResults) {
+            appendedResults = fullTextResults;
+            [expectation fulfill];
+        }];
 
     XCTAssertEqual(prefixResults, appendedResults, @"Expected full text results to be appended to prefix results object.");
     assertThat(appendedResults, is(equalTo(expectedMergedResults)));

@@ -19,6 +19,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface WMFBackgroundAccessibilityEscapeView : UIView
+
+@property (nonatomic, weak) NSObject *accessibilityDelegate;
+
+@end
+
+@implementation WMFBackgroundAccessibilityEscapeView
+
+- (BOOL)accessibilityPerformEscape {
+    [self.accessibilityDelegate accessibilityPerformEscape];
+    return true;
+}
+
+@end
+
 @interface WMFShareOptionsController ()
 
 @property (strong, nonatomic, readwrite) MWKArticle *article;
@@ -29,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) UIViewController *containerViewController;
 @property (nullable, strong, nonatomic) UIBarButtonItem *originButtonItem;
 
-@property (nullable, strong, nonatomic) UIView *grayOverlay;
+@property (nullable, strong, nonatomic) WMFBackgroundAccessibilityEscapeView *grayOverlay;
 @property (nullable, strong, nonatomic) WMFShareOptionsView *shareOptions;
 @property (nullable, strong, nonatomic) UIImage *shareImage;
 
@@ -105,9 +120,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setupBackgroundView {
     UIView *containingView = self.containerViewController.view;
 
-    UIView *grayOverlay = [[UIView alloc] initWithFrame:containingView.frame];
+    WMFBackgroundAccessibilityEscapeView *grayOverlay = [[WMFBackgroundAccessibilityEscapeView alloc] initWithFrame:containingView.frame];
     grayOverlay.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.42];
     grayOverlay.alpha = 0.0;
+    grayOverlay.accessibilityDelegate = self;
     [containingView addSubview:grayOverlay];
     self.grayOverlay = grayOverlay;
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
@@ -131,6 +147,7 @@ NS_ASSUME_NONNULL_BEGIN
     shareOptionsView.shareAsTextLabel.text = MWLocalizedString(@"share-as-text", nil);
     shareOptionsView.cancelLabel.text = MWLocalizedString(@"share-cancel", nil);
     shareOptionsView.cardImageView.image = self.shareImage;
+    shareOptionsView.accessibilityDelegate = self;
 
     [self.containerViewController.view addSubview:shareOptionsView];
     self.shareOptions = shareOptionsView;
@@ -210,7 +227,7 @@ NS_ASSUME_NONNULL_BEGIN
             [self.shareOptions.shareAsCardLabel addGestureRecognizer:tapForCardOnButtonRecognizer];
             [self.shareOptions.shareAsTextLabel addGestureRecognizer:tapForTextRecognizer];
             @weakify(self);
-            UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] bk_initWithHandler:^(UIGestureRecognizer * _Nonnull sender, UIGestureRecognizerState state, CGPoint location) {
+            UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] bk_initWithHandler:^(UIGestureRecognizer *_Nonnull sender, UIGestureRecognizerState state, CGPoint location) {
                 @strongify(self);
                 [self dismissShareOptionsWithCompletion:^{
                     @strongify(self);
@@ -222,7 +239,7 @@ NS_ASSUME_NONNULL_BEGIN
         }];
 }
 
-- (void)dismissShareOptionsWithCompletion:(dispatch_block_t)completion {
+- (void)dismissShareOptionsWithCompletion:(nullable dispatch_block_t)completion {
     UIView *containingView = self.containerViewController.view;
 
     [self.shareOptions mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -246,11 +263,17 @@ NS_ASSUME_NONNULL_BEGIN
             [self.shareOptions removeFromSuperview];
             self.grayOverlay = nil;
             self.shareOptions = nil;
+            self.containerViewController = nil;
             [self setContainerViewControllerActionsEnabled:YES];
             if (completion) {
                 completion();
             }
         }];
+}
+
+- (BOOL)accessibilityPerformEscape {
+    [self dismissShareOptionsWithCompletion:nil];
+    return true;
 }
 
 #pragma mark - Tap Gestures

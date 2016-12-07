@@ -7,7 +7,6 @@
 #import "MWKHistoryList.h"
 #import "MWKHistoryEntry.h"
 
-
 #import "PiwikTracker+WMFExtensions.h"
 #import "WMFArticleViewController.h"
 

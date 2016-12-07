@@ -42,20 +42,22 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
     return self;
 }
 
-- (AnyPromise *)fetchArticlesForSearchTerm:(NSString *)searchTerm
-                                   siteURL:(NSURL *)siteURL
-                               resultLimit:(NSUInteger)resultLimit {
-    return [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:NO appendToPreviousResults:nil];
+- (void)fetchArticlesForSearchTerm:(NSString *)searchTerm
+                           siteURL:(NSURL *)siteURL
+                       resultLimit:(NSUInteger)resultLimit
+                           failure:(WMFErrorHandler)failure
+                           success:(WMFSearchResultsHandler)success {
+    [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:NO appendToPreviousResults:nil failure:failure success:success];
 }
 
-- (AnyPromise *)fetchArticlesForSearchTerm:(NSString *)searchTerm
-                                   siteURL:(NSURL *)siteURL
-                               resultLimit:(NSUInteger)resultLimit
-                            fullTextSearch:(BOOL)fullTextSearch
-                   appendToPreviousResults:(nullable WMFSearchResults *)results {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:fullTextSearch appendToPreviousResults:results useDesktopURL:NO resolver:resolve];
-    }];
+- (void)fetchArticlesForSearchTerm:(NSString *)searchTerm
+                           siteURL:(NSURL *)siteURL
+                       resultLimit:(NSUInteger)resultLimit
+                    fullTextSearch:(BOOL)fullTextSearch
+           appendToPreviousResults:(nullable WMFSearchResults *)results
+                           failure:(WMFErrorHandler)failure
+                           success:(WMFSearchResultsHandler)success {
+    [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:fullTextSearch appendToPreviousResults:results useDesktopURL:NO failure:failure success:success];
 }
 
 - (void)fetchArticlesForSearchTerm:(NSString *)searchTerm
@@ -64,7 +66,8 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                     fullTextSearch:(BOOL)fullTextSearch
            appendToPreviousResults:(nullable WMFSearchResults *)previousResults
                      useDesktopURL:(BOOL)useDeskTopURL
-                          resolver:(PMKResolver)resolve {
+                           failure:(WMFErrorHandler)failure
+                           success:(WMFSearchResultsHandler)success {
     NSParameterAssert(siteURL);
     NSURL *url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:siteURL] : [NSURL wmf_mobileAPIURLForURL:siteURL];
 
@@ -85,20 +88,20 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
             searchResults.searchTerm = searchTerm;
 
             if (!previousResults) {
-                resolve(searchResults);
+                success(searchResults);
                 return;
             }
 
             [previousResults mergeValuesForKeysFromModel:searchResults];
 
-            resolve(previousResults);
+            success(previousResults);
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
             if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:siteURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
-                [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:fullTextSearch appendToPreviousResults:previousResults useDesktopURL:YES resolver:resolve];
+                [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:fullTextSearch appendToPreviousResults:previousResults useDesktopURL:YES failure:failure success:success];
             } else {
                 [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                resolve(error);
+                failure(error);
             }
         }];
 }

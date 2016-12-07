@@ -7,6 +7,7 @@
 #import <Masonry/Masonry.h>
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
 #import "WMFLeadingImageTrailingTextButton.h"
+#import "Wikipedia-Swift.h"
 
 @interface WMFArticlePreviewCollectionViewCell ()
 
@@ -61,6 +62,13 @@
     [self wmf_makeCellDividerBeEdgeToEdge];
     [self setupBlurViewAndLoadingIndicator];
     self.loading = NO;
+    [self wmf_configureSubviewsForDynamicType];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    UIFont *titleLabelFont = [UIFont preferredFontForFontFamily:WMFFontFamilyGeorgia withTextStyle:UIFontTextStyleTitle2 compatibleWithTraitCollection:self.traitCollection];
+    self.titleLabel.font = titleLabelFont;
 }
 
 - (void)setupBlurViewAndLoadingIndicator {
@@ -110,29 +118,14 @@
 
 - (void)setSnippetText:(NSString *)snippetText {
     if (!snippetText.length) {
-        self.snippetLabel.attributedText = nil;
+        self.snippetLabel.text = nil;
         return;
     }
-    self.snippetLabel.attributedText = [[NSAttributedString alloc] initWithString:snippetText attributes:[[self class] snippetAttributes]];
+    self.snippetLabel.text = snippetText;
 }
 
 - (NSString *)snippetText {
-    return self.snippetLabel.attributedText.string;
-}
-
-+ (NSDictionary *)snippetAttributes {
-    static NSDictionary *attributes;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
-        pStyle.lineBreakMode = NSLineBreakByTruncatingTail;
-        pStyle.baseWritingDirection = NSWritingDirectionNatural;
-        pStyle.lineHeightMultiple = 1.35;
-        attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0],
-                       NSForegroundColorAttributeName: [UIColor darkGrayColor],
-                       NSParagraphStyleAttributeName: pStyle};
-    });
-    return attributes;
+    return self.snippetLabel.text;
 }
 
 #pragma mark - Image
@@ -186,7 +179,11 @@
 #pragma mark - Height Estimation
 
 + (CGFloat)estimatedRowHeight {
-    return 420.f;
+    return 420;
+}
+
++ (CGFloat)estimatedRowHeightWithoutImage {
+    return 232;
 }
 
 @end

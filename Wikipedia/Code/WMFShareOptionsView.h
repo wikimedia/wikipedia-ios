@@ -8,4 +8,7 @@
 @property (weak, nonatomic) IBOutlet PaddedLabel *shareAsCardLabel;
 @property (weak, nonatomic) IBOutlet PaddedLabel *shareAsTextLabel;
 @property (weak, nonatomic) IBOutlet PaddedLabel *cancelLabel;
+
+@property (nonatomic, weak) NSObject* accessibilityDelegate;
+
 @end

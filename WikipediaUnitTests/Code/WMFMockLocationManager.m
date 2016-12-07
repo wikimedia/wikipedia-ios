@@ -48,8 +48,8 @@
 - (void)stopMonitoringLocation {
 }
 
-- (AnyPromise *)reverseGeocodeLocation:(CLLocation *)location {
-    return [AnyPromise promiseWithValue:nil];
+- (void)reverseGeocodeLocation:(CLLocation *)location completion:(nonnull void (^)(CLPlacemark *_Nonnull))completion failure:(nonnull void (^)(NSError *_Nonnull))failure {
+    failure([NSError errorWithDomain:@"" code:0 userInfo:nil]);
 }
 
 @end

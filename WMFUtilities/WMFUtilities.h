@@ -6,10 +6,8 @@ FOUNDATION_EXPORT double WMFUtilitiesVersionNumber;
 //! Project version string for WMFUtilities.
 FOUNDATION_EXPORT const unsigned char WMFUtilitiesVersionString[];
 
-
 #import <KVOController/KVOController.h>
 #import <BlocksKit/BlocksKit.h>
-#import <PromiseKit/PromiseKit.h>
 
 #import "NSURL+WMFLinkParsing.h"
 #import "NSURLComponents+WMFLinkParsing.h"

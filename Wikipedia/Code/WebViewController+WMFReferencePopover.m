@@ -13,7 +13,7 @@ typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationCont
 
 @implementation WebViewController (WMFReferencePopover)
 
-- (void)wmf_presentReferencePopoverViewControllerForReference:(WMFReference*)reference
+- (void)wmf_presentReferencePopoverViewControllerForReference:(WMFReference *)reference
                                                         width:(CGFloat)width {
     [self wmf_dismissReferencePopoverAnimated:NO
                                    completion:^{
@@ -26,7 +26,7 @@ typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationCont
                                    }];
 }
 
-- (void)wmf_presentReferencePopoverViewControllerWithReference:(WMFReference*)reference
+- (void)wmf_presentReferencePopoverViewControllerWithReference:(WMFReference *)reference
                                                          width:(CGFloat)width
                                withPresenterConfigurationBlock:(WMFReferencePopoverPresentationHandler)presenterConfigurationBlock {
 
@@ -47,7 +47,7 @@ typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationCont
                      }];
 }
 
-- (WMFReferencePopoverMessageViewController *)wmf_referencePopoverViewControllerWithReference:(WMFReference*)reference
+- (WMFReferencePopoverMessageViewController *)wmf_referencePopoverViewControllerWithReference:(WMFReference *)reference
                                                                                         width:(CGFloat)width
                                                               withPresenterConfigurationBlock:(WMFReferencePopoverPresentationHandler)presenterConfigurationBlock {
 
@@ -55,7 +55,7 @@ typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationCont
         [WMFReferencePopoverMessageViewController wmf_initialViewControllerFromClassStoryboard];
 
     popoverVC.modalPresentationStyle = UIModalPresentationPopover;
-    popoverVC.reference = reference;    
+    popoverVC.reference = reference;
     popoverVC.width = width;
 
     popoverVC.view.backgroundColor = [UIColor wmf_referencePopoverBackgroundColor];

@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -29,7 +33,7 @@
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lbm-mF-DF1" customClass="WMFCompassView">
                         <rect key="frame" x="8" y="8" width="104" height="104"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="104" id="5gP-en-MIh"/>
                             <constraint firstAttribute="height" constant="104" id="s2u-HV-TxL"/>
@@ -41,21 +45,21 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afs-yA-rJY">
                                 <rect key="frame" x="0.0" y="0.0" width="264" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AWn-WJ-c4e" userLabel="Background">
                                 <rect key="frame" x="0.0" y="26" width="63" height="20"/>
-                                <color key="backgroundColor" red="0.0" green="0.69642215969999999" blue="0.5386427641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.083898022770881653" green="0.64826327562332153" blue="0.46441459655761719" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f45-0M-DJe">
                                 <rect key="frame" x="5" y="28" width="53" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="AWn-WJ-c4e" firstAttribute="top" secondItem="afs-yA-rJY" secondAttribute="bottom" constant="5" id="1HB-vp-Pep"/>
                             <constraint firstItem="f45-0M-DJe" firstAttribute="top" secondItem="AWn-WJ-c4e" secondAttribute="top" constant="2" id="4IT-UQ-mPG"/>
@@ -98,8 +102,10 @@
                     <constraint firstItem="7Gw-jF-gnd" firstAttribute="leading" secondItem="Lbm-mF-DF1" secondAttribute="trailing" constant="8" id="OIh-aO-mAe"/>
                     <constraint firstItem="Lbm-mF-DF1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Oww-42-Yt0"/>
                     <constraint firstItem="Lbm-mF-DF1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" priority="250" constant="8" id="ZTf-zR-21k"/>
+                    <constraint firstItem="7Gw-jF-gnd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="dah-Xx-bXs"/>
                     <constraint firstItem="NGT-X1-Lla" firstAttribute="bottom" secondItem="Lbm-mF-DF1" secondAttribute="bottom" constant="-16" id="eCU-cY-j5D"/>
                     <constraint firstItem="NGT-X1-Lla" firstAttribute="leading" secondItem="Lbm-mF-DF1" secondAttribute="leading" constant="16" id="ekO-YM-ytr"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="7Gw-jF-gnd" secondAttribute="bottom" constant="8" id="kij-74-UBf"/>
                     <constraint firstItem="NGT-X1-Lla" firstAttribute="top" secondItem="Lbm-mF-DF1" secondAttribute="top" constant="16" id="oe0-HM-5HJ"/>
                     <constraint firstItem="Lbm-mF-DF1" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="tbq-3w-jDJ"/>
                     <constraint firstAttribute="trailing" secondItem="7Gw-jF-gnd" secondAttribute="trailing" constant="8" id="v9J-wi-Izx"/>

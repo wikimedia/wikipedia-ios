@@ -1,5 +1,6 @@
 import UIKit
 import Masonry
+import WMFUI
 
 public protocol WMFTableOfContentsViewControllerDelegate : AnyObject {
 
@@ -239,6 +240,11 @@ public class WMFTableOfContentsViewController: UIViewController,
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
+    
+    public override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        tableView.reloadData()
+    }
 
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(WMFTableOfContentsCell.reuseIdentifier(), forIndexPath: indexPath) as! WMFTableOfContentsCell
@@ -255,7 +261,7 @@ public class WMFTableOfContentsViewController: UIViewController,
         
         cell.titleIndentationLevel = item.indentationLevel
         cell.titleLabel.text = item.titleText
-        cell.titleLabel.font = item.itemType.titleFont
+        cell.titleLabel.font = UIFont.preferredFontForFontFamily(item.itemType.titleFontFamily, withTextStyle: item.itemType.titleFontTextStyle, compatibleWithTraitCollection: self.traitCollection)
         cell.titleColor = item.itemType.titleColor
 
         cell.setNeedsLayout()

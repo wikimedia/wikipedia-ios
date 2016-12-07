@@ -107,6 +107,20 @@ NS_ASSUME_NONNULL_BEGIN
     return [contentGroups firstObject];
 }
 
+- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date siteURL:(NSURL*)url{
+    NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@ && siteURLString == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate, url.absoluteString];
+    fetchRequest.fetchLimit = 1;
+    NSError *fetchError = nil;
+    NSArray *contentGroups = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
+    if (fetchError) {
+        DDLogError(@"Error fetching content groups: %@", fetchError);
+        return nil;
+    }
+    return [contentGroups firstObject];
+}
+
+
 - (nullable NSArray<WMFContentGroup *> *)groupsOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate];

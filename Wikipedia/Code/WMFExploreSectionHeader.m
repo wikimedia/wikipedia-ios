@@ -1,4 +1,5 @@
 #import "WMFExploreSectionHeader.h"
+#import "Wikipedia-Swift.h"
 @import BlocksKitUIKitExtensions;
 
 @interface WMFExploreSectionHeader ()
@@ -30,12 +31,13 @@
     self.rightButton.isAccessibilityElement = YES;
     self.rightButton.accessibilityTraits = UIAccessibilityTraitButton;
     @weakify(self);
-    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] bk_initWithHandler:^(UIGestureRecognizer * _Nonnull sender, UIGestureRecognizerState state, CGPoint location) {
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] bk_initWithHandler:^(UIGestureRecognizer *_Nonnull sender, UIGestureRecognizerState state, CGPoint location) {
         @strongify(self);
         if (self.whenTapped) {
             self.whenTapped();
         }
     }];
+    [self wmf_configureSubviewsForDynamicType];
     [self addGestureRecognizer:tapGR];
 }
 
@@ -51,14 +53,22 @@
     self.iconContainerView.backgroundColor = imageBackgroundColor;
 }
 
-- (void)setTitle:(NSAttributedString *)title {
-    self.titleLabel.attributedText = title;
+- (void)setTitle:(NSString *)title {
+    self.titleLabel.text = title;
     [self updateAccessibilityLabel];
 }
 
-- (void)setSubTitle:(NSAttributedString *)subTitle {
-    self.subTitleLabel.attributedText = subTitle;
+- (void)setSubTitle:(NSString *)subTitle {
+    self.subTitleLabel.text = subTitle;
     [self updateAccessibilityLabel];
+}
+
+- (void)setTitleColor:(UIColor *)titleColor {
+    self.titleLabel.textColor = titleColor;
+}
+
+- (void)setSubTitleColor:(UIColor *)subTitleColor {
+    self.subTitleLabel.textColor = subTitleColor;
 }
 
 - (void)updateAccessibilityLabel {

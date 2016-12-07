@@ -25,7 +25,7 @@
                                                  success:(void (^)(NSArray *infoObjects))success
                                                  failure:(void (^)(NSError *error))failure;
 
-- (AnyPromise *)fetchGalleryInfoForImage:(NSString *)canonicalPageTitle fromSiteURL:(NSURL *)siteURL;
+- (void)fetchGalleryInfoForImage:(NSString *)canonicalPageTitle fromSiteURL:(NSURL *)siteURL failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success;
 
 /**
  * Fetch @c MWKImageInfo populated with only the data needed for display in the home view.
@@ -36,12 +36,14 @@
  * @param site             A site object for the MW site to target.
  * @param metadataLanguage The langauge to attempt to retrieve image metadata in. Falls back to English if the specified
  *                         langauge isn't available. Defaults to current locale's language if @c nil.
- *
- * @return A promise which resolves to the @c MWKImageInfo containing info the images found on the specified pages.
+ * @param failure is passed an error on failure
+ * @param success is passed @c MWKImageInfo containing info the images found on the specified pages.
  */
-- (AnyPromise *)fetchPartialInfoForImagesOnPages:(NSArray *)pageTitles
-                                     fromSiteURL:(NSURL *)siteURL
-                                metadataLanguage:(NSString *)metadataLanguage;
+- (void)fetchPartialInfoForImagesOnPages:(NSArray *)pageTitles
+                             fromSiteURL:(NSURL *)siteURL
+                        metadataLanguage:(NSString *)metadataLanguage
+                                 failure:(WMFErrorHandler)failure
+                                 success:(WMFSuccessIdHandler)success;
 
 /**
  * Fetch @c MWKImageInfo populated with enough suitable for display in a modal gallery.
@@ -53,11 +55,15 @@
  * @param metadataLanguage The langauge to attempt to retrieve image metadata in. Falls back to English if the specified
  *                         langauge isn't available. Defaults to the current locale's language if @c nil.
  *
- * @return A promise which resolves to the @c MWKImageInfo containing info the images found on the specified pages.
+ * @param failure is passed an error on failure
+ * @param success is passed @c MWKImageInfo containing info the images found on the specified pages.
  */
-- (AnyPromise *)fetchGalleryInfoForImagesOnPages:(NSArray *)pageTitles
-                                     fromSiteURL:(NSURL *)siteURL
-                                metadataLanguage:(NSString *)metadataLanguage;
+
+- (void)fetchGalleryInfoForImagesOnPages:(NSArray *)pageTitles
+                             fromSiteURL:(NSURL *)siteURL
+                        metadataLanguage:(NSString *)metadataLanguage
+                                 failure:(WMFErrorHandler)failure
+                                 success:(WMFSuccessIdHandler)success;
 
 - (void)cancelAllFetches;
 

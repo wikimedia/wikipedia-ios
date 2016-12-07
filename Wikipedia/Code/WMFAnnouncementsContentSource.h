@@ -1,4 +1,3 @@
-
 #import "WMFContentSource.h"
 
 @interface WMFAnnouncementsContentSource : NSObject <WMFContentSource>

@@ -4,7 +4,6 @@
 #import "MWKDataStoreList.h"
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "WMFAsyncTestCase.h"
-#import "XCTestCase+PromiseKit.h"
 
 #import <BlocksKit/BlocksKit.h>
 
@@ -61,13 +60,12 @@
 
     XCTestExpectation *promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
 
-    [list save].then(^(id obj) {
-                   [promiseExpectation fulfill];
-               })
-        .catch(^(NSError *error) {
-            XCTFail(@"Save failed");
-        });
-
+    [list saveWithFailure:^(NSError *error) {
+        XCTFail(@"Save failed");
+    }
+        success:^{
+            [promiseExpectation fulfill];
+        }];
     WaitForExpectations();
 
     MWKList *otherList = [self listWithDataStore];

@@ -39,6 +39,7 @@
 #import "UIFont+WMFStyle.h"
 #import "WMFStyleManager.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
+#import "UITabBarItem+WMFStyling.h"
 
 // View Controllers
 #import "WMFExploreViewController.h"
@@ -147,6 +148,22 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
                                              selector:@selector(isZeroRatedChanged:)
                                                  name:WMFZeroRatingChanged
                                                object:nil];
+
+    @weakify(self);
+    [[NSNotificationCenter defaultCenter] addObserverForName: UIContentSizeCategoryDidChangeNotification
+                                                      object: nil
+                                                       queue: [NSOperationQueue mainQueue]
+                                                  usingBlock: ^(NSNotification *note) {
+                                                      @strongify(self);
+                                                      [self updateTabBarItemsTitleTextAttributesForNewDynamicTypeContentSize];
+    }];
+}
+
+- (void)updateTabBarItemsTitleTextAttributesForNewDynamicTypeContentSize {
+    for (UITabBarItem* item in self.rootTabBarController.tabBar.items){
+        [item setTitleTextAttributes:[UITabBarItem wmf_rootTabBarItemStyleForState:UIControlStateNormal] forState:UIControlStateNormal];
+        [item setTitleTextAttributes:[UITabBarItem wmf_rootTabBarItemStyleForState:UIControlStateSelected] forState:UIControlStateSelected];
+    }
 }
 
 - (BOOL)isPresentingOnboarding {
@@ -261,7 +278,9 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     }
     [self stopContentSources];
     self.contentSources = nil;
+    [self configureExploreViewController];
     [self startContentSources];
+    [self updateFeedSourcesWithCompletion:NULL];
 }
 
 #pragma mark - Background Fetch
@@ -312,7 +331,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActiveWithNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackgroundWithNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appLanguageDidChangeWithNotification:) name:WMFPreferredLanguagesDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appLanguageDidChangeWithNotification:) name:WMFAppLanguageDidChangeNotification object:nil];
 
     [self showSplashView];
 
@@ -396,9 +415,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:NULL failure:NULL];
 
     [self startContentSources];
-    [self updateFeedSourcesWithCompletion:^{
-
-    }];
+    [self updateFeedSourcesWithCompletion:NULL];
 
     [self.savedArticlesFetcher start];
 
@@ -491,8 +508,9 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
 
 #pragma mark - Content Sources
 
-- (void)updateFeedSourcesWithCompletion:(dispatch_block_t)completion {
+- (void)updateFeedSourcesWithCompletion:(nullable dispatch_block_t)completion {
     WMFTaskGroup *group = [WMFTaskGroup new];
+    [self.exploreViewController updateUIForContentSourcesUpdateStart];
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         [group enter];
         [obj loadNewContentForce:NO
@@ -505,6 +523,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     //May need to time it out or exclude
     [group waitInBackgroundWithTimeout:WMFFeedRefreshForegroundTimeout
                             completion:^{
+                                [self.exploreViewController updateUIForContentSourcesUpdateComplete];
                                 if (completion) {
                                     completion();
                                 }

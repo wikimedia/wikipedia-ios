@@ -22,7 +22,6 @@
     @try {
         [list addSavedPageWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@""]];
     } @catch (NSException *exception) {
-        
     }
     XCTAssertEqual([list numberOfItems], 1);
 }

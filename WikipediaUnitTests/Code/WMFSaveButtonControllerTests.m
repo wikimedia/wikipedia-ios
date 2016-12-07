@@ -65,7 +65,7 @@
 
 - (void)testShouldUpdateToSavedStateWhenSetWithSavedTitle {
     [self.savedPagesList addSavedPageWithURL:self.titleSFEn];
-    
+
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -73,7 +73,6 @@
         assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
         [expectation fulfill];
     });
-
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }

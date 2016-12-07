@@ -131,12 +131,12 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         [cell.disclosureSwitch setOn:menuItem.isSwitchOn];
         cell.selectionStyle = (menuItem.disclosureType == WMFSettingsMenuItemDisclosureType_Switch) ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
 
-            if(menuItem.disclosureType != WMFSettingsMenuItemDisclosureType_Switch && menuItem.disclosureType != WMFSettingsMenuItemDisclosureType_None){
-                cell.accessibilityTraits = UIAccessibilityTraitButton;
-            }else{
-                cell.accessibilityTraits = UIAccessibilityTraitStaticText;
-            }
-            
+        if (menuItem.disclosureType != WMFSettingsMenuItemDisclosureType_Switch && menuItem.disclosureType != WMFSettingsMenuItemDisclosureType_None) {
+            cell.accessibilityTraits = UIAccessibilityTraitButton;
+        } else {
+            cell.accessibilityTraits = UIAccessibilityTraitStaticText;
+        }
+
         [cell.disclosureSwitch bk_removeEventHandlersForControlEvents:UIControlEventValueChanged];
         [cell.disclosureSwitch bk_addEventHandler:^(UISwitch *sender) {
             @strongify(self)
