@@ -1,11 +1,9 @@
-@class PageHistoryLabel;
-
 @interface PageHistoryResultCell : UITableViewCell
 
 - (void)setName:(NSString *)name
            date:(NSDate *)date
           delta:(NSNumber *)delta
-           icon:(NSString *)icon
+         isAnon:(BOOL)isAnon
         summary:(NSString *)summary
       separator:(BOOL)separator;
 

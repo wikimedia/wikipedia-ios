@@ -1,6 +1,7 @@
 #import "WMFStyleManager.h"
 #import "UIColor+WMFStyle.h"
 #import "UIImage+WMFStyle.h"
+#import "UITabBarItem+WMFStyling.h"
 
 static WMFStyleManager *_styleManager = nil;
 
@@ -26,9 +27,10 @@ static WMFStyleManager *_styleManager = nil;
 
     [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"clear.png"]];
     [[UITabBar appearance] setShadowImage:[UIImage imageNamed:@"tabbar-shadow"]];
-    [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor wmf_customGray] }
+
+    [[UITabBarItem appearance] setTitleTextAttributes:[UITabBarItem wmf_rootTabBarItemStyleForState:UIControlStateNormal]
                                              forState:UIControlStateNormal];
-    [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor wmf_blueTintColor] }
+    [[UITabBarItem appearance] setTitleTextAttributes:[UITabBarItem wmf_rootTabBarItemStyleForState:UIControlStateSelected]
                                              forState:UIControlStateSelected];
 
     [[UITabBar appearance] setTintColor:[UIColor wmf_blueTintColor]];

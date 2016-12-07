@@ -1,9 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="420"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="article-card-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="RoZ-Ue-BfV">
+                    <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="article-card-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="RoZ-Ue-BfV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="420"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="420" id="cRc-7K-8PK"/>
@@ -32,11 +36,11 @@
                             <constraint firstAttribute="height" priority="999" constant="40" id="AEV-vl-3YX"/>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="nQE-Ht-SAz"/>
                         </constraints>
-                        <color key="tintColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="titleEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <state key="normal" title="Save for later" image="save-mini">
-                            <color key="titleColor" red="0.97489434480667114" green="0.97506088018417358" blue="0.97488385438919067" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleColor" red="0.9684072732925415" green="0.96859318017959595" blue="0.9683762788772583" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <variation key="default">
                             <mask key="constraints">
@@ -55,6 +59,7 @@
                     <constraint firstAttribute="bottom" secondItem="pC6-LC-20b" secondAttribute="bottom" constant="8" id="v65-6H-bIH"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="placeholderImageView" destination="RoZ-Ue-BfV" id="lWS-2z-6Vu"/>
                 <outlet property="placeholderSaveButton" destination="pC6-LC-20b" id="0eV-Y1-lCy"/>

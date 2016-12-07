@@ -1,18 +1,29 @@
 import Foundation
-
+import WMFUI
 // MARK: - TOC Item Types
 
 public enum TableOfContentsItemType {
     case Primary
     case Secondary
 
-    var titleFont: UIFont {
+    var titleFontFamily: WMFFontFamily {
         get {
             switch (self) {
             case .Primary:
-                return UIFont.wmf_tableOfContentsSectionFont()
+                return .Georgia
             case .Secondary:
-                return UIFont.wmf_tableOfContentsSubsectionFont()
+                return .System
+            }
+        }
+    }
+    
+    var titleFontTextStyle: String {
+        get {
+            switch (self) {
+            case .Primary:
+                return UIFontTextStyleTitle3
+            case .Secondary:
+                return UIFontTextStyleSubheadline
             }
         }
     }

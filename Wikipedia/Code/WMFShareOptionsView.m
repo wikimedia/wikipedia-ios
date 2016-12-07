@@ -17,4 +17,9 @@ static int const kCornerRadius = 4.2f;
     self.translatesAutoresizingMaskIntoConstraints = NO;
 }
 
+- (BOOL)accessibilityPerformEscape {
+    [self.accessibilityDelegate accessibilityPerformEscape];
+    return true;
+}
+
 @end

@@ -1,13 +1,11 @@
 #import "WMFImageGalleryDetailOverlayView.h"
 #import "UIFont+WMFStyle.h"
-#import "WikiGlyph_Chars.h"
+#import "Wikipedia-Swift.h"
 #import "UILabel+WMFStyling.h"
 #import "MWKLicense+ToGlyph.h"
 #import "NSParagraphStyle+WMFParagraphStyles.h"
 #import "WMFGradientView.h"
 #import <Masonry/Masonry.h>
-
-static double const WMFImageGalleryOwnerFontSize = 11.f;
 
 @interface WMFImageGalleryDetailOverlayView ()
 @property (nonatomic, strong) IBOutlet UILabel *imageDescriptionLabel;
@@ -31,11 +29,6 @@ static double const WMFImageGalleryOwnerFontSize = 11.f;
     [self.ownerButton.titleLabel wmf_applyDropShadow];
     [self.imageDescriptionLabel wmf_applyDropShadow];
 
-    //    [self.detailOverlayView mas_makeConstraints:^(MASConstraintMaker* make) {
-    //        make.height.lessThanOrEqualTo(@(WMFImageGalleryMaxDetailHeight)).with.priorityHigh();
-    //        make.leading.trailing.and.bottom.equalTo(self.contentView);
-    //    }];
-
     WMFGradientView *gradientView = [WMFGradientView new];
     [gradientView.gradientLayer setLocations:@[@0, @1]];
     [gradientView.gradientLayer setColors:@[(id)[UIColor colorWithWhite:0.0 alpha:1.0].CGColor,
@@ -51,6 +44,7 @@ static double const WMFImageGalleryOwnerFontSize = 11.f;
     [self.gradientView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
+    [self wmf_configureSubviewsForDynamicType];
 }
 
 - (void)layoutSubviews {
@@ -85,19 +79,11 @@ static double const WMFImageGalleryOwnerFontSize = 11.f;
 }
 
 - (NSString *)imageDescription {
-    return self.imageDescriptionLabel.attributedText.string;
+    return self.imageDescriptionLabel.text;
 }
 
 - (void)setImageDescription:(NSString *)imageDescription {
-    if (!imageDescription) {
-        self.imageDescriptionLabel.attributedText = nil;
-    } else {
-        self.imageDescriptionLabel.attributedText =
-            [[NSAttributedString alloc] initWithString:imageDescription
-                                            attributes:@{
-                                                NSParagraphStyleAttributeName: [NSParagraphStyle wmf_naturalAlignmentStyle],
-                                            }];
-    }
+    self.imageDescriptionLabel.text = imageDescription;
 }
 
 - (BOOL)addImageViewForLicenseWithCode:(nonnull NSString *)code toStackView:(UIStackView *)stackView {
@@ -140,9 +126,7 @@ static double const WMFImageGalleryOwnerFontSize = 11.f;
     } else {
         [self addImageViewForLicenseWithCode:@"generic" toStackView:self.ownerStackView];
         if (license.shortDescription) {
-            UILabel *licenseDescriptionLabel = [[UILabel alloc] init];
-            licenseDescriptionLabel.font = [UIFont systemFontOfSize:WMFImageGalleryOwnerFontSize];
-            licenseDescriptionLabel.textColor = [UIColor whiteColor];
+            UILabel *licenseDescriptionLabel = [self newLicenseLabel];
             NSString *format = owner ? @"%@ \u2022 " : @"%@";
             licenseDescriptionLabel.text = [NSString stringWithFormat:format, license.shortDescription];
             [self.ownerStackView addArrangedSubview:licenseDescriptionLabel];
@@ -153,11 +137,17 @@ static double const WMFImageGalleryOwnerFontSize = 11.f;
         return;
     }
 
-    UILabel *ownerLabel = [[UILabel alloc] init];
-    ownerLabel.font = [UIFont systemFontOfSize:WMFImageGalleryOwnerFontSize];
-    ownerLabel.textColor = [UIColor whiteColor];
+    UILabel *ownerLabel = [self newLicenseLabel];
     ownerLabel.text = owner;
     [self.ownerStackView addArrangedSubview:ownerLabel];
+}
+
+- (UILabel*)newLicenseLabel {
+    UILabel *label = [[UILabel alloc] init];
+    [label wmf_configureSubviewsForDynamicType];
+    label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
+    label.textColor = [UIColor whiteColor];
+    return label;
 }
 
 @end

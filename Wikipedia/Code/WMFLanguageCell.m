@@ -3,12 +3,7 @@
 #import "UILabel+WMFStyling.h"
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
 #import "NSString+WMFExtras.h"
-
-static CGFloat const WMFPreferredLanguageFontSize = 15.f;
-static CGFloat const WMFPreferredTitleFontSize = 12.f;
-static CGFloat const WMFOtherLanguageFontSize = 15.f;
-static CGFloat const WMFOtherTitleFontSize = 12.f;
-static CGFloat const WMFLocalizedLanguageLabelHeight = 18.f;
+#import "Wikipedia-Swift.h"
 
 @interface WMFLanguageCell ()
 
@@ -18,24 +13,9 @@ static CGFloat const WMFLocalizedLanguageLabelHeight = 18.f;
 @property (strong, nonatomic) IBOutlet UILabel *primaryLabel;
 @property (strong, nonatomic) IBOutlet UIView *primaryLabelContainerView;
 
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *localizedLanguageLabelHeight;
-
 @end
 
 @implementation WMFLanguageCell
-
-- (void)setIsPreferred:(BOOL)isPreferred {
-    _isPreferred = isPreferred;
-    if (isPreferred) {
-        self.localizedLanguageLabel.font = [UIFont systemFontOfSize:WMFPreferredTitleFontSize];
-        self.articleTitleLabel.font = [UIFont systemFontOfSize:WMFPreferredTitleFontSize];
-        self.languageNameLabel.font = [UIFont systemFontOfSize:WMFPreferredLanguageFontSize];
-    } else {
-        self.localizedLanguageLabel.font = [UIFont systemFontOfSize:WMFOtherTitleFontSize];
-        self.articleTitleLabel.font = [UIFont systemFontOfSize:WMFOtherTitleFontSize];
-        self.languageNameLabel.font = [UIFont systemFontOfSize:WMFOtherLanguageFontSize];
-    }
-}
 
 - (void)setLocalizedLanguageName:(NSString *)localizedLanguageName {
     _localizedLanguageName = localizedLanguageName;
@@ -48,8 +28,8 @@ static CGFloat const WMFLocalizedLanguageLabelHeight = 18.f;
 }
 
 - (void)setLanguageName:(NSString *)languageName {
-    if ([self shouldShowLanguageName:languageName]) {
-        self.localizedLanguageLabelHeight.constant = WMFLocalizedLanguageLabelHeight;
+    if (![self shouldShowLanguageName:languageName]) {
+        self.localizedLanguageLabel.text = nil;
     }
     _languageName = languageName;
     self.languageNameLabel.text = [languageName wmf_stringByCapitalizingFirstCharacter];
@@ -71,6 +51,7 @@ static CGFloat const WMFLocalizedLanguageLabelHeight = 18.f;
     [self wmf_makeCellDividerBeEdgeToEdge];
     self.localizedLanguageLabel.textColor = [UIColor wmf_777777Color];
     self.articleTitleLabel.textColor = [UIColor wmf_777777Color];
+    [self wmf_configureSubviewsForDynamicType];
 }
 
 - (void)prepareForReuse {
@@ -78,7 +59,6 @@ static CGFloat const WMFLocalizedLanguageLabelHeight = 18.f;
     self.languageNameLabel.text = nil;
     self.articleTitleLabel.text = nil;
     self.localizedLanguageLabel.text = nil;
-    self.localizedLanguageLabelHeight.constant = 0.f;
     self.isPrimary = NO;
     self.isPreferred = NO;
 }
