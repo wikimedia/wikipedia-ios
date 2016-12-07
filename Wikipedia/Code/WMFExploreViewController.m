@@ -211,6 +211,14 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 #pragma mark - Feed Sources
 
+- (void)updateUIForContentSourcesUpdateStart{
+    [self.refreshControl beginRefreshing];
+}
+
+- (void)updateUIForContentSourcesUpdateComplete{
+    [self resetRefreshControl];
+}
+
 - (void)updateRelatedPages {
     NSAssert([NSThread isMainThread], @"Must be called on the main thread");
     if (self.relatedUpdatedTaskGroup) {
