@@ -76,20 +76,6 @@
                                     failure:failure];
 }
 
-- (AnyPromise *)wmf_GETAndRetryWithURL:(NSURL *)URL parameters:(id)parameters {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-        [self wmf_GETAndRetryWithURL:URL
-            parameters:parameters
-            retry:nil
-            success:^(NSURLSessionDataTask *operation, id responseObject) {
-                resolve(responseObject);
-            }
-            failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                resolve(error);
-            }];
-    }];
-}
-
 - (NSURLSessionDataTask *)wmf_POSTWithMobileURLString:(NSString *)mobileURLString
                                      desktopURLString:(NSString *)desktopURLString
                                            parameters:(id)parameters

@@ -74,6 +74,17 @@
     [self wmf_pushArticleWithURL:url dataStore:self.userDataStore previewStore:self.previewStore animated:YES];
 }
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [self canDeleteItemAtIndexPath:indexPath];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self deleteItemAtIndexPath:indexPath];
+    //Delay the empty state update so its not jarring to the user
+    dispatchOnMainQueueAfterDelayInSeconds(0.7, ^{
+        [self updateEmptyAndDeleteState];
+    });
+}
 #pragma mark - Previewing
 
 - (void)registerForPreviewingIfAvailable {
@@ -187,11 +198,11 @@
 
 #pragma mark - Subclasses
 
-- (NSString *)analyticsContext{
+- (NSString *)analyticsContext {
     return @"Generic Article List";
 }
 
-- (NSString *)analyticsContentType{
+- (NSString *)analyticsContentType {
     return @"Generic Article List";
 }
 
@@ -217,6 +228,13 @@
 
 - (NSString *)deleteCancelText {
     return @"";
+}
+
+- (BOOL)canDeleteItemAtIndexPath:(NSIndexPath*)indexPath{
+    return NO;
+}
+
+- (void)deleteItemAtIndexPath:(NSIndexPath*)indexPath{
 }
 
 - (void)deleteAll {

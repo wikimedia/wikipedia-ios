@@ -1,5 +1,4 @@
 #import "MenuLabel.h"
-#import "Defines.h"
 #import "UIFont+WMFStyle.h"
 
 @interface MenuLabel ()
@@ -15,11 +14,11 @@
 @implementation MenuLabel
 
 - (instancetype)init {
-    return [self initWithText:@"" fontSize:16.0 * MENUS_SCALE_MULTIPLIER bold:NO color:[UIColor blackColor] padding:UIEdgeInsetsZero];
+    return [self initWithText:@"" fontSize:16.0 bold:NO color:[UIColor blackColor] padding:UIEdgeInsetsZero];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
-    return [self initWithText:@"" fontSize:16.0 * MENUS_SCALE_MULTIPLIER bold:NO color:[UIColor blackColor] padding:UIEdgeInsetsZero];
+    return [self initWithText:@"" fontSize:16.0 bold:NO color:[UIColor blackColor] padding:UIEdgeInsetsZero];
 }
 
 - (instancetype)initWithText:(NSString *)text
@@ -33,7 +32,7 @@
         self.padding = padding;
         self.fontBold = bold;
         self.color = color;
-        self.fontSize = size * MENUS_SCALE_MULTIPLIER;
+        self.fontSize = size;
         self.textAlignment = NSTextAlignmentCenter;
         self.adjustsFontSizeToFitWidth = YES;
         self.text = text;

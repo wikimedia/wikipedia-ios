@@ -21,7 +21,8 @@ typedef NS_ENUM(NSInteger, WMFErrorType) {
     WMFErrorTypeArticleResponseSerialization,
     WMFErrorTypeUnexpectedResponseType,
     WMFErrorTypeInvalidRequestParameters,
-    WMFErrorTypeFetchAlreadyInProgress
+    WMFErrorTypeFetchAlreadyInProgress,
+    WMFErrorTypeCancelled
 };
 
 @interface NSError (WMFExtensions)
@@ -33,6 +34,8 @@ typedef NS_ENUM(NSInteger, WMFErrorType) {
 
 //reason is specfied as NSLocalizedDescriptionKey
 + (NSError *)wmf_serializeArticleErrorWithReason:(NSString *)reason;
+
++ (NSError *)wmf_cancelledError;
 
 - (BOOL)wmf_isWMFErrorDomain;
 - (BOOL)wmf_isWMFErrorOfType:(WMFErrorType)type;

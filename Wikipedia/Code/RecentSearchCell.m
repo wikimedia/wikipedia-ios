@@ -1,5 +1,6 @@
 #import "RecentSearchCell.h"
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
+#import "Wikipedia-Swift.h"
 
 @implementation RecentSearchCell
 
@@ -9,6 +10,11 @@
         [self wmf_makeCellDividerBeEdgeToEdge];
     }
     return self;
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self wmf_configureSubviewsForDynamicType];
 }
 
 @end

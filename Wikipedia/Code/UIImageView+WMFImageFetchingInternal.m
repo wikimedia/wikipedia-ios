@@ -6,6 +6,7 @@
 #import "UIImage+WMFNormalization.h"
 #import "CIDetector+WMFFaceDetection.h"
 #import "WMFFaceDetectionCache.h"
+#import "UIImageView+WMFPlaceholder.h"
 
 static const char *const MWKURLAssociationKey = "MWKURL";
 
@@ -100,7 +101,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     NSURL *imageURL = [self wmf_imageURLToFetch];
 
     if (!imageURL) {
-        failure([NSError cancelledError]);
+        failure([NSError wmf_cancelledError]);
         return;
     }
 
@@ -119,7 +120,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
                                                 @strongify(self);
                                                 if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
                                                     self.wmf_imageURLToCancel = nil;
-                                                    failure([NSError cancelledError]);
+                                                    failure([NSError wmf_cancelledError]);
                                                 } else {
                                                     self.wmf_imageURLToCancel = nil;
                                                     [self wmf_setImage:download.image detectFaces:detectFaces onGPU:onGPU animated:YES failure:failure success:success];
@@ -153,7 +154,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
                            success:^(NSValue *bounds) {
                                dispatch_async(dispatch_get_main_queue(), ^{
                                    if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
-                                       failure([NSError cancelledError]);
+                                       failure([NSError wmf_cancelledError]);
                                    } else {
                                        [self wmf_setImage:image faceBoundsValue:bounds animated:animated failure:failure success:success];
                                    }
@@ -174,18 +175,20 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     } else {
         [self wmf_resetContentsRect];
     }
-
-    [UIView transitionWithView:self
-        duration:animated ? [CATransaction animationDuration] : 0.0
-        options:UIViewAnimationOptionTransitionCrossDissolve
-        animations:^{
-            self.contentMode = UIViewContentModeScaleAspectFill;
-            self.backgroundColor = [UIColor whiteColor];
-            self.image = image;
-        }
-        completion:^(BOOL finished) {
+    
+    dispatch_block_t animations = ^{
+        [self wmf_hidePlaceholder];
+    };
+    
+    self.image = image;
+    if (animated) {
+        [UIView animateWithDuration:[CATransaction animationDuration] animations:animations completion:^(BOOL finished) {
             success();
         }];
+    } else {
+        animations();
+        success();
+    }
 }
 
 - (void)wmf_cancelImageDownload {

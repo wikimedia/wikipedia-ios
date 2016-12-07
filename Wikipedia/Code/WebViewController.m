@@ -562,12 +562,12 @@ NSString *const WMFCCBySALicenseURL =
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     self.webView.scrollView.backgroundColor = [UIColor wmf_articleBackgroundColor];
 
-    self.zeroStatusLabel.font = [UIFont systemFontOfSize:ALERT_FONT_SIZE];
+    self.zeroStatusLabel.font = [UIFont systemFontOfSize:12];
     self.zeroStatusLabel.text = @"";
 
     self.webView.backgroundColor = [UIColor whiteColor];
 
-    self.view.backgroundColor = CHROME_COLOR;
+    self.view.backgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
 
     [self observeFooterContainerViewBounds];
     [self observeScrollViewContentSize];

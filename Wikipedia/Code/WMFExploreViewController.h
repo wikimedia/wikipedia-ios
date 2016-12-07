@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL canScrollToTop;
 
--(UIButton *) titleButton;
+- (UIButton *)titleButton;
 
 - (void)showSettings;
 
@@ -27,6 +27,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)presentMoreViewControllerForGroup:(WMFContentGroup *)group animated:(BOOL)animated;
 
 - (void)showInTheNewsForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date animated:(BOOL)animated;
+
+
+- (void)updateUIForContentSourcesUpdateStart;
+- (void)updateUIForContentSourcesUpdateComplete;
+
 
 @end
 

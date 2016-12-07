@@ -1,4 +1,3 @@
-
 #import "WMFAnnouncementsFetcher.h"
 #import "WMFAnnouncement.h"
 

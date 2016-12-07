@@ -4,7 +4,6 @@
 #import "WMFTestFixtureUtilities.h"
 #import "CIDetector+WMFFaceDetection.h"
 #import "WMFAsyncTestCase.h"
-#import "XCTestCase+PromiseKit.h"
 
 #define MOCKITO_SHORTHAND 1
 #import <OCMockito/OCMockito.h>

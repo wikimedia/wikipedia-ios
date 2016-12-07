@@ -57,7 +57,7 @@
     [list addEntry:self.testObjects[1]];
     [list addEntry:self.testObjects[2]];
     [list addEntry:self.testObjects[3]];
-    
+
     XCTAssertTrue([list.entries wmf_containsObjectsInAnyOrder:[self.testObjects subarrayWithRange:NSMakeRange(0, 4)]]);
 }
 

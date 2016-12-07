@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface WMFArticleListTableViewController : UITableViewController<WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding>
+@interface WMFArticleListTableViewController : UITableViewController <WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding>
 
 @property (nonatomic, strong) MWKDataStore *userDataStore;
 @property (nonatomic, strong) WMFArticleDataStore *previewStore;
@@ -44,6 +44,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)deleteAllConfirmationText;
 - (NSString *)deleteText;
 - (NSString *)deleteCancelText;
+
+- (BOOL)canDeleteItemAtIndexPath:(NSIndexPath *)indexPath;
+- (void)deleteItemAtIndexPath:(NSIndexPath *)indexPath;
 
 - (void)deleteAll;
 

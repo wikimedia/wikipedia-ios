@@ -114,7 +114,7 @@
     self.textLabel = [UILabel new];
     self.textLabel.numberOfLines = 1;
     self.textLabel.textAlignment = NSTextAlignmentNatural;
-    self.textLabel.font = [UIFont boldSystemFontOfSize:14.f];
+    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
     self.textLabel.highlightedTextColor = [UIColor lightGrayColor];
     self.textLabel.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
     self.textLabel.isAccessibilityElement = NO;
@@ -211,7 +211,7 @@
 
     self.labelText = [self localizedStringForKeyFromCurrentBundle:@"button-save-for-later"];
     self.selectedLabelText = [self localizedStringForKeyFromCurrentBundle:@"button-saved-for-later"];
-    
+
     self.selectedActionText = [self localizedStringForKeyFromCurrentBundle:@"unsave-action"];
     self.deselectedActionText = [self localizedStringForKeyFromCurrentBundle:@"save-action"];
 }

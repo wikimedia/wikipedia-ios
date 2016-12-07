@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A promise resolving to an array containing a single @c MWKImageInfo object.
  */
-- (AnyPromise *)fetchPicOfTheDaySectionInfoForDate:(NSDate *)date metadataLanguage:(nullable NSString *)metadataLanguage;
+- (void)fetchPicOfTheDaySectionInfoForDate:(NSDate *)date metadataLanguage:(nullable NSString *)metadataLanguage failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success;
 
 /**
  *  Fetch one @c MWKImageInfo object for the given date's Commons Picture of the Day.
@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A promise resolving to a single @c MWKImageInfo object.
  */
-- (AnyPromise *)fetchPicOfTheDayGalleryInfoForDate:(NSDate *)date metadataLanguage:(nullable NSString *)metadataLanguage;
+- (void)fetchPicOfTheDayGalleryInfoForDate:(NSDate *)date metadataLanguage:(nullable NSString *)metadataLanguage failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success;
 
 @end
 

@@ -3,7 +3,7 @@
 @implementation WMFContentGroup (CoreDataProperties)
 
 + (NSFetchRequest<WMFContentGroup *> *)fetchRequest {
-	return [[NSFetchRequest alloc] initWithEntityName:@"WMFContentGroup"];
+    return [[NSFetchRequest alloc] initWithEntityName:@"WMFContentGroup"];
 }
 
 @dynamic articleURLString;

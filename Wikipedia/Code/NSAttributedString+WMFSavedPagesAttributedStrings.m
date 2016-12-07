@@ -1,6 +1,5 @@
 #import "NSAttributedString+WMFSavedPagesAttributedStrings.h"
 #import "NSString+FormattedAttributedString.h"
-#import "Defines.h"
 #import "NSString+WMFExtras.h"
 
 static NSInteger const kTitleColor = 0x000000;
@@ -32,7 +31,7 @@ static NSString *const kFormatString = @"$1$2$3$4$5";
 
     NSDictionary *titleAttribs =
         @{
-           NSFontAttributeName: [UIFont systemFontOfSize:titleSizeMultiplier * kTitleFontSize * MENUS_SCALE_MULTIPLIER],
+           NSFontAttributeName: [UIFont systemFontOfSize:titleSizeMultiplier * kTitleFontSize],
            NSForegroundColorAttributeName: [UIColor wmf_colorWithHex:kTitleColor alpha:1.0f]
         };
 
@@ -41,7 +40,7 @@ static NSString *const kFormatString = @"$1$2$3$4$5";
         NSMutableParagraphStyle *descParagraphStyle = [[NSMutableParagraphStyle alloc] init];
         descParagraphStyle.paragraphSpacingBefore = kDescriptionSpaceAbove;
         descripAttribs = @{
-            NSFontAttributeName: [UIFont systemFontOfSize:kDescriptionFontSize * MENUS_SCALE_MULTIPLIER],
+            NSFontAttributeName: [UIFont systemFontOfSize:kDescriptionFontSize],
             NSForegroundColorAttributeName: [UIColor wmf_colorWithHex:kDescriptionColor alpha:1.0f],
             NSParagraphStyleAttributeName: descParagraphStyle
         };
@@ -52,7 +51,7 @@ static NSString *const kFormatString = @"$1$2$3$4$5";
         NSMutableParagraphStyle *langParagraphStyle = [[NSMutableParagraphStyle alloc] init];
         langParagraphStyle.paragraphSpacingBefore = kLanguageSpaceAbove;
         langAttribs = @{
-            NSFontAttributeName: [UIFont systemFontOfSize:kLanguageFontSize * MENUS_SCALE_MULTIPLIER],
+            NSFontAttributeName: [UIFont systemFontOfSize:kLanguageFontSize],
             NSForegroundColorAttributeName: [UIColor wmf_colorWithHex:kLanguageColor alpha:1.0f],
             NSParagraphStyleAttributeName: langParagraphStyle
         };

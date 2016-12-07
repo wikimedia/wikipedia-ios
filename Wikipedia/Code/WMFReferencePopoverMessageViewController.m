@@ -48,10 +48,10 @@
     self.closeButton.tintColor = [UIColor wmf_lightGrayColor];
 
     self.titleLabel.attributedText =
-    [[MWLocalizedString(@"reference-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]]
-     attributedStringWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]}
-     substitutionStrings:@[self.reference.text]
-     substitutionAttributes:@[@{NSForegroundColorAttributeName: [UIColor blackColor]}]];
+        [[MWLocalizedString(@"reference-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]]
+            attributedStringWithAttributes:@{ NSFontAttributeName: [UIFont systemFontOfSize:13] }
+                       substitutionStrings:@[self.reference.text]
+                    substitutionAttributes:@[@{NSForegroundColorAttributeName: [UIColor blackColor]}]];
 }
 
 - (NSString *)referenceHTMLWithSurroundingHTML {
@@ -113,6 +113,11 @@
 
 - (IBAction)dismiss {
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (BOOL)accessibilityPerformEscape {
+    [self dismiss];
+    return true;
 }
 
 @end

@@ -343,7 +343,7 @@
 
 + (instancetype)wmf_welcomeBackgroundGradientBottomColor {
     static UIColor *c = nil;
-    
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         c = [UIColor wmf_colorWithHex:0x0af89 alpha:1.0];
@@ -397,6 +397,26 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         c = [UIColor wmf_colorWithHex:0x000000 alpha:1.0];
+    });
+    return c;
+}
+
++ (instancetype)wmf_red {
+    static UIColor *c = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor colorWithRed:0.82 green:0.09 blue:0.07 alpha:1.0];
+    });
+    return c;
+}
+
++ (instancetype)wmf_orange {
+    static UIColor *c = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor colorWithRed:1.00 green:0.36 blue:0.00 alpha:1.0];
     });
     return c;
 }

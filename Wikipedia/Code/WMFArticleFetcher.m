@@ -81,12 +81,14 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 #pragma mark - Fetching
 
-- (void)fetchArticleForURL:(NSURL *)articleURL
-             useDesktopURL:(BOOL)useDeskTopURL
-                  progress:(WMFProgressHandler __nullable)progress
-                  resolver:(PMKResolver)resolve {
+- (nullable NSURLSessionTask *)fetchArticleForURL:(NSURL *)articleURL
+                                    useDesktopURL:(BOOL)useDeskTopURL
+                                         progress:(WMFProgressHandler __nullable)progress
+                                          failure:(WMFErrorHandler)failure
+                                          success:(WMFArticleHandler)success {
     if (!articleURL.wmf_title) {
-        resolve([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
+        failure([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
+        return nil;
     }
 
     // Force desktop domain if not Zero rated.
@@ -113,20 +115,21 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                 [self.dataStore asynchronouslyCacheArticle:article];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.previewStore addPreviewWithURL:articleURL updatedWithArticle:article];
-                    resolve(article);
+                    success(article);
                 });
             });
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
             if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:articleURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
-                [self fetchArticleForURL:articleURL useDesktopURL:YES progress:progress resolver:resolve];
+                [self fetchArticleForURL:articleURL useDesktopURL:YES progress:progress failure:failure success:success];
             } else {
                 [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                resolve(error);
+                failure(error);
             }
         }];
 
     [self trackOperation:operation forArticleURL:articleURL];
+    return operation;
 }
 
 - (BOOL)isFetching {
@@ -176,7 +179,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     @try {
         [article importMobileViewJSON:response];
         if ([article.url.wmf_language isEqualToString:@"zh"]) {
-            NSString* header = [NSLocale wmf_acceptLanguageHeaderForPreferredLanguages];
+            NSString *header = [NSLocale wmf_acceptLanguageHeaderForPreferredLanguages];
             article.acceptLanguageRequestHeader = header;
         }
         return article;
@@ -186,34 +189,45 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     }
 }
 
-- (AnyPromise *)fetchLatestVersionOfArticleWithURL:(NSURL *)url
-                                     forceDownload:(BOOL)forceDownload
-                                          progress:(WMFProgressHandler __nullable)progress {
+- (nullable NSURLSessionTask *)fetchLatestVersionOfArticleWithURL:(NSURL *)url
+                                                    forceDownload:(BOOL)forceDownload
+                                                         progress:(WMFProgressHandler __nullable)progress
+                                                          failure:(WMFErrorHandler)failure
+                                                          success:(WMFArticleHandler)success {
 
     NSParameterAssert(url.wmf_title);
     if (!url.wmf_title) {
         DDLogError(@"Can't fetch nil title, cancelling implicitly.");
-        return [AnyPromise promiseWithValue:[NSError cancelledError]];
+        failure([NSError wmf_cancelledError]);
+        return nil;
     }
-    
+
     MWKArticle *cachedArticle;
     BOOL isChinese = [url.wmf_language isEqualToString:@"zh"];
-    
+
     if (!forceDownload || isChinese) {
         cachedArticle = [self.dataStore existingArticleWithURL:url];
     }
-    
+
     BOOL forceDownloadForMismatchedHeader = NO;
-    
-    if(isChinese){
-        NSString* header = [NSLocale wmf_acceptLanguageHeaderForPreferredLanguages];
-        if(![cachedArticle.acceptLanguageRequestHeader isEqualToString:header]){
+
+    if (isChinese) {
+        NSString *header = [NSLocale wmf_acceptLanguageHeaderForPreferredLanguages];
+        if (![cachedArticle.acceptLanguageRequestHeader isEqualToString:header]) {
             forceDownloadForMismatchedHeader = YES;
         }
     }
-    
+
+    failure = ^(NSError *error) {
+        NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:error.userInfo ?: @{}];
+        userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] = cachedArticle;
+        failure([NSError errorWithDomain:error.domain
+                                    code:error.code
+                                userInfo:userInfo]);
+    };
+
     @weakify(self);
-    AnyPromise *promisedArticle;
+    NSURLSessionTask *task;
     if (forceDownload || forceDownloadForMismatchedHeader || !cachedArticle || !cachedArticle.revisionId || [cachedArticle isMain]) {
         if (forceDownload) {
             DDLogInfo(@"Forcing Download for %@, fetching immediately", url);
@@ -227,49 +241,46 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
             //Main pages dont neccesarily have revisions every day. We can't rely on the revision check
             DDLogInfo(@"Cached article for main page: %@, fetching immediately.", url);
         }
-        promisedArticle = [self fetchArticleForURL:url progress:progress];
+        task = [self fetchArticleForURL:url progress:progress failure:failure success:success];
     } else {
-        promisedArticle = [self.revisionFetcher fetchLatestRevisionsForArticleURL:url
-                                                                      resultLimit:1
-                                                               endingWithRevision:cachedArticle.revisionId.unsignedIntegerValue]
-                              .then(^(WMFRevisionQueryResults *results) {
-                                  @strongify(self);
-                                  if (!self) {
-                                      return [AnyPromise promiseWithValue:[NSError cancelledError]];
-                                  } else if ([results.revisions.firstObject.revisionId isEqualToNumber:cachedArticle.revisionId]) {
-                                      DDLogInfo(@"Returning up-to-date local revision of %@", url);
-                                      if (progress) {
-                                          progress(1.0);
-                                      }
-                                      return [AnyPromise promiseWithValue:cachedArticle];
-                                  } else {
-                                      return [self fetchArticleForURL:url progress:progress];
-                                  }
-                              });
+        task = [self.revisionFetcher fetchLatestRevisionsForArticleURL:url
+                                                           resultLimit:1
+                                                    endingWithRevision:cachedArticle.revisionId.unsignedIntegerValue
+                                                               failure:failure
+                                                               success:^(id _Nonnull results) {
+                                                                   @strongify(self);
+                                                                   if (!self) {
+                                                                       failure([NSError wmf_cancelledError]);
+                                                                       return;
+                                                                   } else if ([[results revisions].firstObject.revisionId isEqualToNumber:cachedArticle.revisionId]) {
+                                                                       DDLogInfo(@"Returning up-to-date local revision of %@", url);
+                                                                       if (progress) {
+                                                                           progress(1.0);
+                                                                       }
+                                                                       success(cachedArticle);
+                                                                       return;
+                                                                   } else {
+                                                                       [self fetchArticleForURL:url progress:progress failure:failure success:success];
+                                                                       return;
+                                                                   }
+                                                               }];
     }
 
-    return promisedArticle.catch(^(NSError *error) {
-        NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:error.userInfo ?: @{}];
-        userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] = cachedArticle;
-        return [NSError errorWithDomain:error.domain
-                                   code:error.code
-                               userInfo:userInfo];
-    });
+    return task;
 }
 
-- (AnyPromise *)fetchLatestVersionOfArticleWithURLIfNeeded:(NSURL *)url
-                                                  progress:(WMFProgressHandler __nullable)progress {
-    return [self fetchLatestVersionOfArticleWithURL:url forceDownload:NO progress:progress];
+- (nullable NSURLSessionTask *)fetchLatestVersionOfArticleWithURLIfNeeded:(NSURL *)url
+                                                                 progress:(WMFProgressHandler __nullable)progress
+                                                                  failure:(WMFErrorHandler)failure
+                                                                  success:(WMFArticleHandler)success {
+    return [self fetchLatestVersionOfArticleWithURL:url forceDownload:NO progress:progress failure:failure success:success];
 }
 
-- (AnyPromise *)fetchArticleForURL:(NSURL *)articleURL progress:(WMFProgressHandler __nullable)progress {
+- (nullable NSURLSessionTask *)fetchArticleForURL:(NSURL *)articleURL progress:(WMFProgressHandler __nullable)progress failure:(WMFErrorHandler)failure success:(WMFArticleHandler)success {
     NSAssert(articleURL.wmf_title != nil, @"Title text nil");
     NSAssert(self.dataStore != nil, @"Store nil");
     NSAssert(self.operationManager != nil, @"Manager nil");
-
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        [self fetchArticleForURL:articleURL useDesktopURL:NO progress:progress resolver:resolve];
-    }];
+    return [self fetchArticleForURL:articleURL useDesktopURL:NO progress:progress failure:failure success:success];
 }
 
 @end

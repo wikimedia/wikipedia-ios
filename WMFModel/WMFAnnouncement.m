@@ -1,4 +1,3 @@
-
 #import "WMFAnnouncement.h"
 
 @implementation WMFAnnouncement
@@ -15,35 +14,35 @@
               WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionURL): @"action.url",
               WMF_SAFE_KEYPATH(WMFAnnouncement.new, captionHTML): @"caption_HTML",
               WMF_SAFE_KEYPATH(WMFAnnouncement.new, imageURL): @"image",
-              };
+    };
 }
 
 + (NSValueTransformer *)actionURLJSONTransformer {
     return [MTLValueTransformer
-            transformerUsingForwardBlock:^NSURL *(NSString *urlString,
-                                                  BOOL *success,
-                                                  NSError *__autoreleasing *error) {
-                return [NSURL wmf_optionalURLWithString:urlString];
-            }
-            reverseBlock:^NSString *(NSURL *URL,
-                                     BOOL *success,
-                                     NSError *__autoreleasing *error) {
-                return [URL absoluteString];
-            }];
+        transformerUsingForwardBlock:^NSURL *(NSString *urlString,
+                                              BOOL *success,
+                                              NSError *__autoreleasing *error) {
+            return [NSURL wmf_optionalURLWithString:urlString];
+        }
+        reverseBlock:^NSString *(NSURL *URL,
+                                 BOOL *success,
+                                 NSError *__autoreleasing *error) {
+            return [URL absoluteString];
+        }];
 }
 
 + (NSValueTransformer *)imageURLJSONTransformer {
     return [MTLValueTransformer
-            transformerUsingForwardBlock:^NSURL *(NSString *urlString,
-                                                  BOOL *success,
-                                                  NSError *__autoreleasing *error) {
-                return [NSURL wmf_optionalURLWithString:urlString];
-            }
-            reverseBlock:^NSString *(NSURL *URL,
-                                     BOOL *success,
-                                     NSError *__autoreleasing *error) {
-                return [URL absoluteString];
-            }];
+        transformerUsingForwardBlock:^NSURL *(NSString *urlString,
+                                              BOOL *success,
+                                              NSError *__autoreleasing *error) {
+            return [NSURL wmf_optionalURLWithString:urlString];
+        }
+        reverseBlock:^NSString *(NSURL *URL,
+                                 BOOL *success,
+                                 NSError *__autoreleasing *error) {
+            return [URL absoluteString];
+        }];
 }
 
 + (NSValueTransformer *)startTimeJSONTransformer {
@@ -59,7 +58,5 @@
         return date;
     }];
 }
-
-
 
 @end

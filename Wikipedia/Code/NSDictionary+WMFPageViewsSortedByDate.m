@@ -2,14 +2,14 @@
 
 @implementation NSDictionary (WMFPageViewsSortedByDate)
 
-- (NSArray<NSNumber *>* )wmf_pageViewsSortedByDate {
+- (NSArray<NSNumber *> *)wmf_pageViewsSortedByDate {
     NSArray *keys = self.allKeys;
     keys = [keys sortedArrayUsingComparator:^NSComparisonResult(id _Nonnull obj1, id _Nonnull obj2) {
         BOOL obj1IsDate = [obj1 isKindOfClass:[NSDate class]];
         BOOL obj2IsDate = [obj2 isKindOfClass:[NSDate class]];
-        
+
         if (!obj1IsDate && !obj2IsDate) {
-           return NSOrderedSame;
+            return NSOrderedSame;
         } else if (!obj2IsDate) {
             return NSOrderedDescending;
         } else if (!obj1IsDate) {

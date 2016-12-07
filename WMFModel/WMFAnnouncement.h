@@ -1,4 +1,3 @@
-
 #import <Mantle/Mantle.h>
 
 @interface WMFAnnouncement : MTLModel <MTLJSONSerializing>

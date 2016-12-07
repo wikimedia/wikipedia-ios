@@ -1,6 +1,7 @@
 #import "WMFEmptyView.h"
 #import "UIColor+WMFStyle.h"
 #import "UIView+WMFDefaultNib.h"
+#import "Wikipedia-Swift.h"
 
 @interface WMFEmptyView ()
 
@@ -16,6 +17,11 @@
 @end
 
 @implementation WMFEmptyView
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self wmf_configureSubviewsForDynamicType];
+}
 
 + (instancetype)emptyView {
     return [self wmf_viewFromClassNib];

@@ -14,7 +14,7 @@
     if (targetWidth < 1) {
         targetWidth = 320;
     }
-    
+
     NSString *tagSrc = self.src;
 
     NSInteger sizeFromSrcUrl = WMFParseSizePrefixFromSourceURL(tagSrc);

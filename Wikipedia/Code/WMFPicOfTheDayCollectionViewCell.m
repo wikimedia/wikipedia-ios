@@ -2,6 +2,7 @@
 #import "UIImageView+WMFPlaceholder.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "WMFGradientView.h"
+#import "Wikipedia-Swift.h"
 
 @interface WMFPicOfTheDayCollectionViewCell ()
 
@@ -34,7 +35,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self.potdImageView wmf_configureWithDefaultPlaceholder];
+    [self.potdImageView wmf_showPlaceholder];
     [self.KVOControllerNonRetaining observe:self.potdImageView
                                     keyPath:WMF_SAFE_KEYPATH(self.potdImageView, image)
                                     options:NSKeyValueObservingOptionInitial
@@ -47,12 +48,13 @@
                                           cell.displayTitleLabel.alpha = didSetDesiredImage ? 1.0 : 0.0;
                                           cell.displayTitleBackgroundView.alpha = cell.displayTitleLabel.alpha;
                                       }];
+    [self wmf_configureSubviewsForDynamicType];
 }
 
 - (void)prepareForReuse {
     [super awakeFromNib];
     self.displayTitleLabel.text = @"";
-    [self.potdImageView wmf_configureWithDefaultPlaceholder];
+    [self.potdImageView wmf_showPlaceholder];
 }
 
 @end

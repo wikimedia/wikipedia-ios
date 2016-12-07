@@ -1,10 +1,8 @@
 #import "SectionEditorViewController.h"
 
 #import "WikipediaAppUtils.h"
-#import "Defines.h"
 #import "WikiTextSectionFetcher.h"
 #import "PreviewAndSaveViewController.h"
-#import "WMF_Colors.h"
 #import "MWLanguageInfo.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -13,9 +11,9 @@
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 @import BlocksKitUIKitExtensions;
 
-#define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:16.0f * MENUS_SCALE_MULTIPLIER]
-#define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f * MENUS_SCALE_MULTIPLIER)
-#define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX (25.0f * MENUS_SCALE_MULTIPLIER)
+#define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:16.0f]
+#define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f)
+#define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX (25.0f)
 
 @interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate>
 
@@ -42,7 +40,8 @@
         UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
                                                            handler:^(id sender) {
                                                                @strongify(self)
-                                                                   [self.delegate sectionEditorFinishedEditing:self withChanges:NO];
+                                                                   [self.delegate sectionEditorFinishedEditing:self
+                                                                                                   withChanges:NO];
                                                            }];
     buttonX.accessibilityLabel = MWLocalizedString(@"back-button-accessibility-label", nil);
     self.navigationItem.leftBarButtonItem = buttonX;

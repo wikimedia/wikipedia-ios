@@ -1,5 +1,6 @@
 #import "WMFSettingsTableViewCell.h"
 #import "UIImage+WMFStyle.h"
+#import "Wikipedia-Swift.h"
 
 @interface WMFSettingsTableViewCell ()
 
@@ -28,7 +29,7 @@
         self.titleLabelLeadingWidth.constant = self.titleLabelLeadingWidthForVisibleImage;
     } else {
         self.titleIcon.hidden = YES;
-       self.titleLabelLeadingWidth.constant = self.imageLeadingWidth.constant;
+        self.titleLabelLeadingWidth.constant = self.imageLeadingWidth.constant;
     }
 }
 
@@ -103,6 +104,7 @@
     [super awakeFromNib];
     self.disclosureIcon.tintColor = [UIColor wmf_colorWithHex:0xC7C7C7 alpha:1.0];
     self.titleLabelLeadingWidthForVisibleImage = self.titleLabelLeadingWidth.constant;
+    [self wmf_configureSubviewsForDynamicType];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

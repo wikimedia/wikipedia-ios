@@ -55,12 +55,8 @@ typedef id<NSCopying, NSObject> MWKListIndex;
 
 #pragma mark - Persisting Changes to the List
 
-/**
- *  Persists the current @c entries in the receiver, if it was mutated since the last time it was saved.
- *
- *  @return Promise which resolves to @c nil after saving successfully.
- */
-- (AnyPromise *)save;
+- (void)saveWithFailure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
+- (void)save;
 
 @end
 

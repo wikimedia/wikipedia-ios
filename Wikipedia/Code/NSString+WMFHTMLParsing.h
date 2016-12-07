@@ -47,7 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)wmf_summaryFromText;
 
-
 - (void)wmf_enumerateHTMLImageTagContentsWithHandler:(nonnull void (^)(NSString *imageTagContents, NSRange range))handler;
 
 @end

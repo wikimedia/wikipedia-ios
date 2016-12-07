@@ -9,8 +9,8 @@
 #import "Wikipedia-Swift.h"
 #import "WMFArticleBaseFetcher_Testing.h"
 #import "WMFArticleDataStore.h"
-#import "XCTestCase+PromiseKit.h"
 #import "WMFRandomFileUtilities.h"
+#import "WMFAsyncTestCase.h"
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
@@ -75,37 +75,42 @@
 
     XCTestExpectation *expectation = [self expectationWithDescription:@"Fetching article"];
 
-    [fetcher fetchArticleForURL:dummyArticleURL progress:NULL].then(^id(MWKArticle *article) {
-                                                                  firstFetchResult = article;
-
-                                                                  [self.tempDataStore asynchronouslyCacheArticle:article
-                                                                                                      completion:^{
-                                                                                                          savedArticleAfterFirstFetch = [self.tempDataStore articleWithURL:dummyArticleURL];
-
-                                                                                                          assertThat(@([firstFetchResult isDeeplyEqualToArticle:savedArticleAfterFirstFetch]), isTrue());
-                                                                                                      }];
-
-                                                                  return [fetcher fetchArticleForURL:dummyArticleURL progress:NULL];
-                                                              })
-        .then(^(MWKArticle *article) {
-            secondFetchResult = article;
-
-            XCTAssertTrue(secondFetchResult != firstFetchResult,
-                          @"Expected object returned from 2nd fetch to not be identical to 1st.");
-            assertThat(@([secondFetchResult isDeeplyEqualToArticle:firstFetchResult]), isTrue());
-
-            [self.tempDataStore asynchronouslyCacheArticle:article
-                                                completion:^{
-                                                    MWKArticle *savedArticleAfterSecondFetch = [self.tempDataStore articleFromDiskWithURL:dummyArticleURL];
-                                                    assertThat(@([savedArticleAfterSecondFetch isDeeplyEqualToArticle:firstFetchResult]), isTrue());
-                                                    [expectation fulfill];
-                                                }];
-
-        })
-        .catch(^(NSError *error) {
+    [fetcher fetchArticleForURL:dummyArticleURL
+        progress:NULL
+        failure:^(NSError *erorr) {
             XCTFail(@"Recieved error");
             [expectation fulfill];
-        });
+        }
+        success:^(MWKArticle *article) {
+            firstFetchResult = article;
+            [self.tempDataStore asynchronouslyCacheArticle:article
+                                                completion:^{
+                                                    savedArticleAfterFirstFetch = [self.tempDataStore articleWithURL:dummyArticleURL];
+
+                                                    assertThat(@([firstFetchResult isDeeplyEqualToArticle:savedArticleAfterFirstFetch]), isTrue());
+                                                }];
+
+            [fetcher fetchArticleForURL:dummyArticleURL
+                progress:NULL
+                failure:^(NSError *erorr) {
+                    XCTFail(@"Recieved error");
+                    [expectation fulfill];
+                }
+                success:^(MWKArticle *article) {
+                    secondFetchResult = article;
+
+                    XCTAssertTrue(secondFetchResult != firstFetchResult,
+                                  @"Expected object returned from 2nd fetch to not be identical to 1st.");
+                    assertThat(@([secondFetchResult isDeeplyEqualToArticle:firstFetchResult]), isTrue());
+
+                    [self.tempDataStore asynchronouslyCacheArticle:article
+                                                        completion:^{
+                                                            MWKArticle *savedArticleAfterSecondFetch = [self.tempDataStore articleFromDiskWithURL:dummyArticleURL];
+                                                            assertThat(@([savedArticleAfterSecondFetch isDeeplyEqualToArticle:firstFetchResult]), isTrue());
+                                                            [expectation fulfill];
+                                                        }];
+                }];
+        }];
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout
                                  handler:nil];

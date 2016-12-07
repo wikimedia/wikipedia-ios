@@ -54,13 +54,6 @@ let WMFExtendedFileAttributeNameMIMEType = "org.wikimedia.MIMEType"
 
 @objc
 public class WMFImageController : NSObject {
-    public override class func initialize() {
-        if self === WMFImageController.self {
-            let deinitError = WMFImageControllerError.Deinit as NSError
-            NSError.registerCancelledErrorDomain(deinitError.domain, code: deinitError.code)
-        }
-    }
-    
     // MARK: - Initialization
     
     private static let defaultNamespace = "default"

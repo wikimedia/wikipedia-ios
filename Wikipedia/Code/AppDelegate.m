@@ -12,7 +12,6 @@
 static NSString *const WMFAppSeeAPIKey = @QUOTE(WMF_APP_SEE_API_KEY);
 #endif
 
-
 @interface AppDelegate ()
 
 @property (nonatomic, strong) WMFAppViewController *appViewController;
@@ -79,7 +78,7 @@ static NSString *const WMFAppSeeAPIKey = @QUOTE(WMF_APP_SEE_API_KEY);
     NSLog(@"\n\nSimulator documents directory:\n\t%@\n\n",
           [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]);
 #endif
-    
+
 #if WMF_UX_STUDY_ENABLED
     if (WMFAppSeeAPIKey.length > 0) {
         [Appsee start:WMFAppSeeAPIKey];

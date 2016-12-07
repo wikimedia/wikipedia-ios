@@ -1,4 +1,3 @@
-
 #import "WMFTableHeaderLabelView.h"
 
 @interface WMFTableHeaderLabelView ()
