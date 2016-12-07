@@ -10,6 +10,10 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFLanguagesViewC
         languageTableView.alwaysBounceVertical = false
         moreLanguagesButton.setTitle(localizedStringForKeyFallingBackOnEnglish("welcome-languages-add-button"), forState: .Normal)
         moreLanguagesButton.setTitleColor(UIColor.wmf_blueTintColor(), forState: .Normal)
+        
+        languageTableView.rowHeight = UITableViewAutomaticDimension
+        languageTableView.estimatedRowHeight = 38
+        
         self.view.wmf_configureSubviewsForDynamicType()
 
     }

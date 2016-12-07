@@ -38,7 +38,7 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SqE-XP-Cxz">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="999" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="SqE-XP-Cxz">
                                         <rect key="frame" x="0.0" y="45.5" width="280" height="20.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -110,10 +110,9 @@
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="uRu-9L-F8k" firstAttribute="top" relation="greaterThanOrEqual" secondItem="xhM-X9-Rcd" secondAttribute="bottom" id="Axi-Pu-NMV"/>
+                            <constraint firstItem="uRu-9L-F8k" firstAttribute="top" secondItem="xhM-X9-Rcd" secondAttribute="bottom" id="Axi-Pu-NMV"/>
                             <constraint firstItem="xhM-X9-Rcd" firstAttribute="centerX" secondItem="wCD-x0-Vga" secondAttribute="centerX" id="BQK-UB-51A"/>
-                            <constraint firstItem="xhM-X9-Rcd" firstAttribute="top" secondItem="faM-dw-L8V" secondAttribute="bottom" priority="999" constant="236" id="G1Y-Nk-Svt"/>
-                            <constraint firstItem="xhM-X9-Rcd" firstAttribute="top" secondItem="faM-dw-L8V" secondAttribute="bottom" priority="750" constant="10" id="Mtg-ff-dUj"/>
+                            <constraint firstItem="xhM-X9-Rcd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="faM-dw-L8V" secondAttribute="bottom" constant="10" id="Mtg-ff-dUj"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xhM-X9-Rcd" secondAttribute="trailing" id="N3j-Bi-0rO"/>
                             <constraint firstItem="faM-dw-L8V" firstAttribute="top" secondItem="Avm-Oe-OrZ" secondAttribute="bottom" constant="10" id="Yfs-ZD-K1u"/>
                             <constraint firstItem="xhM-X9-Rcd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="wCD-x0-Vga" secondAttribute="leading" id="fj1-Nz-POk"/>
@@ -258,9 +257,12 @@
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Subtitle" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LBZ-2R-9kr">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Subtitle" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.29999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="LBZ-2R-9kr">
                                 <rect key="frame" x="18" y="52.5" width="339" height="20.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="70" id="IsO-ja-arU"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -342,8 +344,8 @@
                                     <rect key="frame" x="0.0" y="75" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDc-Vr-4Av">
-                                            <rect key="frame" x="53" y="7" width="95" height="33"/>
+                                        <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDc-Vr-4Av">
+                                            <rect key="frame" x="53" y="2" width="95" height="22"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <state key="normal" title="Add another">
                                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -355,20 +357,25 @@
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstItem="nDc-Vr-4Av" firstAttribute="top" secondItem="NE9-uY-hF6" secondAttribute="top" constant="7" id="FOC-CU-E1Z"/>
+                                        <constraint firstItem="nDc-Vr-4Av" firstAttribute="top" secondItem="NE9-uY-hF6" secondAttribute="top" constant="2" id="FOC-CU-E1Z"/>
+                                        <constraint firstAttribute="bottom" secondItem="nDc-Vr-4Av" secondAttribute="bottom" constant="20" symbolic="YES" id="SCe-qx-oQG"/>
                                         <constraint firstItem="nDc-Vr-4Av" firstAttribute="leading" secondItem="NE9-uY-hF6" secondAttribute="leading" constant="53" id="VLa-PR-5yU"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nDc-Vr-4Av" secondAttribute="trailing" constant="20" symbolic="YES" id="jvl-LK-zOr"/>
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WMFWelcomeLanguageTableViewCell" rowHeight="47" id="AIg-9n-U11" customClass="WMFWelcomeLanguageTableViewCell" customModule="Wikipedia">
+                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WMFWelcomeLanguageTableViewCell" id="AIg-9n-U11" customClass="WMFWelcomeLanguageTableViewCell" customModule="Wikipedia">
                                         <rect key="frame" x="0.0" y="28" width="375" height="47"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AIg-9n-U11" id="cgJ-yD-1WU">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mhl-Yv-T0c">
-                                                    <rect key="frame" x="15" y="13" width="345" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.34999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="Mhl-Yv-T0c">
+                                                    <rect key="frame" x="15" y="8" width="345" height="20.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="38" id="wh3-7f-HfI"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -376,8 +383,9 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Mhl-Yv-T0c" firstAttribute="leading" secondItem="cgJ-yD-1WU" secondAttribute="leading" constant="15" id="57R-FT-s7Y"/>
+                                                <constraint firstItem="Mhl-Yv-T0c" firstAttribute="top" secondItem="cgJ-yD-1WU" secondAttribute="top" constant="8" id="HZ7-8t-g9Z"/>
                                                 <constraint firstAttribute="trailing" secondItem="Mhl-Yv-T0c" secondAttribute="trailing" constant="15" id="KAP-Tg-aLR"/>
-                                                <constraint firstItem="Mhl-Yv-T0c" firstAttribute="centerY" secondItem="cgJ-yD-1WU" secondAttribute="centerY" id="rAG-BT-GVU"/>
+                                                <constraint firstAttribute="bottom" secondItem="Mhl-Yv-T0c" secondAttribute="bottom" constant="8" id="nUO-7W-jpv"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="48" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -435,8 +443,8 @@
                                             <action selector="toggleAnalyticsWithSender:" destination="Sz5-Ln-qWW" eventType="valueChanged" id="HVm-oP-11q"/>
                                         </connections>
                                     </switch>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Turn me on" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TmK-SO-CMY">
-                                        <rect key="frame" x="0.0" y="61" width="355" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Turn me on" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="TmK-SO-CMY">
+                                        <rect key="frame" x="20" y="61" width="315" height="20.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -445,10 +453,10 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="TmK-SO-CMY" firstAttribute="top" secondItem="8Zl-4G-G2G" secondAttribute="bottom" constant="20" id="4NC-8z-6QR"/>
-                                    <constraint firstItem="TmK-SO-CMY" firstAttribute="leading" secondItem="xjE-Bj-Hf7" secondAttribute="leading" id="5Mx-Nm-nOK"/>
+                                    <constraint firstItem="TmK-SO-CMY" firstAttribute="leading" secondItem="xjE-Bj-Hf7" secondAttribute="leading" constant="20" symbolic="YES" id="5Mx-Nm-nOK"/>
                                     <constraint firstAttribute="bottom" secondItem="TmK-SO-CMY" secondAttribute="bottom" constant="10" id="9O9-ve-MXx"/>
                                     <constraint firstItem="8Zl-4G-G2G" firstAttribute="top" secondItem="xjE-Bj-Hf7" secondAttribute="top" constant="10" id="Hec-iF-boi"/>
-                                    <constraint firstAttribute="trailing" secondItem="TmK-SO-CMY" secondAttribute="trailing" id="OUb-vZ-7ro"/>
+                                    <constraint firstAttribute="trailing" secondItem="TmK-SO-CMY" secondAttribute="trailing" constant="20" symbolic="YES" id="OUb-vZ-7ro"/>
                                     <constraint firstItem="8Zl-4G-G2G" firstAttribute="centerX" secondItem="xjE-Bj-Hf7" secondAttribute="centerX" id="lJS-yQ-S2c"/>
                                 </constraints>
                             </view>
