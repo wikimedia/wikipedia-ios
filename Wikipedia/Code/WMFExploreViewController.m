@@ -727,7 +727,8 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
             return [WMFArticleListCollectionViewCell estimatedRowHeight];
         } break;
         case WMFFeedDisplayTypePageWithPreview: {
-            return [WMFArticlePreviewCollectionViewCell estimatedRowHeight];
+            WMFArticle *article = [self articleForIndexPath:indexPath];
+            return article.thumbnailURL ? [WMFArticlePreviewCollectionViewCell estimatedRowHeight] : [WMFArticlePreviewCollectionViewCell estimatedRowHeightWithoutImage];
         } break;
         case WMFFeedDisplayTypePageWithLocation: {
             return [WMFNearbyArticleCollectionViewCell estimatedRowHeight];
