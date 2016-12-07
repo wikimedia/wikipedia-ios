@@ -52,7 +52,6 @@ static NSString *const kHockeyAppDoNotSendStringsKey = @"hockeyapp-alert-do-not-
         [[BITHockeyManager sharedHockeyManager] crashManager].crashManagerStatus = BITCrashManagerStatusAlwaysAsk;
     }
 
-    [[BITHockeyManager sharedHockeyManager] crashManager].enableAppNotTerminatingCleanlyDetection = YES;
     [BITHockeyManager sharedHockeyManager].delegate = self;
     [[BITHockeyManager sharedHockeyManager] wmf_setupCrashNotificationAlert];
     [[BITHockeyManager sharedHockeyManager] startManager];
