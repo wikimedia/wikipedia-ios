@@ -2,6 +2,7 @@
 
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew update && brew install npm clang-format rbenv ruby-build carthage
+brew upgrade npm clang-format rbenv ruby-build carthage
 rbenv install -s
 gem install bundler
 bundle install
