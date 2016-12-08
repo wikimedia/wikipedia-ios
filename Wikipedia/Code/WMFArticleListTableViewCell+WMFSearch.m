@@ -6,6 +6,10 @@
     return [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 
++ (UIFont *)titleLabelHighlightFont {
+    return [UIFont wmf_preferredFontForFontFamily:WMFFontFamilySystemBold withTextStyle:UIFontTextStyleBody];
+}
+
 - (void)wmf_setTitleText:(NSString *)text highlightingText:(NSString *)highlightText {
     NSMutableAttributedString *attributedTitle =
         [[NSMutableAttributedString alloc] initWithString:text
@@ -16,8 +20,8 @@
     if (highlightText) {
         NSRange highlightRange = [text rangeOfString:highlightText options:NSCaseInsensitiveSearch];
         if (!WMFRangeIsNotFoundOrEmpty(highlightRange)) {
-            [attributedTitle addAttribute:NSBackgroundColorAttributeName
-                                    value:[UIColor colorWithRed:1.0 green:0.8 blue:0.2 alpha:0.3]
+            [attributedTitle addAttribute:NSFontAttributeName
+                                    value:[[self class] titleLabelHighlightFont]
                                     range:highlightRange];
         }
     }
