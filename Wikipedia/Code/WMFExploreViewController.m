@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 
-@interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate>
+@interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching>
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
@@ -523,6 +523,10 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     self.collectionView.scrollsToTop = YES;
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
+    if ([self.collectionView respondsToSelector:@selector(setPrefetchDataSource:)]) {
+        self.collectionView.prefetchDataSource = self;
+        self.collectionView.prefetchingEnabled = YES;
+    }
 
     self.reachabilityManager = [AFNetworkReachabilityManager manager];
 
@@ -865,6 +869,28 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     }
 
     return header;
+}
+
+#pragma mark - UICollectionViewDataSourcePrefetching
+
+- (void)collectionView:(UICollectionView *)collectionView prefetchItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
+    for (NSIndexPath *indexPath in indexPaths) {
+        WMFArticle *article = [self articleForIndexPath:indexPath];
+        if (!article.thumbnailURL) {
+            continue;
+        }
+        [[WMFImageController sharedInstance] prefetchImageWithURL:article.thumbnailURL];
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView cancelPrefetchingForItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
+    for (NSIndexPath *indexPath in indexPaths) {
+        WMFArticle *article = [self articleForIndexPath:indexPath];
+        if (!article.thumbnailURL) {
+            continue;
+        }
+        [[WMFImageController sharedInstance] cancelFetchForURL:article.thumbnailURL];
+    }
 }
 
 #pragma mark - WMFHeaderMenuProviding
