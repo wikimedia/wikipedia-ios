@@ -179,6 +179,10 @@
 }
 
 - (CGFloat)setSize:(CGSize)size forAttributesAtIndex:(NSInteger)index inArray:(NSMutableArray *)array {
+    if (index >= array.count) {
+        return size.height;
+    }
+
     WMFCVLAttributes *attributes = array[index];
 
     if (CGSizeEqualToSize(size, attributes.frame.size)) {
