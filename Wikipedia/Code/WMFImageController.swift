@@ -136,7 +136,7 @@ public class WMFImageController : NSObject {
      */
     public func fetchImageWithURL(
         url: NSURL,
-        options: SDWebImageOptions = .ReportCancellationAsError,
+        options: SDWebImageOptions = [.HighPriority, .ReportCancellationAsError],
         failure: (ErrorType) -> Void,
         success: (WMFImageDownload) -> Void) {
         
@@ -412,6 +412,17 @@ extension WMFImageController {
             failure(error: error as NSError)
         }
         fetchImageWithURL(url, failure: metaFailure, success:success);
+    }
+    
+    
+    @objc public func prefetchImageWithURL(url: NSURL?) {
+        guard let url = url else {
+            return
+        }
+
+        fetchImageWithURL(url, options: [.LowPriority, .ReportCancellationAsError], failure: { (error) in }) { (download) in
+
+        }
     }
 
     /**
