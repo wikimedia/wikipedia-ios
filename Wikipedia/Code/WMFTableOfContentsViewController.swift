@@ -255,7 +255,7 @@ public class WMFTableOfContentsViewController: UIViewController,
         
         cell.titleIndentationLevel = item.indentationLevel
         cell.titleLabel.text = item.titleText
-        cell.titleLabel.font = UIFont.preferredFontForFontFamily(item.itemType.titleFontFamily, withTextStyle: item.itemType.titleFontTextStyle, compatibleWithTraitCollection: self.traitCollection)
+        cell.titleLabel.font = UIFont.wmf_preferredFontForFontFamily(item.itemType.titleFontFamily, withTextStyle: item.itemType.titleFontTextStyle, compatibleWithTraitCollection: self.traitCollection)
         cell.titleColor = item.itemType.titleColor
         
         cell.setNeedsLayout()

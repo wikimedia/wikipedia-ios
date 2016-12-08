@@ -20,7 +20,8 @@
 }
 
 + (instancetype)wmf_nearbyTitleFont {
-    return [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    return [UIFont wmf_preferredFontForFontFamily:WMFFontFamilyGeorgia
+                                    withTextStyle:UIFontTextStyleTitle2];
 }
 
 + (instancetype)wmf_subtitle {

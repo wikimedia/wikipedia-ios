@@ -129,7 +129,9 @@
     CGFloat leadingIndent = 10.0;
     label.padding = UIEdgeInsetsMake(0, leadingIndent, 0, 0);
 
-    label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+    label.font = [UIFont wmf_preferredFontForFontFamily:WMFFontFamilySystemBold
+                                          withTextStyle:UIFontTextStyleFootnote
+                          compatibleWithTraitCollection:self.traitCollection];
     label.textColor = [UIColor darkGrayColor];
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     label.backgroundColor = [UIColor clearColor];
