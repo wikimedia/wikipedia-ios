@@ -680,6 +680,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *contentGroup = [self sectionForIndexPath:indexPath];
     NSParameterAssert(contentGroup);
+    if (!contentGroup) {
+        return [UICollectionViewCell new];
+    }
     WMFArticle *article = [self articleForIndexPath:indexPath];
 
     switch ([contentGroup displayType]) {
@@ -902,6 +905,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *contentGroup = [self sectionForIndexPath:indexPath];
     NSParameterAssert(contentGroup);
+    if (!contentGroup) {
+        return NO;
+    }
     if (contentGroup.contentGroupKind == WMFContentGroupKindAnnouncement) {
         return NO;
     } else {
@@ -912,6 +918,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *contentGroup = [self sectionForIndexPath:indexPath];
     NSParameterAssert(contentGroup);
+    if (!contentGroup) {
+        return NO;
+    }
     if (contentGroup.contentGroupKind == WMFContentGroupKindAnnouncement) {
         return NO;
     } else {
@@ -1254,6 +1263,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     }
 
     WMFContentGroup *group = [self sectionForIndexPath:previewIndexPath];
+    if (!group) {
+        return nil;
+    }
     self.groupForPreviewedCell = group;
 
     previewingContext.sourceRect = [self.collectionView cellForItemAtIndexPath:previewIndexPath].frame;
@@ -1455,6 +1467,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     WMFContentGroup *contentGroup = [self sectionForIndexPath:indexPath];
     NSParameterAssert(contentGroup);
+    if (!contentGroup) {
+        return;
+    }
     if (contentGroup.contentGroupKind != WMFContentGroupKindAnnouncement) {
         return;
     }
