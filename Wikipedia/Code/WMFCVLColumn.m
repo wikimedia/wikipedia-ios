@@ -84,6 +84,10 @@
 - (void)setSize:(CGSize)size forItemAtIndexPath:(NSIndexPath *)indexPath invalidationContext:(WMFCVLInvalidationContext *)invalidationContext {
     NSInteger sectionIndex = indexPath.section;
 
+    if (sectionIndex >= self.info.sections.count) {
+        return;
+    }
+
     WMFCVLSection *section = self.info.sections[sectionIndex];
     CGFloat deltaY = [section setSize:size forItemAtIndex:indexPath.item invalidationContext:invalidationContext];
     [self offsetSectionsByDistance:deltaY startingAfterSection:section invalidationContext:invalidationContext];
