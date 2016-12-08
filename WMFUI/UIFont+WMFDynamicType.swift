@@ -90,6 +90,20 @@ public extension UIFont {
                         UIContentSizeCategoryMedium: 14,
                         UIContentSizeCategorySmall: 13,
                         UIContentSizeCategoryExtraSmall: 12
+                    ],
+                    UIFontTextStyleFootnote: [
+                        UIContentSizeCategoryAccessibilityExtraExtraExtraLarge: 19,
+                        UIContentSizeCategoryAccessibilityExtraExtraLarge: 19,
+                        UIContentSizeCategoryAccessibilityExtraLarge: 19,
+                        UIContentSizeCategoryAccessibilityLarge: 19,
+                        UIContentSizeCategoryAccessibilityMedium: 19,
+                        UIContentSizeCategoryExtraExtraExtraLarge: 19,
+                        UIContentSizeCategoryExtraExtraLarge: 17,
+                        UIContentSizeCategoryExtraLarge: 15,
+                        UIContentSizeCategoryLarge: 13,
+                        UIContentSizeCategoryMedium: 12,
+                        UIContentSizeCategorySmall: 12,
+                        UIContentSizeCategoryExtraSmall: 12
                     ]
                 ]
             ]
