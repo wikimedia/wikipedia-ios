@@ -1362,39 +1362,58 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         [self.collectionView reloadData];
     } else {
         [self.collectionView performBatchUpdates:^{
+            NSMutableIndexSet *deletedSections = [NSMutableIndexSet indexSet];
+            NSMutableIndexSet *insertedSections = [NSMutableIndexSet indexSet];
             for (WMFObjectChange *change in self.objectChanges) {
-                NSInteger fromSectionIndex = change.fromIndexPath.row;
-                NSInteger toSectionIndex = change.toIndexPath.row;
                 switch (change.type) {
-                    case NSFetchedResultsChangeInsert:
-                        [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:toSectionIndex]];
-                        break;
-                    case NSFetchedResultsChangeDelete:
-                        [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:fromSectionIndex]];
-                        break;
+                    case NSFetchedResultsChangeInsert: {
+                        NSInteger insertedIndex = change.toIndexPath.row;
+                        [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:insertedIndex]];
+                        [insertedSections addIndex:insertedIndex];
+                    } break;
+                    case NSFetchedResultsChangeDelete: {
+                        NSInteger deletedIndex = change.fromIndexPath.row;
+                        [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:deletedIndex]];
+                        [deletedSections addIndex:deletedIndex];
+                    } break;
                     case NSFetchedResultsChangeUpdate: {
-                        NSInteger previousCount = [previousSectionCounts[fromSectionIndex] integerValue];
-                        NSInteger currentCount = [self.sectionCounts[fromSectionIndex] integerValue];
-                        if (previousCount == currentCount) {
-                            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:fromSectionIndex]];
-                            continue;
-                        }
+                        if (change.toIndexPath && change.fromIndexPath && ![change.toIndexPath isEqual:change.fromIndexPath]) {
+                            if ([deletedSections containsIndex:change.fromIndexPath.row]) {
+                                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
+                            } else {
+                                [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:change.fromIndexPath.row]];
+                                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
+                            }
+                        } else {
+                            NSIndexPath *updatedIndexPath = change.toIndexPath ?: change.fromIndexPath;
+                            NSInteger sectionIndex = updatedIndexPath.row;
+                            if ([insertedSections containsIndex:updatedIndexPath.row]) {
+                                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                            } else {
+                                NSInteger previousCount = [previousSectionCounts[sectionIndex] integerValue];
+                                NSInteger currentCount = [self.sectionCounts[sectionIndex] integerValue];
+                                if (previousCount == currentCount) {
+                                    [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                                    continue;
+                                }
 
-                        while (previousCount > currentCount) {
-                            [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount - 1 inSection:fromSectionIndex]]];
-                            previousCount--;
-                        }
+                                while (previousCount > currentCount) {
+                                    [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount - 1 inSection:sectionIndex]]];
+                                    previousCount--;
+                                }
 
-                        while (previousCount < currentCount) {
-                            [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount inSection:fromSectionIndex]]];
-                            previousCount++;
-                        }
+                                while (previousCount < currentCount) {
+                                    [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount inSection:sectionIndex]]];
+                                    previousCount++;
+                                }
 
-                        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:fromSectionIndex]];
+                                [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                            }
+                        }
                     } break;
                     case NSFetchedResultsChangeMove:
-                        [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:fromSectionIndex]];
-                        [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:toSectionIndex]];
+                        [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:change.fromIndexPath.row]];
+                        [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
                         break;
                 }
             }
