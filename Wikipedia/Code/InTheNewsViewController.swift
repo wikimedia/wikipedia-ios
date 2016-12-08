@@ -67,12 +67,14 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
                 return UITableViewCell()
             }
             
+            cell.fullSizeImageView.wmf_showPlaceholder()
+            
             guard let thumbnailURL = mainArticlePreview.thumbnailURL  else {
-                cell.fullSizeImageView.image = nil
                 return cell
             }
             
-            cell.fullSizeImageView.wmf_setImageWithURL(thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in }) {}
+            cell.fullSizeImageView.wmf_setImageWithURL(thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in cell.fullSizeImageView.wmf_showPlaceholder() }) {
+            }
             
             return cell
         case 1:
