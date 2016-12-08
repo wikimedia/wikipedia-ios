@@ -41,6 +41,13 @@
     [self addGestureRecognizer:tapGR];
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    self.subTitleLabel.font = [UIFont wmf_preferredFontForFontFamily:WMFFontFamilySystemBold
+                                                       withTextStyle:UIFontTextStyleSubheadline
+                                       compatibleWithTraitCollection:self.traitCollection];
+}
+
 - (void)setImage:(UIImage *)image {
     self.icon.image = image;
 }
