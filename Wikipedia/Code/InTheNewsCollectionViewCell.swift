@@ -10,11 +10,17 @@ class InTheNewsCollectionViewCell: WMFExploreCollectionViewCell {
     var linkFont = UIFont.preferredFontForTextStyle(textStyle)
     
     static var estimatedRowHeight:CGFloat = 86
-
+    
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.wmf_showPlaceholder()
+    }
+    
     var imageURL: NSURL? {
         didSet {
+            imageView.wmf_showPlaceholder()
             guard let URL = imageURL else {
-                imageView.wmf_showPlaceholder()
                 return
             }
             
@@ -54,6 +60,6 @@ class InTheNewsCollectionViewCell: WMFExploreCollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.wmf_configureSubviewsForDynamicType()
+        wmf_configureSubviewsForDynamicType()
     }
 }
