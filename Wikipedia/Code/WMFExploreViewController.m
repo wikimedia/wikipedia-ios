@@ -211,11 +211,11 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 #pragma mark - Feed Sources
 
-- (void)updateUIForContentSourcesUpdateStart{
+- (void)updateUIForContentSourcesUpdateStart {
     [self.refreshControl beginRefreshing];
 }
 
-- (void)updateUIForContentSourcesUpdateComplete{
+- (void)updateUIForContentSourcesUpdateComplete {
     [self resetRefreshControl];
 }
 
@@ -288,12 +288,16 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 #pragma mark - Section Access
 
-- (WMFContentGroup *)sectionAtIndex:(NSUInteger)sectionIndex {
+- (nullable WMFContentGroup *)sectionAtIndex:(NSUInteger)sectionIndex {
+    id<NSFetchedResultsSectionInfo> section = [[self.fetchedResultsController sections] firstObject];
+    if (sectionIndex >= [section numberOfObjects]) {
+        return nil;
+    }
     return (WMFContentGroup *)[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:sectionIndex inSection:0]];
 }
 
-- (WMFContentGroup *)sectionForIndexPath:(NSIndexPath *)indexPath {
-    return (WMFContentGroup *)[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.section inSection:0]];
+- (nullable WMFContentGroup *)sectionForIndexPath:(NSIndexPath *)indexPath {
+    return [self sectionAtIndex:indexPath.section];
 }
 
 #pragma mark - Content Access
@@ -368,12 +372,18 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 - (nullable WMFFeedTopReadArticlePreview *)topReadPreviewForIndexPath:(NSIndexPath *)indexPath {
     NSArray<WMFFeedTopReadArticlePreview *> *content = [self contentForSectionAtIndex:indexPath.section];
+    if (indexPath.row >= content.count) {
+        return nil;
+    }
     return [content objectAtIndex:indexPath.row];
 }
 
 - (nullable WMFFeedImage *)imageInfoForIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
     if ([section contentType] != WMFContentTypeImage) {
+        return nil;
+    }
+    if (indexPath.row >= section.content.count) {
         return nil;
     }
     return (WMFFeedImage *)section.content[indexPath.row];
@@ -532,12 +542,12 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     self.fetchedResultsController = frc;
     [self updateSectionCounts];
     [self.collectionView reloadData];
-    
+
     @weakify(self);
-    [[NSNotificationCenter defaultCenter] addObserverForName: UIContentSizeCategoryDidChangeNotification
-                                                      object: nil
-                                                       queue: [NSOperationQueue mainQueue]
-                                                  usingBlock: ^(NSNotification *note) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note) {
                                                       @strongify(self);
                                                       [self.collectionView reloadData];
                                                   }];
@@ -670,6 +680,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *contentGroup = [self sectionForIndexPath:indexPath];
     NSParameterAssert(contentGroup);
+    if (!contentGroup) {
+        return [UICollectionViewCell new];
+    }
     WMFArticle *article = [self articleForIndexPath:indexPath];
 
     switch ([contentGroup displayType]) {
@@ -810,10 +823,10 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
     header.title = [[section headerTitle] mutableCopy];
     [header setTitleColor:[section headerTitleColor]];
-    
+
     header.subTitle = [[section headerSubTitle] mutableCopy];
     [header setSubTitleColor:[section headerSubTitleColor]];
-    
+
     @weakify(self);
     @weakify(section);
     header.whenTapped = ^{
@@ -892,6 +905,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *contentGroup = [self sectionForIndexPath:indexPath];
     NSParameterAssert(contentGroup);
+    if (!contentGroup) {
+        return NO;
+    }
     if (contentGroup.contentGroupKind == WMFContentGroupKindAnnouncement) {
         return NO;
     } else {
@@ -902,6 +918,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *contentGroup = [self sectionForIndexPath:indexPath];
     NSParameterAssert(contentGroup);
+    if (!contentGroup) {
+        return NO;
+    }
     if (contentGroup.contentGroupKind == WMFContentGroupKindAnnouncement) {
         return NO;
     } else {
@@ -1244,6 +1263,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     }
 
     WMFContentGroup *group = [self sectionForIndexPath:previewIndexPath];
+    if (!group) {
+        return nil;
+    }
     self.groupForPreviewedCell = group;
 
     previewingContext.sourceRect = [self.collectionView cellForItemAtIndexPath:previewIndexPath].frame;
@@ -1333,9 +1355,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
             case NSFetchedResultsChangeMove:
                 break;
         }
-#if DEBUG
-        NSLog(@"%@ - %@ - %@", @(change.type), change.fromIndexPath, change.toIndexPath);
-#endif
     }
 
     [self updateSectionCounts];
@@ -1352,39 +1371,58 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         [self.collectionView reloadData];
     } else {
         [self.collectionView performBatchUpdates:^{
+            NSMutableIndexSet *deletedSections = [NSMutableIndexSet indexSet];
+            NSMutableIndexSet *insertedSections = [NSMutableIndexSet indexSet];
             for (WMFObjectChange *change in self.objectChanges) {
-                NSInteger fromSectionIndex = change.fromIndexPath.row;
-                NSInteger toSectionIndex = change.toIndexPath.row;
                 switch (change.type) {
-                    case NSFetchedResultsChangeInsert:
-                        [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:toSectionIndex]];
-                        break;
-                    case NSFetchedResultsChangeDelete:
-                        [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:fromSectionIndex]];
-                        break;
+                    case NSFetchedResultsChangeInsert: {
+                        NSInteger insertedIndex = change.toIndexPath.row;
+                        [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:insertedIndex]];
+                        [insertedSections addIndex:insertedIndex];
+                    } break;
+                    case NSFetchedResultsChangeDelete: {
+                        NSInteger deletedIndex = change.fromIndexPath.row;
+                        [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:deletedIndex]];
+                        [deletedSections addIndex:deletedIndex];
+                    } break;
                     case NSFetchedResultsChangeUpdate: {
-                        NSInteger previousCount = [previousSectionCounts[fromSectionIndex] integerValue];
-                        NSInteger currentCount = [self.sectionCounts[fromSectionIndex] integerValue];
-                        if (previousCount == currentCount) {
-                            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:fromSectionIndex]];
-                            continue;
-                        }
+                        if (change.toIndexPath && change.fromIndexPath && ![change.toIndexPath isEqual:change.fromIndexPath]) {
+                            if ([deletedSections containsIndex:change.fromIndexPath.row]) {
+                                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
+                            } else {
+                                [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:change.fromIndexPath.row]];
+                                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
+                            }
+                        } else {
+                            NSIndexPath *updatedIndexPath = change.toIndexPath ?: change.fromIndexPath;
+                            NSInteger sectionIndex = updatedIndexPath.row;
+                            if ([insertedSections containsIndex:updatedIndexPath.row]) {
+                                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                            } else {
+                                NSInteger previousCount = [previousSectionCounts[sectionIndex] integerValue];
+                                NSInteger currentCount = [self.sectionCounts[sectionIndex] integerValue];
+                                if (previousCount == currentCount) {
+                                    [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                                    continue;
+                                }
 
-                        while (previousCount > currentCount) {
-                            [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount - 1 inSection:fromSectionIndex]]];
-                            previousCount--;
-                        }
+                                while (previousCount > currentCount) {
+                                    [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount - 1 inSection:sectionIndex]]];
+                                    previousCount--;
+                                }
 
-                        while (previousCount < currentCount) {
-                            [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount inSection:fromSectionIndex]]];
-                            previousCount++;
-                        }
+                                while (previousCount < currentCount) {
+                                    [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount inSection:sectionIndex]]];
+                                    previousCount++;
+                                }
 
-                        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:fromSectionIndex]];
+                                [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                            }
+                        }
                     } break;
                     case NSFetchedResultsChangeMove:
-                        [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:fromSectionIndex]];
-                        [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:toSectionIndex]];
+                        [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:change.fromIndexPath.row]];
+                        [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
                         break;
                 }
             }
@@ -1429,6 +1467,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     WMFContentGroup *contentGroup = [self sectionForIndexPath:indexPath];
     NSParameterAssert(contentGroup);
+    if (!contentGroup) {
+        return;
+    }
     if (contentGroup.contentGroupKind != WMFContentGroupKindAnnouncement) {
         return;
     }

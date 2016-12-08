@@ -135,6 +135,10 @@
         NSIndexPath *indexPath = originalAttributes.indexPath;
 
         NSInteger sectionIndex = indexPath.section;
+        if (sectionIndex >= self.sections.count) {
+            [self layoutWithMetrics:metrics delegate:delegate collectionView:collectionView invalidationContext:nil];
+            return;
+        }
         NSInteger invalidatedColumnIndex = self.sections[sectionIndex].columnIndex;
         WMFCVLColumn *invalidatedColumn = self.columns[invalidatedColumnIndex];
 
