@@ -211,11 +211,11 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 #pragma mark - Feed Sources
 
-- (void)updateUIForContentSourcesUpdateStart{
+- (void)updateUIForContentSourcesUpdateStart {
     [self.refreshControl beginRefreshing];
 }
 
-- (void)updateUIForContentSourcesUpdateComplete{
+- (void)updateUIForContentSourcesUpdateComplete {
     [self resetRefreshControl];
 }
 
@@ -542,12 +542,12 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     self.fetchedResultsController = frc;
     [self updateSectionCounts];
     [self.collectionView reloadData];
-    
+
     @weakify(self);
-    [[NSNotificationCenter defaultCenter] addObserverForName: UIContentSizeCategoryDidChangeNotification
-                                                      object: nil
-                                                       queue: [NSOperationQueue mainQueue]
-                                                  usingBlock: ^(NSNotification *note) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note) {
                                                       @strongify(self);
                                                       [self.collectionView reloadData];
                                                   }];
@@ -820,10 +820,10 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
     header.title = [[section headerTitle] mutableCopy];
     [header setTitleColor:[section headerTitleColor]];
-    
+
     header.subTitle = [[section headerSubTitle] mutableCopy];
     [header setSubTitleColor:[section headerSubTitleColor]];
-    
+
     @weakify(self);
     @weakify(section);
     header.whenTapped = ^{
@@ -1343,9 +1343,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
             case NSFetchedResultsChangeMove:
                 break;
         }
-#if DEBUG
-        NSLog(@"%@ - %@ - %@", @(change.type), change.fromIndexPath, change.toIndexPath);
-#endif
     }
 
     [self updateSectionCounts];
