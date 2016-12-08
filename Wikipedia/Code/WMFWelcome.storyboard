@@ -32,8 +32,8 @@
                             <view clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="faM-dw-L8V" userLabel="Container view">
                                 <rect key="frame" x="20" y="10" width="280" height="128"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="fva-en-jL2">
-                                        <rect key="frame" x="50" y="0.0" width="180" height="33.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="fva-en-jL2">
+                                        <rect key="frame" x="25" y="0.0" width="230" height="33.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -64,7 +64,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="fva-en-jL2" firstAttribute="leading" secondItem="faM-dw-L8V" secondAttribute="leading" constant="50" id="1bH-vc-dGh"/>
+                                    <constraint firstItem="fva-en-jL2" firstAttribute="leading" secondItem="faM-dw-L8V" secondAttribute="leading" constant="25" id="1bH-vc-dGh"/>
                                     <constraint firstItem="gk6-uH-c55" firstAttribute="centerX" secondItem="faM-dw-L8V" secondAttribute="centerX" id="5Ru-2O-t6n"/>
                                     <constraint firstAttribute="trailing" secondItem="SqE-XP-Cxz" secondAttribute="trailing" id="7ql-Gm-kkY"/>
                                     <constraint firstAttribute="bottom" secondItem="gk6-uH-c55" secondAttribute="bottom" constant="10" id="7uT-Z6-PbA"/>
@@ -77,7 +77,7 @@
                                     <constraint firstItem="fva-en-jL2" firstAttribute="top" secondItem="faM-dw-L8V" secondAttribute="top" id="WXs-pa-cAy"/>
                                     <constraint firstItem="gk6-uH-c55" firstAttribute="width" secondItem="6l1-FL-tma" secondAttribute="width" id="bzs-rj-WCu"/>
                                     <constraint firstAttribute="width" constant="280" id="muz-Qk-70i"/>
-                                    <constraint firstAttribute="trailing" secondItem="fva-en-jL2" secondAttribute="trailing" constant="50" id="owb-IZ-hRa"/>
+                                    <constraint firstAttribute="trailing" secondItem="fva-en-jL2" secondAttribute="trailing" constant="25" id="owb-IZ-hRa"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xhM-X9-Rcd">
@@ -372,9 +372,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.34999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="Mhl-Yv-T0c">
-                                                    <rect key="frame" x="15" y="8" width="345" height="20.5"/>
+                                                    <rect key="frame" x="15" y="8" width="345" height="30.5"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="38" id="wh3-7f-HfI"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="38" id="wh3-7f-HfI"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
