@@ -9,6 +9,10 @@ import UIKit
 
 public extension UIFont {
 
+    public class func wmf_preferredFontForFontFamily(fontFamily: WMFFontFamily, withTextStyle style: String) -> UIFont? {
+        return UIFont.wmf_preferredFontForFontFamily(fontFamily, withTextStyle: style, compatibleWithTraitCollection: UIScreen.mainScreen().traitCollection)
+    }
+    
     public class func wmf_preferredFontForFontFamily(fontFamily: WMFFontFamily, withTextStyle style: String, compatibleWithTraitCollection traitCollection: UITraitCollection) -> UIFont? {
         
         guard fontFamily != .System else {
