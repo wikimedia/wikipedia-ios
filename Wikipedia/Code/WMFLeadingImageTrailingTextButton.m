@@ -114,13 +114,19 @@
     self.textLabel = [UILabel new];
     self.textLabel.numberOfLines = 1;
     self.textLabel.textAlignment = NSTextAlignmentNatural;
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
     self.textLabel.highlightedTextColor = [UIColor lightGrayColor];
     self.textLabel.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
     self.textLabel.isAccessibilityElement = NO;
     [self.textLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     [self addSubview:self.textLabel];
     [self applyConstraints];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    self.textLabel.font = [UIFont wmf_preferredFontForFontFamily:WMFFontFamilySystemBold
+                                                   withTextStyle:UIFontTextStyleSubheadline
+                                   compatibleWithTraitCollection:self.traitCollection];
 }
 
 - (void)applyConstraints {
