@@ -288,12 +288,16 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 #pragma mark - Section Access
 
-- (WMFContentGroup *)sectionAtIndex:(NSUInteger)sectionIndex {
+- (nullable WMFContentGroup *)sectionAtIndex:(NSUInteger)sectionIndex {
+    id<NSFetchedResultsSectionInfo> section = [[self.fetchedResultsController sections] firstObject];
+    if (sectionIndex >= [section numberOfObjects]) {
+        return nil;
+    }
     return (WMFContentGroup *)[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:sectionIndex inSection:0]];
 }
 
-- (WMFContentGroup *)sectionForIndexPath:(NSIndexPath *)indexPath {
-    return (WMFContentGroup *)[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.section inSection:0]];
+- (nullable WMFContentGroup *)sectionForIndexPath:(NSIndexPath *)indexPath {
+    return [self sectionAtIndex:indexPath.section];
 }
 
 #pragma mark - Content Access
