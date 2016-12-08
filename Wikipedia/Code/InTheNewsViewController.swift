@@ -49,19 +49,35 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let count = story.articlePreviews?.count else {
-            return 2
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 3
+    }
+    
+    var mainArticlePreview: WMFFeedArticlePreview? {
+        get {
+            return story.featuredArticlePreview ?? story.articlePreviews?.first
         }
-        return count + 2
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return mainArticlePreview?.thumbnailURL == nil ? 0 : 1
+        case 1:
+            return 1
+        case 2:
+            return story.articlePreviews?.count ?? 0
+        default:
+            return 0
+        }
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        guard let mainArticlePreview = story.featuredArticlePreview ?? story.articlePreviews?.first else {
+        guard let mainArticlePreview = mainArticlePreview else {
             return UITableViewCell()
         }
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
             guard let cell = tableView.dequeueReusableCellWithIdentifier(FullSizeImageTableViewCell.identifier, forIndexPath: indexPath) as? FullSizeImageTableViewCell else {
                 return UITableViewCell()
@@ -102,7 +118,7 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
                 return UITableViewCell()
             }
             
-            let index = indexPath.row - 2
+            let index = indexPath.row
             guard let articlePreview = story.articlePreviews?[index] else {
                 return UITableViewCell()
             }
@@ -122,11 +138,11 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return indexPath.row > 1
+        return indexPath.section == 2
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let index = indexPath.row - 2
+        let index = indexPath.row
         guard index >= 0 else {
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
             return
