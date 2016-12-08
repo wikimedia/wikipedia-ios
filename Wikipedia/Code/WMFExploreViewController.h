@@ -28,6 +28,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showInTheNewsForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date animated:(BOOL)animated;
 
+
+- (void)updateUIForContentSourcesUpdateStart;
+- (void)updateUIForContentSourcesUpdateComplete;
+
+
 @end
 
 NS_ASSUME_NONNULL_END
