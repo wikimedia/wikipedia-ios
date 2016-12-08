@@ -3,6 +3,7 @@ import UIKit
 @objc public enum WMFFontFamily: Int {
     case System
     case SystemBlack
+    case SystemBold
     case Georgia
 }
 
@@ -70,6 +71,22 @@ public extension UIFont {
                         UIContentSizeCategorySmall: 32,
                         UIContentSizeCategoryExtraSmall: 31
                     ]
+                ],
+                .SystemBold: [
+                    UIFontTextStyleSubheadline: [
+                        UIContentSizeCategoryAccessibilityExtraExtraExtraLarge: 21,
+                        UIContentSizeCategoryAccessibilityExtraExtraLarge: 21,
+                        UIContentSizeCategoryAccessibilityExtraLarge: 21,
+                        UIContentSizeCategoryAccessibilityLarge: 21,
+                        UIContentSizeCategoryAccessibilityMedium: 21,
+                        UIContentSizeCategoryExtraExtraExtraLarge: 21,
+                        UIContentSizeCategoryExtraExtraLarge: 19,
+                        UIContentSizeCategoryExtraLarge: 17,
+                        UIContentSizeCategoryLarge: 15,
+                        UIContentSizeCategoryMedium: 14,
+                        UIContentSizeCategorySmall: 13,
+                        UIContentSizeCategoryExtraSmall: 12
+                    ]
                 ]
             ]
         }
@@ -85,6 +102,8 @@ public extension UIFont {
             return UIFont(descriptor: UIFontDescriptor(name: "Georgia", size: size), size: 0)
         case .SystemBlack:
             return UIFont.systemFontOfSize(size, weight: UIFontWeightBlack)
+        case .SystemBold:
+            return UIFont.boldSystemFontOfSize(size)
         case .System:
             assert(false, "Should never reach this point. System font is guarded against at beginning of method.")
             return nil
