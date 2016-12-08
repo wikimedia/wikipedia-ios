@@ -29,7 +29,7 @@
 }
 
 + (instancetype)wmf_nearbyDistanceFont {
-    return [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+    return [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
 }
 
 @end
