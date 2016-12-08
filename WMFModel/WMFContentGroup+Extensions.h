@@ -30,7 +30,7 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
 
 @interface WMFContentGroup (Extensions)
 
-+ (NSString *)databaseKeyForURL:(NSURL *)URL;
++ (nullable NSString *)databaseKeyForURL:(nullable NSURL *)URL;
 
 @property (nonatomic, assign) WMFContentType contentType;
 
