@@ -901,6 +901,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
     }
     [self registerForPreviewingIfAvailable];
+    NSNumber *multiplier = [[NSUserDefaults wmf_userDefaults] wmf_readingFontSize];
+    [self.webViewController setFontSizeMultiplier:multiplier];
 }
 
 #pragma mark - Layout
@@ -1384,7 +1386,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
 
-    [self.webViewController setFontSizeMultiplier:self.fontSizeMultipliers[value]];
+    NSNumber *multiplier = self.fontSizeMultipliers[value];
+    [self.webViewController setFontSizeMultiplier:multiplier];
+    [[NSUserDefaults wmf_userDefaults] wmf_setReadingFontSize:multiplier];
 }
 
 - (NSArray<NSNumber *> *)fontSizeMultipliers {

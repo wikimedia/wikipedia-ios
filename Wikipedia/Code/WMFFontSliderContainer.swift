@@ -11,6 +11,8 @@ public class WMFFontSliderViewController: UIViewController {
     private var maximumValue: Int?
     private var currentValue: Int?
     
+    var visible = false
+    
     public weak var delegate: WMFFontSliderViewControllerDelegate?
     
     public override func viewDidLoad() {
@@ -39,8 +41,13 @@ public class WMFFontSliderViewController: UIViewController {
         self.slider.value = current
     }
     
+    override public func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        visible = true
+    }
+    
     @IBAction func fontSliderValueChanged(slider: SWStepSlider) {
-        if let delegate = self.delegate {
+        if let delegate = self.delegate where visible {
             delegate.sliderValueChangedInController(self, value: self.slider.value)
         }
     }

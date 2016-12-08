@@ -1,5 +1,6 @@
 #import "WKWebView+LoadAssetsHtml.h"
 #import "WMFProxyServer.h"
+#import "Wikipedia-Swift.h"
 
 static const NSTimeInterval WKWebViewLoadAssetsHTMLRequestTimeout = 60; //60s is the default NSURLRequest timeout interval
 
