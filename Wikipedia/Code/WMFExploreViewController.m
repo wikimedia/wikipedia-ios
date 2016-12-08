@@ -372,12 +372,18 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 - (nullable WMFFeedTopReadArticlePreview *)topReadPreviewForIndexPath:(NSIndexPath *)indexPath {
     NSArray<WMFFeedTopReadArticlePreview *> *content = [self contentForSectionAtIndex:indexPath.section];
+    if (indexPath.row >= content.count) {
+        return nil;
+    }
     return [content objectAtIndex:indexPath.row];
 }
 
 - (nullable WMFFeedImage *)imageInfoForIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
     if ([section contentType] != WMFContentTypeImage) {
+        return nil;
+    }
+    if (indexPath.row >= section.content.count) {
         return nil;
     }
     return (WMFFeedImage *)section.content[indexPath.row];
