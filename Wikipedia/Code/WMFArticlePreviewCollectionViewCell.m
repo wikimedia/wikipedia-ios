@@ -47,7 +47,7 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.snippetLabel.attributedText = nil;
+    self.snippetLabel.text = nil;
     self.saveButtonController.url = nil;
     self.saveButtonController.savedPageList = nil;
     self.loading = NO;
