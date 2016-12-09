@@ -523,6 +523,9 @@ NSString *const WMFCCBySALicenseURL =
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.userContentController = userContentController;
     configuration.processPool = [WKProcessPool wmf_sharedProcessPool];
+    configuration.applicationNameForUserAgent = @"WikipediaApp";
+    configuration.dataDetectorTypes = UIDataDetectorTypeNone;
+    configuration.suppressesIncrementalRendering = YES;
     return configuration;
 }
 
@@ -951,6 +954,19 @@ NSString *const WMFCCBySALicenseURL =
     if ([self isViewLoaded]) {
         [self displayArticle];
     }
+}
+
+- (void)reloadAritcle {
+    if (!self.article) {
+        return;
+    }
+    
+    CGFloat headerHeight = [self headerHeightForCurrentArticle];
+    [self.headerHeight setOffset:headerHeight];
+    CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
+    [self.webView cacheHTML:[self.article articleHTML] baseURL:self.article.url withAssetsFile:@"index.html" padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth)];
+    [self.webView reload];
+
 }
 
 - (void)displayArticle {

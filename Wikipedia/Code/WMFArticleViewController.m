@@ -855,7 +855,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
+    
     [self updateTableOfContentsDisplayModeWithTraitCollection:self.traitCollection];
 
     BOOL isVisibleInline = [[NSUserDefaults wmf_userDefaults] wmf_isTableOfContentsVisibleInline];
@@ -868,6 +868,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     [self registerForPreviewingIfAvailable];
 
+    [self.webViewController reloadAritcle];
+    
     if (!self.skipFetchOnViewDidAppear) {
         [self fetchArticleIfNeeded];
     }
@@ -884,10 +886,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [super viewWillDisappear:animated];
 
     [self unregisterForPreviewing];
-
     [self stopSignificantlyViewedTimer];
     [self saveWebViewScrollOffset];
     [self removeProgressView];
+    [self.webViewController.webView stopLoading];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
