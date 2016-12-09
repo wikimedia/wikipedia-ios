@@ -5,6 +5,7 @@
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 #import <Tweaks/FBTweakShakeWindow.h>
 #import "NSUserActivity+WMFExtensions.h"
+#import "Wikipedia-Swift.h"
 @import UserNotifications;
 
 #if WMF_UX_STUDY_ENABLED
@@ -86,6 +87,7 @@ static NSString *const WMFAppSeeAPIKey = @QUOTE(WMF_APP_SEE_API_KEY);
 #endif
 
     [NSUserDefaults wmf_migrateToWMFGroupUserDefaultsIfNecessary];
+    [[NSUserDefaults wmf_userDefaults] wmf_migrateFontSizeMultiplier];
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
     [PiwikTracker wmf_start];
 

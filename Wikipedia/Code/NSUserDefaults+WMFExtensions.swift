@@ -196,20 +196,6 @@ public extension NSUserDefaults {
         self.setURL(url, forKey: WMFSearchURLKey)
         self.synchronize()
     }
-
-    public func wmf_setReadingFontSize(fontSize: NSNumber) {
-        self.setObject(fontSize, forKey: "ReadingFontSize")
-        self.synchronize()
-        
-    }
-    
-    public func wmf_readingFontSize() -> NSNumber {
-        if let fontSize = self.objectForKey("ReadingFontSize") as? NSNumber {
-            return fontSize
-        }else{
-            return NSNumber(integer:100) //default is 100%
-        }
-    }
     
     public func wmf_setDidShowTableOfContentsAndFindInPageIconPopovers(shown: Bool) {
         self.setObject(NSNumber(bool: shown), forKey: "ShowTableOfContentsAndFindInPageIconPopovers")

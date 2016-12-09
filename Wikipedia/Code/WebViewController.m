@@ -55,6 +55,7 @@ NSString *const WMFCCBySALicenseURL =
 @property (nonatomic, strong) NSMutableDictionary *footerViewHeadersByIndex;
 @property (nonatomic, strong) WMFArticleFooterView *footerLicenseView;
 @property (nonatomic, strong) IBOutlet UIView *containerView;
+@property (nonatomic, strong) NSNumber *fontSizeMultiplier;
 
 @property (strong, nonatomic) MASConstraint *footerContainerViewTopConstraint;
 @property (strong, nonatomic) MASConstraint *footerContainerViewLeftMarginConstraint;
@@ -1148,9 +1149,11 @@ NSString *const WMFCCBySALicenseURL =
     if (fontSize == nil) {
         fontSize = @(100);
     }
+    if ([_fontSizeMultiplier isEqual:fontSize]) {
+        return;
+    }
+    _fontSizeMultiplier = fontSize;
     [self.webView wmf_setTextSize:fontSize.integerValue];
-    [[NSUserDefaults wmf_userDefaults] wmf_setReadingFontSize:fontSize];
-    [[NSUserDefaults wmf_userDefaults] synchronize];
 }
 
 #pragma mark - UIScrollViewDelegate
