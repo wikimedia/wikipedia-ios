@@ -38,7 +38,7 @@ static const NSTimeInterval WKWebViewLoadAssetsHTMLRequestTimeout = 60; //60s is
                                                               encoding:NSUTF8StringEncoding
                                                                  error:nil];
 
-    NSNumber *fontSize = [[NSUserDefaults wmf_userDefaults] wmf_readingFontSize];
+    NSNumber *fontSize = [[NSUserDefaults wmf_userDefaults] wmf_articleFontSizeMultiplier];
     NSString *fontString = [NSString stringWithFormat:@"%ld%%", (long)fontSize.integerValue];
 
     NSAssert([fileContents componentsSeparatedByString:@"%@"].count == (7 + 1), @"\nHTML template file does not have required number of percent-ampersand occurences (7).\nNumber of percent-ampersands must match number of values passed to  'stringWithFormat:'");
