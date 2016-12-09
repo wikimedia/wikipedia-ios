@@ -252,7 +252,7 @@ typedef NS_ENUM(NSUInteger, CustomVariableScope) {
  @param value A numeric value, float or integer. Optional.
  @return YES if the event was queued for dispatching.
  */
-- (BOOL)sendEventWithCategory:(NSString*)category action:(NSString*)action name:(NSString*)name value:(NSNumber*)value;
+- (BOOL)sendEventWithCategory:(NSString*)category action:(nullable NSString*)action name:(nullable NSString*)name value:(nullable NSNumber*)value;
 
 /**
  Track a caught exception or error.
@@ -298,7 +298,7 @@ typedef NS_ENUM(NSUInteger, CustomVariableScope) {
  @param numberOfHits The number of results found (optional).
  @return YES if the event was queued for dispatching.
  */
-- (BOOL)sendSearchWithKeyword:(NSString*)keyword category:(NSString*)category numberOfHits:(NSNumber*)numberOfHits;
+- (BOOL)sendSearchWithKeyword:(NSString*)keyword category:(nullable NSString*)category numberOfHits:(nullable NSNumber*)numberOfHits;
 
 /**
  Track an ecommerce transaction.
@@ -365,7 +365,7 @@ typedef NS_ENUM(NSUInteger, CustomVariableScope) {
  @return YES if the event was queued for dispatching.
  @see sendContentInteractionWithName:piece:target:
  */
-- (BOOL)sendContentImpressionWithName:(NSString*)name piece:(NSString*)piece target:(NSString*)target;
+- (BOOL)sendContentImpressionWithName:(NSString*)name piece:(nullable NSString*)piece target:(nullable NSString*)target;
 
 /**
  Track when a user interact with an ad or banner.
@@ -378,7 +378,7 @@ typedef NS_ENUM(NSUInteger, CustomVariableScope) {
  @return YES if the event was queued for dispatching.
  @see sendContentImpressionWithName:piece:target:
  */
-- (BOOL)sendContentInteractionWithName:(NSString*)name piece:(NSString*)piece target:(NSString*)target;
+- (BOOL)sendContentInteractionWithName:(NSString*)name piece:(nullable NSString*)piece target:(nullable NSString*)target;
 
 
 /**
