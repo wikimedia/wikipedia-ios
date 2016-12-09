@@ -55,7 +55,7 @@
 }
 
 - (NSString *)referenceHTMLWithSurroundingHTML {
-    NSNumber *fontSize = [[NSUserDefaults wmf_userDefaults] wmf_readingFontSize];
+    NSNumber *fontSize = [[NSUserDefaults wmf_userDefaults] wmf_articleFontSizeMultiplier];
 
     NSString *domain = [SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language;
     MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];

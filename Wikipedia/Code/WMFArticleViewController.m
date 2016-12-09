@@ -901,7 +901,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
     }
     [self registerForPreviewingIfAvailable];
-    NSNumber *multiplier = [[NSUserDefaults wmf_userDefaults] wmf_readingFontSize];
+    NSNumber *multiplier = [[NSUserDefaults wmf_userDefaults] wmf_articleFontSizeMultiplier];
     [self.webViewController setFontSizeMultiplier:multiplier];
 }
 
@@ -1388,7 +1388,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     NSNumber *multiplier = self.fontSizeMultipliers[value];
     [self.webViewController setFontSizeMultiplier:multiplier];
-    [[NSUserDefaults wmf_userDefaults] wmf_setReadingFontSize:multiplier];
+    [[NSUserDefaults wmf_userDefaults] wmf_setArticleFontSizeMultiplier:multiplier];
 }
 
 - (NSArray<NSNumber *> *)fontSizeMultipliers {
@@ -1402,7 +1402,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (NSUInteger)indexOfCurrentFontSize {
-    NSNumber *fontSize = [[NSUserDefaults wmf_userDefaults] wmf_readingFontSize];
+    NSNumber *fontSize = [[NSUserDefaults wmf_userDefaults] wmf_articleFontSizeMultiplier];
 
     NSUInteger index = [[self fontSizeMultipliers] indexOfObject:fontSize];
 

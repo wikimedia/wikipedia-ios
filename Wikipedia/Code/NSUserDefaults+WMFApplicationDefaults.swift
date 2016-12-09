@@ -1,31 +1,33 @@
 import Foundation
 
 extension NSUserDefaults {
-    public func wmf_setReadingFontSize(fontSize: NSNumber) {
+    public func wmf_setArticleFontSizeMultiplier(fontSize: NSNumber) {
         self.setObject(fontSize, forKey: "ReadingFontSize")
         self.synchronize()
     }
     
-    public func wmf_readingFontSize() -> NSNumber {
+    public func wmf_articleFontSizeMultiplier() -> NSNumber {
         if let fontSize = self.objectForKey("ReadingFontSize") as? NSNumber {
             return fontSize
         } else {
             let preferredContentSizeCategory = UIApplication.sharedApplication().preferredContentSizeCategory
             switch preferredContentSizeCategory {
             case UIContentSizeCategoryExtraSmall:
-                return NSNumber(integer: 70)
+                fallthrough
             case UIContentSizeCategorySmall:
-                return NSNumber(integer: 85)
+                return NSNumber(integer: 70)
             case UIContentSizeCategoryMedium:
-                return NSNumber(integer: 100)
+                return NSNumber(integer: 85)
             case UIContentSizeCategoryLarge:
-                return NSNumber(integer: 115)
+                return NSNumber(integer: 100)
             case UIContentSizeCategoryExtraLarge:
-                return NSNumber(integer: 130)
+                return NSNumber(integer: 115)
             case UIContentSizeCategoryExtraExtraLarge:
-                return NSNumber(integer: 145)
+                return NSNumber(integer: 130)
             case UIContentSizeCategoryAccessibilityMedium:
                 fallthrough
+            case UIContentSizeCategoryExtraExtraExtraLarge:
+                return NSNumber(integer: 145)
             case UIContentSizeCategoryAccessibilityLarge:
                 fallthrough
             case UIContentSizeCategoryAccessibilityExtraLarge:
@@ -33,8 +35,6 @@ extension NSUserDefaults {
             case UIContentSizeCategoryAccessibilityExtraExtraLarge:
                 fallthrough
             case UIContentSizeCategoryAccessibilityExtraExtraExtraLarge:
-                fallthrough
-            case UIContentSizeCategoryExtraExtraExtraLarge:
                 return NSNumber(integer: 160)
             default:
                 return NSNumber(integer:100)
