@@ -1391,14 +1391,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [[NSUserDefaults wmf_userDefaults] wmf_setArticleFontSizeMultiplier:multiplier];
 }
 
+
 - (NSArray<NSNumber *> *)fontSizeMultipliers {
-    return @[@(FBTweakValue(@"Article", @"Font Size", @"Step 1", 70)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 2", 85)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 3", 100)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 4", 115)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 5", 130)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 6", 145)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 7", 160))];
+    return @[@(FBTweakValue(@"Article", @"Font Size", @"Step 1", WMFFontSizeMultiplierSmall)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 2", WMFFontSizeMultiplierMedium)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 3", WMFFontSizeMultiplierLarge)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 4", WMFFontSizeMultiplierExtraLarge)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 5", WMFFontSizeMultiplierExtraExtraLarge)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 6", WMFFontSizeMultiplierExtraExtraExtraLarge)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 7", WMFFontSizeMultiplierExtraExtraExtraExtraLarge))];
 }
 
 - (NSUInteger)indexOfCurrentFontSize {
