@@ -15,7 +15,7 @@
     self.key = URL.absoluteString.precomposedStringWithCanonicalMapping;
 }
 
-+ (NSString *)databaseKeyForURL:(NSURL *)URL {
++ (nullable NSString *)databaseKeyForURL:(nullable NSURL *)URL {
     NSParameterAssert(URL);
     return [[URL absoluteString] precomposedStringWithCanonicalMapping];
 }
