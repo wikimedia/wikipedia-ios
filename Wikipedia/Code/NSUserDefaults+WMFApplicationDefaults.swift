@@ -8,8 +8,8 @@ let WMFArticleFontSizeMultiplierKey = "WMFArticleFontSizeMultiplier"
     case Small = 80
     case Medium = 90
     case Large = 100
-    case ExtraLarge = 110
-    case ExtraExtraLarge = 130
+    case ExtraLarge = 120
+    case ExtraExtraLarge = 140
     case ExtraExtraExtraLarge = 160
 }
 
