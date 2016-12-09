@@ -4,13 +4,13 @@ let WMFReadingFontSizeLegacyKey = "ReadingFontSize"
 let WMFArticleFontSizeMultiplierKey = "WMFArticleFontSizeMultiplier"
 
 @objc enum WMFFontSizeMultiplier: Int {
-    case Small = 70
-    case Medium = 85
+    case ExtraSmall = 70
+    case Small = 80
+    case Medium = 90
     case Large = 100
-    case ExtraLarge = 115
+    case ExtraLarge = 110
     case ExtraExtraLarge = 130
-    case ExtraExtraExtraLarge = 145
-    case ExtraExtraExtraExtraLarge = 160
+    case ExtraExtraExtraLarge = 160
 }
 
 extension NSUserDefaults {
@@ -35,7 +35,7 @@ extension NSUserDefaults {
             let preferredContentSizeCategory = UIApplication.sharedApplication().preferredContentSizeCategory
             switch preferredContentSizeCategory {
             case UIContentSizeCategoryExtraSmall:
-                fallthrough
+                return NSNumber(integer: WMFFontSizeMultiplier.ExtraSmall.rawValue)
             case UIContentSizeCategorySmall:
                 return NSNumber(integer: WMFFontSizeMultiplier.Small.rawValue)
             case UIContentSizeCategoryMedium:
@@ -48,8 +48,6 @@ extension NSUserDefaults {
                 return NSNumber(integer: WMFFontSizeMultiplier.ExtraExtraLarge.rawValue)
             case UIContentSizeCategoryAccessibilityMedium:
                 fallthrough
-            case UIContentSizeCategoryExtraExtraExtraLarge:
-                return NSNumber(integer: WMFFontSizeMultiplier.ExtraExtraExtraLarge.rawValue)
             case UIContentSizeCategoryAccessibilityLarge:
                 fallthrough
             case UIContentSizeCategoryAccessibilityExtraLarge:
@@ -57,7 +55,9 @@ extension NSUserDefaults {
             case UIContentSizeCategoryAccessibilityExtraExtraLarge:
                 fallthrough
             case UIContentSizeCategoryAccessibilityExtraExtraExtraLarge:
-                return NSNumber(integer: WMFFontSizeMultiplier.ExtraExtraExtraExtraLarge.rawValue)
+                fallthrough
+            case UIContentSizeCategoryExtraExtraExtraLarge:
+                return NSNumber(integer: WMFFontSizeMultiplier.ExtraExtraExtraLarge.rawValue)
             default:
                 return NSNumber(integer:WMFFontSizeMultiplier.Large.rawValue)
             }

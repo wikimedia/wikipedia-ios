@@ -1393,13 +1393,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 
 - (NSArray<NSNumber *> *)fontSizeMultipliers {
-    return @[@(FBTweakValue(@"Article", @"Font Size", @"Step 1", WMFFontSizeMultiplierSmall)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 2", WMFFontSizeMultiplierMedium)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 3", WMFFontSizeMultiplierLarge)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 4", WMFFontSizeMultiplierExtraLarge)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 5", WMFFontSizeMultiplierExtraExtraLarge)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 6", WMFFontSizeMultiplierExtraExtraExtraLarge)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 7", WMFFontSizeMultiplierExtraExtraExtraExtraLarge))];
+    return @[@(FBTweakValue(@"Article", @"Font Size", @"Step 1", WMFFontSizeMultiplierExtraSmall)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 2", WMFFontSizeMultiplierSmall)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 3", WMFFontSizeMultiplierMedium)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 4", WMFFontSizeMultiplierLarge)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 5", WMFFontSizeMultiplierExtraLarge)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 6", WMFFontSizeMultiplierExtraExtraLarge)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 7", WMFFontSizeMultiplierExtraExtraExtraLarge))];
 }
 
 - (NSUInteger)indexOfCurrentFontSize {
@@ -1408,16 +1408,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     NSUInteger index = [[self fontSizeMultipliers] indexOfObject:fontSize];
 
     if (index == NSNotFound) {
-        index = [[[self fontSizeMultipliers] bk_reduce:@(NSIntegerMax)
-                                             withBlock:^id(NSNumber *current, NSNumber *obj) {
-                                                 NSUInteger currentDistance = current.integerValue;
-                                                 NSUInteger objDistance = abs((int)(obj.integerValue - fontSize.integerValue));
-                                                 if (objDistance < currentDistance) {
-                                                     return obj;
-                                                 } else {
-                                                     return current;
-                                                 }
-                                             }] integerValue];
+        index = [self fontSizeMultipliers].count / 2;
     }
 
     return index;
