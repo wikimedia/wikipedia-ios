@@ -25,6 +25,24 @@
     return [self initWithControl:button barButtonItem:nil savedPageList:savedPageList url:url];
 }
 
++ (UIImage *)saveImage {
+    static dispatch_once_t onceToken;
+    static UIImage *saveImage;
+    dispatch_once(&onceToken, ^{
+        saveImage = [UIImage imageNamed:@"save"];
+    });
+    return saveImage;
+}
+
++ (UIImage *)unsaveImage {
+    static dispatch_once_t onceToken;
+    static UIImage *unsaveImage;
+    dispatch_once(&onceToken, ^{
+        unsaveImage = [UIImage imageNamed:@"save-filled"];
+    });
+    return unsaveImage;
+}
+
 - (void)dealloc {
     [self unobserveURL:self.url];
 }
@@ -92,7 +110,7 @@
     [_barButtonItem setTarget:nil];
     [_barButtonItem setAction:nil];
     _barButtonItem = barButtonItem;
-    _barButtonItem.image = [UIImage imageNamed:@"save"];
+    _barButtonItem.image = [WMFSaveButtonController saveImage];
     [_barButtonItem setTarget:self];
     [_barButtonItem setAction:@selector(toggleSave:)];
     [self updateSavedButtonState];
@@ -138,7 +156,7 @@
     }
     if (self.url == nil) {
         self.control.selected = NO;
-        self.barButtonItem.image = [UIImage imageNamed:@"save"];
+        self.barButtonItem.image = [WMFSaveButtonController saveImage];
         return;
     }
     BOOL isSaved = [self isSaved];
@@ -146,9 +164,9 @@
     self.control.accessibilityLabel = isSaved ? MWLocalizedString(@"unsave-action", nil) : MWLocalizedString(@"save-action", nil);
     self.barButtonItem.accessibilityLabel = isSaved ? MWLocalizedString(@"unsave-action", nil) : MWLocalizedString(@"save-action", nil);
     if (isSaved) {
-        self.barButtonItem.image = [UIImage imageNamed:@"save-filled"];
+        self.barButtonItem.image = [WMFSaveButtonController unsaveImage];
     } else {
-        self.barButtonItem.image = [UIImage imageNamed:@"save"];
+        self.barButtonItem.image = [WMFSaveButtonController saveImage];
     }
 }
 
