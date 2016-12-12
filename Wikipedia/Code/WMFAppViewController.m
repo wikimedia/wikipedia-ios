@@ -152,17 +152,17 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
                                                object:nil];
 
     @weakify(self);
-    [[NSNotificationCenter defaultCenter] addObserverForName: UIContentSizeCategoryDidChangeNotification
-                                                      object: nil
-                                                       queue: [NSOperationQueue mainQueue]
-                                                  usingBlock: ^(NSNotification *note) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note) {
                                                       @strongify(self);
                                                       [self updateTabBarItemsTitleTextAttributesForNewDynamicTypeContentSize];
-    }];
+                                                  }];
 }
 
 - (void)updateTabBarItemsTitleTextAttributesForNewDynamicTypeContentSize {
-    for (UITabBarItem* item in self.rootTabBarController.tabBar.items){
+    for (UITabBarItem *item in self.rootTabBarController.tabBar.items) {
         [item setTitleTextAttributes:[UITabBarItem wmf_rootTabBarItemStyleForState:UIControlStateNormal] forState:UIControlStateNormal];
         [item setTitleTextAttributes:[UITabBarItem wmf_rootTabBarItemStyleForState:UIControlStateSelected] forState:UIControlStateSelected];
     }
