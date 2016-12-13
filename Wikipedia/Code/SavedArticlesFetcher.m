@@ -114,7 +114,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             [self fetchUncachedArticleURLs:@[url]];
         } else {
             [self cancelFetchForArticleURL:url];
-            [self.spotlightManager removeFromIndex:url];
+            [self.spotlightManager removeFromIndexWithUrl:url];
         }
     }
 }
@@ -176,7 +176,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                 failure:^(NSError *error) {
                 }
                 success:^{
-                    [self.spotlightManager addToIndex:url];
+                    [self.spotlightManager addToIndexWithUrl:url];
                 }];
         });
     }

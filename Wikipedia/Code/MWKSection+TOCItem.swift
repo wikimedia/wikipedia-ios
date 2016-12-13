@@ -28,7 +28,7 @@ extension MWKSection : TableOfContentsItem {
     public var titleText: String {
         get {
             if(isLead()) {
-                return url.wmf_title ?? ""
+                return (url as NSURL).wmf_title ?? ""
             } else {
                 return line?.wmf_stringByRemovingHTML() ?? ""
             }

@@ -15,13 +15,8 @@
     }
     
     convenience init(scriptMessageDict: NSDictionary) {
-        var rect = CGRect.zero
-        if let rectDict = scriptMessageDict["rect"] as? NSDictionary {
-            if CGRectMakeWithDictionaryRepresentation(rectDict, &rect) == false {
-                assert(false, "'CGRectMakeWithDictionaryRepresentation' failed")
-            }
-        }else{
-            assert(false, "Expected 'rect' dictionary not found in 'scriptMessageDict'")
+        guard let rectDict = scriptMessageDict["rect"] as? NSDictionary, let rect =  CGRect.init(dictionaryRepresentation:rectDict) else {
+            assert(false, "'CGRectMakeWithDictionaryRepresentation' failed or Expected 'rect' dictionary not found in 'scriptMessageDict'")
         }
         
         var htmlString = ""

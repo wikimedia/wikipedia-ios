@@ -115,7 +115,7 @@ open class WMFImageController : NSObject {
             success(true)
             return
         }
-        fetchImageWithURL(URL, options: WMFImageController.backgroundImageFetchOptions, failure: failure) { (download) in
+        fetchImage(withURL: URL, options: WMFImageController.backgroundImageFetchOptions, failure: failure) { (download) in
             self.imageManager.imageCache.removeImage(forKey: key, fromDisk: false, withCompletion: nil)
             success(true)
         }
@@ -134,13 +134,13 @@ open class WMFImageController : NSObject {
      
      - seealso: WMFImageControllerError
      */
-    open func fetchImageWithURL(
-        _ url: URL,
+    open func fetchImage(
+        withURL: URL,
         options: SDWebImageOptions = [.highPriority, .reportCancellationAsError],
         failure: @escaping (Error) -> Void,
         success: @escaping (WMFImageDownload) -> Void) {
         
-        let url = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless()
+        let url = (withURL as NSURL).wmf_urlByPrependingSchemeIfSchemeless()
         let webImageOperation = imageManager.downloadImage(with: url as URL!, options: options, progress: nil) { (image, opError, type, finished, imageURL) in
             if let opError = opError {
                 failure(opError)
@@ -410,7 +410,7 @@ extension WMFImageController {
     /**
      Objective-C-compatible variant of fetchImageWithURL(url:options:) using default options & using blocks.
     */
-    @objc public func fetchImageWithURL(_ url: URL?, failure: @escaping (_ error: NSError) -> Void, success: (_ download: WMFImageDownload) -> Void) {
+    @objc public func fetchImageWithURL(_ url: URL?, failure: @escaping (_ error: NSError) -> Void, success: @escaping (_ download: WMFImageDownload) -> Void) {
         guard let url = url else {
             failure(WMFImageControllerError.invalidOrEmptyURL as NSError)
             return
@@ -419,7 +419,7 @@ extension WMFImageController {
         let metaFailure = { (error: Error) in
             failure(error as NSError)
         }
-        fetchImageWithURL(url, failure: metaFailure, success:success);
+        fetchImage(withURL:url, failure: metaFailure, success:success);
     }
     
     
@@ -428,7 +428,7 @@ extension WMFImageController {
             return
         }
 
-        fetchImageWithURL(url, options: [.lowPriority, .reportCancellationAsError], failure: { (error) in }) { (download) in
+        fetchImage(withURL: url, options: [.lowPriority, .reportCancellationAsError], failure: { (error) in }) { (download) in
 
         }
     }

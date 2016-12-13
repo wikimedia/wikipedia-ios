@@ -82,7 +82,7 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
                 if #available(iOS 10.0, *) {
                     if (isOn) {
                         WMFNotificationsController.shared().requestAuthenticationIfNecessary(completionHandler: { (granted, error) in
-                            if let error = error {
+                            if let error = error as? NSError {
                                 self.wmf_showAlertWithError(error)
                             }
                         })

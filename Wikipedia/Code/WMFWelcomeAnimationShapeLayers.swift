@@ -1,4 +1,5 @@
 import Foundation
+import CoreGraphics
 
 open class WelcomeShapeLayer : CAShapeLayer {
     public init(referenceSize: CGSize, transform: CATransform3D, opacity: CGFloat) {
@@ -55,8 +56,8 @@ open class WelcomeCircleShapeLayer : WelcomeShapeLayer {
             ).cgPath
         if (isDashed){
             self.lineDashPattern = [
-                CGFloat(0.029).wmf_denormalizeUsingReference(referenceSize.width),
-                CGFloat(0.047).wmf_denormalizeUsingReference(referenceSize.width)
+                NSNumber(value: CGFloat(0.029).wmf_denormalizeUsingReference(referenceSize.width).native),
+                NSNumber(value: CGFloat(0.047).wmf_denormalizeUsingReference(referenceSize.width).native)
             ]
             self.fillColor = UIColor.clear.cgColor
         }else{

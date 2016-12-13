@@ -11,7 +11,7 @@ open class PageHistoryFetcher: NSObject {
         return manager!
     }()
 
-    open func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) -> Void {
+    open func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: @escaping WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) -> Void {
         operationManager.wmf_GETAndRetry(with: siteURL,
                                                 parameters: requestParams,
                                                 retry: nil,
@@ -23,6 +23,10 @@ open class PageHistoryFetcher: NSObject {
             },
                                                 failure: { (operation, error) in
                                                     MWNetworkActivityIndicatorManager.shared().pop()
+                                                    guard let error = error else {
+                                                        failure(NSError(domain: "", code: 0, userInfo: nil))
+                                                        return
+                                                    }
                                                     failure(error)
         })
 
@@ -80,7 +84,7 @@ open class PageHistoryRequestParameters: NSObject {
 }
 
 open class PageHistoryRequestSerializer: AFHTTPRequestSerializer {
-    open override func request(bySerializingRequest request: URLRequest, withParameters parameters: AnyObject?, error: NSErrorPointer) -> URLRequest? {
+    open override func request(bySerializingRequest request: URLRequest, withParameters parameters: Any?, error: NSErrorPointer) -> URLRequest? {
         guard let pageHistoryParameters = parameters as? PageHistoryRequestParameters else {
             assertionFailure("pagehistoryfetcher has incorrect parameter type")
             return nil
@@ -96,8 +100,8 @@ open class PageHistoryRequestSerializer: AFHTTPRequestSerializer {
             "rvlimit": 51 as AnyObject,
             "rvdir": "older" as AnyObject,
             "titles": requestParameters.title as AnyObject,
-            "continue": requestParameters.pagingInfo.continueKey as AnyObject? ?? "",
-            "format": "json"
+            "continue": requestParameters.pagingInfo.continueKey as AnyObject? ?? "" as AnyObject,
+            "format": "json" as AnyObject
             //,"rvdiffto": -1 //Add this to fake out "error" api response.
         ]
         
@@ -110,7 +114,7 @@ open class PageHistoryRequestSerializer: AFHTTPRequestSerializer {
 }
 
 open class PageHistoryResponseSerializer: WMFApiJsonResponseSerializer {
-    open override func responseObject(for response: URLResponse?, data: Data?, error: NSErrorPointer) -> AnyObject? {
+    open override func responseObject(for response: URLResponse?, data: Data?, error: NSErrorPointer) -> Any? {
         guard let responseDict = super.responseObject(for: response, data: data, error: error) as? [String: AnyObject] else {
             assertionFailure("couldn't parse page history response")
             return nil

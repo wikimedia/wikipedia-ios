@@ -33,7 +33,7 @@ open class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeViewCo
     }
     
     
-    open func showInTheNewsAlert(_ message: String, sticky:Bool, dismissPreviousAlerts:Bool, tapCallBack: @escaping ()->()?) {
+    open func showInTheNewsAlert(_ message: String, sticky:Bool, dismissPreviousAlerts:Bool, tapCallBack: @escaping () -> Void) {
         
         if (message ?? "").isEmpty {
             return
@@ -54,7 +54,7 @@ open class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeViewCo
     }
     
 
-    open func showAlert(_ message: String, sticky:Bool, dismissPreviousAlerts:Bool, tapCallBack: @escaping ()->()?) {
+    open func showAlert(_ message: String, sticky:Bool, dismissPreviousAlerts:Bool, tapCallBack: @escaping () -> Void) {
     
          if (message ?? "").isEmpty {
              return
@@ -74,7 +74,7 @@ open class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeViewCo
         })
     }
 
-    open func showSuccessAlert(_ message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: @escaping ()->()?) {
+    open func showSuccessAlert(_ message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: @escaping () -> Void) {
         
         self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
             TSMessage.showNotification(in: nil,
@@ -92,7 +92,7 @@ open class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeViewCo
         })
     }
 
-    open func showWarningAlert(_ message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: @escaping ()->()?) {
+    open func showWarningAlert(_ message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: @escaping () -> Void) {
         
         self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
             TSMessage.showNotification(in: nil,
@@ -109,7 +109,7 @@ open class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeViewCo
         })
     }
 
-    open func showErrorAlert(_ error: NSError, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: @escaping ()->()?) {
+    open func showErrorAlert(_ error: NSError, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: @escaping () -> Void) {
         
         self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
             TSMessage.showNotification(in: nil,
@@ -126,7 +126,7 @@ open class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeViewCo
         })
     }
     
-    open func showErrorAlertWithMessage(_ message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: @escaping ()->()?) {
+    open func showErrorAlertWithMessage(_ message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: @escaping () -> Void) {
         
         self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
             TSMessage.showNotification(in: nil,
@@ -173,7 +173,9 @@ open class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeViewCo
     }
     
     open func showEmailFeedbackAlertViewWithError(_ error: NSError) {
-        let message = localizedStringForKeyFallingBackOnEnglish("request-feedback-on-error")
+        guard let message = localizedStringForKeyFallingBackOnEnglish("request-feedback-on-error") else {
+            return
+        }
         showErrorAlertWithMessage(message, sticky: true, dismissPreviousAlerts: true) {
             self.dismissAllAlerts()
             if MFMailComposeViewController.canSendMail() {
@@ -187,7 +189,9 @@ open class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeViewCo
                 vc.setMessageBody("Domain:\t\(error.domain)\nCode:\t\(error.code)\nDescription:\t\(error.localizedDescription)\n\n\n\nVersion:\t\(WikipediaAppUtils.versionedUserAgent())", isHTML: false)
                 rootVC.present(vc, animated: true, completion: nil)
             } else {
-                self.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("no-email-account-alert"), sticky: false, dismissPreviousAlerts: false, tapCallBack: nil)
+                self.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("no-email-account-alert"), sticky: false, dismissPreviousAlerts: false) {
+                    
+                }
             }
         }
     }

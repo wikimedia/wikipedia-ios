@@ -54,15 +54,15 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         otherLanguagesButton?.setTitle(localizedStringForKeyFallingBackOnEnglish("main-menu-title"), for: UIControlState())
         otherLanguagesButton?.titleLabel?.font = UIFont.wmf_subtitle()
 
-        NotificationCenter.default.addObserver(forName: WMFAppLanguageDidChangeNotification, object: nil, queue: nil) { notification in
-            guard let langController = notification.object, let appLanguage = langController.appLanguage else {
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.WMFAppLanguageDidChange, object: nil, queue: nil) { notification in
+            guard let langController = notification.object, let appLanguage = (langController as AnyObject).appLanguage else {
                 assert(false, "Could not extract app language from WMFAppLanguageDidChangeNotification")
                 return
             }
             self.currentlySelectedSearchLanguage = appLanguage
         }
 
-        NotificationCenter.default.addObserver(forName: WMFPreferredLanguagesDidChangeNotification, object: nil, queue: nil) { _ in
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.WMFPreferredLanguagesDidChange, object: nil, queue: nil) { _ in
             if let selectedLang = self.currentlySelectedSearchLanguage {
                 // The selected lang won't be in languageBarLanguages() if the user has dragged it down so it's not in top 3 langs...
                 if(self.languageBarLanguages().index(of: selectedLang) == nil){

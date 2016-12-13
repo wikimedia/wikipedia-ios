@@ -44,7 +44,7 @@ class WMFReferencePanelViewController: UIViewController {
         containerView.addSubview(containerController.view!)
         containerView.bringSubview(toFront: containerController.view!)
         containerController.view.mas_makeConstraints { make in
-            make?.top.bottom().leading().and().trailing().equalTo()(self.containerView)
+            _ = make?.top.bottom().leading().and().trailing().equalTo()(self.containerView)
         }
         self.addChildViewController(containerController)
         containerController.didMove(toParentViewController: self)

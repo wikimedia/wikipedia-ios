@@ -4,7 +4,7 @@ import Tweaks
 extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
 
     public func tableOfContentsControllerWillDisplay(_ controller: WMFTableOfContentsViewController){
-        webViewController.getCurrentVisibleSectionCompletion({(section: MWKSection?, error: NSError?) -> Void in
+        webViewController.getCurrentVisibleSectionCompletion { (section, error) in
             if let item: TableOfContentsItem = section {
                 self.tableOfContentsViewController!.selectAndScrollToItem(item, animated: false)
             } else {
@@ -13,7 +13,7 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
                     self.tableOfContentsViewController!.selectAndScrollToFooterItem(atIndex: footerIndex, animated: false)
                 }
             }
-        })
+        }
     }
 
     public func tableOfContentsController(_ controller: WMFTableOfContentsViewController,
@@ -82,10 +82,11 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
     }
 
     public func tableOfContentsArticleLanguageURL() -> URL? {
-        if((self.articleURL as NSURL).wmf_isNonStandardURL){
+        let articleNSURL = self.articleURL as NSURL
+        if(articleNSURL.wmf_isNonStandardURL){
             return NSURL.wmf_URL(withDefaultSiteAndlanguage: "en")
         }else{
-            return self.articleURL.wmf_site
+            return articleNSURL.wmf_site
         }
     }
     
@@ -147,20 +148,20 @@ extension WMFArticleViewController {
     class func registerTweak(){
         #if DEBUG
             let tweak = FBTweak(identifier: "Always Peek ToC")
-            tweak.name = "Always Peek ToC"
-            tweak.defaultValue = false
+            tweak?.name = "Always Peek ToC"
+            tweak?.defaultValue = false
             
             let collection = FBTweakCollection(name: "Table of Contents");
-            collection.addTweak(tweak)
+            collection?.addTweak(tweak)
             
             let store = FBTweakStore.sharedInstance()
             
-            if let category = store.tweakCategoryWithName("Article") {
+            if let category = store?.tweakCategory(withName: "Article") {
                 category.addTweakCollection(collection);
             }else{
                 let category = FBTweakCategory(name: "Article")
-                store.addTweakCategory(category)
-                category.addTweakCollection(collection);
+                store?.addTweakCategory(category)
+                category?.addTweakCollection(collection);
             }
         #endif
     }
