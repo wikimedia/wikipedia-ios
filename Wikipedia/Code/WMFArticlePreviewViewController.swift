@@ -1,22 +1,22 @@
 import UIKit
 
-public class WMFArticlePreviewViewController: UIViewController {
+open class WMFArticlePreviewViewController: UIViewController {
 
-    @IBOutlet weak public var marginWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak public var imageView: UIImageView!
-    @IBOutlet weak public var subtitleLabel: UILabel!
-    @IBOutlet weak public var titleLabel: UILabel!
-    @IBOutlet weak public var rankLabel: UILabel!
-    @IBOutlet weak public var separatorView: UIView!
-    @IBOutlet weak public var viewCountAndSparklineContainerView: UIView!
-    @IBOutlet weak public var viewCountLabel: UILabel!
-    @IBOutlet weak public var sparklineView: WMFSparklineView!
+    @IBOutlet weak open var marginWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak open var imageView: UIImageView!
+    @IBOutlet weak open var subtitleLabel: UILabel!
+    @IBOutlet weak open var titleLabel: UILabel!
+    @IBOutlet weak open var rankLabel: UILabel!
+    @IBOutlet weak open var separatorView: UIView!
+    @IBOutlet weak open var viewCountAndSparklineContainerView: UIView!
+    @IBOutlet weak open var viewCountLabel: UILabel!
+    @IBOutlet weak open var sparklineView: WMFSparklineView!
     
     @IBOutlet var imageWidthConstraint: NSLayoutConstraint!
     @IBOutlet var titleLabelTrailingConstraint: NSLayoutConstraint!
 
     public required init() {
-        let bundle = NSBundle(identifier: "org.wikimedia.WMFUI")
+        let bundle = Bundle(identifier: "org.wikimedia.WMFUI")
         super.init(nibName: "WMFArticlePreviewViewController", bundle: bundle)
     }
     
@@ -25,17 +25,17 @@ public class WMFArticlePreviewViewController: UIViewController {
     }
     
     
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         rankLabel.textColor = UIColor.wmf_darkGray()
         separatorView.backgroundColor = UIColor.wmf_darkGray()
     }
 
-    public override func awakeFromNib() {
+    open override func awakeFromNib() {
         collapseImageAndWidenLabels = true
     }
     
     
-    public var collapseImageAndWidenLabels: Bool = true {
+    open var collapseImageAndWidenLabels: Bool = true {
         didSet {
             imageWidthConstraint.constant = collapseImageAndWidenLabels ? 0 : 86
             titleLabelTrailingConstraint.constant = collapseImageAndWidenLabels ? 0 : 8

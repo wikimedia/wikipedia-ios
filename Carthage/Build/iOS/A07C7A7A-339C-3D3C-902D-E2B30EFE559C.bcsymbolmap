@@ -204,7 +204,7 @@ __22-[DDLog removeLogger:]_block_invoke
 __29-[DDLog addLogger:withLevel:]_block_invoke
 __19+[DDLog initialize]_block_invoke
 _dispatch_once
-/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.1.sdk/usr/include/dispatch/once.h
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/usr/include/dispatch/once.h
 __23+[DDLog sharedInstance]_block_invoke
 +[DDASLLogCapture initialize]
 +[DDASLLogCapture start]
@@ -314,53 +314,51 @@ ___42-[DDLogFileManagerDefault applicationName]_block_invoke
 -[DDFileLogger dealloc]
 -[DDFileLogger maximumFileSize]
 ___31-[DDFileLogger maximumFileSize]_block_invoke
-___copy_helper_block_.286
-___destroy_helper_block_.287
-___31-[DDFileLogger maximumFileSize]_block_invoke.289
-___copy_helper_block_.292
-___destroy_helper_block_.293
--[DDFileLogger setMaximumFileSize:]
-___35-[DDFileLogger setMaximumFileSize:]_block_invoke
-___copy_helper_block_.297
-___destroy_helper_block_.298
-___35-[DDFileLogger setMaximumFileSize:]_block_invoke.300
+___copy_helper_block_.295
+___destroy_helper_block_.296
+___31-[DDFileLogger maximumFileSize]_block_invoke.298
 ___copy_helper_block_.301
 ___destroy_helper_block_.302
+-[DDFileLogger setMaximumFileSize:]
+___35-[DDFileLogger setMaximumFileSize:]_block_invoke
+___copy_helper_block_.306
+___destroy_helper_block_.307
+___35-[DDFileLogger setMaximumFileSize:]_block_invoke.309
 -[DDFileLogger rollingFrequency]
 ___32-[DDFileLogger rollingFrequency]_block_invoke
-___copy_helper_block_.304
-___destroy_helper_block_.305
-___32-[DDFileLogger rollingFrequency]_block_invoke.307
-___copy_helper_block_.308
-___destroy_helper_block_.309
--[DDFileLogger setRollingFrequency:]
-___36-[DDFileLogger setRollingFrequency:]_block_invoke
-___36-[DDFileLogger setRollingFrequency:]_block_invoke.316
+___32-[DDFileLogger rollingFrequency]_block_invoke.316
 ___copy_helper_block_.317
 ___destroy_helper_block_.318
--[DDFileLogger scheduleTimerToRollLogFileDueToAge]
-___50-[DDFileLogger scheduleTimerToRollLogFileDueToAge]_block_invoke
+-[DDFileLogger setRollingFrequency:]
+___36-[DDFileLogger setRollingFrequency:]_block_invoke
+___copy_helper_block_.322
+___destroy_helper_block_.323
+___36-[DDFileLogger setRollingFrequency:]_block_invoke.325
 ___copy_helper_block_.326
 ___destroy_helper_block_.327
+-[DDFileLogger scheduleTimerToRollLogFileDueToAge]
+___50-[DDFileLogger scheduleTimerToRollLogFileDueToAge]_block_invoke
+___copy_helper_block_.335
+___destroy_helper_block_.336
 -[DDFileLogger rollLogFile]
 -[DDFileLogger rollLogFileWithCompletionBlock:]
 ___47-[DDFileLogger rollLogFileWithCompletionBlock:]_block_invoke
 ___47-[DDFileLogger rollLogFileWithCompletionBlock:]_block_invoke_2
-___copy_helper_block_.335
-___destroy_helper_block_.336
-___copy_helper_block_.338
-___destroy_helper_block_.339
-___47-[DDFileLogger rollLogFileWithCompletionBlock:]_block_invoke.343
 ___copy_helper_block_.344
 ___destroy_helper_block_.345
+___copy_helper_block_.347
+___destroy_helper_block_.348
+___47-[DDFileLogger rollLogFileWithCompletionBlock:]_block_invoke.352
+___copy_helper_block_.353
+___destroy_helper_block_.354
 -[DDFileLogger rollLogFileNow]
 -[DDFileLogger maybeRollLogFileDueToAge]
 -[DDFileLogger maybeRollLogFileDueToSize]
 -[DDFileLogger currentLogFileInfo]
 -[DDFileLogger currentLogFileHandle]
 ___36-[DDFileLogger currentLogFileHandle]_block_invoke
-___copy_helper_block_.370
-___destroy_helper_block_.371
+___copy_helper_block_.379
+___destroy_helper_block_.380
 -[DDFileLogger logMessage:]
 -[DDFileLogger willRemoveLogger]
 -[DDFileLogger loggerName]
@@ -408,20 +406,19 @@ _OBJC_IVAR_$_DDFileLogger.logFileManager
 _OBJC_IVAR_$_DDFileLogger._currentLogFileHandle
 _OBJC_IVAR_$_DDFileLogger._currentLogFileVnode
 _OBJC_IVAR_$_DDFileLogger._rollingTimer
-___block_descriptor_tmp.288
-___block_descriptor_tmp.294
-___block_descriptor_tmp.299
+___block_descriptor_tmp.297
 ___block_descriptor_tmp.303
-___block_descriptor_tmp.306
-___block_descriptor_tmp.310
+___block_descriptor_tmp.308
 ___block_descriptor_tmp.319
-_OBJC_IVAR_$_DDFileLogger._currentLogFileInfo
+___block_descriptor_tmp.324
 ___block_descriptor_tmp.328
+_OBJC_IVAR_$_DDFileLogger._currentLogFileInfo
 ___block_descriptor_tmp.337
-___block_descriptor_tmp.340
 ___block_descriptor_tmp.346
+___block_descriptor_tmp.349
+___block_descriptor_tmp.355
 _OBJC_IVAR_$_DDFileLogger._doNotReuseLogFiles
-___block_descriptor_tmp.372
+___block_descriptor_tmp.381
 _exception_count
 _OBJC_IVAR_$_DDFileLogger._logFileManager
 _OBJC_IVAR_$_DDLogFileInfo.filePath
@@ -434,22 +431,22 @@ _OBJC_IVAR_$_DDLogFileInfo._filePath
 /Users/joe/Source/wikipedia-ios/Carthage/Checkouts/CocoaLumberjack/Classes/DDFileLogger.m
 /Users/joe/Source/wikipedia-ios/Carthage/Checkouts/CocoaLumberjack/Classes/DDFileLogger.h
 __36-[DDFileLogger currentLogFileHandle]_block_invoke
-__47-[DDFileLogger rollLogFileWithCompletionBlock:]_block_invoke.343
+__47-[DDFileLogger rollLogFileWithCompletionBlock:]_block_invoke.352
 __47-[DDFileLogger rollLogFileWithCompletionBlock:]_block_invoke_2
 __47-[DDFileLogger rollLogFileWithCompletionBlock:]_block_invoke
 __50-[DDFileLogger scheduleTimerToRollLogFileDueToAge]_block_invoke
-__36-[DDFileLogger setRollingFrequency:]_block_invoke.316
+__36-[DDFileLogger setRollingFrequency:]_block_invoke.325
 __36-[DDFileLogger setRollingFrequency:]_block_invoke
-__32-[DDFileLogger rollingFrequency]_block_invoke.307
+__32-[DDFileLogger rollingFrequency]_block_invoke.316
 __32-[DDFileLogger rollingFrequency]_block_invoke
-__35-[DDFileLogger setMaximumFileSize:]_block_invoke.300
+__35-[DDFileLogger setMaximumFileSize:]_block_invoke.309
 __35-[DDFileLogger setMaximumFileSize:]_block_invoke
-__31-[DDFileLogger maximumFileSize]_block_invoke.289
+__31-[DDFileLogger maximumFileSize]_block_invoke.298
 __31-[DDFileLogger maximumFileSize]_block_invoke
 __42-[DDLogFileManagerDefault applicationName]_block_invoke
 doesAppRunInBackground
 NSMakeRange
-/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.1.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSRange.h
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSRange.h
 __74-[DDLogFileManagerDefault observeValueForKeyPath:ofObject:change:context:]_block_invoke
 +[DDTTYLogger initialize_colors_16]
 +[DDTTYLogger initialize_colors_256]
@@ -769,6 +766,13 @@ __41-[DDAbstractDatabaseLogger saveThreshold]_block_invoke_2
 __41-[DDAbstractDatabaseLogger saveThreshold]_block_invoke
 __53-[DDAbstractDatabaseLogger createAndStartDeleteTimer]_block_invoke
 __52-[DDAbstractDatabaseLogger createSuspendedSaveTimer]_block_invoke
++[CLIColor colorWithCalibratedRed:green:blue:alpha:]
+-[CLIColor getRed:green:blue:alpha:]
+_OBJC_IVAR_$_CLIColor._red
+_OBJC_IVAR_$_CLIColor._green
+_OBJC_IVAR_$_CLIColor._blue
+_OBJC_IVAR_$_CLIColor._alpha
+/Users/joe/Source/wikipedia-ios/Carthage/Checkouts/CocoaLumberjack/Classes/CLI/CLIColor.m
 +[DDASLLogger sharedInstance]
 ___29+[DDASLLogger sharedInstance]_block_invoke
 -[DDASLLogger init]
@@ -854,8 +858,7 @@ __ZL25original_protocol_getName
 __ZL36original_objc_copyClassNamesForImage
 __ZL12demangleLock
 __ZL9Demangled
-Apple LLVM version 8.0.0 (clang-800.0.42)
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ -arch arm64 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=c++11 -Wno-trigraphs -fno-exceptions -fno-rtti -mpascal-strings -Os -Wno-missing-field-initializers -Wmissing-prototypes -Wno-implicit-atomic-properties -Wno-arc-repeated-use-of-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -D NDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.1.Internal.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -miphoneos-version-min=4.3 -g -fno-threadsafe-statics -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -fembed-bitcode -iquote /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~962/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-generated-files.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~962/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-own-target-headers.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~962/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-all-target-headers.hmap -iquote /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~962/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-project-headers.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~962/Symbols/BuiltProducts/include -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~962/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources/arm64 -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~962/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources -F/Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~962/Symbols/BuiltProducts -F/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.1.Internal.sdk/System/Library/PrivateFrameworks -Wall -Wextra -Wno-gcc-compat -fgnu-inline-asm -Wno-error=incomplete-umbrella -Wno-error=incomplete-umbrella -MMD -MT dependencies -MF /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~962/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/arm64/arclite.d --serialize-diagnostics /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~962/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/arm64/arclite.dia -c /Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65/source/arclite.mm -o /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~962/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/arm64/arclite.o -mlinker-version=274.1
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ -arch arm64 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=c++11 -Wno-trigraphs -fno-exceptions -fno-rtti -mpascal-strings -Os -Wno-missing-field-initializers -Wmissing-prototypes -Wno-implicit-atomic-properties -Wno-arc-repeated-use-of-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -D NDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.Internal.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -miphoneos-version-min=4.3 -g -fno-threadsafe-statics -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -fembed-bitcode -iquote /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-generated-files.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-own-target-headers.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-all-target-headers.hmap -iquote /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-project-headers.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/Symbols/BuiltProducts/include -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources/arm64 -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources -F/Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/Symbols/BuiltProducts -F/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.Internal.sdk/System/Library/PrivateFrameworks -Wall -Wextra -Wno-gcc-compat -fgnu-inline-asm -Wno-error=incomplete-umbrella -Wno-error=incomplete-umbrella -MMD -MT dependencies -MF /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/arm64/arclite.d --serialize-diagnostics /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/arm64/arclite.dia -c /Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65/source/arclite.mm -o /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/arm64/arclite.o -mlinker-version=274.2
 /Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65/source/arclite.mm
 /Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65
 fixStringForCoreData
@@ -863,7 +866,7 @@ cxxConstruct
 arclite_uninitialized_function
 scanMangledField
 isdigit
-/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.1.Internal.sdk/usr/include/ctype.h
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.Internal.sdk/usr/include/ctype.h
 __isctype
 demangledName
 copySwiftV1DemangledName

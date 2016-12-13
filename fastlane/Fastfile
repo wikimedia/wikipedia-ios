@@ -45,11 +45,11 @@ platform :ios do
      sim: 'iPhone 6s (9.3)'
     )
     verify(
-     sim: 'iPhone 6s (10.1)',
+     sim: 'iPhone 6s (10.2)',
      scheme: "WikipediaRTL"
     )
     verify(
-     sim: 'iPhone 6s (10.1)',
+     sim: 'iPhone 6s (10.2)',
      junit: true
     )
   end
@@ -57,7 +57,7 @@ platform :ios do
   desc "Runs unit tests, optionally generating a JUnit report."
   lane :verify do |options|
     scheme = options[:scheme] || 'Wikipedia'
-    sim = options[:sim] || 'iPhone 6s (10.1)'
+    sim = options[:sim] || 'iPhone 6s (10.2)'
     opts = {
       :device => sim,
       :sdk => "iphonesimulator",
@@ -192,7 +192,8 @@ platform :ios do
       skip_waiting_for_build_processing: false,
       skip_submission: false,
       distribute_external: false,
-      app_identifier:  app_identifier
+      app_identifier:  app_identifier,
+      changelog: ""
     )
     
     tag(

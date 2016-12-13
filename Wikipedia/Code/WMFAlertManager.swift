@@ -13,106 +13,106 @@ extension NSError {
     
     public func alertType() -> TSMessageNotificationType {
         if(self.wmf_isNetworkConnectionError()){
-            return .Warning
+            return .warning
         }else{
-            return .Error
+            return .error
         }
     }
 
 }
 
 
-public class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeViewControllerDelegate {
+open class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeViewControllerDelegate {
     
-    public static let sharedInstance = WMFAlertManager()
+    open static let sharedInstance = WMFAlertManager()
 
     override init() {
         super.init()
-        TSMessage.addCustomDesignFromFileWithName("AlertDesign.json")
-        TSMessage.sharedMessage().delegate = self
+        TSMessage.addCustomDesignFromFile(withName: "AlertDesign.json")
+        TSMessage.shared().delegate = self
     }
     
     
-    public func showInTheNewsAlert(message: String, sticky:Bool, dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
+    open func showInTheNewsAlert(_ message: String?, sticky:Bool, dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)?) {
         
         if (message ?? "").isEmpty {
             return
         }
         self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
-            TSMessage.showNotificationInViewController(nil,
+            TSMessage.showNotification(in: nil,
                 title: localizedStringForKeyFallingBackOnEnglish("in-the-news-title"),
                 subtitle: message,
                 image: UIImage(named:"trending-notification-icon"),
-                type: .Message,
+                type: .message,
                 duration: sticky ? -1 : 2,
                 callback: tapCallBack,
                 buttonTitle: nil,
                 buttonCallback: {},
-                atPosition: .Top,
+                at: .top,
                 canBeDismissedByUser: true)
         })
     }
     
 
-    public func showAlert(message: String, sticky:Bool, dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
+    open func showAlert(_ message: String?, sticky:Bool, dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)?) {
     
          if (message ?? "").isEmpty {
              return
          }
          self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
-            TSMessage.showNotificationInViewController(nil,
+            TSMessage.showNotification(in: nil,
                 title: message,
                 subtitle: nil,
                 image: nil,
-                type: .Message,
+                type: .message,
                 duration: sticky ? -1 : 2,
                 callback: tapCallBack,
                 buttonTitle: nil,
                 buttonCallback: {},
-                atPosition: .Top,
+                at: .top,
                 canBeDismissedByUser: true)
         })
     }
 
-    public func showSuccessAlert(message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
+    open func showSuccessAlert(_ message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)?) {
         
         self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
-            TSMessage.showNotificationInViewController(nil,
+            TSMessage.showNotification(in: nil,
                 title: message,
                 subtitle: nil,
                 image: nil,
-                type: .Success,
+                type: .success,
                 duration: sticky ? -1 : 2,
                 callback: tapCallBack,
                 buttonTitle: nil,
                 buttonCallback: {},
-                atPosition: .Top,
+                at: .top,
                 canBeDismissedByUser: true)
 
         })
     }
 
-    public func showWarningAlert(message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
+    open func showWarningAlert(_ message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)?) {
         
         self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
-            TSMessage.showNotificationInViewController(nil,
+            TSMessage.showNotification(in: nil,
                 title: message,
                 subtitle: nil,
                 image: nil,
-                type: .Warning,
+                type: .warning,
                 duration: sticky ? -1 : 2,
                 callback: tapCallBack,
                 buttonTitle: nil,
                 buttonCallback: {},
-                atPosition: .Top,
+                at: .top,
                 canBeDismissedByUser: true)
         })
     }
 
-    public func showErrorAlert(error: NSError, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
+    open func showErrorAlert(_ error: NSError, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)?) {
         
         self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
-            TSMessage.showNotificationInViewController(nil,
+            TSMessage.showNotification(in: nil,
                 title: error.alertMessage(),
                 subtitle: nil,
                 image: nil,
@@ -121,32 +121,32 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeView
                 callback: tapCallBack,
                 buttonTitle: nil,
                 buttonCallback: {},
-                atPosition: .Top,
+                at: .top,
                 canBeDismissedByUser: true)
         })
     }
     
-    public func showErrorAlertWithMessage(message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
+    open func showErrorAlertWithMessage(_ message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)?) {
         
         self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
-            TSMessage.showNotificationInViewController(nil,
+            TSMessage.showNotification(in: nil,
                 title: message,
                 subtitle: nil,
                 image: nil,
-                type: .Error,
+                type: .error,
                 duration: sticky ? -1 : 2,
                 callback: tapCallBack,
                 buttonTitle: nil,
                 buttonCallback: {},
-                atPosition: .Top,
+                at: .top,
                 canBeDismissedByUser: true)
         })
     }
 
-    func showAlert(dismissPreviousAlerts:Bool, alertBlock: dispatch_block_t){
+    func showAlert(_ dismissPreviousAlerts:Bool, alertBlock: @escaping ()->()){
         
         if(dismissPreviousAlerts){
-            TSMessage.dismissAllNotificationsWithCompletion({ () -> Void in
+            TSMessage.dismissAllNotifications(completion: { () -> Void in
                 alertBlock()
             })
         }else{
@@ -154,30 +154,32 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeView
         }
     }
     
-    public func dismissAlert() {
+    open func dismissAlert() {
         
         TSMessage.dismissActiveNotification()
     }
 
-    public func dismissAllAlerts() {
+    open func dismissAllAlerts() {
         
         TSMessage.dismissAllNotifications()
     }
 
-    public func customizeMessageView(messageView: TSMessageView!) {
+    open func customize(_ messageView: TSMessageView!) {
         
-        if(messageView.notificationType == .Message){
-         messageView.contentFont = UIFont.systemFontOfSize(14, weight: UIFontWeightSemibold)
-            messageView.titleFont = UIFont.systemFontOfSize(12)
+        if(messageView.notificationType == .message){
+         messageView.contentFont = UIFont.systemFont(ofSize: 14, weight: UIFontWeightSemibold)
+            messageView.titleFont = UIFont.systemFont(ofSize: 12)
         }
     }
     
-    public func showEmailFeedbackAlertViewWithError(error: NSError) {
-        let message = localizedStringForKeyFallingBackOnEnglish("request-feedback-on-error")
+    open func showEmailFeedbackAlertViewWithError(_ error: NSError) {
+        guard let message = localizedStringForKeyFallingBackOnEnglish("request-feedback-on-error") else {
+            return
+        }
         showErrorAlertWithMessage(message, sticky: true, dismissPreviousAlerts: true) {
             self.dismissAllAlerts()
             if MFMailComposeViewController.canSendMail() {
-                guard let rootVC = UIApplication.sharedApplication().keyWindow?.rootViewController else {
+                guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else {
                     return
                 }
                 let vc = MFMailComposeViewController()
@@ -185,14 +187,16 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeView
                 vc.setToRecipients(["mobile-ios-wikipedia@wikimedia.org"])
                 vc.mailComposeDelegate = self
                 vc.setMessageBody("Domain:\t\(error.domain)\nCode:\t\(error.code)\nDescription:\t\(error.localizedDescription)\n\n\n\nVersion:\t\(WikipediaAppUtils.versionedUserAgent())", isHTML: false)
-                rootVC.presentViewController(vc, animated: true, completion: nil)
+                rootVC.present(vc, animated: true, completion: nil)
             } else {
-                self.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("no-email-account-alert"), sticky: false, dismissPreviousAlerts: false, tapCallBack: nil)
+                self.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("no-email-account-alert"), sticky: false, dismissPreviousAlerts: false) {
+                    
+                }
             }
         }
     }
     
-    public func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        controller.dismissViewControllerAnimated(true, completion: nil)
+    open func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }

@@ -136,7 +136,7 @@
 
     // So, if this test fails, the languages listed will need to be added these to the project's localizations.
 
-    assertThat(files, isEmpty());
+    XCTAssertEqualObjects(files, @[@"qqq.lproj"]); //qqq.lproj should not be in the app bundle
 }
 
 - (NSArray *)languagesUnsureHowToMapToWikiCodes {

@@ -23,7 +23,7 @@ extern NSString *const WMFAppLanguageDidChangeNotification;
 /**
  * Returns the user's 1st preferred language - used as the "App Language".
  */
-@property (readonly, copy, nonatomic) MWKLanguageLink *appLanguage;
+@property (readonly, copy, nonatomic, nullable) MWKLanguageLink *appLanguage;
 
 /**
  * Returns the user's preferred languages.

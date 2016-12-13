@@ -4,62 +4,62 @@ let WMFReadingFontSizeLegacyKey = "ReadingFontSize"
 let WMFArticleFontSizeMultiplierKey = "WMFArticleFontSizeMultiplier"
 
 @objc enum WMFFontSizeMultiplier: Int {
-    case ExtraSmall = 70
-    case Small = 80
-    case Medium = 90
-    case Large = 100
-    case ExtraLarge = 110
-    case ExtraExtraLarge = 130
-    case ExtraExtraExtraLarge = 160
+    case extraSmall = 70
+    case small = 80
+    case medium = 90
+    case large = 100
+    case extraLarge = 120
+    case extraExtraLarge = 140
+    case extraExtraExtraLarge = 160
 }
 
-extension NSUserDefaults {
+extension UserDefaults {
     public func wmf_migrateFontSizeMultiplier() {
-        if let readingFontSize = self.objectForKey(WMFReadingFontSizeLegacyKey) as? NSNumber {
-            if readingFontSize.integerValue != WMFFontSizeMultiplier.Large.rawValue {
-                self.setInteger(readingFontSize.integerValue, forKey: WMFArticleFontSizeMultiplierKey)
+        if let readingFontSize = self.object(forKey: WMFReadingFontSizeLegacyKey) as? NSNumber {
+            if readingFontSize.intValue != WMFFontSizeMultiplier.large.rawValue {
+                self.set(readingFontSize.intValue, forKey: WMFArticleFontSizeMultiplierKey)
             }
-            self.removeObjectForKey(WMFReadingFontSizeLegacyKey)
+            self.removeObject(forKey: WMFReadingFontSizeLegacyKey)
         }
     }
     
-    public func wmf_setArticleFontSizeMultiplier(fontSize: NSNumber) {
-        self.setObject(fontSize, forKey: WMFArticleFontSizeMultiplierKey)
+    public func wmf_setArticleFontSizeMultiplier(_ fontSize: NSNumber) {
+        self.set(fontSize, forKey: WMFArticleFontSizeMultiplierKey)
         self.synchronize()
     }
     
     public func wmf_articleFontSizeMultiplier() -> NSNumber {
-        if let fontSize = self.objectForKey(WMFArticleFontSizeMultiplierKey) as? NSNumber {
+        if let fontSize = self.object(forKey: WMFArticleFontSizeMultiplierKey) as? NSNumber {
             return fontSize
         } else {
-            let preferredContentSizeCategory = UIApplication.sharedApplication().preferredContentSizeCategory
+            let preferredContentSizeCategory = UIApplication.shared.preferredContentSizeCategory
             switch preferredContentSizeCategory {
-            case UIContentSizeCategoryExtraSmall:
-                return NSNumber(integer: WMFFontSizeMultiplier.ExtraSmall.rawValue)
-            case UIContentSizeCategorySmall:
-                return NSNumber(integer: WMFFontSizeMultiplier.Small.rawValue)
-            case UIContentSizeCategoryMedium:
-                return NSNumber(integer: WMFFontSizeMultiplier.Medium.rawValue)
-            case UIContentSizeCategoryLarge:
-                return NSNumber(integer: WMFFontSizeMultiplier.Large.rawValue)
-            case UIContentSizeCategoryExtraLarge:
-                return NSNumber(integer: WMFFontSizeMultiplier.ExtraLarge.rawValue)
-            case UIContentSizeCategoryExtraExtraLarge:
-                return NSNumber(integer: WMFFontSizeMultiplier.ExtraExtraLarge.rawValue)
-            case UIContentSizeCategoryAccessibilityMedium:
+            case UIContentSizeCategory.extraSmall:
+                return NSNumber(value: WMFFontSizeMultiplier.extraSmall.rawValue as Int)
+            case UIContentSizeCategory.small:
+                return NSNumber(value: WMFFontSizeMultiplier.small.rawValue as Int)
+            case UIContentSizeCategory.medium:
+                return NSNumber(value: WMFFontSizeMultiplier.medium.rawValue as Int)
+            case UIContentSizeCategory.large:
+                return NSNumber(value: WMFFontSizeMultiplier.large.rawValue as Int)
+            case UIContentSizeCategory.extraLarge:
+                return NSNumber(value: WMFFontSizeMultiplier.extraLarge.rawValue as Int)
+            case UIContentSizeCategory.extraExtraLarge:
+                return NSNumber(value: WMFFontSizeMultiplier.extraExtraLarge.rawValue as Int)
+            case UIContentSizeCategory.accessibilityMedium:
                 fallthrough
-            case UIContentSizeCategoryAccessibilityLarge:
+            case UIContentSizeCategory.accessibilityLarge:
                 fallthrough
-            case UIContentSizeCategoryAccessibilityExtraLarge:
+            case UIContentSizeCategory.accessibilityExtraLarge:
                 fallthrough
-            case UIContentSizeCategoryAccessibilityExtraExtraLarge:
+            case UIContentSizeCategory.accessibilityExtraExtraLarge:
                 fallthrough
-            case UIContentSizeCategoryAccessibilityExtraExtraExtraLarge:
+            case UIContentSizeCategory.accessibilityExtraExtraExtraLarge:
                 fallthrough
-            case UIContentSizeCategoryExtraExtraExtraLarge:
-                return NSNumber(integer: WMFFontSizeMultiplier.ExtraExtraExtraLarge.rawValue)
+            case UIContentSizeCategory.extraExtraExtraLarge:
+                return NSNumber(value: WMFFontSizeMultiplier.extraExtraExtraLarge.rawValue as Int)
             default:
-                return NSNumber(integer:WMFFontSizeMultiplier.Large.rawValue)
+                return NSNumber(value: WMFFontSizeMultiplier.large.rawValue as Int)
             }
         }
     }

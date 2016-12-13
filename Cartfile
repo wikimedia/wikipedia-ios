@@ -1,5 +1,5 @@
 github "Mantle/Mantle" ~> 2.0.0
-github "CocoaLumberjack/CocoaLumberjack" ~> 2.4.0
+github "CocoaLumberjack/CocoaLumberjack" ~> 3.0.0
 github "facebook/KVOController" == 1.1.0
 github "mxcl/PromiseKit" ~> 3.4
 github "SnapKit/Masonry" ~> 1.0
@@ -10,9 +10,9 @@ github "NYTimes/NYTPhotoViewer"
 github "jonreid/OCMockito" ~> 4.0
 github "hamcrest/OCHamcrest" ~> 6.0
 github "luisobo/Nocilla"
-github "facebook/ios-snapshot-test-case" == 2.1.3
-github "Quick/Quick" == 0.9.3
-github "Quick/Nimble" ~> 4.0.0
+github "facebook/ios-snapshot-test-case" ~> 2.1.4
+github "Quick/Quick" ~> 1.0.0
+github "Quick/Nimble" ~> 5.1.1
 
 github "wikimedia/AFNetworking" "release/3.1.1"
 github "wikimedia/SDWebImage" "bb49df83e72f2231a191e9477a85f0effe13430a"

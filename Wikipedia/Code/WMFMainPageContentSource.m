@@ -53,8 +53,7 @@
 #pragma mark - WMFContentSource
 
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    WMFContentGroup *section = [self getMainPageForSiteURL:self.siteURL];
-    [self fetchAndSaveMainPageForSection:section completion:completion];
+    [self fetchAndSaveMainPageForSiteURL:self.siteURL completion:completion];
 }
 
 - (void)removeAllContent {
@@ -63,31 +62,26 @@
 
 #pragma mark - Add / Remove Sections
 
-- (WMFContentGroup *)getMainPageForSiteURL:(NSURL *)siteURL {
-    WMFContentGroup *section = [self.contentStore contentGroupForURL:[WMFContentGroup mainPageURLForSiteURL:siteURL]];
-    if (!section.isForToday) {
-        section = [self.contentStore createGroupOfKind:WMFContentGroupKindMainPage forDate:[NSDate date] withSiteURL:siteURL associatedContent:nil];
-    }
-    return section;
-}
-
 - (void)cleanupOldSections {
     __block BOOL foundTodaysSection = NO;
     [self.contentStore enumerateContentGroupsOfKind:WMFContentGroupKindMainPage
                                           withBlock:^(WMFContentGroup *_Nonnull section, BOOL *_Nonnull stop) {
-                                              if (!foundTodaysSection) {
-                                                  foundTodaysSection = section.isForToday;
-                                                  return;
-                                              }
-                                              if (foundTodaysSection || !section.isForToday) {
+                                              BOOL isForToday = section.isForToday;
+                                              if (!isForToday || foundTodaysSection) {
                                                   [self.contentStore removeContentGroup:section];
+                                              }
+                                              if (!foundTodaysSection) {
+                                                  foundTodaysSection = isForToday;
                                               }
                                           }];
 }
 
 #pragma mark - Fetch
 
-- (void)fetchAndSaveMainPageForSection:(WMFContentGroup *)section completion:(nullable dispatch_block_t)completion {
+- (void)fetchAndSaveMainPageForSiteURL:(NSURL *)siteURL completion:(nullable dispatch_block_t)completion {
+
+    __block WMFContentGroup *section = [self.contentStore contentGroupForURL:[WMFContentGroup mainPageURLForSiteURL:siteURL]];
+
     if (section.isForToday && section.content != nil) {
         if (completion) {
             completion();
@@ -114,6 +108,9 @@
                         return;
                     }
 
+                    if (!section) {
+                        section = [self.contentStore createGroupOfKind:WMFContentGroupKindMainPage forDate:[NSDate date] withSiteURL:siteURL associatedContent:nil];
+                    }
                     [self.previewStore addPreviewWithURL:data.mainPageURL updatedWithSearchResult:[results firstObject]];
                     [self.contentStore addContentGroup:section associatedContent:@[data.mainPageURL]];
                     [self cleanupOldSections];
