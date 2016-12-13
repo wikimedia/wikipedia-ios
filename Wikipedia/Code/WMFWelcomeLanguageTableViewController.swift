@@ -76,7 +76,9 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFLanguagesViewC
     }
 
     fileprivate func useFirstPreferredLanguageAsSearchLanguage() {
-        let firstPreferredLanguage = MWKLanguageLinkController.sharedInstance().appLanguage
+        guard let firstPreferredLanguage = MWKLanguageLinkController.sharedInstance().appLanguage else {
+            return
+        }
         UserDefaults.wmf_userDefaults().wmf_setCurrentSearchLanguageDomain(firstPreferredLanguage.siteURL())
     }
 

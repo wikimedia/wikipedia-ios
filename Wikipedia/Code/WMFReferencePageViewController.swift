@@ -46,7 +46,7 @@ class WMFReferencePageViewController: UIPageViewController, UIPageViewController
         
         addBackgroundView()
 
-        if let scrollView = view.wmf_firstSubviewOfType(UIScrollView) {
+        if let scrollView = view.wmf_firstSubviewOfType(UIScrollView.self) {
             scrollView.clipsToBounds = false
         }
     }
@@ -55,7 +55,7 @@ class WMFReferencePageViewController: UIPageViewController, UIPageViewController
         view.addSubview(backgroundView)
         view.sendSubview(toBack: backgroundView)
         backgroundView.mas_makeConstraints { make in
-            make?.top.bottom().leading().and().trailing().equalTo()(self.view)
+            _ = make?.top.bottom().leading().and().trailing().equalTo()(self.view)
         }
     }
     

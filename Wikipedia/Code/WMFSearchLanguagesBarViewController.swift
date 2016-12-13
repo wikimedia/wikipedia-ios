@@ -28,7 +28,8 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
             if let siteURL = UserDefaults.wmf_userDefaults().wmf_currentSearchLanguageDomain(), let selectedLanguage = MWKLanguageLinkController.sharedInstance().language(forSiteURL: siteURL) {
                 return selectedLanguage
             }else{
-                if let appLang:MWKLanguageLink? = MWKLanguageLinkController.sharedInstance().appLanguage {
+                
+                if let appLang = MWKLanguageLinkController.sharedInstance().appLanguage {
                     self.currentlySelectedSearchLanguage = appLang
                     return appLang
                 }else{

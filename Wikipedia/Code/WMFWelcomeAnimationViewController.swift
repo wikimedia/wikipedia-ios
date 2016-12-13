@@ -20,7 +20,7 @@ class WMFWelcomeAnimationViewController: UIViewController {
         animationView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(animationView)
         animationView.mas_makeConstraints { make in
-            make?.top.bottom().leading().and().trailing().equalTo()(self.view)
+            _ = make?.top.bottom().leading().and().trailing().equalTo()(self.view)
         }
     }
     

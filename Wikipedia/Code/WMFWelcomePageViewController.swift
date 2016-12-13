@@ -46,7 +46,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     }()
     
     fileprivate lazy var pageControl: UIPageControl? = {
-        return self.view.wmf_firstSubviewOfType(UIPageControl)
+        return self.view.wmf_firstSubviewOfType(UIPageControl.self)
     }()
 
     override func viewDidLoad() {
@@ -60,7 +60,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
 
         addGradient()
         
-        if let scrollView = view.wmf_firstSubviewOfType(UIScrollView) {
+        if let scrollView = view.wmf_firstSubviewOfType(UIScrollView.self) {
             scrollView.clipsToBounds = false
         }
     }
@@ -69,7 +69,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         let gradientView = backgroundGradient()
         view.insertSubview(gradientView, at: 0)
         gradientView.mas_makeConstraints { make in
-            make?.top.bottom().leading().and().trailing().equalTo()(self.view)
+            _ = make?.top.bottom().leading().and().trailing().equalTo()(self.view)
         }
     }
 

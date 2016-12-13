@@ -60,7 +60,7 @@ class WMFWelcomeContainerViewController: UIViewController {
         assert(overallContainerViewCenterYConstraint.priority == 999, "The Y centering constraint must not have required '1000' priority because on non-tablets we add a required bottom alignment constraint on overallContainerView which we want to be favored when present.")
         if (UI_USER_INTERFACE_IDIOM() == .phone) {
             overallContainerView.mas_makeConstraints { make in
-                make?.bottom.equalTo()(self.mas_bottomLayoutGuideTop)
+                _ = make?.bottom.equalTo()(self.mas_bottomLayoutGuideTop)
             }
         }
     }
@@ -70,7 +70,7 @@ class WMFWelcomeContainerViewController: UIViewController {
         bottomContainerController.view.translatesAutoresizingMaskIntoConstraints = false
         bottomContainerView.addSubview((bottomContainerController.view)!)
         bottomContainerController.view.mas_makeConstraints { make in
-            make?.top.bottom().leading().and().trailing().equalTo()(self.bottomContainerView)
+            _ = make?.top.bottom().leading().and().trailing().equalTo()(self.bottomContainerView)
         }
         self.addChildViewController(bottomContainerController)
         bottomContainerController.didMove(toParentViewController: self)

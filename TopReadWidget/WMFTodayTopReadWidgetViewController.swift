@@ -70,7 +70,11 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        siteURL = MWKLanguageLinkController.sharedInstance().appLanguage.siteURL()
+        guard let appLanguage = MWKLanguageLinkController.sharedInstance().appLanguage else {
+            return
+        }
+
+        siteURL = appLanguage.siteURL()
         userStore = SessionSingleton.sharedInstance().dataStore
         contentStore = WMFContentGroupDataStore(dataStore: userStore)
         previewStore = WMFArticleDataStore(dataStore: userStore)

@@ -180,8 +180,8 @@ open class WMFTableOfContentsViewController: UIViewController,
             return
         }
         for (_, indexPath) in visibleIndexPaths.enumerated() {
-            if let otherItem: TableOfContentsItem = items[indexPath.row],
-                   let cell: WMFTableOfContentsCell = tableView.cellForRow(at: indexPath) as? WMFTableOfContentsCell  {
+            let otherItem: TableOfContentsItem = items[indexPath.row]
+            if let cell: WMFTableOfContentsCell = tableView.cellForRow(at: indexPath) as? WMFTableOfContentsCell  {
                 cell.setSectionSelected(otherItem.shouldBeHighlightedAlongWithItem(item), animated: animated)
             }
         }
@@ -206,7 +206,7 @@ open class WMFTableOfContentsViewController: UIViewController,
         super.viewDidLoad()
         
         tableView.mas_makeConstraints { make in
-            make?.top.bottom().leading().and().trailing().equalTo()(self.view)
+            _ = make?.top.bottom().leading().and().trailing().equalTo()(self.view)
         }
         
         if let delegate = delegate, delegate.tableOfContentsDisplayModeIsModal() {
@@ -291,7 +291,7 @@ open class WMFTableOfContentsViewController: UIViewController,
     }
 
     open func tableOfContentsAnimatorDidTapBackground(_ controller: WMFTableOfContentsAnimator) {
-        didRequestClose(controller)
+        _ = didRequestClose(controller)
     }
 
     // MARK: - UIScrollViewDelegate

@@ -133,7 +133,7 @@ open class PageHistoryResponseSerializer: WMFApiJsonResponseSerializer {
         for (_, value) in pages {
             let transformer = MTLJSONAdapter.arrayTransformer(withModelClass: WMFPageHistoryRevision.self)
             
-            guard let revisions = transformer?.transformedValue(value["revisions"]) as? [WMFPageHistoryRevision] else {
+            guard let val = value["revisions"], let revisions = transformer?.transformedValue(val) as? [WMFPageHistoryRevision] else {
                 assertionFailure("couldn't parse page history revisions")
                 return nil
             }
