@@ -2,20 +2,20 @@ import UIKit
 
 @objc public protocol WMFFontSliderViewControllerDelegate{
     
-    func sliderValueChangedInController(controller: WMFFontSliderViewController, value: Int)
+    func sliderValueChangedInController(_ controller: WMFFontSliderViewController, value: Int)
 }
 
-public class WMFFontSliderViewController: UIViewController {
+open class WMFFontSliderViewController: UIViewController {
 
-    @IBOutlet private var slider: SWStepSlider!
-    private var maximumValue: Int?
-    private var currentValue: Int?
+    @IBOutlet fileprivate var slider: SWStepSlider!
+    fileprivate var maximumValue: Int?
+    fileprivate var currentValue: Int?
     
     var visible = false
     
-    public weak var delegate: WMFFontSliderViewControllerDelegate?
+    open weak var delegate: WMFFontSliderViewControllerDelegate?
     
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         if let max = self.maximumValue {
             if let current = self.currentValue {
@@ -26,8 +26,8 @@ public class WMFFontSliderViewController: UIViewController {
         }
     }
     
-    public func setValuesWithSteps(steps: Int, current: Int) {
-        if self.isViewLoaded() {
+    open func setValuesWithSteps(_ steps: Int, current: Int) {
+        if self.isViewLoaded {
             self.setValues(0, maximum: steps-1, current: current)
         }else{
             maximumValue = steps-1
@@ -35,19 +35,19 @@ public class WMFFontSliderViewController: UIViewController {
         }
     }
     
-    func setValues(minimum: Int, maximum: Int, current: Int){
+    func setValues(_ minimum: Int, maximum: Int, current: Int){
         self.slider.minimumValue = minimum
         self.slider.maximumValue = maximum
         self.slider.value = current
     }
     
-    override public func viewDidAppear(animated: Bool) {
+    override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         visible = true
     }
     
-    @IBAction func fontSliderValueChanged(slider: SWStepSlider) {
-        if let delegate = self.delegate where visible {
+    @IBAction func fontSliderValueChanged(_ slider: SWStepSlider) {
+        if let delegate = self.delegate, visible {
             delegate.sliderValueChangedInController(self, value: self.slider.value)
         }
     }

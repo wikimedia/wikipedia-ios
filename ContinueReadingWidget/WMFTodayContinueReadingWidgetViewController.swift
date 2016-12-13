@@ -17,7 +17,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     @IBOutlet var imageWidthConstraint: NSLayoutConstraint!
     @IBOutlet var titleLabelTrailingConstraint: NSLayoutConstraint!
     
-    var articleURL: NSURL?
+    var articleURL: URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,40 +39,40 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:))))
     }
     
-    func handleTapGestureRecognizer(recognizer: UITapGestureRecognizer) {
+    func handleTapGestureRecognizer(_ recognizer: UITapGestureRecognizer) {
         switch recognizer.state {
-        case .Recognized:
+        case .ended:
             continueReading(self)
         default:
             break
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateView()
     }
     
-    func widgetPerformUpdate(completionHandler: (NCUpdateResult) -> Void) {
+    func widgetPerformUpdate(_ completionHandler: (NCUpdateResult) -> Void) {
         
         let didUpdate = updateView()
         
         if(didUpdate){
-            completionHandler(.NewData)
+            completionHandler(.newData)
             
         }else{
-            completionHandler(.NoData)
+            completionHandler(.noData)
         }
     }
     
     var emptyViewHidden: Bool = false {
         didSet {
-            emptyView.hidden = emptyViewHidden
+            emptyView.isHidden = emptyViewHidden
             
-            titleLabel.hidden = !emptyViewHidden
-            textLabel.hidden = !emptyViewHidden
-            imageView.hidden = !emptyViewHidden
-            daysAgoView.hidden = !emptyViewHidden
+            titleLabel.isHidden = !emptyViewHidden
+            textLabel.isHidden = !emptyViewHidden
+            imageView.isHidden = !emptyViewHidden
+            daysAgoView.isHidden = !emptyViewHidden
         }
     }
 
@@ -96,7 +96,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         }
         let fragment = historyEntry.viewedFragment
         
-        let newURL = historyEntry.URL?.wmf_URLWithFragment(fragment)
+        let newURL = (historyEntry.url as NSURL?)?.wmf_URL(withFragment: fragment)
         
         return newURL?.absoluteString != articleURL?.absoluteString
     }
@@ -110,9 +110,9 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         textLabel.text = nil
         titleLabel.text = nil
         imageView.image = nil
-        imageView.hidden = true
+        imageView.isHidden = true
         daysAgoLabel.text = nil
-        daysAgoView.hidden = true
+        daysAgoView.isHidden = true
         
         guard let session = SessionSingleton.sharedInstance() else {
             emptyViewHidden = false
@@ -124,14 +124,14 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         }
         
         let fragment = historyEntry.viewedFragment
-        articleURL = historyEntry.URL?.wmf_URLWithFragment(fragment)
+        articleURL = (historyEntry.url as NSURL?)?.wmf_URL(withFragment: fragment)
         
         guard let lastReadArticleURL = articleURL else {
             emptyViewHidden = false
             return false
         }
         
-        guard let article = session.dataStore.existingArticleWithURL(lastReadArticleURL) else {
+        guard let article = session.dataStore.existingArticle(with: lastReadArticleURL) else {
             emptyViewHidden = false
             return false
         }
@@ -144,11 +144,11 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             self.textLabel.text = nil
         }
         
-        if let date = NSUserDefaults.wmf_userDefaults().wmf_appResignActiveDate() {
-            self.daysAgoView.hidden = false
-            self.daysAgoLabel.text = date.wmf_relativeTimestamp()
+        if let date = UserDefaults.wmf_userDefaults().wmf_appResignActiveDate() {
+            self.daysAgoView.isHidden = false
+            self.daysAgoLabel.text = (date as NSDate).wmf_relativeTimestamp()
         } else {
-            self.daysAgoView.hidden = true
+            self.daysAgoView.isHidden = true
         }
         
         
@@ -156,9 +156,9 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         
         
         if #available(iOSApplicationExtension 10.0, *) {
-            if let string = article.imageURL, let imageURL = NSURL(string: string) {
+            if let string = article.imageURL, let imageURL = URL(string: string) {
                 self.collapseImageAndWidenLabels = false
-                self.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: { (error) in
+                self.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in
                     self.collapseImageAndWidenLabels = true
                 }) {
                     self.collapseImageAndWidenLabels = false
@@ -172,17 +172,17 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         
         var fitSize = UILayoutFittingCompressedSize
         fitSize.width = view.bounds.size.width
-        fitSize = view.systemLayoutSizeFittingSize(fitSize, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityDefaultLow)
+        fitSize = view.systemLayoutSizeFitting(fitSize, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityDefaultLow)
         preferredContentSize = fitSize
         
         return true
     }
     
 
-    @IBAction func continueReading(sender: AnyObject) {
-        let URLToOpen = articleURL?.wmf_wikipediaSchemeURL ?? NSUserActivity.wmf_baseURLForActivityOfType(.Explore)
+    @IBAction func continueReading(_ sender: AnyObject) {
+        let URLToOpen = articleURL?.wmf_wikipediaScheme ?? NSUserActivity.wmf_baseURLForActivity(of: .explore)
         
-        self.extensionContext?.openURL(URLToOpen, completionHandler: { (success) in
+        self.extensionContext?.open(URLToOpen, completionHandler: { (success) in
             
         })
     }

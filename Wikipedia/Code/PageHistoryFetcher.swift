@@ -3,26 +3,26 @@ import AFNetworking
 import Mantle
 import WMFUtilities
 
-public class PageHistoryFetcher: NSObject {
-    private let operationManager: AFHTTPSessionManager = {
-        let manager = AFHTTPSessionManager.wmf_createDefaultManager()
-        manager.responseSerializer = PageHistoryResponseSerializer()
-        manager.requestSerializer = PageHistoryRequestSerializer()
-        return manager
+open class PageHistoryFetcher: NSObject {
+    fileprivate let operationManager: AFHTTPSessionManager = {
+        let manager = AFHTTPSessionManager.wmf_createDefault()
+        manager?.responseSerializer = PageHistoryResponseSerializer()
+        manager?.requestSerializer = PageHistoryRequestSerializer()
+        return manager!
     }()
 
-    public func fetchRevisionInfo(siteURL: NSURL, requestParams: PageHistoryRequestParameters, failure: WMFErrorHandler, success: (HistoryFetchResults) -> Void) -> Void {
-        operationManager.wmf_GETAndRetryWithURL(siteURL,
+    open func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) -> Void {
+        operationManager.wmf_GETAndRetry(with: siteURL,
                                                 parameters: requestParams,
                                                 retry: nil,
                                                 success: { (operation, responseObject) in
-                                                    MWNetworkActivityIndicatorManager.sharedManager().pop()
+                                                    MWNetworkActivityIndicatorManager.shared().pop()
                                                     guard let results = responseObject as? HistoryFetchResults else { return }
                                                     results.tackOn(requestParams.lastRevisionFromPreviousCall)
                                                     success(results)
             },
                                                 failure: { (operation, error) in
-                                                    MWNetworkActivityIndicatorManager.sharedManager().pop()
+                                                    MWNetworkActivityIndicatorManager.shared().pop()
                                                     failure(error)
         })
 
@@ -31,42 +31,42 @@ public class PageHistoryFetcher: NSObject {
 
 private typealias RevisionsByDay = [Int: PageHistorySection]
 private typealias PagingInfo = (continueKey: String?, rvContinueKey: String?, batchComplete: Bool)
-public class HistoryFetchResults: NSObject {
-    private let pagingInfo: PagingInfo
-    private let lastRevision: WMFPageHistoryRevision?
-    private var revisionsByDay: RevisionsByDay
+open class HistoryFetchResults: NSObject {
+    fileprivate let pagingInfo: PagingInfo
+    fileprivate let lastRevision: WMFPageHistoryRevision?
+    fileprivate var revisionsByDay: RevisionsByDay
     
-    public func getPageHistoryRequestParameters(articleURL: NSURL) -> PageHistoryRequestParameters {
-        return PageHistoryRequestParameters(title: articleURL.wmf_title ?? "", pagingInfo: pagingInfo, lastRevisionFromPreviousCall: lastRevision)
+    open func getPageHistoryRequestParameters(_ articleURL: URL) -> PageHistoryRequestParameters {
+        return PageHistoryRequestParameters(title: (articleURL as NSURL).wmf_title ?? "", pagingInfo: pagingInfo, lastRevisionFromPreviousCall: lastRevision)
     }
     
-    public func items() -> [PageHistorySection]  {
-        return self.revisionsByDay.keys.sort(<).flatMap() { self.revisionsByDay[$0] }
+    open func items() -> [PageHistorySection]  {
+        return self.revisionsByDay.keys.sorted(by: <).flatMap() { self.revisionsByDay[$0] }
     }
     
-    public func batchComplete() -> Bool {
+    open func batchComplete() -> Bool {
         return self.pagingInfo.batchComplete
     }
     
-    private func tackOn(lastRevisionFromPreviousCall: WMFPageHistoryRevision?) {
+    fileprivate func tackOn(_ lastRevisionFromPreviousCall: WMFPageHistoryRevision?) {
         guard let previouslyParsedRevision = lastRevisionFromPreviousCall, let parentSize = items().first?.items.first?.articleSizeAtRevision else { return }
         previouslyParsedRevision.revisionSize = previouslyParsedRevision.articleSizeAtRevision - parentSize
         HistoryFetchResults.update(revisionsByDay: &revisionsByDay, revision: previouslyParsedRevision)
     }
     
-    private init(pagingInfo: PagingInfo, revisionsByDay: RevisionsByDay, lastRevision: WMFPageHistoryRevision?) {
+    fileprivate init(pagingInfo: PagingInfo, revisionsByDay: RevisionsByDay, lastRevision: WMFPageHistoryRevision?) {
         self.pagingInfo = pagingInfo
         self.revisionsByDay = revisionsByDay
         self.lastRevision = lastRevision
     }
 }
 
-public class PageHistoryRequestParameters: NSObject {
-    private let pagingInfo: PagingInfo
-    private let lastRevisionFromPreviousCall: WMFPageHistoryRevision?
-    private let title: String
+open class PageHistoryRequestParameters: NSObject {
+    fileprivate let pagingInfo: PagingInfo
+    fileprivate let lastRevisionFromPreviousCall: WMFPageHistoryRevision?
+    fileprivate let title: String
     
-    private init(title: String, pagingInfo: PagingInfo, lastRevisionFromPreviousCall: WMFPageHistoryRevision?) {
+    fileprivate init(title: String, pagingInfo: PagingInfo, lastRevisionFromPreviousCall: WMFPageHistoryRevision?) {
         self.title = title
         self.pagingInfo = pagingInfo
         self.lastRevisionFromPreviousCall = lastRevisionFromPreviousCall
@@ -79,46 +79,46 @@ public class PageHistoryRequestParameters: NSObject {
     }
 }
 
-public class PageHistoryRequestSerializer: AFHTTPRequestSerializer {
-    public override func requestBySerializingRequest(request: NSURLRequest, withParameters parameters: AnyObject?, error: NSErrorPointer) -> NSURLRequest? {
+open class PageHistoryRequestSerializer: AFHTTPRequestSerializer {
+    open override func request(bySerializingRequest request: URLRequest, withParameters parameters: AnyObject?, error: NSErrorPointer) -> URLRequest? {
         guard let pageHistoryParameters = parameters as? PageHistoryRequestParameters else {
             assertionFailure("pagehistoryfetcher has incorrect parameter type")
             return nil
         }
-        return super.requestBySerializingRequest(request, withParameters: serializedParams(pageHistoryParameters), error: error)
+        return super.request(bySerializingRequest: request, withParameters: serializedParams(pageHistoryParameters), error: error)
     }
     
-    private func serializedParams(requestParameters: PageHistoryRequestParameters) -> [String: AnyObject] {
+    fileprivate func serializedParams(_ requestParameters: PageHistoryRequestParameters) -> [String: AnyObject] {
         var params: [String: AnyObject] = [
-            "action": "query",
-            "prop": "revisions",
-            "rvprop": "ids|timestamp|user|size|parsedcomment",
-            "rvlimit": 51,
-            "rvdir": "older",
-            "titles": requestParameters.title,
-            "continue": requestParameters.pagingInfo.continueKey ?? "",
+            "action": "query" as AnyObject,
+            "prop": "revisions" as AnyObject,
+            "rvprop": "ids|timestamp|user|size|parsedcomment" as AnyObject,
+            "rvlimit": 51 as AnyObject,
+            "rvdir": "older" as AnyObject,
+            "titles": requestParameters.title as AnyObject,
+            "continue": requestParameters.pagingInfo.continueKey as AnyObject? ?? "",
             "format": "json"
             //,"rvdiffto": -1 //Add this to fake out "error" api response.
         ]
         
         if let rvContinueKey = requestParameters.pagingInfo.rvContinueKey {
-            params["rvcontinue"] = rvContinueKey
+            params["rvcontinue"] = rvContinueKey as AnyObject?
         }
         
         return params
     }
 }
 
-public class PageHistoryResponseSerializer: WMFApiJsonResponseSerializer {
-    public override func responseObjectForResponse(response: NSURLResponse?, data: NSData?, error: NSErrorPointer) -> AnyObject? {
-        guard let responseDict = super.responseObjectForResponse(response, data: data, error: error) as? [String: AnyObject] else {
+open class PageHistoryResponseSerializer: WMFApiJsonResponseSerializer {
+    open override func responseObject(for response: URLResponse?, data: Data?, error: NSErrorPointer) -> AnyObject? {
+        guard let responseDict = super.responseObject(for: response, data: data, error: error) as? [String: AnyObject] else {
             assertionFailure("couldn't parse page history response")
             return nil
         }
         return parseSections(responseDict)
     }
     
-    private func parseSections(responseDict: [String: AnyObject]) -> HistoryFetchResults? {
+    fileprivate func parseSections(_ responseDict: [String: AnyObject]) -> HistoryFetchResults? {
         guard let pages = responseDict["query"]?["pages"] as? [String: AnyObject] else {
             assertionFailure("couldn't parse page history response")
             return nil
@@ -127,16 +127,16 @@ public class PageHistoryResponseSerializer: WMFApiJsonResponseSerializer {
         var lastRevision: WMFPageHistoryRevision?
         var revisionsByDay = RevisionsByDay()
         for (_, value) in pages {
-            let transformer = MTLJSONAdapter.arrayTransformerWithModelClass(WMFPageHistoryRevision.self)
+            let transformer = MTLJSONAdapter.arrayTransformer(withModelClass: WMFPageHistoryRevision.self)
             
-            guard let revisions = transformer.transformedValue(value["revisions"]) as? [WMFPageHistoryRevision] else {
+            guard let revisions = transformer?.transformedValue(value["revisions"]) as? [WMFPageHistoryRevision] else {
                 assertionFailure("couldn't parse page history revisions")
                 return nil
             }
             
             revisionsByDay = parse(revisions: revisions, existingRevisions: revisionsByDay)
             
-            if let earliestRevision = revisions.last where earliestRevision.parentID == 0 {
+            if let earliestRevision = revisions.last, earliestRevision.parentID == 0 {
                 earliestRevision.revisionSize = earliestRevision.articleSizeAtRevision
                 HistoryFetchResults.update(revisionsByDay: &revisionsByDay, revision: earliestRevision)
             } else {
@@ -147,7 +147,7 @@ public class PageHistoryResponseSerializer: WMFApiJsonResponseSerializer {
         return HistoryFetchResults(pagingInfo: parsePagingInfo(responseDict), revisionsByDay: revisionsByDay, lastRevision: lastRevision)
     }
     
-    private func parsePagingInfo(responseDict: [String: AnyObject]) -> (continueKey: String?, rvContinueKey: String?, batchComplete: Bool) {
+    fileprivate func parsePagingInfo(_ responseDict: [String: AnyObject]) -> (continueKey: String?, rvContinueKey: String?, batchComplete: Bool) {
         var continueKey: String? = nil
         var rvContinueKey: String? = nil
         if let continueInfo = responseDict["continue"] as? [String: AnyObject] {
@@ -159,9 +159,9 @@ public class PageHistoryResponseSerializer: WMFApiJsonResponseSerializer {
         return (continueKey, rvContinueKey, batchComplete)
     }
     
-    private typealias RevisionCurrentPrevious = (current: WMFPageHistoryRevision, previous: WMFPageHistoryRevision)
-    private func parse(revisions revisions: [WMFPageHistoryRevision], existingRevisions: RevisionsByDay) -> RevisionsByDay {
-        return zip(revisions, revisions.dropFirst()).reduce(existingRevisions, combine: { (revisionsByDay, itemPair: RevisionCurrentPrevious) -> RevisionsByDay in
+    fileprivate typealias RevisionCurrentPrevious = (current: WMFPageHistoryRevision, previous: WMFPageHistoryRevision)
+    fileprivate func parse(revisions: [WMFPageHistoryRevision], existingRevisions: RevisionsByDay) -> RevisionsByDay {
+        return zip(revisions, revisions.dropFirst()).reduce(existingRevisions, { (revisionsByDay, itemPair: RevisionCurrentPrevious) -> RevisionsByDay in
             var revisionsByDay = revisionsByDay
             
             itemPair.current.revisionSize = itemPair.current.articleSizeAtRevision - itemPair.previous.articleSizeAtRevision
@@ -173,7 +173,7 @@ public class PageHistoryResponseSerializer: WMFApiJsonResponseSerializer {
 }
 
 extension HistoryFetchResults {
-    private static func update(inout revisionsByDay revisionsByDay: RevisionsByDay, revision: WMFPageHistoryRevision) {
+    fileprivate static func update(revisionsByDay: inout RevisionsByDay, revision: WMFPageHistoryRevision) {
         let distanceToToday = revision.daysFromToday()
         
         if let existingRevisionsOnCurrentDay = revisionsByDay[distanceToToday] {
@@ -184,12 +184,12 @@ extension HistoryFetchResults {
             if let revisionDate = revision.revisionDate {
                 var title: String?
                 let getSectionTitle = {
-                    title = NSDateFormatter.wmf_longDateFormatter().stringFromDate(revisionDate)
+                    title = DateFormatter.wmf_long().string(from: revisionDate)
                 }
-                if NSThread.isMainThread() {
+                if Thread.isMainThread {
                     getSectionTitle()
                 } else {
-                    dispatch_sync(dispatch_get_main_queue(), getSectionTitle)
+                    DispatchQueue.main.sync(execute: getSectionTitle)
                 }
                 guard let sectionTitle = title else { return }
                 let newSection = PageHistorySection(sectionTitle: sectionTitle, items: [revision])

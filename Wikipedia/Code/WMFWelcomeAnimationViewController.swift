@@ -1,9 +1,9 @@
 
 class WMFWelcomeAnimationViewController: UIViewController {
     var welcomePageType:WMFWelcomePageType = .intro
-    private var hasAlreadyAnimated = false
+    fileprivate var hasAlreadyAnimated = false
 
-    private lazy var animationView: WMFWelcomeAnimationView = {
+    fileprivate lazy var animationView: WMFWelcomeAnimationView = {
         switch self.welcomePageType {
         case .intro:
             return WMFWelcomeIntroductionAnimationView()
@@ -20,12 +20,12 @@ class WMFWelcomeAnimationViewController: UIViewController {
         animationView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(animationView)
         animationView.mas_makeConstraints { make in
-            make.top.bottom().leading().and().trailing().equalTo()(self.view)
+            make?.top.bottom().leading().and().trailing().equalTo()(self.view)
         }
     }
     
-    override func didMoveToParentViewController(parent: UIViewController?) {
-        super.didMoveToParentViewController(parent)
+    override func didMove(toParentViewController parent: UIViewController?) {
+        super.didMove(toParentViewController: parent)
         
         // Fix for: http://stackoverflow.com/a/39614714
         view.superview?.layoutIfNeeded()
@@ -33,7 +33,7 @@ class WMFWelcomeAnimationViewController: UIViewController {
         animationView.addAnimationElementsScaledToCurrentFrameSize()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if (!hasAlreadyAnimated) {

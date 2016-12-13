@@ -1,32 +1,32 @@
 
 class WMFWelcomeIntroductionViewController: UIViewController {
     
-    @IBOutlet private var titleLabel:UILabel!
-    @IBOutlet private var subTitleLabel:UILabel!
-    @IBOutlet private var tellMeMoreButton:UIButton!
-    @IBOutlet private var nextButton:UIButton!
+    @IBOutlet fileprivate var titleLabel:UILabel!
+    @IBOutlet fileprivate var subTitleLabel:UILabel!
+    @IBOutlet fileprivate var tellMeMoreButton:UIButton!
+    @IBOutlet fileprivate var nextButton:UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.clearColor()
-        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-explore-new-ways-title").uppercaseStringWithLocale(NSLocale.currentLocale())
+        view.backgroundColor = UIColor.clear
+        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-explore-new-ways-title").uppercased(with: Locale.current)
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-explore-new-ways-sub-title")
-        tellMeMoreButton.setTitle(localizedStringForKeyFallingBackOnEnglish("welcome-explore-tell-me-more"), forState: .Normal)
-        nextButton.setTitle(localizedStringForKeyFallingBackOnEnglish("welcome-explore-continue-button").uppercaseStringWithLocale(NSLocale.currentLocale()), forState: .Normal)
+        tellMeMoreButton.setTitle(localizedStringForKeyFallingBackOnEnglish("welcome-explore-tell-me-more"), for: UIControlState())
+        nextButton.setTitle(localizedStringForKeyFallingBackOnEnglish("welcome-explore-continue-button").uppercased(with: Locale.current), for: UIControlState())
         self.view.wmf_configureSubviewsForDynamicType()
     }
     
-    override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        titleLabel.font = UIFont.wmf_preferredFontForFontFamily(.SystemBlack, withTextStyle: UIFontTextStyleTitle1, compatibleWithTraitCollection: self.traitCollection)
+        titleLabel.font = UIFont.wmf_preferredFontForFontFamily(.systemBlack, withTextStyle: UIFontTextStyle.title1, compatibleWithTraitCollection: self.traitCollection)
     }
 
-    @IBAction private func showHowThisWorksAlert(withSender sender: AnyObject) {
+    @IBAction fileprivate func showHowThisWorksAlert(withSender sender: AnyObject) {
         let alert = UIAlertController(
             title:localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-title"),
             message:"\(localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-storage"))\n\n\(localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-creation"))",
-            preferredStyle:.Alert)
-        alert.addAction(UIAlertAction(title:localizedStringForKeyFallingBackOnEnglish("welcome-explore-tell-me-more-done-button"), style:.Cancel, handler:nil))
-        presentViewController(alert, animated:true, completion:nil)
+            preferredStyle:.alert)
+        alert.addAction(UIAlertAction(title:localizedStringForKeyFallingBackOnEnglish("welcome-explore-tell-me-more-done-button"), style:.cancel, handler:nil))
+        present(alert, animated:true, completion:nil)
     }
 }

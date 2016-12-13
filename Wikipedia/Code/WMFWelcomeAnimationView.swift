@@ -1,14 +1,14 @@
 import Foundation
 
-public class WMFWelcomeAnimationView : UIView {
+open class WMFWelcomeAnimationView : UIView {
     
     // Reminder - these transforms are on WMFWelcomeAnimationView 
     // so they can scale proportionally to the view size.
     
-    private var wmf_proportionalHorizontalOffset: CGFloat{
+    fileprivate var wmf_proportionalHorizontalOffset: CGFloat{
         return CGFloat(0.35).wmf_denormalizeUsingReference(self.frame.width)
     }
-    private var wmf_proportionalVerticalOffset: CGFloat{
+    fileprivate var wmf_proportionalVerticalOffset: CGFloat{
         return CGFloat(0.35).wmf_denormalizeUsingReference(self.frame.height)
     }
     
@@ -39,21 +39,21 @@ public class WMFWelcomeAnimationView : UIView {
           return CATransform3DConcat(wmf_scaleZeroAndRightTransform, wmf_lowerTransform)
     }
     
-    override public func didMoveToSuperview() {
+    override open func didMoveToSuperview() {
         super.didMoveToSuperview()
         // Fix for: http://stackoverflow.com/a/39614714
         self.layoutIfNeeded()
     }
     
-    public func beginAnimations() {
+    open func beginAnimations() {
         
     }
     
-    public func addAnimationElementsScaledToCurrentFrameSize(){
+    open func addAnimationElementsScaledToCurrentFrameSize(){
     
     }
     
-    public func removeExistingSubviewsAndSublayers() {
+    open func removeExistingSubviewsAndSublayers() {
         for subview in self.subviews {
             subview.removeFromSuperview()
         }

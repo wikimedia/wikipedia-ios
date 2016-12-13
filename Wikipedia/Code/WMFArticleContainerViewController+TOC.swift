@@ -3,7 +3,7 @@ import Tweaks
 
 extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
 
-    public func tableOfContentsControllerWillDisplay(controller: WMFTableOfContentsViewController){
+    public func tableOfContentsControllerWillDisplay(_ controller: WMFTableOfContentsViewController){
         webViewController.getCurrentVisibleSectionCompletion({(section: MWKSection?, error: NSError?) -> Void in
             if let item: TableOfContentsItem = section {
                 self.tableOfContentsViewController!.selectAndScrollToItem(item, animated: false)
@@ -16,7 +16,7 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
         })
     }
 
-    public func tableOfContentsController(controller: WMFTableOfContentsViewController,
+    public func tableOfContentsController(_ controller: WMFTableOfContentsViewController,
                                           didSelectItem item: TableOfContentsItem) {
         
         switch tableOfContentsDisplayMode {
@@ -26,15 +26,15 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
                 self.sectionToRestoreScrollOffset = section
                 self.currentFooterIndex = NSNotFound
                 self.footerIndexToRestoreScrollOffset = NSNotFound
-                self.webViewController.scrollToSection(section, animated: true)
+                self.webViewController.scroll(to: section, animated: true)
                 dispatchOnMainQueueAfterDelayInSeconds(1) {
-                    self.webViewController.accessibilityCursorToSection(section)
+                    self.webViewController.accessibilityCursor(to: section)
                 }
             } else if let footerItem = item as? TableOfContentsFooterItem {
                 let footerIndex = Int(footerItem.footerViewIndex.rawValue)
-                self.webViewController.scrollToFooterAtIndex(footerIndex, animated: true)
+                self.webViewController.scrollToFooter(at: footerIndex, animated: true)
                 dispatchOnMainQueueAfterDelayInSeconds(1) {
-                    self.webViewController.accessibilityCursorToFooterAtIndex(footerIndex)
+                    self.webViewController.accessibilityCursorToFooter(at: footerIndex)
                 }
                 self.currentSection = nil
                 self.sectionToRestoreScrollOffset = nil
@@ -50,18 +50,18 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
                 self.currentSection = section
                 self.currentFooterIndex = NSNotFound
                 // HAX: webview has issues scrolling when browser view is out of bounds, disable animation if needed
-                self.webViewController.scrollToSection(section, animated: true)
+                self.webViewController.scroll(to: section, animated: true)
                 dismissVCCompletionHandler = {
                     // HAX: This is terrible, but iOS events not under our control would steal our focus if we didn't wait long enough here and due to problems in UIWebView, we cannot work around it either.
                     dispatchOnMainQueueAfterDelayInSeconds(1) {
-                        self.webViewController.accessibilityCursorToSection(section)
+                        self.webViewController.accessibilityCursor(to: section)
                     }
                 }
             } else if let footerItem = item as? TableOfContentsFooterItem {
                 let footerIndex = Int(footerItem.footerViewIndex.rawValue)
-                self.webViewController.scrollToFooterAtIndex(footerIndex, animated: true)
+                self.webViewController.scrollToFooter(at: footerIndex, animated: true)
                 dismissVCCompletionHandler = {
-                    self.webViewController.accessibilityCursorToFooterAtIndex(footerIndex)
+                    self.webViewController.accessibilityCursorToFooter(at: footerIndex)
                 }
                 self.currentSection = nil
                 self.currentFooterIndex = footerIndex
@@ -71,21 +71,21 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
             
             // Don't dismiss immediately - it looks jarring - let the user see the ToC selection before dismissing
             dispatchOnMainQueueAfterDelayInSeconds(0.25) {
-                self.dismissViewControllerAnimated(true, completion: dismissVCCompletionHandler)
+                self.dismiss(animated: true, completion: dismissVCCompletionHandler)
             }
         }
         
     }
 
-    public func tableOfContentsControllerDidCancel(controller: WMFTableOfContentsViewController) {
-        dismissViewControllerAnimated(true, completion: nil)
+    public func tableOfContentsControllerDidCancel(_ controller: WMFTableOfContentsViewController) {
+        dismiss(animated: true, completion: nil)
     }
 
-    public func tableOfContentsArticleLanguageURL() -> NSURL? {
-        if(self.articleURL.wmf_isNonStandardURL){
-            return NSURL.wmf_URLWithDefaultSiteAndlanguage("en")
+    public func tableOfContentsArticleLanguageURL() -> URL? {
+        if((self.articleURL as NSURL).wmf_isNonStandardURL){
+            return NSURL.wmf_URL(withDefaultSiteAndlanguage: "en")
         }else{
-            return self.articleURL.wmf_siteURL
+            return self.articleURL.wmf_site
         }
     }
     
@@ -121,7 +121,7 @@ extension WMFArticleViewController {
     /**
      Append a read more section to the table of contents.
      */
-    public func appendItemsToTableOfContentsIncludingAboutThisArticle(includeAbout: Bool, includeReadMore: Bool) {
+    public func appendItemsToTableOfContentsIncludingAboutThisArticle(_ includeAbout: Bool, includeReadMore: Bool) {
         assert(self.tableOfContentsViewController != nil, "Attempting to add read more when toc is nil")
         guard let tvc = self.tableOfContentsViewController else { return; }
 
@@ -137,9 +137,9 @@ extension WMFArticleViewController {
     }
     
     func backgroundView() -> UIVisualEffectView {
-        let view = UIVisualEffectView(frame: CGRectZero)
-        view.autoresizingMask = .FlexibleWidth
-        view.effect = UIBlurEffect(style: .Light)
+        let view = UIVisualEffectView(frame: CGRect.zero)
+        view.autoresizingMask = .flexibleWidth
+        view.effect = UIBlurEffect(style: .light)
         view.alpha = 0.0
         return view
     }
@@ -165,11 +165,11 @@ extension WMFArticleViewController {
         #endif
     }
 
-    public func selectAndScrollToTableOfContentsItemForSection(section: MWKSection, animated: Bool) {
+    public func selectAndScrollToTableOfContentsItemForSection(_ section: MWKSection, animated: Bool) {
         tableOfContentsViewController?.selectAndScrollToItem(section, animated: animated)
     }
     
-    public func selectAndScrollToTableOfContentsFooterItemAtIndex(index: Int, animated: Bool) {
+    public func selectAndScrollToTableOfContentsFooterItemAtIndex(_ index: Int, animated: Bool) {
         tableOfContentsViewController?.selectAndScrollToFooterItem(atIndex: index, animated: animated)
     }
 }

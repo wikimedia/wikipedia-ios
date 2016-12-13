@@ -15,7 +15,7 @@
     }
     
     convenience init(scriptMessageDict: NSDictionary) {
-        var rect = CGRectZero
+        var rect = CGRect.zero
         if let rectDict = scriptMessageDict["rect"] as? NSDictionary {
             if CGRectMakeWithDictionaryRepresentation(rectDict, &rect) == false {
                 assert(false, "'CGRectMakeWithDictionaryRepresentation' failed")

@@ -12,13 +12,13 @@ public extension NSURL {
         guard let title = wmf_title else {
             return nil
         }
-        let components = title.componentsSeparatedByString(" ")
+        let components = title.components(separatedBy: " ")
         let searchableItem = CSSearchableItemAttributeSet(itemContentType: kUTTypeInternetLocation as String)
         searchableItem.keywords = ["Wikipedia","Wikimedia","Wiki"] + components
         searchableItem.title = wmf_title
         searchableItem.displayName = wmf_title
-        searchableItem.identifier = NSURL.wmf_desktopURLForURL(self)?.absoluteString
-        searchableItem.relatedUniqueIdentifier = NSURL.wmf_desktopURLForURL(self)?.absoluteString
+        searchableItem.identifier = NSURL.wmf_desktopURL(for: self as URL)?.absoluteString
+        searchableItem.relatedUniqueIdentifier = NSURL.wmf_desktopURL(for: self as URL)?.absoluteString
         return searchableItem
     }
 }

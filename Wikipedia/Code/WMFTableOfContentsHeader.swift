@@ -1,11 +1,11 @@
 import UIKit
 
-public class WMFTableOfContentsHeader: UIView {
-    @IBOutlet public var contentsLabel: UILabel!
+open class WMFTableOfContentsHeader: UIView {
+    @IBOutlet open var contentsLabel: UILabel!
     
-    var url:NSURL!
+    var url:URL!
 
-    public var articleURL:NSURL! {
+    open var articleURL:URL! {
         get {
             return url
         }
@@ -15,10 +15,10 @@ public class WMFTableOfContentsHeader: UIView {
         }
     }
     
-    public func headerTextForURL(url: NSURL) -> String {
+    open func headerTextForURL(_ url: URL) -> String {
         var headerString = localizedStringForURLWithKeyFallingBackOnEnglish(url, "table-of-contents-heading")
-        if(NSLocale.wmf_isCurrentLocaleEnglish()){
-            headerString = headerString.uppercaseStringWithLocale(NSLocale.currentLocale())
+        if(Locale.wmf_isCurrentLocaleEnglish()){
+            headerString = headerString.uppercased(with: Locale.current)
         }
         return headerString
     }

@@ -1,31 +1,31 @@
 import Foundation
 
 @objc protocol WMFSearchLanguagesBarViewControllerDelegate: class {
-    func searchLanguagesBarViewController(controller: WMFSearchLanguagesBarViewController, didChangeCurrentlySelectedSearchLanguage language: MWKLanguageLink)
+    func searchLanguagesBarViewController(_ controller: WMFSearchLanguagesBarViewController, didChangeCurrentlySelectedSearchLanguage language: MWKLanguageLink)
 }
 
 class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, WMFLanguagesViewControllerDelegate {
     weak var delegate: WMFSearchLanguagesBarViewControllerDelegate?
     
-    @IBOutlet private var languageButtons: [UIButton] = []
-    @IBOutlet private var otherLanguagesButton: UIButton?
-    @IBOutlet private var heightConstraint: NSLayoutConstraint?
+    @IBOutlet fileprivate var languageButtons: [UIButton] = []
+    @IBOutlet fileprivate var otherLanguagesButton: UIButton?
+    @IBOutlet fileprivate var heightConstraint: NSLayoutConstraint?
     
-    private var hidden: Bool = false {
+    fileprivate var hidden: Bool = false {
         didSet {
             if(hidden){
                 heightConstraint!.constant = 0
-                view.hidden = true
+                view.isHidden = true
             }else{
                 heightConstraint!.constant = 44
-                view.hidden = false
+                view.isHidden = false
             }
         }
     }
 
-    private(set) var currentlySelectedSearchLanguage: MWKLanguageLink? {
+    fileprivate(set) var currentlySelectedSearchLanguage: MWKLanguageLink? {
         get {
-            if let siteURL = NSUserDefaults.wmf_userDefaults().wmf_currentSearchLanguageDomain(), selectedLanguage = MWKLanguageLinkController.sharedInstance().languageForSiteURL(siteURL) {
+            if let siteURL = UserDefaults.wmf_userDefaults().wmf_currentSearchLanguageDomain(), let selectedLanguage = MWKLanguageLinkController.sharedInstance().language(forSiteURL: siteURL) {
                 return selectedLanguage
             }else{
                 if let appLang:MWKLanguageLink? = MWKLanguageLinkController.sharedInstance().appLanguage {
@@ -38,7 +38,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
             }
         }
         set {
-            NSUserDefaults.wmf_userDefaults().wmf_setCurrentSearchLanguageDomain(newValue?.siteURL())
+            UserDefaults.wmf_userDefaults().wmf_setCurrentSearchLanguageDomain(newValue?.siteURL())
             delegate?.searchLanguagesBarViewController(self, didChangeCurrentlySelectedSearchLanguage: newValue!)
             updateLanguageBarLanguageButtons()
         }
@@ -47,25 +47,25 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
     override func viewDidLoad() {
         super.viewDidLoad()
         for button in languageButtons {
-            button.tintColor = UIColor.wmf_blueTintColor()
+            button.tintColor = UIColor.wmf_blueTint()
         }
-        otherLanguagesButton?.setBackgroundImage(UIImage.wmf_imageFromColor(UIColor.whiteColor()), forState: .Normal)
-        otherLanguagesButton?.setBackgroundImage(UIImage.wmf_imageFromColor(UIColor(white: 0.9, alpha: 1.0)), forState: .Highlighted)
-        otherLanguagesButton?.setTitle(localizedStringForKeyFallingBackOnEnglish("main-menu-title"), forState: .Normal)
+        otherLanguagesButton?.setBackgroundImage(UIImage.wmf_image(from: UIColor.white), for: UIControlState())
+        otherLanguagesButton?.setBackgroundImage(UIImage.wmf_image(from: UIColor(white: 0.9, alpha: 1.0)), for: .highlighted)
+        otherLanguagesButton?.setTitle(localizedStringForKeyFallingBackOnEnglish("main-menu-title"), for: UIControlState())
         otherLanguagesButton?.titleLabel?.font = UIFont.wmf_subtitle()
 
-        NSNotificationCenter.defaultCenter().addObserverForName(WMFAppLanguageDidChangeNotification, object: nil, queue: nil) { notification in
-            guard let langController = notification.object, appLanguage = langController.appLanguage else {
+        NotificationCenter.default.addObserver(forName: WMFAppLanguageDidChangeNotification, object: nil, queue: nil) { notification in
+            guard let langController = notification.object, let appLanguage = langController.appLanguage else {
                 assert(false, "Could not extract app language from WMFAppLanguageDidChangeNotification")
                 return
             }
             self.currentlySelectedSearchLanguage = appLanguage
         }
 
-        NSNotificationCenter.defaultCenter().addObserverForName(WMFPreferredLanguagesDidChangeNotification, object: nil, queue: nil) { _ in
+        NotificationCenter.default.addObserver(forName: WMFPreferredLanguagesDidChangeNotification, object: nil, queue: nil) { _ in
             if let selectedLang = self.currentlySelectedSearchLanguage {
                 // The selected lang won't be in languageBarLanguages() if the user has dragged it down so it's not in top 3 langs...
-                if(self.languageBarLanguages().indexOf(selectedLang) == nil){
+                if(self.languageBarLanguages().index(of: selectedLang) == nil){
                     // ...so select first lang if the selected lang has been moved down out of the top 3.
                     self.currentlySelectedSearchLanguage = self.languageBarLanguages().first
                     // Reminder: cannot use "reorderPreferredLanguage" for this (in "didUpdatePreferredLanguages:") because
@@ -76,73 +76,73 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateLanguageBarLanguageButtons()
-        hidden = !NSUserDefaults.wmf_userDefaults().wmf_showSearchLanguageBar()
+        hidden = !UserDefaults.wmf_userDefaults().wmf_showSearchLanguageBar()
 
         var selectedButtonCount = 0
         for button in languageButtons{
-            if button.selected {
+            if button.isSelected {
                 selectedButtonCount += 1
             }
         }
         assert(selectedButtonCount == 1, "One button should be selected by now")
     }
     
-    private func languageBarLanguages() -> [MWKLanguageLink] {
+    fileprivate func languageBarLanguages() -> [MWKLanguageLink] {
         return Array(MWKLanguageLinkController.sharedInstance().preferredLanguages.prefix(3))
     }
 
-    private func updateLanguageBarLanguageButtons(){
-        for (index, language) in languageBarLanguages().enumerate() {
+    fileprivate func updateLanguageBarLanguageButtons(){
+        for (index, language) in languageBarLanguages().enumerated() {
             if index >= languageButtons.count {
                 break
             }
             let button = languageButtons[index]
-            button.setTitle(language.localizedName, forState: .Normal)
+            button.setTitle(language.localizedName, for: UIControlState())
             if let selectedLanguage = currentlySelectedSearchLanguage {
-                button.selected = language.isEqualToLanguageLink(selectedLanguage)
+                button.isSelected = language.isEqual(to: selectedLanguage)
             }else{
                 assert(false, "selectedLanguage should have been set at this point")
-                button.selected = false
+                button.isSelected = false
             }
         }
-        for(index, button) in languageButtons.enumerate(){
+        for(index, button) in languageButtons.enumerated(){
             if index >= languageBarLanguages().count {
-                button.enabled = false
-                button.hidden = true
+                button.isEnabled = false
+                button.isHidden = true
             }else{
-                button.enabled = true
-                button.hidden = false
+                button.isEnabled = true
+                button.isHidden = false
             }
         }
     }
     
-    @IBAction private func setCurrentlySelectedLanguageToButtonLanguage(withSender sender: UIButton) {
-        guard let buttonIndex = languageButtons.indexOf(sender) where languageBarLanguages().indices.contains(buttonIndex) else {
+    @IBAction fileprivate func setCurrentlySelectedLanguageToButtonLanguage(withSender sender: UIButton) {
+        guard let buttonIndex = languageButtons.index(of: sender), languageBarLanguages().indices.contains(buttonIndex) else {
             assert(false, "Language button not found for language")
             return
         }
         currentlySelectedSearchLanguage = languageBarLanguages()[buttonIndex]
     }
     
-    @IBAction private func openLanguagePicker() {
+    @IBAction fileprivate func openLanguagePicker() {
         let languagesVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
-        languagesVC.delegate = self
-        presentViewController(UINavigationController.init(rootViewController: languagesVC), animated: true, completion: nil)
+        languagesVC?.delegate = self
+        present(UINavigationController.init(rootViewController: languagesVC!), animated: true, completion: nil)
     }
     
-    func languagesController(controller: WMFLanguagesViewController!, didSelectLanguage language: MWKLanguageLink!) {
+    func languagesController(_ controller: WMFLanguagesViewController!, didSelectLanguage language: MWKLanguageLink!) {
         // If the selected language will not be displayed because we only display max 3 languages, move it to index 2
-        if(languageBarLanguages().indexOf(language) == nil){
-            MWKLanguageLinkController.sharedInstance().reorderPreferredLanguage(language, toIndex: 2)
+        if(languageBarLanguages().index(of: language) == nil){
+            MWKLanguageLinkController.sharedInstance().reorderPreferredLanguage(language, to: 2)
         }
         
         currentlySelectedSearchLanguage = language
-        controller.dismissViewControllerAnimated(true, completion: nil)
+        controller.dismiss(animated: true, completion: nil)
     }
 }

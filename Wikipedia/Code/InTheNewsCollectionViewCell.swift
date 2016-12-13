@@ -5,9 +5,9 @@ class InTheNewsCollectionViewCell: WMFExploreCollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var label: UILabel!
     
-    static let textStyle = UIFontTextStyleSubheadline
-    var font = UIFont.preferredFontForTextStyle(textStyle)
-    var linkFont = UIFont.preferredFontForTextStyle(textStyle)
+    static let textStyle = UIFontTextStyle.subheadline
+    var font = UIFont.preferredFont(forTextStyle: textStyle)
+    var linkFont = UIFont.preferredFont(forTextStyle: textStyle)
     
     static var estimatedRowHeight:CGFloat = 86
     
@@ -17,18 +17,18 @@ class InTheNewsCollectionViewCell: WMFExploreCollectionViewCell {
         imageView.wmf_showPlaceholder()
     }
     
-    var imageURL: NSURL? {
+    var imageURL: URL? {
         didSet {
             imageView.wmf_showPlaceholder()
             guard let URL = imageURL else {
                 return
             }
             
-            imageView.wmf_setImageWithURL(URL,
+            imageView.wmf_setImage(with: URL,
                                           detectFaces: true,
                                           onGPU: true,
                                           failure: { (error) in
-                                            dispatch_async(dispatch_get_main_queue(), { () in
+                                            DispatchQueue.main.async(execute: { () in
                                                 self.imageView.wmf_showPlaceholder()
                                             })
                                           },
@@ -36,10 +36,10 @@ class InTheNewsCollectionViewCell: WMFExploreCollectionViewCell {
         }
     }
     
-    override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        font = UIFont.preferredFontForTextStyle(InTheNewsCollectionViewCell.textStyle)
-        linkFont = UIFont.boldSystemFontOfSize(font.pointSize)
+        font = UIFont.preferredFont(forTextStyle: InTheNewsCollectionViewCell.textStyle)
+        linkFont = UIFont.boldSystemFont(ofSize: font.pointSize)
         updateBodyHTMLStyle()
     }
     
@@ -48,7 +48,7 @@ class InTheNewsCollectionViewCell: WMFExploreCollectionViewCell {
             label.text = nil
             return
         }
-        let attributedString = bodyHTML.wmf_attributedStringByRemovingHTMLWithFont(font, linkFont: linkFont)
+        let attributedString = bodyHTML.wmf_attributedStringByRemovingHTML(with: font, linkFont: linkFont)
         label.attributedText = attributedString
     }
     

@@ -1,21 +1,25 @@
 import Foundation
 
-extension NSLocale {
-    public class func wmf_isCurrentLocaleEnglish() -> Bool {
-        guard let langCode = NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as? String else {
+let wmf_acceptLanguageHeaderForPreferredLanguagesGloabl: String = {
+    return Locale.wmf_acceptLanguageHeaderForLanguageCodes(Locale.wmf_preferredLanguageCodes)
+}()
+
+extension Locale {
+    public static func wmf_isCurrentLocaleEnglish() -> Bool {
+        guard let langCode = (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as? String else {
             return false
         }
         return (langCode == "en" || langCode.hasPrefix("en-")) ? true : false;
     }
 
-    public func wmf_localizedLanguageNameForCode(code: String) -> String? {
-        return self.displayNameForKey(NSLocaleLanguageCode, value: code)
+    public func wmf_localizedLanguageNameForCode(_ code: String) -> String? {
+        return (self as NSLocale).displayName(forKey: NSLocale.Key.languageCode, value: code)
     }
     
-    public class func wmf_uniqueLanguageCodesForLanguages(languages: [String]) -> [String] {
+    public static func wmf_uniqueLanguageCodesForLanguages(_ languages: [String]) -> [String] {
         var uniqueLanguageCodes = [String]()
         for preferredLanguage in languages {
-            var components = preferredLanguage.lowercaseString.componentsSeparatedByString("-")
+            var components = preferredLanguage.lowercased().components(separatedBy: "-")
             if components.count > 2 {
                 let zhVariants = ["hans", "hant", "cn", "tw", "sg", "hk", "mo"]
                 if (components[0] == "zh" && zhVariants.contains(components[2])) {
@@ -24,7 +28,7 @@ extension NSLocale {
                     components.removeLast(components.count - 2)
                 }
             }
-            let languageCode = components.joinWithSeparator("-")
+            let languageCode = components.joined(separator: "-")
             if uniqueLanguageCodes.contains(languageCode) {
                 continue
             }
@@ -33,13 +37,13 @@ extension NSLocale {
         return uniqueLanguageCodes
     }
     
-    public class var wmf_preferredLanguageCodes: [String] {
+    public static var wmf_preferredLanguageCodes: [String] {
         get {
-            return wmf_uniqueLanguageCodesForLanguages(preferredLanguages())
+            return wmf_uniqueLanguageCodesForLanguages(preferredLanguages)
         }
     }
     
-    public class func wmf_acceptLanguageHeaderForLanguageCodes(languageCodes: [String]) -> String {
+    public static func wmf_acceptLanguageHeaderForLanguageCodes(_ languageCodes: [String]) -> String {
         let count: Double = Double(languageCodes.count)
         var q: Double = 1.0
         let qDelta = 1.0/count
@@ -57,16 +61,9 @@ extension NSLocale {
         return acceptLanguageString
     }
     
-    public class var wmf_acceptLanguageHeaderForPreferredLanguages: String {
+    public static var wmf_acceptLanguageHeaderForPreferredLanguages: String {
         get {
-            struct Once {
-                static var token: dispatch_once_t = 0
-                static var header: String = ""
-            }
-            dispatch_once(&Once.token) {
-                Once.header = wmf_acceptLanguageHeaderForLanguageCodes(wmf_preferredLanguageCodes)
-            }
-            return Once.header
+            return wmf_acceptLanguageHeaderForPreferredLanguagesGloabl
         }
     }
 }

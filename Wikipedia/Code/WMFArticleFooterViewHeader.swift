@@ -1,9 +1,9 @@
 import UIKit
 
-public class WMFArticleFooterViewHeader: UIView {
-    @IBOutlet public var headerLabel: UILabel!
+open class WMFArticleFooterViewHeader: UIView {
+    @IBOutlet open var headerLabel: UILabel!
     
-    public override func awakeFromNib() {
+    open override func awakeFromNib() {
         super.awakeFromNib()
         headerLabel.accessibilityTraits = UIAccessibilityTraitHeader
     }
