@@ -6144,6 +6144,7 @@
 				0E8380771D64989F0076EDE4 /* Embed App Extensions */,
 				D84581101D67572D00B09640 /* Embed Frameworks */,
 				D82FDB301DF0B28B00DDF311 /* Embed Frameworks from Carthage */,
+				D8A50D0C1E00456E000324A1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -6685,6 +6686,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		D8A50D0C1E00456E000324A1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rm -rf \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/qqq.lproj\"";
 		};
 		D8D550821DF0D52D00B90177 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
