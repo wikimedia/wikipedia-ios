@@ -7,7 +7,9 @@ extension UIButton {
             self.titleLabel!.textAlignment = .Center
             self.titleLabel!.numberOfLines = 1
             self.titleLabel!.clipsToBounds = false
-            self.titleLabel!.lineBreakMode = .ByWordWrapping
+            self.titleLabel!.lineBreakMode = .ByTruncatingTail
+            self.titleLabel!.minimumScaleFactor = 0.25
+            self.titleLabel!.adjustsFontSizeToFitWidth = true
         }
     }
 }

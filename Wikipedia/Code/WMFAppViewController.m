@@ -68,6 +68,8 @@
 #import "SDImageCache+WMFPersistentCache.h"
 #endif
 
+#import "WMFArticleNavigationController.h"
+
 /**
  *  Enums for each tab in the main tab bar.
  *
@@ -150,17 +152,17 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
                                                object:nil];
 
     @weakify(self);
-    [[NSNotificationCenter defaultCenter] addObserverForName: UIContentSizeCategoryDidChangeNotification
-                                                      object: nil
-                                                       queue: [NSOperationQueue mainQueue]
-                                                  usingBlock: ^(NSNotification *note) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note) {
                                                       @strongify(self);
                                                       [self updateTabBarItemsTitleTextAttributesForNewDynamicTypeContentSize];
-    }];
+                                                  }];
 }
 
 - (void)updateTabBarItemsTitleTextAttributesForNewDynamicTypeContentSize {
-    for (UITabBarItem* item in self.rootTabBarController.tabBar.items){
+    for (UITabBarItem *item in self.rootTabBarController.tabBar.items) {
         [item setTitleTextAttributes:[UITabBarItem wmf_rootTabBarItemStyleForState:UIControlStateNormal] forState:UIControlStateNormal];
         [item setTitleTextAttributes:[UITabBarItem wmf_rootTabBarItemStyleForState:UIControlStateSelected] forState:UIControlStateSelected];
     }
@@ -1077,8 +1079,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         }
     }
 
+    if ([viewController isKindOfClass:[WMFArticleNavigationController class]]) {
+        [(WMFArticleNavigationController *)viewController popToRootViewControllerAnimated:NO];
+    }
     return YES;
 }
+
 - (void)updateActiveTitleAccessibilityButton:(UIViewController *)viewController {
     if ([viewController isKindOfClass:[WMFExploreViewController class]]) {
         WMFExploreViewController *vc = (WMFExploreViewController *)viewController;

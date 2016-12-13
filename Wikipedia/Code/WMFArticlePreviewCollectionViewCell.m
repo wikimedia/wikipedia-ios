@@ -47,7 +47,7 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.snippetLabel.attributedText = nil;
+    self.snippetLabel.text = nil;
     self.saveButtonController.url = nil;
     self.saveButtonController.savedPageList = nil;
     self.loading = NO;
@@ -67,7 +67,7 @@
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    UIFont *titleLabelFont = [UIFont preferredFontForFontFamily:WMFFontFamilyGeorgia withTextStyle:UIFontTextStyleTitle2 compatibleWithTraitCollection:self.traitCollection];
+    UIFont *titleLabelFont = [UIFont wmf_preferredFontForFontFamily:WMFFontFamilyGeorgia withTextStyle:UIFontTextStyleTitle2 compatibleWithTraitCollection:self.traitCollection];
     self.titleLabel.font = titleLabelFont;
 }
 

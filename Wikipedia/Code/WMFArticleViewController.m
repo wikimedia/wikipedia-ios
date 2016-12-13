@@ -911,6 +911,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
     }
     [self registerForPreviewingIfAvailable];
+    NSNumber *multiplier = [[NSUserDefaults wmf_userDefaults] wmf_articleFontSizeMultiplier];
+    [self.webViewController setFontSizeMultiplier:multiplier];
 }
 
 #pragma mark - Layout
@@ -1395,35 +1397,29 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
 
-    [self.webViewController setFontSizeMultiplier:self.fontSizeMultipliers[value]];
+    NSNumber *multiplier = self.fontSizeMultipliers[value];
+    [self.webViewController setFontSizeMultiplier:multiplier];
+    [[NSUserDefaults wmf_userDefaults] wmf_setArticleFontSizeMultiplier:multiplier];
 }
 
+
 - (NSArray<NSNumber *> *)fontSizeMultipliers {
-    return @[@(FBTweakValue(@"Article", @"Font Size", @"Step 1", 70)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 2", 85)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 3", 100)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 4", 115)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 5", 130)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 6", 145)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 7", 160))];
+    return @[@(FBTweakValue(@"Article", @"Font Size", @"Step 1", WMFFontSizeMultiplierExtraSmall)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 2", WMFFontSizeMultiplierSmall)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 3", WMFFontSizeMultiplierMedium)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 4", WMFFontSizeMultiplierLarge)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 5", WMFFontSizeMultiplierExtraLarge)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 6", WMFFontSizeMultiplierExtraExtraLarge)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 7", WMFFontSizeMultiplierExtraExtraExtraLarge))];
 }
 
 - (NSUInteger)indexOfCurrentFontSize {
-    NSNumber *fontSize = [[NSUserDefaults wmf_userDefaults] wmf_readingFontSize];
+    NSNumber *fontSize = [[NSUserDefaults wmf_userDefaults] wmf_articleFontSizeMultiplier];
 
     NSUInteger index = [[self fontSizeMultipliers] indexOfObject:fontSize];
 
     if (index == NSNotFound) {
-        index = [[[self fontSizeMultipliers] bk_reduce:@(NSIntegerMax)
-                                             withBlock:^id(NSNumber *current, NSNumber *obj) {
-                                                 NSUInteger currentDistance = current.integerValue;
-                                                 NSUInteger objDistance = abs((int)(obj.integerValue - fontSize.integerValue));
-                                                 if (objDistance < currentDistance) {
-                                                     return obj;
-                                                 } else {
-                                                     return current;
-                                                 }
-                                             }] integerValue];
+        index = [self fontSizeMultipliers].count / 2;
     }
 
     return index;

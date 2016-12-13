@@ -135,6 +135,10 @@
         NSIndexPath *indexPath = originalAttributes.indexPath;
 
         NSInteger sectionIndex = indexPath.section;
+        if (sectionIndex >= self.sections.count) {
+            [self layoutWithMetrics:metrics delegate:delegate collectionView:collectionView invalidationContext:nil];
+            return;
+        }
         NSInteger invalidatedColumnIndex = self.sections[sectionIndex].columnIndex;
         WMFCVLColumn *invalidatedColumn = self.columns[invalidatedColumnIndex];
 
@@ -173,7 +177,6 @@
     CGSize size = metrics.boundsSize;
     NSInteger numberOfColumns = metrics.numberOfColumns;
     NSInteger widestColumnIndex = 0;
-    NSInteger defaultColumnIndex = 0;
     CGFloat widestColumnWidth = 0;
 
     if (self.sections == nil) {
@@ -221,12 +224,6 @@
 #endif
             i++;
         }
-    }
-
-    if (numberOfColumns > 1 && widestColumnIndex == 0) {
-        defaultColumnIndex = 1;
-    } else {
-        defaultColumnIndex = 0;
     }
 
     NSMutableArray *invalidatedItemIndexPaths = [NSMutableArray array];

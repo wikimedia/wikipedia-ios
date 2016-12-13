@@ -5,12 +5,15 @@
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 #import <Tweaks/FBTweakShakeWindow.h>
 #import "NSUserActivity+WMFExtensions.h"
+#import "Wikipedia-Swift.h"
 @import UserNotifications;
 
 #if WMF_UX_STUDY_ENABLED
 #import <Appsee/Appsee.h>
 static NSString *const WMFAppSeeAPIKey = @QUOTE(WMF_APP_SEE_API_KEY);
 #endif
+
+static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
 @interface AppDelegate ()
 
@@ -73,7 +76,7 @@ static NSString *const WMFAppSeeAPIKey = @QUOTE(WMF_APP_SEE_API_KEY);
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    [application setMinimumBackgroundFetchInterval:WMFBackgroundFetchInterval];
 #if DEBUG
     NSLog(@"\n\nSimulator documents directory:\n\t%@\n\n",
           [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]);
@@ -86,6 +89,7 @@ static NSString *const WMFAppSeeAPIKey = @QUOTE(WMF_APP_SEE_API_KEY);
 #endif
 
     [NSUserDefaults wmf_migrateToWMFGroupUserDefaultsIfNecessary];
+    [[NSUserDefaults wmf_userDefaults] wmf_migrateFontSizeMultiplier];
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
     [PiwikTracker wmf_start];
 
