@@ -123,7 +123,10 @@
 "settings-help-and-feedback" = "Ajuda i comentaris";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "La primera llengua de la llista s'utilitza com a llengua primària de l'aplicació. En canviar l'aplicació canviarà el contingut diari (com ara l'article destacat) que es mostra a 'Explora'.";
+"settings-notifications-system-off" = "Les notificacions de la Viquipèdia estan desactivades. Aneu als paràmetres del vostre dispositiu i activeu-les.";
 "settings-notifications-system-turn-on" = "Activa les notificacions";
+"settings-notifications-learn-more" = "Més quant a les notificacions";
+"settings-notifications-push-notifications" = "Notificacions enviades";
 "main-menu-title" = "Més";
 "main-menu-heading-about" = "Quant a";
 "main-menu-language-title" = "Cerca la wiki en llengua $1";
@@ -371,6 +374,7 @@
 "welcome-explore-tell-me-more-privacy" = "No s'emmagatzema cap llista de lectura o perfil als nostres servidors.";
 "welcome-explore-tell-me-more-done-button" = "Ho he entès";
 "welcome-explore-continue-button" = "Primers passos";
+"welcome-notifications-tell-me-more-title" = "Quant a les notificacions";
 "welcome-languages-title" = "Llengües";
 "welcome-languages-sub-title" = "Trieu les vostres llengües preferides per cercar a la Viquipèdia";
 "welcome-languages-add-button" = "Afegeix una altra llengua";
@@ -380,6 +384,8 @@
 "welcome-volunteer-send-usage-reports" = "Envia informes d'ús";
 "welcome-volunteer-continue-button" = "Continua";
 "welcome-volunteer-thanks" = "$1 Gràcies!";
+"welcome-send-data-title" = "Enviament de dades anònimes";
+"welcome-send-data-sub-title" = "Ajudeu Wikimedia a millorar l'aplicació fent saber com la feu servir. Les dades que es recullen són anònimes.";
 "empty-no-feed-title" = "Sense Connexió a Internet";
 "empty-no-feed-message" = "Podeu veure els vostres articles recomanats quan tingueu Internet";
 "empty-no-feed-action-message" = "Encara podeu llegir les pàgines desades";
@@ -433,10 +439,15 @@
 "in-the-news-notification-save-for-later-action-title" = "Desa-ho per a més tard";
 "in-the-news-currently-trending" = "En tendència";
 "in-the-news-title" = "Actualitat";
+"in-the-news-title-for-date" = "Actualitat sobre $1";
 "number-thousands" = "$1k";
 "number-millions" = "$1M";
 "number-billions" = "$1B";
+"feed-news-notification-text" = "Ara podeu rebre notificacions d'articles de la Viquipèdia en tendència durant l'actualitat.";
+"feed-news-notification-button-text" = "Activa les notificacions";
 "back" = "Enrere";
 "save-action" = "Desa";
 "unsave-action" = "No desis";
+"status-saving-for-later" = "Es desa per més endavant...";
+"status-saved-for-later" = "Desat per a més endavant";
 "announcements-dismiss" = "No, gràcies";
