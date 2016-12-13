@@ -15,9 +15,9 @@ open class WMFArticleFooterView: UIView {
             NSFontAttributeName : UIFont.systemFont(ofSize: 12)
         ] as [String : Any]
         
-        let footerText : NSString = localizedStringForURLWithKeyFallingBackOnEnglish(url, "license-footer-text");
+        let footerText : String = localizedStringForURLWithKeyFallingBackOnEnglish(url, "license-footer-text")
         
-        let licenseText : NSString = localizedStringForURLWithKeyFallingBackOnEnglish(url, "license-footer-name")
+        let licenseText : String = localizedStringForURLWithKeyFallingBackOnEnglish(url, "license-footer-name")
         
         let styledFooterText = footerText.attributedString(attributes: baseStyle, substitutionStrings: [licenseText], substitutionAttributes: [substitutionStyle])
         

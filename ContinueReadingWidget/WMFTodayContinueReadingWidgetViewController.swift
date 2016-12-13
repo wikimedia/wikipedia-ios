@@ -34,7 +34,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         
         emptyDescriptionLabel.text = localizedStringForKeyFallingBackOnEnglish("continue-reading-empty-title")
         emptyDescriptionLabel.text = localizedStringForKeyFallingBackOnEnglish("continue-reading-empty-description")
-        updateView()
+        _ = updateView()
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:))))
     }
@@ -50,7 +50,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        updateView()
+        _ = updateView()
     }
     
     func widgetPerformUpdate(_ completionHandler: (NCUpdateResult) -> Void) {
@@ -180,7 +180,8 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     
 
     @IBAction func continueReading(_ sender: AnyObject) {
-        let URLToOpen = articleURL?.wmf_wikipediaScheme ?? NSUserActivity.wmf_baseURLForActivity(of: .explore)
+        let URL = articleURL as NSURL?
+        let URLToOpen = URL?.wmf_wikipediaScheme ?? NSUserActivity.wmf_baseURLForActivity(of: .explore)
         
         self.extensionContext?.open(URLToOpen, completionHandler: { (success) in
             

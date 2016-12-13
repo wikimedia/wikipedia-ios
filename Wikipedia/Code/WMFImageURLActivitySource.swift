@@ -10,7 +10,7 @@ open class WMFImageURLActivitySource: NSObject, UIActivityItemSource {
     }
     
     open func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
-        return URL()
+        return URL(string: "") as Any
     }
     
     open func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType) -> Any? {

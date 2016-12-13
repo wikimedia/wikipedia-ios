@@ -1,12 +1,12 @@
 import Foundation
 
 let wmf_acceptLanguageHeaderForPreferredLanguagesGloabl: String = {
-    return Locale.wmf_acceptLanguageHeaderForLanguageCodes(Locale.wmf_preferredLanguageCodes)
+    return NSLocale.wmf_acceptLanguageHeaderForLanguageCodes(NSLocale.wmf_preferredLanguageCodes)
 }()
 
-extension Locale {
+extension NSLocale {
     public static func wmf_isCurrentLocaleEnglish() -> Bool {
-        guard let langCode = (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as? String else {
+        guard let langCode = (NSLocale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as? String else {
             return false
         }
         return (langCode == "en" || langCode.hasPrefix("en-")) ? true : false;

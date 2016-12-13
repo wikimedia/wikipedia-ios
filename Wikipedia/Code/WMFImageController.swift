@@ -109,13 +109,13 @@ open class WMFImageController : NSObject {
      - parameter url: A URL pointing to an image.
      
      */
-    open func cacheImageWithURLInBackground(_ url: URL, failure: @escaping (Error) -> Void, success: @escaping (Bool) -> Void) {
-        let key = self.cacheKeyForURL(url)
+    open func cacheImage(withURL URL: URL, failure: @escaping (Error) -> Void, success: @escaping (Bool) -> Void) {
+        let key = self.cacheKeyForURL(URL)
         if(self.imageManager.imageCache.diskImageExists(withKey: key)){
             success(true)
             return
         }
-        fetchImageWithURL(url, options: WMFImageController.backgroundImageFetchOptions, failure: failure) { (download) in
+        fetchImageWithURL(URL, options: WMFImageController.backgroundImageFetchOptions, failure: failure) { (download) in
             self.imageManager.imageCache.removeImage(forKey: key, fromDisk: false, withCompletion: nil)
             success(true)
         }
@@ -225,7 +225,7 @@ open class WMFImageController : NSObject {
                 failure(WMFImageControllerError.dataNotFound)
                 return
             }
-            success(WMFImageDownload(url: url, image: image, origin: ImageOrigin(sdOrigin: origin) ?? .none))
+            success(WMFImageDownload(url: url, image: image, origin: ImageOrigin(sdOrigin: origin) ))
         }
         addCancellableForURL(op as! Cancellable, url: url)
     }
@@ -298,7 +298,7 @@ open class WMFImageController : NSObject {
             return
         }
         
-        let queue = DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.background);
+        let queue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
         queue.async { [weak self] in
             guard let `self` = self else {
                 failure(WMFImageControllerError.deinit)
@@ -438,7 +438,7 @@ extension WMFImageController {
      
      - returns: A string to make OCMockito work.
      */
-    @objc public func cacheImageWithURLInBackground(_ url: URL?, failure: @escaping (_ error: NSError) -> Void, success: (_ didCache: Bool) -> Void) -> AnyObject? {
+    @objc public func cacheImageWithURLInBackground(_ url: URL?, failure: @escaping (_ error: NSError) -> Void, success: @escaping (_ didCache: Bool) -> Void) -> AnyObject? {
         guard let url = url else {
             failure(WMFImageControllerError.invalidOrEmptyURL as NSError)
             return nil
@@ -447,7 +447,7 @@ extension WMFImageController {
         let metaFailure = { (error: Error) in
             failure(error as NSError)
         }
-        cacheImageWithURLInBackground(url, failure: metaFailure, success: success);
+        cacheImage(withURL: url, failure: metaFailure, success: success);
         
         return nil
     }
@@ -470,12 +470,12 @@ extension WMFImageController {
                 cacheGroup.leave()
             }
             
-            cacheImageWithURLInBackground(imageURL, failure:failure, success: success)
+            _ = cacheImageWithURLInBackground(imageURL, failure:failure, success: success)
         }
         
         cacheGroup.waitInBackground { 
             if let error = errors.first {
-                failure(error: error)
+                failure(error)
             } else {
                 success()
             }

@@ -108,9 +108,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             return
         }
         
-        let viewCounts = viewCountDict.wmf_pageViewsSortedByDate
-        
-        guard viewCounts.count > 0 else {
+        guard let viewCounts = viewCountDict.wmf_pageViewsSortedByDate, viewCounts.count > 0 else {
             readerCountLabel.text = ""
             return
         }
@@ -157,7 +155,8 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
         case UNNotificationDefaultActionIdentifier:
             fallthrough
         default:
-            guard let wikipediaSchemeURL = articleURL.wmf_wikipediaScheme else {
+            let wikipediaURL = articleURL as NSURL
+            guard let wikipediaSchemeURL = wikipediaURL.wmf_wikipediaScheme else {
                 completion(.dismiss)
                 break
             }

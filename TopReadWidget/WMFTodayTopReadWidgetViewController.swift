@@ -175,8 +175,9 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         }
         
         var language: String? = nil
+        let siteURL = self.siteURL as NSURL
         if let languageCode = siteURL.wmf_language {
-            language = Locale.current.wmf_localizedLanguageNameForCode(languageCode)
+            language = (Locale.current as NSLocale).wmf_localizedLanguageNameForCode(languageCode)
         }
         
         var headerText = ""
@@ -199,7 +200,10 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 continue
             }
             for (_, dataValue) in dataValues {
-                let floatValue = CGFloat(dataValue.doubleValue)
+                guard let number = dataValue as? NSNumber else {
+                    continue
+                }
+                let floatValue = CGFloat(number.doubleValue)
                 if (floatValue < dataValueMin) {
                     dataValueMin = floatValue
                 }
@@ -232,7 +236,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 vc.subtitleLabel.text = result.snippet
             }
             vc.imageView.wmf_reset()
-            let rankString = NumberFormatter.localizedThousandsStringFromNumber(i + 1)
+            let rankString = NumberFormatter.localizedThousandsStringFromNumber(NSNumber(value: i + 1))
             vc.rankLabel.text = rankString
             vc.rankLabel.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("rank-accessibility-label").replacingOccurrences(of: "$1", with: rankString)
             if let articlePreview = self.previewStore.item(for: result.articleURL) {
@@ -247,9 +251,9 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                     
                     if let count = viewCounts.last {
                         vc.viewCountLabel.text = NumberFormatter.localizedThousandsStringFromNumber(count)
-                        if let numberString = NumberFormatter.threeSignificantDigitWholeNumberFormatter?.string(from: count) {
+                        if let numberString = NumberFormatter.threeSignificantDigitWholeNumberFormatter.string(from: count) {
                             let format = localizedStringForKeyFallingBackOnEnglish("readers-accessibility-label")
-                            vc.viewCountLabel.accessibilityLabel = format.replacingOccurrences(of: "$1", with: numberString)
+                            vc.viewCountLabel.accessibilityLabel = format?.replacingOccurrences(of: "$1", with: numberString)
                         }
                     } else {
                         vc.viewCountLabel.accessibilityLabel = nil
@@ -406,6 +410,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         
         let result = results[index]
         let displayTitle = result.displayTitle
+        let siteURL = self.siteURL as NSURL
         guard let URL = siteURL.wmf_wikipediaSchemeURL(withTitle: displayTitle) else {
             return
         }
