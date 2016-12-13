@@ -6,14 +6,14 @@ public func postNotification<T>(
                 fromCenter center: NotificationCenter = NotificationCenter.default) -> MatcherFunc<T> where T: Equatable, T: AnyObject {
     return MatcherFunc { actual, failureMessage in
         var postedNotification: Notification? = nil
-        let token = center.addObserver(forName: name, object: object, queue: nil) { notification in
+        let token = center.addObserver(forName: NSNotification.Name(rawValue: name), object: object, queue: nil) { notification in
             postedNotification = notification
         }
         defer {
             center.removeObserver(token)
         }
 
-        try actual.evaluate()
+        try _ = actual.evaluate()
 
         failureMessage.postfixMessage = "observe a notification"
 
@@ -36,7 +36,7 @@ public func postNotification<T>(
             return false
         }
 
-        return notification.name == name
+        return notification.name.rawValue == name
     }
 }
 

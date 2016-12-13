@@ -28,7 +28,7 @@ class WMFImageControllerTests: XCTestCase {
         let stubbedData = UIImagePNGRepresentation(testImage)
 
         LSNocilla.sharedInstance().start()
-        stubRequest("GET", testURL.absoluteString as LSMatcheable!).andReturnRawResponse(stubbedData)
+        _ = stubRequest("GET", testURL.absoluteString as LSMatcheable!).andReturnRawResponse(stubbedData)
         
         let expectation = self.expectation(description: "wait for image download")
         
@@ -84,12 +84,12 @@ class WMFImageControllerTests: XCTestCase {
     func testCancelingDownloadCatchesWithCancellationError() {
         let testURL = URL(string:"https://foo")!
         let observationToken =
-            NotificationCenter.default.addObserver(forName: SDWebImageDownloadStartNotification, object: nil, queue: nil) { _ -> Void in
+            NotificationCenter.default.addObserver(forName: NSNotification.Name.SDWebImageDownloadStart, object: nil, queue: nil) { _ -> Void in
             self.imageController.cancelFetchForURL(testURL)
         }
-        URLProtocol.registerClass(WMFHTTPHangingProtocol)
+        URLProtocol.registerClass(WMFHTTPHangingProtocol.self)
         defer {
-            URLProtocol.unregisterClass(WMFHTTPHangingProtocol)
+            URLProtocol.unregisterClass(WMFHTTPHangingProtocol.self)
             NotificationCenter.default.removeObserver(observationToken)
         }
         
@@ -123,7 +123,7 @@ class WMFImageControllerTests: XCTestCase {
         
         imageController.deleteImageWithURL(testURL)
         
-        URLProtocol.registerClass(WMFHTTPHangingProtocol)
+        URLProtocol.registerClass(WMFHTTPHangingProtocol.self)
         
         let expectation = self.expectation(description: "wait for image cancellation");
         
@@ -139,7 +139,7 @@ class WMFImageControllerTests: XCTestCase {
         }
         
         let observationToken =
-            NotificationCenter.default.addObserver(forName: SDWebImageDownloadStartNotification, object: nil, queue: nil) { _ -> Void in
+            NotificationCenter.default.addObserver(forName: NSNotification.Name.SDWebImageDownloadStart, object: nil, queue: nil) { _ -> Void in
                 self.imageController.cancelFetchForURL(testURL)
         }
         
@@ -150,13 +150,13 @@ class WMFImageControllerTests: XCTestCase {
         
         NotificationCenter.default.removeObserver(observationToken)
         
-        URLProtocol.unregisterClass(WMFHTTPHangingProtocol)
+        URLProtocol.unregisterClass(WMFHTTPHangingProtocol.self)
         LSNocilla.sharedInstance().start()
         defer {
             LSNocilla.sharedInstance().stop()
         }
         
-        stubRequest("GET", testURLString as LSMatcheable!).andReturnRawResponse(stubbedData)
+        _ = stubRequest("GET", testURLString as LSMatcheable!).andReturnRawResponse(stubbedData)
         
         let secondExpectation = self.expectation(description: "wait for image download");
         
@@ -244,7 +244,7 @@ class WMFImageControllerTests: XCTestCase {
             expectation.fulfill()
         }
         
-        self.imageController.importImage(fromFile: tempImageCopyURL.path!, withURL: testURL, failure: failure, success: success)
+        self.imageController.importImage(fromFile: tempImageCopyURL.path, withURL: testURL, failure: failure, success: success)
         
         waitForExpectations(timeout: WMFDefaultExpectationTimeout) { (error) in
         }
@@ -256,6 +256,6 @@ class WMFImageControllerTests: XCTestCase {
         XCTAssertTrue(self.imageController.hasDataOnDiskForImageWithURL(testURL))
 
         XCTAssertEqual(self.imageController.diskDataForImageWithURL(testURL),
-                       FileManager.default.contents(atPath: testFixtureDataPath!.path!))
+                       FileManager.default.contents(atPath: testFixtureDataPath.path))
     }
 }
