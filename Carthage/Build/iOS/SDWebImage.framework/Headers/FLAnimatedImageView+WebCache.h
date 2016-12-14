@@ -10,11 +10,7 @@
 
 #if SD_UIKIT
 
-#if COCOAPODS
 @import FLAnimatedImage;
-#else
-#import "FLAnimatedImageView.h"
-#endif
 
 #import "SDWebImageManager.h"
 
