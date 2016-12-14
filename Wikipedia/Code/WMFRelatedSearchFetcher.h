@@ -38,12 +38,11 @@ extern NSUInteger const WMFMaxRelatedSearchResultLimit;
 @interface WMFRelatedSearchFetcher : NSObject
 
 /**
- *  Query a site for titles related to a given title.
+ *  Query a URL for titles related to the URL's title.
  *
- *  @param title        The title for which to find related content, as well as the site to pull content from.
+ *  @param URL        The URL for which to find related content.
  *  @param resultLimit  Maximum number of search results, limited to WMFMaxRelatedSearchResultLimit.
- *
- *  @return A promise which resolves to an instance of @c WMFRelatedSearchResults.
+ *  @param completion  On success resolves to an instance of @c WMFRelatedSearchResults.
  *
  *  @see Fetching Extracts
  */

@@ -1,8 +1,6 @@
 #import <Mantle/Mantle.h>
 #import "MWKDataObject.h"
 
-@class AnyPromise;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol MWKListObject <NSObject>

@@ -9,8 +9,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param date             The date to fetch POTD info for.
  *  @param metadataLanguage The language metadata should be request in. Defaults to current locale's language code if @c nil.
+ *  @param success          On success resolves to an array containing a single @c MWKImageInfo object.
  *
- *  @return A promise resolving to an array containing a single @c MWKImageInfo object.
  */
 - (void)fetchPicOfTheDaySectionInfoForDate:(NSDate *)date metadataLanguage:(nullable NSString *)metadataLanguage failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success;
 
@@ -23,7 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param date             The dates to fetch POTD info for.
  *  @param metadataLanguage The language metadata should be request in. Defaults to current locale's language code if @c nil.
  *
- *  @return A promise resolving to a single @c MWKImageInfo object.
  */
 - (void)fetchPicOfTheDayGalleryInfoForDate:(NSDate *)date metadataLanguage:(nullable NSString *)metadataLanguage failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success;
 

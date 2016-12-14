@@ -126,8 +126,6 @@ open class WMFImageController : NSObject {
     /**
      Retrieve the data and uncompressed image for `url`.
      
-     If the URL is `nil`, then the promise will be rejected with `InvalidOrEmptyURL`.
-     
      - parameter url: URL which corresponds to the image being retrieved. Ignores URL schemes.
      
      - returns: A `WMFImageDownload` with the image data and the origin it was loaded from.
@@ -288,7 +286,6 @@ open class WMFImageController : NSObject {
      - parameter filepath: Path the image data on disk.
      - parameter url:      The URL from which the data was downloaded.
      
-     - returns: A promise which resolves after the migration was completed.
      */
     open func importImage(fromFile filepath: String, withURL url: URL, failure: @escaping (Error) -> Void, success: @escaping () -> Void) {
         guard FileManager.default.fileExists(atPath: filepath) else {

@@ -195,10 +195,6 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         // only fetch images if article was cached
         [self downloadImageDataForArticle:articleFromDisk failure:failure success:success];
     } else {
-        /*
-           don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
-           immediately in order to ensure accurate progress & error reporting.
-         */
         self.fetchOperationsByArticleTitle[articleURL] =
             [self.articleFetcher fetchArticleForURL:articleURL
                 progress:NULL
@@ -326,7 +322,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         [MWKImage mapFilenamesFromImages:[article imagesForGallery]];
 
     if (imageFileTitles.count == 0) {
-        DDLogVerbose(@"No image info to fetch, returning successful promise with empty array.");
+        DDLogVerbose(@"No image info to fetch.");
         success(imageFileTitles);
         return;
     }
