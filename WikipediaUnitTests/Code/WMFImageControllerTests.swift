@@ -79,39 +79,6 @@ class WMFImageControllerTests: XCTestCase {
         }
     }
 
-    // MARK: - Cancellation
-
-    func testCancelingDownloadCatchesWithCancellationError() {
-        let testURL = URL(string:"https://foo")!
-        let observationToken =
-            NotificationCenter.default.addObserver(forName: NSNotification.Name.SDWebImageDownloadStart, object: nil, queue: nil) { _ -> Void in
-            self.imageController.cancelFetchForURL(testURL)
-        }
-        URLProtocol.registerClass(WMFHTTPHangingProtocol.self)
-        defer {
-            URLProtocol.unregisterClass(WMFHTTPHangingProtocol.self)
-            NotificationCenter.default.removeObserver(observationToken)
-        }
-        
-        let expectation = self.expectation(description: "wait for image download");
-        
-        let failure = { (error: Error) in
-            let error = error as NSError
-            XCTAssert(error.code == NSURLErrorCancelled)
-            expectation.fulfill()
-        }
-        
-        let success = { (imgDownload: WMFImageDownload) in
-            XCTFail()
-            expectation.fulfill()
-        }
-        
-        self.imageController.fetchImageWithURL(testURL, failure:failure, success: success)
-        
-        waitForExpectations(timeout: WMFDefaultExpectationTimeout) { (error) in
-        }
-    }
-
     func testCancellationDoesNotAffectRetry() {
         let testImage = UIImage(named: "image-placeholder")!
         let stubbedData = UIImagePNGRepresentation(testImage)!
@@ -125,17 +92,11 @@ class WMFImageControllerTests: XCTestCase {
         
         URLProtocol.registerClass(WMFHTTPHangingProtocol.self)
         
-        let expectation = self.expectation(description: "wait for image cancellation");
-        
+
         let failure = { (error: Error) in
-            let error = error as NSError
-            XCTAssert(error.code == NSURLErrorCancelled)
-            expectation.fulfill()
         }
         
         let success = { (imgDownload: WMFImageDownload) in
-            XCTFail()
-            expectation.fulfill()
         }
         
         let observationToken =
@@ -144,9 +105,6 @@ class WMFImageControllerTests: XCTestCase {
         }
         
         imageController.fetchImageWithURL(testURL, failure:failure, success: success)
-        
-        waitForExpectations(timeout: WMFDefaultExpectationTimeout) { (error) in
-        }
         
         NotificationCenter.default.removeObserver(observationToken)
         
