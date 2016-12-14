@@ -123,6 +123,7 @@
 
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.paragraphSpacingBefore = 2.0;
+    paragraphStyle.lineHeightMultiple = 1.05;
 
     return [[NSAttributedString alloc] initWithString:self.descriptionText
                                            attributes:@{

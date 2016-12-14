@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="392" height="120"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="392" height="119.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="392" height="119"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NGT-X1-Lla">
@@ -40,7 +40,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Gw-jF-gnd">
-                        <rect key="frame" x="120" y="37" width="264" height="46"/>
+                        <rect key="frame" x="120" y="34.5" width="264" height="47"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afs-yA-rJY">
                                 <rect key="frame" x="0.0" y="0.0" width="264" height="21"/>
@@ -49,11 +49,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AWn-WJ-c4e" userLabel="Background">
-                                <rect key="frame" x="0.0" y="26" width="63" height="20"/>
+                                <rect key="frame" x="0.0" y="27" width="63" height="20"/>
                                 <color key="backgroundColor" red="0.083898022770881653" green="0.64826327562332153" blue="0.46441459655761719" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f45-0M-DJe">
-                                <rect key="frame" x="5" y="28" width="53" height="16"/>
+                                <rect key="frame" x="5" y="29" width="53" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -61,7 +61,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="AWn-WJ-c4e" firstAttribute="top" secondItem="afs-yA-rJY" secondAttribute="bottom" constant="5" id="1HB-vp-Pep"/>
+                            <constraint firstItem="AWn-WJ-c4e" firstAttribute="top" secondItem="afs-yA-rJY" secondAttribute="bottom" constant="6" id="1HB-vp-Pep"/>
                             <constraint firstItem="f45-0M-DJe" firstAttribute="top" secondItem="AWn-WJ-c4e" secondAttribute="top" constant="2" id="4IT-UQ-mPG"/>
                             <constraint firstItem="afs-yA-rJY" firstAttribute="leading" secondItem="f45-0M-DJe" secondAttribute="leading" id="DMq-qN-qce"/>
                             <constraint firstItem="f45-0M-DJe" firstAttribute="bottom" secondItem="AWn-WJ-c4e" secondAttribute="bottom" constant="-2" id="Dwc-gG-EOK"/>
@@ -97,7 +97,7 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="7Gw-jF-gnd" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="6I9-YY-eaY"/>
+                    <constraint firstItem="7Gw-jF-gnd" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-2" id="6I9-YY-eaY"/>
                     <constraint firstAttribute="bottom" secondItem="Lbm-mF-DF1" secondAttribute="bottom" priority="250" constant="8" id="M6S-Jr-2Z6"/>
                     <constraint firstItem="7Gw-jF-gnd" firstAttribute="leading" secondItem="Lbm-mF-DF1" secondAttribute="trailing" constant="8" id="OIh-aO-mAe"/>
                     <constraint firstItem="Lbm-mF-DF1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Oww-42-Yt0"/>
