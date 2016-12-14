@@ -1,5 +1,5 @@
 github "wikimedia/AFNetworking" "22653dd7998b63cd168eda4b11be36b7b656ab96"
-github "wikimedia/BlocksKit" "440ecf74369ac75ab4500617a6b70641d9afa4d2"
+github "wikimedia/BlocksKit" "bb5323c50f776988c2cea55c1d44be593266d22a"
 github "CocoaLumberjack/CocoaLumberjack" "3.0.0"
 github "Flipboard/FLAnimatedImage" "1.0.12"
 github "swisspol/GCDWebServer" "3.3.3"
