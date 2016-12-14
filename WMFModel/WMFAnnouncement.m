@@ -13,7 +13,7 @@
               WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionTitle): @"action.title",
               WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionURL): @"action.url",
               WMF_SAFE_KEYPATH(WMFAnnouncement.new, captionHTML): @"caption_HTML",
-              WMF_SAFE_KEYPATH(WMFAnnouncement.new, imageURL): @"image",
+              WMF_SAFE_KEYPATH(WMFAnnouncement.new, imageURL): @"image_url",
     };
 }
 
