@@ -49,7 +49,12 @@
 
 - (void)setImageURL:(NSURL *)imageURL {
     if (imageURL) {
-        [self.imageView wmf_setImageWithURL:imageURL detectFaces:YES failure:NULL success:NULL];
+        [self.imageView wmf_setImageWithURL:imageURL
+                                detectFaces:YES
+                                    failure:^(NSError *_Nonnull error) {
+                                    }
+                                    success:^{
+                                    }];
         [self restoreImageToFullHeight];
     } else {
         [self.imageView wmf_reset];
