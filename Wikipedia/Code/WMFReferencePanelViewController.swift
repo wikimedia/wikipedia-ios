@@ -11,9 +11,7 @@ class WMFReferencePanelViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let tapRecognizer = UITapGestureRecognizer.bk_recognizer { (sender, state, location) in
-            if state == .ended {
-                self.presentingViewController?.dismiss(animated: true, completion: nil)
-            }
+            self.presentingViewController?.dismiss(animated: true, completion: nil)
         }
         view.addGestureRecognizer(tapRecognizer)
         embedContainerControllerView()
