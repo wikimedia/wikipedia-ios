@@ -20,7 +20,7 @@ class WMFReferencePanelViewController: UIViewController {
     }
 
     fileprivate func panelHeight() -> CGFloat {
-        return view.frame.size.height * (self.view.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.compact ? 0.4 : 0.6)
+        return view.frame.size.height * (view.frame.size.height > view.frame.size.width ? 0.4 : 0.6)
     }
     
     override func viewDidLayoutSubviews() {
