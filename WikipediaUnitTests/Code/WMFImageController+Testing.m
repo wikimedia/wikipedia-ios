@@ -6,9 +6,8 @@
 @implementation WMFImageController (Testing)
 
 + (instancetype)temporaryController {
-    SDImageCache *tempCache = [[SDImageCache alloc] initWithNamespace:@"temp" inDirectory:WMFRandomTemporaryPath()];
-    SDWebImageManager *manager = [[SDWebImageManager alloc] initWithDownloader:[[SDWebImageDownloader alloc] init]
-                                                                         cache:tempCache];
+    SDImageCache *tempCache = [[SDImageCache alloc] initWithNamespace:@"temp" diskCacheDirectory:WMFRandomTemporaryPath()];
+    SDWebImageManager *manager = [[SDWebImageManager alloc] initWithCache:tempCache downloader:[[SDWebImageDownloader alloc] init]];
     return [[WMFImageController alloc] initWithManager:manager namespace:@"temp"];
 }
 

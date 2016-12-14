@@ -253,8 +253,17 @@ class WMFImageControllerTests: XCTestCase {
         XCTAssertFalse(self.imageController.hasDataInMemoryForImageWithURL(testURL),
                        "Importing image to disk should bypass the memory cache")
 
-        XCTAssertTrue(self.imageController.hasDataOnDiskForImageWithURL(testURL))
+        let secondExpect = self.expectation(description: "wait");
 
+        
+        self.imageController.hasDataOnDiskForImageWithURL(testURL) { (hasData) in
+             XCTAssertTrue(hasData)
+            secondExpect.fulfill()
+        }
+       
+        waitForExpectations(timeout: WMFDefaultExpectationTimeout) { (error) in
+        }
+        
         XCTAssertEqual(self.imageController.diskDataForImageWithURL(testURL),
                        FileManager.default.contents(atPath: testFixtureDataPath.path))
     }
