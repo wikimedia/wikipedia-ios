@@ -15,7 +15,6 @@
 #import "PaddedLabel.h"
 #import "WikipediaAppUtils.h"
 #import "MWKArticle.h"
-@import BlocksKitUIKitExtensions;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -226,18 +225,23 @@ NS_ASSUME_NONNULL_BEGIN
             [self.shareOptions.cardImageViewContainer addGestureRecognizer:tapForCardOnCardImageViewRecognizer];
             [self.shareOptions.shareAsCardLabel addGestureRecognizer:tapForCardOnButtonRecognizer];
             [self.shareOptions.shareAsTextLabel addGestureRecognizer:tapForTextRecognizer];
-            @weakify(self);
-            UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] bk_initWithHandler:^(UIGestureRecognizer *_Nonnull sender, UIGestureRecognizerState state, CGPoint location) {
-                @strongify(self);
-                [self dismissShareOptionsWithCompletion:^{
-                    @strongify(self);
-                    [self cleanup];
-                }];
-            }];
+            UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleCancelLabelTapGesture:)];
             [self.shareOptions.cancelLabel addGestureRecognizer:tapGR];
             UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.shareOptions);
         }];
 }
+    
+- (void)handleCancelLabelTapGesture:(UIGestureRecognizer *)tapGR {
+    if (tapGR.state != UIGestureRecognizerStateRecognized) {
+        return;
+    }
+    @weakify(self);
+    [self dismissShareOptionsWithCompletion:^{
+        @strongify(self);
+        [self cleanup];
+    }];
+}
+
 
 - (void)dismissShareOptionsWithCompletion:(nullable dispatch_block_t)completion {
     UIView *containingView = self.containerViewController.view;

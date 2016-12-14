@@ -1,6 +1,5 @@
 #import "WMFExploreSectionHeader.h"
 #import "Wikipedia-Swift.h"
-@import BlocksKitUIKitExtensions;
 
 @interface WMFExploreSectionHeader ()
 
@@ -30,15 +29,18 @@
     self.rightButton.tintColor = [UIColor wmf_blueTintColor];
     self.rightButton.isAccessibilityElement = YES;
     self.rightButton.accessibilityTraits = UIAccessibilityTraitButton;
-    @weakify(self);
-    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] bk_initWithHandler:^(UIGestureRecognizer *_Nonnull sender, UIGestureRecognizerState state, CGPoint location) {
-        @strongify(self);
-        if (self.whenTapped) {
-            self.whenTapped();
-        }
-    }];
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     [self wmf_configureSubviewsForDynamicType];
     [self addGestureRecognizer:tapGR];
+}
+    
+- (void)handleTapGesture:(UIGestureRecognizer *)tapGR {
+    if (tapGR.state != UIGestureRecognizerStateRecognized) {
+        return;
+    }
+    if (self.whenTapped) {
+        self.whenTapped();
+    }
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
