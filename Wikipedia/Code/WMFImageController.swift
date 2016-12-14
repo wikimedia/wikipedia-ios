@@ -210,7 +210,7 @@ open class WMFImageController : NSObject {
             return
         }
         
-        return imageManager.diskImageExists(for: url, completion:completion)
+        imageManager.diskImageExists(for: url, completion:completion)
     }
     
     open func diskDataForImageWithURL(_ url: URL?) -> Data? {
@@ -221,10 +221,15 @@ open class WMFImageController : NSObject {
         guard let url = url, let imageCache = imageManager.imageCache else {
             return WMFTypedImageData(data: nil, MIMEType: nil)
         }
-        let path = imageCache.defaultCachePath(forKey: cacheKeyForURL(url))
-        let mimeType: String? = FileManager.default.wmf_value(forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: path)
-        let data = FileManager.default.contents(atPath: path!)
-        return WMFTypedImageData(data: data, MIMEType: mimeType)
+        
+        guard let response = URLCache.shared.cachedResponse(for: URLRequest(url: url)) else {
+            let path = imageCache.defaultCachePath(forKey: cacheKeyForURL(url))
+            let mimeType: String? = FileManager.default.wmf_value(forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: path)
+            let data = FileManager.default.contents(atPath: path!)
+            return WMFTypedImageData(data: data, MIMEType: mimeType)
+        }
+        
+        return WMFTypedImageData(data: response.data, MIMEType: response.response.mimeType)
     }
     
     open func cachedImageWithURL(_ url: URL, failure: @escaping (Error) -> Void, success: @escaping (WMFImageDownload) -> Void) {
