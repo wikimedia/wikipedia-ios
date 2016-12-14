@@ -104,17 +104,17 @@ let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloa
 
 public extension UIFont {
 
-    public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: String) -> UIFont? {
+    public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: UIFontTextStyle) -> UIFont? {
         return UIFont.wmf_preferredFontForFontFamily(fontFamily, withTextStyle: style, compatibleWithTraitCollection: UIScreen.main.traitCollection)
     }
     
-    public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: String, compatibleWithTraitCollection traitCollection: UITraitCollection) -> UIFont? {
+    public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: UIFontTextStyle, compatibleWithTraitCollection traitCollection: UITraitCollection) -> UIFont? {
         
         guard fontFamily != .system else {
             if #available(iOSApplicationExtension 10.0, *) {
-                return UIFont.preferredFont(forTextStyle: UIFontTextStyle(rawValue: style), compatibleWith: traitCollection)
+                return UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection)
             } else {
-                return UIFont.preferredFont(forTextStyle: UIFontTextStyle(rawValue: style))
+                return UIFont.preferredFont(forTextStyle: style)
             }
         }
         
@@ -125,7 +125,7 @@ public extension UIFont {
         }
         
         let familyTable: [UIFontTextStyle:[UIContentSizeCategory:CGFloat]]? = fontSizeTable[fontFamily]
-        let styleTable: [UIContentSizeCategory:CGFloat]? = familyTable?[UIFontTextStyle(style)]
+        let styleTable: [UIContentSizeCategory:CGFloat]? = familyTable?[style]
         let size: CGFloat = styleTable?[preferredContentSizeCategory] ?? 21
 
         switch fontFamily {
