@@ -37,28 +37,18 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 #pragma mark - WMFContentSource
 
 - (void)startUpdating {
-    [self loadNewContentForce:NO completion:NULL];
 }
 
 - (void)stopUpdating {
 }
 
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
-
     NSURL *lastRead = [[NSUserDefaults wmf_userDefaults] wmf_openArticleURL];
-
-    if (!lastRead) {
-        if (completion) {
-            completion();
-        }
-        return;
-    }
 
     NSDate *resignActiveDate = [[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate];
 
-    BOOL const shouldShowContinueReading =
-        NO /*FBTweakValue(@"Explore", @"Continue Reading", @"Always Show", NO)*/ ||
-        fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeDisplayingLastReadArticle;
+    BOOL shouldShowContinueReading = lastRead &&
+                                     fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeDisplayingLastReadArticle;
 
     NSURL *continueReadingURL = [WMFContentGroup continueReadingContentGroupURL];
     WMFContentGroup *group = (id)[self.contentStore contentGroupForURL:continueReadingURL];
