@@ -48,8 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Fetch the receiver's @c wmf_imageURLToFetch
  *
  *  @param detectFaces Whether or not face detection & centering is desired.
+ *  @param success Invoked after the image has been successfully set and animated into view.
  *
- *  @return A promise which resolves after the image has been successfully set and animated into view.
  */
 - (void)wmf_fetchImageDetectFaces:(BOOL)detectFaces onGPU:(BOOL)onGPU failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
 

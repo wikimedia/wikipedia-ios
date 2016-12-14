@@ -57,7 +57,6 @@ typedef BOOL (^MWKListUpdateBlock)(MWKListEntry entry);
 
 /**
  *  Subclasses must implement to support saving
- *  If unimplemented, the save method will resolve the promise with an error
  */
 - (void)performSaveWithCompletion:(dispatch_block_t)completion error:(WMFErrorHandler)errorHandler;
 

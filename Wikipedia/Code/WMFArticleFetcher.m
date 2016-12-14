@@ -18,7 +18,6 @@
 #import "WMFArticleRevision.h"
 #import "WMFRevisionQueryResults.h"
 
-//Promises
 #import "Wikipedia-Swift.h"
 
 //Models
