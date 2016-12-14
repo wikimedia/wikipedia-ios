@@ -140,7 +140,10 @@
 }
 
 - (void)itemWasUpdatedWithNotification:(NSNotification *)note {
-    if ([note.userInfo[MWKURLKey] isEqual:self.url]) {
+    NSURL *userInfoURL = note.userInfo[MWKURLKey];
+    NSString *userInfoDatabaseKey = [userInfoURL wmf_articleDatabaseKey];
+    NSString *myDatabaseKey = self.url.wmf_articleDatabaseKey;
+    if (userInfoDatabaseKey && myDatabaseKey && [userInfoDatabaseKey isEqual:myDatabaseKey]) {
         [self updateSavedButtonState];
     }
 }
