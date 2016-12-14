@@ -47,4 +47,3 @@ FOUNDATION_EXPORT const unsigned char WMFUtilitiesVersionString[];
 #import "NSDictionary+WMFPageViewsSortedByDate.h"
 
 #import "EXTScope.h"
-#import "AnimatedGIFImageSerialization.h"
