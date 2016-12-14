@@ -6,6 +6,4 @@
 
 - (void)permanentlyCacheImagesForArticle:(MWKArticle *)article;
 
-- (UIImage *)cachedImageForURL:(NSURL *)url;
-
 @end

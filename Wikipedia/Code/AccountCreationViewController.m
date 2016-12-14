@@ -13,7 +13,7 @@
 #import "PaddedLabel.h"
 #import "MWKLanguageLinkController.h"
 #import "WMFAuthenticationManager.h"
-#import <WebImage/WebImage.h>
+#import <SDWebImage/SDWebImage.h>
 
 @import BlocksKitUIKitExtensions;
 

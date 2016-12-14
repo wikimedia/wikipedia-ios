@@ -1,12 +1,13 @@
 github "Mantle/Mantle" ~> 2.0.0
 github "CocoaLumberjack/CocoaLumberjack" ~> 3.0.0
-github "facebook/KVOController" == 1.1.0
+github "facebook/KVOController" ~> 1.2.0
 github "mxcl/PromiseKit" ~> 3.4
 github "SnapKit/Masonry" ~> 1.0
 github "bitstadium/HockeySDK-iOS" ~> 4.1.0
 github "swisspol/GCDWebServer" ~> 3.3
 github "vtourraine/VTAcknowledgementsViewController"
 github "NYTimes/NYTPhotoViewer"
+
 github "jonreid/OCMockito" ~> 4.0
 github "hamcrest/OCHamcrest" ~> 6.0
 github "luisobo/Nocilla"
@@ -15,7 +16,6 @@ github "Quick/Quick" ~> 1.0.0
 github "Quick/Nimble" ~> 5.1.1
 
 github "wikimedia/AFNetworking" "release/3.1.1"
-github "wikimedia/SDWebImage" "bb49df83e72f2231a191e9477a85f0effe13430a"
 
 github "wikimedia/BlocksKit" "master"
 github "wikimedia/SSDataSources" "master"
@@ -23,3 +23,4 @@ github "wikimedia/piwik-sdk-ios" "master"
 github "wikimedia/hpple" "master"
 github "wikimedia/Tweaks" "master"
 github "wikimedia/TUSafariActivity" "master"
+github "joewalsh/SDWebImage" "master"
