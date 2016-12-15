@@ -48,6 +48,7 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
 + (nullable NSURL *)continueReadingContentGroupURL;
 + (nullable NSURL *)relatedPagesContentGroupURLForArticleURL:(NSURL *)articleURL;
 + (nullable NSURL *)announcementURLForSiteURL:(NSURL *)siteURL identifier:(NSString *)identifier;
++ (nullable NSURL *)randomContentGroupURLForSiteURL:(NSURL *)url date:(NSDate *)date;
 
 - (BOOL)isForLocalDate:(NSDate *)date;           //date is a date in the user's time zone
 @property (nonatomic, readonly) BOOL isForToday; //is for today in the user's time zone
