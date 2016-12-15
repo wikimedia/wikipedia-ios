@@ -97,8 +97,6 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
-static NSTimeInterval WMFFeedRefreshForegroundTimeout = 7;
-
 static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
 
 @interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate>
