@@ -98,6 +98,8 @@
 
     [self.objectChanges removeAllObjects];
     [self.sectionChanges removeAllObjects];
+    
+    [self.delegate tableViewUpdater:self didUpdateTableView:self.tableView];
 }
 
 @end

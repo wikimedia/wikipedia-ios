@@ -40,7 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - WMFContentSource
 
 - (void)startUpdating {
-    [self loadNewContentForce:NO completion:NULL];
 }
 
 - (void)stopUpdating {
@@ -78,9 +77,18 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)loadContentForDate:(NSDate *)date force:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    WMFContentGroup *random = [self randomForDate:date];
-
-    if (random != nil) {
+    NSURL *siteURL = self.siteURL;
+    
+    if (!siteURL) {
+        if (completion) {
+            completion();
+        }
+        return;
+    }
+    
+    NSURL *contentGroupURL = [WMFContentGroup randomContentGroupURLForSiteURL:siteURL date:date];
+    WMFContentGroup *existingGroup = [self.contentStore contentGroupForURL:contentGroupURL];
+    if (existingGroup) {
         if (completion) {
             completion();
         }
@@ -88,23 +96,38 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     @weakify(self)
-        [self.fetcher fetchRandomArticleWithSiteURL:self.siteURL
-            failure:^(NSError *error) {
+    [self.fetcher fetchRandomArticleWithSiteURL:self.siteURL
+        failure:^(NSError *error) {
+            if (completion) {
+                completion();
+            }
+        }
+        success:^(MWKSearchResult *result) {
+            @strongify(self);
+            if (!self) {
                 if (completion) {
                     completion();
                 }
+                return;
             }
-            success:^(MWKSearchResult *result) {
-                @strongify(self);
-                if (!self) {
-                    return;
+
+            NSURL *articleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
+            if (!articleURL) {
+                if (completion) {
+                    completion();
                 }
-
-                NSURL *url = [self.siteURL wmf_URLWithTitle:result.displayTitle];
-
-                [self.contentStore createGroupOfKind:WMFContentGroupKindRandom forDate:date withSiteURL:self.siteURL associatedContent:@[url]];
-                [self.previewStore addPreviewWithURL:url updatedWithSearchResult:result];
+                return;
+            }
+            
+            [self.contentStore fetchOrCreateGroupForURL:contentGroupURL ofKind:WMFContentGroupKindRandom forDate:date withSiteURL:siteURL associatedContent:@[articleURL] customizationBlock:^(WMFContentGroup * _Nonnull group) {
+                
             }];
+            [self.previewStore addPreviewWithURL:articleURL updatedWithSearchResult:result];
+            
+            if (completion) {
+                completion();
+            }
+        }];
 }
 
 - (void)removeAllContent {
