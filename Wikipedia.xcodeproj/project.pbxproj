@@ -302,7 +302,6 @@
 		B0E805501C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8050F1C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.m */; };
 		B0E805511C0CE0DC0065EBC0 /* UITableViewCell+SelectedBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805111C0CE0DC0065EBC0 /* UITableViewCell+SelectedBackground.m */; };
 		B0E805531C0CE0DC0065EBC0 /* UIView+ConstraintsScale.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805151C0CE0DC0065EBC0 /* UIView+ConstraintsScale.m */; };
-		B0E805541C0CE0DC0065EBC0 /* UIView+Debugging.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805171C0CE0DC0065EBC0 /* UIView+Debugging.m */; };
 		B0E805551C0CE0DC0065EBC0 /* UIView+IBExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805181C0CE0DC0065EBC0 /* UIView+IBExtras.swift */; };
 		B0E805561C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8051A1C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m */; };
 		B0E805571C0CE0DC0065EBC0 /* UIView+TemporaryAnimatedXF.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8051C1C0CE0DC0065EBC0 /* UIView+TemporaryAnimatedXF.m */; };
@@ -1682,8 +1681,6 @@
 		B0E805111C0CE0DC0065EBC0 /* UITableViewCell+SelectedBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableViewCell+SelectedBackground.m"; path = "Wikipedia/Code/UITableViewCell+SelectedBackground.m"; sourceTree = SOURCE_ROOT; };
 		B0E805141C0CE0DC0065EBC0 /* UIView+ConstraintsScale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+ConstraintsScale.h"; path = "Wikipedia/Code/UIView+ConstraintsScale.h"; sourceTree = SOURCE_ROOT; };
 		B0E805151C0CE0DC0065EBC0 /* UIView+ConstraintsScale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+ConstraintsScale.m"; path = "Wikipedia/Code/UIView+ConstraintsScale.m"; sourceTree = SOURCE_ROOT; };
-		B0E805161C0CE0DC0065EBC0 /* UIView+Debugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+Debugging.h"; path = "Wikipedia/Code/UIView+Debugging.h"; sourceTree = SOURCE_ROOT; };
-		B0E805171C0CE0DC0065EBC0 /* UIView+Debugging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+Debugging.m"; path = "Wikipedia/Code/UIView+Debugging.m"; sourceTree = SOURCE_ROOT; };
 		B0E805181C0CE0DC0065EBC0 /* UIView+IBExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+IBExtras.swift"; path = "Wikipedia/Code/UIView+IBExtras.swift"; sourceTree = SOURCE_ROOT; };
 		B0E805191C0CE0DC0065EBC0 /* UIView+RemoveConstraints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+RemoveConstraints.h"; path = "Wikipedia/Code/UIView+RemoveConstraints.h"; sourceTree = SOURCE_ROOT; };
 		B0E8051A1C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+RemoveConstraints.m"; path = "Wikipedia/Code/UIView+RemoveConstraints.m"; sourceTree = SOURCE_ROOT; };
@@ -4472,8 +4469,6 @@
 			children = (
 				B0E8038F1C0CDABE0065EBC0 /* UIView+WMFSnapshotting.h */,
 				B0E803901C0CDABE0065EBC0 /* UIView+WMFSnapshotting.m */,
-				B0E805161C0CE0DC0065EBC0 /* UIView+Debugging.h */,
-				B0E805171C0CE0DC0065EBC0 /* UIView+Debugging.m */,
 				B0E805181C0CE0DC0065EBC0 /* UIView+IBExtras.swift */,
 				B0E805191C0CE0DC0065EBC0 /* UIView+RemoveConstraints.h */,
 				B0E8051A1C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m */,
@@ -6901,7 +6896,6 @@
 				B07963E31C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */,
 				0E281A0D1DC1389D00FA1AB1 /* WMFDatabaseHouseKeeper.m in Sources */,
 				D89DAE1B1D6CC6410089F7E1 /* MWKTitleLanguageController.m in Sources */,
-				B0E805541C0CE0DC0065EBC0 /* UIView+Debugging.m in Sources */,
 				B0E803911C0CDABE0065EBC0 /* UIView+WMFSnapshotting.m in Sources */,
 				B0E803E61C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				0ED2E9FA1CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
