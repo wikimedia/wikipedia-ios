@@ -80,11 +80,8 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     [self deleteItemAtIndexPath:indexPath];
-    //Delay the empty state update so its not jarring to the user
-    dispatchOnMainQueueAfterDelayInSeconds(0.7, ^{
-        [self updateEmptyAndDeleteState];
-    });
 }
+
 #pragma mark - Previewing
 
 - (void)registerForPreviewingIfAvailable {
@@ -251,6 +248,15 @@
 - (void)updateEmptyAndDeleteState {
     [self updateDeleteButton];
     [self updateEmptyState];
+}
+
+#pragma mark - WMFTableViewUpdaterDelegate
+
+- (void)tableViewUpdater:(WMFTableViewUpdater *)updater didUpdateTableView:(UITableView *)tableView {
+    //Delay the empty state update so its not jarring to the user
+    dispatchOnMainQueueAfterDelayInSeconds(0.7, ^{
+        [self updateEmptyAndDeleteState];
+    });
 }
 
 @end

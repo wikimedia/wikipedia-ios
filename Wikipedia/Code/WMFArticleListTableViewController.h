@@ -1,6 +1,7 @@
 #import <UIKit/UIKit.h>
 #import "UIViewController+WMFEmptyView.h"
 #import "WMFAnalyticsLogging.h"
+#import "WMFTableViewUpdater.h"
 
 @class WMFArticleDataStore;
 @class MWKDataStore;
@@ -18,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface WMFArticleListTableViewController : UITableViewController <WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding>
+@interface WMFArticleListTableViewController : UITableViewController <WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding, WMFTableViewUpdaterDelegate>
 
 @property (nonatomic, strong) MWKDataStore *userDataStore;
 @property (nonatomic, strong) WMFArticleDataStore *previewStore;

@@ -211,14 +211,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 #pragma mark - Feed Sources
 
-- (void)updateUIForContentSourcesUpdateStart {
-    [self.refreshControl beginRefreshing];
-}
-
-- (void)updateUIForContentSourcesUpdateComplete {
-    [self resetRefreshControl];
-}
-
 - (void)updateRelatedPages {
     NSAssert([NSThread isMainThread], @"Must be called on the main thread");
     if (self.relatedUpdatedTaskGroup) {
@@ -243,10 +235,16 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                             }];
 }
 
-- (void)updateFeedSources {
+- (void)updateFeedSources:(nullable dispatch_block_t)completion {
     NSAssert([NSThread isMainThread], @"Must be called on the main thread");
     if (self.feedUpdateTaskGroup) {
+        if (completion) {
+            completion();
+        }
         return;
+    }
+    if (!self.refreshControl.isRefreshing) {
+        [self.refreshControl beginRefreshing];
     }
     WMFTaskGroup *group = [WMFTaskGroup new];
     self.feedUpdateTaskGroup = group;
@@ -273,11 +271,19 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
     [group waitInBackgroundWithTimeout:12
                             completion:^{
+                                NSError *saveError = nil;
+                                if (![self.userStore save:&saveError]) {
+                                    DDLogError(@"Error saving: %@", saveError);
+                                }
                                 [self resetRefreshControl];
                                 [self startMonitoringReachabilityIfNeeded];
                                 [self showOfflineEmptyViewIfNeeded];
                                 [self showHideNotificationIfNeccesary];
                                 self.feedUpdateTaskGroup = nil;
+                                if (completion) {
+                                    completion();
+                                }
+
 #if DEBUG
                                 if ([entered count] > 0) {
                                     DDLogError(@"Didn't leave: %@", entered);
@@ -529,7 +535,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl bk_addEventHandler:^(id sender) {
-        [self updateFeedSources];
+        [self updateFeedSources:NULL];
     }
                            forControlEvents:UIControlEventValueChanged];
     [self resetRefreshControl];
@@ -616,7 +622,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                 switch (status) {
                     case AFNetworkReachabilityStatusReachableViaWWAN:
                     case AFNetworkReachabilityStatusReachableViaWiFi: {
-                        [self updateFeedSources];
+                        [self updateFeedSources:NULL];
                     } break;
                     case AFNetworkReachabilityStatusNotReachable: {
                         [self showOfflineEmptyViewIfNeeded];
