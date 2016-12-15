@@ -301,7 +301,6 @@
 		B0E8054F1C0CE0DC0065EBC0 /* UIScrollView+WMFScrollsToTop.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8050D1C0CE0DC0065EBC0 /* UIScrollView+WMFScrollsToTop.m */; };
 		B0E805501C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8050F1C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.m */; };
 		B0E805511C0CE0DC0065EBC0 /* UITableViewCell+SelectedBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805111C0CE0DC0065EBC0 /* UITableViewCell+SelectedBackground.m */; };
-		B0E805531C0CE0DC0065EBC0 /* UIView+ConstraintsScale.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805151C0CE0DC0065EBC0 /* UIView+ConstraintsScale.m */; };
 		B0E805551C0CE0DC0065EBC0 /* UIView+IBExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805181C0CE0DC0065EBC0 /* UIView+IBExtras.swift */; };
 		B0E805561C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8051A1C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m */; };
 		B0E805571C0CE0DC0065EBC0 /* UIView+TemporaryAnimatedXF.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8051C1C0CE0DC0065EBC0 /* UIView+TemporaryAnimatedXF.m */; };
@@ -1679,8 +1678,6 @@
 		B0E8050F1C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableView+DynamicCellHeight.m"; path = "Wikipedia/Code/UITableView+DynamicCellHeight.m"; sourceTree = SOURCE_ROOT; };
 		B0E805101C0CE0DC0065EBC0 /* UITableViewCell+SelectedBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableViewCell+SelectedBackground.h"; path = "Wikipedia/Code/UITableViewCell+SelectedBackground.h"; sourceTree = SOURCE_ROOT; };
 		B0E805111C0CE0DC0065EBC0 /* UITableViewCell+SelectedBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableViewCell+SelectedBackground.m"; path = "Wikipedia/Code/UITableViewCell+SelectedBackground.m"; sourceTree = SOURCE_ROOT; };
-		B0E805141C0CE0DC0065EBC0 /* UIView+ConstraintsScale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+ConstraintsScale.h"; path = "Wikipedia/Code/UIView+ConstraintsScale.h"; sourceTree = SOURCE_ROOT; };
-		B0E805151C0CE0DC0065EBC0 /* UIView+ConstraintsScale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+ConstraintsScale.m"; path = "Wikipedia/Code/UIView+ConstraintsScale.m"; sourceTree = SOURCE_ROOT; };
 		B0E805181C0CE0DC0065EBC0 /* UIView+IBExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+IBExtras.swift"; path = "Wikipedia/Code/UIView+IBExtras.swift"; sourceTree = SOURCE_ROOT; };
 		B0E805191C0CE0DC0065EBC0 /* UIView+RemoveConstraints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+RemoveConstraints.h"; path = "Wikipedia/Code/UIView+RemoveConstraints.h"; sourceTree = SOURCE_ROOT; };
 		B0E8051A1C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+RemoveConstraints.m"; path = "Wikipedia/Code/UIView+RemoveConstraints.m"; sourceTree = SOURCE_ROOT; };
@@ -4499,8 +4496,6 @@
 				B0E8049F1C0CE0B40065EBC0 /* NSObject+WMFExtras.m */,
 				B0E804F81C0CE0DC0065EBC0 /* UIImage+WMFFocalImageDrawing.h */,
 				B0E804F91C0CE0DC0065EBC0 /* UIImage+WMFFocalImageDrawing.m */,
-				B0E805141C0CE0DC0065EBC0 /* UIView+ConstraintsScale.h */,
-				B0E805151C0CE0DC0065EBC0 /* UIView+ConstraintsScale.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -7037,7 +7032,6 @@
 				B0E803311C0CD6F20065EBC0 /* WMFExploreSectionFooter.m in Sources */,
 				B0F7CB561C8A89E300996DE0 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				B0E8065C1C0CE84B0065EBC0 /* WikiTextSectionUploader.m in Sources */,
-				B0E805531C0CE0DC0065EBC0 /* UIView+ConstraintsScale.m in Sources */,
 				B0E8055F1C0CE0DC0065EBC0 /* UIViewController+WMFHideKeyboard.m in Sources */,
 				B0E806D81C0CEB850065EBC0 /* AbuseFilterAlert.m in Sources */,
 				B0E8058E1C0CE2C60065EBC0 /* EditFunnel.m in Sources */,
