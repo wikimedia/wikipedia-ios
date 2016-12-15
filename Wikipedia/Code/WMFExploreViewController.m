@@ -335,7 +335,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         NSArray<WMFFeedTopReadArticlePreview *> *content = [self contentForSectionAtIndex:indexPath.section];
 
         if (indexPath.row >= [content count]) {
-            NSAssert(false, @"Attempting to reference an out of bound index");
             return nil;
         }
 
@@ -345,7 +344,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
         NSArray<NSURL *> *content = [self contentForSectionAtIndex:indexPath.section];
         if (indexPath.row >= [content count]) {
-            NSAssert(false, @"Attempting to reference an out of bound index");
             return nil;
         }
         return content[indexPath.row];
@@ -353,7 +351,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     } else if ([section contentType] == WMFContentTypeStory) {
         NSArray<WMFFeedNewsStory *> *content = [self contentForSectionAtIndex:indexPath.section];
         if (indexPath.row >= [content count]) {
-            NSAssert(false, @"Attempting to reference an out of bound index");
             return nil;
         }
         return [[content[indexPath.row] featuredArticlePreview] articleURL] ?: [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
