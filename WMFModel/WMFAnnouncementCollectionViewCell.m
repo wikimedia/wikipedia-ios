@@ -79,6 +79,11 @@
 }
 
 - (void)setCaptionHTML:(NSString *)text {
+    //HACK: Fix padding around the caption
+    if ([text rangeOfString:@"<p>"].location == NSNotFound) {
+        text = [NSString stringWithFormat:@"<p>%@</p>", text];
+    }
+
     NSAttributedString *attributedString = [self attributedStringForCaptionHTML:text];
     if (attributedString) {
         [self.captionTextView setAttributedText:attributedString];
