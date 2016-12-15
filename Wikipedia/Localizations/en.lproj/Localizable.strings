@@ -352,7 +352,7 @@
 "migration-skip-button-title" = "Delete it";
 
 
-"image-gallery-unknown-owner" = "Uploader unknown.";
+"image-gallery-unknown-owner" = "Author unknown.";
 "image-gallery-fetch-image-info-error-title" = "Unable to download images";
 "image-gallery-fetch-image-info-error-message" = "Unable to download the images for this article. Please refresh the article and try again.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
