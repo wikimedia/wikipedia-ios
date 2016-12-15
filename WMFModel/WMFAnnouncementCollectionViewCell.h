@@ -19,6 +19,6 @@
 - (void)setActionText:(NSString *)text;
 - (void)setCaptionHTML:(NSString *)text;
 
-+ (CGFloat)estimatedRowHeight;
++ (CGFloat)estimatedRowHeightWithImage:(BOOL)withImage;
 
 @end

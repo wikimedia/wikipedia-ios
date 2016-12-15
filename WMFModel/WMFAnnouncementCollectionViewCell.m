@@ -130,8 +130,8 @@
     [self.delegate announcementCellDidTapActionButton:self];
 }
 
-+ (CGFloat)estimatedRowHeight {
-    return 250;
++ (CGFloat)estimatedRowHeightWithImage:(BOOL)withImage {
+    return 250 + (withImage ? 150 : 0);
 }
 
 @end

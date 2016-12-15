@@ -284,7 +284,7 @@
 
         __block CGFloat headerHeight = 0;
         BOOL didCreateOrUpdate = [section addOrUpdateHeaderAtIndex:0
-                                                 withFrameProvider:^CGRect(BOOL wasCreated, CGRect existingFrame) {
+                                                 withFrameProvider:^CGRect(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *attributes) {
                                                      if (wasCreated) {
                                                          headerHeight = [delegate collectionView:collectionView estimatedHeightForHeaderInSection:sectionIndex forColumnWidth:columnWidth];
                                                          return CGRectMake(x, y, columnWidth, headerHeight);
@@ -316,9 +316,11 @@
 
             __block CGFloat itemHeight = 0;
             BOOL didCreateOrUpdate = [section addOrUpdateItemAtIndex:item
-                                                   withFrameProvider:^CGRect(BOOL wasCreated, CGRect existingFrame) {
+                                                   withFrameProvider:^CGRect(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *attributes) {
                                                        if (wasCreated) {
-                                                           itemHeight = [delegate collectionView:collectionView estimatedHeightForItemAtIndexPath:itemIndexPath forColumnWidth:columnWidth];
+                                                           WMFLayoutEstimate estimate = [delegate collectionView:collectionView estimatedHeightForItemAtIndexPath:itemIndexPath forColumnWidth:columnWidth];
+                                                           attributes.precalculated = estimate.precalculated;
+                                                           itemHeight = estimate.height;
                                                            return CGRectMake(itemX, y, itemWidth, itemHeight);
                                                        } else {
                                                            itemHeight = existingFrame.size.height;
@@ -344,7 +346,7 @@
 
         __block CGFloat footerHeight = 0;
         didCreateOrUpdate = [section addOrUpdateFooterAtIndex:0
-                                            withFrameProvider:^CGRect(BOOL wasCreated, CGRect existingFrame) {
+                                            withFrameProvider:^CGRect(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *attributes) {
                                                 if (wasCreated) {
                                                     footerHeight = [delegate collectionView:collectionView estimatedHeightForFooterInSection:sectionIndex forColumnWidth:columnWidth];
                                                     return CGRectMake(x, y, columnWidth, footerHeight);
