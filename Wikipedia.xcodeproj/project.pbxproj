@@ -147,6 +147,7 @@
 		B02376B41D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B02376B31D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m */; };
 		B02B82751C696ECA00B19309 /* WMFSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B02B82731C696ECA00B19309 /* WMFSettingsTableViewCell.m */; };
 		B02B82761C696ECA00B19309 /* WMFSettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B02B82741C696ECA00B19309 /* WMFSettingsTableViewCell.xib */; };
+		B02F96661DFA11DC007DA007 /* WMFArticleListTableViewCell+DynamicTypeFontTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F96651DFA11DC007DA007 /* WMFArticleListTableViewCell+DynamicTypeFontTests.swift */; };
 		B0338A841DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0338A831DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift */; };
 		B0379A281D8B747A00D973CF /* WebViewController+WMFReferencePopover.m in Sources */ = {isa = PBXBuildFile; fileRef = B0379A271D8B747A00D973CF /* WebViewController+WMFReferencePopover.m */; };
 		B0379A2C1D8B756C00D973CF /* WMFReferencePopoverMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0379A2A1D8B756C00D973CF /* WMFReferencePopoverMessageViewController.m */; };
@@ -1308,6 +1309,7 @@
 		B02B82731C696ECA00B19309 /* WMFSettingsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSettingsTableViewCell.m; path = Wikipedia/Code/WMFSettingsTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		B02B82741C696ECA00B19309 /* WMFSettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFSettingsTableViewCell.xib; path = Wikipedia/Code/WMFSettingsTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		B02B827A1C698FAB00B19309 /* WMFSettingsMenuItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFSettingsMenuItem.h; path = Wikipedia/Code/WMFSettingsMenuItem.h; sourceTree = SOURCE_ROOT; };
+		B02F96651DFA11DC007DA007 /* WMFArticleListTableViewCell+DynamicTypeFontTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFArticleListTableViewCell+DynamicTypeFontTests.swift"; sourceTree = "<group>"; };
 		B0338A831DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFReferencePageBackgroundView.swift; path = Wikipedia/Code/WMFReferencePageBackgroundView.swift; sourceTree = SOURCE_ROOT; };
 		B0379A261D8B747A00D973CF /* WebViewController+WMFReferencePopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WebViewController+WMFReferencePopover.h"; path = "Wikipedia/Code/WebViewController+WMFReferencePopover.h"; sourceTree = SOURCE_ROOT; };
 		B0379A271D8B747A00D973CF /* WebViewController+WMFReferencePopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WebViewController+WMFReferencePopover.m"; path = "Wikipedia/Code/WebViewController+WMFReferencePopover.m"; sourceTree = SOURCE_ROOT; };
@@ -5285,6 +5287,7 @@
 				19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */,
 				19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */,
 				D820F78A1DD0E5E100806045 /* WMFNotificationTests.m */,
+				B02F96651DFA11DC007DA007 /* WMFArticleListTableViewCell+DynamicTypeFontTests.swift */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests/Code;
@@ -6800,6 +6803,7 @@
 				B0E808AC1C0D16B30065EBC0 /* FBSnapshotTestCase+WMFConvenience.m in Sources */,
 				B0E808A91C0D16A00065EBC0 /* UIView+VisualTestSizingUtils.m in Sources */,
 				BC45FF481C1B1F9F00BAE501 /* NSUserDefaults+WMFReset.m in Sources */,
+				B02F96661DFA11DC007DA007 /* WMFArticleListTableViewCell+DynamicTypeFontTests.swift in Sources */,
 				B0E809291C0D19D00065EBC0 /* MWKArticleExtractionTests.m in Sources */,
 				B0E808C71C0D176A0065EBC0 /* MWKListTestBase.m in Sources */,
 				B0E809351C0D1A2F0065EBC0 /* WMFGeometryTests.m in Sources */,
