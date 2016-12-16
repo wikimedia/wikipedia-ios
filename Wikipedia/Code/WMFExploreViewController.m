@@ -782,8 +782,15 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
             estimate.height = [InTheNewsCollectionViewCell estimatedRowHeight];
         } break;
         case WMFFeedDisplayTypeAnnouncement: {
-            WMFAnnouncement *announcement = (WMFAnnouncement *)section.content.firstObject;
-            estimate.height = [WMFAnnouncementCollectionViewCell estimatedRowHeightWithImage:announcement.imageURL != nil];
+            WMFAnnouncementCollectionViewCell *cell = [self placeholderCellForIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName]];
+            
+            [self configureAnouncementCell:cell withSection:section atIndexPath:indexPath];
+            WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
+            attributesToFit.frame = CGRectMake(0, 0, columnWidth, CGFLOAT_MAX);
+            UICollectionViewLayoutAttributes *attributes = [cell preferredLayoutAttributesFittingAttributes:attributesToFit];
+            estimate.height = attributes.frame.size.height;
+            //WMFAnnouncement *announcement = (WMFAnnouncement *)section.content.firstObject;
+            //estimate.height = [WMFAnnouncementCollectionViewCell estimatedRowHeightWithImage:announcement.imageURL != nil];
         } break;
         default:
             NSAssert(false, @"Unknown display Type");
