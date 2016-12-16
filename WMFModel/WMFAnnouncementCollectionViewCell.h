@@ -17,7 +17,7 @@
 - (void)setImageURL:(NSURL *)imageURL;
 - (void)setMessageText:(NSString *)text;
 - (void)setActionText:(NSString *)text;
-- (void)setCaptionHTML:(NSString *)text;
+- (void)setCaption:(NSAttributedString *)text;
 
 + (CGFloat)estimatedRowHeightWithImage:(BOOL)withImage;
 

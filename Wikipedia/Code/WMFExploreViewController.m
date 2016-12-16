@@ -1072,7 +1072,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     [cell setImageURL:announcement.imageURL];
     [cell setMessageText:announcement.text];
     [cell setActionText:announcement.actionTitle];
-    [cell setCaptionHTML:announcement.captionHTML];
+    [cell setCaption:announcement.caption];
     cell.delegate = self;
 }
 
