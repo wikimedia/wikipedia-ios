@@ -769,7 +769,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
             attributesToFit.frame = CGRectMake(0, 0, columnWidth, CGFLOAT_MAX);
             UICollectionViewLayoutAttributes *attributes = [cell preferredLayoutAttributesFittingAttributes:attributesToFit];
             estimate.height = attributes.frame.size.height;
-            //estimate.precalculated = YES;
+            estimate.precalculated = YES;
             //estimate.height = [WMFArticlePreviewCollectionViewCell estimatedRowHeightWithImage:article.thumbnailURL != nil];
         } break;
         case WMFFeedDisplayTypePageWithLocation: {
@@ -789,6 +789,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
             attributesToFit.frame = CGRectMake(0, 0, columnWidth, CGFLOAT_MAX);
             UICollectionViewLayoutAttributes *attributes = [cell preferredLayoutAttributesFittingAttributes:attributesToFit];
             estimate.height = attributes.frame.size.height;
+            estimate.precalculated = YES;
             //WMFAnnouncement *announcement = (WMFAnnouncement *)section.content.firstObject;
             //estimate.height = [WMFAnnouncementCollectionViewCell estimatedRowHeightWithImage:announcement.imageURL != nil];
         } break;
