@@ -11,6 +11,7 @@
 @property (nonatomic, readonly) id<WMFColumnarCollectionViewLayoutDelegate> delegate;
 @property (nonatomic, strong) WMFCVLInfo *info;
 @property (nonatomic, strong) WMFCVLMetrics *metrics;
+@property (nonatomic, getter=isLayoutValid) BOOL layoutValid;
 
 @end
 
@@ -73,11 +74,15 @@
 }
 
 - (void)prepareLayout {
-    if (self.info == nil) {
-        self.info = [[WMFCVLInfo alloc] init];
+    if (!self.isLayoutValid) {
+        if (self.info == nil) {
+            self.info = [[WMFCVLInfo alloc] init];
+        }
         self.metrics = [WMFCVLMetrics metricsWithBoundsSize:self.collectionView.bounds.size];
         [self.info layoutWithMetrics:self.metrics delegate:self.delegate collectionView:self.collectionView invalidationContext:nil];
+        self.layoutValid = YES;
     }
+   
     [super prepareLayout];
 }
 
@@ -121,8 +126,7 @@
 - (void)invalidateLayoutWithContext:(WMFCVLInvalidationContext *)context {
     assert([context isKindOfClass:[WMFCVLInvalidationContext class]]);
     if (context.invalidateEverything || context.invalidateDataSourceCounts) {
-        self.metrics = [WMFCVLMetrics metricsWithBoundsSize:self.collectionView.bounds.size];
-        [self.info updateWithMetrics:self.metrics invalidationContext:context delegate:self.delegate collectionView:self.collectionView];
+        self.layoutValid = NO;
     }
     [super invalidateLayoutWithContext:context];
 }
