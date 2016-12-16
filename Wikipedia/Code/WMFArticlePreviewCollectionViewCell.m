@@ -178,12 +178,8 @@
 
 #pragma mark - Height Estimation
 
-+ (CGFloat)estimatedRowHeight {
-    return 420;
-}
-
-+ (CGFloat)estimatedRowHeightWithoutImage {
-    return 232;
++ (CGFloat)estimatedRowHeightWithImage:(BOOL)withImage {
+    return withImage ? 420 : 232;
 }
 
 @end
