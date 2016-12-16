@@ -265,7 +265,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                    }
                                                                }];
     }
-
+    task.priority = NSURLSessionTaskPriorityHigh;
     return task;
 }
 
