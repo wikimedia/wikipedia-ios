@@ -4,7 +4,6 @@
 #import "MWKTitleLanguageController.h"
 #import "WMFLanguageCell.h"
 #import "WikipediaAppUtils.h"
-#import "UIView+ConstraintsScale.h"
 #import "UIColor+WMFStyle.h"
 #import "MWKLanguageLink.h"
 #import "UIView+WMFDefaultNib.h"
