@@ -3287,6 +3287,7 @@
 				B0E803341C0CD7430065EBC0 /* WMFArticleListDataSourceTableViewController.m */,
 				0E0361721C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.h */,
 				0E0361731C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m */,
+				0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */,
 				BC550B081B977C730082F298 /* Cells */,
 			);
 			name = "Article List";
@@ -4111,7 +4112,6 @@
 				BC45D5461C31E0C0007C72F3 /* App View Controller */,
 				0EF5BB6B1C110C2100DE75E1 /* AppDelegate.h */,
 				0EF5BB6C1C110C2100DE75E1 /* AppDelegate.m */,
-				0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */,
 				0EBCA7421C162ECF004F1FD9 /* MWKTitleLanguageController.h */,
 				B0E8071E1C0CEC8A0065EBC0 /* main.m */,
 				0EF5BB651C110BFC00DE75E1 /* Global.h */,
