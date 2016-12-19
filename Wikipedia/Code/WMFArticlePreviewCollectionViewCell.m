@@ -47,7 +47,7 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.snippetLabel.text = nil;
+    self.snippetLabel.attributedText = nil;
     self.saveButtonController.url = nil;
     self.saveButtonController.savedPageList = nil;
     self.loading = NO;
@@ -69,6 +69,7 @@
     [super traitCollectionDidChange:previousTraitCollection];
     UIFont *titleLabelFont = [UIFont wmf_preferredFontForFontFamily:WMFFontFamilyGeorgia withTextStyle:UIFontTextStyleTitle2 compatibleWithTraitCollection:self.traitCollection];
     self.titleLabel.font = titleLabelFont;
+    [self updateSnippetLabel];
 }
 
 - (void)setupBlurViewAndLoadingIndicator {
@@ -105,8 +106,8 @@
 }
 
 - (void)removeDescriptionVerticalPadding {
-    self.paddingConstraintAboveDescription.constant = 0.0f;
-    self.paddingConstraintBelowDescription.constant = 6.0f;
+    self.paddingConstraintAboveDescription.constant = 0.0;
+    self.paddingConstraintBelowDescription.constant = 6.0;
 }
 
 - (void)restoreDescriptionVerticalPadding {
@@ -116,16 +117,40 @@
 
 #pragma mark - Snippet
 
-- (void)setSnippetText:(NSString *)snippetText {
-    if (!snippetText.length) {
-        self.snippetLabel.text = nil;
+- (void)updateSnippetLabel {
+    if (!self.snippetText.length) {
+        self.snippetLabel.attributedText = nil;
         return;
     }
-    self.snippetLabel.text = snippetText;
+    self.snippetLabel.attributedText = [[NSAttributedString alloc] initWithString:self.snippetText attributes:self.snippetAttributes];
 }
 
-- (NSString *)snippetText {
-    return self.snippetLabel.text;
+- (void)setSnippetText:(NSString *)snippetText {
+    _snippetText = [snippetText copy];
+    [self updateSnippetLabel];
+}
+
++ (NSParagraphStyle *)snippetParagraphStyle {
+    static NSParagraphStyle *paragraphStyle;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
+        pStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+        pStyle.baseWritingDirection = NSWritingDirectionNatural;
+        pStyle.lineHeightMultiple = 1.35;
+        paragraphStyle = pStyle;
+    });
+    return paragraphStyle;
+}
+
+- (NSDictionary *)snippetAttributes {
+    UIFont *font = [UIFont wmf_preferredFontForFontFamily:WMFFontFamilySystem withTextStyle:UIFontTextStyleSubheadline];
+    if (!font) {
+        font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+    }
+    return @{NSFontAttributeName: font,
+             NSForegroundColorAttributeName: [UIColor darkGrayColor],
+             NSParagraphStyleAttributeName: [[self class] snippetParagraphStyle]};
 }
 
 #pragma mark - Image
@@ -149,17 +174,24 @@
 }
 
 - (void)collapseImageHeightToZero {
+    if (self.imageHeightConstraint.constant == 0) {
+        return;
+    }
     self.imageHeightConstraint.constant = 0;
 }
 
 - (void)restoreImageToFullHeight {
-    self.imageHeightConstraint.constant = [self sixteenByNineImageHeight];
+    CGFloat sixteenByNineHeight = [self sixteenByNineImageHeight];
+    if (self.imageHeightConstraint.constant == sixteenByNineHeight) {
+        return;
+    }
+    self.imageHeightConstraint.constant = sixteenByNineHeight;
 }
 
 - (CGFloat)sixteenByNineImageHeight {
     CGFloat horizontalPadding = self.paddingConstraintLeading.constant + self.paddingConstraintTrailing.constant;
     CGFloat ratio = (9.0 / 16.0);
-    return floor((self.bounds.size.width - horizontalPadding) * ratio);
+    return round((self.bounds.size.width - horizontalPadding) * ratio);
 }
 
 #pragma mark - Saving
@@ -178,12 +210,8 @@
 
 #pragma mark - Height Estimation
 
-+ (CGFloat)estimatedRowHeight {
-    return 420;
-}
-
-+ (CGFloat)estimatedRowHeightWithoutImage {
-    return 232;
++ (CGFloat)estimatedRowHeightWithImage:(BOOL)withImage {
+    return withImage ? 420 : 232;
 }
 
 @end

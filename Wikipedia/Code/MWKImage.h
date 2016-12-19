@@ -61,7 +61,7 @@
 /**
  * Local storage status
  */
-@property (readonly, assign, nonatomic) BOOL isDownloaded;
+- (void)isDownloaded:(void (^)(BOOL isDownloaded))completion;
 
 #pragma mark - Initialization
 

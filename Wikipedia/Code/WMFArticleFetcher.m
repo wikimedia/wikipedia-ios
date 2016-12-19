@@ -18,7 +18,6 @@
 #import "WMFArticleRevision.h"
 #import "WMFRevisionQueryResults.h"
 
-//Promises
 #import "Wikipedia-Swift.h"
 
 //Models
@@ -127,7 +126,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                 failure(error);
             }
         }];
-
+    operation.priority = NSURLSessionTaskPriorityHigh;
     [self trackOperation:operation forArticleURL:articleURL];
     return operation;
 }
@@ -265,7 +264,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                    }
                                                                }];
     }
-
+    task.priority = NSURLSessionTaskPriorityHigh;
     return task;
 }
 

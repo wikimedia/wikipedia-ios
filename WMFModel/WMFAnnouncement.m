@@ -13,7 +13,8 @@
               WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionTitle): @"action.title",
               WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionURL): @"action.url",
               WMF_SAFE_KEYPATH(WMFAnnouncement.new, captionHTML): @"caption_HTML",
-              WMF_SAFE_KEYPATH(WMFAnnouncement.new, imageURL): @"image",
+               WMF_SAFE_KEYPATH(WMFAnnouncement.new, caption): @"caption_HTML",
+              WMF_SAFE_KEYPATH(WMFAnnouncement.new, imageURL): @"image_url",
     };
 }
 
@@ -56,6 +57,19 @@
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *value, BOOL *success, NSError *__autoreleasing *error) {
         NSDate *date = [[NSDateFormatter wmf_iso8601Formatter] dateFromString:value];
         return date;
+    }];
+}
+
++ (NSValueTransformer *)captionJSONTransformer {
+    return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *value, BOOL *success, NSError *__autoreleasing *error) {
+        //HACK: Fix padding around the caption
+        if ([value rangeOfString:@"<p>"].location == NSNotFound) {
+            value = [NSString stringWithFormat:@"<p>%@</p>", value];
+        }
+        return [[NSAttributedString alloc] initWithData:[value dataUsingEncoding:NSUTF8StringEncoding]
+                                                                                    options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                                                         documentAttributes:nil
+                                                                                      error:error];
     }];
 }
 

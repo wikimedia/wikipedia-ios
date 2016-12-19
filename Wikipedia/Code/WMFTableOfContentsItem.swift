@@ -17,13 +17,13 @@ public enum TableOfContentsItemType {
         }
     }
     
-    var titleFontTextStyle: String {
+    var titleFontTextStyle: UIFontTextStyle {
         get {
             switch (self) {
             case .primary:
-                return UIFontTextStyle.title3.rawValue
+                return .title3
             case .secondary:
-                return UIFontTextStyle.subheadline.rawValue
+                return .subheadline
             }
         }
     }

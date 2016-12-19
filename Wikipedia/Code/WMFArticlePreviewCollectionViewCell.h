@@ -8,8 +8,7 @@
 
 @property (nonatomic, strong) NSString *snippetText;
 
-+ (CGFloat)estimatedRowHeight;
-+ (CGFloat)estimatedRowHeightWithoutImage;
++ (CGFloat)estimatedRowHeightWithImage:(BOOL)withImage;
 
 /**
  *  Wire up the save button with the title and saved page list

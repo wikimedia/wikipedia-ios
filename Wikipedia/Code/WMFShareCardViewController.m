@@ -50,13 +50,17 @@
         [[article.entityDescription wmf_stringByRemovingHTML] wmf_stringByCapitalizingFirstCharacter];
     self.shareArticleDescription.textAlignment = subtextAlignment;
 
-    BOOL leadImageCached = [article.image isDownloaded];
-    if (leadImageCached) {
-        // in case the image has transparency, make its container white
-        self.shareCardImageContainer.image = image;
-        self.shareCardImageContainer.backgroundColor = [UIColor whiteColor];
-        self.shareCardImageContainer.leadImage = article.image;
-    }
+    [article.image isDownloaded:^(BOOL leadImageCached) {
+        if (!leadImageCached) {
+            return;
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // in case the image has transparency, make its container white
+            self.shareCardImageContainer.image = image;
+            self.shareCardImageContainer.backgroundColor = [UIColor whiteColor];
+            self.shareCardImageContainer.leadImage = article.image;
+        });
+    }];
 }
 
 @end

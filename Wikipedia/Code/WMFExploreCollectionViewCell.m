@@ -1,8 +1,12 @@
 #import "WMFExploreCollectionViewCell.h"
+#import "WMFCVLAttributes.h"
 
 @implementation WMFExploreCollectionViewCell
 
 - (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)attributesToFit {
+    if ([attributesToFit isKindOfClass:[WMFCVLAttributes class]] && [(WMFCVLAttributes *)attributesToFit precalculated]) {
+        return attributesToFit;
+    }
     CGSize sizeToFit = attributesToFit.size;
     sizeToFit.height = UIViewNoIntrinsicMetric;
 

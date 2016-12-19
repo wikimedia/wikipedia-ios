@@ -11,6 +11,8 @@
 "article-languages-filter-placeholder" = "טרעפן שפראך";
 "article-read-more-title" = "לייענט ווײטער";
 "article-about-title" = "וועגן דעם ארטיקל";
+"article-languages-yours" = "אײערע שפראכן";
+"article-languages-others" = "אַנדערע שפראַכן";
 "info-box-title" = "גיכע פאקטן";
 "info-box-close-text" = "פארמאכן";
 "table-title-other" = "נאך אינפארמאציע";
@@ -55,11 +57,9 @@
 "wikitext-download-success" = "אינהאלט געלאדן.";
 "wikitext-preview-changes" = "רופן פאראויסקוק פון אייערע ענדערונגען…";
 "wikitext-preview-changes-none" = "קיין ענדערונגען נישט געמאכט פאראויסצוזען.";
-// Fuzzy
-"wikitext-upload-save" = "אויפהיטנדיק…";
+"wikitext-upload-save" = "פֿארעפֿנטלעכן…";
 "wikitext-upload-save-sign-in" = "אַרײַנלאגירן";
-// Fuzzy
-"wikitext-upload-save-anonymously" = "אויפהיטן אנאנים";
+"wikitext-upload-save-anonymously" = "פֿארעפֿנטלעכן אנאנים";
 "wikitext-upload-save-terms-name" = "ניצבאדינגונגען";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "עפענען לינק";
@@ -79,6 +79,12 @@
 "search-recent-clear-delete-all" = "אויסמעקן אלץ";
 "search-result-redirected-from" = "אַריבערגעפֿירט פון $1";
 "settings-title" = "איינשטעלונגען";
+"settings-language" = "וויקיפעדיע־שפראך";
+"settings-support" = "שטיצן וויקיפעדיע";
+"settings-language-bar" = "ווייזן שפראכן ביים זוך";
+"settings-my-languages" = "מיינע שפראכן";
+"settings-notifications" = "אנזאגן";
+"settings-help-and-feedback" = "הילף און פֿידבעק";
 "main-menu-title" = "נאך";
 "main-menu-heading-about" = "וועגן";
 "main-menu-language-title" = "זוכן $1 וויקיפעדיע";
@@ -90,6 +96,8 @@
 "main-menu-account-title-logged-in" = "ארײַנלאגירט ווי $1";
 "main-menu-account-login" = "אַרײַנלאגירן";
 "main-menu-account-logout" = "אַרויסלאָגירן";
+"main-menu-account-logout-are-you-sure" = "איר ווילט טאקע ארויסלאגירן?";
+"main-menu-account-logout-cancel" = "אַנולירן";
 "main-menu-show-title" = "ווײַז מיך…";
 "main-menu-show-history" = "לעצטיק";
 "main-menu-show-saved" = "אײַנגעשפייכלערטע בלעטער";
@@ -108,6 +116,7 @@
 "main-menu-nearby" = "דערבײ";
 "main-menu-more" = "נאך…";
 "main-menu-debug-crash" = "איינפאלן";
+"saved-title" = "אויפֿגעהיטן";
 "saved-pages-title" = "אײַנגעשפייכלערטע בלעטער";
 "saved-pages-clear-confirmation-heading" = "איר ווילט טאקע אויסמעקן אלע אייערע געשפייכלערטע בלעטער?";
 "saved-pages-clear-cancel" = "אנולירן";
@@ -119,15 +128,13 @@
 "page-history-title" = "ארטיקל היסטאריע";
 "navbar-title-mode-edit-wikitext" = "רעדאַקטירן";
 "navbar-title-mode-login" = "אַרײַנלאגירן";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "ארײַנלאגירן און אויפהיטן";
+"navbar-title-mode-login-and-save" = "ארײנלאגירן און פֿארעפֿנטלעכן";
 "navbar-title-mode-create-account" = "שאַפֿן אַ קאנטע";
 "navbar-title-mode-edit-wikitext-warning" = "רעדאקטירן פראגעס";
 "navbar-title-mode-edit-wikitext-disallow" = "רעדאקטירן פראגעס";
 "navbar-title-mode-edit-wikitext-preview" = "פֿאראויסשטעלונג";
 "navbar-title-mode-edit-wikitext-summary" = "באשרײַבט אייער רעדאקטירונג";
-// Fuzzy
-"navbar-title-mode-edit-wikitext-save" = "אויפֿהיטן";
+"navbar-title-mode-edit-wikitext-save" = "פֿאַרעפֿנטלעכן";
 "edit-summary-choice-linked-words" = "צולייגן לינקען";
 "edit-summary-choice-fixed-grammar" = "פארראכטן גראמאטיק";
 "edit-summary-choice-fixed-inaccuracy" = "פארראכטן טעות";
@@ -144,13 +151,13 @@
 "about-translators" = "איבערזעצער";
 "about-libraries" = "געניצטע ביבליאטעקן";
 "about-libraries-license" = "ליצענץ";
+"about-libraries-licenses" = "ליצענצן";
 "about-repositories" = "רעפאזיטאריעס";
 "about-send-feedback" = "שיקן אפ־פידבעק";
 "about-product-of" = "געמאכט דורך $1 מיטן הילף פון וואלונטערן ווי איר";
 "about-wikimedia-foundation" = "די וויקימעדיע פֿונדאַציע";
 "share-menu-save-page" = "אױפֿהיטן בלאַט";
-// Fuzzy
-"share-custom-menu-item" = "טיילן";
+"share-custom-menu-item" = "טיילן…";
 "share-article-name-on-wikipedia" = "\"$1\" אויף @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" אויף @Wikipedia: \"$2\"";
 "share-as-image" = "טיילן אלס בילד";
@@ -164,9 +171,13 @@
 "timestamp-years" = "פאר %d יאר";
 "lastmodified-by-user" = "רעדאקטירט $1 פון $2";
 "lastmodified-by-anon" = "רעדאקטירט $1 פון אן אנאנימען באניצער";
+"button-edit" = "רעדאַקטירן";
 "button-next" = "נעקסט";
 "button-done" = "ערליידיקט";
 "button-save" = "אויפֿהיטן";
+"button-publish" = "פֿאַרעפֿנטלעכן";
+"button-ok" = "יאָ";
+"button-read-now" = "לייענען אצינד";
 "onboarding-create-account" = "שאַפֿן קאנטע";
 "onboarding-login" = "אַרײנלאגירן";
 "onboarding-already-have-account" = "האסטו שוין א קאנטע? '''$1'''.";
@@ -181,6 +192,7 @@
 "page_protected_can_not_edit_title" = "דער בלאט איז געשיצט";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "אינהאַלט";
+"table-of-contents-close-accessibility-hint" = "פארמאכן";
 "menu-edit-accessibility-label" = "רעדאַקטירן";
 "menu-close-accessibility-label" = "שליסן";
 "menu-preview-accessibility-label" = "פֿאראויסקוק";
@@ -212,10 +224,15 @@
 "hockeyapp-alert-privacy" = "$1-פריוואטקייט";
 "page-issues" = "בלאט־פֿראגעס";
 "page-similar-titles" = "ענלעכע בלעטער";
+"home-title" = "אויספארשן";
+"home-empty-section" = "קיין רעזולטאטן";
+"home-empty-section-check-again" = "פרובירט נאכאמאל";
+"home-continue-reading-heading" = "לייענען ווײַטער";
 "home-main-page-heading" = "היינט אויף וויקיפעדיע";
 "home-potd-heading" = "בילד פונעם טאג פאר $1";
 "home-last-update-label" = "לעצטע דערהיינטיקונג: $1";
 "home-hide-suggestion-cancel" = "אַנולירן";
+"home-button-accessibility-label" = "היים";
 "welcome-languages-title" = "שפראַכן";
 "icon-shortcut-search-title" = "זוכן וויקיפעדיע";
 "icon-shortcut-continue-reading-title" = "לייענען ווײַטער";
@@ -223,3 +240,12 @@
 "close-button-accessibility-label" = "פארמאכן";
 "back-button-accessibility-label" = "צוריק";
 "explore-random-article-sub-heading" = "ענגליש־וויקיפעדיע";
+"top-read-header-with-language" = "$1 וויקיפעדיע";
+"top-read-header-generic" = "וויקיפעדיע";
+"readers-accessibility-label" = "$1 לייענער";
+"rank-accessibility-label" = "נומער $1";
+"reference-title" = "רעפערענץ $1";
+"in-the-news-notification-read-now-action-title" = "לייענען אצינד";
+"in-the-news-notification-share-action-title" = "טיילן…";
+"number-thousands" = "$1K";
+"announcements-dismiss" = "ניין, א דאנק";

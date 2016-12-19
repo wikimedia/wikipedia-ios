@@ -54,6 +54,9 @@
 #import "WMFAnnouncement.h"
 #import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
 #import "WMFChange.h"
+
+#import "WMFCVLAttributes.h"
+
 @import BlocksKitUIKitExtensions;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -85,6 +88,8 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 @property (nonatomic, strong, nullable) WMFTaskGroup *feedUpdateTaskGroup;
 @property (nonatomic, strong, nullable) WMFTaskGroup *relatedUpdatedTaskGroup;
 
+@property (nonatomic, strong) NSMutableDictionary<NSString *, UICollectionViewCell *> *placeholderCells;
+
 @end
 
 @implementation WMFExploreViewController
@@ -95,6 +100,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     self.sectionChanges = [NSMutableArray arrayWithCapacity:10];
     self.objectChanges = [NSMutableArray arrayWithCapacity:10];
     self.sectionCounts = [NSMutableArray arrayWithCapacity:100];
+    self.placeholderCells = [NSMutableDictionary dictionaryWithCapacity:10];
 }
 
 - (void)dealloc {
@@ -211,14 +217,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 #pragma mark - Feed Sources
 
-- (void)updateUIForContentSourcesUpdateStart {
-    [self.refreshControl beginRefreshing];
-}
-
-- (void)updateUIForContentSourcesUpdateComplete {
-    [self resetRefreshControl];
-}
-
 - (void)updateRelatedPages {
     NSAssert([NSThread isMainThread], @"Must be called on the main thread");
     if (self.relatedUpdatedTaskGroup) {
@@ -243,10 +241,16 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                             }];
 }
 
-- (void)updateFeedSources {
+- (void)updateFeedSources:(nullable dispatch_block_t)completion {
     NSAssert([NSThread isMainThread], @"Must be called on the main thread");
     if (self.feedUpdateTaskGroup) {
+        if (completion) {
+            completion();
+        }
         return;
+    }
+    if (!self.refreshControl.isRefreshing) {
+        [self.refreshControl beginRefreshing];
     }
     WMFTaskGroup *group = [WMFTaskGroup new];
     self.feedUpdateTaskGroup = group;
@@ -273,11 +277,19 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
     [group waitInBackgroundWithTimeout:12
                             completion:^{
+                                NSError *saveError = nil;
+                                if (![self.userStore save:&saveError]) {
+                                    DDLogError(@"Error saving: %@", saveError);
+                                }
                                 [self resetRefreshControl];
                                 [self startMonitoringReachabilityIfNeeded];
                                 [self showOfflineEmptyViewIfNeeded];
                                 [self showHideNotificationIfNeccesary];
                                 self.feedUpdateTaskGroup = nil;
+                                if (completion) {
+                                    completion();
+                                }
+
 #if DEBUG
                                 if ([entered count] > 0) {
                                     DDLogError(@"Didn't leave: %@", entered);
@@ -335,7 +347,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         NSArray<WMFFeedTopReadArticlePreview *> *content = [self contentForSectionAtIndex:indexPath.section];
 
         if (indexPath.row >= [content count]) {
-            NSAssert(false, @"Attempting to reference an out of bound index");
             return nil;
         }
 
@@ -345,7 +356,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
         NSArray<NSURL *> *content = [self contentForSectionAtIndex:indexPath.section];
         if (indexPath.row >= [content count]) {
-            NSAssert(false, @"Attempting to reference an out of bound index");
             return nil;
         }
         return content[indexPath.row];
@@ -353,7 +363,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     } else if ([section contentType] == WMFContentTypeStory) {
         NSArray<WMFFeedNewsStory *> *content = [self contentForSectionAtIndex:indexPath.section];
         if (indexPath.row >= [content count]) {
-            NSAssert(false, @"Attempting to reference an out of bound index");
             return nil;
         }
         return [[content[indexPath.row] featuredArticlePreview] articleURL] ?: [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
@@ -532,7 +541,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl bk_addEventHandler:^(id sender) {
-        [self updateFeedSources];
+        [self updateFeedSources:NULL];
     }
                            forControlEvents:UIControlEventValueChanged];
     [self resetRefreshControl];
@@ -586,6 +595,12 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
+    NSArray<UICollectionViewCell *> *placeholderCells = self.placeholderCells.allValues;
+    //forces trait collection update on placeholder cells
+    for (UICollectionViewCell *cell in placeholderCells) {
+        [self.view insertSubview:cell atIndex:0];
+        [cell removeFromSuperview];
+    }
     [self registerForPreviewingIfAvailable];
 }
 
@@ -619,7 +634,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                 switch (status) {
                     case AFNetworkReachabilityStatusReachableViaWWAN:
                     case AFNetworkReachabilityStatusReachableViaWiFi: {
-                        [self updateFeedSources];
+                        [self updateFeedSources:NULL];
                     } break;
                     case AFNetworkReachabilityStatusNotReachable: {
                         [self showOfflineEmptyViewIfNeeded];
@@ -634,7 +649,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 }
 
 - (void)showOfflineEmptyViewIfNeeded {
-    NSParameterAssert(self.isViewLoaded);
+    if (!self.isViewLoaded) {
+        return;
+    }
     if (self.numberOfSectionsInExploreFeed > 0) {
         [self wmf_hideEmptyView];
     } else {
@@ -744,34 +761,55 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 #pragma mark - UICollectionViewDelegate
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView estimatedHeightForItemAtIndexPath:(NSIndexPath *)indexPath forColumnWidth:(CGFloat)columnWidth {
+- (WMFLayoutEstimate)collectionView:(UICollectionView *)collectionView estimatedHeightForItemAtIndexPath:(NSIndexPath *)indexPath forColumnWidth:(CGFloat)columnWidth {
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
-
+    WMFLayoutEstimate estimate;
     switch ([section displayType]) {
         case WMFFeedDisplayTypePage: {
-            return [WMFArticleListCollectionViewCell estimatedRowHeight];
+            estimate.height = [WMFArticleListCollectionViewCell estimatedRowHeight];
         } break;
         case WMFFeedDisplayTypePageWithPreview: {
             WMFArticle *article = [self articleForIndexPath:indexPath];
-            return article.thumbnailURL ? [WMFArticlePreviewCollectionViewCell estimatedRowHeight] : [WMFArticlePreviewCollectionViewCell estimatedRowHeightWithoutImage];
+            CGFloat estimatedHeight = [WMFArticlePreviewCollectionViewCell estimatedRowHeightWithImage:article.thumbnailURL != nil];
+            CGRect frameToFit = CGRectMake(0, 0, columnWidth, estimatedHeight);
+            WMFArticlePreviewCollectionViewCell *cell = [self placeholderCellForIdentifier:[WMFArticlePreviewCollectionViewCell wmf_nibName]];
+            cell.bounds = frameToFit;
+            [self configurePreviewCell:cell withSection:section withArticle:article atIndexPath:indexPath];
+            WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
+            attributesToFit.frame = frameToFit;
+            UICollectionViewLayoutAttributes *attributes = [cell preferredLayoutAttributesFittingAttributes:attributesToFit];
+            estimate.height = attributes.frame.size.height;
+            estimate.precalculated = YES;
+            //estimate.height =
         } break;
         case WMFFeedDisplayTypePageWithLocation: {
-            return [WMFNearbyArticleCollectionViewCell estimatedRowHeight];
+            estimate.height = [WMFNearbyArticleCollectionViewCell estimatedRowHeight];
         } break;
         case WMFFeedDisplayTypePhoto: {
-            return [WMFPicOfTheDayCollectionViewCell estimatedRowHeight];
+            estimate.height = [WMFPicOfTheDayCollectionViewCell estimatedRowHeight];
         } break;
         case WMFFeedDisplayTypeStory: {
-            return [InTheNewsCollectionViewCell estimatedRowHeight];
+            estimate.height = [InTheNewsCollectionViewCell estimatedRowHeight];
         } break;
         case WMFFeedDisplayTypeAnnouncement: {
-            return [WMFAnnouncementCollectionViewCell estimatedRowHeight];
+            WMFAnnouncement *announcement = (WMFAnnouncement *)section.content.firstObject;
+            CGFloat estimatedHeight = [WMFAnnouncementCollectionViewCell estimatedRowHeightWithImage:announcement.imageURL != nil];
+            CGRect frameToFit = CGRectMake(0, 0, columnWidth, estimatedHeight);
+            WMFAnnouncementCollectionViewCell *cell = [self placeholderCellForIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName]];
+            cell.bounds = frameToFit;
+            [self configureAnouncementCell:cell withSection:section atIndexPath:indexPath];
+            WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
+            attributesToFit.frame = frameToFit;
+            UICollectionViewLayoutAttributes *attributes = [cell preferredLayoutAttributesFittingAttributes:attributesToFit];
+            estimate.height = attributes.frame.size.height;
+            estimate.precalculated = YES;
         } break;
         default:
             NSAssert(false, @"Unknown display Type");
-            return [WMFArticleListCollectionViewCell estimatedRowHeight];
+            estimate.height = [WMFArticleListCollectionViewCell estimatedRowHeight];
             break;
     }
+    return estimate;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView estimatedHeightForHeaderInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth {
@@ -960,25 +998,38 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 #pragma mark - Cells, Headers and Footers
 
-- (void)registerCellsAndViews {
+- (void)registerNib:(UINib *)nib forCellWithReuseIdentifier:(NSString *)identifier {
+    [self.collectionView registerNib:nib forCellWithReuseIdentifier:identifier];
+    id placeholderCell = [[nib instantiateWithOwner:nil options:nil] firstObject];
+    if (!placeholderCell) {
+        return;
+    }
+    [placeholderCell setHidden:YES];
+    [self.placeholderCells setObject:placeholderCell forKey:identifier];
+}
 
+- (id)placeholderCellForIdentifier:(NSString *)identifier {
+    return self.placeholderCells[identifier];
+}
+
+- (void)registerCellsAndViews {
     [self.collectionView registerNib:[WMFExploreSectionHeader wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFExploreSectionHeader wmf_nibName]];
 
     [self.collectionView registerNib:[WMFExploreSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName]];
 
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier];
 
-    [self.collectionView registerNib:[WMFAnnouncementCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName]];
+    [self registerNib:[WMFAnnouncementCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName]];
 
-    [self.collectionView registerNib:[WMFArticleListCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticleListCollectionViewCell wmf_nibName]];
+    [self registerNib:[WMFArticleListCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticleListCollectionViewCell wmf_nibName]];
 
-    [self.collectionView registerNib:[WMFArticlePreviewCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticlePreviewCollectionViewCell wmf_nibName]];
+    [self registerNib:[WMFArticlePreviewCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticlePreviewCollectionViewCell wmf_nibName]];
 
-    [self.collectionView registerNib:[WMFNearbyArticleCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbyArticleCollectionViewCell wmf_nibName]];
+    [self registerNib:[WMFNearbyArticleCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbyArticleCollectionViewCell wmf_nibName]];
 
-    [self.collectionView registerNib:[WMFPicOfTheDayCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFPicOfTheDayCollectionViewCell wmf_nibName]];
+    [self registerNib:[WMFPicOfTheDayCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFPicOfTheDayCollectionViewCell wmf_nibName]];
 
-    [self.collectionView registerNib:[InTheNewsCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[InTheNewsCollectionViewCell wmf_nibName]];
+    [self registerNib:[InTheNewsCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[InTheNewsCollectionViewCell wmf_nibName]];
 }
 
 - (void)configureListCell:(WMFArticleListCollectionViewCell *)cell withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath {
@@ -1034,7 +1085,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     [cell setImageURL:announcement.imageURL];
     [cell setMessageText:announcement.text];
     [cell setActionText:announcement.actionTitle];
-    [cell setCaptionHTML:announcement.captionHTML];
+    [cell setCaption:announcement.caption];
     cell.delegate = self;
 }
 

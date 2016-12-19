@@ -11,92 +11,92 @@ let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloa
     return [
         .georgia:[
             UIFontTextStyle.title2: [
-                UIContentSizeCategory.accessibilityExtraExtraExtraLarge: 28,
-                UIContentSizeCategory.accessibilityExtraExtraLarge: 28,
-                UIContentSizeCategory.accessibilityExtraLarge: 28,
-                UIContentSizeCategory.accessibilityLarge: 28,
-                UIContentSizeCategory.accessibilityMedium: 28,
-                UIContentSizeCategory.extraExtraExtraLarge: 26,
-                UIContentSizeCategory.extraExtraLarge: 24,
-                UIContentSizeCategory.extraLarge: 22,
-                UIContentSizeCategory.large: 21,
-                UIContentSizeCategory.medium: 20,
-                UIContentSizeCategory.small: 19,
-                UIContentSizeCategory.extraSmall: 18
+                .accessibilityExtraExtraExtraLarge: 28,
+                .accessibilityExtraExtraLarge: 28,
+                .accessibilityExtraLarge: 28,
+                .accessibilityLarge: 28,
+                .accessibilityMedium: 28,
+                .extraExtraExtraLarge: 26,
+                .extraExtraLarge: 24,
+                .extraLarge: 22,
+                .large: 21,
+                .medium: 20,
+                .small: 19,
+                .extraSmall: 18
             ],
             UIFontTextStyle.title3: [
-                UIContentSizeCategory.accessibilityExtraExtraExtraLarge: 24,
-                UIContentSizeCategory.accessibilityExtraExtraLarge: 24,
-                UIContentSizeCategory.accessibilityExtraLarge: 24,
-                UIContentSizeCategory.accessibilityLarge: 24,
-                UIContentSizeCategory.accessibilityMedium: 24,
-                UIContentSizeCategory.extraExtraExtraLarge: 22,
-                UIContentSizeCategory.extraExtraLarge: 20,
-                UIContentSizeCategory.extraLarge: 19,
-                UIContentSizeCategory.large: 18,
-                UIContentSizeCategory.medium: 17,
-                UIContentSizeCategory.small: 16,
-                UIContentSizeCategory.extraSmall: 15
+                .accessibilityExtraExtraExtraLarge: 24,
+                .accessibilityExtraExtraLarge: 24,
+                .accessibilityExtraLarge: 24,
+                .accessibilityLarge: 24,
+                .accessibilityMedium: 24,
+                .extraExtraExtraLarge: 22,
+                .extraExtraLarge: 20,
+                .extraLarge: 19,
+                .large: 18,
+                .medium: 17,
+                .small: 16,
+                .extraSmall: 15
             ]
         ],
         .systemBlack: [
             UIFontTextStyle.title1: [
-                UIContentSizeCategory.accessibilityExtraExtraExtraLarge: 38,
-                UIContentSizeCategory.accessibilityExtraExtraLarge: 38,
-                UIContentSizeCategory.accessibilityExtraLarge: 38,
-                UIContentSizeCategory.accessibilityLarge: 38,
-                UIContentSizeCategory.accessibilityMedium: 38,
-                UIContentSizeCategory.extraExtraExtraLarge: 37,
-                UIContentSizeCategory.extraExtraLarge: 36,
-                UIContentSizeCategory.extraLarge: 35,
-                UIContentSizeCategory.large: 34,
-                UIContentSizeCategory.medium: 33,
-                UIContentSizeCategory.small: 32,
-                UIContentSizeCategory.extraSmall: 31
+                .accessibilityExtraExtraExtraLarge: 38,
+                .accessibilityExtraExtraLarge: 38,
+                .accessibilityExtraLarge: 38,
+                .accessibilityLarge: 38,
+                .accessibilityMedium: 38,
+                .extraExtraExtraLarge: 37,
+                .extraExtraLarge: 36,
+                .extraLarge: 35,
+                .large: 34,
+                .medium: 33,
+                .small: 32,
+                .extraSmall: 31
             ]
         ],
         .systemBold: [
             UIFontTextStyle.subheadline: [
-                UIContentSizeCategory.accessibilityExtraExtraExtraLarge: 21,
-                UIContentSizeCategory.accessibilityExtraExtraLarge: 21,
-                UIContentSizeCategory.accessibilityExtraLarge: 21,
-                UIContentSizeCategory.accessibilityLarge: 21,
-                UIContentSizeCategory.accessibilityMedium: 21,
-                UIContentSizeCategory.extraExtraExtraLarge: 21,
-                UIContentSizeCategory.extraExtraLarge: 19,
-                UIContentSizeCategory.extraLarge: 17,
-                UIContentSizeCategory.large: 15,
-                UIContentSizeCategory.medium: 14,
-                UIContentSizeCategory.small: 13,
-                UIContentSizeCategory.extraSmall: 12
+                .accessibilityExtraExtraExtraLarge: 21,
+                .accessibilityExtraExtraLarge: 21,
+                .accessibilityExtraLarge: 21,
+                .accessibilityLarge: 21,
+                .accessibilityMedium: 21,
+                .extraExtraExtraLarge: 21,
+                .extraExtraLarge: 19,
+                .extraLarge: 17,
+                .large: 15,
+                .medium: 14,
+                .small: 13,
+                .extraSmall: 12
             ],
             UIFontTextStyle.footnote: [
-                UIContentSizeCategory.accessibilityExtraExtraExtraLarge: 19,
-                UIContentSizeCategory.accessibilityExtraExtraLarge: 19,
-                UIContentSizeCategory.accessibilityExtraLarge: 19,
-                UIContentSizeCategory.accessibilityLarge: 19,
-                UIContentSizeCategory.accessibilityMedium: 19,
-                UIContentSizeCategory.extraExtraExtraLarge: 19,
-                UIContentSizeCategory.extraExtraLarge: 17,
-                UIContentSizeCategory.extraLarge: 15,
-                UIContentSizeCategory.large: 13,
-                UIContentSizeCategory.medium: 12,
-                UIContentSizeCategory.small: 12,
-                UIContentSizeCategory.extraSmall: 12
+                .accessibilityExtraExtraExtraLarge: 19,
+                .accessibilityExtraExtraLarge: 19,
+                .accessibilityExtraLarge: 19,
+                .accessibilityLarge: 19,
+                .accessibilityMedium: 19,
+                .extraExtraExtraLarge: 19,
+                .extraExtraLarge: 17,
+                .extraLarge: 15,
+                .large: 13,
+                .medium: 12,
+                .small: 12,
+                .extraSmall: 12
             ],
             UIFontTextStyle.body: [
-                UIContentSizeCategory.accessibilityExtraExtraExtraLarge: 53,
-                UIContentSizeCategory.accessibilityExtraExtraLarge: 47,
-                UIContentSizeCategory.accessibilityExtraLarge: 40,
-                UIContentSizeCategory.accessibilityLarge: 33,
-                UIContentSizeCategory.accessibilityMedium: 28,
-                UIContentSizeCategory.extraExtraExtraLarge: 23,
-                UIContentSizeCategory.extraExtraLarge: 21,
-                UIContentSizeCategory.extraLarge: 19,
-                UIContentSizeCategory.large: 17,
-                UIContentSizeCategory.medium: 16,
-                UIContentSizeCategory.small: 15,
-                UIContentSizeCategory.extraSmall: 14
+                .accessibilityExtraExtraExtraLarge: 53,
+                .accessibilityExtraExtraLarge: 47,
+                .accessibilityExtraLarge: 40,
+                .accessibilityLarge: 33,
+                .accessibilityMedium: 28,
+                .extraExtraExtraLarge: 23,
+                .extraExtraLarge: 21,
+                .extraLarge: 19,
+                .large: 17,
+                .medium: 16,
+                .small: 15,
+                .extraSmall: 14
             ]
         ]
     ]
@@ -104,17 +104,17 @@ let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloa
 
 public extension UIFont {
 
-    public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: String) -> UIFont? {
+    public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: UIFontTextStyle) -> UIFont? {
         return UIFont.wmf_preferredFontForFontFamily(fontFamily, withTextStyle: style, compatibleWithTraitCollection: UIScreen.main.traitCollection)
     }
     
-    public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: String, compatibleWithTraitCollection traitCollection: UITraitCollection) -> UIFont? {
+    public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: UIFontTextStyle, compatibleWithTraitCollection traitCollection: UITraitCollection) -> UIFont? {
         
         guard fontFamily != .system else {
             if #available(iOSApplicationExtension 10.0, *) {
-                return UIFont.preferredFont(forTextStyle: UIFontTextStyle(rawValue: style), compatibleWith: traitCollection)
+                return UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection)
             } else {
-                return UIFont.preferredFont(forTextStyle: UIFontTextStyle(rawValue: style))
+                return UIFont.preferredFont(forTextStyle: style)
             }
         }
         
@@ -125,7 +125,7 @@ public extension UIFont {
         }
         
         let familyTable: [UIFontTextStyle:[UIContentSizeCategory:CGFloat]]? = fontSizeTable[fontFamily]
-        let styleTable: [UIContentSizeCategory:CGFloat]? = familyTable?[UIFontTextStyle(style)]
+        let styleTable: [UIContentSizeCategory:CGFloat]? = familyTable?[style]
         let size: CGFloat = styleTable?[preferredContentSizeCategory] ?? 21
 
         switch fontFamily {

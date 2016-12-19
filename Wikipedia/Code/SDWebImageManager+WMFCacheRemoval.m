@@ -30,13 +30,22 @@
 - (void)wmf_removeImageURLs:(NSArray *__nonnull)URLs fromDisk:(BOOL)fromDisk {
 #if LOG_POST_REMOVAL_CACHE_SIZE
     DDLogVerbose(@"Cache size is %lu before removing image URLs: %@", (unsigned long)[self.imageCache getSize], URLs);
+    WMFTaskGroup *group = [WMFTaskGroup new];
 #endif
     for (NSURL *url in URLs) {
+#if LOG_POST_REMOVAL_CACHE_SIZE
+        [group enter];
+#endif
         NSAssert([url isKindOfClass:[NSURL class]], @"Unexpected value in image URL array: %@", url);
-        [self.imageCache removeImageForKey:[self cacheKeyForURL:url] fromDisk:fromDisk];
+        [self.imageCache removeImageForKey:[self cacheKeyForURL:url]  fromDisk:fromDisk withCompletion:
+#if LOG_POST_REMOVAL_CACHE_SIZE
+         ^{ [group leave]; }];
+#else 
+         nil];
+#endif
     }
 #if LOG_POST_REMOVAL_CACHE_SIZE
-    [self wmf_calculateAndLogCacheSize];
+    [group waitInBackgroundWithCompletion:^{ [self wmf_calculateAndLogCacheSize]; }];
 #endif
 }
 

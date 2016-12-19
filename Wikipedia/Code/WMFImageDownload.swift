@@ -1,5 +1,5 @@
 import Foundation
-import WebImage
+import SDWebImage
 
 public enum ImageOrigin: Int {
     case network = 0

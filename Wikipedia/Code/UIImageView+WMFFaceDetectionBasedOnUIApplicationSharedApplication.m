@@ -1,5 +1,7 @@
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @implementation UIImageView (WMFFaceDetectionBasedOnUIApplicationSharedApplication)
 
 - (void)wmf_setImageWithURL:(NSURL *)imageURL detectFaces:(BOOL)detectFaces failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
@@ -13,3 +15,5 @@
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

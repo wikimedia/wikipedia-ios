@@ -97,8 +97,6 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
-static NSTimeInterval WMFFeedRefreshForegroundTimeout = 7;
-
 static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
 
 @interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate>
@@ -511,25 +509,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
 #pragma mark - Content Sources
 
 - (void)updateFeedSourcesWithCompletion:(nullable dispatch_block_t)completion {
-    WMFTaskGroup *group = [WMFTaskGroup new];
-    [self.exploreViewController updateUIForContentSourcesUpdateStart];
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        [group enter];
-        [obj loadNewContentForce:NO
-                      completion:^{
-                          [group leave];
-                      }];
-    }];
-
-    //TODO: nearby doesnt always fire.
-    //May need to time it out or exclude
-    [group waitInBackgroundWithTimeout:WMFFeedRefreshForegroundTimeout
-                            completion:^{
-                                [self.exploreViewController updateUIForContentSourcesUpdateComplete];
-                                if (completion) {
-                                    completion();
-                                }
-                            }];
+    [self.exploreViewController updateFeedSources:completion];
 }
 
 - (void)startContentSources {
@@ -787,7 +767,9 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
         return nil;
     }
     WMFArticleViewController *visibleArticleViewController = self.visibleArticleViewController;
-    if ([visibleArticleViewController.articleURL isEqual:articleURL]) {
+    NSString *visibleKey = visibleArticleViewController.articleURL.wmf_articleDatabaseKey;
+    NSString *articleKey = articleURL.wmf_articleDatabaseKey;
+    if (visibleKey && articleKey && [visibleKey isEqualToString:articleKey]) {
         return visibleArticleViewController;
     }
     [self selectExploreTabAndDismissPresentedViewControllers];

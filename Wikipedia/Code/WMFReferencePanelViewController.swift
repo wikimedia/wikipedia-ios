@@ -1,6 +1,5 @@
 
 import Foundation
-import BlocksKitUIKitExtensions
 
 class WMFReferencePanelViewController: UIViewController {
     
@@ -10,17 +9,21 @@ class WMFReferencePanelViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let tapRecognizer = UITapGestureRecognizer.bk_recognizer { (sender, state, location) in
-            if state == .ended {
-                self.presentingViewController?.dismiss(animated: true, completion: nil)
-            }
-        }
-        view.addGestureRecognizer(tapRecognizer)
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:))))
         embedContainerControllerView()
     }
 
+    func handleTapGestureRecognizer(_ recognizer: UITapGestureRecognizer) {
+        switch recognizer.state {
+        case .ended:
+            self.presentingViewController?.dismiss(animated: true, completion: nil)
+        default:
+            break
+        }
+    }
+
     fileprivate func panelHeight() -> CGFloat {
-        return view.frame.size.height * (self.view.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.compact ? 0.4 : 0.6)
+        return view.frame.size.height * (view.frame.size.height > view.frame.size.width ? 0.4 : 0.6)
     }
     
     override func viewDidLayoutSubviews() {

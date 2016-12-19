@@ -49,7 +49,12 @@
 
 - (void)setImageURL:(NSURL *)imageURL {
     if (imageURL) {
-        [self.imageView wmf_setImageWithURL:imageURL detectFaces:YES failure:NULL success:NULL];
+        [self.imageView wmf_setImageWithURL:imageURL
+                                detectFaces:YES
+                                    failure:^(NSError *_Nonnull error) {
+                                    }
+                                    success:^{
+                                    }];
         [self restoreImageToFullHeight];
     } else {
         [self.imageView wmf_reset];
@@ -73,39 +78,26 @@
     [self.actionButton setTitle:text forState:UIControlStateNormal];
 }
 
-- (void)setCaptionHTML:(NSString *)text {
-    NSAttributedString *attributedString = [self attributedStringForCaptionHTML:text];
-    if (attributedString) {
-        [self.captionTextView setAttributedText:attributedString];
-    } else {
-        [self.captionTextView setText:text];
+- (void)setCaption:(NSAttributedString *)text {
+    NSMutableAttributedString *mutableText = [text mutableCopy];
+    if (!mutableText || mutableText.length == 0) {
+        self.captionTextView.attributedText = nil;
+        return;
     }
+    
+    NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
+    pStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    pStyle.baseWritingDirection = NSWritingDirectionNatural;
+    pStyle.alignment = NSTextAlignmentCenter;
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote],
+                                 NSForegroundColorAttributeName: [UIColor wmf_777777Color],
+                                 NSParagraphStyleAttributeName: pStyle};
+    [mutableText addAttributes:attributes range:NSMakeRange(0, mutableText.length)];
+    self.captionTextView.attributedText = mutableText;
     [self.captionTextView setNeedsLayout];
     [self.captionTextView layoutIfNeeded];
 }
 
-- (nullable NSAttributedString *)attributedStringForCaptionHTML:(NSString *)text {
-
-    NSError *error = nil;
-
-    NSMutableAttributedString *string = [[[NSAttributedString alloc] initWithData:[text dataUsingEncoding:NSUTF8StringEncoding]
-                                                                          options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                                               documentAttributes:nil
-                                                                            error:&error] mutableCopy];
-    if (error) {
-        return nil;
-    } else {
-        NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
-        pStyle.lineBreakMode = NSLineBreakByWordWrapping;
-        pStyle.baseWritingDirection = NSWritingDirectionNatural;
-        pStyle.alignment = NSTextAlignmentCenter;
-        NSDictionary *attributes = @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote],
-                                     NSForegroundColorAttributeName: [UIColor wmf_777777Color],
-                                     NSParagraphStyleAttributeName: pStyle};
-        [string addAttributes:attributes range:NSMakeRange(0, string.length)];
-        return string;
-    }
-}
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
     [self.delegate announcementCell:self didTapLinkURL:URL];
@@ -120,8 +112,8 @@
     [self.delegate announcementCellDidTapActionButton:self];
 }
 
-+ (CGFloat)estimatedRowHeight {
-    return 250;
++ (CGFloat)estimatedRowHeightWithImage:(BOOL)withImage {
+    return 250 + (withImage ? 150 : 0);
 }
 
 @end
