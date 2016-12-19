@@ -58,7 +58,6 @@
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WMFImageInfoController.h"
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
-#import "WMFProxyServer.h"
 
 @import SafariServices;
 @import BlocksKitUIKitExtensions;
@@ -874,7 +873,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
     self.skipFetchOnViewDidAppear = NO;
     [self startSignificantlyViewedTimer];
-    [[WMFProxyServer sharedProxyServer] resumeTasksForArticleURL:self.articleURL];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -890,8 +888,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self stopSignificantlyViewedTimer];
     [self saveWebViewScrollOffset];
     [self removeProgressView];
-    
-    [[WMFProxyServer sharedProxyServer] suspendTasksForArticleURL:self.articleURL];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

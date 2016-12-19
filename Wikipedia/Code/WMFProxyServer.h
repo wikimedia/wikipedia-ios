@@ -16,7 +16,4 @@
 
 - (void)setResponseData:(NSData *)data withContentType:(NSString *)contentType forPath:(NSString *)path;
 
-- (void)suspendTasksForArticleURL:(NSURL *)articleURL;
-- (void)resumeTasksForArticleURL:(NSURL *)articleURL;
-
 @end

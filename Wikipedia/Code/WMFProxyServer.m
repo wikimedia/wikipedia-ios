@@ -22,9 +22,6 @@
 @property (nonatomic, copy, nonnull) NSString *hostedFolderPath;
 @property (nonatomic) NSURLComponents *hostURLComponents;
 @property (nonatomic, readonly) GCDWebServerAsyncProcessBlock defaultHandler;
-@property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableDictionary<NSString *, NSURLSessionTask *> *> *tasks;
-
-
 @end
 
 @implementation WMFProxyServer
@@ -61,8 +58,6 @@
 
     [self.webServer addDefaultHandlerForMethod:@"GET" requestClass:[GCDWebServerRequest class] asyncProcessBlock:self.defaultHandler];
 
-    self.tasks = [NSMutableDictionary new];
-    
     [self start];
 }
 
@@ -164,10 +159,8 @@
                 notFound();
                 return;
             }
-        
-            NSString *baseURLKey = request.query[WMFProxyImageBaseURLKey];
-        
-            [self handleImageRequestForURL:imgURL key:baseURLKey completionBlock:completionBlock];
+
+            [self handleImageRequestForURL:imgURL completionBlock:completionBlock];
         } else {
             notFound();
         }
@@ -197,31 +190,7 @@
     }
 }
 
-- (void)setTask:(NSURLSessionTask *)task forURL:(NSURL *)URL withKey:(NSString *)key {
-    if (!key || !task || !URL) {
-        return;
-    }
-    NSMutableDictionary <NSString *, NSURLSessionTask *> *tasksForKey = self.tasks[key];
-    if (!tasksForKey) {
-        tasksForKey = [NSMutableDictionary new];
-        self.tasks[key] = tasksForKey;
-    }
-    
-    tasksForKey[URL.absoluteString] = task;
-}
-
-- (void)removeTaskForURL:(NSURL *)URL withKey:(NSString *)key {
-    if (!key || !URL) {
-        return;
-    }
-    NSMutableDictionary <NSString *, NSURLSessionTask *> *tasksForKey = self.tasks[key];
-    [tasksForKey removeObjectForKey:URL.absoluteString];
-    if (tasksForKey.count == 0) {
-        [self.tasks removeObjectForKey:key];
-    }
-}
-
-- (void)handleImageRequestForURL:(NSURL *)imgURL key:(NSString *)key completionBlock:(GCDWebServerCompletionBlock)completionBlock {
+- (void)handleImageRequestForURL:(NSURL *)imgURL completionBlock:(GCDWebServerCompletionBlock)completionBlock {
     GCDWebServerErrorResponse *notFound = [GCDWebServerErrorResponse responseWithClientError:kGCDWebServerHTTPStatusCode_NotFound message:@"Image not found"];
     NSAssert(imgURL, @"imageProxy URL should not be nil");
 
@@ -248,34 +217,10 @@
                                                                                     } else {
                                                                                         completionBlock(notFound);
                                                                                     }
-                                                                                    [self removeTaskForURL:imgURL withKey:key];
                                                                                 }];
         downloadImgTask.priority = NSURLSessionTaskPriorityLow;
-        [self setTask:downloadImgTask forURL:imgURL withKey:key];
         [downloadImgTask resume];
     }
-}
-
-- (void)suspendTasksForArticleURL:(NSURL *)articleURL {
-    NSString *key = [articleURL wmf_articleDatabaseKey];
-    if (!key) {
-        return;
-    }
-    NSMutableDictionary <NSString *, NSURLSessionTask *> *tasksForKey = self.tasks[key];
-    [tasksForKey enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSURLSessionTask * _Nonnull obj, BOOL * _Nonnull stop) {
-        [obj suspend];
-    }];
-}
-
-- (void)resumeTasksForArticleURL:(NSURL *)articleURL {
-    NSString *key = [articleURL wmf_articleDatabaseKey];
-    if (!key) {
-        return;
-    }
-    NSMutableDictionary <NSString *, NSURLSessionTask *> *tasksForKey = self.tasks[key];
-    [tasksForKey enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSURLSessionTask * _Nonnull obj, BOOL * _Nonnull stop) {
-        [obj resume];
-    }];
 }
 
 #pragma - File Proxy Paths &URLs
@@ -299,7 +244,7 @@
 
 #pragma - Image Proxy URLs
 
-- (NSURL *)proxyURLForImageURLString:(NSString *)imageURLString baseURL:(NSURL *)baseURL {
+- (NSURL *)proxyURLForImageURLString:(NSString *)imageURLString {
     NSString *secret = self.secret;
     NSURL *serverURL = self.webServer.serverURL;
     if (secret == nil || serverURL == nil) {
@@ -308,10 +253,9 @@
 
     NSURLComponents *components = [NSURLComponents componentsWithURL:serverURL resolvingAgainstBaseURL:NO];
     components.path = [NSString pathWithComponents:@[@"/", secret, WMFProxyImageBasePath]];
-    NSURLQueryItem *originalSrc = [NSURLQueryItem queryItemWithName:WMFProxyImageOriginalSrcKey value:imageURLString];
-    NSURLQueryItem *group = [NSURLQueryItem queryItemWithName:WMFProxyImageBaseURLKey value:[baseURL wmf_articleDatabaseKey]];
-    if (originalSrc && group) {
-        components.queryItems = @[originalSrc, group];
+    NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:@"originalSrc" value:imageURLString];
+    if (queryItem) {
+        components.queryItems = @[queryItem];
     }
     return components.URL;
 }
@@ -361,7 +305,7 @@
         }
 
         if (src) {
-            NSString *srcWithProxy = [self proxyURLForImageURLString:src baseURL:baseURL].absoluteString;
+            NSString *srcWithProxy = [self proxyURLForImageURLString:src].absoluteString;
             if (srcWithProxy) {
                 NSString *newSrcAttribute = [@[@"src=\"", srcWithProxy, @"\""] componentsJoinedByString:@""];
                 imageTag.src = newSrcAttribute;

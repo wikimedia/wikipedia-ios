@@ -1,7 +1,6 @@
 #import "NSURL+WMFProxyServer.h"
 
 NSString *const WMFProxyImageOriginalSrcKey = @"originalSrc";
-NSString *const WMFProxyImageBaseURLKey = @"baseURL";
 NSString *const WMFProxyImageBasePath = @"imageProxy";
 NSString *const WMFProxyFileBasePath = @"fileProxy";
 

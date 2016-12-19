@@ -18,7 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 
 extern NSString *const WMFProxyImageOriginalSrcKey;
-extern NSString *const WMFProxyImageBaseURLKey;
 extern NSString *const WMFProxyImageBasePath;
 extern NSString *const WMFProxyFileBasePath;
 
