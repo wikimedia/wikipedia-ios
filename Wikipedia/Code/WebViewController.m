@@ -522,6 +522,7 @@ NSString *const WMFCCBySALicenseURL =
 
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.userContentController = userContentController;
+    configuration.applicationNameForUserAgent = @"WikipediaApp";
     return configuration;
 }
 
