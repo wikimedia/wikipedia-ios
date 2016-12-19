@@ -6,5 +6,6 @@ end
 
 group :ci do
   gem 'fastlane'
+  gem 'xcode-install'
   gem 'badge'
 end
