@@ -21,7 +21,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="iIg-cq-5h8"/>
-                            <constraint firstAttribute="height" priority="999" constant="40" id="v5O-bB-IH3"/>
+                            <constraint firstAttribute="height" constant="40" id="v5O-bB-IH3"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -79,7 +79,7 @@
                 <constraint firstItem="RMa-GF-kKq" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="10" id="0FL-Bb-pTQ"/>
                 <constraint firstItem="6JK-c4-FJw" firstAttribute="centerY" secondItem="KGk-i7-Jjw" secondAttribute="centerY" id="GY0-Wk-Uoq"/>
                 <constraint firstItem="6JK-c4-FJw" firstAttribute="top" relation="greaterThanOrEqual" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="6" id="HeW-tc-eCS"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="RMa-GF-kKq" secondAttribute="bottom" constant="10" id="KBp-WI-wU6"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="RMa-GF-kKq" secondAttribute="bottom" priority="999" constant="10" id="KBp-WI-wU6"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6JK-c4-FJw" secondAttribute="bottom" constant="6" id="VL3-nP-KCg"/>
                 <constraint firstItem="6JK-c4-FJw" firstAttribute="leading" secondItem="RMa-GF-kKq" secondAttribute="trailing" id="W1o-QG-sBU"/>
                 <constraint firstItem="RMa-GF-kKq" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="15" id="Zfh-bn-2Mj"/>
