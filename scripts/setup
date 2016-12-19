@@ -8,4 +8,3 @@ gem install bundler
 bundle install
 rm -rf .git/hooks/pre-commit
 cp -f scripts/clang_format_git_diff .git/hooks/pre-commit
-carthage bootstrap --platform iOS
