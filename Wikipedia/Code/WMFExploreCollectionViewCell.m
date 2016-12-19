@@ -41,11 +41,4 @@
     }
 }
 
-- (UITraitCollection *)traitCollection {
-    if (self.wmf_placeholderTraitCollection) {
-        return self.wmf_placeholderTraitCollection;
-    }
-    return [super traitCollection];
-}
-
 @end
