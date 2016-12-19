@@ -14,6 +14,7 @@
 @property (nonatomic, readonly) NSInteger index;
 @property (nonatomic) NSInteger columnIndex;
 @property (nonatomic) CGRect frame;
+@property (nonatomic) BOOL needsToRecalculateEstimatedLayout;
 
 @property (nonatomic, strong, readonly, nonnull) NSArray<WMFCVLAttributes *> *headers;
 @property (nonatomic, strong, readonly, nonnull) NSArray<WMFCVLAttributes *> *footers;
