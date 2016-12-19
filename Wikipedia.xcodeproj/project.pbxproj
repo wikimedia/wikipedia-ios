@@ -532,7 +532,6 @@
 		D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040E5C4E184566F4007AFE6F /* CoreData.framework */; };
 		D803F8961DC53B0C00656F20 /* GroupedAccessibilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D803F8951DC53B0C00656F20 /* GroupedAccessibilityView.swift */; };
 		D80C24B81D673DC300816503 /* WMFTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D80C24B71D673DC300816503 /* WMFTabBarController.m */; };
-		D81083071D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m in Sources */ = {isa = PBXBuildFile; fileRef = D81083061D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m */; };
 		D810C3491DF1C0A4003427DA /* Tweaks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D810C3481DF1C0A4003427DA /* Tweaks.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D81BA0FB1D50D40B006C38AC /* WMFNearbyArticleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D81BA0F61D50D40B006C38AC /* WMFNearbyArticleTableViewCell.m */; };
 		D81BA0FC1D50D40B006C38AC /* WMFNearbyArticleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D81BA0F71D50D40B006C38AC /* WMFNearbyArticleTableViewCell.xib */; };
@@ -2307,8 +2306,6 @@
 		D80C24B71D673DC300816503 /* WMFTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFTabBarController.m; sourceTree = "<group>"; };
 		D81082F61D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+WMFExtendedFileAttributes.h"; path = "Wikipedia/Code/NSFileManager+WMFExtendedFileAttributes.h"; sourceTree = SOURCE_ROOT; };
 		D81082F71D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+WMFExtendedFileAttributes.m"; path = "Wikipedia/Code/NSFileManager+WMFExtendedFileAttributes.m"; sourceTree = SOURCE_ROOT; };
-		D81083051D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKProcessPool+WMFSharedProcessPool.h"; path = "Wikipedia/Code/WKProcessPool+WMFSharedProcessPool.h"; sourceTree = SOURCE_ROOT; };
-		D81083061D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKProcessPool+WMFSharedProcessPool.m"; path = "Wikipedia/Code/WKProcessPool+WMFSharedProcessPool.m"; sourceTree = SOURCE_ROOT; };
 		D810C3481DF1C0A4003427DA /* Tweaks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Tweaks.framework; path = Carthage/Build/iOS/Tweaks.framework; sourceTree = SOURCE_ROOT; };
 		D81BA0F51D50D40B006C38AC /* WMFNearbyArticleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFNearbyArticleTableViewCell.h; path = Wikipedia/Code/WMFNearbyArticleTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		D81BA0F61D50D40B006C38AC /* WMFNearbyArticleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFNearbyArticleTableViewCell.m; path = Wikipedia/Code/WMFNearbyArticleTableViewCell.m; sourceTree = SOURCE_ROOT; };
@@ -4363,8 +4360,6 @@
 				B0E805361C0CE0DC0065EBC0 /* WKWebView+WMFSuppressSelection.m */,
 				B0DF6F7F1CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.h */,
 				B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */,
-				D81083051D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.h */,
-				D81083061D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m */,
 			);
 			name = Utilities;
 			path = ../Categories;
@@ -7064,7 +7059,6 @@
 				0E19B99C1DA6E1A400239F3A /* WMFExploreViewController.m in Sources */,
 				B0E806491C0CE7F70065EBC0 /* AccountLogin.m in Sources */,
 				D8940CF41DB667EF00E17F9E /* InTheNewsCollectionViewCell.swift in Sources */,
-				D81083071D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m in Sources */,
 				B0E806B71C0CEB160065EBC0 /* WMFLanguagesViewController.m in Sources */,
 				0E0361801C456C4600FD9642 /* WMFReadMoreViewController.m in Sources */,
 				0E03617A1C44905400FD9642 /* WMFMorePageListViewController.m in Sources */,

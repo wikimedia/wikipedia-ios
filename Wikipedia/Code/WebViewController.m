@@ -24,7 +24,6 @@
 #import "WMFZeroConfiguration.h"
 #import "WKWebView+LoadAssetsHtml.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
-#import "WKProcessPool+WMFSharedProcessPool.h"
 #import "NSURL+WMFProxyServer.h"
 #import "WMFImageTag.h"
 #import "WKScriptMessage+WMFScriptMessage.h"
@@ -523,7 +522,6 @@ NSString *const WMFCCBySALicenseURL =
 
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.userContentController = userContentController;
-    configuration.processPool = [WKProcessPool wmf_sharedProcessPool];
     return configuration;
 }
 

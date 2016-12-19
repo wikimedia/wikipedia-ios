@@ -1,7 +1,6 @@
 #import "PreviewWebViewContainer.h"
 #import <Masonry/Masonry.h>
 #import "Wikipedia-Swift.h"
-#import "WKProcessPool+WMFSharedProcessPool.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -46,7 +45,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.userContentController = userContentController;
-    configuration.processPool = [WKProcessPool wmf_sharedProcessPool];
     return configuration;
 }
 
