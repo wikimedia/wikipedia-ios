@@ -113,9 +113,14 @@
 "settings-support" = "Støtt Wikipedia";
 "settings-language-bar" = "Vis språk ved søkefeltet";
 "settings-my-languages" = "Mine språk";
+"settings-notifications" = "Varsler";
 "settings-help-and-feedback" = "Hjelp og tilbakemelding";
 "settings-primary-language" = "Primær";
 "settings-primary-language-details" = "Det første språket i denne lista brukes som primærspråk for appen. Dette påvirker hvilket innhold som vises under Utforsk (f.eks. hvilken utmerket artikkel).";
+"settings-notifications-system-off" = "Varsler er for tiden slått av for Wikipedia. Gå til enhetens innstillinger for å slå på varsler.";
+"settings-notifications-system-turn-on" = "Slå på varsler";
+"settings-notifications-learn-more" = "Lær mer om varsler";
+"settings-notifications-push-notifications" = "Pushvarsler";
 "main-menu-title" = "Mer";
 "main-menu-heading-about" = "Om";
 "main-menu-language-title" = "Søk i Wikipedia på $1";
@@ -221,8 +226,7 @@
 "share-menu-save-page" = "Lagre artikkel";
 "share-menu-page-saved" = "Artikkelen ble lagret";
 "share-menu-page-saved-access" = "Tips: for å åpne lagrede sider, trykk på $1 over eller trykk lenge på $2 under.";
-// Fuzzy
-"share-custom-menu-item" = "Del";
+"share-custom-menu-item" = "Del ...";
 "share-a-fact-share-menu-item" = "Del-et-faktum";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-article-name-on-wikipedia" = "«$1» på @Wikipedia:";
@@ -246,6 +250,8 @@
 "button-ok" = "OK";
 "button-save-for-later" = "Lagre til senere";
 "button-saved-for-later" = "Lagret til senere";
+"button-saved-remove" = "Fjern fra lagrede";
+"button-read-now" = "Les nå";
 "button-report-a-bug" = "Meld fra om en feil";
 "onboarding-create-account" = "Opprett konto";
 "onboarding-login" = "Logg inn";
@@ -354,6 +360,7 @@
 "potd-description-prefix" = "Dagens bilde $1";
 "welcome-explore-title" = "Utforsk";
 "welcome-explore-sub-title" = "En ny måte å oppdage interessante artikler hver dag";
+"welcome-explore-new-ways-title" = "Nye måter å utforske";
 "welcome-explore-tell-me-more" = "Fortell mer";
 "welcome-explore-tell-me-more-about-explore" = "Mer om Utforsk";
 "welcome-explore-tell-me-more-details" = "Når du leser en artikkel vil relaterte artikler automatisk legges til i Utforsk-feeden din. Dette medfører ikke endringer i hvordan vi samler inn din informasjon, og lesehistorikken din forblir privat.";
