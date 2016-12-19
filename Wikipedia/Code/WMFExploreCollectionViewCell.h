@@ -2,6 +2,4 @@
 
 @interface WMFExploreCollectionViewCell : SSBaseCollectionCell
 
-@property (nonatomic, strong) UITraitCollection *wmf_placeholderTraitCollection;
-
 @end
