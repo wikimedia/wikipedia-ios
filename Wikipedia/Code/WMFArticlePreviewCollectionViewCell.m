@@ -105,8 +105,8 @@
 }
 
 - (void)removeDescriptionVerticalPadding {
-    self.paddingConstraintAboveDescription.constant = 0.0f;
-    self.paddingConstraintBelowDescription.constant = 6.0f;
+    self.paddingConstraintAboveDescription.constant = 0.0;
+    self.paddingConstraintBelowDescription.constant = 6.0;
 }
 
 - (void)restoreDescriptionVerticalPadding {
