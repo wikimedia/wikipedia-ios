@@ -770,14 +770,17 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         } break;
         case WMFFeedDisplayTypePageWithPreview: {
             WMFArticle *article = [self articleForIndexPath:indexPath];
+            CGFloat estimatedHeight = [WMFArticlePreviewCollectionViewCell estimatedRowHeightWithImage:article.thumbnailURL != nil];
+            CGRect frameToFit = CGRectMake(0, 0, columnWidth, estimatedHeight);
             WMFArticlePreviewCollectionViewCell *cell = [self placeholderCellForIdentifier:[WMFArticlePreviewCollectionViewCell wmf_nibName]];
+            cell.bounds = frameToFit;
             [self configurePreviewCell:cell withSection:section withArticle:article atIndexPath:indexPath];
             WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
-            attributesToFit.frame = CGRectMake(0, 0, columnWidth, CGFLOAT_MAX);
+            attributesToFit.frame = frameToFit;
             UICollectionViewLayoutAttributes *attributes = [cell preferredLayoutAttributesFittingAttributes:attributesToFit];
             estimate.height = attributes.frame.size.height;
             estimate.precalculated = YES;
-            //estimate.height = [WMFArticlePreviewCollectionViewCell estimatedRowHeightWithImage:article.thumbnailURL != nil];
+            //estimate.height =
         } break;
         case WMFFeedDisplayTypePageWithLocation: {
             estimate.height = [WMFNearbyArticleCollectionViewCell estimatedRowHeight];
@@ -789,15 +792,17 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
             estimate.height = [InTheNewsCollectionViewCell estimatedRowHeight];
         } break;
         case WMFFeedDisplayTypeAnnouncement: {
+            WMFAnnouncement *announcement = (WMFAnnouncement *)section.content.firstObject;
+            CGFloat estimatedHeight = [WMFAnnouncementCollectionViewCell estimatedRowHeightWithImage:announcement.imageURL != nil];
+            CGRect frameToFit = CGRectMake(0, 0, columnWidth, estimatedHeight);
             WMFAnnouncementCollectionViewCell *cell = [self placeholderCellForIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName]];
+            cell.bounds = frameToFit;
             [self configureAnouncementCell:cell withSection:section atIndexPath:indexPath];
             WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
-            attributesToFit.frame = CGRectMake(0, 0, columnWidth, CGFLOAT_MAX);
+            attributesToFit.frame = frameToFit;
             UICollectionViewLayoutAttributes *attributes = [cell preferredLayoutAttributesFittingAttributes:attributesToFit];
             estimate.height = attributes.frame.size.height;
             estimate.precalculated = YES;
-            //WMFAnnouncement *announcement = (WMFAnnouncement *)section.content.firstObject;
-            //estimate.height = [WMFAnnouncementCollectionViewCell estimatedRowHeightWithImage:announcement.imageURL != nil];
         } break;
         default:
             NSAssert(false, @"Unknown display Type");

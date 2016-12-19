@@ -174,17 +174,24 @@
 }
 
 - (void)collapseImageHeightToZero {
+    if (self.imageHeightConstraint.constant == 0) {
+        return;
+    }
     self.imageHeightConstraint.constant = 0;
 }
 
 - (void)restoreImageToFullHeight {
-    self.imageHeightConstraint.constant = [self sixteenByNineImageHeight];
+    CGFloat sixteenByNineHeight = [self sixteenByNineImageHeight];
+    if (self.imageHeightConstraint.constant == sixteenByNineHeight) {
+        return;
+    }
+    self.imageHeightConstraint.constant = sixteenByNineHeight;
 }
 
 - (CGFloat)sixteenByNineImageHeight {
     CGFloat horizontalPadding = self.paddingConstraintLeading.constant + self.paddingConstraintTrailing.constant;
     CGFloat ratio = (9.0 / 16.0);
-    return floor((self.bounds.size.width - horizontalPadding) * ratio);
+    return round((self.bounds.size.width - horizontalPadding) * ratio);
 }
 
 #pragma mark - Saving

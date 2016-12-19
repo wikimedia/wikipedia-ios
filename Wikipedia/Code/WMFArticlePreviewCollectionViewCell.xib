@@ -105,6 +105,7 @@
             <connections>
                 <outlet property="articleImageView" destination="owd-9L-ejU" id="P8F-yH-9wj"/>
                 <outlet property="descriptionLabel" destination="Fv1-CZ-slW" id="FEd-5F-Dgj"/>
+                <outlet property="imageHeightConstraint" destination="ToQ-Er-q07" id="aVq-pd-UWe"/>
                 <outlet property="paddingConstraintAboveDescription" destination="T58-w5-u64" id="3KG-pf-HDC"/>
                 <outlet property="paddingConstraintBelowDescription" destination="AWt-Ol-tfh" id="HfA-cy-nkV"/>
                 <outlet property="paddingConstraintLeading" destination="HIG-8l-1Dm" id="5Qb-Ew-RH4"/>
