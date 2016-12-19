@@ -554,7 +554,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     [frc performFetch:nil];
     self.fetchedResultsController = frc;
     [self updateSectionCounts];
-//  [self.collectionView reloadData];
+    [self.collectionView reloadData];
 
     @weakify(self);
     [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
@@ -768,11 +768,11 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
             
             [self configurePreviewCell:cell withSection:section withArticle:article atIndexPath:indexPath];
             WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
-            attributesToFit.frame = CGRectMake(0, 0, columnWidth, [WMFArticleListCollectionViewCell estimatedRowHeight]);
+            attributesToFit.frame = CGRectMake(0, 0, columnWidth, CGFLOAT_MAX);
             UICollectionViewLayoutAttributes *attributes = [cell preferredLayoutAttributesFittingAttributes:attributesToFit];
-            
             estimate.height = attributes.frame.size.height;
             estimate.precalculated = YES;
+            //estimate.height = [WMFArticlePreviewCollectionViewCell estimatedRowHeightWithImage:article.thumbnailURL != nil];
         } break;
         case WMFFeedDisplayTypePageWithLocation: {
             estimate.height = [WMFNearbyArticleCollectionViewCell estimatedRowHeight];
@@ -785,14 +785,15 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         } break;
         case WMFFeedDisplayTypeAnnouncement: {
             WMFAnnouncementCollectionViewCell *cell = [self placeholderCellForIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName]];
-            WMFAnnouncement *announcement = (WMFAnnouncement *)section.content.firstObject;
             
             [self configureAnouncementCell:cell withSection:section atIndexPath:indexPath];
             WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
-            attributesToFit.frame = CGRectMake(0, 0, columnWidth, [WMFAnnouncementCollectionViewCell estimatedRowHeightWithImage:announcement.imageURL != nil]);
+            attributesToFit.frame = CGRectMake(0, 0, columnWidth, CGFLOAT_MAX);
             UICollectionViewLayoutAttributes *attributes = [cell preferredLayoutAttributesFittingAttributes:attributesToFit];
             estimate.height = attributes.frame.size.height;
             estimate.precalculated = YES;
+            //WMFAnnouncement *announcement = (WMFAnnouncement *)section.content.firstObject;
+            //estimate.height = [WMFAnnouncementCollectionViewCell estimatedRowHeightWithImage:announcement.imageURL != nil];
         } break;
         default:
             NSAssert(false, @"Unknown display Type");

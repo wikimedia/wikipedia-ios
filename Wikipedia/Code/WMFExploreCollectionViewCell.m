@@ -4,17 +4,26 @@
 @implementation WMFExploreCollectionViewCell
 
 - (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)attributesToFit {
+    if ([attributesToFit isKindOfClass:[WMFCVLAttributes class]] && [(WMFCVLAttributes *)attributesToFit precalculated]) {
+        return attributesToFit;
+    }
+    CGSize sizeToFit = attributesToFit.size;
+    sizeToFit.height = UIViewNoIntrinsicMetric;
 
-    UICollectionViewLayoutAttributes *fitAttributes = [attributesToFit copy];
-    
-    fitAttributes.frame = CGRectMake(
-                                     attributesToFit.frame.origin.x,
-                                     attributesToFit.frame.origin.y,
-                                     attributesToFit.frame.size.width,
-                                     [self.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height
-                                     );
-    
-    return fitAttributes;
+    CGSize fitSize = [self.contentView systemLayoutSizeFittingSize:sizeToFit withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
+
+    if (CGSizeEqualToSize(fitSize, attributesToFit.size)) {
+        return attributesToFit;
+    } else {
+        UICollectionViewLayoutAttributes *fitAttributes = [attributesToFit copy];
+        fitSize.width = sizeToFit.width;
+        if (fitSize.height == CGFLOAT_MAX) {
+            fitSize.height = attributesToFit.size.height;
+        }
+
+        fitAttributes.frame = (CGRect){attributesToFit.frame.origin, fitSize};
+        return fitAttributes;
+    }
 }
 
 - (void)setHighlighted:(BOOL)highlighted {

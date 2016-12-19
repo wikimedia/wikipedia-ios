@@ -49,13 +49,12 @@
 
 - (void)setImageURL:(NSURL *)imageURL {
     if (imageURL) {
-        __block UIImage *img = [[UIImage alloc] init];
-        dispatch_async(dispatch_get_global_queue(0,0), ^{
-            img = [UIImage imageWithData: [[NSData alloc] initWithContentsOfURL: imageURL]];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.imageView.image = img;
-            });
-        });
+        [self.imageView wmf_setImageWithURL:imageURL
+                                detectFaces:YES
+                                    failure:^(NSError *_Nonnull error) {
+                                    }
+                                    success:^{
+                                    }];
         [self restoreImageToFullHeight];
     } else {
         [self.imageView wmf_reset];

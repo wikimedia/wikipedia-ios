@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -68,7 +68,7 @@
                             </label>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="zIr-xI-hgr" firstAttribute="top" secondItem="Fv1-CZ-slW" secondAttribute="bottom" constant="12" id="8pJ-QN-xQu"/>
+                            <constraint firstItem="zIr-xI-hgr" firstAttribute="top" secondItem="Fv1-CZ-slW" secondAttribute="bottom" priority="749" constant="12" id="8pJ-QN-xQu"/>
                             <constraint firstItem="Fv1-CZ-slW" firstAttribute="leading" secondItem="QOE-MP-zLb" secondAttribute="leading" id="NjY-er-Ke3"/>
                             <constraint firstItem="zIr-xI-hgr" firstAttribute="leading" secondItem="QOE-MP-zLb" secondAttribute="leading" id="QXc-TW-8mg"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zIr-xI-hgr" secondAttribute="trailing" id="U2a-Ne-qEv"/>
