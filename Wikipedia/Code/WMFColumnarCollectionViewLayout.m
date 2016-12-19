@@ -75,14 +75,12 @@
 
 - (void)prepareLayout {
     if (!self.isLayoutValid) {
-        if (self.info == nil) {
-            self.info = [[WMFCVLInfo alloc] init];
-        }
+        self.info = [[WMFCVLInfo alloc] init];
         self.metrics = [WMFCVLMetrics metricsWithBoundsSize:self.collectionView.bounds.size];
         [self.info layoutWithMetrics:self.metrics delegate:self.delegate collectionView:self.collectionView invalidationContext:nil];
         self.layoutValid = YES;
     }
-   
+
     [super prepareLayout];
 }
 
