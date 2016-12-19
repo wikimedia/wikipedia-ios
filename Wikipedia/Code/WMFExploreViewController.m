@@ -767,7 +767,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
             CGFloat estimatedHeight = [WMFArticlePreviewCollectionViewCell estimatedRowHeightWithImage:article.thumbnailURL != nil];
             CGRect frameToFit = CGRectMake(0, 0, columnWidth, estimatedHeight);
             WMFArticlePreviewCollectionViewCell *cell = [self placeholderCellForIdentifier:[WMFArticlePreviewCollectionViewCell wmf_nibName]];
-            NSAssert([cell.traitCollection.preferredContentSizeCategory isEqualToString:collectionView.traitCollection.preferredContentSizeCategory], @"Content size category should match");
             cell.frame = frameToFit;
             [self configurePreviewCell:cell withSection:section withArticle:article atIndexPath:indexPath];
             WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
