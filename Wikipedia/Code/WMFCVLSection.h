@@ -21,9 +21,9 @@
 
 + (nonnull WMFCVLSection *)sectionWithIndex:(NSInteger)index;
 
-- (BOOL)addOrUpdateItemAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame))frameProvider;
-- (BOOL)addOrUpdateHeaderAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame))frameProvider;
-- (BOOL)addOrUpdateFooterAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame))frameProvider;
+- (BOOL)addOrUpdateItemAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *_Nonnull layoutAttributes))frameProvider;
+- (BOOL)addOrUpdateHeaderAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *_Nonnull layoutAttributes))frameProvider;
+- (BOOL)addOrUpdateFooterAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *_Nonnull layoutAttributes))frameProvider;
 
 - (void)enumerateLayoutAttributesWithBlock:(nonnull void (^)(WMFCVLAttributes *_Nonnull layoutAttributes, BOOL *_Nonnull stop))block;
 
