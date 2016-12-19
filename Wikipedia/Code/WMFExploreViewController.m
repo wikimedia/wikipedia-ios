@@ -637,7 +637,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 }
 
 - (void)showOfflineEmptyViewIfNeeded {
-    NSParameterAssert(self.isViewLoaded);
+    if (!self.isViewLoaded) {
+        return;
+    }
     if (self.numberOfSectionsInExploreFeed > 0) {
         [self wmf_hideEmptyView];
     } else {
