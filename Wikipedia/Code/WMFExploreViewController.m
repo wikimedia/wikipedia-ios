@@ -88,7 +88,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 @property (nonatomic, strong, nullable) WMFTaskGroup *feedUpdateTaskGroup;
 @property (nonatomic, strong, nullable) WMFTaskGroup *relatedUpdatedTaskGroup;
 
-@property (nonatomic, strong) NSMutableDictionary<NSString *, UICollectionViewCell *> *placeholderCells;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, WMFExploreCollectionViewCell *> *placeholderCells;
 
 @end
 
@@ -595,11 +595,10 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    NSArray<UICollectionViewCell *> *placeholderCells = self.placeholderCells.allValues;
+    NSArray<WMFExploreCollectionViewCell *> *placeholderCells = self.placeholderCells.allValues;
     //forces trait collection update on placeholder cells
-    for (UICollectionViewCell *cell in placeholderCells) {
-        [self.view insertSubview:cell atIndex:0];
-        [cell removeFromSuperview];
+    for (WMFExploreCollectionViewCell *cell in placeholderCells) {
+        cell.wmf_placeholderTraitCollection = self.traitCollection;
     }
     [self registerForPreviewingIfAvailable];
 }
