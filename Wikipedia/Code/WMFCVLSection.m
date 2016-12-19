@@ -13,7 +13,7 @@
 - (void)offsetHeadersStartingAtIndex:(NSInteger)headerIndex distance:(CGFloat)deltaY invalidationContext:(nonnull WMFCVLInvalidationContext *)invalidationContext;
 - (void)offsetFootersStartingAtIndex:(NSInteger)footerIndex distance:(CGFloat)deltaY invalidationContext:(nonnull WMFCVLInvalidationContext *)invalidationContext;
 
-- (BOOL)addOrUpdateAttributesAtIndex:(NSInteger)index inArray:(nonnull NSMutableArray *)array withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame))frameProvider attributesProvider:(nonnull WMFCVLAttributes * (^)(NSIndexPath *indexPath))attributesProvider;
+- (BOOL)addOrUpdateAttributesAtIndex:(NSInteger)index inArray:(nonnull NSMutableArray *)array withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *_Nonnull attributes))frameProvider attributesProvider:(nonnull WMFCVLAttributes * (^)(NSIndexPath *indexPath))attributesProvider;
 - (CGFloat)setSize:(CGSize)size forAttributesAtIndex:(NSInteger)index inArray:(NSMutableArray *)attributes;
 - (NSArray *)offsetAttributesInArray:(NSMutableArray *)attributes startingAtIndex:(NSInteger)index distance:(CGFloat)deltaY;
 
@@ -49,7 +49,7 @@
     return section;
 }
 
-- (BOOL)addOrUpdateItemAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame))frameProvider {
+- (BOOL)addOrUpdateItemAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *layoutAttributes))frameProvider {
     return [self addOrUpdateAttributesAtIndex:index
                                       inArray:_items
                             withFrameProvider:frameProvider
@@ -58,7 +58,7 @@
                            }];
 }
 
-- (BOOL)addOrUpdateHeaderAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame))frameProvider {
+- (BOOL)addOrUpdateHeaderAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *layoutAttributes))frameProvider {
     return [self addOrUpdateAttributesAtIndex:index
                                       inArray:_headers
                             withFrameProvider:frameProvider
@@ -67,7 +67,7 @@
                            }];
 }
 
-- (BOOL)addOrUpdateFooterAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame))frameProvider {
+- (BOOL)addOrUpdateFooterAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *layoutAttributes))frameProvider {
     return [self addOrUpdateAttributesAtIndex:index
                                       inArray:_footers
                             withFrameProvider:frameProvider
@@ -156,10 +156,10 @@
     [invalidationContext invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionFooter atIndexPaths:invalidatedFooterIndexPaths];
 }
 
-- (BOOL)addOrUpdateAttributesAtIndex:(NSInteger)index inArray:(nonnull NSMutableArray *)array withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame))frameProvider attributesProvider:(nonnull WMFCVLAttributes * (^)(NSIndexPath *indexPath))attributesProvider {
+- (BOOL)addOrUpdateAttributesAtIndex:(NSInteger)index inArray:(nonnull NSMutableArray *)array withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *layoutAttributes))frameProvider attributesProvider:(nonnull WMFCVLAttributes * (^)(NSIndexPath *indexPath))attributesProvider {
     if (index >= array.count) {
-        CGRect frame = frameProvider(YES, CGRectZero);
         WMFCVLAttributes *attributes = attributesProvider([NSIndexPath indexPathForItem:index inSection:self.index]);
+        CGRect frame = frameProvider(YES, CGRectZero, attributes);
         attributes.frame = frame;
         if (attributes != nil) {
             [array addObject:attributes];
@@ -167,7 +167,7 @@
         return YES;
     } else {
         WMFCVLAttributes *attributes = array[index];
-        CGRect newFrame = frameProvider(NO, attributes.frame);
+        CGRect newFrame = frameProvider(NO, attributes.frame, attributes);
         if (CGRectEqualToRect(newFrame, attributes.frame)) {
             return NO;
         } else {

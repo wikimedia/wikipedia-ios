@@ -13,10 +13,15 @@
 
 @end
 
-@protocol WMFColumnarCollectionViewLayoutDelegate <UICollectionViewDelegate>
+struct WMFLayoutEstimate {
+    BOOL precalculated;
+    CGFloat height;
+};
+typedef struct WMFLayoutEstimate WMFLayoutEstimate;
 
+@protocol WMFColumnarCollectionViewLayoutDelegate <UICollectionViewDelegate>
 @required
-- (CGFloat)collectionView:(nonnull UICollectionView *)collectionView estimatedHeightForItemAtIndexPath:(nonnull NSIndexPath *)indexPath forColumnWidth:(CGFloat)columnWidth;
+- (WMFLayoutEstimate)collectionView:(nonnull UICollectionView *)collectionView estimatedHeightForItemAtIndexPath:(nonnull NSIndexPath *)indexPath forColumnWidth:(CGFloat)columnWidth;
 - (CGFloat)collectionView:(nonnull UICollectionView *)collectionView estimatedHeightForHeaderInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth;
 - (CGFloat)collectionView:(nonnull UICollectionView *)collectionView estimatedHeightForFooterInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth;
 - (BOOL)collectionView:(nonnull UICollectionView *)collectionView prefersWiderColumnForSectionAtIndex:(NSUInteger)index;
