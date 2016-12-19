@@ -101,7 +101,7 @@ static id _sharedInstance;
     }];
 }
 
-- (MWKLanguageLink *)appLanguage {
+- (nullable MWKLanguageLink *)appLanguage {
     return [self.preferredLanguages firstObject];
 }
 

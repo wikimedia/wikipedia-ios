@@ -2,8 +2,12 @@ import Foundation
 
 extension NSArray {
     /// @return The object at `index` if it's within range of the receiver, otherwise `nil`.
-    public func wmf_safeObjectAtIndex(index: Int) -> AnyObject? {
-        return (index > -1 && index < self.count) ? self[index] : nil;
+    public func wmf_safeObjectAtIndex(_ index: Int) -> Any? {
+        guard index > -1 && index < self.count else {
+            return nil
+        }
+        
+        return self[index]
     }
 
     /**
@@ -13,7 +17,7 @@ extension NSArray {
      */
     public func wmf_containsNullObjects() -> Bool {
         var foundNull = false
-        for (_, value) in self.enumerate() {
+        for (_, value) in self.enumerated() {
             if value is NSNull {
                 foundNull = true
             }
@@ -32,7 +36,7 @@ extension NSArray {
         }
 
         var foundNull = false
-        for (_, value) in self.enumerate() {
+        for (_, value) in self.enumerated() {
             if let value = value as? NSDictionary {
                 foundNull = value.wmf_recursivelyContainsNullObjects()
             }
@@ -50,7 +54,7 @@ extension NSArray {
     - returns: A new array with the first `n` items in the receiver, or the receiver if `n` exceeds the number of items 
               in the array.
     */
-    public func wmf_arrayByTrimmingToLength(intLength: Int) -> NSArray {
+    public func wmf_arrayByTrimmingToLength(_ intLength: Int) -> NSArray {
         if (self.count == 0 || self.count < intLength) {
             return self;
         }
@@ -65,7 +69,7 @@ extension NSArray {
     :returns: A new array with the last `n` items in the receiver, or the receiver if `n` exceeds the number of items
     in the array.
     */
-    public func wmf_arrayByTrimmingToLengthFromEnd(intLength: Int) -> NSArray {
+    public func wmf_arrayByTrimmingToLengthFromEnd(_ intLength: Int) -> NSArray {
         if (self.count == 0 || self.count < intLength || intLength < 0) {
             return self;
         }
@@ -88,7 +92,7 @@ extension NSArray {
 
     - returns: A subarray with the desired items, constrained by the number of items in the receiver.
     */
-    public func wmf_safeSubarrayWithRange(range: NSRange) -> NSArray {
+    public func wmf_safeSubarrayWithRange(_ range: NSRange) -> NSArray {
         if range.location > self.count - 1 || WMFRangeIsNotFoundOrEmpty(range) {
             return NSArray()
         }
@@ -96,19 +100,23 @@ extension NSArray {
             if WMFRangeGetMaxIndex(range) <= UInt(self.count) {
                 return range.length
             } else {
-                return max(0, self.count - range.location)
+                let countMinusLocation = self.count - range.location
+                guard countMinusLocation > 0 else {
+                    return 0
+                }
+                return countMinusLocation
             }
         }()
         if safeLength == 0 {
             return NSArray()
         }
         let safeRange = NSMakeRange(range.location, safeLength)
-        return self.subarrayWithRange(safeRange)
+        return self.subarray(with: safeRange) as NSArray
     }
 
     /// - returns: A reversed copy of the receiver.
     public func wmf_reverseArray() -> AnyObject {
-        return self.reverseObjectEnumerator().allObjects;
+        return self.reverseObjectEnumerator().allObjects as AnyObject;
     }
     
     /**
@@ -119,21 +127,21 @@ extension NSArray {
     
     :returns: The interleaved array
     */
-    public func wmf_arrayByInterleavingElementsFromArray(otherArray: NSArray) -> NSArray {
+    public func wmf_arrayByInterleavingElementsFromArray(_ otherArray: NSArray) -> NSArray {
         
         let newArray = self.mutableCopy() as! NSMutableArray;
         
-        otherArray.enumerateObjectsUsingBlock { (object, index, stop) -> Void in
+        otherArray.enumerateObjects({ (object, index, stop) -> Void in
             
             /* 
-            When adding items in an array from the begining, 
-            you need to adjust the index of each subssequent item to account for the previous added items.
-            Multipling the index by 2 does this.
-            */
+             When adding items in an array from the begining, 
+             you need to adjust the index of each subssequent item to account for the previous added items.
+             Multipling the index by 2 does this.
+             */
             var newIndex = 2*index + 1;
             newIndex = newIndex > newArray.count ? newArray.count : newIndex;
-            newArray.insertObject(object, atIndex: newIndex);
-        }
+            newArray.insert(object, at: newIndex);
+        })
         
         return newArray;
     }

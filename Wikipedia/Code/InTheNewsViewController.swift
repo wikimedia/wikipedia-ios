@@ -14,7 +14,7 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
         self.previewStore = previewStore
         super.init(nibName: "InTheNewsViewController", bundle: nil)
         title = localizedStringForKeyFallingBackOnEnglish("in-the-news-title")
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("back"), style: .Plain, target:nil, action:nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("back"), style: .plain, target:nil, action:nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -22,34 +22,34 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     
-    @IBAction func close(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func close(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.backgroundColor = UIColor.wmf_articleListBackgroundColor()
-        tableView.separatorColor = UIColor.wmf_lightGrayColor()
+        tableView.backgroundColor = UIColor.wmf_articleListBackground()
+        tableView.separatorColor = UIColor.wmf_lightGray()
         tableView.estimatedRowHeight = 64.0
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.registerNib(WMFArticleListTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFArticleListTableViewCell.identifier())
-        tableView.registerNib(MultilineLabelTableViewCell.wmf_classNib(), forCellReuseIdentifier: MultilineLabelTableViewCell.identifier)
-        tableView.registerNib(FullSizeImageTableViewCell.wmf_classNib(), forCellReuseIdentifier: FullSizeImageTableViewCell.identifier)
+        tableView.register(WMFArticleListTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFArticleListTableViewCell.identifier())
+        tableView.register(MultilineLabelTableViewCell.wmf_classNib(), forCellReuseIdentifier: MultilineLabelTableViewCell.identifier)
+        tableView.register(FullSizeImageTableViewCell.wmf_classNib(), forCellReuseIdentifier: FullSizeImageTableViewCell.identifier)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.tableFooterView = UIView(frame: CGRectZero)
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.reloadData()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         if let indexPath = tableView.indexPathForSelectedRow {
-            tableView.deselectRowAtIndexPath(indexPath, animated: animated)
+            tableView.deselectRow(at: indexPath, animated: animated)
         }
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
     
@@ -59,7 +59,7 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
             return mainArticlePreview?.thumbnailURL == nil ? 0 : 1
@@ -73,13 +73,13 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let mainArticlePreview = mainArticlePreview else {
             return UITableViewCell()
         }
         switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCellWithIdentifier(FullSizeImageTableViewCell.identifier, forIndexPath: indexPath) as? FullSizeImageTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: FullSizeImageTableViewCell.identifier, for: indexPath) as? FullSizeImageTableViewCell else {
                 return UITableViewCell()
             }
             
@@ -89,12 +89,12 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
                 return cell
             }
             
-            cell.fullSizeImageView.wmf_setImageWithURL(thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in cell.fullSizeImageView.wmf_showPlaceholder() }) {
+            cell.fullSizeImageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in cell.fullSizeImageView.wmf_showPlaceholder() }) {
             }
             
             return cell
         case 1:
-            guard let cell = tableView.dequeueReusableCellWithIdentifier(MultilineLabelTableViewCell.identifier, forIndexPath: indexPath) as? MultilineLabelTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MultilineLabelTableViewCell.identifier, for: indexPath) as? MultilineLabelTableViewCell else {
                 return UITableViewCell()
             }
             
@@ -104,17 +104,17 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
             
             var font: UIFont
             if #available(iOS 10.0, *) {
-                font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody, compatibleWithTraitCollection: nil)
+                font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body, compatibleWith: nil)
             } else {
-                font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+                font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             }
-            let linkFont = UIFont.boldSystemFontOfSize(font.pointSize)
-            let attributedString = storyHTML.wmf_attributedStringByRemovingHTMLWithFont(font, linkFont: linkFont)
+            let linkFont = UIFont.boldSystemFont(ofSize: font.pointSize)
+            let attributedString = storyHTML.wmf_attributedStringByRemovingHTML(with: font, linkFont: linkFont)
             cell.multilineLabel.attributedText = attributedString
            
             return cell
         default:
-            guard let cell = tableView.dequeueReusableCellWithIdentifier(WMFArticleListTableViewCell.identifier(), forIndexPath: indexPath) as? WMFArticleListTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFArticleListTableViewCell.identifier(), for: indexPath) as? WMFArticleListTableViewCell else {
                 return UITableViewCell()
             }
             
@@ -137,24 +137,24 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
        
     }
     
-    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return indexPath.section == 2
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let index = indexPath.row
         guard index >= 0 else {
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
             return
         }
-        guard let articlePreviews = story.articlePreviews where articlePreviews.count > index else {
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        guard let articlePreviews = story.articlePreviews, articlePreviews.count > index else {
+            tableView.deselectRow(at: indexPath, animated: true)
             return
         }
         
         let articlePreview = articlePreviews[index]
         let articleURL = articlePreview.articleURL
         
-        wmf_pushArticleWithURL(articleURL, dataStore: dataStore, previewStore: previewStore, animated: true)
+        wmf_pushArticle(with: articleURL, dataStore: dataStore, previewStore: previewStore, animated: true)
     }
 }

@@ -6,6 +6,6 @@ extension UIApplication {
     }
     
     var wmf_isRTL: Bool {
-        get { return self.userInterfaceLayoutDirection == .RightToLeft }
+        get { return self.userInterfaceLayoutDirection == .rightToLeft }
     }
 }

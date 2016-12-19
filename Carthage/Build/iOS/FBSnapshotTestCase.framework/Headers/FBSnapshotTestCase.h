@@ -62,43 +62,9 @@
 
 #define FBSnapshotVerifyViewOrLayerWithOptions(what__, viewOrLayer__, identifier__, suffixes__, tolerance__) \
 { \
-  NSString *referenceImageDirectory = [self getReferenceImageDirectoryWithDefault:(@ FB_REFERENCE_IMAGE_DIR)]; \
-  XCTAssertNotNil(referenceImageDirectory, @"Missing value for referenceImagesDirectory - Set FB_REFERENCE_IMAGE_DIR as Environment variable in your scheme.");\
-  XCTAssertTrue((suffixes__.count > 0), @"Suffixes set cannot be empty %@", suffixes__); \
-  \
-  BOOL testSuccess__ = NO; \
-  NSError *error__ = nil; \
-  NSMutableArray *errors__ = [NSMutableArray array]; \
-  \
-  if (self.recordMode) { \
-    \
-    NSString *referenceImagesDirectory__ = [NSString stringWithFormat:@"%@%@", referenceImageDirectory, suffixes__.firstObject]; \
-    BOOL referenceImageSaved__ = [self compareSnapshotOf ## what__ :(viewOrLayer__) referenceImagesDirectory:referenceImagesDirectory__ identifier:(identifier__) tolerance:(tolerance__) error:&error__]; \
-    if (!referenceImageSaved__) { \
-      [errors__ addObject:error__]; \
-    } \
-  } else { \
-    \
-    for (NSString *suffix__ in suffixes__) { \
-      NSString *referenceImagesDirectory__ = [NSString stringWithFormat:@"%@%@", referenceImageDirectory, suffix__]; \
-      BOOL referenceImageAvailable = [self referenceImageRecordedInDirectory:referenceImagesDirectory__ identifier:(identifier__) error:&error__]; \
-      \
-      if (referenceImageAvailable) { \
-        BOOL comparisonSuccess__ = [self compareSnapshotOf ## what__ :(viewOrLayer__) referenceImagesDirectory:referenceImagesDirectory__ identifier:(identifier__) tolerance:(tolerance__) error:&error__]; \
-        [errors__ removeAllObjects]; \
-        if (comparisonSuccess__) { \
-          testSuccess__ = YES; \
-          break; \
-        } else { \
-          [errors__ addObject:error__]; \
-        } \
-      } else { \
-        [errors__ addObject:error__]; \
-      } \
-    } \
-  } \
-  XCTAssertTrue(testSuccess__, @"Snapshot comparison failed: %@", errors__.firstObject); \
-  XCTAssertFalse(self.recordMode, @"Test ran in record mode. Reference image is now saved. Disable record mode to perform an actual snapshot comparison!"); \
+  NSString *errorDescription = [self snapshotVerifyViewOrLayer:viewOrLayer__ identifier:identifier__ suffixes:suffixes__ tolerance:tolerance__]; \
+  BOOL noErrors = (errorDescription == nil); \
+  XCTAssertTrue(noErrors, @"%@", errorDescription); \
 }
 
 
@@ -147,6 +113,19 @@
 
 - (void)setUp NS_REQUIRES_SUPER;
 - (void)tearDown NS_REQUIRES_SUPER;
+
+/**
+ Performs the comparison or records a snapshot of the layer if recordMode is YES.
+ @param viewOrLayer The UIView or CALayer to snapshot
+ @param identifier An optional identifier, used if there are multiple snapshot tests in a given -test method.
+ @param suffixes An NSOrderedSet of strings for the different suffixes
+ @param tolerance The percentage difference to still count as identical - 0 mean pixel perfect, 1 means I don't care
+ @returns nil if the comparison (or saving of the reference image) succeeded. Otherwise it contains an error description.
+ */
+- (NSString *)snapshotVerifyViewOrLayer:(id)viewOrLayer
+                             identifier:(NSString *)identifier
+                               suffixes:(NSOrderedSet *)suffixes
+                              tolerance:(CGFloat)tolerance;
 
 /**
  Performs the comparison or records a snapshot of the layer if recordMode is YES.

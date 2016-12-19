@@ -42,6 +42,7 @@ static NSString *const WMFSettingsURLZeroFAQ = @"https://m.wikimediafoundation.o
 static NSString *const WMFSettingsURLTerms = @"https://m.wikimediafoundation.org/wiki/Terms_of_Use";
 static NSString *const WMFSettingsURLRate = @"itms-apps://itunes.apple.com/app/id324715238";
 static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=<app-version>&uselang=<langcode>";
+static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafoundation.org/wiki/Privacy_policy";
 
 @interface WMFSettingsViewController () <UITableViewDelegate, WMFPreferredLanguagesViewControllerDelegate, FBTweakViewControllerDelegate>
 
@@ -182,7 +183,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             [self wmf_openExternalUrl:[self donationURL]];
             break;
         case WMFSettingsMenuItemType_PrivacyPolicy:
-            [self wmf_openExternalUrl:[NSURL URLWithString:URL_PRIVACY_POLICY]];
+            [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLPrivacyPolicy]];
             break;
         case WMFSettingsMenuItemType_Terms:
             [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLTerms]];

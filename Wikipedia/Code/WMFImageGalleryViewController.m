@@ -175,7 +175,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSData *)imageData {
-    return nil;
+    NSURL *URL = self.bestImageURL;
+    return [URL.absoluteString.lowercaseString containsString:@".gif"] ? [[WMFImageController sharedInstance] diskDataForImageWithURL:URL] : nil;
 }
 
 - (nullable NSAttributedString *)attributedCaptionTitle {

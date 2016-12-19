@@ -1,38 +1,32 @@
 import Foundation
 
-extension NSNumberFormatter {
+let thousandsFormatter = { () -> NumberFormatter in
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+    formatter.maximumFractionDigits = 1
+    formatter.roundingMode = .halfUp
+    return formatter
+}()
+
+let threeSignificantDigitWholeNumberFormatterGlobal = { () -> NumberFormatter in
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+    formatter.maximumFractionDigits = 0
+    formatter.usesSignificantDigits = true
+    formatter.maximumSignificantDigits = 3
+    formatter.roundingMode = .halfUp
+    return formatter
+}()
+
+extension NumberFormatter {
     
-    public class var threeSignificantDigitWholeNumberFormatter: NSNumberFormatter? {
+    public class var threeSignificantDigitWholeNumberFormatter: NumberFormatter {
         get {
-            struct Static {
-                static var onceToken: dispatch_once_t = 0
-                static var formatter: NSNumberFormatter? = nil
-            }
-            
-            dispatch_once(&Static.onceToken) {
-                Static.formatter = NSNumberFormatter()
-                Static.formatter?.numberStyle = .DecimalStyle
-                Static.formatter?.maximumFractionDigits = 0
-                Static.formatter?.usesSignificantDigits = true
-                Static.formatter?.maximumSignificantDigits = 3
-                Static.formatter?.roundingMode = .RoundHalfUp
-            }
-            return Static.formatter
+            return threeSignificantDigitWholeNumberFormatterGlobal
         }
     }
     
-    public class func localizedThousandsStringFromNumber(number: NSNumber) -> String {
-        struct Static {
-            static var onceToken: dispatch_once_t = 0
-            static var formatter: NSNumberFormatter? = nil
-        }
-        
-        dispatch_once(&Static.onceToken) {
-            Static.formatter = NSNumberFormatter()
-            Static.formatter?.numberStyle = .DecimalStyle
-            Static.formatter?.maximumFractionDigits = 1
-        }
-        
+    public class func localizedThousandsStringFromNumber(_ number: NSNumber) -> String {
         let doubleValue = number.doubleValue
         let absDoubleValue = abs(doubleValue)
         
@@ -54,8 +48,9 @@ extension NSNumberFormatter {
             adjustedDoubleValue = doubleValue
         }
         
-        if let numberString = Static.formatter?.stringFromNumber(adjustedDoubleValue) {
-            return formatString.stringByReplacingOccurrencesOfString("$1" , withString: numberString)
+        
+        if let numberString = thousandsFormatter.string(from: NSNumber(value:adjustedDoubleValue)) {
+            return formatString.replacingOccurrences(of: "$1" , with: numberString)
         } else {
             return ""
         }

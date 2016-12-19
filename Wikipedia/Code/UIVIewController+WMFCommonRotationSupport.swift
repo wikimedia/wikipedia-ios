@@ -2,10 +2,10 @@ import UIKit
 
 public extension UIViewController {
     public func wmf_orientationMaskPortraitiPhoneAnyiPad() -> UIInterfaceOrientationMask{
-        if(UI_USER_INTERFACE_IDIOM() == .Pad){
-            return .All;
+        if(UI_USER_INTERFACE_IDIOM() == .pad){
+            return .all;
         }else{
-            return .Portrait;
+            return .portrait;
         }
     }
 }

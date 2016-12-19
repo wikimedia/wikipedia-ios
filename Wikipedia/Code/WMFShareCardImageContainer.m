@@ -2,8 +2,25 @@
 #import "UIImage+WMFFocalImageDrawing.h"
 #import "WMFGeometry.h"
 
+@interface WMFShareCardImageContainer ()
+@property (nonatomic) CGRect focalBounds;
+@end
+
 @implementation WMFShareCardImageContainer
 
+- (void)setLeadImage:(MWKImage *)leadImage {
+    if (_leadImage == leadImage) {
+        return;
+    }
+    _leadImage = leadImage;
+    [_leadImage isDownloaded:^(BOOL isDownloaded) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.focalBounds = isDownloaded ? [self getPrimaryFocalRectFromCanonicalLeadImage] : CGRectZero;
+            [self setNeedsDisplay];
+        });
+    }];
+}
+    
 - (CGRect)getPrimaryFocalRectFromCanonicalLeadImage {
     NSAssert([self.leadImage isVariantOfImage:self.leadImage.article.image], @"Primary focal rect sought on non-lead image.");
 
@@ -22,10 +39,8 @@
     [super drawRect:rect];
     [self drawGradientBackground];
 
-    CGRect focalBounds = self.leadImage.isDownloaded ? [self getPrimaryFocalRectFromCanonicalLeadImage] : CGRectZero;
-
     [self.image wmf_drawInRect:rect
-                   focalBounds:focalBounds
+                   focalBounds:self.focalBounds
                 focalHighlight:NO
                      blendMode:kCGBlendModeMultiply
                          alpha:1.0];

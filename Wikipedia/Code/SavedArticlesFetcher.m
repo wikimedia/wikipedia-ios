@@ -114,7 +114,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             [self fetchUncachedArticleURLs:@[url]];
         } else {
             [self cancelFetchForArticleURL:url];
-            [self.spotlightManager removeFromIndex:url];
+            [self.spotlightManager removeFromIndexWithUrl:url];
         }
     }
 }
@@ -176,7 +176,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                 failure:^(NSError *error) {
                 }
                 success:^{
-                    [self.spotlightManager addToIndex:url];
+                    [self.spotlightManager addToIndexWithUrl:url];
                 }];
         });
     }
@@ -195,10 +195,6 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         // only fetch images if article was cached
         [self downloadImageDataForArticle:articleFromDisk failure:failure success:success];
     } else {
-        /*
-           don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
-           immediately in order to ensure accurate progress & error reporting.
-         */
         self.fetchOperationsByArticleTitle[articleURL] =
             [self.articleFetcher fetchArticleForURL:articleURL
                 progress:NULL
@@ -232,68 +228,116 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (void)downloadImageDataForArticle:(MWKArticle *)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+    dispatch_block_t doneMigration = ^{
+        [self fetchAllImagesInArticle:article
+                              failure:^(NSError *error) {
+                                  failure([NSError wmf_savedPageImageDownloadError]);
+                              }
+                              success:^{
+                                  //NOTE: turning off gallery image fetching as users are potentially downloading large amounts of data up front when upgrading to a new version of the app.
+                                  //        [self fetchGalleryDataForArticle:article failure:failure success:success];
+                                  if (success) {
+                                      success();
+                                  }
+                              }];
+    };
     if (![[NSUserDefaults wmf_userDefaults] wmf_didFinishLegacySavedArticleImageMigration]) {
-        WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0 .5)
-            [self migrateLegacyImagesInArticle:article];
+        WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0.5)
+        [self migrateLegacyImagesInArticle:article completion:doneMigration];
+    } else {
+        doneMigration();
     }
-    [self fetchAllImagesInArticle:article
-        failure:^(NSError *error) {
-            failure([NSError wmf_savedPageImageDownloadError]);
-        }
-        success:^{
-            //NOTE: turning off gallery image fetching as users are potentially downloading large amounts of data up front when upgrading to a new version of the app.
-            //        [self fetchGalleryDataForArticle:article failure:failure success:success];
-            if (success) {
-                success();
-            }
-        }];
+    
 }
 
-- (void)migrateLegacyImagesInArticle:(MWKArticle *)article {
+- (void)migrateLegacyImagesInArticle:(MWKArticle *)article completion:(dispatch_block_t)completion {
     //  Copies saved article images cached by versions 5.0.4 and older to the locations where 5.0.5 and newer are looking for them. Previously, the app cached at the width of the largest image in the srcset. Currently, we request a thumbnail at wmf_articleImageWidthForScale (or original if it's narrower than that width). By copying from the old size to the new expected sizes, we ensure that articles saved with these older versions will still have images availble offline in the newer versions.
     WMFImageController *imageController = [WMFImageController sharedInstance];
     NSArray *legacyImageURLs = [self.dataStore legacyImageURLsForArticle:article];
     NSInteger articleImageWidth = [[UIScreen mainScreen] wmf_articleImageWidthForScale];
+    WMFTaskGroup *group = [WMFTaskGroup new];
     for (NSURL *legacyImageURL in legacyImageURLs) {
         @autoreleasepool {
             NSString *legacyImageURLString = legacyImageURL.absoluteString;
             NSInteger width = WMFParseSizePrefixFromSourceURL(legacyImageURLString);
-            if (width != articleImageWidth && width != NSNotFound) {
-                if (legacyImageURL != nil && [imageController hasDataOnDiskForImageWithURL:legacyImageURL]) {
-                    NSURL *cachedFileURL = [NSURL fileURLWithPath:[imageController cachePathForImageWithURL:legacyImageURL] isDirectory:NO];
-                    if (cachedFileURL != nil) {
-                        NSString *imageExtension = [legacyImageURL pathExtension];
-                        NSString *imageMIMEType = [imageExtension wmf_asMIMEType];
-
-                        NSString *imageURLStringAtArticleWidth = WMFChangeImageSourceURLSizePrefix(legacyImageURLString, articleImageWidth);
-                        NSURL *imageURLAtArticleWidth = [NSURL URLWithString:imageURLStringAtArticleWidth];
-                        if (imageURLAtArticleWidth != nil && ![imageController hasDataOnDiskForImageWithURL:imageURLAtArticleWidth]) {
-                            [imageController cacheImageFromFileURL:cachedFileURL forURL:imageURLAtArticleWidth MIMEType:imageMIMEType];
-                        }
-
-                        NSString *originalImageURLString = WMFOriginalImageURLStringFromURLString(legacyImageURLString);
-                        NSURL *originalImageURL = [NSURL URLWithString:originalImageURLString];
-                        if (![imageController hasDataOnDiskForImageWithURL:originalImageURL]) {
-                            [imageController cacheImageFromFileURL:cachedFileURL forURL:originalImageURL MIMEType:imageMIMEType];
-                        }
-                    }
-                }
+            if (width == articleImageWidth || width == NSNotFound) {
+                continue;
             }
+            
+            if (legacyImageURL == nil) {
+                continue;
+            }
+            
+            [group enter];
+            [imageController hasDataOnDiskForImageWithURL:legacyImageURL completion:^(BOOL hasLegacyImageData) {
+                if (!hasLegacyImageData) {
+                    [group leave];
+                    return;
+                }
+                
+                NSURL *cachedFileURL = [NSURL fileURLWithPath:[imageController cachePathForImageWithURL:legacyImageURL] isDirectory:NO];
+                
+                if (cachedFileURL == nil) {
+                    [group leave];
+                    return;
+                }
+                
+                NSString *imageExtension = [legacyImageURL pathExtension];
+                NSString *imageMIMEType = [imageExtension wmf_asMIMEType];
+                
+                NSString *imageURLStringAtArticleWidth = WMFChangeImageSourceURLSizePrefix(legacyImageURLString, articleImageWidth);
+                NSURL *imageURLAtArticleWidth = [NSURL URLWithString:imageURLStringAtArticleWidth];
+                
+                if (imageURLAtArticleWidth == nil) {
+                    [group leave];
+                    return;
+                }
+                
+               
+                [group enter];
+                [imageController hasDataOnDiskForImageWithURL:imageURLAtArticleWidth completion:^(BOOL hasArticleWithData) {
+                    if (hasArticleWithData) {
+                        [group leave];
+                        return;
+                    }
+                
+                    [imageController cacheImageFromFileURL:cachedFileURL forURL:imageURLAtArticleWidth MIMEType:imageMIMEType];
+                    [group leave];
+                }];
+                
+                NSString *originalImageURLString = WMFOriginalImageURLStringFromURLString(legacyImageURLString);
+                NSURL *originalImageURL = [NSURL URLWithString:originalImageURLString];
+                [group enter];
+                [imageController hasDataOnDiskForImageWithURL:originalImageURL completion:^(BOOL hasOriginalData) {
+                    if (hasOriginalData) {
+                        [group leave];
+                        return;
+                    }
+                     [imageController cacheImageFromFileURL:cachedFileURL forURL:originalImageURL MIMEType:imageMIMEType];
+                    [group leave];
+                }];
+                
+                [group leave];
+            }];
         }
     }
+    [group waitInBackgroundWithTimeout:10 completion:completion];
 }
 
 - (void)fetchAllImagesInArticle:(MWKArticle *)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+    dispatch_block_t doneMigration = ^{
+        WMFURLCache *cache = (WMFURLCache *)[NSURLCache sharedURLCache];
+        [cache permanentlyCacheImagesForArticle:article];
+        
+        NSArray<NSURL *> *URLs = [[article allImageURLs] allObjects];
+        [self cacheImagesWithURLsInBackground:URLs failure:failure success:success];
+    };
     if (![[NSUserDefaults wmf_userDefaults] wmf_didFinishLegacySavedArticleImageMigration]) {
         WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0 .5)
-            [self migrateLegacyImagesInArticle:article];
+            [self migrateLegacyImagesInArticle:article completion:doneMigration];
+    } else {
+        doneMigration();
     }
-
-    WMFURLCache *cache = (WMFURLCache *)[NSURLCache sharedURLCache];
-    [cache permanentlyCacheImagesForArticle:article];
-
-    NSArray<NSURL *> *URLs = [[article allImageURLs] allObjects];
-    [self cacheImagesWithURLsInBackground:URLs failure:failure success:success];
 }
 
 - (void)fetchGalleryDataForArticle:(MWKArticle *)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
@@ -326,7 +370,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         [MWKImage mapFilenamesFromImages:[article imagesForGallery]];
 
     if (imageFileTitles.count == 0) {
-        DDLogVerbose(@"No image info to fetch, returning successful promise with empty array.");
+        DDLogVerbose(@"No image info to fetch.");
         success(imageFileTitles);
         return;
     }
