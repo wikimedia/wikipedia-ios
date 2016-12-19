@@ -49,7 +49,12 @@
 
 - (void)setImageURL:(NSURL *)imageURL {
     if (imageURL) {
-        [self.imageView wmf_setImageWithURL:imageURL detectFaces:YES failure:NULL success:NULL];
+        [self.imageView wmf_setImageWithURL:imageURL
+                                detectFaces:YES
+                                    failure:^(NSError *_Nonnull error) {
+                                    }
+                                    success:^{
+                                    }];
         [self restoreImageToFullHeight];
     } else {
         [self.imageView wmf_reset];
@@ -74,6 +79,11 @@
 }
 
 - (void)setCaptionHTML:(NSString *)text {
+    //HACK: Fix padding around the caption
+    if ([text rangeOfString:@"<p>"].location == NSNotFound) {
+        text = [NSString stringWithFormat:@"<p>%@</p>", text];
+    }
+
     NSAttributedString *attributedString = [self attributedStringForCaptionHTML:text];
     if (attributedString) {
         [self.captionTextView setAttributedText:attributedString];
