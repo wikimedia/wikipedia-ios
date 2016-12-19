@@ -595,11 +595,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    NSArray<WMFExploreCollectionViewCell *> *placeholderCells = self.placeholderCells.allValues;
-    //forces trait collection update on placeholder cells
-    for (WMFExploreCollectionViewCell *cell in placeholderCells) {
-        cell.wmf_placeholderTraitCollection = self.traitCollection;
-    }
     [self registerForPreviewingIfAvailable];
 }
 
@@ -772,6 +767,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
             CGFloat estimatedHeight = [WMFArticlePreviewCollectionViewCell estimatedRowHeightWithImage:article.thumbnailURL != nil];
             CGRect frameToFit = CGRectMake(0, 0, columnWidth, estimatedHeight);
             WMFArticlePreviewCollectionViewCell *cell = [self placeholderCellForIdentifier:[WMFArticlePreviewCollectionViewCell wmf_nibName]];
+            NSAssert([cell.traitCollection.preferredContentSizeCategory isEqualToString:collectionView.traitCollection.preferredContentSizeCategory], @"Content size category should match");
             cell.frame = frameToFit;
             [self configurePreviewCell:cell withSection:section withArticle:article atIndexPath:indexPath];
             WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
@@ -998,11 +994,12 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 - (void)registerNib:(UINib *)nib forCellWithReuseIdentifier:(NSString *)identifier {
     [self.collectionView registerNib:nib forCellWithReuseIdentifier:identifier];
-    id placeholderCell = [[nib instantiateWithOwner:nil options:nil] firstObject];
+    WMFExploreCollectionViewCell *placeholderCell = [[nib instantiateWithOwner:nil options:nil] firstObject];
     if (!placeholderCell) {
         return;
     }
-    [placeholderCell setHidden:YES];
+    placeholderCell.hidden = YES;
+    [self.view insertSubview:placeholderCell atIndex:0];
     [self.placeholderCells setObject:placeholderCell forKey:identifier];
 }
 
