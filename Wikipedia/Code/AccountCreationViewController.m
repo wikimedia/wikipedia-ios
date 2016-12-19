@@ -4,7 +4,6 @@
 #import "UIScrollView+ScrollSubviewToLocation.h"
 #import "LoginViewController.h"
 #import "PreviewAndSaveViewController.h"
-#import "UIView+Debugging.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFChildViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
