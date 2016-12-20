@@ -34,6 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addContentGroup:(WMFContentGroup *)group associatedContent:(NSArray<NSCoding> *)content;
 
+- (NSArray<WMFContentGroup *> *)contentGroupsOfKind:(WMFContentGroupKind)kind;
+
 - (void)removeContentGroup:(WMFContentGroup *)group;
 
 - (void)removeContentGroupsWithKeys:(NSArray<NSString *> *)keys;
