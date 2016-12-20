@@ -866,7 +866,11 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     @weakify(section);
     header.whenTapped = ^{
         @strongify(self);
-        [self didTapHeaderInSection:indexPath.section];
+        NSIndexPath *indexPathForSection = [self.fetchedResultsController indexPathForObject:section];
+        if (!indexPathForSection) {
+            return;
+        }
+        [self didTapHeaderInSection:indexPathForSection.row];
     };
 
     if (([section blackListOptions] & WMFFeedBlacklistOptionContent) && [section headerContentURL]) {
@@ -954,7 +958,11 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     @weakify(self);
     footer.whenTapped = ^{
         @strongify(self);
-        [self presentMoreViewControllerForSectionAtIndex:indexPath.section animated:YES];
+        NSIndexPath *indexPathForSection = [self.fetchedResultsController indexPathForObject:group];
+        if (!indexPathForSection) {
+            return;
+        }
+        [self presentMoreViewControllerForSectionAtIndex:indexPathForSection.row animated:YES];
     };
     return footer;
 }
