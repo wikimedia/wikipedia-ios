@@ -119,17 +119,46 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)loadContentForDate:(NSDate *)date force:(BOOL)force completion:(nullable dispatch_block_t)completion {
     WMFTaskGroup *group = [WMFTaskGroup new];
 
-    [group enter];
-    [self.userDataStore enumerateArticlesWithBlock:^(WMFArticle *_Nonnull entry, BOOL *_Nonnull stop) {
-        [group enter];
-        [self updateRelatedGroupForReference:entry
-                                        date:date
-                                  completion:^{
-                                      [group leave];
-                                  }];
-    }];
-    [group leave];
+    NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
+    fetchRequest.propertiesToFetch = @[@"key"];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(WMFContentGroupKindRelatedPages)];
+    NSError *fetchError = nil;
+    NSArray<WMFContentGroup *> *relatedPagesContentGroups = [self.userDataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
+    if (fetchError || !relatedPagesContentGroups) {
+        DDLogError(@"Error fetching content groups: %@", fetchError);
+    }
+    NSArray<NSString *> *keys = [relatedPagesContentGroups valueForKey:@"key"];
+    NSMutableDictionary<NSString *, WMFContentGroup *> *relatedPagesContentGroupsByKey = [NSMutableDictionary dictionaryWithObjects:relatedPagesContentGroups forKeys:keys];
 
+    [self.userDataStore enumerateArticlesWithBlock:^(WMFArticle *_Nonnull reference, BOOL *_Nonnull stop) {
+        if ([reference needsRelatedPagesGroupForDate:date]) {
+            [group enter];
+            [self fetchAndSaveRelatedArticlesForArticle:reference completion:^{
+                [group leave];
+            }];
+        } else if (reference && ![reference needsRelatedPagesGroup]) {
+            NSURL *URL = reference.URL;
+            if (!URL) {
+                return;
+            }
+            NSURL *contentGroupURL = [WMFContentGroup relatedPagesContentGroupURLForArticleURL:URL];
+            if (!contentGroupURL) {
+                return;
+            }
+            NSString *key = [WMFContentGroup databaseKeyForURL:contentGroupURL];
+            if (!key) {
+                return;
+            }
+            WMFContentGroup *group = relatedPagesContentGroupsByKey[key];
+            if (!group) {
+                return;
+            }
+            
+            [self.contentStore removeContentGroup:group];
+            [relatedPagesContentGroupsByKey removeObjectForKey:key];
+        }
+    }];
+    
     [group waitInBackgroundWithCompletion:^{
         if (completion) {
             completion();
@@ -139,39 +168,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)removeAllContent {
     [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindRelatedPages];
-}
-
-#pragma mark - Process Changes
-
-- (void)updateMoreLikeSectionForURL:(NSURL *)url date:(NSDate *)date completion:(nullable dispatch_block_t)completion {
-    WMFArticle *reference = [self.userDataStore fetchArticleForURL:url];
-    [self updateRelatedGroupForReference:reference date:date completion:completion];
-}
-
-- (void)updateRelatedGroupForReference:(WMFArticle *)reference date:(NSDate *)date completion:(nullable dispatch_block_t)completion {
-    if ([reference needsRelatedPagesGroupForDate:date]) {
-        [self fetchAndSaveRelatedArticlesForArticle:reference completion:completion];
-    } else if (reference && ![reference needsRelatedPagesGroup]) {
-        [self removeSectionForReference:reference];
-        if (completion) {
-            completion();
-        }
-    } else {
-        if (completion) {
-            completion();
-        }
-    }
-}
-
-- (void)removeSectionForReference:(WMFArticle *)reference {
-    NSURL *URL = reference.URL;
-    if (!URL) {
-        return;
-    }
-    WMFContentGroup *group = [self.contentStore contentGroupForURL:[WMFContentGroup relatedPagesContentGroupURLForArticleURL:URL]];
-    if (group) {
-        [self.contentStore removeContentGroup:group];
-    }
 }
 
 #pragma mark - Fetch
@@ -190,6 +186,9 @@ NS_ASSUME_NONNULL_BEGIN
         resultLimit:WMFMaxRelatedSearchResultLimit
         completionBlock:^(WMFRelatedSearchResults *_Nonnull results) {
             if ([results.results count] == 0) {
+                if (completion) {
+                    completion();
+                }
                 return;
             }
             NSArray<NSURL *> *urls = [results.results bk_map:^id(id obj) {
