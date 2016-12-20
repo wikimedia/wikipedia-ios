@@ -23,7 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WebViewController ()
 
-@property (nonatomic, strong, readwrite) WKWebView *webView;
+@property (nonatomic, strong, readwrite, nullable) WKWebView *webView;
+@property (nonatomic, strong, readwrite, nullable) UIScrollView *webViewScrollView;
 
 @property (nonatomic, strong, nullable, readwrite) MWKArticle *article;
 @property (nonatomic, strong, nullable, readwrite) NSURL *articleURL;
