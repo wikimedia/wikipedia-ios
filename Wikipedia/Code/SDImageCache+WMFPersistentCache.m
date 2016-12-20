@@ -36,7 +36,7 @@
 
 + (instancetype)wmf_cacheWithNamespace:(NSString *)ns {
 
-    SDImageCache *cache = [[SDImageCache alloc] initWithNamespace:ns inDirectory:[SDImageCache wmf_cacheDirectory]];
+    SDImageCache *cache = [[SDImageCache alloc] initWithNamespace:ns diskCacheDirectory:[SDImageCache wmf_cacheDirectory]];
 
     NSString *fullPath = [cache defaultCachePathForKey:@"bogus"];
     fullPath = [fullPath stringByDeletingLastPathComponent];

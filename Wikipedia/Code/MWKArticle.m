@@ -422,7 +422,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     NSURL *articleThumbnailURL = [NSURL wmf_optionalURLWithString:self.thumbnailURL];
     [imageURLs wmf_safeAddObject:articleThumbnailURL];
 
-#if DEBUG
+#if !defined(NS_BLOCK_ASSERTIONS)
     for (NSURL *url in imageURLs) {
         NSAssert(url.scheme == nil, @"Non nil image url scheme detected! These must be nil here or we can get duplicate image urls in the set - ie the same url twice - once with the scheme and once without. This is because WMFImageTagParser returns urls without schemes because the html it parses does not have schemes - but the MWKImageInfo *does* have schemes in its 'canonicalFileURL' and 'imageThumbURL' properties because the api returns schemes.");
     }

@@ -1,19 +1,19 @@
 
 class WMFWelcomeContainerViewController: UIViewController {
     
-    @IBOutlet private var topContainerView:UIView!
-    @IBOutlet private var bottomContainerView:UIView!
+    @IBOutlet fileprivate var topContainerView:UIView!
+    @IBOutlet fileprivate var bottomContainerView:UIView!
 
-    @IBOutlet private var overallContainerView:UIView!
-    @IBOutlet private var overallContainerViewCenterYConstraint:NSLayoutConstraint!
-    @IBOutlet private var topContainerViewHeightConstraint:NSLayoutConstraint!
+    @IBOutlet fileprivate var overallContainerView:UIView!
+    @IBOutlet fileprivate var overallContainerViewCenterYConstraint:NSLayoutConstraint!
+    @IBOutlet fileprivate var topContainerViewHeightConstraint:NSLayoutConstraint!
     
     var welcomePageType:WMFWelcomePageType = .intro
-    private var animationVC:WMFWelcomeAnimationViewController? = nil
+    fileprivate var animationVC:WMFWelcomeAnimationViewController? = nil
 
     weak var welcomeNavigationDelegate:WMFWelcomeNavigationDelegate? = nil
     
-    private var hasAlreadyFadedInAndUp = false
+    fileprivate var hasAlreadyFadedInAndUp = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,14 +22,14 @@ class WMFWelcomeContainerViewController: UIViewController {
         hideAndCollapseTopContainerViewIfDeviceIsiPhone4s()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if (shouldFadeInAndUp() && !hasAlreadyFadedInAndUp) {
             view.wmf_zeroLayerOpacity()
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if (shouldFadeInAndUp() && !hasAlreadyFadedInAndUp) {
@@ -38,7 +38,7 @@ class WMFWelcomeContainerViewController: UIViewController {
         }
     }
     
-    private func shouldFadeInAndUp() -> Bool {
+    fileprivate func shouldFadeInAndUp() -> Bool {
         switch welcomePageType {
         case .intro:
             return false
@@ -49,34 +49,34 @@ class WMFWelcomeContainerViewController: UIViewController {
         }
     }
 
-    private func hideAndCollapseTopContainerViewIfDeviceIsiPhone4s() {
+    fileprivate func hideAndCollapseTopContainerViewIfDeviceIsiPhone4s() {
         if view.frame.size.height == 480 {
             topContainerView.alpha = 0
             topContainerViewHeightConstraint.constant = 0
         }
     }
     
-    private func useBottomAlignmentIfPhone() {
+    fileprivate func useBottomAlignmentIfPhone() {
         assert(overallContainerViewCenterYConstraint.priority == 999, "The Y centering constraint must not have required '1000' priority because on non-tablets we add a required bottom alignment constraint on overallContainerView which we want to be favored when present.")
-        if (UI_USER_INTERFACE_IDIOM() == .Phone) {
+        if (UI_USER_INTERFACE_IDIOM() == .phone) {
             overallContainerView.mas_makeConstraints { make in
-                make.bottom.equalTo()(self.mas_bottomLayoutGuideTop)
+                _ = make?.bottom.equalTo()(self.mas_bottomLayoutGuideTop)
             }
         }
     }
     
-    private func embedBottomContainerControllerView() {
-        bottomContainerController.willMoveToParentViewController(self)
+    fileprivate func embedBottomContainerControllerView() {
+        bottomContainerController.willMove(toParentViewController: self)
         bottomContainerController.view.translatesAutoresizingMaskIntoConstraints = false
         bottomContainerView.addSubview((bottomContainerController.view)!)
         bottomContainerController.view.mas_makeConstraints { make in
-            make.top.bottom().leading().and().trailing().equalTo()(self.bottomContainerView)
+            _ = make?.top.bottom().leading().and().trailing().equalTo()(self.bottomContainerView)
         }
         self.addChildViewController(bottomContainerController)
-        bottomContainerController.didMoveToParentViewController(self)
+        bottomContainerController.didMove(toParentViewController: self)
     }
 
-    private lazy var bottomContainerController: UIViewController = {
+    fileprivate lazy var bottomContainerController: UIViewController = {
         switch self.welcomePageType {
         case .intro:
             return WMFWelcomeIntroductionViewController.wmf_viewControllerFromWelcomeStoryboard()
@@ -91,14 +91,14 @@ class WMFWelcomeContainerViewController: UIViewController {
         }
     }()
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if(segue.destinationViewController.isKindOfClass(WMFWelcomeAnimationViewController)){
-            animationVC = segue.destinationViewController as? WMFWelcomeAnimationViewController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.destination.isKind(of: WMFWelcomeAnimationViewController.self)){
+            animationVC = segue.destination as? WMFWelcomeAnimationViewController
             animationVC!.welcomePageType = welcomePageType
         }
     }
     
-    @IBAction private func next(withSender sender: AnyObject) {
+    @IBAction fileprivate func next(withSender sender: AnyObject) {
         welcomeNavigationDelegate?.showNextWelcomePage(self)
     }
 }

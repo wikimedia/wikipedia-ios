@@ -767,7 +767,9 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
         return nil;
     }
     WMFArticleViewController *visibleArticleViewController = self.visibleArticleViewController;
-    if ([visibleArticleViewController.articleURL isEqual:articleURL]) {
+    NSString *visibleKey = visibleArticleViewController.articleURL.wmf_articleDatabaseKey;
+    NSString *articleKey = articleURL.wmf_articleDatabaseKey;
+    if (visibleKey && articleKey && [visibleKey isEqualToString:articleKey]) {
         return visibleArticleViewController;
     }
     [self selectExploreTabAndDismissPresentedViewControllers];

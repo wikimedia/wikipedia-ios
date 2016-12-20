@@ -11,6 +11,6 @@ class FullSizeImageTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.wmf_makeCellDividerBeEdgeToEdge()
+        self.wmf_makeDividerBeEdgeToEdge()
     }
 }

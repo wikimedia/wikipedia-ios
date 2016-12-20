@@ -7,6 +7,6 @@ class MultilineLabelTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.wmf_makeCellDividerBeEdgeToEdge()
+        self.wmf_makeDividerBeEdgeToEdge()
     }
 }

@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock;
 
-- (void)addContentGroup:(WMFContentGroup *)group associatedContent:(NSArray<NSCoding> *)content;
+- (NSArray<WMFContentGroup *> *)contentGroupsOfKind:(WMFContentGroupKind)kind;
 
 - (void)removeContentGroup:(WMFContentGroup *)group;
 

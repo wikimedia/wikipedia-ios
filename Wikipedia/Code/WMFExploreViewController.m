@@ -54,6 +54,9 @@
 #import "WMFAnnouncement.h"
 #import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
 #import "WMFChange.h"
+
+#import "WMFCVLAttributes.h"
+
 @import BlocksKitUIKitExtensions;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -85,6 +88,8 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 @property (nonatomic, strong, nullable) WMFTaskGroup *feedUpdateTaskGroup;
 @property (nonatomic, strong, nullable) WMFTaskGroup *relatedUpdatedTaskGroup;
 
+@property (nonatomic, strong) NSMutableDictionary<NSString *, WMFExploreCollectionViewCell *> *placeholderCells;
+
 @end
 
 @implementation WMFExploreViewController
@@ -95,6 +100,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     self.sectionChanges = [NSMutableArray arrayWithCapacity:10];
     self.objectChanges = [NSMutableArray arrayWithCapacity:10];
     self.sectionCounts = [NSMutableArray arrayWithCapacity:100];
+    self.placeholderCells = [NSMutableDictionary dictionaryWithCapacity:10];
 }
 
 - (void)dealloc {
@@ -749,34 +755,54 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 #pragma mark - UICollectionViewDelegate
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView estimatedHeightForItemAtIndexPath:(NSIndexPath *)indexPath forColumnWidth:(CGFloat)columnWidth {
+- (WMFLayoutEstimate)collectionView:(UICollectionView *)collectionView estimatedHeightForItemAtIndexPath:(NSIndexPath *)indexPath forColumnWidth:(CGFloat)columnWidth {
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
-
+    WMFLayoutEstimate estimate;
     switch ([section displayType]) {
         case WMFFeedDisplayTypePage: {
-            return [WMFArticleListCollectionViewCell estimatedRowHeight];
+            estimate.height = [WMFArticleListCollectionViewCell estimatedRowHeight];
         } break;
         case WMFFeedDisplayTypePageWithPreview: {
             WMFArticle *article = [self articleForIndexPath:indexPath];
-            return article.thumbnailURL ? [WMFArticlePreviewCollectionViewCell estimatedRowHeight] : [WMFArticlePreviewCollectionViewCell estimatedRowHeightWithoutImage];
+            CGFloat estimatedHeight = [WMFArticlePreviewCollectionViewCell estimatedRowHeightWithImage:article.thumbnailURL != nil];
+            CGRect frameToFit = CGRectMake(0, 0, columnWidth, estimatedHeight);
+            WMFArticlePreviewCollectionViewCell *cell = [self placeholderCellForIdentifier:[WMFArticlePreviewCollectionViewCell wmf_nibName]];
+            cell.frame = frameToFit;
+            [self configurePreviewCell:cell withSection:section withArticle:article atIndexPath:indexPath];
+            WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
+            attributesToFit.frame = frameToFit;
+            UICollectionViewLayoutAttributes *attributes = [cell preferredLayoutAttributesFittingAttributes:attributesToFit];
+            estimate.height = attributes.frame.size.height;
+            estimate.precalculated = YES;
         } break;
         case WMFFeedDisplayTypePageWithLocation: {
-            return [WMFNearbyArticleCollectionViewCell estimatedRowHeight];
+            estimate.height = [WMFNearbyArticleCollectionViewCell estimatedRowHeight];
         } break;
         case WMFFeedDisplayTypePhoto: {
-            return [WMFPicOfTheDayCollectionViewCell estimatedRowHeight];
+            estimate.height = [WMFPicOfTheDayCollectionViewCell estimatedRowHeight];
         } break;
         case WMFFeedDisplayTypeStory: {
-            return [InTheNewsCollectionViewCell estimatedRowHeight];
+            estimate.height = [InTheNewsCollectionViewCell estimatedRowHeight];
         } break;
         case WMFFeedDisplayTypeAnnouncement: {
-            return [WMFAnnouncementCollectionViewCell estimatedRowHeight];
+            WMFAnnouncement *announcement = (WMFAnnouncement *)section.content.firstObject;
+            CGFloat estimatedHeight = [WMFAnnouncementCollectionViewCell estimatedRowHeightWithImage:announcement.imageURL != nil];
+            CGRect frameToFit = CGRectMake(0, 0, columnWidth, estimatedHeight);
+            WMFAnnouncementCollectionViewCell *cell = [self placeholderCellForIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName]];
+            cell.frame = frameToFit;
+            [self configureAnouncementCell:cell withSection:section atIndexPath:indexPath];
+            WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
+            attributesToFit.frame = frameToFit;
+            UICollectionViewLayoutAttributes *attributes = [cell preferredLayoutAttributesFittingAttributes:attributesToFit];
+            estimate.height = attributes.frame.size.height;
+            estimate.precalculated = YES;
         } break;
         default:
             NSAssert(false, @"Unknown display Type");
-            return [WMFArticleListCollectionViewCell estimatedRowHeight];
+            estimate.height = [WMFArticleListCollectionViewCell estimatedRowHeight];
             break;
     }
+    return estimate;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView estimatedHeightForHeaderInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth {
@@ -907,7 +933,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction *_Nonnull action) {
                                                 [self.userStore setIsExcludedFromFeed:YES forArticleURL:url];
-                                                [self updateRelatedPages];
+                                                [self.contentStore removeContentGroup:section];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
     return sheet;
@@ -965,19 +991,33 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 #pragma mark - Cells, Headers and Footers
 
-- (void)registerCellsAndViews {
+- (void)registerNib:(UINib *)nib forCellWithReuseIdentifier:(NSString *)identifier {
+    [self.collectionView registerNib:nib forCellWithReuseIdentifier:identifier];
+    WMFExploreCollectionViewCell *placeholderCell = [[nib instantiateWithOwner:nil options:nil] firstObject];
+    if (!placeholderCell) {
+        return;
+    }
+    placeholderCell.hidden = YES;
+    [self.view insertSubview:placeholderCell atIndex:0];
+    [self.placeholderCells setObject:placeholderCell forKey:identifier];
+}
 
+- (id)placeholderCellForIdentifier:(NSString *)identifier {
+    return self.placeholderCells[identifier];
+}
+
+- (void)registerCellsAndViews {
     [self.collectionView registerNib:[WMFExploreSectionHeader wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFExploreSectionHeader wmf_nibName]];
 
     [self.collectionView registerNib:[WMFExploreSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName]];
 
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier];
 
-    [self.collectionView registerNib:[WMFAnnouncementCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName]];
+    [self registerNib:[WMFAnnouncementCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName]];
 
     [self.collectionView registerNib:[WMFArticleListCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticleListCollectionViewCell wmf_nibName]];
 
-    [self.collectionView registerNib:[WMFArticlePreviewCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticlePreviewCollectionViewCell wmf_nibName]];
+    [self registerNib:[WMFArticlePreviewCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticlePreviewCollectionViewCell wmf_nibName]];
 
     [self.collectionView registerNib:[WMFNearbyArticleCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbyArticleCollectionViewCell wmf_nibName]];
 
@@ -1039,7 +1079,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     [cell setImageURL:announcement.imageURL];
     [cell setMessageText:announcement.text];
     [cell setActionText:announcement.actionTitle];
-    [cell setCaptionHTML:announcement.captionHTML];
+    [cell setCaption:announcement.caption];
     cell.delegate = self;
 }
 

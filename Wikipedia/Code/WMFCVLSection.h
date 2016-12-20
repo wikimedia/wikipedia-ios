@@ -14,6 +14,7 @@
 @property (nonatomic, readonly) NSInteger index;
 @property (nonatomic) NSInteger columnIndex;
 @property (nonatomic) CGRect frame;
+@property (nonatomic) BOOL needsToRecalculateEstimatedLayout;
 
 @property (nonatomic, strong, readonly, nonnull) NSArray<WMFCVLAttributes *> *headers;
 @property (nonatomic, strong, readonly, nonnull) NSArray<WMFCVLAttributes *> *footers;
@@ -21,9 +22,9 @@
 
 + (nonnull WMFCVLSection *)sectionWithIndex:(NSInteger)index;
 
-- (BOOL)addOrUpdateItemAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame))frameProvider;
-- (BOOL)addOrUpdateHeaderAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame))frameProvider;
-- (BOOL)addOrUpdateFooterAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame))frameProvider;
+- (BOOL)addOrUpdateItemAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *_Nonnull layoutAttributes))frameProvider;
+- (BOOL)addOrUpdateHeaderAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *_Nonnull layoutAttributes))frameProvider;
+- (BOOL)addOrUpdateFooterAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *_Nonnull layoutAttributes))frameProvider;
 
 - (void)enumerateLayoutAttributesWithBlock:(nonnull void (^)(WMFCVLAttributes *_Nonnull layoutAttributes, BOOL *_Nonnull stop))block;
 

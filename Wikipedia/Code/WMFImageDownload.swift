@@ -1,22 +1,22 @@
 import Foundation
-import WebImage
+import SDWebImage
 
 public enum ImageOrigin: Int {
-    case Network = 0
-    case Disk = 1
-    case Memory = 2
-    case None = 3
+    case network = 0
+    case disk = 1
+    case memory = 2
+    case none = 3
     
     public init(sdOrigin: SDImageCacheType) {
         switch sdOrigin {
-        case .Disk:
-            self = .Disk
-        case .Memory:
-            self = .Memory
-        case .None:
+        case .disk:
+            self = .disk
+        case .memory:
+            self = .memory
+        case .none:
             fallthrough
         default:
-            self = .None
+            self = .none
         }
     }
 }
@@ -24,14 +24,14 @@ public enum ImageOrigin: Int {
 extension ImageOrigin {
     public var debugColor: UIColor {
         switch self {
-        case .Network:
-            return UIColor.redColor()
-        case .Disk:
-            return UIColor.yellowColor()
-        case .Memory:
-            return UIColor.greenColor()
-        case .None:
-            return UIColor.blackColor()
+        case .network:
+            return UIColor.red
+        case .disk:
+            return UIColor.yellow
+        case .memory:
+            return UIColor.green
+        case .none:
+            return UIColor.black
         }
     }
 }
@@ -41,27 +41,27 @@ public protocol ImageOriginConvertible {
 }
 
 
-public func asImageOrigin<T: ImageOriginConvertible>(c: T) -> ImageOrigin { return c.asImageOrigin() }
+public func asImageOrigin<T: ImageOriginConvertible>(_ c: T) -> ImageOrigin { return c.asImageOrigin() }
 
-public class WMFImageDownload: NSObject {
+open class WMFImageDownload: NSObject {
     // Exposing enums as string constants for ObjC compatibility
-    public static let imageOriginNetwork = ImageOrigin.Network.rawValue
-    public static let imageOriginDisk = ImageOrigin.Disk.rawValue
-    public static let imageOriginMemory = ImageOrigin.Memory.rawValue
+    open static let imageOriginNetwork = ImageOrigin.network.rawValue
+    open static let imageOriginDisk = ImageOrigin.disk.rawValue
+    open static let imageOriginMemory = ImageOrigin.memory.rawValue
 
-    public var url: NSURL
-    public var image: UIImage
-    public var origin: ImageOrigin
+    open var url: URL
+    open var image: UIImage
+    open var origin: ImageOrigin
     
     
-    public init(url: NSURL, image: UIImage, origin: ImageOrigin) {
+    public init(url: URL, image: UIImage, origin: ImageOrigin) {
         self.url = url
         self.image = image
         self.origin = origin
     }
     
     
-    public init(url: NSURL, image: UIImage, originRawValue: Int) {
+    public init(url: URL, image: UIImage, originRawValue: Int) {
         self.url = url
         self.image = image
         self.origin = ImageOrigin(rawValue: originRawValue)!

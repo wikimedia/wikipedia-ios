@@ -17,5 +17,6 @@
 @property (nonatomic, strong, readonly) NSURL *actionURL;
 
 @property (nonatomic, strong, readonly) NSString *captionHTML;
+@property (nonatomic, strong, readonly) NSAttributedString *caption;
 
 @end

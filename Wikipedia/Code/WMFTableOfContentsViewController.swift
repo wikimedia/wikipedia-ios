@@ -8,25 +8,25 @@ public protocol WMFTableOfContentsViewControllerDelegate : AnyObject {
      Notifies the delegate that the controller will display
      Use this to update the ToC if needed
      */
-    func tableOfContentsControllerWillDisplay(controller: WMFTableOfContentsViewController)
+    func tableOfContentsControllerWillDisplay(_ controller: WMFTableOfContentsViewController)
 
     /**
      The delegate is responsible for dismissing the view controller
      */
-    func tableOfContentsController(controller: WMFTableOfContentsViewController,
+    func tableOfContentsController(_ controller: WMFTableOfContentsViewController,
                                    didSelectItem item: TableOfContentsItem)
 
     /**
      The delegate is responsible for dismissing the view controller
      */
-    func tableOfContentsControllerDidCancel(controller: WMFTableOfContentsViewController)
+    func tableOfContentsControllerDidCancel(_ controller: WMFTableOfContentsViewController)
 
-    func tableOfContentsArticleLanguageURL() -> NSURL?
+    func tableOfContentsArticleLanguageURL() -> URL?
     
     func tableOfContentsDisplayModeIsModal() -> Bool;
 }
 
-public class WMFTableOfContentsViewController: UIViewController,
+open class WMFTableOfContentsViewController: UIViewController,
                                                UITableViewDelegate,
                                                UITableViewDataSource,
                                                WMFTableOfContentsAnimatorDelegate {
@@ -47,16 +47,16 @@ public class WMFTableOfContentsViewController: UIViewController,
 
     lazy var tableView: UITableView = {
         
-        let tv = UITableView(frame: CGRectZero, style: .Grouped)
+        let tv = UITableView(frame: CGRect.zero, style: .grouped)
         
-        assert(tv.style == .Grouped, "Use grouped UITableView layout so our WMFTableOfContentsHeader's autolayout works properly. Formerly we used a .Plain table style and set self.tableView.tableHeaderView to our WMFTableOfContentsHeader, but doing so caused autolayout issues for unknown reasons. Instead, we now use a grouped layout and use WMFTableOfContentsHeader with viewForHeaderInSection, which plays nicely with autolayout. (grouped layouts also used because they allow the header to scroll *with* the section cells rather than floating)")
+        assert(tv.style == .grouped, "Use grouped UITableView layout so our WMFTableOfContentsHeader's autolayout works properly. Formerly we used a .Plain table style and set self.tableView.tableHeaderView to our WMFTableOfContentsHeader, but doing so caused autolayout issues for unknown reasons. Instead, we now use a grouped layout and use WMFTableOfContentsHeader with viewForHeaderInSection, which plays nicely with autolayout. (grouped layouts also used because they allow the header to scroll *with* the section cells rather than floating)")
         
-        tv.separatorStyle = .None
+        tv.separatorStyle = .none
         tv.delegate = self
         tv.dataSource = self
         tv.backgroundView = nil
 
-        tv.registerNib(WMFTableOfContentsCell.wmf_classNib(),
+        tv.register(WMFTableOfContentsCell.wmf_classNib(),
                               forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier())
         tv.estimatedRowHeight = 41
         tv.rowHeight = UITableViewAutomaticDimension
@@ -64,8 +64,8 @@ public class WMFTableOfContentsViewController: UIViewController,
         tv.sectionHeaderHeight = UITableViewAutomaticDimension
         tv.estimatedSectionHeaderHeight = 32
         
-        tv.contentInset = UIEdgeInsetsMake(UIApplication.sharedApplication().statusBarFrame.size.height, 0, 0, 0)
-        tv.separatorStyle = .None
+        tv.contentInset = UIEdgeInsetsMake(UIApplication.shared.statusBarFrame.size.height, 0, 0, 0)
+        tv.separatorStyle = .none
 
         //add to the view now to ensure view did load is kicked off
         self.view.addSubview(tv)
@@ -75,11 +75,11 @@ public class WMFTableOfContentsViewController: UIViewController,
 
     var items: [TableOfContentsItem] {
         didSet{
-            if isViewLoaded() {
+            if isViewLoaded {
                 let selectedIndexPathBeforeReload = tableView.indexPathForSelectedRow
                 tableView.reloadData()
-                if let indexPathToReselect = selectedIndexPathBeforeReload where indexPathToReselect.section < tableView.numberOfSections && indexPathToReselect.row < tableView.numberOfRowsInSection(indexPathToReselect.section) {
-                    tableView.selectRowAtIndexPath(indexPathToReselect, animated: false, scrollPosition: .None)
+                if let indexPathToReselect = selectedIndexPathBeforeReload, indexPathToReselect.section < tableView.numberOfSections && indexPathToReselect.row < tableView.numberOfRows(inSection: indexPathToReselect.section) {
+                    tableView.selectRow(at: indexPathToReselect, animated: false, scrollPosition: .none)
                 }
             }
         }
@@ -104,7 +104,7 @@ public class WMFTableOfContentsViewController: UIViewController,
             animator?.displaySide = displaySide
             animator?.displayMode = displayMode
         }
-        modalPresentationStyle = .Custom
+        modalPresentationStyle = .custom
         transitioningDelegate = self.animator
                             
     }
@@ -114,15 +114,15 @@ public class WMFTableOfContentsViewController: UIViewController,
     }
 
     // MARK: - Sections
-    func indexPathForItem(item: TableOfContentsItem) -> NSIndexPath? {
-        if let row = items.indexOf({ item.isEqual($0) }) {
-            return NSIndexPath(forRow: row, inSection: 0)
+    func indexPathForItem(_ item: TableOfContentsItem) -> IndexPath? {
+        if let row = items.index(where: { item.isEqual($0) }) {
+            return IndexPath(row: row, section: 0)
         } else {
             return nil
         }
     }
 
-    public func selectAndScrollToItem(atIndex index: Int, animated: Bool) {
+    open func selectAndScrollToItem(atIndex index: Int, animated: Bool) {
         guard index < items.count else {
             assertionFailure("Trying to select/scroll to an item put of range")
             return
@@ -130,8 +130,8 @@ public class WMFTableOfContentsViewController: UIViewController,
         selectAndScrollToItem(items[index], animated: animated)
     }
     
-    public func selectAndScrollToFooterItem(atIndex index: Int, animated: Bool) {
-        if let firstFooterIndex = items.indexOf({ return $0 as? TableOfContentsFooterItem != nil }) {
+    open func selectAndScrollToFooterItem(atIndex index: Int, animated: Bool) {
+        if let firstFooterIndex = items.index(where: { return $0 as? TableOfContentsFooterItem != nil }) {
             let itemIndex = firstFooterIndex + index
             if itemIndex < items.count {
                 selectAndScrollToItem(atIndex: itemIndex, animated: animated)
@@ -139,7 +139,7 @@ public class WMFTableOfContentsViewController: UIViewController,
         }
     }
 
-    public func selectAndScrollToItem(item: TableOfContentsItem?, animated: Bool) {
+    open func selectAndScrollToItem(_ item: TableOfContentsItem?, animated: Bool) {
         guard let item = item else{
             assertionFailure("Passing nil TOC item")
             return
@@ -150,16 +150,16 @@ public class WMFTableOfContentsViewController: UIViewController,
         }
         
         if let selectedIndexPath = tableView.indexPathForSelectedRow {
-            if !selectedIndexPath.isEqual(indexPath) {
+            if selectedIndexPath != indexPath {
                 deselectAllRows()
             }
         }
         
-        var scrollPosition = UITableViewScrollPosition.Top
-        if let indexPaths = tableView.indexPathsForVisibleRows where indexPaths.contains(indexPath) {
-            scrollPosition = .None
+        var scrollPosition = UITableViewScrollPosition.top
+        if let indexPaths = tableView.indexPathsForVisibleRows, indexPaths.contains(indexPath) {
+            scrollPosition = .none
         }
-        tableView.selectRowAtIndexPath(indexPath, animated: animated, scrollPosition: scrollPosition)
+        tableView.selectRow(at: indexPath, animated: animated, scrollPosition: scrollPosition)
         addHighlightOfItemsRelatedTo(item, animated: false)
     }
 
@@ -168,83 +168,83 @@ public class WMFTableOfContentsViewController: UIViewController,
         guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else {
             return
         }
-        for (_, element) in visibleIndexPaths.enumerate() {
-            if let cell: WMFTableOfContentsCell = tableView.cellForRowAtIndexPath(element) as? WMFTableOfContentsCell  {
+        for (_, element) in visibleIndexPaths.enumerated() {
+            if let cell: WMFTableOfContentsCell = tableView.cellForRow(at: element) as? WMFTableOfContentsCell  {
                 cell.setSectionSelected(false, animated: false)
             }
         }
     }
 
-    public func addHighlightOfItemsRelatedTo(item: TableOfContentsItem, animated: Bool) {
+    open func addHighlightOfItemsRelatedTo(_ item: TableOfContentsItem, animated: Bool) {
         guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else {
             return
         }
-        for (_, indexPath) in visibleIndexPaths.enumerate() {
-            if let otherItem: TableOfContentsItem = items[indexPath.row],
-                   cell: WMFTableOfContentsCell = tableView.cellForRowAtIndexPath(indexPath) as? WMFTableOfContentsCell  {
+        for (_, indexPath) in visibleIndexPaths.enumerated() {
+            let otherItem: TableOfContentsItem = items[indexPath.row]
+            if let cell: WMFTableOfContentsCell = tableView.cellForRow(at: indexPath) as? WMFTableOfContentsCell  {
                 cell.setSectionSelected(otherItem.shouldBeHighlightedAlongWithItem(item), animated: animated)
             }
         }
     }
 
-    public func addHighlightToItem(item: TableOfContentsItem, animated: Bool) {
+    open func addHighlightToItem(_ item: TableOfContentsItem, animated: Bool) {
         if let indexPath = indexPathForItem(item){
-            if let cell: WMFTableOfContentsCell = tableView.cellForRowAtIndexPath(indexPath) as? WMFTableOfContentsCell  {
+            if let cell: WMFTableOfContentsCell = tableView.cellForRow(at: indexPath) as? WMFTableOfContentsCell  {
                 cell.setSectionSelected(true, animated: animated)
             }
         }
     }
 
-    private func didRequestClose(controller: WMFTableOfContentsAnimator?) -> Bool {
+    fileprivate func didRequestClose(_ controller: WMFTableOfContentsAnimator?) -> Bool {
         tableOfContentsFunnel.logClose()
         delegate?.tableOfContentsControllerDidCancel(self)
         return delegate != nil
     }
 
     // MARK: - UIViewController
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.mas_makeConstraints { make in
-            make.top.bottom().leading().and().trailing().equalTo()(self.view)
+            _ = make?.top.bottom().leading().and().trailing().equalTo()(self.view)
         }
         
-        if let delegate = delegate where delegate.tableOfContentsDisplayModeIsModal() {
-            tableView.backgroundColor = UIColor.wmf_modalTableOfContentsBackgroundColor()
+        if let delegate = delegate, delegate.tableOfContentsDisplayModeIsModal() {
+            tableView.backgroundColor = UIColor.wmf_modalTableOfContentsBackground()
         } else {
-            tableView.backgroundColor = UIColor.wmf_inlineTableOfContentsBackgroundColor()
+            tableView.backgroundColor = UIColor.wmf_inlineTableOfContentsBackground()
         }
 
         automaticallyAdjustsScrollViewInsets = false
     }
 
-    public override func viewWillAppear(animated: Bool) {
+    open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.delegate?.tableOfContentsControllerWillDisplay(self)
         tableOfContentsFunnel.logOpen()
     }
     
-    public override func viewDidDisappear(animated: Bool) {
+    open override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         deselectAllRows()
     }
     
-    public override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .Default
+    open override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .default
     }
     
     // MARK: - UITableViewDataSource
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
     
-    public override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         tableView.reloadData()
     }
 
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(WMFTableOfContentsCell.reuseIdentifier(), forIndexPath: indexPath) as! WMFTableOfContentsCell
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: WMFTableOfContentsCell.reuseIdentifier(), for: indexPath) as! WMFTableOfContentsCell
         let selectedItems: [TableOfContentsItem] = tableView.indexPathsForSelectedRows?.map() { items[$0.row] } ?? []
         let item = items[indexPath.row]
         let shouldHighlight = selectedItems.reduce(false) { shouldHighlight, selectedItem in
@@ -264,11 +264,11 @@ public class WMFTableOfContentsViewController: UIViewController,
         return cell
     }
     
-    public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    open func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let delegate = delegate {
             let header = WMFTableOfContentsHeader.wmf_viewFromClassNib()
-            header.articleURL = delegate.tableOfContentsArticleLanguageURL()
-            header.backgroundColor = tableView.backgroundColor
+            header?.articleURL = delegate.tableOfContentsArticleLanguageURL()
+            header?.backgroundColor = tableView.backgroundColor
             return header
         } else {
             return nil
@@ -277,25 +277,25 @@ public class WMFTableOfContentsViewController: UIViewController,
 
     // MARK: - UITableViewDelegate
 
-    public func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    open func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         let item = items[indexPath.row]
         addHighlightToItem(item, animated: true)
         return true
     }
     
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = items[indexPath.row]
         tableOfContentsFunnel.logClick()
         addHighlightOfItemsRelatedTo(item, animated: true)
         delegate?.tableOfContentsController(self, didSelectItem: item)
     }
 
-    public func tableOfContentsAnimatorDidTapBackground(controller: WMFTableOfContentsAnimator) {
-        didRequestClose(controller)
+    open func tableOfContentsAnimatorDidTapBackground(_ controller: WMFTableOfContentsAnimator) {
+        _ = didRequestClose(controller)
     }
 
     // MARK: - UIScrollViewDelegate
-    public func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if let indexPath = self.tableView.indexPathForSelectedRow {
             let item = items[indexPath.row]
             addHighlightOfItemsRelatedTo(item, animated: true)
@@ -303,12 +303,12 @@ public class WMFTableOfContentsViewController: UIViewController,
     }
 
     // MARK: - UIAccessibilityAction
-    public override func accessibilityPerformEscape() -> Bool {
+    open override func accessibilityPerformEscape() -> Bool {
         return didRequestClose(nil)
     }
     
     // MARK: - UIAccessibilityAction
-    public override func accessibilityPerformMagicTap() -> Bool {
+    open override func accessibilityPerformMagicTap() -> Bool {
         return didRequestClose(nil)
     }
 

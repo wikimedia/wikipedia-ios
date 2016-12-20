@@ -1,11 +1,11 @@
 import Foundation
 
-public class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
+open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
 
     lazy var bubbleLeftImgView: UIImageView = {
         let imgView = UIImageView(frame: self.bounds)
         imgView.image = UIImage(named: "ftux-left-bubble")
-        imgView.contentMode = UIViewContentMode.ScaleAspectFit
+        imgView.contentMode = UIViewContentMode.scaleAspectFit
         imgView.layer.zPosition = 102
         imgView.layer.opacity = 0
         imgView.layer.transform = self.wmf_scaleZeroAndLowerLeftTransform
@@ -15,7 +15,7 @@ public class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
     lazy var bubbleRightImgView: UIImageView = {
         let imgView = UIImageView(frame: self.bounds)
         imgView.image = UIImage(named: "ftux-right-bubble")
-        imgView.contentMode = UIViewContentMode.ScaleAspectFit
+        imgView.contentMode = UIViewContentMode.scaleAspectFit
         imgView.layer.zPosition = 101
         imgView.layer.opacity = 0
         imgView.layer.transform = self.wmf_scaleZeroAndLowerRightTransform
@@ -25,7 +25,7 @@ public class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
     lazy var dashedCircle: WelcomeCircleShapeLayer = {
         return WelcomeCircleShapeLayer(
             unitRadius: 0.31,
-            unitOrigin: CGPointMake(0.508, 0.518),
+            unitOrigin: CGPoint(x: 0.508, y: 0.518),
             referenceSize: self.frame.size,
             isDashed: true,
             transform: self.wmf_scaleZeroTransform,
@@ -36,7 +36,7 @@ public class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
     lazy var solidCircle: WelcomeCircleShapeLayer = {
         return WelcomeCircleShapeLayer(
             unitRadius: 0.31,
-            unitOrigin: CGPointMake(0.39, 0.5),
+            unitOrigin: CGPoint(x: 0.39, y: 0.5),
             referenceSize: self.frame.size,
             isDashed: false,
             transform: self.wmf_scaleZeroTransform,
@@ -46,7 +46,7 @@ public class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
     
     lazy var plus1: WelcomePlusShapeLayer = {
         return WelcomePlusShapeLayer(
-            unitOrigin: CGPointMake(0.825, 0.225),
+            unitOrigin: CGPoint(x: 0.825, y: 0.225),
             unitWidth: 0.05,
             referenceSize: self.frame.size,
             transform: self.wmf_scaleZeroTransform,
@@ -56,7 +56,7 @@ public class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
     
     lazy var plus2: WelcomePlusShapeLayer = {
         return WelcomePlusShapeLayer(
-            unitOrigin: CGPointMake(0.755, 0.17),
+            unitOrigin: CGPoint(x: 0.755, y: 0.17),
             unitWidth: 0.05,
             referenceSize: self.frame.size,
             transform: self.wmf_scaleZeroTransform,
@@ -66,7 +66,7 @@ public class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
     
     lazy var plus3: WelcomePlusShapeLayer = {
         return WelcomePlusShapeLayer(
-            unitOrigin: CGPointMake(0.112, 0.353),
+            unitOrigin: CGPoint(x: 0.112, y: 0.353),
             unitWidth: 0.05,
             referenceSize: self.frame.size,
             transform: self.wmf_scaleZeroTransform,
@@ -76,7 +76,7 @@ public class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
     
     lazy var line1: WelcomeLineShapeLayer = {
         return WelcomeLineShapeLayer(
-            unitOrigin: CGPointMake(0.845, 0.865),
+            unitOrigin: CGPoint(x: 0.845, y: 0.865),
             unitWidth: 0.135,
             referenceSize: self.frame.size,
             transform: self.wmf_scaleZeroAndLeftTransform,
@@ -86,7 +86,7 @@ public class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
     
     lazy var line2: WelcomeLineShapeLayer = {
         return WelcomeLineShapeLayer(
-            unitOrigin: CGPointMake(0.255, 0.162),
+            unitOrigin: CGPoint(x: 0.255, y: 0.162),
             unitWidth: 0.135,
             referenceSize: self.frame.size,
             transform: self.wmf_scaleZeroAndLeftTransform,
@@ -96,7 +96,7 @@ public class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
     
     lazy var line3: WelcomeLineShapeLayer = {
         return WelcomeLineShapeLayer(
-            unitOrigin: CGPointMake(0.205, 0.127),
+            unitOrigin: CGPoint(x: 0.205, y: 0.127),
             unitWidth: 0.135,
             referenceSize: self.frame.size,
             transform: self.wmf_scaleZeroAndLeftTransform,
@@ -104,7 +104,7 @@ public class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
         )
     }()
     
-    override public func addAnimationElementsScaledToCurrentFrameSize(){
+    override open func addAnimationElementsScaledToCurrentFrameSize(){
         removeExistingSubviewsAndSublayers()
         
         self.addSubview(self.bubbleLeftImgView)
@@ -124,7 +124,7 @@ public class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
             })
     }
 
-    override public func beginAnimations() {
+    override open func beginAnimations() {
         CATransaction.begin()
         
         bubbleLeftImgView.layer.wmf_animateToOpacity(1.0,

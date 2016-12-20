@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -80,15 +80,14 @@
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstItem="RMa-GF-kKq" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="9Fw-Qi-XwG"/>
                     <constraint firstItem="6JK-c4-FJw" firstAttribute="top" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="Cre-Ui-7AM"/>
-                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="RMa-GF-kKq" secondAttribute="bottom" constant="10" id="I2d-TJ-sPq"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="RMa-GF-kKq" secondAttribute="bottom" priority="999" constant="10" id="I2d-TJ-sPq"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6JK-c4-FJw" secondAttribute="bottom" constant="6" id="UW7-bG-heJ"/>
                     <constraint firstItem="6JK-c4-FJw" firstAttribute="leading" secondItem="RMa-GF-kKq" secondAttribute="trailing" id="W1o-QG-sBU"/>
                     <constraint firstItem="RMa-GF-kKq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Zfh-bn-2Mj"/>
                     <constraint firstAttribute="trailing" secondItem="6JK-c4-FJw" secondAttribute="trailing" id="bMC-sz-hcv"/>
                     <constraint firstItem="6JK-c4-FJw" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="oCy-Js-Age"/>
-                    <constraint firstItem="RMa-GF-kKq" firstAttribute="top" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="uJa-vc-y9M"/>
+                    <constraint firstItem="RMa-GF-kKq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="uJa-vc-y9M"/>
                 </constraints>
             </tableViewCellContentView>
             <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>

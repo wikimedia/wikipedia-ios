@@ -4,7 +4,6 @@
 #import "UIScrollView+ScrollSubviewToLocation.h"
 #import "LoginViewController.h"
 #import "PreviewAndSaveViewController.h"
-#import "UIView+Debugging.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFChildViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -13,7 +12,7 @@
 #import "PaddedLabel.h"
 #import "MWKLanguageLinkController.h"
 #import "WMFAuthenticationManager.h"
-#import <WebImage/WebImage.h>
+#import <SDWebImage/SDWebImage.h>
 
 @import BlocksKitUIKitExtensions;
 

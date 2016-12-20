@@ -3,27 +3,27 @@ import WMFUI
 // MARK: - TOC Item Types
 
 public enum TableOfContentsItemType {
-    case Primary
-    case Secondary
+    case primary
+    case secondary
 
     var titleFontFamily: WMFFontFamily {
         get {
             switch (self) {
-            case .Primary:
-                return .Georgia
-            case .Secondary:
-                return .System
+            case .primary:
+                return .georgia
+            case .secondary:
+                return .system
             }
         }
     }
     
-    var titleFontTextStyle: String {
+    var titleFontTextStyle: UIFontTextStyle {
         get {
             switch (self) {
-            case .Primary:
-                return UIFontTextStyleTitle3
-            case .Secondary:
-                return UIFontTextStyleSubheadline
+            case .primary:
+                return .title3
+            case .secondary:
+                return .subheadline
             }
         }
     }
@@ -31,18 +31,18 @@ public enum TableOfContentsItemType {
     var titleColor: UIColor {
         get {
             switch (self) {
-            case .Primary:
-                return UIColor.wmf_tableOfContentsSectionTextColor()
-            case .Secondary:
-                return UIColor.wmf_tableOfContentsSubsectionTextColor()
+            case .primary:
+                return UIColor.wmf_tableOfContentsSectionText()
+            case .secondary:
+                return UIColor.wmf_tableOfContentsSubsectionText()
             }
         }
     }
 }
 
 public enum TableOfContentsBorderType {
-    case TopOnly
-    case None
+    case topOnly
+    case none
 }
 
 // MARK: - TOC Item
@@ -52,13 +52,13 @@ public protocol TableOfContentsItem : NSObjectProtocol {
     var itemType: TableOfContentsItemType { get }
     var indentationLevel: Int { get }
 
-    func shouldBeHighlightedAlongWithItem(item: TableOfContentsItem) -> Bool
+    func shouldBeHighlightedAlongWithItem(_ item: TableOfContentsItem) -> Bool
 }
 
 // MARK: - TOC Item Defaults
 
 extension TableOfContentsItem {
-    public func shouldBeHighlightedAlongWithItem(item: TableOfContentsItem) -> Bool {
+    public func shouldBeHighlightedAlongWithItem(_ item: TableOfContentsItem) -> Bool {
         return item === self
     }
     

@@ -1,13 +1,13 @@
 import Foundation
 
 extension UIButton {
-    private func wmf_configureForDynamicType(){
+    fileprivate func wmf_configureForDynamicType(){
         if #available(iOS 10.0, *) {
             self.titleLabel!.adjustsFontForContentSizeCategory = true
-            self.titleLabel!.textAlignment = .Center
+            self.titleLabel!.textAlignment = .center
             self.titleLabel!.numberOfLines = 1
             self.titleLabel!.clipsToBounds = false
-            self.titleLabel!.lineBreakMode = .ByTruncatingTail
+            self.titleLabel!.lineBreakMode = .byTruncatingTail
             self.titleLabel!.minimumScaleFactor = 0.25
             self.titleLabel!.adjustsFontSizeToFitWidth = true
         }
@@ -15,7 +15,7 @@ extension UIButton {
 }
 
 extension UILabel {
-    private func wmf_configureForDynamicType(){
+    fileprivate func wmf_configureForDynamicType(){
         if #available(iOS 10.0, *) {
             self.adjustsFontForContentSizeCategory = true
         }
@@ -25,9 +25,9 @@ extension UILabel {
 extension UIView {
     func wmf_configureSubviewsForDynamicType() {
         if #available(iOS 10.0, *) {
-            if self.isKindOfClass(UIButton) {
+            if self.isKind(of: UIButton.self) {
                 (self as! UIButton).wmf_configureForDynamicType()
-            }else if self.isKindOfClass(UILabel) {
+            }else if self.isKind(of: UILabel.self) {
                 (self as! UILabel).wmf_configureForDynamicType()
             }
             for subview in self.subviews {

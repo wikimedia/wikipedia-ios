@@ -1,26 +1,29 @@
 
 import Foundation
-import BlocksKitUIKitExtensions
 
 class WMFReferencePanelViewController: UIViewController {
     
-    @IBOutlet private var containerViewHeightConstraint:NSLayoutConstraint!
+    @IBOutlet fileprivate var containerViewHeightConstraint:NSLayoutConstraint!
     @IBOutlet var containerView:UIView!
     var reference:WMFReference?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let tapRecognizer = UITapGestureRecognizer.bk_recognizerWithHandler { (sender, state, location) in
-            if state == .Ended {
-                self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-            }
-        }
-        view.addGestureRecognizer(tapRecognizer)
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:))))
         embedContainerControllerView()
     }
 
-    private func panelHeight() -> CGFloat {
-        return view.frame.size.height * (self.view.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.Compact ? 0.4 : 0.6)
+    func handleTapGestureRecognizer(_ recognizer: UITapGestureRecognizer) {
+        switch recognizer.state {
+        case .ended:
+            self.presentingViewController?.dismiss(animated: true, completion: nil)
+        default:
+            break
+        }
+    }
+
+    fileprivate func panelHeight() -> CGFloat {
+        return view.frame.size.height * (view.frame.size.height > view.frame.size.width ? 0.4 : 0.6)
     }
     
     override func viewDidLayoutSubviews() {
@@ -32,21 +35,21 @@ class WMFReferencePanelViewController: UIViewController {
         containerController.scrollToTop()
     }
     
-    private lazy var containerController: WMFReferencePopoverMessageViewController = {
+    fileprivate lazy var containerController: WMFReferencePopoverMessageViewController = {
         let referenceVC = WMFReferencePopoverMessageViewController.wmf_initialViewControllerFromClassStoryboard()
-        referenceVC.reference = self.reference
-        return referenceVC
+        referenceVC?.reference = self.reference
+        return referenceVC!
     }()
 
-    private func embedContainerControllerView() {
-        containerController.willMoveToParentViewController(self)
+    fileprivate func embedContainerControllerView() {
+        containerController.willMove(toParentViewController: self)
         containerController.view.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(containerController.view!)
-        containerView.bringSubviewToFront(containerController.view!)
+        containerView.bringSubview(toFront: containerController.view!)
         containerController.view.mas_makeConstraints { make in
-            make.top.bottom().leading().and().trailing().equalTo()(self.containerView)
+            _ = make?.top.bottom().leading().and().trailing().equalTo()(self.containerView)
         }
         self.addChildViewController(containerController)
-        containerController.didMoveToParentViewController(self)
+        containerController.didMove(toParentViewController: self)
     }
 }

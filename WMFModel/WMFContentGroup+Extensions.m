@@ -39,19 +39,19 @@
             URL = [WMFContentGroup locationContentGroupURLForLocation:self.location];
             break;
         case WMFContentGroupKindPictureOfTheDay:
-            URL = [WMFContentGroup pictureOfTheDayContentGroupURLForSiteURL:self.siteURL date:self.midnightUTCDate];
+            URL = [WMFContentGroup pictureOfTheDayContentGroupURLForSiteURL:self.siteURL midnightUTCDate:self.midnightUTCDate];
             break;
         case WMFContentGroupKindRandom:
-            URL = [WMFContentGroup randomContentGroupURLForSiteURL:self.siteURL date:self.midnightUTCDate];
+            URL = [WMFContentGroup randomContentGroupURLForSiteURL:self.siteURL midnightUTCDate:self.midnightUTCDate];
             break;
         case WMFContentGroupKindFeaturedArticle:
-            URL = [WMFContentGroup featuredArticleContentGroupURLForSiteURL:self.siteURL date:self.midnightUTCDate];
+            URL = [WMFContentGroup featuredArticleContentGroupURLForSiteURL:self.siteURL midnightUTCDate:self.midnightUTCDate];
             break;
         case WMFContentGroupKindTopRead:
-            URL = [WMFContentGroup topReadContentGroupURLForSiteURL:self.siteURL date:self.midnightUTCDate];
+            URL = [WMFContentGroup topReadContentGroupURLForSiteURL:self.siteURL midnightUTCDate:self.midnightUTCDate];
             break;
         case WMFContentGroupKindNews:
-            URL = [WMFContentGroup newsContentGroupURLForSiteURL:self.siteURL date:self.midnightUTCDate];
+            URL = [WMFContentGroup newsContentGroupURLForSiteURL:self.siteURL midnightUTCDate:self.midnightUTCDate];
             break;
         case WMFContentGroupKindNotification:
             URL = [WMFContentGroup notificationContentGroupURL];
@@ -234,30 +234,30 @@
     return urlKey;
 }
 
-+ (nullable NSURL *)contentGroupURLForSiteURL:(NSURL *)siteURL date:(NSDate *)date groupKindString:(NSString *)groupKindString {
++ (nullable NSURL *)contentGroupURLForSiteURL:(NSURL *)siteURL midnightUTCDate:(NSDate *)midnightUTCDate groupKindString:(NSString *)groupKindString {
     NSURL *urlKey = [self contentGroupURLForSiteURL:siteURL groupKindString:groupKindString];
-    urlKey = [urlKey URLByAppendingPathComponent:[[NSDateFormatter wmf_englishUTCSlashDelimitedYearMonthDayFormatter] stringFromDate:date]];
+    urlKey = [urlKey URLByAppendingPathComponent:[[NSDateFormatter wmf_englishUTCSlashDelimitedYearMonthDayFormatter] stringFromDate:midnightUTCDate]];
     return urlKey;
 }
 
-+ (nullable NSURL *)pictureOfTheDayContentGroupURLForSiteURL:(NSURL *)url date:(NSDate *)date {
-    return [self contentGroupURLForSiteURL:url date:date groupKindString:@"picture-of-the-day"];
++ (nullable NSURL *)pictureOfTheDayContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate {
+    return [self contentGroupURLForSiteURL:url midnightUTCDate:midnightUTCDate groupKindString:@"picture-of-the-day"];
 }
 
-+ (nullable NSURL *)randomContentGroupURLForSiteURL:(NSURL *)url date:(NSDate *)date {
-    return [self contentGroupURLForSiteURL:url date:date groupKindString:@"random"];
++ (nullable NSURL *)randomContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate {
+    return [self contentGroupURLForSiteURL:url midnightUTCDate:midnightUTCDate groupKindString:@"random"];
 }
 
-+ (nullable NSURL *)featuredArticleContentGroupURLForSiteURL:(NSURL *)url date:(NSDate *)date {
-    return [self contentGroupURLForSiteURL:url date:date groupKindString:@"featured-article"];
++ (nullable NSURL *)featuredArticleContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate {
+    return [self contentGroupURLForSiteURL:url midnightUTCDate:midnightUTCDate groupKindString:@"featured-article"];
 }
 
-+ (nullable NSURL *)topReadContentGroupURLForSiteURL:(NSURL *)url date:(NSDate *)date {
-    return [self contentGroupURLForSiteURL:url date:date groupKindString:@"top-read"];
++ (nullable NSURL *)topReadContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate {
+    return [self contentGroupURLForSiteURL:url midnightUTCDate:midnightUTCDate groupKindString:@"top-read"];
 }
 
-+ (nullable NSURL *)newsContentGroupURLForSiteURL:(NSURL *)url date:(NSDate *)date {
-    return [self contentGroupURLForSiteURL:url date:date groupKindString:@"news"];
++ (nullable NSURL *)newsContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate {
+    return [self contentGroupURLForSiteURL:url midnightUTCDate:midnightUTCDate groupKindString:@"news"];
 }
 
 + (nullable NSURL *)notificationContentGroupURL {

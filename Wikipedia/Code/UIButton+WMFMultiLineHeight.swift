@@ -26,7 +26,7 @@ Note:
 
 extension UIButton {
     func wmf_heightAccountingForMultiLineText() -> CGFloat {
-        if let superview = self.superview, titleLabel = self.titleLabel {
+        if let superview = self.superview, let titleLabel = self.titleLabel {
             return titleLabel.sizeThatFits(superview.frame.size).height +
                 self.contentEdgeInsets.top +
                 self.contentEdgeInsets.bottom +

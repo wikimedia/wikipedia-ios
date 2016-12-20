@@ -4,10 +4,10 @@ import Masonry
 // MARK: - Delegate
 @objc public protocol WMFTableOfContentsPresentationControllerTapDelegate {
     
-    func tableOfContentsPresentationControllerDidTapBackground(controller: WMFTableOfContentsPresentationController)
+    func tableOfContentsPresentationControllerDidTapBackground(_ controller: WMFTableOfContentsPresentationController)
 }
 
-public class WMFTableOfContentsPresentationController: UIPresentationController {
+open class WMFTableOfContentsPresentationController: UIPresentationController {
     
     var displaySide = WMFTableOfContentsDisplaySideLeft
     var displayMode = WMFTableOfContentsDisplayModeModal
@@ -15,36 +15,36 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
     // MARK: - init
     public required init(presentedViewController: UIViewController, presentingViewController: UIViewController?, tapDelegate: WMFTableOfContentsPresentationControllerTapDelegate) {
         self.tapDelegate = tapDelegate
-        super.init(presentedViewController: presentedViewController, presentingViewController: presentedViewController)
+        super.init(presentedViewController: presentedViewController, presenting: presentedViewController)
     }
 
-    weak public var tapDelegate: WMFTableOfContentsPresentationControllerTapDelegate?
+    weak open var tapDelegate: WMFTableOfContentsPresentationControllerTapDelegate?
 
-    public var minimumVisibleBackgroundWidth: CGFloat = 60.0
-    public var maximumTableOfContentsWidth: CGFloat = 300.0
-    public var closeButtonLeadingPadding: CGFloat = 10.0
-    public var closeButtonTopPadding: CGFloat = 0.0
-    public var statusBarEstimatedHeight: CGFloat = 20.0
+    open var minimumVisibleBackgroundWidth: CGFloat = 60.0
+    open var maximumTableOfContentsWidth: CGFloat = 300.0
+    open var closeButtonLeadingPadding: CGFloat = 10.0
+    open var closeButtonTopPadding: CGFloat = 0.0
+    open var statusBarEstimatedHeight: CGFloat = 20.0
     
     // MARK: - Views
     lazy var statusBarBackground: UIView = {
-        let view = UIView(frame: CGRect(x: CGRectGetMinX(self.containerView!.bounds), y: CGRectGetMinY(self.containerView!.bounds), width: CGRectGetWidth(self.containerView!.bounds), height: self.statusBarEstimatedHeight))
-        view.autoresizingMask = .FlexibleWidth
-        let statusBarBackgroundBottomBorder = UIView(frame: CGRectMake(CGRectGetMinX(view.bounds), CGRectGetMaxY(view.bounds), CGRectGetWidth(view.bounds), 0.5))
-        statusBarBackgroundBottomBorder.autoresizingMask = .FlexibleWidth
-        view.backgroundColor = UIColor.whiteColor()
-        statusBarBackgroundBottomBorder.backgroundColor = UIColor.lightGrayColor()
+        let view = UIView(frame: CGRect(x: self.containerView!.bounds.minX, y: self.containerView!.bounds.minY, width: self.containerView!.bounds.width, height: self.statusBarEstimatedHeight))
+        view.autoresizingMask = .flexibleWidth
+        let statusBarBackgroundBottomBorder = UIView(frame: CGRect(x: view.bounds.minX, y: view.bounds.maxY, width: view.bounds.width, height: 0.5))
+        statusBarBackgroundBottomBorder.autoresizingMask = .flexibleWidth
+        view.backgroundColor = UIColor.white
+        statusBarBackgroundBottomBorder.backgroundColor = UIColor.lightGray
         view.addSubview(statusBarBackgroundBottomBorder)
 
         return view
     }()
     
     lazy var closeButton:UIButton = {
-        let button = UIButton(frame: CGRectZero)
+        let button = UIButton(frame: CGRect.zero)
         
-        button.setImage(UIImage(named: "close"), forState: UIControlState.Normal)
-        button.tintColor = UIColor.blackColor()
-        button.addTarget(self, action: #selector(WMFTableOfContentsPresentationController.didTap(_:)), forControlEvents: .TouchUpInside)
+        button.setImage(UIImage(named: "close"), for: UIControlState())
+        button.tintColor = UIColor.black
+        button.addTarget(self, action: #selector(WMFTableOfContentsPresentationController.didTap(_:)), for: .touchUpInside)
         
         button.accessibilityHint = localizedStringForKeyFallingBackOnEnglish("table-of-contents-close-accessibility-hint")
         button.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("table-of-contents-close-accessibility-label")
@@ -53,9 +53,9 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
     }()
 
     lazy var backgroundView :UIVisualEffectView = {
-        let view = UIVisualEffectView(frame: CGRectZero)
-        view.autoresizingMask = .FlexibleWidth
-        view.effect = UIBlurEffect(style: .Light)
+        let view = UIVisualEffectView(frame: CGRect.zero)
+        view.autoresizingMask = .flexibleWidth
+        view.effect = UIBlurEffect(style: .light)
         view.alpha = 0.0
         let tap = UITapGestureRecognizer.init()
         tap.addTarget(self, action: #selector(WMFTableOfContentsPresentationController.didTap(_:)))
@@ -68,119 +68,119 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
     
     func updateButtonConstraints() {
         self.closeButton.mas_remakeConstraints({ make in
-            make.width.equalTo()(44)
-            make.height.equalTo()(44)
+            _ = make?.width.equalTo()(44)
+            _ = make?.height.equalTo()(44)
             switch self.displaySide {
             case WMFTableOfContentsDisplaySideLeft:
-                make.trailing.equalTo()(self.closeButton.superview!.mas_trailing).offset()(0 - self.closeButtonLeadingPadding)
-                if(self.traitCollection.verticalSizeClass == .Compact){
-                    make.top.equalTo()(self.closeButtonTopPadding)
+                _ = make?.trailing.equalTo()(self.closeButton.superview!.mas_trailing)?.offset()(0 - self.closeButtonLeadingPadding)
+                if(self.traitCollection.verticalSizeClass == .compact){
+                    _ = make?.top.equalTo()(self.closeButtonTopPadding)
                 }else{
-                    make.top.equalTo()(self.closeButtonTopPadding + self.statusBarEstimatedHeight)
+                    _ = make?.top.equalTo()(self.closeButtonTopPadding + self.statusBarEstimatedHeight)
                 }
                 break
             case WMFTableOfContentsDisplaySideRight:
-                make.leading.equalTo()(self.closeButton.superview!.mas_leading).offset()(self.closeButtonLeadingPadding)
-                if(self.traitCollection.verticalSizeClass == .Compact){
-                    make.top.equalTo()(self.closeButtonTopPadding)
+                _ = make?.leading.equalTo()(self.closeButton.superview!.mas_leading)?.offset()(self.closeButtonLeadingPadding)
+                if(self.traitCollection.verticalSizeClass == .compact){
+                    _ = make?.top.equalTo()(self.closeButtonTopPadding)
                 }else{
-                    make.top.equalTo()(self.closeButtonTopPadding + self.statusBarEstimatedHeight)
+                    _ = make?.top.equalTo()(self.closeButtonTopPadding + self.statusBarEstimatedHeight)
                 }
                 break
             case WMFTableOfContentsDisplaySideCenter:
                 fallthrough
             default:
-                make.leading.equalTo()(self.closeButton.superview!.mas_leading).offset()(self.closeButtonLeadingPadding)
-                make.bottom.equalTo()(self.closeButton.superview!.mas_bottom).offset()(self.closeButtonTopPadding)
+                _ = make?.leading.equalTo()(self.closeButton.superview!.mas_leading)?.offset()(self.closeButtonLeadingPadding)
+                _ = make?.bottom.equalTo()(self.closeButton.superview!.mas_bottom)?.offset()(self.closeButtonTopPadding)
             }
             return ()
         })
     }
 
     
-    func didTap(tap: UITapGestureRecognizer) {
+    func didTap(_ tap: UITapGestureRecognizer) {
         self.tapDelegate?.tableOfContentsPresentationControllerDidTapBackground(self);
     }
     
     // MARK: - Accessibility
-    func togglePresentingViewControllerAccessibility(accessible: Bool) {
+    func togglePresentingViewControllerAccessibility(_ accessible: Bool) {
         self.presentingViewController.view.accessibilityElementsHidden = !accessible
     }
 
     // MARK: - UIPresentationController
-    override public func presentationTransitionWillBegin() {
+    override open func presentationTransitionWillBegin() {
         // Add the dimming view and the presented view to the heirarchy
         self.backgroundView.frame = self.containerView!.bounds
         self.containerView!.addSubview(self.backgroundView)
         
-        if(self.traitCollection.verticalSizeClass == .Compact){
-            self.statusBarBackground.hidden = true
+        if(self.traitCollection.verticalSizeClass == .compact){
+            self.statusBarBackground.isHidden = true
         }
         
         updateButtonConstraints()
 
-        self.containerView!.addSubview(self.presentedView()!)
+        self.containerView!.addSubview(self.presentedView!)
         
         // Hide the presenting view controller for accessibility
         self.togglePresentingViewControllerAccessibility(false)
 
         switch displaySide {
         case WMFTableOfContentsDisplaySideCenter:
-            self.presentedView()?.layer.cornerRadius = 10
-            self.presentedView()?.clipsToBounds = true
-            self.presentedView()?.layer.borderColor = UIColor.wmf_lightGrayColor().CGColor
-            self.presentedView()?.layer.borderWidth = 1.0
-            self.closeButton.setImage(UIImage(named: "toc-close-blue"), forState: .Normal)
-            self.statusBarBackground.hidden = true
+            self.presentedView?.layer.cornerRadius = 10
+            self.presentedView?.clipsToBounds = true
+            self.presentedView?.layer.borderColor = UIColor.wmf_lightGray().cgColor
+            self.presentedView?.layer.borderWidth = 1.0
+            self.closeButton.setImage(UIImage(named: "toc-close-blue"), for: UIControlState())
+            self.statusBarBackground.isHidden = true
             break
         default:
             //Add shadow to the presented view
-            self.presentedView()?.layer.shadowOpacity = 0.5
-            self.presentedView()?.layer.shadowOffset = CGSize(width: 3, height: 5)
-            self.presentedView()?.clipsToBounds = false
-            self.closeButton.setImage(UIImage(named: "close"), forState: .Normal)
-            self.statusBarBackground.hidden = false
+            self.presentedView?.layer.shadowOpacity = 0.5
+            self.presentedView?.layer.shadowOffset = CGSize(width: 3, height: 5)
+            self.presentedView?.clipsToBounds = false
+            self.closeButton.setImage(UIImage(named: "close"), for: UIControlState())
+            self.statusBarBackground.isHidden = false
         }
         
         // Fade in the dimming view alongside the transition
-        if let transitionCoordinator = self.presentingViewController.transitionCoordinator() {
-            transitionCoordinator.animateAlongsideTransition({(context: UIViewControllerTransitionCoordinatorContext!) -> Void in
+        if let transitionCoordinator = self.presentingViewController.transitionCoordinator {
+            transitionCoordinator.animate(alongsideTransition: {(context: UIViewControllerTransitionCoordinatorContext!) -> Void in
                 self.backgroundView.alpha  = 1.0
                 }, completion:nil)
         }
     }
     
-    override public func presentationTransitionDidEnd(completed: Bool)  {
+    override open func presentationTransitionDidEnd(_ completed: Bool)  {
         if !completed {
             self.backgroundView.removeFromSuperview()
 
         }
     }
     
-    override public func dismissalTransitionWillBegin()  {
-        if let transitionCoordinator = self.presentingViewController.transitionCoordinator() {
-            transitionCoordinator.animateAlongsideTransition({(context: UIViewControllerTransitionCoordinatorContext!) -> Void in
+    override open func dismissalTransitionWillBegin()  {
+        if let transitionCoordinator = self.presentingViewController.transitionCoordinator {
+            transitionCoordinator.animate(alongsideTransition: {(context: UIViewControllerTransitionCoordinatorContext!) -> Void in
                 self.backgroundView.alpha  = 0.0
                 }, completion:nil)
         }
 
     }
     
-    override public func dismissalTransitionDidEnd(completed: Bool) {
+    override open func dismissalTransitionDidEnd(_ completed: Bool) {
 
         if completed {
 
             self.backgroundView.removeFromSuperview()
             self.togglePresentingViewControllerAccessibility(true)
 
-            self.presentedView()?.layer.cornerRadius = 0
-            self.presentedView()?.layer.borderWidth = 0
-            self.presentedView()?.layer.shadowOpacity = 0
-            self.presentedView()?.clipsToBounds = true
+            self.presentedView?.layer.cornerRadius = 0
+            self.presentedView?.layer.borderWidth = 0
+            self.presentedView?.layer.shadowOpacity = 0
+            self.presentedView?.clipsToBounds = true
         }
     }
     
-    override public func frameOfPresentedViewInContainerView() -> CGRect {
+    override open var frameOfPresentedViewInContainerView : CGRect {
         var frame = self.containerView!.bounds;
         var bgWidth = self.minimumVisibleBackgroundWidth
         var tocWidth = frame.size.width - bgWidth
@@ -189,7 +189,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
             bgWidth = frame.size.width - tocWidth
         }
         
-        frame.origin.y = UIApplication.sharedApplication().statusBarFrame.size.height + 0.5;
+        frame.origin.y = UIApplication.shared.statusBarFrame.size.height + 0.5;
         
         switch displaySide {
         case WMFTableOfContentsDisplaySideCenter:
@@ -209,34 +209,34 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         return frame
     }
     
-    override public func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator transitionCoordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: transitionCoordinator)
+    override open func viewWillTransition(to size: CGSize, with transitionCoordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: transitionCoordinator)
 
-        transitionCoordinator.animateAlongsideTransition({(context: UIViewControllerTransitionCoordinatorContext!) -> Void in
+        transitionCoordinator.animate(alongsideTransition: {(context: UIViewControllerTransitionCoordinatorContext!) -> Void in
             self.backgroundView.frame = self.containerView!.bounds
-            let frame = self.frameOfPresentedViewInContainerView()
-            self.presentedView()!.frame = frame
+            let frame = self.frameOfPresentedViewInContainerView
+            self.presentedView!.frame = frame
 
 
             }, completion:nil)
     }
     
-    override public func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+    override open func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         
-        super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
+        super.willTransition(to: newCollection, with: coordinator)
         
-        if newCollection.verticalSizeClass == .Compact
+        if newCollection.verticalSizeClass == .compact
         {
-            self.statusBarBackground.hidden = true;
+            self.statusBarBackground.isHidden = true;
             
         }
         
-        if newCollection.verticalSizeClass == .Regular
+        if newCollection.verticalSizeClass == .regular
         {
-            self.statusBarBackground.hidden = false;
+            self.statusBarBackground.isHidden = false;
         }
         
-        coordinator.animateAlongsideTransition({(context: UIViewControllerTransitionCoordinatorContext!) -> Void in
+        coordinator.animate(alongsideTransition: {(context: UIViewControllerTransitionCoordinatorContext!) -> Void in
             self.updateButtonConstraints()
             
             }, completion:nil)

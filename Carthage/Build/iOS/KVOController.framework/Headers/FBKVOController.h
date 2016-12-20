@@ -23,7 +23,7 @@
  */
 #define FBKVOKeyPath(KEYPATH) \
 @(((void)(NO && ((void)KEYPATH, NO)), \
-({ char *fbkvokeypath = strchr(#KEYPATH, '.'); NSCAssert(fbkvokeypath, @"Provided key path is invalid."); fbkvokeypath + 1; })))
+({ const char *fbkvokeypath = strchr(#KEYPATH, '.'); NSCAssert(fbkvokeypath, @"Provided key path is invalid."); fbkvokeypath + 1; })))
 
 /**
  This macro ensures that key path exists at compile time.
@@ -40,10 +40,15 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
+ Key provided in the @c change dictionary of @c FBKVONotificationBlock that's value represents the key-path being observed
+ */
+extern NSString *const FBKVONotificationKeyPathKey;
+
+/**
  @abstract Block called on key-value change notification.
  @param observer The observer of the change.
  @param object The object changed.
- @param change The change dictionary.
+ @param change The change dictionary which also includes @c FBKVONotificationKeyPathKey
  */
 typedef void (^FBKVONotificationBlock)(id _Nullable observer, id object, NSDictionary<NSString *, id> *change);
 
@@ -52,6 +57,10 @@ typedef void (^FBKVONotificationBlock)(id _Nullable observer, id object, NSDicti
  @discussion FBKVOController adds support for handling key-value changes with blocks and custom actions, as well as the NSKeyValueObserving callback. Notification will never message a deallocated observer. Observer removal never throws exceptions, and observers are removed implicitly on controller deallocation. FBKVOController is also thread safe. When used in a concurrent environment, it protects observers from possible resurrection and avoids ensuing crash. By default, the controller maintains a strong reference to objects observed.
  */
 @interface FBKVOController : NSObject
+
+///--------------------------------------
+#pragma mark - Initialize
+///--------------------------------------
 
 /**
  @abstract Creates and returns an initialized KVO controller instance.
@@ -67,7 +76,7 @@ typedef void (^FBKVONotificationBlock)(id _Nullable observer, id object, NSDicti
  @return The initialized KVO controller instance.
  @discussion Use retainObserved = NO when a strong reference between controller and observee would create a retain loop. When not retaining observees, special care must be taken to remove observation info prior to observee dealloc.
  */
-- (instancetype)initWithObserver:(nullable id)observer retainObserved:(BOOL)retainObserved;
+- (instancetype)initWithObserver:(nullable id)observer retainObserved:(BOOL)retainObserved NS_DESIGNATED_INITIALIZER;
 
 /**
  @abstract Convenience initializer.
@@ -77,8 +86,28 @@ typedef void (^FBKVONotificationBlock)(id _Nullable observer, id object, NSDicti
  */
 - (instancetype)initWithObserver:(nullable id)observer;
 
-/// The observer notified on key-value change. Specified on initialization.
-@property (nullable, atomic, weak, readonly) id observer;
+/**
+ @abstract Initializes a new instance.
+
+ @warning This method is unavaialble. Please use `initWithObserver:` instead.
+ */
+- (instancetype)init NS_UNAVAILABLE;
+
+/**
+ @abstract Allocates memory and initializes a new instance into it.
+
+ @warning This method is unavaialble. Please use `controllerWithObserver:` instead.
+ */
++ (instancetype)new NS_UNAVAILABLE;
+
+///--------------------------------------
+#pragma mark - Observe
+///--------------------------------------
+
+/**
+ The observer notified on key-value change. Specified on initialization.
+ */
+@property (nullable, nonatomic, weak, readonly) id observer;
 
 /**
  @abstract Registers observer for key-value change notification.
@@ -140,6 +169,10 @@ typedef void (^FBKVONotificationBlock)(id _Nullable observer, id object, NSDicti
  @discussion On key-value change, the observer's -observeValueForKeyPath:ofObject:change:context: method is called. Observing an already observed object key path or nil results in no operation.
  */
 - (void)observe:(nullable id)object keyPaths:(NSArray<NSString *> *)keyPaths options:(NSKeyValueObservingOptions)options context:(nullable void *)context;
+
+///--------------------------------------
+#pragma mark - Unobserve
+///--------------------------------------
 
 /**
  @abstract Unobserve object key path.
