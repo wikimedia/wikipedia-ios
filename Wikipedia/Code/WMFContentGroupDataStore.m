@@ -184,10 +184,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [self createGroupOfKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent customizationBlock:NULL];
 }
 
-- (void)addContentGroup:(WMFContentGroup *)group associatedContent:(NSArray<NSCoding> *)content {
-    group.content = content;
-}
-
 - (void)removeContentGroup:(WMFContentGroup *)group {
     NSParameterAssert(group);
     [self.dataStore.viewContext deleteObject:group];

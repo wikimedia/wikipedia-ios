@@ -196,6 +196,9 @@
             self.isProcessingLocation = NO;
 
             if ([results.results count] == 0) {
+                if (completion) {
+                    completion();
+                }
                 return;
             }
 
@@ -207,7 +210,10 @@
             }];
 
             [self removeOldSectionsForDate:group.midnightUTCDate];
-            [self.contentStore addContentGroup:group associatedContent:urls];
+            group.content = urls;
+            if (completion) {
+                completion();
+            }
         }
         failure:^(NSError *_Nonnull error) {
             self.isProcessingLocation = NO;
