@@ -48,10 +48,14 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 NSString *const WMFCCBySALicenseURL =
     @"https://creativecommons.org/licenses/by-sa/3.0/";
 
+static const NSString *kvo_WebViewController_webView_scrollView = nil;
+static const NSString *kvo_WebViewController_webViewScrollView_contentSize = nil;
+static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
+
 @interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate>
 
 @property (nonatomic, strong) MASConstraint *headerHeight;
-@property (nonatomic, strong) UIView *footerContainerView;
+@property (nonatomic, strong, nullable) UIView *footerContainerView;
 @property (nonatomic, strong) NSMutableDictionary *footerViewHeadersByIndex;
 @property (nonatomic, strong) WMFArticleFooterView *footerLicenseView;
 @property (nonatomic, strong) IBOutlet UIView *containerView;
@@ -76,8 +80,10 @@ NSString *const WMFCCBySALicenseURL =
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self unobserveFooterContainerViewBounds];
-    [self unobserveScrollViewContentSize];
+    //explicitly nil these values out to remove KVO observers
+    self.webView = nil;
+    self.webViewScrollView = nil;
+    self.footerContainerView = nil;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
@@ -526,13 +532,43 @@ NSString *const WMFCCBySALicenseURL =
     return configuration;
 }
 
-- (WKWebView *)webView {
-    if (!_webView) {
-        _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
-        _webView.allowsLinkPreview = NO;
-        _webView.scrollView.delegate = self;
+- (void)setWebView:(WKWebView *)webView {
+    if (webView == _webView) {
+        return;
     }
-    return _webView;
+    if (_webView) {
+        [_webView removeObserver:self forKeyPath:@"scrollView"];
+    }
+    _webView = webView;
+    if (_webView) {
+        [_webView addObserver:self forKeyPath:@"scrollView" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial context:&kvo_WebViewController_webView_scrollView];
+    }
+}
+
+- (void)setWebViewScrollView:(UIScrollView *)webViewScrollView {
+    if (webViewScrollView == _webViewScrollView) {
+        return;
+    }
+    if (_webViewScrollView) {
+        [_webViewScrollView removeObserver:self forKeyPath:@"contentSize"];
+    }
+    _webViewScrollView = webViewScrollView;
+    if (_webViewScrollView) {
+        [_webViewScrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial context:&kvo_WebViewController_webViewScrollView_contentSize];
+    }
+}
+
+- (void)setFooterContainerView:(UIView *)footerContainerView {
+    if (footerContainerView == _footerContainerView) {
+        return;
+    }
+    if (_footerContainerView) {
+        [_footerContainerView removeObserver:self forKeyPath:@"bounds"];
+    }
+    _footerContainerView = footerContainerView;
+    if (_footerContainerView) {
+        [_footerContainerView addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial context:&kvo_WebViewController_footerContainerView_bounds];
+    }
 }
 
 #pragma mark - UIViewController
@@ -544,11 +580,15 @@ NSString *const WMFCCBySALicenseURL =
 
     self.contentWidthPercentage = 1;
 
+    self.webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
+    self.webView.allowsLinkPreview = NO;
+    self.webView.scrollView.delegate = self;
+    self.webView.translatesAutoresizingMaskIntoConstraints = NO;
+
     [self addFooterContainerView];
     [self addHeaderView];
     [self addFooterView];
 
-    self.webView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.containerView insertSubview:self.webView atIndex:0];
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_topLayoutGuide);
@@ -565,9 +605,6 @@ NSString *const WMFCCBySALicenseURL =
     self.webView.backgroundColor = [UIColor whiteColor];
 
     self.view.backgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
-
-    [self observeFooterContainerViewBounds];
-    [self observeScrollViewContentSize];
 
     [self displayArticle];
 }
@@ -603,50 +640,6 @@ NSString *const WMFCCBySALicenseURL =
 
 - (BOOL)prefersStatusBarHidden {
     return NO;
-}
-
-#pragma mark - Observations
-
-/**
- *  Observe changes to the native footer bounds so we can message back to the html to
- *  add bottom padding to html body tag to make room for the native footerContainerView overlay.
- */
-- (void)unobserveFooterContainerViewBounds {
-    [self.KVOControllerNonRetaining unobserve:self.footerContainerView
-                                      keyPath:WMF_SAFE_KEYPATH(self.footerContainerView, bounds)];
-}
-
-- (void)observeFooterContainerViewBounds {
-    [self.KVOControllerNonRetaining observe:self.footerContainerView
-                                    keyPath:WMF_SAFE_KEYPATH(self.footerContainerView, bounds)
-                                    options:NSKeyValueObservingOptionInitial
-                                      block:^(WebViewController *observer, UIView *view, NSDictionary *change) {
-                                          if (view && observer.webView) {
-                                              [observer.webView wmf_setBottomPadding:(NSInteger)(ceil(view.bounds.size.height))];
-                                          }
-                                      }];
-}
-
-/**
- *  Observe changes to web view scroll view's content size so we can set the top constraint
- *  of the native footerContainerView. Reminder: we constrain to top of footerContainerView
- *  because constraining its bottom to the WKContentView's bottom is flakey - ie doesn't
- *  always work.
- */
-- (void)unobserveScrollViewContentSize {
-    [self.KVOControllerNonRetaining unobserve:self.webView.scrollView
-                                      keyPath:WMF_SAFE_KEYPATH(self.webView.scrollView, contentSize)];
-}
-
-- (void)observeScrollViewContentSize {
-    @weakify(self);
-    [self.KVOControllerNonRetaining observe:self.webView.scrollView
-                                    keyPath:WMF_SAFE_KEYPATH(self.webView.scrollView, contentSize)
-                                    options:NSKeyValueObservingOptionInitial
-                                      block:^(WebViewController *observer, UIScrollView *scrollView, NSDictionary *change) {
-                                          @strongify(self);
-                                          [self setTopOfFooterContainerViewForContentSize:scrollView.contentSize];
-                                      }];
 }
 
 - (void)setTopOfFooterContainerViewForContentSize:(CGSize)contentSize {
@@ -741,14 +734,6 @@ NSString *const WMFCCBySALicenseURL =
     }];
 }
 
-- (UIView *)footerContainerView {
-    if (!_footerContainerView) {
-        _footerContainerView = [UIView new];
-        _footerContainerView.backgroundColor = [UIColor wmf_articleBackgroundColor];
-    }
-    return _footerContainerView;
-}
-
 - (WMFArticleFooterView *)footerLicenseView {
     if (!_footerLicenseView) {
         _footerLicenseView = [WMFArticleFooterView wmf_viewFromClassNib];
@@ -775,6 +760,8 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)addFooterContainerView {
+    self.footerContainerView = [UIView new];
+    self.footerContainerView.backgroundColor = [UIColor wmf_articleBackgroundColor];
     self.footerContainerView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.webView.scrollView addSubview:self.footerContainerView];
     [self.footerContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1177,6 +1164,20 @@ NSString *const WMFCCBySALicenseURL =
         _contentWidthPercentage = contentWidthPercentage;
         [self updateWebContentMarginForSize:self.view.bounds.size];
         [self updateFooterMarginForSize:self.view.bounds.size];
+    }
+}
+
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey, id> *)change context:(void *)context {
+    if (context == &kvo_WebViewController_webView_scrollView) {
+        self.webViewScrollView = self.webView.scrollView;
+    } else if (context == &kvo_WebViewController_webViewScrollView_contentSize) {
+        [self setTopOfFooterContainerViewForContentSize:self.webViewScrollView.contentSize];
+    } else if (context == &kvo_WebViewController_footerContainerView_bounds) {
+        [self.webView wmf_setBottomPadding:(NSInteger)(ceil(self.footerContainerView.bounds.size.height))];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
