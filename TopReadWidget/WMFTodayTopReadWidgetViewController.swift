@@ -257,7 +257,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                         vc.viewCountLabel.text = NumberFormatter.localizedThousandsStringFromNumber(count)
                         if let numberString = NumberFormatter.threeSignificantDigitWholeNumberFormatter.string(from: count) {
                             let format = localizedStringForKeyFallingBackOnEnglish("readers-accessibility-label")
-                            vc.viewCountLabel.accessibilityLabel = format?.replacingOccurrences(of: "$1", with: numberString)
+                            vc.viewCountLabel.accessibilityLabel = format.replacingOccurrences(of: "$1", with: numberString)
                         }
                     } else {
                         vc.viewCountLabel.accessibilityLabel = nil

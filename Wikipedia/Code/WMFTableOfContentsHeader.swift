@@ -16,9 +16,7 @@ open class WMFTableOfContentsHeader: UIView {
     }
     
     open func headerTextForURL(_ url: URL) -> String {
-        guard let headerString = localizedStringForURLWithKeyFallingBackOnEnglish(url, "table-of-contents-heading") else {
-            return ""
-        }
+        let headerString = localizedStringForURLWithKeyFallingBackOnEnglish(url, "table-of-contents-heading")
         if (NSLocale.wmf_isCurrentLocaleEnglish()) {
             return headerString.uppercased(with: Locale.current)
         } else {

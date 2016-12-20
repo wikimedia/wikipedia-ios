@@ -173,9 +173,7 @@ open class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeViewCo
     }
     
     open func showEmailFeedbackAlertViewWithError(_ error: NSError) {
-        guard let message = localizedStringForKeyFallingBackOnEnglish("request-feedback-on-error") else {
-            return
-        }
+       let message = localizedStringForKeyFallingBackOnEnglish("request-feedback-on-error")
         showErrorAlertWithMessage(message, sticky: true, dismissPreviousAlerts: true) {
             self.dismissAllAlerts()
             if MFMailComposeViewController.canSendMail() {
