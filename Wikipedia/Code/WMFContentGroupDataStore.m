@@ -107,7 +107,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [contentGroups firstObject];
 }
 
-- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date siteURL:(NSURL*)url{
+- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date siteURL:(NSURL *)url {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@ && siteURLString == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate, url.absoluteString];
     fetchRequest.fetchLimit = 1;
@@ -119,7 +119,6 @@ NS_ASSUME_NONNULL_BEGIN
     }
     return [contentGroups firstObject];
 }
-
 
 - (nullable NSArray<WMFContentGroup *> *)groupsOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
@@ -135,7 +134,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - section add / remove
 
-- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
+- (nullable WMFContentGroup *)createGroupForURL:(nullable NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
     WMFContentGroup *group = [NSEntityDescription insertNewObjectForEntityForName:@"WMFContentGroup" inManagedObjectContext:self.dataStore.viewContext];
     group.date = date;
     group.midnightUTCDate = date.wmf_midnightUTCDateFromLocalDate;
@@ -147,11 +146,19 @@ NS_ASSUME_NONNULL_BEGIN
         customizationBlock(group);
     }
 
-    [group updateKey];
+    if (URL) {
+        group.URL = URL;
+    } else {
+        [group updateKey];
+    }
     [group updateContentType];
     [group updateDailySortPriority];
 
     return group;
+}
+
+- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
+    return [self createGroupForURL:nil ofKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent customizationBlock:customizationBlock];
 }
 
 - (nullable WMFContentGroup *)fetchOrCreateGroupForURL:(NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
@@ -167,7 +174,7 @@ NS_ASSUME_NONNULL_BEGIN
             customizationBlock(group);
         }
     } else {
-        group = [self createGroupOfKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent customizationBlock:customizationBlock];
+        group = [self createGroupForURL:URL ofKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent customizationBlock:customizationBlock];
     }
 
     return group;
