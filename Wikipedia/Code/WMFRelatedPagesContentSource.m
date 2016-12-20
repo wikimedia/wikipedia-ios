@@ -2,19 +2,12 @@
 #import "WMFContentGroupDataStore.h"
 #import "MWKDataStore.h"
 #import "WMFArticleDataStore.h"
-#import "MWKHistoryEntry.h"
 #import "MWKSearchResult.h"
 #import "WMFRelatedSearchFetcher.h"
 #import "WMFRelatedSearchResults.h"
 #import <WMFModel/WMFModel-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
-@interface MWKHistoryEntry (WMFRelatedPages)
-
-- (BOOL)needsRelatedPagesGroupForDate:(NSDate *)date;
-
-@end
 
 @implementation WMFArticle (WMFRelatedPages)
 
