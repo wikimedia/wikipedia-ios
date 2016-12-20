@@ -14,7 +14,9 @@ NSString *localizedStringForKeyFallingBackOnEnglish(NSString *key) {
         NSString *path = [[NSBundle bundleWithIdentifier:WMFLocalizationBundleIdentifier] pathForResource:@"en" ofType:@"lproj"];
         englishBundle = [NSBundle bundleWithPath:path];
     }
-    return [englishBundle localizedStringForKey:key value:@"" table:nil];
+    
+    NSString *localizedString = [englishBundle localizedStringForKey:key value:@"" table:nil];
+    return localizedString ? localizedString : @"";
 }
 
 NSString *localizedStringForURLWithKeyFallingBackOnEnglish(NSURL *url, NSString *key) {
@@ -31,5 +33,5 @@ NSString *localizedStringForURLWithKeyFallingBackOnEnglish(NSURL *url, NSString 
     if (!translation || [translation isEqualToString:key] || (translation.length == 0)) {
         return MWLocalizedString(key, nil);
     }
-    return translation;
+    return translation ? translation : @"";
 }
