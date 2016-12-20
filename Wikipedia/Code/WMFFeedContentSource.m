@@ -238,8 +238,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     if (featured == nil) {
         [self.contentStore createGroupOfKind:WMFContentGroupKindFeaturedArticle forDate:date withSiteURL:self.siteURL associatedContent:@[featuredURL]];
-    } else {
-        [self.contentStore addContentGroup:featured associatedContent:@[featuredURL]];
+    } else if (featured.content == nil) {
+        featured.content = @[featuredURL];
     }
 }
 
@@ -256,9 +256,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     WMFContentGroup *group = [self topReadForDate:date];
 
-    if (group) {
-        [self.contentStore addContentGroup:group associatedContent:topRead.articlePreviews];
-    } else {
+    if (group == nil) {
         [self.contentStore createGroupOfKind:WMFContentGroupKindTopRead
                                      forDate:date
                                  withSiteURL:self.siteURL
@@ -266,6 +264,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
                           customizationBlock:^(WMFContentGroup *_Nonnull group) {
                               group.contentMidnightUTCDate = topRead.date.wmf_midnightUTCDateFromLocalDate;
                           }];
+    } else if (group.content == nil) {
+        group.content = topRead.articlePreviews;
     }
 }
 
@@ -278,8 +278,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     if (group == nil) {
         [self.contentStore createGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date withSiteURL:self.siteURL associatedContent:@[image]];
-    } else {
-        [self.contentStore addContentGroup:group associatedContent:@[image]];
+    } else if (group.content == nil) {
+        group.content = @[image];
     }
 }
 
@@ -292,8 +292,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     if (group == nil) {
         [self.contentStore createGroupOfKind:WMFContentGroupKindNews forDate:date withSiteURL:self.siteURL associatedContent:news];
-    } else {
-        [self.contentStore addContentGroup:group associatedContent:news];
+    } else if (group.content == nil) {
+        group.content = news;
     }
 
     [news enumerateObjectsUsingBlock:^(WMFFeedNewsStory *_Nonnull story, NSUInteger idx, BOOL *_Nonnull stop) {

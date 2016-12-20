@@ -86,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     
-    NSURL *contentGroupURL = [WMFContentGroup randomContentGroupURLForSiteURL:siteURL date:date];
+    NSURL *contentGroupURL = [WMFContentGroup randomContentGroupURLForSiteURL:siteURL midnightUTCDate:date.wmf_midnightUTCDateFromLocalDate];
     WMFContentGroup *existingGroup = [self.contentStore contentGroupForURL:contentGroupURL];
     if (existingGroup) {
         if (completion) {

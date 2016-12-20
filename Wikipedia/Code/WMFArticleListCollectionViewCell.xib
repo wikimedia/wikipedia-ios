@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -30,7 +30,7 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6JK-c4-FJw" userLabel="Clipping Container View" customClass="GroupedAccessibilityView" customModule="WMFUI">
-                        <rect key="frame" x="55" y="10.5" width="403" height="40.5"/>
+                        <rect key="frame" x="55" y="10.5" width="403" height="40"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="999" verticalCompressionResistancePriority="1000" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mxi-So-IXe">
                                 <rect key="frame" x="15" y="0.0" width="373" height="20.5"/>
@@ -76,15 +76,14 @@
             </view>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="RMa-GF-kKq" firstAttribute="top" relation="greaterThanOrEqual" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="10" id="0FL-Bb-pTQ"/>
+                <constraint firstItem="RMa-GF-kKq" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="10" id="0FL-Bb-pTQ"/>
                 <constraint firstItem="6JK-c4-FJw" firstAttribute="centerY" secondItem="KGk-i7-Jjw" secondAttribute="centerY" id="GY0-Wk-Uoq"/>
                 <constraint firstItem="6JK-c4-FJw" firstAttribute="top" relation="greaterThanOrEqual" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="6" id="HeW-tc-eCS"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="RMa-GF-kKq" secondAttribute="bottom" constant="10" id="KBp-WI-wU6"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="RMa-GF-kKq" secondAttribute="bottom" priority="999" constant="10" id="KBp-WI-wU6"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6JK-c4-FJw" secondAttribute="bottom" constant="6" id="VL3-nP-KCg"/>
                 <constraint firstItem="6JK-c4-FJw" firstAttribute="leading" secondItem="RMa-GF-kKq" secondAttribute="trailing" id="W1o-QG-sBU"/>
                 <constraint firstItem="RMa-GF-kKq" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="15" id="Zfh-bn-2Mj"/>
                 <constraint firstAttribute="trailing" secondItem="6JK-c4-FJw" secondAttribute="trailing" id="bMC-sz-hcv"/>
-                <constraint firstItem="RMa-GF-kKq" firstAttribute="centerY" secondItem="KGk-i7-Jjw" secondAttribute="centerY" id="nl1-L3-ph3"/>
             </constraints>
             <size key="customSize" width="458" height="61"/>
             <connections>

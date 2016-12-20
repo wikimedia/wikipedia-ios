@@ -112,7 +112,7 @@
                         section = [self.contentStore createGroupOfKind:WMFContentGroupKindMainPage forDate:[NSDate date] withSiteURL:siteURL associatedContent:nil];
                     }
                     [self.previewStore addPreviewWithURL:data.mainPageURL updatedWithSearchResult:[results firstObject]];
-                    [self.contentStore addContentGroup:section associatedContent:@[data.mainPageURL]];
+                    section.content = @[data.mainPageURL];
                     [self cleanupOldSections];
 
                     if (completion) {

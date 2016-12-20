@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11542" systemVersion="16B2555" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16B2555" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
         <attribute name="displayTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isExcludedFromFeed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
@@ -51,6 +51,11 @@
                 <index value="midnightUTCDate"/>
                 <index value="dailySortPriority"/>
                 <index value="date"/>
+            </compoundIndex>
+            <compoundIndex>
+                <index value="contentGroupKindInteger"/>
+                <index value="midnightUTCDate"/>
+                <index value="siteURLString"/>
             </compoundIndex>
         </compoundIndexes>
     </entity>
