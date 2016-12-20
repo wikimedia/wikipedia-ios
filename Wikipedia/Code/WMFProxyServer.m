@@ -218,6 +218,7 @@
                                                                                         completionBlock(notFound);
                                                                                     }
                                                                                 }];
+        downloadImgTask.priority = NSURLSessionTaskPriorityLow;
         [downloadImgTask resume];
     }
 }

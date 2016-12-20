@@ -24,7 +24,6 @@
 #import "WMFZeroConfiguration.h"
 #import "WKWebView+LoadAssetsHtml.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
-#import "WKProcessPool+WMFSharedProcessPool.h"
 #import "NSURL+WMFProxyServer.h"
 #import "WMFImageTag.h"
 #import "WKScriptMessage+WMFScriptMessage.h"
@@ -529,6 +528,7 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.userContentController = userContentController;
+    configuration.applicationNameForUserAgent = @"WikipediaApp";
     return configuration;
 }
 
