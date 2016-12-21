@@ -4,16 +4,23 @@ pr_branch = 'twn'
 base_branch = 'develop'
 title = 'localization'
 
-current_hash = `git ls-remote --heads origin | grep refs/heads/#{pr_branch}`.split.first.strip
+current_hash = `git ls-remote --heads origin | grep refs/heads/#{pr_branch}`.split.first
 
 if !current_hash || current_hash == ''
   puts "no current hash"
   abort
 end
 
+current_hash = current_hash.strip
+
 hash_file = "~/PR_#{pr_branch.upcase}_CURRENT_HASH"
 
-previous_hash = `cat #{hash_file}`.strip
+previous_hash = `cat #{hash_file}`
+
+if previous_hash
+  previous_hash = previous_hash.strip
+end
+
 `echo "#{current_hash}" > #{hash_file}`
 
 if previous_hash == current_hash
