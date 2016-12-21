@@ -8,7 +8,7 @@ current_hash = `git ls-remote --heads origin | grep refs/heads/#{pr_branch}`.spl
 
 if !current_hash || current_hash == ''
   puts "no current hash"
-  abort
+  exit 0
 end
 
 current_hash = current_hash.strip
@@ -25,7 +25,7 @@ end
 
 if previous_hash == current_hash
   puts "no changes"
-  abort
+  exit 0
 end
 
 puts "#{pr_branch} went from #{previous_hash} to #{current_hash}, opening pr"
