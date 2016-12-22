@@ -5607,6 +5607,16 @@
 			path = "Third Party";
 			sourceTree = "<group>";
 		};
+		ED62855A1E0B398F0005971F /* External Url */ = {
+			isa = PBXGroup;
+			children = (
+				ED4C10E21E0BADE4005452C6 /* WMFExternalUrlViewController.h */,
+				ED4C10E31E0BADE4005452C6 /* WMFExternalUrlViewController.m */,
+				ED4C10E51E0BBE4C005452C6 /* WMFExternalUrlViewController.storyboard */,
+			);
+			name = "External Url";
+			sourceTree = "<group>";
+		};
 		D8FA18A91E1BD84D009675C3 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
