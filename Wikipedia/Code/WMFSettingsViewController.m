@@ -9,6 +9,7 @@
 #import "WMFLanguagesViewController.h"
 #import "AboutViewController.h"
 #import "WMFHelpViewController.h"
+#import "WMFExternalUrlViewController.h"
 
 // Models
 #import "MWKLanguageLink.h"
@@ -183,13 +184,28 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
             [self wmf_openExternalUrl:[self donationURL]];
             break;
         case WMFSettingsMenuItemType_PrivacyPolicy:
-            [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLPrivacyPolicy]];
+            [self presentViewController:
+                      [[UINavigationController alloc] initWithRootViewController:
+                                                          [WMFExternalUrlViewController externalUrlViewControllerWithUrl:[NSURL URLWithString:WMFSettingsURLPrivacyPolicy]
+                                                                                                       localizedTitleKey:@"main-menu-privacy-policy"]]
+                               animated:YES
+                             completion:nil];
             break;
         case WMFSettingsMenuItemType_Terms:
-            [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLTerms]];
+            [self presentViewController:
+                      [[UINavigationController alloc] initWithRootViewController:
+                                                          [WMFExternalUrlViewController externalUrlViewControllerWithUrl:[NSURL URLWithString:WMFSettingsURLTerms]
+                                                                                                       localizedTitleKey:@"main-menu-terms-of-use"]]
+                               animated:YES
+                             completion:nil];
             break;
         case WMFSettingsMenuItemType_ZeroFAQ:
-            [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLZeroFAQ]];
+            [self presentViewController:
+                      [[UINavigationController alloc] initWithRootViewController:
+                                                          [WMFExternalUrlViewController externalUrlViewControllerWithUrl:[NSURL URLWithString:WMFSettingsURLZeroFAQ]
+                                                                                                       localizedTitleKey:@"main-menu-zero-faq"]]
+                               animated:YES
+                             completion:nil];
             break;
         case WMFSettingsMenuItemType_RateApp:
             [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLRate] useSafari:YES];
