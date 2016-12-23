@@ -462,13 +462,15 @@ extension WMFImageController {
     }
     
     
-    @objc public func prefetchImageWithURL(_ url: URL?) {
+    @objc public func prefetchImageWithURL(_ url: URL?, completion: (() -> Void)?) {
         guard let url = url else {
             return
         }
-
-        fetchImage(withURL: url, options: [.lowPriority, .scaleDownLargeImages], failure: { (error) in }) { (download) in
-
+        
+        fetchImage(withURL: url, options: [.lowPriority, .scaleDownLargeImages], failure: { (error) in
+            completion?()
+        }) { (download) in
+            completion?()
         }
     }
 
