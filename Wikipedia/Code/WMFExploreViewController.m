@@ -284,6 +284,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                                 if (![self.userStore save:&saveError]) {
                                     DDLogError(@"Error saving: %@", saveError);
                                 }
+                                [[NSUserDefaults wmf_userDefaults] wmf_setFeedRefreshDate:[NSDate date]];
                                 [self resetRefreshControl];
                                 [self startMonitoringReachabilityIfNeeded];
                                 [self showOfflineEmptyViewIfNeeded];
