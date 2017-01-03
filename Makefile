@@ -36,7 +36,9 @@ xcode-cltools-check: ##Make sure proper Xcode & command line tools are installed
 	fi
 
 get-xcode-cltools: ##Install Xcode command-line tools
-	xcode-select --install
+	if ! xcode-select -p > /dev/null ; then \
+		xcode-select --install; \
+	fi
 
 #!!!!!
 #!!!!! Executable dependencies
