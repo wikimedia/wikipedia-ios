@@ -4,7 +4,7 @@
 #import "WMFArticleDataStore.h"
 #import "MWKHistoryEntry.h"
 #import "MWKArticle.h"
-#import <WMFModel/WMFModel-Swift.h>
+#import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -44,7 +44,7 @@
                             <constraint firstAttribute="height" constant="40" id="H8w-Mn-sKo"/>
                         </constraints>
                     </view>
-                    <view opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="b9f-lv-xA2" customClass="GroupedAccessibilityView" customModule="WMFUI">
+                    <view opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="b9f-lv-xA2" customClass="GroupedAccessibilityView" customModule="WMF">
                         <rect key="frame" x="13" y="187" width="335" height="106"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Acr-bf-9iA" userLabel="Title Label">

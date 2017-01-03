@@ -95,9 +95,11 @@ typedef NS_ENUM(NSUInteger, WMFAppTabType) {
  */
 static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
-static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
+static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 * 60;
 
 static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
+
+static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 @interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 
@@ -415,7 +417,11 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:NULL failure:NULL];
 
     [self startContentSources];
-    [self updateFeedSourcesWithCompletion:NULL];
+    
+    NSDate *feedRefreshDate = [[NSUserDefaults wmf_userDefaults] wmf_feedRefreshDate];
+    if (!feedRefreshDate || [feedRefreshDate timeIntervalSinceNow] > WMFTimeBeforeRefreshingExploreFeed) {
+        [self updateFeedSourcesWithCompletion:NULL];
+    }
 
     [self.savedArticlesFetcher start];
 
@@ -782,7 +788,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
         return NO;
     }
 
-    if (fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeRefreshingExploreScreen) {
+    if (fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeShowingExploreScreenOnLaunch) {
         return YES;
     }
     return NO;
@@ -962,7 +968,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return NO;
     }
 
-    if (fabs([resignActiveDate timeIntervalSinceNow]) < WMFTimeBeforeRefreshingExploreScreen) {
+    if (fabs([resignActiveDate timeIntervalSinceNow]) < WMFTimeBeforeShowingExploreScreenOnLaunch) {
         if (![self exploreViewControllerIsDisplayingContent] && [self.rootTabBarController selectedIndex] == WMFAppTabTypeExplore) {
             return YES;
         }

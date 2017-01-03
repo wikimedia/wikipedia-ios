@@ -284,6 +284,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                                 if (![self.userStore save:&saveError]) {
                                     DDLogError(@"Error saving: %@", saveError);
                                 }
+                                [[NSUserDefaults wmf_userDefaults] wmf_setFeedRefreshDate:[NSDate date]];
                                 [self resetRefreshControl];
                                 [self startMonitoringReachabilityIfNeeded];
                                 [self showOfflineEmptyViewIfNeeded];
@@ -813,7 +814,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     if ([sectionObject headerType] == WMFFeedHeaderTypeNone) {
         return 0.0;
     } else {
-        return 66;
+        return 69.0;
     }
 }
 

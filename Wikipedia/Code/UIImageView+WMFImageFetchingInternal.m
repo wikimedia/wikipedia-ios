@@ -1,12 +1,11 @@
 #import "UIImageView+WMFImageFetchingInternal.h"
 #import "UIImageView+WMFImageFetching.h"
-@import WMFModel;
-
 #import "UIImageView+WMFContentOffset.h"
 #import "UIImage+WMFNormalization.h"
 #import "CIDetector+WMFFaceDetection.h"
 #import "WMFFaceDetectionCache.h"
 #import "UIImageView+WMFPlaceholder.h"
+#import <WMF/WMF-Swift.h>
 
 static const char *const MWKURLAssociationKey = "MWKURL";
 

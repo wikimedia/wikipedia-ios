@@ -1,9 +1,8 @@
 #import "WMFNotificationsController.h"
 #import "WMFFaceDetectionCache.h"
-#import <WMFModel/WMFModel-Swift.h>
+#import <WMF/WMF-Swift.h>
 @import ImageIO;
 @import UserNotifications;
-@import WMFUtilities;
 
 #define WMF_ALWAYS_ASK_FOR_NOTIFICATION_PERMISSION DEBUG && 0
 
