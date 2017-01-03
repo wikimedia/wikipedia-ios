@@ -225,6 +225,7 @@
 "nearby-cancel" = "ھەڵوەشاندنەوە";
 "nearby-location-updates-settings-menu" = "تایبەتێتی > ڕاژەکانی شوێن > ویکیپیدیا";
 "migration-skip-button-title" = "بی سڕەوە";
+// Fuzzy
 "image-gallery-unknown-owner" = "بارکەر نەناسراوە.";
 "image-gallery-fetch-image-info-error-ok" = "باشە";
 "hockeyapp-alert-send-report" = "ناردنی ڕاپۆرت";

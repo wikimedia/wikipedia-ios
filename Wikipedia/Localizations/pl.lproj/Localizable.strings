@@ -14,6 +14,7 @@
 // Author: Ty221
 // Author: WTM
 // Author: Wiochman
+// Author: Woytecr
 
 "languages-title" = "Zmień język";
 "article-languages-label" = "Wybierz język";
@@ -214,8 +215,7 @@
 "about-repositories-app-source-license" = "Kod źródłowy dostępny na licencji $1.";
 "about-repositories-app-source-license-mit" = "Licencja MIT";
 "about-send-feedback" = "Wyślij opinię o aplikacji";
-// Fuzzy
-"about-product-of" = "Produkt $1";
+"about-product-of" = "Stworzone przez $1 z pomocą wolontariuszy takich jak Ty";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Zapisz stronę";
 "share-menu-page-saved" = "Zapisano do czytania w trybie offline.";
@@ -304,6 +304,7 @@
 "migration-prompt-message" = "Musimy przenieść zapisane i ostatnio oglądane strony. To może potrwać kilka minut...";
 "migration-confirm-button-title" = "Przenieść moje dane";
 "migration-skip-button-title" = "Usuń obiekt";
+// Fuzzy
 "image-gallery-unknown-owner" = "Przesyłający nieznany.";
 "image-gallery-fetch-image-info-error-title" = "Nie można pobrać obrazów";
 "image-gallery-fetch-image-info-error-message" = "Nie można załadować zdjęć do tego artykułu. Proszę zaktualizować artykuł i spróbować ponownie.";
@@ -318,6 +319,7 @@
 "page-issues" = "Problemy ze stroną";
 "page-similar-titles" = "Podobne strony";
 "page-read-in-other-languages" = "Dostępne w $1 innych językach";
+"page-edit-history" = "Pełna historia edycji";
 "captcha-reload" = "Pokaż inny tekst CAPTCHA";
 "captcha-prompt" = "Wpisz tekst CAPTCHA";
 "mwk-empty-title-error" = "Nie można wykonać operacji, jeśli tytuł jest pusty.";

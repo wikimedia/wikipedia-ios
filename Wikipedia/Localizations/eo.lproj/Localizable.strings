@@ -265,6 +265,7 @@
 "migration-update-progress-count-label" = "Migrado de artikolo $1 de $2";
 "migration-prompt-title" = "Ŝajnas, ke ni havas historion!";
 "migration-skip-button-title" = "Forigi ĝin";
+// Fuzzy
 "image-gallery-unknown-owner" = "Alŝutanto estas nekonata.";
 "image-gallery-fetch-image-info-error-title" = "Ne eblas elŝuti bildojn";
 "image-gallery-fetch-image-info-error-ok" = "Bone";

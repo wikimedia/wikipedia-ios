@@ -328,6 +328,7 @@
 "migration-prompt-message" = "باید صفحات ذخیره شده و صفحات اخیر انتقال یابند. این کار چند دقیقه زمان می‌برد…";
 "migration-confirm-button-title" = "کارهای من را انتقال بده";
 "migration-skip-button-title" = "حذف این";
+// Fuzzy
 "image-gallery-unknown-owner" = "بارگذار ناشناخته است.";
 "image-gallery-fetch-image-info-error-title" = "امکان دانلود تصویرها نیست";
 "image-gallery-fetch-image-info-error-message" = "امکان دانلود پرونده برای این مقاله نیست. لطفاً صفحه را تازه کرده و مجددا امتحان کنید.";
