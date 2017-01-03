@@ -77,14 +77,25 @@
         self.completion = completion;
         [self.currentLocationManager startMonitoringLocation];
     } else {
+        dispatch_block_t done = ^{
+            if (completion) {
+                completion();
+            }
+        };
         [self getGroupForLocation:self.currentLocationManager.location
-            completion:^(WMFContentGroup *group) {
-                [self fetchResultsForLocationGroup:group completion:completion];
+            completion:^(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark) {
+                if (group && [group.content isKindOfClass:[NSArray class]] && group.content.count > 0) {
+                    done();
+                    return;
+                }
+                [self fetchResultsForLocation:location
+                                    placemark:placemark
+                                   completion:^{
+                                       done();
+                                   }];
             }
             failure:^(NSError *error) {
-                if (completion) {
-                    completion();
-                }
+                done();
             }];
     }
 }
@@ -101,8 +112,15 @@
     }
     self.isFetchingInitialLocation = NO;
     [self getGroupForLocation:location
-        completion:^(WMFContentGroup *group) {
-            [self fetchResultsForLocationGroup:group completion:self.completion];
+        completion:^(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark) {
+            if (group && [group.content isKindOfClass:[NSArray class]] && group.content.count > 0) {
+                if (self.completion) {
+                    self.completion();
+                }
+                self.completion = nil;
+                return;
+            }
+            [self fetchResultsForLocation:location placemark:placemark completion:self.completion];
             self.completion = nil;
         }
         failure:^(NSError *error) {
@@ -141,7 +159,7 @@
 
 #pragma mark - Fetching
 
-- (void)getGroupForLocation:(CLLocation *)location completion:(void (^)(WMFContentGroup *group))completion
+- (void)getGroupForLocation:(CLLocation *)location completion:(void (^)(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark))completion
                     failure:(void (^)(NSError *error))failure {
 
     if (self.isProcessingLocation) {
@@ -152,22 +170,13 @@
 
     WMFContentGroup *group = [self contentGroupCloseToLocation:location];
     if (group) {
-        completion(group);
+        completion(group, group.location, group.placemark);
         return;
     }
 
     [self.currentLocationManager reverseGeocodeLocation:location
         completion:^(CLPlacemark *_Nonnull placemark) {
-            WMFContentGroup *group = [self.contentStore createGroupOfKind:WMFContentGroupKindLocation
-                                                                  forDate:[NSDate date]
-                                                              withSiteURL:self.siteURL
-                                                        associatedContent:nil
-                                                       customizationBlock:^(WMFContentGroup *_Nonnull group) {
-                                                           group.location = location;
-                                                           group.placemark = placemark;
-                                                       }];
-            completion(group);
-
+            completion(nil, location, placemark);
         }
         failure:^(NSError *_Nonnull error) {
             self.isProcessingLocation = NO;
@@ -175,21 +184,11 @@
         }];
 }
 
-- (void)fetchResultsForLocationGroup:(WMFContentGroup *)group completion:(nullable dispatch_block_t)completion {
-
-    NSArray<NSURL *> *results = (NSArray<NSURL *> *)group.content;
-
-    if ([results count] > 0) {
-        self.isProcessingLocation = NO;
-        if (completion) {
-            completion();
-        }
-        return;
-    }
-
+- (void)fetchResultsForLocation:(CLLocation *)location placemark:(CLPlacemark *)placemark completion:(nullable dispatch_block_t)completion {
+    NSDate *date = [NSDate date];
     @weakify(self);
     [self.locationSearchFetcher fetchArticlesWithSiteURL:self.siteURL
-        location:group.location
+        location:location
         resultLimit:20
         completion:^(WMFLocationSearchResults *_Nonnull results) {
             @strongify(self);
@@ -205,11 +204,20 @@
             NSArray<NSURL *> *urls = [results.results bk_map:^id(id obj) {
                 return [results urlForResult:obj];
             }];
+
             [results.results enumerateObjectsUsingBlock:^(MWKLocationSearchResult *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
                 [self.previewStore addPreviewWithURL:urls[idx] updatedWithLocationSearchResult:obj];
             }];
 
-            [self removeOldSectionsForDate:group.midnightUTCDate];
+            WMFContentGroup *group = [self.contentStore createGroupOfKind:WMFContentGroupKindLocation
+                                                                  forDate:date
+                                                              withSiteURL:self.siteURL
+                                                        associatedContent:nil
+                                                       customizationBlock:^(WMFContentGroup *_Nonnull group) {
+                                                           group.location = location;
+                                                           group.placemark = placemark;
+                                                       }];
+            [self removeSectionsForMidnightUTCDate:group.midnightUTCDate withKeyNotEqualToKey:group.key];
             group.content = urls;
             if (completion) {
                 completion();
@@ -223,12 +231,12 @@
         }];
 }
 
-- (void)removeOldSectionsForDate:(NSDate *)date {
+- (void)removeSectionsForMidnightUTCDate:(NSDate *)midnightUTCDate withKeyNotEqualToKey:(NSString *)key {
     NSMutableArray *oldSectionKeys = [NSMutableArray array];
     [self.contentStore enumerateContentGroupsOfKind:WMFContentGroupKindLocation
                                           withBlock:^(WMFContentGroup *_Nonnull section, BOOL *_Nonnull stop) {
-                                              if ([section isForLocalDate:date]) {
-                                                  [oldSectionKeys addObject:section.key];
+                                              if ([section.midnightUTCDate isEqualToDate:midnightUTCDate] && ![section.key isEqualToString:key]) {
+                                                  [oldSectionKeys addObject:key];
                                               }
                                           }];
     [self.contentStore removeContentGroupsWithKeys:oldSectionKeys];
