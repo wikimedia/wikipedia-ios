@@ -32,7 +32,7 @@ At this point, you should be able to open `Wikipedia.xcworkspace` and run the ap
 ### Best practices and coding style
 You can find our current thinking on [iOS best practices](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/BestPractices) and [coding style](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/ObjectiveCStyleGuide) on our [team page](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS). The [WMFCodingStyle](./WikipediaUnitTests/Code/WMFCodingStyle.h) files are also canonical examples of our coding style, which are enforced using [clang-format](#clang-format).
 ### Dependencies
-We use [Carthage](#carthage) to manage third-party native dependencies and [npm](#npm) for web.  We've committed our Carthage dependencies and npm build artifacts to the repo so you don't need to rebuild them to build the project. You do need Carthage installed.
+We use [Carthage](https://github.com/Carthage/Carthage) to manage third-party native dependencies and [npm](#npm) for web.  We've committed our Carthage dependencies and npm build artifacts to the repo so you don't need to rebuild them to build the project. You do need Carthage installed.
 ## Testing
 The **Wikipedia** scheme is configured to execute the project's iOS unit tests, which can be run using the `Cmd+U` hotkey or the **Product->Test** menu bar action. You can also use the project's [Makefile](./Makefile) to run both in one action: `make verify`.
 
