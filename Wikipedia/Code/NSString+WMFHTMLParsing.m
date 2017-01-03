@@ -272,10 +272,17 @@
                                          if (linkURL) {
                                              linkString = [[NSMutableString alloc] init];
                                          }
-                                     } else if ([tagName isEqualToString:@"/a"] && linkString) {
-                                         NSMutableAttributedString *linkAttributedString = [[NSMutableAttributedString alloc] initWithString:linkString];
-                                         [linkAttributedString addAttribute:NSLinkAttributeName value:linkURL range: NSMakeRange(0, linkAttributedString.length)];
-                                         [attributedString appendAttributedString:linkAttributedString];
+                                     } else if ([tagName isEqualToString:@"/a"]) {
+                                         NSMutableAttributedString *linkAttributedString = nil;
+                                         if (linkString) {
+                                             linkAttributedString = [[NSMutableAttributedString alloc] initWithString:linkString];
+                                         }
+                                         if (linkURL) {
+                                             [linkAttributedString addAttribute:NSLinkAttributeName value:linkURL range: NSMakeRange(0, linkAttributedString.length)];
+                                         }
+                                         if (linkAttributedString) {
+                                             [attributedString appendAttributedString:linkAttributedString];
+                                         }
                                          linkString = nil;
                                          linkURL = nil;
                                      }
