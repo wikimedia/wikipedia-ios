@@ -63,13 +63,11 @@
 + (NSValueTransformer *)captionJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *value, BOOL *success, NSError *__autoreleasing *error) {
         //HACK: Fix padding around the caption
-        if ([value rangeOfString:@"<p>"].location == NSNotFound) {
-            value = [NSString stringWithFormat:@"<p>%@</p>", value];
+        if (value) {
+            value = [@[value, @"\n"] componentsJoinedByString:@""];
         }
-        return [[NSAttributedString alloc] initWithData:[value dataUsingEncoding:NSUTF8StringEncoding]
-                                                                                    options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                                                         documentAttributes:nil
-                                                                                      error:error];
+        
+        return [value wmf_attributedStringWithLinksFromHTMLTags];
     }];
 }
 
