@@ -5976,6 +5976,7 @@
 				D844D9691D6CB2600042D692 /* Headers */,
 				D8E4CCA91D931CDA00EB6C61 /* CopyFiles */,
 				D8FA19151E1BE05B009675C3 /* Resources */,
+				D8D987FD1E1C468F00789CA0 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -6472,6 +6473,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		D8D987FD1E1C468F00789CA0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rm -rf \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/qqq.lproj\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
