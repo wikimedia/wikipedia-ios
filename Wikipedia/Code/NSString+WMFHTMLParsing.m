@@ -224,4 +224,70 @@
                                  }];
 }
 
+- (NSAttributedString *)wmf_attributedStringWithLinksFromHTMLTags {
+    static NSRegularExpression *tagRegex;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSString *pattern = @"(?:<)([\\/a-z0-9]+)(?:\\s?)([^>]*)(?:>)";
+        tagRegex = [NSRegularExpression regularExpressionWithPattern:pattern
+                                                                  options:NSRegularExpressionCaseInsensitive
+                                                                    error:nil];
+    });
+    
+    static NSRegularExpression *hrefRegex;
+    static dispatch_once_t hrefOnceToken;
+    dispatch_once(&hrefOnceToken, ^{
+        NSString *hrefPattern = @"href=[\"']?((?:.(?![\"']?\\s+(?:\\S+)=|[>\"']))+.)[\"']?";
+        hrefRegex = [NSRegularExpression regularExpressionWithPattern:hrefPattern options:NSRegularExpressionCaseInsensitive error:nil];
+    });
+    
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] init];
+    __block NSInteger location = 0;
+    __block NSURL *linkURL = nil;
+    __block NSMutableString *linkString = nil;
+    [tagRegex enumerateMatchesInString:self
+                                    options:0
+                                      range:NSMakeRange(0, self.length)
+                                 usingBlock:^(NSTextCheckingResult *_Nullable tagResult, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                     NSString *tagName = [[tagRegex replacementStringForResult:tagResult inString:self offset:0 template:@"$1"] lowercaseString];
+                                     
+                                     NSInteger nonMatchingLength = tagResult.range.location - location;
+                                     if (nonMatchingLength > 0) {
+                                         NSString *nonMatchingString = [self substringWithRange:NSMakeRange(location, nonMatchingLength)];
+                                         if (linkString) {
+                                             [linkString appendString:nonMatchingString];
+                                         } else {
+                                             NSAttributedString *nonMatchingAttributedString = [[NSAttributedString alloc] initWithString:nonMatchingString];
+                                             [attributedString appendAttributedString:nonMatchingAttributedString];
+                                         }
+                                     }
+                                     
+                                     if ([tagName isEqualToString:@"a"]) {
+                                         NSString *tagContents = [tagRegex replacementStringForResult:tagResult inString:self offset:0 template:@"$2"];
+                                         [hrefRegex enumerateMatchesInString:tagContents options:0 range:NSMakeRange(0, tagContents.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+                                              NSString *URLString = [hrefRegex replacementStringForResult:result inString:tagContents offset:0 template:@"$1"];
+                                             linkURL = [NSURL URLWithString:URLString];
+                                         }];
+                                         
+                                         if (linkURL) {
+                                             linkString = [[NSMutableString alloc] init];
+                                         }
+                                     } else if ([tagName isEqualToString:@"/a"] && linkString) {
+                                         NSMutableAttributedString *linkAttributedString = [[NSMutableAttributedString alloc] initWithString:linkString];
+                                         [linkAttributedString addAttribute:NSLinkAttributeName value:linkURL range: NSMakeRange(0, linkAttributedString.length)];
+                                         [attributedString appendAttributedString:linkAttributedString];
+                                         linkString = nil;
+                                         linkURL = nil;
+                                     }
+                                     location = tagResult.range.location + tagResult.range.length;
+                                 }];
+    NSInteger nonMatchingLength = self.length - location;
+    if (nonMatchingLength > 0) {
+        NSString *nonMatchingString = [self substringWithRange:NSMakeRange(location, nonMatchingLength)];
+        NSAttributedString *nonMatchingAttributedString = [[NSAttributedString alloc] initWithString:nonMatchingString];
+        [attributedString appendAttributedString:nonMatchingAttributedString];
+    }
+    
+    return attributedString;
+}
 @end
