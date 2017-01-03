@@ -230,18 +230,13 @@ NS_ASSUME_NONNULL_BEGIN
             UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.shareOptions);
         }];
 }
-    
+
 - (void)handleCancelLabelTapGesture:(UIGestureRecognizer *)tapGR {
     if (tapGR.state != UIGestureRecognizerStateRecognized) {
         return;
     }
-    @weakify(self);
-    [self dismissShareOptionsWithCompletion:^{
-        @strongify(self);
-        [self cleanup];
-    }];
+    [self dismissShareOptionsWithCompletion:nil];
 }
-
 
 - (void)dismissShareOptionsWithCompletion:(nullable dispatch_block_t)completion {
     UIView *containingView = self.containerViewController.view;
@@ -267,11 +262,11 @@ NS_ASSUME_NONNULL_BEGIN
             [self.shareOptions removeFromSuperview];
             self.grayOverlay = nil;
             self.shareOptions = nil;
-            self.containerViewController = nil;
             [self setContainerViewControllerActionsEnabled:YES];
             if (completion) {
                 completion();
             }
+            [self cleanup];
         }];
 }
 
@@ -284,9 +279,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)respondToDimAreaTapGesture:(UITapGestureRecognizer *)recognizer {
     [self.shareFunnel logAbandonedAfterSeeingShareAFact];
-    [self dismissShareOptionsWithCompletion:^{
-        [self cleanup];
-    }];
+    [self dismissShareOptionsWithCompletion:nil];
 }
 
 - (void)respondToTapForCardGesture:(UITapGestureRecognizer *)recognizer {
