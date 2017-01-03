@@ -2,7 +2,7 @@
 #import "WikipediaAppUtils.h"
 #import "WMFImageURLParsing.h"
 #import "WMFGeometry.h"
-#import <WMFModel/WMFModel-Swift.h>
+#import <WMF/WMF-Swift.h>
 
 @interface MWKImage ()
 

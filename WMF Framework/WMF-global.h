@@ -1,5 +1,5 @@
-#ifndef WMFModel_global_h
-#define WMFModel_global_h
+#ifndef WMF_global_h
+#define WMF_global_h
 
 #import "EXTScope.h"
 #import <KVOController/KVOController.h>
@@ -172,4 +172,4 @@
 
 #import "PiwikTracker+WMFExtensions.h"
 
-#endif /* WMFModel_global_h */
+#endif /* WMF_global_h */

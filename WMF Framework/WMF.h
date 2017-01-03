@@ -1,13 +1,12 @@
-#import <Foundation/Foundation.h>
+@import KVOController;
+@import UIKit;
+@import BlocksKit;
 
-//! Project version number for WMFModel.
-FOUNDATION_EXPORT double WMFModelVersionNumber;
+//! Project version number for WMF.
+FOUNDATION_EXPORT double WMFVersionNumber;
 
-//! Project version string for WMFModel.
-FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
-
-#import <KVOController/KVOController.h>
-#import <BlocksKit/BlocksKit.h>
+//! Project version string for WMF.
+FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 
 #import "NSURL+WMFLinkParsing.h"
 #import "NSURLComponents+WMFLinkParsing.h"
@@ -172,6 +171,15 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import "NSUserActivity+WMFExtensions.h"
 
 #import "PiwikTracker+WMFExtensions.h"
+
+//UI
+#import "UIImageView+WMFImageFetching.h"
+#import "UIColor+WMFStyle.h"
+#import "UIImage+WMFStyle.h"
+#import "UIImageView+WMFPlaceholder.h"
+#import "UIColor+WMFHexColor.h"
+#import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
+#import "UIView+WMFDefaultNib.h"
 
 //Deprecated
 #import "MWKHistoryEntry.h"

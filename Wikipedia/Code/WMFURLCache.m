@@ -2,7 +2,7 @@
 #import "SessionSingleton.h"
 #import "MWKArticle.h"
 #import "MWKImage.h"
-#import <WMFModel/WMFModel-Swift.h>
+#import <WMF/WMF-Swift.h>
 
 static NSString *const WMFURLCacheWikipediaHost = @".wikipedia.org";
 static NSString *const WMFURLCacheJsonMIMEType = @"application/json";

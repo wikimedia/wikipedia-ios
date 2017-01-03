@@ -1,5 +1,5 @@
 import Foundation
-import WMFUI
+import WMF
 // MARK: - TOC Item Types
 
 public enum TableOfContentsItemType {

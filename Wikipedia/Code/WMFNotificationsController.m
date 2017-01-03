@@ -1,6 +1,6 @@
 #import "WMFNotificationsController.h"
 #import "WMFFaceDetectionCache.h"
-#import <WMFModel/WMFModel-Swift.h>
+#import <WMF/WMF-Swift.h>
 @import ImageIO;
 @import UserNotifications;
 

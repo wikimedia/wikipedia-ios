@@ -1,6 +1,6 @@
 #import "WMFLocalization.h"
 
-static NSString *const WMFLocalizationBundleIdentifier = @"org.wikimedia.WMFUtilities";
+static NSString *const WMFLocalizationBundleIdentifier = @"org.wikimedia.WMF";
 
 NSString *localizedStringForKeyFallingBackOnEnglish(NSString *key) {
     NSString *outStr = NSLocalizedString(key, nil);
