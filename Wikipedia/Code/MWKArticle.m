@@ -357,7 +357,8 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
             }
         }
     }
-    return imageURLs;
+
+    return [[NSOrderedSet orderedSetWithArray:imageURLs] array];
 }
 
 - (NSArray<MWKImage *> *)imagesForGallery {
