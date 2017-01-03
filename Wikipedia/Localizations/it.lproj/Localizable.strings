@@ -327,6 +327,7 @@
 "migration-prompt-message" = "Abbiamo bisogno di spostare le tue pagine recenti e salvate. Questo potrebbe richiedere un minuto...";
 "migration-confirm-button-title" = "Sposta il mio materiale";
 "migration-skip-button-title" = "Cancellala";
+// Fuzzy
 "image-gallery-unknown-owner" = "Uploader sconosciuto.";
 "image-gallery-fetch-image-info-error-title" = "Impossibile scaricare le immagini";
 "image-gallery-fetch-image-info-error-message" = "Impossibile scaricare le immagini per questo articolo. Ricarica la pagina e prova ancora.";

@@ -252,6 +252,7 @@
 "nearby-distance-label-feet" = "$1 ফুট";
 "nearby-distance-label-miles" = "$1 মাইল";
 "migration-skip-button-title" = "এইটো বিলোপ কৰক";
+// Fuzzy
 "image-gallery-unknown-owner" = "আপল'ডাৰ অজ্ঞাত";
 "image-gallery-fetch-image-info-error-title" = "ছবি ডাউনল'ড কৰিবলৈ অসমৰ্থ";
 "hockeyapp-alert-send-report" = "প্ৰতিবেদন পঠিয়াওক";
