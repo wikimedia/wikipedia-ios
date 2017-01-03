@@ -319,6 +319,7 @@ open class WMFImageController : NSObject {
     }
     
     open func cacheImageData(_ imageData: Data, url: URL, MIMEType: String?){
+        assert(!Thread.isMainThread, "Don't write image files on the main thread.")
         guard let imageCache = imageManager.imageCache else {
             return
         }
