@@ -326,6 +326,7 @@
 "migration-prompt-message" = "私たちは、あなたのセーブされた最新のページを上に移動する必要があります。これには数分かかる場合があります…";
 "migration-confirm-button-title" = "私のものを移動する";
 "migration-skip-button-title" = "削除する";
+// Fuzzy
 "image-gallery-unknown-owner" = "アップロード者不明。";
 "image-gallery-fetch-image-info-error-title" = "画像をダウンロードできませんでした";
 "image-gallery-fetch-image-info-error-message" = "この記事の画像をダウンロードできませんでした。記事を更新して、もう一度お試しください。";

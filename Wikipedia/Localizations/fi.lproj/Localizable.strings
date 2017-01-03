@@ -318,6 +318,7 @@
 "migration-prompt-title" = "Näyttää siltä, että meillä on historiaa!";
 "migration-confirm-button-title" = "Siirrä juttuni yli";
 "migration-skip-button-title" = "Poista se";
+// Fuzzy
 "image-gallery-unknown-owner" = "Tuntematon tallentaja.";
 "image-gallery-fetch-image-info-error-title" = "Kuvien lataaminen epäonnistui";
 "image-gallery-fetch-image-info-error-message" = "Kuvien lataaminen tähän artikkeliin ei onnistu. Päivitä artikkeli ja yritä uudelleen.";
@@ -355,8 +356,7 @@
 "home-hide-suggestion-prompt" = "Piilota tämä ehdotus";
 "home-hide-suggestion-cancel" = "Peruuta";
 "home-accessibility-label" = "Wikipedia, Tutki";
-// Fuzzy
-"home-button-accessibility-label" = "Koti-painike";
+"home-button-accessibility-label" = "Etusivu";
 "potd-empty-error-description" = "Virhe haettaessa päivän kuvaa $1";
 "potd-description-prefix" = "Päivän kuva: $1";
 "welcome-explore-title" = "Tutki";

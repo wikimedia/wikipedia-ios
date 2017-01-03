@@ -297,6 +297,7 @@
 "migration-prompt-message" = "ჩვენ გვჭირდება თქვენი შენახული ან უკანასკნელი გვერდების გატანა. ამას ცოტა დრო დასჭირდება...";
 "migration-confirm-button-title" = "ჩემი მასალის გადატანა";
 "migration-skip-button-title" = "მათი წაშლა";
+// Fuzzy
 "image-gallery-unknown-owner" = "ამტვირთველი უცნობია";
 "image-gallery-fetch-image-info-error-title" = "სურათის ჩატვირთვა ვერ ხერხდება";
 "image-gallery-fetch-image-info-error-message" = "ამ სტატიისთვის სურათის ჩატვირთვა ვერ ხერხდება. გთხოვთ, განაახლოთ სტატია და კიდევ სცადოთ.";

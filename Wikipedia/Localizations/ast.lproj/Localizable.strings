@@ -313,6 +313,7 @@
 "migration-prompt-message" = "Necesitamos mover les tos páxines guardaes y recientes. Esto puede tardar un minutu...";
 "migration-confirm-button-title" = "Treslladar les mios coses";
 "migration-skip-button-title" = "Desanicialo";
+// Fuzzy
 "image-gallery-unknown-owner" = "Autor desconocíu.";
 "image-gallery-fetch-image-info-error-title" = "Nun pudieron descargase les imaxes";
 "image-gallery-fetch-image-info-error-message" = "Nun pudieron descargase les imaxes d'esti artículu. Por favor, refresca l'artículu ya inténtalo otra vuelta.";
