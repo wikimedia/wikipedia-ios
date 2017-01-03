@@ -331,6 +331,7 @@
 "migration-prompt-message" = "Kaydedilmiş ve geçmiş sayfaları taşımamız gerekli. Bu bir dakika kadar sürebilir...";
 "migration-confirm-button-title" = "Verilerimi taşı";
 "migration-skip-button-title" = "Öğeyi sil";
+// Fuzzy
 "image-gallery-unknown-owner" = "Yükleyen bilinmiyor.";
 "image-gallery-fetch-image-info-error-title" = "Görseller indirilemiyor";
 "image-gallery-fetch-image-info-error-message" = "Bu maddedeki görseller indirilemedi. Lütfen maddeyi yenileyerek tekrar deneyin.";

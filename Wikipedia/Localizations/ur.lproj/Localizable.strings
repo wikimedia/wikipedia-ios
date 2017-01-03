@@ -315,6 +315,7 @@
 "migration-prompt-message" = "ہمیں آپ کی محفوظ اور حالیہ صفحات کو منتقل کرنا ہوگا۔ اس کے لیے ایک منٹ درکار ہے...";
 "migration-confirm-button-title" = "میرے مواد کو آگے منقل کریں";
 "migration-skip-button-title" = "اسے حذف کریں";
+// Fuzzy
 "image-gallery-unknown-owner" = "اپلوڈکنندہ نامعلوم";
 "image-gallery-fetch-image-info-error-title" = "تصاویر ڈاؤنلوڈ کرنے ميں ناکام";
 "image-gallery-fetch-image-info-error-message" = "اس مضمون کے لیے تصاویر ڈاؤنلوڈ نہیں کیا جاسکتا۔ براہ کرم مضمون کو بازتازہ کرکے پھر سے کوشش کریں۔";

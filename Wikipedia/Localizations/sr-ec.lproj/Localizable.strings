@@ -301,6 +301,7 @@
 "migration-prompt-message" = "Морамо да преместимо ваше сачуване и скорашње странице. Ова радња може потрајати минут…";
 "migration-confirm-button-title" = "Премести моје податке";
 "migration-skip-button-title" = "Избриши их";
+// Fuzzy
 "image-gallery-unknown-owner" = "Отпремалац је непознат.";
 "image-gallery-fetch-image-info-error-title" = "Грешка при преузимању слика";
 "image-gallery-fetch-image-info-error-message" = "Не могу да преузмем слике за овај чланак. Освежите га па покушајте поново.";

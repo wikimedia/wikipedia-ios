@@ -320,6 +320,7 @@
 "migration-prompt-message" = "Беҙ һеҙҙең һаҡланған һәм һуңғы ҡаралған биттәрҙе күсерергә тейеш. Был бер-ике минутты аласаҡ";
 "migration-confirm-button-title" = "Минең мәғлүмәтте күсерергә";
 "migration-skip-button-title" = "$1 юйырға";
+// Fuzzy
 "image-gallery-unknown-owner" = "Күсерелгән файл билдәһеҙ";
 "image-gallery-fetch-image-info-error-title" = "Һүрәтте күсереп булмай";
 "image-gallery-fetch-image-info-error-message" = "Был мәҡәлә өсөн һүрәт күсереп булмай. Мәҡәләне яңыртығыҙ йәки һуңғараҡ тағы берҙе ҡабатлағыҙ";

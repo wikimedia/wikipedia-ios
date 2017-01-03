@@ -298,6 +298,7 @@
 "migration-prompt-message" = "Ons moet u gestoorde en onlangse bladsye oorskuif. Hierdie mag dalk 'n tydjie neem...";
 "migration-confirm-button-title" = "Skuif my goed oor";
 "migration-skip-button-title" = "Skrap dit";
+// Fuzzy
 "image-gallery-unknown-owner" = "Oplaaier onbekend.";
 "image-gallery-fetch-image-info-error-title" = "Nie moontlik om beelde af te laai";
 "image-gallery-fetch-image-info-error-message" = "Nie moontlik om beelde af te laai vir hierdie artikel. Herlaai asseblief die artikel en probeer weer.";
