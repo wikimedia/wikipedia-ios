@@ -814,7 +814,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     if ([sectionObject headerType] == WMFFeedHeaderTypeNone) {
         return 0.0;
     } else {
-        return 66;
+        return 69.0;
     }
 }
 
