@@ -3,7 +3,6 @@ import UserNotifications
 import UserNotificationsUI
 import WMFModel
 import WMFUI
-import WMFUtilities
 import CocoaLumberjackSwift
 
 class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationContentExtension, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding {
