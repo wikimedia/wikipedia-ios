@@ -204,6 +204,7 @@
 "nearby-location-updates-settings-menu" = "پټنتيا > د ځای چوپړونه > ويکيپېډيا";
 "migration-update-progress-label" = "د سيمه ايز اومتوک کډېدنه";
 "migration-skip-button-title" = "دا ړنگول";
+// Fuzzy
 "image-gallery-unknown-owner" = "ناڅرگند پورته کوونکی.";
 "image-gallery-fetch-image-info-error-title" = "انځورونه ښکته کول ناشونی دی";
 "image-gallery-fetch-image-info-error-ok" = "ښه";

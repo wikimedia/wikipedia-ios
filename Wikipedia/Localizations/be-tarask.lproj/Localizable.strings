@@ -312,6 +312,7 @@
 "migration-prompt-message" = "Нам необходна перанесьці вашыя захаваныя і апошнія прагледжаныя старонкі. Гэта можа заняць некалькі хвілінаў…";
 "migration-confirm-button-title" = "Перанесьці мае зьвесткі";
 "migration-skip-button-title" = "Выдаліць іх";
+// Fuzzy
 "image-gallery-unknown-owner" = "Загрузіў невядомы.";
 "image-gallery-fetch-image-info-error-title" = "Не атрымліваецца загрузіць выявы";
 "image-gallery-fetch-image-info-error-message" = "Не атрымліваецца загрузіць выявы для гэтага артыкула. Калі ласка, абнавіце артыкул і паспрабуйце зноў.";

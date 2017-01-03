@@ -36,7 +36,9 @@ xcode-cltools-check: ##Make sure proper Xcode & command line tools are installed
 	fi
 
 get-xcode-cltools: ##Install Xcode command-line tools
-	xcode-select --install
+	if ! xcode-select -p > /dev/null ; then \
+		xcode-select --install; \
+	fi
 
 #!!!!!
 #!!!!! Executable dependencies
@@ -172,4 +174,4 @@ get-ruby: ##Install Ruby via Homebrew (to remove need for sudo)
 #!!!!!
 
 bootstrap: ##Only recommended if starting from scratch! Attempts to install all dependencies (Xcode command-line tools Homebrew, Ruby, Node, Bundler, etc...)
-	bootstrap: get-xcode-cltools get-homebrew get-node get-bundler brew-install bundle-install
+bootstrap: get-xcode-cltools get-homebrew get-node get-bundler brew-install bundle-install
