@@ -311,6 +311,7 @@
 "migration-prompt-message" = "Trebuie să vă mutăm paginile recente și salvate. Ar putea dura un pic…";
 "migration-confirm-button-title" = "Mută-mi lucrurile";
 "migration-skip-button-title" = "Șterge-le";
+// Fuzzy
 "image-gallery-unknown-owner" = "Încărcată de o persoană necunoscută.";
 "image-gallery-fetch-image-info-error-title" = "Imposibil de descărcat imaginile";
 "image-gallery-fetch-image-info-error-message" = "Imposibil de descărcat imaginile pentru acest articol. Reîncărcați articolul și încercați din nou.";

@@ -314,6 +314,7 @@
 "migration-prompt-message" = "Бигэргэппит уонна уонна кэнники көрбүт ыстатыйаларгын көһөрүөхтээхпит. Аҕыйах мүнүүтэ буолуо...";
 "migration-confirm-button-title" = "Мин дааннайдарбын көһөр";
 "migration-skip-button-title" = "Балары сот";
+// Fuzzy
 "image-gallery-unknown-owner" = "Укпут киһи биллибэт.";
 "image-gallery-fetch-image-info-error-title" = "Ойууну көрдөрөр табыллыбата";
 "image-gallery-fetch-image-info-error-message" = "Бу ыстатыйа ойутун көрдөрөр табыллыбата. Бука диэн ыстатыйаны хат холбоон көр.";

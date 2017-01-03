@@ -317,6 +317,7 @@
 "migration-prompt-message" = "Vi er nødt til at overføre dine gemte og de seneste sider. Dette kan tage et øjeblik...";
 "migration-confirm-button-title" = "Overfør mine ting";
 "migration-skip-button-title" = "Slet det";
+// Fuzzy
 "image-gallery-unknown-owner" = "Uploader ukendt.";
 "image-gallery-fetch-image-info-error-title" = "Kunne ikke indlæse billeder";
 "image-gallery-fetch-image-info-error-message" = "Kunne ikke indlæse billederne til denne artikel. Opdatér venligst artiklen og prøv igen.";
@@ -449,3 +450,6 @@
 "back" = "Tilbage";
 "save-action" = "Gem";
 "unsave-action" = "Gem ikke";
+"status-saving-for-later" = "Gemmer til senere...";
+"status-saved-for-later" = "Gemt til senere";
+"announcements-dismiss" = "Nej tak";
