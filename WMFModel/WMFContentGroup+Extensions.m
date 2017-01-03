@@ -295,15 +295,24 @@
     NSArray *content = self.content;
 
     if (![content isKindOfClass:[NSArray class]]) {
+        if (self.isVisible) {
+            self.isVisible = NO;
+        }
         return;
     }
 
     WMFAnnouncement *announcement = (WMFAnnouncement *)content.firstObject;
     if (![announcement isKindOfClass:[WMFAnnouncement class]]) {
+        if (self.isVisible) {
+            self.isVisible = NO;
+        }
         return;
     }
 
     if (!announcement.startTime || !announcement.endTime) {
+        if (self.isVisible) {
+            self.isVisible = NO;
+        }
         return;
     }
 
@@ -311,12 +320,10 @@
     if ([now timeIntervalSinceDate:announcement.startTime] > 0 && [announcement.endTime timeIntervalSinceDate:now] > 0) {
         if (!self.isVisible) {
             self.isVisible = YES;
-            return;
         }
     } else {
         if (self.isVisible) {
             self.isVisible = NO;
-            return;
         }
     }
 }
