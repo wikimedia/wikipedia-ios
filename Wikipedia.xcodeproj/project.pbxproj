@@ -1013,7 +1013,7 @@
 			containerPortal = D499142D181D51DE00E6073C /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = D844D96B1D6CB2600042D692;
-			remoteInfo = WMFModel;
+			remoteInfo = WMF;
 		};
 		D895D08F1D9C1EB8005418C1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -5357,7 +5357,7 @@
 				D82FDAD91DF0A99E00DDF311 /* AFNetworking.framework */,
 			);
 			name = Carthage;
-			path = WMFUI;
+			path = Carthage;
 			sourceTree = "<group>";
 		};
 		D844D96D1D6CB2600042D692 /* WMF Framework */ = {
@@ -5983,7 +5983,7 @@
 			dependencies = (
 			);
 			name = WMF;
-			productName = WMFModel;
+			productName = WMF;
 			productReference = D844D96C1D6CB2600042D692 /* WMF.framework */;
 			productType = "com.apple.product-type.framework";
 		};
