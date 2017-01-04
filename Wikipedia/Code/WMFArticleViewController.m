@@ -1768,14 +1768,18 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - WMFArticleListTableViewControllerDelegate
 
 - (void)listViewController:(WMFArticleListTableViewController *)listController didSelectArticleURL:(NSURL *)url {
+    dispatch_block_t presentation = ^{
+        id<WMFAnalyticsContentTypeProviding> contentType = nil;
+        if ([listController conformsToProtocol:@protocol(WMFAnalyticsContentTypeProviding)]) {
+            contentType = (id<WMFAnalyticsContentTypeProviding>)listController;
+        }
+        [self pushArticleViewControllerWithURL:url contentType:contentType animated:YES];
+    };
     if ([self presentedViewController]) {
-        [self dismissViewControllerAnimated:YES completion:NULL];
+        [self dismissViewControllerAnimated:YES completion:presentation];
+    } else {
+        presentation();
     }
-    id<WMFAnalyticsContentTypeProviding> contentType = nil;
-    if ([listController conformsToProtocol:@protocol(WMFAnalyticsContentTypeProviding)]) {
-        contentType = (id<WMFAnalyticsContentTypeProviding>)listController;
-    }
-    [self pushArticleViewControllerWithURL:url contentType:contentType animated:YES];
 }
 
 - (UIViewController *)listViewController:(WMFArticleListTableViewController *)listController viewControllerForPreviewingArticleURL:(NSURL *)url {
@@ -1785,17 +1789,21 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)listViewController:(WMFArticleListTableViewController *)listController didCommitToPreviewedViewController:(UIViewController *)viewController {
-    if ([self presentedViewController]) {
-        [self dismissViewControllerAnimated:YES completion:NULL];
-    }
-    if ([viewController isKindOfClass:[WMFArticleViewController class]]) {
-        id<WMFAnalyticsContentTypeProviding> contentType = nil;
-        if ([listController conformsToProtocol:@protocol(WMFAnalyticsContentTypeProviding)]) {
-            contentType = (id<WMFAnalyticsContentTypeProviding>)listController;
+    dispatch_block_t presentation = ^{
+        if ([viewController isKindOfClass:[WMFArticleViewController class]]) {
+            id<WMFAnalyticsContentTypeProviding> contentType = nil;
+            if ([listController conformsToProtocol:@protocol(WMFAnalyticsContentTypeProviding)]) {
+                contentType = (id<WMFAnalyticsContentTypeProviding>)listController;
+            }
+            [self pushArticleViewController:(WMFArticleViewController *)viewController contentType:contentType animated:YES];
+        } else {
+            [self presentViewController:viewController animated:YES completion:nil];
         }
-        [self pushArticleViewController:(WMFArticleViewController *)viewController contentType:contentType animated:YES];
+    };
+    if ([self presentedViewController]) {
+        [self dismissViewControllerAnimated:YES completion:presentation];
     } else {
-        [self presentViewController:viewController animated:YES completion:nil];
+        presentation();
     }
 }
 
