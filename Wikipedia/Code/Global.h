@@ -9,6 +9,6 @@
 #define QUOTE2(x) #x
 #define QUOTE(x) QUOTE2(x)
 
-@import WMFUI;
+@import WMF;
 
 #endif

@@ -321,6 +321,7 @@
 "migration-prompt-message" = "Нам треба перенести Ваші збержені і недавні сторінки. Це може зайняти хвилинку…";
 "migration-confirm-button-title" = "Перенести мої дані";
 "migration-skip-button-title" = "Вилучити це";
+// Fuzzy
 "image-gallery-unknown-owner" = "Завантажувач невідомий.";
 "image-gallery-fetch-image-info-error-title" = "Не вдається завантажити зображення";
 "image-gallery-fetch-image-info-error-message" = "Не вдається завантажити зображення для цієї статті. Будь ласка, оновіть статтю і спробуйте ще раз.";

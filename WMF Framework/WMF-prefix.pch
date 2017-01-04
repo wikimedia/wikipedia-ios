@@ -1,5 +1,5 @@
 #ifdef __OBJC__
 
-#import "WMFModel-Global.h"
+#import "WMF-Global.h"
 
 #endif // end __OBJC__

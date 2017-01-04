@@ -1,6 +1,6 @@
 import UIKit
 import NotificationCenter
-import WMFUI
+import WMF
 
 class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var imageView: UIImageView!

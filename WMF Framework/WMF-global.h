@@ -1,25 +1,70 @@
-#import <Foundation/Foundation.h>
+#ifndef WMF_global_h
+#define WMF_global_h
 
-//! Project version number for WMFModel.
-FOUNDATION_EXPORT double WMFModelVersionNumber;
+#import "EXTScope.h"
+#import <KVOController/KVOController.h>
+#import <BlocksKit/BlocksKit.h>
 
-//! Project version string for WMFModel.
-FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
-
-@import WMFUtilities;
+#import "NSURL+WMFLinkParsing.h"
+#import "NSURLComponents+WMFLinkParsing.h"
+#import "WMFBlockDefinitions.h"
+#import "WMFComparison.h"
+#import "WMFHashing.h"
+#import "WMFDeprecationMacros.h"
+#import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
+#import "NSArray+WMFMapping.h"
+#import "NSMutableArray+WMFSafeAdd.h"
+#import "NSMutableSet+WMFSafeAdd.h"
+#import "NSDictionary+WMFExtensions.h"
+#import "NSDictionary+WMFPageViewsSortedByDate.h"
+#import "NSURL+WMFExtras.h"
+#import "WMFGCDHelpers.h"
+#import "WMFLogging.h"
+#import "WMFDirectoryPaths.h"
+#import "WMFLocalization.h"
+#import "WMFMath.h"
+#import "NSError+WMFExtensions.h"
+#import "WMFOutParamUtils.h"
+#import "WMFRangeUtils.h"
+#import "NSArray+BKIndex.h"
+#import "NSIndexSet+BKReduce.h"
+#import "NSMutableDictionary+WMFMaybeSet.h"
+#import "WMFGeometry.h"
+#import "NSURL+WMFProxyServer.h"
+#import "NSURL+WMFQueryParameters.h"
+#import "NSFileManager+WMFExtendedFileAttributes.h"
+#import "WMFTaskGroup.h"
+#import "NSFileManager+WMFGroup.h"
+#import "NSDateFormatter+WMFExtensions.h"
+#import "NSDate+WMFRelativeDate.h"
+#import "NSDictionary+WMFRequiredValueForKey.h"
+#import "NSCalendar+WMFCommonCalendars.h"
+#import "WMFNumberOfExtractCharacters.h"
+#import "NSBundle+WMFInfoUtils.h"
 
 #import "MWKDataStore.h"
+#import "WMFContentGroupDataStore.h"
+
+#import "SessionSingleton.h"
+#import "QueuesSingleton.h"
 
 #import "MWKDataObject.h"
 #import "MWKSiteDataObject.h"
 
+#import "MWKSite.h"
+#import "MWKTitle.h"
 #import "MWKArticle.h"
 #import "MWKSection.h"
 #import "MWKSectionList.h"
 #import "MWKImage.h"
 #import "MWKUser.h"
 
+#import "MWKList.h"
+
+#import "MWKHistoryEntry.h"
 #import "MWKHistoryList.h"
+
+#import "MWKSavedPageEntry.h"
 #import "MWKSavedPageList.h"
 
 #import "MWKRecentSearchEntry.h"
@@ -44,8 +89,10 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 
 #import "MWKArticle+WMFSharing.h"
 #import "MWKCitation.h"
+
 #import "MWKImage+CanonicalFilenames.h"
 #import "MWKImageInfo+MWKImageComparison.h"
+#import "MWKList+Subclass.h"
 #import "MWKSavedPageEntry+ImageMigration.h"
 #import "MWKSavedPageListDataExportConstants.h"
 #import "WikipediaAppUtils.h"
@@ -67,8 +114,6 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import "UIScreen+WMFImageWidth.h"
 #import "NSURL+WMFMainPage.h"
 #import "WMFAssetsFile.h"
-
-#import "WMFNotificationsController.h"
 
 #import "MWNetworkActivityIndicatorManager.h"
 
@@ -118,28 +163,13 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import "AFHTTPSessionManager+WMFConfig.h"
 #import "AFHTTPRequestSerializer+WMFRequestHeaders.h"
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"
-#import "WMFArticlePreviewFetcher.h"
+#import "WMFArticleFetcher.h"
 #import "WMFBaseRequestSerializer.h"
 #import "MWKSearchResult.h"
 #import "NSDictionary+WMFCommonParams.h"
-
-#import "WMFContentGroupDataStore.h"
-#import "WMFArticleDataStore.h"
-
-#import "WMFArticle+Extensions.h"
-#import "WMFContentGroup+Extensions.h"
 
 #import "NSUserActivity+WMFExtensions.h"
 
 #import "PiwikTracker+WMFExtensions.h"
 
-//Deprecated
-#import "MWKHistoryEntry.h"
-#import "MWKList.h"
-#import "MWKList+Subclass.h"
-#import "MWKSite.h"
-#import "MWKTitle.h"
-#import "SessionSingleton.h"
-#import "QueuesSingleton.h"
-#import "MWKSavedPageEntry.h"
-#import "WMFLegacyContentGroup.h"
+#endif /* WMF_global_h */

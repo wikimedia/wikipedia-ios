@@ -60,11 +60,9 @@
 "wikitext-downloading" = "Edukia kargatzen...";
 "wikitext-download-success" = "Edukia kargatu da.";
 "wikitext-preview-changes-none" = "Ez da aurrebistan erakusteko aldaketarik egin.";
-// Fuzzy
-"wikitext-upload-save" = "Gordetzen...";
+"wikitext-upload-save" = "Argitaratzen...";
 "wikitext-upload-save-sign-in" = "Hasi saioa";
-// Fuzzy
-"wikitext-upload-save-anonymously" = "Gorde anonimo bezala";
+"wikitext-upload-save-anonymously" = "Argitaratu anonimo bezala";
 "wikitext-upload-save-terms-name" = "Erabilera Baldintzak";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Ireki lotura";
@@ -91,6 +89,7 @@
 "settings-language" = "Wikipediaren hizkuntza";
 "settings-support" = "Wikipedia Lagundu";
 "settings-my-languages" = "Nire hizkuntzak";
+"settings-notifications" = "Jakinarazpenak";
 "main-menu-title" = "Gehiago";
 "main-menu-heading-about" = "Honi buruz";
 "main-menu-language-title" = "Bilatu $1 Wikipedia";
@@ -139,14 +138,12 @@
 "navbar-title-mode-login" = "Hasi saioa";
 "navbar-title-mode-login-and-save" = "Hasi eta gorde saioa";
 "navbar-title-mode-create-account" = "Kontua sortu";
-// Fuzzy
-"navbar-title-mode-create-account-and-save" = "Kontua sortu eta gorde";
+"navbar-title-mode-create-account-and-save" = "Kontua sortu eta argitaratu";
 "navbar-title-mode-edit-wikitext-warning" = "Edizio arazoak";
 "navbar-title-mode-edit-wikitext-disallow" = "Edizio arazoak";
 "navbar-title-mode-edit-wikitext-preview" = "Aurrebista";
 "navbar-title-mode-edit-wikitext-summary" = "Zure aldaketa azaldu";
-// Fuzzy
-"navbar-title-mode-edit-wikitext-save" = "Gorde";
+"navbar-title-mode-edit-wikitext-save" = "Argitaratu";
 "edit-summary-choice-linked-words" = "Loturak gehitu";
 "edit-summary-choice-fixed-grammar" = "Gramatika konpondu";
 "edit-summary-choice-fixed-inaccuracy" = "Zehaztugabeak konpondu";
@@ -175,8 +172,7 @@
 "about-wikimedia-foundation" = "Wikimedia Fundazioa";
 "share-menu-save-page" = "Gorde orria";
 "share-menu-page-saved" = "Offline irakurtzeko gordea.";
-// Fuzzy
-"share-custom-menu-item" = "Partekatu";
+"share-custom-menu-item" = "Partekatu...";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-as-image" = "Partekatu irudi gisa";
 "share-as-text" = "Partekatu testu gisa";
@@ -192,9 +188,11 @@
 "button-next" = "Hurrengoa";
 "button-done" = "Egina";
 "button-save" = "Gorde";
+"button-publish" = "Argitaratu";
 "button-ok" = "OK";
 "button-save-for-later" = "Gorde gerorako";
 "button-saved-for-later" = "Gorde gerorako";
+"button-read-now" = "Orain irakurri";
 "button-report-a-bug" = "Akats bat jakinarazi";
 "onboarding-create-account" = "Kontua sortu";
 "onboarding-login" = "Hasi saioa";
@@ -214,8 +212,7 @@
 "table-of-contents-button-label" = "Eduki-taula";
 "table-of-contents-close-accessibility-label" = "Itxi eduki-taula";
 "table-of-contents-close-accessibility-hint" = "Itxi";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Ezin duzu aldaketa hau gorde. Mesedez itzul zaitez eta alda ezazu.";
+"abuse-filter-disallow-heading" = "Ezin duzu aldaketa hau argitaratu. Mesedez itzul zaitez eta alda ezazu.";
 "menu-edit-accessibility-label" = "Aldatu";
 "menu-close-accessibility-label" = "Itxi";
 "menu-preview-accessibility-label" = "Aurrebista";
@@ -239,6 +236,7 @@
 "nearby-open-in-maps" = "Mapsen ireki";
 "nearby-cancel" = "Utzi";
 "migration-skip-button-title" = "Ezabatu";
+// Fuzzy
 "image-gallery-unknown-owner" = "Igotzaile ezezaguna.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-send-report" = "Bidali txostena";
@@ -261,12 +259,16 @@
 "home-last-update-never-label" = "Azken eguneraketa: Inoiz ez";
 "home-updating-label" = "Eguneratzen...";
 "home-hide-suggestion-cancel" = "Utzi";
+"home-button-accessibility-label" = "Hasiera";
 "welcome-explore-title" = "Esploratu";
+"welcome-explore-continue-button" = "Hasi";
 "welcome-languages-title" = "Hizkuntzak";
 "welcome-languages-add-button" = "Gehitu beste hizkuntza bat";
 "welcome-languages-continue-button" = "Jarraitu";
+"welcome-volunteer-title" = "Bolondresa";
 "welcome-volunteer-send-usage-reports" = "Bidali erabilpen iruzkina";
 "welcome-volunteer-continue-button" = "Jarraitu";
+"welcome-volunteer-thanks" = "$1 Eskerrik asko!";
 "empty-no-feed-title" = "Internet Konexiorik Ez";
 "empty-no-search-results-message" = "Ez da emaitzarik aurkitu";
 "alert-no-internet" = "Ez dago internet konexiorik";
@@ -288,3 +290,17 @@
 "explore-another-random" = "Ausazko beste artikulu bat";
 "find-in-page-button-label" = "Aurkitu orrialdean";
 "find-in-page-popover-description" = "Bilatu testua artikuluetan";
+"top-read-header-with-language" = "$1 Wikipedia";
+"top-read-header-generic" = "Wikipedia";
+"readers-accessibility-label" = "$1 irakurle";
+"rank-accessibility-label" = "$1 zenbakia";
+"reference-title" = "$1 erreferentzia";
+"in-the-news-notification-share-action-title" = "Partekatu...";
+"in-the-news-notification-save-for-later-action-title" = "Gorde gerorako";
+"in-the-news-title" = "Albisteak";
+"number-thousands" = "$1K";
+"number-millions" = "$1M";
+"number-billions" = "$1B";
+"back" = "Atzera";
+"save-action" = "Gorde";
+"announcements-dismiss" = "Ez, eskerrik asko";

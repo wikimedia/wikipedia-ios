@@ -297,6 +297,7 @@
 "migration-prompt-message" = "भवतः/भवत्याः वर्तमानपृष्ठानां, रक्षितपृष्ठानां च स्थानान्तरं कुर्मः । तस्यै प्रक्रियायै समयः अपेक्ष्यते...";
 "migration-confirm-button-title" = "मम सामग्र्याः स्थानान्तरं करोतु";
 "migration-skip-button-title" = "एतत् अपाकरोतु";
+// Fuzzy
 "image-gallery-unknown-owner" = "अज्ञातः उपारोहकः";
 "image-gallery-fetch-image-info-error-title" = "चित्रावरोपणं न शक्यम्";
 "image-gallery-fetch-image-info-error-message" = "एतस्य लेखस्य कृते चित्रावरोपणं न शक्यम् । कृपया प्रत्यववस्थाप्य (refresh) पुनः प्रयतताम् ।";

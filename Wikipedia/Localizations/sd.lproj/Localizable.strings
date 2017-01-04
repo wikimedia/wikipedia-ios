@@ -302,6 +302,7 @@
 "migration-update-progress-count-label" = "مضمون $2 جو $1 منتقل ٿيندي";
 "migration-prompt-title" = "ايئن لڳي ٿو ڄڻ اسان کي ڪا سوانح آهي!";
 "migration-skip-button-title" = "انکي ختم ڪريو";
+// Fuzzy
 "image-gallery-unknown-owner" = "اڻڄاتل چاڙهيندڙ.";
 "image-gallery-fetch-image-info-error-title" = "عڪس لاهڻ ۾ ناڪام";
 "image-gallery-fetch-image-info-error-message" = "هن مضمون لاءِ عڪس لاهڻ ۾ ناڪام. براءِ مهرباني مضمون کي تازو ڪريو ۽ ٻيهر ڪوشش ڪريو.";

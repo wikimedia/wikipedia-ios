@@ -319,6 +319,7 @@
 "migration-prompt-message" = "Chúng tôi cần di chuyển các trang mới lưu và đã lưu gần đây. Thao tác này có thể sẽ mất một phút...";
 "migration-confirm-button-title" = "Chuyển nội dung";
 "migration-skip-button-title" = "Xóa dữ liệu";
+// Fuzzy
 "image-gallery-unknown-owner" = "Người tải lên không rõ.";
 "image-gallery-fetch-image-info-error-title" = "Không thể tải hình ảnh về";
 "image-gallery-fetch-image-info-error-message" = "Không thể tải về các hình ảnh cho bài này. Hãy tải lại bài và thử lại.";

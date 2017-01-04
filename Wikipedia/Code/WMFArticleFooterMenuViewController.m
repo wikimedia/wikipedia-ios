@@ -115,7 +115,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Subview Actions
 
 - (void)showDisambiguationItems {
-    WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithArticle:self.article dataStore:self.dataStore];
+    WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithArticle:self.article dataStore:self.dataStore previewStore:self.previewStore];
     articleListVC.delegate = self.similarPagesDelegate;
     articleListVC.title = MWLocalizedString(@"page-similar-titles", nil);
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:articleListVC];
