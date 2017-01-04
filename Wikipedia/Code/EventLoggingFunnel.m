@@ -1,7 +1,7 @@
 #import "EventLoggingFunnel.h"
 #import "EventLogger.h"
 #import "SessionSingleton.h"
-#import <WMFModel/WMFModel-Swift.h>
+#import <WMF/WMF-Swift.h>
 
 @implementation EventLoggingFunnel
 

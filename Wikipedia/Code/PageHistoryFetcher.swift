@@ -1,7 +1,7 @@
 import Foundation
 import AFNetworking
 import Mantle
-import WMFUtilities
+import WMF
 
 open class PageHistoryFetcher: NSObject {
     fileprivate let operationManager: AFHTTPSessionManager = {

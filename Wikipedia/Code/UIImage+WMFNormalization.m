@@ -1,5 +1,4 @@
 #import "UIImage+WMFNormalization.h"
-@import WMFUtilities;
 
 @implementation UIImage (WMFNormalization)
 

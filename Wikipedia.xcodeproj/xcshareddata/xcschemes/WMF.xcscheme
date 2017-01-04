@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D8AC39231D6F247F007E3C14"
-               BuildableName = "WMFUI.framework"
-               BlueprintName = "WMFUI"
+               BlueprintIdentifier = "D844D96B1D6CB2600042D692"
+               BuildableName = "WMF.framework"
+               BlueprintName = "WMF"
                ReferencedContainer = "container:Wikipedia.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D8AC39231D6F247F007E3C14"
-            BuildableName = "WMFUI.framework"
-            BlueprintName = "WMFUI"
+            BlueprintIdentifier = "D844D96B1D6CB2600042D692"
+            BuildableName = "WMF.framework"
+            BlueprintName = "WMF"
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D8AC39231D6F247F007E3C14"
-            BuildableName = "WMFUI.framework"
-            BlueprintName = "WMFUI"
+            BlueprintIdentifier = "D844D96B1D6CB2600042D692"
+            BuildableName = "WMF.framework"
+            BlueprintName = "WMF"
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

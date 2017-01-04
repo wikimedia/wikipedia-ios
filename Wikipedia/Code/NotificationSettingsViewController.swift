@@ -1,6 +1,6 @@
 import UIKit
 import UserNotifications
-import WMFModel
+import WMF
 
 protocol NotificationSettingsItem {
     var title: String { get }
