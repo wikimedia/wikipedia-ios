@@ -107,9 +107,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @end
 
-@interface WMFArticleViewController () <UINavigationControllerDelegate,
-                                        /*WMFImageGalleryViewControllerReferenceViewDelegate,*/
-                                        SectionEditorViewControllerDelegate,
+@interface WMFArticleViewController () <SectionEditorViewControllerDelegate,
                                         UIViewControllerPreviewingDelegate,
                                         WMFLanguagesViewControllerDelegate,
                                         WMFArticleListTableViewControllerDelegate,
@@ -1390,7 +1388,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.webViewController setFontSizeMultiplier:multiplier];
     [[NSUserDefaults wmf_userDefaults] wmf_setArticleFontSizeMultiplier:multiplier];
 }
-
 
 - (NSArray<NSNumber *> *)fontSizeMultipliers {
     return @[@(FBTweakValue(@"Article", @"Font Size", @"Step 1", WMFFontSizeMultiplierExtraSmall)),
