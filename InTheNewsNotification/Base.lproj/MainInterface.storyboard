@@ -94,7 +94,7 @@
                                             <constraint firstAttribute="trailing" secondItem="ks6-vS-QWo" secondAttribute="trailing" id="uls-TC-c1m"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pi7-p1-x0L" customClass="WMFSparklineView" customModule="WMFUI">
+                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pi7-p1-x0L" customClass="WMFSparklineView" customModule="WMF">
                                         <rect key="frame" x="203" y="4" width="132" height="47"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="47" id="rO8-Sb-8KI"/>
