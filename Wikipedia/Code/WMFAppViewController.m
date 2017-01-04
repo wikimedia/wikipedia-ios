@@ -417,9 +417,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:NULL failure:NULL];
 
     [self startContentSources];
-    
+
     NSDate *feedRefreshDate = [[NSUserDefaults wmf_userDefaults] wmf_feedRefreshDate];
-    if (!feedRefreshDate || [feedRefreshDate timeIntervalSinceNow] > WMFTimeBeforeRefreshingExploreFeed) {
+    NSDate *now = [NSDate date];
+
+    if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > WMFTimeBeforeRefreshingExploreFeed || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
         [self updateFeedSourcesWithCompletion:NULL];
     }
 
