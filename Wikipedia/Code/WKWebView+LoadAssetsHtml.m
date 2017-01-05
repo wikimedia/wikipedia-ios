@@ -19,7 +19,6 @@ static const NSTimeInterval WKWebViewLoadAssetsHTMLRequestTimeout = 60; //60s is
 }
 
 - (void)loadHTML:(NSString *)string baseURL:(NSURL *)baseURL withAssetsFile:(NSString *)fileName scrolledToFragment:(NSString *)fragment padding:(UIEdgeInsets)padding {
-
     if (!string) {
         string = @"";
     }
@@ -32,9 +31,13 @@ static const NSTimeInterval WKWebViewLoadAssetsHTMLRequestTimeout = 60; //60s is
 
     string = [proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string withBaseURL:baseURL targetImageWidth:self.window.screen.wmf_articleImageWidthForScale];
 
-    NSString *path = [[self getAssetsPath] stringByAppendingPathComponent:fileName];
+    NSString *localFilePath = [[self getAssetsPath] stringByAppendingPathComponent:fileName];
 
-    NSString *fileContents = [NSMutableString stringWithContentsOfFile:path
+    if (!localFilePath) {
+        return;
+    }
+
+    NSString *fileContents = [NSMutableString stringWithContentsOfFile:localFilePath
                                                               encoding:NSUTF8StringEncoding
                                                                  error:nil];
 
@@ -46,9 +49,11 @@ static const NSTimeInterval WKWebViewLoadAssetsHTMLRequestTimeout = 60; //60s is
     // index.html and preview.html have four "%@" subsitition markers. Replace both of these with actual content.
     NSString *templateAndContent = [NSString stringWithFormat:fileContents, fontString, baseURL.absoluteString, @(padding.top), @(padding.right), @(padding.bottom), @(padding.left), string];
 
-    [proxyServer setResponseData:[templateAndContent dataUsingEncoding:NSUTF8StringEncoding] withContentType:@"text/html; charset=utf-8" forPath:fileName];
+    NSUInteger hash = [[baseURL wmf_articleDatabaseKey] hash];
+    NSString *requestPath = [NSString stringWithFormat:@"%lu-%@", (unsigned long)hash, fileName];
+    [proxyServer setResponseData:[templateAndContent dataUsingEncoding:NSUTF8StringEncoding] withContentType:@"text/html; charset=utf-8" forPath:requestPath];
 
-    [self loadHTMLFromAssetsFile:fileName scrolledToFragment:fragment];
+    [self loadHTMLFromAssetsFile:requestPath scrolledToFragment:fragment];
 }
 
 - (NSString *)getAssetsPath {
