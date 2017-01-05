@@ -6,7 +6,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     // Model
     var siteURL: URL!
-    var date = Date()
     var group: WMFContentGroup?
     var results: [WMFFeedTopReadArticlePreview] = []
     
@@ -375,15 +374,11 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             completionHandler(.noData)
             return
         }
-        
-        contentSource.loadNewContentForce(false) {
+        contentSource.loadContent(for: date, force: false) {
             DispatchQueue.main.async(execute: {
                 guard self.updateUIWithTopReadFromContentStoreForSiteURL(siteURL: siteURL, date: date) else {
-                    guard let previousDate = NSCalendar.wmf_gregorian().date(byAdding: .day, value: -1, to: date, options: .matchStrictly) else {
-                        completionHandler(.noData)
-                        return
-                    }
-                    self.fetch(siteURL: siteURL, date: previousDate, attempt: attempt + 1, completionHandler: completionHandler)
+                    let todayUTC = (date as NSDate).wmf_midnightLocalDateForEquivalentUTC as Date
+                    self.fetch(siteURL: siteURL, date: todayUTC, attempt: attempt + 1, completionHandler: completionHandler)
                     return
                 }
                 
