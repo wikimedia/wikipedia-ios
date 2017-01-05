@@ -370,15 +370,23 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             return
         }
         
-        guard attempt < 3 else {
+        guard attempt < 4 else {
             completionHandler(.noData)
             return
         }
         contentSource.loadContent(for: date, force: false) {
             DispatchQueue.main.async(execute: {
                 guard self.updateUIWithTopReadFromContentStoreForSiteURL(siteURL: siteURL, date: date) else {
-                    let todayUTC = (date as NSDate).wmf_midnightLocalDateForEquivalentUTC as Date
-                    self.fetch(siteURL: siteURL, date: todayUTC, attempt: attempt + 1, completionHandler: completionHandler)
+                    if (attempt == 1) {
+                        let todayUTC = (date as NSDate).wmf_midnightLocalDateForEquivalentUTC as Date
+                        self.fetch(siteURL: siteURL, date: todayUTC, attempt: attempt + 1, completionHandler: completionHandler)
+                    } else {
+                        guard let previousDate = NSCalendar.wmf_gregorian().date(byAdding: .day, value: -1, to: date, options: .matchStrictly) else {
+                            completionHandler(.noData)
+                            return
+                        }
+                         self.fetch(siteURL: siteURL, date: previousDate, attempt: attempt + 1, completionHandler: completionHandler)
+                    }
                     return
                 }
                 
