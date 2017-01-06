@@ -50,9 +50,9 @@
         <scene sceneID="CuH-Gb-zyn">
             <objects>
                 <navigationController storyboardIdentifier="Nearby" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fC7-UI-Knm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Nearby" image="tabbar-explore" selectedImage="tabbar-explore-selected" id="qMU-9n-S42"/>
+                    <tabBarItem key="tabBarItem" title="Nearby" image="tabbar-nearby" selectedImage="tabbar-nearby-selected" id="qMU-9n-S42"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="HFz-Jz-Pn5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HFz-Jz-Pn5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -67,7 +67,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="tabbar-explore" width="25" height="25"/>
-        <image name="tabbar-explore-selected" width="25" height="25"/>
+        <image name="tabbar-nearby" width="48" height="48"/>
+        <image name="tabbar-nearby-selected" width="48" height="48"/>
     </resources>
 </document>
