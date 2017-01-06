@@ -407,12 +407,12 @@ function sendNearbyReferences( sourceNode ) {
     }
     
     var referencesGroup = [];
-    for(var i = 0; i < linkId.length; i++){
+    for(var j = 0; j < linkId.length; j++){
         referencesGroup.push({
-                             "id": linkId[i],
-                             "rect": linkRects[i],
-                             "text": linkText[i],
-                             "html": refs[i]
+                             "id": linkId[j],
+                             "rect": linkRects[j],
+                             "text": linkText[j],
+                             "html": refs[j]
         });
     }
     
