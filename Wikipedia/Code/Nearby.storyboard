@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Nearby-->
+        <!--Nearby View Controller-->
         <scene sceneID="iCz-d5-DDs">
             <objects>
-                <viewController storyboardIdentifier="Nearby" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pK5-Ai-Kzp" customClass="NearbyViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="pK5-Ai-Kzp" customClass="NearbyViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Cy7-2m-87u"/>
                         <viewControllerLayoutGuide type="bottom" id="CKz-f0-MZN"/>
@@ -33,13 +33,32 @@
                             <constraint firstAttribute="trailing" secondItem="UNC-SX-Sli" secondAttribute="trailing" id="tCM-nJ-Rev"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Nearby" image="tabbar-explore" selectedImage="tabbar-explore-selected" id="qMU-9n-S42"/>
+                    <navigationItem key="navigationItem" id="8EZ-Mg-WBR"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="mapView" destination="UNC-SX-Sli" id="0hu-YN-E8A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qcf-lJ-9D0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1520.8" y="-167.76611694152925"/>
+        </scene>
+        <!--Nearby-->
+        <scene sceneID="CuH-Gb-zyn">
+            <objects>
+                <navigationController storyboardIdentifier="Nearby" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fC7-UI-Knm" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Nearby" image="tabbar-explore" selectedImage="tabbar-explore-selected" id="qMU-9n-S42"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HFz-Jz-Pn5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="pK5-Ai-Kzp" kind="relationship" relationship="rootViewController" id="H11-TU-vIX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Qe-3x-XRM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="581.60000000000002" y="-167.76611694152925"/>
         </scene>
