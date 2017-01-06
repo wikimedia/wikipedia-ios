@@ -501,43 +501,25 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
             } break;
         }
     } else if ([sender isKindOfClass:[EditTokenFetcher class]]) {
-        EditTokenFetcher *tokenFetcher = (EditTokenFetcher *)sender;
-
-        void (^upload)() = ^void() {
-            NSMutableDictionary *editTokens = self.keychainCredentials.editTokens;
-            NSString *editToken = editTokens[tokenFetcher.articleURL.wmf_language];
-            (void)[[WikiTextSectionUploader alloc] initAndUploadWikiText:tokenFetcher.wikiText
-                                                           forArticleURL:tokenFetcher.articleURL
-                                                                 section:tokenFetcher.section
-                                                                 summary:tokenFetcher.summary
-                                                               captchaId:tokenFetcher.captchaId
-                                                             captchaWord:tokenFetcher.captchaWord
-                                                                   token:editToken
-                                                             withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
-                                                      thenNotifyDelegate:self];
-        };
-
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
-                NSMutableDictionary *editTokens =
-                    self.keychainCredentials.editTokens;
-                NSString *domain = self.section.url.wmf_language;
-                if (domain && tokenFetcher.token) {
-                    editTokens[domain] = tokenFetcher.token;
-                    self.keychainCredentials.editTokens = editTokens;
-                }
-                upload();
+                EditTokenFetcher *tokenFetcher = (EditTokenFetcher *)sender;
+
+                (void)[[WikiTextSectionUploader alloc] initAndUploadWikiText:tokenFetcher.wikiText
+                                                               forArticleURL:tokenFetcher.articleURL
+                                                                     section:tokenFetcher.section
+                                                                     summary:tokenFetcher.summary
+                                                                   captchaId:tokenFetcher.captchaId
+                                                                 captchaWord:tokenFetcher.captchaWord
+                                                                       token:tokenFetcher.token
+                                                                 withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
+                                                          thenNotifyDelegate:self];
             } break;
             case FETCH_FINAL_STATUS_CANCELLED:
                 [[WMFAlertManager sharedInstance] dismissAlert];
                 break;
             case FETCH_FINAL_STATUS_FAILED:
                 [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-
-                // Still try the uploadWikiTextOp even if EditTokenFetcher fails to get a token.
-                // EditTokenFetcher return an anonymous "+\" edit token if it doesn't find an edit token.
-                upload();
-
                 break;
         }
     } else if ([sender isKindOfClass:[WikiTextSectionUploader class]]) {
