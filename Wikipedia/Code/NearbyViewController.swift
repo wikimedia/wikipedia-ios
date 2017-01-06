@@ -6,19 +6,7 @@ class NearbyViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-    
-        mapView.mapType = .standard
-
-        mapView.showsCompass = false
-        mapView.showsScale = true
-        mapView.showsPointsOfInterest = false
-        mapView.showsBuildings = false
-
-        mapView.showsTraffic = false
-        mapView.showsUserLocation = true
-        mapView.delegate = self
-        
+        super.viewDidLoad()        
         mapView.setUserTrackingMode(.follow, animated: true)
     }
 
