@@ -7,8 +7,19 @@ class NearbyViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mapView.delegate = self
+    
+        mapView.mapType = .standard
+
+        mapView.showsCompass = false
+        mapView.showsScale = true
+        mapView.showsPointsOfInterest = false
+        mapView.showsBuildings = false
+
+        mapView.showsTraffic = false
         mapView.showsUserLocation = true
+        mapView.delegate = self
+        
+        mapView.setUserTrackingMode(.follow, animated: true)
     }
 
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
