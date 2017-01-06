@@ -79,6 +79,7 @@
  */
 typedef NS_ENUM(NSUInteger, WMFAppTabType) {
     WMFAppTabTypeExplore = 0,
+    WMFAppTabTypeNearby,
     WMFAppTabTypeSaved,
     WMFAppTabTypeRecent
 };
