@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Nearby-->
+        <scene sceneID="iCz-d5-DDs">
+            <objects>
+                <viewController storyboardIdentifier="Nearby" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pK5-Ai-Kzp" customClass="NearbyViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Cy7-2m-87u"/>
+                        <viewControllerLayoutGuide type="bottom" id="CKz-f0-MZN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pBD-gM-dPf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="UNC-SX-Sli">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="UNC-SX-Sli" firstAttribute="top" secondItem="pBD-gM-dPf" secondAttribute="top" id="6IK-c4-Guk"/>
+                            <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="UNC-SX-Sli" secondAttribute="bottom" id="9wa-qz-5B3"/>
+                            <constraint firstItem="UNC-SX-Sli" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="BkZ-je-58M"/>
+                            <constraint firstAttribute="trailing" secondItem="UNC-SX-Sli" secondAttribute="trailing" id="tCM-nJ-Rev"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Nearby" image="tabbar-explore" selectedImage="tabbar-explore-selected" id="qMU-9n-S42"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
+                    <connections>
+                        <outlet property="mapView" destination="UNC-SX-Sli" id="0hu-YN-E8A"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qcf-lJ-9D0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="581.60000000000002" y="-167.76611694152925"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="tabbar-explore" width="25" height="25"/>
+        <image name="tabbar-explore-selected" width="25" height="25"/>
+    </resources>
+</document>

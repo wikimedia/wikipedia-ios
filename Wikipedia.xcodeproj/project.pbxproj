@@ -761,6 +761,8 @@
 		D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D864D68B1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift */; };
 		D86706BE1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */; };
 		D86706C31D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706C21D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m */; };
+		D87234011E1FF0A500751E83 /* NearbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87233FF1E1FF0A500751E83 /* NearbyViewController.swift */; };
+		D87234041E1FF18100751E83 /* Nearby.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D87234031E1FF18100751E83 /* Nearby.storyboard */; };
 		D87914DD1DFA04E10012C5DA /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87914DC1DFA04E10012C5DA /* NSUserDefaults+WMFApplicationDefaults.swift */; };
 		D87A55991D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87A55971D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.m */; };
 		D87A559A1D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87A55981D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.xib */; };
@@ -2348,6 +2350,8 @@
 		D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFExploreCollectionViewCell.m; path = Wikipedia/Code/WMFExploreCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
 		D86706C11D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFColumnarCollectionViewLayout.h; path = Wikipedia/Code/WMFColumnarCollectionViewLayout.h; sourceTree = SOURCE_ROOT; };
 		D86706C21D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFColumnarCollectionViewLayout.m; path = Wikipedia/Code/WMFColumnarCollectionViewLayout.m; sourceTree = SOURCE_ROOT; };
+		D87233FF1E1FF0A500751E83 /* NearbyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyViewController.swift; sourceTree = "<group>"; };
+		D87234031E1FF18100751E83 /* Nearby.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Nearby.storyboard; sourceTree = "<group>"; };
 		D8735B231DB7AAA100ED13C4 /* WMFTableOfContentsDisplay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFTableOfContentsDisplay.h; sourceTree = "<group>"; };
 		D87914DC1DFA04E10012C5DA /* NSUserDefaults+WMFApplicationDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+WMFApplicationDefaults.swift"; sourceTree = "<group>"; };
 		D87A55961D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleListCollectionViewCell.h; path = Wikipedia/Code/WMFArticleListCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -4423,6 +4427,7 @@
 		BC45D58D1C32FD58007C72F3 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				D87233FC1E1FF05800751E83 /* Nearby */,
 				0EFB48071B3BAFE900381F99 /* Article */,
 				0E98805F1DA2A0C00058D7F2 /* Feed */,
 				BC45D5B01C330B95007C72F3 /* History */,
@@ -5514,6 +5519,15 @@
 			path = ../Schema;
 			sourceTree = "<group>";
 		};
+		D87233FC1E1FF05800751E83 /* Nearby */ = {
+			isa = PBXGroup;
+			children = (
+				D87233FF1E1FF0A500751E83 /* NearbyViewController.swift */,
+				D87234031E1FF18100751E83 /* Nearby.storyboard */,
+			);
+			name = Nearby;
+			sourceTree = "<group>";
+		};
 		D8940CEA1DB56C0500E17F9E /* In The News */ = {
 			isa = PBXGroup;
 			children = (
@@ -6322,6 +6336,7 @@
 				D8D92B611DF22E1700B95311 /* NotificationBackgroundSuccess@2x.png in Resources */,
 				D8D92B5A1DF22E1700B95311 /* NotificationBackgroundError.png in Resources */,
 				B01490A11DB96BD6007F5391 /* WMFReferencePanels.storyboard in Resources */,
+				D87234041E1FF18100751E83 /* Nearby.storyboard in Resources */,
 				B0E803C91C0CDC5F0065EBC0 /* WMFArticlePlaceholderTableViewCell.xib in Resources */,
 				B0E8040B1C0CDE480065EBC0 /* AccountCreationViewController.storyboard in Resources */,
 				D8D92B621DF22E1700B95311 /* NotificationBackgroundSuccessIcon.png in Resources */,
@@ -6627,6 +6642,7 @@
 				B0E806A41C0CEAF40065EBC0 /* EditSummaryViewController.m in Sources */,
 				B0E803181C0CD6560065EBC0 /* WMFNearbyPlaceholderCollectionViewCell.m in Sources */,
 				0E26628D1D09ED08006D4A46 /* WMFAuthManagerInfo.m in Sources */,
+				D87234011E1FF0A500751E83 /* NearbyViewController.swift in Sources */,
 				B06531721C237538003BD7DC /* WMFDisambiguationPagesViewController.m in Sources */,
 				B01490A51DB96EA7007F5391 /* WMFReferencePanelViewController.swift in Sources */,
 				D8FEECCA1DE3715300B883F0 /* WMFTableViewUpdater.m in Sources */,
