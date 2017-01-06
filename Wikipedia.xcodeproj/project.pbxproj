@@ -871,7 +871,7 @@
 		D8E2F6AB1E016E3300968645 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E2F6A61E01658300968645 /* SDWebImage.framework */; };
 		D8E2F6AC1E016E3300968645 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E2F6A61E01658300968645 /* SDWebImage.framework */; };
 		D8E2F6AE1E016E3700968645 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E2F6A61E01658300968645 /* SDWebImage.framework */; };
-		D8E4CCAA1D931CE100EB6C61 /* assets in CopyFiles */ = {isa = PBXBuildFile; fileRef = BCF012321AD2FA38008D3675 /* assets */; };
+		D8E4CCAA1D931CE100EB6C61 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = BCF012321AD2FA38008D3675 /* assets */; };
 		D8EC64031D007B1F00C286EE /* WMFLinkParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */; };
 		D8EEA0F11D6DF60600D88143 /* WMFTodayContinueReadingWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85219371D6DEFBB00084796 /* WMFTodayContinueReadingWidgetViewController.swift */; };
 		D8EEA0F41D6E14E800D88143 /* WMFAppModalProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EEA0F21D6E14E800D88143 /* WMFAppModalProgressViewController.swift */; };
@@ -1054,16 +1054,6 @@
 				D8FAC7DD1D6F88AB00C2A6BC /* WMF.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D8E4CCA91D931CDA00EB6C61 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 7;
-			files = (
-				D8E4CCAA1D931CE100EB6C61 /* assets in CopyFiles */,
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -5356,7 +5346,6 @@
 				D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */,
 				D82FDAD91DF0A99E00DDF311 /* AFNetworking.framework */,
 			);
-			name = Carthage;
 			path = Carthage;
 			sourceTree = "<group>";
 		};
@@ -5974,7 +5963,6 @@
 				D844D9671D6CB2600042D692 /* Sources */,
 				D844D9681D6CB2600042D692 /* Frameworks */,
 				D844D9691D6CB2600042D692 /* Headers */,
-				D8E4CCA91D931CDA00EB6C61 /* CopyFiles */,
 				D8FA19151E1BE05B009675C3 /* Resources */,
 				D8D987FD1E1C468F00789CA0 /* ShellScript */,
 			);
@@ -6403,6 +6391,7 @@
 			files = (
 				D8FA19161E1BE069009675C3 /* WMFArticlePreviewViewController.xib in Resources */,
 				D8FA19171E1BE075009675C3 /* Localizable.strings in Resources */,
+				D8E4CCAA1D931CE100EB6C61 /* assets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,8 @@
 #import "WMFImageTag+TargetImageWidthURL.h"
 #import "NSString+WMFHTMLParsing.h"
 
+static const NSInteger WMFCachedResponseCountLimit = 4;
+
 @interface WMFProxyServerResponse : NSObject
 @property (nonatomic, copy) NSData *data;
 @property (nonatomic, copy) NSString *contentType;
@@ -16,7 +18,9 @@
 @end
 
 @interface WMFProxyServer () <GCDWebServerDelegate>
-@property (nonatomic, strong) NSMutableDictionary *responsesByPath;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, WMFProxyServerResponse *> *responsesByPath;
+@property (nonatomic, strong) NSMutableOrderedSet<NSString *> *responsePaths;
+
 @property (nonatomic, strong) GCDWebServer *webServer;
 @property (nonatomic, copy, nonnull) NSString *secret;
 @property (nonatomic, copy, nonnull) NSString *hostedFolderPath;
@@ -45,7 +49,8 @@
 }
 
 - (void)setup {
-    self.responsesByPath = [NSMutableDictionary dictionaryWithCapacity:10];
+    self.responsesByPath = [NSMutableDictionary dictionaryWithCapacity:4];
+    self.responsePaths = [NSMutableOrderedSet orderedSetWithCapacity:4];
 
     NSString *secret = [[NSUUID UUID] UUIDString];
     self.secret = secret;
@@ -330,6 +335,15 @@
         return;
     }
     self.responsesByPath[path] = [WMFProxyServerResponse responseWithData:data contentType:contentType];
+    if ([self.responsePaths containsObject:path]) { // NSOrderedSet will no-op when adding an object that is already in the set. This ensures the most recently requested path goes to the end of the ordered set.
+        [self.responsePaths removeObject:path];
+    }
+    [self.responsePaths addObject:path];
+    if (self.responsePaths.count > WMFCachedResponseCountLimit) {
+        NSString *pathToRemove = self.responsePaths[0];
+        [self.responsesByPath removeObjectForKey:pathToRemove];
+        [self.responsePaths removeObjectAtIndex:0];
+    }
 }
 
 - (WMFProxyServerResponse *)responseForPath:(NSString *)path {

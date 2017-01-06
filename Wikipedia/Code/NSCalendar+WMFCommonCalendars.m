@@ -82,4 +82,13 @@
     return timelessDate;
 }
 
+- (NSDate *)wmf_midnightLocalDateForEquivalentUTCDate {
+    NSCalendar *UTCCalendar = [NSCalendar wmf_utcGregorianCalendar];
+    NSDateComponents *timelessDateComponents = [UTCCalendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self];
+    timelessDateComponents.timeZone = nil;
+    NSCalendar *localCalendar = [NSCalendar wmf_gregorianCalendar];
+    NSDate *timelessLocalDate = [localCalendar dateFromComponents:timelessDateComponents];
+    return timelessLocalDate;
+}
+
 @end
