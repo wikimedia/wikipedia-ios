@@ -8,6 +8,7 @@ class NearbyViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
+        mapView.showsUserLocation = true
     }
 
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
@@ -15,6 +16,10 @@ class NearbyViewController: UIViewController, MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        
+    }
+    
+    func mapViewDidStopLocatingUser(_ mapView: MKMapView) {
         
     }
 }
