@@ -1,5 +1,5 @@
 #import "MWKSavedPageList.h"
-#import <WMFModel/WMFModel-Swift.h>
+#import <WMF/WMF-Swift.h>
 
 //Legacy
 #import "MWKSavedPageListDataExportConstants.h"

@@ -284,6 +284,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                                 if (![self.userStore save:&saveError]) {
                                     DDLogError(@"Error saving: %@", saveError);
                                 }
+                                [[NSUserDefaults wmf_userDefaults] wmf_setFeedRefreshDate:[NSDate date]];
                                 [self resetRefreshControl];
                                 [self startMonitoringReachabilityIfNeeded];
                                 [self showOfflineEmptyViewIfNeeded];
@@ -813,7 +814,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     if ([sectionObject headerType] == WMFFeedHeaderTypeNone) {
         return 0.0;
     } else {
-        return 66;
+        return 69.0;
     }
 }
 
@@ -1258,7 +1259,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
     [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:group value:group];
 
-    if (vc == nil) {
+    if (vc == nil || vc == self) {
         return;
     }
 
@@ -1380,7 +1381,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
     } else if ([viewControllerToCommit isKindOfClass:[InTheNewsViewController class]]) {
         [self.navigationController pushViewController:viewControllerToCommit animated:YES];
-    } else {
+    } else if (![viewControllerToCommit isKindOfClass:[WMFExploreViewController class]]) {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
 }

@@ -312,6 +312,7 @@
 "migration-prompt-message" = "Ezhomm hon eus da zilec'hiañ ho pajennadoù enrollet ha nevez. Gallout a ra kemer amzer...";
 "migration-confirm-button-title" = "Dilec'hiañ ma zraoù";
 "migration-skip-button-title" = "Diverkañ anezho";
+// Fuzzy
 "image-gallery-unknown-owner" = "Pellgarger dianav.";
 "image-gallery-fetch-image-info-error-title" = "Ne c'haller ket pellgargañ skeudennoù";
 "image-gallery-fetch-image-info-error-message" = "Ne c'haller ket pellgargañ ar skeudennoù evit ar pennad-mañ. Klaskit freskaat ar pennad ha klaskit en-dro, mar plij.";

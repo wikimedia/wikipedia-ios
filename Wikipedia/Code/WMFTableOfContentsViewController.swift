@@ -1,6 +1,6 @@
 import UIKit
 import Masonry
-import WMFUI
+import WMF
 
 public protocol WMFTableOfContentsViewControllerDelegate : AnyObject {
 

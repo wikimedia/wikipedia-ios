@@ -1,5 +1,5 @@
 #import "NSUserActivity+WMFExtensions.h"
-#import <WMFModel/WMFModel-Swift.h>
+#import <WMF/WMF-Swift.h>
 
 @import CoreSpotlight;
 @import MobileCoreServices;

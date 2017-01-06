@@ -47,7 +47,7 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.snippetLabel.attributedText = nil;
+    self.snippetLabel.text = nil;
     self.saveButtonController.url = nil;
     self.saveButtonController.savedPageList = nil;
     self.loading = NO;
@@ -69,7 +69,6 @@
     [super traitCollectionDidChange:previousTraitCollection];
     UIFont *titleLabelFont = [UIFont wmf_preferredFontForFontFamily:WMFFontFamilyGeorgia withTextStyle:UIFontTextStyleTitle2 compatibleWithTraitCollection:self.traitCollection];
     self.titleLabel.font = titleLabelFont;
-    [self updateSnippetLabel];
 }
 
 - (void)setupBlurViewAndLoadingIndicator {
@@ -119,38 +118,15 @@
 
 - (void)updateSnippetLabel {
     if (!self.snippetText.length) {
-        self.snippetLabel.attributedText = nil;
+        self.snippetLabel.text = nil;
         return;
     }
-    self.snippetLabel.attributedText = [[NSAttributedString alloc] initWithString:self.snippetText attributes:self.snippetAttributes];
+    self.snippetLabel.text = self.snippetText;
 }
 
 - (void)setSnippetText:(NSString *)snippetText {
     _snippetText = [snippetText copy];
     [self updateSnippetLabel];
-}
-
-+ (NSParagraphStyle *)snippetParagraphStyle {
-    static NSParagraphStyle *paragraphStyle;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
-        pStyle.lineBreakMode = NSLineBreakByTruncatingTail;
-        pStyle.baseWritingDirection = NSWritingDirectionNatural;
-        pStyle.lineHeightMultiple = 1.35;
-        paragraphStyle = pStyle;
-    });
-    return paragraphStyle;
-}
-
-- (NSDictionary *)snippetAttributes {
-    UIFont *font = [UIFont wmf_preferredFontForFontFamily:WMFFontFamilySystem withTextStyle:UIFontTextStyleSubheadline];
-    if (!font) {
-        font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-    }
-    return @{NSFontAttributeName: font,
-             NSForegroundColorAttributeName: [UIColor darkGrayColor],
-             NSParagraphStyleAttributeName: [[self class] snippetParagraphStyle]};
 }
 
 #pragma mark - Image

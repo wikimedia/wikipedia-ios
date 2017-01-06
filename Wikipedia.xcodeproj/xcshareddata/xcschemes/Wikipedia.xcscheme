@@ -125,9 +125,9 @@
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
-            key = "TRAVIS"
-            value = "$(TRAVIS)"
-            isEnabled = "YES">
+            key = "DYLD_PRINT_STATISTICS"
+            value = "1"
+            isEnabled = "NO">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "WMF_FIXTURE_DIRECTORY"

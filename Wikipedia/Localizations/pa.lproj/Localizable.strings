@@ -311,6 +311,7 @@
 "migration-prompt-title" = "ਲੱਗਦਾ ਹੈ ਕੇ ਸਾਡਾ ਇਤਿਹਾਸ ਹੈ!";
 "migration-confirm-button-title" = "ਮੇਰਾ ਸਮਾਣ ਲਿਜਾਓ";
 "migration-skip-button-title" = "ਇਸਨੂੰ ਮਿਟਾਓ";
+// Fuzzy
 "image-gallery-unknown-owner" = "ਚੜ੍ਹਾੳੁਣ ਵਾਲਾ ਅਣ-ਪਛਾਤਾ ਹੈ";
 "image-gallery-fetch-image-info-error-title" = "ਚਿੱਤਰ ਡਾੳੂਨਲੋਡ ਨਹੀਂ ਹੋ ਰਿਹਾ";
 "image-gallery-fetch-image-info-error-message" = "ੲਿਸ ਲੇਖ ਲੲੀ ਚਿੱਤਰ ਡਾੳੂਨਲੋਡ ਨਹੀਂ ਹੋ ਰਿਹਾ। ਲੇਖ ਨੂੰ ਮੁੜ-ਤਾਜ਼ਾ ਕਰਕੇ ਫ਼ਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ";

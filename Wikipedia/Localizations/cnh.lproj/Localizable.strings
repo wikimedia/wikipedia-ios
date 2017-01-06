@@ -296,6 +296,7 @@
 "migration-prompt-message" = "Na khon ciami cahmai pawl le tuandeuh cahmai pawl thial an hau. Chikkhat te lawng a si lai...";
 "migration-confirm-button-title" = "Ka thilri ka thialpiak dih";
 "migration-skip-button-title" = "Hlo ko";
+// Fuzzy
 "image-gallery-unknown-owner" = "Atartu hngalh a si lo";
 "image-gallery-fetch-image-info-error-title" = "Hmanthlak laak khawh a si lo";
 "image-gallery-fetch-image-info-error-message" = "Hi cabia hin hmanthlak a la kholo. Vun tuah than hmah.";

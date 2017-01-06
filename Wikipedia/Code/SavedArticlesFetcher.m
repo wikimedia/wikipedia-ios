@@ -12,7 +12,7 @@
 #import "WMFURLCache.h"
 #import "WMFImageURLParsing.h"
 #import "WMFTaskGroup.h"
-#import <WMFModel/WMFModel.h>
+#import <WMF/WMF.h>
 
 static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;
 
