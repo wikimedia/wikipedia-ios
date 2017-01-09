@@ -304,8 +304,7 @@
 "migration-prompt-message" = "Musimy przenieść zapisane i ostatnio oglądane strony. To może potrwać kilka minut...";
 "migration-confirm-button-title" = "Przenieść moje dane";
 "migration-skip-button-title" = "Usuń obiekt";
-// Fuzzy
-"image-gallery-unknown-owner" = "Przesyłający nieznany.";
+"image-gallery-unknown-owner" = "Autor nieznany.";
 "image-gallery-fetch-image-info-error-title" = "Nie można pobrać obrazów";
 "image-gallery-fetch-image-info-error-message" = "Nie można załadować zdjęć do tego artykułu. Proszę zaktualizować artykuł i spróbować ponownie.";
 "image-gallery-fetch-image-info-error-ok" = "Ok";

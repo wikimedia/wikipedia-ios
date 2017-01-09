@@ -92,9 +92,12 @@
 "main-menu-terms-of-use" = "Lietošanas noteikumi";
 "main-menu-rate-app" = "Novērtē lietotni";
 "main-menu-heading-zero" = "Vikipēdija Zero";
+"main-menu-show-today" = "Šodien";
 "main-menu-nearby" = "Tuvumā";
 "main-menu-more" = "Vairāk...";
 "main-menu-debug-tweaks" = "Izstrādātāja iestatījumi";
+"saved-title" = "Saglabāts";
+"saved-pages-title" = "Saglabātās lapas";
 "saved-pages-clear-cancel" = "Atcelt";
 "saved-pages-clear-delete-all" = "Jā, dzēst visu";
 "saved-pages-refresh-cancel-alert-button" = "Sapratu";
@@ -109,6 +112,7 @@
 "navbar-title-mode-create-account-and-save" = "Izveidot kontu un saglabāt";
 "navbar-title-mode-edit-wikitext-preview" = "Priekšskatījums";
 "navbar-title-mode-edit-wikitext-save" = "Publicēt";
+"edit-summary-choice-linked-words" = "Pievienotas saites";
 "edit-summary-choice-fixed-inaccuracy" = "Labota nepreciziāte";
 "edit-summary-choice-fixed-typos" = "Labota pareizrakstības kļūda";
 "edit-summary-choice-added-category" = "Pievienota kategorija";
@@ -127,6 +131,7 @@
 "share-as-image" = "Kopīgot kā attēlu";
 "share-as-text" = "Kopīgot kā tekstu";
 "share-cancel" = "Atcelt";
+"timestamp-just-now" = "tikko";
 "timestamp-minutes" = "pirms %d minūtēm";
 "timestamp-hours" = "pirms %d stundām";
 "timestamp-days" = "pirms %d dienām";
@@ -185,6 +190,7 @@
 "home-empty-section" = "Rezultātu nav";
 "home-empty-section-check-again" = "Mēģināt vēlreiz";
 "home-continue-reading-heading" = "Turpināt lasīšanu";
+"home-updating-label" = "Atjaunina...";
 "home-hide-suggestion-cancel" = "Atcelt";
 "home-button-accessibility-label" = "Sākums";
 "welcome-explore-tell-me-more" = "Pastāsti man vairāk";
@@ -196,6 +202,7 @@
 "welcome-volunteer-continue-button" = "Turpināt";
 "welcome-volunteer-thanks" = "Paldies!";
 "empty-no-feed-title" = "Nav interneta savienojuma";
+"empty-no-search-results-message" = "Nav atrasts neviens rezultāts";
 "icon-shortcut-search-title" = "Meklēt Vikipēdijā";
 "icon-shortcut-continue-reading-title" = "Turpināt lasīt";
 "icon-shortcut-random-title" = "Nejauša lapa";
@@ -213,10 +220,12 @@
 "top-read-header-with-language" = "$1 Vikipēdija";
 "top-read-header-generic" = "Vikipēdija";
 "reference-title" = "Atsauce $1";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Dalīties";
+"in-the-news-notification-share-action-title" = "Dalīties...";
 "in-the-news-notification-save-for-later-action-title" = "Saglabāt vēlākam laikam";
 "in-the-news-title" = "Ziņās";
+"feed-news-notification-button-text" = "Ieslēgt paziņojumus";
 "back" = "Atpakaļ";
+"save-action" = "Saglabāt";
 "status-saving-for-later" = "Saglabā vēlākam laikam...";
 "status-saved-for-later" = "Saglabāts vēlākam laikam";
+"announcements-dismiss" = "Nē, paldies";
