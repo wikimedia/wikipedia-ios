@@ -315,8 +315,7 @@
 "migration-prompt-message" = "Kami perlu memindahkan laman-laman yang terbaru dan simpanan anda. Ini mungkin mengambil sedikit masa...";
 "migration-confirm-button-title" = "Pindahkan barang saya";
 "migration-skip-button-title" = "Hapuskan saja";
-// Fuzzy
-"image-gallery-unknown-owner" = "Pemuat naik tidak dikenali.";
+"image-gallery-unknown-owner" = "Pengarang tidak dikenali.";
 "image-gallery-fetch-image-info-error-title" = "Imej tidak dapat dimuat turun";
 "image-gallery-fetch-image-info-error-message" = "Gambar-gambar rencana ini tidak dapat dimuat turun. Sila muat semula rencana ini dan cuba lagi.";
 "image-gallery-fetch-image-info-error-ok" = "OK";

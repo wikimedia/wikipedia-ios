@@ -218,8 +218,7 @@
 "share-menu-save-page" = "Enrollañ ar pennad";
 "share-menu-page-saved" = "Pennad enrollet";
 "share-menu-page-saved-access" = "Ali : evit monet d'ho pajennoù enrollet, bizskrivañ $1 amañ a-us pe pouezit pell war $2 amañ dindan.";
-// Fuzzy
-"share-custom-menu-item" = "Rannañ";
+"share-custom-menu-item" = "Rannañ...";
 "share-a-fact-share-menu-item" = "Rannañ-ur-fed";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" war @Wikipedia:";
@@ -263,7 +262,6 @@
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Endalc'had";
 "table-of-contents-button-label" = "Taolenn";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Serriñ an daolenn";
 "table-of-contents-close-accessibility-hint" = "Serriñ";
 // Fuzzy
@@ -361,6 +359,7 @@
 "welcome-languages-sub-title" = "Dibab ar yezhoù a blij deoc'h ar muiañ evit ober enklaskoù e Wikipedia";
 "welcome-languages-add-button" = "Ouzhpennañ ur yezh all";
 "welcome-languages-continue-button" = "Kenderc'hel";
+"welcome-volunteer-title" = "Kemer perzh";
 "welcome-volunteer-send-usage-reports" = "Kas danevelloù implij";
 "welcome-volunteer-continue-button" = "Kenderc'hel";
 "welcome-volunteer-thanks" = "$1 Trugarez !";
@@ -405,12 +404,20 @@
 "top-read-see-more" = "Gwelet muioc'h a bajennoù hag a vez sellet ar muiañ outo.";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
+"readers-accessibility-label" = "$1 lenner";
 "reference-title" = "Daveenn $1";
 "in-the-news-notification-read-now-action-title" = "Lenn bremañ";
 // Fuzzy
 "in-the-news-notification-share-action-title" = "Rannañ";
 "in-the-news-notification-save-for-later-action-title" = "Enrollañ evit diwezhatoc'h";
 "in-the-news-currently-trending" = "Diouzh ar c'hiz bremañ";
+"in-the-news-title" = "Er C'heleier";
 "number-thousands" = "$1K";
 "number-millions" = "$1M";
 "number-billions" = "$1B";
+"back" = "Distreiñ";
+"save-action" = "Enrollañ";
+"unsave-action" = "Dienrollañ";
+"status-saving-for-later" = "Enrollañ evit diwezhatoc'h...";
+"status-saved-for-later" = "Enrollet evit diwezhatoc'h";
+"announcements-dismiss" = "Ne'm bo ket, trugarez";

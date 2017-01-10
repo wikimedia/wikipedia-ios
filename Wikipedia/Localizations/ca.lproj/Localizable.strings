@@ -325,8 +325,7 @@
 "migration-prompt-message" = "Hem de moure les vostres pàgines desades i recents. Podria trigar una estona…";
 "migration-confirm-button-title" = "Mou les meves coses";
 "migration-skip-button-title" = "Esborra-ho";
-// Fuzzy
-"image-gallery-unknown-owner" = "El carregador no és conegut.";
+"image-gallery-unknown-owner" = "Autor desconegut.";
 "image-gallery-fetch-image-info-error-title" = "No s'han pogut baixar les imatges";
 "image-gallery-fetch-image-info-error-message" = "No s'han pogut baixar les imatges de l'article. Refresqueu l'article i torneu a provar-ho.";
 "image-gallery-fetch-image-info-error-ok" = "D'acord";

@@ -318,8 +318,7 @@
 "migration-prompt-message" = "אנחנו צריכים להעביר את הדפים השמורים והאחרונים שלך. זה יכול לקחת דקה...";
 "migration-confirm-button-title" = "להעביר את הדברים שלי";
 "migration-skip-button-title" = "למחוק אותם";
-// Fuzzy
-"image-gallery-unknown-owner" = "המעלֶה אינו ידוע.";
+"image-gallery-unknown-owner" = "היוצר אינו ידוע.";
 "image-gallery-fetch-image-info-error-title" = "לא ניתן להוריד את התמונות";
 "image-gallery-fetch-image-info-error-message" = "לא ניתן להוריד את התמונות עבור הערך הזה. נא לרענן את הערך ולנסות שוב.";
 "image-gallery-fetch-image-info-error-ok" = "אישור";
