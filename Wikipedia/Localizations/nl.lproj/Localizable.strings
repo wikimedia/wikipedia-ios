@@ -4,6 +4,7 @@
 // Author: Hex
 // Author: JurgenNL
 // Author: Macofe
+// Author: Mainframe98
 // Author: Mathonius
 // Author: MedShot
 // Author: MrLeopold
@@ -325,8 +326,7 @@
 "migration-prompt-message" = "Uw opgeslagen en recente pagina's moeten overgezet worden. Dit kan even duren...";
 "migration-confirm-button-title" = "Migreer mijn geschiedenis";
 "migration-skip-button-title" = "Verwijder mijn geschiedenis";
-// Fuzzy
-"image-gallery-unknown-owner" = "Uploader onbekend.";
+"image-gallery-unknown-owner" = "Auteur onbekend.";
 "image-gallery-fetch-image-info-error-title" = "Downloaden van afbeeldingen niet mogelijk";
 "image-gallery-fetch-image-info-error-message" = "Het was niet mogelijk de afbeeldingen voor de pagina te laden. Ververs de pagina en probeer het opnieuw.";
 "image-gallery-fetch-image-info-error-ok" = "OK";

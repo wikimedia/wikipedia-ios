@@ -324,8 +324,7 @@
 "migration-prompt-message" = "我們需要移動您的已儲存頁面與近期頁面。這可能要花點時間……";
 "migration-confirm-button-title" = "移動我的東西";
 "migration-skip-button-title" = "刪除";
-// Fuzzy
-"image-gallery-unknown-owner" = "未知上傳者";
+"image-gallery-unknown-owner" = "作者未知。";
 "image-gallery-fetch-image-info-error-title" = "無法下載圖片";
 "image-gallery-fetch-image-info-error-message" = "無法下載此條目的圖片。請重新整理條目後再試一次。";
 "image-gallery-fetch-image-info-error-ok" = "確定";
