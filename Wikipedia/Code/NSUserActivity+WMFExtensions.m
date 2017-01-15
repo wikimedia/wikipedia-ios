@@ -75,7 +75,7 @@
 }
 
 + (nullable instancetype)wmf_activityForWikipediaScheme:(NSURL *)url {
-    if (![url.scheme isEqualToString:@"wikipedia"]) {
+    if (![url.scheme isEqualToString:@"wikipedia"] && ![url.scheme isEqualToString:@"wikipedia-official"]) {
         return nil;
     }
 
