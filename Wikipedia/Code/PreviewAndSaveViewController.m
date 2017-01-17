@@ -84,6 +84,11 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
 @property (nonatomic) WMFPreviewAndSaveMode mode;
 
+@property (strong, nonatomic) WikiTextSectionUploader *wikiTextSectionUploader;
+@property (strong, nonatomic) PreviewHtmlFetcher *previewHtmlFetcher;
+@property (strong, nonatomic) EditTokenFetcher *editTokenFetcher;
+@property (strong, nonatomic) CaptchaResetter *captchaResetter;
+
 @end
 
 @implementation PreviewAndSaveViewController
@@ -501,43 +506,26 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
             } break;
         }
     } else if ([sender isKindOfClass:[EditTokenFetcher class]]) {
-        EditTokenFetcher *tokenFetcher = (EditTokenFetcher *)sender;
-
-        void (^upload)() = ^void() {
-            NSMutableDictionary *editTokens = self.keychainCredentials.editTokens;
-            NSString *editToken = editTokens[tokenFetcher.articleURL.wmf_language];
-            (void)[[WikiTextSectionUploader alloc] initAndUploadWikiText:tokenFetcher.wikiText
-                                                           forArticleURL:tokenFetcher.articleURL
-                                                                 section:tokenFetcher.section
-                                                                 summary:tokenFetcher.summary
-                                                               captchaId:tokenFetcher.captchaId
-                                                             captchaWord:tokenFetcher.captchaWord
-                                                                   token:editToken
-                                                             withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
-                                                      thenNotifyDelegate:self];
-        };
-
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
-                NSMutableDictionary *editTokens =
-                    self.keychainCredentials.editTokens;
-                NSString *domain = self.section.url.wmf_language;
-                if (domain && tokenFetcher.token) {
-                    editTokens[domain] = tokenFetcher.token;
-                    self.keychainCredentials.editTokens = editTokens;
-                }
-                upload();
+                EditTokenFetcher *tokenFetcher = (EditTokenFetcher *)sender;
+
+                self.wikiTextSectionUploader =
+                [[WikiTextSectionUploader alloc] initAndUploadWikiText:tokenFetcher.wikiText
+                                                         forArticleURL:tokenFetcher.articleURL
+                                                               section:tokenFetcher.section
+                                                               summary:tokenFetcher.summary
+                                                             captchaId:tokenFetcher.captchaId
+                                                           captchaWord:tokenFetcher.captchaWord
+                                                                 token:tokenFetcher.token
+                                                           withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
+                                                    thenNotifyDelegate:self];
             } break;
             case FETCH_FINAL_STATUS_CANCELLED:
                 [[WMFAlertManager sharedInstance] dismissAlert];
                 break;
             case FETCH_FINAL_STATUS_FAILED:
                 [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-
-                // Still try the uploadWikiTextOp even if EditTokenFetcher fails to get a token.
-                // EditTokenFetcher return an anonymous "+\" edit token if it doesn't find an edit token.
-                upload();
-
                 break;
         }
     } else if ([sender isKindOfClass:[WikiTextSectionUploader class]]) {
@@ -661,10 +649,11 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-preview-changes", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
     [[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[PreviewHtmlFetcher alloc] initAndFetchHtmlForWikiText:self.wikiText
-                                                           articleURL:self.section.url
-                                                          withManager:[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager
-                                                   thenNotifyDelegate:self];
+        self.previewHtmlFetcher =
+        [[PreviewHtmlFetcher alloc] initAndFetchHtmlForWikiText:self.wikiText
+                                                     articleURL:self.section.url
+                                                    withManager:[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager
+                                             thenNotifyDelegate:self];
     }];
 }
 
@@ -690,14 +679,15 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
         // Only the domain is used to actually fetch the token, the other values are
         // parked in EditTokenFetcher so the actual uploader can have quick read-only
         // access to the exact params which kicked off the token request.
-        (void)[[EditTokenFetcher alloc] initAndFetchEditTokenForWikiText:self.wikiText
-                                                              articleURL:editURL
-                                                                 section:[NSString stringWithFormat:@"%d", self.section.sectionId]
-                                                                 summary:[self getSummary]
-                                                               captchaId:self.captchaId
-                                                             captchaWord:self.captchaViewController.captchaTextBox.text
-                                                             withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
-                                                      thenNotifyDelegate:self];
+        self.editTokenFetcher =
+        [[EditTokenFetcher alloc] initAndFetchEditTokenForWikiText:self.wikiText
+                                                        articleURL:editURL
+                                                           section:[NSString stringWithFormat:@"%d", self.section.sectionId]
+                                                           summary:[self getSummary]
+                                                         captchaId:self.captchaId
+                                                       captchaWord:self.captchaViewController.captchaTextBox.text
+                                                       withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
+                                                thenNotifyDelegate:self];
     }];
 }
 
@@ -730,9 +720,10 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     self.captchaViewController.captchaTextBox.text = @"";
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
     [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language
-                                                        withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
-                                                 thenNotifyDelegate:self];
+        self.captchaResetter =
+        [[CaptchaResetter alloc] initAndResetCaptchaForDomain:[SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language
+                                                  withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
+                                           thenNotifyDelegate:self];
     }];
 }
 
