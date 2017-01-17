@@ -94,7 +94,7 @@
 "search-recent-clear-confirmation-sub-heading" = "ဤဆောင်ရွက်ချက်သည် နောက်ပြန်၍ မရပါ!";
 "search-recent-clear-cancel" = "မလုပ်တော့ပါ";
 "search-recent-clear-delete-all" = "အားလုံးဖျက်";
-"search-result-redirected-from" = "%s မှ ပြန်ညွှန်းထားသည်";
+"search-result-redirected-from" = "$1 မှ ပြန်ညွှန်းထားသည်";
 "settings-title" = "အပြင်အဆင်များ";
 "settings-language" = "ဝီကီပီဒီးယား ဘာသာစကား";
 "settings-support" = "ဝီကီပီးဒီးယားကို ကူညီထောက်ပံ့";
@@ -211,7 +211,7 @@
 "preference_summary_eventlogging_opt_in" = "အက်ပ်အား ပိုမိုကောင်းမွန်လာစေရန် သင်အသုံးပြုပုံ အချက်အလက်များ ရယူစုဆောင်းနိုင်ရန် ဝီကီမီဒီယာအား ခွင့်ပြုပါ";
 "page_protected_autoconfirmed" = "ဤစာမျက်နှာအား တစ်စိတ်တစ်ပိုင်း ကာကွယ်ထားသည်။";
 "page_protected_sysop" = "ဤစာမျက်နှာအား အပြည့်အဝ ကာကွယ်ထားသည်။";
-"page_protected_other" = "ဤစာမျက်နှာအား အောက်ပါအဆင့်များသို့ ကာကွယ်ထားသည်: %s";
+"page_protected_other" = "ဤစာမျက်နှာအား အောက်ပါအဆင့်များသို့ ကာကွယ်ထားသည်: $1";
 "page_protected_can_not_edit" = "ဤစာမျက်နှာကို တည်းဖြတ်ခွင့်မရှိပါ";
 "page_protected_can_not_edit_title" = "ဤစာမျက်နှာအား ကာကွယ်ထားသည်";
 "license-footer-text" = "အကြောင်းအရာများကို အခြားမှတ်ချက်မရှိပါက $1 အောက်တွင် ရရှိနိုင်ပါသည်။";
