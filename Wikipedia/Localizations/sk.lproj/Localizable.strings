@@ -289,8 +289,7 @@
 "nearby-wifi" = "Povolenie Wi-Fi môže pomôcť vášmu prístroju lepšie určiť vašu polohu.";
 "migration-update-progress-count-label" = "Presúvam článok $1 z $2";
 "migration-skip-button-title" = "Odstrániť položku";
-// Fuzzy
-"image-gallery-unknown-owner" = "Uploader neznámy.";
+"image-gallery-unknown-owner" = "Neznámy autor.";
 "image-gallery-fetch-image-info-error-title" = "Nepodarilo sa stiahnuť obrázky";
 "image-gallery-fetch-image-info-error-message" = "Nepodarilo sa stiahnuť obrázky pre tento článok. Prosím obnovte článok a skúste to znova.";
 "image-gallery-fetch-image-info-error-ok" = "OK";

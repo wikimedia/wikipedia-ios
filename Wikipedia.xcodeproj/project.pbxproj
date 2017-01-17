@@ -1339,6 +1339,7 @@
 		B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSettingsCellVisualTests.m; sourceTree = "<group>"; };
 		B0CA8D3E1D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKScriptMessage+WMFScriptMessage.h"; path = "Wikipedia/Code/WKScriptMessage+WMFScriptMessage.h"; sourceTree = SOURCE_ROOT; };
 		B0CA8D3F1D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKScriptMessage+WMFScriptMessage.m"; path = "Wikipedia/Code/WKScriptMessage+WMFScriptMessage.m"; sourceTree = SOURCE_ROOT; };
+		B0CBBE811E2E8D6700F574E3 /* my */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = my; path = my.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B0D1B4591DDD02BB004FCAE6 /* WMFDynamicTypeExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFDynamicTypeExtentions.swift; path = Wikipedia/Code/WMFDynamicTypeExtentions.swift; sourceTree = SOURCE_ROOT; };
 		B0D1B45D1DDE49B0004FCAE6 /* UITabBarItem+WMFStyling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITabBarItem+WMFStyling.h"; path = "Wikipedia/Code/UITabBarItem+WMFStyling.h"; sourceTree = SOURCE_ROOT; };
 		B0D1B45E1DDE49B0004FCAE6 /* UITabBarItem+WMFStyling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITabBarItem+WMFStyling.m"; path = "Wikipedia/Code/UITabBarItem+WMFStyling.m"; sourceTree = SOURCE_ROOT; };
@@ -6201,6 +6202,7 @@
 				wuu,
 				xmf,
 				lv,
+				my,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
@@ -7313,6 +7315,7 @@
 				B09D5C041CFF58C3001C878A /* ur */,
 				B0FCB2391D3D5BEC00D80D57 /* el */,
 				B083371B1DAD77D7002860D2 /* lv */,
+				B0CBBE811E2E8D6700F574E3 /* my */,
 			);
 			name = Localizable.strings;
 			path = Localizations;
