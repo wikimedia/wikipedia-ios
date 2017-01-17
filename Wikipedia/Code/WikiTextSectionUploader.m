@@ -137,7 +137,6 @@
                       fetchedData:resultDict];
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            //NSLog(@"ACCT CREATION TOKEN FAIL = %@", error);
 
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
@@ -147,15 +146,12 @@
 }
 
 - (NSMutableDictionary *)getParams {
-    NSString *tokenToUse = @"+\\";
-    if (self.token && (self.token.length > 0)) {
-        tokenToUse = self.token;
-    }
-
+    NSParameterAssert(self.token);
+    NSAssert(self.token.length > 0, @"Expected token length greater than zero");
     NSMutableDictionary *params =
         @{
             @"action": @"edit",
-            @"token": tokenToUse,
+            @"token": self.token,
             @"text": self.wikiText,
             @"summary": self.summary,
             @"section": self.section,
@@ -170,12 +166,5 @@
 
     return params;
 }
-
-/*
-   -(void)dealloc
-   {
-    NSLog(@"DEALLOC'ING PAGE HISTORY FETCHER!");
-   }
- */
 
 @end
