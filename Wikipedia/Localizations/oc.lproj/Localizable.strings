@@ -12,7 +12,7 @@
 "article-read-more-title" = "Ne saber mai";
 "article-about-title" = "A prepaus d'aqueste article";
 "article-unable-to-load-article" = "Impossible de cargar l'article.";
-"article-related-articles-title" = "Articles liats";
+"article-related-articles-title" = "Articles connèxes";
 "article-languages-yours" = "Lei lengas vòstras";
 "article-languages-others" = "Autrei lengas";
 "info-box-title" = "Faits en brèu";
@@ -87,7 +87,7 @@
 "settings-my-languages" = "Lei lengas mieunas";
 "settings-notifications" = "Notificacions";
 "settings-help-and-feedback" = "Ajuda e retorn d'experiéncia";
-"settings-primary-language" = "Principau";
+"settings-primary-language" = "Principal";
 "settings-notifications-system-turn-on" = "Activar lei notificacions";
 "main-menu-title" = "Mai";
 "main-menu-heading-about" = "A prepaus";
@@ -244,7 +244,7 @@
 "home-more-like-footer" = "Mai coma $1";
 "home-nearby-footer" = "Mai a proximitat de la localizacion vòstra";
 "home-nearby-location-footer" = "Mai a proximitat de $1";
-"home-nearby-nothing" = "Ren a proximitat";
+"home-nearby-nothing" = "Pas res a proximitat";
 "home-nearby-check-again" = "Verificar tornarmai";
 "home-featured-article-heading" = "Article de qualitat per $1";
 "home-main-page-heading" = "Uei sus Wikipèdia";
@@ -262,7 +262,7 @@
 "welcome-languages-title" = "Lengas";
 "welcome-languages-add-button" = "Apondre una autra lenga";
 "welcome-languages-continue-button" = "Contuniar";
-"welcome-volunteer-continue-button" = "Contuniar";
+"welcome-volunteer-continue-button" = "Contunhar";
 "welcome-volunteer-thanks" = "$1 Mercé !";
 "welcome-send-data-title" = "Mandar de donadas anonimas";
 "empty-no-feed-title" = "Ges de connexion internet";
@@ -272,7 +272,7 @@
 "close-button-accessibility-label" = "Tampar";
 "back-button-accessibility-label" = "Retorn";
 "compass-direction" = "a $1 oras";
-"explore-nearby-heading" = "Endrechs a proximitat";
+"explore-nearby-heading" = "Endreits a proximitat";
 "explore-nearby-sub-heading-your-location" = "La localizacion vòstra";
 "explore-continue-related-heading" = "Perqué legissètz";
 "explore-main-page-heading" = "Uèi sus Wikipèdia";

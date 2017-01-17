@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Asmen
 // Author: Gambollar
+// Author: Gırd
 // Author: Kumkumuk
 // Author: Marmase
 // Author: Mirzali
@@ -166,7 +167,7 @@
 "nearby-distance-label-feet" = "$1 fit";
 "nearby-distance-label-miles" = "$1 mil";
 "nearby-pull-to-refresh-prompt" = "Newe kerdışi rê bıance cêr";
-"nearby-pull-to-refresh-is-refreshing" = "Beno newe";
+"nearby-pull-to-refresh-is-refreshing" = "Ganikerdış";
 "image-gallery-fetch-image-info-error-ok" = "TEMAM";
 "welcome-volunteer-continue-button" = "Dewam ke";
 "welcome-volunteer-thanks" = "Teşekkur kem $1";
