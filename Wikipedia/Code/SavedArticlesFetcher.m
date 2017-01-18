@@ -129,13 +129,6 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 #pragma mark - Fetch
 
-- (void)fetchUncachedEntries:(NSArray<MWKHistoryEntry *> *)insertedEntries {
-    if (!insertedEntries.count) {
-        return;
-    }
-    [self fetchUncachedArticleURLs:[insertedEntries valueForKey:WMF_SAFE_KEYPATH([MWKHistoryEntry new], url)]];
-}
-
 - (void)fetchUncachedArticlesInSavedPages {
     dispatch_block_t didFinishLegacyMigration = ^{
         [[NSUserDefaults wmf_userDefaults] wmf_setDidFinishLegacySavedArticleImageMigration:YES];
@@ -333,9 +326,11 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)fetchAllImagesInArticle:(MWKArticle *)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     dispatch_block_t doneMigration = ^{
+        //Move any images already cached in the shared URL cache to our own cache (WMFImageController)
         WMFURLCache *cache = (WMFURLCache *)[NSURLCache sharedURLCache];
         [cache permanentlyCacheImagesForArticle:article];
 
+        //Download any images that aren't cached
         NSArray<NSURL *> *URLs = [[article allImageURLs] allObjects];
         [self cacheImagesWithURLsInBackground:URLs failure:failure success:success];
     };
