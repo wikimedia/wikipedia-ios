@@ -1,5 +1,4 @@
 #import "AccountCreationViewController.h"
-#import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
 #import "UIScrollView+ScrollSubviewToLocation.h"
 #import "LoginViewController.h"

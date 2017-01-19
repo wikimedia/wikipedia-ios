@@ -1,4 +1,3 @@
-#import "WikipediaAppUtils.h"
 
 @interface MWKUser ()
 

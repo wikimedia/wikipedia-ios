@@ -13,9 +13,6 @@
 // Models
 #import "MWKLanguageLink.h"
 
-// Utils
-#import "WikipediaAppUtils.h"
-
 // Frameworks
 #import <HockeySDK/HockeySDK.h>
 #import <Tweaks/FBTweakViewController.h>

@@ -1,5 +1,4 @@
 #import "CaptchaViewController.h"
-#import "WikipediaAppUtils.h"
 
 @interface CaptchaViewController ()
 

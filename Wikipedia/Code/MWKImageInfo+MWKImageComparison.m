@@ -1,6 +1,5 @@
 #import "MWKImageInfo+MWKImageComparison.h"
 #import "MWKImage.h"
-#import "WikipediaAppUtils.h"
 
 @implementation MWKImageInfo (MWKImageComparison)
 

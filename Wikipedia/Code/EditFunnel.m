@@ -1,5 +1,4 @@
 #import "EditFunnel.h"
-#import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
 
 @implementation EditFunnel

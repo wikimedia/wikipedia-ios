@@ -1,6 +1,5 @@
 #import "WebViewController.h"
 
-#import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
 #import "MWLanguageInfo.h"
 #import "WKWebView+ElementLocation.h"

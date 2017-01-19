@@ -3,7 +3,6 @@
 #import "WikiGlyphLabel.h"
 #import "WikiGlyph_Chars.h"
 #import "UIColor+WMFStyle.h"
-#import "WikipediaAppUtils.h"
 #import "BulletedLabel.h"
 
 typedef NS_ENUM(NSInteger, ViewType) {
