@@ -18,36 +18,6 @@
     return [self getKeychainValueForEntry:@"org.wikimedia.wikipedia.password"];
 }
 
-- (void)setEditTokens:(NSDictionary *)editTokens {
-    if (!editTokens) {
-        [self setKeychainValue:nil forEntry:@"org.wikimedia.wikipedia.edittokens"];
-        return;
-    }
-
-    NSError *error = nil;
-    NSData *tokenDictJsonData = [NSJSONSerialization dataWithJSONObject:editTokens
-                                                                options:NSJSONWritingPrettyPrinted
-                                                                  error:&error];
-    if (!error) {
-        NSString *tokenDictJsonString = [[NSString alloc] initWithData:tokenDictJsonData
-                                                              encoding:NSUTF8StringEncoding];
-        [self setKeychainValue:tokenDictJsonString forEntry:@"org.wikimedia.wikipedia.edittokens"];
-    }
-}
-
-- (NSMutableDictionary *)editTokens {
-    NSString *tokenDictJsonString = [self getKeychainValueForEntry:@"org.wikimedia.wikipedia.edittokens"];
-    if (!tokenDictJsonString) {
-        return [@{} mutableCopy];
-    }
-
-    NSError *error = nil;
-    NSDictionary *tokenDict = [NSJSONSerialization JSONObjectWithData:[tokenDictJsonString dataUsingEncoding:NSUTF8StringEncoding]
-                                                              options:kNilOptions
-                                                                error:&error];
-    return (!error) ? [tokenDict mutableCopy] : [@{} mutableCopy];
-}
-
 - (BOOL)setKeychainValue:(NSString *)value forEntry:(NSString *)entry {
     if (!value) {
         // Makes setting the value to nil cause the item to be removed from the keychain.

@@ -325,8 +325,7 @@
 "migration-prompt-message" = "Necesitamos trasladar tus páginas guardadas y recientes. Esto puede tardar un minuto...";
 "migration-confirm-button-title" = "Trasladar mis cosas";
 "migration-skip-button-title" = "Eliminar datos";
-// Fuzzy
-"image-gallery-unknown-owner" = "Cargador desconocido.";
+"image-gallery-unknown-owner" = "Autor desconocido.";
 "image-gallery-fetch-image-info-error-title" = "No se pudieron descargar las imágenes";
 "image-gallery-fetch-image-info-error-message" = "No se pudieron descargar las imágenes para este artículo. Prueba cargándolo nuevamente.";
 "image-gallery-fetch-image-info-error-ok" = "Aceptar";
