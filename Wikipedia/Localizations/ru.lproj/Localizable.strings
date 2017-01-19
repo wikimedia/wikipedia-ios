@@ -16,6 +16,7 @@
 // Author: Mariya
 // Author: Oashnic
 // Author: Okras
+// Author: Ping08
 // Author: WindEwriX
 // Author: Zpizza
 // Author: Александр Сигачёв
@@ -329,8 +330,7 @@
 "migration-prompt-message" = "Мы должны перенести ваши сохранённые и последние просмотренные страницы. Это может занять пару минут…";
 "migration-confirm-button-title" = "Перенести мои данные";
 "migration-skip-button-title" = "Удалить их";
-// Fuzzy
-"image-gallery-unknown-owner" = "Загрузивший файл неизвестен.";
+"image-gallery-unknown-owner" = "Автор неизвестен.";
 "image-gallery-fetch-image-info-error-title" = "Не удаётся скачать изображения";
 "image-gallery-fetch-image-info-error-message" = "Не удаётся загрузить изображения для этой статьи. Пожалуйста, обновите статью и попробуйте снова.";
 "image-gallery-fetch-image-info-error-ok" = "OK";

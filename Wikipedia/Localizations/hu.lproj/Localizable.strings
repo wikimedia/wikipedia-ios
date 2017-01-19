@@ -1,5 +1,6 @@
 // Messages for Hungarian (magyar)
 // Exported from translatewiki.net
+// Author: BanKris
 // Author: Csega
 // Author: Dj
 // Author: Máté
@@ -313,8 +314,7 @@
 "migration-prompt-message" = "Arrébb kell raknunk a mentett és nemrég olvasott lapjaidat. Ez eltarthat pár percig…";
 "migration-confirm-button-title" = "Rakjuk arrébb";
 "migration-skip-button-title" = "Törölhetők";
-// Fuzzy
-"image-gallery-unknown-owner" = "Ismeretlen feltöltő.";
+"image-gallery-unknown-owner" = "Ismeretlen szerző.";
 "image-gallery-fetch-image-info-error-title" = "A képek letöltése sikertelen";
 "image-gallery-fetch-image-info-error-message" = "A szócikkben szereplő képek letöltése sikertelen. Frissítsd a cikket és próbáld újra.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
@@ -441,9 +441,10 @@
 "number-thousands" = "$1k";
 "number-millions" = "$1M";
 "number-billions" = "$1 Mrd";
-"feed-news-notification-button-text" = "Értesítések kikapcsolása";
+"feed-news-notification-button-text" = "Értesítések bekapcsolása";
 "back" = "Vissza";
 "save-action" = "Mentés";
+"unsave-action" = "Nincs mentve";
 "status-saving-for-later" = "Mentés későbbre…";
 "status-saved-for-later" = "Mentve későbbre";
 "announcements-dismiss" = "Nem, köszönöm";

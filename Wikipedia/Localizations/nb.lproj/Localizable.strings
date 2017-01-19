@@ -319,8 +319,7 @@
 "migration-prompt-message" = "Vi trenger å flytte dine lagrede og siste sider. Dette kan ta litt tid…";
 "migration-confirm-button-title" = "Flytt over greiene mine";
 "migration-skip-button-title" = "Slett";
-// Fuzzy
-"image-gallery-unknown-owner" = "Ukjent opplaster.";
+"image-gallery-unknown-owner" = "Ukjent forfatter.";
 "image-gallery-fetch-image-info-error-title" = "Kunne ikke laste ned bilder";
 "image-gallery-fetch-image-info-error-message" = "Kunne ikke laste ned bildene for denne artikkelen. Oppdater artikkelen og prøv igjen.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
