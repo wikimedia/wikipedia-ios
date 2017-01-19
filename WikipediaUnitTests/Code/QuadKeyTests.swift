@@ -28,16 +28,16 @@ class QuadKeyTests: XCTestCase {
                     XCTAssertEqual(coord.longitudePart, lonPart, "lonPart: \(lonPart) != \(coord.longitudePart)")
                     let calculatedLat = QuadKeyDegrees(latitudePart: coord.latitudePart, precision: p)
                     let calculatedLon = QuadKeyDegrees(longitudePart: coord.longitudePart, precision: p)
-                    XCTAssertEqualWithAccuracy(calculatedLat, lat, accuracy: p.deltaLatitude, "latitude is wrong at poom level \(p)")
-                    XCTAssertEqualWithAccuracy(calculatedLon, lon,  accuracy: p.deltaLongitude, "longitude is wrong at poom level \(p)")
+                    XCTAssertEqualWithAccuracy(calculatedLat, lat, accuracy: p.deltaLatitude, "latitude is wrong at precision \(p)")
+                    XCTAssertEqualWithAccuracy(calculatedLon, lon,  accuracy: p.deltaLongitude, "longitude is wrong at precision \(p)")
                     
                     if p == 32 {
                         let fullPrecision = QuadKeyPrecision(32)
                         let fullPrecisionCoord = QuadKeyCoordinate(quadKey: fullPrecisionQuadKey)
                         let fullPrecisionCalculatedLat = QuadKeyDegrees(latitudePart: fullPrecisionCoord.latitudePart)
                         let fullPrecisionCalculatedLon = QuadKeyDegrees(longitudePart: fullPrecisionCoord.longitudePart)
-                        XCTAssertEqualWithAccuracy(fullPrecisionCalculatedLat, lat, accuracy: fullPrecision.deltaLatitude, "full poom latitude is wrong")
-                        XCTAssertEqualWithAccuracy(fullPrecisionCalculatedLon, lon,  accuracy: fullPrecision.deltaLongitude, "full poom longitude is wrong")
+                        XCTAssertEqualWithAccuracy(fullPrecisionCalculatedLat, lat, accuracy: fullPrecision.deltaLatitude, "full precision latitude is wrong")
+                        XCTAssertEqualWithAccuracy(fullPrecisionCalculatedLon, lon,  accuracy: fullPrecision.deltaLongitude, "full precision longitude is wrong")
                     }
                     lon += 1.5
                 }

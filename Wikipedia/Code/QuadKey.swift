@@ -163,8 +163,8 @@ extension QuadKey {
         self.init(quadKey)
     }
     
-    func adjusted(downBy precisions: QuadKeyPrecision) -> QuadKey {
-        let shift = QuadKey(2*precisions)
+    func adjusted(downBy precision: QuadKeyPrecision) -> QuadKey {
+        let shift = QuadKey(2*precision)
         return self >> shift
     }
     
