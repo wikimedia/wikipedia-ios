@@ -1,15 +1,10 @@
 //https://msdn.microsoft.com/en-us/library/bb259689.aspx
 //http://wiki.openstreetmap.org/wiki/QuadTiles
 
-typealias QuadKey = Int64
+typealias QuadKey = UInt64
 typealias QuadKeyPart = UInt32
-typealias QuadKeyPrecision = Int16
+typealias QuadKeyPrecision = UInt16
 typealias QuadKeyDegrees = Double
-
-struct QuadKeyBounds {
-    let min: QuadKey
-    let max: QuadKey
-}
 
 extension QuadKeyPrecision {
     static let max: QuadKeyPrecision = 32
@@ -153,19 +148,24 @@ extension QuadKey {
         let quadKeyLongitudePart = QuadKey(longitudePart)
         let quadKeyLatitudePart = QuadKey(latitudePart)
         var i = max
-        while i >= 0 {
+        var done = false
+        while !done {
             let shiftedLongitudePart = quadKeyLongitudePart >> i
             quadKey = (quadKey << 1) | (shiftedLongitudePart & 1)
             let shiftedLatitudePart = quadKeyLatitudePart >> i
             quadKey = (quadKey << 1) | (shiftedLatitudePart & 1)
-            i -= 1
+            if i == 0 {
+                done = true
+            } else {
+                i -= 1
+            }
         }
         self.init(quadKey)
     }
     
     func adjusted(downBy precisions: QuadKeyPrecision) -> QuadKey {
-        let shift = UInt64(2*precisions)
-        return  QuadKey(bitPattern: UInt64(bitPattern: self) >> shift)
+        let shift = QuadKey(2*precisions)
+        return self >> shift
     }
     
     var bitmaskString: String {
@@ -193,11 +193,17 @@ struct QuadKeyCoordinate {
         var longitudePart: QuadKeyPart = 0
         var i: QuadKey = 2*QuadKey(precision) - 1
         
-        while i >= 0 {
+        var done = false
+        while !done {
             longitudePart = (longitudePart << 1) | QuadKeyPart(((quadKey >> i) & 1))
             i -= 1
             latitudePart = (latitudePart << 1) | QuadKeyPart(((quadKey >> i) & 1))
-            i -= 1
+            if i == 0 {
+                done = true
+            } else {
+                i -= 1
+            }
+
         }
         self.init(latitudePart: latitudePart, longitudePart: longitudePart)
     }
@@ -206,3 +212,22 @@ struct QuadKeyCoordinate {
         self.init(quadKey: quadKey, precision: QuadKeyPrecision.max)
     }
 }
+
+struct QuadKeyBounds {
+    let min: QuadKey
+    let max: QuadKey
+    
+    init(min: QuadKey, max: QuadKey) {
+        self.min = min
+        self.max = max
+    }
+    
+    init(quadKey: QuadKey, precision: QuadKeyPrecision) {
+        let min = quadKey << QuadKey(64 - 2*precision)
+        let mask = precision >= 32 ? QuadKey(0) : QuadKey.max >> QuadKey(2*precision)
+        let max = min | mask
+        self.init(min: min, max: max)
+    }
+}
+
+
