@@ -134,6 +134,9 @@ extension QuadKeyPart {
 }
 
 extension QuadKey {
+    static let unsignedConversionConstant: UInt64 = UInt64(bitPattern: Int64.min)
+    static let signedConversionConstant: Int64 = Int64.min
+    
     init(latitude: QuadKeyDegrees, longitude: QuadKeyDegrees) {
         self.init(latitudePart: QuadKeyPart(latitude: latitude), longitudePart: QuadKeyPart(longitude: longitude), precision: QuadKeyPrecision.max)
     }
@@ -163,6 +166,15 @@ extension QuadKey {
         self.init(quadKey)
     }
     
+    init(int64: Int64) {
+        if int64 >= 0 {
+            self.init(UInt64(int64) + QuadKey.unsignedConversionConstant)
+        } else {
+            let remainder = int64 - QuadKey.signedConversionConstant
+            self.init(remainder)
+        }
+    }
+    
     func adjusted(downBy precision: QuadKeyPrecision) -> QuadKey {
         let shift = QuadKey(2*precision)
         return self >> shift
@@ -176,6 +188,17 @@ extension QuadKey {
             value >>= 1
         }
         return string
+    }
+}
+
+extension Int64 {
+    init(quadKey: QuadKey) {
+        if quadKey < QuadKey.unsignedConversionConstant {
+            self.init(Int64(quadKey) + QuadKey.signedConversionConstant)
+        } else {
+            let remainder = quadKey - QuadKey.unsignedConversionConstant
+            self.init(remainder)
+        }
     }
 }
 
