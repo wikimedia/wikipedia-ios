@@ -36,7 +36,7 @@
                     <tabBarItem key="tabBarItem" title="Saved" image="tabbar-save" selectedImage="tabbar-save-selected" id="tEK-7k-93Q"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="ScF-IW-gDl">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ScF-IW-gDl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -75,7 +75,7 @@
                     <tabBarItem key="tabBarItem" title="Recent" image="tabbar-recent" selectedImage="tabbar-recent-selected" id="ZNo-7p-3PU"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="rIL-t0-IJM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="rIL-t0-IJM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -114,7 +114,7 @@
                     <tabBarItem key="tabBarItem" title="Explore" image="tabbar-explore" selectedImage="tabbar-explore-selected" id="fCG-Qf-VzW"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="c8d-c3-ZKx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="c8d-c3-ZKx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -152,11 +152,11 @@
             </objects>
             <point key="canvasLocation" x="996" y="2881"/>
         </scene>
-        <!--Nearby-->
+        <!--Places-->
         <scene sceneID="f6L-ye-aCD">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="Nearby" storyboardName="Nearby" referencedIdentifier="Nearby" id="GSJ-3y-kNz" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Nearby" image="tabbar-explore" selectedImage="tabbar-explore-selected" id="aCf-7e-CaQ"/>
+                <viewControllerPlaceholder storyboardIdentifier="Places" storyboardName="Places" referencedIdentifier="Places" id="GSJ-3y-kNz" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Places" image="tabbar-nearby" selectedImage="tabbar-explore-selected" id="aCf-7e-CaQ"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Epk-QC-w6n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -165,6 +165,7 @@
     <resources>
         <image name="tabbar-explore" width="25" height="25"/>
         <image name="tabbar-explore-selected" width="25" height="25"/>
+        <image name="tabbar-nearby" width="24" height="24"/>
         <image name="tabbar-recent" width="24" height="23"/>
         <image name="tabbar-recent-selected" width="24" height="23"/>
         <image name="tabbar-save" width="17" height="23"/>

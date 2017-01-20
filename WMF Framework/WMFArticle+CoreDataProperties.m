@@ -22,5 +22,6 @@
 @dynamic latitude;
 @dynamic longitude;
 @dynamic pageViews;
+@dynamic signedQuadKey;
 
 @end

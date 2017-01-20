@@ -1,12 +1,12 @@
 //https://msdn.microsoft.com/en-us/library/bb259689.aspx
 //http://wiki.openstreetmap.org/wiki/QuadTiles
 
-typealias QuadKey = UInt64
-typealias QuadKeyPart = UInt32
-typealias QuadKeyPrecision = UInt16
-typealias QuadKeyDegrees = Double
+public typealias QuadKey = UInt64
+public typealias QuadKeyPart = UInt32
+public typealias QuadKeyPrecision = UInt16
+public typealias QuadKeyDegrees = Double
 
-extension QuadKeyPrecision {
+public extension QuadKeyPrecision {
     static let max: QuadKeyPrecision = 32
     
     var deltaLatitude: QuadKeyDegrees {
@@ -22,7 +22,7 @@ extension QuadKeyPrecision {
     }
 }
 
-extension QuadKeyDegrees {
+public extension QuadKeyDegrees {
     static let latitudeMax: QuadKeyDegrees = 90
     static let longitudeMax: QuadKeyDegrees = 180
     
@@ -72,7 +72,7 @@ extension QuadKeyDegrees {
     }
 }
 
-extension QuadKeyPart {
+public extension QuadKeyPart {
     
     init(latitude: QuadKeyDegrees) {
         let nonZeroLatitude = latitude + QuadKeyDegrees.latitudeMax
@@ -133,7 +133,7 @@ extension QuadKeyPart {
     }
 }
 
-extension QuadKey {
+public extension QuadKey {
     static let unsignedConversionConstant: UInt64 = UInt64(bitPattern: Int64.min)
     static let signedConversionConstant: Int64 = Int64.min
     
@@ -191,7 +191,7 @@ extension QuadKey {
     }
 }
 
-extension Int64 {
+public extension Int64 {
     init(quadKey: QuadKey) {
         if quadKey < QuadKey.unsignedConversionConstant {
             self.init(Int64(quadKey) + QuadKey.signedConversionConstant)
@@ -202,7 +202,7 @@ extension Int64 {
     }
 }
 
-struct QuadKeyCoordinate {
+public struct QuadKeyCoordinate {
     let latitudePart: QuadKeyPart
     let longitudePart: QuadKeyPart
     
@@ -236,7 +236,7 @@ struct QuadKeyCoordinate {
     }
 }
 
-struct QuadKeyBounds {
+public struct QuadKeyBounds {
     let min: QuadKey
     let max: QuadKey
     

@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) double latitude;
 @property (nonatomic) double longitude;
 @property (nullable, nonatomic, retain) NSDictionary *pageViews;
+@property (nullable, nonatomic, retain) NSNumber *signedQuadKey;
 
 @end
 

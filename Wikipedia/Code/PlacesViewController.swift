@@ -1,7 +1,7 @@
 import UIKit
 import MapKit
 
-class NearbyViewController: UIViewController, MKMapViewDelegate {
+class PlacesViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     

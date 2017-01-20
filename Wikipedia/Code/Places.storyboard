@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Nearby View Controller-->
+        <!--Places View Controller-->
         <scene sceneID="iCz-d5-DDs">
             <objects>
-                <viewController id="pK5-Ai-Kzp" customClass="NearbyViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="pK5-Ai-Kzp" customClass="PlacesViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Cy7-2m-87u"/>
                         <viewControllerLayoutGuide type="bottom" id="CKz-f0-MZN"/>
@@ -46,13 +46,13 @@
             </objects>
             <point key="canvasLocation" x="1520.8" y="-167.76611694152925"/>
         </scene>
-        <!--Nearby-->
+        <!--Places-->
         <scene sceneID="CuH-Gb-zyn">
             <objects>
-                <navigationController storyboardIdentifier="Nearby" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fC7-UI-Knm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Nearby" image="tabbar-nearby" selectedImage="tabbar-nearby-selected" id="qMU-9n-S42"/>
+                <navigationController storyboardIdentifier="Places" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fC7-UI-Knm" userLabel="Places" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Places" image="tabbar-nearby" selectedImage="tabbar-nearby-selected" id="qMU-9n-S42"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HFz-Jz-Pn5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="HFz-Jz-Pn5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -67,7 +67,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="tabbar-nearby" width="48" height="48"/>
-        <image name="tabbar-nearby-selected" width="48" height="48"/>
+        <image name="tabbar-nearby" width="24" height="24"/>
+        <image name="tabbar-nearby-selected" width="24" height="24"/>
     </resources>
 </document>
