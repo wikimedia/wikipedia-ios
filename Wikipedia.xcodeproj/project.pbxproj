@@ -776,6 +776,7 @@
 		D881B10F1E32686100D33F62 /* ArticleLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8987E071E325EC500E75DA6 /* ArticleLocationController.swift */; };
 		D881B1101E326ABA00D33F62 /* WMFKeyValue+CoreDataProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = D8987E021E325C7A00E75DA6 /* WMFKeyValue+CoreDataProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D881B1111E326ABE00D33F62 /* WMFKeyValue+CoreDataClass.h in Headers */ = {isa = PBXBuildFile; fileRef = D8987E001E325C7900E75DA6 /* WMFKeyValue+CoreDataClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D881B1131E32874500D33F62 /* WMFArticle+QuadKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D881B1121E32874500D33F62 /* WMFArticle+QuadKey.swift */; };
 		D890C84B1D772B02007132C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D890C84D1D772B02007132C9 /* InfoPlist.strings */; };
 		D890C85D1D772ED3007132C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D890C85B1D772ED3007132C9 /* InfoPlist.strings */; };
 		D8940CEF1DB56C8A00E17F9E /* InTheNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8940CED1DB56C8A00E17F9E /* InTheNewsViewController.swift */; };
@@ -2372,6 +2373,7 @@
 		D87A55A11D3CFD3700341B32 /* WMFArticlePlaceholderCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticlePlaceholderCollectionViewCell.m; path = Wikipedia/Code/WMFArticlePlaceholderCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
 		D87A55A21D3CFD3700341B32 /* WMFArticlePlaceholderCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFArticlePlaceholderCollectionViewCell.xib; path = Wikipedia/Code/WMFArticlePlaceholderCollectionViewCell.xib; sourceTree = SOURCE_ROOT; };
 		D8800CB01E2FF5B70035D2DB /* QuadKeyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadKeyTests.swift; sourceTree = "<group>"; };
+		D881B1121E32874500D33F62 /* WMFArticle+QuadKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "WMFArticle+QuadKey.swift"; path = "Wikipedia/Code/WMFArticle+QuadKey.swift"; sourceTree = SOURCE_ROOT; };
 		D890C8531D772B27007132C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D890C8541D772B4E007132C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D890C85C1D772ED3007132C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -5385,6 +5387,7 @@
 				D84448271DDB632100425630 /* WMFArticle+CoreDataProperties.m */,
 				D84448201DDB60FF00425630 /* WMFArticle+Extensions.h */,
 				D84448211DDB60FF00425630 /* WMFArticle+Extensions.m */,
+				D881B1121E32874500D33F62 /* WMFArticle+QuadKey.swift */,
 				D8987E001E325C7900E75DA6 /* WMFKeyValue+CoreDataClass.h */,
 				D8987E011E325C7A00E75DA6 /* WMFKeyValue+CoreDataClass.m */,
 				D8987E021E325C7A00E75DA6 /* WMFKeyValue+CoreDataProperties.h */,
@@ -7086,6 +7089,7 @@
 				D844D9961D6CB5970042D692 /* MWKProtectionStatus.m in Sources */,
 				D844480F1DDA33D900425630 /* Wikipedia.xcdatamodeld in Sources */,
 				0E87683B1DDE00D600B8CACD /* WMFAnnouncementsFetcher.m in Sources */,
+				D881B1131E32874500D33F62 /* WMFArticle+QuadKey.swift in Sources */,
 				D8FA18D51E1BD891009675C3 /* NSError+WMFExtensions.m in Sources */,
 				0E8768401DDE012300B8CACD /* WMFAnnouncement.m in Sources */,
 				D8DC16F31D6F6F2C00D6D9FB /* NSUserDefaults+WMFExtensions.swift in Sources */,

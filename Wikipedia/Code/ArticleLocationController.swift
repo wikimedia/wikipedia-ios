@@ -15,7 +15,6 @@ import Foundation
                 return
             }
             
-            
             let request = WMFArticle.fetchRequest()
             request.predicate = NSPredicate(format: "latitude != NULL && latitude != 0 && longitude != NULL && longitude != 0 && signedQuadKey == NULL")
             request.fetchLimit = 500
