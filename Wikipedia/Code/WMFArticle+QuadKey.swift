@@ -25,4 +25,17 @@ extension WMFArticle {
             signedQuadKey = NSNumber(value: signedQuadKeyInteger)
         }
     }
+    
+    var location: CLLocation? {
+        get {
+            guard let coordinate = coordinate else {
+                return nil
+            }
+            return CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        }
+        
+        set {
+            coordinate = newValue?.coordinate
+        }
+    }
 }
