@@ -22,8 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSDictionary *pageViews;
 @property (nullable, nonatomic, retain) NSNumber *signedQuadKey;
 
-@property (nonatomic) double latitude __deprecated; // Use coordinate instead
-@property (nonatomic) double longitude __deprecated; // Use coordinate instead
+@property (nonatomic) double latitude; //__deprecated; // Use coordinate instead (not using actual __deprecated tag due to inability to ignore the warning when these are used in Swift)
+@property (nonatomic) double longitude; //__deprecated; // Use coordinate instead (not using actual __deprecated tag due to inability to ignore the warning when these are used in Swift)
 
 @end
 
