@@ -139,24 +139,14 @@ NS_ASSUME_NONNULL_BEGIN
     if (params.searchTerm) {
         return @{
                  @"action": @"query",
-                 @"prop": @"pageterms|pageimages|revisions",
-                 @"wbptterms": @"description",
+                 @"prop": @"coordinates|pageimages|pageterms",
                  @"generator": @"search",
                  @"gsrsearch": [NSString stringWithFormat:@"%@ nearcoord:%.0fkm,%.3f,%.3f", params.searchTerm, round(params.region.radius / 1000.0), params.region.center.latitude, params.region.center.longitude],
-                 @"gsrnamespace": @0,
-                 @"gsrwhat": @"text",
-                 @"gsrinfo": @"",
-                 @"gsrprop": @"redirecttitle",
-                 @"gsroffset": @0,
                  @"gsrlimit": @(params.numberOfResults),
                  @"piprop": @"thumbnail",
-                 @"pithumbsize": [[UIScreen mainScreen] wmf_listThumbnailWidthForScale],
+                 @"pithumbsize": [[UIScreen mainScreen] wmf_nearbyThumbnailWidthForScale],
                  @"pilimit": @(params.numberOfResults),
-                 @"rrvlimit": @(1),
-                 @"rvprop": @"ids",
-                 @"continue": @"",
                  @"format": @"json",
-                 @"redirects": @1,
                  };
     } else {
         NSString *coords =
