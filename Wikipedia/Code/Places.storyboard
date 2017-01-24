@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Nearby View Controller-->
+        <!--Places View Controller-->
         <scene sceneID="iCz-d5-DDs">
             <objects>
-                <viewController id="pK5-Ai-Kzp" customClass="NearbyViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="pK5-Ai-Kzp" customClass="PlacesViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Cy7-2m-87u"/>
                         <viewControllerLayoutGuide type="bottom" id="CKz-f0-MZN"/>
@@ -27,12 +27,21 @@
                                     <outlet property="delegate" destination="pK5-Ai-Kzp" id="paj-rR-O2P"/>
                                 </connections>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6h-da-ewO">
+                                <rect key="frame" x="103" y="568" width="168" height="30"/>
+                                <state key="normal" title="Redo Search in this Area"/>
+                                <connections>
+                                    <action selector="redoSearch:" destination="pK5-Ai-Kzp" eventType="touchUpInside" id="wyT-P2-LdB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="UNC-SX-Sli" firstAttribute="top" secondItem="pBD-gM-dPf" secondAttribute="top" id="6IK-c4-Guk"/>
+                            <constraint firstItem="z6h-da-ewO" firstAttribute="centerX" secondItem="pBD-gM-dPf" secondAttribute="centerX" id="79Z-il-tM5"/>
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="UNC-SX-Sli" secondAttribute="bottom" id="9wa-qz-5B3"/>
                             <constraint firstItem="UNC-SX-Sli" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="BkZ-je-58M"/>
+                            <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="z6h-da-ewO" secondAttribute="bottom" constant="20" id="TMh-9f-MrD"/>
                             <constraint firstAttribute="trailing" secondItem="UNC-SX-Sli" secondAttribute="trailing" id="tCM-nJ-Rev"/>
                         </constraints>
                     </view>
@@ -40,19 +49,20 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="mapView" destination="UNC-SX-Sli" id="0hu-YN-E8A"/>
+                        <outlet property="redoSearchButton" destination="z6h-da-ewO" id="mP9-Iz-g7C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qcf-lJ-9D0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1520.8" y="-167.76611694152925"/>
         </scene>
-        <!--Nearby-->
+        <!--Places-->
         <scene sceneID="CuH-Gb-zyn">
             <objects>
-                <navigationController storyboardIdentifier="Nearby" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fC7-UI-Knm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Nearby" image="tabbar-nearby" selectedImage="tabbar-nearby-selected" id="qMU-9n-S42"/>
+                <navigationController storyboardIdentifier="Places" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fC7-UI-Knm" userLabel="Places" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Places" image="tabbar-nearby" selectedImage="tabbar-nearby-selected" id="qMU-9n-S42"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HFz-Jz-Pn5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="HFz-Jz-Pn5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -63,11 +73,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Qe-3x-XRM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="581.60000000000002" y="-167.76611694152925"/>
+            <point key="canvasLocation" x="449" y="-220"/>
         </scene>
     </scenes>
     <resources>
-        <image name="tabbar-nearby" width="48" height="48"/>
-        <image name="tabbar-nearby-selected" width="48" height="48"/>
+        <image name="tabbar-nearby" width="24" height="24"/>
+        <image name="tabbar-nearby-selected" width="24" height="24"/>
     </resources>
 </document>

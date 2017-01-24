@@ -348,7 +348,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
     [self migrateToSharedContainerIfNecessaryWithCompletion:^{
         [self migrateToNewFeedIfNecessaryWithCompletion:^{
-            [self finishLaunch];
+            [self migrateToQuadKeyLocationIfNecessaryWithCompletion:^{
+                [self finishLaunch];
+            }];
         }];
     }];
 }
@@ -389,6 +391,15 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
         completion();
     }
+}
+
+- (void)migrateToQuadKeyLocationIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
+    [self.dataStore migrateToQuadKeyLocationIfNecessaryWithCompletion:^(NSError * _Nonnull error) {
+        if (error) {
+            DDLogError(@"Error during location migration: %@", error);
+        }
+        completion();
+    }];
 }
 
 - (void)finishLaunch {

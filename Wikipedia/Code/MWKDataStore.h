@@ -53,6 +53,7 @@ extern NSString *const MWKURLKey;
 
 + (BOOL)migrateToSharedContainer:(NSError **)error;
 - (BOOL)migrateToCoreData:(NSError **)error;
+- (void)migrateToQuadKeyLocationIfNecessaryWithCompletion:(nonnull void (^)(NSError *))completion;
 
 @property (readonly, strong, nonatomic) MWKHistoryList *historyList;
 @property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
