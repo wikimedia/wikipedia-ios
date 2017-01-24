@@ -2,7 +2,7 @@ import Foundation
 
 
 extension WMFArticle {
-    var coordinate: CLLocationCoordinate2D? {
+    public var coordinate: CLLocationCoordinate2D? {
         get {
             guard let signedQuadKey = signedQuadKey else {
                 return nil
@@ -26,7 +26,7 @@ extension WMFArticle {
         }
     }
     
-    var location: CLLocation? {
+    public var location: CLLocation? {
         get {
             guard let coordinate = coordinate else {
                 return nil

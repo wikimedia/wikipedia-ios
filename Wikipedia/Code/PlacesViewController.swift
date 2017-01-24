@@ -1,18 +1,67 @@
 import UIKit
 import MapKit
+import WMF
 
-class ArticleAnnotation: NSObject, MKAnnotation {
+class ArticlePlace: NSObject, MKAnnotation {
     public let coordinate: CLLocationCoordinate2D
     public let title: String?
     public let subtitle: String?
+    public let articles: [WMFArticle]
     
-    init?(searchResult: MWKLocationSearchResult) {
-        guard let location = searchResult.location else {
-            return nil
+    init?(coordinate: CLLocationCoordinate2D, articles: [WMFArticle]) {
+        self.title = nil
+        self.subtitle = nil
+        self.coordinate = coordinate
+        self.articles = articles
+    }
+}
+
+class ArticlePlaceView: MKAnnotationView {
+    let imageView: UIImageView
+    
+    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
+        imageView = UIImageView()
+        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        imageView.contentMode = .scaleAspectFill
+        imageView.backgroundColor = UIColor.wmf_lightBlueTint()
+        imageView.layer.borderWidth = 2
+        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.clipsToBounds = true
+        addSubview(imageView)
+        layoutSubviews()
+        self.annotation = annotation
+    }
+    
+    override var annotation: MKAnnotation? {
+        didSet {
+            if let articlePlace = annotation as? ArticlePlace {
+                if articlePlace.articles.count == 1 {
+                    let article = articlePlace.articles[0]
+                    if let thumbnailURL = article.thumbnailURL  {
+                        imageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
+                            
+                        }, success: {
+                            
+                        })
+                    }
+                }
+            }
         }
-        coordinate = location.coordinate
-        title = searchResult.displayTitle
-        subtitle = searchResult.wikidataDescription
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.wmf_reset()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        return nil
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        imageView.frame = bounds
+        imageView.layer.cornerRadius = frame.size.width * 0.5
     }
 }
 
@@ -23,8 +72,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var mapView: MKMapView!
     var searchBar: UISearchBar!
     var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
-    
     var annotations: [MKAnnotation] = []
+    var articleStore: WMFArticleDataStore?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +112,20 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        return nil
+        let reuseIdentifier = "org.wikimedia.articlePlaceView"
+        guard let place = annotation as? ArticlePlace else {
+            return nil
+        }
+        var placeView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+        
+        if placeView == nil {
+            placeView = ArticlePlaceView(annotation: place, reuseIdentifier: reuseIdentifier)
+            placeView?.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        } else {
+            placeView?.annotation = place
+        }
+        
+        return placeView
     }
     
     
@@ -100,13 +162,18 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let heightInMeters =  mapRect.size.height * metersPerMapPoint
         let radius = min(widthInMeters, heightInMeters)
         let region = CLCircularRegion(center: center, radius: radius, identifier: "")
+        let siteURL = self.siteURL
         nearbyFetcher.fetchArticles(withSiteURL: siteURL, in: region, matchingSearchTerm: searchBar.text, resultLimit: 50, completion: { (searchResults) in
             self.searching = false
             for result in searchResults.results {
-                guard let annotation = ArticleAnnotation(searchResult: result) else {
+                guard let displayTitle = result.displayTitle,
+                    let articleURL = (siteURL as NSURL).wmf_URL(withTitle: displayTitle),
+                    let article = self.articleStore?.addPreview(with: articleURL, updatedWith: result),
+                    let coordinate = article.coordinate,
+                    let articlePlace = ArticlePlace(coordinate: coordinate, articles: [article]) else {
                     continue
                 }
-                self.addAnnotation(annotation)
+                self.addAnnotation(articlePlace)
             }
         }) { (error) in
             self.wmf_showAlertWithError(error as NSError)

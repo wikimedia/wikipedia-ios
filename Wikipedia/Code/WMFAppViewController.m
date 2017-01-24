@@ -79,7 +79,7 @@
  */
 typedef NS_ENUM(NSUInteger, WMFAppTabType) {
     WMFAppTabTypeExplore = 0,
-    WMFAppTabTypeNearby,
+    WMFAppTabTypePlaces,
     WMFAppTabTypeSaved,
     WMFAppTabTypeRecent
 };
@@ -197,6 +197,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     self.rootTabBarController = tabBar;
     [self configureTabController];
     [self configureExploreViewController];
+    [self configurePlacesViewController];
     [self configureArticleListController:self.savedArticlesViewController];
     [self configureArticleListController:self.recentArticlesViewController];
     [[self class] wmf_setSearchButtonDataStore:self.dataStore];
@@ -217,6 +218,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [self.exploreViewController setPreviewStore:self.previewStore];
     [self.exploreViewController setContentStore:self.contentStore];
     [self.exploreViewController setContentSources:self.contentSources];
+}
+
+- (void)configurePlacesViewController {
+    self.placesViewController.articleStore = self.previewStore;
 }
 
 - (void)configureArticleListController:(WMFArticleListTableViewController *)controller {
@@ -868,6 +873,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 - (WMFArticleListTableViewController *)recentArticlesViewController {
     return (WMFArticleListTableViewController *)[self rootViewControllerForTab:WMFAppTabTypeRecent];
+}
+
+- (PlacesViewController *)placesViewController {
+    return (PlacesViewController *)[self rootViewControllerForTab:WMFAppTabTypePlaces];
 }
 
 #pragma mark - UIViewController
