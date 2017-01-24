@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSString *appID = @"3";
     [PiwikTracker sharedInstanceWithSiteID:appID baseURL:[NSURL URLWithString:piwikHostURLString]];
     [[PiwikTracker sharedInstance] setDispatchInterval:WMFDispatchInterval];
+    [[PiwikTracker sharedInstance] setSampleRate:10];
 }
 
 - (void)wmf_logView:(id<WMFAnalyticsViewNameProviding>)view {
