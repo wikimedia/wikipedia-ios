@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFLocationSearchRequestParameters : NSObject
 @property (nonatomic, copy) CLCircularRegion *region;
-@property (nonatomic, copy) NSString *searchTerm;
+@property (nullable, nonatomic, copy) NSString *searchTerm;
 @property (nonatomic, assign) NSUInteger numberOfResults;
 @property (nonatomic, assign) WMFLocationSearchSortStyle sortStyle;
 @end
@@ -72,7 +72,6 @@ NS_ASSUME_NONNULL_BEGIN
                                            failure:(void (^)(NSError *error))failure {
     CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:location.coordinate radius:1000 identifier:@""];
     return [self fetchArticlesWithSiteURL:siteURL inRegion:region matchingSearchTerm:nil resultLimit:resultLimit useDesktopURL:useDeskTopURL completion:completion failure:failure];
-
 }
 
 - (NSURLSessionDataTask *)fetchArticlesWithSiteURL:(NSURL *)siteURL
@@ -95,7 +94,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [self fetchArticlesWithSiteURL:siteURL inRegion:region matchingSearchTerm:searchTerm sortStyle:WMFLocationSearchSortStyleNone resultLimit:resultLimit useDesktopURL:useDeskTopURL completion:completion failure:failure];
 }
 
-
 - (NSURLSessionDataTask *)fetchArticlesWithSiteURL:(NSURL *)siteURL
                                           inRegion:(CLCircularRegion *)region
                                 matchingSearchTerm:(nullable NSString *)searchTerm
@@ -105,33 +103,32 @@ NS_ASSUME_NONNULL_BEGIN
                                         completion:(void (^)(WMFLocationSearchResults *results))completion
                                            failure:(void (^)(NSError *error))failure {
     NSURL *url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:siteURL] : [NSURL wmf_mobileAPIURLForURL:siteURL];
-    
+
     WMFLocationSearchRequestParameters *params = [WMFLocationSearchRequestParameters new];
     params.region = region;
     params.numberOfResults = resultLimit;
     params.searchTerm = searchTerm;
     params.sortStyle = sortStyle;
-    
+
     return [self.operationManager wmf_GETAndRetryWithURL:url
-                                              parameters:params
-                                                   retry:NULL
-                                                 success:^(NSURLSessionDataTask *operation, id responseObject) {
-                                                     
-                                                     [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                                                     WMFLocationSearchResults *results = [[WMFLocationSearchResults alloc] initWithSearchSiteURL:siteURL region:region searchTerm:searchTerm results:responseObject];
-                                                     
-                                                     if (completion) {
-                                                         completion(results);
-                                                     }
-                                                     
-                                                 }
-                                                 failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                                                     [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                                                     if (failure) {
-                                                         failure(error);
-                                                     }
-                                                 }];
-    
+        parameters:params
+        retry:NULL
+        success:^(NSURLSessionDataTask *operation, id responseObject) {
+
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            WMFLocationSearchResults *results = [[WMFLocationSearchResults alloc] initWithSearchSiteURL:siteURL region:region searchTerm:searchTerm results:responseObject];
+
+            if (completion) {
+                completion(results);
+            }
+
+        }
+        failure:^(NSURLSessionDataTask *operation, NSError *error) {
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            if (failure) {
+                failure(error);
+            }
+        }];
 }
 
 @end
@@ -160,16 +157,16 @@ NS_ASSUME_NONNULL_BEGIN
         [gsrSearchArray addObject:nearcoord];
         NSString *gsrsearch = [gsrSearchArray componentsJoinedByString:@" "];
         NSMutableDictionary<NSString *, NSObject *> *serializedParams = [NSMutableDictionary dictionaryWithDictionary:@{
-                 @"action": @"query",
-                 @"prop": @"coordinates|pageimages|pageterms",
-                 @"generator": @"search",
-                 @"gsrsearch": gsrsearch,
-                 @"gsrlimit": @(params.numberOfResults),
-                 @"piprop": @"thumbnail",
-                 @"pithumbsize": [[UIScreen mainScreen] wmf_nearbyThumbnailWidthForScale],
-                 @"pilimit": @(params.numberOfResults),
-                 @"format": @"json",
-                 }];
+            @"action": @"query",
+            @"prop": @"coordinates|pageimages|pageterms",
+            @"generator": @"search",
+            @"gsrsearch": gsrsearch,
+            @"gsrlimit": @(params.numberOfResults),
+            @"piprop": @"thumbnail",
+            @"pithumbsize": [[UIScreen mainScreen] wmf_nearbyThumbnailWidthForScale],
+            @"pilimit": @(params.numberOfResults),
+            @"format": @"json",
+        }];
         switch (params.sortStyle) {
             case WMFLocationSearchSortStyleLinks:
                 serializedParams[@"cirrusIncLinkssW"] = @(1000);
@@ -183,21 +180,21 @@ NS_ASSUME_NONNULL_BEGIN
         return serializedParams;
     } else {
         NSString *coords =
-        [NSString stringWithFormat:@"%f|%f", params.region.center.latitude, params.region.center.longitude];
+            [NSString stringWithFormat:@"%f|%f", params.region.center.latitude, params.region.center.longitude];
         return @{
-                 @"action": @"query",
-                 @"prop": @"coordinates|pageimages|pageterms",
-                 @"colimit": @(params.numberOfResults),
-                 @"pithumbsize": [[UIScreen mainScreen] wmf_nearbyThumbnailWidthForScale],
-                 @"pilimit": @(params.numberOfResults),
-                 @"wbptterms": @"description",
-                 @"generator": @"geosearch",
-                 @"ggscoord": coords,
-                 @"codistancefrompoint": coords,
-                 @"ggsradius": @(params.region.radius),
-                 @"ggslimit": @(params.numberOfResults),
-                 @"format": @"json"
-                 };
+            @"action": @"query",
+            @"prop": @"coordinates|pageimages|pageterms",
+            @"colimit": @(params.numberOfResults),
+            @"pithumbsize": [[UIScreen mainScreen] wmf_nearbyThumbnailWidthForScale],
+            @"pilimit": @(params.numberOfResults),
+            @"wbptterms": @"description",
+            @"generator": @"geosearch",
+            @"ggscoord": coords,
+            @"codistancefrompoint": coords,
+            @"ggsradius": @(params.region.radius),
+            @"ggslimit": @(params.numberOfResults),
+            @"format": @"json"
+        };
     }
 }
 
