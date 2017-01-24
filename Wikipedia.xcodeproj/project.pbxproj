@@ -8156,7 +8156,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
-					"WMF_UX_STUDY_ENABLED=1",
+					"WMF_UX_STUDY_ENABLED=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
@@ -8390,7 +8390,7 @@
 					"ALPHA=1",
 					"BETA=1",
 					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
-					"WMF_UX_STUDY_ENABLED=1",
+					"WMF_UX_STUDY_ENABLED=0",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
