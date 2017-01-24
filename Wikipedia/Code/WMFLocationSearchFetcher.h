@@ -5,6 +5,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef enum : NSUInteger {
+    WMFLocationSearchSortStyleNone = 0,
+    WMFLocationSearchSortStylePageViews,
+    WMFLocationSearchSortStyleLinks
+} WMFLocationSearchSortStyle;
+
 @interface WMFLocationSearchFetcher : NSObject
 
 - (NSURLSessionDataTask *)fetchArticlesWithSiteURL:(NSURL *)siteURL
@@ -16,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURLSessionDataTask *)fetchArticlesWithSiteURL:(NSURL *)siteURL
                                           inRegion:(CLCircularRegion *)region
                                 matchingSearchTerm:(nullable NSString *)searchTerm
+                                         sortStyle:(WMFLocationSearchSortStyle)sortStyle
                                        resultLimit:(NSUInteger)resultLimit
                                         completion:(void (^)(WMFLocationSearchResults *results))completion
                                            failure:(void (^)(NSError *error))failure;

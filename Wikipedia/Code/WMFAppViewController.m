@@ -222,6 +222,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 - (void)configurePlacesViewController {
     self.placesViewController.articleStore = self.previewStore;
+    self.placesViewController.dataStore = self.dataStore;
 }
 
 - (void)configureArticleListController:(WMFArticleListTableViewController *)controller {

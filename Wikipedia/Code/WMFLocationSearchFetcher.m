@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) CLCircularRegion *region;
 @property (nonatomic, copy) NSString *searchTerm;
 @property (nonatomic, assign) NSUInteger numberOfResults;
+@property (nonatomic, assign) WMFLocationSearchSortStyle sortStyle;
 @end
 
 @interface WMFLocationSearchRequestSerializer : WMFBaseRequestSerializer
@@ -77,15 +78,28 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURLSessionDataTask *)fetchArticlesWithSiteURL:(NSURL *)siteURL
                                           inRegion:(CLCircularRegion *)region
                                 matchingSearchTerm:(nullable NSString *)searchTerm
+                                         sortStyle:(WMFLocationSearchSortStyle)sortStyle
                                        resultLimit:(NSUInteger)resultLimit
                                         completion:(void (^)(WMFLocationSearchResults *results))completion
                                            failure:(void (^)(NSError *error))failure {
-    return [self fetchArticlesWithSiteURL:siteURL inRegion:region matchingSearchTerm:searchTerm resultLimit:resultLimit useDesktopURL:NO completion:completion failure:failure];
+    return [self fetchArticlesWithSiteURL:siteURL inRegion:region matchingSearchTerm:searchTerm sortStyle:sortStyle resultLimit:resultLimit useDesktopURL:NO completion:completion failure:failure];
 }
 
 - (NSURLSessionDataTask *)fetchArticlesWithSiteURL:(NSURL *)siteURL
                                           inRegion:(CLCircularRegion *)region
                                 matchingSearchTerm:(nullable NSString *)searchTerm
+                                       resultLimit:(NSUInteger)resultLimit
+                                     useDesktopURL:(BOOL)useDeskTopURL
+                                        completion:(void (^)(WMFLocationSearchResults *results))completion
+                                           failure:(void (^)(NSError *error))failure {
+    return [self fetchArticlesWithSiteURL:siteURL inRegion:region matchingSearchTerm:searchTerm sortStyle:WMFLocationSearchSortStyleNone resultLimit:resultLimit useDesktopURL:useDeskTopURL completion:completion failure:failure];
+}
+
+
+- (NSURLSessionDataTask *)fetchArticlesWithSiteURL:(NSURL *)siteURL
+                                          inRegion:(CLCircularRegion *)region
+                                matchingSearchTerm:(nullable NSString *)searchTerm
+                                         sortStyle:(WMFLocationSearchSortStyle)sortStyle
                                        resultLimit:(NSUInteger)resultLimit
                                      useDesktopURL:(BOOL)useDeskTopURL
                                         completion:(void (^)(WMFLocationSearchResults *results))completion
@@ -96,6 +110,7 @@ NS_ASSUME_NONNULL_BEGIN
     params.region = region;
     params.numberOfResults = resultLimit;
     params.searchTerm = searchTerm;
+    params.sortStyle = sortStyle;
     
     return [self.operationManager wmf_GETAndRetryWithURL:url
                                               parameters:params
@@ -136,18 +151,36 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSDictionary *)serializedParams:(WMFLocationSearchRequestParameters *)params {
-    if (params.searchTerm) {
-        return @{
+    if (params.searchTerm || params.sortStyle != WMFLocationSearchSortStyleNone) {
+        NSMutableArray<NSString *> *gsrSearchArray = [NSMutableArray arrayWithCapacity:2];
+        if (params.searchTerm) {
+            [gsrSearchArray addObject:params.searchTerm];
+        }
+        NSString *nearcoord = [NSString stringWithFormat:@"nearcoord:%.0fkm,%.3f,%.3f", round(params.region.radius / 1000.0), params.region.center.latitude, params.region.center.longitude];
+        [gsrSearchArray addObject:nearcoord];
+        NSString *gsrsearch = [gsrSearchArray componentsJoinedByString:@" "];
+        NSMutableDictionary<NSString *, NSObject *> *serializedParams = [NSMutableDictionary dictionaryWithDictionary:@{
                  @"action": @"query",
                  @"prop": @"coordinates|pageimages|pageterms",
                  @"generator": @"search",
-                 @"gsrsearch": [NSString stringWithFormat:@"%@ nearcoord:%.0fkm,%.3f,%.3f", params.searchTerm, round(params.region.radius / 1000.0), params.region.center.latitude, params.region.center.longitude],
+                 @"gsrsearch": gsrsearch,
                  @"gsrlimit": @(params.numberOfResults),
                  @"piprop": @"thumbnail",
                  @"pithumbsize": [[UIScreen mainScreen] wmf_nearbyThumbnailWidthForScale],
                  @"pilimit": @(params.numberOfResults),
                  @"format": @"json",
-                 };
+                 }];
+        switch (params.sortStyle) {
+            case WMFLocationSearchSortStyleLinks:
+                serializedParams[@"cirrusIncLinkssW"] = @(1000);
+                break;
+            case WMFLocationSearchSortStylePageViews:
+                serializedParams[@"cirrusPageViewsW"] = @(1000);
+                break;
+            default:
+                break;
+        }
+        return serializedParams;
     } else {
         NSString *coords =
         [NSString stringWithFormat:@"%f|%f", params.region.center.latitude, params.region.center.longitude];

@@ -73,13 +73,20 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     var searchBar: UISearchBar!
     var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
     var annotations: [MKAnnotation] = []
-    var articleStore: WMFArticleDataStore?
+    var articleStore: WMFArticleDataStore!
+    var dataStore: MWKDataStore!
+    var segmentedControl: UISegmentedControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         //Override UINavigationBar.appearance settings from WMFStyleManager
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.tintColor = nil
+        segmentedControl = UISegmentedControl(items: ["Default", "PageViews", "Links"])
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: segmentedControl)
         
         mapView.setUserTrackingMode(.follow, animated: true)
         searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 32))
@@ -99,8 +106,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
     }
     
+    func segmentedControlChanged() {
+        redoSearch(self)
+    }
+    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        
+        guard let place = view.annotation as? ArticlePlace,
+                let article = place.articles.first,
+                let url = article.url else {
+            return
+        }
+        wmf_pushArticle(with: url, dataStore: dataStore, previewStore: articleStore, animated: true)
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
@@ -163,7 +179,18 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let radius = min(widthInMeters, heightInMeters)
         let region = CLCircularRegion(center: center, radius: radius, identifier: "")
         let siteURL = self.siteURL
-        nearbyFetcher.fetchArticles(withSiteURL: siteURL, in: region, matchingSearchTerm: searchBar.text, resultLimit: 50, completion: { (searchResults) in
+        var sortStyle = WMFLocationSearchSortStyleNone
+        switch segmentedControl.selectedSegmentIndex {
+        case 1:
+            sortStyle = WMFLocationSearchSortStylePageViews
+        case 2:
+            sortStyle = WMFLocationSearchSortStyleLinks
+        case 0:
+            fallthrough
+        default:
+            break
+        }
+        nearbyFetcher.fetchArticles(withSiteURL: siteURL, in: region, matchingSearchTerm: searchBar.text, sortStyle: sortStyle, resultLimit: 50, completion: { (searchResults) in
             self.searching = false
             for result in searchResults.results {
                 guard let displayTitle = result.displayTitle,
