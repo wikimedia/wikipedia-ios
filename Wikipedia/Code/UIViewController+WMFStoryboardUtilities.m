@@ -17,6 +17,8 @@
     return NSStringFromClass(self);
 }
 
+//return wmf_viewController(withIdentifier: String(describing: self), fromStoryboardNamed:storyboardName)
+
 // UIStoryboard from the main bundle matching wmf_classStoryboardName.
 + (UIStoryboard *)wmf_classStoryboard {
     id sb = [UIStoryboard storyboardWithName:[self wmf_classStoryboardName] bundle:[NSBundle bundleForClass:self]];

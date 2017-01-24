@@ -69,6 +69,17 @@
 "login-account-creation" = "Don't have an account? Join Wikipedia.";
 "login-username-placeholder-text" = "Username";
 "login-password-placeholder-text" = "Password";
+"login-forgot-password" = "Forgot your password?";
+
+"forgot-password-title" = "Reset password";
+"forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";
+"forgot-password-username" = "Username";
+"forgot-password-username-prompt" = "enter username";
+"forgot-password-email" = "Email address";
+"forgot-password-email-prompt" = "example@example.org";
+"forgot-password-button-title" = "Reset password";
+"forgot-password-email-or-username" = "Or";
+"forgot-password-email-sent" = "An email with password reset instructions was sent";
 
 "wikitext-downloading" = "Loading content...";
 "wikitext-download-failed" = "Unable to obtain latest revision.";

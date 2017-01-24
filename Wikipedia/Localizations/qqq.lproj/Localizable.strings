@@ -77,6 +77,16 @@
 "login-account-creation" = "Button text for loading the account creation interface";
 "login-username-placeholder-text" = "{{Identical|Username}}";
 "login-password-placeholder-text" = "{{Identical|Password}}";
+"login-forgot-password" = "Button text for loading the password reminder interface";
+"forgot-password-title" = "Title for reset password interface";
+"forgot-password-instructions" = "Instructions for resetting password";
+"forgot-password-username" = "Title for username field";
+"forgot-password-username-prompt" = "Prompt for username field";
+"forgot-password-email" = "Title for email address field";
+"forgot-password-email-prompt" = "Prompt for email address field";
+"forgot-password-button-title" = "Title for reset password button";
+"forgot-password-email-or-username" = "Title for label indicating either email address \"Or\" username may be provided to receive password reset email";
+"forgot-password-email-sent" = "Alert text shown when password reset email is sent";
 "wikitext-downloading" = "Alert text shown when obtaining latest revision of the section being edited";
 "wikitext-download-failed" = "Alert text shown when unable to obtain latest revision of the section being edited";
 "wikitext-download-success" = "Alert text shown when latest revision of the section being edited has been retrieved";

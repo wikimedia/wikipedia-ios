@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet PaddedLabel *createAccountButton;
+@property (weak, nonatomic) IBOutlet PaddedLabel *forgotPasswordButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *usernameUnderlineHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *passwordUnderlineHeight;
 @property (weak, nonatomic) IBOutlet PaddedLabel *titleLabel;
@@ -72,6 +73,11 @@
     self.createAccountButton.userInteractionEnabled = YES;
     [self.createAccountButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(createAccountButtonPushed:)]];
 
+    self.forgotPasswordButton.text = MWLocalizedString(@"login-forgot-password", nil);
+    self.forgotPasswordButton.textColor = [UIColor wmf_blueTintColor];
+    self.forgotPasswordButton.font = [UIFont boldSystemFontOfSize:14.0f];
+    [self.forgotPasswordButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(forgotPasswordButtonPushed:)]];
+    
     self.usernameField.attributedPlaceholder =
         [self getAttributedPlaceholderForString:MWLocalizedString(@"login-username-placeholder-text", nil)];
     self.passwordField.attributedPlaceholder =
@@ -158,6 +164,19 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [self enableProgressiveButton:NO];
     [super viewWillDisappear:animated];
+}
+
+- (void)forgotPasswordButtonPushed:(UITapGestureRecognizer *)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        UIViewController *presenter = self.presentingViewController;
+        [self dismissViewControllerAnimated:YES
+                                 completion:^{
+                                     ForgotPasswordViewController *forgotPasswordVC = [ForgotPasswordViewController wmf_viewControllerFromStoryboardNamed:@"ForgotPasswordViewController"];
+                                     //ForgotPasswordViewController *forgotPasswordVC = [ForgotPasswordViewController wmf_initialViewControllerFromClassStoryboard];
+                                     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:forgotPasswordVC];
+                                     [presenter presentViewController:nc animated:YES completion:nil];
+                                 }];
+    }
 }
 
 - (void)createAccountButtonPushed:(UITapGestureRecognizer *)recognizer {
