@@ -45,11 +45,11 @@ class QuadKeyTests: XCTestCase {
                         XCTAssertEqualWithAccuracy(fullPrecisionCalculatedLat, lat, accuracy: fullPrecision.deltaLatitude, "full precision latitude is wrong")
                         XCTAssertEqualWithAccuracy(fullPrecisionCalculatedLon, lon,  accuracy: fullPrecision.deltaLongitude, "full precision longitude is wrong")
                     }
-                    lon += 1.5
+                    lon += 5.25
                 }
-                lat += 1.5
+                lat += 5.25
             }
-            p += 1
+            p += (p == 1 ? 3 : 4)
         }
 
     }
