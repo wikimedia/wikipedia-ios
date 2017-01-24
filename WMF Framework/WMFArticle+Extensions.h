@@ -6,8 +6,6 @@
 
 @property (nonatomic, nullable) NSURL *thumbnailURL;
 
-@property (nonatomic, nullable) CLLocation *location;
-
 @property (nonatomic, readonly, nullable) NSArray<NSNumber *> *pageViewsSortedByDate;
 
 - (void)updateViewedDateWithoutTime; // call after setting viewedDate

@@ -5,6 +5,7 @@
 #import "WMFFeedArticlePreview.h"
 @import CoreData;
 #import "WMFArticle+Extensions.h"
+#import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

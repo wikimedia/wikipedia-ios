@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16B2555" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16C67" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
         <attribute name="displayTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isExcludedFromFeed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
@@ -9,6 +9,7 @@
         <attribute name="newsNotificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="pageViews" optional="YES" attributeType="Transformable" customClassName="NSDictionary" syncable="YES"/>
         <attribute name="savedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="signedQuadKey" optional="YES" attributeType="Integer 64" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
         <attribute name="snippet" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thumbnailURLString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="viewedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -59,8 +60,13 @@
             </compoundIndex>
         </compoundIndexes>
     </entity>
+    <entity name="WMFKeyValue" representedClassName="WMFKeyValue" syncable="YES" codeGenerationType="class">
+        <attribute name="key" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="Transformable" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="285"/>
+        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="300"/>
         <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="255"/>
+        <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="75"/>
     </elements>
 </model>

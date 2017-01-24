@@ -11,7 +11,7 @@
 /**
  *  Location serialized from the first set of coordinates in the response.
  */
-@property (nonatomic, strong, readonly) CLLocation *location;
+@property (nullable, nonatomic, strong, readonly) CLLocation *location;
 
 /**
  *  Number of meters between the receiver and the coordinate parameters of the originating search.

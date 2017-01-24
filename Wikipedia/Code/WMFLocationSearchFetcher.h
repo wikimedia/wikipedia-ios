@@ -13,6 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
                                         completion:(void (^)(WMFLocationSearchResults *results))completion
                                            failure:(void (^)(NSError *error))failure;
 
+- (NSURLSessionDataTask *)fetchArticlesWithSiteURL:(NSURL *)siteURL
+                                          inRegion:(CLCircularRegion *)region
+                                matchingSearchTerm:(nullable NSString *)searchTerm
+                                       resultLimit:(NSUInteger)resultLimit
+                                        completion:(void (^)(WMFLocationSearchResults *results))completion
+                                           failure:(void (^)(NSError *error))failure;
+
 - (BOOL)isFetching;
 
 @end

@@ -26,8 +26,7 @@
         NSDictionary *coords = [value firstObject];
         NSNumber *distance = coords[@"dist"];
         if (![distance isKindOfClass:[NSNumber class]]) {
-            WMFSafeAssign(success, NO);
-            return nil;
+            distance = @(0);
         }
         return distance;
     }];
