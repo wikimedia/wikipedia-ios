@@ -24,7 +24,7 @@ class ArticlePlaceView: MKAnnotationView {
         countLabel = UILabel()
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = UIColor.wmf_green()
+        imageView.backgroundColor = UIColor.wmf_green().withAlphaComponent(0.7)
         imageView.layer.borderWidth = 2
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.clipsToBounds = true
@@ -88,6 +88,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     var articleStore: WMFArticleDataStore!
     var dataStore: MWKDataStore!
     var segmentedControl: UISegmentedControl!
+    
+    var currentGroupingPrecision: QuadKeyPrecision = 1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,7 +113,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        
+        regroupArticlesIfNecessary()
     }
     
     func mapViewDidStopLocatingUser(_ mapView: MKMapView) {
@@ -183,7 +185,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         searching = true
-        removeAllAnnotations()
         let center = mapView.region.center
         let mapRect = mapView.visibleMapRect
         let metersPerMapPoint = MKMetersPerMapPointAtLatitude(center.latitude)
@@ -212,8 +213,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
 
-    
-    func updatePlaces(withSearchResults searchResults: [MWKLocationSearchResult]) {
+    func regroupArticlesIfNecessary() {
         struct ArticleGroup {
             var articles: [WMFArticle] = []
             var latitudeSum: QuadKeyDegrees = 0
@@ -224,16 +224,18 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let lowestPrecision = QuadKeyPrecision(deltaLatitude: deltaLat)
         let groupingPrecision = min(QuadKeyPrecision.maxPrecision, lowestPrecision + 2)
         
-        var groups: [QuadKey: ArticleGroup] = [:]
+        guard groupingPrecision != currentGroupingPrecision else {
+            return
+        }
         
-        for result in searchResults {
-            guard let displayTitle = result.displayTitle,
-                let articleURL = (siteURL as NSURL).wmf_URL(withTitle: displayTitle),
-                let article = self.articleStore?.addPreview(with: articleURL, updatedWith: result),
-                let quadKey = article.quadKey else {
-                    continue
+        removeAllAnnotations()
+        
+        var groups: [QuadKey: ArticleGroup] = [:]
+
+        for article in articles {
+            guard let quadKey = article.quadKey else {
+                continue
             }
-            self.articles.append(article)
             let adjustedQuadKey = quadKey.adjusted(downBy: QuadKeyPrecision.maxPrecision - groupingPrecision)
             var group = groups[adjustedQuadKey] ?? ArticleGroup()
             group.articles.append(article)
@@ -241,7 +243,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             group.latitudeSum += coordinate.latitude
             group.longitudeSum += coordinate.longitude
             groups[adjustedQuadKey] = group
-            
         }
         
         for (_, group) in groups {
@@ -252,9 +253,24 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             guard let place = ArticlePlace(coordinate: CLLocationCoordinate2DMake(latitude, longitude), articles: articles) else {
                 continue
             }
-            self.addAnnotation(place)
+            addAnnotation(place)
         }
         
+        currentGroupingPrecision = groupingPrecision
+    }
+    
+    func updatePlaces(withSearchResults searchResults: [MWKLocationSearchResult]) {
+        for result in searchResults {
+            guard let displayTitle = result.displayTitle,
+                let articleURL = (siteURL as NSURL).wmf_URL(withTitle: displayTitle),
+                let article = self.articleStore?.addPreview(with: articleURL, updatedWith: result),
+                let _ = article.quadKey else {
+                    continue
+            }
+            articles.append(article)
+        }
+        currentGroupingPrecision = 0
+        regroupArticlesIfNecessary()
     }
     
     
