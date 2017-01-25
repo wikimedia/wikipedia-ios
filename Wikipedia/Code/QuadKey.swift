@@ -215,10 +215,12 @@ public extension Int64 {
 public struct QuadKeyCoordinate {
     public let latitudePart: QuadKeyPart
     public let longitudePart: QuadKeyPart
+    public let precision: QuadKeyPrecision
     
-    public init (latitudePart: QuadKeyPart, longitudePart: QuadKeyPart) {
+    public init (latitudePart: QuadKeyPart, longitudePart: QuadKeyPart, precision: QuadKeyPrecision) {
         self.latitudePart = latitudePart
         self.longitudePart = longitudePart
+        self.precision = precision
     }
     
     public init(quadKey: QuadKey, precision: QuadKeyPrecision) {
@@ -238,7 +240,7 @@ public struct QuadKeyCoordinate {
             }
 
         }
-        self.init(latitudePart: latitudePart, longitudePart: longitudePart)
+        self.init(latitudePart: latitudePart, longitudePart: longitudePart, precision: precision)
     }
     
     public init(quadKey: QuadKey) {
@@ -247,13 +249,13 @@ public struct QuadKeyCoordinate {
     
     public var latitude: QuadKeyDegrees {
         get {
-            return latitudePart.latitude
+            return precision < QuadKeyPrecision.maxPrecision ? latitudePart.latitude(atPrecision: precision) : latitudePart.latitude
         }
     }
     
     public var longitude: QuadKeyDegrees {
         get {
-            return longitudePart.longitude
+            return precision < QuadKeyPrecision.maxPrecision ? longitudePart.longitude(atPrecision: precision) : longitudePart.longitude
         }
     }
 }

@@ -2,17 +2,35 @@ import UIKit
 import MapKit
 import WMF
 
+
+class DebugAnnotation: NSObject, MKAnnotation {
+    public let coordinate: CLLocationCoordinate2D
+    public let title: String?
+    public let subtitle: String?
+    
+    
+    init?(coordinate: CLLocationCoordinate2D) {
+        self.title = nil
+        self.subtitle = nil
+        self.coordinate = coordinate
+    }
+}
+
 class ArticlePlace: NSObject, MKAnnotation {
     public let coordinate: CLLocationCoordinate2D
     public let title: String?
     public let subtitle: String?
     public let articles: [WMFArticle]
+    public let quadKey: QuadKey
+    public let precision: QuadKeyPrecision
     
-    init?(coordinate: CLLocationCoordinate2D, articles: [WMFArticle]) {
+    init?(coordinate: CLLocationCoordinate2D, quadKey: QuadKey, precision: QuadKeyPrecision, articles: [WMFArticle]) {
         self.title = nil
         self.subtitle = nil
+        self.quadKey = quadKey
         self.coordinate = coordinate
         self.articles = articles
+        self.precision = precision
     }
 }
 
@@ -125,10 +143,31 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        guard let place = view.annotation as? ArticlePlace,
-                let article = place.articles.first,
-                let url = article.url else {
+        guard let place = view.annotation as? ArticlePlace else {
             return
+        }
+        
+        guard place.articles.count == 1 else {
+            
+            let latitudeDelta = place.precision.deltaLatitude
+            let longitudeDelta = place.precision.deltaLongitude
+//            let coordinate = QuadKeyCoordinate(quadKey: place.quadKey, precision: place.precision)
+//            let latitude = coordinate.latitude
+//            let longitude = coordinate.longitude
+//            let centerLatitude = latitude - 0.5 * latitudeDelta
+//            let centerLongitude = longitude + 0.5 * longitudeDelta
+//            let center = CLLocationCoordinate2DMake(centerLatitude, centerLongitude)
+            
+            let center = place.coordinate
+            let span = MKCoordinateSpanMake(latitudeDelta, longitudeDelta)
+            let region = MKCoordinateRegionMake(center , span)
+            mapView.setRegion(region, animated: true)
+            return
+        }
+        
+        guard let article = place.articles.first,
+            let url = article.url else {
+                return
         }
         wmf_pushArticle(with: url, dataStore: dataStore, previewStore: articleStore, animated: true)
     }
@@ -245,12 +284,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             groups[adjustedQuadKey] = group
         }
         
-        for (_, group) in groups {
+        for (quadKey, group) in groups {
             let articles = group.articles
             let count = CLLocationDegrees(articles.count)
             let latitude = CLLocationDegrees(group.latitudeSum)/count
             let longitude = CLLocationDegrees(group.longitudeSum)/count
-            guard let place = ArticlePlace(coordinate: CLLocationCoordinate2DMake(latitude, longitude), articles: articles) else {
+            guard let place = ArticlePlace(coordinate: CLLocationCoordinate2DMake(latitude, longitude), quadKey: quadKey, precision: groupingPrecision, articles: articles) else {
                 continue
             }
             addAnnotation(place)
@@ -260,6 +299,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func updatePlaces(withSearchResults searchResults: [MWKLocationSearchResult]) {
+        articles.removeAll(keepingCapacity: true)
         for result in searchResults {
             guard let displayTitle = result.displayTitle,
                 let articleURL = (siteURL as NSURL).wmf_URL(withTitle: displayTitle),
