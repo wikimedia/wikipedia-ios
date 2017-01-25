@@ -37,12 +37,17 @@ class ArticlePlace: NSObject, MKAnnotation {
 class ArticlePlaceView: MKAnnotationView {
     let imageView: UIImageView
     let countLabel: UILabel
+    let collapsedDimension: CGFloat = 15
+    
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         imageView = UIImageView()
         countLabel = UILabel()
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        
+        let dimension = 40
+        frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
+        
         imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = UIColor.wmf_green().withAlphaComponent(0.7)
         imageView.layer.borderWidth = 2
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.clipsToBounds = true
@@ -53,26 +58,42 @@ class ArticlePlaceView: MKAnnotationView {
         countLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         addSubview(countLabel)
         
-        layoutSubviews()
+        update()
         self.annotation = annotation
+    }
+    
+    func update() {
+        if let articlePlace = annotation as? ArticlePlace {
+            if articlePlace.articles.count == 1 {
+                imageView.backgroundColor = UIColor.wmf_green()
+                let article = articlePlace.articles[0]
+                if let thumbnailURL = article.thumbnailURL, isSelected {
+                    imageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
+                        
+                    }, success: {
+                        
+                    })
+                } else {
+                    imageView.image = nil
+                }
+            } else {
+                imageView.backgroundColor = UIColor.wmf_green().withAlphaComponent(0.7)
+                countLabel.text = "\(articlePlace.articles.count)"
+            }
+        }
+        
+        layoutSubviews()
     }
     
     override var annotation: MKAnnotation? {
         didSet {
-            if let articlePlace = annotation as? ArticlePlace {
-                if articlePlace.articles.count == 1 {
-                    let article = articlePlace.articles[0]
-                    if let thumbnailURL = article.thumbnailURL  {
-                        imageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
-                            
-                        }, success: {
-                            
-                        })
-                    }
-                } else {
-                    countLabel.text = "\(articlePlace.articles.count)"
-                }
-            }
+            update()
+        }
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            update()
         }
     }
     
@@ -88,9 +109,14 @@ class ArticlePlaceView: MKAnnotationView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        imageView.frame = bounds
-        imageView.layer.cornerRadius = frame.size.width * 0.5
-        countLabel.frame = bounds
+        if isSelected || countLabel.text != nil {
+            imageView.frame = bounds
+        } else {
+            imageView.bounds = CGRect(x: 0, y: 0, width: collapsedDimension, height: collapsedDimension)
+            imageView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
+        }
+        imageView.layer.cornerRadius = imageView.bounds.size.width * 0.5
+        countLabel.frame = imageView.frame
     }
 }
 
@@ -199,8 +225,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         if placeView == nil {
             placeView = ArticlePlaceView(annotation: place, reuseIdentifier: reuseIdentifier)
-            let dimension = (min(mapView.bounds.size.width, mapView.bounds.size.height)/8.0).rounded()
-            placeView?.frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
         } else {
             placeView?.annotation = place
         }
@@ -271,7 +295,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         let deltaLat = mapView.region.span.latitudeDelta
         let lowestPrecision = QuadKeyPrecision(deltaLatitude: deltaLat)
-        let groupingPrecision = min(QuadKeyPrecision.maxPrecision, lowestPrecision + 2)
+        let groupingPrecision = min(QuadKeyPrecision.maxPrecision, lowestPrecision + 3)
         
         guard groupingPrecision != currentGroupingPrecision else {
             return
