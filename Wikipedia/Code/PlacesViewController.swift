@@ -111,12 +111,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.tintColor = UIColor.wmf_blueTint()
         //Override UINavigationBar.appearance settings from WMFStyleManager
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.tintColor = nil
         segmentedControl = UISegmentedControl(items: ["Default", "PageViews", "Links"])
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
+        segmentedControl.tintColor = UIColor.wmf_blueTint()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: segmentedControl)
         
