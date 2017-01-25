@@ -20,6 +20,16 @@ public extension QuadKeyPrecision {
             return QuadKeyDegrees.longitudeRangeLength/QuadKeyDegrees(1 << QuadKey(self))
         }
     }
+    
+    init(deltaLatitude: QuadKeyDegrees) {
+        let precision = (log(QuadKeyDegrees.latitudeRangeLength/deltaLatitude)/log(2)).rounded()
+        self.init(precision)
+    }
+    
+    init(deltaLongitude: QuadKeyDegrees) {
+        let precision = (log(QuadKeyDegrees.longitudeRangeLength/deltaLongitude)/log(2)).rounded()
+        self.init(precision)
+    }
 }
 
 public extension QuadKeyDegrees {
