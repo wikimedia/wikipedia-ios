@@ -2,125 +2,7 @@ import UIKit
 import MapKit
 import WMF
 
-
-class DebugAnnotation: NSObject, MKAnnotation {
-    public let coordinate: CLLocationCoordinate2D
-    public let title: String?
-    public let subtitle: String?
-    
-    
-    init?(coordinate: CLLocationCoordinate2D) {
-        self.title = nil
-        self.subtitle = nil
-        self.coordinate = coordinate
-    }
-}
-
-class ArticlePlace: NSObject, MKAnnotation {
-    public let coordinate: CLLocationCoordinate2D
-    public let title: String?
-    public let subtitle: String?
-    public let articles: [WMFArticle]
-    public let quadKey: QuadKey
-    public let precision: QuadKeyPrecision
-    
-    init?(coordinate: CLLocationCoordinate2D, quadKey: QuadKey, precision: QuadKeyPrecision, articles: [WMFArticle]) {
-        self.title = nil
-        self.subtitle = nil
-        self.quadKey = quadKey
-        self.coordinate = coordinate
-        self.articles = articles
-        self.precision = precision
-    }
-}
-
-class ArticlePlaceView: MKAnnotationView {
-    let imageView: UIImageView
-    let countLabel: UILabel
-    let collapsedDimension: CGFloat = 15
-    
-    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
-        imageView = UIImageView()
-        countLabel = UILabel()
-        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        
-        let dimension = 40
-        frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
-        
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.borderWidth = 2
-        imageView.layer.borderColor = UIColor.white.cgColor
-        imageView.clipsToBounds = true
-        addSubview(imageView)
-        
-        countLabel.textColor = UIColor.white
-        countLabel.textAlignment = .center
-        countLabel.font = UIFont.preferredFont(forTextStyle: .headline)
-        addSubview(countLabel)
-        
-        update()
-        self.annotation = annotation
-    }
-    
-    func update() {
-        if let articlePlace = annotation as? ArticlePlace {
-            if articlePlace.articles.count == 1 {
-                imageView.backgroundColor = UIColor.wmf_green()
-                let article = articlePlace.articles[0]
-                if let thumbnailURL = article.thumbnailURL, isSelected {
-                    imageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
-                        
-                    }, success: {
-                        
-                    })
-                } else {
-                    imageView.image = nil
-                }
-            } else {
-                imageView.backgroundColor = UIColor.wmf_green().withAlphaComponent(0.7)
-                countLabel.text = "\(articlePlace.articles.count)"
-            }
-        }
-        
-        layoutSubviews()
-    }
-    
-    override var annotation: MKAnnotation? {
-        didSet {
-            update()
-        }
-    }
-    
-    override var isSelected: Bool {
-        didSet {
-            update()
-        }
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        imageView.wmf_reset()
-        countLabel.text = nil
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        return nil
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if isSelected || countLabel.text != nil {
-            imageView.frame = bounds
-        } else {
-            imageView.bounds = CGRect(x: 0, y: 0, width: collapsedDimension, height: collapsedDimension)
-            imageView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
-        }
-        imageView.layer.cornerRadius = imageView.bounds.size.width * 0.5
-        countLabel.frame = imageView.frame
-    }
-}
-
-class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
+class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate {
 
     @IBOutlet weak var redoSearchButton: UIButton!
     let nearbyFetcher = WMFLocationSearchFetcher()
@@ -162,10 +44,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         regroupArticlesIfNecessary()
     }
     
-    func mapViewDidStopLocatingUser(_ mapView: MKMapView) {
-        
-    }
-    
     func segmentedControlChanged() {
         redoSearch(self)
     }
@@ -205,7 +83,25 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let url = article.url else {
                 return
         }
-        wmf_pushArticle(with: url, dataStore: dataStore, previewStore: articleStore, animated: true)
+        
+        let articleVC = WMFArticleViewController(articleURL: url, dataStore: dataStore, previewStore: articleStore)
+        articleVC.edgesForExtendedLayout = []
+        articleVC.modalPresentationStyle = .popover
+        guard let presentationController = articleVC.popoverPresentationController else {
+            wmf_pushArticle(with: url, dataStore: dataStore, previewStore: articleStore, animated: true)
+            return
+        }
+        
+        presentationController.sourceView = view
+        presentationController.sourceRect = view.bounds
+        presentationController.canOverlapSourceViewRect = false
+        presentationController.permittedArrowDirections = .any
+        presentationController.delegate = self
+        
+        present(articleVC, animated: true) { 
+            
+        }
+        
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
@@ -295,7 +191,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         let deltaLat = mapView.region.span.latitudeDelta
         let lowestPrecision = QuadKeyPrecision(deltaLatitude: deltaLat)
-        let groupingPrecision = min(QuadKeyPrecision.maxPrecision, lowestPrecision + 3)
+        let groupingPrecision = min(QuadKeyPrecision.maxPrecision, lowestPrecision + 4)
         
         guard groupingPrecision != currentGroupingPrecision else {
             return
@@ -345,6 +241,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         currentGroupingPrecision = 0
         regroupArticlesIfNecessary()
+    }
+    
+    
+    // Popover
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
     }
     
     
