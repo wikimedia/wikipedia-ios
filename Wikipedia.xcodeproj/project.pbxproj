@@ -145,7 +145,7 @@
 		B02376B41D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B02376B31D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m */; };
 		B0267CE91E316A79006B6D8D /* ForgotPasswordViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0267CE81E316A79006B6D8D /* ForgotPasswordViewController.storyboard */; };
 		B0267CED1E316AE3006B6D8D /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0267CEC1E316AE3006B6D8D /* ForgotPasswordViewController.swift */; };
-		B0267CEF1E3294C1006B6D8D /* WMFCSRFTokenFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0267CEE1E3294C1006B6D8D /* WMFCSRFTokenFetcher.swift */; };
+		B0267CEF1E3294C1006B6D8D /* WMFTokenFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0267CEE1E3294C1006B6D8D /* WMFTokenFetcher.swift */; };
 		B0267CF11E329F85006B6D8D /* WMFURLSessionDataTaskTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0267CF01E329F85006B6D8D /* WMFURLSessionDataTaskTypes.swift */; };
 		B0267CF31E32A0CB006B6D8D /* WMFPasswordResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0267CF21E32A0CB006B6D8D /* WMFPasswordResetter.swift */; };
 		B02B82751C696ECA00B19309 /* WMFSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B02B82731C696ECA00B19309 /* WMFSettingsTableViewCell.m */; };
@@ -1235,7 +1235,7 @@
 		B0265F2E1CBC2F3200740525 /* WMFArticleBaseFetcher_Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleBaseFetcher_Testing.h; path = Wikipedia/Code/WMFArticleBaseFetcher_Testing.h; sourceTree = SOURCE_ROOT; };
 		B0267CE81E316A79006B6D8D /* ForgotPasswordViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ForgotPasswordViewController.storyboard; sourceTree = "<group>"; };
 		B0267CEC1E316AE3006B6D8D /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
-		B0267CEE1E3294C1006B6D8D /* WMFCSRFTokenFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFCSRFTokenFetcher.swift; sourceTree = "<group>"; };
+		B0267CEE1E3294C1006B6D8D /* WMFTokenFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFTokenFetcher.swift; sourceTree = "<group>"; };
 		B0267CF01E329F85006B6D8D /* WMFURLSessionDataTaskTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFURLSessionDataTaskTypes.swift; sourceTree = "<group>"; };
 		B0267CF21E32A0CB006B6D8D /* WMFPasswordResetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFPasswordResetter.swift; sourceTree = "<group>"; };
 		B02B76A01CA9ED4400EDB253 /* ckb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ckb; path = ckb.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -3845,7 +3845,7 @@
 			children = (
 				B0267CE81E316A79006B6D8D /* ForgotPasswordViewController.storyboard */,
 				B0267CEC1E316AE3006B6D8D /* ForgotPasswordViewController.swift */,
-				B0267CEE1E3294C1006B6D8D /* WMFCSRFTokenFetcher.swift */,
+				B0267CEE1E3294C1006B6D8D /* WMFTokenFetcher.swift */,
 				B0267CF21E32A0CB006B6D8D /* WMFPasswordResetter.swift */,
 				B0267CF01E329F85006B6D8D /* WMFURLSessionDataTaskTypes.swift */,
 				B04DD32E1E36B9A000FEA8A3 /* Dictionary+WMFApiResponse.swift */,
@@ -6813,7 +6813,7 @@
 				B00DDEE31DB5B16E00615FA2 /* WMFWelcomeAnimationViewController.swift in Sources */,
 				B0E803761C0CD9C10065EBC0 /* WMFTableOfContentsCell.swift in Sources */,
 				B0E805571C0CE0DC0065EBC0 /* UIView+TemporaryAnimatedXF.m in Sources */,
-				B0267CEF1E3294C1006B6D8D /* WMFCSRFTokenFetcher.swift in Sources */,
+				B0267CEF1E3294C1006B6D8D /* WMFTokenFetcher.swift in Sources */,
 				B0B0EC221C6999A9006F0D9C /* WMFSettingsMenuItem.m in Sources */,
 				B0E8032C1C0CD6E10065EBC0 /* WMFExploreSectionHeader.m in Sources */,
 				B0E8054D1C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
