@@ -2,7 +2,7 @@
 import Foundation
 
 enum WMFApiResponse {
-    case csrfToken
+    case token(String)
     case errorInfo
     case warnings
     case resetPasswordStatus
@@ -11,15 +11,15 @@ enum WMFApiResponse {
 extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
     func wmf_apiResponse(_ response: WMFApiResponse) -> String?{
         switch response {
-        case .csrfToken:
+        case .token(let token):
             guard
                 let query = self["query"] as? [String: Any],
                 let tokens = query["tokens"] as? [String: Any],
-                let csrftoken = tokens["csrftoken"] as? String
+                let token = tokens[token] as? String
                 else {
                     return nil
             }
-            return csrftoken
+            return token
         case .errorInfo:
             guard
                 let errorDict = self["error"] as? [String: Any],
