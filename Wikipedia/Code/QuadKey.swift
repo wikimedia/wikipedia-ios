@@ -7,7 +7,7 @@ public typealias QuadKeyPrecision = UInt16
 public typealias QuadKeyDegrees = Double
 
 public extension QuadKeyPrecision {
-    static let max: QuadKeyPrecision = 32
+    public static let maxPrecision: QuadKeyPrecision = 32
     
     public var deltaLatitude: QuadKeyDegrees {
         get {
@@ -21,12 +21,12 @@ public extension QuadKeyPrecision {
         }
     }
     
-    init(deltaLatitude: QuadKeyDegrees) {
+    public init(deltaLatitude: QuadKeyDegrees) {
         let precision = (log(QuadKeyDegrees.latitudeRangeLength/deltaLatitude)/log(2)).rounded()
         self.init(precision)
     }
     
-    init(deltaLongitude: QuadKeyDegrees) {
+    public init(deltaLongitude: QuadKeyDegrees) {
         let precision = (log(QuadKeyDegrees.longitudeRangeLength/deltaLongitude)/log(2)).rounded()
         self.init(precision)
     }
@@ -98,13 +98,13 @@ public extension QuadKeyPart {
     
     public init(latitude: QuadKeyDegrees, precision: QuadKeyPrecision) {
         let fullPart = QuadKeyPart(latitude: latitude)
-        let part = fullPart >> QuadKeyPart(QuadKeyPrecision.max - precision)
+        let part = fullPart >> QuadKeyPart(QuadKeyPrecision.maxPrecision - precision)
         self.init(part)
     }
     
     public init(longitude: QuadKeyDegrees, precision: QuadKeyPrecision) {
         let fullPart = QuadKeyPart(longitude: longitude)
-        let part = fullPart >> QuadKeyPart(QuadKeyPrecision.max - precision)
+        let part = fullPart >> QuadKeyPart(QuadKeyPrecision.maxPrecision - precision)
         self.init(part)
     }
     
@@ -148,7 +148,7 @@ public extension QuadKey {
     static let signedConversionConstant: Int64 = Int64.min
     
     public init(latitude: QuadKeyDegrees, longitude: QuadKeyDegrees) {
-        self.init(latitudePart: QuadKeyPart(latitude: latitude), longitudePart: QuadKeyPart(longitude: longitude), precision: QuadKeyPrecision.max)
+        self.init(latitudePart: QuadKeyPart(latitude: latitude), longitudePart: QuadKeyPart(longitude: longitude), precision: QuadKeyPrecision.maxPrecision)
     }
 
     public init(latitude: QuadKeyDegrees, longitude: QuadKeyDegrees, precision: QuadKeyPrecision) {
@@ -242,7 +242,19 @@ public struct QuadKeyCoordinate {
     }
     
     public init(quadKey: QuadKey) {
-        self.init(quadKey: quadKey, precision: QuadKeyPrecision.max)
+        self.init(quadKey: quadKey, precision: QuadKeyPrecision.maxPrecision)
+    }
+    
+    public var latitude: QuadKeyDegrees {
+        get {
+            return latitudePart.latitude
+        }
+    }
+    
+    public var longitude: QuadKeyDegrees {
+        get {
+            return longitudePart.longitude
+        }
     }
 }
 

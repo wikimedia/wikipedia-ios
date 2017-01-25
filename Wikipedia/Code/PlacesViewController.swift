@@ -18,16 +18,23 @@ class ArticlePlace: NSObject, MKAnnotation {
 
 class ArticlePlaceView: MKAnnotationView {
     let imageView: UIImageView
-    
+    let countLabel: UILabel
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         imageView = UIImageView()
+        countLabel = UILabel()
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = UIColor.wmf_lightBlueTint()
+        imageView.backgroundColor = UIColor.wmf_green()
         imageView.layer.borderWidth = 2
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.clipsToBounds = true
         addSubview(imageView)
+        
+        countLabel.textColor = UIColor.white
+        countLabel.textAlignment = .center
+        countLabel.font = UIFont.preferredFont(forTextStyle: .headline)
+        addSubview(countLabel)
+        
         layoutSubviews()
         self.annotation = annotation
     }
@@ -44,6 +51,8 @@ class ArticlePlaceView: MKAnnotationView {
                             
                         })
                     }
+                } else {
+                    countLabel.text = "\(articlePlace.articles.count)"
                 }
             }
         }
@@ -52,6 +61,7 @@ class ArticlePlaceView: MKAnnotationView {
     override func prepareForReuse() {
         super.prepareForReuse()
         imageView.wmf_reset()
+        countLabel.text = nil
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -62,6 +72,7 @@ class ArticlePlaceView: MKAnnotationView {
         super.layoutSubviews()
         imageView.frame = bounds
         imageView.layer.cornerRadius = frame.size.width * 0.5
+        countLabel.frame = bounds
     }
 }
 
@@ -73,6 +84,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     var searchBar: UISearchBar!
     var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
     var annotations: [MKAnnotation] = []
+    var articles: [WMFArticle] = []
     var articleStore: WMFArticleDataStore!
     var dataStore: MWKDataStore!
     var segmentedControl: UISegmentedControl!
@@ -136,7 +148,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         if placeView == nil {
             placeView = ArticlePlaceView(annotation: place, reuseIdentifier: reuseIdentifier)
-            placeView?.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+            let dimension = (min(mapView.bounds.size.width, mapView.bounds.size.height)/8.0).rounded()
+            placeView?.frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
         } else {
             placeView?.annotation = place
         }
@@ -192,23 +205,57 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         nearbyFetcher.fetchArticles(withSiteURL: siteURL, in: region, matchingSearchTerm: searchBar.text, sortStyle: sortStyle, resultLimit: 50, completion: { (searchResults) in
             self.searching = false
-            for result in searchResults.results {
-                guard let displayTitle = result.displayTitle,
-                    let articleURL = (siteURL as NSURL).wmf_URL(withTitle: displayTitle),
-                    let article = self.articleStore?.addPreview(with: articleURL, updatedWith: result),
-                    let coordinate = article.coordinate,
-                    let articlePlace = ArticlePlace(coordinate: coordinate, articles: [article]) else {
-                    continue
-                }
-                self.addAnnotation(articlePlace)
-            }
+            self.updatePlaces(withSearchResults: searchResults.results)
         }) { (error) in
             self.wmf_showAlertWithError(error as NSError)
             self.searching = false
         }
     }
+
     
-    
+    func updatePlaces(withSearchResults searchResults: [MWKLocationSearchResult]) {
+        struct ArticleGroup {
+            var articles: [WMFArticle] = []
+            var latitudeSum: QuadKeyDegrees = 0
+            var longitudeSum: QuadKeyDegrees = 0
+        }
+        
+        let deltaLat = mapView.region.span.latitudeDelta
+        let lowestPrecision = QuadKeyPrecision(deltaLatitude: deltaLat)
+        let groupingPrecision = min(QuadKeyPrecision.maxPrecision, lowestPrecision + 2)
+        
+        var groups: [QuadKey: ArticleGroup] = [:]
+        
+        for result in searchResults {
+            guard let displayTitle = result.displayTitle,
+                let articleURL = (siteURL as NSURL).wmf_URL(withTitle: displayTitle),
+                let article = self.articleStore?.addPreview(with: articleURL, updatedWith: result),
+                let quadKey = article.quadKey else {
+                    continue
+            }
+            self.articles.append(article)
+            let adjustedQuadKey = quadKey.adjusted(downBy: QuadKeyPrecision.maxPrecision - groupingPrecision)
+            var group = groups[adjustedQuadKey] ?? ArticleGroup()
+            group.articles.append(article)
+            let coordinate = QuadKeyCoordinate(quadKey: quadKey)
+            group.latitudeSum += coordinate.latitude
+            group.longitudeSum += coordinate.longitude
+            groups[adjustedQuadKey] = group
+            
+        }
+        
+        for (_, group) in groups {
+            let articles = group.articles
+            let count = CLLocationDegrees(articles.count)
+            let latitude = CLLocationDegrees(group.latitudeSum)/count
+            let longitude = CLLocationDegrees(group.longitudeSum)/count
+            guard let place = ArticlePlace(coordinate: CLLocationCoordinate2DMake(latitude, longitude), articles: articles) else {
+                continue
+            }
+            self.addAnnotation(place)
+        }
+        
+    }
     
     
 }
