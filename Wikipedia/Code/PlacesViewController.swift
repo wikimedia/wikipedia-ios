@@ -150,15 +150,23 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         guard place.articles.count == 1 else {
+            var latitudeMin = CLLocationDegrees(90)
+            var longitudeMin = CLLocationDegrees(180)
+            var latitudeMax = CLLocationDegrees(-90)
+            var longitudeMax = CLLocationDegrees(-180)
+            for article in place.articles {
+                guard let coordinate = article.coordinate else {
+                    continue
+                }
+                latitudeMin = min(latitudeMin, coordinate.latitude)
+                longitudeMin = min(longitudeMin, coordinate.longitude)
+                latitudeMax = max(latitudeMax, coordinate.latitude)
+                longitudeMax = max(longitudeMax, coordinate.longitude)
+            }
             
-            let latitudeDelta = place.precision.deltaLatitude
-            let longitudeDelta = place.precision.deltaLongitude
-//            let coordinate = QuadKeyCoordinate(quadKey: place.quadKey, precision: place.precision)
-//            let latitude = coordinate.latitude
-//            let longitude = coordinate.longitude
-//            let centerLatitude = latitude - 0.5 * latitudeDelta
-//            let centerLongitude = longitude + 0.5 * longitudeDelta
-//            let center = CLLocationCoordinate2DMake(centerLatitude, centerLongitude)
+            //TODO: handle the wrap condition
+            let latitudeDelta = 1.3*(latitudeMax - latitudeMin)
+            let longitudeDelta = 1.3*(longitudeMax - longitudeMin)
             
             let center = place.coordinate
             let span = MKCoordinateSpanMake(latitudeDelta, longitudeDelta)
