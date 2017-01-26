@@ -2,14 +2,13 @@ import UIKit
 import MapKit
 import WMF
 
-class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate {
+class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate, ArticlePopoverViewControllerDelegate {
 
     @IBOutlet weak var redoSearchButton: UIButton!
     let nearbyFetcher = WMFLocationSearchFetcher()
     @IBOutlet weak var mapView: MKMapView!
     var searchBar: UISearchBar!
     var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
-    var annotations: [MKAnnotation] = []
     var articles: [WMFArticle] = []
     var articleStore: WMFArticleDataStore!
     var dataStore: MWKDataStore!
@@ -85,8 +84,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         let articleVC = ArticlePopoverViewController()
+        articleVC.delegate = self
         articleVC.view.tintColor = view.tintColor
         
+        articleVC.article = article
         articleVC.titleLabel.text = article.displayTitle
         articleVC.subtitleLabel.text = article.wikidataDescription
         articleVC.descriptionLabel.text = "some distance away"
@@ -109,7 +110,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         present(articleVC, animated: true) { 
             
         }
-        
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
@@ -141,13 +141,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
     }
     
+    func deselectAllAnnotations() {
+        for annotation in mapView.selectedAnnotations {
+            mapView.deselectAnnotation(annotation, animated: true)
+        }
+    }
+    
     func removeAllAnnotations() {
-        mapView.removeAnnotations(annotations)
-        annotations.removeAll(keepingCapacity: true)
+        mapView.removeAnnotations(mapView.annotations)
     }
     
     func addAnnotation(_ annotation: MKAnnotation) {
-        annotations.append(annotation)
         mapView.addAnnotation(annotation)
     }
     
@@ -260,8 +264,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     
-    // Popover
-    
+    // UIPopoverPresentationControllerDelegate
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
@@ -270,6 +273,37 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return .none
     }
     
+    func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
+        deselectAllAnnotations()
+        return true
+    }
     
+    // ArticlePopoverViewControllerDelegate
+    func articlePopoverViewController(articlePopoverViewController: ArticlePopoverViewController, didSelectAction: ArticlePopoverViewControllerAction) {
+        dismiss(animated: true, completion: {
+            
+        })
+        
+        guard let article = articlePopoverViewController.article, let url = article.url else {
+            return
+        }
+
+        switch didSelectAction {
+        case .read:
+            wmf_pushArticle(with: url, dataStore: dataStore, previewStore: articleStore, animated: true)
+            break
+        case .save:
+            dataStore.savedPageList.toggleSavedPage(for: url)
+            break
+        case .share:
+            
+            break
+        case .none:
+            fallthrough
+        default:
+            break
+        }
+
+    }
 }
 

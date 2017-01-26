@@ -59,8 +59,9 @@ class ArticlePlaceView: MKAnnotationView {
         countLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         addSubview(countLabel)
         
-        update()
         self.annotation = annotation
+        update()
+
     }
     
     func update() {

@@ -23,17 +23,22 @@ class ArticlePopoverViewController: UIViewController {
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var readButton: UIButton!
     
+    var article: WMFArticle?
+    
     override func viewDidLoad() {
         
     }
     
     @IBAction func save(_ sender: Any) {
+        delegate?.articlePopoverViewController(articlePopoverViewController: self, didSelectAction: .save)
     }
     
     @IBAction func share(_ sender: Any) {
+        delegate?.articlePopoverViewController(articlePopoverViewController: self, didSelectAction: .share)
     }
     
     @IBAction func read(_ sender: Any) {
+        delegate?.articlePopoverViewController(articlePopoverViewController: self, didSelectAction: .read)
     }
     
 }
