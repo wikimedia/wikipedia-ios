@@ -86,7 +86,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         let articleVC = ArticlePopoverViewController()
         articleVC.view.tintColor = view.tintColor
-        articleVC.preferredContentSize = CGSize(width: 300, height: 165)
+        
+        articleVC.titleLabel.text = article.displayTitle
+        articleVC.subtitleLabel.text = article.wikidataDescription
+        articleVC.descriptionLabel.text = "some distance away"
+        
+        articleVC.preferredContentSize = articleVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        
         articleVC.edgesForExtendedLayout = []
         articleVC.modalPresentationStyle = .popover
         guard let presentationController = articleVC.popoverPresentationController else {
