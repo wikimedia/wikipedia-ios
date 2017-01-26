@@ -1,6 +1,32 @@
 
 import Foundation
 
+enum WMFPasswordResetError: LocalizedError {
+    case statusNotSuccess
+    var errorDescription: String? {
+        return "Password reset did not succeed"
+    }
+}
+
+class WMFPasswordResetResult: MTLModel, MTLJSONSerializing {
+    var status: String?
+    public static func jsonKeyPathsByPropertyKey() -> [AnyHashable : Any]!{
+        return [
+            "status": "status"
+        ]
+    }
+    
+    private func validateSuccessStatus() throws {
+        guard let status = status, status == "success" else {
+            throw WMFPasswordResetError.statusNotSuccess
+        }
+    }
+    
+    override func validate() throws {
+        try validateSuccessStatus()
+    }
+}
+
 class WMFPasswordResetter {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
     
@@ -11,9 +37,13 @@ class WMFPasswordResetter {
     public func resetPassword(siteURL: URL, token: String, userName:String?, email:String?, completion: WMFURLSessionDataTaskSuccessHandler, failure: WMFURLSessionDataTaskFailureHandler){
         
         let manager = AFHTTPSessionManager(baseURL: siteURL)
-        manager.responseSerializer = WMFPasswordResetterResponseSerializer()
+        manager.responseSerializer = WMFMantleJSONResponseSerializer.init(forInstancesOf: WMFPasswordResetResult.self, fromKeypath: "resetpassword")
         
-        var parameters = ["action": "resetpassword", "token": token, "format": "json"];
+        var parameters = [
+            "action": "resetpassword",
+            "token": token,
+            "format": "json"
+        ];
         
         if let userName = userName {
             parameters["user"] = userName
@@ -24,33 +54,5 @@ class WMFPasswordResetter {
         }
         
         manager.post("/w/api.php", parameters: parameters, progress: nil, success: completion, failure: failure)
-    }
-}
-
-internal class WMFPasswordResetterResponseSerializer: AFJSONResponseSerializer {
-    override func responseObject(for response: URLResponse?, data: Data?, error: NSErrorPointer) -> Any? {
-        
-        guard let responseDict = super.responseObject(for: response, data: data, error: error) as? [String: AnyObject] else {
-            if error?.pointee == nil {
-                error?.pointee = WMFAPIResponseError.noResponseDictionary as NSError
-            }
-            return nil
-        }
-
-        guard let resetPasswordStatus = responseDict.wmf_apiResponse(.resetPasswordStatus) else {
-            guard let errorInfo = responseDict.wmf_apiResponse(.errorInfo) else {
-                error?.pointee = WMFAPIResponseError.dictionaryWithoutErrorInfo as NSError
-                return nil
-            }
-            error?.pointee = WMFAPIResponseError.dictionaryWithErrorInfo(errorInfo) as NSError
-            return nil
-        }
-        
-        guard resetPasswordStatus == "success" else {
-            error?.pointee = WMFAPIResponseError.dictionaryWithErrorInfo("Unexpected reset password status '\(resetPasswordStatus)'") as NSError
-            return nil
-        }
-        
-        return resetPasswordStatus
     }
 }

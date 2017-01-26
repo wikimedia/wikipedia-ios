@@ -12,7 +12,7 @@ class ForgotPasswordViewController: UIViewController {
     @IBOutlet fileprivate var emailTextField: UITextField!
     @IBOutlet fileprivate var resetButton: UIButton!
     
-    let tokenFetcher = WMFTokenFetcher()
+    let tokensFetcher = WMFTokensFetcher()
     let passwordResetter = WMFPasswordResetter()
 
     override func viewDidLoad() {
@@ -51,10 +51,11 @@ class ForgotPasswordViewController: UIViewController {
         }
         
         let tokenFetcherSuccessHandler: WMFURLSessionDataTaskSuccessHandler = {
-            (_, token: Any?) in
+            (_, tokens: Any) in
+            let tokens = tokens as! WMFApiTokens
             self.passwordResetter.resetPassword(
                 siteURL: siteURL,
-                token: token as! String,
+                token: tokens.csrf!,
                 userName: userName,
                 email: email,
                 completion: passwordResetterSuccessHandler,
@@ -62,8 +63,8 @@ class ForgotPasswordViewController: UIViewController {
             )
         }
         
-        tokenFetcher.fetchToken(
-            token: .csrf,
+        tokensFetcher.fetchTokens(
+            tokens: [.csrf],
             siteURL: siteURL,
             completion: tokenFetcherSuccessHandler,
             failure: failureHandler
