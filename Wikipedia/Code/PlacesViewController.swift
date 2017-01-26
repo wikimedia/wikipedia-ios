@@ -84,7 +84,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 return
         }
         
-        let articleVC = WMFArticleViewController(articleURL: url, dataStore: dataStore, previewStore: articleStore)
+        let articleVC = ArticlePopoverViewController()
+        articleVC.preferredContentSize = CGSize(width: 300, height: 165)
         articleVC.edgesForExtendedLayout = []
         articleVC.modalPresentationStyle = .popover
         guard let presentationController = articleVC.popoverPresentationController else {

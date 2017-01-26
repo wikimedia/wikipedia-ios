@@ -549,6 +549,8 @@
 		D820F78F1DD0F89700806045 /* PageViews.json in Resources */ = {isa = PBXBuildFile; fileRef = D820F78E1DD0F89700806045 /* PageViews.json */; };
 		D820F7911DD1003900806045 /* MCSFeedTopReadNewsItem.json in Resources */ = {isa = PBXBuildFile; fileRef = D820F7901DD1003900806045 /* MCSFeedTopReadNewsItem.json */; };
 		D82972831E3950100061550A /* ArticlePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82972821E3950100061550A /* ArticlePlace.swift */; };
+		D82972881E3A49980061550A /* ArticlePopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82972861E3A49980061550A /* ArticlePopoverViewController.swift */; };
+		D82972891E3A49980061550A /* ArticlePopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D82972871E3A49980061550A /* ArticlePopoverViewController.xib */; };
 		D82F601C1D6CE10400388574 /* FetcherBase.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E806381C0CE7B00065EBC0 /* FetcherBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D82F601D1D6CE10800388574 /* FetcherBase.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806391C0CE7B00065EBC0 /* FetcherBase.m */; };
 		D82FDADA1DF0A99E00DDF311 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAD91DF0A99E00DDF311 /* AFNetworking.framework */; };
@@ -2269,6 +2271,8 @@
 		D820F78E1DD0F89700806045 /* PageViews.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PageViews.json; sourceTree = "<group>"; };
 		D820F7901DD1003900806045 /* MCSFeedTopReadNewsItem.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MCSFeedTopReadNewsItem.json; sourceTree = "<group>"; };
 		D82972821E3950100061550A /* ArticlePlace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticlePlace.swift; sourceTree = "<group>"; };
+		D82972861E3A49980061550A /* ArticlePopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticlePopoverViewController.swift; sourceTree = "<group>"; };
+		D82972871E3A49980061550A /* ArticlePopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticlePopoverViewController.xib; sourceTree = "<group>"; };
 		D82FDAD91DF0A99E00DDF311 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/iOS/AFNetworking.framework; sourceTree = SOURCE_ROOT; };
 		D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = SOURCE_ROOT; };
 		D82FDAF41DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = Carthage/Build/iOS/CocoaLumberjackSwift.framework; sourceTree = SOURCE_ROOT; };
@@ -5549,6 +5553,8 @@
 		D87233FC1E1FF05800751E83 /* Places */ = {
 			isa = PBXGroup;
 			children = (
+				D82972861E3A49980061550A /* ArticlePopoverViewController.swift */,
+				D82972871E3A49980061550A /* ArticlePopoverViewController.xib */,
 				D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */,
 				D82972821E3950100061550A /* ArticlePlace.swift */,
 				D87234031E1FF18100751E83 /* Places.storyboard */,
@@ -6384,6 +6390,7 @@
 				D8D92B6A1DF22E1700B95311 /* TSMessagesDefaultDesign.json in Resources */,
 				B0B4CF0C1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib in Resources */,
 				D8D270371D75D45B00D093A8 /* WMFArticleListTableViewCell.xib in Resources */,
+				D82972891E3A49980061550A /* ArticlePopoverViewController.xib in Resources */,
 				0E69CD5B1C8773410095918B /* Launch Screen.storyboard in Resources */,
 				B0E804121C0CDE480065EBC0 /* PreviewAndSaveViewController.storyboard in Resources */,
 				D8D92B641DF22E1700B95311 /* NotificationBackgroundWarning.png in Resources */,
@@ -6908,6 +6915,7 @@
 				B0E8037D1C0CD9E10065EBC0 /* TableOfContentsReadMoreItem.swift in Sources */,
 				D84F2C031D30162700963D42 /* WMFFirstRandomViewController.m in Sources */,
 				B0E803F71C0CDDA80065EBC0 /* WMFIntrinsicSizeTableView.m in Sources */,
+				D82972881E3A49980061550A /* ArticlePopoverViewController.swift in Sources */,
 				B0E8073E1C0CED810065EBC0 /* WMFLogFormatter.m in Sources */,
 				0E61C4881CD00984000B11B3 /* WMFHelpViewController.m in Sources */,
 				B0E804DA1C0CE0B40065EBC0 /* NSString+FormattedAttributedString.m in Sources */,
