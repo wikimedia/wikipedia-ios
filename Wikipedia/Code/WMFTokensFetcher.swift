@@ -1,7 +1,7 @@
 
 import Foundation
 
-enum WMFApiToken: String {
+enum WMFAPIToken: String {
     case csrf, login, createaccount
 }
 
@@ -12,7 +12,7 @@ enum WMFZeroLengthStringError: LocalizedError {
     }
 }
 
-class WMFApiTokens: MTLModel, MTLJSONSerializing {
+class WMFAPITokens: MTLModel, MTLJSONSerializing {
     var csrf: String?
     var login: String?
     var createaccount: String?
@@ -46,10 +46,10 @@ class WMFTokensFetcher {
         return manager!.operationQueue.operationCount > 0
     }
     
-    func fetchTokens(tokens: [WMFApiToken], siteURL: URL, completion: WMFURLSessionDataTaskSuccessHandler, failure: WMFURLSessionDataTaskFailureHandler){
+    func fetchTokens(tokens: [WMFAPIToken], siteURL: URL, completion: WMFURLSessionDataTaskSuccessHandler, failure: WMFURLSessionDataTaskFailureHandler){
         let manager = AFHTTPSessionManager(baseURL: siteURL)
         
-        manager.responseSerializer = WMFMantleJSONResponseSerializer.init(forInstancesOf: WMFApiTokens.self, fromKeypath: "query.tokens")
+        manager.responseSerializer = WMFMantleJSONResponseSerializer.init(forInstancesOf: WMFAPITokens.self, fromKeypath: "query.tokens")
         
         let params = [
             "action": "query",

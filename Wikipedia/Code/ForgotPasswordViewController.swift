@@ -52,7 +52,7 @@ class ForgotPasswordViewController: UIViewController {
         
         let tokenFetcherSuccessHandler: WMFURLSessionDataTaskSuccessHandler = {
             (_, tokens: Any) in
-            let tokens = tokens as! WMFApiTokens
+            let tokens = tokens as! WMFAPITokens
             self.passwordResetter.resetPassword(
                 siteURL: siteURL,
                 token: tokens.csrf!,
