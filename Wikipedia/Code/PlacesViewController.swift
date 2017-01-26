@@ -85,6 +85,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         let articleVC = ArticlePopoverViewController()
+        articleVC.view.tintColor = view.tintColor
         articleVC.preferredContentSize = CGSize(width: 300, height: 165)
         articleVC.edgesForExtendedLayout = []
         articleVC.modalPresentationStyle = .popover

@@ -11,6 +11,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ArticlePopoverViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
+                <outlet property="descriptionLabel" destination="klq-SJ-pvp" id="Ija-mT-2as"/>
+                <outlet property="readButton" destination="hYh-TI-bsl" id="UNP-7S-YGd"/>
+                <outlet property="saveButton" destination="GYm-b5-xDD" id="qsO-g1-sHp"/>
+                <outlet property="shareButton" destination="aTL-Re-doV" id="fLt-2C-yxz"/>
+                <outlet property="subtitleLabel" destination="Hkk-X5-bAA" id="2oe-FH-mxS"/>
+                <outlet property="titleLabel" destination="rjY-is-qJD" id="M3B-Z5-sPp"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -53,8 +59,45 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nxC-vP-z1C">
-                    <rect key="frame" x="0.0" y="115" width="300" height="50"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <rect key="frame" x="0.0" y="114.5" width="300" height="50.5"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Hcw-WG-NzJ">
+                            <rect key="frame" x="0.0" y="0.0" width="300" height="51"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GYm-b5-xDD">
+                                    <rect key="frame" x="0.0" y="0.0" width="99.5" height="51"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <state key="normal" title="Save"/>
+                                    <connections>
+                                        <action selector="save:" destination="-1" eventType="touchUpInside" id="sB7-BI-rxt"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aTL-Re-doV">
+                                    <rect key="frame" x="100.5" y="0.0" width="99" height="51"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <state key="normal" title="Share"/>
+                                    <connections>
+                                        <action selector="share:" destination="-1" eventType="touchUpInside" id="3Kb-L8-V07"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYh-TI-bsl">
+                                    <rect key="frame" x="200.5" y="0.0" width="99.5" height="51"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <state key="normal" title="Read &gt;"/>
+                                    <connections>
+                                        <action selector="read:" destination="-1" eventType="touchUpInside" id="jz5-xx-qWg"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="Hcw-WG-NzJ" secondAttribute="bottom" id="CmN-k0-JEh"/>
+                        <constraint firstItem="Hcw-WG-NzJ" firstAttribute="leading" secondItem="nxC-vP-z1C" secondAttribute="leading" id="Gyi-s5-9bY"/>
+                        <constraint firstItem="Hcw-WG-NzJ" firstAttribute="top" secondItem="nxC-vP-z1C" secondAttribute="top" id="eCd-Eq-rB4"/>
+                        <constraint firstAttribute="trailing" secondItem="Hcw-WG-NzJ" secondAttribute="trailing" id="n6F-uf-PKQ"/>
+                    </constraints>
                 </view>
             </subviews>
             <constraints>
