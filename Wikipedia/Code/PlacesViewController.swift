@@ -1,6 +1,7 @@
 import UIKit
 import MapKit
 import WMF
+import TUSafariActivity
 
 class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate, ArticlePopoverViewControllerDelegate {
 
@@ -296,7 +297,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             dataStore.savedPageList.toggleSavedPage(for: url)
             break
         case .share:
-            
+            let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: [TUSafariActivity()])
+            present(activityVC, animated: true, completion: nil)
             break
         case .none:
             fallthrough
