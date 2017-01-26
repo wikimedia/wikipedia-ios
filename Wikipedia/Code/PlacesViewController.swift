@@ -197,9 +197,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
-        let precisionHalfDeltaLat = 0.5 * groupingPrecision.deltaLatitude
-        let precisionHalfDeltaLon = 0.5 * groupingPrecision.deltaLongitude
-        
         removeAllAnnotations()
         
         var groups: [QuadKey: ArticleGroup] = [:]
