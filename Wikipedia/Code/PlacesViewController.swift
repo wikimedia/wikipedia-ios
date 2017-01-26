@@ -72,7 +72,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let latitudeDelta = 1.3*(latitudeMax - latitudeMin)
             let longitudeDelta = 1.3*(longitudeMax - longitudeMin)
             
-            let center = place.coordinate
+            let center = place.averageArticleCoordinate
             let span = MKCoordinateSpanMake(latitudeDelta, longitudeDelta)
             let region = MKCoordinateRegionMake(center , span)
             mapView.setRegion(region, animated: true)
@@ -218,15 +218,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         for (quadKey, group) in groups {
             let articles = group.articles
             let count = CLLocationDegrees(articles.count)
-            var latitude = CLLocationDegrees(group.latitudeSum)/count
-            var longitude = CLLocationDegrees(group.longitudeSum)/count
+            let averageLatitude = CLLocationDegrees(group.latitudeSum)/count
+            let averageLongitude = CLLocationDegrees(group.longitudeSum)/count
+            var latitude = averageLatitude
+            var longitude = averageLongitude
             if articles.count > 1 {
                 //cheat coordinate towards the center of the quadKey
                 let quadKeyCoordinate = QuadKeyCoordinate(quadKey: quadKey, precision: groupingPrecision)
                 latitude = 0.5 * (latitude + quadKeyCoordinate.centerLatitude)
                 longitude = 0.5 * (longitude + quadKeyCoordinate.centerLongitude)
             }
-            guard let place = ArticlePlace(coordinate: CLLocationCoordinate2DMake(latitude, longitude), quadKey: quadKey, precision: groupingPrecision, articles: articles) else {
+            guard let place = ArticlePlace(coordinate: CLLocationCoordinate2DMake(latitude, longitude), averageArticleCoordinate: CLLocationCoordinate2DMake(averageLatitude, averageLongitude), quadKey: quadKey, precision: groupingPrecision, articles: articles) else {
                 continue
             }
             addAnnotation(place)
