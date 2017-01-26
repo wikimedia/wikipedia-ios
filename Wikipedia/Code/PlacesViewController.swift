@@ -80,7 +80,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         guard let article = place.articles.first,
-            let url = article.url else {
+            let url = article.url,
+            let coordinate = article.coordinate else {
                 return
         }
         
@@ -91,7 +92,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         articleVC.article = article
         articleVC.titleLabel.text = article.displayTitle
         articleVC.subtitleLabel.text = article.wikidataDescription
-        articleVC.descriptionLabel.text = "some distance away"
+        
+        let articleLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        let userCoordinate = mapView.userLocation.coordinate
+        let userLocation = CLLocation(latitude: userCoordinate.latitude, longitude: userCoordinate.longitude)
+        
+        let distance = articleLocation.distance(from: userLocation)
+        let distanceString = MKDistanceFormatter().string(fromDistance: distance)
+        articleVC.descriptionLabel.text = distanceString
         
         articleVC.preferredContentSize = articleVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
         
