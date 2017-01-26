@@ -30,10 +30,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: segmentedControl)
         
+        mapView.showsPointsOfInterest = false
         mapView.setUserTrackingMode(.follow, animated: true)
         searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 32))
         navigationItem.titleView = searchBar
         searchBar.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        deselectAllAnnotations()
     }
 
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
