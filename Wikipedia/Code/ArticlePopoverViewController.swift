@@ -23,10 +23,22 @@ class ArticlePopoverViewController: UIViewController {
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var readButton: UIButton!
     
+    @IBOutlet weak var articleSummaryView: UIView!
+    
     var article: WMFArticle?
     
     override func viewDidLoad() {
-        
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+        articleSummaryView.addGestureRecognizer(tapGR)
+    }
+    
+    func handleTapGesture(_ tapGR: UITapGestureRecognizer) {
+        switch tapGR.state {
+        case .recognized:
+            delegate?.articlePopoverViewController(articlePopoverViewController: self, didSelectAction: .read)
+        default:
+            break
+        }
     }
     
     @IBAction func save(_ sender: Any) {

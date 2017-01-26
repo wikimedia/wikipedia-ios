@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ArticlePopoverViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
+                <outlet property="articleSummaryView" destination="azY-0z-TnI" id="W0f-lA-LFe"/>
                 <outlet property="descriptionLabel" destination="klq-SJ-pvp" id="Ija-mT-2as"/>
                 <outlet property="readButton" destination="hYh-TI-bsl" id="UNP-7S-YGd"/>
                 <outlet property="saveButton" destination="GYm-b5-xDD" id="qsO-g1-sHp"/>
