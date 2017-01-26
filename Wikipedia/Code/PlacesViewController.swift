@@ -197,6 +197,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
+        let precisionHalfDeltaLat = 0.5 * groupingPrecision.deltaLatitude
+        let precisionHalfDeltaLon = 0.5 * groupingPrecision.deltaLongitude
+        
         removeAllAnnotations()
         
         var groups: [QuadKey: ArticleGroup] = [:]
@@ -217,8 +220,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         for (quadKey, group) in groups {
             let articles = group.articles
             let count = CLLocationDegrees(articles.count)
-            let latitude = CLLocationDegrees(group.latitudeSum)/count
-            let longitude = CLLocationDegrees(group.longitudeSum)/count
+            var latitude = CLLocationDegrees(group.latitudeSum)/count
+            var longitude = CLLocationDegrees(group.longitudeSum)/count
+            if articles.count > 1 {
+                //cheat coordinate towards the center of the quadKey
+                let quadKeyCoordinate = QuadKeyCoordinate(quadKey: quadKey, precision: groupingPrecision)
+                latitude = 0.5 * (latitude + quadKeyCoordinate.centerLatitude)
+                longitude = 0.5 * (longitude + quadKeyCoordinate.centerLongitude)
+            }
             guard let place = ArticlePlace(coordinate: CLLocationCoordinate2DMake(latitude, longitude), quadKey: quadKey, precision: groupingPrecision, articles: articles) else {
                 continue
             }

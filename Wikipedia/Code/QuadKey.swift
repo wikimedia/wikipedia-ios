@@ -258,6 +258,20 @@ public struct QuadKeyCoordinate {
             return precision < QuadKeyPrecision.maxPrecision ? longitudePart.longitude(atPrecision: precision) : longitudePart.longitude
         }
     }
+    
+    public var centerLatitude: QuadKeyDegrees {
+        get {
+            let halfDeltaLatitude = 0.5 * precision.deltaLatitude
+            return latitude - halfDeltaLatitude
+        }
+    }
+    
+    public var centerLongitude: QuadKeyDegrees {
+        get {
+            let halfDeltaLongitude = 0.5 * precision.deltaLongitude
+            return longitude + halfDeltaLongitude
+        }
+    }
 }
 
 public struct QuadKeyBounds {
