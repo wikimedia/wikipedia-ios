@@ -3,6 +3,20 @@ import MapKit
 import WMF
 import TUSafariActivity
 
+enum PlaceSearchType {
+    case text
+    case location
+    case top
+    case saved
+}
+
+struct PlaceSearch {
+    let type: PlaceSearchType
+    let string: String?
+    let region: CLCircularRegion?
+}
+
+
 class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate, ArticlePopoverViewControllerDelegate {
 
     @IBOutlet weak var redoSearchButton: UIButton!
@@ -16,6 +30,20 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     var segmentedControl: UISegmentedControl!
     
     var currentGroupingPrecision: QuadKeyPrecision = 1
+    
+    var currentSearch: PlaceSearch? {
+        didSet {
+            if let search = currentSearch {
+                switch search.type {
+                case .top:
+                    searchBar.text = localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby")
+                default:
+                    break
+                }
+                performSearch(search)
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +51,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         //Override UINavigationBar.appearance settings from WMFStyleManager
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.tintColor = nil
-        segmentedControl = UISegmentedControl(items: ["Default", "PageViews", "Links"])
+        segmentedControl = UISegmentedControl(items: ["M", "L"])
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
         segmentedControl.tintColor = UIColor.wmf_blueTint()
@@ -33,6 +61,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         mapView.showsPointsOfInterest = false
         mapView.setUserTrackingMode(.follow, animated: true)
         searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 32))
+        //searchBar.keyboardType = .webSearch
+        searchBar.text = localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby")
+        searchBar.returnKeyType = .search
         navigationItem.titleView = searchBar
         searchBar.delegate = self
     }
@@ -48,6 +79,15 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         regroupArticlesIfNecessary()
+        
+        if currentSearch == nil {
+            currentSearch = PlaceSearch(type: .top, string: nil, region: nil)
+        }
+        
+        guard let _ = presentedViewController else {
+            return
+        }
+        dismiss(animated: false, completion: nil)
     }
     
     func segmentedControlChanged() {
@@ -121,14 +161,27 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         presentationController.canOverlapSourceViewRect = false
         presentationController.permittedArrowDirections = .any
         presentationController.delegate = self
+        presentationController.passthroughViews = [mapView]
         
-        present(articleVC, animated: true) { 
-            
+        if let _ = presentedViewController {
+            dismiss(animated: false, completion: {
+                self.present(articleVC, animated: false) {
+                    
+                }
+            })
+        } else {
+            present(articleVC, animated: false) {
+                
+            }
         }
+
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        
+        guard let _ = presentedViewController else {
+            return
+        }
+        dismiss(animated: false, completion: nil)
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
@@ -176,37 +229,57 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    @IBAction func redoSearch(_ sender: Any) {
+    var currentlyVisibleCircularCoordinateRegion: CLCircularRegion {
+        get {
+            let center = mapView.region.center
+            let mapRect = mapView.visibleMapRect
+            let metersPerMapPoint = MKMetersPerMapPointAtLatitude(center.latitude)
+            let widthInMeters = mapRect.size.width * metersPerMapPoint
+            let heightInMeters =  mapRect.size.height * metersPerMapPoint
+            let radius = min(widthInMeters, heightInMeters)
+            return CLCircularRegion(center: center, radius: radius, identifier: "")
+        }
+    }
+    
+    func performSearch(_ search: PlaceSearch) {
         guard !searching else {
             return
         }
         searching = true
-        let center = mapView.region.center
-        let mapRect = mapView.visibleMapRect
-        let metersPerMapPoint = MKMetersPerMapPointAtLatitude(center.latitude)
-        let widthInMeters = mapRect.size.width * metersPerMapPoint
-        let heightInMeters =  mapRect.size.height * metersPerMapPoint
-        let radius = min(widthInMeters, heightInMeters)
-        let region = CLCircularRegion(center: center, radius: radius, identifier: "")
+        
+        
         let siteURL = self.siteURL
+        
+        
+        var searchTerm: String? = nil
         var sortStyle = WMFLocationSearchSortStyleNone
-        switch segmentedControl.selectedSegmentIndex {
-        case 1:
+        let region = search.region ?? currentlyVisibleCircularCoordinateRegion
+        
+        switch search.type {
+        case .top:
             sortStyle = WMFLocationSearchSortStylePageViews
-        case 2:
-            sortStyle = WMFLocationSearchSortStyleLinks
-        case 0:
+        case .location:
+            fallthrough
+        case .text:
             fallthrough
         default:
-            break
+            searchTerm = search.string
         }
-        nearbyFetcher.fetchArticles(withSiteURL: siteURL, in: region, matchingSearchTerm: searchBar.text, sortStyle: sortStyle, resultLimit: 50, completion: { (searchResults) in
+        
+        nearbyFetcher.fetchArticles(withSiteURL: siteURL, in: region, matchingSearchTerm: searchTerm, sortStyle: sortStyle, resultLimit: 50, completion: { (searchResults) in
             self.searching = false
             self.updatePlaces(withSearchResults: searchResults.results)
         }) { (error) in
             self.wmf_showAlertWithError(error as NSError)
             self.searching = false
         }
+    }
+    
+    @IBAction func redoSearch(_ sender: Any) {
+        guard let search = currentSearch else {
+            return
+        }
+        performSearch(search)
     }
 
     func regroupArticlesIfNecessary() {
@@ -320,6 +393,20 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             break
         }
 
+    }
+    
+    //UISearchBarDelegate
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        currentSearch = PlaceSearch(type: .text, string: searchBar.text, region: nil)
     }
 }
 
