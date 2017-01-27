@@ -173,18 +173,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         presentationController.delegate = self
         presentationController.passthroughViews = [mapView]
         
-        if let _ = presentedViewController {
-            dismiss(animated: false, completion: {
-                self.present(articleVC, animated: false) {
-                    
-                }
-            })
-        } else {
-            present(articleVC, animated: false) {
-                
-            }
+        present(articleVC, animated: false) {
+            
         }
-
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
