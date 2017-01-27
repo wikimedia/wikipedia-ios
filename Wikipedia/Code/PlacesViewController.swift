@@ -351,12 +351,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 for n in -1...1 {
                     let adjacentLatitude = location.coordinate.latitude + CLLocationDegrees(t)*groupingDeltaLatitude
                     let adjacentLongitude = location.coordinate.longitude + CLLocationDegrees(n)*groupingDeltaLongitude
+                    
                     let adjacentQuadKey = QuadKey(latitude: adjacentLatitude, longitude: adjacentLongitude)
                     let adjustedQuadKey = adjacentQuadKey.adjusted(downBy: QuadKeyPrecision.maxPrecision - groupingPrecision)
-                    guard adjustedQuadKey != quadKey, let adjacentGroup = groups[adjustedQuadKey] else {
+                    guard adjustedQuadKey != quadKey, let adjacentGroup = groups[adjustedQuadKey], adjacentGroup.articles.count > 1 || group.articles.count > 1 else {
                         continue
                     }
-                    
                     let distance = adjacentGroup.location.distance(from: location)
                     if distance < groupingDistance {
                         group.articles.append(contentsOf: adjacentGroup.articles)
