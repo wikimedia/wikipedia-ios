@@ -305,11 +305,15 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
+        guard let search = currentSearch else {
+            return
+        }
+        
         let groupingDeltaLatitude = groupingPrecision.deltaLatitude
         let groupingDeltaLongitude = groupingPrecision.deltaLongitude
         
-        let centerLat = mapView.region.center.latitude
-        let centerLon = mapView.region.center.longitude
+        let centerLat = search.region.center.latitude
+        let centerLon = search.region.center.longitude
         let groupingDistanceLocation = CLLocation(latitude:centerLat + groupingDeltaLatitude, longitude: centerLon + groupingDeltaLongitude)
         let centerLocation = CLLocation(latitude:centerLat, longitude: centerLon)
         let groupingDistance = groupingDistanceLocation.distance(from: centerLocation)
