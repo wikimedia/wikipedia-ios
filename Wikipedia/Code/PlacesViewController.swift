@@ -13,7 +13,7 @@ enum PlaceSearchType {
 struct PlaceSearch {
     let type: PlaceSearchType
     let string: String?
-    let region: CLCircularRegion?
+    let region: CLCircularRegion
 }
 
 
@@ -44,10 +44,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
         }
     }
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.tintColor = UIColor.wmf_blueTint()
+        redoSearchButton.backgroundColor = view.tintColor
+        
         //Override UINavigationBar.appearance settings from WMFStyleManager
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.tintColor = nil
@@ -80,8 +84,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         regroupArticlesIfNecessary()
         
-        if currentSearch == nil {
-            currentSearch = PlaceSearch(type: .top, string: nil, region: nil)
+        let visibleRegion = currentlyVisibleCircularCoordinateRegion
+        
+        if let search = currentSearch {
+            let distance = CLLocation(latitude: visibleRegion.center.latitude, longitude: visibleRegion.center.longitude).distance(from: CLLocation(latitude: search.region.center.latitude, longitude: search.region.center.longitude))
+            let radiusRatio = visibleRegion.radius/search.region.radius
+            redoSearchButton.isHidden = !(radiusRatio > 1.33 || radiusRatio < 0.67 || distance/search.region.radius > 0.33)
+        } else {
+            currentSearch = PlaceSearch(type: .top, string: nil, region: visibleRegion)
         }
         
         guard let _ = presentedViewController else {
@@ -253,7 +263,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         var searchTerm: String? = nil
         var sortStyle = WMFLocationSearchSortStyleNone
-        let region = search.region ?? currentlyVisibleCircularCoordinateRegion
+        let region = search.region
         
         switch search.type {
         case .top:
@@ -279,7 +289,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         guard let search = currentSearch else {
             return
         }
-        performSearch(search)
+        currentSearch = PlaceSearch(type: search.type, string: search.string, region: currentlyVisibleCircularCoordinateRegion)
+        redoSearchButton.isHidden = true
     }
 
     func regroupArticlesIfNecessary() {
@@ -406,7 +417,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        currentSearch = PlaceSearch(type: .text, string: searchBar.text, region: nil)
+        currentSearch = PlaceSearch(type: .text, string: searchBar.text, region: currentlyVisibleCircularCoordinateRegion)
     }
 }
 

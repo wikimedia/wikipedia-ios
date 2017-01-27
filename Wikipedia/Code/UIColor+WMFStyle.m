@@ -181,7 +181,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        c = [UIColor colorWithHue:0.611 saturation:0.75 brightness:0.8 alpha:1];
+        c = [UIColor colorWithRed:51.0/255.0 green:102.0/255.0 blue:204.0/255.0 alpha:1.0];
     });
     return c;
 }
