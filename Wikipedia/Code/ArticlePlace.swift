@@ -17,21 +17,15 @@ class DebugAnnotation: NSObject, MKAnnotation {
 
 class ArticlePlace: NSObject, MKAnnotation {
     public let coordinate: CLLocationCoordinate2D
-    public let averageArticleCoordinate: CLLocationCoordinate2D
     public let title: String?
     public let subtitle: String?
     public let articles: [WMFArticle]
-    public let quadKey: QuadKey
-    public let precision: QuadKeyPrecision
     
-    init?(coordinate: CLLocationCoordinate2D, averageArticleCoordinate: CLLocationCoordinate2D, quadKey: QuadKey, precision: QuadKeyPrecision, articles: [WMFArticle]) {
+    init?(coordinate: CLLocationCoordinate2D, articles: [WMFArticle]) {
         self.title = nil
         self.subtitle = nil
-        self.averageArticleCoordinate = averageArticleCoordinate
-        self.quadKey = quadKey
         self.coordinate = coordinate
         self.articles = articles
-        self.precision = precision
     }
 }
 

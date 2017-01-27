@@ -128,7 +128,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let latitudeDelta = 1.3*(latitudeMax - latitudeMin)
             let longitudeDelta = 1.3*(longitudeMax - longitudeMin)
             
-            let center = place.averageArticleCoordinate
+            let center = place.coordinate
             let span = MKCoordinateSpanMake(latitudeDelta, longitudeDelta)
             let region = MKCoordinateRegionMake(center , span)
             mapView.setRegion(region, animated: true)
@@ -298,12 +298,21 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             var articles: [WMFArticle] = []
             var latitudeSum: QuadKeyDegrees = 0
             var longitudeSum: QuadKeyDegrees = 0
+            
+            var location: CLLocation {
+                get {
+                    return CLLocation(latitude: latitudeSum/CLLocationDegrees(articles.count), longitude: longitudeSum/CLLocationDegrees(articles.count))
+                }
+            }
         }
         
         let deltaLat = mapView.region.span.latitudeDelta
         let lowestPrecision = QuadKeyPrecision(deltaLatitude: deltaLat)
         let groupingPrecision = min(QuadKeyPrecision.maxPrecision, lowestPrecision + 4)
         
+        let groupingDeltaLatitude = groupingPrecision.deltaLatitude
+        let groupingDeltaLongitude = groupingPrecision.deltaLongitude
+        let groupingDistance = currentlyVisibleCircularCoordinateRegion.radius / 10.0
         guard groupingPrecision != currentGroupingPrecision else {
             return
         }
@@ -325,20 +334,34 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             groups[adjustedQuadKey] = group
         }
         
-        for (quadKey, group) in groups {
-            let articles = group.articles
-            let count = CLLocationDegrees(articles.count)
-            let averageLatitude = CLLocationDegrees(group.latitudeSum)/count
-            let averageLongitude = CLLocationDegrees(group.longitudeSum)/count
-            var latitude = averageLatitude
-            var longitude = averageLongitude
-            if articles.count > 1 {
-                //cheat coordinate towards the center of the quadKey
-                let quadKeyCoordinate = QuadKeyCoordinate(quadKey: quadKey, precision: groupingPrecision)
-                latitude = 0.5 * (latitude + quadKeyCoordinate.centerLatitude)
-                longitude = 0.5 * (longitude + quadKeyCoordinate.centerLongitude)
+        let keys = groups.keys
+        
+        for quadKey in keys {
+            guard var group = groups[quadKey] else {
+                continue
             }
-            guard let place = ArticlePlace(coordinate: CLLocationCoordinate2DMake(latitude, longitude), averageArticleCoordinate: CLLocationCoordinate2DMake(averageLatitude, averageLongitude), quadKey: quadKey, precision: groupingPrecision, articles: articles) else {
+            let location = group.location
+            for t in -1...1 {
+                for n in -1...1 {
+                    let adjacentLatitude = location.coordinate.latitude + CLLocationDegrees(t)*groupingDeltaLatitude
+                    let adjacentLongitude = location.coordinate.longitude + CLLocationDegrees(n)*groupingDeltaLongitude
+                    let adjacentQuadKey = QuadKey(latitude: adjacentLatitude, longitude: adjacentLongitude)
+                    let adjustedQuadKey = adjacentQuadKey.adjusted(downBy: QuadKeyPrecision.maxPrecision - groupingPrecision)
+                    guard adjustedQuadKey != quadKey, let adjacentGroup = groups[adjustedQuadKey] else {
+                        continue
+                    }
+                    
+                    let distance = adjacentGroup.location.distance(from: location)
+                    if distance < groupingDistance {
+                        group.articles.append(contentsOf: adjacentGroup.articles)
+                        group.latitudeSum += adjacentGroup.latitudeSum
+                        group.longitudeSum += adjacentGroup.longitudeSum
+                        groups.removeValue(forKey: adjustedQuadKey)
+                    }
+                }
+            }
+            
+            guard let place = ArticlePlace(coordinate: group.location.coordinate, articles: group.articles) else {
                 continue
             }
             addAnnotation(place)
