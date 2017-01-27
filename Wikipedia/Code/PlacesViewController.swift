@@ -297,9 +297,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
         }
         
-        let deltaLat = mapView.region.span.latitudeDelta
-        let lowestPrecision = QuadKeyPrecision(deltaLatitude: deltaLat)
-        let groupingPrecision = min(QuadKeyPrecision.maxPrecision, lowestPrecision + 4)
+        let deltaLon = mapView.region.span.longitudeDelta
+        let lowestPrecision = QuadKeyPrecision(deltaLongitude: deltaLon)
+        let groupingPrecision = min(QuadKeyPrecision.maxPrecision, lowestPrecision + 3)
         
         guard groupingPrecision != currentGroupingPrecision else {
             return
