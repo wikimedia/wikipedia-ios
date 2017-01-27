@@ -310,12 +310,18 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let lowestPrecision = QuadKeyPrecision(deltaLatitude: deltaLat)
         let groupingPrecision = min(QuadKeyPrecision.maxPrecision, lowestPrecision + 4)
         
-        let groupingDeltaLatitude = groupingPrecision.deltaLatitude
-        let groupingDeltaLongitude = groupingPrecision.deltaLongitude
-        let groupingDistance = currentlyVisibleCircularCoordinateRegion.radius / 10.0
         guard groupingPrecision != currentGroupingPrecision else {
             return
         }
+        
+        let groupingDeltaLatitude = groupingPrecision.deltaLatitude
+        let groupingDeltaLongitude = groupingPrecision.deltaLongitude
+        
+        let centerLat = mapView.region.center.latitude
+        let centerLon = mapView.region.center.longitude
+        let groupingDistanceLocation = CLLocation(latitude:centerLat + groupingDeltaLatitude, longitude: centerLon + groupingDeltaLongitude)
+        let centerLocation = CLLocation(latitude:centerLat, longitude: centerLon)
+        let groupingDistance = groupingDistanceLocation.distance(from: centerLocation)
         
         removeAllAnnotations()
         
