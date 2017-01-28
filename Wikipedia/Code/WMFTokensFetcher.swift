@@ -1,42 +1,8 @@
 
 import Foundation
 
-enum WMFAPIToken: String {
+enum WMFTokenType: String {
     case csrf, login, createaccount
-}
-
-enum WMFZeroLengthStringError: LocalizedError {
-    case invalidString
-    var errorDescription: String? {
-        return "No valid string value fetched"
-    }
-}
-
-class WMFAPITokens: MTLModel, MTLJSONSerializing {
-    var csrf: String?
-    var login: String?
-    var createaccount: String?
-    public static func jsonKeyPathsByPropertyKey() -> [AnyHashable : Any]!{
-        return [
-            "csrf": "csrftoken",
-            "login": "logintoken",
-            "createaccount": "createaccounttoken"
-        ]
-    }
-    
-    private func validateNotZeroLengthString(_ string: String?) throws {
-        if let string = string {
-            guard string.characters.count > 0 else {
-                throw WMFZeroLengthStringError.invalidString
-            }
-        }
-    }
-
-    override func validate() throws {
-        try validateNotZeroLengthString(csrf)
-        try validateNotZeroLengthString(login)
-        try validateNotZeroLengthString(createaccount)
-    }
 }
 
 class WMFTokensFetcher {
@@ -46,10 +12,10 @@ class WMFTokensFetcher {
         return manager!.operationQueue.operationCount > 0
     }
     
-    func fetchTokens(tokens: [WMFAPIToken], siteURL: URL, completion: WMFURLSessionDataTaskSuccessHandler, failure: WMFURLSessionDataTaskFailureHandler){
+    func fetchTokens(tokens: [WMFTokenType], siteURL: URL, completion: WMFURLSessionDataTaskSuccessHandler, failure: WMFURLSessionDataTaskFailureHandler){
         let manager = AFHTTPSessionManager(baseURL: siteURL)
         
-        manager.responseSerializer = WMFMantleJSONResponseSerializer.init(forInstancesOf: WMFAPITokens.self, fromKeypath: "query.tokens")
+        manager.responseSerializer = WMFMantleJSONResponseSerializer.init(forInstancesOf: WMFTokens.self, fromKeypath: "query.tokens")
         
         let params = [
             "action": "query",

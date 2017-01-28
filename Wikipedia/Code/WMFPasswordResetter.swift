@@ -1,32 +1,6 @@
 
 import Foundation
 
-enum WMFPasswordResetError: LocalizedError {
-    case statusNotSuccess
-    var errorDescription: String? {
-        return "Password reset did not succeed"
-    }
-}
-
-class WMFPasswordResetResult: MTLModel, MTLJSONSerializing {
-    var status: String?
-    public static func jsonKeyPathsByPropertyKey() -> [AnyHashable : Any]!{
-        return [
-            "status": "status"
-        ]
-    }
-    
-    private func validateSuccessStatus() throws {
-        guard let status = status, status == "success" else {
-            throw WMFPasswordResetError.statusNotSuccess
-        }
-    }
-    
-    override func validate() throws {
-        try validateSuccessStatus()
-    }
-}
-
 class WMFPasswordResetter {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
     
@@ -37,7 +11,7 @@ class WMFPasswordResetter {
     public func resetPassword(siteURL: URL, token: String, userName:String?, email:String?, completion: WMFURLSessionDataTaskSuccessHandler, failure: WMFURLSessionDataTaskFailureHandler){
         
         let manager = AFHTTPSessionManager(baseURL: siteURL)
-        manager.responseSerializer = WMFMantleJSONResponseSerializer.init(forInstancesOf: WMFPasswordResetResult.self, fromKeypath: "resetpassword")
+        manager.responseSerializer = WMFMantleJSONResponseSerializer.init(forInstancesOf: WMFPasswordResetterResult.self, fromKeypath: "resetpassword")
         
         var parameters = [
             "action": "resetpassword",
