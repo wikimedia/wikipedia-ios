@@ -314,6 +314,7 @@
 "migration-prompt-message" = "Треба да ги преместиме вашите зачувани и скорешни страници. Ова може да потрае минутка...";
 "migration-confirm-button-title" = "Премести ми ги работите";
 "migration-skip-button-title" = "Избриши ја";
+// Fuzzy
 "image-gallery-unknown-owner" = "Подигачот е непознат";
 "image-gallery-fetch-image-info-error-title" = "Не можам да ги преземам сликите";
 "image-gallery-fetch-image-info-error-message" = "Не можам да ги преземам сликите за статијава. Превчитајте ја и обидете се повторно.";

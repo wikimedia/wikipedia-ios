@@ -321,7 +321,7 @@
 "migration-prompt-message" = "हमें आपके सहेजे गए पेज और हल के पेजों को दूसरी जगह ले जाना होगा। इसमें कुछ मिनट लग सकते हैं...";
 "migration-confirm-button-title" = "मेरी सामग्री का स्थान बदलें";
 "migration-skip-button-title" = "इसे हटाएँ";
-"image-gallery-unknown-owner" = "अज्ञात अपलोडर";
+"image-gallery-unknown-owner" = "अज्ञात लेखक";
 "image-gallery-fetch-image-info-error-title" = "चित्र डाउनलोड करने में असमर्थ";
 "image-gallery-fetch-image-info-error-message" = "इस लेख के लिए चित्र डाउनलोड करने में असमर्थ। कृपया लेख को रिफ्रेश करें और पुनः प्रयास करें।";
 "image-gallery-fetch-image-info-error-ok" = "ठीक";
@@ -445,9 +445,9 @@
 "in-the-news-currently-trending" = "वर्तमान में रुझानों में";
 "in-the-news-title" = "समाचारों में";
 "in-the-news-title-for-date" = "$1 के समाचार";
-"number-thousands" = "$1";
-"number-millions" = "$1";
-"number-billions" = "$1";
+"number-thousands" = "$1 हज़ार";
+"number-millions" = "$1 मिलियन";
+"number-billions" = "$1 बिलियन";
 "feed-news-notification-text" = "आप अब उन विकिपीडिया लेखों के बारे में नोटिफिकेशन प्राप्त कर सकते हैं जो समाचार रुझानों में हैं।";
 "feed-news-notification-button-text" = "नोटिफिकेशन ऑन करें";
 "back" = "वापस";

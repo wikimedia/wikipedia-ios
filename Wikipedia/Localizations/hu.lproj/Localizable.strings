@@ -1,5 +1,6 @@
 // Messages for Hungarian (magyar)
 // Exported from translatewiki.net
+// Author: BanKris
 // Author: Csega
 // Author: Dj
 // Author: Máté
@@ -222,8 +223,7 @@
 "share-menu-save-page" = "Lap mentése";
 "share-menu-page-saved" = "Elmentve offline olvasásra.";
 "share-menu-page-saved-access" = "Tipp: az elmentett lapjaid eléréséhez érintsd meg a $1 ikont felül vagy nyomd meg hosszan a $2 ikont lent.";
-// Fuzzy
-"share-custom-menu-item" = "Megosztás";
+"share-custom-menu-item" = "Megosztás…";
 "share-a-fact-share-menu-item" = "Ossz-meg-egy-tényt";
 "share-on-twitter-sign-off" = "a @Wikipedia szabad enciklopédián keresztül";
 "share-article-name-on-wikipedia" = "„$1” a @Wikipedia szabad enciklopédiában:";
@@ -314,7 +314,7 @@
 "migration-prompt-message" = "Arrébb kell raknunk a mentett és nemrég olvasott lapjaidat. Ez eltarthat pár percig…";
 "migration-confirm-button-title" = "Rakjuk arrébb";
 "migration-skip-button-title" = "Törölhetők";
-"image-gallery-unknown-owner" = "Ismeretlen feltöltő.";
+"image-gallery-unknown-owner" = "Ismeretlen szerző.";
 "image-gallery-fetch-image-info-error-title" = "A képek letöltése sikertelen";
 "image-gallery-fetch-image-info-error-message" = "A szócikkben szereplő képek letöltése sikertelen. Frissítsd a cikket és próbáld újra.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
@@ -352,7 +352,11 @@
 "home-hide-suggestion-prompt" = "Javaslat elrejtése";
 "home-hide-suggestion-cancel" = "Mégse";
 "home-accessibility-label" = "Wikipédia, Felfedezés";
+"home-title-accessibility-label" = "Wikipédia, görgetés a Felfedezés tetejére";
 "home-button-accessibility-label" = "Kezdőlap";
+"home-button-explore-accessibility-label" = "Wikipédia, visszatérés a Felfedezéshez";
+"home-button-saved-accessibility-label" = "Wikipédia, visszatérés a mentett lapokhoz";
+"home-button-history-accessibility-label" = "Wikipédia, visszatérés az Előzményekhez";
 "potd-empty-error-description" = "A $1 nap képének lekérése sikertelen";
 "potd-description-prefix" = "A $1 nap képe";
 "welcome-explore-title" = "Felfedezés";
@@ -378,6 +382,8 @@
 "welcome-volunteer-send-usage-reports" = "Használati jelentés küldése";
 "welcome-volunteer-continue-button" = "Tovább";
 "welcome-volunteer-thanks" = "$1 Köszönjük!";
+"welcome-send-data-title" = "Névtelen adatok küldése";
+"welcome-send-data-sub-title" = "Segíts a Wikimédiának az alkalmazás jobbá tételében azzal, hogy megosztod velünk, hogyan használod az alkalmazást. A gyűjtött adatok névtelenek";
 "empty-no-feed-title" = "Nincs internetkapcsolat";
 "empty-no-feed-message" = "A neked ajánlott szócikkeket akkor láthatod, ha kapcsolódsz az internethez";
 "empty-no-feed-action-message" = "Továbbra is olvashatsz elmentett lapokat";
@@ -413,6 +419,7 @@
 "no-email-account-alert" = "Állíts be egy e-mail-fiókot az eszközödön és próbáld újra.";
 "request-feedback-on-error" = "Az alkalmazás egy hibát észlelt, amiről a fejlesztőink szeretnének többet tudni. Koppints ide egy e-mail elküldéséhez a hiba részleteivel.";
 "explore-another-random" = "Másik cikk találomra";
+"explore-randomizer" = "Randomizáló";
 "find-in-page-no-matches" = "0 találat";
 "find-in-page-button-label" = "Keresés a lapon";
 "find-in-page-popover-description" = "Szöveg keresése szócikkekben";
@@ -422,14 +429,22 @@
 "top-read-see-more-trending" = "Több felkapott";
 "top-read-header-with-language" = "$1 Wikipédia";
 "top-read-header-generic" = "Wikipédia";
+"readers-accessibility-label" = "$1 olvasó";
+"rank-accessibility-label" = "$1.";
 "reference-title" = "Forráshivatkozás $1";
 "in-the-news-notification-read-now-action-title" = "Olvasás most";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Megosztás";
+"in-the-news-notification-share-action-title" = "Megosztás…";
 "in-the-news-notification-save-for-later-action-title" = "Elmentés későbbre";
+"in-the-news-currently-trending" = "Jelenleg felkapott";
 "in-the-news-title" = "A hírekben";
 "in-the-news-title-for-date" = "Hírek – $1";
 "number-thousands" = "$1k";
 "number-millions" = "$1M";
 "number-billions" = "$1 Mrd";
+"feed-news-notification-button-text" = "Értesítések bekapcsolása";
 "back" = "Vissza";
+"save-action" = "Mentés";
+"unsave-action" = "Nincs mentve";
+"status-saving-for-later" = "Mentés későbbre…";
+"status-saved-for-later" = "Mentve későbbre";
+"announcements-dismiss" = "Nem, köszönöm";

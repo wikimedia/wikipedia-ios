@@ -1,5 +1,5 @@
 #import "NSUserActivity+WMFExtensions.h"
-#import <WMFModel/WMFModel-Swift.h>
+#import <WMF/WMF-Swift.h>
 
 @import CoreSpotlight;
 @import MobileCoreServices;
@@ -198,19 +198,12 @@
     }
 }
 
-- (nullable NSURL *)wmf_articleURL {
-    NSURL *originalURL = nil;
+- (NSURL *)wmf_articleURL {
     if (self.userInfo[CSSearchableItemActivityIdentifier] != nil) {
-        originalURL = [NSURL URLWithString:self.userInfo[CSSearchableItemActivityIdentifier]];
+        return [NSURL URLWithString:self.userInfo[CSSearchableItemActivityIdentifier]];
     } else {
-        originalURL = self.webpageURL;
+        return self.webpageURL;
     }
-    NSString *articleDatabaseKey = [originalURL wmf_articleDatabaseKey];
-    if (articleDatabaseKey == nil) {
-        return nil;
-    }
-
-    return [NSURL URLWithString:articleDatabaseKey];
 }
 
 - (NSURL *)wmf_contentURL {

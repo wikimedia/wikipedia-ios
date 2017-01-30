@@ -11,7 +11,7 @@
 
 #import "WMFNotificationsController.h"
 
-#import <WMFModel/WMFModel-Swift.h>
+#import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

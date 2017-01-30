@@ -323,7 +323,7 @@
 "migration-prompt-message" = "Vi behöver flytta över dina sparade och senaste sidor. Detta kan ta någon minut…";
 "migration-confirm-button-title" = "Flytta över mina saker";
 "migration-skip-button-title" = "Radera";
-"image-gallery-unknown-owner" = "Okänd uppladdare.";
+"image-gallery-unknown-owner" = "Okänd författare.";
 "image-gallery-fetch-image-info-error-title" = "Kunde inte ladda ned bilder";
 "image-gallery-fetch-image-info-error-message" = "Kunde inte ladda ned bilder för denna artikel. Uppdatera artikeln och försök igen.";
 "image-gallery-fetch-image-info-error-ok" = "OK";

@@ -328,7 +328,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)logout {
     self.keychainCredentials.userName = nil;
     self.keychainCredentials.password = nil;
-    self.keychainCredentials.editTokens = nil;
     self.loggedInUsername = nil;
     self.email = nil;
     self.loginToken = nil;

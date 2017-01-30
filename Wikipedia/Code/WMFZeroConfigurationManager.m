@@ -2,7 +2,7 @@
 #import "WMFZeroConfiguration.h"
 #import "WMFZeroConfigurationFetcher.h"
 #import "MWKLanguageLinkController.h"
-#import <WMFModel/WMFModel-Swift.h>
+#import <WMF/WMF-Swift.h>
 //#import <Tweaks/FBTweakInline.h>
 
 NS_ASSUME_NONNULL_BEGIN

@@ -323,7 +323,7 @@
 "migration-prompt-message" = "Kami harus memindahkan halaman tersimpan dan terbaru Anda. Ini akan berlangsung beberapa saat...";
 "migration-confirm-button-title" = "Pindahkan barang saya";
 "migration-skip-button-title" = "Hapus";
-"image-gallery-unknown-owner" = "Pengunggah tidak diketahui.";
+"image-gallery-unknown-owner" = "Pembuat tidak diketahui.";
 "image-gallery-fetch-image-info-error-title" = "Tidak dapat mengunduh gambar";
 "image-gallery-fetch-image-info-error-message" = "Tidak dapat mengunduh gambar untuk artikel ini. Silakan segarkan artikel dan coba lagi.";
 "image-gallery-fetch-image-info-error-ok" = "Oke";

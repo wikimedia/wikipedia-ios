@@ -1,13 +1,11 @@
 import UIKit
 import NotificationCenter
-import WMFUI
-import WMFModel
+import WMF
 
 class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     // Model
     var siteURL: URL!
-    var date = Date()
     var group: WMFContentGroup?
     var results: [WMFFeedTopReadArticlePreview] = []
     
@@ -349,11 +347,11 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     func widgetPerformUpdate(_ completionHandler: @escaping ((NCUpdateResult) -> Void)) {
-        fetchForDate(Date(), attempt: 1, completionHandler: completionHandler)
+        fetch(siteURL: siteURL, date:Date(), attempt: 1, completionHandler: completionHandler)
     }
     
-    func updateUIWithTopReadFromContentStoreForDate(_ date: Date) -> Bool {
-        if let topRead = self.contentStore.firstGroup(of: .topRead, for: date) {
+    func updateUIWithTopReadFromContentStoreForSiteURL(siteURL: URL, date: Date) -> Bool {
+        if let topRead = self.contentStore.firstGroup(of: .topRead, for: date, siteURL: siteURL) {
             if let content = topRead.content as? [WMFFeedTopReadArticlePreview] {
                 self.group = topRead
                 self.results = content
@@ -366,26 +364,29 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     
     
-    func fetchForDate(_ date: Date, attempt: Int, completionHandler: @escaping ((NCUpdateResult) -> Void)) {
-        guard !updateUIWithTopReadFromContentStoreForDate(date) else {
+    func fetch(siteURL: URL, date: Date, attempt: Int, completionHandler: @escaping ((NCUpdateResult) -> Void)) {
+        guard !updateUIWithTopReadFromContentStoreForSiteURL(siteURL: siteURL, date: date) else {
             completionHandler(.newData)
             return
         }
         
-        guard attempt < 3 else {
+        guard attempt < 4 else {
             completionHandler(.noData)
             return
         }
-        
-        contentSource.loadNewContentForce(false) {
+        contentSource.loadContent(for: date, force: false) {
             DispatchQueue.main.async(execute: {
-                guard self.updateUIWithTopReadFromContentStoreForDate(date) else {
-                    guard let previousDate = NSCalendar.wmf_gregorian().date(byAdding: .day, value: -1, to: date, options: .matchStrictly) else {
-                        completionHandler(.noData)
-                        return
+                guard self.updateUIWithTopReadFromContentStoreForSiteURL(siteURL: siteURL, date: date) else {
+                    if (attempt == 1) {
+                        let todayUTC = (date as NSDate).wmf_midnightLocalDateForEquivalentUTC as Date
+                        self.fetch(siteURL: siteURL, date: todayUTC, attempt: attempt + 1, completionHandler: completionHandler)
+                    } else {
+                        guard let previousDate = NSCalendar.wmf_gregorian().date(byAdding: .day, value: -1, to: date, options: .matchStrictly) else {
+                            completionHandler(.noData)
+                            return
+                        }
+                         self.fetch(siteURL: siteURL, date: previousDate, attempt: attempt + 1, completionHandler: completionHandler)
                     }
-                    
-                    self.fetchForDate(previousDate, attempt: attempt + 1, completionHandler: completionHandler)
                     return
                 }
                 

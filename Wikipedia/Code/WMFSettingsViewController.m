@@ -180,7 +180,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
             [self showNotifications];
             break;
         case WMFSettingsMenuItemType_Support:
-            [self wmf_openExternalUrl:[self donationURL]];
+            [self wmf_openExternalUrl:[self donationURL] useSafari:YES];
             break;
         case WMFSettingsMenuItemType_PrivacyPolicy:
             [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLPrivacyPolicy]];

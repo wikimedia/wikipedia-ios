@@ -311,7 +311,7 @@
 "migration-prompt-message" = "Kita kudu kanggo mindhahaké kaca sing disimpen lan anyar liwat. Iki bisa njupuk menit...";
 "migration-confirm-button-title" = "Pindhah kuwi liwat";
 "migration-skip-button-title" = "Busak";
-"image-gallery-unknown-owner" = "Nginggahaké dingerteni";
+"image-gallery-unknown-owner" = "Penulis dingerteni";
 "image-gallery-fetch-image-info-error-title" = "Tukang undhuh gambar";
 "image-gallery-fetch-image-info-error-message" = "Ora kanggo ngundhuh gambar kanggo artikel iki. Mangga refresh artikel lan coba manèh.";
 "image-gallery-fetch-image-info-error-ok" = "Oké";

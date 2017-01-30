@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Brion Vibber
 // Author: Caliburn
+// Author: Eric.LEWIN
 // Author: Gomoko
 // Author: Hydros
 // Author: John Trololo
@@ -322,7 +323,7 @@
 "migration-prompt-message" = "Nous devons déplacer vos pages enregistrées et récentes. Cela peut prendre un peu de temps…";
 "migration-confirm-button-title" = "Déplacer mes affaires";
 "migration-skip-button-title" = "Les supprimer";
-"image-gallery-unknown-owner" = "Téléchargeur inconnu.";
+"image-gallery-unknown-owner" = "Auteur inconnu.";
 "image-gallery-fetch-image-info-error-title" = "Impossible de télécharger les images";
 "image-gallery-fetch-image-info-error-message" = "Impossible de télécharger les images pour cet article. Veuillez rafraîchir l’article et réessayer.";
 "image-gallery-fetch-image-info-error-ok" = "OK";

@@ -125,7 +125,9 @@
 "settings-primary-language-details" = "La primera llengua de la llista s'utilitza com a llengua primària de l'aplicació. En canviar l'aplicació canviarà el contingut diari (com ara l'article destacat) que es mostra a 'Explora'.";
 "settings-notifications-system-off" = "Les notificacions de la Viquipèdia estan desactivades. Aneu als paràmetres del vostre dispositiu i activeu-les.";
 "settings-notifications-system-turn-on" = "Activa les notificacions";
+"settings-notifications-info" = "Estigueu avisat de les tendències i articles més llegits a la Viquipèdia amb les nostres notificacions. Tot està proporcionat amb respecte a la privadesa i actualitzades al minut.";
 "settings-notifications-learn-more" = "Més quant a les notificacions";
+"settings-notifications-trending" = "Tendències actuals";
 "settings-notifications-push-notifications" = "Notificacions enviades";
 "main-menu-title" = "Més";
 "main-menu-heading-about" = "Quant a";
@@ -323,7 +325,7 @@
 "migration-prompt-message" = "Hem de moure les vostres pàgines desades i recents. Podria trigar una estona…";
 "migration-confirm-button-title" = "Mou les meves coses";
 "migration-skip-button-title" = "Esborra-ho";
-"image-gallery-unknown-owner" = "El carregador no és conegut.";
+"image-gallery-unknown-owner" = "Autor desconegut.";
 "image-gallery-fetch-image-info-error-title" = "No s'han pogut baixar les imatges";
 "image-gallery-fetch-image-info-error-message" = "No s'han pogut baixar les imatges de l'article. Refresqueu l'article i torneu a provar-ho.";
 "image-gallery-fetch-image-info-error-ok" = "D'acord";
@@ -361,12 +363,17 @@
 "home-hide-suggestion-prompt" = "Amaga el suggeriment";
 "home-hide-suggestion-cancel" = "Cancel·la";
 "home-accessibility-label" = "Viquipèdia, Explora";
+"home-title-accessibility-label" = "Viquipèdia, desplaceu-vos amunt a Exploreu";
 "home-button-accessibility-label" = "Inici";
+"home-button-explore-accessibility-label" = "Viquipèdia, torna a Exploreu";
+"home-button-saved-accessibility-label" = "Viquipèdia, torna a Desats";
+"home-button-history-accessibility-label" = "Viquipèdia, torna a l'historial";
 "potd-empty-error-description" = "Ha fallat en recuperar la imatge del dia per a $1";
 "potd-description-prefix" = "Imatge del dia per a $1";
 "welcome-explore-title" = "Explora";
 "welcome-explore-sub-title" = "Una forma nova de descobrir articles interessants cada dia";
 "welcome-explore-new-ways-title" = "Noves formes d'explorar";
+"welcome-explore-new-ways-sub-title" = "Les notificacions i ginys nous us ajuden a descobrir articles interessants";
 "welcome-explore-tell-me-more" = "Més informació";
 "welcome-explore-tell-me-more-about-explore" = "Més informació sobre «Explora»";
 "welcome-explore-tell-me-more-details" = "Quan llegiu un articles, els articles relacionats s'afegeixen automàticament al canal Explora. Això no fa canviar com recollim la vostra informació, i el vostre historial de lectura continua essent privat.";
@@ -375,6 +382,8 @@
 "welcome-explore-tell-me-more-done-button" = "Ho he entès";
 "welcome-explore-continue-button" = "Primers passos";
 "welcome-notifications-tell-me-more-title" = "Quant a les notificacions";
+"welcome-notifications-tell-me-more-storage" = "Les preferències de notificació s'emmagatzemen al dispositiu i no es basen en informació personal o activitat.";
+"welcome-notifications-tell-me-more-creation" = "Les notificacions es creen i es lliure en el vostre dispositiu per la mateixa aplicació, i no pas pels nostres servidors (o de tercers).";
 "welcome-languages-title" = "Llengües";
 "welcome-languages-sub-title" = "Trieu les vostres llengües preferides per cercar a la Viquipèdia";
 "welcome-languages-add-button" = "Afegeix una altra llengua";

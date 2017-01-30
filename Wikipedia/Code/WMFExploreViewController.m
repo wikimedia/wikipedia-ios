@@ -90,6 +90,8 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, WMFExploreCollectionViewCell *> *placeholderCells;
 
+@property (nonatomic, strong) NSMutableDictionary<NSIndexPath *, NSURL *> *prefetchURLsByIndexPath;
+
 @end
 
 @implementation WMFExploreViewController
@@ -101,6 +103,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     self.objectChanges = [NSMutableArray arrayWithCapacity:10];
     self.sectionCounts = [NSMutableArray arrayWithCapacity:100];
     self.placeholderCells = [NSMutableDictionary dictionaryWithCapacity:10];
+    self.prefetchURLsByIndexPath = [NSMutableDictionary dictionaryWithCapacity:10];
 }
 
 - (void)dealloc {
@@ -281,6 +284,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                                 if (![self.userStore save:&saveError]) {
                                     DDLogError(@"Error saving: %@", saveError);
                                 }
+                                [[NSUserDefaults wmf_userDefaults] wmf_setFeedRefreshDate:[NSDate date]];
                                 [self resetRefreshControl];
                                 [self startMonitoringReachabilityIfNeeded];
                                 [self showOfflineEmptyViewIfNeeded];
@@ -810,7 +814,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     if ([sectionObject headerType] == WMFFeedHeaderTypeNone) {
         return 0.0;
     } else {
-        return 66;
+        return 69.0;
     }
 }
 
@@ -910,21 +914,30 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 - (void)collectionView:(UICollectionView *)collectionView prefetchItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
     for (NSIndexPath *indexPath in indexPaths) {
-        WMFArticle *article = [self articleForIndexPath:indexPath];
-        if (!article.thumbnailURL) {
+        if (self.prefetchURLsByIndexPath[indexPath]) {
             continue;
         }
-        [[WMFImageController sharedInstance] prefetchImageWithURL:article.thumbnailURL];
+        WMFArticle *article = [self articleForIndexPath:indexPath];
+        NSURL *imageURL = article.thumbnailURL;
+        if (!imageURL) {
+            continue;
+        }
+        self.prefetchURLsByIndexPath[indexPath] = imageURL;
+        [[WMFImageController sharedInstance] prefetchImageWithURL:article.thumbnailURL
+                                                       completion:^{
+                                                           [self.prefetchURLsByIndexPath removeObjectForKey:indexPath];
+                                                       }];
     }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView cancelPrefetchingForItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
     for (NSIndexPath *indexPath in indexPaths) {
-        WMFArticle *article = [self articleForIndexPath:indexPath];
-        if (!article.thumbnailURL) {
+        NSURL *imageURL = self.prefetchURLsByIndexPath[indexPath];
+        if (!imageURL) {
             continue;
         }
-        [[WMFImageController sharedInstance] cancelFetchForURL:article.thumbnailURL];
+        [[WMFImageController sharedInstance] cancelFetchForURL:imageURL];
+        [self.prefetchURLsByIndexPath removeObjectForKey:indexPath];
     }
 }
 
@@ -1246,7 +1259,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
     [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:group value:group];
 
-    if (vc == nil) {
+    if (vc == nil || vc == self) {
         return;
     }
 
@@ -1368,7 +1381,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
     } else if ([viewControllerToCommit isKindOfClass:[InTheNewsViewController class]]) {
         [self.navigationController pushViewController:viewControllerToCommit animated:YES];
-    } else {
+    } else if (![viewControllerToCommit isKindOfClass:[WMFExploreViewController class]]) {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
 }

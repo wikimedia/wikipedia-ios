@@ -322,7 +322,7 @@
 "migration-prompt-message" = "我们需要移动您的已保存页面与最近页面。这会花费1分钟……";
 "migration-confirm-button-title" = "移动我的东西";
 "migration-skip-button-title" = "删除它";
-"image-gallery-unknown-owner" = "上传者未知。";
+"image-gallery-unknown-owner" = "作者未知。";
 "image-gallery-fetch-image-info-error-title" = "无法下载图片";
 "image-gallery-fetch-image-info-error-message" = "无法下载此条目的图片。请刷新条目并重试。";
 "image-gallery-fetch-image-info-error-ok" = "确定";

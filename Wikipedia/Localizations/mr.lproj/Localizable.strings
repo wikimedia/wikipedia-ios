@@ -109,6 +109,7 @@
 "settings-support" = "विकिपीडियास साहाय्य करा";
 "settings-language-bar" = "शोधात भाषा दाखवा";
 "settings-my-languages" = "माझ्या भाषा";
+"settings-notifications" = "अधिसूचना";
 "settings-help-and-feedback" = "साहाय्य व प्रतिसाद";
 "settings-primary-language" = "प्राथमिक";
 "settings-primary-language-details" = "या अॲपसाठी, यादीतील प्रथम भाषा ही प्राथमिक भाषा म्हणून वापरल्या जाते. ही भाषा बदलण्याने, शोधा वर दाखविलेले, रोजचे आशय  बदलतील(जसे अविशिष्ट लेख).";
@@ -292,7 +293,7 @@
 "migration-prompt-message" = "आम्हास आपली जतन केलेली व अलीकडील पाने हलवायची आहेत. यास एखादा मिनीट लागू शकतो...";
 "migration-confirm-button-title" = "माझ्या सामग्रीचे स्थान बदला";
 "migration-skip-button-title" = "हे वगळा";
-"image-gallery-unknown-owner" = "हे चित्र कोणी चढवले ते माहित नाही.";
+"image-gallery-unknown-owner" = "लेखक अज्ञात.";
 "image-gallery-fetch-image-info-error-title" = "चित्रांचे अधिभारण करता आले नाही";
 "image-gallery-fetch-image-info-error-message" = "या लेखासाठीची चित्रे अधिभारण करता आली नाहीत. कृपया हा लेख पुन्हा तरोताजा करा व पुन्हा प्रयत्न करा.";
 "image-gallery-fetch-image-info-error-ok" = "ठिक आहे";

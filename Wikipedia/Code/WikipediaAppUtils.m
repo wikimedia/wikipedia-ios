@@ -72,7 +72,7 @@ static WMFAssetsFile *_Nullable languageFile = nil;
 }
 
 + (NSString *)bundledAssetsPath {
-    return [[NSBundle bundleWithIdentifier:@"org.wikimedia.WMFModel"] pathForResource:@"assets" ofType:nil];
+    return [[NSBundle bundleWithIdentifier:@"org.wikimedia.WMF"] pathForResource:@"assets" ofType:nil];
 }
 
 #pragma mark Copy bundled assets folder and contents to app "AppData/Documents/assets/"

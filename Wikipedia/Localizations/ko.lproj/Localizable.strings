@@ -123,6 +123,7 @@
 "settings-help-and-feedback" = "도움말 및 의견";
 "settings-primary-language" = "주 언어";
 "settings-primary-language-details" = "이 목록에 처음 사용한 언어가 이 앱의 주 언어로 사용됩니다. 이 언어를 변경하면 찾아보기에서 보이는 오늘의 글(알찬 글 등)이 변경됩니다.";
+"settings-notifications-system-off" = "알림이 현재 위키백과에 대해 꺼져 있습니다. 알림을 켜려면 장치의 설정으로 이동하십시오.";
 "settings-notifications-system-turn-on" = "알림 켜기";
 "settings-notifications-learn-more" = "알림에 대해 더 알아보기";
 "settings-notifications-push-notifications" = "푸시 알림";
@@ -322,7 +323,7 @@
 "migration-prompt-message" = "저희는 당신의 저장된 페이지나 최근 방문 페이지를 이동해야 합니다. 이 작업은 몇 분 정도 소요됩니다.";
 "migration-confirm-button-title" = "내 항목 이동";
 "migration-skip-button-title" = "항목 삭제";
-"image-gallery-unknown-owner" = "업로더 알 수 없음.";
+"image-gallery-unknown-owner" = "저자 알 수 없음.";
 "image-gallery-fetch-image-info-error-title" = "사진을 다운로드하지 못했습니다.";
 "image-gallery-fetch-image-info-error-message" = "이 문서를 위한 사진을 다운로드하지 못했습니다. 새로 고침을 하여, 다시 시도 해보세요.";
 "image-gallery-fetch-image-info-error-ok" = "확인";
@@ -426,9 +427,11 @@
 "find-in-page-popover-description" = "문서에서 텍스트 검색";
 "continue-reading-empty-title" = "최근에 읽은 문서 없음";
 "continue-reading-empty-description" = "더 많은 문서를 읽기 위해 위키백과 둘러보기";
+"top-read-see-more" = "윗글 더 보기";
 "top-read-header-with-language" = "$1 위키백과";
 "top-read-header-generic" = "위키백과";
 "readers-accessibility-label" = "$1명의 독자";
+"rank-accessibility-label" = "$1번";
 "reference-title" = "각주 $1";
 "in-the-news-notification-read-now-action-title" = "지금 읽기";
 "in-the-news-notification-share-action-title" = "공유...";

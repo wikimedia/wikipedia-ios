@@ -315,6 +315,7 @@
 "migration-prompt-message" = "Við þurfum að færa yfir vistaðar og nýlegar síður sem þú ert með. Þetta gæti tekið dálítinn tíma…";
 "migration-confirm-button-title" = "Yfirfæra dótið mitt";
 "migration-skip-button-title" = "Eyða því";
+// Fuzzy
 "image-gallery-unknown-owner" = "Sendandi óþekktur.";
 "image-gallery-fetch-image-info-error-title" = "Gat ekki sótt myndir";
 "image-gallery-fetch-image-info-error-message" = "Gat ekki sótt myndir með þessari grein. Prófaðu að endurlesa greinina inn til að reyna aftur.";

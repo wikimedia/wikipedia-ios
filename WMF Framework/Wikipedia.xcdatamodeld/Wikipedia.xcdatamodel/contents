@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16B2555" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
+        <attribute name="displayTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isExcludedFromFeed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="key" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="newsNotificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="pageViews" optional="YES" attributeType="Transformable" customClassName="NSDictionary" syncable="YES"/>
+        <attribute name="savedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="snippet" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thumbnailURLString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="viewedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="viewedDateWithoutTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="viewedFragment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="viewedScrollPosition" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="wasSignificantlyViewed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="wikidataDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="viewedDate"/>
+                <index value="savedDate"/>
+                <index value="isExcludedFromFeed"/>
+                <index value="key"/>
+            </compoundIndex>
+            <compoundIndex>
+                <index value="viewedDateWithoutTime"/>
+                <index value="viewedDate"/>
+            </compoundIndex>
+        </compoundIndexes>
+    </entity>
+    <entity name="WMFContentGroup" representedClassName="WMFContentGroup" syncable="YES">
+        <attribute name="articleURLString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="content" optional="YES" attributeType="Transformable" customClassName="NSArray" syncable="YES"/>
+        <attribute name="contentGroupKindInteger" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="contentMidnightUTCDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="contentTypeInteger" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="dailySortPriority" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="isVisible" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="key" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="Transformable" customClassName="CLLocation" syncable="YES"/>
+        <attribute name="midnightUTCDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="placemark" optional="YES" attributeType="Transformable" customClassName="CLPlacemark" syncable="YES"/>
+        <attribute name="siteURLString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wasDismissed" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="isVisible"/>
+                <index value="midnightUTCDate"/>
+                <index value="dailySortPriority"/>
+                <index value="date"/>
+            </compoundIndex>
+            <compoundIndex>
+                <index value="contentGroupKindInteger"/>
+                <index value="midnightUTCDate"/>
+                <index value="siteURLString"/>
+            </compoundIndex>
+        </compoundIndexes>
+    </entity>
+    <elements>
+        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="285"/>
+        <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="255"/>
+    </elements>
+</model>

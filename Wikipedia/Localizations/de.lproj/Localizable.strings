@@ -314,7 +314,7 @@
 "migration-prompt-message" = "Wir müssen deine gespeicherten und letzten Seiten übernehmen. Dies kann eine Minute dauern …";
 "migration-confirm-button-title" = "Meine Sachen übernehmen";
 "migration-skip-button-title" = "Löschen";
-"image-gallery-unknown-owner" = "Hochlader unbekannt.";
+"image-gallery-unknown-owner" = "Autor unbekannt.";
 "image-gallery-fetch-image-info-error-title" = "Die Bilder konnten nicht heruntergeladen werden";
 "image-gallery-fetch-image-info-error-message" = "Die Bilder für diesen Artikel konnten nicht heruntergeladen werden. Bitte aktualisiere den Artikel und versuche es erneut.";
 "image-gallery-fetch-image-info-error-ok" = "Okay";

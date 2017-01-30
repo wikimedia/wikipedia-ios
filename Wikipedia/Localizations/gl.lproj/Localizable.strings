@@ -317,7 +317,7 @@
 "migration-prompt-message" = "Precisamos mover as súas páxinas gardadas e recentes. Isto levará un momento...";
 "migration-confirm-button-title" = "Mover as miñas cousas";
 "migration-skip-button-title" = "Borralo";
-"image-gallery-unknown-owner" = "Descoñécese a persoa que cargou o ficheiro.";
+"image-gallery-unknown-owner" = "Autor descoñecido.";
 "image-gallery-fetch-image-info-error-title" = "Imposible descargar as imaxes";
 "image-gallery-fetch-image-info-error-message" = "Imposible descargar as imaxes para este artigo. Por favor, refrescre o artigo e inténteo de novo.";
 "image-gallery-fetch-image-info-error-ok" = "Aceptar";

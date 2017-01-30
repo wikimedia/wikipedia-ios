@@ -306,7 +306,7 @@
 "migration-prompt-message" = "Mir mussen Är gespäichert a rezent Säite réckelen. Dat kann eng Minutt daueren...";
 "migration-confirm-button-title" = "Meng Saachen eriwwer réckelen";
 "migration-skip-button-title" = "Läschen";
-"image-gallery-unknown-owner" = "Eroplueder onbekannt.";
+"image-gallery-unknown-owner" = "Auteur onbekannt.";
 "image-gallery-fetch-image-info-error-title" = "Biller konnten net  erofgeluede ginn";
 "image-gallery-fetch-image-info-error-message" = "D'Biller vun dësem Artikel konnten net erofgeluede ginn. Aktualiséiert den Artikel a probéiert w.e.g. nach eng Kéier.";
 "image-gallery-fetch-image-info-error-ok" = "OK";

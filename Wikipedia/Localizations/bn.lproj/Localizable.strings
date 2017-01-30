@@ -308,7 +308,7 @@
 "nearby-wifi" = "ওয়াইফাই সক্ষম করা হচ্ছে যা আপনার সঠিক অবস্থান নির্ধারণে ডিভাইসকে সাহায্য করে।";
 "migration-update-progress-label" = "স্থানীয় তথ্য স্থানান্তর কারা হচ্ছে";
 "migration-skip-button-title" = "এটি মুছুন";
-"image-gallery-unknown-owner" = "আপলোডকারী অজানা।";
+"image-gallery-unknown-owner" = "লেখক অজানা।";
 "image-gallery-fetch-image-info-error-title" = "চিত্র ডাউনলোড করতে অক্ষম";
 "image-gallery-fetch-image-info-error-message" = "এই নিবন্ধের ছবিগুলো ডাউনলোড করা যায়নি। দয়া করে পুনঃতেজ করুন এবং আবার চেষ্টা করুন।";
 "image-gallery-fetch-image-info-error-ok" = "ঠিক আছে";

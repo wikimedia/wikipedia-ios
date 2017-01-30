@@ -312,6 +312,7 @@
 "migration-prompt-message" = "Mer möße Ding jeseschterte un neuste Sigge erövver koppehre. Dat kann ene Momang duhre …";
 "migration-confirm-button-title" = "Övvernämm ming Dahte!";
 "migration-skip-button-title" = "Schmiiß dat fott";
+// Fuzzy
 "image-gallery-unknown-owner" = "Onbikannt, wä dat huhjelahde hät";
 "image-gallery-fetch-image-info-error-title" = "Kann kein Bellder eronger lahde";
 "image-gallery-fetch-image-info-error-message" = "kann kein Belder för heh dö Atikel eronger lahde. Bes esu johd un donn dä Atikel neu lahde un et norr_ens versöhke.";

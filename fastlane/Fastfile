@@ -113,7 +113,8 @@ platform :ios do
 
   desc "Add a tag for the current version number push to repo."
   lane :tag_release do |options|
-    tag_name = "releases/#{get_version_number}"
+    version = options[:version] || get_version_number
+    tag_name = "releases/#{version}"
     add_git_tag(tag: tag_name)
     sh "git push origin --tags"
   end
@@ -141,7 +142,8 @@ platform :ios do
       product_name: "Wikipedia",
       app_identifier: "org.wikimedia.wikipedia",
       tag_prefix: "betas",
-      hockey_app_id: "5d80da08a6761e5c6456736af7ebad88"
+      hockey_app_id: "5d80da08a6761e5c6456736af7ebad88",
+      build: options[:build]
     )
   end
   
@@ -151,7 +153,8 @@ platform :ios do
       product_name: "Wikipedia Alpha",
       app_identifier: "org.wikimedia.wikipedia.tfalpha",
       tag_prefix: "alphas",
-      hockey_app_id: "2295c3698bbd0b050f257772dd2bdbb2"
+      hockey_app_id: "2295c3698bbd0b050f257772dd2bdbb2",
+      build: options[:build]
     )
   end
   
@@ -168,7 +171,7 @@ platform :ios do
     hockey_app_id = options[:hockey_app_id] || "5d80da08a6761e5c6456736af7ebad88"
     app_identifier = options[:app_identifier] || "org.wikimedia.wikipedia"
     ipa_path = "#{build_dir}/#{product_name}.ipa"
-    build_number =  get_latest_alpha_or_beta_build_number + 1
+    build_number =  options[:build] || get_latest_alpha_or_beta_build_number + 1
     version = get_version_number
     tag_prefix = options[:tag_prefix]
 

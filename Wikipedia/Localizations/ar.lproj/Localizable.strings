@@ -321,6 +321,7 @@
 "migration-prompt-message" = "يجب علينا أن ننقل صفحاتك المحفوظة والأخيرة. قد يستغرق ذلك الأمر دقيقة...";
 "migration-confirm-button-title" = "إنقل أشيائي";
 "migration-skip-button-title" = "حذف";
+// Fuzzy
 "image-gallery-unknown-owner" = "الرافع غير معروف.";
 "image-gallery-fetch-image-info-error-title" = "غير قادر على تنزيل الصور";
 "image-gallery-fetch-image-info-error-message" = "غير قادر على تحميل الصور لهذه المادة , يرجى تحديث المادة والمحاولة لاحقاً";

@@ -80,8 +80,8 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     //explicitly nil these values out to remove KVO observers
-    self.webView = nil;
     self.webViewScrollView = nil;
+    self.webView = nil;
     self.footerContainerView = nil;
 }
 
@@ -460,6 +460,7 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 #pragma FindInPageKeyboardBarDelegate
 
 - (void)keyboardBar:(WMFFindInPageKeyboardBar *)keyboardBar searchTermChanged:(NSString *)term {
+    term = [term stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
     [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightAllMatchesForSearchTerm('%@')", term]
                    completionHandler:^(id _Nullable obj, NSError *_Nullable error) {
                        [self scrollToAndFocusOnFirstMatch];

@@ -217,16 +217,36 @@ open class WMFImageController : NSObject {
         return typedDiskDataForImageWithURL(url).data
     }
     
-    open func typedDiskDataForImageWithURL(_ url: URL?) -> WMFTypedImageData {
+    open func hasPermanentlyCachedTypedDiskDataForImageWithURL(_ url: URL?) -> Bool {
+        guard let url = url, let imageCache = imageManager.imageCache else {
+            return false
+        }
+        
+        let path = imageCache.defaultCachePath(forKey: cacheKeyForURL(url))
+        let mimeType: String? = FileManager.default.wmf_value(forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: path)
+        return mimeType != nil
+    }
+    
+    
+    open func permanentlyCachedTypedDiskDataForImageWithURL(_ url: URL?) -> WMFTypedImageData {
         guard let url = url, let imageCache = imageManager.imageCache else {
             return WMFTypedImageData(data: nil, MIMEType: nil)
         }
         
+        let path = imageCache.defaultCachePath(forKey: cacheKeyForURL(url))
+        let mimeType: String? = FileManager.default.wmf_value(forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: path)
+        let data = FileManager.default.contents(atPath: path!)
+        return WMFTypedImageData(data: data, MIMEType: mimeType)
+    }
+    
+    
+    open func typedDiskDataForImageWithURL(_ url: URL?) -> WMFTypedImageData {
+        guard let url = url else {
+            return WMFTypedImageData(data: nil, MIMEType: nil)
+        }
+        
         guard let response = URLCache.shared.cachedResponse(for: URLRequest(url: url)) else {
-            let path = imageCache.defaultCachePath(forKey: cacheKeyForURL(url))
-            let mimeType: String? = FileManager.default.wmf_value(forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: path)
-            let data = FileManager.default.contents(atPath: path!)
-            return WMFTypedImageData(data: data, MIMEType: mimeType)
+            return permanentlyCachedTypedDiskDataForImageWithURL(url)
         }
         
         return WMFTypedImageData(data: response.data, MIMEType: response.response.mimeType)
@@ -299,6 +319,7 @@ open class WMFImageController : NSObject {
     }
     
     open func cacheImageData(_ imageData: Data, url: URL, MIMEType: String?){
+        assert(!Thread.isMainThread, "Don't write image files on the main thread.")
         guard let imageCache = imageManager.imageCache else {
             return
         }
@@ -462,13 +483,15 @@ extension WMFImageController {
     }
     
     
-    @objc public func prefetchImageWithURL(_ url: URL?) {
+    @objc public func prefetchImageWithURL(_ url: URL?, completion: (() -> Void)?) {
         guard let url = url else {
             return
         }
-
-        fetchImage(withURL: url, options: [.lowPriority, .scaleDownLargeImages], failure: { (error) in }) { (download) in
-
+        
+        fetchImage(withURL: url, options: [.lowPriority, .scaleDownLargeImages], failure: { (error) in
+            completion?()
+        }) { (download) in
+            completion?()
         }
     }
 
