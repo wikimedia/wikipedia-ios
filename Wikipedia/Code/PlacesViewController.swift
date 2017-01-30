@@ -89,13 +89,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         deselectAllAnnotations()
     }
 
-    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        
+    func dismissPopover() {
+        guard let _ = presentedViewController else {
+            return
+        }
+        dismiss(animated: false, completion: nil)
     }
     
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        regroupArticlesIfNecessary()
-        
+    func showRedoSearchButtonIfNecessary() {
         let visibleRegion = currentlyVisibleCircularCoordinateRegion
         
         if let search = currentSearch {
@@ -105,11 +106,15 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         } else {
             currentSearch = PlaceSearch(type: .top, string: nil, region: visibleRegion)
         }
-        
-        guard let _ = presentedViewController else {
-            return
-        }
-        dismiss(animated: false, completion: nil)
+    }
+    
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        dismissPopover()
+    }
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        regroupArticlesIfNecessary()
+        showRedoSearchButtonIfNecessary()
     }
     
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
