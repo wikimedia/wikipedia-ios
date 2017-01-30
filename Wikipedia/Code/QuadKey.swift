@@ -80,19 +80,23 @@ public extension QuadKeyDegrees {
     public func longitudePart(atPrecision precision: QuadKeyPrecision) -> QuadKeyPart {
         return QuadKeyPart(longitude: self, precision: precision)
     }
+    
+    public static func max(_ a: QuadKeyDegrees, _ b: QuadKeyDegrees) -> QuadKeyDegrees {
+        return a > b ? a : b
+    }
 }
 
 public extension QuadKeyPart {
     
     public init(latitude: QuadKeyDegrees) {
-        let nonZeroLatitude = latitude + QuadKeyDegrees.latitudeMax
-        let partInDegrees = nonZeroLatitude * QuadKeyDegrees.latitudeToPartConstant
+        let nonNegativeLatitude = QuadKeyDegrees.max(0, latitude + QuadKeyDegrees.latitudeMax)
+        let partInDegrees = nonNegativeLatitude * QuadKeyDegrees.latitudeToPartConstant
         self.init(QuadKeyPart(partInDegrees.rounded()))
     }
     
     public init(longitude: QuadKeyDegrees) {
-        let nonZeroLongitude = longitude + QuadKeyDegrees.longitudeMax
-        let partInDegrees = nonZeroLongitude * QuadKeyDegrees.longitudeToPartConstant
+        let nonNegativeLongitude = QuadKeyDegrees.max(0, longitude + QuadKeyDegrees.longitudeMax)
+        let partInDegrees = nonNegativeLongitude * QuadKeyDegrees.longitudeToPartConstant
         self.init(QuadKeyPart(partInDegrees.rounded()))
     }
     
