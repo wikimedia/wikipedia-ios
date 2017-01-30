@@ -18,11 +18,7 @@ class WMFAccountLoginResult: MTLModel, MTLJSONSerializing {
     var username: String?
     var message: String?
     public static func jsonKeyPathsByPropertyKey() -> [AnyHashable : Any]!{
-        return [
-            "status": "status",
-            "username": "username",
-            "message": "message"
-        ]
+        return wmf_jsonKeyPathsByProperties(of: WMFAccountLoginResult())
     }
     
     private func validatePassStatus(_ status: String?, message: String?) throws {
