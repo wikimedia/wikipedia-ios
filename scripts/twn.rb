@@ -30,4 +30,4 @@ end
 
 puts "#{pr_branch} went from #{previous_hash} to #{current_hash}, opening pr"
   
-puts `curl -i -d '{"title":"#{title}","head":"#{pr_branch}","base":"#{base_branch}"}' -H "Authorization: token#{ENV['GITHUB_TWN_ACCESS_TOKEN']} " -H "Content-Type: application/json; charset=utf-8" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/wikimedia/wikipedia-ios/pulls`
+puts `curl -i -d '{"title":"#{title}","head":"#{pr_branch}","base":"#{base_branch}"}' -H "Authorization: token #{ENV['GITHUB_TWN_ACCESS_TOKEN']}" -H "Content-Type: application/json; charset=utf-8" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/wikimedia/wikipedia-ios/pulls`
