@@ -53,6 +53,14 @@ class ArticlePopoverViewController: UIViewController {
         delegate?.articlePopoverViewController(articlePopoverViewController: self, didSelectAction: .read)
     }
     
+    
+    func presentationController(_ presentationController: UIPresentationController, willPresentWithAdaptiveStyle style: UIModalPresentationStyle, transitionCoordinator: UIViewControllerTransitionCoordinator?) {
+        guard let containerView = transitionCoordinator?.containerView else {
+            return
+        }
+        
+        containerView.backgroundColor = UIColor.clear
+    }
 }
 
 
