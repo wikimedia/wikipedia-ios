@@ -76,6 +76,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         // Setup search bar
         searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 32))
+        //searchBar.keyboardType = .webSearch
         searchBar.text = localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby")
         searchBar.returnKeyType = .search
         searchBar.delegate = self
@@ -201,7 +202,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         presentationController.permittedArrowDirections = .any
         presentationController.delegate = self
         presentationController.passthroughViews = [mapView]
-        presentationController.popoverBackgroundViewClass = WMFClearPopoverBackgroundView.self
+        
         present(articleVC, animated: false) {
             
         }
@@ -424,14 +425,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
-    }
-    
-    func presentationController(_ presentationController: UIPresentationController, willPresentWithAdaptiveStyle style: UIModalPresentationStyle, transitionCoordinator: UIViewControllerTransitionCoordinator?) {
-        guard let containerView = transitionCoordinator?.containerView else {
-            return
-        }
-        
-        containerView.backgroundColor = UIColor.clear
     }
     
     func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {

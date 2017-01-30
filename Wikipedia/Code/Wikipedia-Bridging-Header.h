@@ -49,7 +49,6 @@
 #import "WMFArticleListTableViewCell.h"
 #import "WMFTableHeaderLabelView.h"
 #import "WMFNearbyArticleTableViewCell.h"
-#import "WMFClearPopoverBackgroundView.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"
