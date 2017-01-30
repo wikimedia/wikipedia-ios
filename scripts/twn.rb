@@ -4,6 +4,7 @@ pr_branch = 'twn'
 base_branch = 'develop'
 title = 'localization'
 
+`git remote prune https://github.com/wikimedia/wikipedia-ios`
 current_hash = `git ls-remote --heads origin | grep refs/heads/#{pr_branch}`.split.first
 
 if !current_hash || current_hash == ''
