@@ -17,11 +17,14 @@ struct PlaceSearch {
 }
 
 
-class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate, ArticlePopoverViewControllerDelegate {
+class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var redoSearchButton: UIButton!
     let nearbyFetcher = WMFLocationSearchFetcher()
+    
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var listView: UITableView!
+    
     var searchBar: UISearchBar!
     var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
     var articles: [WMFArticle] = []
@@ -44,32 +47,41 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
         }
     }
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.tintColor = UIColor.wmf_blueTint()
-        redoSearchButton.backgroundColor = view.tintColor
         
         //Override UINavigationBar.appearance settings from WMFStyleManager
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.tintColor = nil
+        view.tintColor = UIColor.wmf_blueTint()
+        redoSearchButton.backgroundColor = view.tintColor
+        
+        // Setup map/list toggle
         segmentedControl = UISegmentedControl(items: ["M", "L"])
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
         segmentedControl.tintColor = UIColor.wmf_blueTint()
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: segmentedControl)
         
+        // Setup map view
         mapView.showsPointsOfInterest = false
         mapView.setUserTrackingMode(.follow, animated: true)
+        
+        // Setup list view
+        listView.dataSource = self
+        listView.delegate = self
+        listView.register(WMFNearbyArticleTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFNearbyArticleTableViewCell.identifier())
+        listView.estimatedRowHeight = WMFNearbyArticleTableViewCell.estimatedRowHeight()
+        
+        // Setup search bar
         searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 32))
         //searchBar.keyboardType = .webSearch
         searchBar.text = localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby")
         searchBar.returnKeyType = .search
-        navigationItem.titleView = searchBar
         searchBar.delegate = self
+        navigationItem.titleView = searchBar
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,8 +112,21 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         dismiss(animated: false, completion: nil)
     }
     
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        guard !listView.isHidden, let indexPaths = listView.indexPathsForVisibleRows else {
+            return
+        }
+        listView.reloadRows(at: indexPaths, with: .none)
+    }
+    
     func segmentedControlChanged() {
-        redoSearch(self)
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            listView.isHidden = true
+            listView.reloadData()
+        default:
+            listView.isHidden = false
+        }
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
@@ -382,6 +407,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
             articles.append(article)
         }
+        listView.reloadData()
         currentGroupingPrecision = 0
         regroupArticlesIfNecessary()
     }
@@ -442,6 +468,59 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         currentSearch = PlaceSearch(type: .text, string: searchBar.text, region: currentlyVisibleCircularCoordinateRegion)
+    }
+    
+    
+    //UITableViewDataSource
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return articles.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFNearbyArticleTableViewCell.identifier(), for: indexPath) as? WMFNearbyArticleTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        let article = articles[indexPath.row]
+        cell.titleText = article.displayTitle
+        cell.descriptionText = article.wikidataDescription
+        cell.setImageURL(article.thumbnailURL)
+        
+        update(userLocation: mapView.userLocation, onLocationCell: cell, withArticle: article)
+     
+        return cell
+    }
+    
+    func update(userLocation: MKUserLocation, onLocationCell cell: WMFNearbyArticleTableViewCell, withArticle article: WMFArticle) {
+        guard let articleLocation = article.location, let userLocation = userLocation.location else {
+            return
+        }
+        
+        let distance = articleLocation.distance(from: userLocation)
+        cell.setDistance(distance)
+        
+        if let heading = mapView.userLocation.heading  {
+            let bearing = userLocation.wmf_bearing(to: articleLocation, forCurrentHeading: heading)
+            cell.setBearing(bearing)
+        } else {
+            let bearing = userLocation.wmf_bearing(to: articleLocation)
+            cell.setBearing(bearing)
+        }
+    }
+    
+    //UITableViewDelegate
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let article = articles[indexPath.row]
+        guard let url = article.url else {
+            return
+        }
+        wmf_pushArticle(with: url, dataStore: dataStore, previewStore: articleStore, animated: true)
     }
 }
 

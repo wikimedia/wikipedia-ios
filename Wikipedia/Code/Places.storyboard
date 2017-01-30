@@ -45,20 +45,29 @@
                                     <action selector="redoSearch:" destination="pK5-Ai-Kzp" eventType="touchUpInside" id="wyT-P2-LdB"/>
                                 </connections>
                             </button>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Irc-Nx-au0">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Irc-Nx-au0" secondAttribute="trailing" id="1xb-Ou-IQL"/>
                             <constraint firstItem="UNC-SX-Sli" firstAttribute="top" secondItem="pBD-gM-dPf" secondAttribute="top" id="6IK-c4-Guk"/>
                             <constraint firstItem="z6h-da-ewO" firstAttribute="centerX" secondItem="pBD-gM-dPf" secondAttribute="centerX" id="79Z-il-tM5"/>
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="UNC-SX-Sli" secondAttribute="bottom" id="9wa-qz-5B3"/>
                             <constraint firstItem="UNC-SX-Sli" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="BkZ-je-58M"/>
+                            <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="Irc-Nx-au0" secondAttribute="bottom" id="NKQ-b1-Rec"/>
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="z6h-da-ewO" secondAttribute="bottom" constant="20" id="TMh-9f-MrD"/>
+                            <constraint firstItem="Irc-Nx-au0" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="Xbq-SP-Okk"/>
+                            <constraint firstItem="Irc-Nx-au0" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" id="nFS-aV-Ok3"/>
                             <constraint firstAttribute="trailing" secondItem="UNC-SX-Sli" secondAttribute="trailing" id="tCM-nJ-Rev"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="8EZ-Mg-WBR"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
+                        <outlet property="listView" destination="Irc-Nx-au0" id="DbL-ub-mzH"/>
                         <outlet property="mapView" destination="UNC-SX-Sli" id="0hu-YN-E8A"/>
                         <outlet property="redoSearchButton" destination="z6h-da-ewO" id="mP9-Iz-g7C"/>
                     </connections>

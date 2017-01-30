@@ -32,6 +32,7 @@
 #import "BITHockeyManager+WMFExtensions.h"
 #import <HockeySDK/BITCrashManager.h>
 #import "UIViewController+WMFOpenExternalUrl.h"
+#import "CLLocation+WMFBearing.h"
 
 // View Controllers
 #import "WMFArticleViewController_Private.h"
@@ -47,6 +48,7 @@
 // Views
 #import "WMFArticleListTableViewCell.h"
 #import "WMFTableHeaderLabelView.h"
+#import "WMFNearbyArticleTableViewCell.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"
