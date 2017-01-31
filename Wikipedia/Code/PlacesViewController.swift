@@ -34,7 +34,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
         }
     }
     
-    var searches: [[PlaceSearch]] = []{
+    var searches: [[PlaceSearch]] = [[],[],[],[]]{
         didSet {
             tableView.reloadData()
         }
@@ -106,12 +106,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     var currentSearch: PlaceSearch? {
         didSet {
             if let search = currentSearch {
-                switch search.type {
-                case .top:
-                    searchBar.text = search.localizedDescription
-                default:
-                    break
-                }
+                searchBar.text = search.localizedDescription
                 performSearch(search)
             }
         }
@@ -542,12 +537,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     // Search completions
     
     func updateSearchSuggestions(withCompletions completions: [PlaceSearch]) {
-        guard completions.count > 0 else {
+        guard let currentSearchString = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), currentSearchString != "" || completions.count > 0 else {
             let topNearbySuggestion = PlaceSearch(type: .top, string: nil, region: currentlyVisibleCircularCoordinateRegion, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchCompletion: nil)
-            searchSuggestionController.searches = [[topNearbySuggestion], [], []]
+            searchSuggestionController.searches = [[topNearbySuggestion], [], [], []]
             return
         }
-        searchSuggestionController.searches = [[], [], completions]
+        
+        let currentStringSuggeston = PlaceSearch(type: .text, string: currentSearchString, region: currentlyVisibleCircularCoordinateRegion, localizedDescription: currentSearchString, searchCompletion: nil)
+        searchSuggestionController.searches = [[], [], [currentStringSuggeston], completions]
     }
     
     func updateSearchCompletionsFromSearchBarText() {
@@ -562,13 +559,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     // UISearchBarDelegate
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        if let type = currentSearch?.type, type != .text {
+            searchBar.text = nil
+        }
         updateSearchSuggestions(withCompletions: [])
         searchSuggestionView.isHidden = false
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        updateSearchSuggestions(withCompletions: searchSuggestionController.searches[3])
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        self.perform(#selector(updateSearchCompletionsFromSearchBarText), with: nil, afterDelay: 0.2)
+        perform(#selector(updateSearchCompletionsFromSearchBarText), with: nil, afterDelay: 0.2)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
