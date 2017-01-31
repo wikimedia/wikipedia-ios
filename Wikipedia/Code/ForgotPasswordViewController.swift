@@ -51,11 +51,11 @@ class ForgotPasswordViewController: UIViewController {
                 userName: userName,
                 email: email,
                 completion: {
-                    (_, response: Any?) in
+                    (result: WMFPasswordResetterResult) in
                     WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("forgot-password-email-sent"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             },
                 failure: {
-                    (_, error: Error) in
+                    (error: Error) in
                     WMFAlertManager.sharedInstance.showAlert(error.localizedDescription, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             })
         }, failure: {

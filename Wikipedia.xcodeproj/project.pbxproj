@@ -475,7 +475,6 @@
 		B0F92C601E3A813500B72802 /* WMFAccountLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C5F1E3A813500B72802 /* WMFAccountLogin.swift */; };
 		B0F92C641E3BF17900B72802 /* MTLValueTransformer+WMFConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C631E3BF17900B72802 /* MTLValueTransformer+WMFConvenience.swift */; };
 		B0F92C661E3C133300B72802 /* MTLJSONSerializing+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C651E3C133300B72802 /* MTLJSONSerializing+Convenience.swift */; };
-		B0F92C6C1E3C181E00B72802 /* WMFPasswordResetterResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C6B1E3C181E00B72802 /* WMFPasswordResetterResult.swift */; };
 		B0F92C6F1E3C580900B72802 /* WMFCaptchaResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C6E1E3C580900B72802 /* WMFCaptchaResetter.swift */; };
 		B0F92C711E3C583300B72802 /* WMFCaptchaResetterResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C701E3C583300B72802 /* WMFCaptchaResetterResult.swift */; };
 		B0F92C731E3C625B00B72802 /* WMFAccountLoginResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C721E3C625B00B72802 /* WMFAccountLoginResult.swift */; };
@@ -2016,7 +2015,6 @@
 		B0F92C5F1E3A813500B72802 /* WMFAccountLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAccountLogin.swift; sourceTree = "<group>"; };
 		B0F92C631E3BF17900B72802 /* MTLValueTransformer+WMFConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MTLValueTransformer+WMFConvenience.swift"; sourceTree = "<group>"; };
 		B0F92C651E3C133300B72802 /* MTLJSONSerializing+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MTLJSONSerializing+Convenience.swift"; sourceTree = "<group>"; };
-		B0F92C6B1E3C181E00B72802 /* WMFPasswordResetterResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFPasswordResetterResult.swift; sourceTree = "<group>"; };
 		B0F92C6E1E3C580900B72802 /* WMFCaptchaResetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFCaptchaResetter.swift; path = Wikipedia/Code/WMFCaptchaResetter.swift; sourceTree = SOURCE_ROOT; };
 		B0F92C701E3C583300B72802 /* WMFCaptchaResetterResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFCaptchaResetterResult.swift; path = Wikipedia/Code/WMFCaptchaResetterResult.swift; sourceTree = SOURCE_ROOT; };
 		B0F92C721E3C625B00B72802 /* WMFAccountLoginResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAccountLoginResult.swift; sourceTree = "<group>"; };
@@ -3868,7 +3866,6 @@
 				B0267CEC1E316AE3006B6D8D /* ForgotPasswordViewController.swift */,
 				B0267CEE1E3294C1006B6D8D /* WMFAuthTokenFetcher.swift */,
 				B0267CF21E32A0CB006B6D8D /* WMFPasswordResetter.swift */,
-				B0F92C6B1E3C181E00B72802 /* WMFPasswordResetterResult.swift */,
 				B0267CF01E329F85006B6D8D /* WMFURLSessionDataTaskTypes.swift */,
 			);
 			name = ForgotPassword;
@@ -6929,7 +6926,6 @@
 				B0E8037D1C0CD9E10065EBC0 /* TableOfContentsReadMoreItem.swift in Sources */,
 				D84F2C031D30162700963D42 /* WMFFirstRandomViewController.m in Sources */,
 				B0E803F71C0CDDA80065EBC0 /* WMFIntrinsicSizeTableView.m in Sources */,
-				B0F92C6C1E3C181E00B72802 /* WMFPasswordResetterResult.swift in Sources */,
 				B0E8073E1C0CED810065EBC0 /* WMFLogFormatter.m in Sources */,
 				0E61C4881CD00984000B11B3 /* WMFHelpViewController.m in Sources */,
 				B0E804DA1C0CE0B40065EBC0 /* NSString+FormattedAttributedString.m in Sources */,
