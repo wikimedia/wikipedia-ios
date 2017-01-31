@@ -1,26 +1,61 @@
 
 import Foundation
 
+enum WMFCaptchaResetterError: LocalizedError {
+    case cannotExtractCaptchaIndex
+    case zeroLengthIndex
+    var errorDescription: String? {
+        switch self {
+        case .cannotExtractCaptchaIndex:
+            return "Could not extract captcha index"
+        case .zeroLengthIndex:
+            return "Valid captcha reset index not obtained"
+        }
+    }
+}
+
+public typealias WMFCaptchaResetterResultBlock = (WMFCaptchaResetterResult) -> Void
+
+public struct WMFCaptchaResetterResult {
+    var index: String
+    init(index:String) {
+        self.index = index
+    }
+}
+
 class WMFCaptchaResetter {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
-    
-    public func isResetting() -> Bool {
+    func isFetching() -> Bool {
         return manager!.operationQueue.operationCount > 0
     }
     
-    public func resetCaptcha(siteURL: URL, completion: WMFURLSessionDataTaskSuccessHandler, failure: WMFURLSessionDataTaskFailureHandler){
-        
+    public func resetCaptcha(siteURL: URL, completion: @escaping WMFCaptchaResetterResultBlock, failure: @escaping WMFErrorHandler){
         let manager = AFHTTPSessionManager(baseURL: siteURL)
-        manager.responseSerializer = WMFMantleJSONResponseSerializer.init(forInstancesOf: WMFCaptchaResetterResult.self, fromKeypath: "fancycaptchareload")
-        
+        manager.responseSerializer = WMFApiJsonResponseSerializer.init();
         let parameters = [
             "action": "fancycaptchareload",
             "format": "json"
         ];
-        
-        manager.post("/w/api.php", parameters: parameters, progress: nil, success: completion, failure: failure)
+        manager.post("/w/api.php", parameters: parameters, progress: nil, success: {
+            (_, response: Any?) in
+            guard
+                let response = response as? [String : AnyObject],
+                let fancycaptchareload = response["fancycaptchareload"] as? [String: Any],
+                let index = fancycaptchareload["index"] as? String
+                else {
+                    failure(WMFCaptchaResetterError.cannotExtractCaptchaIndex)
+                    return
+            }
+            guard index.characters.count > 0 else {
+                failure(WMFCaptchaResetterError.zeroLengthIndex)
+                return
+            }
+            completion(WMFCaptchaResetterResult.init(index: index))
+        }, failure: {
+            (_, error: Error) in
+            failure(error)
+        })
     }
-    
     static public func newCaptchaImageURLFromOldURL(_ oldURL: String, newID: String) -> String? {
         do {
             let regex = try NSRegularExpression(pattern: "wpCaptchaId=([^&]*)", options: .caseInsensitive)
