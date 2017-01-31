@@ -1,20 +1,45 @@
 
 import Foundation
 
+enum WMFAccountLoginError: LocalizedError {
+    case cannotExtractLoginStatus
+    case statusNotPass(String?)
+    var errorDescription: String? {
+        switch self {
+        case .cannotExtractLoginStatus:
+            return "Could not extract login status"
+        case .statusNotPass(let message?):
+            return "Unable to login: \(message)"
+        default:
+            return "Unable to login: Reason unknown"
+        }
+    }
+}
+
+public typealias WMFAccountLoginResultBlock = (WMFAccountLoginResult) -> Void
+
+public struct WMFAccountLoginResult {
+    var status: String
+    var username: String
+    var message: String?
+    init(status: String, username: String, message: String?) {
+        self.status = status
+        self.username = username
+        self.message = message
+    }
+}
+
 class WMFAccountLogin {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
-    
     func isFetching() -> Bool {
         return manager!.operationQueue.operationCount > 0
     }
     
-    func login(username: String, password: String, token: String, siteURL: URL, completion: WMFURLSessionDataTaskSuccessHandler, failure: WMFURLSessionDataTaskFailureHandler)
-    {
+    public func login(username: String, password: String, token: String, siteURL: URL, completion: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler){
         let manager = AFHTTPSessionManager(baseURL: siteURL)
+        manager.responseSerializer = WMFApiJsonResponseSerializer.init();
         
-        manager.responseSerializer = WMFMantleJSONResponseSerializer.init(forInstancesOf: WMFAccountLoginResult.self, fromKeypath: "clientlogin")
-        
-        let params = [
+        let parameters = [
             "action": "clientlogin",
             "username": username,
             "password": password,
@@ -22,6 +47,27 @@ class WMFAccountLogin {
             "logintoken": token,
             "format": "json"
         ]
-        manager.post("/w/api.php", parameters: params, progress: nil, success: completion, failure: failure)
+        
+        manager.post("/w/api.php", parameters: parameters, progress: nil, success: {
+            (_, response: Any?) in
+            guard
+                let response = response as? [String : AnyObject],
+                let clientlogin = response["clientlogin"] as? [String : AnyObject],
+                let status = clientlogin["status"] as? String
+                else {
+                    failure(WMFAccountLoginError.cannotExtractLoginStatus)
+                    return
+            }
+            let message = clientlogin["message"] as? String ?? nil
+            guard status == "PASS" else {
+                failure(WMFAccountLoginError.statusNotPass(message))
+                return
+            }
+            let normalizedUsername = clientlogin["username"] as? String ?? username
+            completion(WMFAccountLoginResult.init(status: status, username: normalizedUsername, message: message))
+        }, failure: {
+            (_, error: Error) in
+            failure(error)
+        })
     }
 }

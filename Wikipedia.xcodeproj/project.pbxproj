@@ -477,7 +477,6 @@
 		B0F92C661E3C133300B72802 /* MTLJSONSerializing+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C651E3C133300B72802 /* MTLJSONSerializing+Convenience.swift */; };
 		B0F92C6F1E3C580900B72802 /* WMFCaptchaResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C6E1E3C580900B72802 /* WMFCaptchaResetter.swift */; };
 		B0F92C711E3C583300B72802 /* WMFCaptchaResetterResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C701E3C583300B72802 /* WMFCaptchaResetterResult.swift */; };
-		B0F92C731E3C625B00B72802 /* WMFAccountLoginResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C721E3C625B00B72802 /* WMFAccountLoginResult.swift */; };
 		B0F92C801E3FFEA100B72802 /* WMFAuthLoginInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C7F1E3FFEA100B72802 /* WMFAuthLoginInfoFetcher.swift */; };
 		B0F92C821E3FFEB900B72802 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C811E3FFEB900B72802 /* WMFAuthAccountCreationInfoFetcher.swift */; };
 		B0F956A91C481BC000691810 /* WMFArticleFooterMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0F956A81C481BC000691810 /* WMFArticleFooterMenuCell.m */; };
@@ -2017,7 +2016,6 @@
 		B0F92C651E3C133300B72802 /* MTLJSONSerializing+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MTLJSONSerializing+Convenience.swift"; sourceTree = "<group>"; };
 		B0F92C6E1E3C580900B72802 /* WMFCaptchaResetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFCaptchaResetter.swift; path = Wikipedia/Code/WMFCaptchaResetter.swift; sourceTree = SOURCE_ROOT; };
 		B0F92C701E3C583300B72802 /* WMFCaptchaResetterResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFCaptchaResetterResult.swift; path = Wikipedia/Code/WMFCaptchaResetterResult.swift; sourceTree = SOURCE_ROOT; };
-		B0F92C721E3C625B00B72802 /* WMFAccountLoginResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAccountLoginResult.swift; sourceTree = "<group>"; };
 		B0F92C7F1E3FFEA100B72802 /* WMFAuthLoginInfoFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAuthLoginInfoFetcher.swift; sourceTree = "<group>"; };
 		B0F92C811E3FFEB900B72802 /* WMFAuthAccountCreationInfoFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAuthAccountCreationInfoFetcher.swift; sourceTree = "<group>"; };
 		B0F956A71C481BC000691810 /* WMFArticleFooterMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleFooterMenuCell.h; path = Wikipedia/Code/WMFArticleFooterMenuCell.h; sourceTree = SOURCE_ROOT; };
@@ -3686,7 +3684,6 @@
 				B0E8063F1C0CE7F70065EBC0 /* AccountLogin.h */,
 				B0E806401C0CE7F70065EBC0 /* AccountLogin.m */,
 				B0F92C5F1E3A813500B72802 /* WMFAccountLogin.swift */,
-				B0F92C721E3C625B00B72802 /* WMFAccountLoginResult.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -6883,7 +6880,6 @@
 				D8D270361D75D45B00D093A8 /* WMFArticleListTableViewCell.m in Sources */,
 				B0E804C21C0CE0B40065EBC0 /* MWKSection+DisplayHtml.m in Sources */,
 				B06531691C2340BB003BD7DC /* WMFArticleFooterMenuItem.m in Sources */,
-				B0F92C731E3C625B00B72802 /* WMFAccountLoginResult.swift in Sources */,
 				B0E803311C0CD6F20065EBC0 /* WMFExploreSectionFooter.m in Sources */,
 				B0F7CB561C8A89E300996DE0 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				B0E8065C1C0CE84B0065EBC0 /* WikiTextSectionUploader.m in Sources */,
