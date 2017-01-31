@@ -13,13 +13,35 @@ enum PlaceSearchType {
 struct PlaceSearch {
     let type: PlaceSearchType
     let string: String?
-    let region: CLCircularRegion
+    let region: MKCoordinateRegion?
     let localizedDescription: String?
     let searchCompletion: MKLocalSearchCompletion?
 }
 
 protocol PlaceSearchSuggestionControllerDelegate: NSObjectProtocol {
     func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didSelectSearch search: PlaceSearch)
+}
+
+extension MKCoordinateRegion {
+    var width: CLLocationDistance {
+        get {
+            let halfLongitudeDelta = span.longitudeDelta * 0.5
+            let left =  CLLocation(latitude: center.latitude, longitude: center.longitude - halfLongitudeDelta)
+            let right =  CLLocation(latitude: center.latitude, longitude: center.longitude + halfLongitudeDelta)
+            let width = right.distance(from: left)
+            return width
+        }
+    }
+    
+    var height: CLLocationDistance {
+        get {
+            let halfLatitudeDelta = span.latitudeDelta * 0.5
+            let top = CLLocation(latitude: center.latitude + halfLatitudeDelta, longitude: center.longitude)
+            let bottom = CLLocation(latitude: center.latitude - halfLatitudeDelta, longitude: center.longitude)
+            let height = top.distance(from: bottom)
+            return height
+        }
+    }
 }
 
 class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableViewDelegate {
@@ -83,6 +105,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var redoSearchButton: UIButton!
     let nearbyFetcher = WMFLocationSearchFetcher()
     
+    var localSearch: MKLocalSearch?
     let localCompleter = MKLocalSearchCompleter()
     let globalCompleter = MKLocalSearchCompleter()
     
@@ -111,6 +134,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
         }
     }
+    
+    var currentSearchRegion: MKCoordinateRegion?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -154,7 +179,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         searchSuggestionController.delegate = self
         
         // Setup search completers
+        localCompleter.filterType = .locationsOnly
         localCompleter.delegate = self
+        globalCompleter.filterType = .locationsOnly
         globalCompleter.delegate = self
     }
     
@@ -171,13 +198,22 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func showRedoSearchButtonIfNecessary() {
-        let visibleRegion = currentlyVisibleCircularCoordinateRegion
-        guard let search = currentSearch else {
+        let visibleRegion = mapView.region
+        guard let searchRegion = currentSearchRegion else {
             return
         }
-        let distance = CLLocation(latitude: visibleRegion.center.latitude, longitude: visibleRegion.center.longitude).distance(from: CLLocation(latitude: search.region.center.latitude, longitude: search.region.center.longitude))
-        let radiusRatio = visibleRegion.radius/search.region.radius
-        redoSearchButton.isHidden = !(radiusRatio > 1.33 || radiusRatio < 0.67 || distance/search.region.radius > 0.33)
+        let searchWidth = searchRegion.width
+        let searchHeight = searchRegion.height
+        let searchRegionMinDimension = min(searchWidth, searchHeight)
+        
+        let visibleWidth = visibleRegion.width
+        let visibleHeight = visibleRegion.height
+
+        let distance = CLLocation(latitude: visibleRegion.center.latitude, longitude: visibleRegion.center.longitude).distance(from: CLLocation(latitude: searchRegion.center.latitude, longitude: searchRegion.center.longitude))
+        let widthRatio = visibleWidth/searchWidth
+        let heightRatio = visibleHeight/searchHeight
+        let ratio = min(widthRatio, heightRatio)
+        redoSearchButton.isHidden = !(ratio > 1.33 || ratio < 0.67 || distance/searchRegionMinDimension > 0.33)
     }
     
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
@@ -234,7 +270,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let center = place.coordinate
             let span = MKCoordinateSpanMake(latitudeDelta, longitudeDelta)
             let region = MKCoordinateRegionMake(center , span)
-            mapView.setRegion(region, animated: true)
+            UIView.animate(withDuration: 1, animations: {
+                mapView.region = region
+            })
             return
         }
         
@@ -332,18 +370,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             
         }
     }
-    
-    var currentlyVisibleCircularCoordinateRegion: CLCircularRegion {
-        get {
-            let center = mapView.region.center
-            let mapRect = mapView.visibleMapRect
-            let metersPerMapPoint = MKMetersPerMapPointAtLatitude(center.latitude)
-            let widthInMeters = mapRect.size.width * metersPerMapPoint
-            let heightInMeters =  mapRect.size.height * metersPerMapPoint
-            let radius = min(widthInMeters, heightInMeters)
-            return CLCircularRegion(center: center, radius: radius, identifier: "")
-        }
-    }
+
     
     func performSearch(_ search: PlaceSearch) {
         guard !searching else {
@@ -357,20 +384,54 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         var searchTerm: String? = nil
         var sortStyle = WMFLocationSearchSortStyleNone
-        let region = search.region
+        let region = search.region ?? mapView.region
+        currentSearchRegion = region
         
         switch search.type {
         case .top:
             sortStyle = WMFLocationSearchSortStylePageViews
         case .location:
-            fallthrough
+            guard let completion = search.searchCompletion else {
+                if let region = search.region {
+                    mapView.setRegion(region, animated: true)
+                }
+                fallthrough
+            }
+            let request = MKLocalSearchRequest(completion: completion)
+            localSearch = MKLocalSearch(request: request)
+            localSearch?.start(completionHandler: { (response, error) in
+                guard let response = response else {
+                    DDLogError("local search error \(error)")
+                    self.searching = false
+                    return
+                }
+                let region = response.boundingRegion
+                dispatchOnMainQueue({
+                    self.searching = false
+                    self.currentSearch = PlaceSearch(type: search.type, string: nil, region: region, localizedDescription: search.localizedDescription, searchCompletion: nil)
+                })
+            })
+            return
         case .text:
             fallthrough
         default:
             searchTerm = search.string
         }
         
-        nearbyFetcher.fetchArticles(withSiteURL: siteURL, in: region, matchingSearchTerm: searchTerm, sortStyle: sortStyle, resultLimit: 50, completion: { (searchResults) in
+        let center = region.center
+        let halfLatitudeDelta = region.span.latitudeDelta * 0.5
+        let halfLongitudeDelta = region.span.longitudeDelta * 0.5
+        let top = CLLocation(latitude: center.latitude + halfLatitudeDelta, longitude: center.longitude)
+        let bottom = CLLocation(latitude: center.latitude - halfLatitudeDelta, longitude: center.longitude)
+        let left =  CLLocation(latitude: center.latitude, longitude: center.longitude - halfLongitudeDelta)
+        let right =  CLLocation(latitude: center.latitude, longitude: center.longitude + halfLongitudeDelta)
+        let height = top.distance(from: bottom)
+        let width = right.distance(from: left)
+        
+        let radius = min(width, height, 10000)
+        let searchRegion = CLCircularRegion(center: center, radius: radius, identifier: "")
+        
+        nearbyFetcher.fetchArticles(withSiteURL: siteURL, in: searchRegion, matchingSearchTerm: searchTerm, sortStyle: sortStyle, resultLimit: 50, completion: { (searchResults) in
             self.searching = false
             self.updatePlaces(withSearchResults: searchResults.results)
         }) { (error) in
@@ -383,7 +444,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         guard let search = currentSearch else {
             return
         }
-        currentSearch = PlaceSearch(type: search.type, string: search.string, region: currentlyVisibleCircularCoordinateRegion, localizedDescription: search.string, searchCompletion: nil)
+        currentSearch = PlaceSearch(type: search.type, string: search.string, region: nil, localizedDescription: search.string, searchCompletion: nil)
         redoSearchButton.isHidden = true
     }
 
@@ -408,15 +469,15 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
-        guard let search = currentSearch else {
+        guard let searchRegion = currentSearchRegion else {
             return
         }
         
         let groupingDeltaLatitude = groupingPrecision.deltaLatitude
         let groupingDeltaLongitude = groupingPrecision.deltaLongitude
         
-        let centerLat = search.region.center.latitude
-        let centerLon = search.region.center.longitude
+        let centerLat = searchRegion.center.latitude
+        let centerLon = searchRegion.center.longitude
         let groupingDistanceLocation = CLLocation(latitude:centerLat + groupingDeltaLatitude, longitude: centerLon + groupingDeltaLongitude)
         let centerLocation = CLLocation(latitude:centerLat, longitude: centerLon)
         let groupingDistance = groupingDistanceLocation.distance(from: centerLocation)
@@ -538,12 +599,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func updateSearchSuggestions(withCompletions completions: [PlaceSearch]) {
         guard let currentSearchString = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), currentSearchString != "" || completions.count > 0 else {
-            let topNearbySuggestion = PlaceSearch(type: .top, string: nil, region: currentlyVisibleCircularCoordinateRegion, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchCompletion: nil)
+            let topNearbySuggestion = PlaceSearch(type: .top, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchCompletion: nil)
             searchSuggestionController.searches = [[topNearbySuggestion], [], [], []]
             return
         }
         
-        let currentStringSuggeston = PlaceSearch(type: .text, string: currentSearchString, region: currentlyVisibleCircularCoordinateRegion, localizedDescription: currentSearchString, searchCompletion: nil)
+        let currentStringSuggeston = PlaceSearch(type: .text, string: currentSearchString, region: nil, localizedDescription: currentSearchString, searchCompletion: nil)
         searchSuggestionController.searches = [[], [], [currentStringSuggeston], completions]
     }
     
@@ -577,7 +638,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        currentSearch = PlaceSearch(type: .text, string: searchBar.text, region: currentlyVisibleCircularCoordinateRegion, localizedDescription: searchBar.text, searchCompletion: nil)
+        currentSearch = PlaceSearch(type: .text, string: searchBar.text, region: nil, localizedDescription: searchBar.text, searchCompletion: nil)
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
@@ -649,7 +710,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 continue
             }
             titles.update(with: result.title)
-            let search = PlaceSearch(type: .location, string: result.title, region: currentlyVisibleCircularCoordinateRegion, localizedDescription: result.title, searchCompletion: result)
+            let search = PlaceSearch(type: .location, string: nil, region: nil, localizedDescription: result.title, searchCompletion: result)
             completions.append(search)
         }
         
@@ -675,8 +736,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
         mapView.setRegion(region, animated: true)
-        let searchRegion = CLCircularRegion(center: location.coordinate, radius: 5000, identifier: "")
-        currentSearch = PlaceSearch(type: .top, string: nil, region: searchRegion, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchCompletion: nil)
+        currentSearch = PlaceSearch(type: .top, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchCompletion: nil)
     }
     
     func locationManager(_ controller: WMFLocationManager, didReceiveError error: Error) {

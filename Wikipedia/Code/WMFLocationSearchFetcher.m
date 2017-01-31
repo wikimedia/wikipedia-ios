@@ -148,7 +148,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSDictionary *)serializedParams:(WMFLocationSearchRequestParameters *)params {
-    if (params.searchTerm || params.sortStyle != WMFLocationSearchSortStyleNone) {
+    if (params.region.radius >= 10000 || params.searchTerm || params.sortStyle != WMFLocationSearchSortStyleNone) {
         NSMutableArray<NSString *> *gsrSearchArray = [NSMutableArray arrayWithCapacity:2];
         if (params.searchTerm) {
             [gsrSearchArray addObject:params.searchTerm];
