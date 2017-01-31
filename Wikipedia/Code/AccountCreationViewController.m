@@ -1,7 +1,6 @@
 #import "AccountCreationViewController.h"
 #import "SessionSingleton.h"
 #import "UIScrollView+ScrollSubviewToLocation.h"
-#import "LoginViewController.h"
 #import "PreviewAndSaveViewController.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFChildViewController.h"

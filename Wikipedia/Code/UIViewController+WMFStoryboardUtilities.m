@@ -14,10 +14,12 @@
 
 // Storyboard name for the receiver, defaults to NSStringFromClass(self).
 + (NSString *)wmf_classStoryboardName {
-    return NSStringFromClass(self);
+    NSString* name = NSStringFromClass(self);
+    if([name containsString:@"."]){ // Remove module prefix (added when invoked via Swift)
+        name = [name componentsSeparatedByString:@"."].lastObject;
+    }
+    return name;
 }
-
-//return wmf_viewController(withIdentifier: String(describing: self), fromStoryboardNamed:storyboardName)
 
 // UIStoryboard from the main bundle matching wmf_classStoryboardName.
 + (UIStoryboard *)wmf_classStoryboard {

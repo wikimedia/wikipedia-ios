@@ -33,6 +33,8 @@
 #import <HockeySDK/BITCrashManager.h>
 #import "UIViewController+WMFOpenExternalUrl.h"
 
+#import "WMFAuthenticationManager.h"
+
 // View Controllers
 #import "WMFArticleViewController_Private.h"
 #import "WebViewController.h"
@@ -43,6 +45,7 @@
 #import "WMFCustomDeleteButtonTableViewCell.h"
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
+#import "AccountCreationViewController.h"
 
 // Views
 #import "WMFArticleListTableViewCell.h"
@@ -50,6 +53,7 @@
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"
+#import "LoginFunnel.h"
 
 // ObjC Framework Categories
 #import "SDWebImageManager+WMFCacheRemoval.h"

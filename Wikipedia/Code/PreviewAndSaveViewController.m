@@ -10,7 +10,6 @@
 #import "MenuButton.h"
 #import "EditSummaryViewController.h"
 #import "PreviewLicenseView.h"
-#import "LoginViewController.h"
 #import "UIScrollView+ScrollSubviewToLocation.h"
 #import "AbuseFilterAlert.h"
 #import "MWLanguageInfo.h"

@@ -5,7 +5,6 @@
 
 // View Controllers
 #import "WMFSettingsViewController.h"
-#import "LoginViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "AboutViewController.h"
 #import "WMFHelpViewController.h"
