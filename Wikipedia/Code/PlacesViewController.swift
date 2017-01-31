@@ -15,6 +15,7 @@ struct PlaceSearch {
     let string: String?
     let region: CLCircularRegion
     let localizedDescription: String?
+    let searchCompletion: MKLocalSearchCompletion?
 }
 
 protocol PlaceSearchSuggestionControllerDelegate: NSObjectProtocol {
@@ -164,7 +165,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let radiusRatio = visibleRegion.radius/search.region.radius
             redoSearchButton.isHidden = !(radiusRatio > 1.33 || radiusRatio < 0.67 || distance/search.region.radius > 0.33)
         } else {
-            currentSearch = PlaceSearch(type: .top, string: nil, region: visibleRegion, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"))
+            currentSearch = PlaceSearch(type: .top, string: nil, region: visibleRegion, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchCompletion: nil)
         }
     }
     
@@ -371,7 +372,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         guard let search = currentSearch else {
             return
         }
-        currentSearch = PlaceSearch(type: search.type, string: search.string, region: currentlyVisibleCircularCoordinateRegion, localizedDescription: search.string)
+        currentSearch = PlaceSearch(type: search.type, string: search.string, region: currentlyVisibleCircularCoordinateRegion, localizedDescription: search.string, searchCompletion: nil)
         redoSearchButton.isHidden = true
     }
 
@@ -522,11 +523,21 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
 
     }
     
-    //UISearchBarDelegate
+    // Search completions
+    
+    func updateSearchCompletions() {
+        guard let text = searchBar.text else {
+            return
+        }
+        localCompleter.queryFragment = text
+        globalCompleter.queryFragment = text
+    }
+    
+    // UISearchBarDelegate
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        localCompleter.queryFragment = searchText
-        globalCompleter.queryFragment = searchText
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        self.perform(#selector(updateSearchCompletions), with: nil, afterDelay: 0.2)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -534,7 +545,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        currentSearch = PlaceSearch(type: .text, string: searchBar.text, region: currentlyVisibleCircularCoordinateRegion, localizedDescription: searchBar.text)
+        currentSearch = PlaceSearch(type: .text, string: searchBar.text, region: currentlyVisibleCircularCoordinateRegion, localizedDescription: searchBar.text, searchCompletion: nil)
     }
     
     
@@ -594,11 +605,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         var suggestions: [PlaceSearch] = []
+        var titles: Set<String> = []
         var results = localCompleter.results
         results.append(contentsOf: globalCompleter.results)
         
         for result in results {
-            let search = PlaceSearch(type: .location, string: result.title, region: currentlyVisibleCircularCoordinateRegion, localizedDescription: result.title)
+            guard !titles.contains(result.title) else {
+                continue
+            }
+            titles.update(with: result.title)
+            let search = PlaceSearch(type: .location, string: result.title, region: currentlyVisibleCircularCoordinateRegion, localizedDescription: result.title, searchCompletion: result)
             suggestions.append(search)
         }
         
