@@ -1,7 +1,6 @@
 #import "LoginViewController.h"
 #import "NSHTTPCookieStorage+WMFCloneCookie.h"
 #import "AccountCreationViewController.h"
-#import "PaddedLabel.h"
 #import "CreateAccountFunnel.h"
 #import "PreviewAndSaveViewController.h"
 #import "SectionEditorViewController.h"
@@ -20,17 +19,13 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
-@property (weak, nonatomic) IBOutlet PaddedLabel *createAccountButton;
-@property (weak, nonatomic) IBOutlet PaddedLabel *forgotPasswordButton;
+@property (weak, nonatomic) IBOutlet UILabel *createAccountButton;
+@property (weak, nonatomic) IBOutlet UILabel *forgotPasswordButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *usernameUnderlineHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *passwordUnderlineHeight;
-@property (weak, nonatomic) IBOutlet PaddedLabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @property (weak, nonatomic) IBOutlet UIView *loginContainerView;
-
-@property (nonatomic, copy) void (^successBlock)();
-@property (nonatomic, copy) void (^failBlock)();
-
 @property (strong, nonatomic) UIBarButtonItem *doneButton;
 
 @end
@@ -57,18 +52,12 @@
                                                         }];
     self.navigationItem.rightBarButtonItem = self.doneButton;
 
-    self.successBlock = ^() {
-    };
-    self.failBlock = ^() {
-    };
-
     self.titleLabel.font = [UIFont boldSystemFontOfSize:23.0f];
     self.usernameField.font = [UIFont boldSystemFontOfSize:18.0f];
     self.passwordField.font = [UIFont boldSystemFontOfSize:18.0f];
     self.createAccountButton.font = [UIFont boldSystemFontOfSize:14.0f];
 
     self.createAccountButton.textColor = [UIColor wmf_blueTintColor];
-    self.createAccountButton.padding = UIEdgeInsetsMake(10, 10, 10, 10);
     self.createAccountButton.text = MWLocalizedString(@"login-account-creation", nil);
     self.createAccountButton.userInteractionEnabled = YES;
     [self.createAccountButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(createAccountButtonPushed:)]];

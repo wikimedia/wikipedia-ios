@@ -8,7 +8,6 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "SectionEditorViewController.h"
 #import "Wikipedia-Swift.h"
-#import "PaddedLabel.h"
 #import "MWKLanguageLinkController.h"
 #import "WMFAuthenticationManager.h"
 #import <SDWebImage/SDWebImage.h>
@@ -23,8 +22,8 @@
 @property (nonatomic) BOOL showCaptchaContainer;
 @property (strong, nonatomic) NSString *captchaId;
 @property (strong, nonatomic) NSURL *captchaUrl;
-@property (weak, nonatomic) IBOutlet PaddedLabel *loginButton;
-@property (weak, nonatomic) IBOutlet PaddedLabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *loginButton;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *usernameUnderlineHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *passwordUnderlineHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *passwordConfirmUnderlineHeight;
@@ -138,7 +137,6 @@
     self.emailUnderlineHeight.constant = self.usernameUnderlineHeight.constant;
 
     self.loginButton.textColor = [UIColor wmf_blueTintColor];
-    self.loginButton.padding = UIEdgeInsetsMake(10, 10, 10, 10);
     self.loginButton.text = MWLocalizedString(@"account-creation-login", nil);
     self.loginButton.userInteractionEnabled = YES;
     [self.loginButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loginButtonPushed:)]];
