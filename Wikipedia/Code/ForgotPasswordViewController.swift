@@ -12,7 +12,7 @@ class ForgotPasswordViewController: UIViewController {
     @IBOutlet fileprivate var emailTextField: UITextField!
     @IBOutlet fileprivate var resetButton: UIButton!
     
-    let tokensFetcher = WMFTokensFetcher()
+    let tokenFetcher = WMFAuthTokenFetcher()
     let passwordResetter = WMFPasswordResetter()
 
     override func viewDidLoad() {
@@ -34,41 +34,33 @@ class ForgotPasswordViewController: UIViewController {
     }
 
     @IBAction fileprivate func didTapResetPasswordButton(withSender sender: UIButton) {
-        let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL();
-        sendPasswordResetEmail(siteURL: siteURL!, userName: usernameTextField.text, email: emailTextField.text)
+        sendPasswordResetEmail(userName: usernameTextField.text, email: emailTextField.text)
     }
     
-    func sendPasswordResetEmail(siteURL: URL, userName: String?, email: String?) {
-
-        let failureHandler: WMFURLSessionDataTaskFailureHandler = {
-            (_, error: Error) in
-            WMFAlertManager.sharedInstance.showAlert(error.localizedDescription, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-        }
-
-        let passwordResetterSuccessHandler: WMFURLSessionDataTaskSuccessHandler = {
-            (_, response: Any?) in
-            WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("forgot-password-email-sent"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+    func sendPasswordResetEmail(userName: String?, email: String?) {
+        guard let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() else {
+            WMFAlertManager.sharedInstance.showAlert("No site url", sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            return
         }
         
-        let tokenFetcherSuccessHandler: WMFURLSessionDataTaskSuccessHandler = {
-            (_, tokens: Any) in
-            let tokens = tokens as! WMFTokens
+        tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, completion: {
+            (info: WMFAuthToken) in
             self.passwordResetter.resetPassword(
                 siteURL: siteURL,
-                token: tokens.csrftoken!,
+                token: info.token,
                 userName: userName,
                 email: email,
-                completion: passwordResetterSuccessHandler,
-                failure: failureHandler
-            )
-        }
-        
-        tokensFetcher.fetchTokens(
-            tokens: [.csrf],
-            siteURL: siteURL,
-            completion: tokenFetcherSuccessHandler,
-            failure: failureHandler
-        )
-    
+                completion: {
+                    (_, response: Any?) in
+                    WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("forgot-password-email-sent"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            },
+                failure: {
+                    (_, error: Error) in
+                    WMFAlertManager.sharedInstance.showAlert(error.localizedDescription, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            })
+        }, failure: {
+            (error: Error) in
+            WMFAlertManager.sharedInstance.showAlert(error.localizedDescription, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        })
     }
 }
