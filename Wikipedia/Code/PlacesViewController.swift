@@ -374,7 +374,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             self.searching = false
             self.updatePlaces(withSearchResults: searchResults.results)
         }) { (error) in
-            self.wmf_showAlertWithError(error as NSError)
+            self.wmf_showAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("empty-no-search-results-message"))
             self.searching = false
         }
     }
