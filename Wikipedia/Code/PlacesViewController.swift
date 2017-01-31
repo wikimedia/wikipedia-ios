@@ -140,6 +140,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     override func viewDidLoad() {
         super.viewDidLoad()
         // Setup map view
+        mapView.mapType = .standard
+        mapView.showsBuildings = false
+        mapView.showsTraffic = false
         mapView.showsPointsOfInterest = false
         
         // Setup location manager
