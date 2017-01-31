@@ -461,3 +461,6 @@
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
 
 "places-search-top-articles-nearby" = "Top articles nearby - a search suggestion for top articles near the user's current location";
+"places-search-saved-articles" = "Saved articles - a search suggestion for saved articles";
+"places-search-suggested-searches-header" = "Suggested searches - header for the list of suggested searches";
+"places-search-recently-searched-header" = "Recently searched - header for the list of recently searched items";

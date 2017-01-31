@@ -68,9 +68,9 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
         }
         switch section {
         case 0:
-            return "Suggested Searches"
+            return localizedStringForKeyFallingBackOnEnglish("places-search-suggested-searches-header")
         case 1:
-            return "Recently Searched"
+            return localizedStringForKeyFallingBackOnEnglish("places-search-recently-searched-header")
         default:
             return nil
         }
@@ -654,7 +654,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-       print("completerDidFail: \(error)")
+       DDLogWarn("completerDidFail: \(error)")
     }
     
     // PlaceSearchSuggestionControllerDelegate
