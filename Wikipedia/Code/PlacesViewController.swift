@@ -78,13 +78,15 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
 }
 
 
-class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, MKLocalSearchCompleterDelegate, PlaceSearchSuggestionControllerDelegate {
+class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, MKLocalSearchCompleterDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate {
 
     @IBOutlet weak var redoSearchButton: UIButton!
     let nearbyFetcher = WMFLocationSearchFetcher()
     
     let localCompleter = MKLocalSearchCompleter()
     let globalCompleter = MKLocalSearchCompleter()
+    
+    let locationManager = WMFLocationManager.coarse()
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var listView: UITableView!
@@ -117,6 +119,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Setup map view
+        mapView.showsPointsOfInterest = false
+        
+        // Setup location manager
+        locationManager.delegate = self
+        locationManager.startMonitoringLocation()
         
         //Override UINavigationBar.appearance settings from WMFStyleManager
         navigationController?.navigationBar.isTranslucent = true
@@ -130,10 +138,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         segmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
         segmentedControl.tintColor = UIColor.wmf_blueTint()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: segmentedControl)
-        
-        // Setup map view
-        mapView.showsPointsOfInterest = false
-        mapView.setUserTrackingMode(.follow, animated: true)
         
         // Setup list view
         listView.dataSource = self
@@ -173,14 +177,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func showRedoSearchButtonIfNecessary() {
         let visibleRegion = currentlyVisibleCircularCoordinateRegion
-        
-        if let search = currentSearch {
-            let distance = CLLocation(latitude: visibleRegion.center.latitude, longitude: visibleRegion.center.longitude).distance(from: CLLocation(latitude: search.region.center.latitude, longitude: search.region.center.longitude))
-            let radiusRatio = visibleRegion.radius/search.region.radius
-            redoSearchButton.isHidden = !(radiusRatio > 1.33 || radiusRatio < 0.67 || distance/search.region.radius > 0.33)
-        } else {
-            currentSearch = PlaceSearch(type: .top, string: nil, region: visibleRegion, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchCompletion: nil)
+        guard let search = currentSearch else {
+            return
         }
+        let distance = CLLocation(latitude: visibleRegion.center.latitude, longitude: visibleRegion.center.longitude).distance(from: CLLocation(latitude: search.region.center.latitude, longitude: search.region.center.longitude))
+        let radiusRatio = visibleRegion.radius/search.region.radius
+        redoSearchButton.isHidden = !(radiusRatio > 1.33 || radiusRatio < 0.67 || distance/search.region.radius > 0.33)
     }
     
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
@@ -662,6 +664,30 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didSelectSearch search: PlaceSearch) {
         currentSearch = search
         searchBar.endEditing(true)
+    }
+    
+    // WMFLocationManagerDelegate
+    
+    func locationManager(_ controller: WMFLocationManager, didUpdate location: CLLocation) {
+        guard currentSearch == nil else {
+            return
+        }
+        let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
+        mapView.setRegion(region, animated: true)
+        let searchRegion = CLCircularRegion(center: location.coordinate, radius: 5000, identifier: "")
+        currentSearch = PlaceSearch(type: .top, string: nil, region: searchRegion, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchCompletion: nil)
+    }
+    
+    func locationManager(_ controller: WMFLocationManager, didReceiveError error: Error) {
+        
+    }
+    
+    func locationManager(_ controller: WMFLocationManager, didUpdate heading: CLHeading) {
+        
+    }
+    
+    func locationManager(_ controller: WMFLocationManager, didChangeEnabledState enabled: Bool) {
+        
     }
 }
 
