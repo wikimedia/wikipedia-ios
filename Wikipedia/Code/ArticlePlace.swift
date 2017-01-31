@@ -16,16 +16,20 @@ class DebugAnnotation: NSObject, MKAnnotation {
 }
 
 class ArticlePlace: NSObject, MKAnnotation {
-    public let coordinate: CLLocationCoordinate2D
+    public dynamic var coordinate: CLLocationCoordinate2D
+    public var nextCoordinate: CLLocationCoordinate2D?
     public let title: String?
     public let subtitle: String?
     public let articles: [WMFArticle]
+    public let identifier: String
     
-    init?(coordinate: CLLocationCoordinate2D, articles: [WMFArticle]) {
+    init?(coordinate: CLLocationCoordinate2D, nextCoordinate: CLLocationCoordinate2D?, articles: [WMFArticle]) {
         self.title = nil
         self.subtitle = nil
         self.coordinate = coordinate
+        self.nextCoordinate = nextCoordinate
         self.articles = articles
+        self.identifier = NSUUID().uuidString
     }
 }
 

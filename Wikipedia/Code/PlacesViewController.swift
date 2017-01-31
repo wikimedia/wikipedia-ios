@@ -101,7 +101,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
 
 
 class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, MKLocalSearchCompleterDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate {
-
+    
     @IBOutlet weak var redoSearchButton: UIButton!
     let nearbyFetcher = WMFLocationSearchFetcher()
     
@@ -131,6 +131,24 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             if let search = currentSearch {
                 searchBar.text = search.localizedDescription
                 performSearch(search)
+            }
+        }
+    }
+    
+    var mapRegion: MKCoordinateRegion? {
+        didSet {
+            guard let region = mapRegion else {
+                return
+            }
+            
+            regroupArticlesIfNecessary(forVisibleRegion: region)
+            showRedoSearchButtonIfNecessary(forVisibleRegion: region)
+            localCompleter.region = region
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                self.mapView.region = region
+            }) { (finished) in
+                
             }
         }
     }
@@ -186,6 +204,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         localCompleter.delegate = self
         globalCompleter.filterType = .locationsOnly
         globalCompleter.delegate = self
+        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -200,8 +220,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         dismiss(animated: false, completion: nil)
     }
     
-    func showRedoSearchButtonIfNecessary() {
-        let visibleRegion = mapView.region
+    func showRedoSearchButtonIfNecessary(forVisibleRegion visibleRegion: MKCoordinateRegion) {
         guard let searchRegion = currentSearchRegion else {
             return
         }
@@ -224,8 +243,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        regroupArticlesIfNecessary()
-        showRedoSearchButtonIfNecessary()
+        regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
+        showRedoSearchButtonIfNecessary(forVisibleRegion: mapView.region)
         localCompleter.region = mapView.region
     }
     
@@ -273,9 +292,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let center = place.coordinate
             let span = MKCoordinateSpanMake(latitudeDelta, longitudeDelta)
             let region = MKCoordinateRegionMake(center , span)
-            UIView.animate(withDuration: 1, animations: {
-                mapView.region = region
-            })
+            mapRegion = region
             return
         }
         
@@ -346,6 +363,26 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             placeView?.annotation = place
         }
         
+        placeView?.alpha = 0
+        
+        if place.nextCoordinate == nil {
+            placeView?.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        }
+        
+        dispatchOnMainQueue({
+            UIView.animate(withDuration: 0.5, animations: {
+                if let nextCoordinate = place.nextCoordinate {
+                    place.coordinate = nextCoordinate
+                } else {
+                    placeView?.transform = CGAffineTransform.identity
+                }
+                placeView?.alpha = 1
+            })
+        })
+
+        
+        
+        
         return placeView
     }
     
@@ -364,15 +401,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         mapView.removeAnnotations(mapView.annotations)
     }
     
-    func addAnnotation(_ annotation: MKAnnotation) {
-        mapView.addAnnotation(annotation)
-    }
-    
-    var searching: Bool = false {
-        didSet {
-            
-        }
-    }
+    var searching: Bool = false
 
     
     func performSearch(_ search: PlaceSearch) {
@@ -396,7 +425,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         case .location:
             guard let completion = search.searchCompletion else {
                 if let region = search.region {
-                    mapView.setRegion(region, animated: true)
+                    mapRegion = region
                 }
                 fallthrough
             }
@@ -451,7 +480,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         redoSearchButton.isHidden = true
     }
 
-    func regroupArticlesIfNecessary() {
+    func regroupArticlesIfNecessary(forVisibleRegion visibleRegion: MKCoordinateRegion) {
+        assert(Thread.isMainThread)
         struct ArticleGroup {
             var articles: [WMFArticle] = []
             var latitudeSum: QuadKeyDegrees = 0
@@ -464,7 +494,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
         }
         
-        let deltaLon = mapView.region.span.longitudeDelta
+        let deltaLon = visibleRegion.span.longitudeDelta
         let lowestPrecision = QuadKeyPrecision(deltaLongitude: deltaLon)
         let groupingPrecision = min(QuadKeyPrecision.maxPrecision, lowestPrecision + 3)
         
@@ -485,7 +515,24 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let centerLocation = CLLocation(latitude:centerLat, longitude: centerLon)
         let groupingDistance = groupingDistanceLocation.distance(from: centerLocation)
         
-        removeAllAnnotations()
+        var previousPlaceByArticle: [String: ArticlePlace] = [:]
+      
+        var annotations: [String:ArticlePlace] = [:]
+        
+        for annotation in mapView.annotations {
+            guard let place = annotation as? ArticlePlace else {
+                continue
+            }
+            
+            annotations[place.identifier] = place
+            
+            for article in place.articles {
+                guard let key = article.key else {
+                    continue
+                }
+                previousPlaceByArticle[key] = place
+            }
+        }
         
         var groups: [QuadKey: ArticleGroup] = [:]
 
@@ -529,16 +576,46 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 }
             }
             
-            guard let place = ArticlePlace(coordinate: group.location.coordinate, articles: group.articles) else {
+            var nextCoordinate: CLLocationCoordinate2D?
+            var coordinate = group.location.coordinate
+
+            if group.articles.count == 1 {
+                if let article = group.articles.first, let key = article.key, let previousPlace = previousPlaceByArticle[key] {
+                    nextCoordinate = coordinate
+                    coordinate = previousPlace.coordinate
+                }
+            } else {
+                for article in group.articles {
+                    guard let key = article.key, let previousPlace = previousPlaceByArticle[key], let _ = annotations.removeValue(forKey: previousPlace.identifier) else {
+                        continue
+                    }
+                    
+                    let placeView = mapView.view(for: previousPlace)
+                    UIView.animate(withDuration: 0.5, animations: { 
+                        placeView?.alpha = 0
+                        previousPlace.coordinate = coordinate
+                    }, completion: { (finished) in
+                        
+                        self.mapView.removeAnnotation(previousPlace)
+                    })
+                }
+            }
+            
+            guard let place = ArticlePlace(coordinate: coordinate, nextCoordinate: nextCoordinate, articles: group.articles) else {
                 continue
             }
-            addAnnotation(place)
+            
+            
+            mapView.removeAnnotations(Array(annotations.values))
+            
+            mapView.addAnnotation(place)
         }
         
         currentGroupingPrecision = groupingPrecision
     }
     
     func updatePlaces(withSearchResults searchResults: [MWKLocationSearchResult]) {
+        removeAllAnnotations()
         articles.removeAll(keepingCapacity: true)
         for result in searchResults {
             guard let displayTitle = result.displayTitle,
@@ -551,7 +628,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         listView.reloadData()
         currentGroupingPrecision = 0
-        regroupArticlesIfNecessary()
+        regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
     }
     
     
@@ -738,7 +815,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
-        mapView.setRegion(region, animated: true)
+        
+        mapRegion = region
         currentSearch = PlaceSearch(type: .top, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchCompletion: nil)
     }
     
