@@ -14,16 +14,68 @@ struct PlaceSearch {
     let type: PlaceSearchType
     let string: String?
     let region: CLCircularRegion
+    let localizedDescription: String?
+}
+
+protocol PlaceSearchSuggestionControllerDelegate: NSObjectProtocol {
+    func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didSelectSearch search: PlaceSearch)
+}
+
+class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableViewDelegate {
+    static let cellReuseIdentifier = "org.wikimedia.places"
+    
+    var tableView: UITableView = UITableView() {
+        didSet {
+            tableView.register(UITableViewCell.self, forCellReuseIdentifier: PlaceSearchSuggestionController.cellReuseIdentifier)
+            tableView.dataSource = self
+            tableView.delegate = self
+            tableView.reloadData()
+        }
+    }
+    
+    var searches: [[PlaceSearch]] = []{
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
+    weak var delegate: PlaceSearchSuggestionControllerDelegate?
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return searches.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return searches[section].count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier:  PlaceSearchSuggestionController.cellReuseIdentifier, for: indexPath)
+        let search = searches[indexPath.section][indexPath.row]
+        cell.textLabel?.text = search.localizedDescription
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let search = searches[indexPath.section][indexPath.row]
+        delegate?.placeSearchSuggestionController(self, didSelectSearch: search)
+    }
 }
 
 
-class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate {
+class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, MKLocalSearchCompleterDelegate, PlaceSearchSuggestionControllerDelegate {
 
     @IBOutlet weak var redoSearchButton: UIButton!
     let nearbyFetcher = WMFLocationSearchFetcher()
     
+    let localCompleter = MKLocalSearchCompleter()
+    let globalCompleter = MKLocalSearchCompleter()
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var listView: UITableView!
+    @IBOutlet weak var searchSuggestionView: UITableView!
+    
+    var searchSuggestionController: PlaceSearchSuggestionController!
     
     var searchBar: UISearchBar!
     var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
@@ -39,7 +91,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             if let search = currentSearch {
                 switch search.type {
                 case .top:
-                    searchBar.text = localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby")
+                    searchBar.text = search.localizedDescription
                 default:
                     break
                 }
@@ -81,7 +133,15 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         searchBar.returnKeyType = .search
         searchBar.delegate = self
         navigationItem.titleView = searchBar
-
+        
+        // Setup search suggestions
+        searchSuggestionController = PlaceSearchSuggestionController()
+        searchSuggestionController.tableView = searchSuggestionView
+        searchSuggestionController.delegate = self
+        
+        // Setup search completers
+        localCompleter.delegate = self
+        globalCompleter.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -104,7 +164,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let radiusRatio = visibleRegion.radius/search.region.radius
             redoSearchButton.isHidden = !(radiusRatio > 1.33 || radiusRatio < 0.67 || distance/search.region.radius > 0.33)
         } else {
-            currentSearch = PlaceSearch(type: .top, string: nil, region: visibleRegion)
+            currentSearch = PlaceSearch(type: .top, string: nil, region: visibleRegion, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"))
         }
     }
     
@@ -115,6 +175,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         regroupArticlesIfNecessary()
         showRedoSearchButtonIfNecessary()
+        localCompleter.region = mapView.region
     }
     
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
@@ -310,7 +371,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         guard let search = currentSearch else {
             return
         }
-        currentSearch = PlaceSearch(type: search.type, string: search.string, region: currentlyVisibleCircularCoordinateRegion)
+        currentSearch = PlaceSearch(type: search.type, string: search.string, region: currentlyVisibleCircularCoordinateRegion, localizedDescription: search.string)
         redoSearchButton.isHidden = true
     }
 
@@ -464,7 +525,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     //UISearchBarDelegate
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+        localCompleter.queryFragment = searchText
+        globalCompleter.queryFragment = searchText
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -472,7 +534,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        currentSearch = PlaceSearch(type: .text, string: searchBar.text, region: currentlyVisibleCircularCoordinateRegion)
+        currentSearch = PlaceSearch(type: .text, string: searchBar.text, region: currentlyVisibleCircularCoordinateRegion, localizedDescription: searchBar.text)
     }
     
     
@@ -518,7 +580,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    //UITableViewDelegate
+    // UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let article = articles[indexPath.row]
@@ -526,6 +588,31 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         wmf_pushArticle(with: url, dataStore: dataStore, previewStore: articleStore, animated: true)
+    }
+    
+    // MKLocalSearchCompleterDelegate
+    
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        var suggestions: [PlaceSearch] = []
+        var results = localCompleter.results
+        results.append(contentsOf: globalCompleter.results)
+        
+        for result in results {
+            let search = PlaceSearch(type: .location, string: result.title, region: currentlyVisibleCircularCoordinateRegion, localizedDescription: result.title)
+            suggestions.append(search)
+        }
+        
+        searchSuggestionController.searches = [[], suggestions]
+    }
+    
+    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+       print("completerDidFail: \(error)")
+    }
+    
+    // PlaceSearchSuggestionControllerDelegate
+    
+    func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didSelectSearch search: PlaceSearch) {
+        
     }
 }
 
