@@ -329,7 +329,6 @@
 		B0E8059D1C0CE2F50065EBC0 /* WMFShareFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */; };
 		B0E806331C0CE7680065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062A1C0CE7670065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m */; };
 		B0E806341C0CE7680065EBC0 /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062C1C0CE7670065EBC0 /* MWKImageInfoResponseSerializer.m */; };
-		B0E806471C0CE7F70065EBC0 /* AccountCreationTokenFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8063C1C0CE7F70065EBC0 /* AccountCreationTokenFetcher.m */; };
 		B0E806481C0CE7F70065EBC0 /* AccountCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8063E1C0CE7F70065EBC0 /* AccountCreator.m */; };
 		B0E806491C0CE7F70065EBC0 /* AccountLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806401C0CE7F70065EBC0 /* AccountLogin.m */; };
 		B0E8064A1C0CE7F70065EBC0 /* AssetsFileFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806421C0CE7F70065EBC0 /* AssetsFileFetcher.m */; };
@@ -1691,8 +1690,6 @@
 		B0E806321C0CE7680065EBC0 /* WMFMantleJSONResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMantleJSONResponseSerializer.m; path = Wikipedia/Code/WMFMantleJSONResponseSerializer.m; sourceTree = SOURCE_ROOT; };
 		B0E806381C0CE7B00065EBC0 /* FetcherBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FetcherBase.h; path = Wikipedia/Code/FetcherBase.h; sourceTree = SOURCE_ROOT; };
 		B0E806391C0CE7B00065EBC0 /* FetcherBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FetcherBase.m; path = Wikipedia/Code/FetcherBase.m; sourceTree = SOURCE_ROOT; };
-		B0E8063B1C0CE7F70065EBC0 /* AccountCreationTokenFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AccountCreationTokenFetcher.h; path = Wikipedia/Code/AccountCreationTokenFetcher.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		B0E8063C1C0CE7F70065EBC0 /* AccountCreationTokenFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = AccountCreationTokenFetcher.m; path = Wikipedia/Code/AccountCreationTokenFetcher.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		B0E8063D1C0CE7F70065EBC0 /* AccountCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AccountCreator.h; path = Wikipedia/Code/AccountCreator.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		B0E8063E1C0CE7F70065EBC0 /* AccountCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = AccountCreator.m; path = Wikipedia/Code/AccountCreator.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		B0E8063F1C0CE7F70065EBC0 /* AccountLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AccountLogin.h; path = Wikipedia/Code/AccountLogin.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -3667,8 +3664,6 @@
 		0EBB231B1D1C454500CA9742 /* Account Creation */ = {
 			isa = PBXGroup;
 			children = (
-				B0E8063B1C0CE7F70065EBC0 /* AccountCreationTokenFetcher.h */,
-				B0E8063C1C0CE7F70065EBC0 /* AccountCreationTokenFetcher.m */,
 				B0E8063D1C0CE7F70065EBC0 /* AccountCreator.h */,
 				B0E8063E1C0CE7F70065EBC0 /* AccountCreator.m */,
 				04B7B9BA18B5569600A63551 /* Captcha */,
@@ -6666,7 +6661,6 @@
 				B0F7CB5A1C8A89EF00996DE0 /* WMFWelcomeLanguagesAnimationView.swift in Sources */,
 				B0379A281D8B747A00D973CF /* WebViewController+WMFReferencePopover.m in Sources */,
 				D84BF62F1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift in Sources */,
-				B0E806471C0CE7F70065EBC0 /* AccountCreationTokenFetcher.m in Sources */,
 				BCCB813E1C110702008BC602 /* NSDate+WMFPOTDTitle.m in Sources */,
 				0EE2438D1DC9889B00066CBD /* WMFTableHeaderLabelView.m in Sources */,
 				B0E8066E1C0CE9030065EBC0 /* PreviewHtmlFetcher.m in Sources */,

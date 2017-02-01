@@ -4,7 +4,6 @@
 #import "KeychainCredentials.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "AccountLogin.h"
-#import "AccountCreationTokenFetcher.h"
 #import "AccountCreator.h"
 #import "MWKLanguageLinkController.h"
 #import "MWKLanguageLink.h"
@@ -32,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, nullable) WMFAuthTokenFetcher *loginTokenFetcher;
 
 @property (strong, nonatomic, nullable) NSString *accountCreationToken;
+@property (strong, nonatomic, nullable) WMFAuthTokenFetcher *accountCreationTokenFetcher;
 
 @property (nonatomic, copy, nullable) dispatch_block_t successBlock;
 @property (nonatomic, copy, nullable) WMFCaptchaHandler captchaBlock;
@@ -109,12 +109,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchCreationTokensWithInfo:(WMFAuthManagerInfo *)info username:(NSString *)username password:(NSString *)password email:(nullable NSString *)email {
     [[QueuesSingleton sharedInstance].accountCreationFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[AccountCreationTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
-                                                                     userName:username
-                                                                     password:password
-                                                                        email:email
-                                                                  withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
-                                                           thenNotifyDelegate:self];
+
+        NSURL *siteURL = [[SessionSingleton sharedInstance] urlForLanguage:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode];
+        self.accountCreationTokenFetcher = [[WMFAuthTokenFetcher alloc] init];
+        @weakify(self)
+        [self.accountCreationTokenFetcher fetchTokenOfType:WMFAuthTokenTypeCreateAccount siteURL:siteURL completion:^(WMFAuthToken* result){
+            @strongify(self)
+            self.accountCreationToken = result.token;
+            //Need to attempt account create to verify username and password
+            [self createAccountWithCaptchaID:nil];
+        } failure:^(NSError* error){
+            [self finishAndSendFailureBlockWithError:error];
+        }];
+
     }];
 }
 
@@ -263,19 +270,6 @@ NS_ASSUME_NONNULL_BEGIN
                 [self cloneSessionCookies];
                 [self finishAndSendSuccessBlock];
             } break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-            case FETCH_FINAL_STATUS_FAILED:
-                [self finishAndSendFailureBlockWithError:error];
-                break;
-        }
-    }
-    if ([sender isKindOfClass:[AccountCreationTokenFetcher class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED:
-                self.accountCreationToken = [sender token];
-                //Need to attempt account create to verify username and password
-                [self createAccountWithCaptchaID:nil];
-                break;
             case FETCH_FINAL_STATUS_CANCELLED:
             case FETCH_FINAL_STATUS_FAILED:
                 [self finishAndSendFailureBlockWithError:error];
