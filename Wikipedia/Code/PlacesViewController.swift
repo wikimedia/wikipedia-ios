@@ -461,7 +461,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let height = top.distance(from: bottom)
         let width = right.distance(from: left)
         
-        let radius = min(width, height, 10000)
+        let radius = round(0.5*min(width, height))
         let searchRegion = CLCircularRegion(center: center, radius: radius, identifier: "")
         
         nearbyFetcher.fetchArticles(withSiteURL: siteURL, in: searchRegion, matchingSearchTerm: searchTerm, sortStyle: sortStyle, resultLimit: 50, completion: { (searchResults) in
@@ -477,7 +477,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         guard let search = currentSearch else {
             return
         }
-        currentSearch = PlaceSearch(type: search.type, string: search.string, region: nil, localizedDescription: search.string, searchCompletion: nil)
+        currentSearch = PlaceSearch(type: search.type, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchCompletion: search.searchCompletion)
         redoSearchButton.isHidden = true
     }
 
