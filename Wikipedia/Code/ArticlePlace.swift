@@ -110,6 +110,7 @@ class ArticlePlaceView: MKAnnotationView {
         super.prepareForReuse()
         imageView.wmf_reset()
         countLabel.text = nil
+        alpha = 1
     }
     
     required init?(coder aDecoder: NSCoder) {

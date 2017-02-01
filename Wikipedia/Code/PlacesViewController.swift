@@ -365,20 +365,27 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             placeView?.annotation = place
         }
         
-        placeView?.alpha = 0
-        
         if place.articles.count > 1 && place.nextCoordinate == nil {
+            placeView?.alpha = 0
             placeView?.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
-            dispatchOnMainQueue({ 
+            dispatchOnMainQueue({
                 UIView.animate(withDuration: self.animationDuration, animations: {
                     placeView?.transform = CGAffineTransform.identity
                     placeView?.alpha = 1
                 })
             })
         } else if let nextCoordinate = place.nextCoordinate {
+            placeView?.alpha = 0
             dispatchOnMainQueue({
                 UIView.animate(withDuration: self.animationDuration, animations: {
                     place.coordinate = nextCoordinate
+                    placeView?.alpha = 1
+                })
+            })
+        } else {
+            placeView?.alpha = 0
+            dispatchOnMainQueue({
+                UIView.animate(withDuration: self.animationDuration, animations: {
                     placeView?.alpha = 1
                 })
             })
@@ -461,7 +468,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let height = top.distance(from: bottom)
         let width = right.distance(from: left)
         
-        let radius = round(0.5*min(width, height))
+        let radius = round(0.25*(width + height))
         let searchRegion = CLCircularRegion(center: center, radius: radius, identifier: "")
         
         nearbyFetcher.fetchArticles(withSiteURL: siteURL, in: searchRegion, matchingSearchTerm: searchTerm, sortStyle: sortStyle, resultLimit: 50, completion: { (searchResults) in
@@ -603,7 +610,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                         placeView?.alpha = 0
                         previousPlace.coordinate = coordinate
                     }, completion: { (finished) in
-                        
                         self.mapView.removeAnnotation(previousPlace)
                     })
                 }
