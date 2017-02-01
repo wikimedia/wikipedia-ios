@@ -116,4 +116,11 @@
         }];
 }
 
+- (NSURLSessionDataTask *)wmf_apiPOSTWithURL:(NSURL *)URL
+                                  parameters:(id)parameters
+                                     success:(void (^)(NSURLSessionDataTask *operation, id responseObject))success
+                                     failure:(void (^)(NSURLSessionDataTask *operation, NSError *error))failure {
+    return [self POST:WMFAPIPath parameters:parameters progress:NULL success:success failure:failure];
+}
+
 @end

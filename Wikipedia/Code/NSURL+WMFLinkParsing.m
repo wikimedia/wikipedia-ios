@@ -11,6 +11,7 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
 #endif
 NSString *const WMFMediaWikiDomain = @"mediawiki.org";
 NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
+NSString *const WMFAPIPath = @"/w/api.php";
 
 @interface NSString (WMFLinkParsing)
 
@@ -165,11 +166,11 @@ NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
 }
 
 - (NSURL *)wmf_APIURL:(BOOL)isMobile {
-    return [[self wmf_siteURL] wmf_URLWithPath:@"/w/api.php" isMobile:isMobile];
+    return [[self wmf_siteURL] wmf_URLWithPath:WMFAPIPath isMobile:isMobile];
 }
 
 + (NSURL *)wmf_APIURLForURL:(NSURL *)URL isMobile:(BOOL)isMobile {
-    return [[URL wmf_siteURL] wmf_URLWithPath:@"/w/api.php" isMobile:isMobile];
+    return [[URL wmf_siteURL] wmf_URLWithPath:WMFAPIPath isMobile:isMobile];
 }
 
 + (NSURL *)wmf_mobileAPIURLForURL:(NSURL *)URL {
