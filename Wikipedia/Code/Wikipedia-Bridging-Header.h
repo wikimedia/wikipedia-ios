@@ -34,6 +34,9 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 
 #import "WMFAuthenticationManager.h"
+#import "UIViewController+WMFChildViewController.h"
+#import "UIScrollView+ScrollSubviewToLocation.h"
+
 
 // View Controllers
 #import "WMFArticleViewController_Private.h"
@@ -45,7 +48,7 @@
 #import "WMFCustomDeleteButtonTableViewCell.h"
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
-#import "AccountCreationViewController.h"
+#import "CaptchaViewController.h"
 
 // Views
 #import "WMFArticleListTableViewCell.h"
@@ -54,6 +57,7 @@
 // Diagnostics
 #import "ToCInteractionFunnel.h"
 #import "LoginFunnel.h"
+#import "CreateAccountFunnel.h"
 
 // ObjC Framework Categories
 #import "SDWebImageManager+WMFCacheRemoval.h"

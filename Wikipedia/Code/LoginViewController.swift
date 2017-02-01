@@ -100,7 +100,7 @@ class LoginViewController: UIViewController {
         WMFAlertManager.sharedInstance.dismissAlert()
         WMFAuthenticationManager.sharedInstance().login(withUsername: usernameField.text!, password: passwordField.text!, success: {
             let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: self.usernameField.text!)
-            WMFAlertManager.sharedInstance.showAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
             self.dismiss(animated: true, completion: nil)
             self.funnel?.logSuccess()
         }, failure: {
@@ -129,7 +129,7 @@ class LoginViewController: UIViewController {
             dismiss(animated: true, completion: {
                 let createAcctVC = AccountCreationViewController.wmf_initialViewControllerFromClassStoryboard()
                 createAcctVC?.funnel = CreateAccountFunnel()
-                createAcctVC?.funnel.logStart(fromLogin: self.funnel?.loginSessionToken)
+                createAcctVC?.funnel?.logStart(fromLogin: self.funnel?.loginSessionToken)
                 let navigationController = UINavigationController.init(rootViewController: createAcctVC!)
                 presenter?.present(navigationController, animated: true, completion: nil)
             })

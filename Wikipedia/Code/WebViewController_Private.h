@@ -6,7 +6,6 @@
 #import "NSString+WMFExtras.h"
 #import "PaddedLabel.h"
 #import "EditFunnel.h"
-#import "AccountCreationViewController.h"
 #import "NSString+FormattedAttributedString.h"
 #import "SavedPagesFunnel.h"
 
