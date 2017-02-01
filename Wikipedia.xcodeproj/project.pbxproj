@@ -194,6 +194,7 @@
 		B0C6BE401E4068C60033BD6E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE3F1E4068C60033BD6E /* LoginViewController.swift */; };
 		B0C6BE421E413B3F0033BD6E /* AccountCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE411E413B3F0033BD6E /* AccountCreationViewController.swift */; };
 		B0C6BE461E4288E40033BD6E /* AFHTTPSessionManager+WMFAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE451E4288E40033BD6E /* AFHTTPSessionManager+WMFAPI.swift */; };
+		B0C6BE481E428C940033BD6E /* WMFAccountCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE471E428C940033BD6E /* WMFAccountCreator.swift */; };
 		B0CA8D401D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B0CA8D3F1D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.m */; };
 		B0D1B45A1DDD02BC004FCAE6 /* WMFDynamicTypeExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D1B4591DDD02BB004FCAE6 /* WMFDynamicTypeExtentions.swift */; };
 		B0D1B45F1DDE49B0004FCAE6 /* UITabBarItem+WMFStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D1B45E1DDE49B0004FCAE6 /* UITabBarItem+WMFStyling.m */; };
@@ -330,7 +331,6 @@
 		B0E8059D1C0CE2F50065EBC0 /* WMFShareFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */; };
 		B0E806331C0CE7680065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062A1C0CE7670065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m */; };
 		B0E806341C0CE7680065EBC0 /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062C1C0CE7670065EBC0 /* MWKImageInfoResponseSerializer.m */; };
-		B0E806481C0CE7F70065EBC0 /* AccountCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8063E1C0CE7F70065EBC0 /* AccountCreator.m */; };
 		B0E8064A1C0CE7F70065EBC0 /* AssetsFileFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806421C0CE7F70065EBC0 /* AssetsFileFetcher.m */; };
 		B0E8064C1C0CE7F70065EBC0 /* EditTokenFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806461C0CE7F70065EBC0 /* EditTokenFetcher.m */; };
 		B0E806581C0CE84B0065EBC0 /* SavedArticlesFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8064F1C0CE84B0065EBC0 /* SavedArticlesFetcher.m */; };
@@ -1349,6 +1349,7 @@
 		B0C6BE3F1E4068C60033BD6E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = Wikipedia/Code/LoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		B0C6BE411E413B3F0033BD6E /* AccountCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountCreationViewController.swift; path = Wikipedia/Code/AccountCreationViewController.swift; sourceTree = SOURCE_ROOT; };
 		B0C6BE451E4288E40033BD6E /* AFHTTPSessionManager+WMFAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AFHTTPSessionManager+WMFAPI.swift"; sourceTree = "<group>"; };
+		B0C6BE471E428C940033BD6E /* WMFAccountCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAccountCreator.swift; sourceTree = "<group>"; };
 		B0CA8D3E1D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKScriptMessage+WMFScriptMessage.h"; path = "Wikipedia/Code/WKScriptMessage+WMFScriptMessage.h"; sourceTree = SOURCE_ROOT; };
 		B0CA8D3F1D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKScriptMessage+WMFScriptMessage.m"; path = "Wikipedia/Code/WKScriptMessage+WMFScriptMessage.m"; sourceTree = SOURCE_ROOT; };
 		B0CBBE811E2E8D6700F574E3 /* my */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = my; path = my.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1691,8 +1692,6 @@
 		B0E806321C0CE7680065EBC0 /* WMFMantleJSONResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMantleJSONResponseSerializer.m; path = Wikipedia/Code/WMFMantleJSONResponseSerializer.m; sourceTree = SOURCE_ROOT; };
 		B0E806381C0CE7B00065EBC0 /* FetcherBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FetcherBase.h; path = Wikipedia/Code/FetcherBase.h; sourceTree = SOURCE_ROOT; };
 		B0E806391C0CE7B00065EBC0 /* FetcherBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FetcherBase.m; path = Wikipedia/Code/FetcherBase.m; sourceTree = SOURCE_ROOT; };
-		B0E8063D1C0CE7F70065EBC0 /* AccountCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AccountCreator.h; path = Wikipedia/Code/AccountCreator.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		B0E8063E1C0CE7F70065EBC0 /* AccountCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = AccountCreator.m; path = Wikipedia/Code/AccountCreator.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		B0E806411C0CE7F70065EBC0 /* AssetsFileFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AssetsFileFetcher.h; path = Wikipedia/Code/AssetsFileFetcher.h; sourceTree = SOURCE_ROOT; };
 		B0E806421C0CE7F70065EBC0 /* AssetsFileFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AssetsFileFetcher.m; path = Wikipedia/Code/AssetsFileFetcher.m; sourceTree = SOURCE_ROOT; };
 		B0E806451C0CE7F70065EBC0 /* EditTokenFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditTokenFetcher.h; path = Wikipedia/Code/EditTokenFetcher.h; sourceTree = SOURCE_ROOT; };
@@ -3662,8 +3661,7 @@
 		0EBB231B1D1C454500CA9742 /* Account Creation */ = {
 			isa = PBXGroup;
 			children = (
-				B0E8063D1C0CE7F70065EBC0 /* AccountCreator.h */,
-				B0E8063E1C0CE7F70065EBC0 /* AccountCreator.m */,
+				B0C6BE471E428C940033BD6E /* WMFAccountCreator.swift */,
 				04B7B9BA18B5569600A63551 /* Captcha */,
 			);
 			name = "Account Creation";
@@ -6677,7 +6675,6 @@
 				B0E806711C0CE94B0065EBC0 /* WMFEnglishFeaturedTitleFetcher.m in Sources */,
 				B0379A3A1D8BC83800D973CF /* WMFPopoverBackgroundView.m in Sources */,
 				0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */,
-				B0E806481C0CE7F70065EBC0 /* AccountCreator.m in Sources */,
 				B0E802CB1C0CD2F70065EBC0 /* WMFPicOfTheDayCollectionViewCell.m in Sources */,
 				B0E806581C0CE84B0065EBC0 /* SavedArticlesFetcher.m in Sources */,
 				B02B82751C696ECA00B19309 /* WMFSettingsTableViewCell.m in Sources */,
@@ -6763,6 +6760,7 @@
 				B0866F461CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				B0E805971C0CE2C60065EBC0 /* WMFSuggestedPagesFunnel.m in Sources */,
 				B00DDEDD1DB591C400615FA2 /* WMFWelcomeContainerViewController.swift in Sources */,
+				B0C6BE481E428C940033BD6E /* WMFAccountCreator.swift in Sources */,
 				B0E804491C0CDF850065EBC0 /* WMFCollectionViewPageLayout.m in Sources */,
 				B069FA2E1CEACB8400083D59 /* WeakScriptMessageDelegate.swift in Sources */,
 				B0E8055D1C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift in Sources */,

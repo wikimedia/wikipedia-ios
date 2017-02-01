@@ -3,7 +3,6 @@
 #import "WMFAuthManagerInfo.h"
 #import "KeychainCredentials.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
-#import "AccountCreator.h"
 #import "MWKLanguageLinkController.h"
 #import "MWKLanguageLink.h"
 #import "NSHTTPCookieStorage+WMFCloneCookie.h"
@@ -11,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFAuthenticationManager () <FetchFinishedDelegate>
+@interface WMFAuthenticationManager ()
 
 @property (strong, nonatomic) KeychainCredentials *keychainCredentials;
 
@@ -32,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic, nullable) NSString *accountCreationToken;
 @property (strong, nonatomic, nullable) WMFAuthTokenFetcher *accountCreationTokenFetcher;
+@property (strong, nonatomic, nullable) WMFAccountCreator *accountCreator;
 
 @property (nonatomic, copy, nullable) dispatch_block_t successBlock;
 @property (nonatomic, copy, nullable) WMFCaptchaHandler captchaBlock;
@@ -149,16 +149,47 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)createAccountWithCaptchaID:(nullable NSString *)captchaID {
-    (void)[[AccountCreator alloc] initAndCreateAccountForUserName:self.authenticatingUsername
-                                                         realName:@""
-                                                           domain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
-                                                         password:self.authenticatingPassword
-                                                            email:self.email
-                                                        captchaId:captchaID
-                                                      captchaWord:self.captchaText
-                                                            token:self.accountCreationToken
-                                                      withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
-                                               thenNotifyDelegate:self];
+    
+    NSURL *siteURL = [[SessionSingleton sharedInstance] urlForLanguage:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode];
+
+    self.accountCreator = [[WMFAccountCreator alloc] init];
+    
+    @weakify(self)
+    [self.accountCreator createAccountWithUsername:self.authenticatingUsername
+                                          password:self.authenticatingPassword
+                                             email:self.email
+                                         captchaID:captchaID
+                                       captchaWord:self.captchaText
+                                             token:self.accountCreationToken
+                                           siteURL:siteURL
+                                        completion:^(WMFAccountCreatorResult* result){
+                                            @strongify(self)
+                                            
+                                            [self loginWithSuccess:self.successBlock failure:self.failBlock];
+                                            
+                                        } failure:^(NSError* error){
+                                            
+                                            if (error.code == 2) {
+                                                
+                                                // Once we convert this file to Swift we can check kind of directly ".needsCaptcha" rather than checking code
+                                                NSAssert([error.localizedDescription isEqualToString:@"Needs captcha"], @"Ensure error code 2 signifies a captcha is needed.");
+                                                
+                                                if ([self isInitialAccountCreationAttempt]) {
+                                                    //First time attempting to create an account with this captcha URL.
+                                                    //By design, no captcha text was sent
+                                                    //This is because we want to get any errors back from the API about duplicate user names before we present the captcha
+                                                    //In this case, the user name is fine and we can fire the block and have them solve the captcha
+                                                    [self sendCaptchaBlockWithURLString:self.accountCreationAuthManagerInfo.captchaURLFragment];
+                                                } else {
+                                                    //The user tried to solve the captch and failed
+                                                    //Get another captcha URL and have the user try again
+                                                    [self getAccountCreationCaptchaWithHandler:self.captchaBlock failure:self.failBlock];
+                                                }
+                                            } else {
+                                                [self finishAndSendFailureBlockWithError:error];
+                                            }
+                                            
+                                        }];
 }
 
 #pragma mark - Login
@@ -260,41 +291,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-#pragma mark - FetchDelegate
-
-- (void)fetchFinished:(id)sender
-          fetchedData:(id)fetchedData
-               status:(FetchFinalStatus)status
-                error:(NSError *)error {
-
-    if ([sender isKindOfClass:[AccountCreator class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED:
-                [self loginWithSuccess:self.successBlock failure:self.failBlock];
-                break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-            case FETCH_FINAL_STATUS_FAILED:
-                if (error.code == ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA) {
-                    if ([self isInitialAccountCreationAtempt]) {
-                        //First time attempting to create an account with this captcha URL.
-                        //By design, no captcha text was sent
-                        //This is because we want to get any errors back from the API about duplicate user names before we present the captcha
-                        //In this case, the user name is fine and we can fire the block and have them solve the captcha
-                        [self sendCaptchaBlockWithURLString:self.accountCreationAuthManagerInfo.captchaURLFragment];
-                    } else {
-                        //The user tried to solve the captch and failed
-                        //Get another captcha URL and have the user try again
-                        [self getAccountCreationCaptchaWithHandler:self.captchaBlock failure:self.failBlock];
-                    }
-                } else {
-                    [self finishAndSendFailureBlockWithError:error];
-                }
-                break;
-        }
-    }
-}
-
-- (BOOL)isInitialAccountCreationAtempt {
+- (BOOL)isInitialAccountCreationAttempt {
     return self.successBlock == nil;
 }
 
