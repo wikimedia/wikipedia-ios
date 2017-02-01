@@ -16,7 +16,6 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFChildViewController.h"
-#import "CaptchaResetter.h"
 #import "SavedPagesFunnel.h"
 #import "EditFunnel.h"
 #import "WMFOpenExternalLinkDelegateProtocol.h"
@@ -85,7 +84,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 @property (strong, nonatomic) WikiTextSectionUploader *wikiTextSectionUploader;
 @property (strong, nonatomic) PreviewHtmlFetcher *previewHtmlFetcher;
 @property (strong, nonatomic) EditTokenFetcher *editTokenFetcher;
-@property (strong, nonatomic) CaptchaResetter *captchaResetter;
+@property (strong, nonatomic) WMFCaptchaResetter *captchaResetter;
 
 @end
 
@@ -593,23 +592,6 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
                 }
             } break;
         }
-    } else if ([sender isKindOfClass:[CaptchaResetter class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED: {
-                self.captchaId = fetchedData[@"index"];
-                NSString *newCaptchaUrl = [CaptchaResetter newCaptchaImageUrlFromOldUrl:self.captchaUrl andNewId:self.captchaId];
-                if (newCaptchaUrl) {
-                    self.captchaUrl = newCaptchaUrl;
-                    [self showImageForCaptcha];
-                }
-            } break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-                [[WMFAlertManager sharedInstance] dismissAlert];
-                break;
-            case FETCH_FINAL_STATUS_FAILED:
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-                break;
-        }
     }
 }
 
@@ -718,10 +700,21 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     self.captchaViewController.captchaTextBox.text = @"";
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
     [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager wmf_cancelAllTasksWithCompletionHandler:^{
-        self.captchaResetter =
-        [[CaptchaResetter alloc] initAndResetCaptchaForDomain:[SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language
-                                                  withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
-                                           thenNotifyDelegate:self];
+
+        NSURL* siteURL = [SessionSingleton sharedInstance].currentArticleSiteURL;
+        self.captchaResetter = [[WMFCaptchaResetter alloc] init];
+        @weakify(self)
+        [self.captchaResetter resetCaptchaWithSiteURL:siteURL completion:^(WMFCaptchaResetterResult* result){
+            @strongify(self)
+            self.captchaId = result.index;
+            NSString *newCaptchaUrl = [WMFCaptchaResetter newCaptchaImageURLFromOldURL:self.captchaUrl newID:self.captchaId];
+            if (newCaptchaUrl) {
+                self.captchaUrl = newCaptchaUrl;
+                [self showImageForCaptcha];
+            }
+        } failure:^(NSError* error){
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+        }];
     }];
 }
 
