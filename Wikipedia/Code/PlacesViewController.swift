@@ -111,6 +111,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     let locationManager = WMFLocationManager.coarse()
     
+    let animationDuration = 0.6
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var listView: UITableView!
     @IBOutlet weak var searchSuggestionView: UITableView!
@@ -145,7 +147,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             showRedoSearchButtonIfNecessary(forVisibleRegion: region)
             localCompleter.region = region
             
-            UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: animationDuration, animations: {
                 self.mapView.region = region
             }) { (finished) in
                 
@@ -365,24 +367,23 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         placeView?.alpha = 0
         
-        if place.nextCoordinate == nil {
-            placeView?.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-        }
-        
-        dispatchOnMainQueue({
-            UIView.animate(withDuration: 0.5, animations: {
-                if let nextCoordinate = place.nextCoordinate {
-                    place.coordinate = nextCoordinate
-                } else {
+        if place.articles.count > 1 && place.nextCoordinate == nil {
+            placeView?.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+            dispatchOnMainQueue({ 
+                UIView.animate(withDuration: self.animationDuration, animations: {
                     placeView?.transform = CGAffineTransform.identity
-                }
-                placeView?.alpha = 1
+                    placeView?.alpha = 1
+                })
             })
-        })
+        } else if let nextCoordinate = place.nextCoordinate {
+            dispatchOnMainQueue({
+                UIView.animate(withDuration: self.animationDuration, animations: {
+                    place.coordinate = nextCoordinate
+                    placeView?.alpha = 1
+                })
+            })
+        }
 
-        
-        
-        
         return placeView
     }
     
@@ -598,7 +599,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     }
                     
                     let placeView = mapView.view(for: previousPlace)
-                    UIView.animate(withDuration: 0.5, animations: { 
+                    UIView.animate(withDuration: animationDuration, animations: {
                         placeView?.alpha = 0
                         previousPlace.coordinate = coordinate
                     }, completion: { (finished) in
