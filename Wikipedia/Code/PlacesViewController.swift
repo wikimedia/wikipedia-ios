@@ -112,6 +112,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     let locationManager = WMFLocationManager.coarse()
     
     let animationDuration = 0.6
+    let animationScale = CGFloat(0.6)
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var listView: UITableView!
@@ -368,7 +369,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         if place.articles.count > 1 && place.nextCoordinate == nil {
             placeView?.alpha = 0
-            placeView?.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+            placeView?.transform = CGAffineTransform(scaleX: animationScale, y: animationScale)
             dispatchOnMainQueue({
                 UIView.animate(withDuration: self.animationDuration, animations: {
                     placeView?.transform = CGAffineTransform.identity
@@ -611,8 +612,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     coordinate = previousPlace.coordinate
                 }
             } else {
+                let groupCount = group.articles.count
                 for article in group.articles {
-                    guard let key = article.key, let previousPlace = previousPlaceByArticle[key], annotationsToRemove.removeValue(forKey: previousPlace.identifier) != nil else {
+                    guard let key = article.key, let previousPlace = previousPlaceByArticle[key], previousPlace.articles.count < groupCount, annotationsToRemove.removeValue(forKey: previousPlace.identifier) != nil else {
                         continue
                     }
                     
@@ -620,6 +622,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     taskGroup.enter()
                     UIView.animate(withDuration: animationDuration, animations: {
                         placeView?.alpha = 0
+                        if (previousPlace.articles.count > 1) {
+                            placeView?.transform = CGAffineTransform(scaleX: self.animationScale, y: self.animationScale)
+                        }
                         previousPlace.coordinate = coordinate
                     }, completion: { (finished) in
                         taskGroup.leave()
@@ -635,7 +640,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             mapView.addAnnotation(place)
         }
         
-        mapView.removeAnnotations(Array(annotationsToRemove.values))
+        for (_, annotation) in annotationsToRemove {
+            let placeView = mapView.view(for: annotation)
+            taskGroup.enter()
+            UIView.animate(withDuration: 0.5*animationDuration, animations: {
+                placeView?.transform = CGAffineTransform(scaleX: self.animationScale, y: self.animationScale)
+                placeView?.alpha = 0
+            }, completion: { (finished) in
+                taskGroup.leave()
+                self.mapView.removeAnnotation(annotation)
+            })
+        }
         currentGroupingPrecision = groupingPrecision
         taskGroup.waitInBackground {
             self.groupingTaskGroup = nil

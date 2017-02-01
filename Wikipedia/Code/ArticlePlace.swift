@@ -111,6 +111,7 @@ class ArticlePlaceView: MKAnnotationView {
         imageView.wmf_reset()
         countLabel.text = nil
         alpha = 1
+        transform = CGAffineTransform.identity
     }
     
     required init?(coder aDecoder: NSCoder) {
