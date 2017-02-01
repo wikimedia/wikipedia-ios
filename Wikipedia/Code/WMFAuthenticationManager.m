@@ -3,7 +3,6 @@
 #import "WMFAuthManagerInfo.h"
 #import "KeychainCredentials.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
-#import "AccountLogin.h"
 #import "AccountCreator.h"
 #import "MWKLanguageLinkController.h"
 #import "MWKLanguageLink.h"
@@ -29,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic, nullable) NSString *loginToken;
 @property (strong, nonatomic, nullable) WMFAuthTokenFetcher *loginTokenFetcher;
+@property (strong, nonatomic, nullable) WMFAccountLogin *accountLogin;
 
 @property (strong, nonatomic, nullable) NSString *accountCreationToken;
 @property (strong, nonatomic, nullable) WMFAuthTokenFetcher *accountCreationTokenFetcher;
@@ -172,9 +172,7 @@ NS_ASSUME_NONNULL_BEGIN
                    password:self.keychainCredentials.password
                     success:success
                     failure:^(NSError *error) {
-                        if (error.domain == WMFAccountLoginErrorDomain && error.code != LOGIN_ERROR_UNKNOWN && error.code != LOGIN_ERROR_API) {
-                            [self logout];
-                        }
+                        [self logout];
                         if (failure) {
                             failure(error);
                         }
@@ -243,12 +241,23 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)login {
-    (void)[[AccountLogin alloc] initAndLoginForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
-                                             userName:self.authenticatingUsername
-                                             password:self.authenticatingPassword
-                                                token:self.loginToken
-                                          withManager:[QueuesSingleton sharedInstance].loginFetchManager
-                                   thenNotifyDelegate:self];
+    NSURL *siteURL = [[SessionSingleton sharedInstance] urlForLanguage:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode];
+    self.accountLogin = [[WMFAccountLogin alloc] init];
+    
+    @weakify(self)
+    [self.accountLogin loginWithUsername:self.authenticatingUsername password:self.authenticatingPassword token:self.loginToken siteURL:siteURL completion:^(WMFAccountLoginResult* result){
+        @strongify(self)
+        NSString *normalizedUserName = result.username;
+        self.loggedInUsername = normalizedUserName;
+        self.keychainCredentials.userName = normalizedUserName;
+        self.keychainCredentials.password = self.authenticatingPassword;
+        self.authenticatingPassword = nil;
+        self.authenticatingUsername = nil;
+        [self cloneSessionCookies];
+        [self finishAndSendSuccessBlock];
+    } failure:^(NSError* error){
+        [self finishAndSendFailureBlockWithError:error];
+    }];
 }
 
 #pragma mark - FetchDelegate
@@ -257,25 +266,6 @@ NS_ASSUME_NONNULL_BEGIN
           fetchedData:(id)fetchedData
                status:(FetchFinalStatus)status
                 error:(NSError *)error {
-
-    if ([sender isKindOfClass:[AccountLogin class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED: {
-                NSString *normalizedUserName = fetchedData[@"username"];
-                self.loggedInUsername = normalizedUserName;
-                self.keychainCredentials.userName = normalizedUserName;
-                self.keychainCredentials.password = self.authenticatingPassword;
-                self.authenticatingPassword = nil;
-                self.authenticatingUsername = nil;
-                [self cloneSessionCookies];
-                [self finishAndSendSuccessBlock];
-            } break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-            case FETCH_FINAL_STATUS_FAILED:
-                [self finishAndSendFailureBlockWithError:error];
-                break;
-        }
-    }
 
     if ([sender isKindOfClass:[AccountCreator class]]) {
         switch (status) {
