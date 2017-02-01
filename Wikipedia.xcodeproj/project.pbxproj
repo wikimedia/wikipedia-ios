@@ -338,7 +338,6 @@
 		B0E806591C0CE84B0065EBC0 /* ThumbnailFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806511C0CE84B0065EBC0 /* ThumbnailFetcher.m */; };
 		B0E8065B1C0CE84B0065EBC0 /* WikiTextSectionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806551C0CE84B0065EBC0 /* WikiTextSectionFetcher.m */; };
 		B0E8065C1C0CE84B0065EBC0 /* WikiTextSectionUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806571C0CE84B0065EBC0 /* WikiTextSectionUploader.m */; };
-		B0E806691C0CE9030065EBC0 /* LoginTokenFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8065E1C0CE9030065EBC0 /* LoginTokenFetcher.m */; };
 		B0E8066A1C0CE9030065EBC0 /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */; };
 		B0E8066B1C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806621C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m */; };
 		B0E8066E1C0CE9030065EBC0 /* PreviewHtmlFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806681C0CE9030065EBC0 /* PreviewHtmlFetcher.m */; };
@@ -1711,8 +1710,6 @@
 		B0E806551C0CE84B0065EBC0 /* WikiTextSectionFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WikiTextSectionFetcher.m; path = Wikipedia/Code/WikiTextSectionFetcher.m; sourceTree = SOURCE_ROOT; };
 		B0E806561C0CE84B0065EBC0 /* WikiTextSectionUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WikiTextSectionUploader.h; path = Wikipedia/Code/WikiTextSectionUploader.h; sourceTree = SOURCE_ROOT; };
 		B0E806571C0CE84B0065EBC0 /* WikiTextSectionUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WikiTextSectionUploader.m; path = Wikipedia/Code/WikiTextSectionUploader.m; sourceTree = SOURCE_ROOT; };
-		B0E8065D1C0CE9030065EBC0 /* LoginTokenFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginTokenFetcher.h; path = Wikipedia/Code/LoginTokenFetcher.h; sourceTree = SOURCE_ROOT; };
-		B0E8065E1C0CE9030065EBC0 /* LoginTokenFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginTokenFetcher.m; path = Wikipedia/Code/LoginTokenFetcher.m; sourceTree = SOURCE_ROOT; };
 		B0E8065F1C0CE9030065EBC0 /* MWKImageInfoFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKImageInfoFetcher.h; path = Wikipedia/Code/MWKImageInfoFetcher.h; sourceTree = SOURCE_ROOT; };
 		B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageInfoFetcher.m; path = Wikipedia/Code/MWKImageInfoFetcher.m; sourceTree = SOURCE_ROOT; };
 		B0E806611C0CE9030065EBC0 /* MWKLanguageLinkFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKLanguageLinkFetcher.h; path = Wikipedia/Code/MWKLanguageLinkFetcher.h; sourceTree = SOURCE_ROOT; };
@@ -3660,8 +3657,6 @@
 		0EBB231A1D1C453C00CA9742 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				B0E8065D1C0CE9030065EBC0 /* LoginTokenFetcher.h */,
-				B0E8065E1C0CE9030065EBC0 /* LoginTokenFetcher.m */,
 				B0E8063F1C0CE7F70065EBC0 /* AccountLogin.h */,
 				B0E806401C0CE7F70065EBC0 /* AccountLogin.m */,
 				B0F92C5F1E3A813500B72802 /* WMFAccountLogin.swift */,
@@ -6754,7 +6749,6 @@
 				0E09EAC51C4426470058F2D8 /* WMFHistoryTableViewController.m in Sources */,
 				B0F7CB581C8A89EA00996DE0 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
 				B014E99B1CD03AFF00A887D9 /* WMFCustomDeleteButtonTableViewCell.m in Sources */,
-				B0E806691C0CE9030065EBC0 /* LoginTokenFetcher.m in Sources */,
 				BCB00EC41C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.m in Sources */,
 				B0267CF31E32A0CB006B6D8D /* WMFPasswordResetter.swift in Sources */,
 				0E09EAC31C4426470058F2D8 /* WMFSearchResultsTableViewController.m in Sources */,

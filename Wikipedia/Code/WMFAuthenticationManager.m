@@ -1,21 +1,15 @@
 #import "WMFAuthenticationManager.h"
 #import "WMFAuthManagerInfoFetcher.h"
 #import "WMFAuthManagerInfo.h"
-
 #import "KeychainCredentials.h"
-
 #import "AFHTTPSessionManager+WMFCancelAll.h"
-
-#import "LoginTokenFetcher.h"
 #import "AccountLogin.h"
-
 #import "AccountCreationTokenFetcher.h"
 #import "AccountCreator.h"
-
 #import "MWKLanguageLinkController.h"
 #import "MWKLanguageLink.h"
-
 #import "NSHTTPCookieStorage+WMFCloneCookie.h"
+#import "Wikipedia-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -35,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, nullable) NSString *captchaText;
 
 @property (strong, nonatomic, nullable) NSString *loginToken;
+@property (strong, nonatomic, nullable) WMFAuthTokenFetcher *loginTokenFetcher;
+
 @property (strong, nonatomic, nullable) NSString *accountCreationToken;
 
 @property (nonatomic, copy, nullable) dispatch_block_t successBlock;
@@ -224,11 +220,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchLoginTokensWithInfo:(WMFAuthManagerInfo *)info username:(NSString *)username password:(NSString *)password {
     [[QueuesSingleton sharedInstance].loginFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
-                                                           userName:username
-                                                           password:password
-                                                        withManager:[QueuesSingleton sharedInstance].loginFetchManager
-                                                 thenNotifyDelegate:self];
+
+        NSURL *siteURL = [[SessionSingleton sharedInstance] urlForLanguage:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode];
+        self.loginTokenFetcher = [[WMFAuthTokenFetcher alloc] init];
+        @weakify(self)
+        [self.loginTokenFetcher fetchTokenOfType:WMFAuthTokenTypeLogin siteURL:siteURL completion:^(WMFAuthToken* result){
+            @strongify(self)
+            self.loginToken = result.token;
+            [self login];
+        } failure:^(NSError* error){
+            [self finishAndSendFailureBlockWithError:error];
+        }];
+
     }];
 }
 
@@ -247,18 +250,6 @@ NS_ASSUME_NONNULL_BEGIN
           fetchedData:(id)fetchedData
                status:(FetchFinalStatus)status
                 error:(NSError *)error {
-    if ([sender isKindOfClass:[LoginTokenFetcher class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED: {
-                self.loginToken = [sender token];
-                [self login];
-            } break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-            case FETCH_FINAL_STATUS_FAILED:
-                [self finishAndSendFailureBlockWithError:error];
-                break;
-        }
-    }
 
     if ([sender isKindOfClass:[AccountLogin class]]) {
         switch (status) {
