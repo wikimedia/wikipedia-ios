@@ -47,13 +47,13 @@ public class WMFAuthTokenFetcher: NSObject {
         
         let manager = AFHTTPSessionManager(baseURL: siteURL)
         manager.responseSerializer = WMFApiJsonResponseSerializer.init();
-        let params = [
+        let parameters = [
             "action": "query",
             "meta": "tokens",
             "type": stringForToken(type),
             "format": "json"
         ]
-        manager.post("/w/api.php", parameters: params, progress: nil, success: {
+        _ = manager.wmf_apiPOSTWithParameters(parameters, success: {
             (_, response: Any?) in
             guard
                 let response = response as? [String : AnyObject],

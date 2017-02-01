@@ -44,7 +44,7 @@ public class WMFPasswordResetter: NSObject {
             }
         }
         
-        manager.post("/w/api.php", parameters: parameters, progress: nil, success: {
+        _ = manager.wmf_apiPOSTWithParameters(parameters, success: {
             (_, response: Any?) in
             guard
                 let response = response as? [String : AnyObject],

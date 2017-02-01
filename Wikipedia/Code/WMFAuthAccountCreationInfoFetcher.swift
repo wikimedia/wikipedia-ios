@@ -33,13 +33,13 @@ public class WMFAuthAccountCreationInfoFetcher: NSObject {
     public func fetchAccountCreationInfoForSiteURL(_ siteURL: URL, completion: @escaping WMFAuthAccountCreationInfoBlock, failure: @escaping WMFErrorHandler){
         let manager = AFHTTPSessionManager(baseURL: siteURL)
         manager.responseSerializer = WMFApiJsonResponseSerializer.init();
-        let params = [
+        let parameters = [
             "action": "query",
             "meta": "authmanagerinfo",
             "amirequestsfor": "create",
             "format": "json"
         ]
-        manager.post("/w/api.php", parameters: params, progress: nil, success: {
+        _ = manager.wmf_apiPOSTWithParameters(parameters, success: {
             (_, response: Any?) in
             
             guard
