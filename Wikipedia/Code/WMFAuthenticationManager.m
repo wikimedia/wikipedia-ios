@@ -15,8 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) KeychainCredentials *keychainCredentials;
 
 @property (strong, nonatomic, nullable) WMFAuthManagerInfoFetcher *authManagerInfoFetcher;
-@property (strong, nonatomic, nullable) WMFAuthManagerInfo *loginAuthManagerInfo;
 @property (strong, nonatomic, nullable) WMFAuthManagerInfo *accountCreationAuthManagerInfo;
+
+@property (strong, nonatomic, nullable) WMFAuthLoginInfoFetcher* authLoginInfoFetcher;
 
 @property (strong, nonatomic, readwrite, nullable) NSString *loggedInUsername;
 
@@ -235,40 +236,26 @@ NS_ASSUME_NONNULL_BEGIN
     self.successBlock = success;
     self.failBlock = failure;
 
-    [self fetchLoginAuthManagerInfoWithSuccess:^(WMFAuthManagerInfo *_Nonnull info) {
-        self.loginAuthManagerInfo = info;
-        [self fetchLoginTokensWithInfo:info username:self.authenticatingUsername password:self.authenticatingPassword];
-    }
-        failure:^(NSError *error) {
-            [self finishAndSendFailureBlockWithError:error];
-        }];
-}
-
-- (void)fetchLoginAuthManagerInfoWithSuccess:(nullable WMFAuthManagerInfoBlock)success failure:(nullable WMFErrorHandler)failure {
-    [self.authManagerInfoFetcher fetchAuthManagerLoginAvailableForSiteURL:[[MWKLanguageLinkController sharedInstance] appLanguage].siteURL
-        success:^(WMFAuthManagerInfo *_Nonnull info) {
-            success(info);
-        }
-        failure:^(NSError *error) {
-            failure(error);
-        }];
-}
-
-- (void)fetchLoginTokensWithInfo:(WMFAuthManagerInfo *)info username:(NSString *)username password:(NSString *)password {
-    [[QueuesSingleton sharedInstance].loginFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-
-        NSURL *siteURL = [[SessionSingleton sharedInstance] urlForLanguage:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode];
-        self.loginTokenFetcher = [[WMFAuthTokenFetcher alloc] init];
-        @weakify(self)
-        [self.loginTokenFetcher fetchTokenOfType:WMFAuthTokenTypeLogin siteURL:siteURL completion:^(WMFAuthToken* result){
-            @strongify(self)
-            self.loginToken = result.token;
-            [self login];
-        } failure:^(NSError* error){
-            [self finishAndSendFailureBlockWithError:error];
-        }];
-
-    }];
+    self.authLoginInfoFetcher = [[WMFAuthLoginInfoFetcher alloc] init];
+    @weakify(self)
+    [self.authLoginInfoFetcher fetchLoginInfoForSiteURL:[[MWKLanguageLinkController sharedInstance] appLanguage].siteURL
+                                             completion:^(WMFAuthLoginInfo* info){
+                                                 @strongify(self)
+                                                 
+                                                 NSURL *siteURL = [[SessionSingleton sharedInstance] urlForLanguage:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode];
+                                                 self.loginTokenFetcher = [[WMFAuthTokenFetcher alloc] init];
+                                                 [self.loginTokenFetcher fetchTokenOfType:WMFAuthTokenTypeLogin siteURL:siteURL completion:^(WMFAuthToken* result){
+                                                     @strongify(self)
+                                                     self.loginToken = result.token;
+                                                     [self login];
+                                                 } failure:^(NSError* error){
+                                                     [self finishAndSendFailureBlockWithError:error];
+                                                 }];
+                                                 
+                                             }
+                                                failure:^(NSError *error) {
+                                                    [self finishAndSendFailureBlockWithError:error];
+                                                }];
 }
 
 - (void)login {
