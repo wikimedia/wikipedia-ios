@@ -487,8 +487,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         currentSearch = PlaceSearch(type: search.type, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchCompletion: search.searchCompletion)
         redoSearchButton.isHidden = true
     }
+    
+    var groupingTaskGroup: WMFTaskGroup?
 
     func regroupArticlesIfNecessary(forVisibleRegion visibleRegion: MKCoordinateRegion) {
+        guard groupingTaskGroup == nil else {
+            return
+        }
         assert(Thread.isMainThread)
         struct ArticleGroup {
             var articles: [WMFArticle] = []
@@ -514,6 +519,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
+        let taskGroup = WMFTaskGroup()
+        groupingTaskGroup = taskGroup
+
         let groupingDeltaLatitude = groupingPrecision.deltaLatitude
         let groupingDeltaLongitude = groupingPrecision.deltaLongitude
         
@@ -606,10 +614,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     }
                     
                     let placeView = mapView.view(for: previousPlace)
+                    taskGroup.enter()
                     UIView.animate(withDuration: animationDuration, animations: {
                         placeView?.alpha = 0
                         previousPlace.coordinate = coordinate
                     }, completion: { (finished) in
+                        taskGroup.leave()
                         self.mapView.removeAnnotation(previousPlace)
                     })
                 }
@@ -624,6 +634,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         mapView.removeAnnotations(Array(annotationsToRemove.values))
         currentGroupingPrecision = groupingPrecision
+        taskGroup.waitInBackground {
+            self.groupingTaskGroup = nil
+            self.regroupArticlesIfNecessary(forVisibleRegion: self.mapView.region)
+        }
     }
     
     func updatePlaces(withSearchResults searchResults: [MWKLocationSearchResult]) {
