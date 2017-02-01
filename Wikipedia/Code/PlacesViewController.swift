@@ -143,12 +143,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 return
             }
             
-            regroupArticlesIfNecessary(forVisibleRegion: region)
-            showRedoSearchButtonIfNecessary(forVisibleRegion: region)
-            localCompleter.region = region
+            let regionThatFits = mapView.regionThatFits(region)
+            regroupArticlesIfNecessary(forVisibleRegion: regionThatFits)
+            showRedoSearchButtonIfNecessary(forVisibleRegion: regionThatFits)
+            localCompleter.region = regionThatFits
             
             UIView.animate(withDuration: animationDuration, animations: {
-                self.mapView.region = region
+                self.mapView.region = regionThatFits
             }) { (finished) in
                 
             }
