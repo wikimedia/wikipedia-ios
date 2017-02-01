@@ -8,7 +8,8 @@ NS_ASSUME_NONNULL_BEGIN
 typedef enum : NSUInteger {
     WMFLocationSearchSortStyleNone = 0,
     WMFLocationSearchSortStylePageViews,
-    WMFLocationSearchSortStyleLinks
+    WMFLocationSearchSortStyleLinks,
+    WMFLocationSearchSortStylePageViewsAndLinks
 } WMFLocationSearchSortStyle;
 
 @interface WMFLocationSearchFetcher : NSObject

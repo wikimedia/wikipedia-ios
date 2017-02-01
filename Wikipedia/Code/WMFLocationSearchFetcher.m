@@ -175,6 +175,10 @@ NS_ASSUME_NONNULL_BEGIN
             case WMFLocationSearchSortStylePageViews:
                 serializedParams[@"cirrusPageViewsW"] = @(1000);
                 break;
+            case WMFLocationSearchSortStylePageViewsAndLinks:
+                serializedParams[@"cirrusPageViewsW"] = @(1000);
+                serializedParams[@"cirrusIncLinkssW"] = @(1000);
+                break;
             default:
                 break;
         }

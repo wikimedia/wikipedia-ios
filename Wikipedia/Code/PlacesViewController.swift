@@ -12,6 +12,7 @@ enum PlaceSearchType {
 
 struct PlaceSearch {
     let type: PlaceSearchType
+    let sortStyle: WMFLocationSearchSortStyle
     let string: String?
     let region: MKCoordinateRegion?
     let localizedDescription: String?
@@ -425,13 +426,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         
         var searchTerm: String? = nil
-        var sortStyle = WMFLocationSearchSortStyleNone
+        let sortStyle = search.sortStyle
         let region = search.region ?? mapView.region
         currentSearchRegion = region
         
         switch search.type {
         case .top:
-            sortStyle = WMFLocationSearchSortStylePageViews
+            break
         case .location:
             guard let completion = search.searchCompletion else {
                 if let region = search.region {
@@ -450,7 +451,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 let region = response.boundingRegion
                 dispatchOnMainQueue({
                     self.searching = false
-                    self.currentSearch = PlaceSearch(type: search.type, string: nil, region: region, localizedDescription: search.localizedDescription, searchCompletion: nil)
+                    self.currentSearch = PlaceSearch(type: search.type, sortStyle: search.sortStyle, string: nil, region: region, localizedDescription: search.localizedDescription, searchCompletion: nil)
                 })
             })
             return
@@ -486,7 +487,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         guard let search = currentSearch else {
             return
         }
-        currentSearch = PlaceSearch(type: search.type, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchCompletion: search.searchCompletion)
+        currentSearch = PlaceSearch(type: search.type, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchCompletion: search.searchCompletion)
         redoSearchButton.isHidden = true
     }
     
@@ -726,12 +727,15 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func updateSearchSuggestions(withCompletions completions: [PlaceSearch]) {
         guard let currentSearchString = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), currentSearchString != "" || completions.count > 0 else {
-            let topNearbySuggestion = PlaceSearch(type: .top, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchCompletion: nil)
-            searchSuggestionController.searches = [[topNearbySuggestion], [], [], []]
+            let topNearbySuggestion = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStylePageViews, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchCompletion: nil)
+            let topLinksSuggestion = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStyleLinks, string: nil, region: nil, localizedDescription: "Top by links", searchCompletion: nil)
+            let topCombinedSuggestion = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStylePageViewsAndLinks, string: nil, region: nil, localizedDescription: "Top by page views and links", searchCompletion: nil)
+            let topDefaultSuggestion = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStyleNone, string: nil, region: nil, localizedDescription: "Nearby with no sort param", searchCompletion: nil)
+            searchSuggestionController.searches = [[topNearbySuggestion, topLinksSuggestion, topCombinedSuggestion, topDefaultSuggestion], [], [], []]
             return
         }
         
-        let currentStringSuggeston = PlaceSearch(type: .text, string: currentSearchString, region: nil, localizedDescription: currentSearchString, searchCompletion: nil)
+        let currentStringSuggeston = PlaceSearch(type: .text, sortStyle: WMFLocationSearchSortStylePageViews, string: currentSearchString, region: nil, localizedDescription: currentSearchString, searchCompletion: nil)
         searchSuggestionController.searches = [[], [], [currentStringSuggeston], completions]
     }
     
@@ -765,7 +769,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        currentSearch = PlaceSearch(type: .text, string: searchBar.text, region: nil, localizedDescription: searchBar.text, searchCompletion: nil)
+        currentSearch = PlaceSearch(type: .text, sortStyle: WMFLocationSearchSortStyleNone, string: searchBar.text, region: nil, localizedDescription: searchBar.text, searchCompletion: nil)
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
@@ -837,7 +841,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 continue
             }
             titles.update(with: result.title)
-            let search = PlaceSearch(type: .location, string: nil, region: nil, localizedDescription: result.title, searchCompletion: result)
+            let search = PlaceSearch(type: .location, sortStyle: WMFLocationSearchSortStyleNone, string: nil, region: nil, localizedDescription: result.title, searchCompletion: result)
             completions.append(search)
         }
         
@@ -864,7 +868,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
         
         mapRegion = region
-        currentSearch = PlaceSearch(type: .top, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchCompletion: nil)
+        currentSearch = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStyleNone, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchCompletion: nil)
     }
     
     func locationManager(_ controller: WMFLocationManager, didReceiveError error: Error) {
