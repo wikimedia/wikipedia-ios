@@ -63,8 +63,4 @@
                                               success:(void (^)(NSURLSessionDataTask *operation, id responseObject))success
                                               failure:(void (^)(NSURLSessionDataTask *operation, NSError *error))failure;
 
-- (NSURLSessionDataTask *)wmf_apiPOSTWithParameters:(id)parameters
-                                            success:(void (^)(NSURLSessionDataTask *operation, id responseObject))success
-                                            failure:(void (^)(NSURLSessionDataTask *operation, NSError *error))failure;
-
 @end
