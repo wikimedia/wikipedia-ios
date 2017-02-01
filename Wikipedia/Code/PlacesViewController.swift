@@ -408,10 +408,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    func removeAllAnnotations() {
-        mapView.removeAnnotations(mapView.annotations)
-    }
-    
     var searching: Bool = false
 
     
@@ -663,7 +659,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func updatePlaces(withSearchResults searchResults: [MWKLocationSearchResult]) {
-        removeAllAnnotations()
         articles.removeAll(keepingCapacity: true)
         for result in searchResults {
             guard let displayTitle = result.displayTitle,
