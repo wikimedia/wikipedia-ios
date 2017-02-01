@@ -489,9 +489,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     var groupingTaskGroup: WMFTaskGroup?
-
+    var needsRegroup = false
+    
     func regroupArticlesIfNecessary(forVisibleRegion visibleRegion: MKCoordinateRegion) {
         guard groupingTaskGroup == nil else {
+            needsRegroup = true
             return
         }
         assert(Thread.isMainThread)
@@ -636,7 +638,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         currentGroupingPrecision = groupingPrecision
         taskGroup.waitInBackground {
             self.groupingTaskGroup = nil
-            self.regroupArticlesIfNecessary(forVisibleRegion: self.mapView.region)
+            if (self.needsRegroup) {
+                self.needsRegroup = false
+                self.regroupArticlesIfNecessary(forVisibleRegion: self.mapView.region)
+            }
         }
     }
     
