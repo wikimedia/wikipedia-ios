@@ -1,10 +1,8 @@
 
-import Foundation
-
-enum WMFCaptchaResetterError: LocalizedError {
+public enum WMFCaptchaResetterError: LocalizedError {
     case cannotExtractCaptchaIndex
     case zeroLengthIndex
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .cannotExtractCaptchaIndex:
             return "Could not extract captcha index"
@@ -16,7 +14,7 @@ enum WMFCaptchaResetterError: LocalizedError {
 
 public typealias WMFCaptchaResetterResultBlock = (WMFCaptchaResetterResult) -> Void
 
-@objc public class WMFCaptchaResetterResult: NSObject {
+public class WMFCaptchaResetterResult: NSObject {
     var index: String
     init(index:String) {
         self.index = index
@@ -25,7 +23,7 @@ public typealias WMFCaptchaResetterResultBlock = (WMFCaptchaResetterResult) -> V
 
 public class WMFCaptchaResetter: NSObject {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
-    func isFetching() -> Bool {
+    public func isFetching() -> Bool {
         return manager!.operationQueue.operationCount > 0
     }
     

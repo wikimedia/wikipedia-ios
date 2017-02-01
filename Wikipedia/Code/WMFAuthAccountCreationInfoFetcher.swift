@@ -1,10 +1,8 @@
 
-import Foundation
-
-enum WMFAuthAccountCreationError: LocalizedError {
+public enum WMFAuthAccountCreationError: LocalizedError {
     case cannotExtractInfo
     case cannotCreateAccountsNow
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .cannotExtractInfo:
             return "Could not extract account creation info"
@@ -16,7 +14,7 @@ enum WMFAuthAccountCreationError: LocalizedError {
 
 public typealias WMFAuthAccountCreationInfoBlock = (WMFAuthAccountCreationInfo) -> Void
 
-public struct WMFAuthAccountCreationInfo {
+public class WMFAuthAccountCreationInfo: NSObject {
     let canCreateAccounts:Bool
     let captchaID: String
     let captchaURL: String
@@ -27,9 +25,9 @@ public struct WMFAuthAccountCreationInfo {
     }
 }
 
-class WMFAuthAccountCreationInfoFetcher {
+public class WMFAuthAccountCreationInfoFetcher: NSObject {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
-    func isFetching() -> Bool {
+    public func isFetching() -> Bool {
         return manager!.operationQueue.operationCount > 0
     }
     public func fetchAccountCreationInfoForSiteURL(_ siteURL: URL, completion: @escaping WMFAuthAccountCreationInfoBlock, failure: @escaping WMFErrorHandler){

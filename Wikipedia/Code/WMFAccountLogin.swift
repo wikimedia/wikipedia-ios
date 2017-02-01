@@ -1,10 +1,8 @@
 
-import Foundation
-
-enum WMFAccountLoginError: LocalizedError {
+public enum WMFAccountLoginError: LocalizedError {
     case cannotExtractLoginStatus
     case statusNotPass(String?)
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .cannotExtractLoginStatus:
             return "Could not extract login status"
@@ -18,7 +16,7 @@ enum WMFAccountLoginError: LocalizedError {
 
 public typealias WMFAccountLoginResultBlock = (WMFAccountLoginResult) -> Void
 
-public struct WMFAccountLoginResult {
+public class WMFAccountLoginResult: NSObject {
     var status: String
     var username: String
     var message: String?
@@ -29,9 +27,9 @@ public struct WMFAccountLoginResult {
     }
 }
 
-class WMFAccountLogin {
+public class WMFAccountLogin: NSObject {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
-    func isFetching() -> Bool {
+    public func isFetching() -> Bool {
         return manager!.operationQueue.operationCount > 0
     }
     

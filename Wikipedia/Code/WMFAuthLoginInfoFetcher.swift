@@ -1,10 +1,8 @@
 
-import Foundation
-
-enum WMFAuthLoginError: LocalizedError {
+public enum WMFAuthLoginError: LocalizedError {
     case cannotExtractInfo
     case cannotAuthenticateNow
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .cannotExtractInfo:
             return "Could not extract login info"
@@ -16,16 +14,16 @@ enum WMFAuthLoginError: LocalizedError {
 
 public typealias WMFAuthLoginInfoBlock = (WMFAuthLoginInfo) -> Void
 
-public struct WMFAuthLoginInfo {
+public class WMFAuthLoginInfo: NSObject {
     let canAuthenticateNow:Bool
     init(canAuthenticateNow:Bool) {
         self.canAuthenticateNow = canAuthenticateNow
     }
 }
 
-class WMFAuthLoginInfoFetcher {
+public class WMFAuthLoginInfoFetcher: NSObject {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
-    func isFetching() -> Bool {
+    public func isFetching() -> Bool {
         return manager!.operationQueue.operationCount > 0
     }
     public func fetchLoginInfoForSiteURL(_ siteURL: URL, completion: @escaping WMFAuthLoginInfoBlock, failure: @escaping WMFErrorHandler){

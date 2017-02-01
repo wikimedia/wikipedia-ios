@@ -1,10 +1,8 @@
 
-import Foundation
-
-enum WMFPasswordResetterError: LocalizedError {
+public enum WMFPasswordResetterError: LocalizedError {
     case cannotExtractResetStatus
     case resetStatusNotSuccess
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .cannotExtractResetStatus:
             return "Could not extract status"
@@ -16,16 +14,16 @@ enum WMFPasswordResetterError: LocalizedError {
 
 public typealias WMFPasswordResetterResultBlock = (WMFPasswordResetterResult) -> Void
 
-public struct WMFPasswordResetterResult {
+public class WMFPasswordResetterResult: NSObject {
     var status: String
     init(status:String) {
         self.status = status
     }
 }
 
-class WMFPasswordResetter {
+public class WMFPasswordResetter: NSObject {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
-    func isFetching() -> Bool {
+    public func isFetching() -> Bool {
         return manager!.operationQueue.operationCount > 0
     }
     public func resetPassword(siteURL: URL, token: String, userName:String?, email:String?, completion: @escaping WMFPasswordResetterResultBlock, failure: @escaping WMFErrorHandler){
