@@ -23,13 +23,22 @@ class ArticlePlace: NSObject, MKAnnotation {
     public let articles: [WMFArticle]
     public let identifier: String
     
-    init?(coordinate: CLLocationCoordinate2D, nextCoordinate: CLLocationCoordinate2D?, articles: [WMFArticle]) {
+    init?(coordinate: CLLocationCoordinate2D, nextCoordinate: CLLocationCoordinate2D?, articles: [WMFArticle], identifier: String) {
         self.title = nil
         self.subtitle = nil
         self.coordinate = coordinate
         self.nextCoordinate = nextCoordinate
         self.articles = articles
-        self.identifier = NSUUID().uuidString
+        self.identifier = identifier
+    }
+    
+    public static func identifierForArticles(articles: [WMFArticle]) -> String {
+        return articles.reduce("", { (result, article) -> String in
+            guard let key = article.key else {
+                return result
+            }
+            return result.appending(key)
+        })
     }
 }
 

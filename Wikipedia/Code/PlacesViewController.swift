@@ -517,14 +517,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         var previousPlaceByArticle: [String: ArticlePlace] = [:]
       
-        var annotations: [String:ArticlePlace] = [:]
+        var annotationsToRemove: [String:ArticlePlace] = [:]
         
         for annotation in mapView.annotations {
             guard let place = annotation as? ArticlePlace else {
                 continue
             }
             
-            annotations[place.identifier] = place
+            annotationsToRemove[place.identifier] = place
             
             for article in place.articles {
                 guard let key = article.key else {
@@ -579,6 +579,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             var nextCoordinate: CLLocationCoordinate2D?
             var coordinate = group.location.coordinate
 
+            let identifier = ArticlePlace.identifierForArticles(articles: group.articles)
+            
+            //check for identical place already on the map
+            if annotationsToRemove.removeValue(forKey: identifier) != nil {
+                continue
+            }
+
             if group.articles.count == 1 {
                 if let article = group.articles.first, let key = article.key, let previousPlace = previousPlaceByArticle[key] {
                     nextCoordinate = coordinate
@@ -586,7 +593,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 }
             } else {
                 for article in group.articles {
-                    guard let key = article.key, let previousPlace = previousPlaceByArticle[key], let _ = annotations.removeValue(forKey: previousPlace.identifier) else {
+                    guard let key = article.key, let previousPlace = previousPlaceByArticle[key], annotationsToRemove.removeValue(forKey: previousPlace.identifier) != nil else {
                         continue
                     }
                     
@@ -601,16 +608,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 }
             }
             
-            guard let place = ArticlePlace(coordinate: coordinate, nextCoordinate: nextCoordinate, articles: group.articles) else {
+            guard let place = ArticlePlace(coordinate: coordinate, nextCoordinate: nextCoordinate, articles: group.articles, identifier: identifier) else {
                 continue
             }
-            
-            
-            mapView.removeAnnotations(Array(annotations.values))
             
             mapView.addAnnotation(place)
         }
         
+        mapView.removeAnnotations(Array(annotationsToRemove.values))
         currentGroupingPrecision = groupingPrecision
     }
     
