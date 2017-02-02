@@ -349,6 +349,26 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         deselectAllAnnotations()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    func keyboardChanged(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+            let frameValue = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
+        let frame = frameValue.cgRectValue
+        var inset = searchSuggestionView.contentInset
+        inset.bottom = frame.size.height
+        searchSuggestionView.contentInset = inset
     }
 
     func dismissPopover() {
