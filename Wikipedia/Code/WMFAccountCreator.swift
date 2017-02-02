@@ -70,7 +70,8 @@ public class WMFAccountCreator: NSObject {
             }
             let message = createaccount["message"] as? String ?? nil
             guard status == "PASS" else {
-                if message == "Incorrect or missing CAPTCHA." {
+                if message?.lowercased().range(of:"missing captcha") != nil {
+                    // Note: must check the message because no other checkable info is returned indicating a captcha is needed.
                     failure(WMFAccountCreatorError.needsCaptcha)
                 }else{
                     failure(WMFAccountCreatorError.statusNotPass(message))
