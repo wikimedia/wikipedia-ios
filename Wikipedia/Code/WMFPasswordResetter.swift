@@ -36,10 +36,10 @@ public class WMFPasswordResetter: NSObject {
             "format": "json"
         ];
         
-        if let userName = userName {
+        if let userName = userName, userName.characters.count > 0 {
             parameters["user"] = userName
         }else {
-            if let email = email {
+            if let email = email, email.characters.count > 0 {
                 parameters["email"] = email
             }
         }
