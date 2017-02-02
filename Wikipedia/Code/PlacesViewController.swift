@@ -40,6 +40,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 searchBar.text = search.localizedDescription
                 performSearch(search)
                 switch search.type {
+                case .saved:
+                    break
                 case .top:
                     break
                 default:
@@ -217,7 +219,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func showRedoSearchButtonIfNecessary(forVisibleRegion visibleRegion: MKCoordinateRegion) {
-        guard let searchRegion = currentSearchRegion, let search = currentSearch, search.type != .location else {
+        guard let searchRegion = currentSearchRegion, let search = currentSearch, search.type != .location, search.type != .saved else {
             redoSearchButton.isHidden = true
             return
         }
@@ -263,34 +265,50 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
+    func regionThatFits(_ articles: [WMFArticle]) -> MKCoordinateRegion {
+        guard articles.count > 0 else {
+            return MKCoordinateRegion()
+        }
+        var latitudeMin = CLLocationDegrees(90)
+        var longitudeMin = CLLocationDegrees(180)
+        var latitudeMax = CLLocationDegrees(-90)
+        var longitudeMax = CLLocationDegrees(-180)
+        
+        var longitudeSum = CLLocationDegrees(0)
+        var latitudeSum = CLLocationDegrees(0)
+        
+        for article in articles {
+            guard let coordinate = article.coordinate else {
+                continue
+            }
+            latitudeMin = min(latitudeMin, coordinate.latitude)
+            longitudeMin = min(longitudeMin, coordinate.longitude)
+            latitudeMax = max(latitudeMax, coordinate.latitude)
+            longitudeMax = max(longitudeMax, coordinate.longitude)
+            
+            latitudeSum += coordinate.latitude
+            longitudeSum += coordinate.longitude
+        }
+        
+        //TODO: handle the wrap condition
+        let latitudeDelta = 1.3*(latitudeMax - latitudeMin)
+        let longitudeDelta = 1.3*(longitudeMax - longitudeMin)
+        
+        let averageLatitude = latitudeSum/CLLocationDegrees(articles.count)
+        let averageLongitude = longitudeSum/CLLocationDegrees(articles.count)
+        
+        let center = CLLocationCoordinate2D(latitude: averageLatitude, longitude: averageLongitude)
+        let span = MKCoordinateSpanMake(latitudeDelta, longitudeDelta)
+        return MKCoordinateRegionMake(center , span)
+    }
+    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let place = view.annotation as? ArticlePlace else {
             return
         }
         
         guard place.articles.count == 1 else {
-            var latitudeMin = CLLocationDegrees(90)
-            var longitudeMin = CLLocationDegrees(180)
-            var latitudeMax = CLLocationDegrees(-90)
-            var longitudeMax = CLLocationDegrees(-180)
-            for article in place.articles {
-                guard let coordinate = article.coordinate else {
-                    continue
-                }
-                latitudeMin = min(latitudeMin, coordinate.latitude)
-                longitudeMin = min(longitudeMin, coordinate.longitude)
-                latitudeMax = max(latitudeMax, coordinate.latitude)
-                longitudeMax = max(longitudeMax, coordinate.longitude)
-            }
-            
-            //TODO: handle the wrap condition
-            let latitudeDelta = 1.3*(latitudeMax - latitudeMin)
-            let longitudeDelta = 1.3*(longitudeMax - longitudeMin)
-            
-            let center = place.coordinate
-            let span = MKCoordinateSpanMake(latitudeDelta, longitudeDelta)
-            let region = MKCoordinateRegionMake(center , span)
-            mapRegion = region
+            mapRegion = regionThatFits(place.articles)
             return
         }
         
@@ -420,6 +438,21 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         currentSearchRegion = region
         
         switch search.type {
+        case .saved:
+            let moc = dataStore.viewContext
+            let request = fetchRequestForSavedArticlesWithLocation
+            request.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
+            request.fetchLimit = 500
+            do {
+                let savedWithLocation = try moc.fetch(request)
+                articles = savedWithLocation
+            } catch let error {
+                DDLogError("Error fetching saved articles: \(error.localizedDescription)")
+            }
+            mapRegion = regionThatFits(articles)
+            self.searching = false
+            updatePlaces()
+            return
         case .top:
             break
         case .location:
@@ -663,6 +696,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
             articles.append(article)
         }
+        updatePlaces()
+    }
+    
+    func updatePlaces() {
         listView.reloadData()
         currentGroupingPrecision = 0
         regroupArticlesIfNecessary(forVisibleRegion: mapRegion ?? mapView.region)
@@ -712,6 +749,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
 
     }
     
+    var fetchRequestForSavedArticlesWithLocation: NSFetchRequest<WMFArticle> {
+        get {
+            let savedRequest = WMFArticle.fetchRequest()
+            savedRequest.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
+            return savedRequest
+        }
+    }
+    
     // Search completions
     
     func updateSearchSuggestions(withCompletions completions: [PlaceSearch]) {
@@ -721,9 +766,15 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let topCombinedSuggestion = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStylePageViewsAndLinks, string: nil, region: nil, localizedDescription: "Top by page views and links", searchCompletion: nil)
             let topDefaultSuggestion = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStyleNone, string: nil, region: nil, localizedDescription: "Nearby with no sort param", searchCompletion: nil)
             
+            var suggestedSearches = [topNearbySuggestion, topLinksSuggestion, topCombinedSuggestion, topDefaultSuggestion]
             var recentSearches: [PlaceSearch] = []
             do {
                 let moc = dataStore.viewContext
+                if try moc.count(for: fetchRequestForSavedArticlesWithLocation) > 0 {
+                      let saved = PlaceSearch(type: .saved, sortStyle: WMFLocationSearchSortStyleNone, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-saved-articles"), searchCompletion: nil)
+                    suggestedSearches.append(saved)
+                }
+              
                 let request = WMFKeyValue.fetchRequest()
                 request.predicate = NSPredicate(format: "group == %@", searchHistoryGroup)
                 request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
@@ -739,7 +790,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 DDLogError("Error fetching recent place searches: \(error)")
             }
             
-            searchSuggestionController.searches = [[topNearbySuggestion, topLinksSuggestion, topCombinedSuggestion, topDefaultSuggestion], recentSearches, [], []]
+            searchSuggestionController.searches = [suggestedSearches, recentSearches, [], []]
             return
         }
         
