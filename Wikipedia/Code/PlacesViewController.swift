@@ -766,14 +766,15 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let topCombinedSuggestion = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStylePageViewsAndLinks, string: nil, region: nil, localizedDescription: "Top by page views and links", searchCompletion: nil)
             let topDefaultSuggestion = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStyleNone, string: nil, region: nil, localizedDescription: "Nearby with no sort param", searchCompletion: nil)
             
-            var suggestedSearches = [topNearbySuggestion, topLinksSuggestion, topCombinedSuggestion, topDefaultSuggestion]
+            let suggestedSearches = [topNearbySuggestion, topLinksSuggestion, topCombinedSuggestion, topDefaultSuggestion]
             var recentSearches: [PlaceSearch] = []
             do {
                 let moc = dataStore.viewContext
-                if try moc.count(for: fetchRequestForSavedArticlesWithLocation) > 0 {
-                      let saved = PlaceSearch(type: .saved, sortStyle: WMFLocationSearchSortStyleNone, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-saved-articles"), searchCompletion: nil)
-                    suggestedSearches.append(saved)
-                }
+//
+//                if try moc.count(for: fetchRequestForSavedArticlesWithLocation) > 0 {
+//                      let saved = PlaceSearch(type: .saved, sortStyle: WMFLocationSearchSortStyleNone, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-saved-articles"), searchCompletion: nil)
+//                    suggestedSearches.append(saved)
+//                }
               
                 let request = WMFKeyValue.fetchRequest()
                 request.predicate = NSPredicate(format: "group == %@", searchHistoryGroup)
