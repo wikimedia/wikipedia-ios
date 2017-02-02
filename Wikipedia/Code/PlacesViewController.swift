@@ -247,6 +247,22 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
+    func clearSearchHistory() {
+        do {
+            let moc = dataStore.viewContext
+            let request = WMFKeyValue.fetchRequest()
+            request.predicate = NSPredicate(format: "group == %@", searchHistoryGroup)
+            request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+            let results = try moc.fetch(request)
+            for result in results {
+                moc.delete(result)
+            }
+            try moc.save()
+        } catch let error {
+            DDLogError("Error clearing recent place searches: \(error)")
+        }
+    }
+    
     var _mapRegion: MKCoordinateRegion?
     
     var mapRegion: MKCoordinateRegion? {
@@ -844,7 +860,26 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let topLinksSuggestion = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStyleLinks, string: nil, region: nil, localizedDescription: "Top by links", searchCompletion: nil)
             let topCombinedSuggestion = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStylePageViewsAndLinks, string: nil, region: nil, localizedDescription: "Top by page views and links", searchCompletion: nil)
             let topDefaultSuggestion = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStyleNone, string: nil, region: nil, localizedDescription: "Nearby with no sort param", searchCompletion: nil)
-            searchSuggestionController.searches = [[topNearbySuggestion, topLinksSuggestion, topCombinedSuggestion, topDefaultSuggestion], [], [], []]
+            
+            var recentSearches: [PlaceSearch] = []
+            do {
+                let moc = dataStore.viewContext
+                let request = WMFKeyValue.fetchRequest()
+                request.predicate = NSPredicate(format: "group == %@", searchHistoryGroup)
+                request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+                let results = try moc.fetch(request)
+                recentSearches = try results.map({ (kv) -> PlaceSearch in
+                    guard let dictionary = kv.value as? [String : Any],
+                        let ps = PlaceSearch(dictionary: dictionary) else {
+                            throw NSError()
+                    }
+                    return ps
+                })
+            } catch let error {
+                DDLogError("Error fetching recent place searches: \(error)")
+            }
+            
+            searchSuggestionController.searches = [[topNearbySuggestion, topLinksSuggestion, topCombinedSuggestion, topDefaultSuggestion], recentSearches, [], []]
             return
         }
         
@@ -882,7 +917,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        currentSearch = PlaceSearch(type: .text, sortStyle: WMFLocationSearchSortStyleNone, string: searchBar.text, region: nil, localizedDescription: searchBar.text, searchCompletion: nil)
+        currentSearch = PlaceSearch(type: .text, sortStyle: WMFLocationSearchSortStylePageViews, string: searchBar.text, region: nil, localizedDescription: searchBar.text, searchCompletion: nil)
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
