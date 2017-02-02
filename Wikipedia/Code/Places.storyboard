@@ -27,6 +27,24 @@
                                     <outlet property="delegate" destination="pK5-Ai-Kzp" id="paj-rR-O2P"/>
                                 </connections>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxh-CO-RQm">
+                                <rect key="frame" x="330" y="79" width="30" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="JR3-1A-AEQ"/>
+                                    <constraint firstAttribute="height" constant="30" id="f61-h1-eIZ"/>
+                                </constraints>
+                                <state key="normal" image="currentLocationIcon"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="recenterOnUserLocation:" destination="pK5-Ai-Kzp" eventType="touchUpInside" id="VU6-SF-aWs"/>
+                                </connections>
+                            </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6h-da-ewO">
                                 <rect key="frame" x="63" y="554" width="248" height="44"/>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.40000000000000002" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -37,8 +55,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="22"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="22"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -56,6 +75,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="mxh-CO-RQm" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" constant="15" id="11e-K4-HcT"/>
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="NoL-m7-U7J" secondAttribute="bottom" id="1Fi-Sf-iB5"/>
                             <constraint firstAttribute="trailing" secondItem="Irc-Nx-au0" secondAttribute="trailing" id="1xb-Ou-IQL"/>
                             <constraint firstItem="UNC-SX-Sli" firstAttribute="top" secondItem="pBD-gM-dPf" secondAttribute="top" id="6IK-c4-Guk"/>
@@ -65,6 +85,7 @@
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="Irc-Nx-au0" secondAttribute="bottom" id="NKQ-b1-Rec"/>
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="z6h-da-ewO" secondAttribute="bottom" constant="20" id="TMh-9f-MrD"/>
                             <constraint firstItem="Irc-Nx-au0" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="Xbq-SP-Okk"/>
+                            <constraint firstAttribute="trailing" secondItem="mxh-CO-RQm" secondAttribute="trailing" constant="15" id="gRy-yz-tGe"/>
                             <constraint firstItem="NoL-m7-U7J" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" id="hQk-7g-H7x"/>
                             <constraint firstItem="Irc-Nx-au0" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" id="nFS-aV-Ok3"/>
                             <constraint firstItem="NoL-m7-U7J" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="oNb-4L-0vl"/>
@@ -91,7 +112,7 @@
                 <navigationController storyboardIdentifier="Places" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fC7-UI-Knm" userLabel="Places" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Places" image="tabbar-nearby" selectedImage="tabbar-nearby-selected" id="qMU-9n-S42"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HFz-Jz-Pn5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="HFz-Jz-Pn5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -106,6 +127,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="currentLocationIcon" width="36" height="35"/>
         <image name="tabbar-nearby" width="24" height="24"/>
         <image name="tabbar-nearby-selected" width="24" height="24"/>
     </resources>

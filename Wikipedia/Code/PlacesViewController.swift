@@ -140,6 +140,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         mapView.showsBuildings = false
         mapView.showsTraffic = false
         mapView.showsPointsOfInterest = false
+        mapView.showsScale = true
         
         // Setup location manager
         locationManager.delegate = self
@@ -942,24 +943,26 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     // WMFLocationManagerDelegate
     
     func locationManager(_ controller: WMFLocationManager, didUpdate location: CLLocation) {
-        guard currentSearch == nil else {
-            return
-        }
         let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
         mapRegion = region
-        currentSearch = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStylePageViews, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchCompletion: nil)
+        if currentSearch == nil {
+            currentSearch = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStylePageViews, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchCompletion: nil)
+        }
+        locationManager.stopMonitoringLocation()
     }
     
     func locationManager(_ controller: WMFLocationManager, didReceiveError error: Error) {
-        
+        locationManager.stopMonitoringLocation()
     }
     
     func locationManager(_ controller: WMFLocationManager, didUpdate heading: CLHeading) {
-        
     }
     
     func locationManager(_ controller: WMFLocationManager, didChangeEnabledState enabled: Bool) {
-        
+    }
+    
+    @IBAction func recenterOnUserLocation(_ sender: Any) {
+       locationManager.startMonitoringLocation()
     }
 }
 
