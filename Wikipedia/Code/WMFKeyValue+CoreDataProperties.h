@@ -8,6 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSFetchRequest<WMFKeyValue *> *)fetchRequest;
 
 @property (nullable, nonatomic, copy) NSString *key;
+@property (nullable, nonatomic, copy) NSString *group;
 @property (nullable, nonatomic, copy) NSDate *date;
 @property (nullable, nonatomic, retain) NSObject *value;
 

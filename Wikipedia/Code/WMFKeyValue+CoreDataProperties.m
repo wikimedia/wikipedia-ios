@@ -7,6 +7,7 @@
 }
 
 @dynamic key;
+@dynamic group;
 @dynamic date;
 @dynamic value;
 

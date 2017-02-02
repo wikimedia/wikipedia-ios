@@ -60,13 +60,15 @@
             </compoundIndex>
         </compoundIndexes>
     </entity>
-    <entity name="WMFKeyValue" representedClassName="WMFKeyValue" syncable="YES" codeGenerationType="class">
+    <entity name="WMFKeyValue" representedClassName="WMFKeyValue" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="group" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="key" attributeType="String" syncable="YES"/>
         <attribute name="value" optional="YES" attributeType="Transformable" syncable="YES"/>
         <compoundIndexes>
             <compoundIndex>
                 <index value="key"/>
+                <index value="group"/>
                 <index value="date"/>
             </compoundIndex>
         </compoundIndexes>
@@ -74,6 +76,6 @@
     <elements>
         <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="300"/>
         <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="255"/>
-        <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="90"/>
+        <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="105"/>
     </elements>
 </model>
