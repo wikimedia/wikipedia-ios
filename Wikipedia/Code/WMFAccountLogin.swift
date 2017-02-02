@@ -2,12 +2,15 @@
 public enum WMFAccountLoginError: LocalizedError {
     case cannotExtractLoginStatus
     case statusNotPass(String?)
+    case temporaryPasswordNeedsChange(String?)
     public var errorDescription: String? {
         switch self {
         case .cannotExtractLoginStatus:
             return "Could not extract login status"
         case .statusNotPass(let message?):
-            return "Unable to login: \(message)"
+            return message
+        case .temporaryPasswordNeedsChange(let message?):
+            return message
         default:
             return "Unable to login: Reason unknown"
         }
@@ -58,6 +61,16 @@ public class WMFAccountLogin: NSObject {
             }
             let message = clientlogin["message"] as? String ?? nil
             guard status == "PASS" else {
+                
+                if
+                    status == "UI",
+                    let requests = clientlogin["requests"] as? [AnyObject],
+                    let _ = requests.first(where:{$0["id"]! as! String == "MediaWiki\\Auth\\PasswordAuthenticationRequest"})
+                {
+                    failure(WMFAccountLoginError.temporaryPasswordNeedsChange(message))
+                    return
+                }
+                
                 failure(WMFAccountLoginError.statusNotPass(message))
                 return
             }
