@@ -193,22 +193,31 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
+    var _mapRegion: MKCoordinateRegion?
+    
     var mapRegion: MKCoordinateRegion? {
-        didSet {
-            guard let region = mapRegion else {
+        set {
+            guard let value = newValue else {
+                _mapRegion = nil
                 return
             }
             
-            let regionThatFits = mapView.regionThatFits(region)
-            regroupArticlesIfNecessary(forVisibleRegion: regionThatFits)
-            showRedoSearchButtonIfNecessary(forVisibleRegion: regionThatFits)
-            localCompleter.region = regionThatFits
+            let region = mapView.regionThatFits(value)
+            
+            _mapRegion = region
+            regroupArticlesIfNecessary(forVisibleRegion: region)
+            showRedoSearchButtonIfNecessary(forVisibleRegion: region)
+            localCompleter.region = region
             
             UIView.animate(withDuration: animationDuration, animations: {
-                self.mapView.region = regionThatFits
+                self.mapView.region = region
             }) { (finished) in
                 
             }
+        }
+        
+        get {
+            return _mapRegion
         }
     }
     
@@ -302,6 +311,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        _mapRegion = mapView.region
         regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
         showRedoSearchButtonIfNecessary(forVisibleRegion: mapView.region)
         localCompleter.region = mapView.region
@@ -477,7 +487,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         var searchTerm: String? = nil
         let sortStyle = search.sortStyle
-        let region = search.region ?? mapView.region
+        let region = search.region ?? mapRegion ?? mapView.region
         currentSearchRegion = region
         
         switch search.type {
@@ -707,7 +717,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             self.groupingTaskGroup = nil
             if (self.needsRegroup) {
                 self.needsRegroup = false
-                self.regroupArticlesIfNecessary(forVisibleRegion: self.mapView.region)
+                self.regroupArticlesIfNecessary(forVisibleRegion: self.mapRegion ?? self.mapView.region)
             }
         }
     }
@@ -725,7 +735,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         listView.reloadData()
         currentGroupingPrecision = 0
-        regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
+        regroupArticlesIfNecessary(forVisibleRegion: mapRegion ?? mapView.region)
     }
     
     
@@ -915,9 +925,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
-        
         mapRegion = region
-        currentSearch = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStyleNone, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchCompletion: nil)
+        currentSearch = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStylePageViews, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchCompletion: nil)
     }
     
     func locationManager(_ controller: WMFLocationManager, didReceiveError error: Error) {
