@@ -17,11 +17,11 @@ public typealias WMFAuthAccountCreationInfoBlock = (WMFAuthAccountCreationInfo) 
 public class WMFAuthAccountCreationInfo: NSObject {
     let canCreateAccounts:Bool
     let captchaID: String
-    let captchaURL: String
-    init(canCreateAccounts:Bool, captchaID:String, captchaURL:String) {
+    let captchaURLFragment: String
+    init(canCreateAccounts:Bool, captchaID:String, captchaURLFragment:String) {
         self.canCreateAccounts = canCreateAccounts
         self.captchaID = captchaID
-        self.captchaURL = captchaURL
+        self.captchaURLFragment = captchaURLFragment
     }
 }
 
@@ -63,7 +63,7 @@ public class WMFAuthAccountCreationInfoFetcher: NSObject {
                 return
             }
             
-            completion(WMFAuthAccountCreationInfo.init(canCreateAccounts: true, captchaID: captchaIdValue, captchaURL: captchaInfoValue))
+            completion(WMFAuthAccountCreationInfo.init(canCreateAccounts: true, captchaID: captchaIdValue, captchaURLFragment: captchaInfoValue))
         }, failure: {
             (_, error: Error) in
             failure(error)
