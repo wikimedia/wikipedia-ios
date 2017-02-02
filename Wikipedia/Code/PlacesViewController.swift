@@ -95,6 +95,7 @@ struct PlaceSearch {
 
 protocol PlaceSearchSuggestionControllerDelegate: NSObjectProtocol {
     func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didSelectSearch search: PlaceSearch)
+    func placeSearchSuggestionControllerClearButtonPressed(_ controller: PlaceSearchSuggestionController)
 }
 
 extension MKCoordinateRegion {
@@ -159,19 +160,39 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
         delegate?.placeSearchSuggestionController(self, didSelectSearch: search)
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard searches[section].count > 0 else {
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard searches[section].count > 0, section < 2, let header = WMFTableHeaderLabelView.wmf_viewFromClassNib() else {
             return nil
         }
+        header.prepareForReuse()
+        header.backgroundColor = UIColor.wmf_lightGray()
+        header.isLabelVerticallyCentered = true
         switch section {
         case 0:
-            return localizedStringForKeyFallingBackOnEnglish("places-search-suggested-searches-header")
+            header.text = localizedStringForKeyFallingBackOnEnglish("places-search-suggested-searches-header")
         case 1:
-            return localizedStringForKeyFallingBackOnEnglish("places-search-recently-searched-header")
+            header.isClearButtonHidden = false
+            header.addClearButtonTarget(self, selector: #selector(clearButtonPressed))
+            header.text = localizedStringForKeyFallingBackOnEnglish("places-search-recently-searched-header")
         default:
             return nil
         }
+        
+        return header
     }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard let header = self.tableView(tableView, viewForHeaderInSection: section) as? WMFTableHeaderLabelView else {
+            return 0
+        }
+        return header.height(withExpectedWidth: tableView.bounds.size.width)
+    }
+    
+    func clearButtonPressed() {
+        delegate?.placeSearchSuggestionControllerClearButtonPressed(self)
+    }
+    
 }
 
 
@@ -1028,6 +1049,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didSelectSearch search: PlaceSearch) {
         currentSearch = search
         searchBar.endEditing(true)
+    }
+    
+    func placeSearchSuggestionControllerClearButtonPressed(_ controller: PlaceSearchSuggestionController) {
+        clearSearchHistory()
+        updateSearchSuggestions(withCompletions: [])
     }
     
     // WMFLocationManagerDelegate
