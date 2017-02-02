@@ -7,6 +7,7 @@
 }
 
 @dynamic key;
+@dynamic date;
 @dynamic value;
 
 @end
