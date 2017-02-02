@@ -34,6 +34,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     let searchHistoryGroup = "PlaceSearch"
     
+    var maxGroupingPrecision: QuadKeyPrecision = 17
+    var groupingPrecisionDelta: QuadKeyPrecision = 4
+    var groupingAggressiveness: CLLocationDistance = 1.0
+    
     var currentSearch: PlaceSearch? {
         didSet {
             if let search = currentSearch {
@@ -537,8 +541,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         let deltaLon = visibleRegion.span.longitudeDelta
         let lowestPrecision = QuadKeyPrecision(deltaLongitude: deltaLon)
-        let maxPrecision: QuadKeyPrecision = 17
-        let groupingPrecision = min(maxPrecision, lowestPrecision + 4)
+        let maxPrecision: QuadKeyPrecision = maxGroupingPrecision
+        let groupingPrecision = min(maxPrecision, lowestPrecision + groupingPrecisionDelta)
         
         guard groupingPrecision != currentGroupingPrecision else {
             return
@@ -558,7 +562,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let centerLon = searchRegion.center.longitude
         let groupingDistanceLocation = CLLocation(latitude:centerLat + groupingDeltaLatitude, longitude: centerLon + groupingDeltaLongitude)
         let centerLocation = CLLocation(latitude:centerLat, longitude: centerLon)
-        let groupingDistance = groupingDistanceLocation.distance(from: centerLocation)
+        let groupingDistance = groupingAggressiveness * groupingDistanceLocation.distance(from: centerLocation)
         
         var previousPlaceByArticle: [String: ArticlePlace] = [:]
       
@@ -585,8 +589,15 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             guard let quadKey = article.quadKey else {
                 continue
             }
-            let adjustedQuadKey = quadKey.adjusted(downBy: QuadKeyPrecision.maxPrecision - groupingPrecision)
-            var group =  groupingPrecision < maxPrecision ? groups[adjustedQuadKey] ?? ArticleGroup() : ArticleGroup()
+            var group: ArticleGroup
+            let adjustedQuadKey: QuadKey
+            if groupingPrecision < maxPrecision {
+                adjustedQuadKey = quadKey.adjusted(downBy: QuadKeyPrecision.maxPrecision - groupingPrecision)
+                group = groups[adjustedQuadKey] ?? ArticleGroup()
+            } else {
+                group = ArticleGroup()
+                adjustedQuadKey = quadKey
+            }
             group.articles.append(article)
             let coordinate = QuadKeyCoordinate(quadKey: quadKey)
             group.latitudeSum += coordinate.latitude
@@ -963,6 +974,51 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     @IBAction func recenterOnUserLocation(_ sender: Any) {
        locationManager.startMonitoringLocation()
+    }
+    
+    @IBOutlet weak var secretSettingsView: UIView!
+
+    
+    @IBOutlet weak var maxZoomLabel: UILabel!
+    @IBOutlet weak var maxZoomSlider: UISlider!
+    @IBAction func maxZoomValueChanged(_ sender: Any) {
+        maxZoomLabel.text = "max: \(Int(round(maxZoomSlider.value)))"
+        applySecretSettings()
+    }
+    
+    @IBOutlet weak var groupZoomDeltaLabel: UILabel!
+    @IBOutlet weak var groupZoomDeltaSlider: UISlider!
+    @IBAction func groupZoomDeltaSliderChanged(_ sender: Any) {
+        groupZoomDeltaLabel.text = "delta: \(Int(8 - round(groupZoomDeltaSlider.value)))"
+        applySecretSettings()
+    }
+    
+    @IBOutlet weak var groupAggressivenessLabel: UILabel!
+    @IBOutlet weak var groupAggressivenessSlider: UISlider!
+    @IBAction func groupAggressivenessChanged(_ sender: Any) {
+        groupAggressivenessLabel.text = String(format: "agg: %.2f", groupAggressivenessSlider.value)
+        applySecretSettings()
+    }
+    
+    func applySecretSettings() {
+        groupingAggressiveness = CLLocationDistance(groupAggressivenessSlider.value)
+        groupingPrecisionDelta = QuadKeyPrecision(8 - round(groupZoomDeltaSlider.value))
+        maxGroupingPrecision = QuadKeyPrecision(round(maxZoomSlider.value))
+        currentGroupingPrecision = 0
+        regroupArticlesIfNecessary(forVisibleRegion: mapRegion ?? mapView.region)
+    }
+    
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        switch motion {
+        case .motionShake:
+            secretSettingsView.isHidden = !secretSettingsView.isHidden
+            guard secretSettingsView.isHidden else {
+                return
+            }
+           applySecretSettings()
+        default:
+            break
+        }
     }
 }
 
