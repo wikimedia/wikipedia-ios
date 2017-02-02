@@ -2,7 +2,6 @@
 #import "PreviewHtmlFetcher.h"
 #import "WikiTextSectionUploader.h"
 #import "UIViewController+WMFHideKeyboard.h"
-#import "EditTokenFetcher.h"
 #import "SessionSingleton.h"
 #import "PreviewWebViewContainer.h"
 #import "PaddedLabel.h"
@@ -83,7 +82,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
 @property (strong, nonatomic) WikiTextSectionUploader *wikiTextSectionUploader;
 @property (strong, nonatomic) PreviewHtmlFetcher *previewHtmlFetcher;
-@property (strong, nonatomic) EditTokenFetcher *editTokenFetcher;
+@property (strong, nonatomic) WMFAuthTokenFetcher *editTokenFetcher;
 @property (strong, nonatomic) WMFCaptchaResetter *captchaResetter;
 
 @end
@@ -502,29 +501,6 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
                 [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
             } break;
         }
-    } else if ([sender isKindOfClass:[EditTokenFetcher class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED: {
-                EditTokenFetcher *tokenFetcher = (EditTokenFetcher *)sender;
-
-                self.wikiTextSectionUploader =
-                [[WikiTextSectionUploader alloc] initAndUploadWikiText:tokenFetcher.wikiText
-                                                         forArticleURL:tokenFetcher.articleURL
-                                                               section:tokenFetcher.section
-                                                               summary:tokenFetcher.summary
-                                                             captchaId:tokenFetcher.captchaId
-                                                           captchaWord:tokenFetcher.captchaWord
-                                                                 token:tokenFetcher.token
-                                                           withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
-                                                    thenNotifyDelegate:self];
-            } break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-                [[WMFAlertManager sharedInstance] dismissAlert];
-                break;
-            case FETCH_FINAL_STATUS_FAILED:
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-                break;
-        }
     } else if ([sender isKindOfClass:[WikiTextSectionUploader class]]) {
         //WikiTextSectionUploader* uploader = (WikiTextSectionUploader*)sender;
 
@@ -659,15 +635,28 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
         // Only the domain is used to actually fetch the token, the other values are
         // parked in EditTokenFetcher so the actual uploader can have quick read-only
         // access to the exact params which kicked off the token request.
-        self.editTokenFetcher =
-        [[EditTokenFetcher alloc] initAndFetchEditTokenForWikiText:self.wikiText
-                                                        articleURL:editURL
+        
+        NSURL *url = [[SessionSingleton sharedInstance] urlForLanguage:editURL.wmf_language];
+        self.editTokenFetcher = [[WMFAuthTokenFetcher alloc] init];
+        @weakify(self)
+        [self.editTokenFetcher fetchTokenOfType:WMFAuthTokenTypeCsrf siteURL:url completion:^(WMFAuthToken* result){
+            @strongify(self)
+
+            self.wikiTextSectionUploader =
+            [[WikiTextSectionUploader alloc] initAndUploadWikiText:self.wikiText
+                                                     forArticleURL:editURL
                                                            section:[NSString stringWithFormat:@"%d", self.section.sectionId]
                                                            summary:[self getSummary]
                                                          captchaId:self.captchaId
                                                        captchaWord:self.captchaViewController.captchaTextBox.text
+                                                             token:result.token
                                                        withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
                                                 thenNotifyDelegate:self];
+
+        } failure:^(NSError* error){
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+        }];
+
     }];
 }
 
