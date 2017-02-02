@@ -665,7 +665,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         let deltaLon = visibleRegion.span.longitudeDelta
         let lowestPrecision = QuadKeyPrecision(deltaLongitude: deltaLon)
-        let groupingPrecision = min(QuadKeyPrecision.maxPrecision, lowestPrecision + 3)
+        let maxPrecision: QuadKeyPrecision = 22
+        let groupingPrecision = min(maxPrecision, lowestPrecision + 3)
         
         guard groupingPrecision != currentGroupingPrecision else {
             return
@@ -713,7 +714,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 continue
             }
             let adjustedQuadKey = quadKey.adjusted(downBy: QuadKeyPrecision.maxPrecision - groupingPrecision)
-            var group = groups[adjustedQuadKey] ?? ArticleGroup()
+            var group =  groupingPrecision < maxPrecision ? groups[adjustedQuadKey] ?? ArticleGroup() : ArticleGroup()
             group.articles.append(article)
             let coordinate = QuadKeyCoordinate(quadKey: quadKey)
             group.latitudeSum += coordinate.latitude
