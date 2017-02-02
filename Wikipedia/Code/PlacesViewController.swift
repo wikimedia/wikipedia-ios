@@ -10,6 +10,11 @@ enum PlaceSearchType: UInt {
     case saved
 }
 
+extension MKCoordinateRegion {
+    var stringValue: String {
+        return String(format: "%.3f,%.3f|%.3f,%.3f", center.latitude, center.longitude, span.latitudeDelta, span.longitudeDelta)
+    }
+}
 struct PlaceSearch {
     let type: PlaceSearchType
     let sortStyle: WMFLocationSearchSortStyle
@@ -25,6 +30,21 @@ struct PlaceSearch {
         self.region = region
         self.localizedDescription = localizedDescription
         self.searchCompletion = searchCompletion
+    }
+    
+    var key: String {
+        get {
+            let baseString = "\(type.rawValue)|\(sortStyle.rawValue)|\(string?.lowercased().precomposedStringWithCanonicalMapping ?? "")"
+            switch type {
+            case .location:
+                guard let region = region else {
+                    fallthrough
+                }
+                return baseString + "|\(region.stringValue )"
+            default:
+                return baseString
+            }
+        }
     }
     
     var dictionaryValue: [String: NSCoding] {
@@ -184,12 +204,46 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     var currentGroupingPrecision: QuadKeyPrecision = 1
     
+    let searchHistoryGroup = "PlaceSearch"
+    
     var currentSearch: PlaceSearch? {
         didSet {
             if let search = currentSearch {
                 searchBar.text = search.localizedDescription
                 performSearch(search)
+                switch search.type {
+                case .top:
+                    break
+                default:
+                    guard search.searchCompletion == nil else {
+                        break
+                    }
+                    saveToHistory(search: search)
+                }
             }
+        }
+    }
+    
+    func saveToHistory(search: PlaceSearch) {
+        do {
+            let moc = dataStore.viewContext
+            let key = search.key
+            let request = WMFKeyValue.fetchRequest()    
+            request.predicate = NSPredicate(format: "key == %@ && group == %@", key, searchHistoryGroup)
+            request.fetchLimit = 1
+            let results = try moc.fetch(request)
+            if let keyValue = results.first {
+                keyValue.date = Date()
+            } else if let entity = NSEntityDescription.entity(forEntityName: "WMFKeyValue", in: moc) {
+                let keyValue =  WMFKeyValue(entity: entity, insertInto: moc)
+                keyValue.key = key
+                keyValue.group = searchHistoryGroup
+                keyValue.date = Date()
+                keyValue.value = search.dictionaryValue as NSObject
+            }
+            try moc.save()
+        } catch let error {
+            DDLogError("error saving to place search history: \(error.localizedDescription)")
         }
     }
     

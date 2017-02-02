@@ -21,8 +21,8 @@ import Foundation
             
             let results = try managedObjectContext.fetch(request)
             
-            if results.count == 0 {
-                let kv = NSEntityDescription.insertNewObject(forEntityName: "WMFKeyValue", into: managedObjectContext) as! WMFKeyValue
+            if results.count == 0, let entity = NSEntityDescription.entity(forEntityName: "WMFKeyValue", in: managedObjectContext) {
+                let kv = WMFKeyValue(entity: entity, insertInto: managedObjectContext)
                 kv.key = migrationKey
                 kv.value = NSNumber(value: true)
                 try managedObjectContext.save()
