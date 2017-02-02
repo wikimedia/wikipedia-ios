@@ -3,199 +3,6 @@ import MapKit
 import WMF
 import TUSafariActivity
 
-enum PlaceSearchType: UInt {
-    case text
-    case location
-    case top
-    case saved
-}
-
-extension MKCoordinateRegion {
-    var stringValue: String {
-        return String(format: "%.3f,%.3f|%.3f,%.3f", center.latitude, center.longitude, span.latitudeDelta, span.longitudeDelta)
-    }
-}
-struct PlaceSearch {
-    let type: PlaceSearchType
-    let sortStyle: WMFLocationSearchSortStyle
-    let string: String?
-    let region: MKCoordinateRegion?
-    let localizedDescription: String?
-    let searchCompletion: MKLocalSearchCompletion?
-    
-    init(type: PlaceSearchType, sortStyle: WMFLocationSearchSortStyle, string: String?, region: MKCoordinateRegion?, localizedDescription: String?, searchCompletion: MKLocalSearchCompletion?) {
-        self.type = type
-        self.sortStyle = sortStyle
-        self.string = string
-        self.region = region
-        self.localizedDescription = localizedDescription
-        self.searchCompletion = searchCompletion
-    }
-    
-    var key: String {
-        get {
-            let baseString = "\(type.rawValue)|\(sortStyle.rawValue)|\(string?.lowercased().precomposedStringWithCanonicalMapping ?? "")"
-            switch type {
-            case .location:
-                guard let region = region else {
-                    fallthrough
-                }
-                return baseString + "|\(region.stringValue )"
-            default:
-                return baseString
-            }
-        }
-    }
-    
-    var dictionaryValue: [String: NSCoding] {
-        get {
-            var dictionary: [String: NSCoding] = [:]
-            dictionary["type"] = NSNumber(value: type.rawValue)
-            dictionary["sortStyle"] = NSNumber(value: sortStyle.rawValue)
-            if let string = string {
-                dictionary["string"] = string as NSString
-            }
-            if let region = region {
-                dictionary["lat"] = NSNumber(value: region.center.latitude)
-                dictionary["lon"] = NSNumber(value: region.center.longitude)
-                dictionary["latd"] = NSNumber(value: region.span.latitudeDelta)
-                dictionary["lond"] = NSNumber(value: region.span.longitudeDelta)
-            }
-            if let localizedDescription = localizedDescription {
-                dictionary["localizedDescription"] = localizedDescription as NSString
-            }
-            return dictionary
-        }
-    }
-    
-    init?(dictionary: [String: Any]) {
-        guard let typeNumber = dictionary["type"] as? NSNumber,
-            let type = PlaceSearchType(rawValue: typeNumber.uintValue),
-            let sortStyleNumber = dictionary["sortStyle"] as? NSNumber else {
-                return nil
-        }
-        self.type = type
-        let sortStyle = WMFLocationSearchSortStyle(rawValue: sortStyleNumber.uintValue)
-        self.sortStyle = sortStyle
-        self.string = dictionary["string"] as? String
-        if let lat = dictionary["lat"] as? NSNumber,
-            let lon = dictionary["lon"] as? NSNumber,
-            let latd = dictionary["latd"] as? NSNumber,
-            let lond = dictionary["lond"] as? NSNumber {
-            let coordinate = CLLocationCoordinate2D(latitude: lat.doubleValue, longitude: lon.doubleValue)
-            let span = MKCoordinateSpan(latitudeDelta: latd.doubleValue, longitudeDelta: lond.doubleValue)
-            self.region = MKCoordinateRegion(center: coordinate, span: span)
-        } else {
-            self.region = nil
-        }
-        self.localizedDescription = dictionary["localizedDescription"] as? String
-        self.searchCompletion = nil
-    }
-}
-
-protocol PlaceSearchSuggestionControllerDelegate: NSObjectProtocol {
-    func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didSelectSearch search: PlaceSearch)
-    func placeSearchSuggestionControllerClearButtonPressed(_ controller: PlaceSearchSuggestionController)
-}
-
-extension MKCoordinateRegion {
-    var width: CLLocationDistance {
-        get {
-            let halfLongitudeDelta = span.longitudeDelta * 0.5
-            let left =  CLLocation(latitude: center.latitude, longitude: center.longitude - halfLongitudeDelta)
-            let right =  CLLocation(latitude: center.latitude, longitude: center.longitude + halfLongitudeDelta)
-            let width = right.distance(from: left)
-            return width
-        }
-    }
-    
-    var height: CLLocationDistance {
-        get {
-            let halfLatitudeDelta = span.latitudeDelta * 0.5
-            let top = CLLocation(latitude: center.latitude + halfLatitudeDelta, longitude: center.longitude)
-            let bottom = CLLocation(latitude: center.latitude - halfLatitudeDelta, longitude: center.longitude)
-            let height = top.distance(from: bottom)
-            return height
-        }
-    }
-}
-
-class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableViewDelegate {
-    static let cellReuseIdentifier = "org.wikimedia.places"
-    
-    var tableView: UITableView = UITableView() {
-        didSet {
-            tableView.register(UITableViewCell.self, forCellReuseIdentifier: PlaceSearchSuggestionController.cellReuseIdentifier)
-            tableView.dataSource = self
-            tableView.delegate = self
-            tableView.reloadData()
-        }
-    }
-    
-    var searches: [[PlaceSearch]] = [[],[],[],[]]{
-        didSet {
-            tableView.reloadData()
-        }
-    }
-    
-    weak var delegate: PlaceSearchSuggestionControllerDelegate?
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return searches.count
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searches[section].count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier:  PlaceSearchSuggestionController.cellReuseIdentifier, for: indexPath)
-        let search = searches[indexPath.section][indexPath.row]
-        cell.textLabel?.text = search.localizedDescription
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let search = searches[indexPath.section][indexPath.row]
-        delegate?.placeSearchSuggestionController(self, didSelectSearch: search)
-    }
-    
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard searches[section].count > 0, section < 2, let header = WMFTableHeaderLabelView.wmf_viewFromClassNib() else {
-            return nil
-        }
-        header.prepareForReuse()
-        header.backgroundColor = UIColor.wmf_lightGray()
-        header.isLabelVerticallyCentered = true
-        switch section {
-        case 0:
-            header.text = localizedStringForKeyFallingBackOnEnglish("places-search-suggested-searches-header")
-        case 1:
-            header.isClearButtonHidden = false
-            header.addClearButtonTarget(self, selector: #selector(clearButtonPressed))
-            header.text = localizedStringForKeyFallingBackOnEnglish("places-search-recently-searched-header")
-        default:
-            return nil
-        }
-        
-        return header
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let header = self.tableView(tableView, viewForHeaderInSection: section) as? WMFTableHeaderLabelView else {
-            return 0
-        }
-        return header.height(withExpectedWidth: tableView.bounds.size.width)
-    }
-    
-    func clearButtonPressed() {
-        delegate?.placeSearchSuggestionControllerClearButtonPressed(self)
-    }
-    
-}
-
-
 class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, MKLocalSearchCompleterDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate {
     
     @IBOutlet weak var redoSearchButton: UIButton!
@@ -245,19 +52,29 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    func saveToHistory(search: PlaceSearch) {
+    func keyValue(forPlaceSearch placeSearch: PlaceSearch, inManagedObjectContext moc: NSManagedObjectContext) -> WMFKeyValue? {
+        var keyValue: WMFKeyValue?
         do {
-            let moc = dataStore.viewContext
-            let key = search.key
-            let request = WMFKeyValue.fetchRequest()    
+            let key = placeSearch.key
+            let request = WMFKeyValue.fetchRequest()
             request.predicate = NSPredicate(format: "key == %@ && group == %@", key, searchHistoryGroup)
             request.fetchLimit = 1
             let results = try moc.fetch(request)
-            if let keyValue = results.first {
+            keyValue = results.first
+        } catch let error {
+            DDLogError("Error fetching place search key value: \(error.localizedDescription)")
+        }
+        return keyValue
+    }
+    
+    func saveToHistory(search: PlaceSearch) {
+        do {
+            let moc = dataStore.viewContext
+            if let keyValue = keyValue(forPlaceSearch: search, inManagedObjectContext: moc) {
                 keyValue.date = Date()
             } else if let entity = NSEntityDescription.entity(forEntityName: "WMFKeyValue", in: moc) {
                 let keyValue =  WMFKeyValue(entity: entity, insertInto: moc)
-                keyValue.key = key
+                keyValue.key = search.key
                 keyValue.group = searchHistoryGroup
                 keyValue.date = Date()
                 keyValue.value = search.dictionaryValue as NSObject
@@ -1053,6 +870,20 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func placeSearchSuggestionControllerClearButtonPressed(_ controller: PlaceSearchSuggestionController) {
         clearSearchHistory()
+        updateSearchSuggestions(withCompletions: [])
+    }
+    
+    func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didDeleteSearch search: PlaceSearch) {
+        let moc = dataStore.viewContext
+        guard let kv = keyValue(forPlaceSearch: search, inManagedObjectContext: moc) else {
+            return
+        }
+        moc.delete(kv)
+        do {
+           try moc.save()
+        } catch let error {
+            DDLogError("Error removing kv: \(error.localizedDescription)")
+        }
         updateSearchSuggestions(withCompletions: [])
     }
     
