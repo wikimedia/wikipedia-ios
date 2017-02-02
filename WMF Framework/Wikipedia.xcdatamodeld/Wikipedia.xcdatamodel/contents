@@ -69,7 +69,6 @@
             <compoundIndex>
                 <index value="key"/>
                 <index value="group"/>
-                <index value="date"/>
             </compoundIndex>
         </compoundIndexes>
     </entity>

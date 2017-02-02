@@ -359,7 +359,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func showRedoSearchButtonIfNecessary(forVisibleRegion visibleRegion: MKCoordinateRegion) {
-        guard let searchRegion = currentSearchRegion else {
+        guard let searchRegion = currentSearchRegion, let search = currentSearch, search.type != .location else {
+            redoSearchButton.isHidden = true
             return
         }
         let searchWidth = searchRegion.width
@@ -918,6 +919,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         currentSearch = PlaceSearch(type: .text, sortStyle: WMFLocationSearchSortStylePageViews, string: searchBar.text, region: nil, localizedDescription: searchBar.text, searchCompletion: nil)
+        searchBar.endEditing(true)
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
