@@ -203,7 +203,7 @@ class AccountCreationViewController: UIViewController, CaptchaViewControllerRefr
         showCaptchaContainer = true
     }
 
-    func reloadCaptchaPushed(_ sender: Any!) {
+    func reloadCaptchaPushed(_ sender: AnyObject) {
         captchaViewController?.captchaTextBox.text = ""
         WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-obtaining"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         save() //this restarts the token process which gets us another captcha

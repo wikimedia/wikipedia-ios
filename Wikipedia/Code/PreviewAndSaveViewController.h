@@ -1,4 +1,4 @@
-#import "CaptchaViewController.h"
+#import "Wikipedia-Swift.h"
 
 @class MWKSection, SavedPagesFunnel, EditFunnel, PreviewAndSaveViewController;
 

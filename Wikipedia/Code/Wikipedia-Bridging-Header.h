@@ -48,7 +48,6 @@
 #import "WMFCustomDeleteButtonTableViewCell.h"
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
-#import "CaptchaViewController.h"
 
 // Views
 #import "WMFArticleListTableViewCell.h"
