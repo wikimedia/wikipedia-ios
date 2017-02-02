@@ -127,7 +127,8 @@ NS_ASSUME_NONNULL_BEGIN
                                                                      imageWidth:@(params.thumbnailWidth)];
     [baseParams setValuesForKeysWithDictionary:@{
         @"titles": [self barSeparatedTitlesStringFromURLs:params.articleURLs],
-        @"pilimit": @(params.articleURLs.count)
+        @"pilimit": @(params.articleURLs.count),
+        @"prop": @"coordinate"
     }];
     if (params.extractLength > 0) {
         baseParams[@"exlimit"] = @(params.articleURLs.count);
