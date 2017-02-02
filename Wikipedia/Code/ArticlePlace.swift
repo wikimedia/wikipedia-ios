@@ -52,7 +52,7 @@ class ArticlePlaceView: MKAnnotationView {
         countLabel = UILabel()
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         
-        let dimension = 40
+        let dimension = 32
         frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
         
         imageView.contentMode = .scaleAspectFill
@@ -63,7 +63,7 @@ class ArticlePlaceView: MKAnnotationView {
         
         countLabel.textColor = UIColor.white
         countLabel.textAlignment = .center
-        countLabel.font = UIFont.preferredFont(forTextStyle: .headline)
+        countLabel.font = UIFont.boldSystemFont(ofSize: 16)
         addSubview(countLabel)
         
         self.annotation = annotation
