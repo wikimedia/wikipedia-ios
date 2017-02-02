@@ -3629,6 +3629,7 @@
 				0E26628E1D09ED1C006D4A46 /* AuthManager Info */,
 				0EBB231A1D1C453C00CA9742 /* Login */,
 				0EBB231B1D1C454500CA9742 /* Account Creation */,
+				04B7B9BA18B5569600A63551 /* Captcha */,
 			);
 			name = AuthenticationManager;
 			sourceTree = "<group>";
@@ -3645,7 +3646,6 @@
 			isa = PBXGroup;
 			children = (
 				B0C6BE471E428C940033BD6E /* WMFAccountCreator.swift */,
-				04B7B9BA18B5569600A63551 /* Captcha */,
 			);
 			name = "Account Creation";
 			sourceTree = "<group>";
