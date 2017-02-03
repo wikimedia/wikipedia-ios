@@ -246,12 +246,12 @@ class AccountCreationViewController: UIViewController, CaptchaViewControllerRefr
     }
 
     fileprivate func save() {
-        if !areRequiredFieldsPopulated() {
+        guard areRequiredFieldsPopulated() == true else {
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("account-creation-missing-fields"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             return
         }
 
-        if !isPasswordConfirmationCorrect() {
+        guard isPasswordConfirmationCorrect() == true else {
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("account-creation-passwords-mismatched"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             return
         }
