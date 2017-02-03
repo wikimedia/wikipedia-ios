@@ -71,6 +71,9 @@ NS_ASSUME_NONNULL_BEGIN
     if (searchResult.thumbnailURL != nil) {
         preview.thumbnailURL = searchResult.thumbnailURL;
     }
+    if (searchResult.location != nil) {
+        preview.location = searchResult.location;
+    }
 }
 
 - (void)updatePreview:(WMFArticle *)preview withLocationSearchResult:(MWKLocationSearchResult *)searchResult {

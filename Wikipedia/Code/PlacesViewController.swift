@@ -7,7 +7,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     @IBOutlet weak var redoSearchButton: UIButton!
     let nearbyFetcher = WMFLocationSearchFetcher()
-    
+    let previewFetcher = WMFArticlePreviewFetcher()
     var localSearch: MKLocalSearch?
     let localCompleter = MKLocalSearchCompleter()
     let globalCompleter = MKLocalSearchCompleter()
@@ -445,18 +445,80 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         switch search.type {
         case .saved:
             let moc = dataStore.viewContext
-            let request = fetchRequestForSavedArticlesWithLocation
-            request.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
-            request.fetchLimit = 500
+            let done = { (articlesToShow: [WMFArticle]) -> Void in
+                self.articles = articlesToShow
+                self.mapRegion = self.regionThatFits(articlesToShow)
+                self.searching = false
+                self.updatePlaces()
+                
+                if articlesToShow.count == 0 {
+                    self.wmf_showAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("places-no-saved-articles-have-location"))
+                }
+            }
+
             do {
-                let savedWithLocation = try moc.fetch(request)
-                articles = savedWithLocation
+                let savedPagesWithLocation = try moc.fetch(fetchRequestForSavedArticlesWithLocation)
+                guard savedPagesWithLocation.count >= 100 else {
+                    let savedPagesWithoutLocationRequest = WMFArticle.fetchRequest()
+                    savedPagesWithoutLocationRequest.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey == NULL")
+                    savedPagesWithoutLocationRequest.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
+                    savedPagesWithoutLocationRequest.propertiesToFetch = ["key"]
+                    let savedPagesWithoutLocation = try moc.fetch(savedPagesWithoutLocationRequest)
+                    guard savedPagesWithoutLocation.count > 0 else {
+                        done(savedPagesWithLocation)
+                        return
+                    }
+                    let urls = savedPagesWithoutLocation.flatMap({ (article) -> URL? in
+                        return article.url
+                    })
+
+                    previewFetcher.fetchArticlePreviewResults(forArticleURLs: urls, siteURL: siteURL, completion: { (searchResults) in
+                        var resultsByKey: [String: MWKSearchResult] = [:]
+                        for searchResult in searchResults {
+                            guard let title = searchResult.displayTitle, searchResult.location != nil else {
+                                continue
+                            }
+                            guard let url = (self.siteURL as NSURL).wmf_URL(withTitle: title)  else {
+                                continue
+                            }
+                            guard let key = (url as NSURL).wmf_articleDatabaseKey else {
+                                continue
+                            }
+                            resultsByKey[key] = searchResult
+                        }
+                        guard resultsByKey.count > 0 else {
+                            done(savedPagesWithLocation)
+                            return
+                        }
+                        let articlesToUpdateFetchRequest = WMFArticle.fetchRequest()
+                        articlesToUpdateFetchRequest.predicate = NSPredicate(format: "key IN %@", Array(resultsByKey.keys))
+                        do {
+                            var allArticlesWithLocation = savedPagesWithLocation
+                            let articlesToUpdate = try moc.fetch(articlesToUpdateFetchRequest)
+                            for articleToUpdate in articlesToUpdate {
+                                guard let key = articleToUpdate.key,
+                                    let result = resultsByKey[key] else {
+                                    continue
+                                }
+                                self.articleStore.updatePreview(articleToUpdate, with: result)
+                                allArticlesWithLocation.append(articleToUpdate)
+                            }
+                            try moc.save()
+                            done(allArticlesWithLocation)
+                        } catch let error {
+                            DDLogError("Error fetching saved articles: \(error.localizedDescription)")
+                            done(savedPagesWithLocation)
+                        }
+                    }, failure: { (error) in
+                        DDLogError("Error fetching saved articles: \(error.localizedDescription)")
+                        done(savedPagesWithLocation)
+                    })
+                    return
+                }
             } catch let error {
                 DDLogError("Error fetching saved articles: \(error.localizedDescription)")
             }
-            mapRegion = regionThatFits(articles)
-            self.searching = false
-            updatePlaces()
+            done([])
             return
         case .top:
             break
@@ -761,6 +823,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
 
     }
     
+    var fetchRequestForSavedArticles: NSFetchRequest<WMFArticle> {
+        get {
+            let savedRequest = WMFArticle.fetchRequest()
+            savedRequest.predicate = NSPredicate(format: "savedDate != NULL")
+            return savedRequest
+        }
+    }
+    
     var fetchRequestForSavedArticlesWithLocation: NSFetchRequest<WMFArticle> {
         get {
             let savedRequest = WMFArticle.fetchRequest()
@@ -778,15 +848,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let topCombinedSuggestion = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStylePageViewsAndLinks, string: nil, region: nil, localizedDescription: "Top by page views and links", searchCompletion: nil)
             let topDefaultSuggestion = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStyleNone, string: nil, region: nil, localizedDescription: "Nearby with no sort param", searchCompletion: nil)
             
-            let suggestedSearches = [topNearbySuggestion, topLinksSuggestion, topCombinedSuggestion, topDefaultSuggestion]
+            var suggestedSearches = [topNearbySuggestion, topLinksSuggestion, topCombinedSuggestion, topDefaultSuggestion]
             var recentSearches: [PlaceSearch] = []
             do {
                 let moc = dataStore.viewContext
-//
-//                if try moc.count(for: fetchRequestForSavedArticlesWithLocation) > 0 {
-//                      let saved = PlaceSearch(type: .saved, sortStyle: WMFLocationSearchSortStyleNone, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-saved-articles"), searchCompletion: nil)
-//                    suggestedSearches.append(saved)
-//                }
+                if try moc.count(for: fetchRequestForSavedArticles) > 0 {
+                    let saved = PlaceSearch(type: .saved, sortStyle: WMFLocationSearchSortStyleNone, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-saved-articles"), searchCompletion: nil)
+                    suggestedSearches.append(saved)
+                }
               
                 let request = WMFKeyValue.fetchRequest()
                 request.predicate = NSPredicate(format: "group == %@", searchHistoryGroup)

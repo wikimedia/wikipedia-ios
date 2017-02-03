@@ -22,6 +22,8 @@
 
 @property (nonatomic, assign, readwrite) BOOL isList;
 
+@property (nonatomic, copy, readwrite) CLLocation *location;
+
 @end
 
 @implementation MWKSearchResult
@@ -117,6 +119,23 @@
         }];
 }
 
++ (NSValueTransformer *)locationJSONTransformer {
+    return [MTLValueTransformer transformerUsingForwardBlock:^id(NSArray *value,
+                                                                 BOOL *success,
+                                                                 NSError *__autoreleasing *error) {
+        NSDictionary *coords = [value firstObject];
+        NSNumber *lat = coords[@"lat"];
+        NSNumber *lon = coords[@"lon"];
+        
+        if (![lat isKindOfClass:[NSNumber class]] || ![lon isKindOfClass:[NSNumber class]]) {
+            WMFSafeAssign(success, NO);
+            return nil;
+        }
+        
+        return [[CLLocation alloc] initWithLatitude:[lat doubleValue] longitude:[lon doubleValue]];
+    }];
+}
+
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{ WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitle): @"title",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, articleID): @"pageid",
@@ -127,6 +146,7 @@
               WMF_SAFE_KEYPATH(MWKSearchResult.new, index): @"index",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, isDisambiguation): @[@"pageprops.disambiguation", @"terms.description"],
               WMF_SAFE_KEYPATH(MWKSearchResult.new, isList): @"terms.description",
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, location): @"coordinates",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, titleNamespace): @"ns" };
 }
 

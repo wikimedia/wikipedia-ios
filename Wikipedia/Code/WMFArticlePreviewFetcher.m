@@ -128,7 +128,7 @@ NS_ASSUME_NONNULL_BEGIN
     [baseParams setValuesForKeysWithDictionary:@{
         @"titles": [self barSeparatedTitlesStringFromURLs:params.articleURLs],
         @"pilimit": @(params.articleURLs.count),
-        @"prop": @"coordinate"
+        @"prop": @"coordinates"
     }];
     if (params.extractLength > 0) {
         baseParams[@"exlimit"] = @(params.articleURLs.count);

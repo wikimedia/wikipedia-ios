@@ -2,23 +2,6 @@
 
 @implementation MWKLocationSearchResult
 
-+ (NSValueTransformer *)locationJSONTransformer {
-    return [MTLValueTransformer transformerUsingForwardBlock:^id(NSArray *value,
-                                                                 BOOL *success,
-                                                                 NSError *__autoreleasing *error) {
-        NSDictionary *coords = [value firstObject];
-        NSNumber *lat = coords[@"lat"];
-        NSNumber *lon = coords[@"lon"];
-
-        if (![lat isKindOfClass:[NSNumber class]] || ![lon isKindOfClass:[NSNumber class]]) {
-            WMFSafeAssign(success, NO);
-            return nil;
-        }
-
-        return [[CLLocation alloc] initWithLatitude:[lat doubleValue] longitude:[lon doubleValue]];
-    }];
-}
-
 + (NSValueTransformer *)distanceFromQueryCoordinatesJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSArray *value,
                                                                  BOOL *success,
@@ -39,7 +22,6 @@
        properties here.
      */
     [mapping addEntriesFromDictionary:@{
-        WMF_SAFE_KEYPATH([MWKLocationSearchResult new], location): @"coordinates",
         WMF_SAFE_KEYPATH([MWKLocationSearchResult new], distanceFromQueryCoordinates): @"coordinates",
     }];
 
