@@ -99,10 +99,9 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </stackView>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.91764705882352937" green="0.92549019607843142" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="Hcw-WG-NzJ" secondAttribute="bottom" id="CmN-k0-JEh"/>
                         <constraint firstItem="Hcw-WG-NzJ" firstAttribute="leading" secondItem="nxC-vP-z1C" secondAttribute="leading" id="Gyi-s5-9bY"/>
