@@ -342,11 +342,34 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let distanceString = MKDistanceFormatter().string(fromDistance: distance)
         articleVC.descriptionLabel.text = distanceString
         
-        articleVC.preferredContentSize =  articleVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        let size = articleVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        articleVC.preferredContentSize =  size
         articleVC.edgesForExtendedLayout = []
         
-        articleVC.view.bounds = CGRect(origin: CGPoint.zero, size: articleVC.preferredContentSize)
-        articleVC.view.center = CGPoint(x: view.bounds.midX, y:  view.bounds.midY)
+        let annotationCenter = view.convert(annotationView.center, from: mapView)
+        let center = CGPoint(x: view.bounds.midX, y:  view.bounds.midY)
+        let deltaX = annotationCenter.x - center.x
+        let deltaY = annotationCenter.y - center.y
+        
+        let thresholdX = 0.5*(abs(view.bounds.width - size.width))
+        let thresholdY = 0.5*(abs(view.bounds.height - size.height))
+        
+        
+        var offsetX: CGFloat
+        var offsetY: CGFloat
+        
+        if abs(deltaX) <= thresholdX {
+            offsetX = -0.5 * size.width
+            offsetY = deltaY > 0 ?  0 - 30 - size.height : 30
+        } else if abs(deltaY) <= thresholdY {
+            offsetX = deltaX > 0 ? 0 - 30 - size.width : 30
+            offsetY = -0.5 * size.height
+        } else {
+            offsetX = deltaX > 0 ? 0 - 30 - size.width : 30
+            offsetY = deltaY > 0 ?  0 - 30 - size.height : 30
+        }
+        
+        articleVC.view.frame = CGRect(origin: CGPoint(x: annotationCenter.x + offsetX, y: annotationCenter.y + offsetY), size: articleVC.preferredContentSize)
         
         addChildViewController(articleVC)
         view.addSubview(articleVC.view)
