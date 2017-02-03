@@ -157,7 +157,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         redoSearchButton.backgroundColor = view.tintColor
         
         // Setup map/list toggle
-        segmentedControl = UISegmentedControl(items: ["M", "L"])
+        if let map = UIImage(named: "places-map"), let list = UIImage(named: "places-list") {
+            segmentedControl = UISegmentedControl(items: [map, list])
+        } else {
+            segmentedControl = UISegmentedControl(items: ["M", "L"])
+        }
+
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
         segmentedControl.tintColor = UIColor.wmf_blueTint()

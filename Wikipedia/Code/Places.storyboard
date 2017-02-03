@@ -34,7 +34,7 @@
                                     <constraint firstAttribute="width" constant="30" id="JR3-1A-AEQ"/>
                                     <constraint firstAttribute="height" constant="30" id="f61-h1-eIZ"/>
                                 </constraints>
-                                <state key="normal" image="currentLocationIcon"/>
+                                <state key="normal" image="places-location-arrow"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="5"/>
@@ -173,7 +173,7 @@
                 <navigationController storyboardIdentifier="Places" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fC7-UI-Knm" userLabel="Places" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Places" image="tabbar-nearby" selectedImage="tabbar-nearby-selected" id="qMU-9n-S42"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HFz-Jz-Pn5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="HFz-Jz-Pn5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -188,7 +188,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="currentLocationIcon" width="36" height="35"/>
+        <image name="places-location-arrow" width="18" height="18"/>
         <image name="tabbar-nearby" width="24" height="24"/>
         <image name="tabbar-nearby-selected" width="24" height="24"/>
     </resources>
