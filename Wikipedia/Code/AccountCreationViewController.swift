@@ -185,23 +185,18 @@ class AccountCreationViewController: UIViewController, CaptchaViewControllerRefr
         }
     }
     
-    private var _captchaUrl: URL? = nil
-    
-    fileprivate var captchaUrl: URL? {
-        get { return _captchaUrl }
-        set {
-            if _captchaUrl != newValue {
-               _captchaUrl = newValue
-                if (_captchaUrl) != nil {
-                    refreshCaptchaImage()
-                }
+    fileprivate var captchaURL: URL? {
+        didSet {
+            guard captchaURL != nil else {
+                return;
             }
+            refreshCaptchaImage()
         }
     }
     
     fileprivate func refreshCaptchaImage() {
         captchaViewController?.captchaTextBox.text = ""
-        captchaViewController?.captchaImageView.sd_setImage(with: captchaUrl)
+        captchaViewController?.captchaImageView.sd_setImage(with: captchaURL)
         showCaptchaContainer = true
     }
 
@@ -263,7 +258,7 @@ class AccountCreationViewController: UIViewController, CaptchaViewControllerRefr
 
         if captchaViewController?.captchaTextBox.text?.characters.count == 0 {
             WMFAuthenticationManager.sharedInstance().getAccountCreationCaptcha(withUsername: usernameField.text!, password: passwordField.text!, email: emailField.text!, captcha: {captchaURL in
-                self.captchaUrl = captchaURL
+                self.captchaURL = captchaURL
                 WMFAlertManager.sharedInstance.showWarningAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-required"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
             }, failure: {error in
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
@@ -275,7 +270,7 @@ class AccountCreationViewController: UIViewController, CaptchaViewControllerRefr
                 WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 self.dismiss(animated: true, completion: nil)
             }, captcha: {captchaURL in
-                self.captchaUrl = captchaURL
+                self.captchaURL = captchaURL
                 WMFAlertManager.sharedInstance.showWarningAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-required"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
             }, failure: {error in
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
