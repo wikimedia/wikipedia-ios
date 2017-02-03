@@ -78,7 +78,10 @@ public class WMFAccountLogin: NSObject {
                 if
                     status == "UI",
                     let requests = clientlogin["requests"] as? [AnyObject],
-                    let _ = requests.first(where:{$0["id"]! as! String == "MediaWiki\\Auth\\PasswordAuthenticationRequest"})
+                    let passwordAuthRequest = requests.first(where:{$0["id"]! as! String == "MediaWiki\\Auth\\PasswordAuthenticationRequest"}),
+                    let fields = passwordAuthRequest["fields"] as? [String : AnyObject],
+                    let _ = fields["password"] as? [String : AnyObject],
+                    let _ = fields["retype"] as? [String : AnyObject]
                 {
                     failure(WMFAccountLoginError.init(type:.temporaryPasswordNeedsChange, localizedDescription: message))
                     return
