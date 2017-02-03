@@ -112,27 +112,31 @@ class LoginViewController: UIViewController {
     }
     
     func forgotPasswordButtonPushed(_ recognizer: UITapGestureRecognizer) {
-        if recognizer.state == .ended {
-            let presenter = self.presentingViewController
-            dismiss(animated: true, completion: {
-                let forgotPasswordVC = ForgotPasswordViewController.wmf_initialViewControllerFromClassStoryboard()
-                let navigationController = UINavigationController.init(rootViewController: forgotPasswordVC!)
-                presenter?.present(navigationController, animated: true, completion: nil)
-            })
+        guard
+            recognizer.state == .ended,
+            let presenter = self.presentingViewController else {
+                return
         }
+        dismiss(animated: true, completion: {
+            let forgotPasswordVC = ForgotPasswordViewController.wmf_initialViewControllerFromClassStoryboard()
+            let navigationController = UINavigationController.init(rootViewController: forgotPasswordVC!)
+            presenter.present(navigationController, animated: true, completion: nil)
+        })
     }
     
     func createAccountButtonPushed(_ recognizer: UITapGestureRecognizer) {
-        if recognizer.state == .ended {
-            self.funnel?.logCreateAccountAttempt()
-            let presenter = self.presentingViewController
-            dismiss(animated: true, completion: {
-                let createAcctVC = AccountCreationViewController.wmf_initialViewControllerFromClassStoryboard()
-                createAcctVC?.funnel = CreateAccountFunnel()
-                createAcctVC?.funnel?.logStart(fromLogin: self.funnel?.loginSessionToken)
-                let navigationController = UINavigationController.init(rootViewController: createAcctVC!)
-                presenter?.present(navigationController, animated: true, completion: nil)
-            })
+        guard
+            recognizer.state == .ended,
+            let presenter = self.presentingViewController else {
+                return
         }
+        self.funnel?.logCreateAccountAttempt()
+        dismiss(animated: true, completion: {
+            let createAcctVC = AccountCreationViewController.wmf_initialViewControllerFromClassStoryboard()
+            createAcctVC?.funnel = CreateAccountFunnel()
+            createAcctVC?.funnel?.logStart(fromLogin: self.funnel?.loginSessionToken)
+            let navigationController = UINavigationController.init(rootViewController: createAcctVC!)
+            presenter.present(navigationController, animated: true, completion: nil)
+        })
     }
 }
