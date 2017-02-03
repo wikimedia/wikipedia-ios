@@ -3,7 +3,7 @@ import MapKit
 import WMF
 import TUSafariActivity
 
-class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, MKLocalSearchCompleterDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate {
+class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, MKLocalSearchCompleterDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate {
     
     @IBOutlet weak var redoSearchButton: UIButton!
     let nearbyFetcher = WMFLocationSearchFetcher()
@@ -200,7 +200,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        deselectAllAnnotations()
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -484,7 +483,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
 
             do {
                 let savedPagesWithLocation = try moc.fetch(fetchRequestForSavedArticlesWithLocation)
-                guard savedPagesWithLocation.count >= 100 else {
+                guard savedPagesWithLocation.count >= 99 else {
                     let savedPagesWithoutLocationRequest = WMFArticle.fetchRequest()
                     savedPagesWithoutLocationRequest.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey == NULL")
                     savedPagesWithoutLocationRequest.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
@@ -804,25 +803,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         currentGroupingPrecision = 0
         regroupArticlesIfNecessary(forVisibleRegion: mapRegion ?? mapView.region)
     }
-    
-    
-    // UIPopoverPresentationControllerDelegate
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-    
-    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        return .none
-    }
-    
-    func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
-        deselectAllAnnotations()
-        return true
-    }
+
     
     // ArticlePopoverViewControllerDelegate
     func articlePopoverViewController(articlePopoverViewController: ArticlePopoverViewController, didSelectAction: ArticlePopoverViewControllerAction) {
-        dismissCurrentArticlePopover()
+        
         
         guard let article = articlePopoverViewController.article, let url = article.url else {
             return
@@ -833,6 +818,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             wmf_pushArticle(with: url, dataStore: dataStore, previewStore: articleStore, animated: true)
             break
         case .save:
+            deselectAllAnnotations()
             dataStore.savedPageList.toggleSavedPage(for: url)
             break
         case .share:
