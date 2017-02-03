@@ -1,19 +1,32 @@
 
-public enum WMFAccountCreatorError: LocalizedError {
+@objc public enum WMFAccountCreatorErrorType: Int {
     case cannotExtractStatus
-    case statusNotPass(String?)
+    case statusNotPass
     case needsCaptcha
-    public var errorDescription: String? {
-        switch self {
-        case .cannotExtractStatus:
-            return "Could not extract status"
-        case .statusNotPass(let message?):
-            return message
-        case .needsCaptcha:
-            return "Needs captcha"
-        default:
-            return "Unable to create account: Reason unknown"
+}
+
+// A CustomNSError's localized description survives @objc bridging
+// TODO: once WMFAuthenticationManager is converted to Swift we can go 
+// back to "public enum WMFAccountCreatorError: LocalizedError" before this commit.
+public class WMFAccountCreatorError: CustomNSError {
+    let type: WMFAccountCreatorErrorType
+    let localizedDescription: String?
+    public required init(type:WMFAccountCreatorErrorType, localizedDescription: String?) {
+        self.type = type
+        self.localizedDescription = localizedDescription
+    }
+    public static var errorDomain: String {
+        return String(describing:self)
+    }
+    public var errorCode: Int {
+        return type.rawValue
+    }
+    public var errorUserInfo: [String : Any] {
+        var userInfo = [String: Any]()
+        if let localizedDescription = self.localizedDescription {
+            userInfo[NSLocalizedDescriptionKey] = localizedDescription
         }
+        return userInfo
     }
 }
 
@@ -65,16 +78,16 @@ public class WMFAccountCreator: NSObject {
                 let createaccount = response["createaccount"] as? [String : AnyObject],
                 let status = createaccount["status"] as? String
                 else {
-                    failure(WMFAccountCreatorError.cannotExtractStatus)
+                    failure(WMFAccountCreatorError.init(type:.cannotExtractStatus, localizedDescription: "Could not extract status"))
                     return
             }
-            let message = createaccount["message"] as? String ?? nil
+            let message = createaccount["message"] as? String ?? ""
             guard status == "PASS" else {
-                if message?.lowercased().range(of:"missing captcha") != nil {
+                if message.lowercased().range(of:"missing captcha") != nil {
                     // Note: must check the message because no other checkable info is returned indicating a captcha is needed.
-                    failure(WMFAccountCreatorError.needsCaptcha)
+                    failure(WMFAccountCreatorError.init(type:.needsCaptcha, localizedDescription: "Needs captcha"))
                 }else{
-                    failure(WMFAccountCreatorError.statusNotPass(message))
+                    failure(WMFAccountCreatorError.init(type:.statusNotPass, localizedDescription: message))
                 }
                 return
             }

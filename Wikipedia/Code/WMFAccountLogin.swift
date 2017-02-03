@@ -1,19 +1,32 @@
 
-public enum WMFAccountLoginError: LocalizedError {
+@objc public enum WMFAccountLoginErrorType: Int {
     case cannotExtractLoginStatus
-    case statusNotPass(String?)
-    case temporaryPasswordNeedsChange(String?)
-    public var errorDescription: String? {
-        switch self {
-        case .cannotExtractLoginStatus:
-            return "Could not extract login status"
-        case .statusNotPass(let message?):
-            return message
-        case .temporaryPasswordNeedsChange(let message?):
-            return message
-        default:
-            return "Unable to login: Reason unknown"
+    case statusNotPass
+    case temporaryPasswordNeedsChange
+}
+
+// A CustomNSError's localized description survives @objc bridging
+// TODO: once WMFAuthenticationManager is converted to Swift we can go
+// back to "public enum WMFAccountLoginError: LocalizedError" before this commit.
+public class WMFAccountLoginError: CustomNSError {
+    let type: WMFAccountLoginErrorType
+    let localizedDescription: String?
+    public required init(type:WMFAccountLoginErrorType, localizedDescription: String?) {
+        self.type = type
+        self.localizedDescription = localizedDescription
+    }
+    public static var errorDomain: String {
+        return String(describing:self)
+    }
+    public var errorCode: Int {
+        return type.rawValue
+    }
+    public var errorUserInfo: [String : Any] {
+        var userInfo = [String: Any]()
+        if let localizedDescription = self.localizedDescription {
+            userInfo[NSLocalizedDescriptionKey] = localizedDescription
         }
+        return userInfo
     }
 }
 
@@ -56,7 +69,7 @@ public class WMFAccountLogin: NSObject {
                 let clientlogin = response["clientlogin"] as? [String : AnyObject],
                 let status = clientlogin["status"] as? String
                 else {
-                    failure(WMFAccountLoginError.cannotExtractLoginStatus)
+                    failure(WMFAccountLoginError.init(type:.cannotExtractLoginStatus, localizedDescription: "Could not extract login status"))
                     return
             }
             let message = clientlogin["message"] as? String ?? nil
@@ -67,11 +80,11 @@ public class WMFAccountLogin: NSObject {
                     let requests = clientlogin["requests"] as? [AnyObject],
                     let _ = requests.first(where:{$0["id"]! as! String == "MediaWiki\\Auth\\PasswordAuthenticationRequest"})
                 {
-                    failure(WMFAccountLoginError.temporaryPasswordNeedsChange(message))
+                    failure(WMFAccountLoginError.init(type:.temporaryPasswordNeedsChange, localizedDescription: message))
                     return
                 }
                 
-                failure(WMFAccountLoginError.statusNotPass(message))
+                failure(WMFAccountLoginError.init(type:.statusNotPass, localizedDescription: message))
                 return
             }
             let normalizedUsername = clientlogin["username"] as? String ?? username

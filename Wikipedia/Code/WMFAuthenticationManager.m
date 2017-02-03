@@ -154,10 +154,7 @@ NS_ASSUME_NONNULL_BEGIN
                                             
                                         } failure:^(NSError* error){
                                             
-                                            if (error.code == 2) {
-                                                
-                                                // Once we convert this file to Swift we can check kind of directly ".needsCaptcha" rather than checking code
-                                                NSAssert([error.localizedDescription isEqualToString:@"Needs captcha"], @"Ensure error code 2 signifies a captcha is needed.");
+                                            if (error.code == WMFAccountCreatorErrorTypeNeedsCaptcha) {
                                                 
                                                 if ([self isInitialAccountCreationAttempt]) {
                                                     //First time attempting to create an account with this captcha URL.
