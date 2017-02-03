@@ -46,13 +46,14 @@ class ArticlePlaceView: MKAnnotationView {
     let imageView: UIImageView
     let countLabel: UILabel
     let collapsedDimension: CGFloat = 15
+    let groupDimension: CGFloat = 30
     
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         imageView = UIImageView()
         countLabel = UILabel()
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         
-        let dimension = 32
+        let dimension = 50
         frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
         
         imageView.contentMode = .scaleAspectFill
@@ -120,8 +121,11 @@ class ArticlePlaceView: MKAnnotationView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        if isSelected || countLabel.text != nil {
+        if isSelected {
             imageView.frame = bounds
+        } else if countLabel.text != nil {
+            imageView.bounds = CGRect(x: 0, y: 0, width: groupDimension, height: groupDimension)
+            imageView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
         } else {
             imageView.bounds = CGRect(x: 0, y: 0, width: collapsedDimension, height: collapsedDimension)
             imageView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
