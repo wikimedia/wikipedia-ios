@@ -38,6 +38,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     var groupingPrecisionDelta: QuadKeyPrecision = 4
     var groupingAggressiveness: CLLocationDistance = 1.0
     
+    var currentArticlePopover: ArticlePopoverViewController?
+    
     var currentSearch: PlaceSearch? {
         didSet {
             if let search = currentSearch {
@@ -220,13 +222,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         inset.bottom = frame.size.height
         searchSuggestionView.contentInset = inset
     }
-
-    func dismissPopover() {
-        guard let _ = presentedViewController else {
-            return
-        }
-        dismiss(animated: false, completion: nil)
-    }
     
     func showRedoSearchButtonIfNecessary(forVisibleRegion visibleRegion: MKCoordinateRegion) {
         guard let searchRegion = currentSearchRegion, let search = currentSearch, search.type != .location, search.type != .saved else {
@@ -248,7 +243,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        dismissPopover()
+        deselectAllAnnotations()
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -312,8 +307,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return MKCoordinateRegionMake(center , span)
     }
     
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        guard let place = view.annotation as? ArticlePlace else {
+    func mapView(_ mapView: MKMapView, didSelect annotationView: MKAnnotationView) {
+        guard let place = annotationView.annotation as? ArticlePlace else {
             return
         }
         
@@ -323,9 +318,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         guard let article = place.articles.first,
-            let url = article.url,
             let coordinate = article.coordinate else {
                 return
+        }
+        
+        guard currentArticlePopover == nil else {
+            return
         }
         
         let articleVC = ArticlePopoverViewController()
@@ -344,32 +342,31 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let distanceString = MKDistanceFormatter().string(fromDistance: distance)
         articleVC.descriptionLabel.text = distanceString
         
-        articleVC.preferredContentSize = articleVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-        
+        articleVC.preferredContentSize =  articleVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
         articleVC.edgesForExtendedLayout = []
-        articleVC.modalPresentationStyle = .popover
-        guard let presentationController = articleVC.popoverPresentationController else {
-            wmf_pushArticle(with: url, dataStore: dataStore, previewStore: articleStore, animated: true)
+        
+        articleVC.view.bounds = CGRect(origin: CGPoint.zero, size: articleVC.preferredContentSize)
+        articleVC.view.center = CGPoint(x: view.bounds.midX, y:  view.bounds.midY)
+        
+        addChildViewController(articleVC)
+        view.addSubview(articleVC.view)
+        articleVC.didMove(toParentViewController: self)
+        currentArticlePopover = articleVC
+    }
+    
+    func dismissCurrentArticlePopover() {
+        guard let popover = currentArticlePopover else {
             return
         }
         
-        presentationController.sourceView = view
-        presentationController.sourceRect = view.bounds
-        presentationController.canOverlapSourceViewRect = false
-        presentationController.permittedArrowDirections = .any
-        presentationController.delegate = self
-        presentationController.passthroughViews = [mapView]
-        
-        present(articleVC, animated: false) {
-            
-        }
+        popover.willMove(toParentViewController: nil)
+        popover.view.removeFromSuperview()
+        popover.removeFromParentViewController()
+        currentArticlePopover = nil
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        guard let _ = presentedViewController else {
-            return
-        }
-        dismiss(animated: false, completion: nil)
+        dismissCurrentArticlePopover()
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
@@ -801,9 +798,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     // ArticlePopoverViewControllerDelegate
     func articlePopoverViewController(articlePopoverViewController: ArticlePopoverViewController, didSelectAction: ArticlePopoverViewControllerAction) {
-        dismiss(animated: true, completion: {
-            
-        })
+        dismissCurrentArticlePopover()
         
         guard let article = articlePopoverViewController.article, let url = article.url else {
             return
