@@ -16,9 +16,6 @@ class LoginViewController: UIViewController {
     
     public var funnel: LoginFunnel?
 
-    fileprivate let tokenFetcher = WMFAuthTokenFetcher()
-    fileprivate let accountLogin = WMFAccountLogin()
-
     func didTapClose(_ tap: UITapGestureRecognizer) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -63,8 +60,7 @@ class LoginViewController: UIViewController {
     }
     
     func textFieldDidChange(_ sender: UITextField) {
-        let shouldHighlight = ((usernameField.text!.characters.count > 0) && (passwordField.text!.characters.count > 0)) ? true : false
-        enableProgressiveButton(shouldHighlight)
+        enableProgressiveButton((usernameField.text!.characters.count > 0 && passwordField.text!.characters.count > 0))
     }
 
     func enableProgressiveButton(_ highlight: Bool) {

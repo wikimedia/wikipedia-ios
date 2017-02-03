@@ -114,10 +114,9 @@ class AccountCreationViewController: UIViewController, CaptchaViewControllerRefr
     }
 
     func textFieldDidChange(_ sender: Any?) {
-        var shouldHighlight = (((usernameField.text!.characters.count > 0) && (passwordField.text!.characters.count > 0) && (passwordRepeatField.text!.characters.count > 0) && passwordField.text == passwordRepeatField.text))
+        var shouldHighlight = ((usernameField.text!.characters.count > 0 && passwordField.text!.characters.count > 0 && passwordRepeatField.text!.characters.count > 0 && passwordField.text == passwordRepeatField.text))
         // Override shouldHighlight if the text changed was the captcha field.
-        if sender is Notification {
-            let notification = sender as! Notification
+        if let notification = sender as? Notification {
             if notification.object as AnyObject? === captchaViewController?.captchaTextBox {
                 let trimmedCaptchaText = captchaViewController?.captchaTextBox.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 shouldHighlight = ((trimmedCaptchaText?.characters.count)! > 0)
