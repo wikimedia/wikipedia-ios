@@ -50,13 +50,15 @@ class AccountCreationViewController: UIViewController, CaptchaViewControllerRefr
     }
 
     func loginButtonPushed(_ recognizer: UITapGestureRecognizer) {
-        if recognizer.state == .ended {
-            let presenter = self.presentingViewController
-            dismiss(animated: true, completion: {
-                let navigationController = UINavigationController.init(rootViewController: LoginViewController.wmf_initialViewControllerFromClassStoryboard()!)
-                presenter?.present(navigationController, animated: true, completion: nil)
-            })
+        guard
+            recognizer.state == .ended,
+            let presenter = self.presentingViewController else {
+                return
         }
+        dismiss(animated: true, completion: {
+            let navigationController = UINavigationController.init(rootViewController: LoginViewController.wmf_initialViewControllerFromClassStoryboard()!)
+            presenter.present(navigationController, animated: true, completion: nil)
+        })
     }
     
     override func viewDidLoad() {
