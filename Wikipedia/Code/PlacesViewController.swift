@@ -264,9 +264,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         switch segmentedControl.selectedSegmentIndex {
         case 0:
             listView.isHidden = true
-            listView.reloadData()
         default:
+            deselectAllAnnotations()
             listView.isHidden = false
+            listView.reloadData()
         }
     }
     
@@ -920,6 +921,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         updateSearchSuggestions(withCompletions: [])
         searchSuggestionView.isHidden = false
+        deselectAllAnnotations()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
