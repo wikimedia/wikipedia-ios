@@ -121,11 +121,11 @@ class ArticlePlaceView: MKAnnotationView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        if isSelected {
-            imageView.frame = bounds
-        } else if countLabel.text != nil {
+        if countLabel.text != nil {
             imageView.bounds = CGRect(x: 0, y: 0, width: groupDimension, height: groupDimension)
             imageView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
+        } else if isSelected {
+            imageView.frame = bounds
         } else {
             imageView.bounds = CGRect(x: 0, y: 0, width: collapsedDimension, height: collapsedDimension)
             imageView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
