@@ -51,8 +51,9 @@ class ForgotPasswordViewController: UIViewController {
                 userName: userName,
                 email: email,
                 completion: {
-                    (result: WMFPasswordResetterResult) in
-                    WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("forgot-password-email-sent"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                    (result: WMFPasswordResetterResult) in                    
+                    self.dismiss(animated: true, completion:nil)
+                    WMFAlertManager.sharedInstance.showSuccessAlert(localizedStringForKeyFallingBackOnEnglish("forgot-password-email-sent"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             },
                 failure: {
                     (error: Error) in
