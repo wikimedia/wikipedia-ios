@@ -49,11 +49,11 @@ public class WMFAccountLogin: NSObject {
         return manager!.operationQueue.operationCount > 0
     }
     
-    public func login(username: String, password: String, token: String, siteURL: URL, completion: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler){
+    public func login(username: String, password: String, retypePassword: String?, token: String, siteURL: URL, completion: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler){
         let manager = AFHTTPSessionManager(baseURL: siteURL)
         manager.responseSerializer = WMFApiJsonResponseSerializer.init();
         
-        let parameters = [
+        var parameters = [
             "action": "clientlogin",
             "username": username,
             "password": password,
@@ -62,6 +62,11 @@ public class WMFAccountLogin: NSObject {
             "format": "json"
         ]
         
+        if let retypePassword = retypePassword {
+            parameters["retype"] = retypePassword
+            parameters["logincontinue"] = "1"
+        }
+
         _ = manager.wmf_apiPOSTWithParameters(parameters, success: {
             (_, response: Any?) in
             guard

@@ -61,10 +61,11 @@ typedef void (^WMFCaptchaHandler)(NSURL *captchaURL);
  *
  *  @param username The username to authenticate
  *  @param password The password for the user
+ *  @param retypePassword The password used for confirming password changes. Optional.
  *  @param success  The handler for success - at this point the user is logged in
  *  @param failure     The handler for any errors
  */
-- (void)loginWithUsername:(NSString *)username password:(NSString *)password success:(nullable dispatch_block_t)success failure:(nullable WMFErrorHandler)failure;
+- (void)loginWithUsername:(NSString *)username password:(NSString *)password retypePassword:(nullable NSString*)retypePassword success:(nullable dispatch_block_t)success failure:(nullable WMFErrorHandler)failure;
 
 /**
  *  Logs in a user using saved credentials in the keychain

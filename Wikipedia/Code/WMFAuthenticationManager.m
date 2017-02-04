@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic, nullable) NSString *authenticatingUsername;
 @property (strong, nonatomic, nullable) NSString *authenticatingPassword;
+@property (strong, nonatomic, nullable) NSString *authenticatingRetypePassword;
 @property (strong, nonatomic, nullable) NSString *email;
 @property (strong, nonatomic, nullable) NSString *captchaText;
 
@@ -184,6 +185,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)loginWithSavedCredentialsWithSuccess:(nullable dispatch_block_t)success failure:(nullable WMFErrorHandler)failure {
     [self loginWithUsername:self.keychainCredentials.userName
                    password:self.keychainCredentials.password
+             retypePassword:nil
                     success:success
                     failure:^(NSError *error) {
                         [self logout];
@@ -193,7 +195,7 @@ NS_ASSUME_NONNULL_BEGIN
                     }];
 }
 
-- (void)loginWithUsername:(NSString *)username password:(NSString *)password success:(nullable dispatch_block_t)success failure:(nullable WMFErrorHandler)failure {
+- (void)loginWithUsername:(NSString *)username password:(NSString *)password retypePassword:(nullable NSString*)retypePassword success:(nullable dispatch_block_t)success failure:(nullable WMFErrorHandler)failure {
     if (self.successBlock || self.failBlock) {
         if (failure) {
             failure([NSError wmf_errorWithType:WMFErrorTypeFetchAlreadyInProgress userInfo:nil]);
@@ -203,6 +205,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.authenticatingUsername = username;
     self.authenticatingPassword = password;
+    self.authenticatingRetypePassword = retypePassword;
 
     [self loginWithSuccess:success failure:failure];
 }
@@ -245,13 +248,19 @@ NS_ASSUME_NONNULL_BEGIN
     self.accountLogin = [[WMFAccountLogin alloc] init];
     
     @weakify(self)
-    [self.accountLogin loginWithUsername:self.authenticatingUsername password:self.authenticatingPassword token:self.loginToken siteURL:siteURL completion:^(WMFAccountLoginResult* result){
+    [self.accountLogin loginWithUsername:self.authenticatingUsername
+                                password:self.authenticatingPassword
+                          retypePassword:self.authenticatingRetypePassword
+                                   token:self.loginToken
+                                 siteURL:siteURL
+                              completion:^(WMFAccountLoginResult* result){
         @strongify(self)
         NSString *normalizedUserName = result.username;
         self.loggedInUsername = normalizedUserName;
         self.keychainCredentials.userName = normalizedUserName;
         self.keychainCredentials.password = self.authenticatingPassword;
         self.authenticatingPassword = nil;
+        self.authenticatingRetypePassword = nil;
         self.authenticatingUsername = nil;
         [self cloneSessionCookies];
         [self finishAndSendSuccessBlock];

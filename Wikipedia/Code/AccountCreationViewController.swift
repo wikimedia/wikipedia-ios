@@ -210,6 +210,7 @@ class AccountCreationViewController: UIViewController, CaptchaViewControllerRefr
         WMFAuthenticationManager.sharedInstance().login(
             withUsername: usernameField.text!,
             password: passwordField.text!,
+            retypePassword: nil, 
             success: {
                 let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: self.usernameField.text!)
                 WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
