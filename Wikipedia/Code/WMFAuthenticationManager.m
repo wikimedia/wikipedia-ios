@@ -142,6 +142,7 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self)
     [self.accountCreator createAccountWithUsername:self.authenticatingUsername
                                           password:self.authenticatingPassword
+                                    retypePassword:self.authenticatingPassword
                                              email:self.email
                                          captchaID:captchaID
                                        captchaWord:self.captchaText
