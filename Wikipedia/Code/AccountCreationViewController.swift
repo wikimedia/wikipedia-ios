@@ -256,27 +256,35 @@ class AccountCreationViewController: UIViewController, CaptchaViewControllerRefr
             return
         }
 
-        if captchaViewController?.captchaTextBox.text?.characters.count == 0 {
-            WMFAuthenticationManager.sharedInstance().getAccountCreationCaptcha(withUsername: usernameField.text!, password: passwordField.text!, email: emailField.text!, captcha: {captchaURL in
-                self.captchaURL = captchaURL
-                WMFAlertManager.sharedInstance.showWarningAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-required"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-            }, failure: {error in
-                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-                self.funnel?.logError(error.localizedDescription)
-            })
-        }else{
-            WMFAuthenticationManager.sharedInstance().createAccount(withCaptchaText: (captchaViewController?.captchaTextBox.text)!, success: {
-                let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: self.usernameField.text!)
-                WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-                self.dismiss(animated: true, completion: nil)
-            }, captcha: {captchaURL in
-                self.captchaURL = captchaURL
-                WMFAlertManager.sharedInstance.showWarningAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-required"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-            }, failure: {error in
-                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-                self.funnel?.logError(error.localizedDescription)
-                self.enableProgressiveButton(true)
-            })
+        guard let captcha = captchaViewController?.captchaTextBox.text, captcha.characters.count > 0 else {
+            getCaptcha()
+            return
         }
+        createAccount(withCaptcha: captcha)
+    }
+    
+    fileprivate func getCaptcha() {
+        WMFAuthenticationManager.sharedInstance().getAccountCreationCaptcha(withUsername: usernameField.text!, password: passwordField.text!, email: emailField.text!, captcha: {captchaURL in
+            self.captchaURL = captchaURL
+            WMFAlertManager.sharedInstance.showWarningAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-required"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+        }, failure: {error in
+            WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            self.funnel?.logError(error.localizedDescription)
+        })
+    }
+    
+    fileprivate func createAccount(withCaptcha captcha:String) {
+        WMFAuthenticationManager.sharedInstance().createAccount(withCaptchaText: captcha, success: {
+            let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: self.usernameField.text!)
+            WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+            self.dismiss(animated: true, completion: nil)
+        }, captcha: {captchaURL in
+            self.captchaURL = captchaURL
+            WMFAlertManager.sharedInstance.showWarningAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-required"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+        }, failure: {error in
+            WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            self.funnel?.logError(error.localizedDescription)
+            self.enableProgressiveButton(true)
+        })
     }
 }
