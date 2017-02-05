@@ -47,6 +47,7 @@
 "zero-settings-devmode" = "Zero devmode";
 
 "account-creation-captcha-required" = "CAPTCHA verification required.";
+"account-creation-captcha-retry" = "Incorrect entry. Please try again.";
 "account-creation-captcha-obtaining" = "Obtaining a new CAPTCHA...";
 "account-creation-logging-in" = "Logging in...";
 "account-creation-passwords-mismatched" = "Password fields do not match.";

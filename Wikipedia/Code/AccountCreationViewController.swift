@@ -280,7 +280,7 @@ class AccountCreationViewController: UIViewController, CaptchaViewControllerRefr
             self.dismiss(animated: true, completion: nil)
         }, captcha: {captchaURL in
             self.captchaURL = captchaURL
-            WMFAlertManager.sharedInstance.showWarningAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-required"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFAlertManager.sharedInstance.showWarningAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-retry"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         }, failure: {error in
             WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             self.funnel?.logError(error.localizedDescription)

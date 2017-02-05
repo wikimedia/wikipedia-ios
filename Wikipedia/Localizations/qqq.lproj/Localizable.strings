@@ -57,6 +57,7 @@
 "zero-warn-when-leaving" = "Main menu option to be warned if leaving Wikipedia Zero";
 "zero-settings-devmode" = "Main menu option for enabling the development mode for Wikipedia Zero.";
 "account-creation-captcha-required" = "Alert message shown when account creation require a captcha verification";
+"account-creation-captcha-retry" = "Alert message shown when the captcha the user entered did not match the captcha image";
 "account-creation-captcha-obtaining" = "Alert shown when user wants a new captcha when creating account";
 "account-creation-logging-in" = "Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}";
 "account-creation-passwords-mismatched" = "Alert shown if the user doesn't enter the same password in both password boxes";
