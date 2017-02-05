@@ -137,7 +137,7 @@ class LoginViewController: UIViewController {
                 return
         }
         dismiss(animated: true, completion: {
-            let forgotPasswordVC = ForgotPasswordViewController.wmf_initialViewControllerFromClassStoryboard()
+            let forgotPasswordVC = WMFForgotPasswordViewController.wmf_initialViewControllerFromClassStoryboard()
             let navigationController = UINavigationController.init(rootViewController: forgotPasswordVC!)
             presenter.present(navigationController, animated: true, completion: nil)
         })

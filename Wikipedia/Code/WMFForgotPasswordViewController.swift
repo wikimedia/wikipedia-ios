@@ -1,7 +1,7 @@
 
 import UIKit
 
-class ForgotPasswordViewController: UIViewController {
+class WMFForgotPasswordViewController: UIViewController {
 
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var subTitleLabel: UILabel!
