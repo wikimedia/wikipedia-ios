@@ -32,8 +32,13 @@ class AccountCreationViewController: UIViewController, CaptchaViewControllerRefr
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        // Ensure adjustScrollLimitForCaptchaVisiblity gets called again after rotating.
-        view.setNeedsUpdateConstraints()
+        coordinator.animate(alongsideTransition: { (context) in
+            // Ensure adjustScrollLimitForCaptchaVisiblity gets called again after rotating.
+            self.view.setNeedsUpdateConstraints()
+            if self.showCaptchaContainer {
+                self.scrollView.scrollSubView(toTop: self.captchaContainer, animated:false)
+            }
+        })
     }
     
     func didTapClose(_ tap: UITapGestureRecognizer) {
