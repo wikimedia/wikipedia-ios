@@ -5,13 +5,13 @@ class ForgotPasswordViewController: UIViewController {
 
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var subTitleLabel: UILabel!
-    @IBOutlet fileprivate var usernameLabel: UILabel!
-    @IBOutlet fileprivate var usernameTextField: UITextField!
-    @IBOutlet fileprivate var orLabel: UILabel!
-    @IBOutlet fileprivate var emailLabel: UILabel!
-    @IBOutlet fileprivate var emailTextField: UITextField!
-    @IBOutlet fileprivate var resetButton: UIButton!
-    
+    @IBOutlet fileprivate var usernameField: UITextField!
+    @IBOutlet fileprivate var emailField: UITextField!
+    @IBOutlet fileprivate var usernameUnderlineHeight: NSLayoutConstraint!
+    @IBOutlet fileprivate var emailUnderlineHeight: NSLayoutConstraint!
+
+    fileprivate var resetButton: UIBarButtonItem!
+
     let tokenFetcher = WMFAuthTokenFetcher()
     let passwordResetter = WMFPasswordResetter()
 
@@ -21,20 +21,61 @@ class ForgotPasswordViewController: UIViewController {
     
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("forgot-password-title")
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("forgot-password-instructions")
-        usernameLabel.text = localizedStringForKeyFallingBackOnEnglish("forgot-password-username")
-        usernameTextField.placeholder = localizedStringForKeyFallingBackOnEnglish("forgot-password-username-prompt")
-        orLabel.text = localizedStringForKeyFallingBackOnEnglish("forgot-password-email-or-username")
-        emailLabel.text = localizedStringForKeyFallingBackOnEnglish("forgot-password-email")
-        emailTextField.placeholder = localizedStringForKeyFallingBackOnEnglish("forgot-password-email-prompt")
-        resetButton.setTitle(localizedStringForKeyFallingBackOnEnglish("forgot-password-button-title"), for: UIControlState())
+        usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("forgot-password-username-prompt")
+        emailField.placeholder = localizedStringForKeyFallingBackOnEnglish("forgot-password-email-prompt")
+        
+        resetButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("forgot-password-button-title"), style: .plain, target: self, action: #selector(self.resetButtonPushed(_:)))
+        navigationItem.rightBarButtonItem = resetButton
+    
+        usernameField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        emailField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+    
+        usernameUnderlineHeight.constant = 1.0 / UIScreen.main.scale
+        emailUnderlineHeight.constant = 1.0 / UIScreen.main.scale
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        enableProgressiveButton(false)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        usernameField.becomeFirstResponder()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        enableProgressiveButton(false)
+    }
+    
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if (textField == self.usernameField) {
+            emailField.becomeFirstResponder()
+        } else if (textField == emailField) {
+            save()
+        }
+        return true
+    }
+
+    func textFieldDidChange(_ sender: UITextField) {
+        enableProgressiveButton((usernameField.text!.characters.count > 0 || emailField.text!.characters.count > 0))
+    }
+
+    func enableProgressiveButton(_ highlight: Bool) {
+        resetButton.isEnabled = highlight
+    }
+
+    func resetButtonPushed(_ tap: UITapGestureRecognizer) {
+        save()
+    }
+
+    fileprivate func save() {
+        sendPasswordResetEmail(userName: usernameField.text, email: emailField.text)
     }
     
     func didTapClose(_ tap: UITapGestureRecognizer) {
         self.dismiss(animated: true, completion: nil)
-    }
-
-    @IBAction fileprivate func didTapResetPasswordButton(withSender sender: UIButton) {
-        sendPasswordResetEmail(userName: usernameTextField.text, email: emailTextField.text)
     }
     
     func sendPasswordResetEmail(userName: String?, email: String?) {

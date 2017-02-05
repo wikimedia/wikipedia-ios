@@ -77,12 +77,9 @@
 
 "forgot-password-title" = "Reset password";
 "forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";
-"forgot-password-username" = "Username";
-"forgot-password-username-prompt" = "enter username";
-"forgot-password-email" = "Email address";
-"forgot-password-email-prompt" = "example@example.org";
-"forgot-password-button-title" = "Reset password";
-"forgot-password-email-or-username" = "Or";
+"forgot-password-username-prompt" = "Username";
+"forgot-password-email-prompt" = "Email (optional)";
+"forgot-password-button-title" = "Reset";
 "forgot-password-email-sent" = "An email with password reset instructions was sent";
 
 "wikitext-downloading" = "Loading content...";
