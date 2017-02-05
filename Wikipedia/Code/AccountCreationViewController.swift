@@ -21,12 +21,7 @@ class AccountCreationViewController: UIViewController, CaptchaViewControllerRefr
     fileprivate var rightButton: UIBarButtonItem?
     public var funnel: CreateAccountFunnel?
     fileprivate var captchaViewController: CaptchaViewController?
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        // Disable horizontal scrolling.
-        scrollView.contentOffset = CGPoint(x: 0.0, y: scrollView.contentOffset.y)
-    }
-    
+        
     fileprivate func adjustScrollLimitForCaptchaVisiblity() {
         // Reminder: spaceBeneathCaptchaContainer constraint is space *below* captcha container -
         // that's why below for the show case we don't have to "convertPoint".
