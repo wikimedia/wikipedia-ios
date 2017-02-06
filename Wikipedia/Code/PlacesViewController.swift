@@ -40,6 +40,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     var currentArticlePopover: ArticlePopoverViewController?
     
+    var placeToSelect: ArticlePlace?
+    
     var currentSearch: PlaceSearch? {
         didSet {
             if let search = currentSearch {
@@ -250,6 +252,28 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
         showRedoSearchButtonIfNecessary(forVisibleRegion: mapView.region)
         localCompleter.region = mapView.region
+        guard let toSelect = placeToSelect else {
+            return
+        }
+        
+        placeToSelect = nil
+        
+        guard let articleToSelect = toSelect.articles.first else {
+            return
+        }
+        
+        let annotations = mapView.annotations(in: mapView.visibleMapRect)
+        for annotation in annotations {
+            guard let place = annotation as? ArticlePlace,
+                place.articles.count == 1,
+                let article = place.articles.first,
+                article.key == articleToSelect.key else {
+                continue
+            }
+            mapView.selectAnnotation(place, animated: true)
+            break
+        }
+        
     }
     
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
@@ -313,6 +337,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         guard place.articles.count == 1 else {
+            placeToSelect = place
             mapRegion = regionThatFits(place.articles)
             return
         }
