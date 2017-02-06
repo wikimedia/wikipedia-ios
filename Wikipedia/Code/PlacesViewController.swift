@@ -18,6 +18,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     let animationScale = CGFloat(0.6)
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var listView: UITableView!
     @IBOutlet weak var searchSuggestionView: UITableView!
     
@@ -612,10 +613,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         let radius = round(0.25*(width + height))
         let searchRegion = CLCircularRegion(center: center, radius: radius, identifier: "")
+        progressView.isHidden = false
+        progressView.progress = 0.01
         
         nearbyFetcher.fetchArticles(withSiteURL: siteURL, in: searchRegion, matchingSearchTerm: searchTerm, sortStyle: sortStyle, resultLimit: 50, completion: { (searchResults) in
             self.searching = false
             self.updatePlaces(withSearchResults: searchResults.results)
+            self.progressView.progress = 1.0
         }) { (error) in
             self.wmf_showAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("empty-no-search-results-message"))
             self.searching = false

@@ -109,7 +109,7 @@ NS_ASSUME_NONNULL_BEGIN
     params.numberOfResults = resultLimit;
     params.searchTerm = searchTerm;
     params.sortStyle = sortStyle;
-
+    [[MWNetworkActivityIndicatorManager sharedManager] push];
     return [self.operationManager wmf_GETAndRetryWithURL:url
         parameters:params
         retry:NULL

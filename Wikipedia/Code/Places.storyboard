@@ -27,6 +27,9 @@
                                     <outlet property="delegate" destination="pK5-Ai-Kzp" id="paj-rR-O2P"/>
                                 </connections>
                             </mapView>
+                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Pet-ct-8QU">
+                                <rect key="frame" x="0.0" y="64" width="375" height="2.5"/>
+                            </progressView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxh-CO-RQm">
                                 <rect key="frame" x="330" y="79" width="30" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -141,12 +144,15 @@
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="UNC-SX-Sli" secondAttribute="bottom" id="9wa-qz-5B3"/>
                             <constraint firstItem="UNC-SX-Sli" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="BkZ-je-58M"/>
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="kQK-TA-wY6" secondAttribute="bottom" id="KrS-YQ-Ux8"/>
+                            <constraint firstAttribute="trailing" secondItem="Pet-ct-8QU" secondAttribute="trailing" id="Lu5-NQ-Oca"/>
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="Irc-Nx-au0" secondAttribute="bottom" id="NKQ-b1-Rec"/>
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="z6h-da-ewO" secondAttribute="bottom" constant="20" id="TMh-9f-MrD"/>
                             <constraint firstItem="Irc-Nx-au0" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="Xbq-SP-Okk"/>
                             <constraint firstItem="kQK-TA-wY6" firstAttribute="centerX" secondItem="pBD-gM-dPf" secondAttribute="centerX" id="cMH-GY-n6i"/>
                             <constraint firstAttribute="trailing" secondItem="mxh-CO-RQm" secondAttribute="trailing" constant="15" id="gRy-yz-tGe"/>
                             <constraint firstItem="NoL-m7-U7J" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" id="hQk-7g-H7x"/>
+                            <constraint firstItem="Pet-ct-8QU" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="j1P-UH-ysO"/>
+                            <constraint firstItem="Pet-ct-8QU" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" id="m9W-KK-MsV"/>
                             <constraint firstItem="Irc-Nx-au0" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" id="nFS-aV-Ok3"/>
                             <constraint firstItem="NoL-m7-U7J" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="oNb-4L-0vl"/>
                             <constraint firstAttribute="trailing" secondItem="UNC-SX-Sli" secondAttribute="trailing" id="tCM-nJ-Rev"/>
@@ -164,6 +170,7 @@
                         <outlet property="mapView" destination="UNC-SX-Sli" id="0hu-YN-E8A"/>
                         <outlet property="maxZoomLabel" destination="jvq-pt-ZCM" id="eBu-Qf-odk"/>
                         <outlet property="maxZoomSlider" destination="AL7-JJ-R68" id="sue-ua-Qi5"/>
+                        <outlet property="progressView" destination="Pet-ct-8QU" id="TOF-PN-K7x"/>
                         <outlet property="redoSearchButton" destination="z6h-da-ewO" id="mP9-Iz-g7C"/>
                         <outlet property="searchSuggestionView" destination="NoL-m7-U7J" id="Kmu-Eb-vMo"/>
                         <outlet property="secretSettingsView" destination="kQK-TA-wY6" id="u9I-0E-bvc"/>
