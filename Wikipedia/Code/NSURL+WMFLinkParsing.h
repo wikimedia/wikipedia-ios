@@ -3,6 +3,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSString *const WMFDefaultSiteDomain;
+extern NSString *const WMFAPIPath;
 
 @interface NSURL (WMFLinkParsing)
 

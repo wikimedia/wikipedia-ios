@@ -3,7 +3,6 @@
 #import "AppDelegate.h"
 
 #if TEST
-#import "WikipediaAppUtils.h"
 
 /**
  *  Dummy application delegate for use in unit testing. This is used for 2 reasons:

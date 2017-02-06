@@ -1,5 +1,4 @@
 #import "NSString+WMFHTMLParsing.h"
-#import "WikipediaAppUtils.h"
 #import <hpple/TFHpple.h>
 #import "NSString+WMFExtras.h"
 #import "WMFNumberOfExtractCharacters.h"

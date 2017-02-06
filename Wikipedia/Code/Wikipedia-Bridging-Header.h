@@ -34,6 +34,11 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "CLLocation+WMFBearing.h"
 
+#import "WMFAuthenticationManager.h"
+#import "UIViewController+WMFChildViewController.h"
+#import "UIScrollView+ScrollSubviewToLocation.h"
+
+
 // View Controllers
 #import "WMFArticleViewController_Private.h"
 #import "WebViewController.h"
@@ -52,6 +57,8 @@
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"
+#import "LoginFunnel.h"
+#import "CreateAccountFunnel.h"
 
 // ObjC Framework Categories
 #import "SDWebImageManager+WMFCacheRemoval.h"

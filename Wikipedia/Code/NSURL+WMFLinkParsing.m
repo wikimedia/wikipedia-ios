@@ -3,9 +3,15 @@
 #import "NSString+WMFPageUtilities.h"
 #import "NSURLComponents+WMFLinkParsing.h"
 
+#if WMF_USE_BETA_CLUSTER
+NSString *const WMFDefaultSiteDomain = @"wikipedia.beta.wmflabs.org";
+NSString *const WMFDefaultSiteMainDomain = @"wikipedia.org";
+#else
 NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
+#endif
 NSString *const WMFMediaWikiDomain = @"mediawiki.org";
 NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
+NSString *const WMFAPIPath = @"/w/api.php";
 
 @interface NSString (WMFLinkParsing)
 
@@ -160,11 +166,11 @@ NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
 }
 
 - (NSURL *)wmf_APIURL:(BOOL)isMobile {
-    return [[self wmf_siteURL] wmf_URLWithPath:@"/w/api.php" isMobile:isMobile];
+    return [[self wmf_siteURL] wmf_URLWithPath:WMFAPIPath isMobile:isMobile];
 }
 
 + (NSURL *)wmf_APIURLForURL:(NSURL *)URL isMobile:(BOOL)isMobile {
-    return [[URL wmf_siteURL] wmf_URLWithPath:@"/w/api.php" isMobile:isMobile];
+    return [[URL wmf_siteURL] wmf_URLWithPath:WMFAPIPath isMobile:isMobile];
 }
 
 + (NSURL *)wmf_mobileAPIURLForURL:(NSURL *)URL {
@@ -195,12 +201,22 @@ NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
 
 - (BOOL)wmf_isWikiResource {
     static NSString *wikiResourceSuffix = nil;
+#if WMF_USE_BETA_CLUSTER
+    static NSString *mainWikiResourceSuffix = nil;
+#endif
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         wikiResourceSuffix = [NSString stringWithFormat:@".%@", WMFDefaultSiteDomain];
+#if WMF_USE_BETA_CLUSTER
+        mainWikiResourceSuffix = [NSString stringWithFormat:@".%@", WMFDefaultSiteMainDomain];
+#endif
     });
     NSString *lowercaseHost = self.host.lowercaseString;
-    return (!lowercaseHost || [lowercaseHost isEqualToString:WMFDefaultSiteDomain] || [lowercaseHost hasSuffix:wikiResourceSuffix] || [lowercaseHost isEqualToString:WMFMediaWikiDomain] || [lowercaseHost hasSuffix:WMFMediaWikiDomain]) && [self.path wmf_isWikiResource];
+    return (!lowercaseHost
+#if WMF_USE_BETA_CLUSTER
+            || [lowercaseHost isEqualToString:WMFDefaultSiteMainDomain] || [lowercaseHost hasSuffix:mainWikiResourceSuffix]
+#endif
+            || [lowercaseHost isEqualToString:WMFDefaultSiteDomain] || [lowercaseHost hasSuffix:wikiResourceSuffix] ||[lowercaseHost isEqualToString:WMFMediaWikiDomain] || [lowercaseHost hasSuffix:WMFMediaWikiDomain]) && [self.path wmf_isWikiResource];
 }
 
 - (BOOL)wmf_isWikiCitation {

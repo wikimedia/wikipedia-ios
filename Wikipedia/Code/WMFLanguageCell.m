@@ -1,5 +1,4 @@
 #import "WMFLanguageCell.h"
-#import "WikipediaAppUtils.h"
 #import "UILabel+WMFStyling.h"
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
 #import "NSString+WMFExtras.h"

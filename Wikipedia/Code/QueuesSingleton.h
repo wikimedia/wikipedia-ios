@@ -4,12 +4,10 @@
 
 @interface QueuesSingleton : NSObject
 
-@property (strong, nonatomic) AFHTTPSessionManager *loginFetchManager;
 @property (strong, nonatomic) AFHTTPSessionManager *sectionWikiTextDownloadManager;
 @property (strong, nonatomic) AFHTTPSessionManager *sectionWikiTextUploadManager;
 @property (strong, nonatomic) AFHTTPSessionManager *sectionPreviewHtmlFetchManager;
 @property (strong, nonatomic) AFHTTPSessionManager *languageLinksFetcher;
-@property (strong, nonatomic) AFHTTPSessionManager *accountCreationFetchManager;
 @property (strong, nonatomic) AFHTTPSessionManager *assetsFetchManager;
 
 - (void)reset;

@@ -1,5 +1,4 @@
 #import "PaddedLabel.h"
-#import "WikipediaAppUtils.h"
 #import "Wikipedia-Swift.h"
 
 @implementation PaddedLabel
