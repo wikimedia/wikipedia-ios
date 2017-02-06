@@ -613,16 +613,48 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         let radius = round(0.25*(width + height))
         let searchRegion = CLCircularRegion(center: center, radius: radius, identifier: "")
-        progressView.isHidden = false
-        progressView.progress = 0.01
-        
+        isProgressHidden = false
+        progressView.setProgress(0, animated: false)
+        perform(#selector(incrementProgress), with: nil, afterDelay: 0.3)
         nearbyFetcher.fetchArticles(withSiteURL: siteURL, in: searchRegion, matchingSearchTerm: searchTerm, sortStyle: sortStyle, resultLimit: 50, completion: { (searchResults) in
             self.searching = false
             self.updatePlaces(withSearchResults: searchResults.results)
-            self.progressView.progress = 1.0
+            self.progressView.setProgress(1.0, animated: true)
+            self.isProgressHidden = true
         }) { (error) in
             self.wmf_showAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("empty-no-search-results-message"))
             self.searching = false
+        }
+    }
+    
+    func incrementProgress() {
+        guard !isProgressHidden && progressView.progress <= 0.69 else {
+            return
+        }
+        
+        let rand = 0.15 + Float(arc4random_uniform(15))/100
+        progressView.setProgress(progressView.progress + rand, animated: true)
+        perform(#selector(incrementProgress), with: nil, afterDelay: 0.3)
+    }
+    
+    func hideProgress() {
+        UIView.animate(withDuration: 0.3, animations: { self.progressView.alpha = 0 } )
+    }
+    
+    func showProgress() {
+        progressView.alpha = 1
+    }
+    
+    var isProgressHidden: Bool = false {
+        didSet{
+            if isProgressHidden {
+                NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showProgress), object: nil)
+                NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(incrementProgress), object: nil)
+                perform(#selector(hideProgress), with: nil, afterDelay: 0.7)
+            } else {
+                NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideProgress), object: nil)
+                showProgress()
+            }
         }
     }
     

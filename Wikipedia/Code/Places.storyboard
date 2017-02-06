@@ -27,7 +27,7 @@
                                     <outlet property="delegate" destination="pK5-Ai-Kzp" id="paj-rR-O2P"/>
                                 </connections>
                             </mapView>
-                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Pet-ct-8QU">
+                            <progressView opaque="NO" alpha="0.0" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Pet-ct-8QU">
                                 <rect key="frame" x="0.0" y="64" width="375" height="2.5"/>
                             </progressView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxh-CO-RQm">
@@ -186,7 +186,7 @@
                 <navigationController storyboardIdentifier="Places" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fC7-UI-Knm" userLabel="Places" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Places" image="tabbar-nearby" selectedImage="tabbar-nearby-selected" id="qMU-9n-S42"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="HFz-Jz-Pn5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HFz-Jz-Pn5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
