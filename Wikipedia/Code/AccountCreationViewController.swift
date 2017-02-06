@@ -56,7 +56,7 @@ class AccountCreationViewController: UIViewController, CaptchaViewControllerRefr
                 return
         }
         dismiss(animated: true, completion: {
-            let navigationController = UINavigationController.init(rootViewController: LoginViewController.wmf_initialViewControllerFromClassStoryboard()!)
+            let navigationController = UINavigationController.init(rootViewController: WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard()!)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }

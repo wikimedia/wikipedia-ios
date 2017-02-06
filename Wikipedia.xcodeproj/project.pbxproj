@@ -189,7 +189,7 @@
 		B0B4CF0A1CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B4CF091CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m */; };
 		B0B4CF0C1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0B4CF0B1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib */; };
 		B0C0B07E1C6D989000859AD5 /* WMFSettingsCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */; };
-		B0C6BE401E4068C60033BD6E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE3F1E4068C60033BD6E /* LoginViewController.swift */; };
+		B0C6BE401E4068C60033BD6E /* WMFLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE3F1E4068C60033BD6E /* WMFLoginViewController.swift */; };
 		B0C6BE421E413B3F0033BD6E /* AccountCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE411E413B3F0033BD6E /* AccountCreationViewController.swift */; };
 		B0C6BE461E4288E40033BD6E /* AFHTTPSessionManager+WMFAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE451E4288E40033BD6E /* AFHTTPSessionManager+WMFAPI.swift */; };
 		B0C6BE481E428C940033BD6E /* WMFAccountCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE471E428C940033BD6E /* WMFAccountCreator.swift */; };
@@ -269,7 +269,7 @@
 		B0E8040B1C0CDE480065EBC0 /* AccountCreationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FC1C0CDE480065EBC0 /* AccountCreationViewController.storyboard */; };
 		B0E8040C1C0CDE480065EBC0 /* CaptchaViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FD1C0CDE480065EBC0 /* CaptchaViewController.storyboard */; };
 		B0E8040D1C0CDE480065EBC0 /* EditSummaryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FE1C0CDE480065EBC0 /* EditSummaryViewController.storyboard */; };
-		B0E8040F1C0CDE480065EBC0 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804001C0CDE480065EBC0 /* LoginViewController.storyboard */; };
+		B0E8040F1C0CDE480065EBC0 /* WMFLoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804001C0CDE480065EBC0 /* WMFLoginViewController.storyboard */; };
 		B0E804111C0CDE480065EBC0 /* PageHistoryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804021C0CDE480065EBC0 /* PageHistoryViewController.storyboard */; };
 		B0E804121C0CDE480065EBC0 /* PreviewAndSaveViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804031C0CDE480065EBC0 /* PreviewAndSaveViewController.storyboard */; };
 		B0E804151C0CDE480065EBC0 /* SectionEditorViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804061C0CDE480065EBC0 /* SectionEditorViewController.storyboard */; };
@@ -1341,7 +1341,7 @@
 		B0B4CF091CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleLanguagesSectionHeader.m; sourceTree = "<group>"; };
 		B0B4CF0B1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleLanguagesSectionHeader.xib; sourceTree = "<group>"; };
 		B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSettingsCellVisualTests.m; sourceTree = "<group>"; };
-		B0C6BE3F1E4068C60033BD6E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = Wikipedia/Code/LoginViewController.swift; sourceTree = SOURCE_ROOT; };
+		B0C6BE3F1E4068C60033BD6E /* WMFLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFLoginViewController.swift; path = Wikipedia/Code/WMFLoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		B0C6BE411E413B3F0033BD6E /* AccountCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountCreationViewController.swift; path = Wikipedia/Code/AccountCreationViewController.swift; sourceTree = SOURCE_ROOT; };
 		B0C6BE451E4288E40033BD6E /* AFHTTPSessionManager+WMFAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AFHTTPSessionManager+WMFAPI.swift"; sourceTree = "<group>"; };
 		B0C6BE471E428C940033BD6E /* WMFAccountCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAccountCreator.swift; sourceTree = "<group>"; };
@@ -1489,7 +1489,7 @@
 		B0E803FC1C0CDE480065EBC0 /* AccountCreationViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = AccountCreationViewController.storyboard; path = Wikipedia/Code/AccountCreationViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		B0E803FD1C0CDE480065EBC0 /* CaptchaViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = CaptchaViewController.storyboard; path = Wikipedia/Code/CaptchaViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		B0E803FE1C0CDE480065EBC0 /* EditSummaryViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = EditSummaryViewController.storyboard; path = Wikipedia/Code/EditSummaryViewController.storyboard; sourceTree = SOURCE_ROOT; };
-		B0E804001C0CDE480065EBC0 /* LoginViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LoginViewController.storyboard; path = Wikipedia/Code/LoginViewController.storyboard; sourceTree = SOURCE_ROOT; };
+		B0E804001C0CDE480065EBC0 /* WMFLoginViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFLoginViewController.storyboard; path = Wikipedia/Code/WMFLoginViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		B0E804021C0CDE480065EBC0 /* PageHistoryViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = PageHistoryViewController.storyboard; path = Wikipedia/Code/PageHistoryViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		B0E804031C0CDE480065EBC0 /* PreviewAndSaveViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = PreviewAndSaveViewController.storyboard; path = Wikipedia/Code/PreviewAndSaveViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		B0E804061C0CDE480065EBC0 /* SectionEditorViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SectionEditorViewController.storyboard; path = Wikipedia/Code/SectionEditorViewController.storyboard; sourceTree = SOURCE_ROOT; };
@@ -2674,8 +2674,8 @@
 		0449E63218A9844000D51524 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				B0E804001C0CDE480065EBC0 /* LoginViewController.storyboard */,
-				B0C6BE3F1E4068C60033BD6E /* LoginViewController.swift */,
+				B0E804001C0CDE480065EBC0 /* WMFLoginViewController.storyboard */,
+				B0C6BE3F1E4068C60033BD6E /* WMFLoginViewController.swift */,
 				B0C6BE4D1E45255D0033BD6E /* Change Password */,
 			);
 			name = Login;
@@ -6316,7 +6316,7 @@
 				0EF8634E1C19E02700006D2D /* WMFEmptyView.xib in Resources */,
 				D8D92B5F1DF22E1700B95311 /* NotificationBackgroundMessage@2x.png in Resources */,
 				D8D92B661DF22E1700B95311 /* NotificationBackgroundWarningIcon.png in Resources */,
-				B0E8040F1C0CDE480065EBC0 /* LoginViewController.storyboard in Resources */,
+				B0E8040F1C0CDE480065EBC0 /* WMFLoginViewController.storyboard in Resources */,
 				B0E8040A1C0CDE480065EBC0 /* AboutViewController.storyboard in Resources */,
 				B083371F1DADBD7F002860D2 /* WMFWelcome.storyboard in Resources */,
 				B0E806DA1C0CEB850065EBC0 /* BulletedLabel.xib in Resources */,
@@ -6908,7 +6908,7 @@
 				B09B03F51CE0FB7700009083 /* WMFFontSliderContainer.swift in Sources */,
 				B0E8036F1C0CD99A0065EBC0 /* WMFTableOfContentsPresentationController.swift in Sources */,
 				B0F7CB541C8A895600996DE0 /* WMFWelcomeAnimationShapeLayers.swift in Sources */,
-				B0C6BE401E4068C60033BD6E /* LoginViewController.swift in Sources */,
+				B0C6BE401E4068C60033BD6E /* WMFLoginViewController.swift in Sources */,
 				D81FB2631D47B5A20000C685 /* WMFCVLSection.m in Sources */,
 				B0E807111C0CEBF00065EBC0 /* WebViewController.m in Sources */,
 				B0E8037F1C0CD9EE0065EBC0 /* MWKSection+TOCItem.swift in Sources */,

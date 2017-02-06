@@ -454,7 +454,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
         // Call if user taps the blue "Log In" text in the CC text.
         //self.saveAutomaticallyIfSignedIn = YES;
-        LoginViewController *loginVC = [LoginViewController wmf_initialViewControllerFromClassStoryboard];
+        WMFLoginViewController *loginVC = [WMFLoginViewController wmf_initialViewControllerFromClassStoryboard];
         loginVC.funnel = [[LoginFunnel alloc] init];
         [loginVC.funnel logStartFromEdit:self.funnel.editSessionToken];
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:loginVC];

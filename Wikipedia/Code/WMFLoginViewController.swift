@@ -1,7 +1,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class WMFLoginViewController: UIViewController {
     @IBOutlet fileprivate var scrollView: UIScrollView!
     @IBOutlet fileprivate var usernameField: UITextField!
     @IBOutlet fileprivate var passwordField: UITextField!

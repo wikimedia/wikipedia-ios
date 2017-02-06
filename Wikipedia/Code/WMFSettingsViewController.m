@@ -237,7 +237,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     if (userName) {
         [self showLogoutActionSheet];
     } else {
-        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController wmf_initialViewControllerFromClassStoryboard]]
+        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[WMFLoginViewController wmf_initialViewControllerFromClassStoryboard]]
                            animated:YES
                          completion:nil];
     }

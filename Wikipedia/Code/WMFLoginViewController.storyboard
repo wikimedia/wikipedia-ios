@@ -12,7 +12,7 @@
         <!--Login View Controller-->
         <scene sceneID="fEN-6l-kyQ">
             <objects>
-                <viewController restorationIdentifier="LoginViewController" storyboardIdentifier="LoginViewController" id="mbm-n6-GWW" customClass="LoginViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="WMFLoginViewController" storyboardIdentifier="WMFLoginViewController" id="mbm-n6-GWW" customClass="WMFLoginViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bZJ-Ao-BMe"/>
                         <viewControllerLayoutGuide type="bottom" id="JcY-z5-ile"/>
