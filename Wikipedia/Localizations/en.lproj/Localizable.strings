@@ -47,6 +47,7 @@
 "zero-settings-devmode" = "Zero devmode";
 
 "account-creation-captcha-required" = "CAPTCHA verification required.";
+"account-creation-captcha-retry" = "Incorrect entry. Please try again.";
 "account-creation-captcha-obtaining" = "Obtaining a new CAPTCHA...";
 "account-creation-logging-in" = "Logging in...";
 "account-creation-passwords-mismatched" = "Password fields do not match.";
@@ -58,6 +59,10 @@
 "account-creation-email-placeholder-text" = "Email (optional)";
 "account-creation-missing-fields" = "You must enter a username, password, and password confirmation to create an account.";
 
+"new-password-title" = "Set your password";
+"new-password-instructions" = "You logged in with a temporary password. To finish logging in set a new password here.";
+"new-password-password-placeholder-text" = "New password";
+"new-password-confirm-placeholder-text" = "Confirm new password";
 
 "login-name-not-found" = "Username is required to login.";
 "login-name-illegal" = "You provided an illegal username.";
@@ -69,6 +74,14 @@
 "login-account-creation" = "Don't have an account? Join Wikipedia.";
 "login-username-placeholder-text" = "Username";
 "login-password-placeholder-text" = "Password";
+"login-forgot-password" = "Forgot your password?";
+
+"forgot-password-title" = "Reset password";
+"forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";
+"forgot-password-username-prompt" = "Username";
+"forgot-password-email-prompt" = "Email (optional)";
+"forgot-password-button-title" = "Reset";
+"forgot-password-email-sent" = "An email with password reset instructions was sent";
 
 "wikitext-downloading" = "Loading content...";
 "wikitext-download-failed" = "Unable to obtain latest revision.";

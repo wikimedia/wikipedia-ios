@@ -1,9 +1,7 @@
 #import "PreviewAndSaveViewController.h"
-#import "WikipediaAppUtils.h"
 #import "PreviewHtmlFetcher.h"
 #import "WikiTextSectionUploader.h"
 #import "UIViewController+WMFHideKeyboard.h"
-#import "EditTokenFetcher.h"
 #import "SessionSingleton.h"
 #import "PreviewWebViewContainer.h"
 #import "PaddedLabel.h"
@@ -11,14 +9,12 @@
 #import "MenuButton.h"
 #import "EditSummaryViewController.h"
 #import "PreviewLicenseView.h"
-#import "LoginViewController.h"
 #import "UIScrollView+ScrollSubviewToLocation.h"
 #import "AbuseFilterAlert.h"
 #import "MWLanguageInfo.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFChildViewController.h"
-#import "CaptchaResetter.h"
 #import "SavedPagesFunnel.h"
 #import "EditFunnel.h"
 #import "WMFOpenExternalLinkDelegateProtocol.h"
@@ -56,7 +52,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 @property (strong, nonatomic) NSString *captchaId;
 @property (strong, nonatomic) NSString *captchaUrl;
 
-@property (strong, nonatomic) CaptchaViewController *captchaViewController;
+@property (strong, nonatomic) WMFCaptchaViewController *captchaViewController;
 @property (strong, nonatomic) IBOutlet UIView *captchaContainer;
 @property (strong, nonatomic) IBOutlet UIScrollView *captchaScrollView;
 @property (strong, nonatomic) IBOutlet UIView *captchaScrollContainer;
@@ -86,8 +82,8 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
 @property (strong, nonatomic) WikiTextSectionUploader *wikiTextSectionUploader;
 @property (strong, nonatomic) PreviewHtmlFetcher *previewHtmlFetcher;
-@property (strong, nonatomic) EditTokenFetcher *editTokenFetcher;
-@property (strong, nonatomic) CaptchaResetter *captchaResetter;
+@property (strong, nonatomic) WMFAuthTokenFetcher *editTokenFetcher;
+@property (strong, nonatomic) WMFCaptchaResetter *captchaResetter;
 
 @end
 
@@ -427,7 +423,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 - (void)viewWillAppear:(BOOL)animated {
     self.captchaScrollView.alpha = 0.0f;
 
-    self.captchaViewController = [CaptchaViewController wmf_initialViewControllerFromClassStoryboard];
+    self.captchaViewController = [WMFCaptchaViewController wmf_initialViewControllerFromClassStoryboard];
     [self wmf_addChildController:self.captchaViewController andConstrainToEdgesOfContainerView:self.captchaContainer];
 
     self.mode = PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW;
@@ -458,7 +454,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
         // Call if user taps the blue "Log In" text in the CC text.
         //self.saveAutomaticallyIfSignedIn = YES;
-        LoginViewController *loginVC = [LoginViewController wmf_initialViewControllerFromClassStoryboard];
+        WMFLoginViewController *loginVC = [WMFLoginViewController wmf_initialViewControllerFromClassStoryboard];
         loginVC.funnel = [[LoginFunnel alloc] init];
         [loginVC.funnel logStartFromEdit:self.funnel.editSessionToken];
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:loginVC];
@@ -504,29 +500,6 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
             case FETCH_FINAL_STATUS_CANCELLED: {
                 [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
             } break;
-        }
-    } else if ([sender isKindOfClass:[EditTokenFetcher class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED: {
-                EditTokenFetcher *tokenFetcher = (EditTokenFetcher *)sender;
-
-                self.wikiTextSectionUploader =
-                [[WikiTextSectionUploader alloc] initAndUploadWikiText:tokenFetcher.wikiText
-                                                         forArticleURL:tokenFetcher.articleURL
-                                                               section:tokenFetcher.section
-                                                               summary:tokenFetcher.summary
-                                                             captchaId:tokenFetcher.captchaId
-                                                           captchaWord:tokenFetcher.captchaWord
-                                                                 token:tokenFetcher.token
-                                                           withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
-                                                    thenNotifyDelegate:self];
-            } break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-                [[WMFAlertManager sharedInstance] dismissAlert];
-                break;
-            case FETCH_FINAL_STATUS_FAILED:
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-                break;
         }
     } else if ([sender isKindOfClass:[WikiTextSectionUploader class]]) {
         //WikiTextSectionUploader* uploader = (WikiTextSectionUploader*)sender;
@@ -595,23 +568,6 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
                 }
             } break;
         }
-    } else if ([sender isKindOfClass:[CaptchaResetter class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED: {
-                self.captchaId = fetchedData[@"index"];
-                NSString *newCaptchaUrl = [CaptchaResetter newCaptchaImageUrlFromOldUrl:self.captchaUrl andNewId:self.captchaId];
-                if (newCaptchaUrl) {
-                    self.captchaUrl = newCaptchaUrl;
-                    [self showImageForCaptcha];
-                }
-            } break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-                [[WMFAlertManager sharedInstance] dismissAlert];
-                break;
-            case FETCH_FINAL_STATUS_FAILED:
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-                break;
-        }
     }
 }
 
@@ -679,15 +635,28 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
         // Only the domain is used to actually fetch the token, the other values are
         // parked in EditTokenFetcher so the actual uploader can have quick read-only
         // access to the exact params which kicked off the token request.
-        self.editTokenFetcher =
-        [[EditTokenFetcher alloc] initAndFetchEditTokenForWikiText:self.wikiText
-                                                        articleURL:editURL
+        
+        NSURL *url = [[SessionSingleton sharedInstance] urlForLanguage:editURL.wmf_language];
+        self.editTokenFetcher = [[WMFAuthTokenFetcher alloc] init];
+        @weakify(self)
+        [self.editTokenFetcher fetchTokenOfType:WMFAuthTokenTypeCsrf siteURL:url completion:^(WMFAuthToken* result){
+            @strongify(self)
+
+            self.wikiTextSectionUploader =
+            [[WikiTextSectionUploader alloc] initAndUploadWikiText:self.wikiText
+                                                     forArticleURL:editURL
                                                            section:[NSString stringWithFormat:@"%d", self.section.sectionId]
                                                            summary:[self getSummary]
                                                          captchaId:self.captchaId
                                                        captchaWord:self.captchaViewController.captchaTextBox.text
+                                                             token:result.token
                                                        withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
                                                 thenNotifyDelegate:self];
+
+        } failure:^(NSError* error){
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+        }];
+
     }];
 }
 
@@ -720,10 +689,21 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     self.captchaViewController.captchaTextBox.text = @"";
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
     [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager wmf_cancelAllTasksWithCompletionHandler:^{
-        self.captchaResetter =
-        [[CaptchaResetter alloc] initAndResetCaptchaForDomain:[SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language
-                                                  withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
-                                           thenNotifyDelegate:self];
+
+        NSURL* siteURL = [SessionSingleton sharedInstance].currentArticleSiteURL;
+        self.captchaResetter = [[WMFCaptchaResetter alloc] init];
+        @weakify(self)
+        [self.captchaResetter resetCaptchaWithSiteURL:siteURL completion:^(WMFCaptchaResetterResult* result){
+            @strongify(self)
+            self.captchaId = result.index;
+            NSString *newCaptchaUrl = [WMFCaptchaResetter newCaptchaImageURLFromOldURL:self.captchaUrl newID:self.captchaId];
+            if (newCaptchaUrl) {
+                self.captchaUrl = newCaptchaUrl;
+                [self showImageForCaptcha];
+            }
+        } failure:^(NSError* error){
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+        }];
     }];
 }
 

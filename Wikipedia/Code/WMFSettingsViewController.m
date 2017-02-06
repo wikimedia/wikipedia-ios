@@ -5,16 +5,12 @@
 
 // View Controllers
 #import "WMFSettingsViewController.h"
-#import "LoginViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "AboutViewController.h"
 #import "WMFHelpViewController.h"
 
 // Models
 #import "MWKLanguageLink.h"
-
-// Utils
-#import "WikipediaAppUtils.h"
 
 // Frameworks
 #import <HockeySDK/HockeySDK.h>
@@ -241,7 +237,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     if (userName) {
         [self showLogoutActionSheet];
     } else {
-        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController wmf_initialViewControllerFromClassStoryboard]]
+        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[WMFLoginViewController wmf_initialViewControllerFromClassStoryboard]]
                            animated:YES
                          completion:nil];
     }

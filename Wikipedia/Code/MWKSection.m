@@ -1,7 +1,5 @@
-#import "WikipediaAppUtils.h"
 #import "NSString+WMFHTMLParsing.h"
 #import <hpple/TFHpple.h>
-#import "WikipediaAppUtils.h"
 #import "NSString+WMFExtras.h"
 #import <BlocksKit/BlocksKit.h>
 

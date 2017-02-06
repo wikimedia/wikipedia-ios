@@ -1,5 +1,4 @@
 #import "EditSummaryViewController.h"
-#import "WikipediaAppUtils.h"
 #import "PreviewAndSaveViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"

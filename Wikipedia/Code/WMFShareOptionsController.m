@@ -13,7 +13,6 @@
 #import "WMFShareCardViewController.h"
 #import "WMFShareOptionsView.h"
 #import "PaddedLabel.h"
-#import "WikipediaAppUtils.h"
 #import "MWKArticle.h"
 
 NS_ASSUME_NONNULL_BEGIN

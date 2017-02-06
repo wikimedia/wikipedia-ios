@@ -2,7 +2,6 @@
 #import "NSString+WMFExtras.h"
 #import "WMFShareCardImageContainer.h"
 #import "MWLanguageInfo.h"
-#import "WikipediaAppUtils.h"
 
 @interface WMFShareCardViewController ()
 
