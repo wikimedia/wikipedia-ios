@@ -23,5 +23,7 @@
 @dynamic longitude;
 @dynamic pageViews;
 @dynamic signedQuadKey;
+@dynamic geoDimensionNumber;
+@dynamic geoTypeNumber;
 
 @end

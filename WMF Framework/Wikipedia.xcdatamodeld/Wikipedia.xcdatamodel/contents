@@ -2,6 +2,8 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16D32" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
         <attribute name="displayTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="geoDimensionNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="geoTypeNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isExcludedFromFeed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="key" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
@@ -73,7 +75,7 @@
         </compoundIndexes>
     </entity>
     <elements>
-        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="300"/>
+        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="330"/>
         <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="255"/>
         <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="105"/>
     </elements>

@@ -1,4 +1,5 @@
 #import "MWKSearchResult.h"
+#import "WMFArticle+Extensions.h"
 
 @interface MWKSearchResult ()
 
@@ -128,13 +129,88 @@
         NSNumber *lon = coords[@"lon"];
         
         if (![lat isKindOfClass:[NSNumber class]] || ![lon isKindOfClass:[NSNumber class]]) {
-            WMFSafeAssign(success, NO);
             return nil;
         }
         
         return [[CLLocation alloc] initWithLatitude:[lat doubleValue] longitude:[lon doubleValue]];
     }];
 }
+
++ (NSValueTransformer *)geoTypeJSONTransformer {
+    static NSDictionary *geoTypeLookup;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        geoTypeLookup = @{@"country":@(WMFGeoTypeCountry),
+                          @"satellite":@(WMFGeoTypeSatellite),
+                          @"adm1st":@(WMFGeoTypeAdm1st),
+                          @"adm2nd":@(WMFGeoTypeAdm2nd),
+                          @"adm3rd":@(WMFGeoTypeAdm3rd),
+                          @"city":@(WMFGeoTypeCity),
+                          @"airport":@(WMFGeoTypeAirport),
+                          @"mountain":@(WMFGeoTypeMountain),
+                          @"isle":@(WMFGeoTypeIsle),
+                          @"waterbody":@(WMFGeoTypeWaterBody),
+                          @"forest":@(WMFGeoTypeForest),
+                          @"river":@(WMFGeoTypeRiver),
+                          @"glacier":@(WMFGeoTypeGlacier),
+                          @"event":@(WMFGeoTypeEvent),
+                          @"edu":@(WMFGeoTypeEdu),
+                          @"pass":@(WMFGeoTypePass),
+                          @"railwaystation":@(WMFGeoTypeRailwayStation),
+                          @"landmark":@(WMFGeoTypeLandmark)};
+    });
+    
+    return [MTLValueTransformer transformerUsingForwardBlock:^id(NSArray *value,
+                                                                 BOOL *success,
+                                                                 NSError *__autoreleasing *error) {
+        NSDictionary *coords = [value firstObject];
+        NSString *type = coords[@"type"];
+        
+        if (![type isKindOfClass:[NSString class]]) {
+            return nil;
+        }
+        
+        type = [type lowercaseString];
+        
+        if ([type hasPrefix:@"city"]) {
+            type = @"city";
+        }
+        
+        return geoTypeLookup[type];
+    }];
+}
+
++ (NSValueTransformer *)geoDimensionJSONTransformer {
+    static dispatch_once_t onceToken;
+    static NSCharacterSet *nonNumericCharacterSet;
+    dispatch_once(&onceToken, ^{
+        nonNumericCharacterSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+    });
+    return [MTLValueTransformer transformerUsingForwardBlock:^id(NSArray *value,
+                                                                 BOOL *success,
+                                                                 NSError *__autoreleasing *error) {
+        NSDictionary *coords = [value firstObject];
+        NSString *dim = coords[@"dim"];
+        
+        if (![dim isKindOfClass:[NSString class]]) {
+            return nil;
+        }
+        
+        NSString *dimToParse = [dim stringByTrimmingCharactersInSet:nonNumericCharacterSet];
+        long long dimension = [dimToParse longLongValue];
+        if (dimension == 0) {
+            return nil;
+        }
+        
+        dim = [dim lowercaseString];
+        if ([dim hasSuffix:@"km"]) {
+            dimension = dimension * 1000;
+        }
+        
+        return @(dimension);
+    }];
+}
+
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{ WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitle): @"title",
@@ -147,6 +223,8 @@
               WMF_SAFE_KEYPATH(MWKSearchResult.new, isDisambiguation): @[@"pageprops.disambiguation", @"terms.description"],
               WMF_SAFE_KEYPATH(MWKSearchResult.new, isList): @"terms.description",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, location): @"coordinates",
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, geoDimension): @"coordinates",
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, geoType): @"coordinates",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, titleNamespace): @"ns" };
 }
 

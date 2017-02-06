@@ -159,6 +159,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSMutableDictionary<NSString *, NSObject *> *serializedParams = [NSMutableDictionary dictionaryWithDictionary:@{
             @"action": @"query",
             @"prop": @"coordinates|pageimages|pageterms",
+            @"coprop": @"type|dim",
             @"colimit": @(params.numberOfResults),
             @"generator": @"search",
             @"gsrsearch": gsrsearch,
@@ -189,6 +190,7 @@ NS_ASSUME_NONNULL_BEGIN
         return @{
             @"action": @"query",
             @"prop": @"coordinates|pageimages|pageterms",
+            @"coprop": @"type|dim",
             @"colimit": @(params.numberOfResults),
             @"pithumbsize": [[UIScreen mainScreen] wmf_nearbyThumbnailWidthForScale],
             @"pilimit": @(params.numberOfResults),

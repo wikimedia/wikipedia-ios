@@ -29,6 +29,9 @@
  */
 @property (nullable, nonatomic, copy, readonly) CLLocation *location;
 
+@property (nullable, nonatomic, copy) NSNumber *geoDimension;
+@property (nullable, nonatomic, copy) NSNumber *geoType;
+
 - (nullable instancetype)initWithArticleID:(NSInteger)articleID
                                      revID:(NSInteger)revID
                               displayTitle:(nullable NSString *)displayTitle

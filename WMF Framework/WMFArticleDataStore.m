@@ -74,6 +74,12 @@ NS_ASSUME_NONNULL_BEGIN
     if (searchResult.location != nil) {
         preview.location = searchResult.location;
     }
+    if (searchResult.geoDimension != nil) {
+        preview.geoDimensionNumber = searchResult.geoDimension;
+    }
+    if (searchResult.geoType != nil) {
+        preview.geoTypeNumber = searchResult.geoType;
+    }
 }
 
 - (void)updatePreview:(WMFArticle *)preview withLocationSearchResult:(MWKLocationSearchResult *)searchResult {
