@@ -8,7 +8,7 @@
 
 @end
 
-@interface PreviewAndSaveViewController : UIViewController <CaptchaViewControllerRefresh>
+@interface PreviewAndSaveViewController : UIViewController <WMFCaptchaViewControllerRefresh>
 
 @property (strong, nonatomic) MWKSection *section;
 @property (strong, nonatomic) NSString *wikiText;

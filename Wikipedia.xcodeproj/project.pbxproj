@@ -193,7 +193,7 @@
 		B0C6BE421E413B3F0033BD6E /* WMFAccountCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE411E413B3F0033BD6E /* WMFAccountCreationViewController.swift */; };
 		B0C6BE461E4288E40033BD6E /* AFHTTPSessionManager+WMFAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE451E4288E40033BD6E /* AFHTTPSessionManager+WMFAPI.swift */; };
 		B0C6BE481E428C940033BD6E /* WMFAccountCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE471E428C940033BD6E /* WMFAccountCreator.swift */; };
-		B0C6BE4A1E42D19D0033BD6E /* CaptchaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE491E42D19D0033BD6E /* CaptchaViewController.swift */; };
+		B0C6BE4A1E42D19D0033BD6E /* WMFCaptchaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE491E42D19D0033BD6E /* WMFCaptchaViewController.swift */; };
 		B0C6BE531E4526810033BD6E /* WMFChangePasswordViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0C6BE521E4526810033BD6E /* WMFChangePasswordViewController.storyboard */; };
 		B0C6BE571E4526A40033BD6E /* WMFChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE561E4526A40033BD6E /* WMFChangePasswordViewController.swift */; };
 		B0CA8D401D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B0CA8D3F1D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.m */; };
@@ -267,7 +267,7 @@
 		B0E803FA1C0CDDBA0065EBC0 /* WMFUnderlineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803F91C0CDDBA0065EBC0 /* WMFUnderlineButton.m */; };
 		B0E8040A1C0CDE480065EBC0 /* AboutViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FB1C0CDE480065EBC0 /* AboutViewController.storyboard */; };
 		B0E8040B1C0CDE480065EBC0 /* WMFAccountCreationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FC1C0CDE480065EBC0 /* WMFAccountCreationViewController.storyboard */; };
-		B0E8040C1C0CDE480065EBC0 /* CaptchaViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FD1C0CDE480065EBC0 /* CaptchaViewController.storyboard */; };
+		B0E8040C1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FD1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard */; };
 		B0E8040D1C0CDE480065EBC0 /* EditSummaryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FE1C0CDE480065EBC0 /* EditSummaryViewController.storyboard */; };
 		B0E8040F1C0CDE480065EBC0 /* WMFLoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804001C0CDE480065EBC0 /* WMFLoginViewController.storyboard */; };
 		B0E804111C0CDE480065EBC0 /* PageHistoryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804021C0CDE480065EBC0 /* PageHistoryViewController.storyboard */; };
@@ -1345,7 +1345,7 @@
 		B0C6BE411E413B3F0033BD6E /* WMFAccountCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFAccountCreationViewController.swift; path = Wikipedia/Code/WMFAccountCreationViewController.swift; sourceTree = SOURCE_ROOT; };
 		B0C6BE451E4288E40033BD6E /* AFHTTPSessionManager+WMFAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AFHTTPSessionManager+WMFAPI.swift"; sourceTree = "<group>"; };
 		B0C6BE471E428C940033BD6E /* WMFAccountCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAccountCreator.swift; sourceTree = "<group>"; };
-		B0C6BE491E42D19D0033BD6E /* CaptchaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CaptchaViewController.swift; path = "WMF Framework/CaptchaViewController.swift"; sourceTree = SOURCE_ROOT; };
+		B0C6BE491E42D19D0033BD6E /* WMFCaptchaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFCaptchaViewController.swift; path = "WMF Framework/WMFCaptchaViewController.swift"; sourceTree = SOURCE_ROOT; };
 		B0C6BE521E4526810033BD6E /* WMFChangePasswordViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFChangePasswordViewController.storyboard; path = Wikipedia/Code/WMFChangePasswordViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		B0C6BE561E4526A40033BD6E /* WMFChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFChangePasswordViewController.swift; path = Wikipedia/Code/WMFChangePasswordViewController.swift; sourceTree = SOURCE_ROOT; };
 		B0CA8D3E1D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKScriptMessage+WMFScriptMessage.h"; path = "Wikipedia/Code/WKScriptMessage+WMFScriptMessage.h"; sourceTree = SOURCE_ROOT; };
@@ -1487,7 +1487,7 @@
 		B0E803F91C0CDDBA0065EBC0 /* WMFUnderlineButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFUnderlineButton.m; path = Wikipedia/Code/WMFUnderlineButton.m; sourceTree = SOURCE_ROOT; };
 		B0E803FB1C0CDE480065EBC0 /* AboutViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = AboutViewController.storyboard; path = Wikipedia/Code/AboutViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		B0E803FC1C0CDE480065EBC0 /* WMFAccountCreationViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFAccountCreationViewController.storyboard; path = Wikipedia/Code/WMFAccountCreationViewController.storyboard; sourceTree = SOURCE_ROOT; };
-		B0E803FD1C0CDE480065EBC0 /* CaptchaViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = CaptchaViewController.storyboard; path = Wikipedia/Code/CaptchaViewController.storyboard; sourceTree = SOURCE_ROOT; };
+		B0E803FD1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFCaptchaViewController.storyboard; path = Wikipedia/Code/WMFCaptchaViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		B0E803FE1C0CDE480065EBC0 /* EditSummaryViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = EditSummaryViewController.storyboard; path = Wikipedia/Code/EditSummaryViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		B0E804001C0CDE480065EBC0 /* WMFLoginViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFLoginViewController.storyboard; path = Wikipedia/Code/WMFLoginViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		B0E804021C0CDE480065EBC0 /* PageHistoryViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = PageHistoryViewController.storyboard; path = Wikipedia/Code/PageHistoryViewController.storyboard; sourceTree = SOURCE_ROOT; };
@@ -2766,8 +2766,8 @@
 		04B7B9BA18B5569600A63551 /* Captcha */ = {
 			isa = PBXGroup;
 			children = (
-				B0E803FD1C0CDE480065EBC0 /* CaptchaViewController.storyboard */,
-				B0C6BE491E42D19D0033BD6E /* CaptchaViewController.swift */,
+				B0E803FD1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard */,
+				B0C6BE491E42D19D0033BD6E /* WMFCaptchaViewController.swift */,
 				B0F92C6E1E3C580900B72802 /* WMFCaptchaResetter.swift */,
 			);
 			name = Captcha;
@@ -6282,7 +6282,7 @@
 				0EFC9C221DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib in Resources */,
 				D81BA0FC1D50D40B006C38AC /* WMFNearbyArticleTableViewCell.xib in Resources */,
 				B0E807091C0CEBDA0065EBC0 /* ShareOptions.xib in Resources */,
-				B0E8040C1C0CDE480065EBC0 /* CaptchaViewController.storyboard in Resources */,
+				B0E8040C1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard in Resources */,
 				D8FA19101E1BDD8A009675C3 /* WMFAnnouncementCollectionViewCell.xib in Resources */,
 				B0E803321C0CD6F20065EBC0 /* WMFExploreSectionFooter.xib in Resources */,
 				B0E8030F1C0CD6320065EBC0 /* WMFNearbyArticleCollectionViewCell.xib in Resources */,
@@ -6891,7 +6891,7 @@
 				B0E8033C1C0CD76B0065EBC0 /* WMFSearchViewController.m in Sources */,
 				B0E8044B1C0CDF850065EBC0 /* WMFGradientView.m in Sources */,
 				BC23E4E21C223FAE00B5AFDE /* WMFArticleRevision.m in Sources */,
-				B0C6BE4A1E42D19D0033BD6E /* CaptchaViewController.swift in Sources */,
+				B0C6BE4A1E42D19D0033BD6E /* WMFCaptchaViewController.swift in Sources */,
 				B0E804BF1C0CE0B40065EBC0 /* DDLog+WMFLogger.m in Sources */,
 				B09D64E81C2514FF00A29514 /* WMFArticleFooterMenuDataSource.m in Sources */,
 				0E281A331DC263DE00FA1AB1 /* WMFReference.swift in Sources */,

@@ -4,11 +4,11 @@ import UIKit
 // Presently it is assumed this view controller will be used only as a
 // child view controller of another view controller.
 
-@objc public protocol CaptchaViewControllerRefresh{
+@objc public protocol WMFCaptchaViewControllerRefresh{
     func reloadCaptchaPushed(_ sender: AnyObject)
 }
 
-class CaptchaViewController: UIViewController {
+class WMFCaptchaViewController: UIViewController {
 
     @IBOutlet var captchaImageView: UIImageView!
     @IBOutlet var captchaTextBox: UITextField!
@@ -41,7 +41,7 @@ class CaptchaViewController: UIViewController {
         // to monitor changes to captchaTextBox and also when its keyboard done/next
         // buttons are tapped.
         
-        if self.parent!.conforms(to: CaptchaViewControllerRefresh.self){
+        if self.parent!.conforms(to: WMFCaptchaViewControllerRefresh.self){
             captchaTextBox.delegate = self.parent as? UITextFieldDelegate
         }
     }

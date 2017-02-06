@@ -1,7 +1,7 @@
 
 import UIKit
 
-class WMFAccountCreationViewController: UIViewController, CaptchaViewControllerRefresh, UITextFieldDelegate, UIScrollViewDelegate {
+class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControllerRefresh, UITextFieldDelegate, UIScrollViewDelegate {
     @IBOutlet var usernameField: UITextField!
     @IBOutlet var passwordField: UITextField!
     @IBOutlet var passwordRepeatField: UITextField!
@@ -20,7 +20,7 @@ class WMFAccountCreationViewController: UIViewController, CaptchaViewControllerR
     fileprivate var captchaId: NSString? = ""
     fileprivate var rightButton: UIBarButtonItem?
     public var funnel: CreateAccountFunnel?
-    fileprivate var captchaViewController: CaptchaViewController?
+    fileprivate var captchaViewController: WMFCaptchaViewController?
         
     fileprivate func adjustScrollLimitForCaptchaVisiblity() {
         // Reminder: spaceBeneathCaptchaContainer constraint is space *below* captcha container -
@@ -101,7 +101,7 @@ class WMFAccountCreationViewController: UIViewController, CaptchaViewControllerR
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        captchaViewController = CaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
+        captchaViewController = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
         wmf_addChildController(captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
         showCaptchaContainer = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.textFieldDidChange(_:)), name: NSNotification.Name.UITextFieldTextDidChange, object: captchaViewController?.captchaTextBox)

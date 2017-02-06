@@ -12,7 +12,7 @@
         <!--Captcha View Controller-->
         <scene sceneID="bAd-gv-kTa">
             <objects>
-                <viewController restorationIdentifier="CaptchaViewController" storyboardIdentifier="CaptchaViewController" id="sIA-fC-CW8" customClass="CaptchaViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="WMFCaptchaViewController" storyboardIdentifier="WMFCaptchaViewController" id="sIA-fC-CW8" customClass="WMFCaptchaViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SY2-Hg-a3u"/>
                         <viewControllerLayoutGuide type="bottom" id="NcO-7E-4V6"/>

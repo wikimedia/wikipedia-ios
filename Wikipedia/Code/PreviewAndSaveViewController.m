@@ -52,7 +52,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 @property (strong, nonatomic) NSString *captchaId;
 @property (strong, nonatomic) NSString *captchaUrl;
 
-@property (strong, nonatomic) CaptchaViewController *captchaViewController;
+@property (strong, nonatomic) WMFCaptchaViewController *captchaViewController;
 @property (strong, nonatomic) IBOutlet UIView *captchaContainer;
 @property (strong, nonatomic) IBOutlet UIScrollView *captchaScrollView;
 @property (strong, nonatomic) IBOutlet UIView *captchaScrollContainer;
@@ -423,7 +423,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 - (void)viewWillAppear:(BOOL)animated {
     self.captchaScrollView.alpha = 0.0f;
 
-    self.captchaViewController = [CaptchaViewController wmf_initialViewControllerFromClassStoryboard];
+    self.captchaViewController = [WMFCaptchaViewController wmf_initialViewControllerFromClassStoryboard];
     [self wmf_addChildController:self.captchaViewController andConstrainToEdgesOfContainerView:self.captchaContainer];
 
     self.mode = PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW;
