@@ -296,8 +296,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         //TODO: handle the wrap condition
-        let latitudeDelta = 1.3*(latitudeMax - latitudeMin)
-        let longitudeDelta = 1.3*(longitudeMax - longitudeMin)
+        let latitudeDelta = max(0.01, 1.3*(latitudeMax - latitudeMin))
+        let longitudeDelta = max(0.01, 1.3*(longitudeMax - longitudeMin))
         
         let averageLatitude = latitudeSum/CLLocationDegrees(articles.count)
         let averageLongitude = longitudeSum/CLLocationDegrees(articles.count)
