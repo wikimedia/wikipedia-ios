@@ -613,17 +613,21 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         let radius = round(0.25*(width + height))
         let searchRegion = CLCircularRegion(center: center, radius: radius, identifier: "")
+        
+        let done = {
+            self.searching = false
+            self.progressView.setProgress(1.0, animated: true)
+            self.isProgressHidden = true
+        }
         isProgressHidden = false
         progressView.setProgress(0, animated: false)
         perform(#selector(incrementProgress), with: nil, afterDelay: 0.3)
         nearbyFetcher.fetchArticles(withSiteURL: siteURL, in: searchRegion, matchingSearchTerm: searchTerm, sortStyle: sortStyle, resultLimit: 50, completion: { (searchResults) in
-            self.searching = false
             self.updatePlaces(withSearchResults: searchResults.results)
-            self.progressView.setProgress(1.0, animated: true)
-            self.isProgressHidden = true
+            done()
         }) { (error) in
             self.wmf_showAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("empty-no-search-results-message"))
-            self.searching = false
+           done()
         }
     }
     
