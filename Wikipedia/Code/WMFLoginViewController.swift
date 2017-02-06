@@ -151,7 +151,7 @@ class WMFLoginViewController: UIViewController {
         }
         self.funnel?.logCreateAccountAttempt()
         dismiss(animated: true, completion: {
-            let createAcctVC = AccountCreationViewController.wmf_initialViewControllerFromClassStoryboard()
+            let createAcctVC = WMFAccountCreationViewController.wmf_initialViewControllerFromClassStoryboard()
             createAcctVC?.funnel = CreateAccountFunnel()
             createAcctVC?.funnel?.logStart(fromLogin: self.funnel?.loginSessionToken)
             let navigationController = UINavigationController.init(rootViewController: createAcctVC!)

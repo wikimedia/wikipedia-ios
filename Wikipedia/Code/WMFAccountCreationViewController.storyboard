@@ -12,7 +12,7 @@
         <!--Account Creation View Controller-->
         <scene sceneID="Atg-7d-baS">
             <objects>
-                <viewController restorationIdentifier="AccountCreationViewController" storyboardIdentifier="AccountCreationViewController" id="LsX-JK-bT6" customClass="AccountCreationViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="WMFAccountCreationViewController" storyboardIdentifier="WMFAccountCreationViewController" id="LsX-JK-bT6" customClass="WMFAccountCreationViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lYO-68-MKd"/>
                         <viewControllerLayoutGuide type="bottom" id="u9G-FH-WvX"/>
@@ -28,7 +28,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="875"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9i2-q7-ejW" userLabel="Form Container">
-                                                <rect key="frame" x="43.5" y="16" width="288" height="251"/>
+                                                <rect key="frame" x="44" y="16" width="288" height="251"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create account" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="c3c-PU-Exz" userLabel="Title">
                                                         <rect key="frame" x="0.0" y="0.0" width="288" height="28"/>
@@ -144,7 +144,7 @@
                                                 </constraints>
                                             </view>
                                             <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nkJ-ZP-8yL">
-                                                <rect key="frame" x="47.5" y="292" width="280" height="163"/>
+                                                <rect key="frame" x="48" y="292" width="280" height="163"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="163" id="S8T-dk-ANv"/>

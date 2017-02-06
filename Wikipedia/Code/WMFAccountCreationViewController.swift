@@ -1,7 +1,7 @@
 
 import UIKit
 
-class AccountCreationViewController: UIViewController, CaptchaViewControllerRefresh, UITextFieldDelegate, UIScrollViewDelegate {
+class WMFAccountCreationViewController: UIViewController, CaptchaViewControllerRefresh, UITextFieldDelegate, UIScrollViewDelegate {
     @IBOutlet var usernameField: UITextField!
     @IBOutlet var passwordField: UITextField!
     @IBOutlet var passwordRepeatField: UITextField!
