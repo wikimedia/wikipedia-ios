@@ -40,6 +40,13 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:  PlaceSearchSuggestionController.cellReuseIdentifier, for: indexPath)
         let search = searches[indexPath.section][indexPath.row]
+        switch search.type {
+        case .location:
+            cell.imageView?.image = #imageLiteral(resourceName: "location")
+        default:
+            cell.imageView?.image = nil
+            break
+        }
         cell.textLabel?.text = search.localizedDescription
         return cell
     }
