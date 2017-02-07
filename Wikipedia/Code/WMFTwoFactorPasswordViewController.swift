@@ -91,10 +91,32 @@ class WMFTwoFactorPasswordViewController: UIViewController {
                     self.dismiss(animated: true, completion: nil)
                     self.funnel?.logSuccess()
             }, failure: { (error: Error) in
+                
+                if let error = error as? WMFAccountLoginError {
+                    switch error.type {
+                    case .temporaryPasswordNeedsChange:
+                        self.showChangeTempPasswordViewController()
+                        return
+                    default: break
+                    }
+                }
+                
                 self.enableProgressiveButton(true)
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
                 self.funnel?.logError(error.localizedDescription)
                 self.oathTokenField.text = nil
             })
+    }
+    
+    func showChangeTempPasswordViewController() {
+        guard let presenter = self.presentingViewController else {
+            return
+        }
+        dismiss(animated: true, completion: {
+            let changePasswordVC = WMFChangePasswordViewController.wmf_initialViewControllerFromClassStoryboard()
+            changePasswordVC?.userName = self.userName
+            let navigationController = UINavigationController.init(rootViewController: changePasswordVC!)
+            presenter.present(navigationController, animated: true, completion: nil)
+        })
     }
 }
