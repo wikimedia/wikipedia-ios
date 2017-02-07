@@ -287,37 +287,26 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func regionThatFits(coordinates: [CLLocationCoordinate2D]) -> MKCoordinateRegion {
-        guard coordinates.count > 0 else {
-            return MKCoordinateRegion()
-        }
-        var latitudeMin = CLLocationDegrees(90)
-        var longitudeMin = CLLocationDegrees(180)
-        var latitudeMax = CLLocationDegrees(-90)
-        var longitudeMax = CLLocationDegrees(-180)
-        
-        var longitudeSum = CLLocationDegrees(0)
-        var latitudeSum = CLLocationDegrees(0)
+        var rect: MKMapRect?
         
         for coordinate in coordinates {
-            latitudeMin = min(latitudeMin, coordinate.latitude)
-            longitudeMin = min(longitudeMin, coordinate.longitude)
-            latitudeMax = max(latitudeMax, coordinate.latitude)
-            longitudeMax = max(longitudeMax, coordinate.longitude)
-            
-            latitudeSum += coordinate.latitude
-            longitudeSum += coordinate.longitude
+            let point = MKMapPointForCoordinate(coordinate)
+            let size = MKMapSize(width: 0, height: 0)
+            let coordinateRect = MKMapRect(origin: point, size: size)
+            guard let currentRect = rect else {
+                rect = coordinateRect
+                continue
+            }
+
+            rect = MKMapRectUnion(currentRect, coordinateRect)
         }
         
-        //TODO: handle the wrap condition
-        let latitudeDelta = max(0.01, 1.3*(latitudeMax - latitudeMin))
-        let longitudeDelta = max(0.01,1.3*(longitudeMax - longitudeMin))
         
-        let averageLatitude = latitudeSum/CLLocationDegrees(coordinates.count)
-        let averageLongitude = longitudeSum/CLLocationDegrees(coordinates.count)
+        guard let finalRect = rect else {
+            return MKCoordinateRegion()
+        }
         
-        let center = CLLocationCoordinate2D(latitude: averageLatitude, longitude: averageLongitude)
-        let span = MKCoordinateSpanMake(latitudeDelta, longitudeDelta)
-        return MKCoordinateRegionMake(center , span)
+       return MKCoordinateRegionForMapRect(finalRect)
     }
     
     func mapView(_ mapView: MKMapView, didSelect annotationView: MKAnnotationView) {
