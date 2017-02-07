@@ -297,16 +297,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 rect = coordinateRect
                 continue
             }
-
             rect = MKMapRectUnion(currentRect, coordinateRect)
         }
-        
         
         guard let finalRect = rect else {
             return MKCoordinateRegion()
         }
         
-       return MKCoordinateRegionForMapRect(finalRect)
+        var region = MKCoordinateRegionForMapRect(finalRect)
+        region.span.latitudeDelta = max(0.1, 1.3*region.span.latitudeDelta)
+        region.span.longitudeDelta = max(0.1, 1.3*region.span.longitudeDelta)
+        return region
     }
     
     func mapView(_ mapView: MKMapView, didSelect annotationView: MKAnnotationView) {
