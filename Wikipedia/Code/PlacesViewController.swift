@@ -288,7 +288,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func regionThatFits(coordinates: [CLLocationCoordinate2D]) -> MKCoordinateRegion {
         var rect: MKMapRect?
-        
+
         for coordinate in coordinates {
             let point = MKMapPointForCoordinate(coordinate)
             let size = MKMapSize(width: 0, height: 0)
@@ -649,6 +649,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                         self.searching = false
                         var newSearch = search
                         newSearch.needsWikidataQuery = false
+                        newSearch.region = region
                         self.currentSearch = newSearch
                     })
                 } catch let parseError {

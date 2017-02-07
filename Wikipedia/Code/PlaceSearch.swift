@@ -15,7 +15,7 @@ struct PlaceSearch {
     let type: PlaceSearchType
     let sortStyle: WMFLocationSearchSortStyle
     let string: String?
-    let region: MKCoordinateRegion?
+    var region: MKCoordinateRegion?
     let localizedDescription: String?
     let articleKey: String?
     var needsWikidataQuery: Bool = true
