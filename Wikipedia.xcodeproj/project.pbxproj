@@ -461,7 +461,7 @@
 		B0E8096C1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8096B1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m */; };
 		B0ED17321E4912D4008B70AD /* WMFTwoFactorPasswordViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0ED17311E4912D4008B70AD /* WMFTwoFactorPasswordViewController.storyboard */; };
 		B0ED17341E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED17331E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift */; };
-		B0ED17371E492D40008B70AD /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED17361E492D40008B70AD /* WMFCurrentlyLoggedInUserFetcher.swift */; };
+		B0ED173B1E497AE7008B70AD /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED173A1E497AE7008B70AD /* WMFCurrentlyLoggedInUserFetcher.swift */; };
 		B0EEB8571D29B0B200F2099B /* MWKImageVarianceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EEB8561D29B0B200F2099B /* MWKImageVarianceTests.m */; };
 		B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EF42CF1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m */; };
 		B0F087501C860E910086F710 /* WMFWelcomeAnimationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0874F1C860E910086F710 /* WMFWelcomeAnimationExtensions.swift */; };
@@ -1983,7 +1983,7 @@
 		B0E809701C0D215D0065EBC0 /* WikipediaUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WikipediaUnitTests-Prefix.pch"; sourceTree = "<group>"; };
 		B0ED17311E4912D4008B70AD /* WMFTwoFactorPasswordViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WMFTwoFactorPasswordViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		B0ED17331E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFTwoFactorPasswordViewController.swift; path = Wikipedia/Code/WMFTwoFactorPasswordViewController.swift; sourceTree = SOURCE_ROOT; };
-		B0ED17361E492D40008B70AD /* WMFCurrentlyLoggedInUserFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFCurrentlyLoggedInUserFetcher.swift; sourceTree = "<group>"; };
+		B0ED173A1E497AE7008B70AD /* WMFCurrentlyLoggedInUserFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFCurrentlyLoggedInUserFetcher.swift; sourceTree = "<group>"; };
 		B0EEB8561D29B0B200F2099B /* MWKImageVarianceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageVarianceTests.m; path = WikipediaUnitTests/Code/MWKImageVarianceTests.m; sourceTree = SOURCE_ROOT; };
 		B0EF42CE1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIApplicationShortcutItem+WMFShortcutItem.h"; path = "Wikipedia/Code/UIApplicationShortcutItem+WMFShortcutItem.h"; sourceTree = SOURCE_ROOT; };
 		B0EF42CF1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIApplicationShortcutItem+WMFShortcutItem.m"; path = "Wikipedia/Code/UIApplicationShortcutItem+WMFShortcutItem.m"; sourceTree = SOURCE_ROOT; };
@@ -2944,7 +2944,6 @@
 		0E26628F1D09F583006D4A46 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				B0ED17351E492D1D008B70AD /* UserInfo */,
 				B0267CE71E31698F006B6D8D /* ForgotPassword */,
 				0449E63218A9844000D51524 /* Login */,
 				04A97E8418B81D440046B166 /* AccountCreation */,
@@ -3638,6 +3637,7 @@
 			children = (
 				0EBB23161D1A2C4A00CA9742 /* WMFAuthenticationManager.h */,
 				0EBB23171D1A2C4A00CA9742 /* WMFAuthenticationManager.m */,
+				B0ED173A1E497AE7008B70AD /* WMFCurrentlyLoggedInUserFetcher.swift */,
 				0463639518A844380049EE4F /* Keychain */,
 				0E26628E1D09ED1C006D4A46 /* AuthManager Info */,
 				0EBB231A1D1C453C00CA9742 /* Login */,
@@ -3948,14 +3948,6 @@
 				B0ED17331E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift */,
 			);
 			name = "Two Factor";
-			sourceTree = "<group>";
-		};
-		B0ED17351E492D1D008B70AD /* UserInfo */ = {
-			isa = PBXGroup;
-			children = (
-				B0ED17361E492D40008B70AD /* WMFCurrentlyLoggedInUserFetcher.swift */,
-			);
-			name = UserInfo;
 			sourceTree = "<group>";
 		};
 		B0F7CB521C8A87B300996DE0 /* Animation */ = {
@@ -6765,6 +6757,7 @@
 				BCB00EC41C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.m in Sources */,
 				B0267CF31E32A0CB006B6D8D /* WMFPasswordResetter.swift in Sources */,
 				0E09EAC31C4426470058F2D8 /* WMFSearchResultsTableViewController.m in Sources */,
+				B0ED173B1E497AE7008B70AD /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */,
 				B0E802B81C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				B08E7E9B1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m in Sources */,
 				B06531601C220921003BD7DC /* WMFArticlePreviewDataSource.m in Sources */,
@@ -6860,7 +6853,6 @@
 				B0E8058E1C0CE2C60065EBC0 /* EditFunnel.m in Sources */,
 				B0E804C91C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				B02376B41D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */,
-				B0ED17371E492D40008B70AD /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */,
 				D86706C31D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m in Sources */,
 				B0726DA91C216F4300E57B2A /* WMFArticleFooterMenuViewController.m in Sources */,
 				B0E294CB1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift in Sources */,
