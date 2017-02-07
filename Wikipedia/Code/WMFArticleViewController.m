@@ -344,6 +344,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         _headerImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _headerImageView.userInteractionEnabled = YES;
         _headerImageView.clipsToBounds = YES;
+        // White background is necessary for images with alpha
+        _headerImageView.backgroundColor = [UIColor whiteColor];
         [_headerImageView wmf_showPlaceholder];
         _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewDidTap:)];
