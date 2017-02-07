@@ -1035,7 +1035,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     let key = (url as NSURL).wmf_articleDatabaseKey else {
                 return nil
             }
-            let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 10*dimension, 10*dimension)
+            let region = MKCoordinateRegionMakeWithDistance(location.coordinate, dimension, dimension)
             return PlaceSearch(type: .location, sortStyle: WMFLocationSearchSortStyleLinks, string: nil, region: region, localizedDescription: result.displayTitle, articleKey: key)
         }
         updateSearchSuggestions(withCompletions: completions)
