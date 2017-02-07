@@ -1090,22 +1090,36 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         updateSearchSuggestions(withCompletions: completions)
     }
     
+    var nonce = UUID()
     
     func updateSearchCompletionsFromSearchBarText() {
         guard let text = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), text != "" else {
             updateSearchSuggestions(withCompletions: [])
             return
         }
-        
+        let thisNonce = UUID()
+        nonce = thisNonce
         searchFetcher.fetchArticles(forSearchTerm: text, siteURL: siteURL, resultLimit: 24, failure: { (error) in
+            guard self.nonce == thisNonce else {
+                return
+            }
             self.updateSearchSuggestions(withCompletions: [])
         }) { (searchResult) in
+            guard self.nonce == thisNonce else {
+                return
+            }
             guard let results = searchResult.results, results.count > 0 else {
                 let center = self.mapView.userLocation.coordinate
                 let region = CLCircularRegion(center: center, radius: 40075000, identifier: "world")
                 self.locationSearchFetcher.fetchArticles(withSiteURL: self.siteURL, in: region, matchingSearchTerm: text, sortStyle: WMFLocationSearchSortStyleLinks, resultLimit: 50, completion: { (results) in
+                    guard self.nonce == thisNonce else {
+                        return
+                    }
                     self.handleCompletion(searchResults: results.results)
                 }) { (error) in
+                    guard self.nonce == thisNonce else {
+                        return
+                    }
                     self.updateSearchSuggestions(withCompletions: [])
                 }
                 return
