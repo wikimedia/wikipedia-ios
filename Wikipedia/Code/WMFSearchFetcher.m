@@ -1,6 +1,4 @@
 #import "WMFSearchFetcher_Testing.h"
-#import "Wikipedia-Swift.h"
-
 #import "WMFSearchResults_Internal.h"
 #import "WMFSearchResults+ResponseSerializer.h"
 #import "MWKSearchResult.h"

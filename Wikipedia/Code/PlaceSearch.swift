@@ -17,15 +17,15 @@ struct PlaceSearch {
     let string: String?
     let region: MKCoordinateRegion?
     let localizedDescription: String?
-    let searchCompletion: MKLocalSearchCompletion?
+    let articleKey: String?
     
-    init(type: PlaceSearchType, sortStyle: WMFLocationSearchSortStyle, string: String?, region: MKCoordinateRegion?, localizedDescription: String?, searchCompletion: MKLocalSearchCompletion?) {
+    init(type: PlaceSearchType, sortStyle: WMFLocationSearchSortStyle, string: String?, region: MKCoordinateRegion?, localizedDescription: String?, articleKey: String?) {
         self.type = type
         self.sortStyle = sortStyle
         self.string = string
         self.region = region
         self.localizedDescription = localizedDescription
-        self.searchCompletion = searchCompletion
+        self.articleKey = articleKey
     }
     
     var key: String {
@@ -60,6 +60,9 @@ struct PlaceSearch {
             if let localizedDescription = localizedDescription {
                 dictionary["localizedDescription"] = localizedDescription as NSString
             }
+            if let articleKey = articleKey {
+                dictionary["articleKey"] = articleKey as NSString
+            }
             return dictionary
         }
     }
@@ -84,7 +87,7 @@ struct PlaceSearch {
         } else {
             self.region = nil
         }
+        self.articleKey = dictionary["articleKey"] as? String
         self.localizedDescription = dictionary["localizedDescription"] as? String
-        self.searchCompletion = nil
     }
 }
