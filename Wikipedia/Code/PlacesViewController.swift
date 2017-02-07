@@ -859,6 +859,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     guard adjustedQuadKey != quadKey, let adjacentGroup = groups[adjustedQuadKey], adjacentGroup.articles.count > 1 || group.articles.count > 1 else {
                         continue
                     }
+                    if let keyToSelect = articleKeyToSelect,
+                        group.articles.first?.key == keyToSelect || adjacentGroup.articles.first?.key == keyToSelect {
+                        //no grouping with the article to select
+                        continue
+                    }
                     let distance = adjacentGroup.location.distance(from: location)
                     if distance < groupingDistance {
                         group.articles.append(contentsOf: adjacentGroup.articles)
@@ -875,7 +880,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let identifier = ArticlePlace.identifierForArticles(articles: group.articles)
             
             let checkAndSelect = { (place: ArticlePlace) in
-                if let keyToSelect = self.articleKeyToSelect, place.articles.first?.key == keyToSelect {
+                if let keyToSelect = self.articleKeyToSelect, place.articles.count == 1, place.articles.first?.key == keyToSelect {
                     // hacky workaround for now
                     self.deselectAllAnnotations()
                     self.placeToSelect = place
