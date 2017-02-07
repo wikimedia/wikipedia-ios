@@ -874,8 +874,25 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             
             let identifier = ArticlePlace.identifierForArticles(articles: group.articles)
             
+            let checkAndSelect = { (place: ArticlePlace) in
+                if let keyToSelect = self.articleKeyToSelect, place.articles.first?.key == keyToSelect {
+                    // hacky workaround for now
+                    self.deselectAllAnnotations()
+                    self.placeToSelect = place
+                    dispatchAfterDelayInSeconds(0.5, DispatchQueue.main, {
+                        self.placeToSelect = nil
+                        guard self.mapView.selectedAnnotations.count == 0 else {
+                            return
+                        }
+                        self.mapView.selectAnnotation(place, animated: true)
+                    })
+                    self.articleKeyToSelect = nil
+                }
+            }
+            
             //check for identical place already on the map
-            if annotationsToRemove.removeValue(forKey: identifier) != nil {
+            if let place = annotationsToRemove.removeValue(forKey: identifier) {
+                checkAndSelect(place)
                 continue
             }
             
@@ -912,20 +929,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             
             mapView.addAnnotation(place)
             
-            if let keyToSelect = articleKeyToSelect, place.articles.first?.key == keyToSelect {
-                // hacky workaround for now
-                deselectAllAnnotations()
-                placeToSelect = place
-                dispatchAfterDelayInSeconds(0.5, DispatchQueue.main, {
-                    self.placeToSelect = nil
-                    guard self.mapView.selectedAnnotations.count == 0 else {
-                        return
-                    }
-                    self.mapView.selectAnnotation(place, animated: true)
-                })
-                articleKeyToSelect = nil
-            }
+            checkAndSelect(place)
         }
+        
+        
         
         for (_, annotation) in annotationsToRemove {
             let placeView = mapView.view(for: annotation)
