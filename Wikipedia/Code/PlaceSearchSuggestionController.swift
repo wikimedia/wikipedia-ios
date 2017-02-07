@@ -40,7 +40,6 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:  PlaceSearchSuggestionController.cellReuseIdentifier, for: indexPath)
         let search = searches[indexPath.section][indexPath.row]
-        cell.imageView?.contentMode = .scaleAspectFit
         switch search.type {
         case .saved:
             cell.imageView?.image = #imageLiteral(resourceName: "places-suggestion-saved")
