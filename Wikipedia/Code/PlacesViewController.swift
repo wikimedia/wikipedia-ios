@@ -28,32 +28,41 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     var articleStore: WMFArticleDataStore!
     var dataStore: MWKDataStore!
     var segmentedControl: UISegmentedControl!
-
+    
     var currentGroupingPrecision: QuadKeyPrecision = 1
     
     let searchHistoryGroup = "PlaceSearch"
     
-    var maxGroupingPrecision: QuadKeyPrecision = 17
+    var maxGroupingPrecision: QuadKeyPrecision = 16
     var groupingPrecisionDelta: QuadKeyPrecision = 4
-    var groupingAggressiveness: CLLocationDistance = 1.0
+    var groupingAggressiveness: CLLocationDistance = 0.67
     
     var currentArticlePopover: ArticlePopoverViewController?
     
     var placeToSelect: ArticlePlace?
+    var articleKeyToSelect: String?
     
     var currentSearch: PlaceSearch? {
         didSet {
-            if let search = currentSearch {
-                searchBar.text = search.localizedDescription
-                performSearch(search)
-                switch search.type {
-                case .saved:
+            guard let search = currentSearch else {
+                return
+            }
+            searchBar.text = search.localizedDescription
+            performSearch(search)
+            
+            
+            switch search.type {
+            case .saved:
+                break
+            case .top:
+                break
+            case .location:
+                guard !search.needsWikidataQuery else {
                     break
-                case .top:
-                    break
-                default:
-                    saveToHistory(search: search)
                 }
+                fallthrough
+            default:
+                saveToHistory(search: search)
             }
         }
     }
@@ -135,7 +144,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     var currentSearchRegion: MKCoordinateRegion?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -162,7 +171,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         } else {
             segmentedControl = UISegmentedControl(items: ["M", "L"])
         }
-
+        
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
         segmentedControl.tintColor = UIColor.wmf_blueTint()
@@ -212,7 +221,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func keyboardChanged(notification: NSNotification) {
         guard let userInfo = notification.userInfo,
             let frameValue = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
-            return
+                return
         }
         let frame = frameValue.cgRectValue
         var inset = searchSuggestionView.contentInset
@@ -231,7 +240,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         let visibleWidth = visibleRegion.width
         let visibleHeight = visibleRegion.height
-
+        
         let distance = CLLocation(latitude: visibleRegion.center.latitude, longitude: visibleRegion.center.longitude).distance(from: CLLocation(latitude: searchRegion.center.latitude, longitude: searchRegion.center.longitude))
         let widthRatio = visibleWidth/searchWidth
         let heightRatio = visibleHeight/searchHeight
@@ -263,7 +272,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 place.articles.count == 1,
                 let article = place.articles.first,
                 article.key == articleToSelect.key else {
-                continue
+                    continue
             }
             mapView.selectAnnotation(place, animated: true)
             break
@@ -297,7 +306,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func regionThatFits(coordinates: [CLLocationCoordinate2D]) -> MKCoordinateRegion {
         var rect: MKMapRect?
-
+        
         for coordinate in coordinates {
             let point = MKMapPointForCoordinate(coordinate)
             let size = MKMapSize(width: 0, height: 0)
@@ -447,7 +456,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 })
             })
         }
-
+        
         return placeView
     }
     
@@ -463,7 +472,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     var searching: Bool = false
-
+    
     
     func performSearch(_ search: PlaceSearch) {
         guard !searching else {
@@ -493,7 +502,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     self.wmf_showAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("places-no-saved-articles-have-location"))
                 }
             }
-
+            
             do {
                 let savedPagesWithLocation = try moc.fetch(fetchRequestForSavedArticlesWithLocation)
                 guard savedPagesWithLocation.count >= 99 else {
@@ -509,7 +518,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     let urls = savedPagesWithoutLocation.flatMap({ (article) -> URL? in
                         return article.url
                     })
-
+                    
                     previewFetcher.fetchArticlePreviewResults(forArticleURLs: urls, siteURL: siteURL, completion: { (searchResults) in
                         var resultsByKey: [String: MWKSearchResult] = [:]
                         for searchResult in searchResults {
@@ -536,7 +545,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                             for articleToUpdate in articlesToUpdate {
                                 guard let key = articleToUpdate.key,
                                     let result = resultsByKey[key] else {
-                                    continue
+                                        continue
                                 }
                                 self.articleStore.updatePreview(articleToUpdate, with: result)
                                 allArticlesWithLocation.append(articleToUpdate)
@@ -576,11 +585,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 })
             }
             guard let key = search.articleKey,
-                    let articleURL = URL(string: key),
-                    let title = (articleURL as NSURL).wmf_title,
-                    let language = (articleURL as NSURL).wmf_language  else {
-                fail()
-                return
+                let articleURL = URL(string: key),
+                let title = (articleURL as NSURL).wmf_title,
+                let language = (articleURL as NSURL).wmf_language  else {
+                    fail()
+                    return
             }
             var components = URLComponents()
             components.host = "wikidata.org"
@@ -699,7 +708,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             done()
         }) { (error) in
             self.wmf_showAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("empty-no-search-results-message"))
-           done()
+            done()
         }
     }
     
@@ -778,7 +787,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         let taskGroup = WMFTaskGroup()
         groupingTaskGroup = taskGroup
-
+        
         let groupingDeltaLatitude = groupingPrecision.deltaLatitude
         let groupingDeltaLongitude = groupingPrecision.deltaLongitude
         
@@ -789,7 +798,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let groupingDistance = groupingAggressiveness * groupingDistanceLocation.distance(from: centerLocation)
         
         var previousPlaceByArticle: [String: ArticlePlace] = [:]
-      
+        
         var annotationsToRemove: [String:ArticlePlace] = [:]
         
         for annotation in mapView.annotations {
@@ -808,19 +817,23 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         var groups: [QuadKey: ArticleGroup] = [:]
-
+        
         for article in articles {
             guard let quadKey = article.quadKey else {
                 continue
             }
             var group: ArticleGroup
             let adjustedQuadKey: QuadKey
-            if groupingPrecision < maxPrecision {
+            if groupingPrecision < maxPrecision && (articleKeyToSelect == nil || article.key != articleKeyToSelect) {
                 adjustedQuadKey = quadKey.adjusted(downBy: QuadKeyPrecision.maxPrecision - groupingPrecision)
                 group = groups[adjustedQuadKey] ?? ArticleGroup()
             } else {
                 group = ArticleGroup()
                 adjustedQuadKey = quadKey
+            }
+            if let keyToSelect = articleKeyToSelect, group.articles.first?.key == keyToSelect {
+                // leave out articles that would be grouped with the one to select
+                continue
             }
             group.articles.append(article)
             let coordinate = QuadKeyCoordinate(quadKey: quadKey)
@@ -858,14 +871,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             
             var nextCoordinate: CLLocationCoordinate2D?
             var coordinate = group.location.coordinate
-
+            
             let identifier = ArticlePlace.identifierForArticles(articles: group.articles)
             
             //check for identical place already on the map
             if annotationsToRemove.removeValue(forKey: identifier) != nil {
                 continue
             }
-
+            
             if group.articles.count == 1 {
                 if let article = group.articles.first, let key = article.key, let previousPlace = previousPlaceByArticle[key] {
                     nextCoordinate = coordinate
@@ -898,6 +911,20 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
             
             mapView.addAnnotation(place)
+            
+            if let keyToSelect = articleKeyToSelect, place.articles.first?.key == keyToSelect {
+                // hacky workaround for now
+                deselectAllAnnotations()
+                placeToSelect = place
+                dispatchAfterDelayInSeconds(0.5, DispatchQueue.main, {
+                    self.placeToSelect = nil
+                    guard self.mapView.selectedAnnotations.count == 0 else {
+                        return
+                    }
+                    self.mapView.selectAnnotation(place, animated: true)
+                })
+                articleKeyToSelect = nil
+            }
         }
         
         for (_, annotation) in annotationsToRemove {
@@ -923,9 +950,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func updatePlaces(withSearchResults searchResults: [MWKLocationSearchResult]) {
         articles.removeAll(keepingCapacity: true)
-        let key = currentSearch?.articleKey
+        articleKeyToSelect = currentSearch?.articleKey
         var foundKey = false
-        var articleToSelect: WMFArticle?
         for result in searchResults {
             guard let displayTitle = result.displayTitle,
                 let articleURL = (siteURL as NSURL).wmf_URL(withTitle: displayTitle),
@@ -933,36 +959,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 let _ = article.quadKey else {
                     continue
             }
-            if key != nil && key == article.key {
-                articleToSelect = article
+            if articleKeyToSelect != nil && articleKeyToSelect == article.key {
                 foundKey = true
             }
             articles.append(article)
         }
         
-        if !foundKey, let keyToFetch = key, let fetchedArticle = self.dataStore.fetchArticle(forKey: keyToFetch) {
-            articleToSelect = fetchedArticle
+        if !foundKey, let keyToFetch = articleKeyToSelect, let fetchedArticle = self.dataStore.fetchArticle(forKey: keyToFetch) {
             articles.append(fetchedArticle)
         }
+        
         updatePlaces()
-        
-        guard let selectMe = articleToSelect else {
-            return
-        }
-        
-        // Unsafe and hacky - prototyping
-        dispatchAfterDelayInSeconds(0.5, DispatchQueue.main, {
-            for annotation in self.mapView.annotations {
-                guard let place = annotation as? ArticlePlace else {
-                    continue
-                }
-                if place.articles.count == 1 && place.articles.contains(selectMe) {
-                    self.deselectAllAnnotations()
-                    self.mapView.selectAnnotation(place, animated: true)
-                    break
-                }
-            }
-        })
     }
     
     func updatePlaces() {
@@ -970,7 +977,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         currentGroupingPrecision = 0
         regroupArticlesIfNecessary(forVisibleRegion: mapRegion ?? mapView.region)
     }
-
+    
     
     // ArticlePopoverViewControllerDelegate
     func articlePopoverViewController(articlePopoverViewController: ArticlePopoverViewController, didSelectAction: ArticlePopoverViewControllerAction) {
@@ -979,7 +986,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         guard let article = articlePopoverViewController.article, let url = article.url else {
             return
         }
-
+        
         switch didSelectAction {
         case .read:
             wmf_pushArticle(with: url, dataStore: dataStore, previewStore: articleStore, animated: true)
@@ -997,7 +1004,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         default:
             break
         }
-
+        
     }
     
     var fetchRequestForSavedArticles: NSFetchRequest<WMFArticle> {
@@ -1030,7 +1037,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     let saved = PlaceSearch(type: .saved, sortStyle: WMFLocationSearchSortStyleNone, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-saved-articles"), articleKey: nil)
                     suggestedSearches.append(saved)
                 }
-              
+                
                 let request = WMFKeyValue.fetchRequest()
                 request.predicate = NSPredicate(format: "group == %@", searchHistoryGroup)
                 request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
@@ -1058,7 +1065,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let currentStringSuggeston = PlaceSearch(type: .text, sortStyle: WMFLocationSearchSortStyleLinks, string: currentSearchString, region: nil, localizedDescription: currentSearchString, articleKey: nil)
         searchSuggestionController.searches = [[], [], [currentStringSuggeston], completions]
     }
-
+    
     func handleCompletion(searchResults: [MWKSearchResult]) {
         let completions = searchResults.flatMap { (result) -> PlaceSearch? in
             guard let location = result.location,
@@ -1076,7 +1083,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         updateSearchSuggestions(withCompletions: completions)
     }
     
-
+    
     func updateSearchCompletionsFromSearchBarText() {
         guard let text = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), text != "" else {
             updateSearchSuggestions(withCompletions: [])
@@ -1151,7 +1158,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         cell.setImageURL(article.thumbnailURL)
         
         update(userLocation: mapView.userLocation, onLocationCell: cell, withArticle: article)
-     
+        
         return cell
     }
     
@@ -1201,7 +1208,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         moc.delete(kv)
         do {
-           try moc.save()
+            try moc.save()
         } catch let error {
             DDLogError("Error removing kv: \(error.localizedDescription)")
         }
@@ -1230,13 +1237,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     @IBAction func recenterOnUserLocation(_ sender: Any) {
-       locationManager.startMonitoringLocation()
+        locationManager.startMonitoringLocation()
     }
     
     // Grouping debug view
     
     @IBOutlet weak var secretSettingsView: UIView!
-
+    
     
     @IBOutlet weak var maxZoomLabel: UILabel!
     @IBOutlet weak var maxZoomSlider: UISlider!
@@ -1274,7 +1281,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             guard secretSettingsView.isHidden else {
                 return
             }
-           applySecretSettings()
+            applySecretSettings()
         default:
             break
         }
