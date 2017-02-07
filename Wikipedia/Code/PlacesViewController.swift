@@ -562,13 +562,18 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         case .top:
             break
         case .location:
+            guard search.needsWikidataQuery else {
+                fallthrough
+            }
             let fail = {
                 dispatchOnMainQueue({
                     if let region = search.region {
                         self.mapRegion = region
                     }
                     self.searching = false
-                    self.currentSearch = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStyleLinks, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), articleKey: nil)
+                    var newSearch = search
+                    newSearch.needsWikidataQuery = false
+                    self.currentSearch = newSearch
                 })
             }
             guard let key = search.articleKey,
@@ -644,15 +649,18 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                     })
                     
-                    guard coordinates.count > 0 else {
+                    guard coordinates.count > 3 else {
                         fail()
                         return
                     }
                     
-                    dispatchOnMainQueue({ 
-                        self.mapRegion = self.regionThatFits(coordinates: coordinates)
+                    dispatchOnMainQueue({
+                        let region = self.regionThatFits(coordinates: coordinates)
+                        self.mapRegion = region
                         self.searching = false
-                         self.currentSearch = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStyleLinks, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), articleKey: nil)
+                        var newSearch = search
+                        newSearch.needsWikidataQuery = false
+                        self.currentSearch = newSearch
                     })
                 } catch let parseError {
                     DDLogError("error parsing JSON \(parseError)")
@@ -915,6 +923,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func updatePlaces(withSearchResults searchResults: [MWKLocationSearchResult]) {
         articles.removeAll(keepingCapacity: true)
+        let key = currentSearch?.articleKey
+        var foundKey = false
+        var articleToSelect: WMFArticle?
         for result in searchResults {
             guard let displayTitle = result.displayTitle,
                 let articleURL = (siteURL as NSURL).wmf_URL(withTitle: displayTitle),
@@ -922,9 +933,36 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 let _ = article.quadKey else {
                     continue
             }
+            if key != nil && key == article.key {
+                articleToSelect = article
+                foundKey = true
+            }
             articles.append(article)
         }
+        
+        if !foundKey, let keyToFetch = key, let fetchedArticle = self.dataStore.fetchArticle(forKey: keyToFetch) {
+            articleToSelect = fetchedArticle
+            articles.append(fetchedArticle)
+        }
         updatePlaces()
+        
+        guard let selectMe = articleToSelect else {
+            return
+        }
+        
+        // Unsafe and hacky - prototyping
+        dispatchAfterDelayInSeconds(0.5, DispatchQueue.main, {
+            for annotation in self.mapView.annotations {
+                guard let place = annotation as? ArticlePlace else {
+                    continue
+                }
+                if place.articles.count == 1 && place.articles.contains(selectMe) {
+                    self.deselectAllAnnotations()
+                    self.mapView.selectAnnotation(place, animated: true)
+                    break
+                }
+            }
+        })
     }
     
     func updatePlaces() {
@@ -1020,27 +1058,25 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let currentStringSuggeston = PlaceSearch(type: .text, sortStyle: WMFLocationSearchSortStyleLinks, string: currentSearchString, region: nil, localizedDescription: currentSearchString, articleKey: nil)
         searchSuggestionController.searches = [[], [], [currentStringSuggeston], completions]
     }
-    
-    func handle(searchResult: WMFSearchResults) {
-        guard let results = searchResult.results else {
-            
-            return
-        }
-        
-        let completions = results.flatMap { (result) -> PlaceSearch? in
+
+    func handleCompletion(searchResults: [MWKSearchResult]) {
+        let completions = searchResults.flatMap { (result) -> PlaceSearch? in
             guard let location = result.location,
-                    let dimension = result.geoDimension?.doubleValue,
-                    let title = result.displayTitle,
-                    let url = (self.siteURL as NSURL).wmf_URL(withTitle: title),
-                    let key = (url as NSURL).wmf_articleDatabaseKey else {
-                return nil
+                let dimension = result.geoDimension?.doubleValue,
+                let title = result.displayTitle,
+                let url = (self.siteURL as NSURL).wmf_URL(withTitle: title),
+                let article = self.articleStore?.addPreview(with: url, updatedWith: result),
+                let key = article.key else {
+                    return nil
             }
+            
             let region = MKCoordinateRegionMakeWithDistance(location.coordinate, dimension, dimension)
             return PlaceSearch(type: .location, sortStyle: WMFLocationSearchSortStyleLinks, string: nil, region: region, localizedDescription: result.displayTitle, articleKey: key)
         }
         updateSearchSuggestions(withCompletions: completions)
     }
     
+
     func updateSearchCompletionsFromSearchBarText() {
         guard let text = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), text != "" else {
             updateSearchSuggestions(withCompletions: [])
@@ -1050,7 +1086,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         searchFetcher.fetchArticles(forSearchTerm: text, siteURL: siteURL, resultLimit: 24, failure: { (error) in
             self.updateSearchSuggestions(withCompletions: [])
         }) { (searchResult) in
-            self.handle(searchResult: searchResult)
+            guard let results = searchResult.results, results.count > 0 else {
+                let center = self.mapView.userLocation.coordinate
+                let region = CLCircularRegion(center: center, radius: 40075000, identifier: "world")
+                self.locationSearchFetcher.fetchArticles(withSiteURL: self.siteURL, in: region, matchingSearchTerm: text, sortStyle: WMFLocationSearchSortStyleLinks, resultLimit: 50, completion: { (results) in
+                    self.handleCompletion(searchResults: results.results)
+                }) { (error) in
+                    self.updateSearchSuggestions(withCompletions: [])
+                }
+                return
+            }
+            self.handleCompletion(searchResults: results)
         }
     }
     

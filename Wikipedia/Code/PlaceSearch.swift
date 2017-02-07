@@ -18,6 +18,7 @@ struct PlaceSearch {
     let region: MKCoordinateRegion?
     let localizedDescription: String?
     let articleKey: String?
+    var needsWikidataQuery: Bool = true
     
     init(type: PlaceSearchType, sortStyle: WMFLocationSearchSortStyle, string: String?, region: MKCoordinateRegion?, localizedDescription: String?, articleKey: String?) {
         self.type = type
