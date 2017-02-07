@@ -50,7 +50,7 @@ public class WMFAccountLogin: NSObject {
         return manager!.operationQueue.operationCount > 0
     }
     
-    public func login(username: String, password: String, retypePassword: String?, loginToken: String, oathToken: String?, siteURL: URL, completion: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler){
+    public func login(username: String, password: String, retypePassword: String?, loginToken: String, oathToken: String?, siteURL: URL, success: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler){
         let manager = AFHTTPSessionManager(baseURL: siteURL)
         manager.responseSerializer = WMFApiJsonResponseSerializer.init();
         
@@ -112,7 +112,7 @@ public class WMFAccountLogin: NSObject {
                 return
             }
             let normalizedUsername = clientlogin["username"] as? String ?? username
-            completion(WMFAccountLoginResult.init(status: status, username: normalizedUsername, message: message))
+            success(WMFAccountLoginResult.init(status: status, username: normalizedUsername, message: message))
         }, failure: {
             (_, error: Error) in
             failure(error)

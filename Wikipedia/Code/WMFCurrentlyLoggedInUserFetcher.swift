@@ -46,7 +46,7 @@ public class WMFCurrentlyLoggedInUserFetcher: NSObject {
         return manager!.operationQueue.operationCount > 0
     }
     
-    public func fetch(siteURL: URL, completion: @escaping WMFCurrentlyLoggedInUserBlock, failure: @escaping WMFErrorHandler){
+    public func fetch(siteURL: URL, success: @escaping WMFCurrentlyLoggedInUserBlock, failure: @escaping WMFErrorHandler){
         let manager = AFHTTPSessionManager(baseURL: siteURL)
         manager.responseSerializer = WMFApiJsonResponseSerializer.init();
         
@@ -72,7 +72,7 @@ public class WMFCurrentlyLoggedInUserFetcher: NSObject {
                 failure(WMFCurrentlyLoggedInUserFetcherError.init(type:.userIsAnonymous, localizedDescription: "User is anonymous"))
                 return
             }
-            completion(WMFCurrentlyLoggedInUser.init(userID: userID, name: userName))
+            success(WMFCurrentlyLoggedInUser.init(userID: userID, name: userName))
         }, failure: {
             (_, error: Error) in
             failure(error)

@@ -84,14 +84,14 @@ class WMFForgotPasswordViewController: UIViewController {
             return
         }
         
-        tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, completion: {
+        tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: {
             (info: WMFAuthToken) in
             self.passwordResetter.resetPassword(
                 siteURL: siteURL,
                 token: info.token,
                 userName: userName,
                 email: email,
-                completion: {
+                success: {
                     (result: WMFPasswordResetterResult) in                    
                     self.dismiss(animated: true, completion:nil)
                     WMFAlertManager.sharedInstance.showSuccessAlert(localizedStringForKeyFallingBackOnEnglish("forgot-password-email-sent"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)

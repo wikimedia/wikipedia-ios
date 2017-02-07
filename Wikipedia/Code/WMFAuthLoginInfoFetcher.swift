@@ -26,7 +26,7 @@ public class WMFAuthLoginInfoFetcher: NSObject {
     public func isFetching() -> Bool {
         return manager!.operationQueue.operationCount > 0
     }
-    public func fetchLoginInfoForSiteURL(_ siteURL: URL, completion: @escaping WMFAuthLoginInfoBlock, failure: @escaping WMFErrorHandler){
+    public func fetchLoginInfoForSiteURL(_ siteURL: URL, success: @escaping WMFAuthLoginInfoBlock, failure: @escaping WMFErrorHandler){
         let manager = AFHTTPSessionManager(baseURL: siteURL)
         manager.responseSerializer = WMFApiJsonResponseSerializer.init();
         let parameters = [
@@ -52,7 +52,7 @@ public class WMFAuthLoginInfoFetcher: NSObject {
                 return
             }
             
-            completion(WMFAuthLoginInfo.init(canAuthenticateNow: true))
+            success(WMFAuthLoginInfo.init(canAuthenticateNow: true))
         }, failure: {
             (_, error: Error) in
             failure(error)

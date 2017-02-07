@@ -92,14 +92,14 @@ NS_ASSUME_NONNULL_BEGIN
     self.authAccountCreationInfoFetcher = [[WMFAuthAccountCreationInfoFetcher alloc] init];
     @weakify(self)
     [self.authAccountCreationInfoFetcher fetchAccountCreationInfoForSiteURL:[[MWKLanguageLinkController sharedInstance] appLanguage].siteURL
-                                                                 completion:^(WMFAuthAccountCreationInfo* info){
+                                                                 success:^(WMFAuthAccountCreationInfo* info){
                                                                      @strongify(self)
 
                                                                      self.authAccountCreationInfo = info;
                                                                      
                                                                      NSURL *siteURL = [[SessionSingleton sharedInstance] urlForLanguage:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode];
                                                                      self.accountCreationTokenFetcher = [[WMFAuthTokenFetcher alloc] init];
-                                                                     [self.accountCreationTokenFetcher fetchTokenOfType:WMFAuthTokenTypeCreateAccount siteURL:siteURL completion:^(WMFAuthToken* result){
+                                                                     [self.accountCreationTokenFetcher fetchTokenOfType:WMFAuthTokenTypeCreateAccount siteURL:siteURL success:^(WMFAuthToken* result){
                                                                          @strongify(self)
                                                                          self.accountCreationToken = result.token;
                                                                          //Need to attempt account create to verify username and password
@@ -152,7 +152,7 @@ NS_ASSUME_NONNULL_BEGIN
                                        captchaWord:self.captchaText
                                              token:self.accountCreationToken
                                            siteURL:siteURL
-                                        completion:^(WMFAccountCreatorResult* result){
+                                        success:^(WMFAccountCreatorResult* result){
                                             @strongify(self)
                                             
                                             [self loginWithSuccess:self.successBlock failure:self.failBlock];
@@ -194,7 +194,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.currentlyLoggedInUserFetcher = [[WMFCurrentlyLoggedInUserFetcher alloc] init];
     @weakify(self);
     [self.currentlyLoggedInUserFetcher fetchWithSiteURL:siteURL
-                                             completion:^(WMFCurrentlyLoggedInUser * _Nonnull currentlyLoggedInUser) {
+                                             success:^(WMFCurrentlyLoggedInUser * _Nonnull currentlyLoggedInUser) {
                                                  @strongify(self);
                                                  
                                                  self.loggedInUsername = currentlyLoggedInUser.name;
@@ -257,12 +257,12 @@ NS_ASSUME_NONNULL_BEGIN
     self.authLoginInfoFetcher = [[WMFAuthLoginInfoFetcher alloc] init];
     @weakify(self)
     [self.authLoginInfoFetcher fetchLoginInfoForSiteURL:[[MWKLanguageLinkController sharedInstance] appLanguage].siteURL
-                                             completion:^(WMFAuthLoginInfo* info){
+                                             success:^(WMFAuthLoginInfo* info){
                                                  @strongify(self)
                                                  
                                                  NSURL *siteURL = [[SessionSingleton sharedInstance] urlForLanguage:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode];
                                                  self.loginTokenFetcher = [[WMFAuthTokenFetcher alloc] init];
-                                                 [self.loginTokenFetcher fetchTokenOfType:WMFAuthTokenTypeLogin siteURL:siteURL completion:^(WMFAuthToken* result){
+                                                 [self.loginTokenFetcher fetchTokenOfType:WMFAuthTokenTypeLogin siteURL:siteURL success:^(WMFAuthToken* result){
                                                      @strongify(self)
                                                      self.loginToken = result.token;
                                                      [self login];
@@ -287,7 +287,7 @@ NS_ASSUME_NONNULL_BEGIN
                               loginToken:self.loginToken
                                oathToken:self.oathToken
                                  siteURL:siteURL
-                              completion:^(WMFAccountLoginResult* result){
+                              success:^(WMFAccountLoginResult* result){
         @strongify(self)
         NSString *normalizedUserName = result.username;
         self.loggedInUsername = normalizedUserName;

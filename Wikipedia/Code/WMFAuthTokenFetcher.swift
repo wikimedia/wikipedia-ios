@@ -33,7 +33,7 @@ public class WMFAuthTokenFetcher: NSObject {
         return manager!.operationQueue.operationCount > 0
     }
     
-    public func fetchToken(ofType type: WMFAuthTokenType, siteURL: URL, completion: @escaping WMFAuthTokenBlock, failure: @escaping WMFErrorHandler){
+    public func fetchToken(ofType type: WMFAuthTokenType, siteURL: URL, success: @escaping WMFAuthTokenBlock, failure: @escaping WMFErrorHandler){
         func stringForToken(_ type: WMFAuthTokenType) -> String {
             switch type {
             case .csrf:
@@ -68,7 +68,7 @@ public class WMFAuthTokenFetcher: NSObject {
                 failure(WMFAuthTokenError.zeroLengthToken)
                 return
             }
-            completion(WMFAuthToken.init(token: token, type: type))
+            success(WMFAuthToken.init(token: token, type: type))
         }, failure: {
             (_, error: Error) in
             failure(error)
