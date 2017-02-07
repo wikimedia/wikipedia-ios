@@ -28,7 +28,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     var articleStore: WMFArticleDataStore!
     var dataStore: MWKDataStore!
     var segmentedControl: UISegmentedControl!
-    
+
     var currentGroupingPrecision: QuadKeyPrecision = 1
     
     let searchHistoryGroup = "PlaceSearch"
@@ -280,8 +280,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    func regionThatFits(_ articles: [WMFArticle]) -> MKCoordinateRegion {
-        guard articles.count > 0 else {
+    func regionThatFits(articles: [WMFArticle]) -> MKCoordinateRegion {
+        return regionThatFits(coordinates: articles.flatMap({ (article) -> CLLocationCoordinate2D? in
+            return article.coordinate
+        }))
+    }
+    
+    func regionThatFits(coordinates: [CLLocationCoordinate2D]) -> MKCoordinateRegion {
+        guard coordinates.count > 0 else {
             return MKCoordinateRegion()
         }
         var latitudeMin = CLLocationDegrees(90)
@@ -292,10 +298,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         var longitudeSum = CLLocationDegrees(0)
         var latitudeSum = CLLocationDegrees(0)
         
-        for article in articles {
-            guard let coordinate = article.coordinate else {
-                continue
-            }
+        for coordinate in coordinates {
             latitudeMin = min(latitudeMin, coordinate.latitude)
             longitudeMin = min(longitudeMin, coordinate.longitude)
             latitudeMax = max(latitudeMax, coordinate.latitude)
@@ -307,10 +310,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         //TODO: handle the wrap condition
         let latitudeDelta = max(0.01, 1.3*(latitudeMax - latitudeMin))
-        let longitudeDelta = max(0.01, 1.3*(longitudeMax - longitudeMin))
+        let longitudeDelta = max(0.01,1.3*(longitudeMax - longitudeMin))
         
-        let averageLatitude = latitudeSum/CLLocationDegrees(articles.count)
-        let averageLongitude = longitudeSum/CLLocationDegrees(articles.count)
+        let averageLatitude = latitudeSum/CLLocationDegrees(coordinates.count)
+        let averageLongitude = longitudeSum/CLLocationDegrees(coordinates.count)
         
         let center = CLLocationCoordinate2D(latitude: averageLatitude, longitude: averageLongitude)
         let span = MKCoordinateSpanMake(latitudeDelta, longitudeDelta)
@@ -324,7 +327,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         guard place.articles.count == 1 else {
             placeToSelect = place
-            mapRegion = regionThatFits(place.articles)
+            mapRegion = regionThatFits(articles: place.articles)
             return
         }
         
@@ -483,7 +486,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let moc = dataStore.viewContext
             let done = { (articlesToShow: [WMFArticle]) -> Void in
                 self.articles = articlesToShow
-                self.mapRegion = self.regionThatFits(articlesToShow)
+                self.mapRegion = self.regionThatFits(articles: articlesToShow)
                 self.searching = false
                 self.updatePlaces()
                 
@@ -559,11 +562,103 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         case .top:
             break
         case .location:
-            guard let region = search.region else {
-                fallthrough
+            let fail = {
+                dispatchOnMainQueue({
+                    if let region = search.region {
+                        self.mapRegion = region
+                    }
+                    self.searching = false
+                    self.currentSearch = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStyleLinks, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), articleKey: nil)
+                })
             }
-            mapRegion = region
-            fallthrough
+            guard let key = search.articleKey,
+                    let articleURL = URL(string: key),
+                    let title = (articleURL as NSURL).wmf_title,
+                    let language = (articleURL as NSURL).wmf_language  else {
+                fail()
+                return
+            }
+            var components = URLComponents()
+            components.host = "wikidata.org"
+            components.path = "/w/api.php"
+            components.scheme = "https"
+            let actionQueryItem = URLQueryItem(name: "action", value: "wbgetentities")
+            let titlesQueryItem = URLQueryItem(name: "titles", value: title)
+            let sitesQueryItem = URLQueryItem(name: "sites", value: "\(language)wiki")
+            let formatQueryItem = URLQueryItem(name: "format", value: "json")
+            components.queryItems = [actionQueryItem, titlesQueryItem, sitesQueryItem, formatQueryItem]
+            
+            guard let requestURL = components.url else {
+                fail()
+                return
+            }
+            
+            let northernmostPointKey = "P1332"
+            let southernmostPointKey = "P1333"
+            let easternmostPointKey = "P1334"
+            let westernmostPointKey = "P1335"
+            let keys = [northernmostPointKey, southernmostPointKey, easternmostPointKey, westernmostPointKey]
+            URLSession.shared.dataTask(with: requestURL, completionHandler: { (data, response, error) in
+                guard let data = data else {
+                    fail()
+                    return
+                }
+                do {
+                    guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
+                        fail()
+                        return
+                    }
+                    guard let entities = jsonObject["entities"] as? [String: Any] else {
+                        fail()
+                        return
+                    }
+                    guard let entity = entities.values.first as? [String: Any] else {
+                        fail()
+                        return
+                    }
+                    guard let claims = entity["claims"] as? [String: Any] else {
+                        fail()
+                        return
+                    }
+                    
+                    let coordinates = keys.flatMap({ (key) -> CLLocationCoordinate2D? in
+                        guard let values = claims[key] as? [Any] else {
+                            return nil
+                        }
+                        guard let point = values.first as? [String: Any] else {
+                            return nil
+                        }
+                        guard let mainsnak = point["mainsnak"] as? [String: Any] else {
+                            return nil
+                        }
+                        guard let datavalue = mainsnak["datavalue"] as? [String: Any] else {
+                            return nil
+                        }
+                        guard let value = datavalue["value"] as? [String: Any] else {
+                            return nil
+                        }
+                        guard let latitude = value["latitude"] as? CLLocationDegrees,
+                            let longitude = value["longitude"] as? CLLocationDegrees else {
+                                return nil
+                        }
+                        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                    })
+                    
+                    guard coordinates.count > 0 else {
+                        fail()
+                        return
+                    }
+                    
+                    dispatchOnMainQueue({ 
+                        self.mapRegion = self.regionThatFits(coordinates: coordinates)
+                        self.searching = false
+                         self.currentSearch = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStyleLinks, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), articleKey: nil)
+                    })
+                } catch let parseError {
+                    DDLogError("error parsing JSON \(parseError)")
+                }
+            }).resume()
+            return
         case .text:
             fallthrough
         default:
@@ -940,7 +1035,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     let key = (url as NSURL).wmf_articleDatabaseKey else {
                 return nil
             }
-            let region = MKCoordinateRegionMakeWithDistance(location.coordinate, dimension, dimension)
+            let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 10*dimension, 10*dimension)
             return PlaceSearch(type: .location, sortStyle: WMFLocationSearchSortStyleLinks, string: nil, region: region, localizedDescription: result.displayTitle, articleKey: key)
         }
         updateSearchSuggestions(withCompletions: completions)
