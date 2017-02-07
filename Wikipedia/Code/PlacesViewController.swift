@@ -952,7 +952,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
-        searchFetcher.fetchArticles(forSearchTerm: text, siteURL: siteURL, resultLimit: 100, failure: { (error) in
+        searchFetcher.fetchArticles(forSearchTerm: text, siteURL: siteURL, resultLimit: 24, failure: { (error) in
             self.updateSearchSuggestions(withCompletions: [])
         }) { (searchResult) in
             self.handle(searchResult: searchResult)
