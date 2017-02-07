@@ -394,7 +394,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         articleVC.view.frame = CGRect(origin: CGPoint(x: annotationCenter.x + offsetX, y: annotationCenter.y + offsetY), size: articleVC.preferredContentSize)
         
         addChildViewController(articleVC)
-        view.addSubview(articleVC.view)
+        view.insertSubview(articleVC.view, aboveSubview: mapView)
         articleVC.didMove(toParentViewController: self)
         currentArticlePopover = articleVC
     }
