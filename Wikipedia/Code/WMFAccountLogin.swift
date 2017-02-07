@@ -3,7 +3,7 @@
     case cannotExtractLoginStatus
     case statusNotPass
     case temporaryPasswordNeedsChange
-    case needsOATHTokenFor2FA
+    case needsOathTokenFor2FA
 }
 
 // A CustomNSError's localized description survives @objc bridging
@@ -50,7 +50,7 @@ public class WMFAccountLogin: NSObject {
         return manager!.operationQueue.operationCount > 0
     }
     
-    public func login(username: String, password: String, retypePassword: String?, token: String, siteURL: URL, completion: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler){
+    public func login(username: String, password: String, retypePassword: String?, loginToken: String, oathToken: String?, siteURL: URL, completion: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler){
         let manager = AFHTTPSessionManager(baseURL: siteURL)
         manager.responseSerializer = WMFApiJsonResponseSerializer.init();
         
@@ -59,7 +59,8 @@ public class WMFAccountLogin: NSObject {
             "username": username,
             "password": password,
             "loginreturnurl": "https://www.wikipedia.org",
-            "logintoken": token,
+            "logintoken": loginToken,
+            "rememberMe": "1",
             "format": "json"
         ]
         
@@ -68,6 +69,11 @@ public class WMFAccountLogin: NSObject {
             parameters["logincontinue"] = "1"
         }
 
+        if let oathToken = oathToken {
+            parameters["OATHToken"] = oathToken
+            parameters["logincontinue"] = "1"
+        }
+        
         _ = manager.wmf_apiPOSTWithParameters(parameters, success: {
             (_, response: Any?) in
             guard
@@ -97,7 +103,7 @@ public class WMFAccountLogin: NSObject {
                         let fields = OATHTokenRequest["fields"] as? [String : AnyObject],
                         let _ = fields["OATHToken"] as? [String : AnyObject]
                     {
-                        failure(WMFAccountLoginError.init(type:.needsOATHTokenFor2FA, localizedDescription: message))
+                        failure(WMFAccountLoginError.init(type:.needsOathTokenFor2FA, localizedDescription: message))
                         return
                     }
                 }

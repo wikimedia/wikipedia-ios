@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, nullable) NSString *loginToken;
 @property (strong, nonatomic, nullable) WMFAuthTokenFetcher *loginTokenFetcher;
 @property (strong, nonatomic, nullable) WMFAccountLogin *accountLogin;
+@property (strong, nonatomic, nullable) NSString *oathToken;
 
 @property (strong, nonatomic, nullable) NSString *accountCreationToken;
 @property (strong, nonatomic, nullable) WMFAuthTokenFetcher *accountCreationTokenFetcher;
@@ -35,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) dispatch_block_t successBlock;
 @property (nonatomic, copy, nullable) WMFCaptchaHandler captchaBlock;
 @property (nonatomic, copy, nullable) WMFErrorHandler failBlock;
+
+@property (strong, nonatomic, nullable) WMFCurrentlyLoggedInUserFetcher *currentlyLoggedInUserFetcher;
 
 @end
 
@@ -182,20 +185,49 @@ NS_ASSUME_NONNULL_BEGIN
     return self.loggedInUsername != nil;
 }
 
-- (void)loginWithSavedCredentialsWithSuccess:(nullable dispatch_block_t)success failure:(nullable WMFErrorHandler)failure {
-    [self loginWithUsername:self.keychainCredentials.userName
-                   password:self.keychainCredentials.password
-             retypePassword:nil
-                    success:success
-                    failure:^(NSError *error) {
-                        [self logout];
-                        if (failure) {
-                            failure(error);
-                        }
-                    }];
+- (void)loginWithSavedCredentialsWithSuccess:(nullable dispatch_block_t)success
+                      userWasAlreadyLoggedIn:(nullable void (^)(WMFCurrentlyLoggedInUser *))loggedInUserHandler
+                                     failure:(nullable WMFErrorHandler)failure {
+    
+    NSURL *siteURL = [[SessionSingleton sharedInstance] urlForLanguage:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode];
+    
+    self.currentlyLoggedInUserFetcher = [[WMFCurrentlyLoggedInUserFetcher alloc] init];
+    @weakify(self);
+    [self.currentlyLoggedInUserFetcher fetchWithSiteURL:siteURL
+                                             completion:^(WMFCurrentlyLoggedInUser * _Nonnull currentlyLoggedInUser) {
+                                                 @strongify(self);
+                                                 
+                                                 self.loggedInUsername = currentlyLoggedInUser.name;
+                                                 
+                                                 if(loggedInUserHandler){
+                                                     loggedInUserHandler(currentlyLoggedInUser);
+                                                 }
+                                                 
+                                             } failure:^(NSError * _Nonnull error) {
+                                                 @strongify(self);
+                                                 
+                                                 self.loggedInUsername = nil;
+                                                 
+                                                 [self loginWithUsername:self.keychainCredentials.userName
+                                                                password:self.keychainCredentials.password
+                                                          retypePassword:nil
+                                                               oathToken:nil
+                                                                 success:success
+                                                                 failure:^(NSError *error) {
+                                                                     @strongify(self);
+                                                                     
+                                                                     if(error.code != kCFURLErrorNotConnectedToInternet){
+                                                                         [self logout];
+                                                                     }
+                                                                     
+                                                                     if (failure) {
+                                                                         failure(error);
+                                                                     }
+                                                                 }];
+                                             }];
 }
 
-- (void)loginWithUsername:(NSString *)username password:(NSString *)password retypePassword:(nullable NSString*)retypePassword success:(nullable dispatch_block_t)success failure:(nullable WMFErrorHandler)failure {
+- (void)loginWithUsername:(NSString *)username password:(NSString *)password retypePassword:(nullable NSString*)retypePassword oathToken:(nullable NSString*)oathToken success:(nullable dispatch_block_t)success failure:(nullable WMFErrorHandler)failure {
     if (self.successBlock || self.failBlock) {
         if (failure) {
             failure([NSError wmf_errorWithType:WMFErrorTypeFetchAlreadyInProgress userInfo:nil]);
@@ -206,6 +238,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.authenticatingUsername = username;
     self.authenticatingPassword = password;
     self.authenticatingRetypePassword = retypePassword;
+    self.oathToken = oathToken;
 
     [self loginWithSuccess:success failure:failure];
 }
@@ -251,7 +284,8 @@ NS_ASSUME_NONNULL_BEGIN
     [self.accountLogin loginWithUsername:self.authenticatingUsername
                                 password:self.authenticatingPassword
                           retypePassword:self.authenticatingRetypePassword
-                                   token:self.loginToken
+                              loginToken:self.loginToken
+                               oathToken:self.oathToken
                                  siteURL:siteURL
                               completion:^(WMFAccountLoginResult* result){
         @strongify(self)
@@ -281,6 +315,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.loggedInUsername = nil;
     self.email = nil;
     self.loginToken = nil;
+    self.oathToken = nil;
     // Clear session cookies too.
     for (NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage].cookies copy]) {
         [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
