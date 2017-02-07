@@ -138,6 +138,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Setup map view
         mapView.mapType = .standard
         mapView.showsBuildings = false
@@ -185,6 +186,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         searchSuggestionController = PlaceSearchSuggestionController()
         searchSuggestionController.tableView = searchSuggestionView
         searchSuggestionController.delegate = self
+        
+        // TODO: Remove
+        let defaults = UserDefaults.wmf_userDefaults()
+        let key = "WMFDidClearPlaceSearchHistory"
+        if !defaults.bool(forKey: key) {
+            clearSearchHistory()
+            defaults.set(true, forKey: key)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
