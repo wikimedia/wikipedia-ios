@@ -24,7 +24,22 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     var searchBar: UISearchBar!
     var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
-    var articleFetchedResultsController = NSFetchedResultsController<WMFArticle>()
+    var articleFetchedResultsController = NSFetchedResultsController<WMFArticle>() {
+        didSet {
+            oldValue.delegate = nil
+            for article in oldValue.fetchedObjects ?? [] {
+                article.placesSearchSort = nil
+            }
+            do {
+                try dataStore.viewContext.save()
+                try articleFetchedResultsController.performFetch()
+            } catch let fetchError {
+                DDLogError("Error fetching articles for places: \(fetchError)")
+            }
+            updatePlaces()
+            articleFetchedResultsController.delegate = self
+        }
+    }
 
     var articleStore: WMFArticleDataStore!
     var dataStore: MWKDataStore!
@@ -199,7 +214,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         // TODO: Remove
         let defaults = UserDefaults.wmf_userDefaults()
-        let key = "WMFDidClearPlaceSearchHistory"
+        let key = "WMFDidClearPlaceSearchHistory2"
         if !defaults.bool(forKey: key) {
             clearSearchHistory()
             defaults.set(true, forKey: key)
@@ -494,11 +509,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         case .saved:
             let moc = dataStore.viewContext
             let done = { (articlesToShow: [WMFArticle]) -> Void in
-                //self.articles = articlesToShow
-                self.mapRegion = self.regionThatFits(articles: articlesToShow)
+                let request = WMFArticle.fetchRequest()
+                request.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
+                request.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
+                self.articleFetchedResultsController = NSFetchedResultsController<WMFArticle>(fetchRequest: request, managedObjectContext: self.dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+                if articlesToShow.count > 0 {
+                    self.mapRegion = self.regionThatFits(articles: articlesToShow)
+                }
                 self.searching = false
-                self.updatePlaces()
-                
                 if articlesToShow.count == 0 {
                     self.wmf_showAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("places-no-saved-articles-have-location"))
                 }
@@ -585,8 +603,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     self.currentSearch = newSearch
                 })
             }
-            guard let key = search.articleKey,
-                let articleURL = URL(string: key),
+            guard let articleURL = search.searchResult?.articleURL(forSiteURL: siteURL),
                 let title = (articleURL as NSURL).wmf_title,
                 let language = (articleURL as NSURL).wmf_language  else {
                     fail()
@@ -748,7 +765,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         guard let search = currentSearch else {
             return
         }
-        currentSearch = PlaceSearch(type: search.type, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, articleKey: search.articleKey)
+        currentSearch = PlaceSearch(type: search.type, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchResult: search.searchResult)
         redoSearchButton.isHidden = true
     }
     
@@ -962,7 +979,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func updatePlaces(withSearchResults searchResults: [MWKLocationSearchResult]) {
-        articleKeyToSelect = currentSearch?.articleKey
+        let articleURLToSelect = currentSearch?.searchResult?.articleURL(forSiteURL: siteURL)
+        articleKeyToSelect = (articleURLToSelect as NSURL?)?.wmf_articleDatabaseKey
         var foundKey = false
         var keysToFetch: [String] = []
         var sort = 0
@@ -982,27 +1000,15 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             sort += 1
         }
         
-        if !foundKey, let keyToFetch = articleKeyToSelect {
-             keysToFetch.append(keyToFetch)
+        if !foundKey, let keyToFetch = articleKeyToSelect, let URL = articleURLToSelect, let searchResult = currentSearch?.searchResult {
+            articleStore.addPreview(with: URL, updatedWith: searchResult)
+            keysToFetch.append(keyToFetch)
         }
-        
-        articleFetchedResultsController.delegate = nil
-        for article in articleFetchedResultsController.fetchedObjects ?? [] {
-            article.placesSearchSort = nil
-        }
-        
+
         let request = WMFArticle.fetchRequest()
         request.predicate = NSPredicate(format: "key in %@", keysToFetch)
         request.sortDescriptors = [NSSortDescriptor(key: "placesSearchSort", ascending: true)]
         articleFetchedResultsController = NSFetchedResultsController<WMFArticle>(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        articleFetchedResultsController.delegate = self
-        do {
-            try dataStore.viewContext.save()
-            try articleFetchedResultsController.performFetch()
-        } catch let fetchError {
-            DDLogError("Error fetching articles for places: \(fetchError)")
-        }
-        updatePlaces()
     }
     
     func updatePlaces() {
@@ -1060,14 +1066,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func updateSearchSuggestions(withCompletions completions: [PlaceSearch]) {
         guard let currentSearchString = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), currentSearchString != "" || completions.count > 0 else {
-            let topNearbySuggestion = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStyleLinks, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), articleKey: nil)
+            let topNearbySuggestion = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStyleLinks, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchResult: nil)
             
             var suggestedSearches = [topNearbySuggestion]
             var recentSearches: [PlaceSearch] = []
             do {
                 let moc = dataStore.viewContext
                 if try moc.count(for: fetchRequestForSavedArticles) > 0 {
-                    let saved = PlaceSearch(type: .saved, sortStyle: WMFLocationSearchSortStyleNone, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-saved-articles"), articleKey: nil)
+                    let saved = PlaceSearch(type: .saved, sortStyle: WMFLocationSearchSortStyleNone, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-saved-articles"), searchResult: nil)
                     suggestedSearches.append(saved)
                 }
                 
@@ -1095,7 +1101,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
-        let currentStringSuggeston = PlaceSearch(type: .text, sortStyle: WMFLocationSearchSortStyleLinks, string: currentSearchString, region: nil, localizedDescription: currentSearchString, articleKey: nil)
+        let currentStringSuggeston = PlaceSearch(type: .text, sortStyle: WMFLocationSearchSortStyleLinks, string: currentSearchString, region: nil, localizedDescription: currentSearchString, searchResult: nil)
         searchSuggestionController.searches = [[], [], [currentStringSuggeston], completions]
     }
     
@@ -1106,14 +1112,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 let dimension = result.geoDimension?.doubleValue,
                 let title = result.displayTitle,
                 let url = (self.siteURL as NSURL).wmf_URL(withTitle: title),
-                let article = self.articleStore?.addPreview(with: url, updatedWith: result),
-                let key = article.key,
+                let key = (url as NSURL).wmf_articleDatabaseKey,
                 !set.contains(key) else {
                     return nil
             }
             set.insert(key)
             let region = MKCoordinateRegionMakeWithDistance(location.coordinate, dimension, dimension)
-            return PlaceSearch(type: .location, sortStyle: WMFLocationSearchSortStyleLinks, string: nil, region: region, localizedDescription: result.displayTitle, articleKey: key)
+            return PlaceSearch(type: .location, sortStyle: WMFLocationSearchSortStyleLinks, string: nil, region: region, localizedDescription: result.displayTitle, searchResult: result)
         }
         updateSearchSuggestions(withCompletions: completions)
         return completions
@@ -1179,7 +1184,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        currentSearch = PlaceSearch(type: .text, sortStyle: WMFLocationSearchSortStyleLinks, string: searchBar.text, region: nil, localizedDescription: searchBar.text, articleKey: nil)
+        currentSearch = PlaceSearch(type: .text, sortStyle: WMFLocationSearchSortStyleLinks, string: searchBar.text, region: nil, localizedDescription: searchBar.text, searchResult: nil)
         searchBar.endEditing(true)
     }
     
@@ -1271,7 +1276,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
         mapRegion = region
         if currentSearch == nil {
-            currentSearch = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStyleLinks, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), articleKey: nil)
+            currentSearch = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStyleLinks, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchResult: nil)
         }
         locationManager.stopMonitoringLocation()
     }

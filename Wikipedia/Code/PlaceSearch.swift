@@ -17,16 +17,16 @@ struct PlaceSearch {
     let string: String?
     var region: MKCoordinateRegion?
     let localizedDescription: String?
-    let articleKey: String?
+    let searchResult: MWKSearchResult?
     var needsWikidataQuery: Bool = true
     
-    init(type: PlaceSearchType, sortStyle: WMFLocationSearchSortStyle, string: String?, region: MKCoordinateRegion?, localizedDescription: String?, articleKey: String?) {
+    init(type: PlaceSearchType, sortStyle: WMFLocationSearchSortStyle, string: String?, region: MKCoordinateRegion?, localizedDescription: String?, searchResult: MWKSearchResult?) {
         self.type = type
         self.sortStyle = sortStyle
         self.string = string
         self.region = region
         self.localizedDescription = localizedDescription
-        self.articleKey = articleKey
+        self.searchResult = searchResult
     }
     
     var key: String {
@@ -61,8 +61,8 @@ struct PlaceSearch {
             if let localizedDescription = localizedDescription {
                 dictionary["localizedDescription"] = localizedDescription as NSString
             }
-            if let articleKey = articleKey {
-                dictionary["articleKey"] = articleKey as NSString
+            if let result = searchResult {
+                dictionary["searchResult"] = result
             }
             return dictionary
         }
@@ -88,7 +88,7 @@ struct PlaceSearch {
         } else {
             self.region = nil
         }
-        self.articleKey = dictionary["articleKey"] as? String
+        self.searchResult = dictionary["searchResult"] as? MWKSearchResult
         self.localizedDescription = dictionary["localizedDescription"] as? String
     }
 }

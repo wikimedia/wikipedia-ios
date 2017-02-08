@@ -24,6 +24,8 @@
 
 @property (nonatomic, assign, readonly) BOOL isList;
 
+- (nullable NSURL *)articleURLForSiteURL:(nonnull NSURL *)siteURL;
+
 /**
  *  Location serialized from the first set of coordinates in the response.
  */

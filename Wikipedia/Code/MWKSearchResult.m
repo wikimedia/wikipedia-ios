@@ -228,4 +228,11 @@
               WMF_SAFE_KEYPATH(MWKSearchResult.new, titleNamespace): @"ns" };
 }
 
+- (nullable NSURL *)articleURLForSiteURL:(NSURL *)siteURL {
+    if (self.displayTitle == nil) {
+        return nil;
+    }
+    return [siteURL wmf_URLWithTitle:self.displayTitle];
+}
+
 @end
