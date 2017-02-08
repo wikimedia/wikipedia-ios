@@ -1102,7 +1102,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     guard text == self.searchBar.text else {
                         return
                     }
-                    self.updateSearchSuggestions(withCompletions: [])
+                    let _ = self.handleCompletion(searchResults: searchResult.results ?? [])
                 }
                 return
             }
