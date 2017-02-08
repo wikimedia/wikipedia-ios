@@ -567,6 +567,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         wikidataFetcher.wikidataBoundingRegion(forArticleURL: articleURL, failure: { (error) in
             DDLogError("Error fetching bounding region from Wikidata: \(error)")
+            fail()
         }, success: { (region) in
             dispatchOnMainQueue({
                 self.mapRegion = region

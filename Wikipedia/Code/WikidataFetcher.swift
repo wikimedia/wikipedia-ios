@@ -1,11 +1,15 @@
 import Foundation
 import WMF
 
+enum WikidataFetcherError: Error {
+    case genericError
+}
+
 class WikidataFetcher: NSObject {
     func wikidata(forArticleURL articleURL: URL, failure: @escaping (Error) -> Void, success: @escaping ([String: Any]) -> Void) {
         guard let title = (articleURL as NSURL).wmf_title,
             let language = (articleURL as NSURL).wmf_language else {
-                failure(NSError())
+                failure(WikidataFetcherError.genericError)
                 return
         }
         
@@ -20,18 +24,18 @@ class WikidataFetcher: NSObject {
         components.queryItems = [actionQueryItem, titlesQueryItem, sitesQueryItem, formatQueryItem]
         
         guard let requestURL = components.url else {
-            failure(NSError())
+            failure(WikidataFetcherError.genericError)
             return
         }
     
         URLSession.shared.dataTask(with: requestURL, completionHandler: { (data, response, error) in
             guard let data = data else {
-                failure(error ?? NSError())
+                failure(error ?? WikidataFetcherError.genericError)
                 return
             }
             do {
                 guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
-                    failure(NSError())
+                    failure(WikidataFetcherError.genericError)
                     return
                 }
                 success(jsonObject)
@@ -46,7 +50,7 @@ class WikidataFetcher: NSObject {
             guard let entities = jsonObject["entities"] as? [String: Any],
                 let entity = entities.values.first as? [String: Any],
                 let claims = entity["claims"] as? [String: Any] else {
-                failure(NSError())
+                failure(WikidataFetcherError.genericError)
                 return
             }
             
@@ -76,7 +80,7 @@ class WikidataFetcher: NSObject {
             })
             
             guard coordinates.count > 3 else {
-                failure(NSError())
+                failure(WikidataFetcherError.genericError)
                 return
             }
             
