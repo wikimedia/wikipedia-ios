@@ -1,11 +1,12 @@
 
 import UIKit
 
-class WMFTwoFactorPasswordViewController: UIViewController {
+class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var subTitleLabel: UILabel!
-    @IBOutlet fileprivate var oathTokenField: UITextField!
+    @IBOutlet fileprivate var tokenLabel: UILabel!
+    @IBOutlet fileprivate var oathTokenFields: [UITextField]!
     @IBOutlet fileprivate var oathTokenUnderlineHeight: NSLayoutConstraint!
     
     fileprivate var doneButton: UIBarButtonItem!
@@ -19,8 +20,26 @@ class WMFTwoFactorPasswordViewController: UIViewController {
         save()
     }
     
-    func textFieldDidChange(_ sender: UITextField) {
-        enableProgressiveButton((oathTokenField.text!.characters.count > 0))
+    fileprivate func areRequiredFieldsPopulated() -> Bool {
+        return oathTokenFields.first(where:{ $0.text?.characters.count == 0 }) == nil
+    }
+    
+    @IBAction func textFieldDidChange(_ sender: UITextField) {
+        enableProgressiveButton(areRequiredFieldsPopulated())
+        
+        guard let text = sender.text, text.characters.count > 0 else {
+            return
+        }
+        makeNextTextFieldFirstResponder(currentTextField: sender)
+    }
+    
+    fileprivate func makeNextTextFieldFirstResponder(currentTextField: UITextField) {
+        if let index = oathTokenFields.index(of: currentTextField) {
+            let nextIndex = index + 1
+            if nextIndex < oathTokenFields.count {
+                oathTokenFields[nextIndex].becomeFirstResponder()
+            }
+        }
     }
     
     func enableProgressiveButton(_ highlight: Bool) {
@@ -34,7 +53,7 @@ class WMFTwoFactorPasswordViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        oathTokenField.becomeFirstResponder()
+        oathTokenFields.first?.becomeFirstResponder()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -42,11 +61,15 @@ class WMFTwoFactorPasswordViewController: UIViewController {
         enableProgressiveButton(false)
     }
     
-    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if (textField == self.oathTokenField) {
-            save()
-        }
-        return true
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return ((textField.text! + string).characters.count <= 1)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        // In the storyboard we've set the text fields' to "Clear when editing begins", but
+        // the "Editing changed" handler "textFieldDidChange" isn't called when this clearing
+        // happens, so update progressive buttons' enabled state here too.
+        enableProgressiveButton(areRequiredFieldsPopulated())
     }
     
     override func viewDidLoad() {
@@ -56,17 +79,19 @@ class WMFTwoFactorPasswordViewController: UIViewController {
         doneButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("main-menu-account-login"), style: .plain, target: self, action: #selector(self.doneButtonPushed(_:)))
         navigationItem.rightBarButtonItem = doneButton
         
-        oathTokenField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
-        
         oathTokenUnderlineHeight.constant = 1.0 / UIScreen.main.scale
         
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-title")
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-instructions")
-        oathTokenField.placeholder = localizedStringForKeyFallingBackOnEnglish("two-factor-login-token-placeholder-text")
+        tokenLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-token-title")
     }
     
     func didTapClose(_ tap: UITapGestureRecognizer) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    fileprivate func token() -> String {
+        return oathTokenFields.reduce("", { $0 + ($1.text ?? "") })
     }
     
     fileprivate func save() {
@@ -84,7 +109,7 @@ class WMFTwoFactorPasswordViewController: UIViewController {
             .login(withUsername: userName,
                    password: password,
                    retypePassword: nil,
-                   oathToken: oathTokenField.text!,
+                   oathToken: token(),
                    success: {
                     let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: userName)
                     WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
@@ -104,7 +129,7 @@ class WMFTwoFactorPasswordViewController: UIViewController {
                 self.enableProgressiveButton(true)
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
                 self.funnel?.logError(error.localizedDescription)
-                self.oathTokenField.text = nil
+                self.oathTokenFields.forEach {$0.text = nil}
             })
     }
     
