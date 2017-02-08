@@ -49,6 +49,12 @@
                                     <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                         <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.20000000000000001"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="recenterOnUserLocation:" destination="pK5-Ai-Kzp" eventType="touchUpInside" id="VU6-SF-aWs"/>
@@ -202,7 +208,7 @@
     </scenes>
     <resources>
         <image name="places-location-arrow" width="18" height="18"/>
-        <image name="tabbar-nearby" width="24" height="24"/>
-        <image name="tabbar-nearby-selected" width="24" height="24"/>
+        <image name="tabbar-nearby" width="20" height="24"/>
+        <image name="tabbar-nearby-selected" width="20" height="24"/>
     </resources>
 </document>
