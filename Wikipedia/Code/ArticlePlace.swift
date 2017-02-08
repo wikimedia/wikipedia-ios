@@ -44,6 +44,7 @@ class ArticlePlace: NSObject, MKAnnotation {
 
 class ArticlePlaceView: MKAnnotationView {
     let imageView: UIImageView
+    let dotView: UIView
     let countLabel: UILabel
     let collapsedDimension: CGFloat = 15
     let groupDimension: CGFloat = 30
@@ -51,11 +52,18 @@ class ArticlePlaceView: MKAnnotationView {
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         imageView = UIImageView()
         countLabel = UILabel()
+        dotView = UIView()
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         
         let dimension = 50
         frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
         
+        dotView.layer.borderWidth = 2
+        dotView.layer.borderColor = UIColor.white.cgColor
+        dotView.clipsToBounds = true
+        addSubview(dotView)
+        
+        imageView.alpha = 0
         imageView.contentMode = .scaleAspectFill
         imageView.layer.borderWidth = 2
         imageView.layer.borderColor = UIColor.white.cgColor
@@ -75,19 +83,21 @@ class ArticlePlaceView: MKAnnotationView {
     func update() {
         if let articlePlace = annotation as? ArticlePlace {
             if articlePlace.articles.count == 1 {
-                imageView.backgroundColor = UIColor.wmf_green()
+                dotView.backgroundColor = UIColor.wmf_green()
                 let article = articlePlace.articles[0]
-                if let thumbnailURL = article.thumbnailURL, isSelected {
+                if let thumbnailURL = article.thumbnailURL {
+                    imageView.backgroundColor = UIColor.white
                     imageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
-                        
+                         self.imageView.backgroundColor = UIColor.wmf_green()
                     }, success: {
                         
                     })
                 } else {
                     imageView.image = nil
+                    imageView.backgroundColor = UIColor.wmf_green()
                 }
             } else {
-                imageView.backgroundColor = UIColor.wmf_green().withAlphaComponent(0.7)
+                dotView.backgroundColor = UIColor.wmf_green().withAlphaComponent(0.7)
                 countLabel.text = "\(articlePlace.articles.count)"
             }
         }
@@ -101,16 +111,14 @@ class ArticlePlaceView: MKAnnotationView {
         }
     }
     
-    override var isSelected: Bool {
-        didSet {
-            update()
-        }
-    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         imageView.wmf_reset()
         countLabel.text = nil
+        imageView.alpha = 0
+        imageView.transform = CGAffineTransform.identity
+        dotView.alpha = 1
         alpha = 1
         transform = CGAffineTransform.identity
     }
@@ -119,18 +127,46 @@ class ArticlePlaceView: MKAnnotationView {
         return nil
     }
     
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        if selected {
+            dotView.alpha = 1
+            imageView.alpha = 0
+            imageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        } else {
+            imageView.alpha = 1
+            dotView.alpha = 0
+        }
+        let animations = {
+            if selected {
+                self.imageView.alpha = 1
+                self.imageView.transform = CGAffineTransform.identity
+                self.dotView.alpha = 0
+            } else {
+                self.dotView.alpha = 1
+                self.imageView.alpha = 0
+                //self.imageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            }
+        }
+        if (animated) {
+            UIView.animate(withDuration: 0.2, animations: animations, completion: nil)
+        } else {
+            animations()
+        }
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        if countLabel.text != nil {
-            imageView.bounds = CGRect(x: 0, y: 0, width: groupDimension, height: groupDimension)
-            imageView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
-        } else if isSelected {
-            imageView.frame = bounds
-        } else {
-            imageView.bounds = CGRect(x: 0, y: 0, width: collapsedDimension, height: collapsedDimension)
-            imageView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
-        }
+        imageView.frame = bounds
         imageView.layer.cornerRadius = imageView.bounds.size.width * 0.5
+        if countLabel.text != nil {
+            dotView.bounds = CGRect(x: 0, y: 0, width: groupDimension, height: groupDimension)
+            dotView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
+        } else {
+            dotView.bounds = CGRect(x: 0, y: 0, width: collapsedDimension, height: collapsedDimension)
+            dotView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
+        }
+        dotView.layer.cornerRadius = dotView.bounds.size.width * 0.5
         countLabel.frame = imageView.frame
     }
 }
