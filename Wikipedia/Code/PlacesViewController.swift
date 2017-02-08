@@ -367,7 +367,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         guard place.articles.count == 1 else {
-            placeToSelect = place
             articleKeyToSelect = place.articles.first?.key
             mapRegion = regionThatFits(articles: place.articles)
             return
@@ -851,7 +850,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     // hacky workaround for now
                     self.deselectAllAnnotations()
                     self.placeToSelect = place
-                    dispatchAfterDelayInSeconds(0.5, DispatchQueue.main, {
+                    dispatchAfterDelayInSeconds(0.7, DispatchQueue.main, {
                         self.placeToSelect = nil
                         guard self.mapView.selectedAnnotations.count == 0 else {
                             return
