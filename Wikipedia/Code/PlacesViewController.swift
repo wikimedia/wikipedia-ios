@@ -3,7 +3,7 @@ import MapKit
 import WMF
 import TUSafariActivity
 
-class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate {
+class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate {
     
     @IBOutlet weak var redoSearchButton: UIButton!
     let locationSearchFetcher = WMFLocationSearchFetcher()
@@ -24,7 +24,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     var searchBar: UISearchBar!
     var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
-    var articles: [WMFArticle] = []
+    var articleFetchedResultsController = NSFetchedResultsController<WMFArticle>()
+
     var articleStore: WMFArticleDataStore!
     var dataStore: MWKDataStore!
     var segmentedControl: UISegmentedControl!
@@ -493,7 +494,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         case .saved:
             let moc = dataStore.viewContext
             let done = { (articlesToShow: [WMFArticle]) -> Void in
-                self.articles = articlesToShow
+                //self.articles = articlesToShow
                 self.mapRegion = self.regionThatFits(articles: articlesToShow)
                 self.searching = false
                 self.updatePlaces()
@@ -818,7 +819,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         var groups: [QuadKey: ArticleGroup] = [:]
         
-        for article in articles {
+        for article in articleFetchedResultsController.fetchedObjects ?? [] {
             guard let quadKey = article.quadKey else {
                 continue
             }
@@ -961,27 +962,39 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func updatePlaces(withSearchResults searchResults: [MWKLocationSearchResult]) {
-        articles.removeAll(keepingCapacity: true)
         articleKeyToSelect = currentSearch?.articleKey
         var foundKey = false
+        var keysToFetch: [String] = []
         for result in searchResults {
             guard let displayTitle = result.displayTitle,
                 let articleURL = (siteURL as NSURL).wmf_URL(withTitle: displayTitle),
                 let article = self.articleStore?.addPreview(with: articleURL, updatedWith: result),
-                let _ = article.quadKey else {
+                let _ = article.quadKey,
+                let articleKey = article.key else {
                     continue
             }
-            if articleKeyToSelect != nil && articleKeyToSelect == article.key {
+            if articleKeyToSelect != nil && articleKeyToSelect == articleKey {
                 foundKey = true
             }
-            articles.append(article)
+            keysToFetch.append(articleKey)
         }
         
-        if !foundKey, let keyToFetch = articleKeyToSelect, let fetchedArticle = self.dataStore.fetchArticle(forKey: keyToFetch) {
-            articles.append(fetchedArticle)
+        if !foundKey, let keyToFetch = articleKeyToSelect {
+             keysToFetch.append(keyToFetch)
         }
         
-        updatePlaces()
+        articleFetchedResultsController.delegate = nil
+        
+        let request = WMFArticle.fetchRequest()
+        request.predicate = NSPredicate(format: "key in %@", keysToFetch)
+        request.sortDescriptors = [NSSortDescriptor(key: "key", ascending: true)]
+        articleFetchedResultsController = NSFetchedResultsController<WMFArticle>(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        articleFetchedResultsController.delegate = self
+        do {
+            try articleFetchedResultsController.performFetch()
+        } catch let fetchError {
+            DDLogError("Error fetching articles for places: \(fetchError)")
+        }
     }
     
     func updatePlaces() {
@@ -1169,11 +1182,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     //UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return articleFetchedResultsController.sections?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return articles.count
+        return articleFetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -1181,7 +1194,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return UITableViewCell()
         }
         
-        let article = articles[indexPath.row]
+        let article = articleFetchedResultsController.object(at: indexPath)
         cell.titleText = article.displayTitle
         cell.descriptionText = article.wikidataDescription
         cell.setImageURL(article.thumbnailURL)
@@ -1211,7 +1224,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     // UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let article = articles[indexPath.row]
+        let article = articleFetchedResultsController.object(at: indexPath)
         guard let url = article.url else {
             return
         }
@@ -1267,6 +1280,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     @IBAction func recenterOnUserLocation(_ sender: Any) {
         locationManager.startMonitoringLocation()
+    }
+    
+    // NSFetchedResultsControllerDelegate
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        updatePlaces()
     }
     
     // Grouping debug view
