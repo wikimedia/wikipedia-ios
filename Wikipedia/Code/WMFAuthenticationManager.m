@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, nullable) NSString *email;
 @property (strong, nonatomic, nullable) NSString *captchaText;
 
-@property (strong, nonatomic, nullable) NSString *loginToken;
 @property (strong, nonatomic, nullable) WMFAuthTokenFetcher *loginTokenFetcher;
 @property (strong, nonatomic, nullable) WMFAccountLogin *accountLogin;
 @property (strong, nonatomic, nullable) NSString *oathToken;
@@ -251,9 +250,6 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    self.successBlock = success;
-    self.failBlock = failure;
-
     self.authLoginInfoFetcher = [[WMFAuthLoginInfoFetcher alloc] init];
     @weakify(self)
     [self.authLoginInfoFetcher fetchLoginInfoForSiteURL:[[MWKLanguageLinkController sharedInstance] appLanguage].siteURL
@@ -261,46 +257,35 @@ NS_ASSUME_NONNULL_BEGIN
                                                  @strongify(self)
                                                  
                                                  NSURL *siteURL = [[SessionSingleton sharedInstance] urlForLanguage:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode];
+                                                 
                                                  self.loginTokenFetcher = [[WMFAuthTokenFetcher alloc] init];
                                                  [self.loginTokenFetcher fetchTokenOfType:WMFAuthTokenTypeLogin siteURL:siteURL success:^(WMFAuthToken* result){
+                                                     
                                                      @strongify(self)
-                                                     self.loginToken = result.token;
-                                                     [self login];
-                                                 } failure:^(NSError* error){
-                                                     [self finishAndSendFailureBlockWithError:error];
-                                                 }];
+                                                     self.accountLogin = [[WMFAccountLogin alloc] init];
+                                                     [self.accountLogin loginWithUsername:self.authenticatingUsername
+                                                                                 password:self.authenticatingPassword
+                                                                           retypePassword:self.authenticatingRetypePassword
+                                                                               loginToken:result.token
+                                                                                oathToken:self.oathToken
+                                                                                  siteURL:siteURL
+                                                                                  success:^(WMFAccountLoginResult* result){
+                                                                                      @strongify(self)
+                                                                                      NSString *normalizedUserName = result.username;
+                                                                                      self.loggedInUsername = normalizedUserName;
+                                                                                      self.keychainCredentials.userName = normalizedUserName;
+                                                                                      self.keychainCredentials.password = self.authenticatingPassword;
+                                                                                      self.authenticatingPassword = nil;
+                                                                                      self.authenticatingRetypePassword = nil;
+                                                                                      self.authenticatingUsername = nil;
+                                                                                      [self cloneSessionCookies];
+                                                                                      if (success){
+                                                                                          success();
+                                                                                      }
+                                                                                  } failure:failure];
+                                                 } failure:failure];
                                                  
-                                             }
-                                                failure:^(NSError *error) {
-                                                    [self finishAndSendFailureBlockWithError:error];
-                                                }];
-}
-
-- (void)login {
-    NSURL *siteURL = [[SessionSingleton sharedInstance] urlForLanguage:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode];
-    self.accountLogin = [[WMFAccountLogin alloc] init];
-    
-    @weakify(self)
-    [self.accountLogin loginWithUsername:self.authenticatingUsername
-                                password:self.authenticatingPassword
-                          retypePassword:self.authenticatingRetypePassword
-                              loginToken:self.loginToken
-                               oathToken:self.oathToken
-                                 siteURL:siteURL
-                              success:^(WMFAccountLoginResult* result){
-        @strongify(self)
-        NSString *normalizedUserName = result.username;
-        self.loggedInUsername = normalizedUserName;
-        self.keychainCredentials.userName = normalizedUserName;
-        self.keychainCredentials.password = self.authenticatingPassword;
-        self.authenticatingPassword = nil;
-        self.authenticatingRetypePassword = nil;
-        self.authenticatingUsername = nil;
-        [self cloneSessionCookies];
-        [self finishAndSendSuccessBlock];
-    } failure:^(NSError* error){
-        [self finishAndSendFailureBlockWithError:error];
-    }];
+                                             } failure:failure];
 }
 
 - (BOOL)isInitialAccountCreationAttempt {
@@ -314,7 +299,6 @@ NS_ASSUME_NONNULL_BEGIN
     self.keychainCredentials.password = nil;
     self.loggedInUsername = nil;
     self.email = nil;
-    self.loginToken = nil;
     self.oathToken = nil;
     // Clear session cookies too.
     for (NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage].cookies copy]) {
@@ -360,15 +344,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)finishAndSendFailureBlockWithError:(NSError *)error {
     if (self.failBlock) {
         self.failBlock(error);
-    }
-    self.failBlock = nil;
-    self.captchaBlock = nil;
-    self.successBlock = nil;
-}
-
-- (void)finishAndSendSuccessBlock {
-    if (self.successBlock) {
-        self.successBlock();
     }
     self.failBlock = nil;
     self.captchaBlock = nil;
