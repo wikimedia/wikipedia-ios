@@ -75,8 +75,9 @@ struct PlaceSearch {
                 return nil
         }
         self.type = type
-        let sortStyle = WMFLocationSearchSortStyle(rawValue: sortStyleNumber.uintValue)
+        let sortStyle = WMFLocationSearchSortStyle(rawValue: sortStyleNumber.uintValue) ?? .none
         self.sortStyle = sortStyle
+        
         self.string = dictionary["string"] as? String
         if let lat = dictionary["lat"] as? NSNumber,
             let lon = dictionary["lon"] as? NSNumber,

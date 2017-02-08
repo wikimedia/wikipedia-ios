@@ -165,6 +165,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        redoSearchButton.setTitle(localizedStringForKeyFallingBackOnEnglish("places-search-search-mapped-area"), for: .normal)
+        
         // Setup map view
         mapView.mapType = .standard
         mapView.showsBuildings = false
@@ -203,7 +205,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         // Setup search bar
         searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 32))
         //searchBar.keyboardType = .webSearch
-        searchBar.text = localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby")
         searchBar.returnKeyType = .search
         searchBar.delegate = self
         navigationItem.titleView = searchBar
@@ -979,14 +980,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func updateSearchSuggestions(withCompletions completions: [PlaceSearch]) {
         guard let currentSearchString = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), currentSearchString != "" || completions.count > 0 else {
-            let topNearbySuggestion = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStyleLinks, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchResult: nil)
+            let topNearbySuggestion = PlaceSearch(type: .top, sortStyle: .links, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
             
             var suggestedSearches = [topNearbySuggestion]
             var recentSearches: [PlaceSearch] = []
             do {
                 let moc = dataStore.viewContext
                 if try moc.count(for: fetchRequestForSavedArticles) > 0 {
-                    let saved = PlaceSearch(type: .saved, sortStyle: WMFLocationSearchSortStyleNone, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-saved-articles"), searchResult: nil)
+                    let saved = PlaceSearch(type: .saved, sortStyle: .none, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-saved-articles"), searchResult: nil)
                     suggestedSearches.append(saved)
                 }
                 
@@ -1014,7 +1015,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
-        let currentStringSuggeston = PlaceSearch(type: .text, sortStyle: WMFLocationSearchSortStyleLinks, string: currentSearchString, region: nil, localizedDescription: currentSearchString, searchResult: nil)
+        let currentStringSuggeston = PlaceSearch(type: .text, sortStyle: .links, string: currentSearchString, region: nil, localizedDescription: currentSearchString, searchResult: nil)
         searchSuggestionController.searches = [[], [], [currentStringSuggeston], completions]
     }
     
@@ -1031,7 +1032,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
             set.insert(key)
             let region = MKCoordinateRegionMakeWithDistance(location.coordinate, dimension, dimension)
-            return PlaceSearch(type: .location, sortStyle: WMFLocationSearchSortStyleLinks, string: nil, region: region, localizedDescription: result.displayTitle, searchResult: result)
+            return PlaceSearch(type: .location, sortStyle: .links, string: nil, region: region, localizedDescription: result.displayTitle, searchResult: result)
         }
         updateSearchSuggestions(withCompletions: completions)
         return completions
@@ -1055,7 +1056,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             guard let results = searchResult.results, self.handleCompletion(searchResults: results).count >= 10 else {
                 let center = self.mapView.userLocation.coordinate
                 let region = CLCircularRegion(center: center, radius: 40075000, identifier: "world")
-                self.locationSearchFetcher.fetchArticles(withSiteURL: self.siteURL, in: region, matchingSearchTerm: text, sortStyle: WMFLocationSearchSortStyleLinks, resultLimit: 24, completion: { (locationSearchResults) in
+                self.locationSearchFetcher.fetchArticles(withSiteURL: self.siteURL, in: region, matchingSearchTerm: text, sortStyle: .links, resultLimit: 24, completion: { (locationSearchResults) in
                     guard text == self.searchBar.text else {
                         return
                     }
@@ -1097,7 +1098,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        currentSearch = PlaceSearch(type: .text, sortStyle: WMFLocationSearchSortStyleLinks, string: searchBar.text, region: nil, localizedDescription: searchBar.text, searchResult: nil)
+        currentSearch = PlaceSearch(type: .text, sortStyle: .links, string: searchBar.text, region: nil, localizedDescription: searchBar.text, searchResult: nil)
         searchBar.endEditing(true)
     }
     
@@ -1189,7 +1190,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
         mapRegion = region
         if currentSearch == nil {
-            currentSearch = PlaceSearch(type: .top, sortStyle: WMFLocationSearchSortStyleLinks, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles-nearby"), searchResult: nil)
+            currentSearch = PlaceSearch(type: .top, sortStyle: .links, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
         }
         locationManager.stopMonitoringLocation()
     }
