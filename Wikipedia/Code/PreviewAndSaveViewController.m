@@ -639,7 +639,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
         NSURL *url = [[SessionSingleton sharedInstance] urlForLanguage:editURL.wmf_language];
         self.editTokenFetcher = [[WMFAuthTokenFetcher alloc] init];
         @weakify(self)
-        [self.editTokenFetcher fetchTokenOfType:WMFAuthTokenTypeCsrf siteURL:url completion:^(WMFAuthToken* result){
+        [self.editTokenFetcher fetchTokenOfType:WMFAuthTokenTypeCsrf siteURL:url success:^(WMFAuthToken* result){
             @strongify(self)
 
             self.wikiTextSectionUploader =
@@ -693,7 +693,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
         NSURL* siteURL = [SessionSingleton sharedInstance].currentArticleSiteURL;
         self.captchaResetter = [[WMFCaptchaResetter alloc] init];
         @weakify(self)
-        [self.captchaResetter resetCaptchaWithSiteURL:siteURL completion:^(WMFCaptchaResetterResult* result){
+        [self.captchaResetter resetCaptchaWithSiteURL:siteURL success:^(WMFCaptchaResetterResult* result){
             @strongify(self)
             self.captchaId = result.index;
             NSString *newCaptchaUrl = [WMFCaptchaResetter newCaptchaImageURLFromOldURL:self.captchaUrl newID:self.captchaId];

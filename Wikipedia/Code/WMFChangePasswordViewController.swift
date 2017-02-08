@@ -87,6 +87,7 @@ class WMFChangePasswordViewController: UIViewController {
             .login(withUsername: userName,
                    password: passwordField.text!,
                    retypePassword: retypeField.text!,
+                   oathToken: nil,
                    success: {
                     let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: userName)
                     WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)

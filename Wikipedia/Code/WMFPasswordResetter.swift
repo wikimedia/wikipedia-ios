@@ -26,7 +26,7 @@ public class WMFPasswordResetter: NSObject {
     public func isFetching() -> Bool {
         return manager!.operationQueue.operationCount > 0
     }
-    public func resetPassword(siteURL: URL, token: String, userName:String?, email:String?, completion: @escaping WMFPasswordResetterResultBlock, failure: @escaping WMFErrorHandler){
+    public func resetPassword(siteURL: URL, token: String, userName:String?, email:String?, success: @escaping WMFPasswordResetterResultBlock, failure: @escaping WMFErrorHandler){
         let manager = AFHTTPSessionManager(baseURL: siteURL)
         manager.responseSerializer = WMFApiJsonResponseSerializer.init();
 
@@ -58,7 +58,7 @@ public class WMFPasswordResetter: NSObject {
                 failure(WMFPasswordResetterError.resetStatusNotSuccess)
                 return
             }
-            completion(WMFPasswordResetterResult.init(status: status))
+            success(WMFPasswordResetterResult.init(status: status))
         }, failure: {
             (_, error: Error) in
             failure(error)

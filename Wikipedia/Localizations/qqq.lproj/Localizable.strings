@@ -72,6 +72,9 @@
 "new-password-instructions" = "Instructions for password change interface";
 "new-password-password-placeholder-text" = "Placeholder text which appears initially in the new password text box";
 "new-password-confirm-placeholder-text" = "Placeholder text which appears initially in the new password confirmation text box";
+"two-factor-login-title" = "Title for two factor login interface";
+"two-factor-login-instructions" = "Instructions for two factor login interface";
+"two-factor-login-token-title" = "Title for two factor token text boxes";
 "login-name-not-found" = "Alert text shown when no user name was entered";
 "login-name-illegal" = "Alert text shown the chosen user name is now allowed by the wiki (e.g. for containing an \"@\" or for being too similar to an existing one).";
 "login-name-does-not-exist" = "Alert text shown when user name entered was not found";

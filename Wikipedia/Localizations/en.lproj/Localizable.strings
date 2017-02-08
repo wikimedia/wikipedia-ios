@@ -64,6 +64,10 @@
 "new-password-password-placeholder-text" = "New password";
 "new-password-confirm-placeholder-text" = "Confirm new password";
 
+"two-factor-login-title" = "Log in to your account";
+"two-factor-login-instructions" = "Please enter two factor verification code";
+"two-factor-login-token-title" = "Token";
+
 "login-name-not-found" = "Username is required to login.";
 "login-name-illegal" = "You provided an illegal username.";
 "login-name-does-not-exist" = "The username you provided doesn't exist.";

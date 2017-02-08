@@ -30,7 +30,7 @@ public class WMFAuthAccountCreationInfoFetcher: NSObject {
     public func isFetching() -> Bool {
         return manager!.operationQueue.operationCount > 0
     }
-    public func fetchAccountCreationInfoForSiteURL(_ siteURL: URL, completion: @escaping WMFAuthAccountCreationInfoBlock, failure: @escaping WMFErrorHandler){
+    public func fetchAccountCreationInfoForSiteURL(_ siteURL: URL, success: @escaping WMFAuthAccountCreationInfoBlock, failure: @escaping WMFErrorHandler){
         let manager = AFHTTPSessionManager(baseURL: siteURL)
         manager.responseSerializer = WMFApiJsonResponseSerializer.init();
         let parameters = [
@@ -63,7 +63,7 @@ public class WMFAuthAccountCreationInfoFetcher: NSObject {
                 return
             }
             
-            completion(WMFAuthAccountCreationInfo.init(canCreateAccounts: true, captchaID: captchaIdValue, captchaURLFragment: captchaInfoValue))
+            success(WMFAuthAccountCreationInfo.init(canCreateAccounts: true, captchaID: captchaIdValue, captchaURLFragment: captchaInfoValue))
         }, failure: {
             (_, error: Error) in
             failure(error)
