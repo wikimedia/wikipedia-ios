@@ -25,5 +25,6 @@
 @dynamic signedQuadKey;
 @dynamic geoDimensionNumber;
 @dynamic geoTypeNumber;
+@dynamic placesSearchSort;
 
 @end

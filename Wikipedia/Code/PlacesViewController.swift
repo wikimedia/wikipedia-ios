@@ -965,6 +965,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         articleKeyToSelect = currentSearch?.articleKey
         var foundKey = false
         var keysToFetch: [String] = []
+        var sort = 0
         for result in searchResults {
             guard let displayTitle = result.displayTitle,
                 let articleURL = (siteURL as NSURL).wmf_URL(withTitle: displayTitle),
@@ -973,10 +974,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 let articleKey = article.key else {
                     continue
             }
+            article.placesSearchSort = NSNumber(value: sort)
             if articleKeyToSelect != nil && articleKeyToSelect == articleKey {
                 foundKey = true
             }
             keysToFetch.append(articleKey)
+            sort += 1
         }
         
         if !foundKey, let keyToFetch = articleKeyToSelect {
@@ -984,17 +987,22 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         articleFetchedResultsController.delegate = nil
+        for article in articleFetchedResultsController.fetchedObjects ?? [] {
+            article.placesSearchSort = nil
+        }
         
         let request = WMFArticle.fetchRequest()
         request.predicate = NSPredicate(format: "key in %@", keysToFetch)
-        request.sortDescriptors = [NSSortDescriptor(key: "key", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: "placesSearchSort", ascending: true)]
         articleFetchedResultsController = NSFetchedResultsController<WMFArticle>(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         articleFetchedResultsController.delegate = self
         do {
+            try dataStore.viewContext.save()
             try articleFetchedResultsController.performFetch()
         } catch let fetchError {
             DDLogError("Error fetching articles for places: \(fetchError)")
         }
+        updatePlaces()
     }
     
     func updatePlaces() {
