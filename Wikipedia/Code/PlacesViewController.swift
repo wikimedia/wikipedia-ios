@@ -927,7 +927,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func updatePlaces(withSearchResults searchResults: [MWKLocationSearchResult]) {
-        let articleURLToSelect = currentSearch?.searchResult?.articleURL(forSiteURL: siteURL)// ?? searchResults.first?.articleURL(forSiteURL: siteURL)
+        let articleURLToSelect = currentSearch?.searchResult?.articleURL(forSiteURL: siteURL) ?? searchResults.first?.articleURL(forSiteURL: siteURL)
         articleKeyToSelect = (articleURLToSelect as NSURL?)?.wmf_articleDatabaseKey
         var foundKey = false
         var keysToFetch: [String] = []
