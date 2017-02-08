@@ -1078,58 +1078,61 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         searchSuggestionController.searches = [[], [], [currentStringSuggeston], completions]
     }
     
-    func handleCompletion(searchResults: [MWKSearchResult]) {
+    func handleCompletion(searchResults: [MWKSearchResult]) -> [PlaceSearch] {
+        var set = Set<String>()
         let completions = searchResults.flatMap { (result) -> PlaceSearch? in
             guard let location = result.location,
                 let dimension = result.geoDimension?.doubleValue,
                 let title = result.displayTitle,
                 let url = (self.siteURL as NSURL).wmf_URL(withTitle: title),
                 let article = self.articleStore?.addPreview(with: url, updatedWith: result),
-                let key = article.key else {
+                let key = article.key,
+                !set.contains(key) else {
                     return nil
             }
-            
+            set.insert(key)
             let region = MKCoordinateRegionMakeWithDistance(location.coordinate, dimension, dimension)
             return PlaceSearch(type: .location, sortStyle: WMFLocationSearchSortStyleLinks, string: nil, region: region, localizedDescription: result.displayTitle, articleKey: key)
         }
         updateSearchSuggestions(withCompletions: completions)
+        return completions
     }
-    
-    var nonce = UUID()
+
     
     func updateSearchCompletionsFromSearchBarText() {
         guard let text = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), text != "" else {
             updateSearchSuggestions(withCompletions: [])
             return
         }
-        let thisNonce = UUID()
-        nonce = thisNonce
         searchFetcher.fetchArticles(forSearchTerm: text, siteURL: siteURL, resultLimit: 24, failure: { (error) in
-            guard self.nonce == thisNonce else {
+            guard text == self.searchBar.text else {
                 return
             }
             self.updateSearchSuggestions(withCompletions: [])
         }) { (searchResult) in
-            guard self.nonce == thisNonce else {
+            guard text == self.searchBar.text else {
                 return
             }
-            guard let results = searchResult.results, results.count > 0 else {
+            guard let results = searchResult.results, self.handleCompletion(searchResults: results).count >= 10 else {
                 let center = self.mapView.userLocation.coordinate
                 let region = CLCircularRegion(center: center, radius: 40075000, identifier: "world")
-                self.locationSearchFetcher.fetchArticles(withSiteURL: self.siteURL, in: region, matchingSearchTerm: text, sortStyle: WMFLocationSearchSortStyleLinks, resultLimit: 50, completion: { (results) in
-                    guard self.nonce == thisNonce else {
+                self.locationSearchFetcher.fetchArticles(withSiteURL: self.siteURL, in: region, matchingSearchTerm: text, sortStyle: WMFLocationSearchSortStyleLinks, resultLimit: 24, completion: { (locationSearchResults) in
+                    guard text == self.searchBar.text else {
                         return
                     }
-                    self.handleCompletion(searchResults: results.results)
+                    var combinedResults: [MWKSearchResult] = searchResult.results ?? []
+                    let newResults = locationSearchResults.results as [MWKSearchResult]
+                    combinedResults.append(contentsOf: newResults)
+                    let _ = self.handleCompletion(searchResults: combinedResults)
                 }) { (error) in
-                    guard self.nonce == thisNonce else {
+                    guard text == self.searchBar.text else {
                         return
                     }
                     self.updateSearchSuggestions(withCompletions: [])
                 }
                 return
             }
-            self.handleCompletion(searchResults: results)
+            let _ = self.handleCompletion(searchResults: results)
         }
     }
     
