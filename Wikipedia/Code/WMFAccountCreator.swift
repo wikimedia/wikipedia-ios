@@ -49,7 +49,7 @@ public class WMFAccountCreator: NSObject {
         return manager!.operationQueue.operationCount > 0
     }
     
-    public func createAccount(username: String, password: String, retypePassword: String, email: String?, captchaID: String?, captchaWord: String?, token: String, siteURL: URL, completion: @escaping WMFAccountCreatorResultBlock, failure: @escaping WMFErrorHandler){
+    public func createAccount(username: String, password: String, retypePassword: String, email: String?, captchaID: String?, captchaWord: String?, token: String, siteURL: URL, success: @escaping WMFAccountCreatorResultBlock, failure: @escaping WMFErrorHandler){
         let manager = AFHTTPSessionManager(baseURL: siteURL)
         manager.responseSerializer = WMFApiJsonResponseSerializer.init();
         
@@ -92,7 +92,7 @@ public class WMFAccountCreator: NSObject {
                 return
             }
             let normalizedUsername = createaccount["username"] as? String ?? username
-            completion(WMFAccountCreatorResult.init(status: status, username: normalizedUsername, message: message))
+            success(WMFAccountCreatorResult.init(status: status, username: normalizedUsername, message: message))
         }, failure: {
             (_, error: Error) in
             failure(error)

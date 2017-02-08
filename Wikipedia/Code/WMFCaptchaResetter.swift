@@ -27,7 +27,7 @@ public class WMFCaptchaResetter: NSObject {
         return manager!.operationQueue.operationCount > 0
     }
     
-    public func resetCaptcha(siteURL: URL, completion: @escaping WMFCaptchaResetterResultBlock, failure: @escaping WMFErrorHandler){
+    public func resetCaptcha(siteURL: URL, success: @escaping WMFCaptchaResetterResultBlock, failure: @escaping WMFErrorHandler){
         let manager = AFHTTPSessionManager(baseURL: siteURL)
         manager.responseSerializer = WMFApiJsonResponseSerializer.init();
         let parameters = [
@@ -48,7 +48,7 @@ public class WMFCaptchaResetter: NSObject {
                 failure(WMFCaptchaResetterError.zeroLengthIndex)
                 return
             }
-            completion(WMFCaptchaResetterResult.init(index: index))
+            success(WMFCaptchaResetterResult.init(index: index))
         }, failure: {
             (_, error: Error) in
             failure(error)

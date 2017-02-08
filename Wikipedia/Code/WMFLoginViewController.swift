@@ -94,7 +94,7 @@ class WMFLoginViewController: UIViewController {
     fileprivate func save() {
         enableProgressiveButton(false)
         WMFAlertManager.sharedInstance.dismissAlert()
-        WMFAuthenticationManager.sharedInstance().login(withUsername: usernameField.text!, password: passwordField.text!, retypePassword:nil, success: {
+        WMFAuthenticationManager.sharedInstance().login(withUsername: usernameField.text!, password: passwordField.text!, retypePassword:nil, oathToken:nil, success: {
             let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: self.usernameField.text!)
             WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
             self.dismiss(animated: true, completion: nil)
@@ -107,7 +107,9 @@ class WMFLoginViewController: UIViewController {
                 case .temporaryPasswordNeedsChange:
                     self.showChangeTempPasswordViewController()
                     return
-                    
+                case .needsOathTokenFor2FA:
+                    self.showTwoFactorViewController()
+                    return
                     default: break
                 }
             }
@@ -126,6 +128,19 @@ class WMFLoginViewController: UIViewController {
             let changePasswordVC = WMFChangePasswordViewController.wmf_initialViewControllerFromClassStoryboard()
             changePasswordVC?.userName = self.usernameField!.text
             let navigationController = UINavigationController.init(rootViewController: changePasswordVC!)
+            presenter.present(navigationController, animated: true, completion: nil)
+        })
+    }
+
+    func showTwoFactorViewController() {
+        guard let presenter = self.presentingViewController else {
+            return
+        }
+        dismiss(animated: true, completion: {
+            let twoFactorViewController = WMFTwoFactorPasswordViewController.wmf_initialViewControllerFromClassStoryboard()
+            twoFactorViewController?.userName = self.usernameField!.text
+            twoFactorViewController?.password = self.passwordField!.text
+            let navigationController = UINavigationController.init(rootViewController: twoFactorViewController!)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
