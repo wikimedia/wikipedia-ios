@@ -4,7 +4,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^WMFCaptchaHandler)(NSURL *captchaURL);
+typedef void (^WMFCaptchaHandler)(NSURL *captchaURL, NSString *captchaID);
 
 /**
  *  This class manages all aspects of authentication.
@@ -44,7 +44,7 @@ typedef void (^WMFCaptchaHandler)(NSURL *captchaURL);
  *  @param captcha  The handler for the returned captcha URL
  *  @param failure  The handler for any errors
  */
-- (void)getAccountCreationCaptchaWithUsername:(NSString *)username password:(NSString *)password email:(nullable NSString *)email captcha:(WMFCaptchaHandler)captcha failure:(WMFErrorHandler)failure;
+- (void)getAccountCreationCaptchaWithUsername:(NSString *)username password:(NSString *)password retypePassword:(NSString*)retypePassword email:(nullable NSString *)email captcha:(WMFCaptchaHandler)captcha failure:(WMFErrorHandler)failure;
 
 /**
  *  Create an account for the username in the above method passing in the answer to the captcha.
@@ -52,11 +52,12 @@ typedef void (^WMFCaptchaHandler)(NSURL *captchaURL);
  *  After getting a new answer from the user, simply invoke this method again.
  *
  *  @param captchaText The answer text for the given captcha
+ *  @param captchaID   The ID text for the given captcha
  *  @param success     The handler for success - at this point the user is logged in
  *  @param captcha     The handler for the returned captcha URL
  *  @param failure     The handler for any errors
  */
-- (void)createAccountWithCaptchaText:(NSString *)captchaText success:(dispatch_block_t)success captcha:(WMFCaptchaHandler)captcha failure:(WMFErrorHandler)failure;
+- (void)createAccountWithUsername:(NSString *)username password:(NSString *)password retypePassword:(NSString*)retypePassword email:(nullable NSString *)email captchaText:(NSString *)captchaText captchaID:(nullable NSString *)captchaID success:(nullable dispatch_block_t)success captcha:(WMFCaptchaHandler)captcha failure:(WMFErrorHandler)failure;
 
 /**
  *  Login with the given username and password

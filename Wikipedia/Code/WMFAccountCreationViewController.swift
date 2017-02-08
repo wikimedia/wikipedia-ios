@@ -19,7 +19,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     @IBOutlet var captchaTitleLabel: UILabel!
     @IBOutlet var captchaSubtitleLabel: UILabel!
 
-    fileprivate var captchaId: NSString? = ""
+//    fileprivate var captchaId: NSString? = ""
     fileprivate var rightButton: UIBarButtonItem?
     public var funnel: CreateAccountFunnel?
     fileprivate var captchaViewController: WMFCaptchaViewController?
@@ -146,7 +146,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     }
 
     func textFieldDidChange(_ sender: Any?) {
-        var shouldHighlight = ((usernameField.text!.characters.count > 0 && passwordField.text!.characters.count > 0 && passwordRepeatField.text!.characters.count > 0 && passwordField.text == passwordRepeatField.text))
+        var shouldHighlight = areRequiredFieldsPopulated() && (passwordField.text == passwordRepeatField.text)
         // Override shouldHighlight if the text changed was the captcha field.
         if let notification = sender as? Notification {
             if notification.object as AnyObject? === captchaViewController?.captchaTextBox {
@@ -220,6 +220,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         }
     }
     
+    fileprivate var captchaID: String?
     fileprivate var captchaURL: URL? {
         didSet {
             guard captchaURL != nil else {
@@ -301,7 +302,8 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     }
     
     fileprivate func getCaptcha() {
-        WMFAuthenticationManager.sharedInstance().getAccountCreationCaptcha(withUsername: usernameField.text!, password: passwordField.text!, email: emailField.text!, captcha: {captchaURL in
+        WMFAuthenticationManager.sharedInstance().getAccountCreationCaptcha(withUsername: usernameField.text!, password: passwordField.text!, retypePassword: passwordRepeatField.text!, email: emailField.text!, captcha: {(captchaURL, captchaID) in
+            self.captchaID = captchaID
             self.captchaURL = captchaURL
             WMFAlertManager.sharedInstance.showWarningAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-required"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         }, failure: {error in
@@ -311,12 +313,20 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     }
     
     fileprivate func createAccount(withCaptcha captcha:String) {
-        WMFAuthenticationManager.sharedInstance().createAccount(withCaptchaText: captcha, success: {
-            let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: self.usernameField.text!)
-            WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-            self.dismiss(animated: true, completion: nil)
-        }, captcha: {captchaURL in
+        WMFAuthenticationManager.sharedInstance().createAccount(withUsername: usernameField.text!, password: passwordField.text!, retypePassword: passwordRepeatField.text!, email: emailField.text!, captchaText: captcha, captchaID:captchaID, success: {
+
+            WMFAuthenticationManager.sharedInstance().login(withUsername: self.usernameField.text!, password: self.passwordField.text!, retypePassword: nil, oathToken: nil, success: {
+                let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: self.usernameField.text!)
+                WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                self.dismiss(animated: true, completion: nil)
+            }, failure: { error in
+                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                self.enableProgressiveButton(true)
+            })
+            
+        }, captcha: {(captchaURL, captchaID) in
             self.captchaURL = captchaURL
+            self.captchaID = captchaID
             WMFAlertManager.sharedInstance.showWarningAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-retry"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         }, failure: {error in
             WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
