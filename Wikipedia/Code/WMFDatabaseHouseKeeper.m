@@ -95,7 +95,7 @@
     }
 
     NSFetchRequest *articlesToDeleteFetchRequest = [WMFArticle fetchRequest];
-    NSPredicate *articlesToDeletePredicate = [NSPredicate predicateWithFormat:@"viewedDate == NULL && savedDate == NULL && isExcludedFromFeed == %@", @(NO)];
+    NSPredicate *articlesToDeletePredicate = [NSPredicate predicateWithFormat:@"viewedDate == NULL && savedDate == NULL && signedQuadKey == NULL && isExcludedFromFeed == %@", @(NO)];
     if (referencedArticleKeys.count > 0) {
         NSPredicate *referencedKeysPredicate = [NSPredicate predicateWithFormat:@"!(key IN %@)", referencedArticleKeys];
         articlesToDeletePredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[articlesToDeletePredicate, referencedKeysPredicate]];
