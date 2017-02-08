@@ -44,19 +44,46 @@ class ArticlePlace: NSObject, MKAnnotation {
 
 class ArticlePlaceView: MKAnnotationView {
     let imageView: UIImageView
+    let selectedImageView: UIImageView
     let dotView: UIView
     let countLabel: UILabel
     let collapsedDimension: CGFloat = 15
     let groupDimension: CGFloat = 30
     let selectionAnimationDuration = 0.25
     
+    var alwaysShowImage = false
+    
+    func set(alwaysShowImage: Bool, animated: Bool) {
+        if alwaysShowImage {
+            imageView.alpha = 0
+            imageView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        } else {
+            imageView.alpha = 1
+        }
+        let animations = {
+            if alwaysShowImage {
+                self.imageView.alpha = 1
+                self.imageView.transform = CGAffineTransform.identity
+            } else {
+                self.imageView.alpha = 0
+                self.imageView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+            }
+        }
+        if (animated) {
+            UIView.animate(withDuration: selectionAnimationDuration, animations: animations, completion: nil)
+        } else {
+            animations()
+        }
+    }
+    
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
+        selectedImageView = UIImageView()
         imageView = UIImageView()
         countLabel = UILabel()
         dotView = UIView()
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         
-        let dimension = 50
+        let dimension = 60
         frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
         
         dotView.layer.borderWidth = 2
@@ -70,6 +97,13 @@ class ArticlePlaceView: MKAnnotationView {
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.clipsToBounds = true
         addSubview(imageView)
+        
+        selectedImageView.alpha = 0
+        selectedImageView.contentMode = .scaleAspectFill
+        selectedImageView.layer.borderWidth = 2
+        selectedImageView.layer.borderColor = UIColor.white.cgColor
+        selectedImageView.clipsToBounds = true
+        addSubview(selectedImageView)
         
         countLabel.textColor = UIColor.white
         countLabel.textAlignment = .center
@@ -90,10 +124,17 @@ class ArticlePlaceView: MKAnnotationView {
                     imageView.backgroundColor = UIColor.white
                     imageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
                          self.imageView.backgroundColor = UIColor.wmf_green()
+                        self.selectedImageView.backgroundColor = UIColor.wmf_green()
                     }, success: {
+                       self.selectedImageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
                         
+                        }, success: {
+                            
+                        })
                     })
                 } else {
+                    selectedImageView.image = nil
+                    selectedImageView.backgroundColor = UIColor.wmf_green()
                     imageView.image = nil
                     imageView.backgroundColor = UIColor.wmf_green()
                 }
@@ -116,10 +157,13 @@ class ArticlePlaceView: MKAnnotationView {
     override func prepareForReuse() {
         super.prepareForReuse()
         imageView.wmf_reset()
+        selectedImageView.wmf_reset()
         countLabel.text = nil
+        set(alwaysShowImage: false, animated: false)
+        selectedImageView.alpha = 0
+        selectedImageView.transform = CGAffineTransform.identity
         imageView.alpha = 0
         imageView.transform = CGAffineTransform.identity
-        dotView.alpha = 1
         alpha = 1
         transform = CGAffineTransform.identity
     }
@@ -131,21 +175,17 @@ class ArticlePlaceView: MKAnnotationView {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
-            dotView.alpha = 1
-            imageView.alpha = 0
-            imageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            selectedImageView.alpha = 0
+            selectedImageView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         } else {
-            imageView.alpha = 1
-            dotView.alpha = 0
+            selectedImageView.alpha = 1
         }
         let animations = {
             if selected {
-                self.imageView.alpha = 1
-                self.imageView.transform = CGAffineTransform.identity
-                self.dotView.alpha = 0
+                self.selectedImageView.alpha = 1
+                self.selectedImageView.transform = CGAffineTransform.identity
             } else {
-                self.dotView.alpha = 1
-                self.imageView.alpha = 0
+                self.selectedImageView.alpha = 0
                 //self.imageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
             }
         }
@@ -158,12 +198,19 @@ class ArticlePlaceView: MKAnnotationView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        imageView.frame = bounds
+        selectedImageView.frame = bounds
+        selectedImageView.layer.cornerRadius = selectedImageView.bounds.size.width * 0.5
+
+        imageView.bounds = CGRect(x: 0, y: 0, width: groupDimension, height: groupDimension)
+        imageView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
         imageView.layer.cornerRadius = imageView.bounds.size.width * 0.5
+        
         if countLabel.text != nil {
+            imageView.isHidden = true
             dotView.bounds = CGRect(x: 0, y: 0, width: groupDimension, height: groupDimension)
             dotView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
         } else {
+            imageView.isHidden = false
             dotView.bounds = CGRect(x: 0, y: 0, width: collapsedDimension, height: collapsedDimension)
             dotView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
         }

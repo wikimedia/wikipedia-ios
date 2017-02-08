@@ -347,15 +347,19 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         var offsetX: CGFloat
         var offsetY: CGFloat
         
+        let distanceFromAnnotationView: CGFloat = 5
+        let distanceX: CGFloat = round(0.5*annotationView.bounds.size.width) + distanceFromAnnotationView
+        let distanceY: CGFloat =  round(0.5*annotationView.bounds.size.height) + distanceFromAnnotationView
+
         if abs(deltaX) <= thresholdX {
             offsetX = -0.5 * size.width
-            offsetY = deltaY > 0 ?  0 - 30 - size.height : 30
+            offsetY = deltaY > 0 ? 0 - distanceY - size.height : distanceY
         } else if abs(deltaY) <= thresholdY {
-            offsetX = deltaX > 0 ? 0 - 30 - size.width : 30
+            offsetX = deltaX > 0 ? 0 - distanceX - size.width : distanceX
             offsetY = -0.5 * size.height
         } else {
-            offsetX = deltaX > 0 ? 0 - 30 - size.width : 30
-            offsetY = deltaY > 0 ?  0 - 30 - size.height : 30
+            offsetX = deltaX > 0 ? 0 - distanceX - size.width : distanceX
+            offsetY = deltaY > 0 ? 0 - distanceY - size.height : distanceY
         }
         
         articleVC.view.frame = CGRect(origin: CGPoint(x: annotationCenter.x + offsetX, y: annotationCenter.y + offsetY), size: articleVC.preferredContentSize)
@@ -414,14 +418,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         adjustLayout(ofPopover: articleVC, withSize:size, withAnnotationView: annotationView)
         
         articleVC.view.alpha = 0
+        articleVC.view.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
         addChildViewController(articleVC)
         view.insertSubview(articleVC.view, aboveSubview: mapView)
         articleVC.didMove(toParentViewController: self)
-        
         UIView.animate(withDuration: popoverFadeDuration) {
             articleVC.view.alpha = 1
+            articleVC.view.transform = CGAffineTransform.identity
         }
     }
+    
     
     func dismissCurrentArticlePopover() {
         guard let popover = selectedArticlePopover else {
@@ -430,6 +436,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         UIView.animate(withDuration: popoverFadeDuration, animations: {
             popover.view.alpha = 0
+            popover.view.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
         }) { (done) in
             popover.willMove(toParentViewController: nil)
             popover.view.removeFromSuperview()
@@ -452,12 +459,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         guard let place = annotation as? ArticlePlace else {
             return nil
         }
-        var placeView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+        var placeView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as! ArticlePlaceView?
         
         if placeView == nil {
             placeView = ArticlePlaceView(annotation: place, reuseIdentifier: reuseIdentifier)
         } else {
             placeView?.annotation = place
+        }
+        
+        if showingAllImages {
+            placeView?.set(alwaysShowImage: true, animated: false)
         }
         
         if place.articles.count > 1 && place.nextCoordinate == nil {
@@ -719,6 +730,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     var groupingTaskGroup: WMFTaskGroup?
     var needsRegroup = false
+    var showingAllImages = false
     
     func regroupArticlesIfNecessary(forVisibleRegion visibleRegion: MKCoordinateRegion) {
         guard groupingTaskGroup == nil else {
@@ -741,13 +753,29 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let deltaLon = visibleRegion.span.longitudeDelta
         let lowestPrecision = QuadKeyPrecision(deltaLongitude: deltaLon)
         let maxPrecision: QuadKeyPrecision = maxGroupingPrecision
-        let groupingPrecision = min(maxPrecision, lowestPrecision + groupingPrecisionDelta)
+        let currentPrecision = lowestPrecision + groupingPrecisionDelta
+        let groupingPrecision = min(maxPrecision, currentPrecision)
         
-        guard groupingPrecision != currentGroupingPrecision else {
+        guard let searchRegion = currentSearchRegion else {
             return
         }
         
-        guard let searchRegion = currentSearchRegion else {
+        let searchDeltaLon = searchRegion.span.longitudeDelta
+        let lowestSearchPrecision = QuadKeyPrecision(deltaLongitude: searchDeltaLon)
+        let currentSearchPrecision = lowestSearchPrecision + groupingPrecisionDelta
+        let shouldShowAllImages = currentPrecision > maxPrecision + 1 || currentPrecision >= currentSearchPrecision + 1
+
+        if shouldShowAllImages != showingAllImages {
+            for annotation in mapView.annotations {
+                guard let view = mapView.view(for: annotation) as? ArticlePlaceView else {
+                    continue
+                }
+                view.set(alwaysShowImage: shouldShowAllImages, animated: true)
+            }
+            showingAllImages = shouldShowAllImages
+        }
+        
+        guard groupingPrecision != currentGroupingPrecision else {
             return
         }
         
