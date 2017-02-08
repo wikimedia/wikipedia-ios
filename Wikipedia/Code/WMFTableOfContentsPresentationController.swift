@@ -9,8 +9,8 @@ import Masonry
 
 open class WMFTableOfContentsPresentationController: UIPresentationController {
     
-    var displaySide = WMFTableOfContentsDisplaySideLeft
-    var displayMode = WMFTableOfContentsDisplayModeModal
+    var displaySide = WMFTableOfContentsDisplaySide.left
+    var displayMode = WMFTableOfContentsDisplayMode.modal
     
     // MARK: - init
     public required init(presentedViewController: UIViewController, presentingViewController: UIViewController?, tapDelegate: WMFTableOfContentsPresentationControllerTapDelegate) {
@@ -71,7 +71,7 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
             _ = make?.width.equalTo()(44)
             _ = make?.height.equalTo()(44)
             switch self.displaySide {
-            case WMFTableOfContentsDisplaySideLeft:
+            case .left:
                 _ = make?.trailing.equalTo()(self.closeButton.superview!.mas_trailing)?.offset()(0 - self.closeButtonLeadingPadding)
                 if(self.traitCollection.verticalSizeClass == .compact){
                     _ = make?.top.equalTo()(self.closeButtonTopPadding)
@@ -79,7 +79,7 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
                     _ = make?.top.equalTo()(self.closeButtonTopPadding + self.statusBarEstimatedHeight)
                 }
                 break
-            case WMFTableOfContentsDisplaySideRight:
+            case .right:
                 _ = make?.leading.equalTo()(self.closeButton.superview!.mas_leading)?.offset()(self.closeButtonLeadingPadding)
                 if(self.traitCollection.verticalSizeClass == .compact){
                     _ = make?.top.equalTo()(self.closeButtonTopPadding)
@@ -87,7 +87,7 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
                     _ = make?.top.equalTo()(self.closeButtonTopPadding + self.statusBarEstimatedHeight)
                 }
                 break
-            case WMFTableOfContentsDisplaySideCenter:
+            case .center:
                 fallthrough
             default:
                 _ = make?.leading.equalTo()(self.closeButton.superview!.mas_leading)?.offset()(self.closeButtonLeadingPadding)
@@ -125,7 +125,7 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
         self.togglePresentingViewControllerAccessibility(false)
 
         switch displaySide {
-        case WMFTableOfContentsDisplaySideCenter:
+        case .center:
             self.presentedView?.layer.cornerRadius = 10
             self.presentedView?.clipsToBounds = true
             self.presentedView?.layer.borderColor = UIColor.wmf_lightGray().cgColor
@@ -192,12 +192,12 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
         frame.origin.y = UIApplication.shared.statusBarFrame.size.height + 0.5;
         
         switch displaySide {
-        case WMFTableOfContentsDisplaySideCenter:
+        case .center:
             frame.origin.y += 10
             frame.origin.x += 0.5*bgWidth
             frame.size.height -= 80
             break
-        case WMFTableOfContentsDisplaySideRight:
+        case .right:
             frame.origin.x += bgWidth
             break
         default:

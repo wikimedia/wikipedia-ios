@@ -1,6 +1,6 @@
 #import "WMFArticle+CoreDataClass.h"
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, WMFGeoType) {
     WMFGeoTypeUnknown = 0,
     WMFGeoTypeCountry,
     WMFGeoTypeSatellite,
@@ -20,7 +20,7 @@ typedef enum : NSUInteger {
     WMFGeoTypePass,
     WMFGeoTypeRailwayStation,
     WMFGeoTypeLandmark
-} WMFGeoType;
+};
 
 
 @interface WMFArticle (WMFExtensions)

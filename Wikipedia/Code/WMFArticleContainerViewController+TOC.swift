@@ -20,7 +20,7 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
                                           didSelectItem item: TableOfContentsItem) {
         
         switch tableOfContentsDisplayMode {
-        case WMFTableOfContentsDisplayModeInline:
+        case .inline:
             if let section = item as? MWKSection {
                 self.currentSection = section
                 self.sectionToRestoreScrollOffset = section
@@ -41,10 +41,10 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
                 self.currentFooterIndex = footerIndex
                 self.footerIndexToRestoreScrollOffset = footerIndex
             }
-        case WMFTableOfContentsDisplayModeModal:
+        case .modal:
             fallthrough
         default:
-            tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalHidden
+            tableOfContentsDisplayState = .modalHidden
             var dismissVCCompletionHandler: (() -> Void)?
             if let section = item as? MWKSection {
                 self.currentSection = section
@@ -91,7 +91,7 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
     }
     
     public func tableOfContentsDisplayModeIsModal() -> Bool {
-        return self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeModal;
+        return self.tableOfContentsDisplayMode == .modal;
     }
 }
 
@@ -115,7 +115,7 @@ extension WMFArticleViewController {
     */
     public func createTableOfContentsViewControllerIfNeeded() {
         if let items = createTableOfContentsSections() {
-            self.tableOfContentsViewController = WMFTableOfContentsViewController(presentingViewController: tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeModal ? self : nil , items: items, delegate: self)
+            self.tableOfContentsViewController = WMFTableOfContentsViewController(presentingViewController: tableOfContentsDisplayMode == .modal ? self : nil , items: items, delegate: self)
         }
     }
 
