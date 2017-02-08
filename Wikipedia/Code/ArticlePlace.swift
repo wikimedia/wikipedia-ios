@@ -48,6 +48,7 @@ class ArticlePlaceView: MKAnnotationView {
     let countLabel: UILabel
     let collapsedDimension: CGFloat = 15
     let groupDimension: CGFloat = 30
+    let selectionAnimationDuration = 0.25
     
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         imageView = UIImageView()
@@ -149,7 +150,7 @@ class ArticlePlaceView: MKAnnotationView {
             }
         }
         if (animated) {
-            UIView.animate(withDuration: 0.2, animations: animations, completion: nil)
+            UIView.animate(withDuration: selectionAnimationDuration, animations: animations, completion: nil)
         } else {
             animations()
         }
