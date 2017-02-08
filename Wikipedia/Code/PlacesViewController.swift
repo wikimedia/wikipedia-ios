@@ -1087,26 +1087,27 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             guard text == self.searchBar.text else {
                 return
             }
-            guard let results = searchResult.results, self.handleCompletion(searchResults: results).count >= 10 else {
-                let center = self.mapView.userLocation.coordinate
-                let region = CLCircularRegion(center: center, radius: 40075000, identifier: "world")
-                self.locationSearchFetcher.fetchArticles(withSiteURL: self.siteURL, in: region, matchingSearchTerm: text, sortStyle: .links, resultLimit: 24, completion: { (locationSearchResults) in
-                    guard text == self.searchBar.text else {
-                        return
-                    }
-                    var combinedResults: [MWKSearchResult] = searchResult.results ?? []
-                    let newResults = locationSearchResults.results as [MWKSearchResult]
-                    combinedResults.append(contentsOf: newResults)
-                    let _ = self.handleCompletion(searchResults: combinedResults)
-                }) { (error) in
-                    guard text == self.searchBar.text else {
-                        return
-                    }
-                    let _ = self.handleCompletion(searchResults: searchResult.results ?? [])
-                }
+            
+            let completions = self.handleCompletion(searchResults: searchResult.results ?? [])
+            guard completions.count < 10 else {
                 return
             }
-            let _ = self.handleCompletion(searchResults: results)
+            
+            let center = self.mapView.userLocation.coordinate
+            let region = CLCircularRegion(center: center, radius: 40075000, identifier: "world")
+            self.locationSearchFetcher.fetchArticles(withSiteURL: self.siteURL, in: region, matchingSearchTerm: text, sortStyle: .links, resultLimit: 24, completion: { (locationSearchResults) in
+                guard text == self.searchBar.text else {
+                    return
+                }
+                var combinedResults: [MWKSearchResult] = searchResult.results ?? []
+                let newResults = locationSearchResults.results as [MWKSearchResult]
+                combinedResults.append(contentsOf: newResults)
+                let _ = self.handleCompletion(searchResults: combinedResults)
+            }) { (error) in
+                guard text == self.searchBar.text else {
+                    return
+                }
+            }
         }
     }
     
