@@ -15,6 +15,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     let animationDuration = 0.6
     let animationScale = CGFloat(0.6)
+    let popoverFadeDuration = 0.2
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var progressView: UIProgressView!
@@ -54,7 +55,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     var groupingPrecisionDelta: QuadKeyPrecision = 4
     var groupingAggressiveness: CLLocationDistance = 0.67
     
-    var currentArticlePopover: ArticlePopoverViewController?
+    var selectedArticlePopover: ArticlePopoverViewController?
+    var selectedArticleKey: String?
     
     var placeToSelect: ArticlePlace?
     var articleKeyToSelect: String?
@@ -64,6 +66,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             guard let search = currentSearch else {
                 return
             }
+            
             searchBar.text = search.localizedDescription
             performSearch(search)
             
@@ -267,14 +270,23 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        deselectAllAnnotations()
+        guard let selectedKey = selectedArticleKey else {
+            return
+        }
+        articleKeyToSelect = selectedKey
+        dismissCurrentArticlePopover()
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         _mapRegion = mapView.region
         regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
+        articleKeyToSelect = nil
         showRedoSearchButtonIfNecessary(forVisibleRegion: mapView.region)
         guard let toSelect = placeToSelect else {
+            if let selectedAnnotation = mapView.selectedAnnotations.first,
+                let selectedAnnotationView = mapView.view(for: selectedAnnotation) {
+                showPopover(forAnnotationView: selectedAnnotationView)
+            }
             return
         }
         
@@ -323,6 +335,32 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return coordinates.wmf_boundingRegion
     }
     
+    func adjustLayout(ofPopover articleVC: ArticlePopoverViewController, withSize size: CGSize,  withAnnotationView annotationView: MKAnnotationView) {
+        let annotationCenter = view.convert(annotationView.center, from: mapView)
+        let center = CGPoint(x: view.bounds.midX, y:  view.bounds.midY)
+        let deltaX = annotationCenter.x - center.x
+        let deltaY = annotationCenter.y - center.y
+        
+        let thresholdX = 0.5*(abs(view.bounds.width - size.width))
+        let thresholdY = 0.5*(abs(view.bounds.height - size.height))
+        
+        var offsetX: CGFloat
+        var offsetY: CGFloat
+        
+        if abs(deltaX) <= thresholdX {
+            offsetX = -0.5 * size.width
+            offsetY = deltaY > 0 ?  0 - 30 - size.height : 30
+        } else if abs(deltaY) <= thresholdY {
+            offsetX = deltaX > 0 ? 0 - 30 - size.width : 30
+            offsetY = -0.5 * size.height
+        } else {
+            offsetX = deltaX > 0 ? 0 - 30 - size.width : 30
+            offsetY = deltaY > 0 ?  0 - 30 - size.height : 30
+        }
+        
+        articleVC.view.frame = CGRect(origin: CGPoint(x: annotationCenter.x + offsetX, y: annotationCenter.y + offsetY), size: articleVC.preferredContentSize)
+    }
+    
     func mapView(_ mapView: MKMapView, didSelect annotationView: MKAnnotationView) {
         guard let place = annotationView.annotation as? ArticlePlace else {
             return
@@ -330,16 +368,25 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         guard place.articles.count == 1 else {
             placeToSelect = place
+            articleKeyToSelect = place.articles.first?.key
             mapRegion = regionThatFits(articles: place.articles)
+            return
+        }
+        showPopover(forAnnotationView: annotationView)
+    }
+    
+    func showPopover(forAnnotationView annotationView: MKAnnotationView) {
+        guard let place = annotationView.annotation as? ArticlePlace else {
             return
         }
         
         guard let article = place.articles.first,
-            let coordinate = article.coordinate else {
+            let coordinate = article.coordinate,
+            let articleKey = article.key else {
                 return
         }
         
-        guard currentArticlePopover == nil else {
+        guard selectedArticlePopover == nil else {
             return
         }
         
@@ -363,49 +410,37 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         articleVC.preferredContentSize =  size
         articleVC.edgesForExtendedLayout = []
         
-        let annotationCenter = view.convert(annotationView.center, from: mapView)
-        let center = CGPoint(x: view.bounds.midX, y:  view.bounds.midY)
-        let deltaX = annotationCenter.x - center.x
-        let deltaY = annotationCenter.y - center.y
+        selectedArticlePopover = articleVC
+        selectedArticleKey = articleKey
+        adjustLayout(ofPopover: articleVC, withSize:size, withAnnotationView: annotationView)
         
-        let thresholdX = 0.5*(abs(view.bounds.width - size.width))
-        let thresholdY = 0.5*(abs(view.bounds.height - size.height))
-        
-        
-        var offsetX: CGFloat
-        var offsetY: CGFloat
-        
-        if abs(deltaX) <= thresholdX {
-            offsetX = -0.5 * size.width
-            offsetY = deltaY > 0 ?  0 - 30 - size.height : 30
-        } else if abs(deltaY) <= thresholdY {
-            offsetX = deltaX > 0 ? 0 - 30 - size.width : 30
-            offsetY = -0.5 * size.height
-        } else {
-            offsetX = deltaX > 0 ? 0 - 30 - size.width : 30
-            offsetY = deltaY > 0 ?  0 - 30 - size.height : 30
-        }
-        
-        articleVC.view.frame = CGRect(origin: CGPoint(x: annotationCenter.x + offsetX, y: annotationCenter.y + offsetY), size: articleVC.preferredContentSize)
-        
+        articleVC.view.alpha = 0
         addChildViewController(articleVC)
         view.insertSubview(articleVC.view, aboveSubview: mapView)
         articleVC.didMove(toParentViewController: self)
-        currentArticlePopover = articleVC
+        
+        UIView.animate(withDuration: popoverFadeDuration) {
+            articleVC.view.alpha = 1
+        }
     }
     
     func dismissCurrentArticlePopover() {
-        guard let popover = currentArticlePopover else {
+        guard let popover = selectedArticlePopover else {
             return
         }
         
-        popover.willMove(toParentViewController: nil)
-        popover.view.removeFromSuperview()
-        popover.removeFromParentViewController()
-        currentArticlePopover = nil
+        UIView.animate(withDuration: popoverFadeDuration, animations: {
+            popover.view.alpha = 0
+        }) { (done) in
+            popover.willMove(toParentViewController: nil)
+            popover.view.removeFromSuperview()
+            popover.removeFromParentViewController()
+        }
+        selectedArticlePopover = nil
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        selectedArticleKey = nil
         dismissCurrentArticlePopover()
     }
     
@@ -588,9 +623,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         searching = true
         redoSearchButton.isHidden = true
         
+        deselectAllAnnotations()
+        
         let siteURL = self.siteURL
-        
-        
         var searchTerm: String? = nil
         let sortStyle = search.sortStyle
         let region = search.region ?? mapRegion ?? mapView.region
@@ -893,7 +928,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func updatePlaces(withSearchResults searchResults: [MWKLocationSearchResult]) {
-        let articleURLToSelect = currentSearch?.searchResult?.articleURL(forSiteURL: siteURL)
+        let articleURLToSelect = currentSearch?.searchResult?.articleURL(forSiteURL: siteURL)// ?? searchResults.first?.articleURL(forSiteURL: siteURL)
         articleKeyToSelect = (articleURLToSelect as NSURL?)?.wmf_articleDatabaseKey
         var foundKey = false
         var keysToFetch: [String] = []
