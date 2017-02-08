@@ -9,6 +9,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     let locationSearchFetcher = WMFLocationSearchFetcher()
     let searchFetcher = WMFSearchFetcher()
     let previewFetcher = WMFArticlePreviewFetcher()
+    let wikidataFetcher = WikidataFetcher()
     
     let locationManager = WMFLocationManager.coarse()
     
@@ -315,33 +316,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func regionThatFits(articles: [WMFArticle]) -> MKCoordinateRegion {
-        return regionThatFits(coordinates: articles.flatMap({ (article) -> CLLocationCoordinate2D? in
+        let coordinates: [CLLocationCoordinate2D] =  articles.flatMap({ (article) -> CLLocationCoordinate2D? in
             return article.coordinate
-        }))
-    }
-    
-    func regionThatFits(coordinates: [CLLocationCoordinate2D]) -> MKCoordinateRegion {
-        var rect: MKMapRect?
-        
-        for coordinate in coordinates {
-            let point = MKMapPointForCoordinate(coordinate)
-            let size = MKMapSize(width: 0, height: 0)
-            let coordinateRect = MKMapRect(origin: point, size: size)
-            guard let currentRect = rect else {
-                rect = coordinateRect
-                continue
-            }
-            rect = MKMapRectUnion(currentRect, coordinateRect)
-        }
-        
-        guard let finalRect = rect else {
-            return MKCoordinateRegion()
-        }
-        
-        var region = MKCoordinateRegionForMapRect(finalRect)
-        region.span.latitudeDelta = max(0.1, 1.3*region.span.latitudeDelta)
-        region.span.longitudeDelta = max(0.1, 1.3*region.span.longitudeDelta)
-        return region
+        })
+        return coordinates.wmf_boundingRegion
     }
     
     func mapView(_ mapView: MKMapView, didSelect annotationView: MKAnnotationView) {
@@ -489,6 +467,117 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     var searching: Bool = false
     
+    func showSavedArticles() {
+        let moc = dataStore.viewContext
+        let done = { (articlesToShow: [WMFArticle]) -> Void in
+            let request = WMFArticle.fetchRequest()
+            request.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
+            request.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
+            self.articleFetchedResultsController = NSFetchedResultsController<WMFArticle>(fetchRequest: request, managedObjectContext: self.dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+            if articlesToShow.count > 0 {
+                self.mapRegion = self.regionThatFits(articles: articlesToShow)
+            }
+            self.searching = false
+            if articlesToShow.count == 0 {
+                self.wmf_showAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("places-no-saved-articles-have-location"))
+            }
+        }
+        
+        do {
+            let savedPagesWithLocation = try moc.fetch(fetchRequestForSavedArticlesWithLocation)
+            guard savedPagesWithLocation.count >= 99 else {
+                let savedPagesWithoutLocationRequest = WMFArticle.fetchRequest()
+                savedPagesWithoutLocationRequest.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey == NULL")
+                savedPagesWithoutLocationRequest.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
+                savedPagesWithoutLocationRequest.propertiesToFetch = ["key"]
+                let savedPagesWithoutLocation = try moc.fetch(savedPagesWithoutLocationRequest)
+                guard savedPagesWithoutLocation.count > 0 else {
+                    done(savedPagesWithLocation)
+                    return
+                }
+                let urls = savedPagesWithoutLocation.flatMap({ (article) -> URL? in
+                    return article.url
+                })
+                
+                previewFetcher.fetchArticlePreviewResults(forArticleURLs: urls, siteURL: siteURL, completion: { (searchResults) in
+                    var resultsByKey: [String: MWKSearchResult] = [:]
+                    for searchResult in searchResults {
+                        guard let title = searchResult.displayTitle, searchResult.location != nil else {
+                            continue
+                        }
+                        guard let url = (self.siteURL as NSURL).wmf_URL(withTitle: title)  else {
+                            continue
+                        }
+                        guard let key = (url as NSURL).wmf_articleDatabaseKey else {
+                            continue
+                        }
+                        resultsByKey[key] = searchResult
+                    }
+                    guard resultsByKey.count > 0 else {
+                        done(savedPagesWithLocation)
+                        return
+                    }
+                    let articlesToUpdateFetchRequest = WMFArticle.fetchRequest()
+                    articlesToUpdateFetchRequest.predicate = NSPredicate(format: "key IN %@", Array(resultsByKey.keys))
+                    do {
+                        var allArticlesWithLocation = savedPagesWithLocation
+                        let articlesToUpdate = try moc.fetch(articlesToUpdateFetchRequest)
+                        for articleToUpdate in articlesToUpdate {
+                            guard let key = articleToUpdate.key,
+                                let result = resultsByKey[key] else {
+                                    continue
+                            }
+                            self.articleStore.updatePreview(articleToUpdate, with: result)
+                            allArticlesWithLocation.append(articleToUpdate)
+                        }
+                        try moc.save()
+                        done(allArticlesWithLocation)
+                    } catch let error {
+                        DDLogError("Error fetching saved articles: \(error.localizedDescription)")
+                        done(savedPagesWithLocation)
+                    }
+                }, failure: { (error) in
+                    DDLogError("Error fetching saved articles: \(error.localizedDescription)")
+                    done(savedPagesWithLocation)
+                })
+                return
+            }
+        } catch let error {
+            DDLogError("Error fetching saved articles: \(error.localizedDescription)")
+        }
+        done([])
+    }
+    
+    func performWikidataQuery(forSearch search: PlaceSearch) {
+        let fail = {
+            dispatchOnMainQueue({
+                if let region = search.region {
+                    self.mapRegion = region
+                }
+                self.searching = false
+                var newSearch = search
+                newSearch.needsWikidataQuery = false
+                self.currentSearch = newSearch
+            })
+        }
+        guard let articleURL = search.searchResult?.articleURL(forSiteURL: siteURL) else {
+            fail()
+            return
+        }
+        
+        wikidataFetcher.wikidataBoundingRegion(forArticleURL: articleURL, failure: { (error) in
+            DDLogError("Error fetching bounding region from Wikidata: \(error)")
+        }, success: { (region) in
+            dispatchOnMainQueue({
+                self.mapRegion = region
+                self.searching = false
+                var newSearch = search
+                newSearch.needsWikidataQuery = false
+                newSearch.region = region
+                self.currentSearch = newSearch
+            })
+        })
+    }
     
     func performSearch(_ search: PlaceSearch) {
         guard !searching else {
@@ -507,84 +596,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         switch search.type {
         case .saved:
-            let moc = dataStore.viewContext
-            let done = { (articlesToShow: [WMFArticle]) -> Void in
-                let request = WMFArticle.fetchRequest()
-                request.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
-                request.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
-                self.articleFetchedResultsController = NSFetchedResultsController<WMFArticle>(fetchRequest: request, managedObjectContext: self.dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-                if articlesToShow.count > 0 {
-                    self.mapRegion = self.regionThatFits(articles: articlesToShow)
-                }
-                self.searching = false
-                if articlesToShow.count == 0 {
-                    self.wmf_showAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("places-no-saved-articles-have-location"))
-                }
-            }
-            
-            do {
-                let savedPagesWithLocation = try moc.fetch(fetchRequestForSavedArticlesWithLocation)
-                guard savedPagesWithLocation.count >= 99 else {
-                    let savedPagesWithoutLocationRequest = WMFArticle.fetchRequest()
-                    savedPagesWithoutLocationRequest.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey == NULL")
-                    savedPagesWithoutLocationRequest.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
-                    savedPagesWithoutLocationRequest.propertiesToFetch = ["key"]
-                    let savedPagesWithoutLocation = try moc.fetch(savedPagesWithoutLocationRequest)
-                    guard savedPagesWithoutLocation.count > 0 else {
-                        done(savedPagesWithLocation)
-                        return
-                    }
-                    let urls = savedPagesWithoutLocation.flatMap({ (article) -> URL? in
-                        return article.url
-                    })
-                    
-                    previewFetcher.fetchArticlePreviewResults(forArticleURLs: urls, siteURL: siteURL, completion: { (searchResults) in
-                        var resultsByKey: [String: MWKSearchResult] = [:]
-                        for searchResult in searchResults {
-                            guard let title = searchResult.displayTitle, searchResult.location != nil else {
-                                continue
-                            }
-                            guard let url = (self.siteURL as NSURL).wmf_URL(withTitle: title)  else {
-                                continue
-                            }
-                            guard let key = (url as NSURL).wmf_articleDatabaseKey else {
-                                continue
-                            }
-                            resultsByKey[key] = searchResult
-                        }
-                        guard resultsByKey.count > 0 else {
-                            done(savedPagesWithLocation)
-                            return
-                        }
-                        let articlesToUpdateFetchRequest = WMFArticle.fetchRequest()
-                        articlesToUpdateFetchRequest.predicate = NSPredicate(format: "key IN %@", Array(resultsByKey.keys))
-                        do {
-                            var allArticlesWithLocation = savedPagesWithLocation
-                            let articlesToUpdate = try moc.fetch(articlesToUpdateFetchRequest)
-                            for articleToUpdate in articlesToUpdate {
-                                guard let key = articleToUpdate.key,
-                                    let result = resultsByKey[key] else {
-                                        continue
-                                }
-                                self.articleStore.updatePreview(articleToUpdate, with: result)
-                                allArticlesWithLocation.append(articleToUpdate)
-                            }
-                            try moc.save()
-                            done(allArticlesWithLocation)
-                        } catch let error {
-                            DDLogError("Error fetching saved articles: \(error.localizedDescription)")
-                            done(savedPagesWithLocation)
-                        }
-                    }, failure: { (error) in
-                        DDLogError("Error fetching saved articles: \(error.localizedDescription)")
-                        done(savedPagesWithLocation)
-                    })
-                    return
-                }
-            } catch let error {
-                DDLogError("Error fetching saved articles: \(error.localizedDescription)")
-            }
-            done([])
+            showSavedArticles()
             return
         case .top:
             break
@@ -592,107 +604,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             guard search.needsWikidataQuery else {
                 fallthrough
             }
-            let fail = {
-                dispatchOnMainQueue({
-                    if let region = search.region {
-                        self.mapRegion = region
-                    }
-                    self.searching = false
-                    var newSearch = search
-                    newSearch.needsWikidataQuery = false
-                    self.currentSearch = newSearch
-                })
-            }
-            guard let articleURL = search.searchResult?.articleURL(forSiteURL: siteURL),
-                let title = (articleURL as NSURL).wmf_title,
-                let language = (articleURL as NSURL).wmf_language  else {
-                    fail()
-                    return
-            }
-            var components = URLComponents()
-            components.host = "wikidata.org"
-            components.path = "/w/api.php"
-            components.scheme = "https"
-            let actionQueryItem = URLQueryItem(name: "action", value: "wbgetentities")
-            let titlesQueryItem = URLQueryItem(name: "titles", value: title)
-            let sitesQueryItem = URLQueryItem(name: "sites", value: "\(language)wiki")
-            let formatQueryItem = URLQueryItem(name: "format", value: "json")
-            components.queryItems = [actionQueryItem, titlesQueryItem, sitesQueryItem, formatQueryItem]
-            
-            guard let requestURL = components.url else {
-                fail()
-                return
-            }
-            
-            let northernmostPointKey = "P1332"
-            let southernmostPointKey = "P1333"
-            let easternmostPointKey = "P1334"
-            let westernmostPointKey = "P1335"
-            let keys = [northernmostPointKey, southernmostPointKey, easternmostPointKey, westernmostPointKey]
-            URLSession.shared.dataTask(with: requestURL, completionHandler: { (data, response, error) in
-                guard let data = data else {
-                    fail()
-                    return
-                }
-                do {
-                    guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
-                        fail()
-                        return
-                    }
-                    guard let entities = jsonObject["entities"] as? [String: Any] else {
-                        fail()
-                        return
-                    }
-                    guard let entity = entities.values.first as? [String: Any] else {
-                        fail()
-                        return
-                    }
-                    guard let claims = entity["claims"] as? [String: Any] else {
-                        fail()
-                        return
-                    }
-                    
-                    let coordinates = keys.flatMap({ (key) -> CLLocationCoordinate2D? in
-                        guard let values = claims[key] as? [Any] else {
-                            return nil
-                        }
-                        guard let point = values.first as? [String: Any] else {
-                            return nil
-                        }
-                        guard let mainsnak = point["mainsnak"] as? [String: Any] else {
-                            return nil
-                        }
-                        guard let datavalue = mainsnak["datavalue"] as? [String: Any] else {
-                            return nil
-                        }
-                        guard let value = datavalue["value"] as? [String: Any] else {
-                            return nil
-                        }
-                        guard let latitude = value["latitude"] as? CLLocationDegrees,
-                            let longitude = value["longitude"] as? CLLocationDegrees else {
-                                return nil
-                        }
-                        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                    })
-                    
-                    guard coordinates.count > 3 else {
-                        fail()
-                        return
-                    }
-                    
-                    dispatchOnMainQueue({
-                        let region = self.regionThatFits(coordinates: coordinates)
-                        self.mapRegion = region
-                        self.searching = false
-                        var newSearch = search
-                        newSearch.needsWikidataQuery = false
-                        newSearch.region = region
-                        self.currentSearch = newSearch
-                    })
-                } catch let parseError {
-                    DDLogError("error parsing JSON \(parseError)")
-                }
-            }).resume()
+            performWikidataQuery(forSearch: search)
             return
         case .text:
             fallthrough
