@@ -7,7 +7,6 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
     @IBOutlet fileprivate var subTitleLabel: UILabel!
     @IBOutlet fileprivate var tokenLabel: UILabel!
     @IBOutlet fileprivate var oathTokenFields: [UITextField]!
-    @IBOutlet fileprivate var oathTokenUnderlineHeight: NSLayoutConstraint!
     
     fileprivate var doneButton: UIBarButtonItem!
     
@@ -30,14 +29,17 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
         guard let text = sender.text, text.characters.count > 0 else {
             return
         }
-        makeNextTextFieldFirstResponder(currentTextField: sender)
+        makeNextTextFieldFirstResponderIfBlank(currentTextField: sender)
     }
     
-    fileprivate func makeNextTextFieldFirstResponder(currentTextField: UITextField) {
+    fileprivate func makeNextTextFieldFirstResponderIfBlank(currentTextField: UITextField) {
         if let index = oathTokenFields.index(of: currentTextField) {
             let nextIndex = index + 1
             if nextIndex < oathTokenFields.count {
-                oathTokenFields[nextIndex].becomeFirstResponder()
+                let nextField = oathTokenFields[nextIndex]
+                if nextField.text?.characters.count == 0 {
+                    nextField.becomeFirstResponder()
+                }
             }
         }
     }
@@ -78,8 +80,6 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
         
         doneButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("main-menu-account-login"), style: .plain, target: self, action: #selector(self.doneButtonPushed(_:)))
         navigationItem.rightBarButtonItem = doneButton
-        
-        oathTokenUnderlineHeight.constant = 1.0 / UIScreen.main.scale
         
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-title")
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-instructions")
@@ -130,6 +130,7 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
                 self.funnel?.logError(error.localizedDescription)
                 self.oathTokenFields.forEach {$0.text = nil}
+                self.oathTokenFields.first?.becomeFirstResponder()
             })
     }
     
