@@ -211,8 +211,6 @@ platform :ios do
       ipa_path: ipa_path,
       hockey_app_id: hockey_app_id
     )
-    
-    sh "git stash"
   end
 
   desc "Runs tests, version, tag, and push to the beta branch"
