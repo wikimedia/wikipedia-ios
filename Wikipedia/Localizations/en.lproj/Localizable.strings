@@ -547,7 +547,7 @@
 "announcements-dismiss" = "No thanks";
 
 "places-search-top-articles" = "Top articles";
-"places-search-search-mapped-area" = "Search mapped area";
+"places-search-this-area" = "Search this area";
 "places-search-saved-articles" = "Saved articles";
 "places-search-suggested-searches-header" = "Suggested searches";
 "places-search-recently-searched-header" = "Recently searched";
