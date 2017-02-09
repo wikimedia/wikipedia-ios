@@ -269,14 +269,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        guard let selectedKey = selectedArticleKey else {
-            delayPopoverPresentation = false
-            return
-        }
-        articleKeyToSelect = selectedKey
-        delayPopoverPresentation = true
-        dismissCurrentArticlePopover()
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showPopoverForSelectedAnnotationView), object: nil)
+        deselectAllAnnotations()
     }
     
     func showPopoverForSelectedAnnotationView() {
@@ -294,8 +287,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         articleKeyToSelect = nil
         showRedoSearchButtonIfNecessary(forVisibleRegion: mapView.region)
         guard let toSelect = placeToSelect else {
-            delayPopoverPresentation = false
-            perform(#selector(showPopoverForSelectedAnnotationView), with: nil, afterDelay: popoverDelayDuration)
             return
         }
         
@@ -380,8 +371,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         articleVC.view.frame = CGRect(origin: CGPoint(x: annotationCenter.x + offsetX, y: annotationCenter.y + offsetY), size: articleVC.preferredContentSize)
     }
     
-    var delayPopoverPresentation = false
-    
     func mapView(_ mapView: MKMapView, didSelect annotationView: MKAnnotationView) {
         guard let place = annotationView.annotation as? ArticlePlace else {
             return
@@ -395,12 +384,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
-        if delayPopoverPresentation {
-            delayPopoverPresentation = false
-            perform(#selector(showPopoverForSelectedAnnotationView), with: nil, afterDelay: popoverDelayDuration)
-        } else {
-            showPopover(forAnnotationView: annotationView)
-        }
+        showPopover(forAnnotationView: annotationView)
     }
     
     
