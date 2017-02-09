@@ -57,6 +57,7 @@
 "zero-warn-when-leaving" = "Main menu option to be warned if leaving Wikipedia Zero";
 "zero-settings-devmode" = "Main menu option for enabling the development mode for Wikipedia Zero.";
 "account-creation-captcha-required" = "Alert message shown when account creation require a captcha verification";
+"account-creation-captcha-retry" = "Alert message shown when the captcha the user entered did not match the captcha image";
 "account-creation-captcha-obtaining" = "Alert shown when user wants a new captcha when creating account";
 "account-creation-logging-in" = "Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}";
 "account-creation-passwords-mismatched" = "Alert shown if the user doesn't enter the same password in both password boxes";
@@ -67,6 +68,13 @@
 "account-creation-password-confirm-placeholder-text" = "{{Identical|Confirm password}}";
 "account-creation-email-placeholder-text" = "Placeholder text which appears initially in the optional email address text box";
 "account-creation-missing-fields" = "Error shown when one of the required fields for account creation (username, password, and password confirmation) is empty.";
+"new-password-title" = "Title for password change interface";
+"new-password-instructions" = "Instructions for password change interface";
+"new-password-password-placeholder-text" = "Placeholder text which appears initially in the new password text box";
+"new-password-confirm-placeholder-text" = "Placeholder text which appears initially in the new password confirmation text box";
+"two-factor-login-title" = "Title for two factor login interface";
+"two-factor-login-instructions" = "Instructions for two factor login interface";
+"two-factor-login-token-title" = "Title for two factor token text boxes";
 "login-name-not-found" = "Alert text shown when no user name was entered";
 "login-name-illegal" = "Alert text shown the chosen user name is now allowed by the wiki (e.g. for containing an \"@\" or for being too similar to an existing one).";
 "login-name-does-not-exist" = "Alert text shown when user name entered was not found";
@@ -77,6 +85,13 @@
 "login-account-creation" = "Button text for loading the account creation interface";
 "login-username-placeholder-text" = "{{Identical|Username}}";
 "login-password-placeholder-text" = "{{Identical|Password}}";
+"login-forgot-password" = "Button text for loading the password reminder interface";
+"forgot-password-title" = "Title for reset password interface";
+"forgot-password-instructions" = "Instructions for resetting password";
+"forgot-password-username-prompt" = "Prompt for username field";
+"forgot-password-email-prompt" = "Prompt for email address field";
+"forgot-password-button-title" = "Title for reset password button";
+"forgot-password-email-sent" = "Alert text shown when password reset email is sent";
 "wikitext-downloading" = "Alert text shown when obtaining latest revision of the section being edited";
 "wikitext-download-failed" = "Alert text shown when unable to obtain latest revision of the section being edited";
 "wikitext-download-success" = "Alert text shown when latest revision of the section being edited has been retrieved";

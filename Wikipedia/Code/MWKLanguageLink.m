@@ -1,5 +1,4 @@
 #import "MWKLanguageLink.h"
-#import "WikipediaAppUtils.h"
 
 @interface MWKLanguageLink ()
 

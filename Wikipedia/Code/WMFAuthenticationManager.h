@@ -1,5 +1,7 @@
 #import <Foundation/Foundation.h>
 
+@class WMFCurrentlyLoggedInUser;
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^WMFCaptchaHandler)(NSURL *captchaURL);
@@ -61,18 +63,23 @@ typedef void (^WMFCaptchaHandler)(NSURL *captchaURL);
  *
  *  @param username The username to authenticate
  *  @param password The password for the user
+ *  @param retypePassword The password used for confirming password changes. Optional.
+ *  @param oathToken Two factor password required if user's account has 2FA enabled. Optional.
  *  @param success  The handler for success - at this point the user is logged in
  *  @param failure     The handler for any errors
  */
-- (void)loginWithUsername:(NSString *)username password:(NSString *)password success:(nullable dispatch_block_t)success failure:(nullable WMFErrorHandler)failure;
+- (void)loginWithUsername:(NSString *)username password:(NSString *)password retypePassword:(nullable NSString*)retypePassword oathToken:(nullable NSString*)oathToken success:(nullable dispatch_block_t)success failure:(nullable WMFErrorHandler)failure;
 
 /**
- *  Logs in a user using saved credentials in the keychain
+ *  Logs in a user using saved credentials from the keychain if a user isn't already logged in
  *
- *  @param success  The handler for success - at this point the user is logged in
+ *  @param success  The handler for success loggin in with keychain credentials - at this point the user is logged in
+ *  @param loggedInUserHandler     The handler called if a user was found to already be logged in
  *  @param failure     The handler for any errors
  */
-- (void)loginWithSavedCredentialsWithSuccess:(nullable dispatch_block_t)success failure:(nullable WMFErrorHandler)failure;
+- (void)loginWithSavedCredentialsWithSuccess:(nullable dispatch_block_t)success
+                      userWasAlreadyLoggedIn:(nullable void (^)(WMFCurrentlyLoggedInUser *))loggedInUserHandler
+                                     failure:(nullable WMFErrorHandler)failure;
 
 /**
  *  Logs out any authenticated user and clears out any associated cookies

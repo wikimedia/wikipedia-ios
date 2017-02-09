@@ -2,7 +2,6 @@
 
 #import <BlocksKit/BlocksKit.h>
 #import "MWKImage+CanonicalFilenames.h"
-#import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "NSArray+WMFLayoutDirectionUtilities.h"

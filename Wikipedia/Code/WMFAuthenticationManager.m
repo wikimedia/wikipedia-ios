@@ -1,45 +1,43 @@
 #import "WMFAuthenticationManager.h"
-#import "WMFAuthManagerInfoFetcher.h"
-#import "WMFAuthManagerInfo.h"
-
 #import "KeychainCredentials.h"
-
 #import "AFHTTPSessionManager+WMFCancelAll.h"
-
-#import "LoginTokenFetcher.h"
-#import "AccountLogin.h"
-
-#import "AccountCreationTokenFetcher.h"
-#import "AccountCreator.h"
-
 #import "MWKLanguageLinkController.h"
 #import "MWKLanguageLink.h"
-
 #import "NSHTTPCookieStorage+WMFCloneCookie.h"
+#import "Wikipedia-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFAuthenticationManager () <FetchFinishedDelegate>
+@interface WMFAuthenticationManager ()
 
 @property (strong, nonatomic) KeychainCredentials *keychainCredentials;
 
-@property (strong, nonatomic, nullable) WMFAuthManagerInfoFetcher *authManagerInfoFetcher;
-@property (strong, nonatomic, nullable) WMFAuthManagerInfo *loginAuthManagerInfo;
-@property (strong, nonatomic, nullable) WMFAuthManagerInfo *accountCreationAuthManagerInfo;
+@property (strong, nonatomic, nullable) WMFAuthLoginInfoFetcher* authLoginInfoFetcher;
+@property (strong, nonatomic, nullable) WMFAuthAccountCreationInfoFetcher* authAccountCreationInfoFetcher;
+@property (strong, nonatomic, nullable) WMFAuthAccountCreationInfo *authAccountCreationInfo;
 
 @property (strong, nonatomic, readwrite, nullable) NSString *loggedInUsername;
 
 @property (strong, nonatomic, nullable) NSString *authenticatingUsername;
 @property (strong, nonatomic, nullable) NSString *authenticatingPassword;
+@property (strong, nonatomic, nullable) NSString *authenticatingRetypePassword;
 @property (strong, nonatomic, nullable) NSString *email;
 @property (strong, nonatomic, nullable) NSString *captchaText;
 
 @property (strong, nonatomic, nullable) NSString *loginToken;
+@property (strong, nonatomic, nullable) WMFAuthTokenFetcher *loginTokenFetcher;
+@property (strong, nonatomic, nullable) WMFAccountLogin *accountLogin;
+@property (strong, nonatomic, nullable) NSString *oathToken;
+
 @property (strong, nonatomic, nullable) NSString *accountCreationToken;
+@property (strong, nonatomic, nullable) WMFAuthTokenFetcher *accountCreationTokenFetcher;
+@property (strong, nonatomic, nullable) WMFAccountCreator *accountCreator;
 
 @property (nonatomic, copy, nullable) dispatch_block_t successBlock;
 @property (nonatomic, copy, nullable) WMFCaptchaHandler captchaBlock;
 @property (nonatomic, copy, nullable) WMFErrorHandler failBlock;
+
+@property (strong, nonatomic, nullable) WMFCurrentlyLoggedInUserFetcher *currentlyLoggedInUserFetcher;
 
 @end
 
@@ -58,7 +56,6 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super init];
     if (self) {
         self.keychainCredentials = [[KeychainCredentials alloc] init];
-        self.authManagerInfoFetcher = [[WMFAuthManagerInfoFetcher alloc] init];
     }
     return self;
 }
@@ -92,34 +89,29 @@ NS_ASSUME_NONNULL_BEGIN
     self.failBlock = failure;
     self.successBlock = nil;
 
-    [self fetchCreationAuthManagerInfoWithSuccess:^(WMFAuthManagerInfo *_Nonnull info) {
-        self.accountCreationAuthManagerInfo = info;
-        [self fetchCreationTokensWithInfo:info username:self.authenticatingUsername password:self.authenticatingPassword email:self.email];
-    }
-        failure:^(NSError *error) {
-            [self finishAndSendFailureBlockWithError:error];
-        }];
-}
+    self.authAccountCreationInfoFetcher = [[WMFAuthAccountCreationInfoFetcher alloc] init];
+    @weakify(self)
+    [self.authAccountCreationInfoFetcher fetchAccountCreationInfoForSiteURL:[[MWKLanguageLinkController sharedInstance] appLanguage].siteURL
+                                                                 success:^(WMFAuthAccountCreationInfo* info){
+                                                                     @strongify(self)
 
-- (void)fetchCreationAuthManagerInfoWithSuccess:(nullable WMFAuthManagerInfoBlock)success failure:(nullable WMFErrorHandler)failure {
-    [self.authManagerInfoFetcher fetchAuthManagerCreationAvailableForSiteURL:[[MWKLanguageLinkController sharedInstance] appLanguage].siteURL
-        success:^(WMFAuthManagerInfo *_Nonnull info) {
-            success(info);
-        }
-        failure:^(NSError *error) {
-            failure(error);
-        }];
-}
-
-- (void)fetchCreationTokensWithInfo:(WMFAuthManagerInfo *)info username:(NSString *)username password:(NSString *)password email:(nullable NSString *)email {
-    [[QueuesSingleton sharedInstance].accountCreationFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[AccountCreationTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
-                                                                     userName:username
-                                                                     password:password
-                                                                        email:email
-                                                                  withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
-                                                           thenNotifyDelegate:self];
-    }];
+                                                                     self.authAccountCreationInfo = info;
+                                                                     
+                                                                     NSURL *siteURL = [[SessionSingleton sharedInstance] urlForLanguage:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode];
+                                                                     self.accountCreationTokenFetcher = [[WMFAuthTokenFetcher alloc] init];
+                                                                     [self.accountCreationTokenFetcher fetchTokenOfType:WMFAuthTokenTypeCreateAccount siteURL:siteURL success:^(WMFAuthToken* result){
+                                                                         @strongify(self)
+                                                                         self.accountCreationToken = result.token;
+                                                                         //Need to attempt account create to verify username and password
+                                                                         [self createAccountWithCaptchaID:nil];
+                                                                     } failure:^(NSError* error){
+                                                                         [self finishAndSendFailureBlockWithError:error];
+                                                                     }];
+                                                                     
+                                                                 }
+                                                                    failure:^(NSError *error) {
+                                                                        [self finishAndSendFailureBlockWithError:error];
+                                                                    }];
 }
 
 - (void)createAccountWithCaptchaText:(NSString *)captchaText success:(dispatch_block_t)success captcha:(WMFCaptchaHandler)captcha failure:(WMFErrorHandler)failure {
@@ -142,20 +134,49 @@ NS_ASSUME_NONNULL_BEGIN
     self.captchaBlock = captcha;
     self.failBlock = failure;
 
-    [self createAccountWithCaptchaID:self.accountCreationAuthManagerInfo.captchaID];
+    [self createAccountWithCaptchaID:self.authAccountCreationInfo.captchaID];
 }
 
 - (void)createAccountWithCaptchaID:(nullable NSString *)captchaID {
-    (void)[[AccountCreator alloc] initAndCreateAccountForUserName:self.authenticatingUsername
-                                                         realName:@""
-                                                           domain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
-                                                         password:self.authenticatingPassword
-                                                            email:self.email
-                                                        captchaId:captchaID
-                                                      captchaWord:self.captchaText
-                                                            token:self.accountCreationToken
-                                                      withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
-                                               thenNotifyDelegate:self];
+    
+    NSURL *siteURL = [[SessionSingleton sharedInstance] urlForLanguage:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode];
+
+    self.accountCreator = [[WMFAccountCreator alloc] init];
+    
+    @weakify(self)
+    [self.accountCreator createAccountWithUsername:self.authenticatingUsername
+                                          password:self.authenticatingPassword
+                                    retypePassword:self.authenticatingPassword
+                                             email:self.email
+                                         captchaID:captchaID
+                                       captchaWord:self.captchaText
+                                             token:self.accountCreationToken
+                                           siteURL:siteURL
+                                        success:^(WMFAccountCreatorResult* result){
+                                            @strongify(self)
+                                            
+                                            [self loginWithSuccess:self.successBlock failure:self.failBlock];
+                                            
+                                        } failure:^(NSError* error){
+                                            
+                                            if (error.code == WMFAccountCreatorErrorTypeNeedsCaptcha) {
+                                                
+                                                if ([self isInitialAccountCreationAttempt]) {
+                                                    //First time attempting to create an account with this captcha URL.
+                                                    //By design, no captcha text was sent
+                                                    //This is because we want to get any errors back from the API about duplicate user names before we present the captcha
+                                                    //In this case, the user name is fine and we can fire the block and have them solve the captcha
+                                                    [self sendCaptchaBlockWithURLFragment:self.authAccountCreationInfo.captchaURLFragment];
+                                                } else {
+                                                    //The user tried to solve the captch and failed
+                                                    //Get another captcha URL and have the user try again
+                                                    [self getAccountCreationCaptchaWithHandler:self.captchaBlock failure:self.failBlock];
+                                                }
+                                            } else {
+                                                [self finishAndSendFailureBlockWithError:error];
+                                            }
+                                            
+                                        }];
 }
 
 #pragma mark - Login
@@ -164,21 +185,49 @@ NS_ASSUME_NONNULL_BEGIN
     return self.loggedInUsername != nil;
 }
 
-- (void)loginWithSavedCredentialsWithSuccess:(nullable dispatch_block_t)success failure:(nullable WMFErrorHandler)failure {
-    [self loginWithUsername:self.keychainCredentials.userName
-                   password:self.keychainCredentials.password
-                    success:success
-                    failure:^(NSError *error) {
-                        if (error.domain == WMFAccountLoginErrorDomain && error.code != LOGIN_ERROR_UNKNOWN && error.code != LOGIN_ERROR_API) {
-                            [self logout];
-                        }
-                        if (failure) {
-                            failure(error);
-                        }
-                    }];
+- (void)loginWithSavedCredentialsWithSuccess:(nullable dispatch_block_t)success
+                      userWasAlreadyLoggedIn:(nullable void (^)(WMFCurrentlyLoggedInUser *))loggedInUserHandler
+                                     failure:(nullable WMFErrorHandler)failure {
+    
+    NSURL *siteURL = [[SessionSingleton sharedInstance] urlForLanguage:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode];
+    
+    self.currentlyLoggedInUserFetcher = [[WMFCurrentlyLoggedInUserFetcher alloc] init];
+    @weakify(self);
+    [self.currentlyLoggedInUserFetcher fetchWithSiteURL:siteURL
+                                             success:^(WMFCurrentlyLoggedInUser * _Nonnull currentlyLoggedInUser) {
+                                                 @strongify(self);
+                                                 
+                                                 self.loggedInUsername = currentlyLoggedInUser.name;
+                                                 
+                                                 if(loggedInUserHandler){
+                                                     loggedInUserHandler(currentlyLoggedInUser);
+                                                 }
+                                                 
+                                             } failure:^(NSError * _Nonnull error) {
+                                                 @strongify(self);
+                                                 
+                                                 self.loggedInUsername = nil;
+                                                 
+                                                 [self loginWithUsername:self.keychainCredentials.userName
+                                                                password:self.keychainCredentials.password
+                                                          retypePassword:nil
+                                                               oathToken:nil
+                                                                 success:success
+                                                                 failure:^(NSError *error) {
+                                                                     @strongify(self);
+                                                                     
+                                                                     if(error.code != kCFURLErrorNotConnectedToInternet){
+                                                                         [self logout];
+                                                                     }
+                                                                     
+                                                                     if (failure) {
+                                                                         failure(error);
+                                                                     }
+                                                                 }];
+                                             }];
 }
 
-- (void)loginWithUsername:(NSString *)username password:(NSString *)password success:(nullable dispatch_block_t)success failure:(nullable WMFErrorHandler)failure {
+- (void)loginWithUsername:(NSString *)username password:(NSString *)password retypePassword:(nullable NSString*)retypePassword oathToken:(nullable NSString*)oathToken success:(nullable dispatch_block_t)success failure:(nullable WMFErrorHandler)failure {
     if (self.successBlock || self.failBlock) {
         if (failure) {
             failure([NSError wmf_errorWithType:WMFErrorTypeFetchAlreadyInProgress userInfo:nil]);
@@ -188,6 +237,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.authenticatingUsername = username;
     self.authenticatingPassword = password;
+    self.authenticatingRetypePassword = retypePassword;
+    self.oathToken = oathToken;
 
     [self loginWithSuccess:success failure:failure];
 }
@@ -203,123 +254,56 @@ NS_ASSUME_NONNULL_BEGIN
     self.successBlock = success;
     self.failBlock = failure;
 
-    [self fetchLoginAuthManagerInfoWithSuccess:^(WMFAuthManagerInfo *_Nonnull info) {
-        self.loginAuthManagerInfo = info;
-        [self fetchLoginTokensWithInfo:info username:self.authenticatingUsername password:self.authenticatingPassword];
-    }
-        failure:^(NSError *error) {
-            [self finishAndSendFailureBlockWithError:error];
-        }];
-}
-
-- (void)fetchLoginAuthManagerInfoWithSuccess:(nullable WMFAuthManagerInfoBlock)success failure:(nullable WMFErrorHandler)failure {
-    [self.authManagerInfoFetcher fetchAuthManagerLoginAvailableForSiteURL:[[MWKLanguageLinkController sharedInstance] appLanguage].siteURL
-        success:^(WMFAuthManagerInfo *_Nonnull info) {
-            success(info);
-        }
-        failure:^(NSError *error) {
-            failure(error);
-        }];
-}
-
-- (void)fetchLoginTokensWithInfo:(WMFAuthManagerInfo *)info username:(NSString *)username password:(NSString *)password {
-    [[QueuesSingleton sharedInstance].loginFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
-                                                           userName:username
-                                                           password:password
-                                                        withManager:[QueuesSingleton sharedInstance].loginFetchManager
-                                                 thenNotifyDelegate:self];
-    }];
+    self.authLoginInfoFetcher = [[WMFAuthLoginInfoFetcher alloc] init];
+    @weakify(self)
+    [self.authLoginInfoFetcher fetchLoginInfoForSiteURL:[[MWKLanguageLinkController sharedInstance] appLanguage].siteURL
+                                             success:^(WMFAuthLoginInfo* info){
+                                                 @strongify(self)
+                                                 
+                                                 NSURL *siteURL = [[SessionSingleton sharedInstance] urlForLanguage:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode];
+                                                 self.loginTokenFetcher = [[WMFAuthTokenFetcher alloc] init];
+                                                 [self.loginTokenFetcher fetchTokenOfType:WMFAuthTokenTypeLogin siteURL:siteURL success:^(WMFAuthToken* result){
+                                                     @strongify(self)
+                                                     self.loginToken = result.token;
+                                                     [self login];
+                                                 } failure:^(NSError* error){
+                                                     [self finishAndSendFailureBlockWithError:error];
+                                                 }];
+                                                 
+                                             }
+                                                failure:^(NSError *error) {
+                                                    [self finishAndSendFailureBlockWithError:error];
+                                                }];
 }
 
 - (void)login {
-    (void)[[AccountLogin alloc] initAndLoginForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
-                                             userName:self.authenticatingUsername
-                                             password:self.authenticatingPassword
-                                                token:self.loginToken
-                                          withManager:[QueuesSingleton sharedInstance].loginFetchManager
-                                   thenNotifyDelegate:self];
+    NSURL *siteURL = [[SessionSingleton sharedInstance] urlForLanguage:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode];
+    self.accountLogin = [[WMFAccountLogin alloc] init];
+    
+    @weakify(self)
+    [self.accountLogin loginWithUsername:self.authenticatingUsername
+                                password:self.authenticatingPassword
+                          retypePassword:self.authenticatingRetypePassword
+                              loginToken:self.loginToken
+                               oathToken:self.oathToken
+                                 siteURL:siteURL
+                              success:^(WMFAccountLoginResult* result){
+        @strongify(self)
+        NSString *normalizedUserName = result.username;
+        self.loggedInUsername = normalizedUserName;
+        self.keychainCredentials.userName = normalizedUserName;
+        self.keychainCredentials.password = self.authenticatingPassword;
+        self.authenticatingPassword = nil;
+        self.authenticatingRetypePassword = nil;
+        self.authenticatingUsername = nil;
+        [self cloneSessionCookies];
+        [self finishAndSendSuccessBlock];
+    } failure:^(NSError* error){
+        [self finishAndSendFailureBlockWithError:error];
+    }];
 }
 
-#pragma mark - FetchDelegate
-
-- (void)fetchFinished:(id)sender
-          fetchedData:(id)fetchedData
-               status:(FetchFinalStatus)status
-                error:(NSError *)error {
-    if ([sender isKindOfClass:[LoginTokenFetcher class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED: {
-                self.loginToken = [sender token];
-                [self login];
-            } break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-            case FETCH_FINAL_STATUS_FAILED:
-                [self finishAndSendFailureBlockWithError:error];
-                break;
-        }
-    }
-
-    if ([sender isKindOfClass:[AccountLogin class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED: {
-                NSString *normalizedUserName = fetchedData[@"username"];
-                self.loggedInUsername = normalizedUserName;
-                self.keychainCredentials.userName = normalizedUserName;
-                self.keychainCredentials.password = self.authenticatingPassword;
-                self.authenticatingPassword = nil;
-                self.authenticatingUsername = nil;
-                [self cloneSessionCookies];
-                [self finishAndSendSuccessBlock];
-            } break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-            case FETCH_FINAL_STATUS_FAILED:
-                [self finishAndSendFailureBlockWithError:error];
-                break;
-        }
-    }
-    if ([sender isKindOfClass:[AccountCreationTokenFetcher class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED:
-                self.accountCreationToken = [sender token];
-                //Need to attempt account create to verify username and password
-                [self createAccountWithCaptchaID:nil];
-                break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-            case FETCH_FINAL_STATUS_FAILED:
-                [self finishAndSendFailureBlockWithError:error];
-                break;
-        }
-    }
-
-    if ([sender isKindOfClass:[AccountCreator class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED:
-                [self loginWithSuccess:self.successBlock failure:self.failBlock];
-                break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-            case FETCH_FINAL_STATUS_FAILED:
-                if (error.code == ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA) {
-                    if ([self isInitialAccountCreationAtempt]) {
-                        //First time attempting to create an account with this captcha URL.
-                        //By design, no captcha text was sent
-                        //This is because we want to get any errors back from the API about duplicate user names before we present the captcha
-                        //In this case, the user name is fine and we can fire the block and have them solve the captcha
-                        [self sendCaptchaBlockWithURLString:self.accountCreationAuthManagerInfo.captchaURLFragment];
-                    } else {
-                        //The user tried to solve the captch and failed
-                        //Get another captcha URL and have the user try again
-                        [self getAccountCreationCaptchaWithHandler:self.captchaBlock failure:self.failBlock];
-                    }
-                } else {
-                    [self finishAndSendFailureBlockWithError:error];
-                }
-                break;
-        }
-    }
-}
-
-- (BOOL)isInitialAccountCreationAtempt {
+- (BOOL)isInitialAccountCreationAttempt {
     return self.successBlock == nil;
 }
 
@@ -331,6 +315,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.loggedInUsername = nil;
     self.email = nil;
     self.loginToken = nil;
+    self.oathToken = nil;
     // Clear session cookies too.
     for (NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage].cookies copy]) {
         [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
@@ -359,12 +344,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Send completion blocks
 
-- (void)sendCaptchaBlockWithURLString:(NSString *)captchaURLString {
+- (void)sendCaptchaBlockWithURLFragment:(NSString *)captchaURLFragment {
     if (self.captchaBlock) {
         NSURL *captchaImageUrl = [NSURL URLWithString:
                                             [NSString stringWithFormat:@"https://%@.m.%@%@", [[MWKLanguageLinkController sharedInstance] appLanguage].languageCode,
                                                                        [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL].wmf_domain,
-                                                                       captchaURLString]];
+                                                                       captchaURLFragment]];
         self.captchaBlock(captchaImageUrl);
     }
     self.failBlock = nil;

@@ -1,6 +1,5 @@
 #import "PreviewLicenseView.h"
 #import "PaddedLabel.h"
-#import "WikipediaAppUtils.h"
 #import "NSString+FormattedAttributedString.h"
 #import "WikiGlyph_Chars.h"
 #import "UIFont+WMFStyle.h"

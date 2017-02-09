@@ -1,6 +1,5 @@
 #import "SectionEditorViewController.h"
 
-#import "WikipediaAppUtils.h"
 #import "WikiTextSectionFetcher.h"
 #import "PreviewAndSaveViewController.h"
 #import "MWLanguageInfo.h"

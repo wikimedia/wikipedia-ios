@@ -1,7 +1,6 @@
 #import "RecentSearchesViewController.h"
 #import "RecentSearchCell.h"
 #import "UIButton+WMFButton.h"
-#import "WikipediaAppUtils.h"
 #import "UIViewController+WMFHideKeyboard.h"
 #import "Wikipedia-Swift.h"
 #import "MWKRecentSearchList.h"

@@ -1,6 +1,5 @@
 #import "PageHistoryViewController.h"
 #import "PageHistoryResultCell.h"
-#import "WikipediaAppUtils.h"
 #import "PaddedLabel.h"
 #import "UITableView+DynamicCellHeight.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"

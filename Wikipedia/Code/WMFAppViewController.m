@@ -414,7 +414,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
 
-    [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:NULL failure:NULL];
+    [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:NULL userWasAlreadyLoggedIn:NULL failure:NULL];
 
     [self startContentSources];
 
