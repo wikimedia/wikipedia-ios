@@ -502,6 +502,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         if placeView == nil {
             placeView = ArticlePlaceView(annotation: place, reuseIdentifier: reuseIdentifier)
         } else {
+            placeView?.prepareForReuse()
             placeView?.annotation = place
         }
         

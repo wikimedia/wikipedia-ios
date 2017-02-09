@@ -6,6 +6,7 @@ class ArticlePlaceView: MKAnnotationView {
     let imageView: UIImageView
     let selectedImageView: UIImageView
     let dotView: UIView
+    let groupView: UIView
     let countLabel: UILabel
     let dimension: CGFloat = 60
     let collapsedDimension: CGFloat = 15
@@ -15,33 +16,45 @@ class ArticlePlaceView: MKAnnotationView {
     var alwaysShowImage = false
     
     func set(alwaysShowImage: Bool, animated: Bool) {
+        self.alwaysShowImage = alwaysShowImage
         let scale = collapsedDimension/groupDimension
         let imageViewScaleDownTransform = CGAffineTransform(scaleX: scale, y: scale)
         let dotViewScaleUpTransform = CGAffineTransform(scaleX: 1.0/scale, y: 1.0/scale)
         if alwaysShowImage {
             imageView.alpha = 0
+            imageView.isHidden = false
+            dotView.alpha = 1
+            dotView.isHidden = false
             imageView.transform = imageViewScaleDownTransform
             dotView.transform = CGAffineTransform.identity
         } else {
             dotView.transform = dotViewScaleUpTransform
             imageView.transform = CGAffineTransform.identity
             imageView.alpha = 1
+            imageView.isHidden = false
+            dotView.alpha = 0
+            dotView.isHidden = false
         }
         let animations = {
             if alwaysShowImage {
                 self.imageView.alpha = 1
+                self.dotView.alpha = 0
                 self.imageView.transform = CGAffineTransform.identity
                 self.dotView.transform = dotViewScaleUpTransform
             } else {
                 self.imageView.alpha = 0
+                self.dotView.alpha = 1
                 self.imageView.transform = imageViewScaleDownTransform
                 self.dotView.transform = CGAffineTransform.identity
             }
         }
         if (animated) {
-            UIView.animate(withDuration: selectionAnimationDuration, animations: animations, completion: nil)
+            UIView.animate(withDuration: selectionAnimationDuration, animations: animations, completion: { (didFinish) in
+                self.updateDotAndImageHiddenState()
+            })
         } else {
             animations()
+            updateDotAndImageHiddenState()
         }
     }
     
@@ -50,37 +63,54 @@ class ArticlePlaceView: MKAnnotationView {
         imageView = UIImageView()
         countLabel = UILabel()
         dotView = UIView()
+        groupView = UIView()
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         
         frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
         
+        dotView.bounds = CGRect(x: 0, y: 0, width: collapsedDimension, height: collapsedDimension)
         dotView.layer.borderWidth = 2
         dotView.layer.borderColor = UIColor.white.cgColor
-        dotView.clipsToBounds = true
+        dotView.layer.masksToBounds = true
+        dotView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
+        dotView.layer.cornerRadius = dotView.bounds.size.width * 0.5
+        dotView.backgroundColor = UIColor.wmf_green()
         addSubview(dotView)
         
-        imageView.alpha = 0
+        groupView.bounds = CGRect(x: 0, y: 0, width: groupDimension, height: groupDimension)
+        groupView.layer.borderWidth = 2
+        groupView.layer.borderColor = UIColor.white.cgColor
+        groupView.layer.masksToBounds = true
+        groupView.layer.cornerRadius = groupView.bounds.size.width * 0.5
+        groupView.backgroundColor = UIColor.wmf_green().withAlphaComponent(0.7)
+        addSubview(groupView)
+        
+        imageView.bounds = CGRect(x: 0, y: 0, width: groupDimension, height: groupDimension)
         imageView.contentMode = .scaleAspectFill
         imageView.layer.borderWidth = 2
         imageView.layer.borderColor = UIColor.white.cgColor
-        imageView.clipsToBounds = true
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = imageView.bounds.size.width * 0.5
         addSubview(imageView)
         
-        selectedImageView.alpha = 0
+        selectedImageView.frame = bounds
         selectedImageView.contentMode = .scaleAspectFill
+        selectedImageView.layer.cornerRadius = selectedImageView.bounds.size.width * 0.5
         selectedImageView.layer.borderWidth = 2
         selectedImageView.layer.borderColor = UIColor.white.cgColor
-        selectedImageView.clipsToBounds = true
+        selectedImageView.layer.masksToBounds = true
+        selectedImageView.frame = bounds
         addSubview(selectedImageView)
         
+        countLabel.frame = groupView.bounds
         countLabel.textColor = UIColor.white
         countLabel.textAlignment = .center
         countLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        addSubview(countLabel)
+        groupView.addSubview(countLabel)
         
+        prepareForReuse()
         self.annotation = annotation
         update()
-        
     }
     
     func update() {
@@ -111,20 +141,29 @@ class ArticlePlaceView: MKAnnotationView {
                     imageView.backgroundColor = UIColor.wmf_green()
                 }
             } else {
-                dotView.backgroundColor = UIColor.wmf_green().withAlphaComponent(0.7)
                 countLabel.text = "\(articlePlace.articles.count)"
             }
         }
-        
-        layoutSubviews()
+        updateDotAndImageHiddenState()
     }
     
+    func updateDotAndImageHiddenState() {
+        if countLabel.text != nil {
+            imageView.isHidden = true
+            dotView.isHidden = true
+            groupView.isHidden = false
+        } else {
+            imageView.isHidden = !alwaysShowImage
+            dotView.isHidden = alwaysShowImage
+            groupView.isHidden = true
+        }
+    }
+
     override var annotation: MKAnnotation? {
         didSet {
             update()
         }
     }
-    
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -132,12 +171,7 @@ class ArticlePlaceView: MKAnnotationView {
         selectedImageView.wmf_reset()
         countLabel.text = nil
         set(alwaysShowImage: false, animated: false)
-        selectedImageView.alpha = 0
-        selectedImageView.transform = CGAffineTransform.identity
-        dotView.transform = CGAffineTransform.identity
-        dotView.alpha = 1
-        imageView.alpha = 0
-        imageView.transform = CGAffineTransform.identity
+        setSelected(false, animated: false)
         alpha = 1
         transform = CGAffineTransform.identity
     }
@@ -155,27 +189,39 @@ class ArticlePlaceView: MKAnnotationView {
         let dotViewScaleUpTransform = CGAffineTransform(scaleX: 1.0/dotScale, y: 1.0/dotScale)
         let imageViewScaleUpTransform = CGAffineTransform(scaleX: 1.0/imageViewScale, y: 1.0/imageViewScale)
         if selected {
-            selectedImageView.alpha = 0
             selectedImageView.transform = selectedImageViewScaleDownTransform
             dotView.transform = CGAffineTransform.identity
             imageView.transform = CGAffineTransform.identity
+            
+            selectedImageView.alpha = 0
+            imageView.alpha = 1
+            dotView.alpha = 1
         } else {
-            selectedImageView.alpha = 1
             selectedImageView.transform = CGAffineTransform.identity
             dotView.transform = dotViewScaleUpTransform
             imageView.transform = imageViewScaleUpTransform
+            
+            selectedImageView.alpha = 1
+            imageView.alpha = 0
+            dotView.alpha = 0
         }
         let animations = {
             if selected {
-                self.selectedImageView.alpha = 1
                 self.selectedImageView.transform = CGAffineTransform.identity
                 self.dotView.transform = dotViewScaleUpTransform
                 self.imageView.transform = imageViewScaleUpTransform
+                
+                self.selectedImageView.alpha = 1
+                self.imageView.alpha = 0
+                self.dotView.alpha = 0
             } else {
-                self.selectedImageView.alpha = 0
                 self.selectedImageView.transform = selectedImageViewScaleDownTransform
                 self.dotView.transform = CGAffineTransform.identity
                 self.imageView.transform = CGAffineTransform.identity
+                
+                self.selectedImageView.alpha = 0
+                self.imageView.alpha = 1
+                self.dotView.alpha = 1
             }
         }
         if (animated) {
@@ -186,22 +232,11 @@ class ArticlePlaceView: MKAnnotationView {
     }
     
     func updateLayout() {
-        selectedImageView.frame = bounds
-        selectedImageView.layer.cornerRadius = selectedImageView.bounds.size.width * 0.5
-        imageView.bounds = CGRect(x: 0, y: 0, width: groupDimension, height: groupDimension)
-        imageView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
-        imageView.layer.cornerRadius = imageView.bounds.size.width * 0.5
-        if countLabel.text != nil {
-            imageView.isHidden = true
-            dotView.bounds = CGRect(x: 0, y: 0, width: groupDimension, height: groupDimension)
-            dotView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
-        } else {
-            imageView.isHidden = false
-            dotView.bounds = CGRect(x: 0, y: 0, width: collapsedDimension, height: collapsedDimension)
-            dotView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
-        }
-        dotView.layer.cornerRadius = dotView.bounds.size.width * 0.5
-        countLabel.frame = imageView.frame
+        let center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
+        selectedImageView.center = center
+        imageView.center = center
+        dotView.center = center
+        groupView.center = center
     }
     
     override var frame: CGRect {
