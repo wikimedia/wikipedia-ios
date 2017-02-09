@@ -108,11 +108,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showShareOptionsWithImage:(nullable UIImage *)image {
     [self setupBackgroundView];
 
-    self.shareImage = [self cardImageWithArticleImage:image];
-
-    [self setupShareOptions];
-
-    [self presentShareOptions];
+    [self cardImageWithArticleImage:image completion:^(UIImage *_Nullable cardViewImage) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.shareImage = cardViewImage;
+            [self setupShareOptions];
+            [self presentShareOptions];
+        });
+    }];
 }
 
 - (void)setupBackgroundView {
@@ -153,15 +155,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Create Card Image
 
-- (nullable UIImage *)cardImageWithArticleImage:(nullable UIImage *)image {
+- (void)cardImageWithArticleImage:(nullable UIImage *)image completion:(void (^)(UIImage *))completion {
     WMFShareCardViewController *cardViewController =
         [[WMFShareCardViewController alloc] initWithNibName:@"ShareCard"
                                                      bundle:nil];
 
     UIView *cardView = cardViewController.view;
-    [cardViewController fillCardWithMWKArticle:self.article snippet:self.snippet image:image];
-
-    return [cardView wmf_snapshotImage];
+    [cardViewController fillCardWithMWKArticle:self.article snippet:self.snippet image:image
+                                    completion:^(void){
+                                        completion([cardView wmf_snapshotImage]);
+                                    }];
 }
 
 - (void)setContainerViewControllerActionsEnabled:(BOOL)enabled {
