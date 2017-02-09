@@ -1,10 +1,10 @@
 //https://msdn.microsoft.com/en-us/library/bb259689.aspx
 //http://wiki.openstreetmap.org/wiki/QuadTiles
 
-public typealias QuadKey = UInt64
-public typealias QuadKeyPart = UInt32
-public typealias QuadKeyPrecision = UInt16
-public typealias QuadKeyDegrees = Double
+public typealias QuadKey = UInt64 // The address of a square on the QuadKey grid. For example, at precision 1 - 00 = top left, 01 = top right, 10 = bottom left, 11 = bottom right. For each higher precision level, two bits are appended corresponding to where the point falls in the next smallest division. 0000 = top left square of the top left square, 0011 = bottom right square of the top left square, 1011 bottom right square of the bottom left square. For higher precisions, the pattern continues.
+public typealias QuadKeyPart = UInt32 // A longitude or latitude coordinate on the QuadKey grid. At each precision level, the latitude or longitude range is divided into pow(2, precision) parts. Where the point falls indicates the value. At precision 1: 0 = lower half, 1 = upper half, at precision 2: 01 upper half of the lower half, 11 upper half of the upper half. Interleaving the bits of the latitude and longitude parts is what makes a quad key.
+public typealias QuadKeyPrecision = UInt16 // The precision of a QuadKey ( 1 = divide the world into 4 quarters once, 2 = divide the world in 4, then each subsection in 4, 3 = divide the world in 4, then each subsection in 4, then each subsection and 4 again, generally the number of squares at a given precision = pow(4, precision)
+public typealias QuadKeyDegrees = Double // A latitude or longitude in degrees
 
 public extension QuadKeyPrecision {
     public static let maxPrecision: QuadKeyPrecision = 32

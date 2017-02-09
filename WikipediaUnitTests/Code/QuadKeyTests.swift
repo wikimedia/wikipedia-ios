@@ -4,21 +4,22 @@ import XCTest
 class QuadKeyTests: XCTestCase {
 
     func testQuadKeys() {
+        //Iterate over a good sampling of latitudes and longitudes at given zoom levels to verify our quad key calculations
         var p: QuadKeyPrecision = 1
-        while p <= 32 {
+        while p <= 32 { // iterate precisions
             var lat: QuadKeyDegrees = -90
-            while lat <= 90 {
+            while lat <= 90 { // iterate latitudes
                 var lon: QuadKeyDegrees = -180
-                while lon <= 180 {
-                    let latPart = QuadKeyPart(latitude: lat, precision: p)
-                    let lonPart = QuadKeyPart(longitude: lon, precision: p)
-                    let quadKey = QuadKey(latitudePart: latPart, longitudePart: lonPart, precision: p)
-                    let altQuadKey = QuadKey(latitude: lat, longitude: lon, precision: p)
+                while lon <= 180 { // iterate longitudes
+                    let latPart = QuadKeyPart(latitude: lat, precision: p) //calculate the latitude part (the y coordinate of the quad key)
+                    let lonPart = QuadKeyPart(longitude: lon, precision: p) //calculate the longitude part (the x coordinate of the quad key)
+                    let quadKey = QuadKey(latitudePart: latPart, longitudePart: lonPart, precision: p) //calculate the QuadKey given the two parts
+                    let altQuadKey = QuadKey(latitude: lat, longitude: lon, precision: p) //calculate the quad key directly from lat and lon
                     XCTAssertEqual(quadKey, altQuadKey, "QuadKeys should match no matter how they were calculated")
                     let fullPrecisionLatPart = QuadKeyPart(latitude: lat)
                     let fullPrecisionLonPart = QuadKeyPart(longitude: lon)
-                    let fullPrecisionQuadKey = QuadKey(latitude: lat, longitude: lon)
-                    let adjustedQuadKey = fullPrecisionQuadKey.adjusted(downBy: 32 - p)
+                    let fullPrecisionQuadKey = QuadKey(latitude: lat, longitude: lon) // Calculate the full precision quad key
+                    let adjustedQuadKey = fullPrecisionQuadKey.adjusted(downBy: 32 - p) // Adjust the quad key to the given zoom level (lose precision)
                     XCTAssertEqual(quadKey, adjustedQuadKey, "QuadKeys should match no matter how they were calculated\n\(adjustedQuadKey.bitmaskString)\n\(quadKey.bitmaskString)\n\(fullPrecisionQuadKey.bitmaskString)\n\n\(fullPrecisionLatPart.bitmaskString)\n\(latPart.bitmaskString)\n\n\(fullPrecisionLonPart.bitmaskString)\n\(lonPart.bitmaskString)")
                     let bounds = QuadKeyBounds(quadKey: adjustedQuadKey, precision: p)
                     XCTAssertGreaterThanOrEqual(fullPrecisionQuadKey, bounds.min)
