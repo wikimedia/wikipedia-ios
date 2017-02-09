@@ -304,10 +304,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 article.key == articleToSelect.key else {
                     continue
             }
-            mapView.selectAnnotation(place, animated: true)
+            selectArticlePlace(place)
             break
         }
         
+    }
+    
+    var previouslySelectedArticlePlaceIdentifier: String?
+    func selectArticlePlace(_ articlePlace: ArticlePlace) {
+        mapView.selectAnnotation(articlePlace, animated: articlePlace.identifier != previouslySelectedArticlePlaceIdentifier)
+        previouslySelectedArticlePlaceIdentifier = articlePlace.identifier
     }
     
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
@@ -370,11 +376,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
+        previouslySelectedArticlePlaceIdentifier = place.identifier
+
         guard place.articles.count == 1 else {
             articleKeyToSelect = place.articles.first?.key
             mapRegion = regionThatFits(articles: place.articles)
             return
         }
+        
         showPopover(forAnnotationView: annotationView)
     }
     
@@ -895,7 +904,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                         guard self.mapView.selectedAnnotations.count == 0 else {
                             return
                         }
-                        self.mapView.selectAnnotation(place, animated: true)
+                        self.selectArticlePlace(place)
                     })
                     self.articleKeyToSelect = nil
                 }
