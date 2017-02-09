@@ -4,7 +4,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^WMFCaptchaHandler)(NSURL *captchaURL, NSString *captchaID);
+//typedef void (^WMFCaptchaHandler)(NSURL *captchaURL, NSString *captchaID);
 
 /**
  *  This class manages all aspects of authentication.
@@ -34,26 +34,6 @@ typedef void (^WMFCaptchaHandler)(NSURL *captchaURL, NSString *captchaID);
  *  @return The shared Authentication Manager
  */
 + (instancetype)sharedInstance;
-
-/**
- *  Get a captcha for account creation.
- *
- *  @param success  The handler for the returned captcha URL and ID
- *  @param failure  The handler for any errors
- */
-- (void)getAccountCreationCaptchaWithSuccess:(WMFCaptchaHandler)success failure:(WMFErrorHandler)failure;
-
-/**
- *  Create an account for the username in the above method passing in the answer to the captcha.
- *  If the answer is incorrect, the captcha block will be invoked with a new captcha.
- *  After getting a new answer from the user, simply invoke this method again.
- *
- *  @param captchaText The answer text for the given captcha
- *  @param captchaID   The ID text for the given captcha
- *  @param success     The handler for success - at this point the user is logged in
- *  @param failure     The handler for any errors
- */
-- (void)createAccountWithUsername:(NSString *)username password:(NSString *)password retypePassword:(NSString*)retypePassword email:(nullable NSString *)email captchaID:(nullable NSString *)captchaID captchaText:(nullable NSString *)captchaText success:(nullable dispatch_block_t)success failure:(WMFErrorHandler)failure;
 
 /**
  *  Login with the given username and password

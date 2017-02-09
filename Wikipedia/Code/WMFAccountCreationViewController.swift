@@ -19,7 +19,10 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     @IBOutlet var captchaTitleLabel: UILabel!
     @IBOutlet var captchaSubtitleLabel: UILabel!
 
-//    fileprivate var captchaId: NSString? = ""
+    let accountCreationInfoFetcher = WMFAuthAccountCreationInfoFetcher()
+    let tokenFetcher = WMFAuthTokenFetcher()
+    let accountCreator = WMFAccountCreator()
+    
     fileprivate var rightButton: UIBarButtonItem?
     public var funnel: CreateAccountFunnel?
     fileprivate var captchaViewController: WMFCaptchaViewController?
@@ -259,7 +262,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
                 self.dismiss(animated: true, completion: nil)
         }, failure: { error in
             self.enableProgressiveButton(true)
-            // WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         })
     }
     
@@ -302,36 +305,27 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     }
     
     fileprivate func getCaptcha() {
-        WMFAuthenticationManager.sharedInstance().getAccountCreationCaptcha(success: {(captchaURL, captchaID) in
-            
-            let warningMessage = self.hasUserEnteredCaptchaText() ? localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-retry") : localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-required")
-            
-            WMFAlertManager.sharedInstance.showWarningAlert(warningMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-            
-            self.captchaID = captchaID
-            self.captchaURL = captchaURL
-        }, failure: {error in
+        let captchaFailure: WMFErrorHandler = {error in
             WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             self.funnel?.logError(error.localizedDescription)
-        })
+        }
+        let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
+        accountCreationInfoFetcher.fetchAccountCreationInfoForSiteURL(siteURL!, success: { info in
+            let siteURL = SessionSingleton.sharedInstance().url(forLanguage: MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode)
+            self.tokenFetcher.fetchToken(ofType: .createAccount, siteURL: siteURL!,
+                                         success: { token in
+                                            let warningMessage = self.hasUserEnteredCaptchaText() ? localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-retry") : localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-required")
+                                            WMFAlertManager.sharedInstance.showWarningAlert(warningMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                                            self.captchaID = info.captchaID
+                                            self.captchaURL = info.captchaImageURL
+            }, failure: captchaFailure)
+        }, failure: captchaFailure)
     }
     
     fileprivate func createAccount(withCaptcha captcha:String?) {
-        WMFAuthenticationManager.sharedInstance().createAccount(withUsername: usernameField.text!, password: passwordField.text!, retypePassword: passwordRepeatField.text!, email: emailField.text!, captchaID:captchaID, captchaText: captcha, success: {
-
-            WMFAuthenticationManager.sharedInstance().login(withUsername: self.usernameField.text!, password: self.passwordField.text!, retypePassword: nil, oathToken: nil, success: {
-                let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: self.usernameField.text!)
-                WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-                self.dismiss(animated: true, completion: nil)
-            }, failure: { error in
-                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-                self.enableProgressiveButton(true)
-            })
-            
-        }, failure: {error in
+        let creationFailure: WMFErrorHandler = {error in
             self.funnel?.logError(error.localizedDescription)
             self.enableProgressiveButton(true)
-
             if let accountCreatorError = error as? WMFAccountCreatorError {
                 switch accountCreatorError.type {
                 case .needsCaptcha:
@@ -341,8 +335,29 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
                     break
                 }
             }
-
             WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-        })
+        }
+        
+        let creationSuccess: WMFAccountCreatorResultBlock = {_ in
+            self.login()
+        }
+        
+        let siteURL = SessionSingleton.sharedInstance().url(forLanguage: MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode)
+
+        tokenFetcher.fetchToken(ofType: .createAccount,
+                                siteURL: siteURL!,
+                                success: { token in
+                                    self.accountCreator.createAccount(
+                                        username: self.usernameField.text!,
+                                        password: self.passwordField.text!,
+                                        retypePassword: self.passwordRepeatField.text!,
+                                        email: self.emailField.text!,
+                                        captchaID:self.captchaID,
+                                        captchaWord: captcha,
+                                        token: token.token,
+                                        siteURL: siteURL!,
+                                        success:creationSuccess,
+                                        failure: creationFailure)
+        }, failure: creationFailure)
     }
 }

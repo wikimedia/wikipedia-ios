@@ -1,6 +1,5 @@
 #import "WMFAuthenticationManager.h"
 #import "KeychainCredentials.h"
-#import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "MWKLanguageLinkController.h"
 #import "MWKLanguageLink.h"
 #import "NSHTTPCookieStorage+WMFCloneCookie.h"
@@ -13,16 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) KeychainCredentials *keychainCredentials;
 
 @property (strong, nonatomic, nullable) WMFAuthLoginInfoFetcher* authLoginInfoFetcher;
-@property (strong, nonatomic, nullable) WMFAuthAccountCreationInfoFetcher* authAccountCreationInfoFetcher;
 @property (strong, nonatomic, nullable) WMFAuthTokenFetcher *loginTokenFetcher;
 @property (strong, nonatomic, nullable) WMFAccountLogin *accountLogin;
-@property (strong, nonatomic, nullable) WMFAuthTokenFetcher *accountCreationTokenFetcher;
-@property (strong, nonatomic, nullable) WMFAccountCreator *accountCreator;
 @property (strong, nonatomic, nullable) WMFCurrentlyLoggedInUserFetcher *currentlyLoggedInUserFetcher;
 
-
 @property (strong, nonatomic, readwrite, nullable) NSString *loggedInUsername;
-
 
 @end
 
@@ -43,51 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
         self.keychainCredentials = [[KeychainCredentials alloc] init];
     }
     return self;
-}
-
-#pragma mark - Account Creation
-
-- (void)getAccountCreationCaptchaWithSuccess:(WMFCaptchaHandler)success failure:(WMFErrorHandler)failure {
-
-    self.authAccountCreationInfoFetcher = [[WMFAuthAccountCreationInfoFetcher alloc] init];
-    @weakify(self)
-    [self.authAccountCreationInfoFetcher fetchAccountCreationInfoForSiteURL:[[MWKLanguageLinkController sharedInstance] appLanguage].siteURL
-                                                                    success:^(WMFAuthAccountCreationInfo* info){
-                                                                        @strongify(self)
-                                                                        
-                                                                        NSURL *siteURL = [[SessionSingleton sharedInstance] urlForLanguage:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode];
-                                                                        self.accountCreationTokenFetcher = [[WMFAuthTokenFetcher alloc] init];
-                                                                        [self.accountCreationTokenFetcher fetchTokenOfType:WMFAuthTokenTypeCreateAccount siteURL:siteURL success:^(WMFAuthToken* result){
-
-                                                                            success([info captchaImageURL], info.captchaID);
-                                                                            
-                                                                        } failure:failure];
-                                                                    } failure:failure];
-}
-
-- (void)createAccountWithUsername:(NSString *)username password:(NSString *)password retypePassword:(NSString*)retypePassword email:(nullable NSString *)email captchaID:(nullable NSString *)captchaID captchaText:(nullable NSString *)captchaText success:(nullable dispatch_block_t)success failure:(WMFErrorHandler)failure {
-
-    NSURL *siteURL = [[SessionSingleton sharedInstance] urlForLanguage:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode];
-    
-    self.accountCreationTokenFetcher = [[WMFAuthTokenFetcher alloc] init];
-    [self.accountCreationTokenFetcher fetchTokenOfType:WMFAuthTokenTypeCreateAccount siteURL:siteURL success:^(WMFAuthToken* result){
-        
-        self.accountCreator = [[WMFAccountCreator alloc] init];
-        [self.accountCreator createAccountWithUsername:username
-                                              password:password
-                                        retypePassword:retypePassword
-                                                 email:email
-                                             captchaID:captchaID
-                                           captchaWord:captchaText
-                                                 token:result.token
-                                               siteURL:siteURL
-                                               success:^(WMFAccountCreatorResult* result){
-                                                   if(success){
-                                                       success();
-                                                   }
-                                               } failure:failure];
-        
-    } failure:failure];
 }
 
 #pragma mark - Login
