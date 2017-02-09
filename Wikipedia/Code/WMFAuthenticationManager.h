@@ -57,7 +57,7 @@ typedef void (^WMFCaptchaHandler)(NSURL *captchaURL, NSString *captchaID);
  *  @param captcha     The handler for the returned captcha URL
  *  @param failure     The handler for any errors
  */
-- (void)createAccountWithUsername:(NSString *)username password:(NSString *)password retypePassword:(NSString*)retypePassword email:(nullable NSString *)email captchaText:(NSString *)captchaText captchaID:(nullable NSString *)captchaID success:(nullable dispatch_block_t)success captcha:(WMFCaptchaHandler)captcha failure:(WMFErrorHandler)failure;
+- (void)createAccountWithUsername:(NSString *)username password:(NSString *)password retypePassword:(NSString*)retypePassword email:(nullable NSString *)email captchaID:(nullable NSString *)captchaID captchaText:(nullable NSString *)captchaText captchaImageURL:(nullable NSURL *)captchaImageURL success:(nullable dispatch_block_t)success captcha:(WMFCaptchaHandler)captcha failure:(WMFErrorHandler)failure;
 
 /**
  *  Login with the given username and password

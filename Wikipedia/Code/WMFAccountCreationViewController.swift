@@ -313,7 +313,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     }
     
     fileprivate func createAccount(withCaptcha captcha:String) {
-        WMFAuthenticationManager.sharedInstance().createAccount(withUsername: usernameField.text!, password: passwordField.text!, retypePassword: passwordRepeatField.text!, email: emailField.text!, captchaText: captcha, captchaID:captchaID, success: {
+        WMFAuthenticationManager.sharedInstance().createAccount(withUsername: usernameField.text!, password: passwordField.text!, retypePassword: passwordRepeatField.text!, email: emailField.text!, captchaID:captchaID, captchaText: captcha, captchaImageURL:nil, success: {
 
             WMFAuthenticationManager.sharedInstance().login(withUsername: self.usernameField.text!, password: self.passwordField.text!, retypePassword: nil, oathToken: nil, success: {
                 let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: self.usernameField.text!)

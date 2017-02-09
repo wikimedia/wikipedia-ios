@@ -22,6 +22,17 @@ public class WMFAuthAccountCreationInfo: NSObject {
         self.canCreateAccounts = canCreateAccounts
         self.captchaID = captchaID
         self.captchaURLFragment = captchaURLFragment
+    }    
+    var captchaImageURL: URL? {
+        guard let appLang = MWKLanguageLinkController.sharedInstance().appLanguage else {
+            return nil
+        }
+        let siteURL = appLang.siteURL() as NSURL
+        guard let domain = siteURL.wmf_domain else {
+            return nil
+        }
+        let url = URL.init(string: "https://\(appLang.languageCode).m.\(domain)\(captchaURLFragment)")
+        return url
     }
 }
 
