@@ -4,8 +4,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-//typedef void (^WMFCaptchaHandler)(NSURL *captchaURL, NSString *captchaID);
-
 /**
  *  This class manages all aspects of authentication.
  *
