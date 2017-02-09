@@ -160,8 +160,10 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     }
 
     fileprivate func hasUserEnteredCaptchaText() -> Bool {
-        let trimmedCaptchaText = captchaViewController?.captchaTextBox.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        return ((trimmedCaptchaText?.characters.count)! > 0)
+        guard let text = captchaViewController?.captchaTextBox.text else {
+            return false
+        }
+        return (text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).characters.count > 0)
     }
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
