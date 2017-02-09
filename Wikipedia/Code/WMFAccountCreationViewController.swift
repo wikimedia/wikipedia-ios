@@ -327,13 +327,12 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         let creationFailure: WMFErrorHandler = {error in
             self.funnel?.logError(error.localizedDescription)
             self.enableProgressiveButton(true)
-            if let accountCreatorError = error as? WMFAccountCreatorError {
-                switch accountCreatorError.type {
+            if let creationError = error as? WMFAccountCreatorError {
+                switch creationError.type {
                 case .needsCaptcha:
                     self.getCaptcha()
                     return
-                default:
-                    break
+                default: break
                 }
             }
             WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
