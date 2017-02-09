@@ -16,6 +16,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     let animationDuration = 0.6
     let animationScale = CGFloat(0.6)
     let popoverFadeDuration = 0.25
+    let popoverDelayDuration = 0.7
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var progressView: UIProgressView!
@@ -271,10 +272,22 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         guard let selectedKey = selectedArticleKey else {
+            delayPopoverPresentation = false
             return
         }
         articleKeyToSelect = selectedKey
+        delayPopoverPresentation = true
         dismissCurrentArticlePopover()
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showPopoverForSelectedAnnotationView), object: nil)
+    }
+    
+    func showPopoverForSelectedAnnotationView() {
+        guard let selectedAnnotation = mapView.selectedAnnotations.first as? ArticlePlace,
+            let selectedAnnotationView = mapView.view(for: selectedAnnotation) as? ArticlePlaceView else {
+                return
+        }
+        
+        showPopover(forAnnotationView: selectedAnnotationView)
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -283,10 +296,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         articleKeyToSelect = nil
         showRedoSearchButtonIfNecessary(forVisibleRegion: mapView.region)
         guard let toSelect = placeToSelect else {
-            if let selectedAnnotation = mapView.selectedAnnotations.first,
-                let selectedAnnotationView = mapView.view(for: selectedAnnotation) {
-                showPopover(forAnnotationView: selectedAnnotationView)
-            }
+            delayPopoverPresentation = false
+            perform(#selector(showPopoverForSelectedAnnotationView), with: nil, afterDelay: popoverDelayDuration)
             return
         }
         
@@ -371,6 +382,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         articleVC.view.frame = CGRect(origin: CGPoint(x: annotationCenter.x + offsetX, y: annotationCenter.y + offsetY), size: articleVC.preferredContentSize)
     }
     
+    var delayPopoverPresentation = false
+    
     func mapView(_ mapView: MKMapView, didSelect annotationView: MKAnnotationView) {
         guard let place = annotationView.annotation as? ArticlePlace else {
             return
@@ -384,12 +397,18 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
-        showPopover(forAnnotationView: annotationView)
+        if delayPopoverPresentation {
+            delayPopoverPresentation = false
+            perform(#selector(showPopoverForSelectedAnnotationView), with: nil, afterDelay: popoverDelayDuration)
+        } else {
+            showPopover(forAnnotationView: annotationView)
+        }
     }
     
     
     
     func showPopover(forAnnotationView annotationView: MKAnnotationView) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showPopoverForSelectedAnnotationView), object: nil)
         guard let place = annotationView.annotation as? ArticlePlace else {
             return
         }
