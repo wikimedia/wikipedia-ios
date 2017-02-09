@@ -7,6 +7,7 @@ class ArticlePlaceView: MKAnnotationView {
     let selectedImageView: UIImageView
     let dotView: UIView
     let countLabel: UILabel
+    let dimension: CGFloat = 60
     let collapsedDimension: CGFloat = 15
     let groupDimension: CGFloat = 30
     let selectionAnimationDuration = 0.25
@@ -14,19 +15,27 @@ class ArticlePlaceView: MKAnnotationView {
     var alwaysShowImage = false
     
     func set(alwaysShowImage: Bool, animated: Bool) {
+        let scale = collapsedDimension/groupDimension
+        let imageViewScaleDownTransform = CGAffineTransform(scaleX: scale, y: scale)
+        let dotViewScaleUpTransform = CGAffineTransform(scaleX: 1.0/scale, y: 1.0/scale)
         if alwaysShowImage {
             imageView.alpha = 0
-            imageView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+            imageView.transform = imageViewScaleDownTransform
+            dotView.transform = CGAffineTransform.identity
         } else {
+            dotView.transform = dotViewScaleUpTransform
+            imageView.transform = CGAffineTransform.identity
             imageView.alpha = 1
         }
         let animations = {
             if alwaysShowImage {
                 self.imageView.alpha = 1
                 self.imageView.transform = CGAffineTransform.identity
+                self.dotView.transform = dotViewScaleUpTransform
             } else {
                 self.imageView.alpha = 0
-                self.imageView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+                self.imageView.transform = imageViewScaleDownTransform
+                self.dotView.transform = CGAffineTransform.identity
             }
         }
         if (animated) {
@@ -43,7 +52,6 @@ class ArticlePlaceView: MKAnnotationView {
         dotView = UIView()
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         
-        let dimension = 60
         frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
         
         dotView.layer.borderWidth = 2
@@ -126,6 +134,8 @@ class ArticlePlaceView: MKAnnotationView {
         set(alwaysShowImage: false, animated: false)
         selectedImageView.alpha = 0
         selectedImageView.transform = CGAffineTransform.identity
+        dotView.transform = CGAffineTransform.identity
+        dotView.alpha = 1
         imageView.alpha = 0
         imageView.transform = CGAffineTransform.identity
         alpha = 1
@@ -138,19 +148,34 @@ class ArticlePlaceView: MKAnnotationView {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        let dotScale = collapsedDimension/dimension
+        let imageViewScale = groupDimension/dimension
+        let scale = alwaysShowImage ? imageViewScale : dotScale
+        let selectedImageViewScaleDownTransform = CGAffineTransform(scaleX: scale, y: scale)
+        let dotViewScaleUpTransform = CGAffineTransform(scaleX: 1.0/dotScale, y: 1.0/dotScale)
+        let imageViewScaleUpTransform = CGAffineTransform(scaleX: 1.0/imageViewScale, y: 1.0/imageViewScale)
         if selected {
             selectedImageView.alpha = 0
-            selectedImageView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+            selectedImageView.transform = selectedImageViewScaleDownTransform
+            dotView.transform = CGAffineTransform.identity
+            imageView.transform = CGAffineTransform.identity
         } else {
             selectedImageView.alpha = 1
+            selectedImageView.transform = CGAffineTransform.identity
+            dotView.transform = dotViewScaleUpTransform
+            imageView.transform = imageViewScaleUpTransform
         }
         let animations = {
             if selected {
                 self.selectedImageView.alpha = 1
                 self.selectedImageView.transform = CGAffineTransform.identity
+                self.dotView.transform = dotViewScaleUpTransform
+                self.imageView.transform = imageViewScaleUpTransform
             } else {
                 self.selectedImageView.alpha = 0
-                //self.imageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+                self.selectedImageView.transform = selectedImageViewScaleDownTransform
+                self.dotView.transform = CGAffineTransform.identity
+                self.imageView.transform = CGAffineTransform.identity
             }
         }
         if (animated) {
@@ -160,15 +185,12 @@ class ArticlePlaceView: MKAnnotationView {
         }
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    func updateLayout() {
         selectedImageView.frame = bounds
         selectedImageView.layer.cornerRadius = selectedImageView.bounds.size.width * 0.5
-        
         imageView.bounds = CGRect(x: 0, y: 0, width: groupDimension, height: groupDimension)
         imageView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
         imageView.layer.cornerRadius = imageView.bounds.size.width * 0.5
-        
         if countLabel.text != nil {
             imageView.isHidden = true
             dotView.bounds = CGRect(x: 0, y: 0, width: groupDimension, height: groupDimension)
@@ -180,5 +202,17 @@ class ArticlePlaceView: MKAnnotationView {
         }
         dotView.layer.cornerRadius = dotView.bounds.size.width * 0.5
         countLabel.frame = imageView.frame
+    }
+    
+    override var frame: CGRect {
+        didSet {
+           updateLayout()
+        }
+    }
+    
+    override var bounds: CGRect {
+        didSet {
+            updateLayout()
+        }
     }
 }
