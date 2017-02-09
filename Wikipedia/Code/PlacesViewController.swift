@@ -378,6 +378,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         showPopover(forAnnotationView: annotationView)
     }
     
+    
+    
     func showPopover(forAnnotationView annotationView: MKAnnotationView) {
         guard let place = annotationView.annotation as? ArticlePlace else {
             return
@@ -455,10 +457,20 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let reuseIdentifier = "org.wikimedia.articlePlaceView"
+        
         guard let place = annotation as? ArticlePlace else {
+            // CRASH WORKAROUND 
+            // The UIPopoverController that the map view presents from the default user location annotation is causing a crash. Using our own annotation view for the user location works around this issue.
+            if let userLocation = annotation as? MKUserLocation {
+                let userViewReuseIdentifier = "org.wikimedia.userLocationAnnotationView"
+                let placeView = mapView.dequeueReusableAnnotationView(withIdentifier: userViewReuseIdentifier) as? UserLocationAnnotationView ?? UserLocationAnnotationView(annotation: userLocation, reuseIdentifier: userViewReuseIdentifier)
+                placeView.annotation = userLocation
+                return placeView
+            }
             return nil
         }
+        
+        let reuseIdentifier = "org.wikimedia.articlePlaceView"
         var placeView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as! ArticlePlaceView?
         
         if placeView == nil {
