@@ -36,15 +36,12 @@ typedef void (^WMFCaptchaHandler)(NSURL *captchaURL, NSString *captchaID);
 + (instancetype)sharedInstance;
 
 /**
- *  Get a captcha for account creation. This operation will also check if the username/password is valid.
+ *  Get a captcha for account creation.
  *
- *  @param username The username to create
- *  @param password The password for the new user
- *  @param email    The email for the new user
- *  @param captcha  The handler for the returned captcha URL
+ *  @param success  The handler for the returned captcha URL and ID
  *  @param failure  The handler for any errors
  */
-- (void)getAccountCreationCaptchaWithUsername:(NSString *)username password:(NSString *)password retypePassword:(NSString*)retypePassword email:(nullable NSString *)email captcha:(WMFCaptchaHandler)captcha failure:(WMFErrorHandler)failure;
+- (void)getAccountCreationCaptchaWithSuccess:(WMFCaptchaHandler)success failure:(WMFErrorHandler)failure;
 
 /**
  *  Create an account for the username in the above method passing in the answer to the captcha.
@@ -54,10 +51,9 @@ typedef void (^WMFCaptchaHandler)(NSURL *captchaURL, NSString *captchaID);
  *  @param captchaText The answer text for the given captcha
  *  @param captchaID   The ID text for the given captcha
  *  @param success     The handler for success - at this point the user is logged in
- *  @param captcha     The handler for the returned captcha URL
  *  @param failure     The handler for any errors
  */
-- (void)createAccountWithUsername:(NSString *)username password:(NSString *)password retypePassword:(NSString*)retypePassword email:(nullable NSString *)email captchaID:(nullable NSString *)captchaID captchaText:(nullable NSString *)captchaText captchaImageURL:(nullable NSURL *)captchaImageURL success:(nullable dispatch_block_t)success captcha:(WMFCaptchaHandler)captcha failure:(WMFErrorHandler)failure;
+- (void)createAccountWithUsername:(NSString *)username password:(NSString *)password retypePassword:(NSString*)retypePassword email:(nullable NSString *)email captchaID:(nullable NSString *)captchaID captchaText:(nullable NSString *)captchaText success:(nullable dispatch_block_t)success failure:(WMFErrorHandler)failure;
 
 /**
  *  Login with the given username and password

@@ -22,7 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @property (strong, nonatomic, readwrite, nullable) NSString *loggedInUsername;
-@property (strong, nonatomic, nullable) NSString *accountCreationToken;
 
 
 @end
@@ -48,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Account Creation
 
-- (void)getAccountCreationCaptchaWithUsername:(NSString *)username password:(NSString *)password retypePassword:(NSString*)retypePassword email:(nullable NSString *)email captcha:(WMFCaptchaHandler)captcha failure:(WMFErrorHandler)failure {
+- (void)getAccountCreationCaptchaWithSuccess:(WMFCaptchaHandler)success failure:(WMFErrorHandler)failure {
 
     self.authAccountCreationInfoFetcher = [[WMFAuthAccountCreationInfoFetcher alloc] init];
     @weakify(self)
@@ -59,55 +58,36 @@ NS_ASSUME_NONNULL_BEGIN
                                                                         NSURL *siteURL = [[SessionSingleton sharedInstance] urlForLanguage:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode];
                                                                         self.accountCreationTokenFetcher = [[WMFAuthTokenFetcher alloc] init];
                                                                         [self.accountCreationTokenFetcher fetchTokenOfType:WMFAuthTokenTypeCreateAccount siteURL:siteURL success:^(WMFAuthToken* result){
-                                                                            @strongify(self)
-                                                                            self.accountCreationToken = result.token;
 
-                                                                            NSURL *captchaImageURL = [info captchaImageURL];
-                                                                            
-                                                                            //Need to attempt account create to verify username and password
-                                                                            [self createAccountWithUsername:username password:password retypePassword:retypePassword email:email captchaID:info.captchaID captchaText:nil captchaImageURL:captchaImageURL success:nil captcha:captcha failure:failure];
+                                                                            success([info captchaImageURL], info.captchaID);
                                                                             
                                                                         } failure:failure];
                                                                     } failure:failure];
 }
 
-- (void)createAccountWithUsername:(NSString *)username password:(NSString *)password retypePassword:(NSString*)retypePassword email:(nullable NSString *)email captchaID:(nullable NSString *)captchaID captchaText:(nullable NSString *)captchaText captchaImageURL:(nullable NSURL *)captchaImageURL success:(nullable dispatch_block_t)success captcha:(WMFCaptchaHandler)captcha failure:(WMFErrorHandler)failure {
+- (void)createAccountWithUsername:(NSString *)username password:(NSString *)password retypePassword:(NSString*)retypePassword email:(nullable NSString *)email captchaID:(nullable NSString *)captchaID captchaText:(nullable NSString *)captchaText success:(nullable dispatch_block_t)success failure:(WMFErrorHandler)failure {
 
     NSURL *siteURL = [[SessionSingleton sharedInstance] urlForLanguage:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode];
     
-    self.accountCreator = [[WMFAccountCreator alloc] init];
-    [self.accountCreator createAccountWithUsername:username
-                                          password:password
-                                    retypePassword:retypePassword
-                                             email:email
-                                         captchaID:captchaID
-                                       captchaWord:captchaText
-                                             token:self.accountCreationToken
-                                           siteURL:siteURL
-                                           success:^(WMFAccountCreatorResult* result){
-                                               if(success){
-                                                   success();
-                                               }
-                                           } failure:^(NSError* error){
-                                               
-                                               if (error.code == WMFAccountCreatorErrorTypeNeedsCaptcha) {
-                                                   
-                                                   if (captchaText == nil) {
-                                                       //First time attempting to create an account with this captcha URL.
-                                                       //By design, no captcha text was sent
-                                                       //This is because we want to get any errors back from the API about duplicate user names before we present the captcha
-                                                       //In this case, the user name is fine and we can fire the block and have them solve the captcha
-                                                       captcha(captchaImageURL, captchaID);
-                                                       
-                                                   } else {
-                                                       //The user tried to solve the captch and failed
-                                                       //Get another captcha URL and have the user try again
-                                                       [self getAccountCreationCaptchaWithUsername:username password:password retypePassword:retypePassword email:email captcha:captcha failure:failure];
+    self.accountCreationTokenFetcher = [[WMFAuthTokenFetcher alloc] init];
+    [self.accountCreationTokenFetcher fetchTokenOfType:WMFAuthTokenTypeCreateAccount siteURL:siteURL success:^(WMFAuthToken* result){
+        
+        self.accountCreator = [[WMFAccountCreator alloc] init];
+        [self.accountCreator createAccountWithUsername:username
+                                              password:password
+                                        retypePassword:retypePassword
+                                                 email:email
+                                             captchaID:captchaID
+                                           captchaWord:captchaText
+                                                 token:result.token
+                                               siteURL:siteURL
+                                               success:^(WMFAccountCreatorResult* result){
+                                                   if(success){
+                                                       success();
                                                    }
-                                               } else {
-                                                   failure(error);
-                                               }
-                                           }];
+                                               } failure:failure];
+        
+    } failure:failure];
 }
 
 #pragma mark - Login
