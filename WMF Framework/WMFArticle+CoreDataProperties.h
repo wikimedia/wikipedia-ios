@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSNumber *signedQuadKey;
 @property (nullable, nonatomic, copy) NSNumber *geoDimensionNumber;
 @property (nullable, nonatomic, copy) NSNumber *geoTypeNumber;
-@property (nullable, nonatomic, copy) NSNumber *placesSearchSort;
+@property (nullable, nonatomic, copy) NSNumber *placesSortOrder;
 
 @property (nonatomic) double latitude; //__deprecated; // Use coordinate instead (not using actual __deprecated tag due to inability to ignore the warning when these are used in Swift)
 @property (nonatomic) double longitude; //__deprecated; // Use coordinate instead (not using actual __deprecated tag due to inability to ignore the warning when these are used in Swift)

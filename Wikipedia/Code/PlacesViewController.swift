@@ -31,7 +31,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         didSet {
             oldValue.delegate = nil
             for article in oldValue.fetchedObjects ?? [] {
-                article.placesSearchSort = nil
+                article.placesSortOrder = nil
             }
             do {
                 try dataStore.viewContext.save()
@@ -1006,7 +1006,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 let articleKey = article.key else {
                     continue
             }
-            article.placesSearchSort = NSNumber(value: sort)
+            article.placesSortOrder = NSNumber(value: sort)
             if articleKeyToSelect != nil && articleKeyToSelect == articleKey {
                 foundKey = true
             }
@@ -1021,7 +1021,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
 
         let request = WMFArticle.fetchRequest()
         request.predicate = NSPredicate(format: "key in %@", keysToFetch)
-        request.sortDescriptors = [NSSortDescriptor(key: "placesSearchSort", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: "placesSortOrder", ascending: true)]
         articleFetchedResultsController = NSFetchedResultsController<WMFArticle>(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
     }
     
