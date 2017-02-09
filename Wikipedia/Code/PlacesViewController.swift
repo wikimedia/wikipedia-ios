@@ -182,9 +182,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         locationManager.delegate = self
         locationManager.startMonitoringLocation()
         
-        //Override UINavigationBar.appearance settings from WMFStyleManager
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.tintColor = nil
         view.tintColor = UIColor.wmf_blueTint()
         redoSearchButton.backgroundColor = view.tintColor
         
@@ -211,6 +208,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         //searchBar.keyboardType = .webSearch
         searchBar.returnKeyType = .search
         searchBar.delegate = self
+        searchBar.searchBarStyle = .minimal
         navigationItem.titleView = searchBar
         
         // Setup search suggestions
