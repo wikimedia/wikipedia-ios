@@ -917,7 +917,18 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             } else {
                 let groupCount = group.articles.count
                 for article in group.articles {
-                    guard let key = article.key, let previousPlace = previousPlaceByArticle[key], previousPlace.articles.count < groupCount, annotationsToRemove.removeValue(forKey: previousPlace.identifier) != nil else {
+                    guard let key = article.key,
+                        let previousPlace = previousPlaceByArticle[key] else {
+                            continue
+                    }
+                    
+                    guard previousPlace.articles.count < groupCount else {
+                            nextCoordinate = coordinate
+                            coordinate = previousPlace.coordinate
+                        break
+                    }
+                    
+                    guard annotationsToRemove.removeValue(forKey: previousPlace.identifier) != nil else {
                         continue
                     }
                     
