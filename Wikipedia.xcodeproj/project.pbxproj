@@ -108,7 +108,6 @@
 		0EB4108B1DBFA55000A26CE1 /* WMFAnalyticsLogging.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804191C0CDE610065EBC0 /* WMFAnalyticsLogging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0EB4108C1DBFA55600A26CE1 /* PiwikTracker+WMFExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 087BFC561C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0EB4108D1DBFA55C00A26CE1 /* PiwikTracker+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 087BFC571C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.m */; };
-		0EBB23181D1A2C4A00CA9742 /* WMFAuthenticationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBB23171D1A2C4A00CA9742 /* WMFAuthenticationManager.m */; };
 		0EBCA7481C176389004F1FD9 /* WMFAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7471C176389004F1FD9 /* WMFAlertManager.swift */; };
 		0EBCA7511C17BD6D004F1FD9 /* AlertDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EBCA7501C17BD6D004F1FD9 /* AlertDesign.json */; };
 		0EC044791C7917860033D773 /* WMFArticleTextActivitySource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC044781C7917860033D773 /* WMFArticleTextActivitySource.m */; };
@@ -462,6 +461,7 @@
 		B0ED17341E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED17331E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift */; };
 		B0ED173B1E497AE7008B70AD /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED173A1E497AE7008B70AD /* WMFCurrentlyLoggedInUserFetcher.swift */; };
 		B0ED173D1E49831B008B70AD /* WMFTwoFactorPasswordViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0ED173C1E49831B008B70AD /* WMFTwoFactorPasswordViewController.storyboard */; };
+		B0ED173F1E4CF3AF008B70AD /* WMFAuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED173E1E4CF3AF008B70AD /* WMFAuthenticationManager.swift */; };
 		B0EEB8571D29B0B200F2099B /* MWKImageVarianceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EEB8561D29B0B200F2099B /* MWKImageVarianceTests.m */; };
 		B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EF42CF1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m */; };
 		B0F087501C860E910086F710 /* WMFWelcomeAnimationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0874F1C860E910086F710 /* WMFWelcomeAnimationExtensions.swift */; };
@@ -1183,8 +1183,6 @@
 		0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFImageGalleryDetailOverlayView.xib; path = Wikipedia/Code/WMFImageGalleryDetailOverlayView.xib; sourceTree = SOURCE_ROOT; };
 		0E9B9E301CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageGalleryDetailOverlayView.m; path = Wikipedia/Code/WMFImageGalleryDetailOverlayView.m; sourceTree = SOURCE_ROOT; };
 		0E9B9E311CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryDetailOverlayView.h; path = Wikipedia/Code/WMFImageGalleryDetailOverlayView.h; sourceTree = SOURCE_ROOT; };
-		0EBB23161D1A2C4A00CA9742 /* WMFAuthenticationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFAuthenticationManager.h; sourceTree = "<group>"; };
-		0EBB23171D1A2C4A00CA9742 /* WMFAuthenticationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFAuthenticationManager.m; sourceTree = "<group>"; };
 		0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKTitleLanguageController.m; path = Wikipedia/Code/MWKTitleLanguageController.m; sourceTree = SOURCE_ROOT; };
 		0EBCA7421C162ECF004F1FD9 /* MWKTitleLanguageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKTitleLanguageController.h; path = Wikipedia/Code/MWKTitleLanguageController.h; sourceTree = SOURCE_ROOT; };
 		0EBCA7441C162EE9004F1FD9 /* MWKLanguageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKLanguageFilter.h; path = Wikipedia/Code/MWKLanguageFilter.h; sourceTree = SOURCE_ROOT; };
@@ -2004,6 +2002,7 @@
 		B0ED17331E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFTwoFactorPasswordViewController.swift; path = Wikipedia/Code/WMFTwoFactorPasswordViewController.swift; sourceTree = SOURCE_ROOT; };
 		B0ED173A1E497AE7008B70AD /* WMFCurrentlyLoggedInUserFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFCurrentlyLoggedInUserFetcher.swift; sourceTree = "<group>"; };
 		B0ED173C1E49831B008B70AD /* WMFTwoFactorPasswordViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFTwoFactorPasswordViewController.storyboard; path = Wikipedia/Code/WMFTwoFactorPasswordViewController.storyboard; sourceTree = SOURCE_ROOT; };
+		B0ED173E1E4CF3AF008B70AD /* WMFAuthenticationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAuthenticationManager.swift; sourceTree = "<group>"; };
 		B0EEB8561D29B0B200F2099B /* MWKImageVarianceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageVarianceTests.m; path = WikipediaUnitTests/Code/MWKImageVarianceTests.m; sourceTree = SOURCE_ROOT; };
 		B0EF42CE1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIApplicationShortcutItem+WMFShortcutItem.h"; path = "Wikipedia/Code/UIApplicationShortcutItem+WMFShortcutItem.h"; sourceTree = SOURCE_ROOT; };
 		B0EF42CF1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIApplicationShortcutItem+WMFShortcutItem.m"; path = "Wikipedia/Code/UIApplicationShortcutItem+WMFShortcutItem.m"; sourceTree = SOURCE_ROOT; };
@@ -3675,8 +3674,7 @@
 		0EBB23191D1C450900CA9742 /* AuthenticationManager */ = {
 			isa = PBXGroup;
 			children = (
-				0EBB23161D1A2C4A00CA9742 /* WMFAuthenticationManager.h */,
-				0EBB23171D1A2C4A00CA9742 /* WMFAuthenticationManager.m */,
+				B0ED173E1E4CF3AF008B70AD /* WMFAuthenticationManager.swift */,
 				B0ED173A1E497AE7008B70AD /* WMFCurrentlyLoggedInUserFetcher.swift */,
 				0463639518A844380049EE4F /* Keychain */,
 				0E26628E1D09ED1C006D4A46 /* AuthManager Info */,
@@ -6867,6 +6865,7 @@
 				D8FB781A1DCB684500606794 /* FullSizeImageTableViewCell.swift in Sources */,
 				B0F84EED1C8E444400801560 /* WMFWelcomeAnimationView.swift in Sources */,
 				0EC0447B1C796FEF0033D773 /* WMFImageTextActivitySource.swift in Sources */,
+				B0ED173F1E4CF3AF008B70AD /* WMFAuthenticationManager.swift in Sources */,
 				B0F92C801E3FFEA100B72802 /* WMFAuthLoginInfoFetcher.swift in Sources */,
 				B0E806E21C0CEB930065EBC0 /* PreviewAndSaveViewController.m in Sources */,
 				B0E805951C0CE2C60065EBC0 /* ToCInteractionFunnel.m in Sources */,
@@ -6875,7 +6874,6 @@
 				B0E294D31DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				D84F2C001D2FEEF600963D42 /* WMFRandomArticleViewController.m in Sources */,
 				B0E803671C0CD91D0065EBC0 /* WMFArticleViewController.m in Sources */,
-				0EBB23181D1A2C4A00CA9742 /* WMFAuthenticationManager.m in Sources */,
 				B0E804CA1C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.m in Sources */,
 				D896C7961D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */,
 				B0E805621C0CE0DC0065EBC0 /* WKWebView+LoadAssetsHtml.m in Sources */,

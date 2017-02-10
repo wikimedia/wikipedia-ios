@@ -54,7 +54,6 @@
 
 #import "AppDelegate.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
-#import "WMFAuthenticationManager.h"
 
 #import "WMFDailyStatsLoggingFunnel.h"
 
@@ -432,7 +431,15 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
 
-    [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:NULL userWasAlreadyLoggedIn:NULL failure:NULL];
+    [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:^(WMFAccountLoginResult * _Nonnull success) {
+        DDLogDebug(@"\n\nSuccessfully logged in with saved credentials for user '%@'.\n\n", success.username);
+    }
+                                                         userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser * _Nonnull currentLoggedInHandler) {
+                                                             DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
+                                                         }
+                                                                            failure:^(NSError * _Nonnull error) {
+                                                                                DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
+                                                                            }];
 
     [self startContentSources];
 

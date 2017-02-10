@@ -23,7 +23,6 @@
 #import <Masonry/Masonry.h>
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "WKWebView+LoadAssetsHtml.h"
-#import "WMFAuthenticationManager.h"
 #import "KeychainCredentials.h"
 @import BlocksKitUIKitExtensions;
 

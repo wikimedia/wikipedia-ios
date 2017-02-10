@@ -106,11 +106,11 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
         }
 
         WMFAuthenticationManager.sharedInstance()
-            .login(withUsername: userName,
+            .login(username: userName,
                    password: password,
                    retypePassword: nil,
                    oathToken: token(),
-                   success: {
+                   success: { _ in
                     let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: userName)
                     WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                     self.dismiss(animated: true, completion: nil)

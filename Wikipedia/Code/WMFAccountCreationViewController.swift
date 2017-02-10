@@ -254,11 +254,11 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     fileprivate func login() {
         WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-logging-in"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         WMFAuthenticationManager.sharedInstance().login(
-            withUsername: usernameField.text!,
+            username: usernameField.text!,
             password: passwordField.text!,
             retypePassword: nil,
             oathToken: nil,
-            success: {
+            success: { _ in
                 let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: self.usernameField.text!)
                 WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 self.dismiss(animated: true, completion: nil)

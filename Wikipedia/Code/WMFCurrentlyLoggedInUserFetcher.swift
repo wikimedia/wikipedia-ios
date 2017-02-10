@@ -2,6 +2,7 @@
 @objc public enum WMFCurrentlyLoggedInUserFetcherErrorType: Int {
     case cannotExtractUserInfo
     case userIsAnonymous
+    case blankUsernameOrPassword
 }
 
 // A CustomNSError's localized description survives @objc bridging
