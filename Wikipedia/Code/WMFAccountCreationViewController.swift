@@ -16,6 +16,8 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     @IBOutlet var emailUnderlineHeight: NSLayoutConstraint!
     @IBOutlet var spaceBeneathCaptchaContainer: NSLayoutConstraint!
     @IBOutlet var createAccountContainerView: UIView!
+    @IBOutlet var captchaTitleLabel: UILabel!
+    @IBOutlet var captchaSubtitleLabel: UILabel!
 
     fileprivate var captchaId: NSString? = ""
     fileprivate var rightButton: UIBarButtonItem?
@@ -78,6 +80,8 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         emailField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
 
         captchaContainer.alpha = 0
+        captchaTitleLabel.alpha = 0
+        captchaSubtitleLabel.alpha = 0
         
         usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("account-creation-username-placeholder-text")
         passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("account-creation-password-placeholder-text")
@@ -97,8 +101,34 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         
         loginButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.loginButtonPushed(_:))))
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("navbar-title-mode-create-account")
+       
+        captchaTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-title")
+        
+        // Reminder: used a label instead of a button for subtitle because of multi-line string issues with UIButton.
+        captchaSubtitleLabel.attributedText = getCaptchaSubtitleAttributedString()
+        captchaSubtitleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.requestAnAccountTapped(_:))))
+
+        view.wmf_configureSubviewsForDynamicType()
     }
 
+    func requestAnAccountTapped(_ recognizer: UITapGestureRecognizer) {
+        wmf_openExternalUrl(URL.init(string: "https://en.wikipedia.org/wiki/Wikipedia:Request_an_account"))
+    }
+        
+    fileprivate func getCaptchaSubtitleAttributedString() -> NSAttributedString {
+        // Note: uses the font from the storyboard so the attributed string respects the
+        // storyboard dynamic type font choice and responds to dynamic type size changes.
+        let attributes: [String : Any] = [
+            NSFontAttributeName : captchaSubtitleLabel.font
+        ]
+        let substitutionAttributes: [String : Any] = [
+            NSForegroundColorAttributeName : UIColor.wmf_blueTint()
+        ]
+        let cannotSeeImageText = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-cannot-see-image")
+        let requestAccountText = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-request-account")
+        return cannotSeeImageText.attributedString(attributes: attributes, substitutionStrings: [requestAccountText], substitutionAttributes: [substitutionAttributes])
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         captchaViewController = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
@@ -162,7 +192,9 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
                 DispatchQueue.main.async(execute: {
                     UIView.animate(withDuration: duration, animations: {
                         self.captchaContainer.alpha = 1
-                        self.scrollView.scrollSubView(toTop: self.captchaContainer, animated:false)
+                        self.scrollView.scrollSubView(toTop: self.captchaTitleLabel, offset:20, animated:false)
+                        self.captchaTitleLabel.alpha = 1
+                        self.captchaSubtitleLabel.alpha = 1
                     }, completion: {(completed: Bool) -> Void in
                         self.enableProgressiveButton(false)
                     })
@@ -172,6 +204,8 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
                     WMFAlertManager.sharedInstance.dismissAlert()
                     UIView.animate(withDuration: duration, animations: {
                         self.captchaContainer.alpha = 0
+                        self.captchaTitleLabel.alpha = 0
+                        self.captchaSubtitleLabel.alpha = 0
                         self.scrollView.setContentOffset(CGPoint.zero, animated: false)
                     }, completion: {(completed: Bool) -> Void in
                         self.captchaViewController?.captchaTextBox.text = ""
