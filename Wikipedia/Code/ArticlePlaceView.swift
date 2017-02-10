@@ -35,26 +35,59 @@ class ArticlePlaceView: MKAnnotationView {
             dotView.alpha = 0
             dotView.isHidden = false
         }
-        let animations = {
+
+        let transforms = {
             if alwaysShowImage {
-                self.imageView.alpha = 1
-                self.dotView.alpha = 0
                 self.imageView.transform = CGAffineTransform.identity
                 self.dotView.transform = dotViewScaleUpTransform
             } else {
-                self.imageView.alpha = 0
-                self.dotView.alpha = 1
                 self.imageView.transform = imageViewScaleDownTransform
                 self.dotView.transform = CGAffineTransform.identity
             }
         }
-        if (animated) {
-            UIView.animate(withDuration: selectionAnimationDuration, animations: animations, completion: { (didFinish) in
-                self.updateDotAndImageHiddenState()
-            })
+        let fadesIn = {
+            if alwaysShowImage {
+                self.imageView.alpha = 1
+            } else {
+                self.dotView.alpha = 1
+            }
+        }
+        let fadesOut = {
+            if alwaysShowImage {
+                self.dotView.alpha = 0
+            } else {
+                self.imageView.alpha = 0
+            }
+        }
+        let done = {
+            self.updateDotAndImageHiddenState()
+        }
+        if animated {
+            if alwaysShowImage {
+                UIView.animateKeyframes(withDuration: 2*selectionAnimationDuration, delay: 0, options: [], animations: {
+                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
+                        UIView.animate(withDuration: 2*self.selectionAnimationDuration, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: transforms, completion:nil)
+                        
+                    })
+                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25, animations:fadesIn)
+                    UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25, animations:fadesOut)
+                }) { (didFinish) in
+                    done()
+                }
+            } else {
+                UIView.animateKeyframes(withDuration: selectionAnimationDuration, delay: 0, options: [], animations: {
+                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations:transforms)
+                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations:fadesIn)
+                    UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations:fadesOut)
+                }) { (didFinish) in
+                    done()
+                }
+            }
         } else {
-            animations()
-            updateDotAndImageHiddenState()
+            transforms()
+            fadesIn()
+            fadesOut()
+            done()
         }
     }
     
@@ -234,37 +267,52 @@ class ArticlePlaceView: MKAnnotationView {
                 self.imageView.transform = CGAffineTransform.identity
             }
         }
-        let fades = {
+        let fadesIn = {
             if selected {
                 self.selectedImageView.alpha = 1
-                self.imageView.alpha = 0
-                self.dotView.alpha = 0
             } else {
-                self.selectedImageView.alpha = 0
                 self.imageView.alpha = 1
                 self.dotView.alpha = 1
             }
         }
-        
+        let fadesOut = {
+            if selected {
+                self.imageView.alpha = 0
+                self.dotView.alpha = 0
+            } else {
+                self.selectedImageView.alpha = 0
+            }
+        }
         let done = {
             if !selected {
                 self.layer.zPosition = self.zPosition
             }
         }
-        if (animated) {
-            if (selected) {
-                UIView.animate(withDuration: 2*selectionAnimationDuration, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: transforms, completion:{ (didFinish) in
+        if animated {
+            if selected {
+                UIView.animateKeyframes(withDuration: 2*selectionAnimationDuration, delay: 0, options: [], animations: {
+                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
+                        UIView.animate(withDuration: 2*self.selectionAnimationDuration, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: transforms, completion:nil)
+
+                    })
+                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25, animations:fadesIn)
+                    UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25, animations:fadesOut)
+                }) { (didFinish) in
                     done()
-                })
-                UIView.animate(withDuration: 0.5*selectionAnimationDuration, animations: fades, completion: { (didFinish) -> Void in  } )
+                }
             } else {
-                UIView.animate(withDuration: selectionAnimationDuration, animations: { transforms()
-                    fades()
-                }, completion: { (didFinish) -> Void in  done() } )
+                UIView.animateKeyframes(withDuration: selectionAnimationDuration, delay: 0, options: [], animations: {
+                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations:transforms)
+                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations:fadesIn)
+                    UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations:fadesOut)
+                }) { (didFinish) in
+                    done()
+                }
             }
         } else {
             transforms()
-            fades()
+            fadesIn()
+            fadesOut()
             done()
         }
     }
