@@ -1162,14 +1162,21 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
+    var searchSuggestionsHidden = true {
+        didSet {
+            searchSuggestionView.isHidden = searchSuggestionsHidden
+            segmentedControl.isEnabled = searchSuggestionsHidden
+        }
+    }
+    
     // UISearchBarDelegate
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         if let type = currentSearch?.type, type != .text {
             searchBar.text = nil
         }
+        searchSuggestionsHidden = false
         updateSearchSuggestions(withCompletions: [])
-        searchSuggestionView.isHidden = false
         deselectAllAnnotations()
     }
     
@@ -1189,7 +1196,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchSuggestionView.isHidden = true
+        searchSuggestionsHidden = true
     }
     
     //UITableViewDataSource
