@@ -497,8 +497,15 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         } else if let nextCoordinate = place.nextCoordinate {
             placeView?.alpha = 0
             dispatchOnMainQueue({
-                UIView.animate(withDuration: self.animationDuration, animations: {
+                // bounce all the things
+                UIView.animate(withDuration: 2*self.animationDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
                     place.coordinate = nextCoordinate
+                }, completion: nil)
+                // do not bounce all the things
+                // UIView.animate(withDuration: self.animationDuration, animations: {
+                // place.coordinate = nextCoordinate
+                // })
+                UIView.animate(withDuration: 0.5*self.animationDuration, animations: {
                     placeView?.alpha = 1
                 })
             })

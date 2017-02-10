@@ -11,7 +11,7 @@ class ArticlePlaceView: MKAnnotationView {
     let dimension: CGFloat = 60
     let collapsedDimension: CGFloat = 15
     let groupDimension: CGFloat = 30
-    let selectionAnimationDuration = 0.3
+    let selectionAnimationDuration = 0.4
     
     var alwaysShowImage = false
     
@@ -251,10 +251,12 @@ class ArticlePlaceView: MKAnnotationView {
                 UIView.animate(withDuration: 2*selectionAnimationDuration, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: transforms, completion:{ (didFinish) in
                     done()
                 })
+                UIView.animate(withDuration: 0.5*selectionAnimationDuration, animations: fades, completion: { (didFinish) -> Void in  } )
             } else {
-                UIView.animate(withDuration: selectionAnimationDuration, animations: transforms, completion: { (didFinish) -> Void in  done() } )
+                UIView.animate(withDuration: selectionAnimationDuration, animations: { transforms()
+                    fades()
+                }, completion: { (didFinish) -> Void in  done() } )
             }
-            UIView.animate(withDuration: selectionAnimationDuration, animations: fades, completion: { (didFinish) -> Void in  } )
         } else {
             transforms()
             fades()
