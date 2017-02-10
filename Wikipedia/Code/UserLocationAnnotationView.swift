@@ -6,9 +6,9 @@ class UserLocationAnnotationView: MKAnnotationView {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         let dimension = 14
         frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
-        
         layer.borderWidth = 3
         layer.borderColor = UIColor.white.cgColor
+        layer.zPosition = -1
         backgroundColor = UIColor.wmf_blueTint()
         self.annotation = annotation
     }

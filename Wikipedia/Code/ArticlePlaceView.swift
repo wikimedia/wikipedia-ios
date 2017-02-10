@@ -110,39 +110,44 @@ class ArticlePlaceView: MKAnnotationView {
         
         prepareForReuse()
         self.annotation = annotation
-        update()
     }
     
-    func update() {
-        if let articlePlace = annotation as? ArticlePlace {
-            if articlePlace.articles.count == 1 {
-                dotView.backgroundColor = UIColor.wmf_green()
-                let article = articlePlace.articles[0]
-                if let thumbnailURL = article.thumbnailURL {
-                    selectedImageView.backgroundColor = UIColor.white
-                    imageView.backgroundColor = UIColor.white
-                    imageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
-                        self.imageView.backgroundColor = UIColor.wmf_green()
+    var zPosition: CGFloat = 1 {
+        didSet {
+            layer.zPosition = zPosition
+        }
+    }
+    
+    func update(withArticlePlace articlePlace: ArticlePlace) {
+        if articlePlace.articles.count == 1 {
+            zPosition = 1
+            dotView.backgroundColor = UIColor.wmf_green()
+            let article = articlePlace.articles[0]
+            if let thumbnailURL = article.thumbnailURL {
+                selectedImageView.backgroundColor = UIColor.white
+                imageView.backgroundColor = UIColor.white
+                imageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
+                    self.imageView.backgroundColor = UIColor.wmf_green()
+                    self.selectedImageView.backgroundColor = UIColor.wmf_green()
+                    self.selectedImageView.image = nil
+                    self.imageView.image = nil
+                }, success: {
+                    self.selectedImageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
                         self.selectedImageView.backgroundColor = UIColor.wmf_green()
                         self.selectedImageView.image = nil
-                        self.imageView.image = nil
                     }, success: {
-                        self.selectedImageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
-                            self.selectedImageView.backgroundColor = UIColor.wmf_green()
-                            self.selectedImageView.image = nil
-                        }, success: {
-                            
-                        })
+                        
                     })
-                } else {
-                    selectedImageView.image = nil
-                    selectedImageView.backgroundColor = UIColor.wmf_green()
-                    imageView.image = nil
-                    imageView.backgroundColor = UIColor.wmf_green()
-                }
+                })
             } else {
-                countLabel.text = "\(articlePlace.articles.count)"
+                selectedImageView.image = nil
+                selectedImageView.backgroundColor = UIColor.wmf_green()
+                imageView.image = nil
+                imageView.backgroundColor = UIColor.wmf_green()
             }
+        } else {
+            zPosition = 2
+            countLabel.text = "\(articlePlace.articles.count)"
         }
         updateDotAndImageHiddenState()
     }
@@ -161,7 +166,10 @@ class ArticlePlaceView: MKAnnotationView {
 
     override var annotation: MKAnnotation? {
         didSet {
-            update()
+            guard let articlePlace = annotation as? ArticlePlace else {
+                return
+            }
+            update(withArticlePlace: articlePlace)
         }
     }
     
@@ -180,6 +188,7 @@ class ArticlePlaceView: MKAnnotationView {
         return nil
     }
     
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         let dotScale = collapsedDimension/dimension
@@ -188,6 +197,7 @@ class ArticlePlaceView: MKAnnotationView {
         let selectedImageViewScaleDownTransform = CGAffineTransform(scaleX: scale, y: scale)
         let dotViewScaleUpTransform = CGAffineTransform(scaleX: 1.0/dotScale, y: 1.0/dotScale)
         let imageViewScaleUpTransform = CGAffineTransform(scaleX: 1.0/imageViewScale, y: 1.0/imageViewScale)
+        layer.zPosition = 3
         if selected {
             selectedImageView.transform = selectedImageViewScaleDownTransform
             dotView.transform = CGAffineTransform.identity
@@ -224,10 +234,15 @@ class ArticlePlaceView: MKAnnotationView {
                 self.dotView.alpha = 1
             }
         }
+        
+        let done = {
+            self.layer.zPosition = self.zPosition
+        }
         if (animated) {
-            UIView.animate(withDuration: selectionAnimationDuration, animations: animations, completion: nil)
+            UIView.animate(withDuration: selectionAnimationDuration, animations: animations, completion: { (didFinish) -> Void in done() } )
         } else {
             animations()
+            done()
         }
     }
     
