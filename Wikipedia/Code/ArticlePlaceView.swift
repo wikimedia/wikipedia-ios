@@ -127,19 +127,20 @@ class ArticlePlaceView: MKAnnotationView {
             dotView.backgroundColor = UIColor.wmf_green()
             let article = articlePlace.articles[0]
             if let thumbnailURL = article.thumbnailURL {
-                selectedImageView.backgroundColor = UIColor.white
-                imageView.backgroundColor = UIColor.white
+                imageView.backgroundColor = UIColor.wmf_green()
+                selectedImageView.backgroundColor = UIColor.wmf_green()
                 imageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
                     self.imageView.backgroundColor = UIColor.wmf_green()
                     self.selectedImageView.backgroundColor = UIColor.wmf_green()
                     self.selectedImageView.image = nil
                     self.imageView.image = nil
                 }, success: {
+                    self.imageView.backgroundColor = UIColor.white
                     self.selectedImageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
                         self.selectedImageView.backgroundColor = UIColor.wmf_green()
                         self.selectedImageView.image = nil
                     }, success: {
-                        
+                        self.selectedImageView.backgroundColor = UIColor.white
                     })
                 })
             } else {

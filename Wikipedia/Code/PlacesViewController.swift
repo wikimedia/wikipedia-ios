@@ -489,32 +489,27 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             placeView?.alpha = 0
             placeView?.transform = CGAffineTransform(scaleX: animationScale, y: animationScale)
             dispatchOnMainQueue({
-                UIView.animate(withDuration: self.animationDuration, animations: {
+                UIView.animate(withDuration: self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
                     placeView?.transform = CGAffineTransform.identity
                     placeView?.alpha = 1
-                })
+                }, completion: nil)
             })
         } else if let nextCoordinate = place.nextCoordinate {
             placeView?.alpha = 0
             dispatchOnMainQueue({
-                // bounce all the things
-                UIView.animate(withDuration: 2*self.animationDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
+                UIView.animate(withDuration: 2*self.animationDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
                     place.coordinate = nextCoordinate
                 }, completion: nil)
-                // do not bounce all the things
-                // UIView.animate(withDuration: self.animationDuration, animations: {
-                // place.coordinate = nextCoordinate
-                // })
-                UIView.animate(withDuration: 0.5*self.animationDuration, animations: {
+                UIView.animate(withDuration: 0.5*self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
                     placeView?.alpha = 1
-                })
+                }, completion: nil)
             })
         } else {
             placeView?.alpha = 0
             dispatchOnMainQueue({
-                UIView.animate(withDuration: self.animationDuration, animations: {
+                UIView.animate(withDuration: self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
                     placeView?.alpha = 1
-                })
+                }, completion: nil)
             })
         }
         
@@ -941,7 +936,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     
                     let placeView = mapView.view(for: previousPlace)
                     taskGroup.enter()
-                    UIView.animate(withDuration: animationDuration, animations: {
+                    UIView.animate(withDuration:animationDuration, delay: 0, options: [], animations: {
                         placeView?.alpha = 0
                         if (previousPlace.articles.count > 1) {
                             placeView?.transform = CGAffineTransform(scaleX: self.animationScale, y: self.animationScale)
