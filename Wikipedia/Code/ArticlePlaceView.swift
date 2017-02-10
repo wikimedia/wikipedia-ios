@@ -194,6 +194,10 @@ class ArticlePlaceView: MKAnnotationView {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        guard let place = annotation as? ArticlePlace, place.articles.count == 1 else {
+            selectedImageView.alpha = 0
+            return
+        }
         let dotScale = collapsedDimension/dimension
         let imageViewScale = groupDimension/dimension
         let scale = alwaysShowImage ? imageViewScale : dotScale
