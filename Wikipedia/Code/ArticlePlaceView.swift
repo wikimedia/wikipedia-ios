@@ -114,6 +114,9 @@ class ArticlePlaceView: MKAnnotationView {
     
     var zPosition: CGFloat = 1 {
         didSet {
+            guard !isSelected else {
+                return
+            }
             layer.zPosition = zPosition
         }
     }
@@ -239,7 +242,9 @@ class ArticlePlaceView: MKAnnotationView {
         }
         
         let done = {
-            self.layer.zPosition = self.zPosition
+            if !selected {
+                self.layer.zPosition = self.zPosition
+            }
         }
         if (animated) {
             if (selected) {
