@@ -11,7 +11,7 @@ class ArticlePlaceView: MKAnnotationView {
     let dimension: CGFloat = 60
     let collapsedDimension: CGFloat = 15
     let groupDimension: CGFloat = 30
-    let selectionAnimationDuration = 0.25
+    let selectionAnimationDuration = 0.3
     
     var alwaysShowImage = false
     
@@ -215,20 +215,23 @@ class ArticlePlaceView: MKAnnotationView {
             imageView.alpha = 0
             dotView.alpha = 0
         }
-        let animations = {
+        let transforms = {
             if selected {
                 self.selectedImageView.transform = CGAffineTransform.identity
                 self.dotView.transform = dotViewScaleUpTransform
                 self.imageView.transform = imageViewScaleUpTransform
-                
-                self.selectedImageView.alpha = 1
-                self.imageView.alpha = 0
-                self.dotView.alpha = 0
             } else {
                 self.selectedImageView.transform = selectedImageViewScaleDownTransform
                 self.dotView.transform = CGAffineTransform.identity
                 self.imageView.transform = CGAffineTransform.identity
-                
+            }
+        }
+        let fades = {
+            if selected {
+                self.selectedImageView.alpha = 1
+                self.imageView.alpha = 0
+                self.dotView.alpha = 0
+            } else {
                 self.selectedImageView.alpha = 0
                 self.imageView.alpha = 1
                 self.dotView.alpha = 1
@@ -239,9 +242,17 @@ class ArticlePlaceView: MKAnnotationView {
             self.layer.zPosition = self.zPosition
         }
         if (animated) {
-            UIView.animate(withDuration: selectionAnimationDuration, animations: animations, completion: { (didFinish) -> Void in done() } )
+            if (selected) {
+                UIView.animate(withDuration: 2*selectionAnimationDuration, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: transforms, completion:{ (didFinish) in
+                    done()
+                })
+            } else {
+                UIView.animate(withDuration: selectionAnimationDuration, animations: transforms, completion: { (didFinish) -> Void in  done() } )
+            }
+            UIView.animate(withDuration: selectionAnimationDuration, animations: fades, completion: { (didFinish) -> Void in  } )
         } else {
-            animations()
+            transforms()
+            fades()
             done()
         }
     }

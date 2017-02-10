@@ -15,7 +15,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     let animationDuration = 0.6
     let animationScale = CGFloat(0.6)
-    let popoverFadeDuration = 0.25
+    let popoverFadeDuration = 0.3
     let popoverDelayDuration = 0.7
     
     @IBOutlet weak var mapView: MKMapView!
@@ -272,15 +272,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         deselectAllAnnotations()
     }
     
-    func showPopoverForSelectedAnnotationView() {
-        guard let selectedAnnotation = mapView.selectedAnnotations.first as? ArticlePlace,
-            let selectedAnnotationView = mapView.view(for: selectedAnnotation) as? ArticlePlaceView else {
-                return
-        }
-        
-        showPopover(forAnnotationView: selectedAnnotationView)
-    }
-    
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         _mapRegion = mapView.region
         regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
@@ -390,7 +381,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     
     func showPopover(forAnnotationView annotationView: MKAnnotationView) {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showPopoverForSelectedAnnotationView), object: nil)
         guard let place = annotationView.annotation as? ArticlePlace else {
             return
         }
@@ -430,13 +420,15 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         adjustLayout(ofPopover: articleVC, withSize:size, withAnnotationView: annotationView)
         
         articleVC.view.alpha = 0
-        articleVC.view.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        articleVC.view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         addChildViewController(articleVC)
         view.insertSubview(articleVC.view, aboveSubview: mapView)
         articleVC.didMove(toParentViewController: self)
+        
+        
         UIView.animate(withDuration: popoverFadeDuration) {
-            articleVC.view.alpha = 1
             articleVC.view.transform = CGAffineTransform.identity
+            articleVC.view.alpha = 1
         }
     }
     
@@ -445,7 +437,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         guard let popover = selectedArticlePopover else {
             return
         }
-        
         UIView.animate(withDuration: popoverFadeDuration, animations: {
             popover.view.alpha = 0
             popover.view.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
