@@ -80,7 +80,7 @@ class WMFAuthenticationManager: NSObject {
             let password = keychainCredentials.password,
             password.characters.count > 0
         else {
-            failure(WMFCurrentlyLoggedInUserFetcherError.init(type:.blankUsernameOrPassword, localizedDescription: "Zero length username or password"))
+            failure(WMFCurrentlyLoggedInUserFetcherError.blankUsernameOrPassword)
             return
         }
         
