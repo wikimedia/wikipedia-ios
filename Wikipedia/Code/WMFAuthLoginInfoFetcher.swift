@@ -14,14 +14,14 @@ public enum WMFAuthLoginError: LocalizedError {
 
 public typealias WMFAuthLoginInfoBlock = (WMFAuthLoginInfo) -> Void
 
-public class WMFAuthLoginInfo: NSObject {
+public struct WMFAuthLoginInfo {
     let canAuthenticateNow:Bool
     init(canAuthenticateNow:Bool) {
         self.canAuthenticateNow = canAuthenticateNow
     }
 }
 
-public class WMFAuthLoginInfoFetcher: NSObject {
+public class WMFAuthLoginInfoFetcher {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
     public func isFetching() -> Bool {
         return manager!.operationQueue.operationCount > 0
