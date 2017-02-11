@@ -44,14 +44,14 @@ struct WMFKeychainCredentials {
         }
     }
 
-    private enum WMFKeychainCredentialsError: Error {
+    fileprivate enum WMFKeychainCredentialsError: Error {
         case noValue
         case unexpectedData
         case couldNotDeleteData
         case unhandledError(status: OSStatus)
     }
 
-    private func commonConfigurationDictionary(forEntry entry:String) -> [String : AnyObject] {
+    fileprivate func commonConfigurationDictionary(forEntry entry:String) -> [String : AnyObject] {
         var query = [String : AnyObject]()
         query[kSecClass as String] = kSecClassGenericPassword
         query[kSecAttrService as String] = Bundle.main.bundleIdentifier as AnyObject?
@@ -60,7 +60,7 @@ struct WMFKeychainCredentials {
         return query
     }
 
-    private func getValue(forEntry entry:String) throws -> String {
+    fileprivate func getValue(forEntry entry:String) throws -> String {
         var query = commonConfigurationDictionary(forEntry: entry)
         query[kSecMatchLimit as String] = kSecMatchLimitOne
         query[kSecReturnData as String] = kCFBooleanTrue
@@ -81,13 +81,13 @@ struct WMFKeychainCredentials {
         return value
     }
     
-    private func deleteValue(forEntry entry:String) throws {
+    fileprivate func deleteValue(forEntry entry:String) throws {
         let query = commonConfigurationDictionary(forEntry: entry)
         let status = SecItemDelete(query as CFDictionary)
         guard status == noErr || status == errSecItemNotFound else { throw WMFKeychainCredentialsError.unhandledError(status: status) }
     }
     
-    private func set(value:String?, forEntry entry:String) throws {
+    fileprivate func set(value:String?, forEntry entry:String) throws {
         // nil value causes the entry to be removed from the keychain
         guard let value = value else {
             do {
@@ -120,7 +120,7 @@ struct WMFKeychainCredentials {
         }
     }
     
-    private func update(value:String, forEntry entry:String) throws {
+    fileprivate func update(value:String, forEntry entry:String) throws {
         let query = commonConfigurationDictionary(forEntry: entry)
         var dataDict = [String : AnyObject]()
         let valueData = value.data(using: String.Encoding.utf8)!
