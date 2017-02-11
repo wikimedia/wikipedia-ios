@@ -328,7 +328,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
             self.funnel?.logError(error.localizedDescription)
             self.enableProgressiveButton(true)
             if let creationError = error as? WMFAccountCreatorError {
-                switch creationError.type {
+                switch creationError {
                 case .needsCaptcha:
                     self.getCaptcha()
                     return
