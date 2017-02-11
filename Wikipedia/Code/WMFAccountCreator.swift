@@ -19,7 +19,7 @@ public enum WMFAccountCreatorError: LocalizedError {
 
 public typealias WMFAccountCreatorResultBlock = (WMFAccountCreatorResult) -> Void
 
-public class WMFAccountCreatorResult {
+public struct WMFAccountCreatorResult {
     var status: String
     var username: String
     var message: String?
