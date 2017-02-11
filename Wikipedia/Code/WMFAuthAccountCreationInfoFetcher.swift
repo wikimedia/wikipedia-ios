@@ -14,7 +14,7 @@ public enum WMFAuthAccountCreationError: LocalizedError {
 
 public typealias WMFAuthAccountCreationInfoBlock = (WMFAuthAccountCreationInfo) -> Void
 
-public class WMFAuthAccountCreationInfo: NSObject {
+public struct WMFAuthAccountCreationInfo {
     let canCreateAccounts:Bool
     let captchaID: String
     let captchaURLFragment: String
@@ -36,7 +36,7 @@ public class WMFAuthAccountCreationInfo: NSObject {
     }
 }
 
-public class WMFAuthAccountCreationInfoFetcher: NSObject {
+public class WMFAuthAccountCreationInfoFetcher {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
     public func isFetching() -> Bool {
         return manager!.operationQueue.operationCount > 0
