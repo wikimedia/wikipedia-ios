@@ -23,7 +23,6 @@
 #import <Masonry/Masonry.h>
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "WKWebView+LoadAssetsHtml.h"
-#import "KeychainCredentials.h"
 @import BlocksKitUIKitExtensions;
 
 #define TERMS_LINK @"https://wikimediafoundation.org/wiki/Terms_of_Use"
