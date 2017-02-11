@@ -46,8 +46,7 @@ class WMFAuthenticationManager: NSObject {
      *  @param success  The handler for success - at this point the user is logged in
      *  @param failure     The handler for any errors
      */
-    public func login(username: String, password:String, retypePassword:String?, oathToken:String?, success:@escaping WMFAccountLoginResultBlock, failure:@escaping WMFErrorHandler){
-        let outerSuccess = success
+    public func login(username: String, password:String, retypePassword:String?, oathToken:String?, success loginSuccess:@escaping WMFAccountLoginResultBlock, failure:@escaping WMFErrorHandler){
         let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL();
         loginInfoFetcher.fetchLoginInfoForSiteURL(siteURL!, success: { info in
             self.tokenFetcher.fetchToken(ofType: .login, siteURL: siteURL!, success: { tokenBlock in
@@ -57,7 +56,7 @@ class WMFAuthenticationManager: NSObject {
                     self.keychainCredentials.userName = normalizedUserName
                     self.keychainCredentials.password = password
                     self.cloneSessionCookies()
-                    outerSuccess(result)
+                    loginSuccess(result)
                 }, failure: failure)
             }, failure:failure)
         }, failure:failure)
