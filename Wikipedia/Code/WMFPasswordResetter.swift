@@ -14,14 +14,14 @@ public enum WMFPasswordResetterError: LocalizedError {
 
 public typealias WMFPasswordResetterResultBlock = (WMFPasswordResetterResult) -> Void
 
-public class WMFPasswordResetterResult: NSObject {
+public struct WMFPasswordResetterResult {
     var status: String
     init(status:String) {
         self.status = status
     }
 }
 
-public class WMFPasswordResetter: NSObject {
+public class WMFPasswordResetter {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
     public func isFetching() -> Bool {
         return manager!.operationQueue.operationCount > 0
