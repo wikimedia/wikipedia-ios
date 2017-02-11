@@ -49,11 +49,9 @@ class WMFAuthenticationManager: NSObject {
     public func login(username: String, password:String, retypePassword:String?, oathToken:String?, success:@escaping WMFAccountLoginResultBlock, failure:@escaping WMFErrorHandler){
         let outerSuccess = success
         let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL();
-        loginInfoFetcher.fetchLoginInfoForSiteURL(siteURL!, success: {
-            (info: WMFAuthLoginInfo) in
-            self.tokenFetcher.fetchToken(ofType: .login, siteURL: siteURL!, success: {
-                (token: WMFAuthToken) in
-                self.accountLogin.login(username: username, password: password, retypePassword: retypePassword, loginToken: token.token, oathToken: oathToken, siteURL: siteURL!, success: {result in
+        loginInfoFetcher.fetchLoginInfoForSiteURL(siteURL!, success: { info in
+            self.tokenFetcher.fetchToken(ofType: .login, siteURL: siteURL!, success: { tokenBlock in
+                self.accountLogin.login(username: username, password: password, retypePassword: retypePassword, loginToken: tokenBlock.token, oathToken: oathToken, siteURL: siteURL!, success: {result in
                     let normalizedUserName = result.username
                     self.loggedInUsername = normalizedUserName
                     self.keychainCredentials.userName = normalizedUserName
