@@ -3,33 +3,45 @@ struct WMFKeychainCredentials {
     
     // Based on:
     // https://developer.apple.com/library/content/samplecode/GenericKeychain/Introduction/Intro.html
+    // Note from the example:
+    // "The KeychainPasswordItem struct provides a high-level interface to the Keychain Services API calls required to interface with the iOS keychain. The passwords for keychain item are not stored as properties of the struct, instead they are only ever read from the keychain on demand."
+    // Per the note userName and password are implemented as computed properties.
     
-    public func userName() -> String? {
-        do {
-            return try getValue(forEntry: "org.wikimedia.wikipedia.username")
-        } catch  {
-            return nil
+    fileprivate let userNameKey = "org.wikimedia.wikipedia.username"
+    fileprivate let passwordKey = "org.wikimedia.wikipedia.password"
+    
+    public var userName: String? {
+        get {
+            do {
+                return try getValue(forEntry: userNameKey)
+            } catch  {
+                return nil
+            }
+        }
+        set(newUserName) {
+            do {
+                return try set(value: newUserName, forEntry: userNameKey)
+            } catch let error {
+                assert(false, "\(error)")
+            }
         }
     }
 
-    public func set(userName: String?) {
-        do {
-            return try set(value: userName, forEntry: "org.wikimedia.wikipedia.username")
-        } catch  {}
-    }
-    
-    public func password() -> String? {
-        do {
-            return try getValue(forEntry: "org.wikimedia.wikipedia.password")
-        } catch  {
-            return nil
+    public var password: String? {
+        get {
+            do {
+                return try getValue(forEntry: passwordKey)
+            } catch  {
+                return nil
+            }
         }
-    }
-
-    public func set(password: String?) {
-        do {
-            return try set(value: password, forEntry: "org.wikimedia.wikipedia.password")
-        } catch  {}
+        set(newPassword) {
+            do {
+                return try set(value: newPassword, forEntry: passwordKey)
+            } catch  {
+                assert(false, "\(error)")
+            }
+        }
     }
 
     private enum WMFKeychainCredentialsError: Error {

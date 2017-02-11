@@ -3,7 +3,7 @@
  *  This class provides a simple interface for performing authentication tasks.
  */
 class WMFAuthenticationManager: NSObject {    
-    private let keychainCredentials:WMFKeychainCredentials
+    private var keychainCredentials:WMFKeychainCredentials
     
     /**
      *  The current logged in user. If nil, no user is logged in
@@ -53,8 +53,8 @@ class WMFAuthenticationManager: NSObject {
                 self.accountLogin.login(username: username, password: password, retypePassword: retypePassword, loginToken: tokenBlock.token, oathToken: oathToken, siteURL: siteURL!, success: {result in
                     let normalizedUserName = result.username
                     self.loggedInUsername = normalizedUserName
-                    self.keychainCredentials.set(userName: normalizedUserName)
-                    self.keychainCredentials.set(password: password)
+                    self.keychainCredentials.userName = normalizedUserName
+                    self.keychainCredentials.password = password
                     self.cloneSessionCookies()
                     loginSuccess(result)
                 }, failure: failure)
@@ -72,9 +72,9 @@ class WMFAuthenticationManager: NSObject {
     public func loginWithSavedCredentials(success:@escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler:@escaping WMFCurrentlyLoggedInUserBlock, failure:@escaping WMFErrorHandler){
         
         guard
-            let userName = keychainCredentials.userName(),
+            let userName = keychainCredentials.userName,
             userName.characters.count > 0,
-            let password = keychainCredentials.password(),
+            let password = keychainCredentials.password,
             password.characters.count > 0
         else {
             failure(WMFCurrentlyLoggedInUserFetcherError.blankUsernameOrPassword)
@@ -103,8 +103,8 @@ class WMFAuthenticationManager: NSObject {
      *  Logs out any authenticated user and clears out any associated cookies
      */
     public func logout(){
-        keychainCredentials.set(userName: nil)
-        keychainCredentials.set(password: nil)
+        keychainCredentials.userName = nil
+        keychainCredentials.password = nil
         loggedInUsername = nil
         guard let cookies = HTTPCookieStorage.shared.cookies else {
             return
