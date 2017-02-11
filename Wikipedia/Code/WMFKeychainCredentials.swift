@@ -15,14 +15,14 @@ struct WMFKeychainCredentials {
     public var userName: String? {
         get {
             do {
-                return try getValue(forEntry: userNameKey)
+                return try getValue(forKey: userNameKey)
             } catch  {
                 return nil
             }
         }
         set(newUserName) {
             do {
-                return try set(value: newUserName, forEntry: userNameKey)
+                return try set(value: newUserName, forKey: userNameKey)
             } catch let error {
                 assert(false, "\(error)")
             }
@@ -32,14 +32,14 @@ struct WMFKeychainCredentials {
     public var password: String? {
         get {
             do {
-                return try getValue(forEntry: passwordKey)
+                return try getValue(forKey: passwordKey)
             } catch  {
                 return nil
             }
         }
         set(newPassword) {
             do {
-                return try set(value: newPassword, forEntry: passwordKey)
+                return try set(value: newPassword, forKey: passwordKey)
             } catch  {
                 assert(false, "\(error)")
             }
@@ -53,17 +53,17 @@ struct WMFKeychainCredentials {
         case unhandledError(status: OSStatus)
     }
 
-    fileprivate func commonConfigurationDictionary(forEntry entry:String) -> [String : AnyObject] {
+    fileprivate func commonConfigurationDictionary(forKey key:String) -> [String : AnyObject] {
         return [
             kSecClass as String : kSecClassGenericPassword,
             kSecAttrService as String : Bundle.main.bundleIdentifier as AnyObject,
-            kSecAttrGeneric as String : entry as AnyObject,
-            kSecAttrAccount as String : entry as AnyObject
+            kSecAttrGeneric as String : key as AnyObject,
+            kSecAttrAccount as String : key as AnyObject
         ]
     }
 
-    fileprivate func getValue(forEntry entry:String) throws -> String {
-        var query = commonConfigurationDictionary(forEntry: entry)
+    fileprivate func getValue(forKey key:String) throws -> String {
+        var query = commonConfigurationDictionary(forKey: key)
         query[kSecMatchLimit as String] = kSecMatchLimitOne
         query[kSecReturnData as String] = kCFBooleanTrue
         
@@ -83,24 +83,24 @@ struct WMFKeychainCredentials {
         return value
     }
     
-    fileprivate func deleteValue(forEntry entry:String) throws {
-        let query = commonConfigurationDictionary(forEntry: entry)
+    fileprivate func deleteValue(forKey key:String) throws {
+        let query = commonConfigurationDictionary(forKey: key)
         let status = SecItemDelete(query as CFDictionary)
         guard status == noErr || status == errSecItemNotFound else { throw WMFKeychainCredentialsError.unhandledError(status: status) }
     }
     
-    fileprivate func set(value:String?, forEntry entry:String) throws {
-        // nil value causes the entry to be removed from the keychain
+    fileprivate func set(value:String?, forKey key:String) throws {
+        // nil value causes the key/value pair to be removed from the keychain
         guard let value = value else {
             do {
-                try deleteValue(forEntry: entry)
+                try deleteValue(forKey: key)
             } catch  {
                 throw WMFKeychainCredentialsError.couldNotDeleteData
             }
             return
         }
         
-        var query = commonConfigurationDictionary(forEntry: entry)
+        var query = commonConfigurationDictionary(forKey: key)
         let valueData = value.data(using: String.Encoding.utf8)!
         query[kSecValueData as String] = valueData as AnyObject?
         query[kSecAttrAccessible as String] = kSecAttrAccessibleWhenUnlocked
@@ -113,7 +113,7 @@ struct WMFKeychainCredentials {
         
         if (status == errSecDuplicateItem) {
             do {
-                return try update(value: value, forEntry: entry)
+                return try update(value: value, forKey: key)
             } catch  {
                 throw WMFKeychainCredentialsError.unhandledError(status: status)
             }
@@ -122,8 +122,8 @@ struct WMFKeychainCredentials {
         }
     }
     
-    fileprivate func update(value:String, forEntry entry:String) throws {
-        let query = commonConfigurationDictionary(forEntry: entry)
+    fileprivate func update(value:String, forKey key:String) throws {
+        let query = commonConfigurationDictionary(forKey: key)
         var dataDict = [String : AnyObject]()
         let valueData = value.data(using: String.Encoding.utf8)!
         dataDict[kSecValueData as String] = valueData as AnyObject?
