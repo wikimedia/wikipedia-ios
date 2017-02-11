@@ -338,25 +338,23 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
             WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         }
         
-        let creationSuccess: WMFAccountCreatorResultBlock = {_ in
-            self.login()
-        }
-        
         let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
-        tokenFetcher.fetchToken(ofType: .createAccount,
-                                siteURL: siteURL!,
-                                success: { token in
-                                    self.accountCreator.createAccount(
-                                        username: self.usernameField.text!,
-                                        password: self.passwordField.text!,
-                                        retypePassword: self.passwordRepeatField.text!,
-                                        email: self.emailField.text!,
-                                        captchaID:self.captchaID,
-                                        captchaWord: captcha,
-                                        token: token.token,
-                                        siteURL: siteURL!,
-                                        success:creationSuccess,
-                                        failure: creationFailure)
+        tokenFetcher.fetchToken(
+            ofType: .createAccount,
+            siteURL: siteURL!,
+            success: { token in
+                self.accountCreator.createAccount(
+                    username: self.usernameField.text!,
+                    password: self.passwordField.text!,
+                    retypePassword: self.passwordRepeatField.text!,
+                    email: self.emailField.text!,
+                    captchaID:self.captchaID,
+                    captchaWord: captcha,
+                    token: token.token,
+                    siteURL: siteURL!,
+                    success: {_ in
+                        self.login()
+                }, failure: creationFailure)
         }, failure: creationFailure)
     }
 }
