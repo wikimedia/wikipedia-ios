@@ -99,11 +99,10 @@ class WMFLoginViewController: UIViewController {
             WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
             self.dismiss(animated: true, completion: nil)
             self.funnel?.logSuccess()
-        }, failure: {
-            (error: Error) in
+        }, failure: { error in
 
             if let error = error as? WMFAccountLoginError {
-                switch error.type {
+                switch error {
                 case .temporaryPasswordNeedsChange:
                     self.showChangeTempPasswordViewController()
                     return

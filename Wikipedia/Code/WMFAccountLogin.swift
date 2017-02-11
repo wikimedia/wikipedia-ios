@@ -1,33 +1,22 @@
 
-@objc public enum WMFAccountLoginErrorType: Int {
+public enum WMFAccountLoginError: LocalizedError {
     case cannotExtractLoginStatus
-    case statusNotPass
-    case temporaryPasswordNeedsChange
-    case needsOathTokenFor2FA
-}
-
-// A CustomNSError's localized description survives @objc bridging
-// TODO: once WMFAuthenticationManager is converted to Swift we can go
-// back to "public enum WMFAccountLoginError: LocalizedError" before this commit.
-public class WMFAccountLoginError: CustomNSError {
-    let type: WMFAccountLoginErrorType
-    let localizedDescription: String?
-    public required init(type:WMFAccountLoginErrorType, localizedDescription: String?) {
-        self.type = type
-        self.localizedDescription = localizedDescription
-    }
-    public static var errorDomain: String {
-        return String(describing:self)
-    }
-    public var errorCode: Int {
-        return type.rawValue
-    }
-    public var errorUserInfo: [String : Any] {
-        var userInfo = [String: Any]()
-        if let localizedDescription = self.localizedDescription {
-            userInfo[NSLocalizedDescriptionKey] = localizedDescription
+    case statusNotPass(String?)
+    case temporaryPasswordNeedsChange(String?)
+    case needsOathTokenFor2FA(String?)
+    public var errorDescription: String? {
+        switch self {
+        case .cannotExtractLoginStatus:
+            return "Could not extract login status"
+        case .statusNotPass(let message?):
+            return message
+        case .temporaryPasswordNeedsChange(let message?):
+            return message
+        case .needsOathTokenFor2FA(let message?):
+            return message
+        default:
+            return "Unable to login: Reason unknown"
         }
-        return userInfo
     }
 }
 
@@ -44,7 +33,7 @@ public class WMFAccountLoginResult: NSObject {
     }
 }
 
-public class WMFAccountLogin: NSObject {
+public class WMFAccountLogin {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
     public func isFetching() -> Bool {
         return manager!.operationQueue.operationCount > 0
@@ -81,7 +70,7 @@ public class WMFAccountLogin: NSObject {
                 let clientlogin = response["clientlogin"] as? [String : AnyObject],
                 let status = clientlogin["status"] as? String
                 else {
-                    failure(WMFAccountLoginError.init(type:.cannotExtractLoginStatus, localizedDescription: "Could not extract login status"))
+                    failure(WMFAccountLoginError.cannotExtractLoginStatus)
                     return
             }
             let message = clientlogin["message"] as? String ?? nil
@@ -96,19 +85,19 @@ public class WMFAccountLogin: NSObject {
                         let _ = fields["password"] as? [String : AnyObject],
                         let _ = fields["retype"] as? [String : AnyObject]
                     {
-                        failure(WMFAccountLoginError.init(type:.temporaryPasswordNeedsChange, localizedDescription: message))
+                        failure(WMFAccountLoginError.temporaryPasswordNeedsChange(message))
                         return
                     }
                     if let OATHTokenRequest = requests.first(where:{$0["id"]! as! String == "TOTPAuthenticationRequest"}),
                         let fields = OATHTokenRequest["fields"] as? [String : AnyObject],
                         let _ = fields["OATHToken"] as? [String : AnyObject]
                     {
-                        failure(WMFAccountLoginError.init(type:.needsOathTokenFor2FA, localizedDescription: message))
+                        failure(WMFAccountLoginError.needsOathTokenFor2FA(message))
                         return
                     }
                 }
                 
-                failure(WMFAccountLoginError.init(type:.statusNotPass, localizedDescription: message))
+                failure(WMFAccountLoginError.statusNotPass(message))
                 return
             }
             let normalizedUsername = clientlogin["username"] as? String ?? username
