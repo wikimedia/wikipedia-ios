@@ -45,8 +45,6 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
 @interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate, PreviewLicenseViewDelegate>
 
-@property (strong, nonatomic) KeychainCredentials *keychainCredentials;
-
 @property (strong, nonatomic) NSString *captchaId;
 @property (strong, nonatomic) NSString *captchaUrl;
 
@@ -196,7 +194,6 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.previewLicenseView.previewLicenseViewDelegate = self;
-    self.keychainCredentials = [[KeychainCredentials alloc] init];
     self.previewWebViewContainer.externalLinksOpenerDelegate = self;
 
     @weakify(self)

@@ -40,7 +40,6 @@
 #import "WMFSearchResults.h"
 #import "WMFSearchFetcher.h"
 #import "NSURL+WMFLinkParsing.h"
-#import "KeychainCredentials.h"
 #import "NSHTTPCookieStorage+WMFCloneCookie.h"
 
 // View Controllers

@@ -372,7 +372,6 @@
 		B0E8071F1C0CEC8A0065EBC0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8071E1C0CEC8A0065EBC0 /* main.m */; };
 		B0E8073E1C0CED810065EBC0 /* WMFLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807351C0CED810065EBC0 /* WMFLogFormatter.m */; };
 		B0E807DB1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807CA1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m */; };
-		B0E808271C0CF6160065EBC0 /* KeychainCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808261C0CF6160065EBC0 /* KeychainCredentials.m */; };
 		B0E8086D1C0D15170065EBC0 /* WMFCodingStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8086C1C0D15170065EBC0 /* WMFCodingStyle.m */; };
 		B0E808711C0D15400065EBC0 /* XCTestCase+MWKFixtures.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808701C0D15400065EBC0 /* XCTestCase+MWKFixtures.m */; };
 		B0E808741C0D154C0065EBC0 /* NSBundle+TestAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808731C0D154C0065EBC0 /* NSBundle+TestAssets.m */; };
@@ -1880,8 +1879,6 @@
 		B0E807CE1C0CF04A0065EBC0 /* MWKSectionList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKSectionList.m; path = Wikipedia/Code/MWKSectionList.m; sourceTree = SOURCE_ROOT; };
 		B0E807CF1C0CF04A0065EBC0 /* MWKSectionMetaData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKSectionMetaData.h; path = Wikipedia/Code/MWKSectionMetaData.h; sourceTree = SOURCE_ROOT; };
 		B0E807D01C0CF04A0065EBC0 /* MWKSectionMetaData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKSectionMetaData.m; path = Wikipedia/Code/MWKSectionMetaData.m; sourceTree = SOURCE_ROOT; };
-		B0E808251C0CF6160065EBC0 /* KeychainCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainCredentials.h; path = Wikipedia/Code/KeychainCredentials.h; sourceTree = SOURCE_ROOT; };
-		B0E808261C0CF6160065EBC0 /* KeychainCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeychainCredentials.m; path = Wikipedia/Code/KeychainCredentials.m; sourceTree = SOURCE_ROOT; };
 		B0E808281C0D07EA0065EBC0 /* Wikipedia-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Wikipedia-Bridging-Header.h"; path = "Code/Wikipedia-Bridging-Header.h"; sourceTree = "<group>"; };
 		B0E8086B1C0D15170065EBC0 /* WMFCodingStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFCodingStyle.h; path = WikipediaUnitTests/Code/WMFCodingStyle.h; sourceTree = SOURCE_ROOT; };
 		B0E8086C1C0D15170065EBC0 /* WMFCodingStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCodingStyle.m; path = WikipediaUnitTests/Code/WMFCodingStyle.m; sourceTree = SOURCE_ROOT; };
@@ -2756,8 +2753,6 @@
 		0463639518A844380049EE4F /* Keychain */ = {
 			isa = PBXGroup;
 			children = (
-				B0E808251C0CF6160065EBC0 /* KeychainCredentials.h */,
-				B0E808261C0CF6160065EBC0 /* KeychainCredentials.m */,
 				B066F0D11E4F00B100A199F8 /* WMFKeychainCredentials.swift */,
 			);
 			name = Keychain;
@@ -6817,7 +6812,6 @@
 				D8301C351DF1C74B00135DC6 /* HexColors.m in Sources */,
 				B0F92C601E3A813500B72802 /* WMFAccountLogin.swift in Sources */,
 				B0E804D71C0CE0B40065EBC0 /* NSParagraphStyle+WMFParagraphStyles.m in Sources */,
-				B0E808271C0CF6160065EBC0 /* KeychainCredentials.m in Sources */,
 				B0E8070B1C0CEBDA0065EBC0 /* WMFShareCardViewController.m in Sources */,
 				B09B03ED1CE0FB4200009083 /* PageHistorySection.swift in Sources */,
 				B0AB16371C7E5762002E566A /* UINavigationBar+WMFTransparency.m in Sources */,
