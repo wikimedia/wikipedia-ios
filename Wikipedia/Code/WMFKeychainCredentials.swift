@@ -54,12 +54,12 @@ struct WMFKeychainCredentials {
     }
 
     fileprivate func commonConfigurationDictionary(forEntry entry:String) -> [String : AnyObject] {
-        var query = [String : AnyObject]()
-        query[kSecClass as String] = kSecClassGenericPassword
-        query[kSecAttrService as String] = Bundle.main.bundleIdentifier as AnyObject?
-        query[kSecAttrGeneric as String] = entry as AnyObject?
-        query[kSecAttrAccount as String] = entry as AnyObject?
-        return query
+        return [
+            kSecClass as String : kSecClassGenericPassword,
+            kSecAttrService as String : Bundle.main.bundleIdentifier as AnyObject,
+            kSecAttrGeneric as String : entry as AnyObject,
+            kSecAttrAccount as String : entry as AnyObject
+        ]
     }
 
     fileprivate func getValue(forEntry entry:String) throws -> String {
