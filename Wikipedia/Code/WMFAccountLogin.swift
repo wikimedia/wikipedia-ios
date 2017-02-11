@@ -63,8 +63,7 @@ public class WMFAccountLogin {
             parameters["logincontinue"] = "1"
         }
         
-        _ = manager.wmf_apiPOSTWithParameters(parameters, success: {
-            (_, response: Any?) in
+        _ = manager.wmf_apiPOSTWithParameters(parameters, success: { (_, response) in
             guard
                 let response = response as? [String : AnyObject],
                 let clientlogin = response["clientlogin"] as? [String : AnyObject],
@@ -102,8 +101,7 @@ public class WMFAccountLogin {
             }
             let normalizedUsername = clientlogin["username"] as? String ?? username
             success(WMFAccountLoginResult.init(status: status, username: normalizedUsername, message: message))
-        }, failure: {
-            (_, error: Error) in
+        }, failure: { (_, error) in
             failure(error)
         })
     }

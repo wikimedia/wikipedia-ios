@@ -44,8 +44,7 @@ public class WMFPasswordResetter {
             }
         }
         
-        _ = manager.wmf_apiPOSTWithParameters(parameters, success: {
-            (_, response: Any?) in
+        _ = manager.wmf_apiPOSTWithParameters(parameters, success: { (_, response) in
             guard
                 let response = response as? [String : AnyObject],
                 let resetpassword = response["resetpassword"] as? [String: Any],
@@ -59,8 +58,7 @@ public class WMFPasswordResetter {
                 return
             }
             success(WMFPasswordResetterResult.init(status: status))
-        }, failure: {
-            (_, error: Error) in
+        }, failure: { (_, error) in
             failure(error)
         })
     }

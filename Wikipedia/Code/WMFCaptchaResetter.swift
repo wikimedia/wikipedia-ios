@@ -34,8 +34,7 @@ public class WMFCaptchaResetter: NSObject {
             "action": "fancycaptchareload",
             "format": "json"
         ];
-        _ = manager.wmf_apiPOSTWithParameters(parameters, success: {
-            (_, response: Any?) in
+        _ = manager.wmf_apiPOSTWithParameters(parameters, success: { (_, response) in
             guard
                 let response = response as? [String : AnyObject],
                 let fancycaptchareload = response["fancycaptchareload"] as? [String: Any],
@@ -49,8 +48,7 @@ public class WMFCaptchaResetter: NSObject {
                 return
             }
             success(WMFCaptchaResetterResult.init(index: index))
-        }, failure: {
-            (_, error: Error) in
+        }, failure: { (_, error) in
             failure(error)
         })
     }

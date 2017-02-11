@@ -50,8 +50,7 @@ public class WMFAuthAccountCreationInfoFetcher {
             "amirequestsfor": "create",
             "format": "json"
         ]
-        _ = manager.wmf_apiPOSTWithParameters(parameters, success: {
-            (_, response: Any?) in
+        _ = manager.wmf_apiPOSTWithParameters(parameters, success: { (_, response) in
             
             guard
                 let response = response as? [String : AnyObject],
@@ -75,8 +74,7 @@ public class WMFAuthAccountCreationInfoFetcher {
             }
             
             success(WMFAuthAccountCreationInfo.init(canCreateAccounts: true, captchaID: captchaIdValue, captchaURLFragment: captchaInfoValue))
-        }, failure: {
-            (_, error: Error) in
+        }, failure: { (_, error) in
             failure(error)
         })
     }

@@ -42,8 +42,7 @@ public class WMFCurrentlyLoggedInUserFetcher {
             "format": "json"
         ]
         
-        _ = manager.wmf_apiPOSTWithParameters(parameters, success: {
-            (_, response: Any?) in
+        _ = manager.wmf_apiPOSTWithParameters(parameters, success: { (_, response) in
             guard
                 let response = response as? [String : AnyObject],
                 let query = response["query"] as? [String : AnyObject],
@@ -59,8 +58,7 @@ public class WMFCurrentlyLoggedInUserFetcher {
                 return
             }
             success(WMFCurrentlyLoggedInUser.init(userID: userID, name: userName))
-        }, failure: {
-            (_, error: Error) in
+        }, failure: { (_, error) in
             failure(error)
         })
     }

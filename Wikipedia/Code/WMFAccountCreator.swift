@@ -57,8 +57,7 @@ public class WMFAccountCreator {
             parameters["captchaWord"] = captchaWord
         }
         
-        _ = manager.wmf_apiPOSTWithParameters(parameters, success: {
-            (_, response: Any?) in
+        _ = manager.wmf_apiPOSTWithParameters(parameters, success: { (_, response) in
          
             guard
                 let response = response as? [String : AnyObject],
@@ -80,8 +79,7 @@ public class WMFAccountCreator {
             }
             let normalizedUsername = createaccount["username"] as? String ?? username
             success(WMFAccountCreatorResult.init(status: status, username: normalizedUsername, message: message))
-        }, failure: {
-            (_, error: Error) in
+        }, failure: { (_, error) in
             failure(error)
         })
     }

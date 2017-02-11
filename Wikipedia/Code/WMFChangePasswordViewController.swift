@@ -93,7 +93,7 @@ class WMFChangePasswordViewController: UIViewController {
                     WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                     self.dismiss(animated: true, completion: nil)
                     self.funnel?.logSuccess()
-            }, failure: { (error: Error) in
+            }, failure: { error in
                 self.enableProgressiveButton(true)
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
                 self.funnel?.logError(error.localizedDescription)

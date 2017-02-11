@@ -84,24 +84,20 @@ class WMFForgotPasswordViewController: UIViewController {
             return
         }
         
-        tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: {
-            (info: WMFAuthToken) in
+        tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { tokenBlock in
             self.passwordResetter.resetPassword(
                 siteURL: siteURL,
-                token: info.token,
+                token: tokenBlock.token,
                 userName: userName,
                 email: email,
-                success: {
-                    (result: WMFPasswordResetterResult) in                    
+                success: { result in
                     self.dismiss(animated: true, completion:nil)
                     WMFAlertManager.sharedInstance.showSuccessAlert(localizedStringForKeyFallingBackOnEnglish("forgot-password-email-sent"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             },
-                failure: {
-                    (error: Error) in
+                failure: { error in
                     WMFAlertManager.sharedInstance.showAlert(error.localizedDescription, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             })
-        }, failure: {
-            (error: Error) in
+        }, failure: { error in
             WMFAlertManager.sharedInstance.showAlert(error.localizedDescription, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         })
     }
