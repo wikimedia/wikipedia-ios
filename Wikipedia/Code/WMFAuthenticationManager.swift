@@ -106,8 +106,13 @@ class WMFAuthenticationManager: NSObject {
         keychainCredentials.set(userName: nil)
         keychainCredentials.set(password: nil)
         loggedInUsername = nil
+        guard let cookies = HTTPCookieStorage.shared.cookies else {
+            return
+        }
         // Clear session cookies.
-        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        cookies.forEach { cookie in
+            HTTPCookieStorage.shared.deleteCookie(cookie)
+        }
     }
     
     func cloneSessionCookies() {
