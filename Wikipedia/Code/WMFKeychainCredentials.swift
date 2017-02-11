@@ -4,7 +4,9 @@ struct WMFKeychainCredentials {
     // Based on:
     // https://developer.apple.com/library/content/samplecode/GenericKeychain/Introduction/Intro.html
     // Note from the example:
-    // "The KeychainPasswordItem struct provides a high-level interface to the Keychain Services API calls required to interface with the iOS keychain. The passwords for keychain item are not stored as properties of the struct, instead they are only ever read from the keychain on demand."
+    //    "The KeychainPasswordItem struct provides a high-level interface to the Keychain Services API
+    //    calls required to interface with the iOS keychain. The passwords for keychain item are not
+    //    stored as properties of the struct, instead they are only ever read from the keychain on demand."
     // Per the note userName and password are implemented as computed properties.
     
     fileprivate let userNameKey = "org.wikimedia.wikipedia.username"
