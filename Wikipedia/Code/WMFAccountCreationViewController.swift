@@ -82,9 +82,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         passwordRepeatField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         emailField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
 
-        captchaContainer.alpha = 0
-        captchaTitleLabel.alpha = 0
-        captchaSubtitleLabel.alpha = 0
+        setCaptchaAlpha(0)
         
         usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("account-creation-username-placeholder-text")
         passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("account-creation-password-placeholder-text")
@@ -190,6 +188,12 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UITextFieldTextDidChange, object: captchaViewController?.captchaTextBox)
         super.viewWillDisappear(animated)
     }
+
+    fileprivate func setCaptchaAlpha(_ alpha: CGFloat) {
+        captchaContainer.alpha = alpha
+        captchaTitleLabel.alpha = alpha
+        captchaSubtitleLabel.alpha = alpha
+    }
     
     fileprivate var showCaptchaContainer: Bool = false {
         didSet {
@@ -202,10 +206,8 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
                 funnel?.logCaptchaShown()
                 DispatchQueue.main.async(execute: {
                     UIView.animate(withDuration: duration, animations: {
-                        self.captchaContainer.alpha = 1
+                        self.setCaptchaAlpha(1)
                         self.scrollView.scrollSubView(toTop: self.captchaTitleLabel, offset:20, animated:false)
-                        self.captchaTitleLabel.alpha = 1
-                        self.captchaSubtitleLabel.alpha = 1
                     }, completion: {(completed: Bool) -> Void in
                         self.enableProgressiveButton(false)
                     })
@@ -214,9 +216,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
                 DispatchQueue.main.async(execute: {
                     WMFAlertManager.sharedInstance.dismissAlert()
                     UIView.animate(withDuration: duration, animations: {
-                        self.captchaContainer.alpha = 0
-                        self.captchaTitleLabel.alpha = 0
-                        self.captchaSubtitleLabel.alpha = 0
+                        self.setCaptchaAlpha(0)
                         self.scrollView.setContentOffset(CGPoint.zero, animated: false)
                     }, completion: {(completed: Bool) -> Void in
                         self.captchaViewController?.captchaTextBox.text = ""
