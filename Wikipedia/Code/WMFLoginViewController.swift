@@ -16,20 +16,20 @@ class WMFLoginViewController: UIViewController {
     
     public var funnel: LoginFunnel?
 
-    func didTapClose(_ tap: UITapGestureRecognizer) {
+    func closeButtonPushed(_ : UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
 
-    func doneButtonPushed(_ tap: UITapGestureRecognizer) {
+    func doneButtonPushed(_ : UIBarButtonItem) {
         save()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(self.didTapClose(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
 
-        doneButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("main-menu-account-login"), style: .plain, target: self, action: #selector(self.doneButtonPushed(_:)))
+        doneButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("main-menu-account-login"), style: .plain, target: self, action: #selector(doneButtonPushed(_:)))
         
         navigationItem.rightBarButtonItem = doneButton
         
