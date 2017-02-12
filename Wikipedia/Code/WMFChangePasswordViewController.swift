@@ -16,7 +16,7 @@ class WMFChangePasswordViewController: UIViewController {
 
     public var userName:String?
     
-    func doneButtonPushed(_ tap: UITapGestureRecognizer) {
+    func doneButtonPushed(_ : UIBarButtonItem) {
         save()
     }
 
@@ -54,9 +54,9 @@ class WMFChangePasswordViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(self.didTapClose(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
         
-        doneButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("button-save"), style: .plain, target: self, action: #selector(self.doneButtonPushed(_:)))
+        doneButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("button-save"), style: .plain, target: self, action: #selector(doneButtonPushed(_:)))
         navigationItem.rightBarButtonItem = doneButton
        
         passwordField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
@@ -71,7 +71,7 @@ class WMFChangePasswordViewController: UIViewController {
         retypeField.placeholder = localizedStringForKeyFallingBackOnEnglish("new-password-confirm-placeholder-text")
     }
     
-    func didTapClose(_ tap: UITapGestureRecognizer) {
+    func closeButtonPushed(_ : UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
     
