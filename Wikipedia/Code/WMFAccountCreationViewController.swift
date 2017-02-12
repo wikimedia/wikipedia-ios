@@ -294,6 +294,11 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
 
         guard isPasswordConfirmationCorrect() else {
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("account-creation-passwords-mismatched"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            UIView.animate(withDuration: 0.3, animations: {
+                self.scrollView.setContentOffset(CGPoint.zero, animated: false)
+            }, completion: { _ in
+                self.passwordRepeatField.becomeFirstResponder()
+            })
             return
         }
 
