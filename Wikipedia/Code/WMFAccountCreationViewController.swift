@@ -46,12 +46,17 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         })
     }
     
-    func didTapClose(_ tap: UITapGestureRecognizer) {
+    func closeButtonPushed(_ : UIBarButtonItem) {
         if (showCaptchaContainer) {
             showCaptchaContainer = false
         } else {
             self.dismiss(animated: true, completion: nil)
         }
+    }
+
+    func nextButtonPushed(_ : UIBarButtonItem) {
+        WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-saving"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        save()
     }
 
     func loginButtonPushed(_ recognizer: UITapGestureRecognizer) {
@@ -69,9 +74,9 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(self.didTapClose(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
 
-        rightButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("button-next"), style: .plain, target: self, action: #selector(self.doneButtonPushed(_:)))
+        rightButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("button-next"), style: .plain, target: self, action: #selector(nextButtonPushed(_:)))
         
         navigationItem.rightBarButtonItem = rightButton
         
@@ -274,11 +279,6 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     fileprivate func areRequiredFieldsPopulated() -> Bool {
         let firstRequiredFieldWithNoText = requiredInputFields().first(where:{ $0.text?.characters.count == 0 })
         return firstRequiredFieldWithNoText == nil
-    }
-    
-    func doneButtonPushed(_ tap: UITapGestureRecognizer) {
-        WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-saving"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-        save()
     }
     
     override func updateViewConstraints() {
