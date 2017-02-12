@@ -77,11 +77,6 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         
         scrollView.delegate = self
         
-        usernameField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
-        passwordField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
-        passwordRepeatField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
-        emailField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
-
         setCaptchaAlpha(0)
         
         usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("account-creation-username-placeholder-text")
@@ -138,7 +133,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         wmf_addChildController(captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
         showCaptchaContainer = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.textFieldDidChange(_:)), name: NSNotification.Name.UITextFieldTextDidChange, object: captchaViewController?.captchaTextBox)
-        enableProgressiveButton(false)
+        self.enableProgressiveButtonIfNecessary()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -146,15 +141,8 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         usernameField.becomeFirstResponder()
     }
 
-    func textFieldDidChange(_ sender: Any?) {
-        var shouldHighlight = areRequiredFieldsPopulated() && (passwordField.text == passwordRepeatField.text)
-        // Override shouldHighlight if the text changed was the captcha field.
-        if let notification = sender as? Notification {
-            if notification.object as AnyObject? === captchaViewController?.captchaTextBox {
-                shouldHighlight = hasUserEnteredCaptchaText()
-            }
-        }
-        enableProgressiveButton(shouldHighlight)
+    @IBAction func textFieldDidChange(_ sender: UITextField) {
+        self.enableProgressiveButtonIfNecessary()
     }
 
     fileprivate func hasUserEnteredCaptchaText() -> Bool {
@@ -178,12 +166,19 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         return true
     }
 
-    fileprivate func enableProgressiveButton(_ enabled: Bool) {
-        navigationItem.rightBarButtonItem?.isEnabled = enabled
+    fileprivate func enableProgressiveButtonIfNecessary() {
+        navigationItem.rightBarButtonItem?.isEnabled = shouldProgressiveButtonBeEnabled()
+    }
+
+    fileprivate func shouldProgressiveButtonBeEnabled() -> Bool {
+        var shouldEnable = areRequiredFieldsPopulated() && isPasswordConfirmationCorrect()
+        if showCaptchaContainer && shouldEnable {
+            shouldEnable = hasUserEnteredCaptchaText()
+        }
+        return shouldEnable
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        enableProgressiveButton(false)
         WMFAlertManager.sharedInstance.dismissAlert()
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UITextFieldTextDidChange, object: captchaViewController?.captchaTextBox)
         super.viewWillDisappear(animated)
@@ -208,8 +203,8 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
                     UIView.animate(withDuration: duration, animations: {
                         self.setCaptchaAlpha(1)
                         self.scrollView.scrollSubView(toTop: self.captchaTitleLabel, offset:20, animated:false)
-                    }, completion: {(completed: Bool) -> Void in
-                        self.enableProgressiveButton(false)
+                    }, completion: { _ in
+                        self.enableProgressiveButtonIfNecessary()
                     })
                 })
             }else{
@@ -218,11 +213,10 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
                     UIView.animate(withDuration: duration, animations: {
                         self.setCaptchaAlpha(0)
                         self.scrollView.setContentOffset(CGPoint.zero, animated: false)
-                    }, completion: {(completed: Bool) -> Void in
+                    }, completion: { _ in
                         self.captchaViewController?.captchaTextBox.text = ""
                         self.captchaViewController?.captchaImageView.image = nil
-                        // Pretent a text field changed so the progressive button state gets updated.
-                        self.textFieldDidChange(nil)
+                        self.enableProgressiveButtonIfNecessary()
                     })
                 })
             }
@@ -263,7 +257,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
                 WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 self.dismiss(animated: true, completion: nil)
         }, failure: { error in
-            self.enableProgressiveButton(true)
+            self.enableProgressiveButtonIfNecessary()
             WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         })
     }
@@ -326,7 +320,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     fileprivate func createAccount(withCaptcha captcha:String?) {
         let creationFailure: WMFErrorHandler = {error in
             self.funnel?.logError(error.localizedDescription)
-            self.enableProgressiveButton(true)
+            self.enableProgressiveButtonIfNecessary()
             if let creationError = error as? WMFAccountCreatorError {
                 switch creationError {
                 case .needsCaptcha:

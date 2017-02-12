@@ -43,6 +43,7 @@
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
                                                         <connections>
+                                                            <action selector="textFieldDidChange:" destination="LsX-JK-bT6" eventType="editingChanged" id="Eys-MQ-tYh"/>
                                                             <outlet property="delegate" destination="LsX-JK-bT6" id="QIw-fL-bzL"/>
                                                         </connections>
                                                     </textField>
@@ -58,6 +59,7 @@
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" secureTextEntry="YES"/>
                                                         <connections>
+                                                            <action selector="textFieldDidChange:" destination="LsX-JK-bT6" eventType="editingChanged" id="ySC-nL-a4c"/>
                                                             <outlet property="delegate" destination="LsX-JK-bT6" id="2Nk-3P-YFQ"/>
                                                         </connections>
                                                     </textField>
@@ -73,6 +75,7 @@
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" secureTextEntry="YES"/>
                                                         <connections>
+                                                            <action selector="textFieldDidChange:" destination="LsX-JK-bT6" eventType="editingChanged" id="py8-Ne-GwR"/>
                                                             <outlet property="delegate" destination="LsX-JK-bT6" id="OmS-Kk-xfz"/>
                                                         </connections>
                                                     </textField>
@@ -88,6 +91,7 @@
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                                         <connections>
+                                                            <action selector="textFieldDidChange:" destination="LsX-JK-bT6" eventType="editingChanged" id="K19-ye-C1l"/>
                                                             <outlet property="delegate" destination="LsX-JK-bT6" id="MI0-Gv-E2c"/>
                                                         </connections>
                                                     </textField>
