@@ -171,7 +171,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     }
 
     fileprivate func shouldProgressiveButtonBeEnabled() -> Bool {
-        var shouldEnable = areRequiredFieldsPopulated() && isPasswordConfirmationCorrect()
+        var shouldEnable = areRequiredFieldsPopulated()
         if showCaptchaContainer && shouldEnable {
             shouldEnable = hasUserEnteredCaptchaText()
         }
