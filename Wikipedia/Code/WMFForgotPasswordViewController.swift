@@ -17,14 +17,14 @@ class WMFForgotPasswordViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(self.didTapClose(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
     
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("forgot-password-title")
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("forgot-password-instructions")
         usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("forgot-password-username-prompt")
         emailField.placeholder = localizedStringForKeyFallingBackOnEnglish("forgot-password-email-prompt")
         
-        resetButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("forgot-password-button-title"), style: .plain, target: self, action: #selector(self.resetButtonPushed(_:)))
+        resetButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("forgot-password-button-title"), style: .plain, target: self, action: #selector(resetButtonPushed(_:)))
         navigationItem.rightBarButtonItem = resetButton
     
         usernameField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
@@ -66,7 +66,7 @@ class WMFForgotPasswordViewController: UIViewController {
         resetButton.isEnabled = highlight
     }
 
-    func resetButtonPushed(_ tap: UITapGestureRecognizer) {
+    func resetButtonPushed(_ : UIBarButtonItem) {
         save()
     }
 
@@ -74,7 +74,7 @@ class WMFForgotPasswordViewController: UIViewController {
         sendPasswordResetEmail(userName: usernameField.text, email: emailField.text)
     }
     
-    func didTapClose(_ tap: UITapGestureRecognizer) {
+    func closeButtonPushed(_ : UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
     
