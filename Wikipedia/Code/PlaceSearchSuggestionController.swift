@@ -66,7 +66,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
             return nil
         }
         header.prepareForReuse()
-        header.backgroundColor = UIColor.wmf_lightGray()
+        header.backgroundColor = UIColor.wmf_articleListBackground()
         header.isLabelVerticallyCentered = true
         switch section {
         case suggestionSection:
@@ -86,7 +86,8 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
         guard let header = self.tableView(tableView, viewForHeaderInSection: section) as? WMFTableHeaderLabelView else {
             return 0
         }
-        return header.height(withExpectedWidth: tableView.bounds.size.width)
+        let calculatedHeight = header.height(withExpectedWidth: tableView.bounds.size.width)
+        return calculatedHeight + 23
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
