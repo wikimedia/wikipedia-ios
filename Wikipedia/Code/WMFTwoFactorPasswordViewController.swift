@@ -95,6 +95,7 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
     }
     
     fileprivate func save() {
+        wmf_hideKeyboard()
         enableProgressiveButton(false)
         WMFAlertManager.sharedInstance.dismissAlert()
         

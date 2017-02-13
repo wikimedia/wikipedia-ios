@@ -76,6 +76,7 @@ class WMFChangePasswordViewController: UIViewController {
     }
     
     fileprivate func save() {
+        wmf_hideKeyboard()
         enableProgressiveButton(false)
         WMFAlertManager.sharedInstance.dismissAlert()
                 

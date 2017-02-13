@@ -301,7 +301,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
             })
             return
         }
-
+        wmf_hideKeyboard()
         createAccount(withCaptcha: captchaViewController?.captchaTextBox.text)
     }
     

@@ -71,6 +71,7 @@ class WMFForgotPasswordViewController: UIViewController {
     }
 
     fileprivate func save() {
+        wmf_hideKeyboard()
         sendPasswordResetEmail(userName: usernameField.text, email: emailField.text)
     }
     
