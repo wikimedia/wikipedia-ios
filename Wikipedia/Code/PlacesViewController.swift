@@ -11,7 +11,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     let previewFetcher = WMFArticlePreviewFetcher()
     let wikidataFetcher = WikidataFetcher()
     
-    let locationManager = WMFLocationManager.coarse()
+    let locationManager = WMFLocationManager.fine()
     
     let animationDuration = 0.6
     let animationScale = CGFloat(0.6)
@@ -177,6 +177,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         mapView.showsTraffic = false
         mapView.showsPointsOfInterest = false
         mapView.showsScale = true
+        mapView.showsUserLocation = true
         
         // Setup location manager
         locationManager.delegate = self
@@ -1310,17 +1311,35 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     // WMFLocationManagerDelegate
     
-    func locationManager(_ controller: WMFLocationManager, didUpdate location: CLLocation) {
+    func updateUserLocationAnnotationViewHeading(withLocation location: CLLocation) {
+        guard let view = mapView.view(for: mapView.userLocation) as? UserLocationAnnotationView else {
+            return
+        }
+        let course = location.course
+        view.isHeadingArrowVisible = location.horizontalAccuracy < 1000
+        view.heading = course
+    }
+    
+    func zoomAndPanMapView(toLocation location: CLLocation) {
         let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
         mapRegion = region
         if currentSearch == nil {
             currentSearch = PlaceSearch(type: .top, sortStyle: .links, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
         }
-        locationManager.stopMonitoringLocation()
+    }
+    
+    var panMapToNextLocationUpdate = true
+    
+    func locationManager(_ controller: WMFLocationManager, didUpdate location: CLLocation) {
+        updateUserLocationAnnotationViewHeading(withLocation: location)
+        guard panMapToNextLocationUpdate else {
+            return
+        }
+        panMapToNextLocationUpdate = false
+        zoomAndPanMapView(toLocation: location)
     }
     
     func locationManager(_ controller: WMFLocationManager, didReceiveError error: Error) {
-        locationManager.stopMonitoringLocation()
     }
     
     func locationManager(_ controller: WMFLocationManager, didUpdate heading: CLHeading) {
@@ -1330,7 +1349,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     @IBAction func recenterOnUserLocation(_ sender: Any) {
-        locationManager.startMonitoringLocation()
+        zoomAndPanMapView(toLocation: locationManager.location)
     }
     
     // NSFetchedResultsControllerDelegate
