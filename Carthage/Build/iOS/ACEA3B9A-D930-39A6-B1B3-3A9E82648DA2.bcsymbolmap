@@ -1,0 +1,369 @@
+BCSymbolMap Version: 2.0
+-[PiwikLocationManager init]
+-[PiwikLocationManager startMonitoringLocationChanges]
+-[PiwikLocationManager _startMonitoringLocationChanges]
+-[PiwikLocationManager stopMonitoringLocationChanges]
+-[PiwikLocationManager location]
+-[PiwikLocationManager locationManager:didUpdateLocations:]
+-[PiwikLocationManager locationManager:monitoringDidFailForRegion:withError:]
+-[PiwikLocationManager locationManager]
+-[PiwikLocationManager setLocationManager:]
+-[PiwikLocationManager startMonitoringOnNextLocationRequest]
+-[PiwikLocationManager setStartMonitoringOnNextLocationRequest:]
+-[PiwikLocationManager isMonitorLocationChanges]
+-[PiwikLocationManager setIsMonitorLocationChanges:]
+-[PiwikLocationManager .cxx_destruct]
+_OBJC_IVAR_$_PiwikLocationManager._locationManager
+_OBJC_IVAR_$_PiwikLocationManager._startMonitoringOnNextLocationRequest
+_OBJC_IVAR_$_PiwikLocationManager._isMonitorLocationChanges
+l_OBJC_PROTOCOL_$_NSObject
+l_OBJC_LABEL_PROTOCOL_$_NSObject
+l_OBJC_PROTOCOL_$_CLLocationManagerDelegate
+l_OBJC_LABEL_PROTOCOL_$_CLLocationManagerDelegate
+Apple LLVM version 8.0.0 (clang-800.0.42.1)
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/piwik-sdk-ios/PiwikTracker/PiwikLocationManager.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/piwik-sdk-ios
+-[CustomVariable initWithIndex:name:value:]
+-[CustomVariable index]
+-[CustomVariable setIndex:]
+-[CustomVariable name]
+-[CustomVariable setName:]
+-[CustomVariable value]
+-[CustomVariable setValue:]
+-[CustomVariable .cxx_destruct]
+-[PiwikTracker dealloc]
++[PiwikTracker sharedInstanceWithSiteID:baseURL:]
++[PiwikTracker defaultDispatcherWithPiwikURL:]
++[PiwikTracker sharedInstanceWithSiteID:dispatcher:]
+___52+[PiwikTracker sharedInstanceWithSiteID:dispatcher:]_block_invoke
+___copy_helper_block_
+___destroy_helper_block_
++[PiwikTracker sharedInstance]
+-[PiwikTracker initWithSiteID:dispatcher:]
+-[PiwikTracker startDispatchTimer]
+___34-[PiwikTracker startDispatchTimer]_block_invoke
+___copy_helper_block_.234
+___destroy_helper_block_.235
+-[PiwikTracker stopDispatchTimer]
+-[PiwikTracker appDidBecomeActive:]
+-[PiwikTracker appDidEnterBackground:]
+-[PiwikTracker sendView:]
+-[PiwikTracker sendViews:]
+-[PiwikTracker sendViewsFromArray:]
+-[PiwikTracker sendOutlink:]
+-[PiwikTracker sendDownload:]
+-[PiwikTracker sendEventWithCategory:action:name:value:]
+-[PiwikTracker generatePageURL:]
+-[PiwikTracker sendExceptionWithDescription:isFatal:]
+-[PiwikTracker sendSocialInteraction:target:forNetwork:]
+-[PiwikTracker send:]
+-[PiwikTracker sendGoalWithID:revenue:]
+-[PiwikTracker sendSearchWithKeyword:category:numberOfHits:]
+-[PiwikTracker sendTransaction:]
+-[PiwikTracker JSONEncodeTransactionItems:]
+-[PiwikTracker sendCampaign:]
+-[PiwikTracker sendContentImpressionWithName:piece:target:]
+-[PiwikTracker sendContentInteractionWithName:piece:target:]
+-[PiwikTracker setCustomVariableForIndex:name:value:scope:]
+-[PiwikTracker queueEvent:]
+___27-[PiwikTracker queueEvent:]_block_invoke
+___27-[PiwikTracker queueEvent:]_block_invoke_2
+___copy_helper_block_.392
+___destroy_helper_block_.393
+___copy_helper_block_.395
+___destroy_helper_block_.396
+-[PiwikTracker addPerRequestParameters:]
+-[PiwikTracker addSessionParameters:]
+-[PiwikTracker visitCustomVariables]
+-[PiwikTracker addStaticParameters:]
++[PiwikTracker JSONEncodeCustomVariables:]
+-[PiwikTracker dispatch:]
+-[PiwikTracker dispatch]
+-[PiwikTracker sendEvent]
+___25-[PiwikTracker sendEvent]_block_invoke
+___25-[PiwikTracker sendEvent]_block_invoke_2
+___copy_helper_block_.516
+___destroy_helper_block_.517
+___25-[PiwikTracker sendEvent]_block_invoke.519
+___copy_helper_block_.520
+___destroy_helper_block_.521
+___copy_helper_block_.530
+___destroy_helper_block_.531
+-[PiwikTracker requestParametersForEvents:]
+___43-[PiwikTracker requestParametersForEvents:]_block_invoke
+___43-[PiwikTracker requestParametersForEvents:]_block_invoke_2
+___copy_helper_block_.540
+___destroy_helper_block_.541
+___copy_helper_block_.548
+___destroy_helper_block_.549
+-[PiwikTracker sendEventDidFinishHasMorePending:]
+-[PiwikTracker deleteQueuedEvents]
+-[PiwikTracker setIncludeLocationInformation:]
+-[PiwikTracker setDebug:]
+-[PiwikTracker setOptOut:]
+-[PiwikTracker optOut]
+-[PiwikTracker setDispatchInterval:]
+-[PiwikTracker clientID]
+-[PiwikTracker setCurrentVisitTimestamp:]
+-[PiwikTracker currentVisitTimestamp]
+-[PiwikTracker setPreviousVisitTimestamp:]
+-[PiwikTracker previousVisitTimestamp]
+-[PiwikTracker firstVisitTimestamp]
+-[PiwikTracker setTotalNumberOfVisits:]
+-[PiwikTracker totalNumberOfVisits]
+-[PiwikTracker appName]
+-[PiwikTracker appVersion]
++[PiwikTracker md5:]
++[PiwikTracker UUIDString]
+-[PiwikTracker platform]
+-[PiwikTracker platformName]
+-[PiwikTracker storeEventWithParameters:completionBlock:]
+___57-[PiwikTracker storeEventWithParameters:completionBlock:]_block_invoke
+___copy_helper_block_.825
+___destroy_helper_block_.826
+-[PiwikTracker eventsFromStore:completionBlock:]
+___48-[PiwikTracker eventsFromStore:completionBlock:]_block_invoke
+___48-[PiwikTracker eventsFromStore:completionBlock:]_block_invoke_2
+___copy_helper_block_.855
+___destroy_helper_block_.856
+___copy_helper_block_.860
+___destroy_helper_block_.861
+-[PiwikTracker deleteEventsWithIDs:]
+___36-[PiwikTracker deleteEventsWithIDs:]_block_invoke
+___copy_helper_block_.867
+___destroy_helper_block_.868
+-[PiwikTracker deleteAllStoredEvents]
+___37-[PiwikTracker deleteAllStoredEvents]_block_invoke
+___copy_helper_block_.870
+___destroy_helper_block_.871
+-[PiwikTracker managedObjectContext]
+-[PiwikTracker managedObjectModel]
+-[PiwikTracker persistentStoreCoordinator]
+-[PiwikTracker applicationDocumentsDirectory]
+-[PiwikTracker siteID]
+-[PiwikTracker dispatcher]
+-[PiwikTracker setDispatcher:]
+-[PiwikTracker userID]
+-[PiwikTracker setUserID:]
+-[PiwikTracker isPrefixingEnabled]
+-[PiwikTracker setIsPrefixingEnabled:]
+-[PiwikTracker debug]
+-[PiwikTracker sampleRate]
+-[PiwikTracker setSampleRate:]
+-[PiwikTracker includeDefaultCustomVariable]
+-[PiwikTracker setIncludeDefaultCustomVariable:]
+-[PiwikTracker sessionStart]
+-[PiwikTracker setSessionStart:]
+-[PiwikTracker sessionTimeout]
+-[PiwikTracker setSessionTimeout:]
+-[PiwikTracker dispatchInterval]
+-[PiwikTracker maxNumberOfQueuedEvents]
+-[PiwikTracker setMaxNumberOfQueuedEvents:]
+-[PiwikTracker eventsPerRequest]
+-[PiwikTracker setEventsPerRequest:]
+-[PiwikTracker setAppName:]
+-[PiwikTracker setAppVersion:]
+-[PiwikTracker lastGeneratedPageURL]
+-[PiwikTracker setLastGeneratedPageURL:]
+-[PiwikTracker appDidEnterBackgroundDate]
+-[PiwikTracker setAppDidEnterBackgroundDate:]
+-[PiwikTracker screenCustomVariables]
+-[PiwikTracker setScreenCustomVariables:]
+-[PiwikTracker setVisitCustomVariables:]
+-[PiwikTracker sessionParameters]
+-[PiwikTracker setSessionParameters:]
+-[PiwikTracker staticParameters]
+-[PiwikTracker setStaticParameters:]
+-[PiwikTracker campaignParameters]
+-[PiwikTracker setCampaignParameters:]
+-[PiwikTracker dispatchTimer]
+-[PiwikTracker setDispatchTimer:]
+-[PiwikTracker isDispatchRunning]
+-[PiwikTracker setIsDispatchRunning:]
+-[PiwikTracker includeLocationInformation]
+-[PiwikTracker locationManager]
+-[PiwikTracker setLocationManager:]
+-[PiwikTracker .cxx_destruct]
+_OBJC_IVAR_$_CustomVariable._index
+_OBJC_IVAR_$_CustomVariable._name
+_OBJC_IVAR_$_CustomVariable._value
+_sharedInstanceWithSiteID:dispatcher:.onceToken
+__sharedInstance
+___block_descriptor_tmp
+_OBJC_IVAR_$_PiwikTracker._siteID
+_OBJC_IVAR_$_PiwikTracker._dispatcher
+_OBJC_IVAR_$_PiwikTracker._isPrefixingEnabled
+_OBJC_IVAR_$_PiwikTracker._sessionTimeout
+_OBJC_IVAR_$_PiwikTracker._sampleRate
+_OBJC_IVAR_$_PiwikTracker._sessionStart
+_OBJC_IVAR_$_PiwikTracker._includeDefaultCustomVariable
+_OBJC_IVAR_$_PiwikTracker._dispatchInterval
+_OBJC_IVAR_$_PiwikTracker._maxNumberOfQueuedEvents
+_OBJC_IVAR_$_PiwikTracker._isDispatchRunning
+_OBJC_IVAR_$_PiwikTracker._eventsPerRequest
+_OBJC_IVAR_$_PiwikTracker._locationManager
+_OBJC_IVAR_$_PiwikTracker._includeLocationInformation
+_OBJC_IVAR_$_PiwikTracker._debug
+___block_descriptor_tmp.236
+___block_descriptor_tmp.394
+___block_descriptor_tmp.397
+_addPerRequestParameters:.UTCDateFormatter
+_OBJC_IVAR_$_PiwikTracker._visitCustomVariables
+___block_descriptor_tmp.518
+___block_descriptor_tmp.523
+___block_descriptor_tmp.533
+___block_descriptor_tmp.543
+___block_descriptor_tmp.551
+_OBJC_IVAR_$_PiwikTracker._clientID
+_OBJC_IVAR_$_PiwikTracker._currentVisitTimestamp
+_OBJC_IVAR_$_PiwikTracker._previousVisitTimestamp
+_OBJC_IVAR_$_PiwikTracker._firstVisitTimestamp
+_OBJC_IVAR_$_PiwikTracker._totalNumberOfVisits
+_OBJC_IVAR_$_PiwikTracker._appName
+_OBJC_IVAR_$_PiwikTracker._appVersion
+___block_descriptor_tmp.827
+___block_descriptor_tmp.857
+___block_descriptor_tmp.862
+___block_descriptor_tmp.869
+___block_descriptor_tmp.872
+_OBJC_IVAR_$_PiwikTracker._managedObjectContext
+_OBJC_IVAR_$_PiwikTracker._managedObjectModel
+_OBJC_IVAR_$_PiwikTracker._persistentStoreCoordinator
+_OBJC_IVAR_$_PiwikTracker._userID
+_OBJC_IVAR_$_PiwikTracker._lastGeneratedPageURL
+_OBJC_IVAR_$_PiwikTracker._appDidEnterBackgroundDate
+_OBJC_IVAR_$_PiwikTracker._screenCustomVariables
+_OBJC_IVAR_$_PiwikTracker._sessionParameters
+_OBJC_IVAR_$_PiwikTracker._staticParameters
+_OBJC_IVAR_$_PiwikTracker._campaignParameters
+_OBJC_IVAR_$_PiwikTracker._dispatchTimer
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/piwik-sdk-ios/PiwikTracker/PiwikTracker.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/piwik-sdk-ios/PiwikTracker/PiwikTracker.h
+__destroy_helper_block_
+__copy_helper_block_
+__37-[PiwikTracker deleteAllStoredEvents]_block_invoke
+__36-[PiwikTracker deleteEventsWithIDs:]_block_invoke
+__48-[PiwikTracker eventsFromStore:completionBlock:]_block_invoke_2
+__48-[PiwikTracker eventsFromStore:completionBlock:]_block_invoke
+__57-[PiwikTracker storeEventWithParameters:completionBlock:]_block_invoke
+UserDefaultKeyWithSiteID
+__43-[PiwikTracker requestParametersForEvents:]_block_invoke_2
+__43-[PiwikTracker requestParametersForEvents:]_block_invoke
+__25-[PiwikTracker sendEvent]_block_invoke.519
+__25-[PiwikTracker sendEvent]_block_invoke_2
+__25-[PiwikTracker sendEvent]_block_invoke
+__27-[PiwikTracker queueEvent:]_block_invoke_2
+__27-[PiwikTracker queueEvent:]_block_invoke
+__34-[PiwikTracker startDispatchTimer]_block_invoke
+__52+[PiwikTracker sharedInstanceWithSiteID:dispatcher:]_block_invoke
+_dispatch_once
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/usr/include/dispatch/once.h
++[PiwikTransactionItem itemWithSku:name:category:price:quantity:]
++[PiwikTransactionItem itemWithSKU:]
+-[PiwikTransactionItem initWithSku:name:category:price:quantity:]
+-[PiwikTransactionItem isValid]
+-[PiwikTransactionItem sku]
+-[PiwikTransactionItem name]
+-[PiwikTransactionItem category]
+-[PiwikTransactionItem price]
+-[PiwikTransactionItem quantity]
+-[PiwikTransactionItem .cxx_destruct]
+_OBJC_IVAR_$_PiwikTransactionItem._sku
+_OBJC_IVAR_$_PiwikTransactionItem._name
+_OBJC_IVAR_$_PiwikTransactionItem._category
+_OBJC_IVAR_$_PiwikTransactionItem._price
+_OBJC_IVAR_$_PiwikTransactionItem._quantity
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/piwik-sdk-ios/PiwikTracker/PiwikTransactionItem.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/piwik-sdk-ios/PiwikTracker/PiwikTransactionItem.h
+-[PiwikNSURLSessionDispatcher initWithPiwikURL:]
+-[PiwikNSURLSessionDispatcher sendSingleEventWithParameters:success:failure:]
+___77-[PiwikNSURLSessionDispatcher sendSingleEventWithParameters:success:failure:]_block_invoke
+-[PiwikNSURLSessionDispatcher sendBulkEventWithParameters:success:failure:]
+-[PiwikNSURLSessionDispatcher sendRequest:success:failure:]
+___59-[PiwikNSURLSessionDispatcher sendRequest:success:failure:]_block_invoke
+___copy_helper_block_.61
+___destroy_helper_block_.62
+-[PiwikNSURLSessionDispatcher shouldAbortdispatchForNetworkError:]
+-[PiwikNSURLSessionDispatcher userAgent]
+-[PiwikNSURLSessionDispatcher setUserAgent:]
+-[PiwikNSURLSessionDispatcher piwikURL]
+-[PiwikNSURLSessionDispatcher setPiwikURL:]
+-[PiwikNSURLSessionDispatcher .cxx_destruct]
+_OBJC_IVAR_$_PiwikNSURLSessionDispatcher._piwikURL
+___block_descriptor_tmp.64
+_OBJC_IVAR_$_PiwikNSURLSessionDispatcher._userAgent
+l_OBJC_PROTOCOL_$_PiwikDispatcher
+l_OBJC_LABEL_PROTOCOL_$_PiwikDispatcher
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/piwik-sdk-ios/PiwikTracker/PiwikNSURLSessionDispatcher.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/piwik-sdk-ios/PiwikTracker/PiwikNSURLSessionDispatcher.h
+__59-[PiwikNSURLSessionDispatcher sendRequest:success:failure:]_block_invoke
+__77-[PiwikNSURLSessionDispatcher sendSingleEventWithParameters:success:failure:]_block_invoke
+-[PiwikTransactionBuilder init]
+-[PiwikTransactionBuilder addItemWithSku:]
+-[PiwikTransactionBuilder addItemWithSku:name:category:price:quantity:]
+-[PiwikTransactionBuilder addTransactionItem:]
+-[PiwikTransactionBuilder build]
+___32-[PiwikTransactionBuilder build]_block_invoke
+-[PiwikTransactionBuilder identifier]
+-[PiwikTransactionBuilder setIdentifier:]
+-[PiwikTransactionBuilder grandTotal]
+-[PiwikTransactionBuilder setGrandTotal:]
+-[PiwikTransactionBuilder subTotal]
+-[PiwikTransactionBuilder setSubTotal:]
+-[PiwikTransactionBuilder tax]
+-[PiwikTransactionBuilder setTax:]
+-[PiwikTransactionBuilder shippingCost]
+-[PiwikTransactionBuilder setShippingCost:]
+-[PiwikTransactionBuilder discount]
+-[PiwikTransactionBuilder setDiscount:]
+-[PiwikTransactionBuilder items]
+-[PiwikTransactionBuilder setItems:]
+-[PiwikTransactionBuilder .cxx_destruct]
+_OBJC_IVAR_$_PiwikTransactionBuilder._items
+_OBJC_IVAR_$_PiwikTransactionBuilder._identifier
+_OBJC_IVAR_$_PiwikTransactionBuilder._grandTotal
+_OBJC_IVAR_$_PiwikTransactionBuilder._subTotal
+_OBJC_IVAR_$_PiwikTransactionBuilder._tax
+_OBJC_IVAR_$_PiwikTransactionBuilder._shippingCost
+_OBJC_IVAR_$_PiwikTransactionBuilder._discount
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/piwik-sdk-ios/PiwikTracker/PiwikTransactionBuilder.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/piwik-sdk-ios/PiwikTracker/PiwikTransactionBuilder.h
+__32-[PiwikTransactionBuilder build]_block_invoke
+-[PiwikDebugDispatcher setUserAgent:]
+-[PiwikDebugDispatcher sendSingleEventWithParameters:success:failure:]
+-[PiwikDebugDispatcher sendBulkEventWithParameters:success:failure:]
+-[PiwikDebugDispatcher wrappedDispatcher]
+-[PiwikDebugDispatcher setWrappedDispatcher:]
+-[PiwikDebugDispatcher .cxx_destruct]
+_OBJC_IVAR_$_PiwikDebugDispatcher._wrappedDispatcher
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/piwik-sdk-ios/PiwikTracker/PiwikDebugDispatcher.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/piwik-sdk-ios/PiwikTracker/PiwikDebugDispatcher.h
+-[PTEventEntity awakeFromInsert]
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/piwik-sdk-ios/PiwikTracker/PTEventEntity.m
++[PiwikTransaction transactionWithBuilder:]
+-[PiwikTransaction initWithBuilder:]
+-[PiwikTransaction identifier]
+-[PiwikTransaction grandTotal]
+-[PiwikTransaction subTotal]
+-[PiwikTransaction tax]
+-[PiwikTransaction shippingCost]
+-[PiwikTransaction discount]
+-[PiwikTransaction items]
+-[PiwikTransaction .cxx_destruct]
+_OBJC_IVAR_$_PiwikTransaction._identifier
+_OBJC_IVAR_$_PiwikTransaction._grandTotal
+_OBJC_IVAR_$_PiwikTransaction._subTotal
+_OBJC_IVAR_$_PiwikTransaction._tax
+_OBJC_IVAR_$_PiwikTransaction._shippingCost
+_OBJC_IVAR_$_PiwikTransaction._discount
+_OBJC_IVAR_$_PiwikTransaction._items
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/piwik-sdk-ios/PiwikTracker/PiwikTransaction.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/piwik-sdk-ios/PiwikTracker/PiwikTransaction.h
+-[PiwikTrackedViewController viewDidAppear:]
+-[PiwikTrackedViewController trackedViewName]
+-[PiwikTrackedViewController setTrackedViewName:]
+-[PiwikTrackedViewController .cxx_destruct]
+_OBJC_IVAR_$_PiwikTrackedViewController._trackedViewName
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/piwik-sdk-ios/PiwikTracker/PiwikTrackedViewController.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/piwik-sdk-ios/PiwikTracker/PiwikTrackedViewController.h
+/Users/joewmf/Library/Developer/Xcode/DerivedData/PiwikTracker-diuymkhsmhrdcgbjcxnqatqyajhf/Build/Intermediates/PiwikTracker.build/Release-iphoneos/Piwik.build/DerivedSources/Piwik_vers.c

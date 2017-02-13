@@ -1,7 +1,7 @@
 //
 // VTAcknowledgementsViewController.h
 //
-// Copyright (c) 2013-2016 Vincent Tourraine (http://www.vtourraine.net)
+// Copyright (c) 2013-2017 Vincent Tourraine (http://www.vtourraine.net)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -27,8 +27,8 @@
 #import <UIKit/UIKit.h>
 #endif
 
-@class VTAcknowledgement;
-
+#import "VTAcknowledgementsParser.h"
+#import "VTAcknowledgement.h"
 
 /**
  `VTAcknowledgementsViewController` is a subclass of `UITableViewController` that displays
