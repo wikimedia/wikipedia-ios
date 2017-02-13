@@ -1,28 +1,28 @@
 #ifndef WMFTableOfContentsDisplay_h
 #define WMFTableOfContentsDisplay_h
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, WMFTableOfContentsDisplaySide) {
     WMFTableOfContentsDisplaySideLeft,
     WMFTableOfContentsDisplaySideRight,
     WMFTableOfContentsDisplaySideCenter
-} WMFTableOfContentsDisplaySide;
+};
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, WMFTableOfContentsDisplayMode) {
     WMFTableOfContentsDisplayModeModal,
     WMFTableOfContentsDisplayModeInline
-} WMFTableOfContentsDisplayMode;
+};
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, WMFTableOfContentsDisplayState) {
     WMFTableOfContentsDisplayStateInlineVisible,
     WMFTableOfContentsDisplayStateInlineHidden,
     WMFTableOfContentsDisplayStateModalVisible,
     WMFTableOfContentsDisplayStateModalHidden
-} WMFTableOfContentsDisplayState;
+};
 
-typedef enum : NSInteger {
+typedef NS_ENUM(NSUInteger, WMFTableOfContentsDisplayStyle) {
     WMFTableOfContentsDisplayStyleOld = 0,
     WMFTableOfContentsDisplayStyleCurrent = 1,
     WMFTableOfContentsDisplayStyleNext = 2
-} WMFTableOfContentsDisplayStyle;
+};
 
 #endif

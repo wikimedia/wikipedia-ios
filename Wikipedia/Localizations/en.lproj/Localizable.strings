@@ -545,3 +545,13 @@
 "status-saved-for-later" = "Saved for later";
 
 "announcements-dismiss" = "No thanks";
+
+"places-search-top-articles" = "Top articles";
+"places-search-this-area" = "Search this area";
+"places-search-saved-articles" = "Saved articles";
+"places-search-suggested-searches-header" = "Suggested searches";
+"places-search-recently-searched-header" = "Recently searched";
+
+"action-share" = "Share";
+"action-save-for-later" = "Save for later";
+"action-unsave" = "Unsave";

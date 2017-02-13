@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2333a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ebr-hF-Cp5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ebr-hF-Cp5">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,6 +20,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="EJe-8j-1e6" kind="relationship" relationship="viewControllers" id="yhB-EA-2gx"/>
+                        <segue destination="GSJ-3y-kNz" kind="relationship" relationship="viewControllers" id="7a9-Wr-BwZ"/>
                         <segue destination="bzO-gj-jpB" kind="relationship" relationship="viewControllers" id="xti-KQ-b7L"/>
                         <segue destination="ROQ-sG-rcF" kind="relationship" relationship="viewControllers" id="tmz-sA-ulb"/>
                     </connections>
@@ -31,7 +36,7 @@
                     <tabBarItem key="tabBarItem" title="Saved" image="tabbar-save" selectedImage="tabbar-save-selected" id="tEK-7k-93Q"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="ScF-IW-gDl">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ScF-IW-gDl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -70,7 +75,7 @@
                     <tabBarItem key="tabBarItem" title="Recent" image="tabbar-recent" selectedImage="tabbar-recent-selected" id="ZNo-7p-3PU"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="rIL-t0-IJM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="rIL-t0-IJM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -109,7 +114,7 @@
                     <tabBarItem key="tabBarItem" title="Explore" image="tabbar-explore" selectedImage="tabbar-explore-selected" id="fCG-Qf-VzW"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="c8d-c3-ZKx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="c8d-c3-ZKx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -125,7 +130,7 @@
         <scene sceneID="onO-UZ-Vau">
             <objects>
                 <collectionViewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="zJ3-6s-p4y" customClass="WMFExploreViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="Wq4-Bq-WJQ">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Wq4-Bq-WJQ">
                         <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -147,10 +152,20 @@
             </objects>
             <point key="canvasLocation" x="996" y="2881"/>
         </scene>
+        <!--Places-->
+        <scene sceneID="f6L-ye-aCD">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Places" storyboardName="Places" referencedIdentifier="Places" id="GSJ-3y-kNz" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Places" image="tabbar-nearby" selectedImage="tabbar-explore-selected" id="aCf-7e-CaQ"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Epk-QC-w6n" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
     </scenes>
     <resources>
         <image name="tabbar-explore" width="25" height="25"/>
         <image name="tabbar-explore-selected" width="25" height="25"/>
+        <image name="tabbar-nearby" width="24" height="24"/>
         <image name="tabbar-recent" width="24" height="23"/>
         <image name="tabbar-recent-selected" width="24" height="23"/>
         <image name="tabbar-save" width="17" height="23"/>

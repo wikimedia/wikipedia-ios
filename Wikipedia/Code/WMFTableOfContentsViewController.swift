@@ -33,13 +33,13 @@ open class WMFTableOfContentsViewController: UIViewController,
     
     let tableOfContentsFunnel: ToCInteractionFunnel
     
-    var displaySide = WMFTableOfContentsDisplaySideLeft {
+    var displaySide = WMFTableOfContentsDisplaySide.left {
         didSet {
             animator?.displaySide = displaySide
         }
     }
     
-    var displayMode = WMFTableOfContentsDisplayModeModal {
+    var displayMode = WMFTableOfContentsDisplayMode.modal {
         didSet {
             animator?.displayMode = displayMode
         }

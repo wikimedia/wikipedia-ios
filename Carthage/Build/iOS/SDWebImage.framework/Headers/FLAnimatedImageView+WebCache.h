@@ -10,7 +10,11 @@
 
 #if SD_UIKIT
 
-@import FLAnimatedImage;
+#if __has_include(<FLAnimatedImage/FLAnimatedImage.h>)
+#import <FLAnimatedImage/FLAnimatedImage.h>
+#else
+#import "FLAnimatedImageView.h"
+#endif
 
 #import "SDWebImageManager.h"
 

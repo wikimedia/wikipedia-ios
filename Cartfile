@@ -13,6 +13,7 @@ github "luisobo/Nocilla"
 github "facebook/ios-snapshot-test-case" ~> 2.1.4
 github "Quick/Quick" ~> 1.0.0
 github "Quick/Nimble" ~> 5.1.1
+github "rs/SDWebImage" ~> 4.0.0
 
 github "wikimedia/AFNetworking" "release/3.1.1"
 
@@ -22,4 +23,3 @@ github "wikimedia/piwik-sdk-ios" "master"
 github "wikimedia/hpple" "master"
 github "wikimedia/Tweaks" "master"
 github "wikimedia/TUSafariActivity" "master"
-github "wikimedia/SDWebImage" "master"

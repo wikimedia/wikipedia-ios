@@ -4,6 +4,7 @@
 #import "WMFArticlePreview.h"
 #import "WMFAnnouncement.h"
 
+
 @import CoreData;
 
 NSString *const MWKArticleSavedNotification = @"MWKArticleSavedNotification";
@@ -28,6 +29,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (readwrite, strong, nonatomic) MWKHistoryList *historyList;
 @property (readwrite, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readwrite, strong, nonatomic) MWKRecentSearchList *recentSearchList;
+@property (readwrite, strong, nonatomic) ArticleLocationController *articleLocationController;
 
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
@@ -146,6 +148,8 @@ static uint64_t bundleHash() {
         [self setupCrossProcessCoreDataNotifier];
         [self setupCoreDataStackWithContainerURL:containerURL];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+        
+        self.articleLocationController = [ArticleLocationController new];
     }
     return self;
 }
@@ -396,6 +400,10 @@ static uint64_t bundleHash() {
         article.key = key;
         updateBlock(entry, preview, article);
     }
+}
+
+- (void)migrateToQuadKeyLocationIfNecessaryWithCompletion:(nonnull void (^)(NSError *))completion {
+    [self.articleLocationController migrateWithManagedObjectContext:self.viewContext completion:completion];
 }
 
 - (BOOL)migrateToCoreData:(NSError **)error {

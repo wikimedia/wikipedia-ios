@@ -4,18 +4,20 @@
 @interface WMFLocationSearchResults ()
 
 @property (nonatomic, strong, readwrite) NSURL *searchSiteURL;
-@property (nonatomic, strong, readwrite) CLLocation *location;
+@property (nonatomic, copy, readwrite) CLCircularRegion *region;
+@property (nullable, nonatomic, copy, readwrite) NSString *searchTerm;
 @property (nonatomic, strong, readwrite) NSArray<MWKLocationSearchResult *> *results;
 
 @end
 
 @implementation WMFLocationSearchResults
 
-- (instancetype)initWithSearchSiteURL:(NSURL *)url location:(CLLocation *)location results:(NSArray<MWKLocationSearchResult *> *)results {
+- (instancetype)initWithSearchSiteURL:(NSURL *)url region:(CLCircularRegion *)region searchTerm:(nullable NSString *)searchTerm results:(NSArray<MWKLocationSearchResult *> *)results {
     self = [super init];
     if (self) {
         self.searchSiteURL = url;
-        self.location = location;
+        self.region = region;
+        self.searchTerm = searchTerm;
         self.results = [results sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:WMF_SAFE_KEYPATH([MWKLocationSearchResult new], distanceFromQueryCoordinates) ascending:YES]]];
         ;
     }
