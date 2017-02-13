@@ -98,8 +98,12 @@ class WMFChangePasswordViewController: UIViewController {
                 self.enableProgressiveButton(true)
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
                 self.funnel?.logError(error.localizedDescription)
-                self.passwordField.text = nil
-                self.retypeField.text = nil
+                if let error = error as? URLError {
+                    if error.code != .notConnectedToInternet {
+                        self.passwordField.text = nil
+                        self.retypeField.text = nil
+                    }
+                }
             })
     }
 }
