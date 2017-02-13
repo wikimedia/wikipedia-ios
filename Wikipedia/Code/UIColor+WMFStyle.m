@@ -186,6 +186,16 @@
     return c;
 }
 
++ (instancetype)wmf_darkBlueTintColor {
+    static UIColor *c = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor colorWithRed:42.0/255.0 green:75.0/255.0 blue:141.0/255.0 alpha:1.0];
+    });
+    return c;
+}
+
 + (instancetype)wmf_lightBlueTintColor {
     return [UIColor colorWithRed:0.92 green:0.95 blue:1.0 alpha:1.0];
 }

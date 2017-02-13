@@ -22,6 +22,12 @@ typedef NS_ENUM(NSUInteger, WMFGeoType) {
     WMFGeoTypeLandmark
 };
 
+typedef NS_ENUM(NSUInteger, WMFArticleAction) {
+    WMFArticleActionNone = 0,
+    WMFArticleActionRead,
+    WMFArticleActionSave,
+    WMFArticleActionShare,
+};
 
 @interface WMFArticle (WMFExtensions)
 

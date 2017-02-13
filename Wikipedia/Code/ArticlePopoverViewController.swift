@@ -1,14 +1,8 @@
 import UIKit
 
-enum ArticlePopoverViewControllerAction {
-    case none
-    case save
-    case share
-    case read
-}
 
 protocol ArticlePopoverViewControllerDelegate: NSObjectProtocol {
-    func articlePopoverViewController(articlePopoverViewController: ArticlePopoverViewController, didSelectAction: ArticlePopoverViewControllerAction)
+    func articlePopoverViewController(articlePopoverViewController: ArticlePopoverViewController, didSelectAction: WMFArticleAction)
 }
 
 class ArticlePopoverViewController: UIViewController {

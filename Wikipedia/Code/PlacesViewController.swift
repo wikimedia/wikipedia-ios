@@ -1022,14 +1022,22 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     
     // ArticlePopoverViewControllerDelegate
-    func articlePopoverViewController(articlePopoverViewController: ArticlePopoverViewController, didSelectAction: ArticlePopoverViewControllerAction) {
+    func articlePopoverViewController(articlePopoverViewController: ArticlePopoverViewController, didSelectAction action: WMFArticleAction) {
         
         
-        guard let article = articlePopoverViewController.article, let url = article.url else {
+        guard let article = articlePopoverViewController.article else {
             return
         }
+        perform(action: action, onArticle: article)
         
-        switch didSelectAction {
+    }
+    
+    func perform(action: WMFArticleAction, onArticle article: WMFArticle) {
+        guard let url = article.url else {
+            return
+        }
+
+        switch action {
         case .read:
             wmf_pushArticle(with: url, dataStore: dataStore, previewStore: articleStore, animated: true)
             break
@@ -1046,7 +1054,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         default:
             break
         }
-        
     }
     
     var fetchRequestForSavedArticles: NSFetchRequest<WMFArticle> {
@@ -1228,6 +1235,29 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return cell
     }
     
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let article = articleFetchedResultsController.object(at: indexPath)
+        let title = article.savedDate == nil ? localizedStringForKeyFallingBackOnEnglish("action-save-for-later") : localizedStringForKeyFallingBackOnEnglish("action-unsave")
+        let saveForLaterAction = UITableViewRowAction(style: .default, title: title) { (action, indexPath) in
+            CATransaction.begin()
+            CATransaction.setCompletionBlock({
+                let article = self.articleFetchedResultsController.object(at: indexPath)
+                self.perform(action: .save, onArticle: article)
+            })
+            tableView.setEditing(false, animated: true)
+            CATransaction.commit()
+        }
+        saveForLaterAction.backgroundColor = UIColor.wmf_darkBlueTint()
+        
+        let shareAction = UITableViewRowAction(style: .default, title: localizedStringForKeyFallingBackOnEnglish("action-share")) { (action, indexPath) in
+            tableView.setEditing(false, animated: true)
+            let article = self.articleFetchedResultsController.object(at: indexPath)
+            self.perform(action: .share, onArticle: article)
+        }
+        shareAction.backgroundColor = UIColor.wmf_blueTint()
+        return [saveForLaterAction, shareAction]
+    }
+    
     func update(userLocation: MKUserLocation, onLocationCell cell: WMFNearbyArticleTableViewCell, withArticle article: WMFArticle) {
         guard let articleLocation = article.location, let userLocation = userLocation.location else {
             return
@@ -1249,10 +1279,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let article = articleFetchedResultsController.object(at: indexPath)
-        guard let url = article.url else {
-            return
-        }
-        wmf_pushArticle(with: url, dataStore: dataStore, previewStore: articleStore, animated: true)
+        perform(action: .read, onArticle: article)
     }
     
     // PlaceSearchSuggestionControllerDelegate

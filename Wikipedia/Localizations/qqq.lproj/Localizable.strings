@@ -480,3 +480,7 @@
 "places-search-saved-articles" = "A search suggestion for saved articles";
 "places-search-suggested-searches-header" = "Suggested searches - header for the list of suggested searches";
 "places-search-recently-searched-header" = "Recently searched - header for the list of recently searched items";
+
+"action-share" = "Title for the 'Share' action";
+"action-save-for-later" = "Title for the 'Save for later' action";
+"action-unsave" = "Title for the 'Unsave' action";

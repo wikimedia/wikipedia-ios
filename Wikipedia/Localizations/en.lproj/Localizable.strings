@@ -551,3 +551,7 @@
 "places-search-saved-articles" = "Saved articles";
 "places-search-suggested-searches-header" = "Suggested searches";
 "places-search-recently-searched-header" = "Recently searched";
+
+"action-share" = "Share";
+"action-save-for-later" = "Save for later";
+"action-unsave" = "Unsave";
