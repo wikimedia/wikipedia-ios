@@ -396,14 +396,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
-        let articleVC = ArticlePopoverViewController()
+        let articleVC = ArticlePopoverViewController(article)
         articleVC.delegate = self
         articleVC.view.tintColor = view.tintColor
-        
-        articleVC.article = article
-        articleVC.titleLabel.text = article.displayTitle
-        articleVC.subtitleLabel.text = article.wikidataDescription
-        
+
         let articleLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         let userCoordinate = mapView.userLocation.coordinate
         let userLocation = CLLocation(latitude: userCoordinate.latitude, longitude: userCoordinate.longitude)
@@ -1024,13 +1020,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     // ArticlePopoverViewControllerDelegate
     func articlePopoverViewController(articlePopoverViewController: ArticlePopoverViewController, didSelectAction action: WMFArticleAction) {
-        
-        
-        guard let article = articlePopoverViewController.article else {
-            return
-        }
-        perform(action: action, onArticle: article)
-        
+        perform(action: action, onArticle: articlePopoverViewController.article)
     }
     
     func perform(action: WMFArticleAction, onArticle article: WMFArticle) {
@@ -1238,7 +1228,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let article = articleFetchedResultsController.object(at: indexPath)
-        let title = article.savedDate == nil ? localizedStringForKeyFallingBackOnEnglish("action-save-for-later") : localizedStringForKeyFallingBackOnEnglish("action-unsave")
+        let title = article.savedDate == nil ? localizedStringForKeyFallingBackOnEnglish("action-save") : localizedStringForKeyFallingBackOnEnglish("action-unsave")
         let saveForLaterAction = UITableViewRowAction(style: .default, title: title) { (action, indexPath) in
             CATransaction.begin()
             CATransaction.setCompletionBlock({
