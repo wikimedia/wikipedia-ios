@@ -92,6 +92,7 @@ class WMFLoginViewController: UIViewController {
     }
 
     fileprivate func save() {
+        wmf_hideKeyboard()        
         enableProgressiveButton(false)
         WMFAlertManager.sharedInstance.dismissAlert()
         WMFAuthenticationManager.sharedInstance().login(username: usernameField.text!, password: passwordField.text!, retypePassword:nil, oathToken:nil, success: { _ in
@@ -109,7 +110,10 @@ class WMFLoginViewController: UIViewController {
                 case .needsOathTokenFor2FA:
                     self.showTwoFactorViewController()
                     return
-                    default: break
+                case .statusNotPass:
+                    self.passwordField.text = nil
+                    self.passwordField.becomeFirstResponder()
+                default: break
                 }
             }
             
