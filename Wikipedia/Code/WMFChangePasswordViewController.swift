@@ -21,9 +21,13 @@ class WMFChangePasswordViewController: UIViewController {
     }
 
     func textFieldDidChange(_ sender: UITextField) {
-        enableProgressiveButton((passwordField.text!.characters.count > 0 && retypeField.text!.characters.count > 0 && passwordField.text == retypeField.text))
+        enableProgressiveButton((passwordField.text!.characters.count > 0 && retypeField.text!.characters.count > 0))
     }
     
+    fileprivate func passwordFieldsMatch() -> Bool {
+        return passwordField.text == retypeField.text
+    }
+
     func enableProgressiveButton(_ highlight: Bool) {
         doneButton.isEnabled = highlight
     }
@@ -76,6 +80,15 @@ class WMFChangePasswordViewController: UIViewController {
     }
     
     fileprivate func save() {
+        
+        guard passwordFieldsMatch() else {
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("account-creation-passwords-mismatched"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            passwordField.text = nil
+            retypeField.text = nil
+            passwordField.becomeFirstResponder()
+            return
+        }
+        
         wmf_hideKeyboard()
         enableProgressiveButton(false)
         WMFAlertManager.sharedInstance.dismissAlert()
