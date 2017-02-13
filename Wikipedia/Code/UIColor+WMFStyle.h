@@ -4,6 +4,8 @@
 
 + (instancetype)wmf_blueTintColor;
 
++ (instancetype)wmf_darkBlueTintColor;
+
 + (instancetype)wmf_lightBlueTintColor;
 
 + (instancetype)wmf_tapHighlightColor;

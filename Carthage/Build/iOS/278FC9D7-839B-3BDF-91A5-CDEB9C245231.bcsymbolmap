@@ -1,0 +1,2051 @@
+BCSymbolMap Version: 2.0
+Apple LLVM version 8.0.0 (clang-800.0.42.1)
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/upsampling_sse2.c
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage
+WebPInitUpsamplersSSE2
+WebPInitYUV444ConvertersSSE2
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/utils/huffman.c
+VP8LBuildHuffmanTable
+GetNextKey
+ReplicateValue
+NextTableBitSize
+VP8LHtreeGroupsFree
+VP8LHtreeGroupsNew
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/utils/quant_levels.c
+QuantizeLevels
+_NewDecoder
+_IDecCheckStatus
+_IDecode
+_NeedCompressedAlpha
+_DoRemap
+_ChangeState
+_FinishDecoding
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/idec.c
+FinishDecoding
+ChangeState
+MemDataSize
+DoRemap
+NeedCompressedAlpha
+WebPISetIOHooks
+WebPIDecGetYUVA
+GetOutputBuffer
+WebPIDecGetRGB
+WebPIDecodedArea
+WebPIUpdate
+RemapMemBuffer
+CheckMemBufferMode
+IDecode
+DecodeVP8LData
+ErrorStatusLossless
+IDecError
+DecodeVP8LHeader
+DecodeRemaining
+RestoreContext
+SaveContext
+DecodePartition0
+CopyParts0Data
+DecodeVP8FrameHeader
+DecodeWebPHeaders
+IDecCheckStatus
+WebPIAppend
+AppendToMemBuffer
+WebPINewYUV
+WebPINewYUVA
+WebPINewDecoder
+WebPINewRGB
+WebPIDelete
+ClearMemBuffer
+WebPIDecode
+WebPGetFeatures
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/../webp/decode.h
+NewDecoder
+VP8InitIo
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/./decode_vp8.h
+WebPInitDecBuffer
+InitMemBuffer
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/lossless_enc_mips_dsp_r2.c
+VP8LEncDspInitMIPSdspR2
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/yuv_sse2.c
+WebPInitConvertARGBToYUVSSE2
+WebPInitSamplersSSE2
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/dec_sse2.c
+VP8DspInitSSE2
+_TransformWHT
+_TransformTwo
+_TransformUV
+_TransformDC
+_TransformDCUV
+_TransformAC3
+_VFilter16
+_HFilter16
+_VFilter8
+_HFilter8
+_VFilter16i
+_HFilter16i
+_VFilter8i
+_HFilter8i
+_SimpleVFilter16
+_SimpleHFilter16
+_SimpleVFilter16i
+_SimpleHFilter16i
+_DC4
+_TM4
+_VE4
+_HE4
+_RD4
+_VR4
+_LD4
+_VL4
+_HD4
+_HU4
+_DC16
+_TM16
+_VE16
+_HE16
+_DC16NoTop
+_DC16NoLeft
+_DC16NoTopLeft
+_DC8uv
+_TM8uv
+_VE8uv
+_HE8uv
+_DC8uvNoTop
+_DC8uvNoLeft
+_DC8uvNoTopLeft
+_DitherCombine8x8
+_TransformOne
+_FilterLoop26
+_needs_filter2
+_FilterLoop24
+_dec_last_cpuinfo_used
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/dec.c
+FilterLoop24
+do_filter4
+do_filter2
+hev
+needs_filter2
+FilterLoop26
+do_filter6
+TransformOne
+clip_8b
+DitherCombine8x8
+DC8uvNoTopLeft
+Put8x8uv
+DC8uvNoLeft
+DC8uvNoTop
+HE8uv
+VE8uv
+TM8uv
+TrueMotion
+DC8uv
+DC16NoTopLeft
+Put16
+DC16NoLeft
+DC16NoTop
+HE16
+VE16
+TM16
+DC16
+HU4
+HD4
+VL4
+LD4
+VR4
+RD4
+HE4
+WebPUint32ToMem
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/../utils/utils.h
+VE4
+TM4
+DC4
+SimpleHFilter16i
+SimpleVFilter16i
+SimpleHFilter16
+needs_filter
+SimpleVFilter16
+HFilter8i
+VFilter8i
+HFilter16i
+VFilter16i
+HFilter8
+VFilter8
+HFilter16
+VFilter16
+TransformAC3
+TransformDCUV
+TransformDC
+TransformUV
+TransformTwo
+TransformWHT
+VP8DspInit
+_kRandomTable
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/utils/random.c
+VP8InitRandom
++[UIImage(GIF) sd_animatedGIFWithData:]
+-[UIImage(GIF) isGIF]
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/UIImage+GIF.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/enc_sse2.c
+VP8EncDspInitSSE2
++[UIImage(WebP) sd_imageWithWebPData:]
++[UIImage(WebP) sd_blendWebpImageWithOriginImage:iterator:]
++[UIImage(WebP) sd_rawWepImageWithData:]
+_FreeImageData
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/UIImage+WebP.m
+FreeImageData
+Vendors/libwebp/src/webp/./decode.h
+WebPInitDecoderConfig
+WebPDemux
+Vendors/libwebp/src/webp/demux.h
+WebPDataInit
+Vendors/libwebp/src/webp/./mux_types.h
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/lossless_sse2.c
+VP8LDspInitSSE2
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/dec_sse41.c
+VP8DspInitSSE41
+_CopyCanvas
+_BlendPixelRowNonPremult
+_BlendPixelRowPremult
+_BlendChannelNonPremult
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/demux/anim_decode.c
+BlendChannelNonPremult
+BlendPixelRowPremult
+BlendPixelPremult
+ChannelwiseMultiply
+BlendPixelRowNonPremult
+BlendPixelNonPremult
+WebPAnimDecoderGetDemuxer
+CopyCanvas
+WebPAnimDecoderHasMoreFrames
+WebPAnimDecoderGetNext
+ZeroFillFrameRect
+FindBlendRangeAtRow
+ZeroFillCanvas
+IsKeyFrame
+IsFullFrame
+WebPAnimDecoderGetInfo
+WebPAnimDecoderDelete
+WebPAnimDecoderReset
+WebPAnimDecoderNewInternal
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/demux/../webp/demux.h
+ApplyDecoderOptions
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/demux/../utils/../dsp/../webp/./decode.h
+WebPAnimDecoderOptionsInitInternal
+DefaultDecoderOptions
+-[FLAnimatedImageView(WebCache) sd_setImageWithURL:]
+-[FLAnimatedImageView(WebCache) sd_setImageWithURL:placeholderImage:]
+-[FLAnimatedImageView(WebCache) sd_setImageWithURL:placeholderImage:options:]
+-[FLAnimatedImageView(WebCache) sd_setImageWithURL:completed:]
+-[FLAnimatedImageView(WebCache) sd_setImageWithURL:placeholderImage:completed:]
+-[FLAnimatedImageView(WebCache) sd_setImageWithURL:placeholderImage:options:completed:]
+-[FLAnimatedImageView(WebCache) sd_setImageWithURL:placeholderImage:options:progress:completed:]
+___96-[FLAnimatedImageView(WebCache) sd_setImageWithURL:placeholderImage:options:progress:completed:]_block_invoke
+___copy_helper_block_
+___destroy_helper_block_
+___block_descriptor_tmp
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/FLAnimatedImage/FLAnimatedImageView+WebCache.m
+__destroy_helper_block_
+__copy_helper_block_
+__96-[FLAnimatedImageView(WebCache) sd_setImageWithURL:placeholderImage:options:progress:completed:]_block_invoke
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/lossless_enc_sse41.c
+VP8LEncDspInitSSE41
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/enc_mips32.c
+VP8EncDspInitMIPS32
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/lossless_mips_dsp_r2.c
+VP8LDspInitMIPSdspR2
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/lossless_enc_sse2.c
+VP8LEncDspInitSSE2
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/rescaler_sse2.c
+WebPRescalerDspInitSSE2
+_sclip1
+_sclip2
+_clip1
+_abs0
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/dec_clip_tables.c
+VP8InitClipTables
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/utils/rescaler.c
+WebPRescalerExport
+WebPRescalerHasPendingOutput
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/utils/./rescaler.h
+WebPRescalerOutputDone
+WebPRescalerImport
+WebPRescaleNeededLines
+WebPRescalerGetScaledDimensions
+WebPRescalerInit
+_kDcTable
+_kAcTable
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/quant.c
+VP8ParseQuant
+clip
+VP8Get
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/../utils/bit_reader.h
+_armCPUInfo
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/cpu.c
+armCPUInfo
+_Init
+_Reset
+_Sync
+_Launch
+_Execute
+_End
+_g_worker_interface
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/utils/thread.c
+End
+Execute
+Launch
+Sync
+Reset
+Init
+WebPGetWorkerInterface
+WebPSetWorkerInterface
+_GetResidualCost
+_SetResidualCoeffs
+_cost_last_cpuinfo_used
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/cost.c
+SetResidualCoeffs
+GetResidualCost
+VP8BitCost
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/../enc/cost.h
+VP8LevelCost
+VP8EncDspCostInit
+_ConvertBGRAToRGBA
+_ConvertBGRAToBGR
+_ConvertBGRAToRGB
+_AddGreenToBlueAndRed
+_TransformColorInverse
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/lossless_neon.c
+TransformColorInverse
+DoGreenShuffle
+AddGreenToBlueAndRed
+ConvertBGRAToRGB
+ConvertBGRAToBGR
+ConvertBGRAToRGBA
+VP8LDspInitNEON
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/dec_mips_dsp_r2.c
+VP8DspInitMIPSdspR2
+-[UIImageView(WebCache) sd_setImageWithURL:]
+-[UIImageView(WebCache) sd_setImageWithURL:placeholderImage:]
+-[UIImageView(WebCache) sd_setImageWithURL:placeholderImage:options:]
+-[UIImageView(WebCache) sd_setImageWithURL:completed:]
+-[UIImageView(WebCache) sd_setImageWithURL:placeholderImage:completed:]
+-[UIImageView(WebCache) sd_setImageWithURL:placeholderImage:options:completed:]
+-[UIImageView(WebCache) sd_setImageWithURL:placeholderImage:options:progress:completed:]
+-[UIImageView(WebCache) sd_setImageWithPreviousCachedImageWithURL:placeholderImage:options:progress:completed:]
+-[UIImageView(WebCache) sd_setAnimationImagesWithURLs:]
+___55-[UIImageView(WebCache) sd_setAnimationImagesWithURLs:]_block_invoke
+___55-[UIImageView(WebCache) sd_setAnimationImagesWithURLs:]_block_invoke_2
+___55-[UIImageView(WebCache) sd_setAnimationImagesWithURLs:]_block_invoke.35
+___copy_helper_block_.36
+___destroy_helper_block_.37
+___copy_helper_block_.39
+___destroy_helper_block_.40
+-[UIImageView(WebCache) sd_cancelCurrentAnimationImagesLoad]
+___block_descriptor_tmp.38
+___block_descriptor_tmp.42
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/UIImageView+WebCache.m
+__55-[UIImageView(WebCache) sd_setAnimationImagesWithURLs:]_block_invoke.35
+__55-[UIImageView(WebCache) sd_setAnimationImagesWithURLs:]_block_invoke_2
+__55-[UIImageView(WebCache) sd_setAnimationImagesWithURLs:]_block_invoke
+_ITransform
+_FTransform
+_FTransformWHT
+_Disto4x4
+_Disto16x16
+_CollectHistogram
+_SSE16x16
+_SSE16x8
+_SSE8x8
+_SSE4x4
+_QuantizeBlock
+_Quantize2Blocks
+_ITransformOne
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/enc_neon.c
+ITransformOne
+Add4x4
+SaturateAndStore4x4
+ConvertU8ToS16
+TransformPass
+Transpose8x2
+Quantize2Blocks
+QuantizeBlock
+Quantize
+SSE4x4
+SumToInt
+Load4x4
+SSE8x8
+SSE16x8
+AccumulateSSE16
+SSE16x16
+CollectHistogram
+Disto16x16
+Disto4x4
+DistoSum
+DistoHorizontalPass
+DistoTranspose4x4S16
+DistoLoadW
+DistoVerticalPass
+FTransformWHT
+Transpose4x4
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/./neon.h
+FTransform
+Transpose4x4_S16
+DiffU8ToS16
+ITransform
+VP8EncDspInitNEON
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/utils/filters.c
+WebPEstimateBestFilter
+GradientPredictor
+_SetFrame
+_SetChunk
+_IsValidSimpleFormat
+_ParseSingleImage
+_ParseVP8X
+_IsValidExtendedFormat
+_StoreFrame
+_kMasterChunks
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/demux/demux.c
+StoreFrame
+Rewind
+Skip
+SetFrameInfo
+SizeIsInvalid
+ReadLE32
+GetLE32
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/demux/../utils/utils.h
+GetLE16
+IsValidExtendedFormat
+CheckFrameBounds
+ParseVP8X
+ParseVP8XChunks
+ReadLE16s
+StoreChunk
+AddChunk
+ParseAnimationFrame
+AddFrame
+ReadByte
+ReadLE24s
+GetLE24
+NewFrame
+ParseSingleImage
+IsValidSimpleFormat
+WebPDemuxReleaseChunkIterator
+WebPDemuxPrevChunk
+WebPDemuxNextChunk
+SetChunk
+GetChunk
+ChunkCount
+WebPDemuxGetChunk
+WebPDemuxReleaseIterator
+WebPDemuxPrevFrame
+WebPDemuxNextFrame
+SetFrame
+SynthesizeFrame
+GetFramePayload
+GetFrame
+WebPDemuxGetFrame
+WebPDemuxGetI
+WebPDemuxDelete
+WebPDemuxInternal
+GetBuffer
+InitDemux
+ReadHeader
+CreateRawImageDemuxer
+WebPGetDemuxVersion
+_HorizontalUnfilter
+_VerticalUnfilter
+_GradientUnfilter
+_HorizontalFilter
+_VerticalFilter
+_GradientFilter
+_filters_last_cpuinfo_used
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/filters.c
+GradientFilter
+DoGradientFilter
+PredictLine
+VerticalFilter
+DoVerticalFilter
+HorizontalFilter
+DoHorizontalFilter
+GradientUnfilter
+HorizontalUnfilter
+VerticalUnfilter
+VP8FiltersInit
+-[SDWebImageDownloaderOperation init]
+-[SDWebImageDownloaderOperation initWithRequest:inSession:options:]
+-[SDWebImageDownloaderOperation dealloc]
+-[SDWebImageDownloaderOperation addHandlersForProgress:completed:]
+___66-[SDWebImageDownloaderOperation addHandlersForProgress:completed:]_block_invoke
+-[SDWebImageDownloaderOperation callbacksForKey:]
+___Block_byref_object_copy_
+___Block_byref_object_dispose_
+___49-[SDWebImageDownloaderOperation callbacksForKey:]_block_invoke
+-[SDWebImageDownloaderOperation cancel:]
+___40-[SDWebImageDownloaderOperation cancel:]_block_invoke
+___copy_helper_block_.44
+___destroy_helper_block_.45
+-[SDWebImageDownloaderOperation start]
+___38-[SDWebImageDownloaderOperation start]_block_invoke
+___copy_helper_block_.71
+___destroy_helper_block_.72
+___38-[SDWebImageDownloaderOperation start]_block_invoke.108
+___copy_helper_block_.114
+___destroy_helper_block_.115
+-[SDWebImageDownloaderOperation cancel]
+-[SDWebImageDownloaderOperation cancelInternal]
+___47-[SDWebImageDownloaderOperation cancelInternal]_block_invoke
+___copy_helper_block_.132
+___destroy_helper_block_.133
+-[SDWebImageDownloaderOperation done]
+-[SDWebImageDownloaderOperation reset]
+___38-[SDWebImageDownloaderOperation reset]_block_invoke
+___copy_helper_block_.139
+___destroy_helper_block_.140
+-[SDWebImageDownloaderOperation setFinished:]
+-[SDWebImageDownloaderOperation setExecuting:]
+-[SDWebImageDownloaderOperation isConcurrent]
+-[SDWebImageDownloaderOperation URLSession:dataTask:didReceiveResponse:completionHandler:]
+___90-[SDWebImageDownloaderOperation URLSession:dataTask:didReceiveResponse:completionHandler:]_block_invoke
+___copy_helper_block_.167
+___destroy_helper_block_.168
+___90-[SDWebImageDownloaderOperation URLSession:dataTask:didReceiveResponse:completionHandler:]_block_invoke.170
+___copy_helper_block_.171
+___destroy_helper_block_.172
+-[SDWebImageDownloaderOperation URLSession:dataTask:didReceiveData:]
+-[SDWebImageDownloaderOperation URLSession:dataTask:willCacheResponse:completionHandler:]
+-[SDWebImageDownloaderOperation URLSession:task:didCompleteWithError:]
+___70-[SDWebImageDownloaderOperation URLSession:task:didCompleteWithError:]_block_invoke
+___copy_helper_block_.208
+___destroy_helper_block_.209
+-[SDWebImageDownloaderOperation URLSession:task:didReceiveChallenge:completionHandler:]
++[SDWebImageDownloaderOperation orientationFromPropertyValue:]
+-[SDWebImageDownloaderOperation scaledImageForKey:image:]
+-[SDWebImageDownloaderOperation shouldContinueWhenAppEntersBackground]
+-[SDWebImageDownloaderOperation callCompletionBlocksWithError:]
+-[SDWebImageDownloaderOperation callCompletionBlocksWithImage:imageData:error:finished:]
+___88-[SDWebImageDownloaderOperation callCompletionBlocksWithImage:imageData:error:finished:]_block_invoke
+___copy_helper_block_.245
+___destroy_helper_block_.246
+___88-[SDWebImageDownloaderOperation callCompletionBlocksWithImage:imageData:error:finished:]_block_invoke.248
+___copy_helper_block_.249
+___destroy_helper_block_.250
+-[SDWebImageDownloaderOperation isExecuting]
+-[SDWebImageDownloaderOperation isFinished]
+-[SDWebImageDownloaderOperation request]
+-[SDWebImageDownloaderOperation dataTask]
+-[SDWebImageDownloaderOperation setDataTask:]
+-[SDWebImageDownloaderOperation shouldDecompressImages]
+-[SDWebImageDownloaderOperation setShouldDecompressImages:]
+-[SDWebImageDownloaderOperation shouldUseCredentialStorage]
+-[SDWebImageDownloaderOperation setShouldUseCredentialStorage:]
+-[SDWebImageDownloaderOperation credential]
+-[SDWebImageDownloaderOperation setCredential:]
+-[SDWebImageDownloaderOperation options]
+-[SDWebImageDownloaderOperation expectedSize]
+-[SDWebImageDownloaderOperation setExpectedSize:]
+-[SDWebImageDownloaderOperation response]
+-[SDWebImageDownloaderOperation setResponse:]
+-[SDWebImageDownloaderOperation callbackBlocks]
+-[SDWebImageDownloaderOperation setCallbackBlocks:]
+-[SDWebImageDownloaderOperation imageData]
+-[SDWebImageDownloaderOperation setImageData:]
+-[SDWebImageDownloaderOperation unownedSession]
+-[SDWebImageDownloaderOperation setUnownedSession:]
+-[SDWebImageDownloaderOperation ownedSession]
+-[SDWebImageDownloaderOperation setOwnedSession:]
+-[SDWebImageDownloaderOperation barrierQueue]
+-[SDWebImageDownloaderOperation setBarrierQueue:]
+-[SDWebImageDownloaderOperation backgroundTaskId]
+-[SDWebImageDownloaderOperation setBackgroundTaskId:]
+-[SDWebImageDownloaderOperation .cxx_destruct]
+_OBJC_IVAR_$_SDWebImageDownloaderOperation._request
+_OBJC_IVAR_$_SDWebImageDownloaderOperation._shouldDecompressImages
+_OBJC_IVAR_$_SDWebImageDownloaderOperation._options
+_OBJC_IVAR_$_SDWebImageDownloaderOperation._callbackBlocks
+_OBJC_IVAR_$_SDWebImageDownloaderOperation._executing
+_OBJC_IVAR_$_SDWebImageDownloaderOperation._finished
+_OBJC_IVAR_$_SDWebImageDownloaderOperation._expectedSize
+_OBJC_IVAR_$_SDWebImageDownloaderOperation._unownedSession
+_OBJC_IVAR_$_SDWebImageDownloaderOperation.responseFromCached
+_OBJC_IVAR_$_SDWebImageDownloaderOperation._barrierQueue
+___block_descriptor_tmp.41
+___block_descriptor_tmp.46
+___block_descriptor_tmp.73
+___block_descriptor_tmp.116
+___block_descriptor_tmp.134
+___block_descriptor_tmp.141
+___block_descriptor_tmp.169
+___block_descriptor_tmp.173
+_OBJC_IVAR_$_SDWebImageDownloaderOperation.width
+_OBJC_IVAR_$_SDWebImageDownloaderOperation.height
+_OBJC_IVAR_$_SDWebImageDownloaderOperation.orientation
+___block_descriptor_tmp.210
+___block_descriptor_tmp.247
+___block_descriptor_tmp.251
+_OBJC_IVAR_$_SDWebImageDownloaderOperation._dataTask
+_OBJC_IVAR_$_SDWebImageDownloaderOperation._shouldUseCredentialStorage
+_OBJC_IVAR_$_SDWebImageDownloaderOperation._credential
+_OBJC_IVAR_$_SDWebImageDownloaderOperation._response
+_OBJC_IVAR_$_SDWebImageDownloaderOperation._imageData
+_OBJC_IVAR_$_SDWebImageDownloaderOperation._ownedSession
+_OBJC_IVAR_$_SDWebImageDownloaderOperation._backgroundTaskId
+l_OBJC_PROTOCOL_$_NSObject
+l_OBJC_LABEL_PROTOCOL_$_NSObject
+l_OBJC_PROTOCOL_$_SDWebImageDownloaderOperationInterface
+l_OBJC_LABEL_PROTOCOL_$_SDWebImageDownloaderOperationInterface
+l_OBJC_PROTOCOL_$_SDWebImageOperation
+l_OBJC_LABEL_PROTOCOL_$_SDWebImageOperation
+l_OBJC_PROTOCOL_$_NSURLSessionDelegate
+l_OBJC_LABEL_PROTOCOL_$_NSURLSessionDelegate
+l_OBJC_PROTOCOL_$_NSURLSessionTaskDelegate
+l_OBJC_LABEL_PROTOCOL_$_NSURLSessionTaskDelegate
+l_OBJC_PROTOCOL_$_NSURLSessionDataDelegate
+l_OBJC_LABEL_PROTOCOL_$_NSURLSessionDataDelegate
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/SDWebImageDownloaderOperation.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/SDWebImageDownloaderOperation.h
+__88-[SDWebImageDownloaderOperation callCompletionBlocksWithImage:imageData:error:finished:]_block_invoke.248
+__88-[SDWebImageDownloaderOperation callCompletionBlocksWithImage:imageData:error:finished:]_block_invoke
+__70-[SDWebImageDownloaderOperation URLSession:task:didCompleteWithError:]_block_invoke
+__CGSizeEqualToSize
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CGGeometry.h
+__90-[SDWebImageDownloaderOperation URLSession:dataTask:didReceiveResponse:completionHandler:]_block_invoke.170
+__90-[SDWebImageDownloaderOperation URLSession:dataTask:didReceiveResponse:completionHandler:]_block_invoke
+__38-[SDWebImageDownloaderOperation reset]_block_invoke
+__47-[SDWebImageDownloaderOperation cancelInternal]_block_invoke
+__38-[SDWebImageDownloaderOperation start]_block_invoke.108
+__38-[SDWebImageDownloaderOperation start]_block_invoke
+__40-[SDWebImageDownloaderOperation cancel:]_block_invoke
+__49-[SDWebImageDownloaderOperation callbacksForKey:]_block_invoke
+__Block_byref_object_dispose_
+__Block_byref_object_copy_
+__66-[SDWebImageDownloaderOperation addHandlersForProgress:completed:]_block_invoke
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/enc_mips_dsp_r2.c
+VP8EncDspInitMIPSdspR2
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/rescaler_mips32.c
+WebPRescalerDspInitMIPS32
+_CoeffsUpdateProba
+_CoeffsProba0
+_kBands
+_kBModesProba
+_kYModesIntra4
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/tree.c
+VP8ParseProba
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/../utils/./bit_reader.h
+VP8GetBit
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/../utils/bit_reader_inl.h
+VP8LoadNewBytes
+BSwap64
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/../utils/./endian_inl.h
+VP8ParseIntraModeRow
+ParseIntraMode
+VP8ResetProba
+-[MKAnnotationView(WebCache) sd_setImageWithURL:]
+-[MKAnnotationView(WebCache) sd_setImageWithURL:placeholderImage:]
+-[MKAnnotationView(WebCache) sd_setImageWithURL:placeholderImage:options:]
+-[MKAnnotationView(WebCache) sd_setImageWithURL:completed:]
+-[MKAnnotationView(WebCache) sd_setImageWithURL:placeholderImage:completed:]
+-[MKAnnotationView(WebCache) sd_setImageWithURL:placeholderImage:options:completed:]
+___84-[MKAnnotationView(WebCache) sd_setImageWithURL:placeholderImage:options:completed:]_block_invoke
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/MKAnnotationView+WebCache.m
+__84-[MKAnnotationView(WebCache) sd_setImageWithURL:placeholderImage:options:completed:]_block_invoke
+_RescalerExportRowExpand
+_RescalerExportRowShrink
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/rescaler_neon.c
+RescalerExportRowShrink
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/../utils/rescaler.h
+RescalerExportRowExpand
+Interpolate
+WebPRescalerDspInitNEON
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/alpha_processing_sse41.c
+WebPInitAlphaProcessingSSE41
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/upsampling_mips_dsp_r2.c
+WebPInitUpsamplersMIPSdspR2
+WebPInitYUV444ConvertersMIPSdspR2
++[SDWebImagePrefetcher sharedImagePrefetcher]
+___45+[SDWebImagePrefetcher sharedImagePrefetcher]_block_invoke
+-[SDWebImagePrefetcher init]
+-[SDWebImagePrefetcher initWithImageManager:]
+-[SDWebImagePrefetcher setMaxConcurrentDownloads:]
+-[SDWebImagePrefetcher maxConcurrentDownloads]
+-[SDWebImagePrefetcher startPrefetchingAtIndex:]
+___48-[SDWebImagePrefetcher startPrefetchingAtIndex:]_block_invoke
+___48-[SDWebImagePrefetcher startPrefetchingAtIndex:]_block_invoke_2
+___copy_helper_block_.45
+___destroy_helper_block_.46
+___copy_helper_block_.56
+___destroy_helper_block_.57
+-[SDWebImagePrefetcher reportStatus]
+-[SDWebImagePrefetcher prefetchURLs:]
+-[SDWebImagePrefetcher prefetchURLs:progress:completed:]
+-[SDWebImagePrefetcher cancelPrefetching]
+-[SDWebImagePrefetcher manager]
+-[SDWebImagePrefetcher setManager:]
+-[SDWebImagePrefetcher options]
+-[SDWebImagePrefetcher setOptions:]
+-[SDWebImagePrefetcher prefetcherQueue]
+-[SDWebImagePrefetcher setPrefetcherQueue:]
+-[SDWebImagePrefetcher delegate]
+-[SDWebImagePrefetcher setDelegate:]
+-[SDWebImagePrefetcher prefetchURLs]
+-[SDWebImagePrefetcher setPrefetchURLs:]
+-[SDWebImagePrefetcher requestedCount]
+-[SDWebImagePrefetcher setRequestedCount:]
+-[SDWebImagePrefetcher skippedCount]
+-[SDWebImagePrefetcher setSkippedCount:]
+-[SDWebImagePrefetcher finishedCount]
+-[SDWebImagePrefetcher setFinishedCount:]
+-[SDWebImagePrefetcher startedTime]
+-[SDWebImagePrefetcher setStartedTime:]
+-[SDWebImagePrefetcher completionBlock]
+-[SDWebImagePrefetcher setCompletionBlock:]
+-[SDWebImagePrefetcher progressBlock]
+-[SDWebImagePrefetcher setProgressBlock:]
+-[SDWebImagePrefetcher .cxx_destruct]
+_sharedImagePrefetcher.once
+_sharedImagePrefetcher.instance
+_OBJC_IVAR_$_SDWebImagePrefetcher._manager
+_OBJC_IVAR_$_SDWebImagePrefetcher._options
+_OBJC_IVAR_$_SDWebImagePrefetcher._prefetcherQueue
+___block_descriptor_tmp.47
+___block_descriptor_tmp.59
+_OBJC_IVAR_$_SDWebImagePrefetcher._delegate
+_OBJC_IVAR_$_SDWebImagePrefetcher._prefetchURLs
+_OBJC_IVAR_$_SDWebImagePrefetcher._requestedCount
+_OBJC_IVAR_$_SDWebImagePrefetcher._skippedCount
+_OBJC_IVAR_$_SDWebImagePrefetcher._finishedCount
+_OBJC_IVAR_$_SDWebImagePrefetcher._startedTime
+_OBJC_IVAR_$_SDWebImagePrefetcher._completionBlock
+_OBJC_IVAR_$_SDWebImagePrefetcher._progressBlock
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/SDWebImagePrefetcher.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/SDWebImagePrefetcher.h
+__48-[SDWebImagePrefetcher startPrefetchingAtIndex:]_block_invoke_2
+__48-[SDWebImagePrefetcher startPrefetchingAtIndex:]_block_invoke
+__45+[SDWebImagePrefetcher sharedImagePrefetcher]_block_invoke
+_dispatch_once
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/usr/include/dispatch/once.h
+-[SDImageCacheConfig init]
+-[SDImageCacheConfig shouldDecompressImages]
+-[SDImageCacheConfig setShouldDecompressImages:]
+-[SDImageCacheConfig shouldDisableiCloud]
+-[SDImageCacheConfig setShouldDisableiCloud:]
+-[SDImageCacheConfig shouldCacheImagesInMemory]
+-[SDImageCacheConfig setShouldCacheImagesInMemory:]
+-[SDImageCacheConfig maxCacheAge]
+-[SDImageCacheConfig setMaxCacheAge:]
+-[SDImageCacheConfig maxCacheSize]
+-[SDImageCacheConfig setMaxCacheSize:]
+_OBJC_IVAR_$_SDImageCacheConfig._shouldDecompressImages
+_OBJC_IVAR_$_SDImageCacheConfig._shouldDisableiCloud
+_OBJC_IVAR_$_SDImageCacheConfig._shouldCacheImagesInMemory
+_OBJC_IVAR_$_SDImageCacheConfig._maxCacheAge
+_OBJC_IVAR_$_SDImageCacheConfig._maxCacheSize
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/SDImageCacheConfig.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/SDImageCacheConfig.h
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/cost_sse2.c
+VP8EncDspCostInitSSE2
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/utils/color_cache.c
+VP8LColorCacheCopy
+VP8LColorCacheClear
+VP8LColorCacheInit
++[UIImage(MultiFormat) sd_imageWithData:]
++[UIImage(MultiFormat) sd_imageOrientationFromImageData:]
++[UIImage(MultiFormat) sd_exifOrientationToiOSOrientation:]
+-[UIImage(MultiFormat) sd_imageData]
+-[UIImage(MultiFormat) sd_imageDataAsFormat:]
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/UIImage+MultiFormat.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/utils/quant_levels_dec.c
+WebPDequantizeLevels
+CleanupParams
+ApplyFilter
+HFilter
+VFilter
+InitParams
+InitCorrectionLUT
+CountLevels
+_SubtractGreenFromBlueAndRed
+_TransformColor
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/lossless_enc_neon.c
+TransformColor
+SubtractGreenFromBlueAndRed
+VP8LEncDspInitNEON
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/enc_sse41.c
+VP8EncDspInitSSE41
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/cost_mips_dsp_r2.c
+VP8EncDspCostInitMIPSdspR2
+_ReadImageInfo
+_ClearMetadata
+_DecodeImageStream
+_Is8bOptimizable
+_AllocateInternalBuffers32b
+_DecodeImageData
+_ExtractAlphaRows
+_ProcessRows
+_AccumulateHCode
+_ReadSymbol
+_ExtractPalettedAlphaRows
+_AlphaApplyFilter
+_ApplyInverseTransforms
+_ConvertToYUVA
+_kTableSize
+_kAlphabetSize
+_kCodeLengthCodeOrder
+_kCodeLengthExtraBits
+_kCodeLengthRepeatOffsets
+_kCodeToPlane
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/vp8l.c
+ConvertToYUVA
+ApplyInverseTransforms
+AlphaApplyFilter
+ExtractPalettedAlphaRows
+ReadSymbol
+VP8LSetBitPos
+VP8LIsEndOfStream
+VP8LPrefetchBits
+AccumulateHCode
+ProcessRows
+EmitRowsYUVA
+EmitRescaledRowsYUVA
+ExportYUVA
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/../utils/rescaler.h
+EmitRows
+EmitRescaledRowsRGBA
+Export
+WebPIsRGBMode
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/../utils/../dsp/../webp/decode.h
+SetCropWindow
+VP8LDecodeImage
+WebPIsPremultipliedMode
+AllocateAndInitRescaler
+VP8LDecodeHeader
+ExtractAlphaRows
+DecodeImageData
+RestoreState
+VP8LColorCacheLookup
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/../utils/color_cache.h
+VP8LColorCacheInsert
+GetHtreeGroupForPos
+GetMetaIndex
+CopyBlock32b
+CopySmallPattern32b
+PlaneCodeToDistance
+GetCopyDistance
+VP8LFillBitWindow
+GetCopyLength
+ReadPackedSymbols
+SaveState
+VP8LDecodeAlphaImageStream
+DecodeAlphaData
+CopyBlock8b
+CopySmallPattern8b
+Rotate8b
+AllocateInternalBuffers32b
+Is8bOptimizable
+DecodeImageStream
+UpdateDecoder
+VP8LSubSampleSize
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/../dsp/lossless.h
+ReadHuffmanCodes
+BuildPackedTable
+ReadHuffmanCode
+ReadHuffmanCodeLengths
+ReadTransform
+ExpandColorMap
+VP8LDecodeAlphaHeader
+AllocateInternalBuffers8b
+VP8LDelete
+ClearMetadata
+InitMetadata
+VP8LClear
+ClearTransform
+VP8LNew
+ReadImageInfo
+VP8LGetInfo
+VP8LCheckSignature
+-[SDWebImageDownloadToken url]
+-[SDWebImageDownloadToken setUrl:]
+-[SDWebImageDownloadToken downloadOperationCancelToken]
+-[SDWebImageDownloadToken setDownloadOperationCancelToken:]
+-[SDWebImageDownloadToken .cxx_destruct]
++[SDWebImageDownloader initialize]
++[SDWebImageDownloader sharedDownloader]
+___40+[SDWebImageDownloader sharedDownloader]_block_invoke
+-[SDWebImageDownloader init]
+-[SDWebImageDownloader initWithSessionConfiguration:]
+-[SDWebImageDownloader dealloc]
+-[SDWebImageDownloader setValue:forHTTPHeaderField:]
+-[SDWebImageDownloader valueForHTTPHeaderField:]
+-[SDWebImageDownloader setMaxConcurrentDownloads:]
+-[SDWebImageDownloader currentDownloadCount]
+-[SDWebImageDownloader maxConcurrentDownloads]
+-[SDWebImageDownloader setOperationClass:]
+-[SDWebImageDownloader downloadImageWithURL:options:progress:completed:]
+___72-[SDWebImageDownloader downloadImageWithURL:options:progress:completed:]_block_invoke
+___copy_helper_block_.190
+___destroy_helper_block_.191
+-[SDWebImageDownloader cancel:]
+___31-[SDWebImageDownloader cancel:]_block_invoke
+___copy_helper_block_.204
+___destroy_helper_block_.205
+-[SDWebImageDownloader addProgressCallback:completedBlock:forURL:createCallback:]
+___81-[SDWebImageDownloader addProgressCallback:completedBlock:forURL:createCallback:]_block_invoke
+___81-[SDWebImageDownloader addProgressCallback:completedBlock:forURL:createCallback:]_block_invoke_2
+___copy_helper_block_.207
+___destroy_helper_block_.208
+___copy_helper_block_.216
+___destroy_helper_block_.217
+-[SDWebImageDownloader setSuspended:]
+-[SDWebImageDownloader cancelAllDownloads]
+-[SDWebImageDownloader operationWithTask:]
+-[SDWebImageDownloader URLSession:dataTask:didReceiveResponse:completionHandler:]
+-[SDWebImageDownloader URLSession:dataTask:didReceiveData:]
+-[SDWebImageDownloader URLSession:dataTask:willCacheResponse:completionHandler:]
+-[SDWebImageDownloader URLSession:task:didCompleteWithError:]
+-[SDWebImageDownloader URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:]
+-[SDWebImageDownloader URLSession:task:didReceiveChallenge:completionHandler:]
+-[SDWebImageDownloader shouldDecompressImages]
+-[SDWebImageDownloader setShouldDecompressImages:]
+-[SDWebImageDownloader downloadTimeout]
+-[SDWebImageDownloader setDownloadTimeout:]
+-[SDWebImageDownloader executionOrder]
+-[SDWebImageDownloader setExecutionOrder:]
+-[SDWebImageDownloader urlCredential]
+-[SDWebImageDownloader setUrlCredential:]
+-[SDWebImageDownloader username]
+-[SDWebImageDownloader setUsername:]
+-[SDWebImageDownloader password]
+-[SDWebImageDownloader setPassword:]
+-[SDWebImageDownloader headersFilter]
+-[SDWebImageDownloader setHeadersFilter:]
+-[SDWebImageDownloader downloadQueue]
+-[SDWebImageDownloader setDownloadQueue:]
+-[SDWebImageDownloader lastAddedOperation]
+-[SDWebImageDownloader setLastAddedOperation:]
+-[SDWebImageDownloader operationClass]
+-[SDWebImageDownloader URLOperations]
+-[SDWebImageDownloader setURLOperations:]
+-[SDWebImageDownloader HTTPHeaders]
+-[SDWebImageDownloader setHTTPHeaders:]
+-[SDWebImageDownloader barrierQueue]
+-[SDWebImageDownloader setBarrierQueue:]
+-[SDWebImageDownloader session]
+-[SDWebImageDownloader setSession:]
+-[SDWebImageDownloader .cxx_destruct]
+_OBJC_IVAR_$_SDWebImageDownloadToken._url
+_OBJC_IVAR_$_SDWebImageDownloadToken._downloadOperationCancelToken
+_sharedDownloader.once
+_sharedDownloader.instance
+_OBJC_IVAR_$_SDWebImageDownloader._operationClass
+_OBJC_IVAR_$_SDWebImageDownloader._shouldDecompressImages
+_OBJC_IVAR_$_SDWebImageDownloader._executionOrder
+_OBJC_IVAR_$_SDWebImageDownloader._downloadQueue
+_OBJC_IVAR_$_SDWebImageDownloader._URLOperations
+_OBJC_IVAR_$_SDWebImageDownloader._HTTPHeaders
+_OBJC_IVAR_$_SDWebImageDownloader._barrierQueue
+_OBJC_IVAR_$_SDWebImageDownloader._downloadTimeout
+l_OBJC_PROTOCOL_REFERENCE_$_SDWebImageDownloaderOperationInterface
+___block_descriptor_tmp.193
+___block_descriptor_tmp.206
+___block_descriptor_tmp.209
+___block_descriptor_tmp.218
+_OBJC_IVAR_$_SDWebImageDownloader._urlCredential
+_OBJC_IVAR_$_SDWebImageDownloader._username
+_OBJC_IVAR_$_SDWebImageDownloader._password
+_OBJC_IVAR_$_SDWebImageDownloader._headersFilter
+_OBJC_IVAR_$_SDWebImageDownloader._lastAddedOperation
+_OBJC_IVAR_$_SDWebImageDownloader._session
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/SDWebImageDownloader.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/SDWebImageDownloader.h
+__81-[SDWebImageDownloader addProgressCallback:completedBlock:forURL:createCallback:]_block_invoke_2
+__81-[SDWebImageDownloader addProgressCallback:completedBlock:forURL:createCallback:]_block_invoke
+__31-[SDWebImageDownloader cancel:]_block_invoke
+__72-[SDWebImageDownloader downloadImageWithURL:options:progress:completed:]_block_invoke
+__40+[SDWebImageDownloader sharedDownloader]_block_invoke
+_PackARGB
+_PackRGB
+_argb_last_cpuinfo_used
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/argb.c
+PackRGB
+MakeARGB32
+PackARGB
+VP8EncDspARGBInit
+_UpsampleRgbLinePair
+_UpsampleRgbaLinePair
+_UpsampleBgrLinePair
+_UpsampleBgraLinePair
+_UpsampleArgbLinePair
+_UpsampleRgba4444LinePair
+_UpsampleRgb565LinePair
+_upsampling_last_cpuinfo_used1
+_upsampling_last_cpuinfo_used2
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/upsampling.c
+UpsampleRgb565LinePair
+VP8YuvToRgb565
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/./yuv.h
+VP8YUVToB
+VP8Clip8
+MultHi
+VP8YUVToG
+VP8YUVToR
+UpsampleRgba4444LinePair
+VP8YuvToRgba4444
+UpsampleArgbLinePair
+VP8YuvToArgb
+VP8YuvToRgb
+UpsampleBgraLinePair
+VP8YuvToBgra
+VP8YuvToBgr
+UpsampleBgrLinePair
+UpsampleRgbaLinePair
+VP8YuvToRgba
+UpsampleRgbLinePair
+WebPInitYUV444Converters
+WebPYuv444ToRgb565C
+WebPYuv444ToRgba4444C
+WebPYuv444ToArgbC
+WebPYuv444ToBgraC
+WebPYuv444ToRgbaC
+WebPYuv444ToBgrC
+WebPYuv444ToRgbC
+WebPInitUpsamplers
+WebPGetLinePairConverter
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/dec_mips32.c
+VP8DspInitMIPS32
+_ColorIndexInverseTransform
+_Predictor0
+_Predictor1
+_Predictor2
+_Predictor3
+_Predictor4
+_Predictor5
+_Predictor6
+_Predictor7
+_Predictor8
+_Predictor9
+_Predictor10
+_Predictor11
+_Predictor12
+_Predictor13
+_MapARGB
+_MapAlpha
+_lossless_last_cpuinfo_used
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/lossless.c
+MapAlpha
+VP8GetAlphaValue
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/./lossless.h
+MapARGB
+VP8GetARGBIndex
+Predictor13
+ClampedAddSubtractHalf
+AddSubtractComponentHalf
+Clip255
+Average2
+Predictor12
+ClampedAddSubtractFull
+AddSubtractComponentFull
+Predictor11
+Select
+Sub3
+Predictor10
+Average4
+Predictor9
+Predictor8
+Predictor7
+Predictor6
+Predictor5
+Average3
+Predictor4
+Predictor3
+Predictor2
+Predictor1
+Predictor0
+VP8LDspInit
+VP8LConvertFromBGRA
+CopyOrSwap
+BSwap32
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/../utils/endian_inl.h
+VP8LConvertBGRAToBGR_C
+VP8LConvertBGRAToRGB565_C
+VP8LConvertBGRAToRGBA4444_C
+VP8LConvertBGRAToRGBA_C
+VP8LConvertBGRAToRGB_C
+ColorIndexInverseTransform
+VP8LInverseTransform
+ColorSpaceInverseTransform
+ColorCodeToMultipliers
+PredictorInverseTransform
+AddPixelsEq
+VP8LAddPixels
+VP8LColorIndexInverseTransformAlpha
+VP8LTransformColorInverse_C
+ColorTransformDelta
+VP8LAddGreenToBlueAndRed_C
++[NSData(ImageContentType) sd_imageFormatForImageData:]
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/NSData+ImageContentType.m
+_ParseHeadersInternal
+_DecodeIntoRGBABuffer
+_DecodeInto
+_Decode
+_GetFeatures
+_DefaultFeatures
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/webp.c
+WebPIoInitFromOptions
+WebPDecode
+WebPResetDecParams
+WebPGetFeaturesInternal
+DefaultFeatures
+WebPInitDecoderConfigInternal
+GetFeatures
+WebPGetInfo
+WebPDecodeYUV
+WebPDecodeBGRA
+WebPDecodeBGR
+WebPDecodeARGB
+WebPDecodeRGBA
+Decode
+WebPDecodeRGB
+DecodeInto
+WebPDecodeYUVInto
+WebPDecodeBGRAInto
+WebPDecodeBGRInto
+WebPDecodeARGBInto
+WebPDecodeRGBAInto
+DecodeIntoRGBABuffer
+WebPDecodeRGBInto
+ParseHeadersInternal
+ParseVP8Header
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/../utils/utils.h
+ParseOptionalChunks
+ParseRIFF
+WebPParseHeaders
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/argb_sse2.c
+VP8EncDspARGBInitSSE2
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/alpha_processing_mips_dsp_r2.c
+WebPInitAlphaProcessingMIPSdspR2
+_rescaler_last_cpuinfo_used
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/rescaler.c
+WebPRescalerDspInit
+WebPRescalerExportRow
+WebPRescalerImportRow
+WebPRescalerInputDone
+WebPRescalerExportRowShrinkC
+WebPRescalerExportRowExpandC
+WebPRescalerImportRowShrinkC
+WebPRescalerImportRowExpandC
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/enc_avx2.c
+VP8EncDspInitAVX2
+_FastLog2Slow
+_FastSLog2Slow
+_ExtraCost
+_ExtraCostCombined
+_CombinedShannonEntropy
+_GetEntropyUnrefinedHelper
+_HistogramAdd
+_VectorMismatch
+_MaxDiffsForRow
+_GetResidual
+_MaxDiffBetweenPixels
+_NearLosslessComponent
+_PredictionCostSpatial
+_GetPredictionCostCrossColorBlue
+_lossless_enc_last_cpuinfo_used
+_GetBestGreenRedToBlue.offset
+_GetBestGreenRedToBlue.delta_lut
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/lossless_enc.c
+GetPredictionCostCrossColorBlue
+PredictionCostCrossColor
+PredictionCostSpatial
+NearLosslessComponent
+MaxDiffBetweenPixels
+GetMax
+GetResidual
+NearLossless
+VP8LSubPixels
+Predict
+MaxDiffsForRow
+MaxDiffAroundPixel
+VectorMismatch
+HistogramAdd
+VP8LHistogramNumCodes
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/../enc/histogram.h
+GetEntropyUnrefinedHelper
+VP8LFastSLog2
+CombinedShannonEntropy
+ExtraCostCombined
+ExtraCost
+FastSLog2Slow
+FastLog2Slow
+VP8LEncDspInit
+VP8LBundleColorMap
+VP8LColorSpaceTransform
+CopyTileWithColorTransform
+GetMin
+MultipliersToColorCode
+GetBestColorTransformForTile
+GetBestGreenRedToBlue
+GetBestGreenToRed
+GetPredictionCostCrossColorRed
+VP8LCollectColorBlueTransforms_C
+TransformColorBlue
+VP8LCollectColorRedTransforms_C
+TransformColorRed
+VP8LTransformColor_C
+VP8LSubtractGreenFromBlueAndRed_C
+VP8LResidualImage
+CopyImageWithPrediction
+GetBestPredictorForTile
+PredictionCostSpatialHistogram
+UpdateHisto
+VP8LNearLosslessBits
+VP8LGetCombinedEntropyUnrefined
+VP8LBitEntropyInit
+VP8LGetEntropyUnrefined
+VP8LBitsEntropyUnrefined
+_Flush
+_BitWriterResize
+_VP8LBitWriterResize
+_kNorm
+_kNewRange
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/utils/bit_writer.c
+VP8LBitWriterFinish
+VP8LPutBitsInternal
+VP8LPutBitsFlushBits
+VP8LBitWriterWipeOut
+VP8LBitWriterResize
+VP8LBitWriterInit
+VP8BitWriterWipeOut
+VP8BitWriterAppend
+VP8BitWriterFinish
+BitWriterResize
+VP8BitWriterInit
+VP8PutSignedBits
+VP8PutBits
+VP8PutBitUniform
+Flush
+VP8PutBit
+_GetCoeffs
+_kZigzag
+_kCat3456
+_kCat3
+_kCat4
+_kCat5
+_kCat6
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/vp8.c
+GetCoeffs
+VP8GetSigned
+GetLargeValue
+VP8Decode
+ParseFrame
+VP8SetError
+VP8InitScanline
+VP8DecodeMB
+ParseResiduals
+NzCodeBits
+VP8GetHeaders
+ParsePartitions
+ParseFilterHeader
+ParseSegmentHeader
+ResetSegmentHeader
+VP8CheckSignature
+SetOk
+VP8GetInfo
+VP8Clear
+VP8Delete
+VP8StatusMessage
+VP8Status
+VP8New
+VP8InitIoInternal
+WebPGetDecoderVersion
++[SDWebImageManager sharedManager]
+___34+[SDWebImageManager sharedManager]_block_invoke
+-[SDWebImageManager init]
+-[SDWebImageManager initWithCache:downloader:]
+-[SDWebImageManager cacheKeyForURL:]
+-[SDWebImageManager cachedImageExistsForURL:completion:]
+___56-[SDWebImageManager cachedImageExistsForURL:completion:]_block_invoke
+___copy_helper_block_.23
+___destroy_helper_block_.24
+___56-[SDWebImageManager cachedImageExistsForURL:completion:]_block_invoke.26
+___copy_helper_block_.27
+___destroy_helper_block_.28
+-[SDWebImageManager diskImageExistsForURL:completion:]
+___54-[SDWebImageManager diskImageExistsForURL:completion:]_block_invoke
+___copy_helper_block_.33
+___destroy_helper_block_.34
+-[SDWebImageManager loadImageWithURL:options:progress:completed:]
+___65-[SDWebImageManager loadImageWithURL:options:progress:completed:]_block_invoke
+___65-[SDWebImageManager loadImageWithURL:options:progress:completed:]_block_invoke_2
+___65-[SDWebImageManager loadImageWithURL:options:progress:completed:]_block_invoke_3
+___copy_helper_block_.86
+___destroy_helper_block_.87
+___copy_helper_block_.89
+___destroy_helper_block_.90
+___65-[SDWebImageManager loadImageWithURL:options:progress:completed:]_block_invoke.95
+___copy_helper_block_.98
+___destroy_helper_block_.99
+___copy_helper_block_.103
+___destroy_helper_block_.104
+-[SDWebImageManager saveImageToCache:forURL:]
+-[SDWebImageManager cancelAll]
+-[SDWebImageManager isRunning]
+-[SDWebImageManager safelyRemoveOperationFromRunning:]
+-[SDWebImageManager callCompletionBlockForOperation:completion:error:url:]
+-[SDWebImageManager callCompletionBlockForOperation:completion:image:data:error:cacheType:finished:url:]
+___104-[SDWebImageManager callCompletionBlockForOperation:completion:image:data:error:cacheType:finished:url:]_block_invoke
+___copy_helper_block_.123
+___destroy_helper_block_.124
+___104-[SDWebImageManager callCompletionBlockForOperation:completion:image:data:error:cacheType:finished:url:]_block_invoke.126
+___copy_helper_block_.127
+___destroy_helper_block_.128
+-[SDWebImageManager delegate]
+-[SDWebImageManager setDelegate:]
+-[SDWebImageManager imageCache]
+-[SDWebImageManager setImageCache:]
+-[SDWebImageManager imageDownloader]
+-[SDWebImageManager setImageDownloader:]
+-[SDWebImageManager cacheKeyFilter]
+-[SDWebImageManager setCacheKeyFilter:]
+-[SDWebImageManager failedURLs]
+-[SDWebImageManager setFailedURLs:]
+-[SDWebImageManager runningOperations]
+-[SDWebImageManager setRunningOperations:]
+-[SDWebImageManager .cxx_destruct]
+-[SDWebImageCombinedOperation setCancelBlock:]
+-[SDWebImageCombinedOperation cancel]
+-[SDWebImageCombinedOperation isCancelled]
+-[SDWebImageCombinedOperation setCancelled:]
+-[SDWebImageCombinedOperation cancelBlock]
+-[SDWebImageCombinedOperation cacheOperation]
+-[SDWebImageCombinedOperation setCacheOperation:]
+-[SDWebImageCombinedOperation .cxx_destruct]
+_sharedManager.once
+_sharedManager.instance
+_OBJC_IVAR_$_SDWebImageManager._imageCache
+_OBJC_IVAR_$_SDWebImageManager._imageDownloader
+_OBJC_IVAR_$_SDWebImageManager._failedURLs
+_OBJC_IVAR_$_SDWebImageManager._runningOperations
+___block_descriptor_tmp.25
+___block_descriptor_tmp.30
+___block_descriptor_tmp.35
+___block_descriptor_tmp.88
+___block_descriptor_tmp.92
+___block_descriptor_tmp.100
+___block_descriptor_tmp.106
+___block_descriptor_tmp.125
+___block_descriptor_tmp.129
+_OBJC_IVAR_$_SDWebImageManager._delegate
+_OBJC_IVAR_$_SDWebImageManager._cacheKeyFilter
+_OBJC_IVAR_$_SDWebImageCombinedOperation._cancelBlock
+_OBJC_IVAR_$_SDWebImageCombinedOperation._cancelled
+_OBJC_IVAR_$_SDWebImageCombinedOperation._cacheOperation
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/SDWebImageManager.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/SDWebImageManager.h
+__104-[SDWebImageManager callCompletionBlockForOperation:completion:image:data:error:cacheType:finished:url:]_block_invoke.126
+__104-[SDWebImageManager callCompletionBlockForOperation:completion:image:data:error:cacheType:finished:url:]_block_invoke
+__65-[SDWebImageManager loadImageWithURL:options:progress:completed:]_block_invoke.95
+__65-[SDWebImageManager loadImageWithURL:options:progress:completed:]_block_invoke_3
+__65-[SDWebImageManager loadImageWithURL:options:progress:completed:]_block_invoke_2
+__65-[SDWebImageManager loadImageWithURL:options:progress:completed:]_block_invoke
+__54-[SDWebImageManager diskImageExistsForURL:completion:]_block_invoke
+__56-[SDWebImageManager cachedImageExistsForURL:completion:]_block_invoke.26
+__56-[SDWebImageManager cachedImageExistsForURL:completion:]_block_invoke
+__34+[SDWebImageManager sharedManager]_block_invoke
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/SDWebImageCompat.m
+SDScaledImageForKey
+_CompareHuffmanTrees
+_SetBitDepths
+_kReversedBits
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/utils/huffman_encode.c
+SetBitDepths
+CompareHuffmanTrees
+VP8LCreateHuffmanTree
+ConvertBitDepthsToSymbols
+ReverseBits
+GenerateOptimalTree
+OptimizeHuffmanForRle
+ValuesShouldBeCollapsedToStrideAverage
+VP8LCreateCompressedHuffmanTree
+CodeRepeatedValues
+CodeRepeatedZeros
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/filters_mips_dsp_r2.c
+VP8FiltersInitMIPSdspR2
+-[UIButton(WebCache) sd_currentImageURL]
+-[UIButton(WebCache) sd_imageURLForState:]
+-[UIButton(WebCache) sd_setImageWithURL:forState:]
+-[UIButton(WebCache) sd_setImageWithURL:forState:placeholderImage:]
+-[UIButton(WebCache) sd_setImageWithURL:forState:placeholderImage:options:]
+-[UIButton(WebCache) sd_setImageWithURL:forState:completed:]
+-[UIButton(WebCache) sd_setImageWithURL:forState:placeholderImage:completed:]
+-[UIButton(WebCache) sd_setImageWithURL:forState:placeholderImage:options:completed:]
+___85-[UIButton(WebCache) sd_setImageWithURL:forState:placeholderImage:options:completed:]_block_invoke
+-[UIButton(WebCache) sd_setBackgroundImageWithURL:forState:]
+-[UIButton(WebCache) sd_setBackgroundImageWithURL:forState:placeholderImage:]
+-[UIButton(WebCache) sd_setBackgroundImageWithURL:forState:placeholderImage:options:]
+-[UIButton(WebCache) sd_setBackgroundImageWithURL:forState:completed:]
+-[UIButton(WebCache) sd_setBackgroundImageWithURL:forState:placeholderImage:completed:]
+-[UIButton(WebCache) sd_setBackgroundImageWithURL:forState:placeholderImage:options:completed:]
+___95-[UIButton(WebCache) sd_setBackgroundImageWithURL:forState:placeholderImage:options:completed:]_block_invoke
+-[UIButton(WebCache) sd_setImageLoadOperation:forState:]
+-[UIButton(WebCache) sd_cancelImageLoadForState:]
+-[UIButton(WebCache) sd_setBackgroundImageLoadOperation:forState:]
+-[UIButton(WebCache) sd_cancelBackgroundImageLoadForState:]
+-[UIButton(WebCache) imageURLStorage]
+___block_descriptor_tmp.29
+_imageURLStorageKey
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/UIButton+WebCache.m
+__95-[UIButton(WebCache) sd_setBackgroundImageWithURL:forState:placeholderImage:options:completed:]_block_invoke
+__85-[UIButton(WebCache) sd_setImageWithURL:forState:placeholderImage:options:completed:]_block_invoke
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/dec_msa.c
+VP8DspInitMSA
+_CustomPut
+_CustomSetup
+_CustomTeardown
+_EmitSampledRGB
+_EmitFancyRGB
+_EmitYUV
+_EmitAlphaRGBA4444
+_EmitAlphaRGB
+_EmitAlphaYUV
+_EmitRescaledRGB
+_EmitRescaledAlphaRGB
+_ExportAlphaRGBA4444
+_ExportAlpha
+_EmitRescaledYUV
+_EmitRescaledAlphaYUV
+_Rescale
+_GetAlphaSourceRow
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/io.c
+GetAlphaSourceRow
+Rescale
+EmitRescaledAlphaYUV
+FillAlphaPlane
+EmitRescaledYUV
+WebPIsAlphaMode
+ExportAlpha
+ExportAlphaRGBA4444
+EmitRescaledAlphaRGB
+EmitRescaledRGB
+ExportRGB
+EmitAlphaYUV
+EmitAlphaRGB
+EmitAlphaRGBA4444
+EmitYUV
+EmitFancyRGB
+EmitSampledRGB
+CustomTeardown
+CustomSetup
+InitYUVRescaler
+InitRGBRescaler
+CustomPut
+WebPInitCustomIo
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/argb_mips_dsp_r2.c
+VP8EncDspARGBInitMIPSdspR2
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/cost_mips32.c
+VP8EncDspCostInitMIPS32
+-[UIView(WebCacheOperation) operationDictionary]
+-[UIView(WebCacheOperation) sd_setImageLoadOperation:forKey:]
+-[UIView(WebCacheOperation) sd_cancelImageLoadOperationWithKey:]
+-[UIView(WebCacheOperation) sd_removeImageLoadOperationWithKey:]
+_loadOperationKey
+l_OBJC_PROTOCOL_REFERENCE_$_SDWebImageOperation
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/UIView+WebCacheOperation.m
+_CheckDecBuffer
+_kModeBpp
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/buffer.c
+WebPAvoidSlowMemory
+CheckDecBuffer
+IsValidColorspace
+WebPCopyDecBufferPixels
+WebPGrabDecBuffer
+WebPCopyDecBuffer
+WebPFreeDecBuffer
+WebPInitDecBufferInternal
+WebPAllocateDecBuffer
+AllocateBuffer
+WebPFlipBuffer
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/filters_sse2.c
+VP8FiltersInitSSE2
+_SSIMAccumulate
+_SSIMAccumulateClipped
+_FTransform2
+_Intra4Preds
+_Intra16Preds
+_IntraChromaPreds
+_QuantizeBlockWHT
+_Copy4x4
+_Copy16x8
+_TrueMotion
+_TTransform
+_ssim_last_cpuinfo_used
+_enc_last_cpuinfo_used
+_tables_ok
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/enc.c
+TTransform
+Fill
+VerticalPred
+HorizontalPred
+Copy16x8
+Copy
+Copy4x4
+QuantizeBlockWHT
+QUANTDIV
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/../enc/vp8enci.h
+GetSSE
+IntraChromaPreds
+DCMode
+Intra16Preds
+Intra4Preds
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/../enc/../utils/utils.h
+FTransform2
+VP8SetHistogramData
+clip_max
+VP8EncDspInit
+InitTables
+SSIMAccumulateClipped
+SSIMAccumulate
+VP8SSIMDspInit
+_YuvToRgbRow
+_YuvToRgbaRow
+_YuvToBgrRow
+_YuvToBgraRow
+_YuvToArgbRow
+_YuvToRgba4444Row
+_YuvToRgb565Row
+_ConvertARGBToY
+_ConvertRGB24ToY
+_ConvertBGR24ToY
+_yuv_last_cpuinfo_used
+_rgba_to_yuv_last_cpuinfo_used
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/yuv.c
+ConvertBGR24ToY
+VP8RGBToY
+ConvertRGB24ToY
+ConvertARGBToY
+WebPInitConvertARGBToYUV
+WebPConvertRGBA32ToUV_C
+VP8RGBToV
+VP8ClipUV
+VP8RGBToU
+WebPConvertARGBToUV_C
+YuvToRgb565Row
+YuvToRgba4444Row
+YuvToArgbRow
+YuvToBgraRow
+YuvToBgrRow
+YuvToRgbaRow
+YuvToRgbRow
+WebPInitSamplers
+WebPSamplerProcessPlane
+VP8YUVInit
++[UIImage(ForceDecode) decodedImageWithImage:]
++[UIImage(ForceDecode) decodedAndScaledDownImageWithImage:]
++[UIImage(ForceDecode) shouldDecodeImage:]
++[UIImage(ForceDecode) shouldScaleDownImage:]
++[UIImage(ForceDecode) colorSpaceForImageRef:]
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/SDWebImageDecoder.m
+-[UIImageView(HighlightedWebCache) sd_setHighlightedImageWithURL:]
+-[UIImageView(HighlightedWebCache) sd_setHighlightedImageWithURL:options:]
+-[UIImageView(HighlightedWebCache) sd_setHighlightedImageWithURL:completed:]
+-[UIImageView(HighlightedWebCache) sd_setHighlightedImageWithURL:options:completed:]
+-[UIImageView(HighlightedWebCache) sd_setHighlightedImageWithURL:options:progress:completed:]
+___93-[UIImageView(HighlightedWebCache) sd_setHighlightedImageWithURL:options:progress:completed:]_block_invoke
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/UIImageView+HighlightedWebCache.m
+__93-[UIImageView(HighlightedWebCache) sd_setHighlightedImageWithURL:options:progress:completed:]_block_invoke
+-[AutoPurgeCache init]
+-[AutoPurgeCache dealloc]
++[SDImageCache sharedImageCache]
+___32+[SDImageCache sharedImageCache]_block_invoke
+-[SDImageCache init]
+-[SDImageCache initWithNamespace:]
+-[SDImageCache initWithNamespace:diskCacheDirectory:]
+___53-[SDImageCache initWithNamespace:diskCacheDirectory:]_block_invoke
+___copy_helper_block_.37
+___destroy_helper_block_.38
+-[SDImageCache dealloc]
+-[SDImageCache checkIfQueueIsIOQueue]
+-[SDImageCache addReadOnlyCachePath:]
+-[SDImageCache cachePathForKey:inPath:]
+-[SDImageCache defaultCachePathForKey:]
+-[SDImageCache cachedFileNameForKey:]
+-[SDImageCache makeDiskCachePath:]
+-[SDImageCache storeImage:forKey:completion:]
+-[SDImageCache storeImage:forKey:toDisk:completion:]
+-[SDImageCache storeImage:imageData:forKey:toDisk:completion:]
+___62-[SDImageCache storeImage:imageData:forKey:toDisk:completion:]_block_invoke
+___62-[SDImageCache storeImage:imageData:forKey:toDisk:completion:]_block_invoke_2
+___copy_helper_block_.102
+___destroy_helper_block_.103
+___copy_helper_block_.105
+___destroy_helper_block_.106
+-[SDImageCache storeImageDataToDisk:forKey:]
+-[SDImageCache diskImageExistsWithKey:completion:]
+___50-[SDImageCache diskImageExistsWithKey:completion:]_block_invoke
+___50-[SDImageCache diskImageExistsWithKey:completion:]_block_invoke_2
+___copy_helper_block_.130
+___destroy_helper_block_.131
+___copy_helper_block_.133
+___destroy_helper_block_.134
+-[SDImageCache imageFromMemoryCacheForKey:]
+-[SDImageCache imageFromDiskCacheForKey:]
+-[SDImageCache imageFromCacheForKey:]
+-[SDImageCache diskImageDataBySearchingAllPathsForKey:]
+-[SDImageCache diskImageForKey:]
+-[SDImageCache scaledImageForKey:image:]
+-[SDImageCache queryCacheOperationForKey:done:]
+___47-[SDImageCache queryCacheOperationForKey:done:]_block_invoke
+___47-[SDImageCache queryCacheOperationForKey:done:]_block_invoke_2
+___copy_helper_block_.166
+___destroy_helper_block_.167
+___copy_helper_block_.169
+___destroy_helper_block_.170
+-[SDImageCache removeImageForKey:withCompletion:]
+-[SDImageCache removeImageForKey:fromDisk:withCompletion:]
+___58-[SDImageCache removeImageForKey:fromDisk:withCompletion:]_block_invoke
+___58-[SDImageCache removeImageForKey:fromDisk:withCompletion:]_block_invoke_2
+___copy_helper_block_.178
+___destroy_helper_block_.179
+___copy_helper_block_.181
+___destroy_helper_block_.182
+-[SDImageCache setMaxMemoryCost:]
+-[SDImageCache maxMemoryCost]
+-[SDImageCache maxMemoryCountLimit]
+-[SDImageCache setMaxMemoryCountLimit:]
+-[SDImageCache clearMemory]
+-[SDImageCache clearDiskOnCompletion:]
+___38-[SDImageCache clearDiskOnCompletion:]_block_invoke
+___38-[SDImageCache clearDiskOnCompletion:]_block_invoke_2
+___copy_helper_block_.192
+___destroy_helper_block_.193
+___copy_helper_block_.195
+___destroy_helper_block_.196
+-[SDImageCache deleteOldFiles]
+-[SDImageCache deleteOldFilesWithCompletionBlock:]
+___50-[SDImageCache deleteOldFilesWithCompletionBlock:]_block_invoke
+___50-[SDImageCache deleteOldFilesWithCompletionBlock:]_block_invoke_2
+___50-[SDImageCache deleteOldFilesWithCompletionBlock:]_block_invoke_3
+___copy_helper_block_.239
+___destroy_helper_block_.240
+___copy_helper_block_.242
+___destroy_helper_block_.243
+-[SDImageCache backgroundDeleteOldFiles]
+___40-[SDImageCache backgroundDeleteOldFiles]_block_invoke
+___copy_helper_block_.256
+___destroy_helper_block_.257
+___40-[SDImageCache backgroundDeleteOldFiles]_block_invoke.261
+___copy_helper_block_.262
+___destroy_helper_block_.263
+-[SDImageCache getSize]
+___23-[SDImageCache getSize]_block_invoke
+___copy_helper_block_.273
+___destroy_helper_block_.274
+-[SDImageCache getDiskCount]
+___28-[SDImageCache getDiskCount]_block_invoke
+___copy_helper_block_.280
+___destroy_helper_block_.281
+-[SDImageCache calculateSizeWithCompletionBlock:]
+___49-[SDImageCache calculateSizeWithCompletionBlock:]_block_invoke
+___49-[SDImageCache calculateSizeWithCompletionBlock:]_block_invoke_2
+___copy_helper_block_.285
+___destroy_helper_block_.286
+___copy_helper_block_.288
+___destroy_helper_block_.289
+-[SDImageCache config]
+-[SDImageCache memCache]
+-[SDImageCache setMemCache:]
+-[SDImageCache diskCachePath]
+-[SDImageCache setDiskCachePath:]
+-[SDImageCache customPaths]
+-[SDImageCache setCustomPaths:]
+-[SDImageCache ioQueue]
+-[SDImageCache setIoQueue:]
+-[SDImageCache .cxx_destruct]
+_sharedImageCache.once
+_sharedImageCache.instance
+_OBJC_IVAR_$_SDImageCache._ioQueue
+_OBJC_IVAR_$_SDImageCache._config
+_OBJC_IVAR_$_SDImageCache._memCache
+_OBJC_IVAR_$_SDImageCache._diskCachePath
+_OBJC_IVAR_$_SDImageCache._fileManager
+___block_descriptor_tmp.39
+___block_descriptor_tmp.104
+___block_descriptor_tmp.107
+___block_descriptor_tmp.132
+___block_descriptor_tmp.135
+___block_descriptor_tmp.168
+___block_descriptor_tmp.171
+___block_descriptor_tmp.180
+___block_descriptor_tmp.183
+___block_descriptor_tmp.194
+___block_descriptor_tmp.197
+___block_descriptor_tmp.236
+___block_literal_global
+___block_descriptor_tmp.241
+___block_descriptor_tmp.244
+___block_descriptor_tmp.258
+___block_descriptor_tmp.264
+___block_descriptor_tmp.275
+___block_descriptor_tmp.282
+___block_descriptor_tmp.287
+___block_descriptor_tmp.290
+_OBJC_IVAR_$_SDImageCache._customPaths
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/SDImageCache.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/SDImageCache.h
+__49-[SDImageCache calculateSizeWithCompletionBlock:]_block_invoke_2
+__49-[SDImageCache calculateSizeWithCompletionBlock:]_block_invoke
+__28-[SDImageCache getDiskCount]_block_invoke
+__23-[SDImageCache getSize]_block_invoke
+__40-[SDImageCache backgroundDeleteOldFiles]_block_invoke.261
+__40-[SDImageCache backgroundDeleteOldFiles]_block_invoke
+__50-[SDImageCache deleteOldFilesWithCompletionBlock:]_block_invoke_3
+__50-[SDImageCache deleteOldFilesWithCompletionBlock:]_block_invoke_2
+__50-[SDImageCache deleteOldFilesWithCompletionBlock:]_block_invoke
+__38-[SDImageCache clearDiskOnCompletion:]_block_invoke_2
+__38-[SDImageCache clearDiskOnCompletion:]_block_invoke
+__58-[SDImageCache removeImageForKey:fromDisk:withCompletion:]_block_invoke_2
+__58-[SDImageCache removeImageForKey:fromDisk:withCompletion:]_block_invoke
+__47-[SDImageCache queryCacheOperationForKey:done:]_block_invoke_2
+__47-[SDImageCache queryCacheOperationForKey:done:]_block_invoke
+SDCacheCostForImage
+__50-[SDImageCache diskImageExistsWithKey:completion:]_block_invoke_2
+__50-[SDImageCache diskImageExistsWithKey:completion:]_block_invoke
+__62-[SDImageCache storeImage:imageData:forKey:toDisk:completion:]_block_invoke_2
+__62-[SDImageCache storeImage:imageData:forKey:toDisk:completion:]_block_invoke
+__53-[SDImageCache initWithNamespace:diskCacheDirectory:]_block_invoke
+__32+[SDImageCache sharedImageCache]_block_invoke
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/lossless_enc_mips32.c
+VP8LEncDspInitMIPS32
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/yuv_mips_dsp_r2.c
+WebPInitSamplersMIPSdspR2
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/upsampling_neon.c
+Upsample16Pixels
+WebPInitUpsamplersNEON
+_ApplyAlphaMultiply
+_ApplyAlphaMultiply_16b
+_DispatchAlpha
+_DispatchAlphaToGreen
+_ExtractAlpha
+_alpha_processing_last_cpuinfo_used
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/alpha_processing.c
+ExtractAlpha
+DispatchAlphaToGreen
+DispatchAlpha
+ApplyAlphaMultiply_16b
+ApplyAlphaMultiply4444
+multiply
+dither_hi
+dither_lo
+ApplyAlphaMultiply
+WebPInitAlphaProcessing
+WebPMultRows
+WebPMultARGBRows
+WebPMultRowC
+Mult
+GetScale
+WebPMultARGBRowC
+-[UIView(WebCache) sd_imageURL]
+-[UIView(WebCache) sd_internalSetImageWithURL:placeholderImage:options:operationKey:setImageBlock:progress:completed:]
+___118-[UIView(WebCache) sd_internalSetImageWithURL:placeholderImage:options:operationKey:setImageBlock:progress:completed:]_block_invoke.5
+___copy_helper_block_.6
+___destroy_helper_block_.7
+___118-[UIView(WebCache) sd_internalSetImageWithURL:placeholderImage:options:operationKey:setImageBlock:progress:completed:]_block_invoke.15
+___118-[UIView(WebCache) sd_internalSetImageWithURL:placeholderImage:options:operationKey:setImageBlock:progress:completed:]_block_invoke_2
+___copy_helper_block_.20
+___destroy_helper_block_.21
+___118-[UIView(WebCache) sd_internalSetImageWithURL:placeholderImage:options:operationKey:setImageBlock:progress:completed:]_block_invoke.23
+___copy_helper_block_.24
+___destroy_helper_block_.25
+___118-[UIView(WebCache) sd_internalSetImageWithURL:placeholderImage:options:operationKey:setImageBlock:progress:completed:]_block_invoke.35
+___copy_helper_block_.43
+___destroy_helper_block_.44
+___118-[UIView(WebCache) sd_internalSetImageWithURL:placeholderImage:options:operationKey:setImageBlock:progress:completed:]_block_invoke.46
+___copy_helper_block_.47
+___destroy_helper_block_.48
+-[UIView(WebCache) sd_cancelCurrentImageLoad]
+-[UIView(WebCache) sd_setImage:imageData:basedOnClassOrViaCustomSetImageBlock:]
+-[UIView(WebCache) sd_setNeedsLayout]
+-[UIView(WebCache) activityIndicator]
+-[UIView(WebCache) setActivityIndicator:]
+-[UIView(WebCache) sd_setShowActivityIndicatorView:]
+-[UIView(WebCache) sd_showActivityIndicatorView]
+-[UIView(WebCache) sd_setIndicatorStyle:]
+-[UIView(WebCache) sd_getIndicatorStyle]
+-[UIView(WebCache) sd_addActivityIndicator]
+___43-[UIView(WebCache) sd_addActivityIndicator]_block_invoke
+___43-[UIView(WebCache) sd_addActivityIndicator]_block_invoke.92
+___copy_helper_block_.93
+___destroy_helper_block_.94
+___43-[UIView(WebCache) sd_addActivityIndicator]_block_invoke.102
+-[UIView(WebCache) sd_removeActivityIndicator]
+_imageURLKey
+___block_descriptor_tmp.8
+___block_descriptor_tmp.22
+___block_descriptor_tmp.26
+___block_descriptor_tmp.45
+___block_descriptor_tmp.49
+_TAG_ACTIVITY_INDICATOR
+_TAG_ACTIVITY_SHOW
+_TAG_ACTIVITY_STYLE
+___block_descriptor_tmp.91
+___block_descriptor_tmp.95
+___block_descriptor_tmp.105
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/SDWebImage/UIView+WebCache.m
+__43-[UIView(WebCache) sd_addActivityIndicator]_block_invoke.102
+__43-[UIView(WebCache) sd_addActivityIndicator]_block_invoke.92
+__43-[UIView(WebCache) sd_addActivityIndicator]_block_invoke
+__43-[UIView(WebCache) sd_addActivityIndicator]_block_invoke.96
+__118-[UIView(WebCache) sd_internalSetImageWithURL:placeholderImage:options:operationKey:setImageBlock:progress:completed:]_block_invoke.46
+__118-[UIView(WebCache) sd_internalSetImageWithURL:placeholderImage:options:operationKey:setImageBlock:progress:completed:]_block_invoke.35
+__118-[UIView(WebCache) sd_internalSetImageWithURL:placeholderImage:options:operationKey:setImageBlock:progress:completed:]_block_invoke.23
+__118-[UIView(WebCache) sd_internalSetImageWithURL:placeholderImage:options:operationKey:setImageBlock:progress:completed:]_block_invoke_2
+__118-[UIView(WebCache) sd_internalSetImageWithURL:placeholderImage:options:operationKey:setImageBlock:progress:completed:]_block_invoke.15
+__118-[UIView(WebCache) sd_internalSetImageWithURL:placeholderImage:options:operationKey:setImageBlock:progress:completed:]_block_invoke.5
+__118-[UIView(WebCache) sd_internalSetImageWithURL:placeholderImage:options:operationKey:setImageBlock:progress:completed:]_block_invoke
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/yuv_mips32.c
+WebPInitSamplersMIPS32
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/rescaler_mips_dsp_r2.c
+WebPRescalerDspInitMIPSdspR2
+_ReconstructRow
+_FinishRow
+_Dither8x8
+_kQuantToDitherAmp
+_kFilterExtraRows
+_kScan
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/frame.c
+Dither8x8
+VP8RandomBits2
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/../utils/random.h
+VP8InitFrame
+InitIo
+AllocateMemory
+InitThreadContext
+VP8GetThreadMethod
+VP8ExitCritical
+VP8EnterCritical
+PrecomputeFilterStrengths
+FinishRow
+DitherRow
+FilterRow
+DoFilter
+ReconstructRow
+DoUVTransform
+CheckMode
+DoTransform
+Copy32b
+VP8ProcessRow
+VP8InitDithering
+_ShiftBytes
+_kBitMask
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/utils/bit_reader.c
+VP8LReadBits
+VP8LSetEndOfStream
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/utils/./bit_reader.h
+ShiftBytes
+VP8LDoFillBitWindow
+WebPMemToUint32
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/utils/../utils/utils.h
+VP8LBitReaderSetBuffer
+VP8LInitBitReader
+VP8GetSignedValue
+VP8GetValue
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/utils/./bit_reader_inl.h
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/utils/./endian_inl.h
+VP8LoadFinalBytes
+VP8RemapBitReader
+VP8InitBitReader
+VP8BitReaderSetBuffer
+_ALPHDelete
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dec/alpha.c
+VP8DecompressAlphaRows
+ALPHDecode
+ALPHInit
+AllocateAlphaPlane
+ALPHNew
+ALPHDelete
+WebPDeallocateAlphaMemory
+_DC16TopLeft
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/dec_neon.c
+DC8
+DC16TopLeft
+Store2x16
+Store2x8
+DoFilter2
+ApplyFilter2
+FlipSignBack
+GetBaseDelta
+FlipSign
+NeedsFilter
+Load4x16
+Load4x8
+Store16x2
+Load16x4
+Store4x8x2
+DoFilter4
+ApplyFilter4
+GetBaseDelta0
+ApplyFilter2NoFlip
+NeedsHev
+NeedsFilter2
+Load8x8x2T
+Store6x8x2
+DoFilter6
+ApplyFilter6
+Store8x4x2
+Store8x2x2
+Load8x8x2
+Store4x16
+Store4x8
+Load8x16
+Store16x4
+Load16x8
+VP8DspInitNEON
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/dsp/alpha_processing_sse2.c
+WebPInitAlphaProcessingSSE2
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/SDWebImage/Vendors/libwebp/src/utils/utils.c
+WebPGetColorPalette
+WebPCopyPixels
+WebPCopyPlane
+WebPFree
+WebPSafeFree
+WebPSafeCalloc
+CheckSizeArgumentsOverflow
+WebPSafeMalloc
+__ZL15__ARCLite__loadv
+__ZL58__arclite_NSMutableDictionary__setObject_forKeyedSubscriptP19NSMutableDictionaryP13objc_selectorP11objc_objectS4_
+__ZL22add_image_hook_swiftV1PK11mach_headerl
+__ZL42__arclite_NSUndoManagerProxy_isKindOfClassP11objc_objectP13objc_selectorP10objc_class
+__ZL13replaceMethodP10objc_classP13objc_selectorPFP11objc_objectS4_S2_zEPS6_
+__ZL30__arclite_NSManagedObject_initP11objc_objectP13objc_selector
+__ZL41__arclite_NSManagedObject_allocWithEntityP11objc_objectP13objc_selectorS0_
+__ZL36__arclite_NSManagedObject_allocBatchP11objc_objectP13objc_selectorPS0_S0_j
+__ZL37__arclite_NSKKMS_fastIndexForKnownKeyP11objc_objectP13objc_selectorS0_
+__ZL28__arclite_NSKKMS_indexForKeyP11objc_objectP13objc_selectorS0_
+__ZL29__arclite_NSKKsD_objectForKeyP11objc_objectP13objc_selectorS0_
+__ZL35__arclite_NSKKsD_removeObjectForKeyP11objc_objectP13objc_selectorS0_
+__ZL33__arclite_NSKKsD_setObject_forKeyP11objc_objectP13objc_selectorS0_S0_
+__ZL41__arclite_NSKKsD_addEntriesFromDictionaryP11objc_objectP13objc_selectorP12NSDictionary
+__ZL28__arclite_objc_readClassPairP10objc_classPK15objc_image_info
+__ZL32__arclite_objc_allocateClassPairP10objc_classPKcm
+__ZL32__arclite_object_getIndexedIvarsP11objc_object
+__ZL23__arclite_objc_getClassPKc
+__ZL27__arclite_objc_getMetaClassPKc
+__ZL31__arclite_objc_getRequiredClassPKc
+__ZL26__arclite_objc_lookUpClassPKc
+__ZL26__arclite_objc_getProtocolPKc
+__ZL23__arclite_class_getNameP10objc_class
+__ZL26__arclite_protocol_getNameP8Protocol
+__ZL37__arclite_objc_copyClassNamesForImagePKcPj
+__ZL17transcribeMethodsP10objc_classP15glue_class_ro_t
+__ZL19transcribeProtocolsP10objc_classP15glue_class_ro_t
+__ZL20transcribePropertiesP10objc_classP15glue_class_ro_t
+__ZL14initialize_impP11objc_objectP13objc_selector
+__ZL18allocateMaybeSwiftP18glue_swift_class_tm
+__ZL22copySwiftV1MangledNamePKcb
+__ZL13demangledNamePKcb
+__ZL16scanMangledFieldRPKcS0_S1_Ri
+__ZL30arclite_uninitialized_functionv
+__ZL12cxxConstructP11objc_object
+__ZL20fixStringForCoreDataP11objc_object
+_OBJC_METACLASS_$___ARCLite__
+__ZL24OBJC_CLASS_$___ARCLite__
+__ZL31OBJC_METACLASS_RO_$___ARCLite__
+__non_lazy_classes
+__ZL27OBJC_CLASS_RO_$___ARCLite__
+__ZL11_class_name
+__ZL32OBJC_$_CLASS_METHODS___ARCLite__
+__ZL17_load_method_name
+__ZL17_load_method_type
+l_OBJC_PROTOCOL_$___ARCLiteKeyedSubscripting__
+l_OBJC_LABEL_PROTOCOL_$___ARCLiteKeyedSubscripting__
+l_OBJC_PROTOCOL_REFERENCE_$___ARCLiteKeyedSubscripting__
+__ZL30NSUndoManagerProxy_targetClass
+__ZL29original_NSManagedObject_init
+__ZL40original_NSManagedObject_allocWithEntity
+__ZL35original_NSManagedObject_allocBatch
+__ZL25NSMutableDictionary_class
+__ZL22NSConstantString_class
+__ZL14NSString_class
+__ZL36original_NSKKMS_fastIndexForKnownKey
+__ZL27original_NSKKMS_indexForKey
+__ZL28original_NSKKsD_objectForKey
+__ZL34original_NSKKsD_removeObjectForKey
+__ZL32original_NSKKsD_setObject_forKey
+__ZL40original_NSKKsD_addEntriesFromDictionary
+__ZZL22add_image_hook_swiftV1PK11mach_headerlE7patches
+__ZGVZL22add_image_hook_swiftV1PK11mach_headerlE7patches
+__ZL31original_objc_allocateClassPair
+__ZL31original_object_getIndexedIvars
+__ZL22original_objc_getClass
+__ZL26original_objc_getMetaClass
+__ZL30original_objc_getRequiredClass
+__ZL25original_objc_lookUpClass
+__ZL25original_objc_getProtocol
+__ZL22original_class_getName
+__ZL25original_protocol_getName
+__ZL36original_objc_copyClassNamesForImage
+__ZL12demangleLock
+__ZL9Demangled
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ -arch arm64 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=c++11 -Wno-trigraphs -fno-exceptions -fno-rtti -mpascal-strings -Os -Wno-missing-field-initializers -Wmissing-prototypes -Wno-implicit-atomic-properties -Wno-arc-repeated-use-of-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -D NDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.Internal.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -miphoneos-version-min=4.3 -g -fno-threadsafe-statics -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -fembed-bitcode -iquote /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-generated-files.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-own-target-headers.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-all-target-headers.hmap -iquote /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-project-headers.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/Symbols/BuiltProducts/include -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources/arm64 -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources -F/Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/Symbols/BuiltProducts -F/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.Internal.sdk/System/Library/PrivateFrameworks -Wall -Wextra -Wno-gcc-compat -fgnu-inline-asm -Wno-error=incomplete-umbrella -Wno-error=incomplete-umbrella -MMD -MT dependencies -MF /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/arm64/arclite.d --serialize-diagnostics /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/arm64/arclite.dia -c /Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65/source/arclite.mm -o /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/arm64/arclite.o -mlinker-version=274.2
+/Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65/source/arclite.mm
+/Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65
+fixStringForCoreData
+cxxConstruct
+arclite_uninitialized_function
+scanMangledField
+isdigit
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.Internal.sdk/usr/include/ctype.h
+__isctype
+demangledName
+copySwiftV1DemangledName
+copySwiftV1MangledName
+allocateMaybeSwift
+word_align
+isSwift
+initialize_imp
+transcribeProperties
+property_list_nth
+transcribeProtocols
+transcribeMethods
+data
+method_list_nth
+__arclite_objc_copyClassNamesForImage
+__arclite_protocol_getName
+__arclite_class_getName
+__arclite_objc_getProtocol
+__arclite_objc_lookUpClass
+__arclite_objc_getRequiredClass
+__arclite_objc_getMetaClass
+__arclite_objc_getClass
+__arclite_object_getIndexedIvars
+__arclite_objc_allocateClassPair
+metaclass
+__arclite_objc_readClassPair
+transcribeIvars
+ivar_list_nth
+max
+alignment
+ro
+fastFlags
+__arclite_NSKKsD_addEntriesFromDictionary
+__arclite_NSKKsD_setObject_forKey
+__arclite_NSKKsD_removeObjectForKey
+__arclite_NSKKsD_objectForKey
+__arclite_NSKKMS_indexForKey
+__arclite_NSKKMS_fastIndexForKnownKey
+__arclite_NSManagedObject_allocBatch
+__arclite_NSManagedObject_allocWithEntity
+__arclite_NSManagedObject_init
+replaceMethod
+__arclite_NSUndoManagerProxy_isKindOfClass
+add_image_hook_swiftV1
+patch_lazy_pointers
+patch_t<const char **(const char *, unsigned int *)>
+patch_t<const char *(Protocol *)>
+patch_t<const char *(Class)>
+patch_t<Protocol *(const char *)>
+patch_t<Class (const char *)>
+patch_t<void *(id)>
+patch_t<Class (Class, const char *, unsigned long)>
+patch_t<Class (Class, const objc_image_info *)>
+__arclite_NSMutableDictionary__setObject_forKeyedSubscript
+__ARCLite__load
+install_swiftV1
+install_dict_nil_value
+addOrReplaceMethod
+keyedGetter

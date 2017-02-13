@@ -477,3 +477,13 @@
 "status-saving-for-later" = "Indicates to the user that the article is being saved for later";
 "status-saved-for-later" = "Indicates to the user that the article has been saved for later";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
+
+"places-search-top-articles" = "A search suggestion for top articles";
+"places-search-this-area" = "A button title that indicates the search will be redone in the visible area";
+"places-search-saved-articles" = "A search suggestion for saved articles";
+"places-search-suggested-searches-header" = "Suggested searches - header for the list of suggested searches";
+"places-search-recently-searched-header" = "Recently searched - header for the list of recently searched items";
+
+"action-share" = "Title for the 'Share' action";
+"action-save-for-later" = "Title for the 'Save for later' action";
+"action-unsave" = "Title for the 'Unsave' action";

@@ -10,8 +10,8 @@ import CocoaLumberjackSwift
 
 open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIGestureRecognizerDelegate, WMFTableOfContentsPresentationControllerTapDelegate {
     
-    var displaySide = WMFTableOfContentsDisplaySideLeft
-    var displayMode = WMFTableOfContentsDisplayModeModal
+    var displaySide = WMFTableOfContentsDisplaySide.left
+    var displayMode = WMFTableOfContentsDisplayMode.modal
     
     // MARK: - init
     public required init(presentingViewController: UIViewController, presentedViewController: UIViewController) {
@@ -107,11 +107,11 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
     
     var tocMultiplier:CGFloat {
         switch displaySide {
-        case WMFTableOfContentsDisplaySideLeft:
+        case .left:
             return -1.0
-        case WMFTableOfContentsDisplaySideRight:
+        case .right:
             return 1.0
-        case WMFTableOfContentsDisplaySideCenter:
+        case .center:
             fallthrough
         default:
             return UIApplication.shared.wmf_isRTL ? -1.0 : 1.0
@@ -147,12 +147,12 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
         animateTransition(self.isInteractive, duration: self.transitionDuration(using: transitionContext), animations: { () -> Void in
             var f = presentedControllerView.frame
             switch self.displaySide {
-            case WMFTableOfContentsDisplaySideLeft:
+            case .left:
                 f.origin.x = -1*f.size.width
                 break
-            case WMFTableOfContentsDisplaySideRight:
+            case .right:
                 fallthrough
-            case WMFTableOfContentsDisplaySideCenter:
+            case .center:
                 fallthrough
             default:
                 f.origin.x = transitionContext.containerView.bounds.size.width
@@ -301,12 +301,12 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
     // MARK: - UIGestureRecognizerDelegate
     
     open func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        guard displayMode == WMFTableOfContentsDisplayModeModal else {
+        guard displayMode == .modal else {
             return false
         }
         
         let isRTL = UIApplication.shared.wmf_isRTL
-        guard (displaySide == WMFTableOfContentsDisplaySideCenter) || (isRTL && displaySide == WMFTableOfContentsDisplaySideLeft) || (!isRTL && displaySide == WMFTableOfContentsDisplaySideRight) else  {
+        guard (displaySide == .center) || (isRTL && displaySide == .left) || (!isRTL && displaySide == .right) else  {
             return false
         }
         
@@ -327,9 +327,9 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
             let translation = self.presentationGesture.translation(in: presentationGesture.view)
             let location = self.presentationGesture.location(in: presentationGesture.view)
             let gestureWidth = presentationGesture.view!.frame.width * gesturePercentage
-            let maxLocation = displaySide == WMFTableOfContentsDisplaySideLeft
+            let maxLocation = displaySide == .left
                  ? gestureWidth: presentationGesture.view!.frame.maxX - gestureWidth
-            let isInStartBoundry = displaySide == WMFTableOfContentsDisplaySideLeft ? maxLocation - location.x > 0 : location.x - maxLocation > 0
+            let isInStartBoundry = displaySide == .left ? maxLocation - location.x > 0 : location.x - maxLocation > 0
             if(translation.x * tocMultiplier < 0) && isInStartBoundry{
                 return true
             }else{
