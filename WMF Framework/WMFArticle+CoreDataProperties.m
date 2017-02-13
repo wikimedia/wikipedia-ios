@@ -22,5 +22,9 @@
 @dynamic latitude;
 @dynamic longitude;
 @dynamic pageViews;
+@dynamic signedQuadKey;
+@dynamic geoDimensionNumber;
+@dynamic geoTypeNumber;
+@dynamic placesSortOrder;
 
 @end

@@ -144,6 +144,10 @@ SWIFT_CLASS("_TtC5Quick8Callsite")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
 
+
+@interface Callsite (SWIFT_EXTENSION(Quick))
+@end
+
 @class Example;
 @class ExampleMetadata;
 
@@ -268,6 +272,10 @@ SWIFT_CLASS("_TtC5Quick7Example")
 @end
 
 
+@interface Example (SWIFT_EXTENSION(Quick))
+@end
+
+
 /**
   Example groups are logical groupings of examples, defined with
   the \code
@@ -329,6 +337,11 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull pending;)
 + (NSString * _Nonnull)pending;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface NSString (SWIFT_EXTENSION(Quick))
+@property (nonatomic, readonly, copy) NSString * _Nonnull qck_c99ExtendedIdentifier;
 @end
 
 

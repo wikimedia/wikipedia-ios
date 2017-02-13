@@ -1,0 +1,643 @@
+BCSymbolMap Version: 2.0
+-[NYTPhotoTransitionController init]
+-[NYTPhotoTransitionController didPanWithPanGestureRecognizer:viewToPan:anchorPoint:]
+-[NYTPhotoTransitionController startingView]
+-[NYTPhotoTransitionController setStartingView:]
+-[NYTPhotoTransitionController endingView]
+-[NYTPhotoTransitionController setEndingView:]
+-[NYTPhotoTransitionController animationControllerForPresentedController:presentingController:sourceController:]
+-[NYTPhotoTransitionController animationControllerForDismissedController:]
+-[NYTPhotoTransitionController interactionControllerForDismissal:]
+-[NYTPhotoTransitionController forcesNonInteractiveDismissal]
+-[NYTPhotoTransitionController setForcesNonInteractiveDismissal:]
+-[NYTPhotoTransitionController animator]
+-[NYTPhotoTransitionController setAnimator:]
+-[NYTPhotoTransitionController interactionController]
+-[NYTPhotoTransitionController setInteractionController:]
+-[NYTPhotoTransitionController .cxx_destruct]
+_OBJC_IVAR_$_NYTPhotoTransitionController._animator
+_OBJC_IVAR_$_NYTPhotoTransitionController._interactionController
+_OBJC_IVAR_$_NYTPhotoTransitionController._forcesNonInteractiveDismissal
+l_OBJC_PROTOCOL_$_NSObject
+l_OBJC_LABEL_PROTOCOL_$_NSObject
+l_OBJC_PROTOCOL_$_UIViewControllerTransitioningDelegate
+l_OBJC_LABEL_PROTOCOL_$_UIViewControllerTransitioningDelegate
+Apple LLVM version 8.0.0 (clang-800.0.42.1)
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/NYTPhotoViewer/NYTPhotoViewer/NYTPhotoTransitionController.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/NYTPhotoViewer
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/NYTPhotoViewer/NYTPhotoViewer/NYTPhotoTransitionController.h
++[NSBundle(NYTPhotoViewer) nyt_photoViewerResourceBundle]
+___57+[NSBundle(NYTPhotoViewer) nyt_photoViewerResourceBundle]_block_invoke
+___copy_helper_block_
+___destroy_helper_block_
+_nyt_photoViewerResourceBundle.resourceBundle
+_nyt_photoViewerResourceBundle.onceToken
+___block_descriptor_tmp
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/NYTPhotoViewer/NYTPhotoViewer/Resource Loading/NSBundle+NYTPhotoViewer.m
+__destroy_helper_block_
+__copy_helper_block_
+__57+[NSBundle(NYTPhotoViewer) nyt_photoViewerResourceBundle]_block_invoke
+_dispatch_once
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/usr/include/dispatch/once.h
+-[NYTPhotosViewController dealloc]
+-[NYTPhotosViewController copy:]
+-[NYTPhotosViewController canBecomeFirstResponder]
+-[NYTPhotosViewController canPerformAction:withSender:]
+-[NYTPhotosViewController initWithNibName:bundle:]
+-[NYTPhotosViewController initWithCoder:]
+-[NYTPhotosViewController viewDidLoad]
+-[NYTPhotosViewController viewDidAppear:]
+-[NYTPhotosViewController viewWillLayoutSubviews]
+-[NYTPhotosViewController prefersStatusBarHidden]
+-[NYTPhotosViewController preferredStatusBarUpdateAnimation]
+-[NYTPhotosViewController dismissViewControllerAnimated:completion:]
+-[NYTPhotosViewController initWithPhotos:]
+-[NYTPhotosViewController initWithPhotos:initialPhoto:]
+-[NYTPhotosViewController initWithPhotos:initialPhoto:delegate:]
+-[NYTPhotosViewController commonInitWithPhotos:initialPhoto:delegate:]
+-[NYTPhotosViewController setupPageViewControllerWithInitialPhoto:]
+-[NYTPhotosViewController addOverlayView]
+-[NYTPhotosViewController updateOverlayInformation]
+-[NYTPhotosViewController doneButtonTapped:]
+-[NYTPhotosViewController actionButtonTapped:]
+___46-[NYTPhotosViewController actionButtonTapped:]_block_invoke
+-[NYTPhotosViewController displayActivityViewController:animated:]
+-[NYTPhotosViewController leftBarButtonItem]
+-[NYTPhotosViewController setLeftBarButtonItem:]
+-[NYTPhotosViewController leftBarButtonItems]
+-[NYTPhotosViewController setLeftBarButtonItems:]
+-[NYTPhotosViewController rightBarButtonItem]
+-[NYTPhotosViewController setRightBarButtonItem:]
+-[NYTPhotosViewController rightBarButtonItems]
+-[NYTPhotosViewController setRightBarButtonItems:]
+-[NYTPhotosViewController displayPhoto:animated:]
+-[NYTPhotosViewController updateImageForPhoto:]
+-[NYTPhotosViewController didSingleTapWithGestureRecognizer:]
+-[NYTPhotosViewController didPanWithGestureRecognizer:]
+-[NYTPhotosViewController dismissViewControllerAnimated:userInitiated:completion:]
+___82-[NYTPhotosViewController dismissViewControllerAnimated:userInitiated:completion:]_block_invoke
+___copy_helper_block_.275
+___destroy_helper_block_.276
+-[NYTPhotosViewController setCurrentlyDisplayedViewController:animated:]
+-[NYTPhotosViewController setOverlayViewHidden:animated:]
+___57-[NYTPhotosViewController setOverlayViewHidden:animated:]_block_invoke
+___copy_helper_block_.286
+___destroy_helper_block_.287
+___57-[NYTPhotosViewController setOverlayViewHidden:animated:]_block_invoke.289
+___copy_helper_block_.290
+___destroy_helper_block_.291
+-[NYTPhotosViewController newPhotoViewControllerForPhoto:]
+-[NYTPhotosViewController didNavigateToPhoto:]
+-[NYTPhotosViewController currentlyDisplayedPhoto]
+-[NYTPhotosViewController currentPhotoViewController]
+-[NYTPhotosViewController referenceViewForCurrentPhoto]
+-[NYTPhotosViewController boundsCenterPoint]
+-[NYTPhotosViewController photoViewController:didLongPressWithGestureRecognizer:]
+-[NYTPhotosViewController pageViewController:viewControllerBeforeViewController:]
+-[NYTPhotosViewController pageViewController:viewControllerAfterViewController:]
+-[NYTPhotosViewController pageViewController:didFinishAnimating:previousViewControllers:transitionCompleted:]
+-[NYTPhotosViewController panGestureRecognizer]
+-[NYTPhotosViewController setPanGestureRecognizer:]
+-[NYTPhotosViewController singleTapGestureRecognizer]
+-[NYTPhotosViewController setSingleTapGestureRecognizer:]
+-[NYTPhotosViewController pageViewController]
+-[NYTPhotosViewController setPageViewController:]
+-[NYTPhotosViewController overlayView]
+-[NYTPhotosViewController setOverlayView:]
+-[NYTPhotosViewController delegate]
+-[NYTPhotosViewController setDelegate:]
+-[NYTPhotosViewController dataSource]
+-[NYTPhotosViewController setDataSource:]
+-[NYTPhotosViewController transitionController]
+-[NYTPhotosViewController setTransitionController:]
+-[NYTPhotosViewController activityPopoverController]
+-[NYTPhotosViewController setActivityPopoverController:]
+-[NYTPhotosViewController notificationCenter]
+-[NYTPhotosViewController setNotificationCenter:]
+-[NYTPhotosViewController shouldHandleLongPress]
+-[NYTPhotosViewController setShouldHandleLongPress:]
+-[NYTPhotosViewController overlayWasHiddenBeforeTransition]
+-[NYTPhotosViewController setOverlayWasHiddenBeforeTransition:]
+-[NYTPhotosViewController .cxx_destruct]
+_OBJC_IVAR_$_NYTPhotosViewController._pageViewController
+_OBJC_IVAR_$_NYTPhotosViewController._dataSource
+_OBJC_IVAR_$_NYTPhotosViewController._delegate
+_OBJC_IVAR_$_NYTPhotosViewController._panGestureRecognizer
+_OBJC_IVAR_$_NYTPhotosViewController._singleTapGestureRecognizer
+_OBJC_IVAR_$_NYTPhotosViewController._transitionController
+_OBJC_IVAR_$_NYTPhotosViewController._overlayView
+_OBJC_IVAR_$_NYTPhotosViewController._notificationCenter
+___block_descriptor_tmp.278
+___block_descriptor_tmp.288
+___block_descriptor_tmp.293
+_OBJC_IVAR_$_NYTPhotosViewController._activityPopoverController
+_OBJC_IVAR_$_NYTPhotosViewController._shouldHandleLongPress
+_OBJC_IVAR_$_NYTPhotosViewController._overlayWasHiddenBeforeTransition
+l_OBJC_PROTOCOL_$_UIPageViewControllerDataSource
+l_OBJC_LABEL_PROTOCOL_$_UIPageViewControllerDataSource
+l_OBJC_PROTOCOL_$_UIPageViewControllerDelegate
+l_OBJC_LABEL_PROTOCOL_$_UIPageViewControllerDelegate
+l_OBJC_PROTOCOL_$_NYTPhotoViewControllerDelegate
+l_OBJC_LABEL_PROTOCOL_$_NYTPhotoViewControllerDelegate
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/NYTPhotoViewer/NYTPhotoViewer/NYTPhotosViewController.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/NYTPhotoViewer/NYTPhotoViewer/NYTPhotosViewController.h
+CGPointMake
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CGGeometry.h
+__57-[NYTPhotosViewController setOverlayViewHidden:animated:]_block_invoke.289
+__57-[NYTPhotosViewController setOverlayViewHidden:animated:]_block_invoke
+__82-[NYTPhotosViewController dismissViewControllerAnimated:userInitiated:completion:]_block_invoke
+UI_USER_INTERFACE_IDIOM
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIDevice.h
+__46-[NYTPhotosViewController actionButtonTapped:]_block_invoke
+-[NYTPhotoCaptionView initWithFrame:]
+-[NYTPhotoCaptionView initWithCoder:]
++[NYTPhotoCaptionView requiresConstraintBasedLayout]
+-[NYTPhotoCaptionView didMoveToSuperview]
+-[NYTPhotoCaptionView layoutSubviews]
+___37-[NYTPhotoCaptionView layoutSubviews]_block_invoke
+-[NYTPhotoCaptionView intrinsicContentSize]
+-[NYTPhotoCaptionView setPreferredMaxLayoutWidth:]
+-[NYTPhotoCaptionView initWithAttributedTitle:attributedSummary:attributedCredit:]
+-[NYTPhotoCaptionView commonInit]
+-[NYTPhotoCaptionView setupTextView]
+-[NYTPhotoCaptionView setupGradient]
+-[NYTPhotoCaptionView updateTextViewAttributedText]
+-[NYTPhotoCaptionView preferredMaxLayoutWidth]
+-[NYTPhotoCaptionView attributedTitle]
+-[NYTPhotoCaptionView attributedSummary]
+-[NYTPhotoCaptionView attributedCredit]
+-[NYTPhotoCaptionView textView]
+-[NYTPhotoCaptionView setTextView:]
+-[NYTPhotoCaptionView gradientLayer]
+-[NYTPhotoCaptionView setGradientLayer:]
+-[NYTPhotoCaptionView .cxx_destruct]
+_OBJC_IVAR_$_NYTPhotoCaptionView._preferredMaxLayoutWidth
+_OBJC_IVAR_$_NYTPhotoCaptionView._attributedTitle
+_OBJC_IVAR_$_NYTPhotoCaptionView._attributedSummary
+_OBJC_IVAR_$_NYTPhotoCaptionView._attributedCredit
+_OBJC_IVAR_$_NYTPhotoCaptionView._textView
+_OBJC_IVAR_$_NYTPhotoCaptionView._gradientLayer
+l_OBJC_PROTOCOL_$_NYTPhotoCaptionViewLayoutWidthHinting
+l_OBJC_LABEL_PROTOCOL_$_NYTPhotoCaptionViewLayoutWidthHinting
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/NYTPhotoViewer/NYTPhotoViewer/NYTPhotoCaptionView.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/NYTPhotoViewer/NYTPhotoViewer/Protocols/NYTPhotoCaptionViewLayoutWidthHinting.h
+CGSizeMake
+__37-[NYTPhotoCaptionView layoutSubviews]_block_invoke
+-[NYTScalingImageView initWithFrame:]
+-[NYTScalingImageView initWithCoder:]
+-[NYTScalingImageView didAddSubview:]
+-[NYTScalingImageView setFrame:]
+-[NYTScalingImageView initWithImage:frame:]
+-[NYTScalingImageView initWithImageData:frame:]
+-[NYTScalingImageView commonInitWithImage:imageData:]
+-[NYTScalingImageView setupInternalImageViewWithImage:imageData:]
+-[NYTScalingImageView updateImage:]
+-[NYTScalingImageView updateImageData:]
+-[NYTScalingImageView updateImage:imageData:]
+-[NYTScalingImageView setupImageScrollView]
+-[NYTScalingImageView updateZoomScale]
+-[NYTScalingImageView centerScrollViewContents]
+-[NYTScalingImageView imageView]
+-[NYTScalingImageView setImageView:]
+-[NYTScalingImageView .cxx_destruct]
+_OBJC_IVAR_$_NYTScalingImageView._imageView
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/NYTPhotoViewer/NYTPhotoViewer/NYTScalingImageView.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/NYTPhotoViewer/NYTPhotoViewer/NYTScalingImageView.h
+UIEdgeInsetsMake
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIGeometry.h
+__tg_floor
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.0.0/include/tgmath.h
+-[NYTPhotosDataSource init]
+-[NYTPhotosDataSource initWithPhotos:]
+-[NYTPhotosDataSource countByEnumeratingWithState:objects:count:]
+-[NYTPhotosDataSource numberOfPhotos]
+-[NYTPhotosDataSource photoAtIndex:]
+-[NYTPhotosDataSource indexOfPhoto:]
+-[NYTPhotosDataSource containsPhoto:]
+-[NYTPhotosDataSource objectAtIndexedSubscript:]
+-[NYTPhotosDataSource photos]
+-[NYTPhotosDataSource setPhotos:]
+-[NYTPhotosDataSource .cxx_destruct]
+_OBJC_IVAR_$_NYTPhotosDataSource._photos
+l_OBJC_PROTOCOL_$_NSFastEnumeration
+l_OBJC_LABEL_PROTOCOL_$_NSFastEnumeration
+l_OBJC_PROTOCOL_$_NYTPhotosViewControllerDataSource
+l_OBJC_LABEL_PROTOCOL_$_NYTPhotosViewControllerDataSource
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/NYTPhotoViewer/NYTPhotoViewer/NYTPhotosDataSource.m
+-[NYTPhotosOverlayView initWithFrame:]
+-[NYTPhotosOverlayView hitTest:withEvent:]
+-[NYTPhotosOverlayView layoutSubviews]
+___38-[NYTPhotosOverlayView layoutSubviews]_block_invoke
+-[NYTPhotosOverlayView setupNavigationBar]
+-[NYTPhotosOverlayView setCaptionView:]
+-[NYTPhotosOverlayView leftBarButtonItem]
+-[NYTPhotosOverlayView setLeftBarButtonItem:]
+-[NYTPhotosOverlayView leftBarButtonItems]
+-[NYTPhotosOverlayView setLeftBarButtonItems:]
+-[NYTPhotosOverlayView rightBarButtonItem]
+-[NYTPhotosOverlayView setRightBarButtonItem:]
+-[NYTPhotosOverlayView rightBarButtonItems]
+-[NYTPhotosOverlayView setRightBarButtonItems:]
+-[NYTPhotosOverlayView title]
+-[NYTPhotosOverlayView setTitle:]
+-[NYTPhotosOverlayView titleTextAttributes]
+-[NYTPhotosOverlayView setTitleTextAttributes:]
+-[NYTPhotosOverlayView navigationBar]
+-[NYTPhotosOverlayView setNavigationBar:]
+-[NYTPhotosOverlayView captionView]
+-[NYTPhotosOverlayView navigationItem]
+-[NYTPhotosOverlayView setNavigationItem:]
+-[NYTPhotosOverlayView .cxx_destruct]
+l_OBJC_PROTOCOL_REFERENCE_$_NYTPhotoCaptionViewLayoutWidthHinting
+_OBJC_IVAR_$_NYTPhotosOverlayView._captionView
+_OBJC_IVAR_$_NYTPhotosOverlayView._navigationBar
+_OBJC_IVAR_$_NYTPhotosOverlayView._navigationItem
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/NYTPhotoViewer/NYTPhotoViewer/NYTPhotosOverlayView.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/NYTPhotoViewer/NYTPhotoViewer/NYTPhotosOverlayView.h
+__38-[NYTPhotosOverlayView layoutSubviews]_block_invoke
+-[NYTPhotoTransitionAnimator init]
+-[NYTPhotoTransitionAnimator setupTransitionContainerHierarchyWithTransitionContext:]
+-[NYTPhotoTransitionAnimator setAnimationDurationFadeRatio:]
+-[NYTPhotoTransitionAnimator setAnimationDurationEndingViewFadeInRatio:]
+-[NYTPhotoTransitionAnimator setAnimationDurationStartingViewFadeOutRatio:]
+-[NYTPhotoTransitionAnimator performFadeAnimationWithTransitionContext:]
+___72-[NYTPhotoTransitionAnimator performFadeAnimationWithTransitionContext:]_block_invoke
+___72-[NYTPhotoTransitionAnimator performFadeAnimationWithTransitionContext:]_block_invoke.23
+___copy_helper_block_.28
+___destroy_helper_block_.29
+-[NYTPhotoTransitionAnimator fadeDurationForTransitionContext:]
+-[NYTPhotoTransitionAnimator performZoomingAnimationWithTransitionContext:]
+___75-[NYTPhotoTransitionAnimator performZoomingAnimationWithTransitionContext:]_block_invoke
+___copy_helper_block_.64
+___destroy_helper_block_.65
+___75-[NYTPhotoTransitionAnimator performZoomingAnimationWithTransitionContext:]_block_invoke.67
+___75-[NYTPhotoTransitionAnimator performZoomingAnimationWithTransitionContext:]_block_invoke_2
+___copy_helper_block_.68
+___destroy_helper_block_.69
+___75-[NYTPhotoTransitionAnimator performZoomingAnimationWithTransitionContext:]_block_invoke.71
+___copy_helper_block_.74
+___destroy_helper_block_.75
+___copy_helper_block_.79
+___destroy_helper_block_.80
+___75-[NYTPhotoTransitionAnimator performZoomingAnimationWithTransitionContext:]_block_invoke.84
+___copy_helper_block_.85
+___destroy_helper_block_.86
+___75-[NYTPhotoTransitionAnimator performZoomingAnimationWithTransitionContext:]_block_invoke.88
+___copy_helper_block_.89
+___destroy_helper_block_.90
+-[NYTPhotoTransitionAnimator shouldPerformZoomingAnimation]
+-[NYTPhotoTransitionAnimator completeTransitionWithTransitionContext:]
++[NYTPhotoTransitionAnimator centerPointForView:translatedToContainerView:]
++[NYTPhotoTransitionAnimator newAnimationViewFromView:]
+-[NYTPhotoTransitionAnimator transitionDuration:]
+-[NYTPhotoTransitionAnimator animateTransition:]
+-[NYTPhotoTransitionAnimator startingView]
+-[NYTPhotoTransitionAnimator setStartingView:]
+-[NYTPhotoTransitionAnimator endingView]
+-[NYTPhotoTransitionAnimator setEndingView:]
+-[NYTPhotoTransitionAnimator startingViewForAnimation]
+-[NYTPhotoTransitionAnimator setStartingViewForAnimation:]
+-[NYTPhotoTransitionAnimator endingViewForAnimation]
+-[NYTPhotoTransitionAnimator setEndingViewForAnimation:]
+-[NYTPhotoTransitionAnimator isDismissing]
+-[NYTPhotoTransitionAnimator setDismissing:]
+-[NYTPhotoTransitionAnimator animationDurationWithZooming]
+-[NYTPhotoTransitionAnimator setAnimationDurationWithZooming:]
+-[NYTPhotoTransitionAnimator animationDurationWithoutZooming]
+-[NYTPhotoTransitionAnimator setAnimationDurationWithoutZooming:]
+-[NYTPhotoTransitionAnimator animationDurationFadeRatio]
+-[NYTPhotoTransitionAnimator animationDurationEndingViewFadeInRatio]
+-[NYTPhotoTransitionAnimator animationDurationStartingViewFadeOutRatio]
+-[NYTPhotoTransitionAnimator zoomingAnimationSpringDamping]
+-[NYTPhotoTransitionAnimator setZoomingAnimationSpringDamping:]
+-[NYTPhotoTransitionAnimator .cxx_destruct]
+_OBJC_IVAR_$_NYTPhotoTransitionAnimator._animationDurationWithZooming
+_OBJC_IVAR_$_NYTPhotoTransitionAnimator._animationDurationWithoutZooming
+_OBJC_IVAR_$_NYTPhotoTransitionAnimator._animationDurationFadeRatio
+_OBJC_IVAR_$_NYTPhotoTransitionAnimator._animationDurationEndingViewFadeInRatio
+_OBJC_IVAR_$_NYTPhotoTransitionAnimator._animationDurationStartingViewFadeOutRatio
+_OBJC_IVAR_$_NYTPhotoTransitionAnimator._zoomingAnimationSpringDamping
+___block_descriptor_tmp.31
+___block_descriptor_tmp.66
+___block_descriptor_tmp.70
+___block_descriptor_tmp.76
+___block_descriptor_tmp.81
+___block_descriptor_tmp.87
+___block_descriptor_tmp.91
+_OBJC_IVAR_$_NYTPhotoTransitionAnimator._startingView
+_OBJC_IVAR_$_NYTPhotoTransitionAnimator._endingView
+_OBJC_IVAR_$_NYTPhotoTransitionAnimator._startingViewForAnimation
+_OBJC_IVAR_$_NYTPhotoTransitionAnimator._endingViewForAnimation
+_OBJC_IVAR_$_NYTPhotoTransitionAnimator._dismissing
+l_OBJC_PROTOCOL_$_UIViewControllerAnimatedTransitioning
+l_OBJC_LABEL_PROTOCOL_$_UIViewControllerAnimatedTransitioning
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/NYTPhotoViewer/NYTPhotoViewer/NYTPhotoTransitionAnimator.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/NYTPhotoViewer/NYTPhotoViewer/NYTPhotoTransitionAnimator.h
+__75-[NYTPhotoTransitionAnimator performZoomingAnimationWithTransitionContext:]_block_invoke.88
+__75-[NYTPhotoTransitionAnimator performZoomingAnimationWithTransitionContext:]_block_invoke.84
+__75-[NYTPhotoTransitionAnimator performZoomingAnimationWithTransitionContext:]_block_invoke.71
+__75-[NYTPhotoTransitionAnimator performZoomingAnimationWithTransitionContext:]_block_invoke_2
+__75-[NYTPhotoTransitionAnimator performZoomingAnimationWithTransitionContext:]_block_invoke.67
+__75-[NYTPhotoTransitionAnimator performZoomingAnimationWithTransitionContext:]_block_invoke
+__72-[NYTPhotoTransitionAnimator performFadeAnimationWithTransitionContext:]_block_invoke.23
+__72-[NYTPhotoTransitionAnimator performFadeAnimationWithTransitionContext:]_block_invoke
+-[NYTPhotoDismissalInteractionController didPanWithPanGestureRecognizer:viewToPan:anchorPoint:]
+-[NYTPhotoDismissalInteractionController finishPanWithPanGestureRecognizer:verticalDelta:viewToPan:anchorPoint:]
+___112-[NYTPhotoDismissalInteractionController finishPanWithPanGestureRecognizer:verticalDelta:viewToPan:anchorPoint:]_block_invoke
+___112-[NYTPhotoDismissalInteractionController finishPanWithPanGestureRecognizer:verticalDelta:viewToPan:anchorPoint:]_block_invoke.33
+___copy_helper_block_.54
+___destroy_helper_block_.55
+-[NYTPhotoDismissalInteractionController backgroundAlphaForPanningWithVerticalDelta:]
+-[NYTPhotoDismissalInteractionController fixCancellationStatusBarAppearanceBug]
++[NYTPhotoDismissalInteractionController isRadar20070670Fixed]
+___62+[NYTPhotoDismissalInteractionController isRadar20070670Fixed]_block_invoke
+-[NYTPhotoDismissalInteractionController startInteractiveTransition:]
+-[NYTPhotoDismissalInteractionController animator]
+-[NYTPhotoDismissalInteractionController setAnimator:]
+-[NYTPhotoDismissalInteractionController viewToHideWhenBeginningTransition]
+-[NYTPhotoDismissalInteractionController setViewToHideWhenBeginningTransition:]
+-[NYTPhotoDismissalInteractionController shouldAnimateUsingAnimator]
+-[NYTPhotoDismissalInteractionController setShouldAnimateUsingAnimator:]
+-[NYTPhotoDismissalInteractionController transitionContext]
+-[NYTPhotoDismissalInteractionController setTransitionContext:]
+-[NYTPhotoDismissalInteractionController .cxx_destruct]
+___block_descriptor_tmp.57
+_isRadar20070670Fixed.isRadar20070670Fixed
+_isRadar20070670Fixed.onceToken
+__block_invoke.iOSVersion8Point3
+___block_descriptor_tmp.78
+___block_literal_global
+_OBJC_IVAR_$_NYTPhotoDismissalInteractionController._animator
+_OBJC_IVAR_$_NYTPhotoDismissalInteractionController._viewToHideWhenBeginningTransition
+_OBJC_IVAR_$_NYTPhotoDismissalInteractionController._shouldAnimateUsingAnimator
+_OBJC_IVAR_$_NYTPhotoDismissalInteractionController._transitionContext
+l_OBJC_PROTOCOL_$_UIViewControllerInteractiveTransitioning
+l_OBJC_LABEL_PROTOCOL_$_UIViewControllerInteractiveTransitioning
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/NYTPhotoViewer/NYTPhotoViewer/NYTPhotoDismissalInteractionController.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/NYTPhotoViewer/NYTPhotoViewer/NYTPhotoDismissalInteractionController.h
+__62+[NYTPhotoDismissalInteractionController isRadar20070670Fixed]_block_invoke
+__112-[NYTPhotoDismissalInteractionController finishPanWithPanGestureRecognizer:verticalDelta:viewToPan:anchorPoint:]_block_invoke.33
+__112-[NYTPhotoDismissalInteractionController finishPanWithPanGestureRecognizer:verticalDelta:viewToPan:anchorPoint:]_block_invoke
+-[NYTPhotoViewController dealloc]
+-[NYTPhotoViewController initWithNibName:bundle:]
+-[NYTPhotoViewController initWithCoder:]
+-[NYTPhotoViewController viewDidLoad]
+-[NYTPhotoViewController viewWillLayoutSubviews]
+-[NYTPhotoViewController initWithPhoto:loadingView:notificationCenter:]
+-[NYTPhotoViewController commonInitWithPhoto:loadingView:notificationCenter:]
+-[NYTPhotoViewController setupLoadingView:]
+-[NYTPhotoViewController photoImageUpdatedWithNotification:]
+-[NYTPhotoViewController updateImage:imageData:]
+-[NYTPhotoViewController setupGestureRecognizers]
+-[NYTPhotoViewController didDoubleTapWithGestureRecognizer:]
+-[NYTPhotoViewController didLongPressWithGestureRecognizer:]
+-[NYTPhotoViewController viewForZoomingInScrollView:]
+-[NYTPhotoViewController scrollViewWillBeginZooming:withView:]
+-[NYTPhotoViewController scrollViewDidEndZooming:withView:atScale:]
+-[NYTPhotoViewController scalingImageView]
+-[NYTPhotoViewController setScalingImageView:]
+-[NYTPhotoViewController loadingView]
+-[NYTPhotoViewController setLoadingView:]
+-[NYTPhotoViewController doubleTapGestureRecognizer]
+-[NYTPhotoViewController setDoubleTapGestureRecognizer:]
+-[NYTPhotoViewController delegate]
+-[NYTPhotoViewController setDelegate:]
+-[NYTPhotoViewController photo]
+-[NYTPhotoViewController setPhoto:]
+-[NYTPhotoViewController notificationCenter]
+-[NYTPhotoViewController setNotificationCenter:]
+-[NYTPhotoViewController longPressGestureRecognizer]
+-[NYTPhotoViewController setLongPressGestureRecognizer:]
+-[NYTPhotoViewController .cxx_destruct]
+_OBJC_IVAR_$_NYTPhotoViewController._scalingImageView
+_OBJC_IVAR_$_NYTPhotoViewController._notificationCenter
+_OBJC_IVAR_$_NYTPhotoViewController._photo
+l_OBJC_PROTOCOL_$_NYTPhoto
+l_OBJC_LABEL_PROTOCOL_$_NYTPhoto
+l_OBJC_PROTOCOL_REFERENCE_$_NYTPhoto
+_OBJC_IVAR_$_NYTPhotoViewController._loadingView
+_OBJC_IVAR_$_NYTPhotoViewController._doubleTapGestureRecognizer
+_OBJC_IVAR_$_NYTPhotoViewController._delegate
+_OBJC_IVAR_$_NYTPhotoViewController._longPressGestureRecognizer
+l_OBJC_PROTOCOL_$_UIScrollViewDelegate
+l_OBJC_LABEL_PROTOCOL_$_UIScrollViewDelegate
+l_OBJC_PROTOCOL_$_NYTPhotoContainer
+l_OBJC_LABEL_PROTOCOL_$_NYTPhotoContainer
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/NYTPhotoViewer/NYTPhotoViewer/NYTPhotoViewController.m
+/Users/joewmf/Source/wikipedia-ios/Carthage/Checkouts/NYTPhotoViewer/NYTPhotoViewer/NYTPhotoViewController.h
+CGRectMake
+/Users/joewmf/Library/Developer/Xcode/DerivedData/NYTPhotoViewer-drtahrmckgjatwgzaccgxaaetmnm/Build/Intermediates/NYTPhotoViewer.build/Release-iphoneos/NYTPhotoViewer.build/DerivedSources/NYTPhotoViewer_vers.c
+__ZL15__ARCLite__loadv
+__ZL30add_image_hook_autoreleasepoolPK11mach_headerl
+__ZL34__arclite_objc_autoreleasePoolPushv
+__ZL33__arclite_objc_autoreleasePoolPopPv
+__ZL19patch_lazy_pointersPK11mach_headerP7patch_tm
+__ZL42__arclite_NSArray_objectAtIndexedSubscriptP7NSArrayP13objc_selectorj
+__ZL53__arclite_NSMutableArray_setObject_atIndexedSubscriptP14NSMutableArrayP13objc_selectorP11objc_objectj
+__ZL46__arclite_NSDictionary_objectForKeyedSubscriptP12NSDictionaryP13objc_selectorP11objc_object
+__ZL47__arclite_NSOrderedSet_objectAtIndexedSubscriptP12NSOrderedSetP13objc_selectorj
+__ZL58__arclite_NSMutableOrderedSet_setObject_atIndexedSubscriptP19NSMutableOrderedSetP13objc_selectorP11objc_objectj
+__ZL58__arclite_NSMutableDictionary__setObject_forKeyedSubscriptP19NSMutableDictionaryP13objc_selectorP11objc_objectS4_
+__ZL18add_image_hook_ARCPK11mach_headerl
+__ZL36__arclite_object_setInstanceVariableP11objc_objectPKcPv
+__ZL24__arclite_object_setIvarP11objc_objectP9objc_ivarS0_
+__ZL21__arclite_object_copyP11objc_objectm
+__ZL21__arclite_objc_retainP11objc_object
+__ZL26__arclite_objc_retainBlockP11objc_object
+__ZL22__arclite_objc_releaseP11objc_object
+__ZL26__arclite_objc_autoreleaseP11objc_object
+__ZL32__arclite_objc_retainAutoreleaseP11objc_object
+__ZL37__arclite_objc_autoreleaseReturnValueP11objc_object
+__ZL43__arclite_objc_retainAutoreleaseReturnValueP11objc_object
+__ZL44__arclite_objc_retainAutoreleasedReturnValueP11objc_object
+__ZL26__arclite_objc_storeStrongPP11objc_objectS0_
+__ZL22add_image_hook_swiftV1PK11mach_headerl
+__ZL42__arclite_NSUndoManagerProxy_isKindOfClassP11objc_objectP13objc_selectorP10objc_class
+__ZL13replaceMethodP10objc_classP13objc_selectorPFP11objc_objectS4_S2_zEPS6_
+__ZL30__arclite_NSManagedObject_initP11objc_objectP13objc_selector
+__ZL41__arclite_NSManagedObject_allocWithEntityP11objc_objectP13objc_selectorS0_
+__ZL36__arclite_NSManagedObject_allocBatchP11objc_objectP13objc_selectorPS0_S0_j
+__ZL37__arclite_NSKKMS_fastIndexForKnownKeyP11objc_objectP13objc_selectorS0_
+__ZL28__arclite_NSKKMS_indexForKeyP11objc_objectP13objc_selectorS0_
+__ZL29__arclite_NSKKsD_objectForKeyP11objc_objectP13objc_selectorS0_
+__ZL35__arclite_NSKKsD_removeObjectForKeyP11objc_objectP13objc_selectorS0_
+__ZL33__arclite_NSKKsD_setObject_forKeyP11objc_objectP13objc_selectorS0_S0_
+__ZL41__arclite_NSKKsD_addEntriesFromDictionaryP11objc_objectP13objc_selectorP12NSDictionary
+__ZL28__arclite_objc_readClassPairP10objc_classPK15objc_image_info
+__ZL32__arclite_objc_allocateClassPairP10objc_classPKcm
+__ZL32__arclite_object_getIndexedIvarsP11objc_object
+__ZL23__arclite_objc_getClassPKc
+__ZL27__arclite_objc_getMetaClassPKc
+__ZL31__arclite_objc_getRequiredClassPKc
+__ZL26__arclite_objc_lookUpClassPKc
+__ZL26__arclite_objc_getProtocolPKc
+__ZL23__arclite_class_getNameP10objc_class
+__ZL26__arclite_protocol_getNameP8Protocol
+__ZL37__arclite_objc_copyClassNamesForImagePKcPj
+__ZL17transcribeMethodsP10objc_classP15glue_class_ro_t
+__ZL19transcribeProtocolsP10objc_classP15glue_class_ro_t
+__ZL20transcribePropertiesP10objc_classP15glue_class_ro_t
+__ZL14initialize_impP11objc_objectP13objc_selector
+__ZL18allocateMaybeSwiftP18glue_swift_class_tm
+__ZL22copySwiftV1MangledNamePKcb
+__ZL13demangledNamePKcb
+__ZL16scanMangledFieldRPKcS0_S1_Ri
+__ZL30arclite_uninitialized_functionv
+__ZL12cxxConstructP11objc_object
+__ZL20fixStringForCoreDataP11objc_object
+_OBJC_METACLASS_$___ARCLite__
+__ZL24OBJC_CLASS_$___ARCLite__
+__ZL31OBJC_METACLASS_RO_$___ARCLite__
+__non_lazy_classes
+__ZL27OBJC_CLASS_RO_$___ARCLite__
+__ZL11_class_name
+__ZL32OBJC_$_CLASS_METHODS___ARCLite__
+__ZL17_load_method_name
+__ZL17_load_method_type
+__ZL23NSAutoreleasePool_class
+__ZZL30add_image_hook_autoreleasepoolPK11mach_headerlE7patches
+__ZGVZL30add_image_hook_autoreleasepoolPK11mach_headerlE7patches
+l_OBJC_PROTOCOL_$___ARCLiteIndexedSubscripting__
+l_OBJC_LABEL_PROTOCOL_$___ARCLiteIndexedSubscripting__
+l_OBJC_PROTOCOL_REFERENCE_$___ARCLiteIndexedSubscripting__
+l_OBJC_PROTOCOL_$___ARCLiteKeyedSubscripting__
+l_OBJC_LABEL_PROTOCOL_$___ARCLiteKeyedSubscripting__
+l_OBJC_PROTOCOL_REFERENCE_$___ARCLiteKeyedSubscripting__
+__ZZL18add_image_hook_ARCPK11mach_headerlE7patches
+__ZGVZL18add_image_hook_ARCPK11mach_headerlE7patches
+__ZL30NSUndoManagerProxy_targetClass
+__ZL29original_NSManagedObject_init
+__ZL40original_NSManagedObject_allocWithEntity
+__ZL35original_NSManagedObject_allocBatch
+__ZL25NSMutableDictionary_class
+__ZL22NSConstantString_class
+__ZL14NSString_class
+__ZL36original_NSKKMS_fastIndexForKnownKey
+__ZL27original_NSKKMS_indexForKey
+__ZL28original_NSKKsD_objectForKey
+__ZL34original_NSKKsD_removeObjectForKey
+__ZL32original_NSKKsD_setObject_forKey
+__ZL40original_NSKKsD_addEntriesFromDictionary
+__ZZL22add_image_hook_swiftV1PK11mach_headerlE7patches
+__ZGVZL22add_image_hook_swiftV1PK11mach_headerlE7patches
+__ZL31original_objc_allocateClassPair
+__ZL31original_object_getIndexedIvars
+__ZL22original_objc_getClass
+__ZL26original_objc_getMetaClass
+__ZL30original_objc_getRequiredClass
+__ZL25original_objc_lookUpClass
+__ZL25original_objc_getProtocol
+__ZL22original_class_getName
+__ZL25original_protocol_getName
+__ZL36original_objc_copyClassNamesForImage
+__ZL12demangleLock
+__ZL9Demangled
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ -arch armv7 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=c++11 -Wno-trigraphs -fno-exceptions -fno-rtti -mpascal-strings -Os -Wno-missing-field-initializers -Wmissing-prototypes -Wno-implicit-atomic-properties -Wno-arc-repeated-use-of-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -D NDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.Internal.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -miphoneos-version-min=4.3 -g -fno-threadsafe-statics -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -fembed-bitcode -iquote /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-generated-files.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-own-target-headers.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-all-target-headers.hmap -iquote /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-project-headers.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/Symbols/BuiltProducts/include -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources/armv7 -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources -F/Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/Symbols/BuiltProducts -F/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.Internal.sdk/System/Library/PrivateFrameworks -Wall -Wextra -Wno-gcc-compat -fgnu-inline-asm -Wno-error=incomplete-umbrella -Wno-error=incomplete-umbrella -MMD -MT dependencies -MF /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/armv7/arclite.d --serialize-diagnostics /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/armv7/arclite.dia -c /Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65/source/arclite.mm -o /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~1093/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/armv7/arclite.o -mlinker-version=274.2 -march=armv7a
+/Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65/source/arclite.mm
+/Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65
+fixStringForCoreData
+cxxConstruct
+arclite_uninitialized_function
+scanMangledField
+isdigit
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.Internal.sdk/usr/include/ctype.h
+__isctype
+demangledName
+copySwiftV1DemangledName
+copySwiftV1MangledName
+allocateMaybeSwift
+word_align
+isSwift
+initialize_imp
+transcribeProperties
+property_list_nth
+transcribeProtocols
+transcribeMethods
+data
+method_list_nth
+__arclite_objc_copyClassNamesForImage
+__arclite_protocol_getName
+__arclite_class_getName
+__arclite_objc_getProtocol
+__arclite_objc_lookUpClass
+__arclite_objc_getRequiredClass
+__arclite_objc_getMetaClass
+__arclite_objc_getClass
+__arclite_object_getIndexedIvars
+__arclite_objc_allocateClassPair
+metaclass
+__arclite_objc_readClassPair
+transcribeIvars
+ivar_list_nth
+max
+alignment
+ro
+fastFlags
+__arclite_NSKKsD_addEntriesFromDictionary
+__arclite_NSKKsD_setObject_forKey
+__arclite_NSKKsD_removeObjectForKey
+__arclite_NSKKsD_objectForKey
+__arclite_NSKKMS_indexForKey
+__arclite_NSKKMS_fastIndexForKnownKey
+__arclite_NSManagedObject_allocBatch
+__arclite_NSManagedObject_allocWithEntity
+__arclite_NSManagedObject_init
+replaceMethod
+__arclite_NSUndoManagerProxy_isKindOfClass
+add_image_hook_swiftV1
+patch_t<const char **(const char *, unsigned int *)>
+patch_t<const char *(Protocol *)>
+patch_t<const char *(Class)>
+patch_t<Protocol *(const char *)>
+patch_t<Class (const char *)>
+patch_t<void *(id)>
+patch_t<Class (Class, const char *, unsigned long)>
+patch_t<Class (Class, const objc_image_info *)>
+__arclite_objc_storeStrong
+__arclite_objc_release
+__arclite_objc_retain
+__arclite_objc_retainAutoreleasedReturnValue
+__arclite_objc_retainAutoreleaseReturnValue
+__arclite_objc_autoreleaseReturnValue
+__arclite_objc_retainAutorelease
+__arclite_objc_autorelease
+__arclite_objc_retainBlock
+__arclite_object_copy
+fixupCopiedReferences
+_class_getInstanceStart
+alignedInstanceStart
+__arclite_class_usesAutomaticRetainRelease
+classOrSuperClassesUseARR
+__arclite_object_setIvar
+isScannedOffset
+_ivar_getClass
+__arclite_object_setInstanceVariable
+add_image_hook_ARC
+patch_t<void (id *, id)>
+patch_t<id (id)>
+patch_t<void (id)>
+patch_t<id (id, unsigned long)>
+patch_t<void (id, objc_ivar *, id)>
+patch_t<objc_ivar *(id, const char *, void *)>
+__arclite_NSMutableDictionary__setObject_forKeyedSubscript
+__arclite_NSMutableOrderedSet_setObject_atIndexedSubscript
+__arclite_NSOrderedSet_objectAtIndexedSubscript
+__arclite_NSDictionary_objectForKeyedSubscript
+__arclite_NSMutableArray_setObject_atIndexedSubscript
+__arclite_NSArray_objectAtIndexedSubscript
+patch_lazy_pointers
+__arclite_objc_autoreleasePoolPop
+__arclite_objc_autoreleasePoolPush
+add_image_hook_autoreleasepool
+patch_t<void (void *)>
+patch_t<void *()>
+__ARCLite__load
+install_swiftV1
+install_ARC
+install_dict_nil_value
+addOrReplaceMethod
+keyedGetter
+install_subscripting
+addMethod
+indexedGetter
+install_autoreleasepool

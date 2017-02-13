@@ -5,6 +5,7 @@
 #import "WMFFeedArticlePreview.h"
 @import CoreData;
 #import "WMFArticle+Extensions.h"
+#import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -69,6 +70,15 @@ NS_ASSUME_NONNULL_BEGIN
     }
     if (searchResult.thumbnailURL != nil) {
         preview.thumbnailURL = searchResult.thumbnailURL;
+    }
+    if (searchResult.location != nil) {
+        preview.location = searchResult.location;
+    }
+    if (searchResult.geoDimension != nil) {
+        preview.geoDimensionNumber = searchResult.geoDimension;
+    }
+    if (searchResult.geoType != nil) {
+        preview.geoTypeNumber = searchResult.geoType;
     }
 }
 
