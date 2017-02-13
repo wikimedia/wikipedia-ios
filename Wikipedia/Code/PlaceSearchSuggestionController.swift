@@ -18,6 +18,9 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
             tableView.dataSource = self
             tableView.delegate = self
             tableView.reloadData()
+            let footerView = UIView()
+            footerView.backgroundColor = UIColor.white
+            tableView.tableFooterView = footerView
         }
     }
     
