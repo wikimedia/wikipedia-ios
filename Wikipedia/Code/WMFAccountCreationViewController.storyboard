@@ -41,7 +41,7 @@
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5cT-2Y-0Ie">
                                                         <rect key="frame" x="0.0" y="48" width="288" height="21"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                                         <connections>
                                                             <action selector="textFieldDidChange:" destination="LsX-JK-bT6" eventType="editingChanged" id="Eys-MQ-tYh"/>
                                                             <outlet property="delegate" destination="LsX-JK-bT6" id="QIw-fL-bzL"/>
@@ -57,7 +57,7 @@
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="PCr-0J-fBj">
                                                         <rect key="frame" x="0.0" y="90" width="288" height="21"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" secureTextEntry="YES"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                                         <connections>
                                                             <action selector="textFieldDidChange:" destination="LsX-JK-bT6" eventType="editingChanged" id="ySC-nL-a4c"/>
                                                             <outlet property="delegate" destination="LsX-JK-bT6" id="2Nk-3P-YFQ"/>
@@ -73,7 +73,7 @@
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="UgH-77-lyp">
                                                         <rect key="frame" x="0.0" y="132" width="288" height="21"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" secureTextEntry="YES"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                                         <connections>
                                                             <action selector="textFieldDidChange:" destination="LsX-JK-bT6" eventType="editingChanged" id="py8-Ne-GwR"/>
                                                             <outlet property="delegate" destination="LsX-JK-bT6" id="OmS-Kk-xfz"/>
