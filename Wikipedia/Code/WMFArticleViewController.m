@@ -58,6 +58,7 @@
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WMFImageInfoController.h"
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
+#import "UIImageViewAligned.h"
 
 @import SafariServices;
 @import BlocksKitUIKitExtensions;
@@ -146,7 +147,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong) WMFArticleFooterMenuViewController *footerMenuViewController;
 
 // Views
-@property (nonatomic, strong) UIImageView *headerImageView;
+@property (nonatomic, strong) UIImageViewAligned *headerImageView;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *saveToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *languagesToolbarItem;
@@ -339,15 +340,17 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return _headerView;
 }
 
-- (UIImageView *)headerImageView {
+- (UIImageViewAligned *)headerImageView {
     if (!_headerImageView) {
-        _headerImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _headerImageView = [[UIImageViewAligned alloc] initWithFrame:CGRectZero];
         _headerImageView.userInteractionEnabled = YES;
         _headerImageView.clipsToBounds = YES;
         // White background is necessary for images with alpha
         _headerImageView.backgroundColor = [UIColor whiteColor];
         [_headerImageView wmf_showPlaceholder];
         _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _headerImageView.alignment = UIImageViewAlignmentMaskTop;
+        
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewDidTap:)];
         [_headerImageView addGestureRecognizer:tap];
     }
