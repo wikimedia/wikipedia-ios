@@ -59,11 +59,15 @@
 
 - (void)startUpdating {
     self.isFetchingInitialLocation = NO;
-    [self.currentLocationManager startMonitoringLocation];
+    if ([WMFLocationManager isAuthorized]) {
+        [self.currentLocationManager startMonitoringLocation];
+    }
 }
 
 - (void)stopUpdating {
-    [self.currentLocationManager stopMonitoringLocation];
+    if ([WMFLocationManager isAuthorized]) {
+        [self.currentLocationManager stopMonitoringLocation];
+    }
 }
 
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
