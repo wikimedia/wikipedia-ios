@@ -136,7 +136,7 @@ platform :ios do
     #sh "mv #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.app.dSYM.zip"
   end
   
-  desc "updates version, builds, and pushes to Testlfight"
+  desc "updates version, builds, and pushes to TestFlight"
   lane :push_beta do |options|
     push(
       product_name: "Wikipedia",
@@ -147,7 +147,7 @@ platform :ios do
     )
   end
   
-  desc "updates version, builds, and pushes alpha to Testlfight"
+  desc "updates version, builds, and pushes alpha to TestFlight"
   lane :push_alpha do |options|
     push(
       product_name: "Wikipedia Alpha",
@@ -164,7 +164,7 @@ platform :ios do
     [latest_alpha_build_number.to_i, latest_beta_build_number.to_i].max
   end
 
-  desc "updates version, builds, and pushes to Testlfight"
+  desc "updates version, builds, and pushes to TestFlight"
   lane :push do |options|
     build_dir = "build"
     product_name = options[:product_name] || "Wikipedia"
