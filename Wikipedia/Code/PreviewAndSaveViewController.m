@@ -1,7 +1,6 @@
 #import "PreviewAndSaveViewController.h"
 #import "PreviewHtmlFetcher.h"
 #import "WikiTextSectionUploader.h"
-#import "UIViewController+WMFHideKeyboard.h"
 #import "SessionSingleton.h"
 #import "PreviewWebViewContainer.h"
 #import "PaddedLabel.h"

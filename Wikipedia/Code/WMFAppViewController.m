@@ -35,7 +35,6 @@
 
 // Views
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "UIViewController+WMFHideKeyboard.h"
 #import "UIFont+WMFStyle.h"
 #import "WMFStyleManager.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
