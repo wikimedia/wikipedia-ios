@@ -24,6 +24,16 @@
 
 @property (nonatomic, assign, readonly) BOOL isList;
 
+- (nullable NSURL *)articleURLForSiteURL:(nonnull NSURL *)siteURL;
+
+/**
+ *  Location serialized from the first set of coordinates in the response.
+ */
+@property (nullable, nonatomic, copy, readonly) CLLocation *location;
+
+@property (nullable, nonatomic, copy) NSNumber *geoDimension;
+@property (nullable, nonatomic, copy) NSNumber *geoType;
+
 - (nullable instancetype)initWithArticleID:(NSInteger)articleID
                                      revID:(NSInteger)revID
                               displayTitle:(nullable NSString *)displayTitle

@@ -1,6 +1,4 @@
 #import "WMFSearchFetcher_Testing.h"
-#import "Wikipedia-Swift.h"
-
 #import "WMFSearchResults_Internal.h"
 #import "WMFSearchResults+ResponseSerializer.h"
 #import "MWKSearchResult.h"
@@ -144,7 +142,8 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
             @"gpssearch": params.searchTerm,
             @"gpsnamespace": @0,
             @"gpslimit": numResults,
-            @"prop": @"pageterms|pageimages|revisions",
+            @"prop": @"pageterms|pageimages|revisions|coordinates",
+            @"coprop": @"type|dim",
             @"piprop": @"thumbnail",
             @"wbptterms": @"description",
             @"pithumbsize": [[UIScreen mainScreen] wmf_listThumbnailWidthForScale],
@@ -168,7 +167,8 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
     } else {
         return @{
             @"action": @"query",
-            @"prop": @"pageterms|pageimages|revisions",
+            @"prop": @"pageterms|pageimages|revisions|coordinates",
+            @"coprop": @"type|dim",
             @"wbptterms": @"description",
             @"generator": @"search",
             @"gsrsearch": params.searchTerm,

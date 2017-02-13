@@ -79,6 +79,7 @@
  */
 typedef NS_ENUM(NSUInteger, WMFAppTabType) {
     WMFAppTabTypeExplore = 0,
+    WMFAppTabTypePlaces,
     WMFAppTabTypeSaved,
     WMFAppTabTypeRecent
 };
@@ -196,6 +197,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     self.rootTabBarController = tabBar;
     [self configureTabController];
     [self configureExploreViewController];
+    [self configurePlacesViewController];
     [self configureArticleListController:self.savedArticlesViewController];
     [self configureArticleListController:self.recentArticlesViewController];
     [[self class] wmf_setSearchButtonDataStore:self.dataStore];
@@ -216,6 +218,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [self.exploreViewController setPreviewStore:self.previewStore];
     [self.exploreViewController setContentStore:self.contentStore];
     [self.exploreViewController setContentSources:self.contentSources];
+}
+
+- (void)configurePlacesViewController {
+    self.placesViewController.articleStore = self.previewStore;
+    self.placesViewController.dataStore = self.dataStore;
 }
 
 - (void)configureArticleListController:(WMFArticleListTableViewController *)controller {
@@ -347,7 +354,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
     [self migrateToSharedContainerIfNecessaryWithCompletion:^{
         [self migrateToNewFeedIfNecessaryWithCompletion:^{
-            [self finishLaunch];
+            [self migrateToQuadKeyLocationIfNecessaryWithCompletion:^{
+                [self finishLaunch];
+            }];
         }];
     }];
 }
@@ -388,6 +397,15 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
         completion();
     }
+}
+
+- (void)migrateToQuadKeyLocationIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
+    [self.dataStore migrateToQuadKeyLocationIfNecessaryWithCompletion:^(NSError * _Nonnull error) {
+        if (error) {
+            DDLogError(@"Error during location migration: %@", error);
+        }
+        completion();
+    }];
 }
 
 - (void)finishLaunch {
@@ -856,6 +874,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 - (WMFArticleListTableViewController *)recentArticlesViewController {
     return (WMFArticleListTableViewController *)[self rootViewControllerForTab:WMFAppTabTypeRecent];
+}
+
+- (PlacesViewController *)placesViewController {
+    return (PlacesViewController *)[self rootViewControllerForTab:WMFAppTabTypePlaces];
 }
 
 #pragma mark - UIViewController

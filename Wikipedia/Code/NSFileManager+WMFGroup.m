@@ -1,6 +1,10 @@
 #import "NSFileManager+WMFGroup.h"
 
+#if ALPHA
+NSString *const WMFApplicationGroupIdentifier = @"group.org.wikimedia.wikipedia.alpha";
+#else
 NSString *const WMFApplicationGroupIdentifier = @"group.org.wikimedia.wikipedia";
+#endif
 
 @implementation NSFileManager (WMFGroup)
 
