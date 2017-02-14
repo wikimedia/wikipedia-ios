@@ -21,7 +21,14 @@ class WMFChangePasswordViewController: UIViewController {
     }
 
     func textFieldDidChange(_ sender: UITextField) {
-        enableProgressiveButton((passwordField.text!.characters.count > 0 && retypeField.text!.characters.count > 0))
+        guard
+            let password = passwordField.text,
+            let retype = retypeField.text
+            else{
+                enableProgressiveButton(false)
+                return
+        }
+        enableProgressiveButton((password.characters.count > 0 && retype.characters.count > 0))
     }
     
     fileprivate func passwordFieldsMatch() -> Bool {
