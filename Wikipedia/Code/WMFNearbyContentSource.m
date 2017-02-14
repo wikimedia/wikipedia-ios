@@ -115,8 +115,9 @@
     NSURL *placeholderURL = [WMFContentGroup locationPlaceholderContentGroupURL];
     NSDate *date = [NSDate date];
     // Check for group for date to re-use the same group if it was updated today
-    WMFContentGroup *group = [self.contentStore firstGroupOfKind:WMFContentGroupKindLocationPlaceholder forDate:date];
-    if (group) {
+    WMFContentGroup *group = [self.contentStore firstGroupOfKind:WMFContentGroupKindLocationPlaceholder];
+    
+    if (group && (group.wasDismissed || [group.midnightUTCDate isEqualToDate:date.wmf_midnightUTCDateFromLocalDate])) {
         completion();
         return;
     }

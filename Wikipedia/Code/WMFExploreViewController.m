@@ -881,7 +881,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         [self didTapHeaderInSection:indexPathForSection.row];
     };
 
-    if (([section blackListOptions] & WMFFeedBlacklistOptionContent) && [section headerContentURL]) {
+    if (([section blackListOptions] & WMFFeedBlacklistOptionSection) || (([section blackListOptions] & WMFFeedBlacklistOptionContent) && [section headerContentURL]) ) {
         header.rightButtonEnabled = YES;
         [[header rightButton] setImage:[UIImage imageNamed:@"overflow-mini"] forState:UIControlStateNormal];
         [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
@@ -948,16 +948,36 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 #pragma mark - WMFHeaderMenuProviding
 
 - (UIAlertController *)menuActionSheetForSection:(WMFContentGroup *)section {
-    NSURL *url = [section headerContentURL];
-    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil)
-                                              style:UIAlertActionStyleDestructive
-                                            handler:^(UIAlertAction *_Nonnull action) {
-                                                [self.userStore setIsExcludedFromFeed:YES forArticleURL:url];
-                                                [self.contentStore removeContentGroup:section];
-                                            }]];
-    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
-    return sheet;
+    switch (section.contentGroupKind) {
+        case WMFContentGroupKindRelatedPages:
+        {
+            NSURL *url = [section headerContentURL];
+            UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil)
+                                                      style:UIAlertActionStyleDestructive
+                                                    handler:^(UIAlertAction *_Nonnull action) {
+                                                        [self.userStore setIsExcludedFromFeed:YES forArticleURL:url];
+                                                        [self.contentStore removeContentGroup:section];
+                                                    }]];
+            [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
+            return sheet;
+        }
+        case WMFContentGroupKindLocationPlaceholder:
+        {
+            UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"explore-nearby-placeholder-dismiss", nil)
+                                                      style:UIAlertActionStyleDestructive
+                                                    handler:^(UIAlertAction *_Nonnull action) {
+                                                        section.wasDismissed = YES;
+                                                        [section updateVisibility];
+                                                    }]];
+            [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"explore-nearby-placeholder-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
+            return sheet;
+        }
+        default:
+            return nil;
+    }
+    
 }
 
 - (nonnull UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSectionFooterAtIndexPath:(NSIndexPath *)indexPath {

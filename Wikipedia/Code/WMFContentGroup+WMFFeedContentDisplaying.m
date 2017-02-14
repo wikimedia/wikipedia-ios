@@ -136,13 +136,13 @@ NS_ASSUME_NONNULL_BEGIN
     }
     return [[NSString alloc] init];
 }
-    
+
 - (NSString *)stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:(NSString *)string fallingBackOnGenericString:(NSString *)genericString {
     // fall back to language code if it can't be localized
     NSString *language = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.siteURL.wmf_language];
-    
+
     NSString *result = nil;
-    
+
     //crash protection if language is nil
     if (language) {
         result = [string stringByReplacingOccurrencesOfString:@"$1" withString:language];
@@ -345,7 +345,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindLocation:
             break;
         case WMFContentGroupKindLocationPlaceholder:
-            break;
+            return WMFFeedBlacklistOptionSection;
         case WMFContentGroupKindPictureOfTheDay:
             break;
         case WMFContentGroupKindRandom:

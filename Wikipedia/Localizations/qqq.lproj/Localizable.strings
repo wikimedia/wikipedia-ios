@@ -432,6 +432,8 @@
 "explore-nearby-placeholder-heading" = "Nearby placeholder heading. The user hasn't granted location access so we show a generic section about Places on Wikipedia";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Subtext beneath the 'Places' header when the specific language wikipedia is unknown.";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Subtext beneath the 'Places' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'On English Wikipedia'";
+"explore-nearby-placeholder-dismiss" = "Action button that will dismiss the nearby placeholder";
+"explore-nearby-placeholder-cancel" = "Action button that will cancel dismissal of the nearby placeholder";
 "explore-continue-related-heading" = "Text for 'Because you read' header";
 "explore-main-page-heading" = "Text for 'Today on Wikipedia' header";
 "explore-random-article-heading" = "Text for 'Random article' header\n{{Identical|Random article}}";
