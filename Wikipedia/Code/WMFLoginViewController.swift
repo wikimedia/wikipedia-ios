@@ -60,7 +60,14 @@ class WMFLoginViewController: UIViewController {
     }
     
     func textFieldDidChange(_ sender: UITextField) {
-        enableProgressiveButton((usernameField.text!.characters.count > 0 && passwordField.text!.characters.count > 0))
+        guard
+            let username = usernameField.text,
+            let password = passwordField.text
+            else{
+                enableProgressiveButton(false)
+                return
+        }
+        enableProgressiveButton((username.characters.count > 0 && password.characters.count > 0))
     }
 
     func enableProgressiveButton(_ highlight: Bool) {
