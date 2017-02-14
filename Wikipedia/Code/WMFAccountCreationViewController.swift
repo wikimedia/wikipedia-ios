@@ -62,12 +62,14 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     func loginButtonPushed(_ recognizer: UITapGestureRecognizer) {
         guard
             recognizer.state == .ended,
-            let presenter = presentingViewController else {
+            let presenter = presentingViewController,
+            let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard()
+        else {
+                assert(false, "Expected view controller(s) not found")
                 return
         }
         dismiss(animated: true, completion: {
-            let navigationController = UINavigationController.init(rootViewController: WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard()!)
-            presenter.present(navigationController, animated: true, completion: nil)
+            presenter.present(UINavigationController.init(rootViewController: loginVC), animated: true, completion: nil)
         })
     }
     
