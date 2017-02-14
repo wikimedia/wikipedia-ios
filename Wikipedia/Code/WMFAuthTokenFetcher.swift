@@ -30,7 +30,7 @@ public class WMFAuthToken: NSObject {
 public class WMFAuthTokenFetcher: NSObject {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
     public func isFetching() -> Bool {
-        return manager!.operationQueue.operationCount > 0
+        return manager.operationQueue.operationCount > 0
     }
     
     public func fetchToken(ofType type: WMFAuthTokenType, siteURL: URL, success: @escaping WMFAuthTokenBlock, failure: @escaping WMFErrorHandler){

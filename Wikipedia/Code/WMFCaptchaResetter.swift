@@ -24,7 +24,7 @@ public class WMFCaptchaResetterResult: NSObject {
 public class WMFCaptchaResetter: NSObject {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
     public func isFetching() -> Bool {
-        return manager!.operationQueue.operationCount > 0
+        return manager.operationQueue.operationCount > 0
     }
     
     public func resetCaptcha(siteURL: URL, success: @escaping WMFCaptchaResetterResultBlock, failure: @escaping WMFErrorHandler){

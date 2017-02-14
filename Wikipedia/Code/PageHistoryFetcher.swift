@@ -6,9 +6,9 @@ import WMF
 open class PageHistoryFetcher: NSObject {
     fileprivate let operationManager: AFHTTPSessionManager = {
         let manager = AFHTTPSessionManager.wmf_createDefault()
-        manager?.responseSerializer = PageHistoryResponseSerializer()
-        manager?.requestSerializer = PageHistoryRequestSerializer()
-        return manager!
+        manager.responseSerializer = PageHistoryResponseSerializer()
+        manager.requestSerializer = PageHistoryRequestSerializer()
+        return manager
     }()
 
     open func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: @escaping WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) -> Void {

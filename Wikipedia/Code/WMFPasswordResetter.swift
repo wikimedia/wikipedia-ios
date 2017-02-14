@@ -24,7 +24,7 @@ public struct WMFPasswordResetterResult {
 public class WMFPasswordResetter {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
     public func isFetching() -> Bool {
-        return manager!.operationQueue.operationCount > 0
+        return manager.operationQueue.operationCount > 0
     }
     public func resetPassword(siteURL: URL, token: String, userName:String?, email:String?, success: @escaping WMFPasswordResetterResultBlock, failure: @escaping WMFErrorHandler){
         let manager = AFHTTPSessionManager(baseURL: siteURL)

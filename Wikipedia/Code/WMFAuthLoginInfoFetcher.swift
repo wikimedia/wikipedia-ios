@@ -24,7 +24,7 @@ public struct WMFAuthLoginInfo {
 public class WMFAuthLoginInfoFetcher {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
     public func isFetching() -> Bool {
-        return manager!.operationQueue.operationCount > 0
+        return manager.operationQueue.operationCount > 0
     }
     public func fetchLoginInfoForSiteURL(_ siteURL: URL, success: @escaping WMFAuthLoginInfoBlock, failure: @escaping WMFErrorHandler){
         let manager = AFHTTPSessionManager(baseURL: siteURL)

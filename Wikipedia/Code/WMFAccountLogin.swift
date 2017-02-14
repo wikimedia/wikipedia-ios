@@ -36,7 +36,7 @@ public class WMFAccountLoginResult: NSObject {
 public class WMFAccountLogin {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
     public func isFetching() -> Bool {
-        return manager!.operationQueue.operationCount > 0
+        return manager.operationQueue.operationCount > 0
     }
     
     public func login(username: String, password: String, retypePassword: String?, loginToken: String, oathToken: String?, siteURL: URL, success: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler){

@@ -29,7 +29,7 @@ public typealias WMFCurrentlyLoggedInUserBlock = (WMFCurrentlyLoggedInUser) -> V
 public class WMFCurrentlyLoggedInUserFetcher {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
     public func isFetching() -> Bool {
-        return manager!.operationQueue.operationCount > 0
+        return manager.operationQueue.operationCount > 0
     }
     
     public func fetch(siteURL: URL, success: @escaping WMFCurrentlyLoggedInUserBlock, failure: @escaping WMFErrorHandler){
