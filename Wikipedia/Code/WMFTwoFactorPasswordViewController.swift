@@ -139,13 +139,16 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
     }
     
     func showChangeTempPasswordViewController() {
-        guard let presenter = presentingViewController else {
+        guard
+            let presenter = presentingViewController,
+            let changePasswordVC = WMFChangePasswordViewController.wmf_initialViewControllerFromClassStoryboard()
+        else {
+            assert(false, "Expected view controller(s) not found")
             return
         }
         dismiss(animated: true, completion: {
-            let changePasswordVC = WMFChangePasswordViewController.wmf_initialViewControllerFromClassStoryboard()
-            changePasswordVC?.userName = self.userName
-            let navigationController = UINavigationController.init(rootViewController: changePasswordVC!)
+            changePasswordVC.userName = self.userName
+            let navigationController = UINavigationController.init(rootViewController: changePasswordVC)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
