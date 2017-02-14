@@ -143,16 +143,25 @@
 
 - (void)offsetHeadersStartingAtIndex:(NSInteger)headerIndex distance:(CGFloat)deltaY invalidationContext:(WMFCVLInvalidationContext *)invalidationContext {
     NSArray *invalidatedHeaderIndexPaths = [self offsetAttributesInArray:_headers startingAtIndex:headerIndex distance:deltaY];
+    if (invalidatedHeaderIndexPaths.count == 0) {
+        return;
+    }
     [invalidationContext invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionHeader atIndexPaths:invalidatedHeaderIndexPaths];
 }
 
 - (void)offsetItemsStartingAtIndex:(NSInteger)itemIndex distance:(CGFloat)deltaY invalidationContext:(WMFCVLInvalidationContext *)invalidationContext {
     NSArray *invalidatedItemIndexPaths = [self offsetAttributesInArray:_items startingAtIndex:itemIndex distance:deltaY];
+    if (invalidatedItemIndexPaths.count == 0) {
+        return;
+    }
     [invalidationContext invalidateItemsAtIndexPaths:invalidatedItemIndexPaths];
 }
 
 - (void)offsetFootersStartingAtIndex:(NSInteger)footerIndex distance:(CGFloat)deltaY invalidationContext:(WMFCVLInvalidationContext *)invalidationContext {
     NSArray *invalidatedFooterIndexPaths = [self offsetAttributesInArray:_footers startingAtIndex:footerIndex distance:deltaY];
+    if (invalidatedFooterIndexPaths.count == 0) {
+        return;
+    }
     [invalidationContext invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionFooter atIndexPaths:invalidatedFooterIndexPaths];
 }
 
