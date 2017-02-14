@@ -104,7 +104,7 @@ class WMFChangePasswordViewController: UIViewController {
             return
         }
         
-        WMFAuthenticationManager.sharedInstance()
+        WMFAuthenticationManager.sharedInstance
             .login(username: userName,
                    password: passwordField.text!,
                    retypePassword: retypeField.text!,

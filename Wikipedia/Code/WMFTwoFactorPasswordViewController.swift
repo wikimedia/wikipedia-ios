@@ -109,7 +109,7 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
             return
         }
 
-        WMFAuthenticationManager.sharedInstance()
+        WMFAuthenticationManager.sharedInstance
             .login(username: userName,
                    password: password,
                    retypePassword: nil,

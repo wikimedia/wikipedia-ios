@@ -254,7 +254,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     
     fileprivate func login() {
         WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-logging-in"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-        WMFAuthenticationManager.sharedInstance().login(
+        WMFAuthenticationManager.sharedInstance.login(
             username: usernameField.text!,
             password: passwordField.text!,
             retypePassword: nil,

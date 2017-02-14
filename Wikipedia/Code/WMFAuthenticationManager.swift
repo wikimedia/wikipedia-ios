@@ -27,10 +27,7 @@ class WMFAuthenticationManager: NSObject {
      *
      *  @return The shared Authentication Manager
      */
-    fileprivate static let _sharedInstance = WMFAuthenticationManager()
-    open class func sharedInstance() -> WMFAuthenticationManager {
-        return _sharedInstance
-    }
+    public static let sharedInstance = WMFAuthenticationManager()    
 
     override private init() {
         keychainCredentials = WMFKeychainCredentials()
