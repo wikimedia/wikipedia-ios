@@ -476,8 +476,6 @@
 		B0F92C821E3FFEB900B72802 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C811E3FFEB900B72802 /* WMFAuthAccountCreationInfoFetcher.swift */; };
 		B0F956A91C481BC000691810 /* WMFArticleFooterMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0F956A81C481BC000691810 /* WMFArticleFooterMenuCell.m */; };
 		B0F956AB1C481C2100691810 /* WMFArticleFooterMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0F956AA1C481C2100691810 /* WMFArticleFooterMenuCell.xib */; };
-		B3E2D3B61E52759900310391 /* UIImageViewAligned.h in Headers */ = {isa = PBXBuildFile; fileRef = B3E2D3B41E52759900310391 /* UIImageViewAligned.h */; };
-		B3E2D3B71E52759900310391 /* UIImageViewAligned.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E2D3B51E52759900310391 /* UIImageViewAligned.m */; };
 		BC0069D51C7D556C00F2C377 /* WMFMockLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0069D41C7D556C00F2C377 /* WMFMockLocationManager.m */; };
 		BC15E74A1BF4377C00679AA9 /* MonetPrefixSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC15E7491BF4377C00679AA9 /* MonetPrefixSearch.json */; };
 		BC15E74C1BF437A200679AA9 /* MonetFullTextSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC15E74B1BF437A200679AA9 /* MonetFullTextSearch.json */; };
@@ -2024,8 +2022,6 @@
 		B0F956AA1C481C2100691810 /* WMFArticleFooterMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFArticleFooterMenuCell.xib; path = Wikipedia/Code/WMFArticleFooterMenuCell.xib; sourceTree = SOURCE_ROOT; };
 		B0FCB2391D3D5BEC00D80D57 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B0FCB23A1D3D5BEC00D80D57 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		B3E2D3B41E52759900310391 /* UIImageViewAligned.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageViewAligned.h; sourceTree = "<group>"; };
-		B3E2D3B51E52759900310391 /* UIImageViewAligned.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageViewAligned.m; sourceTree = "<group>"; };
 		BC0069D31C7D556C00F2C377 /* WMFMockLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFMockLocationManager.h; path = WikipediaUnitTests/Code/WMFMockLocationManager.h; sourceTree = SOURCE_ROOT; };
 		BC0069D41C7D556C00F2C377 /* WMFMockLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMockLocationManager.m; path = WikipediaUnitTests/Code/WMFMockLocationManager.m; sourceTree = SOURCE_ROOT; };
 		BC070C2D1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKImage+CanonicalFilenames.h"; path = "Wikipedia/Code/MWKImage+CanonicalFilenames.h"; sourceTree = SOURCE_ROOT; };
@@ -5804,8 +5800,6 @@
 				B0E805031C0CE0DC0065EBC0 /* UIImageView+WMFContentOffset.m */,
 				B0E804FC1C0CE0DC0065EBC0 /* UIImage+WMFNormalization.h */,
 				B0E804FD1C0CE0DC0065EBC0 /* UIImage+WMFNormalization.m */,
-				B3E2D3B41E52759900310391 /* UIImageViewAligned.h */,
-				B3E2D3B51E52759900310391 /* UIImageViewAligned.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -5983,7 +5977,6 @@
 				D8FA18AD1E1BD891009675C3 /* NSDictionary+WMFPageViewsSortedByDate.h in Headers */,
 				D8DC16ED1D6F6DD600D6D9FB /* WMFAssetsFile.h in Headers */,
 				D8FA18EA1E1BD8B9009675C3 /* WMFHashing.h in Headers */,
-				B3E2D3B61E52759900310391 /* UIImageViewAligned.h in Headers */,
 				0E728D4D1DAEEE9A0074EB4B /* WMFRandomArticleFetcher.h in Headers */,
 				D8FA18B21E1BD891009675C3 /* WMFNumberOfExtractCharacters.h in Headers */,
 				D8FA18CE1E1BD891009675C3 /* WMFLocalization.h in Headers */,
@@ -7089,7 +7082,6 @@
 				D844D9951D6CB5970042D692 /* MWKSection.m in Sources */,
 				D84B22541DAFD1E1007C44AA /* CIDetector+WMFFaceDetection.m in Sources */,
 				D8FA18FC1E1BDA4C009675C3 /* UIImageView+WMFPlaceholder.m in Sources */,
-				B3E2D3B71E52759900310391 /* UIImageViewAligned.m in Sources */,
 				D8FA18D91E1BD899009675C3 /* NSURL+WMFLinkParsing.m in Sources */,
 				0E728D381DAEEAD60074EB4B /* WMFLocationSearchResults.m in Sources */,
 				D8FA18C51E1BD891009675C3 /* NSArray+WMFExtensions.swift in Sources */,
