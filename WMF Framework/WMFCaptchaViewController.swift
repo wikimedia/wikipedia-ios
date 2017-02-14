@@ -41,18 +41,18 @@ class WMFCaptchaViewController: UIViewController {
         
         reloadCaptchaButton.addTarget(self, action: #selector(reloadCaptchaPushed(_:)), for: .touchUpInside)
 
-        guard let parentVC = parent else{
-            assert(false, "Expected parent view controller not found")
+        guard
+            let parentVC = parent,
+            parentVC.conforms(to: WMFCaptchaViewControllerRefresh.self)
+        else{
+            assert(false, "Expected parent view controller not found or doesn't conform to WMFCaptchaViewControllerRefresh")
             return
         }
 
         // Allow whatever view controller is using this captcha view controller
         // to monitor changes to captchaTextBox and also when its keyboard done/next
         // buttons are tapped.
-        
-        if parentVC.conforms(to: WMFCaptchaViewControllerRefresh.self){
-            captchaTextBox.delegate = parent as? UITextFieldDelegate
-        }
+        captchaTextBox.delegate = parent as? UITextFieldDelegate
     }
     
     override func viewWillDisappear(_ animated: Bool) {
