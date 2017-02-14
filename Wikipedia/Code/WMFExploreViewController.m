@@ -833,14 +833,18 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
+    [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:section value:section];
 
+    if (![WMFLocationManager isAuthorized]) {
+        return;
+    }
+    
     if ([cell isKindOfClass:[WMFNearbyArticleCollectionViewCell class]] || [self isDisplayingLocationCell]) {
         [self.locationManager startMonitoringLocation];
     } else {
         [self.locationManager stopMonitoringLocation];
     }
-    WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
-    [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:section value:section];
 }
 
 - (nonnull UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSectionHeaderAtIndexPath:(NSIndexPath *)indexPath {

@@ -484,6 +484,9 @@
 "explore-continue-reading-heading" = "Continue reading";
 "explore-nearby-heading" = "Places near";
 "explore-nearby-sub-heading-your-location" = "Your location";
+"explore-nearby-placeholder-heading" = "Places";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "On Wikipedia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "On $1 Wikipedia";
 "explore-continue-related-heading" = "Because you read";
 "explore-main-page-heading" = "Today on Wikipedia";
 "explore-random-article-heading" = "Random article";

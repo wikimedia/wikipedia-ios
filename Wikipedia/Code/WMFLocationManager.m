@@ -99,9 +99,17 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)isAuthorized {
     return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways;
 }
+    
++ (BOOL)isAuthorizationNotDetermined {
+    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined;
+}
 
-+ (BOOL)isDeniedOrDisabled {
-    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted;
++ (BOOL)isAuthorizationDenied {
+    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied;
+}
+    
++ (BOOL)isAuthorizationRestricted {
+    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted;
 }
 
 - (BOOL)requestAuthorizationIfNeeded {
@@ -130,7 +138,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)startMonitoringLocation {
     self.requestingAuthorizationAndStart = YES;
-    if ([self requestAuthorizationIfNeeded] || [WMFLocationManager isDeniedOrDisabled] || self.isUpdating) {
+    if ([self requestAuthorizationIfNeeded] || [WMFLocationManager isAuthorizationDenied] || [WMFLocationManager isAuthorizationRestricted] || self.isUpdating) {
         return;
     }
     self.requestingAuthorizationAndStart = NO;

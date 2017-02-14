@@ -72,7 +72,7 @@
 
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
     if (![WMFLocationManager isAuthorized]) {
-        [self removeAllContent];
+        [self showAuthorizationPlaceholder];
         if (completion) {
             completion();
         }
@@ -104,8 +104,12 @@
     }
 }
 
-- (void)removeAllContent {
+- (void)showAuthorizationPlaceholder {
     [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
+    
+    NSURL *placeholderURL = [WMFContentGroup locationPlaceholderContentGroupURL];
+    NSDate *date = [NSDate date];
+    [self.contentStore fetchOrCreateGroupForURL:placeholderURL ofKind:WMFContentGroupKindLocationPlaceholder forDate:date withSiteURL:self.siteURL associatedContent:@[[NSURL URLWithString:@"https://en.wikipedia.org/wiki/Petit_Palais"]] customizationBlock:nil];
 }
 
 #pragma mark - WMFLocationManagerDelegate

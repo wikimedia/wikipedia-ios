@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
             return [UIImage imageNamed:@"recent-mini"];
         case WMFContentGroupKindLocation:
             return [UIImage imageNamed:@"nearby-mini"];
+        case WMFContentGroupKindLocationPlaceholder:
+            return [UIImage imageNamed:@"nearby-mini"];
         case WMFContentGroupKindPictureOfTheDay:
             return [UIImage imageNamed:@"potd-mini"];
         case WMFContentGroupKindRandom:
@@ -45,6 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindRelatedPages:
             break;
         case WMFContentGroupKindLocation:
+            break;
+        case WMFContentGroupKindLocationPlaceholder:
             break;
         case WMFContentGroupKindPictureOfTheDay:
             break;
@@ -77,6 +81,8 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         case WMFContentGroupKindLocation:
             break;
+        case WMFContentGroupKindLocationPlaceholder:
+            break;
         case WMFContentGroupKindPictureOfTheDay:
             break;
         case WMFContentGroupKindRandom:
@@ -108,29 +114,16 @@ NS_ASSUME_NONNULL_BEGIN
             return MWLocalizedString(@"explore-continue-related-heading", nil);
         case WMFContentGroupKindLocation:
             return MWLocalizedString(@"explore-nearby-heading", nil);
+        case WMFContentGroupKindLocationPlaceholder:
+            return MWLocalizedString(@"explore-nearby-placeholder-heading", nil);
         case WMFContentGroupKindPictureOfTheDay:
             return MWLocalizedString(@"explore-potd-heading", nil);
         case WMFContentGroupKindRandom:
             return MWLocalizedString(@"explore-random-article-heading", nil);
         case WMFContentGroupKindFeaturedArticle:
             return MWLocalizedString(@"explore-featured-article-heading", nil);
-        case WMFContentGroupKindTopRead: {
-            // fall back to language code if it can't be localized
-            NSString *language = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.siteURL.wmf_language];
-
-            NSString *heading = nil;
-
-            //crash protection if language is nil
-            if (language) {
-                heading =
-                    [MWLocalizedString(@"explore-most-read-heading", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                                    withString:language];
-            } else {
-                heading = MWLocalizedString(@"explore-most-read-generic-heading", nil);
-            }
-
-            return heading;
-        }
+        case WMFContentGroupKindTopRead:
+            return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:MWLocalizedString(@"explore-most-read-heading", nil) fallingBackOnGenericString:MWLocalizedString(@"explore-most-read-generic-heading", nil)];
         case WMFContentGroupKindNews:
             return MWLocalizedString(@"in-the-news-title", nil);
         case WMFContentGroupKindNotification:
@@ -142,6 +135,21 @@ NS_ASSUME_NONNULL_BEGIN
             break;
     }
     return [[NSString alloc] init];
+}
+    
+- (NSString *)stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:(NSString *)string fallingBackOnGenericString:(NSString *)genericString {
+    // fall back to language code if it can't be localized
+    NSString *language = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.siteURL.wmf_language];
+    
+    NSString *result = nil;
+    
+    //crash protection if language is nil
+    if (language) {
+        result = [string stringByReplacingOccurrencesOfString:@"$1" withString:language];
+    } else {
+        result = genericString;
+    }
+    return result;
 }
 
 - (nullable NSString *)headerSubTitle {
@@ -164,6 +172,8 @@ NS_ASSUME_NONNULL_BEGIN
                 return [NSString stringWithFormat:@"%f, %f", self.location.coordinate.latitude, self.location.coordinate.longitude];
             }
         } break;
+        case WMFContentGroupKindLocationPlaceholder:
+            return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:MWLocalizedString(@"explore-nearby-placeholder-sub-heading-on-language-wikipedia", nil) fallingBackOnGenericString:MWLocalizedString(@"explore-nearby-placeholder-sub-heading-on-wikipedia", nil)];
         case WMFContentGroupKindPictureOfTheDay:
             return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
         case WMFContentGroupKindRandom:
@@ -197,11 +207,11 @@ NS_ASSUME_NONNULL_BEGIN
             return [UIColor wmf_exploreSectionHeaderTitleColor];
         case WMFContentGroupKindMainPage:
             return [UIColor wmf_exploreSectionHeaderTitleColor];
-
         case WMFContentGroupKindRelatedPages:
             return [UIColor wmf_exploreSectionHeaderTitleColor];
-
         case WMFContentGroupKindLocation:
+            return [UIColor wmf_exploreSectionHeaderTitleColor];
+        case WMFContentGroupKindLocationPlaceholder:
             return [UIColor wmf_exploreSectionHeaderTitleColor];
         case WMFContentGroupKindPictureOfTheDay:
             return [UIColor wmf_exploreSectionHeaderTitleColor];
@@ -233,6 +243,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindRelatedPages:
             return [UIColor wmf_blueTintColor];
         case WMFContentGroupKindLocation:
+            return [UIColor wmf_exploreSectionHeaderSubTitleColor];
+        case WMFContentGroupKindLocationPlaceholder:
             return [UIColor wmf_exploreSectionHeaderSubTitleColor];
         case WMFContentGroupKindPictureOfTheDay:
             return [UIColor wmf_exploreSectionHeaderSubTitleColor];
@@ -266,6 +278,8 @@ NS_ASSUME_NONNULL_BEGIN
             return self.articleURL;
         case WMFContentGroupKindLocation:
             break;
+        case WMFContentGroupKindLocationPlaceholder:
+            break;
         case WMFContentGroupKindPictureOfTheDay:
             break;
         case WMFContentGroupKindRandom:
@@ -297,6 +311,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFFeedHeaderActionTypeOpenHeaderContent;
         case WMFContentGroupKindLocation:
             return WMFFeedHeaderActionTypeOpenMore;
+        case WMFContentGroupKindLocationPlaceholder:
+            break;
         case WMFContentGroupKindPictureOfTheDay:
             break;
         case WMFContentGroupKindRandom:
@@ -327,6 +343,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindRelatedPages:
             return WMFFeedBlacklistOptionContent;
         case WMFContentGroupKindLocation:
+            break;
+        case WMFContentGroupKindLocationPlaceholder:
             break;
         case WMFContentGroupKindPictureOfTheDay:
             break;
@@ -359,6 +377,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFFeedDisplayTypePageWithPreview;
         case WMFContentGroupKindLocation:
             return WMFFeedDisplayTypePageWithLocation;
+        case WMFContentGroupKindLocationPlaceholder:
+            return WMFFeedDisplayTypePageWithLocation;
         case WMFContentGroupKindPictureOfTheDay:
             return WMFFeedDisplayTypePhoto;
         case WMFContentGroupKindRandom:
@@ -390,6 +410,8 @@ NS_ASSUME_NONNULL_BEGIN
             return 3;
         case WMFContentGroupKindLocation:
             return 3;
+        case WMFContentGroupKindLocationPlaceholder:
+            return 1;
         case WMFContentGroupKindPictureOfTheDay:
             break;
         case WMFContentGroupKindRandom:
@@ -421,6 +443,8 @@ NS_ASSUME_NONNULL_BEGIN
             return YES /*FBTweakValue(@"Explore", @"General", @"Put 'Because You Read' in Wider Column", YES)*/;
         case WMFContentGroupKindLocation:
             break;
+        case WMFContentGroupKindLocationPlaceholder:
+            break;
         case WMFContentGroupKindPictureOfTheDay:
             return YES;
         case WMFContentGroupKindRandom:
@@ -451,6 +475,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindRelatedPages:
             break;
         case WMFContentGroupKindLocation:
+            break;
+        case WMFContentGroupKindLocationPlaceholder:
             break;
         case WMFContentGroupKindPictureOfTheDay:
             return WMFFeedDetailTypeGallery;
@@ -484,6 +510,13 @@ NS_ASSUME_NONNULL_BEGIN
                 [MWLocalizedString(@"home-more-like-footer", nil) stringByReplacingOccurrencesOfString:@"$1"
                                                                                             withString:self.articleURL.wmf_title];
         case WMFContentGroupKindLocation: {
+            if (self.isForToday) {
+                return MWLocalizedString(@"home-nearby-footer", nil);
+            } else {
+                return [MWLocalizedString(@"home-nearby-location-footer", nil) stringByReplacingOccurrencesOfString:@"$1" withString:self.placemark.name];
+            }
+        }
+        case WMFContentGroupKindLocationPlaceholder: {
             if (self.isForToday) {
                 return MWLocalizedString(@"home-nearby-footer", nil);
             } else {
@@ -529,6 +562,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFFeedMoreTypePageList;
         case WMFContentGroupKindLocation:
             return WMFFeedMoreTypePageListWithLocation;
+        case WMFContentGroupKindLocationPlaceholder:
+            break;
         case WMFContentGroupKindPictureOfTheDay:
             break;
         case WMFContentGroupKindRandom:
@@ -560,6 +595,8 @@ NS_ASSUME_NONNULL_BEGIN
             return [MWLocalizedString(@"home-more-like-footer", nil) stringByReplacingOccurrencesOfString:@"$1" withString:self.articleURL.wmf_title];
         case WMFContentGroupKindLocation:
             return MWLocalizedString(@"main-menu-nearby", nil);
+        case WMFContentGroupKindLocationPlaceholder:
+            break;
         case WMFContentGroupKindPictureOfTheDay:
             break;
         case WMFContentGroupKindRandom:
@@ -590,6 +627,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindRelatedPages:
             break;
         case WMFContentGroupKindLocation:
+            break;
+        case WMFContentGroupKindLocationPlaceholder:
             break;
         case WMFContentGroupKindPictureOfTheDay:
             break;
@@ -637,6 +676,8 @@ NS_ASSUME_NONNULL_BEGIN
             return @"Recommended";
         case WMFContentGroupKindLocation:
             return @"Nearby";
+        case WMFContentGroupKindLocationPlaceholder:
+            return @"Nearby Placeholder";
         case WMFContentGroupKindPictureOfTheDay:
             return @"Picture of the Day";
         case WMFContentGroupKindRandom:
@@ -667,6 +708,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindRelatedPages:
             break;
         case WMFContentGroupKindLocation:
+            break;
+        case WMFContentGroupKindLocationPlaceholder:
             break;
         case WMFContentGroupKindPictureOfTheDay:
             break;

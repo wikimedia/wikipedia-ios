@@ -429,7 +429,9 @@
 "explore-featured-article-heading" = "Text for 'Featured article' header";
 "explore-continue-reading-heading" = "Text for 'Continue Reading' header";
 "explore-nearby-heading" = "Text for 'Nearby places' header. The next line of the header is the name of the nearest article.";
-"explore-nearby-sub-heading-your-location" = "Subtext beneath the 'Places near' header when showing articles near the user's current location.";
+"explore-nearby-placeholder-heading" = "Nearby placeholder heading. The user hasn't granted location access so we show a generic section about Places on Wikipedia";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Subtext beneath the 'Places' header when the specific language wikipedia is unknown.";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Subtext beneath the 'Places' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'On English Wikipedia'";
 "explore-continue-related-heading" = "Text for 'Because you read' header";
 "explore-main-page-heading" = "Text for 'Today on Wikipedia' header";
 "explore-random-article-heading" = "Text for 'Random article' header\n{{Identical|Random article}}";
