@@ -105,7 +105,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         captchaTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-title")
         
         // Reminder: used a label instead of a button for subtitle because of multi-line string issues with UIButton.
-        captchaSubtitleLabel.attributedText = getCaptchaSubtitleAttributedString()
+        captchaSubtitleLabel.attributedText = captchaSubtitleAttributedString
         captchaSubtitleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.requestAnAccountTapped(_:))))
 
         view.wmf_configureSubviewsForDynamicType()
@@ -114,19 +114,21 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     func requestAnAccountTapped(_ recognizer: UITapGestureRecognizer) {
         wmf_openExternalUrl(URL.init(string: "https://en.wikipedia.org/wiki/Wikipedia:Request_an_account"))
     }
-        
-    fileprivate func getCaptchaSubtitleAttributedString() -> NSAttributedString {
-        // Note: uses the font from the storyboard so the attributed string respects the
-        // storyboard dynamic type font choice and responds to dynamic type size changes.
-        let attributes: [String : Any] = [
-            NSFontAttributeName : captchaSubtitleLabel.font
-        ]
-        let substitutionAttributes: [String : Any] = [
-            NSForegroundColorAttributeName : UIColor.wmf_blueTint()
-        ]
-        let cannotSeeImageText = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-cannot-see-image")
-        let requestAccountText = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-request-account")
-        return cannotSeeImageText.attributedString(attributes: attributes, substitutionStrings: [requestAccountText], substitutionAttributes: [substitutionAttributes])
+
+    fileprivate var captchaSubtitleAttributedString: NSAttributedString {
+        get {
+            // Note: uses the font from the storyboard so the attributed string respects the
+            // storyboard dynamic type font choice and responds to dynamic type size changes.
+            let attributes: [String : Any] = [
+                NSFontAttributeName : captchaSubtitleLabel.font
+            ]
+            let substitutionAttributes: [String : Any] = [
+                NSForegroundColorAttributeName : UIColor.wmf_blueTint()
+            ]
+            let cannotSeeImageText = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-cannot-see-image")
+            let requestAccountText = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-request-account")
+            return cannotSeeImageText.attributedString(attributes: attributes, substitutionStrings: [requestAccountText], substitutionAttributes: [substitutionAttributes])
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
