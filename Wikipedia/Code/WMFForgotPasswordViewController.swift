@@ -59,7 +59,14 @@ class WMFForgotPasswordViewController: UIViewController {
     }
 
     func textFieldDidChange(_ sender: UITextField) {
-        enableProgressiveButton((usernameField.text!.characters.count > 0 || emailField.text!.characters.count > 0))
+        guard
+            let username = usernameField.text,
+            let email = emailField.text
+            else{
+                enableProgressiveButton(false)
+                return
+        }
+        enableProgressiveButton((username.characters.count > 0 || email.characters.count > 0))
     }
 
     func enableProgressiveButton(_ highlight: Bool) {
