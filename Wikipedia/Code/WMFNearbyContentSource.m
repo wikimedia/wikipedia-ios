@@ -72,10 +72,11 @@
 
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
     if (![WMFLocationManager isAuthorized]) {
-        [self showAuthorizationPlaceholder];
-        if (completion) {
-            completion();
-        }
+        [self showAuthorizationPlaceholder:^{
+            if (completion) {
+                completion();
+            }
+        }];
     } else if (self.currentLocationManager.location == nil) {
         self.isFetchingInitialLocation = YES;
         self.completion = completion;
@@ -104,12 +105,49 @@
     }
 }
 
-- (void)showAuthorizationPlaceholder {
+- (void)removeAllContent {
     [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
-    
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder];
+}
+
+- (void)showAuthorizationPlaceholder:(nonnull dispatch_block_t)completion {
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
     NSURL *placeholderURL = [WMFContentGroup locationPlaceholderContentGroupURL];
     NSDate *date = [NSDate date];
-    [self.contentStore fetchOrCreateGroupForURL:placeholderURL ofKind:WMFContentGroupKindLocationPlaceholder forDate:date withSiteURL:self.siteURL associatedContent:@[[NSURL URLWithString:@"https://en.wikipedia.org/wiki/Petit_Palais"]] customizationBlock:nil];
+    // Check for group for date to re-use the same group if it was updated today
+    WMFContentGroup *group = [self.contentStore firstGroupOfKind:WMFContentGroupKindLocationPlaceholder forDate:date];
+    if (group) {
+        completion();
+        return;
+    }
+    // If the group doesn't exist (or it doesn't exist for today) - Pick a new random article to show
+    CLLocationCoordinate2D center = CLLocationCoordinate2DMake(48.86611, 2.31444);
+    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:center radius:40075000 identifier:@"world"];
+    [self.locationSearchFetcher fetchArticlesWithSiteURL:self.siteURL
+        inRegion:region
+        matchingSearchTerm:nil
+        sortStyle:WMFLocationSearchSortStyleLinks
+        resultLimit:50
+        completion:^(WMFLocationSearchResults *_Nonnull results) {
+            NSInteger count = results.results.count;
+            if (count <= 0) {
+                completion();
+                return;
+            }
+            uint32_t rand = arc4random_uniform((uint32_t)count);
+            MWKLocationSearchResult *result = results.results[rand];
+            NSURL *articleURL = [results urlForResult:result];
+            if (!articleURL) {
+                completion();
+                return;
+            }
+            [self.previewStore addPreviewWithURL:articleURL updatedWithSearchResult:result];
+            [self.contentStore fetchOrCreateGroupForURL:placeholderURL ofKind:WMFContentGroupKindLocationPlaceholder forDate:date withSiteURL:self.siteURL associatedContent:@[articleURL] customizationBlock:nil];
+            completion();
+        }
+        failure:^(NSError *_Nonnull error) {
+            completion();
+        }];
 }
 
 #pragma mark - WMFLocationManagerDelegate
