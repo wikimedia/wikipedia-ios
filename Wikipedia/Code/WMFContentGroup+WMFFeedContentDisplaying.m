@@ -563,7 +563,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindLocation:
             return WMFFeedMoreTypePageListWithLocation;
         case WMFContentGroupKindLocationPlaceholder:
-            break;
+            return WMFFeedMoreTypeLocationAuthorization;
         case WMFContentGroupKindPictureOfTheDay:
             break;
         case WMFContentGroupKindRandom:

@@ -822,6 +822,16 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     WMFContentGroup *sectionObject = [self sectionAtIndex:section];
     if ([sectionObject moreType] == WMFFeedMoreTypeNone) {
         return 0.0;
+    } else if ([sectionObject moreType] == WMFFeedMoreTypeLocationAuthorization) {
+        CGRect frameToFit = CGRectMake(0, 0, columnWidth, 170);
+        WMFTitledExploreSectionFooter *footer = [[WMFTitledExploreSectionFooter alloc] initWithFrame:frameToFit];
+        footer.hidden = YES;
+        [self.view addSubview:footer];
+        WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
+        attributesToFit.frame = frameToFit;
+        UICollectionViewLayoutAttributes *attributes = [footer preferredLayoutAttributesFittingAttributes:attributesToFit];
+        CGFloat height = attributes.frame.size.height;
+        return height;
     } else {
         return 50.0;
     }
@@ -983,25 +993,35 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 - (nonnull UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSectionFooterAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
     NSParameterAssert(group);
-
-    if ([group moreType] == WMFFeedMoreTypeNone) {
-        return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier forIndexPath:indexPath];
+    switch (group.moreType) {
+        case WMFFeedMoreTypeNone:
+            return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier forIndexPath:indexPath];
+        case WMFFeedMoreTypeLocationAuthorization:
+        {
+            WMFTitledExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFTitledExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
+            footer.frame = CGRectMake(0, 0, collectionView.bounds.size.width, 375);
+            return footer;
+        }
+        default:
+        {
+            WMFExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
+            footer.visibleBackgroundView.alpha = 1.0;
+            footer.moreLabel.text = [group footerText];
+            footer.moreLabel.textColor = [UIColor wmf_exploreSectionFooterTextColor];
+            @weakify(self);
+            footer.whenTapped = ^{
+                @strongify(self);
+                NSIndexPath *indexPathForSection = [self.fetchedResultsController indexPathForObject:group];
+                if (!indexPathForSection) {
+                    return;
+                }
+                [self presentMoreViewControllerForSectionAtIndex:indexPathForSection.row animated:YES];
+            };
+            return footer;
+        }
     }
 
-    WMFExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
-    footer.visibleBackgroundView.alpha = 1.0;
-    footer.moreLabel.text = [group footerText];
-    footer.moreLabel.textColor = [UIColor wmf_exploreSectionFooterTextColor];
-    @weakify(self);
-    footer.whenTapped = ^{
-        @strongify(self);
-        NSIndexPath *indexPathForSection = [self.fetchedResultsController indexPathForObject:group];
-        if (!indexPathForSection) {
-            return;
-        }
-        [self presentMoreViewControllerForSectionAtIndex:indexPathForSection.row animated:YES];
-    };
-    return footer;
+   
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -1055,6 +1075,8 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     [self.collectionView registerNib:[WMFExploreSectionHeader wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFExploreSectionHeader wmf_nibName]];
 
     [self.collectionView registerNib:[WMFExploreSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName]];
+    
+    [self.collectionView registerNib:[WMFTitledExploreSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFTitledExploreSectionFooter wmf_nibName]];
 
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier];
 
