@@ -27,8 +27,12 @@ class WMFCaptchaViewController: UIViewController {
     }
     
     func reloadCaptchaPushed(_ sender: AnyObject) {
-        if parent!.responds(to: #selector(reloadCaptchaPushed(_:))) {
-            parent!.performSelector(onMainThread: #selector(reloadCaptchaPushed(_:)), with: nil, waitUntilDone: true)
+        guard let parentVC = parent else{
+            assert(false, "Expected parent view controller not found")
+            return
+        }
+        if parentVC.responds(to: #selector(reloadCaptchaPushed(_:))) {
+            parentVC.performSelector(onMainThread: #selector(reloadCaptchaPushed(_:)), with: nil, waitUntilDone: true)
         }
     }
     
@@ -37,11 +41,16 @@ class WMFCaptchaViewController: UIViewController {
         
         reloadCaptchaButton.addTarget(self, action: #selector(reloadCaptchaPushed(_:)), for: .touchUpInside)
 
+        guard let parentVC = parent else{
+            assert(false, "Expected parent view controller not found")
+            return
+        }
+
         // Allow whatever view controller is using this captcha view controller
         // to monitor changes to captchaTextBox and also when its keyboard done/next
         // buttons are tapped.
         
-        if parent!.conforms(to: WMFCaptchaViewControllerRefresh.self){
+        if parentVC.conforms(to: WMFCaptchaViewControllerRefresh.self){
             captchaTextBox.delegate = parent as? UITextFieldDelegate
         }
     }
