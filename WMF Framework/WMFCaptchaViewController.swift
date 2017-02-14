@@ -27,13 +27,14 @@ class WMFCaptchaViewController: UIViewController {
     }
     
     func reloadCaptchaPushed(_ sender: AnyObject) {
-        guard let parentVC = parent else{
-            assert(false, "Expected parent view controller not found")
+        guard
+            let parentVC = parent,
+            parentVC.responds(to: #selector(reloadCaptchaPushed(_:)))
+        else{
+            assert(false, "Expected parent view controller not found or does't respond to 'reloadCaptchaPushed'")
             return
         }
-        if parentVC.responds(to: #selector(reloadCaptchaPushed(_:))) {
-            parentVC.performSelector(onMainThread: #selector(reloadCaptchaPushed(_:)), with: nil, waitUntilDone: true)
-        }
+        parentVC.performSelector(onMainThread: #selector(reloadCaptchaPushed(_:)), with: nil, waitUntilDone: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
