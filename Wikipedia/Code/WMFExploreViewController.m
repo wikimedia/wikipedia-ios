@@ -89,6 +89,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 @property (nonatomic, strong, nullable) WMFTaskGroup *relatedUpdatedTaskGroup;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, WMFExploreCollectionViewCell *> *placeholderCells;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, WMFExploreCollectionReusableView *> *placeholderFooters;
 
 @property (nonatomic, strong) NSMutableDictionary<NSIndexPath *, NSURL *> *prefetchURLsByIndexPath;
 
@@ -103,6 +104,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     self.objectChanges = [NSMutableArray arrayWithCapacity:10];
     self.sectionCounts = [NSMutableArray arrayWithCapacity:100];
     self.placeholderCells = [NSMutableDictionary dictionaryWithCapacity:10];
+    self.placeholderFooters =  [NSMutableDictionary dictionaryWithCapacity:10];
     self.prefetchURLsByIndexPath = [NSMutableDictionary dictionaryWithCapacity:10];
 }
 
@@ -824,9 +826,8 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         return 0.0;
     } else if ([sectionObject moreType] == WMFFeedMoreTypeLocationAuthorization) {
         CGRect frameToFit = CGRectMake(0, 0, columnWidth, 170);
-        WMFTitledExploreSectionFooter *footer = [[WMFTitledExploreSectionFooter alloc] initWithFrame:frameToFit];
-        footer.hidden = YES;
-        [self.view addSubview:footer];
+        WMFExploreCollectionReusableView *footer = [self placeholderFooterForIdentifier:[WMFTitledExploreSectionFooter wmf_nibName]];
+        footer.frame = frameToFit;
         WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
         attributesToFit.frame = frameToFit;
         UICollectionViewLayoutAttributes *attributes = [footer preferredLayoutAttributesFittingAttributes:attributesToFit];
@@ -999,7 +1000,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         case WMFFeedMoreTypeLocationAuthorization:
         {
             WMFTitledExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFTitledExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
-            footer.frame = CGRectMake(0, 0, collectionView.bounds.size.width, 375);
             return footer;
         }
         default:
@@ -1071,12 +1071,27 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     return self.placeholderCells[identifier];
 }
 
+- (void)registerNib:(UINib *)nib forFooterWithReuseIdentifier:(NSString *)identifier {
+    [self.collectionView registerNib:nib forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:identifier];
+    WMFExploreCollectionReusableView *placeholderView = [[nib instantiateWithOwner:nil options:nil] firstObject];
+    if (!placeholderView) {
+        return;
+    }
+    placeholderView.hidden = YES;
+    [self.view insertSubview:placeholderView atIndex:0];
+    [self.placeholderFooters setObject:placeholderView forKey:identifier];
+}
+
+- (id)placeholderFooterForIdentifier:(NSString *)identifier {
+    return self.placeholderFooters[identifier];
+}
+
 - (void)registerCellsAndViews {
     [self.collectionView registerNib:[WMFExploreSectionHeader wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFExploreSectionHeader wmf_nibName]];
 
     [self.collectionView registerNib:[WMFExploreSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName]];
     
-    [self.collectionView registerNib:[WMFTitledExploreSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFTitledExploreSectionFooter wmf_nibName]];
+    [self registerNib:[WMFTitledExploreSectionFooter wmf_classNib]  forFooterWithReuseIdentifier:[WMFTitledExploreSectionFooter wmf_nibName]];
 
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier];
 

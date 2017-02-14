@@ -131,7 +131,7 @@
 
 - (CGFloat)setSize:(CGSize)size forItemAtIndex:(NSInteger)index invalidationContext:(WMFCVLInvalidationContext *)invalidationContext {
     CGFloat deltaH = [self setSize:size forAttributesAtIndex:index inArray:_items];
-
+    
     [invalidationContext invalidateItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:self.index]]];
     [self offsetItemsStartingAtIndex:index + 1 distance:deltaH invalidationContext:invalidationContext];
     [self offsetFootersStartingAtIndex:0 distance:deltaH invalidationContext:invalidationContext];
