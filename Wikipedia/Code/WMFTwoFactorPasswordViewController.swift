@@ -64,7 +64,10 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return ((textField.text! + string).characters.count <= 1)
+        guard let text = textField.text else {
+            return false
+        }
+        return ((text + string).characters.count <= 1)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
