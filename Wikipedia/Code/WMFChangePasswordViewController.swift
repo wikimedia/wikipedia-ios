@@ -48,7 +48,7 @@ class WMFChangePasswordViewController: UIViewController {
     }
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if (textField == self.passwordField) {
+        if (textField == passwordField) {
             retypeField.becomeFirstResponder()
         } else if (textField == retypeField) {
             save()
@@ -63,8 +63,8 @@ class WMFChangePasswordViewController: UIViewController {
         doneButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("button-save"), style: .plain, target: self, action: #selector(doneButtonPushed(_:)))
         navigationItem.rightBarButtonItem = doneButton
        
-        passwordField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
-        retypeField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        passwordField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        retypeField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 
         passwordUnderlineHeight.constant = 1.0 / UIScreen.main.scale
         retypeUnderlineHeight.constant = 1.0 / UIScreen.main.scale
@@ -76,7 +76,7 @@ class WMFChangePasswordViewController: UIViewController {
     }
     
     func closeButtonPushed(_ : UIBarButtonItem) {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     fileprivate func save() {

@@ -27,8 +27,8 @@ class WMFCaptchaViewController: UIViewController {
     }
     
     func reloadCaptchaPushed(_ sender: AnyObject) {
-        if self.parent!.responds(to: #selector(reloadCaptchaPushed(_:))) {
-            self.parent!.performSelector(onMainThread: #selector(reloadCaptchaPushed(_:)), with: nil, waitUntilDone: true)
+        if parent!.responds(to: #selector(reloadCaptchaPushed(_:))) {
+            parent!.performSelector(onMainThread: #selector(reloadCaptchaPushed(_:)), with: nil, waitUntilDone: true)
         }
     }
     
@@ -41,14 +41,14 @@ class WMFCaptchaViewController: UIViewController {
         // to monitor changes to captchaTextBox and also when its keyboard done/next
         // buttons are tapped.
         
-        if self.parent!.conforms(to: WMFCaptchaViewControllerRefresh.self){
-            captchaTextBox.delegate = self.parent as? UITextFieldDelegate
+        if parent!.conforms(to: WMFCaptchaViewControllerRefresh.self){
+            captchaTextBox.delegate = parent as? UITextFieldDelegate
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         captchaTextBox.delegate = nil
-        self.reloadCaptchaButton.removeTarget(nil, action: nil, for: .allEvents)
+        reloadCaptchaButton.removeTarget(nil, action: nil, for: .allEvents)
         super.viewWillDisappear(animated)
     }
 }

@@ -50,7 +50,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         if (showCaptchaContainer) {
             showCaptchaContainer = false
         } else {
-            self.dismiss(animated: true, completion: nil)
+            dismiss(animated: true, completion: nil)
         }
     }
 
@@ -62,7 +62,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     func loginButtonPushed(_ recognizer: UITapGestureRecognizer) {
         guard
             recognizer.state == .ended,
-            let presenter = self.presentingViewController else {
+            let presenter = presentingViewController else {
                 return
         }
         dismiss(animated: true, completion: {
@@ -100,14 +100,14 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         loginButton.text = localizedStringForKeyFallingBackOnEnglish("account-creation-login")
         loginButton.isUserInteractionEnabled = true
         
-        loginButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.loginButtonPushed(_:))))
+        loginButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(loginButtonPushed(_:))))
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("navbar-title-mode-create-account")
        
         captchaTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-title")
         
         // Reminder: used a label instead of a button for subtitle because of multi-line string issues with UIButton.
         captchaSubtitleLabel.attributedText = captchaSubtitleAttributedString
-        captchaSubtitleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.requestAnAccountTapped(_:))))
+        captchaSubtitleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(requestAnAccountTapped(_:))))
 
         view.wmf_configureSubviewsForDynamicType()
     }
@@ -137,8 +137,8 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         captchaViewController = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
         wmf_addChildController(captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
         showCaptchaContainer = false
-        NotificationCenter.default.addObserver(self, selector: #selector(self.textFieldDidChange(_:)), name: NSNotification.Name.UITextFieldTextDidChange, object: captchaViewController?.captchaTextBox)
-        self.enableProgressiveButtonIfNecessary()
+        NotificationCenter.default.addObserver(self, selector: #selector(textFieldDidChange(_:)), name: NSNotification.Name.UITextFieldTextDidChange, object: captchaViewController?.captchaTextBox)
+        enableProgressiveButtonIfNecessary()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -147,7 +147,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     }
 
     @IBAction func textFieldDidChange(_ sender: UITextField) {
-        self.enableProgressiveButtonIfNecessary()
+        enableProgressiveButtonIfNecessary()
     }
 
     fileprivate func hasUserEnteredCaptchaText() -> Bool {

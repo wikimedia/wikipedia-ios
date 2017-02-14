@@ -87,7 +87,7 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
     }
     
     func closeButtonPushed(_ : UIBarButtonItem) {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     fileprivate func token() -> String {
@@ -136,7 +136,7 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
     }
     
     func showChangeTempPasswordViewController() {
-        guard let presenter = self.presentingViewController else {
+        guard let presenter = presentingViewController else {
             return
         }
         dismiss(animated: true, completion: {

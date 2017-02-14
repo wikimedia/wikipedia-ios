@@ -27,8 +27,8 @@ class WMFForgotPasswordViewController: UIViewController {
         resetButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("forgot-password-button-title"), style: .plain, target: self, action: #selector(resetButtonPushed(_:)))
         navigationItem.rightBarButtonItem = resetButton
     
-        usernameField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
-        emailField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        usernameField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        emailField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     
         usernameUnderlineHeight.constant = 1.0 / UIScreen.main.scale
         emailUnderlineHeight.constant = 1.0 / UIScreen.main.scale
@@ -50,7 +50,7 @@ class WMFForgotPasswordViewController: UIViewController {
     }
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if (textField == self.usernameField) {
+        if (textField == usernameField) {
             emailField.becomeFirstResponder()
         } else if (textField == emailField) {
             save()
@@ -76,7 +76,7 @@ class WMFForgotPasswordViewController: UIViewController {
     }
     
     func closeButtonPushed(_ : UIBarButtonItem) {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     func sendPasswordResetEmail(userName: String?, email: String?) {

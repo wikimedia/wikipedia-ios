@@ -17,7 +17,7 @@ class WMFLoginViewController: UIViewController {
     public var funnel: LoginFunnel?
 
     func closeButtonPushed(_ : UIBarButtonItem) {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 
     func doneButtonPushed(_ : UIBarButtonItem) {
@@ -39,11 +39,11 @@ class WMFLoginViewController: UIViewController {
         createAccountButton.text = localizedStringForKeyFallingBackOnEnglish("login-account-creation")
         createAccountButton.isUserInteractionEnabled = true
         
-        createAccountButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.createAccountButtonPushed(_:))))
+        createAccountButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAccountButtonPushed(_:))))
 
         forgotPasswordButton.text = localizedStringForKeyFallingBackOnEnglish("login-forgot-password")
 
-        forgotPasswordButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.forgotPasswordButtonPushed(_:))))
+        forgotPasswordButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(forgotPasswordButtonPushed(_:))))
 
         usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("login-username-placeholder-text")
         passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("login-password-placeholder-text")
@@ -52,8 +52,8 @@ class WMFLoginViewController: UIViewController {
 
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("navbar-title-mode-login")
 
-        usernameField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
-        passwordField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        usernameField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        passwordField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 
         usernameUnderlineHeight.constant = 1.0 / UIScreen.main.scale
         passwordUnderlineHeight.constant = 1.0 / UIScreen.main.scale
@@ -83,7 +83,7 @@ class WMFLoginViewController: UIViewController {
     }
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if (textField == self.usernameField) {
+        if (textField == usernameField) {
             passwordField.becomeFirstResponder()
         } else if (textField == passwordField) {
             save()
@@ -124,7 +124,7 @@ class WMFLoginViewController: UIViewController {
     }
 
     func showChangeTempPasswordViewController() {
-        guard let presenter = self.presentingViewController else {
+        guard let presenter = presentingViewController else {
             return
         }
         dismiss(animated: true, completion: {
@@ -136,7 +136,7 @@ class WMFLoginViewController: UIViewController {
     }
 
     func showTwoFactorViewController() {
-        guard let presenter = self.presentingViewController else {
+        guard let presenter = presentingViewController else {
             return
         }
         dismiss(animated: true, completion: {
@@ -151,7 +151,7 @@ class WMFLoginViewController: UIViewController {
     func forgotPasswordButtonPushed(_ recognizer: UITapGestureRecognizer) {
         guard
             recognizer.state == .ended,
-            let presenter = self.presentingViewController else {
+            let presenter = presentingViewController else {
                 return
         }
         dismiss(animated: true, completion: {
@@ -164,10 +164,10 @@ class WMFLoginViewController: UIViewController {
     func createAccountButtonPushed(_ recognizer: UITapGestureRecognizer) {
         guard
             recognizer.state == .ended,
-            let presenter = self.presentingViewController else {
+            let presenter = presentingViewController else {
                 return
         }
-        self.funnel?.logCreateAccountAttempt()
+        funnel?.logCreateAccountAttempt()
         dismiss(animated: true, completion: {
             let createAcctVC = WMFAccountCreationViewController.wmf_initialViewControllerFromClassStoryboard()
             createAcctVC?.funnel = CreateAccountFunnel()
