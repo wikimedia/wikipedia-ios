@@ -30,7 +30,7 @@ public class WMFAuthToken: NSObject {
 public class WMFAuthTokenFetcher: NSObject {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
     public func isFetching() -> Bool {
-        return manager!.operationQueue.operationCount > 0
+        return manager.operationQueue.operationCount > 0
     }
     
     public func fetchToken(ofType type: WMFAuthTokenType, siteURL: URL, success: @escaping WMFAuthTokenBlock, failure: @escaping WMFErrorHandler){
@@ -53,8 +53,7 @@ public class WMFAuthTokenFetcher: NSObject {
             "type": stringForToken(type),
             "format": "json"
         ]
-        _ = manager.wmf_apiPOSTWithParameters(parameters, success: {
-            (_, response: Any?) in
+        _ = manager.wmf_apiPOSTWithParameters(parameters, success: { (_, response) in
             guard
                 let response = response as? [String : AnyObject],
                 let query = response["query"] as? [String: Any],
@@ -69,8 +68,7 @@ public class WMFAuthTokenFetcher: NSObject {
                 return
             }
             success(WMFAuthToken.init(token: token, type: type))
-        }, failure: {
-            (_, error: Error) in
+        }, failure: { (_, error) in
             failure(error)
         })
     }

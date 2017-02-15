@@ -1,31 +1,17 @@
 
-@objc public enum WMFCurrentlyLoggedInUserFetcherErrorType: Int {
+public enum WMFCurrentlyLoggedInUserFetcherError: LocalizedError {
     case cannotExtractUserInfo
     case userIsAnonymous
-}
-
-// A CustomNSError's localized description survives @objc bridging
-// TODO: once WMFAuthenticationManager is converted to Swift we can go
-// back to using "public enum WMFCurrentlyLoggedInUserFetcherError: LocalizedError".
-public class WMFCurrentlyLoggedInUserFetcherError: CustomNSError {
-    let type: WMFCurrentlyLoggedInUserFetcherErrorType
-    let localizedDescription: String?
-    public required init(type:WMFCurrentlyLoggedInUserFetcherErrorType, localizedDescription: String?) {
-        self.type = type
-        self.localizedDescription = localizedDescription
-    }
-    public static var errorDomain: String {
-        return String(describing:self)
-    }
-    public var errorCode: Int {
-        return type.rawValue
-    }
-    public var errorUserInfo: [String : Any] {
-        var userInfo = [String: Any]()
-        if let localizedDescription = self.localizedDescription {
-            userInfo[NSLocalizedDescriptionKey] = localizedDescription
+    case blankUsernameOrPassword
+    public var errorDescription: String? {
+        switch self {
+        case .cannotExtractUserInfo:
+            return "Could not extract user info"
+        case .userIsAnonymous:
+            return "User is anonymous"
+        case .blankUsernameOrPassword:
+            return "Blank username or password"
         }
-        return userInfo
     }
 }
 
@@ -40,10 +26,10 @@ public typealias WMFCurrentlyLoggedInUserBlock = (WMFCurrentlyLoggedInUser) -> V
     }
 }
 
-public class WMFCurrentlyLoggedInUserFetcher: NSObject {
+public class WMFCurrentlyLoggedInUserFetcher {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
     public func isFetching() -> Bool {
-        return manager!.operationQueue.operationCount > 0
+        return manager.operationQueue.operationCount > 0
     }
     
     public func fetch(siteURL: URL, success: @escaping WMFCurrentlyLoggedInUserBlock, failure: @escaping WMFErrorHandler){
@@ -56,8 +42,7 @@ public class WMFCurrentlyLoggedInUserFetcher: NSObject {
             "format": "json"
         ]
         
-        _ = manager.wmf_apiPOSTWithParameters(parameters, success: {
-            (_, response: Any?) in
+        _ = manager.wmf_apiPOSTWithParameters(parameters, success: { (_, response) in
             guard
                 let response = response as? [String : AnyObject],
                 let query = response["query"] as? [String : AnyObject],
@@ -65,16 +50,15 @@ public class WMFCurrentlyLoggedInUserFetcher: NSObject {
                 let userID = userinfo["id"] as? Int,
                 let userName = userinfo["name"] as? String
                 else {
-                    failure(WMFCurrentlyLoggedInUserFetcherError.init(type:.cannotExtractUserInfo, localizedDescription: "Could not extract user info"))
+                    failure(WMFCurrentlyLoggedInUserFetcherError.cannotExtractUserInfo)
                     return
             }
             guard (userinfo["anon"] == nil) else {
-                failure(WMFCurrentlyLoggedInUserFetcherError.init(type:.userIsAnonymous, localizedDescription: "User is anonymous"))
+                failure(WMFCurrentlyLoggedInUserFetcherError.userIsAnonymous)
                 return
             }
             success(WMFCurrentlyLoggedInUser.init(userID: userID, name: userName))
-        }, failure: {
-            (_, error: Error) in
+        }, failure: { (_, error) in
             failure(error)
         })
     }
