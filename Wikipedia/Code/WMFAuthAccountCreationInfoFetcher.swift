@@ -14,7 +14,7 @@ public enum WMFAuthAccountCreationError: LocalizedError {
 
 public typealias WMFAuthAccountCreationInfoBlock = (WMFAuthAccountCreationInfo) -> Void
 
-public class WMFAuthAccountCreationInfo: NSObject {
+public struct WMFAuthAccountCreationInfo {
     let canCreateAccounts:Bool
     let captchaID: String
     let captchaURLFragment: String
@@ -22,13 +22,24 @@ public class WMFAuthAccountCreationInfo: NSObject {
         self.canCreateAccounts = canCreateAccounts
         self.captchaID = captchaID
         self.captchaURLFragment = captchaURLFragment
+    }    
+    var captchaImageURL: URL? {
+        guard let appLang = MWKLanguageLinkController.sharedInstance().appLanguage else {
+            return nil
+        }
+        let siteURL = appLang.siteURL() as NSURL
+        guard let domain = siteURL.wmf_domain else {
+            return nil
+        }
+        let url = URL.init(string: "https://\(appLang.languageCode).m.\(domain)\(captchaURLFragment)")
+        return url
     }
 }
 
-public class WMFAuthAccountCreationInfoFetcher: NSObject {
+public class WMFAuthAccountCreationInfoFetcher {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
     public func isFetching() -> Bool {
-        return manager!.operationQueue.operationCount > 0
+        return manager.operationQueue.operationCount > 0
     }
     public func fetchAccountCreationInfoForSiteURL(_ siteURL: URL, success: @escaping WMFAuthAccountCreationInfoBlock, failure: @escaping WMFErrorHandler){
         let manager = AFHTTPSessionManager(baseURL: siteURL)
@@ -39,8 +50,7 @@ public class WMFAuthAccountCreationInfoFetcher: NSObject {
             "amirequestsfor": "create",
             "format": "json"
         ]
-        _ = manager.wmf_apiPOSTWithParameters(parameters, success: {
-            (_, response: Any?) in
+        _ = manager.wmf_apiPOSTWithParameters(parameters, success: { (_, response) in
             
             guard
                 let response = response as? [String : AnyObject],
@@ -64,8 +74,7 @@ public class WMFAuthAccountCreationInfoFetcher: NSObject {
             }
             
             success(WMFAuthAccountCreationInfo.init(canCreateAccounts: true, captchaID: captchaIdValue, captchaURLFragment: captchaInfoValue))
-        }, failure: {
-            (_, error: Error) in
+        }, failure: { (_, error) in
             failure(error)
         })
     }

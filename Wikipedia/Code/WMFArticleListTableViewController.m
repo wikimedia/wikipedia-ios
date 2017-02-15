@@ -2,7 +2,6 @@
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFSearch.h"
 #import "UIViewController+WMFArticlePresentation.h"
-#import "UIViewController+WMFHideKeyboard.h"
 #import "PiwikTracker+WMFExtensions.h"
 @import BlocksKitUIKitExtensions;
 

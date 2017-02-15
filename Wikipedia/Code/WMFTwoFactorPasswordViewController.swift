@@ -15,7 +15,7 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
     public var userName:String?
     public var password:String?
     
-    func doneButtonPushed(_ tap: UITapGestureRecognizer) {
+    func doneButtonPushed(_ : UIBarButtonItem) {
         save()
     }
     
@@ -64,7 +64,10 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return ((textField.text! + string).characters.count <= 1)
+        guard let text = textField.text else {
+            return false
+        }
+        return ((text + string).characters.count <= 1)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -76,9 +79,9 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(self.didTapClose(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
         
-        doneButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("main-menu-account-login"), style: .plain, target: self, action: #selector(self.doneButtonPushed(_:)))
+        doneButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("main-menu-account-login"), style: .plain, target: self, action: #selector(doneButtonPushed(_:)))
         navigationItem.rightBarButtonItem = doneButton
         
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-title")
@@ -86,8 +89,8 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
         tokenLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-token-title")
     }
     
-    func didTapClose(_ tap: UITapGestureRecognizer) {
-        self.dismiss(animated: true, completion: nil)
+    func closeButtonPushed(_ : UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
     
     fileprivate func token() -> String {
@@ -95,6 +98,7 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
     }
     
     fileprivate func save() {
+        wmf_hideKeyboard()
         enableProgressiveButton(false)
         WMFAlertManager.sharedInstance.dismissAlert()
         
@@ -105,20 +109,20 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
             return
         }
 
-        WMFAuthenticationManager.sharedInstance()
-            .login(withUsername: userName,
+        WMFAuthenticationManager.sharedInstance
+            .login(username: userName,
                    password: password,
                    retypePassword: nil,
                    oathToken: token(),
-                   success: {
+                   success: { _ in
                     let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: userName)
                     WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                     self.dismiss(animated: true, completion: nil)
                     self.funnel?.logSuccess()
-            }, failure: { (error: Error) in
+            }, failure: { error in
                 
                 if let error = error as? WMFAccountLoginError {
-                    switch error.type {
+                    switch error {
                     case .temporaryPasswordNeedsChange:
                         self.showChangeTempPasswordViewController()
                         return
@@ -135,13 +139,16 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
     }
     
     func showChangeTempPasswordViewController() {
-        guard let presenter = self.presentingViewController else {
+        guard
+            let presenter = presentingViewController,
+            let changePasswordVC = WMFChangePasswordViewController.wmf_initialViewControllerFromClassStoryboard()
+        else {
+            assert(false, "Expected view controller(s) not found")
             return
         }
         dismiss(animated: true, completion: {
-            let changePasswordVC = WMFChangePasswordViewController.wmf_initialViewControllerFromClassStoryboard()
-            changePasswordVC?.userName = self.userName
-            let navigationController = UINavigationController.init(rootViewController: changePasswordVC!)
+            changePasswordVC.userName = self.userName
+            let navigationController = UINavigationController.init(rootViewController: changePasswordVC)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }

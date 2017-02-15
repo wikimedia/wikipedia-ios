@@ -16,20 +16,20 @@ class WMFLoginViewController: UIViewController {
     
     public var funnel: LoginFunnel?
 
-    func didTapClose(_ tap: UITapGestureRecognizer) {
-        self.dismiss(animated: true, completion: nil)
+    func closeButtonPushed(_ : UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
 
-    func doneButtonPushed(_ tap: UITapGestureRecognizer) {
+    func doneButtonPushed(_ : UIBarButtonItem) {
         save()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(self.didTapClose(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
 
-        doneButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("main-menu-account-login"), style: .plain, target: self, action: #selector(self.doneButtonPushed(_:)))
+        doneButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("main-menu-account-login"), style: .plain, target: self, action: #selector(doneButtonPushed(_:)))
         
         navigationItem.rightBarButtonItem = doneButton
         
@@ -39,11 +39,11 @@ class WMFLoginViewController: UIViewController {
         createAccountButton.text = localizedStringForKeyFallingBackOnEnglish("login-account-creation")
         createAccountButton.isUserInteractionEnabled = true
         
-        createAccountButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.createAccountButtonPushed(_:))))
+        createAccountButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAccountButtonPushed(_:))))
 
         forgotPasswordButton.text = localizedStringForKeyFallingBackOnEnglish("login-forgot-password")
 
-        forgotPasswordButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.forgotPasswordButtonPushed(_:))))
+        forgotPasswordButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(forgotPasswordButtonPushed(_:))))
 
         usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("login-username-placeholder-text")
         passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("login-password-placeholder-text")
@@ -52,15 +52,22 @@ class WMFLoginViewController: UIViewController {
 
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("navbar-title-mode-login")
 
-        usernameField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
-        passwordField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        usernameField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        passwordField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 
         usernameUnderlineHeight.constant = 1.0 / UIScreen.main.scale
         passwordUnderlineHeight.constant = 1.0 / UIScreen.main.scale
     }
     
     func textFieldDidChange(_ sender: UITextField) {
-        enableProgressiveButton((usernameField.text!.characters.count > 0 && passwordField.text!.characters.count > 0))
+        guard
+            let username = usernameField.text,
+            let password = passwordField.text
+            else{
+                enableProgressiveButton(false)
+                return
+        }
+        enableProgressiveButton((username.characters.count > 0 && password.characters.count > 0))
     }
 
     func enableProgressiveButton(_ highlight: Bool) {
@@ -83,7 +90,7 @@ class WMFLoginViewController: UIViewController {
     }
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if (textField == self.usernameField) {
+        if (textField == usernameField) {
             passwordField.becomeFirstResponder()
         } else if (textField == passwordField) {
             save()
@@ -92,25 +99,28 @@ class WMFLoginViewController: UIViewController {
     }
 
     fileprivate func save() {
+        wmf_hideKeyboard()        
         enableProgressiveButton(false)
         WMFAlertManager.sharedInstance.dismissAlert()
-        WMFAuthenticationManager.sharedInstance().login(withUsername: usernameField.text!, password: passwordField.text!, retypePassword:nil, oathToken:nil, success: {
+        WMFAuthenticationManager.sharedInstance.login(username: usernameField.text!, password: passwordField.text!, retypePassword:nil, oathToken:nil, success: { _ in
             let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: self.usernameField.text!)
             WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
             self.dismiss(animated: true, completion: nil)
             self.funnel?.logSuccess()
-        }, failure: {
-            (error: Error) in
+        }, failure: { error in
 
             if let error = error as? WMFAccountLoginError {
-                switch error.type {
+                switch error {
                 case .temporaryPasswordNeedsChange:
                     self.showChangeTempPasswordViewController()
                     return
                 case .needsOathTokenFor2FA:
                     self.showTwoFactorViewController()
                     return
-                    default: break
+                case .statusNotPass:
+                    self.passwordField.text = nil
+                    self.passwordField.becomeFirstResponder()
+                default: break
                 }
             }
             
@@ -121,7 +131,7 @@ class WMFLoginViewController: UIViewController {
     }
 
     func showChangeTempPasswordViewController() {
-        guard let presenter = self.presentingViewController else {
+        guard let presenter = presentingViewController else {
             return
         }
         dismiss(animated: true, completion: {
@@ -133,14 +143,17 @@ class WMFLoginViewController: UIViewController {
     }
 
     func showTwoFactorViewController() {
-        guard let presenter = self.presentingViewController else {
+        guard
+            let presenter = presentingViewController,
+            let twoFactorViewController = WMFTwoFactorPasswordViewController.wmf_initialViewControllerFromClassStoryboard()
+        else {
+            assert(false, "Expected view controller(s) not found")
             return
         }
         dismiss(animated: true, completion: {
-            let twoFactorViewController = WMFTwoFactorPasswordViewController.wmf_initialViewControllerFromClassStoryboard()
-            twoFactorViewController?.userName = self.usernameField!.text
-            twoFactorViewController?.password = self.passwordField!.text
-            let navigationController = UINavigationController.init(rootViewController: twoFactorViewController!)
+            twoFactorViewController.userName = self.usernameField!.text
+            twoFactorViewController.password = self.passwordField!.text
+            let navigationController = UINavigationController.init(rootViewController: twoFactorViewController)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
@@ -148,12 +161,14 @@ class WMFLoginViewController: UIViewController {
     func forgotPasswordButtonPushed(_ recognizer: UITapGestureRecognizer) {
         guard
             recognizer.state == .ended,
-            let presenter = self.presentingViewController else {
-                return
+            let presenter = presentingViewController,
+            let forgotPasswordVC = WMFForgotPasswordViewController.wmf_initialViewControllerFromClassStoryboard()
+        else {
+            assert(false, "Expected view controller(s) not found")
+            return
         }
         dismiss(animated: true, completion: {
-            let forgotPasswordVC = WMFForgotPasswordViewController.wmf_initialViewControllerFromClassStoryboard()
-            let navigationController = UINavigationController.init(rootViewController: forgotPasswordVC!)
+            let navigationController = UINavigationController.init(rootViewController: forgotPasswordVC)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
@@ -161,15 +176,17 @@ class WMFLoginViewController: UIViewController {
     func createAccountButtonPushed(_ recognizer: UITapGestureRecognizer) {
         guard
             recognizer.state == .ended,
-            let presenter = self.presentingViewController else {
-                return
-        }
-        self.funnel?.logCreateAccountAttempt()
-        dismiss(animated: true, completion: {
+            let presenter = presentingViewController,
             let createAcctVC = WMFAccountCreationViewController.wmf_initialViewControllerFromClassStoryboard()
-            createAcctVC?.funnel = CreateAccountFunnel()
-            createAcctVC?.funnel?.logStart(fromLogin: self.funnel?.loginSessionToken)
-            let navigationController = UINavigationController.init(rootViewController: createAcctVC!)
+        else {
+            assert(false, "Expected view controller(s) not found")
+            return
+        }
+        funnel?.logCreateAccountAttempt()
+        dismiss(animated: true, completion: {
+            createAcctVC.funnel = CreateAccountFunnel()
+            createAcctVC.funnel?.logStart(fromLogin: self.funnel?.loginSessionToken)
+            let navigationController = UINavigationController.init(rootViewController: createAcctVC)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
