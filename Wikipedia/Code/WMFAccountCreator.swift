@@ -1,38 +1,25 @@
 
-@objc public enum WMFAccountCreatorErrorType: Int {
+public enum WMFAccountCreatorError: LocalizedError {
     case cannotExtractStatus
-    case statusNotPass
+    case statusNotPass(String?)
     case needsCaptcha
-}
-
-// A CustomNSError's localized description survives @objc bridging
-// TODO: once WMFAuthenticationManager is converted to Swift we can go 
-// back to "public enum WMFAccountCreatorError: LocalizedError" before this commit.
-public class WMFAccountCreatorError: CustomNSError {
-    let type: WMFAccountCreatorErrorType
-    let localizedDescription: String?
-    public required init(type:WMFAccountCreatorErrorType, localizedDescription: String?) {
-        self.type = type
-        self.localizedDescription = localizedDescription
-    }
-    public static var errorDomain: String {
-        return String(describing:self)
-    }
-    public var errorCode: Int {
-        return type.rawValue
-    }
-    public var errorUserInfo: [String : Any] {
-        var userInfo = [String: Any]()
-        if let localizedDescription = self.localizedDescription {
-            userInfo[NSLocalizedDescriptionKey] = localizedDescription
+    public var errorDescription: String? {
+        switch self {
+        case .cannotExtractStatus:
+            return "Could not extract status"
+        case .statusNotPass(let message?):
+            return message
+        case .needsCaptcha:
+            return "Needs captcha"
+        default:
+            return "Unable to create account: Reason unknown"
         }
-        return userInfo
     }
 }
 
 public typealias WMFAccountCreatorResultBlock = (WMFAccountCreatorResult) -> Void
 
-public class WMFAccountCreatorResult: NSObject {
+public struct WMFAccountCreatorResult {
     var status: String
     var username: String
     var message: String?
@@ -43,10 +30,10 @@ public class WMFAccountCreatorResult: NSObject {
     }
 }
 
-public class WMFAccountCreator: NSObject {
+public class WMFAccountCreator {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
     public func isFetching() -> Bool {
-        return manager!.operationQueue.operationCount > 0
+        return manager.operationQueue.operationCount > 0
     }
     
     public func createAccount(username: String, password: String, retypePassword: String, email: String?, captchaID: String?, captchaWord: String?, token: String, siteURL: URL, success: @escaping WMFAccountCreatorResultBlock, failure: @escaping WMFErrorHandler){
@@ -70,31 +57,29 @@ public class WMFAccountCreator: NSObject {
             parameters["captchaWord"] = captchaWord
         }
         
-        _ = manager.wmf_apiPOSTWithParameters(parameters, success: {
-            (_, response: Any?) in
+        _ = manager.wmf_apiPOSTWithParameters(parameters, success: { (_, response) in
          
             guard
                 let response = response as? [String : AnyObject],
                 let createaccount = response["createaccount"] as? [String : AnyObject],
                 let status = createaccount["status"] as? String
                 else {
-                    failure(WMFAccountCreatorError.init(type:.cannotExtractStatus, localizedDescription: "Could not extract status"))
+                    failure(WMFAccountCreatorError.cannotExtractStatus)
                     return
             }
             let message = createaccount["message"] as? String ?? ""
             guard status == "PASS" else {
                 if message.lowercased().range(of:"missing captcha") != nil {
                     // Note: must check the message because no other checkable info is returned indicating a captcha is needed.
-                    failure(WMFAccountCreatorError.init(type:.needsCaptcha, localizedDescription: "Needs captcha"))
+                    failure(WMFAccountCreatorError.needsCaptcha)
                 }else{
-                    failure(WMFAccountCreatorError.init(type:.statusNotPass, localizedDescription: message))
+                    failure(WMFAccountCreatorError.statusNotPass(message))
                 }
                 return
             }
             let normalizedUsername = createaccount["username"] as? String ?? username
             success(WMFAccountCreatorResult.init(status: status, username: normalizedUsername, message: message))
-        }, failure: {
-            (_, error: Error) in
+        }, failure: { (_, error) in
             failure(error)
         })
     }

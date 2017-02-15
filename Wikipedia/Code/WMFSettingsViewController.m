@@ -26,7 +26,6 @@
 #import "MWKLanguageLinkController.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "NSBundle+WMFInfoUtils.h"
-#import "WMFAuthenticationManager.h"
 #import "Wikipedia-Swift.h"
 @import BlocksKitUIKitExtensions;
 
