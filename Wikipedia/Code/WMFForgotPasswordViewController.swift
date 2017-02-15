@@ -92,6 +92,10 @@ class WMFForgotPasswordViewController: UIViewController {
             return
         }
         
+        let failure: WMFErrorHandler = {error in
+            WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        }
+        
         tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { tokenBlock in
             self.passwordResetter.resetPassword(
                 siteURL: siteURL,
@@ -101,12 +105,7 @@ class WMFForgotPasswordViewController: UIViewController {
                 success: { result in
                     self.dismiss(animated: true, completion:nil)
                     WMFAlertManager.sharedInstance.showSuccessAlert(localizedStringForKeyFallingBackOnEnglish("forgot-password-email-sent"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            },
-                failure: { error in
-                    WMFAlertManager.sharedInstance.showAlert(error.localizedDescription, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            })
-        }, failure: { error in
-            WMFAlertManager.sharedInstance.showAlert(error.localizedDescription, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-        })
+            }, failure:failure)
+        }, failure:failure)
     }
 }
