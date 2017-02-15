@@ -60,6 +60,9 @@
 
 - (IBAction)didTouchClear {
     [self.delegate keyboardBarClearButtonTapped:self];
+    if (![self isVisible]) {
+        [self show];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
