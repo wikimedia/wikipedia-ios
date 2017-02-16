@@ -34,11 +34,13 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "CLLocation+WMFBearing.h"
 
-#import "WMFAuthenticationManager.h"
 #import "UIViewController+WMFChildViewController.h"
 #import "UIScrollView+ScrollSubviewToLocation.h"
+
 #import "WMFSearchResults.h"
 #import "WMFSearchFetcher.h"
+#import "NSURL+WMFLinkParsing.h"
+#import "NSHTTPCookieStorage+WMFCloneCookie.h"
 
 // View Controllers
 #import "WMFArticleViewController_Private.h"

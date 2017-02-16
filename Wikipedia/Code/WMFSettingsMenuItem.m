@@ -2,7 +2,6 @@
 #import "SessionSingleton.h"
 #import "Wikipedia-Swift.h"
 #import "MWKLanguageLinkController.h"
-#import "WMFAuthenticationManager.h"
 
 @interface WMFSettingsMenuItem ()
 

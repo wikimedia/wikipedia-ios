@@ -16,14 +16,25 @@ class WMFChangePasswordViewController: UIViewController {
 
     public var userName:String?
     
-    func doneButtonPushed(_ tap: UITapGestureRecognizer) {
+    func doneButtonPushed(_ : UIBarButtonItem) {
         save()
     }
 
     func textFieldDidChange(_ sender: UITextField) {
-        enableProgressiveButton((passwordField.text!.characters.count > 0 && retypeField.text!.characters.count > 0 && passwordField.text == retypeField.text))
+        guard
+            let password = passwordField.text,
+            let retype = retypeField.text
+            else{
+                enableProgressiveButton(false)
+                return
+        }
+        enableProgressiveButton((password.characters.count > 0 && retype.characters.count > 0))
     }
     
+    fileprivate func passwordFieldsMatch() -> Bool {
+        return passwordField.text == retypeField.text
+    }
+
     func enableProgressiveButton(_ highlight: Bool) {
         doneButton.isEnabled = highlight
     }
@@ -44,7 +55,7 @@ class WMFChangePasswordViewController: UIViewController {
     }
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if (textField == self.passwordField) {
+        if (textField == passwordField) {
             retypeField.becomeFirstResponder()
         } else if (textField == retypeField) {
             save()
@@ -54,13 +65,13 @@ class WMFChangePasswordViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(self.didTapClose(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
         
-        doneButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("button-save"), style: .plain, target: self, action: #selector(self.doneButtonPushed(_:)))
+        doneButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("button-save"), style: .plain, target: self, action: #selector(doneButtonPushed(_:)))
         navigationItem.rightBarButtonItem = doneButton
        
-        passwordField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
-        retypeField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        passwordField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        retypeField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 
         passwordUnderlineHeight.constant = 1.0 / UIScreen.main.scale
         retypeUnderlineHeight.constant = 1.0 / UIScreen.main.scale
@@ -71,11 +82,21 @@ class WMFChangePasswordViewController: UIViewController {
         retypeField.placeholder = localizedStringForKeyFallingBackOnEnglish("new-password-confirm-placeholder-text")
     }
     
-    func didTapClose(_ tap: UITapGestureRecognizer) {
-        self.dismiss(animated: true, completion: nil)
+    func closeButtonPushed(_ : UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
     
     fileprivate func save() {
+        
+        guard passwordFieldsMatch() else {
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("account-creation-passwords-mismatched"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            passwordField.text = nil
+            retypeField.text = nil
+            passwordField.becomeFirstResponder()
+            return
+        }
+        
+        wmf_hideKeyboard()
         enableProgressiveButton(false)
         WMFAlertManager.sharedInstance.dismissAlert()
                 
@@ -83,22 +104,26 @@ class WMFChangePasswordViewController: UIViewController {
             return
         }
         
-        WMFAuthenticationManager.sharedInstance()
-            .login(withUsername: userName,
+        WMFAuthenticationManager.sharedInstance
+            .login(username: userName,
                    password: passwordField.text!,
                    retypePassword: retypeField.text!,
                    oathToken: nil,
-                   success: {
+                   success: { _ in
                     let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: userName)
                     WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                     self.dismiss(animated: true, completion: nil)
                     self.funnel?.logSuccess()
-            }, failure: { (error: Error) in
+            }, failure: { error in
                 self.enableProgressiveButton(true)
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
                 self.funnel?.logError(error.localizedDescription)
-                self.passwordField.text = nil
-                self.retypeField.text = nil
+                if let error = error as? URLError {
+                    if error.code != .notConnectedToInternet {
+                        self.passwordField.text = nil
+                        self.retypeField.text = nil
+                    }
+                }
             })
     }
 }
