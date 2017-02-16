@@ -87,6 +87,8 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-title")
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-instructions")
         tokenLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-token-title")
+
+        view.wmf_configureSubviewsForDynamicType()
     }
     
     func closeButtonPushed(_ : UIBarButtonItem) {
