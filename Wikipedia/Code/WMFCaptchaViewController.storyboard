@@ -40,7 +40,7 @@
                                     <constraint firstAttribute="width" constant="290" id="6wn-Hx-rhl"/>
                                     <constraint firstAttribute="height" constant="30" id="FGZ-UY-edA"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                         </subviews>

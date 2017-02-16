@@ -54,6 +54,8 @@ class WMFCaptchaViewController: UIViewController {
         // to monitor changes to captchaTextBox and also when its keyboard done/next
         // buttons are tapped.
         captchaTextBox.delegate = parent as? UITextFieldDelegate
+    
+        view.wmf_configureSubviewsForDynamicType()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
