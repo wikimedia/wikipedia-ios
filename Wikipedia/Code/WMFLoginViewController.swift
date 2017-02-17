@@ -10,11 +10,15 @@ class WMFLoginViewController: UIViewController {
     @IBOutlet fileprivate var usernameUnderlineHeight: NSLayoutConstraint!
     @IBOutlet fileprivate var passwordUnderlineHeight: NSLayoutConstraint!
     @IBOutlet fileprivate var titleLabel: UILabel!
-    
+    @IBOutlet fileprivate var captchaTitleLabel: UILabel!
+    @IBOutlet fileprivate var captchaContainer: UIView!
+    @IBOutlet fileprivate var spaceBeneathCaptchaContainer: NSLayoutConstraint!
+
     @IBOutlet fileprivate var loginContainerView: UIView!
     fileprivate var doneButton: UIBarButtonItem!
     
     public var funnel: LoginFunnel?
+    fileprivate var captchaViewController: WMFCaptchaViewController?
 
     func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
@@ -51,6 +55,7 @@ class WMFLoginViewController: UIViewController {
         scrollView.keyboardDismissMode = .interactive
 
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("navbar-title-mode-login")
+        captchaTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-title")
 
         usernameField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         passwordField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
