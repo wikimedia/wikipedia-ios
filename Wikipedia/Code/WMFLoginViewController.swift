@@ -67,33 +67,46 @@ class WMFLoginViewController: UIViewController {
     }
     
     func textFieldDidChange(_ sender: UITextField) {
-        guard
-            let username = usernameField.text,
-            let password = passwordField.text
-            else{
-                enableProgressiveButton(false)
-                return
+        enableProgressiveButtonIfNecessary()
+    }
+    
+    fileprivate func enableProgressiveButtonIfNecessary() {
+        navigationItem.rightBarButtonItem?.isEnabled = shouldProgressiveButtonBeEnabled()
+    }
+    
+    fileprivate func disableProgressiveButton() {
+        navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+    
+    fileprivate func shouldProgressiveButtonBeEnabled() -> Bool {
+        return areRequiredFieldsPopulated()
+/*
+        var shouldEnable = areRequiredFieldsPopulated()
+        if showCaptchaContainer && shouldEnable {
+            shouldEnable = hasUserEnteredCaptchaText()
         }
-        enableProgressiveButton((username.characters.count > 0 && password.characters.count > 0))
+        return shouldEnable
+*/
+    }
+    
+    fileprivate func requiredInputFields() -> [UITextField] {
+        assert(isViewLoaded, "This method is only intended to be called when view is loaded, since they'll all be nil otherwise")
+        return [usernameField, passwordField]
     }
 
-    func enableProgressiveButton(_ highlight: Bool) {
-        doneButton.isEnabled = highlight
+    fileprivate func areRequiredFieldsPopulated() -> Bool {
+        let firstRequiredFieldWithNoText = requiredInputFields().first(where:{ $0.text?.characters.count == 0 })
+        return firstRequiredFieldWithNoText == nil
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        enableProgressiveButton(false)
+        enableProgressiveButtonIfNecessary()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         usernameField.becomeFirstResponder()
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        enableProgressiveButton(false)
     }
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -106,8 +119,8 @@ class WMFLoginViewController: UIViewController {
     }
 
     fileprivate func save() {
-        wmf_hideKeyboard()        
-        enableProgressiveButton(false)
+        wmf_hideKeyboard()
+        disableProgressiveButton()
         WMFAlertManager.sharedInstance.dismissAlert()
         WMFAuthenticationManager.sharedInstance.login(username: usernameField.text!, password: passwordField.text!, retypePassword:nil, oathToken:nil, success: { _ in
             let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: self.usernameField.text!)
@@ -131,7 +144,7 @@ class WMFLoginViewController: UIViewController {
                 }
             }
             
-            self.enableProgressiveButton(true)
+            self.enableProgressiveButtonIfNecessary()
             WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             self.funnel?.logError(error.localizedDescription)
         })
