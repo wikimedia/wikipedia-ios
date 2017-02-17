@@ -43,6 +43,7 @@
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                                         <connections>
+                                                            <action selector="textFieldDidChange:" destination="mbm-n6-GWW" eventType="editingChanged" id="gke-DS-ih7"/>
                                                             <outlet property="delegate" destination="mbm-n6-GWW" id="Dta-AT-UIE"/>
                                                         </connections>
                                                     </textField>
@@ -58,6 +59,7 @@
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                                         <connections>
+                                                            <action selector="textFieldDidChange:" destination="mbm-n6-GWW" eventType="editingChanged" id="eOC-ZE-505"/>
                                                             <outlet property="delegate" destination="mbm-n6-GWW" id="rQW-xj-Oea"/>
                                                         </connections>
                                                     </textField>

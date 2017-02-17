@@ -1,7 +1,7 @@
 
 import UIKit
 
-class WMFLoginViewController: UIViewController {
+class WMFLoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet fileprivate var scrollView: UIScrollView!
     @IBOutlet fileprivate var usernameField: UITextField!
     @IBOutlet fileprivate var passwordField: UITextField!
@@ -57,16 +57,13 @@ class WMFLoginViewController: UIViewController {
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("navbar-title-mode-login")
         captchaTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-title")
 
-        usernameField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        passwordField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-
         usernameUnderlineHeight.constant = 1.0 / UIScreen.main.scale
         passwordUnderlineHeight.constant = 1.0 / UIScreen.main.scale
     
         view.wmf_configureSubviewsForDynamicType()
     }
     
-    func textFieldDidChange(_ sender: UITextField) {
+    @IBAction func textFieldDidChange(_ sender: UITextField) {
         enableProgressiveButtonIfNecessary()
     }
     
