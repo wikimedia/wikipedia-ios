@@ -92,8 +92,7 @@ class WMFLoginViewController: UIViewController, UITextFieldDelegate {
     }
 
     fileprivate func areRequiredFieldsPopulated() -> Bool {
-        let firstRequiredFieldWithNoText = requiredInputFields().first(where:{ $0.text?.characters.count == 0 })
-        return firstRequiredFieldWithNoText == nil
+        return requiredInputFields().wmf_allFieldsFilled()
     }
 
     override func viewWillAppear(_ animated: Bool) {
