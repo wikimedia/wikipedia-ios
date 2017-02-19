@@ -17,23 +17,12 @@ public typealias WMFAuthAccountCreationInfoBlock = (WMFAuthAccountCreationInfo) 
 public struct WMFAuthAccountCreationInfo {
     let canCreateAccounts:Bool
     let captchaID: String
-    let captchaURLFragment: String
-    init(canCreateAccounts:Bool, captchaID:String, captchaURLFragment:String) {
+    let captchaURL: URL
+    init(canCreateAccounts:Bool, captchaID:String, captchaURL:URL) {
         self.canCreateAccounts = canCreateAccounts
         self.captchaID = captchaID
-        self.captchaURLFragment = captchaURLFragment
+        self.captchaURL = captchaURL
     }    
-    var captchaImageURL: URL? {
-        guard let appLang = MWKLanguageLinkController.sharedInstance().appLanguage else {
-            return nil
-        }
-        let siteURL = appLang.siteURL() as NSURL
-        guard let domain = siteURL.wmf_domain else {
-            return nil
-        }
-        let url = URL.init(string: "https://\(appLang.languageCode).m.\(domain)\(captchaURLFragment)")
-        return url
-    }
 }
 
 public class WMFAuthAccountCreationInfoFetcher {
@@ -62,7 +51,8 @@ public class WMFAuthAccountCreationInfoFetcher {
                 let captchaId = fields["captchaId"] as? [String : AnyObject],
                 let captchaInfo = fields["captchaInfo"] as? [String : AnyObject],
                 let captchaIdValue = captchaId["value"] as? String,
-                let captchaInfoValue = captchaInfo["value"] as? String
+                let captchaInfoValue = captchaInfo["value"] as? String,
+                let captchaURL = URL(string: captchaInfoValue)
                 else {
                     failure(WMFAuthAccountCreationError.cannotExtractInfo)
                     return
@@ -73,7 +63,7 @@ public class WMFAuthAccountCreationInfoFetcher {
                 return
             }
             
-            success(WMFAuthAccountCreationInfo.init(canCreateAccounts: true, captchaID: captchaIdValue, captchaURLFragment: captchaInfoValue))
+            success(WMFAuthAccountCreationInfo.init(canCreateAccounts: true, captchaID: captchaIdValue, captchaURL: captchaURL))
         }, failure: { (_, error) in
             failure(error)
         })

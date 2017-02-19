@@ -1,7 +1,7 @@
 
 import UIKit
 
-class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControllerRefresh, UITextFieldDelegate, UIScrollViewDelegate {
+class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate {
     @IBOutlet var usernameField: UITextField!
     @IBOutlet var passwordField: UITextField!
     @IBOutlet var passwordRepeatField: UITextField!
@@ -26,7 +26,8 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     fileprivate var rightButton: UIBarButtonItem?
     public var funnel: CreateAccountFunnel?
     fileprivate var captchaViewController: WMFCaptchaViewController?
-        
+    fileprivate var captchaSolution: String?
+
     fileprivate func adjustScrollLimitForCaptchaVisiblity() {
         // Reminder: spaceBeneathCaptchaContainer constraint is space *below* captcha container -
         // that's why below for the show case we don't have to "convertPoint".
@@ -137,9 +138,9 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         captchaViewController = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
+        captchaViewController?.captchaDelegate = self
         wmf_addChildController(captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
         showCaptchaContainer = false
-        NotificationCenter.default.addObserver(self, selector: #selector(textFieldDidChange(_:)), name: NSNotification.Name.UITextFieldTextDidChange, object: captchaViewController?.captchaTextBox)
         enableProgressiveButtonIfNecessary()
     }
     
@@ -153,7 +154,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     }
 
     fileprivate func hasUserEnteredCaptchaText() -> Bool {
-        guard let text = captchaViewController?.captchaTextBox.text else {
+        guard let text = captchaSolution else {
             return false
         }
         return (text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).characters.count > 0)
@@ -167,7 +168,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         } else if (textField == passwordRepeatField) {
             emailField.becomeFirstResponder()
         } else {
-            assert(((textField == emailField) || (textField == captchaViewController?.captchaTextBox)), "Received -textFieldShouldReturn for unexpected text field: \(textField)")
+            assert((textField == emailField), "Received -textFieldShouldReturn for unexpected text field: \(textField)")
             save()
         }
         return true
@@ -187,7 +188,6 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     
     override func viewWillDisappear(_ animated: Bool) {
         WMFAlertManager.sharedInstance.dismissAlert()
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UITextFieldTextDidChange, object: captchaViewController?.captchaTextBox)
         super.viewWillDisappear(animated)
     }
 
@@ -204,7 +204,6 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
             view.setNeedsUpdateConstraints()
             
             if showCaptchaContainer {
-                captchaViewController?.captchaTextBox.perform(#selector(becomeFirstResponder), with: nil, afterDelay: 0.4)
                 funnel?.logCaptchaShown()
                 DispatchQueue.main.async(execute: {
                     UIView.animate(withDuration: duration, animations: {
@@ -221,8 +220,6 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
                         self.setCaptchaAlpha(0)
                         self.scrollView.setContentOffset(CGPoint.zero, animated: false)
                     }, completion: { _ in
-                        self.captchaViewController?.captchaTextBox.text = ""
-                        self.captchaViewController?.captchaImageView.image = nil
                         self.enableProgressiveButtonIfNecessary()
                     })
                 })
@@ -231,25 +228,33 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     }
     
     fileprivate var captchaID: String?
-    fileprivate var captchaURL: URL? {
-        didSet {
-            guard captchaURL != nil else {
-                return;
-            }
-            refreshCaptchaImage()
-        }
+
+    func captchaReloadPushed(_ sender: AnyObject) {
+    WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-obtaining"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+        getCaptcha()
     }
     
-    fileprivate func refreshCaptchaImage() {
-        captchaViewController?.captchaTextBox.text = ""
-        captchaViewController?.captchaImageView.sd_setImage(with: captchaURL)
-        showCaptchaContainer = true
+    func captchaSolutionChanged(_ sender: AnyObject, solutionText: String?) {
+        captchaSolution = solutionText
+        enableProgressiveButtonIfNecessary()
     }
-
-    func reloadCaptchaPushed(_ sender: AnyObject) {
-        captchaViewController?.captchaTextBox.text = ""
-        WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-obtaining"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-        getCaptcha()
+    
+    func captchaDomain() -> String {
+        guard let appLang = MWKLanguageLinkController.sharedInstance().appLanguage else {
+            assert(false, "Could not determine language")
+        }
+        let siteURL = appLang.siteURL() as NSURL
+        guard let domain = siteURL.wmf_domain else {
+            assert(false, "Could not determine domain")
+        }
+        return domain
+    }
+    
+    func captchaLanguageCode() -> String {
+        guard let appLang = MWKLanguageLinkController.sharedInstance().appLanguage else {
+            assert(false, "Could not determine appLanguage")
+        }
+        return appLang.languageCode
     }
     
     fileprivate func login() {
@@ -303,7 +308,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
             return
         }
         wmf_hideKeyboard()
-        createAccount(withCaptcha: captchaViewController?.captchaTextBox.text)
+        createAccount(withCaptcha: captchaSolution)
     }
     
     fileprivate func getCaptcha() {
@@ -317,8 +322,11 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
                                          success: { token in
                                             let warningMessage = self.hasUserEnteredCaptchaText() ? localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-retry") : localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-required")
                                             WMFAlertManager.sharedInstance.showWarningAlert(warningMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+
+                                            self.captchaViewController?.captcha = WMFCaptcha(captchaID: info.captchaID, captchaURL: info.captchaURL)
+                                            self.showCaptchaContainer = true
+                                            
                                             self.captchaID = info.captchaID
-                                            self.captchaURL = info.captchaImageURL
             }, failure: captchaFailure)
         }, failure: captchaFailure)
     }

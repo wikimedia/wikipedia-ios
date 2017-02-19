@@ -52,12 +52,4 @@ public class WMFCaptchaResetter: NSObject {
             failure(error)
         })
     }
-    static public func newCaptchaImageURLFromOldURL(_ oldURL: String, newID: String) -> String? {
-        do {
-            let regex = try NSRegularExpression(pattern: "wpCaptchaId=([^&]*)", options: .caseInsensitive)
-            return regex.stringByReplacingMatches(in: oldURL, options: [], range: NSMakeRange(0, oldURL.characters.count), withTemplate: "wpCaptchaId=\(newID)")
-        } catch {
-            return nil
-        }
-    }
 }
