@@ -18,6 +18,20 @@ public class WMFCaptcha: NSObject {
         self.captchaID = captchaID
         self.captchaURL = captchaURL
     }
+    static func captcha(from requests: [[String : AnyObject]]) -> WMFCaptcha? {
+        guard
+            let captchaAuthenticationRequest = requests.first(where:{$0["id"]! as! String == "CaptchaAuthenticationRequest"}),
+            let fields = captchaAuthenticationRequest["fields"] as? [String : AnyObject],
+            let captchaId = fields["captchaId"] as? [String : AnyObject],
+            let captchaInfo = fields["captchaInfo"] as? [String : AnyObject],
+            let captchaIdValue = captchaId["value"] as? String,
+            let captchaInfoValue = captchaInfo["value"] as? String,
+            let captchaURL = URL(string: captchaInfoValue)
+            else {
+                return nil
+        }
+        return WMFCaptcha(captchaID: captchaIdValue, captchaURL: captchaURL)
+    }
 }
 
 class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {

@@ -227,7 +227,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         }
     }
     
-    fileprivate var captchaID: String?
+    fileprivate var captcha: WMFCaptcha?
 
     func captchaReloadPushed(_ sender: AnyObject) {
     WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-obtaining"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
@@ -323,10 +323,9 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
                                             let warningMessage = self.hasUserEnteredCaptchaText() ? localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-retry") : localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-required")
                                             WMFAlertManager.sharedInstance.showWarningAlert(warningMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
 
-                                            self.captchaViewController?.captcha = WMFCaptcha(captchaID: info.captchaID, captchaURL: info.captchaURL)
+                                            self.captchaViewController?.captcha = info.captcha
                                             self.showCaptchaContainer = true
-                                            
-                                            self.captchaID = info.captchaID
+                                            self.captcha = info.captcha
             }, failure: captchaFailure)
         }, failure: captchaFailure)
     }
@@ -356,7 +355,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
                     password: self.passwordField.text!,
                     retypePassword: self.passwordRepeatField.text!,
                     email: self.emailField.text!,
-                    captchaID:self.captchaID,
+                    captchaID:self.captcha?.captchaID,
                     captchaWord: captcha,
                     token: token.token,
                     siteURL: siteURL!,

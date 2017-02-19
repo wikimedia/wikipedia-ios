@@ -16,13 +16,11 @@ public typealias WMFAuthAccountCreationInfoBlock = (WMFAuthAccountCreationInfo) 
 
 public struct WMFAuthAccountCreationInfo {
     let canCreateAccounts:Bool
-    let captchaID: String
-    let captchaURL: URL
-    init(canCreateAccounts:Bool, captchaID:String, captchaURL:URL) {
+    let captcha: WMFCaptcha?
+    init(canCreateAccounts:Bool, captcha:WMFCaptcha?) {
         self.canCreateAccounts = canCreateAccounts
-        self.captchaID = captchaID
-        self.captchaURL = captchaURL
-    }    
+        self.captcha = captcha
+    }
 }
 
 public class WMFAuthAccountCreationInfoFetcher {
@@ -39,31 +37,21 @@ public class WMFAuthAccountCreationInfoFetcher {
             "amirequestsfor": "create",
             "format": "json"
         ]
-        _ = manager.wmf_apiPOSTWithParameters(parameters, success: { (_, response) in
-            
+        _ = manager.wmf_apiPOSTWithParameters(parameters, success: { (_, response) in            
             guard
                 let response = response as? [String : AnyObject],
                 let query = response["query"] as? [String : AnyObject],
                 let authmanagerinfo = query["authmanagerinfo"] as? [String : AnyObject],
-                let requests = authmanagerinfo["requests"] as? [[String : AnyObject]],
-                let captchaAuthenticationRequest = requests.first(where:{$0["id"]! as! String == "CaptchaAuthenticationRequest"}),
-                let fields = captchaAuthenticationRequest["fields"] as? [String : AnyObject],
-                let captchaId = fields["captchaId"] as? [String : AnyObject],
-                let captchaInfo = fields["captchaInfo"] as? [String : AnyObject],
-                let captchaIdValue = captchaId["value"] as? String,
-                let captchaInfoValue = captchaInfo["value"] as? String,
-                let captchaURL = URL(string: captchaInfoValue)
+                let requests = authmanagerinfo["requests"] as? [[String : AnyObject]]
                 else {
                     failure(WMFAuthAccountCreationError.cannotExtractInfo)
                     return
             }
-            
             guard authmanagerinfo["cancreateaccounts"] != nil else {
                 failure(WMFAuthAccountCreationError.cannotCreateAccountsNow)
                 return
             }
-            
-            success(WMFAuthAccountCreationInfo.init(canCreateAccounts: true, captchaID: captchaIdValue, captchaURL: captchaURL))
+            success(WMFAuthAccountCreationInfo.init(canCreateAccounts: true, captcha: WMFCaptcha.captcha(from: requests)))
         }, failure: { (_, error) in
             failure(error)
         })
