@@ -172,8 +172,8 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
         [self wmf_cropContentsByVerticallyCenteringFrame:[image wmf_denormalizeRect:faceBounds]
                                      insideBoundsOfImage:image];
     } else {
-        [self wmf_resetContentsRect];
-    }
+        [self wmf_topAlignContentsRect:image];
+}
     
     dispatch_block_t animations = ^{
         [self wmf_hidePlaceholder];
