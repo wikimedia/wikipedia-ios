@@ -154,33 +154,37 @@ class ArticlePlaceView: MKAnnotationView {
         }
     }
     
+    func showPlaceholderImage() {
+        imageView.contentMode = .center
+        imageView.backgroundColor = UIColor.wmf_green()
+        imageView.image = #imageLiteral(resourceName: "places-w")
+        
+        selectedImageView.contentMode = .center
+        selectedImageView.backgroundColor = UIColor.wmf_green()
+        selectedImageView.image = #imageLiteral(resourceName: "places-w-big")
+    }
+    
     func update(withArticlePlace articlePlace: ArticlePlace) {
         if articlePlace.articles.count == 1 {
             zPosition = 1
             dotView.backgroundColor = UIColor.wmf_green()
             let article = articlePlace.articles[0]
             if let thumbnailURL = article.thumbnailURL {
-                imageView.backgroundColor = UIColor.wmf_green()
-                selectedImageView.backgroundColor = UIColor.wmf_green()
+                showPlaceholderImage()
                 imageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
-                    self.imageView.backgroundColor = UIColor.wmf_green()
-                    self.selectedImageView.backgroundColor = UIColor.wmf_green()
-                    self.selectedImageView.image = nil
-                    self.imageView.image = nil
+                    
                 }, success: {
+                    self.imageView.contentMode = .scaleAspectFill
                     self.imageView.backgroundColor = UIColor.white
                     self.selectedImageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
-                        self.selectedImageView.backgroundColor = UIColor.wmf_green()
-                        self.selectedImageView.image = nil
+                        self.showPlaceholderImage()
                     }, success: {
                         self.selectedImageView.backgroundColor = UIColor.white
+                        self.selectedImageView.contentMode = .scaleAspectFill
                     })
                 })
             } else {
-                selectedImageView.image = nil
-                selectedImageView.backgroundColor = UIColor.wmf_green()
-                imageView.image = nil
-                imageView.backgroundColor = UIColor.wmf_green()
+                showPlaceholderImage()
             }
         } else {
             zPosition = 2
