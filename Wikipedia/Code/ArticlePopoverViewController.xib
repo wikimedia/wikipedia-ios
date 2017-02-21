@@ -71,29 +71,26 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nxC-vP-z1C">
                     <rect key="frame" x="0.0" y="90" width="240" height="40"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Hcw-WG-NzJ">
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Hcw-WG-NzJ">
                             <rect key="frame" x="0.0" y="0.0" width="240" height="40"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GYm-b5-xDD">
-                                    <rect key="frame" x="0.0" y="0.0" width="79.5" height="40"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="78.5" height="40"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <state key="normal" title="Save"/>
                                     <connections>
                                         <action selector="save:" destination="-1" eventType="touchUpInside" id="sB7-BI-rxt"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aTL-Re-doV">
-                                    <rect key="frame" x="80.5" y="0.0" width="79" height="40"/>
+                                    <rect key="frame" x="79.5" y="0.0" width="78" height="40"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <state key="normal" title="Share"/>
                                     <connections>
                                         <action selector="share:" destination="-1" eventType="touchUpInside" id="3Kb-L8-V07"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYh-TI-bsl">
-                                    <rect key="frame" x="160.5" y="0.0" width="79.5" height="40"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYh-TI-bsl" customClass="RightAlignedImageButton" customModule="Wikipedia" customModuleProvider="target">
+                                    <rect key="frame" x="158.5" y="0.0" width="81.5" height="40"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <state key="normal" title="Read"/>
                                     <connections>
                                         <action selector="read:" destination="-1" eventType="touchUpInside" id="jz5-xx-qWg"/>
                                     </connections>
