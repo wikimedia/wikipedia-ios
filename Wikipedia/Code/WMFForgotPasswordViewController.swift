@@ -17,18 +17,18 @@ class WMFForgotPasswordViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(self.didTapClose(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
     
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("forgot-password-title")
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("forgot-password-instructions")
         usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("forgot-password-username-prompt")
         emailField.placeholder = localizedStringForKeyFallingBackOnEnglish("forgot-password-email-prompt")
         
-        resetButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("forgot-password-button-title"), style: .plain, target: self, action: #selector(self.resetButtonPushed(_:)))
+        resetButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("forgot-password-button-title"), style: .plain, target: self, action: #selector(resetButtonPushed(_:)))
         navigationItem.rightBarButtonItem = resetButton
     
-        usernameField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
-        emailField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        usernameField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        emailField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     
         usernameUnderlineHeight.constant = 1.0 / UIScreen.main.scale
         emailUnderlineHeight.constant = 1.0 / UIScreen.main.scale
@@ -50,7 +50,7 @@ class WMFForgotPasswordViewController: UIViewController {
     }
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if (textField == self.usernameField) {
+        if (textField == usernameField) {
             emailField.becomeFirstResponder()
         } else if (textField == emailField) {
             save()
@@ -59,23 +59,31 @@ class WMFForgotPasswordViewController: UIViewController {
     }
 
     func textFieldDidChange(_ sender: UITextField) {
-        enableProgressiveButton((usernameField.text!.characters.count > 0 || emailField.text!.characters.count > 0))
+        guard
+            let username = usernameField.text,
+            let email = emailField.text
+            else{
+                enableProgressiveButton(false)
+                return
+        }
+        enableProgressiveButton((username.characters.count > 0 || email.characters.count > 0))
     }
 
     func enableProgressiveButton(_ highlight: Bool) {
         resetButton.isEnabled = highlight
     }
 
-    func resetButtonPushed(_ tap: UITapGestureRecognizer) {
+    func resetButtonPushed(_ : UIBarButtonItem) {
         save()
     }
 
     fileprivate func save() {
+        wmf_hideKeyboard()
         sendPasswordResetEmail(userName: usernameField.text, email: emailField.text)
     }
     
-    func didTapClose(_ tap: UITapGestureRecognizer) {
-        self.dismiss(animated: true, completion: nil)
+    func closeButtonPushed(_ : UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
     
     func sendPasswordResetEmail(userName: String?, email: String?) {
@@ -84,25 +92,20 @@ class WMFForgotPasswordViewController: UIViewController {
             return
         }
         
-        tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: {
-            (info: WMFAuthToken) in
+        let failure: WMFErrorHandler = {error in
+            WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        }
+        
+        tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { tokenBlock in
             self.passwordResetter.resetPassword(
                 siteURL: siteURL,
-                token: info.token,
+                token: tokenBlock.token,
                 userName: userName,
                 email: email,
-                success: {
-                    (result: WMFPasswordResetterResult) in                    
+                success: { result in
                     self.dismiss(animated: true, completion:nil)
                     WMFAlertManager.sharedInstance.showSuccessAlert(localizedStringForKeyFallingBackOnEnglish("forgot-password-email-sent"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            },
-                failure: {
-                    (error: Error) in
-                    WMFAlertManager.sharedInstance.showAlert(error.localizedDescription, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            })
-        }, failure: {
-            (error: Error) in
-            WMFAlertManager.sharedInstance.showAlert(error.localizedDescription, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-        })
+            }, failure:failure)
+        }, failure:failure)
     }
 }

@@ -14,17 +14,17 @@ public enum WMFAuthLoginError: LocalizedError {
 
 public typealias WMFAuthLoginInfoBlock = (WMFAuthLoginInfo) -> Void
 
-public class WMFAuthLoginInfo: NSObject {
+public struct WMFAuthLoginInfo {
     let canAuthenticateNow:Bool
     init(canAuthenticateNow:Bool) {
         self.canAuthenticateNow = canAuthenticateNow
     }
 }
 
-public class WMFAuthLoginInfoFetcher: NSObject {
+public class WMFAuthLoginInfoFetcher {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
     public func isFetching() -> Bool {
-        return manager!.operationQueue.operationCount > 0
+        return manager.operationQueue.operationCount > 0
     }
     public func fetchLoginInfoForSiteURL(_ siteURL: URL, success: @escaping WMFAuthLoginInfoBlock, failure: @escaping WMFErrorHandler){
         let manager = AFHTTPSessionManager(baseURL: siteURL)
@@ -35,8 +35,7 @@ public class WMFAuthLoginInfoFetcher: NSObject {
             "amirequestsfor": "login",
             "format": "json"
         ]
-        _ = manager.wmf_apiPOSTWithParameters(parameters, success: {
-            (_, response: Any?) in
+        _ = manager.wmf_apiPOSTWithParameters(parameters, success: { (_, response) in
             
             guard
                 let response = response as? [String : AnyObject],
@@ -53,8 +52,7 @@ public class WMFAuthLoginInfoFetcher: NSObject {
             }
             
             success(WMFAuthLoginInfo.init(canAuthenticateNow: true))
-        }, failure: {
-            (_, error: Error) in
+        }, failure: { (_, error) in
             failure(error)
         })
     }

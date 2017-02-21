@@ -59,6 +59,9 @@
 "account-creation-captcha-required" = "Alert message shown when account creation require a captcha verification";
 "account-creation-captcha-retry" = "Alert message shown when the captcha the user entered did not match the captcha image";
 "account-creation-captcha-obtaining" = "Alert shown when user wants a new captcha when creating account";
+"account-creation-captcha-title" = "Title for account creation CAPTCHA interface";
+"account-creation-captcha-cannot-see-image" = "Text asking the user if they cannot see the captcha image. $1 is the message {{msg-wm|Wikipedia-ios-account-creation-captcha-request-account}}";
+"account-creation-captcha-request-account" = "Text for link to 'Request an account' page.";
 "account-creation-logging-in" = "Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}";
 "account-creation-passwords-mismatched" = "Alert shown if the user doesn't enter the same password in both password boxes";
 "account-creation-saving" = "Alert shown when user saves account creation form.\n{{Identical|Saving}}";

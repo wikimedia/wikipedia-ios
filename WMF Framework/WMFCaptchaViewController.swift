@@ -27,9 +27,14 @@ class WMFCaptchaViewController: UIViewController {
     }
     
     func reloadCaptchaPushed(_ sender: AnyObject) {
-        if self.parent!.responds(to: #selector(reloadCaptchaPushed(_:))) {
-            self.parent!.performSelector(onMainThread: #selector(reloadCaptchaPushed(_:)), with: nil, waitUntilDone: true)
+        guard
+            let parentVC = parent,
+            parentVC.responds(to: #selector(reloadCaptchaPushed(_:)))
+        else{
+            assert(false, "Expected parent view controller not found or does't respond to 'reloadCaptchaPushed'")
+            return
         }
+        parentVC.performSelector(onMainThread: #selector(reloadCaptchaPushed(_:)), with: nil, waitUntilDone: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -37,18 +42,23 @@ class WMFCaptchaViewController: UIViewController {
         
         reloadCaptchaButton.addTarget(self, action: #selector(reloadCaptchaPushed(_:)), for: .touchUpInside)
 
+        guard
+            let parentVC = parent,
+            parentVC.conforms(to: WMFCaptchaViewControllerRefresh.self)
+        else{
+            assert(false, "Expected parent view controller not found or doesn't conform to WMFCaptchaViewControllerRefresh")
+            return
+        }
+
         // Allow whatever view controller is using this captcha view controller
         // to monitor changes to captchaTextBox and also when its keyboard done/next
         // buttons are tapped.
-        
-        if self.parent!.conforms(to: WMFCaptchaViewControllerRefresh.self){
-            captchaTextBox.delegate = self.parent as? UITextFieldDelegate
-        }
+        captchaTextBox.delegate = parent as? UITextFieldDelegate
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         captchaTextBox.delegate = nil
-        self.reloadCaptchaButton.removeTarget(nil, action: nil, for: .allEvents)
+        reloadCaptchaButton.removeTarget(nil, action: nil, for: .allEvents)
         super.viewWillDisappear(animated)
     }
 }

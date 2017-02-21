@@ -1,6 +1,8 @@
 #import "AFHTTPSessionManager+WMFConfig.h"
 #import "WMFBaseRequestSerializer.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @implementation AFHTTPSessionManager (WMFConfig)
 
 + (instancetype)wmf_createDefaultManager {
@@ -22,3 +24,5 @@
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

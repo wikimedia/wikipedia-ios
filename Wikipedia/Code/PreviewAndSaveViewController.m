@@ -1,7 +1,6 @@
 #import "PreviewAndSaveViewController.h"
 #import "PreviewHtmlFetcher.h"
 #import "WikiTextSectionUploader.h"
-#import "UIViewController+WMFHideKeyboard.h"
 #import "SessionSingleton.h"
 #import "PreviewWebViewContainer.h"
 #import "PaddedLabel.h"
@@ -23,8 +22,6 @@
 #import <Masonry/Masonry.h>
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "WKWebView+LoadAssetsHtml.h"
-#import "WMFAuthenticationManager.h"
-#import "KeychainCredentials.h"
 @import BlocksKitUIKitExtensions;
 
 #define TERMS_LINK @"https://wikimediafoundation.org/wiki/Terms_of_Use"
@@ -46,8 +43,6 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 };
 
 @interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate, PreviewLicenseViewDelegate>
-
-@property (strong, nonatomic) KeychainCredentials *keychainCredentials;
 
 @property (strong, nonatomic) NSString *captchaId;
 @property (strong, nonatomic) NSString *captchaUrl;
@@ -198,7 +193,6 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.previewLicenseView.previewLicenseViewDelegate = self;
-    self.keychainCredentials = [[KeychainCredentials alloc] init];
     self.previewWebViewContainer.externalLinksOpenerDelegate = self;
 
     @weakify(self)
