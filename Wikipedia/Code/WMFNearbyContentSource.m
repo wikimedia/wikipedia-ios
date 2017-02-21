@@ -77,7 +77,12 @@
                 completion();
             }
         }];
-    } else if (self.currentLocationManager.location == nil) {
+        return;
+    }
+    
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder];
+    
+    if (self.currentLocationManager.location == nil) {
         self.isFetchingInitialLocation = YES;
         self.completion = completion;
         [self.currentLocationManager startMonitoringLocation];

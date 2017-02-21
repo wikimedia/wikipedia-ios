@@ -996,6 +996,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
             return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier forIndexPath:indexPath];
         case WMFFeedMoreTypeLocationAuthorization: {
             WMFTitledExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFTitledExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
+            [footer bk_whenTapped:^{
+                [self.locationManager startMonitoringLocation];
+            }];
             return footer;
         }
         default: {
@@ -1353,6 +1356,12 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 - (void)locationManager:(WMFLocationManager *)controller didReceiveError:(NSError *)error {
     //TODO: probably not displaying the error, but maybe?
+}
+
+- (void)locationManager:(WMFLocationManager *)controller didChangeEnabledState:(BOOL)enabled {
+    [self updateFeedSources:^{
+
+    }];
 }
 
 #pragma mark - Previewing
