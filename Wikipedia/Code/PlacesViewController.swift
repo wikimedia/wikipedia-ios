@@ -1306,13 +1306,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     // WMFLocationManagerDelegate
     
-    func updateUserLocationAnnotationViewHeading(withLocation location: CLLocation) {
+    func updateUserLocationAnnotationViewHeading(_ heading: CLHeading) {
         guard let view = mapView.view(for: mapView.userLocation) as? UserLocationAnnotationView else {
             return
         }
-        let course = location.course
-        view.isHeadingArrowVisible = location.horizontalAccuracy < 1000
-        view.heading = course
+        view.isHeadingArrowVisible = heading.headingAccuracy > 0 && heading.headingAccuracy < 90
+        view.heading = heading.trueHeading
     }
     
     func zoomAndPanMapView(toLocation location: CLLocation) {
@@ -1326,7 +1325,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     var panMapToNextLocationUpdate = true
     
     func locationManager(_ controller: WMFLocationManager, didUpdate location: CLLocation) {
-        updateUserLocationAnnotationViewHeading(withLocation: location)
         guard panMapToNextLocationUpdate else {
             return
         }
@@ -1338,6 +1336,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func locationManager(_ controller: WMFLocationManager, didUpdate heading: CLHeading) {
+        updateUserLocationAnnotationViewHeading(heading)
+
     }
     
     func locationManager(_ controller: WMFLocationManager, didChangeEnabledState enabled: Bool) {
