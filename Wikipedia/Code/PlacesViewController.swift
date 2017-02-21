@@ -204,12 +204,18 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         listView.estimatedRowHeight = WMFNearbyArticleTableViewCell.estimatedRowHeight()
         
         // Setup search bar
-        searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 32))
+        let searchBarLeftPadding: CGFloat = 7.5
+        let searchBarRightPadding: CGFloat = 2.5
+        searchBar = UISearchBar(frame: CGRect(x: searchBarLeftPadding, y: 0, width: view.bounds.size.width - searchBarLeftPadding - searchBarRightPadding, height: 32))
         //searchBar.keyboardType = .webSearch
         searchBar.returnKeyType = .search
         searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
-        navigationItem.titleView = searchBar
+        searchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 32))
+        titleView.addSubview(searchBar)
+        navigationItem.titleView = titleView
         
         // Setup search suggestions
         searchSuggestionController = PlaceSearchSuggestionController()
