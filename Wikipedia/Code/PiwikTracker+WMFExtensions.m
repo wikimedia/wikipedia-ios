@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
     [PiwikTracker sharedInstanceWithSiteID:appID baseURL:[NSURL URLWithString:piwikHostURLString]];
     [[PiwikTracker sharedInstance] setDispatchInterval:WMFDispatchInterval];
     [[PiwikTracker sharedInstance] setSampleRate:10];
+    [[[PiwikTracker sharedInstance] dispatcher] setUserAgent:[WikipediaAppUtils versionedUserAgent]];
 }
 
 - (void)wmf_logView:(id<WMFAnalyticsViewNameProviding>)view {
