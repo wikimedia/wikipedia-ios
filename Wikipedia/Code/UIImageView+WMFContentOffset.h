@@ -45,6 +45,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)wmf_resetContentsRect;
 
+/**
+ *  Aligns the content to the top of the receiver.
+ *
+ *  @note The very top of the image is actually cropped off, but in practice it works.
+ */
+- (void)wmf_topAlignContentsRect:(UIImage *)image;
+
 @end
 
 NS_ASSUME_NONNULL_END
