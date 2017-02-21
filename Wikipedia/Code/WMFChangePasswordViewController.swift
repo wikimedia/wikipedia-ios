@@ -80,6 +80,8 @@ class WMFChangePasswordViewController: UIViewController {
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("new-password-instructions")
         passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("new-password-password-placeholder-text")
         retypeField.placeholder = localizedStringForKeyFallingBackOnEnglish("new-password-confirm-placeholder-text")
+        
+        view.wmf_configureSubviewsForDynamicType()
     }
     
     func closeButtonPushed(_ : UIBarButtonItem) {
