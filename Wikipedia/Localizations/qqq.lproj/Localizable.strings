@@ -485,5 +485,6 @@
 "places-search-recently-searched-header" = "Recently searched - header for the list of recently searched items";
 
 "action-share" = "Title for the 'Share' action";
-"action-save-for-later" = "Title for the 'Save for later' action";
+"action-save" = "Title for the 'Save' action";
+"action-read" = "Title for the 'Read' action";
 "action-unsave" = "Title for the 'Unsave' action";
