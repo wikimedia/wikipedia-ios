@@ -19,11 +19,29 @@ class ArticlePopoverViewController: UIViewController {
     
     @IBOutlet weak var articleSummaryView: UIView!
     
-    var article: WMFArticle?
+    let article: WMFArticle
+    
+    required init(_ article: WMFArticle) {
+        self.article = article
+        super.init(nibName: "ArticlePopoverViewController", bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        return nil
+    }
     
     override func viewDidLoad() {
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         articleSummaryView.addGestureRecognizer(tapGR)
+        
+        shareButton.setTitle(localizedStringForKeyFallingBackOnEnglish("action-share"), for: .normal)
+        readButton.setTitle(localizedStringForKeyFallingBackOnEnglish("action-read"), for: .normal)
+        
+        let saveTitle = article.savedDate == nil ? localizedStringForKeyFallingBackOnEnglish("action-save") : localizedStringForKeyFallingBackOnEnglish("action-unsave")
+        saveButton.setTitle(saveTitle, for: .normal)
+        
+        titleLabel.text = article.displayTitle
+        subtitleLabel.text = article.wikidataDescription
     }
     
     func handleTapGesture(_ tapGR: UITapGestureRecognizer) {
