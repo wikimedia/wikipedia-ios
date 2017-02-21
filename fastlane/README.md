@@ -88,12 +88,12 @@ Build the app for distibution
 ```
 fastlane ios push_beta
 ```
-updates version, builds, and pushes to Testlfight
+updates version, builds, and pushes to TestFlight
 ### ios push_alpha
 ```
 fastlane ios push_alpha
 ```
-updates version, builds, and pushes alpha to Testlfight
+updates version, builds, and pushes alpha to TestFlight
 ### ios get_latest_alpha_or_beta_build_number
 ```
 fastlane ios get_latest_alpha_or_beta_build_number
@@ -103,7 +103,7 @@ fastlane ios get_latest_alpha_or_beta_build_number
 ```
 fastlane ios push
 ```
-updates version, builds, and pushes to Testlfight
+updates version, builds, and pushes to TestFlight
 ### ios test_and_push_beta
 ```
 fastlane ios test_and_push_beta

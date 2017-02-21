@@ -556,5 +556,6 @@
 "places-search-recently-searched-header" = "Recently searched";
 
 "action-share" = "Share";
-"action-save-for-later" = "Save for later";
+"action-save" = "Save";
+"action-read" = "Read";
 "action-unsave" = "Unsave";

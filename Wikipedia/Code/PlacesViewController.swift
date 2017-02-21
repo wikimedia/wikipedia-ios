@@ -11,7 +11,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     let previewFetcher = WMFArticlePreviewFetcher()
     let wikidataFetcher = WikidataFetcher()
     
-    let locationManager = WMFLocationManager.coarse()
+    let locationManager = WMFLocationManager.fine()
     
     let animationDuration = 0.6
     let animationScale = CGFloat(0.6)
@@ -177,6 +177,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         mapView.showsTraffic = false
         mapView.showsPointsOfInterest = false
         mapView.showsScale = true
+        mapView.showsUserLocation = true
         
         // Setup location manager
         locationManager.delegate = self
@@ -395,14 +396,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
-        let articleVC = ArticlePopoverViewController()
+        let articleVC = ArticlePopoverViewController(article)
         articleVC.delegate = self
         articleVC.view.tintColor = view.tintColor
-        
-        articleVC.article = article
-        articleVC.titleLabel.text = article.displayTitle
-        articleVC.subtitleLabel.text = article.wikidataDescription
-        
+
         let articleLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         let userCoordinate = mapView.userLocation.coordinate
         let userLocation = CLLocation(latitude: userCoordinate.latitude, longitude: userCoordinate.longitude)
@@ -1023,13 +1020,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     // ArticlePopoverViewControllerDelegate
     func articlePopoverViewController(articlePopoverViewController: ArticlePopoverViewController, didSelectAction action: WMFArticleAction) {
-        
-        
-        guard let article = articlePopoverViewController.article else {
-            return
-        }
-        perform(action: action, onArticle: article)
-        
+        perform(action: action, onArticle: articlePopoverViewController.article)
     }
     
     func perform(action: WMFArticleAction, onArticle article: WMFArticle) {
@@ -1237,7 +1228,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let article = articleFetchedResultsController.object(at: indexPath)
-        let title = article.savedDate == nil ? localizedStringForKeyFallingBackOnEnglish("action-save-for-later") : localizedStringForKeyFallingBackOnEnglish("action-unsave")
+        let title = article.savedDate == nil ? localizedStringForKeyFallingBackOnEnglish("action-save") : localizedStringForKeyFallingBackOnEnglish("action-unsave")
         let saveForLaterAction = UITableViewRowAction(style: .default, title: title) { (action, indexPath) in
             CATransaction.begin()
             CATransaction.setCompletionBlock({
@@ -1310,17 +1301,35 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     // WMFLocationManagerDelegate
     
-    func locationManager(_ controller: WMFLocationManager, didUpdate location: CLLocation) {
+    func updateUserLocationAnnotationViewHeading(withLocation location: CLLocation) {
+        guard let view = mapView.view(for: mapView.userLocation) as? UserLocationAnnotationView else {
+            return
+        }
+        let course = location.course
+        view.isHeadingArrowVisible = location.horizontalAccuracy < 1000
+        view.heading = course
+    }
+    
+    func zoomAndPanMapView(toLocation location: CLLocation) {
         let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
         mapRegion = region
         if currentSearch == nil {
             currentSearch = PlaceSearch(type: .top, sortStyle: .links, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
         }
-        locationManager.stopMonitoringLocation()
+    }
+    
+    var panMapToNextLocationUpdate = true
+    
+    func locationManager(_ controller: WMFLocationManager, didUpdate location: CLLocation) {
+        updateUserLocationAnnotationViewHeading(withLocation: location)
+        guard panMapToNextLocationUpdate else {
+            return
+        }
+        panMapToNextLocationUpdate = false
+        zoomAndPanMapView(toLocation: location)
     }
     
     func locationManager(_ controller: WMFLocationManager, didReceiveError error: Error) {
-        locationManager.stopMonitoringLocation()
     }
     
     func locationManager(_ controller: WMFLocationManager, didUpdate heading: CLHeading) {
@@ -1330,60 +1339,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     @IBAction func recenterOnUserLocation(_ sender: Any) {
-        locationManager.startMonitoringLocation()
+        zoomAndPanMapView(toLocation: locationManager.location)
     }
     
     // NSFetchedResultsControllerDelegate
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         updatePlaces()
-    }
-    
-    // Grouping debug view
-    
-    @IBOutlet weak var secretSettingsView: UIView!
-    
-    
-    @IBOutlet weak var maxZoomLabel: UILabel!
-    @IBOutlet weak var maxZoomSlider: UISlider!
-    @IBAction func maxZoomValueChanged(_ sender: Any) {
-        maxZoomLabel.text = "max: \(Int(round(maxZoomSlider.value)))"
-        applySecretSettings()
-    }
-    
-    @IBOutlet weak var groupZoomDeltaLabel: UILabel!
-    @IBOutlet weak var groupZoomDeltaSlider: UISlider!
-    @IBAction func groupZoomDeltaSliderChanged(_ sender: Any) {
-        groupZoomDeltaLabel.text = "delta: \(Int(8 - round(groupZoomDeltaSlider.value)))"
-        applySecretSettings()
-    }
-    
-    @IBOutlet weak var groupAggressivenessLabel: UILabel!
-    @IBOutlet weak var groupAggressivenessSlider: UISlider!
-    @IBAction func groupAggressivenessChanged(_ sender: Any) {
-        groupAggressivenessLabel.text = String(format: "agg: %.2f", groupAggressivenessSlider.value)
-        applySecretSettings()
-    }
-    
-    func applySecretSettings() {
-        groupingAggressiveness = CLLocationDistance(groupAggressivenessSlider.value)
-        groupingPrecisionDelta = QuadKeyPrecision(8 - round(groupZoomDeltaSlider.value))
-        maxGroupingPrecision = QuadKeyPrecision(round(maxZoomSlider.value))
-        currentGroupingPrecision = 0
-        regroupArticlesIfNecessary(forVisibleRegion: mapRegion ?? mapView.region)
-    }
-    
-    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
-        switch motion {
-        case .motionShake:
-            secretSettingsView.isHidden = !secretSettingsView.isHidden
-            guard secretSettingsView.isHidden else {
-                return
-            }
-            applySecretSettings()
-        default:
-            break
-        }
     }
 }
 
