@@ -37,6 +37,10 @@ NS_ASSUME_NONNULL_BEGIN
     self.layer.contentsRect = CGRectMake(0, 0, 1, 1);
 }
 
+- (void)wmf_topAlignContentsRect:(UIImage *)image {
+    self.layer.contentsRect = CGRectMake(0, 0, 1, (image.size.width / image.size.height) / 2.f);
+}
+
 @end
 
 NS_ASSUME_NONNULL_END
