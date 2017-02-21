@@ -57,6 +57,8 @@ class WMFLoginViewController: UIViewController {
 
         usernameUnderlineHeight.constant = 1.0 / UIScreen.main.scale
         passwordUnderlineHeight.constant = 1.0 / UIScreen.main.scale
+    
+        view.wmf_configureSubviewsForDynamicType()
     }
     
     func textFieldDidChange(_ sender: UITextField) {

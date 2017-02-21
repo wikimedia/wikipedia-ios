@@ -855,6 +855,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    NSUInteger index = self.indexOfCurrentFontSize;
+    NSNumber *multiplier = self.fontSizeMultipliers[index];
+    [self.webViewController setFontSizeMultiplier:multiplier];
 
     [self updateTableOfContentsDisplayModeWithTraitCollection:self.traitCollection];
 

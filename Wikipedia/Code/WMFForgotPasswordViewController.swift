@@ -32,6 +32,8 @@ class WMFForgotPasswordViewController: UIViewController {
     
         usernameUnderlineHeight.constant = 1.0 / UIScreen.main.scale
         emailUnderlineHeight.constant = 1.0 / UIScreen.main.scale
+        
+        view.wmf_configureSubviewsForDynamicType()
     }
     
     override func viewWillAppear(_ animated: Bool) {
