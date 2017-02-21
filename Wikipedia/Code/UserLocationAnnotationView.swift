@@ -12,9 +12,9 @@ class UserLocationAnnotationView: MKAnnotationView {
         }
     }
     
-    var heading: CGFloat = 0 {
+    var heading: CLLocationDirection = 0 {
         didSet {
-            let transform = CATransform3DMakeRotation((heading/180.0)*CGFloat.pi, 0, 0, 1.0)
+            let transform = CATransform3DMakeRotation(CGFloat(heading/180.0)*CGFloat.pi, 0, 0, 1.0)
             CATransaction.begin()
             CATransaction.setAnimationDuration(0.3)
             shapeLayer.transform = transform
