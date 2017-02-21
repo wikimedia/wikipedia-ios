@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
         default:
             break;
     }
-    return [[UIImage alloc] init];
+    return nil;
 }
 
 - (nullable UIColor *)headerIconTintColor {
