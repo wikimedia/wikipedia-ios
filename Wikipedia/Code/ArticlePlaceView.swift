@@ -11,7 +11,7 @@ class ArticlePlaceView: MKAnnotationView {
     let dimension: CGFloat = 60
     let collapsedDimension: CGFloat = 15
     let groupDimension: CGFloat = 30
-    let selectionAnimationDuration = 0.4
+    let selectionAnimationDuration = 0.3
     
     var alwaysShowImage = false
     
@@ -66,7 +66,7 @@ class ArticlePlaceView: MKAnnotationView {
             if alwaysShowImage {
                 UIView.animateKeyframes(withDuration: 2*selectionAnimationDuration, delay: 0, options: [], animations: {
                     UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
-                        UIView.animate(withDuration: 2*self.selectionAnimationDuration, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: transforms, completion:nil)
+                        UIView.animate(withDuration: 2*self.selectionAnimationDuration, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: transforms, completion:nil)
                         
                     })
                     UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25, animations:fadesIn)
@@ -293,7 +293,7 @@ class ArticlePlaceView: MKAnnotationView {
             if selected {
                 UIView.animateKeyframes(withDuration: duration, delay: 0, options: [], animations: {
                     UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
-                        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: transforms, completion:nil)
+                        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: transforms, completion:nil)
 
                     })
                     UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25, animations:fadesIn)

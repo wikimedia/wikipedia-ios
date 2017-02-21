@@ -15,8 +15,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     let animationDuration = 0.6
     let animationScale = CGFloat(0.6)
-    let popoverFadeDuration = 0.3
-    let popoverDelayDuration = 0.7
+    let popoverFadeDuration = 0.25
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var progressView: UIProgressView!
