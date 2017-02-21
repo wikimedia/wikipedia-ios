@@ -1347,52 +1347,5 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         updatePlaces()
     }
-    
-    // Grouping debug view
-    
-    @IBOutlet weak var secretSettingsView: UIView!
-    
-    
-    @IBOutlet weak var maxZoomLabel: UILabel!
-    @IBOutlet weak var maxZoomSlider: UISlider!
-    @IBAction func maxZoomValueChanged(_ sender: Any) {
-        maxZoomLabel.text = "max: \(Int(round(maxZoomSlider.value)))"
-        applySecretSettings()
-    }
-    
-    @IBOutlet weak var groupZoomDeltaLabel: UILabel!
-    @IBOutlet weak var groupZoomDeltaSlider: UISlider!
-    @IBAction func groupZoomDeltaSliderChanged(_ sender: Any) {
-        groupZoomDeltaLabel.text = "delta: \(Int(8 - round(groupZoomDeltaSlider.value)))"
-        applySecretSettings()
-    }
-    
-    @IBOutlet weak var groupAggressivenessLabel: UILabel!
-    @IBOutlet weak var groupAggressivenessSlider: UISlider!
-    @IBAction func groupAggressivenessChanged(_ sender: Any) {
-        groupAggressivenessLabel.text = String(format: "agg: %.2f", groupAggressivenessSlider.value)
-        applySecretSettings()
-    }
-    
-    func applySecretSettings() {
-        groupingAggressiveness = CLLocationDistance(groupAggressivenessSlider.value)
-        groupingPrecisionDelta = QuadKeyPrecision(8 - round(groupZoomDeltaSlider.value))
-        maxGroupingPrecision = QuadKeyPrecision(round(maxZoomSlider.value))
-        currentGroupingPrecision = 0
-        regroupArticlesIfNecessary(forVisibleRegion: mapRegion ?? mapView.region)
-    }
-    
-    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
-        switch motion {
-        case .motionShake:
-            secretSettingsView.isHidden = !secretSettingsView.isHidden
-            guard secretSettingsView.isHidden else {
-                return
-            }
-            applySecretSettings()
-        default:
-            break
-        }
-    }
 }
 
