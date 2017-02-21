@@ -104,7 +104,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     self.objectChanges = [NSMutableArray arrayWithCapacity:10];
     self.sectionCounts = [NSMutableArray arrayWithCapacity:100];
     self.placeholderCells = [NSMutableDictionary dictionaryWithCapacity:10];
-    self.placeholderFooters =  [NSMutableDictionary dictionaryWithCapacity:10];
+    self.placeholderFooters = [NSMutableDictionary dictionaryWithCapacity:10];
     self.prefetchURLsByIndexPath = [NSMutableDictionary dictionaryWithCapacity:10];
 }
 
@@ -850,7 +850,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     if (![WMFLocationManager isAuthorized]) {
         return;
     }
-    
+
     if ([cell isKindOfClass:[WMFNearbyArticleCollectionViewCell class]] || [self isDisplayingLocationCell]) {
         [self.locationManager startMonitoringLocation];
     } else {
@@ -892,7 +892,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         [self didTapHeaderInSection:indexPathForSection.row];
     };
 
-    if (([section blackListOptions] & WMFFeedBlacklistOptionSection) || (([section blackListOptions] & WMFFeedBlacklistOptionContent) && [section headerContentURL]) ) {
+    if (([section blackListOptions] & WMFFeedBlacklistOptionSection) || (([section blackListOptions] & WMFFeedBlacklistOptionContent) && [section headerContentURL])) {
         header.rightButtonEnabled = YES;
         [[header rightButton] setImage:[UIImage imageNamed:@"overflow-mini"] forState:UIControlStateNormal];
         [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
@@ -960,8 +960,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 - (UIAlertController *)menuActionSheetForSection:(WMFContentGroup *)section {
     switch (section.contentGroupKind) {
-        case WMFContentGroupKindRelatedPages:
-        {
+        case WMFContentGroupKindRelatedPages: {
             NSURL *url = [section headerContentURL];
             UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
             [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil)
@@ -973,8 +972,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
             [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
             return sheet;
         }
-        case WMFContentGroupKindLocationPlaceholder:
-        {
+        case WMFContentGroupKindLocationPlaceholder: {
             UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
             [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"explore-nearby-placeholder-dismiss", nil)
                                                       style:UIAlertActionStyleDestructive
@@ -988,7 +986,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         default:
             return nil;
     }
-    
 }
 
 - (nonnull UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSectionFooterAtIndexPath:(NSIndexPath *)indexPath {
@@ -997,13 +994,11 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     switch (group.moreType) {
         case WMFFeedMoreTypeNone:
             return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier forIndexPath:indexPath];
-        case WMFFeedMoreTypeLocationAuthorization:
-        {
+        case WMFFeedMoreTypeLocationAuthorization: {
             WMFTitledExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFTitledExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
             return footer;
         }
-        default:
-        {
+        default: {
             WMFExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
             footer.visibleBackgroundView.alpha = 1.0;
             footer.moreLabel.text = [group footerText];
@@ -1020,8 +1015,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
             return footer;
         }
     }
-
-   
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -1090,7 +1083,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     [self.collectionView registerNib:[WMFExploreSectionHeader wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFExploreSectionHeader wmf_nibName]];
 
     [self.collectionView registerNib:[WMFExploreSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName]];
-    
+
     [self registerNib:[WMFTitledExploreSectionFooter wmf_classNib] forFooterWithReuseIdentifier:[WMFTitledExploreSectionFooter wmf_nibName]];
 
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier];
@@ -1188,8 +1181,13 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 }
 
 - (void)updateLocationCell:(WMFNearbyArticleCollectionViewCell *)cell location:(CLLocation *)location {
-    [cell setDistance:[self.locationManager.location distanceFromLocation:location]];
-    [cell setBearing:[self.locationManager.location wmf_bearingToLocation:location forCurrentHeading:self.locationManager.heading]];
+    CLLocation *userLocation = self.locationManager.location;
+    if (userLocation == nil) {
+        [cell configureForUnknownDistance];
+        return;
+    }
+    [cell setDistance:[userLocation distanceFromLocation:location]];
+    [cell setBearing:[userLocation wmf_bearingToLocation:location forCurrentHeading:self.locationManager.heading]];
 }
 
 - (void)selectItem:(NSUInteger)item inSection:(NSUInteger)section {

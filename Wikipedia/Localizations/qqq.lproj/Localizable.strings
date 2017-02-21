@@ -487,6 +487,7 @@
 "places-search-saved-articles" = "A search suggestion for saved articles";
 "places-search-suggested-searches-header" = "Suggested searches - header for the list of suggested searches";
 "places-search-recently-searched-header" = "Recently searched - header for the list of recently searched items";
+"places-unknown-distance" = "Indicates that a place is an unknown distance away";
 
 "action-share" = "Title for the 'Share' action";
 "action-save" = "Title for the 'Save' action";
