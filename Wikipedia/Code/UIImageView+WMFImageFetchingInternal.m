@@ -136,13 +136,13 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
              success:(WMFSuccessHandler)success {
     NSAssert([NSThread isMainThread], @"Interaction with a UIImageView should only happen on the main thread");
     if (!detectFaces) {
-        [self wmf_setImage:image faceBoundsValue:nil animated:animated failure:failure success:success];
+        [self wmf_setImage:image detectFaces:detectFaces faceBoundsValue:nil animated:animated failure:failure success:success];
         return;
     }
 
     if (![self wmf_imageRequiresFaceDetection]) {
         NSValue *faceBoundsValue = [self wmf_faceBoundsInImage:image];
-        [self wmf_setImage:image faceBoundsValue:faceBoundsValue animated:animated failure:failure success:success];
+        [self wmf_setImage:image detectFaces:detectFaces faceBoundsValue:faceBoundsValue animated:animated failure:failure success:success];
         return;
     }
 
@@ -155,25 +155,31 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
                                    if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
                                        failure([NSError wmf_cancelledError]);
                                    } else {
-                                       [self wmf_setImage:image faceBoundsValue:bounds animated:animated failure:failure success:success];
+                                       [self wmf_setImage:image detectFaces:detectFaces faceBoundsValue:bounds animated:animated failure:failure success:success];
                                    }
                                });
                            }];
 }
 
 - (void)wmf_setImage:(UIImage *)image
+         detectFaces:(BOOL)detectFaces
      faceBoundsValue:(nullable NSValue *)faceBoundsValue
             animated:(BOOL)animated
              failure:(WMFErrorHandler)failure
              success:(WMFSuccessHandler)success {
     NSAssert([NSThread isMainThread], @"Interaction with a UIImageView should only happen on the main thread");
     CGRect faceBounds = [faceBoundsValue CGRectValue];
-    if (!CGRectIsEmpty(faceBounds)) {
-        [self wmf_cropContentsByVerticallyCenteringFrame:[image wmf_denormalizeRect:faceBounds]
-                                     insideBoundsOfImage:image];
+    
+    if (detectFaces) {
+        if (!CGRectIsEmpty(faceBounds)) {
+            [self wmf_cropContentsByVerticallyCenteringFrame:[image wmf_denormalizeRect:faceBounds]
+                                         insideBoundsOfImage:image];
+        } else {
+            [self wmf_topAlignContentsRect:image];
+        }
     } else {
-        [self wmf_topAlignContentsRect:image];
-}
+        [self wmf_resetContentsRect];
+    }
     
     dispatch_block_t animations = ^{
         [self wmf_hidePlaceholder];

@@ -31,7 +31,7 @@ NSString *const WMFLoggingEndpoint =
             NSString *encodedPayloadJsonString = [payloadJsonString wmf_UTF8StringWithPercentEscapes];
             NSString *urlString = [NSString stringWithFormat:@"%@?%@;", WMFLoggingEndpoint, encodedPayloadJsonString];
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
-            [request addValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
+            [request setValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
             // arguably, we don't need to add the UUID to these requests
             /*
                ReadingActionFunnel *funnel = [[ReadingActionFunnel alloc] init];
