@@ -6,11 +6,21 @@ class FullSizeImageTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        fullSizeImageView.wmf_reset()   
+        self.resetContentMode();
+        fullSizeImageView.wmf_reset()
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.resetContentMode();
         self.wmf_makeDividerBeEdgeToEdge()
+    }
+    
+    func resetContentMode() {
+        if (UI_USER_INTERFACE_IDIOM() == .pad) {
+            fullSizeImageView.contentMode = .scaleAspectFit;
+        } else {
+            fullSizeImageView.contentMode = .scaleAspectFill;
+        }
     }
 }
