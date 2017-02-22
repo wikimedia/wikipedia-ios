@@ -8,6 +8,11 @@ current_hash = `git ls-remote --heads origin | grep refs/heads/#{pr_branch}`.spl
 
 if !current_hash || current_hash == ''
   puts "no current hash"
+  puts `git checkout develop`
+  puts `git checkout -b twn`
+  puts `git push -u origin twn`
+  current_hash = `git ls-remote --heads origin | grep refs/heads/#{pr_branch}`.split.first
+  `echo "#{current_hash}" > #{hash_file}`
   exit 0
 end
 
@@ -23,6 +28,11 @@ end
 
 if previous_hash == current_hash
   puts "no changes"
+  puts `git checkout twn`
+  puts `git pull origin develop`
+  puts `git push`
+  current_hash = `git ls-remote --heads origin | grep refs/heads/#{pr_branch}`.split.first
+  `echo "#{current_hash}" > #{hash_file}`
   exit 0
 end
 
