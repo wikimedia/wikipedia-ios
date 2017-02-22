@@ -193,16 +193,19 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         redoSearchButton.backgroundColor = view.tintColor
         
         // Setup map/list toggle
-        if let map = UIImage(named: "places-map"), let list = UIImage(named: "places-list") {
-            segmentedControl = UISegmentedControl(items: [map, list])
-        } else {
-            segmentedControl = UISegmentedControl(items: ["M", "L"])
-        }
+        let map = #imageLiteral(resourceName: "places-map")
+        let list = #imageLiteral(resourceName: "places-list")
+        map.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-show-as-map")
+        list.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-show-as-list")
+        segmentedControl = UISegmentedControl(items: [map, list])
         
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
         segmentedControl.tintColor = UIColor.wmf_blueTint()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: segmentedControl)
+        
+        // Setup recenter button
+        recenterOnUserLocationButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-recenter-map-on-user-location")
         
         // Setup list view
         listView.dataSource = self
