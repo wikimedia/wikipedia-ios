@@ -186,9 +186,12 @@ class ArticlePlaceView: MKAnnotationView {
             } else {
                 showPlaceholderImage()
             }
+            accessibilityLabel = articlePlace.articles.first?.displayTitle
         } else {
             zPosition = 2
-            countLabel.text = "\(articlePlace.articles.count)"
+            let countString = "\(articlePlace.articles.count)"
+            countLabel.text = countString
+            accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-group").replacingOccurrences(of: "$1", with: countString)
         }
         updateDotAndImageHiddenState()
     }
