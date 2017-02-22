@@ -1,7 +1,7 @@
 import UIKit
 
 protocol EnableLocationViewControllerDelegate: NSObjectProtocol {
-    func enableLocationViewControllerWantsToEnableLocation(_ enableLocationViewController: EnableLocationViewController)
+    func enableLocationViewController(_ enableLocationViewController: EnableLocationViewController, didFinishWithShouldPromptForLocationAccess  shouldPromptForLocationAccess: Bool)
 }
 class EnableLocationViewController: UIViewController {
 
@@ -10,6 +10,8 @@ class EnableLocationViewController: UIViewController {
     @IBOutlet weak var enableLocationAccessButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    
+    var shouldPrompt = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +25,12 @@ class EnableLocationViewController: UIViewController {
     }
     
     @IBAction func enableLocationAccess(_ sender: Any) {
-        delegate?.enableLocationViewControllerWantsToEnableLocation(self)
+        shouldPrompt = true
+        dismiss(animated: true, completion: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        delegate?.enableLocationViewController(self, didFinishWithShouldPromptForLocationAccess: shouldPrompt)
     }
 }

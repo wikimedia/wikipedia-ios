@@ -16,6 +16,7 @@ let WMFDidShowNewsNotificatonInFeedKey = "WMFDidShowNewsNotificatonInFeedKey"
 let WMFInTheNewsNotificationsEnabled = "WMFInTheNewsNotificationsEnabled"
 let WMFFeedRefreshDateKey = "WMFFeedRefreshDateKey"
 let WMFLocationAuthorizedKey = "WMFLocationAuthorizedKey"
+let WMFPlacesDidPromptForLocationAuthorization = "WMFPlacesDidPromptForLocationAuthorization"
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
@@ -104,6 +105,15 @@ public extension UserDefaults {
     
     public func wmf_locationAuthorized() -> Bool {
         return self.bool(forKey: WMFLocationAuthorizedKey)
+    }
+    
+    public func wmf_setPlacesDidPromptForLocationAuthorization(_ didPrompt: Bool) {
+        self.set(didPrompt, forKey: WMFPlacesDidPromptForLocationAuthorization)
+        self.synchronize()
+    }
+    
+    public func wmf_placesDidPromptForLocationAuthorization() -> Bool {
+        return self.bool(forKey: WMFPlacesDidPromptForLocationAuthorization)
     }
     
     public func wmf_openArticleURL() -> URL? {

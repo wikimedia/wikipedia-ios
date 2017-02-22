@@ -241,7 +241,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         guard WMFLocationManager.isAuthorized() else {
-            performDefaultSearchOnNextMapRegionUpdate = currentSearch == nil
+            if !UserDefaults.wmf_userDefaults().wmf_placesDidPromptForLocationAuthorization() {
+                UserDefaults.wmf_userDefaults().wmf_setPlacesDidPromptForLocationAuthorization(true)
+                promptForLocationAccess()
+            } else {
+                performDefaultSearchOnNextMapRegionUpdate = currentSearch == nil
+            }
             return
         }
         
@@ -1366,11 +1371,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func locationManager(_ controller: WMFLocationManager, didChangeEnabledState enabled: Bool) {
-        panMapToNextLocationUpdate = false
         if enabled {
+            panMapToNextLocationUpdate = currentSearch == nil
             locationManager.startMonitoringLocation()
         } else {
+            panMapToNextLocationUpdate = false
             locationManager.stopMonitoringLocation()
+            performDefaultSearch(withRegion: mapView.region)
         }
     }
     
@@ -1395,8 +1402,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     // EnableLocationViewControllerDelegate
-    func enableLocationViewControllerWantsToEnableLocation(_ enableLocationViewController: EnableLocationViewController) {
-        dismiss(animated: true, completion: nil)
+    
+    func enableLocationViewController(_ enableLocationViewController: EnableLocationViewController, didFinishWithShouldPromptForLocationAccess shouldPromptForLocationAccess: Bool) {
+        guard shouldPromptForLocationAccess else {
+            performDefaultSearch(withRegion: mapView.region)
+            return
+        }
         guard WMFLocationManager.isAuthorizationNotDetermined() else {
             guard let bundleIdentifier = Bundle.main.bundleIdentifier, let settingsURL = URL(string: UIApplicationOpenSettingsURLString + bundleIdentifier) else {
                 return
@@ -1404,7 +1415,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             UIApplication.shared.openURL(settingsURL as URL)
             return
         }
-        panMapToNextLocationUpdate = false
         locationManager.startMonitoringLocation()
     }
 }
