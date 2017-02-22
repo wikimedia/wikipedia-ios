@@ -24,11 +24,11 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="240" height="128.5"/>
+            <rect key="frame" x="0.0" y="0.0" width="240" height="129.5"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="azY-0z-TnI" customClass="GroupedAccessibilityView" customModule="WMF">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="84.5"/>
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="85"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjY-is-qJD">
                             <rect key="frame" x="14" y="10" width="212" height="19.5"/>
@@ -68,9 +68,14 @@
                             <real key="value" value="5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="accessibilityView0" destination="rjY-is-qJD" id="hfa-m8-Yn3"/>
+                        <outlet property="accessibilityView1" destination="klq-SJ-pvp" id="vHa-td-dAZ"/>
+                        <outlet property="accessibilityView2" destination="Hkk-X5-bAA" id="deo-gm-DO8"/>
+                    </connections>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nxC-vP-z1C">
-                    <rect key="frame" x="0.0" y="88.5" width="240" height="40"/>
+                    <rect key="frame" x="0.0" y="89" width="240" height="40"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Hcw-WG-NzJ">
                             <rect key="frame" x="0.0" y="0.0" width="240" height="40"/>
