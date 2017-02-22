@@ -183,7 +183,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         mapView.showsBuildings = false
         mapView.showsTraffic = false
         mapView.showsPointsOfInterest = false
-        mapView.showsScale = true
+        mapView.showsScale = false
         mapView.showsUserLocation = true
         
         // Setup location manager
