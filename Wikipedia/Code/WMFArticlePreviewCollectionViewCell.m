@@ -67,7 +67,7 @@
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    UIFont *titleLabelFont = [UIFont wmf_preferredFontForFontFamily:WMFFontFamilyGeorgia withTextStyle:UIFontTextStyleTitle2 compatibleWithTraitCollection:self.traitCollection];
+    UIFont *titleLabelFont = [UIFont wmf_preferredFontForFontFamily:WMFFontFamilyGeorgia withTextStyle:UIFontTextStyleTitle1 compatibleWithTraitCollection:self.traitCollection];
     self.titleLabel.font = titleLabelFont;
 }
 

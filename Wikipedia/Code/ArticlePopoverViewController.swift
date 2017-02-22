@@ -62,6 +62,18 @@ class ArticlePopoverViewController: UIViewController {
         
         titleLabel.text = article.displayTitle
         subtitleLabel.text = article.wikidataDescription
+        
+        view.wmf_configureSubviewsForDynamicType()
+    }
+    
+    func configureView(withTraitCollection traitCollection: UITraitCollection) {
+        let titleLabelFont = UIFont.wmf_preferredFontForFontFamily(.georgia, withTextStyle: .title3, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = titleLabelFont
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        configureView(withTraitCollection: traitCollection)
     }
     
     func handleTapGesture(_ tapGR: UITapGestureRecognizer) {

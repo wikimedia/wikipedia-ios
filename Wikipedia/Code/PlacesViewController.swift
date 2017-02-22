@@ -365,7 +365,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             offsetY = deltaY > 0 ? 0 - distanceY - size.height : distanceY
         }
         
-        articleVC.view.frame = CGRect(origin: CGPoint(x: annotationCenter.x + offsetX, y: annotationCenter.y + offsetY), size: articleVC.preferredContentSize)
+        articleVC.view.frame = CGRect(origin: CGPoint(x: annotationCenter.x + offsetX, y: annotationCenter.y + offsetY), size: size)
     }
     
     func mapView(_ mapView: MKMapView, didSelect annotationView: MKAnnotationView) {
@@ -404,7 +404,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let articleVC = ArticlePopoverViewController(article)
         articleVC.delegate = self
         articleVC.view.tintColor = view.tintColor
-
+        articleVC.configureView(withTraitCollection: traitCollection)
+        
         let articleLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         let userCoordinate = mapView.userLocation.coordinate
         let userLocation = CLLocation(latitude: userCoordinate.latitude, longitude: userCoordinate.longitude)
@@ -413,21 +414,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let distanceString = MKDistanceFormatter().string(fromDistance: distance)
         articleVC.descriptionLabel.text = distanceString
         
-        let size = articleVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-        articleVC.preferredContentSize =  size
-        articleVC.edgesForExtendedLayout = []
-        
-        selectedArticlePopover = articleVC
-        selectedArticleKey = articleKey
-        adjustLayout(ofPopover: articleVC, withSize:size, withAnnotationView: annotationView)
-        
         articleVC.view.alpha = 0
-        articleVC.view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         addChildViewController(articleVC)
         view.insertSubview(articleVC.view, aboveSubview: mapView)
         articleVC.didMove(toParentViewController: self)
         
-        
+        let size = articleVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        selectedArticlePopover = articleVC
+        selectedArticleKey = articleKey
+        adjustLayout(ofPopover: articleVC, withSize:size, withAnnotationView: annotationView)
+    
+        articleVC.view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         UIView.animate(withDuration: popoverFadeDuration) {
             articleVC.view.transform = CGAffineTransform.identity
             articleVC.view.alpha = 1
