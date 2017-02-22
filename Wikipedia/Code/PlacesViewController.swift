@@ -1066,7 +1066,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             wmf_pushArticle(with: url, dataStore: dataStore, previewStore: articleStore, animated: true)
             break
         case .save:
-            deselectAllAnnotations()
             dataStore.savedPageList.toggleSavedPage(for: url)
             break
         case .share:
@@ -1261,7 +1260,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let article = articleFetchedResultsController.object(at: indexPath)
-        let title = article.savedDate == nil ? localizedStringForKeyFallingBackOnEnglish("action-save") : localizedStringForKeyFallingBackOnEnglish("action-unsave")
+        let title = article.savedDate == nil ? localizedStringForKeyFallingBackOnEnglish("action-save") : localizedStringForKeyFallingBackOnEnglish("action-saved")
         let saveForLaterAction = UITableViewRowAction(style: .default, title: title) { (action, indexPath) in
             CATransaction.begin()
             CATransaction.setCompletionBlock({

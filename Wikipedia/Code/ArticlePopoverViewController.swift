@@ -23,6 +23,8 @@ class ArticlePopoverViewController: UIViewController {
     
     let article: WMFArticle
     
+    var showSaveAndShareTitles = true
+    
     required init(_ article: WMFArticle) {
         self.article = article
         super.init(nibName: "ArticlePopoverViewController", bundle: nil)
@@ -42,10 +44,7 @@ class ArticlePopoverViewController: UIViewController {
         readButton.setTitle(localizedStringForKeyFallingBackOnEnglish("action-read"), for: .normal)
         readButton.setImage(#imageLiteral(resourceName: "places-more"), for: .normal)
         
-        let saveTitle = article.savedDate == nil ? localizedStringForKeyFallingBackOnEnglish("action-save") : localizedStringForKeyFallingBackOnEnglish("action-unsave")
-        saveButton.setTitle(" " + saveTitle, for: .normal)
-        let saveImage = article.savedDate == nil ? #imageLiteral(resourceName: "places-save"): #imageLiteral(resourceName: "places-unsave")
-        saveButton.setImage(saveImage, for: .normal)
+        updateSaveButtonTitle()
         
         // Verify that the localized titles for save, share, and read will fit
         let sizeToFit = buttonStackView.bounds.size
@@ -54,7 +53,8 @@ class ArticlePopoverViewController: UIViewController {
         let saveButtonSize = saveButton.sizeThatFits(sizeToFit)
         let readButtonSize = readButton.sizeThatFits(sizeToFit)
         // If any of the the titles don't fit, fill proportionally and remove the titles for share and save
-        if shareButtonSize.width > widthToCheck || saveButtonSize.width > widthToCheck || readButtonSize.width > widthToCheck {
+        showSaveAndShareTitles = shareButtonSize.width < widthToCheck && saveButtonSize.width < widthToCheck && readButtonSize.width < widthToCheck
+        if !showSaveAndShareTitles {
             shareButton.setTitle(nil, for: .normal)
             saveButton.setTitle(nil, for: .normal)
             buttonStackView.distribution = .fillProportionally
@@ -64,6 +64,16 @@ class ArticlePopoverViewController: UIViewController {
         subtitleLabel.text = article.wikidataDescription
         
         view.wmf_configureSubviewsForDynamicType()
+    }
+    
+    func updateSaveButtonTitle() {
+        guard showSaveAndShareTitles else {
+            return
+        }
+        let saveTitle = article.savedDate == nil ? localizedStringForKeyFallingBackOnEnglish("action-save") : localizedStringForKeyFallingBackOnEnglish("action-saved")
+        saveButton.setTitle(" " + saveTitle, for: .normal)
+        let saveImage = article.savedDate == nil ? #imageLiteral(resourceName: "places-save"): #imageLiteral(resourceName: "places-unsave")
+        saveButton.setImage(saveImage, for: .normal)
     }
     
     func configureView(withTraitCollection traitCollection: UITraitCollection) {
@@ -87,6 +97,7 @@ class ArticlePopoverViewController: UIViewController {
     
     @IBAction func save(_ sender: Any) {
         delegate?.articlePopoverViewController(articlePopoverViewController: self, didSelectAction: .save)
+        updateSaveButtonTitle()
     }
     
     @IBAction func share(_ sender: Any) {
