@@ -18,41 +18,38 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT" customClass="UIVisualEffectView">
-            <rect key="frame" x="0.0" y="0.0" width="310" height="331.5"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="353.5"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-auth-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="rFJ-kb-kte">
-                    <rect key="frame" x="107.5" y="30" width="95" height="95"/>
+                    <rect key="frame" x="102.5" y="30" width="95" height="95"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="95" id="jWo-IS-JDh"/>
                         <constraint firstAttribute="width" constant="95" id="rz1-ZG-dlE"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explore articles near your location by enabling Location Access " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cta-dZ-grZ">
-                    <rect key="frame" x="16" y="141" width="278" height="42.5"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="278" id="dVW-g7-lVv"/>
-                    </constraints>
+                    <rect key="frame" x="16" y="141" width="268" height="64.5"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAe-h0-y6b">
-                    <rect key="frame" x="282" y="16" width="12" height="12"/>
+                    <rect key="frame" x="250" y="0.0" width="50" height="50"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="12" id="Sdf-yO-Ff8"/>
-                        <constraint firstAttribute="width" constant="12" id="ZN1-B8-whI"/>
+                        <constraint firstAttribute="height" constant="50" id="Sdf-yO-Ff8"/>
+                        <constraint firstAttribute="width" constant="50" id="ZN1-B8-whI"/>
                     </constraints>
                     <state key="normal" image="places-auth-close"/>
                     <connections>
                         <action selector="close:" destination="-1" eventType="touchUpInside" id="EYI-qv-8eM"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hB2-ah-QwX">
-                    <rect key="frame" x="16" y="199.5" width="278" height="40"/>
+                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hB2-ah-QwX">
+                    <rect key="frame" x="16" y="221.5" width="268" height="40"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="278" id="wFP-5T-M0r"/>
+                        <constraint firstAttribute="height" constant="40" id="85p-VQ-b8x"/>
                     </constraints>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                     <state key="normal" title="Enable Location Access"/>
@@ -72,37 +69,33 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Access to your location is available only when the app or one of its features is visible on your screen." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCF-lS-nEw">
-                    <rect key="frame" x="16" y="255.5" width="278" height="52"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="278" id="JWE-6I-tdc"/>
-                    </constraints>
+                    <rect key="frame" x="16" y="277.5" width="268" height="52"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <constraints>
-                <constraint firstItem="rFJ-kb-kte" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="1Ne-ZW-xG4"/>
-                <constraint firstAttribute="trailing" secondItem="NCF-lS-nEw" secondAttribute="trailing" constant="16" id="2NM-X4-2EE"/>
                 <constraint firstAttribute="trailing" secondItem="NCF-lS-nEw" secondAttribute="trailing" constant="16" id="3M5-rP-BrT"/>
+                <constraint firstItem="hB2-ah-QwX" firstAttribute="top" secondItem="Cta-dZ-grZ" secondAttribute="bottom" constant="16" id="3OC-pX-QNz"/>
                 <constraint firstAttribute="trailing" secondItem="Cta-dZ-grZ" secondAttribute="trailing" constant="16" id="702-nj-nhs"/>
                 <constraint firstAttribute="trailing" secondItem="hB2-ah-QwX" secondAttribute="trailing" constant="16" id="9pj-PX-hzK"/>
                 <constraint firstItem="NCF-lS-nEw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="Gvg-bl-sJM"/>
                 <constraint firstItem="rFJ-kb-kte" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="MAA-lz-dZv"/>
                 <constraint firstItem="Cta-dZ-grZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="PVW-m2-mTp"/>
-                <constraint firstItem="NCF-lS-nEw" firstAttribute="top" secondItem="hB2-ah-QwX" secondAttribute="bottom" constant="16" id="RJV-jU-iBf"/>
-                <constraint firstAttribute="trailing" secondItem="BAe-h0-y6b" secondAttribute="trailing" constant="16" id="U7J-yB-Jjh"/>
-                <constraint firstItem="BAe-h0-y6b" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="YNu-4c-tO5"/>
-                <constraint firstItem="Cta-dZ-grZ" firstAttribute="top" secondItem="rFJ-kb-kte" secondAttribute="bottom" constant="16" id="cS0-7W-Smz"/>
-                <constraint firstItem="hB2-ah-QwX" firstAttribute="top" secondItem="Cta-dZ-grZ" secondAttribute="bottom" constant="16" id="nIP-eE-l9G"/>
-                <constraint firstAttribute="bottom" secondItem="NCF-lS-nEw" secondAttribute="bottom" constant="24" id="uv3-ya-HbC"/>
+                <constraint firstAttribute="trailing" secondItem="BAe-h0-y6b" secondAttribute="trailing" id="U7J-yB-Jjh"/>
+                <constraint firstAttribute="bottom" secondItem="NCF-lS-nEw" secondAttribute="bottom" constant="24" id="Y2a-eW-faA"/>
+                <constraint firstItem="BAe-h0-y6b" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="YNu-4c-tO5"/>
+                <constraint firstItem="NCF-lS-nEw" firstAttribute="top" secondItem="hB2-ah-QwX" secondAttribute="bottom" constant="16" id="ucG-rn-viK"/>
                 <constraint firstItem="hB2-ah-QwX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="vjq-xa-CXC"/>
+                <constraint firstItem="rFJ-kb-kte" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="yPt-fm-hFV"/>
+                <constraint firstItem="Cta-dZ-grZ" firstAttribute="top" secondItem="rFJ-kb-kte" secondAttribute="bottom" constant="16" id="zSl-zc-FxZ"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="156" y="187.5"/>
+            <point key="canvasLocation" x="156" y="202"/>
         </view>
     </objects>
     <resources>

@@ -260,11 +260,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let enableLocationVC = EnableLocationViewController(nibName: "EnableLocationViewController", bundle: nil)
         enableLocationVC.view.tintColor = view.tintColor
         enableLocationVC.modalPresentationStyle = .popover
-        enableLocationVC.preferredContentSize = enableLocationVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        enableLocationVC.preferredContentSize = enableLocationVC.view.systemLayoutSizeFitting(CGSize(width: enableLocationVC.view.bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityFittingSizeLevel)
         enableLocationVC.popoverPresentationController?.delegate = self
         enableLocationVC.popoverPresentationController?.sourceView = view
         enableLocationVC.popoverPresentationController?.canOverlapSourceViewRect = true
-        enableLocationVC.popoverPresentationController?.sourceRect = mapView.frame
+        enableLocationVC.popoverPresentationController?.sourceRect = view.bounds
         enableLocationVC.popoverPresentationController?.permittedArrowDirections = []
         enableLocationVC.delegate = self
         present(enableLocationVC, animated: true, completion: {
