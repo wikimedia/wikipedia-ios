@@ -200,9 +200,10 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
     NSAssert(imgURL, @"imageProxy URL should not be nil");
 
     NSURLCache *URLCache = [NSURLCache sharedURLCache];
-    NSURLRequest *request = [NSURLRequest requestWithURL:imgURL];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:imgURL];
+    [request setValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
     NSCachedURLResponse *cachedResponse = [URLCache cachedResponseForRequest:request];
-
+    
     if (cachedResponse.response && cachedResponse.data) {
         NSString *mimeType = cachedResponse.response.MIMEType;
         if (mimeType == nil) {

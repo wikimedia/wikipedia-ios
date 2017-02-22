@@ -61,6 +61,7 @@ open class WMFImageController : NSObject {
     
     fileprivate static let _sharedInstance: WMFImageController = {
         let downloader = SDWebImageDownloader.shared()
+        downloader.setValue(WikipediaAppUtils.versionedUserAgent(), forHTTPHeaderField: "User-Agent")
         let cache = SDImageCache.wmf_cache(withNamespace: defaultNamespace)
         return WMFImageController(manager: SDWebImageManager(cache: cache!, downloader: downloader),
                                   namespace: defaultNamespace)
