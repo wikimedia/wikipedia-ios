@@ -563,6 +563,7 @@
 "places-enable-location-title" = "Explore articles near your location by enabling Location Access";
 "places-enable-location-description" = "Access to your location is available only when the app or one of its features is visible on your screen.";
 "places-enable-location-action-button-title" = "Enable location";
+"places-accessibility-group" = "$1 articles";
 
 "action-share" = "Share";
 "action-save" = "Save";

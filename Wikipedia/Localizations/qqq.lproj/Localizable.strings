@@ -491,6 +491,7 @@
 "places-enable-location-title" = "Explains that you can explore articles near you by enabling location access";
 "places-enable-location-description" = "Describes that access to your location is only used when the app or one of its features is on the screen";
 "places-enable-location-action-button-title" = "Button title to enable location access";
+"places-accessibility-group" = "Accessibility label for a map icon - $1 is replaced with the number of articles in the group";
 
 "action-share" = "Title for the 'Share' action";
 "action-save" = "Title for the 'Save' action";
