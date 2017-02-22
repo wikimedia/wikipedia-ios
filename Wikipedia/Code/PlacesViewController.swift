@@ -465,6 +465,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             articleVC.view.transform = CGAffineTransform.identity
             articleVC.view.alpha = 1
         }
+        
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, articleVC.view)
     }
     
     
