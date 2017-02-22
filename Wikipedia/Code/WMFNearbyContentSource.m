@@ -71,7 +71,7 @@
 }
 
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    if (![WMFLocationManager isAuthorized]) {
+    if ([WMFLocationManager isAuthorizationNotDetermined]) {
         [self showAuthorizationPlaceholder:^{
             if (completion) {
                 completion();
@@ -79,8 +79,15 @@
         }];
         return;
     }
-    
     [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder];
+
+    if (![WMFLocationManager isAuthorized]) {
+        [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
+        if (completion) {
+            completion();
+        }
+        return;
+    }
     
     if (self.currentLocationManager.location == nil) {
         self.isFetchingInitialLocation = YES;

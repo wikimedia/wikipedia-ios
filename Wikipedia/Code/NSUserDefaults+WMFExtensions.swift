@@ -15,6 +15,7 @@ let WMFInTheNewsMostRecentDateNotificationCountKey = "WMFInTheNewsMostRecentDate
 let WMFDidShowNewsNotificatonInFeedKey = "WMFDidShowNewsNotificatonInFeedKey"
 let WMFInTheNewsNotificationsEnabled = "WMFInTheNewsNotificationsEnabled"
 let WMFFeedRefreshDateKey = "WMFFeedRefreshDateKey"
+let WMFLocationAuthorizedKey = "WMFLocationAuthorizedKey"
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
@@ -94,6 +95,15 @@ public extension UserDefaults {
     
     public func wmf_feedRefreshDate() -> Date? {
         return self.wmf_dateForKey(WMFFeedRefreshDateKey)
+    }
+    
+    public func wmf_setLocationAuthorized(_ authorized: Bool) {
+        self.set(authorized, forKey: WMFLocationAuthorizedKey)
+        self.synchronize()
+    }
+    
+    public func wmf_locationAuthorized() -> Bool {
+        return self.bool(forKey: WMFLocationAuthorizedKey)
     }
     
     public func wmf_openArticleURL() -> URL? {

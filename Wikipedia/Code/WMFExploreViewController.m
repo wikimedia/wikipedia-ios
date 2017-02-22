@@ -87,6 +87,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 @property (nonatomic, strong, nullable) WMFTaskGroup *feedUpdateTaskGroup;
 @property (nonatomic, strong, nullable) WMFTaskGroup *relatedUpdatedTaskGroup;
+@property (nonatomic, strong, nullable) WMFTaskGroup *nearbyUpdateTaskGroup;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, WMFExploreCollectionViewCell *> *placeholderCells;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, WMFExploreCollectionReusableView *> *placeholderFooters;
@@ -243,6 +244,33 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                             completion:^{
                                 NSAssert([NSThread isMainThread], @"Must be called on the main thread");
                                 self.relatedUpdatedTaskGroup = nil;
+                            }];
+}
+
+- (void)updateNearby:(nullable dispatch_block_t)completion  {
+    NSAssert([NSThread isMainThread], @"Must be called on the main thread");
+    if (self.nearbyUpdateTaskGroup || self.feedUpdateTaskGroup) {
+        return;
+    }
+    WMFTaskGroup *group = [WMFTaskGroup new];
+    self.nearbyUpdateTaskGroup = group;
+    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        if ([obj isKindOfClass:[WMFNearbyContentSource class]]) {
+            [group enter];
+            [obj loadNewContentForce:NO
+                          completion:^{
+                              [group leave];
+                          }];
+        }
+    }];
+    
+    [group waitInBackgroundWithTimeout:12
+                            completion:^{
+                                NSAssert([NSThread isMainThread], @"Must be called on the main thread");
+                                self.nearbyUpdateTaskGroup = nil;
+                                if (completion) {
+                                    completion();
+                                }
                             }];
 }
 
@@ -1362,9 +1390,8 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 }
 
 - (void)locationManager:(WMFLocationManager *)controller didChangeEnabledState:(BOOL)enabled {
-    [self updateFeedSources:^{
-
-    }];
+    [[NSUserDefaults wmf_userDefaults] wmf_setLocationAuthorized:enabled];
+    [self updateNearby:NULL];
 }
 
 #pragma mark - Previewing
