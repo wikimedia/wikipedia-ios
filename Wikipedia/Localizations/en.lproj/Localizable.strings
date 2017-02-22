@@ -560,6 +560,10 @@
 "places-search-suggested-searches-header" = "Suggested searches";
 "places-search-recently-searched-header" = "Recently searched";
 "places-unknown-distance" = "unknown distance";
+"places-enable-location-title" = "Explore articles near your location by enabling Location Access";
+"places-enable-location-description" = "Access to your location is available only when the app or one of its features is visible on your screen.";
+"places-enable-location-action-button-title" = "Enable location";
+
 "action-share" = "Share";
 "action-save" = "Save";
 "action-read" = "Read";

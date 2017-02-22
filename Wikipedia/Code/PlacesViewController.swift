@@ -3,7 +3,7 @@ import MapKit
 import WMF
 import TUSafariActivity
 
-class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate {
+class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate {
     
     @IBOutlet weak var redoSearchButton: UIButton!
     let locationSearchFetcher = WMFLocationSearchFetcher()
@@ -237,16 +237,31 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if WMFLocationManager.isAuthorized() {
-            recenterOnUserLocationButton.isHidden = false
-            locationManager.startMonitoringLocation()
-        } else {
-            recenterOnUserLocationButton.isHidden = true
-            performDefaultSearchOnNextMapRegionUpdate = currentSearch == nil
-        }
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        guard WMFLocationManager.isAuthorized() else {
+            performDefaultSearchOnNextMapRegionUpdate = currentSearch == nil
+            return
+        }
+        
+        locationManager.startMonitoringLocation()
+    }
+    
+    func promptForLocationAccess() {
+        let enableLocationVC = EnableLocationViewController(nibName: "EnableLocationViewController", bundle: nil)
+        enableLocationVC.view.tintColor = view.tintColor
+        enableLocationVC.modalPresentationStyle = .popover
+        enableLocationVC.preferredContentSize = enableLocationVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        enableLocationVC.popoverPresentationController?.delegate = self
+        enableLocationVC.popoverPresentationController?.sourceView = view
+        enableLocationVC.popoverPresentationController?.canOverlapSourceViewRect = true
+        enableLocationVC.popoverPresentationController?.sourceRect = mapView.frame
+        enableLocationVC.popoverPresentationController?.permittedArrowDirections = []
+        enableLocationVC.delegate = self
+        present(enableLocationVC, animated: true, completion: {
+            
+        })
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -1352,9 +1367,19 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func locationManager(_ controller: WMFLocationManager, didChangeEnabledState enabled: Bool) {
+        panMapToNextLocationUpdate = false
+        if enabled {
+            locationManager.startMonitoringLocation()
+        } else {
+            locationManager.stopMonitoringLocation()
+        }
     }
     
     @IBAction func recenterOnUserLocation(_ sender: Any) {
+        guard WMFLocationManager.isAuthorized() else {
+            promptForLocationAccess()
+            return
+        }
         zoomAndPanMapView(toLocation: locationManager.location)
     }
     
@@ -1362,6 +1387,26 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         updatePlaces()
+    }
+    
+    // UIPopoverPresentationDelegate 
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+    // EnableLocationViewControllerDelegate
+    func enableLocationViewControllerWantsToEnableLocation(_ enableLocationViewController: EnableLocationViewController) {
+        dismiss(animated: true, completion: nil)
+        guard WMFLocationManager.isAuthorizationNotDetermined() else {
+            guard let bundleIdentifier = Bundle.main.bundleIdentifier, let settingsURL = URL(string: UIApplicationOpenSettingsURLString + bundleIdentifier) else {
+                return
+            }
+            UIApplication.shared.openURL(settingsURL as URL)
+            return
+        }
+        panMapToNextLocationUpdate = false
+        locationManager.startMonitoringLocation()
     }
 }
 
