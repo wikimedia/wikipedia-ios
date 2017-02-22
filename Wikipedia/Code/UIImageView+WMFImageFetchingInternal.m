@@ -168,10 +168,11 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
              failure:(WMFErrorHandler)failure
              success:(WMFSuccessHandler)success {
     NSAssert([NSThread isMainThread], @"Interaction with a UIImageView should only happen on the main thread");
-    CGRect faceBounds = [faceBoundsValue CGRectValue];
     
+    CGRect faceBounds = [faceBoundsValue CGRectValue];
     if (detectFaces) {
-        if (!CGRectIsEmpty(faceBounds)) {
+        CGFloat faceArea = faceBounds.size.width * faceBounds.size.height;
+        if (!CGRectIsEmpty(faceBounds) && (faceArea >= 0.05)) {
             [self wmf_cropContentsByVerticallyCenteringFrame:[image wmf_denormalizeRect:faceBounds]
                                          insideBoundsOfImage:image];
         } else {
