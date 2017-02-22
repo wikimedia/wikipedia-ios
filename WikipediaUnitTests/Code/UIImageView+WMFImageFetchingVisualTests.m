@@ -41,7 +41,7 @@
     [self verifyCenteringOfFacesInFixtureNamed:@"640px-President_Barack_Obama.jpg"];
 }
 
-- (void)testCentersBothActorsFacesVertically {
+- (void)testImageNotCroppedBecauseFacesAreTooSmall {
     [self verifyCenteringOfFacesInFixtureNamed:@"Spider-Man_actors.jpg"];
 }
 
