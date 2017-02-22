@@ -28,11 +28,6 @@ end
 
 if previous_hash == current_hash
   puts "no changes"
-  puts `git checkout twn`
-  puts `git pull origin develop`
-  puts `git push`
-  current_hash = `git ls-remote --heads origin | grep refs/heads/#{pr_branch}`.split.first
-  `echo "#{current_hash}" > #{hash_file}`
   exit 0
 end
 
