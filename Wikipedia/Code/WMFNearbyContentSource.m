@@ -88,7 +88,7 @@
         }
         return;
     }
-    
+
     if (self.currentLocationManager.location == nil) {
         self.isFetchingInitialLocation = YES;
         self.completion = completion;
@@ -128,7 +128,7 @@
     NSDate *date = [NSDate date];
     // Check for group for date to re-use the same group if it was updated today
     WMFContentGroup *group = [self.contentStore firstGroupOfKind:WMFContentGroupKindLocationPlaceholder];
-    
+
     if (group && (group.wasDismissed || [group.midnightUTCDate isEqualToDate:date.wmf_midnightUTCDateFromLocalDate])) {
         completion();
         return;
@@ -229,6 +229,7 @@
 
     WMFContentGroup *group = [self contentGroupCloseToLocation:location];
     if (group) {
+        self.isProcessingLocation = NO;
         completion(group, group.location, group.placemark);
         return;
     }
@@ -236,6 +237,7 @@
     [self.currentLocationManager reverseGeocodeLocation:location
         completion:^(CLPlacemark *_Nonnull placemark) {
             completion(nil, location, placemark);
+            self.isProcessingLocation = NO;
         }
         failure:^(NSError *_Nonnull error) {
             self.isProcessingLocation = NO;
