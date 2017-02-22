@@ -22,7 +22,7 @@
             <rect key="frame" x="0.0" y="0.0" width="310" height="331.5"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-location-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="rFJ-kb-kte">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-auth-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="rFJ-kb-kte">
                     <rect key="frame" x="107.5" y="30" width="95" height="95"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="95" id="jWo-IS-JDh"/>
@@ -44,7 +44,7 @@
                         <constraint firstAttribute="height" constant="12" id="Sdf-yO-Ff8"/>
                         <constraint firstAttribute="width" constant="12" id="ZN1-B8-whI"/>
                     </constraints>
-                    <state key="normal" image="close"/>
+                    <state key="normal" image="places-auth-close"/>
                     <connections>
                         <action selector="close:" destination="-1" eventType="touchUpInside" id="EYI-qv-8eM"/>
                     </connections>
@@ -106,7 +106,7 @@
         </view>
     </objects>
     <resources>
-        <image name="close" width="18" height="18"/>
-        <image name="places-location-arrow" width="18" height="18"/>
+        <image name="places-auth-arrow" width="193" height="193"/>
+        <image name="places-auth-close" width="11" height="11"/>
     </resources>
 </document>
