@@ -21,6 +21,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var listView: UITableView!
     @IBOutlet weak var searchSuggestionView: UITableView!
+    @IBOutlet weak var recenterOnUserLocationButton: UIButton!
     
     var searchSuggestionController: PlaceSearchSuggestionController!
     
@@ -85,6 +86,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 saveToHistory(search: search)
             }
         }
+    }
+    
+    func performDefaultSearch(withRegion region: MKCoordinateRegion) {
+        guard currentSearch == nil else {
+            return
+        }
+        currentSearch = PlaceSearch(type: .top, sortStyle: .links, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
     }
     
     func keyValue(forPlaceSearch placeSearch: PlaceSearch, inManagedObjectContext moc: NSManagedObjectContext) -> WMFKeyValue? {
@@ -180,7 +188,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         // Setup location manager
         locationManager.delegate = self
-        locationManager.startMonitoringLocation()
         
         view.tintColor = UIColor.wmf_blueTint()
         redoSearchButton.backgroundColor = view.tintColor
@@ -222,17 +229,21 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         searchSuggestionController.tableView = searchSuggestionView
         searchSuggestionController.delegate = self
         
-        // TODO: Remove
-        let defaults = UserDefaults.wmf_userDefaults()
-        let key = "WMFDidClearPlaceSearchHistory2"
-        if !defaults.bool(forKey: key) {
-            clearSearchHistory()
-            defaults.set(true, forKey: key)
-        }
+        
     }
+    
+    var performDefaultSearchOnNextMapRegionUpdate = false
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if WMFLocationManager.isAuthorized() {
+            recenterOnUserLocationButton.isHidden = false
+            locationManager.startMonitoringLocation()
+        } else {
+            recenterOnUserLocationButton.isHidden = true
+            performDefaultSearchOnNextMapRegionUpdate = currentSearch == nil
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -242,6 +253,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        locationManager.stopMonitoringLocation()
     }
     
     func keyboardChanged(notification: NSNotification) {
@@ -280,6 +292,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         _mapRegion = mapView.region
+        guard performDefaultSearchOnNextMapRegionUpdate == false else {
+            performDefaultSearch(withRegion: mapView.region)
+            return
+        }
         regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
         articleKeyToSelect = nil
         showRedoSearchButtonIfNecessary(forVisibleRegion: mapView.region)
@@ -1314,9 +1330,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func zoomAndPanMapView(toLocation location: CLLocation) {
         let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
         mapRegion = region
-        if currentSearch == nil {
-            currentSearch = PlaceSearch(type: .top, sortStyle: .links, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
-        }
+        performDefaultSearch(withRegion: region)
     }
     
     var panMapToNextLocationUpdate = true

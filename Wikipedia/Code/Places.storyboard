@@ -117,6 +117,7 @@
                         <outlet property="listView" destination="Irc-Nx-au0" id="DbL-ub-mzH"/>
                         <outlet property="mapView" destination="UNC-SX-Sli" id="0hu-YN-E8A"/>
                         <outlet property="progressView" destination="Pet-ct-8QU" id="TOF-PN-K7x"/>
+                        <outlet property="recenterOnUserLocationButton" destination="mxh-CO-RQm" id="h84-Rt-brE"/>
                         <outlet property="redoSearchButton" destination="z6h-da-ewO" id="mP9-Iz-g7C"/>
                         <outlet property="searchSuggestionView" destination="NoL-m7-U7J" id="Kmu-Eb-vMo"/>
                     </connections>
