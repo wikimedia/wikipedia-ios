@@ -903,6 +903,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                 return;
             }
             UIAlertController *menuActionSheet = [self menuActionSheetForSection:section];
+            if (!menuActionSheet) {
+                return;
+            }
 
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
                 menuActionSheet.modalPresentationStyle = UIModalPresentationPopover;
@@ -958,7 +961,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 #pragma mark - WMFHeaderMenuProviding
 
-- (UIAlertController *)menuActionSheetForSection:(WMFContentGroup *)section {
+- (nullable UIAlertController *)menuActionSheetForSection:(WMFContentGroup *)section {
     switch (section.contentGroupKind) {
         case WMFContentGroupKindRelatedPages: {
             NSURL *url = [section headerContentURL];
