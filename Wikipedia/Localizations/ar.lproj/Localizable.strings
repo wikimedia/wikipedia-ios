@@ -1,5 +1,7 @@
 // Messages for Arabic (العربية)
 // Exported from translatewiki.net
+// Author: ASHmed
+// Author: Aboulouei1
 // Author: Alaa
 // Author: DRIHEM
 // Author: Haytham morsy
@@ -61,6 +63,7 @@
 "zero-warn-when-leaving" = "قم بالتحذير عند ترك صفر";
 "zero-settings-devmode" = "زيرو في وضع التطوير البرمجي.";
 "account-creation-captcha-required" = "التحقق مطلوب";
+"account-creation-captcha-retry" = "مدخل غير صحيح. يرجى إعادة المحاولة مرة أخرى.";
 "account-creation-captcha-obtaining" = "جار الحصول على كابتشا جديدة...";
 "account-creation-logging-in" = "جارٍ تسجيل دخولك...";
 "account-creation-passwords-mismatched" = "كلمتا السر لا تتطابقان";
@@ -71,6 +74,13 @@
 "account-creation-password-confirm-placeholder-text" = "أكّد كلمة المرور";
 "account-creation-email-placeholder-text" = "البريد الإلكتروني (اختياري)";
 "account-creation-missing-fields" = "يجب عليك إدخال اسم مستخدم، وكلمة مرور، وتأكيد كلمة المرور لإنشاء حسابٍ.";
+"new-password-title" = "قم بتعيين كلمة المرور الخاصة بك";
+"new-password-instructions" = "أنت الآن مسجل الدخول بكلمة سر مؤقتة. لإكمال تسجيل الدخول أعد تعيين كلمة سر جديدة هنا.";
+"new-password-password-placeholder-text" = "كلمة السر الجديدة";
+"new-password-confirm-placeholder-text" = "تأكيد كلمة السر";
+"two-factor-login-title" = "تسجيل الدخول إلى حسابك";
+"two-factor-login-instructions" = "يرجى إدخال تشفيرة المصادقة ذات العاملين";
+"two-factor-login-token-title" = "رمز";
 "login-name-not-found" = "اسم المستخدم مطلوب للولوج.";
 "login-name-illegal" = "لقد دونت اسم مستخدم غير مسموح به.";
 "login-name-does-not-exist" = "اسم المستخدم الذي أدخلته غير موجود.";
@@ -81,6 +91,12 @@
 "login-account-creation" = "ليس لديك حساب؟ انضم إلى ويكيبيديا";
 "login-username-placeholder-text" = "اسم المستخدم";
 "login-password-placeholder-text" = "كلمة المرور";
+"login-forgot-password" = "هل نسيت كلمة السر؟";
+"forgot-password-title" = "أعد ضبط كلمة السر";
+"forgot-password-username-prompt" = "اسم المستخدم";
+"forgot-password-email-prompt" = "البريد الإلكتروني (اختياري)";
+"forgot-password-button-title" = "أعد الضبط";
+"forgot-password-email-sent" = "أُرسل بريد إلكتروني يتضمن تعليمات إعادة تعيين كلمة السر";
 "wikitext-downloading" = "جارٍ تحميل المحتوى...";
 "wikitext-download-failed" = "غير قادر على تحديد المراجعة الأخيرة";
 "wikitext-download-success" = "تم تحميل المحتوى.";
@@ -434,3 +450,6 @@
 "number-millions" = "$1 مليون";
 "number-billions" = "$1 مليار";
 "back" = "رجوع";
+"places-search-saved-articles" = "المقالات المحفوظة";
+"action-share" = "شارك";
+"action-save" = "حفظ";

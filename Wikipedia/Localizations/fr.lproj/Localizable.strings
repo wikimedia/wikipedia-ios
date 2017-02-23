@@ -10,6 +10,7 @@
 // Author: Orikrin1998
 // Author: Selhom
 // Author: Solucer
+// Author: The RedBurn
 // Author: Verdy p
 // Author: Weft
 // Author: Wladek92
@@ -51,12 +52,16 @@
 "zero-interstitial-cancel" = "Rester ici";
 "zero-learn-more" = "Les frais de données sont exemptés pour cette application Wikipédia.";
 "zero-learn-more-learn-more" = "Lire la suite";
-"zero-learn-more-no-thanks" = "Rejeter";
+"zero-learn-more-no-thanks" = "Fermer";
 "zero-wikipedia-zero-heading" = "Wikipédia Zéro";
 "zero-warn-when-leaving" = "Avertir en quittant Zéro";
 "zero-settings-devmode" = "Devmode Zéro";
 "account-creation-captcha-required" = "Vérification par CAPTCHA obligatoire.";
+"account-creation-captcha-retry" = "Saisie non correcte. Veuillez réessayer.";
 "account-creation-captcha-obtaining" = "Obtention d’un nouveau CAPTCHA…";
+"account-creation-captcha-title" = "Vérification de sécurité CAPTCHA";
+"account-creation-captcha-cannot-see-image" = "Impossible de voir l’image ? $1";
+"account-creation-captcha-request-account" = "Demander un compte.";
 "account-creation-logging-in" = "Connexion en cours…";
 "account-creation-passwords-mismatched" = "Les champs mot de passe ne correspondent pas.";
 "account-creation-saving" = "Enregistrement en cours…";
@@ -66,6 +71,13 @@
 "account-creation-password-confirm-placeholder-text" = "Confirmer le mot de passe";
 "account-creation-email-placeholder-text" = "Courriel (facultatif)";
 "account-creation-missing-fields" = "Vous devez saisir un nom d’utilisateur, un mot de passe et une confirmation de mot de passe, pour créer un compte.";
+"new-password-title" = "Définir votre mot de passe";
+"new-password-instructions" = "Vous vous êtes connecté avec un mot de passe temporaire. Pour achever de vous connecter, saisissez un nouveau mot de passe ici.";
+"new-password-password-placeholder-text" = "Nouveau mot de passe";
+"new-password-confirm-placeholder-text" = "Confirmer le nouveau mot de passe";
+"two-factor-login-title" = "Se connecter à votre compte";
+"two-factor-login-instructions" = "Veuillez entrer le code de vérification à deux facteurs";
+"two-factor-login-token-title" = "Jeton";
 "login-name-not-found" = "Le nom d’utilisateur est obligatoire pour se connecter.";
 "login-name-illegal" = "Vous avez choisi un nom d’utilisateur non autorisé.";
 "login-name-does-not-exist" = "Le nom d’utilisateur que vous avez fourni n’existe pas.";
@@ -76,6 +88,13 @@
 "login-account-creation" = "Vous n’avez pas de compte ? Rejoignez Wikipédia.";
 "login-username-placeholder-text" = "Nom d’utilisateur";
 "login-password-placeholder-text" = "Mot de passe";
+"login-forgot-password" = "Mot de passe oublié ?";
+"forgot-password-title" = "Réinitialiser le mot de passe";
+"forgot-password-instructions" = "Remplir un des champs ci-dessous pour recevoir les instructions de réinitialisation du mot de passe par courriel";
+"forgot-password-username-prompt" = "Nom d’utilisateur";
+"forgot-password-email-prompt" = "Courriel (facultatif)";
+"forgot-password-button-title" = "Réinitialiser";
+"forgot-password-email-sent" = "Un courriel avec les instructions de réinitialisation du mot de passe a été envoyé";
 "wikitext-downloading" = "Chargement du contenu…";
 "wikitext-download-failed" = "Impossible d’obtenir la dernière révision.";
 "wikitext-download-success" = "Contenu chargé.";
@@ -458,3 +477,12 @@
 "status-saving-for-later" = "Enregistrement pour plus tard…";
 "status-saved-for-later" = "Enregistré pour plus tard";
 "announcements-dismiss" = "Non merci";
+"places-search-top-articles" = "Meilleurs articles";
+"places-search-this-area" = "Rechercher dans cette zone";
+"places-search-saved-articles" = "Articles enregistrés";
+"places-search-suggested-searches-header" = "Recherches suggérées";
+"places-search-recently-searched-header" = "Récemment recherché";
+"action-share" = "Partager";
+"action-save" = "Enregistrer";
+"action-read" = "Lire";
+"action-unsave" = "Non enregistré";

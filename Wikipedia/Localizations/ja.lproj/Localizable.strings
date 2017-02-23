@@ -17,6 +17,7 @@
 // Author: Takot
 // Author: Thibaut120094
 // Author: WwLMvmT
+// Author: おはぐろ蜻蛉
 // Author: 아라
 
 "languages-title" = "言語を変更";
@@ -436,7 +437,7 @@
 "top-read-header-generic" = "ウィキペディア";
 "readers-accessibility-label" = "$1人の読者";
 "rank-accessibility-label" = "$1位";
-"reference-title" = "出典$1";
+"reference-title" = "情報源$1";
 "in-the-news-notification-read-now-action-title" = "すぐ読む";
 "in-the-news-notification-share-action-title" = "共有...";
 "in-the-news-notification-save-for-later-action-title" = "保存してあとで読む";

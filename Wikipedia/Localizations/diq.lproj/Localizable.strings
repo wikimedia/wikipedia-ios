@@ -90,7 +90,7 @@
 "main-menu-language-toggle-hide" = "Zıwanan bınımne";
 "main-menu-language-selection-saved" = "Weçinayışê zıwani qeyd bi";
 "main-menu-account-title-logged-out" = "Hesab";
-"main-menu-account-title-logged-in" = "$1 nameya Ronıştış abıya";
+"main-menu-account-title-logged-in" = "Şıma zey $1 kewtê cı.";
 "main-menu-account-login" = "Cıkewtış";
 "main-menu-account-logout" = "Veciyayış";
 "main-menu-show-title" = "Bımocne...";
@@ -104,7 +104,7 @@
 "main-menu-more" = "Vêşi...";
 "main-menu-heading-debug" = "Xeta Weçinayış";
 "main-menu-debug-crash" = "Herzale";
-"saved-title" = "Bı qeyd";
+"saved-title" = "Qeyd bi";
 "saved-pages-title" = "Per biya qeyd";
 "saved-pages-clear-cancel" = "Peyd kı";
 "saved-pages-clear-delete-all" = "E, hemi bestern";
@@ -156,7 +156,7 @@
 "menu-toc-accessibility-label" = "Zerrek";
 "menu-search-accessibility-label" = "Cı geyre";
 "menu-reload-accessibility-label" = "Fına bar ke";
-"menu-cancel-accessibility-label" = "Peyd kı";
+"menu-cancel-accessibility-label" = "Bıtexelne";
 "menu-share-accessibility-label" = "Vıla ke";
 "menu-more-accessibility-label" = "Dehana zaf eyari";
 "menu-trash-accessibility-label" = "Besternê";

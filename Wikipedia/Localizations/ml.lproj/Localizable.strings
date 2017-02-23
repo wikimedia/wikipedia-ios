@@ -1,5 +1,6 @@
 // Messages for Malayalam (മലയാളം)
 // Exported from translatewiki.net
+// Author: Jameela P.
 // Author: Praveenp
 // Author: Ranjithsiji
 // Author: Vnrakeshpnm
@@ -8,6 +9,9 @@
 "article-languages-cancel" = "റദ്ദാക്കുക";
 "article-languages-downloading" = "ലേഖനമുള്ള ഭാഷകൾ എടുക്കുന്നു...";
 "article-languages-filter-placeholder" = "ഭാഷ കണ്ടെത്തുക";
+"article-read-more-title" = "കൂടുതൽ വായിക്കുക";
+"article-about-title" = "ഈ ലേഖനത്തെക്കുറിച്ച്";
+"info-box-title" = "വസ്തുതകൾ";
 "info-box-close-text" = "അടയ്ക്കുക";
 "table-title-other" = "കൂടുതൽ വിവരങ്ങൾ";
 "saved-clear-all" = "ശൂന്യമാക്കുക";
@@ -18,6 +22,9 @@
 "history-section-lastweek" = "കഴിഞ്ഞയാഴ്ച്ച";
 "history-section-lastmonth" = "കഴിഞ്ഞ മാസം";
 "history-clear-cancel" = "റദ്ദാക്കുക";
+"history-clear-delete-all" = "അതെ, എല്ലാം മായ്ക്കുക";
+"history-description" = "താങ്കൾ എല്ലാം ശൂന്യമാക്കിയിട്ടുണ്ടാകും. അടുത്തതവണ താങ്കൾ ഒരു താൾ എടുത്താൽ പിന്നീടതിലേയ്ക്ക് ഇവിടെ നിന്നെത്താനാകും.";
+"history-none" = "അടുത്തകാലത്തുള്ള ഒരു താളും ഇല്ല!";
 "zero-free-verbiage" = "താങ്കളുടെ മൊബൈൽ ഓപ്പറേറ്റർ നൽകുന്ന സൗജന്യ വിക്കിപീഡിയ ലഭ്യത (ഡേറ്റാ ചാർജ്ജുകൾ ഒഴിവാക്കിയിരിക്കുന്നു‌)";
 "zero-charged-verbiage" = "വിക്കിപീഡിയ സീറോ ഇല്ല";
 "zero-interstitial-title" = "വിക്കിപീഡിയ സീറോയിൽ നിന്ന് പോകുന്നു";
@@ -79,6 +86,7 @@
 "search-did-you-mean" = "താങ്കൾ ഉദ്ദേശിച്ചത് $1 എന്നാണോ";
 "search-recent-title" = "സമീപകാലത്ത് തിരഞ്ഞത്";
 "search-recent-clear-confirmation-heading" = "എല്ലാ സമീപകാല തിരച്ചിലുകളും ഒഴിവാക്കണോ ?";
+"search-recent-clear-cancel" = "റദ്ദാക്കുക";
 "search-recent-clear-delete-all" = "എല്ലാം മായ്ക്കുക";
 "search-result-redirected-from" = "$1 എന്ന താളിൽ നിന്നും തിരിച്ചുവിട്ടതു പ്രകാരം";
 "settings-title" = "സജ്ജീകരണങ്ങൾ";

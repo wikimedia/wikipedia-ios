@@ -50,7 +50,11 @@
 "zero-warn-when-leaving" = "Advar hvis Zero forlades";
 "zero-settings-devmode" = "Zero udviklertilstand";
 "account-creation-captcha-required" = "CAPTCHA kontrol kræves.";
+"account-creation-captcha-retry" = "Forkert indtastning. Prøv venligst igen.";
 "account-creation-captcha-obtaining" = "Henter en ny CAPTCHA...";
+"account-creation-captcha-title" = "CAPTCHA-sikkerhedskontrol";
+"account-creation-captcha-cannot-see-image" = "Kan du ikke se billedet? $1";
+"account-creation-captcha-request-account" = "Anmod om en konto.";
 "account-creation-logging-in" = "Logger på...";
 "account-creation-passwords-mismatched" = "Adgangskoderne stemmer ikke overens.";
 "account-creation-saving" = "Gemmer...";
@@ -60,6 +64,13 @@
 "account-creation-password-confirm-placeholder-text" = "Bekræft adgangskode";
 "account-creation-email-placeholder-text" = "E-mail (valgfri)";
 "account-creation-missing-fields" = "Du skal indtaste et brugernavn, en adgangskode og en adgangskodebekræftelse for at oprette en konto.";
+"new-password-title" = "Sæt din adgangskode";
+"new-password-instructions" = "Du loggede på med en midlertidig adgangskode. Angiv en ny adgangskode her for at færdiggøre login.";
+"new-password-password-placeholder-text" = "Ny adgangskode";
+"new-password-confirm-placeholder-text" = "Bekræft ny adgangskode";
+"two-factor-login-title" = "Log ind på din konto";
+"two-factor-login-instructions" = "Indtast venligst to-faktor-bekræftelseskode";
+"two-factor-login-token-title" = "Kode";
 "login-name-not-found" = "Brugernavn er påkrævet for at logge på.";
 "login-name-illegal" = "Du har angivet et ugyldigt brugernavn.";
 "login-name-does-not-exist" = "Brugernavnet du angav findes ikke.";
@@ -70,6 +81,13 @@
 "login-account-creation" = "Har du ikke en konto? Opret en.";
 "login-username-placeholder-text" = "Brugernavn";
 "login-password-placeholder-text" = "Adgangskode";
+"login-forgot-password" = "Glemt din adgangskode?";
+"forgot-password-title" = "Nulstil adgangskode";
+"forgot-password-instructions" = "Udfyld et af felterne nedenfor for at modtage instruktioner om nulstilling af adgangskoden via e-mail";
+"forgot-password-username-prompt" = "Brugernavn";
+"forgot-password-email-prompt" = "E-mail (valgfri)";
+"forgot-password-button-title" = "Nulstil";
+"forgot-password-email-sent" = "En e-mail med instruktioner om nulstilling af adgangskoden blev afsendt";
 "wikitext-downloading" = "Henter indhold...";
 "wikitext-download-failed" = "Ude af stand til at hente seneste version.";
 "wikitext-download-success" = "Indhold hentet.";
@@ -317,8 +335,7 @@
 "migration-prompt-message" = "Vi er nødt til at overføre dine gemte og de seneste sider. Dette kan tage et øjeblik...";
 "migration-confirm-button-title" = "Overfør mine ting";
 "migration-skip-button-title" = "Slet det";
-// Fuzzy
-"image-gallery-unknown-owner" = "Uploader ukendt.";
+"image-gallery-unknown-owner" = "Ophavsmand ukendt.";
 "image-gallery-fetch-image-info-error-title" = "Kunne ikke indlæse billeder";
 "image-gallery-fetch-image-info-error-message" = "Kunne ikke indlæse billederne til denne artikel. Opdatér venligst artiklen og prøv igen.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
@@ -333,7 +350,7 @@
 "page-similar-titles" = "Lignende sider";
 "page-read-in-other-languages" = "Tilgængelig på $1 andre sprog";
 "page-last-edited" = "Redigeret for $1 dage siden";
-"page-edit-history" = "Fuld redigerings historik";
+"page-edit-history" = "Fuld redigeringshistorik";
 "captcha-reload" = "Vis en anden captcha";
 "captcha-prompt" = "Indtast CAPTCHA teksten";
 "mwk-empty-title-error" = "Ude af stand til at udføre operationen med tom titel.";
@@ -453,3 +470,12 @@
 "status-saving-for-later" = "Gemmer til senere...";
 "status-saved-for-later" = "Gemt til senere";
 "announcements-dismiss" = "Nej tak";
+"places-search-top-articles" = "Populære artikler";
+"places-search-this-area" = "Søg i dette område";
+"places-search-saved-articles" = "Gemte artikler";
+"places-search-suggested-searches-header" = "Søgeforslag";
+"places-search-recently-searched-header" = "Seneste søgninger";
+"action-share" = "Del";
+"action-save" = "Gem";
+"action-read" = "Læs";
+"action-unsave" = "Gem ikke";

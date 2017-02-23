@@ -46,7 +46,11 @@
 "zero-warn-when-leaving" = "Avisar si s'abandones Zero";
 "zero-settings-devmode" = "Zero devmode";
 "account-creation-captcha-required" = "Comprobación de CAPTCHA obligatoria.";
+"account-creation-captcha-retry" = "Entrada incorreuta. Téntalo nuevamente.";
 "account-creation-captcha-obtaining" = "Baxando un CAPTCHA nuevu...";
+"account-creation-captcha-title" = "Comprobación de seguridá CAPTCHA";
+"account-creation-captcha-cannot-see-image" = "¿Nun puedes ver la imaxe? $1";
+"account-creation-captcha-request-account" = "Solicitar una cuenta.";
 "account-creation-logging-in" = "Aniciando sesión...";
 "account-creation-passwords-mismatched" = "Los campos de contraseña nun casen.";
 "account-creation-saving" = "Guardando...";
@@ -56,6 +60,13 @@
 "account-creation-password-confirm-placeholder-text" = "Confirmar la contraseña";
 "account-creation-email-placeholder-text" = "Corréu electrónicu (opcional)";
 "account-creation-missing-fields" = "Tienes d'escribir un nome d'usuariu, una contraseña, y la confirmación de la contraseña pa crear una cuenta.";
+"new-password-title" = "Configura la contraseña";
+"new-password-instructions" = "Aniciasti sesión con una contraseña temporal. Pa terminar d'aniciar sesión, tienes de configurar una contraseña nueva equí.";
+"new-password-password-placeholder-text" = "Contraseña nueva";
+"new-password-confirm-placeholder-text" = "Confirma la contraseña nueva";
+"two-factor-login-title" = "Anicia sesión na to cuenta";
+"two-factor-login-instructions" = "Escribe'l códigu de comprobación de 2 factores";
+"two-factor-login-token-title" = "Pase";
 "login-name-not-found" = "Ye obligatoriu un nome d'usuariu p'aniciar sesión.";
 "login-name-illegal" = "Apurristi un nome d'usuariu illegal.";
 "login-name-does-not-exist" = "El nome d'usuariu qu'apurristi nun esiste.";
@@ -66,6 +77,13 @@
 "login-account-creation" = "¿Nun tienes una cuenta? Xúnite a Wikipedia.";
 "login-username-placeholder-text" = "Nome d'usuariu";
 "login-password-placeholder-text" = "Contraseña";
+"login-forgot-password" = "¿Escaecisti la contraseña?";
+"forgot-password-title" = "Reaniciar la contraseña";
+"forgot-password-instructions" = "Rellena unu de los campos d'abaxo pa recibir per corréu instrucciones pa reaniciar la contraseña";
+"forgot-password-username-prompt" = "Nome d'usuariu";
+"forgot-password-email-prompt" = "Corréu electrónicu (opcional)";
+"forgot-password-button-title" = "Reaniciar";
+"forgot-password-email-sent" = "Unvióse un corréu electrónicu con instrucciones pa reaniciar la contraseña";
 "wikitext-downloading" = "Cargando'l conteníu...";
 "wikitext-download-failed" = "Nun pue algamase la cabera revisión.";
 "wikitext-download-success" = "Cargáu el conteníu.";
@@ -313,7 +331,6 @@
 "migration-prompt-message" = "Necesitamos mover les tos páxines guardaes y recientes. Esto puede tardar un minutu...";
 "migration-confirm-button-title" = "Treslladar les mios coses";
 "migration-skip-button-title" = "Desanicialo";
-// Fuzzy
 "image-gallery-unknown-owner" = "Autor desconocíu.";
 "image-gallery-fetch-image-info-error-title" = "Nun pudieron descargase les imaxes";
 "image-gallery-fetch-image-info-error-message" = "Nun pudieron descargase les imaxes d'esti artículu. Por favor, refresca l'artículu ya inténtalo otra vuelta.";
@@ -449,3 +466,12 @@
 "status-saving-for-later" = "Guardando para dempués…";
 "status-saved-for-later" = "Guardao pa dempués";
 "announcements-dismiss" = "Non, gracies";
+"places-search-top-articles" = "Artículos más lleíos";
+"places-search-this-area" = "Buscar nesta área";
+"places-search-saved-articles" = "Artículos guardaos";
+"places-search-suggested-searches-header" = "Guetes suxeríes";
+"places-search-recently-searched-header" = "Guetao recién";
+"action-share" = "Compartir";
+"action-save" = "Guardar";
+"action-read" = "Lleer";
+"action-unsave" = "Nun guardar";

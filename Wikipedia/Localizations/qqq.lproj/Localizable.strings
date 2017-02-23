@@ -77,7 +77,7 @@
 "new-password-confirm-placeholder-text" = "Placeholder text which appears initially in the new password confirmation text box";
 "two-factor-login-title" = "Title for two factor login interface";
 "two-factor-login-instructions" = "Instructions for two factor login interface";
-"two-factor-login-token-title" = "Title for two factor token text boxes";
+"two-factor-login-token-title" = "Title for two factor token text boxes\n{{Identical|Token}}";
 "login-name-not-found" = "Alert text shown when no user name was entered";
 "login-name-illegal" = "Alert text shown the chosen user name is now allowed by the wiki (e.g. for containing an \"@\" or for being too similar to an existing one).";
 "login-name-does-not-exist" = "Alert text shown when user name entered was not found";
@@ -89,11 +89,11 @@
 "login-username-placeholder-text" = "{{Identical|Username}}";
 "login-password-placeholder-text" = "{{Identical|Password}}";
 "login-forgot-password" = "Button text for loading the password reminder interface";
-"forgot-password-title" = "Title for reset password interface";
+"forgot-password-title" = "Title for reset password interface\n{{Identical|Reset password}}";
 "forgot-password-instructions" = "Instructions for resetting password";
-"forgot-password-username-prompt" = "Prompt for username field";
+"forgot-password-username-prompt" = "Prompt for username field\n{{Identical|Username}}";
 "forgot-password-email-prompt" = "Prompt for email address field";
-"forgot-password-button-title" = "Title for reset password button";
+"forgot-password-button-title" = "Title for reset password button\n{{Identical|Reset}}";
 "forgot-password-email-sent" = "Alert text shown when password reset email is sent";
 "wikitext-downloading" = "Alert text shown when obtaining latest revision of the section being edited";
 "wikitext-download-failed" = "Alert text shown when unable to obtain latest revision of the section being edited";
@@ -481,7 +481,6 @@
 "status-saving-for-later" = "Indicates to the user that the article is being saved for later";
 "status-saved-for-later" = "Indicates to the user that the article has been saved for later";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
-
 "places-search-top-articles" = "A search suggestion for top articles";
 "places-search-this-area" = "A button title that indicates the search will be redone in the visible area";
 "places-search-saved-articles" = "A search suggestion for saved articles";

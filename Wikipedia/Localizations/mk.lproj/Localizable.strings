@@ -47,7 +47,11 @@
 "zero-warn-when-leaving" = "Предупреди ме доколку ја напуштам Нулта";
 "zero-settings-devmode" = "Развоен режим на Нулта";
 "account-creation-captcha-required" = "Се бара потврда со сликичка";
+"account-creation-captcha-retry" = "Внесеното е неточно. Обидете се повторно.";
 "account-creation-captcha-obtaining" = "Правам нова сликичка...";
+"account-creation-captcha-title" = "Безбедносна проверка со CAPTCHA";
+"account-creation-captcha-cannot-see-image" = "Не ја гледате сликата? $1";
+"account-creation-captcha-request-account" = "Побарајте сметка.";
 "account-creation-logging-in" = "Ве најавувам...";
 "account-creation-passwords-mismatched" = "Лозинките не се совпаѓаат.";
 "account-creation-saving" = "Зачувувам...";
@@ -57,6 +61,13 @@
 "account-creation-password-confirm-placeholder-text" = "Потврда на лозинката";
 "account-creation-email-placeholder-text" = "Е-пошта (незадолжително)";
 "account-creation-missing-fields" = "Ќе мора да внесете корисничко име, лозинка и нејзина потврда за да направите сметка.";
+"new-password-title" = "Ставете лозинка";
+"new-password-instructions" = "Се најавивте со привремена лозинка. За да ја довршите најавата, ќе мора тука да зададете нова лозинка.";
+"new-password-password-placeholder-text" = "Нова лозинка";
+"new-password-confirm-placeholder-text" = "Потврдете ја новата лозинка";
+"two-factor-login-title" = "Најавете се со вашата сметка";
+"two-factor-login-instructions" = "Внесете го двочинителскиот код за заверка";
+"two-factor-login-token-title" = "Шифра";
 "login-name-not-found" = "Се бара корисничко име за најава.";
 "login-name-illegal" = "Внесовте неправилно корисничко име.";
 "login-name-does-not-exist" = "Внесеното корисничко име не постои.";
@@ -67,6 +78,13 @@
 "login-account-creation" = "Немате сметка? Приклучете се на Википедија";
 "login-username-placeholder-text" = "Корисничко име";
 "login-password-placeholder-text" = "Лозинка";
+"login-forgot-password" = "Ја заборавивте лозинката?";
+"forgot-password-title" = "Нова лозинка";
+"forgot-password-instructions" = "Пополнете едно од полињата подолу за да добиете напатствија за ставање нова лозинка по е-пошта.";
+"forgot-password-username-prompt" = "Корисничко име";
+"forgot-password-email-prompt" = "Е-пошта (незадолжително)";
+"forgot-password-button-title" = "Задај нова лозинка";
+"forgot-password-email-sent" = "На е-пошта ви се испратени напатствија за задавање на нова лозинка";
 "wikitext-downloading" = "Ги вчитувам содржините...";
 "wikitext-download-failed" = "Не можам да ја добијам најновата преработка.";
 "wikitext-download-success" = "Содржината е вчитана.";
@@ -314,8 +332,7 @@
 "migration-prompt-message" = "Треба да ги преместиме вашите зачувани и скорешни страници. Ова може да потрае минутка...";
 "migration-confirm-button-title" = "Премести ми ги работите";
 "migration-skip-button-title" = "Избриши ја";
-// Fuzzy
-"image-gallery-unknown-owner" = "Подигачот е непознат";
+"image-gallery-unknown-owner" = "Подигачот е непознат.";
 "image-gallery-fetch-image-info-error-title" = "Не можам да ги преземам сликите";
 "image-gallery-fetch-image-info-error-message" = "Не можам да ги преземам сликите за статијава. Превчитајте ја и обидете се повторно.";
 "image-gallery-fetch-image-info-error-ok" = "ОК";
@@ -450,3 +467,12 @@
 "status-saving-for-later" = "Зачувувам за подоцна...";
 "status-saved-for-later" = "Зачувано за подоцна";
 "announcements-dismiss" = "Не, благодарам";
+"places-search-top-articles" = "Најчитани статии";
+"places-search-this-area" = "Пребарај на ова подрачје";
+"places-search-saved-articles" = "Зачувани статии";
+"places-search-suggested-searches-header" = "Предложени пребарувања";
+"places-search-recently-searched-header" = "Неодамна пребарано";
+"action-share" = "Сподели";
+"action-save" = "Зачувај";
+"action-read" = "Прочитај";
+"action-unsave" = "Тргни";
