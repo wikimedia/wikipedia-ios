@@ -45,7 +45,11 @@
 "zero-warn-when-leaving" = "Beim Verloosse vu Zero warnen";
 "zero-settings-devmode" = "Zero-Entwécklermodus";
 "account-creation-captcha-required" = "CAPTCHA-Kontroll obligatoresch.";
+"account-creation-captcha-retry" = "Falsch Entrée. Probéiert w.e.g. nach eng Kéier.";
 "account-creation-captcha-obtaining" = "En neie CAPTCHA kréien.";
+"account-creation-captcha-title" = "CAPtCHA-Sécherheets-Check";
+"account-creation-captcha-cannot-see-image" = "Kënnt Dir d'Bild net gesinn? $1";
+"account-creation-captcha-request-account" = "Ee Benotzerkont ufroen.";
 "account-creation-logging-in" = "Aloggen...";
 "account-creation-passwords-mismatched" = "D'Passwierder sinn net identesch.";
 "account-creation-saving" = "Späicheren...";
@@ -55,6 +59,11 @@
 "account-creation-password-confirm-placeholder-text" = "Passwuert confirméieren";
 "account-creation-email-placeholder-text" = "E-Mail (Fakultativ)";
 "account-creation-missing-fields" = "Dir musst e Benotzernumm, e Passwuert an d'Confirmatioun vum Passwuert agi fir e Benotzerkont opzemaachen.";
+"new-password-title" = "Leet Äert Passwuert fest";
+"new-password-password-placeholder-text" = "Neit Passwuert";
+"new-password-confirm-placeholder-text" = "Neit Passwuert confirméieren";
+"two-factor-login-title" = "An Äre Benotzerkont aloggen";
+"two-factor-login-token-title" = "Token";
 "login-name-not-found" = "De Benotzernumm ass obligatoresch fir sech anzeloggen.";
 "login-name-illegal" = "Dir hutt e falsche Benotzernumm uginn.";
 "login-name-does-not-exist" = "De Benotzernumm deen Dir uginn hutt gëtt et net.";
@@ -65,6 +74,11 @@
 "login-account-creation" = "Hutt Dir kee Benotzerkont? Da maacht mat bei Wikipedia.";
 "login-username-placeholder-text" = "Benotzernumm";
 "login-password-placeholder-text" = "Passwuert";
+"login-forgot-password" = "Hutt Dir Äert Passwuert vergiess?";
+"forgot-password-title" = "Passwuert zrécksetzen";
+"forgot-password-username-prompt" = "Benotzernumm";
+"forgot-password-email-prompt" = "E-Mail (fakultativ)";
+"forgot-password-button-title" = "Zrécksetzen";
 "wikitext-downloading" = "Inhalt gëtt gelueden...";
 "wikitext-download-failed" = "Déi lescht Versioun konnt net opgeruff ginn.";
 "wikitext-download-success" = "Inhalt gelueden.";
@@ -405,7 +419,7 @@
 "explore-most-read-generic-heading" = "Am dackste geliest";
 "explore-most-read-footer" = "Déi am dackste geliest Artikelen";
 "explore-most-read-footer-for-date" = "Déi am dackste geliest Artikelen de(n) $1";
-"explore-most-read-more-list-title" = "Beléifst Artikelen";
+"explore-most-read-more-list-title" = "Beléiftst Artikelen";
 "explore-most-read-more-list-title-for-date" = "Déi beléifst de(n) $1";
 "no-email-account-alert" = "Configuréiert w.e.g. en E-Mail-Kont op Ärem Apparat a probéiert nach eng Kéier.";
 "request-feedback-on-error" = "Bei der App ass e Feeler geschitt iwwer deen eis Entwéckler méi wësse wëllen. Klickt w.e.g. hei fir eis eng E-Mail mat den Detailer vum Feeler ze schécken.";
@@ -440,3 +454,11 @@
 "status-saving-for-later" = "Fir spéider späicheren...";
 "status-saved-for-later" = "Fir spéider gespäichert";
 "announcements-dismiss" = "Nee, merci";
+"places-search-top-articles" = "Beléiftst Artikelen";
+"places-search-this-area" = "An dësem  Beräich sichen";
+"places-search-saved-articles" = "Gespäichert Artikelen";
+"places-search-recently-searched-header" = "Rezent gesicht";
+"action-share" = "Deelen";
+"action-save" = "Späicheren";
+"action-read" = "Liesen";
+"action-unsave" = "Läschen";

@@ -52,7 +52,11 @@
 "zero-warn-when-leaving" = "Cảnh báo khi ra khỏi Miễn phí";
 "zero-settings-devmode" = "Chế độ phát triển Miễn phí";
 "account-creation-captcha-required" = "Cần xác nhận bằng CAPTCHA.";
+"account-creation-captcha-retry" = "Lời giải không chính xác. Xin vui lòng thử lại.";
 "account-creation-captcha-obtaining" = "Đang lấy CAPTCHA mới…";
+"account-creation-captcha-title" = "Kiểm soát an toàn bằng CAPTCHA";
+"account-creation-captcha-cannot-see-image" = "Không thấy được hình này? $1";
+"account-creation-captcha-request-account" = "Yêu cầu một tài khoản.";
 "account-creation-logging-in" = "Đang đăng nhập…";
 "account-creation-passwords-mismatched" = "Mật khẩu không khớp.";
 "account-creation-saving" = "Đang lưu…";
@@ -62,6 +66,13 @@
 "account-creation-password-confirm-placeholder-text" = "Xác nhận mật khẩu";
 "account-creation-email-placeholder-text" = "Thư điện tử (tùy chọn)";
 "account-creation-missing-fields" = "Bạn phải nhập một tên người dùng và mật khẩu và xác nhận mật khẩu để mở tài khoản.";
+"new-password-title" = "Đặt mật khẩu";
+"new-password-instructions" = "Bạn đã đăng nhập bằng mật khẩu tạm. Để hoàn tất việc đăng nhập, bạn phải tạo lại mật khẩu mới tại đây.";
+"new-password-password-placeholder-text" = "Mật khẩu mới";
+"new-password-confirm-placeholder-text" = "Xác nhận mật khẩu mới";
+"two-factor-login-title" = "Đăng nhập vào tài khoản của bạn";
+"two-factor-login-instructions" = "Xin vui lòng nhập mã xác thực dùng hai nhân tố";
+"two-factor-login-token-title" = "Mã xác thực";
 "login-name-not-found" = "Cần tên người dùng để đăng nhập.";
 "login-name-illegal" = "Bạn đã cung cấp một tên người dùng không hợp lệ.";
 "login-name-does-not-exist" = "Bạn đã cung cấp một tên người dùng không tồn tại.";
@@ -72,6 +83,13 @@
 "login-account-creation" = "Chưa có tài khoản? Hãy tham gia Wikipedia.";
 "login-username-placeholder-text" = "Tên người dùng";
 "login-password-placeholder-text" = "Mật khẩu";
+"login-forgot-password" = "Quên mật khẩu?";
+"forgot-password-title" = "Đặt lại mật khẩu";
+"forgot-password-instructions" = "Điền vào một trong những trường sau để nhận hướng dẫn đặt lại mật khẩu qua thư điện tử";
+"forgot-password-username-prompt" = "Tên người dùng";
+"forgot-password-email-prompt" = "Thư điện tử (tùy chọn)";
+"forgot-password-button-title" = "Mặc định lại";
+"forgot-password-email-sent" = "Đã gửi thư điện tử có hướng dẫn đặt lại mật khẩu";
 "wikitext-downloading" = "Đang tải nội dung…";
 "wikitext-download-failed" = "Không lấy được phiên bản hiện tại.";
 "wikitext-download-success" = "Đã tải xong nội dung.";
@@ -235,7 +253,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "“$1” trên @Wikipedia: “$2”";
 "share-as-image" = "Chia sẻ hình ảnh";
 "share-as-text" = "Chia sẻ văn bản";
-"share-cancel" = "Huỷ bỏ";
+"share-cancel" = "Hủy bỏ";
 "timestamp-just-now" = "vừa xong";
 "timestamp-minutes" = "%d phút trước";
 "timestamp-hours" = "%d giờ trước";
@@ -319,8 +337,7 @@
 "migration-prompt-message" = "Chúng tôi cần di chuyển các trang mới lưu và đã lưu gần đây. Thao tác này có thể sẽ mất một phút...";
 "migration-confirm-button-title" = "Chuyển nội dung";
 "migration-skip-button-title" = "Xóa dữ liệu";
-// Fuzzy
-"image-gallery-unknown-owner" = "Người tải lên không rõ.";
+"image-gallery-unknown-owner" = "Tác giả không rõ.";
 "image-gallery-fetch-image-info-error-title" = "Không thể tải hình ảnh về";
 "image-gallery-fetch-image-info-error-message" = "Không thể tải về các hình ảnh cho bài này. Hãy tải lại bài và thử lại.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
@@ -356,7 +373,7 @@
 "home-last-update-never-label" = "Cập nhật lần cuối: Chưa bao giờ";
 "home-updating-label" = "Đang cập nhật…";
 "home-hide-suggestion-prompt" = "Ẩn gợi ý này";
-"home-hide-suggestion-cancel" = "Huỷ bỏ";
+"home-hide-suggestion-cancel" = "Hủy bỏ";
 "home-accessibility-label" = "Wikipedia, Khám phá";
 "home-title-accessibility-label" = "Wikipedia, cuộn lên đầu Thám hiểm";
 "home-button-accessibility-label" = "Trang chủ";
@@ -455,3 +472,12 @@
 "status-saving-for-later" = "Đang lưu để đọc sau…";
 "status-saved-for-later" = "Đã lưu để đọc sau";
 "announcements-dismiss" = "Thôi";
+"places-search-top-articles" = "Đọc nhiều nhất";
+"places-search-this-area" = "Tìm trong khu vực này";
+"places-search-saved-articles" = "Bài lưu";
+"places-search-suggested-searches-header" = "Tìm kiếm gợi ý";
+"places-search-recently-searched-header" = "Tìm kiếm gần đây";
+"action-share" = "Chia sẻ";
+"action-save" = "Lưu";
+"action-read" = "Đọc";
+"action-unsave" = "Bỏ lưu";

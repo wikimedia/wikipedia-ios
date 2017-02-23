@@ -59,6 +59,7 @@
 "zero-settings-devmode" = "Zero Devmode";
 "account-creation-captcha-required" = "Verificació de CAPTCHA requerida.";
 "account-creation-captcha-obtaining" = "Obtenint un CAPTCHA nou...";
+"account-creation-captcha-request-account" = "Sol·licita un compte.";
 "account-creation-logging-in" = "Iniciant sessió...";
 "account-creation-passwords-mismatched" = "Les contrasenyes no coincideixen.";
 "account-creation-saving" = "S’està desant…";
@@ -68,6 +69,9 @@
 "account-creation-password-confirm-placeholder-text" = "Confirma la contrasenya";
 "account-creation-email-placeholder-text" = "Adreça electrònica (opcional)";
 "account-creation-missing-fields" = "Heu d'introduir un nom d'usuari, contrasenya i confirmació de contrasenya per a crear un compte.";
+"new-password-password-placeholder-text" = "Contrasenya nova";
+"new-password-confirm-placeholder-text" = "Confirmeu la contrasenya nova";
+"two-factor-login-title" = "Inicieu una sessió amb el vostre compte";
 "login-name-not-found" = "Cal el nom d'usuari per iniciar una sessió.";
 "login-name-illegal" = "Heu introduït un nom d'usuari invàlid.";
 "login-name-does-not-exist" = "El nom d'usuari que heu proporcionat no existeix.";
@@ -78,6 +82,11 @@
 "login-account-creation" = "No teniu un compte? Uniu-vos a la Viquipèdia.";
 "login-username-placeholder-text" = "Nom d'usuari";
 "login-password-placeholder-text" = "Contrasenya";
+"login-forgot-password" = "Heu perdut la contrasenya?";
+"forgot-password-username-prompt" = "Nom d'usuari";
+"forgot-password-email-prompt" = "Adreça electrònica (opcional)";
+"forgot-password-button-title" = "Restableix";
+"forgot-password-email-sent" = "S'ha enviat un missatge de correu electrònic amb instruccions de restabliment de contrasenya";
 "wikitext-downloading" = "S'està carregant el contingut...";
 "wikitext-download-failed" = "No s'ha pogut obtenir la darrera revisió.";
 "wikitext-download-success" = "S'ha carregat el contingut.";
@@ -460,3 +469,5 @@
 "status-saving-for-later" = "Es desa per més endavant...";
 "status-saved-for-later" = "Desat per a més endavant";
 "announcements-dismiss" = "No, gràcies";
+"action-share" = "Comparteix";
+"action-unsave" = "No ho desis";

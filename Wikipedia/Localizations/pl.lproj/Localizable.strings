@@ -7,6 +7,7 @@
 // Author: Debeet
 // Author: Devwebtel
 // Author: Jacenty359
+// Author: Pawel Niemczuk
 // Author: Peter Bowman
 // Author: Pio387
 // Author: Py64
@@ -58,6 +59,8 @@
 "zero-settings-devmode" = "Tryb dewelopera Zero";
 "account-creation-captcha-required" = "Weryfikacja CAPTCHA jest wymagana.";
 "account-creation-captcha-obtaining" = "Uzyskiwanie nowego CAPTCHA...";
+"account-creation-captcha-cannot-see-image" = "Nie widać obrazka? $1";
+"account-creation-captcha-request-account" = "Wniosek o założenie konta.";
 "account-creation-logging-in" = "Logowanie...";
 "account-creation-passwords-mismatched" = "Hasła nie są identyczne.";
 "account-creation-saving" = "Zapisywanie...";
@@ -67,6 +70,13 @@
 "account-creation-password-confirm-placeholder-text" = "Potwierdź hasło";
 "account-creation-email-placeholder-text" = "E-mail (opcjonalnie)";
 "account-creation-missing-fields" = "W celu utworzenia konta, użytkownik musi wprowadzić nazwę użytkownika, hasło i potwierdzenie hasła.";
+"new-password-title" = "Wpisz swoje hasło";
+"new-password-instructions" = "Zalogowałeś się z użyciem hasła tymczasowego. Aby dokończyć logowanie ustal nowe hasło";
+"new-password-password-placeholder-text" = "Nowe hasło";
+"new-password-confirm-placeholder-text" = "Potwierdź nowe hasło";
+"two-factor-login-title" = "Zaloguj się na swoje konto";
+"two-factor-login-instructions" = "Wprowadź kod weryfikacji dwuskładnikowej";
+"two-factor-login-token-title" = "Token";
 "login-name-not-found" = "Do logowania wymagana jest nazwa użytkownika.";
 "login-name-illegal" = "Wpisałeś niedozwoloną nazwę użytkownika.";
 "login-name-does-not-exist" = "Nazwa użytkownika, którą podałeś, nie istnieje.";
@@ -77,6 +87,12 @@
 "login-account-creation" = "Nie masz konta? Dołącz do Wikipedii.";
 "login-username-placeholder-text" = "Nazwa użytkownika";
 "login-password-placeholder-text" = "Hasło";
+"login-forgot-password" = "Nie pamiętasz hasła?";
+"forgot-password-title" = "Zresetuj hasło";
+"forgot-password-instructions" = "Wypełnij jedno z poniższych pól, aby uzyskać e-mail z instrukcją, jak zresetować hasło";
+"forgot-password-username-prompt" = "Nazwa użytkownika";
+"forgot-password-email-prompt" = "E-mail (opcjonalnie)";
+"forgot-password-button-title" = "Zresetuj";
 "wikitext-downloading" = "Wczytywanie treści...";
 "wikitext-download-failed" = "Nie można uzyskać najnowszej wersji.";
 "wikitext-download-success" = "Zawartość załadowana.";
@@ -375,3 +391,7 @@
 "feed-news-notification-button-text" = "Włącz powiadomienia";
 "back" = "Wstecz";
 "announcements-dismiss" = "Nie, dziękuję";
+"places-search-saved-articles" = "Zapisane artykuły";
+"places-search-suggested-searches-header" = "Proponowane wyszukiwania";
+"action-share" = "Udostępnij";
+"action-save" = "Zapisz";

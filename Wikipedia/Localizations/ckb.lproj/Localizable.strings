@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Asoxor
 // Author: Diyariq
+// Author: Lost Whispers
 // Author: Macofe
 // Author: Mhurd
 // Author: Sarchia
@@ -46,6 +47,12 @@
 "account-creation-password-confirm-placeholder-text" = "تێپەروشە پشتڕاست بکەرەوە";
 "account-creation-email-placeholder-text" = "پۆستی ئەلکترۆنی (ئارەزوومەندانەیە)";
 "account-creation-missing-fields" = "پێویستە ھەژمارناوێک، تێپەڕوشەیەک، و دڵنیابوونەوەی تێپەڕوشە تۆماربکەی بۆ دروستکردنی ھەژمارێک.";
+"new-password-title" = "تێپەڕوشەکەت بنووسە";
+"new-password-instructions" = "تۆ بە تێپەڕوشەیەکی کاتیی ھاتوویتە ژوورەوە. بۆ تەواوکردنی چوونە ژوورەوە تێپەڕوشەیەکی نوێ لێرە دابنێ.";
+"new-password-password-placeholder-text" = "تێپەڕوشەی نوێ:";
+"new-password-confirm-placeholder-text" = "تێپەروشە پشتڕاست بکەرەوە";
+"two-factor-login-title" = "بچۆ ژوورەوە بۆ ناو ھەژمارەکەت";
+"two-factor-login-token-title" = "نیشانە";
 // Fuzzy
 "login-name-not-found" = "ھەژمارناو داواکراوە بۆ چوونەناوەوە.";
 // Fuzzy
@@ -57,6 +64,13 @@
 // Fuzzy
 "login-username-placeholder-text" = "ناوی بەکارھێنەر";
 "login-password-placeholder-text" = "تێپەڕوشە";
+"login-forgot-password" = "تێپەڕوشەکەت لەبیر کردووە؟";
+"forgot-password-title" = "ڕێکخستنەوەی تێپەڕوشە";
+"forgot-password-instructions" = "یەکێک لەم بۆشاییانەی خوارەوە پڕ بکەرەوە بۆ ئەوەی فێرکاری گۆڕینی تێپەڕوشەکەت پێ بگات بە ئیمەیڵ.";
+"forgot-password-username-prompt" = "ناوی بەکارھێنەر";
+"forgot-password-email-prompt" = "ئیمەیڵ (ئارەزوومەندانە)";
+"forgot-password-button-title" = "دووبارە ڕێکخستنەوە";
+"forgot-password-email-sent" = "پۆستێکی ئەلیکترۆنی کە فێرکاری ڕێکخستنەوەی تێپەڕوشە لەخۆ دەگرێت نێردرا";
 "wikitext-downloading" = "ھێنانی ناوەڕۆک...";
 "wikitext-download-success" = "ناوەڕۆک دابەزێندرا.";
 "wikitext-preview-changes-none" = "ھیچ گۆڕانکارییەک نەکراوە تا نیشان بدرێت.";

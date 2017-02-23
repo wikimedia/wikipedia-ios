@@ -218,6 +218,7 @@
 "button-ok" = "Gerai";
 "button-save-for-later" = "Išsaugoti ateičiai";
 "button-saved-for-later" = "Išsaugoti ateičiai";
+"button-read-now" = "Skaityti dabar";
 "button-report-a-bug" = "Pranešti apie klaidą";
 "onboarding-create-account" = "Kurti paskyrą";
 "onboarding-login" = "Prisijungti";
@@ -268,8 +269,7 @@
 "nearby-location-updates-settings-menu" = "Privatumas > Vietos Paslaugos > Vikipedija";
 "migration-confirm-button-title" = "Perkelti mano elementus";
 "migration-skip-button-title" = "Ištrinti";
-// Fuzzy
-"image-gallery-unknown-owner" = "Talpintojas nežinomas.";
+"image-gallery-unknown-owner" = "Autorius nežinomas.";
 "image-gallery-fetch-image-info-error-title" = "Nepavyko atsisiųsti paveikslėlių";
 "image-gallery-fetch-image-info-error-ok" = "Gerai";
 "hockeyapp-alert-title" = "Atsiprašome, programėlė praeitą kartą užlūžo";

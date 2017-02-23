@@ -53,7 +53,11 @@
 "zero-warn-when-leaving" = "Avisar-me se deixar a Zero";
 "zero-settings-devmode" = "Modo de programador Zero";
 "account-creation-captcha-required" = "A verificação do código CAPTCHA é necessária.";
+"account-creation-captcha-retry" = "Entrada incorreta. Por favor, tente novamente.";
 "account-creation-captcha-obtaining" = "A obter novo código CAPTCHA...";
+"account-creation-captcha-title" = "Verificação de segurança com CAPTCHA";
+"account-creation-captcha-cannot-see-image" = "Não consegue ver a imagem? $1";
+"account-creation-captcha-request-account" = "Solicitar uma conta.";
 "account-creation-logging-in" = "A autenticar...";
 "account-creation-passwords-mismatched" = "As palavras-passe não correspondem.";
 "account-creation-saving" = "A gravar...";
@@ -63,6 +67,13 @@
 "account-creation-password-confirm-placeholder-text" = "Confirme a palavra-passe";
 "account-creation-email-placeholder-text" = "Endereço de correio eletrónico (opcional)";
 "account-creation-missing-fields" = "Deve inserir um nome de utilizador(a), uma palavra-passe e respetiva confirmação para criar uma conta.";
+"new-password-title" = "Defina a sua palavra-passe";
+"new-password-instructions" = "Está autenticado com uma palavra-passe temporária. Para concluir a autenticação, defina uma nova palavra-passe aqui.";
+"new-password-password-placeholder-text" = "Nova palavra-passe";
+"new-password-confirm-placeholder-text" = "Confirme a nova palavra-passe";
+"two-factor-login-title" = "Inicie sessão na sua conta";
+"two-factor-login-instructions" = "Escreva o código de verificação de dois fatores";
+"two-factor-login-token-title" = "Chave";
 "login-name-not-found" = "O nome de utilizador(a) é necessário para iniciar sessão.";
 "login-name-illegal" = "Forneceu um nome de utilizador(a) ilegal.";
 "login-name-does-not-exist" = "O nome de utilizador(a) que forneceu não existe.";
@@ -73,6 +84,13 @@
 "login-account-creation" = "Não tem ainda uma conta? Junte-se à Wikipédia.";
 "login-username-placeholder-text" = "Nome de utilizador(a)";
 "login-password-placeholder-text" = "Palavra-passe";
+"login-forgot-password" = "Esqueceu sua palavra-passe?";
+"forgot-password-title" = "Redefinir palavra-passe";
+"forgot-password-instructions" = "Preencha um dos campos abaixo para receber instruções de redefinição da palavra-passe por email";
+"forgot-password-username-prompt" = "Nome de utilizador";
+"forgot-password-email-prompt" = "Email (opcional)";
+"forgot-password-button-title" = "Redefinir";
+"forgot-password-email-sent" = "Foi enviado um email com instruções de redefinição da palavra-passe";
 "wikitext-downloading" = "A carregar conteúdo...";
 "wikitext-download-failed" = "Não é possível obter a revisão mais recente.";
 "wikitext-download-success" = "Conteúdo carregado.";
@@ -320,7 +338,6 @@
 "migration-prompt-message" = "Precisamos de mover as suas páginas guardadas e recentes. Isto pode demorar um minuto...";
 "migration-confirm-button-title" = "Mover as minhas coisas";
 "migration-skip-button-title" = "Eliminar";
-// Fuzzy
 "image-gallery-unknown-owner" = "Autor desconhecido.";
 "image-gallery-fetch-image-info-error-title" = "Não foi possível transferir imagens";
 "image-gallery-fetch-image-info-error-message" = "Não foi possível descarregar as imagens deste artigo. Por favor, recarregue e tente de novo.";
@@ -359,7 +376,11 @@
 "home-hide-suggestion-prompt" = "Ocultar esta sugestão";
 "home-hide-suggestion-cancel" = "Cancelar";
 "home-accessibility-label" = "Wikipédia, Explora";
+"home-title-accessibility-label" = "Wikipédia, vá até o topo de Explorar";
 "home-button-accessibility-label" = "Início";
+"home-button-explore-accessibility-label" = "Wikipédia, voltar a Explorar";
+"home-button-saved-accessibility-label" = "Wikipédia, voltar a Guardados";
+"home-button-history-accessibility-label" = "Wikipédia, voltar ao Histórico";
 "potd-empty-error-description" = "Falhou ao obter a imagem do dia de $1";
 "potd-description-prefix" = "Imagem do dia de $1";
 "welcome-explore-title" = "Explorar";
@@ -385,6 +406,8 @@
 "welcome-volunteer-send-usage-reports" = "Enviar relatórios de uso";
 "welcome-volunteer-continue-button" = "Continuar";
 "welcome-volunteer-thanks" = "$1 Obrigado(a)!";
+"welcome-send-data-title" = "Enviar dados anónimos";
+"welcome-send-data-sub-title" = "Ajude a Wikimedia a tornar melhor a aplicação ao nos informar como a utiliza. Os dados coletados são anónimos";
 "empty-no-feed-title" = "Sem ligação à Internet";
 "empty-no-feed-message" = "Pode ver os seus artigos recomendados quando tiver acesso à Internet";
 "empty-no-feed-action-message" = "Pode ler páginas que tenha guardadas";
@@ -420,6 +443,7 @@
 "no-email-account-alert" = "Por favor, configure um endereço de correio eletrónico no seu dispositivo e tente novamente.";
 "request-feedback-on-error" = "O aplicativo encontrou um problema sobre o qual os nossos programadores gostariam de saber mais. Por favor, toque aqui para nos enviar um e-mail com os detalhes do erro.";
 "explore-another-random" = "Outro artigo aleatório";
+"explore-randomizer" = "Aleatório";
 "find-in-page-no-matches" = "Sem correspondências";
 "find-in-page-button-label" = "Localizar na página";
 "find-in-page-popover-description" = "Pesquisa de texto em artigos";
@@ -429,10 +453,11 @@
 "top-read-see-more-trending" = "Ver mais tendências";
 "top-read-header-with-language" = "Wikipédia em $1";
 "top-read-header-generic" = "Wikipédia";
+"readers-accessibility-label" = "$1 leitores";
+"rank-accessibility-label" = "Número $1";
 "reference-title" = "Referência $1";
 "in-the-news-notification-read-now-action-title" = "Ler agora";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Partilhar";
+"in-the-news-notification-share-action-title" = "Partilhar...";
 "in-the-news-notification-save-for-later-action-title" = "Guardar para mais tarde";
 "in-the-news-currently-trending" = "Popular atualmente";
 "in-the-news-title" = "Nas notícias";
@@ -440,7 +465,19 @@
 "number-thousands" = "$1K";
 "number-millions" = "$1M";
 "number-billions" = "$1B";
-// Fuzzy
 "feed-news-notification-text" = "Agora pode ativar notificações de artigos da Wikipédia que sejam notícia.";
-// Fuzzy
-"feed-news-notification-button-text" = "Notifique-me sobre notícias";
+"feed-news-notification-button-text" = "Ativar as notificações";
+"back" = "Voltar";
+"save-action" = "Guardar";
+"unsave-action" = "Desfazer Guardar";
+"status-saving-for-later" = "Guardar para depois...";
+"status-saved-for-later" = "Guardar para depois";
+"announcements-dismiss" = "Não, obrigado";
+"places-search-top-articles" = "Artigos mais lidos";
+"places-search-this-area" = "Pesquisar esta área";
+"places-search-saved-articles" = "Artigos guardados";
+"places-search-suggested-searches-header" = "Pesquisas sugeridas";
+"places-search-recently-searched-header" = "Pesquisas recentes";
+"action-share" = "Partilhar";
+"action-save" = "Guardar";
+"action-read" = "Ler";
