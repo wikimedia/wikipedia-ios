@@ -35,6 +35,7 @@
 "zero-learn-more-learn-more" = "לייענט ווײַטער";
 "zero-learn-more-no-thanks" = "צומאַכן";
 "zero-wikipedia-zero-heading" = "וויקיפעדיע נול";
+"account-creation-captcha-request-account" = "בעטן א קאנטע";
 "account-creation-logging-in" = "ארײנלאגנדיק…";
 "account-creation-passwords-mismatched" = "פאסווארט פעלדער שטימען נישט.";
 "account-creation-saving" = "אויפהיטנדיק…";
@@ -43,6 +44,8 @@
 "account-creation-password-placeholder-text" = "פאַסווארט";
 "account-creation-password-confirm-placeholder-text" = "באשטעטיקן פאסווארט";
 "account-creation-email-placeholder-text" = "ע־פאסט (אפציאנאל)";
+"new-password-password-placeholder-text" = "ניי פּאסוואָרט:";
+"new-password-confirm-placeholder-text" = "באשטעטיקן פאסווארט";
 "login-name-not-found" = "באניצער־נאמען איז נייטיק כדי ארײַנלאגירן.";
 "login-name-illegal" = "איר האט באזארגט אן אומלעגאלן באניצער־נאמען.";
 "login-name-does-not-exist" = "דער באניצער־נאמען וואס איר האט באזארגט עקזיסטירט נישט.";
@@ -53,6 +56,11 @@
 "login-account-creation" = "איר האט נישט קיין קאנטע?טרעט ארײן מיט וויקיפעדיע.";
 "login-username-placeholder-text" = "באַניצער־נאָמען";
 "login-password-placeholder-text" = "פאַסווארט";
+"login-forgot-password" = "פֿאַרגעסן אײַער פאַסווארט?";
+"forgot-password-title" = "צוריקשטעלן פאַסווארט";
+"forgot-password-username-prompt" = "באַניצער־נאָמען";
+"forgot-password-email-prompt" = "ע־פאסט (אפציאנאל)";
+"forgot-password-button-title" = "צוריקשטעלן";
 "wikitext-downloading" = "אנלאדן אינהאלט…";
 "wikitext-download-success" = "אינהאלט געלאדן.";
 "wikitext-preview-changes" = "רופן פאראויסקוק פון אייערע ענדערונגען…";

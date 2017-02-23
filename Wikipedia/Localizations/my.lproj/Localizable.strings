@@ -9,6 +9,8 @@
 "article-languages-filter-placeholder" = "ဘာသာစကား ရှာဖွေရန်";
 "article-read-more-title" = "ဆက်ဖတ်ပါ";
 "article-about-title" = "ဤဆောင်းပါးအကြောင်း";
+"article-unable-to-load-section" = "ဤအပိုင်းအား မရယူနိုင်ပါ။ ဆောင်းပါးအား ပြန်လည်ရှင်းသန့်ခြင်းဖြင့် ဤပြဿနာအား ပြင်ဆင်ရန် ကြိုးပမ်းကြည့်ပါ။";
+"article-unable-to-load-article" = "ဆောင်းပါးအား မပြသနိုင်ပါ။";
 "article-related-articles-title" = "ဆက်စပ်ဆောင်းပါးများ";
 "article-languages-yours" = "သင့်ဘာသာစကားများ";
 "article-languages-others" = "အခြားဘာသာစကားများ";
@@ -40,6 +42,7 @@
 "zero-learn-more-no-thanks" = "ဖြုတ်ရန်";
 "zero-wikipedia-zero-heading" = "ဝီကီပီးဒီးယားသုည";
 "zero-warn-when-leaving" = "သုညမှ ထွက်ခွာလျှင် သတိပေးပါ";
+"zero-settings-devmode" = "Zero devmode";
 "account-creation-captcha-required" = "CAPTCHA အတည်ပြုခြင်း လိုအပ်သည်။";
 "account-creation-captcha-obtaining" = "CAPTCHA အသစ် ရယူနေသည်...";
 "account-creation-logging-in" = "လော့ဂ်အင် ဝင်ရောက်နေသည်...";
@@ -66,6 +69,7 @@
 "wikitext-download-success" = "အကြောင်းအရာ ရယူပြီး။";
 "wikitext-preview-changes" = "သင့်ပြောင်းလဲမှုများ၏ နမူနာကို ရယူနေသည်...";
 "wikitext-preview-changes-none" = "နမူနာပြရန် ပြောင်းလဲမှု ပြုလုပ်ထားခြင်း မရှိပါ။";
+"wikitext-upload-result-unknown" = "ဝီကီစာသားတင်မှုရလဒ်အား ဆုံးဖြတ်နိုင်ခြင်း မရှိပါ။";
 "wikitext-upload-captcha-error" = "CAPTCHA အတည်ပြုခြင်း အမှား။";
 "wikitext-upload-captcha-needed" = "CAPTCHA အတည်ပြုချက် လိုအပ်သည်။";
 "wikitext-upload-save" = "လွှင့်တင်နေသည်...";
@@ -73,6 +77,7 @@
 "wikitext-upload-save-sign-in-benefits" = "ထို့အတွက် အခြားတည်းဖြတ်သူများ သင်နှင့် ဆက်သွယ်နိုင်သလို သင်တည်းဖြတ်ထားသည့် ဆောင်းပါးများကိုလည်း သင်တွေ့နိုင်ပါသည်။";
 "wikitext-upload-save-anonymously" = "အမည်မသိအနေဖြင့် လွှင့်တင်ရန်";
 "wikitext-upload-save-anonymously-warning" = "တည်းဖြတ်မှုကို သင့်စက်၏ အိုင်ပီလိပ်စာအနေဖြင့် မှတ်သားမည်။ အကယ်၍ သင် $1 လျှင် သင့်အတွက် လုံခြုံမှု ပိုရနိုင်သည်။";
+"wikitext-upload-save-terms-and-license" = "လွှင့်တင်ခြင်းဖြင့် သင်သည် $1 ကို သဘောတူညီပြီး သင့်ဆောင်ရွက်ချက်များအား $2 လိုင်စင်ဖြင့် ဖြန့်ချီခြင်းကို ယတိပြတ် သဘောတူညီပြီး ဖြစ်ရမည်။";
 "wikitext-upload-save-terms-name" = "အသုံးပြုခြင်းဆိုင်ရာ သတ်မှတ်ချက်များ";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "လင့်ခ်ကို ဖွင့်ရန်";
@@ -103,6 +108,7 @@
 "settings-notifications" = "အသိပေးချက်များ";
 "settings-help-and-feedback" = "အကူအညီနှင့် အကြံပြုချက်";
 "settings-primary-language" = "ပင်မ";
+"settings-notifications-system-turn-on" = "အသိပေးချက်များ ဖွင့်ရန်";
 "main-menu-title" = "ပို၍";
 "main-menu-heading-about" = "အကြောင်း";
 "main-menu-language-title" = "$1 ဝီကီပီးဒီးယားထဲတွင် ရှာဖွေပါ";

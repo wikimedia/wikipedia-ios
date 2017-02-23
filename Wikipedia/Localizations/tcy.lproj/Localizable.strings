@@ -13,6 +13,7 @@
 "article-related-articles-title" = "ಸಂಬಂಧ ಪಡೆಯಿನ ಲೇಕನಲು";
 "article-languages-yours" = "ಇರೆನಾ ಬಾಸೆ";
 "article-languages-others" = "ಬೇತೆ ಬಾಸೆಲೆಡ್";
+"info-box-title" = "ಇತ್ತೆತಾ ವಿಸಯೊ";
 "info-box-close-text" = "ಮುಚ್ಚಿಲೆ";
 "table-title-other" = "ಜಾಸ್ತಿ ಮಾಹಿತಿ";
 "saved-clear-all" = "ಮಾಜಲೇ";
@@ -32,6 +33,8 @@
 "zero-learn-more-learn-more" = "ನನಲಾ ಓದುಲೇ";
 "zero-learn-more-no-thanks" = "ದೆತ್ತ್ ಪಾಡ್ಲೆ";
 "zero-wikipedia-zero-heading" = "ವಿಕಿಪೀಡಿಯಾ ಜಿರೋ";
+"account-creation-captcha-required" = "CAPTCHA ಪರಿಶೀಲನೆ ಅಗತ್ಯ ಉಂಡು";
+"account-creation-captcha-retry" = "ಬರೆಯಿನಾ ತತ್ತುಂಡ್. ಕುಡೋರಾ ಪ್ರಯತ್ನ ಮನ್ಪುಲೆ.";
 "account-creation-logging-in" = "ಇರ್ ಲಾಗ್-ಇನ್ ಅವೊಂತುಲ್ಲಾರ್";
 "account-creation-passwords-mismatched" = "ಪ್ರವೇಸೊ ಪದ ಜೋಡಿ ಅಪೂಜಿ.";
 "account-creation-saving" = "ಓರಿಪವೊಂತುಂಡು...";
@@ -40,11 +43,20 @@
 "account-creation-password-placeholder-text" = "ಪಾಸ್-ವರ್ಡ್:";
 "account-creation-password-confirm-placeholder-text" = "ಪ್ರವೇಸೊ ಪದೊನು ದೃಡೊ ಮಲ್ಪುಲೆ";
 "account-creation-email-placeholder-text" = "ಇಮೈಲ್(ಇಚ್ಛೆ ಇತುಂಡ ಮಾತ್ರೋ)";
+"new-password-title" = "ಪ್ರವೇಸೊ ಪದೊನ್ ಬರೆಲೆ";
+"new-password-password-placeholder-text" = "ಪೊಸ ಪ್ರವೇಶಪದ";
+"new-password-confirm-placeholder-text" = "ಪ್ರವೇಸೊ ಪದೊನು ದೃಡೊ ಮಲ್ಪುಲೆ";
+"two-factor-login-title" = "ಇರೇನಾ ಖಾತೆಗ್ ಲಾಗಿನ್ ಅಲೇ";
+"two-factor-login-token-title" = "ಟೊಕನ್";
 "login-password-empty" = "ಲಾಗ್ ಇನ್ ಅವರಾ ಪ್ರವೇಶೋ ಪದೋ ಬೋಡು.";
 "login-password-wrong" = "ಇರ್ ಪಾಡ್ನ ಪ್ರವೇಶೋ ಪದೋ ತಪ್ಪಾತುಂಡ್";
 "login-user-blocked" = "ಈ ಸದಸ್ಯೆರೆನ್ ತಡೆ ಮಲ್ತ್ ದ್೦ಡ್.";
 "login-username-placeholder-text" = "ಸದಸ್ಯೆರ್ನ ಪುದರ್";
 "login-password-placeholder-text" = "ಪ್ರವೇಸೊಪದೊ";
+"forgot-password-title" = "ಪ್ರವೇಸೊ ಪದೊನ್ ಪಿರ ಸ್ತಾಪನೆ ಮಲ್ಪುಲೆ";
+"forgot-password-username-prompt" = "ಸದಸ್ಯೆರ್ನ ಪುದರ್";
+"forgot-password-email-prompt" = "ಇಮೈಲ್(ಇಚ್ಛೆ ಇತುಂಡ ಮಾತ್ರೋ)";
+"forgot-password-button-title" = "ಪಿರ ಸರಿಮಾನ್ಪಿ";
 "wikitext-downloading" = "ಮಾಹಿತಿ ದಿಂಜೋತುಂಡು...";
 "wikitext-download-success" = "ಮಾಹಿತಿ ದಿಂಜಿಂಡ್.";
 "wikitext-upload-save" = "ಓರಿಪವೊಂತುಂಡು...";
@@ -131,8 +143,7 @@
 "about-wikimedia-foundation" = "ವಿಕಿಮೀಡಿಯಾ ಫೌಂಡೇಷನ್";
 "share-menu-save-page" = "ಪುಟೊನು ಒರಿಪಾಲೆ";
 "share-menu-page-saved" = "ಆಫ್ ಲೈನ್ ಡ್ ಓದುನೆನ್ ಒರಿಪಾತುಂಡು.";
-// Fuzzy
-"share-custom-menu-item" = "ಪಟ್ಟುಕಾ";
+"share-custom-menu-item" = "ಪಟ್ಟುಕಾ...";
 "share-on-twitter-sign-off" = "ವಿಕಿಪೀಡಿಯ ಒಟ್ಟುಗೂ @";
 "share-as-image" = "ಪಟ ಅತ್ ಪಟ್ಟುಕಾ";
 "share-as-text" = "ಪದೋ ಅತ್ ಪಟ್ಟುಕಾ";
@@ -153,6 +164,7 @@
 "button-ok" = "ಸರಿ";
 "button-save-for-later" = "ಬುಕ್ಕ ಒರಿಪಾಲೆ";
 "button-saved-for-later" = "ಬುಕ್ಕ ಒರಿಪಾಪುಂಡು";
+"button-read-now" = "ಇತ್ತೇ ಓದುಲೆ";
 "button-report-a-bug" = "ತೊಂದರೆನ್ ತೆರಿಪಾಲೆ";
 "onboarding-create-account" = "ಪೊಸ ಕಾತೆ ಸುರು ಮಲ್ಪುಲೆ";
 "onboarding-login" = "ಲಾಗಿನ್ ಆಲೆ";
@@ -164,7 +176,6 @@
 "page_protected_can_not_edit_title" = "ಈ ಪುಟನ್ ಜಾಗ್ರತೆಡ್ ಡಿತುಂಡು";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "ವಿಸಯೊಳು";
-// Fuzzy
 "table-of-contents-button-label" = "ಪರಿವಿಡಿ";
 "table-of-contents-close-accessibility-hint" = "ಮುಚ್ಚಿಲೆ";
 "menu-edit-accessibility-label" = "ಸೇರ್ಸಲೇ";
@@ -172,6 +183,7 @@
 "menu-preview-accessibility-label" = "ಮುನ್ನೋಟೊ";
 "menu-back-accessibility-label" = "ಪಿರವು";
 "menu-forward-accessibility-label" = "ದುಂಬು";
+"menu-w-accessibility-label" = "ಮೆನು";
 "menu-toc-accessibility-label" = "ವಿಸಯೊಳು";
 "menu-search-accessibility-label" = "ನಾಡ್ಲೇ";
 "menu-reload-accessibility-label" = "ಪಿರದಿಂಜಾಲೆ";
@@ -203,6 +215,7 @@
 "home-last-update-label" = "ಕಡೇತಾ ಪರಿಷ್ಕರಣೆ ಮಾಂತುನಾ: %s";
 "home-last-update-never-label" = "ಕಡೆತಾ ಪರಿಷ್ಕರಣೆ: ಮಾಲ್ತಿಜ್ಜಿ";
 "home-hide-suggestion-cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
+"home-button-accessibility-label" = "ಮುಖ್ಯಪುಟ";
 "welcome-explore-tell-me-more" = "ಜಾಸ್ತಿ ತೆರಿಪಾಲೆ";
 "welcome-explore-tell-me-more-done-button" = "ಗೊತ್ತಂಡಾ";
 "welcome-explore-continue-button" = "ಸುರು ಮಾನ್ಪುಲೆ";
@@ -230,4 +243,13 @@
 "top-read-see-more" = "ಮಸ್ತು ಓದುನೆನ್ ತೂಲೆ";
 "top-read-header-with-language" = "$1 ವಿಕಿಪೀಡಿಯ";
 "top-read-header-generic" = "ವಿಕಿಪೀಡಿಯ";
+"in-the-news-notification-share-action-title" = "ಪಟ್ಟುಲೇ...";
+"in-the-news-notification-save-for-later-action-title" = "ಬುಕ್ಕ ಒರಿಪಾಪುಂಡು";
 "number-thousands" = "$1K";
+"number-millions" = "$1M";
+"number-billions" = "$1B";
+"back" = "ಪಿರವು";
+"save-action" = "ಒರಿಪಾಲೆ";
+"unsave-action" = "ಒರಿಪಾತುಜಿ";
+"status-saving-for-later" = "ಬುಕ್ಕ ಒರಿಪಕೋ...";
+"status-saved-for-later" = "ಬುಕ್ಕ ಒರಿಪಾಪುಂಡು";

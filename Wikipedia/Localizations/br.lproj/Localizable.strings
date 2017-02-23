@@ -49,6 +49,7 @@
 "zero-settings-devmode" = "Mod diorren zero";
 "account-creation-captcha-required" = "Rekis eo gwiriañ ar C'HAPTCHA";
 "account-creation-captcha-obtaining" = "Kaout ur C'HAPTCHA nevez...";
+"account-creation-captcha-cannot-see-image" = "Dibosupl gwelet ar skeudenn ? $1";
 "account-creation-logging-in" = "O kevreañ ouzh...";
 "account-creation-passwords-mismatched" = "Maeziennoù ar gerioù-tremen ne glotont ket an eil gant egile";
 "account-creation-saving" = "Oc'h enrollañ...";
@@ -58,6 +59,11 @@
 "account-creation-password-confirm-placeholder-text" = "Kadarnaat ar ger-tremen";
 "account-creation-email-placeholder-text" = "Postel (diret)";
 "account-creation-missing-fields" = "Rankout a rit ebarzhiñ un anv implijer, ur ger-tremen, hag ur ger-tremen kadarnaat evit krouiñ ur gont.";
+"new-password-password-placeholder-text" = "Ger-tremen nevez";
+"new-password-confirm-placeholder-text" = "Kadarnaat ar ger-tremen nevez";
+"two-factor-login-title" = "Kevreañ d'ho kont";
+"two-factor-login-instructions" = "Merkit ar c'hod gwiriañ dezhañ daou faktor";
+"two-factor-login-token-title" = "Jedouer";
 "login-name-not-found" = "Rekis eo an anv implijer evit kevreañ.";
 "login-name-illegal" = "Roet ho peus un anv implijer dilezenn.";
 "login-name-does-not-exist" = "N'eus ket eus an anv implijer roet";
@@ -68,6 +74,12 @@
 "login-account-creation" = "N'ho peus kont ebet ? Deuit da-gaout Wikipedia";
 "login-username-placeholder-text" = "Anv implijer";
 "login-password-placeholder-text" = "Ger-tremen";
+"login-forgot-password" = "Ankouaet ho ker-tremen ganeoc'h ?";
+"forgot-password-title" = "Adderaouekaat ar ger-tremen";
+"forgot-password-username-prompt" = "Anv implijer";
+"forgot-password-email-prompt" = "Postel (diret)";
+"forgot-password-button-title" = "Adderaouekaat";
+"forgot-password-email-sent" = "Kaset ez eus bet ur postel gant displegadurioù adderaouekaat";
 "wikitext-downloading" = "O kargañ un endalc'had...";
 "wikitext-download-failed" = "N'haller ket kaout an azgweladenn ziwezhañ";
 "wikitext-download-success" = "Endalc'had karget";
@@ -450,3 +462,10 @@
 "status-saving-for-later" = "Enrollañ evit diwezhatoc'h...";
 "status-saved-for-later" = "Enrollet evit diwezhatoc'h";
 "announcements-dismiss" = "Ne'm bo ket, trugarez";
+"places-search-top-articles" = "Pennadoù gwellañ";
+"places-search-this-area" = "Klask en takad-mañ";
+"places-search-saved-articles" = "Pennadoù enrollet";
+"places-search-suggested-searches-header" = "Enklaskoù kinniget";
+"places-search-recently-searched-header" = "Enklaskoù graet nevez zo";
+"action-share" = "Rannañ";
+"action-unsave" = "Hep enrollañ";
