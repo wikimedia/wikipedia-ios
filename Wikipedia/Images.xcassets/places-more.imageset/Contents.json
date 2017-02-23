@@ -2,7 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "more.pdf"
+      "filename" : "more.pdf",
+      "language-direction" : "left-to-right"
     }
   ],
   "info" : {
