@@ -63,6 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 
+static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
+
 @interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching>
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
@@ -240,14 +242,14 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         }
     }];
 
-    [group waitInBackgroundWithTimeout:12
+    [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
                             completion:^{
                                 NSAssert([NSThread isMainThread], @"Must be called on the main thread");
                                 self.relatedUpdatedTaskGroup = nil;
                             }];
 }
 
-- (void)updateNearby:(nullable dispatch_block_t)completion  {
+- (void)updateNearby:(nullable dispatch_block_t)completion {
     NSAssert([NSThread isMainThread], @"Must be called on the main thread");
     if (self.nearbyUpdateTaskGroup || self.feedUpdateTaskGroup) {
         return;
@@ -263,8 +265,8 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                           }];
         }
     }];
-    
-    [group waitInBackgroundWithTimeout:12
+
+    [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
                             completion:^{
                                 NSAssert([NSThread isMainThread], @"Must be called on the main thread");
                                 self.nearbyUpdateTaskGroup = nil;
@@ -308,7 +310,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                       }];
     }];
 
-    [group waitInBackgroundWithTimeout:12
+    [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
                             completion:^{
                                 NSError *saveError = nil;
                                 if (![self.userStore save:&saveError]) {
