@@ -10,6 +10,8 @@
 
 #import <WMF/WMF-Swift.h>
 
+static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000;
+
 @interface WMFNearbyContentSource () <WMFLocationManagerDelegate>
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
@@ -201,13 +203,20 @@
     self.completion = nil;
 }
 
+
+
 - (nullable WMFContentGroup *)contentGroupCloseToLocation:(CLLocation *)location {
 
     __block WMFContentGroup *locationContentGroup = nil;
     [self.contentStore enumerateContentGroupsOfKind:WMFContentGroupKindLocation
                                           withBlock:^(WMFContentGroup *_Nonnull currentGroup, BOOL *_Nonnull stop) {
                                               WMFContentGroup *potentiallyCloseLocationGroup = (WMFContentGroup *)currentGroup;
-                                              if ([potentiallyCloseLocationGroup.location wmf_isCloseTo:location]) {
+                                              CLLocation *groupLocation = potentiallyCloseLocationGroup.location;
+                                              if (!groupLocation) {
+                                                  return;
+                                              }
+                                              CLLocationDistance distance = [groupLocation distanceFromLocation:location];
+                                              if (distance < WMFNearbyUpdateDistanceThresholdInMeters) {
                                                   locationContentGroup = potentiallyCloseLocationGroup;
                                                   *stop = YES;
                                               }
@@ -221,7 +230,7 @@
 - (void)getGroupForLocation:(CLLocation *)location completion:(void (^)(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark))completion
                     failure:(void (^)(NSError *error))failure {
 
-    if (self.isProcessingLocation) {
+    if (self.isProcessingLocation || !location) {
         failure(nil);
         return;
     }
