@@ -35,7 +35,8 @@
         @"thumbwidth": thumbnailWidth,
         @"prop": WMFJoinedPropertyParameters(@[@"sections", @"text", @"lastmodified", @"lastmodifiedby",
                                                @"languagecount", @"id", @"protection", @"editable", @"displaytitle",
-                                               @"thumb", @"description", @"image", @"revision"])
+                                               @"thumb", @"description", @"image", @"revision"]),
+        @"pilicense": @"any"
     }.mutableCopy;
 
     return params;
