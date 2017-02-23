@@ -127,6 +127,7 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
         @"exlimit": numResults,
         // pageimage
         @"pilimit": numResults,
+        @"pilicense": @"any",
     }];
     return baseParams;
 }

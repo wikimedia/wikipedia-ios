@@ -84,6 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
         @"wbptterms": @"description",
         // pageimage
         @"piprop": @"thumbnail",
+        @"pilicense": @"any",
         @"pithumbsize": [[UIScreen mainScreen] wmf_leadImageWidthForScale],
         @"pilimit": numberOfRandomItemsToFetch,
         // revision
