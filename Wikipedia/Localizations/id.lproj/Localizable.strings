@@ -5,6 +5,7 @@
 // Author: BaconSenpai
 // Author: Beeyan
 // Author: Bennylin
+// Author: Bramadiarya
 // Author: C5st4wr6ch
 // Author: Fate Kage
 // Author: Iwan Novirion
@@ -56,7 +57,11 @@
 "zero-warn-when-leaving" = "Peringatkan jika meninggalkan Zero";
 "zero-settings-devmode" = "Mode pengembangan Zero";
 "account-creation-captcha-required" = "Verifikasi CAPTCHA diperlukan.";
+"account-creation-captcha-retry" = "Entri yang salah. Silahkan mencoba lagi.";
 "account-creation-captcha-obtaining" = "Memperoleh CAPTCHA baru...";
+"account-creation-captcha-title" = "Pemeriksaan keamanan CAPTCHA";
+"account-creation-captcha-cannot-see-image" = "Tidak dapat melihat gambar? $1";
+"account-creation-captcha-request-account" = "Minta akun.";
 "account-creation-logging-in" = "Sedang masuk log...";
 "account-creation-passwords-mismatched" = "Kolom kata sandi tidak cocok.";
 "account-creation-saving" = "Sedang menyimpan...";
@@ -66,6 +71,13 @@
 "account-creation-password-confirm-placeholder-text" = "Konfirmasi kata sandi";
 "account-creation-email-placeholder-text" = "Alamat surel/email (sebaiknya diisi)";
 "account-creation-missing-fields" = "Anda harus memasukkan nama pengguna, kata sandi, dan mengonfirmasi kata sandi untuk membuat sebuah akun.";
+"new-password-title" = "Setel kata sandi Anda";
+"new-password-instructions" = "Anda masuk log dengan kata sandi sementara. Untuk menyelesaikan masuk log atur kata sandi baru di sini.";
+"new-password-password-placeholder-text" = "Kata sandi baru";
+"new-password-confirm-placeholder-text" = "Konfirmasi kata sandi baru";
+"two-factor-login-title" = "Masuk ke akun Anda";
+"two-factor-login-instructions" = "Silakan masukkan kode verifikasi dua faktor";
+"two-factor-login-token-title" = "Token";
 "login-name-not-found" = "Nama pengguna diperlukan untuk masuk log.";
 "login-name-illegal" = "Anda memberikan nama pengguna yang tidak sah.";
 "login-name-does-not-exist" = "Nama pengguna yang Anda berikan tidak ada.";
@@ -76,6 +88,13 @@
 "login-account-creation" = "Belum punya akun? Gabung ke Wikipedia.";
 "login-username-placeholder-text" = "Nama pengguna";
 "login-password-placeholder-text" = "Kata sandi";
+"login-forgot-password" = "Lupa kata sandi Anda?";
+"forgot-password-title" = "Setel ulang kata sandi";
+"forgot-password-instructions" = "Isi salah satu bidang di bawah untuk menerima instruksi penyetelan ulang kata sandi melalui surel";
+"forgot-password-username-prompt" = "Nama pengguna";
+"forgot-password-email-prompt" = "Surel (opsional)";
+"forgot-password-button-title" = "Atur ulang";
+"forgot-password-email-sent" = "Sebuah surel dengan instruksi penyetelan ulang kata sandi telah dikirim";
 "wikitext-downloading" = "Memuat konten...";
 "wikitext-download-failed" = "Tidak dapat memperoleh revisi terbaru.";
 "wikitext-download-success" = "Konten dimuat.";
@@ -458,3 +477,10 @@
 "status-saving-for-later" = "Menyimpan untuk nanti...";
 "status-saved-for-later" = "Disimpan untuk nanti";
 "announcements-dismiss" = "Tidak, terima kasih";
+"places-search-top-articles" = "Artikel teratas";
+"places-search-this-area" = "Telusuri daerah ini";
+"places-search-saved-articles" = "Artikel tersimpan";
+"places-search-suggested-searches-header" = "Penelusuran yang disarankan";
+"places-search-recently-searched-header" = "Ditelusuri baru-baru ini";
+"action-share" = "Bagikan";
+"action-unsave" = "Jangan simpan";

@@ -17,6 +17,7 @@
 // Author: Oashnic
 // Author: Okras
 // Author: Ping08
+// Author: Redredsonia
 // Author: WindEwriX
 // Author: Zpizza
 // Author: Александр Сигачёв
@@ -63,7 +64,9 @@
 "zero-warn-when-leaving" = "Предупреждать, если покидаете Zero";
 "zero-settings-devmode" = "Режим разработчика Zero";
 "account-creation-captcha-required" = "Требуется проверка капчей.";
+"account-creation-captcha-retry" = "Неправильный ввод. Пожалуйста, попробуйте ещё раз.";
 "account-creation-captcha-obtaining" = "Получение новой капчи...";
+"account-creation-captcha-cannot-see-image" = "Не видите изображение? $1";
 "account-creation-logging-in" = "Вход в систему…";
 "account-creation-passwords-mismatched" = "Пароли не совпадают.";
 "account-creation-saving" = "Сохраняется…";
@@ -73,6 +76,11 @@
 "account-creation-password-confirm-placeholder-text" = "Подтвердите пароль";
 "account-creation-email-placeholder-text" = "Адрес электронной почты (необязательно)";
 "account-creation-missing-fields" = "Для создания учётной записи вы должны ввести имя пользователя, пароль и подтверждение пароля.";
+"new-password-title" = "Установите пароль";
+"new-password-password-placeholder-text" = "Новый пароль";
+"new-password-confirm-placeholder-text" = "Подтвердите новый пароль";
+"two-factor-login-title" = "Войдите в свою учётную запись";
+"two-factor-login-token-title" = "Токен";
 "login-name-not-found" = "Для входа требуется имя участника.";
 "login-name-illegal" = "Вы указали некорректное имя участника.";
 "login-name-does-not-exist" = "Указанного вами имени участника не существует.";
@@ -83,6 +91,12 @@
 "login-account-creation" = "У вас нет учётной записи? Присоединитесь к Википедии.";
 "login-username-placeholder-text" = "Имя участника";
 "login-password-placeholder-text" = "Пароль";
+"login-forgot-password" = "Забыли пароль?";
+"forgot-password-title" = "Сбросить пароль";
+"forgot-password-username-prompt" = "Имя участника";
+"forgot-password-email-prompt" = "Адрес электронной почты (необязательно)";
+"forgot-password-button-title" = "Сбросить";
+"forgot-password-email-sent" = "Письмо с инструкциями по сбросу пароля было отправлено";
 "wikitext-downloading" = "Загрузка содержимого…";
 "wikitext-download-failed" = "Не удаётся получить последнюю версию.";
 "wikitext-download-success" = "Содержимое загружено.";
@@ -465,3 +479,9 @@
 "status-saving-for-later" = "Экономия на потом...";
 "status-saved-for-later" = "Сохранено на потом";
 "announcements-dismiss" = "Нет, спасибо";
+"places-search-top-articles" = "Самые читаемые статьи";
+"places-search-saved-articles" = "Сохранённые статьи";
+"places-search-suggested-searches-header" = "Предложения для поиска";
+"action-share" = "Поделиться";
+"action-save" = "Сохранить";
+"action-read" = "Читать";

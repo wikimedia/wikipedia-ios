@@ -64,7 +64,10 @@
 "zero-warn-when-leaving" = "Avvisa se sto uscendo da Zero";
 "zero-settings-devmode" = "Zero Devmode";
 "account-creation-captcha-required" = "Verifica CAPTCHA richiesta.";
+"account-creation-captcha-retry" = "Inserimento errato. Riprova.";
 "account-creation-captcha-obtaining" = "Creazione di un nuovo CAPTCHA...";
+"account-creation-captcha-cannot-see-image" = "Non riesci a vedere l'immagine? $1";
+"account-creation-captcha-request-account" = "Richiedi un'utenza";
 "account-creation-logging-in" = "Accesso in corso...";
 "account-creation-passwords-mismatched" = "Le password non corrispondono.";
 "account-creation-saving" = "Salvataggio...";
@@ -74,6 +77,13 @@
 "account-creation-password-confirm-placeholder-text" = "Conferma password";
 "account-creation-email-placeholder-text" = "Email (opzionale)";
 "account-creation-missing-fields" = "È necessario immettere un nome utente, una password e la conferma della password per creare un account.";
+"new-password-title" = "Imposta la tua password";
+"new-password-instructions" = "L'accesso è stato effettuato con una password temporanea. Per completare la registrazione, è necessario impostare una nuova password qui.";
+"new-password-password-placeholder-text" = "Nuova password";
+"new-password-confirm-placeholder-text" = "Conferma la nuova password";
+"two-factor-login-title" = "Accedi alla tua utenza";
+"two-factor-login-instructions" = "Inserisci il codice di verifica a due fattori";
+"two-factor-login-token-title" = "Token";
 "login-name-not-found" = "Il nome utente è necessario per effettuare l'accesso.";
 "login-name-illegal" = "Hai fornito un nome utente non valido.";
 "login-name-does-not-exist" = "Il nome utente fornito non esiste.";
@@ -84,6 +94,12 @@
 "login-account-creation" = "Non hai un'utenza? Iscriviti a Wikipedia.";
 "login-username-placeholder-text" = "Nome utente";
 "login-password-placeholder-text" = "Password";
+"login-forgot-password" = "Hai dimenticato la password?";
+"forgot-password-title" = "Reimposta password";
+"forgot-password-username-prompt" = "Nome utente";
+"forgot-password-email-prompt" = "Email (opzionale)";
+"forgot-password-button-title" = "Reimposta";
+"forgot-password-email-sent" = "Una email è stata inviata con le istruzioni per la reimpostazione della password";
 "wikitext-downloading" = "Caricamento contenuto...";
 "wikitext-download-failed" = "Impossibile visualizzare l'ultima versione.";
 "wikitext-download-success" = "Contenuto caricato.";
@@ -454,3 +470,8 @@
 "status-saving-for-later" = "Salvataggio per dopo...";
 "status-saved-for-later" = "Salvato per dopo";
 "announcements-dismiss" = "No, grazie";
+"places-search-saved-articles" = "Voci salvate";
+"places-search-recently-searched-header" = "Cercato recentemente";
+"action-share" = "Condividi";
+"action-save" = "Salva";
+"action-read" = "Leggi";

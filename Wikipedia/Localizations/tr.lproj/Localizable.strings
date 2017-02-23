@@ -64,7 +64,11 @@
 "zero-warn-when-leaving" = "Zero'dan çıkılırsa uyar";
 "zero-settings-devmode" = "Zero geliştirme modu";
 "account-creation-captcha-required" = "CAPTCHA doğrulaması gerekli.";
+"account-creation-captcha-retry" = "Yanlış giriş. Lütfen tekrar deneyin.";
 "account-creation-captcha-obtaining" = "Yeni CAPTCHA alınıyor...";
+"account-creation-captcha-title" = "CAPTCHA güvenlik kontrolü";
+"account-creation-captcha-cannot-see-image" = "Resmi göremiyor musunuz? $1";
+"account-creation-captcha-request-account" = "Hesap iste.";
 "account-creation-logging-in" = "Oturum açılıyor...";
 "account-creation-passwords-mismatched" = "Parola alanları uyuşmuyor.";
 "account-creation-saving" = "Kaydediliyor...";
@@ -74,6 +78,13 @@
 "account-creation-password-confirm-placeholder-text" = "Parolayı onayla";
 "account-creation-email-placeholder-text" = "E-posta (isteğe bağlı)";
 "account-creation-missing-fields" = "Bir hesap oluşturmak için kullanıcı adı, parola ve parola onayı girmeniz gerekir.";
+"new-password-title" = "Parolanızı belirleyin";
+"new-password-instructions" = "Geçici bir parolayla giriş yaptınız. Oturum açmayı tamamlamak için bu sayfada yeni bir parola belirleyin.";
+"new-password-password-placeholder-text" = "Yeni parola";
+"new-password-confirm-placeholder-text" = "Yeni parolayı onayla";
+"two-factor-login-title" = "Hesabınızda oturum açın";
+"two-factor-login-instructions" = "Lütfen iki faktörlü doğrulama kodunu girin";
+"two-factor-login-token-title" = "Anahtar";
 "login-name-not-found" = "Kullanıcı adı, oturum açmak için gereklidir.";
 "login-name-illegal" = "Geçersiz bir kullanıcı adı girdiniz.";
 "login-name-does-not-exist" = "Kayıtlı böyle bir kullanıcı adı yok.";
@@ -84,6 +95,13 @@
 "login-account-creation" = "Hesabınız yok mu? Vikipedi'ye katılın";
 "login-username-placeholder-text" = "Kullanıcı adı";
 "login-password-placeholder-text" = "Parola";
+"login-forgot-password" = "Parolanızı mı unuttunuz?";
+"forgot-password-title" = "Parolayı sıfırla";
+"forgot-password-instructions" = "Parola sıfırlama talımatlarını e-posta yoluyla almak için aşağıdaki alanlardan birini doldurun";
+"forgot-password-username-prompt" = "Kullanıcı adı";
+"forgot-password-email-prompt" = "E-posta (isteğe bağlı)";
+"forgot-password-button-title" = "Sıfırla";
+"forgot-password-email-sent" = "Parola sıfırlama talimatlarını içeren bir e-posta gönderildi";
 "wikitext-downloading" = "İçerik yükleniyor...";
 "wikitext-download-failed" = "En son sürüm getirilemiyor.";
 "wikitext-download-success" = "İçerik yüklendi.";
@@ -277,7 +295,7 @@
 "preference_summary_eventlogging_opt_in" = "Wikimedia'nın, uygulamayı geliştirmek için, kullanım alışkanlıklarınız hakkında bilgi toplamasına izin ver";
 "page_protected_autoconfirmed" = "Bu sayfa yarı korumalıdır.";
 "page_protected_sysop" = "Bu sayfa tam korumalıdır.";
-"page_protected_other" = "Bu sayfa aşağıdaki seviyelerde korunmaktadır: $1";
+"page_protected_other" = "Bu sayfa aşağıdaki seviyelerde korunmaktadır: %1";
 "page_protected_can_not_edit" = "Bu sayfayı düzenleme yetkiniz yok";
 "page_protected_can_not_edit_title" = "Bu sayfa korumalı";
 "license-footer-text" = "İçerik, aksi belirtilmedikçe $1 lisansı altında kullanılabilir";
@@ -331,8 +349,7 @@
 "migration-prompt-message" = "Kaydedilmiş ve geçmiş sayfaları taşımamız gerekli. Bu bir dakika kadar sürebilir...";
 "migration-confirm-button-title" = "Verilerimi taşı";
 "migration-skip-button-title" = "Öğeyi sil";
-// Fuzzy
-"image-gallery-unknown-owner" = "Yükleyen bilinmiyor.";
+"image-gallery-unknown-owner" = "Yazar bilinmiyor.";
 "image-gallery-fetch-image-info-error-title" = "Görseller indirilemiyor";
 "image-gallery-fetch-image-info-error-message" = "Bu maddedeki görseller indirilemedi. Lütfen maddeyi yenileyerek tekrar deneyin.";
 "image-gallery-fetch-image-info-error-ok" = "TAMAM";
@@ -467,3 +484,10 @@
 "status-saving-for-later" = "Daha sonrası için kaydediliyor...";
 "status-saved-for-later" = "Sonrası için kaydedildi";
 "announcements-dismiss" = "Hayır, teşekkürler";
+"places-search-top-articles" = "Gündemdeki maddeler";
+"places-search-this-area" = "Bu bölgeyi ara";
+"places-search-saved-articles" = "Kaydedilmiş maddeler";
+"places-search-suggested-searches-header" = "Önerilen aramalar";
+"places-search-recently-searched-header" = "Son arananlar";
+"action-share" = "Paylaş";
+"action-unsave" = "Kaydedilenlerden çıkar";

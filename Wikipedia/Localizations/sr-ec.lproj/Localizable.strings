@@ -56,6 +56,7 @@
 "account-creation-password-confirm-placeholder-text" = "Потврда лозинке";
 "account-creation-email-placeholder-text" = "Имејл (необавезно)";
 "account-creation-missing-fields" = "За отварање налога је потребно да унесете корисничко име, лозинку и потврду лозинке.";
+"new-password-password-placeholder-text" = "Нова лозинка";
 "login-name-not-found" = "Потребно је корисничко име.";
 "login-name-illegal" = "Наведено корисничко име је неисправно.";
 "login-name-does-not-exist" = "Наведено корисничко име не постоји.";
@@ -66,6 +67,8 @@
 "login-account-creation" = "Немате налог? Придружите се Википедији.";
 "login-username-placeholder-text" = "Корисничко име";
 "login-password-placeholder-text" = "Лозинка";
+"forgot-password-username-prompt" = "Корисничко име";
+"forgot-password-email-prompt" = "Имејл (необавезно)";
 "wikitext-downloading" = "Учитавам садржај…";
 "wikitext-download-failed" = "Не могу да преузмем најновију измену.";
 "wikitext-download-success" = "Садржај је учитан.";

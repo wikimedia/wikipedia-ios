@@ -114,6 +114,7 @@
 "settings-primary-language-details" = "Бу тиһиликкэ бастакыннан ааттаммыт тыл дьибилгэт сүрүн тылын быһыытынан туттуллар. Бу тылы уларыттаххына Эйиэхэ күн аайы көрдөрүллэр уларыйан сөп (холобура Бастыҥ ыстатыйа).";
 "settings-notifications-system-off" = "Билигин Бикипиэдьийэ биллэриилэрэ арахса сылдьаллар. Тэрили нарылыыр сиргэ киирэн холбоо";
 "settings-notifications-system-turn-on" = "Биллэриилэри холбоо";
+"settings-notifications-info" = "Бикипиэдьийэҕэ суруллар саҥаны-сонуну биһиги угуйар биллэриилэрбититтэн тута билиҥ. Маны туһанар киһи тус дааннайа толору көмүскэллээх.";
 "settings-notifications-learn-more" = "Биллэрии туһунан сиһилии";
 "settings-notifications-trending" = "Буола турары билэ сырыт";
 "settings-notifications-push-notifications" = "Push-биллэриилэр";
@@ -222,8 +223,7 @@
 "share-menu-save-page" = "Сирэйи бигэргэт";
 "share-menu-page-saved" = "Ситимэ суох ааҕарга харалынна.";
 "share-menu-page-saved-access" = "Сүбэ: харайбыт сирэйдэргин көрөргө үөһэ маны $1 баттаа, биитэр аллара маны $2 уһуннук баттаа.";
-// Fuzzy
-"share-custom-menu-item" = "Тарҕат";
+"share-custom-menu-item" = "Тарҕат...";
 "share-a-fact-share-menu-item" = "Чахчыны-үллэһин";
 "share-on-twitter-sign-off" = "@Wikipedia нөҥүө";
 "share-article-name-on-wikipedia" = "«$1» @Wikipedia:";
@@ -314,8 +314,7 @@
 "migration-prompt-message" = "Бигэргэппит уонна уонна кэнники көрбүт ыстатыйаларгын көһөрүөхтээхпит. Аҕыйах мүнүүтэ буолуо...";
 "migration-confirm-button-title" = "Мин дааннайдарбын көһөр";
 "migration-skip-button-title" = "Балары сот";
-// Fuzzy
-"image-gallery-unknown-owner" = "Укпут киһи биллибэт.";
+"image-gallery-unknown-owner" = "Ааптара биллибэт.";
 "image-gallery-fetch-image-info-error-title" = "Ойууну көрдөрөр табыллыбата";
 "image-gallery-fetch-image-info-error-message" = "Бу ыстатыйа ойутун көрдөрөр табыллыбата. Бука диэн ыстатыйаны хат холбоон көр.";
 "image-gallery-fetch-image-info-error-ok" = "Сөп";
@@ -354,6 +353,7 @@
 "home-hide-suggestion-cancel" = "Бигэргэтимэ";
 "home-accessibility-label" = "Бикипиэдьийэ, Сирдьит";
 "home-button-accessibility-label" = "Сүрүн сирэй";
+"home-button-history-accessibility-label" = "Бикипиэдьийэ, Устуоруйаҕа төнүн";
 "potd-empty-error-description" = "$1 күн ойуутун ылар сатаммата";
 "potd-description-prefix" = "Күннээҕи ойуу $1";
 "welcome-explore-title" = "Көр";
@@ -378,6 +378,8 @@
 "welcome-volunteer-send-usage-reports" = "Туһаныы отчуотун ыытар буол";
 "welcome-volunteer-continue-button" = "Салгыы";
 "welcome-volunteer-thanks" = "$1 Махтал!";
+"welcome-send-data-title" = "Ааты эппэккэ ыытыы";
+"welcome-send-data-sub-title" = "Бикимиэдьийэ бу тэрили хайдах туһанаргын биллэҕинэ тупсарар кыахтаныа. Хомуллубут дааннайга аатыҥ киирбэт.";
 "empty-no-feed-title" = "Интэриниэти кытта ситим суох";
 "empty-no-feed-message" = "Сүбэлиир ыстатыйаларбытын ситим баар буоллаҕына көрүөххүн сөп";
 "empty-no-feed-action-message" = "Урут хаалларыллыбыт ыстатыйалары көрө түһүөххүн сөп";
@@ -423,10 +425,11 @@
 "top-read-see-more-trending" = "Тренды көр";
 "top-read-header-with-language" = "$1 Бикипиэдьийэ";
 "top-read-header-generic" = "Бикипиэдьийэ";
+"readers-accessibility-label" = "$1 ааҕааччылаах";
+"rank-accessibility-label" = "Ахсаана $1";
 "reference-title" = "Быһаарыы $1";
 "in-the-news-notification-read-now-action-title" = "Билигин ааҕыам";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Тарҕат";
+"in-the-news-notification-share-action-title" = "Тарҕат...";
 "in-the-news-notification-save-for-later-action-title" = "Кэлин бигэргэтиэм";
 "in-the-news-currently-trending" = "Билигин ордук сэргэнэр";
 "in-the-news-title" = "Сонуннарга ахтыллар";
@@ -438,3 +441,7 @@
 "feed-news-notification-button-text" = "Саҥа сонуннар таҕыстахтарына миэхэ биллэр";
 "back" = "Төнүн";
 "save-action" = "Бигэргэт";
+"unsave-action" = "Бигэргэммэтэх";
+"status-saving-for-later" = "Кэлин бигэргэтэргэ...";
+"status-saved-for-later" = "Хойут бигэргэтэргэ хаалларыллыбыт";
+"announcements-dismiss" = "Суох, махтанабын.";

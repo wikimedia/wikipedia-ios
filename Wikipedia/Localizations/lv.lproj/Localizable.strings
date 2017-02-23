@@ -25,6 +25,7 @@
 "history-clear-cancel" = "Atcelt";
 "history-clear-delete-all" = "Jā, dzēst visu";
 "zero-charged-verbiage" = "Vikipēdija Zero ir izslēgts";
+"zero-interstitial-title" = "Atstāj Vikipēdija Zero";
 "zero-interstitial-continue" = "Pamest";
 "zero-interstitial-cancel" = "Palikt šeit";
 "zero-learn-more-learn-more" = "Lasīt vairāk";
@@ -35,7 +36,6 @@
 "account-creation-captcha-required" = "Nepieciešama CAPTCHA verifikācija.";
 "account-creation-captcha-obtaining" = "Iegūst jaunu CAPTCHA...";
 "account-creation-saving" = "Saglabā...";
-// Fuzzy
 "account-creation-username-placeholder-text" = "Lietotājvārds";
 "account-creation-password-placeholder-text" = "Parole";
 "account-creation-password-confirm-placeholder-text" = "Apstipriniet paroli";
@@ -50,8 +50,7 @@
 "wikitext-upload-captcha-needed" = "Nepieciešama CAPTCHA verifikācija.";
 "wikitext-upload-save" = "Publicē...";
 "wikitext-upload-save-sign-in" = "Pieslēgties";
-// Fuzzy
-"wikitext-upload-save-anonymously" = "Saglabāt anonīmi";
+"wikitext-upload-save-anonymously" = "Publicēt anonīmi";
 "wikitext-upload-save-terms-name" = "Izmantošanas noteikumi";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Atvērt saiti";
@@ -65,8 +64,11 @@
 "search-titles" = "Nosaukumi";
 "search-recent-clear-cancel" = "Atcelt";
 "search-recent-clear-delete-all" = "Dzēst visu";
+"search-result-redirected-from" = "Pāradresēts no: $1";
 "settings-title" = "Iestatījumi";
+"settings-language" = "Vikipēdijas valoda";
 "settings-support" = "Atbalsti Vikipēdiju";
+"settings-language-bar" = "Rādīt valodas meklēšanā";
 "settings-my-languages" = "Manas valodas";
 "settings-notifications" = "Paziņojumi";
 "settings-help-and-feedback" = "Palīdzība un atsauksmes";
@@ -74,9 +76,11 @@
 "settings-notifications-learn-more" = "Uzziniet vairāk par paziņojumiem";
 "main-menu-title" = "Vairāk";
 "main-menu-heading-about" = "Par";
+"main-menu-language-title" = "Meklēt $1 Vikipēdijā";
 "main-menu-faq" = "Bieži uzdotie jautājumi";
 "main-menu-language-toggle-show" = "Rādīt valodas";
 "main-menu-language-toggle-hide" = "Paslēpt valodas";
+"main-menu-language-selection-saved" = "Valodas izvēle saglabāta";
 "main-menu-account-title-logged-out" = "Konts";
 "main-menu-account-login" = "Pieslēgties";
 "main-menu-account-logout" = "Iziet";
@@ -92,6 +96,7 @@
 "main-menu-terms-of-use" = "Lietošanas noteikumi";
 "main-menu-rate-app" = "Novērtē lietotni";
 "main-menu-heading-zero" = "Vikipēdija Zero";
+"main-menu-heading-legal" = "Privātuma politika un nosacījumi";
 "main-menu-show-today" = "Šodien";
 "main-menu-nearby" = "Tuvumā";
 "main-menu-more" = "Vairāk...";
@@ -103,19 +108,23 @@
 "saved-pages-refresh-cancel-alert-button" = "Sapratu";
 "history-title" = "Vēsture";
 "page-history-title" = "Raksta vēsture";
+"page-history-downloading" = "Ielādē raksta vēsturi...";
 "navbar-title-mode-edit-wikitext" = "Labot";
 "navbar-title-mode-login" = "Pieslēgties";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "Pieslēgties un saglabāt";
+"navbar-title-mode-login-and-save" = "Pieslēgties un publicēt";
 "navbar-title-mode-create-account" = "Izveidot kontu";
-// Fuzzy
-"navbar-title-mode-create-account-and-save" = "Izveidot kontu un saglabāt";
+"navbar-title-mode-create-account-and-save" = "Izveidot kontu un publicēt";
 "navbar-title-mode-edit-wikitext-preview" = "Priekšskatījums";
+"navbar-title-mode-edit-wikitext-summary" = "Apraksti savu labojumu";
 "navbar-title-mode-edit-wikitext-save" = "Publicēt";
 "edit-summary-choice-linked-words" = "Pievienotas saites";
+"edit-summary-choice-fixed-grammar" = "Labota gramatika";
 "edit-summary-choice-fixed-inaccuracy" = "Labota nepreciziāte";
+"edit-summary-choice-fixed-styling" = "Labots stils";
 "edit-summary-choice-fixed-typos" = "Labota pareizrakstības kļūda";
 "edit-summary-choice-added-category" = "Pievienota kategorija";
+"edit-summary-choice-added-missing-info" = "Pievienota trūkstoša informācija";
+"edit-summary-choice-added-clarification" = "Pievienots precizējums";
 "edit-summary-choice-other" = "Cits";
 "article-pull-to-refresh-is-refreshing" = "Atjaunina rakstu";
 "about-title" = "Par";
@@ -125,9 +134,11 @@
 "about-libraries-license" = "Licence";
 "about-libraries-licenses" = "Licences";
 "about-content-license" = "Satura licence";
+"about-libraries-complete-list" = "Pilns saraksts";
+"about-repositories-app-source-license-mit" = "MIT licence";
 "share-menu-save-page" = "Saglabāt lapu";
-// Fuzzy
-"share-custom-menu-item" = "Dalīties";
+"share-menu-page-saved" = "Saglabāts lasīšanai bezsaistē.";
+"share-custom-menu-item" = "Dalīties...";
 "share-as-image" = "Kopīgot kā attēlu";
 "share-as-text" = "Kopīgot kā tekstu";
 "share-cancel" = "Atcelt";
@@ -145,6 +156,7 @@
 "button-save" = "Saglabāt";
 "button-publish" = "Publicēt";
 "button-ok" = "Labi";
+"button-read-now" = "Lasīt tagad";
 "button-report-a-bug" = "Ziņot par kļūdu";
 "onboarding-create-account" = "Izveidot kontu";
 "onboarding-login" = "Pieslēgties";
@@ -182,25 +194,32 @@
 "nearby-pull-to-refresh-is-refreshing" = "Atjaunina";
 "nearby-open-in-maps" = "Atvērt iekš Maps";
 "nearby-cancel" = "Atcelt";
+"image-gallery-unknown-owner" = "Autors nezināms.";
 "image-gallery-fetch-image-info-error-ok" = "Labi";
 "hockeyapp-alert-send-report" = "Nosūtīt ziņojumu";
 "hockeyapp-alert-always-send" = "Vienmēr sūtīt";
 "hockeyapp-alert-do-not-send" = "Nesūtīt";
+"page-similar-titles" = "Līdzīgas lapas";
+"page-edit-history" = "Pilna labojumu vēsture";
+"captcha-reload" = "Rādīt vēl vienu captcha";
 "captcha-prompt" = "Ievadiet CAPTCHA tekstu";
 "home-empty-section" = "Rezultātu nav";
 "home-empty-section-check-again" = "Mēģināt vēlreiz";
 "home-continue-reading-heading" = "Turpināt lasīšanu";
+"home-nearby-check-again" = "Pārbaudīt vēlreiz";
 "home-updating-label" = "Atjaunina...";
 "home-hide-suggestion-cancel" = "Atcelt";
 "home-button-accessibility-label" = "Sākums";
 "welcome-explore-tell-me-more" = "Pastāsti man vairāk";
 "welcome-explore-tell-me-more-done-button" = "Sapratu";
+"welcome-notifications-tell-me-more-title" = "Vairāk par paziņojumiem";
 "welcome-languages-title" = "Valodas";
 "welcome-languages-add-button" = "Pievienot citu valodu";
 "welcome-languages-continue-button" = "Turpināt";
 "welcome-volunteer-send-usage-reports" = "Sūtīt lietojuma ziņojumus";
 "welcome-volunteer-continue-button" = "Turpināt";
 "welcome-volunteer-thanks" = "Paldies!";
+"welcome-send-data-title" = "Sūtīt anonīmus datus";
 "empty-no-feed-title" = "Nav interneta savienojuma";
 "empty-no-search-results-message" = "Nav atrasts neviens rezultāts";
 "icon-shortcut-search-title" = "Meklēt Vikipēdijā";
@@ -214,12 +233,15 @@
 "explore-random-article-sub-heading" = "Vikipēdija angļu valodā";
 "explore-potd-heading" = "Dienas attēls";
 "explore-another-random" = "Vēl viens nejaušs raksts";
+"explore-randomizer" = "Nejauša lapa";
 "find-in-page-no-matches" = "0 atbilstības";
 "find-in-page-button-label" = "Atrast lapā";
 "find-in-page-popover-description" = "Meklēt tekstu rakstos";
 "top-read-header-with-language" = "$1 Vikipēdija";
 "top-read-header-generic" = "Vikipēdija";
+"readers-accessibility-label" = "$1 lasītāji";
 "reference-title" = "Atsauce $1";
+"in-the-news-notification-read-now-action-title" = "Lasīt tagad";
 "in-the-news-notification-share-action-title" = "Dalīties...";
 "in-the-news-notification-save-for-later-action-title" = "Saglabāt vēlākam laikam";
 "in-the-news-title" = "Ziņās";
@@ -229,3 +251,4 @@
 "status-saving-for-later" = "Saglabā vēlākam laikam...";
 "status-saved-for-later" = "Saglabāts vēlākam laikam";
 "announcements-dismiss" = "Nē, paldies";
+"places-search-saved-articles" = "Saglabātie raksti";

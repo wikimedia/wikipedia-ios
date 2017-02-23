@@ -105,8 +105,10 @@
 "settings-support" = "მხარი დაუჭირე ვიკიპედიას";
 "settings-language-bar" = "ენების ჩვენება ძიებისას";
 "settings-my-languages" = "ჩემი ენები";
+"settings-notifications" = "შეტყობინებები";
 "settings-help-and-feedback" = "დახმარება და უკუკავშირი";
 "settings-primary-language" = "ძირითადი";
+"settings-notifications-system-turn-on" = "შეტყობინებების ჩართვა";
 "main-menu-title" = "მეტი";
 "main-menu-heading-about" = "შესახებ";
 "main-menu-language-title" = "მოძებნე $1 ვიკიპედიაში";
@@ -207,8 +209,7 @@
 "share-menu-save-page" = "გვერდის შენახვა";
 "share-menu-page-saved" = "შენახულია ოფლაინ-რეჟიმში წასაკითხად.";
 "share-menu-page-saved-access" = "თუ გსურთი შენახული გვერდების ხილვა, გაწიეთ $1 ზემოთ ან დიდხანს დააჭირეთ $2-ს ქვემოთ.";
-// Fuzzy
-"share-custom-menu-item" = "გაზიარება";
+"share-custom-menu-item" = "გაზიარება...";
 "share-article-name-on-wikipedia" = "„$1“ @ვიკიპედიაზე";
 "share-article-name-on-wikipedia-with-selected-text" = "„$1“ ვიკიპედიაზე: „$2“";
 "share-as-image" = "სურათად გაზიარება";
@@ -297,8 +298,7 @@
 "migration-prompt-message" = "ჩვენ გვჭირდება თქვენი შენახული ან უკანასკნელი გვერდების გატანა. ამას ცოტა დრო დასჭირდება...";
 "migration-confirm-button-title" = "ჩემი მასალის გადატანა";
 "migration-skip-button-title" = "მათი წაშლა";
-// Fuzzy
-"image-gallery-unknown-owner" = "ამტვირთველი უცნობია";
+"image-gallery-unknown-owner" = "ავტორი უცნობია.";
 "image-gallery-fetch-image-info-error-title" = "სურათის ჩატვირთვა ვერ ხერხდება";
 "image-gallery-fetch-image-info-error-message" = "ამ სტატიისთვის სურათის ჩატვირთვა ვერ ხერხდება. გთხოვთ, განაახლოთ სტატია და კიდევ სცადოთ.";
 "image-gallery-fetch-image-info-error-ok" = "კარგი";
@@ -387,9 +387,16 @@
 "top-read-header-generic" = "ვიკიპედია";
 "reference-title" = "სქოლიო $1";
 "in-the-news-notification-read-now-action-title" = "წაიკითხეთ";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "გაზიარება";
+"in-the-news-notification-share-action-title" = "გაზიარება...";
 "in-the-news-notification-save-for-later-action-title" = "შემდგომისთვის შენახვა";
+"in-the-news-title" = "სიახლეებში";
 "number-thousands" = "$1 ათ.";
 "number-millions" = "$1 მლნ.";
 "number-billions" = "$1 მლრდ.";
+"back" = "უკან";
+"save-action" = "დამახსოვრება";
+"unsave-action" = "შენახულის გაუქმება";
+"status-saved-for-later" = "შემდგომისთვის შენახვა";
+"announcements-dismiss" = "არა, გმადლობთ";
+"action-save" = "შენახვა";
+"action-read" = "კითხვა";
