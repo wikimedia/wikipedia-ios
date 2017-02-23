@@ -164,6 +164,7 @@
                                                                                                                                   handler:^(UIAlertAction *_Nonnull action) {
                                                                                                                                       [self deleteAll];
                                                                                                                                       [self.tableView reloadData];
+                                                                                                                                      [self updateEmptyAndDeleteState];
                                                                                                                                   }]];
                                                                                           [sheet addAction:[UIAlertAction actionWithTitle:[self deleteCancelText] style:UIAlertActionStyleCancel handler:NULL]];
                                                                                           sheet.popoverPresentationController.barButtonItem = sender;
