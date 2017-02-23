@@ -1008,6 +1008,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
             [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"explore-nearby-placeholder-dismiss", nil)
                                                       style:UIAlertActionStyleDestructive
                                                     handler:^(UIAlertAction *_Nonnull action) {
+                                                        [[NSUserDefaults wmf_userDefaults] wmf_setExploreDidPromptForLocationAuthorization:YES];
                                                         section.wasDismissed = YES;
                                                         [section updateVisibility];
                                                     }]];
@@ -1028,7 +1029,12 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         case WMFFeedMoreTypeLocationAuthorization: {
             WMFTitledExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFTitledExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
             [footer bk_whenTapped:^{
-                [self.locationManager startMonitoringLocation];
+                [[NSUserDefaults wmf_userDefaults] wmf_setExploreDidPromptForLocationAuthorization:YES];
+                if ([WMFLocationManager isAuthorizationNotDetermined]) {
+                    [self.locationManager startMonitoringLocation];
+                    return;
+                }
+                [[UIApplication sharedApplication] wmf_openAppSpecificSystemSettings];
             }];
             return footer;
         }

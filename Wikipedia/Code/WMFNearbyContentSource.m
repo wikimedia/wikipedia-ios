@@ -8,6 +8,8 @@
 #import "WMFLocationSearchFetcher.h"
 #import "CLLocation+WMFComparison.h"
 
+#import <WMF/WMF-Swift.h>
+
 @interface WMFNearbyContentSource () <WMFLocationManagerDelegate>
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
@@ -71,23 +73,21 @@
 }
 
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    if ([WMFLocationManager isAuthorizationNotDetermined]) {
-        [self showAuthorizationPlaceholder:^{
-            if (completion) {
-                completion();
-            }
-        }];
-        return;
-    }
-    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder];
-
     if (![WMFLocationManager isAuthorized]) {
         [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
-        if (completion) {
+        if (![[NSUserDefaults wmf_userDefaults] wmf_exploreDidPromptForLocationAuthorization]) {
+            [self showAuthorizationPlaceholder:^{
+                if (completion) {
+                    completion();
+                }
+            }];
+        } else if (completion) {
             completion();
         }
         return;
     }
+    
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder];
 
     if (self.currentLocationManager.location == nil) {
         self.isFetchingInitialLocation = YES;

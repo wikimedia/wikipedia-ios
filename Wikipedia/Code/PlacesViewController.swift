@@ -1414,10 +1414,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         guard WMFLocationManager.isAuthorizationNotDetermined() else {
-            guard let bundleIdentifier = Bundle.main.bundleIdentifier, let settingsURL = URL(string: UIApplicationOpenSettingsURLString + bundleIdentifier) else {
-                return
-            }
-            UIApplication.shared.openURL(settingsURL as URL)
+            UIApplication.shared.wmf_openAppSpecificSystemSettings()
             return
         }
         locationManager.startMonitoringLocation()
