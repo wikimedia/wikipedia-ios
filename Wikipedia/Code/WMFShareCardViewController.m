@@ -15,14 +15,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_7_0) {
-        // quick hack for font scaling on iOS 6
-        self.shareArticleTitle.numberOfLines = 1;
-        self.shareArticleDescription.numberOfLines = 1;
-        self.shareSelectedText.numberOfLines = 5;
-        self.shareSelectedText.font = [UIFont systemFontOfSize:30.0f];
-    }
 }
 
 - (void)didReceiveMemoryWarning {
