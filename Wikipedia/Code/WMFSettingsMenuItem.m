@@ -82,7 +82,7 @@
                                                     title:MWLocalizedString(@"main-menu-privacy-policy", nil)
                                                  iconName:@"settings-privacy"
                                                 iconColor:[UIColor wmf_colorWithHex:0x884FDC alpha:1.0]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil
                                                isSwitchOn:NO];
         }
@@ -92,7 +92,7 @@
                                                     title:MWLocalizedString(@"main-menu-terms-of-use", nil)
                                                  iconName:@"settings-terms"
                                                 iconColor:[UIColor wmf_colorWithHex:0x99A1A7 alpha:1.0]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil
                                                isSwitchOn:NO];
         }
@@ -122,7 +122,7 @@
                                                     title:MWLocalizedString(@"main-menu-zero-faq", nil)
                                                  iconName:@"settings-faq"
                                                 iconColor:[UIColor wmf_colorWithHex:0x99A1A7 alpha:1.0]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil
                                                isSwitchOn:NO];
         }
