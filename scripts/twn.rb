@@ -2,7 +2,7 @@
 
 pr_branch = 'twn'
 base_branch = 'develop'
-title = 'localization'
+title = "TWN sync on #{Time.now.strftime("%m/%d/%Y")}"
 
 current_hash = `git ls-remote --heads origin | grep refs/heads/#{pr_branch}`.split.first
 
