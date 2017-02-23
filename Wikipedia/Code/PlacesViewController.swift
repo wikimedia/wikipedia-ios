@@ -272,7 +272,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return placeView
     }
     
-    // MARK: Keyaboard
+    // MARK: Keyboard
     
     func keyboardChanged(notification: NSNotification) {
         guard let userInfo = notification.userInfo,
