@@ -69,9 +69,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 }
 
 - (void)stopUpdating {
-    if ([WMFLocationManager isAuthorized]) {
-        [self.currentLocationManager stopMonitoringLocation];
-    }
+    [self.currentLocationManager stopMonitoringLocation];
 }
 
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
@@ -88,7 +86,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
         }
         return;
     }
-    
+
     [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder];
 
     if (self.currentLocationManager.location == nil) {
@@ -202,8 +200,6 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
     }
     self.completion = nil;
 }
-
-
 
 - (nullable WMFContentGroup *)contentGroupCloseToLocation:(CLLocation *)location {
 
