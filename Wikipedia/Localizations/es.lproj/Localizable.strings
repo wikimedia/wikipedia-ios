@@ -1,5 +1,6 @@
 // Messages for Spanish (español)
 // Exported from translatewiki.net
+// Author: Dgstranz
 // Author: Elisardojm
 // Author: Fitoschido
 // Author: Indiralena
@@ -58,7 +59,11 @@
 "zero-warn-when-leaving" = "Avisar al salir de Zero";
 "zero-settings-devmode" = "modo de desarrollo Zero";
 "account-creation-captcha-required" = "Verificación CAPTCHA requerido.";
+"account-creation-captcha-retry" = "Entrada incorrecta. Inténtalo de nuevo.";
 "account-creation-captcha-obtaining" = "Obtener un nuevo CAPTCHA...";
+"account-creation-captcha-title" = "Verificación de seguridad con CAPTCHA";
+"account-creation-captcha-cannot-see-image" = "¿No puedes ver la imagen? $1";
+"account-creation-captcha-request-account" = "Solicitar una cuenta.";
 "account-creation-logging-in" = "Iniciando sesión…";
 "account-creation-passwords-mismatched" = "Las contraseñas no coinciden.";
 "account-creation-saving" = "Guardando…";
@@ -68,6 +73,13 @@
 "account-creation-password-confirm-placeholder-text" = "Confirmar la contraseña";
 "account-creation-email-placeholder-text" = "Correo electrónico (opcional)";
 "account-creation-missing-fields" = "Debes escribir un nombre de usuario, una contraseña y confirmar la contraseña para crear una cuenta.";
+"new-password-title" = "Establece tu contraseña";
+"new-password-instructions" = "Has iniciado sesión con una contraseña temporal. Para terminar de iniciar sesión, debes establecer una contraseña nueva aquí.";
+"new-password-password-placeholder-text" = "Contraseña nueva";
+"new-password-confirm-placeholder-text" = "Confirmar contraseña nueva";
+"two-factor-login-title" = "Inicia sesión en tu cuenta";
+"two-factor-login-instructions" = "Escribe el código de verificación de 2 factores";
+"two-factor-login-token-title" = "Clave";
 "login-name-not-found" = "Para iniciar sesión debes escribir el nombre de usuario.";
 "login-name-illegal" = "Has escrito un nombre de usuario no válido.";
 "login-name-does-not-exist" = "El nombre de usuario proporcionado no existe.";
@@ -78,6 +90,13 @@
 "login-account-creation" = "¿No tienes una cuenta? Únete a Wikipedia.";
 "login-username-placeholder-text" = "Nombre de usuario";
 "login-password-placeholder-text" = "Contraseña";
+"login-forgot-password" = "¿Has olvidado tu contraseña?";
+"forgot-password-title" = "Restablecer contraseña";
+"forgot-password-instructions" = "Rellena uno de los campos abajo para recibir instrucciones de restablecimiento de la contraseña vía email";
+"forgot-password-username-prompt" = "Nombre de usuario";
+"forgot-password-email-prompt" = "Correo electrónico (opcional)";
+"forgot-password-button-title" = "Restablecer";
+"forgot-password-email-sent" = "Se envió un correo electrónico con instrucciones para restablecer tu contraseña";
 "wikitext-downloading" = "Cargando el contenido…";
 "wikitext-download-failed" = "No se puede obtener la versión más reciente.";
 "wikitext-download-success" = "Se cargó el contenido.";
@@ -460,3 +479,12 @@
 "status-saving-for-later" = "Guardando para después…";
 "status-saved-for-later" = "Guardado para después";
 "announcements-dismiss" = "No, gracias";
+"places-search-top-articles" = "Artículos principales";
+"places-search-this-area" = "Buscar esta área";
+"places-search-saved-articles" = "Artículos guardados";
+"places-search-suggested-searches-header" = "Búsquedas sugeridas";
+"places-search-recently-searched-header" = "Búsquedas recientes";
+"action-share" = "Compartir";
+"action-save" = "Guardar";
+"action-read" = "Leer";
+"action-unsave" = "No guardar";

@@ -3,11 +3,13 @@
 // Author: Aftab1995
 // Author: Aftabuzzaman
 // Author: Bodhisattwa
+// Author: Elias Ahmmad
 // Author: Kayser Ahmad
 // Author: Macofe
 // Author: Sayma Jahan
 // Author: Tauhid16
 // Author: আজিজ
+// Author: ফাহাদ কাজমী
 
 "languages-title" = "ভাষা পরিবর্তন করুন";
 "article-languages-label" = "ভাষা নির্বাচন করুন";
@@ -51,6 +53,7 @@
 "zero-warn-when-leaving" = "উইকিপিডিয়া জিরো প্রস্থানের সময় সতর্ক করো";
 "zero-settings-devmode" = "জিরো ডেভমোড";
 "account-creation-captcha-required" = "ক্যাপচা যাচাইকরণ প্রয়োজন।";
+"account-creation-captcha-retry" = "প্রবেশকৃত লেখা ভুল। অনুগ্রহপূর্বক আবার চেষ্টা করুন।";
 "account-creation-captcha-obtaining" = "একটি নতুন ক্যাপচা সংগ্রহ করা হচ্ছে...";
 "account-creation-logging-in" = "প্রবেশ হচ্ছে...";
 "account-creation-passwords-mismatched" = "পাসওয়ার্ড মিলেনি";
@@ -61,6 +64,13 @@
 "account-creation-password-confirm-placeholder-text" = "পাসওয়ার্ড নিশ্চিত করুন";
 "account-creation-email-placeholder-text" = "ইমেইল (ঐচ্ছিক)";
 "account-creation-missing-fields" = "একাউন্ট তৈরি করার জন্য আপনাকে অবশ্যই একটি ব্যবহারকারী নাম, পাসওয়ার্ড, এবং পাসওয়ার্ড নিশ্চিতকরণ দিতে হবে।";
+"new-password-title" = "আপনার পাসওয়ার্ড স্থাপন করুন";
+"new-password-instructions" = "আপনি সাময়িক পাসওয়ার্ড দিয়ে প্রবেশ করেছেন। প্রবেশ সম্পূর্ণ করতে এখানে একটি নতুন পাসওয়ার্ড নির্ধারণ করুন।";
+"new-password-password-placeholder-text" = "নতুন পাসওয়ার্ড";
+"new-password-confirm-placeholder-text" = "নতুন পাসওয়ার্ড নিশ্চিত করুন";
+"two-factor-login-title" = "আপনার অ্যাকাউন্টে প্রবেশ করুন";
+"two-factor-login-instructions" = "দুই গুণনীয়ক যাচাইকরণ কোড প্রবেশ করান";
+"two-factor-login-token-title" = "টোকেন";
 "login-name-not-found" = "প্রবেশ করার জন্য ব্যবহারকারী নাম প্রয়োজন।";
 "login-name-illegal" = "আপনি একটি অবৈধ ব্যবহারকারী নাম দিয়েছেন।";
 "login-name-does-not-exist" = "আপনার দেয়া নামে কোনো ব্যবহারকারী নেই।";
@@ -71,6 +81,11 @@
 "login-account-creation" = "কোন অ্যাকাউন্ট নেই? উইকিপিডিয়ায় যোগ দিন";
 "login-username-placeholder-text" = "ব্যবহারকারী নাম";
 "login-password-placeholder-text" = "পাসওয়ার্ড";
+"login-forgot-password" = "পাসওয়ার্ড ভুলে গেছেন?";
+"forgot-password-title" = "পাসওয়ার্ড পুনঃস্থাপন";
+"forgot-password-username-prompt" = "ব্যবহারকারী নাম";
+"forgot-password-email-prompt" = "ইমেইল (ঐচ্ছিক)";
+"forgot-password-button-title" = "পুন:স্থাপন";
 "wikitext-downloading" = "বিষয়বস্তু লোড হচ্ছে...";
 "wikitext-download-failed" = "সর্বশেষ সংস্করণটি পাওয়া সম্ভব হয়নি।";
 "wikitext-download-success" = "বিষয়বস্তু লোড হয়েছে।";
@@ -116,6 +131,7 @@
 "settings-help-and-feedback" = "সাহায্য ও প্রতিক্রিয়া";
 "settings-primary-language" = "প্রাথমিক";
 "settings-primary-language-details" = "এই তালিকার প্রথম ভাষাটি অ্যাপলিকেশনের প্রাথমিক ভাষা হিসেবে ব্যবহর করা হয়েছে। এখন ভাষা পরিবর্তন অন্বেষণে দেখানো দৈনিক বিষয়বস্তু (যেমন, বৈশিষ্ট্যযুক্ত নিবন্ধ) পরিবর্তন করতে পারে।";
+"settings-notifications-system-off" = "বর্তমানে উইকিপিডিয়ার জন্য বিজ্ঞপ্তি বন্ধ করা হয়েছে। বিজ্ঞপ্তি পুনরায় চালু করতে আপনার যন্ত্রের সেটিংয়ে যান।";
 "settings-notifications-system-turn-on" = "বিজ্ঞপ্তি বন্ধ করুন";
 "main-menu-title" = "আরও";
 "main-menu-heading-about" = "পরিচিতি";
@@ -307,6 +323,7 @@
 "nearby-location-general-error" = "অবস্থান নির্ণয় করা যাচ্ছে না। পুনঃসতেজ করতে টানুন বা পরে আবার চেষ্টা করুন।";
 "nearby-wifi" = "ওয়াইফাই সক্ষম করা হচ্ছে যা আপনার সঠিক অবস্থান নির্ধারণে ডিভাইসকে সাহায্য করে।";
 "migration-update-progress-label" = "স্থানীয় তথ্য স্থানান্তর কারা হচ্ছে";
+"migration-prompt-title" = "দেখে মনে হচ্ছে একটি ইতিহাস উপস্থিত আছে!";
 "migration-skip-button-title" = "এটি মুছুন";
 "image-gallery-unknown-owner" = "লেখক অজানা।";
 "image-gallery-fetch-image-info-error-title" = "চিত্র ডাউনলোড করতে অক্ষম";
@@ -347,10 +364,14 @@
 "home-hide-suggestion-cancel" = "বাতিল";
 "home-accessibility-label" = "উইকিপিডিয়া, অন্বেষণ";
 "home-button-accessibility-label" = "প্রধান পাতা";
+"home-button-explore-accessibility-label" = "উইকিপিডিয়া, অন্বেষণে ফেরত যান";
+"home-button-saved-accessibility-label" = "উইকিপিডিয়া, সংরক্ষণে ফেরত যান";
+"home-button-history-accessibility-label" = "উইকিপিডিয়া, ইতিহাসে ফেরত যান";
 "potd-empty-error-description" = "$1 দিনের ছবি পুনরুদ্ধার করতে ব্যর্থ হয়েছে";
 "potd-description-prefix" = "$1 তারিখে আজকের নির্বাচিত ছবি";
 "welcome-explore-title" = "অন্বেষণ করুন";
 "welcome-explore-sub-title" = "প্রতিদিন আকর্ষণীয় নিবন্ধ আবিষ্কার করার একটি নতুন উপায়";
+"welcome-explore-new-ways-title" = "প্রকাশের নতুন পথ";
 "welcome-explore-tell-me-more" = "আমাকে আরও বলুন";
 "welcome-explore-tell-me-more-about-explore" = "অন্বেষণ সম্পর্কে আরো";
 "welcome-explore-tell-me-more-related" = "আপনার পঠিত নিবন্ধগুলির সাথে সম্পর্কিত নিবন্ধগুলি অন্বেষণ ফিডে দেখানো হয়।";
@@ -416,8 +437,18 @@
 "in-the-news-currently-trending" = "বর্তমান প্রবণতা";
 "in-the-news-title" = "সংবাদে";
 "number-thousands" = "$1 হাজার";
+"feed-news-notification-button-text" = "বিজ্ঞপ্তি চালু";
 "back" = "পিছনে";
 "save-action" = "সংরক্ষণ";
+"unsave-action" = "অসংরক্ষিত";
 "status-saving-for-later" = "পরবর্তীর জন্য সংরক্ষণ করা হচ্ছে...";
 "status-saved-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "announcements-dismiss" = "না ধন্যবাদ";
+"places-search-top-articles" = "শীর্ষ নিবন্ধ";
+"places-search-this-area" = "এই এলাকায় অনুসন্ধান করুন";
+"places-search-saved-articles" = "সংরক্ষিত নিবন্ধ";
+"places-search-suggested-searches-header" = "প্রস্তাবিত অনুসন্ধান";
+"places-search-recently-searched-header" = "সম্প্রতি অনুসন্ধানকৃত";
+"action-share" = "বণ্টন";
+"action-save" = "সংরক্ষণ";
+"action-unsave" = "অসংরক্ষিত";

@@ -196,12 +196,15 @@
 "edit-summary-choice-added-missing-info" = "Přidána chybějící informace";
 "edit-summary-choice-added-clarification" = "Přidáno upřesnění";
 "edit-summary-choice-other" = "Ostatní";
+"edit-summary-field-placeholder-text" = "Jiné způsoby, jak jste vylepšili článek";
+"edit-summary-title" = "Jak jste vylepšili článek?";
 "article-pull-to-refresh-is-refreshing" = "Článek se obnovuje";
 "about-title" = "O aplikaci";
 "about-wikipedia" = "Wikipedie";
 "about-contributors" = "Přispěvatelé";
 "about-testers" = "Testeři";
 "about-translators" = "Překladatelé";
+"about-translators-details" = "Přeloženo dobrovolníky na $1";
 "about-libraries" = "Použité knihovny";
 "about-libraries-license" = "Licence";
 "about-libraries-licenses" = "Licence";
@@ -214,11 +217,11 @@
 "about-repositories-app-source-license" = "Zdrojový kód je k dispozici pod licencí $1.";
 "about-repositories-app-source-license-mit" = "Licence MIT";
 "about-send-feedback" = "Poslat názor na aplikaci";
+"about-product-of" = "Vytvořila $1 s pomocí dobrovolníků, jako jste vy";
 "about-wikimedia-foundation" = "Nadace Wikimedia";
 "share-menu-save-page" = "Uložit článek";
 "share-menu-page-saved" = "Článek uložen";
-// Fuzzy
-"share-custom-menu-item" = "Sdílet";
+"share-custom-menu-item" = "Sdílet...";
 "share-on-twitter-sign-off" = "via @Wikipedie";
 "share-as-image" = "Sdílet jako obrázek";
 "share-as-text" = "Sdílet jako text";
@@ -236,12 +239,16 @@
 "button-ok" = "Jasně";
 "button-save-for-later" = "Uložit na později";
 "button-saved-for-later" = "Uloženo na později";
+"button-saved-remove" = "Odstranit z uložených";
 "button-report-a-bug" = "Nahlásit chybu";
 "onboarding-create-account" = "Vytvořit účet";
 "onboarding-login" = "Přihlásit se";
+"onboarding-already-have-account" = "Už máte účet? $1";
 "onboarding-skip" = "Přeskočit";
 "onboarding-wikipedia" = "Wikipedie";
 "onboarding-free-encyclopedia" = "Otevřená encyklopedie";
+"preference_title_eventlogging_opt_in" = "Odesílat zprávy o využití";
+"preference_summary_eventlogging_opt_in" = "Umožnit nadaci Wikimedia sbírat informace o používání aplikace , aby ji mohla zlepšovat";
 "page_protected_can_not_edit" = "Nemáte oprávnění editovat tuto stránku";
 "page_protected_can_not_edit_title" = "Tato stránka je chráněná";
 "license-footer-text" = "Obsah je dostupný pod $1, pokud není uvedeno jinak.";
@@ -279,6 +286,7 @@
 "migration-prompt-title" = "Zdá se, že máme historii!";
 "migration-prompt-message" = "Potřebujeme přemístit Vaše uložené a poslední stránky. To může chvíli trvat...";
 "migration-confirm-button-title" = "Přesunout mé věci";
+"image-gallery-unknown-owner" = "Neznámý autor";
 "image-gallery-fetch-image-info-error-title" = "Nelze stahovat obrázky";
 "image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-title" = "Omlouváme se, aplikace minule spadla";
@@ -293,6 +301,7 @@
 "home-continue-reading-heading" = "Pokračovat ve čtení";
 "home-continue-related-heading" = "Protože jste četl $1";
 "home-more-like-footer" = "Více podobných článku $1";
+"home-nearby-footer" = "Více z vašeho okolí";
 "home-nearby-location-footer" = "Další místa v okolí $1";
 "home-nearby-nothing" = "Nic ve vašem okolí";
 "home-nearby-check-again" = "Zkontrolovat znovu";
@@ -304,8 +313,7 @@
 "home-updating-label" = "Aktualizace...";
 "home-hide-suggestion-prompt" = "Skrýt tento návrh";
 "home-hide-suggestion-cancel" = "Zrušit";
-// Fuzzy
-"home-button-accessibility-label" = "Tlačítko Domů";
+"home-button-accessibility-label" = "Domů";
 "potd-description-prefix" = "Obrázek dne pro $1";
 "welcome-explore-title" = "Prozkoumat";
 "welcome-explore-tell-me-more" = "Dozvědět se více";
@@ -322,6 +330,7 @@
 "welcome-volunteer-send-usage-reports" = "Odesílat zprávy o využití";
 "welcome-volunteer-continue-button" = "Pokračovat";
 "welcome-volunteer-thanks" = "$1 Děkujeme!";
+"welcome-send-data-title" = "Posílat Anonymní data";
 "empty-no-feed-title" = "Žádné připojení k internetu";
 "empty-no-feed-message" = "Můžete vidět své doporučené články, když máte internet";
 "empty-no-feed-action-message" = "Stále ještě můžete číst uložené stránky";
@@ -366,4 +375,10 @@
 "top-read-see-more-trending" = "Zobrazit další trendující";
 "top-read-header-with-language" = "$1 Wikipedie";
 "top-read-header-generic" = "Wikipedie";
+"in-the-news-notification-save-for-later-action-title" = "Uložit na později";
 "number-thousands" = "$1 tisíc";
+"feed-news-notification-button-text" = "Zapnout oznámení";
+"back" = "Zpět";
+"save-action" = "Uložit";
+"status-saved-for-later" = "Uloženo na později";
+"announcements-dismiss" = "Ne, děkuji";

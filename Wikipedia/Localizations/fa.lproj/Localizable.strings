@@ -3,6 +3,7 @@
 // Author: Alifakoor
 // Author: Alirezaaa
 // Author: Alp Er Tunqa
+// Author: Arash.pt
 // Author: Arian Ar
 // Author: BaziOnline
 // Author: Ebraminio
@@ -424,3 +425,6 @@
 "request-feedback-on-error" = "این برنامه با مشکلی مواجه شده است که توسعه دهندگان آن به دانستن بیشتر در مورد آن علاقه‌مند می‌باشند. لطفاً با ضربه زدن بر اینجا، برایمان یک پست الکترونیکی با جزئیات بیشتری بفرستید.";
 "explore-another-random" = "مقاله تصادفی دیگر";
 "find-in-page-no-matches" = "بدون مورد مطابق";
+"places-search-top-articles" = "مقالات برتر";
+"action-share" = "به اشتراک گذاشتن";
+"action-unsave" = "ذخیره‌نشده";
