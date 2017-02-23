@@ -226,7 +226,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 #pragma mark - Feed Sources
 
 - (void)updateRelatedPages {
-    NSAssert([NSThread isMainThread], @"Must be called on the main thread");
+    WMFAssertMainThread(@"updateRelatedPages must be called on the main thread");
     if (self.relatedUpdatedTaskGroup) {
         return;
     }
@@ -244,13 +244,13 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
     [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
                             completion:^{
-                                NSAssert([NSThread isMainThread], @"Must be called on the main thread");
+                                WMFAssertMainThread(@"completion must be called on the main thread");
                                 self.relatedUpdatedTaskGroup = nil;
                             }];
 }
 
 - (void)updateNearby:(nullable dispatch_block_t)completion {
-    NSAssert([NSThread isMainThread], @"Must be called on the main thread");
+    WMFAssertMainThread(@"updateNearby: must be called on the main thread");
     if (self.nearbyUpdateTaskGroup || self.feedUpdateTaskGroup) {
         return;
     }
@@ -268,8 +268,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
     [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
                             completion:^{
-                                NSAssert([NSThread isMainThread], @"Must be called on the main thread");
-                                self.nearbyUpdateTaskGroup = nil;
+                                WMFAssertMainThread(@"completion must be called on the main thread");                                self.nearbyUpdateTaskGroup = nil;
                                 if (completion) {
                                     completion();
                                 }
@@ -277,7 +276,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 }
 
 - (void)updateFeedSources:(nullable dispatch_block_t)completion {
-    NSAssert([NSThread isMainThread], @"Must be called on the main thread");
+    WMFAssertMainThread(@"updateFeedSources: must be called on the main thread");
     if (self.feedUpdateTaskGroup) {
         if (completion) {
             completion();
