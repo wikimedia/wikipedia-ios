@@ -9,5 +9,4 @@ brew upgrade clang-format carthage
 rm -rf .git/hooks/pre-commit
 cp -f scripts/clang_format_git_diff .git/hooks/pre-commit
 
-export SRCROOT=`pwd`
 scripts/carthage_bootstrap

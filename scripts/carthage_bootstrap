@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ -z "$SRCROOT" ]; then
+    export SRCROOT=`pwd`
+fi  
+
 if ! cmp -s "$SRCROOT/Cartfile.resolved" "$SRCROOT/Carthage/Cartfile.resolved_at_last_bootstrap"
 then
 carthage bootstrap --platform iOS 2> /dev/null
