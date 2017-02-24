@@ -73,6 +73,17 @@ import Foundation
             }
         }
         
+      
+        /** 
+  
+        Find WMFArticles that are cached previews only, and have no user-defined state.
+ 
+            - A `viewedDate` of null indicates that the article was never viewed
+            - A `savedDate` of null indicates that the article is not saved
+            - A `placesSortOrder` of null indicates it is not currently visible on the Places map
+            - Items with `isExcludedFromFeed == YES` need to stay in the database so that they will continue to be excluded from the feed
+        */
+        
         let articlesToDeleteFetchRequest = WMFArticle.fetchRequest()
         var articlesToDeletePredicate = NSPredicate(format: "viewedDate == NULL && savedDate == NULL && placesSortOrder == NULL && isExcludedFromFeed == %@", NSNumber(booleanLiteral: false))
         if referencedArticleKeys.count > 0 {
