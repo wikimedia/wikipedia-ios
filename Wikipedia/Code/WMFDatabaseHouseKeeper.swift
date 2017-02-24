@@ -1,11 +1,3 @@
-//
-//  WMFDatabaseHouseKeeper.swift
-//  Wikipedia
-//
-//  Created by Andrew Mroczkowski on 2/23/17.
-//  Copyright © 2017 Wikimedia Foundation. All rights reserved.
-//
-
 import Foundation
 
 @objc class WMFDatabaseHouseKeeper2 : NSObject {
