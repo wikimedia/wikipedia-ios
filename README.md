@@ -20,12 +20,14 @@ The app is primarily being developed by the Wikimedia Foundation's [Mobile Apps 
 ## Building and Running
 
 ###Minimum Requirements:
-* [Xcode 8.2.1](https://itunes.apple.com/us/app/xcode/id497799835) or higher to build.  The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple developer account.
+* [Xcode 8.2.1](https://itunes.apple.com/us/app/xcode/id497799835) or higher  The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple developer account.
+
+
+**If you'd rather not install the remaining dependencies yourself, you can run `scripts/setup` **from the project directory to install them. This may take awhile as it will also compile any code dependencies.**
+
+* [Homebrew](https://brew.sh)
 * [Carthage](https://github.com/Carthage/Carthage)
 * [clang-format](http://clang.llvm.org/docs/ClangFormat.html)
-
-
-**If you have homebrew installed, you can run** `scripts/setup_without_homebrew` **from the project directory to install all of the requirements (minus Xcode). If you don't have homebrew installed, you can run** `scripts/setup` **from the project directory to install homebrew and the other requirements.**
 
 At this point, you should be able to open `Wikipedia.xcodeproject` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via bug reports or messaging us on IRC (see above).
 

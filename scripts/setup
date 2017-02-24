@@ -1,5 +1,12 @@
 #!/bin/bash
 
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+if ! hash brew 2>/dev/null; then
+	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
 
-scripts/setup_without_homebrew
+brew update && brew install clang-format carthage
+brew upgrade clang-format carthage
+rm -rf .git/hooks/pre-commit
+cp -f scripts/clang_format_git_diff .git/hooks/pre-commit
+
+scripts/carthage_bootstrap
