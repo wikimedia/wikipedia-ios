@@ -10,7 +10,12 @@ import Foundation
 
 @objc class WMFDatabaseHouseKeeper2 : NSObject {
     
-    @objc func performHouseKeepingOnManagedObjectContext(_ moc: NSManagedObjectContext) throws {
+    @objc func performHouseKeepingOnManagedObjectContext(_ moc: NSManagedObjectContext)  throws {
+        
+        try deleteStaleUnreferencedArticles(moc)
+    }
+    
+    private func deleteStaleUnreferencedArticles(_ moc: NSManagedObjectContext) throws {
         
         let midnightTodayUTC = (Date() as NSDate).wmf_midnightUTCDateFromLocal!
         let utcCalendar = NSCalendar.wmf_utcGregorian() as Calendar
