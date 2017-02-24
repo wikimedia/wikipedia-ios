@@ -59,6 +59,8 @@ static const NSInteger kMWKArticleSectionNone = -1;
 
 @property (readonly, strong, nonatomic, nullable) NSString *summary;
 
+@property (readonly, nonatomic) NSInteger ns;
+
 - (nullable MWKImage *)bestThumbnailImage;
 
 /**
