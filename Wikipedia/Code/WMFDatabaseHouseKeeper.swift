@@ -74,7 +74,7 @@ import Foundation
         }
         
         let articlesToDeleteFetchRequest = WMFArticle.fetchRequest()
-        var articlesToDeletePredicate = NSPredicate(format: "viewedDate == NULL && savedDate == NULL && placesSortOrder == NULL && isExcludedFromFeed == %@", NSNumber(booleanLiteral: true))
+        var articlesToDeletePredicate = NSPredicate(format: "viewedDate == NULL && savedDate == NULL && placesSortOrder == NULL && isExcludedFromFeed == %@", NSNumber(booleanLiteral: false))
         if referencedArticleKeys.count > 0 {
             let referencedKeysPredicate = NSPredicate(format: "!(key IN %@)", referencedArticleKeys)
             articlesToDeletePredicate = NSCompoundPredicate(andPredicateWithSubpredicates:[articlesToDeletePredicate,referencedKeysPredicate])
@@ -92,6 +92,5 @@ import Foundation
         if (moc.hasChanges) {
             try moc.save()
         }
-        
     }
 }
