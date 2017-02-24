@@ -1036,10 +1036,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         articleVC.didMove(toParentViewController: self)
         
         let size = articleVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        articleVC.preferredContentSize = size
         selectedArticlePopover = articleVC
         selectedArticleKey = articleKey
-        adjustLayout(ofPopover: articleVC, withSize:size, withAnnotationView: annotationView)
-        
+        adjustLayout(ofPopover: articleVC, withSize:size, viewSize:view.bounds.size, forAnnotationView: annotationView)
+        articleVC.view.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin, .flexibleLeftMargin, .flexibleRightMargin]
         articleVC.view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         UIView.animate(withDuration: popoverFadeDuration) {
             articleVC.view.transform = CGAffineTransform.identity
@@ -1047,6 +1048,20 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, articleVC.view)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        guard let popover = selectedArticlePopover,
+            let annotation = mapView.selectedAnnotations.first,
+            let annotationView = mapView.view(for: annotation)
+            else {
+                deselectAllAnnotations()
+            return
+        }
+        coordinator.animate(alongsideTransition: { (context) in
+            self.adjustLayout(ofPopover: popover, withSize: popover.preferredContentSize, viewSize: size, forAnnotationView: annotationView)
+        }, completion: nil)
     }
     
     func dismissCurrentArticlePopover() {
@@ -1091,34 +1106,46 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    func adjustLayout(ofPopover articleVC: ArticlePopoverViewController, withSize size: CGSize,  withAnnotationView annotationView: MKAnnotationView) {
+    func adjustLayout(ofPopover articleVC: ArticlePopoverViewController, withSize popoverSize: CGSize, viewSize: CGSize, forAnnotationView annotationView: MKAnnotationView) {
+        let annotationSize = annotationView.frame.size
+        let spacing: CGFloat = 5
         let annotationCenter = view.convert(annotationView.center, from: mapView)
-        let center = CGPoint(x: view.bounds.midX, y:  view.bounds.midY)
-        let deltaX = annotationCenter.x - center.x
-        let deltaY = annotationCenter.y - center.y
+        let viewCenter = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
         
-        let thresholdX = 0.5*(abs(view.bounds.width - size.width))
-        let thresholdY = 0.5*(abs(view.bounds.height - size.height))
+        let popoverDistanceFromAnnotationCenterY = 0.5 * annotationSize.height + spacing
+        let totalHeight = popoverDistanceFromAnnotationCenterY + popoverSize.height + spacing
+        let top = totalHeight - annotationCenter.y
+        let bottom = annotationCenter.y + totalHeight - viewSize.height
         
-        var offsetX: CGFloat
-        var offsetY: CGFloat
+        let popoverDistanceFromAnnotationCenterX = 0.5 * annotationSize.width + spacing
+        let totalWidth = popoverDistanceFromAnnotationCenterX + popoverSize.width + spacing
+        let left = totalWidth - annotationCenter.x
+        let right = annotationCenter.x + totalWidth - viewSize.width
         
-        let distanceFromAnnotationView: CGFloat = 5
-        let distanceX: CGFloat = round(0.5*annotationView.bounds.size.width) + distanceFromAnnotationView
-        let distanceY: CGFloat =  round(0.5*annotationView.bounds.size.height) + distanceFromAnnotationView
+        var x = annotationCenter.x > viewCenter.x ? viewSize.width - popoverSize.width - spacing : spacing
+        var y = annotationCenter.y > viewCenter.y ? viewSize.height - popoverSize.height - spacing : spacing
+
+        let fitsTopOrBottom = (top < 0 || bottom < 0) && viewSize.width - annotationCenter.x > 0.5*popoverSize.width && annotationCenter.x > 0.5*popoverSize.width
         
-        if abs(deltaX) <= thresholdX {
-            offsetX = -0.5 * size.width
-            offsetY = deltaY > 0 ? 0 - distanceY - size.height : distanceY
-        } else if abs(deltaY) <= thresholdY {
-            offsetX = deltaX > 0 ? 0 - distanceX - size.width : distanceX
-            offsetY = -0.5 * size.height
-        } else {
-            offsetX = deltaX > 0 ? 0 - distanceX - size.width : distanceX
-            offsetY = deltaY > 0 ? 0 - distanceY - size.height : distanceY
+        let fitsLeftOrRight = (left < 0 || right < 0) && viewSize.height - annotationCenter.y > 0.5*popoverSize.height && annotationCenter.y > 0.5*popoverSize.width
+        
+        if (fitsTopOrBottom) {
+            x = annotationCenter.x - 0.5 * popoverSize.width
+            y = annotationCenter.y + (top < bottom ? 0 - totalHeight : popoverDistanceFromAnnotationCenterY)
+        } else if (fitsLeftOrRight) {
+            x = annotationCenter.x + (left < right ? 0 - totalWidth : popoverDistanceFromAnnotationCenterX)
+            y = annotationCenter.y - 0.5 * popoverSize.height
+        } else if (top < 0) {
+            y = annotationCenter.y - totalHeight
+        } else if (bottom < 0) {
+            y = annotationCenter.y + popoverDistanceFromAnnotationCenterY
+        } else if (left < 0) {
+            x = annotationCenter.x - totalWidth
+        } else if (right < 0) {
+            x = annotationCenter.x + popoverDistanceFromAnnotationCenterX
         }
         
-        articleVC.view.frame = CGRect(origin: CGPoint(x: annotationCenter.x + offsetX, y: annotationCenter.y + offsetY), size: size)
+        articleVC.view.frame = CGRect(origin: CGPoint(x: x, y: y), size: popoverSize)
     }
     
     // MARK: Search Suggestions & Completions
