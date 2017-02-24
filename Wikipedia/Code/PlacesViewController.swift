@@ -488,8 +488,30 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func updatePlaces(withSearchResults searchResults: [MWKLocationSearchResult]) {
-        let articleURLToSelect = currentSearch?.searchResult?.articleURL(forSiteURL: siteURL) ?? searchResults.first?.articleURL(forSiteURL: siteURL)
-        articleKeyToSelect = (articleURLToSelect as NSURL?)?.wmf_articleDatabaseKey
+        if let searchSuggestionArticleURL = currentSearch?.searchResult?.articleURL(forSiteURL: siteURL),
+            let searchSuggestionArticleKey = (searchSuggestionArticleURL as NSURL?)?.wmf_articleDatabaseKey { // the user tapped an article in the search suggestions list, so we should select that
+            articleKeyToSelect = searchSuggestionArticleKey
+        } else if let centerCoordinate = currentSearch?.region?.center {
+            let center = CLLocation(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude)
+            var minDistance = CLLocationDistance(DBL_MAX)
+            var resultToSelect: MWKLocationSearchResult?
+            for result in searchResults {
+                guard let location = result.location else {
+                    continue
+                }
+                let distance = location.distance(from: center)
+                if distance < minDistance {
+                    minDistance = distance
+                    resultToSelect = result
+                }
+            }
+            let resultURL = resultToSelect?.articleURL(forSiteURL: siteURL)
+            articleKeyToSelect = (resultURL as NSURL?)?.wmf_articleDatabaseKey
+        } else {
+            let firstResultURL = searchResults.first?.articleURL(forSiteURL: siteURL)
+            articleKeyToSelect = (firstResultURL as NSURL?)?.wmf_articleDatabaseKey
+        }
+        
         var foundKey = false
         var keysToFetch: [String] = []
         var sort = 0
@@ -509,7 +531,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             sort += 1
         }
         
-        if !foundKey, let keyToFetch = articleKeyToSelect, let URL = articleURLToSelect, let searchResult = currentSearch?.searchResult {
+        if !foundKey, let keyToFetch = articleKeyToSelect, let URL = URL(string: keyToFetch), let searchResult = currentSearch?.searchResult {
             articleStore.addPreview(with: URL, updatedWith: searchResult)
             keysToFetch.append(keyToFetch)
         }
