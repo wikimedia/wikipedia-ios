@@ -1,6 +1,6 @@
 import Foundation
 
-@objc class WMFDatabaseHouseKeeper2 : NSObject {
+@objc class WMFDatabaseHouseKeeper : NSObject {
     
     @objc func performHouseKeepingOnManagedObjectContext(_ moc: NSManagedObjectContext)  throws {
         

@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-@interface WMFDatabaseHouseKeeper : NSObject
+@interface WMFLegacyDatabaseHouseKeeper : NSObject
 
 - (BOOL)performHouseKeepingOnManagedObjectContext:(NSManagedObjectContext *)moc error:(NSError **)outError;
 
