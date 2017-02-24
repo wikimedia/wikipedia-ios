@@ -65,7 +65,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         mapView.showsTraffic = false
         mapView.showsPointsOfInterest = false
         mapView.showsScale = false
-        mapView.showsUserLocation = true
+        mapView.showsUserLocation = false
         
         // Setup location manager
         locationManager.delegate = self
@@ -138,6 +138,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         locationManager.startMonitoringLocation()
+        mapView.showsUserLocation = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
