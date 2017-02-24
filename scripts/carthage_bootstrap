@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if ! cmp -s "$SRCROOT/Cartfile.resolved" "$SRCROOT/Carthage/Cartfile.resolved_at_last_bootstrap"
+then
+carthage bootstrap --platform iOS 2> /dev/null
+plutil -replace CFBundleVersion -string 4.0.0 "$SRCROOT/Carthage/Build/iOS/SDWebImage.framework/Info.plist"
+mkdir -p "$SRCROOT/Carthage"
+cp "$SRCROOT/Cartfile.resolved" "$SRCROOT/Carthage/Cartfile.resolved_at_last_bootstrap"
+fi

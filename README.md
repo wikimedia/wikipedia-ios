@@ -18,9 +18,14 @@ The official Wikipedia iOS client.
 The app is primarily being developed by the Wikimedia Foundation's [Mobile Apps team](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team). This README provides high-level guidelines for getting started with the project. If you have any questions, comments, or issues, the easiest way to talk to us is joining the #wikimedia-mobile channel on the freenode IRC server during Eastern and Pacific business hours. We'll also gladly accept any tickets filed against the [project in Phabricator](https://phabricator.wikimedia.org/project/view/782/).
 
 ## Building and Running
-This project requires [Xcode 8.2.1](https://itunes.apple.com/us/app/xcode/id497799835) or higher to build.  The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple developer account.
 
-**Once you have Xcode installed, from the terminal, switch to the project directory and run** `scripts/setup` **to ensure any dependencies required to build the project are setup. This step may take awhile as project dependencies are built.**
+###Minimum Requirements:
+* [Xcode 8.2.1](https://itunes.apple.com/us/app/xcode/id497799835) or higher to build.  The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple developer account.
+* [Carthage](https://github.com/Carthage/Carthage)
+* [clang-format](http://clang.llvm.org/docs/ClangFormat.html)
+
+
+**If you have homebrew installed, you can run** `scripts/setup_without_homebrew` **from the project directory to install all of the requirements (minus Xcode). If you don't have homebrew installed, you can run** `scripts/setup` **from the project directory to install homebrew and the other requirements.**
 
 At this point, you should be able to open `Wikipedia.xcodeproject` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via bug reports or messaging us on IRC (see above).
 
@@ -57,8 +62,8 @@ We also maintain a mirror of this repository on Gerrit (see above), syncing the 
   - You should see a URL pointing your patch on [gerrit.wikimedia.org](https://gerrit.wikimedia.org)
 - Add two or more of the [team members](#development-team) as reviewers for your patch
 
-## Development Dependencies
-We're doing what we can to optimize the build system to have as few dependencies as possible (i.e. cloning, building, and running should "Just Work"), but certain development and maintenance tasks will require the installation of specific tools. Many of these tools are installable using [Homebrew](http://brew.sh), which is our recommended package manager.
+## Other Development Dependencies
+Certain development and maintenance tasks will require the installation of specific tools. Many of these tools are installable using [Homebrew](http://brew.sh), which is our recommended package manager.
 
 > **Homebrew and many other tools require the Xcode command line tools, which can be installed by running `xcode-select --install` on newer versions of OS X. They can also be installed via Xcode or downloaded from the [Apple Developer downloads page](https://developer.apple.com/downloads) on older versions of OS X.**
 
@@ -66,19 +71,17 @@ We're doing what we can to optimize the build system to have as few dependencies
  
 `brew install clang-format`
 
-As mentioned in [best practices and coding style](#best-practices-and-coding-style), we use clang-format to lint the project's Objective-C code. Installation via Homebrew is straightforward: `brew install clang-format`. We use the [ClangFormat-Xcode plugin](https://github.com/travisjeffery/ClangFormat-Xcode) to format code on save. After installing the Xcode plugin, select "Format on Save", "Use System ClangFormat" and "File" (to use our .clang-format file) from the Edit > Clang Format menu.
-
-### CocoaPods
- 
-`sudo gem install cocoapods` or, if you have rbenv or similar installed: `gem install cocoapods`.
- 
-[CocoaPods](https://cocoapods.org) is a Ruby gem that the project uses to download and integrate third-party iOS components (see `Podfile` for an up-to-date list). We have committed all of these dependencies to the repository itself, removing the need to install the gem or run before building the project. However, if you want to do anything related to CocoaPods (such as upgrading the version of CocoaPods or adding a dependency), please refer to the [Working With Cocoapods documentation](docs/working-with-cocoapods.md).
+As mentioned in [best practices and coding style](#best-practices-and-coding-style), we use clang-format to lint the project's Objective-C code. Installation via Homebrew is straightforward: `brew install clang-format`. We use the [ClangFormat-Xcode plugin](https://github.com/travisjeffery/ClangFormat-Xcode) to format code on save. After installing the Xcode plugin, select "Format on Save", "Use System ClangFormat" and "File" (to use our .clang-format file) from the Edit > Clang Format menu. You already have clang format if you ran one of the setup scripts above.
 
 ### NPM
  
 `brew install npm`
  
 [npm](https://www.npmjs.com/) is a package manager for [nodejs](https://nodejs.org). With it, we install various node modules as Javascript dependencies and development tools (see `www/package.json` for an up-to-date list). Similar to our native dependencies, we have committed certain files to the repository to remove node and npm as build dependencies in an effort to streamline typical application development. Please see [Wikipedia iOS Web Development](docs/web-dev.md) for more information about how to work with the web components in this project.
+
+### Fastlane
+ 
+[fastlane](https://fastlane.tools)
 
 ## Continuous Integration
 Continuous integration is run on [Travis-CI](https://travis-ci.org) in response to pull request updates and merges to the **master** branch. See the `verify` lane in `fastlane/Fastfile` and our `.travis.yml` for details.

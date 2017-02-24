@@ -6531,7 +6531,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if ! cmp -s \"$SRCROOT/Cartfile.resolved\" \"$SRCROOT/Carthage/Cartfile.resolved_at_last_bootstrap\"\nthen\ncarthage bootstrap --platform iOS 2> /dev/null\nplutil -replace CFBundleVersion -string 4.0.0 \"$SRCROOT/Carthage/Build/iOS/SDWebImage.framework/Info.plist\"\nmkdir -p \"$SRCROOT/Carthage\"\ncp \"$SRCROOT/Cartfile.resolved\" \"$SRCROOT/Carthage/Cartfile.resolved_at_last_bootstrap\"\nfi";
+			shellScript = "\"$SRCROOT/scripts/carthage_bootstrap\"";
 		};
 		D82FDB301DF0B28B00DDF311 /* Embed Frameworks from Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
