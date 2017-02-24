@@ -10,5 +10,6 @@ rm -rf .git/hooks/pre-commit
 cp -f scripts/clang_format_git_diff .git/hooks/pre-commit
 
 /usr/local/bin/carthage bootstrap --platform iOS
+cp Cartfile.resolved Carthage/Cartfile.resolved_at_last_bootstrap
 
 plutil -replace CFBundleVersion -string 4.0.0 Carthage/Build/iOS/SDWebImage.framework/Info.plist
