@@ -1098,41 +1098,40 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let viewSize = view.bounds.size
         let viewCenter = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
         
-        let distanceFromCenterY = 0.5 * annotationSize.height + spacing
-        let totalHeight = distanceFromCenterY + popoverSize.height
+        let popoverDistanceFromAnnotationCenterY = 0.5 * annotationSize.height + spacing
+        let totalHeight = popoverDistanceFromAnnotationCenterY + popoverSize.height + spacing
         let top = totalHeight - annotationCenter.y
         let bottom = annotationCenter.y + totalHeight - viewSize.height
         
-        let distanceFromCenterX = 0.5 * annotationSize.width + spacing
-        let totalWidth = distanceFromCenterX + popoverSize.width
+        let popoverDistanceFromAnnotationCenterX = 0.5 * annotationSize.width + spacing
+        let totalWidth = popoverDistanceFromAnnotationCenterX + popoverSize.width + spacing
         let left = totalWidth - annotationCenter.x
         let right = annotationCenter.x + totalWidth - viewSize.width
         
-        // default offset values to center the popover
-        var offsetX = (viewCenter.x - 0.5 * popoverSize.width) - annotationCenter.x
-        var offsetY = (viewCenter.y - 0.5 * popoverSize.height) - annotationCenter.y
+        var x = annotationCenter.x > viewCenter.x ? viewSize.width - popoverSize.width - spacing : spacing
+        var y = annotationCenter.y > viewCenter.y ? viewSize.height - popoverSize.height - spacing : spacing
 
         let fitsTopOrBottom = (top < 0 || bottom < 0) && viewSize.width - annotationCenter.x > 0.5*popoverSize.width && annotationCenter.x > 0.5*popoverSize.width
         
         let fitsLeftOrRight = (left < 0 || right < 0) && viewSize.height - annotationCenter.y > 0.5*popoverSize.height && annotationCenter.y > 0.5*popoverSize.width
         
         if (fitsTopOrBottom) {
-            offsetX = -0.5 * popoverSize.width
-            offsetY = top < bottom ? 0 - totalHeight : distanceFromCenterY
+            x = annotationCenter.x - 0.5 * popoverSize.width
+            y = annotationCenter.y + (top < bottom ? 0 - totalHeight : popoverDistanceFromAnnotationCenterY)
         } else if (fitsLeftOrRight) {
-            offsetX = left < right ? 0 - totalWidth : distanceFromCenterX
-            offsetY = -0.5 * popoverSize.height
+            x = annotationCenter.x + (left < right ? 0 - totalWidth : popoverDistanceFromAnnotationCenterX)
+            y = annotationCenter.y - 0.5 * popoverSize.height
         } else if (top < 0) {
-            offsetY = 0 - totalHeight
+            y = annotationCenter.y - totalHeight
         } else if (bottom < 0) {
-            offsetY = distanceFromCenterY
+            y = annotationCenter.y + popoverDistanceFromAnnotationCenterY
         } else if (left < 0) {
-            offsetX = 0 - totalWidth
+            x = annotationCenter.x - totalWidth
         } else if (right < 0) {
-            offsetX = distanceFromCenterX
+            x = annotationCenter.x + popoverDistanceFromAnnotationCenterX
         }
         
-        articleVC.view.frame = CGRect(origin: CGPoint(x: annotationCenter.x + offsetX, y: annotationCenter.y + offsetY), size: popoverSize)
+        articleVC.view.frame = CGRect(origin: CGPoint(x: x, y: y), size: popoverSize)
     }
     
     // MARK: Search Suggestions & Completions
