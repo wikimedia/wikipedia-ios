@@ -491,7 +491,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         if let searchSuggestionArticleURL = currentSearch?.searchResult?.articleURL(forSiteURL: siteURL),
             let searchSuggestionArticleKey = (searchSuggestionArticleURL as NSURL?)?.wmf_articleDatabaseKey { // the user tapped an article in the search suggestions list, so we should select that
             articleKeyToSelect = searchSuggestionArticleKey
-        } else if let centerCoordinate = currentSearch?.region?.center {
+        } else if let centerCoordinate = currentSearch?.region?.center ?? mapRegion?.center {
             let center = CLLocation(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude)
             var minDistance = CLLocationDistance(DBL_MAX)
             var resultToSelect: MWKLocationSearchResult?
