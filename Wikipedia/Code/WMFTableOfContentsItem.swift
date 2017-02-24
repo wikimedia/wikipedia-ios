@@ -21,7 +21,7 @@ public enum TableOfContentsItemType {
         get {
             switch (self) {
             case .primary:
-                return .title3
+                return .title1
             case .secondary:
                 return .subheadline
             }

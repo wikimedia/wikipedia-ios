@@ -11,7 +11,7 @@ class ArticlePlaceView: MKAnnotationView {
     let dimension: CGFloat = 60
     let collapsedDimension: CGFloat = 15
     let groupDimension: CGFloat = 30
-    let selectionAnimationDuration = 0.4
+    let selectionAnimationDuration = 0.3
     
     var alwaysShowImage = false
     
@@ -66,7 +66,7 @@ class ArticlePlaceView: MKAnnotationView {
             if alwaysShowImage {
                 UIView.animateKeyframes(withDuration: 2*selectionAnimationDuration, delay: 0, options: [], animations: {
                     UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
-                        UIView.animate(withDuration: 2*self.selectionAnimationDuration, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: transforms, completion:nil)
+                        UIView.animate(withDuration: 2*self.selectionAnimationDuration, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: transforms, completion:nil)
                         
                     })
                     UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25, animations:fadesIn)
@@ -154,37 +154,44 @@ class ArticlePlaceView: MKAnnotationView {
         }
     }
     
+    func showPlaceholderImage() {
+        imageView.contentMode = .center
+        imageView.backgroundColor = UIColor.wmf_green()
+        imageView.image = #imageLiteral(resourceName: "places-w")
+        
+        selectedImageView.contentMode = .center
+        selectedImageView.backgroundColor = UIColor.wmf_green()
+        selectedImageView.image = #imageLiteral(resourceName: "places-w-big")
+    }
+    
     func update(withArticlePlace articlePlace: ArticlePlace) {
         if articlePlace.articles.count == 1 {
             zPosition = 1
             dotView.backgroundColor = UIColor.wmf_green()
             let article = articlePlace.articles[0]
             if let thumbnailURL = article.thumbnailURL {
-                imageView.backgroundColor = UIColor.wmf_green()
-                selectedImageView.backgroundColor = UIColor.wmf_green()
+                showPlaceholderImage()
                 imageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
-                    self.imageView.backgroundColor = UIColor.wmf_green()
-                    self.selectedImageView.backgroundColor = UIColor.wmf_green()
-                    self.selectedImageView.image = nil
-                    self.imageView.image = nil
+                    
                 }, success: {
+                    self.imageView.contentMode = .scaleAspectFill
                     self.imageView.backgroundColor = UIColor.white
                     self.selectedImageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
-                        self.selectedImageView.backgroundColor = UIColor.wmf_green()
-                        self.selectedImageView.image = nil
+                        self.showPlaceholderImage()
                     }, success: {
                         self.selectedImageView.backgroundColor = UIColor.white
+                        self.selectedImageView.contentMode = .scaleAspectFill
                     })
                 })
             } else {
-                selectedImageView.image = nil
-                selectedImageView.backgroundColor = UIColor.wmf_green()
-                imageView.image = nil
-                imageView.backgroundColor = UIColor.wmf_green()
+                showPlaceholderImage()
             }
+            accessibilityLabel = articlePlace.articles.first?.displayTitle
         } else {
             zPosition = 2
-            countLabel.text = "\(articlePlace.articles.count)"
+            let countString = "\(articlePlace.articles.count)"
+            countLabel.text = countString
+            accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-group").replacingOccurrences(of: "$1", with: countString)
         }
         updateDotAndImageHiddenState()
     }
@@ -293,7 +300,7 @@ class ArticlePlaceView: MKAnnotationView {
             if selected {
                 UIView.animateKeyframes(withDuration: duration, delay: 0, options: [], animations: {
                     UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
-                        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: transforms, completion:nil)
+                        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: transforms, completion:nil)
 
                     })
                     UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25, animations:fadesIn)

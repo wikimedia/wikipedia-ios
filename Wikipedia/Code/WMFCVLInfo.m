@@ -161,7 +161,7 @@
         if (!context) {
             [self reset];
         }
-        [self layoutWithMetrics:metrics delegate:delegate collectionView:collectionView invalidationContext:nil]; //context is intentionally nil - apparently .invalidateEverything and .invalidateDataSourceCounts contexts shouldn't be updated   x
+        [self layoutWithMetrics:metrics delegate:delegate collectionView:collectionView invalidationContext:nil]; //context is intentionally nil - apparently .invalidateEverything and .invalidateDataSourceCounts contexts shouldn't be updated
     }
 }
 
@@ -366,7 +366,7 @@
         section.frame = (CGRect){sectionOrigin, CGSizeMake(columnWidth, sectionHeight)};
 
         [column updateHeightWithDelta:sectionHeight];
-        
+
         section.needsToRecalculateEstimatedLayout = NO;
     }
 
@@ -415,7 +415,7 @@
             needsAnotherLayoutPass = YES;
             [tallestColumn removeSection:lastSectionInTallestColumn];
             [shortestColumn addSection:lastSectionInTallestColumn];
-            
+
             lastSectionInTallestColumn.columnIndex = shortestColumn.index;
             lastSectionInTallestColumn.needsToRecalculateEstimatedLayout = YES;
 
