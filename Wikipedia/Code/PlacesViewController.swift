@@ -146,6 +146,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         locationManager.stopMonitoringLocation()
+        mapView.showsUserLocation = false
     }
     
     // MARK: MKMapViewDelegate
