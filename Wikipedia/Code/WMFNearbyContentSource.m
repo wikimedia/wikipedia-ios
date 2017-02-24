@@ -8,6 +8,10 @@
 #import "WMFLocationSearchFetcher.h"
 #import "CLLocation+WMFComparison.h"
 
+#import <WMF/WMF-Swift.h>
+
+static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000;
+
 @interface WMFNearbyContentSource () <WMFLocationManagerDelegate>
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
@@ -59,7 +63,9 @@
 
 - (void)startUpdating {
     self.isFetchingInitialLocation = NO;
-    [self.currentLocationManager startMonitoringLocation];
+    if ([WMFLocationManager isAuthorized]) {
+        [self.currentLocationManager startMonitoringLocation];
+    }
 }
 
 - (void)stopUpdating {
@@ -68,11 +74,22 @@
 
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
     if (![WMFLocationManager isAuthorized]) {
-        [self removeAllContent];
-        if (completion) {
+        [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
+        if (![[NSUserDefaults wmf_userDefaults] wmf_exploreDidPromptForLocationAuthorization]) {
+            [self showAuthorizationPlaceholder:^{
+                if (completion) {
+                    completion();
+                }
+            }];
+        } else if (completion) {
             completion();
         }
-    } else if (self.currentLocationManager.location == nil) {
+        return;
+    }
+
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder];
+
+    if (self.currentLocationManager.location == nil) {
         self.isFetchingInitialLocation = YES;
         self.completion = completion;
         [self.currentLocationManager startMonitoringLocation];
@@ -102,6 +119,48 @@
 
 - (void)removeAllContent {
     [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder];
+}
+
+- (void)showAuthorizationPlaceholder:(nonnull dispatch_block_t)completion {
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
+    NSURL *placeholderURL = [WMFContentGroup locationPlaceholderContentGroupURL];
+    NSDate *date = [NSDate date];
+    // Check for group for date to re-use the same group if it was updated today
+    WMFContentGroup *group = [self.contentStore firstGroupOfKind:WMFContentGroupKindLocationPlaceholder];
+
+    if (group && (group.wasDismissed || [group.midnightUTCDate isEqualToDate:date.wmf_midnightUTCDateFromLocalDate])) {
+        completion();
+        return;
+    }
+    // If the group doesn't exist (or it doesn't exist for today) - Pick a new random article to show
+    CLLocationCoordinate2D center = CLLocationCoordinate2DMake(48.86611, 2.31444);
+    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:center radius:40075000 identifier:@"world"];
+    [self.locationSearchFetcher fetchArticlesWithSiteURL:self.siteURL
+        inRegion:region
+        matchingSearchTerm:nil
+        sortStyle:WMFLocationSearchSortStyleLinks
+        resultLimit:50
+        completion:^(WMFLocationSearchResults *_Nonnull results) {
+            NSInteger count = results.results.count;
+            if (count <= 0) {
+                completion();
+                return;
+            }
+            uint32_t rand = arc4random_uniform((uint32_t)count);
+            MWKLocationSearchResult *result = results.results[rand];
+            NSURL *articleURL = [results urlForResult:result];
+            if (!articleURL) {
+                completion();
+                return;
+            }
+            [self.previewStore addPreviewWithURL:articleURL updatedWithSearchResult:result];
+            [self.contentStore fetchOrCreateGroupForURL:placeholderURL ofKind:WMFContentGroupKindLocationPlaceholder forDate:date withSiteURL:self.siteURL associatedContent:@[articleURL] customizationBlock:nil];
+            completion();
+        }
+        failure:^(NSError *_Nonnull error) {
+            completion();
+        }];
 }
 
 #pragma mark - WMFLocationManagerDelegate
@@ -148,7 +207,12 @@
     [self.contentStore enumerateContentGroupsOfKind:WMFContentGroupKindLocation
                                           withBlock:^(WMFContentGroup *_Nonnull currentGroup, BOOL *_Nonnull stop) {
                                               WMFContentGroup *potentiallyCloseLocationGroup = (WMFContentGroup *)currentGroup;
-                                              if ([potentiallyCloseLocationGroup.location wmf_isCloseTo:location]) {
+                                              CLLocation *groupLocation = potentiallyCloseLocationGroup.location;
+                                              if (!groupLocation) {
+                                                  return;
+                                              }
+                                              CLLocationDistance distance = [groupLocation distanceFromLocation:location];
+                                              if (distance < WMFNearbyUpdateDistanceThresholdInMeters) {
                                                   locationContentGroup = potentiallyCloseLocationGroup;
                                                   *stop = YES;
                                               }
@@ -162,7 +226,7 @@
 - (void)getGroupForLocation:(CLLocation *)location completion:(void (^)(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark))completion
                     failure:(void (^)(NSError *error))failure {
 
-    if (self.isProcessingLocation) {
+    if (self.isProcessingLocation || !location) {
         failure(nil);
         return;
     }
@@ -170,6 +234,7 @@
 
     WMFContentGroup *group = [self contentGroupCloseToLocation:location];
     if (group) {
+        self.isProcessingLocation = NO;
         completion(group, group.location, group.placemark);
         return;
     }
@@ -177,6 +242,7 @@
     [self.currentLocationManager reverseGeocodeLocation:location
         completion:^(CLPlacemark *_Nonnull placemark) {
             completion(nil, location, placemark);
+            self.isProcessingLocation = NO;
         }
         failure:^(NSError *_Nonnull error) {
             self.isProcessingLocation = NO;

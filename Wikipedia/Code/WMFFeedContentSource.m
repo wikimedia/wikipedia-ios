@@ -494,7 +494,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         info[WMFNotificationInfoArticleExtractKey] = snippet;
     }
 
-    NSString *title = NSLocalizedString(@"in-the-news-title", nil);
+    NSString *title = MWLocalizedString(@"in-the-news-title", nil);
     NSString *body = [storyHTML wmf_stringByRemovingHTML];
 
     NSDate *notificationDate = [NSDate date];

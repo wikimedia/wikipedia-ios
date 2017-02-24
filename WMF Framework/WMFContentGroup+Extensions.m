@@ -38,6 +38,9 @@
         case WMFContentGroupKindLocation:
             URL = [WMFContentGroup locationContentGroupURLForLocation:self.location];
             break;
+        case WMFContentGroupKindLocationPlaceholder:
+            URL = [WMFContentGroup locationPlaceholderContentGroupURL];
+            break;
         case WMFContentGroupKindPictureOfTheDay:
             URL = [WMFContentGroup pictureOfTheDayContentGroupURLForSiteURL:self.siteURL midnightUTCDate:self.midnightUTCDate];
             break;
@@ -87,6 +90,7 @@
         case WMFContentGroupKindMainPage:
         case WMFContentGroupKindRelatedPages:
         case WMFContentGroupKindLocation:
+        case WMFContentGroupKindLocationPlaceholder:
         case WMFContentGroupKindRandom:
         case WMFContentGroupKindFeaturedArticle:
         case WMFContentGroupKindNotification:
@@ -111,6 +115,9 @@
             self.dailySortPriority = isPad ? 2 : 1;
             break;
         case WMFContentGroupKindLocation:
+            self.dailySortPriority = 8;
+            break;
+        case WMFContentGroupKindLocationPlaceholder:
             self.dailySortPriority = 8;
             break;
         case WMFContentGroupKindPictureOfTheDay:
@@ -213,9 +220,14 @@
     return theURL;
 }
 
-+ (NSURL *)locationContentGroupURLForLocation:(CLLocation *)location {
++ (nullable NSURL *)locationContentGroupURLForLocation:(CLLocation *)location {
     NSURL *url = [[self baseURL] URLByAppendingPathComponent:@"nearby"];
     url = [url URLByAppendingPathComponent:[location description]];
+    return url;
+}
+    
++ (nullable NSURL *)locationPlaceholderContentGroupURL {
+    NSURL *url = [[self baseURL] URLByAppendingPathComponent:@"nearby-placeholder"];
     return url;
 }
 

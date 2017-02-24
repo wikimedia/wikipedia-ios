@@ -137,6 +137,10 @@
 
 #pragma mark - Distance
 
+- (void)configureForUnknownDistance {
+    self.distanceLabel.text = [MWLocalizedString(@"places-unknown-distance", nil) lowercaseString];
+}
+
 - (void)setDistance:(CLLocationDistance)distance {
 #if FB_TWEAK_ENABLED
     if (FBTweakValue(@"Explore", @"Nearby", @"Show raw distance", NO)) {

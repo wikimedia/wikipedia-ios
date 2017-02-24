@@ -442,12 +442,19 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
     [self startContentSources];
 
-    NSDate *feedRefreshDate = [[NSUserDefaults wmf_userDefaults] wmf_feedRefreshDate];
+    NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
+    NSDate *feedRefreshDate = [defaults wmf_feedRefreshDate];
     NSDate *now = [NSDate date];
 
+    BOOL locationAuthorized = [WMFLocationManager isAuthorized];
+    
     if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > WMFTimeBeforeRefreshingExploreFeed || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
         [self updateFeedSourcesWithCompletion:NULL];
+    } else if (locationAuthorized != [defaults wmf_locationAuthorized]) {
+        [self.exploreViewController updateNearby:NULL];
     }
+    
+    [defaults wmf_setLocationAuthorized:locationAuthorized];
 
     [self.savedArticlesFetcher start];
 

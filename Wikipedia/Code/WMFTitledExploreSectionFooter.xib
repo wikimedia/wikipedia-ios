@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="WMFTitledExploreSectionFooter" customModule="Wikipedia" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="146.5"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="801" text="Enable location to view articles near you " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jze-hP-209">
+                    <rect key="frame" x="50" y="16" width="312" height="42.5"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.40000000000000002" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="nearby" translatesAutoresizingMaskIntoConstraints="NO" id="cZm-MQ-81t">
+                    <rect key="frame" x="13" y="18" width="25" height="25"/>
+                    <color key="tintColor" red="0.20000000000000001" green="0.40000000000000002" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="25" id="4JJ-ma-PEa"/>
+                        <constraint firstAttribute="height" constant="25" id="Wf9-YN-iuS"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="801" text="Access to your location is available only when the app or one of its features is visible on your screen." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kUc-RJ-UHk">
+                    <rect key="frame" x="50" y="66" width="312" height="64.5"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                    <color key="textColor" red="0.44705882352941173" green="0.46666666666666667" blue="0.49019607843137253" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="kUc-RJ-UHk" firstAttribute="top" secondItem="Jze-hP-209" secondAttribute="bottom" constant="8" id="7k9-mv-X0C"/>
+                <constraint firstAttribute="bottom" secondItem="kUc-RJ-UHk" secondAttribute="bottom" constant="16" id="Hky-6d-xtf"/>
+                <constraint firstItem="kUc-RJ-UHk" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="50" id="K5e-dr-Zec"/>
+                <constraint firstItem="cZm-MQ-81t" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="13" id="Nww-h0-uuz"/>
+                <constraint firstItem="Jze-hP-209" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="16" id="QxE-eN-Nbf"/>
+                <constraint firstAttribute="trailing" secondItem="kUc-RJ-UHk" secondAttribute="trailing" constant="13" id="Rwm-iI-0Cq"/>
+                <constraint firstItem="Jze-hP-209" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="50" id="cZz-wE-czy"/>
+                <constraint firstAttribute="trailing" secondItem="Jze-hP-209" secondAttribute="trailing" constant="13" id="enk-a5-vxg"/>
+                <constraint firstItem="cZm-MQ-81t" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="18" id="fa4-l8-Pkc"/>
+            </constraints>
+            <point key="canvasLocation" x="33.5" y="112.5"/>
+        </collectionReusableView>
+    </objects>
+    <resources>
+        <image name="nearby" width="25" height="25"/>
+    </resources>
+</document>

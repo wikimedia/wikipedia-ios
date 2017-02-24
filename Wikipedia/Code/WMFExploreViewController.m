@@ -63,6 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 
+static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
+
 @interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching>
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
@@ -87,8 +89,10 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 @property (nonatomic, strong, nullable) WMFTaskGroup *feedUpdateTaskGroup;
 @property (nonatomic, strong, nullable) WMFTaskGroup *relatedUpdatedTaskGroup;
+@property (nonatomic, strong, nullable) WMFTaskGroup *nearbyUpdateTaskGroup;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, WMFExploreCollectionViewCell *> *placeholderCells;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, WMFExploreCollectionReusableView *> *placeholderFooters;
 
 @property (nonatomic, strong) NSMutableDictionary<NSIndexPath *, NSURL *> *prefetchURLsByIndexPath;
 
@@ -103,6 +107,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     self.objectChanges = [NSMutableArray arrayWithCapacity:10];
     self.sectionCounts = [NSMutableArray arrayWithCapacity:100];
     self.placeholderCells = [NSMutableDictionary dictionaryWithCapacity:10];
+    self.placeholderFooters = [NSMutableDictionary dictionaryWithCapacity:10];
     self.prefetchURLsByIndexPath = [NSMutableDictionary dictionaryWithCapacity:10];
 }
 
@@ -221,7 +226,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 #pragma mark - Feed Sources
 
 - (void)updateRelatedPages {
-    NSAssert([NSThread isMainThread], @"Must be called on the main thread");
+    WMFAssertMainThread(@"updateRelatedPages must be called on the main thread");
     if (self.relatedUpdatedTaskGroup) {
         return;
     }
@@ -237,15 +242,41 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         }
     }];
 
-    [group waitInBackgroundWithTimeout:12
+    [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
                             completion:^{
-                                NSAssert([NSThread isMainThread], @"Must be called on the main thread");
+                                WMFAssertMainThread(@"completion must be called on the main thread");
                                 self.relatedUpdatedTaskGroup = nil;
                             }];
 }
 
+- (void)updateNearby:(nullable dispatch_block_t)completion {
+    WMFAssertMainThread(@"updateNearby: must be called on the main thread");
+    if (self.nearbyUpdateTaskGroup || self.feedUpdateTaskGroup) {
+        return;
+    }
+    WMFTaskGroup *group = [WMFTaskGroup new];
+    self.nearbyUpdateTaskGroup = group;
+    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        if ([obj isKindOfClass:[WMFNearbyContentSource class]]) {
+            [group enter];
+            [obj loadNewContentForce:NO
+                          completion:^{
+                              [group leave];
+                          }];
+        }
+    }];
+
+    [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
+                            completion:^{
+                                WMFAssertMainThread(@"completion must be called on the main thread");                                self.nearbyUpdateTaskGroup = nil;
+                                if (completion) {
+                                    completion();
+                                }
+                            }];
+}
+
 - (void)updateFeedSources:(nullable dispatch_block_t)completion {
-    NSAssert([NSThread isMainThread], @"Must be called on the main thread");
+    WMFAssertMainThread(@"updateFeedSources: must be called on the main thread");
     if (self.feedUpdateTaskGroup) {
         if (completion) {
             completion();
@@ -278,7 +309,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                       }];
     }];
 
-    [group waitInBackgroundWithTimeout:12
+    [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
                             completion:^{
                                 NSError *saveError = nil;
                                 if (![self.userStore save:&saveError]) {
@@ -822,6 +853,15 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     WMFContentGroup *sectionObject = [self sectionAtIndex:section];
     if ([sectionObject moreType] == WMFFeedMoreTypeNone) {
         return 0.0;
+    } else if ([sectionObject moreType] == WMFFeedMoreTypeLocationAuthorization) {
+        CGRect frameToFit = CGRectMake(0, 0, columnWidth, 170);
+        WMFExploreCollectionReusableView *footer = [self placeholderFooterForIdentifier:[WMFTitledExploreSectionFooter wmf_nibName]];
+        footer.frame = frameToFit;
+        WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
+        attributesToFit.frame = frameToFit;
+        UICollectionViewLayoutAttributes *attributes = [footer preferredLayoutAttributesFittingAttributes:attributesToFit];
+        CGFloat height = attributes.frame.size.height;
+        return height;
     } else {
         return 50.0;
     }
@@ -833,14 +873,18 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
+    [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:section value:section];
+
+    if (![WMFLocationManager isAuthorized]) {
+        return;
+    }
 
     if ([cell isKindOfClass:[WMFNearbyArticleCollectionViewCell class]] || [self isDisplayingLocationCell]) {
         [self.locationManager startMonitoringLocation];
     } else {
         [self.locationManager stopMonitoringLocation];
     }
-    WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
-    [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:section value:section];
 }
 
 - (nonnull UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSectionHeaderAtIndexPath:(NSIndexPath *)indexPath {
@@ -877,7 +921,7 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
         [self didTapHeaderInSection:indexPathForSection.row];
     };
 
-    if (([section blackListOptions] & WMFFeedBlacklistOptionContent) && [section headerContentURL]) {
+    if (([section blackListOptions] & WMFFeedBlacklistOptionSection) || (([section blackListOptions] & WMFFeedBlacklistOptionContent) && [section headerContentURL])) {
         header.rightButtonEnabled = YES;
         [[header rightButton] setImage:[UIImage imageNamed:@"overflow-mini"] forState:UIControlStateNormal];
         [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
@@ -888,6 +932,9 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
                 return;
             }
             UIAlertController *menuActionSheet = [self menuActionSheetForSection:section];
+            if (!menuActionSheet) {
+                return;
+            }
 
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
                 menuActionSheet.modalPresentationStyle = UIModalPresentationPopover;
@@ -943,41 +990,72 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 #pragma mark - WMFHeaderMenuProviding
 
-- (UIAlertController *)menuActionSheetForSection:(WMFContentGroup *)section {
-    NSURL *url = [section headerContentURL];
-    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil)
-                                              style:UIAlertActionStyleDestructive
-                                            handler:^(UIAlertAction *_Nonnull action) {
-                                                [self.userStore setIsExcludedFromFeed:YES forArticleURL:url];
-                                                [self.contentStore removeContentGroup:section];
-                                            }]];
-    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
-    return sheet;
+- (nullable UIAlertController *)menuActionSheetForSection:(WMFContentGroup *)section {
+    switch (section.contentGroupKind) {
+        case WMFContentGroupKindRelatedPages: {
+            NSURL *url = [section headerContentURL];
+            UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil)
+                                                      style:UIAlertActionStyleDestructive
+                                                    handler:^(UIAlertAction *_Nonnull action) {
+                                                        [self.userStore setIsExcludedFromFeed:YES forArticleURL:url];
+                                                        [self.contentStore removeContentGroup:section];
+                                                    }]];
+            [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
+            return sheet;
+        }
+        case WMFContentGroupKindLocationPlaceholder: {
+            UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"explore-nearby-placeholder-dismiss", nil)
+                                                      style:UIAlertActionStyleDestructive
+                                                    handler:^(UIAlertAction *_Nonnull action) {
+                                                        [[NSUserDefaults wmf_userDefaults] wmf_setExploreDidPromptForLocationAuthorization:YES];
+                                                        section.wasDismissed = YES;
+                                                        [section updateVisibility];
+                                                    }]];
+            [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"explore-nearby-placeholder-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
+            return sheet;
+        }
+        default:
+            return nil;
+    }
 }
 
 - (nonnull UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSectionFooterAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
     NSParameterAssert(group);
-
-    if ([group moreType] == WMFFeedMoreTypeNone) {
-        return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier forIndexPath:indexPath];
-    }
-
-    WMFExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
-    footer.visibleBackgroundView.alpha = 1.0;
-    footer.moreLabel.text = [group footerText];
-    footer.moreLabel.textColor = [UIColor wmf_exploreSectionFooterTextColor];
-    @weakify(self);
-    footer.whenTapped = ^{
-        @strongify(self);
-        NSIndexPath *indexPathForSection = [self.fetchedResultsController indexPathForObject:group];
-        if (!indexPathForSection) {
-            return;
+    switch (group.moreType) {
+        case WMFFeedMoreTypeNone:
+            return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier forIndexPath:indexPath];
+        case WMFFeedMoreTypeLocationAuthorization: {
+            WMFTitledExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFTitledExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
+            [footer bk_whenTapped:^{
+                [[NSUserDefaults wmf_userDefaults] wmf_setExploreDidPromptForLocationAuthorization:YES];
+                if ([WMFLocationManager isAuthorizationNotDetermined]) {
+                    [self.locationManager startMonitoringLocation];
+                    return;
+                }
+                [[UIApplication sharedApplication] wmf_openAppSpecificSystemSettings];
+            }];
+            return footer;
         }
-        [self presentMoreViewControllerForSectionAtIndex:indexPathForSection.row animated:YES];
-    };
-    return footer;
+        default: {
+            WMFExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
+            footer.visibleBackgroundView.alpha = 1.0;
+            footer.moreLabel.text = [group footerText];
+            footer.moreLabel.textColor = [UIColor wmf_exploreSectionFooterTextColor];
+            @weakify(self);
+            footer.whenTapped = ^{
+                @strongify(self);
+                NSIndexPath *indexPathForSection = [self.fetchedResultsController indexPathForObject:group];
+                if (!indexPathForSection) {
+                    return;
+                }
+                [self presentMoreViewControllerForSectionAtIndex:indexPathForSection.row animated:YES];
+            };
+            return footer;
+        }
+    }
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -1027,10 +1105,27 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
     return self.placeholderCells[identifier];
 }
 
+- (void)registerNib:(UINib *)nib forFooterWithReuseIdentifier:(NSString *)identifier {
+    [self.collectionView registerNib:nib forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:identifier];
+    WMFExploreCollectionReusableView *placeholderView = [[nib instantiateWithOwner:nil options:nil] firstObject];
+    if (!placeholderView) {
+        return;
+    }
+    placeholderView.hidden = YES;
+    [self.view insertSubview:placeholderView atIndex:0];
+    [self.placeholderFooters setObject:placeholderView forKey:identifier];
+}
+
+- (id)placeholderFooterForIdentifier:(NSString *)identifier {
+    return self.placeholderFooters[identifier];
+}
+
 - (void)registerCellsAndViews {
     [self.collectionView registerNib:[WMFExploreSectionHeader wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFExploreSectionHeader wmf_nibName]];
 
     [self.collectionView registerNib:[WMFExploreSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName]];
+
+    [self registerNib:[WMFTitledExploreSectionFooter wmf_classNib] forFooterWithReuseIdentifier:[WMFTitledExploreSectionFooter wmf_nibName]];
 
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier];
 
@@ -1127,8 +1222,13 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 }
 
 - (void)updateLocationCell:(WMFNearbyArticleCollectionViewCell *)cell location:(CLLocation *)location {
-    [cell setDistance:[self.locationManager.location distanceFromLocation:location]];
-    [cell setBearing:[self.locationManager.location wmf_bearingToLocation:location forCurrentHeading:self.locationManager.heading]];
+    CLLocation *userLocation = self.locationManager.location;
+    if (userLocation == nil) {
+        [cell configureForUnknownDistance];
+        return;
+    }
+    [cell setDistance:[userLocation distanceFromLocation:location]];
+    [cell setBearing:[userLocation wmf_bearingToLocation:location forCurrentHeading:self.locationManager.heading]];
 }
 
 - (void)selectItem:(NSUInteger)item inSection:(NSUInteger)section {
@@ -1294,6 +1394,11 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 
 - (void)locationManager:(WMFLocationManager *)controller didReceiveError:(NSError *)error {
     //TODO: probably not displaying the error, but maybe?
+}
+
+- (void)locationManager:(WMFLocationManager *)controller didChangeEnabledState:(BOOL)enabled {
+    [[NSUserDefaults wmf_userDefaults] wmf_setLocationAuthorized:enabled];
+    [self updateNearby:NULL];
 }
 
 #pragma mark - Previewing

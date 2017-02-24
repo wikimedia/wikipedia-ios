@@ -10,7 +10,7 @@ import UIKit
 let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloat]]] = {
     return [
         .georgia:[
-            UIFontTextStyle.title2: [
+            UIFontTextStyle.title1: [
                 .accessibilityExtraExtraExtraLarge: 28,
                 .accessibilityExtraExtraLarge: 28,
                 .accessibilityExtraLarge: 28,
@@ -24,7 +24,7 @@ let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloa
                 .small: 19,
                 .extraSmall: 18
             ],
-            UIFontTextStyle.title3: [
+            UIFontTextStyle.title2: [
                 .accessibilityExtraExtraExtraLarge: 24,
                 .accessibilityExtraExtraLarge: 24,
                 .accessibilityExtraLarge: 24,
@@ -37,6 +37,20 @@ let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloa
                 .medium: 17,
                 .small: 16,
                 .extraSmall: 15
+            ],
+            UIFontTextStyle.title3: [
+                .accessibilityExtraExtraExtraLarge: 23,
+                .accessibilityExtraExtraLarge: 23,
+                .accessibilityExtraLarge: 23,
+                .accessibilityLarge: 23,
+                .accessibilityMedium: 23,
+                .extraExtraExtraLarge: 21,
+                .extraExtraLarge: 19,
+                .extraLarge: 18,
+                .large: 17,
+                .medium: 16,
+                .small: 15,
+                .extraSmall: 14
             ]
         ],
         .systemBlack: [
