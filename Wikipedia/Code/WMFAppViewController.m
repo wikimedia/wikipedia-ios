@@ -116,7 +116,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 @property (nonatomic, strong) WMFArticleDataStore *previewStore;
 @property (nonatomic, strong) WMFContentGroupDataStore *contentStore;
 
-@property (nonatomic, strong) WMFDatabaseHouseKeeper *houseKeeper;
+@property (nonatomic, strong) WMFDatabaseHouseKeeper2 *houseKeeper;
 
 @property (nonatomic, strong) NSArray<id<WMFContentSource>> *contentSources;
 
@@ -488,8 +488,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [self.dataStore startCacheRemoval];
     [self.savedArticlesFetcher stop];
     [self stopContentSources];
-    self.houseKeeper = [WMFDatabaseHouseKeeper new];
 
+    self.houseKeeper = [WMFDatabaseHouseKeeper2 new];
     //TODO: these tasks should be converted to async so we can end the background task as soon as possible
     [self.dataStore clearMemoryCache];
     [self downloadAssetsFilesIfNecessary];
