@@ -34,6 +34,8 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 @property (readwrite, assign, nonatomic, getter=isMain) BOOL main;
 @property (readwrite, strong, nonatomic) NSNumber *revisionId;
 
+@property (readwrite, nonatomic) NSInteger ns; //optional, defaults to 0
+
 @property (readwrite, copy, nonatomic) NSString *entityDescription; // optional; currently pulled separately via wikidata
 @property (readwrite, copy, nonatomic) NSString *snippet;
 
@@ -119,6 +121,8 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
     dict[@"id"] = @(self.articleId);
     dict[@"languagecount"] = @(self.languagecount);
+    
+    dict[@"ns"] = @(self.ns);
 
     [dict wmf_maybeSetObject:self.displaytitle forKey:@"displaytitle"];
 
@@ -148,6 +152,8 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     self.lastmodifiedby = [self requiredUser:@"lastmodifiedby" dict:dict];
     self.articleId = [[self requiredNumber:@"id" dict:dict] intValue];
     self.languagecount = [[self requiredNumber:@"languagecount" dict:dict] intValue];
+    
+    self.ns = [[self optionalNumber:@"ns" dict:dict] integerValue];
 
     //We are getting crashes because of the protection status.
     //Set this up
