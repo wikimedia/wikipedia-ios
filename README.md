@@ -18,11 +18,11 @@ The official Wikipedia iOS client.
 The app is primarily being developed by the Wikimedia Foundation's [Mobile Apps team](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team). This README provides high-level guidelines for getting started with the project. If you have any questions, comments, or issues, the easiest way to talk to us is joining the #wikimedia-mobile channel on the freenode IRC server during Eastern and Pacific business hours. We'll also gladly accept any tickets filed against the [project in Phabricator](https://phabricator.wikimedia.org/project/view/782/).
 
 ## Building and Running
-This project requires [Xcode 7](https://itunes.apple.com/us/app/xcode/id497799835) or higher to build.  The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple developer account.
+This project requires [Xcode 8.2.1](https://itunes.apple.com/us/app/xcode/id497799835) or higher to build.  The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple developer account.
 
-<!--No submodules being used, but if any are added, the following line should be uncommented-->
-<!--Once you have Xcode (and build dependencies) installed, run `make prebuild` to ensure any dependencies required to build the project (mainly our submodules) are setup.-->
-At this point, you should be able to open `Wikipedia.xcworkspace` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via bug reports or messaging us on IRC (see above).
+**Once you have Xcode installed, from the terminal, switch to the project directory and run** `scripts/setup` **to ensure any dependencies required to build the project are setup. This step may take awhile as project dependencies are built.**
+
+At this point, you should be able to open `Wikipedia.xcodeproject` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via bug reports or messaging us on IRC (see above).
 
 > Quick note: you might not see an app icon when first building the project after a clean checkout. See [Wikipedia App Icons](docs/app-icons.md) for information about generating the icons.
 
@@ -32,7 +32,8 @@ At this point, you should be able to open `Wikipedia.xcworkspace` and run the ap
 ### Best practices and coding style
 You can find our current thinking on [iOS best practices](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/BestPractices) and [coding style](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/ObjectiveCStyleGuide) on our [team page](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS). The [WMFCodingStyle](./WikipediaUnitTests/Code/WMFCodingStyle.h) files are also canonical examples of our coding style, which are enforced using [clang-format](#clang-format).
 ### Dependencies
-We use [Carthage](https://github.com/Carthage/Carthage) to manage third-party native dependencies and [npm](#npm) for web.  We've committed our Carthage dependencies and npm build artifacts to the repo so you don't need to rebuild them to build the project. You do need Carthage installed.
+We use [Carthage](https://github.com/Carthage/Carthage) to manage third-party native dependencies and [npm](#npm) for web.
+
 ## Testing
 The **Wikipedia** scheme is configured to execute the project's iOS unit tests, which can be run using the `Cmd+U` hotkey or the **Product->Test** menu bar action. You can also use the project's [Makefile](./Makefile) to run both in one action: `make verify`.
 
