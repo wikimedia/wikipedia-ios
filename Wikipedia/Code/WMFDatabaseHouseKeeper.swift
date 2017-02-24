@@ -9,6 +9,12 @@ import Foundation
     
     private func deleteStaleUnreferencedArticles(_ moc: NSManagedObjectContext) throws {
         
+        /**
+ 
+        Find `WMFContentGroup`s more than 30 days old.
+ 
+        */
+        
         let midnightTodayUTC = (Date() as NSDate).wmf_midnightUTCDateFromLocal!
         let utcCalendar = NSCalendar.wmf_utcGregorian() as Calendar
         let thirtyDaysAgoMidnightUTC = utcCalendar.date(byAdding: .day, value: -30, to: midnightTodayUTC, wrappingComponents: true)
