@@ -18,6 +18,7 @@ let WMFFeedRefreshDateKey = "WMFFeedRefreshDateKey"
 let WMFLocationAuthorizedKey = "WMFLocationAuthorizedKey"
 let WMFPlacesDidPromptForLocationAuthorization = "WMFPlacesDidPromptForLocationAuthorization"
 let WMFExploreDidPromptForLocationAuthorization = "WMFExploreDidPromptForLocationAuthorization"
+let WMFPlacesHasAppeared = "WMFPlacesHasAppeared"
 
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
@@ -109,6 +110,16 @@ public extension UserDefaults {
         return self.bool(forKey: WMFLocationAuthorizedKey)
     }
     
+    
+    public func wmf_setPlacesHasAppeared(_ hasAppeared: Bool) {
+        self.set(hasAppeared, forKey: WMFPlacesHasAppeared)
+        self.synchronize()
+    }
+    
+    public func wmf_placesHasAppeared() -> Bool {
+        return self.bool(forKey: WMFPlacesHasAppeared)
+    }
+    
     public func wmf_setPlacesDidPromptForLocationAuthorization(_ didPrompt: Bool) {
         self.set(didPrompt, forKey: WMFPlacesDidPromptForLocationAuthorization)
         self.synchronize()
@@ -122,6 +133,7 @@ public extension UserDefaults {
         self.set(didPrompt, forKey: WMFExploreDidPromptForLocationAuthorization)
         self.synchronize()
     }
+    
     
     public func wmf_exploreDidPromptForLocationAuthorization() -> Bool {
         return self.bool(forKey: WMFExploreDidPromptForLocationAuthorization)

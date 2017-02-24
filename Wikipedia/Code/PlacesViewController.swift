@@ -119,12 +119,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        let defaults = UserDefaults.wmf_userDefaults()
+        if !defaults.wmf_placesHasAppeared() {
+            defaults.wmf_setPlacesHasAppeared(true)
+        }
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         guard WMFLocationManager.isAuthorized() else {
-            if !UserDefaults.wmf_userDefaults().wmf_placesDidPromptForLocationAuthorization() {
-                UserDefaults.wmf_userDefaults().wmf_setPlacesDidPromptForLocationAuthorization(true)
+            if !defaults.wmf_placesDidPromptForLocationAuthorization() {
+                defaults.wmf_setPlacesDidPromptForLocationAuthorization(true)
                 promptForLocationAccess()
             } else {
                 performDefaultSearchOnNextMapRegionUpdate = currentSearch == nil
