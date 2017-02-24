@@ -31,16 +31,16 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="2.5"/>
                             </progressView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxh-CO-RQm">
-                                <rect key="frame" x="330" y="79" width="30" height="30"/>
+                                <rect key="frame" x="320" y="79" width="40" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="JR3-1A-AEQ"/>
-                                    <constraint firstAttribute="height" constant="30" id="f61-h1-eIZ"/>
+                                    <constraint firstAttribute="width" constant="40" id="JR3-1A-AEQ"/>
+                                    <constraint firstAttribute="height" constant="40" id="f61-h1-eIZ"/>
                                 </constraints>
                                 <state key="normal" image="places-location-arrow"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="5"/>
+                                        <real key="value" value="2"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="NO"/>
                                     <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
@@ -117,6 +117,7 @@
                         <outlet property="listView" destination="Irc-Nx-au0" id="DbL-ub-mzH"/>
                         <outlet property="mapView" destination="UNC-SX-Sli" id="0hu-YN-E8A"/>
                         <outlet property="progressView" destination="Pet-ct-8QU" id="TOF-PN-K7x"/>
+                        <outlet property="recenterOnUserLocationButton" destination="mxh-CO-RQm" id="h84-Rt-brE"/>
                         <outlet property="redoSearchButton" destination="z6h-da-ewO" id="mP9-Iz-g7C"/>
                         <outlet property="searchSuggestionView" destination="NoL-m7-U7J" id="Kmu-Eb-vMo"/>
                     </connections>

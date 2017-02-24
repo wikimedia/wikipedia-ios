@@ -122,6 +122,8 @@
 		0EF8634E1C19E02700006D2D /* WMFEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EF8634D1C19E02700006D2D /* WMFEmptyView.xib */; };
 		0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
 		0EFC9C221DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EFC9C211DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib */; };
+		192275501E5376CA00860E55 /* WMFTitledExploreSectionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1922754E1E5376CA00860E55 /* WMFTitledExploreSectionFooter.swift */; };
+		192275511E5376CA00860E55 /* WMFTitledExploreSectionFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1922754F1E5376CA00860E55 /* WMFTitledExploreSectionFooter.xib */; };
 		19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */; };
 		19A17B36FFB48307FF04C07F /* SavedPageSpotlightManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */; };
 		B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00050131C52D73800515F70 /* UIApplication+RTL.swift */; };
@@ -545,6 +547,8 @@
 		D81BA0FD1D50D40B006C38AC /* WMFNearbyPlaceholderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D81BA0F91D50D40B006C38AC /* WMFNearbyPlaceholderTableViewCell.m */; };
 		D81BA0FE1D50D40B006C38AC /* WMFNearbyPlaceholderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D81BA0FA1D50D40B006C38AC /* WMFNearbyPlaceholderTableViewCell.xib */; };
 		D81DBCD41DF2659A0035281A /* TUSafariActivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81DBCD31DF2659A0035281A /* TUSafariActivity.framework */; };
+		D81E5F881E5F2C8400E1A80C /* UIApplication+SystemSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81E5F871E5F2C8400E1A80C /* UIApplication+SystemSettings.swift */; };
+		D81E5F8A1E5F949B00E1A80C /* WMFAssertions.h in Headers */ = {isa = PBXBuildFile; fileRef = D81E5F891E5F949B00E1A80C /* WMFAssertions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D81EFDE21D775B140035F2EB /* NSUserActivity+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5DC8621C6D716100C39A6F /* NSUserActivity+WMFExtensions.m */; };
 		D81EFDE31D775B180035F2EB /* NSUserActivity+WMFExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E5DC8611C6D716100C39A6F /* NSUserActivity+WMFExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D81EFDE41D775B6B0035F2EB /* SavedPageSpotlightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E568D471C78273B00E68FC1 /* SavedPageSpotlightManager.swift */; };
@@ -778,6 +782,9 @@
 		D86706C31D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706C21D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m */; };
 		D87234011E1FF0A500751E83 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */; };
 		D87234041E1FF18100751E83 /* Places.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D87234031E1FF18100751E83 /* Places.storyboard */; };
+		D876C2861E5CDE6500FCA00A /* RightAlignedImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D876C2851E5CDE6500FCA00A /* RightAlignedImageButton.swift */; };
+		D876C2891E5DDF1A00FCA00A /* EnableLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D876C2871E5DDF1A00FCA00A /* EnableLocationViewController.swift */; };
+		D876C28A1E5DDF1A00FCA00A /* EnableLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D876C2881E5DDF1A00FCA00A /* EnableLocationViewController.xib */; };
 		D87914DD1DFA04E10012C5DA /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87914DC1DFA04E10012C5DA /* NSUserDefaults+WMFApplicationDefaults.swift */; };
 		D87A55991D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87A55971D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.m */; };
 		D87A559A1D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87A55981D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.xib */; };
@@ -1215,6 +1222,8 @@
 		0EF8634F1C19E4F100006D2D /* WMFEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFEmptyView.h; path = Wikipedia/Code/WMFEmptyView.h; sourceTree = SOURCE_ROOT; };
 		0EF863501C19E4F100006D2D /* WMFEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFEmptyView.m; path = Wikipedia/Code/WMFEmptyView.m; sourceTree = SOURCE_ROOT; };
 		0EFC9C211DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WmfFeedNotificationHeaderiPad.xib; path = Wikipedia/Code/WmfFeedNotificationHeaderiPad.xib; sourceTree = SOURCE_ROOT; };
+		1922754E1E5376CA00860E55 /* WMFTitledExploreSectionFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFTitledExploreSectionFooter.swift; path = Wikipedia/Code/WMFTitledExploreSectionFooter.swift; sourceTree = SOURCE_ROOT; };
+		1922754F1E5376CA00860E55 /* WMFTitledExploreSectionFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFTitledExploreSectionFooter.xib; path = Wikipedia/Code/WMFTitledExploreSectionFooter.xib; sourceTree = SOURCE_ROOT; };
 		19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedPageSpotlightManagerTest.m; sourceTree = "<group>"; };
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
 		7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUtilityMacros.h; sourceTree = "<group>"; };
@@ -2265,6 +2274,8 @@
 		D81BA0F91D50D40B006C38AC /* WMFNearbyPlaceholderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFNearbyPlaceholderTableViewCell.m; path = Wikipedia/Code/WMFNearbyPlaceholderTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		D81BA0FA1D50D40B006C38AC /* WMFNearbyPlaceholderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFNearbyPlaceholderTableViewCell.xib; path = Wikipedia/Code/WMFNearbyPlaceholderTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		D81DBCD31DF2659A0035281A /* TUSafariActivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TUSafariActivity.framework; path = Carthage/Build/iOS/TUSafariActivity.framework; sourceTree = SOURCE_ROOT; };
+		D81E5F871E5F2C8400E1A80C /* UIApplication+SystemSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIApplication+SystemSettings.swift"; path = "Wikipedia/Code/UIApplication+SystemSettings.swift"; sourceTree = SOURCE_ROOT; };
+		D81E5F891E5F949B00E1A80C /* WMFAssertions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAssertions.h; path = Wikipedia/Code/WMFAssertions.h; sourceTree = SOURCE_ROOT; };
 		D81FB25B1D47B5830000C685 /* WMFCVLInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFCVLInfo.h; path = Wikipedia/Code/WMFCVLInfo.h; sourceTree = SOURCE_ROOT; };
 		D81FB25C1D47B5830000C685 /* WMFCVLInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCVLInfo.m; path = Wikipedia/Code/WMFCVLInfo.m; sourceTree = SOURCE_ROOT; };
 		D81FB25E1D47B5940000C685 /* WMFCVLColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFCVLColumn.h; path = Wikipedia/Code/WMFCVLColumn.h; sourceTree = SOURCE_ROOT; };
@@ -2379,6 +2390,9 @@
 		D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
 		D87234031E1FF18100751E83 /* Places.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Places.storyboard; sourceTree = "<group>"; };
 		D8735B231DB7AAA100ED13C4 /* WMFTableOfContentsDisplay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFTableOfContentsDisplay.h; sourceTree = "<group>"; };
+		D876C2851E5CDE6500FCA00A /* RightAlignedImageButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightAlignedImageButton.swift; sourceTree = "<group>"; };
+		D876C2871E5DDF1A00FCA00A /* EnableLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnableLocationViewController.swift; sourceTree = "<group>"; };
+		D876C2881E5DDF1A00FCA00A /* EnableLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnableLocationViewController.xib; sourceTree = "<group>"; };
 		D876C28D1E5F0D1300FCA00A /* bs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bs; path = bs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D87914DC1DFA04E10012C5DA /* NSUserDefaults+WMFApplicationDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+WMFApplicationDefaults.swift"; sourceTree = "<group>"; };
 		D87A55961D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleListCollectionViewCell.h; path = Wikipedia/Code/WMFArticleListCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -2830,6 +2844,7 @@
 				B07963E41C5857890015D2D4 /* UINavigationController */,
 				0EE489021D4ADCA00088505C /* UITableViewController+WMFScrollToTop.swift */,
 				B0D1B4591DDD02BB004FCAE6 /* WMFDynamicTypeExtentions.swift */,
+				D81E5F871E5F2C8400E1A80C /* UIApplication+SystemSettings.swift */,
 			);
 			name = Categories;
 			path = Wikipedia/Code/Categories;
@@ -3297,6 +3312,8 @@
 				B0E8032E1C0CD6F20065EBC0 /* WMFExploreSectionFooter.h */,
 				B0E8032F1C0CD6F20065EBC0 /* WMFExploreSectionFooter.m */,
 				B0E803301C0CD6F20065EBC0 /* WMFExploreSectionFooter.xib */,
+				1922754E1E5376CA00860E55 /* WMFTitledExploreSectionFooter.swift */,
+				1922754F1E5376CA00860E55 /* WMFTitledExploreSectionFooter.xib */,
 			);
 			name = "Headers and Footers";
 			sourceTree = "<group>";
@@ -5415,6 +5432,7 @@
 			isa = PBXGroup;
 			children = (
 				D844D96E1D6CB2600042D692 /* WMF.h */,
+				D81E5F891E5F949B00E1A80C /* WMFAssertions.h */,
 				D844D9831D6CB3830042D692 /* WMF-global.h */,
 				D844D9841D6CB3900042D692 /* WMF-prefix.pch */,
 				D8FB46A11E26BC6600F2620F /* QuadKey.swift */,
@@ -5588,7 +5606,10 @@
 			children = (
 				D82972861E3A49980061550A /* ArticlePopoverViewController.swift */,
 				D82972871E3A49980061550A /* ArticlePopoverViewController.xib */,
+				D876C2851E5CDE6500FCA00A /* RightAlignedImageButton.swift */,
 				D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */,
+				D876C2871E5DDF1A00FCA00A /* EnableLocationViewController.swift */,
+				D876C2881E5DDF1A00FCA00A /* EnableLocationViewController.xib */,
 				D88FCAE01E4B776600505A9F /* MapUtilities.swift */,
 				D88FCADE1E4B74D300505A9F /* WikidataFetcher.swift */,
 				D808DCEC1E438C0C00A3E89C /* PlaceSearch.swift */,
@@ -5821,6 +5842,7 @@
 				D844D9901D6CB58E0042D692 /* MWKProtectionStatus.h in Headers */,
 				0E728D3B1DAEEADB0074EB4B /* WMFLocationSearchResults.h in Headers */,
 				D89D44021D74D3ED00F7862E /* MWKSearchResult.h in Headers */,
+				D81E5F8A1E5F949B00E1A80C /* WMFAssertions.h in Headers */,
 				D849D64F1D6CC7D200D06FC8 /* WMFImageTagList.h in Headers */,
 				D844D9E51D6CBF9C0042D692 /* WMFSharing.h in Headers */,
 				D844D9F81D6CC06B0042D692 /* SDWebImageManager+WMFCacheRemoval.h in Headers */,
@@ -6385,6 +6407,7 @@
 				D8D92B5C1DF22E1700B95311 /* NotificationBackgroundErrorIcon.png in Resources */,
 				0E4D071D1CC5526200AE968B /* WMFLanguageCell.xib in Resources */,
 				0E06FD5F1CC2D5B2002F3A72 /* WMFPreferredLanguagesViewController.storyboard in Resources */,
+				192275511E5376CA00860E55 /* WMFTitledExploreSectionFooter.xib in Resources */,
 				D87A559A1D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.xib in Resources */,
 				0E26B0721C0F4F550004D687 /* WMFAppViewController.storyboard in Resources */,
 				D8D92B631DF22E1700B95311 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
@@ -6414,6 +6437,7 @@
 				D8D92B651DF22E1700B95311 /* NotificationBackgroundWarning@2x.png in Resources */,
 				D8D92B611DF22E1700B95311 /* NotificationBackgroundSuccess@2x.png in Resources */,
 				B0C6BE531E4526810033BD6E /* WMFChangePasswordViewController.storyboard in Resources */,
+				D876C28A1E5DDF1A00FCA00A /* EnableLocationViewController.xib in Resources */,
 				D8D92B5A1DF22E1700B95311 /* NotificationBackgroundError.png in Resources */,
 				B01490A11DB96BD6007F5391 /* WMFReferencePanels.storyboard in Resources */,
 				D87234041E1FF18100751E83 /* Places.storyboard in Resources */,
@@ -6726,6 +6750,7 @@
 				B0E8039F1C0CDB3B0065EBC0 /* WMFArticleResponseSerializer.m in Sources */,
 				B0E806A41C0CEAF40065EBC0 /* EditSummaryViewController.m in Sources */,
 				B0F92C6F1E3C580900B72802 /* WMFCaptchaResetter.swift in Sources */,
+				D876C2891E5DDF1A00FCA00A /* EnableLocationViewController.swift in Sources */,
 				B0E803181C0CD6560065EBC0 /* WMFNearbyPlaceholderCollectionViewCell.m in Sources */,
 				D87234011E1FF0A500751E83 /* PlacesViewController.swift in Sources */,
 				B06531721C237538003BD7DC /* WMFDisambiguationPagesViewController.m in Sources */,
@@ -6986,6 +7011,7 @@
 				B0E8037B1C0CD9D30065EBC0 /* WMFTableOfContentsItem.swift in Sources */,
 				0E9B9E331CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m in Sources */,
 				B0E8033C1C0CD76B0065EBC0 /* WMFSearchViewController.m in Sources */,
+				D81E5F881E5F2C8400E1A80C /* UIApplication+SystemSettings.swift in Sources */,
 				B0E8044B1C0CDF850065EBC0 /* WMFGradientView.m in Sources */,
 				BC23E4E21C223FAE00B5AFDE /* WMFArticleRevision.m in Sources */,
 				D8A6BAEF1E4C9C0700A981C8 /* ArticlePlaceView.swift in Sources */,
@@ -6998,6 +7024,7 @@
 				B02376B11D6EA04C007DBA73 /* WMFBarButtonItemPopoverBackgroundView.m in Sources */,
 				0EBCA7481C176389004F1FD9 /* WMFAlertManager.swift in Sources */,
 				B083375F1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift in Sources */,
+				D876C2861E5CDE6500FCA00A /* RightAlignedImageButton.swift in Sources */,
 				B0E805911C0CE2C60065EBC0 /* LoginFunnel.m in Sources */,
 				B0E804441C0CDF850065EBC0 /* TabularScrollView.m in Sources */,
 				D88FCAE11E4B776600505A9F /* MapUtilities.swift in Sources */,
@@ -7007,6 +7034,7 @@
 				B0E806591C0CE84B0065EBC0 /* ThumbnailFetcher.m in Sources */,
 				B09B03F51CE0FB7700009083 /* WMFFontSliderContainer.swift in Sources */,
 				B0E8036F1C0CD99A0065EBC0 /* WMFTableOfContentsPresentationController.swift in Sources */,
+				192275501E5376CA00860E55 /* WMFTitledExploreSectionFooter.swift in Sources */,
 				B0F7CB541C8A895600996DE0 /* WMFWelcomeAnimationShapeLayers.swift in Sources */,
 				B0C6BE401E4068C60033BD6E /* WMFLoginViewController.swift in Sources */,
 				D81FB2631D47B5A20000C685 /* WMFCVLSection.m in Sources */,

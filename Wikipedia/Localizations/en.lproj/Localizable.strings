@@ -487,6 +487,11 @@
 "explore-continue-reading-heading" = "Continue reading";
 "explore-nearby-heading" = "Places near";
 "explore-nearby-sub-heading-your-location" = "Your location";
+"explore-nearby-placeholder-heading" = "Places";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "On Wikipedia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "On $1 Wikipedia";
+"explore-nearby-placeholder-dismiss" = "Dismiss";
+"explore-nearby-placeholder-cancel" = "Cancel";
 "explore-continue-related-heading" = "Because you read";
 "explore-main-page-heading" = "Today on Wikipedia";
 "explore-random-article-heading" = "Random article";
@@ -554,8 +559,16 @@
 "places-search-saved-articles" = "Saved articles";
 "places-search-suggested-searches-header" = "Suggested searches";
 "places-search-recently-searched-header" = "Recently searched";
+"places-unknown-distance" = "unknown distance";
+"places-enable-location-title" = "Explore articles near your location by enabling Location Access";
+"places-enable-location-description" = "Access to your location is available only when the app or one of its features is visible on your screen.";
+"places-enable-location-action-button-title" = "Enable location";
+"places-accessibility-group" = "$1 articles";
+"places-accessibility-show-as-map" = "Show as map";
+"places-accessibility-show-as-list" = "Show as list";
+"places-accessibility-recenter-map-on-user-location" = "Recenter on your location";
 
 "action-share" = "Share";
 "action-save" = "Save";
 "action-read" = "Read";
-"action-unsave" = "Unsave";
+"action-saved" = "Saved";

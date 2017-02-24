@@ -8,6 +8,7 @@ FOUNDATION_EXPORT double WMFVersionNumber;
 //! Project version string for WMF.
 FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 
+#import "WMFAssertions.h"
 #import "NSURL+WMFLinkParsing.h"
 #import "NSURLComponents+WMFLinkParsing.h"
 #import "WMFBlockDefinitions.h"

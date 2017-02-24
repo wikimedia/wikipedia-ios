@@ -29,6 +29,8 @@
  */
 - (void)setImageURL:(NSURL *)imageURL;
 
+- (void)configureForUnknownDistance;
+
 - (void)setDistance:(CLLocationDistance)distance;
 
 - (void)setBearing:(CLLocationDegrees)bearing;
