@@ -1091,34 +1091,48 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    func adjustLayout(ofPopover articleVC: ArticlePopoverViewController, withSize size: CGSize,  withAnnotationView annotationView: MKAnnotationView) {
+    func adjustLayout(ofPopover articleVC: ArticlePopoverViewController, withSize popoverSize: CGSize,  withAnnotationView annotationView: MKAnnotationView) {
+        let annotationSize = annotationView.frame.size
+        let spacing: CGFloat = 5
         let annotationCenter = view.convert(annotationView.center, from: mapView)
-        let center = CGPoint(x: view.bounds.midX, y:  view.bounds.midY)
-        let deltaX = annotationCenter.x - center.x
-        let deltaY = annotationCenter.y - center.y
+        let viewSize = view.bounds.size
+        let viewCenter = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
         
-        let thresholdX = 0.5*(abs(view.bounds.width - size.width))
-        let thresholdY = 0.5*(abs(view.bounds.height - size.height))
+        let distanceFromCenterY = 0.5 * annotationSize.height + spacing
+        let totalHeight = distanceFromCenterY + popoverSize.height
+        let top = totalHeight - annotationCenter.y
+        let bottom = annotationCenter.y + totalHeight - viewSize.height
         
-        var offsetX: CGFloat
-        var offsetY: CGFloat
+        let distanceFromCenterX = 0.5 * annotationSize.width + spacing
+        let totalWidth = distanceFromCenterX + popoverSize.width
+        let left = totalWidth - annotationCenter.x
+        let right = annotationCenter.x + totalWidth - viewSize.width
         
-        let distanceFromAnnotationView: CGFloat = 5
-        let distanceX: CGFloat = round(0.5*annotationView.bounds.size.width) + distanceFromAnnotationView
-        let distanceY: CGFloat =  round(0.5*annotationView.bounds.size.height) + distanceFromAnnotationView
+        // default offset values to center the popover
+        var offsetX = (viewCenter.x - 0.5 * popoverSize.width) - annotationCenter.x
+        var offsetY = (viewCenter.y - 0.5 * popoverSize.height) - annotationCenter.y
+
+        let fitsTopOrBottom = (top < 0 || bottom < 0) && viewSize.width - annotationCenter.x > 0.5*popoverSize.width && annotationCenter.x > 0.5*popoverSize.width
         
-        if abs(deltaX) <= thresholdX {
-            offsetX = -0.5 * size.width
-            offsetY = deltaY > 0 ? 0 - distanceY - size.height : distanceY
-        } else if abs(deltaY) <= thresholdY {
-            offsetX = deltaX > 0 ? 0 - distanceX - size.width : distanceX
-            offsetY = -0.5 * size.height
-        } else {
-            offsetX = deltaX > 0 ? 0 - distanceX - size.width : distanceX
-            offsetY = deltaY > 0 ? 0 - distanceY - size.height : distanceY
+        let fitsLeftOrRight = (left < 0 || right < 0) && viewSize.height - annotationCenter.y > 0.5*popoverSize.height && annotationCenter.y > 0.5*popoverSize.width
+        
+        if (fitsTopOrBottom) {
+            offsetX = -0.5 * popoverSize.width
+            offsetY = top < bottom ? 0 - totalHeight : distanceFromCenterY
+        } else if (fitsLeftOrRight) {
+            offsetX = left < right ? 0 - totalWidth : distanceFromCenterX
+            offsetY = -0.5 * popoverSize.height
+        } else if (top < 0) {
+            offsetY = 0 - totalHeight
+        } else if (bottom < 0) {
+            offsetY = distanceFromCenterY
+        } else if (left < 0) {
+            offsetX = 0 - totalWidth
+        } else if (right < 0) {
+            offsetX = distanceFromCenterX
         }
         
-        articleVC.view.frame = CGRect(origin: CGPoint(x: annotationCenter.x + offsetX, y: annotationCenter.y + offsetY), size: size)
+        articleVC.view.frame = CGRect(origin: CGPoint(x: annotationCenter.x + offsetX, y: annotationCenter.y + offsetY), size: popoverSize)
     }
     
     // MARK: Search Suggestions & Completions
