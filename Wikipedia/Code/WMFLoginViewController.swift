@@ -64,6 +64,8 @@ class WMFLoginViewController: UIViewController, UITextFieldDelegate, WMFCaptchaV
         passwordUnderlineHeight.constant = 1.0 / UIScreen.main.scale
     
         view.wmf_configureSubviewsForDynamicType()
+        
+        setCaptchaAlpha(0)
     }
     
     @IBAction func textFieldDidChange(_ sender: UITextField) {
@@ -80,12 +82,9 @@ class WMFLoginViewController: UIViewController, UITextFieldDelegate, WMFCaptchaV
     
     fileprivate func shouldProgressiveButtonBeEnabled() -> Bool {
         var shouldEnable = areRequiredFieldsPopulated()
-        if shouldEnable && captchaViewController?.captcha != nil {
+        if showCaptchaContainer && shouldEnable {
             shouldEnable = hasUserEnteredCaptchaText()
         }
-//      if showCaptchaContainer && shouldEnable {
-//          shouldEnable = hasUserEnteredCaptchaText()
-//      }
         return shouldEnable
     }
     
@@ -108,6 +107,8 @@ class WMFLoginViewController: UIViewController, UITextFieldDelegate, WMFCaptchaV
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        showCaptchaContainer = false
+
         captchaViewController = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
         captchaViewController?.captchaDelegate = self
         wmf_addChildController(captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
@@ -238,7 +239,7 @@ class WMFLoginViewController: UIViewController, UITextFieldDelegate, WMFCaptchaV
         let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
         loginInfoFetcher.fetchLoginInfoForSiteURL(siteURL!, success: { info in
             self.captchaViewController?.captcha = info.captcha
-//          self.showCaptchaContainer = true
+            self.showCaptchaContainer = (info.captcha != nil)
             self.enableProgressiveButtonIfNecessary()
         }, failure: captchaFailure)
     }
@@ -253,5 +254,20 @@ class WMFLoginViewController: UIViewController, UITextFieldDelegate, WMFCaptchaV
     
     public func captchaSiteURL() -> URL {
         return (MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL())!
+    }
+    
+    fileprivate var showCaptchaContainer: Bool = false {
+        didSet {
+            UIView.animate(withDuration: 0.4, animations: {
+                self.setCaptchaAlpha(self.showCaptchaContainer ? 1 : 0)
+            }, completion: { _ in
+                self.enableProgressiveButtonIfNecessary()
+            })
+        }
+    }
+
+    fileprivate func setCaptchaAlpha(_ alpha: CGFloat) {
+        captchaContainer.alpha = alpha
+        captchaTitleLabel.alpha = alpha
     }
 }
