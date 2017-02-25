@@ -121,8 +121,8 @@ class WMFLoginViewController: UIViewController, UITextFieldDelegate, WMFCaptchaV
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
         wmf_endAdjustingScrollViewInsetsForKeyboard()
+        super.viewWillDisappear(animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
