@@ -1,8 +1,8 @@
 
 import UIKit
 
-class WMFLoginViewController: UIViewController, UITextFieldDelegate, WMFCaptchaViewControllerDelegate {
-    @IBOutlet fileprivate var scrollView: UIScrollView!
+class WMFLoginViewController: UIViewController, UITextFieldDelegate, WMFCaptchaViewControllerDelegate, WMFScrollable {
+    @IBOutlet internal var scrollView: UIScrollView!
     @IBOutlet fileprivate var usernameField: UITextField!
     @IBOutlet fileprivate var passwordField: UITextField!
     @IBOutlet fileprivate var createAccountButton: UILabel!
@@ -12,7 +12,6 @@ class WMFLoginViewController: UIViewController, UITextFieldDelegate, WMFCaptchaV
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var captchaTitleLabel: UILabel!
     @IBOutlet fileprivate var captchaContainer: UIView!
-    @IBOutlet fileprivate var spaceBeneathCaptchaContainer: NSLayoutConstraint!
 
     @IBOutlet fileprivate var loginContainerView: UIView!
     fileprivate var doneButton: UIBarButtonItem!
@@ -117,6 +116,15 @@ class WMFLoginViewController: UIViewController, UITextFieldDelegate, WMFCaptchaV
         getCaptcha()
         
         enableProgressiveButtonIfNecessary()
+
+        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillChangeFrame, object: nil, queue: nil, using: { notification in
+            self.wmf_adjustScrollViewInset(forKeyboardWillChangeFrameNotification: notification)
+        })
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {

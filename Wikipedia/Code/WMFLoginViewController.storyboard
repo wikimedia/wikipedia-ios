@@ -25,7 +25,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PEY-pn-IDi" userLabel="Scroll Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="853"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="453"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Zt-MP-xRU" userLabel="Form Container">
                                                 <rect key="frame" x="43.5" y="16" width="288" height="250"/>
@@ -136,7 +136,7 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="DZK-nT-oqo" firstAttribute="top" secondItem="4Zt-MP-xRU" secondAttribute="bottom" constant="4" id="Ecw-2C-eBR"/>
-                                            <constraint firstAttribute="bottom" secondItem="DZK-nT-oqo" secondAttribute="bottom" constant="420" id="Giq-Os-Ldl"/>
+                                            <constraint firstAttribute="bottom" secondItem="DZK-nT-oqo" secondAttribute="bottom" constant="20" id="Giq-Os-Ldl"/>
                                             <constraint firstAttribute="centerX" secondItem="4Zt-MP-xRU" secondAttribute="centerX" id="NmO-sg-T35"/>
                                             <constraint firstItem="4Zt-MP-xRU" firstAttribute="top" secondItem="PEY-pn-IDi" secondAttribute="top" constant="16" id="TdA-0V-c9D"/>
                                             <constraint firstItem="DZK-nT-oqo" firstAttribute="centerX" secondItem="PEY-pn-IDi" secondAttribute="centerX" id="u9Z-HG-nOc"/>
@@ -170,7 +170,6 @@
                         <outlet property="passwordField" destination="kVb-lx-d6C" id="CMg-WD-j0S"/>
                         <outlet property="passwordUnderlineHeight" destination="6QO-ws-MVp" id="E74-i9-OJk"/>
                         <outlet property="scrollView" destination="qMR-5R-aiQ" id="z3y-S5-i6j"/>
-                        <outlet property="spaceBeneathCaptchaContainer" destination="Giq-Os-Ldl" id="sco-U8-uAZ"/>
                         <outlet property="titleLabel" destination="Wff-o9-AdH" id="5XN-ds-zdn"/>
                         <outlet property="usernameField" destination="mAk-1N-jPC" id="CQv-Gx-5es"/>
                         <outlet property="usernameUnderlineHeight" destination="AGI-Fa-4Fg" id="sSL-QZ-Pli"/>
