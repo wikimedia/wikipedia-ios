@@ -7,8 +7,7 @@ import UIKit
 @objc public protocol WMFCaptchaViewControllerDelegate{
     func captchaReloadPushed(_ sender: AnyObject)
     func captchaSolutionChanged(_ sender: AnyObject, solutionText: String?)
-    func captchaLanguageCode() -> String
-    func captchaDomain() -> String
+    func captchaSiteURL() -> URL
 }
 
 public class WMFCaptcha: NSObject {
@@ -41,7 +40,8 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet fileprivate var reloadCaptchaButton: UIButton!
 
     public var captchaDelegate: WMFCaptchaViewControllerDelegate?
-    
+    fileprivate let captchaResetter = WMFCaptchaResetter()
+
     var captcha: WMFCaptcha? {
         didSet {
             guard let captcha = captcha else {
@@ -54,6 +54,18 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
+    var solution:String? {
+        get{
+            guard
+                let captchaSolution = captchaTextBox.text,
+                captchaSolution.characters.count > 0
+                else {
+                    return nil
+            }
+            return captchaTextBox.text
+        }
+    }
+    
     fileprivate func refreshImage(for captcha: WMFCaptcha) {
         guard let fullCaptchaImageURL = fullCaptchaImageURL(from: captcha.captchaURL) else {
             assert(false, "Unable to determine fullCaptchaImageURL")
@@ -63,16 +75,24 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     }
     
     fileprivate func fullCaptchaImageURL(from captchaURL: URL) -> URL? {
-        guard let captchaDelegate = captchaDelegate else{
-            assert(false, "Required delegate is unset")
-            return nil
-        }
-        guard var components = URLComponents(url: captchaURL, resolvingAgainstBaseURL: false) else {
+        guard let components = URLComponents(url: captchaURL, resolvingAgainstBaseURL: false) else {
             assert(false, "Could not extract url components")
             return nil
         }
-        components.scheme = "https"
-        components.host = "\(captchaDelegate.captchaLanguageCode()).m.\(captchaDelegate.captchaDomain())"
+        return components.url(relativeTo: captchaBaseURL())
+    }
+    
+    fileprivate func captchaBaseURL() -> URL? {
+        guard let captchaDelegate = captchaDelegate else {
+            assert(false, "Expected delegate not set")
+            return nil
+        }
+        let captchaSiteURL = captchaDelegate.captchaSiteURL()
+        guard var components = URLComponents(url: captchaSiteURL, resolvingAgainstBaseURL: false) else {
+            assert(false, "Could not extract url components")
+            return nil
+        }
+        components.queryItems = nil
         guard let url = components.url else{
             assert(false, "Could not extract url")
             return nil
@@ -101,6 +121,28 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     
     func captchaReloadPushed(_ sender: AnyObject) {
         captchaDelegate?.captchaReloadPushed(self)
+                
+        let failure: WMFErrorHandler = {error in }
+        
+        WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-obtaining"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+        
+        self.captchaResetter.resetCaptcha(siteURL: captchaBaseURL()!, success: { result in
+            guard let previousCaptcha = self.captcha else {
+                assert(false, "If resetting a captcha, expect to have a previous one here")
+                return
+            }
+            
+            let previousCaptchaURL = previousCaptcha.captchaURL
+            let previousCaptchaNSURL = previousCaptchaURL as NSURL
+            
+            let newCaptchaID = result.index
+            
+            // Resetter only fetches captchaID, so use previous captchaURL changing its wpCaptchaId.
+            let newCaptchaURL = previousCaptchaNSURL.wmf_url(withValue: newCaptchaID, forQueryKey:"wpCaptchaId")
+            let newCaptcha = WMFCaptcha.init(captchaID: newCaptchaID, captchaURL: newCaptchaURL)
+            self.captcha = newCaptcha
+            
+        }, failure:failure)
     }
     
     override func viewDidAppear(_ animated: Bool) {
