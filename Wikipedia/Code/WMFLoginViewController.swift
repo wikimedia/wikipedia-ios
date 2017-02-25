@@ -1,7 +1,7 @@
 
 import UIKit
 
-class WMFLoginViewController: UIViewController, UITextFieldDelegate {
+class WMFLoginViewController: UIViewController, UITextFieldDelegate, WMFCaptchaViewControllerDelegate {
     @IBOutlet fileprivate var scrollView: UIScrollView!
     @IBOutlet fileprivate var usernameField: UITextField!
     @IBOutlet fileprivate var passwordField: UITextField!
@@ -18,7 +18,10 @@ class WMFLoginViewController: UIViewController, UITextFieldDelegate {
     fileprivate var doneButton: UIBarButtonItem!
     
     public var funnel: LoginFunnel?
+
     fileprivate var captchaViewController: WMFCaptchaViewController?
+    private let loginInfoFetcher = WMFAuthLoginInfoFetcher()
+    let tokenFetcher = WMFAuthTokenFetcher()
 
     func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
@@ -76,14 +79,21 @@ class WMFLoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     fileprivate func shouldProgressiveButtonBeEnabled() -> Bool {
-        return areRequiredFieldsPopulated()
-/*
         var shouldEnable = areRequiredFieldsPopulated()
-        if showCaptchaContainer && shouldEnable {
+        if shouldEnable && captchaViewController?.captcha != nil {
             shouldEnable = hasUserEnteredCaptchaText()
         }
+//      if showCaptchaContainer && shouldEnable {
+//          shouldEnable = hasUserEnteredCaptchaText()
+//      }
         return shouldEnable
-*/
+    }
+    
+    fileprivate func hasUserEnteredCaptchaText() -> Bool {
+        guard let text = captchaViewController?.solution else {
+            return false
+        }
+        return (text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).characters.count > 0)
     }
     
     fileprivate func requiredInputFields() -> [UITextField] {
@@ -97,6 +107,14 @@ class WMFLoginViewController: UIViewController, UITextFieldDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        captchaViewController = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
+        captchaViewController?.captchaDelegate = self
+        wmf_addChildController(captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
+        
+        // Check if captcha is required right away. Things could be configured so captcha is required at all times.
+        getCaptcha()
+        
         enableProgressiveButtonIfNecessary()
     }
     
@@ -118,13 +136,16 @@ class WMFLoginViewController: UIViewController, UITextFieldDelegate {
         wmf_hideKeyboard()
         disableProgressiveButton()
         WMFAlertManager.sharedInstance.dismissAlert()
-        WMFAuthenticationManager.sharedInstance.login(username: usernameField.text!, password: passwordField.text!, retypePassword:nil, oathToken:nil, success: { _ in
+        WMFAuthenticationManager.sharedInstance.login(username: usernameField.text!, password: passwordField.text!, retypePassword:nil, oathToken:nil, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, success: { _ in
             let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: self.usernameField.text!)
             WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
             self.dismiss(animated: true, completion: nil)
             self.funnel?.logSuccess()
         }, failure: { error in
 
+            // Captcha's appear to be one-time, so always try to get a new one on failure.
+            self.getCaptcha()
+            
             if let error = error as? WMFAccountLoginError {
                 switch error {
                 case .temporaryPasswordNeedsChange:
@@ -169,6 +190,8 @@ class WMFLoginViewController: UIViewController, UITextFieldDelegate {
         dismiss(animated: true, completion: {
             twoFactorViewController.userName = self.usernameField!.text
             twoFactorViewController.password = self.passwordField!.text
+            twoFactorViewController.captchaID = self.captchaViewController?.captcha?.captchaID
+            twoFactorViewController.captchaWord = self.captchaViewController?.solution
             let navigationController = UINavigationController.init(rootViewController: twoFactorViewController)
             presenter.present(navigationController, animated: true, completion: nil)
         })
@@ -205,5 +228,30 @@ class WMFLoginViewController: UIViewController, UITextFieldDelegate {
             let navigationController = UINavigationController.init(rootViewController: createAcctVC)
             presenter.present(navigationController, animated: true, completion: nil)
         })
+    }
+    
+    fileprivate func getCaptcha() {
+        let captchaFailure: WMFErrorHandler = {error in
+            WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            self.funnel?.logError(error.localizedDescription)
+        }
+        let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
+        loginInfoFetcher.fetchLoginInfoForSiteURL(siteURL!, success: { info in
+            self.captchaViewController?.captcha = info.captcha
+//          self.showCaptchaContainer = true
+            self.enableProgressiveButtonIfNecessary()
+        }, failure: captchaFailure)
+    }
+
+    func captchaReloadPushed(_ sender: AnyObject) {
+        self.enableProgressiveButtonIfNecessary()
+    }
+    
+    func captchaSolutionChanged(_ sender: AnyObject, solutionText: String?) {
+        enableProgressiveButtonIfNecessary()
+    }
+    
+    public func captchaSiteURL() -> URL {
+        return (MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL())!
     }
 }
