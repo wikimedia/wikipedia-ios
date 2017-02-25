@@ -69,8 +69,7 @@ public class WMFAccountCreator {
             }
             let message = createaccount["message"] as? String ?? ""
             guard status == "PASS" else {
-                if message.lowercased().range(of:"missing captcha") != nil {
-                    // Note: must check the message because no other checkable info is returned indicating a captcha is needed.
+                if let messagecode = createaccount["messagecode"] as? String, messagecode == "captcha-createaccount-fail" {
                     failure(WMFAccountCreatorError.needsCaptcha)
                 }else{
                     failure(WMFAccountCreatorError.statusNotPass(message))
