@@ -44,13 +44,10 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
 @interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate, PreviewLicenseViewDelegate, WMFCaptchaViewControllerDelegate>
 
-@property (strong, nonatomic) NSString *captchaId;
-
 @property (strong, nonatomic) WMFCaptchaViewController *captchaViewController;
 @property (strong, nonatomic) IBOutlet UIView *captchaContainer;
 @property (strong, nonatomic) IBOutlet UIScrollView *captchaScrollView;
 @property (strong, nonatomic) IBOutlet UIView *captchaScrollContainer;
-@property (strong, nonatomic, nullable) NSString *captchaSolution;
 
 @property (strong, nonatomic) IBOutlet UIView *editSummaryContainer;
 @property (strong, nonatomic) IBOutlet PreviewWebViewContainer *previewWebViewContainer;
@@ -79,7 +76,6 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 @property (strong, nonatomic) WikiTextSectionUploader *wikiTextSectionUploader;
 @property (strong, nonatomic) PreviewHtmlFetcher *previewHtmlFetcher;
 @property (strong, nonatomic) WMFAuthTokenFetcher *editTokenFetcher;
-@property (strong, nonatomic) WMFCaptchaResetter *captchaResetter;
 
 @end
 
@@ -234,8 +230,6 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     [self.previewLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(previewLabelTapped:)]];
 
     //self.saveAutomaticallyIfSignedIn = NO;
-
-    self.captchaId = @"";
 
     [self.funnel logPreview];
 
@@ -521,10 +515,10 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
                         }
 
                         NSURL* captchaUrl = [[NSURL alloc] initWithString:error.userInfo[@"captchaUrl"]];
-                        self.captchaId = error.userInfo[@"captchaId"];
+                        NSString* captchaId = error.userInfo[@"captchaId"];
                         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-                        self.captchaViewController.captcha = [[WMFCaptcha alloc] initWithCaptchaID:self.captchaId captchaURL:captchaUrl];
-                        [self showImageForCaptcha];
+                        self.captchaViewController.captcha = [[WMFCaptcha alloc] initWithCaptchaID:captchaId captchaURL:captchaUrl];
+                        [self revealCaptcha];
                     } break;
 
                     case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED:
@@ -564,16 +558,6 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
             } break;
         }
     }
-}
-
-- (void)showImageForCaptcha {
-    // If the server said a captcha was required, present the captcha image.
-    [UIView animateWithDuration:0.2f
-                     animations:^{
-                         [self revealCaptcha];
-                     }
-                     completion:^(BOOL done){
-                     }];
 }
 
 - (void)preview {
@@ -622,8 +606,8 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
                                                      forArticleURL:editURL
                                                            section:[NSString stringWithFormat:@"%d", self.section.sectionId]
                                                            summary:[self getSummary]
-                                                         captchaId:self.captchaId
-                                                       captchaWord:self.captchaSolution
+                                                         captchaId:self.captchaViewController.captcha.captchaID
+                                                       captchaWord:self.captchaViewController.solution
                                                              token:result.token
                                                        withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
                                                 thenNotifyDelegate:self];
@@ -654,47 +638,21 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if(self.captchaSolution.length > 0){
+    if(self.captchaViewController.solution.length > 0){
         [self save];
     }
     return YES;
 }
 
-- (NSString * _Nonnull)captchaLanguageCode {
-    NSString* language = self.section.article.url.wmf_language;
-    NSAssert(language != nil, @"Could not determine language");
-    return language;
-}
-
-- (NSString * _Nonnull)captchaDomain {
-    NSString* domain = self.section.article.url.wmf_domain;
-    NSAssert(domain != nil, @"Could not determine domain");
-    return domain;
+- (NSURL * _Nonnull)captchaSiteURL {
+    return [SessionSingleton sharedInstance].currentArticleSiteURL;
 }
 
 - (void)captchaReloadPushed:(id)sender {
-    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-    [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager wmf_cancelAllTasksWithCompletionHandler:^{
 
-        NSURL* siteURL = [SessionSingleton sharedInstance].currentArticleSiteURL;
-        self.captchaResetter = [[WMFCaptchaResetter alloc] init];
-        @weakify(self)
-        [self.captchaResetter resetCaptchaWithSiteURL:siteURL success:^(WMFCaptchaResetterResult* result){
-            @strongify(self)
-            self.captchaId = result.index;
-            
-            // Resetter only fetches captchaID, so use previous captchaURL changing its wpCaptchaId.
-            NSURL* captchaURL = [self.captchaViewController.captcha.captchaURL wmf_urlWithValue:self.captchaId forQueryKey:@"wpCaptchaId"];
-            
-            self.captchaViewController.captcha = [[WMFCaptcha alloc] initWithCaptchaID:self.captchaId captchaURL:captchaURL];
-        } failure:^(NSError* error){
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-        }];
-    }];
 }
 
 - (void)captchaSolutionChanged:(id)sender solutionText:(nullable NSString*)solutionText{
-    self.captchaSolution = solutionText;
     [self highlightCaptchaSubmitButton:(solutionText.length == 0) ? NO : YES];
 }
 
