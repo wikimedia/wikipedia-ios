@@ -1,20 +1,19 @@
 
 import UIKit
 
-class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate {
+class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFScrollable {
     @IBOutlet var usernameField: UITextField!
     @IBOutlet var passwordField: UITextField!
     @IBOutlet var passwordRepeatField: UITextField!
     @IBOutlet var emailField: UITextField!
     @IBOutlet var captchaContainer: UIView!
-    @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet internal var scrollView: UIScrollView!
     @IBOutlet var loginButton: UILabel!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var usernameUnderlineHeight: NSLayoutConstraint!
     @IBOutlet var passwordUnderlineHeight: NSLayoutConstraint!
     @IBOutlet var passwordConfirmUnderlineHeight: NSLayoutConstraint!
     @IBOutlet var emailUnderlineHeight: NSLayoutConstraint!
-    @IBOutlet var spaceBeneathCaptchaContainer: NSLayoutConstraint!
     @IBOutlet var createAccountContainerView: UIView!
     @IBOutlet var captchaTitleLabel: UILabel!
     @IBOutlet var captchaSubtitleLabel: UILabel!
@@ -27,19 +26,9 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     public var funnel: CreateAccountFunnel?
     fileprivate var captchaViewController: WMFCaptchaViewController?
 
-    fileprivate func adjustScrollLimitForCaptchaVisiblity() {
-        // Reminder: spaceBeneathCaptchaContainer constraint is space *below* captcha container -
-        // that's why below for the show case we don't have to "convertPoint".
-        spaceBeneathCaptchaContainer.constant = (showCaptchaContainer)
-            ? (view.frame.size.height - (captchaContainer.frame.size.height / 2))
-            : (view.frame.size.height - loginButton.convert(CGPoint.zero, to:scrollView).y)
-    }
-
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { (context) in
-            // Ensure adjustScrollLimitForCaptchaVisiblity gets called again after rotating.
-            self.view.setNeedsUpdateConstraints()
             if self.showCaptchaContainer {
                 self.scrollView.scrollSubView(toTop: self.captchaContainer, animated:false)
             }
@@ -143,6 +132,8 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         
         // Check if captcha is required right away. Things could be configured so captcha is required at all times.
         getCaptcha()
+        
+        wmf_beginAdjustingScrollViewInsetsForKeyboard()
     }
     
     fileprivate func getCaptcha() {
@@ -199,6 +190,7 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     
     override func viewWillDisappear(_ animated: Bool) {
         WMFAlertManager.sharedInstance.dismissAlert()
+        wmf_endAdjustingScrollViewInsetsForKeyboard()
         super.viewWillDisappear(animated)
     }
 
@@ -212,7 +204,6 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         didSet {
             rightButton?.title = showCaptchaContainer ? localizedStringForKeyFallingBackOnEnglish("button-done") : localizedStringForKeyFallingBackOnEnglish("button-next")
             let duration: TimeInterval = 0.5
-            view.setNeedsUpdateConstraints()
             
             if showCaptchaContainer {
                 funnel?.logCaptchaShown()
@@ -282,11 +273,6 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         return requiredInputFields().wmf_allFieldsFilled()
     }
     
-    override func updateViewConstraints() {
-        adjustScrollLimitForCaptchaVisiblity()
-        super.updateViewConstraints()
-    }
-
     fileprivate func save() {
         guard areRequiredFieldsPopulated() else {
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("account-creation-missing-fields"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
