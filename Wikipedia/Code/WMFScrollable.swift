@@ -16,7 +16,6 @@ extension WMFScrollable where Self : UIViewController {
                 return
         }
         guard let window = view.window else {
-            assert(false, "No window")
             return
         }
         let keyboardWindowRect = window.convert(keyboardScreenRect, from: nil)
