@@ -117,14 +117,12 @@ class WMFLoginViewController: UIViewController, UITextFieldDelegate, WMFCaptchaV
         
         enableProgressiveButtonIfNecessary()
 
-        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillChangeFrame, object: nil, queue: nil, using: { notification in
-            self.wmf_adjustScrollViewInset(forKeyboardWillChangeFrameNotification: notification)
-        })
+        wmf_beginAdjustingScrollViewInsetsForKeyboard()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
+        wmf_endAdjustingScrollViewInsetsForKeyboard()
     }
     
     override func viewDidAppear(_ animated: Bool) {
