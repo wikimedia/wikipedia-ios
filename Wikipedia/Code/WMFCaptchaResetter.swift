@@ -14,14 +14,14 @@ public enum WMFCaptchaResetterError: LocalizedError {
 
 public typealias WMFCaptchaResetterResultBlock = (WMFCaptchaResetterResult) -> Void
 
-public class WMFCaptchaResetterResult: NSObject {
+public struct WMFCaptchaResetterResult {
     var index: String
     init(index:String) {
         self.index = index
     }
 }
 
-public class WMFCaptchaResetter: NSObject {
+public class WMFCaptchaResetter {
     private let manager = AFHTTPSessionManager.wmf_createDefault()
     public func isFetching() -> Bool {
         return manager.operationQueue.operationCount > 0
