@@ -2,21 +2,21 @@
 import UIKit
 
 class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFScrollable {
-    @IBOutlet var usernameField: UITextField!
-    @IBOutlet var passwordField: UITextField!
-    @IBOutlet var passwordRepeatField: UITextField!
-    @IBOutlet var emailField: UITextField!
-    @IBOutlet var captchaContainer: UIView!
+    @IBOutlet fileprivate var usernameField: UITextField!
+    @IBOutlet fileprivate var passwordField: UITextField!
+    @IBOutlet fileprivate var passwordRepeatField: UITextField!
+    @IBOutlet fileprivate var emailField: UITextField!
+    @IBOutlet fileprivate var captchaContainer: UIView!
     @IBOutlet internal var scrollView: UIScrollView!
-    @IBOutlet var loginButton: UILabel!
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var usernameUnderlineHeight: NSLayoutConstraint!
-    @IBOutlet var passwordUnderlineHeight: NSLayoutConstraint!
-    @IBOutlet var passwordConfirmUnderlineHeight: NSLayoutConstraint!
-    @IBOutlet var emailUnderlineHeight: NSLayoutConstraint!
-    @IBOutlet var createAccountContainerView: UIView!
-    @IBOutlet var captchaTitleLabel: UILabel!
-    @IBOutlet var captchaSubtitleLabel: UILabel!
+    @IBOutlet fileprivate var loginButton: UILabel!
+    @IBOutlet fileprivate var titleLabel: UILabel!
+    @IBOutlet fileprivate var usernameUnderlineHeight: NSLayoutConstraint!
+    @IBOutlet fileprivate var passwordUnderlineHeight: NSLayoutConstraint!
+    @IBOutlet fileprivate var passwordConfirmUnderlineHeight: NSLayoutConstraint!
+    @IBOutlet fileprivate var emailUnderlineHeight: NSLayoutConstraint!
+    @IBOutlet fileprivate var createAccountContainerView: UIView!
+    @IBOutlet fileprivate var captchaTitleLabel: UILabel!
+    @IBOutlet fileprivate var captchaSubtitleLabel: UILabel!
 
     let accountCreationInfoFetcher = WMFAuthAccountCreationInfoFetcher()
     let tokenFetcher = WMFAuthTokenFetcher()
