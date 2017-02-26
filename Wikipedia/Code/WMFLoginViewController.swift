@@ -1,8 +1,7 @@
 
 import UIKit
 
-class WMFLoginViewController: UIViewController, UITextFieldDelegate, WMFCaptchaViewControllerDelegate, WMFScrollable {
-    @IBOutlet internal var scrollView: UIScrollView!
+class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFCaptchaViewControllerDelegate {
     @IBOutlet fileprivate var usernameField: UITextField!
     @IBOutlet fileprivate var passwordField: UITextField!
     @IBOutlet fileprivate var createAccountButton: UILabel!
@@ -116,13 +115,6 @@ class WMFLoginViewController: UIViewController, UITextFieldDelegate, WMFCaptchaV
         getCaptcha()
         
         enableProgressiveButtonIfNecessary()
-
-        wmf_beginAdjustingScrollViewInsetsForKeyboard()
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        wmf_endAdjustingScrollViewInsetsForKeyboard()
-        super.viewWillDisappear(animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {

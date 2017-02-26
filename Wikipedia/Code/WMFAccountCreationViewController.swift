@@ -1,13 +1,12 @@
 
 import UIKit
 
-class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFScrollable {
+class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate {
     @IBOutlet fileprivate var usernameField: UITextField!
     @IBOutlet fileprivate var passwordField: UITextField!
     @IBOutlet fileprivate var passwordRepeatField: UITextField!
     @IBOutlet fileprivate var emailField: UITextField!
     @IBOutlet fileprivate var captchaContainer: UIView!
-    @IBOutlet internal var scrollView: UIScrollView!
     @IBOutlet fileprivate var loginButton: UILabel!
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var usernameUnderlineHeight: NSLayoutConstraint!
@@ -132,8 +131,6 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
         
         // Check if captcha is required right away. Things could be configured so captcha is required at all times.
         getCaptcha()
-        
-        wmf_beginAdjustingScrollViewInsetsForKeyboard()
     }
     
     fileprivate func getCaptcha() {
@@ -190,7 +187,6 @@ class WMFAccountCreationViewController: UIViewController, WMFCaptchaViewControll
     
     override func viewWillDisappear(_ animated: Bool) {
         WMFAlertManager.sharedInstance.dismissAlert()
-        wmf_endAdjustingScrollViewInsetsForKeyboard()
         super.viewWillDisappear(animated)
     }
 
