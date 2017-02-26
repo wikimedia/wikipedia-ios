@@ -1,7 +1,7 @@
 
 import UIKit
 
-class WMFChangePasswordViewController: UIViewController {
+class WMFChangePasswordViewController: WMFScrollViewController {
     
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var subTitleLabel: UILabel!
