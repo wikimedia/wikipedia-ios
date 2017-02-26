@@ -1,7 +1,7 @@
 
 import UIKit
 
-class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate {
+class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDelegate {
     
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var subTitleLabel: UILabel!
