@@ -15,6 +15,10 @@ extension WMFScrollable where Self : UIViewController {
                 assert(false, "Notification name was expected to be '\(Notification.Name.UIKeyboardWillChangeFrame)' but was '\(notification.name)'")
                 return
         }
+        guard scrollView != nil else {
+            assert(false, "'scrollView' isn't yet hooked up to a storyboard/nib")
+            return
+        }
         guard let window = view.window else {
             return
         }
