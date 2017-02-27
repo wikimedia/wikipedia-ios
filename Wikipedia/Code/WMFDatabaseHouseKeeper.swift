@@ -63,13 +63,14 @@ import Foundation
                     referencedArticleKeys.insert(key)
                     
                 case (.story, let story as WMFFeedNewsStory):
-                    if let articlePreviews = story.articlePreviews {
-                        for preview in articlePreviews {
-                            guard let key = (preview.articleURL as NSURL).wmf_articleDatabaseKey else {
-                                continue
-                            }
-                            referencedArticleKeys.insert(key)
+                    guard let articlePreviews = story.articlePreviews else {
+                        continue
+                    }
+                    for preview in articlePreviews {
+                        guard let key = (preview.articleURL as NSURL).wmf_articleDatabaseKey else {
+                            continue
                         }
+                        referencedArticleKeys.insert(key)
                     }
                     
                 case (.URL, _),
