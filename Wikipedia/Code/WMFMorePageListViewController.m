@@ -188,8 +188,13 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 - (void)updateLocationCell:(WMFNearbyArticleTableViewCell *)cell location:(CLLocation *)location {
-    [cell setDistance:[self.locationManager.location distanceFromLocation:location]];
-    [cell setBearing:[self.locationManager.location wmf_bearingToLocation:location forCurrentHeading:self.locationManager.heading]];
+    CLLocation *userLocation = self.locationManager.location;
+    if (userLocation == nil) {
+        [cell configureForUnknownDistance];
+        return;
+    }
+    [cell setDistance:[userLocation distanceFromLocation:location]];
+    [cell setBearing:[userLocation wmf_bearingToLocation:location forCurrentHeading:self.locationManager.heading]];
 }
 
 #pragma mark - WMFLocationManager

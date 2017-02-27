@@ -3,3 +3,7 @@
 @interface WMFExploreCollectionViewCell : SSBaseCollectionCell
 
 @end
+
+@interface WMFExploreCollectionReusableView : UICollectionReusableView
+
+@end

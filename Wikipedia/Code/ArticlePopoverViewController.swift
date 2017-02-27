@@ -13,6 +13,8 @@ class ArticlePopoverViewController: UIViewController {
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
+    @IBOutlet weak var buttonStackView: UIStackView!
+    
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var readButton: UIButton!
@@ -20,6 +22,8 @@ class ArticlePopoverViewController: UIViewController {
     @IBOutlet weak var articleSummaryView: UIView!
     
     let article: WMFArticle
+    
+    var showSaveAndShareTitles = true
     
     required init(_ article: WMFArticle) {
         self.article = article
@@ -34,14 +38,52 @@ class ArticlePopoverViewController: UIViewController {
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         articleSummaryView.addGestureRecognizer(tapGR)
         
-        shareButton.setTitle(localizedStringForKeyFallingBackOnEnglish("action-share"), for: .normal)
-        readButton.setTitle(localizedStringForKeyFallingBackOnEnglish("action-read"), for: .normal)
+        shareButton.setTitle(" " + localizedStringForKeyFallingBackOnEnglish("action-share"), for: .normal)
+        shareButton.setImage(#imageLiteral(resourceName: "places-share"), for: .normal)
         
-        let saveTitle = article.savedDate == nil ? localizedStringForKeyFallingBackOnEnglish("action-save") : localizedStringForKeyFallingBackOnEnglish("action-unsave")
-        saveButton.setTitle(saveTitle, for: .normal)
+        readButton.setTitle(localizedStringForKeyFallingBackOnEnglish("action-read"), for: .normal)
+        readButton.setImage(#imageLiteral(resourceName: "places-more"), for: .normal)
+        
+        updateSaveButtonTitle()
+        
+        // Verify that the localized titles for save, share, and read will fit
+        let sizeToFit = buttonStackView.bounds.size
+        let widthToCheck = 0.33*sizeToFit.width
+        let shareButtonSize = shareButton.sizeThatFits(sizeToFit)
+        let saveButtonSize = saveButton.sizeThatFits(sizeToFit)
+        let readButtonSize = readButton.sizeThatFits(sizeToFit)
+        // If any of the the titles don't fit, fill proportionally and remove the titles for share and save
+        showSaveAndShareTitles = shareButtonSize.width < widthToCheck && saveButtonSize.width < widthToCheck && readButtonSize.width < widthToCheck
+        if !showSaveAndShareTitles {
+            shareButton.setTitle(nil, for: .normal)
+            saveButton.setTitle(nil, for: .normal)
+            buttonStackView.distribution = .fillProportionally
+        }
         
         titleLabel.text = article.displayTitle
         subtitleLabel.text = article.wikidataDescription
+        
+        view.wmf_configureSubviewsForDynamicType()
+    }
+    
+    func updateSaveButtonTitle() {
+        guard showSaveAndShareTitles else {
+            return
+        }
+        let saveTitle = article.savedDate == nil ? localizedStringForKeyFallingBackOnEnglish("action-save") : localizedStringForKeyFallingBackOnEnglish("action-saved")
+        saveButton.setTitle(" " + saveTitle, for: .normal)
+        let saveImage = article.savedDate == nil ? #imageLiteral(resourceName: "places-save"): #imageLiteral(resourceName: "places-unsave")
+        saveButton.setImage(saveImage, for: .normal)
+    }
+    
+    func configureView(withTraitCollection traitCollection: UITraitCollection) {
+        let titleLabelFont = UIFont.wmf_preferredFontForFontFamily(.georgia, withTextStyle: .title3, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = titleLabelFont
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        configureView(withTraitCollection: traitCollection)
     }
     
     func handleTapGesture(_ tapGR: UITapGestureRecognizer) {
@@ -55,6 +97,7 @@ class ArticlePopoverViewController: UIViewController {
     
     @IBAction func save(_ sender: Any) {
         delegate?.articlePopoverViewController(articlePopoverViewController: self, didSelectAction: .save)
+        updateSaveButtonTitle()
     }
     
     @IBAction func share(_ sender: Any) {

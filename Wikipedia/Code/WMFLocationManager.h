@@ -48,7 +48,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)isAuthorized;
 
-+ (BOOL)isDeniedOrDisabled;
++ (BOOL)isAuthorizationNotDetermined;
++ (BOOL)isAuthorizationDenied;
++ (BOOL)isAuthorizationRestricted;
 
 - (void)reverseGeocodeLocation:(CLLocation *)location completion:(void (^)(CLPlacemark *placemark))completion
                        failure:(void (^)(NSError *error))failure;

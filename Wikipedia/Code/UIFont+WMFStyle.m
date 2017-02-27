@@ -21,7 +21,7 @@
 
 + (instancetype)wmf_nearbyTitleFont {
     return [UIFont wmf_preferredFontForFontFamily:WMFFontFamilyGeorgia
-                                    withTextStyle:UIFontTextStyleTitle2];
+                                    withTextStyle:UIFontTextStyleTitle1];
 }
 
 + (instancetype)wmf_subtitle {
