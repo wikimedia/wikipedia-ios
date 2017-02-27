@@ -43,19 +43,17 @@ class WMFAuthenticationManager: NSObject {
      *  @param success  The handler for success - at this point the user is logged in
      *  @param failure     The handler for any errors
      */
-    public func login(username: String, password:String, retypePassword:String?, oathToken:String?, success loginSuccess:@escaping WMFAccountLoginResultBlock, failure:@escaping WMFErrorHandler){
+    public func login(username: String, password:String, retypePassword:String?, oathToken:String?, captchaID: String?, captchaWord: String?, success loginSuccess:@escaping WMFAccountLoginResultBlock, failure:@escaping WMFErrorHandler){
         let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL();
-        loginInfoFetcher.fetchLoginInfoForSiteURL(siteURL!, success: { info in
-            self.tokenFetcher.fetchToken(ofType: .login, siteURL: siteURL!, success: { tokenBlock in
-                self.accountLogin.login(username: username, password: password, retypePassword: retypePassword, loginToken: tokenBlock.token, oathToken: oathToken, siteURL: siteURL!, success: {result in
-                    let normalizedUserName = result.username
-                    self.loggedInUsername = normalizedUserName
-                    self.keychainCredentials.userName = normalizedUserName
-                    self.keychainCredentials.password = password
-                    self.cloneSessionCookies()
-                    loginSuccess(result)
-                }, failure: failure)
-            }, failure:failure)
+        self.tokenFetcher.fetchToken(ofType: .login, siteURL: siteURL!, success: { tokenBlock in
+            self.accountLogin.login(username: username, password: password, retypePassword: retypePassword, loginToken: tokenBlock.token, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL!, success: {result in
+                let normalizedUserName = result.username
+                self.loggedInUsername = normalizedUserName
+                self.keychainCredentials.userName = normalizedUserName
+                self.keychainCredentials.password = password
+                self.cloneSessionCookies()
+                loginSuccess(result)
+            }, failure: failure)
         }, failure:failure)
     }
     
@@ -85,7 +83,7 @@ class WMFAuthenticationManager: NSObject {
         }, failure:{ error in
             self.loggedInUsername = nil
             
-            self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, success: success, failure: { error in
+            self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, success: success, failure: { error in
                 if let error = error as? URLError {
                     if error.code != .notConnectedToInternet {
                         self.logout()

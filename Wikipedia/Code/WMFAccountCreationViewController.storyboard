@@ -21,11 +21,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKm-Zn-TSm">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="dKm-Zn-TSm">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Qz-4P-2EZ" userLabel="Scroll Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="922"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="522"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9i2-q7-ejW" userLabel="Form Container">
                                                 <rect key="frame" x="44" y="16" width="288" height="319"/>
@@ -89,7 +89,7 @@
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email (optional)" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="rKI-nq-3p7">
                                                         <rect key="frame" x="0.0" y="174" width="288" height="21"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                                         <connections>
                                                             <action selector="textFieldDidChange:" destination="LsX-JK-bT6" eventType="editingChanged" id="K19-ye-C1l"/>
                                                             <outlet property="delegate" destination="LsX-JK-bT6" id="MI0-Gv-E2c"/>
@@ -102,7 +102,7 @@
                                                             <constraint firstAttribute="height" constant="1" id="0Ks-DK-U3a"/>
                                                         </constraints>
                                                     </view>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have an account? Log in." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="cbH-8H-z54">
+                                                    <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have an account? Log in." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="cbH-8H-z54">
                                                         <rect key="frame" x="0.0" y="224" width="288" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17" placeholder="YES" id="7HR-XX-klY"/>
@@ -187,7 +187,7 @@
                                             <constraint firstAttribute="centerX" secondItem="nkJ-ZP-8yL" secondAttribute="centerX" id="A96-6a-F0d"/>
                                             <constraint firstAttribute="centerX" secondItem="9i2-q7-ejW" secondAttribute="centerX" id="J8K-u6-yk4"/>
                                             <constraint firstItem="nkJ-ZP-8yL" firstAttribute="top" secondItem="9i2-q7-ejW" secondAttribute="bottom" constant="4" id="Mld-1g-93h"/>
-                                            <constraint firstAttribute="bottom" secondItem="nkJ-ZP-8yL" secondAttribute="bottom" constant="420" id="P54-yf-Kc2"/>
+                                            <constraint firstAttribute="bottom" secondItem="nkJ-ZP-8yL" secondAttribute="bottom" constant="20" id="P54-yf-Kc2"/>
                                             <constraint firstItem="9i2-q7-ejW" firstAttribute="top" secondItem="8Qz-4P-2EZ" secondAttribute="top" constant="16" id="PUA-Hk-717"/>
                                         </constraints>
                                     </view>
@@ -222,7 +222,6 @@
                         <outlet property="passwordRepeatField" destination="UgH-77-lyp" id="2o9-29-ToR"/>
                         <outlet property="passwordUnderlineHeight" destination="hBG-5Q-aRJ" id="Jqc-PZ-DEV"/>
                         <outlet property="scrollView" destination="dKm-Zn-TSm" id="gEZ-Pp-aUZ"/>
-                        <outlet property="spaceBeneathCaptchaContainer" destination="P54-yf-Kc2" id="cUz-NL-9eI"/>
                         <outlet property="titleLabel" destination="c3c-PU-Exz" id="ave-jg-bBY"/>
                         <outlet property="usernameField" destination="5cT-2Y-0Ie" id="ldu-Gg-yqR"/>
                         <outlet property="usernameUnderlineHeight" destination="VtE-Pc-jYK" id="Qwi-Nk-SX9"/>
