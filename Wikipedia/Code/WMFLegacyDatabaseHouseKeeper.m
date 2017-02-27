@@ -1,6 +1,6 @@
-#import "WMFDatabaseHouseKeeper.h"
+#import "WMFLegacyDatabaseHouseKeeper.h"
 
-@implementation WMFDatabaseHouseKeeper
+@implementation WMFLegacyDatabaseHouseKeeper
 
 - (BOOL)performHouseKeepingOnManagedObjectContext:(NSManagedObjectContext *)moc error:(NSError **)outError {
     BOOL (^done)

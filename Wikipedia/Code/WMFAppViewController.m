@@ -13,8 +13,6 @@
 #import "MWKDataStore.h"
 #import "WMFContentGroupDataStore.h"
 
-#import "WMFDatabaseHouseKeeper.h"
-
 // Networking
 #import "SavedArticlesFetcher.h"
 #import "SessionSingleton.h"
@@ -495,8 +493,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [self.dataStore startCacheRemoval];
     [self.savedArticlesFetcher stop];
     [self stopContentSources];
-    self.houseKeeper = [WMFDatabaseHouseKeeper new];
 
+    self.houseKeeper = [WMFDatabaseHouseKeeper new];
     //TODO: these tasks should be converted to async so we can end the background task as soon as possible
     [self.dataStore clearMemoryCache];
     [self downloadAssetsFilesIfNecessary];
