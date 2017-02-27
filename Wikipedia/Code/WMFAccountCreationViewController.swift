@@ -170,6 +170,10 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         return true
     }
 
+    func captchaKeyboardReturnKeyTapped() {
+
+    }
+
     fileprivate func enableProgressiveButtonIfNecessary() {
         navigationItem.rightBarButtonItem?.isEnabled = shouldProgressiveButtonBeEnabled()
     }

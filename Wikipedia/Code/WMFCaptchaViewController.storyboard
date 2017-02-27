@@ -44,6 +44,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
                                     <action selector="textFieldDidChange:" destination="sIA-fC-CW8" eventType="editingChanged" id="674-Le-PNv"/>
+                                    <outlet property="delegate" destination="sIA-fC-CW8" id="IKb-bP-2T5"/>
                                 </connections>
                             </textField>
                         </subviews>

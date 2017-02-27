@@ -652,6 +652,10 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
 }
 
+- (void)captchaKeyboardReturnKeyTapped {
+    
+}
+
 - (void)captchaSolutionChanged:(id)sender solutionText:(nullable NSString*)solutionText{
     [self highlightCaptchaSubmitButton:(solutionText.length == 0) ? NO : YES];
 }

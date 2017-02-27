@@ -8,6 +8,7 @@ import UIKit
     func captchaReloadPushed(_ sender: AnyObject)
     func captchaSolutionChanged(_ sender: AnyObject, solutionText: String?)
     func captchaSiteURL() -> URL
+    func captchaKeyboardReturnKeyTapped()
 }
 
 public class WMFCaptcha: NSObject {
@@ -64,6 +65,17 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
             }
             return captchaTextBox.text
         }
+    }
+
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == captchaTextBox {
+            guard let captchaDelegate = captchaDelegate else {
+                assert(false, "Expected delegate not set")
+                return true
+            }
+            captchaDelegate.captchaKeyboardReturnKeyTapped()
+        }
+        return true
     }
     
     fileprivate func refreshImage(for captcha: WMFCaptcha) {

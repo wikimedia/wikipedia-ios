@@ -251,6 +251,10 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         return (MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL())!
     }
     
+    func captchaKeyboardReturnKeyTapped() {
+        save()
+    }
+
     fileprivate var showCaptchaContainer: Bool = false {
         didSet {
             UIView.animate(withDuration: 0.4, animations: {
