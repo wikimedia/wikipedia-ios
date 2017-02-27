@@ -66,7 +66,7 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [self didTouchClose];
+    [self hide];
     return YES;
 }
 
