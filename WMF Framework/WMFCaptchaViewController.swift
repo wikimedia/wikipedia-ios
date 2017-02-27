@@ -49,7 +49,6 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
                 captchaTextBox.text = nil
                 return;
             }
-            captchaTextBox.becomeFirstResponder()
             captchaTextBox.text = ""
             refreshImage(for: captcha)
         }
@@ -86,6 +85,11 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         captchaImageView.sd_setImage(with: fullCaptchaImageURL)
     }
     
+    public func captchaTextBoxBecomeFirstResponder() {
+        // Reminder: captchaTextBox is private so this vc maintains control over the captcha solution.
+        captchaTextBox.becomeFirstResponder()
+    }
+
     fileprivate func fullCaptchaImageURL(from captchaURL: URL) -> URL? {
         guard let components = URLComponents(url: captchaURL, resolvingAgainstBaseURL: false) else {
             assert(false, "Could not extract url components")
