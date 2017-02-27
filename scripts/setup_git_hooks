@@ -1,0 +1,7 @@
+#!/bin/bash
+
+brew update && brew install clang-format
+brew upgrade clang-format
+
+rm -rf .git/hooks/pre-commit
+cp -f scripts/clang_format_git_diff .git/hooks/pre-commit
