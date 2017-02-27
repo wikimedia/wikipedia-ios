@@ -12,6 +12,9 @@
 
 static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000;
 
+static const NSInteger WMFNearbyDaysBetweenForcedUpdates = 10;
+static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters = 1000;
+
 @interface WMFNearbyContentSource () <WMFLocationManagerDelegate>
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
@@ -102,6 +105,12 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
         [self getGroupForLocation:self.currentLocationManager.location
             completion:^(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark) {
                 if (group && [group.content isKindOfClass:[NSArray class]] && group.content.count > 0) {
+                    NSDate *now = [NSDate date];
+                    NSDate *todayMidnightUTC = [now wmf_midnightUTCDateFromLocalDate];
+                    if (![[NSUserDefaults wmf_userDefaults] wmf_placesHasAppeared] && [[NSCalendar wmf_utcGregorianCalendar] wmf_daysFromDate:group.midnightUTCDate toDate:todayMidnightUTC] >= WMFNearbyDaysBetweenForcedUpdates) {
+                        group.date = now;
+                        group.midnightUTCDate = todayMidnightUTC;
+                    }
                     done();
                     return;
                 }
@@ -202,17 +211,28 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 }
 
 - (nullable WMFContentGroup *)contentGroupCloseToLocation:(CLLocation *)location {
-
+    NSDate *todayMidnightUTC = [[NSDate date] wmf_midnightUTCDateFromLocalDate];
     __block WMFContentGroup *locationContentGroup = nil;
+    __block NSDate *newestMidnightUTCDate = nil;
+    __block CLLocationDistance distanceThreshold = WMFNearbyUpdateDistanceThresholdInMeters;
+    __block NSInteger daysUntilForcedUpdate = [[NSUserDefaults wmf_userDefaults] wmf_placesHasAppeared] ? NSIntegerMax : WMFNearbyDaysBetweenForcedUpdates;
     [self.contentStore enumerateContentGroupsOfKind:WMFContentGroupKindLocation
+                                        sortedByKey:@"midnightUTCDate"
+                                          ascending:NO
                                           withBlock:^(WMFContentGroup *_Nonnull currentGroup, BOOL *_Nonnull stop) {
+                                              if (!newestMidnightUTCDate) {
+                                                  newestMidnightUTCDate = currentGroup.midnightUTCDate;
+                                                  if ([[NSCalendar wmf_utcGregorianCalendar] wmf_daysFromDate:newestMidnightUTCDate toDate:todayMidnightUTC] >= daysUntilForcedUpdate) {
+                                                      distanceThreshold = WMFNearbyForcedUpdateDistanceThresholdInMeters;
+                                                  }
+                                              }
                                               WMFContentGroup *potentiallyCloseLocationGroup = (WMFContentGroup *)currentGroup;
                                               CLLocation *groupLocation = potentiallyCloseLocationGroup.location;
                                               if (!groupLocation) {
                                                   return;
                                               }
                                               CLLocationDistance distance = [groupLocation distanceFromLocation:location];
-                                              if (distance < WMFNearbyUpdateDistanceThresholdInMeters) {
+                                              if (distance < distanceThreshold) {
                                                   locationContentGroup = potentiallyCloseLocationGroup;
                                                   *stop = YES;
                                               }
