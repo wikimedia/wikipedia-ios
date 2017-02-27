@@ -41,7 +41,7 @@ import Foundation
                 referencedArticleKeys.insert(articleURLDatabaseKey)
             }
             
-            guard let content = group.content as Array! else {
+            guard let content = group.content else {
                 assertionFailure("Unknown Content Type")
                 continue
             }
