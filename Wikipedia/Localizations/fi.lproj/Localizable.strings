@@ -74,6 +74,7 @@
 "new-password-password-placeholder-text" = "Uusi salasana";
 "new-password-confirm-placeholder-text" = "Vahvista uusi salasana";
 "two-factor-login-title" = "Kirjaudu sisään tilillesi";
+"two-factor-login-instructions" = "Syötä kaksivaiheisen vahvistuksen koodi";
 "two-factor-login-token-title" = "Avain";
 "login-name-not-found" = "Käyttäjänimi vaaditaan kirjautumiseen.";
 "login-name-illegal" = "Antamasi käyttäjänimi ei kelpaa.";

@@ -19,6 +19,7 @@
 // Author: Ping08
 // Author: Redredsonia
 // Author: WindEwriX
+// Author: Yuryleb
 // Author: Zpizza
 // Author: Александр Сигачёв
 
@@ -66,7 +67,9 @@
 "account-creation-captcha-required" = "Требуется проверка капчей.";
 "account-creation-captcha-retry" = "Неправильный ввод. Пожалуйста, попробуйте ещё раз.";
 "account-creation-captcha-obtaining" = "Получение новой капчи...";
+"account-creation-captcha-title" = "Проверка безопасности с помощью CAPTCHA";
 "account-creation-captcha-cannot-see-image" = "Не видите изображение? $1";
+"account-creation-captcha-request-account" = "Запросить учётную запись.";
 "account-creation-logging-in" = "Вход в систему…";
 "account-creation-passwords-mismatched" = "Пароли не совпадают.";
 "account-creation-saving" = "Сохраняется…";
@@ -77,9 +80,11 @@
 "account-creation-email-placeholder-text" = "Адрес электронной почты (необязательно)";
 "account-creation-missing-fields" = "Для создания учётной записи вы должны ввести имя пользователя, пароль и подтверждение пароля.";
 "new-password-title" = "Установите пароль";
+"new-password-instructions" = "Вы представились с помощью временного пароля.\nДля завершения входа необходимо задать новый пароль:";
 "new-password-password-placeholder-text" = "Новый пароль";
 "new-password-confirm-placeholder-text" = "Подтвердите новый пароль";
 "two-factor-login-title" = "Войдите в свою учётную запись";
+"two-factor-login-instructions" = "Пожалуйста, введите проверочный код двухэтапной авторизации";
 "two-factor-login-token-title" = "Токен";
 "login-name-not-found" = "Для входа требуется имя участника.";
 "login-name-illegal" = "Вы указали некорректное имя участника.";
@@ -93,6 +98,7 @@
 "login-password-placeholder-text" = "Пароль";
 "login-forgot-password" = "Забыли пароль?";
 "forgot-password-title" = "Сбросить пароль";
+"forgot-password-instructions" = "Заполните одно из полей ниже, чтобы получить инструкции сброса пароля по электронной почте";
 "forgot-password-username-prompt" = "Имя участника";
 "forgot-password-email-prompt" = "Адрес электронной почты (необязательно)";
 "forgot-password-button-title" = "Сбросить";
@@ -435,6 +441,10 @@
 "explore-continue-reading-heading" = "Продолжить чтение";
 "explore-nearby-heading" = "Места поблизости";
 "explore-nearby-sub-heading-your-location" = "Ваше местоположение";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "На Википедии";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "На $1 Википедии";
+"explore-nearby-placeholder-dismiss" = "Закрыть";
+"explore-nearby-placeholder-cancel" = "Отмена";
 "explore-continue-related-heading" = "Потому что вы читали";
 "explore-main-page-heading" = "Сегодня в Википедии";
 "explore-random-article-heading" = "Случайная статья";
@@ -480,8 +490,14 @@
 "status-saved-for-later" = "Сохранено на потом";
 "announcements-dismiss" = "Нет, спасибо";
 "places-search-top-articles" = "Самые читаемые статьи";
+"places-search-this-area" = "Поиск в этой области";
 "places-search-saved-articles" = "Сохранённые статьи";
 "places-search-suggested-searches-header" = "Предложения для поиска";
+"places-search-recently-searched-header" = "Недавно искали";
+"places-unknown-distance" = "расстояние неизвестно";
+"places-enable-location-action-button-title" = "Включить поиск расположения";
+"places-accessibility-show-as-list" = "Показать как список";
 "action-share" = "Поделиться";
 "action-save" = "Сохранить";
 "action-read" = "Читать";
+"action-saved" = "Сохранено";

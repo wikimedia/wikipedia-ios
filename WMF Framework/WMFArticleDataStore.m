@@ -111,6 +111,8 @@ NS_ASSUME_NONNULL_BEGIN
         NSURL *thumb = [NSURL URLWithString:[article bestThumbnailImageURL]];
         preview.thumbnailURL = thumb;
     }
+    
+    preview.isExcludedFromFeed = article.ns != 0;
 
     return preview;
 }
