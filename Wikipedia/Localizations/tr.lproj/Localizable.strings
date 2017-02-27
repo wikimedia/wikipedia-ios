@@ -490,4 +490,5 @@
 "places-search-suggested-searches-header" = "Önerilen aramalar";
 "places-search-recently-searched-header" = "Son arananlar";
 "action-share" = "Paylaş";
-"action-unsave" = "Kaydedilenlerden çıkar";
+"action-save" = "Kaydet";
+"action-read" = "Oku";

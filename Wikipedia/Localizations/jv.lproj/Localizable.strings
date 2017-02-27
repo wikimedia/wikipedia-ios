@@ -470,4 +470,5 @@
 "places-search-suggested-searches-header" = "Ngolèki disaranake";
 "places-search-recently-searched-header" = "Bubar nggolèki";
 "action-share" = "Nuduhake";
-"action-unsave" = "Ora nyimpen";
+"action-save" = "Simpen";
+"action-read" = "Waca";
