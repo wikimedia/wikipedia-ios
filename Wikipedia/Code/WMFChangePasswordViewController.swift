@@ -1,7 +1,7 @@
 
 import UIKit
 
-class WMFChangePasswordViewController: UIViewController {
+class WMFChangePasswordViewController: WMFScrollViewController {
     
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var subTitleLabel: UILabel!
@@ -111,6 +111,8 @@ class WMFChangePasswordViewController: UIViewController {
                    password: passwordField.text!,
                    retypePassword: retypeField.text!,
                    oathToken: nil,
+                   captchaID: nil,
+                   captchaWord: nil,
                    success: { _ in
                     let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: userName)
                     WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)

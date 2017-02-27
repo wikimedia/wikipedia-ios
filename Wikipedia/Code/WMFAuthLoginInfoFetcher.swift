@@ -16,8 +16,10 @@ public typealias WMFAuthLoginInfoBlock = (WMFAuthLoginInfo) -> Void
 
 public struct WMFAuthLoginInfo {
     let canAuthenticateNow:Bool
-    init(canAuthenticateNow:Bool) {
+    let captcha: WMFCaptcha?
+    init(canAuthenticateNow:Bool, captcha:WMFCaptcha?) {
         self.canAuthenticateNow = canAuthenticateNow
+        self.captcha = captcha
     }
 }
 
@@ -40,18 +42,18 @@ public class WMFAuthLoginInfoFetcher {
             guard
                 let response = response as? [String : AnyObject],
                 let query = response["query"] as? [String : AnyObject],
-                let authmanagerinfo = query["authmanagerinfo"] as? [String : AnyObject]
+                let authmanagerinfo = query["authmanagerinfo"] as? [String : AnyObject],
+                let requests = authmanagerinfo["requests"] as? [[String : AnyObject]]
                 else {
                     failure(WMFAuthLoginError.cannotExtractInfo)
                     return
             }
-            
             guard authmanagerinfo["canauthenticatenow"] != nil else {
                 failure(WMFAuthLoginError.cannotAuthenticateNow)
                 return
             }
             
-            success(WMFAuthLoginInfo.init(canAuthenticateNow: true))
+            success(WMFAuthLoginInfo.init(canAuthenticateNow: true, captcha: WMFCaptcha.captcha(from: requests)))
         }, failure: { (_, error) in
             failure(error)
         })
