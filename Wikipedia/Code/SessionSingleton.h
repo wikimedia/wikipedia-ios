@@ -30,7 +30,7 @@
 @property (strong, nonatomic, readonly) NSURL *currentArticleSiteURL;
 
 /**
- *  The current artcle. Set this when an article is loaded.
+ *  The current article. Set this when an article is loaded.
  *
  *  Initial value will be main page for the device language.
  *  On subsequent launches value will be last loaded article.
