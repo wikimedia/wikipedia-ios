@@ -14,6 +14,7 @@
 // Author: Reke
 // Author: Simon Shek
 // Author: Wehwei
+// Author: 烈羽
 
 "languages-title" = "變更語言";
 "article-languages-label" = "選擇語言";
@@ -57,9 +58,9 @@
 "zero-warn-when-leaving" = "離開 Wikipedia Zero 時提示";
 "zero-settings-devmode" = "Zero 開發模式";
 "account-creation-captcha-required" = "需要使用驗証碼驗証。";
-"account-creation-captcha-retry" = "不正確登錄。請重試。";
+"account-creation-captcha-retry" = "輸入不正確。請再試一次。";
 "account-creation-captcha-obtaining" = "取得新驗證碼中…";
-"account-creation-captcha-title" = "驗證碼安全檢查";
+"account-creation-captcha-title" = "CAPTCHA 安全性檢查";
 "account-creation-captcha-cannot-see-image" = "看不見圖片嗎？$1";
 "account-creation-captcha-request-account" = "請求一個帳號。";
 "account-creation-logging-in" = "登入中...";
@@ -76,8 +77,8 @@
 "new-password-password-placeholder-text" = "新密碼";
 "new-password-confirm-placeholder-text" = "確認新密碼";
 "two-factor-login-title" = "登入至您的帳號";
-"two-factor-login-instructions" = "請輸入雙重驗證代碼";
-"two-factor-login-token-title" = "安全令牌";
+"two-factor-login-instructions" = "請輸入雙因素驗證代碼";
+"two-factor-login-token-title" = "權杖";
 "login-name-not-found" = "需要填寫使用者名稱才能登入。";
 "login-name-illegal" = "您提供的使用者名稱不合法。";
 "login-name-does-not-exist" = "您提供的使用者名稱不存在。";
@@ -412,16 +413,16 @@
 "welcome-volunteer-thanks" = "$1 謝謝您!";
 "welcome-send-data-title" = "寄送匿名資料";
 "welcome-send-data-sub-title" = "為了幫助維基媒體將此應用程式改善，請告訴我們您如何使用此應用程式。所有蒐集的資料都採用匿名方式。";
-"empty-no-feed-title" = "無網際網路連線";
-"empty-no-feed-message" = "在有網際網路時，您可以看到推薦的條目";
+"empty-no-feed-title" = "無網路連線";
+"empty-no-feed-message" = "在有網路時，您可以看到推薦的條目";
 "empty-no-feed-action-message" = "與此同時，您仍然可以閱讀儲存的條目";
 "empty-no-article-message" = "很抱歉，無法載入條目";
 "empty-no-search-results-message" = "找不到任何結果";
-"empty-no-saved-pages-title" = "仍未儲存頁面";
+"empty-no-saved-pages-title" = "尚未儲存頁面";
 "empty-no-saved-pages-message" = "儲存頁面以便稍後檢視，甚至在離線時";
 "empty-no-history-title" = "無歷史可顯示";
 "empty-no-history-message" = "在此記錄您的閱讀歷程";
-"alert-no-internet" = "無網際網路連線";
+"alert-no-internet" = "無網路連線";
 "icon-shortcut-search-title" = "搜尋維基百科";
 "icon-shortcut-continue-reading-title" = "繼續閱讀";
 "icon-shortcut-random-title" = "隨機條目";
@@ -433,6 +434,8 @@
 "explore-continue-reading-heading" = "繼續閱讀";
 "explore-nearby-heading" = "位置接近";
 "explore-nearby-sub-heading-your-location" = "您的位置";
+"explore-nearby-placeholder-dismiss" = "關閉";
+"explore-nearby-placeholder-cancel" = "取消";
 "explore-continue-related-heading" = "因為您閱讀";
 "explore-main-page-heading" = "維基百科今日";
 "explore-random-article-heading" = "隨機條目";
@@ -452,7 +455,7 @@
 "find-in-page-button-label" = "在頁面裡找尋";
 "find-in-page-popover-description" = "搜尋條目裡的文字內容";
 "continue-reading-empty-title" = "沒有最近讀取的條目";
-"continue-reading-empty-description" = "瀏覽維基百科以讀取更多條目";
+"continue-reading-empty-description" = "瀏覽維基百科以閱讀更多條目";
 "top-read-see-more" = "查看更多熱門條目";
 "top-read-see-more-trending" = "查看更多動向";
 "top-read-header-with-language" = "$1維基百科";
@@ -482,7 +485,10 @@
 "places-search-saved-articles" = "已儲存條目";
 "places-search-suggested-searches-header" = "建議搜尋";
 "places-search-recently-searched-header" = "近期搜尋";
+"places-unknown-distance" = "未知距離";
+"places-accessibility-show-as-map" = "以地圖顯示";
+"places-accessibility-show-as-list" = "以清單顯示";
 "action-share" = "分享";
 "action-save" = "儲存";
-"action-read" = "讀取";
-"action-unsave" = "未儲存";
+"action-read" = "閱讀";
+"action-saved" = "已儲存";
