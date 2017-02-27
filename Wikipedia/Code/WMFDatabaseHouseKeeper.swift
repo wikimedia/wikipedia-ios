@@ -15,9 +15,15 @@ import Foundation
  
         */
         
-        let midnightTodayUTC = (Date() as NSDate).wmf_midnightUTCDateFromLocal!
+        guard let midnightTodayUTC = (Date() as NSDate).wmf_midnightUTCDateFromLocal else {
+            assertionFailure("Calculating midnight UTC today failed")
+            return
+        }
         let utcCalendar = NSCalendar.wmf_utcGregorian() as Calendar
-        let thirtyDaysAgoMidnightUTC = utcCalendar.date(byAdding: .day, value: -30, to: midnightTodayUTC, wrappingComponents: true)
+        guard let thirtyDaysAgoMidnightUTC = utcCalendar.date(byAdding: .day, value: -30, to: midnightTodayUTC, wrappingComponents: true) else {
+            assertionFailure("Calculating midnight UTC 30 days ago failed")
+            return
+        }
         
         let allContentGroupFetchRequest = WMFContentGroup.fetchRequest()
         allContentGroupFetchRequest.propertiesToFetch = ["key", "midnightUTCDate", "content", "articleURLString"]
@@ -26,7 +32,7 @@ import Foundation
         var referencedArticleKeys = Set<String>(minimumCapacity: allContentGroups.count * 5 + 1)
         
         for group in allContentGroups {
-            if group.midnightUTCDate?.compare(thirtyDaysAgoMidnightUTC!) == .orderedAscending {
+            if group.midnightUTCDate?.compare(thirtyDaysAgoMidnightUTC) == .orderedAscending {
                 moc.delete(group)
                 continue
             }
