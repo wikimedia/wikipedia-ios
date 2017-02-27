@@ -653,7 +653,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 }
 
 - (void)captchaKeyboardReturnKeyTapped {
-    
+    [self save];
 }
 
 - (void)captchaSolutionChanged:(id)sender solutionText:(nullable NSString*)solutionText{
