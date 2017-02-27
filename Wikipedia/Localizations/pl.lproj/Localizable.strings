@@ -370,6 +370,9 @@
 "explore-continue-reading-heading" = "Czytaj dalej";
 "explore-nearby-heading" = "Miejsca w pobliżu";
 "explore-nearby-sub-heading-your-location" = "Twoje położenie";
+"explore-nearby-placeholder-heading" = "Miejsca";
+"explore-nearby-placeholder-dismiss" = "Odrzuć";
+"explore-nearby-placeholder-cancel" = "Anuluj";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";
 "explore-random-article-heading" = "Losowy artykuł";
 "explore-potd-heading" = "Grafika dnia";
@@ -393,5 +396,8 @@
 "announcements-dismiss" = "Nie, dziękuję";
 "places-search-saved-articles" = "Zapisane artykuły";
 "places-search-suggested-searches-header" = "Proponowane wyszukiwania";
+"places-unknown-distance" = "odległość nieznana";
+"places-accessibility-show-as-map" = "Pokaż jako mapę";
+"places-accessibility-show-as-list" = "Pokaż jako listę";
 "action-share" = "Udostępnij";
 "action-save" = "Zapisz";
