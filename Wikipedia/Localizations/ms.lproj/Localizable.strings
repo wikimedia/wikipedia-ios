@@ -474,4 +474,5 @@
 "places-search-suggested-searches-header" = "Cadangan carian";
 "places-search-recently-searched-header" = "Carian terkini";
 "action-share" = "Kongsi";
-"action-unsave" = "Nyahsimpan";
+"action-save" = "Simpan";
+"action-read" = "Baca";
