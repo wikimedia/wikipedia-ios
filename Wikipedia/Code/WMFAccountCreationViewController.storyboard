@@ -89,7 +89,7 @@
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email (optional)" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="rKI-nq-3p7">
                                                         <rect key="frame" x="0.0" y="174" width="288" height="21"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                                         <connections>
                                                             <action selector="textFieldDidChange:" destination="LsX-JK-bT6" eventType="editingChanged" id="K19-ye-C1l"/>
                                                             <outlet property="delegate" destination="LsX-JK-bT6" id="MI0-Gv-E2c"/>

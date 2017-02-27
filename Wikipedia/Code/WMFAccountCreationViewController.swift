@@ -24,15 +24,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     fileprivate var rightButton: UIBarButtonItem?
     public var funnel: CreateAccountFunnel?
     fileprivate var captchaViewController: WMFCaptchaViewController?
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        coordinator.animate(alongsideTransition: { (context) in
-            if self.showCaptchaContainer {
-                self.scrollView.scrollSubView(toTop: self.captchaContainer, animated:false)
-            }
-        })
-    }
     
     func closeButtonPushed(_ : UIBarButtonItem) {
         if (showCaptchaContainer) {
@@ -66,7 +57,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
 
-        rightButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("button-next"), style: .plain, target: self, action: #selector(nextButtonPushed(_:)))
+        rightButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("button-done"), style: .plain, target: self, action: #selector(nextButtonPushed(_:)))
         
         navigationItem.rightBarButtonItem = rightButton
         
@@ -163,15 +154,18 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             passwordRepeatField.becomeFirstResponder()
         } else if (textField == passwordRepeatField) {
             emailField.becomeFirstResponder()
-        } else {
-            assert((textField == emailField), "Received -textFieldShouldReturn for unexpected text field: \(textField)")
-            save()
+        } else if (textField == emailField) {
+            if showCaptchaContainer {
+                captchaViewController?.captchaTextBoxBecomeFirstResponder()
+            }else{
+                save()
+            }
         }
         return true
     }
 
     func captchaKeyboardReturnKeyTapped() {
-
+        save()
     }
 
     fileprivate func enableProgressiveButtonIfNecessary() {
@@ -199,30 +193,24 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     
     fileprivate var showCaptchaContainer: Bool = false {
         didSet {
-            rightButton?.title = showCaptchaContainer ? localizedStringForKeyFallingBackOnEnglish("button-done") : localizedStringForKeyFallingBackOnEnglish("button-next")
-            let duration: TimeInterval = 0.5
-            
             if showCaptchaContainer {
                 funnel?.logCaptchaShown()
-                DispatchQueue.main.async(execute: {
-                    UIView.animate(withDuration: duration, animations: {
-                        self.setCaptchaAlpha(1)
-                        self.scrollView.scrollSubView(toTop: self.captchaTitleLabel, offset:20, animated:false)
-                    }, completion: { _ in
-                        self.enableProgressiveButtonIfNecessary()
-                    })
-                })
-            }else{
-                DispatchQueue.main.async(execute: {
-                    WMFAlertManager.sharedInstance.dismissAlert()
-                    UIView.animate(withDuration: duration, animations: {
-                        self.setCaptchaAlpha(0)
-                        self.scrollView.setContentOffset(CGPoint.zero, animated: false)
-                    }, completion: { _ in
-                        self.enableProgressiveButtonIfNecessary()
-                    })
-                })
             }
+            UIView.animate(withDuration: 0.4, animations: {
+                self.setCaptchaAlpha(self.showCaptchaContainer ? 1 : 0)
+            }, completion: { _ in
+                self.updateEmailFieldReturnKeyType()
+                self.enableProgressiveButtonIfNecessary()
+            })
+        }
+    }
+    
+    fileprivate func updateEmailFieldReturnKeyType() {
+        self.emailField.returnKeyType = self.showCaptchaContainer ? .next : .done
+        // Resign and become first responder so keyboard return key updates right away.
+        if self.emailField.isFirstResponder {
+            self.emailField.resignFirstResponder()
+            self.emailField.becomeFirstResponder()
         }
     }
     
@@ -278,11 +266,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
 
         guard passwordFieldsMatch() else {
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("account-creation-passwords-mismatched"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            UIView.animate(withDuration: 0.3, animations: {
-                self.scrollView.setContentOffset(CGPoint.zero, animated: false)
-            }, completion: { _ in
-                self.passwordRepeatField.becomeFirstResponder()
-            })
+            self.passwordRepeatField.becomeFirstResponder()
             return
         }
         wmf_hideKeyboard()
