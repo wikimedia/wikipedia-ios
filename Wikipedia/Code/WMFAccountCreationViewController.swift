@@ -26,11 +26,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     fileprivate var captchaViewController: WMFCaptchaViewController?
     
     func closeButtonPushed(_ : UIBarButtonItem) {
-        if (showCaptchaContainer) {
-            showCaptchaContainer = false
-        } else {
-            dismiss(animated: true, completion: nil)
-        }
+        dismiss(animated: true, completion: nil)
     }
 
     func nextButtonPushed(_ : UIBarButtonItem) {
