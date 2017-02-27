@@ -8,6 +8,7 @@
 #import "WMFFaceDetectionCache.h"
 #import "UIImageView+WMFPlaceholder.h"
 #import <WMF/WMF-Swift.h>
+#import <SDWebImage/UIImage+GIF.h>
 
 static const char *const MWKURLAssociationKey = "MWKURL";
 
