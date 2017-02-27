@@ -36,9 +36,10 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (NSArray<WMFContentGroup *> *)contentGroupsOfKind:(WMFContentGroupKind)kind {
+- (NSArray<WMFContentGroup *> *)contentGroupsOfKind:(WMFContentGroupKind)kind sortedByDescriptors:(nullable NSArray *)sortDescriptors {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(kind)];
+    fetchRequest.sortDescriptors = sortDescriptors;
     NSError *fetchError = nil;
     NSArray *contentGroups = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError || !contentGroups) {
@@ -46,6 +47,24 @@ NS_ASSUME_NONNULL_BEGIN
         return @[];
     }
     return contentGroups;
+}
+
+- (NSArray<WMFContentGroup *> *)contentGroupsOfKind:(WMFContentGroupKind)kind sortedByKey:(NSString *)sortKey ascending:(BOOL)ascending {
+    return [self contentGroupsOfKind:kind sortedByDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:sortKey ascending:ascending]]];
+}
+
+- (NSArray<WMFContentGroup *> *)contentGroupsOfKind:(WMFContentGroupKind)kind {
+    return [self contentGroupsOfKind:kind sortedByDescriptors:nil];
+}
+
+- (void)enumerateContentGroupsOfKind:(WMFContentGroupKind)kind sortedByKey:(NSString *)key ascending:(BOOL)ascending withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block {
+    if (!block) {
+        return;
+    }
+    NSArray<WMFContentGroup *> *contentGroups = [self contentGroupsOfKind:kind sortedByKey:key ascending:ascending];
+    [contentGroups enumerateObjectsUsingBlock:^(WMFContentGroup *_Nonnull section, NSUInteger idx, BOOL *_Nonnull stop) {
+        block(section, stop);
+    }];
 }
 
 - (void)enumerateContentGroupsOfKind:(WMFContentGroupKind)kind withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block {
