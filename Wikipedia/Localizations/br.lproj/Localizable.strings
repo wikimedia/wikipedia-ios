@@ -201,7 +201,7 @@
 "edit-summary-choice-added-missing-info" = "Ouzhpennet eo bet an titour a vanke";
 "edit-summary-choice-added-clarification" = "Resisadur bet ouzhpennet";
 "edit-summary-choice-other" = "All";
-"edit-summary-description" = "Un diverradenn a-ziforc'h a sikour ar genembannerien da adlenn buan ho kemmoù. Gallout a reot ivez dibab e-touez ar balizennoù amañ dindan.";
+"edit-summary-description" = "Un diverradenn a-ziforc'h a sikour ar genembannerien da adlenn buan ho kemmoù. Gallout a reot ivez dibab e-touez an tikedennoù amañ dindan.";
 "edit-summary-field-placeholder-text" = "Doareoù all evit gwellaat ar pennad";
 "edit-summary-title" = "Penaos eo bet gwellaet ar pennad-mañ ganeoc'h ?";
 "fetching-random-article" = "Tapout ur pennad evel ma teu e teu";
@@ -468,4 +468,5 @@
 "places-search-suggested-searches-header" = "Enklaskoù kinniget";
 "places-search-recently-searched-header" = "Enklaskoù graet nevez zo";
 "action-share" = "Rannañ";
-"action-unsave" = "Hep enrollañ";
+"action-save" = "Enrollañ";
+"action-read" = "Lenn";

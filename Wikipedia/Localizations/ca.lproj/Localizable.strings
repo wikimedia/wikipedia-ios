@@ -469,5 +469,9 @@
 "status-saving-for-later" = "Es desa per més endavant...";
 "status-saved-for-later" = "Desat per a més endavant";
 "announcements-dismiss" = "No, gràcies";
+"places-search-saved-articles" = "Articles desats";
+"places-search-suggested-searches-header" = "Cerques suggerides";
+"places-search-recently-searched-header" = "Cercat recentment";
 "action-share" = "Comparteix";
-"action-unsave" = "No ho desis";
+"action-save" = "Desa";
+"action-read" = "Llegeix";
