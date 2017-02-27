@@ -1,3 +1,5 @@
+#import <FLAnimatedImage/FLAnimatedImage.h>
+#import <FLAnimatedImage/FLAnimatedImageView.h>
 #import "UIImageView+WMFImageFetchingInternal.h"
 #import "UIImageView+WMFImageFetching.h"
 #import "UIImageView+WMFContentOffset.h"
@@ -187,6 +189,14 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     };
     
     self.image = image;
+    
+    if (image.isGIF && [self isKindOfClass:[FLAnimatedImageView class]]) {
+        NSURL *imageURL = [self wmf_imageURLToFetch];
+        FLAnimatedImage *animatedImage = [FLAnimatedImage animatedImageWithGIFData: [[self wmf_imageController] diskDataForImageWithURL:imageURL]];
+        FLAnimatedImageView *animatedImageView = ((FLAnimatedImageView*) self);
+        animatedImageView.animatedImage = animatedImage;
+    }
+    
     if (animated) {
         [UIView animateWithDuration:[CATransaction animationDuration] animations:animations completion:^(BOOL finished) {
             success();
