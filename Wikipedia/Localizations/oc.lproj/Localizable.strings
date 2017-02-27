@@ -304,6 +304,7 @@
 "welcome-explore-tell-me-more-about-explore" = "Mai d'informacion a prepaus de Explòra";
 "welcome-explore-tell-me-more-done-button" = "L’obténer";
 "welcome-explore-continue-button" = "Començar";
+"welcome-notifications-tell-me-more-title" = "Ne saber mai sus las notificacions";
 "welcome-languages-title" = "Lengas";
 "welcome-languages-add-button" = "Apondre una autra lenga";
 "welcome-languages-continue-button" = "Contunhar";
@@ -315,7 +316,9 @@
 "empty-no-feed-title" = "Pas de connexion a Internet";
 "empty-no-search-results-message" = "Cap de resultat pas trobat";
 "icon-shortcut-search-title" = "Recercar dins Wikipèdia";
+"icon-shortcut-continue-reading-title" = "Contunhar de legir";
 "icon-shortcut-random-title" = "Article a l'azard";
+"icon-shortcut-nearby-title" = "Articles vesins";
 "close-button-accessibility-label" = "Tampar";
 "back-button-accessibility-label" = "Retorn";
 "compass-direction" = "a $1 oras";
@@ -329,6 +332,7 @@
 "explore-random-article-sub-heading" = "Wikipèdia en anglés";
 "explore-potd-heading" = "Imatge del jorn";
 "explore-most-read-generic-heading" = "Los mai legits";
+"explore-most-read-footer" = "Totes los articles los mai legits";
 "explore-most-read-more-list-title" = "Melhors articles";
 "explore-most-read-more-list-title-for-date" = "Los mai legits al $1";
 "explore-another-random" = "Un autre article a l'azard";
@@ -366,4 +370,5 @@
 "places-search-suggested-searches-header" = "Recèrcas suggeridas";
 "places-search-recently-searched-header" = "Recercat recentament";
 "action-share" = "Partejar";
-"action-unsave" = "Pas enregistrat";
+"action-save" = "Enregistrar";
+"action-read" = "Legir";
