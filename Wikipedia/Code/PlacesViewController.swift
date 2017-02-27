@@ -1086,7 +1086,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let annotation = mapView.selectedAnnotations.first,
             let annotationView = mapView.view(for: annotation)
             else {
-                deselectAllAnnotations()
             return
         }
         coordinator.animate(alongsideTransition: { (context) in
