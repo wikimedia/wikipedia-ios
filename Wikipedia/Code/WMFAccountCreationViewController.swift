@@ -148,18 +148,21 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if (textField == usernameField) {
+        switch textField {
+        case usernameField:
             passwordField.becomeFirstResponder()
-        } else if (textField == passwordField) {
+        case passwordField:
             passwordRepeatField.becomeFirstResponder()
-        } else if (textField == passwordRepeatField) {
+        case passwordRepeatField:
             emailField.becomeFirstResponder()
-        } else if (textField == emailField) {
+        case emailField:
             if showCaptchaContainer {
                 captchaViewController?.captchaTextBoxBecomeFirstResponder()
             }else{
                 save()
             }
+        default:
+            assert(false, "Unhandled text field")
         }
         return true
     }

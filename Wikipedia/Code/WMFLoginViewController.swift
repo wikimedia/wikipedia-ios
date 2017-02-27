@@ -120,14 +120,17 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     }
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if (textField == usernameField) {
+        switch textField {
+        case usernameField:
             passwordField.becomeFirstResponder()
-        } else if (textField == passwordField) {
+        case passwordField:
             if showCaptchaContainer {
                 captchaViewController?.captchaTextBoxBecomeFirstResponder()
             }else{
                 save()
             }
+        default:
+            assert(false, "Unhandled text field")
         }
         return true
     }
