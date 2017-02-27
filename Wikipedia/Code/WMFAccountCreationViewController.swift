@@ -78,8 +78,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("account-creation-password-placeholder-text")
         passwordRepeatField.placeholder = localizedStringForKeyFallingBackOnEnglish("account-creation-password-confirm-placeholder-text")
         emailField.placeholder = localizedStringForKeyFallingBackOnEnglish("account-creation-email-placeholder-text")
-
-        scrollView.keyboardDismissMode = .interactive
         
         usernameUnderlineHeight.constant = 1.0 / UIScreen.main.scale
         passwordUnderlineHeight.constant = usernameUnderlineHeight.constant;
@@ -88,7 +86,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
 
         loginButton.textColor = UIColor.wmf_blueTint()
         loginButton.text = localizedStringForKeyFallingBackOnEnglish("account-creation-login")
-        loginButton.isUserInteractionEnabled = true
         
         loginButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(loginButtonPushed(_:))))
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("navbar-title-mode-create-account")

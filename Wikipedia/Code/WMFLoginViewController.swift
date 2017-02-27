@@ -42,7 +42,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         forgotPasswordButton.textColor = UIColor.wmf_blueTint()
 
         createAccountButton.text = localizedStringForKeyFallingBackOnEnglish("login-account-creation")
-        createAccountButton.isUserInteractionEnabled = true
         
         createAccountButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAccountButtonPushed(_:))))
 
@@ -52,8 +51,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
 
         usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("login-username-placeholder-text")
         passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("login-password-placeholder-text")
-
-        scrollView.keyboardDismissMode = .interactive
 
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("navbar-title-mode-login")
         captchaTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-title")
