@@ -16,6 +16,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     let animationDuration = 0.6
     let animationScale = CGFloat(0.6)
     let popoverFadeDuration = 0.25
+    let searchHistoryCountLimit = 15
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var progressView: UIProgressView!
@@ -1196,7 +1197,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 request.predicate = NSPredicate(format: "group == %@", searchHistoryGroup)
                 request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
                 let results = try moc.fetch(request)
-                recentSearches = try results.map({ (kv) -> PlaceSearch in
+                let count = results.count
+                if count > searchHistoryCountLimit {
+                    for result in results[searchHistoryCountLimit..<count] {
+                        moc.delete(result)
+                    }
+                }
+                let limit = min(count, searchHistoryCountLimit)
+                recentSearches = try results[0..<limit].map({ (kv) -> PlaceSearch in
                     guard let dictionary = kv.value as? [String : Any],
                         let ps = PlaceSearch(dictionary: dictionary) else {
                             throw NSError()
