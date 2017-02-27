@@ -123,7 +123,11 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         if (textField == usernameField) {
             passwordField.becomeFirstResponder()
         } else if (textField == passwordField) {
-            save()
+            if showCaptchaContainer {
+                captchaViewController?.captchaTextBoxBecomeFirstResponder()
+            }else{
+                save()
+            }
         }
         return true
     }
@@ -260,11 +264,21 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             UIView.animate(withDuration: 0.4, animations: {
                 self.setCaptchaAlpha(self.showCaptchaContainer ? 1 : 0)
             }, completion: { _ in
+                self.updatePasswordFieldReturnKeyType()
                 self.enableProgressiveButtonIfNecessary()
             })
         }
     }
 
+    fileprivate func updatePasswordFieldReturnKeyType() {
+        self.passwordField.returnKeyType = self.showCaptchaContainer ? .next : .done
+        // Resign and become first responder so keyboard return key updates right away.
+        if self.passwordField.isFirstResponder {
+            self.passwordField.resignFirstResponder()
+            self.passwordField.becomeFirstResponder()
+        }
+    }
+    
     fileprivate func setCaptchaAlpha(_ alpha: CGFloat) {
         captchaContainer.alpha = alpha
         captchaTitleLabel.alpha = alpha
