@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  CLLocationmanager doesn't always immediately listen to the request for stopping location updates
  *  We use this to ignore events after a stop has been requested
  */
-@property (nonatomic, assign, readwrite, getter=isUpdating) BOOL updating;
+@property (nonatomic, readwrite, getter=isUpdating) BOOL updating;
 
 /**
  *  Whether or not the receiver made the request for location authorization in order to begin updating location.

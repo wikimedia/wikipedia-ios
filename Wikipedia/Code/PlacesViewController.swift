@@ -1053,12 +1053,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         articleVC.configureView(withTraitCollection: traitCollection)
         
         let articleLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        let userCoordinate = mapView.userLocation.coordinate
-        let userLocation = CLLocation(latitude: userCoordinate.latitude, longitude: userCoordinate.longitude)
-        
-        let distance = articleLocation.distance(from: userLocation)
-        let distanceString = MKDistanceFormatter().string(fromDistance: distance)
-        articleVC.descriptionLabel.text = distanceString
+        if locationManager.isUpdating {
+            let userLocation = locationManager.location
+            let distance = articleLocation.distance(from: userLocation)
+            let distanceString = MKDistanceFormatter().string(fromDistance: distance)
+            articleVC.descriptionLabel.text = distanceString
+        } else {
+            articleVC.descriptionLabel.text = nil
+        }
         
         articleVC.view.alpha = 0
         addChildViewController(articleVC)
@@ -1342,7 +1344,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         cell.descriptionText = article.wikidataDescription
         cell.setImageURL(article.thumbnailURL)
         
-        update(userLocation: mapView.userLocation, onLocationCell: cell, withArticle: article)
+        var userLocation: CLLocation?
+        var userHeading: CLHeading?
+        
+        if locationManager.isUpdating {
+            userLocation = locationManager.location
+            userHeading = locationManager.heading
+        }
+        update(userLocation: userLocation, heading: userHeading, onLocationCell: cell, withArticle: article)
         
         return cell
     }
@@ -1370,15 +1379,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return [saveForLaterAction, shareAction]
     }
     
-    func update(userLocation: MKUserLocation, onLocationCell cell: WMFNearbyArticleTableViewCell, withArticle article: WMFArticle) {
-        guard let articleLocation = article.location, let userLocation = userLocation.location else {
+    func update(userLocation: CLLocation?, heading: CLHeading?, onLocationCell cell: WMFNearbyArticleTableViewCell, withArticle article: WMFArticle) {
+        guard let articleLocation = article.location, let userLocation = userLocation else {
+            cell.configureForUnknownDistance()
             return
         }
         
         let distance = articleLocation.distance(from: userLocation)
         cell.setDistance(distance)
         
-        if let heading = mapView.userLocation.heading  {
+        if let heading = heading  {
             let bearing = userLocation.wmf_bearing(to: articleLocation, forCurrentHeading: heading)
             cell.setBearing(bearing)
         } else {
@@ -1387,8 +1397,20 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
+    func updateDistanceFromUserOnVisibleCells() {
+        let heading = locationManager.heading
+        let location = locationManager.location
+        for indexPath in listView.indexPathsForVisibleRows ?? [] {
+            guard let locationCell = tableView(listView, cellForRowAt: indexPath) as? WMFNearbyArticleTableViewCell else {
+                continue
+            }
+            let article = articleFetchedResultsController.object(at: indexPath)
+            update(userLocation: location, heading: heading, onLocationCell: locationCell, withArticle: article)
+        }
+    }
+
     // MARK: UITableViewDelegate
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let article = articleFetchedResultsController.object(at: indexPath)
         perform(action: .read, onArticle: article)
@@ -1439,6 +1461,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     var panMapToNextLocationUpdate = true
     
     func locationManager(_ controller: WMFLocationManager, didUpdate location: CLLocation) {
+        updateDistanceFromUserOnVisibleCells()
         guard panMapToNextLocationUpdate else {
             return
         }
@@ -1451,7 +1474,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func locationManager(_ controller: WMFLocationManager, didUpdate heading: CLHeading) {
         updateUserLocationAnnotationViewHeading(heading)
-
+        updateDistanceFromUserOnVisibleCells()
     }
     
     func locationManager(_ controller: WMFLocationManager, didChangeEnabledState enabled: Bool) {
