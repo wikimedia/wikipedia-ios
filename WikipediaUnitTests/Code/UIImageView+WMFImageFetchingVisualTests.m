@@ -49,6 +49,10 @@
     [self verifyCenteringOfFacesInFixtureNamed:@"golden-gate.jpg"];
 }
 
+- (void)testImageShorterThanViewIsNotStretched {
+    [self verifyCenteringOfFacesInFixtureNamed:@"640px-Shoso-in.jpg"];
+}
+
 #pragma mark - Utils
 
 - (void)verifyCenteringOfFacesInFixtureNamed:(NSString *)imageFixtureName {

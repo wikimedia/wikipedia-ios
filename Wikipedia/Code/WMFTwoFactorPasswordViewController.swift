@@ -1,7 +1,7 @@
 
 import UIKit
 
-class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate {
+class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDelegate {
     
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var subTitleLabel: UILabel!
@@ -14,6 +14,8 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
     
     public var userName:String?
     public var password:String?
+    public var captchaID:String?
+    public var captchaWord:String?
     
     func doneButtonPushed(_ : UIBarButtonItem) {
         save()
@@ -116,6 +118,8 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
                    password: password,
                    retypePassword: nil,
                    oathToken: token(),
+                   captchaID: captchaID,
+                   captchaWord: captchaWord,
                    success: { _ in
                     let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: userName)
                     WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
