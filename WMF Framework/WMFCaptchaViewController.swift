@@ -39,6 +39,9 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet fileprivate var captchaImageView: UIImageView!
     @IBOutlet fileprivate var captchaTextBox: UITextField!
     @IBOutlet fileprivate var reloadCaptchaButton: UIButton!
+    @IBOutlet fileprivate var stackView: UIStackView!
+    @IBOutlet fileprivate var titleLabel: UILabel!
+    @IBOutlet fileprivate var subTitleLabel: UILabel!
 
     public var captchaDelegate: WMFCaptchaViewControllerDelegate?
     fileprivate let captchaResetter = WMFCaptchaResetter()
