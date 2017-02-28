@@ -44,6 +44,11 @@ Runs linting (and eventually static analysis)
 fastlane ios verify_test_platforms
 ```
 Runs tests on the primary platforms and configurations
+### ios verify_pull_request
+```
+fastlane ios verify_pull_request
+```
+Runs tests on select platforms for verifying pull requests
 ### ios verify
 ```
 fastlane ios verify

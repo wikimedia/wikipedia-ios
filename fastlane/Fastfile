@@ -54,6 +54,16 @@ platform :ios do
     )
   end
 
+  desc "Runs tests on select platforms for verifying pull requests"
+  lane :verify_pull_request do
+    verify(
+     sim: 'iPhone 6s (10.2)'
+    )
+    verify(
+     sim: 'iPad Air 2 (9.3)'
+    )
+  end
+
   desc "Runs unit tests, optionally generating a JUnit report."
   lane :verify do |options|
     scheme = options[:scheme] || 'Wikipedia'
