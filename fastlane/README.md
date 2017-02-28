@@ -53,7 +53,7 @@ Runs tests on select platforms for verifying pull requests
 ```
 fastlane ios verify
 ```
-Runs unit tests, optionally generating a JUnit report.
+Runs unit tests, generates JUnit report.
 ### ios bump_build
 ```
 fastlane ios bump_build
