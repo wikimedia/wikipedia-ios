@@ -1284,6 +1284,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             self.articleFetcherPromise = nil;
         }
         success:^(MWKArticle *_Nonnull article) {
+            
             @strongify(self);
             [self.pullToRefresh endRefreshing];
             [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];

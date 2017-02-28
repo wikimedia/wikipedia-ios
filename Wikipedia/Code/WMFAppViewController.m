@@ -324,7 +324,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     return [[UIStoryboard storyboardWithName:NSStringFromClass([WMFAppViewController class]) bundle:nil] instantiateInitialViewController];
 }
 
-- (void)launchAppInWindow:(UIWindow *)window {
+- (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
     WMFStyleManager *manager = [WMFStyleManager new];
     [manager applyStyleToWindow:window];
     [WMFStyleManager setSharedStyleManager:manager];
@@ -347,11 +347,17 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [fm removeItemAtPath:[SDImageCache wmf_imageCacheDirectory] error:nil];
     [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:NO];
 #endif
-
     [self migrateToSharedContainerIfNecessaryWithCompletion:^{
         [self migrateToNewFeedIfNecessaryWithCompletion:^{
             [self migrateToQuadKeyLocationIfNecessaryWithCompletion:^{
-                [self finishLaunch];
+                [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+                    [self loadMainUI];
+                    [self hideSplashViewAnimated:!didShowOnboarding];
+                    if (!waitToResumeApp) {
+                        [self resumeApp];
+                    }
+                    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
+                }];
             }];
         }];
     }];
@@ -404,17 +410,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }];
 }
 
-- (void)finishLaunch {
-    @weakify(self)
-        [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
-            @strongify(self)
-                [self loadMainUI];
-            [self hideSplashViewAnimated:!didShowOnboarding];
-            [self resumeApp];
-            [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
-        }];
-}
-
 #pragma mark - Start/Pause/Resume App
 
 - (void)resumeApp {
@@ -424,6 +419,16 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
     if (![self uiIsLoaded]) {
         return;
+    }
+    
+    if (self.unprocessedUserActivity) {
+        [self processUserActivity:self.unprocessedUserActivity];
+    } else if (self.unprocessedShortcutItem) {
+        [self processShortcutItem:self.unprocessedShortcutItem completion:NULL];
+    } else if ([self shouldShowLastReadArticleOnLaunch]) {
+        [self showLastReadArticleAnimated:NO];
+    } else if ([self shouldShowExploreScreenOnLaunch]) {
+        [self showExplore];
     }
 
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
@@ -456,15 +461,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
     [self.savedArticlesFetcher start];
 
-    if (self.unprocessedUserActivity) {
-        [self processUserActivity:self.unprocessedUserActivity];
-    } else if (self.unprocessedShortcutItem) {
-        [self processShortcutItem:self.unprocessedShortcutItem completion:NULL];
-    } else if ([self shouldShowLastReadArticleOnLaunch]) {
-        [self showLastReadArticleAnimated:NO];
-    } else if ([self shouldShowExploreScreenOnLaunch]) {
-        [self showExplore];
-    }
 
 #if FB_TWEAK_ENABLED
     if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {

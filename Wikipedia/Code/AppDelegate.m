@@ -19,6 +19,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 @interface AppDelegate ()
 
 @property (nonatomic, strong) WMFAppViewController *appViewController;
+@property (nonatomic) BOOL appNeedsResume;
 
 @end
 
@@ -99,9 +100,11 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     [[NSUserDefaults wmf_userDefaults] wmf_setAppLaunchDate:[NSDate date]];
     [[NSUserDefaults wmf_userDefaults] wmf_setAppInstallDateIfNil:[NSDate date]];
 
+    NSDictionary *userAcivityDictionary = launchOptions[UIApplicationLaunchOptionsUserActivityDictionaryKey];
+    self.appNeedsResume = userAcivityDictionary != nil;
     WMFAppViewController *vc = [WMFAppViewController initialAppViewControllerFromDefaultStoryBoard];
     [UNUserNotificationCenter currentNotificationCenter].delegate = vc; // this needs to be set before the end of didFinishLaunchingWithOptions:
-    [vc launchAppInWindow:self.window];
+    [vc launchAppInWindow:self.window waitToResumeApp:self.appNeedsResume];
     self.appViewController = vc;
 
     [self updateDynamicIconShortcutItems];
@@ -122,6 +125,15 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     [self.appViewController processShortcutItem:shortcutItem completion:completionHandler];
 }
 
+#pragma mark - AppVC Resume
+
+- (void)resumeAppIfNecessary {
+    if (self.appNeedsResume) {
+        [self.appViewController resumeApp];
+        self.appNeedsResume = false;
+    }
+}
+
 #pragma mark - NSUserActivity Handling
 
 - (BOOL)application:(UIApplication *)application willContinueUserActivityWithType:(NSString *)userActivityType {
@@ -129,7 +141,9 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 }
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
-    return [self.appViewController processUserActivity:userActivity];
+    BOOL result = [self.appViewController processUserActivity:userActivity];
+    [self resumeAppIfNecessary];
+    return result;
 }
 
 - (void)application:(UIApplication *)application didFailToContinueUserActivityWithType:(NSString *)userActivityType error:(NSError *)error {
@@ -158,6 +172,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     } else {
         return NO;
     }
+    [self resumeAppIfNecessary];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
