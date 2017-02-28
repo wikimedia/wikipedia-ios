@@ -50,7 +50,6 @@ platform :ios do
     )
     verify(
      sim: 'iPhone 6s (10.2)',
-     junit: true
     )
   end
 
@@ -58,15 +57,13 @@ platform :ios do
   lane :verify_pull_request do
     verify(
      sim: 'iPad Air 2 (9.3)',
-     junit: true
     )
     verify(
      sim: 'iPhone 6s (10.2)',
-     junit: true
     )
   end
 
-  desc "Runs unit tests, optionally generating a JUnit report."
+  desc "Runs unit tests, generates JUnit report."
   lane :verify do |options|
     scheme = options[:scheme] || 'Wikipedia'
     sim = options[:sim] || 'iPhone 6s (10.2)'
@@ -81,7 +78,8 @@ platform :ios do
       :code_coverage => true,
       :xcargs => "TRAVIS=#{ENV["TRAVIS"]}"
     }
-    opts[:output_types] = options[:junit] ? "junit" : ""
+    opts[:custom_report_file_name] = "#{scheme} #{sim}.junit"
+    opts[:output_types] = 'junit'
     scan(opts)
   end
   
