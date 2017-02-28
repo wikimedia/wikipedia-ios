@@ -579,7 +579,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         default:
             deselectAllAnnotations()
             listView.isHidden = false
-            listView.reloadData()
+            updateDistanceFromUserOnVisibleCells()
         }
     }
     
@@ -1343,6 +1343,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         cell.titleText = article.displayTitle
         cell.descriptionText = article.wikidataDescription
         cell.setImageURL(article.thumbnailURL)
+        cell.articleLocation = article.location
         
         var userLocation: CLLocation?
         var userHeading: CLHeading?
@@ -1351,7 +1352,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             userLocation = locationManager.location
             userHeading = locationManager.heading
         }
-        update(userLocation: userLocation, heading: userHeading, onLocationCell: cell, withArticle: article)
+        update(userLocation: userLocation, heading: userHeading, onLocationCell: cell)
         
         return cell
     }
@@ -1379,8 +1380,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return [saveForLaterAction, shareAction]
     }
     
-    func update(userLocation: CLLocation?, heading: CLHeading?, onLocationCell cell: WMFNearbyArticleTableViewCell, withArticle article: WMFArticle) {
-        guard let articleLocation = article.location, let userLocation = userLocation else {
+    func update(userLocation: CLLocation?, heading: CLHeading?, onLocationCell cell: WMFNearbyArticleTableViewCell) {
+        guard let articleLocation = cell.articleLocation, let userLocation = userLocation else {
             cell.configureForUnknownDistance()
             return
         }
@@ -1398,14 +1399,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func updateDistanceFromUserOnVisibleCells() {
+        guard !listView.isHidden else {
+            return
+        }
         let heading = locationManager.heading
         let location = locationManager.location
-        for indexPath in listView.indexPathsForVisibleRows ?? [] {
-            guard let locationCell = tableView(listView, cellForRowAt: indexPath) as? WMFNearbyArticleTableViewCell else {
+        for cell in listView.visibleCells {
+            guard let locationCell = cell as? WMFNearbyArticleTableViewCell else {
                 continue
             }
-            let article = articleFetchedResultsController.object(at: indexPath)
-            update(userLocation: location, heading: heading, onLocationCell: locationCell, withArticle: article)
+            update(userLocation: location, heading: heading, onLocationCell: locationCell)
         }
     }
 
