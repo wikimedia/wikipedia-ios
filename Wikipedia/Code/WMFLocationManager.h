@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) CLHeading *heading;
 
+@property (nonatomic, readonly, getter=isUpdating) BOOL updating;
+
 + (instancetype)fineLocationManager;
 
 + (instancetype)coarseLocationManager;
