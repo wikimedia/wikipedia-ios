@@ -937,12 +937,12 @@ var getTableHeader = function getTableHeader(element, pageTitle) {
   return thArray;
 };
 
-var CollapseElement = {
+var CollapseTable = {
   getTableHeader: getTableHeader
 };
 
 var index = {
-  CollapseElement: CollapseElement
+  CollapseTable: CollapseTable
 };
 
 module.exports = index;
