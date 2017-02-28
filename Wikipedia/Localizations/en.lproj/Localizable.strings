@@ -61,6 +61,7 @@
 "account-creation-password-confirm-placeholder-text" = "Confirm password";
 "account-creation-email-placeholder-text" = "Email (optional)";
 "account-creation-missing-fields" = "You must enter a username, password, and password confirmation to create an account.";
+"account-creation-create-account" = "Create your account";
 
 "new-password-title" = "Set your password";
 "new-password-instructions" = "You logged in with a temporary password. To finish logging in set a new password here.";
@@ -70,6 +71,7 @@
 "two-factor-login-title" = "Log in to your account";
 "two-factor-login-instructions" = "Please enter two factor verification code";
 "two-factor-login-token-title" = "Token";
+"two-factor-login-continue" = "Continue log in";
 
 "login-name-not-found" = "Username is required to login.";
 "login-name-illegal" = "You provided an illegal username.";
