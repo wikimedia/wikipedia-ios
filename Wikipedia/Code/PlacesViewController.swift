@@ -16,6 +16,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     let animationDuration = 0.6
     let animationScale = CGFloat(0.6)
     let popoverFadeDuration = 0.25
+    let searchHistoryCountLimit = 15
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var progressView: UIProgressView!
@@ -65,7 +66,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         mapView.showsTraffic = false
         mapView.showsPointsOfInterest = false
         mapView.showsScale = false
-        mapView.showsUserLocation = true
+        mapView.showsUserLocation = false
         
         // Setup location manager
         locationManager.delegate = self
@@ -119,12 +120,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        let defaults = UserDefaults.wmf_userDefaults()
+        if !defaults.wmf_placesHasAppeared() {
+            defaults.wmf_setPlacesHasAppeared(true)
+        }
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         guard WMFLocationManager.isAuthorized() else {
-            if !UserDefaults.wmf_userDefaults().wmf_placesDidPromptForLocationAuthorization() {
-                UserDefaults.wmf_userDefaults().wmf_setPlacesDidPromptForLocationAuthorization(true)
+            if !defaults.wmf_placesDidPromptForLocationAuthorization() {
+                defaults.wmf_setPlacesDidPromptForLocationAuthorization(true)
                 promptForLocationAccess()
             } else {
                 performDefaultSearchOnNextMapRegionUpdate = currentSearch == nil
@@ -133,6 +139,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         locationManager.startMonitoringLocation()
+        mapView.showsUserLocation = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -140,6 +147,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         locationManager.stopMonitoringLocation()
+        mapView.showsUserLocation = false
     }
     
     // MARK: MKMapViewDelegate
@@ -488,8 +496,30 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func updatePlaces(withSearchResults searchResults: [MWKLocationSearchResult]) {
-        let articleURLToSelect = currentSearch?.searchResult?.articleURL(forSiteURL: siteURL) ?? searchResults.first?.articleURL(forSiteURL: siteURL)
-        articleKeyToSelect = (articleURLToSelect as NSURL?)?.wmf_articleDatabaseKey
+        if let searchSuggestionArticleURL = currentSearch?.searchResult?.articleURL(forSiteURL: siteURL),
+            let searchSuggestionArticleKey = (searchSuggestionArticleURL as NSURL?)?.wmf_articleDatabaseKey { // the user tapped an article in the search suggestions list, so we should select that
+            articleKeyToSelect = searchSuggestionArticleKey
+        } else if let centerCoordinate = currentSearch?.region?.center ?? mapRegion?.center {
+            let center = CLLocation(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude)
+            var minDistance = CLLocationDistance(DBL_MAX)
+            var resultToSelect: MWKLocationSearchResult?
+            for result in searchResults {
+                guard let location = result.location else {
+                    continue
+                }
+                let distance = location.distance(from: center)
+                if distance < minDistance {
+                    minDistance = distance
+                    resultToSelect = result
+                }
+            }
+            let resultURL = resultToSelect?.articleURL(forSiteURL: siteURL)
+            articleKeyToSelect = (resultURL as NSURL?)?.wmf_articleDatabaseKey
+        } else {
+            let firstResultURL = searchResults.first?.articleURL(forSiteURL: siteURL)
+            articleKeyToSelect = (firstResultURL as NSURL?)?.wmf_articleDatabaseKey
+        }
+        
         var foundKey = false
         var keysToFetch: [String] = []
         var sort = 0
@@ -509,7 +539,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             sort += 1
         }
         
-        if !foundKey, let keyToFetch = articleKeyToSelect, let URL = articleURLToSelect, let searchResult = currentSearch?.searchResult {
+        if !foundKey, let keyToFetch = articleKeyToSelect, let URL = URL(string: keyToFetch), let searchResult = currentSearch?.searchResult {
             articleStore.addPreview(with: URL, updatedWith: searchResult)
             keysToFetch.append(keyToFetch)
         }
@@ -1056,7 +1086,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let annotation = mapView.selectedAnnotations.first,
             let annotationView = mapView.view(for: annotation)
             else {
-                deselectAllAnnotations()
             return
         }
         coordinator.animate(alongsideTransition: { (context) in
@@ -1167,7 +1196,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 request.predicate = NSPredicate(format: "group == %@", searchHistoryGroup)
                 request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
                 let results = try moc.fetch(request)
-                recentSearches = try results.map({ (kv) -> PlaceSearch in
+                let count = results.count
+                if count > searchHistoryCountLimit {
+                    for result in results[searchHistoryCountLimit..<count] {
+                        moc.delete(result)
+                    }
+                }
+                let limit = min(count, searchHistoryCountLimit)
+                recentSearches = try results[0..<limit].map({ (kv) -> PlaceSearch in
                     guard let dictionary = kv.value as? [String : Any],
                         let ps = PlaceSearch(dictionary: dictionary) else {
                             throw NSError()

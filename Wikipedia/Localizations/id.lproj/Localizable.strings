@@ -483,4 +483,5 @@
 "places-search-suggested-searches-header" = "Penelusuran yang disarankan";
 "places-search-recently-searched-header" = "Ditelusuri baru-baru ini";
 "action-share" = "Bagikan";
-"action-unsave" = "Jangan simpan";
+"action-save" = "Simpan";
+"action-read" = "Baca";

@@ -44,11 +44,16 @@ Runs linting (and eventually static analysis)
 fastlane ios verify_test_platforms
 ```
 Runs tests on the primary platforms and configurations
+### ios verify_pull_request
+```
+fastlane ios verify_pull_request
+```
+Runs tests on select platforms for verifying pull requests
 ### ios verify
 ```
 fastlane ios verify
 ```
-Runs unit tests, optionally generating a JUnit report.
+Runs unit tests, generates JUnit report.
 ### ios bump_build
 ```
 fastlane ios bump_build

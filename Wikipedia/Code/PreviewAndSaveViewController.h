@@ -8,14 +8,12 @@
 
 @end
 
-@interface PreviewAndSaveViewController : UIViewController <WMFCaptchaViewControllerRefresh>
+@interface PreviewAndSaveViewController : UIViewController
 
 @property (strong, nonatomic) MWKSection *section;
 @property (strong, nonatomic) NSString *wikiText;
 @property (strong, nonatomic) EditFunnel *funnel;
 @property (strong, nonatomic) SavedPagesFunnel *savedPagesFunnel;
-
-- (void)reloadCaptchaPushed:(id)sender;
 
 @property (strong, nonatomic) NSString *summaryText;
 
