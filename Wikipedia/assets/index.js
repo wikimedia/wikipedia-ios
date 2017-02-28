@@ -493,7 +493,7 @@ transformer.register( "addImageOverflowXContainers", function( content ) {
 },{"../transformer":6,"../utilities":13}],8:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
-var getTableHeader = require("applib").CollapseElement.getTableHeader;
+var getTableHeader = require("applib").CollapseTable.getTableHeader;
 
 /*
 OnClick handler function for expanding/collapsing tables and infoboxes.

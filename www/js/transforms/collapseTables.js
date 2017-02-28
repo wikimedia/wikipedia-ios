@@ -1,6 +1,6 @@
 var transformer = require("../transformer");
 var utilities = require("../utilities");
-var getTableHeader = require("applib").CollapseElement.getTableHeader;
+var getTableHeader = require("applib").CollapseTable.getTableHeader;
 
 /*
 OnClick handler function for expanding/collapsing tables and infoboxes.
