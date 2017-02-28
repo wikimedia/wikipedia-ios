@@ -6,6 +6,7 @@
 #import <Tweaks/FBTweakShakeWindow.h>
 #import "NSUserActivity+WMFExtensions.h"
 #import "Wikipedia-Swift.h"
+#import "NSFileManager+WMFGroup.h"
 @import UserNotifications;
 
 #if WMF_UX_STUDY_ENABLED
@@ -80,6 +81,8 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 #if DEBUG
     NSLog(@"\n\nSimulator documents directory:\n\t%@\n\n",
           [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]);
+    NSLog(@"\n\nSimulator container directory:\n\t\%@\n\n",
+          [[NSFileManager defaultManager] wmf_containerPath]);
 #endif
 
 #if WMF_UX_STUDY_ENABLED
