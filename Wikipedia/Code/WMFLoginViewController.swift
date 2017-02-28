@@ -9,7 +9,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     @IBOutlet fileprivate var usernameUnderlineHeight: NSLayoutConstraint!
     @IBOutlet fileprivate var passwordUnderlineHeight: NSLayoutConstraint!
     @IBOutlet fileprivate var titleLabel: UILabel!
-    @IBOutlet fileprivate var captchaTitleLabel: UILabel!
     @IBOutlet fileprivate var captchaContainer: UIView!
 
     @IBOutlet fileprivate var loginContainerView: UIView!
@@ -53,7 +52,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("login-password-placeholder-text")
 
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("navbar-title-mode-login")
-        captchaTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-title")
 
         usernameUnderlineHeight.constant = 1.0 / UIScreen.main.scale
         passwordUnderlineHeight.constant = 1.0 / UIScreen.main.scale
@@ -266,6 +264,10 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         save()
     }
 
+    public func captchaShouldShowSubtitle() -> Bool {
+        return false
+    }
+
     fileprivate var showCaptchaContainer: Bool = false {
         didSet {
             UIView.animate(withDuration: 0.4, animations: {
@@ -288,6 +290,5 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     
     fileprivate func setCaptchaAlpha(_ alpha: CGFloat) {
         captchaContainer.alpha = alpha
-        captchaTitleLabel.alpha = alpha
     }
 }

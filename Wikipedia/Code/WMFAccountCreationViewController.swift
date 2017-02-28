@@ -14,8 +14,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     @IBOutlet fileprivate var passwordConfirmUnderlineHeight: NSLayoutConstraint!
     @IBOutlet fileprivate var emailUnderlineHeight: NSLayoutConstraint!
     @IBOutlet fileprivate var createAccountContainerView: UIView!
-    @IBOutlet fileprivate var captchaTitleLabel: UILabel!
-    @IBOutlet fileprivate var captchaSubtitleLabel: UILabel!
 
     let accountCreationInfoFetcher = WMFAuthAccountCreationInfoFetcher()
     let tokenFetcher = WMFAuthTokenFetcher()
@@ -77,33 +75,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         loginButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(loginButtonPushed(_:))))
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("navbar-title-mode-create-account")
        
-        captchaTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-title")
-        
-        // Reminder: used a label instead of a button for subtitle because of multi-line string issues with UIButton.
-        captchaSubtitleLabel.attributedText = captchaSubtitleAttributedString
-        captchaSubtitleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(requestAnAccountTapped(_:))))
-
         view.wmf_configureSubviewsForDynamicType()
-    }
-
-    func requestAnAccountTapped(_ recognizer: UITapGestureRecognizer) {
-        wmf_openExternalUrl(URL.init(string: "https://en.wikipedia.org/wiki/Wikipedia:Request_an_account"))
-    }
-
-    fileprivate var captchaSubtitleAttributedString: NSAttributedString {
-        get {
-            // Note: uses the font from the storyboard so the attributed string respects the
-            // storyboard dynamic type font choice and responds to dynamic type size changes.
-            let attributes: [String : Any] = [
-                NSFontAttributeName : captchaSubtitleLabel.font
-            ]
-            let substitutionAttributes: [String : Any] = [
-                NSForegroundColorAttributeName : UIColor.wmf_blueTint()
-            ]
-            let cannotSeeImageText = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-cannot-see-image")
-            let requestAccountText = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-request-account")
-            return cannotSeeImageText.attributedString(attributes: attributes, substitutionStrings: [requestAccountText], substitutionAttributes: [substitutionAttributes])
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -190,8 +162,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
 
     fileprivate func setCaptchaAlpha(_ alpha: CGFloat) {
         captchaContainer.alpha = alpha
-        captchaTitleLabel.alpha = alpha
-        captchaSubtitleLabel.alpha = alpha
     }
     
     fileprivate var showCaptchaContainer: Bool = false {
@@ -229,6 +199,10 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         return (MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL())!
     }
     
+    public func captchaShouldShowSubtitle() -> Bool {
+        return true
+    }
+
     fileprivate func login() {
         WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-logging-in"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         WMFAuthenticationManager.sharedInstance.login(

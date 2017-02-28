@@ -9,6 +9,7 @@ import UIKit
     func captchaSolutionChanged(_ sender: AnyObject, solutionText: String?)
     func captchaSiteURL() -> URL
     func captchaKeyboardReturnKeyTapped()
+    func captchaShouldShowSubtitle() -> Bool
 }
 
 public class WMFCaptcha: NSObject {
@@ -129,13 +130,41 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard captchaDelegate != nil else{
+        guard let captchaDelegate = captchaDelegate else{
             assert(false, "Required delegate is unset")
         }
         reloadCaptchaButton.setTitle(localizedStringForKeyFallingBackOnEnglish("captcha-reload"), for: .normal)
         captchaTextBox.placeholder = localizedStringForKeyFallingBackOnEnglish("captcha-prompt")
         reloadCaptchaButton.setTitleColor(UIColor.darkGray, for: .disabled)
         reloadCaptchaButton.setTitleColor(UIColor.darkGray, for: .normal)
+        
+        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-title")
+        
+        // Reminder: used a label instead of a button for subtitle because of multi-line string issues with UIButton.
+        subTitleLabel.attributedText = subTitleAttributedString
+        subTitleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(requestAnAccountTapped(_:))))
+    
+        subTitleLabel.isHidden = !captchaDelegate.captchaShouldShowSubtitle()
+    }
+    
+    func requestAnAccountTapped(_ recognizer: UITapGestureRecognizer) {
+        wmf_openExternalUrl(URL.init(string: "https://en.wikipedia.org/wiki/Wikipedia:Request_an_account"))
+    }
+
+    fileprivate var subTitleAttributedString: NSAttributedString {
+        get {
+            // Note: uses the font from the storyboard so the attributed string respects the
+            // storyboard dynamic type font choice and responds to dynamic type size changes.
+            let attributes: [String : Any] = [
+                NSFontAttributeName : subTitleLabel.font
+            ]
+            let substitutionAttributes: [String : Any] = [
+                NSForegroundColorAttributeName : UIColor.wmf_blueTint()
+            ]
+            let cannotSeeImageText = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-cannot-see-image")
+            let requestAccountText = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-request-account")
+            return cannotSeeImageText.attributedString(attributes: attributes, substitutionStrings: [requestAccountText], substitutionAttributes: [substitutionAttributes])
+        }
     }
     
     func captchaReloadPushed(_ sender: AnyObject) {
