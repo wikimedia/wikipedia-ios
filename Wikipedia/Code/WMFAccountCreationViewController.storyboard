@@ -172,7 +172,7 @@
                                                 <rect key="frame" x="48" y="339" width="280" height="163"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="163" id="S8T-dk-ANv"/>
+                                                    <constraint firstAttribute="height" constant="163" placeholder="YES" id="S8T-dk-ANv"/>
                                                     <constraint firstAttribute="width" constant="280" id="bC9-aK-J8r"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
