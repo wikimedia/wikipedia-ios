@@ -109,7 +109,8 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 
     UIImage *cachedImage = [self wmf_cachedImage];
     if (cachedImage) {
-        [self wmf_setImage:cachedImage detectFaces:detectFaces onGPU:onGPU animated:NO failure:failure success:success];
+        NSData *cachedImageData = cachedImage.isGIF ? [[self wmf_imageController] diskDataForImageWithURL:imageURL] : nil;
+        [self wmf_setImage:cachedImage data:cachedImageData detectFaces:detectFaces onGPU:onGPU animated:NO failure:failure success:success];
         return;
     }
 
@@ -125,13 +126,14 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
                                                     failure([NSError wmf_cancelledError]);
                                                 } else {
                                                     self.wmf_imageURLToCancel = nil;
-                                                    [self wmf_setImage:download.image detectFaces:detectFaces onGPU:onGPU animated:YES failure:failure success:success];
+                                                    [self wmf_setImage:download.image data:download.data detectFaces:detectFaces onGPU:onGPU animated:YES failure:failure success:success];
                                                 }
                                             });
                                         }];
 }
 
 - (void)wmf_setImage:(UIImage *)image
+                data:(NSData *)data
          detectFaces:(BOOL)detectFaces
                onGPU:(BOOL)onGPU
             animated:(BOOL)animated
@@ -139,13 +141,13 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
              success:(WMFSuccessHandler)success {
     NSAssert([NSThread isMainThread], @"Interaction with a UIImageView should only happen on the main thread");
     if (!detectFaces) {
-        [self wmf_setImage:image detectFaces:detectFaces faceBoundsValue:nil animated:animated failure:failure success:success];
+        [self wmf_setImage:image data:data detectFaces:detectFaces faceBoundsValue:nil animated:animated failure:failure success:success];
         return;
     }
 
     if (![self wmf_imageRequiresFaceDetection]) {
         NSValue *faceBoundsValue = [self wmf_faceBoundsInImage:image];
-        [self wmf_setImage:image detectFaces:detectFaces faceBoundsValue:faceBoundsValue animated:animated failure:failure success:success];
+        [self wmf_setImage:image data:data detectFaces:detectFaces faceBoundsValue:faceBoundsValue animated:animated failure:failure success:success];
         return;
     }
 
@@ -158,13 +160,14 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
                                    if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
                                        failure([NSError wmf_cancelledError]);
                                    } else {
-                                       [self wmf_setImage:image detectFaces:detectFaces faceBoundsValue:bounds animated:animated failure:failure success:success];
+                                       [self wmf_setImage:image data:data detectFaces:detectFaces faceBoundsValue:bounds animated:animated failure:failure success:success];
                                    }
                                });
                            }];
 }
 
 - (void)wmf_setImage:(UIImage *)image
+                data:(NSData *)data
          detectFaces:(BOOL)detectFaces
      faceBoundsValue:(nullable NSValue *)faceBoundsValue
             animated:(BOOL)animated
@@ -191,11 +194,13 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     
     self.image = image;
     
-    if (image.isGIF && [self isKindOfClass:[FLAnimatedImageView class]]) {
-        NSURL *imageURL = [self wmf_imageURLToFetch];
-        FLAnimatedImage *animatedImage = [FLAnimatedImage animatedImageWithGIFData: [[self wmf_imageController] diskDataForImageWithURL:imageURL]];
-        FLAnimatedImageView *animatedImageView = ((FLAnimatedImageView*) self);
-        animatedImageView.animatedImage = animatedImage;
+    if ([self isKindOfClass:[FLAnimatedImageView class]] && image.isGIF && data) {
+        FLAnimatedImage *animatedImage = [FLAnimatedImage animatedImageWithGIFData:data];
+        if (animatedImage)
+        {
+            FLAnimatedImageView *animatedImageView = ((FLAnimatedImageView*)self);
+            animatedImageView.animatedImage = animatedImage;
+        }
     }
     
     if (animated) {

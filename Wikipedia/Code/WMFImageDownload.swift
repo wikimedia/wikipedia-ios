@@ -52,18 +52,21 @@ open class WMFImageDownload: NSObject {
     open var url: URL
     open var image: UIImage
     open var origin: ImageOrigin
+    open var data: Data
     
     
-    public init(url: URL, image: UIImage, origin: ImageOrigin) {
+    public init(url: URL, image: UIImage, origin: ImageOrigin, data: Data) {
         self.url = url
         self.image = image
         self.origin = origin
+        self.data = data
     }
     
     
-    public init(url: URL, image: UIImage, originRawValue: Int) {
+    public init(url: URL, image: UIImage, originRawValue: Int, data: Data) {
         self.url = url
         self.image = image
         self.origin = ImageOrigin(rawValue: originRawValue)!
+        self.data = data
     }
 }
