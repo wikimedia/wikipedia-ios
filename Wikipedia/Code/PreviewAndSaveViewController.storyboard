@@ -109,7 +109,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="163"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="163" id="16b-wr-HNw"/>
+                                                    <constraint firstAttribute="height" constant="163" placeholder="YES" id="16b-wr-HNw"/>
                                                 </constraints>
                                             </containerView>
                                         </subviews>
