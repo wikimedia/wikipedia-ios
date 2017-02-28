@@ -57,10 +57,12 @@ platform :ios do
   desc "Runs tests on select platforms for verifying pull requests"
   lane :verify_pull_request do
     verify(
-     sim: 'iPhone 6s (10.2)'
+     sim: 'iPad Air 2 (9.3)',
+     junit: true
     )
     verify(
-     sim: 'iPad Air 2 (9.3)'
+     sim: 'iPhone 6s (10.2)',
+     junit: true
     )
   end
 
