@@ -128,7 +128,7 @@
                                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZK-nT-oqo">
                                                 <rect key="frame" x="48" y="270" width="280" height="163"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="163" id="ceu-qS-peD"/>
+                                                    <constraint firstAttribute="height" constant="163" placeholder="YES" id="ceu-qS-peD"/>
                                                     <constraint firstAttribute="width" constant="280" id="xvk-0S-FZp"/>
                                                 </constraints>
                                             </containerView>

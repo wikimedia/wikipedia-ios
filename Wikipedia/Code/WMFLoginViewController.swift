@@ -106,6 +106,10 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
 
         captchaViewController = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
         captchaViewController?.captchaDelegate = self
+        
+        // Allow contained view height to control container height: http://stackoverflow.com/a/35431534/135557
+        captchaViewController?.view.translatesAutoresizingMaskIntoConstraints = false
+        
         wmf_addChildController(captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
         
         // Check if captcha is required right away. Things could be configured so captcha is required at all times.
