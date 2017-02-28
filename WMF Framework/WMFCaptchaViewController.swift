@@ -128,6 +128,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         guard captchaDelegate != nil else{
             assert(false, "Required delegate is unset")
+            return
         }
         reloadCaptchaButton.setTitle(localizedStringForKeyFallingBackOnEnglish("captcha-reload"), for: .normal)
         captchaTextBox.placeholder = localizedStringForKeyFallingBackOnEnglish("captcha-prompt")
