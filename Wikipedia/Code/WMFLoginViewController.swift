@@ -11,7 +11,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     @IBOutlet fileprivate var captchaContainer: UIView!
 
     @IBOutlet fileprivate var loginContainerView: UIView!
-    fileprivate var doneButton: UIBarButtonItem!
+    @IBOutlet fileprivate var loginButton: WMFAuthButton!
     
     public var funnel: LoginFunnel?
 
@@ -23,7 +23,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         dismiss(animated: true, completion: nil)
     }
 
-    func doneButtonPushed(_ : UIBarButtonItem) {
+    @IBAction fileprivate func loginButtonTapped(withSender sender: UIButton) {
         save()
     }
 
@@ -32,9 +32,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
 
-        doneButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("main-menu-account-login"), style: .plain, target: self, action: #selector(doneButtonPushed(_:)))
-        
-        navigationItem.rightBarButtonItem = doneButton
+        loginButton.setTitle(localizedStringForKeyFallingBackOnEnglish("main-menu-account-login"), for: .normal)
         
         createAccountButton.textColor = UIColor.wmf_blueTint()
         forgotPasswordButton.textColor = UIColor.wmf_blueTint()
@@ -66,11 +64,11 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     }
     
     fileprivate func enableProgressiveButtonIfNecessary() {
-        navigationItem.rightBarButtonItem?.isEnabled = shouldProgressiveButtonBeEnabled()
+        loginButton.isEnabled = shouldProgressiveButtonBeEnabled()
     }
     
     fileprivate func disableProgressiveButton() {
-        navigationItem.rightBarButtonItem?.isEnabled = false
+        loginButton.isEnabled = false
     }
     
     fileprivate func shouldProgressiveButtonBeEnabled() -> Bool {
