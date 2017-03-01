@@ -149,6 +149,7 @@
 		B027447B1E62471D00E7B248 /* WMFScrollable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027447A1E62471D00E7B248 /* WMFScrollable.swift */; };
 		B027447D1E6253E200E7B248 /* WMFScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027447C1E6253E200E7B248 /* WMFScrollViewController.swift */; };
 		B027447F1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027447E1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift */; };
+		B027FD281E678F5C005644A9 /* WMFAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027FD271E678F5C005644A9 /* WMFAuthButton.swift */; };
 		B02B82751C696ECA00B19309 /* WMFSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B02B82731C696ECA00B19309 /* WMFSettingsTableViewCell.m */; };
 		B02B82761C696ECA00B19309 /* WMFSettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B02B82741C696ECA00B19309 /* WMFSettingsTableViewCell.xib */; };
 		B02F96661DFA11DC007DA007 /* WMFArticleListTableViewCell+DynamicTypeFontTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F96651DFA11DC007DA007 /* WMFArticleListTableViewCell+DynamicTypeFontTests.swift */; };
@@ -1265,6 +1266,7 @@
 		B027447A1E62471D00E7B248 /* WMFScrollable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFScrollable.swift; sourceTree = "<group>"; };
 		B027447C1E6253E200E7B248 /* WMFScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFScrollViewController.swift; sourceTree = "<group>"; };
 		B027447E1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+WMFChildViewController.swift"; path = "Wikipedia/Code/UIViewController+WMFChildViewController.swift"; sourceTree = SOURCE_ROOT; };
+		B027FD271E678F5C005644A9 /* WMFAuthButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAuthButton.swift; sourceTree = "<group>"; };
 		B02B76A01CA9ED4400EDB253 /* ckb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ckb; path = ckb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B02B76A11CA9ED4400EDB253 /* ckb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ckb; path = ckb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B02B82721C696ECA00B19309 /* WMFSettingsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSettingsTableViewCell.h; path = Wikipedia/Code/WMFSettingsTableViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -3000,6 +3002,7 @@
 			children = (
 				B027447A1E62471D00E7B248 /* WMFScrollable.swift */,
 				B027447C1E6253E200E7B248 /* WMFScrollViewController.swift */,
+				B027FD271E678F5C005644A9 /* WMFAuthButton.swift */,
 				B0267CE71E31698F006B6D8D /* ForgotPassword */,
 				0449E63218A9844000D51524 /* Login */,
 				04A97E8418B81D440046B166 /* AccountCreation */,
@@ -6786,6 +6789,7 @@
 				B0E803181C0CD6560065EBC0 /* WMFNearbyPlaceholderCollectionViewCell.m in Sources */,
 				D87234011E1FF0A500751E83 /* PlacesViewController.swift in Sources */,
 				B06531721C237538003BD7DC /* WMFDisambiguationPagesViewController.m in Sources */,
+				B027FD281E678F5C005644A9 /* WMFAuthButton.swift in Sources */,
 				B01490A51DB96EA7007F5391 /* WMFReferencePanelViewController.swift in Sources */,
 				D8FEECCA1DE3715300B883F0 /* WMFTableViewUpdater.m in Sources */,
 				D81BA0FD1D50D40B006C38AC /* WMFNearbyPlaceholderTableViewCell.m in Sources */,
