@@ -32,6 +32,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     var articleStore: WMFArticleDataStore!
     var dataStore: MWKDataStore!
     var segmentedControl: UISegmentedControl!
+    var segmentedControlBarButtonItem: UIBarButtonItem!
+    
+    var closeBarButtonItem: UIBarButtonItem!
+
     
     var currentGroupingPrecision: QuadKeyPrecision = 1
     
@@ -84,7 +88,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
         segmentedControl.tintColor = UIColor.wmf_blueTint()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: segmentedControl)
+        segmentedControlBarButtonItem = UIBarButtonItem(customView: segmentedControl)
+        navigationItem.rightBarButtonItem = segmentedControlBarButtonItem
+        
+        let closeImage = #imageLiteral(resourceName: "close")
+        closeBarButtonItem = UIBarButtonItem(image:  closeImage, style: .plain, target: self, action: #selector(closeSearch))
         
         // Setup recenter button
         recenterOnUserLocationButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-recenter-map-on-user-location")
@@ -1287,10 +1295,19 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
+    func closeSearch() {
+        searchBar.endEditing(true)
+        searchBar.text = currentSearch?.localizedDescription
+    }
+    
     var searchSuggestionsHidden = true {
         didSet {
             searchSuggestionView.isHidden = searchSuggestionsHidden
-            segmentedControl.isEnabled = searchSuggestionsHidden
+            if searchSuggestionsHidden {
+                navigationItem.setRightBarButton(segmentedControlBarButtonItem, animated: true)
+            } else {
+                navigationItem.setRightBarButton(closeBarButtonItem, animated: true)
+            }
         }
     }
     
