@@ -107,13 +107,6 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
         return;
     }
 
-    UIImage *cachedImage = [self wmf_cachedImage];
-    if (cachedImage) {
-        NSData *cachedImageData = cachedImage.isGIF ? [[self wmf_imageController] diskDataForImageWithURL:imageURL] : nil;
-        [self wmf_setImage:cachedImage data:cachedImageData detectFaces:detectFaces onGPU:onGPU animated:NO failure:failure success:success];
-        return;
-    }
-
     @weakify(self);
     self.wmf_imageURLToCancel = imageURL;
     [self.wmf_imageController fetchImageWithURL:imageURL
