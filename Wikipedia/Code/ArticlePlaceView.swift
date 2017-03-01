@@ -3,17 +3,19 @@ import MapKit
 import WMF
 
 class ArticlePlaceView: MKAnnotationView {
-    let imageView: UIImageView
-    let selectedImageView: UIImageView
-    let dotView: UIView
-    let groupView: UIView
-    let countLabel: UILabel
-    let dimension: CGFloat = 60
-    let collapsedDimension: CGFloat = 15
-    let groupDimension: CGFloat = 30
-    let selectionAnimationDuration = 0.3
+    private let imageView: UIImageView
+    private let selectedImageView: UIImageView
+    private let dotView: UIView
+    private let groupView: UIView
+    private let countLabel: UILabel
+    private let dimension: CGFloat = 60
+    private let collapsedDimension: CGFloat = 15
+    private let groupDimension: CGFloat = 30
+    private let selectionAnimationDuration = 0.3
+    private let springDamping: CGFloat = 0.5
+    private let crossFadeRelativeHalfDuration: TimeInterval = 0.1
     
-    var alwaysShowImage = false
+    private var alwaysShowImage = false
     
     func set(alwaysShowImage: Bool, animated: Bool) {
         self.alwaysShowImage = alwaysShowImage
@@ -64,13 +66,10 @@ class ArticlePlaceView: MKAnnotationView {
         }
         if animated {
             if alwaysShowImage {
+                UIView.animate(withDuration: 2*selectionAnimationDuration, delay: 0, usingSpringWithDamping: springDamping, initialSpringVelocity: 0, options: [], animations: transforms, completion:nil)
                 UIView.animateKeyframes(withDuration: 2*selectionAnimationDuration, delay: 0, options: [], animations: {
-                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
-                        UIView.animate(withDuration: 2*self.selectionAnimationDuration, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: transforms, completion:nil)
-                        
-                    })
-                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25, animations:fadesIn)
-                    UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25, animations:fadesOut)
+                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: self.crossFadeRelativeHalfDuration, animations:fadesIn)
+                    UIView.addKeyframe(withRelativeStartTime: self.crossFadeRelativeHalfDuration, relativeDuration: self.crossFadeRelativeHalfDuration, animations:fadesOut)
                 }) { (didFinish) in
                     done()
                 }
@@ -296,15 +295,12 @@ class ArticlePlaceView: MKAnnotationView {
             }
         }
         if animated {
-            let duration = alwaysShowImage ? 1.6*selectionAnimationDuration : 2*selectionAnimationDuration
+            let duration = 2*selectionAnimationDuration
             if selected {
+                UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: springDamping, initialSpringVelocity: 0, options: [], animations: transforms, completion:nil)
                 UIView.animateKeyframes(withDuration: duration, delay: 0, options: [], animations: {
-                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
-                        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: transforms, completion:nil)
-
-                    })
-                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25, animations:fadesIn)
-                    UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25, animations:fadesOut)
+                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: self.crossFadeRelativeHalfDuration, animations:fadesIn)
+                    UIView.addKeyframe(withRelativeStartTime: self.crossFadeRelativeHalfDuration, relativeDuration: self.crossFadeRelativeHalfDuration, animations:fadesOut)
                 }) { (didFinish) in
                     done()
                 }
