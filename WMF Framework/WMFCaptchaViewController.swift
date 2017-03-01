@@ -9,7 +9,7 @@ import UIKit
     func captchaSolutionChanged(_ sender: AnyObject, solutionText: String?)
     func captchaSiteURL() -> URL
     func captchaKeyboardReturnKeyTapped()
-    func captchaShouldShowSubtitle() -> Bool
+    func captchaHideSubtitle() -> Bool
 }
 
 public class WMFCaptcha: NSObject {
@@ -65,7 +65,12 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         captchaTextBox.isHidden = collapse
         reloadCaptchaButton.isHidden = collapse
         titleLabel.isHidden = collapse
-        subTitleLabel.isHidden = collapse
+        
+        guard let captchaDelegate = captchaDelegate else{
+            assert(false, "Required delegate is unset")
+            return
+        }
+        subTitleLabel.isHidden = (collapse || captchaDelegate.captchaHideSubtitle())
     }
     
     var solution:String? {
@@ -157,7 +162,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         subTitleLabel.attributedText = subTitleAttributedString
         subTitleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(requestAnAccountTapped(_:))))
     
-        subTitleLabel.isHidden = (captcha == nil) || !captchaDelegate.captchaShouldShowSubtitle()
+        subTitleLabel.isHidden = (captcha == nil) || captchaDelegate.captchaHideSubtitle()
     }
     
     func requestAnAccountTapped(_ recognizer: UITapGestureRecognizer) {

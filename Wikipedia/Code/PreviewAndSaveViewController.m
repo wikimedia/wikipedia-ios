@@ -655,8 +655,8 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
 }
 
-- (BOOL)captchaShouldShowSubtitle {
-    return NO;
+- (BOOL)captchaHideSubtitle {
+    return YES;
 }
 
 - (void)captchaKeyboardReturnKeyTapped {

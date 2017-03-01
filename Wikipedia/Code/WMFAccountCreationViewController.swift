@@ -185,8 +185,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         return (MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL())!
     }
     
-    public func captchaShouldShowSubtitle() -> Bool {
-        return true
+    public func captchaHideSubtitle() -> Bool {
+        return false
     }
 
     fileprivate func login() {

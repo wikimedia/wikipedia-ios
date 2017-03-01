@@ -255,8 +255,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         save()
     }
 
-    public func captchaShouldShowSubtitle() -> Bool {
-        return false
+    public func captchaHideSubtitle() -> Bool {
+        return true
     }
 
     fileprivate func captchaIsVisible() -> Bool {
