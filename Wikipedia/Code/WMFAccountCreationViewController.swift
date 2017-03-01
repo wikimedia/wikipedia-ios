@@ -21,7 +21,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     
     fileprivate var rightButton: UIBarButtonItem?
     public var funnel: CreateAccountFunnel?
-    fileprivate var captchaViewController: WMFCaptchaViewController?
+    fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     
     func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
@@ -57,8 +57,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         
         scrollView.delegate = self
         
-        setCaptchaAlpha(0)
-        
         usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("account-creation-username-placeholder-text")
         passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("account-creation-password-placeholder-text")
         passwordRepeatField.placeholder = localizedStringForKeyFallingBackOnEnglish("account-creation-password-confirm-placeholder-text")
@@ -76,21 +74,19 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("navbar-title-mode-create-account")
        
         view.wmf_configureSubviewsForDynamicType()
+        
+        captchaViewController?.captchaDelegate = self
+        wmf_add(childController:captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        captchaViewController = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
-        captchaViewController?.captchaDelegate = self
-        
-        // Allow contained view height to control container height: http://stackoverflow.com/a/35431534/135557
-        captchaViewController?.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        wmf_add(childController:captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
-        showCaptchaContainer = false
         
         // Check if captcha is required right away. Things could be configured so captcha is required at all times.
         getCaptcha()
+        
+        updateEmailFieldReturnKeyType()
+        enableProgressiveButtonIfNecessary()
     }
     
     fileprivate func getCaptcha() {
@@ -98,7 +94,11 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
         self.accountCreationInfoFetcher.fetchAccountCreationInfoForSiteURL(siteURL!, success: { info in
             self.captchaViewController?.captcha = info.captcha
-            self.showCaptchaContainer = (info.captcha != nil)
+            if info.captcha != nil {
+                self.funnel?.logCaptchaShown()
+            }
+            self.updateEmailFieldReturnKeyType()
+            self.enableProgressiveButtonIfNecessary()
         }, failure:failure)
         enableProgressiveButtonIfNecessary()
     }
@@ -128,7 +128,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         case passwordRepeatField:
             emailField.becomeFirstResponder()
         case emailField:
-            if showCaptchaContainer {
+            if captchaIsVisible() {
                 captchaViewController?.captchaTextBoxBecomeFirstResponder()
             }else{
                 save()
@@ -149,7 +149,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
 
     fileprivate func shouldProgressiveButtonBeEnabled() -> Bool {
         var shouldEnable = areRequiredFieldsPopulated()
-        if showCaptchaContainer && shouldEnable {
+        if captchaIsVisible() && shouldEnable {
             shouldEnable = hasUserEnteredCaptchaText()
         }
         return shouldEnable
@@ -159,27 +159,13 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         WMFAlertManager.sharedInstance.dismissAlert()
         super.viewWillDisappear(animated)
     }
-
-    fileprivate func setCaptchaAlpha(_ alpha: CGFloat) {
-        captchaContainer.alpha = alpha
-    }
     
-    fileprivate var showCaptchaContainer: Bool = false {
-        didSet {
-            if showCaptchaContainer {
-                funnel?.logCaptchaShown()
-            }
-            UIView.animate(withDuration: 0.4, animations: {
-                self.setCaptchaAlpha(self.showCaptchaContainer ? 1 : 0)
-            }, completion: { _ in
-                self.updateEmailFieldReturnKeyType()
-                self.enableProgressiveButtonIfNecessary()
-            })
-        }
+    fileprivate func captchaIsVisible() -> Bool {
+        return captchaViewController?.captcha != nil
     }
     
     fileprivate func updateEmailFieldReturnKeyType() {
-        self.emailField.returnKeyType = self.showCaptchaContainer ? .next : .done
+        self.emailField.returnKeyType = captchaIsVisible() ? .next : .done
         // Resign and become first responder so keyboard return key updates right away.
         if self.emailField.isFirstResponder {
             self.emailField.resignFirstResponder()
