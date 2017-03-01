@@ -412,10 +412,6 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
     self.captchaViewController = [WMFCaptchaViewController wmf_initialViewControllerFromClassStoryboard];
     self.captchaViewController.captchaDelegate = self;
-    
-    // Allow contained view height to control container height: http://stackoverflow.com/a/35431534/135557
-    self.captchaViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
-    
     [self wmf_addWithChildController:self.captchaViewController andConstrainToEdgesOfContainerView:self.captchaContainer];
 
     self.mode = PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW;
