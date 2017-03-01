@@ -141,7 +141,9 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 }
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
-    BOOL result = [self.appViewController processUserActivity:userActivity];
+    BOOL result = [self.appViewController processUserActivity:userActivity
+                                                   completion:^{
+                                                   }];
     [self resumeAppIfNecessary];
     return result;
 }
@@ -168,11 +170,15 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
             options:(NSDictionary<NSString *, id> *)options {
     NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
     if (activity) {
-        return [self.appViewController processUserActivity:activity];
+        BOOL result = [self.appViewController processUserActivity:activity
+                                                       completion:^{
+                                                       }];
+        [self resumeAppIfNecessary];
+        return result;
     } else {
+        [self resumeAppIfNecessary];
         return NO;
     }
-    [self resumeAppIfNecessary];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

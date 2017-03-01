@@ -15,11 +15,16 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation UIViewController (WMFArticlePresentation)
 
 - (WMFArticleViewController *)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticleDataStore *)previewStore restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated {
+    return [self wmf_pushArticleWithURL:url dataStore:dataStore previewStore:previewStore restoreScrollPosition:restoreScrollPosition animated:animated articleLoadCompletion:^{}];
+}
+
+- (WMFArticleViewController *)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticleDataStore *)previewStore restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated articleLoadCompletion:(dispatch_block_t)articleLoadCompletion {
     if (!restoreScrollPosition) {
         url = [url wmf_URLWithFragment:nil];
     }
 
     WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore previewStore:previewStore];
+    vc.articleLoadCompletion = articleLoadCompletion;
     [self wmf_pushArticleViewController:vc animated:animated];
     return vc;
 }

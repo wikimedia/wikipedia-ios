@@ -1,5 +1,7 @@
 @import UserNotifications;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface WMFAppViewController : UIViewController <UNUserNotificationCenterDelegate>
 
 + (instancetype)initialAppViewControllerFromDefaultStoryBoard;
@@ -10,9 +12,10 @@
 
 - (void)processShortcutItem:(UIApplicationShortcutItem *)item completion:(void (^)(BOOL))completion;
 
-- (BOOL)processUserActivity:(NSUserActivity *)activity;
+- (BOOL)processUserActivity:(NSUserActivity *)activity completion:(dispatch_block_t)done;
 
 - (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion;
 
-
 @end
+
+NS_ASSUME_NONNULL_END
