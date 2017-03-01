@@ -174,7 +174,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
     
     func captchaReloadPushed(_ sender: AnyObject) {
-    WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-obtaining"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+        enableProgressiveButtonIfNecessary()
     }
     
     func captchaSolutionChanged(_ sender: AnyObject, solutionText: String?) {
