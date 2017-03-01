@@ -157,7 +157,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         subTitleLabel.attributedText = subTitleAttributedString
         subTitleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(requestAnAccountTapped(_:))))
     
-        subTitleLabel.isHidden = !captchaDelegate.captchaShouldShowSubtitle()
+        subTitleLabel.isHidden = (captcha == nil) || !captchaDelegate.captchaShouldShowSubtitle()
     }
     
     func requestAnAccountTapped(_ recognizer: UITapGestureRecognizer) {
