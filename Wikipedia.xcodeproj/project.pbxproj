@@ -148,6 +148,7 @@
 		B0267CF31E32A0CB006B6D8D /* WMFPasswordResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0267CF21E32A0CB006B6D8D /* WMFPasswordResetter.swift */; };
 		B027447B1E62471D00E7B248 /* WMFScrollable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027447A1E62471D00E7B248 /* WMFScrollable.swift */; };
 		B027447D1E6253E200E7B248 /* WMFScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027447C1E6253E200E7B248 /* WMFScrollViewController.swift */; };
+		B027447F1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027447E1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift */; };
 		B02B82751C696ECA00B19309 /* WMFSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B02B82731C696ECA00B19309 /* WMFSettingsTableViewCell.m */; };
 		B02B82761C696ECA00B19309 /* WMFSettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B02B82741C696ECA00B19309 /* WMFSettingsTableViewCell.xib */; };
 		B02F96661DFA11DC007DA007 /* WMFArticleListTableViewCell+DynamicTypeFontTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F96651DFA11DC007DA007 /* WMFArticleListTableViewCell+DynamicTypeFontTests.swift */; };
@@ -319,7 +320,6 @@
 		B0E805591C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805201C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m */; };
 		B0E8055A1C0CE0DC0065EBC0 /* UIView+WMFRoundCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805221C0CE0DC0065EBC0 /* UIView+WMFRoundCorners.m */; };
 		B0E8055D1C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805261C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift */; };
-		B0E8055E1C0CE0DC0065EBC0 /* UIViewController+WMFChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805281C0CE0DC0065EBC0 /* UIViewController+WMFChildViewController.m */; };
 		B0E805601C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052C1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m */; };
 		B0E805611C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052E1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m */; };
 		B0E805621C0CE0DC0065EBC0 /* WKWebView+LoadAssetsHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805301C0CE0DC0065EBC0 /* WKWebView+LoadAssetsHtml.m */; };
@@ -1265,6 +1265,7 @@
 		B0267CF21E32A0CB006B6D8D /* WMFPasswordResetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFPasswordResetter.swift; sourceTree = "<group>"; };
 		B027447A1E62471D00E7B248 /* WMFScrollable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFScrollable.swift; sourceTree = "<group>"; };
 		B027447C1E6253E200E7B248 /* WMFScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFScrollViewController.swift; sourceTree = "<group>"; };
+		B027447E1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+WMFChildViewController.swift"; path = "Wikipedia/Code/UIViewController+WMFChildViewController.swift"; sourceTree = SOURCE_ROOT; };
 		B02B76A01CA9ED4400EDB253 /* ckb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ckb; path = ckb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B02B76A11CA9ED4400EDB253 /* ckb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ckb; path = ckb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B02B82721C696ECA00B19309 /* WMFSettingsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSettingsTableViewCell.h; path = Wikipedia/Code/WMFSettingsTableViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -1663,8 +1664,6 @@
 		B0E805211C0CE0DC0065EBC0 /* UIView+WMFRoundCorners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+WMFRoundCorners.h"; path = "Wikipedia/Code/UIView+WMFRoundCorners.h"; sourceTree = SOURCE_ROOT; };
 		B0E805221C0CE0DC0065EBC0 /* UIView+WMFRoundCorners.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+WMFRoundCorners.m"; path = "Wikipedia/Code/UIView+WMFRoundCorners.m"; sourceTree = SOURCE_ROOT; };
 		B0E805261C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+SafePreviewing.swift"; path = "Wikipedia/Code/UIViewController+SafePreviewing.swift"; sourceTree = SOURCE_ROOT; };
-		B0E805271C0CE0DC0065EBC0 /* UIViewController+WMFChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+WMFChildViewController.h"; path = "Wikipedia/Code/UIViewController+WMFChildViewController.h"; sourceTree = SOURCE_ROOT; };
-		B0E805281C0CE0DC0065EBC0 /* UIViewController+WMFChildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFChildViewController.m"; path = "Wikipedia/Code/UIViewController+WMFChildViewController.m"; sourceTree = SOURCE_ROOT; };
 		B0E8052B1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+WMFOpenExternalUrl.h"; path = "Wikipedia/Code/UIViewController+WMFOpenExternalUrl.h"; sourceTree = SOURCE_ROOT; };
 		B0E8052C1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFOpenExternalUrl.m"; path = "Wikipedia/Code/UIViewController+WMFOpenExternalUrl.m"; sourceTree = SOURCE_ROOT; };
 		B0E8052D1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKWebView+ElementLocation.h"; path = "Wikipedia/Code/WKWebView+ElementLocation.h"; sourceTree = SOURCE_ROOT; };
@@ -4421,8 +4420,7 @@
 				B0E803E51C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m */,
 				B09B30CE1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift */,
 				B0E805261C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift */,
-				B0E805271C0CE0DC0065EBC0 /* UIViewController+WMFChildViewController.h */,
-				B0E805281C0CE0DC0065EBC0 /* UIViewController+WMFChildViewController.m */,
+				B027447E1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift */,
 				B066F0D41E513DAA00A199F8 /* UIViewController+WMFHideKeyboard.swift */,
 				BC45D5801C32F68A007C72F3 /* External Link Handling */,
 			);
@@ -6843,7 +6841,6 @@
 				B0E803911C0CDABE0065EBC0 /* UIView+WMFSnapshotting.m in Sources */,
 				B0E803E61C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				0ED2E9FA1CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
-				B0E8055E1C0CE0DC0065EBC0 /* UIViewController+WMFChildViewController.m in Sources */,
 				B0E806D21C0CEB6E0065EBC0 /* PageHistoryViewController.m in Sources */,
 				B0E803CC1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m in Sources */,
 				B0C6BE571E4526A40033BD6E /* WMFChangePasswordViewController.swift in Sources */,
@@ -6939,6 +6936,7 @@
 				B0E804CA1C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.m in Sources */,
 				D896C7961D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */,
 				B0E805621C0CE0DC0065EBC0 /* WKWebView+LoadAssetsHtml.m in Sources */,
+				B027447F1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift in Sources */,
 				B0E804D01C0CE0B40065EBC0 /* NSHTTPCookieStorage+WMFCloneCookie.m in Sources */,
 				D8301C2E1DF1C4D300135DC6 /* TSBlurView.m in Sources */,
 				D87A55991D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.m in Sources */,

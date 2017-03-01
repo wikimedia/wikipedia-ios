@@ -13,7 +13,6 @@
 #import "MWLanguageInfo.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "UIViewController+WMFChildViewController.h"
 #import "SavedPagesFunnel.h"
 #import "EditFunnel.h"
 #import "WMFOpenExternalLinkDelegateProtocol.h"
@@ -417,7 +416,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     // Allow contained view height to control container height: http://stackoverflow.com/a/35431534/135557
     self.captchaViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
     
-    [self wmf_addChildController:self.captchaViewController andConstrainToEdgesOfContainerView:self.captchaContainer];
+    [self wmf_addWithChildController:self.captchaViewController andConstrainToEdgesOfContainerView:self.captchaContainer];
 
     self.mode = PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW;
 
