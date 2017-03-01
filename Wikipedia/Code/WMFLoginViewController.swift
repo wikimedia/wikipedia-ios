@@ -103,6 +103,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         // Check if captcha is required right away. Things could be configured so captcha is required at all times.
         getCaptcha()
         
+        updatePasswordFieldReturnKeyType()
         enableProgressiveButtonIfNecessary()
     }
     
@@ -233,6 +234,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
         loginInfoFetcher.fetchLoginInfoForSiteURL(siteURL!, success: { info in
             self.captchaViewController?.captcha = info.captcha
+            self.updatePasswordFieldReturnKeyType()
             self.enableProgressiveButtonIfNecessary()
         }, failure: captchaFailure)
     }
