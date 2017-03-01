@@ -1,4 +1,3 @@
-
 import UIKit
 
 class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFCaptchaViewControllerDelegate {
@@ -16,7 +15,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     
     public var funnel: LoginFunnel?
 
-    fileprivate var captchaViewController: WMFCaptchaViewController?
+    fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     private let loginInfoFetcher = WMFAuthLoginInfoFetcher()
     let tokenFetcher = WMFAuthTokenFetcher()
 
@@ -58,7 +57,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     
         view.wmf_configureSubviewsForDynamicType()
         
-        setCaptchaAlpha(0)
+        captchaViewController?.captchaDelegate = self
+        wmf_add(childController:captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
     }
     
     @IBAction func textFieldDidChange(_ sender: UITextField) {
@@ -75,7 +75,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     
     fileprivate func shouldProgressiveButtonBeEnabled() -> Bool {
         var shouldEnable = areRequiredFieldsPopulated()
-        if showCaptchaContainer && shouldEnable {
+        if captchaIsVisible() && shouldEnable {
             shouldEnable = hasUserEnteredCaptchaText()
         }
         return shouldEnable
@@ -100,16 +100,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        showCaptchaContainer = false
-
-        captchaViewController = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
-        captchaViewController?.captchaDelegate = self
-        
-        // Allow contained view height to control container height: http://stackoverflow.com/a/35431534/135557
-        captchaViewController?.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        wmf_addChildController(captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
-        
         // Check if captcha is required right away. Things could be configured so captcha is required at all times.
         getCaptcha()
         
@@ -126,7 +116,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         case usernameField:
             passwordField.becomeFirstResponder()
         case passwordField:
-            if showCaptchaContainer {
+            if captchaIsVisible() {
                 captchaViewController?.captchaTextBoxBecomeFirstResponder()
             }else{
                 save()
@@ -243,7 +233,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
         loginInfoFetcher.fetchLoginInfoForSiteURL(siteURL!, success: { info in
             self.captchaViewController?.captcha = info.captcha
-            self.showCaptchaContainer = (info.captcha != nil)
             self.enableProgressiveButtonIfNecessary()
         }, failure: captchaFailure)
     }
@@ -268,27 +257,16 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         return false
     }
 
-    fileprivate var showCaptchaContainer: Bool = false {
-        didSet {
-            UIView.animate(withDuration: 0.4, animations: {
-                self.setCaptchaAlpha(self.showCaptchaContainer ? 1 : 0)
-            }, completion: { _ in
-                self.updatePasswordFieldReturnKeyType()
-                self.enableProgressiveButtonIfNecessary()
-            })
-        }
+    fileprivate func captchaIsVisible() -> Bool {
+        return self.captchaViewController?.captcha != nil
     }
 
     fileprivate func updatePasswordFieldReturnKeyType() {
-        self.passwordField.returnKeyType = self.showCaptchaContainer ? .next : .done
+        self.passwordField.returnKeyType = captchaIsVisible() ? .next : .done
         // Resign and become first responder so keyboard return key updates right away.
         if self.passwordField.isFirstResponder {
             self.passwordField.resignFirstResponder()
             self.passwordField.becomeFirstResponder()
         }
-    }
-    
-    fileprivate func setCaptchaAlpha(_ alpha: CGFloat) {
-        captchaContainer.alpha = alpha
     }
 }

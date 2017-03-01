@@ -116,7 +116,7 @@
                                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZK-nT-oqo">
                                                 <rect key="frame" x="44" y="220" width="288" height="163"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="163" placeholder="YES" id="ceu-qS-peD"/>
+                                                    <constraint firstAttribute="height" constant="163" id="ceu-qS-peD"/>
                                                     <constraint firstAttribute="width" constant="288" id="xvk-0S-FZp"/>
                                                 </constraints>
                                             </containerView>
@@ -124,9 +124,9 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="DZK-nT-oqo" firstAttribute="top" secondItem="4Zt-MP-xRU" secondAttribute="bottom" constant="4" id="Ecw-2C-eBR"/>
-                                            <constraint firstAttribute="bottom" secondItem="DZK-nT-oqo" secondAttribute="bottom" constant="20" id="Giq-Os-Ldl"/>
                                             <constraint firstAttribute="centerX" secondItem="4Zt-MP-xRU" secondAttribute="centerX" id="NmO-sg-T35"/>
                                             <constraint firstItem="4Zt-MP-xRU" firstAttribute="top" secondItem="PEY-pn-IDi" secondAttribute="top" constant="16" id="TdA-0V-c9D"/>
+                                            <constraint firstAttribute="bottom" secondItem="DZK-nT-oqo" secondAttribute="bottom" constant="20" id="mDL-iZ-Bk5"/>
                                             <constraint firstItem="DZK-nT-oqo" firstAttribute="centerX" secondItem="PEY-pn-IDi" secondAttribute="centerX" id="u9Z-HG-nOc"/>
                                         </constraints>
                                     </view>
