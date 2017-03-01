@@ -142,6 +142,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         guard let captchaDelegate = captchaDelegate else{
             assert(false, "Required delegate is unset")
+            return
         }
         
         captcha = nil
