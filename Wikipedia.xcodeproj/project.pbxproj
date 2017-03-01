@@ -1099,7 +1099,6 @@
 		040E5C4E184566F4007AFE6F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		041EFC361996A1F800B2CB28 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WikiFont-Glyphs.ttf"; sourceTree = "<group>"; };
-		04E9A78218F73C7200F7ECF7 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		087BFC561C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PiwikTracker+WMFExtensions.h"; sourceTree = "<group>"; };
 		087BFC571C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "PiwikTracker+WMFExtensions.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		08A3C7B51C5FCC8500682DC0 /* WMFArticlePreviewCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticlePreviewCellVisualTests.m; sourceTree = "<group>"; };
@@ -5327,7 +5326,6 @@
 			isa = PBXGroup;
 			children = (
 				D499143E181D51DE00E6073C /* Wikipedia */,
-				04E9A78218F73C7200F7ECF7 /* www */,
 				D4991453181D51DE00E6073C /* Images.xcassets */,
 				BC8309941A7BF935003FC5C7 /* Tests */,
 				0E8380661D64989F0076EDE4 /* ContinueReadingWidget */,
