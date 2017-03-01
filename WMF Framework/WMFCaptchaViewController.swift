@@ -51,13 +51,23 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         didSet {
             guard let captcha = captcha else {
                 captchaTextBox.text = nil
+                stackView(collapse:true)
                 return;
             }
+            stackView(collapse:false)
             captchaTextBox.text = ""
             refreshImage(for: captcha)
         }
     }
 
+    fileprivate func stackView(collapse: Bool) {
+        captchaImageView.isHidden = collapse
+        captchaTextBox.isHidden = collapse
+        reloadCaptchaButton.isHidden = collapse
+        titleLabel.isHidden = collapse
+        subTitleLabel.isHidden = collapse
+    }
+    
     var solution:String? {
         get{
             guard
@@ -133,6 +143,8 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         guard let captchaDelegate = captchaDelegate else{
             assert(false, "Required delegate is unset")
         }
+        
+        captcha = nil
         reloadCaptchaButton.setTitle(localizedStringForKeyFallingBackOnEnglish("captcha-reload"), for: .normal)
         captchaTextBox.placeholder = localizedStringForKeyFallingBackOnEnglish("captcha-prompt")
         reloadCaptchaButton.setTitleColor(UIColor.darkGray, for: .disabled)

@@ -27,7 +27,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLd-Yl-D3C">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="26"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="26" id="FVc-wo-vWs"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="26" id="FVc-wo-vWs"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <nil key="textColor"/>
@@ -36,7 +36,7 @@
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0To-aV-npg">
                                         <rect key="frame" x="0.0" y="26" width="375" height="84"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="26" id="k8C-fr-UaJ"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="26" id="k8C-fr-UaJ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                         <nil key="textColor"/>
@@ -45,13 +45,13 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ubi-fl-THX">
                                         <rect key="frame" x="0.0" y="110" width="375" height="70"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="70" id="djK-ra-WHc"/>
+                                            <constraint firstAttribute="height" priority="999" constant="70" id="djK-ra-WHc"/>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="21c-U6-yfo">
                                         <rect key="frame" x="0.0" y="180" width="375" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="YU3-8A-8QR"/>
+                                            <constraint firstAttribute="height" priority="999" constant="40" id="YU3-8A-8QR"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                         <state key="normal" title="Show another captcha">
@@ -61,7 +61,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter CAPTCHA text" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gPg-cg-Yjy">
                                         <rect key="frame" x="0.0" y="220" width="375" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="FGZ-UY-edA"/>
+                                            <constraint firstAttribute="height" priority="999" constant="30" id="FGZ-UY-edA"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
