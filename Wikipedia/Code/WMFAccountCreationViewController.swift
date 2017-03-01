@@ -92,7 +92,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     fileprivate func getCaptcha() {
         let failure: WMFErrorHandler = {error in }
         let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
-        self.accountCreationInfoFetcher.fetchAccountCreationInfoForSiteURL(siteURL!, success: { info in
+        accountCreationInfoFetcher.fetchAccountCreationInfoForSiteURL(siteURL!, success: { info in
             self.captchaViewController?.captcha = info.captcha
             if info.captcha != nil {
                 self.funnel?.logCaptchaShown()
@@ -165,11 +165,11 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
     
     fileprivate func updateEmailFieldReturnKeyType() {
-        self.emailField.returnKeyType = captchaIsVisible() ? .next : .done
+        emailField.returnKeyType = captchaIsVisible() ? .next : .done
         // Resign and become first responder so keyboard return key updates right away.
-        if self.emailField.isFirstResponder {
-            self.emailField.resignFirstResponder()
-            self.emailField.becomeFirstResponder()
+        if emailField.isFirstResponder {
+            emailField.resignFirstResponder()
+            emailField.becomeFirstResponder()
         }
     }
     
@@ -229,7 +229,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
 
         guard passwordFieldsMatch() else {
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("account-creation-passwords-mismatched"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            self.passwordRepeatField.becomeFirstResponder()
+            passwordRepeatField.becomeFirstResponder()
             return
         }
         wmf_hideKeyboard()
@@ -247,7 +247,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         }
         
         let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
-            self.tokenFetcher.fetchToken(ofType: .createAccount, siteURL: siteURL!, success: { token in
+            tokenFetcher.fetchToken(ofType: .createAccount, siteURL: siteURL!, success: { token in
                 self.accountCreator.createAccount(username: self.usernameField.text!, password: self.passwordField.text!, retypePassword: self.passwordRepeatField.text!, email: self.emailField.text!, captchaID:self.captchaViewController?.captcha?.captchaID, captchaWord: self.captchaViewController?.solution, token: token.token, siteURL: siteURL!, success: {_ in
                     self.login()
                 }, failure: creationFailure)

@@ -240,7 +240,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     }
 
     func captchaReloadPushed(_ sender: AnyObject) {
-        self.enableProgressiveButtonIfNecessary()
+        enableProgressiveButtonIfNecessary()
     }
     
     func captchaSolutionChanged(_ sender: AnyObject, solutionText: String?) {
@@ -260,15 +260,15 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     }
 
     fileprivate func captchaIsVisible() -> Bool {
-        return self.captchaViewController?.captcha != nil
+        return captchaViewController?.captcha != nil
     }
 
     fileprivate func updatePasswordFieldReturnKeyType() {
-        self.passwordField.returnKeyType = captchaIsVisible() ? .next : .done
+        passwordField.returnKeyType = captchaIsVisible() ? .next : .done
         // Resign and become first responder so keyboard return key updates right away.
-        if self.passwordField.isFirstResponder {
-            self.passwordField.resignFirstResponder()
-            self.passwordField.becomeFirstResponder()
+        if passwordField.isFirstResponder {
+            passwordField.resignFirstResponder()
+            passwordField.becomeFirstResponder()
         }
     }
 }
