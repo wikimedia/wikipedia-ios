@@ -297,40 +297,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 
     [news enumerateObjectsUsingBlock:^(WMFFeedNewsStory *_Nonnull story, NSUInteger idx, BOOL *_Nonnull stop) {
-        __block unsigned long long mostViews = 0;
-
-        WMFFeedArticlePreview *firstPreview = story.articlePreviews.firstObject;
-        __block WMFFeedArticlePreview *mostViewedPreview = nil;
-        __block WMFFeedArticlePreview *semanticFeaturedPreview = nil;
-
-        NSString *featuredArticleTitleBasedOnSemanticLookup = [WMFFeedNewsStory semanticFeaturedArticleTitleFromStoryHTML:story.storyHTML];
-
-        NSString *featuredArticleDabaseKey = nil;
-        if (featuredArticleTitleBasedOnSemanticLookup) {
-            NSURL *featuredArticleURL = [NSURL wmf_URLWithSiteURL:self.siteURL title:featuredArticleTitleBasedOnSemanticLookup fragment:nil];
-            featuredArticleDabaseKey = [featuredArticleURL wmf_articleDatabaseKey];
-        }
-
-        [story.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-            NSURL *url = [obj articleURL];
-            if (featuredArticleDabaseKey && [[url wmf_articleDatabaseKey] isEqualToString:featuredArticleDabaseKey]) {
-                semanticFeaturedPreview = obj;
-            }
-            NSDictionary<NSDate *, NSNumber *> *pageViewsForURL = pageViews[url];
-            NSArray *dates = [pageViewsForURL.allKeys sortedArrayUsingSelector:@selector(compare:)];
-            NSDate *latestDate = [dates lastObject];
-            if (latestDate) {
-                NSNumber *pageViewsNumber = pageViewsForURL[latestDate];
-                unsigned long long views = [pageViewsNumber unsignedLongLongValue];
-                if (views > mostViews) {
-                    mostViews = views;
-                    mostViewedPreview = obj;
-                }
-            }
-            [self.previewStore addPreviewWithURL:url updatedWithFeedPreview:obj pageViews:pageViewsForURL];
-        }];
-        story.featuredArticlePreview = semanticFeaturedPreview ? semanticFeaturedPreview : (mostViewedPreview ? mostViewedPreview : firstPreview);
-
+        story.featuredArticlePreview = story.articlePreviews.firstObject;
     }];
 }
 
