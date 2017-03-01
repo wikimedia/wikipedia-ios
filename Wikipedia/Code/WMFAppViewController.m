@@ -402,7 +402,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 }
 
 - (void)migrateToQuadKeyLocationIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
-    [self.dataStore migrateToQuadKeyLocationIfNecessaryWithCompletion:^(NSError * _Nonnull error) {
+    [self.dataStore migrateToQuadKeyLocationIfNecessaryWithCompletion:^(NSError *_Nonnull error) {
         if (error) {
             DDLogError(@"Error during location migration: %@", error);
         }
@@ -420,64 +420,18 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     if (![self uiIsLoaded]) {
         return;
     }
-    
+
     dispatch_block_t done = ^{
-        [self.statsFunnel logAppNumberOfDaysSinceInstall];
-        
-        [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:^(WMFAccountLoginResult * _Nonnull success) {
-            DDLogDebug(@"\n\nSuccessfully logged in with saved credentials for user '%@'.\n\n", success.username);
-        }
-                                                             userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser * _Nonnull currentLoggedInHandler) {
-                                                                 DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
-                                                             }
-                                                                                failure:^(NSError * _Nonnull error) {
-                                                                                    DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
-                                                                                }];
-        
-        [self startContentSources];
-        
-        NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
-        NSDate *feedRefreshDate = [defaults wmf_feedRefreshDate];
-        NSDate *now = [NSDate date];
-        
-        BOOL locationAuthorized = [WMFLocationManager isAuthorized];
-        
-        if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > WMFTimeBeforeRefreshingExploreFeed || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
-            [self updateFeedSourcesWithCompletion:NULL];
-        } else if (locationAuthorized != [defaults wmf_locationAuthorized]) {
-            [self.exploreViewController updateNearby:NULL];
-        }
-        
-        [defaults wmf_setLocationAuthorized:locationAuthorized];
-        
-        [self.savedArticlesFetcher start];
-        
-        
-#if FB_TWEAK_ENABLED
-        if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
-            [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{ NSLocalizedDescriptionKey: @"There was an error" }] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-        }
-        if (FBTweakValue(@"Alerts", @"General", @"Show warning on launch", NO)) {
-            [[WMFAlertManager sharedInstance] showWarningAlert:@"You have been warned" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-        }
-        if (FBTweakValue(@"Alerts", @"General", @"Show success on launch", NO)) {
-            [[WMFAlertManager sharedInstance] showSuccessAlert:@"You are successful" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-        }
-        if (FBTweakValue(@"Alerts", @"General", @"Show message on launch", NO)) {
-            [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-        }
-#endif
-        
-        DDLogWarn(@"Resuming… Logging Important Statistics");
-        [self logImportantStatistics];
+        [self finishResumingApp];
     };
-    
+
     if (self.unprocessedUserActivity) {
         [self processUserActivity:self.unprocessedUserActivity completion:done];
     } else if (self.unprocessedShortcutItem) {
-        [self processShortcutItem:self.unprocessedShortcutItem completion:^(BOOL didProcess) {
-            done();
-        }];
+        [self processShortcutItem:self.unprocessedShortcutItem
+                       completion:^(BOOL didProcess) {
+                           done();
+                       }];
     } else if ([self shouldShowLastReadArticleOnLaunch]) {
         [self showLastReadArticleAnimated:NO];
         done();
@@ -487,8 +441,56 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     } else {
         done();
     }
+}
 
-   
+- (void)finishResumingApp {
+    [self.statsFunnel logAppNumberOfDaysSinceInstall];
+
+    [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:^(WMFAccountLoginResult *_Nonnull success) {
+        DDLogDebug(@"\n\nSuccessfully logged in with saved credentials for user '%@'.\n\n", success.username);
+    }
+        userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser *_Nonnull currentLoggedInHandler) {
+            DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
+        }
+        failure:^(NSError *_Nonnull error) {
+            DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
+        }];
+
+    [self startContentSources];
+
+    NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
+    NSDate *feedRefreshDate = [defaults wmf_feedRefreshDate];
+    NSDate *now = [NSDate date];
+
+    BOOL locationAuthorized = [WMFLocationManager isAuthorized];
+
+    if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > WMFTimeBeforeRefreshingExploreFeed || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
+        [self updateFeedSourcesWithCompletion:NULL];
+    } else if (locationAuthorized != [defaults wmf_locationAuthorized]) {
+        [self.exploreViewController updateNearby:NULL];
+    }
+
+    [defaults wmf_setLocationAuthorized:locationAuthorized];
+
+    [self.savedArticlesFetcher start];
+
+#if FB_TWEAK_ENABLED
+    if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
+        [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{ NSLocalizedDescriptionKey: @"There was an error" }] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+    }
+    if (FBTweakValue(@"Alerts", @"General", @"Show warning on launch", NO)) {
+        [[WMFAlertManager sharedInstance] showWarningAlert:@"You have been warned" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+    }
+    if (FBTweakValue(@"Alerts", @"General", @"Show success on launch", NO)) {
+        [[WMFAlertManager sharedInstance] showSuccessAlert:@"You are successful" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+    }
+    if (FBTweakValue(@"Alerts", @"General", @"Show message on launch", NO)) {
+        [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+    }
+#endif
+
+    DDLogWarn(@"Resuming… Logging Important Statistics");
+    [self logImportantStatistics];
 }
 
 - (void)pauseApp {
@@ -741,7 +743,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }
     self.unprocessedUserActivity = nil;
     [self dismissViewControllerAnimated:NO completion:NULL];
-    
+
     switch ([activity wmf_type]) {
         case WMFUserActivityTypeExplore:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
@@ -755,7 +757,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             NSURL *url = [activity wmf_contentURL];
             WMFContentGroup *group = [self.contentStore contentGroupForURL:url];
             [self.exploreViewController presentMoreViewControllerForGroup:group animated:NO];
-            
+
         } break;
         case WMFUserActivityTypeSavedPages:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSaved];
@@ -813,7 +815,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 }
 
 - (WMFArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated {
-    return [self showArticleForURL:articleURL animated:animated completion:^{}];
+    return [self showArticleForURL:articleURL
+                          animated:animated
+                        completion:^{
+                        }];
 }
 
 - (WMFArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion {
