@@ -1,5 +1,5 @@
 #import "WMFPageIssuesViewController.h"
-#import <SSDataSources/SSDataSources.h>
+#import "SSDataSources.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 
 @implementation WMFPageIssuesViewController
