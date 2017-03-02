@@ -187,12 +187,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
     [self updateUIWithResults:nil];
     [self updateRecentSearchesVisibility:NO];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchInputModeChanged:) name:UITextInputCurrentInputModeDidChangeNotification object:nil];
-}
-
-- (void)searchInputModeChanged:(NSNotification *)note {
-    DDLogDebug(@"changed!");
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -282,7 +276,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)dismiss {
     [self.searchField resignFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (IBAction)didTapCloseButton:(id)sender {
