@@ -32,12 +32,11 @@ if previous_hash == current_hash
 end
 
 puts "#{pr_branch} went from #{previous_hash} to #{current_hash}, opening pr"
-  
-result = `curl -i -d '{"title":"#{title}","head":"#{pr_branch}","base":"#{base_branch}"}' -H "Authorization: token #{ENV['GITHUB_TWN_ACCESS_TOKEN']}" -H "Content-Type: application/json; charset=utf-8" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/wikimedia/wikipedia-ios/pulls`
-puts result
 
-if result.include?('HTTP/1.1 201 Created') || result.include?('A pull request already exists') || result.include?('No commits between')
+`scripts/pr.rb #{pr_branch} #{base_branch} "#{title}"`
+
+if $?.to_i == 0
   `echo "#{current_hash}" > #{hash_file}`
-else
+else 
   exit 1
 end
