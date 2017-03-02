@@ -16,7 +16,7 @@
 #import <HockeySDK/HockeySDK.h>
 #import <Tweaks/FBTweakViewController.h>
 #import <Tweaks/FBTweakStore.h>
-#import <SSDataSources/SSDataSources.h>
+#import "SSDataSources.h"
 
 // Other
 #import "UIBarButtonItem+WMFButtonConvenience.h"

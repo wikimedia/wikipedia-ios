@@ -3,8 +3,7 @@
 #import "MWKDataStore.h"
 #import "MWKArticle.h"
 
-#import <SSDataSources/SSDataSources.h>
-
+#import "SSDataSources.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "Wikipedia-Swift.h"
 

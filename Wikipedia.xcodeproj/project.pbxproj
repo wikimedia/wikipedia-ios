@@ -562,6 +562,16 @@
 		D82014791E6864C100BA8579 /* AFHTTPSessionManager+WMFCancelAll.h in Headers */ = {isa = PBXBuildFile; fileRef = B09B03EE1CE0FB5200009083 /* AFHTTPSessionManager+WMFCancelAll.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D820147C1E6868E100BA8579 /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D820147B1E6868E100BA8579 /* TUSafariActivity.m */; };
 		D82014801E6868F800BA8579 /* TUSafariActivity.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D820147F1E6868F800BA8579 /* TUSafariActivity.bundle */; };
+		D82014BB1E686B9C00BA8579 /* SSArrayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014A71E686B9C00BA8579 /* SSArrayDataSource.m */; };
+		D82014BC1E686B9C00BA8579 /* SSBaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014A91E686B9C00BA8579 /* SSBaseCollectionCell.m */; };
+		D82014BD1E686B9C00BA8579 /* SSBaseCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014AB1E686B9C00BA8579 /* SSBaseCollectionReusableView.m */; };
+		D82014BE1E686B9C00BA8579 /* SSBaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014AD1E686B9C00BA8579 /* SSBaseDataSource.m */; };
+		D82014BF1E686B9C00BA8579 /* SSBaseHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014AF1E686B9C00BA8579 /* SSBaseHeaderFooterView.m */; };
+		D82014C01E686B9C00BA8579 /* SSBaseTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014B11E686B9C00BA8579 /* SSBaseTableCell.m */; };
+		D82014C11E686B9C00BA8579 /* SSCoreDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014B31E686B9C00BA8579 /* SSCoreDataSource.m */; };
+		D82014C21E686B9C00BA8579 /* SSExpandingDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014B61E686B9C00BA8579 /* SSExpandingDataSource.m */; };
+		D82014C31E686B9C00BA8579 /* SSSection.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014B81E686B9C00BA8579 /* SSSection.m */; };
+		D82014C41E686B9C00BA8579 /* SSSectionedDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014BA1E686B9C00BA8579 /* SSSectionedDataSource.m */; };
 		D820F78B1DD0E5E100806045 /* WMFNotificationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D820F78A1DD0E5E100806045 /* WMFNotificationTests.m */; };
 		D820F78D1DD0F11500806045 /* MCSFeed.json in Resources */ = {isa = PBXBuildFile; fileRef = D820F78C1DD0F11500806045 /* MCSFeed.json */; };
 		D820F78F1DD0F89700806045 /* PageViews.json in Resources */ = {isa = PBXBuildFile; fileRef = D820F78E1DD0F89700806045 /* PageViews.json */; };
@@ -854,11 +864,6 @@
 		D8D550D51DF1908800B90177 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D550D01DF1908800B90177 /* BlocksKit.framework */; };
 		D8D550D71DF1908800B90177 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D550D01DF1908800B90177 /* BlocksKit.framework */; };
 		D8D550E01DF1953E00B90177 /* BlocksKitUIKitExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D550DF1DF1953E00B90177 /* BlocksKitUIKitExtensions.framework */; };
-		D8D551341DF1A0CD00B90177 /* SSDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551331DF1A0CD00B90177 /* SSDataSources.framework */; };
-		D8D551351DF1A0CD00B90177 /* SSDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551331DF1A0CD00B90177 /* SSDataSources.framework */; };
-		D8D551361DF1A0CD00B90177 /* SSDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551331DF1A0CD00B90177 /* SSDataSources.framework */; };
-		D8D551371DF1A0CD00B90177 /* SSDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551331DF1A0CD00B90177 /* SSDataSources.framework */; };
-		D8D551391DF1A0CD00B90177 /* SSDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551331DF1A0CD00B90177 /* SSDataSources.framework */; };
 		D8D551701DF1A7AC00B90177 /* Piwik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5516F1DF1A7AC00B90177 /* Piwik.framework */; };
 		D8D551711DF1A7AC00B90177 /* Piwik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5516F1DF1A7AC00B90177 /* Piwik.framework */; };
 		D8D551721DF1A7AC00B90177 /* Piwik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5516F1DF1A7AC00B90177 /* Piwik.framework */; };
@@ -2290,6 +2295,27 @@
 		D820147A1E6868E100BA8579 /* TUSafariActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TUSafariActivity.h; path = Carthage/Checkouts/TUSafariActivity/Pod/Classes/TUSafariActivity.h; sourceTree = SOURCE_ROOT; };
 		D820147B1E6868E100BA8579 /* TUSafariActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TUSafariActivity.m; path = Carthage/Checkouts/TUSafariActivity/Pod/Classes/TUSafariActivity.m; sourceTree = SOURCE_ROOT; };
 		D820147F1E6868F800BA8579 /* TUSafariActivity.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TUSafariActivity.bundle; path = Carthage/Checkouts/TUSafariActivity/TUSafariActivity/TUSafariActivity.bundle; sourceTree = SOURCE_ROOT; };
+		D82014A61E686B9C00BA8579 /* SSArrayDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSArrayDataSource.h; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSArrayDataSource.h; sourceTree = SOURCE_ROOT; };
+		D82014A71E686B9C00BA8579 /* SSArrayDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSArrayDataSource.m; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSArrayDataSource.m; sourceTree = SOURCE_ROOT; };
+		D82014A81E686B9C00BA8579 /* SSBaseCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSBaseCollectionCell.h; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSBaseCollectionCell.h; sourceTree = SOURCE_ROOT; };
+		D82014A91E686B9C00BA8579 /* SSBaseCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSBaseCollectionCell.m; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSBaseCollectionCell.m; sourceTree = SOURCE_ROOT; };
+		D82014AA1E686B9C00BA8579 /* SSBaseCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSBaseCollectionReusableView.h; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSBaseCollectionReusableView.h; sourceTree = SOURCE_ROOT; };
+		D82014AB1E686B9C00BA8579 /* SSBaseCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSBaseCollectionReusableView.m; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSBaseCollectionReusableView.m; sourceTree = SOURCE_ROOT; };
+		D82014AC1E686B9C00BA8579 /* SSBaseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSBaseDataSource.h; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSBaseDataSource.h; sourceTree = SOURCE_ROOT; };
+		D82014AD1E686B9C00BA8579 /* SSBaseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSBaseDataSource.m; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSBaseDataSource.m; sourceTree = SOURCE_ROOT; };
+		D82014AE1E686B9C00BA8579 /* SSBaseHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSBaseHeaderFooterView.h; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSBaseHeaderFooterView.h; sourceTree = SOURCE_ROOT; };
+		D82014AF1E686B9C00BA8579 /* SSBaseHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSBaseHeaderFooterView.m; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSBaseHeaderFooterView.m; sourceTree = SOURCE_ROOT; };
+		D82014B01E686B9C00BA8579 /* SSBaseTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSBaseTableCell.h; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSBaseTableCell.h; sourceTree = SOURCE_ROOT; };
+		D82014B11E686B9C00BA8579 /* SSBaseTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSBaseTableCell.m; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSBaseTableCell.m; sourceTree = SOURCE_ROOT; };
+		D82014B21E686B9C00BA8579 /* SSCoreDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSCoreDataSource.h; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSCoreDataSource.h; sourceTree = SOURCE_ROOT; };
+		D82014B31E686B9C00BA8579 /* SSCoreDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSCoreDataSource.m; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSCoreDataSource.m; sourceTree = SOURCE_ROOT; };
+		D82014B41E686B9C00BA8579 /* SSDataSources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSDataSources.h; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSDataSources.h; sourceTree = SOURCE_ROOT; };
+		D82014B51E686B9C00BA8579 /* SSExpandingDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSExpandingDataSource.h; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSExpandingDataSource.h; sourceTree = SOURCE_ROOT; };
+		D82014B61E686B9C00BA8579 /* SSExpandingDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSExpandingDataSource.m; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSExpandingDataSource.m; sourceTree = SOURCE_ROOT; };
+		D82014B71E686B9C00BA8579 /* SSSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSSection.h; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSSection.h; sourceTree = SOURCE_ROOT; };
+		D82014B81E686B9C00BA8579 /* SSSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSSection.m; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSSection.m; sourceTree = SOURCE_ROOT; };
+		D82014B91E686B9C00BA8579 /* SSSectionedDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSSectionedDataSource.h; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSSectionedDataSource.h; sourceTree = SOURCE_ROOT; };
+		D82014BA1E686B9C00BA8579 /* SSSectionedDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSSectionedDataSource.m; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSSectionedDataSource.m; sourceTree = SOURCE_ROOT; };
 		D820F78A1DD0E5E100806045 /* WMFNotificationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = WMFNotificationTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D820F78C1DD0F11500806045 /* MCSFeed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MCSFeed.json; sourceTree = "<group>"; };
 		D820F78E1DD0F89700806045 /* PageViews.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PageViews.json; sourceTree = "<group>"; };
@@ -2450,7 +2476,6 @@
 		D8D550801DF0D2BD00B90177 /* NSArray+WMFMatching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+WMFMatching.m"; path = "WikipediaUnitTests/Code/NSArray+WMFMatching.m"; sourceTree = SOURCE_ROOT; };
 		D8D550D01DF1908800B90177 /* BlocksKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BlocksKit.framework; path = Carthage/Build/iOS/BlocksKit.framework; sourceTree = SOURCE_ROOT; };
 		D8D550DF1DF1953E00B90177 /* BlocksKitUIKitExtensions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BlocksKitUIKitExtensions.framework; path = Carthage/Build/iOS/BlocksKitUIKitExtensions.framework; sourceTree = SOURCE_ROOT; };
-		D8D551331DF1A0CD00B90177 /* SSDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SSDataSources.framework; path = Carthage/Build/iOS/SSDataSources.framework; sourceTree = SOURCE_ROOT; };
 		D8D551411DF1A33D00B90177 /* EXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTScope.h; sourceTree = "<group>"; };
 		D8D551421DF1A33D00B90177 /* EXTScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTScope.m; sourceTree = "<group>"; };
 		D8D551431DF1A33D00B90177 /* metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
@@ -2522,7 +2547,6 @@
 				D82FDB0B1DF0AABB00DDF311 /* KVOController.framework in Frameworks */,
 				0E8380651D64989F0076EDE4 /* NotificationCenter.framework in Frameworks */,
 				D82FDB361DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
-				D8D551361DF1A0CD00B90177 /* SSDataSources.framework in Frameworks */,
 				D8D551721DF1A7AC00B90177 /* Piwik.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2571,7 +2595,6 @@
 				D8D550E01DF1953E00B90177 /* BlocksKitUIKitExtensions.framework in Frameworks */,
 				D82FDB081DF0AABB00DDF311 /* KVOController.framework in Frameworks */,
 				D82FDAE31DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
-				D8D551341DF1A0CD00B90177 /* SSDataSources.framework in Frameworks */,
 				D82FDAF61DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */,
 				041EFC371996A1F800B2CB28 /* MapKit.framework in Frameworks */,
@@ -2590,7 +2613,6 @@
 				D8E2F6A91E01659900968645 /* SDWebImage.framework in Frameworks */,
 				D8D551A41DF1AE4B00B90177 /* hpple.framework in Frameworks */,
 				D82FDAFC1DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */,
-				D8D551391DF1A0CD00B90177 /* SSDataSources.framework in Frameworks */,
 				D82FDB391DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
 				D82FDAE91DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
 				D82FDAE01DF0A99F00DDF311 /* AFNetworking.framework in Frameworks */,
@@ -2616,7 +2638,6 @@
 				D82FDB0C1DF0AABB00DDF311 /* KVOController.framework in Frameworks */,
 				D85D34C61D74D07500845125 /* NotificationCenter.framework in Frameworks */,
 				D82FDB371DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
-				D8D551371DF1A0CD00B90177 /* SSDataSources.framework in Frameworks */,
 				D8D551731DF1A7AC00B90177 /* Piwik.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2631,7 +2652,6 @@
 				D895D0871D9C1EB8005418C1 /* UserNotificationsUI.framework in Frameworks */,
 				D895D0851D9C1EB8005418C1 /* UserNotifications.framework in Frameworks */,
 				D82FDAF71DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */,
-				D8D551351DF1A0CD00B90177 /* SSDataSources.framework in Frameworks */,
 				D82FDB231DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
 				D82FDB091DF0AABB00DDF311 /* KVOController.framework in Frameworks */,
 				D8D550D21DF1908800B90177 /* BlocksKit.framework in Frameworks */,
@@ -5389,6 +5409,7 @@
 				D82014841E68695A00BA8579 /* TUSafariActivity */,
 				D82014831E68694300BA8579 /* TS */,
 				D82014821E68693D00BA8579 /* SWStepSlider */,
+				D82014A51E686B8E00BA8579 /* SSDataSources */,
 				D82014811E68693600BA8579 /* HexColors */,
 			);
 			name = "Third Party";
@@ -5434,6 +5455,34 @@
 			name = TUSafariActivity;
 			sourceTree = "<group>";
 		};
+		D82014A51E686B8E00BA8579 /* SSDataSources */ = {
+			isa = PBXGroup;
+			children = (
+				D82014A61E686B9C00BA8579 /* SSArrayDataSource.h */,
+				D82014A71E686B9C00BA8579 /* SSArrayDataSource.m */,
+				D82014A81E686B9C00BA8579 /* SSBaseCollectionCell.h */,
+				D82014A91E686B9C00BA8579 /* SSBaseCollectionCell.m */,
+				D82014AA1E686B9C00BA8579 /* SSBaseCollectionReusableView.h */,
+				D82014AB1E686B9C00BA8579 /* SSBaseCollectionReusableView.m */,
+				D82014AC1E686B9C00BA8579 /* SSBaseDataSource.h */,
+				D82014AD1E686B9C00BA8579 /* SSBaseDataSource.m */,
+				D82014AE1E686B9C00BA8579 /* SSBaseHeaderFooterView.h */,
+				D82014AF1E686B9C00BA8579 /* SSBaseHeaderFooterView.m */,
+				D82014B01E686B9C00BA8579 /* SSBaseTableCell.h */,
+				D82014B11E686B9C00BA8579 /* SSBaseTableCell.m */,
+				D82014B21E686B9C00BA8579 /* SSCoreDataSource.h */,
+				D82014B31E686B9C00BA8579 /* SSCoreDataSource.m */,
+				D82014B41E686B9C00BA8579 /* SSDataSources.h */,
+				D82014B51E686B9C00BA8579 /* SSExpandingDataSource.h */,
+				D82014B61E686B9C00BA8579 /* SSExpandingDataSource.m */,
+				D82014B71E686B9C00BA8579 /* SSSection.h */,
+				D82014B81E686B9C00BA8579 /* SSSection.m */,
+				D82014B91E686B9C00BA8579 /* SSSectionedDataSource.h */,
+				D82014BA1E686B9C00BA8579 /* SSSectionedDataSource.m */,
+			);
+			name = SSDataSources;
+			sourceTree = "<group>";
+		};
 		D82FDAD81DF0A96E00DDF311 /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
@@ -5441,7 +5490,6 @@
 				D810C3481DF1C0A4003427DA /* Tweaks.framework */,
 				D8D5519E1DF1AE4B00B90177 /* hpple.framework */,
 				D8D5516F1DF1A7AC00B90177 /* Piwik.framework */,
-				D8D551331DF1A0CD00B90177 /* SSDataSources.framework */,
 				D8D550DF1DF1953E00B90177 /* BlocksKitUIKitExtensions.framework */,
 				D8D550D01DF1908800B90177 /* BlocksKit.framework */,
 				D85F00141DF0C5B800A56797 /* Quick.framework */,
@@ -6593,7 +6641,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/FLAnimatedImage.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/BlocksKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/BlocksKitUIKitExtensions.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SSDataSources.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Piwik.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/hpple.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Tweaks.framework",
@@ -6815,6 +6862,7 @@
 				B0E802BE1C0CD2360065EBC0 /* UIButton+WMFButton.m in Sources */,
 				B0E803711C0CD9A80065EBC0 /* WMFTableOfContentsAnimator.swift in Sources */,
 				B0D1B45A1DDD02BC004FCAE6 /* WMFDynamicTypeExtentions.swift in Sources */,
+				D82014BF1E686B9C00BA8579 /* SSBaseHeaderFooterView.m in Sources */,
 				B0338A841DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift in Sources */,
 				B0E8030D1C0CD5E00065EBC0 /* WMFNearbyArticleCollectionViewCell.m in Sources */,
 				B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */,
@@ -6842,6 +6890,7 @@
 				D8FB78161DCB677000606794 /* MultilineLabelTableViewCell.swift in Sources */,
 				B0E806711C0CE94B0065EBC0 /* WMFEnglishFeaturedTitleFetcher.m in Sources */,
 				B0379A3A1D8BC83800D973CF /* WMFPopoverBackgroundView.m in Sources */,
+				D82014BB1E686B9C00BA8579 /* SSArrayDataSource.m in Sources */,
 				0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */,
 				B0E802CB1C0CD2F70065EBC0 /* WMFPicOfTheDayCollectionViewCell.m in Sources */,
 				B0E806581C0CE84B0065EBC0 /* SavedArticlesFetcher.m in Sources */,
@@ -6902,6 +6951,7 @@
 				D81FB2661D47B5BA0000C685 /* WMFCVLAttributes.m in Sources */,
 				B0E805921C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.m in Sources */,
 				B0DF6F811CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
+				D82014C21E686B9C00BA8579 /* SSExpandingDataSource.m in Sources */,
 				0E4B5FC61C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.m in Sources */,
 				B0E805601C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m in Sources */,
 				0EC044791C7917860033D773 /* WMFArticleTextActivitySource.m in Sources */,
@@ -6935,6 +6985,7 @@
 				B0E804491C0CDF850065EBC0 /* WMFCollectionViewPageLayout.m in Sources */,
 				B069FA2E1CEACB8400083D59 /* WeakScriptMessageDelegate.swift in Sources */,
 				B0E8055D1C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift in Sources */,
+				D82014C01E686B9C00BA8579 /* SSBaseTableCell.m in Sources */,
 				B0E802BB1C0CD2260065EBC0 /* WMFStyleManager.m in Sources */,
 				B0E8053C1C0CE0DC0065EBC0 /* UIButton+WMFMultiLineHeight.swift in Sources */,
 				B0E294CD1DB2CF4300861D04 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */,
@@ -6948,11 +6999,14 @@
 				B0F92C801E3FFEA100B72802 /* WMFAuthLoginInfoFetcher.swift in Sources */,
 				B0E806E21C0CEB930065EBC0 /* PreviewAndSaveViewController.m in Sources */,
 				B0E805951C0CE2C60065EBC0 /* ToCInteractionFunnel.m in Sources */,
+				D82014BC1E686B9C00BA8579 /* SSBaseCollectionCell.m in Sources */,
 				0E37F9021CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift in Sources */,
 				B0E8031C1C0CD6820065EBC0 /* WMFCompassView.m in Sources */,
 				B0E294D31DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				D84F2C001D2FEEF600963D42 /* WMFRandomArticleViewController.m in Sources */,
+				D82014C31E686B9C00BA8579 /* SSSection.m in Sources */,
 				B0E803671C0CD91D0065EBC0 /* WMFArticleViewController.m in Sources */,
+				D82014C11E686B9C00BA8579 /* SSCoreDataSource.m in Sources */,
 				B0E804CA1C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.m in Sources */,
 				D896C7961D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */,
 				B0E805621C0CE0DC0065EBC0 /* WKWebView+LoadAssetsHtml.m in Sources */,
@@ -6980,6 +7034,7 @@
 				B0E804471C0CDF850065EBC0 /* WMFBorderButton.m in Sources */,
 				B0E803131C0CD6430065EBC0 /* WMFEmptySectionCollectionViewCell.m in Sources */,
 				B0E803A61C0CDB5A0065EBC0 /* WMFArticleFooterViewHeader.swift in Sources */,
+				D82014BE1E686B9C00BA8579 /* SSBaseDataSource.m in Sources */,
 				B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				B0E804C11C0CE0B40065EBC0 /* MWKLicense+ToGlyph.m in Sources */,
 				B0E806E51C0CEB930065EBC0 /* PreviewWebViewContainer.m in Sources */,
@@ -7002,6 +7057,7 @@
 				B06531691C2340BB003BD7DC /* WMFArticleFooterMenuItem.m in Sources */,
 				B0E803311C0CD6F20065EBC0 /* WMFExploreSectionFooter.m in Sources */,
 				B0F7CB561C8A89E300996DE0 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
+				D82014BD1E686B9C00BA8579 /* SSBaseCollectionReusableView.m in Sources */,
 				B0E8065C1C0CE84B0065EBC0 /* WikiTextSectionUploader.m in Sources */,
 				B0E806D81C0CEB850065EBC0 /* AbuseFilterAlert.m in Sources */,
 				B0E8058E1C0CE2C60065EBC0 /* EditFunnel.m in Sources */,
@@ -7063,6 +7119,7 @@
 				B0E8054E1C0CE0DC0065EBC0 /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
 				B0E8037B1C0CD9D30065EBC0 /* WMFTableOfContentsItem.swift in Sources */,
 				0E9B9E331CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m in Sources */,
+				D82014C41E686B9C00BA8579 /* SSSectionedDataSource.m in Sources */,
 				B0E8033C1C0CD76B0065EBC0 /* WMFSearchViewController.m in Sources */,
 				D81E5F881E5F2C8400E1A80C /* UIApplication+SystemSettings.swift in Sources */,
 				D820147C1E6868E100BA8579 /* TUSafariActivity.m in Sources */,

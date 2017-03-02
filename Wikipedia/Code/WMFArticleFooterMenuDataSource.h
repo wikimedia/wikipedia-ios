@@ -1,4 +1,4 @@
-#import <SSDataSources/SSDataSources.h>
+#import "SSDataSources.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
