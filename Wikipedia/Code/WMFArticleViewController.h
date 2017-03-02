@@ -44,6 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 @property (nonatomic, strong, readonly) WMFArticleDataStore *previewStore;
 
+@property (nonatomic, strong, nullable) dispatch_block_t articleLoadCompletion;
+
 @property (nonatomic, strong, readonly, nullable) MWKArticle *article;
 
 @property (nonatomic, weak) id<WMFArticleViewControllerDelegate> delegate;
