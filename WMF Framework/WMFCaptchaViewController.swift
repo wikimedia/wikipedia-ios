@@ -43,6 +43,8 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet fileprivate var stackView: UIStackView!
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var subTitleLabel: UILabel!
+    @IBOutlet fileprivate var topSpacer: UIView!
+    @IBOutlet fileprivate var bottomSpacer: UIView!
 
     public var captchaDelegate: WMFCaptchaViewControllerDelegate?
     fileprivate let captchaResetter = WMFCaptchaResetter()
@@ -65,6 +67,8 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         captchaTextBox.isHidden = collapse
         reloadCaptchaButton.isHidden = collapse
         titleLabel.isHidden = collapse
+        topSpacer.isHidden = collapse
+        bottomSpacer.isHidden = collapse
         
         guard let captchaDelegate = captchaDelegate else{
             assert(false, "Required delegate is unset")
