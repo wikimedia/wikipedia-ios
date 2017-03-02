@@ -38,6 +38,10 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
     [self layoutSecondToolbarForViewBounds:self.view.bounds hidden:self.isSecondToolbarHidden animated:NO];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
+
 - (void)setDelegate:(id<UINavigationControllerDelegate>)delegate {
     self.navigationDelegate = delegate;
 }
