@@ -355,8 +355,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
                     if (!waitToResumeApp) {
                         [self hideSplashViewAnimated:!didShowOnboarding];
                         [self resumeApp];
-                    } else {
-                        [self showSplashView];
                     }
                 }];
             }];
