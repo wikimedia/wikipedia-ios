@@ -2031,6 +2031,7 @@
 		B0FCB23A1D3D5BEC00D80D57 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHouseKeeper.swift; sourceTree = "<group>"; };
 		B384069D1E64D5C000DFC889 /* 640px-Shoso-in.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "640px-Shoso-in.jpg"; sourceTree = "<group>"; };
+		B389CFC51E67703D00483C06 /* Checkouts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Checkouts; path = Carthage/Checkouts; sourceTree = "<group>"; };
 		BC0069D31C7D556C00F2C377 /* WMFMockLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFMockLocationManager.h; path = WikipediaUnitTests/Code/WMFMockLocationManager.h; sourceTree = SOURCE_ROOT; };
 		BC0069D41C7D556C00F2C377 /* WMFMockLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMockLocationManager.m; path = WikipediaUnitTests/Code/WMFMockLocationManager.m; sourceTree = SOURCE_ROOT; };
 		BC070C2D1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKImage+CanonicalFilenames.h"; path = "Wikipedia/Code/MWKImage+CanonicalFilenames.h"; sourceTree = SOURCE_ROOT; };
@@ -4035,6 +4036,14 @@
 			name = Housekeeping;
 			sourceTree = "<group>";
 		};
+		B389CFC71E6772CE00483C06 /* Carthage */ = {
+			isa = PBXGroup;
+			children = (
+				B389CFC51E67703D00483C06 /* Checkouts */,
+			);
+			name = Carthage;
+			sourceTree = "<group>";
+		};
 		BC23E4DE1C223EAB00B5AFDE /* Revisions */ = {
 			isa = PBXGroup;
 			children = (
@@ -5336,6 +5345,7 @@
 				D844D96D1D6CB2600042D692 /* WMF Framework */,
 				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
+				B389CFC71E6772CE00483C06 /* Carthage */,
 			);
 			sourceTree = "<group>";
 		};
