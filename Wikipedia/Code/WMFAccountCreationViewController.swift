@@ -14,12 +14,12 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     @IBOutlet fileprivate var passwordConfirmUnderlineHeight: NSLayoutConstraint!
     @IBOutlet fileprivate var emailUnderlineHeight: NSLayoutConstraint!
     @IBOutlet fileprivate var createAccountContainerView: UIView!
+    @IBOutlet fileprivate var createAccountButton: WMFAuthButton!
 
     let accountCreationInfoFetcher = WMFAuthAccountCreationInfoFetcher()
     let tokenFetcher = WMFAuthTokenFetcher()
     let accountCreator = WMFAccountCreator()
     
-    fileprivate var rightButton: UIBarButtonItem?
     public var funnel: CreateAccountFunnel?
     fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     
@@ -27,7 +27,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         dismiss(animated: true, completion: nil)
     }
 
-    func nextButtonPushed(_ : UIBarButtonItem) {
+    @IBAction fileprivate func createAccountButtonTapped(withSender sender: UIButton) {
         WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-saving"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         save()
     }
@@ -51,9 +51,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
 
-        rightButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("button-done"), style: .plain, target: self, action: #selector(nextButtonPushed(_:)))
-        
-        navigationItem.rightBarButtonItem = rightButton
+        createAccountButton.setTitle(localizedStringForKeyFallingBackOnEnglish("account-creation-create-account"), for: .normal)
         
         scrollView.delegate = self
         
@@ -144,7 +142,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
 
     fileprivate func enableProgressiveButtonIfNecessary() {
-        navigationItem.rightBarButtonItem?.isEnabled = shouldProgressiveButtonBeEnabled()
+        createAccountButton.isEnabled = shouldProgressiveButtonBeEnabled()
     }
 
     fileprivate func shouldProgressiveButtonBeEnabled() -> Bool {
