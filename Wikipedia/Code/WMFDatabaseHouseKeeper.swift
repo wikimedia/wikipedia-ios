@@ -7,6 +7,22 @@ import Foundation
         try deleteStaleUnreferencedArticles(moc)
     }
     
+    /** TODO: refactor into date utilities? */
+    internal func daysBeforeDateInUTC(days : Int, date: Date) -> Date? {
+        
+        guard let midnightTodayUTC = (date as NSDate).wmf_midnightUTCDateFromLocal else {
+            assertionFailure("Calculating midnight UTC today failed")
+            return nil
+        }
+        
+        let utcCalendar = NSCalendar.wmf_utcGregorian() as Calendar
+        guard let thirtyDaysAgoMidnightUTC = utcCalendar.date(byAdding: .day, value: -30, to: midnightTodayUTC)  else{
+            assertionFailure("Calculating midnight UTC 30 days ago failed")
+            return nil
+        }
+        return (thirtyDaysAgoMidnightUTC as NSDate).wmf_midnightUTCDateFromLocal
+    }
+    
     private func deleteStaleUnreferencedArticles(_ moc: NSManagedObjectContext) throws {
         
         /**
@@ -15,12 +31,7 @@ import Foundation
  
         */
         
-        guard let midnightTodayUTC = (Date() as NSDate).wmf_midnightUTCDateFromLocal else {
-            assertionFailure("Calculating midnight UTC today failed")
-            return
-        }
-        let utcCalendar = NSCalendar.wmf_utcGregorian() as Calendar
-        guard let thirtyDaysAgoMidnightUTC = utcCalendar.date(byAdding: .day, value: -30, to: midnightTodayUTC, wrappingComponents: true) else {
+        guard let thirtyDaysAgoMidnightUTC = daysBeforeDateInUTC(days: -30, date: Date()) else {
             assertionFailure("Calculating midnight UTC 30 days ago failed")
             return
         }
