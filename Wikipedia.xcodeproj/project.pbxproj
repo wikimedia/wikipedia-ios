@@ -598,11 +598,6 @@
 		D82FDAE61DF0A9DC00DDF311 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */; };
 		D82FDAE71DF0A9DC00DDF311 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */; };
 		D82FDAE91DF0A9DC00DDF311 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */; };
-		D82FDAF61DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAF41DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework */; };
-		D82FDAF71DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAF41DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework */; };
-		D82FDAF91DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAF41DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework */; };
-		D82FDAFA1DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAF41DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework */; };
-		D82FDAFC1DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAF41DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework */; };
 		D82FDB1A1DF0AAFF00DDF311 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB181DF0AAFF00DDF311 /* HockeySDK.framework */; };
 		D82FDB221DF0AAFF00DDF311 /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB191DF0AAFF00DDF311 /* Masonry.framework */; };
 		D82FDB231DF0AAFF00DDF311 /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB191DF0AAFF00DDF311 /* Masonry.framework */; };
@@ -2330,7 +2325,6 @@
 		D82972871E3A49980061550A /* ArticlePopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticlePopoverViewController.xib; sourceTree = "<group>"; };
 		D82FDAD91DF0A99E00DDF311 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/iOS/AFNetworking.framework; sourceTree = SOURCE_ROOT; };
 		D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = SOURCE_ROOT; };
-		D82FDAF41DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = Carthage/Build/iOS/CocoaLumberjackSwift.framework; sourceTree = SOURCE_ROOT; };
 		D82FDB181DF0AAFF00DDF311 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Carthage/Build/iOS/HockeySDK.framework; sourceTree = SOURCE_ROOT; };
 		D82FDB191DF0AAFF00DDF311 /* Masonry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Masonry.framework; path = Carthage/Build/iOS/Masonry.framework; sourceTree = SOURCE_ROOT; };
 		D82FDB2A1DF0ABBF00DDF311 /* GCDWebServers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GCDWebServers.framework; path = Carthage/Build/iOS/GCDWebServers.framework; sourceTree = SOURCE_ROOT; };
@@ -2543,7 +2537,6 @@
 				D82FDAE61DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
 				D8D551A11DF1AE4B00B90177 /* hpple.framework in Frameworks */,
 				D82FDADD1DF0A99E00DDF311 /* AFNetworking.framework in Frameworks */,
-				D82FDAF91DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */,
 				0E8380651D64989F0076EDE4 /* NotificationCenter.framework in Frameworks */,
 				D82FDB361DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
 				D8D551721DF1A7AC00B90177 /* Piwik.framework in Frameworks */,
@@ -2589,7 +2582,6 @@
 				D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */,
 				D8D550E01DF1953E00B90177 /* BlocksKitUIKitExtensions.framework in Frameworks */,
 				D82FDAE31DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
-				D82FDAF61DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */,
 				041EFC371996A1F800B2CB28 /* MapKit.framework in Frameworks */,
 				D82FDB1A1DF0AAFF00DDF311 /* HockeySDK.framework in Frameworks */,
@@ -2606,7 +2598,6 @@
 				D82FDB421DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D8E2F6A91E01659900968645 /* SDWebImage.framework in Frameworks */,
 				D8D551A41DF1AE4B00B90177 /* hpple.framework in Frameworks */,
-				D82FDAFC1DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D82FDB391DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
 				D82FDAE91DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
 				D82FDAE01DF0A99F00DDF311 /* AFNetworking.framework in Frameworks */,
@@ -2627,7 +2618,6 @@
 				D82FDAE71DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
 				D8D551A21DF1AE4B00B90177 /* hpple.framework in Frameworks */,
 				D82FDADE1DF0A99E00DDF311 /* AFNetworking.framework in Frameworks */,
-				D82FDAFA1DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D85D34C61D74D07500845125 /* NotificationCenter.framework in Frameworks */,
 				D82FDB371DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
 				D8D551731DF1A7AC00B90177 /* Piwik.framework in Frameworks */,
@@ -2643,7 +2633,6 @@
 				D82FDADB1DF0A99E00DDF311 /* AFNetworking.framework in Frameworks */,
 				D895D0871D9C1EB8005418C1 /* UserNotificationsUI.framework in Frameworks */,
 				D895D0851D9C1EB8005418C1 /* UserNotifications.framework in Frameworks */,
-				D82FDAF71DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D82FDB231DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
 				D8D550D21DF1908800B90177 /* BlocksKit.framework in Frameworks */,
 				D8E2F6AE1E016E3700968645 /* SDWebImage.framework in Frameworks */,
@@ -5508,7 +5497,6 @@
 				D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */,
 				D82FDB181DF0AAFF00DDF311 /* HockeySDK.framework */,
 				D82FDB191DF0AAFF00DDF311 /* Masonry.framework */,
-				D82FDAF41DF0AA8B00DDF311 /* CocoaLumberjackSwift.framework */,
 				D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */,
 				D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */,
 				D82FDAD91DF0A99E00DDF311 /* AFNetworking.framework */,
@@ -6635,7 +6623,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/NYTPhotoViewer.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/HockeySDK.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Masonry.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjackSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SDWebImage.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
