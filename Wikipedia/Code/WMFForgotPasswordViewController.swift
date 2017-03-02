@@ -10,7 +10,7 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
     @IBOutlet fileprivate var usernameUnderlineHeight: NSLayoutConstraint!
     @IBOutlet fileprivate var emailUnderlineHeight: NSLayoutConstraint!
 
-    fileprivate var resetButton: UIBarButtonItem!
+    @IBOutlet fileprivate var resetPasswordButton: WMFAuthButton!
 
     let tokenFetcher = WMFAuthTokenFetcher()
     let passwordResetter = WMFPasswordResetter()
@@ -24,9 +24,8 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
         usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("forgot-password-username-prompt")
         emailField.placeholder = localizedStringForKeyFallingBackOnEnglish("forgot-password-email-prompt")
         
-        resetButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("forgot-password-button-title"), style: .plain, target: self, action: #selector(resetButtonPushed(_:)))
-        navigationItem.rightBarButtonItem = resetButton
-    
+        resetPasswordButton.setTitle(localizedStringForKeyFallingBackOnEnglish("forgot-password-button-title"), for: .normal)
+        
         usernameField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         emailField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     
@@ -72,10 +71,10 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
     }
 
     func enableProgressiveButton(_ highlight: Bool) {
-        resetButton.isEnabled = highlight
+        resetPasswordButton.isEnabled = highlight
     }
 
-    func resetButtonPushed(_ : UIBarButtonItem) {
+    @IBAction fileprivate func resetPasswordButtonTapped(withSender sender: UIButton) {
         save()
     }
 
