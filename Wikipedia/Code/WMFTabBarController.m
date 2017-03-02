@@ -10,6 +10,10 @@
     return UIStatusBarStyleDefault;
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
+
 - (UIViewController *)childViewControllerForStatusBarStyle {
     return self.selectedViewController;
 }

@@ -162,6 +162,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     return UIStatusBarStyleDefault;
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
+
 - (void)updateTabBarItemsTitleTextAttributesForNewDynamicTypeContentSize {
     for (UITabBarItem *item in self.rootTabBarController.tabBar.items) {
         [item setTitleTextAttributes:[UITabBarItem wmf_rootTabBarItemStyleForState:UIControlStateNormal] forState:UIControlStateNormal];

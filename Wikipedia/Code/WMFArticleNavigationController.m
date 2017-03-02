@@ -42,6 +42,10 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
     return UIStatusBarStyleDefault;
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
+
 - (void)setDelegate:(id<UINavigationControllerDelegate>)delegate {
     self.navigationDelegate = delegate;
 }
