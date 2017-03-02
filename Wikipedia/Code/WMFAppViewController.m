@@ -324,7 +324,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     return [[UIStoryboard storyboardWithName:NSStringFromClass([WMFAppViewController class]) bundle:nil] instantiateInitialViewController];
 }
 
-- (void)launchAppInWindow:(UIWindow *)window {
+- (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
     WMFStyleManager *manager = [WMFStyleManager new];
     [manager applyStyleToWindow:window];
     [WMFStyleManager setSharedStyleManager:manager];
@@ -347,11 +347,17 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [fm removeItemAtPath:[SDImageCache wmf_imageCacheDirectory] error:nil];
     [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:NO];
 #endif
-
     [self migrateToSharedContainerIfNecessaryWithCompletion:^{
         [self migrateToNewFeedIfNecessaryWithCompletion:^{
             [self migrateToQuadKeyLocationIfNecessaryWithCompletion:^{
-                [self finishLaunch];
+                [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+                    [self loadMainUI];
+                    [self hideSplashViewAnimated:!didShowOnboarding];
+                    if (!waitToResumeApp) {
+                        [self resumeApp];
+                    }
+                    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
+                }];
             }];
         }];
     }];
@@ -396,23 +402,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 }
 
 - (void)migrateToQuadKeyLocationIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
-    [self.dataStore migrateToQuadKeyLocationIfNecessaryWithCompletion:^(NSError * _Nonnull error) {
+    [self.dataStore migrateToQuadKeyLocationIfNecessaryWithCompletion:^(NSError *_Nonnull error) {
         if (error) {
             DDLogError(@"Error during location migration: %@", error);
         }
         completion();
     }];
-}
-
-- (void)finishLaunch {
-    @weakify(self)
-        [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
-            @strongify(self)
-                [self loadMainUI];
-            [self hideSplashViewAnimated:!didShowOnboarding];
-            [self resumeApp];
-            [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
-        }];
 }
 
 #pragma mark - Start/Pause/Resume App
@@ -426,17 +421,40 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         return;
     }
 
+    dispatch_block_t done = ^{
+        [self finishResumingApp];
+    };
+
+    if (self.unprocessedUserActivity) {
+        [self processUserActivity:self.unprocessedUserActivity completion:done];
+    } else if (self.unprocessedShortcutItem) {
+        [self processShortcutItem:self.unprocessedShortcutItem
+                       completion:^(BOOL didProcess) {
+                           done();
+                       }];
+    } else if ([self shouldShowLastReadArticleOnLaunch]) {
+        [self showLastReadArticleAnimated:NO];
+        done();
+    } else if ([self shouldShowExploreScreenOnLaunch]) {
+        [self showExplore];
+        done();
+    } else {
+        done();
+    }
+}
+
+- (void)finishResumingApp {
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
 
-    [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:^(WMFAccountLoginResult * _Nonnull success) {
+    [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:^(WMFAccountLoginResult *_Nonnull success) {
         DDLogDebug(@"\n\nSuccessfully logged in with saved credentials for user '%@'.\n\n", success.username);
     }
-                                                         userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser * _Nonnull currentLoggedInHandler) {
-                                                             DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
-                                                         }
-                                                                            failure:^(NSError * _Nonnull error) {
-                                                                                DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
-                                                                            }];
+        userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser *_Nonnull currentLoggedInHandler) {
+            DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
+        }
+        failure:^(NSError *_Nonnull error) {
+            DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
+        }];
 
     [self startContentSources];
 
@@ -445,26 +463,16 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     NSDate *now = [NSDate date];
 
     BOOL locationAuthorized = [WMFLocationManager isAuthorized];
-    
+
     if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > WMFTimeBeforeRefreshingExploreFeed || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
         [self updateFeedSourcesWithCompletion:NULL];
     } else if (locationAuthorized != [defaults wmf_locationAuthorized]) {
         [self.exploreViewController updateNearby:NULL];
     }
-    
+
     [defaults wmf_setLocationAuthorized:locationAuthorized];
 
     [self.savedArticlesFetcher start];
-
-    if (self.unprocessedUserActivity) {
-        [self processUserActivity:self.unprocessedUserActivity];
-    } else if (self.unprocessedShortcutItem) {
-        [self processShortcutItem:self.unprocessedShortcutItem completion:NULL];
-    } else if ([self shouldShowLastReadArticleOnLaunch]) {
-        [self showLastReadArticleAnimated:NO];
-    } else if ([self shouldShowExploreScreenOnLaunch]) {
-        [self showExplore];
-    }
 
 #if FB_TWEAK_ENABLED
     if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
@@ -723,16 +731,19 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }
 }
 
-- (BOOL)processUserActivity:(NSUserActivity *)activity {
+- (BOOL)processUserActivity:(NSUserActivity *)activity completion:(dispatch_block_t)done {
     if (![self canProcessUserActivity:activity]) {
+        done();
         return NO;
     }
     if (![self uiIsLoaded]) {
         self.unprocessedUserActivity = activity;
+        done();
         return YES;
     }
     self.unprocessedUserActivity = nil;
     [self dismissViewControllerAnimated:NO completion:NULL];
+
     switch ([activity wmf_type]) {
         case WMFUserActivityTypeExplore:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
@@ -770,9 +781,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         case WMFUserActivityTypeArticle: {
             NSURL *URL = [activity wmf_articleURL];
             if (!URL) {
+                done();
                 return NO;
             }
-            [self showArticleForURL:URL animated:NO];
+            [self showArticleForURL:URL animated:NO completion:done];
+            // don't call done block before this return, wait for completion ^
+            return YES;
         } break;
         case WMFUserActivityTypeSettings:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
@@ -783,10 +797,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             [self wmf_openExternalUrl:activity.webpageURL];
             break;
         default:
+            done();
             return NO;
             break;
     }
-
+    done();
     return YES;
 }
 
@@ -800,17 +815,26 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 }
 
 - (WMFArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated {
+    return [self showArticleForURL:articleURL
+                          animated:animated
+                        completion:^{
+                        }];
+}
+
+- (WMFArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion {
     if (!articleURL.wmf_title) {
+        completion();
         return nil;
     }
     WMFArticleViewController *visibleArticleViewController = self.visibleArticleViewController;
     NSString *visibleKey = visibleArticleViewController.articleURL.wmf_articleDatabaseKey;
     NSString *articleKey = articleURL.wmf_articleDatabaseKey;
     if (visibleKey && articleKey && [visibleKey isEqualToString:articleKey]) {
+        completion();
         return visibleArticleViewController;
     }
     [self selectExploreTabAndDismissPresentedViewControllers];
-    return [self.exploreViewController wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore previewStore:self.previewStore restoreScrollPosition:YES animated:animated];
+    return [self.exploreViewController wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore previewStore:self.previewStore restoreScrollPosition:YES animated:animated articleLoadCompletion:completion];
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
