@@ -2,7 +2,6 @@
 #define WMF_global_h
 
 #import "EXTScope.h"
-#import <KVOController/KVOController.h>
 #import <BlocksKit/BlocksKit.h>
 
 #import "NSURL+WMFLinkParsing.h"

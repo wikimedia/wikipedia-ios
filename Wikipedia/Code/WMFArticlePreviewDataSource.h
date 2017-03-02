@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import <SSDataSources/SSArrayDataSource.h>
+#import "SSArrayDataSource.h"
 #import "WMFTitleListDataSource.h"
 
 NS_ASSUME_NONNULL_BEGIN
