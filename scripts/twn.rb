@@ -33,7 +33,7 @@ end
 
 puts "#{pr_branch} went from #{previous_hash} to #{current_hash}, opening pr"
 
-`scritps/pr.rb #{pr_branch} #{develop} "#{title}"`
+`scripts/pr.rb #{pr_branch} #{base_branch} "#{title}"`
 
 if $?.to_i == 0
   `echo "#{current_hash}" > #{hash_file}`
