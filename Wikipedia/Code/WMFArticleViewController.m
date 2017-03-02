@@ -41,6 +41,7 @@
 #import "WMFArticleFetcher.h"
 
 // View
+#import <FLAnimatedImage/FLAnimatedImageView.h>
 #import "UIViewController+WMFEmptyView.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
@@ -340,7 +341,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (UIImageView *)headerImageView {
     if (!_headerImageView) {
-        _headerImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _headerImageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectZero];
         _headerImageView.userInteractionEnabled = YES;
         _headerImageView.clipsToBounds = YES;
         // White background is necessary for images with alpha

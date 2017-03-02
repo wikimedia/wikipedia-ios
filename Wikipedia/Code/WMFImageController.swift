@@ -144,9 +144,9 @@ open class WMFImageController : NSObject {
         let webImageOperation = imageManager.loadImage(with: URL, options: options, progress: nil) { (image, data, opError, type, finished, imageURL) in
             if let opError = opError {
                 failure(opError)
-            } else if let imageURL = imageURL, let image = image {
+            } else if let imageURL = imageURL, let image = image, let data = data {
                 let origin = ImageOrigin(sdOrigin: type)
-                success(WMFImageDownload(url: imageURL, image: image, origin: origin))
+                success(WMFImageDownload(url: imageURL, image: image, origin: origin, data: data))
             } else {
                 //should never reach this point
                  failure(WMFImageControllerError.dataNotFound)
@@ -259,11 +259,11 @@ open class WMFImageController : NSObject {
             return
         }
         let op = imageCache.queryCacheOperation(forKey: cacheKeyForURL(url)) { (image, data, origin) in
-            guard let image = image else {
+            guard let image = image, let data = data else {
                 failure(WMFImageControllerError.dataNotFound)
                 return
             }
-            success(WMFImageDownload(url: url, image: image, origin: ImageOrigin(sdOrigin: origin) ))
+            success(WMFImageDownload(url: url, image: image, origin: ImageOrigin(sdOrigin: origin), data: data))
         }
         addCancellableForURL(op as! Cancellable, url: url)
     }
