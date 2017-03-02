@@ -984,21 +984,17 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)showSplashView {
     self.splashView.hidden = NO;
-    self.splashView.layer.transform = CATransform3DIdentity;
     self.splashView.alpha = 1.0;
 }
 
 - (void)hideSplashViewAnimated:(BOOL)animated {
     NSTimeInterval duration = animated ? 0.3 : 0.0;
-
     [UIView animateWithDuration:duration
         animations:^{
-            self.splashView.layer.transform = CATransform3DMakeScale(10.0f, 10.0f, 1.0f);
             self.splashView.alpha = 0.0;
         }
         completion:^(BOOL finished) {
             self.splashView.hidden = YES;
-            self.splashView.layer.transform = CATransform3DIdentity;
         }];
 }
 
