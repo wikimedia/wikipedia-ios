@@ -10,7 +10,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var captchaContainer: UIView!
 
-    @IBOutlet fileprivate var loginContainerView: UIView!
+    @IBOutlet fileprivate var stackView: UIStackView!
     @IBOutlet fileprivate var loginButton: WMFAuthButton!
     
     public var funnel: LoginFunnel?
