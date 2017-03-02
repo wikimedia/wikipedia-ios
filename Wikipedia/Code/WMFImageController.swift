@@ -186,7 +186,7 @@ open class WMFImageController : NSObject {
             return nil
         }
         let key = cacheKeyForURL(url)
-        var image = imageCache.imageFromDiskCache(forKey: key)
+        var image = imageCache.imageFromCache(forKey: key)
         if image  == nil { // if it's not in the SDWebImage cache, check the NSURLCache
             let request = URLRequest(url: (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless() as URL)
             if let cachedResponse = URLCache.shared.cachedResponse(for: request),
