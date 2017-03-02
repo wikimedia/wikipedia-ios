@@ -183,7 +183,6 @@
 		B08E7E9B1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = B08E7E9A1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m */; };
 		B09B03EB1CE0FB2600009083 /* WMFPageHistoryRevision.m in Sources */ = {isa = PBXBuildFile; fileRef = B09B03EA1CE0FB2600009083 /* WMFPageHistoryRevision.m */; };
 		B09B03ED1CE0FB4200009083 /* PageHistorySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03EC1CE0FB4200009083 /* PageHistorySection.swift */; };
-		B09B03F01CE0FB5200009083 /* AFHTTPSessionManager+WMFCancelAll.m in Sources */ = {isa = PBXBuildFile; fileRef = B09B03EF1CE0FB5200009083 /* AFHTTPSessionManager+WMFCancelAll.m */; };
 		B09B03F21CE0FB6300009083 /* PageHistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F11CE0FB6300009083 /* PageHistoryFetcher.swift */; };
 		B09B03F51CE0FB7700009083 /* WMFFontSliderContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F31CE0FB7700009083 /* WMFFontSliderContainer.swift */; };
 		B09B03F61CE0FB7700009083 /* WMFFontSliderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B09B03F41CE0FB7700009083 /* WMFFontSliderViewController.xib */; };
@@ -562,6 +561,8 @@
 		D81FB2661D47B5BA0000C685 /* WMFCVLAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB2651D47B5BA0000C685 /* WMFCVLAttributes.m */; };
 		D81FB2691D47B5DC0000C685 /* WMFCVLInvalidationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB2681D47B5DC0000C685 /* WMFCVLInvalidationContext.m */; };
 		D81FB26C1D493E6A0000C685 /* WMFCVLMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB26B1D493E6A0000C685 /* WMFCVLMetrics.m */; };
+		D82014781E6864BF00BA8579 /* AFHTTPSessionManager+WMFCancelAll.m in Sources */ = {isa = PBXBuildFile; fileRef = B09B03EF1CE0FB5200009083 /* AFHTTPSessionManager+WMFCancelAll.m */; };
+		D82014791E6864C100BA8579 /* AFHTTPSessionManager+WMFCancelAll.h in Headers */ = {isa = PBXBuildFile; fileRef = B09B03EE1CE0FB5200009083 /* AFHTTPSessionManager+WMFCancelAll.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D820F78B1DD0E5E100806045 /* WMFNotificationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D820F78A1DD0E5E100806045 /* WMFNotificationTests.m */; };
 		D820F78D1DD0F11500806045 /* MCSFeed.json in Resources */ = {isa = PBXBuildFile; fileRef = D820F78C1DD0F11500806045 /* MCSFeed.json */; };
 		D820F78F1DD0F89700806045 /* PageViews.json in Resources */ = {isa = PBXBuildFile; fileRef = D820F78E1DD0F89700806045 /* PageViews.json */; };
@@ -2796,7 +2797,6 @@
 		0487045619F8262600B7D307 /* Fetchers */ = {
 			isa = PBXGroup;
 			children = (
-				BC45D56F1C32E99C007C72F3 /* Common */,
 				BCCB813F1C110721008BC602 /* Picture of the Day */,
 				BCDC489C1BF0F38900E6858A /* Featured Article */,
 				B0E806541C0CE84B0065EBC0 /* WikiTextSectionFetcher.h */,
@@ -3417,6 +3417,8 @@
 				B0265F2B1CB89CB600740525 /* AFHTTPRequestSerializer+WMFRequestHeaders.m */,
 				B0E804611C0CE0920065EBC0 /* AFHTTPSessionManager+WMFDesktopRetry.h */,
 				B0E804621C0CE0920065EBC0 /* AFHTTPSessionManager+WMFDesktopRetry.m */,
+				B09B03EE1CE0FB5200009083 /* AFHTTPSessionManager+WMFCancelAll.h */,
+				B09B03EF1CE0FB5200009083 /* AFHTTPSessionManager+WMFCancelAll.m */,
 				B0C6BE451E4288E40033BD6E /* AFHTTPSessionManager+WMFAPI.swift */,
 				B0E807231C0CED1F0065EBC0 /* MWNetworkActivityIndicatorManager.h */,
 				B0E807241C0CED1F0065EBC0 /* MWNetworkActivityIndicatorManager.m */,
@@ -4280,15 +4282,6 @@
 				B0E8062A1C0CE7670065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m */,
 				BCB00EC21C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.h */,
 				BCB00EC31C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.m */,
-			);
-			name = Common;
-			sourceTree = "<group>";
-		};
-		BC45D56F1C32E99C007C72F3 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				B09B03EE1CE0FB5200009083 /* AFHTTPSessionManager+WMFCancelAll.h */,
-				B09B03EF1CE0FB5200009083 /* AFHTTPSessionManager+WMFCancelAll.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -6015,6 +6008,7 @@
 				D844D9A01D6CB6600042D692 /* WMFURLCache.h in Headers */,
 				D8FA18B01E1BD891009675C3 /* NSBundle+WMFInfoUtils.h in Headers */,
 				D8FA18AD1E1BD891009675C3 /* NSDictionary+WMFPageViewsSortedByDate.h in Headers */,
+				D82014791E6864C100BA8579 /* AFHTTPSessionManager+WMFCancelAll.h in Headers */,
 				D8DC16ED1D6F6DD600D6D9FB /* WMFAssetsFile.h in Headers */,
 				D8FA18EA1E1BD8B9009675C3 /* WMFHashing.h in Headers */,
 				0E728D4D1DAEEE9A0074EB4B /* WMFRandomArticleFetcher.h in Headers */,
@@ -6799,7 +6793,6 @@
 				B0E802BE1C0CD2360065EBC0 /* UIButton+WMFButton.m in Sources */,
 				B0E803711C0CD9A80065EBC0 /* WMFTableOfContentsAnimator.swift in Sources */,
 				B0D1B45A1DDD02BC004FCAE6 /* WMFDynamicTypeExtentions.swift in Sources */,
-				B09B03F01CE0FB5200009083 /* AFHTTPSessionManager+WMFCancelAll.m in Sources */,
 				B0338A841DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift in Sources */,
 				B0E8030D1C0CD5E00065EBC0 /* WMFNearbyArticleCollectionViewCell.m in Sources */,
 				B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */,
@@ -7244,6 +7237,7 @@
 				D83FA6B61D74CDE6008CAB00 /* EventLoggingFunnel.m in Sources */,
 				D8FA18D11E1BD891009675C3 /* WMFMath.m in Sources */,
 				D8FA18B41E1BD891009675C3 /* NSCalendar+WMFCommonCalendars.m in Sources */,
+				D82014781E6864BF00BA8579 /* AFHTTPSessionManager+WMFCancelAll.m in Sources */,
 				D844D9801D6CB3310042D692 /* MWKSiteDataObject.m in Sources */,
 				D844D9FA1D6CC0710042D692 /* SDWebImageManager+WMFCacheRemoval.m in Sources */,
 				D844D9EC1D6CBFE40042D692 /* WMFZeroConfigurationFetcher.m in Sources */,
