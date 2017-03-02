@@ -185,7 +185,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }
     UITabBarController *tabBar = [[UIStoryboard storyboardWithName:@"WMFTabBarUI" bundle:nil] instantiateInitialViewController];
     [self addChildViewController:tabBar];
-    [self.view addSubview:tabBar.view];
+    [self.view insertSubview:tabBar.view atIndex:0];
     [tabBar.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.and.bottom.and.leading.and.trailing.equalTo(self.view);
     }];
