@@ -1,4 +1,4 @@
-#import <SSDataSources/SSDataSources.h>
+#import "SSDataSources.h"
 
 @class WMFTitleInsetRespectingButton;
 

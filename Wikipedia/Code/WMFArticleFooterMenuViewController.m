@@ -1,7 +1,7 @@
 #import "WMFArticleFooterMenuViewController.h"
 #import "WMFIntrinsicSizeTableView.h"
 #import "MWKArticle.h"
-#import <SSDataSources/SSDataSources.h>
+#import "SSDataSources.h"
 #import "WMFArticleListTableViewController.h"
 #import "WMFArticlePreviewFetcher.h"
 #import "WMFArticleFooterMenuItem.h"
