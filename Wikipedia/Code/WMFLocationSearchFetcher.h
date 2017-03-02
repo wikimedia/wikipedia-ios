@@ -5,6 +5,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString *const WMFLocationSearchErrorDomain;
+
+typedef NS_ENUM(NSUInteger, WMFLocationSearchErrorCode) {
+    WMFLocationSearchErrorCodeUnknown = 0
+};
 
 typedef NS_ENUM(NSUInteger, WMFLocationSearchSortStyle) {
     WMFLocationSearchSortStyleNone = 0,
