@@ -1,5 +1,5 @@
 #import <UIKit/UIKit.h>
-#import <SSDataSources/SSDataSources.h>
+#import "SSDataSources.h"
 
 @interface WMFArticleFooterMenuCell : SSBaseTableCell
 
