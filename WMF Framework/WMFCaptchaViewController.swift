@@ -147,12 +147,31 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    fileprivate func firstArrangedSubviewWithRequiredNonZeroHeightConstraint() -> UIView? {
+        return stackView.arrangedSubviews.first(where: {arrangedSubview in
+            let requiredHeightConstraint = arrangedSubview.constraints.first(where: {constraint in
+                guard
+                    type(of: constraint) == NSLayoutConstraint.self,
+                    constraint.firstAttribute == .height,
+                    constraint.priority == UILayoutPriorityRequired,
+                    constraint.constant != 0
+                    else{
+                        return false
+                }
+                return true
+            })
+            return (requiredHeightConstraint != nil)
+        })
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let captchaDelegate = captchaDelegate else{
             assert(false, "Required delegate is unset")
             return
         }
+        
+        assert(firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, "\n\nAll stackview arrangedSubview height constraints need to have a priority of < 1000 so the stackview can collapse the 'cell' if the arrangedSubview's isHidden property is set to true. This arrangedSubview was determined to have a required height: \(firstArrangedSubviewWithRequiredNonZeroHeightConstraint()). To fix reduce the priority of its height constraint to < 1000.\n\n")
         
         captcha = nil
         reloadCaptchaButton.setTitle(localizedStringForKeyFallingBackOnEnglish("captcha-reload"), for: .normal)
