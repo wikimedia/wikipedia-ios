@@ -31,6 +31,8 @@
 
 #pragma mark - Static URLs
 
+static const NSString *kvo_WMFSettingsViewController_authManager_loggedInUsername = nil;
+
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const WMFSettingsURLZeroFAQ = @"https://m.wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
@@ -46,6 +48,8 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 
 @property (nonatomic, strong) SSSectionedDataSource *elementDataSource;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+
+@property (nullable, nonatomic) WMFAuthenticationManager *authManager;
 
 @end
 
@@ -74,12 +78,23 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     self.tableView.estimatedRowHeight = 52.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
-    [self.KVOControllerNonRetaining observe:[WMFAuthenticationManager sharedInstance]
-                                    keyPath:WMF_SAFE_KEYPATH([WMFAuthenticationManager sharedInstance], loggedInUsername)
-                                    options:NSKeyValueObservingOptionInitial
-                                      block:^(WMFSettingsViewController *observer, id object, NSDictionary *change) {
-                                          [observer reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
-                                      }];
+    self.authManager = [WMFAuthenticationManager sharedInstance];
+}
+
+- (void)dealloc {
+    self.authManager = nil;
+}
+
+- (void)setAuthManager:(nullable WMFAuthenticationManager *)authManager {
+    if (_authManager == authManager) {
+        return;
+    }
+    
+    NSString *keyPath = WMF_SAFE_KEYPATH([WMFAuthenticationManager sharedInstance], loggedInUsername);
+    
+    [_authManager removeObserver:self forKeyPath:keyPath context:&kvo_WMFSettingsViewController_authManager_loggedInUsername];
+    _authManager = authManager;
+    [_authManager addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:&kvo_WMFSettingsViewController_authManager_loggedInUsername];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -414,6 +429,15 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     return section;
 }
 
+#pragma - KVO
+
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey,id> *)change context:(nullable void *)context    {
+    if (context == &kvo_WMFSettingsViewController_authManager_loggedInUsername) {
+        [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
 @end
 
 NS_ASSUME_NONNULL_END

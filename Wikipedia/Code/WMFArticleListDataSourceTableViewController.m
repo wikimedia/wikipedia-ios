@@ -7,6 +7,8 @@
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "Wikipedia-Swift.h"
 
+static const NSString *kvo_WMFArticleListDataSourceTableViewController_dataSource_urls = nil;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticleListDataSourceTableViewController
@@ -15,11 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)dealloc {
     [self unobserveArticleUpdates];
-    // NOTE(bgerstle): must check if dataSource was set to prevent creation of KVOControllerNonRetaining during dealloc
-    // happens during tests, creating KVOControllerNonRetaining during dealloc attempts to create weak ref, causing crash
-    if (self.dataSource) {
-        [self.KVOControllerNonRetaining unobserve:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, urls)];
-    }
+    self.dataSource = nil;
 }
 
 #pragma mark - Accessors
@@ -32,10 +30,14 @@ NS_ASSUME_NONNULL_BEGIN
     _dataSource.tableView = nil;
     self.tableView.dataSource = nil;
 
-    [self.KVOControllerNonRetaining unobserve:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, urls)];
 
+    NSString *keyPath = WMF_SAFE_KEYPATH(_dataSource, urls);
+    [(id)_dataSource removeObserver:self forKeyPath:keyPath context:&kvo_WMFArticleListDataSourceTableViewController_dataSource_urls];
+    
     _dataSource = dataSource;
 
+    [(id)_dataSource addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:&kvo_WMFArticleListDataSourceTableViewController_dataSource_urls];
+    
     //HACK: Need to check the window to see if we are on screen. http://stackoverflow.com/a/2777460/48311
     //isViewLoaded is not enough.
     if ([self isViewLoaded] && self.view.window) {
@@ -47,14 +49,6 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     [self updateEmptyAndDeleteState];
-    [self.KVOControllerNonRetaining observe:self.dataSource
-                                    keyPath:WMF_SAFE_KEYPATH(self.dataSource, urls)
-                                    options:NSKeyValueObservingOptionInitial
-                                      block:^(WMFArticleListDataSourceTableViewController *observer,
-                                              SSBaseDataSource<WMFTitleListDataSource> *object,
-                                              NSDictionary *change) {
-                                          [observer updateEmptyAndDeleteState];
-                                      }];
 }
 
 #pragma mark - Stay Fresh... yo
@@ -122,6 +116,13 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.dataSource urlForIndexPath:indexPath];
 }
 
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey,id> *)change context:(nullable void *)context {
+    if (context == &kvo_WMFArticleListDataSourceTableViewController_dataSource_urls) {
+        [self updateEmptyAndDeleteState];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
 @end
 
 NS_ASSUME_NONNULL_END
