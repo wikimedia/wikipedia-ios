@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="O8j-Xm-zXE">
-    <device id="retina4_7" orientation="portrait">
+    <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -18,17 +18,17 @@
                         <viewControllerLayoutGuide type="bottom" id="fKi-Ok-D1o"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="zy6-Kl-9CO">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N6E-ZW-sLh">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="splashscreen-background" translatesAutoresizingMaskIntoConstraints="NO" id="nDi-XA-qqD">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wikipedia-wordmark" translatesAutoresizingMaskIntoConstraints="NO" id="5c5-u5-qnE">
-                                        <rect key="frame" x="67" y="292" width="240" height="59"/>
+                                        <rect key="frame" x="263.5" y="470.5" width="240" height="59"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="210" id="bR9-Sg-vRZ"/>
                                             <constraint firstAttribute="height" constant="192" id="nWb-XA-yli"/>
@@ -50,6 +50,16 @@
                                     <constraint firstAttribute="centerY" secondItem="5c5-u5-qnE" secondAttribute="centerY" constant="12" id="oRv-kS-Ud7"/>
                                     <constraint firstItem="nDi-XA-qqD" firstAttribute="top" secondItem="N6E-ZW-sLh" secondAttribute="top" id="pE7-Gw-63w"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="nDi-XA-qqD"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="subviews">
+                                        <include reference="nDi-XA-qqD"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
