@@ -158,6 +158,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
                                                   }];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
+
 - (void)updateTabBarItemsTitleTextAttributesForNewDynamicTypeContentSize {
     for (UITabBarItem *item in self.rootTabBarController.tabBar.items) {
         [item setTitleTextAttributes:[UITabBarItem wmf_rootTabBarItemStyleForState:UIControlStateNormal] forState:UIControlStateNormal];
