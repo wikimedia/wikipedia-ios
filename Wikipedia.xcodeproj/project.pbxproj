@@ -875,7 +875,6 @@
 		D8D553621DF1B63200B90177 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D8D553641DF1B64300B90177 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553631DF1B64300B90177 /* CoreMedia.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D8D553661DF1B64E00B90177 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553651DF1B64D00B90177 /* CoreVideo.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		D8D553681DF1B66500B90177 /* Appsee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553671DF1B66500B90177 /* Appsee.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D8D906941DF58D1900853BFD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D906931DF58D1800853BFD /* libsqlite3.tbd */; };
 		D8D906951DF58D2C00853BFD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D906931DF58D1800853BFD /* libsqlite3.tbd */; };
 		D8D92B5A1DF22E1700B95311 /* NotificationBackgroundError.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B491DF22E1700B95311 /* NotificationBackgroundError.png */; };
@@ -2465,7 +2464,6 @@
 		D8D553611DF1B63200B90177 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D8D553631DF1B64300B90177 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		D8D553651DF1B64D00B90177 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
-		D8D553671DF1B66500B90177 /* Appsee.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Appsee.framework; path = Wikipedia/Frameworks/Appsee.framework; sourceTree = "<group>"; };
 		D8D906931DF58D1800853BFD /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		D8D92B491DF22E1700B95311 /* NotificationBackgroundError.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotificationBackgroundError.png; sourceTree = "<group>"; };
 		D8D92B4A1DF22E1700B95311 /* NotificationBackgroundError@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NotificationBackgroundError@2x.png"; sourceTree = "<group>"; };
@@ -2556,7 +2554,6 @@
 				D8D553621DF1B63200B90177 /* QuartzCore.framework in Frameworks */,
 				D8D553601DF1B62D00B90177 /* AVFoundation.framework in Frameworks */,
 				D81DBCD41DF2659A0035281A /* TUSafariActivity.framework in Frameworks */,
-				D8D553681DF1B66500B90177 /* Appsee.framework in Frameworks */,
 				D8D551A71DF1AE9B00B90177 /* libxml2.tbd in Frameworks */,
 				D82FDB221DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
 				D82FDB3C1DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
@@ -5353,7 +5350,6 @@
 			children = (
 				D8D906931DF58D1800853BFD /* libsqlite3.tbd */,
 				D82FDAD81DF0A96E00DDF311 /* Carthage */,
-				D8D553671DF1B66500B90177 /* Appsee.framework */,
 				D8D553651DF1B64D00B90177 /* CoreVideo.framework */,
 				D8D553631DF1B64300B90177 /* CoreMedia.framework */,
 				D8D553611DF1B63200B90177 /* QuartzCore.framework */,
