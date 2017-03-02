@@ -144,7 +144,7 @@ open class WMFImageController : NSObject {
         let webImageOperation = imageManager.loadImage(with: URL, options: options, progress: nil) { (image, data, opError, type, finished, imageURL) in
             if let opError = opError {
                 failure(opError)
-            } else if let imageURL = imageURL, let image = image, let data = data {
+            } else if let imageURL = imageURL, let image = image {
                 let origin = ImageOrigin(sdOrigin: type)
                 success(WMFImageDownload(url: imageURL, image: image, origin: origin, data: data))
             } else {
