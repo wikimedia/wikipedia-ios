@@ -13,6 +13,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
+
 #pragma mark - Internal Class Declarations
 
 @interface WMFLocationSearchRequestParameters : NSObject
@@ -126,6 +128,9 @@ NS_ASSUME_NONNULL_BEGIN
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             if (failure) {
+                if (![[error domain] isEqualToString:NSURLErrorDomain]) {
+                    error = [NSError errorWithDomain:WMFLocationSearchErrorDomain code:WMFLocationSearchErrorCodeUnknown userInfo:@{NSLocalizedDescriptionKey: MWLocalizedString(@"empty-no-search-results-message", nil)}];
+                }
                 failure(error);
             }
         }];
