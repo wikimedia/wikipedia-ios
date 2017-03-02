@@ -355,8 +355,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
                     if (!waitToResumeApp) {
                         [self hideSplashViewAnimated:!didShowOnboarding];
                         [self resumeApp];
+                    } else {
+                        [self showSplashView];
                     }
-                    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
                 }];
             }];
         }];
@@ -1012,6 +1013,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)showExplore {
     [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
     [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
 }
 
 #pragma mark - Last Read Article
