@@ -187,6 +187,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
     [self updateUIWithResults:nil];
     [self updateRecentSearchesVisibility:NO];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchInputModeChanged:) name:UITextInputCurrentInputModeDidChangeNotification object:nil];
+}
+
+- (void)searchInputModeChanged:(NSNotification *)note {
+    DDLogDebug(@"changed!");
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -276,6 +282,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)dismiss {
     [self.searchField resignFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (IBAction)didTapCloseButton:(id)sender {
@@ -323,6 +330,20 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         }
 
         BOOL isFieldEmpty = [query wmf_trim].length == 0;
+
+        /**
+         * This check is to avoid interpretting the "speech recognition in progress" blue spinner as 
+         * actual text input. I could not find a clean way to detect this beyond subclassing the UITextField
+         * which seemed more complex.
+         * 
+         * See:
+         *   - https://phabricator.wikimedia.org/T156375
+         *   - http://stackoverflow.com/questions/24041181/how-to-detect-that-speech-recogntion-is-in-progress
+         */
+        if ((query.length == 1) && ([query characterAtIndex:0] == NSAttachmentCharacter)) {
+            return;
+        }
+
         [self setSeparatorViewHidden:isFieldEmpty animated:YES];
 
         if (isFieldEmpty) {
