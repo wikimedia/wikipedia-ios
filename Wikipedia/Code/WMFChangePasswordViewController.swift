@@ -10,13 +10,13 @@ class WMFChangePasswordViewController: WMFScrollViewController {
     @IBOutlet fileprivate var passwordUnderlineHeight: NSLayoutConstraint!
     @IBOutlet fileprivate var retypeUnderlineHeight: NSLayoutConstraint!
 
-    fileprivate var doneButton: UIBarButtonItem!
+    @IBOutlet fileprivate var saveButton: WMFAuthButton!
     
     public var funnel: LoginFunnel?
 
     public var userName:String?
     
-    func doneButtonPushed(_ : UIBarButtonItem) {
+    @IBAction fileprivate func saveButtonTapped(withSender sender: UIButton) {
         save()
     }
 
@@ -36,7 +36,7 @@ class WMFChangePasswordViewController: WMFScrollViewController {
     }
 
     func enableProgressiveButton(_ highlight: Bool) {
-        doneButton.isEnabled = highlight
+        saveButton.isEnabled = highlight
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,9 +67,6 @@ class WMFChangePasswordViewController: WMFScrollViewController {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
         
-        doneButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("button-save"), style: .plain, target: self, action: #selector(doneButtonPushed(_:)))
-        navigationItem.rightBarButtonItem = doneButton
-       
         passwordField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         retypeField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 
