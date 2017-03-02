@@ -1128,6 +1128,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             break
         case .share:
             let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: [TUSafariActivity()])
+            activityVC.popoverPresentationController?.sourceView = view
+            var sourceRect = view.bounds
+            if let shareButton = selectedArticlePopover?.shareButton {
+                sourceRect = view.convert(shareButton.frame, from: shareButton.superview)
+            }
+            activityVC.popoverPresentationController?.sourceRect = sourceRect
             present(activityVC, animated: true, completion: nil)
             break
         case .none:
