@@ -45,9 +45,8 @@
 #import "UIViewController+WMFEmptyView.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
-#import "NSArray+WMFLayoutDirectionUtilities.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
-#import <TUSafariActivity/TUSafariActivity.h>
+#import "TUSafariActivity.h"
 #import "WMFArticleTextActivitySource.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIImageView+WMFPlaceholder.h"
@@ -856,7 +855,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+
     NSUInteger index = self.indexOfCurrentFontSize;
     NSNumber *multiplier = self.fontSizeMultipliers[index];
     [self.webViewController setFontSizeMultiplier:multiplier];
