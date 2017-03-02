@@ -352,8 +352,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             [self migrateToQuadKeyLocationIfNecessaryWithCompletion:^{
                 [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
                     [self loadMainUI];
-                    [self hideSplashViewAnimated:!didShowOnboarding];
                     if (!waitToResumeApp) {
+                        [self hideSplashViewAnimated:!didShowOnboarding];
                         [self resumeApp];
                     }
                     [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
@@ -411,6 +411,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 }
 
 #pragma mark - Start/Pause/Resume App
+
+- (void)hideSplashScreenAndResumeApp {
+    [self hideSplashViewAnimated:true];
+    [self resumeApp];
+}
 
 - (void)resumeApp {
     if (self.isPresentingOnboarding) {
