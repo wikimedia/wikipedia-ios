@@ -13,7 +13,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     @IBOutlet fileprivate var passwordUnderlineHeight: NSLayoutConstraint!
     @IBOutlet fileprivate var passwordConfirmUnderlineHeight: NSLayoutConstraint!
     @IBOutlet fileprivate var emailUnderlineHeight: NSLayoutConstraint!
-    @IBOutlet fileprivate var createAccountContainerView: UIView!
+    @IBOutlet fileprivate var stackView: UIStackView!
     @IBOutlet fileprivate var createAccountButton: WMFAuthButton!
 
     let accountCreationInfoFetcher = WMFAuthAccountCreationInfoFetcher()
