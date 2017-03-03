@@ -88,7 +88,7 @@
                                                                     <constraint firstAttribute="height" priority="999" constant="45" id="0QJ-ye-NTr"/>
                                                                     <constraint firstAttribute="width" priority="999" constant="45" id="jFK-wD-BOg"/>
                                                                 </constraints>
-                                                                <state key="normal" image="refresh-mini"/>
+                                                                <state key="normal" image="captcha-refresh"/>
                                                                 <connections>
                                                                     <action selector="refreshButtonTappedWithSender:" destination="sIA-fC-CW8" eventType="touchUpInside" id="Z0m-wP-pV5"/>
                                                                 </connections>
@@ -100,12 +100,13 @@
                                                                     <constraint firstAttribute="height" priority="999" constant="1" id="UEu-bh-A2n"/>
                                                                 </constraints>
                                                             </view>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hh6-C5-dNO">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hh6-C5-dNO">
                                                                 <rect key="frame" x="0.0" y="46" width="45" height="45"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" priority="999" constant="45" id="VzZ-Gl-qFQ"/>
                                                                     <constraint firstAttribute="height" priority="999" constant="45" id="hAI-oY-P1l"/>
                                                                 </constraints>
+                                                                <state key="normal" image="captcha-info"/>
                                                                 <connections>
                                                                     <action selector="infoButtonTappedWithSender:" destination="sIA-fC-CW8" eventType="touchUpInside" id="YkB-Yk-K8N"/>
                                                                 </connections>
@@ -207,7 +208,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="refresh-mini" width="18" height="18"/>
+        <image name="captcha-info" width="18" height="18"/>
+        <image name="captcha-refresh" width="17" height="18"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
