@@ -9,7 +9,8 @@ class WMFChangePasswordViewController: WMFScrollViewController {
     @IBOutlet fileprivate var retypeField: UITextField!
     @IBOutlet fileprivate var passwordUnderlineHeight: NSLayoutConstraint!
     @IBOutlet fileprivate var retypeUnderlineHeight: NSLayoutConstraint!
-
+    @IBOutlet fileprivate var passwordTitleLabel: UILabel!
+    @IBOutlet fileprivate var retypeTitleLabel: UILabel!
     @IBOutlet fileprivate var saveButton: WMFAuthButton!
     
     public var funnel: LoginFunnel?
@@ -75,8 +76,10 @@ class WMFChangePasswordViewController: WMFScrollViewController {
 
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("new-password-title")
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("new-password-instructions")
-        passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("new-password-password-placeholder-text")
-        retypeField.placeholder = localizedStringForKeyFallingBackOnEnglish("new-password-confirm-placeholder-text")
+        passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-new-password-placeholder")
+        retypeField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-new-password-confirm-placeholder")
+        passwordTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-new-password-title")
+        retypeTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-new-password-confirm-title")
         
         view.wmf_configureSubviewsForDynamicType()
     }
