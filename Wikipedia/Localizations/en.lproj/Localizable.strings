@@ -92,6 +92,14 @@
 "field-username-placeholder" = "enter username";
 "field-password-title" = "Password";
 "field-password-placeholder" = "enter password";
+"field-password-confirm-title" = "Confirm password";
+"field-password-confirm-placeholder" = "re-enter password";
+"field-email-title" = "Email address";
+"field-email-placeholder" = "example@example.org";
+"field-token-title" = "Token";
+"field-token-placeholder" = "enter token";
+"field-captcha-title" = "Enter the text you see above";
+"field-captcha-placeholder" = "CAPTCHA text";
 
 "forgot-password-title" = "Reset password";
 "forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";

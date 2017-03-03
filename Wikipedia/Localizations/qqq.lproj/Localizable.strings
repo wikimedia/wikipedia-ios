@@ -98,6 +98,14 @@
 "field-username-placeholder" = "Placeholder text shown inside username field until user taps on it";
 "field-password-title" = "Title for password field";
 "field-password-placeholder" = "Placeholder text shown inside password field until user taps on it";
+"field-password-confirm-title" = "Title for confirm password field";
+"field-password-confirm-placeholder" = "Placeholder text shown inside confirm password field until user taps on it";
+"field-email-title" = "Title for email address field";
+"field-email-placeholder" = "Placeholder text shown inside email address field until user taps on it";
+"field-token-title" = "Title for token field";
+"field-token-placeholder" = "Placeholder text shown inside token field until user taps on it";
+"field-captcha-title" = "Title for captcha field";
+"field-captcha-placeholder" = "Placeholder text shown inside captcha field until user taps on it";
 "forgot-password-title" = "Title for reset password interface\n{{Identical|Reset password}}";
 "forgot-password-instructions" = "Instructions for resetting password";
 "forgot-password-username-prompt" = "Prompt for username field\n{{Identical|Username}}";
