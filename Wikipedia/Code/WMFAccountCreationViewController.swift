@@ -6,6 +6,10 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     @IBOutlet fileprivate var passwordField: UITextField!
     @IBOutlet fileprivate var passwordRepeatField: UITextField!
     @IBOutlet fileprivate var emailField: UITextField!
+    @IBOutlet fileprivate var usernameTitleLabel: UILabel!
+    @IBOutlet fileprivate var passwordTitleLabel: UILabel!
+    @IBOutlet fileprivate var passwordRepeatTitleLabel: UILabel!
+    @IBOutlet fileprivate var emailTitleLabel: UILabel!
     @IBOutlet fileprivate var captchaContainer: UIView!
     @IBOutlet fileprivate var loginButton: UILabel!
     @IBOutlet fileprivate var titleLabel: UILabel!
@@ -59,6 +63,10 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-password-placeholder")
         passwordRepeatField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-password-confirm-placeholder")
         emailField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-email-placeholder")
+        usernameTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-username-title")
+        passwordTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-password-title")
+        passwordRepeatTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-password-confirm-title")
+        emailTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-email-title")
         
         usernameUnderlineHeight.constant = 1.0 / UIScreen.main.scale
         passwordUnderlineHeight.constant = usernameUnderlineHeight.constant;
