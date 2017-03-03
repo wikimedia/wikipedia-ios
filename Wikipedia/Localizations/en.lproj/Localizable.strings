@@ -94,7 +94,7 @@
 "field-password-placeholder" = "enter password";
 "field-password-confirm-title" = "Confirm password";
 "field-password-confirm-placeholder" = "re-enter password";
-"field-email-title" = "Email address";
+"field-email-title" = "Email address (optional)";
 "field-email-placeholder" = "example@example.org";
 "field-token-title" = "Token";
 "field-token-placeholder" = "enter token";
