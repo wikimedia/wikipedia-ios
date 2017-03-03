@@ -99,6 +99,8 @@
 "field-password-placeholder" = "Placeholder text shown inside password field until user taps on it";
 "field-password-confirm-title" = "Title for confirm password field";
 "field-password-confirm-placeholder" = "Placeholder text shown inside confirm password field until user taps on it";
+"field-password-new-title" = "Title for new password field";
+"field-password-new-placeholder" = "Placeholder text shown inside new password field until user taps on it";
 "field-email-title" = "Title for email address field";
 "field-email-placeholder" = "Placeholder text shown inside email address field until user taps on it";
 "field-token-title" = "Title for token field";
