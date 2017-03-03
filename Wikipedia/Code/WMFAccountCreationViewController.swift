@@ -55,10 +55,10 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         
         scrollView.delegate = self
         
-        usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("account-creation-username-placeholder-text")
-        passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("account-creation-password-placeholder-text")
-        passwordRepeatField.placeholder = localizedStringForKeyFallingBackOnEnglish("account-creation-password-confirm-placeholder-text")
-        emailField.placeholder = localizedStringForKeyFallingBackOnEnglish("account-creation-email-placeholder-text")
+        usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-username-placeholder")
+        passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-password-placeholder")
+        passwordRepeatField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-password-confirm-placeholder")
+        emailField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-email-placeholder")
         
         usernameUnderlineHeight.constant = 1.0 / UIScreen.main.scale
         passwordUnderlineHeight.constant = usernameUnderlineHeight.constant;
