@@ -2,6 +2,8 @@
 
 #if ALPHA
 NSString *const WMFApplicationGroupIdentifier = @"group.org.wikimedia.wikipedia.alpha";
+#elif BETA
+NSString *const WMFApplicationGroupIdentifier = @"group.org.wikimedia.wikipedia.beta";
 #else
 NSString *const WMFApplicationGroupIdentifier = @"group.org.wikimedia.wikipedia";
 #endif
