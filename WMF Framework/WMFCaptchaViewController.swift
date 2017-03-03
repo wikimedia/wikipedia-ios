@@ -182,7 +182,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-title")
         
         // Reminder: used a label instead of a button for subtitle because of multi-line string issues with UIButton.
-        subTitleLabel.attributedText = subTitleAttributedString
+        subTitleLabel.attributedText = subTitleLabel.wmf_authAttributedStringReusingFont(withDollarSignString: localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-cannot-see-image"), substitutionString: localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-request-account"))
         subTitleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(requestAnAccountTapped(_:))))
     
         subTitleLabel.isHidden = (captcha == nil) || captchaDelegate.captchaHideSubtitle()
@@ -192,22 +192,6 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     
     func requestAnAccountTapped(_ recognizer: UITapGestureRecognizer) {
         wmf_openExternalUrl(URL.init(string: "https://en.wikipedia.org/wiki/Wikipedia:Request_an_account"))
-    }
-
-    fileprivate var subTitleAttributedString: NSAttributedString {
-        get {
-            // Note: uses the font from the storyboard so the attributed string respects the
-            // storyboard dynamic type font choice and responds to dynamic type size changes.
-            let attributes: [String : Any] = [
-                NSFontAttributeName : subTitleLabel.font
-            ]
-            let substitutionAttributes: [String : Any] = [
-                NSForegroundColorAttributeName : UIColor.wmf_blueTint()
-            ]
-            let cannotSeeImageText = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-cannot-see-image")
-            let requestAccountText = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-request-account")
-            return cannotSeeImageText.attributedString(attributes: attributes, substitutionStrings: [requestAccountText], substitutionAttributes: [substitutionAttributes])
-        }
     }
     
     func captchaReloadPushed(_ sender: AnyObject) {
