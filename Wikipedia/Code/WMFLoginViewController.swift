@@ -3,6 +3,8 @@ import UIKit
 class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFCaptchaViewControllerDelegate {
     @IBOutlet fileprivate var usernameField: UITextField!
     @IBOutlet fileprivate var passwordField: UITextField!
+    @IBOutlet fileprivate var usernameTitleLabel: UILabel!
+    @IBOutlet fileprivate var passwordTitleLabel: UILabel!
     @IBOutlet fileprivate var createAccountButton: UILabel!
     @IBOutlet fileprivate var forgotPasswordButton: UILabel!
     @IBOutlet fileprivate var usernameUnderlineHeight: NSLayoutConstraint!
@@ -37,7 +39,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         createAccountButton.textColor = UIColor.wmf_blueTint()
         forgotPasswordButton.textColor = UIColor.wmf_blueTint()
 
-        createAccountButton.text = localizedStringForKeyFallingBackOnEnglish("login-account-creation")
+        createAccountButton.attributedText = createAccountButton.wmf_authAttributedStringReusingFont(withDollarSignString: localizedStringForKeyFallingBackOnEnglish("login-no-account"), substitutionString: localizedStringForKeyFallingBackOnEnglish("login-join-wikipedia"))
         
         createAccountButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAccountButtonPushed(_:))))
 
@@ -48,7 +50,9 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("login-username-placeholder-text")
         passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("login-password-placeholder-text")
 
-        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("navbar-title-mode-login")
+        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("login-title")
+        usernameTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("login-username-title")
+        passwordTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("login-password-title")
 
         usernameUnderlineHeight.constant = 1.0 / UIScreen.main.scale
         passwordUnderlineHeight.constant = 1.0 / UIScreen.main.scale
