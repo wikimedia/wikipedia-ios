@@ -46,6 +46,7 @@
 "zero-warn-when-leaving" = "Warn if leaving Zero";
 "zero-settings-devmode" = "Zero devmode";
 
+"account-creation-title" = "Create a new account";
 "account-creation-captcha-required" = "CAPTCHA verification required.";
 "account-creation-captcha-retry" = "Incorrect entry. Please try again.";
 "account-creation-captcha-obtaining" = "Obtaining a new CAPTCHA...";

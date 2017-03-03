@@ -76,7 +76,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         loginButton.attributedText = loginButton.wmf_authAttributedStringReusingFont(withDollarSignString: localizedStringForKeyFallingBackOnEnglish("account-creation-have-account"), substitutionString: localizedStringForKeyFallingBackOnEnglish("account-creation-log-in"))
         
         loginButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(loginButtonPushed(_:))))
-        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("navbar-title-mode-create-account")
+        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-title")
        
         view.wmf_configureSubviewsForDynamicType()
         
