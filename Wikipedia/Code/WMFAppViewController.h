@@ -8,7 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp;
 
-- (void)resumeApp; // Updates explore feed & other heavy network lifitng 
+- (void)hideSplashScreenAndResumeApp; // Updates explore feed & other heavy network lifitng
 
 - (void)processShortcutItem:(UIApplicationShortcutItem *)item completion:(void (^)(BOOL))completion;
 
