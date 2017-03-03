@@ -81,8 +81,8 @@
 "login-throttled" = "You've logged in too many times in a short time.";
 "login-user-blocked" = "User is blocked.";
 "login-account-creation" = "Don't have an account? Join Wikipedia.";
-"login-username-placeholder-text" = "enter username";
-"login-password-placeholder-text" = "enter password";
+"login-username-placeholder-text" = "Username";
+"login-password-placeholder-text" = "Password";
 "login-forgot-password" = "Forgot your password?";
 "login-title" = "Log in to your account";
 "login-no-account" = "Don't have an account? $1";
