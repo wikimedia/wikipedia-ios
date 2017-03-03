@@ -46,6 +46,7 @@
 "zero-warn-when-leaving" = "Warn if leaving Zero";
 "zero-settings-devmode" = "Zero devmode";
 
+"account-creation-title" = "Create a new account";
 "account-creation-captcha-required" = "CAPTCHA verification required.";
 "account-creation-captcha-retry" = "Incorrect entry. Please try again.";
 "account-creation-captcha-obtaining" = "Obtaining a new CAPTCHA...";
@@ -56,20 +57,17 @@
 "account-creation-passwords-mismatched" = "Password fields do not match.";
 "account-creation-saving" = "Saving...";
 "account-creation-login" = "Already have an account? Log in.";
-"account-creation-username-placeholder-text" = "Username";
-"account-creation-password-placeholder-text" = "Password";
-"account-creation-password-confirm-placeholder-text" = "Confirm password";
-"account-creation-email-placeholder-text" = "Email (optional)";
 "account-creation-missing-fields" = "You must enter a username, password, and password confirmation to create an account.";
+"account-creation-create-account" = "Create your account";
+"account-creation-have-account" = "Already have an account? $1";
+"account-creation-log-in" = "Log in.";
 
 "new-password-title" = "Set your password";
 "new-password-instructions" = "You logged in with a temporary password. To finish logging in set a new password here.";
-"new-password-password-placeholder-text" = "New password";
-"new-password-confirm-placeholder-text" = "Confirm new password";
 
 "two-factor-login-title" = "Log in to your account";
 "two-factor-login-instructions" = "Please enter two factor verification code";
-"two-factor-login-token-title" = "Token";
+"two-factor-login-continue" = "Continue log in";
 
 "login-name-not-found" = "Username is required to login.";
 "login-name-illegal" = "You provided an illegal username.";
@@ -82,6 +80,26 @@
 "login-username-placeholder-text" = "Username";
 "login-password-placeholder-text" = "Password";
 "login-forgot-password" = "Forgot your password?";
+"login-title" = "Log in to your account";
+"login-no-account" = "Don't have an account? $1";
+"login-join-wikipedia" = "Join Wikipedia.";
+
+"field-username-title" = "Username";
+"field-username-placeholder" = "enter username";
+"field-password-title" = "Password";
+"field-password-placeholder" = "enter password";
+"field-password-confirm-title" = "Confirm password";
+"field-password-confirm-placeholder" = "re-enter password";
+"field-new-password-title" = "New password";
+"field-new-password-placeholder" = "enter new password";
+"field-new-password-confirm-title" = "Confirm new password";
+"field-new-password-confirm-placeholder" = "re-enter new password";
+"field-email-title" = "Email address (optional)";
+"field-email-placeholder" = "example@example.org";
+"field-token-title" = "Token";
+"field-token-placeholder" = "enter token";
+"field-captcha-title" = "Enter the text you see above";
+"field-captcha-placeholder" = "CAPTCHA text";
 
 "forgot-password-title" = "Reset password";
 "forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";
@@ -390,9 +408,6 @@
 "page-read-in-other-languages" = "Available in $1 other languages";
 "page-last-edited" = "Edited $1 days ago";
 "page-edit-history" = "Full edit history";
-
-"captcha-reload" = "Show another captcha";
-"captcha-prompt" = "Enter CAPTCHA text";
 
 "mwk-empty-title-error" = "Unable to perform operation with empty title.";
 

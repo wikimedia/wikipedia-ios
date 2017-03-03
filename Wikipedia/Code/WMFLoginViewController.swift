@@ -1,23 +1,20 @@
-
 import UIKit
 
 class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFCaptchaViewControllerDelegate {
     @IBOutlet fileprivate var usernameField: UITextField!
     @IBOutlet fileprivate var passwordField: UITextField!
+    @IBOutlet fileprivate var usernameTitleLabel: UILabel!
+    @IBOutlet fileprivate var passwordTitleLabel: UILabel!
     @IBOutlet fileprivate var createAccountButton: UILabel!
     @IBOutlet fileprivate var forgotPasswordButton: UILabel!
-    @IBOutlet fileprivate var usernameUnderlineHeight: NSLayoutConstraint!
-    @IBOutlet fileprivate var passwordUnderlineHeight: NSLayoutConstraint!
     @IBOutlet fileprivate var titleLabel: UILabel!
-    @IBOutlet fileprivate var captchaTitleLabel: UILabel!
     @IBOutlet fileprivate var captchaContainer: UIView!
-
-    @IBOutlet fileprivate var loginContainerView: UIView!
-    fileprivate var doneButton: UIBarButtonItem!
+    @IBOutlet fileprivate var stackView: UIStackView!
+    @IBOutlet fileprivate var loginButton: WMFAuthButton!
     
     public var funnel: LoginFunnel?
 
-    fileprivate var captchaViewController: WMFCaptchaViewController?
+    fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     private let loginInfoFetcher = WMFAuthLoginInfoFetcher()
     let tokenFetcher = WMFAuthTokenFetcher()
 
@@ -25,7 +22,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         dismiss(animated: true, completion: nil)
     }
 
-    func doneButtonPushed(_ : UIBarButtonItem) {
+    @IBAction fileprivate func loginButtonTapped(withSender sender: UIButton) {
         save()
     }
 
@@ -34,14 +31,11 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
 
-        doneButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("main-menu-account-login"), style: .plain, target: self, action: #selector(doneButtonPushed(_:)))
+        loginButton.setTitle(localizedStringForKeyFallingBackOnEnglish("main-menu-account-login"), for: .normal)
         
-        navigationItem.rightBarButtonItem = doneButton
-        
-        createAccountButton.textColor = UIColor.wmf_blueTint()
         forgotPasswordButton.textColor = UIColor.wmf_blueTint()
 
-        createAccountButton.text = localizedStringForKeyFallingBackOnEnglish("login-account-creation")
+        createAccountButton.attributedText = createAccountButton.wmf_authAttributedStringReusingFont(withDollarSignString: localizedStringForKeyFallingBackOnEnglish("login-no-account"), substitutionString: localizedStringForKeyFallingBackOnEnglish("login-join-wikipedia"))
         
         createAccountButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAccountButtonPushed(_:))))
 
@@ -49,18 +43,20 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
 
         forgotPasswordButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(forgotPasswordButtonPushed(_:))))
 
-        usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("login-username-placeholder-text")
-        passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("login-password-placeholder-text")
+        usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-username-placeholder")
+        passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-password-placeholder")
 
-        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("navbar-title-mode-login")
-        captchaTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-title")
+        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("login-title")
+        usernameTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-username-title")
+        passwordTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-password-title")
 
-        usernameUnderlineHeight.constant = 1.0 / UIScreen.main.scale
-        passwordUnderlineHeight.constant = 1.0 / UIScreen.main.scale
+        usernameField.wmf_addThinBottomBorder()
+        passwordField.wmf_addThinBottomBorder()
     
         view.wmf_configureSubviewsForDynamicType()
         
-        setCaptchaAlpha(0)
+        captchaViewController?.captchaDelegate = self
+        wmf_add(childController:captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
     }
     
     @IBAction func textFieldDidChange(_ sender: UITextField) {
@@ -68,16 +64,16 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     }
     
     fileprivate func enableProgressiveButtonIfNecessary() {
-        navigationItem.rightBarButtonItem?.isEnabled = shouldProgressiveButtonBeEnabled()
+        loginButton.isEnabled = shouldProgressiveButtonBeEnabled()
     }
     
     fileprivate func disableProgressiveButton() {
-        navigationItem.rightBarButtonItem?.isEnabled = false
+        loginButton.isEnabled = false
     }
     
     fileprivate func shouldProgressiveButtonBeEnabled() -> Bool {
         var shouldEnable = areRequiredFieldsPopulated()
-        if showCaptchaContainer && shouldEnable {
+        if captchaIsVisible() && shouldEnable {
             shouldEnable = hasUserEnteredCaptchaText()
         }
         return shouldEnable
@@ -102,15 +98,10 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        showCaptchaContainer = false
-
-        captchaViewController = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
-        captchaViewController?.captchaDelegate = self
-        wmf_addChildController(captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
-        
         // Check if captcha is required right away. Things could be configured so captcha is required at all times.
         getCaptcha()
         
+        updatePasswordFieldReturnKeyType()
         enableProgressiveButtonIfNecessary()
     }
     
@@ -124,8 +115,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         case usernameField:
             passwordField.becomeFirstResponder()
         case passwordField:
-            if showCaptchaContainer {
-                captchaViewController?.captchaTextBoxBecomeFirstResponder()
+            if captchaIsVisible() {
+                captchaViewController?.captchaTextFieldBecomeFirstResponder()
             }else{
                 save()
             }
@@ -241,13 +232,13 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
         loginInfoFetcher.fetchLoginInfoForSiteURL(siteURL!, success: { info in
             self.captchaViewController?.captcha = info.captcha
-            self.showCaptchaContainer = (info.captcha != nil)
+            self.updatePasswordFieldReturnKeyType()
             self.enableProgressiveButtonIfNecessary()
         }, failure: captchaFailure)
     }
 
     func captchaReloadPushed(_ sender: AnyObject) {
-        self.enableProgressiveButtonIfNecessary()
+        enableProgressiveButtonIfNecessary()
     }
     
     func captchaSolutionChanged(_ sender: AnyObject, solutionText: String?) {
@@ -262,28 +253,20 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         save()
     }
 
-    fileprivate var showCaptchaContainer: Bool = false {
-        didSet {
-            UIView.animate(withDuration: 0.4, animations: {
-                self.setCaptchaAlpha(self.showCaptchaContainer ? 1 : 0)
-            }, completion: { _ in
-                self.updatePasswordFieldReturnKeyType()
-                self.enableProgressiveButtonIfNecessary()
-            })
-        }
+    public func captchaHideSubtitle() -> Bool {
+        return true
+    }
+
+    fileprivate func captchaIsVisible() -> Bool {
+        return captchaViewController?.captcha != nil
     }
 
     fileprivate func updatePasswordFieldReturnKeyType() {
-        self.passwordField.returnKeyType = self.showCaptchaContainer ? .next : .done
+        passwordField.returnKeyType = captchaIsVisible() ? .next : .done
         // Resign and become first responder so keyboard return key updates right away.
-        if self.passwordField.isFirstResponder {
-            self.passwordField.resignFirstResponder()
-            self.passwordField.becomeFirstResponder()
+        if passwordField.isFirstResponder {
+            passwordField.resignFirstResponder()
+            passwordField.becomeFirstResponder()
         }
-    }
-    
-    fileprivate func setCaptchaAlpha(_ alpha: CGFloat) {
-        captchaContainer.alpha = alpha
-        captchaTitleLabel.alpha = alpha
     }
 }
