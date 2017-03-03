@@ -135,7 +135,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="BKt-Lp-uXS"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                         <state key="normal" title="Create your account"/>
                                                         <connections>
                                                             <action selector="createAccountButtonTappedWithSender:" destination="LsX-JK-bT6" eventType="touchUpInside" id="2eM-jE-1dZ"/>

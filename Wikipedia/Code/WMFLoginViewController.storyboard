@@ -103,7 +103,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="siw-IK-6Qf"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                         <state key="normal" title="Log in"/>
                                                         <connections>
                                                             <action selector="loginButtonTappedWithSender:" destination="mbm-n6-GWW" eventType="touchUpInside" id="hfj-DJ-2AQ"/>
