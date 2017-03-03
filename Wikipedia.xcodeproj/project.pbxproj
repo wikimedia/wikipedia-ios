@@ -2539,7 +2539,6 @@
 		B0FCB23A1D3D5BEC00D80D57 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHouseKeeper.swift; sourceTree = "<group>"; };
 		B384069D1E64D5C000DFC889 /* 640px-Shoso-in.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "640px-Shoso-in.jpg"; sourceTree = "<group>"; };
-		B389CFC51E67703D00483C06 /* Checkouts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Checkouts; path = Carthage/Checkouts; sourceTree = "<group>"; };
 		B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHousekeeperTests.swift; sourceTree = "<group>"; };
 		BC0069D31C7D556C00F2C377 /* WMFMockLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFMockLocationManager.h; path = WikipediaUnitTests/Code/WMFMockLocationManager.h; sourceTree = SOURCE_ROOT; };
 		BC0069D41C7D556C00F2C377 /* WMFMockLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMockLocationManager.m; path = WikipediaUnitTests/Code/WMFMockLocationManager.m; sourceTree = SOURCE_ROOT; };
@@ -2760,7 +2759,7 @@
 		D47FEE2319C8CB3400B998C8 /* ce */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ce; path = ce.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D47FEE2519C8CB6B00B998C8 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D47FEE2819C8CC2600B998C8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		D4991435181D51DE00E6073C /* Wikipedia Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Wikipedia Debug.app"; path = Wikipedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4991435181D51DE00E6073C /* Wikipedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wikipedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4991438181D51DE00E6073C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D499143A181D51DE00E6073C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D499143C181D51DE00E6073C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -2982,7 +2981,7 @@
 		D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableOfContentsAboutThisArticleItem.swift; path = Wikipedia/Code/TableOfContentsAboutThisArticleItem.swift; sourceTree = SOURCE_ROOT; };
 		D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = Build/iOS/CocoaLumberjackSwift.framework; sourceTree = "<group>"; };
 		D8CE26AF1E698E2400DAE2E0 /* Wikipedia Alpha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wikipedia Alpha.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8CE26B01E698E2500DAE2E0 /* Wikipedia Alpha-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Wikipedia Alpha-Info.plist"; path = "/Users/joe/Source/wikipedia-ios/Wikipedia Alpha-Info.plist"; sourceTree = "<absolute>"; };
+		D8CE26B01E698E2500DAE2E0 /* Wikipedia Alpha-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Wikipedia Alpha-Info.plist"; path = "Wikipedia/Wikipedia Alpha-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D8CE26B11E698E9000DAE2E0 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		D8CE26B31E698E9A00DAE2E0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D8CE26B51E698EA500DAE2E0 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -4598,14 +4597,6 @@
 			name = Housekeeping;
 			sourceTree = "<group>";
 		};
-		B389CFC71E6772CE00483C06 /* Carthage */ = {
-			isa = PBXGroup;
-			children = (
-				B389CFC51E67703D00483C06 /* Checkouts */,
-			);
-			name = Carthage;
-			sourceTree = "<group>";
-		};
 		BC23E4DE1C223EAB00B5AFDE /* Revisions */ = {
 			isa = PBXGroup;
 			children = (
@@ -5482,6 +5473,7 @@
 			isa = PBXGroup;
 			children = (
 				0ED79A3B1CB5B507005D9AF5 /* Wikipedia-Info.plist */,
+				D8CE26B01E698E2500DAE2E0 /* Wikipedia Alpha-Info.plist */,
 				0E10C4FD1C81046300CEB5C2 /* Wikipedia Debug.entitlements */,
 				B0E808281C0D07EA0065EBC0 /* Wikipedia-Bridging-Header.h */,
 				D4991446181D51DE00E6073C /* Wikipedia-Prefix.pch */,
@@ -5894,15 +5886,13 @@
 				D844D96D1D6CB2600042D692 /* WMF Framework */,
 				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
-				B389CFC71E6772CE00483C06 /* Carthage */,
-				D8CE26B01E698E2500DAE2E0 /* Wikipedia Alpha-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
 		D4991436181D51DE00E6073C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D4991435181D51DE00E6073C /* Wikipedia Debug.app */,
+				D4991435181D51DE00E6073C /* Wikipedia.app */,
 				BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */,
 				0E8380631D64989F0076EDE4 /* ContinueReadingWidget.appex */,
 				D844D96C1D6CB2600042D692 /* WMF.framework */,
@@ -6731,7 +6721,7 @@
 			);
 			name = Wikipedia;
 			productName = "Wikipedia-iOS";
-			productReference = D4991435181D51DE00E6073C /* Wikipedia Debug.app */;
+			productReference = D4991435181D51DE00E6073C /* Wikipedia.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D844D96B1D6CB2600042D692 /* WMF */ = {
@@ -9728,7 +9718,7 @@
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia Alpha-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -9950,7 +9940,7 @@
 					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia Alpha-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -10284,7 +10274,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia Alpha-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
@@ -10323,7 +10313,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia Alpha-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
@@ -10365,7 +10355,7 @@
 					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
-				INFOPLIST_FILE = "Wikipedia Alpha-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia Alpha-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -10412,7 +10402,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia Alpha-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DNDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -10451,7 +10441,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia Alpha-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DNDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -10493,7 +10483,7 @@
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia Alpha-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia Alpha-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -10634,7 +10624,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia Alpha-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DNDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
