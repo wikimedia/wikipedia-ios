@@ -91,6 +91,11 @@
 "login-username-placeholder-text" = "{{Identical|Username}}";
 "login-password-placeholder-text" = "{{Identical|Password}}";
 "login-forgot-password" = "Button text for loading the password reminder interface";
+"login-title" = "Title for log in interface";
+"login-no-account" = "Text for create account button. $1 is the message {{msg-wikimedia|login-account-join-wikipedia}}";
+"login-join-wikipedia" = "Join Wikipedia text to be used as part of a create account button";
+"login-username-title" = "Title for username field";
+"login-password-title" = "Title for password field";
 "forgot-password-title" = "Title for reset password interface\n{{Identical|Reset password}}";
 "forgot-password-instructions" = "Instructions for resetting password";
 "forgot-password-username-prompt" = "Prompt for username field\n{{Identical|Username}}";

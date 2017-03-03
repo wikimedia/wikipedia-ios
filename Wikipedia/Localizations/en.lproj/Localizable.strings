@@ -81,9 +81,14 @@
 "login-throttled" = "You've logged in too many times in a short time.";
 "login-user-blocked" = "User is blocked.";
 "login-account-creation" = "Don't have an account? Join Wikipedia.";
-"login-username-placeholder-text" = "Username";
-"login-password-placeholder-text" = "Password";
+"login-username-placeholder-text" = "enter username";
+"login-password-placeholder-text" = "enter password";
 "login-forgot-password" = "Forgot your password?";
+"login-title" = "Log in to your account";
+"login-no-account" = "Don't have an account? $1";
+"login-join-wikipedia" = "Join Wikipedia.";
+"login-username-title" = "Username";
+"login-password-title" = "Password";
 
 "forgot-password-title" = "Reset password";
 "forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";
