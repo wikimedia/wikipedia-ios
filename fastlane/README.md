@@ -99,6 +99,11 @@ updates version, builds, and pushes to TestFlight
 fastlane ios push_alpha
 ```
 updates version, builds, and pushes alpha to TestFlight
+### ios push_beta_cluster
+```
+fastlane ios push_beta_cluster
+```
+updates version, builds, and pushes beta cluster to TestFlight
 ### ios get_latest_alpha_or_beta_build_number
 ```
 fastlane ios get_latest_alpha_or_beta_build_number

@@ -179,7 +179,6 @@ platform :ios do
     )
   end
   
-  
   lane :get_latest_alpha_or_beta_build_number do |options|
     latest_alpha_build_number = latest_testflight_build_number(app_identifier:  "org.wikimedia.wikipedia.tfalpha")
     latest_beta_build_number = latest_testflight_build_number(app_identifier:  "org.wikimedia.wikipedia")
