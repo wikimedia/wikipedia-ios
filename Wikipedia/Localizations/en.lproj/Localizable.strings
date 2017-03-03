@@ -87,8 +87,11 @@
 "login-title" = "Log in to your account";
 "login-no-account" = "Don't have an account? $1";
 "login-join-wikipedia" = "Join Wikipedia.";
-"login-username-title" = "Username";
-"login-password-title" = "Password";
+
+"field-username-title" = "Username";
+"field-username-placeholder" = "enter username";
+"field-password-title" = "Password";
+"field-password-placeholder" = "enter password";
 
 "forgot-password-title" = "Reset password";
 "forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";

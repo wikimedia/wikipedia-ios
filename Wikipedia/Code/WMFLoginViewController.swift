@@ -47,12 +47,12 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
 
         forgotPasswordButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(forgotPasswordButtonPushed(_:))))
 
-        usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("login-username-placeholder-text")
-        passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("login-password-placeholder-text")
+        usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-username-placeholder")
+        passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-password-placeholder")
 
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("login-title")
-        usernameTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("login-username-title")
-        passwordTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("login-password-title")
+        usernameTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-username-title")
+        passwordTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-password-title")
 
         usernameUnderlineHeight.constant = 1.0 / UIScreen.main.scale
         passwordUnderlineHeight.constant = 1.0 / UIScreen.main.scale
