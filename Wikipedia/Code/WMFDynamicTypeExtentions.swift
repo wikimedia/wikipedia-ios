@@ -3,13 +3,16 @@ import Foundation
 extension UIButton {
     fileprivate func wmf_configureForDynamicType(){
         if #available(iOS 10.0, *) {
-            self.titleLabel!.adjustsFontForContentSizeCategory = true
-            self.titleLabel!.textAlignment = .center
-            self.titleLabel!.numberOfLines = 1
-            self.titleLabel!.clipsToBounds = false
-            self.titleLabel!.lineBreakMode = .byTruncatingTail
-            self.titleLabel!.minimumScaleFactor = 0.25
-            self.titleLabel!.adjustsFontSizeToFitWidth = true
+            guard let titleLabel = titleLabel else {
+                return
+            }
+            titleLabel.adjustsFontForContentSizeCategory = true
+            titleLabel.textAlignment = .center
+            titleLabel.numberOfLines = 1
+            titleLabel.clipsToBounds = false
+            titleLabel.lineBreakMode = .byTruncatingTail
+            titleLabel.minimumScaleFactor = 0.25
+            titleLabel.adjustsFontSizeToFitWidth = true
         }
     }
 }
