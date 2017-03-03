@@ -408,9 +408,6 @@
 "page-last-edited" = "Edited $1 days ago";
 "page-edit-history" = "Full edit history";
 
-"captcha-reload" = "Show another captcha";
-"captcha-prompt" = "Enter CAPTCHA text";
-
 "mwk-empty-title-error" = "Unable to perform operation with empty title.";
 
 "home-title" = "Explore";
