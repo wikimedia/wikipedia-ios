@@ -297,6 +297,11 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 
     [news enumerateObjectsUsingBlock:^(WMFFeedNewsStory *_Nonnull story, NSUInteger idx, BOOL *_Nonnull stop) {
+        [story.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+            NSURL *url = [obj articleURL];
+            NSDictionary<NSDate *, NSNumber *> *pageViewsForURL = pageViews[url];
+            [self.previewStore addPreviewWithURL:url updatedWithFeedPreview:obj pageViews:pageViewsForURL];
+        }];
         story.featuredArticlePreview = story.articlePreviews.firstObject;
     }];
 }
