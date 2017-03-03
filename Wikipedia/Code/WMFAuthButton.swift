@@ -12,7 +12,7 @@ class WMFAuthButton: UIButton {
     override open func awakeFromNib() {
         super.awakeFromNib()
         tintColor = UIColor.wmf_blueTint()
-        layer.borderWidth = 2
+        layer.borderWidth = 1.0
         layer.cornerRadius = 5
         layer.borderColor = borderColor(forIsEnabled: isEnabled)
     }
