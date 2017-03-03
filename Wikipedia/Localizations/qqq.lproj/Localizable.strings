@@ -74,8 +74,6 @@
 "account-creation-create-account" = "Text for create account button";
 "new-password-title" = "Title for password change interface";
 "new-password-instructions" = "Instructions for password change interface";
-"new-password-password-placeholder-text" = "Placeholder text which appears initially in the new password text box";
-"new-password-confirm-placeholder-text" = "Placeholder text which appears initially in the new password confirmation text box";
 "two-factor-login-title" = "Title for two factor login interface";
 "two-factor-login-instructions" = "Instructions for two factor login interface";
 "two-factor-login-continue" = "Button text for finishing two factor login";

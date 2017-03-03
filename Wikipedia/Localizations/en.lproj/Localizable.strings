@@ -65,8 +65,6 @@
 
 "new-password-title" = "Set your password";
 "new-password-instructions" = "You logged in with a temporary password. To finish logging in set a new password here.";
-"new-password-password-placeholder-text" = "New password";
-"new-password-confirm-placeholder-text" = "Confirm new password";
 
 "two-factor-login-title" = "Log in to your account";
 "two-factor-login-instructions" = "Please enter two factor verification code";
