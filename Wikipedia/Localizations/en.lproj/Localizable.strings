@@ -93,8 +93,10 @@
 "field-password-placeholder" = "enter password";
 "field-password-confirm-title" = "Confirm password";
 "field-password-confirm-placeholder" = "re-enter password";
-"field-password-new-title" = "New password";
-"field-password-new-placeholder" = "enter new password";
+"field-new-password-title" = "New password";
+"field-new-password-placeholder" = "enter new password";
+"field-new-password-confirm-title" = "Confirm new password";
+"field-new-password-confirm-placeholder" = "re-enter new password";
 "field-email-title" = "Email address (optional)";
 "field-email-placeholder" = "example@example.org";
 "field-token-title" = "Token";
