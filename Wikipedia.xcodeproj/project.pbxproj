@@ -10274,7 +10274,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia Alpha-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia Alpha-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
@@ -10313,7 +10313,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "Wikipedia Alpha-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia Alpha-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
@@ -10355,7 +10355,7 @@
 					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
-				INFOPLIST_FILE = "Wikipedia Alpha-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia Alpha-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -10402,7 +10402,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia Alpha-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia Alpha-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DNDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -10441,7 +10441,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia Alpha-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia Alpha-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DNDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -10483,7 +10483,7 @@
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia Alpha-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia Alpha-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -10624,7 +10624,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia Alpha-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia Alpha-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DNDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
