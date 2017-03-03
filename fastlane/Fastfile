@@ -166,6 +166,7 @@ platform :ios do
       hockey_app_id: "2295c3698bbd0b050f257772dd2bdbb2",
       build: options[:build]
     )
+  end
   
   desc "updates version, builds, and pushes beta cluster to TestFlight"
   lane :push_beta_cluster do |options|
