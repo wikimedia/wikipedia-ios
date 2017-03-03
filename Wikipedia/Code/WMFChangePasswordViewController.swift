@@ -7,8 +7,6 @@ class WMFChangePasswordViewController: WMFScrollViewController {
     @IBOutlet fileprivate var subTitleLabel: UILabel!
     @IBOutlet fileprivate var passwordField: UITextField!
     @IBOutlet fileprivate var retypeField: UITextField!
-    @IBOutlet fileprivate var passwordUnderlineHeight: NSLayoutConstraint!
-    @IBOutlet fileprivate var retypeUnderlineHeight: NSLayoutConstraint!
     @IBOutlet fileprivate var passwordTitleLabel: UILabel!
     @IBOutlet fileprivate var retypeTitleLabel: UILabel!
     @IBOutlet fileprivate var saveButton: WMFAuthButton!
@@ -71,8 +69,8 @@ class WMFChangePasswordViewController: WMFScrollViewController {
         passwordField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         retypeField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 
-        passwordUnderlineHeight.constant = 1.0 / UIScreen.main.scale
-        retypeUnderlineHeight.constant = 1.0 / UIScreen.main.scale
+        passwordField.wmf_addThinBottomBorder()
+        retypeField.wmf_addThinBottomBorder()
 
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("new-password-title")
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("new-password-instructions")

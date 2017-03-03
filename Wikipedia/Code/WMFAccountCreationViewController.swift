@@ -13,10 +13,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     @IBOutlet fileprivate var captchaContainer: UIView!
     @IBOutlet fileprivate var loginButton: UILabel!
     @IBOutlet fileprivate var titleLabel: UILabel!
-    @IBOutlet fileprivate var usernameUnderlineHeight: NSLayoutConstraint!
-    @IBOutlet fileprivate var passwordUnderlineHeight: NSLayoutConstraint!
-    @IBOutlet fileprivate var passwordConfirmUnderlineHeight: NSLayoutConstraint!
-    @IBOutlet fileprivate var emailUnderlineHeight: NSLayoutConstraint!
     @IBOutlet fileprivate var stackView: UIStackView!
     @IBOutlet fileprivate var createAccountButton: WMFAuthButton!
 
@@ -68,10 +64,10 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         passwordRepeatTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-password-confirm-title")
         emailTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-email-title")
         
-        usernameUnderlineHeight.constant = 1.0 / UIScreen.main.scale
-        passwordUnderlineHeight.constant = usernameUnderlineHeight.constant;
-        passwordConfirmUnderlineHeight.constant = usernameUnderlineHeight.constant;
-        emailUnderlineHeight.constant = usernameUnderlineHeight.constant;
+        usernameField.wmf_addThinBottomBorder()
+        passwordField.wmf_addThinBottomBorder()
+        passwordRepeatField.wmf_addThinBottomBorder()
+        emailField.wmf_addThinBottomBorder()
 
         loginButton.attributedText = loginButton.wmf_authAttributedStringReusingFont(withDollarSignString: localizedStringForKeyFallingBackOnEnglish("account-creation-have-account"), substitutionString: localizedStringForKeyFallingBackOnEnglish("account-creation-log-in"))
         

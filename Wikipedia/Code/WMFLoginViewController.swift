@@ -7,11 +7,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     @IBOutlet fileprivate var passwordTitleLabel: UILabel!
     @IBOutlet fileprivate var createAccountButton: UILabel!
     @IBOutlet fileprivate var forgotPasswordButton: UILabel!
-    @IBOutlet fileprivate var usernameUnderlineHeight: NSLayoutConstraint!
-    @IBOutlet fileprivate var passwordUnderlineHeight: NSLayoutConstraint!
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var captchaContainer: UIView!
-
     @IBOutlet fileprivate var stackView: UIStackView!
     @IBOutlet fileprivate var loginButton: WMFAuthButton!
     
@@ -53,8 +50,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         usernameTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-username-title")
         passwordTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-password-title")
 
-        usernameUnderlineHeight.constant = 1.0 / UIScreen.main.scale
-        passwordUnderlineHeight.constant = 1.0 / UIScreen.main.scale
+        usernameField.wmf_addThinBottomBorder()
+        passwordField.wmf_addThinBottomBorder()
     
         view.wmf_configureSubviewsForDynamicType()
         

@@ -40,8 +40,6 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet fileprivate var captchaImageView: UIImageView!
     @IBOutlet fileprivate var captchaTextFieldTitleLabel: UILabel!
     @IBOutlet fileprivate var captchaTextField: UITextField!
-    @IBOutlet fileprivate var captchaTextFieldUnderlineView: UIView!
-    @IBOutlet fileprivate var captchaTextFieldUnderlineHeight: NSLayoutConstraint!
     @IBOutlet fileprivate var stackView: UIStackView!
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var subTitleLabel: UILabel!
@@ -83,7 +81,6 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         buttonSpacer.isHidden = collapse
         imageSpacer.isHidden = collapse
         captchaTextFieldTitleLabel.isHidden = collapse
-        captchaTextFieldUnderlineView.isHidden = collapse
         
         guard let captchaDelegate = captchaDelegate else{
             assert(false, "Required delegate is unset")
@@ -189,9 +186,9 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         assert(firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, "\n\nAll stackview arrangedSubview height constraints need to have a priority of < 1000 so the stackview can collapse the 'cell' if the arrangedSubview's isHidden property is set to true. This arrangedSubview was determined to have a required height: \(firstArrangedSubviewWithRequiredNonZeroHeightConstraint()). To fix reduce the priority of its height constraint to < 1000.\n\n")
         
         captcha = nil
-        captchaTextFieldUnderlineHeight.constant = 1.0 / UIScreen.main.scale
         captchaTextFieldTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-captcha-title")
         captchaTextField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-captcha-placeholder")
+        captchaTextField.wmf_addThinBottomBorder()
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-title")
         
         // Reminder: used a label instead of a button for subtitle because of multi-line string issues with UIButton.

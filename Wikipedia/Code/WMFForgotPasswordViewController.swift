@@ -7,8 +7,6 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
     @IBOutlet fileprivate var subTitleLabel: UILabel!
     @IBOutlet fileprivate var usernameField: UITextField!
     @IBOutlet fileprivate var emailField: UITextField!
-    @IBOutlet fileprivate var usernameUnderlineHeight: NSLayoutConstraint!
-    @IBOutlet fileprivate var emailUnderlineHeight: NSLayoutConstraint!
     @IBOutlet fileprivate var usernameTitleLabel: UILabel!
     @IBOutlet fileprivate var emailTitleLabel: UILabel!
 
@@ -33,8 +31,8 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
         usernameField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         emailField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     
-        usernameUnderlineHeight.constant = 1.0 / UIScreen.main.scale
-        emailUnderlineHeight.constant = 1.0 / UIScreen.main.scale
+        usernameField.wmf_addThinBottomBorder()
+        emailField.wmf_addThinBottomBorder()
         
         view.wmf_configureSubviewsForDynamicType()
     }
