@@ -41,19 +41,25 @@
     self.shareArticleDescription.text =
         [[article.entityDescription wmf_stringByRemovingHTML] wmf_stringByCapitalizingFirstCharacter];
     self.shareArticleDescription.textAlignment = subtextAlignment;
-
-    [article.image isDownloaded:^(BOOL leadImageCached) {
-        if (!leadImageCached) {
-            return;
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // in case the image has transparency, make its container white
-            self.shareCardImageContainer.image = image;
-            self.shareCardImageContainer.backgroundColor = [UIColor whiteColor];
-            self.shareCardImageContainer.leadImage = article.image;
-            completion();
-        });
-    }];
+    
+    if (image) {
+        [article.image isDownloaded:^(BOOL leadImageCached) {
+            if (!leadImageCached) {
+                return;
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // in case the image has transparency, make its container white
+                self.shareCardImageContainer.image = image;
+                self.shareCardImageContainer.backgroundColor = [UIColor whiteColor];
+                self.shareCardImageContainer.leadImage = article.image;
+                completion();
+            });
+        }];
+    } else {
+        // no image, set the background color to black
+        self.shareCardImageContainer.backgroundColor = [UIColor blackColor];
+        completion();
+    }
 }
 
 @end
