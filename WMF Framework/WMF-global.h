@@ -1,6 +1,9 @@
 #ifndef WMF_global_h
 #define WMF_global_h
 
+#define QUOTE2(x) #x
+#define QUOTE(x) QUOTE2(x)
+
 #import "EXTScope.h"
 #import <BlocksKit/BlocksKit.h>
 
