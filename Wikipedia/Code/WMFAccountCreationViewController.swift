@@ -73,8 +73,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         passwordConfirmUnderlineHeight.constant = usernameUnderlineHeight.constant;
         emailUnderlineHeight.constant = usernameUnderlineHeight.constant;
 
-        loginButton.textColor = UIColor.wmf_blueTint()
-        loginButton.text = localizedStringForKeyFallingBackOnEnglish("account-creation-login")
+        loginButton.attributedText = loginButton.wmf_authAttributedStringReusingFont(withDollarSignString: localizedStringForKeyFallingBackOnEnglish("account-creation-have-account"), substitutionString: localizedStringForKeyFallingBackOnEnglish("account-creation-log-in"))
         
         loginButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(loginButtonPushed(_:))))
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("navbar-title-mode-create-account")
