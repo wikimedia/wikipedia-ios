@@ -140,6 +140,7 @@
 		B01662B31D1B8CAB006F4544 /* NSURL+WMFQueryParametersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B01662B11D1B8A40006F4544 /* NSURL+WMFQueryParametersTests.m */; };
 		B01662B51D1B8E3B006F4544 /* NSURL+WMFProxyServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B01662B41D1B8E3B006F4544 /* NSURL+WMFProxyServerTests.m */; };
 		B016DCEB1D497C74005BABA1 /* WMFFindInPageKeyboardBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = B016DCEA1D497C74005BABA1 /* WMFFindInPageKeyboardBar.xib */; };
+		B017BF951E68EE3E009F8FAF /* UILabel+WMFAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B017BF941E68EE3E009F8FAF /* UILabel+WMFAuth.swift */; };
 		B02376B11D6EA04C007DBA73 /* WMFBarButtonItemPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = B02376B01D6EA04C007DBA73 /* WMFBarButtonItemPopoverBackgroundView.m */; };
 		B02376B41D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B02376B31D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m */; };
 		B0267CE91E316A79006B6D8D /* WMFForgotPasswordViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0267CE81E316A79006B6D8D /* WMFForgotPasswordViewController.storyboard */; };
@@ -148,6 +149,8 @@
 		B0267CF31E32A0CB006B6D8D /* WMFPasswordResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0267CF21E32A0CB006B6D8D /* WMFPasswordResetter.swift */; };
 		B027447B1E62471D00E7B248 /* WMFScrollable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027447A1E62471D00E7B248 /* WMFScrollable.swift */; };
 		B027447D1E6253E200E7B248 /* WMFScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027447C1E6253E200E7B248 /* WMFScrollViewController.swift */; };
+		B027447F1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027447E1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift */; };
+		B027FD281E678F5C005644A9 /* WMFAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027FD271E678F5C005644A9 /* WMFAuthButton.swift */; };
 		B02B82751C696ECA00B19309 /* WMFSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B02B82731C696ECA00B19309 /* WMFSettingsTableViewCell.m */; };
 		B02B82761C696ECA00B19309 /* WMFSettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B02B82741C696ECA00B19309 /* WMFSettingsTableViewCell.xib */; };
 		B02F96661DFA11DC007DA007 /* WMFArticleListTableViewCell+DynamicTypeFontTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F96651DFA11DC007DA007 /* WMFArticleListTableViewCell+DynamicTypeFontTests.swift */; };
@@ -170,6 +173,7 @@
 		B069FA2E1CEACB8400083D59 /* WeakScriptMessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069FA2D1CEACB8400083D59 /* WeakScriptMessageDelegate.swift */; };
 		B0726DA91C216F4300E57B2A /* WMFArticleFooterMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0726DA71C216F4300E57B2A /* WMFArticleFooterMenuViewController.m */; };
 		B0726DAA1C216F4300E57B2A /* WMFArticleFooterMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0726DA81C216F4300E57B2A /* WMFArticleFooterMenuViewController.xib */; };
+		B07715221E69401800D393FE /* UITextField+WMFAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07715211E69401800D393FE /* UITextField+WMFAuth.swift */; };
 		B07963E31C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = B07963E21C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m */; };
 		B07D25DE1D27538D00550721 /* WMFUpstreamHTMLFormatChangesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B07D25DC1D27537E00550721 /* WMFUpstreamHTMLFormatChangesTests.m */; };
 		B07D25E01D29974E00550721 /* MWKImageEqualityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B07D25DF1D29974E00550721 /* MWKImageEqualityTests.m */; };
@@ -317,7 +321,6 @@
 		B0E805591C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805201C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m */; };
 		B0E8055A1C0CE0DC0065EBC0 /* UIView+WMFRoundCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805221C0CE0DC0065EBC0 /* UIView+WMFRoundCorners.m */; };
 		B0E8055D1C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805261C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift */; };
-		B0E8055E1C0CE0DC0065EBC0 /* UIViewController+WMFChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805281C0CE0DC0065EBC0 /* UIViewController+WMFChildViewController.m */; };
 		B0E805601C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052C1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m */; };
 		B0E805611C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052E1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m */; };
 		B0E805621C0CE0DC0065EBC0 /* WKWebView+LoadAssetsHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805301C0CE0DC0065EBC0 /* WKWebView+LoadAssetsHtml.m */; };
@@ -1250,6 +1253,7 @@
 		B01662B11D1B8A40006F4544 /* NSURL+WMFQueryParametersTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WMFQueryParametersTests.m"; sourceTree = "<group>"; };
 		B01662B41D1B8E3B006F4544 /* NSURL+WMFProxyServerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WMFProxyServerTests.m"; sourceTree = "<group>"; };
 		B016DCEA1D497C74005BABA1 /* WMFFindInPageKeyboardBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFFindInPageKeyboardBar.xib; path = Wikipedia/Code/WMFFindInPageKeyboardBar.xib; sourceTree = SOURCE_ROOT; };
+		B017BF941E68EE3E009F8FAF /* UILabel+WMFAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+WMFAuth.swift"; sourceTree = "<group>"; };
 		B02376AF1D6EA04C007DBA73 /* WMFBarButtonItemPopoverBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFBarButtonItemPopoverBackgroundView.h; sourceTree = "<group>"; };
 		B02376B01D6EA04C007DBA73 /* WMFBarButtonItemPopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFBarButtonItemPopoverBackgroundView.m; sourceTree = "<group>"; };
 		B02376B21D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WMFDynamicHeightPopoverMessage.h"; sourceTree = "<group>"; };
@@ -1265,6 +1269,8 @@
 		B0267CF21E32A0CB006B6D8D /* WMFPasswordResetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFPasswordResetter.swift; sourceTree = "<group>"; };
 		B027447A1E62471D00E7B248 /* WMFScrollable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFScrollable.swift; sourceTree = "<group>"; };
 		B027447C1E6253E200E7B248 /* WMFScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFScrollViewController.swift; sourceTree = "<group>"; };
+		B027447E1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+WMFChildViewController.swift"; path = "Wikipedia/Code/UIViewController+WMFChildViewController.swift"; sourceTree = SOURCE_ROOT; };
+		B027FD271E678F5C005644A9 /* WMFAuthButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAuthButton.swift; sourceTree = "<group>"; };
 		B02B76A01CA9ED4400EDB253 /* ckb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ckb; path = ckb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B02B76A11CA9ED4400EDB253 /* ckb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ckb; path = ckb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B02B82721C696ECA00B19309 /* WMFSettingsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSettingsTableViewCell.h; path = Wikipedia/Code/WMFSettingsTableViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -1336,6 +1342,7 @@
 		B0726DA61C216F4300E57B2A /* WMFArticleFooterMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleFooterMenuViewController.h; path = Wikipedia/Code/WMFArticleFooterMenuViewController.h; sourceTree = SOURCE_ROOT; };
 		B0726DA71C216F4300E57B2A /* WMFArticleFooterMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleFooterMenuViewController.m; path = Wikipedia/Code/WMFArticleFooterMenuViewController.m; sourceTree = SOURCE_ROOT; };
 		B0726DA81C216F4300E57B2A /* WMFArticleFooterMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFArticleFooterMenuViewController.xib; path = Wikipedia/Code/WMFArticleFooterMenuViewController.xib; sourceTree = SOURCE_ROOT; };
+		B07715211E69401800D393FE /* UITextField+WMFAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+WMFAuth.swift"; sourceTree = "<group>"; };
 		B07963E11C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+WMFHideEmptyToolbar.h"; path = "Wikipedia/Code/UINavigationController+WMFHideEmptyToolbar.h"; sourceTree = SOURCE_ROOT; };
 		B07963E21C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+WMFHideEmptyToolbar.m"; path = "Wikipedia/Code/UINavigationController+WMFHideEmptyToolbar.m"; sourceTree = SOURCE_ROOT; };
 		B07D25D91D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableSet+WMFSafeAdd.h"; path = "Wikipedia/Code/NSMutableSet+WMFSafeAdd.h"; sourceTree = SOURCE_ROOT; };
@@ -1661,8 +1668,6 @@
 		B0E805211C0CE0DC0065EBC0 /* UIView+WMFRoundCorners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+WMFRoundCorners.h"; path = "Wikipedia/Code/UIView+WMFRoundCorners.h"; sourceTree = SOURCE_ROOT; };
 		B0E805221C0CE0DC0065EBC0 /* UIView+WMFRoundCorners.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+WMFRoundCorners.m"; path = "Wikipedia/Code/UIView+WMFRoundCorners.m"; sourceTree = SOURCE_ROOT; };
 		B0E805261C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+SafePreviewing.swift"; path = "Wikipedia/Code/UIViewController+SafePreviewing.swift"; sourceTree = SOURCE_ROOT; };
-		B0E805271C0CE0DC0065EBC0 /* UIViewController+WMFChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+WMFChildViewController.h"; path = "Wikipedia/Code/UIViewController+WMFChildViewController.h"; sourceTree = SOURCE_ROOT; };
-		B0E805281C0CE0DC0065EBC0 /* UIViewController+WMFChildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFChildViewController.m"; path = "Wikipedia/Code/UIViewController+WMFChildViewController.m"; sourceTree = SOURCE_ROOT; };
 		B0E8052B1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+WMFOpenExternalUrl.h"; path = "Wikipedia/Code/UIViewController+WMFOpenExternalUrl.h"; sourceTree = SOURCE_ROOT; };
 		B0E8052C1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFOpenExternalUrl.m"; path = "Wikipedia/Code/UIViewController+WMFOpenExternalUrl.m"; sourceTree = SOURCE_ROOT; };
 		B0E8052D1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKWebView+ElementLocation.h"; path = "Wikipedia/Code/WKWebView+ElementLocation.h"; sourceTree = SOURCE_ROOT; };
@@ -3008,6 +3013,9 @@
 			children = (
 				B027447A1E62471D00E7B248 /* WMFScrollable.swift */,
 				B027447C1E6253E200E7B248 /* WMFScrollViewController.swift */,
+				B027FD271E678F5C005644A9 /* WMFAuthButton.swift */,
+				B017BF941E68EE3E009F8FAF /* UILabel+WMFAuth.swift */,
+				B07715211E69401800D393FE /* UITextField+WMFAuth.swift */,
 				B0267CE71E31698F006B6D8D /* ForgotPassword */,
 				0449E63218A9844000D51524 /* Login */,
 				04A97E8418B81D440046B166 /* AccountCreation */,
@@ -4424,8 +4432,7 @@
 				B0E803E51C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m */,
 				B09B30CE1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift */,
 				B0E805261C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift */,
-				B0E805271C0CE0DC0065EBC0 /* UIViewController+WMFChildViewController.h */,
-				B0E805281C0CE0DC0065EBC0 /* UIViewController+WMFChildViewController.m */,
+				B027447E1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift */,
 				B066F0D41E513DAA00A199F8 /* UIViewController+WMFHideKeyboard.swift */,
 				BC45D5801C32F68A007C72F3 /* External Link Handling */,
 			);
@@ -6868,6 +6875,7 @@
 				D82014CF1E686D6600BA8579 /* VTAcknowledgementsParser.m in Sources */,
 				D87234011E1FF0A500751E83 /* PlacesViewController.swift in Sources */,
 				B06531721C237538003BD7DC /* WMFDisambiguationPagesViewController.m in Sources */,
+				B027FD281E678F5C005644A9 /* WMFAuthButton.swift in Sources */,
 				B01490A51DB96EA7007F5391 /* WMFReferencePanelViewController.swift in Sources */,
 				D8FEECCA1DE3715300B883F0 /* WMFTableViewUpdater.m in Sources */,
 				D81BA0FD1D50D40B006C38AC /* WMFNearbyPlaceholderTableViewCell.m in Sources */,
@@ -6920,9 +6928,9 @@
 				0E281A0D1DC1389D00FA1AB1 /* WMFLegacyDatabaseHouseKeeper.m in Sources */,
 				D89DAE1B1D6CC6410089F7E1 /* MWKTitleLanguageController.m in Sources */,
 				B0E803911C0CDABE0065EBC0 /* UIView+WMFSnapshotting.m in Sources */,
+				B07715221E69401800D393FE /* UITextField+WMFAuth.swift in Sources */,
 				B0E803E61C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				0ED2E9FA1CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
-				B0E8055E1C0CE0DC0065EBC0 /* UIViewController+WMFChildViewController.m in Sources */,
 				B0E806D21C0CEB6E0065EBC0 /* PageHistoryViewController.m in Sources */,
 				B0E803CC1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m in Sources */,
 				B0C6BE571E4526A40033BD6E /* WMFChangePasswordViewController.swift in Sources */,
@@ -7025,6 +7033,7 @@
 				B0E804CA1C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.m in Sources */,
 				D896C7961D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */,
 				B0E805621C0CE0DC0065EBC0 /* WKWebView+LoadAssetsHtml.m in Sources */,
+				B027447F1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift in Sources */,
 				B0E804D01C0CE0B40065EBC0 /* NSHTTPCookieStorage+WMFCloneCookie.m in Sources */,
 				D8301C2E1DF1C4D300135DC6 /* TSBlurView.m in Sources */,
 				D87A55991D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.m in Sources */,
@@ -7059,6 +7068,7 @@
 				D84F2BF21D2FE7ED00963D42 /* WMFArticleNavigationController.m in Sources */,
 				0EF5BB6D1C110C2100DE75E1 /* AppDelegate.m in Sources */,
 				B0E805501C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.m in Sources */,
+				B017BF951E68EE3E009F8FAF /* UILabel+WMFAuth.swift in Sources */,
 				D82972831E3950100061550A /* ArticlePlace.swift in Sources */,
 				0E09EAC41C4426470058F2D8 /* WMFSavedArticleTableViewController.m in Sources */,
 				B0E803481C0CD7AA0065EBC0 /* WMFSearchResults.m in Sources */,

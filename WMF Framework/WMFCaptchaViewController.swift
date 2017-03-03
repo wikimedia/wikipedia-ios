@@ -9,6 +9,7 @@ import UIKit
     func captchaSolutionChanged(_ sender: AnyObject, solutionText: String?)
     func captchaSiteURL() -> URL
     func captchaKeyboardReturnKeyTapped()
+    func captchaHideSubtitle() -> Bool
 }
 
 public class WMFCaptcha: NSObject {
@@ -37,8 +38,19 @@ public class WMFCaptcha: NSObject {
 class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet fileprivate var captchaImageView: UIImageView!
-    @IBOutlet fileprivate var captchaTextBox: UITextField!
-    @IBOutlet fileprivate var reloadCaptchaButton: UIButton!
+    @IBOutlet fileprivate var captchaTextFieldTitleLabel: UILabel!
+    @IBOutlet fileprivate var captchaTextField: UITextField!
+    @IBOutlet fileprivate var stackView: UIStackView!
+    @IBOutlet fileprivate var titleLabel: UILabel!
+    @IBOutlet fileprivate var subTitleLabel: UILabel!
+    @IBOutlet fileprivate var topSpacer: UIView!
+    @IBOutlet fileprivate var bottomSpacer: UIView!
+    @IBOutlet fileprivate var buttonSpacer: UIView!
+    @IBOutlet fileprivate var imageSpacer: UIView!
+    @IBOutlet fileprivate var infoButton: UIButton!
+    @IBOutlet fileprivate var refreshButton: UIButton!
+    @IBOutlet fileprivate var imageStackView: UIStackView!
+    @IBOutlet fileprivate var buttonStackView: UIStackView!
 
     public var captchaDelegate: WMFCaptchaViewControllerDelegate?
     fileprivate let captchaResetter = WMFCaptchaResetter()
@@ -46,28 +58,51 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     var captcha: WMFCaptcha? {
         didSet {
             guard let captcha = captcha else {
-                captchaTextBox.text = nil
+                captchaTextField.text = nil
+                stackView(collapse:true)
                 return;
             }
-            captchaTextBox.text = ""
+            stackView(collapse:false)
+            captchaTextField.text = ""
             refreshImage(for: captcha)
         }
     }
 
+    fileprivate func stackView(collapse: Bool) {
+        captchaImageView.isHidden = collapse
+        captchaTextField.isHidden = collapse
+        titleLabel.isHidden = collapse
+        topSpacer.isHidden = collapse
+        bottomSpacer.isHidden = collapse
+        refreshButton.isHidden = collapse
+        infoButton.isHidden = collapse
+        imageStackView.isHidden = collapse
+        buttonStackView.isHidden = collapse
+        buttonSpacer.isHidden = collapse
+        imageSpacer.isHidden = collapse
+        captchaTextFieldTitleLabel.isHidden = collapse
+        
+        guard let captchaDelegate = captchaDelegate else{
+            assert(false, "Required delegate is unset")
+            return
+        }
+        subTitleLabel.isHidden = (collapse || captchaDelegate.captchaHideSubtitle())
+    }
+    
     var solution:String? {
         get{
             guard
-                let captchaSolution = captchaTextBox.text,
+                let captchaSolution = captchaTextField.text,
                 captchaSolution.characters.count > 0
                 else {
                     return nil
             }
-            return captchaTextBox.text
+            return captchaTextField.text
         }
     }
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == captchaTextBox {
+        if textField == captchaTextField {
             guard let captchaDelegate = captchaDelegate else {
                 assert(false, "Expected delegate not set")
                 return true
@@ -85,9 +120,9 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         captchaImageView.sd_setImage(with: fullCaptchaImageURL)
     }
     
-    public func captchaTextBoxBecomeFirstResponder() {
-        // Reminder: captchaTextBox is private so this vc maintains control over the captcha solution.
-        captchaTextBox.becomeFirstResponder()
+    public func captchaTextFieldBecomeFirstResponder() {
+        // Reminder: captchaTextField is private so this vc maintains control over the captcha solution.
+        captchaTextField.becomeFirstResponder()
     }
 
     fileprivate func fullCaptchaImageURL(from captchaURL: URL) -> URL? {
@@ -124,19 +159,56 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    fileprivate func firstArrangedSubviewWithRequiredNonZeroHeightConstraint() -> UIView? {
+        return stackView.arrangedSubviews.first(where: {arrangedSubview in
+            let requiredHeightConstraint = arrangedSubview.constraints.first(where: {constraint in
+                guard
+                    type(of: constraint) == NSLayoutConstraint.self,
+                    constraint.firstAttribute == .height,
+                    constraint.priority == UILayoutPriorityRequired,
+                    constraint.constant != 0
+                    else{
+                        return false
+                }
+                return true
+            })
+            return (requiredHeightConstraint != nil)
+        })
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard captchaDelegate != nil else{
+        guard let captchaDelegate = captchaDelegate else{
             assert(false, "Required delegate is unset")
             return
         }
-        reloadCaptchaButton.setTitle(localizedStringForKeyFallingBackOnEnglish("captcha-reload"), for: .normal)
-        captchaTextBox.placeholder = localizedStringForKeyFallingBackOnEnglish("captcha-prompt")
-        reloadCaptchaButton.setTitleColor(UIColor.darkGray, for: .disabled)
-        reloadCaptchaButton.setTitleColor(UIColor.darkGray, for: .normal)
+        
+        assert(firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, "\n\nAll stackview arrangedSubview height constraints need to have a priority of < 1000 so the stackview can collapse the 'cell' if the arrangedSubview's isHidden property is set to true. This arrangedSubview was determined to have a required height: \(firstArrangedSubviewWithRequiredNonZeroHeightConstraint()). To fix reduce the priority of its height constraint to < 1000.\n\n")
+        
+        captcha = nil
+        captchaTextFieldTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-captcha-title")
+        captchaTextField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-captcha-placeholder")
+        captchaTextField.wmf_addThinBottomBorder()
+        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-title")
+        
+        // Reminder: used a label instead of a button for subtitle because of multi-line string issues with UIButton.
+        subTitleLabel.attributedText = subTitleLabel.wmf_authAttributedStringReusingFont(withDollarSignString: localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-cannot-see-image"), substitutionString: localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-request-account"))
+        subTitleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(requestAnAccountTapped(_:))))
+    
+        subTitleLabel.isHidden = (captcha == nil) || captchaDelegate.captchaHideSubtitle()
+        
+        view.wmf_configureSubviewsForDynamicType()
     }
     
-    func captchaReloadPushed(_ sender: AnyObject) {
+    func requestAnAccountTapped(_ recognizer: UITapGestureRecognizer) {
+        wmf_openExternalUrl(URL.init(string: "https://en.wikipedia.org/wiki/Wikipedia:Request_an_account"))
+    }
+    
+    @IBAction fileprivate func infoButtonTapped(withSender sender: UIButton) {
+        wmf_openExternalUrl(URL.init(string: "https://en.wikipedia.org/wiki/Special:Captcha/help"))
+    }
+
+    @IBAction fileprivate func refreshButtonTapped(withSender sender: UIButton) {
         captchaDelegate?.captchaReloadPushed(self)
                 
         let failure: WMFErrorHandler = {error in }
@@ -160,15 +232,5 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
             self.captcha = newCaptcha
             
         }, failure:failure)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        reloadCaptchaButton.addTarget(self, action: #selector(captchaReloadPushed(_:)), for: .touchUpInside)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        reloadCaptchaButton.removeTarget(nil, action: nil, for: .allEvents)
-        super.viewWillDisappear(animated)
     }
 }
