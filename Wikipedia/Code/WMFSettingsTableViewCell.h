@@ -1,5 +1,5 @@
 #import <UIKit/UIKit.h>
-#import <SSDataSources/SSBaseTableCell.h>
+#import "SSBaseTableCell.h"
 #import "WMFSettingsMenuItem.h"
 
 @interface WMFSettingsTableViewCell : SSBaseTableCell

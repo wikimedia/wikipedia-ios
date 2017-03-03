@@ -2,7 +2,8 @@
 #import "MWKLanguageLinkController.h"
 #import "MWKLanguageLink.h"
 #import "NSString+WMFExtras.h"
-#import <KVOController/KVOController.h>
+
+static const NSString *kvo_MWKLanguageFilter_dataSource_allLanguages = nil;
 
 @interface MWKLanguageFilter ()
 
@@ -19,15 +20,23 @@
     self = [super init];
     if (self) {
         self.dataSource = dataSource;
-        [self.KVOController observe:dataSource
-                            keyPath:WMF_SAFE_KEYPATH(dataSource, allLanguages)
-                            options:0
-                              block:^(MWKLanguageFilter *observer, id object, NSDictionary *change) {
-                                  [observer updateFilteredLanguages];
-                              }];
         [self updateFilteredLanguages];
     }
     return self;
+}
+
+- (void)dealloc {
+    self.dataSource = nil;
+}
+
+- (void)setDataSource:(id<MWKLanguageFilterDataSource>)dataSource {
+    if (_dataSource == dataSource) {
+        return;
+    }
+    NSString *keyPath = WMF_SAFE_KEYPATH(_dataSource, allLanguages);
+    [(id)_dataSource removeObserver:self forKeyPath:keyPath context:&kvo_MWKLanguageFilter_dataSource_allLanguages];
+    _dataSource = dataSource;
+    [(id)_dataSource addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:&kvo_MWKLanguageFilter_dataSource_allLanguages];
 }
 
 - (void)setLanguageFilter:(NSString *__nullable)filterString {
@@ -53,6 +62,14 @@
         self.filteredOtherLanguages = [self.dataSource.otherLanguages bk_select:^BOOL(MWKLanguageLink *langLink) {
             return [langLink.name wmf_caseInsensitiveContainsString:self.languageFilter] || [langLink.localizedName wmf_caseInsensitiveContainsString:self.languageFilter] || [langLink.languageCode wmf_caseInsensitiveContainsString:self.languageFilter];
         }];
+    }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if (context == &kvo_MWKLanguageFilter_dataSource_allLanguages) {
+        [self updateFilteredLanguages];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
