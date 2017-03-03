@@ -68,6 +68,8 @@
 "account-creation-login" = "Button text for loading the login interface";
 "account-creation-missing-fields" = "Error shown when one of the required fields for account creation (username, password, and password confirmation) is empty.";
 "account-creation-create-account" = "Text for create account button";
+"account-creation-have-account" = "Text for button which shows login interface. $1 is the message {{msg-wikimedia|account-creation-log-in}}";
+"account-creation-log-in" = "Log in text to be used as part of a log in button";
 "new-password-title" = "Title for password change interface";
 "new-password-instructions" = "Instructions for password change interface";
 "two-factor-login-title" = "Title for two factor login interface";

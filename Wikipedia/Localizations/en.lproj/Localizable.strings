@@ -58,6 +58,8 @@
 "account-creation-login" = "Already have an account? Log in.";
 "account-creation-missing-fields" = "You must enter a username, password, and password confirmation to create an account.";
 "account-creation-create-account" = "Create your account";
+"account-creation-have-account" = "Already have an account? $1";
+"account-creation-log-in" = "Log in.";
 
 "new-password-title" = "Set your password";
 "new-password-instructions" = "You logged in with a temporary password. To finish logging in set a new password here.";
