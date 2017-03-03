@@ -110,18 +110,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
             assert(false, "Unable to determine fullCaptchaImageURL")
             return
         }
-        URLSession.shared.dataTask(with: fullCaptchaImageURL, completionHandler: { (data, _, error) -> Void in
-            guard
-                error == nil,
-                let data = data,
-                let image = UIImage(data: data)
-            else {
-                return
-            }
-            DispatchQueue.main.async{
-                self.captchaImageView.image = image
-            }
-        }).resume()
+        captchaImageView.sd_setImage(with: fullCaptchaImageURL)
     }
     
     public func captchaTextFieldBecomeFirstResponder() {
