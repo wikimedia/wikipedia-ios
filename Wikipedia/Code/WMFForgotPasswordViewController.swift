@@ -9,6 +9,8 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
     @IBOutlet fileprivate var emailField: UITextField!
     @IBOutlet fileprivate var usernameUnderlineHeight: NSLayoutConstraint!
     @IBOutlet fileprivate var emailUnderlineHeight: NSLayoutConstraint!
+    @IBOutlet fileprivate var usernameTitleLabel: UILabel!
+    @IBOutlet fileprivate var emailTitleLabel: UILabel!
 
     @IBOutlet fileprivate var resetPasswordButton: WMFAuthButton!
 
@@ -21,9 +23,11 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
     
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("forgot-password-title")
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("forgot-password-instructions")
-        usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("forgot-password-username-prompt")
-        emailField.placeholder = localizedStringForKeyFallingBackOnEnglish("forgot-password-email-prompt")
-        
+        usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-username-placeholder")
+        emailField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-email-placeholder")
+        usernameTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-username-title")
+        emailTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-email-title")
+
         resetPasswordButton.setTitle(localizedStringForKeyFallingBackOnEnglish("forgot-password-button-title"), for: .normal)
         
         usernameField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
