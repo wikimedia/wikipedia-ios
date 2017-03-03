@@ -498,7 +498,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         return;
     }
     [[WMFImageController sharedInstance] clearMemoryCache];
-    [self.dataStore startCacheRemoval];
+
     [self.savedArticlesFetcher stop];
     [self stopContentSources];
 
@@ -509,11 +509,17 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
     //TODO: implement completion block to cancel download task with the 2 tasks above
     NSError *housekeepingError = nil;
-    [self.houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext error:&housekeepingError];
+    NSArray<NSURL *> *deletedArticleURLs = [self.houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext error:&housekeepingError];
     if (housekeepingError) {
         DDLogError(@"Error on cleanup: %@", housekeepingError);
     }
+    
+    if (deletedArticleURLs.count > 0) {
+        [self.dataStore removeArticlesWithURLsFromCache:deletedArticleURLs];
+    }
 
+    [self.dataStore startCacheRemoval];
+    
     DDLogWarn(@"Backgrounding… Logging Important Statistics");
     [self logImportantStatistics];
 }
