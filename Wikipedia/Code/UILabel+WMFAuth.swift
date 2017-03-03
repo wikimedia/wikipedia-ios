@@ -8,6 +8,6 @@ extension UILabel {
     ///   - substitutionString: The string which will replace **$1** in the **dollarSignString** parameter.
     /// - Returns: Attributed string from the two parameter strings, with the **dollarSignString** in black and the **substitutionString** in blue.
     func wmf_authAttributedStringReusingFont(withDollarSignString dollarSignString: String, substitutionString: String) -> NSAttributedString {
-        return dollarSignString.attributedString(attributes: [NSFontAttributeName : font], substitutionStrings: [substitutionString], substitutionAttributes: [[NSForegroundColorAttributeName : UIColor.wmf_blueTint()]])
+        return dollarSignString.attributedString(attributes: [NSForegroundColorAttributeName : UIColor.black, NSFontAttributeName : font], substitutionStrings: [substitutionString], substitutionAttributes: [[NSForegroundColorAttributeName : UIColor.wmf_blueTint()]])
     }
 }
