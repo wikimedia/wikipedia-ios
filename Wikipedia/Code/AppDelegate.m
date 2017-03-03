@@ -9,6 +9,11 @@
 #import "NSFileManager+WMFGroup.h"
 @import UserNotifications;
 
+#if WMF_UX_STUDY_ENABLED
+#import <Appsee/Appsee.h>
+static NSString *const WMFAppSeeAPIKey = @QUOTE(WMF_APP_SEE_API_KEY);
+#endif
+
 static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
 @interface AppDelegate ()
@@ -79,6 +84,12 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
           [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]);
     NSLog(@"\n\nSimulator container directory:\n\t%@\n\n",
           [[NSFileManager defaultManager] wmf_containerPath]);
+#endif
+    
+#if WMF_UX_STUDY_ENABLED
+    if (WMFAppSeeAPIKey.length > 0) {
+        [Appsee start:WMFAppSeeAPIKey];
+    }
 #endif
 
     [NSUserDefaults wmf_migrateToWMFGroupUserDefaultsIfNecessary];
