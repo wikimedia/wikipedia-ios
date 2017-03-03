@@ -7,20 +7,19 @@ class WMFChangePasswordViewController: WMFScrollViewController {
     @IBOutlet fileprivate var subTitleLabel: UILabel!
     @IBOutlet fileprivate var passwordField: UITextField!
     @IBOutlet fileprivate var retypeField: UITextField!
-    @IBOutlet fileprivate var passwordUnderlineHeight: NSLayoutConstraint!
-    @IBOutlet fileprivate var retypeUnderlineHeight: NSLayoutConstraint!
-
-    fileprivate var doneButton: UIBarButtonItem!
+    @IBOutlet fileprivate var passwordTitleLabel: UILabel!
+    @IBOutlet fileprivate var retypeTitleLabel: UILabel!
+    @IBOutlet fileprivate var saveButton: WMFAuthButton!
     
     public var funnel: LoginFunnel?
 
     public var userName:String?
     
-    func doneButtonPushed(_ : UIBarButtonItem) {
+    @IBAction fileprivate func saveButtonTapped(withSender sender: UIButton) {
         save()
     }
 
-    func textFieldDidChange(_ sender: UITextField) {
+    @IBAction func textFieldDidChange(_ sender: UITextField) {
         guard
             let password = passwordField.text,
             let retype = retypeField.text
@@ -36,7 +35,7 @@ class WMFChangePasswordViewController: WMFScrollViewController {
     }
 
     func enableProgressiveButton(_ highlight: Bool) {
-        doneButton.isEnabled = highlight
+        saveButton.isEnabled = highlight
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,19 +66,15 @@ class WMFChangePasswordViewController: WMFScrollViewController {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
         
-        doneButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("button-save"), style: .plain, target: self, action: #selector(doneButtonPushed(_:)))
-        navigationItem.rightBarButtonItem = doneButton
-       
-        passwordField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        retypeField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-
-        passwordUnderlineHeight.constant = 1.0 / UIScreen.main.scale
-        retypeUnderlineHeight.constant = 1.0 / UIScreen.main.scale
+        passwordField.wmf_addThinBottomBorder()
+        retypeField.wmf_addThinBottomBorder()
 
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("new-password-title")
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("new-password-instructions")
-        passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("new-password-password-placeholder-text")
-        retypeField.placeholder = localizedStringForKeyFallingBackOnEnglish("new-password-confirm-placeholder-text")
+        passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-new-password-placeholder")
+        retypeField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-new-password-confirm-placeholder")
+        passwordTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-new-password-title")
+        retypeTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-new-password-confirm-title")
         
         view.wmf_configureSubviewsForDynamicType()
     }

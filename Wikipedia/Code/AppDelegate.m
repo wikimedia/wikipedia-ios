@@ -129,7 +129,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
 - (void)resumeAppIfNecessary {
     if (self.appNeedsResume) {
-        [self.appViewController resumeApp];
+        [self.appViewController hideSplashScreenAndResumeApp];
         self.appNeedsResume = false;
     }
 }
