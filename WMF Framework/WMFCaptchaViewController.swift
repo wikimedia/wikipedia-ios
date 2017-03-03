@@ -4,6 +4,23 @@ import UIKit
 // Presently it is assumed this view controller will be used only as a
 // child view controller of another view controller.
 
+extension UIView {
+    fileprivate func wmf_subviews(hide: Bool) {
+        isHidden = hide
+        for subview in self.subviews {
+            subview.wmf_subviews(hide:hide)
+        }
+    }
+}
+
+extension UIStackView {
+    fileprivate func wmf_arrangedSubviews(hide: Bool) {
+        for view in arrangedSubviews {
+            view.wmf_subviews(hide: hide)
+        }
+    }
+}
+
 @objc public protocol WMFCaptchaViewControllerDelegate{
     func captchaReloadPushed(_ sender: AnyObject)
     func captchaSolutionChanged(_ sender: AnyObject, solutionText: String?)
@@ -43,14 +60,8 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet fileprivate var stackView: UIStackView!
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var subTitleLabel: UILabel!
-    @IBOutlet fileprivate var topSpacer: UIView!
-    @IBOutlet fileprivate var bottomSpacer: UIView!
-    @IBOutlet fileprivate var buttonSpacer: UIView!
-    @IBOutlet fileprivate var imageSpacer: UIView!
     @IBOutlet fileprivate var infoButton: UIButton!
     @IBOutlet fileprivate var refreshButton: UIButton!
-    @IBOutlet fileprivate var imageStackView: UIStackView!
-    @IBOutlet fileprivate var buttonStackView: UIStackView!
 
     public var captchaDelegate: WMFCaptchaViewControllerDelegate?
     fileprivate let captchaResetter = WMFCaptchaResetter()
@@ -59,34 +70,16 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         didSet {
             guard let captcha = captcha else {
                 captchaTextField.text = nil
-                stackView(collapse:true)
+                stackView.wmf_subviews(hide: true)
                 return;
             }
-            stackView(collapse:false)
+            stackView.wmf_subviews(hide: false)
             captchaTextField.text = ""
             refreshImage(for: captcha)
+            if let captchaDelegate = captchaDelegate {
+                subTitleLabel.isHidden = captchaDelegate.captchaHideSubtitle()
+            }
         }
-    }
-
-    fileprivate func stackView(collapse: Bool) {
-        captchaImageView.isHidden = collapse
-        captchaTextField.isHidden = collapse
-        titleLabel.isHidden = collapse
-        topSpacer.isHidden = collapse
-        bottomSpacer.isHidden = collapse
-        refreshButton.isHidden = collapse
-        infoButton.isHidden = collapse
-        imageStackView.isHidden = collapse
-        buttonStackView.isHidden = collapse
-        buttonSpacer.isHidden = collapse
-        imageSpacer.isHidden = collapse
-        captchaTextFieldTitleLabel.isHidden = collapse
-        
-        guard let captchaDelegate = captchaDelegate else{
-            assert(false, "Required delegate is unset")
-            return
-        }
-        subTitleLabel.isHidden = (collapse || captchaDelegate.captchaHideSubtitle())
     }
     
     var solution:String? {

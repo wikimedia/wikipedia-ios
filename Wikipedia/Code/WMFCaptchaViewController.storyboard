@@ -177,20 +177,14 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="260"/>
                     <connections>
-                        <outlet property="bottomSpacer" destination="BHF-86-F8u" id="lRP-vh-3Z7"/>
-                        <outlet property="buttonSpacer" destination="yBr-1h-mIA" id="dl9-2F-okm"/>
-                        <outlet property="buttonStackView" destination="A7E-KN-1nr" id="ZYf-zS-lfe"/>
                         <outlet property="captchaImageView" destination="ubi-fl-THX" id="M7P-e6-2ct"/>
                         <outlet property="captchaTextField" destination="gPg-cg-Yjy" id="2NO-p8-cIW"/>
                         <outlet property="captchaTextFieldTitleLabel" destination="ou5-rd-yNs" id="aVA-k1-axx"/>
-                        <outlet property="imageSpacer" destination="liO-gg-vKO" id="fsX-uL-Kp3"/>
-                        <outlet property="imageStackView" destination="k2g-BG-mmO" id="xIL-vY-qyr"/>
                         <outlet property="infoButton" destination="hh6-C5-dNO" id="nLa-QJ-uaQ"/>
                         <outlet property="refreshButton" destination="jCM-ci-7L7" id="ho1-On-DfD"/>
                         <outlet property="stackView" destination="Fwq-2f-06F" id="fYu-Zo-cdo"/>
                         <outlet property="subTitleLabel" destination="0To-aV-npg" id="ui7-df-6LZ"/>
                         <outlet property="titleLabel" destination="VLd-Yl-D3C" id="UMt-Vn-JDT"/>
-                        <outlet property="topSpacer" destination="mNx-mW-Gkz" id="jf2-OR-GJT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eHF-WC-RSd" userLabel="First Responder" sceneMemberID="firstResponder"/>
