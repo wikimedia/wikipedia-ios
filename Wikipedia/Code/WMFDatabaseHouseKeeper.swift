@@ -2,9 +2,11 @@ import Foundation
 
 @objc class WMFDatabaseHouseKeeper : NSObject {
     
-    @objc func performHouseKeepingOnManagedObjectContext(_ moc: NSManagedObjectContext)  throws {
+    // Returns deleted URLs
+    @objc func performHouseKeepingOnManagedObjectContext(_ moc: NSManagedObjectContext) throws -> [URL] {
         
-        try deleteStaleUnreferencedArticles(moc)
+        let urls = try deleteStaleUnreferencedArticles(moc)
+        return urls
     }
     
     /** TODO: refactor into date utilities? */
@@ -23,7 +25,7 @@ import Foundation
         return (thirtyDaysAgoMidnightUTC as NSDate).wmf_midnightUTCDateFromLocal
     }
     
-    private func deleteStaleUnreferencedArticles(_ moc: NSManagedObjectContext) throws {
+    private func deleteStaleUnreferencedArticles(_ moc: NSManagedObjectContext) throws -> [URL] {
         
         /**
  
@@ -33,7 +35,7 @@ import Foundation
         
         guard let thirtyDaysAgoMidnightUTC = daysBeforeDateInUTC(days: -30, date: Date()) else {
             assertionFailure("Calculating midnight UTC 30 days ago failed")
-            return
+            return []
         }
         
         let allContentGroupFetchRequest = WMFContentGroup.fetchRequest()
@@ -109,23 +111,31 @@ import Foundation
         */
         
         let articlesToDeleteFetchRequest = WMFArticle.fetchRequest()
-        var articlesToDeletePredicate = NSPredicate(format: "viewedDate == NULL && savedDate == NULL && placesSortOrder == NULL && isExcludedFromFeed == %@", NSNumber(booleanLiteral: false))
+        var articlesToDeletePredicate = NSPredicate(format: "viewedDate == NULL && savedDate == NULL && placesSortOrder == 0 && isExcludedFromFeed == FALSE")
         if referencedArticleKeys.count > 0 {
             let referencedKeysPredicate = NSPredicate(format: "!(key IN %@)", referencedArticleKeys)
             articlesToDeletePredicate = NSCompoundPredicate(andPredicateWithSubpredicates:[articlesToDeletePredicate,referencedKeysPredicate])
         }
         
         articlesToDeleteFetchRequest.predicate = articlesToDeletePredicate
-        articlesToDeleteFetchRequest.propertiesToFetch = ["key", "viewedDate", "savedDate", "isExcludedFromFeed"]
+        articlesToDeleteFetchRequest.propertiesToFetch = ["key"]
         
         let articlesToDelete = try moc.fetch(articlesToDeleteFetchRequest)
         
+        var urls: [URL] = []
         for obj in articlesToDelete {
             moc.delete(obj)
+            guard let url = obj.url else {
+                continue
+            }
+            urls.append(url)
         }
+        
         
         if (moc.hasChanges) {
             try moc.save()
         }
+        
+        return urls
     }
 }
