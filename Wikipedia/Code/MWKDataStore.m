@@ -4,7 +4,6 @@
 #import "WMFArticlePreview.h"
 #import "WMFAnnouncement.h"
 
-
 @import CoreData;
 
 NSString *const MWKArticleSavedNotification = @"MWKArticleSavedNotification";
@@ -148,7 +147,7 @@ static uint64_t bundleHash() {
         [self setupCrossProcessCoreDataNotifier];
         [self setupCoreDataStackWithContainerURL:containerURL];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-        
+
         self.articleLocationController = [ArticleLocationController new];
     }
     return self;
@@ -990,23 +989,23 @@ static uint64_t bundleHash() {
 
 - (void)removeUnreferencedArticlesFromDiskCacheWithFailure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     NSFetchRequest *allValidArticleKeysFetchRequest = [WMFArticle fetchRequest];
-    allValidArticleKeysFetchRequest.predicate = [NSPredicate predicateWithFormat:@"viewedDate != NULL || savedDate != NULL || placesSortOrder != 0 || isExcludedFromFeed == TRUE"];
+    allValidArticleKeysFetchRequest.predicate = [NSPredicate predicateWithFormat:@"viewedDate != NULL || savedDate != NULL"];
     allValidArticleKeysFetchRequest.propertiesToFetch = @[@"key"];
-    
+
     NSError *fetchError = nil;
     NSArray *arrayOfAllValidArticles = [self.viewContext executeFetchRequest:allValidArticleKeysFetchRequest error:&fetchError];
-    
+
     if (fetchError) {
         failure(fetchError);
         return;
     }
-    
+
     if (arrayOfAllValidArticles.count == 0) {
         [[NSFileManager defaultManager] removeItemAtPath:[self pathForSites] error:nil];
         success();
         return;
     }
-    
+
     NSMutableSet *allValidArticleKeys = [NSMutableSet setWithCapacity:arrayOfAllValidArticles.count];
     for (WMFArticle *article in arrayOfAllValidArticles) {
         NSString *key = article.key;
@@ -1015,7 +1014,7 @@ static uint64_t bundleHash() {
         }
         [allValidArticleKeys addObject:key];
     }
-    
+
     if (allValidArticleKeys.count == 0) {
         [[NSFileManager defaultManager] removeItemAtPath:[self pathForSites] error:nil];
         success();
@@ -1032,7 +1031,7 @@ static uint64_t bundleHash() {
             if ([allValidArticleKeys containsObject:key]) {
                 return;
             }
-            
+
             [articleURLsToRemove addObject:articleURL];
         }];
         [self removeArticlesWithURLsFromCache:articleURLsToRemove];
@@ -1045,23 +1044,23 @@ static uint64_t bundleHash() {
     NSString *articlePath = [self pathForSites];
     for (NSString *path in [fm enumeratorAtPath:articlePath]) {
         NSArray *components = [path pathComponents];
-        
+
         //HAX: We make assumptions about the length of paths below.
         //This is due to our title handling assumptions
         WMF_TECH_DEBT_TODO(We should remove this when we move to a DB)
         if ([components count] < 5) {
             continue;
         }
-        
+
         NSUInteger count = [components count];
         NSString *filename = components[count - 1];
         if ([filename isEqualToString:@"Article.plist"]) {
             NSString *dirname = components[count - 2];
             NSString *titleText = [self stringWithSafeFilename:dirname];
-            
+
             NSString *language = components[count - 4];
             NSString *domain = components[count - 5];
-            
+
             NSURL *url = [NSURL wmf_URLWithDomain:domain language:language title:titleText fragment:nil];
             block(url);
         }
