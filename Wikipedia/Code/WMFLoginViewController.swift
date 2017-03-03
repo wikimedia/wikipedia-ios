@@ -119,7 +119,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             passwordField.becomeFirstResponder()
         case passwordField:
             if captchaIsVisible() {
-                captchaViewController?.captchaTextBoxBecomeFirstResponder()
+                captchaViewController?.captchaTextFieldBecomeFirstResponder()
             }else{
                 save()
             }

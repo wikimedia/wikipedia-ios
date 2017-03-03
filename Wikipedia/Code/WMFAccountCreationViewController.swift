@@ -134,7 +134,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             emailField.becomeFirstResponder()
         case emailField:
             if captchaIsVisible() {
-                captchaViewController?.captchaTextBoxBecomeFirstResponder()
+                captchaViewController?.captchaTextFieldBecomeFirstResponder()
             }else{
                 save()
             }
