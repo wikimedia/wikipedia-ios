@@ -78,7 +78,6 @@
 "new-password-confirm-placeholder-text" = "Placeholder text which appears initially in the new password confirmation text box";
 "two-factor-login-title" = "Title for two factor login interface";
 "two-factor-login-instructions" = "Instructions for two factor login interface";
-"two-factor-login-token-title" = "Title for two factor token text boxes\n{{Identical|Token}}";
 "two-factor-login-continue" = "Button text for finishing two factor login";
 "login-name-not-found" = "Alert text shown when no user name was entered";
 "login-name-illegal" = "Alert text shown the chosen user name is now allowed by the wiki (e.g. for containing an \"@\" or for being too similar to an existing one).";
