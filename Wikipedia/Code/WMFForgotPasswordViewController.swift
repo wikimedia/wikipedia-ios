@@ -25,12 +25,8 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
         emailField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-email-placeholder")
         usernameTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-username-title")
         emailTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-email-title")
-
         resetPasswordButton.setTitle(localizedStringForKeyFallingBackOnEnglish("forgot-password-button-title"), for: .normal)
         
-        usernameField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        emailField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-    
         usernameField.wmf_addThinBottomBorder()
         emailField.wmf_addThinBottomBorder()
         
@@ -61,7 +57,7 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
         return true
     }
 
-    func textFieldDidChange(_ sender: UITextField) {
+    @IBAction func textFieldDidChange(_ sender: UITextField) {
         guard
             let username = usernameField.text,
             let email = emailField.text

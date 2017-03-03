@@ -19,7 +19,7 @@ class WMFChangePasswordViewController: WMFScrollViewController {
         save()
     }
 
-    func textFieldDidChange(_ sender: UITextField) {
+    @IBAction func textFieldDidChange(_ sender: UITextField) {
         guard
             let password = passwordField.text,
             let retype = retypeField.text
@@ -66,9 +66,6 @@ class WMFChangePasswordViewController: WMFScrollViewController {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
         
-        passwordField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        retypeField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-
         passwordField.wmf_addThinBottomBorder()
         retypeField.wmf_addThinBottomBorder()
 
