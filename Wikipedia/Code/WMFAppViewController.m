@@ -358,12 +358,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [self migrateToSharedContainerIfNecessaryWithCompletion:^{
         [self migrateToNewFeedIfNecessaryWithCompletion:^{
             [self migrateToQuadKeyLocationIfNecessaryWithCompletion:^{
-                [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
-                    [self loadMainUI];
-                    if (!waitToResumeApp) {
-                        [self hideSplashViewAnimated:!didShowOnboarding];
-                        [self resumeApp];
-                    }
+                [self migrateToRemoveUnreferencedArticlesIfNecessaryWithCompletion:^{
+                    [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+                        [self loadMainUI];
+                        if (!waitToResumeApp) {
+                            [self hideSplashViewAnimated:!didShowOnboarding];
+                            [self resumeApp];
+                        }
+                    }];
                 }];
             }];
         }];
@@ -415,6 +417,20 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         }
         completion();
     }];
+}
+
+- (void)migrateToRemoveUnreferencedArticlesIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
+    if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToFixArticleCache]) {
+        completion();
+    } else {
+       [self.dataStore removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError * _Nonnull error) {
+           DDLogError(@"Error during article migration: %@", error);
+           completion();
+       } success:^{
+           [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToFixArticleCache:YES];
+           completion();
+       }];
+    }
 }
 
 #pragma mark - Start/Pause/Resume App

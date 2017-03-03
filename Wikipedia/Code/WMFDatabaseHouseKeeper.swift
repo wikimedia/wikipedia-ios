@@ -118,7 +118,7 @@ import Foundation
         }
         
         articlesToDeleteFetchRequest.predicate = articlesToDeletePredicate
-        articlesToDeleteFetchRequest.propertiesToFetch = ["key", "viewedDate", "savedDate", "isExcludedFromFeed", "placesSortOrder"]
+        articlesToDeleteFetchRequest.propertiesToFetch = ["key"]
         
         let articlesToDelete = try moc.fetch(articlesToDeleteFetchRequest)
         

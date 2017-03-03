@@ -988,32 +988,82 @@ static uint64_t bundleHash() {
 
 #pragma mark - helper methods
 
-- (void)iterateOverArticles:(void (^)(MWKArticle *))block {
+- (void)removeUnreferencedArticlesFromDiskCacheWithFailure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+    NSFetchRequest *allValidArticleKeysFetchRequest = [WMFArticle fetchRequest];
+    allValidArticleKeysFetchRequest.predicate = [NSPredicate predicateWithFormat:@"viewedDate != NULL || savedDate != NULL || placesSortOrder != 0 || isExcludedFromFeed == TRUE"];
+    allValidArticleKeysFetchRequest.propertiesToFetch = @[@"key"];
+    
+    NSError *fetchError = nil;
+    NSArray *arrayOfAllValidArticles = [self.viewContext executeFetchRequest:allValidArticleKeysFetchRequest error:&fetchError];
+    
+    if (fetchError) {
+        failure(fetchError);
+        return;
+    }
+    
+    if (arrayOfAllValidArticles.count == 0) {
+        [[NSFileManager defaultManager] removeItemAtPath:[self pathForSites] error:nil];
+        success();
+        return;
+    }
+    
+    NSMutableSet *allValidArticleKeys = [NSMutableSet setWithCapacity:arrayOfAllValidArticles.count];
+    for (WMFArticle *article in arrayOfAllValidArticles) {
+        NSString *key = article.key;
+        if (!key) {
+            continue;
+        }
+        [allValidArticleKeys addObject:key];
+    }
+    
+    if (allValidArticleKeys.count == 0) {
+        [[NSFileManager defaultManager] removeItemAtPath:[self pathForSites] error:nil];
+        success();
+        return;
+    }
+
+    dispatch_async(self.cacheRemovalQueue, ^{
+        NSMutableArray<NSURL *> *articleURLsToRemove = [NSMutableArray arrayWithCapacity:10];
+        [self iterateOverArticleURLs:^(NSURL *articleURL) {
+            NSString *key = articleURL.wmf_articleDatabaseKey;
+            if (!key) {
+                return;
+            }
+            if ([allValidArticleKeys containsObject:key]) {
+                return;
+            }
+            
+            [articleURLsToRemove addObject:articleURL];
+        }];
+        [self removeArticlesWithURLsFromCache:articleURLsToRemove];
+        dispatch_async(dispatch_get_main_queue(), success);
+    });
+}
+
+- (void)iterateOverArticleURLs:(void (^)(NSURL *))block {
     NSFileManager *fm = [NSFileManager defaultManager];
     NSString *articlePath = [self pathForSites];
     for (NSString *path in [fm enumeratorAtPath:articlePath]) {
         NSArray *components = [path pathComponents];
-
+        
         //HAX: We make assumptions about the length of paths below.
         //This is due to our title handling assumptions
         WMF_TECH_DEBT_TODO(We should remove this when we move to a DB)
         if ([components count] < 5) {
             continue;
         }
-
+        
         NSUInteger count = [components count];
         NSString *filename = components[count - 1];
         if ([filename isEqualToString:@"Article.plist"]) {
             NSString *dirname = components[count - 2];
             NSString *titleText = [self stringWithSafeFilename:dirname];
-
+            
             NSString *language = components[count - 4];
             NSString *domain = components[count - 5];
-
+            
             NSURL *url = [NSURL wmf_URLWithDomain:domain language:language title:titleText fragment:nil];
-
-            MWKArticle *article = [self articleWithURL:url];
-            block(article);
+            block(url);
         }
     }
 }
@@ -1053,6 +1103,9 @@ static uint64_t bundleHash() {
 }
 
 - (void)removeArticlesWithURLsFromCache:(NSArray<NSURL *> *)urlsToRemove {
+    if (urlsToRemove.count == 0) {
+        return;
+    }
     dispatch_async(self.cacheRemovalQueue, ^{
         NSMutableArray<NSURL *> *allURLsToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
         if (allURLsToRemove == nil) {
