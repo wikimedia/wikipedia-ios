@@ -56,10 +56,6 @@
 "account-creation-passwords-mismatched" = "Password fields do not match.";
 "account-creation-saving" = "Saving...";
 "account-creation-login" = "Already have an account? Log in.";
-"account-creation-username-placeholder-text" = "Username";
-"account-creation-password-placeholder-text" = "Password";
-"account-creation-password-confirm-placeholder-text" = "Confirm password";
-"account-creation-email-placeholder-text" = "Email (optional)";
 "account-creation-missing-fields" = "You must enter a username, password, and password confirmation to create an account.";
 "account-creation-create-account" = "Create your account";
 

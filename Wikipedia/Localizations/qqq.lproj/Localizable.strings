@@ -66,10 +66,6 @@
 "account-creation-passwords-mismatched" = "Alert shown if the user doesn't enter the same password in both password boxes";
 "account-creation-saving" = "Alert shown when user saves account creation form.\n{{Identical|Saving}}";
 "account-creation-login" = "Button text for loading the login interface";
-"account-creation-username-placeholder-text" = "{{Identical|Username}}";
-"account-creation-password-placeholder-text" = "{{Identical|Password}}";
-"account-creation-password-confirm-placeholder-text" = "{{Identical|Confirm password}}";
-"account-creation-email-placeholder-text" = "Placeholder text which appears initially in the optional email address text box";
 "account-creation-missing-fields" = "Error shown when one of the required fields for account creation (username, password, and password confirmation) is empty.";
 "account-creation-create-account" = "Text for create account button";
 "new-password-title" = "Title for password change interface";
