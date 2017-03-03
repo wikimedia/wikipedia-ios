@@ -8864,7 +8864,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -9131,7 +9130,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -9171,7 +9169,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -9195,7 +9192,7 @@
 			};
 			name = Release;
 		};
-		D829728D1E427C160061550A /* BetaClusterDebug */ = {
+		D829728D1E427C160061550A /* BetaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -9250,14 +9247,14 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = BetaClusterDebug;
+			name = BetaDebug;
 		};
-		D829728E1E427C160061550A /* BetaClusterDebug */ = {
+		D829728E1E427C160061550A /* BetaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CLANG_ENABLE_CODE_COVERAGE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -9268,7 +9265,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -9281,7 +9277,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
 				RUN_CLANG_STATIC_ANALYZER = NO;
@@ -9290,9 +9286,9 @@
 				WMF_HOCKEYAPP_IDENTIFIER = 7138507aefac3ee74c295f75a0b857e4;
 				WRAPPER_EXTENSION = app;
 			};
-			name = BetaClusterDebug;
+			name = BetaDebug;
 		};
-		D829728F1E427C160061550A /* BetaClusterDebug */ = {
+		D829728F1E427C160061550A /* BetaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -9315,14 +9311,14 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 			};
-			name = BetaClusterDebug;
+			name = BetaDebug;
 		};
-		D82972901E427C160061550A /* BetaClusterDebug */ = {
+		D82972901E427C160061550A /* BetaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -9359,9 +9355,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
 			};
-			name = BetaClusterDebug;
+			name = BetaDebug;
 		};
-		D82972911E427C160061550A /* BetaClusterDebug */ = {
+		D82972911E427C160061550A /* BetaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -9384,13 +9380,13 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = BetaClusterDebug;
+			name = BetaDebug;
 		};
-		D82972921E427C160061550A /* BetaClusterDebug */ = {
+		D82972921E427C160061550A /* BetaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -9412,14 +9408,14 @@
 				INFOPLIST_FILE = TopReadWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 			};
-			name = BetaClusterDebug;
+			name = BetaDebug;
 		};
-		D82972931E427C160061550A /* BetaClusterDebug */ = {
+		D82972931E427C160061550A /* BetaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -9452,7 +9448,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				VERSION_INFO_PREFIX = "";
 			};
-			name = BetaClusterDebug;
+			name = BetaDebug;
 		};
 		D844D9751D6CB2600042D692 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -9688,7 +9684,6 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					Wikipedia/Frameworks/,
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
@@ -9911,7 +9906,6 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					Wikipedia/Frameworks/,
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
@@ -10250,7 +10244,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -10274,7 +10267,7 @@
 			};
 			name = Debug;
 		};
-		D8CE26AA1E698E2400DAE2E0 /* BetaClusterDebug */ = {
+		D8CE26AA1E698E2400DAE2E0 /* BetaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -10290,7 +10283,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -10303,7 +10295,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = NO;
@@ -10312,7 +10304,7 @@
 				WMF_HOCKEYAPP_IDENTIFIER = 7138507aefac3ee74c295f75a0b857e4;
 				WRAPPER_EXTENSION = app;
 			};
-			name = BetaClusterDebug;
+			name = BetaDebug;
 		};
 		D8CE26AB1E698E2400DAE2E0 /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
@@ -10329,7 +10321,6 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					Wikipedia/Frameworks/,
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
@@ -10379,7 +10370,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -10419,7 +10409,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -10458,7 +10447,6 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					Wikipedia/Frameworks/,
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
@@ -10493,7 +10481,7 @@
 			};
 			name = Alpha;
 		};
-		D8CE26C21E698F8E00DAE2E0 /* BetaClusterRelease */ = {
+		D8CE26C21E698F8E00DAE2E0 /* Beta */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -10525,6 +10513,7 @@
 					"$(inherited)",
 					"PIWIK_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
+					"WMF_USE_BETA_CLUSTER=1",
 				);
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -10543,49 +10532,9 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = BetaClusterRelease;
+			name = Beta;
 		};
-		D8CE26C31E698F8E00DAE2E0 /* BetaClusterRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_CODE_COVERAGE = NO;
-				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				ENABLE_TESTABILITY = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
-				);
-				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-					"NS_BLOCK_ASSERTIONS=1",
-				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "$(inherited) -DNDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
-				PRODUCT_MODULE_NAME = Wikipedia;
-				PRODUCT_NAME = Wikipedia;
-				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
-				WMF_HOCKEYAPP_IDENTIFIER = 5d80da08a6761e5c6456736af7ebad88;
-				WRAPPER_EXTENSION = app;
-			};
-			name = BetaClusterRelease;
-		};
-		D8CE26C41E698F8E00DAE2E0 /* BetaClusterRelease */ = {
+		D8CE26C31E698F8E00DAE2E0 /* Beta */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -10601,7 +10550,45 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+				);
+				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"WMF_APP_EXTENSION=0",
+					"NS_BLOCK_ASSERTIONS=1",
+				);
+				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) -DNDEBUG";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
+				PRODUCT_MODULE_NAME = Wikipedia;
+				PRODUCT_NAME = Wikipedia;
+				RUN_CLANG_STATIC_ANALYZER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
+				WMF_HOCKEYAPP_IDENTIFIER = 5d80da08a6761e5c6456736af7ebad88;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Beta;
+		};
+		D8CE26C41E698F8E00DAE2E0 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				CLANG_ENABLE_CODE_COVERAGE = NO;
+				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 0;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_TESTABILITY = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -10615,7 +10602,7 @@
 				INFOPLIST_FILE = "Wikipedia Alpha-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DNDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = NO;
@@ -10623,9 +10610,9 @@
 				WMF_HOCKEYAPP_IDENTIFIER = 5d80da08a6761e5c6456736af7ebad88;
 				WRAPPER_EXTENSION = app;
 			};
-			name = BetaClusterRelease;
+			name = Beta;
 		};
-		D8CE26C51E698F8E00DAE2E0 /* BetaClusterRelease */ = {
+		D8CE26C51E698F8E00DAE2E0 /* Beta */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -10644,13 +10631,13 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = BetaClusterRelease;
+			name = Beta;
 		};
-		D8CE26C61E698F8E00DAE2E0 /* BetaClusterRelease */ = {
+		D8CE26C61E698F8E00DAE2E0 /* Beta */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -10688,9 +10675,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
-			name = BetaClusterRelease;
+			name = Beta;
 		};
-		D8CE26C71E698F8E00DAE2E0 /* BetaClusterRelease */ = {
+		D8CE26C71E698F8E00DAE2E0 /* Beta */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -10708,13 +10695,13 @@
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = BetaClusterRelease;
+			name = Beta;
 		};
-		D8CE26C81E698F8E00DAE2E0 /* BetaClusterRelease */ = {
+		D8CE26C81E698F8E00DAE2E0 /* Beta */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -10732,13 +10719,13 @@
 				INFOPLIST_FILE = TopReadWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = BetaClusterRelease;
+			name = Beta;
 		};
-		D8CE26C91E698F8E00DAE2E0 /* BetaClusterRelease */ = {
+		D8CE26C91E698F8E00DAE2E0 /* Beta */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
@@ -10772,7 +10759,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				VERSION_INFO_PREFIX = "";
 			};
-			name = BetaClusterRelease;
+			name = Beta;
 		};
 /* End XCBuildConfiguration section */
 
@@ -10781,10 +10768,10 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0E8380711D64989F0076EDE4 /* Debug */,
-				D82972911E427C160061550A /* BetaClusterDebug */,
+				D82972911E427C160061550A /* BetaDebug */,
 				D858A8051DA6DD00009C3DEB /* AlphaDebug */,
 				0E8380731D64989F0076EDE4 /* Release */,
-				D8CE26C71E698F8E00DAE2E0 /* BetaClusterRelease */,
+				D8CE26C71E698F8E00DAE2E0 /* Beta */,
 				0E8380741D64989F0076EDE4 /* Test */,
 				D858A7FD1DA6DBC8009C3DEB /* Alpha */,
 			);
@@ -10795,10 +10782,10 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC42735B1A7C736800068882 /* Debug */,
-				D82972901E427C160061550A /* BetaClusterDebug */,
+				D82972901E427C160061550A /* BetaDebug */,
 				D858A8041DA6DD00009C3DEB /* AlphaDebug */,
 				BC42735C1A7C736800068882 /* Release */,
-				D8CE26C61E698F8E00DAE2E0 /* BetaClusterRelease */,
+				D8CE26C61E698F8E00DAE2E0 /* Beta */,
 				0EAB7A221D47AF8000E7CF8E /* Test */,
 				D858A7FC1DA6DBC8009C3DEB /* Alpha */,
 			);
@@ -10809,10 +10796,10 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D4991468181D51DF00E6073C /* Debug */,
-				D829728D1E427C160061550A /* BetaClusterDebug */,
+				D829728D1E427C160061550A /* BetaDebug */,
 				D858A8021DA6DD00009C3DEB /* AlphaDebug */,
 				D4991469181D51DF00E6073C /* Release */,
-				D8CE26C21E698F8E00DAE2E0 /* BetaClusterRelease */,
+				D8CE26C21E698F8E00DAE2E0 /* Beta */,
 				0EAB7A201D47AF8000E7CF8E /* Test */,
 				D858A7FA1DA6DBC8009C3DEB /* Alpha */,
 			);
@@ -10823,10 +10810,10 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D499146B181D51DF00E6073C /* Debug */,
-				D829728E1E427C160061550A /* BetaClusterDebug */,
+				D829728E1E427C160061550A /* BetaDebug */,
 				D858A8031DA6DD00009C3DEB /* AlphaDebug */,
 				D499146C181D51DF00E6073C /* Release */,
-				D8CE26C31E698F8E00DAE2E0 /* BetaClusterRelease */,
+				D8CE26C31E698F8E00DAE2E0 /* Beta */,
 				0EAB7A211D47AF8000E7CF8E /* Test */,
 				D858A7FB1DA6DBC8009C3DEB /* Alpha */,
 			);
@@ -10837,10 +10824,10 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D844D9751D6CB2600042D692 /* Debug */,
-				D82972931E427C160061550A /* BetaClusterDebug */,
+				D82972931E427C160061550A /* BetaDebug */,
 				D858A8081DA6DD00009C3DEB /* AlphaDebug */,
 				D844D9781D6CB2600042D692 /* Release */,
-				D8CE26C91E698F8E00DAE2E0 /* BetaClusterRelease */,
+				D8CE26C91E698F8E00DAE2E0 /* Beta */,
 				D844D9791D6CB2600042D692 /* Test */,
 				D858A8001DA6DBC8009C3DEB /* Alpha */,
 			);
@@ -10851,10 +10838,10 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D85D34D21D74D07600845125 /* Debug */,
-				D82972921E427C160061550A /* BetaClusterDebug */,
+				D82972921E427C160061550A /* BetaDebug */,
 				D858A8061DA6DD00009C3DEB /* AlphaDebug */,
 				D85D34D51D74D07600845125 /* Release */,
-				D8CE26C81E698F8E00DAE2E0 /* BetaClusterRelease */,
+				D8CE26C81E698F8E00DAE2E0 /* Beta */,
 				D85D34D61D74D07600845125 /* Test */,
 				D858A7FE1DA6DBC8009C3DEB /* Alpha */,
 			);
@@ -10865,9 +10852,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D895D0921D9C1EB8005418C1 /* Debug */,
-				D829728F1E427C160061550A /* BetaClusterDebug */,
+				D829728F1E427C160061550A /* BetaDebug */,
 				D895D0951D9C1EB8005418C1 /* Release */,
-				D8CE26C51E698F8E00DAE2E0 /* BetaClusterRelease */,
+				D8CE26C51E698F8E00DAE2E0 /* Beta */,
 				D895D0961D9C1EB8005418C1 /* Test */,
 				D84B224B1DAD7DE3007C44AA /* AlphaDebug */,
 				D84B224C1DAD7DE3007C44AA /* Alpha */,
@@ -10879,10 +10866,10 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D8CE26A91E698E2400DAE2E0 /* Debug */,
-				D8CE26AA1E698E2400DAE2E0 /* BetaClusterDebug */,
+				D8CE26AA1E698E2400DAE2E0 /* BetaDebug */,
 				D8CE26AB1E698E2400DAE2E0 /* AlphaDebug */,
 				D8CE26AC1E698E2400DAE2E0 /* Release */,
-				D8CE26C41E698F8E00DAE2E0 /* BetaClusterRelease */,
+				D8CE26C41E698F8E00DAE2E0 /* Beta */,
 				D8CE26AD1E698E2400DAE2E0 /* Test */,
 				D8CE26AE1E698E2400DAE2E0 /* Alpha */,
 			);
