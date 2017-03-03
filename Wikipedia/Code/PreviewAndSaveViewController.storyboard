@@ -103,21 +103,20 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vcy-cO-aq9" userLabel="Captcha Scroll Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="583"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                         <subviews>
                                             <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bEh-0m-jAS" userLabel="Captcha Container">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="163"/>
+                                                <rect key="frame" x="43.5" y="20" width="288" height="163"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="163" id="16b-wr-HNw"/>
+                                                    <constraint firstAttribute="height" constant="163" placeholder="YES" id="16b-wr-HNw"/>
+                                                    <constraint firstAttribute="width" constant="288" id="MEu-9O-UZT"/>
                                                 </constraints>
                                             </containerView>
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstItem="bEh-0m-jAS" firstAttribute="top" secondItem="Vcy-cO-aq9" secondAttribute="top" id="9rS-8Z-Njh"/>
-                                            <constraint firstItem="bEh-0m-jAS" firstAttribute="leading" secondItem="Vcy-cO-aq9" secondAttribute="leading" id="D1V-sH-jFs"/>
-                                            <constraint firstAttribute="trailing" secondItem="bEh-0m-jAS" secondAttribute="trailing" id="Gmr-fe-huM"/>
+                                            <constraint firstItem="bEh-0m-jAS" firstAttribute="top" secondItem="Vcy-cO-aq9" secondAttribute="top" constant="20" id="9rS-8Z-Njh"/>
                                             <constraint firstAttribute="centerX" secondItem="bEh-0m-jAS" secondAttribute="centerX" id="ITZ-NZ-Hcs"/>
                                             <constraint firstAttribute="bottom" secondItem="bEh-0m-jAS" secondAttribute="bottom" constant="420" id="ry0-II-3D8"/>
                                         </constraints>
