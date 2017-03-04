@@ -138,7 +138,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         wmf_hideKeyboard()
         passwordAlertLabel.isHidden = true
         disableProgressiveButton()
-        WMFAlertManager.sharedInstance.dismissAlert()
+        WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-logging-in"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         WMFAuthenticationManager.sharedInstance.login(username: usernameField.text!, password: passwordField.text!, retypePassword:nil, oathToken:nil, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, success: { _ in
             let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: self.usernameField.text!)
             WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
@@ -165,6 +165,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                     self.passwordAlertLabel.isHidden = false
                     self.passwordField.textColor = .red
                     self.funnel?.logError(error.localizedDescription)
+                    WMFAlertManager.sharedInstance.dismissAlert()
                     return
                 default: break
                 }
