@@ -106,6 +106,9 @@
 "field-token-placeholder" = "Placeholder text shown inside token field until user taps on it";
 "field-captcha-title" = "Title for captcha field";
 "field-captcha-placeholder" = "Placeholder text shown inside captcha field until user taps on it";
+"field-alert-username-unavailable" = "Alert shown if new username is not available";
+"field-alert-password-invalid" = "Alert shown if password is not correct";
+"field-alert-password-confirm-mismatch" = "Alert shown if password confirmation did not match password";
 "forgot-password-title" = "Title for reset password interface\n{{Identical|Reset password}}";
 "forgot-password-instructions" = "Instructions for resetting password";
 "forgot-password-username-prompt" = "Prompt for username field\n{{Identical|Username}}";

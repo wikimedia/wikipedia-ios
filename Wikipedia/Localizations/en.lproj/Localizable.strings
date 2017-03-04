@@ -100,6 +100,9 @@
 "field-token-placeholder" = "enter token";
 "field-captcha-title" = "Enter the text you see above";
 "field-captcha-placeholder" = "CAPTCHA text";
+"field-alert-username-unavailable" = "Username not available";
+"field-alert-password-invalid" = "Invalid password";
+"field-alert-password-confirm-mismatch" = "Passwords do not match";
 
 "forgot-password-title" = "Reset password";
 "forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";
