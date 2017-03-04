@@ -3,6 +3,7 @@ import UIKit
 
 class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate {
     @IBOutlet fileprivate var usernameField: UITextField!
+    @IBOutlet fileprivate var usernameAlertLabel: UILabel!
     @IBOutlet fileprivate var passwordField: UITextField!
     @IBOutlet fileprivate var passwordRepeatField: UITextField!
     @IBOutlet fileprivate var emailField: UITextField!
@@ -223,6 +224,9 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
     
     fileprivate func save() {
+        
+        usernameAlertLabel.isHidden = true
+        
         guard areRequiredFieldsPopulated() else {
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("account-creation-missing-fields"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             return
@@ -237,10 +241,30 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         createAccount()
     }
     
+    @IBAction func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == usernameField {
+            usernameAlertLabel.isHidden = true
+            usernameField.textColor = .black
+        }
+    }
+
     fileprivate func createAccount() {
         let creationFailure: WMFErrorHandler = {error in
             // Captcha's appear to be one-time, so always try to get a new one on failure.
             self.getCaptcha()
+            
+            if let error = error as? WMFAccountCreatorError {
+                switch error {
+                case .usernameUnavailable:
+                    self.usernameAlertLabel.text = error.localizedDescription
+                    self.usernameAlertLabel.isHidden = false
+                    self.usernameField.textColor = .red
+                    self.funnel?.logError(error.localizedDescription)
+                    WMFAlertManager.sharedInstance.dismissAlert()
+                    return
+                default: break
+                }
+            }
             
             self.funnel?.logError(error.localizedDescription)
             self.enableProgressiveButtonIfNecessary()
