@@ -4,6 +4,7 @@ public enum WMFAccountLoginError: LocalizedError {
     case statusNotPass(String?)
     case temporaryPasswordNeedsChange(String?)
     case needsOathTokenFor2FA(String?)
+    case wrongPassword
     public var errorDescription: String? {
         switch self {
         case .cannotExtractLoginStatus:
@@ -14,6 +15,8 @@ public enum WMFAccountLoginError: LocalizedError {
             return message
         case .needsOathTokenFor2FA(let message?):
             return message
+        case .wrongPassword:
+            return localizedStringForKeyFallingBackOnEnglish("field-alert-password-invalid")
         default:
             return "Unable to login: Reason unknown"
         }
@@ -80,6 +83,7 @@ public class WMFAccountLogin {
                     return
             }
             let message = clientlogin["message"] as? String ?? nil
+            let messageCode = clientlogin["messagecode"] as? String ?? nil
             guard status == "PASS" else {
                 
                 if
@@ -101,6 +105,11 @@ public class WMFAccountLogin {
                         failure(WMFAccountLoginError.needsOathTokenFor2FA(message))
                         return
                     }
+                }
+                
+                if messageCode == "wrongpassword" {
+                    failure(WMFAccountLoginError.wrongPassword)
+                    return
                 }
                 
                 failure(WMFAccountLoginError.statusNotPass(message))
