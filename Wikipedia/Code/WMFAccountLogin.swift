@@ -83,7 +83,6 @@ public class WMFAccountLogin {
                     return
             }
             let message = clientlogin["message"] as? String ?? nil
-            let messageCode = clientlogin["messagecode"] as? String ?? nil
             guard status == "PASS" else {
                 
                 if
@@ -107,9 +106,11 @@ public class WMFAccountLogin {
                     }
                 }
                 
-                if messageCode == "wrongpassword" {
-                    failure(WMFAccountLoginError.wrongPassword)
-                    return
+                if let messageCode = clientlogin["messagecode"] as? String {
+                    if messageCode == "wrongpassword" {
+                        failure(WMFAccountLoginError.wrongPassword)
+                        return
+                    }
                 }
                 
                 failure(WMFAccountLoginError.statusNotPass(message))
