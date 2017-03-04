@@ -102,6 +102,7 @@
 "field-captcha-placeholder" = "CAPTCHA text";
 "field-alert-username-unavailable" = "Username not available";
 "field-alert-password-invalid" = "Invalid password";
+"field-alert-captcha-invalid" = "Invalid CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Passwords do not match";
 
 "forgot-password-title" = "Reset password";
