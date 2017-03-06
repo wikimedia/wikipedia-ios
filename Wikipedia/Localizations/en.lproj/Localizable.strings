@@ -583,6 +583,8 @@
 "places-accessibility-show-as-map" = "Show as map";
 "places-accessibility-show-as-list" = "Show as list";
 "places-accessibility-recenter-map-on-user-location" = "Recenter on your location";
+"places-accessibility-close-search" = "Close search";
+"places-accessibility-clear-recent-searches" = "Clear recent searches";
 
 "action-share" = "Share";
 "action-save" = "Save";
