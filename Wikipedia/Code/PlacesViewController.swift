@@ -376,7 +376,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         didSet {
             oldValue.delegate = nil
             for article in oldValue.fetchedObjects ?? [] {
-                article.placesSortOrder = nil
+                article.placesSortOrder = NSNumber(integerLiteral: 0)
             }
             do {
                 try dataStore.viewContext.save()
@@ -530,7 +530,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         var foundKey = false
         var keysToFetch: [String] = []
-        var sort = 0
+        var sort = 1
         for result in searchResults {
             guard let displayTitle = result.displayTitle,
                 let articleURL = (siteURL as NSURL).wmf_URL(withTitle: displayTitle),
@@ -1261,8 +1261,21 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         updateSearchSuggestions(withCompletions: completions)
         return completions
     }
-
     
+    @objc public func showArticleURL(_ articleURL: URL) {
+        guard let article = articleStore.item(for: articleURL), let title = (articleURL as NSURL).wmf_title,
+            let _ = view else { // force view instantiation
+            return
+        }
+
+        var region: MKCoordinateRegion? = nil
+        if let coordinate = article.coordinate {
+            region = MKCoordinateRegionMakeWithDistance(coordinate, 5000, 5000)
+        }
+        let searchResult = MWKSearchResult(articleID: 0, revID: 0, displayTitle: title, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, isDisambiguation: false, isList: false, titleNamespace: nil)
+        currentSearch = PlaceSearch(type: .location, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult)
+    }
+
     func updateSearchCompletionsFromSearchBarText() {
         guard let text = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), text != "" else {
             updateSearchSuggestions(withCompletions: [])

@@ -4,7 +4,8 @@ typedef NS_ENUM(NSUInteger, WMFArticleFooterMenuItemType) {
     WMFArticleFooterMenuItemTypeLanguages,
     WMFArticleFooterMenuItemTypeLastEdited,
     WMFArticleFooterMenuItemTypePageIssues,
-    WMFArticleFooterMenuItemTypeDisambiguation
+    WMFArticleFooterMenuItemTypeDisambiguation,
+    WMFArticleFooterMenuItemTypeCoordinate
 };
 
 @interface WMFArticleFooterMenuItem : MTLModel

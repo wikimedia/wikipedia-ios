@@ -54,10 +54,22 @@
                                     <mask key="subviews">
                                         <exclude reference="nDi-XA-qqD"/>
                                     </mask>
+                                    <mask key="constraints">
+                                        <exclude reference="3Uq-N9-fRS"/>
+                                        <exclude reference="7hs-t7-jS7"/>
+                                        <exclude reference="Tia-Xx-fKs"/>
+                                        <exclude reference="pE7-Gw-63w"/>
+                                    </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="subviews">
                                         <include reference="nDi-XA-qqD"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <include reference="3Uq-N9-fRS"/>
+                                        <include reference="7hs-t7-jS7"/>
+                                        <include reference="Tia-Xx-fKs"/>
+                                        <include reference="pE7-Gw-63w"/>
                                     </mask>
                                 </variation>
                             </view>

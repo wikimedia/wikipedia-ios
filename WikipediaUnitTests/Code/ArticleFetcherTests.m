@@ -65,6 +65,13 @@
         .withHeaders(@{ @"Content-Type": @"application/json" })
         .withBody(json);
 
+    NSRegularExpression *anySummaryRequest =
+        [NSRegularExpression regularExpressionWithPattern:
+                                 [NSString stringWithFormat:@"%@/api/rest_v1/page/summary/.*", [siteURL absoluteString]]
+                                                  options:0
+                                                    error:nil];
+    stubRequest(@"GET", anySummaryRequest).andReturn(200);
+
     __block MWKArticle *firstFetchResult;
 
     __block MWKArticle *secondFetchResult;
