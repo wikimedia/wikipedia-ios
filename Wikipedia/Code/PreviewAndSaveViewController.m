@@ -13,7 +13,6 @@
 #import "MWLanguageInfo.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "UIViewController+WMFChildViewController.h"
 #import "SavedPagesFunnel.h"
 #import "EditFunnel.h"
 #import "WMFOpenExternalLinkDelegateProtocol.h"
@@ -413,7 +412,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
     self.captchaViewController = [WMFCaptchaViewController wmf_initialViewControllerFromClassStoryboard];
     self.captchaViewController.captchaDelegate = self;
-    [self wmf_addChildController:self.captchaViewController andConstrainToEdgesOfContainerView:self.captchaContainer];
+    [self wmf_addWithChildController:self.captchaViewController andConstrainToEdgesOfContainerView:self.captchaContainer];
 
     self.mode = PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW;
 
@@ -650,6 +649,10 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
 - (void)captchaReloadPushed:(id)sender {
 
+}
+
+- (BOOL)captchaHideSubtitle {
+    return YES;
 }
 
 - (void)captchaKeyboardReturnKeyTapped {

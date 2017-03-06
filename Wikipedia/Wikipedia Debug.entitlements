@@ -16,6 +16,7 @@
 	<array>
 		<string>group.org.wikimedia.wikipedia</string>
 		<string>group.org.wikimedia.wikipedia.alpha</string>
+		<string>group.org.wikimedia.wikipedia.beta</string>
 	</array>
 </dict>
 </plist>

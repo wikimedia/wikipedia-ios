@@ -34,7 +34,6 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "CLLocation+WMFBearing.h"
 
-#import "UIViewController+WMFChildViewController.h"
 #import "UIScrollView+ScrollSubviewToLocation.h"
 
 #import "WMFSearchResults.h"

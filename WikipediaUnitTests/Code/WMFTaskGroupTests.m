@@ -1,5 +1,6 @@
 #import <XCTest/XCTest.h>
 #import "WMFTaskGroup.h"
+#import "WMFAsyncTestCase.h"
 
 @interface WMFTaskGroupTests : XCTestCase
 
@@ -22,7 +23,7 @@
         XCTAssertTrue(true);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:5
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout
                                  handler:^(NSError *_Nullable error) {
                                      if (error) {
                                          XCTFail();
@@ -45,7 +46,7 @@
         XCTAssertTrue(true);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:5
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout
                                  handler:^(NSError *_Nullable error) {
                                      if (error) {
                                          XCTFail();
@@ -63,7 +64,7 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [expectation fulfill];
     });
-    [self waitForExpectationsWithTimeout:5
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout
                                  handler:^(NSError *_Nullable error) {
                                      XCTAssert(true);
                                  }];

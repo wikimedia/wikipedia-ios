@@ -193,6 +193,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     return UIStatusBarStyleDefault;
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 

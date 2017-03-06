@@ -158,6 +158,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
                                                   }];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
+
 - (void)updateTabBarItemsTitleTextAttributesForNewDynamicTypeContentSize {
     for (UITabBarItem *item in self.rootTabBarController.tabBar.items) {
         [item setTitleTextAttributes:[UITabBarItem wmf_rootTabBarItemStyleForState:UIControlStateNormal] forState:UIControlStateNormal];
@@ -185,7 +193,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }
     UITabBarController *tabBar = [[UIStoryboard storyboardWithName:@"WMFTabBarUI" bundle:nil] instantiateInitialViewController];
     [self addChildViewController:tabBar];
-    [self.view addSubview:tabBar.view];
+    [self.view insertSubview:tabBar.view atIndex:0];
     [tabBar.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.and.bottom.and.leading.and.trailing.equalTo(self.view);
     }];
@@ -352,11 +360,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             [self migrateToQuadKeyLocationIfNecessaryWithCompletion:^{
                 [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
                     [self loadMainUI];
-                    [self hideSplashViewAnimated:!didShowOnboarding];
                     if (!waitToResumeApp) {
+                        [self hideSplashViewAnimated:!didShowOnboarding];
                         [self resumeApp];
                     }
-                    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
                 }];
             }];
         }];
@@ -411,6 +418,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 }
 
 #pragma mark - Start/Pause/Resume App
+
+- (void)hideSplashScreenAndResumeApp {
+    [self hideSplashViewAnimated:true];
+    [self resumeApp];
+}
 
 - (void)resumeApp {
     if (self.isPresentingOnboarding) {
@@ -980,21 +992,17 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)showSplashView {
     self.splashView.hidden = NO;
-    self.splashView.layer.transform = CATransform3DIdentity;
     self.splashView.alpha = 1.0;
 }
 
 - (void)hideSplashViewAnimated:(BOOL)animated {
     NSTimeInterval duration = animated ? 0.3 : 0.0;
-
     [UIView animateWithDuration:duration
         animations:^{
-            self.splashView.layer.transform = CATransform3DMakeScale(10.0f, 10.0f, 1.0f);
             self.splashView.alpha = 0.0;
         }
         completion:^(BOOL finished) {
             self.splashView.hidden = YES;
-            self.splashView.layer.transform = CATransform3DIdentity;
         }];
 }
 
@@ -1007,6 +1015,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)showExplore {
     [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
     [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
 }
 
 #pragma mark - Last Read Article

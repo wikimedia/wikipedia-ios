@@ -8,7 +8,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     @IBOutlet fileprivate var tokenLabel: UILabel!
     @IBOutlet fileprivate var oathTokenFields: [UITextField]!
     
-    fileprivate var doneButton: UIBarButtonItem!
+    @IBOutlet fileprivate var loginButton: WMFAuthButton!
     
     public var funnel: LoginFunnel?
     
@@ -17,7 +17,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     public var captchaID:String?
     public var captchaWord:String?
     
-    func doneButtonPushed(_ : UIBarButtonItem) {
+    @IBAction fileprivate func loginButtonTapped(withSender sender: UIButton) {
         save()
     }
     
@@ -47,7 +47,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     }
     
     func enableProgressiveButton(_ highlight: Bool) {
-        doneButton.isEnabled = highlight
+        loginButton.isEnabled = highlight
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,12 +83,11 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
         
-        doneButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("main-menu-account-login"), style: .plain, target: self, action: #selector(doneButtonPushed(_:)))
-        navigationItem.rightBarButtonItem = doneButton
+        loginButton.setTitle(localizedStringForKeyFallingBackOnEnglish("two-factor-login-continue"), for: .normal)
         
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-title")
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-instructions")
-        tokenLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-token-title")
+        tokenLabel.text = localizedStringForKeyFallingBackOnEnglish("field-token-title")
 
         view.wmf_configureSubviewsForDynamicType()
     }
