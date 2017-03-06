@@ -4,10 +4,23 @@ if [ -z "$SRCROOT" ]; then
     export SRCROOT=`pwd`
 fi  
 
-if ! cmp -s "$SRCROOT/Cartfile.resolved" "$SRCROOT/Carthage/Cartfile.resolved_at_last_bootstrap"
+export CARTHAGE="$SRCROOT/Carthage"
+if ! cmp -s "$SRCROOT/Cartfile.resolved" "$CARTHAGE/Cartfile.resolved_at_last_bootstrap"
 then
-carthage bootstrap --platform iOS 2> /dev/null
-plutil -replace CFBundleVersion -string 4.0.0 "$SRCROOT/Carthage/Build/iOS/SDWebImage.framework/Info.plist"
-mkdir -p "$SRCROOT/Carthage"
-cp "$SRCROOT/Cartfile.resolved" "$SRCROOT/Carthage/Cartfile.resolved_at_last_bootstrap"
+	export CARTHAGE_SHA=`shasum -a 256 $SRCROOT/Cartfile.resolved |  awk 'match($0, /^[0-9a-f]*/) { print substr($0, RSTART, RLENGTH) }'`
+	export CARTHAGE_CACHE="$SRCROOT/Carthage Cache/$CARTHAGE_SHA"
+	rm -rf "$CARTHAGE"
+	if [ -d "$CARTHAGE_CACHE" ] && [ ! -d "$CARTHAGE" ]
+	then
+		cp -R "$CARTHAGE_CACHE" "$CARTHAGE"
+	else
+		carthage bootstrap --platform iOS 2> /dev/null
+		plutil -replace CFBundleVersion -string 4.0.0 "$SRCROOT/Carthage/Build/iOS/SDWebImage.framework/Info.plist"
+		cp "$SRCROOT/Cartfile.resolved" "$CARTHAGE/Cartfile.resolved_at_last_bootstrap"
+		if [ -d "$CARTHAGE" ] && [ ! -d "$CARTHAGE_CACHE" ]
+		then
+			mkdir -p "$SRCROOT/Carthage Cache/"
+			cp -R "$CARTHAGE" "$CARTHAGE_CACHE"
+		fi
+	fi
 fi
