@@ -262,6 +262,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                     self.funnel?.logError(error.localizedDescription)
                     WMFAlertManager.sharedInstance.dismissAlert()
                     return
+                case .wrongCaptcha:
+                    self.captchaViewController?.captchaTextFieldBecomeFirstResponder()
                 default: break
                 }
             }
