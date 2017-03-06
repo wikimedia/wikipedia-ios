@@ -107,6 +107,8 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     NSURL *pageSummaryURL = [siteURL wmf_URLWithPath:path isMobile:NO];
 
     WMFTaskGroup *taskGroup = [WMFTaskGroup new];
+    [[MWNetworkActivityIndicatorManager sharedManager] push];
+
     __block id summaryResponse = nil;
     [taskGroup enter];
     [self.pageSummarySessionManager GET:pageSummaryURL.absoluteString
@@ -167,7 +169,6 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                               if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:articleURL]] && [articleError wmf_shouldFallbackToDesktopURLError]) {
                                                   [self fetchArticleForURL:articleURL useDesktopURL:YES progress:progress failure:failure success:success];
                                               } else {
-                                                  [[MWNetworkActivityIndicatorManager sharedManager] pop];
                                                   failure(articleError);
                                               }
                                           }
