@@ -49,6 +49,21 @@
     return activity;
 }
 
++ (instancetype)wmf_placesActivityWithURL:(NSURL *)activityURL {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:activityURL resolvingAgainstBaseURL:NO];
+    NSURL *articleURL = nil;
+    for (NSURLQueryItem *item in components.queryItems) {
+        if ([item.name isEqualToString:@"WMFArticleURL"]) {
+            NSString *articleURLString = item.value;
+            articleURL = [NSURL URLWithString:articleURLString];
+            break;
+        }
+    }
+    NSUserActivity *activity = [self wmf_pageActivityWithName:@"Places"];
+    activity.webpageURL = articleURL;
+    return activity;
+}
+
 + (instancetype)wmf_exploreViewActivity {
     NSUserActivity *activity = [self wmf_pageActivityWithName:@"Explore"];
     return activity;
@@ -83,6 +98,8 @@
         return [self wmf_contentActivityWithURL:url];
     } else if ([url.host isEqualToString:@"explore"]) {
         return [self wmf_exploreViewActivity];
+    } else if ([url.host isEqualToString:@"places"]) {
+        return [self wmf_placesActivityWithURL:url];
     } else if ([url.host isEqualToString:@"saved"]) {
         return [self wmf_savedPagesViewActivity];
     } else if ([url.host isEqualToString:@"history"]) {
@@ -153,6 +170,8 @@
         NSString *page = self.userInfo[@"WMFPage"];
         if ([page isEqualToString:@"Explore"]) {
             return WMFUserActivityTypeExplore;
+        } else if ([page isEqualToString:@"Places"]) {
+            return WMFUserActivityTypePlaces;
         } else if ([page isEqualToString:@"Saved"]) {
             return WMFUserActivityTypeSavedPages;
         } else if ([page isEqualToString:@"History"]) {
@@ -210,7 +229,7 @@
     return self.userInfo[@"WMFURL"];
 }
 
-+ (NSURL *)wmf_baseURLForActivityOfType:(WMFUserActivityType)type {
++ (NSURLComponents *)wmf_baseURLComponentsForActivityOfType:(WMFUserActivityType)type {
     NSString *host = nil;
     switch (type) {
         case WMFUserActivityTypeSavedPages:
@@ -232,6 +251,9 @@
         case WMFUserActivityTypeArticle:
             host = @"article";
             break;
+        case WMFUserActivityTypePlaces:
+            host = @"places";
+            break;
         case WMFUserActivityTypeExplore:
         default:
             host = @"explore";
@@ -241,6 +263,19 @@
     components.host = host;
     components.scheme = @"wikipedia";
     components.path = @"/";
+    return components;
+}
+
++ (NSURL *)wmf_baseURLForActivityOfType:(WMFUserActivityType)type {
+    return [self wmf_baseURLComponentsForActivityOfType:type].URL;
+}
+
++ (NSURL *)wmf_URLForActivityOfType:(WMFUserActivityType)type withArticleURL:(NSURL *)articleURL {
+    NSURLComponents *components = [self wmf_baseURLComponentsForActivityOfType:type];
+    NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:@"WMFArticleURL" value:articleURL.absoluteString];
+    if (item) {
+        components.queryItems = @[item];
+    }
     return components.URL;
 }
 

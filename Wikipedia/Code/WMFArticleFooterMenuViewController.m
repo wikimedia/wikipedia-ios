@@ -109,10 +109,18 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFArticleFooterMenuItemTypeDisambiguation:
             [self showDisambiguationItems];
             break;
+        case WMFArticleFooterMenuItemTypeCoordinate:
+            [self showLocation];
+            break;
     }
 }
 
 #pragma mark - Subview Actions
+
+- (void)showLocation {
+    NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:self.article.url];
+    [[UIApplication sharedApplication] openURL:placesURL];
+}
 
 - (void)showDisambiguationItems {
     WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithArticle:self.article dataStore:self.dataStore previewStore:self.previewStore];

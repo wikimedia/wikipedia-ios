@@ -56,6 +56,14 @@ NS_ASSUME_NONNULL_BEGIN
                                                                                                                                           withString:[NSString stringWithFormat:@"%d", article.languagecount]],
                                       nil, @"footer-switch-language")];
     }
+    
+    if (CLLocationCoordinate2DIsValid(article.coordinate)) {
+        [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeCoordinate,
+                                      MWSiteLocalizedString(article.url, @"page-location", nil),
+                                      nil,
+                                      @"footer-location")];
+        
+    }
 
     NSDate *lastModified = article.lastmodified ? article.lastmodified : [NSDate date];
 
@@ -79,6 +87,8 @@ NS_ASSUME_NONNULL_BEGIN
                                       nil,
                                       @"footer-similar-pages")];
     }
+    
+    
     [self updateItems:menuItems];
 }
 
