@@ -268,7 +268,8 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
     [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
                             completion:^{
-                                WMFAssertMainThread(@"completion must be called on the main thread");                                self.nearbyUpdateTaskGroup = nil;
+                                WMFAssertMainThread(@"completion must be called on the main thread");
+                                self.nearbyUpdateTaskGroup = nil;
                                 if (completion) {
                                     completion();
                                 }
@@ -1421,7 +1422,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     }
 }
 
-#pragma mark - WMFArticleingActionsDelegate
+#pragma mark - WMFArticlePreviewingActionsDelegate
 
 - (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
     [self wmf_pushArticleViewController:articleController animated:YES];
