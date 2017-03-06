@@ -62,7 +62,7 @@ GEM
       xcodeproj (>= 0.20, < 2.0.0)
       xcpretty (>= 0.2.4, < 1.0.0)
       xcpretty-travis-formatter (>= 0.0.3)
-    ffi (1.9.17)
+    ffi (1.9.18)
     gh_inspector (1.0.3)
     google-api-client (0.9.28)
       addressable (~> 2.3)
