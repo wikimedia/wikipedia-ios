@@ -1786,7 +1786,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
-    NSAssert(false, @"NYI");
+    NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:articleController.article.url];
+    [[UIApplication sharedApplication] openURL:placesURL];
 }
 
 #pragma mark - Article Navigation
