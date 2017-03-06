@@ -1263,9 +1263,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     @objc public func showArticleURL(_ articleURL: URL) {
-        guard let article = articleStore.item(for: articleURL), let title = (articleURL as NSURL).wmf_title else {
+        guard let article = articleStore.item(for: articleURL), let title = (articleURL as NSURL).wmf_title,
+            let _ = view else { // force view instantiation
             return
         }
+
         var region: MKCoordinateRegion? = nil
         if let coordinate = article.coordinate {
             region = MKCoordinateRegionMakeWithDistance(coordinate, 5000, 5000)
