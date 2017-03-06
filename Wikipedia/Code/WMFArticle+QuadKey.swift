@@ -42,6 +42,11 @@ extension WMFArticle {
         }
     }
     
+    //allows us to keep coordinate optional above
+    @objc public func update(scalarCoordinate: CLLocationCoordinate2D) {
+        coordinate = CLLocationCoordinate2DIsValid(scalarCoordinate) ? scalarCoordinate : nil
+    }
+    
     public var location: CLLocation? {
         get {
             guard let coordinate = coordinate else {

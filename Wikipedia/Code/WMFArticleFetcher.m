@@ -85,7 +85,8 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                          progress:(WMFProgressHandler __nullable)progress
                                           failure:(WMFErrorHandler)failure
                                           success:(WMFArticleHandler)success {
-    if (!articleURL.wmf_title) {
+    NSString *title = articleURL.wmf_titleWithUnderScores;
+    if (!title) {
         failure([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
         return nil;
     }
@@ -96,7 +97,22 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     }
 
     NSURL *url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:articleURL] : [NSURL wmf_mobileAPIURLForURL:articleURL];
-
+    
+    NSURL *siteURL = articleURL.wmf_siteURL;
+    NSString *path = [NSString pathWithComponents:@[@"/api", @"rest_v1", @"page", @"summary", title]];
+    NSURL *pageSummaryURL = [siteURL wmf_URLWithPath:path isMobile:NO];
+    
+    WMFTaskGroup *taskGroup = [WMFTaskGroup new];
+    __block id summaryResponse = nil;
+    [taskGroup enter];
+    [[[NSURLSession sharedSession] dataTaskWithURL:pageSummaryURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        summaryResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        [taskGroup leave];
+    }] resume];
+    
+    __block id articleResponse = nil;
+    __block NSError *articleError = nil;
+    [taskGroup enter];
     NSURLSessionDataTask *operation = [self.operationManager GET:url.absoluteString
         parameters:articleURL
         progress:^(NSProgress *_Nonnull downloadProgress) {
@@ -108,26 +124,44 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
             }
         }
         success:^(NSURLSessionDataTask *operation, id response) {
-            dispatchOnBackgroundQueue(^{
-                [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                MWKArticle *article = [self serializedArticleWithURL:articleURL response:response];
-                [self.dataStore asynchronouslyCacheArticle:article];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.previewStore addPreviewWithURL:articleURL updatedWithArticle:article];
-                    success(article);
-                });
-            });
+            articleResponse = response;
+            [taskGroup leave];
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:articleURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
+            articleError = error;
+            [taskGroup leave];
+        }];
+    
+    operation.priority = NSURLSessionTaskPriorityHigh;
+    [self trackOperation:operation forArticleURL:articleURL];
+    
+    [taskGroup waitInBackgroundAndNotifyOnQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0) withBlock:^{
+        [[MWNetworkActivityIndicatorManager sharedManager] pop];
+        if (articleResponse && [articleResponse isKindOfClass:[NSDictionary class]]) {
+            if (!articleResponse[@"coordinates"] && summaryResponse[@"coordinates"]) {
+                NSMutableDictionary *mutableArticleResponse = [articleResponse mutableCopy];
+                mutableArticleResponse[@"coordinates"] = summaryResponse[@"coordinates"];
+                articleResponse = mutableArticleResponse;
+            }
+            MWKArticle *article = [self serializedArticleWithURL:articleURL response:articleResponse];
+            [self.dataStore asynchronouslyCacheArticle:article];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.previewStore addPreviewWithURL:articleURL updatedWithArticle:article];
+                success(article);
+            });
+        } else {
+            if (!articleError) {
+                articleError = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:@{}];
+            }
+            if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:articleURL]] && [articleError wmf_shouldFallbackToDesktopURLError]) {
                 [self fetchArticleForURL:articleURL useDesktopURL:YES progress:progress failure:failure success:success];
             } else {
                 [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                failure(error);
+                failure(articleError);
             }
-        }];
-    operation.priority = NSURLSessionTaskPriorityHigh;
-    [self trackOperation:operation forArticleURL:articleURL];
+        }
+    }];
+    
     return operation;
 }
 
