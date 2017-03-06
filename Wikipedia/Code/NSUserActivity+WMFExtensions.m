@@ -50,9 +50,9 @@
 }
 
 + (instancetype)wmf_placesActivityWithURL:(NSURL *)activityURL {
-    NSURLComponents *componets = [NSURLComponents componentsWithURL:activityURL resolvingAgainstBaseURL:NO];
+    NSURLComponents *components = [NSURLComponents componentsWithURL:activityURL resolvingAgainstBaseURL:NO];
     NSURL *articleURL = nil;
-    for (NSURLQueryItem *item in componets.queryItems) {
+    for (NSURLQueryItem *item in components.queryItems) {
         if ([item.name isEqualToString:@"WMFArticleURL"]) {
             NSString *articleURLString = item.value;
             articleURL = [NSURL URLWithString:articleURLString];
@@ -228,7 +228,6 @@
 - (NSURL *)wmf_contentURL {
     return self.userInfo[@"WMFURL"];
 }
-
 
 + (NSURLComponents *)wmf_baseURLComponentsForActivityOfType:(WMFUserActivityType)type {
     NSString *host = nil;
