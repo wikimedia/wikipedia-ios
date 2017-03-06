@@ -63,7 +63,7 @@
               evaluatedWithObject:self.cell.potdImageView
                           handler:nil];
 
-    [self waitForExpectationsWithTimeout:5 handler:nil];
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:nil];
 
     [self wmf_verifyView:self.cell width:320.f];
     [[LSNocilla sharedInstance] stop];

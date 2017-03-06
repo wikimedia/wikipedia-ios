@@ -6703,6 +6703,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D499146A181D51DF00E6073C /* Build configuration list for PBXNativeTarget "Wikipedia" */;
 			buildPhases = (
+				D8D672E51E6D7A2700C16AE2 /* Run Script */,
 				D4991431181D51DE00E6073C /* Sources */,
 				D4991432181D51DE00E6073C /* Frameworks */,
 				D4991433181D51DE00E6073C /* Resources */,
@@ -6782,6 +6783,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D8CE26A81E698E2400DAE2E0 /* Build configuration list for PBXNativeTarget "Wikipedia Alpha" */;
 			buildPhases = (
+				D8D672E61E6D7A4F00C16AE2 /* ShellScript */,
 				D8CE24E01E698E2400DAE2E0 /* Sources */,
 				D8CE261E1E698E2400DAE2E0 /* Frameworks */,
 				D8CE26391E698E2400DAE2E0 /* Resources */,
@@ -7441,6 +7443,33 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		D8D672E51E6D7A2700C16AE2 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = $SRCROOT/scripts/carthage_bootstrap;
+		};
+		D8D672E61E6D7A4F00C16AE2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = $SRCROOT/scripts/carthage_bootstrap;
 		};
 		D8D987FD1E1C468F00789CA0 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

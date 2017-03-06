@@ -68,7 +68,7 @@
             NSLog(@"%@", [error localizedDescription]);
         }];
 
-    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:nil];
 }
 
 - (void)testDesktopFallback {
@@ -104,7 +104,7 @@
             NSLog(@"%@", [error localizedDescription]);
         }];
 
-    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:nil];
 }
 
 #pragma mark - (Flaky) Integration Tests
