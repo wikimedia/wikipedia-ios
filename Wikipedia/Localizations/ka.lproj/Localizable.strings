@@ -49,10 +49,6 @@
 "account-creation-passwords-mismatched" = "პაროლის ველები არ დაემთხვა.";
 "account-creation-saving" = "ინახება...";
 "account-creation-login" = "უკვე გაქვთ ანგარიში? გაიარეთ ავტორიზაცია";
-"account-creation-username-placeholder-text" = "მომხმარებლის სახელი";
-"account-creation-password-placeholder-text" = "პაროლი";
-"account-creation-password-confirm-placeholder-text" = "დაადასტურეთ პაროლი";
-"account-creation-email-placeholder-text" = "ელ-ფოსტა (არასავალდებულო)";
 "account-creation-missing-fields" = "ანგარიშის შესაქმნელად, თქვენ უნდა შეიყვანოთ მომხმარებლის სახელი, პაროლი და პაროლის დადასტურება.";
 "login-name-not-found" = "შესასვლელად საჭიროა მომხმარებლის სახელი.";
 "login-name-illegal" = "თქვენ მიერ მითითებული მომხმარებლის სახელი არალეგალურია.";
@@ -314,8 +310,6 @@
 "page-read-in-other-languages" = "ხელმისაწვდომია $1-სა და სხვა ენებზე";
 "page-last-edited" = "რედაქტირებულია $1 დღის წინ";
 "page-edit-history" = "მთლიანი რედაქტირების ისტორია";
-"captcha-reload" = "სხვა captcha-ს ჩვენება";
-"captcha-prompt" = "შეიყვანეთ CAPTCHA-ს ტექსტი";
 "mwk-empty-title-error" = "შეუძლებელია ოპერაციის შესრულება ცარიელი სათაურით.";
 "home-title" = "გამოიკვლიე";
 "home-empty-section" = "შედეგები ვერ მოიძებნა";
@@ -369,6 +363,10 @@
 "explore-continue-reading-heading" = "განაგრძეთ კითხვა";
 "explore-nearby-heading" = "ადგილები სიახლოვეში";
 "explore-nearby-sub-heading-your-location" = "თქვენი მდებარეობა";
+"explore-nearby-placeholder-heading" = "ადგილები";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "ვიკიპედიაში";
+"explore-nearby-placeholder-dismiss" = "უარყოფა";
+"explore-nearby-placeholder-cancel" = "გაუქმება";
 "explore-continue-related-heading" = "იმიტომ, რომ თქვენ კითხულობდით";
 "explore-main-page-heading" = "დღეს ვიკიპედიაზე";
 "explore-random-article-heading" = "შემთხვევითი სტატია";
@@ -398,5 +396,11 @@
 "unsave-action" = "შენახულის გაუქმება";
 "status-saved-for-later" = "შემდგომისთვის შენახვა";
 "announcements-dismiss" = "არა, გმადლობთ";
+"places-unknown-distance" = "მანძილი უცნობია";
+"places-enable-location-action-button-title" = "ლოკაციის გააქტიურება";
+"places-accessibility-group" = "$1 სტატიები";
+"places-accessibility-show-as-map" = "რუკის სახით ჩვენება";
+"places-accessibility-show-as-list" = "სიის სახით ჩვენება";
 "action-save" = "შენახვა";
 "action-read" = "კითხვა";
+"action-saved" = "შენახულია";
