@@ -376,7 +376,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         didSet {
             oldValue.delegate = nil
             for article in oldValue.fetchedObjects ?? [] {
-                article.placesSortOrder = nil
+                article.placesSortOrder = NSNumber(integerLiteral: 0)
             }
             do {
                 try dataStore.viewContext.save()
@@ -530,7 +530,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         var foundKey = false
         var keysToFetch: [String] = []
-        var sort = 0
+        var sort = 1
         for result in searchResults {
             guard let displayTitle = result.displayTitle,
                 let articleURL = (siteURL as NSURL).wmf_URL(withTitle: displayTitle),
