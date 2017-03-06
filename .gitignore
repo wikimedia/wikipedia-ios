@@ -7,6 +7,7 @@
 # Xcode/ObjC ignores, copied from https://github.com/github/gitignore/blob/master/Objective-C.gitignore
 /build/
 Carthage
+Carthage Cache
 *.pbxuser
 !default.pbxuser
 *.mode1v3

@@ -3,7 +3,6 @@
 #import "MWKImage.h"
 #import "MWKImageInfo.h"
 #import "MWKDataStore.h"
-#import "NSArray+WMFLayoutDirectionUtilities.h"
 #import "Wikipedia-Swift.h"
 #import "UIImage+WMFStyle.h"
 #import "UIColor+WMFStyle.h"

@@ -45,10 +45,6 @@
 "account-creation-passwords-mismatched" = "Pasahitza eremuak ez datoz bat.";
 "account-creation-saving" = "Gordetzen...";
 "account-creation-login" = "Ba al duzu konturen bat? Saioa hasi.";
-"account-creation-username-placeholder-text" = "Erabiltzaile izena";
-"account-creation-password-placeholder-text" = "Pasahitza";
-"account-creation-password-confirm-placeholder-text" = "Berretsi pasahitza";
-"account-creation-email-placeholder-text" = "Helbide elektronikoa (aukerakoa)";
 "login-name-not-found" = "Erabiltzaile izena beharrezkoa da saioa hasteko.";
 "login-name-illegal" = "Eman duzun erabiltzaile izena ez da legezkoa.";
 "login-name-does-not-exist" = "Sartu duzun erabiltzaile izena ez da esistitzen.";
@@ -236,8 +232,7 @@
 "nearby-open-in-maps" = "Mapsen ireki";
 "nearby-cancel" = "Utzi";
 "migration-skip-button-title" = "Ezabatu";
-// Fuzzy
-"image-gallery-unknown-owner" = "Igotzaile ezezaguna.";
+"image-gallery-unknown-owner" = "Egile ezezaguna.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-send-report" = "Bidali txostena";
 "hockeyapp-alert-always-send" = "Beti bidali";
@@ -246,7 +241,6 @@
 "page-issues" = "Orriaren arazoak";
 "page-similar-titles" = "Antzeko orriak";
 "page-read-in-other-languages" = "Irakurgarri beste $1 hizkuntzatan";
-"captcha-reload" = "Erakutsi beste captcha bat";
 "home-title" = "Esploratu";
 "home-empty-section" = "Emaitzik ez";
 "home-empty-section-check-again" = "Saiatu berriro";

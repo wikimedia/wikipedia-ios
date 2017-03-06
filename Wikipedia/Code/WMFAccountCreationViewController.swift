@@ -6,30 +6,28 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     @IBOutlet fileprivate var passwordField: UITextField!
     @IBOutlet fileprivate var passwordRepeatField: UITextField!
     @IBOutlet fileprivate var emailField: UITextField!
+    @IBOutlet fileprivate var usernameTitleLabel: UILabel!
+    @IBOutlet fileprivate var passwordTitleLabel: UILabel!
+    @IBOutlet fileprivate var passwordRepeatTitleLabel: UILabel!
+    @IBOutlet fileprivate var emailTitleLabel: UILabel!
     @IBOutlet fileprivate var captchaContainer: UIView!
     @IBOutlet fileprivate var loginButton: UILabel!
     @IBOutlet fileprivate var titleLabel: UILabel!
-    @IBOutlet fileprivate var usernameUnderlineHeight: NSLayoutConstraint!
-    @IBOutlet fileprivate var passwordUnderlineHeight: NSLayoutConstraint!
-    @IBOutlet fileprivate var passwordConfirmUnderlineHeight: NSLayoutConstraint!
-    @IBOutlet fileprivate var emailUnderlineHeight: NSLayoutConstraint!
-    @IBOutlet fileprivate var createAccountContainerView: UIView!
-    @IBOutlet fileprivate var captchaTitleLabel: UILabel!
-    @IBOutlet fileprivate var captchaSubtitleLabel: UILabel!
+    @IBOutlet fileprivate var stackView: UIStackView!
+    @IBOutlet fileprivate var createAccountButton: WMFAuthButton!
 
     let accountCreationInfoFetcher = WMFAuthAccountCreationInfoFetcher()
     let tokenFetcher = WMFAuthTokenFetcher()
     let accountCreator = WMFAccountCreator()
     
-    fileprivate var rightButton: UIBarButtonItem?
     public var funnel: CreateAccountFunnel?
-    fileprivate var captchaViewController: WMFCaptchaViewController?
+    fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     
     func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
 
-    func nextButtonPushed(_ : UIBarButtonItem) {
+    @IBAction fileprivate func createAccountButtonTapped(withSender sender: UIButton) {
         WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-saving"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         save()
     }
@@ -53,76 +51,55 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
 
-        rightButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("button-done"), style: .plain, target: self, action: #selector(nextButtonPushed(_:)))
-        
-        navigationItem.rightBarButtonItem = rightButton
+        createAccountButton.setTitle(localizedStringForKeyFallingBackOnEnglish("account-creation-create-account"), for: .normal)
         
         scrollView.delegate = self
         
-        setCaptchaAlpha(0)
+        usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-username-placeholder")
+        passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-password-placeholder")
+        passwordRepeatField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-password-confirm-placeholder")
+        emailField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-email-placeholder")
+        usernameTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-username-title")
+        passwordTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-password-title")
+        passwordRepeatTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-password-confirm-title")
+        emailTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-email-title")
         
-        usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("account-creation-username-placeholder-text")
-        passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("account-creation-password-placeholder-text")
-        passwordRepeatField.placeholder = localizedStringForKeyFallingBackOnEnglish("account-creation-password-confirm-placeholder-text")
-        emailField.placeholder = localizedStringForKeyFallingBackOnEnglish("account-creation-email-placeholder-text")
-        
-        usernameUnderlineHeight.constant = 1.0 / UIScreen.main.scale
-        passwordUnderlineHeight.constant = usernameUnderlineHeight.constant;
-        passwordConfirmUnderlineHeight.constant = usernameUnderlineHeight.constant;
-        emailUnderlineHeight.constant = usernameUnderlineHeight.constant;
+        usernameField.wmf_addThinBottomBorder()
+        passwordField.wmf_addThinBottomBorder()
+        passwordRepeatField.wmf_addThinBottomBorder()
+        emailField.wmf_addThinBottomBorder()
 
-        loginButton.textColor = UIColor.wmf_blueTint()
-        loginButton.text = localizedStringForKeyFallingBackOnEnglish("account-creation-login")
+        loginButton.attributedText = loginButton.wmf_authAttributedStringReusingFont(withDollarSignString: localizedStringForKeyFallingBackOnEnglish("account-creation-have-account"), substitutionString: localizedStringForKeyFallingBackOnEnglish("account-creation-log-in"))
         
         loginButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(loginButtonPushed(_:))))
-        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("navbar-title-mode-create-account")
+        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-title")
        
-        captchaTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-title")
-        
-        // Reminder: used a label instead of a button for subtitle because of multi-line string issues with UIButton.
-        captchaSubtitleLabel.attributedText = captchaSubtitleAttributedString
-        captchaSubtitleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(requestAnAccountTapped(_:))))
-
         view.wmf_configureSubviewsForDynamicType()
-    }
-
-    func requestAnAccountTapped(_ recognizer: UITapGestureRecognizer) {
-        wmf_openExternalUrl(URL.init(string: "https://en.wikipedia.org/wiki/Wikipedia:Request_an_account"))
-    }
-
-    fileprivate var captchaSubtitleAttributedString: NSAttributedString {
-        get {
-            // Note: uses the font from the storyboard so the attributed string respects the
-            // storyboard dynamic type font choice and responds to dynamic type size changes.
-            let attributes: [String : Any] = [
-                NSFontAttributeName : captchaSubtitleLabel.font
-            ]
-            let substitutionAttributes: [String : Any] = [
-                NSForegroundColorAttributeName : UIColor.wmf_blueTint()
-            ]
-            let cannotSeeImageText = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-cannot-see-image")
-            let requestAccountText = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-request-account")
-            return cannotSeeImageText.attributedString(attributes: attributes, substitutionStrings: [requestAccountText], substitutionAttributes: [substitutionAttributes])
-        }
+        
+        captchaViewController?.captchaDelegate = self
+        wmf_add(childController:captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        captchaViewController = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
-        captchaViewController?.captchaDelegate = self
-        wmf_addChildController(captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
-        showCaptchaContainer = false
         
         // Check if captcha is required right away. Things could be configured so captcha is required at all times.
         getCaptcha()
+        
+        updateEmailFieldReturnKeyType()
+        enableProgressiveButtonIfNecessary()
     }
     
     fileprivate func getCaptcha() {
         let failure: WMFErrorHandler = {error in }
         let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
-        self.accountCreationInfoFetcher.fetchAccountCreationInfoForSiteURL(siteURL!, success: { info in
+        accountCreationInfoFetcher.fetchAccountCreationInfoForSiteURL(siteURL!, success: { info in
             self.captchaViewController?.captcha = info.captcha
-            self.showCaptchaContainer = (info.captcha != nil)
+            if info.captcha != nil {
+                self.funnel?.logCaptchaShown()
+            }
+            self.updateEmailFieldReturnKeyType()
+            self.enableProgressiveButtonIfNecessary()
         }, failure:failure)
         enableProgressiveButtonIfNecessary()
     }
@@ -152,8 +129,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         case passwordRepeatField:
             emailField.becomeFirstResponder()
         case emailField:
-            if showCaptchaContainer {
-                captchaViewController?.captchaTextBoxBecomeFirstResponder()
+            if captchaIsVisible() {
+                captchaViewController?.captchaTextFieldBecomeFirstResponder()
             }else{
                 save()
             }
@@ -168,12 +145,12 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
 
     fileprivate func enableProgressiveButtonIfNecessary() {
-        navigationItem.rightBarButtonItem?.isEnabled = shouldProgressiveButtonBeEnabled()
+        createAccountButton.isEnabled = shouldProgressiveButtonBeEnabled()
     }
 
     fileprivate func shouldProgressiveButtonBeEnabled() -> Bool {
         var shouldEnable = areRequiredFieldsPopulated()
-        if showCaptchaContainer && shouldEnable {
+        if captchaIsVisible() && shouldEnable {
             shouldEnable = hasUserEnteredCaptchaText()
         }
         return shouldEnable
@@ -183,38 +160,22 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         WMFAlertManager.sharedInstance.dismissAlert()
         super.viewWillDisappear(animated)
     }
-
-    fileprivate func setCaptchaAlpha(_ alpha: CGFloat) {
-        captchaContainer.alpha = alpha
-        captchaTitleLabel.alpha = alpha
-        captchaSubtitleLabel.alpha = alpha
-    }
     
-    fileprivate var showCaptchaContainer: Bool = false {
-        didSet {
-            if showCaptchaContainer {
-                funnel?.logCaptchaShown()
-            }
-            UIView.animate(withDuration: 0.4, animations: {
-                self.setCaptchaAlpha(self.showCaptchaContainer ? 1 : 0)
-            }, completion: { _ in
-                self.updateEmailFieldReturnKeyType()
-                self.enableProgressiveButtonIfNecessary()
-            })
-        }
+    fileprivate func captchaIsVisible() -> Bool {
+        return captchaViewController?.captcha != nil
     }
     
     fileprivate func updateEmailFieldReturnKeyType() {
-        self.emailField.returnKeyType = self.showCaptchaContainer ? .next : .done
+        emailField.returnKeyType = captchaIsVisible() ? .next : .done
         // Resign and become first responder so keyboard return key updates right away.
-        if self.emailField.isFirstResponder {
-            self.emailField.resignFirstResponder()
-            self.emailField.becomeFirstResponder()
+        if emailField.isFirstResponder {
+            emailField.resignFirstResponder()
+            emailField.becomeFirstResponder()
         }
     }
     
     func captchaReloadPushed(_ sender: AnyObject) {
-    WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-obtaining"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+        enableProgressiveButtonIfNecessary()
     }
     
     func captchaSolutionChanged(_ sender: AnyObject, solutionText: String?) {
@@ -225,6 +186,10 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         return (MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL())!
     }
     
+    public func captchaHideSubtitle() -> Bool {
+        return false
+    }
+
     fileprivate func login() {
         WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-logging-in"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         WMFAuthenticationManager.sharedInstance.login(
@@ -265,7 +230,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
 
         guard passwordFieldsMatch() else {
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("account-creation-passwords-mismatched"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            self.passwordRepeatField.becomeFirstResponder()
+            passwordRepeatField.becomeFirstResponder()
             return
         }
         wmf_hideKeyboard()
@@ -283,7 +248,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         }
         
         let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
-            self.tokenFetcher.fetchToken(ofType: .createAccount, siteURL: siteURL!, success: { token in
+            tokenFetcher.fetchToken(ofType: .createAccount, siteURL: siteURL!, success: { token in
                 self.accountCreator.createAccount(username: self.usernameField.text!, password: self.passwordField.text!, retypePassword: self.passwordRepeatField.text!, email: self.emailField.text!, captchaID:self.captchaViewController?.captcha?.captchaID, captchaWord: self.captchaViewController?.solution, token: token.token, siteURL: siteURL!, success: {_ in
                     self.login()
                 }, failure: creationFailure)

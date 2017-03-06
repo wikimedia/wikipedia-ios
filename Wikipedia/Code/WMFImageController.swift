@@ -146,7 +146,7 @@ open class WMFImageController : NSObject {
                 failure(opError)
             } else if let imageURL = imageURL, let image = image {
                 let origin = ImageOrigin(sdOrigin: type)
-                success(WMFImageDownload(url: imageURL, image: image, origin: origin))
+                success(WMFImageDownload(url: imageURL, image: image, origin: origin, data: data))
             } else {
                 //should never reach this point
                  failure(WMFImageControllerError.dataNotFound)
@@ -186,7 +186,7 @@ open class WMFImageController : NSObject {
             return nil
         }
         let key = cacheKeyForURL(url)
-        var image = imageCache.imageFromDiskCache(forKey: key)
+        var image = imageCache.imageFromCache(forKey: key)
         if image  == nil { // if it's not in the SDWebImage cache, check the NSURLCache
             let request = URLRequest(url: (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless() as URL)
             if let cachedResponse = URLCache.shared.cachedResponse(for: request),
@@ -259,11 +259,11 @@ open class WMFImageController : NSObject {
             return
         }
         let op = imageCache.queryCacheOperation(forKey: cacheKeyForURL(url)) { (image, data, origin) in
-            guard let image = image else {
+            guard let image = image, let data = data else {
                 failure(WMFImageControllerError.dataNotFound)
                 return
             }
-            success(WMFImageDownload(url: url, image: image, origin: ImageOrigin(sdOrigin: origin) ))
+            success(WMFImageDownload(url: url, image: image, origin: ImageOrigin(sdOrigin: origin), data: data))
         }
         addCancellableForURL(op as! Cancellable, url: url)
     }

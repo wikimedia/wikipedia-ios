@@ -49,10 +49,6 @@
 "account-creation-passwords-mismatched" = "စကားဝှက်များ ကိုက်ညီမှုမရှိပါ။";
 "account-creation-saving" = "သိမ်းဆည်းနေသည်...";
 "account-creation-login" = "အကောင့် ရှိပြီးသားလား? လော့ဂ်အင်ဝင်ပါ။";
-"account-creation-username-placeholder-text" = "အသုံးပြုသူအမည်";
-"account-creation-password-placeholder-text" = "စကားဝှက်";
-"account-creation-password-confirm-placeholder-text" = "စကားဝှက်ကို အတည်ပြုပါ";
-"account-creation-email-placeholder-text" = "အီးမေးလ် (ရှိပါက)";
 "account-creation-missing-fields" = "အကောင့်တစ်ခု ဖန်တီးရန် အသုံးပြုသူအမည်၊ စကားဝှက်နှင့် အတည်ပြုစကားဝှက်များကို ထည့်သွင်းပေးရမည်။";
 "login-name-not-found" = "လော့ဂ်အင်ဝင်ရန် အသုံးပြုသူအမည် လိုအပ်သည်။";
 "login-name-illegal" = "တရားမဝင်သော အသုံးပြုသူအမည် ထည့်သွင်းခဲ့သည်။";

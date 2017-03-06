@@ -6,6 +6,7 @@
 #import <Tweaks/FBTweakShakeWindow.h>
 #import "NSUserActivity+WMFExtensions.h"
 #import "Wikipedia-Swift.h"
+#import "NSFileManager+WMFGroup.h"
 @import UserNotifications;
 
 #if WMF_UX_STUDY_ENABLED
@@ -18,6 +19,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 @interface AppDelegate ()
 
 @property (nonatomic, strong) WMFAppViewController *appViewController;
+@property (nonatomic) BOOL appNeedsResume;
 
 @end
 
@@ -80,8 +82,10 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 #if DEBUG
     NSLog(@"\n\nSimulator documents directory:\n\t%@\n\n",
           [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]);
+    NSLog(@"\n\nSimulator container directory:\n\t%@\n\n",
+          [[NSFileManager defaultManager] wmf_containerPath]);
 #endif
-
+    
 #if WMF_UX_STUDY_ENABLED
     if (WMFAppSeeAPIKey.length > 0) {
         [Appsee start:WMFAppSeeAPIKey];
@@ -96,9 +100,11 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     [[NSUserDefaults wmf_userDefaults] wmf_setAppLaunchDate:[NSDate date]];
     [[NSUserDefaults wmf_userDefaults] wmf_setAppInstallDateIfNil:[NSDate date]];
 
+    NSDictionary *userAcivityDictionary = launchOptions[UIApplicationLaunchOptionsUserActivityDictionaryKey];
+    self.appNeedsResume = userAcivityDictionary != nil;
     WMFAppViewController *vc = [WMFAppViewController initialAppViewControllerFromDefaultStoryBoard];
     [UNUserNotificationCenter currentNotificationCenter].delegate = vc; // this needs to be set before the end of didFinishLaunchingWithOptions:
-    [vc launchAppInWindow:self.window];
+    [vc launchAppInWindow:self.window waitToResumeApp:self.appNeedsResume];
     self.appViewController = vc;
 
     [self updateDynamicIconShortcutItems];
@@ -119,6 +125,15 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     [self.appViewController processShortcutItem:shortcutItem completion:completionHandler];
 }
 
+#pragma mark - AppVC Resume
+
+- (void)resumeAppIfNecessary {
+    if (self.appNeedsResume) {
+        [self.appViewController hideSplashScreenAndResumeApp];
+        self.appNeedsResume = false;
+    }
+}
+
 #pragma mark - NSUserActivity Handling
 
 - (BOOL)application:(UIApplication *)application willContinueUserActivityWithType:(NSString *)userActivityType {
@@ -126,7 +141,11 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 }
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
-    return [self.appViewController processUserActivity:userActivity];
+    BOOL result = [self.appViewController processUserActivity:userActivity
+                                                   completion:^{
+                                                       [self resumeAppIfNecessary];
+                                                   }];
+    return result;
 }
 
 - (void)application:(UIApplication *)application didFailToContinueUserActivityWithType:(NSString *)userActivityType error:(NSError *)error {
@@ -151,8 +170,13 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
             options:(NSDictionary<NSString *, id> *)options {
     NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
     if (activity) {
-        return [self.appViewController processUserActivity:activity];
+        BOOL result = [self.appViewController processUserActivity:activity
+                                                       completion:^{
+                                                           [self resumeAppIfNecessary];
+                                                       }];
+        return result;
     } else {
+        [self resumeAppIfNecessary];
         return NO;
     }
 }

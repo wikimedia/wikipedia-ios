@@ -41,12 +41,12 @@
 #import "WMFArticleFetcher.h"
 
 // View
+#import <FLAnimatedImage/FLAnimatedImageView.h>
 #import "UIViewController+WMFEmptyView.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
-#import "NSArray+WMFLayoutDirectionUtilities.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
-#import <TUSafariActivity/TUSafariActivity.h>
+#import "TUSafariActivity.h"
 #import "WMFArticleTextActivitySource.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIImageView+WMFPlaceholder.h"
@@ -341,7 +341,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (UIImageView *)headerImageView {
     if (!_headerImageView) {
-        _headerImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _headerImageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectZero];
         _headerImageView.userInteractionEnabled = YES;
         _headerImageView.clipsToBounds = YES;
         // White background is necessary for images with alpha
@@ -855,7 +855,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+
     NSUInteger index = self.indexOfCurrentFontSize;
     NSNumber *multiplier = self.fontSizeMultipliers[index];
     [self.webViewController setFontSizeMultiplier:multiplier];
@@ -1218,11 +1218,23 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Article Fetching
 
+- (void)articleDidLoad {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_block_t completion = self.articleLoadCompletion;
+        if (completion) {
+            completion();
+            self.articleLoadCompletion = nil;
+        }
+    });
+}
+
 - (void)fetchArticleForce:(BOOL)force {
-    NSAssert([[NSThread currentThread] isMainThread], @"Not on main thread!");
+    // ** Always call articleDidLoad after the article loads or fails & before returning from this method **
+    WMFAssertMainThread(@"Not on main thread!");
     NSAssert(self.isViewLoaded, @"Should only fetch article when view is loaded so we can update its state.");
     if (!force && self.article) {
         [self.pullToRefresh endRefreshing];
+        [self articleDidLoad];
         return;
     }
 
@@ -1282,6 +1294,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 }
             }
             self.articleFetcherPromise = nil;
+            [self articleDidLoad];
         }
         success:^(MWKArticle *_Nonnull article) {
             @strongify(self);
@@ -1289,7 +1302,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
             self.article = article;
             self.articleFetcherPromise = nil;
-
+            [self articleDidLoad];
         }];
 }
 

@@ -38,7 +38,7 @@ class ArticlePopoverViewController: UIViewController {
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         articleSummaryView.addGestureRecognizer(tapGR)
         
-        shareButton.setTitle(" " + localizedStringForKeyFallingBackOnEnglish("action-share"), for: .normal)
+        shareButton.setTitle(localizedStringForKeyFallingBackOnEnglish("action-share"), for: .normal)
         shareButton.setImage(#imageLiteral(resourceName: "places-share"), for: .normal)
         
         readButton.setTitle(localizedStringForKeyFallingBackOnEnglish("action-read"), for: .normal)
@@ -71,7 +71,7 @@ class ArticlePopoverViewController: UIViewController {
             return
         }
         let saveTitle = article.savedDate == nil ? localizedStringForKeyFallingBackOnEnglish("action-save") : localizedStringForKeyFallingBackOnEnglish("action-saved")
-        saveButton.setTitle(" " + saveTitle, for: .normal)
+        saveButton.setTitle(saveTitle, for: .normal)
         let saveImage = article.savedDate == nil ? #imageLiteral(resourceName: "places-save"): #imageLiteral(resourceName: "places-unsave")
         saveButton.setImage(saveImage, for: .normal)
     }

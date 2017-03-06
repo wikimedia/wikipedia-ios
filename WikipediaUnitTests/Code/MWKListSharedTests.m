@@ -77,31 +77,4 @@
     assertThat(@(list.dirty), isTrue());
 }
 
-- (void)testKVO {
-    MWKList *list = [self listWithEntries:nil];
-    NSMutableArray *observations = [NSMutableArray new];
-
-    [self.KVOController observe:list
-                        keyPath:WMF_SAFE_KEYPATH(list, entries)
-                        options:0
-                          block:^(id observer, id object, NSDictionary *change) {
-                              [observations addObject:change];
-                          }];
-
-    [list addEntry:self.testObjects[0]];
-    [list removeEntry:self.testObjects[0]];
-
-    assertThat(observations, hasCountOf(2));
-
-    NSDictionary *firstChangeDictionary = observations[0];
-    assertThat(firstChangeDictionary[NSKeyValueChangeKindKey], is(@(NSKeyValueChangeInsertion)));
-    assertThat(firstChangeDictionary[NSKeyValueChangeIndexesKey], is(equalTo([NSIndexSet indexSetWithIndex:0])));
-
-    NSDictionary *secondChangeDictionary = observations[1];
-    assertThat(secondChangeDictionary[NSKeyValueChangeKindKey], is(@(NSKeyValueChangeRemoval)));
-    assertThat(secondChangeDictionary[NSKeyValueChangeIndexesKey], is(equalTo([NSIndexSet indexSetWithIndex:0])));
-
-    [self.KVOController unobserve:list];
-}
-
 @end

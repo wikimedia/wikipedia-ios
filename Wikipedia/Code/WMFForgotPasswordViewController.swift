@@ -7,10 +7,10 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
     @IBOutlet fileprivate var subTitleLabel: UILabel!
     @IBOutlet fileprivate var usernameField: UITextField!
     @IBOutlet fileprivate var emailField: UITextField!
-    @IBOutlet fileprivate var usernameUnderlineHeight: NSLayoutConstraint!
-    @IBOutlet fileprivate var emailUnderlineHeight: NSLayoutConstraint!
+    @IBOutlet fileprivate var usernameTitleLabel: UILabel!
+    @IBOutlet fileprivate var emailTitleLabel: UILabel!
 
-    fileprivate var resetButton: UIBarButtonItem!
+    @IBOutlet fileprivate var resetPasswordButton: WMFAuthButton!
 
     let tokenFetcher = WMFAuthTokenFetcher()
     let passwordResetter = WMFPasswordResetter()
@@ -21,17 +21,14 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
     
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("forgot-password-title")
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("forgot-password-instructions")
-        usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("forgot-password-username-prompt")
-        emailField.placeholder = localizedStringForKeyFallingBackOnEnglish("forgot-password-email-prompt")
+        usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-username-placeholder")
+        emailField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-email-placeholder")
+        usernameTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-username-title")
+        emailTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-email-title")
+        resetPasswordButton.setTitle(localizedStringForKeyFallingBackOnEnglish("forgot-password-button-title"), for: .normal)
         
-        resetButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("forgot-password-button-title"), style: .plain, target: self, action: #selector(resetButtonPushed(_:)))
-        navigationItem.rightBarButtonItem = resetButton
-    
-        usernameField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        emailField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-    
-        usernameUnderlineHeight.constant = 1.0 / UIScreen.main.scale
-        emailUnderlineHeight.constant = 1.0 / UIScreen.main.scale
+        usernameField.wmf_addThinBottomBorder()
+        emailField.wmf_addThinBottomBorder()
         
         view.wmf_configureSubviewsForDynamicType()
     }
@@ -60,7 +57,7 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
         return true
     }
 
-    func textFieldDidChange(_ sender: UITextField) {
+    @IBAction func textFieldDidChange(_ sender: UITextField) {
         guard
             let username = usernameField.text,
             let email = emailField.text
@@ -72,10 +69,10 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
     }
 
     func enableProgressiveButton(_ highlight: Bool) {
-        resetButton.isEnabled = highlight
+        resetPasswordButton.isEnabled = highlight
     }
 
-    func resetButtonPushed(_ : UIBarButtonItem) {
+    @IBAction fileprivate func resetPasswordButtonTapped(withSender sender: UIButton) {
         save()
     }
 

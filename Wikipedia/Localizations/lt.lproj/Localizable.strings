@@ -50,10 +50,6 @@
 "account-creation-passwords-mismatched" = "Slaptažodžių laukai nesutampa.";
 "account-creation-saving" = "Įrašoma...";
 "account-creation-login" = "Jau turite paskyrą? Prisijunkite.";
-"account-creation-username-placeholder-text" = "Vartotojo vardas";
-"account-creation-password-placeholder-text" = "Slaptažodis";
-"account-creation-password-confirm-placeholder-text" = "Patvirtinkite slaptažodį";
-"account-creation-email-placeholder-text" = "El. paštas (neprivaloma)";
 "login-name-not-found" = "Prisijungimui būtinas vartotojo vardas.";
 "login-name-illegal" = "Jūs pateikėte negalimą vartotojo vardą.";
 "login-name-does-not-exist" = "Jūsų pateikto vartotojo vardo nėra.";
@@ -282,8 +278,6 @@
 "page-read-in-other-languages" = "Prieinama $1 kitų kalbų";
 "page-last-edited" = "Redaguota prieš $1 dienų";
 "page-edit-history" = "Pilna keitimų istorija";
-"captcha-reload" = "Rodyti kitą saugos kodą";
-"captcha-prompt" = "Įveskite CAPTCHA tekstą";
 "mwk-empty-title-error" = "Negalima atlikti operacijos su tuščiu pavadinimu.";
 "home-title" = "Naršyti";
 "home-empty-section" = "Nėra rezultatų";
@@ -343,6 +337,11 @@
 "explore-continue-reading-heading" = "Skaityti toliau";
 "explore-nearby-heading" = "Artimos vietovės";
 "explore-nearby-sub-heading-your-location" = "Jūsų vieta";
+"explore-nearby-placeholder-heading" = "Vietos";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Vikipedijoje";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Vikipedijoje";
+"explore-nearby-placeholder-dismiss" = "Paslėpti";
+"explore-nearby-placeholder-cancel" = "Atšaukti";
 "explore-continue-related-heading" = "Nes jūs skaitėte";
 "explore-main-page-heading" = "Šiandien Vikipedijoje";
 "explore-random-article-heading" = "Atsitiktinis straipsnis";
@@ -378,3 +377,9 @@
 "unsave-action" = "Neišsaugoti";
 "status-saving-for-later" = "Išsaugoma ateičiai...";
 "status-saved-for-later" = "Išsaugota ateičiai";
+"places-unknown-distance" = "nežinomas atstumas";
+"places-enable-location-action-button-title" = "Įgalinti vietą";
+"places-accessibility-group" = "$1 straipsniai";
+"places-accessibility-show-as-map" = "Rodyti kaip žemėlapį";
+"places-accessibility-show-as-list" = "Rodyti kaip sąrašą";
+"action-saved" = "Išsaugota";

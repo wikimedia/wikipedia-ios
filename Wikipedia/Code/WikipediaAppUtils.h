@@ -13,7 +13,6 @@ WMF_TECH_DEBT_DEPRECATED_MSG("This class is deprecated, its methods should be br
 + (NSString *)languageNameForCode:(NSString *)code;
 
 + (NSString *)assetsPath;
-+ (void)copyAssetsFolderToAppDataDocuments;
 
 @end
 
