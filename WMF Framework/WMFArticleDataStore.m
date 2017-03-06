@@ -114,8 +114,8 @@ NS_ASSUME_NONNULL_BEGIN
     
     preview.isExcludedFromFeed = article.ns != 0;
     
-    [preview updateWithScalarCoordinate:article.coordinate]; //allows us to keep coordinate optional in the swift extension
-
+    [preview updateWithScalarCoordinate:article.coordinate];
+    
     return preview;
 }
 
