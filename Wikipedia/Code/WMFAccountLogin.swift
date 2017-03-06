@@ -39,7 +39,7 @@ public class WMFAccountLogin {
         return manager.operationQueue.operationCount > 0
     }
     
-    public func login(username: String, password: String, retypePassword: String?, loginToken: String, oathToken: String?, siteURL: URL, success: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler){
+    public func login(username: String, password: String, retypePassword: String?, loginToken: String, oathToken: String?, captchaID: String?, captchaWord: String?, siteURL: URL, success: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler){
         let manager = AFHTTPSessionManager(baseURL: siteURL)
         manager.responseSerializer = WMFApiJsonResponseSerializer.init();
         
@@ -63,6 +63,13 @@ public class WMFAccountLogin {
             parameters["logincontinue"] = "1"
         }
         
+        if let captchaID = captchaID {
+            parameters["captchaId"] = captchaID
+        }
+        if let captchaWord = captchaWord {
+            parameters["captchaWord"] = captchaWord
+        }
+
         _ = manager.wmf_apiPOSTWithParameters(parameters, success: { (_, response) in
             guard
                 let response = response as? [String : AnyObject],

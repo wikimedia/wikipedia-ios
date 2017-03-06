@@ -1,6 +1,0 @@
-framework module Masonry {
-  umbrella header "Masonry.h"
-
-  export *
-  module * { export * }
-}

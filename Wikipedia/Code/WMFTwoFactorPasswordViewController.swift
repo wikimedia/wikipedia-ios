@@ -1,21 +1,23 @@
 
 import UIKit
 
-class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate {
+class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDelegate {
     
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var subTitleLabel: UILabel!
     @IBOutlet fileprivate var tokenLabel: UILabel!
     @IBOutlet fileprivate var oathTokenFields: [UITextField]!
     
-    fileprivate var doneButton: UIBarButtonItem!
+    @IBOutlet fileprivate var loginButton: WMFAuthButton!
     
     public var funnel: LoginFunnel?
     
     public var userName:String?
     public var password:String?
+    public var captchaID:String?
+    public var captchaWord:String?
     
-    func doneButtonPushed(_ : UIBarButtonItem) {
+    @IBAction fileprivate func loginButtonTapped(withSender sender: UIButton) {
         save()
     }
     
@@ -45,7 +47,7 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
     }
     
     func enableProgressiveButton(_ highlight: Bool) {
-        doneButton.isEnabled = highlight
+        loginButton.isEnabled = highlight
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,12 +83,11 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
         
-        doneButton = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("main-menu-account-login"), style: .plain, target: self, action: #selector(doneButtonPushed(_:)))
-        navigationItem.rightBarButtonItem = doneButton
+        loginButton.setTitle(localizedStringForKeyFallingBackOnEnglish("two-factor-login-continue"), for: .normal)
         
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-title")
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-instructions")
-        tokenLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-token-title")
+        tokenLabel.text = localizedStringForKeyFallingBackOnEnglish("field-token-title")
 
         view.wmf_configureSubviewsForDynamicType()
     }
@@ -116,6 +117,8 @@ class WMFTwoFactorPasswordViewController: UIViewController, UITextFieldDelegate 
                    password: password,
                    retypePassword: nil,
                    oathToken: token(),
+                   captchaID: captchaID,
+                   captchaWord: captchaWord,
                    success: { _ in
                     let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: userName)
                     WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)

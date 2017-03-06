@@ -16,6 +16,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     let animationDuration = 0.6
     let animationScale = CGFloat(0.6)
     let popoverFadeDuration = 0.25
+    let searchHistoryCountLimit = 15
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var progressView: UIProgressView!
@@ -31,6 +32,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     var articleStore: WMFArticleDataStore!
     var dataStore: MWKDataStore!
     var segmentedControl: UISegmentedControl!
+    var segmentedControlBarButtonItem: UIBarButtonItem!
+    
+    var closeBarButtonItem: UIBarButtonItem!
+
     
     var currentGroupingPrecision: QuadKeyPrecision = 1
     
@@ -65,7 +70,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         mapView.showsTraffic = false
         mapView.showsPointsOfInterest = false
         mapView.showsScale = false
-        mapView.showsUserLocation = true
+        mapView.showsUserLocation = false
         
         // Setup location manager
         locationManager.delegate = self
@@ -83,7 +88,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
         segmentedControl.tintColor = UIColor.wmf_blueTint()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: segmentedControl)
+        segmentedControlBarButtonItem = UIBarButtonItem(customView: segmentedControl)
+        navigationItem.rightBarButtonItem = segmentedControlBarButtonItem
+        
+        let closeImage = #imageLiteral(resourceName: "close")
+        closeBarButtonItem = UIBarButtonItem(image:  closeImage, style: .plain, target: self, action: #selector(closeSearch))
         
         // Setup recenter button
         recenterOnUserLocationButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-recenter-map-on-user-location")
@@ -119,12 +128,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        let defaults = UserDefaults.wmf_userDefaults()
+        if !defaults.wmf_placesHasAppeared() {
+            defaults.wmf_setPlacesHasAppeared(true)
+        }
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         guard WMFLocationManager.isAuthorized() else {
-            if !UserDefaults.wmf_userDefaults().wmf_placesDidPromptForLocationAuthorization() {
-                UserDefaults.wmf_userDefaults().wmf_setPlacesDidPromptForLocationAuthorization(true)
+            if !defaults.wmf_placesDidPromptForLocationAuthorization() {
+                defaults.wmf_setPlacesDidPromptForLocationAuthorization(true)
                 promptForLocationAccess()
             } else {
                 performDefaultSearchOnNextMapRegionUpdate = currentSearch == nil
@@ -133,6 +147,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         locationManager.startMonitoringLocation()
+        mapView.showsUserLocation = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -140,6 +155,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         locationManager.stopMonitoringLocation()
+        mapView.showsUserLocation = false
     }
     
     // MARK: MKMapViewDelegate
@@ -450,7 +466,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             self.updatePlaces(withSearchResults: searchResults.results)
             done()
         }) { (error) in
-            self.wmf_showAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("empty-no-search-results-message"))
+            WMFAlertManager.sharedInstance.showWarningAlert(error.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
             done()
         }
     }
@@ -571,7 +587,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         default:
             deselectAllAnnotations()
             listView.isHidden = false
-            listView.reloadData()
+            updateDistanceFromUserOnVisibleCells()
         }
     }
     
@@ -1045,12 +1061,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         articleVC.configureView(withTraitCollection: traitCollection)
         
         let articleLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        let userCoordinate = mapView.userLocation.coordinate
-        let userLocation = CLLocation(latitude: userCoordinate.latitude, longitude: userCoordinate.longitude)
-        
-        let distance = articleLocation.distance(from: userLocation)
-        let distanceString = MKDistanceFormatter().string(fromDistance: distance)
-        articleVC.descriptionLabel.text = distanceString
+        if locationManager.isUpdating {
+            let userLocation = locationManager.location
+            let distance = articleLocation.distance(from: userLocation)
+            let distanceString = MKDistanceFormatter().string(fromDistance: distance)
+            articleVC.descriptionLabel.text = distanceString
+        } else {
+            articleVC.descriptionLabel.text = nil
+        }
         
         articleVC.view.alpha = 0
         addChildViewController(articleVC)
@@ -1078,7 +1096,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let annotation = mapView.selectedAnnotations.first,
             let annotationView = mapView.view(for: annotation)
             else {
-                deselectAllAnnotations()
             return
         }
         coordinator.animate(alongsideTransition: { (context) in
@@ -1119,6 +1136,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             break
         case .share:
             let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: [TUSafariActivity()])
+            activityVC.popoverPresentationController?.sourceView = view
+            var sourceRect = view.bounds
+            if let shareButton = selectedArticlePopover?.shareButton {
+                sourceRect = view.convert(shareButton.frame, from: shareButton.superview)
+            }
+            activityVC.popoverPresentationController?.sourceRect = sourceRect
             present(activityVC, animated: true, completion: nil)
             break
         case .none:
@@ -1189,7 +1212,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 request.predicate = NSPredicate(format: "group == %@", searchHistoryGroup)
                 request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
                 let results = try moc.fetch(request)
-                recentSearches = try results.map({ (kv) -> PlaceSearch in
+                let count = results.count
+                if count > searchHistoryCountLimit {
+                    for result in results[searchHistoryCountLimit..<count] {
+                        moc.delete(result)
+                    }
+                }
+                let limit = min(count, searchHistoryCountLimit)
+                recentSearches = try results[0..<limit].map({ (kv) -> PlaceSearch in
                     guard let dictionary = kv.value as? [String : Any],
                         let ps = PlaceSearch(dictionary: dictionary) else {
                             throw NSError()
@@ -1271,10 +1301,19 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
+    func closeSearch() {
+        searchBar.endEditing(true)
+        searchBar.text = currentSearch?.localizedDescription
+    }
+    
     var searchSuggestionsHidden = true {
         didSet {
             searchSuggestionView.isHidden = searchSuggestionsHidden
-            segmentedControl.isEnabled = searchSuggestionsHidden
+            if searchSuggestionsHidden {
+                navigationItem.setRightBarButton(segmentedControlBarButtonItem, animated: true)
+            } else {
+                navigationItem.setRightBarButton(closeBarButtonItem, animated: true)
+            }
         }
     }
     
@@ -1327,8 +1366,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         cell.titleText = article.displayTitle
         cell.descriptionText = article.wikidataDescription
         cell.setImageURL(article.thumbnailURL)
+        cell.articleLocation = article.location
         
-        update(userLocation: mapView.userLocation, onLocationCell: cell, withArticle: article)
+        var userLocation: CLLocation?
+        var userHeading: CLHeading?
+        
+        if locationManager.isUpdating {
+            userLocation = locationManager.location
+            userHeading = locationManager.heading
+        }
+        update(userLocation: userLocation, heading: userHeading, onLocationCell: cell)
         
         return cell
     }
@@ -1356,15 +1403,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return [saveForLaterAction, shareAction]
     }
     
-    func update(userLocation: MKUserLocation, onLocationCell cell: WMFNearbyArticleTableViewCell, withArticle article: WMFArticle) {
-        guard let articleLocation = article.location, let userLocation = userLocation.location else {
+    func update(userLocation: CLLocation?, heading: CLHeading?, onLocationCell cell: WMFNearbyArticleTableViewCell) {
+        guard let articleLocation = cell.articleLocation, let userLocation = userLocation else {
+            cell.configureForUnknownDistance()
             return
         }
         
         let distance = articleLocation.distance(from: userLocation)
         cell.setDistance(distance)
         
-        if let heading = mapView.userLocation.heading  {
+        if let heading = heading  {
             let bearing = userLocation.wmf_bearing(to: articleLocation, forCurrentHeading: heading)
             cell.setBearing(bearing)
         } else {
@@ -1373,8 +1421,22 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
+    func updateDistanceFromUserOnVisibleCells() {
+        guard !listView.isHidden else {
+            return
+        }
+        let heading = locationManager.heading
+        let location = locationManager.location
+        for cell in listView.visibleCells {
+            guard let locationCell = cell as? WMFNearbyArticleTableViewCell else {
+                continue
+            }
+            update(userLocation: location, heading: heading, onLocationCell: locationCell)
+        }
+    }
+
     // MARK: UITableViewDelegate
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let article = articleFetchedResultsController.object(at: indexPath)
         perform(action: .read, onArticle: article)
@@ -1425,6 +1487,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     var panMapToNextLocationUpdate = true
     
     func locationManager(_ controller: WMFLocationManager, didUpdate location: CLLocation) {
+        updateDistanceFromUserOnVisibleCells()
         guard panMapToNextLocationUpdate else {
             return
         }
@@ -1437,7 +1500,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func locationManager(_ controller: WMFLocationManager, didUpdate heading: CLHeading) {
         updateUserLocationAnnotationViewHeading(heading)
-
+        updateDistanceFromUserOnVisibleCells()
     }
     
     func locationManager(_ controller: WMFLocationManager, didChangeEnabledState enabled: Bool) {

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+scripts/setup_homebrew
+
+brew update && brew install rbenv ruby-build
+rbenv install -s
+
+gem install bundler
+bundle install
