@@ -63,18 +63,11 @@
 "account-creation-passwords-mismatched" = "पासवर्ड मैच नहीं हो रहा है।";
 "account-creation-saving" = "सहेज रहा है...";
 "account-creation-login" = "पहले से ही ख़ाता है? लॉगिन करें।";
-"account-creation-username-placeholder-text" = "सदस्यनाम";
-"account-creation-password-placeholder-text" = "कूटशब्द";
-"account-creation-password-confirm-placeholder-text" = "कूटशब्द की पुष्टि करें";
-"account-creation-email-placeholder-text" = "ईमेल (वैकल्पिक)";
 "account-creation-missing-fields" = "आपको खाता बनाने के लिए एक यूज़रनेम और पासवर्ड , और प्रमाणित किया गया पासवर्ड डालना आवश्यक है।";
 "new-password-title" = "एक पासवर्ड जोड़ें";
 "new-password-instructions" = "अपने एक अस्थाई पासवर्ड से लॉगिन किया। लॉगिन को पूरा करने के लिए यहाँ एक नया पासवर्ड जोड़ें।";
-"new-password-password-placeholder-text" = "नया पासवर्ड";
-"new-password-confirm-placeholder-text" = "नए पासवर्ड को कन्फर्म करें";
 "two-factor-login-title" = "अपने अकाउंट में लॉगिन करें";
 "two-factor-login-instructions" = "कृपया टू फैक्टर वेरिफिकेशन कोड डालें";
-"two-factor-login-token-title" = "टोकन";
 "login-name-not-found" = "लॉगिन के लिए सदस्यनाम आवश्यक है।";
 "login-name-illegal" = "आपने एक अवैध सदस्यनाम दिया है।";
 "login-name-does-not-exist" = "जो सदस्यमाम अपने दिया है वो अस्तित्व में नहीं है।";
@@ -355,8 +348,6 @@
 "page-read-in-other-languages" = "$1 अन्य भाषाओं में उपलब्ध";
 "page-last-edited" = "$1 दिन पहले सम्पादित किया गया";
 "page-edit-history" = "पूर्ण संपादन इतिहास";
-"captcha-reload" = "दूसरा कैप्चा दिखाएँ";
-"captcha-prompt" = "कैप्चा टेक्स्ट को डालें";
 "mwk-empty-title-error" = "खाली शीर्षक के साथ कार्य करने में असमर्थ।";
 "home-title" = "छानबीन";
 "home-empty-section" = "कोई परिणाम नहीं";

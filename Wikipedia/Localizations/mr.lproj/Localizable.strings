@@ -53,10 +53,6 @@
 "account-creation-passwords-mismatched" = "परवलीचा शब्द जुळत नाही.";
 "account-creation-saving" = "जतन करीत आहे...";
 "account-creation-login" = "आपले खाते आहे? प्रवेश करा";
-"account-creation-username-placeholder-text" = "सदस्यनाव";
-"account-creation-password-placeholder-text" = "परवलीचा शब्द";
-"account-creation-password-confirm-placeholder-text" = "परवलीच्या शब्दाची निश्चिती करा";
-"account-creation-email-placeholder-text" = "विपत्र (‌वैकल्पिक)";
 "account-creation-missing-fields" = "खाते उघडण्यास आपण सदस्यनाव,परवलीचा शब्द व परवलीचा शब्दाचे नक्कीकरण टाकणे आवश्यक आहे.";
 "login-name-not-found" = "सनोंद-प्रवेशास सदस्यनाव हवे.";
 "login-name-illegal" = "आपण अवैध सदस्यनाव पुरविले.";
@@ -307,8 +303,6 @@
 "page-read-in-other-languages" = "$1 इतर भाषेत उपलब्ध";
 "page-last-edited" = "$1 दिवसांआधी संपादित केले";
 "page-edit-history" = "संपूर्ण संपादन इतिहास";
-"captcha-reload" = "दुसरा कॅप्चा दाखवा";
-"captcha-prompt" = "कॅप्चा मजकूर टाका";
 "mwk-empty-title-error" = "ही क्रिया रिकाम्या शिर्षकाने करता येत नाही.";
 "home-title" = "शोध करा";
 "home-empty-section" = "निकाल नाहीत";

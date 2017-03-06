@@ -51,14 +51,7 @@
 "account-creation-passwords-mismatched" = "Lozinke se ne poklapaju.";
 "account-creation-saving" = "Čuvam...";
 "account-creation-login" = "Već imate račun? Prijavite se.";
-"account-creation-username-placeholder-text" = "Korisničko ime";
-"account-creation-password-placeholder-text" = "Lozinka";
-"account-creation-password-confirm-placeholder-text" = "Potvrdite lozinku";
-"account-creation-email-placeholder-text" = "Adresa e-pošte (neobavezno)";
-"new-password-password-placeholder-text" = "Nova lozinka";
-"new-password-confirm-placeholder-text" = "Potvrdite novu lozinku";
 "two-factor-login-title" = "Prijavite se na svoj račun";
-"two-factor-login-token-title" = "Žeton";
 "login-name-not-found" = "Za prijavu je potrebno korisničko ime.";
 "login-name-illegal" = "Naveli ste neispravno korisničko ime.";
 "login-name-does-not-exist" = "Navedeno korisničko ime ne postoji.";

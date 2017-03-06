@@ -56,10 +56,6 @@
 "account-creation-passwords-mismatched" = "ਪਛਾਣ-ਸ਼ਬਦ ਦੇ ਡੱਬੇ ਮੇਲ ਨਹੀਂ ਖਾ ਰਹੇ।";
 "account-creation-saving" = "ਸਾਂਭਿਆ ਜਾ ਰਿਹਾ ਹੈ...";
 "account-creation-login" = "ਪਹਿਲੋਂ ਹੀ ਖਾਤਾ ਹੈ? ਦਾਖ਼ਲ ਹੋਵੋ।";
-"account-creation-username-placeholder-text" = "ਵਰਤੋਂਕਾਰ ਨਾਂ";
-"account-creation-password-placeholder-text" = "ਪਛਾਣ-ਸ਼ਬਦ";
-"account-creation-password-confirm-placeholder-text" = "ਪਛਾਣ ਸ਼ਬਦ ਤਸਦੀਕ ਕਰੋ";
-"account-creation-email-placeholder-text" = "ਈਮੇਲ (ਚੋਣਵੀਂ)";
 "account-creation-missing-fields" = "ਅਾਪਣਾ ਖਾਤਾ ਬਣਾੳੁਣ ਲੲੀ ਯੂਜ਼ਰ-ਨਾਂ ਅਤੇ ਗੁਪਤ-ਸ਼ਬਦ ਭਰੋ";
 "login-name-not-found" = "ਦਾਖ਼ਲ ਹੋਣ ਵਾਸਤੇ ਵਰਤੋਂਕਾਰ-ਨਾਂ ਲੁੜੀਂਦਾ ਹੈ।";
 "login-name-illegal" = "ਤੁਸੀਂ ਇੱਕ ਗ਼ੈਰ-ਕਨੂੰਨੀ ਵਰਤੋਂਕਾਰ ਨਾਂ ਦਿੱਤਾ।";
@@ -326,8 +322,6 @@
 "page-read-in-other-languages" = "$1 ਹੋਰ ਭਾਸ਼ਾਵਾੰ ਵਿੱਚ ਉਪਲਬਧ";
 "page-last-edited" = "$1 ਪਹਿਲਾੰ ਸੋਧਿਆ ਗਿਆ";
 "page-edit-history" = "ਪੂਰਾ ਸੋਧ ਇਤੇਹਾਸ";
-"captcha-reload" = "ਹੋਰ ਕੈਪਚਾ ਦਿਖਾਵੋ";
-"captcha-prompt" = "ਕੈਪਚਾ ਪਾਠ ਭਰੋ";
 "mwk-empty-title-error" = "ਖਾਲੀ ਸਿਰਲੇਖ ਦੇ ਨਾਲ ਕਾਰਵਾਈ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕਦੀ।";
 "home-title" = "ਵਿਚਰੋ";
 "home-empty-section" = "ਕੋਈ ਨਤੀਜਾ ਨਹੀਂ";

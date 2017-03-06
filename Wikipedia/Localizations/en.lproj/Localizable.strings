@@ -408,6 +408,7 @@
 "page-read-in-other-languages" = "Available in $1 other languages";
 "page-last-edited" = "Edited $1 days ago";
 "page-edit-history" = "Full edit history";
+"page-location" = "View on a map";
 
 "mwk-empty-title-error" = "Unable to perform operation with empty title.";
 
@@ -582,6 +583,8 @@
 "places-accessibility-show-as-map" = "Show as map";
 "places-accessibility-show-as-list" = "Show as list";
 "places-accessibility-recenter-map-on-user-location" = "Recenter on your location";
+"places-accessibility-close-search" = "Close search";
+"places-accessibility-clear-recent-searches" = "Clear recent searches";
 
 "action-share" = "Share";
 "action-save" = "Save";

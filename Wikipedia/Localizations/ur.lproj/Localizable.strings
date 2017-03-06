@@ -53,10 +53,6 @@
 "account-creation-passwords-mismatched" = "کلمہ شناخت نہیں ملتے۔";
 "account-creation-saving" = "محفوظ ہورہا ہے...";
 "account-creation-login" = "پہلے سے کھاتہ موجود ہے؟ داخل ہوجائیں۔";
-"account-creation-username-placeholder-text" = "صارف کا نام";
-"account-creation-password-placeholder-text" = "کلمہ شناخت";
-"account-creation-password-confirm-placeholder-text" = "کلمہ شناخت کی تصدیق";
-"account-creation-email-placeholder-text" = "برقی خط (ختیاری)";
 "account-creation-missing-fields" = "کھاتہ بنانے کے لیے صارف کا نام، کلمہ شناخت اور کلمہ شناخت کی تصدیق فراہم کریں۔";
 "login-name-not-found" = "داخل ہونے کے لیے صارف کے نام کی ضرورت ہے۔";
 "login-name-illegal" = "آپ نے ایک ناقابل قبول صارف کا نام فراہم کیا ہے۔";
@@ -332,8 +328,6 @@
 "page-read-in-other-languages" = "$1 دیگر زبانوں ميں دستیاب";
 "page-last-edited" = "$1 دن پہلے ترمیم کیا گیا.";
 "page-edit-history" = "مکمل ترمیمی تاریخچہ";
-"captcha-reload" = "دوسرا کیپچا دکھاییں";
-"captcha-prompt" = "کیپچا متن کو ڈالیں";
 "mwk-empty-title-error" = "خالی عنوان پر یہ عمل بہ روئے کار نہیں لایا جاسکتا۔";
 "home-title" = "ایکسپلور";
 "home-empty-section" = "کوئی نتیجہ نہیں";
