@@ -69,18 +69,11 @@
 "account-creation-passwords-mismatched" = "كلمتا السر لا تتطابقان";
 "account-creation-saving" = "جارٍ الحفظ...";
 "account-creation-login" = "لديك حساب؟ سجل دخولك.";
-"account-creation-username-placeholder-text" = "اسم المستخدم";
-"account-creation-password-placeholder-text" = "كلمة المرور";
-"account-creation-password-confirm-placeholder-text" = "أكّد كلمة المرور";
-"account-creation-email-placeholder-text" = "البريد الإلكتروني (اختياري)";
 "account-creation-missing-fields" = "يجب عليك إدخال اسم مستخدم، وكلمة مرور، وتأكيد كلمة المرور لإنشاء حسابٍ.";
 "new-password-title" = "قم بتعيين كلمة المرور الخاصة بك";
 "new-password-instructions" = "أنت الآن مسجل الدخول بكلمة سر مؤقتة. لإكمال تسجيل الدخول أعد تعيين كلمة سر جديدة هنا.";
-"new-password-password-placeholder-text" = "كلمة السر الجديدة";
-"new-password-confirm-placeholder-text" = "تأكيد كلمة السر";
 "two-factor-login-title" = "تسجيل الدخول إلى حسابك";
 "two-factor-login-instructions" = "يرجى إدخال تشفيرة المصادقة ذات العاملين";
-"two-factor-login-token-title" = "رمز";
 "login-name-not-found" = "اسم المستخدم مطلوب للولوج.";
 "login-name-illegal" = "لقد دونت اسم مستخدم غير مسموح به.";
 "login-name-does-not-exist" = "اسم المستخدم الذي أدخلته غير موجود.";
@@ -354,8 +347,6 @@
 "page-read-in-other-languages" = "متاحة في $1 لغة أخرى";
 "page-last-edited" = "عدلت $1 يوم مضى";
 "page-edit-history" = "تاريخ التعديل الكامل";
-"captcha-reload" = "اعرض كابتشا أخرى";
-"captcha-prompt" = "أدخل نص كابتشا";
 "mwk-empty-title-error" = "غير قادر على تنفيذ العملية مع عنوان فارغ";
 "home-title" = "استكشف";
 "home-empty-section" = "لا نتائج";

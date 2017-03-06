@@ -46,10 +46,6 @@
 "account-creation-logging-in" = "Ensalutante...";
 "account-creation-saving" = "Konservante...";
 "account-creation-login" = "Ĉu vi jam havas konton? Ensalutu.";
-"account-creation-username-placeholder-text" = "Uzantnomo";
-"account-creation-password-placeholder-text" = "Pasvorto";
-"account-creation-password-confirm-placeholder-text" = "Konfirmu pasvorton";
-"account-creation-email-placeholder-text" = "Retpoŝto (Malnepra)";
 "account-creation-missing-fields" = "Vi devas enigi uzantnomon, pasvorton, kaj konfirmi vian pasvorton por krei konton.";
 // Fuzzy
 "login-name-not-found" = "Uzantnomo nepras por ensaluti.";
@@ -289,6 +285,7 @@
 "close-button-accessibility-label" = "Fermi";
 "back-button-accessibility-label" = "Reen";
 "explore-nearby-sub-heading-your-location" = "Via loko";
+"explore-nearby-placeholder-cancel" = "Nuligi";
 "explore-random-article-sub-heading" = "Anglalingva Vikipedio";
 "explore-potd-heading" = "Bildo de la tago";
 "find-in-page-button-label" = "Trovi en la paĝo";
