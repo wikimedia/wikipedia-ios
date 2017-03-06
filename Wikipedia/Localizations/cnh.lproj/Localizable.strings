@@ -49,11 +49,6 @@
 "account-creation-passwords-mismatched" = "Biathup a khat lo.";
 "account-creation-saving" = "Khon lio...";
 "account-creation-login" = "Account na ngei cang maw? Ka hin lut";
-// Fuzzy
-"account-creation-username-placeholder-text" = "Na min";
-"account-creation-password-placeholder-text" = "Biathup";
-"account-creation-password-confirm-placeholder-text" = "Na biathup vun fiah than";
-"account-creation-email-placeholder-text" = "Email (na ngeih cun)";
 "account-creation-missing-fields" = "Account sernak ah na min, biathup le biathup fiahnak na telh hrim a hau.";
 // Fuzzy
 "login-name-not-found" = "Luhnak ah na min a hau.";
@@ -310,6 +305,3 @@
 "hockeyapp-alert-privacy" = "$1 pumpak kilvennak";
 "page-issues" = "Cahmai nambar";
 "page-similar-titles" = "Cahmai khatmi pawl";
-"captcha-reload" = "Adang captcha langhter";
-// Fuzzy
-"captcha-prompt" = "Hmanthlak cung i CAPTCHA ca kha tialpiak";

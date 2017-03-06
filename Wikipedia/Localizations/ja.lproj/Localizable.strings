@@ -67,10 +67,6 @@
 "account-creation-passwords-mismatched" = "入力したパスワードが一致しません。";
 "account-creation-saving" = "保存中...";
 "account-creation-login" = "アカウントを既にお持ちの場合は、ログインしてください。";
-"account-creation-username-placeholder-text" = "利用者名";
-"account-creation-password-placeholder-text" = "パスワード";
-"account-creation-password-confirm-placeholder-text" = "パスワード再入力";
-"account-creation-email-placeholder-text" = "メール (省略可能)";
 "account-creation-missing-fields" = "アカウントの作成には利用者名とパスワード、さらに確認のためもう一度パスワードを入力する必要があります。";
 "login-name-not-found" = "ログインするには利用者名が必要です。";
 "login-name-illegal" = "入力した利用者名は無効です。";
@@ -344,8 +340,6 @@
 "page-read-in-other-languages" = "他に$1つの言語で利用可能";
 "page-last-edited" = "最終編集日: $1日前";
 "page-edit-history" = "すべての編集履歴";
-"captcha-reload" = "別の文字を表示";
-"captcha-prompt" = "上に示した画像に書いてある文字を入力してください";
 "mwk-empty-title-error" = "タイトルなしでは操作を実行できません。";
 "home-title" = "探してみよう";
 "home-empty-section" = "該当結果はありません。";

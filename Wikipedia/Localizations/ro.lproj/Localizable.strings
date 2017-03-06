@@ -51,10 +51,6 @@
 "account-creation-passwords-mismatched" = "Câmpurile cu parole nu corespund.";
 "account-creation-saving" = "Se salvează...";
 "account-creation-login" = "Aveți deja un cont? Autentificați-vă.";
-"account-creation-username-placeholder-text" = "Nume de utilizator";
-"account-creation-password-placeholder-text" = "Parolă";
-"account-creation-password-confirm-placeholder-text" = "Confirmare parolă";
-"account-creation-email-placeholder-text" = "E-mail (opțional)";
 "account-creation-missing-fields" = "Trebuie să introduceți un nume de utilizator, o parolă și confirmarea parolei pentru a crea un cont.";
 "login-name-not-found" = "Numele de utilizator este necesar pentru autentificare.";
 "login-name-illegal" = "Ați introdus un nume de utilizator interzis.";
@@ -328,8 +324,6 @@
 "page-read-in-other-languages" = "Disponibil în alte $1 limbi";
 "page-last-edited" = "Modificat acum $1 zi(le)";
 "page-edit-history" = "Istoric complet al modificărilor";
-"captcha-reload" = "Arată alt text captcha";
-"captcha-prompt" = "Introduceți textul CAPTCHA";
 "mwk-empty-title-error" = "Imposibil de efectuat operațiunea cu un titlu gol.";
 "home-title" = "Explorare";
 "home-empty-section" = "Niciun rezultat";
