@@ -64,10 +64,6 @@
 "account-creation-passwords-mismatched" = "Hesla se neshodují.";
 "account-creation-saving" = "Ukládá se…";
 "account-creation-login" = "Již máte účet? Přihlaste se.";
-"account-creation-username-placeholder-text" = "Uživatelské jméno";
-"account-creation-password-placeholder-text" = "Heslo";
-"account-creation-password-confirm-placeholder-text" = "Potvrzení hesla";
-"account-creation-email-placeholder-text" = "E-mail (volitelné)";
 "account-creation-missing-fields" = "Pro vytvoření účtu musíte zadat uživatelské jméno, heslo a potvrzení hesla.";
 "login-name-not-found" = "Pro přihlášení je požadováno uživatelské jméno.";
 "login-name-illegal" = "Zadali jste nepovolené uživatelské jméno.";
@@ -294,7 +290,6 @@
 "hockeyapp-alert-always-send" = "Vždy posílat";
 "hockeyapp-alert-do-not-send" = "Neposílat";
 "page-similar-titles" = "Podobné stránky";
-"captcha-prompt" = "Zadejte text CAPTCHA";
 "home-title" = "Prozkoumat";
 "home-empty-section" = "Žádné výsledky";
 "home-empty-section-check-again" = "Zkusit znovu";

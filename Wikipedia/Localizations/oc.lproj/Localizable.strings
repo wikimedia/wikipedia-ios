@@ -46,16 +46,9 @@
 "account-creation-passwords-mismatched" = "Los senhals son pas identics.";
 "account-creation-saving" = "Enregistrament en cors…";
 "account-creation-login" = "Avètz ja un còmpte ? Connectatz-vos.";
-"account-creation-username-placeholder-text" = "Nom d'utilizaire";
-"account-creation-password-placeholder-text" = "Senhal";
-"account-creation-password-confirm-placeholder-text" = "Confirmatz lo senhal";
-"account-creation-email-placeholder-text" = "Corrièr electronic (facultatiu)";
 "account-creation-missing-fields" = "Vos cal sasir un nom d'utilizaire, un senhal e una confirmacion de vòstre senhal per crear un compte.";
 "new-password-title" = "Definir vòstre senhal";
-"new-password-password-placeholder-text" = "Senhal novèl";
-"new-password-confirm-placeholder-text" = "Confirmatz lo senhal novèl";
 "two-factor-login-title" = "Se connectar a vòstre compte";
-"two-factor-login-token-title" = "Geton";
 "login-name-not-found" = "Lo nom d'utilizaire es obligatòri per se connectar.";
 "login-name-illegal" = "Avètz causit un nom d’utilizaire pas autorizat.";
 "login-name-does-not-exist" = "Lo nom d’utilizaire qu'avètz provesit existís pas.";
@@ -153,6 +146,7 @@
 "page-history-title" = "Istoric de l’article";
 "navbar-title-mode-edit-wikitext" = "Modificar";
 "navbar-title-mode-login" = "Se connectar";
+"navbar-title-mode-login-and-save" = "Se connectar e publicar";
 "navbar-title-mode-create-account" = "Crear un compte";
 "navbar-title-mode-edit-wikitext-warning" = "Modificar los problèmas";
 "navbar-title-mode-edit-wikitext-disallow" = "Modificar los problèmas";
@@ -271,8 +265,6 @@
 "page-read-in-other-languages" = "Disponible dins $1 autras lengas";
 "page-last-edited" = "Modificat i a $1 jorns";
 "page-edit-history" = "Istoric complet de las modificacions";
-"captcha-reload" = "Afichar un autre captcha";
-"captcha-prompt" = "Entrar lo tèxte del CAPTCHA";
 "home-title" = "Explorar";
 "home-empty-section" = "Pas cap de resultat";
 "home-empty-section-check-again" = "Ensajatz tornarmai";

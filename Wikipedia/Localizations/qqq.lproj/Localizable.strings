@@ -507,7 +507,7 @@
 "places-search-suggested-searches-header" = "Suggested searches - header for the list of suggested searches";
 "places-search-recently-searched-header" = "Recently searched - header for the list of recently searched items";
 "places-unknown-distance" = "Indicates that a place is an unknown distance away";
-"places-enable-location-title" = "Explains that you can explore articles near you by enabling location access";
+"places-enable-location-title" = "Explains that you can explore articles near you by enabling location access. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".";
 "places-enable-location-description" = "Describes that access to your location is only used when the app or one of its features is on the screen";
 "places-enable-location-action-button-title" = "Button title to enable location access";
 "places-accessibility-group" = "Accessibility label for a map icon - $1 is replaced with the number of articles in the group\n{{Identical|Article}}";

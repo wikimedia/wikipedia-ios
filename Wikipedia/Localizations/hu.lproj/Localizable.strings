@@ -54,10 +54,6 @@
 "account-creation-passwords-mismatched" = "A jelszavak nem egyeznek";
 "account-creation-saving" = "Mentés…";
 "account-creation-login" = "Már van fiókod? Jelentkezz be!";
-"account-creation-username-placeholder-text" = "Felhasználónév";
-"account-creation-password-placeholder-text" = "Jelszó";
-"account-creation-password-confirm-placeholder-text" = "Jelszó megerősítése";
-"account-creation-email-placeholder-text" = "Email cím (opcionális)";
 "account-creation-missing-fields" = "Be kell írnod egy felhasználónevet, jelszót és jelszómegerősítést egy fiók létrehozásához.";
 "login-name-not-found" = "A felhasználónév szükséges a belépéshez.";
 "login-name-illegal" = "Érvénytelen felhasználónevet adtál meg.";
@@ -330,8 +326,6 @@
 "page-read-in-other-languages" = "Elérhető $1 másik nyelven";
 "page-last-edited" = "Szerkesztve $1 napja";
 "page-edit-history" = "Teljes laptörténet";
-"captcha-reload" = "Új captcha mutatása";
-"captcha-prompt" = "Írd be a CAPTCHA szövegét";
 "mwk-empty-title-error" = "A művelet nem hajtható végre üres címmel.";
 "home-title" = "Felfedezés";
 "home-empty-section" = "Nincs találat";

@@ -65,18 +65,11 @@
 "account-creation-passwords-mismatched" = "Hasła nie są identyczne.";
 "account-creation-saving" = "Zapisywanie...";
 "account-creation-login" = "Masz już konto? Zaloguj się.";
-"account-creation-username-placeholder-text" = "Nazwa użytkownika";
-"account-creation-password-placeholder-text" = "Hasło";
-"account-creation-password-confirm-placeholder-text" = "Potwierdź hasło";
-"account-creation-email-placeholder-text" = "E-mail (opcjonalnie)";
 "account-creation-missing-fields" = "W celu utworzenia konta, użytkownik musi wprowadzić nazwę użytkownika, hasło i potwierdzenie hasła.";
 "new-password-title" = "Wpisz swoje hasło";
 "new-password-instructions" = "Zalogowałeś się z użyciem hasła tymczasowego. Aby dokończyć logowanie ustal nowe hasło";
-"new-password-password-placeholder-text" = "Nowe hasło";
-"new-password-confirm-placeholder-text" = "Potwierdź nowe hasło";
 "two-factor-login-title" = "Zaloguj się na swoje konto";
 "two-factor-login-instructions" = "Wprowadź kod weryfikacji dwuskładnikowej";
-"two-factor-login-token-title" = "Token";
 "login-name-not-found" = "Do logowania wymagana jest nazwa użytkownika.";
 "login-name-illegal" = "Wpisałeś niedozwoloną nazwę użytkownika.";
 "login-name-does-not-exist" = "Nazwa użytkownika, którą podałeś, nie istnieje.";
@@ -335,8 +328,6 @@
 "page-similar-titles" = "Podobne strony";
 "page-read-in-other-languages" = "Dostępne w $1 innych językach";
 "page-edit-history" = "Pełna historia edycji";
-"captcha-reload" = "Pokaż inny tekst CAPTCHA";
-"captcha-prompt" = "Wpisz tekst CAPTCHA";
 "mwk-empty-title-error" = "Nie można wykonać operacji, jeśli tytuł jest pusty.";
 "home-empty-section" = "Brak wyników";
 "home-empty-section-check-again" = "Spróbuj ponownie";
@@ -371,6 +362,7 @@
 "explore-nearby-heading" = "Miejsca w pobliżu";
 "explore-nearby-sub-heading-your-location" = "Twoje położenie";
 "explore-nearby-placeholder-heading" = "Miejsca";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "W Wikipedii";
 "explore-nearby-placeholder-dismiss" = "Odrzuć";
 "explore-nearby-placeholder-cancel" = "Anuluj";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";

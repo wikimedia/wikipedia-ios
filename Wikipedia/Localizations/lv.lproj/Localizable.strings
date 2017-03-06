@@ -36,10 +36,6 @@
 "account-creation-captcha-required" = "Nepieciešama CAPTCHA verifikācija.";
 "account-creation-captcha-obtaining" = "Iegūst jaunu CAPTCHA...";
 "account-creation-saving" = "Saglabā...";
-"account-creation-username-placeholder-text" = "Lietotājvārds";
-"account-creation-password-placeholder-text" = "Parole";
-"account-creation-password-confirm-placeholder-text" = "Apstipriniet paroli";
-"account-creation-email-placeholder-text" = "E-pasts (nav obligāti)";
 "login-password-empty" = "Nepieciešama parole, lai ieietu.";
 "login-user-blocked" = "Dalībnieks ir bloķēts.";
 "login-username-placeholder-text" = "Lietotājvārds";
@@ -201,8 +197,6 @@
 "hockeyapp-alert-do-not-send" = "Nesūtīt";
 "page-similar-titles" = "Līdzīgas lapas";
 "page-edit-history" = "Pilna labojumu vēsture";
-"captcha-reload" = "Rādīt vēl vienu captcha";
-"captcha-prompt" = "Ievadiet CAPTCHA tekstu";
 "home-empty-section" = "Rezultātu nav";
 "home-empty-section-check-again" = "Mēģināt vēlreiz";
 "home-continue-reading-heading" = "Turpināt lasīšanu";
