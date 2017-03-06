@@ -167,7 +167,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         _mapRegion = mapView.region
         guard performDefaultSearchOnNextMapRegionUpdate == false else {
-            performDefaultSearchIfNessary(withRegion: mapView.region)
+            performDefaultSearchIfNecessary(withRegion: mapView.region)
             return
         }
         regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
@@ -365,7 +365,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    func performDefaultSearchIfNessary(withRegion region: MKCoordinateRegion) {
+    func performDefaultSearchIfNecessary(withRegion region: MKCoordinateRegion) {
         guard currentSearch == nil else {
             return
         }
@@ -1528,7 +1528,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func zoomAndPanMapView(toLocation location: CLLocation) {
         let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
         mapRegion = region
-        performDefaultSearchIfNessary(withRegion: region)
+        performDefaultSearchIfNecessary(withRegion: region)
     }
     
     var panMapToNextLocationUpdate = true
@@ -1557,7 +1557,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         } else {
             panMapToNextLocationUpdate = false
             locationManager.stopMonitoringLocation()
-            performDefaultSearchIfNessary(withRegion: mapView.region)
+            performDefaultSearchIfNecessary(withRegion: mapView.region)
         }
     }
     
@@ -1585,7 +1585,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func enableLocationViewController(_ enableLocationViewController: EnableLocationViewController, didFinishWithShouldPromptForLocationAccess shouldPromptForLocationAccess: Bool) {
         guard shouldPromptForLocationAccess else {
-            performDefaultSearchIfNessary(withRegion: mapView.region)
+            performDefaultSearchIfNecessary(withRegion: mapView.region)
             return
         }
         guard WMFLocationManager.isAuthorizationNotDetermined() else {
