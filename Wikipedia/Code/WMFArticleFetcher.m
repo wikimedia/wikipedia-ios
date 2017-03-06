@@ -169,7 +169,9 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                               if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:articleURL]] && [articleError wmf_shouldFallbackToDesktopURLError]) {
                                                   [self fetchArticleForURL:articleURL useDesktopURL:YES progress:progress failure:failure success:success];
                                               } else {
-                                                  failure(articleError);
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                      failure(articleError);
+                                                  });
                                               }
                                           }
                                       }];
