@@ -1356,7 +1356,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     // MARK: UISearchBarDelegate
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        if let type = currentSearch?.type, type != .text {
+        if let type = currentSearch?.type, type == .top || type == .saved {
             searchBar.text = nil
         }
         viewMode = .search
