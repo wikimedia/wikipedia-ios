@@ -268,7 +268,8 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
     [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
                             completion:^{
-                                WMFAssertMainThread(@"completion must be called on the main thread");                                self.nearbyUpdateTaskGroup = nil;
+                                WMFAssertMainThread(@"completion must be called on the main thread");
+                                self.nearbyUpdateTaskGroup = nil;
                                 if (completion) {
                                     completion();
                                 }
@@ -1421,7 +1422,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     }
 }
 
-#pragma mark - WMFArticleingActionsDelegate
+#pragma mark - WMFArticlePreviewingActionsDelegate
 
 - (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
     [self wmf_pushArticleViewController:articleController animated:YES];
@@ -1430,6 +1431,11 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 - (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
                                        shareActivityController:(UIActivityViewController *)shareActivityController {
     [self presentViewController:shareActivityController animated:YES completion:NULL];
+}
+
+- (void)viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
+    NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:articleController.article.url];
+    [[UIApplication sharedApplication] openURL:placesURL];
 }
 
 #pragma mark - UIViewControllerPreviewingDelegate
