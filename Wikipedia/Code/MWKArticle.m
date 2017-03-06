@@ -45,6 +45,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 @property (readwrite, strong, nonatomic) MWKImage *image;
 @property (readwrite, strong, nonatomic /*, nullable*/) NSArray *citations;
 @property (readwrite, strong, nonatomic) NSString *summary;
+@property (nonatomic) CLLocationCoordinate2D coordinate;
 
 @end
 
@@ -140,7 +141,12 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     dict[@"mainpage"] = @(self.isMain);
 
     [dict wmf_maybeSetObject:self.acceptLanguageRequestHeader forKey:@"acceptLanguageRequestHeader"];
-
+    
+    CLLocationCoordinate2D coordinate = self.coordinate;
+    if (CLLocationCoordinate2DIsValid(coordinate)) {
+        [dict wmf_maybeSetObject:@{@"lat": @(coordinate.latitude), @"lon": @(coordinate.longitude)} forKey:@"coordinates"];
+    }
+    
     return [dict copy];
 }
 
@@ -206,6 +212,22 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     if ([sectionsData count] > 0) {
         self.sections = [[MWKSectionList alloc] initWithArticle:self sections:sectionsData];
     }
+    
+    id coordinates = dict[@"coordinates"];
+    id coordinateDictionary = coordinates;
+    if ([coordinates isKindOfClass:[NSArray class]]) {
+        coordinateDictionary = [coordinates firstObject];
+    }
+    
+    CLLocationCoordinate2D coordinate = kCLLocationCoordinate2DInvalid;
+    if ([coordinateDictionary isKindOfClass:[NSDictionary class]]) {
+        id lat = coordinateDictionary[@"lat"];
+        id lon = coordinateDictionary[@"lon"];
+        if ([lat respondsToSelector:@selector(doubleValue)] && [lon respondsToSelector:@selector(doubleValue)]) {
+            coordinate = CLLocationCoordinate2DMake([lat doubleValue], [lon doubleValue]);
+        }
+    }
+    self.coordinate = coordinate;
 }
 
 #pragma mark - Image Helpers
