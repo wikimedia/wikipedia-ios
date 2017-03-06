@@ -59,10 +59,6 @@
 "account-creation-passwords-mismatched" = "Паролі не збігаються.";
 "account-creation-saving" = "Збереження...";
 "account-creation-login" = "Ви вже зареєстровані? Увійдіть.";
-"account-creation-username-placeholder-text" = "Ім'я користувача";
-"account-creation-password-placeholder-text" = "Пароль";
-"account-creation-password-confirm-placeholder-text" = "Підтвердити пароль";
-"account-creation-email-placeholder-text" = "Електронна пошта (необов'язково)";
 "account-creation-missing-fields" = "Щоб створити обліковий запис, Ви маєте ввести ім'я користувача, пароль і підтвердження пароля.";
 "login-name-not-found" = "Ім'я користувача необхідне для входу в систему.";
 "login-name-illegal" = "Ви вказали незаконне ім'я користувача.";
@@ -337,8 +333,6 @@
 "page-read-in-other-languages" = "Доступно на $1 мовах";
 "page-last-edited" = "Відредаговано $1 днів тому";
 "page-edit-history" = "Повна історія редагування";
-"captcha-reload" = "Показати інший малюнок";
-"captcha-prompt" = "Введіть текст з капчі";
 "mwk-empty-title-error" = "Не вдається виконати операцію з порожнім заголовком.";
 "home-title" = "Досліджуйте";
 "home-empty-section" = "Немає результатів";

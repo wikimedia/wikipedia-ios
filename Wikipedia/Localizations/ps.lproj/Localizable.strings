@@ -37,10 +37,6 @@
 "account-creation-logging-in" = "په ننوتلو کې دی...";
 "account-creation-saving" = "خوندي کېږي...";
 "account-creation-login" = "آيا له پخوا نه يو گڼون لرې؟ ورننوځه.";
-"account-creation-username-placeholder-text" = "کارن-نوم";
-"account-creation-password-placeholder-text" = "پټنوم";
-"account-creation-password-confirm-placeholder-text" = "پټنوم مو تاييد کړئ";
-"account-creation-email-placeholder-text" = "برېښليک (اختياري)";
 "login-name-not-found" = "د  ننوتلو لپاره کارن-نوم ته اړتيا ده.";
 "login-name-illegal" = "تاسې يو ناقانونه کارن-نوم ورکړی.";
 "login-name-does-not-exist" = "کوم کارن-نوم مو چې ورکړی هغه نشته.";
@@ -216,8 +212,6 @@
 "page-read-in-other-languages" = "په $1 ژبو کې شته";
 "page-last-edited" = "$1 ورځې مخکې سم شوی";
 "page-edit-history" = "د سمون بشپړ پېښليک";
-"captcha-reload" = "يو بل کپچا ښکاره کول";
-"captcha-prompt" = "کپچا متن ورکړئ";
 "home-empty-section" = "بې پايلو";
 "home-empty-section-check-again" = "بيا هڅه";
 "home-continue-related-heading" = "ځکه چې تاسې $1 لوستلی";

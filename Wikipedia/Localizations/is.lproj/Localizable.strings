@@ -53,11 +53,6 @@
 "account-creation-passwords-mismatched" = "Lykilorðin passa ekki saman.";
 "account-creation-saving" = "Vistar...";
 "account-creation-login" = "Ert þú með aðgang? Skrá inn.";
-// Fuzzy
-"account-creation-username-placeholder-text" = "Notandanafn";
-"account-creation-password-placeholder-text" = "Lykilorð";
-"account-creation-password-confirm-placeholder-text" = "Staðfesting á lykilorði";
-"account-creation-email-placeholder-text" = "Netfang (valfrjálst)";
 "account-creation-missing-fields" = "Það verður að slá inn notandanafn, lykilorð og staðfesting á lykilorðinu til að stofna aðgang.";
 // Fuzzy
 "login-name-not-found" = "Notandanafn krefst til að skrá inn.";
@@ -333,9 +328,6 @@
 "page-read-in-other-languages" = "Lesa á $1 tungumálum";
 "page-last-edited" = "Breytt fyrir $1 dögum";
 "page-edit-history" = "Öll breytingaskráin";
-"captcha-reload" = "Sýna annað captcha";
-// Fuzzy
-"captcha-prompt" = "Settu inn CAPTCHA-textann úr myndinni hér fyrir ofan";
 "mwk-empty-title-error" = "Gat ekki framkvæmt aðgerð með auðum titli.";
 "home-title" = "Könnun";
 "home-empty-section" = "Engar niðurstöður";

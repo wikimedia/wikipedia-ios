@@ -58,11 +58,6 @@
 "account-creation-passwords-mismatched" = "Серһүҙҙәр тура килмәй";
 "account-creation-saving" = "Яҙҙырыла";
 "account-creation-login" = "Һеҙ теркәлдегеҙме? Инегеҙ";
-// Fuzzy
-"account-creation-username-placeholder-text" = "Ҡатнашыусы исеме";
-"account-creation-password-placeholder-text" = "Серһүҙ";
-"account-creation-password-confirm-placeholder-text" = "Серһүҙҙе раҫлағыҙ";
-"account-creation-email-placeholder-text" = "Электрон почта адресы  (мотлаҡ түгел)";
 "account-creation-missing-fields" = "Иҫәп яҙмаһы булдырыу өсөн һеҙ ҡатнашыусының исемен, серһүҙҙе индеререргә һәм серһүҙҙе  раҫларға тейешһегеҙ";
 // Fuzzy
 "login-name-not-found" = "Инеү өсөн ҡатнашыусының исеме талап ителә";
@@ -337,8 +332,6 @@
 "page-read-in-other-languages" = "$1 телдәргә аңлайышлы";
 "page-last-edited" = "$1 көн элек мөхәррирләнгән";
 "page-edit-history" = "Мөхәррирләүҙең тулы тарихы";
-"captcha-reload" = "Икенсе код күрһәтергә";
-"captcha-prompt" = "Капчи текстын керетегеҙ";
 "mwk-empty-title-error" = "Буш атама менән операция башҡарып булмай";
 "home-title" = "Тикшерегеҙ";
 "home-empty-section" = "Һөҙөмтә юҡ";

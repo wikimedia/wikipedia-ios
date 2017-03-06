@@ -65,12 +65,7 @@
 "account-creation-passwords-mismatched" = "De wachtwoorden komen niet overeen.";
 "account-creation-saving" = "Aan het opslaan...";
 "account-creation-login" = "Hebt u al een gebruiker? Meld u dan aan.";
-"account-creation-username-placeholder-text" = "Gebruikersnaam";
-"account-creation-password-placeholder-text" = "Wachtwoord";
-"account-creation-password-confirm-placeholder-text" = "Wachtwoord bevestigen";
-"account-creation-email-placeholder-text" = "E-mailadres (optioneel)";
 "account-creation-missing-fields" = "U moet een gebruikersnaam, wachtwoord, en wachtwoordbevestiging invoeren om een account aan te maken.";
-"new-password-password-placeholder-text" = "Nieuw wachtwoord";
 "login-name-not-found" = "U moet een gebruikersnaam opgeven om aan te melden.";
 "login-name-illegal" = "U hebt een ongeldige gebruikersnaam opgegeven.";
 "login-name-does-not-exist" = "De opgegeven gebruikersnaam bestaat niet.";
@@ -347,8 +342,6 @@
 "page-read-in-other-languages" = "Beschikbaar in $1 andere talen";
 "page-last-edited" = "$1 dagen geleden bewerkt";
 "page-edit-history" = "Volledige bewerkingsgeschiedenis";
-"captcha-reload" = "Andere CAPTCHA weergeven";
-"captcha-prompt" = "Vul de CAPTCHA-tekst in";
 "mwk-empty-title-error" = "Het was niet mogelijk de bewerking uit de voeren zonder paginanaam.";
 "home-title" = "Verkennen";
 "home-empty-section" = "Geen resultaten";

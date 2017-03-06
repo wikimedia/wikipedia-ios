@@ -52,10 +52,6 @@
 "account-creation-passwords-mismatched" = "Аһарыктар сөп түбэспэтилэр.";
 "account-creation-saving" = "Бигэргэнэр...";
 "account-creation-login" = "Бэлиэтэммитиҥ дуо? Киир.";
-"account-creation-username-placeholder-text" = "Бэлиэ-аат";
-"account-creation-password-placeholder-text" = "Аһарык";
-"account-creation-password-confirm-placeholder-text" = "Аһарыккын бигэргэт";
-"account-creation-email-placeholder-text" = "Электрон почта (булгуччута суох)";
 "account-creation-missing-fields" = "Ааккын бэлиэтииргэ кыттааччы аатын, аһарыккын уонна аһарыккын хос суруйуохтааххын.";
 "login-name-not-found" = "Киирэргэ кыттааччы аата ирдэнэр.";
 "login-name-illegal" = "Табыллыбат ааты ыйбыккын.";
@@ -330,8 +326,6 @@
 "page-read-in-other-languages" = "Атын $1 тылынан ааҕыахха сөп";
 "page-last-edited" = "$1 күн ынараа өттүгэр уларыйбыт";
 "page-edit-history" = "Уларытыы толору устуоруйата";
-"captcha-reload" = "Атын куоду көрдөр";
-"captcha-prompt" = "Капчаттан тиэкиһин суруй";
 "mwk-empty-title-error" = "Ааттаматах буолан дьайыыны оҥорор табыллыбата.";
 "home-title" = "Чинчий!";
 "home-empty-section" = "Туох да көстүбэтэ";

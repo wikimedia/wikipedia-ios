@@ -51,12 +51,7 @@
 "account-creation-passwords-mismatched" = "Лозинке се не поклапају.";
 "account-creation-saving" = "Чувам…";
 "account-creation-login" = "Већ имате налог? Пријавите се.";
-"account-creation-username-placeholder-text" = "Корисничко име";
-"account-creation-password-placeholder-text" = "Лозинка";
-"account-creation-password-confirm-placeholder-text" = "Потврда лозинке";
-"account-creation-email-placeholder-text" = "Имејл (необавезно)";
 "account-creation-missing-fields" = "За отварање налога је потребно да унесете корисничко име, лозинку и потврду лозинке.";
-"new-password-password-placeholder-text" = "Нова лозинка";
 "login-name-not-found" = "Потребно је корисничко име.";
 "login-name-illegal" = "Наведено корисничко име је неисправно.";
 "login-name-does-not-exist" = "Наведено корисничко име не постоји.";
@@ -320,8 +315,6 @@
 "page-read-in-other-languages" = "Доступно на $1 језика";
 "page-last-edited" = "Измењено пре $1 дана";
 "page-edit-history" = "Целокупна историја измена";
-"captcha-reload" = "Прикажи другу слику";
-"captcha-prompt" = "Унесите текст са слике";
 "mwk-empty-title-error" = "Не могу да извршим операцију са празним насловом.";
 "home-title" = "Истражи";
 "home-empty-section" = "Нема резултата";
