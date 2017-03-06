@@ -54,16 +54,9 @@
 "account-creation-passwords-mismatched" = "Maeziennoù ar gerioù-tremen ne glotont ket an eil gant egile";
 "account-creation-saving" = "Oc'h enrollañ...";
 "account-creation-login" = "Ur gont ho peus dija ? Kevreit.";
-"account-creation-username-placeholder-text" = "Anv implijer";
-"account-creation-password-placeholder-text" = "Ger-tremen";
-"account-creation-password-confirm-placeholder-text" = "Kadarnaat ar ger-tremen";
-"account-creation-email-placeholder-text" = "Postel (diret)";
 "account-creation-missing-fields" = "Rankout a rit ebarzhiñ un anv implijer, ur ger-tremen, hag ur ger-tremen kadarnaat evit krouiñ ur gont.";
-"new-password-password-placeholder-text" = "Ger-tremen nevez";
-"new-password-confirm-placeholder-text" = "Kadarnaat ar ger-tremen nevez";
 "two-factor-login-title" = "Kevreañ d'ho kont";
 "two-factor-login-instructions" = "Merkit ar c'hod gwiriañ dezhañ daou faktor";
-"two-factor-login-token-title" = "Jedouer";
 "login-name-not-found" = "Rekis eo an anv implijer evit kevreañ.";
 "login-name-illegal" = "Roet ho peus un anv implijer dilezenn.";
 "login-name-does-not-exist" = "N'eus ket eus an anv implijer roet";
@@ -343,8 +336,6 @@
 "page-read-in-other-languages" = "A c'haller kaout e $1 yezh all";
 "page-last-edited" = "Kemmet $1 deiz zo";
 "page-edit-history" = "Istor klok ar c'hemmoù";
-"captcha-reload" = "Diskwel ur c'haptcha all";
-"captcha-prompt" = "Ebarzhit an destenn CAPTCHA";
 "mwk-empty-title-error" = "N'haller ket kas an oberiadenn da benn, goullo eo an titl.";
 "home-title" = "Ergerzhet";
 "home-empty-section" = "Disoc'h ebet";
@@ -359,7 +350,7 @@
 "home-featured-article-heading" = "Pennad eus ar c'hentañ evit $1";
 "home-main-page-heading" = "Hiziv e Wikipedia";
 "home-potd-heading" = "Skeudenn an deiz evit $1";
-"home-last-update-label" = "Hizivadenn diwezhañ: $1";
+"home-last-update-label" = "Hizivadenn diwezhañ: %1$";
 "home-last-update-never-label" = "Hizivadenn diwezhañ : Morse";
 "home-updating-label" = "Oc'h hizivaat...";
 "home-hide-suggestion-prompt" = "Kuzhat ar c'hinnig-mañ";

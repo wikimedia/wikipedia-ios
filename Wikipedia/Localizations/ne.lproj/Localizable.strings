@@ -35,10 +35,6 @@
 "zero-wikipedia-zero-heading" = "विकिपीडिया शुन्य";
 "account-creation-saving" = "सङ्ग्रह गर्दै...";
 "account-creation-login" = "पहिले देखिको खाता छ? Log in.";
-"account-creation-username-placeholder-text" = "प्रयोगकर्ताको नाम";
-"account-creation-password-placeholder-text" = "पासवर्ड";
-"account-creation-password-confirm-placeholder-text" = "पासवर्ड निश्चित गर्नुहोस्";
-"account-creation-email-placeholder-text" = "इमेल (वैकल्पिक)";
 "login-user-blocked" = "प्रयोककर्तालाई रोक लगाइएको छ";
 "login-account-creation" = "खाता छैन? Join Wikipedia.";
 "login-username-placeholder-text" = "प्रयोगकर्ताको नाम";

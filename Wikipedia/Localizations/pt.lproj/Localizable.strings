@@ -62,18 +62,11 @@
 "account-creation-passwords-mismatched" = "As palavras-passe não correspondem.";
 "account-creation-saving" = "A gravar...";
 "account-creation-login" = "Já possui uma conta? Inicie sessão.";
-"account-creation-username-placeholder-text" = "Nome de utilizador(a)";
-"account-creation-password-placeholder-text" = "Palavra-passe";
-"account-creation-password-confirm-placeholder-text" = "Confirme a palavra-passe";
-"account-creation-email-placeholder-text" = "Endereço de correio eletrónico (opcional)";
 "account-creation-missing-fields" = "Deve inserir um nome de utilizador(a), uma palavra-passe e respetiva confirmação para criar uma conta.";
 "new-password-title" = "Defina a sua palavra-passe";
 "new-password-instructions" = "Está autenticado com uma palavra-passe temporária. Para concluir a autenticação, defina uma nova palavra-passe aqui.";
-"new-password-password-placeholder-text" = "Nova palavra-passe";
-"new-password-confirm-placeholder-text" = "Confirme a nova palavra-passe";
 "two-factor-login-title" = "Inicie sessão na sua conta";
 "two-factor-login-instructions" = "Escreva o código de verificação de dois fatores";
-"two-factor-login-token-title" = "Chave";
 "login-name-not-found" = "O nome de utilizador(a) é necessário para iniciar sessão.";
 "login-name-illegal" = "Forneceu um nome de utilizador(a) ilegal.";
 "login-name-does-not-exist" = "O nome de utilizador(a) que forneceu não existe.";
@@ -354,8 +347,6 @@
 "page-read-in-other-languages" = "Disponível em $1 outros idiomas";
 "page-last-edited" = "Editado há $1 dias";
 "page-edit-history" = "Histórico completo";
-"captcha-reload" = "Mostrar outro código";
-"captcha-prompt" = "Insira o código CAPTCHA";
 "mwk-empty-title-error" = "Não é possível executar a operação com o título vazio.";
 "home-title" = "Explorar";
 "home-empty-section" = "Sem resultados";

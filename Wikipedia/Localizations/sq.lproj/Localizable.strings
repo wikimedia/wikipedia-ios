@@ -54,11 +54,6 @@
 "account-creation-passwords-mismatched" = "Fushat e fjalëkalimeve nuk përputhen.";
 "account-creation-saving" = "Duke ruajtur...";
 "account-creation-login" = "Keni një llogari? Identifikohuni";
-// Fuzzy
-"account-creation-username-placeholder-text" = "Emri i përdoruesit";
-"account-creation-password-placeholder-text" = "Fjalëkalimi";
-"account-creation-password-confirm-placeholder-text" = "Konfirmoni fjalëkalimin";
-"account-creation-email-placeholder-text" = "Email (me dëshirë)";
 "account-creation-missing-fields" = "Ju duhet të fusni një emër përdoruesi, fjalëkalimin dhe konfirmimin e fjalëkalimit për të krijuar një llogari.";
 // Fuzzy
 "login-name-not-found" = "Emri i përdoruesit është i nevojshëm në mënyrë që të hyni.";
@@ -119,7 +114,7 @@
 "main-menu-show-title" = "Më trego...";
 "main-menu-show-history" = "Të fundit";
 "main-menu-show-saved" = "Faqet e ruajtura";
-"main-menu-current-article-save" = "Ruani $1 për lexim pa internet";
+"main-menu-current-article-save" = "Ruani %1 për lexim pa internet";
 "main-menu-random" = "I rastit";
 "main-menu-feedback-heading" = "Komente";
 // Fuzzy
@@ -258,9 +253,6 @@
 "nearby-wifi" = "Aktivizimi i WI-FI mund ta ndihmojë pajisjen tuaj ta përcaktojë më mirë vendndodhjen tuaj.";
 "image-gallery-fetch-image-info-error-ok" = "Në rregull";
 "page-similar-titles" = "Faqe të ngjashme";
-"captcha-reload" = "Trego një captcha tjetër";
-// Fuzzy
-"captcha-prompt" = "Fusni tekstin CAPTCHA nga imazhi lart";
 "explore-featured-article-heading" = "Artikujt e veçuar";
 "explore-continue-reading-heading" = "Vazhdo leximin";
 "explore-nearby-heading" = "Vendet në afërsi";

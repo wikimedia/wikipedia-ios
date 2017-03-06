@@ -64,18 +64,11 @@
 "account-creation-passwords-mismatched" = "密码字段不匹配。";
 "account-creation-saving" = "正在保存...";
 "account-creation-login" = "已有帐户？请登录。";
-"account-creation-username-placeholder-text" = "用户名";
-"account-creation-password-placeholder-text" = "密码";
-"account-creation-password-confirm-placeholder-text" = "确认密码";
-"account-creation-email-placeholder-text" = "电子邮件（可选）";
 "account-creation-missing-fields" = "您必须输入用户名、密码并再一次确认密码后方能创建一个帐户。";
 "new-password-title" = "设置您的密码";
 "new-password-instructions" = "您已通过临时密码登录。要完成登录，请在此设置一个新密码。";
-"new-password-password-placeholder-text" = "新密码";
-"new-password-confirm-placeholder-text" = "确认新密码";
 "two-factor-login-title" = "登录您的账户";
 "two-factor-login-instructions" = "请输入双因素验证代码";
-"two-factor-login-token-title" = "令牌";
 "login-name-not-found" = "需提供用户名方可登录。";
 "login-name-illegal" = "您提供了无效的用户名。";
 "login-name-does-not-exist" = "您提供的用户名不存在。";
@@ -356,8 +349,6 @@
 "page-read-in-other-languages" = "在$1种其他语言中可用";
 "page-last-edited" = "编辑于$1天前";
 "page-edit-history" = "完整编辑历史";
-"captcha-reload" = "显示另一个验证码";
-"captcha-prompt" = "输入验证码文字";
 "mwk-empty-title-error" = "无法执行带空标题的操作。";
 "home-title" = "探索";
 "home-empty-section" = "没有结果";

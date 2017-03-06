@@ -74,18 +74,11 @@
 "account-creation-passwords-mismatched" = "Пароли не совпадают.";
 "account-creation-saving" = "Сохраняется…";
 "account-creation-login" = "Вы уже зарегистрированы? Войдите.";
-"account-creation-username-placeholder-text" = "Имя участника";
-"account-creation-password-placeholder-text" = "Пароль";
-"account-creation-password-confirm-placeholder-text" = "Подтвердите пароль";
-"account-creation-email-placeholder-text" = "Адрес электронной почты (необязательно)";
 "account-creation-missing-fields" = "Для создания учётной записи вы должны ввести имя пользователя, пароль и подтверждение пароля.";
 "new-password-title" = "Установите пароль";
 "new-password-instructions" = "Вы представились с помощью временного пароля.\nДля завершения входа необходимо задать новый пароль:";
-"new-password-password-placeholder-text" = "Новый пароль";
-"new-password-confirm-placeholder-text" = "Подтвердите новый пароль";
 "two-factor-login-title" = "Войдите в свою учётную запись";
 "two-factor-login-instructions" = "Пожалуйста, введите проверочный код двухэтапной авторизации";
-"two-factor-login-token-title" = "Токен";
 "login-name-not-found" = "Для входа требуется имя участника.";
 "login-name-illegal" = "Вы указали некорректное имя участника.";
 "login-name-does-not-exist" = "Указанного вами имени участника не существует.";
@@ -366,8 +359,6 @@
 "page-read-in-other-languages" = "Доступно на $1 языках";
 "page-last-edited" = "Отредактировано $1 д. назад";
 "page-edit-history" = "Полная история редактирования";
-"captcha-reload" = "Показать другой код";
-"captcha-prompt" = "Введите текст капчи";
 "mwk-empty-title-error" = "Не удаётся выполнить операцию с пустым заголовком.";
 "home-title" = "Исследуйте!";
 "home-empty-section" = "Нет результатов";
@@ -441,6 +432,7 @@
 "explore-continue-reading-heading" = "Продолжить чтение";
 "explore-nearby-heading" = "Места поблизости";
 "explore-nearby-sub-heading-your-location" = "Ваше местоположение";
+"explore-nearby-placeholder-heading" = "Места";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "На Википедии";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "На $1 Википедии";
 "explore-nearby-placeholder-dismiss" = "Закрыть";
@@ -495,8 +487,11 @@
 "places-search-suggested-searches-header" = "Предложения для поиска";
 "places-search-recently-searched-header" = "Недавно искали";
 "places-unknown-distance" = "расстояние неизвестно";
+"places-enable-location-description" = "Доступ к вашему местоположению доступен только тогда, когда приложение или один из его компонентов отображается на вашем экране.";
 "places-enable-location-action-button-title" = "Включить поиск расположения";
+"places-accessibility-show-as-map" = "Показать как карту";
 "places-accessibility-show-as-list" = "Показать как список";
+"places-accessibility-recenter-map-on-user-location" = "Перецентрировать ваше положение";
 "action-share" = "Поделиться";
 "action-save" = "Сохранить";
 "action-read" = "Читать";
