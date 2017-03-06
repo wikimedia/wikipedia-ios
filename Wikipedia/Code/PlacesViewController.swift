@@ -86,7 +86,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         segmentedControl = UISegmentedControl(items: [map, list])
         
         segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
+        segmentedControl.addTarget(self, action: #selector(updateViewModeFromSegmentedControl), for: .valueChanged)
         segmentedControl.tintColor = UIColor.wmf_blueTint()
         segmentedControlBarButtonItem = UIBarButtonItem(customView: segmentedControl)
         navigationItem.rightBarButtonItem = segmentedControlBarButtonItem
@@ -580,14 +580,48 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    func segmentedControlChanged() {
+    enum ViewMode {
+        case map
+        case list
+        case search
+    }
+    
+    var viewMode: ViewMode = .map {
+        didSet {
+            if oldValue == .search && viewMode != .search {
+                navigationItem.setRightBarButton(segmentedControlBarButtonItem, animated: true)
+            } else if oldValue != .search && viewMode == .search {
+                navigationItem.setRightBarButton(closeBarButtonItem, animated: true)
+            }
+            switch viewMode {
+            case .list:
+                deselectAllAnnotations()
+                updateDistanceFromUserOnVisibleCells()
+                mapView.isHidden = true
+                listView.isHidden = false
+                searchSuggestionView.isHidden = true
+            case .search:
+                mapView.isHidden = true
+                listView.isHidden = true
+                searchSuggestionView.isHidden = false
+            case .map:
+                fallthrough
+            default:
+                mapView.isHidden = false
+                listView.isHidden = true
+                searchSuggestionView.isHidden = true
+            }
+            recenterOnUserLocationButton.isHidden = mapView.isHidden
+            redoSearchButton.isHidden = mapView.isHidden
+        }
+    }
+    
+    func updateViewModeFromSegmentedControl() {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
-            listView.isHidden = true
+            viewMode = .map
         default:
-            deselectAllAnnotations()
-            listView.isHidden = false
-            updateDistanceFromUserOnVisibleCells()
+            viewMode = .list
         }
     }
     
@@ -1319,24 +1353,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         searchBar.text = currentSearch?.localizedDescription
     }
     
-    var searchSuggestionsHidden = true {
-        didSet {
-            searchSuggestionView.isHidden = searchSuggestionsHidden
-            if searchSuggestionsHidden {
-                navigationItem.setRightBarButton(segmentedControlBarButtonItem, animated: true)
-            } else {
-                navigationItem.setRightBarButton(closeBarButtonItem, animated: true)
-            }
-        }
-    }
-    
     // MARK: UISearchBarDelegate
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         if let type = currentSearch?.type, type != .text {
             searchBar.text = nil
         }
-        searchSuggestionsHidden = false
+        viewMode = .search
         updateSearchSuggestions(withCompletions: [])
         deselectAllAnnotations()
     }
@@ -1357,7 +1380,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchSuggestionsHidden = true
+        updateViewModeFromSegmentedControl()
     }
     
     // MARK: UITableViewDataSource
