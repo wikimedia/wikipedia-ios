@@ -1752,8 +1752,26 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                                                                                shareActivityController:shareActivityController];
                                      }
                                  }];
-
-    return @[readAction, saveAction, shareAction];
+    
+    UIPreviewAction *placeAction = nil;
+    if (CLLocationCoordinate2DIsValid(self.article.coordinate)) {
+        placeAction =
+            [UIPreviewAction actionWithTitle:MWLocalizedString(@"page-location", nil)
+                                       style:UIPreviewActionStyleDefault
+                                     handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+                                         UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
+                                         if (shareActivityController) {
+                                             NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
+                                             [self.articlePreviewingActionsDelegate viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController];
+                                         }
+                                     }];
+    }
+    
+    if (placeAction) {
+        return @[readAction, saveAction, placeAction, shareAction];
+    } else {
+        return @[readAction, saveAction, shareAction];
+    }
 }
 
 #pragma mark - WMFArticleingActionsDelegate methods
@@ -1765,6 +1783,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
                                        shareActivityController:(UIActivityViewController *)shareActivityController {
     [self presentViewController:shareActivityController animated:YES completion:NULL];
+}
+
+- (void)viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
+    NSAssert(false, @"NYI");
 }
 
 #pragma mark - Article Navigation

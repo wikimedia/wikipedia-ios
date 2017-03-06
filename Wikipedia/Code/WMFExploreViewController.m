@@ -1433,6 +1433,10 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 
+- (void)viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
+    NSAssert(false, @"NYI");
+}
+
 #pragma mark - UIViewControllerPreviewingDelegate
 
 - (nullable UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext

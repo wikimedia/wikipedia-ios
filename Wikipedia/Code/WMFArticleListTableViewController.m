@@ -148,6 +148,10 @@
     [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 
+- (void)viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
+    NSAssert(false, @"NYI");
+}
+
 #pragma mark - Delete Button
 
 - (void)updateDeleteButton {
@@ -226,11 +230,11 @@
     return @"";
 }
 
-- (BOOL)canDeleteItemAtIndexPath:(NSIndexPath*)indexPath{
+- (BOOL)canDeleteItemAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
 }
 
-- (void)deleteItemAtIndexPath:(NSIndexPath*)indexPath{
+- (void)deleteItemAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)deleteAll {
