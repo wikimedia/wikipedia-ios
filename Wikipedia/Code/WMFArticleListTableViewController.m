@@ -148,6 +148,11 @@
     [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 
+- (void)viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
+    NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:articleController.article.url];
+    [[UIApplication sharedApplication] openURL:placesURL];
+}
+
 #pragma mark - Delete Button
 
 - (void)updateDeleteButton {
@@ -226,11 +231,11 @@
     return @"";
 }
 
-- (BOOL)canDeleteItemAtIndexPath:(NSIndexPath*)indexPath{
+- (BOOL)canDeleteItemAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
 }
 
-- (void)deleteItemAtIndexPath:(NSIndexPath*)indexPath{
+- (void)deleteItemAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)deleteAll {
