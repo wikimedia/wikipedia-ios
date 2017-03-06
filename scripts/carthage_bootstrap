@@ -1,14 +1,20 @@
 #!/bin/bash
 
-if [ -z "$SRCROOT" ]; then
+if [ -z "$SRCROOT" ]
+then
     export SRCROOT=`pwd`
-fi  
+fi
+
+if [ -z "$CACHEROOT" ]
+then
+	export CACHEROOT="$SRCROOT/Carthage Cache/"
+fi
 
 export CARTHAGE="$SRCROOT/Carthage"
 if ! cmp -s "$SRCROOT/Cartfile.resolved" "$CARTHAGE/Cartfile.resolved_at_last_bootstrap"
 then
 	export CARTHAGE_SHA=`shasum -a 256 $SRCROOT/Cartfile.resolved |  awk 'match($0, /^[0-9a-f]*/) { print substr($0, RSTART, RLENGTH) }'`
-	export CARTHAGE_CACHE="$SRCROOT/Carthage Cache/$CARTHAGE_SHA"
+	export CARTHAGE_CACHE="$CACHEROOT/$CARTHAGE_SHA"
 	rm -rf "$CARTHAGE"
 	if [ -d "$CARTHAGE_CACHE" ] && [ ! -d "$CARTHAGE" ]
 	then
@@ -19,7 +25,7 @@ then
 		cp "$SRCROOT/Cartfile.resolved" "$CARTHAGE/Cartfile.resolved_at_last_bootstrap"
 		if [ -d "$CARTHAGE" ] && [ ! -d "$CARTHAGE_CACHE" ]
 		then
-			mkdir -p "$SRCROOT/Carthage Cache/"
+			mkdir -p "$CACHEROOT"
 			cp -R "$CARTHAGE" "$CARTHAGE_CACHE"
 		fi
 	fi
