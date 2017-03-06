@@ -1774,7 +1774,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
-#pragma mark - WMFArticleingActionsDelegate methods
+#pragma mark - WMFArticlePreviewingActionsDelegate methods
 
 - (void)readMoreArticlePreviewActionSelectedWithArticleController:(UIViewController *)articleController {
     [self commitViewController:articleController];
