@@ -8,6 +8,7 @@ let WMFMigrateHistoryListKey = "WMFMigrateHistoryListKey"
 let WMFMigrateToSharedContainerKey = "WMFMigrateToSharedContainerKey"
 let WMFMigrateSavedPageListKey = "WMFMigrateSavedPageListKey"
 let WMFMigrateBlackListKey = "WMFMigrateBlackListKey"
+let WMFMigrateToFixArticleCacheKey = "WMFMigrateToFixArticleCacheKey"
 let WMFDidMigrateToGroupKey = "WMFDidMigrateToGroup"
 let WMFDidMigrateToCoreDataFeedKey = "WMFDidMigrateToCoreDataFeedKey"
 let WMFMostRecentInTheNewsNotificationDateKey = "WMFMostRecentInTheNewsNotificationDate"
@@ -312,6 +313,15 @@ public extension UserDefaults {
     
     public func wmf_didMigrateBlackList() -> Bool {
         return self.bool(forKey: WMFMigrateBlackListKey)
+    }
+    
+    public func wmf_setDidMigrateToFixArticleCache(_ didFinish: Bool) {
+        self.set(didFinish, forKey: WMFMigrateToFixArticleCacheKey)
+        self.synchronize()
+    }
+    
+    public func wmf_didMigrateToFixArticleCache() -> Bool {
+        return self.bool(forKey: WMFMigrateToFixArticleCacheKey)
     }
     
     public func wmf_setDidMigrateToSharedContainer(_ didFinish: Bool) {

@@ -3,6 +3,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
     WMFUserActivityTypeExplore,
+    WMFUserActivityTypePlaces,
     WMFUserActivityTypeSavedPages,
     WMFUserActivityTypeHistory,
     WMFUserActivityTypeSearch,
@@ -41,6 +42,8 @@ typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
 - (NSURL *)wmf_contentURL;
 
 + (NSURL *)wmf_baseURLForActivityOfType:(WMFUserActivityType)type;
+
++ (NSURL *)wmf_URLForActivityOfType:(WMFUserActivityType)type withArticleURL:(NSURL *)articleURL;
 
 @end
 NS_ASSUME_NONNULL_END
