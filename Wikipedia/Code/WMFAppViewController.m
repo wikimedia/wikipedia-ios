@@ -790,7 +790,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             [[self navigationControllerForTab:WMFAppTabTypePlaces] popToRootViewControllerAnimated:NO];
             NSURL *articleURL = activity.wmf_articleURL;
             if (articleURL) {
-                [[self placesViewController] view]; // force view instantiation
                 [[self placesViewController] showArticleURL:articleURL];
             }
         }
