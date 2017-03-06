@@ -1261,8 +1261,19 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         updateSearchSuggestions(withCompletions: completions)
         return completions
     }
-
     
+    @objc public func showArticleURL(_ articleURL: URL) {
+        guard let article = articleStore.item(for: articleURL), let title = (articleURL as NSURL).wmf_title else {
+            return
+        }
+        var region: MKCoordinateRegion? = nil
+        if let coordinate = article.coordinate {
+            region = MKCoordinateRegionMakeWithDistance(coordinate, 5000, 5000)
+        }
+        let searchResult = MWKSearchResult(articleID: 0, revID: 0, displayTitle: title, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, isDisambiguation: false, isList: false, titleNamespace: nil)
+        currentSearch = PlaceSearch(type: .location, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult)
+    }
+
     func updateSearchCompletionsFromSearchBarText() {
         guard let text = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), text != "" else {
             updateSearchSuggestions(withCompletions: [])

@@ -736,6 +736,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }
     switch ([activity wmf_type]) {
         case WMFUserActivityTypeExplore:
+        case WMFUserActivityTypePlaces:
         case WMFUserActivityTypeSavedPages:
         case WMFUserActivityTypeHistory:
         case WMFUserActivityTypeSearch:
@@ -782,6 +783,17 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         case WMFUserActivityTypeExplore:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
             [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+            break;
+        case WMFUserActivityTypePlaces:
+        {
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypePlaces];
+            [[self navigationControllerForTab:WMFAppTabTypePlaces] popToRootViewControllerAnimated:NO];
+            NSURL *articleURL = activity.wmf_articleURL;
+            if (articleURL) {
+                [[self placesViewController] view]; // force view instantiation
+                [[self placesViewController] showArticleURL:articleURL];
+            }
+        }
             break;
         case WMFUserActivityTypeContent: {
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
