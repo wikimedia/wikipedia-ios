@@ -167,7 +167,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         _mapRegion = mapView.region
         guard performDefaultSearchOnNextMapRegionUpdate == false else {
-            performDefaultSearch(withRegion: mapView.region)
+            performDefaultSearchIfNecessary(withRegion: mapView.region)
             return
         }
         regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
@@ -365,10 +365,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    func performDefaultSearch(withRegion region: MKCoordinateRegion) {
+    func performDefaultSearchIfNecessary(withRegion region: MKCoordinateRegion) {
         guard currentSearch == nil else {
             return
         }
+        performDefaultSearch(withRegion: region)
+    }
+    
+    func performDefaultSearch(withRegion region: MKCoordinateRegion) {
         currentSearch = PlaceSearch(type: .top, sortStyle: .links, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
     }
     
@@ -390,7 +394,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func showRedoSearchButtonIfNecessary(forVisibleRegion visibleRegion: MKCoordinateRegion) {
-        guard let searchRegion = currentSearchRegion, let search = currentSearch, search.type != .location, search.type != .saved else {
+        guard let searchRegion = currentSearchRegion, let search = currentSearch, search.type != .saved else {
             redoSearchButton.isHidden = true
             return
         }
@@ -568,8 +572,15 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         guard let search = currentSearch else {
             return
         }
-        currentSearch = PlaceSearch(type: search.type, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchResult: search.searchResult)
+        
         redoSearchButton.isHidden = true
+        
+        guard search.type != .location && search.type != .saved else {
+            performDefaultSearch(withRegion: mapView.region)
+            return
+        }
+        
+        currentSearch = PlaceSearch(type: search.type, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchResult: search.searchResult)
     }
     
     // MARK: Display Actions
@@ -1356,7 +1367,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     // MARK: UISearchBarDelegate
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        if let type = currentSearch?.type, type != .text {
+        if let type = currentSearch?.type, type == .top || type == .saved {
             searchBar.text = nil
         }
         viewMode = .search
@@ -1517,7 +1528,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func zoomAndPanMapView(toLocation location: CLLocation) {
         let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
         mapRegion = region
-        performDefaultSearch(withRegion: region)
+        performDefaultSearchIfNecessary(withRegion: region)
     }
     
     var panMapToNextLocationUpdate = true
@@ -1546,7 +1557,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         } else {
             panMapToNextLocationUpdate = false
             locationManager.stopMonitoringLocation()
-            performDefaultSearch(withRegion: mapView.region)
+            performDefaultSearchIfNecessary(withRegion: mapView.region)
         }
     }
     
@@ -1574,7 +1585,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func enableLocationViewController(_ enableLocationViewController: EnableLocationViewController, didFinishWithShouldPromptForLocationAccess shouldPromptForLocationAccess: Bool) {
         guard shouldPromptForLocationAccess else {
-            performDefaultSearch(withRegion: mapView.region)
+            performDefaultSearchIfNecessary(withRegion: mapView.region)
             return
         }
         guard WMFLocationManager.isAuthorizationNotDetermined() else {
