@@ -4,7 +4,6 @@
 #import "WMFArticlePreview.h"
 #import "WMFAnnouncement.h"
 
-
 @import CoreData;
 
 NSString *const MWKArticleSavedNotification = @"MWKArticleSavedNotification";
@@ -148,7 +147,7 @@ static uint64_t bundleHash() {
         [self setupCrossProcessCoreDataNotifier];
         [self setupCoreDataStackWithContainerURL:containerURL];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-        
+
         self.articleLocationController = [ArticleLocationController new];
     }
     return self;
@@ -988,7 +987,64 @@ static uint64_t bundleHash() {
 
 #pragma mark - helper methods
 
-- (void)iterateOverArticles:(void (^)(MWKArticle *))block {
+- (void)removeUnreferencedArticlesFromDiskCacheWithFailure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+    NSFetchRequest *allValidArticleKeysFetchRequest = [WMFArticle fetchRequest];
+    allValidArticleKeysFetchRequest.predicate = [NSPredicate predicateWithFormat:@"viewedDate != NULL || savedDate != NULL"];
+    allValidArticleKeysFetchRequest.propertiesToFetch = @[@"key"];
+
+    NSError *fetchError = nil;
+    NSArray *arrayOfAllValidArticles = [self.viewContext executeFetchRequest:allValidArticleKeysFetchRequest error:&fetchError];
+
+    if (fetchError) {
+        failure(fetchError);
+        return;
+    }
+
+    dispatch_block_t deleteEverythingAndSucceed = ^{
+        dispatch_async(self.cacheRemovalQueue, ^{
+            [[NSFileManager defaultManager] removeItemAtPath:[self pathForSites] error:nil];
+            dispatch_async(dispatch_get_main_queue(), success);
+        });
+    };
+
+    if (arrayOfAllValidArticles.count == 0) {
+        deleteEverythingAndSucceed();
+        return;
+    }
+
+    NSMutableSet *allValidArticleKeys = [NSMutableSet setWithCapacity:arrayOfAllValidArticles.count];
+    for (WMFArticle *article in arrayOfAllValidArticles) {
+        NSString *key = article.key;
+        if (!key) {
+            continue;
+        }
+        [allValidArticleKeys addObject:key];
+    }
+
+    if (allValidArticleKeys.count == 0) {
+        deleteEverythingAndSucceed();
+        return;
+    }
+
+    dispatch_async(self.cacheRemovalQueue, ^{
+        NSMutableArray<NSURL *> *articleURLsToRemove = [NSMutableArray arrayWithCapacity:10];
+        [self iterateOverArticleURLs:^(NSURL *articleURL) {
+            NSString *key = articleURL.wmf_articleDatabaseKey;
+            if (!key) {
+                return;
+            }
+            if ([allValidArticleKeys containsObject:key]) {
+                return;
+            }
+
+            [articleURLsToRemove addObject:articleURL];
+        }];
+        [self removeArticlesWithURLsFromCache:articleURLsToRemove];
+        dispatch_async(dispatch_get_main_queue(), success);
+    });
+}
+
+- (void)iterateOverArticleURLs:(void (^)(NSURL *))block {
     NSFileManager *fm = [NSFileManager defaultManager];
     NSString *articlePath = [self pathForSites];
     for (NSString *path in [fm enumeratorAtPath:articlePath]) {
@@ -1011,9 +1067,7 @@ static uint64_t bundleHash() {
             NSString *domain = components[count - 5];
 
             NSURL *url = [NSURL wmf_URLWithDomain:domain language:language title:titleText fragment:nil];
-
-            MWKArticle *article = [self articleWithURL:url];
-            block(article);
+            block(url);
         }
     }
 }
@@ -1053,6 +1107,9 @@ static uint64_t bundleHash() {
 }
 
 - (void)removeArticlesWithURLsFromCache:(NSArray<NSURL *> *)urlsToRemove {
+    if (urlsToRemove.count == 0) {
+        return;
+    }
     dispatch_async(self.cacheRemovalQueue, ^{
         NSMutableArray<NSURL *> *allURLsToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
         if (allURLsToRemove == nil) {

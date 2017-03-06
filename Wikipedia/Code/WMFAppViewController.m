@@ -358,12 +358,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [self migrateToSharedContainerIfNecessaryWithCompletion:^{
         [self migrateToNewFeedIfNecessaryWithCompletion:^{
             [self migrateToQuadKeyLocationIfNecessaryWithCompletion:^{
-                [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
-                    [self loadMainUI];
-                    if (!waitToResumeApp) {
-                        [self hideSplashViewAnimated:!didShowOnboarding];
-                        [self resumeApp];
-                    }
+                [self migrateToRemoveUnreferencedArticlesIfNecessaryWithCompletion:^{
+                    [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+                        [self loadMainUI];
+                        if (!waitToResumeApp) {
+                            [self hideSplashViewAnimated:!didShowOnboarding];
+                            [self resumeApp];
+                        }
+                    }];
                 }];
             }];
         }];
@@ -415,6 +417,20 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         }
         completion();
     }];
+}
+
+- (void)migrateToRemoveUnreferencedArticlesIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
+    if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToFixArticleCache]) {
+        completion();
+    } else {
+       [self.dataStore removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError * _Nonnull error) {
+           DDLogError(@"Error during article migration: %@", error);
+           completion();
+       } success:^{
+           [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToFixArticleCache:YES];
+           completion();
+       }];
+    }
 }
 
 #pragma mark - Start/Pause/Resume App
@@ -510,7 +526,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         return;
     }
     [[WMFImageController sharedInstance] clearMemoryCache];
-    [self.dataStore startCacheRemoval];
+
     [self.savedArticlesFetcher stop];
     [self stopContentSources];
 
@@ -521,11 +537,17 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
     //TODO: implement completion block to cancel download task with the 2 tasks above
     NSError *housekeepingError = nil;
-    [self.houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext error:&housekeepingError];
+    NSArray<NSURL *> *deletedArticleURLs = [self.houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext error:&housekeepingError];
     if (housekeepingError) {
         DDLogError(@"Error on cleanup: %@", housekeepingError);
     }
+    
+    if (deletedArticleURLs.count > 0) {
+        [self.dataStore removeArticlesWithURLsFromCache:deletedArticleURLs];
+    }
 
+    [self.dataStore startCacheRemoval];
+    
     DDLogWarn(@"Backgrounding… Logging Important Statistics");
     [self logImportantStatistics];
 }
