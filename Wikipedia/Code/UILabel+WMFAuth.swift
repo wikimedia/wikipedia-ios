@@ -2,6 +2,7 @@
 extension UILabel {
     /// Makes an attributed string from two strings performing a **$1** substitution and applying a common color scheme (black/blue) used by a few auth view controllers.
     /// Also re-uses the label's font so the resulting attributed string respects storyboard dynamic type font choice and responds to dynamic type size changes.
+    /// https://github.com/wikimedia/wikipedia-ios/pull/1216#discussion_r104224511
     ///
     /// - Parameters:
     ///   - dollarSignString: A localization string which has a **$1** subtitution for the string from the **substitutionString** parameter.
