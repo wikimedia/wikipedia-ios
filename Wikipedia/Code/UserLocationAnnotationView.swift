@@ -30,7 +30,9 @@ class UserLocationAnnotationView: MKAnnotationView {
         
         let arrowWidth: CGFloat = 12
         let arrowHeight: CGFloat = 8
-        let dotDimension: CGFloat = 14
+
+        let dotImage = #imageLiteral(resourceName: "places-user-location")
+        let dotDimension: CGFloat = dotImage.size.width
         let dimension = arrowHeight + dotDimension
         
         frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
@@ -51,12 +53,10 @@ class UserLocationAnnotationView: MKAnnotationView {
         shapeLayer.fillColor = UIColor.wmf_blueTint().cgColor
         layer.addSublayer(shapeLayer)
         
-        dotLayer.borderWidth = 3
-        dotLayer.borderColor = UIColor.white.cgColor
-        dotLayer.backgroundColor = UIColor.wmf_blueTint().cgColor
-        dotLayer.cornerRadius = round(0.5*dotDimension)
-        dotLayer.bounds = CGRect(x: 0, y: 0, width: dotDimension, height: dotDimension)
+        
+        dotLayer.bounds = CGRect(x: 0, y: 0, width: dotImage.size.width, height: dotImage.size.height)
         dotLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
+        dotLayer.contents = dotImage.cgImage
         layer.addSublayer(dotLayer)
         
         self.annotation = annotation
