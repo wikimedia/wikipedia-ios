@@ -98,8 +98,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (url) {
         [items addObject:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@", url.absoluteString, @"wprov=sfsi1"]]];
     }
+    
+    if (CLLocationCoordinate2DIsValid(self.coordinate)) {
+        [items addObject:[NSValue valueWithMKCoordinate:self.coordinate]];
+    }
 
-    UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[[[TUSafariActivity alloc] init]]];
+    UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items
+                                                                     applicationActivities:
+                                    @[[[TUSafariActivity alloc] init],
+                                      [[WMFOpenInMapsActivity alloc] init],
+                                      [[WMFGetDirectionsInMapsActivity alloc] init]]];
     UIPopoverPresentationController *presenter = [vc popoverPresentationController];
     presenter.barButtonItem = button;
     return vc;
