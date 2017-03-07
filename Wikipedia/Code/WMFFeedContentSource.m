@@ -15,13 +15,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSInteger WMFFeedNotificationMinHour = 8;
-static NSInteger WMFFeedNotificationMaxHour = 20;
-static NSInteger WMFFeedNotificationMaxPerDay = 3;
+NSInteger const WMFFeedNotificationMinHour = 8;
+NSInteger const WMFFeedNotificationMaxHour = 20;
+NSInteger const WMFFeedNotificationMaxPerDay = 3;
 
-static NSTimeInterval WMFFeedNotificationArticleRepeatLimit = 30 * 24 * 60 * 60; // 30 days
-static NSInteger WMFFeedInTheNewsNotificationMaxRank = 40;
-static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
+NSTimeInterval const WMFFeedNotificationArticleRepeatLimit = 30 * 24 * 60 * 60; // 30 days
+NSInteger const WMFFeedInTheNewsNotificationMaxRank = 40;
+NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 @interface WMFFeedContentSource () <WMFAnalyticsContextProviding>
 
@@ -470,8 +470,8 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
     NSString *body = [storyHTML wmf_stringByRemovingHTML];
 
     NSDate *notificationDate = [NSDate date];
-    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
-    NSDateComponents *notificationDateComponents = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:notificationDate];
+    NSCalendar *userCalendar = [NSCalendar wmf_gregorianCalendar];
+    NSDateComponents *notificationDateComponents = [userCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:notificationDate];
 
     if (force) {
         // nil the components to indicate it should be sent immediately, date should still be [NSDate date]
@@ -480,19 +480,18 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
         if (notificationDateComponents.hour < WMFFeedNotificationMinHour) {
             notificationDateComponents.hour = WMFFeedNotificationMinHour;
             notificationDateComponents.minute = 1;
-            notificationDate = [calendar dateFromComponents:notificationDateComponents];
+            notificationDate = [userCalendar dateFromComponents:notificationDateComponents];
         } else if (notificationDateComponents.hour > WMFFeedNotificationMaxHour) {
             // Send it tomorrow
-            notificationDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:notificationDate options:NSCalendarMatchStrictly];
-            notificationDateComponents = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:notificationDate];
+            notificationDate = [userCalendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:notificationDate options:NSCalendarMatchStrictly];
+            notificationDateComponents = [userCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:notificationDate];
             notificationDateComponents.hour = WMFFeedNotificationMinHour;
             notificationDateComponents.minute = 1;
-            notificationDate = [calendar dateFromComponents:notificationDateComponents];
+            notificationDate = [userCalendar dateFromComponents:notificationDateComponents];
         } else {
             // nil the components to indicate it should be sent immediately, date should still be [NSDate date]
             notificationDateComponents = nil;
         }
-        NSCalendar *userCalendar = [NSCalendar wmf_gregorianCalendar];
         NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
         NSDate *mostRecentDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
         if (notificationDate && mostRecentDate && [userCalendar wmf_daysFromDate:notificationDate toDate:mostRecentDate] > 0) { // don't send if we have a notification scheduled for tomorrow already
@@ -515,7 +514,7 @@ static NSInteger WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
     NSDate *mostRecentDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
-    if (mostRecentDate && [calendar isDateInToday:mostRecentDate]) {
+    if (notificationDate && mostRecentDate && [userCalendar isDate:mostRecentDate inSameDayAsDate:notificationDate]) {
         NSInteger count = [defaults wmf_inTheNewsMostRecentDateNotificationCount] + 1;
         [defaults wmf_setInTheNewsMostRecentDateNotificationCount:count];
     } else {
