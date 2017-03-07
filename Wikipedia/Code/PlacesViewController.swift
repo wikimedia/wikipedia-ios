@@ -197,13 +197,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
     }
     
-    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        guard !listView.isHidden, let indexPaths = listView.indexPathsForVisibleRows else {
-            return
-        }
-        listView.reloadRows(at: indexPaths, with: .none)
-    }
-    
     func mapView(_ mapView: MKMapView, didSelect annotationView: MKAnnotationView) {
         guard let place = annotationView.annotation as? ArticlePlace else {
             return
