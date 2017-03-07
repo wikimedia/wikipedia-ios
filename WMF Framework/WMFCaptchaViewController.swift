@@ -13,14 +13,6 @@ extension UIView {
     }
 }
 
-extension UIStackView {
-    fileprivate func wmf_arrangedSubviews(hide: Bool) {
-        for view in arrangedSubviews {
-            view.wmf_subviews(hide: hide)
-        }
-    }
-}
-
 @objc public protocol WMFCaptchaViewControllerDelegate{
     func captchaReloadPushed(_ sender: AnyObject)
     func captchaSolutionChanged(_ sender: AnyObject, solutionText: String?)
