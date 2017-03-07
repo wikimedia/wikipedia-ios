@@ -4,11 +4,20 @@ import UIKit
 // Presently it is assumed this view controller will be used only as a
 // child view controller of another view controller.
 
-extension UIView {
-    fileprivate func wmf_subviews(hide: Bool) {
-        isHidden = hide
-        for subview in self.subviews {
-            subview.wmf_subviews(hide:hide)
+extension UIStackView {
+    fileprivate var wmf_isCollapsed: Bool {
+        set {
+            for subview in arrangedSubviews {
+                subview.isHidden = newValue
+            }
+        }
+        get {
+            for subview in arrangedSubviews {
+                if !subview.isHidden {
+                    return false
+                }
+            }
+            return true
         }
     }
 }
@@ -62,10 +71,10 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         didSet {
             guard let captcha = captcha else {
                 captchaTextField.text = nil
-                stackView.wmf_subviews(hide: true)
+                stackView.wmf_isCollapsed = true
                 return;
             }
-            stackView.wmf_subviews(hide: false)
+            stackView.wmf_isCollapsed = false
             captchaTextField.text = ""
             refreshImage(for: captcha)
             if let captchaDelegate = captchaDelegate {
