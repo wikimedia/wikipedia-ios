@@ -100,7 +100,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
     
     if (CLLocationCoordinate2DIsValid(self.coordinate)) {
-        [items addObject:[NSValue valueWithMKCoordinate:self.coordinate]];
+        [items addObject:[self mapItem]];
     }
 
     UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items

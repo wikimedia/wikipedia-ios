@@ -2,7 +2,7 @@ import Foundation
 
 class WMFMapsActivity : UIActivity {
     
-    public var coordinate: CLLocationCoordinate2D?
+    public var mapItem: MKMapItem?
     
     override open var activityType: UIActivityType? {
         get {
@@ -13,7 +13,7 @@ class WMFMapsActivity : UIActivity {
     override open func canPerform(withActivityItems activityItems: [Any]) -> Bool {
         
         for activityItem in activityItems {
-            if (activityItem is CLLocationCoordinate2D) {
+            if (activityItem is MKMapItem) {
                 return true
             }
         }
@@ -24,10 +24,10 @@ class WMFMapsActivity : UIActivity {
     override open func prepare(withActivityItems activityItems: [Any]) {
         
         for activityItem in activityItems {
-            guard let coordinate = activityItem as? CLLocationCoordinate2D else {
+            guard let mapItem = activityItem as? MKMapItem else {
                 continue
             }
-            self.coordinate = coordinate
+            self.mapItem = mapItem
         }
     }
 }
@@ -43,7 +43,14 @@ class WMFOpenInMapsActivity : WMFMapsActivity {
     }
     
     override func perform() {
-        DDLogDebug("did it")
+        
+        guard let mapItem = self.mapItem else {
+            assertionFailure("MapItem should have been set")
+            return
+        }
+        
+        mapItem.openInMaps(launchOptions: nil)
+        
         activityDidFinish(true)
     }
 }
@@ -58,7 +65,18 @@ class WMFGetDirectionsInMapsActivity : WMFMapsActivity {
     }
     
     override func perform() {
-        DDLogDebug("did it")
+        
+        guard let mapItem = self.mapItem else {
+            assertionFailure("MapItem should have been set")
+            return
+        }
+        
+        if #available(iOS 10.0, *) {
+            mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDefault])
+        } else {
+            mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+        }
+        
         activityDidFinish(true)
     }
 }
