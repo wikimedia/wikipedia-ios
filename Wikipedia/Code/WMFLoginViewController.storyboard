@@ -25,10 +25,10 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PEY-pn-IDi" userLabel="Scroll Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="486"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="508.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="u6y-Sf-xyh">
-                                                <rect key="frame" x="44" y="20" width="288" height="446"/>
+                                                <rect key="frame" x="44" y="20" width="288" height="468.5"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log in to your account" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="Wff-o9-AdH">
                                                         <rect key="frame" x="0.0" y="0.0" width="288" height="30"/>
@@ -61,6 +61,7 @@
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                                         <connections>
+                                                            <action selector="textFieldDidBeginEditing:" destination="mbm-n6-GWW" eventType="editingDidBegin" id="9aF-4R-hcf"/>
                                                             <action selector="textFieldDidChange:" destination="mbm-n6-GWW" eventType="editingChanged" id="gke-DS-ih7"/>
                                                             <outlet property="delegate" destination="mbm-n6-GWW" id="Dta-AT-UIE"/>
                                                         </connections>
@@ -71,7 +72,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="kVb-lx-d6C">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="kVb-lx-d6C">
                                                         <rect key="frame" x="0.0" y="159" width="288" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="dan-PJ-Bds"/>
@@ -79,12 +80,19 @@
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                                         <connections>
+                                                            <action selector="textFieldDidBeginEditing:" destination="mbm-n6-GWW" eventType="editingDidBegin" id="kos-Tl-B2U"/>
                                                             <action selector="textFieldDidChange:" destination="mbm-n6-GWW" eventType="editingChanged" id="eOC-ZE-505"/>
                                                             <outlet property="delegate" destination="mbm-n6-GWW" id="rQW-xj-Oea"/>
                                                         </connections>
                                                     </textField>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invalid Password" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HxZ-Ry-50e">
+                                                        <rect key="frame" x="0.0" y="197" width="288" height="14.5"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                        <color key="textColor" red="0.90008913589999995" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot your password?" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDv-H3-IXL">
-                                                        <rect key="frame" x="0.0" y="197" width="288" height="30"/>
+                                                        <rect key="frame" x="0.0" y="219.5" width="288" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="v6Z-9D-20o"/>
                                                         </constraints>
@@ -93,13 +101,13 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZK-nT-oqo">
-                                                        <rect key="frame" x="0.0" y="235" width="288" height="163"/>
+                                                        <rect key="frame" x="0.0" y="257.5" width="288" height="163"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="163" id="ceu-qS-peD"/>
                                                         </constraints>
                                                     </containerView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="d0a-BA-vwt" customClass="WMFAuthButton" customModule="Wikipedia" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="406" width="288" height="40"/>
+                                                        <rect key="frame" x="0.0" y="428.5" width="288" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="siw-IK-6Qf"/>
                                                         </constraints>
@@ -146,6 +154,7 @@
                         <outlet property="createAccountButton" destination="jiW-Cg-oL3" id="Yk9-jI-doe"/>
                         <outlet property="forgotPasswordButton" destination="LDv-H3-IXL" id="qIN-wb-OOS"/>
                         <outlet property="loginButton" destination="d0a-BA-vwt" id="A3V-ih-aBb"/>
+                        <outlet property="passwordAlertLabel" destination="HxZ-Ry-50e" id="rW0-Ht-vIF"/>
                         <outlet property="passwordField" destination="kVb-lx-d6C" id="CMg-WD-j0S"/>
                         <outlet property="passwordTitleLabel" destination="gK9-cr-NCA" id="IXz-VD-4IB"/>
                         <outlet property="scrollView" destination="qMR-5R-aiQ" id="z3y-S5-i6j"/>
