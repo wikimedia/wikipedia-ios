@@ -276,8 +276,8 @@
 "share-as-image" = "Button label for sharing as an image card";
 "share-as-text" = "Button label for sharing as a text snippet (instead of as an image card)";
 "share-cancel" = "Button which dismisses the share dialog, cancelling the action.\n{{Identical|Cancel}}";
-"share-open-in-maps" = "Button to open current article's location in Apple Maps.";
-"share-get-directions-in-maps" = "Button to get directions to the current article's location in Apple Maps.";
+"share-open-in-maps" = "Button to open current article's location in the Maps app.";
+"share-get-directions-in-maps" = "Button to get directions to the current article's location in the Maps app.";
 "timestamp-just-now" = "Human-readable approximate timestamp for events in the last couple of minutes.\n{{Identical|Just now}}";
 "timestamp-minutes" = "Human-readable approximate timestamp for events in the last couple hours, expressed as minutes";
 "timestamp-hours" = "Human-readable approximate timestamp for events in the last couple days, expressed as hours";
