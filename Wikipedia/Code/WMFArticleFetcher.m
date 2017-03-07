@@ -104,7 +104,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
     NSURL *siteURL = articleURL.wmf_siteURL;
     NSString *path = [NSString pathWithComponents:@[@"/api", @"rest_v1", @"page", @"summary", title]];
-    NSURL *pageSummaryURL = [siteURL wmf_URLWithPath:path isMobile:NO];
+    NSURL *pageSummaryURL = [siteURL wmf_URLWithPath:path isMobile:!useDeskTopURL];
 
     WMFTaskGroup *taskGroup = [WMFTaskGroup new];
     [[MWNetworkActivityIndicatorManager sharedManager] push];
