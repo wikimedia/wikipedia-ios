@@ -14,6 +14,7 @@
 
 @property (nonnull, nonatomic, strong) NSCalendar *calendar;
 @property (nonnull, nonatomic, strong) NSDate *date;
+@property (nonatomic, getter=isScheduledForTomorrow) BOOL scheduledForTomorrow;
 @property (nonnull, nonatomic, strong) NSURL *feedURL;
 
 @end
@@ -34,6 +35,10 @@
 
     self.calendar = [NSCalendar wmf_gregorianCalendar];
     self.date = [NSDate date];
+    
+    
+    NSDateComponents *dateComponents = [self.calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:self.date];
+    self.scheduledForTomorrow = dateComponents.hour > WMFFeedNotificationMaxHour;
 
     [[LSNocilla sharedInstance] start];
     self.feedURL = [WMFFeedContentFetcher feedContentURLForSiteURL:siteURL onDate:self.date];
@@ -61,14 +66,15 @@
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
     [defaults wmf_setInTheNewsNotificationsEnabled:YES];
     [defaults wmf_setMostRecentInTheNewsNotificationDate:self.date];
-    [defaults wmf_setInTheNewsMostRecentDateNotificationCount:2];
+    [defaults wmf_setInTheNewsMostRecentDateNotificationCount:WMFFeedNotificationMaxPerDay - 1];
 
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for content to load"];
 
+    NSInteger count = self.isScheduledForTomorrow ? 1 : WMFFeedNotificationMaxPerDay;
     [self.feedContentSource loadContentForDate:self.date
                                          force:YES
                                     completion:^{
-                                        XCTAssertEqual([defaults wmf_inTheNewsMostRecentDateNotificationCount], 3);
+                                        XCTAssertEqual([defaults wmf_inTheNewsMostRecentDateNotificationCount], count);
                                         [expectation fulfill];
                                     }];
 
@@ -88,11 +94,11 @@
     [defaults wmf_setInTheNewsMostRecentDateNotificationCount:1];
 
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for content to load"];
-
+    NSInteger count = self.isScheduledForTomorrow ? 1 : 2;
     [self.feedContentSource loadContentForDate:self.date
                                          force:YES
                                     completion:^{
-                                        XCTAssertEqual([defaults wmf_inTheNewsMostRecentDateNotificationCount], 2);
+                                        XCTAssertEqual([defaults wmf_inTheNewsMostRecentDateNotificationCount], count);
                                         [expectation fulfill];
                                     }];
 
@@ -108,7 +114,7 @@
     [self.feedContentSource loadContentForDate:self.date
                                          force:YES
                                     completion:^{
-                                        XCTAssertEqual([defaults wmf_inTheNewsMostRecentDateNotificationCount], 2);
+                                        XCTAssertEqual([defaults wmf_inTheNewsMostRecentDateNotificationCount], count);
                                         [expectation fulfill];
                                     }];
 
@@ -127,14 +133,15 @@
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
     [defaults wmf_setInTheNewsNotificationsEnabled:YES];
     [defaults wmf_setMostRecentInTheNewsNotificationDate:self.date];
-    [defaults wmf_setInTheNewsMostRecentDateNotificationCount:2];
+    [defaults wmf_setInTheNewsMostRecentDateNotificationCount:WMFFeedNotificationMaxPerDay - 1];
 
+    NSInteger count = WMFFeedNotificationMaxPerDay - 1;
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for content to load"];
 
     [self.feedContentSource loadContentForDate:self.date
                                          force:YES
                                     completion:^{
-                                        XCTAssertEqual([defaults wmf_inTheNewsMostRecentDateNotificationCount], 2);
+                                        XCTAssertEqual([defaults wmf_inTheNewsMostRecentDateNotificationCount], count);
                                         [expectation fulfill];
                                     }];
 
@@ -150,14 +157,14 @@
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
     [defaults wmf_setInTheNewsNotificationsEnabled:YES];
     [defaults wmf_setMostRecentInTheNewsNotificationDate:self.date];
-    [defaults wmf_setInTheNewsMostRecentDateNotificationCount:3];
+    [defaults wmf_setInTheNewsMostRecentDateNotificationCount:WMFFeedNotificationMaxPerDay];
 
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for content to load"];
-
+    NSInteger count = self.isScheduledForTomorrow ? 1 : WMFFeedNotificationMaxPerDay;
     [self.feedContentSource loadContentForDate:self.date
                                          force:YES
                                     completion:^{
-                                        XCTAssertEqual([defaults wmf_inTheNewsMostRecentDateNotificationCount], 3);
+                                        XCTAssertEqual([defaults wmf_inTheNewsMostRecentDateNotificationCount], count);
                                         [expectation fulfill];
                                     }];
 
