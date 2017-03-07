@@ -104,7 +104,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
     NSURL *siteURL = articleURL.wmf_siteURL;
     NSString *path = [NSString pathWithComponents:@[@"/api", @"rest_v1", @"page", @"summary", title]];
-    NSURL *pageSummaryURL = [siteURL wmf_URLWithPath:path isMobile:NO];
+    NSURL *pageSummaryURL = [siteURL wmf_URLWithPath:path isMobile:!useDeskTopURL];
 
     WMFTaskGroup *taskGroup = [WMFTaskGroup new];
     [[MWNetworkActivityIndicatorManager sharedManager] push];
@@ -166,13 +166,9 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                               if (!articleError) {
                                                   articleError = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:@{}];
                                               }
-                                              if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:articleURL]] && [articleError wmf_shouldFallbackToDesktopURLError]) {
-                                                  [self fetchArticleForURL:articleURL useDesktopURL:YES progress:progress failure:failure success:success];
-                                              } else {
-                                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                      failure(articleError);
-                                                  });
-                                              }
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  failure(articleError);
+                                              });
                                           }
                                       }];
 
