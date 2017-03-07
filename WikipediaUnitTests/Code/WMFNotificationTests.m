@@ -68,7 +68,7 @@
     [self.feedContentSource loadContentForDate:self.date
                                          force:YES
                                     completion:^{
-                                        XCTAssertTrue([defaults wmf_inTheNewsMostRecentDateNotificationCount] == 3);
+                                        XCTAssertEqual([defaults wmf_inTheNewsMostRecentDateNotificationCount], 3);
                                         [expectation fulfill];
                                     }];
 
@@ -92,7 +92,7 @@
     [self.feedContentSource loadContentForDate:self.date
                                          force:YES
                                     completion:^{
-                                        XCTAssertTrue([defaults wmf_inTheNewsMostRecentDateNotificationCount] == 2);
+                                        XCTAssertEqual([defaults wmf_inTheNewsMostRecentDateNotificationCount], 2);
                                         [expectation fulfill];
                                     }];
 
@@ -108,7 +108,7 @@
     [self.feedContentSource loadContentForDate:self.date
                                          force:YES
                                     completion:^{
-                                        XCTAssertTrue([defaults wmf_inTheNewsMostRecentDateNotificationCount] == 2);
+                                        XCTAssertEqual([defaults wmf_inTheNewsMostRecentDateNotificationCount], 2);
                                         [expectation fulfill];
                                     }];
 
@@ -134,7 +134,7 @@
     [self.feedContentSource loadContentForDate:self.date
                                          force:YES
                                     completion:^{
-                                        XCTAssertTrue([defaults wmf_inTheNewsMostRecentDateNotificationCount] == 2);
+                                        XCTAssertEqual([defaults wmf_inTheNewsMostRecentDateNotificationCount], 2);
                                         [expectation fulfill];
                                     }];
 
@@ -157,7 +157,7 @@
     [self.feedContentSource loadContentForDate:self.date
                                          force:YES
                                     completion:^{
-                                        XCTAssertTrue([defaults wmf_inTheNewsMostRecentDateNotificationCount] == 3);
+                                        XCTAssertEqual([defaults wmf_inTheNewsMostRecentDateNotificationCount], 3);
                                         [expectation fulfill];
                                     }];
 
