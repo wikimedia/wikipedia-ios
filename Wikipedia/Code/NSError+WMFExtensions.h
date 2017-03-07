@@ -47,13 +47,3 @@ typedef NS_ENUM(NSInteger, WMFErrorType) {
 - (BOOL)wmf_isNetworkConnectionError;
 
 @end
-
-@interface NSError (WMFConnectionFallback)
-
-/*
- * If YES, this error indicates that we should attempt to resend the
- * request using the desktop URL.
- */
-- (BOOL)wmf_shouldFallbackToDesktopURLError;
-
-@end

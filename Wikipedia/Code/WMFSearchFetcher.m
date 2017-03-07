@@ -95,12 +95,8 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
             success(previousResults);
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:siteURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
-                [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:fullTextSearch appendToPreviousResults:previousResults useDesktopURL:YES failure:failure success:success];
-            } else {
-                [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                failure(error);
-            }
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            failure(error);
         }];
 }
 
