@@ -4,11 +4,11 @@ import WMF
 
 class ArticlePlaceView: MKAnnotationView {
     private let imageView: UIView
-    private let imageViewImageView: UIImageView
+    private let imageImageView: UIImageView
     private let imageOutlineView: UIView
     private let imageBackgroundView: UIView
     private let selectedImageView: UIView
-    private let selectedImageViewImageView: UIImageView
+    private let selectedImageImageView: UIImageView
     private let selectedImageOutlineView: UIView
     private let selectedImageBackgroundView: UIView
     private let dotView: UIView
@@ -99,8 +99,8 @@ class ArticlePlaceView: MKAnnotationView {
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         selectedImageView = UIView()
         imageView = UIView()
-        selectedImageViewImageView = UIImageView()
-        imageViewImageView = UIImageView()
+        selectedImageImageView = UIImageView()
+        imageImageView = UIImageView()
         countLabel = UILabel()
         dotView = UIView()
         groupView = UIView()
@@ -138,11 +138,11 @@ class ArticlePlaceView: MKAnnotationView {
         imageBackgroundView.layer.contents = #imageLiteral(resourceName: "places-dot-medium-opaque").cgImage
         imageView.addSubview(imageBackgroundView)
         
-        imageViewImageView.frame = UIEdgeInsetsInsetRect(imageView.bounds, UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1))
-        imageViewImageView.contentMode = .scaleAspectFill
-        imageViewImageView.layer.masksToBounds = true
-        imageViewImageView.layer.cornerRadius = imageViewImageView.bounds.size.width * 0.5
-        imageView.addSubview(imageViewImageView)
+        imageImageView.frame = UIEdgeInsetsInsetRect(imageView.bounds, UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1))
+        imageImageView.contentMode = .scaleAspectFill
+        imageImageView.layer.masksToBounds = true
+        imageImageView.layer.cornerRadius = imageImageView.bounds.size.width * 0.5
+        imageView.addSubview(imageImageView)
         
         imageOutlineView.frame = imageView.bounds
         imageOutlineView.layer.contents = mediumDotOutlineImage.cgImage
@@ -155,11 +155,11 @@ class ArticlePlaceView: MKAnnotationView {
         selectedImageBackgroundView.layer.contents = #imageLiteral(resourceName: "places-dot-large-opaque").cgImage
         selectedImageView.addSubview(selectedImageBackgroundView)
         
-        selectedImageViewImageView.frame = UIEdgeInsetsInsetRect(selectedImageView.bounds, UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1))
-        selectedImageViewImageView.contentMode = .scaleAspectFill
-        selectedImageViewImageView.layer.cornerRadius = selectedImageView.bounds.size.width * 0.5
-        selectedImageViewImageView.layer.masksToBounds = true
-        selectedImageView.addSubview(selectedImageViewImageView)
+        selectedImageImageView.frame = UIEdgeInsetsInsetRect(selectedImageView.bounds, UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1))
+        selectedImageImageView.contentMode = .scaleAspectFill
+        selectedImageImageView.layer.cornerRadius = selectedImageView.bounds.size.width * 0.5
+        selectedImageImageView.layer.masksToBounds = true
+        selectedImageView.addSubview(selectedImageImageView)
         
         selectedImageOutlineView.frame = selectedImageView.bounds
         selectedImageOutlineView.layer.contents = largeDotOutlineImage.cgImage
@@ -185,13 +185,13 @@ class ArticlePlaceView: MKAnnotationView {
     }
     
     func showPlaceholderImage() {
-        imageViewImageView.contentMode = .center
-        imageViewImageView.backgroundColor = UIColor.clear
-        imageViewImageView.image = #imageLiteral(resourceName: "places-w")
+        imageImageView.contentMode = .center
+        imageImageView.backgroundColor = UIColor.clear
+        imageImageView.image = #imageLiteral(resourceName: "places-w")
         
-        selectedImageViewImageView.contentMode = .center
-        selectedImageViewImageView.backgroundColor = UIColor.clear
-        selectedImageViewImageView.image = #imageLiteral(resourceName: "places-w-big")
+        selectedImageImageView.contentMode = .center
+        selectedImageImageView.backgroundColor = UIColor.clear
+        selectedImageImageView.image = #imageLiteral(resourceName: "places-w-big")
     }
     
     func update(withArticlePlace articlePlace: ArticlePlace) {
@@ -200,16 +200,16 @@ class ArticlePlaceView: MKAnnotationView {
             let article = articlePlace.articles[0]
             if let thumbnailURL = article.thumbnailURL {
                 showPlaceholderImage()
-                imageViewImageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
+                imageImageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
                     
                 }, success: {
-                    self.imageViewImageView.contentMode = .scaleAspectFill
-                    self.imageViewImageView.backgroundColor = UIColor.white
-                    self.selectedImageViewImageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
+                    self.imageImageView.contentMode = .scaleAspectFill
+                    self.imageImageView.backgroundColor = UIColor.white
+                    self.selectedImageImageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
                         self.showPlaceholderImage()
                     }, success: {
-                        self.selectedImageViewImageView.backgroundColor = UIColor.white
-                        self.selectedImageViewImageView.contentMode = .scaleAspectFill
+                        self.selectedImageImageView.backgroundColor = UIColor.white
+                        self.selectedImageImageView.contentMode = .scaleAspectFill
                     })
                 })
             } else {
@@ -248,8 +248,8 @@ class ArticlePlaceView: MKAnnotationView {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        imageViewImageView.wmf_reset()
-        selectedImageViewImageView.wmf_reset()
+        imageImageView.wmf_reset()
+        selectedImageImageView.wmf_reset()
         countLabel.text = nil
         set(alwaysShowImage: false, animated: false)
         setSelected(false, animated: false)
