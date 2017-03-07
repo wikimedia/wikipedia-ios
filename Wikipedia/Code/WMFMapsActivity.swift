@@ -38,7 +38,13 @@ class WMFOpenInMapsActivity : WMFMapsActivity {
     
     override open var activityTitle: String? {
         get {
-            return  localizedStringForKeyFallingBackOnEnglish("share-open-in-maps")
+            return localizedStringForKeyFallingBackOnEnglish("share-open-in-maps")
+        }
+    }
+    
+    override open var activityImage: UIImage? {
+        get {
+            return UIImage(named: "places-map")
         }
     }
     
@@ -61,6 +67,12 @@ class WMFGetDirectionsInMapsActivity : WMFMapsActivity {
     override open var activityTitle: String? {
         get {
             return  localizedStringForKeyFallingBackOnEnglish("share-get-directions-in-maps")
+        }
+    }
+    
+    override open var activityImage: UIImage? {
+        get {
+            return UIImage(named: "places-location-arrow")
         }
     }
     
