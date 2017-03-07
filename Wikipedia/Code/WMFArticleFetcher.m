@@ -166,13 +166,9 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                               if (!articleError) {
                                                   articleError = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:@{}];
                                               }
-                                              if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:articleURL]] && [articleError wmf_shouldFallbackToDesktopURLError]) {
-                                                  [self fetchArticleForURL:articleURL useDesktopURL:YES progress:progress failure:failure success:success];
-                                              } else {
-                                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                      failure(articleError);
-                                                  });
-                                              }
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  failure(articleError);
+                                              });
                                           }
                                       }];
 
