@@ -2,15 +2,18 @@
 public enum WMFAccountCreatorError: LocalizedError {
     case cannotExtractStatus
     case statusNotPass(String?)
-    case needsCaptcha
+    case wrongCaptcha
+    case usernameUnavailable
     public var errorDescription: String? {
         switch self {
         case .cannotExtractStatus:
             return "Could not extract status"
         case .statusNotPass(let message?):
             return message
-        case .needsCaptcha:
-            return "Needs captcha"
+        case .wrongCaptcha:
+            return localizedStringForKeyFallingBackOnEnglish("field-alert-captcha-invalid")
+        case .usernameUnavailable:
+            return localizedStringForKeyFallingBackOnEnglish("field-alert-username-unavailable")
         default:
             return "Unable to create account: Reason unknown"
         }
@@ -69,11 +72,18 @@ public class WMFAccountCreator {
             }
             let message = createaccount["message"] as? String ?? ""
             guard status == "PASS" else {
-                if let messagecode = createaccount["messagecode"] as? String, messagecode == "captcha-createaccount-fail" {
-                    failure(WMFAccountCreatorError.needsCaptcha)
-                }else{
-                    failure(WMFAccountCreatorError.statusNotPass(message))
+                if let messageCode = createaccount["messagecode"] as? String {
+                    switch messageCode {
+                    case "captcha-createaccount-fail":
+                        failure(WMFAccountCreatorError.wrongCaptcha)
+                        return
+                    case "userexists":
+                        failure(WMFAccountCreatorError.usernameUnavailable)
+                        return
+                    default: break
+                    }
                 }
+                failure(WMFAccountCreatorError.statusNotPass(message))
                 return
             }
             let normalizedUsername = createaccount["username"] as? String ?? username

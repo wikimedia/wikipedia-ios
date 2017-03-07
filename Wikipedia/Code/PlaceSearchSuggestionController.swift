@@ -78,6 +78,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
             header.isClearButtonHidden = false
             header.addClearButtonTarget(self, selector: #selector(clearButtonPressed))
             header.text = localizedStringForKeyFallingBackOnEnglish("places-search-recently-searched-header")
+            header.clearButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-clear-saved-searches")
         default:
             return nil
         }

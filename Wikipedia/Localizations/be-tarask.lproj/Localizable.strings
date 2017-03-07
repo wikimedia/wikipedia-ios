@@ -54,11 +54,6 @@
 "account-creation-passwords-mismatched" = "Паролі не супадаюць.";
 "account-creation-saving" = "Захаваньне...";
 "account-creation-login" = "Ужо маеце рахунак? Увайсьці";
-// Fuzzy
-"account-creation-username-placeholder-text" = "Імя ўдзельніка";
-"account-creation-password-placeholder-text" = "Пароль";
-"account-creation-password-confirm-placeholder-text" = "Пацьвердзіце пароль";
-"account-creation-email-placeholder-text" = "Адрас электроннай пошты (не абавязкова)";
 "account-creation-missing-fields" = "Вам неабходна ўвесьці імя ўдзельніка, пароль і пацьвердзіць пароль, каб стварыць рахунак.";
 // Fuzzy
 "login-name-not-found" = "Для ўваходу патрабуецца імя ўдзельніка.";
@@ -329,9 +324,6 @@
 "page-read-in-other-languages" = "Чытаць на $1 іншых мовах";
 "page-last-edited" = "Рэдагаваны $1 дзён таму";
 "page-edit-history" = "Уся гісторыя рэдагаваньняў";
-"captcha-reload" = "Паказаць іншы тэкст CAPTCHA";
-// Fuzzy
-"captcha-prompt" = "Увядзіце тэкст CAPTCHA з выявы вышэй";
 "mwk-empty-title-error" = "Не атрымліваецца выканаць апэрацыю з пустой назвай.";
 "home-title" = "Дасьледаваньне";
 "home-continue-reading-heading" = "Працягваць чытаньне";

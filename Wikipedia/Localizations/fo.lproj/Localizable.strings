@@ -50,11 +50,6 @@
 "account-creation-passwords-mismatched" = "Teigarnar við loyniorði passa ikki saman.";
 "account-creation-saving" = "Goymir...";
 "account-creation-login" = "Hevur tú longuu eina konto? Rita in.";
-// Fuzzy
-"account-creation-username-placeholder-text" = "Brúkaranavn";
-"account-creation-password-placeholder-text" = "Loyniorð";
-"account-creation-password-confirm-placeholder-text" = "Váttað loyniorð";
-"account-creation-email-placeholder-text" = "T-postur (valfrítt)";
 "account-creation-missing-fields" = "Tú mást skriva eitt brúkaranavn, loyniorð ag vátta loyniorðið, fyri at upprætta eina kontu.";
 // Fuzzy
 "login-name-not-found" = "Brúkaranavn verður kravt fyri at rita inn.";
@@ -250,5 +245,3 @@
 "hockeyapp-alert-always-send" = "Send altíð";
 "hockeyapp-alert-do-not-send" = "Ikki senda";
 "page-similar-titles" = "Líknandi síður";
-// Fuzzy
-"captcha-prompt" = "Skriva CAPTCHA tekstin frá myndini omanfyri";

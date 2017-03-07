@@ -49,11 +49,6 @@
 "account-creation-passwords-mismatched" = "कूटशब्दौ असमानौ स्तः";
 "account-creation-saving" = "रक्षति...";
 "account-creation-login" = "पूर्वमेव लेखा अस्ति किं ? प्रविश्यताम्";
-// Fuzzy
-"account-creation-username-placeholder-text" = "सदस्यनाम";
-"account-creation-password-placeholder-text" = "कूटशब्दः";
-"account-creation-password-confirm-placeholder-text" = "कूटशब्दस्य पुष्टिं करोतु";
-"account-creation-email-placeholder-text" = "वि-पत्रम् (ऐच्छिकं)";
 "account-creation-missing-fields" = "सदस्यता प्राप्त्यै भवता/भवत्या सदस्यनाम-कूटशब्दयोः लेखनं, कूटशब्दस्य पुष्टिकरणं च अनिवार्यत्वेन करणीयं भवति ।";
 // Fuzzy
 "login-name-not-found" = "प्रवेशाय सदस्यनाम अनिवार्यम् अस्ति ।";
@@ -311,7 +306,4 @@
 "hockeyapp-alert-privacy" = "$1 गोपनीयता";
 "page-issues" = "पृष्ठस्य समस्याः";
 "page-similar-titles" = "समानपृष्ठानि";
-"captcha-reload" = "अन्यत् संभेपूस्वसाट्यूप प्रदर्शयतु";
-// Fuzzy
-"captcha-prompt" = "उक्तचित्रात् संभेपूस्वसाट्यूप-पाठं लिखतु";
 "mwk-empty-title-error" = "रिक्तशिर्षकेन एषा प्रकिया भवितुं नार्हति ।";

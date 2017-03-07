@@ -1,4 +1,5 @@
 #import <UIKit/UIKit.h>
+@import CoreLocation;
 
 #import "MWKSiteDataObject.h"
 NS_ASSUME_NONNULL_BEGIN
@@ -60,6 +61,8 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @property (readonly, strong, nonatomic, nullable) NSString *summary;
 
 @property (readonly, nonatomic) NSInteger ns;
+
+@property (readonly, nonatomic) CLLocationCoordinate2D coordinate;
 
 - (nullable MWKImage *)bestThumbnailImage;
 

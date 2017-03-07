@@ -1000,9 +1000,15 @@ static uint64_t bundleHash() {
         return;
     }
 
+    dispatch_block_t deleteEverythingAndSucceed = ^{
+        dispatch_async(self.cacheRemovalQueue, ^{
+            [[NSFileManager defaultManager] removeItemAtPath:[self pathForSites] error:nil];
+            dispatch_async(dispatch_get_main_queue(), success);
+        });
+    };
+
     if (arrayOfAllValidArticles.count == 0) {
-        [[NSFileManager defaultManager] removeItemAtPath:[self pathForSites] error:nil];
-        success();
+        deleteEverythingAndSucceed();
         return;
     }
 
@@ -1016,8 +1022,7 @@ static uint64_t bundleHash() {
     }
 
     if (allValidArticleKeys.count == 0) {
-        [[NSFileManager defaultManager] removeItemAtPath:[self pathForSites] error:nil];
-        success();
+        deleteEverythingAndSucceed();
         return;
     }
 

@@ -51,11 +51,6 @@
 "account-creation-passwords-mismatched" = "গুপ্তশব্দ মিলা নাই।";
 "account-creation-saving" = "সাঁচি থোৱা হৈছে...";
 "account-creation-login" = "ইতিমধ্যে এটা একাউণ্ট আছে? প্ৰৱেশ কৰক।";
-// Fuzzy
-"account-creation-username-placeholder-text" = "সদস্যনাম";
-"account-creation-password-placeholder-text" = "গুপ্তশব্দ";
-"account-creation-password-confirm-placeholder-text" = "গুপ্তশব্দ নিশ্চিত কৰক";
-"account-creation-email-placeholder-text" = "ইমেইল (বৈকল্পিক)";
 "account-creation-missing-fields" = "একাউণ্ট সৃষ্টি কৰিবলৈ আপুনি এটা সদস্যনাম, গুপ্তশব্দ আৰু গুপ্তশব্দ নিশ্চিতকৰণ লিখিবলৈ লাগিব।";
 // Fuzzy
 "login-name-not-found" = "প্ৰৱেশ কৰিবলৈ সদস্যনামৰ প্ৰয়োজন।";
@@ -261,7 +256,4 @@
 "hockeyapp-alert-privacy" = "$1 গোপনীয়তা";
 "page-issues" = "পৃষ্ঠা সমস্যা";
 "page-similar-titles" = "একে ধৰণৰ পৃষ্ঠা";
-"captcha-reload" = "আন এটা কেপ্‌চা দেখুৱাওক";
-// Fuzzy
-"captcha-prompt" = "ওপৰৰ ছবিত থকা কেপ্‌চা পাঠ্য লিখক";
 "mwk-empty-title-error" = "খালি শিৰোনামৰে কাৰ্য কৰাত অসমৰ্থ।";

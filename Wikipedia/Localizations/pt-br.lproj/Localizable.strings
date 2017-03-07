@@ -70,10 +70,6 @@
 "account-creation-passwords-mismatched" = "Os campos de senha não correspondem.";
 "account-creation-saving" = "Salvando...";
 "account-creation-login" = "Já tem uma conta? Entrar.";
-"account-creation-username-placeholder-text" = "Nome de usuário";
-"account-creation-password-placeholder-text" = "Senha";
-"account-creation-password-confirm-placeholder-text" = "Confirmar senha";
-"account-creation-email-placeholder-text" = "Email (opcional)";
 "account-creation-missing-fields" = "Deve inserir um nome de usuário(a), uma senha e a sua respectiva confirmação para criar uma conta.";
 "login-name-not-found" = "Nome de usuário necessário para entrar.";
 "login-name-illegal" = "Você forneceu um nome de usuário inválido.";
@@ -348,8 +344,6 @@
 "page-read-in-other-languages" = "Disponível em $1 outros idiomas";
 "page-last-edited" = "Editado $1 dias atrás";
 "page-edit-history" = "Histórico de edição completo";
-"captcha-reload" = "Mostrar outro código";
-"captcha-prompt" = "Insira o texto CAPTCHA";
 "mwk-empty-title-error" = "Não se pode realizar a operação com o título vazio.";
 "home-title" = "explorar";
 "home-empty-section" = "Sem resultados";

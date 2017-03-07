@@ -56,18 +56,11 @@
 "account-creation-passwords-mismatched" = "Die Passwortfelder stimmen nicht überein.";
 "account-creation-saving" = "Speichere …";
 "account-creation-login" = "Hast du bereits ein Benutzerkonto? Anmelden.";
-"account-creation-username-placeholder-text" = "Benutzername";
-"account-creation-password-placeholder-text" = "Passwort";
-"account-creation-password-confirm-placeholder-text" = "Passwort bestätigen";
-"account-creation-email-placeholder-text" = "E-Mail (optional)";
 "account-creation-missing-fields" = "Du musst einen Benutzernamen, ein Passwort und eine Passwortbestätigung eingeben, um ein Benutzerkonto zu erstellen.";
 "new-password-title" = "Passwort festlegen";
 "new-password-instructions" = "Du hast dich mit einem temporären Passwort angemeldet. Um die Anmeldung abzuschließen, lege hier ein neues Passwort fest.";
-"new-password-password-placeholder-text" = "Neues Passwort";
-"new-password-confirm-placeholder-text" = "Neues Passwort bestätigen";
 "two-factor-login-title" = "Bei deinem Benutzerkonto anmelden";
 "two-factor-login-instructions" = "Bitte gib einen Zwei-Faktor-Verifikationscode ein";
-"two-factor-login-token-title" = "Token";
 "login-name-not-found" = "Der Benutzername ist zur Anmeldung erforderlich.";
 "login-name-illegal" = "Du hast einen ungültigen Benutzernamen angegeben.";
 "login-name-does-not-exist" = "Der angegebene Benutzername ist nicht vorhanden.";
@@ -348,8 +341,6 @@
 "page-read-in-other-languages" = "In $1 weiteren Sprachen verfügbar";
 "page-last-edited" = "Bearbeitet vor $1 Tagen";
 "page-edit-history" = "Vollständige Versionsgeschichte";
-"captcha-reload" = "Ein anderes Captcha anzeigen";
-"captcha-prompt" = "CAPTCHA-Text eingeben";
 "mwk-empty-title-error" = "Operation kann nicht mit einem leeren Titel ausgeführt werden.";
 "home-title" = "Entdecken";
 "home-empty-section" = "Keine Ergebnisse";

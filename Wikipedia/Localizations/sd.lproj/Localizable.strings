@@ -55,14 +55,8 @@
 "account-creation-passwords-mismatched" = "ڳجهي لفظ جون جڳهون مشابهت نٿيون رکن.";
 "account-creation-saving" = "سانڍيندي...";
 "account-creation-login" = "اڳ ئي کاتو رکو ٿا؟ داخل ٿيو.";
-"account-creation-username-placeholder-text" = "يوزرنانءُ";
-"account-creation-password-placeholder-text" = "ڳجهو لفظ";
-"account-creation-password-confirm-placeholder-text" = "ڳجهي لفظ جي پڪ ڪريو";
-"account-creation-email-placeholder-text" = "ايميل (مرضيءَ موجب)";
 "account-creation-missing-fields" = "توهان کي کاتو کولڻ لاءِ هڪ يوزرنانءُ، ڳجهو لفظ، ۽ ڳجهي لفظ جي پڪ ضرور هجڻ گهرجي.";
 "new-password-title" = "پنھنجو ڳجھولفظ طي ڪريو";
-"new-password-password-placeholder-text" = "نئون ڳجھولفظ";
-"new-password-confirm-placeholder-text" = "نئين ڳجھي لفظ جي پڪ ڪريو";
 "two-factor-login-title" = "پنھنجي کاتي ۾ داخل ٿيو";
 "login-name-not-found" = "داخل ٿيڻ لاءِ يوزرنانءُ گھربل آهي.";
 "login-name-illegal" = "توهان هڪ غيرقانوني يوزرنانءُ فراهم ڪيو.";
@@ -332,8 +326,6 @@
 "page-read-in-other-languages" = "$1 ٻين ٻولين ۾ موجود";
 "page-last-edited" = "$1 ڏينهن اڳ ترميم ڪيل";
 "page-edit-history" = "پوري ترميمي سوانح";
-"captcha-reload" = "ھڪ ٻيو  captcha ڏيکاريو";
-"captcha-prompt" = "CAPTCHA لکت داخل ڪريو";
 "mwk-empty-title-error" = "خالي عنوان تي آپريشن پيش ڪرڻ ۾ ناڪام.";
 "home-title" = "تلاش ڪريو";
 "home-empty-section" = "نتيجا نہ آھن";

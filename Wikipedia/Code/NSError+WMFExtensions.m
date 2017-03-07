@@ -60,22 +60,3 @@ NSString *const WMFFailingRequestParametersUserInfoKey = @"WMFFailingRequestPara
 }
 
 @end
-
-@implementation NSError (WMFConnectionFallback)
-
-- (BOOL)wmf_shouldFallbackToDesktopURLError {
-    if (self.domain == NSStreamSocketSSLErrorDomain ||
-        (self.domain == NSURLErrorDomain &&
-         (self.code == NSURLErrorSecureConnectionFailed ||
-          self.code == NSURLErrorServerCertificateHasBadDate ||
-          self.code == NSURLErrorServerCertificateUntrusted ||
-          self.code == NSURLErrorServerCertificateHasUnknownRoot ||
-          self.code == NSURLErrorServerCertificateNotYetValid)
-         //error.code == NSURLErrorCannotLoadFromNetwork) //TODO: check this out later?
-         )) {
-        return YES;
-    }
-    return NO;
-}
-
-@end

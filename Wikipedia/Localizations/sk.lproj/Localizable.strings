@@ -54,10 +54,6 @@
 "account-creation-passwords-mismatched" = "Heslá sa nezhodujú";
 "account-creation-saving" = "Ukladanie...";
 "account-creation-login" = "Máte už vytvorený účet? Prihláste sa.";
-"account-creation-username-placeholder-text" = "Používateľské meno";
-"account-creation-password-placeholder-text" = "Heslo";
-"account-creation-password-confirm-placeholder-text" = "Potvrdiť heslo";
-"account-creation-email-placeholder-text" = "E-mail (voliteľné)";
 "account-creation-missing-fields" = "Aby ste si mohli vytvoriť účet, musíte zadať používateľské meno, heslo a potvrdenie hesla.";
 "login-name-not-found" = "K prihláseniu je potrebné používateľské meno.";
 "login-name-illegal" = "Zadali ste neplatné používateľské meno.";
@@ -303,8 +299,6 @@
 "page-read-in-other-languages" = "Článok je dostupný v $1 ďalších jazykoch";
 "page-last-edited" = "Upravené pred $1 dňami";
 "page-edit-history" = "Úplná história úprav";
-"captcha-reload" = "Zobraziť ďalšie captcha";
-"captcha-prompt" = "Zadajte CAPTCHA text";
 "home-empty-section" = "Žiadne výsledky";
 "home-empty-section-check-again" = "Skúsiť znova";
 "home-continue-reading-heading" = "Pokračovať v čítaní";
