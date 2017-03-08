@@ -558,10 +558,6 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
 #pragma mark - UIViewController
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return [self wmf_orientationMaskPortraitiPhoneAnyiPad];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self registerCellsAndViews];
