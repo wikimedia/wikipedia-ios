@@ -184,6 +184,7 @@ class ArticlePlaceView: MKAnnotationView {
         selectedImageView.addSubview(selectedImageOutlineView)
         
         selectedImageButton.frame = selectedImageView.bounds
+        selectedImageButton.accessibilityTraits = UIAccessibilityTraitNone
         selectedImageView.addSubview(selectedImageButton)
         
         countLabel.frame = groupView.bounds
