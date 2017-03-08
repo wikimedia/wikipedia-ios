@@ -220,7 +220,7 @@
 
             CGFloat baselineColumnWidth = round(availableWidth / numberOfColumns);
             CGFloat columnWidthToCheck = round([columnWeights[column.index] doubleValue] * baselineColumnWidth);
-            assert(ABS(column.frame.size.width - columnWidthToCheck) < 1);
+            assert(ABS(column.frame.size.width - columnWidthToCheck) <= 1);
 #endif
             i++;
         }
