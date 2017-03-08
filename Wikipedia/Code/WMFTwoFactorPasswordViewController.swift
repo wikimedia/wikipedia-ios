@@ -1,7 +1,12 @@
 
 import UIKit
 
-class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDelegate {
+fileprivate enum NextFirstResponderDirection: Int {
+    case forward = 1
+    case reverse = -1
+}
+
+class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDelegate, WMFDeleteBackwardReportingTextFieldDelegate {
     
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var subTitleLabel: UILabel!
@@ -63,22 +68,37 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     @IBAction func textFieldDidChange(_ sender: UITextField) {
         enableProgressiveButton(areRequiredFieldsPopulated())
         
-        guard useBackupOathToken == false, let text = sender.text, text.characters.count > 0 else {
+        guard
+            useBackupOathToken == false,
+            let text = sender.text, text.characters.count > 0
+        else {
             return
         }
-        makeNextTextFieldFirstResponderIfBlank(currentTextField: sender)
+        makeNextTextFieldFirstResponder(currentTextField: sender, direction: .forward)
     }
     
-    fileprivate func makeNextTextFieldFirstResponderIfBlank(currentTextField: UITextField) {
-        if let index = oathTokenFields.index(of: currentTextField) {
-            let nextIndex = index + 1
-            if nextIndex < oathTokenFields.count {
-                let nextField = oathTokenFields[nextIndex]
-                if nextField.text?.characters.count == 0 {
-                    nextField.becomeFirstResponder()
-                }
-            }
+    fileprivate func makeNextTextFieldFirstResponder(currentTextField: UITextField, direction: NextFirstResponderDirection) {
+        guard let index = oathTokenFields.index(of: currentTextField) else {
+            return
         }
+        let nextIndex = index + direction.rawValue
+        guard
+            nextIndex > -1,
+            nextIndex < oathTokenFields.count
+        else {
+            return
+        }
+        oathTokenFields[nextIndex].becomeFirstResponder()
+    }
+    
+    func wmf_deleteBackward(_ sender: UITextField) {
+        guard
+            useBackupOathToken == false,
+            (sender.text ?? "").characters.count == 0
+        else {
+            return
+        }
+        makeNextTextFieldFirstResponder(currentTextField: sender, direction: .reverse)
     }
     
     func enableProgressiveButton(_ highlight: Bool) {
