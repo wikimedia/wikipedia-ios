@@ -99,8 +99,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [items addObject:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@", url.absoluteString, @"wprov=sfsi1"]]];
     }
 
-    if ([self mapItem]) {
-        [items addObject:[self mapItem]];
+    MKMapItem *mapItem = [self mapItem];
+    if (mapItem) {
+        [items addObject:mapItem];
     }
 
     UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items
