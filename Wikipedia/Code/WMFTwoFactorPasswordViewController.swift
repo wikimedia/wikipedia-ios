@@ -106,7 +106,6 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     fileprivate func save() {
         wmf_hideKeyboard()
         enableProgressiveButton(false)
-        WMFAlertManager.sharedInstance.dismissAlert()
         
         guard
             let userName = userName,
@@ -114,6 +113,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         else {
             return
         }
+        WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-logging-in"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
 
         WMFAuthenticationManager.sharedInstance
             .login(username: userName,
@@ -132,6 +132,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                 if let error = error as? WMFAccountLoginError {
                     switch error {
                     case .temporaryPasswordNeedsChange:
+                        WMFAlertManager.sharedInstance.dismissAlert()
                         self.showChangeTempPasswordViewController()
                         return
                     default: break
