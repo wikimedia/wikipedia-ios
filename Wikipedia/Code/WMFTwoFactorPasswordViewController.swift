@@ -51,7 +51,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     
     fileprivate func areRequiredFieldsPopulated() -> Bool {
         if useBackupOathToken {
-            guard let backupToken = backupOathTokenField.text, backupToken.characters.count == 16 else {
+            guard let backupToken = backupOathTokenField.text, backupToken.characters.count > 0 else {
                 return false
             }
             return true
@@ -100,16 +100,28 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         enableProgressiveButton(false)
     }
     
+    fileprivate func allowedCharacterSet() -> CharacterSet {
+        return useBackupOathToken ? CharacterSet.init(charactersIn: " ").union(CharacterSet.alphanumerics) : CharacterSet.decimalDigits
+    }
+
+    fileprivate func maxTextFieldCharacterCount() -> Int {
+        // Presently backup tokens are 16 digit, but may contain spaces and their length 
+        // may change in future, so for now just set a sensible upper limit.
+        return useBackupOathToken ? 32 : 1
+    }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard
-            let text = textField.text,
-            string.rangeOfCharacter(from: CharacterSet.alphanumerics.inverted) == nil
-        else {
+        // Disallow invalid characters.
+        guard (string.rangeOfCharacter(from: allowedCharacterSet().inverted) == nil) else {
             return false
         }
-
-        let maxLength = useBackupOathToken ? 16 : 1
-        return ((text + string).characters.count <= maxLength)
+        // Always allow backspace.
+        guard string != "" else {
+            return true
+        }
+        // Enforce max count.
+        let countIfAllowed = (textField.text ?? "" + string).characters.count
+        return (countIfAllowed < maxTextFieldCharacterCount())
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -117,6 +129,14 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         // the "Editing changed" handler "textFieldDidChange" isn't called when this clearing
         // happens, so update progressive buttons' enabled state here too.
         enableProgressiveButton(areRequiredFieldsPopulated())
+    }
+    
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard useBackupOathToken else {
+            return true
+        }
+        save()
+        return true
     }
     
     override func viewDidLoad() {
