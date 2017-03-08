@@ -109,13 +109,15 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)itemWasUpdated:(NSNotification *)note {
     NSURL *url = note.userInfo[MWKURLKey];
-    if (url) {
-        if ([self.savedPageList isSaved:url]) {
-            [self fetchUncachedArticleURLs:@[url]];
-        } else {
-            [self cancelFetchForArticleURL:url];
-            [self.spotlightManager removeFromIndexWithUrl:url];
-        }
+    if (!url) {
+        return;
+    }
+    NSDate *savedDate = note.userInfo[MWKSavedDateKey];
+    if (savedDate) {
+        [self fetchUncachedArticleURLs:@[url]];
+    } else {
+        [self cancelFetchForArticleURL:url];
+        [self.spotlightManager removeFromIndexWithUrl:url];
     }
 }
 

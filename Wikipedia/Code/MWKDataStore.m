@@ -11,6 +11,7 @@ NSString *const MWKArticleKey = @"MWKArticleKey";
 
 NSString *const MWKItemUpdatedNotification = @"MWKItemUpdatedNotification";
 NSString *const MWKURLKey = @"MWKURLKey";
+NSString *const MWKSavedDateKey = @"MWKSavedDateKey";
 
 NSString *const MWKSetupDataSourcesNotification = @"MWKSetupDataSourcesNotification";
 NSString *const MWKTeardownDataSourcesNotification = @"MWKTeardownDataSourcesNotification";
@@ -276,25 +277,33 @@ static uint64_t bundleHash() {
 - (void)viewContextDidChange:(NSNotification *)note {
     NSDictionary *userInfo = note.userInfo;
     NSArray<NSString *> *keys = @[NSInsertedObjectsKey, NSUpdatedObjectsKey, NSDeletedObjectsKey, NSRefreshedObjectsKey, NSInvalidatedObjectsKey];
-    NSMutableArray<NSURL *> *URLsToNotifyAbout = [NSMutableArray arrayWithCapacity:1];
+    NSMutableArray<NSDictionary<NSString *, NSObject *> *> *notificationUserInfos = [NSMutableArray arrayWithCapacity:1];
     for (NSString *key in keys) {
         NSSet<NSManagedObject *> *changedObjects = userInfo[key];
         for (NSManagedObject *object in changedObjects) {
             if ([object isKindOfClass:[WMFArticle class]]) {
-                [self.articlePreviewCache removeObjectForKey:[(WMFArticle *)object key]];
-                NSURL *URL = [(WMFArticle *)object URL];
-                if (URL) {
-                    [URLsToNotifyAbout addObject:URL];
+                WMFArticle *article = (WMFArticle *)object;
+                NSString *articleKey = article.key;
+                NSURL *articleURL = article.URL;
+                if (!articleKey || !articleURL) {
+                    continue;
                 }
+                [self.articlePreviewCache removeObjectForKey:articleKey];
+                NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:@{MWKURLKey: articleURL}];
+                NSDate *articleSavedDate = article.savedDate;
+                if (articleSavedDate) {
+                    userInfo[MWKSavedDateKey] = articleSavedDate;
+                }
+                [notificationUserInfos addObject:userInfo];
             }
         }
     }
-    if (URLsToNotifyAbout.count == 0) {
+    if (notificationUserInfos.count == 0) {
         return;
     }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        for (NSURL *URL in URLsToNotifyAbout) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:self userInfo:@{MWKURLKey: URL}];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        for (NSDictionary *userInfo in notificationUserInfos) {
+             [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:self userInfo:userInfo];
         }
     });
 }
