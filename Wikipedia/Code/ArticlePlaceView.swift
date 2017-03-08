@@ -2,7 +2,13 @@ import UIKit
 import MapKit
 import WMF
 
+protocol ArticlePlaceViewDelegate: NSObjectProtocol {
+    func articlePlaceViewWasTapped(_ articlePlaceView: ArticlePlaceView)
+}
+
 class ArticlePlaceView: MKAnnotationView {
+    public weak var delegate: ArticlePlaceViewDelegate?
+    
     private let imageView: UIView
     private let imageImageView: UIImageView
     private let imageOutlineView: UIView
@@ -20,7 +26,6 @@ class ArticlePlaceView: MKAnnotationView {
     private let selectionAnimationDuration = 0.3
     private let springDamping: CGFloat = 0.5
     private let crossFadeRelativeHalfDuration: TimeInterval = 0.1
-    
     private var alwaysShowImage = false
     
     func set(alwaysShowImage: Bool, animated: Bool) {
@@ -96,6 +101,18 @@ class ArticlePlaceView: MKAnnotationView {
         }
     }
     
+    let selectedImageButton: UIButton
+    
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        guard superview != nil else {
+            selectedImageButton.removeTarget(self, action: #selector(selectedImageViewWasTapped), for: .touchUpInside)
+            return
+        }
+        
+        selectedImageButton.addTarget(self, action: #selector(selectedImageViewWasTapped), for: .touchUpInside)
+    }
+
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         selectedImageView = UIView()
         imageView = UIView()
@@ -108,6 +125,7 @@ class ArticlePlaceView: MKAnnotationView {
         selectedImageOutlineView = UIView()
         imageBackgroundView = UIView()
         selectedImageBackgroundView = UIView()
+        selectedImageButton = UIButton()
         
         let smallDotImage = #imageLiteral(resourceName: "places-dot-small")
         let mediumDotImage = #imageLiteral(resourceName: "places-dot-medium")
@@ -150,7 +168,7 @@ class ArticlePlaceView: MKAnnotationView {
         
         selectedImageView.bounds = bounds
         addSubview(selectedImageView)
-        
+    
         selectedImageBackgroundView.frame = selectedImageView.bounds
         selectedImageBackgroundView.layer.contents = #imageLiteral(resourceName: "places-dot-large-opaque").cgImage
         selectedImageView.addSubview(selectedImageBackgroundView)
@@ -165,6 +183,10 @@ class ArticlePlaceView: MKAnnotationView {
         selectedImageOutlineView.layer.contents = largeDotOutlineImage.cgImage
         selectedImageView.addSubview(selectedImageOutlineView)
         
+        selectedImageButton.frame = selectedImageView.bounds
+        selectedImageButton.accessibilityTraits = UIAccessibilityTraitNone
+        selectedImageView.addSubview(selectedImageButton)
+        
         countLabel.frame = groupView.bounds
         countLabel.textColor = UIColor.white
         countLabel.textAlignment = .center
@@ -173,6 +195,10 @@ class ArticlePlaceView: MKAnnotationView {
         
         prepareForReuse()
         self.annotation = annotation
+    }
+    
+    func selectedImageViewWasTapped(_ sender: UIButton) {
+        delegate?.articlePlaceViewWasTapped(self)
     }
     
     var zPosition: CGFloat = 1 {
@@ -248,6 +274,7 @@ class ArticlePlaceView: MKAnnotationView {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        delegate = nil
         imageImageView.wmf_reset()
         selectedImageImageView.wmf_reset()
         countLabel.text = nil

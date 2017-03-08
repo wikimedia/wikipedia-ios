@@ -3,7 +3,7 @@ import MapKit
 import WMF
 import TUSafariActivity
 
-class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate {
+class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate {
     
     @IBOutlet weak var redoSearchButton: UIButton!
     let locationSearchFetcher = WMFLocationSearchFetcher()
@@ -57,7 +57,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     var previouslySelectedArticlePlaceIdentifier: String?
     var searching: Bool = false
 
-    // MARK: View Lifecycle
+    // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -158,7 +158,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         mapView.showsUserLocation = false
     }
     
-    // MARK: MKMapViewDelegate
+    // MARK: - MKMapViewDelegate
     
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         deselectAllAnnotations()
@@ -246,6 +246,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             placeView?.annotation = place
         }
         
+        placeView?.delegate = self
+        
         if showingAllImages {
             placeView?.set(alwaysShowImage: true, animated: false)
         }
@@ -281,7 +283,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return placeView
     }
     
-    // MARK: Keyboard
+    // MARK: - Keyboard
     
     func keyboardChanged(notification: NSNotification) {
         guard let userInfo = notification.userInfo,
@@ -294,7 +296,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         searchSuggestionView.contentInset = inset
     }
     
-    // MARK: Map Region
+    // MARK: - Map Region
     
     var _mapRegion: MKCoordinateRegion?
     
@@ -330,7 +332,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return coordinates.wmf_boundingRegion
     }
     
-    // MARK: Searching
+    // MARK: - Searching
     
     var currentSearch: PlaceSearch? {
         didSet {
@@ -557,7 +559,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         currentSearch = PlaceSearch(type: search.type, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchResult: search.searchResult)
     }
     
-    // MARK: Display Actions
+    // MARK: - Display Actions
     
     func deselectAllAnnotations() {
         for annotation in mapView.selectedAnnotations {
@@ -615,7 +617,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         previouslySelectedArticlePlaceIdentifier = articlePlace.identifier
     }
 
-    // MARK: Search History
+    // MARK: - Search History
     
     func saveToHistory(search: PlaceSearch) {
         do {
@@ -666,7 +668,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return keyValue
     }
     
-    // MARK: Location Access
+    // MARK: - Location Access
     
     func promptForLocationAccess() {
         let enableLocationVC = EnableLocationViewController(nibName: "EnableLocationViewController", bundle: nil)
@@ -684,7 +686,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         })
     }
     
-    // MARK: Saved Articles
+    // MARK: - Saved Articles
     
     func showSavedArticles() {
         let moc = dataStore.viewContext
@@ -785,7 +787,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     
-    // MARK: Progress
+    // MARK: - Progress
     
     func incrementProgress() {
         guard !isProgressHidden && progressView.progress <= 0.69 else {
@@ -818,7 +820,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    // MARK: Place Grouping
+    // MARK: - Place Grouping
     
     var groupingTaskGroup: WMFTaskGroup?
     var needsRegroup = false
@@ -1057,7 +1059,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    // MARK: Article Popover
+    // MARK: - Article Popover
     
     func showPopover(forAnnotationView annotationView: MKAnnotationView) {
         guard let place = annotationView.annotation as? ArticlePlace else {
@@ -1212,7 +1214,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         articleVC.view.frame = CGRect(origin: CGPoint(x: x, y: y), size: popoverSize)
     }
     
-    // MARK: Search Suggestions & Completions
+    // MARK: - Search Suggestions & Completions
     
     func updateSearchSuggestions(withCompletions completions: [PlaceSearch]) {
         guard let currentSearchString = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), currentSearchString != "" || completions.count > 0 else {
@@ -1338,7 +1340,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         searchBar.text = currentSearch?.localizedDescription
     }
     
-    // MARK: UISearchBarDelegate
+    // MARK: - UISearchBarDelegate
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         if let type = currentSearch?.type, type == .top || type == .saved {
@@ -1368,7 +1370,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         updateViewModeFromSegmentedControl()
     }
     
-    // MARK: UITableViewDataSource
+    // MARK: - UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return articleFetchedResultsController.sections?.count ?? 0
@@ -1456,14 +1458,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
 
-    // MARK: UITableViewDelegate
+    // MARK: - UITableViewDelegate
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let article = articleFetchedResultsController.object(at: indexPath)
         perform(action: .read, onArticle: article)
     }
     
-    // MARK: PlaceSearchSuggestionControllerDelegate
+    // MARK: - PlaceSearchSuggestionControllerDelegate
     
     func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didSelectSearch search: PlaceSearch) {
         currentSearch = search
@@ -1489,7 +1491,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         updateSearchSuggestions(withCompletions: [])
     }
     
-    // MARK: WMFLocationManagerDelegate
+    // MARK: - WMFLocationManagerDelegate
     
     func updateUserLocationAnnotationViewHeading(_ heading: CLHeading) {
         guard let view = mapView.view(for: mapView.userLocation) as? UserLocationAnnotationView else {
@@ -1543,19 +1545,19 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         zoomAndPanMapView(toLocation: locationManager.location)
     }
     
-    // MARK: NSFetchedResultsControllerDelegate
+    // MARK: - NSFetchedResultsControllerDelegate
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         updatePlaces()
     }
     
-    // MARK: UIPopoverPresentationDelegate
+    // MARK: - UIPopoverPresentationDelegate
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
     
-    // MARK: EnableLocationViewControllerDelegate
+    // MARK: - EnableLocationViewControllerDelegate
     
     func enableLocationViewController(_ enableLocationViewController: EnableLocationViewController, didFinishWithShouldPromptForLocationAccess shouldPromptForLocationAccess: Bool) {
         guard shouldPromptForLocationAccess else {
@@ -1567,6 +1569,15 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         locationManager.startMonitoringLocation()
+    }
+    
+    // MARK: - ArticlePlaceViewDelegate
+    
+    func articlePlaceViewWasTapped(_ articlePlaceView: ArticlePlaceView) {
+        guard let article = selectedArticlePopover?.article else {
+            return
+        }
+        perform(action: .read, onArticle: article)
     }
 }
 

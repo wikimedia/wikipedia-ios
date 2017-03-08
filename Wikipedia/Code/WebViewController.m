@@ -313,8 +313,14 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 }
 
 - (void)showFindInPage {
+    [self killScroll];
     [self becomeFirstResponder];
     [[self findInPageKeyboardBar] show];
+}
+
+- (void)killScroll {
+    CGPoint offset = [self.webView.scrollView contentOffset];
+    [self.webView.scrollView setContentOffset:offset animated:NO];
 }
 
 - (void)hideFindInPageWithCompletion:(nullable dispatch_block_t)completion {
@@ -472,6 +478,8 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 }
 
 - (void)keyboardBarClearButtonTapped:(WMFFindInPageKeyboardBar *)keyboardBar {
+    // Stop scrolling to let the keyboard open
+    [self killScroll];
     [self resetFindInPageWithCompletion:nil];
 }
 
