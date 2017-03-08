@@ -99,7 +99,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [items addObject:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@", url.absoluteString, @"wprov=sfsi1"]]];
     }
 
-    UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[[[TUSafariActivity alloc] init]]];
+    MKMapItem *mapItem = [self mapItem];
+    if (mapItem) {
+        [items addObject:mapItem];
+    }
+
+    UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items
+                                                                     applicationActivities:
+                                                                         @[[[TUSafariActivity alloc] init],
+                                                                           [[WMFOpenInMapsActivity alloc] init],
+                                                                           [[WMFGetDirectionsInMapsActivity alloc] init]]];
     UIPopoverPresentationController *presenter = [vc popoverPresentationController];
     presenter.barButtonItem = button;
     return vc;
@@ -1752,13 +1761,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                                                                                shareActivityController:shareActivityController];
                                      }
                                  }];
-    
+
     UIPreviewAction *placeAction = nil;
     if (CLLocationCoordinate2DIsValid(self.article.coordinate)) {
         placeAction =
             [UIPreviewAction actionWithTitle:MWLocalizedString(@"page-location", nil)
                                        style:UIPreviewActionStyleDefault
-                                     handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+                                     handler:^(UIPreviewAction *_Nonnull action, UIViewController *_Nonnull previewViewController) {
                                          UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
                                          if (shareActivityController) {
                                              NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
@@ -1766,7 +1775,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                          }
                                      }];
     }
-    
+
     if (placeAction) {
         return @[readAction, saveAction, placeAction, shareAction];
     } else {
