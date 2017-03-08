@@ -289,9 +289,10 @@ static uint64_t bundleHash() {
                     continue;
                 }
                 [self.articlePreviewCache removeObjectForKey:articleKey];
+
                 NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:@{MWKURLKey: articleURL}];
                 NSDate *articleSavedDate = article.savedDate;
-                if (articleSavedDate) {
+                if (articleSavedDate && ![key isEqualToString:NSDeletedObjectsKey]) {
                     userInfo[MWKSavedDateKey] = articleSavedDate;
                 }
                 [notificationUserInfos addObject:userInfo];
@@ -303,7 +304,7 @@ static uint64_t bundleHash() {
     }
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         for (NSDictionary *userInfo in notificationUserInfos) {
-             [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:self userInfo:userInfo];
+            [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:self userInfo:userInfo];
         }
     });
 }
