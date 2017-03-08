@@ -81,6 +81,9 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        oathTokenFields.sort { $0.tag < $1.tag }
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
         
         loginButton.setTitle(localizedStringForKeyFallingBackOnEnglish("two-factor-login-continue"), for: .normal)
