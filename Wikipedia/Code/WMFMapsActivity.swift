@@ -80,7 +80,8 @@ class WMFGetDirectionsInMapsActivity : WMFMapsActivity {
     override func perform() {
         
         guard let mapItem = self.mapItem else {
-            assertionFailure("MapItem should have been set")
+            assertionFailure("MapItem not set")
+            activityDidFinish(false)
             return
         }
         
