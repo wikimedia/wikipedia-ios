@@ -127,7 +127,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     fileprivate func maxTextFieldCharacterCount() -> Int {
         // Presently backup tokens are 16 digit, but may contain spaces and their length 
         // may change in future, so for now just set a sensible upper limit.
-        return useBackupOathToken ? 32 : 1
+        return useBackupOathToken ? 24 : 1
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
