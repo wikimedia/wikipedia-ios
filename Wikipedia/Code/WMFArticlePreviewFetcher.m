@@ -76,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
             }
         WMF_TECH_DEBT_TODO(handle case where no preview is retrieved for url)
         NSArray *results = [articleURLs wmf_mapAndRejectNil:^(NSURL *articleURL) {
-            MWKSearchResult *matchingPreview = [unsortedPreviews bk_match:^BOOL(MWKSearchResult *preview) {
+            MWKSearchResult *matchingPreview = [unsortedPreviews wmf_match:^BOOL(MWKSearchResult *preview) {
                 return [preview.displayTitle isEqualToString:articleURL.wmf_title];
             }];
             if (!matchingPreview) {

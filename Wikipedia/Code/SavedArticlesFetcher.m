@@ -444,9 +444,10 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 - (void)cancelFetchForArticleURL:(NSURL *)URL {
     DDLogVerbose(@"Canceling saved page download for title: %@", URL);
     [self.articleFetcher cancelFetchForArticleURL:URL];
-    [[[self.dataStore existingArticleWithURL:URL] allImageURLs] bk_each:^(NSURL *imageURL) {
+    NSSet<NSURL *> *allImageURLs = [[self.dataStore existingArticleWithURL:URL] allImageURLs];
+    for (NSURL *imageURL in allImageURLs) {
         [self.imageController cancelFetchForURL:imageURL];
-    }];
+    }
     WMF_TECH_DEBT_TODO(cancel image info & high - res image requests)
         [self.fetchOperationsByArticleTitle removeObjectForKey:URL];
 }

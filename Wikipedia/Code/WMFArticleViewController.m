@@ -1687,7 +1687,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if ([fileName hasPrefix:@"File:"]) {
         fileName = [fileName substringFromIndex:5];
     }
-    return [[self.article imageURLsForGallery] bk_match:^BOOL(NSURL *galleryURL) {
+    return [[self.article imageURLsForGallery] wmf_match:^BOOL(NSURL *galleryURL) {
         return [WMFParseImageNameFromSourceURL(galleryURL).stringByRemovingPercentEncoding hasSuffix:fileName];
     }];
 }

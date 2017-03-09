@@ -5,7 +5,7 @@
 
 - (nullable NSString *)wmf_valueForQueryKey:(NSString *)key {
     NSURLQueryItem *matchingItem = [[[NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:YES] queryItems]
-        bk_match:^BOOL(NSURLQueryItem *item) {
+        wmf_match:^BOOL(NSURLQueryItem *item) {
             return [item.name isEqualToString:key];
         }];
     return matchingItem.value;

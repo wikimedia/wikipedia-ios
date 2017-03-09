@@ -14,6 +14,15 @@ extension NSArray {
             return !transform(obj)
         }) as NSArray
     }
+    
+    @objc public func wmf_match(_ matcher: @escaping (Any) -> Bool) -> Any? {
+        for obj in self {
+            guard !matcher(obj) else {
+                return obj
+            }
+        }
+        return nil
+    }
 }
 
 extension NSSet {
@@ -34,6 +43,15 @@ extension NSSet {
             return !transform(obj)
         })
         return NSSet(array: array)
+    }
+    
+    @objc public func wmf_match(_ matcher: @escaping (Any) -> Bool) -> Any? {
+        for obj in self {
+            guard !matcher(obj) else {
+                return obj
+            }
+        }
+        return nil
     }
 }
 
@@ -67,5 +85,14 @@ extension NSDictionary {
         return wmf_select({ (key, value) -> Bool in
             return !transform(key, value)
         })
+    }
+    
+    @objc public func wmf_match(_ matcher: @escaping (Any, Any) -> Bool) -> Any? {
+        for (key, value) in self {
+            guard !matcher(key, value) else {
+                return value
+            }
+        }
+        return nil
     }
 }

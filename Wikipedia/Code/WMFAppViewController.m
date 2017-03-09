@@ -626,18 +626,18 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 }
 
 - (WMFFeedContentSource *)feedContentSource {
-    return [self.contentSources bk_match:^BOOL(id<WMFContentSource> obj) {
+    return [self.contentSources wmf_match:^BOOL(id<WMFContentSource> obj) {
         return [obj isKindOfClass:[WMFFeedContentSource class]];
     }];
 }
 
 - (WMFRandomContentSource *)randomContentSource {
-    return [self.contentSources bk_match:^BOOL(id<WMFContentSource> obj) {
+    return [self.contentSources wmf_match:^BOOL(id<WMFContentSource> obj) {
         return [obj isKindOfClass:[WMFRandomContentSource class]];
     }];
 }
 - (WMFNearbyContentSource *)nearbyContentSource {
-    return [self.contentSources bk_match:^BOOL(id<WMFContentSource> obj) {
+    return [self.contentSources wmf_match:^BOOL(id<WMFContentSource> obj) {
         return [obj isKindOfClass:[WMFNearbyContentSource class]];
     }];
 }

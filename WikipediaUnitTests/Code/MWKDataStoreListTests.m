@@ -36,16 +36,14 @@
 
 - (void)testSavedListIsEqualToListWithAddedEntries {
     [self verifyListRoundTripAfter:^(MWKList *list) {
-        [self.testObjects bk_each:^(id entry) {
+        for (id entry in self.testObjects) {
             [list addEntry:entry];
-        }];
+        }
     }];
 }
 
 - (void)testSavedListIsEqualToListWithAddedAndRemovedEntries {
     [self verifyListRoundTripAfter:^(MWKList *list) {
-        [self.testObjects bk_each:^(id entry){
-        }];
         [list removeEntryWithListIndex:[self.testObjects.firstObject listIndex]];
         [list removeEntryWithListIndex:[self.testObjects.lastObject listIndex]];
     }];

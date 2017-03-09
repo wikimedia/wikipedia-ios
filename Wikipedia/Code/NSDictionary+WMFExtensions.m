@@ -4,7 +4,7 @@
 @implementation NSDictionary (WMFExtensions)
 
 - (BOOL)wmf_containsNullObjects {
-    NSNull *null = [self bk_match:^BOOL(id key, id obj) {
+    NSNull *null = [self wmf_match:^BOOL(id key, id obj) {
         return [obj isKindOfClass:[NSNull class]];
     }];
     return (null != nil);

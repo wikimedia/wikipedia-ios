@@ -103,7 +103,7 @@
 
 - (NSString *)geoIPCookieString {
     NSArray<NSHTTPCookie *> *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
-    NSHTTPCookie *cookie = [cookies bk_match:^BOOL(NSHTTPCookie *obj) {
+    NSHTTPCookie *cookie = [cookies wmf_match:^BOOL(NSHTTPCookie *obj) {
         if ([[obj name] containsString:@"GeoIP"]) {
             return YES;
         } else {

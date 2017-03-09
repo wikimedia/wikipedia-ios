@@ -77,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable MWKLanguageLink *)titleLanguageForLanguage:(MWKLanguageLink *)language {
-    return [self.availableLanguages bk_match:^BOOL(MWKLanguageLink *availableLanguage) {
+    return [self.availableLanguages wmf_match:^BOOL(MWKLanguageLink *availableLanguage) {
         return [language.languageCode isEqualToString:availableLanguage.languageCode];
     }];
 }

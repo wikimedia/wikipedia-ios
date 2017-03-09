@@ -96,7 +96,7 @@ static id _sharedInstance;
 }
 
 - (nullable MWKLanguageLink *)languageForSiteURL:(NSURL *)siteURL {
-    return [self.allLanguages bk_match:^BOOL(MWKLanguageLink *obj) {
+    return [self.allLanguages wmf_match:^BOOL(MWKLanguageLink *obj) {
         return [obj.siteURL isEqual:siteURL];
     }];
 }
@@ -108,7 +108,7 @@ static id _sharedInstance;
 - (NSArray<MWKLanguageLink *> *)preferredLanguages {
     NSArray *preferredLanguageCodes = [self readPreferredLanguageCodes];
     return [preferredLanguageCodes wmf_mapAndRejectNil:^id(NSString *langString) {
-        return [self.allLanguages bk_match:^BOOL(MWKLanguageLink *langLink) {
+        return [self.allLanguages wmf_match:^BOOL(MWKLanguageLink *langLink) {
             return [langLink.languageCode isEqualToString:langString];
         }];
     }];
@@ -216,7 +216,7 @@ static id _sharedInstance;
 
 - (BOOL)languageIsOSLanguage:(MWKLanguageLink *)language {
     NSArray *languageCodes = [self readOSPreferredLanguageCodes];
-    return [languageCodes bk_match:^BOOL(NSString *obj) {
+    return [languageCodes wmf_match:^BOOL(NSString *obj) {
                BOOL answer = [obj isEqualToString:language.languageCode];
                return answer;
            }] != nil;
