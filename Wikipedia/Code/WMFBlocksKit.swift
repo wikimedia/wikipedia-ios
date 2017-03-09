@@ -70,7 +70,7 @@ extension NSDictionary {
         }
         let result = NSMutableDictionary(capacity: count)
         for (key, value) in self {
-            result[key] = transform(key, value)
+            result[key] = transform(key, value) ?? NSNull()
         }
         return result
     }
