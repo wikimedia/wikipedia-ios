@@ -385,7 +385,7 @@
 "home-featured-article-heading" = "Pennad eus ar c'hentañ evit $1";
 "home-main-page-heading" = "Hiziv e Wikipedia";
 "home-potd-heading" = "Skeudenn an deiz evit $1";
-"home-last-update-label" = "Hizivadenn diwezhañ: %1$";
+"home-last-update-label" = "Hizivadenn diwezhañ: $1";
 "home-last-update-never-label" = "Hizivadenn diwezhañ : Morse";
 "home-updating-label" = "Oc'h hizivaat...";
 "home-hide-suggestion-prompt" = "Kuzhat ar c'hinnig-mañ";
