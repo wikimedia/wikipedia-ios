@@ -3,7 +3,7 @@ import MapKit
 import WMF
 import TUSafariActivity
 
-class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate {
+class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, WMFAnalyticsViewNameProviding {
     
     @IBOutlet weak var redoSearchButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
@@ -139,6 +139,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         locationManager.startMonitoringLocation()
         mapView.showsUserLocation = true
+        
+        tracker?.wmf_logView(self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -418,9 +420,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             showSavedArticles()
             return
         case .top:
+            tracker?.wmf_logAction("Top_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
             break
         case .location:
             guard search.needsWikidataQuery else {
+                tracker?.wmf_logActionTapThrough(inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
                 fallthrough
             }
             performWikidataQuery(forSearch: search)
@@ -681,6 +685,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     // MARK: - Saved Articles
     
     func showSavedArticles() {
+        tracker?.wmf_logAction("Saved_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
         let moc = dataStore.viewContext
         let done = { (articlesToShow: [WMFArticle]) -> Void in
             let request = WMFArticle.fetchRequest()
@@ -1599,5 +1604,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         perform(action: .read, onArticle: article)
     }
+    
+    // MARK: - WMFAnalyticsViewNameProviding
+    
+    public func analyticsName() -> String {
+        return "Places"
+    }
+
 }
 

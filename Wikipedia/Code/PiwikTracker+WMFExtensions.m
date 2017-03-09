@@ -43,6 +43,13 @@ NS_ASSUME_NONNULL_BEGIN
 #endif
 }
 
+- (void)wmf_logAction:(NSString *)action inContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_sendEventWithCategory:[context analyticsContext]
+                             action:action
+                               name:[contentType analyticsContentType]
+                              value:nil];
+}
+
 - (void)wmf_logActionPreviewInContext:(id<WMFAnalyticsContextProviding>)context
                           contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
     [self wmf_logActionPreviewInContext:context contentType:contentType date:nil];

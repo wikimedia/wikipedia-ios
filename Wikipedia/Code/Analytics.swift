@@ -1,27 +1,53 @@
 import Foundation
 
-class AnalyticsContext: NSObject, WMFAnalyticsContextProviding, ExpressibleByStringLiteral {
-    typealias StringLiteralType = String
-    typealias UnicodeScalarLiteralType = String
-    typealias ExtendedGraphemeClusterLiteralType = String
+public class AnalyticsContext: NSObject, WMFAnalyticsContextProviding, ExpressibleByStringLiteral {
+    public typealias StringLiteralType = String
+    public typealias UnicodeScalarLiteralType = String
+    public typealias ExtendedGraphemeClusterLiteralType = String
     let name: String
     
-    required init(stringLiteral value: StringLiteralType) {
+    public required init(stringLiteral value: StringLiteralType) {
         name = value
     }
-    required init(unicodeScalarLiteral value: UnicodeScalarLiteralType) {
+    public required init(unicodeScalarLiteral value: UnicodeScalarLiteralType) {
         name = value
     }
-    required init(extendedGraphemeClusterLiteral value: ExtendedGraphemeClusterLiteralType) {
+    public required init(extendedGraphemeClusterLiteral value: ExtendedGraphemeClusterLiteralType) {
         name = value
     }
-    func analyticsContext() -> String {
+    public func analyticsContext() -> String {
         return name
+    }
+}
+
+
+public class AnalyticsContent: NSObject, WMFAnalyticsContentTypeProviding, ExpressibleByStringLiteral {
+    public typealias StringLiteralType = String
+    public typealias UnicodeScalarLiteralType = String
+    public typealias ExtendedGraphemeClusterLiteralType = String
+    let type: String
+    
+    public required init(stringLiteral value: StringLiteralType) {
+        type = value
+    }
+    public required init(unicodeScalarLiteral value: UnicodeScalarLiteralType) {
+        type = value
+    }
+    public required init(extendedGraphemeClusterLiteral value: ExtendedGraphemeClusterLiteralType) {
+        type = value
+    }
+    
+    public init(_ url: URL?) {
+        type = url?.host ?? "unknown domain"
+    }
+    
+    public func analyticsContentType() -> String {
+        return type
     }
 }
 
 extension WMFArticle: WMFAnalyticsContentTypeProviding {
     public func analyticsContentType() -> String {
-        return url?.host ?? "unkown domain"
+        return AnalyticsContent(url).analyticsContentType()
     }
 }
