@@ -23,6 +23,10 @@ extension NSArray {
         }
         return nil
     }
+    
+    @objc public func wmf_reduce(_ initialResult: Any?, withBlock: @escaping (Any?, Any) -> Any?) -> Any? {
+        return reduce(initialResult, withBlock)
+    }
 }
 
 extension NSSet {
@@ -52,6 +56,10 @@ extension NSSet {
             }
         }
         return nil
+    }
+    
+    @objc public func wmf_reduce(_ initialResult: Any?, withBlock: @escaping (Any?, Any) -> Any?) -> Any? {
+        return reduce(initialResult, withBlock)
     }
 }
 
@@ -94,5 +102,11 @@ extension NSDictionary {
             }
         }
         return nil
+    }
+    
+    @objc public func wmf_reduce(_ initialResult: Any?, withBlock: @escaping (Any?, Any, Any) -> Any?) -> Any? {
+        return reduce(initialResult) { (result, kv) -> Any? in
+            return withBlock(result, kv.0, kv.1)
+        }
     }
 }

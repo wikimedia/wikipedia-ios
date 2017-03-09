@@ -791,7 +791,7 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
         return;
     }
     NSParameterAssert(self.isViewLoaded);
-    MASViewAttribute *lastAnchor = [self.footerViewControllers bk_reduce:self.footerContainerView.mas_top
+    MASViewAttribute *lastAnchor = [self.footerViewControllers wmf_reduce:self.footerContainerView.mas_top
                                                                withBlock:^MASViewAttribute *(MASViewAttribute *topAnchor,
                                                                                              UIViewController *childVC) {
                                                                    NSString *footerTitle = [self.delegate webViewController:self titleForFooterViewController:childVC];
