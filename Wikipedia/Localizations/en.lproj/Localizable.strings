@@ -299,6 +299,8 @@
 "share-as-image" = "Share as image";
 "share-as-text" = "Share as text";
 "share-cancel" = "Cancel";
+"share-open-in-maps" = "Open in Maps";
+"share-get-directions-in-maps" = "Get Directions";
 
 "timestamp-just-now" = "just now";
 "timestamp-minutes" = "%d minutes ago";
