@@ -54,7 +54,9 @@
 
 #import "NSString+WMFPageUtilities.h"
 #import "UIToolbar+WMFStyling.h"
+#if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>
+#endif
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WMFImageInfoController.h"
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
@@ -188,10 +190,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @end
 
 @implementation WMFArticleViewController
-
-+ (void)load {
-    [self registerTweak];
-}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -604,44 +602,32 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (UIBarButtonItem *)fontSizeToolbarItem {
     if (!_fontSizeToolbarItem) {
-        @weakify(self);
-        _fontSizeToolbarItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"font-size"]
-                                                                   style:UIBarButtonItemStylePlain
-                                                                 handler:^(id sender) {
-                                                                     @strongify(self);
-                                                                     [self showFontSizePopup];
-                                                                 }];
+        _fontSizeToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"font-size"] style:UIBarButtonItemStylePlain target:self action:@selector(showFontSizePopup)];
     }
     return _fontSizeToolbarItem;
 }
 
 - (UIBarButtonItem *)shareToolbarItem {
     if (!_shareToolbarItem) {
-        @weakify(self);
-        _shareToolbarItem = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                                                            handler:^(id sender) {
-                                                                                @strongify(self);
-                                                                                [self shareArticle];
-                                                                            }];
+        _shareToolbarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                             target:self action:@selector(shareArticle)];
     }
     return _shareToolbarItem;
 }
 
 - (UIBarButtonItem *)findInPageToolbarItem {
     if (!_findInPageToolbarItem) {
-        @weakify(self);
-        _findInPageToolbarItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"find-in-page"]
-                                                                     style:UIBarButtonItemStylePlain
-
-                                                                   handler:^(id sender) {
-                                                                       @strongify(self);
-                                                                       if ([self canFindInPage]) { // Needed so you can't tap find icon when text size adjuster is onscreen.
-                                                                           [self showFindInPage];
-                                                                       }
-                                                                   }];
+        _findInPageToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"find-in-page"]
+                                                                     style:UIBarButtonItemStylePlain target:self action:@selector(findInPageButtonPressed)];
         _findInPageToolbarItem.accessibilityLabel = MWLocalizedString(@"find-in-page-button-label", nil);
     }
     return _findInPageToolbarItem;
+}
+
+- (void)findInPageButtonPressed {
+    if ([self canFindInPage]) { // Needed so you can't tap find icon when text size adjuster is onscreen.
+        [self showFindInPage];
+    }
 }
 
 - (UIBarButtonItem *)languagesToolbarItem {
@@ -803,7 +789,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     MWKHistoryList *historyList = self.dataStore.historyList;
     WMFArticle *entry = [historyList entryForURL:self.articleURL];
     if (!entry.wasSignificantlyViewed) {
-        self.significantlyViewedTimer = [NSTimer scheduledTimerWithTimeInterval:FBTweakValue(@"Explore", @"Related items", @"Required viewing time", 30.0) target:self selector:@selector(significantlyViewedTimerFired:) userInfo:nil repeats:NO];
+        self.significantlyViewedTimer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(significantlyViewedTimerFired:) userInfo:nil repeats:NO];
     }
 }
 
@@ -830,16 +816,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     UIImage *w = [UIImage imageNamed:@"W"];
     [b setImage:w forState:UIControlStateNormal];
     [b sizeToFit];
-    @weakify(self);
-    [b bk_addEventHandler:^(id sender) {
-        @strongify(self);
-        [self.navigationController popToRootViewControllerAnimated:YES];
-    }
-          forControlEvents:UIControlEventTouchUpInside];
+    [b addTarget:self action:@selector(titleBarButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = b;
     self.navigationItem.titleView.isAccessibilityElement = YES;
 
     self.navigationItem.titleView.accessibilityTraits |= UIAccessibilityTraitButton;
+}
+
+- (void)titleBarButtonPressed {
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - ViewController
@@ -991,7 +976,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (WMFTableOfContentsDisplayStyle)tableOfContentsStyleTweakValue {
+#if WMF_TWEAKS_ENABLED
     return FBTweakValue(@"Table of contents", @"Style", @"0:old 1:now 2:new", 1, 0, 2);
+#else
+    return WMFTableOfContentsDisplayStyleCurrent;
+#endif
 }
 
 - (void)updateTableOfContentsDisplayModeWithTraitCollection:(UITraitCollection *)traitCollection {
@@ -1418,6 +1407,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (NSArray<NSNumber *> *)fontSizeMultipliers {
+#if WMF_TWEAKS_ENABLED
     return @[@(FBTweakValue(@"Article", @"Font Size", @"Step 1", WMFFontSizeMultiplierExtraSmall)),
              @(FBTweakValue(@"Article", @"Font Size", @"Step 2", WMFFontSizeMultiplierSmall)),
              @(FBTweakValue(@"Article", @"Font Size", @"Step 3", WMFFontSizeMultiplierMedium)),
@@ -1425,6 +1415,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
              @(FBTweakValue(@"Article", @"Font Size", @"Step 5", WMFFontSizeMultiplierExtraLarge)),
              @(FBTweakValue(@"Article", @"Font Size", @"Step 6", WMFFontSizeMultiplierExtraExtraLarge)),
              @(FBTweakValue(@"Article", @"Font Size", @"Step 7", WMFFontSizeMultiplierExtraExtraExtraLarge))];
+#else
+    return @[@(WMFFontSizeMultiplierExtraSmall),
+             @(WMFFontSizeMultiplierSmall),
+             @(WMFFontSizeMultiplierMedium),
+             @(WMFFontSizeMultiplierLarge),
+             @(WMFFontSizeMultiplierExtraLarge),
+             @(WMFFontSizeMultiplierExtraExtraLarge),
+             @(WMFFontSizeMultiplierExtraExtraExtraLarge)];
+#endif
 }
 
 - (NSUInteger)indexOfCurrentFontSize {
@@ -1687,7 +1686,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if ([fileName hasPrefix:@"File:"]) {
         fileName = [fileName substringFromIndex:5];
     }
-    return [[self.article imageURLsForGallery] bk_match:^BOOL(NSURL *galleryURL) {
+    return [[self.article imageURLsForGallery] wmf_match:^BOOL(NSURL *galleryURL) {
         return [WMFParseImageNameFromSourceURL(galleryURL).stringByRemovingPercentEncoding hasSuffix:fileName];
     }];
 }

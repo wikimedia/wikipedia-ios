@@ -11,11 +11,11 @@
 }
 
 + (void)wmf_forEachKnownTimeZoneAsDefault:(dispatch_block_t)block {
-    [[NSTimeZone knownTimeZoneNames] bk_each:^(NSString *zoneName) {
+    for (NSString *zoneName in [NSTimeZone knownTimeZoneNames]) {
         [NSTimeZone wmf_setDefaultTimeZoneForName:zoneName];
         block();
         [NSTimeZone wmf_resetDefaultTimeZone];
-    }];
+    }
 }
 
 @end

@@ -413,7 +413,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (void)cacheImagesWithURLsInBackground:(NSArray<NSURL *> *)imageURLs failure:(void (^_Nonnull)(NSError *_Nonnull error))failure success:(void (^_Nonnull)(void))success {
-    imageURLs = [imageURLs bk_select:^BOOL(id obj) {
+    imageURLs = [imageURLs wmf_select:^BOOL(id obj) {
         return [obj isKindOfClass:[NSURL class]];
     }];
 
@@ -447,9 +447,10 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     dispatch_async(self.accessQueue, ^{
         DDLogVerbose(@"Canceling saved page download for title: %@", URL);
         [self.articleFetcher cancelFetchForArticleURL:URL];
-        [[[self.dataStore existingArticleWithURL:URL] allImageURLs] bk_each:^(NSURL *imageURL) {
+        NSSet<NSURL *> *allImageURLs = [[self.dataStore existingArticleWithURL:URL] allImageURLs];
+        for (NSURL *imageURL in allImageURLs) {
             [self.imageController cancelFetchForURL:imageURL];
-        }];
+        }
         WMF_TECH_DEBT_TODO(cancel image info & high - res image requests)
         [self.fetchOperationsByArticleTitle removeObjectForKey:URL];
     });

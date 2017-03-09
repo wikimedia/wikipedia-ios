@@ -64,14 +64,9 @@ static NSString *const pListFileName = @"Recent.plist";
 }
 
 - (void)setupTrashButton {
-    @weakify(self)
-        self.trashButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.trashButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.trashButton setImage:[UIImage imageNamed:@"clear-mini"] forState:UIControlStateNormal];
-    [self.trashButton bk_addEventHandler:^(UIButton *sender) {
-        @strongify(self)
-            [self showDeleteAllDialog];
-    }
-                        forControlEvents:UIControlEventTouchUpInside];
+    [self.trashButton addTarget:self action:@selector(showDeleteAllDialog) forControlEvents:UIControlEventTouchUpInside];
     self.trashButton.tintColor = [UIColor wmf_lightGrayColor];
     [self.trashButtonContainer addSubview:self.trashButton];
 

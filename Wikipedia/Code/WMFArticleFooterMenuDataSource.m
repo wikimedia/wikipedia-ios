@@ -2,8 +2,9 @@
 #import "WMFArticleFooterMenuItem.h"
 #import "MWKArticle.h"
 #import "WMFArticleFooterMenuCell.h"
+#if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>
-
+#endif
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticleFooterMenuDataSource

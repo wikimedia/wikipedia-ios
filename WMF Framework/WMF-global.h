@@ -5,7 +5,6 @@
 #define QUOTE(x) QUOTE2(x)
 
 #import "EXTScope.h"
-#import <BlocksKit/BlocksKit.h>
 
 #import "NSURL+WMFLinkParsing.h"
 #import "NSURLComponents+WMFLinkParsing.h"
@@ -28,7 +27,6 @@
 #import "NSError+WMFExtensions.h"
 #import "WMFOutParamUtils.h"
 #import "WMFRangeUtils.h"
-#import "NSArray+BKIndex.h"
 #import "NSIndexSet+BKReduce.h"
 #import "NSMutableDictionary+WMFMaybeSet.h"
 #import "WMFGeometry.h"

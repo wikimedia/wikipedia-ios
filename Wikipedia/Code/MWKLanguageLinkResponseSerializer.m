@@ -1,6 +1,6 @@
 #import "MWKLanguageLinkResponseSerializer.h"
 #import "MWKLanguageLink.h"
-#import <BlocksKit/BlocksKit.h>
+#import <WMF/WMF-Swift.h>
 
 @implementation MWKLanguageLinkResponseSerializer
 
@@ -10,14 +10,14 @@
         return nil;
     }
     NSDictionary *pagesByID = json[@"query"][@"pages"];
-    return [[pagesByID bk_map:^id(id key, NSDictionary *result) {
-        return [result[@"langlinks"] bk_map:^MWKLanguageLink *(NSDictionary *jsonLink) {
+    return [[pagesByID wmf_map:^id(id key, NSDictionary *result) {
+        return [result[@"langlinks"] wmf_map:^MWKLanguageLink *(NSDictionary *jsonLink) {
             return [[MWKLanguageLink alloc] initWithLanguageCode:jsonLink[@"lang"]
                                                    pageTitleText:jsonLink[@"*"]
                                                             name:jsonLink[@"autonym"]
                                                    localizedName:jsonLink[@"langname"]];
         }];
-    }] bk_reject:^BOOL(id key, id obj) {
+    }] wmf_reject:^BOOL(id key, id obj) {
         return WMF_IS_EQUAL(obj, [NSNull null]);
     }];
 }

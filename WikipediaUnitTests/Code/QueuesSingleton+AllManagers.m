@@ -12,7 +12,7 @@
                                                          [managerKeys addObject:name];
                                                      }
                                                  }];
-    return [managerKeys bk_map:^id(NSString *key) {
+    return [managerKeys wmf_map:^id(NSString *key) {
         return [[QueuesSingleton sharedInstance] valueForKey:key];
     }];
 }

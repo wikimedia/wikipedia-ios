@@ -1,7 +1,7 @@
 #import "NSString+WMFHTMLParsing.h"
 #import <hpple/TFHpple.h>
 #import "NSString+WMFExtras.h"
-#import <BlocksKit/BlocksKit.h>
+#import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -239,7 +239,7 @@ static NSString *const WMFSectionSummaryXPathSelector = @"\
     if (!textNodes || !textNodes.count) {
         return nil;
     }
-    return [[[textNodes bk_map:^id(TFHppleElement *node) {
+    return [[[textNodes wmf_map:^id(TFHppleElement *node) {
         return node.raw;
     }] componentsJoinedByString:@" "] wmf_summaryFromText];
 }

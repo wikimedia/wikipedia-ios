@@ -6,7 +6,6 @@
 #import "WMFImageTag+TargetImageWidthURL.h"
 #import "WMFImageTagList+ImageURLs.h"
 #import <OCHamcrest/OCHamcrest.h>
-#import <BlocksKit/BlocksKit.h>
 
 @interface NSString (WMFImageTagParser)
 
@@ -47,7 +46,7 @@
 
 - (NSArray<NSURL *> *)urlsFromHMTL:(NSString *)html atTargetWidth:(NSUInteger)targetWidth {
     WMFImageTagList *tagList = [self.parser imageTagListFromParsingHTMLString:html withBaseURL:self.baseURL];
-    NSArray<NSURL *> *imageTags = [tagList.imageTags bk_map:^NSURL *(WMFImageTag *tag) {
+    NSArray<NSURL *> *imageTags = [tagList.imageTags wmf_map:^NSURL *(WMFImageTag *tag) {
         return [tag URLForTargetWidth:targetWidth];
     }];
     return imageTags;
@@ -89,7 +88,7 @@
             @"//upload.wikimedia.org/wikipedia/commons/thumb/5/55/President_Barack_Obama%2C_2012_portrait_crop.jpg/640px-President_Barack_Obama%2C_2012_portrait_crop.jpg",
             @"//upload.wikimedia.org/wikipedia/commons/thumb/3/36/Seal_of_the_President_of_the_United_States.svg/640px-Seal_of_the_President_of_the_United_States.svg.png",
             @"//upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Seal_of_the_United_States_Senate.svg/640px-Seal_of_the_United_States_Senate.svg.png"
-        ] bk_map:^NSURL *(NSString *stringURL) {
+        ] wmf_map:^NSURL *(NSString *stringURL) {
             return [NSURL URLWithString:stringURL];
         }];
 
@@ -207,7 +206,7 @@
             @"//upload.wikimedia.org/wikipedia/commons/thumb/2/24/Wikinews-logo.svg/30px-Wikinews-logo.svg.png",
             @"//upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikiquote-logo.svg/25px-Wikiquote-logo.svg.png",
             @"//upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wikisource-logo.svg/29px-Wikisource-logo.svg.png"
-        ] bk_map:^NSURL *(NSString *stringURL) {
+        ] wmf_map:^NSURL *(NSString *stringURL) {
             return [NSURL URLWithString:stringURL];
         }];
 
@@ -230,7 +229,7 @@
     NSArray *expectedURLs =
         [@[
             @"//upload.wikimedia.org/wikipedia/commons/0/0b/300px-Geothermgradients.png",
-        ] bk_map:^NSURL *(NSString *stringURL) {
+        ] wmf_map:^NSURL *(NSString *stringURL) {
             return [NSURL URLWithString:stringURL];
         }];
 
@@ -333,7 +332,7 @@
             @"//upload.wikimedia.org/wikipedia/commons/thumb/5/55/President_Barack_Obama%2C_2012_portrait_crop.jpg/640px-President_Barack_Obama%2C_2012_portrait_crop.jpg",
             @"//upload.wikimedia.org/wikipedia/commons/thumb/3/36/Seal_of_the_President_of_the_United_States.svg/640px-Seal_of_the_President_of_the_United_States.svg.png",
             @"//upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Seal_of_the_United_States_Senate.svg/640px-Seal_of_the_United_States_Senate.svg.png"
-        ] bk_map:^NSURL *(NSString *stringURL) {
+        ] wmf_map:^NSURL *(NSString *stringURL) {
             return [NSURL URLWithString:stringURL];
         }];
 
@@ -376,7 +375,7 @@
             @"//upload.wikimedia.org/wikipedia/commons/thumb/5/55/President_Barack_Obama%2C_2012_portrait_crop.jpg/640px-President_Barack_Obama%2C_2012_portrait_crop.jpg",
             @"//upload.wikimedia.org/wikipedia/commons/thumb/3/36/Seal_of_the_President_of_the_United_States.svg/640px-Seal_of_the_President_of_the_United_States.svg.png",
             @"//upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Seal_of_the_United_States_Senate.svg/640px-Seal_of_the_United_States_Senate.svg.png"
-        ] bk_map:^NSURL *(NSString *stringURL) {
+        ] wmf_map:^NSURL *(NSString *stringURL) {
             return [NSURL URLWithString:stringURL];
         }];
 
@@ -396,7 +395,7 @@
 }
 
 /*
-NSArray *a = [parsedObamaGalleryURLS bk_map:^NSString*(NSURL* url){
+NSArray *a = [parsedObamaGalleryURLS wmf_map:^NSString*(NSURL* url){
     return [NSString stringWithFormat:@"%@", url.absoluteString];
 }];
 NSLog(@"\n============\n\n%@\n\n=============\n", a);

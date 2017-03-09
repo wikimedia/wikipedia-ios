@@ -1,5 +1,6 @@
 #import "WMFAnnouncementsFetcher.h"
 #import "WMFAnnouncement.h"
+#import <WMF/WMF-Swift.h>
 
 @interface WMFAnnouncementsFetcher ()
 
@@ -65,7 +66,7 @@
 
 - (NSArray<WMFAnnouncement *> *)filterAnnouncements:(NSArray<WMFAnnouncement *> *)announcements withCurrentCountryInIPHeader:(NSString *)header geoIPCookieValue:(NSString *)cookieValue {
 
-    NSArray<WMFAnnouncement *> *validAnnouncements = [announcements bk_select:^BOOL(WMFAnnouncement *obj) {
+    NSArray<WMFAnnouncement *> *validAnnouncements = [announcements wmf_select:^BOOL(WMFAnnouncement *obj) {
         if (![obj isKindOfClass:[WMFAnnouncement class]]) {
             return NO;
         }
@@ -87,7 +88,7 @@
 
 - (NSArray<WMFAnnouncement *> *)filterAnnouncementsForiOSPlatform:(NSArray<WMFAnnouncement *> *)announcements {
 
-    NSArray<WMFAnnouncement *> *validAnnouncements = [announcements bk_select:^BOOL(WMFAnnouncement *obj) {
+    NSArray<WMFAnnouncement *> *validAnnouncements = [announcements wmf_select:^BOOL(WMFAnnouncement *obj) {
         if (![obj isKindOfClass:[WMFAnnouncement class]]) {
             return NO;
         }
@@ -102,7 +103,7 @@
 
 - (NSString *)geoIPCookieString {
     NSArray<NSHTTPCookie *> *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
-    NSHTTPCookie *cookie = [cookies bk_match:^BOOL(NSHTTPCookie *obj) {
+    NSHTTPCookie *cookie = [cookies wmf_match:^BOOL(NSHTTPCookie *obj) {
         if ([[obj name] containsString:@"GeoIP"]) {
             return YES;
         } else {

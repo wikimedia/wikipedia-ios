@@ -222,7 +222,7 @@ static uint64_t bundleHash() {
     } else if ([value isKindOfClass:[NSManagedObjectID class]]) {
         return [value URIRepresentation];
     } else if ([value isKindOfClass:[NSSet class]] || [value isKindOfClass:[NSArray class]]) {
-        return [value bk_map:^id(id obj) {
+        return [value wmf_map:^id(id obj) {
             return [self archiveableNotificationValueForValue:obj];
         }];
     } else if ([value conformsToProtocol:@protocol(NSCoding)]) {
@@ -868,7 +868,7 @@ static uint64_t bundleHash() {
 }
 
 - (void)saveImageInfo:(NSArray *)imageInfo forArticleURL:(NSURL *)url {
-    NSArray *export = [imageInfo bk_map:^id(MWKImageInfo *obj) {
+    NSArray *export = [imageInfo wmf_map:^id(MWKImageInfo *obj) {
         return [obj dataExport];
     }];
 
@@ -983,7 +983,7 @@ static uint64_t bundleHash() {
 }
 
 - (BOOL)saveCacheRemovalListToDisk:(NSArray<NSURL *> *)cacheRemovalList error:(NSError **)error {
-    NSArray *URLStrings = [cacheRemovalList bk_map:^id(NSURL *obj) {
+    NSArray *URLStrings = [cacheRemovalList wmf_map:^id(NSURL *obj) {
         return [obj absoluteString];
     }];
     return [self saveArray:URLStrings path:self.basePath name:@"TitlesToRemove.plist" error:error];

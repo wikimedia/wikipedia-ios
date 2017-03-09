@@ -28,7 +28,7 @@
 }
 
 + (NSString *)wmf_currentLogFile {
-    DDFileLogger *logger = [[DDLog allLoggers] bk_match:^BOOL(id obj) {
+    DDFileLogger *logger = [[DDLog allLoggers] wmf_match:^BOOL(id obj) {
         return [obj isKindOfClass:[DDFileLogger class]];
     }];
 

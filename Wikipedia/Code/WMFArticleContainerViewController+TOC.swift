@@ -1,5 +1,4 @@
 import Foundation
-import Tweaks
 
 extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
 
@@ -143,27 +142,6 @@ extension WMFArticleViewController {
         view.effect = UIBlurEffect(style: .light)
         view.alpha = 0.0
         return view
-    }
-    
-    class func registerTweak(){
-        #if DEBUG
-            let tweak = FBTweak(identifier: "Always Peek ToC")
-            tweak?.name = "Always Peek ToC"
-            tweak?.defaultValue = false
-            
-            let collection = FBTweakCollection(name: "Table of Contents");
-            collection?.addTweak(tweak)
-            
-            let store = FBTweakStore.sharedInstance()
-            
-            if let category = store?.tweakCategory(withName: "Article") {
-                category.addTweakCollection(collection);
-            }else{
-                let category = FBTweakCategory(name: "Article")
-                store?.addTweakCategory(category)
-                category?.addTweakCollection(collection);
-            }
-        #endif
     }
 
     public func selectAndScrollToTableOfContentsItemForSection(_ section: MWKSection, animated: Bool) {

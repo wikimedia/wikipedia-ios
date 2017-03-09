@@ -287,7 +287,7 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
                 return;
             }
 
-            NSArray<NSURL *> *urls = [results.results bk_map:^id(id obj) {
+            NSArray<NSURL *> *urls = [results.results wmf_map:^id(id obj) {
                 return [results urlForResult:obj];
             }];
 

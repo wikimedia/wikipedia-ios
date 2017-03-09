@@ -1,6 +1,5 @@
 #import "WMFImageInfoController_Private.h"
 
-#import <BlocksKit/BlocksKit.h>
 #import "MWKImage+CanonicalFilenames.h"
 #import "SessionSingleton.h"
 #import "MWNetworkActivityIndicatorManager.h"
@@ -13,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 static const int LOG_LEVEL_DEF = DDLogLevelDebug;
 
 NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo) {
-    return [imageInfo bk_reduce:[NSMutableDictionary dictionaryWithCapacity:imageInfo.count]
+    return [imageInfo wmf_reduce:[NSMutableDictionary dictionaryWithCapacity:imageInfo.count]
                       withBlock:^NSMutableDictionary *(NSMutableDictionary *indexedInfo, MWKImageInfo *info) {
                           id<NSCopying> key = info.imageAssociationValue;
                           if (key) {
@@ -90,7 +89,7 @@ NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo) {
 - (nullable NSMutableIndexSet *)fetchedIndices {
     if (!_fetchedIndices) {
         _fetchedIndices =
-            [self.indexedImageInfo.allValues bk_reduce:[NSMutableIndexSet new]
+            [self.indexedImageInfo.allValues wmf_reduce:[NSMutableIndexSet new]
                                              withBlock:^id(NSMutableIndexSet *acc, MWKImageInfo *info) {
                                                  NSInteger infoIndex = [self indexOfImageAssociatedWithInfo:info];
                                                  if (infoIndex != NSNotFound) {
@@ -129,7 +128,7 @@ NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo) {
     if (indexes.count == 0 || !self.articleURL) {
         return nil;
     } else {
-        return [indexes bk_reduce:[NSMutableArray new]
+        return [indexes wmf_reduce:[NSMutableArray new]
                         withBlock:^NSMutableArray *(NSMutableArray *acc, NSUInteger index) {
                             id<MWKImageInfoRequest> request = [self fetchBatchContainingIndex:index];
                             if (request) {
@@ -190,7 +189,7 @@ NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo) {
     [self.fetchedIndices addIndexesInRange:batch];
 
     // might have failed to parse some image file titles, filter them out
-    NSArray *titlesToFetch = [[self.imageFilePageTitles subarrayWithRange:batch] bk_reject:^BOOL(id obj) {
+    NSArray *titlesToFetch = [[self.imageFilePageTitles subarrayWithRange:batch] wmf_reject:^BOOL(id obj) {
         return obj == [NSNull null];
     }];
 

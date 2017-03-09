@@ -13,7 +13,7 @@
 
 - (void)testReduce {
     NSIndexSet *indexes = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 10)];
-    assertThat([indexes bk_reduce:[NSMutableArray new]
+    assertThat([indexes wmf_reduce:[NSMutableArray new]
                         withBlock:^id(NSMutableArray *acc, NSUInteger idx) {
                             [acc addObject:@(idx)];
                             return acc;
@@ -22,14 +22,14 @@
 }
 
 - (void)testBadInput {
-    assertThat([[NSIndexSet indexSet] bk_reduce:nil
+    assertThat([[NSIndexSet indexSet] wmf_reduce:nil
                                       withBlock:^id(id _, NSUInteger __) {
                                           return nil;
                                       }],
                is(nilValue()));
 
     id input = [NSMutableArray new];
-    assertThat([[NSIndexSet indexSet] bk_reduce:input withBlock:nil], is(input));
+    assertThat([[NSIndexSet indexSet] wmf_reduce:input withBlock:nil], is(input));
 }
 
 @end

@@ -1,5 +1,7 @@
 #import "WMFCVLMetrics.h"
+#if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>
+#endif
 
 @interface WMFCVLMetrics ()
 @property (nonatomic) CGSize boundsSize;
@@ -39,7 +41,7 @@
     metrics.interSectionSpacing = isLandscape ? 20 : 50;
     metrics.contentInsets = isLandscape ? isWide ? UIEdgeInsetsMake(20, 90, 20, 90) : UIEdgeInsetsMake(20, 22, 20, 22) : UIEdgeInsetsMake(0, 0, 50, 0);
     metrics.sectionInsets = UIEdgeInsetsMake(1, 0, 1, 0);
-    metrics.shouldMatchColumnHeights = FBTweakValue(@"Explore", @"General", @"Match Column Heights", YES);
+    metrics.shouldMatchColumnHeights = YES;
     return metrics;
 }
 

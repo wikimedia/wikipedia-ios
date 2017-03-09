@@ -1,9 +1,10 @@
 #import "NSDictionary+WMFExtensions.h"
+#import <WMF/WMF-Swift.h>
 
 @implementation NSDictionary (WMFExtensions)
 
 - (BOOL)wmf_containsNullObjects {
-    NSNull *null = [self bk_match:^BOOL(id key, id obj) {
+    NSNull *null = [self wmf_match:^BOOL(id key, id obj) {
         return [obj isKindOfClass:[NSNull class]];
     }];
     return (null != nil);
@@ -42,7 +43,7 @@
 }
 
 - (NSDictionary *)wmf_dictionaryByRemovingNullObjects {
-    return [self bk_reject:^BOOL(id key, id obj) {
+    return [self wmf_reject:^BOOL(id key, id obj) {
         return [obj isKindOfClass:[NSNull class]];
     }];
 }

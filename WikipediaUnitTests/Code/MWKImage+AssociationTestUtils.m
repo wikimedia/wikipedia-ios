@@ -1,5 +1,4 @@
 #import "MWKImage+AssociationTestUtils.h"
-#import <BlocksKit/BlocksKit.h>
 #import "MWKArticle.h"
 
 @implementation MWKImage (AssociationTestUtils)
@@ -12,12 +11,6 @@
 
 - (MWKImageInfo *)createAssociatedInfo {
     return [MWKImageInfo infoAssociatedWithSourceURL:self.sourceURLString];
-}
-
-+ (id)mappedFromInfoObjects:(id)infoObjectList {
-    return [infoObjectList bk_map:^MWKImage *(MWKImageInfo *info) {
-        return [info createAssociatedImage];
-    }];
 }
 
 @end
@@ -38,12 +31,6 @@
 
 - (MWKImage *)createAssociatedImage {
     return [MWKImage imageAssociatedWithSourceURL:self.canonicalFileURL.absoluteString];
-}
-
-+ (id)mappedFromImages:(id)imageList {
-    return [imageList bk_map:^MWKImageInfo *(MWKImage *img) {
-        return [img createAssociatedInfo];
-    }];
 }
 
 @end
