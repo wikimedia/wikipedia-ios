@@ -70,7 +70,7 @@
 "account-creation-missing-fields" = "Error shown when one of the required fields for account creation (username, password, and password confirmation) is empty.";
 "account-creation-create-account" = "Text for create account button";
 "account-creation-have-account" = "Text for button which shows login interface. $1 is the message {{msg-wikimedia|account-creation-log-in}}";
-"account-creation-log-in" = "Log in text to be used as part of a log in button";
+"account-creation-log-in" = "Log in text to be used as part of a log in button\n{{Identical|Log in}}";
 "new-password-title" = "Title for password change interface";
 "new-password-instructions" = "Instructions for password change interface";
 "two-factor-login-title" = "Title for two factor login interface";
@@ -90,9 +90,9 @@
 "login-title" = "Title for log in interface";
 "login-no-account" = "Text for create account button. $1 is the message {{msg-wikimedia|login-account-join-wikipedia}}";
 "login-join-wikipedia" = "Join Wikipedia text to be used as part of a create account button";
-"field-username-title" = "Title for username field";
+"field-username-title" = "Title for username field\n{{Identical|Username}}";
 "field-username-placeholder" = "Placeholder text shown inside username field until user taps on it";
-"field-password-title" = "Title for password field";
+"field-password-title" = "Title for password field\n{{Identical|Password}}";
 "field-password-placeholder" = "Placeholder text shown inside password field until user taps on it";
 "field-password-confirm-title" = "Title for confirm password field";
 "field-password-confirm-placeholder" = "Placeholder text shown inside confirm password field until user taps on it";
@@ -102,10 +102,14 @@
 "field-new-password-confirm-placeholder" = "Placeholder text shown inside confirm new password field until user taps on it";
 "field-email-title" = "Title for email address field";
 "field-email-placeholder" = "Placeholder text shown inside email address field until user taps on it";
-"field-token-title" = "Title for token field";
+"field-token-title" = "Title for token field\n{{Identical|Token}}";
 "field-token-placeholder" = "Placeholder text shown inside token field until user taps on it";
 "field-captcha-title" = "Title for captcha field";
 "field-captcha-placeholder" = "Placeholder text shown inside captcha field until user taps on it";
+"field-alert-username-unavailable" = "Alert shown if new username is not available";
+"field-alert-password-invalid" = "Alert shown if password is not correct";
+"field-alert-captcha-invalid" = "Alert shown if CAPTCHA is not correct";
+"field-alert-password-confirm-mismatch" = "Alert shown if password confirmation did not match password";
 "forgot-password-title" = "Title for reset password interface\n{{Identical|Reset password}}";
 "forgot-password-instructions" = "Instructions for resetting password";
 "forgot-password-username-prompt" = "Prompt for username field\n{{Identical|Username}}";
@@ -276,6 +280,8 @@
 "share-as-image" = "Button label for sharing as an image card";
 "share-as-text" = "Button label for sharing as a text snippet (instead of as an image card)";
 "share-cancel" = "Button which dismisses the share dialog, cancelling the action.\n{{Identical|Cancel}}";
+"share-open-in-maps" = "Button to open current article's location in the Maps app.";
+"share-get-directions-in-maps" = "Button to get directions to the current article's location in the Maps app.";
 "timestamp-just-now" = "Human-readable approximate timestamp for events in the last couple of minutes.\n{{Identical|Just now}}";
 "timestamp-minutes" = "Human-readable approximate timestamp for events in the last couple hours, expressed as minutes";
 "timestamp-hours" = "Human-readable approximate timestamp for events in the last couple days, expressed as hours";
@@ -375,6 +381,7 @@
 "page-read-in-other-languages" = "Label for button showing number of languages an article is available in. $1 will be replaced with the number of languages";
 "page-last-edited" = "Label for button showing number of days since an article was last edited. $1 will be replaced with the number of days";
 "page-edit-history" = "Label for button used to show an article's complete edit history";
+"page-location" = "Label for button used to show an article on the map";
 "mwk-empty-title-error" = "Error description for when an operation couldn't be performed since no title was specified.";
 "home-title" = "Title for home interface.\n{{Identical|Explore}}";
 "home-empty-section" = "Text shown when a section of the home screen has no results\n{{Identical|No result}}";
@@ -510,6 +517,8 @@
 "places-accessibility-show-as-map" = "Accessibility label for the show as map toggle item";
 "places-accessibility-show-as-list" = "Accessibility label for the show as list toggle item";
 "places-accessibility-recenter-map-on-user-location" = "Accessibility label for the recenter map on the user's location button";
+"places-accessibility-close-search" = "Accessibility label for the button to close search";
+"places-accessibility-clear-recent-searches" = "Accessibility label for the button to clear recent searches";
 "action-share" = "Title for the 'Share' action\n{{Identical|Share}}";
 "action-save" = "Title for the 'Save' action\n{{Identical|Save}}";
 "action-read" = "Title for the 'Read' action\n{{Identical|Read}}";

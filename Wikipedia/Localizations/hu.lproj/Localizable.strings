@@ -256,7 +256,7 @@
 "preference_summary_eventlogging_opt_in" = "A Wikimédia adatokat gyűjthet arról, hogy hogyan használod az appot, hogy még jobbá tehessük.";
 "page_protected_autoconfirmed" = "Ez az oldal félig védett.";
 "page_protected_sysop" = "Ez a lap teljesen védett.";
-"page_protected_other" = "Az a lap az alábbi szinten védett: $1";
+"page_protected_other" = "Az a lap az alábbi szinten védett: %1";
 "page_protected_can_not_edit" = "Nincs jogosultságod az oldal szerkesztéséhez";
 "page_protected_can_not_edit_title" = "Ez a lap védett";
 "license-footer-text" = "A tartalom további jelölés hiányában a(z) $1 feltételei szerint használható fel.";
