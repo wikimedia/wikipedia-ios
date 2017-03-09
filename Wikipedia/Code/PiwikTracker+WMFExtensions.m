@@ -78,6 +78,14 @@ NS_ASSUME_NONNULL_BEGIN
                               value:nil];
 }
 
+- (void)wmf_logActionShareInContext:(id<WMFAnalyticsContextProviding>)context
+                       contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_sendEventWithCategory:[context analyticsContext]
+                             action:@"Share"
+                               name:[contentType analyticsContentType]
+                              value:nil];
+}
+
 - (void)wmf_logActionUnsaveInContext:(id<WMFAnalyticsContextProviding>)context
                          contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
     [self wmf_sendEventWithCategory:[context analyticsContext]

@@ -43,6 +43,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private var performDefaultSearchOnNextMapRegionUpdate = false
     private var previouslySelectedArticlePlaceIdentifier: String?
     private var searching: Bool = false
+    private let tracker = PiwikTracker.sharedInstance()
+    private let mapTrackerContext: AnalyticsContext = "Places_map"
+    private let listTrackerContext: AnalyticsContext = "Places_list"
+    private let searchTrackerContext: AnalyticsContext = "Places_search"
 
     // MARK: - View Lifecycle
     
@@ -571,6 +575,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             case .list:
                 deselectAllAnnotations()
                 updateDistanceFromUserOnVisibleCells()
+                logListViewImpressionsForVisibleCells()
                 mapView.isHidden = true
                 listView.isHidden = false
                 searchSuggestionView.isHidden = true
@@ -1096,6 +1101,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, articleVC.view)
+
+        tracker?.wmf_logActionImpression(inContext: mapTrackerContext, contentType: article)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -1134,15 +1141,22 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         guard let url = article.url else {
             return
         }
-        
+        let context = viewMode == .list ? listTrackerContext : mapTrackerContext
         switch action {
         case .read:
+            tracker?.wmf_logActionTapThrough(inContext: context, contentType: article)
             wmf_pushArticle(with: url, dataStore: dataStore, previewStore: articleStore, animated: true)
             break
         case .save:
-            dataStore.savedPageList.toggleSavedPage(for: url)
+            let didSave = dataStore.savedPageList.toggleSavedPage(for: url)
+            if didSave {
+                tracker?.wmf_logActionSave(inContext: context, contentType: article)
+            }else {
+                tracker?.wmf_logActionUnsave(inContext: context, contentType: article)
+            }
             break
         case .share:
+            tracker?.wmf_logActionShare(inContext: context, contentType: article)
             let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: [TUSafariActivity()])
             activityVC.popoverPresentationController?.sourceView = view
             var sourceRect = view.bounds
@@ -1367,12 +1381,20 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return articleFetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard viewMode == .list else {
+            return
+        }
+        logListViewImpression(forIndexPath: indexPath)
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFNearbyArticleTableViewCell.identifier(), for: indexPath) as? WMFNearbyArticleTableViewCell else {
             return UITableViewCell()
         }
         
         let article = articleFetchedResultsController.object(at: indexPath)
+        
         cell.titleText = article.displayTitle
         cell.descriptionText = article.wikidataDescription
         cell.setImageURL(article.thumbnailURL)
@@ -1428,6 +1450,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         } else {
             let bearing = userLocation.wmf_bearing(to: articleLocation)
             cell.setBearing(bearing)
+        }
+    }
+    
+    func logListViewImpression(forIndexPath indexPath: IndexPath) {
+        let article = articleFetchedResultsController.object(at: indexPath)
+        tracker?.wmf_logActionImpression(inContext: listTrackerContext, contentType: article)
+    }
+    
+    func logListViewImpressionsForVisibleCells() {
+        for indexPath in listView.indexPathsForVisibleRows ?? [] {
+            logListViewImpression(forIndexPath: indexPath)
         }
     }
     
