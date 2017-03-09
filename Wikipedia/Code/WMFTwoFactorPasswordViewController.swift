@@ -1,9 +1,14 @@
 
 import UIKit
 
-fileprivate enum NextFirstResponderDirection: Int {
+fileprivate enum WMFTwoFactorNextFirstResponderDirection: Int {
     case forward = 1
     case reverse = -1
+}
+
+fileprivate enum WMFTwoFactorTokenDisplayMode {
+    case shortNumeric
+    case longAlphaNumeric
 }
 
 class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDelegate, WMFDeleteBackwardReportingTextFieldDelegate {
@@ -28,15 +33,28 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         guard recognizer.state == .ended else {
             return
         }
-        useBackupOathToken = !useBackupOathToken
+        switch displayMode {
+        case .longAlphaNumeric:
+            displayMode = .shortNumeric
+        case .shortNumeric:
+            displayMode = .longAlphaNumeric
+        }
     }
-    
-    fileprivate var useBackupOathToken: Bool = false {
+
+    fileprivate var displayMode: WMFTwoFactorTokenDisplayMode = .shortNumeric {
         didSet {
-            backupOathTokenField.isHidden = !useBackupOathToken
-            oathTokenFieldsStackView.isHidden = useBackupOathToken
-            tokenLabel.text = localizedStringForKeyFallingBackOnEnglish(useBackupOathToken ? "field-backup-token-title" : "field-token-title")
-            backupOathTokenToggle.text = localizedStringForKeyFallingBackOnEnglish(useBackupOathToken ? "two-factor-login-with-regular-code" : "two-factor-login-with-backup-code")
+            switch displayMode {
+            case .longAlphaNumeric:
+                backupOathTokenField.isHidden = false
+                oathTokenFieldsStackView.isHidden = true
+                tokenLabel.text = localizedStringForKeyFallingBackOnEnglish("field-backup-token-title")
+                backupOathTokenToggle.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-with-backup-code")
+            case .shortNumeric:
+                backupOathTokenField.isHidden = true
+                oathTokenFieldsStackView.isHidden = false
+                tokenLabel.text = localizedStringForKeyFallingBackOnEnglish("field-token-title")
+                backupOathTokenToggle.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-with-regular-code")
+            }
             oathTokenFields.forEach {$0.text = nil}
             backupOathTokenField.text = nil
             if isViewLoaded && (view.window != nil) {
@@ -45,9 +63,13 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         }
     }
     
-    
     fileprivate func makeAppropriateFieldFirstResponder() {
-        (useBackupOathToken ? backupOathTokenField : oathTokenFields.first)?.becomeFirstResponder()
+        switch displayMode {
+        case .longAlphaNumeric:
+            backupOathTokenField?.becomeFirstResponder()
+        case .shortNumeric:
+            oathTokenFields.first?.becomeFirstResponder()
+        }
     }
     
     @IBAction fileprivate func loginButtonTapped(withSender sender: UIButton) {
@@ -55,29 +77,33 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     }
     
     fileprivate func areRequiredFieldsPopulated() -> Bool {
-        if useBackupOathToken {
-            guard let backupToken = backupOathTokenField.text, backupToken.characters.count > 0 else {
+        switch displayMode {
+        case .longAlphaNumeric:
+            guard
+                let backupToken = backupOathTokenField.text,
+                backupToken.characters.count > 0
+            else {
                 return false
             }
             return true
-        }else{
+        case .shortNumeric:
             return oathTokenFields.first(where:{ $0.text?.characters.count == 0 }) == nil
         }
     }
     
     @IBAction func textFieldDidChange(_ sender: UITextField) {
         enableProgressiveButton(areRequiredFieldsPopulated())
-        
         guard
-            useBackupOathToken == false,
-            let text = sender.text, text.characters.count > 0
+            displayMode == .shortNumeric,
+            let text = sender.text,
+            text.characters.count > 0
         else {
             return
         }
         makeNextTextFieldFirstResponder(currentTextField: sender, direction: .forward)
     }
     
-    fileprivate func makeNextTextFieldFirstResponder(currentTextField: UITextField, direction: NextFirstResponderDirection) {
+    fileprivate func makeNextTextFieldFirstResponder(currentTextField: UITextField, direction: WMFTwoFactorNextFirstResponderDirection) {
         guard let index = oathTokenFields.index(of: currentTextField) else {
             return
         }
@@ -93,7 +119,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     
     func wmf_deleteBackward(_ sender: UITextField) {
         guard
-            useBackupOathToken == false,
+            displayMode == .shortNumeric,
             (sender.text ?? "").characters.count == 0
         else {
             return
@@ -121,13 +147,23 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     }
     
     fileprivate func allowedCharacterSet() -> CharacterSet {
-        return useBackupOathToken ? CharacterSet.init(charactersIn: " ").union(CharacterSet.alphanumerics) : CharacterSet.decimalDigits
+        switch displayMode {
+        case .longAlphaNumeric:
+            return CharacterSet.init(charactersIn: " ").union(CharacterSet.alphanumerics)
+        case .shortNumeric:
+            return CharacterSet.decimalDigits
+        }
     }
 
     fileprivate func maxTextFieldCharacterCount() -> Int {
         // Presently backup tokens are 16 digit, but may contain spaces and their length 
         // may change in future, so for now just set a sensible upper limit.
-        return useBackupOathToken ? 24 : 1
+        switch displayMode {
+        case .longAlphaNumeric:
+            return 24
+        case .shortNumeric:
+            return 1
+        }
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -140,10 +176,10 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             return true
         }
         
-        // Support numeric code pasting when showing individual digit UITextFields - i.e. when 'useBackupOathToken == false'.
-        // If useBackupOathToken == false 'string' has been verified to be comprised of decimal digits by this point.
-        // Backup code (when useBackupOathToken == true) pasting already works as-is because it uses a single UITextField.
-        if useBackupOathToken == false && string.characters.count == oathTokenFields.count{
+        // Support numeric code pasting when showing individual digit UITextFields - i.e. when displayMode == .shortNumeric.
+        // If displayMode == .shortNumeric 'string' has been verified to be comprised of decimal digits by this point.
+        // Backup code (when displayMode == .longAlphaNumeric) pasting already works as-is because it uses a single UITextField.
+        if displayMode == .shortNumeric && string.characters.count == oathTokenFields.count{
             for (field, char) in zip(oathTokenFields, string.characters) {
                 field.text = String(char)
             }
@@ -164,7 +200,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     }
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard useBackupOathToken else {
+        guard displayMode == .longAlphaNumeric else {
             return true
         }
         save()
@@ -184,7 +220,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-instructions")
         
         backupOathTokenField.wmf_addThinBottomBorder()
-        useBackupOathToken = false
+        displayMode = .shortNumeric
         backupOathTokenToggle.textColor = .wmf_blueTint()
         backupOathTokenToggle.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backupOathTokenToggleTapped(_:))))
 
@@ -196,9 +232,10 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     }
     
     fileprivate func token() -> String {
-        if useBackupOathToken {
+        switch displayMode {
+        case .longAlphaNumeric:
             return backupOathTokenField.text!
-        }else{
+        case .shortNumeric:
             return oathTokenFields.reduce("", { $0 + ($1.text ?? "") })
         }
     }
