@@ -191,10 +191,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @implementation WMFArticleViewController
 
-+ (void)load {
-    [self registerTweak];
-}
-
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
