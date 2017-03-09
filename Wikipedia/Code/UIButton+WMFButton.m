@@ -1,6 +1,5 @@
 #import "UIButton+WMFButton.h"
 #import "UIFont+WMFStyle.h"
-#import "UIView+TemporaryAnimatedXF.h"
 #import "UIImage+WMFStyle.h"
 @import BlocksKitUIKitExtensions;
 
