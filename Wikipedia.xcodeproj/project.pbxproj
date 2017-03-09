@@ -548,6 +548,11 @@
 		D808DCEF1E438C5100A3E89C /* MKCoordinateRegion+Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808DCEE1E438C5100A3E89C /* MKCoordinateRegion+Dimensions.swift */; };
 		D80C24B81D673DC300816503 /* WMFTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D80C24B71D673DC300816503 /* WMFTabBarController.m */; };
 		D810C3491DF1C0A4003427DA /* Tweaks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D810C3481DF1C0A4003427DA /* Tweaks.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		D81445FF1E7093870078D71E /* UIViewController+WMFChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027447E1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift */; };
+		D81446001E7094240078D71E /* UITextField+WMFAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07715211E69401800D393FE /* UITextField+WMFAuth.swift */; };
+		D81446011E7094270078D71E /* UILabel+WMFAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B017BF941E68EE3E009F8FAF /* UILabel+WMFAuth.swift */; };
+		D81446021E7094290078D71E /* WMFAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027FD271E678F5C005644A9 /* WMFAuthButton.swift */; };
+		D81446041E70C2430078D71E /* WMFMapsActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */; };
 		D81BA0FB1D50D40B006C38AC /* WMFNearbyArticleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D81BA0F61D50D40B006C38AC /* WMFNearbyArticleTableViewCell.m */; };
 		D81BA0FC1D50D40B006C38AC /* WMFNearbyArticleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D81BA0F71D50D40B006C38AC /* WMFNearbyArticleTableViewCell.xib */; };
 		D81BA0FD1D50D40B006C38AC /* WMFNearbyPlaceholderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D81BA0F91D50D40B006C38AC /* WMFNearbyPlaceholderTableViewCell.m */; };
@@ -8284,6 +8289,7 @@
 				D8CE25731E698E2400DAE2E0 /* WMFStyleManager.m in Sources */,
 				D8CE25741E698E2400DAE2E0 /* UIButton+WMFMultiLineHeight.swift in Sources */,
 				D8CE25751E698E2400DAE2E0 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */,
+				D81446011E7094270078D71E /* UILabel+WMFAuth.swift in Sources */,
 				D8CE25761E698E2400DAE2E0 /* WMFFindInPageKeyboardBar.m in Sources */,
 				D8CE25771E698E2400DAE2E0 /* MWKLanguageLinkFetcher.m in Sources */,
 				D8CE25781E698E2400DAE2E0 /* TableOfContentsAboutThisArticleItem.swift in Sources */,
@@ -8291,11 +8297,13 @@
 				D8CE257A1E698E2400DAE2E0 /* WMFWelcomeAnimationView.swift in Sources */,
 				D8CE257B1E698E2400DAE2E0 /* WMFImageTextActivitySource.swift in Sources */,
 				D8CE257C1E698E2400DAE2E0 /* WMFAuthenticationManager.swift in Sources */,
+				D81446001E7094240078D71E /* UITextField+WMFAuth.swift in Sources */,
 				D8CE257D1E698E2400DAE2E0 /* WMFAuthLoginInfoFetcher.swift in Sources */,
 				D8CE257E1E698E2400DAE2E0 /* PreviewAndSaveViewController.m in Sources */,
 				D8CE257F1E698E2400DAE2E0 /* ToCInteractionFunnel.m in Sources */,
 				D8CE25801E698E2400DAE2E0 /* SSBaseCollectionCell.m in Sources */,
 				D8CE25811E698E2400DAE2E0 /* WMFRotationRespectingTabBarController.swift in Sources */,
+				D81445FF1E7093870078D71E /* UIViewController+WMFChildViewController.swift in Sources */,
 				D8CE25821E698E2400DAE2E0 /* WMFCompassView.m in Sources */,
 				D8CE25831E698E2400DAE2E0 /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				D8CE25841E698E2400DAE2E0 /* WMFRandomArticleViewController.m in Sources */,
@@ -8327,6 +8335,7 @@
 				D8CE259E1E698E2400DAE2E0 /* UILabel+WMFStyling.m in Sources */,
 				D8CE259F1E698E2400DAE2E0 /* UITableViewController+WMFScrollToTop.swift in Sources */,
 				D8CE25A01E698E2400DAE2E0 /* VTAcknowledgement.m in Sources */,
+				D81446021E7094290078D71E /* WMFAuthButton.swift in Sources */,
 				D8CE25A11E698E2400DAE2E0 /* WMFBorderButton.m in Sources */,
 				D8CE25A21E698E2400DAE2E0 /* WMFEmptySectionCollectionViewCell.m in Sources */,
 				D8CE25A31E698E2400DAE2E0 /* WMFArticleFooterViewHeader.swift in Sources */,
@@ -8335,6 +8344,7 @@
 				D8CE25A61E698E2400DAE2E0 /* MWKLicense+ToGlyph.m in Sources */,
 				D8CE25A71E698E2400DAE2E0 /* PreviewWebViewContainer.m in Sources */,
 				D8CE25A81E698E2400DAE2E0 /* WMFArticlePlaceholderCollectionViewCell.m in Sources */,
+				D81446041E70C2430078D71E /* WMFMapsActivity.swift in Sources */,
 				D8CE25A91E698E2400DAE2E0 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
 				D8CE25AA1E698E2400DAE2E0 /* WMFArticleNavigationController.m in Sources */,
 				D8CE25AB1E698E2400DAE2E0 /* AppDelegate.m in Sources */,
@@ -9676,8 +9686,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NDEBUG=1",
 					"BETA=1",
-					"DEBUG=1",
 					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
 					"$(inherited)",
 					"ALPHA=1",
