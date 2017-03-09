@@ -1,12 +1,13 @@
 
 extension Optional where Wrapped: ExpressibleByStringLiteral {
-    /// Returns character count for optional strings. Returns 0 if the optional is nil or the string is empty. Mostly a convenience so you don't have to do the unwrapping dance just to see if you have a non-zero length string.
+    /// Convenience method for optional String character count.
+    /// Returns 0 for nil optional String *or* character count for non-nil optional String.
     var wmf_safeCharacterCount: Int {
         get {
-            if let value = self as? String, !value.isEmpty {
-                return value.characters.count
+            guard let value = self as? String else {
+                return 0
             }
-            return 0
+            return value.characters.count
         }
     }
 }
