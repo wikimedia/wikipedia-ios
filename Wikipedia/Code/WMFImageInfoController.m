@@ -190,7 +190,7 @@ NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo) {
     [self.fetchedIndices addIndexesInRange:batch];
 
     // might have failed to parse some image file titles, filter them out
-    NSArray *titlesToFetch = [[self.imageFilePageTitles subarrayWithRange:batch] bk_reject:^BOOL(id obj) {
+    NSArray *titlesToFetch = [[self.imageFilePageTitles subarrayWithRange:batch] wmf_reject:^BOOL(id obj) {
         return obj == [NSNull null];
     }];
 

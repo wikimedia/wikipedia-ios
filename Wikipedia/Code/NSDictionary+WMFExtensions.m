@@ -1,4 +1,5 @@
 #import "NSDictionary+WMFExtensions.h"
+#import <WMF/WMF-Swift.h>
 
 @implementation NSDictionary (WMFExtensions)
 
@@ -42,7 +43,7 @@
 }
 
 - (NSDictionary *)wmf_dictionaryByRemovingNullObjects {
-    return [self bk_reject:^BOOL(id key, id obj) {
+    return [self wmf_reject:^BOOL(id key, id obj) {
         return [obj isKindOfClass:[NSNull class]];
     }];
 }

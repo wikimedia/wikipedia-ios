@@ -15,7 +15,7 @@
 }
 
 + (id)mappedFromInfoObjects:(id)infoObjectList {
-    return [infoObjectList bk_map:^MWKImage *(MWKImageInfo *info) {
+    return [infoObjectList wmf_map:^MWKImage *(MWKImageInfo *info) {
         return [info createAssociatedImage];
     }];
 }
@@ -41,7 +41,7 @@
 }
 
 + (id)mappedFromImages:(id)imageList {
-    return [imageList bk_map:^MWKImageInfo *(MWKImage *img) {
+    return [imageList wmf_map:^MWKImageInfo *(MWKImage *img) {
         return [img createAssociatedInfo];
     }];
 }

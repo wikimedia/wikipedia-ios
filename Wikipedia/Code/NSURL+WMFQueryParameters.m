@@ -1,4 +1,5 @@
 #import "NSURL+WMFQueryParameters.h"
+#import <WMF/WMF-Swift.h>
 
 @implementation NSURL (WMFQueryParameters)
 
@@ -16,7 +17,7 @@
     if ([self wmf_valueForQueryKey:key]) {
         // Change the value if the key already exists.
         NSArray<NSURLQueryItem *> *queryItems = [components.queryItems
-            bk_map:^id(NSURLQueryItem *item) {
+            wmf_map:^id(NSURLQueryItem *item) {
                 if ([item.name isEqualToString:key]) {
                     return [NSURLQueryItem queryItemWithName:item.name value:value];
                 } else {
@@ -42,7 +43,7 @@
 - (NSURL *)wmf_urlWithoutQueryKey:(NSString *)key {
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:YES];
     NSArray<NSURLQueryItem *> *queryItems = [components.queryItems
-        bk_select:^BOOL(NSURLQueryItem *item) {
+        wmf_select:^BOOL(NSURLQueryItem *item) {
             return ([item.name isEqualToString:key]) ? NO : YES;
         }];
     components.queryItems = queryItems;

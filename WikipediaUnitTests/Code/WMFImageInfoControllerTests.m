@@ -41,7 +41,7 @@ static NSValue *WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 
     self.testArticle = [[MWKArticle alloc] initWithURL:testTitle dataStore:self.tmpDataStore];
 
-    NSArray<MWKImage *> *testImages = [[self generateSourceURLs:10] bk_map:^MWKImage *(NSString *urlString) {
+    NSArray<MWKImage *> *testImages = [[self generateSourceURLs:10] wmf_map:^MWKImage *(NSString *urlString) {
         return [[MWKImage alloc] initWithArticle:self.testArticle sourceURLString:urlString];
     }];
 
@@ -69,7 +69,7 @@ static NSValue *WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 
     MWKArticle *dummyArticle = [[MWKArticle alloc] initWithURL:testURL dataStore:mockDataStore];
 
-    NSArray *testImages = [[self generateSourceURLs:5] bk_map:^MWKImage *(NSString *sourceURL) {
+    NSArray *testImages = [[self generateSourceURLs:5] wmf_map:^MWKImage *(NSString *sourceURL) {
         return [[MWKImage alloc] initWithArticle:dummyArticle sourceURLString:sourceURL];
     }];
     NSRange preFetchedRange = NSMakeRange(0, 2);

@@ -411,7 +411,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (void)cacheImagesWithURLsInBackground:(NSArray<NSURL *> *)imageURLs failure:(void (^_Nonnull)(NSError *_Nonnull error))failure success:(void (^_Nonnull)(void))success {
-    imageURLs = [imageURLs bk_select:^BOOL(id obj) {
+    imageURLs = [imageURLs wmf_select:^BOOL(id obj) {
         return [obj isKindOfClass:[NSURL class]];
     }];
 

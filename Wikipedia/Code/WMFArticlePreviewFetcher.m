@@ -1,5 +1,6 @@
 #import "WMFArticlePreviewFetcher.h"
 #import <Mantle/Mantle.h>
+#import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -138,7 +139,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString *)barSeparatedTitlesStringFromURLs:(NSArray<NSURL *> *)URLs {
-    return WMFJoinedPropertyParameters([URLs bk_map:^NSString *(NSURL *URL) {
+    return WMFJoinedPropertyParameters([URLs wmf_map:^NSString *(NSURL *URL) {
         return URL.wmf_title;
     }]);
 }

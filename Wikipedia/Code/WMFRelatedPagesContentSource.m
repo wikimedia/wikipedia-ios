@@ -191,7 +191,7 @@ NS_ASSUME_NONNULL_BEGIN
                 }
                 return;
             }
-            NSArray<NSURL *> *urls = [results.results bk_map:^id(id obj) {
+            NSArray<NSURL *> *urls = [results.results wmf_map:^id(id obj) {
                 return [results urlForResult:obj];
             }];
             [results.results enumerateObjectsUsingBlock:^(MWKSearchResult *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {

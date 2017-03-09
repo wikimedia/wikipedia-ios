@@ -57,21 +57,21 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateLanguageArrays {
-    self.otherLanguages = [[self.languageController.otherLanguages bk_select:^BOOL(MWKLanguageLink *language) {
+    self.otherLanguages = [[self.languageController.otherLanguages wmf_select:^BOOL(MWKLanguageLink *language) {
         return [self languageIsAvailable:language];
-    }] bk_map:^id(MWKLanguageLink *language) {
+    }] wmf_map:^id(MWKLanguageLink *language) {
         return [self titleLanguageForLanguage:language];
     }];
 
-    self.preferredLanguages = [[self.languageController.preferredLanguages bk_select:^BOOL(MWKLanguageLink *language) {
+    self.preferredLanguages = [[self.languageController.preferredLanguages wmf_select:^BOOL(MWKLanguageLink *language) {
         return [self languageIsAvailable:language];
-    }] bk_map:^id(MWKLanguageLink *language) {
+    }] wmf_map:^id(MWKLanguageLink *language) {
         return [self titleLanguageForLanguage:language];
     }];
 
-    self.allLanguages = [[self.languageController.allLanguages bk_select:^BOOL(MWKLanguageLink *language) {
+    self.allLanguages = [[self.languageController.allLanguages wmf_select:^BOOL(MWKLanguageLink *language) {
         return [self languageIsAvailable:language];
-    }] bk_map:^id(MWKLanguageLink *language) {
+    }] wmf_map:^id(MWKLanguageLink *language) {
         return [self titleLanguageForLanguage:language];
     }];
 }

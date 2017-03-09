@@ -21,7 +21,7 @@
 }
 
 - (NSArray *)wmf_layoutAttributesForVisibleIndexPaths {
-    return [self.collectionView.indexPathsForVisibleItems bk_map:^(NSIndexPath *path) {
+    return [self.collectionView.indexPathsForVisibleItems wmf_map:^(NSIndexPath *path) {
         return [self layoutAttributesForItemAtIndexPath:path];
     }];
 }

@@ -232,7 +232,7 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 
 - (void)handleClickReferenceScriptMessage:(NSDictionary *)messageDict {
     NSAssert(messageDict[@"referencesGroup"], @"Expected key 'referencesGroup' not found in script message dictionary");
-    self.lastClickedReferencesGroup = [messageDict[@"referencesGroup"] bk_map:^id(NSDictionary *referenceDict) {
+    self.lastClickedReferencesGroup = [messageDict[@"referencesGroup"] wmf_map:^id(NSDictionary *referenceDict) {
         return [[WMFReference alloc] initWithScriptMessageDict:referenceDict];
     }];
 

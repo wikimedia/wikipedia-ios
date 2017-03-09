@@ -83,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFArticlePhoto
 
 + (NSArray<WMFArticlePhoto *> *)photosWithThumbnailImageObjects:(NSArray<MWKImage *> *)imageObjects {
-    return [imageObjects bk_map:^id(MWKImage *obj) {
+    return [imageObjects wmf_map:^id(MWKImage *obj) {
         return [[WMFArticlePhoto alloc] initWithThumbnailImage:obj];
     }];
 }
@@ -582,7 +582,7 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFPOTDPhoto
 
 + (NSArray<WMFPOTDPhoto *> *)photosWithDates:(NSArray<NSDate *> *)dates {
-    return [dates bk_map:^id(NSDate *obj) {
+    return [dates wmf_map:^id(NSDate *obj) {
         return [[WMFPOTDPhoto alloc] initWithPOTDDate:obj];
     }];
 }

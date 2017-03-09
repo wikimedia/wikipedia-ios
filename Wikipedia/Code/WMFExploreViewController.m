@@ -363,11 +363,11 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     NSArray<id> *content = group.content;
 
     if ([group contentType] == WMFContentTypeTopReadPreview) {
-        content = [content bk_map:^id(WMFFeedTopReadArticlePreview *obj) {
+        content = [content wmf_map:^id(WMFFeedTopReadArticlePreview *obj) {
             return [obj articleURL];
         }];
     } else if ([group contentType] == WMFContentTypeStory) {
-        content = [content bk_map:^id(WMFFeedNewsStory *obj) {
+        content = [content wmf_map:^id(WMFFeedNewsStory *obj) {
             return [[obj featuredArticlePreview] articleURL] ?: [[[obj articlePreviews] firstObject] articleURL];
         }];
     } else if ([group contentType] != WMFContentTypeURL) {
