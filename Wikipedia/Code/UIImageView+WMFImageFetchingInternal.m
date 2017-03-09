@@ -23,7 +23,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 #pragma mark - Associated Objects
 
 - (WMFImageController *__nullable)wmf_imageController {
-    WMFImageController *controller = [self bk_associatedValueForKey:WMFImageControllerAssociationKey];
+    WMFImageController *controller = objc_getAssociatedObject(self, WMFImageControllerAssociationKey);
     if (!controller) {
         controller = [WMFImageController sharedInstance];
     }
@@ -31,31 +31,31 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 }
 
 - (void)wmf_setImageController:(nullable WMFImageController *)imageController {
-    [self bk_associateValue:imageController withKey:WMFImageControllerAssociationKey];
+    objc_setAssociatedObject(self, WMFImageControllerAssociationKey, imageController, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (MWKImage *__nullable)wmf_imageMetadata {
-    return [self bk_associatedValueForKey:MWKImageAssociationKey];
+    return objc_getAssociatedObject(self, MWKImageAssociationKey);
 }
 
 - (void)wmf_setImageMetadata:(nullable MWKImage *)imageMetadata {
-    [self bk_associateValue:imageMetadata withKey:MWKImageAssociationKey];
+    objc_setAssociatedObject(self, MWKImageAssociationKey, imageMetadata, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSURL *__nullable)wmf_imageURL {
-    return [self bk_associatedValueForKey:MWKURLAssociationKey];
+    return objc_getAssociatedObject(self, MWKURLAssociationKey);
 }
 
 - (void)wmf_setImageURL:(nullable NSURL *)imageURL {
-    [self bk_associateValue:imageURL withKey:MWKURLAssociationKey];
+    objc_setAssociatedObject(self, MWKURLAssociationKey, imageURL, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSURL *__nullable)wmf_imageURLToCancel {
-    return [self bk_associatedValueForKey:MWKURLToCancelAssociationKey];
+    return objc_getAssociatedObject(self, MWKURLToCancelAssociationKey);
 }
 
 - (void)wmf_setImageURLToCancel:(nullable NSURL *)imageURL {
-    [self bk_associateValue:imageURL withKey:MWKURLToCancelAssociationKey];
+    objc_setAssociatedObject(self, MWKURLToCancelAssociationKey, imageURL, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 #pragma mark - Cached Image
@@ -167,7 +167,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
              failure:(WMFErrorHandler)failure
              success:(WMFSuccessHandler)success {
     NSAssert([NSThread isMainThread], @"Interaction with a UIImageView should only happen on the main thread");
-    
+
     CGRect faceBounds = [faceBoundsValue CGRectValue];
     if (detectFaces) {
         CGFloat faceArea = faceBounds.size.width * faceBounds.size.height;
@@ -180,26 +180,27 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     } else {
         [self wmf_resetContentsRect];
     }
-    
+
     dispatch_block_t animations = ^{
         [self wmf_hidePlaceholder];
     };
-    
+
     self.image = image;
-    
+
     if ([self isKindOfClass:[FLAnimatedImageView class]] && image.isGIF && data) {
         FLAnimatedImage *animatedImage = [FLAnimatedImage animatedImageWithGIFData:data];
-        if (animatedImage)
-        {
-            FLAnimatedImageView *animatedImageView = ((FLAnimatedImageView*)self);
+        if (animatedImage) {
+            FLAnimatedImageView *animatedImageView = ((FLAnimatedImageView *)self);
             animatedImageView.animatedImage = animatedImage;
         }
     }
-    
+
     if (animated) {
-        [UIView animateWithDuration:[CATransaction animationDuration] animations:animations completion:^(BOOL finished) {
-            success();
-        }];
+        [UIView animateWithDuration:[CATransaction animationDuration]
+                         animations:animations
+                         completion:^(BOOL finished) {
+                             success();
+                         }];
     } else {
         animations();
         success();

@@ -1,14 +1,12 @@
 #import "UIViewController+WMFEmptyView.h"
 #import "WMFEmptyView.h"
-
+#import <objc/runtime.h>
 @implementation UIViewController (WMFEmptyView)
 
-static NSString *WMFEmptyViewKey = @"WMFEmptyView";
+static const char *const WMFEmptyViewKey = "WMFEmptyView";
 
 - (UIView *)wmf_emptyView {
-    id valueToReturn = [self bk_associatedValueForKey:(__bridge const void *)(WMFEmptyViewKey)];
-
-    return valueToReturn;
+    return objc_getAssociatedObject(self, WMFEmptyViewKey);
 }
 
 - (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type {
@@ -46,7 +44,7 @@ static NSString *WMFEmptyViewKey = @"WMFEmptyView";
     }
     [self.view addSubview:view];
 
-    [self bk_associateValue:view withKey:(__bridge const void *)(WMFEmptyViewKey)];
+    objc_setAssociatedObject(self, WMFEmptyViewKey, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (void)wmf_hideEmptyView {
@@ -56,7 +54,7 @@ static NSString *WMFEmptyViewKey = @"WMFEmptyView";
     UIView *view = [self wmf_emptyView];
     [view removeFromSuperview];
 
-    [self bk_associateValue:nil withKey:(__bridge const void *)(WMFEmptyViewKey)];
+    objc_setAssociatedObject(self, WMFEmptyViewKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (BOOL)wmf_isShowingEmptyView {
