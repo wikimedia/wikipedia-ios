@@ -70,7 +70,7 @@
 "account-creation-missing-fields" = "Error shown when one of the required fields for account creation (username, password, and password confirmation) is empty.";
 "account-creation-create-account" = "Text for create account button";
 "account-creation-have-account" = "Text for button which shows login interface. $1 is the message {{msg-wikimedia|account-creation-log-in}}";
-"account-creation-log-in" = "Log in text to be used as part of a log in button";
+"account-creation-log-in" = "Log in text to be used as part of a log in button\n{{Identical|Log in}}";
 "new-password-title" = "Title for password change interface";
 "new-password-instructions" = "Instructions for password change interface";
 "two-factor-login-title" = "Title for two factor login interface";
@@ -90,9 +90,9 @@
 "login-title" = "Title for log in interface";
 "login-no-account" = "Text for create account button. $1 is the message {{msg-wikimedia|login-account-join-wikipedia}}";
 "login-join-wikipedia" = "Join Wikipedia text to be used as part of a create account button";
-"field-username-title" = "Title for username field";
+"field-username-title" = "Title for username field\n{{Identical|Username}}";
 "field-username-placeholder" = "Placeholder text shown inside username field until user taps on it";
-"field-password-title" = "Title for password field";
+"field-password-title" = "Title for password field\n{{Identical|Password}}";
 "field-password-placeholder" = "Placeholder text shown inside password field until user taps on it";
 "field-password-confirm-title" = "Title for confirm password field";
 "field-password-confirm-placeholder" = "Placeholder text shown inside confirm password field until user taps on it";
@@ -102,7 +102,7 @@
 "field-new-password-confirm-placeholder" = "Placeholder text shown inside confirm new password field until user taps on it";
 "field-email-title" = "Title for email address field";
 "field-email-placeholder" = "Placeholder text shown inside email address field until user taps on it";
-"field-token-title" = "Title for token field";
+"field-token-title" = "Title for token field\n{{Identical|Token}}";
 "field-token-placeholder" = "Placeholder text shown inside token field until user taps on it";
 "field-captcha-title" = "Title for captcha field";
 "field-captcha-placeholder" = "Placeholder text shown inside captcha field until user taps on it";
