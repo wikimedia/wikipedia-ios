@@ -604,44 +604,32 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (UIBarButtonItem *)fontSizeToolbarItem {
     if (!_fontSizeToolbarItem) {
-        @weakify(self);
-        _fontSizeToolbarItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"font-size"]
-                                                                   style:UIBarButtonItemStylePlain
-                                                                 handler:^(id sender) {
-                                                                     @strongify(self);
-                                                                     [self showFontSizePopup];
-                                                                 }];
+        _fontSizeToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"font-size"] style:UIBarButtonItemStylePlain target:self action:@selector(showFontSizePopup)];
     }
     return _fontSizeToolbarItem;
 }
 
 - (UIBarButtonItem *)shareToolbarItem {
     if (!_shareToolbarItem) {
-        @weakify(self);
-        _shareToolbarItem = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                                                            handler:^(id sender) {
-                                                                                @strongify(self);
-                                                                                [self shareArticle];
-                                                                            }];
+        _shareToolbarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                             target:self action:@selector(shareArticle)];
     }
     return _shareToolbarItem;
 }
 
 - (UIBarButtonItem *)findInPageToolbarItem {
     if (!_findInPageToolbarItem) {
-        @weakify(self);
-        _findInPageToolbarItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"find-in-page"]
-                                                                     style:UIBarButtonItemStylePlain
-
-                                                                   handler:^(id sender) {
-                                                                       @strongify(self);
-                                                                       if ([self canFindInPage]) { // Needed so you can't tap find icon when text size adjuster is onscreen.
-                                                                           [self showFindInPage];
-                                                                       }
-                                                                   }];
+        _findInPageToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"find-in-page"]
+                                                                     style:UIBarButtonItemStylePlain target:self action:@selector(findInPageButtonPressed)];
         _findInPageToolbarItem.accessibilityLabel = MWLocalizedString(@"find-in-page-button-label", nil);
     }
     return _findInPageToolbarItem;
+}
+
+- (void)findInPageButtonPressed {
+    if ([self canFindInPage]) { // Needed so you can't tap find icon when text size adjuster is onscreen.
+        [self showFindInPage];
+    }
 }
 
 - (UIBarButtonItem *)languagesToolbarItem {

@@ -191,32 +191,12 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     self.previewLicenseView.previewLicenseViewDelegate = self;
     self.previewWebViewContainer.externalLinksOpenerDelegate = self;
 
-    @weakify(self)
-        self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
-                                               handler:^(id sender) {
-                                                   @strongify(self)
-                                                       [self goBack];
-                                               }];
+    self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(goBack)];
 
     self.buttonLeftCaret = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft
-                                                   handler:^(id sender) {
-                                                       @strongify(self)
-                                                           [self goBack];
-                                                   }];
+                                                    target:self action:@selector(goBack)];
 
-    self.buttonSave = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-publish", nil)
-                                                          style:UIBarButtonItemStylePlain
-                                                        handler:^(id sender) {
-                                                            @strongify(self)
-                                                                [self goForward];
-                                                        }];
-
-    self.buttonNext = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-next", nil)
-                                                          style:UIBarButtonItemStylePlain
-                                                        handler:^(id sender) {
-                                                            @strongify(self)
-                                                                [self goForward];
-                                                        }];
+    self.buttonSave = [[UIBarButtonItem alloc] initWithTitle:MWLocalizedString(@"button-publish", nil) style:UIBarButtonItemStylePlain target:self action:@selector(goForward)];
 
     self.mode = PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW;
 

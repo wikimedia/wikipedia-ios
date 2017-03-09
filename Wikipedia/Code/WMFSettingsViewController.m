@@ -109,14 +109,12 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 }
 
 - (void)configureBackButton {
-    @weakify(self)
-        UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
-                                                           handler:^(id sender) {
-                                                               @strongify(self)
-                                                                   [self dismissViewControllerAnimated:YES
-                                                                                            completion:nil];
-                                                           }];
+    UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
     self.navigationItem.leftBarButtonItems = @[xButton];
+}
+
+- (void)closeButtonPressed {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (nullable NSString *)title {
