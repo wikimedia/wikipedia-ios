@@ -319,7 +319,6 @@
 		B0E805511C0CE0DC0065EBC0 /* UITableViewCell+SelectedBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805111C0CE0DC0065EBC0 /* UITableViewCell+SelectedBackground.m */; };
 		B0E805551C0CE0DC0065EBC0 /* UIView+IBExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805181C0CE0DC0065EBC0 /* UIView+IBExtras.swift */; };
 		B0E805561C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8051A1C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m */; };
-		B0E805571C0CE0DC0065EBC0 /* UIView+TemporaryAnimatedXF.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8051C1C0CE0DC0065EBC0 /* UIView+TemporaryAnimatedXF.m */; };
 		B0E805591C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805201C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m */; };
 		B0E8055A1C0CE0DC0065EBC0 /* UIView+WMFRoundCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805221C0CE0DC0065EBC0 /* UIView+WMFRoundCorners.m */; };
 		B0E8055D1C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805261C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift */; };
@@ -855,9 +854,9 @@
 		D8BA1F211DF1E19700502877 /* Acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8BA1F201DF1E19700502877 /* Acknowledgements.plist */; };
 		D8BBBCDA1D9456AC00DECA36 /* NSLocale+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E804971C0CE0B40065EBC0 /* NSLocale+WMFExtras.swift */; };
 		D8BBBCE11D94603800DECA36 /* WMFLocaleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BBBCE01D94603800DECA36 /* WMFLocaleTests.m */; };
-		D8BDA8C11E71C0760031F4BF /* WMFBlocksKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BDA8C01E71C0760031F4BF /* WMFBlocksKitTests.m */; };
 		D8BDA8BE1E71B8C90031F4BF /* WMFDeleteBackwardReportingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01CFC5E1E70B00100B3546A /* WMFDeleteBackwardReportingTextField.swift */; };
 		D8BDA8BF1E71B8D10031F4BF /* String?+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01CFC601E71069000B3546A /* String?+WMFExtras.swift */; };
+		D8BDA8C11E71C0760031F4BF /* WMFBlocksKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BDA8C01E71C0760031F4BF /* WMFBlocksKitTests.m */; };
 		D8C0C00B1D144FF30019374D /* WMFProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C0C00A1D144FF30019374D /* WMFProxyServer.m */; };
 		D8C9BFE81D6CC92C0084624F /* MWKLanguageLinkResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8062D1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8C9BFE91D6CC9310084624F /* MWKLanguageLinkResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062E1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.m */; };
@@ -1043,7 +1042,6 @@
 		D8CE258E1E698E2400DAE2E0 /* UIView+WMFFrameUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805201C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m */; };
 		D8CE258F1E698E2400DAE2E0 /* WMFWelcomeAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00DDEE21DB5B16E00615FA2 /* WMFWelcomeAnimationViewController.swift */; };
 		D8CE25901E698E2400DAE2E0 /* WMFTableOfContentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E803721C0CD9C10065EBC0 /* WMFTableOfContentsCell.swift */; };
-		D8CE25911E698E2400DAE2E0 /* UIView+TemporaryAnimatedXF.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8051C1C0CE0DC0065EBC0 /* UIView+TemporaryAnimatedXF.m */; };
 		D8CE25921E698E2400DAE2E0 /* WMFAuthTokenFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0267CEE1E3294C1006B6D8D /* WMFAuthTokenFetcher.swift */; };
 		D8CE25931E698E2400DAE2E0 /* WMFSettingsMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0EC211C6999A9006F0D9C /* WMFSettingsMenuItem.m */; };
 		D8CE25941E698E2400DAE2E0 /* WMFExploreSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8032A1C0CD6E10065EBC0 /* WMFExploreSectionHeader.m */; };
@@ -2164,8 +2162,6 @@
 		B0E805181C0CE0DC0065EBC0 /* UIView+IBExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+IBExtras.swift"; path = "Wikipedia/Code/UIView+IBExtras.swift"; sourceTree = SOURCE_ROOT; };
 		B0E805191C0CE0DC0065EBC0 /* UIView+RemoveConstraints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+RemoveConstraints.h"; path = "Wikipedia/Code/UIView+RemoveConstraints.h"; sourceTree = SOURCE_ROOT; };
 		B0E8051A1C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+RemoveConstraints.m"; path = "Wikipedia/Code/UIView+RemoveConstraints.m"; sourceTree = SOURCE_ROOT; };
-		B0E8051B1C0CE0DC0065EBC0 /* UIView+TemporaryAnimatedXF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+TemporaryAnimatedXF.h"; path = "Wikipedia/Code/UIView+TemporaryAnimatedXF.h"; sourceTree = SOURCE_ROOT; };
-		B0E8051C1C0CE0DC0065EBC0 /* UIView+TemporaryAnimatedXF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+TemporaryAnimatedXF.m"; path = "Wikipedia/Code/UIView+TemporaryAnimatedXF.m"; sourceTree = SOURCE_ROOT; };
 		B0E8051D1C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+WMFDefaultNib.h"; path = "Wikipedia/Code/UIView+WMFDefaultNib.h"; sourceTree = SOURCE_ROOT; };
 		B0E8051E1C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+WMFDefaultNib.m"; path = "Wikipedia/Code/UIView+WMFDefaultNib.m"; sourceTree = SOURCE_ROOT; };
 		B0E8051F1C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+WMFFrameUtils.h"; path = "Wikipedia/Code/UIView+WMFFrameUtils.h"; sourceTree = SOURCE_ROOT; };
@@ -4893,8 +4889,6 @@
 		BC45D5761C32EE13007C72F3 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
-				B0E8051B1C0CE0DC0065EBC0 /* UIView+TemporaryAnimatedXF.h */,
-				B0E8051C1C0CE0DC0065EBC0 /* UIView+TemporaryAnimatedXF.m */,
 				B0E805211C0CE0DC0065EBC0 /* UIView+WMFRoundCorners.h */,
 				B0E805221C0CE0DC0065EBC0 /* UIView+WMFRoundCorners.m */,
 				B0E803D01C0CDCBF0065EBC0 /* UIView+WMFShadow.h */,
@@ -7776,7 +7770,6 @@
 				B0E805591C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m in Sources */,
 				B00DDEE31DB5B16E00615FA2 /* WMFWelcomeAnimationViewController.swift in Sources */,
 				B0E803761C0CD9C10065EBC0 /* WMFTableOfContentsCell.swift in Sources */,
-				B0E805571C0CE0DC0065EBC0 /* UIView+TemporaryAnimatedXF.m in Sources */,
 				B0267CEF1E3294C1006B6D8D /* WMFAuthTokenFetcher.swift in Sources */,
 				B0B0EC221C6999A9006F0D9C /* WMFSettingsMenuItem.m in Sources */,
 				B0E8032C1C0CD6E10065EBC0 /* WMFExploreSectionHeader.m in Sources */,
@@ -8300,7 +8293,6 @@
 				D8CE258E1E698E2400DAE2E0 /* UIView+WMFFrameUtils.m in Sources */,
 				D8CE258F1E698E2400DAE2E0 /* WMFWelcomeAnimationViewController.swift in Sources */,
 				D8CE25901E698E2400DAE2E0 /* WMFTableOfContentsCell.swift in Sources */,
-				D8CE25911E698E2400DAE2E0 /* UIView+TemporaryAnimatedXF.m in Sources */,
 				D8CE25921E698E2400DAE2E0 /* WMFAuthTokenFetcher.swift in Sources */,
 				D8CE25931E698E2400DAE2E0 /* WMFSettingsMenuItem.m in Sources */,
 				D8CE25941E698E2400DAE2E0 /* WMFExploreSectionHeader.m in Sources */,
