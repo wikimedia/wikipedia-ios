@@ -207,11 +207,11 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         super.viewDidLoad()
 
         oathTokenFields.sort { $0.tag < $1.tag }
-        
+        oathTokenFields.forEach {$0.wmf_addThinBottomBorder()}
+
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
         
         loginButton.setTitle(localizedStringForKeyFallingBackOnEnglish("two-factor-login-continue"), for: .normal)
-        
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-title")
         subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-instructions")
         
