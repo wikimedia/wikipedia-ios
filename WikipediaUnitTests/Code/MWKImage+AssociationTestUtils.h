@@ -15,6 +15,4 @@
 
 - (MWKImage *)createAssociatedImage;
 
-+ (id)mappedFromImages:(id)images;
-
 @end

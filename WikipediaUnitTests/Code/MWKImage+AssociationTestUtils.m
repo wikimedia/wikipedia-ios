@@ -33,10 +33,4 @@
     return [MWKImage imageAssociatedWithSourceURL:self.canonicalFileURL.absoluteString];
 }
 
-+ (id)mappedFromImages:(id)imageList {
-    return [imageList wmf_map:^MWKImageInfo *(MWKImage *img) {
-        return [img createAssociatedInfo];
-    }];
-}
-
 @end
