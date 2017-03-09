@@ -27,13 +27,13 @@ NS_ASSUME_NONNULL_BEGIN
         return self;
     }
     return [self wmf_reduce:[[NSMutableArray alloc] initWithCapacity:self.count]
-                 withBlock:^id(NSMutableArray *sum, id obj) {
-                     id result = flatMap(obj);
-                     if (result) {
-                         [sum addObject:result];
-                     }
-                     return sum;
-                 }];
+                  withBlock:^id(NSMutableArray *sum, id obj) {
+                      id result = flatMap(obj);
+                      if (result) {
+                          [sum addObject:result];
+                      }
+                      return sum;
+                  }];
 }
 
 @end
