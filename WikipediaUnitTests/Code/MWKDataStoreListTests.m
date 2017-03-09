@@ -5,7 +5,6 @@
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "WMFAsyncTestCase.h"
 
-#import <BlocksKit/BlocksKit.h>
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
@@ -36,16 +35,14 @@
 
 - (void)testSavedListIsEqualToListWithAddedEntries {
     [self verifyListRoundTripAfter:^(MWKList *list) {
-        [self.testObjects bk_each:^(id entry) {
+        for (id entry in self.testObjects) {
             [list addEntry:entry];
-        }];
+        }
     }];
 }
 
 - (void)testSavedListIsEqualToListWithAddedAndRemovedEntries {
     [self verifyListRoundTripAfter:^(MWKList *list) {
-        [self.testObjects bk_each:^(id entry){
-        }];
         [list removeEntryWithListIndex:[self.testObjects.firstObject listIndex]];
         [list removeEntryWithListIndex:[self.testObjects.lastObject listIndex]];
     }];

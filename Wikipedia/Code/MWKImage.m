@@ -52,7 +52,7 @@
         self.height = [self optionalNumber:@"height" dict:dict];
         self.originalFileWidth = [self optionalNumber:@"originalFileWidth" dict:dict];
         self.originalFileHeight = [self optionalNumber:@"originalFileHeight" dict:dict];
-        _allNormalizedFaceBounds = [dict[@"focalRects"] bk_map:^NSValue *(NSString *rectString) {
+        _allNormalizedFaceBounds = [dict[@"focalRects"] wmf_map:^NSValue *(NSString *rectString) {
             return [NSValue valueWithCGRect:CGRectFromString(rectString)];
         }];
     }
@@ -79,7 +79,7 @@
         dict[@"originalFileHeight"] = self.originalFileHeight;
     }
     if (self.allNormalizedFaceBounds) {
-        dict[@"focalRects"] = [self.allNormalizedFaceBounds bk_map:^id(NSValue *rectValue) {
+        dict[@"focalRects"] = [self.allNormalizedFaceBounds wmf_map:^id(NSValue *rectValue) {
             return NSStringFromCGRect(rectValue.CGRectValue);
         }];
     }

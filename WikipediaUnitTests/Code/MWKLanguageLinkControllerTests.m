@@ -78,7 +78,7 @@
 
 - (void)testBasicFiltering {
     self.filter.languageFilter = @"en";
-    assertThat([self.filter.filteredLanguages bk_reject:^BOOL(MWKLanguageLink *langLink) {
+    assertThat([self.filter.filteredLanguages wmf_reject:^BOOL(MWKLanguageLink *langLink) {
                    return [langLink.name wmf_caseInsensitiveContainsString:@"en"] || [langLink.localizedName wmf_caseInsensitiveContainsString:@"en"];
                }],
                describedAs(@"All filtered languages have a name or localized name containing filter ignoring case",

@@ -1,5 +1,7 @@
 #import "WMFNearbyArticleCollectionViewCell.h"
+#if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>
+#endif
 
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 
@@ -146,13 +148,13 @@
 }
 
 - (void)setDistance:(CLLocationDistance)distance {
-#if FB_TWEAK_ENABLED
+#if WMF_TWEAKS_ENABLED
     if (FBTweakValue(@"Explore", @"Nearby", @"Show raw distance", NO)) {
         self.distanceLabel.text = [NSString stringWithFormat:@"%f", distance];
     } else {
 #endif
         self.distanceLabel.text = [NSString wmf_localizedStringForDistance:distance];
-#if FB_TWEAK_ENABLED
+#if WMF_TWEAKS_ENABLED
     }
 #endif
 }

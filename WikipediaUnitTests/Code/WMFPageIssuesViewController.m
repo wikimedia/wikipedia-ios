@@ -24,14 +24,12 @@
 
     self.dataSource.tableView = self.tableView;
 
-    @weakify(self);
-    UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
-                                                       handler:^(id sender) {
-                                                           @strongify(self)
-                                                               [self.presentingViewController dismissViewControllerAnimated:YES
-                                                                                                                 completion:nil];
-                                                       }];
+    UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
     self.navigationItem.leftBarButtonItem = xButton;
+}
+
+- (void)closeButtonPressed {
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

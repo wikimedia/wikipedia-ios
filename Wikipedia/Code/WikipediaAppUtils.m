@@ -1,6 +1,7 @@
 #import "WikipediaAppUtils.h"
 #import "WMFAssetsFile.h"
 #import "NSBundle+WMFInfoUtils.h"
+#import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -48,7 +49,7 @@ static WMFAssetsFile *_Nullable languageFile = nil;
         languageFile = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeLanguages];
     }
 
-    return [languageFile.array bk_match:^BOOL(NSDictionary *obj) {
+    return [languageFile.array wmf_match:^BOOL(NSDictionary *obj) {
         return [obj[@"code"] isEqualToString:code];
     }][@"name"];
 }

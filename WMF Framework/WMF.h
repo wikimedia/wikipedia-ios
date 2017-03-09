@@ -28,7 +28,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import "NSError+WMFExtensions.h"
 #import "WMFOutParamUtils.h"
 #import "WMFRangeUtils.h"
-#import "NSArray+BKIndex.h"
 #import "NSIndexSet+BKReduce.h"
 #import "NSMutableDictionary+WMFMaybeSet.h"
 #import "WMFGeometry.h"

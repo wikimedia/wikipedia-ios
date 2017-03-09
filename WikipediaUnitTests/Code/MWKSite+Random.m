@@ -1,6 +1,5 @@
 #import "MWKSite+Random.h"
 
-#import <BlocksKit/BlocksKit.h>
 
 @implementation NSURL (WMFRandom)
 

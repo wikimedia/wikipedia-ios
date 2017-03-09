@@ -1,5 +1,6 @@
 #import "MWKCitation.h"
 #import <hpple/TFHpple.h>
+#import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -68,10 +69,10 @@ NS_ASSUME_NONNULL_BEGIN
     if (_backlinkIdentifiers) {
         _backlinkIdentifiers = [[[[TFHpple hppleWithHTMLData:[self.rawHTML dataUsingEncoding:NSUTF8StringEncoding]]
             searchWithXPathQuery:@"/html/body//*[contains(@class,'mw-cite-backlink')]//a"]
-            bk_map:^NSString *(TFHppleElement *el) {
+            wmf_map:^NSString *(TFHppleElement *el) {
                 return el.attributes[@"id"];
             }]
-            bk_reject:^BOOL(id obj) {
+            wmf_reject:^BOOL(id obj) {
                 return WMF_IS_EQUAL(obj, [NSNull null]);
             }];
         if (!_backlinkIdentifiers) {

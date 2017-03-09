@@ -69,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)refreshAnyVisibleCellsWhichAreShowingArticleURL:(NSURL *)url {
-    NSArray *indexPathsToRefresh = [[self.tableView indexPathsForVisibleRows] bk_select:^BOOL(NSIndexPath *indexPath) {
+    NSArray *indexPathsToRefresh = [[self.tableView indexPathsForVisibleRows] wmf_select:^BOOL(NSIndexPath *indexPath) {
         NSURL *otherURL = [self.dataSource urlForIndexPath:indexPath];
         return [url isEqual:otherURL];
     }];

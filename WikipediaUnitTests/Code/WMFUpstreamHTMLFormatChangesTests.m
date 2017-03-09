@@ -1,6 +1,5 @@
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
-#import <BlocksKit/BlocksKit.h>
 #import "MWKTestCase.h"
 
 @interface NSString (WMFNormalizeWhitespace)

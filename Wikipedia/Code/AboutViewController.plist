@@ -135,14 +135,6 @@ THE SOFTWARE.</string>
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>BlocksKit</string>
-			<key>Source URL</key>
-			<string>https://github.com/zwaldowski/BlocksKit</string>
-			<key>License Text</key>
-			<string>pod install</string>
-		</dict>
-		<dict>
-			<key>Name</key>
 			<string>HockeySDK</string>
 			<key>Source URL</key>
 			<string>https://github.com/bitstadium/HockeySDK-iOS.git</string>

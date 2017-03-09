@@ -33,15 +33,14 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [((WMFArticlePreviewDataSource *)self.dataSource)fetch];
-    @weakify(self);
-    UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
-                                                       handler:^(id sender) {
-                                                           @strongify(self)
-                                                               [self.presentingViewController dismissViewControllerAnimated:YES
-                                                                                                                 completion:nil];
-                                                       }];
+    UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(xButtonPressed)];
     self.navigationItem.leftBarButtonItem = xButton;
     self.navigationItem.rightBarButtonItem = nil;
+}
+
+- (void)xButtonPressed {
+    [self.presentingViewController dismissViewControllerAnimated:YES
+                                                      completion:nil];
 }
 
 - (NSString *)analyticsContext {
