@@ -1761,8 +1761,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                      }
                                  }];
 
+    WMFArticle *wmfarticle = [self.previewStore itemForURL:self.articleURL];
     UIPreviewAction *placeAction = nil;
-    if (CLLocationCoordinate2DIsValid(self.article.coordinate)) {
+    if (wmfarticle.location) {
         placeAction =
             [UIPreviewAction actionWithTitle:MWLocalizedString(@"page-location", nil)
                                        style:UIPreviewActionStyleDefault
@@ -1794,7 +1795,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
-    NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:articleController.article.url];
+    NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:articleController.articleURL];
     [[UIApplication sharedApplication] openURL:placesURL];
 }
 
