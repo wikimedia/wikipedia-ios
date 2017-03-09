@@ -3,12 +3,14 @@ import UIKit
 
 class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate {
     @IBOutlet fileprivate var usernameField: UITextField!
+    @IBOutlet fileprivate var usernameAlertLabel: UILabel!
     @IBOutlet fileprivate var passwordField: UITextField!
     @IBOutlet fileprivate var passwordRepeatField: UITextField!
     @IBOutlet fileprivate var emailField: UITextField!
     @IBOutlet fileprivate var usernameTitleLabel: UILabel!
     @IBOutlet fileprivate var passwordTitleLabel: UILabel!
     @IBOutlet fileprivate var passwordRepeatTitleLabel: UILabel!
+    @IBOutlet fileprivate var passwordRepeatAlertLabel: UILabel!
     @IBOutlet fileprivate var emailTitleLabel: UILabel!
     @IBOutlet fileprivate var captchaContainer: UIView!
     @IBOutlet fileprivate var loginButton: UILabel!
@@ -28,7 +30,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
 
     @IBAction fileprivate func createAccountButtonTapped(withSender sender: UIButton) {
-        WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-saving"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         save()
     }
 
@@ -63,6 +64,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         passwordTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-password-title")
         passwordRepeatTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-password-confirm-title")
         emailTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-email-title")
+        passwordRepeatAlertLabel.text = localizedStringForKeyFallingBackOnEnglish("field-alert-password-confirm-mismatch")
         
         usernameField.wmf_addThinBottomBorder()
         passwordField.wmf_addThinBottomBorder()
@@ -223,24 +225,59 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
     
     fileprivate func save() {
+        
+        usernameAlertLabel.isHidden = true
+        passwordRepeatAlertLabel.isHidden = true
+        
         guard areRequiredFieldsPopulated() else {
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("account-creation-missing-fields"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             return
         }
 
         guard passwordFieldsMatch() else {
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("account-creation-passwords-mismatched"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            passwordRepeatField.becomeFirstResponder()
+            self.passwordRepeatField.textColor = .orange
+            self.passwordRepeatAlertLabel.isHidden = false
+            self.scrollView.scrollSubView(toTop: self.passwordTitleLabel, offset: 6, animated: true)
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("account-creation-passwords-mismatched"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
             return
         }
         wmf_hideKeyboard()
         createAccount()
     }
     
+    @IBAction func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField {
+        case usernameField:
+            usernameAlertLabel.isHidden = true
+            usernameField.textColor = .black
+        case passwordRepeatField:
+            passwordRepeatAlertLabel.isHidden = true
+            passwordRepeatField.textColor = .black
+        default: break
+        }
+    }
+
     fileprivate func createAccount() {
+        WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-saving"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        
         let creationFailure: WMFErrorHandler = {error in
             // Captcha's appear to be one-time, so always try to get a new one on failure.
             self.getCaptcha()
+            
+            if let error = error as? WMFAccountCreatorError {
+                switch error {
+                case .usernameUnavailable:
+                    self.usernameAlertLabel.text = error.localizedDescription
+                    self.usernameAlertLabel.isHidden = false
+                    self.usernameField.textColor = .red
+                    self.funnel?.logError(error.localizedDescription)
+                    WMFAlertManager.sharedInstance.dismissAlert()
+                    return
+                case .wrongCaptcha:
+                    self.captchaViewController?.captchaTextFieldBecomeFirstResponder()
+                default: break
+                }
+            }
             
             self.funnel?.logError(error.localizedDescription)
             self.enableProgressiveButtonIfNecessary()

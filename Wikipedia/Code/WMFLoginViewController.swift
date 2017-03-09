@@ -5,6 +5,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     @IBOutlet fileprivate var passwordField: UITextField!
     @IBOutlet fileprivate var usernameTitleLabel: UILabel!
     @IBOutlet fileprivate var passwordTitleLabel: UILabel!
+    @IBOutlet fileprivate var passwordAlertLabel: UILabel!
     @IBOutlet fileprivate var createAccountButton: UILabel!
     @IBOutlet fileprivate var forgotPasswordButton: UILabel!
     @IBOutlet fileprivate var titleLabel: UILabel!
@@ -126,10 +127,18 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         return true
     }
 
+    @IBAction func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == passwordField {
+            passwordAlertLabel.isHidden = true
+            passwordField.textColor = .black
+        }
+    }
+
     fileprivate func save() {
         wmf_hideKeyboard()
+        passwordAlertLabel.isHidden = true
         disableProgressiveButton()
-        WMFAlertManager.sharedInstance.dismissAlert()
+        WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-logging-in"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         WMFAuthenticationManager.sharedInstance.login(username: usernameField.text!, password: passwordField.text!, retypePassword:nil, oathToken:nil, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, success: { _ in
             let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: self.usernameField.text!)
             WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
@@ -151,6 +160,13 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                 case .statusNotPass:
                     self.passwordField.text = nil
                     self.passwordField.becomeFirstResponder()
+                case .wrongPassword:
+                    self.passwordAlertLabel.text = error.localizedDescription
+                    self.passwordAlertLabel.isHidden = false
+                    self.passwordField.textColor = .red
+                    self.funnel?.logError(error.localizedDescription)
+                    WMFAlertManager.sharedInstance.dismissAlert()
+                    return
                 default: break
                 }
             }

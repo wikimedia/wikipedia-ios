@@ -483,6 +483,8 @@
 		B37B38F01E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */; };
 		B384069E1E64D5C000DFC889 /* 640px-Shoso-in.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B384069D1E64D5C000DFC889 /* 640px-Shoso-in.jpg */; };
 		B389CFCB1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */; };
+		B389CFCE1E6F238300483C06 /* WMFMapsActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */; };
+		B389CFD01E6F459F00483C06 /* MWKArticle+MKPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCF1E6F459F00483C06 /* MWKArticle+MKPlacemark.swift */; };
 		BC0069D51C7D556C00F2C377 /* WMFMockLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0069D41C7D556C00F2C377 /* WMFMockLocationManager.m */; };
 		BC15E74A1BF4377C00679AA9 /* MonetPrefixSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC15E7491BF4377C00679AA9 /* MonetPrefixSearch.json */; };
 		BC15E74C1BF437A200679AA9 /* MonetFullTextSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC15E74B1BF437A200679AA9 /* MonetFullTextSearch.json */; };
@@ -923,7 +925,7 @@
 		D8CE25211E698E2400DAE2E0 /* UIView+WMFSnapshotting.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803901C0CDABE0065EBC0 /* UIView+WMFSnapshotting.m */; };
 		D8CE25221E698E2400DAE2E0 /* UIViewController+WMFStoryboardUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803E51C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m */; };
 		D8CE25231E698E2400DAE2E0 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED2E9F91CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift */; };
-		D8CE25241E698E2400DAE2E0 /* UIViewController+WMFChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805281C0CE0DC0065EBC0 /* UIViewController+WMFChildViewController.m */; };
+		D8CE25241E698E2400DAE2E0 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		D8CE25251E698E2400DAE2E0 /* PageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CE1C0CEB6E0065EBC0 /* PageHistoryViewController.m */; };
 		D8CE25261E698E2400DAE2E0 /* WMFTitleInsetRespectingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803CB1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m */; };
 		D8CE25271E698E2400DAE2E0 /* WMFChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE561E4526A40033BD6E /* WMFChangePasswordViewController.swift */; };
@@ -2540,6 +2542,8 @@
 		B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHouseKeeper.swift; sourceTree = "<group>"; };
 		B384069D1E64D5C000DFC889 /* 640px-Shoso-in.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "640px-Shoso-in.jpg"; sourceTree = "<group>"; };
 		B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHousekeeperTests.swift; sourceTree = "<group>"; };
+		B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFMapsActivity.swift; path = Wikipedia/Code/WMFMapsActivity.swift; sourceTree = SOURCE_ROOT; };
+		B389CFCF1E6F459F00483C06 /* MWKArticle+MKPlacemark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MWKArticle+MKPlacemark.swift"; sourceTree = "<group>"; };
 		BC0069D31C7D556C00F2C377 /* WMFMockLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFMockLocationManager.h; path = WikipediaUnitTests/Code/WMFMockLocationManager.h; sourceTree = SOURCE_ROOT; };
 		BC0069D41C7D556C00F2C377 /* WMFMockLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMockLocationManager.m; path = WikipediaUnitTests/Code/WMFMockLocationManager.m; sourceTree = SOURCE_ROOT; };
 		BC070C2D1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKImage+CanonicalFilenames.h"; path = "Wikipedia/Code/MWKImage+CanonicalFilenames.h"; sourceTree = SOURCE_ROOT; };
@@ -3702,6 +3706,7 @@
 				B0E807931C0CEF970065EBC0 /* MWKSection.m */,
 				B0E8079D1C0CEFBD0065EBC0 /* MWKProtectionStatus.h */,
 				B0E8079E1C0CEFBD0065EBC0 /* MWKProtectionStatus.m */,
+				B389CFCF1E6F459F00483C06 /* MWKArticle+MKPlacemark.swift */,
 			);
 			name = "Article Content";
 			sourceTree = "<group>";
@@ -4597,6 +4602,14 @@
 			name = Housekeeping;
 			sourceTree = "<group>";
 		};
+		B389CFCC1E6F234000483C06 /* Activities */ = {
+			isa = PBXGroup;
+			children = (
+				B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */,
+			);
+			name = Activities;
+			sourceTree = "<group>";
+		};
 		BC23E4DE1C223EAB00B5AFDE /* Revisions */ = {
 			isa = PBXGroup;
 			children = (
@@ -5112,6 +5125,7 @@
 		BC45D5A01C330393007C72F3 /* Sharing */ = {
 			isa = PBXGroup;
 			children = (
+				B389CFCC1E6F234000483C06 /* Activities */,
 				0EC0447C1C7974590033D773 /* Share Sources */,
 				0EC0447D1C7974C10033D773 /* Share A Fact */,
 			);
@@ -6703,7 +6717,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D499146A181D51DF00E6073C /* Build configuration list for PBXNativeTarget "Wikipedia" */;
 			buildPhases = (
-				D8D672E51E6D7A2700C16AE2 /* Run Script */,
 				D4991431181D51DE00E6073C /* Sources */,
 				D4991432181D51DE00E6073C /* Frameworks */,
 				D4991433181D51DE00E6073C /* Resources */,
@@ -6783,7 +6796,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D8CE26A81E698E2400DAE2E0 /* Build configuration list for PBXNativeTarget "Wikipedia Alpha" */;
 			buildPhases = (
-				D8D672E61E6D7A4F00C16AE2 /* ShellScript */,
 				D8CE24E01E698E2400DAE2E0 /* Sources */,
 				D8CE261E1E698E2400DAE2E0 /* Frameworks */,
 				D8CE26391E698E2400DAE2E0 /* Resources */,
@@ -7444,33 +7456,6 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
-		D8D672E51E6D7A2700C16AE2 /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = $SRCROOT/scripts/carthage_bootstrap;
-		};
-		D8D672E61E6D7A4F00C16AE2 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = $SRCROOT/scripts/carthage_bootstrap;
-		};
 		D8D987FD1E1C468F00789CA0 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -7704,6 +7689,7 @@
 				B0C6BE571E4526A40033BD6E /* WMFChangePasswordViewController.swift in Sources */,
 				B04DA3C91D9F740800F45DB7 /* WMFSearchLanguagesBarViewController.swift in Sources */,
 				B0E803FA1C0CDDBA0065EBC0 /* WMFUnderlineButton.m in Sources */,
+				B389CFCE1E6F238300483C06 /* WMFMapsActivity.swift in Sources */,
 				B0E8039E1C0CDB3B0065EBC0 /* WMFArticleRequestSerializer.m in Sources */,
 				B0E804421C0CDF850065EBC0 /* MenuLabel.m in Sources */,
 				B0F087501C860E910086F710 /* WMFWelcomeAnimationExtensions.swift in Sources */,
@@ -8046,6 +8032,7 @@
 				D844D9F41D6CC0220042D692 /* MWKImageInfo+MWKImageComparison.m in Sources */,
 				D8FA18FD1E1BDA4C009675C3 /* UIImageView+WMFImageFetching.m in Sources */,
 				D8FA18FE1E1BDA4C009675C3 /* UIColor+WMFStyle.m in Sources */,
+				B389CFD01E6F459F00483C06 /* MWKArticle+MKPlacemark.swift in Sources */,
 				D8FA18AE1E1BD891009675C3 /* NSDictionary+WMFPageViewsSortedByDate.m in Sources */,
 				D8FA18F71E1BDA4C009675C3 /* GroupedAccessibilityView.swift in Sources */,
 				D83F8A341D74BC55009E7D40 /* MWNetworkActivityIndicatorManager.m in Sources */,
@@ -8215,7 +8202,7 @@
 				D8CE25211E698E2400DAE2E0 /* UIView+WMFSnapshotting.m in Sources */,
 				D8CE25221E698E2400DAE2E0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				D8CE25231E698E2400DAE2E0 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
-				D8CE25241E698E2400DAE2E0 /* UIViewController+WMFChildViewController.m in Sources */,
+				D8CE25241E698E2400DAE2E0 /* (null) in Sources */,
 				D8CE25251E698E2400DAE2E0 /* PageHistoryViewController.m in Sources */,
 				D8CE25261E698E2400DAE2E0 /* WMFTitleInsetRespectingButton.m in Sources */,
 				D8CE25271E698E2400DAE2E0 /* WMFChangePasswordViewController.swift in Sources */,

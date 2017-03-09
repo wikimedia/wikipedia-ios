@@ -10,7 +10,7 @@
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="newsNotificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="pageViews" optional="YES" attributeType="Transformable" customClassName="NSDictionary" syncable="YES"/>
-        <attribute name="placesSortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="placesSortOrder" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="savedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
         <attribute name="signedQuadKey" optional="YES" attributeType="Integer 64" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
         <attribute name="snippet" optional="YES" attributeType="String" syncable="YES"/>
