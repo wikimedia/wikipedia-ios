@@ -18,7 +18,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     @IBOutlet fileprivate var tokenLabel: UILabel!
     @IBOutlet fileprivate var oathTokenFields: [UITextField]!
     @IBOutlet fileprivate var oathTokenFieldsStackView: UIStackView!
-    @IBOutlet fileprivate var backupOathTokenToggle: UILabel!
+    @IBOutlet fileprivate var displayModeToggle: UILabel!
     @IBOutlet fileprivate var backupOathTokenField: UITextField!
     @IBOutlet fileprivate var loginButton: WMFAuthButton!
     
@@ -29,7 +29,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     public var captchaID:String?
     public var captchaWord:String?
     
-    func backupOathTokenToggleTapped(_ recognizer: UITapGestureRecognizer) {
+    func displayModeToggleTapped(_ recognizer: UITapGestureRecognizer) {
         guard recognizer.state == .ended else {
             return
         }
@@ -48,12 +48,12 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                 backupOathTokenField.isHidden = false
                 oathTokenFieldsStackView.isHidden = true
                 tokenLabel.text = localizedStringForKeyFallingBackOnEnglish("field-backup-token-title")
-                backupOathTokenToggle.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-with-backup-code")
+                displayModeToggle.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-with-regular-code")
             case .shortNumeric:
                 backupOathTokenField.isHidden = true
                 oathTokenFieldsStackView.isHidden = false
                 tokenLabel.text = localizedStringForKeyFallingBackOnEnglish("field-token-title")
-                backupOathTokenToggle.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-with-regular-code")
+                displayModeToggle.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-with-backup-code")
             }
             oathTokenFields.forEach {$0.text = nil}
             backupOathTokenField.text = nil
@@ -221,8 +221,8 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         
         backupOathTokenField.wmf_addThinBottomBorder()
         displayMode = .shortNumeric
-        backupOathTokenToggle.textColor = .wmf_blueTint()
-        backupOathTokenToggle.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backupOathTokenToggleTapped(_:))))
+        displayModeToggle.textColor = .wmf_blueTint()
+        displayModeToggle.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(displayModeToggleTapped(_:))))
 
         view.wmf_configureSubviewsForDynamicType()
     }
