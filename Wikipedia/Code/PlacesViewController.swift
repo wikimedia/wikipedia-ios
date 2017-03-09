@@ -6,56 +6,43 @@ import TUSafariActivity
 class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate {
     
     @IBOutlet weak var redoSearchButton: UIButton!
-    let locationSearchFetcher = WMFLocationSearchFetcher()
-    let searchFetcher = WMFSearchFetcher()
-    let previewFetcher = WMFArticlePreviewFetcher()
-    let wikidataFetcher = WikidataFetcher()
-    
-    let locationManager = WMFLocationManager.fine()
-    
-    let animationDuration = 0.6
-    let animationScale = CGFloat(0.6)
-    let popoverFadeDuration = 0.25
-    let searchHistoryCountLimit = 15
-    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var listView: UITableView!
     @IBOutlet weak var searchSuggestionView: UITableView!
     @IBOutlet weak var recenterOnUserLocationButton: UIButton!
     
-    var searchSuggestionController: PlaceSearchSuggestionController!
-    
-    var searchBar: UISearchBar!
-    var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
+    public var articleStore: WMFArticleDataStore!
+    public var dataStore: MWKDataStore!
 
-    var articleStore: WMFArticleDataStore!
-    var dataStore: MWKDataStore!
-    var segmentedControl: UISegmentedControl!
-    var segmentedControlBarButtonItem: UIBarButtonItem!
-    
-    var closeBarButtonItem: UIBarButtonItem!
-
-    
-    var currentGroupingPrecision: QuadKeyPrecision = 1
-    
-    let searchHistoryGroup = "PlaceSearch"
-    
-    var maxGroupingPrecision: QuadKeyPrecision = 16
-    var groupingPrecisionDelta: QuadKeyPrecision = 4
-    var groupingAggressiveness: CLLocationDistance = 0.67
-    
-    var selectedArticlePopover: ArticlePopoverViewController?
-    var selectedArticleKey: String?
-    
-    var placeToSelect: ArticlePlace?
-    var articleKeyToSelect: String?
-    
-    var currentSearchRegion: MKCoordinateRegion?
-    
-    var performDefaultSearchOnNextMapRegionUpdate = false
-    var previouslySelectedArticlePlaceIdentifier: String?
-    var searching: Bool = false
+    private let locationSearchFetcher = WMFLocationSearchFetcher()
+    private let searchFetcher = WMFSearchFetcher()
+    private let previewFetcher = WMFArticlePreviewFetcher()
+    private let wikidataFetcher = WikidataFetcher()
+    private let locationManager = WMFLocationManager.fine()
+    private let animationDuration = 0.6
+    private let animationScale = CGFloat(0.6)
+    private let popoverFadeDuration = 0.25
+    private let searchHistoryCountLimit = 15
+    private var searchSuggestionController: PlaceSearchSuggestionController!
+    private var searchBar: UISearchBar!
+    private var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
+    private var segmentedControl: UISegmentedControl!
+    private var segmentedControlBarButtonItem: UIBarButtonItem!
+    private var closeBarButtonItem: UIBarButtonItem!
+    private var currentGroupingPrecision: QuadKeyPrecision = 1
+    private let searchHistoryGroup = "PlaceSearch"
+    private var maxGroupingPrecision: QuadKeyPrecision = 16
+    private var groupingPrecisionDelta: QuadKeyPrecision = 4
+    private var groupingAggressiveness: CLLocationDistance = 0.67
+    private var selectedArticlePopover: ArticlePopoverViewController?
+    private var selectedArticleKey: String?
+    private var placeToSelect: ArticlePlace?
+    private var articleKeyToSelect: String?
+    private var currentSearchRegion: MKCoordinateRegion?
+    private var performDefaultSearchOnNextMapRegionUpdate = false
+    private var previouslySelectedArticlePlaceIdentifier: String?
+    private var searching: Bool = false
 
     // MARK: - View Lifecycle
     
@@ -298,9 +285,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     // MARK: - Map Region
     
-    var _mapRegion: MKCoordinateRegion?
+    private var _mapRegion: MKCoordinateRegion?
     
-    var mapRegion: MKCoordinateRegion? {
+    private var mapRegion: MKCoordinateRegion? {
         set {
             guard let value = newValue else {
                 _mapRegion = nil
@@ -822,9 +809,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     // MARK: - Place Grouping
     
-    var groupingTaskGroup: WMFTaskGroup?
-    var needsRegroup = false
-    var showingAllImages = false
+    private var groupingTaskGroup: WMFTaskGroup?
+    private var needsRegroup = false
+    private var showingAllImages = false
     
     func regroupArticlesIfNecessary(forVisibleRegion visibleRegion: MKCoordinateRegion) {
         guard groupingTaskGroup == nil else {
