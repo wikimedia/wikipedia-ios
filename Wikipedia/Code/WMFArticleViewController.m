@@ -54,7 +54,9 @@
 
 #import "NSString+WMFPageUtilities.h"
 #import "UIToolbar+WMFStyling.h"
+#if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>
+#endif
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WMFImageInfoController.h"
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
@@ -791,7 +793,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     MWKHistoryList *historyList = self.dataStore.historyList;
     WMFArticle *entry = [historyList entryForURL:self.articleURL];
     if (!entry.wasSignificantlyViewed) {
-        self.significantlyViewedTimer = [NSTimer scheduledTimerWithTimeInterval:FBTweakValue(@"Explore", @"Related items", @"Required viewing time", 30.0) target:self selector:@selector(significantlyViewedTimerFired:) userInfo:nil repeats:NO];
+        self.significantlyViewedTimer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(significantlyViewedTimerFired:) userInfo:nil repeats:NO];
     }
 }
 
@@ -978,7 +980,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (WMFTableOfContentsDisplayStyle)tableOfContentsStyleTweakValue {
+#if WMF_TWEAKS_ENABLED
     return FBTweakValue(@"Table of contents", @"Style", @"0:old 1:now 2:new", 1, 0, 2);
+#else
+    return WMFTableOfContentsDisplayStyleCurrent;
+#endif
 }
 
 - (void)updateTableOfContentsDisplayModeWithTraitCollection:(UITraitCollection *)traitCollection {
@@ -1405,6 +1411,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (NSArray<NSNumber *> *)fontSizeMultipliers {
+#if WMF_TWEAKS_ENABLED
     return @[@(FBTweakValue(@"Article", @"Font Size", @"Step 1", WMFFontSizeMultiplierExtraSmall)),
              @(FBTweakValue(@"Article", @"Font Size", @"Step 2", WMFFontSizeMultiplierSmall)),
              @(FBTweakValue(@"Article", @"Font Size", @"Step 3", WMFFontSizeMultiplierMedium)),
@@ -1412,6 +1419,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
              @(FBTweakValue(@"Article", @"Font Size", @"Step 5", WMFFontSizeMultiplierExtraLarge)),
              @(FBTweakValue(@"Article", @"Font Size", @"Step 6", WMFFontSizeMultiplierExtraExtraLarge)),
              @(FBTweakValue(@"Article", @"Font Size", @"Step 7", WMFFontSizeMultiplierExtraExtraExtraLarge))];
+#else
+    return @[@(WMFFontSizeMultiplierExtraSmall),
+             @(WMFFontSizeMultiplierSmall),
+             @(WMFFontSizeMultiplierMedium),
+             @(WMFFontSizeMultiplierLarge),
+             @(WMFFontSizeMultiplierExtraLarge),
+             @(WMFFontSizeMultiplierExtraExtraLarge),
+             @(WMFFontSizeMultiplierExtraExtraExtraLarge)];
+#endif
 }
 
 - (NSUInteger)indexOfCurrentFontSize {

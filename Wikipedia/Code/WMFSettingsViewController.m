@@ -14,8 +14,10 @@
 
 // Frameworks
 #import <HockeySDK/HockeySDK.h>
+#if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakViewController.h>
 #import <Tweaks/FBTweakStore.h>
+#endif
 #import "SSDataSources.h"
 
 // Other
@@ -41,7 +43,11 @@ static NSString *const WMFSettingsURLRate = @"itms-apps://itunes.apple.com/app/i
 static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=<app-version>&uselang=<langcode>";
 static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafoundation.org/wiki/Privacy_policy";
 
+#if WMF_TWEAKS_ENABLED
 @interface WMFSettingsViewController () <UITableViewDelegate, WMFPreferredLanguagesViewControllerDelegate, FBTweakViewControllerDelegate>
+#else
+@interface WMFSettingsViewController () <UITableViewDelegate, WMFPreferredLanguagesViewControllerDelegate>
+#endif
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 @property (nonatomic, strong, readwrite) WMFArticleDataStore *previewStore;
@@ -219,9 +225,11 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
             [[self class] generateTestCrash];
             break;
         case WMFSettingsMenuItemType_DevSettings: {
+#if WMF_TWEAKS_ENABLED
             FBTweakViewController *tweaksVC = [[FBTweakViewController alloc] initWithStore:[FBTweakStore sharedInstance]];
             tweaksVC.tweaksDelegate = self;
             [self presentViewController:tweaksVC animated:YES completion:nil];
+#endif
         }
         default:
             break;
@@ -317,10 +325,12 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     }
 }
 
+#if WMF_TWEAKS_ENABLED
 - (void)tweakViewControllerPressedDone:(FBTweakViewController *)tweakViewController {
     [[NSNotificationCenter defaultCenter] postNotificationName:FBTweakShakeViewControllerDidDismissNotification object:tweakViewController];
     [tweakViewController dismissViewControllerAnimated:YES completion:nil];
 }
+#endif
 
 #pragma mark - Cell reloading
 

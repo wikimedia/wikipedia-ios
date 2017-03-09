@@ -1,7 +1,8 @@
 #import "WMFArticleFetcher.h"
 
+#if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>
-
+#endif
 //Tried not to do it, but we need it for the useageReports BOOL
 //Plan to refactor settings into an another object, then we can remove this.
 #import "SessionSingleton.h"
