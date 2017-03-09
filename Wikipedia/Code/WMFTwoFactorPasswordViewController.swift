@@ -79,15 +79,12 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     fileprivate func areRequiredFieldsPopulated() -> Bool {
         switch displayMode {
         case .longAlphaNumeric:
-            guard
-                let backupToken = backupOathTokenField.text,
-                backupToken.characters.count > 0
-            else {
+            guard backupOathTokenField.text.wmf_safeCharacterCount > 0 else {
                 return false
             }
             return true
         case .shortNumeric:
-            return oathTokenFields.first(where:{ $0.text?.characters.count == 0 }) == nil
+            return oathTokenFields.first(where:{ $0.text.wmf_safeCharacterCount == 0 }) == nil
         }
     }
     
@@ -95,8 +92,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         enableProgressiveButton(areRequiredFieldsPopulated())
         guard
             displayMode == .shortNumeric,
-            let text = sender.text,
-            text.characters.count > 0
+            sender.text.wmf_safeCharacterCount > 0
         else {
             return
         }
@@ -120,7 +116,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     func wmf_deleteBackward(_ sender: UITextField) {
         guard
             displayMode == .shortNumeric,
-            (sender.text ?? "").characters.count == 0
+            sender.text.wmf_safeCharacterCount == 0
         else {
             return
         }
@@ -188,8 +184,8 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         }
         
         // Enforce max count.
-        let countIfAllowed = (textField.text ?? "" + string).characters.count
-        return (countIfAllowed < maxTextFieldCharacterCount())
+        let countIfAllowed = textField.text.wmf_safeCharacterCount + string.characters.count
+        return (countIfAllowed <= maxTextFieldCharacterCount())
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
