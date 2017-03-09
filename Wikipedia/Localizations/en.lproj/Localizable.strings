@@ -68,6 +68,8 @@
 "two-factor-login-title" = "Log in to your account";
 "two-factor-login-instructions" = "Please enter two factor verification code";
 "two-factor-login-continue" = "Continue log in";
+"two-factor-login-with-regular-code" = "Use short numeric code";
+"two-factor-login-with-backup-code" = "Use longer backup code";
 
 "login-name-not-found" = "Username is required to login.";
 "login-name-illegal" = "You provided an illegal username.";
@@ -96,7 +98,9 @@
 "field-new-password-confirm-placeholder" = "re-enter new password";
 "field-email-title" = "Email address (optional)";
 "field-email-placeholder" = "example@example.org";
-"field-token-title" = "Token";
+"field-token-title" = "Numeric code";
+"field-backup-token-title" = "Backup code";
+"field-token-invalid" = "Invalid code. Please try again.";
 "field-token-placeholder" = "enter token";
 "field-captcha-title" = "Enter the text you see above";
 "field-captcha-placeholder" = "CAPTCHA text";

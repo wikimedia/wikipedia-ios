@@ -141,6 +141,8 @@
 		B01662B51D1B8E3B006F4544 /* NSURL+WMFProxyServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B01662B41D1B8E3B006F4544 /* NSURL+WMFProxyServerTests.m */; };
 		B016DCEB1D497C74005BABA1 /* WMFFindInPageKeyboardBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = B016DCEA1D497C74005BABA1 /* WMFFindInPageKeyboardBar.xib */; };
 		B017BF951E68EE3E009F8FAF /* UILabel+WMFAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B017BF941E68EE3E009F8FAF /* UILabel+WMFAuth.swift */; };
+		B01CFC5F1E70B00100B3546A /* WMFDeleteBackwardReportingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01CFC5E1E70B00100B3546A /* WMFDeleteBackwardReportingTextField.swift */; };
+		B01CFC611E71069000B3546A /* String?+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01CFC601E71069000B3546A /* String?+WMFExtras.swift */; };
 		B02376B11D6EA04C007DBA73 /* WMFBarButtonItemPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = B02376B01D6EA04C007DBA73 /* WMFBarButtonItemPopoverBackgroundView.m */; };
 		B02376B41D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B02376B31D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m */; };
 		B0267CE91E316A79006B6D8D /* WMFForgotPasswordViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0267CE81E316A79006B6D8D /* WMFForgotPasswordViewController.storyboard */; };
@@ -854,6 +856,8 @@
 		D8BA1F211DF1E19700502877 /* Acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8BA1F201DF1E19700502877 /* Acknowledgements.plist */; };
 		D8BBBCDA1D9456AC00DECA36 /* NSLocale+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E804971C0CE0B40065EBC0 /* NSLocale+WMFExtras.swift */; };
 		D8BBBCE11D94603800DECA36 /* WMFLocaleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BBBCE01D94603800DECA36 /* WMFLocaleTests.m */; };
+		D8BDA8BE1E71B8C90031F4BF /* WMFDeleteBackwardReportingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01CFC5E1E70B00100B3546A /* WMFDeleteBackwardReportingTextField.swift */; };
+		D8BDA8BF1E71B8D10031F4BF /* String?+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01CFC601E71069000B3546A /* String?+WMFExtras.swift */; };
 		D8C0C00B1D144FF30019374D /* WMFProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C0C00A1D144FF30019374D /* WMFProxyServer.m */; };
 		D8C9BFE81D6CC92C0084624F /* MWKLanguageLinkResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8062D1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8C9BFE91D6CC9310084624F /* MWKLanguageLinkResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062E1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.m */; };
@@ -1765,6 +1769,8 @@
 		B01662B41D1B8E3B006F4544 /* NSURL+WMFProxyServerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WMFProxyServerTests.m"; sourceTree = "<group>"; };
 		B016DCEA1D497C74005BABA1 /* WMFFindInPageKeyboardBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFFindInPageKeyboardBar.xib; path = Wikipedia/Code/WMFFindInPageKeyboardBar.xib; sourceTree = SOURCE_ROOT; };
 		B017BF941E68EE3E009F8FAF /* UILabel+WMFAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+WMFAuth.swift"; sourceTree = "<group>"; };
+		B01CFC5E1E70B00100B3546A /* WMFDeleteBackwardReportingTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFDeleteBackwardReportingTextField.swift; path = Wikipedia/Code/WMFDeleteBackwardReportingTextField.swift; sourceTree = SOURCE_ROOT; };
+		B01CFC601E71069000B3546A /* String?+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String?+WMFExtras.swift"; path = "Wikipedia/Code/String?+WMFExtras.swift"; sourceTree = SOURCE_ROOT; };
 		B02376AF1D6EA04C007DBA73 /* WMFBarButtonItemPopoverBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFBarButtonItemPopoverBackgroundView.h; sourceTree = "<group>"; };
 		B02376B01D6EA04C007DBA73 /* WMFBarButtonItemPopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFBarButtonItemPopoverBackgroundView.m; sourceTree = "<group>"; };
 		B02376B21D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WMFDynamicHeightPopoverMessage.h"; sourceTree = "<group>"; };
@@ -4583,6 +4589,7 @@
 			children = (
 				B0ED173C1E49831B008B70AD /* WMFTwoFactorPasswordViewController.storyboard */,
 				B0ED17331E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift */,
+				B01CFC5E1E70B00100B3546A /* WMFDeleteBackwardReportingTextField.swift */,
 			);
 			name = "Two Factor";
 			sourceTree = "<group>";
@@ -6412,6 +6419,7 @@
 				B0E8047B1C0CE0B40065EBC0 /* NSArray+BKIndex.h */,
 				B0E8047C1C0CE0B40065EBC0 /* NSArray+BKIndex.m */,
 				B0E8047D1C0CE0B40065EBC0 /* NSArray+WMFExtensions.swift */,
+				B01CFC601E71069000B3546A /* String?+WMFExtras.swift */,
 				B0E804951C0CE0B40065EBC0 /* NSIndexSet+BKReduce.h */,
 				B0E804961C0CE0B40065EBC0 /* NSIndexSet+BKReduce.m */,
 				B0E804271C0CDF510065EBC0 /* WMFGeometry.h */,
@@ -7829,6 +7837,7 @@
 				B0E805501C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.m in Sources */,
 				B017BF951E68EE3E009F8FAF /* UILabel+WMFAuth.swift in Sources */,
 				D82972831E3950100061550A /* ArticlePlace.swift in Sources */,
+				B01CFC611E71069000B3546A /* String?+WMFExtras.swift in Sources */,
 				0E09EAC41C4426470058F2D8 /* WMFSavedArticleTableViewController.m in Sources */,
 				B0E803481C0CD7AA0065EBC0 /* WMFSearchResults.m in Sources */,
 				D8FA190F1E1BDD8A009675C3 /* WMFAnnouncementCollectionViewCell.m in Sources */,
@@ -7888,6 +7897,7 @@
 				D8C0C00B1D144FF30019374D /* WMFProxyServer.m in Sources */,
 				B063DE601C63FEE9002F2EDE /* UIToolbar+WMFStyling.m in Sources */,
 				D81BA0FB1D50D40B006C38AC /* WMFNearbyArticleTableViewCell.m in Sources */,
+				B01CFC5F1E70B00100B3546A /* WMFDeleteBackwardReportingTextField.swift in Sources */,
 				B0D1B45F1DDE49B0004FCAE6 /* UITabBarItem+WMFStyling.m in Sources */,
 				B0267CED1E316AE3006B6D8D /* WMFForgotPasswordViewController.swift in Sources */,
 				B0CA8D401D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.m in Sources */,
@@ -8256,6 +8266,7 @@
 				D8CE25521E698E2400DAE2E0 /* WMFArticleTextActivitySource.m in Sources */,
 				D8CE25531E698E2400DAE2E0 /* WMFHistoryTableViewController.m in Sources */,
 				D8CE25541E698E2400DAE2E0 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
+				D8BDA8BF1E71B8D10031F4BF /* String?+WMFExtras.swift in Sources */,
 				D8CE25551E698E2400DAE2E0 /* WMFCustomDeleteButtonTableViewCell.m in Sources */,
 				D8CE25561E698E2400DAE2E0 /* MTLValueTransformer+WMFColorTransformer.m in Sources */,
 				D8CE25571E698E2400DAE2E0 /* WMFPasswordResetter.swift in Sources */,
@@ -8289,6 +8300,7 @@
 				D8CE25731E698E2400DAE2E0 /* WMFStyleManager.m in Sources */,
 				D8CE25741E698E2400DAE2E0 /* UIButton+WMFMultiLineHeight.swift in Sources */,
 				D8CE25751E698E2400DAE2E0 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */,
+				D8BDA8BE1E71B8C90031F4BF /* WMFDeleteBackwardReportingTextField.swift in Sources */,
 				D81446011E7094270078D71E /* UILabel+WMFAuth.swift in Sources */,
 				D8CE25761E698E2400DAE2E0 /* WMFFindInPageKeyboardBar.m in Sources */,
 				D8CE25771E698E2400DAE2E0 /* MWKLanguageLinkFetcher.m in Sources */,
