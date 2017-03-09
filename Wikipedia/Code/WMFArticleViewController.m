@@ -818,16 +818,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     UIImage *w = [UIImage imageNamed:@"W"];
     [b setImage:w forState:UIControlStateNormal];
     [b sizeToFit];
-    @weakify(self);
-    [b bk_addEventHandler:^(id sender) {
-        @strongify(self);
-        [self.navigationController popToRootViewControllerAnimated:YES];
-    }
-          forControlEvents:UIControlEventTouchUpInside];
+    [b addTarget:self action:@selector(titleBarButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = b;
     self.navigationItem.titleView.isAccessibilityElement = YES;
 
     self.navigationItem.titleView.accessibilityTraits |= UIAccessibilityTraitButton;
+}
+
+- (void)titleBarButtonPressed {
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - ViewController

@@ -132,6 +132,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 
     @weakify(self)
         self.elementDataSource.cellConfigureBlock = ^(WMFSettingsTableViewCell *cell, WMFSettingsMenuItem *menuItem, UITableView *tableView, NSIndexPath *indexPath) {
+            @strongify(self)
         cell.title = menuItem.title;
         cell.iconColor = menuItem.iconColor;
         cell.iconName = menuItem.iconName;
@@ -145,16 +146,19 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
         } else {
             cell.accessibilityTraits = UIAccessibilityTraitStaticText;
         }
+        
+    
+        [cell.disclosureSwitch removeTarget:self action:@selector(disclosureSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+        cell.disclosureSwitch.tag = menuItem.type;
+        [cell.disclosureSwitch addTarget:self action:@selector(disclosureSwitchChanged:) forControlEvents:UIControlEventValueChanged];
 
-        [cell.disclosureSwitch bk_removeEventHandlersForControlEvents:UIControlEventValueChanged];
-        [cell.disclosureSwitch bk_addEventHandler:^(UISwitch *sender) {
-            @strongify(self)
-                menuItem.isSwitchOn = sender.isOn;
-            [self updateStateForMenuItemType:menuItem.type isSwitchOnValue:sender.isOn];
-        }
-                                 forControlEvents:UIControlEventValueChanged];
     };
     [self loadSections];
+}
+
+- (void)disclosureSwitchChanged:(UISwitch *)disclosureSwitch {
+    WMFSettingsMenuItemType type = (WMFSettingsMenuItemType)disclosureSwitch.tag;
+    [self updateStateForMenuItemType:type isSwitchOnValue:disclosureSwitch.isOn];
 }
 
 #pragma mark - Switch tap handling

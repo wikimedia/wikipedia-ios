@@ -746,14 +746,13 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 - (WMFArticleFooterView *)footerLicenseView {
     if (!_footerLicenseView) {
         _footerLicenseView = [WMFArticleFooterView wmf_viewFromClassNib];
-        @weakify(self);
-        [_footerLicenseView.showLicenseButton bk_addEventHandler:^(id sender) {
-            @strongify(self);
-            [self wmf_openExternalUrl:[NSURL URLWithString:WMFCCBySALicenseURL]];
-        }
-                                                forControlEvents:UIControlEventTouchUpInside];
+        [_footerLicenseView.showLicenseButton addTarget:self action:@selector(showLicenseButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     }
     return _footerLicenseView;
+}
+
+- (void)showLicenseButtonPressed {
+    [self wmf_openExternalUrl:[NSURL URLWithString:WMFCCBySALicenseURL]];
 }
 
 - (void)addFooterView {
