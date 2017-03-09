@@ -209,6 +209,13 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         oathTokenFields.sort { $0.tag < $1.tag }
         oathTokenFields.forEach {$0.wmf_addThinBottomBorder()}
 
+        // Cast fields once here to set 'deleteBackwardDelegate' rather than casting everywhere else UITextField is expected.
+        if let fields = oathTokenFields as? [WMFDeleteBackwardReportingTextField] {
+            fields.forEach {$0.deleteBackwardDelegate = self}
+        }else{
+            assert(false, "Underlying oathTokenFields from storyboard were expected to be of type 'WMFDeleteBackwardReportingTextField'.")
+        }
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
         
         loginButton.setTitle(localizedStringForKeyFallingBackOnEnglish("two-factor-login-continue"), for: .normal)
