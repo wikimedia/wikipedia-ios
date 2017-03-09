@@ -76,6 +76,8 @@
 "two-factor-login-title" = "Title for two factor login interface";
 "two-factor-login-instructions" = "Instructions for two factor login interface";
 "two-factor-login-continue" = "Button text for finishing two factor login";
+"two-factor-login-with-regular-code" = "Button text for showing text fields for normal two factor login";
+"two-factor-login-with-backup-code" = "Button text for showing text field for backup code two factor login";
 "login-name-not-found" = "Alert text shown when no user name was entered";
 "login-name-illegal" = "Alert text shown the chosen user name is now allowed by the wiki (e.g. for containing an \"@\" or for being too similar to an existing one).";
 "login-name-does-not-exist" = "Alert text shown when user name entered was not found";
@@ -103,6 +105,8 @@
 "field-email-title" = "Title for email address field";
 "field-email-placeholder" = "Placeholder text shown inside email address field until user taps on it";
 "field-token-title" = "Title for token field\n{{Identical|Token}}";
+"field-backup-token-title" = "Title for backup token field";
+"field-token-invalid" = "Alert shown if token is not correct";
 "field-token-placeholder" = "Placeholder text shown inside token field until user taps on it";
 "field-captcha-title" = "Title for captcha field";
 "field-captcha-placeholder" = "Placeholder text shown inside captcha field until user taps on it";
