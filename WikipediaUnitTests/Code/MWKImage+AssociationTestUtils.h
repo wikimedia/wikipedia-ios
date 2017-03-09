@@ -7,8 +7,6 @@
 
 - (MWKImageInfo *)createAssociatedInfo;
 
-+ (id)mappedFromInfoObjects:(id)infoObjects;
-
 @end
 
 @interface MWKImageInfo (AssociationTestUtils)

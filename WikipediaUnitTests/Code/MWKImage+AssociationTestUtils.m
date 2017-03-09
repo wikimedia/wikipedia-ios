@@ -13,12 +13,6 @@
     return [MWKImageInfo infoAssociatedWithSourceURL:self.sourceURLString];
 }
 
-+ (id)mappedFromInfoObjects:(id)infoObjectList {
-    return [infoObjectList wmf_map:^MWKImage *(MWKImageInfo *info) {
-        return [info createAssociatedImage];
-    }];
-}
-
 @end
 
 @implementation MWKImageInfo (AssociationTestUtils)
