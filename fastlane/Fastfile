@@ -57,6 +57,7 @@ platform :ios do
   lane :verify_pull_request do
     verify(
      sim: 'iPad Air 2 (9.3)',
+     scheme: "Alpha"
     )
     verify(
      sim: 'iPhone 6s (10.2)',
