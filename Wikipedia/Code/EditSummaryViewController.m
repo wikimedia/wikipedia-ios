@@ -30,9 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-   UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
-                                                            target:self
-                                                       action:@selector(closeButtonPressed)];
+    UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
     self.navigationItem.leftBarButtonItem = buttonX;
 
     self.buttonDone = [[UIBarButtonItem alloc] initWithTitle:MWLocalizedString(@"button-done", nil) style:UIBarButtonItemStylePlain target:self action:@selector(save)];

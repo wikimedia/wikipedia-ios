@@ -193,8 +193,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
     self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(goBack)];
 
-    self.buttonLeftCaret = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft
-                                                    target:self action:@selector(goBack)];
+    self.buttonLeftCaret = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft target:self action:@selector(goBack)];
 
     self.buttonSave = [[UIBarButtonItem alloc] initWithTitle:MWLocalizedString(@"button-publish", nil) style:UIBarButtonItemStylePlain target:self action:@selector(goForward)];
 

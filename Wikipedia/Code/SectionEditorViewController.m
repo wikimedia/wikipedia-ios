@@ -35,8 +35,7 @@
 
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 
-   UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
-                                                            target:self action:@selector(xButtonPressed)];
+    UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(xButtonPressed)];
     buttonX.accessibilityLabel = MWLocalizedString(@"back-button-accessibility-label", nil);
     self.navigationItem.leftBarButtonItem = buttonX;
 

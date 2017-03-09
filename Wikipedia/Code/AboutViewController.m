@@ -97,13 +97,9 @@ static NSString *const kWMFContributorsKey = @"contributors";
     [wv loadHTMLFromAssetsFile:kWMFAboutHTMLFile scrolledToFragment:nil];
     self.webView = wv;
 
-    self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
-                                            target:self
-                                            action:@selector(closeButtonPressed)];
+    self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
 
-    self.buttonCaretLeft = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft
-                                                    target:self
-                                                    action:@selector(leftButtonPressed)];
+    self.buttonCaretLeft = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft target:self action:@selector(leftButtonPressed)];
 
     self.buttonX.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish(@"menu-cancel-accessibility-label");
     self.buttonCaretLeft.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish(@"back-button-accessibility-label");

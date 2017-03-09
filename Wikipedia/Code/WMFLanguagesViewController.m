@@ -86,8 +86,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
     NSAssert(self.title, @"Don't forget to set a title!");
 
-    UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
-                                                           target:self action:@selector(closeButtonPressed)];
+    UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
     self.navigationItem.leftBarButtonItems = @[xButton];
 
     self.tableView.backgroundColor = [UIColor wmf_settingsBackgroundColor];
