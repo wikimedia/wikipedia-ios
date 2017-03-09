@@ -14,6 +14,7 @@
 // Author: Macofe
 // Author: Mailman
 // Author: Mariya
+// Author: Nitch
 // Author: Oashnic
 // Author: Okras
 // Author: Ping08
@@ -64,6 +65,7 @@
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "zero-warn-when-leaving" = "Предупреждать, если покидаете Zero";
 "zero-settings-devmode" = "Режим разработчика Zero";
+"account-creation-title" = "Создайте новую учётную запись";
 "account-creation-captcha-required" = "Требуется проверка капчей.";
 "account-creation-captcha-retry" = "Неправильный ввод. Пожалуйста, попробуйте ещё раз.";
 "account-creation-captcha-obtaining" = "Получение новой капчи...";
@@ -75,10 +77,14 @@
 "account-creation-saving" = "Сохраняется…";
 "account-creation-login" = "Вы уже зарегистрированы? Войдите.";
 "account-creation-missing-fields" = "Для создания учётной записи вы должны ввести имя пользователя, пароль и подтверждение пароля.";
+"account-creation-create-account" = "Создать учётную запись";
+"account-creation-have-account" = "Вы уже зарегистрированы? $1";
+"account-creation-log-in" = "Войти";
 "new-password-title" = "Установите пароль";
 "new-password-instructions" = "Вы представились с помощью временного пароля.\nДля завершения входа необходимо задать новый пароль:";
 "two-factor-login-title" = "Войдите в свою учётную запись";
 "two-factor-login-instructions" = "Пожалуйста, введите проверочный код двухэтапной авторизации";
+"two-factor-login-continue" = "Продолжить процедуру входа";
 "login-name-not-found" = "Для входа требуется имя участника.";
 "login-name-illegal" = "Вы указали некорректное имя участника.";
 "login-name-does-not-exist" = "Указанного вами имени участника не существует.";
@@ -90,6 +96,29 @@
 "login-username-placeholder-text" = "Имя участника";
 "login-password-placeholder-text" = "Пароль";
 "login-forgot-password" = "Забыли пароль?";
+"login-title" = "Войдите в свою учётную запись";
+"login-no-account" = "Нет учётной записи? $1";
+"login-join-wikipedia" = "Присоединяйтесь к Википедии.";
+"field-username-title" = "Имя участника";
+"field-username-placeholder" = "введите имя пользователя";
+"field-password-title" = "Пароль";
+"field-password-placeholder" = "введите пароль";
+"field-password-confirm-title" = "Подтвердите пароль";
+"field-password-confirm-placeholder" = "повторно введите пароль";
+"field-new-password-title" = "Новый пароль";
+"field-new-password-placeholder" = "введите новый пароль";
+"field-new-password-confirm-title" = "Подтвердите новый пароль";
+"field-new-password-confirm-placeholder" = "повторно введите новый пароль";
+"field-email-title" = "Адрес электронной почты (необязательно)";
+"field-email-placeholder" = "example@example.org";
+"field-token-title" = "Токен";
+"field-token-placeholder" = "введите токен";
+"field-captcha-title" = "Введите текст, который вы видите выше";
+"field-captcha-placeholder" = "Текст капчи";
+"field-alert-username-unavailable" = "Имя пользователя не доступно";
+"field-alert-password-invalid" = "Неверный пароль";
+"field-alert-captcha-invalid" = "Неверная капча";
+"field-alert-password-confirm-mismatch" = "Пароли не совпадают";
 "forgot-password-title" = "Сбросить пароль";
 "forgot-password-instructions" = "Заполните одно из полей ниже, чтобы получить инструкции сброса пароля по электронной почте";
 "forgot-password-username-prompt" = "Имя участника";
@@ -359,6 +388,7 @@
 "page-read-in-other-languages" = "Доступно на $1 языках";
 "page-last-edited" = "Отредактировано $1 д. назад";
 "page-edit-history" = "Полная история редактирования";
+"page-location" = "Посмотреть на карте";
 "mwk-empty-title-error" = "Не удаётся выполнить операцию с пустым заголовком.";
 "home-title" = "Исследуйте!";
 "home-empty-section" = "Нет результатов";
@@ -492,6 +522,8 @@
 "places-accessibility-show-as-map" = "Показать как карту";
 "places-accessibility-show-as-list" = "Показать как список";
 "places-accessibility-recenter-map-on-user-location" = "Перецентрировать ваше положение";
+"places-accessibility-close-search" = "Закрыть поиск";
+"places-accessibility-clear-recent-searches" = "Очистить список последних поисковых запросов";
 "action-share" = "Поделиться";
 "action-save" = "Сохранить";
 "action-read" = "Читать";
