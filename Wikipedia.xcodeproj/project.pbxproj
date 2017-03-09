@@ -856,6 +856,8 @@
 		D8BA1F211DF1E19700502877 /* Acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8BA1F201DF1E19700502877 /* Acknowledgements.plist */; };
 		D8BBBCDA1D9456AC00DECA36 /* NSLocale+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E804971C0CE0B40065EBC0 /* NSLocale+WMFExtras.swift */; };
 		D8BBBCE11D94603800DECA36 /* WMFLocaleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BBBCE01D94603800DECA36 /* WMFLocaleTests.m */; };
+		D8BDA8BE1E71B8C90031F4BF /* WMFDeleteBackwardReportingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01CFC5E1E70B00100B3546A /* WMFDeleteBackwardReportingTextField.swift */; };
+		D8BDA8BF1E71B8D10031F4BF /* String?+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01CFC601E71069000B3546A /* String?+WMFExtras.swift */; };
 		D8C0C00B1D144FF30019374D /* WMFProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C0C00A1D144FF30019374D /* WMFProxyServer.m */; };
 		D8C9BFE81D6CC92C0084624F /* MWKLanguageLinkResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8062D1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8C9BFE91D6CC9310084624F /* MWKLanguageLinkResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062E1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.m */; };
@@ -8264,6 +8266,7 @@
 				D8CE25521E698E2400DAE2E0 /* WMFArticleTextActivitySource.m in Sources */,
 				D8CE25531E698E2400DAE2E0 /* WMFHistoryTableViewController.m in Sources */,
 				D8CE25541E698E2400DAE2E0 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
+				D8BDA8BF1E71B8D10031F4BF /* String?+WMFExtras.swift in Sources */,
 				D8CE25551E698E2400DAE2E0 /* WMFCustomDeleteButtonTableViewCell.m in Sources */,
 				D8CE25561E698E2400DAE2E0 /* MTLValueTransformer+WMFColorTransformer.m in Sources */,
 				D8CE25571E698E2400DAE2E0 /* WMFPasswordResetter.swift in Sources */,
@@ -8297,6 +8300,7 @@
 				D8CE25731E698E2400DAE2E0 /* WMFStyleManager.m in Sources */,
 				D8CE25741E698E2400DAE2E0 /* UIButton+WMFMultiLineHeight.swift in Sources */,
 				D8CE25751E698E2400DAE2E0 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */,
+				D8BDA8BE1E71B8C90031F4BF /* WMFDeleteBackwardReportingTextField.swift in Sources */,
 				D81446011E7094270078D71E /* UILabel+WMFAuth.swift in Sources */,
 				D8CE25761E698E2400DAE2E0 /* WMFFindInPageKeyboardBar.m in Sources */,
 				D8CE25771E698E2400DAE2E0 /* MWKLanguageLinkFetcher.m in Sources */,
