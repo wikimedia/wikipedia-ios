@@ -144,7 +144,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         // If useBackupOathToken == false 'string' has been verified to be comprised of decimal digits by this point.
         // Backup code (when useBackupOathToken == true) pasting already works as-is because it uses a single UITextField.
         if useBackupOathToken == false && string.characters.count == oathTokenFields.count{
-            for (char, field) in zip(string.characters, oathTokenFields) {
+            for (field, char) in zip(oathTokenFields, string.characters) {
                 field.text = String(char)
             }
             enableProgressiveButton(areRequiredFieldsPopulated())
