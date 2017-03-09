@@ -173,7 +173,7 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
                                                    url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];
                                                }
                                                url = [url wmf_urlByPrependingSchemeIfSchemeless];
-                                               [(self).delegate webViewController:(self) didTapOnLinkForArticleURL:url];
+                                               [(self).delegate webViewController:(self)didTapOnLinkForArticleURL:url];
                                            } else {
                                                // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
                                                if ([href hasPrefix:@"#"]) {
@@ -792,32 +792,32 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     }
     NSParameterAssert(self.isViewLoaded);
     MASViewAttribute *lastAnchor = [self.footerViewControllers wmf_reduce:self.footerContainerView.mas_top
-                                                               withBlock:^MASViewAttribute *(MASViewAttribute *topAnchor,
-                                                                                             UIViewController *childVC) {
-                                                                   NSString *footerTitle = [self.delegate webViewController:self titleForFooterViewController:childVC];
-                                                                   if (footerTitle) {
-                                                                       WMFArticleFooterViewHeader *header = [WMFArticleFooterViewHeader wmf_viewFromClassNib];
-                                                                       self.footerViewHeadersByIndex[@([self.footerViewControllers indexOfObject:childVC])] = header;
-                                                                       header.headerLabel.text = footerTitle;
-                                                                       header.translatesAutoresizingMaskIntoConstraints = NO;
-                                                                       [self.footerContainerView addSubview:header];
-                                                                       [header mas_remakeConstraints:^(MASConstraintMaker *make) {
-                                                                           make.leading.and.trailing.equalTo(self.footerContainerView);
-                                                                           make.top.equalTo(topAnchor);
-                                                                       }];
-                                                                       topAnchor = header.mas_bottom;
-                                                                   }
+                                                                withBlock:^MASViewAttribute *(MASViewAttribute *topAnchor,
+                                                                                              UIViewController *childVC) {
+                                                                    NSString *footerTitle = [self.delegate webViewController:self titleForFooterViewController:childVC];
+                                                                    if (footerTitle) {
+                                                                        WMFArticleFooterViewHeader *header = [WMFArticleFooterViewHeader wmf_viewFromClassNib];
+                                                                        self.footerViewHeadersByIndex[@([self.footerViewControllers indexOfObject:childVC])] = header;
+                                                                        header.headerLabel.text = footerTitle;
+                                                                        header.translatesAutoresizingMaskIntoConstraints = NO;
+                                                                        [self.footerContainerView addSubview:header];
+                                                                        [header mas_remakeConstraints:^(MASConstraintMaker *make) {
+                                                                            make.leading.and.trailing.equalTo(self.footerContainerView);
+                                                                            make.top.equalTo(topAnchor);
+                                                                        }];
+                                                                        topAnchor = header.mas_bottom;
+                                                                    }
 
-                                                                   childVC.view.translatesAutoresizingMaskIntoConstraints = NO;
-                                                                   [self.footerContainerView addSubview:childVC.view];
-                                                                   [self updateFooterMarginForSize:self.view.bounds.size];
-                                                                   [childVC.view mas_remakeConstraints:^(MASConstraintMaker *make) {
-                                                                       make.leading.and.trailing.equalTo(self.footerContainerView);
-                                                                       make.top.equalTo(topAnchor);
-                                                                   }];
-                                                                   [childVC didMoveToParentViewController:self];
-                                                                   return childVC.view.mas_bottom;
-                                                               }];
+                                                                    childVC.view.translatesAutoresizingMaskIntoConstraints = NO;
+                                                                    [self.footerContainerView addSubview:childVC.view];
+                                                                    [self updateFooterMarginForSize:self.view.bounds.size];
+                                                                    [childVC.view mas_remakeConstraints:^(MASConstraintMaker *make) {
+                                                                        make.leading.and.trailing.equalTo(self.footerContainerView);
+                                                                        make.top.equalTo(topAnchor);
+                                                                    }];
+                                                                    [childVC didMoveToParentViewController:self];
+                                                                    return childVC.view.mas_bottom;
+                                                                }];
 
     if (!lastAnchor) {
         lastAnchor = self.footerContainerView.mas_top;
@@ -836,17 +836,16 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     if (WMF_EQUAL(self.footerViewControllers, isEqualToArray:, footerViewControllers)) {
         return;
     }
-    [_footerViewControllers bk_each:^(UIViewController *childVC) {
+    for (UIViewController *childVC in _footerViewControllers) {
         [childVC willMoveToParentViewController:nil];
         [childVC.view removeFromSuperview];
         [childVC removeFromParentViewController];
-    }];
+    }
     _footerViewControllers = [footerViewControllers copy];
-    [_footerViewControllers bk_each:^(UIViewController *childVC) {
+    for (UIViewController *childVC in _footerViewControllers) {
         [self addChildViewController:childVC];
         // didMoveToParent is called when they are added to the view
-    }];
-
+    }
     [self addFooterView];
 }
 
