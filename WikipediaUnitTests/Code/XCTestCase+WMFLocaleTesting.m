@@ -1,5 +1,4 @@
 #import "XCTestCase+WMFLocaleTesting.h"
-#import <BlocksKit/BlocksKit.h>
 #import "WMFAsyncTestCase.h"
 
 @implementation XCTestCase (WMFLocaleTesting)

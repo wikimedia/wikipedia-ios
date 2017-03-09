@@ -2,7 +2,6 @@
 #define MOCKITO_SHORTHAND 1
 
 #import <UIKit/UIKit.h>
-#import <BlocksKit/BlocksKit.h>
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>
 

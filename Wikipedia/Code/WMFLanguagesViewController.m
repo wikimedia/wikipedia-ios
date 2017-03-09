@@ -7,7 +7,6 @@
 #import "MWKLanguageLink.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import <BlocksKit/BlocksKit.h>
 #import <Masonry/Masonry.h>
 #import "Wikipedia-Swift.h"
 #import "WMFArticleLanguagesSectionHeader.h"

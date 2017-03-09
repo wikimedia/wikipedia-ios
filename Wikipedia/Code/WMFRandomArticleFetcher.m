@@ -8,7 +8,6 @@
 
 #import "MWKSearchResult.h"
 
-#import <BlocksKit/BlocksKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

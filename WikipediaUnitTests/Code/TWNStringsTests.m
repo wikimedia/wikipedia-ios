@@ -3,7 +3,6 @@
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
-#import <BlocksKit/BlocksKit.h>
 
 @interface TWNStringsTests : XCTestCase
 

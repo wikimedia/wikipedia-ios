@@ -6,7 +6,6 @@
 #import "WMFImageTag+TargetImageWidthURL.h"
 #import "WMFImageTagList+ImageURLs.h"
 #import <OCHamcrest/OCHamcrest.h>
-#import <BlocksKit/BlocksKit.h>
 
 @interface NSString (WMFImageTagParser)
 

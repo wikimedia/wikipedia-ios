@@ -2,7 +2,6 @@
 #import "WikipediaAppUtils.h"
 #import "WKWebView+LoadAssetsHtml.h"
 #import "NSString+WMFExtras.h"
-#import <BlocksKit/BlocksKit.h>
 #import "NSBundle+WMFInfoUtils.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFOpenExternalUrl.h"

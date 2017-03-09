@@ -5,7 +5,6 @@
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "WMFAsyncTestCase.h"
 
-#import <BlocksKit/BlocksKit.h>
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>

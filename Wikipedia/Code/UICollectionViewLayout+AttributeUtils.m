@@ -1,5 +1,4 @@
 #import "UICollectionViewLayout+AttributeUtils.h"
-#import <BlocksKit/BlocksKit.h>
 
 @implementation UICollectionViewLayout (AttributeUtils)
 

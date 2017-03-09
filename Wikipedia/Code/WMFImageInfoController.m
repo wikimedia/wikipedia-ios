@@ -1,6 +1,5 @@
 #import "WMFImageInfoController_Private.h"
 
-#import <BlocksKit/BlocksKit.h>
 #import "MWKImage+CanonicalFilenames.h"
 #import "SessionSingleton.h"
 #import "MWNetworkActivityIndicatorManager.h"
