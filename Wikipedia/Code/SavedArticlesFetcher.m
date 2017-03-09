@@ -109,13 +109,15 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)itemWasUpdated:(NSNotification *)note {
     NSURL *url = note.userInfo[MWKURLKey];
-    if (url) {
-        if ([self.savedPageList isSaved:url]) {
-            [self fetchUncachedArticleURLs:@[url]];
-        } else {
-            [self cancelFetchForArticleURL:url];
-            [self.spotlightManager removeFromIndexWithUrl:url];
-        }
+    if (!url) {
+        return;
+    }
+    NSDate *savedDate = note.userInfo[MWKSavedDateKey];
+    if (savedDate) {
+        [self fetchUncachedArticleURLs:@[url]];
+    } else {
+        [self cancelFetchForArticleURL:url];
+        [self.spotlightManager removeFromIndexWithUrl:url];
     }
 }
 
@@ -442,13 +444,15 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (void)cancelFetchForArticleURL:(NSURL *)URL {
-    DDLogVerbose(@"Canceling saved page download for title: %@", URL);
-    [self.articleFetcher cancelFetchForArticleURL:URL];
-    [[[self.dataStore existingArticleWithURL:URL] allImageURLs] bk_each:^(NSURL *imageURL) {
-        [self.imageController cancelFetchForURL:imageURL];
-    }];
-    WMF_TECH_DEBT_TODO(cancel image info & high - res image requests)
+    dispatch_async(self.accessQueue, ^{
+        DDLogVerbose(@"Canceling saved page download for title: %@", URL);
+        [self.articleFetcher cancelFetchForArticleURL:URL];
+        [[[self.dataStore existingArticleWithURL:URL] allImageURLs] bk_each:^(NSURL *imageURL) {
+            [self.imageController cancelFetchForURL:imageURL];
+        }];
+        WMF_TECH_DEBT_TODO(cancel image info & high - res image requests)
         [self.fetchOperationsByArticleTitle removeObjectForKey:URL];
+    });
 }
 
 #pragma mark - Delegate Notification
@@ -457,6 +461,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 - (void)didFetchArticle:(MWKArticle *__nullable)fetchedArticle
                     url:(NSURL *)url
                   error:(NSError *__nullable)error {
+    dispatch_assert_queue_debug(self.accessQueue);
     if (error) {
         // store errors for later reporting
         DDLogError(@"Failed to download saved page %@ due to error: %@", url, error);
@@ -480,6 +485,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 /// Only invoke within accessQueue
 - (void)notifyDelegateIfFinished {
+    dispatch_assert_queue_debug(self.accessQueue);
     if ([self.fetchOperationsByArticleTitle count] == 0) {
         NSError *reportedError;
         if ([self.errorsByArticleTitle count] > 0) {

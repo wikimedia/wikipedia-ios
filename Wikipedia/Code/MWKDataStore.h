@@ -39,6 +39,7 @@ extern NSString *const MWKTeardownDataSourcesNotification;
  */
 extern NSString *const MWKItemUpdatedNotification;
 extern NSString *const MWKURLKey;
+extern NSString *const MWKSavedDateKey;
 
 @interface MWKDataStore : NSObject
 
