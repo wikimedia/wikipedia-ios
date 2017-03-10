@@ -19,13 +19,13 @@ class WMFAuthLinkLabel: UILabel {
     /// Some auth labels display a string from two localized strings, each styled differently.
     public var strings: WMFAuthLinkLabelStrings?
 
-    var boldSubheadlineFont: UIFont {
+    fileprivate var boldSubheadlineFont: UIFont {
         get {
             return UIFont.wmf_preferredFontForFontFamily(WMFFontFamily.systemBold, withTextStyle: .subheadline, compatibleWithTraitCollection: self.traitCollection)!
         }
     }
 
-    var subheadlineFont: UIFont {
+    fileprivate var subheadlineFont: UIFont {
         get {
             return UIFont.wmf_preferredFontForFontFamily(WMFFontFamily.system, withTextStyle: .subheadline, compatibleWithTraitCollection: self.traitCollection)!
         }
