@@ -3,7 +3,7 @@ import MapKit
 import WMF
 import TUSafariActivity
 
-class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, WMFAnalyticsViewNameProviding {
+class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, WMFAnalyticsViewNameProviding, ArticlePlaceGroupViewControllerDelegate {
     
     @IBOutlet weak var redoSearchButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
@@ -189,6 +189,19 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
     }
+
+    var placeGroupVC: ArticlePlaceGroupViewController?
+    
+    func dismissGroup() {
+        dismissCurrentArticlePopover()
+        placeGroupVC?.hide {
+            self.placeGroupVC?.willMove(toParentViewController: nil)
+            self.placeGroupVC?.view.removeFromSuperview()
+            self.placeGroupVC?.removeFromParentViewController()
+            self.placeGroupVC = nil
+        }
+        
+    }
     
     func mapView(_ mapView: MKMapView, didSelect annotationView: MKAnnotationView) {
         guard let place = annotationView.annotation as? ArticlePlace else {
@@ -198,8 +211,21 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         previouslySelectedArticlePlaceIdentifier = place.identifier
         
         guard place.articles.count == 1 else {
-            articleKeyToSelect = place.articles.first?.key
-            mapRegion = regionThatFits(articles: place.articles)
+            let placeGroupVC = ArticlePlaceGroupViewController(articles: place.articles)
+            placeGroupVC.delegate = self
+            placeGroupVC.view.frame = view.bounds
+            placeGroupVC.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+            addChildViewController(placeGroupVC)
+            view.insertSubview(placeGroupVC.view, aboveSubview: redoSearchButton)
+            placeGroupVC.didMove(toParentViewController: self)
+            
+            let center = view.convert(annotationView.center, from: annotationView.superview)
+            
+            placeGroupVC.show(center: center)
+        
+            self.placeGroupVC = placeGroupVC
+            deselectAllAnnotations()
             return
         }
         
@@ -1094,7 +1120,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         articleVC.view.alpha = 0
         addChildViewController(articleVC)
-        view.insertSubview(articleVC.view, aboveSubview: mapView)
+        view.insertSubview(articleVC.view, aboveSubview: placeGroupVC?.view ?? mapView)
         articleVC.didMove(toParentViewController: self)
         
         let size = articleVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
@@ -1615,5 +1641,19 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return "Places"
     }
 
+    
+    // MARK: - ArticlePlaceGroupViewControllerDelegate
+    
+    func articlePlaceGroupViewControllerDidDismiss(_ aticlePlaceGroupViewController: ArticlePlaceGroupViewController) {
+        dismissGroup()
+    }
+    
+    func articlePlaceGroupViewController(_ aticlePlaceGroupViewController: ArticlePlaceGroupViewController, didDeselectPlaceView: ArticlePlaceView) {
+        dismissCurrentArticlePopover()
+    }
+    
+    func articlePlaceGroupViewController(_ aticlePlaceGroupViewController: ArticlePlaceGroupViewController, didSelectPlaceView: ArticlePlaceView) {
+        showPopover(forAnnotationView: didSelectPlaceView)
+    }
 }
 
