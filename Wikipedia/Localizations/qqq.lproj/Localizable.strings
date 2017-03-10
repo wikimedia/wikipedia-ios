@@ -519,6 +519,7 @@
 "places-enable-location-action-button-title" = "Button title to enable location access";
 "places-no-saved-articles-have-location" = "Indicates to the user that none of their saved articles have location information";
 "places-accessibility-group" = "Accessibility label for a map icon - $1 is replaced with the number of articles in the group\n{{Identical|Article}}";
+"places-accessibility-show-more" = "Accessibility label for a button that shows more articles";
 "places-accessibility-show-as-map" = "Accessibility label for the show as map toggle item";
 "places-accessibility-show-as-list" = "Accessibility label for the show as list toggle item";
 "places-accessibility-recenter-map-on-user-location" = "Accessibility label for the recenter map on the user's location button";

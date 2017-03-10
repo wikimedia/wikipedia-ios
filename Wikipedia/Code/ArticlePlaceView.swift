@@ -9,7 +9,7 @@ protocol ArticlePlaceViewDelegate: NSObjectProtocol {
 class ArticlePlaceView: MKAnnotationView {
     public weak var delegate: ArticlePlaceViewDelegate?
     
-    private let imageView: UIView
+    let imageView: UIView
     private let imageImageView: UIImageView
     private let imageOutlineView: UIView
     private let imageBackgroundView: UIView
@@ -249,9 +249,9 @@ class ArticlePlaceView: MKAnnotationView {
             accessibilityLabel = articlePlace.articles.first?.displayTitle
         } else {
             zPosition = 2
-            let countString = "\(articlePlace.articles.count)"
+            let countString = articlePlace.articles.count > 0 ? "\(articlePlace.articles.count)" : "+"
             countLabel.text = countString
-            accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-group").replacingOccurrences(of: "$1", with: countString)
+            accessibilityLabel = articlePlace.articles.count > 0 ? localizedStringForKeyFallingBackOnEnglish("places-accessibility-group").replacingOccurrences(of: "$1", with: countString) : localizedStringForKeyFallingBackOnEnglish("places-accessibility-show-more")
         }
         updateDotAndImageHiddenState()
     }

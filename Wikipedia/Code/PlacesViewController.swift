@@ -192,15 +192,18 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
 
     var placeGroupVC: ArticlePlaceGroupViewController?
     
-    func dismissGroup() {
+    func dismissGroup(andZoom: Bool) {
         dismissCurrentArticlePopover()
+
         placeGroupVC?.hide {
             self.placeGroupVC?.willMove(toParentViewController: nil)
             self.placeGroupVC?.view.removeFromSuperview()
             self.placeGroupVC?.removeFromParentViewController()
+            if andZoom, let articles = self.placeGroupVC?.articles {
+                self.mapRegion = self.regionThatFits(articles: articles)
+            }
             self.placeGroupVC = nil
         }
-        
     }
     
     func mapView(_ mapView: MKMapView, didSelect annotationView: MKAnnotationView) {
@@ -1645,7 +1648,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     // MARK: - ArticlePlaceGroupViewControllerDelegate
     
     func articlePlaceGroupViewControllerDidDismiss(_ aticlePlaceGroupViewController: ArticlePlaceGroupViewController) {
-        dismissGroup()
+        dismissGroup(andZoom: false)
     }
     
     func articlePlaceGroupViewController(_ aticlePlaceGroupViewController: ArticlePlaceGroupViewController, didDeselectPlaceView: ArticlePlaceView) {
@@ -1654,6 +1657,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func articlePlaceGroupViewController(_ aticlePlaceGroupViewController: ArticlePlaceGroupViewController, didSelectPlaceView: ArticlePlaceView) {
         showPopover(forAnnotationView: didSelectPlaceView)
+    }
+    
+    func articlePlaceGroupViewControllerDidSelectZoom(_ aticlePlaceGroupViewController: ArticlePlaceGroupViewController) {
+        dismissGroup(andZoom: true)
     }
 }
 
