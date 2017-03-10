@@ -131,9 +131,9 @@ class ArticlePlaceView: MKAnnotationView {
         let mediumDotImage = #imageLiteral(resourceName: "places-dot-medium")
         let mediumDotOutlineImage = #imageLiteral(resourceName: "places-dot-outline-medium")
         let largeDotOutlineImage = #imageLiteral(resourceName: "places-dot-outline-large")
-        
+        let scale = mediumDotImage.scale
         collapsedDimension = smallDotImage.size.width
-        groupDimension = mediumDotImage.size.width
+        groupDimension = mediumDotOutlineImage.size.width
         dimension = largeDotOutlineImage.size.width
         
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
@@ -142,6 +142,7 @@ class ArticlePlaceView: MKAnnotationView {
         
         dotView.bounds = CGRect(x: 0, y: 0, width: collapsedDimension, height: collapsedDimension)
         dotView.layer.contents = smallDotImage.cgImage
+
         dotView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
         addSubview(dotView)
         
@@ -154,6 +155,8 @@ class ArticlePlaceView: MKAnnotationView {
         
         imageBackgroundView.frame = imageView.bounds
         imageBackgroundView.layer.contents = #imageLiteral(resourceName: "places-dot-medium-opaque").cgImage
+        imageBackgroundView.layer.contentsGravity = kCAGravityCenter
+        imageBackgroundView.layer.contentsScale = scale
         imageView.addSubview(imageBackgroundView)
         
         imageImageView.frame = UIEdgeInsetsInsetRect(imageView.bounds, UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1))
@@ -171,6 +174,8 @@ class ArticlePlaceView: MKAnnotationView {
     
         selectedImageBackgroundView.frame = selectedImageView.bounds
         selectedImageBackgroundView.layer.contents = #imageLiteral(resourceName: "places-dot-large-opaque").cgImage
+        selectedImageBackgroundView.layer.contentsGravity = kCAGravityCenter
+        selectedImageBackgroundView.layer.contentsScale = scale
         selectedImageView.addSubview(selectedImageBackgroundView)
         
         selectedImageImageView.frame = UIEdgeInsetsInsetRect(selectedImageView.bounds, UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1))
