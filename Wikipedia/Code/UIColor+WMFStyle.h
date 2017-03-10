@@ -55,8 +55,6 @@
 
 + (instancetype)wmf_customGray;
 
-+ (instancetype)wmf_foundationGray;
-
 + (instancetype)wmf_darkGray;
 
 + (instancetype)wmf_readerWGray;
