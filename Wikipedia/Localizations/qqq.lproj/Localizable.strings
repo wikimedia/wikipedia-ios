@@ -103,6 +103,7 @@
 "field-new-password-confirm-title" = "Title for confirm new password field";
 "field-new-password-confirm-placeholder" = "Placeholder text shown inside confirm new password field until user taps on it";
 "field-email-title" = "Title for email address field";
+"field-email-title-optional" = "Title for optional email address field";
 "field-email-placeholder" = "Placeholder text shown inside email address field until user taps on it";
 "field-token-title" = "Title for token field\n{{Identical|Token}}";
 "field-backup-token-title" = "Title for backup token field";

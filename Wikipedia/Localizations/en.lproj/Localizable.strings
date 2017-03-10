@@ -96,7 +96,8 @@
 "field-new-password-placeholder" = "enter new password";
 "field-new-password-confirm-title" = "Confirm new password";
 "field-new-password-confirm-placeholder" = "re-enter new password";
-"field-email-title" = "Email address (optional)";
+"field-email-title" = "Email";
+"field-email-title-optional" = "Email (optional)";
 "field-email-placeholder" = "example@example.org";
 "field-token-title" = "Verification code";
 "field-backup-token-title" = "Backup code";

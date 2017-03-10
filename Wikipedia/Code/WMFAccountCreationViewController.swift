@@ -63,7 +63,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         usernameTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-username-title")
         passwordTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-password-title")
         passwordRepeatTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-password-confirm-title")
-        emailTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-email-title")
+        emailTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-email-title-optional")
         passwordRepeatAlertLabel.text = localizedStringForKeyFallingBackOnEnglish("field-alert-password-confirm-mismatch")
         
         usernameField.wmf_addThinBottomBorder()
