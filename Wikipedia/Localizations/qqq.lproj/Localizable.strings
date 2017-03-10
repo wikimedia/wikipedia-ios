@@ -120,6 +120,7 @@
 "forgot-password-email-prompt" = "Prompt for email address field";
 "forgot-password-button-title" = "Title for reset password button\n{{Identical|Reset}}";
 "forgot-password-email-sent" = "Alert text shown when password reset email is sent";
+"forgot-password-username-or-email-title" = "Title shown between the username and email text fields. User only has to specify either username \"Or\" email address";
 "wikitext-downloading" = "Alert text shown when obtaining latest revision of the section being edited";
 "wikitext-download-failed" = "Alert text shown when unable to obtain latest revision of the section being edited";
 "wikitext-download-success" = "Alert text shown when latest revision of the section being edited has been retrieved";
