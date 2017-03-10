@@ -13,7 +13,7 @@ protocol ArticlePlaceGroupViewControllerDelegate: NSObjectProtocol {
 class ArticlePlaceGroupViewController: UIViewController {
     let articles: [WMFArticle]
     private let placeViews: [ArticlePlaceView]
-    private let maxArticleCount = 11
+    private let maxArticleCount = 7
     public weak var delegate: ArticlePlaceGroupViewControllerDelegate?
     
     required init(articles: [WMFArticle]) {
