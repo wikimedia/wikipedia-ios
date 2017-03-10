@@ -44,7 +44,7 @@ class WMFOpenInMapsActivity : WMFMapsActivity {
     
     override open var activityImage: UIImage? {
         get {
-            return UIImage(named: "places-map")
+            return UIImage(named: "share-open-in-maps")
         }
     }
     
@@ -73,7 +73,7 @@ class WMFGetDirectionsInMapsActivity : WMFMapsActivity {
     
     override open var activityImage: UIImage? {
         get {
-            return UIImage(named: "places-location-arrow")
+            return UIImage(named: "share-get-directions")
         }
     }
     
