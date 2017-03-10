@@ -94,7 +94,7 @@
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invalid Password" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HxZ-Ry-50e">
                                                         <rect key="frame" x="0.0" y="176" width="288" height="16"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="1U8-2E-cdI"/>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="16" id="1U8-2E-cdI"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                         <color key="textColor" red="0.90008913589999995" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
