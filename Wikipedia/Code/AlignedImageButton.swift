@@ -1,6 +1,5 @@
 import UIKit
 
-
 class AlignedImageButton: UIButton {
     
     @IBInspectable open var margin: CGFloat = 8

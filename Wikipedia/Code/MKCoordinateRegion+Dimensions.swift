@@ -1,3 +1,6 @@
+import MapKit.MKGeometry
+import CoreLocation.CLLocation
+
 extension MKCoordinateRegion {
     var width: CLLocationDistance {
         get {
