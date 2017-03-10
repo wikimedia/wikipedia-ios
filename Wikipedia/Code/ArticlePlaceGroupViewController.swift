@@ -104,7 +104,7 @@ class ArticlePlaceGroupViewController: UIViewController {
             return
         }
         let maxDimension = max(view.bounds.size.width, view.bounds.size.height)
-        let grayColor = UIColor(white: 0, alpha: 0.7).cgColor
+        let grayColor = UIColor(white: 0, alpha: 0.5).cgColor
         let clearColor = UIColor.clear.cgColor
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let locations: [CGFloat] = [0, CGFloat(radius)/maxDimension, 1]
@@ -129,7 +129,7 @@ class ArticlePlaceGroupViewController: UIViewController {
         for placeView in self.placeViews {
             UIView.animate(withDuration: 0.6, delay: delay * TimeInterval(i), usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
                     let theta = 2*M_PI / Double(count)
-                    let angle = theta*Double(i) - 0.75*M_PI
+                    let angle = -1*M_PI_2 + theta*Double(i - 1)
                     let x = radius * cos(angle)
                     let y = radius * sin(angle)
                     placeView.center = CGPoint(x: center.x + CGFloat(x), y: center.y + CGFloat(y))
