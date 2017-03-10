@@ -37,10 +37,10 @@ class WMFAuthLinkLabel: UILabel {
             font = boldSubheadlineFont
             return
         }
-        attributedText = combineAndStyleStrings(strings)
+        attributedText = combinedAttributedString(from: strings)
     }
     
-    fileprivate func combineAndStyleStrings(_ strings: WMFAuthLinkLabelStrings) -> NSAttributedString {
+    fileprivate func combinedAttributedString(from strings: WMFAuthLinkLabelStrings) -> NSAttributedString {
         // Combine and style 'dollarSignString' and 'substitutionString': https://github.com/wikimedia/wikipedia-ios/pull/1216#discussion_r104224511
         
         let dollarSignStringAttributes: [String:Any] = [NSForegroundColorAttributeName : UIColor.black, NSFontAttributeName : subheadlineFont]
