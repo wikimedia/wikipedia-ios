@@ -13,7 +13,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     @IBOutlet fileprivate var passwordRepeatAlertLabel: UILabel!
     @IBOutlet fileprivate var emailTitleLabel: UILabel!
     @IBOutlet fileprivate var captchaContainer: UIView!
-    @IBOutlet fileprivate var loginButton: UILabel!
+    @IBOutlet fileprivate var loginButton: WMFAuthLinkLabel!
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var stackView: UIStackView!
     @IBOutlet fileprivate var createAccountButton: WMFAuthButton!
@@ -71,7 +71,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         passwordRepeatField.wmf_addThinBottomBorder()
         emailField.wmf_addThinBottomBorder()
 
-        loginButton.attributedText = loginButton.wmf_authAttributedStringReusingFont(withDollarSignString: localizedStringForKeyFallingBackOnEnglish("account-creation-have-account"), substitutionString: localizedStringForKeyFallingBackOnEnglish("account-creation-log-in"))
+        loginButton.strings = WMFAuthLinkLabelStrings(dollarSignString: localizedStringForKeyFallingBackOnEnglish("account-creation-have-account"), substitutionString: localizedStringForKeyFallingBackOnEnglish("account-creation-log-in"))
         
         loginButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(loginButtonPushed(_:))))
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-title")
