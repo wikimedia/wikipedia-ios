@@ -32,25 +32,25 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLd-Yl-D3C">
-                                        <rect key="frame" x="0.0" y="11" width="320" height="30"/>
+                                        <rect key="frame" x="0.0" y="11" width="320" height="22"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="30" id="FVc-wo-vWs"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="22" id="FVc-wo-vWs"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0To-aV-npg" customClass="WMFAuthLinkLabel" customModule="Wikipedia" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="42" width="320" height="39"/>
+                                        <rect key="frame" x="0.0" y="34" width="320" height="73"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="30" id="k8C-fr-UaJ"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="18" id="k8C-fr-UaJ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BYt-jz-uGn" userLabel="Container for borders">
-                                        <rect key="frame" x="0.0" y="82" width="320" height="91"/>
+                                        <rect key="frame" x="0.0" y="108" width="320" height="91"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k2g-BG-mmO">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
@@ -145,18 +145,18 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ou5-rd-yNs">
-                                        <rect key="frame" x="0.0" y="174" width="320" height="40"/>
+                                        <rect key="frame" x="0.0" y="200" width="320" height="16"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="40" id="615-wX-SKK"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="16" id="615-wX-SKK"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter CAPTCHA text" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gPg-cg-Yjy">
-                                        <rect key="frame" x="0.0" y="215" width="320" height="30"/>
+                                        <rect key="frame" x="0.0" y="217" width="320" height="28"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" priority="999" constant="30" id="FGZ-UY-edA"/>
+                                            <constraint firstAttribute="height" priority="999" constant="28" id="FGZ-UY-edA"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
