@@ -3,59 +3,50 @@ import MapKit
 import WMF
 import TUSafariActivity
 
-class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate {
+class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, WMFAnalyticsViewNameProviding {
     
     @IBOutlet weak var redoSearchButton: UIButton!
-    let locationSearchFetcher = WMFLocationSearchFetcher()
-    let searchFetcher = WMFSearchFetcher()
-    let previewFetcher = WMFArticlePreviewFetcher()
-    let wikidataFetcher = WikidataFetcher()
-    
-    let locationManager = WMFLocationManager.fine()
-    
-    let animationDuration = 0.6
-    let animationScale = CGFloat(0.6)
-    let popoverFadeDuration = 0.25
-    let searchHistoryCountLimit = 15
-    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var listView: UITableView!
     @IBOutlet weak var searchSuggestionView: UITableView!
     @IBOutlet weak var recenterOnUserLocationButton: UIButton!
     
-    var searchSuggestionController: PlaceSearchSuggestionController!
-    
-    var searchBar: UISearchBar!
-    var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
+    public var articleStore: WMFArticleDataStore!
+    public var dataStore: MWKDataStore!
 
-    var articleStore: WMFArticleDataStore!
-    var dataStore: MWKDataStore!
-    var segmentedControl: UISegmentedControl!
-    var segmentedControlBarButtonItem: UIBarButtonItem!
-    
-    var closeBarButtonItem: UIBarButtonItem!
-
-    
-    var currentGroupingPrecision: QuadKeyPrecision = 1
-    
-    let searchHistoryGroup = "PlaceSearch"
-    
-    var maxGroupingPrecision: QuadKeyPrecision = 16
-    var groupingPrecisionDelta: QuadKeyPrecision = 4
-    var groupingAggressiveness: CLLocationDistance = 0.67
-    
-    var selectedArticlePopover: ArticlePopoverViewController?
-    var selectedArticleKey: String?
-    
-    var placeToSelect: ArticlePlace?
-    var articleKeyToSelect: String?
-    
-    var currentSearchRegion: MKCoordinateRegion?
-    
-    var performDefaultSearchOnNextMapRegionUpdate = false
-    var previouslySelectedArticlePlaceIdentifier: String?
-    var searching: Bool = false
+    private let locationSearchFetcher = WMFLocationSearchFetcher()
+    private let searchFetcher = WMFSearchFetcher()
+    private let previewFetcher = WMFArticlePreviewFetcher()
+    private let wikidataFetcher = WikidataFetcher()
+    private let locationManager = WMFLocationManager.fine()
+    private let animationDuration = 0.6
+    private let animationScale = CGFloat(0.6)
+    private let popoverFadeDuration = 0.25
+    private let searchHistoryCountLimit = 15
+    private var searchSuggestionController: PlaceSearchSuggestionController!
+    private var searchBar: UISearchBar!
+    private var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
+    private var segmentedControl: UISegmentedControl!
+    private var segmentedControlBarButtonItem: UIBarButtonItem!
+    private var closeBarButtonItem: UIBarButtonItem!
+    private var currentGroupingPrecision: QuadKeyPrecision = 1
+    private let searchHistoryGroup = "PlaceSearch"
+    private var maxGroupingPrecision: QuadKeyPrecision = 16
+    private var groupingPrecisionDelta: QuadKeyPrecision = 4
+    private var groupingAggressiveness: CLLocationDistance = 0.67
+    private var selectedArticlePopover: ArticlePopoverViewController?
+    private var selectedArticleKey: String?
+    private var placeToSelect: ArticlePlace?
+    private var articleKeyToSelect: String?
+    private var currentSearchRegion: MKCoordinateRegion?
+    private var performDefaultSearchOnNextMapRegionUpdate = false
+    private var previouslySelectedArticlePlaceIdentifier: String?
+    private var searching: Bool = false
+    private let tracker = PiwikTracker.sharedInstance()
+    private let mapTrackerContext: AnalyticsContext = "Places_map"
+    private let listTrackerContext: AnalyticsContext = "Places_list"
+    private let searchTrackerContext: AnalyticsContext = "Places_search"
 
     // MARK: - View Lifecycle
     
@@ -148,6 +139,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         locationManager.startMonitoringLocation()
         mapView.showsUserLocation = true
+        
+        tracker?.wmf_logView(self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -298,9 +291,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     // MARK: - Map Region
     
-    var _mapRegion: MKCoordinateRegion?
+    private var _mapRegion: MKCoordinateRegion?
     
-    var mapRegion: MKCoordinateRegion? {
+    private var mapRegion: MKCoordinateRegion? {
         set {
             guard let value = newValue else {
                 _mapRegion = nil
@@ -427,9 +420,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             showSavedArticles()
             return
         case .top:
+            tracker?.wmf_logAction("Top_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
             break
         case .location:
             guard search.needsWikidataQuery else {
+                tracker?.wmf_logActionTapThrough(inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
                 fallthrough
             }
             performWikidataQuery(forSearch: search)
@@ -584,6 +579,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             case .list:
                 deselectAllAnnotations()
                 updateDistanceFromUserOnVisibleCells()
+                logListViewImpressionsForVisibleCells()
                 mapView.isHidden = true
                 listView.isHidden = false
                 searchSuggestionView.isHidden = true
@@ -689,6 +685,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     // MARK: - Saved Articles
     
     func showSavedArticles() {
+        tracker?.wmf_logAction("Saved_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
         let moc = dataStore.viewContext
         isProgressHidden = false
         progressView.setProgress(0, animated: false)
@@ -826,9 +823,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     // MARK: - Place Grouping
     
-    var groupingTaskGroup: WMFTaskGroup?
-    var needsRegroup = false
-    var showingAllImages = false
+    private var groupingTaskGroup: WMFTaskGroup?
+    private var needsRegroup = false
+    private var showingAllImages = false
     
     func regroupArticlesIfNecessary(forVisibleRegion visibleRegion: MKCoordinateRegion) {
         guard groupingTaskGroup == nil else {
@@ -1113,6 +1110,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, articleVC.view)
+
+        tracker?.wmf_logActionImpression(inContext: mapTrackerContext, contentType: article)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -1151,15 +1150,22 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         guard let url = article.url else {
             return
         }
-        
+        let context = viewMode == .list ? listTrackerContext : mapTrackerContext
         switch action {
         case .read:
+            tracker?.wmf_logActionTapThrough(inContext: context, contentType: article)
             wmf_pushArticle(with: url, dataStore: dataStore, previewStore: articleStore, animated: true)
             break
         case .save:
-            dataStore.savedPageList.toggleSavedPage(for: url)
+            let didSave = dataStore.savedPageList.toggleSavedPage(for: url)
+            if didSave {
+                tracker?.wmf_logActionSave(inContext: context, contentType: article)
+            }else {
+                tracker?.wmf_logActionUnsave(inContext: context, contentType: article)
+            }
             break
         case .share:
+            tracker?.wmf_logActionShare(inContext: context, contentType: article)
             let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: [TUSafariActivity()])
             activityVC.popoverPresentationController?.sourceView = view
             var sourceRect = view.bounds
@@ -1384,12 +1390,20 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return articleFetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard viewMode == .list else {
+            return
+        }
+        logListViewImpression(forIndexPath: indexPath)
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFNearbyArticleTableViewCell.identifier(), for: indexPath) as? WMFNearbyArticleTableViewCell else {
             return UITableViewCell()
         }
         
         let article = articleFetchedResultsController.object(at: indexPath)
+        
         cell.titleText = article.displayTitle
         cell.descriptionText = article.wikidataDescription
         cell.setImageURL(article.thumbnailURL)
@@ -1445,6 +1459,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         } else {
             let bearing = userLocation.wmf_bearing(to: articleLocation)
             cell.setBearing(bearing)
+        }
+    }
+    
+    func logListViewImpression(forIndexPath indexPath: IndexPath) {
+        let article = articleFetchedResultsController.object(at: indexPath)
+        tracker?.wmf_logActionImpression(inContext: listTrackerContext, contentType: article)
+    }
+    
+    func logListViewImpressionsForVisibleCells() {
+        for indexPath in listView.indexPathsForVisibleRows ?? [] {
+            logListViewImpression(forIndexPath: indexPath)
         }
     }
     
@@ -1583,5 +1608,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         perform(action: .read, onArticle: article)
     }
+    
+    // MARK: - WMFAnalyticsViewNameProviding
+    
+    public func analyticsName() -> String {
+        return "Places"
+    }
+
 }
 

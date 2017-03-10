@@ -425,13 +425,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToFixArticleCache]) {
         completion();
     } else {
-       [self.dataStore removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError * _Nonnull error) {
-           DDLogError(@"Error during article migration: %@", error);
-           completion();
-       } success:^{
-           [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToFixArticleCache:YES];
-           completion();
-       }];
+        [self.dataStore removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *_Nonnull error) {
+            DDLogError(@"Error during article migration: %@", error);
+            completion();
+        }
+            success:^{
+                [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToFixArticleCache:YES];
+                completion();
+            }];
     }
 }
 
@@ -540,7 +541,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     if (housekeepingError) {
         DDLogError(@"Error on cleanup: %@", housekeepingError);
     }
-    
+
     if (deletedArticleURLs.count > 0) {
         [self.dataStore removeArticlesWithURLsFromCache:deletedArticleURLs];
     }
@@ -767,16 +768,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
             [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
             break;
-        case WMFUserActivityTypePlaces:
-        {
+        case WMFUserActivityTypePlaces: {
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypePlaces];
             [[self navigationControllerForTab:WMFAppTabTypePlaces] popToRootViewControllerAnimated:NO];
             NSURL *articleURL = activity.wmf_articleURL;
             if (articleURL) {
                 [[self placesViewController] showArticleURL:articleURL];
             }
-        }
-            break;
+        } break;
         case WMFUserActivityTypeContent: {
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
 
@@ -1033,7 +1032,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)showExplore {
     [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
     [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
-    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
 }
 
 #pragma mark - Last Read Article

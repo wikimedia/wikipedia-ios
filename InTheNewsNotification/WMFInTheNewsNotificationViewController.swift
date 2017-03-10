@@ -42,10 +42,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
     }
     
     func analyticsContentType() -> String {
-        guard let articleHost = articleURL?.host else {
-            return "unknown domain"
-        }
-        return articleHost
+        return AnalyticsContent(articleURL).analyticsContentType()
     }
     
     override func awakeFromNib() {

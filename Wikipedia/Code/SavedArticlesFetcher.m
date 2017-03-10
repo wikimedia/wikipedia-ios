@@ -435,11 +435,13 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         });
     }];
     if (wasFetching) {
-        /*
-           only notify delegate if deletion occurs during a download session. if deletion occurs
-           after the fact, we don't need to inform delegate of completion
-         */
-        [self notifyDelegateIfFinished];
+        dispatch_async(self.accessQueue, ^{
+            /*
+               only notify delegate if deletion occurs during a download session. if deletion occurs
+               after the fact, we don't need to inform delegate of completion
+             */
+            [self notifyDelegateIfFinished];
+        });
     }
 }
 
@@ -452,7 +454,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             [self.imageController cancelFetchForURL:imageURL];
         }
         WMF_TECH_DEBT_TODO(cancel image info & high - res image requests)
-        [self.fetchOperationsByArticleTitle removeObjectForKey:URL];
+            [self.fetchOperationsByArticleTitle removeObjectForKey:URL];
     });
 }
 
