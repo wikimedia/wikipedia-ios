@@ -687,6 +687,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func showSavedArticles() {
         tracker?.wmf_logAction("Saved_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
         let moc = dataStore.viewContext
+        isProgressHidden = false
+        progressView.setProgress(0, animated: false)
         let done = { (articlesToShow: [WMFArticle]) -> Void in
             let request = WMFArticle.fetchRequest()
             request.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
@@ -699,6 +701,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             if articlesToShow.count == 0 {
                 self.wmf_showAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("places-no-saved-articles-have-location"))
             }
+            self.progressView.setProgress(1.0, animated: true)
+            self.isProgressHidden = true
         }
         
         do {
