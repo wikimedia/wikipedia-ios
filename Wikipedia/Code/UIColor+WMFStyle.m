@@ -411,4 +411,14 @@
     return c;
 }
 
++ (instancetype)wmf_authTitleColor {
+    static UIColor *c = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0x72777d alpha:1.0];
+    });
+    return c;
+}
+
 @end

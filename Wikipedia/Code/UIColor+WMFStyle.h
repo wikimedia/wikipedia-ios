@@ -119,4 +119,6 @@
 
 + (instancetype)wmf_orange;
 
++ (instancetype)wmf_authTitleColor;
+
 @end
