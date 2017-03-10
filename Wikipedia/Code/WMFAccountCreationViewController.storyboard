@@ -25,7 +25,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Qz-4P-2EZ" userLabel="Scroll Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="605"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="615"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="7AC-EW-rPT">
                                                 <rect key="frame" x="43" y="30" width="288" height="555"/>
@@ -185,7 +185,7 @@
                                         <constraints>
                                             <constraint firstItem="7AC-EW-rPT" firstAttribute="top" secondItem="8Qz-4P-2EZ" secondAttribute="top" constant="30" id="HNF-Zh-UpN"/>
                                             <constraint firstItem="7AC-EW-rPT" firstAttribute="centerX" secondItem="8Qz-4P-2EZ" secondAttribute="centerX" id="QUh-Hg-lLt"/>
-                                            <constraint firstAttribute="bottom" secondItem="7AC-EW-rPT" secondAttribute="bottom" constant="20" id="f0I-ku-9pe"/>
+                                            <constraint firstAttribute="bottom" secondItem="7AC-EW-rPT" secondAttribute="bottom" constant="30" id="f0I-ku-9pe"/>
                                         </constraints>
                                     </view>
                                 </subviews>
