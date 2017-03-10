@@ -30,6 +30,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        [titleLabel, usernameTitleLabel, passwordTitleLabel].forEach{$0.textColor = .wmf_authTitle()}
+    
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
 
         loginButton.setTitle(localizedStringForKeyFallingBackOnEnglish("main-menu-account-login"), for: .normal)

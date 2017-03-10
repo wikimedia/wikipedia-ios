@@ -18,6 +18,9 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        [titleLabel, usernameTitleLabel, emailTitleLabel].forEach{$0.textColor = .wmf_authTitle()}
+
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
     
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("forgot-password-title")

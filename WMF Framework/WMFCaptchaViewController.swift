@@ -179,6 +179,8 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         
         assert(firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, "\n\nAll stackview arrangedSubview height constraints need to have a priority of < 1000 so the stackview can collapse the 'cell' if the arrangedSubview's isHidden property is set to true. This arrangedSubview was determined to have a required height: \(firstArrangedSubviewWithRequiredNonZeroHeightConstraint()). To fix reduce the priority of its height constraint to < 1000.\n\n")
         
+        [titleLabel, captchaTextFieldTitleLabel].forEach{$0.textColor = .wmf_authTitle()}
+
         captcha = nil
         captchaTextFieldTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-captcha-title")
         captchaTextField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-captcha-placeholder")
