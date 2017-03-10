@@ -53,6 +53,28 @@ class ArticlePlaceGroupViewController: UIViewController {
         
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         view.addGestureRecognizer(tapGR)
+        
+        let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+        panGR.require(toFail: tapGR)
+        view.addGestureRecognizer(tapGR)
+        
+        let pinchGR = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGesture))
+        panGR.require(toFail: tapGR)
+        view.addGestureRecognizer(pinchGR)
+    }
+    
+    func handlePinchGesture(_ pinchGR: UIPinchGestureRecognizer) {
+        guard pinchGR.state != .failed && pinchGR.state != .possible else {
+            return
+        }
+        delegate?.articlePlaceGroupViewControllerDidDismiss(self)
+    }
+    
+    func handlePanGesture(_ panGR: UIPanGestureRecognizer) {
+        guard panGR.state != .failed && panGR.state != .possible else {
+            return
+        }
+        delegate?.articlePlaceGroupViewControllerDidDismiss(self)
     }
     
     func handleTapGesture(_ tapGR: UITapGestureRecognizer) {
@@ -112,7 +134,41 @@ class ArticlePlaceGroupViewController: UIViewController {
         delegate?.articlePlaceGroupViewController(self, didSelectPlaceView: placeView)
     }
     
+    func layoutForCenter(center: CGPoint) {
+        let count = placeViews.count
+        let maximum = min(maxArticleCount, articles.count) + 1
+        let radius = Double(22 + maximum * 4)
+        var i = 1
+        for placeView in placeViews {
+            let theta = 2*M_PI / Double(count)
+            let angle = -1*M_PI_2 + theta*Double(i - 1)
+            let x = radius * cos(angle)
+            let y = radius * sin(angle)
+            placeView.center = CGPoint(x: center.x + CGFloat(x), y: center.y + CGFloat(y))
+            placeView.transform = CGAffineTransform.identity
+            i += 1
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 2)
+        guard let ctx = UIGraphicsGetCurrentContext() else {
+            return
+        }
+        let maxDimension = max(view.bounds.size.width, view.bounds.size.height)
+        let grayColor = UIColor(white: 0, alpha: 0.5).cgColor
+        let clearColor = UIColor.clear.cgColor
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let locations: [CGFloat] = [0, CGFloat(radius)/maxDimension, 1]
+        guard let gradient = CGGradient(colorsSpace: colorSpace, colors: [clearColor, grayColor, grayColor] as CFArray, locations: locations) else {
+            return
+        }
+        ctx.drawRadialGradient(gradient, startCenter: center, startRadius: 10, endCenter: center, endRadius: maxDimension, options: [])
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        tintView.image = image
+        UIGraphicsEndImageContext()
+    }
+    
     var center: CGPoint?
+    
     func show(center: CGPoint) {
         self.center = center
         

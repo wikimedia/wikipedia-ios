@@ -191,18 +191,22 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
 
     var placeGroupVC: ArticlePlaceGroupViewController?
+    var placeGroupAnnotationView: MKAnnotationView?
     
     func dismissGroup(andZoom: Bool) {
         dismissCurrentArticlePopover()
-
-        placeGroupVC?.hide {
-            self.placeGroupVC?.willMove(toParentViewController: nil)
-            self.placeGroupVC?.view.removeFromSuperview()
-            self.placeGroupVC?.removeFromParentViewController()
-            if andZoom, let articles = self.placeGroupVC?.articles {
-                self.mapRegion = self.regionThatFits(articles: articles)
+        guard let groupVC = placeGroupVC else {
+            return
+        }
+        groupVC.hide {
+            groupVC.willMove(toParentViewController: nil)
+            groupVC.view.removeFromSuperview()
+            groupVC.removeFromParentViewController()
+            if andZoom {
+                self.mapRegion = self.regionThatFits(articles: groupVC.articles)
             }
             self.placeGroupVC = nil
+            self.placeGroupAnnotationView = nil
         }
     }
     
@@ -223,11 +227,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             view.insertSubview(placeGroupVC.view, aboveSubview: redoSearchButton)
             placeGroupVC.didMove(toParentViewController: self)
             
+            
             let center = view.convert(annotationView.center, from: annotationView.superview)
             
             placeGroupVC.show(center: center)
         
             self.placeGroupVC = placeGroupVC
+            self.placeGroupAnnotationView = annotationView
             deselectAllAnnotations()
             return
         }
@@ -1144,14 +1150,18 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        guard let popover = selectedArticlePopover,
-            let annotation = mapView.selectedAnnotations.first,
-            let annotationView = mapView.view(for: annotation)
-            else {
-            return
-        }
+        
         coordinator.animate(alongsideTransition: { (context) in
-            self.adjustLayout(ofPopover: popover, withSize: popover.preferredContentSize, viewSize: size, forAnnotationView: annotationView)
+            if let popover = self.selectedArticlePopover,
+                let annotation = self.mapView.selectedAnnotations.first,
+                let annotationView = self.mapView.view(for: annotation) {
+                self.adjustLayout(ofPopover: popover, withSize: popover.preferredContentSize, viewSize: size, forAnnotationView: annotationView)
+            }
+            
+            if let groupVC = self.placeGroupVC, let annotationView = self.placeGroupAnnotationView  {
+                let center = self.view.convert(annotationView.center, from: annotationView.superview)
+                groupVC.layoutForCenter(center: center)
+            }
         }, completion: nil)
     }
     
