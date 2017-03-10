@@ -10,8 +10,6 @@
 
 + (instancetype)wmf_tapHighlightColor;
 
-+ (instancetype)wmf_summaryTextColor;
-
 + (instancetype)wmf_licenseTextColor;
 
 + (instancetype)wmf_licenseLinkColor;
