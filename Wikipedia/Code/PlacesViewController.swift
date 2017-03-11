@@ -910,8 +910,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let searchDeltaLon = searchRegion.span.longitudeDelta
         let lowestSearchPrecision = QuadKeyPrecision(deltaLongitude: searchDeltaLon)
         
-        let maxPrecision: QuadKeyPrecision = 15
-        var groupingAggressiveness: CLLocationDistance = 0.4
+        let maxPrecision: QuadKeyPrecision = 16
+        var groupingAggressiveness: CLLocationDistance = 0.67
         let groupingPrecisionDelta: QuadKeyPrecision = 4
         if lowestPrecision + 4 <= lowestSearchPrecision {
             groupingAggressiveness += 0.3
