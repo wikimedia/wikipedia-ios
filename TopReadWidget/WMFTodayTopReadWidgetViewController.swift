@@ -79,8 +79,8 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         contentSource = WMFFeedContentSource(siteURL: siteURL, contentGroupDataStore: contentStore, articlePreviewDataStore: previewStore, userDataStore: userStore, notificationsController: nil)
         
         if #available(iOSApplicationExtension 10.0, *) {
-            headerLabel.textColor = UIColor.wmf_darkGray()
-            footerLabel.textColor = UIColor.wmf_darkGray()
+            headerLabel.textColor = UIColor.wmf_darkGray
+            footerLabel.textColor = UIColor.wmf_darkGray
         } else {
             headerLabel.textColor = UIColor(white: 1, alpha: 0.7)
             footerLabel.textColor = UIColor(white: 1, alpha: 0.7)

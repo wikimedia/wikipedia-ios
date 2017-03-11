@@ -4,7 +4,7 @@
 
 - (void)wmf_addSelectedBackgroundView {
     UIView *bgView = [[UIView alloc] init];
-    bgView.backgroundColor = [UIColor wmf_tapHighlightColor];
+    bgView.backgroundColor = [UIColor wmf_tapHighlight];
     self.selectedBackgroundView = bgView;
 }
 
@@ -14,7 +14,7 @@
 
 - (void)wmf_addSelectedBackgroundView {
     UIView *bgView = [[UIView alloc] init];
-    bgView.backgroundColor = [UIColor wmf_tapHighlightColor];
+    bgView.backgroundColor = [UIColor wmf_tapHighlight];
     self.selectedBackgroundView = bgView;
 }
 

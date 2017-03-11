@@ -26,8 +26,8 @@ open class WMFArticlePreviewViewController: UIViewController {
     
     
     open override func viewDidLoad() {
-        rankLabel.textColor = UIColor.wmf_darkGray()
-        separatorView.backgroundColor = UIColor.wmf_darkGray()
+        rankLabel.textColor = UIColor.wmf_darkGray
+        separatorView.backgroundColor = UIColor.wmf_darkGray
     }
 
     open override func awakeFromNib() {

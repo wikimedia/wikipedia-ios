@@ -224,7 +224,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         
         backupOathTokenField.wmf_addThinBottomBorder()
         displayMode = .shortNumeric
-        displayModeToggle.textColor = .wmf_blueTint()
+        displayModeToggle.textColor = .wmf_blueTint
         displayModeToggle.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(displayModeToggleTapped(_:))))
 
         view.wmf_configureSubviewsForDynamicType()

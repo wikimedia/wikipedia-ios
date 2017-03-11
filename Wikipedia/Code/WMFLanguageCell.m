@@ -48,8 +48,8 @@
     [super awakeFromNib];
     [self prepareForReuse];
     [self wmf_makeCellDividerBeEdgeToEdge];
-    self.localizedLanguageLabel.textColor = [UIColor wmf_777777Color];
-    self.articleTitleLabel.textColor = [UIColor wmf_777777Color];
+    self.localizedLanguageLabel.textColor = [UIColor wmf_777777];
+    self.articleTitleLabel.textColor = [UIColor wmf_777777];
     [self wmf_configureSubviewsForDynamicType];
 }
 
@@ -66,7 +66,7 @@
     _isPrimary = isPrimary;
     if (isPrimary) {
         self.primaryLabel.text = [MWLocalizedString(@"settings-primary-language", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-        self.primaryLabelContainerView.backgroundColor = [UIColor wmf_primaryLanguageLabelBackgroundColor];
+        self.primaryLabelContainerView.backgroundColor = [UIColor wmf_primaryLanguageLabelBackground];
     } else {
         self.primaryLabel.text = nil;
         self.primaryLabelContainerView.backgroundColor = [UIColor clearColor];
