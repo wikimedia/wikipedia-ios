@@ -36,7 +36,7 @@ typedef NS_ENUM(NSInteger, WMFImageWidth) {
 }
 
 - (NSNumber *)wmf_nearbyThumbnailWidthForScale {
-    return @(self.wmf_maxScale * WMFImageWidthSmall);
+    return @(self.wmf_maxScale * WMFImageWidthMedium);
 }
 
 - (NSNumber *)wmf_leadImageWidthForScale {
