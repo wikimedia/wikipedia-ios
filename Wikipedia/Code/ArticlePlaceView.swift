@@ -23,6 +23,7 @@ class ArticlePlaceView: MKAnnotationView {
     private let dimension: CGFloat
     private let collapsedDimension: CGFloat
     private let groupDimension: CGFloat
+    private let imageDimension: CGFloat
     private let selectionAnimationDuration = 0.3
     private let springDamping: CGFloat = 0.5
     private let crossFadeRelativeHalfDuration: TimeInterval = 0.1
@@ -30,7 +31,7 @@ class ArticlePlaceView: MKAnnotationView {
     
     func set(alwaysShowImage: Bool, animated: Bool) {
         self.alwaysShowImage = alwaysShowImage
-        let scale = collapsedDimension/groupDimension
+        let scale = collapsedDimension/imageDimension
         let imageViewScaleDownTransform = CGAffineTransform(scaleX: scale, y: scale)
         let dotViewScaleUpTransform = CGAffineTransform(scaleX: 1.0/scale, y: 1.0/scale)
         if alwaysShowImage {
@@ -73,7 +74,10 @@ class ArticlePlaceView: MKAnnotationView {
             }
         }
         let done = {
-            self.updateDotAndImageHiddenState()
+            guard let articlePlace = self.annotation as? ArticlePlace else {
+                return
+            }
+            self.updateDotAndImageHiddenState(withArticlePlace: articlePlace)
         }
         if animated {
             if alwaysShowImage {
@@ -129,13 +133,13 @@ class ArticlePlaceView: MKAnnotationView {
         
         let smallDotImage = #imageLiteral(resourceName: "places-dot-small")
         let mediumDotImage = #imageLiteral(resourceName: "places-dot-medium")
-        let mediumDotOutlineImage = #imageLiteral(resourceName: "places-dot-outline-medium")
+        let mediumDotOutlineImage = #imageLiteral(resourceName: "places-dot-outline-extra-medium")
         let largeDotOutlineImage = #imageLiteral(resourceName: "places-dot-outline-large")
         let scale = mediumDotImage.scale
         collapsedDimension = smallDotImage.size.width
-        groupDimension = mediumDotOutlineImage.size.width
+        groupDimension = mediumDotImage.size.width
         dimension = largeDotOutlineImage.size.width
-        
+        imageDimension = mediumDotOutlineImage.size.width
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         
         frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
@@ -150,11 +154,11 @@ class ArticlePlaceView: MKAnnotationView {
         groupView.layer.contents = mediumDotImage.cgImage
         addSubview(groupView)
         
-        imageView.bounds = CGRect(x: 0, y: 0, width: groupDimension, height: groupDimension)
+        imageView.bounds = CGRect(x: 0, y: 0, width: imageDimension, height: imageDimension)
         addSubview(imageView)
         
         imageBackgroundView.frame = imageView.bounds
-        imageBackgroundView.layer.contents = #imageLiteral(resourceName: "places-dot-medium-opaque").cgImage
+        imageBackgroundView.layer.contents = #imageLiteral(resourceName: "places-dot-extra-medium-opaque").cgImage
         imageBackgroundView.layer.contentsGravity = kCAGravityCenter
         imageBackgroundView.layer.contentsScale = scale
         imageView.addSubview(imageBackgroundView)
@@ -247,24 +251,31 @@ class ArticlePlaceView: MKAnnotationView {
                 showPlaceholderImage()
             }
             accessibilityLabel = articlePlace.articles.first?.displayTitle
+        } else if articlePlace.articles.count == 0 {
+            zPosition = 1
+            imageImageView.image = #imageLiteral(resourceName: "places-show-more")
+            accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-show-more")
         } else {
             zPosition = 2
-            let countString = articlePlace.articles.count > 0 ? "\(articlePlace.articles.count)" : "+"
+            let countString = "\(articlePlace.articles.count)"
             countLabel.text = countString
-            accessibilityLabel = articlePlace.articles.count > 0 ? localizedStringForKeyFallingBackOnEnglish("places-accessibility-group").replacingOccurrences(of: "$1", with: countString) : localizedStringForKeyFallingBackOnEnglish("places-accessibility-show-more")
+            accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-group").replacingOccurrences(of: "$1", with: countString)
         }
-        updateDotAndImageHiddenState()
+        updateDotAndImageHiddenState(withArticlePlace: articlePlace)
     }
     
-    func updateDotAndImageHiddenState() {
-        if countLabel.text != nil {
-            imageView.isHidden = true
-            dotView.isHidden = true
-            groupView.isHidden = false
-        } else {
+    func updateDotAndImageHiddenState(withArticlePlace articlePlace: ArticlePlace) {
+        switch articlePlace.articles.count {
+        case 0:
+            fallthrough
+        case 1:
             imageView.isHidden = !alwaysShowImage
             dotView.isHidden = alwaysShowImage
             groupView.isHidden = true
+        default:
+            imageView.isHidden = true
+            dotView.isHidden = true
+            groupView.isHidden = false
         }
     }
 
@@ -301,7 +312,7 @@ class ArticlePlaceView: MKAnnotationView {
             return
         }
         let dotScale = collapsedDimension/dimension
-        let imageViewScale = groupDimension/dimension
+        let imageViewScale = imageDimension/dimension
         let scale = alwaysShowImage ? imageViewScale : dotScale
         let selectedImageViewScaleDownTransform = CGAffineTransform(scaleX: scale, y: scale)
         let dotViewScaleUpTransform = CGAffineTransform(scaleX: 1.0/dotScale, y: 1.0/dotScale)

@@ -14,6 +14,7 @@ class ArticlePlaceGroupViewController: UIViewController {
     let articles: [WMFArticle]
     private let placeViews: [ArticlePlaceView]
     private let maxArticleCount = 7
+    private let radius: Double
     public weak var delegate: ArticlePlaceGroupViewControllerDelegate?
     
     required init(articles: [WMFArticle]) {
@@ -34,6 +35,7 @@ class ArticlePlaceGroupViewController: UIViewController {
         placeView.set(alwaysShowImage: true, animated: false)
         placeViews.append(placeView)
         self.placeViews = placeViews
+        self.radius = Double(25 + (maximum + 1) * 5)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -171,10 +173,6 @@ class ArticlePlaceGroupViewController: UIViewController {
     
     func show(center: CGPoint) {
         self.center = center
-        
-        let maximum = min(maxArticleCount, articles.count) + 1
-
-        let radius = Double(22 + maximum * 4)
         //tintView.backgroundColor = UIColor(white: 0, alpha: 0.3)
 
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 2)
@@ -208,8 +206,8 @@ class ArticlePlaceGroupViewController: UIViewController {
             UIView.animate(withDuration: 0.6, delay: delay * TimeInterval(i), usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: {
                     let theta = 2*M_PI / Double(count)
                     let angle = -1*M_PI_2 + theta*Double(i - 1)
-                    let x = radius * cos(angle)
-                    let y = radius * sin(angle)
+                    let x = self.radius * cos(angle)
+                    let y = self.radius * sin(angle)
                     placeView.center = CGPoint(x: center.x + CGFloat(x), y: center.y + CGFloat(y))
                     placeView.transform = CGAffineTransform.identity
             }) { (done) in
