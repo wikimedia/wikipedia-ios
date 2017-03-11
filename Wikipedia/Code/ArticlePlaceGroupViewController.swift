@@ -35,7 +35,7 @@ class ArticlePlaceGroupViewController: UIViewController {
         placeView.set(alwaysShowImage: true, animated: false)
         placeViews.append(placeView)
         self.placeViews = placeViews
-        self.radius = Double(25 + (maximum + 1) * 5)
+        self.radius = Double(25 + (maximum + 1) * 6)
         super.init(nibName: nil, bundle: nil)
     }
     
