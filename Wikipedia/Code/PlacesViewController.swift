@@ -32,9 +32,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private var closeBarButtonItem: UIBarButtonItem!
     private var currentGroupingPrecision: QuadKeyPrecision = 1
     private let searchHistoryGroup = "PlaceSearch"
-    private var maxGroupingPrecision: QuadKeyPrecision = 16
-    private var groupingPrecisionDelta: QuadKeyPrecision = 4
-    private var groupingAggressiveness: CLLocationDistance = 0.67
     private var selectedArticlePopover: ArticlePopoverViewController?
     private var selectedArticleKey: String?
     private var placeToSelect: ArticlePlace?
@@ -864,7 +861,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     
     func shouldShowAllImages(currentPrecision: QuadKeyPrecision, currentSearchPrecision: QuadKeyPrecision, maxPrecision: QuadKeyPrecision) -> Bool {
-        return currentPrecision > maxPrecision + 1 || (currentPrecision >= currentSearchPrecision + 2 && greaterThanOneArticleGroupCount == 0)
+        return currentPrecision > 17 || (currentPrecision >= currentSearchPrecision + 3 && greaterThanOneArticleGroupCount == 0)
     }
     
     func updateShouldShowAllImages(currentPrecision: QuadKeyPrecision, currentSearchPrecision: QuadKeyPrecision, maxPrecision: QuadKeyPrecision) {
@@ -891,7 +888,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             var articles: [WMFArticle] = []
             var latitudeSum: QuadKeyDegrees = 0
             var longitudeSum: QuadKeyDegrees = 0
-            
+            var baseQuadKey: QuadKey = 0
+            var baseQuadKeyPrecision: QuadKeyPrecision = 0
             var location: CLLocation {
                 get {
                     return CLLocation(latitude: latitudeSum/CLLocationDegrees(articles.count), longitude: longitudeSum/CLLocationDegrees(articles.count))
@@ -909,13 +907,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let searchDeltaLon = searchRegion.span.longitudeDelta
         let lowestSearchPrecision = QuadKeyPrecision(deltaLongitude: searchDeltaLon)
         
-        let maxPrecision: QuadKeyPrecision = maxGroupingPrecision
-
+        let maxPrecision: QuadKeyPrecision = 15
+        var groupingAggressiveness: CLLocationDistance = 0.4
+        let groupingPrecisionDelta: QuadKeyPrecision = 4
+        if lowestPrecision + 4 <= lowestSearchPrecision {
+            groupingAggressiveness += 0.3
+        }
+        
         let currentPrecision = lowestPrecision + groupingPrecisionDelta
         let groupingPrecision = min(maxPrecision, currentPrecision)
-        
         let currentSearchPrecision = lowestSearchPrecision + groupingPrecisionDelta
-        
+
         guard groupingPrecision != currentGroupingPrecision else {
             updateShouldShowAllImages(currentPrecision: currentPrecision, currentSearchPrecision: currentSearchPrecision, maxPrecision: maxPrecision)
             return
@@ -952,7 +954,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
         }
         
-        var groups: [QuadKey: ArticleGroup] = [:]
+        var groups: [String: ArticleGroup] = [:]
         
         for article in articleFetchedResultsController.fetchedObjects ?? [] {
             guard let quadKey = article.quadKey else {
@@ -960,54 +962,70 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
             var group: ArticleGroup
             let adjustedQuadKey: QuadKey
+            let key: String
             if groupingPrecision < maxPrecision && (articleKeyToSelect == nil || article.key != articleKeyToSelect) {
                 adjustedQuadKey = quadKey.adjusted(downBy: QuadKeyPrecision.maxPrecision - groupingPrecision)
-                group = groups[adjustedQuadKey] ?? ArticleGroup()
+                let baseQuadKey = adjustedQuadKey - adjustedQuadKey % 2
+                key = "\(baseQuadKey)|\(baseQuadKey + 1)" // combine neighboring vertical keys
+                group = groups[key] ?? ArticleGroup()
+                group.baseQuadKey = baseQuadKey
+                group.baseQuadKeyPrecision = groupingPrecision
             } else {
                 group = ArticleGroup()
                 adjustedQuadKey = quadKey
-            }
-            if let keyToSelect = articleKeyToSelect, group.articles.first?.key == keyToSelect {
-                // leave out articles that would be grouped with the one to select
-                continue
+                key = "\(adjustedQuadKey)"
+                group.baseQuadKey = quadKey
+                group.baseQuadKeyPrecision = QuadKeyPrecision.maxPrecision
             }
             group.articles.append(article)
             let coordinate = QuadKeyCoordinate(quadKey: quadKey)
             group.latitudeSum += coordinate.latitude
             group.longitudeSum += coordinate.longitude
-            groups[adjustedQuadKey] = group
+            groups[key] = group
         }
         
-        let keys = groups.keys
         greaterThanOneArticleGroupCount = 0
+        let keys = groups.keys
         for quadKey in keys {
             guard var group = groups[quadKey] else {
                 continue
             }
-            let location = group.location
-            for t in -1...1 {
-                for n in -1...1 {
-                    let adjacentLatitude = location.coordinate.latitude + CLLocationDegrees(t)*groupingDeltaLatitude
-                    let adjacentLongitude = location.coordinate.longitude + CLLocationDegrees(n)*groupingDeltaLongitude
-                    
-                    let adjacentQuadKey = QuadKey(latitude: adjacentLatitude, longitude: adjacentLongitude)
-                    let adjustedQuadKey = adjacentQuadKey.adjusted(downBy: QuadKeyPrecision.maxPrecision - groupingPrecision)
-                    guard adjustedQuadKey != quadKey, let adjacentGroup = groups[adjustedQuadKey], adjacentGroup.articles.count > 1 || group.articles.count > 1 else {
-                        continue
-                    }
-                    if let keyToSelect = articleKeyToSelect,
-                        group.articles.first?.key == keyToSelect || adjacentGroup.articles.first?.key == keyToSelect {
-                        //no grouping with the article to select
-                        continue
-                    }
-                    let distance = adjacentGroup.location.distance(from: location)
-                    if distance < groupingDistance {
-                        group.articles.append(contentsOf: adjacentGroup.articles)
-                        group.latitudeSum += adjacentGroup.latitudeSum
-                        group.longitudeSum += adjacentGroup.longitudeSum
-                        groups.removeValue(forKey: adjustedQuadKey)
+            if group.articles.count > 1 {
+                let location = group.location
+                let baseQuadKey = group.baseQuadKey
+                let baseQuadKeyPrecision = group.baseQuadKeyPrecision
+                let baseQuadKeyCoordinate = QuadKeyCoordinate(quadKey: baseQuadKey, precision: baseQuadKeyPrecision)
+                
+                if baseQuadKeyCoordinate.latitudePart > 2 && baseQuadKeyCoordinate.longitudePart > 1 {
+                    for t: Int64 in -1...1 {
+                        for n: Int64 in -1...1 {
+                            guard t != 0 || n != 0 else {
+                                continue
+                            }
+                            let latitudePart = QuadKeyPart(Int64(baseQuadKeyCoordinate.latitudePart) + 2*t)
+                            let longitudePart = QuadKeyPart(Int64(baseQuadKeyCoordinate.longitudePart) + n)
+                            //let adjacentBaseQuadKey = QuadKey(
+                            let adjacentBaseQuadKey = QuadKey(latitudePart: latitudePart, longitudePart: longitudePart, precision: baseQuadKeyPrecision)
+                            let adjacentKey = "\(adjacentBaseQuadKey)|\(adjacentBaseQuadKey + 1)"
+                            guard let adjacentGroup = groups[adjacentKey] else {
+                                continue
+                            }
+                            if let keyToSelect = articleKeyToSelect, adjacentGroup.articles.first?.key == keyToSelect {
+                                //no grouping with the article to select
+                                continue
+                            }
+                            let distance = adjacentGroup.location.distance(from: location)
+                            if distance < groupingDistance {
+                                group.articles.append(contentsOf: adjacentGroup.articles)
+                                group.latitudeSum += adjacentGroup.latitudeSum
+                                group.longitudeSum += adjacentGroup.longitudeSum
+                                groups.removeValue(forKey: adjacentKey)
+                            }
+                        }
                     }
                 }
+                
+                
             }
 
             var nextCoordinate: CLLocationCoordinate2D?
