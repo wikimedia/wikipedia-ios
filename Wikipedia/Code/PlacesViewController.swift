@@ -881,24 +881,70 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
+    struct ArticleGroup {
+        var articles: [WMFArticle] = []
+        var latitudeSum: QuadKeyDegrees = 0
+        var longitudeSum: QuadKeyDegrees = 0
+        var baseQuadKey: QuadKey = 0
+        var baseQuadKeyPrecision: QuadKeyPrecision = 0
+        var location: CLLocation {
+            get {
+                return CLLocation(latitude: latitudeSum/CLLocationDegrees(articles.count), longitude: longitudeSum/CLLocationDegrees(articles.count))
+            }
+        }
+    }
+
+    
+    func merge(group: ArticleGroup, key: String, groups: [String: ArticleGroup], groupingDistance: CLLocationDistance) -> Set<String> {
+        var toMerge = Set<String>()
+        if let keyToSelect = articleKeyToSelect, group.articles.first?.key == keyToSelect {
+            //no grouping with the article to select
+            return toMerge
+        }
+        
+        let baseQuadKey = group.baseQuadKey
+        let baseQuadKeyPrecision = group.baseQuadKeyPrecision
+        let baseQuadKeyCoordinate = QuadKeyCoordinate(quadKey: baseQuadKey, precision: baseQuadKeyPrecision)
+        
+        if baseQuadKeyCoordinate.latitudePart > 2 && baseQuadKeyCoordinate.longitudePart > 1 {
+            for t: Int64 in -1...1 {
+                for n: Int64 in -1...1 {
+                    guard t != 0 || n != 0 else {
+                        continue
+                    }
+                    let latitudePart = QuadKeyPart(Int64(baseQuadKeyCoordinate.latitudePart) + 2*t)
+                    let longitudePart = QuadKeyPart(Int64(baseQuadKeyCoordinate.longitudePart) + n)
+                    let adjacentBaseQuadKey = QuadKey(latitudePart: latitudePart, longitudePart: longitudePart, precision: baseQuadKeyPrecision)
+                    let adjacentKey = "\(adjacentBaseQuadKey)|\(adjacentBaseQuadKey + 1)"
+                    guard let adjacentGroup = groups[adjacentKey] else {
+                        continue
+                    }
+                    if let keyToSelect = articleKeyToSelect, adjacentGroup.articles.first?.key == keyToSelect {
+                        //no grouping with the article to select
+                        continue
+                    }
+                    let location = group.location
+                    let distance = adjacentGroup.location.distance(from: location)
+                    let distanceToCheck = adjacentGroup.articles.count > 1 || group.articles.count > 1 ? groupingDistance : 0.25*groupingDistance
+                    if distance < distanceToCheck {
+                        toMerge.insert(adjacentKey)
+                        var newGroups = groups
+                        newGroups.removeValue(forKey: key)
+                        let others = merge(group: adjacentGroup, key: adjacentKey, groups: newGroups, groupingDistance: groupingDistance)
+                        toMerge.formUnion(others)
+                    }
+                }
+            }
+        }
+        return toMerge
+    }
+    
     func regroupArticlesIfNecessary(forVisibleRegion visibleRegion: MKCoordinateRegion) {
         guard groupingTaskGroup == nil else {
             needsRegroup = true
             return
         }
         assert(Thread.isMainThread)
-        struct ArticleGroup {
-            var articles: [WMFArticle] = []
-            var latitudeSum: QuadKeyDegrees = 0
-            var longitudeSum: QuadKeyDegrees = 0
-            var baseQuadKey: QuadKey = 0
-            var baseQuadKeyPrecision: QuadKeyPrecision = 0
-            var location: CLLocation {
-                get {
-                    return CLLocation(latitude: latitudeSum/CLLocationDegrees(articles.count), longitude: longitudeSum/CLLocationDegrees(articles.count))
-                }
-            }
-        }
         
         guard let searchRegion = currentSearchRegion else {
             return
@@ -989,45 +1035,24 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         greaterThanOneArticleGroupCount = 0
         let keys = groups.keys
-        for quadKey in keys {
-            guard var group = groups[quadKey] else {
+        for key in keys {
+            guard var group = groups[key] else {
                 continue
             }
-            if group.articles.count > 1 {
-                let baseQuadKey = group.baseQuadKey
-                let baseQuadKeyPrecision = group.baseQuadKeyPrecision
-                let baseQuadKeyCoordinate = QuadKeyCoordinate(quadKey: baseQuadKey, precision: baseQuadKeyPrecision)
-                
-                if baseQuadKeyCoordinate.latitudePart > 2 && baseQuadKeyCoordinate.longitudePart > 1 {
-                    for t: Int64 in -1...1 {
-                        for n: Int64 in -1...1 {
-                            guard t != 0 || n != 0 else {
-                                continue
-                            }
-                            let latitudePart = QuadKeyPart(Int64(baseQuadKeyCoordinate.latitudePart) + 2*t)
-                            let longitudePart = QuadKeyPart(Int64(baseQuadKeyCoordinate.longitudePart) + n)
-                            let adjacentBaseQuadKey = QuadKey(latitudePart: latitudePart, longitudePart: longitudePart, precision: baseQuadKeyPrecision)
-                            let adjacentKey = "\(adjacentBaseQuadKey)|\(adjacentBaseQuadKey + 1)"
-                            guard let adjacentGroup = groups[adjacentKey] else {
-                                continue
-                            }
-                            if let keyToSelect = articleKeyToSelect, adjacentGroup.articles.first?.key == keyToSelect {
-                                //no grouping with the article to select
-                                continue
-                            }
-                            let location = group.location
-                            let distance = adjacentGroup.location.distance(from: location)
-                            if distance < groupingDistance {
-                                group.articles.append(contentsOf: adjacentGroup.articles)
-                                group.latitudeSum += adjacentGroup.latitudeSum
-                                group.longitudeSum += adjacentGroup.longitudeSum
-                                groups.removeValue(forKey: adjacentKey)
-                            }
-                        }
-                    }
+
+            let toMerge = merge(group: group, key: key, groups: groups, groupingDistance: groupingDistance)
+            for adjacentKey in toMerge {
+                guard let adjacentGroup = groups[adjacentKey] else {
+                    continue
                 }
-                
-                
+                group.articles.append(contentsOf: adjacentGroup.articles)
+                group.latitudeSum += adjacentGroup.latitudeSum
+                group.longitudeSum += adjacentGroup.longitudeSum
+                groups.removeValue(forKey: adjacentKey)
+            }
+            
+            if group.articles.count > 1 {
+                greaterThanOneArticleGroupCount += 1
             }
 
             var nextCoordinate: CLLocationCoordinate2D?
@@ -1063,7 +1088,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     coordinate = previousPlace.coordinate
                 }
             } else {
-                greaterThanOneArticleGroupCount += 1
                 let groupCount = group.articles.count
                 for article in group.articles {
                     guard let key = article.key,
