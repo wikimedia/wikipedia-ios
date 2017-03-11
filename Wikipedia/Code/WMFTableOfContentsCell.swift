@@ -69,7 +69,7 @@ open class WMFTableOfContentsCell: UITableViewCell {
     
     open func setTitleLabelHighlighted(_ highlighted: Bool) {
         if highlighted {
-            titleLabel.textColor = UIColor.wmf_tableOfContentsSelectionIndicator
+            titleLabel.textColor = .wmf_tableOfContentsSelectionIndicator
         } else {
             titleLabel.textColor = titleColor
         }
@@ -77,7 +77,7 @@ open class WMFTableOfContentsCell: UITableViewCell {
     
     open func setSelectionIndicatorVisible(_ visible: Bool) {
         if (visible) {
-            selectedSectionIndicator.backgroundColor = UIColor.wmf_tableOfContentsSelectionIndicator
+            selectedSectionIndicator.backgroundColor = .wmf_tableOfContentsSelectionIndicator
             selectedSectionIndicator.alpha = 1.0
         } else {
             selectedSectionIndicator.alpha = 0.0

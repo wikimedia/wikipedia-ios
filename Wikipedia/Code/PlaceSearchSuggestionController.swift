@@ -69,7 +69,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
             return nil
         }
         header.prepareForReuse()
-        header.backgroundColor = UIColor.wmf_articleListBackground
+        header.backgroundColor = .wmf_articleListBackground
         header.isLabelVerticallyCentered = true
         switch section {
         case suggestionSection:

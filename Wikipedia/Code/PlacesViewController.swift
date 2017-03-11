@@ -66,7 +66,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         // Setup location manager
         locationManager.delegate = self
         
-        view.tintColor = UIColor.wmf_blueTint
+        view.tintColor = .wmf_blueTint
         redoSearchButton.backgroundColor = view.tintColor
         
         // Setup map/list toggle
@@ -78,7 +78,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(updateViewModeFromSegmentedControl), for: .valueChanged)
-        segmentedControl.tintColor = UIColor.wmf_blueTint
+        segmentedControl.tintColor = .wmf_blueTint
         segmentedControlBarButtonItem = UIBarButtonItem(customView: segmentedControl)
         navigationItem.rightBarButtonItem = segmentedControlBarButtonItem
         
@@ -1433,14 +1433,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             tableView.setEditing(false, animated: true)
             CATransaction.commit()
         }
-        saveForLaterAction.backgroundColor = UIColor.wmf_darkBlueTint
+        saveForLaterAction.backgroundColor = .wmf_darkBlueTint
         
         let shareAction = UITableViewRowAction(style: .default, title: localizedStringForKeyFallingBackOnEnglish("action-share")) { (action, indexPath) in
             tableView.setEditing(false, animated: true)
             let article = self.articleFetchedResultsController.object(at: indexPath)
             self.perform(action: .share, onArticle: article)
         }
-        shareAction.backgroundColor = UIColor.wmf_blueTint
+        shareAction.backgroundColor = .wmf_blueTint
         return [saveForLaterAction, shareAction]
     }
     

@@ -32,9 +32,9 @@ public enum TableOfContentsItemType {
         get {
             switch (self) {
             case .primary:
-                return UIColor.wmf_tableOfContentsSectionText
+                return .wmf_tableOfContentsSectionText
             case .secondary:
-                return UIColor.wmf_tableOfContentsSubsectionText
+                return .wmf_tableOfContentsSubsectionText
             }
         }
     }

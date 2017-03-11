@@ -210,9 +210,9 @@ open class WMFTableOfContentsViewController: UIViewController,
         }
         
         if let delegate = delegate, delegate.tableOfContentsDisplayModeIsModal() {
-            tableView.backgroundColor = UIColor.wmf_modalTableOfContentsBackground
+            tableView.backgroundColor = .wmf_modalTableOfContentsBackground
         } else {
-            tableView.backgroundColor = UIColor.wmf_inlineTableOfContentsBackground
+            tableView.backgroundColor = .wmf_inlineTableOfContentsBackground
         }
 
         automaticallyAdjustsScrollViewInsets = false
