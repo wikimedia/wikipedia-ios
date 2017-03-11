@@ -25,10 +25,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PEY-pn-IDi" userLabel="Scroll Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="452"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="529"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="u6y-Sf-xyh">
-                                                <rect key="frame" x="44" y="30" width="288" height="392"/>
+                                                <rect key="frame" x="44" y="30" width="288" height="469"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log in to your account" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="Wff-o9-AdH">
                                                         <rect key="frame" x="0.0" y="0.0" width="288" height="22"/>
@@ -47,8 +47,15 @@
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b8p-0W-5dl" userLabel="Spacer">
+                                                        <rect key="frame" x="0.0" y="46" width="288" height="20"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="20" id="iya-ww-UGK"/>
+                                                        </constraints>
+                                                    </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="plw-63-VlX">
-                                                        <rect key="frame" x="0.0" y="46" width="288" height="16"/>
+                                                        <rect key="frame" x="0.0" y="69" width="288" height="16"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="7Si-tQ-BXD"/>
                                                         </constraints>
@@ -57,7 +64,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mAk-1N-jPC">
-                                                        <rect key="frame" x="0.0" y="65" width="288" height="28"/>
+                                                        <rect key="frame" x="0.0" y="88" width="288" height="28"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="fHf-Fd-0Xa"/>
                                                         </constraints>
@@ -69,8 +76,15 @@
                                                             <outlet property="delegate" destination="mbm-n6-GWW" id="Dta-AT-UIE"/>
                                                         </connections>
                                                     </textField>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uIP-NI-aT1" userLabel="Spacer">
+                                                        <rect key="frame" x="0.0" y="119" width="288" height="15"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="15" id="4vX-Aj-BO9"/>
+                                                        </constraints>
+                                                    </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gK9-cr-NCA">
-                                                        <rect key="frame" x="0.0" y="96" width="288" height="16"/>
+                                                        <rect key="frame" x="0.0" y="137" width="288" height="16"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="Zmc-0H-IYc"/>
                                                         </constraints>
@@ -79,7 +93,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="kVb-lx-d6C">
-                                                        <rect key="frame" x="0.0" y="115" width="288" height="28"/>
+                                                        <rect key="frame" x="0.0" y="156" width="288" height="28"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="dan-PJ-Bds"/>
                                                         </constraints>
@@ -92,7 +106,7 @@
                                                         </connections>
                                                     </textField>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invalid Password" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HxZ-Ry-50e">
-                                                        <rect key="frame" x="0.0" y="146" width="288" height="16"/>
+                                                        <rect key="frame" x="0.0" y="187" width="288" height="16"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="16" id="1U8-2E-cdI"/>
                                                         </constraints>
@@ -100,8 +114,15 @@
                                                         <color key="textColor" red="0.90008913589999995" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1oE-Zy-4xu" userLabel="Spacer">
+                                                        <rect key="frame" x="0.0" y="206" width="288" height="10"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="10" id="uhW-jL-4MM"/>
+                                                        </constraints>
+                                                    </view>
                                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot your password?" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDv-H3-IXL" customClass="WMFAuthLinkLabel" customModule="Wikipedia" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="165" width="288" height="18"/>
+                                                        <rect key="frame" x="0.0" y="219" width="288" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="v6Z-9D-20o"/>
                                                         </constraints>
@@ -109,14 +130,21 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JRu-ie-pbG" userLabel="Spacer">
+                                                        <rect key="frame" x="0.0" y="240" width="288" height="20"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="20" id="vVu-Yl-TFo"/>
+                                                        </constraints>
+                                                    </view>
                                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZK-nT-oqo">
-                                                        <rect key="frame" x="0.0" y="186" width="288" height="163"/>
+                                                        <rect key="frame" x="0.0" y="263" width="288" height="163"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="163" id="ceu-qS-peD"/>
                                                         </constraints>
                                                     </containerView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="d0a-BA-vwt" customClass="WMFAuthButton" customModule="Wikipedia" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="352" width="288" height="40"/>
+                                                        <rect key="frame" x="0.0" y="429" width="288" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="siw-IK-6Qf"/>
                                                         </constraints>
