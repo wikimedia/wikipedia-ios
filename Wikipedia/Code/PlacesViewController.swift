@@ -863,7 +863,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private var greaterThanOneArticleGroupCount = 0
     
     func updateShouldShowAllImages(currentPrecision: QuadKeyPrecision, currentSearchPrecision: QuadKeyPrecision, maxPrecision: QuadKeyPrecision) {
-        let shouldShowAllImages = currentPrecision > maxPrecision + 1 || (currentPrecision >= currentSearchPrecision + 1 && greaterThanOneArticleGroupCount == 0)
+        let shouldShowAllImages = currentPrecision > maxPrecision + 1 || (currentPrecision >= currentSearchPrecision + 2 && greaterThanOneArticleGroupCount == 0)
         
         if shouldShowAllImages != showingAllImages {
             for annotation in mapView.annotations {
