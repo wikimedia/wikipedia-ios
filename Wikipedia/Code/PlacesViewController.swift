@@ -994,7 +994,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 continue
             }
             if group.articles.count > 1 {
-                let location = group.location
                 let baseQuadKey = group.baseQuadKey
                 let baseQuadKeyPrecision = group.baseQuadKeyPrecision
                 let baseQuadKeyCoordinate = QuadKeyCoordinate(quadKey: baseQuadKey, precision: baseQuadKeyPrecision)
@@ -1007,7 +1006,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                             }
                             let latitudePart = QuadKeyPart(Int64(baseQuadKeyCoordinate.latitudePart) + 2*t)
                             let longitudePart = QuadKeyPart(Int64(baseQuadKeyCoordinate.longitudePart) + n)
-                            //let adjacentBaseQuadKey = QuadKey(
                             let adjacentBaseQuadKey = QuadKey(latitudePart: latitudePart, longitudePart: longitudePart, precision: baseQuadKeyPrecision)
                             let adjacentKey = "\(adjacentBaseQuadKey)|\(adjacentBaseQuadKey + 1)"
                             guard let adjacentGroup = groups[adjacentKey] else {
@@ -1017,6 +1015,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                                 //no grouping with the article to select
                                 continue
                             }
+                            let location = group.location
                             let distance = adjacentGroup.location.distance(from: location)
                             if distance < groupingDistance {
                                 group.articles.append(contentsOf: adjacentGroup.articles)
