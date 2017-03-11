@@ -152,7 +152,7 @@ class ArticlePlaceGroupViewController: UIViewController {
             i += 1
         }
         
-        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 2)
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, traitCollection.displayScale)
         guard let ctx = UIGraphicsGetCurrentContext() else {
             return
         }
@@ -175,8 +175,8 @@ class ArticlePlaceGroupViewController: UIViewController {
     func show(center: CGPoint) {
         self.center = center
         //tintView.backgroundColor = UIColor(white: 0, alpha: 0.3)
-
-        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 2)
+        let scale = traitCollection.displayScale
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, scale)
         guard let ctx = UIGraphicsGetCurrentContext() else {
             return
         }
@@ -195,12 +195,14 @@ class ArticlePlaceGroupViewController: UIViewController {
         
         for placeView in placeViews {
             placeView.center = center
+            view.addSubview(placeView)
+            placeView.layer.rasterizationScale = scale
+            placeView.layer.shouldRasterize = true
             placeView.alpha = 0
             let rotationTransform = CGAffineTransform(rotationAngle: CGFloat(-1*M_PI))
             let scale = placeView.groupDimension / placeView.imageDimension
             let scaleTransform = CGAffineTransform(scaleX: scale, y: scale)
             placeView.transform = rotationTransform.concatenating(scaleTransform)
-            view.addSubview(placeView)
         }
        
         let count = placeViews.count
@@ -215,7 +217,7 @@ class ArticlePlaceGroupViewController: UIViewController {
                     placeView.center = CGPoint(x: center.x + CGFloat(x), y: center.y + CGFloat(y))
                     placeView.transform = CGAffineTransform.identity
             }) { (done) in
-                
+                placeView.layer.shouldRasterize = false
             }
             
             UIView.animate(withDuration: 0.15, delay: delay * TimeInterval(i), options: [.allowUserInteraction], animations: {
@@ -237,7 +239,10 @@ class ArticlePlaceGroupViewController: UIViewController {
             completion()
             return
         }
+        let scale = traitCollection.displayScale
         for placeView in placeViews {
+            placeView.layer.rasterizationScale = scale
+            placeView.layer.shouldRasterize = true
             guard placeView.isSelected else {
                 continue
             }
@@ -256,6 +261,7 @@ class ArticlePlaceGroupViewController: UIViewController {
                 let scaleTransform = CGAffineTransform(scaleX: scale, y: scale)
                 placeView.transform = rotationTransform.concatenating(scaleTransform)
             }) { (done) in
+                placeView.layer.shouldRasterize = false
                 group.leave()
             }
             

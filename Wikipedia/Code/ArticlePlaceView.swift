@@ -49,11 +49,12 @@ class ArticlePlaceView: MKAnnotationView {
             dotView.alpha = 0
             dotView.isHidden = false
         }
-
+        
         let transforms = {
             if alwaysShowImage {
                 self.imageView.transform = CGAffineTransform.identity
                 self.dotView.transform = dotViewScaleUpTransform
+                
             } else {
                 self.imageView.transform = imageViewScaleDownTransform
                 self.dotView.transform = CGAffineTransform.identity
@@ -73,7 +74,14 @@ class ArticlePlaceView: MKAnnotationView {
                 self.imageView.alpha = 0
             }
         }
+        
+        if (animated) {
+            self.imageView.layer.shouldRasterize = true
+        }
         let done = {
+            if (animated) {
+                self.imageView.layer.shouldRasterize = false
+            }
             guard let articlePlace = self.annotation as? ArticlePlace else {
                 return
             }
@@ -116,7 +124,7 @@ class ArticlePlaceView: MKAnnotationView {
         
         selectedImageButton.addTarget(self, action: #selector(selectedImageViewWasTapped), for: .touchUpInside)
     }
-
+    
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         selectedImageView = UIView()
         imageView = UIView()
@@ -146,7 +154,7 @@ class ArticlePlaceView: MKAnnotationView {
         
         dotView.bounds = CGRect(x: 0, y: 0, width: collapsedDimension, height: collapsedDimension)
         dotView.layer.contents = smallDotImage.cgImage
-
+        dotView.layer.rasterizationScale = scale
         dotView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
         addSubview(dotView)
         
@@ -155,6 +163,7 @@ class ArticlePlaceView: MKAnnotationView {
         addSubview(groupView)
         
         imageView.bounds = CGRect(x: 0, y: 0, width: imageDimension, height: imageDimension)
+        imageView.layer.rasterizationScale = scale
         addSubview(imageView)
         
         imageBackgroundView.frame = imageView.bounds
@@ -174,8 +183,9 @@ class ArticlePlaceView: MKAnnotationView {
         imageView.addSubview(imageOutlineView)
         
         selectedImageView.bounds = bounds
+        selectedImageView.layer.rasterizationScale = scale
         addSubview(selectedImageView)
-    
+        
         selectedImageBackgroundView.frame = selectedImageView.bounds
         selectedImageBackgroundView.layer.contents = #imageLiteral(resourceName: "places-dot-large-opaque").cgImage
         selectedImageBackgroundView.layer.contentsGravity = kCAGravityCenter
@@ -278,7 +288,7 @@ class ArticlePlaceView: MKAnnotationView {
             groupView.isHidden = false
         }
     }
-
+    
     override var annotation: MKAnnotation? {
         didSet {
             guard let articlePlace = annotation as? ArticlePlace else {
@@ -362,7 +372,15 @@ class ArticlePlaceView: MKAnnotationView {
                 self.selectedImageView.alpha = 0
             }
         }
+        if (animated) {
+            self.imageView.layer.shouldRasterize = true
+            self.selectedImageView.layer.shouldRasterize = true
+        }
         let done = {
+            if (animated) {
+                self.imageView.layer.shouldRasterize = false
+                self.selectedImageView.layer.shouldRasterize = false
+            }
             if !selected {
                 self.layer.zPosition = self.zPosition
             }
@@ -404,7 +422,7 @@ class ArticlePlaceView: MKAnnotationView {
     
     override var frame: CGRect {
         didSet {
-           updateLayout()
+            updateLayout()
         }
     }
     
