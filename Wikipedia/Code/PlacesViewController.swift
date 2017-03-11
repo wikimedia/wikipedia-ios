@@ -1128,6 +1128,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             mapView.addAnnotation(place)
             
             checkAndSelect(place)
+            
+            groups.removeValue(forKey: key)
         }
         
         for (_, annotation) in annotationsToRemove {
