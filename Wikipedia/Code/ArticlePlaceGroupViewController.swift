@@ -81,7 +81,7 @@ class ArticlePlaceGroupViewController: UIViewController {
     }
     
     func handleTapGesture(_ tapGR: UITapGestureRecognizer) {
-        guard tapGR.state == .recognized else {
+        guard isHidden == false && tapGR.state == .recognized else {
             return
         }
         let point = tapGR.location(in: view)

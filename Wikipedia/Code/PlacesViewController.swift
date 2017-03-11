@@ -215,6 +215,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         previouslySelectedArticlePlaceIdentifier = place.identifier
         
         guard place.articles.count == 1 else {
+            guard self.placeGroupVC == nil else {
+                return
+            }
             let placeGroupVC = ArticlePlaceGroupViewController(articles: place.articles)
             placeGroupVC.delegate = self
             placeGroupVC.view.frame = view.bounds
