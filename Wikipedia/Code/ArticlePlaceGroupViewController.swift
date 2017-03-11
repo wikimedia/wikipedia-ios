@@ -58,7 +58,7 @@ class ArticlePlaceGroupViewController: UIViewController {
         
         let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
         panGR.require(toFail: tapGR)
-        view.addGestureRecognizer(tapGR)
+        view.addGestureRecognizer(panGR)
         
         let pinchGR = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGesture))
         panGR.require(toFail: tapGR)
@@ -66,14 +66,15 @@ class ArticlePlaceGroupViewController: UIViewController {
     }
     
     func handlePinchGesture(_ pinchGR: UIPinchGestureRecognizer) {
-        guard pinchGR.state != .failed && pinchGR.state != .possible else {
+        guard isHidden == false && pinchGR.state != .failed && pinchGR.state != .possible else {
             return
         }
         delegate?.articlePlaceGroupViewControllerDidDismiss(self)
     }
     
+    
     func handlePanGesture(_ panGR: UIPanGestureRecognizer) {
-        guard panGR.state != .failed && panGR.state != .possible else {
+        guard isHidden == false && panGR.state != .failed && panGR.state != .possible else {
             return
         }
         delegate?.articlePlaceGroupViewControllerDidDismiss(self)
