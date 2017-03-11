@@ -239,7 +239,7 @@ class ArticlePlaceGroupViewController: UIViewController {
             completion()
             return
         }
-        let scale = traitCollection.displayScale
+        //let scale = traitCollection.displayScale
         for placeView in placeViews {
 //            placeView.layer.rasterizationScale = scale
 //            placeView.layer.shouldRasterize = true
