@@ -75,13 +75,13 @@ class ArticlePlaceView: MKAnnotationView {
             }
         }
         
-        if (animated) {
-            self.imageView.layer.shouldRasterize = true
-        }
+//        if (animated) {
+//            self.imageView.layer.shouldRasterize = true
+//        }
         let done = {
-            if (animated) {
-                self.imageView.layer.shouldRasterize = false
-            }
+//            if (animated) {
+//                self.imageView.layer.shouldRasterize = false
+//            }
             guard let articlePlace = self.annotation as? ArticlePlace else {
                 return
             }
@@ -240,25 +240,31 @@ class ArticlePlaceView: MKAnnotationView {
     }
     
     func update(withArticlePlace articlePlace: ArticlePlace) {
+        imageView.layer.shouldRasterize = false
+        selectedImageView.layer.shouldRasterize = false
         if articlePlace.articles.count == 1 {
             zPosition = 1
             let article = articlePlace.articles[0]
             if let thumbnailURL = article.thumbnailURL {
                 showPlaceholderImage()
                 imageImageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
-                    
+                    self.showPlaceholderImage()
+                    self.imageView.layer.shouldRasterize = true
+                    self.selectedImageView.layer.shouldRasterize = true
                 }, success: {
                     self.imageImageView.contentMode = .scaleAspectFill
                     self.imageImageView.backgroundColor = UIColor.white
-                    self.selectedImageImageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
-                        self.showPlaceholderImage()
-                    }, success: {
-                        self.selectedImageImageView.backgroundColor = UIColor.white
-                        self.selectedImageImageView.contentMode = .scaleAspectFill
-                    })
+                    self.selectedImageImageView.image = self.imageImageView.image
+                    self.selectedImageImageView.layer.contentsRect = self.imageImageView.layer.contentsRect
+                    self.selectedImageImageView.backgroundColor = UIColor.white
+                    self.selectedImageImageView.contentMode = .scaleAspectFill
+                    self.imageView.layer.shouldRasterize = true
+                    self.selectedImageView.layer.shouldRasterize = true
                 })
             } else {
                 showPlaceholderImage()
+                self.imageView.layer.shouldRasterize = true
+                self.selectedImageView.layer.shouldRasterize = true
             }
             accessibilityLabel = articlePlace.articles.first?.displayTitle
         } else if articlePlace.articles.count == 0 {
@@ -372,15 +378,15 @@ class ArticlePlaceView: MKAnnotationView {
                 self.selectedImageView.alpha = 0
             }
         }
-        if (animated) {
-            self.imageView.layer.shouldRasterize = true
-            self.selectedImageView.layer.shouldRasterize = true
-        }
+//        if (animated) {
+//            self.imageView.layer.shouldRasterize = true
+//            self.selectedImageView.layer.shouldRasterize = true
+//        }
         let done = {
-            if (animated) {
-                self.imageView.layer.shouldRasterize = false
-                self.selectedImageView.layer.shouldRasterize = false
-            }
+//            if (animated) {
+//                self.imageView.layer.shouldRasterize = false
+//                self.selectedImageView.layer.shouldRasterize = false
+//            }
             if !selected {
                 self.layer.zPosition = self.zPosition
             }
