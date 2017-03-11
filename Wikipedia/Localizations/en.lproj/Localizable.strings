@@ -63,7 +63,7 @@
 "account-creation-log-in" = "Log in.";
 
 "new-password-title" = "Set your password";
-"new-password-instructions" = "You logged in with a temporary password. To finish logging in set a new password here:";
+"new-password-instructions" = "You logged in with a temporary password. To finish logging in set a new password here.";
 
 "two-factor-login-title" = "Log in to your account";
 "two-factor-login-instructions" = "Please enter two factor verification code";
