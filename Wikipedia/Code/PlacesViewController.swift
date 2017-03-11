@@ -862,8 +862,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private var showingAllImages = false
     private var greaterThanOneArticleGroupCount = 0
     
+    
+    func shouldShowAllImages(currentPrecision: QuadKeyPrecision, currentSearchPrecision: QuadKeyPrecision, maxPrecision: QuadKeyPrecision) -> Bool {
+        return currentPrecision > maxPrecision + 1 || (currentPrecision >= currentSearchPrecision + 2 && greaterThanOneArticleGroupCount == 0)
+    }
+    
     func updateShouldShowAllImages(currentPrecision: QuadKeyPrecision, currentSearchPrecision: QuadKeyPrecision, maxPrecision: QuadKeyPrecision) {
-        let shouldShowAllImages = currentPrecision > maxPrecision + 1 || (currentPrecision >= currentSearchPrecision + 2 && greaterThanOneArticleGroupCount == 0)
+        let shouldShowAllImages = self.shouldShowAllImages(currentPrecision: currentPrecision, currentSearchPrecision: currentSearchPrecision, maxPrecision: maxPrecision)
         
         if shouldShowAllImages != showingAllImages {
             for annotation in mapView.annotations {
@@ -894,20 +899,22 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
         }
         
-        let deltaLon = visibleRegion.span.longitudeDelta
-        let lowestPrecision = QuadKeyPrecision(deltaLongitude: deltaLon)
-        let maxPrecision: QuadKeyPrecision = maxGroupingPrecision
-        let currentPrecision = lowestPrecision + groupingPrecisionDelta
-        let groupingPrecision = min(maxPrecision, currentPrecision)
-        
         guard let searchRegion = currentSearchRegion else {
             return
         }
         
+        let deltaLon = visibleRegion.span.longitudeDelta
+        let lowestPrecision = QuadKeyPrecision(deltaLongitude: deltaLon)
+        
         let searchDeltaLon = searchRegion.span.longitudeDelta
         let lowestSearchPrecision = QuadKeyPrecision(deltaLongitude: searchDeltaLon)
-        let currentSearchPrecision = lowestSearchPrecision + groupingPrecisionDelta
+        
+        let maxPrecision: QuadKeyPrecision = maxGroupingPrecision
 
+        let currentPrecision = lowestPrecision + groupingPrecisionDelta
+        let groupingPrecision = min(maxPrecision, currentPrecision)
+        
+        let currentSearchPrecision = lowestSearchPrecision + groupingPrecisionDelta
         
         guard groupingPrecision != currentGroupingPrecision else {
             updateShouldShowAllImages(currentPrecision: currentPrecision, currentSearchPrecision: currentSearchPrecision, maxPrecision: maxPrecision)
@@ -1001,13 +1008,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                         groups.removeValue(forKey: adjustedQuadKey)
                     }
                 }
-                if group.articles.count > 1 {
-                    greaterThanOneArticleGroupCount += 1
-                }
             }
-            
-            updateShouldShowAllImages(currentPrecision: currentPrecision, currentSearchPrecision: currentSearchPrecision, maxPrecision: maxPrecision)
-            
+
             var nextCoordinate: CLLocationCoordinate2D?
             var coordinate = group.location.coordinate
             
@@ -1041,6 +1043,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     coordinate = previousPlace.coordinate
                 }
             } else {
+                greaterThanOneArticleGroupCount += 1
                 let groupCount = group.articles.count
                 for article in group.articles {
                     guard let key = article.key,
@@ -1072,6 +1075,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     })
                 }
             }
+
             
             guard let place = ArticlePlace(coordinate: coordinate, nextCoordinate: nextCoordinate, articles: group.articles, identifier: identifier) else {
                 continue
@@ -1081,8 +1085,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             
             checkAndSelect(place)
         }
-        
-        
         
         for (_, annotation) in annotationsToRemove {
             let placeView = mapView.view(for: annotation)
@@ -1096,7 +1098,15 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             })
         }
         currentGroupingPrecision = groupingPrecision
+        
+        let showAllImages = shouldShowAllImages(currentPrecision: currentPrecision, currentSearchPrecision: currentSearchPrecision, maxPrecision: maxPrecision)
+        if (!showAllImages) {
+             self.updateShouldShowAllImages(currentPrecision: currentPrecision, currentSearchPrecision: currentSearchPrecision, maxPrecision: maxPrecision)
+        }
         taskGroup.waitInBackground {
+            if (showAllImages) {
+                self.updateShouldShowAllImages(currentPrecision: currentPrecision, currentSearchPrecision: currentSearchPrecision, maxPrecision: maxPrecision)
+            }
             self.groupingTaskGroup = nil
             if (self.needsRegroup) {
                 self.needsRegroup = false
