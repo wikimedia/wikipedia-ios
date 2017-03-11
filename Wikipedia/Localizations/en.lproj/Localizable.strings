@@ -52,7 +52,7 @@
 "account-creation-captcha-obtaining" = "Obtaining a new CAPTCHA...";
 "account-creation-captcha-title" = "CAPTCHA security check";
 "account-creation-captcha-cannot-see-image" = "Can't see the image? $1";
-"account-creation-captcha-request-account" = "Request an account.";
+"account-creation-captcha-request-account" = "Request account.";
 "account-creation-logging-in" = "Logging in...";
 "account-creation-passwords-mismatched" = "Password fields do not match.";
 "account-creation-saving" = "Saving...";
