@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="260"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Fwq-2f-06F">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Fwq-2f-06F">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="260"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mNx-mW-Gkz" userLabel="Spacer">
@@ -32,7 +32,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLd-Yl-D3C">
-                                        <rect key="frame" x="0.0" y="11" width="320" height="22"/>
+                                        <rect key="frame" x="0.0" y="13" width="320" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="22" id="FVc-wo-vWs"/>
                                         </constraints>
@@ -41,7 +41,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0To-aV-npg" customClass="WMFAuthLinkLabel" customModule="Wikipedia" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="34" width="320" height="73"/>
+                                        <rect key="frame" x="0.0" y="38" width="320" height="61"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="18" id="k8C-fr-UaJ"/>
                                         </constraints>
@@ -50,7 +50,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BYt-jz-uGn" userLabel="Container for borders">
-                                        <rect key="frame" x="0.0" y="108" width="320" height="91"/>
+                                        <rect key="frame" x="0.0" y="102" width="320" height="91"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k2g-BG-mmO">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
@@ -145,7 +145,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ou5-rd-yNs">
-                                        <rect key="frame" x="0.0" y="200" width="320" height="16"/>
+                                        <rect key="frame" x="0.0" y="196" width="320" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="16" id="615-wX-SKK"/>
                                         </constraints>
@@ -154,7 +154,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter CAPTCHA text" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gPg-cg-Yjy">
-                                        <rect key="frame" x="0.0" y="217" width="320" height="28"/>
+                                        <rect key="frame" x="0.0" y="215" width="320" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" priority="999" constant="28" id="FGZ-UY-edA"/>
                                         </constraints>
