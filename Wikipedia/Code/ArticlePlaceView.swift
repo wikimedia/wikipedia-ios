@@ -22,8 +22,8 @@ class ArticlePlaceView: MKAnnotationView {
     private let countLabel: UILabel
     private let dimension: CGFloat
     private let collapsedDimension: CGFloat
-    private let groupDimension: CGFloat
-    private let imageDimension: CGFloat
+    let groupDimension: CGFloat
+    let imageDimension: CGFloat
     private let selectionAnimationDuration = 0.3
     private let springDamping: CGFloat = 0.5
     private let crossFadeRelativeHalfDuration: TimeInterval = 0.1

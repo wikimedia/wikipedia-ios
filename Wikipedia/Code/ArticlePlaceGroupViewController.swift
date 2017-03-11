@@ -196,7 +196,10 @@ class ArticlePlaceGroupViewController: UIViewController {
         for placeView in placeViews {
             placeView.center = center
             placeView.alpha = 0
-            placeView.transform = CGAffineTransform(rotationAngle: CGFloat(-1*M_PI))
+            let rotationTransform = CGAffineTransform(rotationAngle: CGFloat(-1*M_PI))
+            let scale = placeView.groupDimension / placeView.imageDimension
+            let scaleTransform = CGAffineTransform(scaleX: scale, y: scale)
+            placeView.transform = rotationTransform.concatenating(scaleTransform)
             view.addSubview(placeView)
         }
        
@@ -215,7 +218,7 @@ class ArticlePlaceGroupViewController: UIViewController {
                 
             }
             
-            UIView.animate(withDuration: 0.2, delay: delay * TimeInterval(i), options: [.allowUserInteraction], animations: {
+            UIView.animate(withDuration: 0.15, delay: delay * TimeInterval(i), options: [.allowUserInteraction], animations: {
                 placeView.alpha = 1
             }, completion: nil)
             i += 1
@@ -247,9 +250,11 @@ class ArticlePlaceGroupViewController: UIViewController {
         for placeView in placeViews.reversed() {
             group.enter()
             UIView.animate(withDuration: 0.3, delay: delay * TimeInterval(i), options: [.allowUserInteraction], animations: {
-
                 placeView.center = center
-                placeView.transform = CGAffineTransform(rotationAngle: CGFloat(-1*M_PI))
+                let rotationTransform = CGAffineTransform(rotationAngle: CGFloat(-1*M_PI))
+                let scale = placeView.groupDimension / placeView.imageDimension
+                let scaleTransform = CGAffineTransform(scaleX: scale, y: scale)
+                placeView.transform = rotationTransform.concatenating(scaleTransform)
             }) { (done) in
                 group.leave()
             }
