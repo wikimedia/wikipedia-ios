@@ -28,8 +28,8 @@ class ArticlePlaceView: MKAnnotationView {
     private let springDamping: CGFloat = 0.5
     private let crossFadeRelativeHalfDuration: TimeInterval = 0.1
     private var alwaysShowImage = false
-    private let alwaysRasterize = true // set this or rasterize on animations, not both
-    private let rasterizeOnAnimations = false
+    private let alwaysRasterize = false // set this or rasterize on animations, not both
+    private let rasterizeOnAnimations = true
     
     func set(alwaysShowImage: Bool, animated: Bool) {
         self.alwaysShowImage = alwaysShowImage
