@@ -220,6 +220,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
             let placeGroupVC = ArticlePlaceGroupViewController(articles: place.articles)
             placeGroupVC.delegate = self
+            placeGroupVC.view.tintColor = view.tintColor
             placeGroupVC.view.frame = view.bounds
             placeGroupVC.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 

@@ -9,13 +9,23 @@ protocol ArticlePlaceGroupViewControllerDelegate: NSObjectProtocol {
 
 }
 
+extension CGPoint {
+    func distance(fromPoint: CGPoint) -> CGFloat {
+        let dx = self.x - fromPoint.x
+        let dy = self.y - fromPoint.y
+        return sqrt(dx*dx + dy*dy)
+    }
+}
+
 
 class ArticlePlaceGroupViewController: UIViewController {
     let articles: [WMFArticle]
     private let placeViews: [ArticlePlaceView]
-    private let maxArticleCount = 7
+    private let maxArticleCount = 8
     private let radius: Double
     public weak var delegate: ArticlePlaceGroupViewControllerDelegate?
+    private let zoomPlaceView: ArticlePlaceView
+    private let zoomPlaceViewScale: CGFloat
     
     required init(articles: [WMFArticle]) {
         self.articles = articles
@@ -31,11 +41,11 @@ class ArticlePlaceGroupViewController: UIViewController {
             placeViews.append(placeView)
         }
         let zoomPlace = ArticlePlace(coordinate: kCLLocationCoordinate2DInvalid, nextCoordinate: nil, articles: [], identifier: "zoom")
-        let placeView = ArticlePlaceView(annotation: zoomPlace, reuseIdentifier: "zoom")
-        placeView.set(alwaysShowImage: true, animated: false)
-        placeViews.append(placeView)
+        zoomPlaceView = ArticlePlaceView(annotation: zoomPlace, reuseIdentifier: "zoom")
+        zoomPlaceView.set(alwaysShowImage: true, animated: false)
         self.placeViews = placeViews
-        self.radius = Double(25 + (maximum + 1) * 6)
+        radius = Double(zoomPlaceView.imageDimension + CGFloat((maximum + 1) * 4))
+        zoomPlaceViewScale = zoomPlaceView.groupDimension / zoomPlaceView.imageDimension
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -99,7 +109,7 @@ class ArticlePlaceGroupViewController: UIViewController {
         guard !didSelect else {
             return
         }
-        
+    
         var didDeselect = false
         
         for placeView in placeViews {
@@ -109,6 +119,14 @@ class ArticlePlaceGroupViewController: UIViewController {
             didDeselect = true
             placeView.setSelected(false, animated: true)
             delegate?.articlePlaceGroupViewController(self, didDeselectPlaceView: placeView)
+        }
+        
+        if let center = self.center {
+            let distance = point.distance(fromPoint: center)
+            guard distance > 0.5*zoomPlaceView.imageDimension else {
+                delegate?.articlePlaceGroupViewControllerDidSelectZoom(self)
+                return
+            }
         }
         
         guard !didDeselect else {
@@ -139,8 +157,6 @@ class ArticlePlaceGroupViewController: UIViewController {
     
     func layoutForCenter(center: CGPoint) {
         let count = placeViews.count
-        let maximum = min(maxArticleCount, articles.count) + 1
-        let radius = Double(22 + maximum * 4)
         var i = 1
         for placeView in placeViews {
             let theta = 2*M_PI / Double(count)
@@ -193,18 +209,22 @@ class ArticlePlaceGroupViewController: UIViewController {
         tintView.image = image
         UIGraphicsEndImageContext()
         
+        let rotationTransform = CGAffineTransform(rotationAngle: CGFloat(-1*M_PI))
+        let scaleTransform = CGAffineTransform(scaleX: zoomPlaceViewScale, y: zoomPlaceViewScale)
+        let transform = rotationTransform.concatenating(scaleTransform)
+        
         for placeView in placeViews {
             placeView.center = center
             view.addSubview(placeView)
-//            placeView.layer.rasterizationScale = scale
-//            placeView.layer.shouldRasterize = true
             placeView.alpha = 0
-            let rotationTransform = CGAffineTransform(rotationAngle: CGFloat(-1*M_PI))
-            let scale = placeView.groupDimension / placeView.imageDimension
-            let scaleTransform = CGAffineTransform(scaleX: scale, y: scale)
-            placeView.transform = rotationTransform.concatenating(scaleTransform)
+            placeView.transform = transform
         }
-       
+        
+        zoomPlaceView.transform = transform
+        zoomPlaceView.center = center
+        zoomPlaceView.alpha = 0
+        view.addSubview(zoomPlaceView)
+
         let count = placeViews.count
         var i = 1
         let delay: TimeInterval = 0.05
@@ -225,6 +245,16 @@ class ArticlePlaceGroupViewController: UIViewController {
             }, completion: nil)
             i += 1
         }
+        
+        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: {
+            self.zoomPlaceView.transform = CGAffineTransform.identity
+        }) { (done) in
+            //                placeView.layer.shouldRasterize = false
+        }
+        
+        UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction], animations: {
+            self.zoomPlaceView.alpha = 1
+        }, completion: nil)
         
         UIView.animate(withDuration: 0.6, delay: 0, options: [.allowUserInteraction], animations: {
             self.tintView.alpha = 1
@@ -252,14 +282,14 @@ class ArticlePlaceGroupViewController: UIViewController {
         let delay: TimeInterval = 0.05
         let group = WMFTaskGroup()
         var i = 1
+        let rotationTransform = CGAffineTransform(rotationAngle: CGFloat(-1*M_PI))
+        let scaleTransform = CGAffineTransform(scaleX: zoomPlaceViewScale, y: zoomPlaceViewScale)
+        let transform = rotationTransform.concatenating(scaleTransform)
         for placeView in placeViews.reversed() {
             group.enter()
             UIView.animate(withDuration: 0.3, delay: delay * TimeInterval(i), options: [.allowUserInteraction], animations: {
                 placeView.center = center
-                let rotationTransform = CGAffineTransform(rotationAngle: CGFloat(-1*M_PI))
-                let scale = placeView.groupDimension / placeView.imageDimension
-                let scaleTransform = CGAffineTransform(scaleX: scale, y: scale)
-                placeView.transform = rotationTransform.concatenating(scaleTransform)
+                placeView.transform = transform
             }) { (done) in
 //                placeView.layer.shouldRasterize = false
                 group.leave()
@@ -270,6 +300,11 @@ class ArticlePlaceGroupViewController: UIViewController {
             }, completion: nil)
             i += 1
         }
+        
+        UIView.animate(withDuration: 0.3, delay:  delay * TimeInterval(i - 1), options: [.allowUserInteraction], animations: {
+            self.zoomPlaceView.transform = transform
+            self.zoomPlaceView.alpha = 0
+        }, completion: nil)
         
         UIView.animate(withDuration: 0.3 + delay * TimeInterval(i - 1), delay: 0, options: [.allowUserInteraction], animations: {
             self.tintView.alpha = 0
