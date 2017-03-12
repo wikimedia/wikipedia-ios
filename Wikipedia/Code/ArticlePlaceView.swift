@@ -28,6 +28,8 @@ class ArticlePlaceView: MKAnnotationView {
     private let springDamping: CGFloat = 0.5
     private let crossFadeRelativeHalfDuration: TimeInterval = 0.1
     private var alwaysShowImage = false
+    private let alwaysRasterize = false // set this or rasterize on animations, not both
+    private let rasterizeOnAnimations = true
     
     func set(alwaysShowImage: Bool, animated: Bool) {
         self.alwaysShowImage = alwaysShowImage
@@ -75,13 +77,13 @@ class ArticlePlaceView: MKAnnotationView {
             }
         }
         
-//        if (animated) {
-//            self.imageView.layer.shouldRasterize = true
-//        }
+        if (animated && rasterizeOnAnimations) {
+            self.imageView.layer.shouldRasterize = true
+        }
         let done = {
-//            if (animated) {
-//                self.imageView.layer.shouldRasterize = false
-//            }
+            if (animated && self.rasterizeOnAnimations) {
+                self.imageView.layer.shouldRasterize = false
+            }
             guard let articlePlace = self.annotation as? ArticlePlace else {
                 return
             }
@@ -154,7 +156,6 @@ class ArticlePlaceView: MKAnnotationView {
         
         dotView.bounds = CGRect(x: 0, y: 0, width: collapsedDimension, height: collapsedDimension)
         dotView.layer.contents = smallDotImage.cgImage
-        dotView.layer.rasterizationScale = scale
         dotView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
         addSubview(dotView)
         
@@ -239,18 +240,26 @@ class ArticlePlaceView: MKAnnotationView {
         selectedImageImageView.image = #imageLiteral(resourceName: "places-w-big")
     }
     
+    private var shouldRasterize = false {
+        didSet {
+            imageView.layer.shouldRasterize = shouldRasterize
+            selectedImageView.layer.shouldRasterize = shouldRasterize
+        }
+    }
+    
     func update(withArticlePlace articlePlace: ArticlePlace) {
-        imageView.layer.shouldRasterize = false
-        selectedImageView.layer.shouldRasterize = false
+        if alwaysRasterize {
+            shouldRasterize = false
+        }
         if articlePlace.articles.count == 1 {
             zPosition = 1
             let article = articlePlace.articles[0]
             if let thumbnailURL = article.thumbnailURL {
-                showPlaceholderImage()
                 imageImageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
                     self.showPlaceholderImage()
-                    self.imageView.layer.shouldRasterize = true
-                    self.selectedImageView.layer.shouldRasterize = true
+                    if self.alwaysRasterize {
+                        self.shouldRasterize = true
+                    }
                 }, success: {
                     self.imageImageView.contentMode = .scaleAspectFill
                     self.imageImageView.backgroundColor = UIColor.white
@@ -258,13 +267,15 @@ class ArticlePlaceView: MKAnnotationView {
                     self.selectedImageImageView.layer.contentsRect = self.imageImageView.layer.contentsRect
                     self.selectedImageImageView.backgroundColor = UIColor.white
                     self.selectedImageImageView.contentMode = .scaleAspectFill
-                    self.imageView.layer.shouldRasterize = true
-                    self.selectedImageView.layer.shouldRasterize = true
+                    if self.alwaysRasterize {
+                        self.shouldRasterize = true
+                    }
                 })
             } else {
                 showPlaceholderImage()
-                self.imageView.layer.shouldRasterize = true
-                self.selectedImageView.layer.shouldRasterize = true
+                if alwaysRasterize {
+                    shouldRasterize = true
+                }
             }
             accessibilityLabel = articlePlace.articles.first?.displayTitle
         } else if articlePlace.articles.count == 0 {
@@ -378,15 +389,13 @@ class ArticlePlaceView: MKAnnotationView {
                 self.selectedImageView.alpha = 0
             }
         }
-//        if (animated) {
-//            self.imageView.layer.shouldRasterize = true
-//            self.selectedImageView.layer.shouldRasterize = true
-//        }
+        if (animated && rasterizeOnAnimations) {
+            shouldRasterize = true
+        }
         let done = {
-//            if (animated) {
-//                self.imageView.layer.shouldRasterize = false
-//                self.selectedImageView.layer.shouldRasterize = false
-//            }
+            if (animated && self.rasterizeOnAnimations) {
+                self.shouldRasterize = false
+            }
             if !selected {
                 self.layer.zPosition = self.zPosition
             }
