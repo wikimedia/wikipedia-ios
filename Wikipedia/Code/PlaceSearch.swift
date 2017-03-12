@@ -1,5 +1,3 @@
-import MapKit.MKGeometry
-
 enum PlaceSearchType: UInt {
     case text
     case location

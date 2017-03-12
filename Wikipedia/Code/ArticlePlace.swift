@@ -1,7 +1,19 @@
 import UIKit
 import MapKit
 import WMF
-import CoreLocation.CLLocation
+
+class DebugAnnotation: NSObject, MKAnnotation {
+    public let coordinate: CLLocationCoordinate2D
+    public let title: String?
+    public let subtitle: String?
+    
+    
+    init?(coordinate: CLLocationCoordinate2D) {
+        self.title = nil
+        self.subtitle = nil
+        self.coordinate = coordinate
+    }
+}
 
 class ArticlePlace: NSObject, MKAnnotation {
     public dynamic var coordinate: CLLocationCoordinate2D
