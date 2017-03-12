@@ -44,7 +44,7 @@ class ArticlePlaceGroupViewController: UIViewController {
         zoomPlaceView = ArticlePlaceView(annotation: zoomPlace, reuseIdentifier: "zoom")
         zoomPlaceView.set(alwaysShowImage: true, animated: false)
         self.placeViews = placeViews
-        radius = Double(zoomPlaceView.imageDimension + CGFloat((maximum + 1) * 4))
+        radius = Double(zoomPlaceView.imageDimension + CGFloat(maximum * 4))
         zoomPlaceViewScale = zoomPlaceView.groupDimension / zoomPlaceView.imageDimension
         super.init(nibName: nil, bundle: nil)
     }
