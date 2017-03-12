@@ -1,5 +1,6 @@
 import UIKit
 
+
 protocol ArticlePopoverViewControllerDelegate: NSObjectProtocol {
     func articlePopoverViewController(articlePopoverViewController: ArticlePopoverViewController, didSelectAction: WMFArticleAction)
 }
