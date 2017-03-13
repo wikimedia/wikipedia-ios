@@ -1817,9 +1817,6 @@
 		D8EDD5441E773CEC00288004 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		D8EDD5451E773CEC00288004 /* WMFFontSliderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B09B03F41CE0FB7700009083 /* WMFFontSliderViewController.xib */; };
 		D8EDD5461E773CEC00288004 /* NotificationButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B581DF22E1700B95311 /* NotificationButtonBackground@2x.png */; };
-		D8EDD5481E773CEC00288004 /* InTheNewsNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D895D0831D9C1EB8005418C1 /* InTheNewsNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		D8EDD5491E773CEC00288004 /* TopReadWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D85D34C51D74D07500845125 /* TopReadWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		D8EDD54A1E773CEC00288004 /* ContinueReadingWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0E8380631D64989F0076EDE4 /* ContinueReadingWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D8EDD54C1E773CEC00288004 /* WMF.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D8EEA0F11D6DF60600D88143 /* WMFTodayContinueReadingWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85219371D6DEFBB00084796 /* WMFTodayContinueReadingWidgetViewController.swift */; };
 		D8EEA0F41D6E14E800D88143 /* WMFAppModalProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EEA0F21D6E14E800D88143 /* WMFAppModalProgressViewController.swift */; };
@@ -2003,27 +2000,6 @@
 			remoteGlobalIDString = D844D96B1D6CB2600042D692;
 			remoteInfo = WMF;
 		};
-		D8EDD3811E773CEC00288004 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D499142D181D51DE00E6073C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0E8380621D64989F0076EDE4;
-			remoteInfo = ContinueReadingWidget;
-		};
-		D8EDD3831E773CEC00288004 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D499142D181D51DE00E6073C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D85D34C41D74D07500845125;
-			remoteInfo = TopReadWidget;
-		};
-		D8EDD3851E773CEC00288004 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D499142D181D51DE00E6073C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D895D0821D9C1EB8005418C1;
-			remoteInfo = InTheNewsNotification;
-		};
 		D8FA19121E1BDFD7009675C3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D499142D181D51DE00E6073C /* Project object */;
@@ -2080,19 +2056,6 @@
 				D8CE26A51E698E2400DAE2E0 /* WMF.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D8EDD5471E773CEC00288004 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				D8EDD5481E773CEC00288004 /* InTheNewsNotification.appex in Embed App Extensions */,
-				D8EDD5491E773CEC00288004 /* TopReadWidget.appex in Embed App Extensions */,
-				D8EDD54A1E773CEC00288004 /* ContinueReadingWidget.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D8EDD54B1E773CEC00288004 /* Embed Frameworks */ = {
@@ -3533,7 +3496,7 @@
 		D8E2F6A61E01658300968645 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = Carthage/Build/iOS/SDWebImage.framework; sourceTree = SOURCE_ROOT; };
 		D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLinkParsingTests.m; sourceTree = "<group>"; };
 		D8EDD5571E773CEC00288004 /* Wikipedia Beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wikipedia Beta.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8EDD5591E773D8000288004 /* Wikipedia Beta.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Wikipedia Beta.entitlements"; sourceTree = "<group>"; };
+		D8EDD5591E773D8000288004 /* Wikipedia Beta.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Wikipedia Beta.entitlements"; sourceTree = SOURCE_ROOT; };
 		D8EEA0F21D6E14E800D88143 /* WMFAppModalProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAppModalProgressViewController.swift; sourceTree = "<group>"; };
 		D8EEA0F31D6E14E800D88143 /* WMFAppModalProgressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFAppModalProgressViewController.xib; sourceTree = "<group>"; };
 		D8EEA0F81D6E21A400D88143 /* NSFileManager+WMFGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+WMFGroup.h"; path = "Wikipedia/Code/NSFileManager+WMFGroup.h"; sourceTree = SOURCE_ROOT; };
@@ -6419,7 +6382,6 @@
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
 			children = (
-				D8EDD5591E773D8000288004 /* Wikipedia Beta.entitlements */,
 				D499143E181D51DE00E6073C /* Wikipedia */,
 				D4991453181D51DE00E6073C /* Images.xcassets */,
 				BC8309941A7BF935003FC5C7 /* Tests */,
@@ -6472,6 +6434,7 @@
 		D499143E181D51DE00E6073C /* Wikipedia */ = {
 			isa = PBXGroup;
 			children = (
+				D8EDD5591E773D8000288004 /* Wikipedia Beta.entitlements */,
 				BC7C3A371C0FF94A0057F023 /* Code */,
 				BC2F420D1BEA60350033E185 /* Localizations */,
 				BCF012321AD2FA38008D3675 /* assets */,
@@ -7352,7 +7315,6 @@
 				D8EDD3861E773CEC00288004 /* Sources */,
 				D8EDD4C91E773CEC00288004 /* Frameworks */,
 				D8EDD4E01E773CEC00288004 /* Resources */,
-				D8EDD5471E773CEC00288004 /* Embed App Extensions */,
 				D8EDD54B1E773CEC00288004 /* Embed Frameworks */,
 				D8EDD54D1E773CEC00288004 /* Embed Frameworks from Carthage */,
 				D8EDD54E1E773CEC00288004 /* ShellScript */,
@@ -7361,9 +7323,6 @@
 			);
 			dependencies = (
 				D8EDD37E1E773CEC00288004 /* PBXTargetDependency */,
-				D8EDD3801E773CEC00288004 /* PBXTargetDependency */,
-				D8EDD3821E773CEC00288004 /* PBXTargetDependency */,
-				D8EDD3841E773CEC00288004 /* PBXTargetDependency */,
 			);
 			name = "Wikipedia Beta";
 			productName = "Wikipedia-iOS";
@@ -7458,6 +7417,9 @@
 					D8EDD37D1E773CEC00288004 = {
 						DevelopmentTeam = AKK7J2GV64;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
 							com.apple.SafariKeychain = {
 								enabled = 0;
 							};
@@ -9552,21 +9514,6 @@
 			isa = PBXTargetDependency;
 			target = D844D96B1D6CB2600042D692 /* WMF */;
 			targetProxy = D8EDD37F1E773CEC00288004 /* PBXContainerItemProxy */;
-		};
-		D8EDD3801E773CEC00288004 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0E8380621D64989F0076EDE4 /* ContinueReadingWidget */;
-			targetProxy = D8EDD3811E773CEC00288004 /* PBXContainerItemProxy */;
-		};
-		D8EDD3821E773CEC00288004 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D85D34C41D74D07500845125 /* TopReadWidget */;
-			targetProxy = D8EDD3831E773CEC00288004 /* PBXContainerItemProxy */;
-		};
-		D8EDD3841E773CEC00288004 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D895D0821D9C1EB8005418C1 /* InTheNewsNotification */;
-			targetProxy = D8EDD3851E773CEC00288004 /* PBXContainerItemProxy */;
 		};
 		D8FA19131E1BDFD7009675C3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -11874,7 +11821,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CLANG_ENABLE_CODE_COVERAGE = YES;
-				CODE_SIGN_ENTITLEMENTS = "Wikipedia Beta.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEFINES_MODULE = YES;
@@ -11913,7 +11859,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CLANG_ENABLE_CODE_COVERAGE = YES;
-				CODE_SIGN_ENTITLEMENTS = "Wikipedia Beta.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEFINES_MODULE = YES;
@@ -11952,7 +11897,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CLANG_ENABLE_CODE_COVERAGE = YES;
-				CODE_SIGN_ENTITLEMENTS = "Wikipedia Beta.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEFINES_MODULE = YES;
@@ -12000,7 +11944,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CLANG_ENABLE_CODE_COVERAGE = NO;
-				CODE_SIGN_ENTITLEMENTS = "Wikipedia Beta.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEFINES_MODULE = YES;
@@ -12039,7 +11982,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CLANG_ENABLE_CODE_COVERAGE = NO;
-				CODE_SIGN_ENTITLEMENTS = "Wikipedia Beta.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEFINES_MODULE = YES;
@@ -12078,7 +12020,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CLANG_ENABLE_CODE_COVERAGE = NO;
-				CODE_SIGN_ENTITLEMENTS = "Wikipedia Beta.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEFINES_MODULE = YES;
@@ -12117,7 +12058,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CLANG_ENABLE_CODE_COVERAGE = NO;
-				CODE_SIGN_ENTITLEMENTS = "Wikipedia Beta.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEFINES_MODULE = YES;
@@ -12193,6 +12133,7 @@
 					"NS_BLOCK_ASSERTIONS=1",
 					"BETA=1",
 					"WMF_APP_GROUP_IDENTIFIER=$(WMF_APP_GROUP_IDENTIFIER)",
+					"WMF_NO_APP_GROUP=1",
 				);
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -12204,6 +12145,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_SWIFT_FLAGS = "-D WMF_NO_APP_GROUP";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
@@ -12448,7 +12390,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CLANG_ENABLE_CODE_COVERAGE = NO;
-				CODE_SIGN_ENTITLEMENTS = "Wikipedia Beta.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEFINES_MODULE = YES;
@@ -12517,6 +12458,7 @@
 					"$(inherited)",
 					"BETA=1",
 					"WMF_APP_GROUP_IDENTIFIER=$(WMF_APP_GROUP_IDENTIFIER)",
+					"WMF_NO_APP_GROUP=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
@@ -12530,6 +12472,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-D WMF_NO_APP_GROUP";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -12786,7 +12729,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CLANG_ENABLE_CODE_COVERAGE = YES;
-				CODE_SIGN_ENTITLEMENTS = "Wikipedia Beta.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEFINES_MODULE = YES;
