@@ -248,7 +248,6 @@ class ArticlePlaceGroupViewController: UIViewController {
                     placeView.center = CGPoint(x: center.x + CGFloat(x), y: center.y + CGFloat(y))
                     placeView.transform = CGAffineTransform.identity
             }) { (done) in
-//                placeView.layer.shouldRasterize = false
             }
             
             UIView.animate(withDuration: 0.15, delay: delay * TimeInterval(i), options: [.allowUserInteraction], animations: {
@@ -261,7 +260,6 @@ class ArticlePlaceGroupViewController: UIViewController {
             self.zoomPlaceView.transform = CGAffineTransform.identity
             self.groupView.transform = groupTransform
         }) { (done) in
-            //                placeView.layer.shouldRasterize = false
         }
         
         UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction], animations: {
@@ -284,10 +282,7 @@ class ArticlePlaceGroupViewController: UIViewController {
             completion()
             return
         }
-        //let scale = traitCollection.displayScale
         for placeView in placeViews {
-//            placeView.layer.rasterizationScale = scale
-//            placeView.layer.shouldRasterize = true
             guard placeView.isSelected else {
                 continue
             }
@@ -306,7 +301,6 @@ class ArticlePlaceGroupViewController: UIViewController {
                 placeView.center = center
                 placeView.transform = transform
             }) { (done) in
-//                placeView.layer.shouldRasterize = false
                 group.leave()
             }
             
@@ -316,15 +310,21 @@ class ArticlePlaceGroupViewController: UIViewController {
             i += 1
         }
         self.groupView.alpha = 1
+        group.enter()
         UIView.animate(withDuration: 0.3, delay:  delay * TimeInterval(i - 1), options: [.allowUserInteraction], animations: {
             self.zoomPlaceView.transform = transform
             self.zoomPlaceView.alpha = 0
             self.groupView.transform = CGAffineTransform.identity
-        }, completion: nil)
+        }) { (done) in
+            group.leave()
+        }
         
+        group.enter()
         UIView.animate(withDuration: 0.3 + delay * TimeInterval(i - 1), delay: 0, options: [.allowUserInteraction], animations: {
             self.tintView.alpha = 0
-        }, completion: nil)
+        }) { (done) in
+            group.leave()
+        }
         
         group.waitInBackground(completion: completion)
     }
