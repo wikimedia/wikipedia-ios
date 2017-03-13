@@ -262,7 +262,7 @@ class ArticlePlaceGroupViewController: UIViewController {
         }) { (done) in
         }
         
-        UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction], animations: {
+        UIView.animate(withDuration: 0.15, delay: 0, options: [.allowUserInteraction], animations: {
             self.zoomPlaceView.alpha = 1
             
         }) { (done) in
@@ -309,7 +309,12 @@ class ArticlePlaceGroupViewController: UIViewController {
             }, completion: nil)
             i += 1
         }
+        
+        let groupRotationTransform = CGAffineTransform(rotationAngle: CGFloat(1*M_PI))
+        let groupScaleTransform = CGAffineTransform(scaleX: 1/zoomPlaceViewScale, y: 1/zoomPlaceViewScale)
+        let groupTransform = groupRotationTransform.concatenating(groupScaleTransform)
         self.groupView.alpha = 1
+        self.groupView.transform = groupTransform
         group.enter()
         UIView.animate(withDuration: 0.3, delay:  delay * TimeInterval(i - 1), options: [.allowUserInteraction], animations: {
             self.zoomPlaceView.transform = transform
