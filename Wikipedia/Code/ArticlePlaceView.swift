@@ -213,6 +213,9 @@ class ArticlePlaceView: MKAnnotationView {
         countLabel.font = UIFont.boldSystemFont(ofSize: 16)
         groupView.addSubview(countLabel)
         
+        if alwaysRasterize {
+            shouldRasterize = true
+        }
         prepareForReuse()
         self.annotation = annotation
     }
@@ -233,7 +236,7 @@ class ArticlePlaceView: MKAnnotationView {
     func showPlaceholderImage() {
         imageImageView.contentMode = .center
         imageImageView.backgroundColor = UIColor.clear
-        imageImageView.image = #imageLiteral(resourceName: "places-w")
+        imageImageView.image = #imageLiteral(resourceName: "places-w-big")
         
         selectedImageImageView.contentMode = .center
         selectedImageImageView.backgroundColor = UIColor.clear
@@ -248,18 +251,13 @@ class ArticlePlaceView: MKAnnotationView {
     }
     
     func update(withArticlePlace articlePlace: ArticlePlace) {
-        if alwaysRasterize {
-            shouldRasterize = false
-        }
+
         if articlePlace.articles.count == 1 {
             zPosition = 1
             let article = articlePlace.articles[0]
+            showPlaceholderImage()
             if let thumbnailURL = article.thumbnailURL {
                 imageImageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
-                    self.showPlaceholderImage()
-                    if self.alwaysRasterize {
-                        self.shouldRasterize = true
-                    }
                 }, success: {
                     self.imageImageView.contentMode = .scaleAspectFill
                     self.imageImageView.backgroundColor = UIColor.white
@@ -267,15 +265,7 @@ class ArticlePlaceView: MKAnnotationView {
                     self.selectedImageImageView.layer.contentsRect = self.imageImageView.layer.contentsRect
                     self.selectedImageImageView.backgroundColor = UIColor.white
                     self.selectedImageImageView.contentMode = .scaleAspectFill
-                    if self.alwaysRasterize {
-                        self.shouldRasterize = true
-                    }
                 })
-            } else {
-                showPlaceholderImage()
-                if alwaysRasterize {
-                    shouldRasterize = true
-                }
             }
             accessibilityLabel = articlePlace.articles.first?.displayTitle
         } else if articlePlace.articles.count == 0 {
