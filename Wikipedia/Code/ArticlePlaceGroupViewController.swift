@@ -212,7 +212,7 @@ class ArticlePlaceGroupViewController: UIViewController {
         tintView.image = image
         UIGraphicsEndImageContext()
         
-        let rotationTransform = CGAffineTransform(rotationAngle: CGFloat(-1*M_PI))
+        let rotationTransform = CGAffineTransform(rotationAngle: CGFloat(-0.99*M_PI))
         let scaleTransform = CGAffineTransform(scaleX: zoomPlaceViewScale, y: zoomPlaceViewScale)
         let transform = rotationTransform.concatenating(scaleTransform)
         
@@ -223,7 +223,7 @@ class ArticlePlaceGroupViewController: UIViewController {
             placeView.transform = transform
         }
         
-        let groupRotationTransform = CGAffineTransform(rotationAngle: CGFloat(1*M_PI))
+        let groupRotationTransform = CGAffineTransform(rotationAngle: CGFloat(0.99*M_PI))
         let groupScaleTransform = CGAffineTransform(scaleX: 1/zoomPlaceViewScale, y: 1/zoomPlaceViewScale)
         let groupTransform = groupRotationTransform.concatenating(groupScaleTransform)
         
@@ -292,7 +292,7 @@ class ArticlePlaceGroupViewController: UIViewController {
         let delay: TimeInterval = 0.05
         let group = WMFTaskGroup()
         var i = 1
-        let rotationTransform = CGAffineTransform(rotationAngle: CGFloat(-1*M_PI))
+        let rotationTransform = CGAffineTransform(rotationAngle: CGFloat(-0.99*M_PI))
         let scaleTransform = CGAffineTransform(scaleX: zoomPlaceViewScale, y: zoomPlaceViewScale)
         let transform = rotationTransform.concatenating(scaleTransform)
         for placeView in placeViews.reversed() {
@@ -310,7 +310,7 @@ class ArticlePlaceGroupViewController: UIViewController {
             i += 1
         }
         
-        let groupRotationTransform = CGAffineTransform(rotationAngle: CGFloat(1*M_PI))
+        let groupRotationTransform = CGAffineTransform(rotationAngle: CGFloat(0.99*M_PI))
         let groupScaleTransform = CGAffineTransform(scaleX: 1/zoomPlaceViewScale, y: 1/zoomPlaceViewScale)
         let groupTransform = groupRotationTransform.concatenating(groupScaleTransform)
         self.groupView.alpha = 1
