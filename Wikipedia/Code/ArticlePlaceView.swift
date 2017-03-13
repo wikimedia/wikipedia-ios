@@ -236,7 +236,7 @@ class ArticlePlaceView: MKAnnotationView {
     func showPlaceholderImage() {
         imageImageView.contentMode = .center
         imageImageView.backgroundColor = UIColor.clear
-        imageImageView.image = #imageLiteral(resourceName: "places-w-big")
+        imageImageView.image = #imageLiteral(resourceName: "places-w")
         
         selectedImageImageView.contentMode = .center
         selectedImageImageView.backgroundColor = UIColor.clear
