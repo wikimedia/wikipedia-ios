@@ -1,4 +1,5 @@
 #import "MWKSectionList.h"
+#import <WMF/WMF-Swift.h>
 
 @interface MWKSection (MWKSectionHierarchyBuilder)
 
@@ -211,17 +212,17 @@
 
 - (NSArray *)topLevelSections {
     __block MWKSection *currentParent = nil;
-    return [self.sections bk_reduce:[NSMutableArray arrayWithCapacity:self.sections.count]
-                          withBlock:^NSMutableArray *(NSMutableArray *topLevelSections, MWKSection *section) {
-                              if (!section.level) {
-                                  [topLevelSections addObject:section];
-                                  currentParent = nil;
-                              } else if (currentParent == nil || ![currentParent isAtLevelAboveSection:section]) {
-                                  currentParent = section;
-                                  [topLevelSections addObject:section];
-                              }
-                              return topLevelSections;
-                          }];
+    return [self.sections wmf_reduce:[NSMutableArray arrayWithCapacity:self.sections.count]
+                           withBlock:^NSMutableArray *(NSMutableArray *topLevelSections, MWKSection *section) {
+                               if (!section.level) {
+                                   [topLevelSections addObject:section];
+                                   currentParent = nil;
+                               } else if (currentParent == nil || ![currentParent isAtLevelAboveSection:section]) {
+                                   currentParent = section;
+                                   [topLevelSections addObject:section];
+                               }
+                               return topLevelSections;
+                           }];
 }
 
 @end

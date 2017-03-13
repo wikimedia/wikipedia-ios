@@ -1,5 +1,6 @@
 #import "WMFArticlePreviewFetcher.h"
 #import <Mantle/Mantle.h>
+#import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -75,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
             }
         WMF_TECH_DEBT_TODO(handle case where no preview is retrieved for url)
         NSArray *results = [articleURLs wmf_mapAndRejectNil:^(NSURL *articleURL) {
-            MWKSearchResult *matchingPreview = [unsortedPreviews bk_match:^BOOL(MWKSearchResult *preview) {
+            MWKSearchResult *matchingPreview = [unsortedPreviews wmf_match:^BOOL(MWKSearchResult *preview) {
                 return [preview.displayTitle isEqualToString:articleURL.wmf_title];
             }];
             if (!matchingPreview) {
@@ -138,7 +139,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString *)barSeparatedTitlesStringFromURLs:(NSArray<NSURL *> *)URLs {
-    return WMFJoinedPropertyParameters([URLs bk_map:^NSString *(NSURL *URL) {
+    return WMFJoinedPropertyParameters([URLs wmf_map:^NSString *(NSURL *URL) {
         return URL.wmf_title;
     }]);
 }

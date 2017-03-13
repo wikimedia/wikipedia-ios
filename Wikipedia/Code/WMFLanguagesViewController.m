@@ -7,7 +7,6 @@
 #import "MWKLanguageLink.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import <BlocksKit/BlocksKit.h>
 #import <Masonry/Masonry.h>
 #import "Wikipedia-Swift.h"
 #import "WMFArticleLanguagesSectionHeader.h"
@@ -87,13 +86,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
     NSAssert(self.title, @"Don't forget to set a title!");
 
-    @weakify(self)
-        UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
-                                                           handler:^(id sender) {
-                                                               @strongify(self)
-                                                                   [self dismissViewControllerAnimated:YES
-                                                                                            completion:nil];
-                                                           }];
+    UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
     self.navigationItem.leftBarButtonItems = @[xButton];
 
     self.tableView.backgroundColor = [UIColor wmf_settingsBackgroundColor];
@@ -122,6 +115,10 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     self.editing = self.editing;
     self.hideLanguageFilter = self.hideLanguageFilter;
     self.disableSelection = self.disableSelection;
+}
+
+- (void)closeButtonPressed {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)setHideLanguageFilter:(BOOL)hideLanguageFilter {

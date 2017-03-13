@@ -1,8 +1,5 @@
 #import <XCTest/XCTest.h>
-
 #import <OCHamcrest/OCHamcrest.h>
-#import <BlocksKit/BlocksKit.h>
-
 #import "WMFProxyServer.h"
 #import "MWKTestCase.h"
 

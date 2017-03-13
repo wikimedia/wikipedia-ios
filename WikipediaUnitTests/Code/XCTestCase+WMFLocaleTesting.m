@@ -1,5 +1,4 @@
 #import "XCTestCase+WMFLocaleTesting.h"
-#import <BlocksKit/BlocksKit.h>
 #import "WMFAsyncTestCase.h"
 
 @implementation XCTestCase (WMFLocaleTesting)
@@ -14,7 +13,7 @@
                                 timeout:(NSTimeInterval)timeout
                                   block:(WMFLocaleTest)block {
     NSDictionary *expectationsForLocale =
-        [localeIdentifiers bk_reduce:[NSMutableDictionary dictionaryWithCapacity:localeIdentifiers.count]
+        [localeIdentifiers wmf_reduce:[NSMutableDictionary dictionaryWithCapacity:localeIdentifiers.count]
                            withBlock:^id(NSMutableDictionary *sum, NSString *localeID) {
                                sum[localeID] = [self expectationWithDescription:localeID];
                                return sum;

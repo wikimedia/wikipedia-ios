@@ -206,7 +206,7 @@
     } else {
         NSURLComponents *components = [NSURLComponents componentsWithString:self.webpageURL.absoluteString];
         NSArray *queryItems = components.queryItems;
-        NSURLQueryItem *item = [queryItems bk_match:^BOOL(NSURLQueryItem *obj) {
+        NSURLQueryItem *item = [queryItems wmf_match:^BOOL(NSURLQueryItem *obj) {
             if ([[obj name] isEqualToString:@"search"]) {
                 return YES;
             } else {

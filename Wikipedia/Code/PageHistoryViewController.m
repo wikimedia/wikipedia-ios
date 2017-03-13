@@ -41,13 +41,7 @@
 
     self.historyFetcherParams = [[PageHistoryRequestParameters alloc] initWithTitle:self.article.url.wmf_title];
     self.pageHistoryFetcher = [PageHistoryFetcher new];
-    @weakify(self)
-        UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
-                                                           handler:^(id sender) {
-                                                               @strongify(self)
-                                                                   [self dismissViewControllerAnimated:YES
-                                                                                            completion:nil];
-                                                           }];
+    UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
     self.navigationItem.leftBarButtonItem = xButton;
 
     self.pageHistoryDataArray = @[].mutableCopy;
@@ -62,6 +56,10 @@
     
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 75;
+}
+
+- (void)closeButtonPressed {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)getPageHistoryData {

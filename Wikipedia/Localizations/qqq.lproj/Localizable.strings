@@ -518,6 +518,7 @@
 "places-enable-location-title" = "Explains that you can explore articles near you by enabling location access. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".";
 "places-enable-location-description" = "Describes that access to your location is only used when the app or one of its features is on the screen";
 "places-enable-location-action-button-title" = "Button title to enable location access";
+"places-no-saved-articles-have-location" = "Indicates to the user that none of their saved articles have location information";
 "places-accessibility-group" = "Accessibility label for a map icon - $1 is replaced with the number of articles in the group\n{{Identical|Article}}";
 "places-accessibility-show-as-map" = "Accessibility label for the show as map toggle item";
 "places-accessibility-show-as-list" = "Accessibility label for the show as list toggle item";

@@ -149,7 +149,7 @@
 }
 
 - (void)viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
-    NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:articleController.article.url];
+    NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:articleController.articleURL];
     [[UIApplication sharedApplication] openURL:placesURL];
 }
 
@@ -158,23 +158,7 @@
 - (void)updateDeleteButton {
     if ([self showsDeleteAllButton]) {
         if (self.navigationItem.leftBarButtonItem == nil) {
-            @weakify(self);
-            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithTitle:[self deleteButtonText]
-                                                                                        style:UIBarButtonItemStylePlain
-                                                                                      handler:^(id sender) {
-                                                                                          @strongify(self);
-                                                                                          UIAlertController *sheet = [UIAlertController alertControllerWithTitle:[self deleteAllConfirmationText] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-                                                                                          [sheet addAction:[UIAlertAction actionWithTitle:[self deleteText]
-                                                                                                                                    style:UIAlertActionStyleDestructive
-                                                                                                                                  handler:^(UIAlertAction *_Nonnull action) {
-                                                                                                                                      [self deleteAll];
-                                                                                                                                      [self.tableView reloadData];
-                                                                                                                                  }]];
-                                                                                          [sheet addAction:[UIAlertAction actionWithTitle:[self deleteCancelText] style:UIAlertActionStyleCancel handler:NULL]];
-                                                                                          sheet.popoverPresentationController.barButtonItem = sender;
-                                                                                          sheet.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
-                                                                                          [self presentViewController:sheet animated:YES completion:NULL];
-                                                                                      }];
+            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[self deleteButtonText] style:UIBarButtonItemStylePlain target:self action:@selector(deleteButtonPressed:)];
         }
 
         if (!self.isEmpty) {
@@ -185,6 +169,20 @@
     } else {
         self.navigationItem.leftBarButtonItem = nil;
     }
+}
+
+- (void)deleteButtonPressed:(id)sender {
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:[self deleteAllConfirmationText] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    [sheet addAction:[UIAlertAction actionWithTitle:[self deleteText]
+                                              style:UIAlertActionStyleDestructive
+                                            handler:^(UIAlertAction *_Nonnull action) {
+                                                [self deleteAll];
+                                                [self.tableView reloadData];
+                                            }]];
+    [sheet addAction:[UIAlertAction actionWithTitle:[self deleteCancelText] style:UIAlertActionStyleCancel handler:NULL]];
+    sheet.popoverPresentationController.barButtonItem = sender;
+    sheet.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    [self presentViewController:sheet animated:YES completion:NULL];
 }
 
 #pragma mark - Empty State

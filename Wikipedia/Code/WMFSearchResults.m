@@ -89,14 +89,14 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Merge
 
 - (void)mergeRedirectMappingsFromModel:(WMFSearchResults *)searchResults {
-    NSArray *newMappings = [searchResults.redirectMappings bk_reject:^BOOL(MWKSearchRedirectMapping *mapping) {
+    NSArray *newMappings = [searchResults.redirectMappings wmf_reject:^BOOL(MWKSearchRedirectMapping *mapping) {
         return [self.redirectMappings containsObject:mapping];
     }];
     self.redirectMappings = [self.redirectMappings arrayByAddingObjectsFromArray:newMappings];
 }
 
 - (void)mergeResultsFromModel:(WMFSearchResults *)searchResults {
-    NSArray *newResults = [searchResults.results bk_reject:^BOOL(MWKSearchResult *obj) {
+    NSArray *newResults = [searchResults.results wmf_reject:^BOOL(MWKSearchResult *obj) {
         return [self.results containsObject:obj];
     }];
     [self.mutableResults addObjectsFromArray:newResults];

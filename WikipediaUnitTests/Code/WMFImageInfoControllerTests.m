@@ -2,7 +2,6 @@
 #define MOCKITO_SHORTHAND 1
 
 #import <UIKit/UIKit.h>
-#import <BlocksKit/BlocksKit.h>
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>
 
@@ -41,7 +40,7 @@ static NSValue *WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 
     self.testArticle = [[MWKArticle alloc] initWithURL:testTitle dataStore:self.tmpDataStore];
 
-    NSArray<MWKImage *> *testImages = [[self generateSourceURLs:10] bk_map:^MWKImage *(NSString *urlString) {
+    NSArray<MWKImage *> *testImages = [[self generateSourceURLs:10] wmf_map:^MWKImage *(NSString *urlString) {
         return [[MWKImage alloc] initWithArticle:self.testArticle sourceURLString:urlString];
     }];
 
@@ -69,11 +68,15 @@ static NSValue *WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 
     MWKArticle *dummyArticle = [[MWKArticle alloc] initWithURL:testURL dataStore:mockDataStore];
 
-    NSArray *testImages = [[self generateSourceURLs:5] bk_map:^MWKImage *(NSString *sourceURL) {
+    NSArray *testImages = [[self generateSourceURLs:5] wmf_map:^MWKImage *(NSString *sourceURL) {
         return [[MWKImage alloc] initWithArticle:dummyArticle sourceURLString:sourceURL];
     }];
     NSRange preFetchedRange = NSMakeRange(0, 2);
-    NSArray *expectedImageInfo = [[MWKImageInfo mappedFromImages:testImages] subarrayWithRange:preFetchedRange];
+    
+    NSArray *infos = [testImages wmf_map:^id _Nullable(MWKImage * _Nonnull img) {
+        return [img createAssociatedInfo];
+    }];
+    NSArray *expectedImageInfo = [infos subarrayWithRange:preFetchedRange];
 
     [MKTGiven([mockDataStore imageInfoForArticleWithURL:testURL]) willReturn:expectedImageInfo];
 

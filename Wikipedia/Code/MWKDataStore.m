@@ -11,6 +11,7 @@ NSString *const MWKArticleKey = @"MWKArticleKey";
 
 NSString *const MWKItemUpdatedNotification = @"MWKItemUpdatedNotification";
 NSString *const MWKURLKey = @"MWKURLKey";
+NSString *const MWKSavedDateKey = @"MWKSavedDateKey";
 
 NSString *const MWKSetupDataSourcesNotification = @"MWKSetupDataSourcesNotification";
 NSString *const MWKTeardownDataSourcesNotification = @"MWKTeardownDataSourcesNotification";
@@ -221,7 +222,7 @@ static uint64_t bundleHash() {
     } else if ([value isKindOfClass:[NSManagedObjectID class]]) {
         return [value URIRepresentation];
     } else if ([value isKindOfClass:[NSSet class]] || [value isKindOfClass:[NSArray class]]) {
-        return [value bk_map:^id(id obj) {
+        return [value wmf_map:^id(id obj) {
             return [self archiveableNotificationValueForValue:obj];
         }];
     } else if ([value conformsToProtocol:@protocol(NSCoding)]) {
@@ -276,25 +277,34 @@ static uint64_t bundleHash() {
 - (void)viewContextDidChange:(NSNotification *)note {
     NSDictionary *userInfo = note.userInfo;
     NSArray<NSString *> *keys = @[NSInsertedObjectsKey, NSUpdatedObjectsKey, NSDeletedObjectsKey, NSRefreshedObjectsKey, NSInvalidatedObjectsKey];
-    NSMutableArray<NSURL *> *URLsToNotifyAbout = [NSMutableArray arrayWithCapacity:1];
+    NSMutableArray<NSDictionary<NSString *, NSObject *> *> *notificationUserInfos = [NSMutableArray arrayWithCapacity:1];
     for (NSString *key in keys) {
         NSSet<NSManagedObject *> *changedObjects = userInfo[key];
         for (NSManagedObject *object in changedObjects) {
             if ([object isKindOfClass:[WMFArticle class]]) {
-                [self.articlePreviewCache removeObjectForKey:[(WMFArticle *)object key]];
-                NSURL *URL = [(WMFArticle *)object URL];
-                if (URL) {
-                    [URLsToNotifyAbout addObject:URL];
+                WMFArticle *article = (WMFArticle *)object;
+                NSString *articleKey = article.key;
+                NSURL *articleURL = article.URL;
+                if (!articleKey || !articleURL) {
+                    continue;
                 }
+                [self.articlePreviewCache removeObjectForKey:articleKey];
+
+                NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:@{MWKURLKey: articleURL}];
+                NSDate *articleSavedDate = article.savedDate;
+                if (articleSavedDate && ![key isEqualToString:NSDeletedObjectsKey]) {
+                    userInfo[MWKSavedDateKey] = articleSavedDate;
+                }
+                [notificationUserInfos addObject:userInfo];
             }
         }
     }
-    if (URLsToNotifyAbout.count == 0) {
+    if (notificationUserInfos.count == 0) {
         return;
     }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        for (NSURL *URL in URLsToNotifyAbout) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:self userInfo:@{MWKURLKey: URL}];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        for (NSDictionary *userInfo in notificationUserInfos) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:self userInfo:userInfo];
         }
     });
 }
@@ -858,7 +868,7 @@ static uint64_t bundleHash() {
 }
 
 - (void)saveImageInfo:(NSArray *)imageInfo forArticleURL:(NSURL *)url {
-    NSArray *export = [imageInfo bk_map:^id(MWKImageInfo *obj) {
+    NSArray *export = [imageInfo wmf_map:^id(MWKImageInfo *obj) {
         return [obj dataExport];
     }];
 
@@ -973,7 +983,7 @@ static uint64_t bundleHash() {
 }
 
 - (BOOL)saveCacheRemovalListToDisk:(NSArray<NSURL *> *)cacheRemovalList error:(NSError **)error {
-    NSArray *URLStrings = [cacheRemovalList bk_map:^id(NSURL *obj) {
+    NSArray *URLStrings = [cacheRemovalList wmf_map:^id(NSURL *obj) {
         return [obj absoluteString];
     }];
     return [self saveArray:URLStrings path:self.basePath name:@"TitlesToRemove.plist" error:error];

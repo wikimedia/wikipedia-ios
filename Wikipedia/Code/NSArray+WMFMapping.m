@@ -1,4 +1,5 @@
 #import "NSArray+WMFMapping.h"
+#import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,14 +26,14 @@ NS_ASSUME_NONNULL_BEGIN
     if (!flatMap) {
         return self;
     }
-    return [self bk_reduce:[[NSMutableArray alloc] initWithCapacity:self.count]
-                 withBlock:^id(NSMutableArray *sum, id obj) {
-                     id result = flatMap(obj);
-                     if (result) {
-                         [sum addObject:result];
-                     }
-                     return sum;
-                 }];
+    return [self wmf_reduce:[[NSMutableArray alloc] initWithCapacity:self.count]
+                  withBlock:^id(NSMutableArray *sum, id obj) {
+                      id result = flatMap(obj);
+                      if (result) {
+                          [sum addObject:result];
+                      }
+                      return sum;
+                  }];
 }
 
 @end
