@@ -60,6 +60,8 @@
 "login-account-creation" = "არ გაქვს ანგარიში? შეუერთდი ვიკიპედიას.";
 "login-username-placeholder-text" = "მომხმარებლის სახელი";
 "login-password-placeholder-text" = "პაროლი";
+"field-alert-password-invalid" = "არასწორი პაროლი";
+"field-alert-captcha-invalid" = "არასწორი CAPTCHA";
 "wikitext-downloading" = "შიგთავსი იტვირთება…";
 "wikitext-download-failed" = "უახლესი ვერსიის ხილვა შეუძლებელია.";
 "wikitext-download-success" = "შიგთავსი ჩაიტვირთა.";

@@ -92,6 +92,7 @@
 "field-new-password-confirm-placeholder" = "повторно внесете ја новата лозинка";
 "field-email-title" = "Е-пошта (незадолжително)";
 "field-email-placeholder" = "example@example.org";
+// Fuzzy
 "field-token-title" = "Шифра";
 "field-token-placeholder" = "внесете шифра";
 "field-captcha-title" = "Внесете го гореприкажаниот текст";
@@ -270,6 +271,8 @@
 "share-as-image" = "Сподели ја сликава";
 "share-as-text" = "Сподели како текст";
 "share-cancel" = "Откажи";
+"share-open-in-maps" = "Отвори во Карти";
+"share-get-directions-in-maps" = "Дај насоки";
 "timestamp-just-now" = "штотуку";
 "timestamp-minutes" = "пред %d минути";
 "timestamp-hours" = "пред %d часа";

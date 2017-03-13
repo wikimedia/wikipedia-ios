@@ -74,6 +74,7 @@
 "login-forgot-password" = "Hutt Dir Äert Passwuert vergiess?";
 "login-title" = "An Äre Benotzerkont aloggen";
 "login-no-account" = "Hutt Dir kee Benotzerkont? $1";
+"login-join-wikipedia" = "Bei Wikipedia matmaachen.";
 "field-username-title" = "Benotzernumm";
 "field-username-placeholder" = "Benotzernumm aginn";
 "field-password-title" = "Passwuert";
@@ -86,10 +87,15 @@
 "field-new-password-confirm-placeholder" = "neit Passwuert nees aginn";
 "field-email-title" = "E-Mail-Adress (fakultativ)";
 "field-email-placeholder" = "beispill@beispill.org";
+// Fuzzy
 "field-token-title" = "Token";
 "field-token-placeholder" = "Token aginn";
 "field-captcha-title" = "Gitt den Text an deen Dir hei driwwer gesitt";
 "field-captcha-placeholder" = "CAPTCHA-Text";
+"field-alert-username-unavailable" = "Benotzernumm net disponibel";
+"field-alert-password-invalid" = "Net valabelt Passwuert";
+"field-alert-captcha-invalid" = "Net valabele CAPTCHA";
+"field-alert-password-confirm-mismatch" = "D'Passwierder déi Dir aginn hutt sinn net identesch";
 "forgot-password-title" = "Passwuert zrécksetzen";
 "forgot-password-username-prompt" = "Benotzernumm";
 "forgot-password-email-prompt" = "E-Mail (fakultativ)";

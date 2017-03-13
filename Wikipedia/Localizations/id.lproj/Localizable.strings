@@ -92,9 +92,9 @@
 "login-no-account" = "Belum mempunyai akun? $1";
 "login-join-wikipedia" = "Bergabunglah dengan Wikipedia";
 "field-username-title" = "Nama pengguna";
-"field-username-placeholder" = "masukan nama pengguna";
+"field-username-placeholder" = "masukkan nama pengguna";
 "field-password-title" = "Kata sandi";
-"field-password-placeholder" = "Masukkan kata sandi";
+"field-password-placeholder" = "masukkan kata sandi";
 "field-password-confirm-title" = "Konfirmasi kata sandi";
 "field-password-confirm-placeholder" = "masukan kembali kata sandi";
 "field-new-password-title" = "Kata sandi baru";
@@ -102,10 +102,11 @@
 "field-new-password-confirm-title" = "Konfirmasi kata sandi baru";
 "field-new-password-confirm-placeholder" = "masukan kembali kata sandi baru";
 "field-email-title" = "Alamat surel/email (sebaiknya diisi)";
-"field-email-placeholder" = "example@example.org";
+"field-email-placeholder" = "contoh@contoh.org";
+// Fuzzy
 "field-token-title" = "Token";
-"field-token-placeholder" = "masukan token";
-"field-captcha-title" = "Masukan teks yang Anda lihat diatas";
+"field-token-placeholder" = "masukkan token";
+"field-captcha-title" = "Masukkan teks yang Anda lihat di atas";
 "field-captcha-placeholder" = "Teks CAPTCHA";
 "field-alert-username-unavailable" = "Nama pengguna tidak tersedia";
 "field-alert-password-invalid" = "Kata sandi salah";
@@ -281,6 +282,8 @@
 "share-as-image" = "Bagikan sebagai gambar";
 "share-as-text" = "Bagikan sebagai teks";
 "share-cancel" = "Batal";
+"share-open-in-maps" = "Buka di Peta";
+"share-get-directions-in-maps" = "Dapatkan Petunjuk Arah";
 "timestamp-just-now" = "baru saja";
 "timestamp-minutes" = "%d menit yang lalu";
 "timestamp-hours" = "%d jam yang lalu";

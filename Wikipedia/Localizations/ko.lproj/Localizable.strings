@@ -103,10 +103,15 @@
 "field-new-password-confirm-placeholder" = "새 비밀번호 다시 입력";
 "field-email-title" = "이메일 주소 (선택 사항)";
 "field-email-placeholder" = "example@example.org";
+// Fuzzy
 "field-token-title" = "토큰";
 "field-token-placeholder" = "토큰 입력";
 "field-captcha-title" = "위에 보이는 문자를 입력하세요";
 "field-captcha-placeholder" = "CAPTCHA 텍스트";
+"field-alert-username-unavailable" = "사용자 이름을 사용할 수 없습니다";
+"field-alert-password-invalid" = "유효하지 않은 비밀번호";
+"field-alert-captcha-invalid" = "유효하지 않은 CAPTCHA";
+"field-alert-password-confirm-mismatch" = "비밀번호가 일치하지 않습니다";
 "forgot-password-title" = "비밀번호 재설정";
 "forgot-password-instructions" = "이메일을 통해 암호 재설정 지시사항을 받으려면 아래의 필드 중 하나를 채우십시오";
 "forgot-password-username-prompt" = "사용자 이름";
@@ -275,6 +280,8 @@
 "share-as-image" = "그림으로 공유하기";
 "share-as-text" = "텍스트로 공유하기";
 "share-cancel" = "취소";
+"share-open-in-maps" = "지도에서 열기";
+"share-get-directions-in-maps" = "위치 찾기";
 "timestamp-just-now" = "방금";
 "timestamp-minutes" = "%d분 전";
 "timestamp-hours" = "%d시간 전";
@@ -502,6 +509,8 @@
 "places-accessibility-group" = "$1개의 문서";
 "places-accessibility-show-as-map" = "지도로 보기";
 "places-accessibility-show-as-list" = "목록으로 보기";
+"places-accessibility-close-search" = "검색 닫기";
+"places-accessibility-clear-recent-searches" = "최근 검색 지우기";
 "action-share" = "공유";
 "action-save" = "저장";
 "action-read" = "읽기";

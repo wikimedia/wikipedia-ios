@@ -97,6 +97,7 @@
 "field-new-password-confirm-placeholder" = "נא להזין את הססמה החדשה";
 "field-email-title" = "כתובת דוא\"ל (לא חובה)";
 "field-email-placeholder" = "shaked@dugma.org.il";
+// Fuzzy
 "field-token-title" = "אסימון";
 "field-token-placeholder" = "נא להזין אסימון";
 "field-captcha-title" = "נא להזין את הטקסט שמוצג לעיל";
@@ -275,6 +276,8 @@
 "share-as-image" = "שיתוף תמונה";
 "share-as-text" = "שיתוף טקסט";
 "share-cancel" = "ביטול";
+"share-open-in-maps" = "פתיחה במפות";
+"share-get-directions-in-maps" = "קבלת כיוונים";
 "timestamp-just-now" = "זה עתה";
 "timestamp-minutes" = "לפני %d דקות";
 "timestamp-hours" = "לפני %d שעות";

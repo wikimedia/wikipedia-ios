@@ -93,6 +93,7 @@
 "field-new-password-confirm-placeholder" = "Bizskrivañ ar ger-tremen en-dro";
 "field-email-title" = "Chomlec'h postel (diret)";
 "field-email-placeholder" = "example@example.org";
+// Fuzzy
 "field-token-title" = "Jedouer";
 "field-token-placeholder" = "Ebarzhiñ ar jedouer";
 "field-captcha-title" = "Ebarzhiñ an destenn a welit amañ a-us";
@@ -271,6 +272,8 @@
 "share-as-image" = "Rannañ evel skeudenn";
 "share-as-text" = "Rannañ evel testenn";
 "share-cancel" = "Nullañ";
+"share-open-in-maps" = "Digor e Kartennoù";
+"share-get-directions-in-maps" = "Kaout an tuioù";
 "timestamp-just-now" = "bremañ end-eeun";
 "timestamp-minutes" = "%d munut zo";
 "timestamp-hours" = "%d eur zo";
@@ -385,7 +388,7 @@
 "home-featured-article-heading" = "Pennad eus ar c'hentañ evit $1";
 "home-main-page-heading" = "Hiziv e Wikipedia";
 "home-potd-heading" = "Skeudenn an deiz evit $1";
-"home-last-update-label" = "Hizivadenn diwezhañ: $1";
+"home-last-update-label" = "Hizivadenn diwezhañ: %1$";
 "home-last-update-never-label" = "Hizivadenn diwezhañ : Morse";
 "home-updating-label" = "Oc'h hizivaat...";
 "home-hide-suggestion-prompt" = "Kuzhat ar c'hinnig-mañ";

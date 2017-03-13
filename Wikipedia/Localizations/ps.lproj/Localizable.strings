@@ -37,6 +37,7 @@
 "account-creation-logging-in" = "په ننوتلو کې دی...";
 "account-creation-saving" = "خوندي کېږي...";
 "account-creation-login" = "آيا له پخوا نه يو گڼون لرې؟ ورننوځه.";
+"account-creation-log-in" = "ننوتل";
 "login-name-not-found" = "د  ننوتلو لپاره کارن-نوم ته اړتيا ده.";
 "login-name-illegal" = "تاسې يو ناقانونه کارن-نوم ورکړی.";
 "login-name-does-not-exist" = "کوم کارن-نوم مو چې ورکړی هغه نشته.";
@@ -46,6 +47,9 @@
 "login-account-creation" = "گڼون نه لرې؟ ويکيپېډيا سره يوځای شه.";
 "login-username-placeholder-text" = "کارن-نوم";
 "login-password-placeholder-text" = "پټنوم";
+"login-join-wikipedia" = "ويکيپېډيا سره يوځای شئ.";
+"field-username-title" = "کارن-نوم";
+"field-password-title" = "پټنوم";
 "wikitext-downloading" = "مېنځپانگه رابرسېرېږي...";
 "wikitext-upload-save" = "خپرېږي...";
 "wikitext-upload-save-sign-in" = "ننوتل";

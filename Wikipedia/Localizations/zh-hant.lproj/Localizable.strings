@@ -103,6 +103,7 @@
 "field-new-password-confirm-placeholder" = "再次輸入新密碼";
 "field-email-title" = "電子郵件地址 (選填)";
 "field-email-placeholder" = "example@example.org";
+// Fuzzy
 "field-token-title" = "金鑰";
 "field-token-placeholder" = "輸入金鑰";
 "field-captcha-title" = "輸入您在上方看到的文字";
@@ -281,6 +282,8 @@
 "share-as-image" = "以圖片分享";
 "share-as-text" = "以文字分享";
 "share-cancel" = "取消";
+"share-open-in-maps" = "在地圖中開啟";
+"share-get-directions-in-maps" = "取得路線";
 "timestamp-just-now" = "剛剛";
 "timestamp-minutes" = "%d 分鐘前";
 "timestamp-hours" = "%d 小時前";

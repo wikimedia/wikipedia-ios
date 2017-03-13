@@ -99,6 +99,7 @@
 "field-new-password-confirm-placeholder" = "введіть новий пароль повторно";
 "field-email-title" = "Адреса електронної пошти (необов'язково)";
 "field-email-placeholder" = "example@example.org";
+// Fuzzy
 "field-token-title" = "Токен";
 "field-token-placeholder" = "введіть токен";
 "field-captcha-title" = "Введіть текст, який Ви бачите вище";
@@ -277,6 +278,8 @@
 "share-as-image" = "Поширити як зображення";
 "share-as-text" = "Поширити як текст";
 "share-cancel" = "Скасувати";
+"share-open-in-maps" = "Відкрити на Картах";
+"share-get-directions-in-maps" = "Отримати напрямки";
 "timestamp-just-now" = "щойно";
 "timestamp-minutes" = "%d хв тому";
 "timestamp-hours" = "%d год тому";

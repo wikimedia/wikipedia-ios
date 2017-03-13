@@ -92,6 +92,7 @@
 "field-new-password-confirm-placeholder" = "Neues Passwort erneut eingeben";
 "field-email-title" = "E-Mail-Adresse (optional)";
 "field-email-placeholder" = "beispiel@beispiel.org";
+// Fuzzy
 "field-token-title" = "Token";
 "field-token-placeholder" = "Token eingeben";
 "field-captcha-title" = "Gib den Text ein, den du oben siehst.";
@@ -270,6 +271,8 @@
 "share-as-image" = "Als Bild teilen";
 "share-as-text" = "Als Text teilen";
 "share-cancel" = "Abbrechen";
+"share-open-in-maps" = "In Karten öffnen";
+"share-get-directions-in-maps" = "Richtungen abrufen";
 "timestamp-just-now" = "gerade eben";
 "timestamp-minutes" = "vor %d Minuten";
 "timestamp-hours" = "vor %d Stunden";

@@ -91,6 +91,7 @@
 "field-new-password-confirm-placeholder" = "escribe otra vuelta la contraseña nueva";
 "field-email-title" = "Direición de corréu electrónicu (opcional)";
 "field-email-placeholder" = "exemplu@exemplu.ast";
+// Fuzzy
 "field-token-title" = "Pase";
 "field-token-placeholder" = "escribe'l pase";
 "field-captcha-title" = "Escribe'l testu que ves arriba";

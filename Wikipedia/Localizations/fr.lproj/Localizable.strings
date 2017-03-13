@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Brion Vibber
 // Author: Caliburn
+// Author: Derugon
 // Author: Eric.LEWIN
 // Author: Gomoko
 // Author: Hydros
@@ -102,6 +103,7 @@
 "field-new-password-confirm-placeholder" = "resaisir le nouveau mot de passe";
 "field-email-title" = "Adresse de courriel (facultatif)";
 "field-email-placeholder" = "exemple@exemple.org";
+// Fuzzy
 "field-token-title" = "Jeton";
 "field-token-placeholder" = "saisir le jeton";
 "field-captcha-title" = "Saisir le texte que vous voyez ci-dessus";
@@ -281,7 +283,7 @@
 "share-as-text" = "Partager comme texte";
 "share-cancel" = "Annuler";
 "share-open-in-maps" = "Ouvert dans Cartes";
-"share-get-directions-in-maps" = "Obtenir les directions";
+"share-get-directions-in-maps" = "Obtenir les Directions";
 "timestamp-just-now" = "à l’instant";
 "timestamp-minutes" = "il y a %d minutes";
 "timestamp-hours" = "il y a %d heures";

@@ -111,6 +111,7 @@
 "field-new-password-confirm-placeholder" = "повторно введите новый пароль";
 "field-email-title" = "Адрес электронной почты (необязательно)";
 "field-email-placeholder" = "example@example.org";
+// Fuzzy
 "field-token-title" = "Токен";
 "field-token-placeholder" = "введите токен";
 "field-captcha-title" = "Введите текст, который вы видите выше";
@@ -289,6 +290,8 @@
 "share-as-image" = "Поделиться как изображением";
 "share-as-text" = "Поделиться как текстом";
 "share-cancel" = "Отмена";
+"share-open-in-maps" = "Открыть на Картах";
+"share-get-directions-in-maps" = "Получить направления";
 "timestamp-just-now" = "только что";
 "timestamp-minutes" = "%d мин. назад";
 "timestamp-hours" = "%d ч. назад";
@@ -517,8 +520,10 @@
 "places-search-suggested-searches-header" = "Предложения для поиска";
 "places-search-recently-searched-header" = "Недавно искали";
 "places-unknown-distance" = "расстояние неизвестно";
+"places-enable-location-title" = "Получайте статьи вблизи вашего местоположения, разрешив доступ к определению местоположения";
 "places-enable-location-description" = "Доступ к вашему местоположению доступен только тогда, когда приложение или один из его компонентов отображается на вашем экране.";
 "places-enable-location-action-button-title" = "Включить поиск расположения";
+"places-accessibility-group" = "$1 статьи";
 "places-accessibility-show-as-map" = "Показать как карту";
 "places-accessibility-show-as-list" = "Показать как список";
 "places-accessibility-recenter-map-on-user-location" = "Перецентрировать ваше положение";

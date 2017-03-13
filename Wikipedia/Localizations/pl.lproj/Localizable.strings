@@ -100,9 +100,12 @@
 "field-new-password-confirm-placeholder" = "ponownie wprowadź nowe hasło";
 "field-email-title" = "Adres e-mail (opcjonalnie)";
 "field-email-placeholder" = "example@example.org";
+// Fuzzy
+"field-token-title" = "Token";
 "field-token-placeholder" = "wpisz token";
 "field-captcha-title" = "Wpisz tekst, który widzisz powyżej";
 "field-captcha-placeholder" = "Tekst CAPTCHA";
+"field-alert-username-unavailable" = "Niedostępna nazwa użytkownika";
 "field-alert-password-invalid" = "Nieprawidłowe hasło";
 "field-alert-password-confirm-mismatch" = "Hasła nie są takie same";
 "forgot-password-title" = "Zresetuj hasło";

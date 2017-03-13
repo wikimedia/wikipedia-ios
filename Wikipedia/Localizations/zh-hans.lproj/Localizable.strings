@@ -101,6 +101,7 @@
 "field-new-password-confirm-placeholder" = "重新输入新密码";
 "field-email-title" = "电子邮件地址（可选）";
 "field-email-placeholder" = "example@example.org";
+// Fuzzy
 "field-token-title" = "令牌";
 "field-token-placeholder" = "输入令牌";
 "field-captcha-title" = "输入您上方看见的文字";
@@ -279,6 +280,8 @@
 "share-as-image" = "分享为图片";
 "share-as-text" = "分享为文本";
 "share-cancel" = "取消";
+"share-open-in-maps" = "在地图中打开";
+"share-get-directions-in-maps" = "获取导航";
 "timestamp-just-now" = "刚刚";
 "timestamp-minutes" = "%d分钟前";
 "timestamp-hours" = "%d小时前";

@@ -86,6 +86,7 @@
 "field-new-password-confirm-placeholder" = "Znovuzadajte nové heslo";
 "field-email-title" = "Emailová adresa (nepovinné)";
 "field-email-placeholder" = "example@example.org";
+// Fuzzy
 "field-token-title" = "Token";
 "field-token-placeholder" = "zadajte token";
 "field-captcha-title" = "Zadajte horeuvedený text";
