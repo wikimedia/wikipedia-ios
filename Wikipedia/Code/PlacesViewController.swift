@@ -341,11 +341,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             regroupArticlesIfNecessary(forVisibleRegion: region)
             showRedoSearchButtonIfNecessary(forVisibleRegion: region)
             
-            UIView.animate(withDuration: animationDuration, animations: {
-                self.mapView.region = region
-            }) { (finished) in
-                
-            }
+            mapView.setRegion(region, animated: true)
         }
         
         get {
