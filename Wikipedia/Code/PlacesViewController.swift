@@ -202,6 +202,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             if andZoom {
                 self.mapRegion = self.regionThatFits(articles: groupVC.articles)
             }
+            self.placeGroupAnnotationView?.isHidden = false
             self.placeGroupVC = nil
             self.placeGroupAnnotationView = nil
         }
@@ -234,6 +235,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             placeGroupVC.show(center: center)
         
             self.placeGroupVC = placeGroupVC
+            annotationView.isHidden = true
             self.placeGroupAnnotationView = annotationView
             deselectAllAnnotations()
             return
