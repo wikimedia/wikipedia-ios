@@ -92,15 +92,15 @@ class ArticlePlaceView: MKAnnotationView {
         }
         if animated {
             if alwaysShowImage {
-                UIView.animate(withDuration: 2*selectionAnimationDuration, delay: 0, usingSpringWithDamping: springDamping, initialSpringVelocity: 0, options: [], animations: transforms, completion:nil)
-                UIView.animateKeyframes(withDuration: 2*selectionAnimationDuration, delay: 0, options: [], animations: {
+                UIView.animate(withDuration: 2*selectionAnimationDuration, delay: 0, usingSpringWithDamping: springDamping, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: transforms, completion:nil)
+                UIView.animateKeyframes(withDuration: 2*selectionAnimationDuration, delay: 0, options: [.allowUserInteraction], animations: {
                     UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: self.crossFadeRelativeHalfDuration, animations:fadesIn)
                     UIView.addKeyframe(withRelativeStartTime: self.crossFadeRelativeHalfDuration, relativeDuration: self.crossFadeRelativeHalfDuration, animations:fadesOut)
                 }) { (didFinish) in
                     done()
                 }
             } else {
-                UIView.animateKeyframes(withDuration: selectionAnimationDuration, delay: 0, options: [], animations: {
+                UIView.animateKeyframes(withDuration: selectionAnimationDuration, delay: 0, options: [.allowUserInteraction], animations: {
                     UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations:transforms)
                     UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations:fadesIn)
                     UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations:fadesOut)
@@ -412,15 +412,15 @@ class ArticlePlaceView: MKAnnotationView {
         if animated {
             let duration = 2*selectionAnimationDuration
             if selected {
-                UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: springDamping, initialSpringVelocity: 0, options: [], animations: transforms, completion:nil)
-                UIView.animateKeyframes(withDuration: duration, delay: 0, options: [], animations: {
+                UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: springDamping, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: transforms, completion:nil)
+                UIView.animateKeyframes(withDuration: duration, delay: 0, options: [.allowUserInteraction], animations: {
                     UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: self.crossFadeRelativeHalfDuration, animations:fadesIn)
                     UIView.addKeyframe(withRelativeStartTime: self.crossFadeRelativeHalfDuration, relativeDuration: self.crossFadeRelativeHalfDuration, animations:fadesOut)
                 }) { (didFinish) in
                     done()
                 }
             } else {
-                UIView.animateKeyframes(withDuration: 0.5*duration, delay: 0, options: [], animations: {
+                UIView.animateKeyframes(withDuration: 0.5*duration, delay: 0, options: [.allowUserInteraction], animations: {
                     UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations:transforms)
                     UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations:fadesIn)
                     UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations:fadesOut)

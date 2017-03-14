@@ -1110,7 +1110,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     
                     let placeView = mapView.view(for: previousPlace)
                     taskGroup.enter()
-                    UIView.animate(withDuration:animationDuration, delay: 0, options: [], animations: {
+                    UIView.animate(withDuration:animationDuration, delay: 0, options: [.allowUserInteraction], animations: {
                         placeView?.alpha = 0
                         if (previousPlace.articles.count > 1) {
                             placeView?.transform = CGAffineTransform(scaleX: self.animationScale, y: self.animationScale)
