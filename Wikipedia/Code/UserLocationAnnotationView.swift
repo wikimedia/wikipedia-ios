@@ -1,5 +1,4 @@
 import MapKit
-import CoreLocation.CLLocation
 
 class UserLocationAnnotationView: MKAnnotationView {
     

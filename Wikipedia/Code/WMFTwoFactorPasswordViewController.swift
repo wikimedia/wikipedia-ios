@@ -206,6 +206,8 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     override func viewDidLoad() {
         super.viewDidLoad()
 
+//        [titleLabel, tokenLabel].forEach{$0.textColor = .wmf_authTitle()}
+
         oathTokenFields.sort { $0.tag < $1.tag }
         oathTokenFields.forEach {$0.wmf_addThinBottomBorder()}
 
@@ -224,7 +226,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         
         backupOathTokenField.wmf_addThinBottomBorder()
         displayMode = .shortNumeric
-        displayModeToggle.textColor = .wmf_blueTint
+
         displayModeToggle.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(displayModeToggleTapped(_:))))
 
         view.wmf_configureSubviewsForDynamicType()

@@ -50,5 +50,6 @@ public extension UIColor {
     public static let wmf_referencePopoverText: UIColor = .black
     public static let wmf_red: UIColor = .wmf_color(withHex: 0xd11611, alpha: 1.0)
     public static let wmf_orange: UIColor = .wmf_color(withHex: 0xff5b00, alpha: 1.0)
+    public static let wmf_authTitle: UIColor = .wmf_color(withHex: 0x72777d, alpha: 1.0)
 
 }

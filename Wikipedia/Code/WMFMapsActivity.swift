@@ -1,4 +1,4 @@
-import MapKit.MKMapItem
+import Foundation
 
 class WMFMapsActivity : UIActivity {
     

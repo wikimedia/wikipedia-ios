@@ -1,5 +1,4 @@
 #import "UIColor+WMFStyle.h"
-#import "UIColor+WMFHexColor.h"
 
 @implementation UIColor (WMFStyle)
 

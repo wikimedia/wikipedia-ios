@@ -1,5 +1,4 @@
-import MapKit.MKMapItem
-import CoreLocation.CLLocation
+import Foundation
 
 extension MWKArticle {
     
