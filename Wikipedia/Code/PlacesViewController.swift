@@ -218,6 +218,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         previouslySelectedArticlePlaceIdentifier = place.identifier
         
         guard place.articles.count == 1 else {
+#if WMF_PLACES_GROUP_POPOVERS
             guard self.placeGroupVC == nil else {
                 return
             }
@@ -240,6 +241,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             annotationView.isHidden = true
             self.placeGroupAnnotationView = annotationView
             deselectAllAnnotations()
+#else
+            deselectAllAnnotations()
+            articleKeyToSelect = place.articles.first?.key
+            mapRegion = regionThatFits(articles: place.articles)
+
+#endif
             return
         }
         
@@ -344,8 +351,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             _mapRegion = region
             regroupArticlesIfNecessary(forVisibleRegion: region)
             showRedoSearchButtonIfNecessary(forVisibleRegion: region)
-            
+
             mapView.setRegion(region, animated: true)
+            
         }
         
         get {
