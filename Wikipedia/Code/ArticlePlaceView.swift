@@ -37,6 +37,7 @@ class ArticlePlaceView: MKAnnotationView {
         let imageViewScaleDownTransform = CGAffineTransform(scaleX: scale, y: scale)
         let dotViewScaleUpTransform = CGAffineTransform(scaleX: 1.0/scale, y: 1.0/scale)
         if alwaysShowImage {
+            loadImage()
             imageView.alpha = 0
             imageView.isHidden = false
             dotView.alpha = 1
@@ -213,9 +214,6 @@ class ArticlePlaceView: MKAnnotationView {
         countLabel.font = UIFont.boldSystemFont(ofSize: 16)
         groupView.addSubview(countLabel)
         
-        if alwaysRasterize {
-            shouldRasterize = true
-        }
         prepareForReuse()
         self.annotation = annotation
     }
@@ -250,22 +248,39 @@ class ArticlePlaceView: MKAnnotationView {
         }
     }
     
+    private var isImageLoaded = false
+    func loadImage() {
+        guard !isImageLoaded, let articlePlace = annotation as? ArticlePlace, articlePlace.articles.count == 1 else {
+            return
+        }
+        if alwaysRasterize {
+            shouldRasterize = false
+        }
+        showPlaceholderImage()
+        isImageLoaded = true
+        let article = articlePlace.articles[0]
+        if let thumbnailURL = article.thumbnailURL {
+            imageImageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
+            }, success: {
+                self.imageImageView.contentMode = .scaleAspectFill
+                self.imageImageView.backgroundColor = UIColor.white
+                self.selectedImageImageView.image = self.imageImageView.image
+                self.selectedImageImageView.layer.contentsRect = self.imageImageView.layer.contentsRect
+                self.selectedImageImageView.backgroundColor = UIColor.white
+                self.selectedImageImageView.contentMode = .scaleAspectFill
+                if self.alwaysRasterize {
+                    self.shouldRasterize = true
+                }
+            })
+        }
+    }
+    
     func update(withArticlePlace articlePlace: ArticlePlace) {
-
         if articlePlace.articles.count == 1 {
             zPosition = 1
-            let article = articlePlace.articles[0]
-            showPlaceholderImage()
-            if let thumbnailURL = article.thumbnailURL {
-                imageImageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
-                }, success: {
-                    self.imageImageView.contentMode = .scaleAspectFill
-                    self.imageImageView.backgroundColor = UIColor.white
-                    self.selectedImageImageView.image = self.imageImageView.image
-                    self.selectedImageImageView.layer.contentsRect = self.imageImageView.layer.contentsRect
-                    self.selectedImageImageView.backgroundColor = UIColor.white
-                    self.selectedImageImageView.contentMode = .scaleAspectFill
-                })
+            isImageLoaded = false
+            if isSelected || alwaysShowImage {
+                loadImage()
             }
             accessibilityLabel = articlePlace.articles.first?.displayTitle
         } else if articlePlace.articles.count == 0 {
@@ -307,6 +322,7 @@ class ArticlePlaceView: MKAnnotationView {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        isImageLoaded = false
         delegate = nil
         imageImageView.wmf_reset()
         selectedImageImageView.wmf_reset()
@@ -336,10 +352,10 @@ class ArticlePlaceView: MKAnnotationView {
         let imageViewScaleUpTransform = CGAffineTransform(scaleX: 1.0/imageViewScale, y: 1.0/imageViewScale)
         layer.zPosition = 3
         if selected {
+            loadImage()
             selectedImageView.transform = selectedImageViewScaleDownTransform
             dotView.transform = CGAffineTransform.identity
             imageView.transform = CGAffineTransform.identity
-            
             selectedImageView.alpha = 0
             imageView.alpha = 1
             dotView.alpha = 1
