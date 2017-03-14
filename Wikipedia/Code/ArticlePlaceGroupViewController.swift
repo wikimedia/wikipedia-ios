@@ -216,6 +216,14 @@ class ArticlePlaceGroupViewController: UIViewController {
         let scaleTransform = CGAffineTransform(scaleX: zoomPlaceViewScale, y: zoomPlaceViewScale)
         let transform = rotationTransform.concatenating(scaleTransform)
         
+        let groupRotationTransform = CGAffineTransform(rotationAngle: CGFloat(0.99*M_PI))
+        let groupScaleTransform = CGAffineTransform(scaleX: 1/zoomPlaceViewScale, y: 1/zoomPlaceViewScale)
+        let groupTransform = groupRotationTransform.concatenating(groupScaleTransform)
+        
+        groupView.center = center
+        groupView.layer.zPosition = -1
+        view.addSubview(groupView)
+
         for placeView in placeViews {
             placeView.center = center
             view.addSubview(placeView)
@@ -223,19 +231,11 @@ class ArticlePlaceGroupViewController: UIViewController {
             placeView.transform = transform
         }
         
-        let groupRotationTransform = CGAffineTransform(rotationAngle: CGFloat(0.99*M_PI))
-        let groupScaleTransform = CGAffineTransform(scaleX: 1/zoomPlaceViewScale, y: 1/zoomPlaceViewScale)
-        let groupTransform = groupRotationTransform.concatenating(groupScaleTransform)
-        
-        groupView.center = center
-        view.addSubview(groupView)
-        
         zoomPlaceView.transform = transform
         zoomPlaceView.center = center
         zoomPlaceView.alpha = 0
-        zoomPlaceView.layer.zPosition = groupView.layer.zPosition + 1
         view.addSubview(zoomPlaceView)
-
+        
         let count = placeViews.count
         var i = 1
         let delay: TimeInterval = 0.05
