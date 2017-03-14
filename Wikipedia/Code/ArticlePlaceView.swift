@@ -277,10 +277,10 @@ class ArticlePlaceView: MKAnnotationView {
             return
         }
 
-        isPlaceholderHidden = false
         if alwaysRasterize {
             shouldRasterize = false
         }
+        isPlaceholderHidden = false
         isImageLoaded = true
         let article = articlePlace.articles[0]
         if let thumbnailURL = article.thumbnailURL {
@@ -309,7 +309,8 @@ class ArticlePlaceView: MKAnnotationView {
             accessibilityLabel = articlePlace.articles.first?.displayTitle
         } else if articlePlace.articles.count == 0 {
             zPosition = 1
-            imageImageView.image = #imageLiteral(resourceName: "places-show-more")
+            isPlaceholderHidden = false
+            imageImagePlaceholderView.image = #imageLiteral(resourceName: "places-show-more")
             accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-show-more")
         } else {
             zPosition = 2
@@ -347,8 +348,9 @@ class ArticlePlaceView: MKAnnotationView {
     override func prepareForReuse() {
         super.prepareForReuse()
         if alwaysRasterize {
-            shouldRasterize = true
+            shouldRasterize = false
         }
+        isPlaceholderHidden = false
         isImageLoaded = false
         delegate = nil
         imageImageView.wmf_reset()
