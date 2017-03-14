@@ -99,7 +99,7 @@
         case WMFSettingsMenuItemType_SendUsageReports: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:MWLocalizedString(@"preference_title_eventlogging_opt_in", nil)
+                                                    title:MWLocalizedString(@"preference-title-eventlogging-opt-in", nil)
                                                  iconName:@"settings-analytics"
                                                 iconColor:[UIColor wmf_colorWithHex:0x95D15A alpha:1.0]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_Switch

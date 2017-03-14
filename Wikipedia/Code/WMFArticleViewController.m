@@ -318,7 +318,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         UIProgressView *progress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
         progress.translatesAutoresizingMaskIntoConstraints = NO;
         progress.trackTintColor = [UIColor clearColor];
-        progress.tintColor = [UIColor wmf_blueTintColor];
+        progress.tintColor = [UIColor wmf_blueTint];
         _progressView = progress;
     }
 
@@ -333,7 +333,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         CGFloat height = 10;
 
         _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, height)];
-        _headerView.backgroundColor = [UIColor wmf_articleBackgroundColor];
+        _headerView.backgroundColor = [UIColor wmf_articleBackground];
 
         UIView *headerBorderView = [[UIView alloc] initWithFrame:CGRectMake(0, height - borderHeight, 1, borderHeight)];
         headerBorderView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
@@ -1131,7 +1131,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
                 if (self.tableOfContentsSeparatorView == nil) {
                     self.tableOfContentsSeparatorView = [[UIView alloc] init];
-                    self.tableOfContentsSeparatorView.backgroundColor = [UIColor wmf_lightGrayColor];
+                    self.tableOfContentsSeparatorView.backgroundColor = [UIColor wmf_lightGray];
                 }
 
                 [self createTableOfContentsViewControllerIfNeeded];
@@ -1583,7 +1583,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showProtectedDialog {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:MWLocalizedString(@"page_protected_can_not_edit_title", nil) message:MWLocalizedString(@"page_protected_can_not_edit", nil) preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:MWLocalizedString(@"page-protected-can-not-edit-title", nil) message:MWLocalizedString(@"page-protected-can-not-edit", nil) preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"button-ok", nil) style:UIAlertActionStyleCancel handler:NULL]];
     [self presentViewController:alert animated:YES completion:NULL];
 }

@@ -108,7 +108,7 @@
 
     CAShapeLayer *shapelayer = [CAShapeLayer layer];
     shapelayer.frame = self.actionLine.bounds;
-    shapelayer.strokeColor = [UIColor wmf_emptyGrayTextColor].CGColor;
+    shapelayer.strokeColor = [UIColor wmf_emptyGrayText].CGColor;
     shapelayer.lineWidth = 1.0;
     shapelayer.lineJoin = kCALineJoinMiter;
     shapelayer.lineDashPattern = [NSArray arrayWithObjects:[NSNumber numberWithInt:5], [NSNumber numberWithInt:2], nil];

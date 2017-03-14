@@ -39,13 +39,13 @@
 
     [self.widthConstraint setConstant:self.width];
 
-    self.textView.linkTextAttributes = @{NSForegroundColorAttributeName: [UIColor wmf_referencePopoverLinkColor]};
+    self.textView.linkTextAttributes = @{NSForegroundColorAttributeName: [UIColor wmf_referencePopoverLink]};
 
     [self.textView setAttributedText:[self attributedStringForHTML:[self referenceHTMLWithSurroundingHTML]]];
 
     self.horizontalSeparatorHeightConstraint.constant = 1.f / [UIScreen mainScreen].scale;
 
-    self.closeButton.tintColor = [UIColor wmf_lightGrayColor];
+    self.closeButton.tintColor = [UIColor wmf_lightGray];
 
     self.titleLabel.attributedText =
         [[MWLocalizedString(@"reference-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]]
@@ -81,7 +81,7 @@
                                     "%@"
                                     "</body>"
                                     "</html>",
-                                   baseUrl, (long)fontSize.integerValue, [[UIColor wmf_referencePopoverTextColor] wmf_hexStringIncludingAlpha:NO], languageInfo.dir, self.reference.html];
+                                   baseUrl, (long)fontSize.integerValue, [[UIColor wmf_referencePopoverText] wmf_hexStringIncludingAlpha:NO], languageInfo.dir, self.reference.html];
 }
 
 - (NSAttributedString *)attributedStringForHTML:(NSString *)html {

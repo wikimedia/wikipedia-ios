@@ -204,13 +204,13 @@
 "onboarding-skip" = "រំលង";
 "onboarding-wikipedia" = "វិគីភីឌា";
 "onboarding-free-encyclopedia" = "សព្វវចនាធិប្បាយសេរី";
-"preference_title_eventlogging_opt_in" = "ផ្ញើរបាយការណ៍ពីបម្រើបម្រាស់";
-"preference_summary_eventlogging_opt_in" = "អនុញ្ញាតអោយវិគីមេឌាប្រមូលព័ត៌មានអំពីរបៀបប្រើប្រាស់កម្មវិធីរបស់អ្នក ដើម្បីជួយកែច្នៃកម្មវិធីនេះអោយកាន់តែប្រសើរ";
-"page_protected_autoconfirmed" = "ទំព័រនេះត្រូវបានការពារពាក់កណ្ដាល។";
-"page_protected_sysop" = "ទំព័រនេះត្រូវបានការពារពេញលេញ។";
-"page_protected_other" = "ទំព័រនេះត្រូវបានការពារត្រឹមកម្រិតដូចតទៅ៖ $1";
-"page_protected_can_not_edit" = "អ្នកគ្មានសិទ្ធិក្នុងការកែប្រែទំព័រនេះទេ";
-"page_protected_can_not_edit_title" = "ទំព័រនេះត្រូវបានការពាររួចហើយ";
+"preference-title-eventlogging-opt-in" = "ផ្ញើរបាយការណ៍ពីបម្រើបម្រាស់";
+"preference-summary-eventlogging-opt-in" = "អនុញ្ញាតអោយវិគីមេឌាប្រមូលព័ត៌មានអំពីរបៀបប្រើប្រាស់កម្មវិធីរបស់អ្នក ដើម្បីជួយកែច្នៃកម្មវិធីនេះអោយកាន់តែប្រសើរ";
+"page-protected-autoconfirmed" = "ទំព័រនេះត្រូវបានការពារពាក់កណ្ដាល។";
+"page-protected-sysop" = "ទំព័រនេះត្រូវបានការពារពេញលេញ។";
+"page-protected-other" = "ទំព័រនេះត្រូវបានការពារត្រឹមកម្រិតដូចតទៅ៖ $1";
+"page-protected-can-not-edit" = "អ្នកគ្មានសិទ្ធិក្នុងការកែប្រែទំព័រនេះទេ";
+"page-protected-can-not-edit-title" = "ទំព័រនេះត្រូវបានការពាររួចហើយ";
 // Fuzzy
 "license-footer-text" = "ខ្លឹមសារអត្ថបទនេះផ្ដល់ជូនក្រោមអាជ្ញាបណ្ឌ $1";
 "license-footer-name" = "CC BY-SA 3.0";

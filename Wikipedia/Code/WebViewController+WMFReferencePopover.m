@@ -58,7 +58,7 @@ typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationCont
     popoverVC.reference = reference;
     popoverVC.width = width;
 
-    popoverVC.view.backgroundColor = [UIColor wmf_referencePopoverBackgroundColor];
+    popoverVC.view.backgroundColor = [UIColor wmf_referencePopoverBackground];
 
     UIPopoverPresentationController *presenter = [popoverVC popoverPresentationController];
     presenter.passthroughViews = @[self.webView];

@@ -222,9 +222,9 @@
 "onboarding-skip" = "Praleisti";
 "onboarding-wikipedia" = "Vikipedija";
 "onboarding-free-encyclopedia" = "Laisvoji enciklopedija";
-"preference_title_eventlogging_opt_in" = "Siųsti naudojimo ataskaitas";
-"page_protected_sysop" = "Šis puslapis buvo visiškai apsaugotas.";
-"page_protected_can_not_edit_title" = "Šis puslapis apsaugotas";
+"preference-title-eventlogging-opt-in" = "Siųsti naudojimo ataskaitas";
+"page-protected-sysop" = "Šis puslapis buvo visiškai apsaugotas.";
+"page-protected-can-not-edit-title" = "Šis puslapis apsaugotas";
 // Fuzzy
 "license-footer-text" = "Turinys prieinamas pagal $1";
 "license-footer-name" = "CC BY-SA 3.0";

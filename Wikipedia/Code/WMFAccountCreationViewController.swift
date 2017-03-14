@@ -50,7 +50,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        [titleLabel, usernameTitleLabel, passwordTitleLabel, passwordRepeatTitleLabel, emailTitleLabel].forEach{$0.textColor = .wmf_authTitle()}
+        [titleLabel, usernameTitleLabel, passwordTitleLabel, passwordRepeatTitleLabel, emailTitleLabel].forEach{$0.textColor = .wmf_authTitle}
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
 
