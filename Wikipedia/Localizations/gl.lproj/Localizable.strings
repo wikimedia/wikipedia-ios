@@ -95,10 +95,15 @@
 "field-new-password-confirm-placeholder" = "insira de novo o novo contrasinal";
 "field-email-title" = "Enderezo de correo electrónico (opcional)";
 "field-email-placeholder" = "exemplo@exemplo.gal";
+// Fuzzy
 "field-token-title" = "Identificador";
 "field-token-placeholder" = "insira o identificador";
 "field-captcha-title" = "Insira o texto que ve abaixo";
 "field-captcha-placeholder" = "Texto CAPTCHA";
+"field-alert-username-unavailable" = "O nome de usuario non está dispoñible";
+"field-alert-password-invalid" = "O contrasinal non é válido";
+"field-alert-captcha-invalid" = "O CAPTCHA non é válido";
+"field-alert-password-confirm-mismatch" = "Os contrasinais non coinciden";
 "forgot-password-title" = "Restablecer o contrasinal";
 "forgot-password-instructions" = "Encha un dos campos de abaixo para recibir as instrucións de reinicialización";
 "forgot-password-username-prompt" = "Nome de usuario";
@@ -269,6 +274,8 @@
 "share-as-image" = "Compartir como imaxe";
 "share-as-text" = "Compartir como texto";
 "share-cancel" = "Cancelar";
+"share-open-in-maps" = "Abrir en Maps";
+"share-get-directions-in-maps" = "Obter as direccións";
 "timestamp-just-now" = "agora mesmo";
 "timestamp-minutes" = "hai %d minutos";
 "timestamp-hours" = "hai %d horas";

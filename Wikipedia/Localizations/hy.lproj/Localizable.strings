@@ -174,11 +174,11 @@
 "onboarding-skip" = "Բաց թողնել";
 "onboarding-wikipedia" = "Վիքիպեդիա";
 "onboarding-free-encyclopedia" = "Ազատ հանրագիտարան";
-"preference_title_eventlogging_opt_in" = "Ուղարկել օգտագործման մասին տեղեկություններ";
-"page_protected_autoconfirmed" = "Այս էջը մասամբ պաշտպանված է:";
-"page_protected_sysop" = "Այս էջն ամբողջությամբ պաշտպանված է։";
-"page_protected_can_not_edit" = "Դուք իրավունք չունեք խմբագրել այս էջը:";
-"page_protected_can_not_edit_title" = "Այս էջը պաշտպանված է";
+"preference-title-eventlogging-opt-in" = "Ուղարկել օգտագործման մասին տեղեկություններ";
+"page-protected-autoconfirmed" = "Այս էջը մասամբ պաշտպանված է:";
+"page-protected-sysop" = "Այս էջն ամբողջությամբ պաշտպանված է։";
+"page-protected-can-not-edit" = "Դուք իրավունք չունեք խմբագրել այս էջը:";
+"page-protected-can-not-edit-title" = "Այս էջը պաշտպանված է";
 // Fuzzy
 "license-footer-text" = "Բովանդակությունը հասանելի է";
 "license-footer-name" = "CC BY-SA 3.0";

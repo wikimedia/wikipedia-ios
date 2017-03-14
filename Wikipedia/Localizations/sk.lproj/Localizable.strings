@@ -86,6 +86,7 @@
 "field-new-password-confirm-placeholder" = "Znovuzadajte nové heslo";
 "field-email-title" = "Emailová adresa (nepovinné)";
 "field-email-placeholder" = "example@example.org";
+// Fuzzy
 "field-token-title" = "Token";
 "field-token-placeholder" = "zadajte token";
 "field-captcha-title" = "Zadajte horeuvedený text";
@@ -264,13 +265,13 @@
 "onboarding-skip" = "Preskočiť";
 "onboarding-wikipedia" = "Wikipédia";
 "onboarding-free-encyclopedia" = "Slobodná encyklopédia";
-"preference_title_eventlogging_opt_in" = "Odoslať správu o používaní";
-"preference_summary_eventlogging_opt_in" = "Povoliť Wikimedii zbierať informácie o vašom používaní aplikácie. Pomáha nám to skvalitniť aplikáciu.";
-"page_protected_autoconfirmed" = "Táto stránka je čiastočne zamknutá.";
-"page_protected_sysop" = "Táto stránka je zamknutá.";
-"page_protected_other" = "Táto stránka je zamknutá na nasledujúcu úroveň:";
-"page_protected_can_not_edit" = "Nemáte právo upraviť túto stránku";
-"page_protected_can_not_edit_title" = "Táto stránka je zamknutá";
+"preference-title-eventlogging-opt-in" = "Odoslať správu o používaní";
+"preference-summary-eventlogging-opt-in" = "Povoliť Wikimedii zbierať informácie o vašom používaní aplikácie. Pomáha nám to skvalitniť aplikáciu.";
+"page-protected-autoconfirmed" = "Táto stránka je čiastočne zamknutá.";
+"page-protected-sysop" = "Táto stránka je zamknutá.";
+"page-protected-other" = "Táto stránka je zamknutá na nasledujúcu úroveň:";
+"page-protected-can-not-edit" = "Nemáte právo upraviť túto stránku";
+"page-protected-can-not-edit-title" = "Táto stránka je zamknutá";
 "license-footer-text" = "Pokiaľ nie je uvedené inak, je obsah dostupný v rámci licencie $1.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Obsah";

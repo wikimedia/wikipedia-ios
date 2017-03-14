@@ -104,6 +104,7 @@
 "field-new-password-confirm-placeholder" = "confirma la contraseña nueva";
 "field-email-title" = "Dirección de correo electrónico (opcional)";
 "field-email-placeholder" = "ejemplo@ejemplo.org";
+// Fuzzy
 "field-token-title" = "Clave";
 "field-token-placeholder" = "escribe la clave";
 "field-captcha-title" = "Escribe el texto que ves arriba";
@@ -282,6 +283,8 @@
 "share-as-image" = "Compartir como imagen";
 "share-as-text" = "Compartir como texto";
 "share-cancel" = "Cancelar";
+"share-open-in-maps" = "Abrir en Mapas";
+"share-get-directions-in-maps" = "Obtener indicaciones";
 "timestamp-just-now" = "recién";
 "timestamp-minutes" = "hace %d minutos";
 "timestamp-hours" = "hace %d horas";
@@ -307,13 +310,13 @@
 "onboarding-skip" = "Omitir";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "La enciclopedia libre";
-"preference_title_eventlogging_opt_in" = "Enviar informes de uso";
-"preference_summary_eventlogging_opt_in" = "Permitir que Wikimedia recopile información acerca de cómo utilizas la aplicación para mejorarla";
-"page_protected_autoconfirmed" = "Esta página está semiprotegida.";
-"page_protected_sysop" = "Esta página está totalmente protegida.";
-"page_protected_other" = "Esta página ha sido protegida a los siguientes niveles: $1";
-"page_protected_can_not_edit" = "No tienes permisos para editar esta página";
-"page_protected_can_not_edit_title" = "Esta página está protegida";
+"preference-title-eventlogging-opt-in" = "Enviar informes de uso";
+"preference-summary-eventlogging-opt-in" = "Permitir que Wikimedia recopile información acerca de cómo utilizas la aplicación para mejorarla";
+"page-protected-autoconfirmed" = "Esta página está semiprotegida.";
+"page-protected-sysop" = "Esta página está totalmente protegida.";
+"page-protected-other" = "Esta página ha sido protegida a los siguientes niveles: $1";
+"page-protected-can-not-edit" = "No tienes permisos para editar esta página";
+"page-protected-can-not-edit-title" = "Esta página está protegida";
 "license-footer-text" = "El contenido está disponible bajo la licencia $1, salvo que se indique lo contrario.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Contenido";
@@ -442,7 +445,7 @@
 "empty-no-saved-pages-title" = "Todavía no hay páginas guardadas";
 "empty-no-saved-pages-message" = "Guarda páginas para verlas más tarde, incluso sin conexión";
 "empty-no-history-title" = "No hay ningún historial que mostrar";
-"empty-no-history-message" = "Mantener un registro de lo que he ido leyendo aquí";
+"empty-no-history-message" = "Mantener un registro de lo que has leido aquí";
 "alert-no-internet" = "No hay conexión a internet";
 "icon-shortcut-search-title" = "Buscar en Wikipedia";
 "icon-shortcut-continue-reading-title" = "Continuar leyendo";

@@ -969,7 +969,7 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 #pragma mark Bottom menu bar
 
 - (void)showProtectedDialog {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:MWLocalizedString(@"page_protected_can_not_edit_title", nil) message:MWLocalizedString(@"page_protected_can_not_edit", nil) preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:MWLocalizedString(@"page-protected-can-not-edit-title", nil) message:MWLocalizedString(@"page-protected-can-not-edit", nil) preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"button-ok", nil) style:UIAlertActionStyleCancel handler:NULL]];
     [self presentViewController:alert animated:YES completion:NULL];
 }

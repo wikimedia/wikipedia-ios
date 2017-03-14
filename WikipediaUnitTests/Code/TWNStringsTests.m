@@ -177,6 +177,16 @@
     }
 }
 
+- (void)test_keys_for_underscores {
+    for (NSString *lprojFileName in self.lprojFiles) {
+        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+        for (NSString *key in stringsDict) {
+            // Keys use dash "-" separators.
+            assertThat(key, isNot(containsSubstring(@"_")));
+        }
+    }
+}
+
 - (void)tearDown {
     [super tearDown];
     self.lprojFiles = nil;
