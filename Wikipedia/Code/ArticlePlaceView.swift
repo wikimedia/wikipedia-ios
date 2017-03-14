@@ -11,10 +11,12 @@ class ArticlePlaceView: MKAnnotationView {
     
     let imageView: UIView
     private let imageImageView: UIImageView
+    private let imageImagePlaceholderView: UIImageView
     private let imageOutlineView: UIView
     private let imageBackgroundView: UIView
     private let selectedImageView: UIView
     private let selectedImageImageView: UIImageView
+    private let selectedImageImagePlaceholderView: UIImageView
     private let selectedImageOutlineView: UIView
     private let selectedImageBackgroundView: UIView
     private let dotView: UIView
@@ -128,6 +130,15 @@ class ArticlePlaceView: MKAnnotationView {
         selectedImageButton.addTarget(self, action: #selector(selectedImageViewWasTapped), for: .touchUpInside)
     }
     
+    static let smallDotImage = #imageLiteral(resourceName: "places-dot-small")
+    static let mediumDotImage = #imageLiteral(resourceName: "places-dot-medium")
+    static let mediumDotOutlineImage = #imageLiteral(resourceName: "places-dot-outline-extra-medium")
+    static let largeDotOutlineImage = #imageLiteral(resourceName: "places-dot-outline-large")
+    static let extraMediumOpaqueDot = #imageLiteral(resourceName: "places-dot-extra-medium-opaque")
+    static let largeOpaqueDot = #imageLiteral(resourceName: "places-dot-large-opaque")
+    static let placeholderImage = #imageLiteral(resourceName: "places-w")
+    static let selectedPlaceholderImage = #imageLiteral(resourceName: "places-w-big")
+    
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         selectedImageView = UIView()
         imageView = UIView()
@@ -141,27 +152,27 @@ class ArticlePlaceView: MKAnnotationView {
         imageBackgroundView = UIView()
         selectedImageBackgroundView = UIView()
         selectedImageButton = UIButton()
+        imageImagePlaceholderView = UIImageView()
+        selectedImageImagePlaceholderView = UIImageView()
         
-        let smallDotImage = #imageLiteral(resourceName: "places-dot-small")
-        let mediumDotImage = #imageLiteral(resourceName: "places-dot-medium")
-        let mediumDotOutlineImage = #imageLiteral(resourceName: "places-dot-outline-extra-medium")
-        let largeDotOutlineImage = #imageLiteral(resourceName: "places-dot-outline-large")
-        let scale = mediumDotImage.scale
-        collapsedDimension = smallDotImage.size.width
-        groupDimension = mediumDotImage.size.width
-        dimension = largeDotOutlineImage.size.width
-        imageDimension = mediumDotOutlineImage.size.width
+        let scale = ArticlePlaceView.mediumDotImage.scale
+        collapsedDimension = ArticlePlaceView.smallDotImage.size.width
+        groupDimension = ArticlePlaceView.mediumDotImage.size.width
+        dimension = ArticlePlaceView.largeDotOutlineImage.size.width
+        imageDimension = ArticlePlaceView.mediumDotOutlineImage.size.width
+        
+        isPlaceholderHidden = false
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         
         frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
         
         dotView.bounds = CGRect(x: 0, y: 0, width: collapsedDimension, height: collapsedDimension)
-        dotView.layer.contents = smallDotImage.cgImage
+        dotView.layer.contents = ArticlePlaceView.smallDotImage.cgImage
         dotView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
         addSubview(dotView)
         
         groupView.bounds = CGRect(x: 0, y: 0, width: groupDimension, height: groupDimension)
-        groupView.layer.contents = mediumDotImage.cgImage
+        groupView.layer.contents = ArticlePlaceView.mediumDotImage.cgImage
         addSubview(groupView)
         
         imageView.bounds = CGRect(x: 0, y: 0, width: imageDimension, height: imageDimension)
@@ -169,19 +180,25 @@ class ArticlePlaceView: MKAnnotationView {
         addSubview(imageView)
         
         imageBackgroundView.frame = imageView.bounds
-        imageBackgroundView.layer.contents = #imageLiteral(resourceName: "places-dot-extra-medium-opaque").cgImage
+        imageBackgroundView.layer.contents = ArticlePlaceView.extraMediumOpaqueDot.cgImage
         imageBackgroundView.layer.contentsGravity = kCAGravityCenter
         imageBackgroundView.layer.contentsScale = scale
         imageView.addSubview(imageBackgroundView)
+        
+        imageImagePlaceholderView.frame = imageView.bounds
+        imageImagePlaceholderView.contentMode = .center
+        imageImagePlaceholderView.image = ArticlePlaceView.placeholderImage
+        imageView.addSubview(imageImagePlaceholderView)
         
         imageImageView.frame = UIEdgeInsetsInsetRect(imageView.bounds, UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1))
         imageImageView.contentMode = .scaleAspectFill
         imageImageView.layer.masksToBounds = true
         imageImageView.layer.cornerRadius = imageImageView.bounds.size.width * 0.5
+        imageImageView.backgroundColor = UIColor.white
         imageView.addSubview(imageImageView)
         
         imageOutlineView.frame = imageView.bounds
-        imageOutlineView.layer.contents = mediumDotOutlineImage.cgImage
+        imageOutlineView.layer.contents = ArticlePlaceView.mediumDotOutlineImage.cgImage
         imageView.addSubview(imageOutlineView)
         
         selectedImageView.bounds = bounds
@@ -189,19 +206,25 @@ class ArticlePlaceView: MKAnnotationView {
         addSubview(selectedImageView)
         
         selectedImageBackgroundView.frame = selectedImageView.bounds
-        selectedImageBackgroundView.layer.contents = #imageLiteral(resourceName: "places-dot-large-opaque").cgImage
+        selectedImageBackgroundView.layer.contents = ArticlePlaceView.largeOpaqueDot.cgImage
         selectedImageBackgroundView.layer.contentsGravity = kCAGravityCenter
         selectedImageBackgroundView.layer.contentsScale = scale
         selectedImageView.addSubview(selectedImageBackgroundView)
+        
+        selectedImageImagePlaceholderView.frame = selectedImageView.bounds
+        selectedImageImagePlaceholderView.contentMode = .center
+        selectedImageImagePlaceholderView.image = ArticlePlaceView.selectedPlaceholderImage
+        selectedImageView.addSubview(selectedImageImagePlaceholderView)
         
         selectedImageImageView.frame = UIEdgeInsetsInsetRect(selectedImageView.bounds, UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1))
         selectedImageImageView.contentMode = .scaleAspectFill
         selectedImageImageView.layer.cornerRadius = selectedImageView.bounds.size.width * 0.5
         selectedImageImageView.layer.masksToBounds = true
+        selectedImageImageView.backgroundColor = UIColor.white
         selectedImageView.addSubview(selectedImageImageView)
         
         selectedImageOutlineView.frame = selectedImageView.bounds
-        selectedImageOutlineView.layer.contents = largeDotOutlineImage.cgImage
+        selectedImageOutlineView.layer.contents = ArticlePlaceView.largeDotOutlineImage.cgImage
         selectedImageView.addSubview(selectedImageOutlineView)
         
         selectedImageButton.frame = selectedImageView.bounds
@@ -213,6 +236,7 @@ class ArticlePlaceView: MKAnnotationView {
         countLabel.textAlignment = .center
         countLabel.font = UIFont.boldSystemFont(ofSize: 16)
         groupView.addSubview(countLabel)
+        
         
         prepareForReuse()
         self.annotation = annotation
@@ -230,15 +254,14 @@ class ArticlePlaceView: MKAnnotationView {
             layer.zPosition = zPosition
         }
     }
-    
-    func showPlaceholderImage() {
-        imageImageView.contentMode = .center
-        imageImageView.backgroundColor = UIColor.clear
-        imageImageView.image = #imageLiteral(resourceName: "places-w")
-        
-        selectedImageImageView.contentMode = .center
-        selectedImageImageView.backgroundColor = UIColor.clear
-        selectedImageImageView.image = #imageLiteral(resourceName: "places-w-big")
+
+    var isPlaceholderHidden: Bool {
+        didSet {
+            selectedImageImagePlaceholderView.isHidden = isPlaceholderHidden
+            imageImagePlaceholderView.isHidden = isPlaceholderHidden
+            imageImageView.isHidden = !isPlaceholderHidden
+            selectedImageImageView.isHidden = !isPlaceholderHidden
+        }
     }
     
     private var shouldRasterize = false {
@@ -253,10 +276,11 @@ class ArticlePlaceView: MKAnnotationView {
         guard !isImageLoaded, let articlePlace = annotation as? ArticlePlace, articlePlace.articles.count == 1 else {
             return
         }
+
+        isPlaceholderHidden = false
         if alwaysRasterize {
             shouldRasterize = false
         }
-        showPlaceholderImage()
         isImageLoaded = true
         let article = articlePlace.articles[0]
         if let thumbnailURL = article.thumbnailURL {
@@ -265,12 +289,9 @@ class ArticlePlaceView: MKAnnotationView {
                     self.shouldRasterize = true
                 }
             }, success: {
-                self.imageImageView.contentMode = .scaleAspectFill
-                self.imageImageView.backgroundColor = UIColor.white
                 self.selectedImageImageView.image = self.imageImageView.image
                 self.selectedImageImageView.layer.contentsRect = self.imageImageView.layer.contentsRect
-                self.selectedImageImageView.backgroundColor = UIColor.white
-                self.selectedImageImageView.contentMode = .scaleAspectFill
+                self.isPlaceholderHidden = true
                 if self.alwaysRasterize {
                     self.shouldRasterize = true
                 }
@@ -325,6 +346,9 @@ class ArticlePlaceView: MKAnnotationView {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        if alwaysRasterize {
+            shouldRasterize = true
+        }
         isImageLoaded = false
         delegate = nil
         imageImageView.wmf_reset()
