@@ -27,8 +27,8 @@
 
     self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
 
-    self.tableView.backgroundColor = [UIColor wmf_articleListBackgroundColor];
-    self.tableView.separatorColor = [UIColor wmf_lightGrayColor];
+    self.tableView.backgroundColor = [UIColor wmf_articleListBackground];
+    self.tableView.separatorColor = [UIColor wmf_lightGray];
     self.tableView.estimatedRowHeight = 64.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 

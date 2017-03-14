@@ -7,11 +7,11 @@ open class WMFArticleFooterView: UIView {
 
     open func setLicenseTextForURL(_ url: URL) {
     
-        let baseStyle = [NSForegroundColorAttributeName : UIColor.wmf_licenseText(),
+        let baseStyle = [NSForegroundColorAttributeName : UIColor.wmf_licenseText,
             NSFontAttributeName : UIFont.systemFont(ofSize: 12)
         ] as [String : Any]
         
-        let substitutionStyle = [NSForegroundColorAttributeName : UIColor.wmf_licenseLink(),
+        let substitutionStyle = [NSForegroundColorAttributeName : UIColor.wmf_licenseLink,
             NSFontAttributeName : UIFont.systemFont(ofSize: 12)
         ] as [String : Any]
         

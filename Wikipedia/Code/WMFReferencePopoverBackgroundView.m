@@ -7,7 +7,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.arrowColor = [UIColor wmf_referencePopoverBackgroundColor];
+        self.arrowColor = [UIColor wmf_referencePopoverBackground];
     }
     return self;
 }

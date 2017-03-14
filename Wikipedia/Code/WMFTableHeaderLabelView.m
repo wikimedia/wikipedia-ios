@@ -15,7 +15,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.textLabel.textColor = [UIColor wmf_nearbyDescriptionColor];
+    self.textLabel.textColor = [UIColor wmf_nearbyDescription];
 }
 
 - (void)setText:(NSString *)text {

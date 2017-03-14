@@ -120,7 +120,7 @@
     return [[NSAttributedString alloc] initWithString:self.titleText
                                            attributes:@{
                                                NSFontAttributeName: [UIFont wmf_nearbyTitleFont],
-                                               NSForegroundColorAttributeName: [UIColor wmf_nearbyTitleColor]
+                                               NSForegroundColorAttributeName: [UIColor wmf_nearbyTitle]
                                            }];
 }
 
