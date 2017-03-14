@@ -33,6 +33,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private var currentGroupingPrecision: QuadKeyPrecision = 1
     private let searchHistoryGroup = "PlaceSearch"
     private var selectedArticlePopover: ArticlePopoverViewController?
+    private var selectedArticleAnnotationView: MKAnnotationView?
     private var selectedArticleKey: String?
     private var placeToSelect: ArticlePlace?
     private var articleKeyToSelect: String?
@@ -1204,7 +1205,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let size = articleVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
         articleVC.preferredContentSize = size
         selectedArticlePopover = articleVC
+        selectedArticleAnnotationView = annotationView
         selectedArticleKey = articleKey
+    
+        
         adjustLayout(ofPopover: articleVC, withSize:size, viewSize:view.bounds.size, forAnnotationView: annotationView)
         articleVC.view.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin, .flexibleLeftMargin, .flexibleRightMargin]
         articleVC.view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
@@ -1222,15 +1226,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         super.viewWillTransition(to: size, with: coordinator)
         
         coordinator.animate(alongsideTransition: { (context) in
-            if let popover = self.selectedArticlePopover,
-                let annotation = self.mapView.selectedAnnotations.first,
-                let annotationView = self.mapView.view(for: annotation) {
-                self.adjustLayout(ofPopover: popover, withSize: popover.preferredContentSize, viewSize: size, forAnnotationView: annotationView)
-            }
-            
             if let groupVC = self.placeGroupVC, let annotationView = self.placeGroupAnnotationView  {
                 let center = self.view.convert(annotationView.center, from: annotationView.superview)
                 groupVC.layout(center: center)
+            }
+            
+            if let popover = self.selectedArticlePopover,
+                let annotationView = self.selectedArticleAnnotationView {
+                self.adjustLayout(ofPopover: popover, withSize: popover.preferredContentSize, viewSize: size, forAnnotationView: annotationView)
             }
         }, completion: nil)
     }
@@ -1248,6 +1251,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             popover.removeFromParentViewController()
         }
         selectedArticlePopover = nil
+        selectedArticleAnnotationView = nil
     }
     
     func articlePopoverViewController(articlePopoverViewController: ArticlePopoverViewController, didSelectAction action: WMFArticleAction) {
@@ -1290,12 +1294,54 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
+    enum PopoverLocation {
+        case top
+        case bottom
+        case left
+        case right
+    }
+    
     func adjustLayout(ofPopover articleVC: ArticlePopoverViewController, withSize popoverSize: CGSize, viewSize: CGSize, forAnnotationView annotationView: MKAnnotationView) {
+        var preferredLocations = [PopoverLocation]()
+        
+        if let groupAnnotationView = placeGroupAnnotationView {
+            let adjustedCenter = view.convert(annotationView.center, from: annotationView.superview)
+            let adjustedGroupCenter = view.convert(groupAnnotationView.center, from: groupAnnotationView.superview)
+            let dx = adjustedGroupCenter.x - adjustedCenter.x
+            let dy = adjustedGroupCenter.y - adjustedCenter.y
+            
+            if dy >= 0 && dx >= 0 {
+                if dy > dx {
+                    preferredLocations = [.top, .right]
+                } else {
+                    preferredLocations = [.right, .top]
+                }
+            } else if dy <= 0 && dx <= 0 {
+                if dy < dx {
+                    preferredLocations = [.bottom, .left]
+                } else {
+                    preferredLocations = [.left, .bottom]
+                }
+            } else if dy >= 0 && dx < 0 {
+                if dy > abs(dx) {
+                    preferredLocations = [.top, .left]
+                } else {
+                    preferredLocations = [.left, .top]
+                }
+            } else if dy < 0 && dx >= 0 {
+                if abs(dy) > dx {
+                    preferredLocations = [.bottom, .right]
+                } else {
+                    preferredLocations = [.right, .bottom]
+                }
+            }
+        }
+        
         let annotationSize = annotationView.frame.size
         let spacing: CGFloat = 5
         let annotationCenter = view.convert(annotationView.center, from: mapView)
         let viewCenter = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
-        
+    
         let popoverDistanceFromAnnotationCenterY = 0.5 * annotationSize.height + spacing
         let totalHeight = popoverDistanceFromAnnotationCenterY + popoverSize.height + spacing
         let top = totalHeight - annotationCenter.y
@@ -1309,26 +1355,65 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         var x = annotationCenter.x > viewCenter.x ? viewSize.width - popoverSize.width - spacing : spacing
         var y = annotationCenter.y > viewCenter.y ? viewSize.height - popoverSize.height - spacing : spacing
 
-        let fitsTopOrBottom = (top < 0 || bottom < 0) && viewSize.width - annotationCenter.x > 0.5*popoverSize.width && annotationCenter.x > 0.5*popoverSize.width
+        let canFitTopOrBottom = viewSize.width - annotationCenter.x > 0.5*popoverSize.width && annotationCenter.x > 0.5*popoverSize.width
+        let fitsTop = top < 0 && canFitTopOrBottom
+        let fitsBottom = bottom < 0 && canFitTopOrBottom
         
-        let fitsLeftOrRight = (left < 0 || right < 0) && viewSize.height - annotationCenter.y > 0.5*popoverSize.height && annotationCenter.y > 0.5*popoverSize.width
         
-        if (fitsTopOrBottom) {
-            x = annotationCenter.x - 0.5 * popoverSize.width
-            y = annotationCenter.y + (top < bottom ? 0 - totalHeight : popoverDistanceFromAnnotationCenterY)
-        } else if (fitsLeftOrRight) {
-            x = annotationCenter.x + (left < right ? 0 - totalWidth : popoverDistanceFromAnnotationCenterX)
-            y = annotationCenter.y - 0.5 * popoverSize.height
-        } else if (top < 0) {
-            y = annotationCenter.y - totalHeight
-        } else if (bottom < 0) {
-            y = annotationCenter.y + popoverDistanceFromAnnotationCenterY
-        } else if (left < 0) {
-            x = annotationCenter.x - totalWidth
-        } else if (right < 0) {
-            x = annotationCenter.x + popoverDistanceFromAnnotationCenterX
+        let canFitLeftOrRight = viewSize.height - annotationCenter.y > 0.5*popoverSize.height && annotationCenter.y > 0.5*popoverSize.width
+        let fitsLeft = left < 0 && canFitLeftOrRight
+        let fitsRight = right < 0 && canFitLeftOrRight
+        
+        var didFitPreferredLocation = false
+        for preferredLocation in preferredLocations {
+            didFitPreferredLocation = true
+            if preferredLocation == .top && fitsTop {
+                x = annotationCenter.x - 0.5 * popoverSize.width
+                y = annotationCenter.y - totalHeight
+            } else if preferredLocation == .bottom && fitsBottom {
+                x = annotationCenter.x - 0.5 * popoverSize.width
+                y = annotationCenter.y + popoverDistanceFromAnnotationCenterY
+            } else if preferredLocation == .left && fitsLeft {
+                x = annotationCenter.x - totalWidth
+                y = annotationCenter.y - 0.5 * popoverSize.height
+            } else if preferredLocation == .right && fitsRight {
+                x = annotationCenter.x + popoverDistanceFromAnnotationCenterX
+                y = annotationCenter.y - 0.5 * popoverSize.height
+            } else if preferredLocation == .top && top < 0 {
+                y = annotationCenter.y - totalHeight
+            } else if preferredLocation == .bottom && bottom < 0 {
+                y = annotationCenter.y + popoverDistanceFromAnnotationCenterY
+            } else if preferredLocation == .left && left < 0 {
+                x = annotationCenter.x - totalWidth
+            } else if preferredLocation == .right && right < 0 {
+                x = annotationCenter.x + popoverDistanceFromAnnotationCenterX
+            } else {
+                didFitPreferredLocation = false
+            }
+            
+            if didFitPreferredLocation {
+                break
+            }
         }
         
+        if (!didFitPreferredLocation) {
+            if (fitsTop || fitsBottom) {
+                x = annotationCenter.x - 0.5 * popoverSize.width
+                y = annotationCenter.y + (top < bottom ? 0 - totalHeight : popoverDistanceFromAnnotationCenterY)
+            } else if (fitsLeft || fitsRight) {
+                x = annotationCenter.x + (left < right ? 0 - totalWidth : popoverDistanceFromAnnotationCenterX)
+                y = annotationCenter.y - 0.5 * popoverSize.height
+            } else if (top < 0) {
+                y = annotationCenter.y - totalHeight
+            } else if (bottom < 0) {
+                y = annotationCenter.y + popoverDistanceFromAnnotationCenterY
+            } else if (left < 0) {
+                x = annotationCenter.x - totalWidth
+            } else if (right < 0) {
+                x = annotationCenter.x + popoverDistanceFromAnnotationCenterX
+            }
+        }
+       
         articleVC.view.frame = CGRect(origin: CGPoint(x: x, y: y), size: popoverSize)
     }
     
