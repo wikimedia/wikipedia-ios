@@ -334,14 +334,14 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "The Free Encyclopedia";
 
-"preference_title_eventlogging_opt_in" = "Send usage reports";
-"preference_summary_eventlogging_opt_in" = "Allow Wikimedia to collect information about how you use the app to make the app better";
+"preference-title-eventlogging-opt-in" = "Send usage reports";
+"preference-summary-eventlogging-opt-in" = "Allow Wikimedia to collect information about how you use the app to make the app better";
 
-"page_protected_autoconfirmed" = "This page has been semi-protected.";
-"page_protected_sysop" = "This page has been fully protected.";
-"page_protected_other" = "This page has been protected to the following levels: $1";
-"page_protected_can_not_edit" = "You do not have the rights to edit this page";
-"page_protected_can_not_edit_title" = "This page is protected";
+"page-protected-autoconfirmed" = "This page has been semi-protected.";
+"page-protected-sysop" = "This page has been fully protected.";
+"page-protected-other" = "This page has been protected to the following levels: $1";
+"page-protected-can-not-edit" = "You do not have the rights to edit this page";
+"page-protected-can-not-edit-title" = "This page is protected";
 
 "license-footer-text" = "Content is available under $1 unless otherwise noted.";
 "license-footer-name" = "CC BY-SA 3.0";

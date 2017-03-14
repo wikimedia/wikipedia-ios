@@ -88,7 +88,7 @@
 "onboarding-login" = "Seeni";
 "onboarding-skip" = "Bira darbi";
 "onboarding-wikipedia" = "Wiikippiidiyaa";
-"page_protected_can_not_edit" = "Fuula kana jijjiiruuf mirga hin qabdu";
+"page-protected-can-not-edit" = "Fuula kana jijjiiruuf mirga hin qabdu";
 "table-of-contents-heading" = "Qabiyyee";
 "menu-edit-accessibility-label" = "Gulaali";
 "menu-close-accessibility-label" = "Cufi";

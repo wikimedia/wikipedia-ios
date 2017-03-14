@@ -86,9 +86,9 @@
 "onboarding-skip" = "Ӏадйита";
 "onboarding-wikipedia" = "Википеди";
 "onboarding-free-encyclopedia" = "Маьрша энциклопеди";
-"preference_title_eventlogging_opt_in" = "Лелорах лаьцна дӀадохьуьйту";
-"page_protected_can_not_edit" = "ХӀара агӀо таян хьан бакъо яц";
-"page_protected_can_not_edit_title" = "ХӀара агӀо ларйина ю";
+"preference-title-eventlogging-opt-in" = "Лелорах лаьцна дӀадохьуьйту";
+"page-protected-can-not-edit" = "ХӀара агӀо таян хьан бакъо яц";
+"page-protected-can-not-edit-title" = "ХӀара агӀо ларйина ю";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Чулацам";
 "abuse-filter-warning-heading" = "ХӀара нисдар зуламе долчух тера ду. Лаьий хьуна и Ӏалашдан?";

@@ -397,7 +397,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SendUsageReports]
         ]];
     section.header = MWLocalizedString(@"main-menu-heading-legal", nil);
-    section.footer = MWLocalizedString(@"preference_summary_eventlogging_opt_in", nil);
+    section.footer = MWLocalizedString(@"preference-summary-eventlogging-opt-in", nil);
     return section;
 }
 

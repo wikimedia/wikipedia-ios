@@ -143,9 +143,9 @@
 "onboarding-skip" = "దాటవేయి";
 "onboarding-wikipedia" = "వికీపీడియా";
 "onboarding-free-encyclopedia" = "స్వేచ్ఛా విజ్ఞాన సర్వస్వం";
-"page_protected_autoconfirmed" = "ఈ పేజి సగం-రక్షించబడింది.";
-"page_protected_other" = "ఈ పేజి ఈ స్థాయిలలో రక్షించబడింది: $1";
-"page_protected_can_not_edit_title" = "ఈ పేజీ సంరక్షించబడింది";
+"page-protected-autoconfirmed" = "ఈ పేజి సగం-రక్షించబడింది.";
+"page-protected-other" = "ఈ పేజి ఈ స్థాయిలలో రక్షించబడింది: $1";
+"page-protected-can-not-edit-title" = "ఈ పేజీ సంరక్షించబడింది";
 "table-of-contents-heading" = "విషయాలు";
 "table-of-contents-button-label" = "విషయ సూచిక";
 "table-of-contents-close-accessibility-label" = "విషయ సూచికను మూసివేయి";

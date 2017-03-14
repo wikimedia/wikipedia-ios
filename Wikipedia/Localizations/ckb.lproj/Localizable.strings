@@ -233,12 +233,12 @@
 "onboarding-skip" = "پەڕاندن";
 "onboarding-wikipedia" = "ویکیپیدیا";
 "onboarding-free-encyclopedia" = "ئینسایکڵۆپیدیای ئازاد";
-"preference_summary_eventlogging_opt_in" = "ڕێگە بە بە ویکیمیدیا بدە بۆ کۆکردنەوەی زانیاری لەبارەی چۆنیەتی بەکارھێنانی ئاپەکە لەلایەن تۆوە، بە مەبەستی باشترکردنی ئاپەکە";
-"page_protected_autoconfirmed" = "ئەم پەڕەیە نیمچە-پارێزراوە.";
-"page_protected_sysop" = "ئەم پەڕەیە بە تەواوی پارێزراوە.";
-"page_protected_other" = "ئەم پەڕەیە پارێزراوە بۆ ئەم ئاستانە: $1";
-"page_protected_can_not_edit" = "تۆ مەفەکانی دەستکاریکردنی ئەم پەڕەیەت نییە.";
-"page_protected_can_not_edit_title" = "ئەم پەڕەیە پارێزراوە";
+"preference-summary-eventlogging-opt-in" = "ڕێگە بە بە ویکیمیدیا بدە بۆ کۆکردنەوەی زانیاری لەبارەی چۆنیەتی بەکارھێنانی ئاپەکە لەلایەن تۆوە، بە مەبەستی باشترکردنی ئاپەکە";
+"page-protected-autoconfirmed" = "ئەم پەڕەیە نیمچە-پارێزراوە.";
+"page-protected-sysop" = "ئەم پەڕەیە بە تەواوی پارێزراوە.";
+"page-protected-other" = "ئەم پەڕەیە پارێزراوە بۆ ئەم ئاستانە: $1";
+"page-protected-can-not-edit" = "تۆ مەفەکانی دەستکاریکردنی ئەم پەڕەیەت نییە.";
+"page-protected-can-not-edit-title" = "ئەم پەڕەیە پارێزراوە";
 // Fuzzy
 "license-footer-text" = "ناوەڕۆک بەردەستە لەژێر $1";
 "license-footer-name" = "CC BY-SA 3.0";
