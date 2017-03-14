@@ -261,6 +261,9 @@ class ArticlePlaceView: MKAnnotationView {
         let article = articlePlace.articles[0]
         if let thumbnailURL = article.thumbnailURL {
             imageImageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
+                if self.alwaysRasterize {
+                    self.shouldRasterize = true
+                }
             }, success: {
                 self.imageImageView.contentMode = .scaleAspectFill
                 self.imageImageView.backgroundColor = UIColor.white
