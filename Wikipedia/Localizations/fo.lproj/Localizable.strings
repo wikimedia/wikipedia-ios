@@ -212,10 +212,10 @@
 "onboarding-skip" = "Loyp um";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Hin frælsa alfrøðin";
-"preference_title_eventlogging_opt_in" = "Send frágreiðingar um nýtslu";
-"preference_summary_eventlogging_opt_in" = "Loyv Wikimedia at savna kunning um hvussu tú nýtir appina fyri at gera hana betri.";
-"page_protected_autoconfirmed" = "Henda síðan er blivin hálv-vard.";
-"page_protected_sysop" = "Henda síðan hevur fulla verju.";
+"preference-title-eventlogging-opt-in" = "Send frágreiðingar um nýtslu";
+"preference-summary-eventlogging-opt-in" = "Loyv Wikimedia at savna kunning um hvussu tú nýtir appina fyri at gera hana betri.";
+"page-protected-autoconfirmed" = "Henda síðan er blivin hálv-vard.";
+"page-protected-sysop" = "Henda síðan hevur fulla verju.";
 "table-of-contents-close-accessibility-hint" = "Lat aftur";
 "menu-edit-accessibility-label" = "Rætta";
 "menu-close-accessibility-label" = "Lat aftur";

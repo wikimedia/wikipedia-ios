@@ -37,6 +37,7 @@
 "account-creation-logging-in" = "په ننوتلو کې دی...";
 "account-creation-saving" = "خوندي کېږي...";
 "account-creation-login" = "آيا له پخوا نه يو گڼون لرې؟ ورننوځه.";
+"account-creation-log-in" = "ننوتل";
 "login-name-not-found" = "د  ننوتلو لپاره کارن-نوم ته اړتيا ده.";
 "login-name-illegal" = "تاسې يو ناقانونه کارن-نوم ورکړی.";
 "login-name-does-not-exist" = "کوم کارن-نوم مو چې ورکړی هغه نشته.";
@@ -46,6 +47,9 @@
 "login-account-creation" = "گڼون نه لرې؟ ويکيپېډيا سره يوځای شه.";
 "login-username-placeholder-text" = "کارن-نوم";
 "login-password-placeholder-text" = "پټنوم";
+"login-join-wikipedia" = "ويکيپېډيا سره يوځای شئ.";
+"field-username-title" = "کارن-نوم";
+"field-password-title" = "پټنوم";
 "wikitext-downloading" = "مېنځپانگه رابرسېرېږي...";
 "wikitext-upload-save" = "خپرېږي...";
 "wikitext-upload-save-sign-in" = "ننوتل";
@@ -167,8 +171,8 @@
 "onboarding-skip" = "تېرېدل";
 "onboarding-wikipedia" = "ويکيپېډيا";
 "onboarding-free-encyclopedia" = "يو وړيا پوهنغونډ";
-"preference_title_eventlogging_opt_in" = "د کارېدنې راپورونه لېږل";
-"page_protected_can_not_edit_title" = "دا مخ ژغورل شوی";
+"preference-title-eventlogging-opt-in" = "د کارېدنې راپورونه لېږل";
+"page-protected-can-not-edit-title" = "دا مخ ژغورل شوی";
 "license-footer-text" = "دا مېنځپانگه د $1 سره سم ستاسې لاسرسي کې ده، خو چې مخالف يې وييل شوی وي.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "منځپانگې";

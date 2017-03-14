@@ -150,7 +150,7 @@
 "onboarding-skip" = "Ruka";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Encyclopedia ya Bure";
-"preference_title_eventlogging_opt_in" = "Tuma ripoti za matumizi";
+"preference-title-eventlogging-opt-in" = "Tuma ripoti za matumizi";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Yaliyomo";
 "menu-edit-accessibility-label" = "Hariri";

@@ -108,6 +108,7 @@
 "field-new-password-confirm-placeholder" = "re-inserisci la nuova password";
 "field-email-title" = "Indirizzo di posta elettronica (opzionale)";
 "field-email-placeholder" = "example@example.org";
+// Fuzzy
 "field-token-title" = "Token";
 "field-token-placeholder" = "inserisci il token";
 "field-captcha-title" = "Inserisci il testo che vedi sopra";
@@ -281,6 +282,8 @@
 "share-as-image" = "Condividi come immagine";
 "share-as-text" = "Condividi come testo";
 "share-cancel" = "Annulla";
+"share-open-in-maps" = "Apri in Maps";
+"share-get-directions-in-maps" = "Ottieni indicazioni";
 "timestamp-just-now" = "proprio ora";
 "timestamp-minutes" = "%d minuti fa";
 "timestamp-hours" = "%d ore fa";
@@ -306,13 +309,13 @@
 "onboarding-skip" = "Salta";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "L'enciclopedia libera";
-"preference_title_eventlogging_opt_in" = "Invia rapporti sull'utilizzo";
-"preference_summary_eventlogging_opt_in" = "Consenti a Wikimedia di raccogliere informazioni su come usi l'applicazione per renderla migliore";
-"page_protected_autoconfirmed" = "Questa pagina è stata semi-protetta.";
-"page_protected_sysop" = "Questa pagina è stata protetta.";
-"page_protected_other" = "Questa pagina è stata protetta ai seguenti livelli: $1";
-"page_protected_can_not_edit" = "Non hai i diritti per modificare questa pagina";
-"page_protected_can_not_edit_title" = "Questa pagina è protetta";
+"preference-title-eventlogging-opt-in" = "Invia rapporti sull'utilizzo";
+"preference-summary-eventlogging-opt-in" = "Consenti a Wikimedia di raccogliere informazioni su come usi l'applicazione per renderla migliore";
+"page-protected-autoconfirmed" = "Questa pagina è stata semi-protetta.";
+"page-protected-sysop" = "Questa pagina è stata protetta.";
+"page-protected-other" = "Questa pagina è stata protetta ai seguenti livelli: $1";
+"page-protected-can-not-edit" = "Non hai i diritti per modificare questa pagina";
+"page-protected-can-not-edit-title" = "Questa pagina è protetta";
 "license-footer-text" = "Il contenuto è disponibile in base alla licenza $1, se non diversamente specificato.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Contenuti";

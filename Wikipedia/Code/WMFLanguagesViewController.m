@@ -89,20 +89,20 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
     self.navigationItem.leftBarButtonItems = @[xButton];
 
-    self.tableView.backgroundColor = [UIColor wmf_settingsBackgroundColor];
+    self.tableView.backgroundColor = [UIColor wmf_settingsBackground];
 
     self.tableView.estimatedRowHeight = WMFOtherLanguageRowHeight;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
     // remove a 1px black border around the search field
-    self.languageFilterField.layer.borderColor = [[UIColor wmf_settingsBackgroundColor] CGColor];
+    self.languageFilterField.layer.borderColor = [[UIColor wmf_settingsBackground] CGColor];
     self.languageFilterField.layer.borderWidth = 1.f;
 
     // stylize
     if ([self.languageFilterField respondsToSelector:@selector(setReturnKeyType:)]) {
         [self.languageFilterField setReturnKeyType:UIReturnKeyDone];
     }
-    self.languageFilterField.barTintColor = [UIColor wmf_settingsBackgroundColor];
+    self.languageFilterField.barTintColor = [UIColor wmf_settingsBackground];
     self.languageFilterField.placeholder = MWLocalizedString(@"article-languages-filter-placeholder", nil);
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -379,7 +379,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     languagesVC.showNonPreferredLanguages = NO;
     languagesVC.disableSelection = NO;
 
-    languagesVC.editButtonItem.tintColor = [UIColor wmf_blueTintColor];
+    languagesVC.editButtonItem.tintColor = [UIColor wmf_blueTint];
     languagesVC.navigationItem.rightBarButtonItem = languagesVC.editButtonItem;
     return languagesVC;
 }

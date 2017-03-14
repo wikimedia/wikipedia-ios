@@ -361,7 +361,7 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     self.footerContainerViewRightMarginConstraint.offset = 0 - marginWidth;
 
     BOOL hasMargins = marginWidth > 0;
-    self.footerContainerView.backgroundColor = hasMargins ? [UIColor whiteColor] : [UIColor wmf_articleBackgroundColor];
+    self.footerContainerView.backgroundColor = hasMargins ? [UIColor whiteColor] : [UIColor wmf_articleBackground];
 }
 
 - (void)updateWebContentMarginForSize:(CGSize)size {
@@ -606,7 +606,7 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     }];
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
-    self.webView.scrollView.backgroundColor = [UIColor wmf_articleBackgroundColor];
+    self.webView.scrollView.backgroundColor = [UIColor wmf_articleBackground];
 
     self.zeroStatusLabel.font = [UIFont systemFontOfSize:12];
     self.zeroStatusLabel.text = @"";
@@ -769,7 +769,7 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 
 - (void)addFooterContainerView {
     self.footerContainerView = [UIView new];
-    self.footerContainerView.backgroundColor = [UIColor wmf_articleBackgroundColor];
+    self.footerContainerView.backgroundColor = [UIColor wmf_articleBackground];
     self.footerContainerView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.webView.scrollView addSubview:self.footerContainerView];
     [self.footerContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -969,7 +969,7 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 #pragma mark Bottom menu bar
 
 - (void)showProtectedDialog {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:MWLocalizedString(@"page_protected_can_not_edit_title", nil) message:MWLocalizedString(@"page_protected_can_not_edit", nil) preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:MWLocalizedString(@"page-protected-can-not-edit-title", nil) message:MWLocalizedString(@"page-protected-can-not-edit", nil) preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"button-ok", nil) style:UIAlertActionStyleCancel handler:NULL]];
     [self presentViewController:alert animated:YES completion:NULL];
 }
