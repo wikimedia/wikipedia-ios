@@ -6,7 +6,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     @IBOutlet fileprivate var usernameTitleLabel: UILabel!
     @IBOutlet fileprivate var passwordTitleLabel: UILabel!
     @IBOutlet fileprivate var passwordAlertLabel: UILabel!
-    @IBOutlet fileprivate var createAccountButton: UILabel!
+    @IBOutlet fileprivate var createAccountButton: WMFAuthLinkLabel!
     @IBOutlet fileprivate var forgotPasswordButton: UILabel!
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var captchaContainer: UIView!
@@ -30,13 +30,13 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        [titleLabel, usernameTitleLabel, passwordTitleLabel].forEach{$0.textColor = .wmf_authTitle()}
+    
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
 
         loginButton.setTitle(localizedStringForKeyFallingBackOnEnglish("main-menu-account-login"), for: .normal)
         
-        forgotPasswordButton.textColor = UIColor.wmf_blueTint()
-
-        createAccountButton.attributedText = createAccountButton.wmf_authAttributedStringReusingFont(withDollarSignString: localizedStringForKeyFallingBackOnEnglish("login-no-account"), substitutionString: localizedStringForKeyFallingBackOnEnglish("login-join-wikipedia"))
+        createAccountButton.strings = WMFAuthLinkLabelStrings(dollarSignString: localizedStringForKeyFallingBackOnEnglish("login-no-account"), substitutionString: localizedStringForKeyFallingBackOnEnglish("login-join-wikipedia"))
         
         createAccountButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAccountButtonPushed(_:))))
 
