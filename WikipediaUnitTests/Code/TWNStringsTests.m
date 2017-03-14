@@ -177,12 +177,14 @@
     }
 }
 
-- (void)test_keys_for_underscores {
+- (void)test_en_keys_for_underscores {
     for (NSString *lprojFileName in self.lprojFiles) {
-        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
-        for (NSString *key in stringsDict) {
-            // Keys use dash "-" separators.
-            assertThat(key, isNot(containsSubstring(@"_")));
+        if ([lprojFileName isEqualToString:@"en.lproj"]) {
+            NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+            for (NSString *key in stringsDict) {
+                // Keys use dash "-" separators.
+                assertThat(key, isNot(containsSubstring(@"_")));
+            }
         }
     }
 }
