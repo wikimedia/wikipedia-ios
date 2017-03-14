@@ -29,11 +29,15 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 public extension UserDefaults {
     
     public class func wmf_userDefaults() -> UserDefaults {
-        guard let defaults = UserDefaults(suiteName: WMFApplicationGroupIdentifier) else {
-            assert(false)
-            return UserDefaults.standard
-        }
-        return defaults
+#if WMF_NO_APP_GROUP
+        return UserDefaults.standard
+#else
+            guard let defaults = UserDefaults(suiteName: WMFApplicationGroupIdentifier) else {
+                assert(false)
+                return UserDefaults.standard
+            }
+            return defaults
+#endif
     }
     
     public class func wmf_migrateToWMFGroupUserDefaultsIfNecessary() {
