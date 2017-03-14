@@ -28,7 +28,7 @@
 
 - (void)setHighlighted:(BOOL)highlighted {
     [super setHighlighted:highlighted];
-    self.backgroundColor = highlighted ? [UIColor wmf_tapHighlightColor] : [UIColor whiteColor];
+    self.backgroundColor = highlighted ? [UIColor wmf_tapHighlight] : [UIColor whiteColor];
     [self walkSubviewsOfView:self andSetHighlighted:highlighted];
 }
 

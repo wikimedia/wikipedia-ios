@@ -13,7 +13,7 @@
     self.placeholderImageView.contentMode = UIViewContentModeScaleToFill;
     [self.placeholderSaveButton setImage:[UIImage imageNamed:@"save-mini"] forState:UIControlStateNormal];
     [self.placeholderSaveButton setTitle:MWLocalizedString(@"button-save-for-later", nil) forState:UIControlStateNormal];
-    self.placeholderSaveButton.tintColor = [UIColor wmf_placeholderLightGrayColor];
+    self.placeholderSaveButton.tintColor = [UIColor wmf_placeholderLightGray];
 }
 
 @end
