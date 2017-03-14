@@ -1310,29 +1310,29 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let dx = adjustedGroupCenter.x - adjustedCenter.x
             let dy = adjustedGroupCenter.y - adjustedCenter.y
             
-            if dy >= 0 && dx >= 0 {
-                if dy > dx {
+            if dy <= 0 && dx <= 0 {
+                if dy < dx {
+                    preferredLocations = [.bottom, .right]
+                } else {
+                    preferredLocations = [.right, .bottom]
+                }
+            } else if dy > 0 && dx <= 0 {
+                if dy > abs(dx) {
                     preferredLocations = [.top, .right]
                 } else {
                     preferredLocations = [.right, .top]
                 }
-            } else if dy <= 0 && dx <= 0 {
-                if dy < dx {
+            } else if dy <= 0 && dx > 0 {
+                if abs(dy) > dx {
                     preferredLocations = [.bottom, .left]
                 } else {
                     preferredLocations = [.left, .bottom]
                 }
-            } else if dy >= 0 && dx < 0 {
-                if dy > abs(dx) {
+            } else if dy > 0 && dx > 0 {
+                if dy > dx {
                     preferredLocations = [.top, .left]
                 } else {
                     preferredLocations = [.left, .top]
-                }
-            } else if dy < 0 && dx >= 0 {
-                if abs(dy) > dx {
-                    preferredLocations = [.bottom, .right]
-                } else {
-                    preferredLocations = [.right, .bottom]
                 }
             }
         }
