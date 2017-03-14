@@ -158,7 +158,7 @@ class ArticlePlaceGroupViewController: UIViewController {
         delegate?.articlePlaceGroupViewController(self, didSelectPlaceView: placeView)
     }
     
-    func layoutForCenter(center: CGPoint) {
+    func layoutPlaceViews(center: CGPoint) {
         let count = placeViews.count
         var i = 1
         for placeView in placeViews {
@@ -171,29 +171,18 @@ class ArticlePlaceGroupViewController: UIViewController {
             i += 1
         }
         
-        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, traitCollection.displayScale)
-        guard let ctx = UIGraphicsGetCurrentContext() else {
-            return
-        }
-        let maxDimension = max(view.bounds.size.width, view.bounds.size.height)
-        let grayColor = UIColor(white: 0, alpha: 0.5).cgColor
-        let clearColor = UIColor.clear.cgColor
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let locations: [CGFloat] = [0, CGFloat(radius)/maxDimension, 1]
-        guard let gradient = CGGradient(colorsSpace: colorSpace, colors: [clearColor, grayColor, grayColor] as CFArray, locations: locations) else {
-            return
-        }
-        ctx.drawRadialGradient(gradient, startCenter: center, startRadius: 10, endCenter: center, endRadius: maxDimension, options: [])
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        tintView.image = image
-        UIGraphicsEndImageContext()
+        groupView.center = center
+        zoomPlaceView.center = center
+    }
+    
+    func layout(center: CGPoint) {
+        layoutPlaceViews(center: center)
+        drawGradient(center: center)
     }
     
     var center: CGPoint?
     
-    func show(center: CGPoint) {
-        self.center = center
-        //tintView.backgroundColor = UIColor(white: 0, alpha: 0.3)
+    func drawGradient(center: CGPoint) {
         let scale = traitCollection.displayScale
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, scale)
         guard let ctx = UIGraphicsGetCurrentContext() else {
@@ -211,6 +200,13 @@ class ArticlePlaceGroupViewController: UIViewController {
         let image = UIGraphicsGetImageFromCurrentImageContext()
         tintView.image = image
         UIGraphicsEndImageContext()
+    }
+    
+    func show(center: CGPoint) {
+        self.center = center
+        //tintView.backgroundColor = UIColor(white: 0, alpha: 0.3)
+       
+        drawGradient(center: center)
         
         let rotationTransform = CGAffineTransform(rotationAngle: CGFloat(-0.99*M_PI))
         let scaleTransform = CGAffineTransform(scaleX: zoomPlaceViewScale, y: zoomPlaceViewScale)

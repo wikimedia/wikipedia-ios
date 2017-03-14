@@ -1230,7 +1230,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             
             if let groupVC = self.placeGroupVC, let annotationView = self.placeGroupAnnotationView  {
                 let center = self.view.convert(annotationView.center, from: annotationView.superview)
-                groupVC.layoutForCenter(center: center)
+                groupVC.layout(center: center)
             }
         }, completion: nil)
     }
