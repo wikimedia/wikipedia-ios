@@ -1063,16 +1063,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             
             let checkAndSelect = { (place: ArticlePlace) in
                 if let keyToSelect = self.articleKeyToSelect, place.articles.count == 1, place.articles.first?.key == keyToSelect {
-                    // hacky workaround for now
                     self.deselectAllAnnotations()
                     self.placeToSelect = place
-                    dispatchAfterDelayInSeconds(0.7, DispatchQueue.main, {
-                        self.placeToSelect = nil
-                        guard self.mapView.selectedAnnotations.count == 0 else {
-                            return
-                        }
-                        self.selectArticlePlace(place)
-                    })
                     self.articleKeyToSelect = nil
                 }
             }
