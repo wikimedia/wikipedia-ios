@@ -19,7 +19,7 @@
     [super awakeFromNib];
     self.captionTextView.delegate = self;
     self.captionTextView.linkTextAttributes = @{
-        NSForegroundColorAttributeName: [UIColor wmf_referencePopoverLinkColor],
+        NSForegroundColorAttributeName: [UIColor wmf_referencePopoverLink],
         NSUnderlineStyleAttributeName: @1
     };
     self.actionButton.layer.borderColor = self.actionButton.tintColor.CGColor;
@@ -29,7 +29,7 @@
     [self.dismissButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
     [self.dismissButton setNeedsLayout];
     [self.dismissButton layoutIfNeeded];
-    [self.dismissButton setTitleColor:[UIColor wmf_777777Color] forState:UIControlStateNormal];
+    [self.dismissButton setTitleColor:[UIColor wmf_777777] forState:UIControlStateNormal];
 
     [self wmf_configureSubviewsForDynamicType];
 }
@@ -90,7 +90,7 @@
     pStyle.baseWritingDirection = NSWritingDirectionNatural;
     pStyle.alignment = NSTextAlignmentCenter;
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote],
-                                 NSForegroundColorAttributeName: [UIColor wmf_777777Color],
+                                 NSForegroundColorAttributeName: [UIColor wmf_777777],
                                  NSParagraphStyleAttributeName: pStyle};
     [mutableText addAttributes:attributes range:NSMakeRange(0, mutableText.length)];
     self.captionTextView.attributedText = mutableText;

@@ -18,12 +18,12 @@
     [super awakeFromNib];
 
     UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
-    backgroundView.backgroundColor = [UIColor wmf_settingsBackgroundColor];
+    backgroundView.backgroundColor = [UIColor wmf_settingsBackground];
     self.backgroundView = backgroundView;
-    self.titleLabel.textColor = [UIColor wmf_777777Color];
+    self.titleLabel.textColor = [UIColor wmf_777777];
     [self.addButton setTitle:MWLocalizedString(@"welcome-languages-add-button", nil)
                     forState:UIControlStateNormal];
-    [self.addButton setTitleColor:[UIColor wmf_blueTintColor] forState:UIControlStateNormal];
+    [self.addButton setTitleColor:[UIColor wmf_blueTint] forState:UIControlStateNormal];
     [self wmf_configureSubviewsForDynamicType];
 }
 

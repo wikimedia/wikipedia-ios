@@ -128,7 +128,7 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
         case .center:
             self.presentedView?.layer.cornerRadius = 10
             self.presentedView?.clipsToBounds = true
-            self.presentedView?.layer.borderColor = UIColor.wmf_lightGray().cgColor
+            self.presentedView?.layer.borderColor = UIColor.wmf_lightGray.cgColor
             self.presentedView?.layer.borderWidth = 1.0
             self.closeButton.setImage(UIImage(named: "toc-close-blue"), for: UIControlState())
             self.statusBarBackground.isHidden = true
