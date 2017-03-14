@@ -60,7 +60,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet fileprivate var captchaTextField: UITextField!
     @IBOutlet fileprivate var stackView: UIStackView!
     @IBOutlet fileprivate var titleLabel: UILabel!
-    @IBOutlet fileprivate var subTitleLabel: UILabel!
+    @IBOutlet fileprivate var subTitleLabel: WMFAuthLinkLabel!
     @IBOutlet fileprivate var infoButton: UIButton!
     @IBOutlet fileprivate var refreshButton: UIButton!
 
@@ -179,6 +179,8 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         
         assert(firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, "\n\nAll stackview arrangedSubview height constraints need to have a priority of < 1000 so the stackview can collapse the 'cell' if the arrangedSubview's isHidden property is set to true. This arrangedSubview was determined to have a required height: \(firstArrangedSubviewWithRequiredNonZeroHeightConstraint()). To fix reduce the priority of its height constraint to < 1000.\n\n")
         
+        [titleLabel, captchaTextFieldTitleLabel].forEach{$0.textColor = .wmf_authTitle()}
+
         captcha = nil
         captchaTextFieldTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-captcha-title")
         captchaTextField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-captcha-placeholder")
@@ -186,7 +188,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-title")
         
         // Reminder: used a label instead of a button for subtitle because of multi-line string issues with UIButton.
-        subTitleLabel.attributedText = subTitleLabel.wmf_authAttributedStringReusingFont(withDollarSignString: localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-cannot-see-image"), substitutionString: localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-request-account"))
+        subTitleLabel.strings = WMFAuthLinkLabelStrings(dollarSignString: localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-cannot-see-image"), substitutionString: localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-request-account"))
         subTitleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(requestAnAccountTapped(_:))))
     
         subTitleLabel.isHidden = (captcha == nil) || captchaDelegate.captchaHideSubtitle()
