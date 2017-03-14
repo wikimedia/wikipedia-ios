@@ -10,7 +10,7 @@ struct WMFAuthLinkLabelStrings {
 class WMFAuthLinkLabel: UILabel {
     override open func awakeFromNib() {
         super.awakeFromNib()
-        textColor = UIColor.wmf_blueTint()
+        textColor = UIColor.wmf_blueTint
         numberOfLines = 0
         lineBreakMode = .byWordWrapping
         textAlignment = .natural
@@ -44,7 +44,7 @@ class WMFAuthLinkLabel: UILabel {
         // Combine and style 'dollarSignString' and 'substitutionString': https://github.com/wikimedia/wikipedia-ios/pull/1216#discussion_r104224511
         
         let dollarSignStringAttributes: [String:Any] = [NSForegroundColorAttributeName : UIColor.black, NSFontAttributeName : subheadlineFont]
-        let substitutionStringAttributes: [String:Any] = [NSForegroundColorAttributeName : UIColor.wmf_blueTint(), NSFontAttributeName : boldSubheadlineFont]
+        let substitutionStringAttributes: [String:Any] = [NSForegroundColorAttributeName : UIColor.wmf_blueTint, NSFontAttributeName : boldSubheadlineFont]
         
         assert(strings.dollarSignString.contains("$1"), "Expected dollar sign substitution placeholder not found")
         

@@ -1034,7 +1034,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
             WMFExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
             footer.visibleBackgroundView.alpha = 1.0;
             footer.moreLabel.text = [group footerText];
-            footer.moreLabel.textColor = [UIColor wmf_exploreSectionFooterTextColor];
+            footer.moreLabel.textColor = [UIColor wmf_exploreSectionFooterText];
             @weakify(self);
             footer.whenTapped = ^{
                 @strongify(self);

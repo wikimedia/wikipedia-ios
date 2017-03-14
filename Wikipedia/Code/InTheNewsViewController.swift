@@ -28,8 +28,8 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.backgroundColor = UIColor.wmf_articleListBackground()
-        tableView.separatorColor = UIColor.wmf_lightGray()
+        tableView.backgroundColor = .wmf_articleListBackground
+        tableView.separatorColor = .wmf_lightGray
         tableView.estimatedRowHeight = 64.0
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.register(WMFArticleListTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFArticleListTableViewCell.identifier())
