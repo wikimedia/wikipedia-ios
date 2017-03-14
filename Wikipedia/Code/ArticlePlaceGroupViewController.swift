@@ -204,7 +204,6 @@ class ArticlePlaceGroupViewController: UIViewController {
     
     func show(center: CGPoint) {
         self.center = center
-        //tintView.backgroundColor = UIColor(white: 0, alpha: 0.3)
        
         drawGradient(center: center)
         
