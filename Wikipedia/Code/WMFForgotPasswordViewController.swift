@@ -9,6 +9,7 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
     @IBOutlet fileprivate var emailField: UITextField!
     @IBOutlet fileprivate var usernameTitleLabel: UILabel!
     @IBOutlet fileprivate var emailTitleLabel: UILabel!
+    @IBOutlet fileprivate var orLabel: UILabel!
 
     @IBOutlet fileprivate var resetPasswordButton: WMFAuthButton!
 
@@ -17,6 +18,9 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        [titleLabel, usernameTitleLabel, emailTitleLabel, orLabel].forEach{$0.textColor = .wmf_authTitle()}
+
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
     
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("forgot-password-title")
@@ -26,6 +30,7 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
         usernameTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-username-title")
         emailTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-email-title")
         resetPasswordButton.setTitle(localizedStringForKeyFallingBackOnEnglish("forgot-password-button-title"), for: .normal)
+        orLabel.text = localizedStringForKeyFallingBackOnEnglish("forgot-password-username-or-email-title")
         
         usernameField.wmf_addThinBottomBorder()
         emailField.wmf_addThinBottomBorder()

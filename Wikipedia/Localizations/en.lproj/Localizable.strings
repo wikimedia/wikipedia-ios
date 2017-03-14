@@ -52,7 +52,7 @@
 "account-creation-captcha-obtaining" = "Obtaining a new CAPTCHA...";
 "account-creation-captcha-title" = "CAPTCHA security check";
 "account-creation-captcha-cannot-see-image" = "Can't see the image? $1";
-"account-creation-captcha-request-account" = "Request an account.";
+"account-creation-captcha-request-account" = "Request account.";
 "account-creation-logging-in" = "Logging in...";
 "account-creation-passwords-mismatched" = "Password fields do not match.";
 "account-creation-saving" = "Saving...";
@@ -68,8 +68,8 @@
 "two-factor-login-title" = "Log in to your account";
 "two-factor-login-instructions" = "Please enter two factor verification code";
 "two-factor-login-continue" = "Continue log in";
-"two-factor-login-with-regular-code" = "Use short numeric code";
-"two-factor-login-with-backup-code" = "Use longer backup code";
+"two-factor-login-with-regular-code" = "Use verification code";
+"two-factor-login-with-backup-code" = "Use one of your backup codes";
 
 "login-name-not-found" = "Username is required to login.";
 "login-name-illegal" = "You provided an illegal username.";
@@ -96,9 +96,10 @@
 "field-new-password-placeholder" = "enter new password";
 "field-new-password-confirm-title" = "Confirm new password";
 "field-new-password-confirm-placeholder" = "re-enter new password";
-"field-email-title" = "Email address (optional)";
+"field-email-title" = "Email";
+"field-email-title-optional" = "Email (optional)";
 "field-email-placeholder" = "example@example.org";
-"field-token-title" = "Numeric code";
+"field-token-title" = "Verification code";
 "field-backup-token-title" = "Backup code";
 "field-token-invalid" = "Invalid code. Please try again.";
 "field-token-placeholder" = "enter token";
@@ -115,6 +116,7 @@
 "forgot-password-email-prompt" = "Email (optional)";
 "forgot-password-button-title" = "Reset";
 "forgot-password-email-sent" = "An email with password reset instructions was sent";
+"forgot-password-username-or-email-title" = "Or";
 
 "wikitext-downloading" = "Loading content...";
 "wikitext-download-failed" = "Unable to obtain latest revision.";

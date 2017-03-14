@@ -64,6 +64,9 @@ class WMFChangePasswordViewController: WMFScrollViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        [titleLabel, passwordTitleLabel, retypeTitleLabel].forEach{$0.textColor = .wmf_authTitle()}
+
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
         
         passwordField.wmf_addThinBottomBorder()
