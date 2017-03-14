@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Brion Vibber
 // Author: Caliburn
+// Author: Derugon
 // Author: Eric.LEWIN
 // Author: Gomoko
 // Author: Hydros
@@ -102,6 +103,7 @@
 "field-new-password-confirm-placeholder" = "resaisir le nouveau mot de passe";
 "field-email-title" = "Adresse de courriel (facultatif)";
 "field-email-placeholder" = "exemple@exemple.org";
+// Fuzzy
 "field-token-title" = "Jeton";
 "field-token-placeholder" = "saisir le jeton";
 "field-captcha-title" = "Saisir le texte que vous voyez ci-dessus";
@@ -281,7 +283,7 @@
 "share-as-text" = "Partager comme texte";
 "share-cancel" = "Annuler";
 "share-open-in-maps" = "Ouvert dans Cartes";
-"share-get-directions-in-maps" = "Obtenir les directions";
+"share-get-directions-in-maps" = "Obtenir les Directions";
 "timestamp-just-now" = "à l’instant";
 "timestamp-minutes" = "il y a %d minutes";
 "timestamp-hours" = "il y a %d heures";
@@ -307,13 +309,13 @@
 "onboarding-skip" = "Passer";
 "onboarding-wikipedia" = "Wikipédia";
 "onboarding-free-encyclopedia" = "L’Encyclopédie libre";
-"preference_title_eventlogging_opt_in" = "Envoyer les rapports d’utilisation";
-"preference_summary_eventlogging_opt_in" = "Permettre à Wikimédia de collecter des informations sur la manière dont vous utilisez l’application, afin de l'améliorer";
-"page_protected_autoconfirmed" = "Cette page a été semi-protégée.";
-"page_protected_sysop" = "Cette page a été complètement protégée.";
-"page_protected_other" = "Cette page a été protégée pour les niveaux suivants : $1";
-"page_protected_can_not_edit" = "Vous n’avez pas le droit de modifier cette page";
-"page_protected_can_not_edit_title" = "Cette page est protégée";
+"preference-title-eventlogging-opt-in" = "Envoyer les rapports d’utilisation";
+"preference-summary-eventlogging-opt-in" = "Permettre à Wikimédia de collecter des informations sur la manière dont vous utilisez l’application, afin de l'améliorer";
+"page-protected-autoconfirmed" = "Cette page a été semi-protégée.";
+"page-protected-sysop" = "Cette page a été complètement protégée.";
+"page-protected-other" = "Cette page a été protégée pour les niveaux suivants : $1";
+"page-protected-can-not-edit" = "Vous n’avez pas le droit de modifier cette page";
+"page-protected-can-not-edit-title" = "Cette page est protégée";
 "license-footer-text" = "Le contenu est disponible sous $1 sauf spécification contraire.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Contenus";

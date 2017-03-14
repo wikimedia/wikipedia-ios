@@ -92,6 +92,7 @@
 "field-new-password-confirm-placeholder" = "Neues Passwort erneut eingeben";
 "field-email-title" = "E-Mail-Adresse (optional)";
 "field-email-placeholder" = "beispiel@beispiel.org";
+// Fuzzy
 "field-token-title" = "Token";
 "field-token-placeholder" = "Token eingeben";
 "field-captcha-title" = "Gib den Text ein, den du oben siehst.";
@@ -270,6 +271,8 @@
 "share-as-image" = "Als Bild teilen";
 "share-as-text" = "Als Text teilen";
 "share-cancel" = "Abbrechen";
+"share-open-in-maps" = "In Karten öffnen";
+"share-get-directions-in-maps" = "Richtungen abrufen";
 "timestamp-just-now" = "gerade eben";
 "timestamp-minutes" = "vor %d Minuten";
 "timestamp-hours" = "vor %d Stunden";
@@ -295,13 +298,13 @@
 "onboarding-skip" = "Überspringen";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Die freie Enzyklopädie";
-"preference_title_eventlogging_opt_in" = "Nutzungsberichte senden";
-"preference_summary_eventlogging_opt_in" = "Wikimedia erlauben, Informationen über deine Verwendung der App zu sammeln, um die App zu verbessern.";
-"page_protected_autoconfirmed" = "Diese Seite wurde halbgesperrt.";
-"page_protected_sysop" = "Diese Seite wurde vollgesperrt.";
-"page_protected_other" = "Diese Seite wurde auf die folgenden Ebenen geschützt: $1";
-"page_protected_can_not_edit" = "Du hast nicht die Rechte, diese Seite zu bearbeiten.";
-"page_protected_can_not_edit_title" = "Diese Seite ist geschützt";
+"preference-title-eventlogging-opt-in" = "Nutzungsberichte senden";
+"preference-summary-eventlogging-opt-in" = "Wikimedia erlauben, Informationen über deine Verwendung der App zu sammeln, um die App zu verbessern.";
+"page-protected-autoconfirmed" = "Diese Seite wurde halbgesperrt.";
+"page-protected-sysop" = "Diese Seite wurde vollgesperrt.";
+"page-protected-other" = "Diese Seite wurde auf die folgenden Ebenen geschützt: $1";
+"page-protected-can-not-edit" = "Du hast nicht die Rechte, diese Seite zu bearbeiten.";
+"page-protected-can-not-edit-title" = "Diese Seite ist geschützt";
 "license-footer-text" = "Der Inhalt ist verfügbar unter $1, sofern nicht anders angegeben.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Inhalte";

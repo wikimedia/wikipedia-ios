@@ -93,6 +93,7 @@
 "field-new-password-confirm-placeholder" = "Bizskrivañ ar ger-tremen en-dro";
 "field-email-title" = "Chomlec'h postel (diret)";
 "field-email-placeholder" = "example@example.org";
+// Fuzzy
 "field-token-title" = "Jedouer";
 "field-token-placeholder" = "Ebarzhiñ ar jedouer";
 "field-captcha-title" = "Ebarzhiñ an destenn a welit amañ a-us";
@@ -271,6 +272,8 @@
 "share-as-image" = "Rannañ evel skeudenn";
 "share-as-text" = "Rannañ evel testenn";
 "share-cancel" = "Nullañ";
+"share-open-in-maps" = "Digor e Kartennoù";
+"share-get-directions-in-maps" = "Kaout an tuioù";
 "timestamp-just-now" = "bremañ end-eeun";
 "timestamp-minutes" = "%d munut zo";
 "timestamp-hours" = "%d eur zo";
@@ -296,13 +299,13 @@
 "onboarding-skip" = "Lezel a-gostez";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "An Holloueziadur digor";
-"preference_title_eventlogging_opt_in" = "Kas danevelloù implij";
-"preference_summary_eventlogging_opt_in" = "Aotren Wikipedia da zastum titouroù diwar-benn an doare ma implijit an arload evit gwellaat anezhañ";
-"page_protected_autoconfirmed" = "Damwarezet eo bet ar bajenn-mañ.";
-"page_protected_sysop" = "Gwarezet penn-da-benn eo bet ar bajenn-mañ.";
-"page_protected_other" = "Gwarezet eo bet ar bajenn-mañ gant al liveoù-mañ : $1";
-"page_protected_can_not_edit" = "N'ho peus ket gwir da aozañ ar bajenn-mañ";
-"page_protected_can_not_edit_title" = "Gwarezet eo ar bajenn-mañ";
+"preference-title-eventlogging-opt-in" = "Kas danevelloù implij";
+"preference-summary-eventlogging-opt-in" = "Aotren Wikipedia da zastum titouroù diwar-benn an doare ma implijit an arload evit gwellaat anezhañ";
+"page-protected-autoconfirmed" = "Damwarezet eo bet ar bajenn-mañ.";
+"page-protected-sysop" = "Gwarezet penn-da-benn eo bet ar bajenn-mañ.";
+"page-protected-other" = "Gwarezet eo bet ar bajenn-mañ gant al liveoù-mañ : $1";
+"page-protected-can-not-edit" = "N'ho peus ket gwir da aozañ ar bajenn-mañ";
+"page-protected-can-not-edit-title" = "Gwarezet eo ar bajenn-mañ";
 "license-footer-text" = "An endalc'had a c'haller kavout dindan $1, nemet e vefe spisaet ar c'hontrol.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Endalc'had";
