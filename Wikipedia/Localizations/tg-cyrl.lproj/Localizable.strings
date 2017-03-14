@@ -142,7 +142,7 @@
 "onboarding-skip" = "Рафтан";
 "onboarding-wikipedia" = "Википедиа";
 "onboarding-free-encyclopedia" = "Донишномаи Озод";
-"preference_title_eventlogging_opt_in" = "Фиристодани ҳисоботи истифода";
+"preference-title-eventlogging-opt-in" = "Фиристодани ҳисоботи истифода";
 "table-of-contents-heading" = "Мундариҷа";
 "menu-edit-accessibility-label" = "Вироиш";
 "menu-close-accessibility-label" = "Пӯшидан";

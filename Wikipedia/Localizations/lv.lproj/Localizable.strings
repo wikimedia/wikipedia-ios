@@ -165,9 +165,9 @@
 "onboarding-skip" = "Izlaist";
 "onboarding-wikipedia" = "Vikipēdija";
 "onboarding-free-encyclopedia" = "Brīvā enciklopēdija";
-"preference_title_eventlogging_opt_in" = "Sūtīt lietošanas ziņojumus";
-"page_protected_sysop" = "Šī lapa ir pilnībā aizsargāta.";
-"page_protected_can_not_edit_title" = "Šī lapa ir aizsargāta";
+"preference-title-eventlogging-opt-in" = "Sūtīt lietošanas ziņojumus";
+"page-protected-sysop" = "Šī lapa ir pilnībā aizsargāta.";
+"page-protected-can-not-edit-title" = "Šī lapa ir aizsargāta";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Saturs";
 "table-of-contents-button-label" = "Satura rādītājs";

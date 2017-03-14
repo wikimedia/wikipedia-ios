@@ -171,8 +171,8 @@
 "onboarding-skip" = "تېرېدل";
 "onboarding-wikipedia" = "ويکيپېډيا";
 "onboarding-free-encyclopedia" = "يو وړيا پوهنغونډ";
-"preference_title_eventlogging_opt_in" = "د کارېدنې راپورونه لېږل";
-"page_protected_can_not_edit_title" = "دا مخ ژغورل شوی";
+"preference-title-eventlogging-opt-in" = "د کارېدنې راپورونه لېږل";
+"page-protected-can-not-edit-title" = "دا مخ ژغورل شوی";
 "license-footer-text" = "دا مېنځپانگه د $1 سره سم ستاسې لاسرسي کې ده، خو چې مخالف يې وييل شوی وي.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "منځپانگې";
