@@ -18,39 +18,46 @@
                         <viewControllerLayoutGuide type="bottom" id="NcO-7E-4V6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="2UF-VY-OwF">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="260"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Fwq-2f-06F">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="260"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Fwq-2f-06F">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mNx-mW-Gkz" userLabel="Spacer">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="10"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="15"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" priority="999" constant="10" id="7O4-2u-BnX"/>
+                                            <constraint firstAttribute="height" priority="999" constant="15" id="7O4-2u-BnX"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLd-Yl-D3C">
-                                        <rect key="frame" x="0.0" y="11" width="320" height="30"/>
+                                        <rect key="frame" x="0.0" y="18" width="320" height="22"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="30" id="FVc-wo-vWs"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="22" id="FVc-wo-vWs"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0To-aV-npg">
-                                        <rect key="frame" x="0.0" y="42" width="320" height="39"/>
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0To-aV-npg" customClass="WMFAuthLinkLabel" customModule="Wikipedia" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="43" width="320" height="27"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="30" id="k8C-fr-UaJ"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="18" id="k8C-fr-UaJ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eUx-N5-RC8" userLabel="Spacer">
+                                        <rect key="frame" x="0.0" y="73" width="320" height="5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" priority="999" constant="5" id="bxe-bh-aKM"/>
+                                        </constraints>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BYt-jz-uGn" userLabel="Container for borders">
-                                        <rect key="frame" x="0.0" y="82" width="320" height="91"/>
+                                        <rect key="frame" x="0.0" y="81" width="320" height="91"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k2g-BG-mmO">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
@@ -144,19 +151,26 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ou5-rd-yNs">
-                                        <rect key="frame" x="0.0" y="174" width="320" height="40"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hPb-fs-NA1" userLabel="Spacer">
+                                        <rect key="frame" x="0.0" y="175" width="320" height="5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="40" id="615-wX-SKK"/>
+                                            <constraint firstAttribute="height" priority="999" constant="5" id="LjY-2r-iuf"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ou5-rd-yNs">
+                                        <rect key="frame" x="0.0" y="183" width="320" height="16"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="16" id="615-wX-SKK"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter CAPTCHA text" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gPg-cg-Yjy">
-                                        <rect key="frame" x="0.0" y="215" width="320" height="30"/>
+                                        <rect key="frame" x="0.0" y="202" width="320" height="28"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" priority="999" constant="30" id="FGZ-UY-edA"/>
+                                            <constraint firstAttribute="height" priority="999" constant="28" id="FGZ-UY-edA"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -165,13 +179,6 @@
                                             <outlet property="delegate" destination="sIA-fC-CW8" id="IKb-bP-2T5"/>
                                         </connections>
                                     </textField>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BHF-86-F8u" userLabel="Spacer">
-                                        <rect key="frame" x="0.0" y="246" width="320" height="14"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" priority="999" constant="14" id="heK-n7-vQT"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -189,8 +196,10 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="260"/>
+                    <size key="freeformSize" width="320" height="230"/>
                     <connections>
                         <outlet property="captchaImageView" destination="ubi-fl-THX" id="M7P-e6-2ct"/>
                         <outlet property="captchaTextField" destination="gPg-cg-Yjy" id="2NO-p8-cIW"/>
