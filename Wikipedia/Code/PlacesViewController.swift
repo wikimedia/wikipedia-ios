@@ -3,20 +3,21 @@ import MapKit
 import WMF
 import TUSafariActivity
 
-class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, WMFAnalyticsViewNameProviding, ArticlePlaceGroupViewControllerDelegate {
+class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, WMFAnalyticsViewNameProviding, ArticlePlaceGroupViewControllerDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var redoSearchButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var recenterOnUserLocationButton: UIButton!
+    
     @IBOutlet weak var listAndSearchOverlayContainerView: UIView!
-    @IBOutlet weak var listAndSearchOverlayBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var listAndSearchOverlaySearchBar: UISearchBar!
-
     @IBOutlet weak var listAndSearchOverlaySearchContainerView: UIView!
+    @IBOutlet weak var listAndSearchOverlaySearchBar: UISearchBar!
+    @IBOutlet weak var listAndSearchOverlayBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var listAndSearchOverlayHeightConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var listView: UITableView!
     @IBOutlet weak var searchSuggestionView: UITableView!
-
     
     public var articleStore: WMFArticleDataStore!
     public var dataStore: MWKDataStore!
@@ -663,16 +664,55 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         case searchOverlay
     }
     
+    private var overlaySliderPanGestureRecognizer: UIPanGestureRecognizer?
+    
     func addSearchBarToNavigationBar(animated: Bool) {
         listAndSearchOverlayContainerView.layer.cornerRadius = 0
         searchBar = titleViewSearchBar
         navigationController?.setNavigationBarHidden(false, animated: animated)
+        
+        if let panGR = overlaySliderPanGestureRecognizer {
+            view.removeGestureRecognizer(panGR)
+        }
     }
     
     func removeSearchBarFromNavigationBar(animated: Bool) {
         listAndSearchOverlayContainerView.layer.cornerRadius = 5
         searchBar = listAndSearchOverlaySearchBar
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        
+        let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+        panGR.delegate = self
+        view.addGestureRecognizer(panGR)
+        overlaySliderPanGestureRecognizer = panGR
+    }
+    
+    var initialOverlayHeightForPan: CGFloat?
+    
+    func handlePanGesture(_ panGR: UIPanGestureRecognizer) {
+        switch panGR.state {
+        case .possible:
+            fallthrough
+        case .began:
+            fallthrough
+        case .changed:
+            let initialHeight: CGFloat
+            if let height = initialOverlayHeightForPan {
+                initialHeight = height
+            } else {
+                initialHeight = listAndSearchOverlayHeightConstraint.constant
+                initialOverlayHeightForPan = initialHeight
+            }
+            listAndSearchOverlayHeightConstraint.constant = initialHeight + panGR.translation(in: view).y
+        case .ended:
+            
+            fallthrough
+        case .failed:
+            fallthrough
+        case .cancelled:
+            initialOverlayHeightForPan = nil
+            break
+        }
     }
     
     var isSearchBarInNavigationBar: Bool? {
@@ -1957,6 +1997,18 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func articlePlaceGroupViewControllerDidSelectZoom(_ aticlePlaceGroupViewController: ArticlePlaceGroupViewController) {
         dismissGroup(andZoom: true)
+    }
+    
+    // MARK: - UIGestureRecognizerDelegate
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        guard gestureRecognizer === overlaySliderPanGestureRecognizer else {
+            return false
+        }
+        
+        let location = touch.location(in: view)
+        let shouldReceive = location.x < listAndSearchOverlayContainerView.frame.maxX && abs(location.y - listAndSearchOverlayContainerView.frame.maxY) < 22
+        return shouldReceive
     }
 }
 

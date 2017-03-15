@@ -91,17 +91,17 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hEe-dF-AFg">
-                                <rect key="frame" x="15" y="79" width="325" height="881"/>
+                                <rect key="frame" x="15" y="79" width="325" height="388"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hlf-3Y-4oq">
-                                        <rect key="frame" x="0.0" y="45" width="325" height="815"/>
+                                        <rect key="frame" x="0.0" y="45" width="325" height="322"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t27-Dz-PhB">
-                                                <rect key="frame" x="0.0" y="0.0" width="325" height="815"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="325" height="322"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="S6C-ad-BuK">
-                                                <rect key="frame" x="0.0" y="0.0" width="325" height="815"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="325" height="322"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableView>
                                         </subviews>
@@ -156,7 +156,7 @@
                                         </variation>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i0j-C1-Whj">
-                                        <rect key="frame" x="0.0" y="860" width="325" height="21"/>
+                                        <rect key="frame" x="0.0" y="367" width="325" height="21"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IVq-Mn-HaA">
                                                 <rect key="frame" x="0.0" y="0.0" width="325" height="1"/>
@@ -193,6 +193,7 @@
                                     <constraint firstItem="i4l-Ze-Tv2" firstAttribute="leading" secondItem="hEe-dF-AFg" secondAttribute="leading" id="JDK-rj-b5U"/>
                                     <constraint firstAttribute="trailing" secondItem="i4l-Ze-Tv2" secondAttribute="trailing" id="KW8-rK-Vns"/>
                                     <constraint firstItem="Hlf-3Y-4oq" firstAttribute="leading" secondItem="hEe-dF-AFg" secondAttribute="leading" id="Koe-Px-Vnf"/>
+                                    <constraint firstAttribute="height" constant="388" id="WjD-Ab-D2o"/>
                                     <constraint firstItem="Hlf-3Y-4oq" firstAttribute="top" secondItem="i4l-Ze-Tv2" secondAttribute="bottom" id="doS-Ie-paV"/>
                                     <constraint firstAttribute="trailing" secondItem="Hlf-3Y-4oq" secondAttribute="trailing" id="j4o-IY-5wi"/>
                                     <constraint firstItem="i0j-C1-Whj" firstAttribute="leading" secondItem="hEe-dF-AFg" secondAttribute="leading" id="nwd-8c-Ybw"/>
@@ -201,11 +202,13 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="WjD-Ab-D2o"/>
                                         <exclude reference="rqr-ZG-5SB"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=regular">
                                     <mask key="constraints">
+                                        <include reference="WjD-Ab-D2o"/>
                                         <include reference="rqr-ZG-5SB"/>
                                     </mask>
                                 </variation>
@@ -241,14 +244,16 @@
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="constraints">
                                 <exclude reference="Fqd-WF-erI"/>
+                                <exclude reference="1PC-H2-U7d"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="8EZ-Mg-WBR"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
-                        <outlet property="listAndSearchOverlayBottomConstraint" destination="1PC-H2-U7d" id="vSo-Ok-6Cl"/>
+                        <outlet property="listAndSearchOverlayBottomConstraint" destination="1PC-H2-U7d" id="Spi-3n-6kC"/>
                         <outlet property="listAndSearchOverlayContainerView" destination="hEe-dF-AFg" id="pNn-lr-x35"/>
+                        <outlet property="listAndSearchOverlayHeightConstraint" destination="WjD-Ab-D2o" id="4pj-RB-IFd"/>
                         <outlet property="listAndSearchOverlaySearchBar" destination="Ydg-ui-Zgi" id="s00-Le-D6x"/>
                         <outlet property="listAndSearchOverlaySearchContainerView" destination="i4l-Ze-Tv2" id="PeF-Dx-aVf"/>
                         <outlet property="listView" destination="S6C-ad-BuK" id="8an-Tu-TkD"/>
@@ -269,7 +274,7 @@
                 <navigationController storyboardIdentifier="Places" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fC7-UI-Knm" userLabel="Places" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Places" image="tabbar-nearby" selectedImage="tabbar-nearby-selected" id="qMU-9n-S42"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HFz-Jz-Pn5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="HFz-Jz-Pn5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
