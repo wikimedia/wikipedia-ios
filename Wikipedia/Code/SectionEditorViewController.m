@@ -40,8 +40,9 @@
     self.navigationItem.leftBarButtonItem = buttonX;
 
     self.rightButton = [[UIBarButtonItem alloc] initWithTitle:MWLocalizedString(@"button-next", nil)
-                                                           style:UIBarButtonItemStylePlain
-                                                          target:self action:@selector(rightButtonPressed)];
+                                                        style:UIBarButtonItemStylePlain
+                                                       target:self
+                                                       action:@selector(rightButtonPressed)];
     self.navigationItem.rightBarButtonItem = self.rightButton;
 
     self.unmodifiedWikiText = nil;
@@ -71,8 +72,7 @@
 - (void)rightButtonPressed {
     if (![self changesMade]) {
         [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-preview-changes-none", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-    }
-    else {
+    } else {
         [self preview];
     }
 }
@@ -138,11 +138,11 @@
                     NSArray *groups = [protectionStatus allowedGroupsForAction:@"edit"];
                     NSString *msg;
                     if ([groups indexOfObject:@"autoconfirmed"] != NSNotFound) {
-                        msg = MWLocalizedString(@"page_protected_autoconfirmed", nil);
+                        msg = MWLocalizedString(@"page-protected-autoconfirmed", nil);
                     } else if ([groups indexOfObject:@"sysop"] != NSNotFound) {
-                        msg = MWLocalizedString(@"page_protected_sysop", nil);
+                        msg = MWLocalizedString(@"page-protected-sysop", nil);
                     } else {
-                        msg = MWLocalizedString(@"page_protected_other", nil);
+                        msg = MWLocalizedString(@"page-protected-other", nil);
                     }
                     [[WMFAlertManager sharedInstance] showAlert:msg sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
                 } else {

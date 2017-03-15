@@ -215,13 +215,13 @@
 "onboarding-skip" = "Preterpasi";
 "onboarding-wikipedia" = "Vikipedio";
 "onboarding-free-encyclopedia" = "La libera enciklopedio";
-"preference_title_eventlogging_opt_in" = "Sendi raporton pri uzado";
-"preference_summary_eventlogging_opt_in" = "Permesi al Vikipedio kolekti informon pri kiel vi uzas la aplikaĵon por helpi ĝin plibonigi";
-"page_protected_autoconfirmed" = "Ĉi tiu paĝo estas duon-protektita.";
-"page_protected_sysop" = "Ĉi tiu paĝo estas tut-protektita.";
-"page_protected_other" = "Ĉi tiu paĝo estas protektita je la jenaj niveloj: $1";
-"page_protected_can_not_edit" = "Vi ne rajtas redakti ĉi tiun paĝon";
-"page_protected_can_not_edit_title" = "Ĉi tiu paĝo estas protektita";
+"preference-title-eventlogging-opt-in" = "Sendi raporton pri uzado";
+"preference-summary-eventlogging-opt-in" = "Permesi al Vikipedio kolekti informon pri kiel vi uzas la aplikaĵon por helpi ĝin plibonigi";
+"page-protected-autoconfirmed" = "Ĉi tiu paĝo estas duon-protektita.";
+"page-protected-sysop" = "Ĉi tiu paĝo estas tut-protektita.";
+"page-protected-other" = "Ĉi tiu paĝo estas protektita je la jenaj niveloj: $1";
+"page-protected-can-not-edit" = "Vi ne rajtas redakti ĉi tiun paĝon";
+"page-protected-can-not-edit-title" = "Ĉi tiu paĝo estas protektita";
 // Fuzzy
 "license-footer-text" = "Enhavo disponebla je $1";
 "license-footer-name" = "CC BY-SA 3.0";
