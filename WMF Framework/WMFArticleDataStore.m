@@ -112,7 +112,7 @@ NS_ASSUME_NONNULL_BEGIN
         preview.thumbnailURL = thumb;
     }
     
-    preview.isExcludedFromFeed = article.ns != 0;
+    preview.isExcludedFromFeed = article.ns != 0 || url.wmf_isMainPage;
     
     [preview updateWithScalarCoordinate:article.coordinate];
     
