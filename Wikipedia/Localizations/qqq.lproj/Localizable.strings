@@ -107,7 +107,6 @@
 "field-email-placeholder" = "Placeholder text shown inside email address field until user taps on it";
 "field-token-title" = "Title for token field\n{{Identical|Token}}";
 "field-backup-token-title" = "Title for backup token field";
-"field-token-invalid" = "Alert shown if token is not correct";
 "field-token-placeholder" = "Placeholder text shown inside token field until user taps on it";
 "field-captcha-title" = "Title for captcha field";
 "field-captcha-placeholder" = "Placeholder text shown inside captcha field until user taps on it";

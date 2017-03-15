@@ -101,7 +101,6 @@
 "field-email-placeholder" = "example@example.org";
 "field-token-title" = "Verification code";
 "field-backup-token-title" = "Backup code";
-"field-token-invalid" = "Invalid code. Please try again.";
 "field-token-placeholder" = "enter token";
 "field-captcha-title" = "Enter the text you see above";
 "field-captcha-placeholder" = "CAPTCHA text";
