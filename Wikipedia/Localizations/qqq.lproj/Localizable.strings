@@ -112,6 +112,7 @@
 "field-captcha-placeholder" = "Placeholder text shown inside captcha field until user taps on it";
 "field-alert-username-unavailable" = "Alert shown if new username is not available";
 "field-alert-password-invalid" = "Alert shown if password is not correct";
+"field-alert-token-invalid" = "Alert shown if token is not correct";
 "field-alert-captcha-invalid" = "Alert shown if CAPTCHA is not correct";
 "field-alert-password-confirm-mismatch" = "Alert shown if password confirmation did not match password";
 "forgot-password-title" = "Title for reset password interface\n{{Identical|Reset password}}";
