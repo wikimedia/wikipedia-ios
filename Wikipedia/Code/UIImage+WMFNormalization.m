@@ -1,4 +1,5 @@
 #import "UIImage+WMFNormalization.h"
+#import <WMF/WMF-Swift.h>
 
 @implementation UIImage (WMFNormalization)
 
@@ -15,7 +16,7 @@
 }
 
 - (NSArray<NSValue *> *)wmf_normalizeAndConvertBoundsFromCIFeatures:(NSArray<CIFeature *> *)features {
-    return [features bk_map:^NSValue *(CIFeature *feature) {
+    return [features wmf_map:^NSValue *(CIFeature *feature) {
         return [NSValue valueWithCGRect:[self wmf_normalizeAndConvertCGCoordinateRect:feature.bounds]];
     }];
 }

@@ -3,7 +3,9 @@
 #import "WMFZeroConfigurationFetcher.h"
 #import "MWKLanguageLinkController.h"
 #import <WMF/WMF-Swift.h>
+//#if WMF_TWEAKS_ENABLED
 //#import <Tweaks/FBTweakInline.h>
+//#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

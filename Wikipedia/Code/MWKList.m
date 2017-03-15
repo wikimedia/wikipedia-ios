@@ -1,4 +1,5 @@
 #import "MWKList+Subclass.h"
+#import <WMF/WMF-Swift.h>
 
 @interface MWKList ()
 
@@ -82,7 +83,7 @@
 }
 
 - (id<MWKListObject> __nullable)entryForListIndex:(MWKListIndex)listIndex {
-    return [self.entries bk_match:^BOOL(id<MWKListObject> obj) {
+    return [self.entries wmf_match:^BOOL(id<MWKListObject> obj) {
         if ([[obj listIndex] isEqual:listIndex]) {
             return YES;
         }

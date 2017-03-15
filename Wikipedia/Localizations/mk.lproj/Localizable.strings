@@ -92,10 +92,15 @@
 "field-new-password-confirm-placeholder" = "повторно внесете ја новата лозинка";
 "field-email-title" = "Е-пошта (незадолжително)";
 "field-email-placeholder" = "example@example.org";
+// Fuzzy
 "field-token-title" = "Шифра";
 "field-token-placeholder" = "внесете шифра";
 "field-captcha-title" = "Внесете го гореприкажаниот текст";
 "field-captcha-placeholder" = "CAPTCHA-текст";
+"field-alert-username-unavailable" = "Корисничкото име е недостапно";
+"field-alert-password-invalid" = "Неважечка лозинка";
+"field-alert-captcha-invalid" = "Неважечка CAPTCHA";
+"field-alert-password-confirm-mismatch" = "Лозинките не се совпаѓаат";
 "forgot-password-title" = "Нова лозинка";
 "forgot-password-instructions" = "Пополнете едно од полињата подолу за да добиете напатствија за ставање нова лозинка по е-пошта.";
 "forgot-password-username-prompt" = "Корисничко име";
@@ -266,6 +271,8 @@
 "share-as-image" = "Сподели ја сликава";
 "share-as-text" = "Сподели како текст";
 "share-cancel" = "Откажи";
+"share-open-in-maps" = "Отвори во Карти";
+"share-get-directions-in-maps" = "Дај насоки";
 "timestamp-just-now" = "штотуку";
 "timestamp-minutes" = "пред %d минути";
 "timestamp-hours" = "пред %d часа";
@@ -291,13 +298,13 @@
 "onboarding-skip" = "Прескокни";
 "onboarding-wikipedia" = "Википедија";
 "onboarding-free-encyclopedia" = "Слободната енциклопедија";
-"preference_title_eventlogging_opt_in" = "Испраќај извештаи за употребата";
-"preference_summary_eventlogging_opt_in" = "Ѝ овозможува на Викимедија да собира информации за тоа како го користите прилогот, за да може да го подобри";
-"page_protected_autoconfirmed" = "Оваа страница е полузаштитена.";
-"page_protected_sysop" = "Оваа страница е наполно заштитена.";
-"page_protected_other" = "Оваа страница е заштитена во следниве степени: $1";
-"page_protected_can_not_edit" = "Немате право да ја уредувате страницава";
-"page_protected_can_not_edit_title" = "Оваа страница е заштитена";
+"preference-title-eventlogging-opt-in" = "Испраќај извештаи за употребата";
+"preference-summary-eventlogging-opt-in" = "Ѝ овозможува на Викимедија да собира информации за тоа како го користите прилогот, за да може да го подобри";
+"page-protected-autoconfirmed" = "Оваа страница е полузаштитена.";
+"page-protected-sysop" = "Оваа страница е наполно заштитена.";
+"page-protected-other" = "Оваа страница е заштитена во следниве степени: $1";
+"page-protected-can-not-edit" = "Немате право да ја уредувате страницава";
+"page-protected-can-not-edit-title" = "Оваа страница е заштитена";
 "license-footer-text" = "Содржината е достапна под условите на $1 освен ако не е поинаку наведено.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Содржина";
@@ -365,6 +372,7 @@
 "page-read-in-other-languages" = "Достапно на $1 други јазици";
 "page-last-edited" = "Изменето пред $1 дена";
 "page-edit-history" = "Цела историја на уредувања";
+"page-location" = "Погл. на карта";
 "mwk-empty-title-error" = "Не можам да извршам задача со празен наслов.";
 "home-title" = "Истражете";
 "home-empty-section" = "Нема исход";
@@ -500,6 +508,8 @@
 "places-accessibility-show-as-map" = "Прикажи како карта";
 "places-accessibility-show-as-list" = "Прикажи како список";
 "places-accessibility-recenter-map-on-user-location" = "Сосредоточи на мојата местоположба";
+"places-accessibility-close-search" = "Затвори пребарување";
+"places-accessibility-clear-recent-searches" = "Исчисти скорешни пребарувања";
 "action-share" = "Сподели";
 "action-save" = "Зачувај";
 "action-read" = "Прочитај";

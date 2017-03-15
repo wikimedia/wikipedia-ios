@@ -43,6 +43,13 @@ NS_ASSUME_NONNULL_BEGIN
 #endif
 }
 
+- (void)wmf_logAction:(NSString *)action inContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_sendEventWithCategory:[context analyticsContext]
+                             action:action
+                               name:[contentType analyticsContentType]
+                              value:nil];
+}
+
 - (void)wmf_logActionPreviewInContext:(id<WMFAnalyticsContextProviding>)context
                           contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
     [self wmf_logActionPreviewInContext:context contentType:contentType date:nil];
@@ -74,6 +81,14 @@ NS_ASSUME_NONNULL_BEGIN
                        contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Save"
+                               name:[contentType analyticsContentType]
+                              value:nil];
+}
+
+- (void)wmf_logActionShareInContext:(id<WMFAnalyticsContextProviding>)context
+                       contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_sendEventWithCategory:[context analyticsContext]
+                             action:@"Share"
                                name:[contentType analyticsContentType]
                               value:nil];
 }

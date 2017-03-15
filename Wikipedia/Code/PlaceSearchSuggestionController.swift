@@ -69,7 +69,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
             return nil
         }
         header.prepareForReuse()
-        header.backgroundColor = UIColor.wmf_articleListBackground()
+        header.backgroundColor = .wmf_articleListBackground
         header.isLabelVerticallyCentered = true
         switch section {
         case suggestionSection:
@@ -78,6 +78,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
             header.isClearButtonHidden = false
             header.addClearButtonTarget(self, selector: #selector(clearButtonPressed))
             header.text = localizedStringForKeyFallingBackOnEnglish("places-search-recently-searched-header")
+            header.clearButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-clear-saved-searches")
         default:
             return nil
         }

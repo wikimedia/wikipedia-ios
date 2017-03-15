@@ -3,7 +3,6 @@
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
-#import <BlocksKit/BlocksKit.h>
 
 @interface TWNStringsTests : XCTestCase
 
@@ -19,7 +18,7 @@
     [super setUp];
     self.bundleRoot = [[NSBundle mainBundle] bundlePath];
     self.lprojFiles = [self bundledLprogFiles];
-    self.infoPlistFilePaths = [self.lprojFiles bk_map:^NSString *(NSString *lprojFileName) {
+    self.infoPlistFilePaths = [self.lprojFiles wmf_map:^NSString *(NSString *lprojFileName) {
         return [[LOCALIZATIONS_DIR stringByAppendingPathComponent:lprojFileName] stringByAppendingPathComponent:@"InfoPlist.strings"];
     }];
 }
@@ -119,7 +118,7 @@
 - (NSArray *)unbundledLprojFilesWithTranslations {
     // unbundled lProj's containing "Localizable.strings"
     return
-        [self.unbundledLprojFiles bk_select:^BOOL(NSString *lprojFileName) {
+        [self.unbundledLprojFiles wmf_select:^BOOL(NSString *lprojFileName) {
             BOOL isDirectory = NO;
             NSString *localizableStringsFilePath =
                 [[LOCALIZATIONS_DIR stringByAppendingPathComponent:lprojFileName] stringByAppendingPathComponent:@"Localizable.strings"];
@@ -174,6 +173,16 @@
     for (NSString *path in [self infoPlistFilePaths]) {
         if (![[[self getDictFromPListAtPath:path] allKeys] containsObject:@"CFBundleDisplayName"]) {
             XCTAssert(NO, @"Required CFBundleDisplayName key not found in: %@", path);
+        }
+    }
+}
+
+- (void)test_keys_for_underscores {
+    for (NSString *lprojFileName in self.lprojFiles) {
+        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+        for (NSString *key in stringsDict) {
+            // Keys use dash "-" separators.
+            assertThat(key, isNot(containsSubstring(@"_")));
         }
     }
 }

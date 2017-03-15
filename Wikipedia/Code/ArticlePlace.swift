@@ -33,11 +33,13 @@ class ArticlePlace: NSObject, MKAnnotation {
     }
     
     public static func identifierForArticles(articles: [WMFArticle]) -> String {
-        return articles.reduce("", { (result, article) -> String in
+        return articles.map({ (article) -> Int in
             guard let key = article.key else {
-                return result
+                return 0
             }
-            return result.appending(key)
-        })
+            return key.hash
+        }).sorted().reduce("|") { (result, hash) -> String in
+            return result + "\(hash)|"
+        }
     }
 }

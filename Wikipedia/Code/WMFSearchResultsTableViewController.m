@@ -59,7 +59,7 @@
 }
 
 - (MWKSearchRedirectMapping *)redirectMappingForResult:(MWKSearchResult *)result {
-    return [self.searchResults.redirectMappings bk_match:^BOOL(MWKSearchRedirectMapping *obj) {
+    return [self.searchResults.redirectMappings wmf_match:^BOOL(MWKSearchRedirectMapping *obj) {
         if ([result.displayTitle isEqualToString:obj.redirectToTitle]) {
             return YES;
         }

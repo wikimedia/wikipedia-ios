@@ -2,7 +2,6 @@
 #import "PreviewAndSaveViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-@import BlocksKitUIKitExtensions;
 
 #define MAX_SUMMARY_LENGTH 255
 
@@ -31,21 +30,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    @weakify(self)
-        UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
-                                                           handler:^(id sender) {
-                                                               @strongify(self)
-                                                                   [self dismissViewControllerAnimated:YES
-                                                                                            completion:nil];
-                                                           }];
+    UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
     self.navigationItem.leftBarButtonItem = buttonX;
 
-    self.buttonDone = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-done", nil)
-                                                          style:UIBarButtonItemStylePlain
-                                                        handler:^(id sender) {
-                                                            @strongify(self)
-                                                                [self save];
-                                                        }];
+    self.buttonDone = [[UIBarButtonItem alloc] initWithTitle:MWLocalizedString(@"button-done", nil) style:UIBarButtonItemStylePlain target:self action:@selector(save)];
     self.navigationItem.rightBarButtonItem = self.buttonDone;
 
     self.placeholderLabel.text = MWLocalizedString(@"edit-summary-field-placeholder-text", nil);
@@ -59,6 +47,11 @@
     self.summaryTextField.font = [UIFont systemFontOfSize:14.0];
 
     self.bottomLineHeightConstraint.constant = 1.0f / [UIScreen mainScreen].scale;
+}
+
+- (void)closeButtonPressed {
+    [self dismissViewControllerAnimated:YES
+                             completion:nil];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

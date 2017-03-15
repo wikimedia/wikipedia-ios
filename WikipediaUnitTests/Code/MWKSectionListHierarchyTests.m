@@ -84,7 +84,7 @@
 
 - (MWKSectionList *)sectionListWithLevels:(NSArray *)levels {
     MWKSectionList *list = [[MWKSectionList alloc] initWithArticle:self.dummyArticle
-                                                          sections:[levels bk_map:^MWKSection *(id levelOrNull) {
+                                                          sections:[levels wmf_map:^MWKSection *(id levelOrNull) {
                                                               NSMutableDictionary *dict = [@{ @"id": @(self.sectionIdCounter++) } mutableCopy];
                                                               if (![[NSNull null] isEqual:levelOrNull]) {
                                                                   dict[@"level"] = levelOrNull;

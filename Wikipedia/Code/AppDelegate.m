@@ -3,7 +3,6 @@
 #import "PiwikTracker+WMFExtensions.h"
 #import "WMFAppViewController.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
-#import <Tweaks/FBTweakShakeWindow.h>
 #import "NSUserActivity+WMFExtensions.h"
 #import "Wikipedia-Swift.h"
 #import "NSFileManager+WMFGroup.h"
@@ -48,11 +47,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
 - (UIWindow *)window {
     if (!_window) {
-        if ([[[NSProcessInfo processInfo] environment][@"FBTweakShakeWindowEnabled"] boolValue]) {
-            _window = [[FBTweakShakeWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        } else {
-            _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        }
+        _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     }
     return _window;
 }

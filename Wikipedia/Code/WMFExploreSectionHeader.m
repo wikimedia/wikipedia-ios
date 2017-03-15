@@ -23,10 +23,10 @@
     self.subTitleLabel.isAccessibilityElement = NO;
     self.containerView.isAccessibilityElement = YES;
     self.accessibilityTraits = UIAccessibilityTraitHeader;
-    self.tintColor = [UIColor wmf_blueTintColor];
+    self.tintColor = [UIColor wmf_blueTint];
     self.rightButtonWidthConstraintConstant = self.rightButtonWidthConstraint.constant;
     self.rightButton.hidden = YES;
-    self.rightButton.tintColor = [UIColor wmf_blueTintColor];
+    self.rightButton.tintColor = [UIColor wmf_blueTint];
     self.rightButton.isAccessibilityElement = YES;
     self.rightButton.accessibilityTraits = UIAccessibilityTraitButton;
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];

@@ -35,28 +35,14 @@
 
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 
-    @weakify(self)
-        UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
-                                                           handler:^(id sender) {
-                                                               @strongify(self)
-                                                                   [self.delegate sectionEditorFinishedEditing:self
-                                                                                                   withChanges:NO];
-                                                           }];
+    UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(xButtonPressed)];
     buttonX.accessibilityLabel = MWLocalizedString(@"back-button-accessibility-label", nil);
     self.navigationItem.leftBarButtonItem = buttonX;
 
-    self.rightButton = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-next", nil)
-                                                           style:UIBarButtonItemStylePlain
-                                                         handler:^(id sender) {
-                                                             @strongify(self)
-
-                                                                 if (![self changesMade]) {
-                                                                 [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-preview-changes-none", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-                                                             }
-                                                             else {
-                                                                 [self preview];
-                                                             }
-                                                         }];
+    self.rightButton = [[UIBarButtonItem alloc] initWithTitle:MWLocalizedString(@"button-next", nil)
+                                                        style:UIBarButtonItemStylePlain
+                                                       target:self
+                                                       action:@selector(rightButtonPressed)];
     self.navigationItem.rightBarButtonItem = self.rightButton;
 
     self.unmodifiedWikiText = nil;
@@ -76,6 +62,19 @@
     }
 
     self.viewKeyboardRect = CGRectNull;
+}
+
+- (void)xButtonPressed {
+    [self.delegate sectionEditorFinishedEditing:self
+                                    withChanges:NO];
+}
+
+- (void)rightButtonPressed {
+    if (![self changesMade]) {
+        [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-preview-changes-none", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+    } else {
+        [self preview];
+    }
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
@@ -139,11 +138,11 @@
                     NSArray *groups = [protectionStatus allowedGroupsForAction:@"edit"];
                     NSString *msg;
                     if ([groups indexOfObject:@"autoconfirmed"] != NSNotFound) {
-                        msg = MWLocalizedString(@"page_protected_autoconfirmed", nil);
+                        msg = MWLocalizedString(@"page-protected-autoconfirmed", nil);
                     } else if ([groups indexOfObject:@"sysop"] != NSNotFound) {
-                        msg = MWLocalizedString(@"page_protected_sysop", nil);
+                        msg = MWLocalizedString(@"page-protected-sysop", nil);
                     } else {
-                        msg = MWLocalizedString(@"page_protected_other", nil);
+                        msg = MWLocalizedString(@"page-protected-other", nil);
                     }
                     [[WMFAlertManager sharedInstance] showAlert:msg sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
                 } else {

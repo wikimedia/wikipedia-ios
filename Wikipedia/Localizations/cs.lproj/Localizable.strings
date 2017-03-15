@@ -243,10 +243,10 @@
 "onboarding-skip" = "Přeskočit";
 "onboarding-wikipedia" = "Wikipedie";
 "onboarding-free-encyclopedia" = "Otevřená encyklopedie";
-"preference_title_eventlogging_opt_in" = "Odesílat zprávy o využití";
-"preference_summary_eventlogging_opt_in" = "Umožnit nadaci Wikimedia sbírat informace o používání aplikace , aby ji mohla zlepšovat";
-"page_protected_can_not_edit" = "Nemáte oprávnění editovat tuto stránku";
-"page_protected_can_not_edit_title" = "Tato stránka je chráněná";
+"preference-title-eventlogging-opt-in" = "Odesílat zprávy o využití";
+"preference-summary-eventlogging-opt-in" = "Umožnit nadaci Wikimedia sbírat informace o používání aplikace , aby ji mohla zlepšovat";
+"page-protected-can-not-edit" = "Nemáte oprávnění editovat tuto stránku";
+"page-protected-can-not-edit-title" = "Tato stránka je chráněná";
 "license-footer-text" = "Obsah je dostupný pod $1, pokud není uvedeno jinak.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Obsah";

@@ -2,9 +2,8 @@
 
 @implementation UIBarButtonItem (WMFButtonConvenience)
 
-+ (UIBarButtonItem *)wmf_buttonType:(WMFButtonType)type
-                            handler:(void (^__nullable)(id sender))action {
-    UIButton *button = [UIButton wmf_buttonType:type handler:action];
++ (UIBarButtonItem *)wmf_buttonType:(WMFButtonType)type target:(nullable id)target action:(nullable SEL)action {
+    UIButton *button = [UIButton wmf_buttonType:type target:target action:action];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:button];
     item.width = button.intrinsicContentSize.width;
     item.accessibilityLabel = MWLocalizedString(@"close-button-accessibility-label", nil);

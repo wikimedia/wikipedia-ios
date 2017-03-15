@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindFeaturedArticle:
             return [UIColor wmf_colorWithHex:0xE6B84F alpha:1.0];
         case WMFContentGroupKindTopRead:
-            return [UIColor wmf_blueTintColor];
+            return [UIColor wmf_blueTint];
         case WMFContentGroupKindNews:
             break;
         case WMFContentGroupKindNotification:
@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
         default:
             break;
     }
-    return [UIColor wmf_exploreSectionHeaderIconTintColor];
+    return [UIColor wmf_exploreSectionHeaderIconTint];
 }
 
 - (nullable UIColor *)headerIconBackgroundColor {
@@ -90,9 +90,9 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindFeaturedArticle:
             return [UIColor wmf_colorWithHex:0xFCF5E4 alpha:1.0];
         case WMFContentGroupKindTopRead:
-            return [UIColor wmf_lightBlueTintColor];
+            return [UIColor wmf_lightBlueTint];
         case WMFContentGroupKindNews:
-            return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
+            return [UIColor wmf_exploreSectionHeaderIconBackground];
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:
@@ -101,7 +101,7 @@ NS_ASSUME_NONNULL_BEGIN
         default:
             break;
     }
-    return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
+    return [UIColor wmf_exploreSectionHeaderIconBackground];
 }
 
 - (nullable NSString *)headerTitle {
@@ -204,25 +204,25 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIColor *)headerTitleColor {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading:
-            return [UIColor wmf_exploreSectionHeaderTitleColor];
+            return [UIColor wmf_exploreSectionHeaderTitle];
         case WMFContentGroupKindMainPage:
-            return [UIColor wmf_exploreSectionHeaderTitleColor];
+            return [UIColor wmf_exploreSectionHeaderTitle];
         case WMFContentGroupKindRelatedPages:
-            return [UIColor wmf_exploreSectionHeaderTitleColor];
+            return [UIColor wmf_exploreSectionHeaderTitle];
         case WMFContentGroupKindLocation:
-            return [UIColor wmf_exploreSectionHeaderTitleColor];
+            return [UIColor wmf_exploreSectionHeaderTitle];
         case WMFContentGroupKindLocationPlaceholder:
-            return [UIColor wmf_exploreSectionHeaderTitleColor];
+            return [UIColor wmf_exploreSectionHeaderTitle];
         case WMFContentGroupKindPictureOfTheDay:
-            return [UIColor wmf_exploreSectionHeaderTitleColor];
+            return [UIColor wmf_exploreSectionHeaderTitle];
         case WMFContentGroupKindRandom:
-            return [UIColor wmf_exploreSectionHeaderTitleColor];
+            return [UIColor wmf_exploreSectionHeaderTitle];
         case WMFContentGroupKindFeaturedArticle:
-            return [UIColor wmf_exploreSectionHeaderTitleColor];
+            return [UIColor wmf_exploreSectionHeaderTitle];
         case WMFContentGroupKindTopRead:
-            return [UIColor wmf_exploreSectionHeaderTitleColor];
+            return [UIColor wmf_exploreSectionHeaderTitle];
         case WMFContentGroupKindNews:
-            return [UIColor wmf_exploreSectionHeaderTitleColor];
+            return [UIColor wmf_exploreSectionHeaderTitle];
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:
@@ -237,25 +237,25 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIColor *)headerSubTitleColor {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading:
-            return [UIColor wmf_exploreSectionHeaderSubTitleColor];
+            return [UIColor wmf_exploreSectionHeaderSubTitle];
         case WMFContentGroupKindMainPage:
-            return [UIColor wmf_exploreSectionHeaderSubTitleColor];
+            return [UIColor wmf_exploreSectionHeaderSubTitle];
         case WMFContentGroupKindRelatedPages:
-            return [UIColor wmf_blueTintColor];
+            return [UIColor wmf_blueTint];
         case WMFContentGroupKindLocation:
-            return [UIColor wmf_exploreSectionHeaderSubTitleColor];
+            return [UIColor wmf_exploreSectionHeaderSubTitle];
         case WMFContentGroupKindLocationPlaceholder:
-            return [UIColor wmf_exploreSectionHeaderSubTitleColor];
+            return [UIColor wmf_exploreSectionHeaderSubTitle];
         case WMFContentGroupKindPictureOfTheDay:
-            return [UIColor wmf_exploreSectionHeaderSubTitleColor];
+            return [UIColor wmf_exploreSectionHeaderSubTitle];
         case WMFContentGroupKindRandom:
-            return [UIColor wmf_exploreSectionHeaderSubTitleColor];
+            return [UIColor wmf_exploreSectionHeaderSubTitle];
         case WMFContentGroupKindFeaturedArticle:
-            return [UIColor wmf_exploreSectionHeaderSubTitleColor];
+            return [UIColor wmf_exploreSectionHeaderSubTitle];
         case WMFContentGroupKindTopRead:
-            return [UIColor wmf_exploreSectionHeaderTitleColor];
+            return [UIColor wmf_exploreSectionHeaderTitle];
         case WMFContentGroupKindNews:
-            return [UIColor wmf_exploreSectionHeaderTitleColor];
+            return [UIColor wmf_exploreSectionHeaderTitle];
 
         case WMFContentGroupKindNotification:
             break;

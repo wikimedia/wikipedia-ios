@@ -2,6 +2,6 @@
 
 @interface NSIndexSet (BKReduce)
 
-- (id)bk_reduce:(id)acc withBlock:(id (^)(id acc, NSUInteger idx))reducer;
+- (id)wmf_reduce:(id)acc withBlock:(id (^)(id acc, NSUInteger idx))reducer;
 
 @end

@@ -3,7 +3,9 @@
 
 // Frameworks
 #import <Masonry/Masonry.h>
+#if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>
+#endif
 #import "PiwikTracker+WMFExtensions.h"
 
 // Utility
@@ -249,7 +251,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     self.notificationsController.applicationActive = YES;
 
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKSetupDataSourcesNotification object:nil];
-#if FB_TWEAK_ENABLED
+#if WMF_TWEAKS_ENABLED
     if (FBTweakValue(@"Notifications", @"In the news", @"Send on app open", NO)) {
         [self debugSendRandomInTheNewsNotification];
     }
@@ -276,7 +278,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }
     [self startBackgroundTask];
     dispatch_async(dispatch_get_main_queue(), ^{
-#if FB_TWEAK_ENABLED
+#if WMF_TWEAKS_ENABLED
         if (FBTweakValue(@"Notifications", @"In the news", @"Send on app exit", NO)) {
             [self debugSendRandomInTheNewsNotification];
         }
@@ -423,13 +425,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToFixArticleCache]) {
         completion();
     } else {
-       [self.dataStore removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError * _Nonnull error) {
-           DDLogError(@"Error during article migration: %@", error);
-           completion();
-       } success:^{
-           [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToFixArticleCache:YES];
-           completion();
-       }];
+        [self.dataStore removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *_Nonnull error) {
+            DDLogError(@"Error during article migration: %@", error);
+            completion();
+        }
+            success:^{
+                [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToFixArticleCache:YES];
+                completion();
+            }];
     }
 }
 
@@ -502,7 +505,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
     [self.savedArticlesFetcher start];
 
-#if FB_TWEAK_ENABLED
+#if WMF_TWEAKS_ENABLED
     if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
         [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{ NSLocalizedDescriptionKey: @"There was an error" }] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
@@ -516,9 +519,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
 #endif
-
-    DDLogWarn(@"Resuming… Logging Important Statistics");
-    [self logImportantStatistics];
 }
 
 - (void)pauseApp {
@@ -541,15 +541,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     if (housekeepingError) {
         DDLogError(@"Error on cleanup: %@", housekeepingError);
     }
-    
+
     if (deletedArticleURLs.count > 0) {
         [self.dataStore removeArticlesWithURLsFromCache:deletedArticleURLs];
     }
 
     [self.dataStore startCacheRemoval];
-    
-    DDLogWarn(@"Backgrounding… Logging Important Statistics");
-    [self logImportantStatistics];
 }
 
 #pragma mark - Memory Warning
@@ -564,19 +561,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 }
 
 #pragma mark - Logging
-
-- (void)logImportantStatistics {
-    NSUInteger historyCount = [self.session.dataStore.historyList numberOfItems];
-    NSUInteger saveCount = [self.session.dataStore.savedPageList numberOfItems];
-    NSUInteger exploreCount = [self.exploreViewController numberOfSectionsInExploreFeed];
-    UINavigationController *navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
-    NSUInteger stackCount = [[navVC viewControllers] count];
-
-    DDLogWarn(@"History Count %lu", (unsigned long)historyCount);
-    DDLogWarn(@"Saved Count %lu", (unsigned long)saveCount);
-    DDLogWarn(@"Explore Count %lu", (unsigned long)exploreCount);
-    DDLogWarn(@"Article Stack Count %lu", (unsigned long)stackCount);
-}
 
 - (WMFDailyStatsLoggingFunnel *)statsFunnel {
     if (!_statsFunnel) {
@@ -626,18 +610,18 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 }
 
 - (WMFFeedContentSource *)feedContentSource {
-    return [self.contentSources bk_match:^BOOL(id<WMFContentSource> obj) {
+    return [self.contentSources wmf_match:^BOOL(id<WMFContentSource> obj) {
         return [obj isKindOfClass:[WMFFeedContentSource class]];
     }];
 }
 
 - (WMFRandomContentSource *)randomContentSource {
-    return [self.contentSources bk_match:^BOOL(id<WMFContentSource> obj) {
+    return [self.contentSources wmf_match:^BOOL(id<WMFContentSource> obj) {
         return [obj isKindOfClass:[WMFRandomContentSource class]];
     }];
 }
 - (WMFNearbyContentSource *)nearbyContentSource {
-    return [self.contentSources bk_match:^BOOL(id<WMFContentSource> obj) {
+    return [self.contentSources wmf_match:^BOOL(id<WMFContentSource> obj) {
         return [obj isKindOfClass:[WMFNearbyContentSource class]];
     }];
 }
@@ -784,16 +768,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
             [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
             break;
-        case WMFUserActivityTypePlaces:
-        {
+        case WMFUserActivityTypePlaces: {
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypePlaces];
             [[self navigationControllerForTab:WMFAppTabTypePlaces] popToRootViewControllerAnimated:NO];
             NSURL *articleURL = activity.wmf_articleURL;
             if (articleURL) {
                 [[self placesViewController] showArticleURL:articleURL];
             }
-        }
-            break;
+        } break;
         case WMFUserActivityTypeContent: {
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
 
@@ -991,9 +973,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (BOOL)shouldShowOnboarding {
+#if WMF_TWEAKS_ENABLED
     if (FBTweakValue(@"Welcome", @"General", @"Show on launch (requires force quit)", NO) || [[NSProcessInfo processInfo] environment][@"WMFShowWelcomeView"].boolValue) {
         return YES;
     }
+#endif
     NSNumber *didShow = [[NSUserDefaults wmf_userDefaults] objectForKey:WMFDidShowOnboarding];
     return !didShow.boolValue;
 }
@@ -1048,7 +1032,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)showExplore {
     [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
     [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
-    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
 }
 
 #pragma mark - Last Read Article
@@ -1059,7 +1042,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return NO;
     }
 
-#if FB_TWEAK_ENABLED
+#if WMF_TWEAKS_ENABLED
     if (FBTweakValue(@"Last Open Article", @"General", @"Restore on Launch", YES)) {
         return YES;
     }
@@ -1200,8 +1183,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    DDLogWarn(@"Pushing/Popping article… Logging Important Statistics");
-    [self logImportantStatistics];
     if ([[navigationController viewControllers] count] == 1) {
         [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:nil];
     }

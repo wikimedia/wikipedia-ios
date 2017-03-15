@@ -11,6 +11,7 @@
 // Author: NigelSoft
 // Author: Qiyue2001
 // Author: Shizhao
+// Author: Tonylianlong
 // Author: 王庭茂
 
 "languages-title" = "更改语言";
@@ -54,6 +55,7 @@
 "zero-wikipedia-zero-heading" = "维基百科零";
 "zero-warn-when-leaving" = "离开Zero时警告";
 "zero-settings-devmode" = "零开发模式";
+"account-creation-title" = "创建新账户";
 "account-creation-captcha-required" = "需要验证码验证。";
 "account-creation-captcha-retry" = "不正确记录。请重试。";
 "account-creation-captcha-obtaining" = "获得新验证码...";
@@ -65,10 +67,14 @@
 "account-creation-saving" = "正在保存...";
 "account-creation-login" = "已有帐户？请登录。";
 "account-creation-missing-fields" = "您必须输入用户名、密码并再一次确认密码后方能创建一个帐户。";
+"account-creation-create-account" = "创建您的账户";
+"account-creation-have-account" = "已经拥有账户？$1";
+"account-creation-log-in" = "登录。";
 "new-password-title" = "设置您的密码";
 "new-password-instructions" = "您已通过临时密码登录。要完成登录，请在此设置一个新密码。";
 "two-factor-login-title" = "登录您的账户";
 "two-factor-login-instructions" = "请输入双因素验证代码";
+"two-factor-login-continue" = "继续登录";
 "login-name-not-found" = "需提供用户名方可登录。";
 "login-name-illegal" = "您提供了无效的用户名。";
 "login-name-does-not-exist" = "您提供的用户名不存在。";
@@ -80,6 +86,30 @@
 "login-username-placeholder-text" = "用户名";
 "login-password-placeholder-text" = "密码";
 "login-forgot-password" = "忘记了您的密码？";
+"login-title" = "登录您的账户";
+"login-no-account" = "没有账户？$1";
+"login-join-wikipedia" = "加入维基百科。";
+"field-username-title" = "用户名";
+"field-username-placeholder" = "输入用户名";
+"field-password-title" = "密码";
+"field-password-placeholder" = "输入密码";
+"field-password-confirm-title" = "确认密码";
+"field-password-confirm-placeholder" = "重新输入密码";
+"field-new-password-title" = "新密码";
+"field-new-password-placeholder" = "输入新密码";
+"field-new-password-confirm-title" = "确认新密码";
+"field-new-password-confirm-placeholder" = "重新输入新密码";
+"field-email-title" = "电子邮件地址（可选）";
+"field-email-placeholder" = "example@example.org";
+// Fuzzy
+"field-token-title" = "令牌";
+"field-token-placeholder" = "输入令牌";
+"field-captcha-title" = "输入您上方看见的文字";
+"field-captcha-placeholder" = "验证码文本";
+"field-alert-username-unavailable" = "用户名不可用";
+"field-alert-password-invalid" = "无效密码";
+"field-alert-captcha-invalid" = "无效验证码";
+"field-alert-password-confirm-mismatch" = "密码不匹配";
 "forgot-password-title" = "重置密码";
 "forgot-password-instructions" = "在下方输入其中一个字段以通过电子邮件接收密码重置说明";
 "forgot-password-username-prompt" = "用户名";
@@ -250,6 +280,8 @@
 "share-as-image" = "分享为图片";
 "share-as-text" = "分享为文本";
 "share-cancel" = "取消";
+"share-open-in-maps" = "在地图中打开";
+"share-get-directions-in-maps" = "获取导航";
 "timestamp-just-now" = "刚刚";
 "timestamp-minutes" = "%d分钟前";
 "timestamp-hours" = "%d小时前";
@@ -275,13 +307,13 @@
 "onboarding-skip" = "跳过";
 "onboarding-wikipedia" = "维基百科";
 "onboarding-free-encyclopedia" = "自由的百科全书";
-"preference_title_eventlogging_opt_in" = "发送使用反馈";
-"preference_summary_eventlogging_opt_in" = "允许维基媒体收集有关您操作本应用程序的信息，从而改善应用程序";
-"page_protected_autoconfirmed" = "此页面已半保护。";
-"page_protected_sysop" = "此页面已全保护。";
-"page_protected_other" = "此页面已获以下保护：$1";
-"page_protected_can_not_edit" = "您没有权限编辑此页";
-"page_protected_can_not_edit_title" = "此页面受到保护";
+"preference-title-eventlogging-opt-in" = "发送使用反馈";
+"preference-summary-eventlogging-opt-in" = "允许维基媒体收集有关您操作本应用程序的信息，从而改善应用程序";
+"page-protected-autoconfirmed" = "此页面已半保护。";
+"page-protected-sysop" = "此页面已全保护。";
+"page-protected-other" = "此页面已获以下保护：$1";
+"page-protected-can-not-edit" = "您没有权限编辑此页";
+"page-protected-can-not-edit-title" = "此页面受到保护";
 "license-footer-text" = "除非另有说明，内容基于$1授权。";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "内容";
@@ -349,6 +381,7 @@
 "page-read-in-other-languages" = "在$1种其他语言中可用";
 "page-last-edited" = "编辑于$1天前";
 "page-edit-history" = "完整编辑历史";
+"page-location" = "在地图上查看";
 "mwk-empty-title-error" = "无法执行带空标题的操作。";
 "home-title" = "探索";
 "home-empty-section" = "没有结果";
@@ -484,6 +517,8 @@
 "places-accessibility-show-as-map" = "以地图显示";
 "places-accessibility-show-as-list" = "以列表显示";
 "places-accessibility-recenter-map-on-user-location" = "重新定位您的位置";
+"places-accessibility-close-search" = "关闭搜索";
+"places-accessibility-clear-recent-searches" = "清除最近搜索";
 "action-share" = "分享";
 "action-save" = "保存";
 "action-read" = "阅读";

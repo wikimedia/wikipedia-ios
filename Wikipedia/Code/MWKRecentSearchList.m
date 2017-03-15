@@ -1,5 +1,6 @@
 #import "MWKRecentSearchList.h"
 #import "MWKList+Subclass.h"
+#import <WMF/WMF-Swift.h>
 
 @interface MWKRecentSearchList ()
 
@@ -37,7 +38,7 @@
 #pragma mark - Data Update
 
 - (void)importEntries:(NSArray *)entries {
-    [super importEntries:[entries bk_select:^BOOL(MWKRecentSearchEntry *entry) {
+    [super importEntries:[entries wmf_select:^BOOL(MWKRecentSearchEntry *entry) {
                return [self isEntryValid:entry];
            }]];
 }
@@ -66,7 +67,7 @@
 }
 
 - (NSArray *)dataExport {
-    return [self.entries bk_map:^id(MWKRecentSearchEntry *obj) {
+    return [self.entries wmf_map:^id(MWKRecentSearchEntry *obj) {
         return [obj dataExport];
     }];
 }

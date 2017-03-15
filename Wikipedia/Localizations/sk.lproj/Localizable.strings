@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Hromoslav
 // Author: Kusavica
+// Author: Lexected
 // Author: Macofe
 // Author: Mhurd
 // Author: Mikulas1
@@ -48,6 +49,7 @@
 "zero-wikipedia-zero-heading" = "Wikipédia Zero";
 "zero-warn-when-leaving" = "Upozorniť ma ak opúšťam Zero";
 "zero-settings-devmode" = "Vývojársky režim";
+"account-creation-title" = "Vytvoriť nový účet";
 "account-creation-captcha-required" = "Je požadované overenie pomocou CAPTCHA.";
 "account-creation-captcha-obtaining" = "Generuje sa nová CAPTCHA...";
 "account-creation-logging-in" = "Prihlasujem...";
@@ -55,6 +57,10 @@
 "account-creation-saving" = "Ukladanie...";
 "account-creation-login" = "Máte už vytvorený účet? Prihláste sa.";
 "account-creation-missing-fields" = "Aby ste si mohli vytvoriť účet, musíte zadať používateľské meno, heslo a potvrdenie hesla.";
+"account-creation-create-account" = "Vytvorte si svoj účet";
+"account-creation-have-account" = "Máte už vytvorený účet? $1";
+"account-creation-log-in" = "Prihlásiť sa";
+"two-factor-login-continue" = "Pokračovať prihlásiť";
 "login-name-not-found" = "K prihláseniu je potrebné používateľské meno.";
 "login-name-illegal" = "Zadali ste neplatné používateľské meno.";
 "login-name-does-not-exist" = "Zadané používateľské meno neexistuje.";
@@ -65,6 +71,26 @@
 "login-account-creation" = "Nemáte ešte účet? Pripojte sa k Wikipédii.";
 "login-username-placeholder-text" = "Používateľské meno";
 "login-password-placeholder-text" = "Heslo";
+"login-title" = "Prihláste sa do svojho účtu";
+"login-no-account" = "Nemáte ešte účet? $1.";
+"login-join-wikipedia" = "Pripojiť sa k Wikipédii";
+"field-username-title" = "Používateľské meno";
+"field-username-placeholder" = "zadajte užívateľské meno";
+"field-password-title" = "Heslo";
+"field-password-placeholder" = "Znovuzadajte heslo";
+"field-password-confirm-title" = "Potvrdiť heslo";
+"field-password-confirm-placeholder" = "Znovuzadajte heslo";
+"field-new-password-title" = "Nové heslo";
+"field-new-password-placeholder" = "zadajte nové heslo";
+"field-new-password-confirm-title" = "Potvrdiť nové heslo";
+"field-new-password-confirm-placeholder" = "Znovuzadajte nové heslo";
+"field-email-title" = "Emailová adresa (nepovinné)";
+"field-email-placeholder" = "example@example.org";
+// Fuzzy
+"field-token-title" = "Token";
+"field-token-placeholder" = "zadajte token";
+"field-captcha-title" = "Zadajte horeuvedený text";
+"field-captcha-placeholder" = "CAPTCHA text";
 "wikitext-downloading" = "Načítavam obsah...";
 "wikitext-download-failed" = "Nepodarilo sa získať najnovšiu revíziu.";
 "wikitext-download-success" = "Obsah je načítaný.";
@@ -239,13 +265,13 @@
 "onboarding-skip" = "Preskočiť";
 "onboarding-wikipedia" = "Wikipédia";
 "onboarding-free-encyclopedia" = "Slobodná encyklopédia";
-"preference_title_eventlogging_opt_in" = "Odoslať správu o používaní";
-"preference_summary_eventlogging_opt_in" = "Povoliť Wikimedii zbierať informácie o vašom používaní aplikácie. Pomáha nám to skvalitniť aplikáciu.";
-"page_protected_autoconfirmed" = "Táto stránka je čiastočne zamknutá.";
-"page_protected_sysop" = "Táto stránka je zamknutá.";
-"page_protected_other" = "Táto stránka je zamknutá na nasledujúcu úroveň:";
-"page_protected_can_not_edit" = "Nemáte právo upraviť túto stránku";
-"page_protected_can_not_edit_title" = "Táto stránka je zamknutá";
+"preference-title-eventlogging-opt-in" = "Odoslať správu o používaní";
+"preference-summary-eventlogging-opt-in" = "Povoliť Wikimedii zbierať informácie o vašom používaní aplikácie. Pomáha nám to skvalitniť aplikáciu.";
+"page-protected-autoconfirmed" = "Táto stránka je čiastočne zamknutá.";
+"page-protected-sysop" = "Táto stránka je zamknutá.";
+"page-protected-other" = "Táto stránka je zamknutá na nasledujúcu úroveň:";
+"page-protected-can-not-edit" = "Nemáte právo upraviť túto stránku";
+"page-protected-can-not-edit-title" = "Táto stránka je zamknutá";
 "license-footer-text" = "Pokiaľ nie je uvedené inak, je obsah dostupný v rámci licencie $1.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Obsah";
@@ -299,6 +325,7 @@
 "page-read-in-other-languages" = "Článok je dostupný v $1 ďalších jazykoch";
 "page-last-edited" = "Upravené pred $1 dňami";
 "page-edit-history" = "Úplná história úprav";
+"page-location" = "Zobraziť na mape";
 "home-empty-section" = "Žiadne výsledky";
 "home-empty-section-check-again" = "Skúsiť znova";
 "home-continue-reading-heading" = "Pokračovať v čítaní";
@@ -394,3 +421,5 @@
 "status-saving-for-later" = "Ukladanie na neskôr...";
 "status-saved-for-later" = "Uložené na neskôr";
 "announcements-dismiss" = "Nie, vďaka";
+"places-accessibility-close-search" = "Zatvoriť vyhľadávanie";
+"places-accessibility-clear-recent-searches" = "Vymazať nedávne vyhľadávania";

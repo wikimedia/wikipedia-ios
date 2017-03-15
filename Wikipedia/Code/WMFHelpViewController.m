@@ -50,7 +50,7 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 - (UIBarButtonItem *)sendEmailToolbarItem {
     if (!_sendEmailToolbarItem) {
         WMFLeadingImageTrailingTextButton *button = [[WMFLeadingImageTrailingTextButton alloc] init];
-        button.tintColor = [UIColor wmf_blueTintColor];
+        button.tintColor = [UIColor wmf_blueTint];
         [button configureAsReportBugButton];
         [button sizeToFit];
         [button addTarget:self action:@selector(sendEmail) forControlEvents:UIControlEventTouchUpInside];

@@ -27,8 +27,8 @@
 
     self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
 
-    self.tableView.backgroundColor = [UIColor wmf_articleListBackgroundColor];
-    self.tableView.separatorColor = [UIColor wmf_lightGrayColor];
+    self.tableView.backgroundColor = [UIColor wmf_articleListBackground];
+    self.tableView.separatorColor = [UIColor wmf_lightGray];
     self.tableView.estimatedRowHeight = 64.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
@@ -148,28 +148,17 @@
     [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 
+- (void)viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
+    NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:articleController.articleURL];
+    [[UIApplication sharedApplication] openURL:placesURL];
+}
+
 #pragma mark - Delete Button
 
 - (void)updateDeleteButton {
     if ([self showsDeleteAllButton]) {
         if (self.navigationItem.leftBarButtonItem == nil) {
-            @weakify(self);
-            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithTitle:[self deleteButtonText]
-                                                                                        style:UIBarButtonItemStylePlain
-                                                                                      handler:^(id sender) {
-                                                                                          @strongify(self);
-                                                                                          UIAlertController *sheet = [UIAlertController alertControllerWithTitle:[self deleteAllConfirmationText] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-                                                                                          [sheet addAction:[UIAlertAction actionWithTitle:[self deleteText]
-                                                                                                                                    style:UIAlertActionStyleDestructive
-                                                                                                                                  handler:^(UIAlertAction *_Nonnull action) {
-                                                                                                                                      [self deleteAll];
-                                                                                                                                      [self.tableView reloadData];
-                                                                                                                                  }]];
-                                                                                          [sheet addAction:[UIAlertAction actionWithTitle:[self deleteCancelText] style:UIAlertActionStyleCancel handler:NULL]];
-                                                                                          sheet.popoverPresentationController.barButtonItem = sender;
-                                                                                          sheet.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
-                                                                                          [self presentViewController:sheet animated:YES completion:NULL];
-                                                                                      }];
+            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[self deleteButtonText] style:UIBarButtonItemStylePlain target:self action:@selector(deleteButtonPressed:)];
         }
 
         if (!self.isEmpty) {
@@ -180,6 +169,20 @@
     } else {
         self.navigationItem.leftBarButtonItem = nil;
     }
+}
+
+- (void)deleteButtonPressed:(id)sender {
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:[self deleteAllConfirmationText] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    [sheet addAction:[UIAlertAction actionWithTitle:[self deleteText]
+                                              style:UIAlertActionStyleDestructive
+                                            handler:^(UIAlertAction *_Nonnull action) {
+                                                [self deleteAll];
+                                                [self.tableView reloadData];
+                                            }]];
+    [sheet addAction:[UIAlertAction actionWithTitle:[self deleteCancelText] style:UIAlertActionStyleCancel handler:NULL]];
+    sheet.popoverPresentationController.barButtonItem = sender;
+    sheet.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    [self presentViewController:sheet animated:YES completion:NULL];
 }
 
 #pragma mark - Empty State
@@ -226,11 +229,11 @@
     return @"";
 }
 
-- (BOOL)canDeleteItemAtIndexPath:(NSIndexPath*)indexPath{
+- (BOOL)canDeleteItemAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
 }
 
-- (void)deleteItemAtIndexPath:(NSIndexPath*)indexPath{
+- (void)deleteItemAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)deleteAll {

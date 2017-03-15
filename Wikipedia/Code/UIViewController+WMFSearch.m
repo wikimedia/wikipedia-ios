@@ -54,17 +54,11 @@ static WMFSearchViewController *_Nullable _sharedSearchViewController = nil;
 }
 
 - (UIBarButtonItem *)wmf_searchBarButtonItem {
-    @weakify(self);
-    return [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"search"]
-                                               style:UIBarButtonItemStylePlain
-                                             handler:^(id sender) {
-                                                 @strongify(self);
-                                                 if (!self) {
-                                                     return;
-                                                 }
+    return [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search"] style:UIBarButtonItemStylePlain target:self action:@selector(wmf_showSearch)];
+}
 
-                                                 [self wmf_showSearchAnimated:YES];
-                                             }];
+- (void)wmf_showSearch {
+    [self wmf_showSearchAnimated:YES];
 }
 
 - (void)wmf_showSearchAnimated:(BOOL)animated {

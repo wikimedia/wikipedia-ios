@@ -144,7 +144,9 @@
     NSString *userInfoDatabaseKey = [userInfoURL wmf_articleDatabaseKey];
     NSString *myDatabaseKey = self.url.wmf_articleDatabaseKey;
     if (userInfoDatabaseKey && myDatabaseKey && [userInfoDatabaseKey isEqual:myDatabaseKey]) {
-        [self updateSavedButtonState];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateSavedButtonState];
+        });
     }
 }
 
