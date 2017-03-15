@@ -190,7 +190,7 @@ class ArticlePlaceGroupViewController: UIViewController {
             return
         }
         let maxDimension = max(view.bounds.size.width, view.bounds.size.height)
-        let grayColor = UIColor(white: 0, alpha: 0.5).cgColor
+        let grayColor = UIColor(white: 0.34, alpha: 0.5).cgColor
         let clearColor = UIColor.clear.cgColor
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let locations: [CGFloat] = [0, CGFloat(radius)/maxDimension, 1]
