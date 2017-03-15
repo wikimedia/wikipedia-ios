@@ -8,9 +8,15 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var redoSearchButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var recenterOnUserLocationButton: UIButton!
+    @IBOutlet weak var listAndSearchOverlayContainerView: UIView!
+    @IBOutlet weak var listAndSearchOverlayBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var listAndSearchOverlaySearchBar: UISearchBar!
+
+    @IBOutlet weak var listAndSearchOverlaySearchContainerView: UIView!
     @IBOutlet weak var listView: UITableView!
     @IBOutlet weak var searchSuggestionView: UITableView!
-    @IBOutlet weak var recenterOnUserLocationButton: UIButton!
+
     
     public var articleStore: WMFArticleDataStore!
     public var dataStore: MWKDataStore!
@@ -25,7 +31,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private let popoverFadeDuration = 0.25
     private let searchHistoryCountLimit = 15
     private var searchSuggestionController: PlaceSearchSuggestionController!
-    private var searchBar: UISearchBar!
+    private var titleViewSearchBar: UISearchBar!
+    private var searchBar: UISearchBar? {
+        didSet {
+            oldValue?.delegate = nil
+            searchBar?.text = oldValue?.text
+            searchBar?.delegate = self
+        }
+    }
     private var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
     private var segmentedControl: UISegmentedControl!
     private var segmentedControlBarButtonItem: UIBarButtonItem!
@@ -79,7 +92,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         segmentedControl.addTarget(self, action: #selector(updateViewModeFromSegmentedControl), for: .valueChanged)
         segmentedControl.tintColor = .wmf_blueTint
         segmentedControlBarButtonItem = UIBarButtonItem(customView: segmentedControl)
-        navigationItem.rightBarButtonItem = segmentedControlBarButtonItem
+        
         
         let closeImage = #imageLiteral(resourceName: "close")
         closeBarButtonItem = UIBarButtonItem(image:  closeImage, style: .plain, target: self, action: #selector(closeSearch))
@@ -87,32 +100,39 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         // Setup recenter button
         recenterOnUserLocationButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-recenter-map-on-user-location")
         
+        listAndSearchOverlayContainerView.isHidden = true
+        listAndSearchOverlayContainerView.backgroundColor = .white
+        view.addSubview(listAndSearchOverlayContainerView)
+        
         // Setup list view
         listView.dataSource = self
         listView.delegate = self
         listView.register(WMFNearbyArticleTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFNearbyArticleTableViewCell.identifier())
         listView.estimatedRowHeight = WMFNearbyArticleTableViewCell.estimatedRowHeight()
         
-        // Setup search bar
-        let searchBarLeftPadding: CGFloat = 7.5
-        let searchBarRightPadding: CGFloat = 2.5
-        searchBar = UISearchBar(frame: CGRect(x: searchBarLeftPadding, y: 0, width: view.bounds.size.width - searchBarLeftPadding - searchBarRightPadding, height: 32))
-        //searchBar.keyboardType = .webSearch
-        searchBar.returnKeyType = .search
-        searchBar.delegate = self
-        searchBar.searchBarStyle = .minimal
-        searchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 32))
-        titleView.addSubview(searchBar)
-        navigationItem.titleView = titleView
-        
         // Setup search suggestions
         searchSuggestionController = PlaceSearchSuggestionController()
         searchSuggestionController.tableView = searchSuggestionView
         searchSuggestionController.delegate = self
+
+        // Setup search bar
+        let searchBarHeight: CGFloat = 32
+        let searchBarLeftPadding: CGFloat = 7.5
+        let searchBarRightPadding: CGFloat = 2.5
+        titleViewSearchBar = UISearchBar(frame: CGRect(x: searchBarLeftPadding, y: 0, width: view.bounds.size.width - searchBarLeftPadding - searchBarRightPadding, height: 32))
+        titleViewSearchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: searchBarHeight))
+        titleView.addSubview(titleViewSearchBar)
+        navigationItem.titleView = titleView
+        titleViewSearchBar.returnKeyType = .search
+        titleViewSearchBar.searchBarStyle = .minimal
         
+        listAndSearchOverlaySearchBar.returnKeyType = titleViewSearchBar.returnKeyType
+        listAndSearchOverlaySearchBar.searchBarStyle = titleViewSearchBar.searchBarStyle
         
+        searchBar = titleViewSearchBar
+        
+        viewMode = .map
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -186,7 +206,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             selectArticlePlace(place)
             break
         }
-        
     }
 
     var placeGroupVC: ArticlePlaceGroupViewController?
@@ -376,7 +395,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 return
             }
             
-            searchBar.text = search.localizedDescription
+            searchBar?.text = search.localizedDescription
             performSearch(search)
             
             
@@ -605,43 +624,146 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
+    func updateLayout(_ traitCollection: UITraitCollection, animated: Bool) {
+        if traitCollection.horizontalSizeClass == .regular {
+            switch viewMode {
+            case .search:
+                viewMode = .searchOverlay
+            case .list:
+                fallthrough
+            case .map:
+                viewMode = .listOverlay
+            default:
+                break
+            }
+        } else {
+            switch viewMode {
+            case .searchOverlay:
+                viewMode = .search
+            case .listOverlay:
+                viewMode = .map
+            default:
+                break
+            }
+        }
+    }
+    
     enum ViewMode {
+        case none
         case map
         case list
         case search
+        case listOverlay
+        case searchOverlay
     }
     
-    var viewMode: ViewMode = .map {
+    func addSearchBarToNavigationBar(animated: Bool) {
+        listAndSearchOverlayContainerView.layer.cornerRadius = 0
+        searchBar = titleViewSearchBar
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    func removeSearchBarFromNavigationBar(animated: Bool) {
+        listAndSearchOverlayContainerView.layer.cornerRadius = 5
+        searchBar = listAndSearchOverlaySearchBar
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    var isSearchBarInNavigationBar: Bool? {
+        didSet{
+            guard let newValue = isSearchBarInNavigationBar, oldValue != newValue else {
+                return
+            }
+            if newValue {
+                addSearchBarToNavigationBar(animated: false)
+            } else {
+                removeSearchBarFromNavigationBar(animated: false)
+            }
+        }
+    }
+    
+    
+    private func updateTraitBasedViewMode() {
+        //forces an update
+        let oldViewMode = self.viewMode
+        self.viewMode = .none
+        self.viewMode = oldViewMode
+    }
+    
+    var traitBasedViewMode: ViewMode = .none {
         didSet {
+            guard oldValue != traitBasedViewMode else {
+                return
+            }
             if oldValue == .search && viewMode != .search {
                 navigationItem.setRightBarButton(segmentedControlBarButtonItem, animated: true)
             } else if oldValue != .search && viewMode == .search {
                 navigationItem.setRightBarButton(closeBarButtonItem, animated: true)
             }
-            switch viewMode {
+            switch traitBasedViewMode {
+            case .listOverlay:
+                isSearchBarInNavigationBar = false
+                deselectAllAnnotations()
+                updateDistanceFromUserOnVisibleCells()
+                logListViewImpressionsForVisibleCells()
+                mapView.isHidden = false
+                listView.isHidden = false
+                searchSuggestionView.isHidden = true
+                listAndSearchOverlayContainerView.isHidden = false
             case .list:
+                isSearchBarInNavigationBar = true
                 deselectAllAnnotations()
                 updateDistanceFromUserOnVisibleCells()
                 logListViewImpressionsForVisibleCells()
                 mapView.isHidden = true
                 listView.isHidden = false
                 searchSuggestionView.isHidden = true
+                listAndSearchOverlayContainerView.isHidden = false
+            case .searchOverlay:
+                isSearchBarInNavigationBar = false
+                mapView.isHidden = false
+                listView.isHidden = true
+                searchSuggestionView.isHidden = false
+                listAndSearchOverlayContainerView.isHidden = false
             case .search:
+                isSearchBarInNavigationBar = true
                 mapView.isHidden = true
                 listView.isHidden = true
                 searchSuggestionView.isHidden = false
+                listAndSearchOverlayContainerView.isHidden = false
             case .map:
                 fallthrough
             default:
+                isSearchBarInNavigationBar = true
                 mapView.isHidden = false
                 listView.isHidden = true
                 searchSuggestionView.isHidden = true
+                listAndSearchOverlayContainerView.isHidden = true
             }
             recenterOnUserLocationButton.isHidden = mapView.isHidden
             redoSearchButton.isHidden = mapView.isHidden
         }
     }
-    
+
+    var viewMode: ViewMode = .none {
+        didSet {
+            guard oldValue != viewMode, viewMode != .none else {
+                return
+            }
+            let useOverlay = traitCollection.horizontalSizeClass == .regular
+            switch viewMode {
+            case .list:
+                traitBasedViewMode = useOverlay ? .listOverlay : .list
+            case .search:
+                traitBasedViewMode = useOverlay ? .searchOverlay : .search
+            case .map:
+                fallthrough
+            default:
+                traitBasedViewMode = useOverlay ? .listOverlay : .map
+            }
+        }
+    }
+
     func updateViewModeFromSegmentedControl() {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
@@ -1235,6 +1357,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 let annotationView = self.selectedArticleAnnotationView {
                 self.adjustLayout(ofPopover: popover, withSize: popover.preferredContentSize, viewSize: size, forAnnotationView: annotationView)
             }
+            self.updateTraitBasedViewMode()
         }, completion: nil)
     }
     
@@ -1424,7 +1547,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     // MARK: - Search Suggestions & Completions
     
     func updateSearchSuggestions(withCompletions completions: [PlaceSearch]) {
-        guard let currentSearchString = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), currentSearchString != "" || completions.count > 0 else {
+        guard let currentSearchString = searchBar?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), currentSearchString != "" || completions.count > 0 else {
             let topNearbySuggestion = PlaceSearch(type: .top, sortStyle: .links, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
             
             var suggestedSearches = [topNearbySuggestion]
@@ -1505,17 +1628,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
 
     func updateSearchCompletionsFromSearchBarText() {
-        guard let text = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), text != "" else {
+        guard let text = searchBar?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), text != "" else {
             updateSearchSuggestions(withCompletions: [])
             return
         }
         searchFetcher.fetchArticles(forSearchTerm: text, siteURL: siteURL, resultLimit: 24, failure: { (error) in
-            guard text == self.searchBar.text else {
+            guard text == self.searchBar?.text else {
                 return
             }
             self.updateSearchSuggestions(withCompletions: [])
         }) { (searchResult) in
-            guard text == self.searchBar.text else {
+            guard text == self.searchBar?.text else {
                 return
             }
             
@@ -1527,7 +1650,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let center = self.mapView.userLocation.coordinate
             let region = CLCircularRegion(center: center, radius: 40075000, identifier: "world")
             self.locationSearchFetcher.fetchArticles(withSiteURL: self.siteURL, in: region, matchingSearchTerm: text, sortStyle: .links, resultLimit: 24, completion: { (locationSearchResults) in
-                guard text == self.searchBar.text else {
+                guard text == self.searchBar?.text else {
                     return
                 }
                 var combinedResults: [MWKSearchResult] = searchResult.results ?? []
@@ -1535,7 +1658,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 combinedResults.append(contentsOf: newResults)
                 let _ = self.handleCompletion(searchResults: combinedResults)
             }) { (error) in
-                guard text == self.searchBar.text else {
+                guard text == self.searchBar?.text else {
                     return
                 }
             }
@@ -1543,8 +1666,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func closeSearch() {
-        searchBar.endEditing(true)
-        searchBar.text = currentSearch?.localizedDescription
+        searchBar?.endEditing(true)
+        searchBar?.text = currentSearch?.localizedDescription
     }
     
     // MARK: - UISearchBarDelegate
@@ -1695,7 +1818,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didSelectSearch search: PlaceSearch) {
         currentSearch = search
-        searchBar.endEditing(true)
+        searchBar?.endEditing(true)
     }
     
     func placeSearchSuggestionControllerClearButtonPressed(_ controller: PlaceSearchSuggestionController) {

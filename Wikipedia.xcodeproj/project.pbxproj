@@ -558,8 +558,6 @@
 		D81446021E7094290078D71E /* WMFAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027FD271E678F5C005644A9 /* WMFAuthButton.swift */; };
 		D81446041E70C2430078D71E /* WMFMapsActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */; };
 		D81446081E7178A20078D71E /* WMFBlocksKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81446051E71771B0078D71E /* WMFBlocksKit.swift */; };
-		D8171C421E72DD8C0061F075 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8171C411E72DD8C0061F075 /* libsqlite3.tbd */; };
-		D8171C451E72DDA50061F075 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8171C441E72DDA50061F075 /* libz.tbd */; };
 		D8171C471E731E170061F075 /* ArticlePlaceGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8171C461E731E170061F075 /* ArticlePlaceGroupViewController.swift */; };
 		D8171C481E731E170061F075 /* ArticlePlaceGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8171C461E731E170061F075 /* ArticlePlaceGroupViewController.swift */; };
 		D818A3F01E71F62100CC05C4 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81528511E71DA9B00966DD9 /* Analytics.swift */; };
@@ -2792,8 +2790,6 @@
 		D810C3481DF1C0A4003427DA /* Tweaks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Tweaks.framework; path = Carthage/Build/iOS/Tweaks.framework; sourceTree = SOURCE_ROOT; };
 		D81446051E71771B0078D71E /* WMFBlocksKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFBlocksKit.swift; path = Wikipedia/Code/WMFBlocksKit.swift; sourceTree = SOURCE_ROOT; };
 		D81528511E71DA9B00966DD9 /* Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
-		D8171C411E72DD8C0061F075 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		D8171C441E72DDA50061F075 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		D8171C461E731E170061F075 /* ArticlePlaceGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticlePlaceGroupViewController.swift; sourceTree = "<group>"; };
 		D81BA0F51D50D40B006C38AC /* WMFNearbyArticleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFNearbyArticleTableViewCell.h; path = Wikipedia/Code/WMFNearbyArticleTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		D81BA0F61D50D40B006C38AC /* WMFNearbyArticleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFNearbyArticleTableViewCell.m; path = Wikipedia/Code/WMFNearbyArticleTableViewCell.m; sourceTree = SOURCE_ROOT; };
