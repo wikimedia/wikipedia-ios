@@ -92,7 +92,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         segmentedControl.addTarget(self, action: #selector(updateViewModeFromSegmentedControl), for: .valueChanged)
         segmentedControl.tintColor = .wmf_blueTint
         segmentedControlBarButtonItem = UIBarButtonItem(customView: segmentedControl)
-        
+        navigationItem.rightBarButtonItem = segmentedControlBarButtonItem
         
         let closeImage = #imageLiteral(resourceName: "close")
         closeBarButtonItem = UIBarButtonItem(image:  closeImage, style: .plain, target: self, action: #selector(closeSearch))
