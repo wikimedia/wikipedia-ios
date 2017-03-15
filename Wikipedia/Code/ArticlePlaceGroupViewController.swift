@@ -27,6 +27,7 @@ class ArticlePlaceGroupViewController: UIViewController {
     private let zoomPlaceView: ArticlePlaceView
     private let groupView: ArticlePlaceView
     private let zoomPlaceViewScale: CGFloat
+    private let delay: TimeInterval = 2.0/60.0
     
     required init(articles: [WMFArticle]) {
         self.articles = articles
@@ -233,7 +234,7 @@ class ArticlePlaceGroupViewController: UIViewController {
         
         let count = placeViews.count
         var i = 1
-        let delay: TimeInterval = 0.05
+
         for placeView in self.placeViews {
             UIView.animate(withDuration: 0.6, delay: delay * TimeInterval(i), usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: {
                     let theta = 2*M_PI / Double(count)
@@ -284,7 +285,6 @@ class ArticlePlaceGroupViewController: UIViewController {
             placeView.setSelected(false, animated: true)
             delegate?.articlePlaceGroupViewController(self, didDeselectPlaceView: placeView)
         }
-        let delay: TimeInterval = 0.05
         let group = WMFTaskGroup()
         var i = 1
         let rotationTransform = CGAffineTransform(rotationAngle: CGFloat(-0.99*M_PI))
