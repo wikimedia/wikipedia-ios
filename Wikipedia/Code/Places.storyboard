@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="ipad12_9" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -18,20 +18,20 @@
                         <viewControllerLayoutGuide type="bottom" id="CKz-f0-MZN"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="pBD-gM-dPf">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1317"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" showsBuildings="NO" showsCompass="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UNC-SX-Sli">
-                                <rect key="frame" x="0.0" y="64" width="1024" height="1253"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <connections>
                                     <outlet property="delegate" destination="pK5-Ai-Kzp" id="paj-rR-O2P"/>
                                 </connections>
                             </mapView>
                             <progressView opaque="NO" alpha="0.0" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Pet-ct-8QU">
-                                <rect key="frame" x="0.0" y="64" width="1024" height="2.5"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="2.5"/>
                             </progressView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxh-CO-RQm">
-                                <rect key="frame" x="969" y="79" width="40" height="40"/>
+                                <rect key="frame" x="320" y="79" width="40" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="JR3-1A-AEQ"/>
@@ -61,7 +61,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6h-da-ewO">
-                                <rect key="frame" x="388" y="1253" width="248" height="44"/>
+                                <rect key="frame" x="63" y="554" width="248" height="44"/>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.40000000000000002" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="bl4-5f-ixX"/>
@@ -79,16 +79,12 @@
                                     <action selector="redoSearch:" destination="pK5-Ai-Kzp" eventType="touchUpInside" id="wyT-P2-LdB"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PiS-XP-rdr">
-                                <rect key="frame" x="0.0" y="64" width="1024" height="1253"/>
-                                <color key="backgroundColor" white="0.34000000000000002" alpha="0.5" colorSpace="calibratedWhite"/>
-                            </view>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Irc-Nx-au0">
-                                <rect key="frame" x="55" y="94" width="914" height="1223"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NoL-m7-U7J">
-                                <rect key="frame" x="55" y="94" width="914" height="1223"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
@@ -96,39 +92,23 @@
                         <constraints>
                             <constraint firstItem="mxh-CO-RQm" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" constant="15" id="11e-K4-HcT"/>
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="NoL-m7-U7J" secondAttribute="bottom" id="1Fi-Sf-iB5"/>
-                            <constraint firstAttribute="trailing" secondItem="Irc-Nx-au0" secondAttribute="trailing" id="1xb-Ou-IQL">
-                                <variation key="widthClass=regular" constant="55"/>
-                            </constraint>
+                            <constraint firstAttribute="trailing" secondItem="Irc-Nx-au0" secondAttribute="trailing" id="1xb-Ou-IQL"/>
+                            <constraint firstItem="UNC-SX-Sli" firstAttribute="top" secondItem="pBD-gM-dPf" secondAttribute="top" id="6IK-c4-Guk"/>
                             <constraint firstItem="z6h-da-ewO" firstAttribute="centerX" secondItem="pBD-gM-dPf" secondAttribute="centerX" id="79Z-il-tM5"/>
-                            <constraint firstItem="PiS-XP-rdr" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="7j7-rX-RnR"/>
+                            <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="UNC-SX-Sli" secondAttribute="bottom" id="9wa-qz-5B3"/>
+                            <constraint firstItem="UNC-SX-Sli" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="BkZ-je-58M"/>
                             <constraint firstAttribute="trailing" secondItem="Pet-ct-8QU" secondAttribute="trailing" id="Lu5-NQ-Oca"/>
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="Irc-Nx-au0" secondAttribute="bottom" id="NKQ-b1-Rec"/>
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="z6h-da-ewO" secondAttribute="bottom" constant="20" id="TMh-9f-MrD"/>
-                            <constraint firstAttribute="trailing" secondItem="PiS-XP-rdr" secondAttribute="trailing" id="UqE-Nk-fcF"/>
-                            <constraint firstItem="Irc-Nx-au0" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="Xbq-SP-Okk">
-                                <variation key="widthClass=regular" constant="55"/>
-                            </constraint>
-                            <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="UNC-SX-Sli" secondAttribute="bottom" id="d1y-qF-C9s"/>
-                            <constraint firstItem="PiS-XP-rdr" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" id="exc-2o-mTz"/>
+                            <constraint firstItem="Irc-Nx-au0" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="Xbq-SP-Okk"/>
                             <constraint firstAttribute="trailing" secondItem="mxh-CO-RQm" secondAttribute="trailing" constant="15" id="gRy-yz-tGe"/>
-                            <constraint firstItem="UNC-SX-Sli" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" id="gZA-FW-E3I"/>
-                            <constraint firstItem="NoL-m7-U7J" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" id="hQk-7g-H7x">
-                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
-                            </constraint>
-                            <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="PiS-XP-rdr" secondAttribute="bottom" id="hdo-D6-f4n"/>
+                            <constraint firstItem="NoL-m7-U7J" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" id="hQk-7g-H7x"/>
                             <constraint firstItem="Pet-ct-8QU" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="j1P-UH-ysO"/>
-                            <constraint firstItem="UNC-SX-Sli" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="jpS-hw-sgF"/>
-                            <constraint firstAttribute="trailing" secondItem="UNC-SX-Sli" secondAttribute="trailing" id="kuC-QM-U9h"/>
                             <constraint firstItem="Pet-ct-8QU" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" id="m9W-KK-MsV"/>
-                            <constraint firstItem="Irc-Nx-au0" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" id="nFS-aV-Ok3">
-                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
-                            </constraint>
-                            <constraint firstItem="NoL-m7-U7J" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="oNb-4L-0vl">
-                                <variation key="widthClass=regular" constant="55"/>
-                            </constraint>
-                            <constraint firstAttribute="trailing" secondItem="NoL-m7-U7J" secondAttribute="trailing" id="xg5-eH-en7">
-                                <variation key="widthClass=regular" constant="55"/>
-                            </constraint>
+                            <constraint firstItem="Irc-Nx-au0" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" id="nFS-aV-Ok3"/>
+                            <constraint firstItem="NoL-m7-U7J" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="oNb-4L-0vl"/>
+                            <constraint firstAttribute="trailing" secondItem="UNC-SX-Sli" secondAttribute="trailing" id="tCM-nJ-Rev"/>
+                            <constraint firstAttribute="trailing" secondItem="NoL-m7-U7J" secondAttribute="trailing" id="xg5-eH-en7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="8EZ-Mg-WBR"/>
@@ -136,7 +116,6 @@
                     <connections>
                         <outlet property="listView" destination="Irc-Nx-au0" id="DbL-ub-mzH"/>
                         <outlet property="mapView" destination="UNC-SX-Sli" id="0hu-YN-E8A"/>
-                        <outlet property="overlayDarkBackgroundView" destination="PiS-XP-rdr" id="anr-1W-ajQ"/>
                         <outlet property="progressView" destination="Pet-ct-8QU" id="TOF-PN-K7x"/>
                         <outlet property="recenterOnUserLocationButton" destination="mxh-CO-RQm" id="h84-Rt-brE"/>
                         <outlet property="redoSearchButton" destination="z6h-da-ewO" id="mP9-Iz-g7C"/>
@@ -145,7 +124,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qcf-lJ-9D0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1518.840579710145" y="-168.75"/>
+            <point key="canvasLocation" x="1520.8" y="-167.76611694152925"/>
         </scene>
         <!--Places-->
         <scene sceneID="CuH-Gb-zyn">

@@ -3,16 +3,6 @@ import MapKit
 import WMF
 import TUSafariActivity
 
-
-fileprivate extension UIView {
-    func roundCorners(corners:UIRectCorner, radius: CGFloat) {
-        let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        self.layer.mask = mask
-    }
-}
-
 class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, WMFAnalyticsViewNameProviding, ArticlePlaceGroupViewControllerDelegate {
     
     @IBOutlet weak var redoSearchButton: UIButton!
@@ -21,7 +11,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var listView: UITableView!
     @IBOutlet weak var searchSuggestionView: UITableView!
     @IBOutlet weak var recenterOnUserLocationButton: UIButton!
-    @IBOutlet weak var overlayDarkBackgroundView: UIView!
     
     public var articleStore: WMFArticleDataStore!
     public var dataStore: MWKDataStore!
@@ -634,21 +623,18 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 deselectAllAnnotations()
                 updateDistanceFromUserOnVisibleCells()
                 logListViewImpressionsForVisibleCells()
-                mapView.isUserInteractionEnabled = false
+                mapView.isHidden = true
                 listView.isHidden = false
-                overlayDarkBackgroundView.isHidden = false
                 searchSuggestionView.isHidden = true
             case .search:
-                mapView.isUserInteractionEnabled = false
+                mapView.isHidden = true
                 listView.isHidden = true
-                overlayDarkBackgroundView.isHidden = false
                 searchSuggestionView.isHidden = false
             case .map:
                 fallthrough
             default:
-                mapView.isUserInteractionEnabled = true
+                mapView.isHidden = false
                 listView.isHidden = true
-                overlayDarkBackgroundView.isHidden = true
                 searchSuggestionView.isHidden = true
             }
             recenterOnUserLocationButton.isHidden = mapView.isHidden
@@ -1234,14 +1220,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, articleVC.view)
 
         tracker?.wmf_logActionImpression(inContext: mapTrackerContext, contentType: article)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular {
-            listView.roundCorners(corners: [.topLeft, .topRight], radius: 5)
-            searchSuggestionView.roundCorners(corners: [.topLeft, .topRight], radius: 5)
-        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
