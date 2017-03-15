@@ -1278,7 +1278,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             break
         case .share:
             tracker?.wmf_logActionShare(inContext: context, contentType: article)
-            let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: [TUSafariActivity()])
+            var activityItems : [Any] = [url]
+            if let mapItem = article.mapItem {
+                activityItems.append(mapItem)
+            }
+            let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: [TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()])
             activityVC.popoverPresentationController?.sourceView = view
             var sourceRect = view.bounds
             if let shareButton = selectedArticlePopover?.shareButton {

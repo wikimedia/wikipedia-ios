@@ -59,4 +59,18 @@ extension WMFArticle {
             coordinate = newValue?.coordinate
         }
     }
+    
+    public var mapItem: MKMapItem? {
+        get {
+            guard let coord = self.coordinate,
+                CLLocationCoordinate2DIsValid(coord) else {
+                    return nil
+            }
+
+            let placemark = MKPlacemark(coordinate: coord, addressDictionary: nil )
+            let mapItem = MKMapItem(placemark: placemark)
+            mapItem.name = self.displayTitle
+            return mapItem
+        }
+    }
 }
