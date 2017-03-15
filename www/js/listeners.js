@@ -18,35 +18,6 @@ document.addEventListener(
                 touchDownY = parseInt(event.changedTouches[0].clientY);
             }, false);
 
-function handleTouchEnded(event){
-    var touchobj = event.changedTouches[0];
-    var touchEndY = parseInt(touchobj.clientY);
-    if (((touchDownY - touchEndY) === 0) && (event.changedTouches.length === 1)) {
-        // None of our tap events should fire if the user dragged vertically.
-        touchEndedWithoutDragging(event);
-    }
-}
-
-function touchEndedWithoutDragging(event){
-    /*
-     there are certain elements which don't have an <a> ancestor, so if we fail to find it,
-     specify the event's target instead
-     */
-    var didSendMessage = maybeSendMessageForTarget(event, utilities.findClosest(event.target, 'A') || event.target);
-
-    var hasSelectedText = window.getSelection().rangeCount > 0;
-
-    if (!didSendMessage && !hasSelectedText) {
-        // Do NOT prevent default behavior -- this is needed to for instance
-        // handle deselection of text.
-        window.webkit.messageHandlers.nonAnchorTouchEndedWithoutDragging.postMessage({
-                                                  id: event.target.getAttribute( "id" ),
-                                                  tagName: event.target.tagName
-                                                  });
-
-    }
-}
-
 /**
  * Attempts to send message which corresponds to `hrefTarget`, based on various attributes.
  * @return `true` if a message was sent, otherwise `false`.
@@ -63,8 +34,8 @@ function maybeSendMessageForTarget(event, hrefTarget){
     hanging "touchend" seems to fire just before that new touch's "touchstart").
     This is troublesome because that delayed call to "touchend" ends up causing the image or
     link click handling to be called when the user touches the article again, even though
-    that image or link is probably not what the user is interacting with now. Thankfully we 
-    can check for this weird condition because when it happens the number of touches hasn't 
+    that image or link is probably not what the user is interacting with now. Thankfully we
+    can check for this weird condition because when it happens the number of touches hasn't
     gone to 0 yet. So we check here and bail if that's the case.
     */
     var didDetectHangingTouchend = (event.touches.length > 0);
@@ -101,6 +72,35 @@ function maybeSendMessageForTarget(event, hrefTarget){
         return false;
     }
     return true;
+}
+
+function touchEndedWithoutDragging(event){
+    /*
+     there are certain elements which don't have an <a> ancestor, so if we fail to find it,
+     specify the event's target instead
+     */
+    var didSendMessage = maybeSendMessageForTarget(event, utilities.findClosest(event.target, 'A') || event.target);
+
+    var hasSelectedText = window.getSelection().rangeCount > 0;
+
+    if (!didSendMessage && !hasSelectedText) {
+        // Do NOT prevent default behavior -- this is needed to for instance
+        // handle deselection of text.
+        window.webkit.messageHandlers.nonAnchorTouchEndedWithoutDragging.postMessage({
+                                                  id: event.target.getAttribute( "id" ),
+                                                  tagName: event.target.tagName
+                                                  });
+
+    }
+}
+
+function handleTouchEnded(event){
+    var touchobj = event.changedTouches[0];
+    var touchEndY = parseInt(touchobj.clientY);
+    if (((touchDownY - touchEndY) === 0) && (event.changedTouches.length === 1)) {
+        // None of our tap events should fire if the user dragged vertically.
+        touchEndedWithoutDragging(event);
+    }
 }
 
 document.addEventListener("touchend", handleTouchEnded, false);
