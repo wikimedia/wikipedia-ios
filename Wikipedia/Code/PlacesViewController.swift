@@ -723,14 +723,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
             
             let velocity = panGR.velocity(in: view).y
-            let springVelocity = abs(velocity / abs(newHeight - currentHeight))
+            let springVelocity = velocity / (newHeight - currentHeight)
             self.view.layoutIfNeeded()
             let animations = {
                 self.listAndSearchOverlayHeightConstraint.constant = newHeight
                 self.view.layoutIfNeeded()
             }
             let duration: TimeInterval = 0.5
-            UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: springVelocity, options: [.allowUserInteraction], animations: animations, completion: nil)
+            UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: springVelocity, options: [.allowUserInteraction], animations: animations, completion: nil)
            
             fallthrough
         case .failed:
