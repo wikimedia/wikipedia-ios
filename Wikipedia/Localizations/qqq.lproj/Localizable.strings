@@ -107,12 +107,12 @@
 "field-email-placeholder" = "Placeholder text shown inside email address field until user taps on it";
 "field-token-title" = "Title for token field\n{{Identical|Token}}";
 "field-backup-token-title" = "Title for backup token field";
-"field-token-invalid" = "Alert shown if token is not correct";
 "field-token-placeholder" = "Placeholder text shown inside token field until user taps on it";
 "field-captcha-title" = "Title for captcha field";
 "field-captcha-placeholder" = "Placeholder text shown inside captcha field until user taps on it";
 "field-alert-username-unavailable" = "Alert shown if new username is not available";
 "field-alert-password-invalid" = "Alert shown if password is not correct";
+"field-alert-token-invalid" = "Alert shown if token is not correct";
 "field-alert-captcha-invalid" = "Alert shown if CAPTCHA is not correct";
 "field-alert-password-confirm-mismatch" = "Alert shown if password confirmation did not match password";
 "forgot-password-title" = "Title for reset password interface\n{{Identical|Reset password}}";

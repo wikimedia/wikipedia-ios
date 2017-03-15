@@ -16,6 +16,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var subTitleLabel: UILabel!
     @IBOutlet fileprivate var tokenLabel: UILabel!
+    @IBOutlet fileprivate var tokenAlertLabel: UILabel!
     @IBOutlet fileprivate var oathTokenFields: [UITextField]!
     @IBOutlet fileprivate var oathTokenFieldsStackView: UIStackView!
     @IBOutlet fileprivate var displayModeToggle: UILabel!
@@ -189,6 +190,8 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        tokenAlertLabel.isHidden = true
+
         // In the storyboard we've set the text fields' to "Clear when editing begins", but
         // the "Editing changed" handler "textFieldDidChange" isn't called when this clearing
         // happens, so update progressive buttons' enabled state here too.
@@ -207,6 +210,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         super.viewDidLoad()
 
         [titleLabel, tokenLabel].forEach{$0.textColor = .wmf_authTitle}
+        tokenAlertLabel.textColor = .wmf_red
 
         oathTokenFields.sort { $0.tag < $1.tag }
         oathTokenFields.forEach {$0.wmf_addThinBottomBorder()}
@@ -247,6 +251,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     
     fileprivate func save() {
         wmf_hideKeyboard()
+        tokenAlertLabel.isHidden = true
         enableProgressiveButton(false)
         
         guard
@@ -276,6 +281,12 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                     case .temporaryPasswordNeedsChange:
                         WMFAlertManager.sharedInstance.dismissAlert()
                         self.showChangeTempPasswordViewController()
+                        return
+                    case .wrongToken:
+                        self.tokenAlertLabel.text = error.localizedDescription
+                        self.tokenAlertLabel.isHidden = false
+                        self.funnel?.logError(error.localizedDescription)
+                        WMFAlertManager.sharedInstance.dismissAlert()
                         return
                     default: break
                     }

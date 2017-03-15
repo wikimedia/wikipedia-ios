@@ -5,6 +5,7 @@ public enum WMFAccountLoginError: LocalizedError {
     case temporaryPasswordNeedsChange(String?)
     case needsOathTokenFor2FA(String?)
     case wrongPassword
+    case wrongToken
     public var errorDescription: String? {
         switch self {
         case .cannotExtractLoginStatus:
@@ -17,6 +18,8 @@ public enum WMFAccountLoginError: LocalizedError {
             return message
         case .wrongPassword:
             return localizedStringForKeyFallingBackOnEnglish("field-alert-password-invalid")
+        case .wrongToken:
+            return localizedStringForKeyFallingBackOnEnglish("field-alert-token-invalid")
         default:
             return "Unable to login: Reason unknown"
         }
@@ -85,6 +88,18 @@ public class WMFAccountLogin {
             let message = clientlogin["message"] as? String ?? nil
             guard status == "PASS" else {
                 
+                if let messageCode = clientlogin["messagecode"] as? String {
+                    switch(messageCode) {
+                    case "wrongpassword":
+                        failure(WMFAccountLoginError.wrongPassword)
+                        return
+                    case "oathauth-login-failed":
+                        failure(WMFAccountLoginError.wrongToken)
+                        return
+                    default: break
+                    }
+                }
+
                 if
                     status == "UI",
                     let requests = clientlogin["requests"] as? [AnyObject]
@@ -102,13 +117,6 @@ public class WMFAccountLogin {
                         let _ = fields["OATHToken"] as? [String : AnyObject]
                     {
                         failure(WMFAccountLoginError.needsOathTokenFor2FA(message))
-                        return
-                    }
-                }
-                
-                if let messageCode = clientlogin["messagecode"] as? String {
-                    if messageCode == "wrongpassword" {
-                        failure(WMFAccountLoginError.wrongPassword)
                         return
                     }
                 }
