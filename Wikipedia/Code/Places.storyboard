@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" showsBuildings="NO" showsCompass="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UNC-SX-Sli">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <connections>
                                     <outlet property="delegate" destination="pK5-Ai-Kzp" id="paj-rR-O2P"/>
                                 </connections>
@@ -93,7 +93,7 @@
                             <constraint firstItem="mxh-CO-RQm" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" constant="15" id="11e-K4-HcT"/>
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="NoL-m7-U7J" secondAttribute="bottom" id="1Fi-Sf-iB5"/>
                             <constraint firstAttribute="trailing" secondItem="Irc-Nx-au0" secondAttribute="trailing" id="1xb-Ou-IQL"/>
-                            <constraint firstItem="UNC-SX-Sli" firstAttribute="top" secondItem="pBD-gM-dPf" secondAttribute="top" id="6IK-c4-Guk"/>
+                            <constraint firstItem="UNC-SX-Sli" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" id="5Nc-Kp-nap"/>
                             <constraint firstItem="z6h-da-ewO" firstAttribute="centerX" secondItem="pBD-gM-dPf" secondAttribute="centerX" id="79Z-il-tM5"/>
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="UNC-SX-Sli" secondAttribute="bottom" id="9wa-qz-5B3"/>
                             <constraint firstItem="UNC-SX-Sli" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="BkZ-je-58M"/>
