@@ -819,9 +819,7 @@ static uint64_t bundleHash() {
     if (article.url.wmf_title == nil) {
         return;
     }
-    if ([article isMain]) {
-        return;
-    }
+
     if (article.url.wmf_isNonStandardURL) {
         return;
     }
@@ -836,18 +834,12 @@ static uint64_t bundleHash() {
 }
 
 - (void)saveSection:(MWKSection *)section {
-    if ([section.article isMain]) {
-        return;
-    }
     NSString *path = [self pathForSection:section];
     NSDictionary *export = [section dataExport];
     [self saveDictionary:export path:path name:@"Section.plist"];
 }
 
 - (void)saveSectionText:(NSString *)html section:(MWKSection *)section {
-    if ([section.article isMain]) {
-        return;
-    }
     NSString *path = [self pathForSection:section];
     [self saveString:html path:path name:@"Section.html"];
 }
