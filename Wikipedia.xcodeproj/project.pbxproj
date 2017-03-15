@@ -868,6 +868,8 @@
 		D8C0C00B1D144FF30019374D /* WMFProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C0C00A1D144FF30019374D /* WMFProxyServer.m */; };
 		D8C9BFE81D6CC92C0084624F /* MWKLanguageLinkResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8062D1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8C9BFE91D6CC9310084624F /* MWKLanguageLinkResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062E1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.m */; };
+		D8CB32AD1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */; };
+		D8CB32AE1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */; };
 		D8CDBA9F1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */; };
 		D8CE211C1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
 		D8CE211D1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
@@ -2993,6 +2995,7 @@
 		D8BDA8C01E71C0760031F4BF /* WMFBlocksKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFBlocksKitTests.m; sourceTree = "<group>"; };
 		D8C0C0091D144FF30019374D /* WMFProxyServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFProxyServer.h; sourceTree = "<group>"; };
 		D8C0C00A1D144FF30019374D /* WMFProxyServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFProxyServer.m; sourceTree = "<group>"; };
+		D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCornerView.swift; sourceTree = "<group>"; };
 		D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableOfContentsAboutThisArticleItem.swift; path = Wikipedia/Code/TableOfContentsAboutThisArticleItem.swift; sourceTree = SOURCE_ROOT; };
 		D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = Build/iOS/CocoaLumberjackSwift.framework; sourceTree = "<group>"; };
 		D8CE26AF1E698E2400DAE2E0 /* Wikipedia Alpha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wikipedia Alpha.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -6277,6 +6280,7 @@
 				D8A6BAEE1E4C9C0700A981C8 /* ArticlePlaceView.swift */,
 				D8171C461E731E170061F075 /* ArticlePlaceGroupViewController.swift */,
 				D8A6BAEC1E4C9BF400A981C8 /* UserLocationAnnotationView.swift */,
+				D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */,
 				D87234031E1FF18100751E83 /* Places.storyboard */,
 			);
 			name = Places;
@@ -7711,6 +7715,7 @@
 				B0E807DB1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m in Sources */,
 				BC62FFC01C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
 				0E5386961DB834B70046E0F9 /* WMFFeedNotificationHeader.m in Sources */,
+				D8CB32AD1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */,
 				B0E806341C0CE7680065EBC0 /* MWKImageInfoResponseSerializer.m in Sources */,
 				B0379A3D1D8BC9BA00D973CF /* WMFReferencePopoverBackgroundView.m in Sources */,
 				B0E8066A1C0CE9030065EBC0 /* MWKImageInfoFetcher.m in Sources */,
@@ -8405,6 +8410,7 @@
 				D8CE25E01E698E2400DAE2E0 /* WMFIntrinsicSizeTableView.m in Sources */,
 				D8CE25E11E698E2400DAE2E0 /* ArticlePopoverViewController.swift in Sources */,
 				D8CE25E21E698E2400DAE2E0 /* WMFLogFormatter.m in Sources */,
+				D8CB32AE1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */,
 				D8CE25E31E698E2400DAE2E0 /* WMFKeychainCredentials.swift in Sources */,
 				D8CE25E41E698E2400DAE2E0 /* WMFHelpViewController.m in Sources */,
 				D8CE25E51E698E2400DAE2E0 /* NSString+FormattedAttributedString.m in Sources */,

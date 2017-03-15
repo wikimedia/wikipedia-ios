@@ -11,10 +11,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var recenterOnUserLocationButton: UIButton!
     
     @IBOutlet weak var listAndSearchOverlayContainerView: UIView!
-    @IBOutlet weak var listAndSearchOverlaySearchContainerView: UIView!
+    @IBOutlet weak var listAndSearchOverlaySearchContainerView: RoundedCornerView!
     @IBOutlet weak var listAndSearchOverlaySearchBar: UISearchBar!
     @IBOutlet weak var listAndSearchOverlayBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlayHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var listAndSearchOverlaySearchHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var listAndSearchOverlaySliderHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var listAndSearchOverlaySliderView: RoundedCornerView!
     
     @IBOutlet weak var listView: UITableView!
     @IBOutlet weak var searchSuggestionView: UITableView!
@@ -101,9 +104,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         // Setup recenter button
         recenterOnUserLocationButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-recenter-map-on-user-location")
         
-        listAndSearchOverlayContainerView.isHidden = true
-        listAndSearchOverlayContainerView.backgroundColor = .white
-        view.addSubview(listAndSearchOverlayContainerView)
+
+        listAndSearchOverlaySearchContainerView.corners = [.topLeft, .topRight]
+        listAndSearchOverlaySearchContainerView.radius = 5
+        
+        listAndSearchOverlaySliderView.corners = [.bottomLeft, .bottomRight]
+        listAndSearchOverlaySliderView.radius = 5
+        
         
         // Setup list view
         listView.dataSource = self
@@ -667,7 +674,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private var overlaySliderPanGestureRecognizer: UIPanGestureRecognizer?
     
     func addSearchBarToNavigationBar(animated: Bool) {
-        listAndSearchOverlayContainerView.layer.cornerRadius = 0
         searchBar = titleViewSearchBar
         navigationController?.setNavigationBarHidden(false, animated: animated)
         
@@ -677,7 +683,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func removeSearchBarFromNavigationBar(animated: Bool) {
-        listAndSearchOverlayContainerView.layer.cornerRadius = 5
         searchBar = listAndSearchOverlaySearchBar
         navigationController?.setNavigationBarHidden(true, animated: animated)
         
@@ -690,6 +695,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     var initialOverlayHeightForPan: CGFloat?
     
     func handlePanGesture(_ panGR: UIPanGestureRecognizer) {
+        let minHeight = listAndSearchOverlaySearchHeightConstraint.constant + listAndSearchOverlaySliderHeightConstraint.constant
+        let maxHeight = mapView.bounds.size.height - listAndSearchOverlayContainerView.frame.minY - listAndSearchOverlayBottomConstraint.constant
         switch panGR.state {
         case .possible:
             fallthrough
@@ -703,9 +710,29 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 initialHeight = listAndSearchOverlayHeightConstraint.constant
                 initialOverlayHeightForPan = initialHeight
             }
-            listAndSearchOverlayHeightConstraint.constant = initialHeight + panGR.translation(in: view).y
+           
+            listAndSearchOverlayHeightConstraint.constant = max(minHeight, initialHeight + panGR.translation(in: view).y)
         case .ended:
+            let midHeight: CGFloat = 388
+            let currentHeight = listAndSearchOverlayHeightConstraint.constant
+            let newHeight: CGFloat
+            if currentHeight <= midHeight {
+                newHeight = currentHeight - minHeight <= midHeight - currentHeight ? minHeight : midHeight
+            } else {
+                newHeight = currentHeight - midHeight <= maxHeight - currentHeight ? midHeight : maxHeight
+            }
             
+            let velocity = panGR.velocity(in: view).y
+            let springVelocity = abs(velocity / abs(newHeight - currentHeight))
+            self.view.layoutIfNeeded()
+            let animations = {
+                self.listAndSearchOverlayHeightConstraint.constant = newHeight
+                self.view.layoutIfNeeded()
+            }
+            let duration = TimeInterval(0.5)/TimeInterval(max(abs(springVelocity/1000), 1))
+            print("\(duration)")
+            UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: springVelocity, options: [.allowUserInteraction], animations: animations, completion: nil)
+           
             fallthrough
         case .failed:
             fallthrough
