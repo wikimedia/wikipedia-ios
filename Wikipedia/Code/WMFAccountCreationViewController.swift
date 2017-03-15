@@ -51,6 +51,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         super.viewDidLoad()
 
         [titleLabel, usernameTitleLabel, passwordTitleLabel, passwordRepeatTitleLabel, emailTitleLabel].forEach{$0.textColor = .wmf_authTitle}
+        usernameAlertLabel.textColor = .wmf_red
+        passwordRepeatAlertLabel.textColor = .wmf_yellow
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
 
@@ -237,7 +239,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         }
 
         guard passwordFieldsMatch() else {
-            self.passwordRepeatField.textColor = .orange
+            self.passwordRepeatField.textColor = .wmf_yellow
             self.passwordRepeatAlertLabel.isHidden = false
             self.scrollView.scrollSubView(toTop: self.passwordTitleLabel, offset: 6, animated: true)
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("account-creation-passwords-mismatched"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
@@ -271,7 +273,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 case .usernameUnavailable:
                     self.usernameAlertLabel.text = error.localizedDescription
                     self.usernameAlertLabel.isHidden = false
-                    self.usernameField.textColor = .red
+                    self.usernameField.textColor = .wmf_red
                     self.funnel?.logError(error.localizedDescription)
                     WMFAlertManager.sharedInstance.dismissAlert()
                     return

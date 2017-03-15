@@ -31,6 +31,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         super.viewDidLoad()
         
         [titleLabel, usernameTitleLabel, passwordTitleLabel].forEach{$0.textColor = .wmf_authTitle}
+        passwordAlertLabel.textColor = .wmf_red
     
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
 
@@ -163,7 +164,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                 case .wrongPassword:
                     self.passwordAlertLabel.text = error.localizedDescription
                     self.passwordAlertLabel.isHidden = false
-                    self.passwordField.textColor = .red
+                    self.passwordField.textColor = .wmf_red
                     self.funnel?.logError(error.localizedDescription)
                     WMFAlertManager.sharedInstance.dismissAlert()
                     return

@@ -101,12 +101,12 @@
 "field-email-placeholder" = "example@example.org";
 "field-token-title" = "Verification code";
 "field-backup-token-title" = "Backup code";
-"field-token-invalid" = "Invalid code. Please try again.";
 "field-token-placeholder" = "enter token";
 "field-captcha-title" = "Enter the text you see above";
 "field-captcha-placeholder" = "CAPTCHA text";
 "field-alert-username-unavailable" = "Username not available";
 "field-alert-password-invalid" = "Invalid password";
+"field-alert-token-invalid" = "Invalid code";
 "field-alert-captcha-invalid" = "Invalid CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Passwords do not match";
 
