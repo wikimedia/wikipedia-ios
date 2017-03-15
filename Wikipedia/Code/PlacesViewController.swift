@@ -729,8 +729,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 self.listAndSearchOverlayHeightConstraint.constant = newHeight
                 self.view.layoutIfNeeded()
             }
-            let duration = TimeInterval(0.5)/TimeInterval(max(abs(springVelocity/1000), 1))
-            print("\(duration)")
+            let duration: TimeInterval = 0.5
             UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: springVelocity, options: [.allowUserInteraction], animations: animations, completion: nil)
            
             fallthrough
