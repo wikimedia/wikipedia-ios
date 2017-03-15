@@ -229,6 +229,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         previouslySelectedArticlePlaceIdentifier = place.identifier
         
         guard place.articles.count == 1 else {
+#if WMF_PLACES_GROUP_POPOVERS
             guard self.placeGroupVC == nil else {
                 return
             }
@@ -251,6 +252,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             annotationView.isHidden = true
             self.placeGroupAnnotationView = annotationView
             deselectAllAnnotations()
+#else
+            deselectAllAnnotations()
+            articleKeyToSelect = place.articles.first?.key
+            mapRegion = regionThatFits(articles: place.articles)
+
+#endif
             return
         }
         
@@ -355,8 +362,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             _mapRegion = region
             regroupArticlesIfNecessary(forVisibleRegion: region)
             showRedoSearchButtonIfNecessary(forVisibleRegion: region)
-            
+
             mapView.setRegion(region, animated: true)
+            
         }
         
         get {
@@ -1077,16 +1085,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             
             let checkAndSelect = { (place: ArticlePlace) in
                 if let keyToSelect = self.articleKeyToSelect, place.articles.count == 1, place.articles.first?.key == keyToSelect {
-                    // hacky workaround for now
                     self.deselectAllAnnotations()
                     self.placeToSelect = place
-                    dispatchAfterDelayInSeconds(0.7, DispatchQueue.main, {
-                        self.placeToSelect = nil
-                        guard self.mapView.selectedAnnotations.count == 0 else {
-                            return
-                        }
-                        self.selectArticlePlace(place)
-                    })
                     self.articleKeyToSelect = nil
                 }
             }
@@ -1300,7 +1300,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             break
         case .share:
             tracker?.wmf_logActionShare(inContext: context, contentType: article)
-            let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: [TUSafariActivity()])
+            var activityItems : [Any] = [url]
+            if let mapItem = article.mapItem {
+                activityItems.append(mapItem)
+            }
+            let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: [TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()])
             activityVC.popoverPresentationController?.sourceView = view
             var sourceRect = view.bounds
             if let shareButton = selectedArticlePopover?.shareButton {
