@@ -18,6 +18,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var listAndSearchOverlaySearchHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySliderHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySliderView: RoundedCornerView!
+
+    @IBOutlet weak var redoSearchButtonCenterConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var listView: UITableView!
     @IBOutlet weak var searchSuggestionView: UITableView!
@@ -716,10 +718,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let midHeight: CGFloat = 388
             let currentHeight = listAndSearchOverlayHeightConstraint.constant
             let newHeight: CGFloat
+            let newRedoSearchConstraint: CGFloat
             if currentHeight <= midHeight {
                 newHeight = currentHeight - minHeight <= midHeight - currentHeight ? minHeight : midHeight
+                newRedoSearchConstraint = 0
             } else {
-                newHeight = currentHeight - midHeight <= maxHeight - currentHeight ? midHeight : maxHeight
+                let mid = currentHeight - midHeight <= maxHeight - currentHeight
+                newHeight = mid ? midHeight : maxHeight
+                newRedoSearchConstraint = mid ? 0 : 0.5*325
             }
             
             let velocity = panGR.velocity(in: view).y
@@ -731,6 +737,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
             let duration: TimeInterval = 0.5
             UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: springVelocity, options: [.allowUserInteraction], animations: animations, completion: nil)
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: {
+                self.redoSearchButtonCenterConstraint.constant = newRedoSearchConstraint
+                self.view.layoutIfNeeded()
+            }, completion: nil)
            
             fallthrough
         case .failed:
@@ -2033,7 +2043,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         let location = touch.location(in: view)
-        let shouldReceive = location.x < listAndSearchOverlayContainerView.frame.maxX && abs(location.y - listAndSearchOverlayContainerView.frame.maxY) < 22
+        let shouldReceive = location.x < listAndSearchOverlayContainerView.frame.maxX && abs(location.y - listAndSearchOverlayContainerView.frame.maxY - 10) < 32
         return shouldReceive
     }
 }
