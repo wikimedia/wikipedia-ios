@@ -184,8 +184,8 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         return;
     }
 
-    if (self.fetchOperationsByArticleTitle[articleURL]) {
-        failure([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
+    if (self.fetchOperationsByArticleTitle[articleURL]) { // Protect against duplicate fetches & infinite fetch loops
+        failure([NSError wmf_errorWithType:WMFErrorTypeFetchAlreadyInProgress userInfo:nil]);
         return;
     }
     // NOTE: must check isCached to determine that all article data has been downloaded
