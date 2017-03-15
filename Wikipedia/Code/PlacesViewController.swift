@@ -624,8 +624,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
+    var useOverlay: Bool {
+        get {
+            return traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular
+        }
+    }
+    
     func updateLayout(_ traitCollection: UITraitCollection, animated: Bool) {
-        if traitCollection.horizontalSizeClass == .regular {
+        if useOverlay {
             switch viewMode {
             case .search:
                 viewMode = .searchOverlay
@@ -750,7 +756,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             guard oldValue != viewMode, viewMode != .none else {
                 return
             }
-            let useOverlay = traitCollection.horizontalSizeClass == .regular
             switch viewMode {
             case .list:
                 traitBasedViewMode = useOverlay ? .listOverlay : .list
