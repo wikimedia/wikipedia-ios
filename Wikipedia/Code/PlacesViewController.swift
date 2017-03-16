@@ -3,14 +3,25 @@ import MapKit
 import WMF
 import TUSafariActivity
 
-class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, WMFAnalyticsViewNameProviding, ArticlePlaceGroupViewControllerDelegate {
+class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, WMFAnalyticsViewNameProviding, ArticlePlaceGroupViewControllerDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var redoSearchButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var recenterOnUserLocationButton: UIButton!
+    
+    @IBOutlet weak var listAndSearchOverlayContainerView: UIView!
+    @IBOutlet weak var listAndSearchOverlaySearchContainerView: RoundedCornerView!
+    @IBOutlet weak var listAndSearchOverlaySearchBar: UISearchBar!
+    @IBOutlet weak var listAndSearchOverlayBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var listAndSearchOverlayHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var listAndSearchOverlaySearchHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var listAndSearchOverlaySliderHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var listAndSearchOverlaySearchCancelButtonHideConstraint: NSLayoutConstraint!
+    @IBOutlet weak var listAndSearchOverlaySearchCancelButtonShowConstraint: NSLayoutConstraint!
+    @IBOutlet weak var listAndSearchOverlaySliderView: RoundedCornerView!
     @IBOutlet weak var listView: UITableView!
     @IBOutlet weak var searchSuggestionView: UITableView!
-    @IBOutlet weak var recenterOnUserLocationButton: UIButton!
     
     public var articleStore: WMFArticleDataStore!
     public var dataStore: MWKDataStore!
@@ -25,7 +36,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private let popoverFadeDuration = 0.25
     private let searchHistoryCountLimit = 15
     private var searchSuggestionController: PlaceSearchSuggestionController!
-    private var searchBar: UISearchBar!
+    private var titleViewSearchBar: UISearchBar!
+    private var searchBar: UISearchBar? {
+        didSet {
+            oldValue?.delegate = nil
+            searchBar?.text = oldValue?.text
+            searchBar?.delegate = self
+        }
+    }
     private var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
     private var segmentedControl: UISegmentedControl!
     private var segmentedControlBarButtonItem: UIBarButtonItem!
@@ -35,7 +53,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private var selectedArticlePopover: ArticlePopoverViewController?
     private var selectedArticleAnnotationView: MKAnnotationView?
     private var selectedArticleKey: String?
-    private var placeToSelect: ArticlePlace?
     private var articleKeyToSelect: String?
     private var currentSearchRegion: MKCoordinateRegion?
     private var performDefaultSearchOnNextMapRegionUpdate = false
@@ -52,7 +69,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        redoSearchButton.setTitle("          " + localizedStringForKeyFallingBackOnEnglish("places-search-this-area")  + "          ", for: .normal)
+        redoSearchButton.setTitle("    " + localizedStringForKeyFallingBackOnEnglish("places-search-this-area") + "    ", for: .normal)
         
         // Setup map view
         mapView.mapType = .standard
@@ -66,7 +83,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         locationManager.delegate = self
         
         view.tintColor = .wmf_blueTint
-        redoSearchButton.backgroundColor = view.tintColor
+        redoSearchButton.setTitleColor(view.tintColor, for: .normal)
         
         // Setup map/list toggle
         let map = #imageLiteral(resourceName: "places-map")
@@ -87,32 +104,43 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         // Setup recenter button
         recenterOnUserLocationButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-recenter-map-on-user-location")
         
+
+        listAndSearchOverlaySearchContainerView.corners = [.topLeft, .topRight]
+        listAndSearchOverlaySearchContainerView.radius = 5
+        
+        listAndSearchOverlaySliderView.corners = [.bottomLeft, .bottomRight]
+        listAndSearchOverlaySliderView.radius = 5
+        
+        
         // Setup list view
         listView.dataSource = self
         listView.delegate = self
         listView.register(WMFNearbyArticleTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFNearbyArticleTableViewCell.identifier())
         listView.estimatedRowHeight = WMFNearbyArticleTableViewCell.estimatedRowHeight()
         
-        // Setup search bar
-        let searchBarLeftPadding: CGFloat = 7.5
-        let searchBarRightPadding: CGFloat = 2.5
-        searchBar = UISearchBar(frame: CGRect(x: searchBarLeftPadding, y: 0, width: view.bounds.size.width - searchBarLeftPadding - searchBarRightPadding, height: 32))
-        //searchBar.keyboardType = .webSearch
-        searchBar.returnKeyType = .search
-        searchBar.delegate = self
-        searchBar.searchBarStyle = .minimal
-        searchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 32))
-        titleView.addSubview(searchBar)
-        navigationItem.titleView = titleView
-        
         // Setup search suggestions
         searchSuggestionController = PlaceSearchSuggestionController()
         searchSuggestionController.tableView = searchSuggestionView
         searchSuggestionController.delegate = self
+
+        // Setup search bar
+        let searchBarHeight: CGFloat = 32
+        let searchBarLeftPadding: CGFloat = 7.5
+        let searchBarRightPadding: CGFloat = 2.5
+        titleViewSearchBar = UISearchBar(frame: CGRect(x: searchBarLeftPadding, y: 0, width: view.bounds.size.width - searchBarLeftPadding - searchBarRightPadding, height: 32))
+        titleViewSearchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: searchBarHeight))
+        titleView.addSubview(titleViewSearchBar)
+        navigationItem.titleView = titleView
+        titleViewSearchBar.returnKeyType = .search
+        titleViewSearchBar.searchBarStyle = .minimal
         
+        listAndSearchOverlaySearchBar.returnKeyType = titleViewSearchBar.returnKeyType
+        listAndSearchOverlaySearchBar.searchBarStyle = titleViewSearchBar.searchBarStyle
         
+        searchBar = titleViewSearchBar
+        
+        viewMode = .map
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -140,6 +168,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         mapView.showsUserLocation = true
         
         tracker?.wmf_logView(self)
+        
+        if traitBasedViewMode == .listOverlay || traitBasedViewMode == .searchOverlay {
+            navigationController?.setNavigationBarHidden(true, animated: animated)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -152,41 +184,52 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     // MARK: - MKMapViewDelegate
     
+    private var isMovingToRegion = false
+    
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         deselectAllAnnotations()
+        isMovingToRegion = true
     }
     
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        _mapRegion = mapView.region
-        guard performDefaultSearchOnNextMapRegionUpdate == false else {
-            performDefaultSearchIfNecessary(withRegion: mapView.region)
-            return
-        }
-        regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
-        articleKeyToSelect = nil
-        showRedoSearchButtonIfNecessary(forVisibleRegion: mapView.region)
-        guard let toSelect = placeToSelect else {
-            return
-        }
-        
-        placeToSelect = nil
-        
-        guard let articleToSelect = toSelect.articles.first else {
-            return
-        }
-        
+    func selectVisibleArticle(articleKey: String) -> Bool {
         let annotations = mapView.annotations(in: mapView.visibleMapRect)
         for annotation in annotations {
             guard let place = annotation as? ArticlePlace,
                 place.articles.count == 1,
                 let article = place.articles.first,
-                article.key == articleToSelect.key else {
+                article.key == articleKey else {
                     continue
             }
             selectArticlePlace(place)
-            break
+            return true
         }
+        return false
+    }
+    
+    func selectVisibleKeyToSelectIfNecessary() {
+        guard !isMovingToRegion, let keyToSelect = articleKeyToSelect else {
+            return
+        }
+        guard selectVisibleArticle(articleKey: keyToSelect) else {
+            return
+        }
+        articleKeyToSelect = nil
+    }
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        _mapRegion = mapView.region
+        guard performDefaultSearchOnNextMapRegionUpdate == false else {
+            performDefaultSearchOnNextMapRegionUpdate = false
+            performDefaultSearchIfNecessary(withRegion: nil)
+            return
+        }
+        regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
+
+        showRedoSearchButtonIfNecessary(forVisibleRegion: mapView.region)
         
+        isMovingToRegion = false
+        
+        selectVisibleKeyToSelectIfNecessary()
     }
 
     var placeGroupVC: ArticlePlaceGroupViewController?
@@ -245,7 +288,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             deselectAllAnnotations()
             articleKeyToSelect = place.articles.first?.key
             mapRegion = regionThatFits(articles: place.articles)
-
 #endif
             return
         }
@@ -349,11 +391,18 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let region = mapView.regionThatFits(value)
             
             _mapRegion = region
+            
             regroupArticlesIfNecessary(forVisibleRegion: region)
             showRedoSearchButtonIfNecessary(forVisibleRegion: region)
+            
+            
+            let mapViewRegion = mapView.region
+            guard mapViewRegion.center.longitude != region.center.longitude || mapViewRegion.center.latitude != region.center.latitude || mapViewRegion.span.longitudeDelta != region.span.longitudeDelta || mapViewRegion.span.latitudeDelta != region.span.latitudeDelta else {
+                selectVisibleKeyToSelectIfNecessary()
+                return
+            }
 
             mapView.setRegion(region, animated: true)
-            
         }
         
         get {
@@ -376,7 +425,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 return
             }
             
-            searchBar.text = search.localizedDescription
+            searchBar?.text = search.localizedDescription
             performSearch(search)
             
             
@@ -396,14 +445,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    func performDefaultSearchIfNecessary(withRegion region: MKCoordinateRegion) {
+    func performDefaultSearchIfNecessary(withRegion region: MKCoordinateRegion?) {
         guard currentSearch == nil else {
             return
         }
         performDefaultSearch(withRegion: region)
     }
     
-    func performDefaultSearch(withRegion region: MKCoordinateRegion) {
+    func performDefaultSearch(withRegion region: MKCoordinateRegion?) {
         currentSearch = PlaceSearch(type: .top, sortStyle: .links, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
     }
     
@@ -488,7 +537,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let height = top.distance(from: bottom)
         let width = right.distance(from: left)
         
-        let radius = round(0.25*(width + height))
+        let radius = round(0.5*max(width, height))
         let searchRegion = CLCircularRegion(center: center, radius: radius, identifier: "")
         
         let done = {
@@ -544,6 +593,27 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         if let searchSuggestionArticleURL = currentSearch?.searchResult?.articleURL(forSiteURL: siteURL),
             let searchSuggestionArticleKey = (searchSuggestionArticleURL as NSURL?)?.wmf_articleDatabaseKey { // the user tapped an article in the search suggestions list, so we should select that
             articleKeyToSelect = searchSuggestionArticleKey
+        } else if currentSearch?.type == .top {
+            if let centerCoordinate = currentSearch?.region?.center ?? mapRegion?.center {
+                let center = CLLocation(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude)
+                var minDistance = CLLocationDistance(DBL_MAX)
+                var resultToSelect: MWKLocationSearchResult?
+                for result in searchResults {
+                    guard let location = result.location else {
+                        continue
+                    }
+                    let distance = location.distance(from: center)
+                    if distance < minDistance {
+                        minDistance = distance
+                        resultToSelect = result
+                    }
+                }
+                let resultURL = resultToSelect?.articleURL(forSiteURL: siteURL)
+                articleKeyToSelect = (resultURL as NSURL?)?.wmf_articleDatabaseKey
+            } else {
+                let firstResultURL = searchResults.first?.articleURL(forSiteURL: siteURL)
+                articleKeyToSelect = (firstResultURL as NSURL?)?.wmf_articleDatabaseKey
+            }
         }
         
         var foundKey = false
@@ -580,6 +650,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         listView.reloadData()
         currentGroupingPrecision = 0
         regroupArticlesIfNecessary(forVisibleRegion: mapRegion ?? mapView.region)
+        if currentSearch?.region == nil { // this means the search was done in the curent map region and the map won't move
+            selectVisibleKeyToSelectIfNecessary()
+        }
     }
     
     @IBAction func redoSearch(_ sender: Any) {
@@ -605,43 +678,283 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
+    var useOverlay: Bool {
+        get {
+            return traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular
+        }
+    }
+    
+    func updateLayout(_ traitCollection: UITraitCollection, animated: Bool) {
+        if useOverlay {
+            switch viewMode {
+            case .search:
+                viewMode = .searchOverlay
+            case .list:
+                fallthrough
+            case .map:
+                viewMode = .listOverlay
+            default:
+                break
+            }
+        } else {
+            switch viewMode {
+            case .searchOverlay:
+                viewMode = .search
+            case .listOverlay:
+                viewMode = .map
+            default:
+                break
+            }
+        }
+    }
+    
     enum ViewMode {
+        case none
         case map
         case list
         case search
+        case listOverlay
+        case searchOverlay
     }
     
-    var viewMode: ViewMode = .map {
+    private var overlaySliderPanGestureRecognizer: UIPanGestureRecognizer?
+    
+    func addSearchBarToNavigationBar(animated: Bool) {
+        titleViewSearchBar.isHidden = false
+        segmentedControl.isHidden = false
+        searchBar = titleViewSearchBar
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+        if let panGR = overlaySliderPanGestureRecognizer {
+            view.removeGestureRecognizer(panGR)
+        }
+    }
+    
+    func removeSearchBarFromNavigationBar(animated: Bool) {
+        titleViewSearchBar.isHidden = true
+        segmentedControl.isHidden = true
+        searchBar = listAndSearchOverlaySearchBar
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        
+        let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+        panGR.delegate = self
+        view.addGestureRecognizer(panGR)
+        overlaySliderPanGestureRecognizer = panGR
+    }
+    
+    var initialOverlayHeightForPan: CGFloat?
+    
+    
+    let overlayMidHeight: CGFloat = 388
+    var overlayMinHeight: CGFloat {
+        get {
+            return listAndSearchOverlaySearchHeightConstraint.constant + listAndSearchOverlaySliderHeightConstraint.constant
+        }
+    }
+    var overlayMaxHeight: CGFloat {
+        get {
+            return view.bounds.size.height - listAndSearchOverlayContainerView.frame.minY - listAndSearchOverlayBottomConstraint.constant
+        }
+    }
+
+    enum OverlayState {
+        case min
+        case mid
+        case max
+    }
+    
+    func set(overlayState: OverlayState, withVelocity velocity: CGFloat, animated: Bool) {
+        let currentHeight = listAndSearchOverlayHeightConstraint.constant
+        let newHeight: CGFloat
+        switch overlayState {
+        case .min:
+            newHeight = overlayMinHeight
+        case .max:
+            newHeight = overlayMaxHeight
+        default:
+            newHeight = overlayMidHeight
+        }
+        let springVelocity = velocity / (newHeight - currentHeight)
+        self.view.layoutIfNeeded()
+        let animations = {
+            self.listAndSearchOverlayHeightConstraint.constant = newHeight
+            self.view.layoutIfNeeded()
+        }
+        let duration: TimeInterval = 0.5
+        self.overlayState = overlayState
+        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: springVelocity, options: [.allowUserInteraction], animations: animations, completion: { (didFinish) in
+            if overlayState == .max {
+                self.listAndSearchOverlayHeightConstraint.isActive = false
+                self.listAndSearchOverlayBottomConstraint.isActive = true
+            } else {
+                self.listAndSearchOverlayHeightConstraint.isActive = true
+                self.listAndSearchOverlayBottomConstraint.isActive = false
+            }
+        })
+    }
+    
+    var overlayState = OverlayState.mid
+    
+    
+    func handlePanGesture(_ panGR: UIPanGestureRecognizer) {
+        let minHeight = overlayMinHeight
+        let maxHeight = overlayMaxHeight
+        let midHeight = overlayMidHeight
+        switch panGR.state {
+        case .possible:
+            fallthrough
+        case .began:
+            fallthrough
+        case .changed:
+            let initialHeight: CGFloat
+            if let height = initialOverlayHeightForPan {
+                initialHeight = height
+            } else {
+                if (overlayState == .max) {
+                    listAndSearchOverlayHeightConstraint.constant = listAndSearchOverlayContainerView.frame.height
+                }
+                initialHeight = listAndSearchOverlayHeightConstraint.constant
+                initialOverlayHeightForPan = initialHeight
+                listAndSearchOverlayHeightConstraint.isActive = true
+                listAndSearchOverlayBottomConstraint.isActive = false
+            }
+            listAndSearchOverlayHeightConstraint.constant = max(minHeight, initialHeight + panGR.translation(in: view).y)
+        case .ended:
+            fallthrough
+        case .failed:
+            fallthrough
+        case .cancelled:
+            let currentHeight = listAndSearchOverlayHeightConstraint.constant
+            let newState: OverlayState
+            if currentHeight <= midHeight {
+                newState = currentHeight - minHeight <= midHeight - currentHeight ? .min : .mid
+            } else {
+                let mid = currentHeight - midHeight <= maxHeight - currentHeight
+                newState = mid ? .mid : .max
+            }
+            set(overlayState: newState, withVelocity: panGR.velocity(in: view).y, animated: true)
+            initialOverlayHeightForPan = nil
+            break
+        }
+    }
+    
+    var isSearchBarInNavigationBar: Bool? {
+        didSet{
+            guard let newValue = isSearchBarInNavigationBar, oldValue != newValue else {
+                return
+            }
+            if newValue {
+                addSearchBarToNavigationBar(animated: false)
+            } else {
+                removeSearchBarFromNavigationBar(animated: false)
+            }
+        }
+    }
+    
+    
+    private func updateTraitBasedViewMode() {
+        //forces an update
+        let oldViewMode = self.viewMode
+        self.viewMode = .none
+        self.viewMode = oldViewMode
+    }
+    
+    var isOverlaySearchButtonHidden = true {
         didSet {
+            let isHidden = isOverlaySearchButtonHidden
+            let animations = {
+                self.listAndSearchOverlaySearchCancelButtonHideConstraint.isActive = isHidden
+                self.listAndSearchOverlaySearchCancelButtonShowConstraint.isActive = !isHidden
+            }
+            if (isHidden)  {
+                animations()
+            } else {
+                listAndSearchOverlayContainerView.layoutIfNeeded()
+                UIView.animate(withDuration: 0.3) {
+                    animations()
+                    self.listAndSearchOverlayContainerView.layoutIfNeeded()
+                }
+            }
+        }
+    }
+    
+    var traitBasedViewMode: ViewMode = .none {
+        didSet {
+            guard oldValue != traitBasedViewMode else {
+                return
+            }
             if oldValue == .search && viewMode != .search {
                 navigationItem.setRightBarButton(segmentedControlBarButtonItem, animated: true)
             } else if oldValue != .search && viewMode == .search {
                 navigationItem.setRightBarButton(closeBarButtonItem, animated: true)
             }
-            switch viewMode {
+            switch traitBasedViewMode {
+            case .listOverlay:
+                isSearchBarInNavigationBar = false
+                deselectAllAnnotations()
+                updateDistanceFromUserOnVisibleCells()
+                logListViewImpressionsForVisibleCells()
+                mapView.isHidden = false
+                listView.isHidden = false
+                searchSuggestionView.isHidden = true
+                listAndSearchOverlayContainerView.isHidden = false
+                isOverlaySearchButtonHidden = true
             case .list:
+                isSearchBarInNavigationBar = true
                 deselectAllAnnotations()
                 updateDistanceFromUserOnVisibleCells()
                 logListViewImpressionsForVisibleCells()
                 mapView.isHidden = true
                 listView.isHidden = false
                 searchSuggestionView.isHidden = true
+                listAndSearchOverlayContainerView.isHidden = false
+            case .searchOverlay:
+                if overlayState == .min {
+                    set(overlayState: .mid, withVelocity: 0, animated: true)
+                }
+                isOverlaySearchButtonHidden = false
+                isSearchBarInNavigationBar = false
+                mapView.isHidden = false
+                listView.isHidden = true
+                searchSuggestionView.isHidden = false
+                listAndSearchOverlayContainerView.isHidden = false
             case .search:
+                isSearchBarInNavigationBar = true
                 mapView.isHidden = true
                 listView.isHidden = true
                 searchSuggestionView.isHidden = false
+                listAndSearchOverlayContainerView.isHidden = false
             case .map:
                 fallthrough
             default:
+                isSearchBarInNavigationBar = true
                 mapView.isHidden = false
                 listView.isHidden = true
                 searchSuggestionView.isHidden = true
+                listAndSearchOverlayContainerView.isHidden = true
             }
             recenterOnUserLocationButton.isHidden = mapView.isHidden
             redoSearchButton.isHidden = mapView.isHidden
         }
     }
-    
+
+    var viewMode: ViewMode = .none {
+        didSet {
+            guard oldValue != viewMode, viewMode != .none else {
+                return
+            }
+            switch viewMode {
+            case .list:
+                traitBasedViewMode = useOverlay ? .listOverlay : .list
+            case .search:
+                traitBasedViewMode = useOverlay ? .searchOverlay : .search
+            case .map:
+                fallthrough
+            default:
+                traitBasedViewMode = useOverlay ? .listOverlay : .map
+            }
+        }
+    }
+
     func updateViewModeFromSegmentedControl() {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
@@ -873,7 +1186,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     
     func shouldShowAllImages(currentPrecision: QuadKeyPrecision, currentSearchPrecision: QuadKeyPrecision, maxPrecision: QuadKeyPrecision) -> Bool {
-        return currentPrecision > 17 || (currentPrecision >= currentSearchPrecision + 3 && greaterThanOneArticleGroupCount == 0)
+        return currentPrecision > maxPrecision + 2
     }
     
     func updateShouldShowAllImages(currentPrecision: QuadKeyPrecision, currentSearchPrecision: QuadKeyPrecision, maxPrecision: QuadKeyPrecision) {
@@ -894,11 +1207,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         var articles: [WMFArticle] = []
         var latitudeSum: QuadKeyDegrees = 0
         var longitudeSum: QuadKeyDegrees = 0
+        var latitudeAdjustment: QuadKeyDegrees = 0
+        var longitudeAdjustment: QuadKeyDegrees = 0
         var baseQuadKey: QuadKey = 0
         var baseQuadKeyPrecision: QuadKeyPrecision = 0
         var location: CLLocation {
             get {
-                return CLLocation(latitude: latitudeSum/CLLocationDegrees(articles.count), longitude: longitudeSum/CLLocationDegrees(articles.count))
+                return CLLocation(latitude: (latitudeSum + latitudeAdjustment)/CLLocationDegrees(articles.count), longitude: (longitudeSum + longitudeAdjustment)/CLLocationDegrees(articles.count))
             }
         }
     }
@@ -965,9 +1280,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let searchDeltaLon = searchRegion.span.longitudeDelta
         let lowestSearchPrecision = QuadKeyPrecision(deltaLongitude: searchDeltaLon)
         
-        let maxPrecision: QuadKeyPrecision = 16
         var groupingAggressiveness: CLLocationDistance = 0.67
         let groupingPrecisionDelta: QuadKeyPrecision = 4
+        let maxPrecision: QuadKeyPrecision = 17
         if lowestPrecision + 4 <= lowestSearchPrecision {
             groupingAggressiveness += 0.3
         }
@@ -1020,7 +1335,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
             var group: ArticleGroup
             let adjustedQuadKey: QuadKey
-            let key: String
+            var key: String
             if groupingPrecision < maxPrecision && (articleKeyToSelect == nil || article.key != articleKeyToSelect) {
                 adjustedQuadKey = quadKey.adjusted(downBy: QuadKeyPrecision.maxPrecision - groupingPrecision)
                 let baseQuadKey = adjustedQuadKey - adjustedQuadKey % 2
@@ -1032,6 +1347,19 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 group = ArticleGroup()
                 adjustedQuadKey = quadKey
                 key = "\(adjustedQuadKey)"
+                if var existingGroup = groups[key] {
+                    let existingGroupArticleKey = existingGroup.articles.first?.key ?? ""
+                    let existingGroupTitle = existingGroup.articles.first?.displayTitle ?? ""
+                    existingGroup.latitudeAdjustment = 0.0001 * CLLocationDegrees(existingGroupArticleKey.hash) / CLLocationDegrees(Int.max)
+                    existingGroup.longitudeAdjustment = 0.0001 * CLLocationDegrees(existingGroupTitle.hash) / CLLocationDegrees(Int.max)
+                    groups[key] = existingGroup
+                    
+                    let articleKey = article.key ?? ""
+                    let articleTitle = article.displayTitle ?? ""
+                    group.latitudeAdjustment = 0.0001 * CLLocationDegrees(articleKey.hash) / CLLocationDegrees(Int.max)
+                    group.longitudeAdjustment = 0.0001 * CLLocationDegrees(articleTitle.hash) / CLLocationDegrees(Int.max)
+                    key = articleKey
+                }
                 group.baseQuadKey = quadKey
                 group.baseQuadKeyPrecision = QuadKeyPrecision.maxPrecision
             }
@@ -1048,38 +1376,31 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             guard var group = groups[key] else {
                 continue
             }
-
-            let toMerge = merge(group: group, key: key, groups: groups, groupingDistance: groupingDistance)
-            for adjacentKey in toMerge {
-                guard let adjacentGroup = groups[adjacentKey] else {
-                    continue
+            
+            if groupingPrecision < maxPrecision {
+                let toMerge = merge(group: group, key: key, groups: groups, groupingDistance: groupingDistance)
+                for adjacentKey in toMerge {
+                    guard let adjacentGroup = groups[adjacentKey] else {
+                        continue
+                    }
+                    group.articles.append(contentsOf: adjacentGroup.articles)
+                    group.latitudeSum += adjacentGroup.latitudeSum
+                    group.longitudeSum += adjacentGroup.longitudeSum
+                    groups.removeValue(forKey: adjacentKey)
                 }
-                group.articles.append(contentsOf: adjacentGroup.articles)
-                group.latitudeSum += adjacentGroup.latitudeSum
-                group.longitudeSum += adjacentGroup.longitudeSum
-                groups.removeValue(forKey: adjacentKey)
+                
+                if group.articles.count > 1 {
+                    greaterThanOneArticleGroupCount += 1
+                }
             }
             
-            if group.articles.count > 1 {
-                greaterThanOneArticleGroupCount += 1
-            }
-
             var nextCoordinate: CLLocationCoordinate2D?
             var coordinate = group.location.coordinate
             
             let identifier = ArticlePlace.identifierForArticles(articles: group.articles)
             
-            let checkAndSelect = { (place: ArticlePlace) in
-                if let keyToSelect = self.articleKeyToSelect, place.articles.count == 1, place.articles.first?.key == keyToSelect {
-                    self.deselectAllAnnotations()
-                    self.placeToSelect = place
-                    self.articleKeyToSelect = nil
-                }
-            }
-            
             //check for identical place already on the map
-            if let place = annotationsToRemove.removeValue(forKey: identifier) {
-                checkAndSelect(place)
+            if let _ = annotationsToRemove.removeValue(forKey: identifier) {
                 continue
             }
             
@@ -1131,8 +1452,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             
             mapView.addAnnotation(place)
             
-            checkAndSelect(place)
-            
             groups.removeValue(forKey: key)
         }
         
@@ -1158,6 +1477,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 self.updateShouldShowAllImages(currentPrecision: currentPrecision, currentSearchPrecision: currentSearchPrecision, maxPrecision: maxPrecision)
             }
             self.groupingTaskGroup = nil
+            self.selectVisibleKeyToSelectIfNecessary()
             if (self.needsRegroup) {
                 self.needsRegroup = false
                 self.regroupArticlesIfNecessary(forVisibleRegion: self.mapRegion ?? self.mapView.region)
@@ -1199,7 +1519,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         articleVC.view.alpha = 0
         addChildViewController(articleVC)
-        view.insertSubview(articleVC.view, aboveSubview: placeGroupVC?.view ?? mapView)
+        
+        let aboveSubview = traitBasedViewMode == .listOverlay || traitBasedViewMode == .searchOverlay ? listAndSearchOverlayContainerView ?? placeGroupVC?.view : placeGroupVC?.view
+        view.insertSubview(articleVC.view, aboveSubview: aboveSubview ?? mapView)
         articleVC.didMove(toParentViewController: self)
         
         let size = articleVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
@@ -1235,6 +1557,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 let annotationView = self.selectedArticleAnnotationView {
                 self.adjustLayout(ofPopover: popover, withSize: popover.preferredContentSize, viewSize: size, forAnnotationView: annotationView)
             }
+            self.updateTraitBasedViewMode()
         }, completion: nil)
     }
     
@@ -1267,6 +1590,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         case .read:
             tracker?.wmf_logActionTapThrough(inContext: context, contentType: article)
             wmf_pushArticle(with: url, dataStore: dataStore, previewStore: articleStore, animated: true)
+            if navigationController?.isNavigationBarHidden ?? false {
+                navigationController?.setNavigationBarHidden(false, animated: true)
+            }
+
             break
         case .save:
             let didSave = dataStore.savedPageList.toggleSavedPage(for: url)
@@ -1424,7 +1751,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     // MARK: - Search Suggestions & Completions
     
     func updateSearchSuggestions(withCompletions completions: [PlaceSearch]) {
-        guard let currentSearchString = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), currentSearchString != "" || completions.count > 0 else {
+        guard let currentSearchString = searchBar?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), currentSearchString != "" || completions.count > 0 else {
             let topNearbySuggestion = PlaceSearch(type: .top, sortStyle: .links, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
             
             var suggestedSearches = [topNearbySuggestion]
@@ -1505,17 +1832,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
 
     func updateSearchCompletionsFromSearchBarText() {
-        guard let text = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), text != "" else {
+        guard let text = searchBar?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), text != "" else {
             updateSearchSuggestions(withCompletions: [])
             return
         }
         searchFetcher.fetchArticles(forSearchTerm: text, siteURL: siteURL, resultLimit: 24, failure: { (error) in
-            guard text == self.searchBar.text else {
+            guard text == self.searchBar?.text else {
                 return
             }
             self.updateSearchSuggestions(withCompletions: [])
         }) { (searchResult) in
-            guard text == self.searchBar.text else {
+            guard text == self.searchBar?.text else {
                 return
             }
             
@@ -1527,7 +1854,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let center = self.mapView.userLocation.coordinate
             let region = CLCircularRegion(center: center, radius: 40075000, identifier: "world")
             self.locationSearchFetcher.fetchArticles(withSiteURL: self.siteURL, in: region, matchingSearchTerm: text, sortStyle: .links, resultLimit: 24, completion: { (locationSearchResults) in
-                guard text == self.searchBar.text else {
+                guard text == self.searchBar?.text else {
                     return
                 }
                 var combinedResults: [MWKSearchResult] = searchResult.results ?? []
@@ -1535,16 +1862,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 combinedResults.append(contentsOf: newResults)
                 let _ = self.handleCompletion(searchResults: combinedResults)
             }) { (error) in
-                guard text == self.searchBar.text else {
+                guard text == self.searchBar?.text else {
                     return
                 }
             }
         }
     }
     
-    func closeSearch() {
-        searchBar.endEditing(true)
-        searchBar.text = currentSearch?.localizedDescription
+    @IBAction func closeSearch(_ sender: Any) {
+        searchBar?.endEditing(true)
+        searchBar?.text = currentSearch?.localizedDescription
     }
     
     // MARK: - UISearchBarDelegate
@@ -1695,7 +2022,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didSelectSearch search: PlaceSearch) {
         currentSearch = search
-        searchBar.endEditing(true)
+        searchBar?.endEditing(true)
     }
     
     func placeSearchSuggestionControllerClearButtonPressed(_ controller: PlaceSearchSuggestionController) {
@@ -1759,7 +2086,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         } else {
             panMapToNextLocationUpdate = false
             locationManager.stopMonitoringLocation()
-            performDefaultSearchIfNecessary(withRegion: mapView.region)
+            performDefaultSearchIfNecessary(withRegion: nil)
         }
     }
     
@@ -1787,7 +2114,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func enableLocationViewController(_ enableLocationViewController: EnableLocationViewController, didFinishWithShouldPromptForLocationAccess shouldPromptForLocationAccess: Bool) {
         guard shouldPromptForLocationAccess else {
-            performDefaultSearchIfNecessary(withRegion: mapView.region)
+            performDefaultSearchIfNecessary(withRegion: nil)
             return
         }
         guard WMFLocationManager.isAuthorizationNotDetermined() else {
@@ -1829,6 +2156,18 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func articlePlaceGroupViewControllerDidSelectZoom(_ aticlePlaceGroupViewController: ArticlePlaceGroupViewController) {
         dismissGroup(andZoom: true)
+    }
+    
+    // MARK: - UIGestureRecognizerDelegate
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        guard gestureRecognizer === overlaySliderPanGestureRecognizer else {
+            return false
+        }
+        
+        let location = touch.location(in: view)
+        let shouldReceive = location.x < listAndSearchOverlayContainerView.frame.maxX && abs(location.y - listAndSearchOverlayContainerView.frame.maxY - 10) < 32
+        return shouldReceive
     }
 }
 
