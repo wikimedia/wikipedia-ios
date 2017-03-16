@@ -358,12 +358,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             regroupArticlesIfNecessary(forVisibleRegion: region)
             showRedoSearchButtonIfNecessary(forVisibleRegion: region)
 
-            CATransaction.begin()
-            CATransaction.setCompletionBlock { 
+            
+            UIView.animate(withDuration: 0.7, delay: 0, options: [.allowUserInteraction], animations: { 
+                self.mapView.region = region
+            }) { (didFinish) in
                 self.selectPlaceToSelectIfNecessary()
             }
-            mapView.setRegion(region, animated: true)
-            CATransaction.commit()
         }
         
         get {
