@@ -12,15 +12,15 @@ class ArticlePlaceView: MKAnnotationView {
     let imageView: UIView
     private let imageImageView: UIImageView
     private let imageImagePlaceholderView: UIImageView
-    private let imageOutlineView: UIView
-    private let imageBackgroundView: UIView
+    private let imageOutlineView: UIImageView
+    private let imageBackgroundView: UIImageView
     private let selectedImageView: UIView
     private let selectedImageImageView: UIImageView
     private let selectedImageImagePlaceholderView: UIImageView
-    private let selectedImageOutlineView: UIView
-    private let selectedImageBackgroundView: UIView
-    private let dotView: UIView
-    private let groupView: UIView
+    private let selectedImageOutlineView: UIImageView
+    private let selectedImageBackgroundView: UIImageView
+    private let dotView: UIImageView
+    private let groupView: UIImageView
     private let countLabel: UILabel
     private let dimension: CGFloat
     private let collapsedDimension: CGFloat
@@ -145,12 +145,12 @@ class ArticlePlaceView: MKAnnotationView {
         selectedImageImageView = UIImageView()
         imageImageView = UIImageView()
         countLabel = UILabel()
-        dotView = UIView()
-        groupView = UIView()
-        imageOutlineView = UIView()
-        selectedImageOutlineView = UIView()
-        imageBackgroundView = UIView()
-        selectedImageBackgroundView = UIView()
+        dotView = UIImageView()
+        groupView = UIImageView()
+        imageOutlineView = UIImageView()
+        selectedImageOutlineView = UIImageView()
+        imageBackgroundView = UIImageView()
+        selectedImageBackgroundView = UIImageView()
         selectedImageButton = UIButton()
         imageImagePlaceholderView = UIImageView()
         selectedImageImagePlaceholderView = UIImageView()
@@ -161,7 +161,7 @@ class ArticlePlaceView: MKAnnotationView {
         dimension = ArticlePlaceView.largeDotOutlineImage.size.width
         imageDimension = ArticlePlaceView.mediumDotOutlineImage.size.width
         
-        let gravity = kCAGravityBottomRight
+        let contentMode: UIViewContentMode = .topLeft
         
         isPlaceholderHidden = false
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
@@ -169,16 +169,14 @@ class ArticlePlaceView: MKAnnotationView {
         frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
         
         dotView.bounds = CGRect(x: 0, y: 0, width: collapsedDimension, height: collapsedDimension)
-        dotView.layer.contentsGravity = gravity
-        dotView.layer.contentsScale = scale
-        dotView.layer.contents = ArticlePlaceView.smallDotImage.cgImage
+        dotView.contentMode = contentMode
+        dotView.image = ArticlePlaceView.smallDotImage
         dotView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
         addSubview(dotView)
         
         groupView.bounds = CGRect(x: 0, y: 0, width: groupDimension, height: groupDimension)
-        groupView.layer.contentsGravity = gravity
-        groupView.layer.contentsScale = scale
-        groupView.layer.contents = ArticlePlaceView.mediumDotImage.cgImage
+        groupView.contentMode = contentMode
+        groupView.image = ArticlePlaceView.mediumDotImage
         addSubview(groupView)
         
         imageView.bounds = CGRect(x: 0, y: 0, width: imageDimension, height: imageDimension)
@@ -186,9 +184,8 @@ class ArticlePlaceView: MKAnnotationView {
         addSubview(imageView)
         
         imageBackgroundView.frame = imageView.bounds
-        imageBackgroundView.layer.contentsGravity = gravity
-        imageBackgroundView.layer.contentsScale = scale
-        imageBackgroundView.layer.contents = ArticlePlaceView.extraMediumOpaqueDot.cgImage
+        imageBackgroundView.contentMode = contentMode
+        imageBackgroundView.image = ArticlePlaceView.extraMediumOpaqueDot
         imageView.addSubview(imageBackgroundView)
         
         imageImagePlaceholderView.frame = imageView.bounds
@@ -204,9 +201,8 @@ class ArticlePlaceView: MKAnnotationView {
         imageView.addSubview(imageImageView)
         
         imageOutlineView.frame = imageView.bounds
-        imageOutlineView.layer.contentsGravity = gravity
-        imageOutlineView.layer.contentsScale = scale
-        imageOutlineView.layer.contents = ArticlePlaceView.mediumDotOutlineImage.cgImage
+        imageOutlineView.contentMode = contentMode
+        imageOutlineView.image = ArticlePlaceView.mediumDotOutlineImage
         imageView.addSubview(imageOutlineView)
         
         selectedImageView.bounds = bounds
@@ -214,9 +210,8 @@ class ArticlePlaceView: MKAnnotationView {
         addSubview(selectedImageView)
         
         selectedImageBackgroundView.frame = selectedImageView.bounds
-        selectedImageBackgroundView.layer.contentsGravity = gravity
-        selectedImageBackgroundView.layer.contentsScale = scale
-        selectedImageBackgroundView.layer.contents = ArticlePlaceView.largeOpaqueDot.cgImage
+        selectedImageBackgroundView.contentMode = contentMode
+        selectedImageBackgroundView.image = ArticlePlaceView.largeOpaqueDot
         selectedImageView.addSubview(selectedImageBackgroundView)
         
         selectedImageImagePlaceholderView.frame = selectedImageView.bounds
@@ -232,9 +227,8 @@ class ArticlePlaceView: MKAnnotationView {
         selectedImageView.addSubview(selectedImageImageView)
         
         selectedImageOutlineView.frame = selectedImageView.bounds
-        selectedImageOutlineView.layer.contentsGravity = gravity
-        selectedImageOutlineView.layer.contentsScale = scale
-        selectedImageOutlineView.layer.contents = ArticlePlaceView.largeDotOutlineImage.cgImage
+        selectedImageOutlineView.contentMode = contentMode
+        selectedImageOutlineView.image = ArticlePlaceView.largeDotOutlineImage
         selectedImageView.addSubview(selectedImageOutlineView)
         
         selectedImageButton.frame = selectedImageView.bounds
@@ -246,7 +240,6 @@ class ArticlePlaceView: MKAnnotationView {
         countLabel.textAlignment = .center
         countLabel.font = UIFont.boldSystemFont(ofSize: 16)
         groupView.addSubview(countLabel)
-        
         
         prepareForReuse()
         self.annotation = annotation
