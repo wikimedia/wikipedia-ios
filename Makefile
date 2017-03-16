@@ -47,35 +47,9 @@ get-xcode-cltools: ##Install Xcode command-line tools
 get-homebrew: ##Install Homebrew using the bootstrapping script from http://brew.sh
 	@./scripts/setup_homebrew
 
-brew-check: ##Check that Homebrew is installed
-	@if [[ $$(brew -v 2>/dev/null) =~ "Homebrew" ]]; then \
-		echo "Homebrew is installed!"; \
-	else \
-		echo "Please setup Homebrew by running `make get-homebrew` or following instructions on http://brew.sh/"; \
-		exit 1; \
-	fi
-
-# Append additional dependencies as quoted strings (i.e. BREW_FORMULAE = "f1" "f2" ...)
-BREW_FORMULAE = "imagemagick" "gs" "xctool"
-
 brew-install: ##Install executable dependencies via Homebrew
-brew-install: brew-check
-	@brew install $(BREW_FORMULAE) || brew upgrade $(BREW_FORMULAE)
-
-# Append additional dependencies as quoted strings (i.e. EXEC_DEPS = "dep1" "dep2" ...)
-EXEC_DEPS = "convert" "gs" "xctool"
-
-# Note: checking for specific executables instead of formula, since Homebrew
-# is just one of many ways to install them
-exec-check:  ##Check that executable dependencies are installed
-	@for dep in $(EXEC_DEPS); do \
-		if [[ -x $$(which $${dep}) ]]; then \
-			echo "$${dep} is installed!"; \
-		else \
-			echo "Missing executable $${dep}, please make sure it's installed on your PATH (e.g. via Homebrew)."; \
-			exit 1; \
-		fi \
-	done
+brew-install:
+	@./scripts/brew_install
 
 #!!!!!
 #!!!!! Web dependency management
