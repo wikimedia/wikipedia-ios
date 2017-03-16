@@ -414,9 +414,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         guard let toSelect = placeToSelect else {
             return
         }
-        defer {
-            placeToSelect = nil
-        }
         let annotations = mapView.annotations(in: mapView.visibleMapRect)
         for annotation in annotations {
             guard let place = annotation as? ArticlePlace, toSelect === place else {
@@ -424,6 +421,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
             deselectAllAnnotations()
             selectArticlePlace(place)
+            placeToSelect = nil
             break
         }
     }
