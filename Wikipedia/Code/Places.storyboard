@@ -22,16 +22,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" showsBuildings="NO" showsCompass="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UNC-SX-Sli">
-                                <rect key="frame" x="0.0" y="64" width="768" height="911"/>
+                                <rect key="frame" x="0.0" y="20" width="768" height="955"/>
                                 <connections>
                                     <outlet property="delegate" destination="pK5-Ai-Kzp" id="paj-rR-O2P"/>
                                 </connections>
                             </mapView>
                             <progressView opaque="NO" alpha="0.0" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Pet-ct-8QU">
-                                <rect key="frame" x="0.0" y="64" width="768" height="2.5"/>
+                                <rect key="frame" x="0.0" y="20" width="768" height="2.5"/>
                             </progressView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxh-CO-RQm">
-                                <rect key="frame" x="713" y="79" width="40" height="40"/>
+                                <rect key="frame" x="713" y="35" width="40" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="JR3-1A-AEQ"/>
@@ -61,7 +61,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6h-da-ewO">
-                                <rect key="frame" x="450" y="79" width="248" height="40"/>
+                                <rect key="frame" x="450" y="35" width="248" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="bl4-5f-ixX"/>
@@ -93,7 +93,7 @@
                                 </connections>
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hEe-dF-AFg">
-                                <rect key="frame" x="15" y="79" width="325" height="388"/>
+                                <rect key="frame" x="15" y="35" width="325" height="388"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hcr-LT-MnE">
                                         <rect key="frame" x="0.0" y="45" width="325" height="343"/>
@@ -178,23 +178,35 @@
                                                     <constraint firstAttribute="height" constant="1" id="DFE-C8-Rdd"/>
                                                 </constraints>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jZY-FG-GQF">
+                                                <rect key="frame" x="325" y="6" width="48" height="32"/>
+                                                <state key="normal" title="Cancel"/>
+                                                <connections>
+                                                    <action selector="closeSearch:" destination="pK5-Ai-Kzp" eventType="touchUpInside" id="Ajp-tC-VzK"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="Ydg-ui-Zgi" firstAttribute="leading" secondItem="i4l-Ze-Tv2" secondAttribute="leading" id="1ld-qh-bjR"/>
+                                            <constraint firstItem="jZY-FG-GQF" firstAttribute="top" secondItem="i4l-Ze-Tv2" secondAttribute="top" constant="6" id="8wV-N2-sfo"/>
+                                            <constraint firstItem="x4d-gE-JMU" firstAttribute="top" secondItem="jZY-FG-GQF" secondAttribute="bottom" constant="6" id="BAW-fe-sUh"/>
+                                            <constraint firstAttribute="trailing" secondItem="jZY-FG-GQF" secondAttribute="trailing" constant="8" id="BaF-Yx-zNo"/>
                                             <constraint firstAttribute="trailing" secondItem="x4d-gE-JMU" secondAttribute="trailing" id="H75-7H-Y2Y"/>
                                             <constraint firstAttribute="bottom" secondItem="Ydg-ui-Zgi" secondAttribute="bottom" constant="6" id="JdD-L6-0jv"/>
+                                            <constraint firstItem="jZY-FG-GQF" firstAttribute="leading" secondItem="Ydg-ui-Zgi" secondAttribute="trailing" id="WYJ-IB-6Su"/>
                                             <constraint firstItem="x4d-gE-JMU" firstAttribute="leading" secondItem="i4l-Ze-Tv2" secondAttribute="leading" id="YzE-R1-mbs"/>
-                                            <constraint firstAttribute="trailing" secondItem="Ydg-ui-Zgi" secondAttribute="trailing" id="aPt-Es-9IK"/>
                                             <constraint firstAttribute="height" id="blG-tM-6xp">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="45"/>
                                             </constraint>
                                             <constraint firstItem="Ydg-ui-Zgi" firstAttribute="top" secondItem="i4l-Ze-Tv2" secondAttribute="top" constant="6" id="dIU-ym-GeW"/>
+                                            <constraint firstItem="jZY-FG-GQF" firstAttribute="leading" secondItem="i4l-Ze-Tv2" secondAttribute="trailing" id="k81-pK-FAX"/>
                                             <constraint firstAttribute="bottom" secondItem="x4d-gE-JMU" secondAttribute="bottom" id="x1R-fg-si5"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="dIU-ym-GeW"/>
+                                                <exclude reference="BaF-Yx-zNo"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=regular">
@@ -275,6 +287,8 @@
                         <outlet property="listAndSearchOverlayContainerView" destination="hEe-dF-AFg" id="pNn-lr-x35"/>
                         <outlet property="listAndSearchOverlayHeightConstraint" destination="WjD-Ab-D2o" id="4pj-RB-IFd"/>
                         <outlet property="listAndSearchOverlaySearchBar" destination="Ydg-ui-Zgi" id="s00-Le-D6x"/>
+                        <outlet property="listAndSearchOverlaySearchCancelButtonHideConstraint" destination="k81-pK-FAX" id="9RX-B5-5eL"/>
+                        <outlet property="listAndSearchOverlaySearchCancelButtonShowConstraint" destination="BaF-Yx-zNo" id="e3B-Bk-zY7"/>
                         <outlet property="listAndSearchOverlaySearchContainerView" destination="i4l-Ze-Tv2" id="PeF-Dx-aVf"/>
                         <outlet property="listAndSearchOverlaySearchHeightConstraint" destination="blG-tM-6xp" id="1RT-v5-ekB"/>
                         <outlet property="listAndSearchOverlaySliderHeightConstraint" destination="0Ku-oI-d8V" id="OWR-jH-qkm"/>
@@ -294,10 +308,10 @@
         <!--Places-->
         <scene sceneID="CuH-Gb-zyn">
             <objects>
-                <navigationController storyboardIdentifier="Places" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fC7-UI-Knm" userLabel="Places" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Places" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="fC7-UI-Knm" userLabel="Places" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Places" image="tabbar-nearby" selectedImage="tabbar-nearby-selected" id="qMU-9n-S42"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HFz-Jz-Pn5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="HFz-Jz-Pn5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

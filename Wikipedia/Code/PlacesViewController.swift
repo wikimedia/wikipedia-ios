@@ -17,6 +17,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var listAndSearchOverlayHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySearchHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySliderHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var listAndSearchOverlaySearchCancelButtonHideConstraint: NSLayoutConstraint!
+    @IBOutlet weak var listAndSearchOverlaySearchCancelButtonShowConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySliderView: RoundedCornerView!
     @IBOutlet weak var listView: UITableView!
     @IBOutlet weak var searchSuggestionView: UITableView!
@@ -857,6 +859,20 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         self.viewMode = oldViewMode
     }
     
+    var isOverlaySearchButtonHidden = true {
+        didSet {
+            let isHidden = isOverlaySearchButtonHidden
+            self.listAndSearchOverlaySearchCancelButtonHideConstraint.isActive = !isHidden
+            self.listAndSearchOverlaySearchCancelButtonShowConstraint.isActive = isHidden
+            listAndSearchOverlayContainerView.layoutIfNeeded()
+            UIView.animate(withDuration: 0.3, animations: {
+                self.listAndSearchOverlaySearchCancelButtonHideConstraint.isActive = isHidden
+                self.listAndSearchOverlaySearchCancelButtonShowConstraint.isActive = !isHidden
+                self.listAndSearchOverlayContainerView.layoutIfNeeded()
+            })
+        }
+    }
+    
     var traitBasedViewMode: ViewMode = .none {
         didSet {
             guard oldValue != traitBasedViewMode else {
@@ -877,6 +893,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 listView.isHidden = false
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = false
+                isOverlaySearchButtonHidden = true
             case .list:
                 isSearchBarInNavigationBar = true
                 deselectAllAnnotations()
@@ -887,6 +904,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = false
             case .searchOverlay:
+                if overlayState == .min {
+                    set(overlayState: .mid, withVelocity: 0, animated: true)
+                }
+                isOverlaySearchButtonHidden = false
                 isSearchBarInNavigationBar = false
                 mapView.isHidden = false
                 listView.isHidden = true
@@ -1826,7 +1847,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    func closeSearch() {
+    @IBAction func closeSearch(_ sender: Any) {
         searchBar?.endEditing(true)
         searchBar?.text = currentSearch?.localizedDescription
     }
