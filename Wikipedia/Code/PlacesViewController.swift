@@ -69,7 +69,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        redoSearchButton.setTitle(localizedStringForKeyFallingBackOnEnglish("places-search-this-area"), for: .normal)
+        redoSearchButton.setTitle("    " + localizedStringForKeyFallingBackOnEnglish("places-search-this-area" + "    "), for: .normal)
         
         // Setup map view
         mapView.mapType = .standard
