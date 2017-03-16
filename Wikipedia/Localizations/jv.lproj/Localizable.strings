@@ -1,6 +1,7 @@
 // Messages for Javanese (Basa Jawa)
 // Exported from translatewiki.net
 // Author: Arifin.wijaya
+// Author: Nemo bis
 
 "languages-title" = "Ganti basa";
 "article-languages-label" = "Pilih basa";
@@ -49,6 +50,7 @@
 "account-creation-captcha-obtaining" = "Golek sing CAPTCHA anyar...";
 "account-creation-captcha-title" = "Mriksa keamanan CAPTCHA";
 "account-creation-captcha-cannot-see-image" = "Ora bisa ndeleng gambar? $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "Nyuwun akun.";
 "account-creation-logging-in" = "Mlebu...";
 "account-creation-passwords-mismatched" = "Tembung sandhiné ora padha.";
@@ -63,6 +65,10 @@
 "two-factor-login-title" = "Mlebu menyang akun panjenengan";
 "two-factor-login-instructions" = "Mangga ketik kode verifikasi loro faktor";
 "two-factor-login-continue" = "Banjuraké mlebu log.";
+// Fuzzy
+"two-factor-login-with-regular-code" = "Nggunakake kode numerik singkat";
+// Fuzzy
+"two-factor-login-with-backup-code" = "Nggunakake kode serep panjang";
 "login-name-not-found" = "Jeneng panganggo dibutuhake kanggo mlebu.";
 "login-name-illegal" = "Sing kasedhiya jeneng panganggo ilegal.";
 "login-name-does-not-exist" = "Jeneng panganggo sing kasedhiya ora ana.";
@@ -87,15 +93,18 @@
 "field-new-password-placeholder" = "lebokaké tembung wadi anyar";
 "field-new-password-confirm-title" = "Konfirmasi tembung wadi anyar";
 "field-new-password-confirm-placeholder" = "lebokaké lagi tembung wadi anyar";
+// Fuzzy
 "field-email-title" = "Alamat layang èlèktronik (manasuka)";
 "field-email-placeholder" = "contone@contone.org";
-// Fuzzy
 "field-token-title" = "Token";
+"field-backup-token-title" = "Kode serep";
 "field-token-placeholder" = "lebokaké token";
 "field-captcha-title" = "Ketik teks sing ndeleng ndhuwur";
 "field-captcha-placeholder" = "Teks CAPTCHA";
 "field-alert-username-unavailable" = "Jeneng panganggo ora kasedhiya";
 "field-alert-password-invalid" = "Tembung wadi ora sah";
+// Fuzzy
+"field-alert-token-invalid" = "Kode salah. Mangga nyoba maneh.";
 "field-alert-captcha-invalid" = "CAPTCHA ora sah";
 "field-alert-password-confirm-mismatch" = "Tembung sandhiné ora padha";
 "forgot-password-title" = "Balèni gawé tembung wadi";
@@ -295,13 +304,13 @@
 "onboarding-skip" = "Mlayu";
 "onboarding-wikipedia" = "Wikipédia";
 "onboarding-free-encyclopedia" = "Bauwarna mardika";
-"preference_title_eventlogging_opt_in" = "Ngirim laporan panggunan";
-"preference_summary_eventlogging_opt_in" = "Ngidini Wikimedia kanggo ngumpulake informasi bab carane nganggo aplikasi kanggo nggawe aplikasi sing luwih apik";
-"page_protected_autoconfirmed" = "Kaca iki wis pangreksan semi.";
-"page_protected_sysop" = "Kaca iki wis direksa kanthi.";
-"page_protected_other" = "Kaca iki wis direksa kanggo tingkat ngisor: $1";
-"page_protected_can_not_edit" = "Panjenengan ora duwé hak kanggo sunting kaca punika";
-"page_protected_can_not_edit_title" = "Kaca iki direksa";
+"preference-title-eventlogging-opt-in" = "Ngirim laporan panggunan";
+"preference-summary-eventlogging-opt-in" = "Ngidini Wikimedia kanggo ngumpulake informasi bab carane nganggo aplikasi kanggo nggawe aplikasi sing luwih apik";
+"page-protected-autoconfirmed" = "Kaca iki wis pangreksan semi.";
+"page-protected-sysop" = "Kaca iki wis direksa kanthi.";
+"page-protected-other" = "Kaca iki wis direksa kanggo tingkat ngisor: $1";
+"page-protected-can-not-edit" = "Panjenengan ora duwé hak kanggo sunting kaca punika";
+"page-protected-can-not-edit-title" = "Kaca iki direksa";
 "license-footer-text" = "Isi cumepak sangisoré $1 kajaba ana katerangan liya.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Isi";
@@ -497,6 +506,7 @@
 "places-search-saved-articles" = "Artikel disimpen";
 "places-search-suggested-searches-header" = "Ngolèki disaranake";
 "places-search-recently-searched-header" = "Bubar nggolèki";
+"places-no-saved-articles-have-location" = "Ora ana artikel sing disimpen duwe informasi lokasi";
 "places-unknown-distance" = "Kadohan dingerteni";
 "places-enable-location-title" = "Njelajah artikel near lokasi dening Nerjemahake isoh Lokasi Akses";
 "places-enable-location-description" = "Akses menyang lokasi mung kasedhiya nalika aplikasi utawa salah siji saka sawijining fitur katon ing layar.";

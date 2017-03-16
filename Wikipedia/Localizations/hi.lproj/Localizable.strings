@@ -3,6 +3,7 @@
 // Author: Adithyavr
 // Author: Macofe
 // Author: NehalDaveND
+// Author: Nemo bis
 // Author: Sahilrathod
 // Author: Sfic
 // Author: Vivek Rai
@@ -59,6 +60,7 @@
 "account-creation-captcha-obtaining" = "एक नया कैप्चा प्राप्त किया जा रहा है...";
 "account-creation-captcha-title" = "कैप्चा सिक्योरिटी चेक";
 "account-creation-captcha-cannot-see-image" = "$1 चित्र को नहीं देख सकते?";
+// Fuzzy
 "account-creation-captcha-request-account" = "अकाउंट हेतु अनुरोध";
 "account-creation-logging-in" = "लॉग इन हो रहा है...";
 "account-creation-passwords-mismatched" = "पासवर्ड मैच नहीं हो रहा है।";
@@ -73,6 +75,8 @@
 "two-factor-login-title" = "अपने अकाउंट में लॉगिन करें";
 "two-factor-login-instructions" = "कृपया टू फैक्टर वेरिफिकेशन कोड डालें";
 "two-factor-login-continue" = "लॉग इन जारी रखें";
+// Fuzzy
+"two-factor-login-with-regular-code" = "छोटे अंकीय कोड का उपयोग करें";
 "login-name-not-found" = "लॉगिन के लिए सदस्यनाम आवश्यक है।";
 "login-name-illegal" = "आपने एक अवैध सदस्यनाम दिया है।";
 "login-name-does-not-exist" = "जो सदस्यमाम अपने दिया है वो अस्तित्व में नहीं है।";
@@ -97,9 +101,9 @@
 "field-new-password-placeholder" = "नया पासवर्ड डालें";
 "field-new-password-confirm-title" = "नया पासवर्ड कन्फर्म करें";
 "field-new-password-confirm-placeholder" = "पुनः नया पासवर्ड डालें";
+// Fuzzy
 "field-email-title" = "ईमेल एड्रेस (वैकल्पिक)";
 "field-email-placeholder" = "example@example.org";
-// Fuzzy
 "field-token-title" = "टोकन";
 "field-token-placeholder" = "टोकन डालें";
 "field-captcha-title" = "टेक्स्ट को डालें जो आपको ऊपर दिख रहा है";

@@ -5,6 +5,7 @@
 // Author: Lost Whispers
 // Author: Macofe
 // Author: Mhurd
+// Author: Nemo bis
 // Author: Sarchia
 
 "languages-title" = "گۆڕینی زمان";
@@ -51,6 +52,7 @@
 "account-creation-captcha-obtaining" = "کاپچایەکی تر ئامادە دەکرێت...";
 "account-creation-captcha-title" = "پشکنینی دڵنیاکردنەوەی کاپچا";
 "account-creation-captcha-cannot-see-image" = "ناتوانیت وێنەکە ببینیت؟ $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "داخوازی ھەژمار";
 "account-creation-logging-in" = "چوونە ناوەوە...";
 "account-creation-passwords-mismatched" = "تێپەڕوشەکە ھەڵەیە";

@@ -6,6 +6,7 @@
 // Author: LaG roiL
 // Author: Macofe
 // Author: Matanya
+// Author: Nemo bis
 // Author: Or
 // Author: איתן96
 // Author: שמזן
@@ -71,6 +72,8 @@
 "two-factor-login-title" = "כניסה לחשבון שלך";
 "two-factor-login-instructions" = "נא להזין את קוד האימות הדו־שלבי";
 "two-factor-login-continue" = "המשך כניסה לחשבון";
+"two-factor-login-with-regular-code" = "להשתמש בקוד אימות";
+"two-factor-login-with-backup-code" = "להשתמש באחד מקודי הגיבוי שלך";
 "login-name-not-found" = "שם המשתמש נדרש כדי להיכנס.";
 "login-name-illegal" = "שם המשתמש שסיפקת אינו תקין.";
 "login-name-does-not-exist" = "שם המשתמש שסיפקת אינו קיים.";
@@ -95,15 +98,18 @@
 "field-new-password-placeholder" = "נא להזין ססמה חדשה";
 "field-new-password-confirm-title" = "אימות ססמה חדשה";
 "field-new-password-confirm-placeholder" = "נא להזין את הססמה החדשה";
-"field-email-title" = "כתובת דוא\"ל (לא חובה)";
+"field-email-title" = "כתובת דוא\"ל";
+"field-email-title-optional" = "דואר אלקטרוני (לא חובה)";
 "field-email-placeholder" = "shaked@dugma.org.il";
-// Fuzzy
-"field-token-title" = "אסימון";
+"field-token-title" = "קוד אימות";
+"field-backup-token-title" = "קוד גיבוי";
 "field-token-placeholder" = "נא להזין אסימון";
 "field-captcha-title" = "נא להזין את הטקסט שמוצג לעיל";
 "field-captcha-placeholder" = "טקסט אימות אנושיות";
 "field-alert-username-unavailable" = "שם המשתמש אינו זמין";
 "field-alert-password-invalid" = "ססמה בלתי־תקינה";
+// Fuzzy
+"field-alert-token-invalid" = "קוד בלתי־תקין. נא לנסות שוב.";
 "field-alert-captcha-invalid" = "קוד אימות בלתי־תקין";
 "field-alert-password-confirm-mismatch" = "הססמאות אינן תואמות";
 "forgot-password-title" = "אתחול ססמה";
@@ -112,6 +118,7 @@
 "forgot-password-email-prompt" = "דואר אלקטרוני";
 "forgot-password-button-title" = "אתחול";
 "forgot-password-email-sent" = "נשלח מכתב עם הוראות אתחול ססמה";
+"forgot-password-username-or-email-title" = "או";
 "wikitext-downloading" = "טעינת תוכן...";
 "wikitext-download-failed" = "לא ניתן לאחזר את הגרסה החדשה ביותר.";
 "wikitext-download-success" = "התוכן נטען.";
@@ -505,6 +512,7 @@
 "places-search-saved-articles" = "ערכים שמורים";
 "places-search-suggested-searches-header" = "חיפושים מומלצים";
 "places-search-recently-searched-header" = "חיפושים אחרונים";
+"places-no-saved-articles-have-location" = "אין מידע על מיקום אף באחד מהערכים מהערכים השמורים שלך";
 "places-unknown-distance" = "מרחק בלתי־ידוע";
 "places-enable-location-title" = "אפשר לגלות ערכים בסביבתך באמצעות הפעלת גישה למיקום";
 "places-enable-location-description" = "גישה למיקומך אפשרית רק כשהאפליקציה או אחת התכונות שלה נראות על המסך.";

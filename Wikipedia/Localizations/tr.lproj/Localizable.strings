@@ -13,6 +13,7 @@
 // Author: McAang
 // Author: Meelo
 // Author: MrSchipunov
+// Author: Nemo bis
 // Author: Rapsar
 // Author: Sadrettin
 // Author: Sayginer
@@ -68,6 +69,7 @@
 "account-creation-captcha-obtaining" = "Yeni CAPTCHA alınıyor...";
 "account-creation-captcha-title" = "CAPTCHA güvenlik kontrolü";
 "account-creation-captcha-cannot-see-image" = "Resmi göremiyor musunuz? $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "Hesap iste.";
 "account-creation-logging-in" = "Oturum açılıyor...";
 "account-creation-passwords-mismatched" = "Parola alanları uyuşmuyor.";

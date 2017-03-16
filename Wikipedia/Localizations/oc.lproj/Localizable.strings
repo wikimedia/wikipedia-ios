@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Cedric31
 // Author: Macofe
+// Author: Nemo bis
 // Author: Nicolas Eynaud
 
 "languages-title" = "Cambiar de lenga";
@@ -41,6 +42,7 @@
 "account-creation-captcha-obtaining" = "Obtencion d’un novèl CAPTCHA…";
 "account-creation-captcha-title" = "Verificacion de seguretat CAPTCHA";
 "account-creation-captcha-cannot-see-image" = "Impossible de veire l’imatge ? $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "Demandar un compte.";
 "account-creation-logging-in" = "Connexion en cors…";
 "account-creation-passwords-mismatched" = "Los senhals son pas identics.";

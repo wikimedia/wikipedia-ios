@@ -1,6 +1,7 @@
 // Messages for Tulu (ತುಳು)
 // Exported from translatewiki.net
 // Author: BHARATHESHA ALASANDEMAJALU
+// Author: Nemo bis
 
 "languages-title" = "ಬಾಸೆ ಬದಲ್ ಮಾನ್ಪಿ";
 "article-languages-label" = "ಬಾಸೆನ್ ಆಯ್ಕೆ ಮಲ್ತೊನ್ಲೆ";
@@ -165,8 +166,8 @@
 "onboarding-skip" = "ಬುಡ್ಲೆ";
 "onboarding-wikipedia" = "ವಿಕಿಪೀಡಿಯ";
 "onboarding-free-encyclopedia" = "ಒಂಜಿ ಮುಕ್ತ ವಿಶ್ವಕೋಶ";
-"preference_title_eventlogging_opt_in" = "ಬೊಡಪಿ ವರದಿನ್ ಕಡಪುಡ್ಲೆ";
-"page_protected_can_not_edit_title" = "ಈ ಪುಟನ್ ಜಾಗ್ರತೆಡ್ ಡಿತುಂಡು";
+"preference-title-eventlogging-opt-in" = "ಬೊಡಪಿ ವರದಿನ್ ಕಡಪುಡ್ಲೆ";
+"page-protected-can-not-edit-title" = "ಈ ಪುಟನ್ ಜಾಗ್ರತೆಡ್ ಡಿತುಂಡು";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "ವಿಸಯೊಳು";
 "table-of-contents-button-label" = "ಪರಿವಿಡಿ";

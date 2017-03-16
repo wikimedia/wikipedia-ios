@@ -6,6 +6,7 @@
 // Author: Estevoaei
 // Author: Fisterraeomar
 // Author: Macofe
+// Author: Nemo bis
 // Author: Toliño
 
 "languages-title" = "Cambiar lingua";
@@ -55,6 +56,7 @@
 "account-creation-captcha-obtaining" = "Obtendo un novo código CAPTCHA...";
 "account-creation-captcha-title" = "Verificación de seguridade con CAPTCHA";
 "account-creation-captcha-cannot-see-image" = "Non pode ver a imaxe? $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "Solicitar unha conta.";
 "account-creation-logging-in" = "Accedendo ao sistema...";
 "account-creation-passwords-mismatched" = "Os contrasinais non coinciden.";
@@ -93,6 +95,7 @@
 "field-new-password-placeholder" = "insira un contrasinal novo";
 "field-new-password-confirm-title" = "Confirmar novo contrasinal";
 "field-new-password-confirm-placeholder" = "insira de novo o novo contrasinal";
+// Fuzzy
 "field-email-title" = "Enderezo de correo electrónico (opcional)";
 "field-email-placeholder" = "exemplo@exemplo.gal";
 // Fuzzy
@@ -301,13 +304,13 @@
 "onboarding-skip" = "Omitir";
 "onboarding-wikipedia" = "Galipedia";
 "onboarding-free-encyclopedia" = "A enciclopedia libre";
-"preference_title_eventlogging_opt_in" = "Enviar informes de uso";
-"preference_summary_eventlogging_opt_in" = "Permitir que a Wikimedia recompile información acerca de como utiliza a aplicación para facela mellor";
-"page_protected_autoconfirmed" = "Esta páxina está semiprotexida.";
-"page_protected_sysop" = "Esta páxina está totalmente protexida.";
-"page_protected_other" = "Esta páxina está protexida para os seguintes niveis: $1";
-"page_protected_can_not_edit" = "Non ten os permisos necesarios para editar esta páxina";
-"page_protected_can_not_edit_title" = "Esta páxina está protexida";
+"preference-title-eventlogging-opt-in" = "Enviar informes de uso";
+"preference-summary-eventlogging-opt-in" = "Permitir que a Wikimedia recompile información acerca de como utiliza a aplicación para facela mellor";
+"page-protected-autoconfirmed" = "Esta páxina está semiprotexida.";
+"page-protected-sysop" = "Esta páxina está totalmente protexida.";
+"page-protected-other" = "Esta páxina está protexida para os seguintes niveis: $1";
+"page-protected-can-not-edit" = "Non ten os permisos necesarios para editar esta páxina";
+"page-protected-can-not-edit-title" = "Esta páxina está protexida";
 "license-footer-text" = "O contido está dispoñible baixo a $1, salvo que se indique o contrario.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Contidos";

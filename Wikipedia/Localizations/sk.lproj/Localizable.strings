@@ -6,6 +6,7 @@
 // Author: Macofe
 // Author: Mhurd
 // Author: Mikulas1
+// Author: Nemo bis
 // Author: Rudko
 // Author: TomášPolonec
 
@@ -84,6 +85,7 @@
 "field-new-password-placeholder" = "zadajte nové heslo";
 "field-new-password-confirm-title" = "Potvrdiť nové heslo";
 "field-new-password-confirm-placeholder" = "Znovuzadajte nové heslo";
+// Fuzzy
 "field-email-title" = "Emailová adresa (nepovinné)";
 "field-email-placeholder" = "example@example.org";
 // Fuzzy

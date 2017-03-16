@@ -8,6 +8,7 @@
 // Author: Mathonius
 // Author: MedShot
 // Author: MrLeopold
+// Author: Nemo bis
 // Author: Robin van der Vliet
 // Author: Robin0van0der0vliet
 // Author: SPQRobin
@@ -60,6 +61,7 @@
 "zero-settings-devmode" = "Zero-ontwikkelmodus";
 "account-creation-captcha-required" = "CAPTCHA-controle vereist.";
 "account-creation-captcha-obtaining" = "Nieuwe CAPTCHA aan het ophalen...";
+// Fuzzy
 "account-creation-captcha-request-account" = "Vraag een account aan.";
 "account-creation-logging-in" = "Aan het aanmelden...";
 "account-creation-passwords-mismatched" = "De wachtwoorden komen niet overeen.";
