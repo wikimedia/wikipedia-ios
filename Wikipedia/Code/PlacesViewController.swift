@@ -166,6 +166,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         mapView.showsUserLocation = true
         
         tracker?.wmf_logView(self)
+        
+        if traitBasedViewMode == .listOverlay || traitBasedViewMode == .searchOverlay {
+            navigationController?.setNavigationBarHidden(true, animated: animated)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -714,6 +718,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private var overlaySliderPanGestureRecognizer: UIPanGestureRecognizer?
     
     func addSearchBarToNavigationBar(animated: Bool) {
+        titleViewSearchBar.isHidden = false
+        segmentedControl.isHidden = false
         searchBar = titleViewSearchBar
         navigationController?.setNavigationBarHidden(false, animated: animated)
         
@@ -723,6 +729,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func removeSearchBarFromNavigationBar(animated: Bool) {
+        titleViewSearchBar.isHidden = true
+        segmentedControl.isHidden = true
         searchBar = listAndSearchOverlaySearchBar
         navigationController?.setNavigationBarHidden(true, animated: animated)
         
@@ -1492,6 +1500,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         case .read:
             tracker?.wmf_logActionTapThrough(inContext: context, contentType: article)
             wmf_pushArticle(with: url, dataStore: dataStore, previewStore: articleStore, animated: true)
+            if navigationController?.isNavigationBarHidden ?? false {
+                navigationController?.setNavigationBarHidden(false, animated: true)
+            }
+
             break
         case .save:
             let didSave = dataStore.savedPageList.toggleSavedPage(for: url)
