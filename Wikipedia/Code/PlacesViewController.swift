@@ -186,6 +186,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         _mapRegion = mapView.region
         guard performDefaultSearchOnNextMapRegionUpdate == false else {
+            performDefaultSearchOnNextMapRegionUpdate = false
             performDefaultSearchIfNecessary(withRegion: mapView.region)
             return
         }
