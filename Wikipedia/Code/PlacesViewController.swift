@@ -193,6 +193,27 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
         articleKeyToSelect = nil
         showRedoSearchButtonIfNecessary(forVisibleRegion: mapView.region)
+        guard let toSelect = placeToSelect else {
+            return
+        }
+        
+        placeToSelect = nil
+        
+        guard let articleToSelect = toSelect.articles.first else {
+            return
+        }
+        
+        let annotations = mapView.annotations(in: mapView.visibleMapRect)
+        for annotation in annotations {
+            guard let place = annotation as? ArticlePlace,
+                place.articles.count == 1,
+                let article = place.articles.first,
+                article.key == articleToSelect.key else {
+                    continue
+            }
+            selectArticlePlace(place)
+            break
+        }
     }
 
     var placeGroupVC: ArticlePlaceGroupViewController?
@@ -358,12 +379,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             regroupArticlesIfNecessary(forVisibleRegion: region)
             showRedoSearchButtonIfNecessary(forVisibleRegion: region)
 
-            
-            UIView.animate(withDuration: 0.7, delay: 0, options: [.allowUserInteraction], animations: { 
-                self.mapView.region = region
-            }) { (didFinish) in
-                self.selectPlaceToSelectIfNecessary()
-            }
+            mapView.setRegion(region, animated: true)
         }
         
         get {
@@ -411,22 +427,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         performDefaultSearch(withRegion: region)
-    }
-    
-    func selectPlaceToSelectIfNecessary() {
-        guard let toSelect = placeToSelect else {
-            return
-        }
-        let annotations = mapView.annotations(in: mapView.visibleMapRect)
-        for annotation in annotations {
-            guard let place = annotation as? ArticlePlace, toSelect === place else {
-                continue
-            }
-            deselectAllAnnotations()
-            selectArticlePlace(place)
-            placeToSelect = nil
-            break
-        }
     }
     
     func performDefaultSearch(withRegion region: MKCoordinateRegion) {
@@ -1284,9 +1284,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             
             let checkAndSelect = { (place: ArticlePlace) in
                 if let keyToSelect = self.articleKeyToSelect, place.articles.count == 1, place.articles.first?.key == keyToSelect {
+                    // hacky workaround for now
+                    self.deselectAllAnnotations()
                     self.placeToSelect = place
+                    dispatchAfterDelayInSeconds(1.0, DispatchQueue.main, {
+                        self.placeToSelect = nil
+                        guard self.mapView.selectedAnnotations.count == 0 else {
+                            return
+                        }
+                        self.selectArticlePlace(place)
+                    })
                     self.articleKeyToSelect = nil
-                    self.selectPlaceToSelectIfNecessary()
                 }
             }
             
