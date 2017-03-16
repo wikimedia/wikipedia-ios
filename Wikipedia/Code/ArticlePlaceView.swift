@@ -181,7 +181,6 @@ class ArticlePlaceView: MKAnnotationView {
         
         imageBackgroundView.frame = imageView.bounds
         imageBackgroundView.layer.contents = ArticlePlaceView.extraMediumOpaqueDot.cgImage
-        imageBackgroundView.layer.contentsGravity = kCAGravityCenter
         imageBackgroundView.layer.contentsScale = scale
         imageView.addSubview(imageBackgroundView)
         
@@ -207,7 +206,6 @@ class ArticlePlaceView: MKAnnotationView {
         
         selectedImageBackgroundView.frame = selectedImageView.bounds
         selectedImageBackgroundView.layer.contents = ArticlePlaceView.largeOpaqueDot.cgImage
-        selectedImageBackgroundView.layer.contentsGravity = kCAGravityCenter
         selectedImageBackgroundView.layer.contentsScale = scale
         selectedImageView.addSubview(selectedImageBackgroundView)
         
