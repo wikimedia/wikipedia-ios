@@ -192,7 +192,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     continue
             }
             selectArticlePlace(place)
-            break
+            return true
         }
         return false
     }
