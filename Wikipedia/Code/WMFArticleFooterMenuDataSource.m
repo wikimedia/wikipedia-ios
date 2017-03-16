@@ -58,6 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
                                       nil, @"footer-switch-language")];
     }
     
+#if WMF_PLACES_ENABLED
     if (CLLocationCoordinate2DIsValid(article.coordinate)) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeCoordinate,
                                       MWSiteLocalizedString(article.url, @"page-location", nil),
@@ -65,7 +66,8 @@ NS_ASSUME_NONNULL_BEGIN
                                       @"footer-location")];
         
     }
-
+#endif
+    
     NSDate *lastModified = article.lastmodified ? article.lastmodified : [NSDate date];
 
     NSInteger days = [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:lastModified toDate:[NSDate date]];
