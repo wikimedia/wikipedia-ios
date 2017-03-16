@@ -193,27 +193,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
         articleKeyToSelect = nil
         showRedoSearchButtonIfNecessary(forVisibleRegion: mapView.region)
-        guard let toSelect = placeToSelect else {
-            return
-        }
-        
-        placeToSelect = nil
-        
-        guard let articleToSelect = toSelect.articles.first else {
-            return
-        }
-        
-        let annotations = mapView.annotations(in: mapView.visibleMapRect)
-        for annotation in annotations {
-            guard let place = annotation as? ArticlePlace,
-                place.articles.count == 1,
-                let article = place.articles.first,
-                article.key == articleToSelect.key else {
-                    continue
-            }
-            selectArticlePlace(place)
-            break
-        }
+        selectPlaceToSelectIfNecessary()
     }
 
     var placeGroupVC: ArticlePlaceGroupViewController?
@@ -428,6 +408,24 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         performDefaultSearch(withRegion: region)
+    }
+    
+    func selectPlaceToSelectIfNecessary() {
+        guard let toSelect = placeToSelect else {
+            return
+        }
+        defer {
+            placeToSelect = nil
+        }
+        let annotations = mapView.annotations(in: mapView.visibleMapRect)
+        for annotation in annotations {
+            guard let place = annotation as? ArticlePlace, toSelect === place else {
+                continue
+            }
+            deselectAllAnnotations()
+            selectArticlePlace(place)
+            break
+        }
     }
     
     func performDefaultSearch(withRegion region: MKCoordinateRegion) {
@@ -1285,9 +1283,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             
             let checkAndSelect = { (place: ArticlePlace) in
                 if let keyToSelect = self.articleKeyToSelect, place.articles.count == 1, place.articles.first?.key == keyToSelect {
-                    self.deselectAllAnnotations()
                     self.placeToSelect = place
                     self.articleKeyToSelect = nil
+                    self.selectPlaceToSelectIfNecessary()
                 }
             }
             
