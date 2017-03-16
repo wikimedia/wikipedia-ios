@@ -193,7 +193,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
         articleKeyToSelect = nil
         showRedoSearchButtonIfNecessary(forVisibleRegion: mapView.region)
-        selectPlaceToSelectIfNecessary()
     }
 
     var placeGroupVC: ArticlePlaceGroupViewController?
@@ -359,8 +358,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             regroupArticlesIfNecessary(forVisibleRegion: region)
             showRedoSearchButtonIfNecessary(forVisibleRegion: region)
 
+            CATransaction.begin()
+            CATransaction.setCompletionBlock { 
+                self.selectPlaceToSelectIfNecessary()
+            }
             mapView.setRegion(region, animated: true)
-            
+            CATransaction.commit()
         }
         
         get {
