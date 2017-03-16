@@ -724,7 +724,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         segmentedControl.isHidden = false
         searchBar = titleViewSearchBar
         navigationController?.setNavigationBarHidden(false, animated: animated)
-        
         if let panGR = overlaySliderPanGestureRecognizer {
             view.removeGestureRecognizer(panGR)
         }
@@ -1504,7 +1503,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         articleVC.view.alpha = 0
         addChildViewController(articleVC)
-        view.insertSubview(articleVC.view, aboveSubview: placeGroupVC?.view ?? mapView)
+        
+        let aboveSubview = traitBasedViewMode == .listOverlay || traitBasedViewMode == .searchOverlay ? listAndSearchOverlayContainerView ?? placeGroupVC?.view : placeGroupVC?.view
+        view.insertSubview(articleVC.view, aboveSubview: aboveSubview ?? mapView)
         articleVC.didMove(toParentViewController: self)
         
         let size = articleVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
