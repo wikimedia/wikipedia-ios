@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ebr-hF-Cp5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ebr-hF-Cp5">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -20,7 +20,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="EJe-8j-1e6" kind="relationship" relationship="viewControllers" id="yhB-EA-2gx"/>
-                        <segue destination="GSJ-3y-kNz" kind="relationship" relationship="viewControllers" id="7a9-Wr-BwZ"/>
                         <segue destination="bzO-gj-jpB" kind="relationship" relationship="viewControllers" id="xti-KQ-b7L"/>
                         <segue destination="ROQ-sG-rcF" kind="relationship" relationship="viewControllers" id="tmz-sA-ulb"/>
                     </connections>
@@ -152,23 +151,13 @@
             </objects>
             <point key="canvasLocation" x="996" y="2881"/>
         </scene>
-        <!--Places-->
-        <scene sceneID="f6L-ye-aCD">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="Places" storyboardName="Places" referencedIdentifier="Places" id="GSJ-3y-kNz" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Places" image="tabbar-nearby" selectedImage="tabbar-explore-selected" id="aCf-7e-CaQ"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Epk-QC-w6n" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
     </scenes>
     <resources>
         <image name="tabbar-explore" width="25" height="25"/>
         <image name="tabbar-explore-selected" width="25" height="25"/>
-        <image name="tabbar-nearby" width="24" height="24"/>
         <image name="tabbar-recent" width="24" height="23"/>
         <image name="tabbar-recent-selected" width="24" height="23"/>
-        <image name="tabbar-save" width="17" height="23"/>
-        <image name="tabbar-save-selected" width="17" height="23"/>
+        <image name="tabbar-save" width="17" height="24"/>
+        <image name="tabbar-save-selected" width="17" height="24"/>
     </resources>
 </document>
