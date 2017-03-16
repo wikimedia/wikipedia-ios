@@ -862,14 +862,19 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     var isOverlaySearchButtonHidden = true {
         didSet {
             let isHidden = isOverlaySearchButtonHidden
-            self.listAndSearchOverlaySearchCancelButtonHideConstraint.isActive = !isHidden
-            self.listAndSearchOverlaySearchCancelButtonShowConstraint.isActive = isHidden
-            listAndSearchOverlayContainerView.layoutIfNeeded()
-            UIView.animate(withDuration: 0.3, animations: {
+            let animations = {
                 self.listAndSearchOverlaySearchCancelButtonHideConstraint.isActive = isHidden
                 self.listAndSearchOverlaySearchCancelButtonShowConstraint.isActive = !isHidden
-                self.listAndSearchOverlayContainerView.layoutIfNeeded()
-            })
+            }
+            if (isHidden)  {
+                animations()
+            } else {
+                listAndSearchOverlayContainerView.layoutIfNeeded()
+                UIView.animate(withDuration: 0.3) {
+                    animations()
+                    self.listAndSearchOverlayContainerView.layoutIfNeeded()
+                }
+            }
         }
     }
     
