@@ -45,11 +45,7 @@ get-xcode-cltools: ##Install Xcode command-line tools
 #!!!!!
 
 get-homebrew: ##Install Homebrew using the bootstrapping script from http://brew.sh
-	@if [[ $$(brew -v 2>/dev/null) =~ "Homebrew" ]]; then \
-		echo "Homebrew already installed!"; \
-	else \
-		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"; \
-	fi
+	@./scripts/setup_homebrew
 
 brew-check: ##Check that Homebrew is installed
 	@if [[ $$(brew -v 2>/dev/null) =~ "Homebrew" ]]; then \
