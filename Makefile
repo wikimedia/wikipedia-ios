@@ -82,8 +82,12 @@ css: ##Download latest stylesheets
 NODE_VERSION = "$(shell node -v 2>/dev/null)"
 NPM_VERSION = "$(shell npm -version 2>/dev/null)"
 
+get-grunt: ##Install grunt via Homebrew
+get-grunt: brew-install
+	brew install grunt
+
 grunt: ##Run grunt
-grunt: npm
+grunt: npm get-grunt
 	@cd www && grunt && cd ..
 
 npm: ##Install Javascript dependencies
@@ -91,6 +95,7 @@ npm:
 	@cd www && npm install && cd ..
 
 get-node: ##Install node via Homebrew
+get-node: brew-install
 	brew install node
 
 #!!!!!
