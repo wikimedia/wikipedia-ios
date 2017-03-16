@@ -211,7 +211,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         _mapRegion = mapView.region
         guard performDefaultSearchOnNextMapRegionUpdate == false else {
             performDefaultSearchOnNextMapRegionUpdate = false
-            performDefaultSearchIfNecessary(withRegion: mapView.region)
+            performDefaultSearchIfNecessary(withRegion: nil)
             return
         }
         regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
@@ -434,14 +434,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    func performDefaultSearchIfNecessary(withRegion region: MKCoordinateRegion) {
+    func performDefaultSearchIfNecessary(withRegion region: MKCoordinateRegion?) {
         guard currentSearch == nil else {
             return
         }
         performDefaultSearch(withRegion: region)
     }
     
-    func performDefaultSearch(withRegion region: MKCoordinateRegion) {
+    func performDefaultSearch(withRegion region: MKCoordinateRegion?) {
         currentSearch = PlaceSearch(type: .top, sortStyle: .links, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
     }
     
@@ -1977,7 +1977,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         } else {
             panMapToNextLocationUpdate = false
             locationManager.stopMonitoringLocation()
-            performDefaultSearchIfNecessary(withRegion: mapView.region)
+            performDefaultSearchIfNecessary(withRegion: nil)
         }
     }
     
@@ -2005,7 +2005,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func enableLocationViewController(_ enableLocationViewController: EnableLocationViewController, didFinishWithShouldPromptForLocationAccess shouldPromptForLocationAccess: Bool) {
         guard shouldPromptForLocationAccess else {
-            performDefaultSearchIfNecessary(withRegion: mapView.region)
+            performDefaultSearchIfNecessary(withRegion: nil)
             return
         }
         guard WMFLocationManager.isAuthorizationNotDetermined() else {
