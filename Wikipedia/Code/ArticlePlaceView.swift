@@ -161,17 +161,23 @@ class ArticlePlaceView: MKAnnotationView {
         dimension = ArticlePlaceView.largeDotOutlineImage.size.width
         imageDimension = ArticlePlaceView.mediumDotOutlineImage.size.width
         
+        let gravity = kCAGravityBottomRight
+        
         isPlaceholderHidden = false
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         
         frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
         
         dotView.bounds = CGRect(x: 0, y: 0, width: collapsedDimension, height: collapsedDimension)
+        dotView.layer.contentsGravity = gravity
+        dotView.layer.contentsScale = scale
         dotView.layer.contents = ArticlePlaceView.smallDotImage.cgImage
         dotView.center = CGPoint(x: 0.5*bounds.size.width, y: 0.5*bounds.size.height)
         addSubview(dotView)
         
         groupView.bounds = CGRect(x: 0, y: 0, width: groupDimension, height: groupDimension)
+        groupView.layer.contentsGravity = gravity
+        groupView.layer.contentsScale = scale
         groupView.layer.contents = ArticlePlaceView.mediumDotImage.cgImage
         addSubview(groupView)
         
@@ -180,9 +186,9 @@ class ArticlePlaceView: MKAnnotationView {
         addSubview(imageView)
         
         imageBackgroundView.frame = imageView.bounds
-        imageBackgroundView.layer.contents = ArticlePlaceView.extraMediumOpaqueDot.cgImage
-        imageBackgroundView.layer.contentsGravity = kCAGravityCenter
+        imageBackgroundView.layer.contentsGravity = gravity
         imageBackgroundView.layer.contentsScale = scale
+        imageBackgroundView.layer.contents = ArticlePlaceView.extraMediumOpaqueDot.cgImage
         imageView.addSubview(imageBackgroundView)
         
         imageImagePlaceholderView.frame = imageView.bounds
@@ -198,6 +204,8 @@ class ArticlePlaceView: MKAnnotationView {
         imageView.addSubview(imageImageView)
         
         imageOutlineView.frame = imageView.bounds
+        imageOutlineView.layer.contentsGravity = gravity
+        imageOutlineView.layer.contentsScale = scale
         imageOutlineView.layer.contents = ArticlePlaceView.mediumDotOutlineImage.cgImage
         imageView.addSubview(imageOutlineView)
         
@@ -206,9 +214,9 @@ class ArticlePlaceView: MKAnnotationView {
         addSubview(selectedImageView)
         
         selectedImageBackgroundView.frame = selectedImageView.bounds
-        selectedImageBackgroundView.layer.contents = ArticlePlaceView.largeOpaqueDot.cgImage
-        selectedImageBackgroundView.layer.contentsGravity = kCAGravityCenter
+        selectedImageBackgroundView.layer.contentsGravity = gravity
         selectedImageBackgroundView.layer.contentsScale = scale
+        selectedImageBackgroundView.layer.contents = ArticlePlaceView.largeOpaqueDot.cgImage
         selectedImageView.addSubview(selectedImageBackgroundView)
         
         selectedImageImagePlaceholderView.frame = selectedImageView.bounds
@@ -224,6 +232,8 @@ class ArticlePlaceView: MKAnnotationView {
         selectedImageView.addSubview(selectedImageImageView)
         
         selectedImageOutlineView.frame = selectedImageView.bounds
+        selectedImageOutlineView.layer.contentsGravity = gravity
+        selectedImageOutlineView.layer.contentsScale = scale
         selectedImageOutlineView.layer.contents = ArticlePlaceView.largeDotOutlineImage.cgImage
         selectedImageView.addSubview(selectedImageOutlineView)
         
