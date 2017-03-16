@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Enolp
 // Author: Macofe
+// Author: Nemo bis
 // Author: Xuacu
 
 "languages-title" = "Camudar llingua";
@@ -51,6 +52,7 @@
 "account-creation-captcha-obtaining" = "Baxando un CAPTCHA nuevu...";
 "account-creation-captcha-title" = "Comprobación de seguridá CAPTCHA";
 "account-creation-captcha-cannot-see-image" = "¿Nun puedes ver la imaxe? $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "Solicitar una cuenta.";
 "account-creation-logging-in" = "Aniciando sesión...";
 "account-creation-passwords-mismatched" = "Los campos de contraseña nun casen.";
@@ -89,6 +91,7 @@
 "field-new-password-placeholder" = "escribe la contraseña nueva";
 "field-new-password-confirm-title" = "Confirma la contraseña nueva";
 "field-new-password-confirm-placeholder" = "escribe otra vuelta la contraseña nueva";
+// Fuzzy
 "field-email-title" = "Direición de corréu electrónicu (opcional)";
 "field-email-placeholder" = "exemplu@exemplu.ast";
 // Fuzzy

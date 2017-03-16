@@ -5,6 +5,7 @@
 // Author: Aviator
 // Author: Kurniasan
 // Author: Macofe
+// Author: Nemo bis
 
 "languages-title" = "Tukar bahasa";
 "article-languages-label" = "Pilih bahasa";
@@ -53,6 +54,7 @@
 "account-creation-captcha-obtaining" = "Mendapatkan CAPTCHA baru...";
 "account-creation-captcha-title" = "Pemeriksaan keselamatan CAPTCHA";
 "account-creation-captcha-cannot-see-image" = "Tidak boleh melihat imej? $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "Meminta akaun.";
 "account-creation-logging-in" = "Sedang log masuk...";
 "account-creation-passwords-mismatched" = "Kata laluan tidak sepadan.";
@@ -67,6 +69,10 @@
 "two-factor-login-title" = "Log masuk ke akaun anda";
 "two-factor-login-instructions" = "Sila masukkan kod pengesahan dua faktor";
 "two-factor-login-continue" = "Teruskan log masuk";
+// Fuzzy
+"two-factor-login-with-regular-code" = "Gunakan kod angka pendek";
+// Fuzzy
+"two-factor-login-with-backup-code" = "Gunakan kod sandaran panjang";
 "login-name-not-found" = "Nama pengguna diperlukan untuk log masuk.";
 "login-name-illegal" = "Nama pengguna yang diberikan tidak sah.";
 "login-name-does-not-exist" = "Nama pengguna yang diberikan tidak wujud.";
@@ -91,15 +97,18 @@
 "field-new-password-placeholder" = "masukkan kata laluan baru";
 "field-new-password-confirm-title" = "Sahkan kata laluan baru";
 "field-new-password-confirm-placeholder" = "masukkan semula kata laluan baru";
+// Fuzzy
 "field-email-title" = "Alamat e-mel (pilihan)";
 "field-email-placeholder" = "contoh@contoh.org";
-// Fuzzy
 "field-token-title" = "Token";
+"field-backup-token-title" = "Kod sandaran";
 "field-token-placeholder" = "masukkan token";
 "field-captcha-title" = "Masukkan teks yang anda lihat di atas";
 "field-captcha-placeholder" = "Teks CAPTCHA";
 "field-alert-username-unavailable" = "Nama pengguna tidak tersedia";
 "field-alert-password-invalid" = "Kata laluan tidak sah";
+// Fuzzy
+"field-alert-token-invalid" = "Kod tidak sah. Sila cuba lagi.";
 "field-alert-captcha-invalid" = "CAPTCHA tidak sah";
 "field-alert-password-confirm-mismatch" = "Kata laluan tidak sepadan";
 "forgot-password-title" = "Set semula kata laluan";
@@ -501,6 +510,7 @@
 "places-search-saved-articles" = "Rencana tersimpan";
 "places-search-suggested-searches-header" = "Cadangan carian";
 "places-search-recently-searched-header" = "Carian terkini";
+"places-no-saved-articles-have-location" = "Tiada artikel tersimpan anda mempunyai maklumat terperinci";
 "places-unknown-distance" = "jarak tidak diketahui";
 "places-enable-location-title" = "Meneroka rencana berhampiran lokasi anda dengan membolehkan Akses Lokasi";
 "places-enable-location-description" = "Akses kepada lokasi anda tersedia hanya apabila aplikasi atau ciri-ciri yang boleh dilihat pada skrin anda.";

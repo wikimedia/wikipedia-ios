@@ -11,6 +11,7 @@
 // Author: Liuxinyu970226
 // Author: Macofe
 // Author: Mikepanhu
+// Author: Nemo bis
 // Author: Reke
 // Author: Simon Shek
 // Author: Wehwei
@@ -63,7 +64,7 @@
 "account-creation-captcha-obtaining" = "取得新驗證碼中…";
 "account-creation-captcha-title" = "CAPTCHA 安全性檢查";
 "account-creation-captcha-cannot-see-image" = "看不見圖片嗎？$1";
-"account-creation-captcha-request-account" = "請求一個帳號。";
+"account-creation-captcha-request-account" = "請求帳號。";
 "account-creation-logging-in" = "登入中...";
 "account-creation-passwords-mismatched" = "密碼欄位不符合。";
 "account-creation-saving" = "儲存中...";
@@ -77,6 +78,8 @@
 "two-factor-login-title" = "登入至您的帳號";
 "two-factor-login-instructions" = "請輸入雙因素驗證代碼";
 "two-factor-login-continue" = "繼續登入";
+"two-factor-login-with-regular-code" = "使用驗證代碼";
+"two-factor-login-with-backup-code" = "使用您的任一備份代碼";
 "login-name-not-found" = "需要填寫使用者名稱才能登入。";
 "login-name-illegal" = "您提供的使用者名稱不合法。";
 "login-name-does-not-exist" = "您提供的使用者名稱不存在。";
@@ -101,15 +104,18 @@
 "field-new-password-placeholder" = "輸入新密碼";
 "field-new-password-confirm-title" = "確認新密碼";
 "field-new-password-confirm-placeholder" = "再次輸入新密碼";
-"field-email-title" = "電子郵件地址 (選填)";
+"field-email-title" = "電子郵件";
+"field-email-title-optional" = "電子郵件(選填)";
 "field-email-placeholder" = "example@example.org";
-// Fuzzy
-"field-token-title" = "金鑰";
+"field-token-title" = "驗證代碼";
+"field-backup-token-title" = "備份代碼";
 "field-token-placeholder" = "輸入金鑰";
 "field-captcha-title" = "輸入您在上方看到的文字";
 "field-captcha-placeholder" = "驗證碼";
 "field-alert-username-unavailable" = "使用者名稱不可用";
 "field-alert-password-invalid" = "無效密碼";
+// Fuzzy
+"field-alert-token-invalid" = "無效代碼。請重試一次。";
 "field-alert-captcha-invalid" = "無效驗證碼";
 "field-alert-password-confirm-mismatch" = "密碼不符合";
 "forgot-password-title" = "重設密碼";
@@ -118,6 +124,7 @@
 "forgot-password-email-prompt" = "電子郵件 (選填)";
 "forgot-password-button-title" = "重設";
 "forgot-password-email-sent" = "一封帶有密碼重設說明的電郵已寄出";
+"forgot-password-username-or-email-title" = "或";
 "wikitext-downloading" = "讀取內容中…";
 "wikitext-download-failed" = "無法取得最新的版本。";
 "wikitext-download-success" = "已讀取內容。";
@@ -511,6 +518,7 @@
 "places-search-saved-articles" = "已儲存條目";
 "places-search-suggested-searches-header" = "建議搜尋";
 "places-search-recently-searched-header" = "近期搜尋";
+"places-no-saved-articles-have-location" = "您所儲存的條目皆未有位置訊息";
 "places-unknown-distance" = "未知距離";
 "places-enable-location-title" = "透過啟用位置訪問來瀏覽接近您位置的條目";
 "places-enable-location-description" = "訪問您的位置僅在應用程式、或其一功能在您的螢幕上可見時才可用。";

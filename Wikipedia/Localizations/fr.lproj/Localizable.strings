@@ -8,6 +8,8 @@
 // Author: Hydros
 // Author: John Trololo
 // Author: Macofe
+// Author: Nemo bis
+// Author: Od1n
 // Author: Orikrin1998
 // Author: Selhom
 // Author: Solucer
@@ -77,6 +79,8 @@
 "two-factor-login-title" = "Se connecter à votre compte";
 "two-factor-login-instructions" = "Veuillez entrer le code de vérification à deux facteurs";
 "two-factor-login-continue" = "Continuer la connexion";
+"two-factor-login-with-regular-code" = "Utiliser un code de vérification";
+"two-factor-login-with-backup-code" = "Utiliser un de vos codes de sauvegarde";
 "login-name-not-found" = "Le nom d’utilisateur est obligatoire pour se connecter.";
 "login-name-illegal" = "Vous avez choisi un nom d’utilisateur non autorisé.";
 "login-name-does-not-exist" = "Le nom d’utilisateur que vous avez fourni n’existe pas.";
@@ -101,15 +105,18 @@
 "field-new-password-placeholder" = "saisir le nouveau mot de passe";
 "field-new-password-confirm-title" = "Confirmer le nouveau mot de passe";
 "field-new-password-confirm-placeholder" = "resaisir le nouveau mot de passe";
-"field-email-title" = "Adresse de courriel (facultatif)";
+"field-email-title" = "Courriel";
+"field-email-title-optional" = "Courriel (facultatif)";
 "field-email-placeholder" = "exemple@exemple.org";
-// Fuzzy
-"field-token-title" = "Jeton";
+"field-token-title" = "Code de vérification";
+"field-backup-token-title" = "Code de sauvegarde";
 "field-token-placeholder" = "saisir le jeton";
 "field-captcha-title" = "Saisir le texte que vous voyez ci-dessus";
 "field-captcha-placeholder" = "Texte CAPTCHA";
 "field-alert-username-unavailable" = "Nom d’utilisateur non disponible";
 "field-alert-password-invalid" = "Mot de passe non valide";
+// Fuzzy
+"field-alert-token-invalid" = "Code non valide. Veuillez réessayer.";
 "field-alert-captcha-invalid" = "CAPTCHA non valide";
 "field-alert-password-confirm-mismatch" = "Les mots de passe ne correspondent pas";
 "forgot-password-title" = "Réinitialiser le mot de passe";
@@ -118,6 +125,7 @@
 "forgot-password-email-prompt" = "Courriel (facultatif)";
 "forgot-password-button-title" = "Réinitialiser";
 "forgot-password-email-sent" = "Un courriel avec les instructions de réinitialisation du mot de passe a été envoyé";
+"forgot-password-username-or-email-title" = "Ou";
 "wikitext-downloading" = "Chargement du contenu…";
 "wikitext-download-failed" = "Impossible d’obtenir la dernière révision.";
 "wikitext-download-success" = "Contenu chargé.";
@@ -511,6 +519,7 @@
 "places-search-saved-articles" = "Articles enregistrés";
 "places-search-suggested-searches-header" = "Recherches suggérées";
 "places-search-recently-searched-header" = "Récemment recherché";
+"places-no-saved-articles-have-location" = "Aucun de vos articles enregistrés n’a d’information de localisation";
 "places-unknown-distance" = "distance inconnue";
 "places-enable-location-title" = "Explorer des articles proches de votre emplacement en activant Accéder à la localisation";
 "places-enable-location-description" = "Accéder à votre localisation est disponible uniquement quand l’application ou une de ses fonctionnalités est visible sur votre écran.";

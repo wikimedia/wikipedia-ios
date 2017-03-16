@@ -47,6 +47,7 @@
 "field-new-password-placeholder" = "Rhowch gyfrinair newydd";
 "field-new-password-confirm-title" = "Cadarnhau'r Cyfrinair";
 "field-new-password-confirm-placeholder" = "Ail-deipiwch eich cyfrinair";
+// Fuzzy
 "field-email-title" = "Cyfeiriad ebost (dewisol)";
 "field-email-placeholder" = "enghraifft@enghraifft.org";
 // Fuzzy

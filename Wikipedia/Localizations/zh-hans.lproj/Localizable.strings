@@ -8,6 +8,7 @@
 // Author: Linforest
 // Author: Liuxinyu970226
 // Author: Macofe
+// Author: Nemo bis
 // Author: NigelSoft
 // Author: Qiyue2001
 // Author: Shizhao
@@ -75,6 +76,8 @@
 "two-factor-login-title" = "登录您的账户";
 "two-factor-login-instructions" = "请输入双因素验证代码";
 "two-factor-login-continue" = "继续登录";
+"two-factor-login-with-regular-code" = "使用验证码";
+"two-factor-login-with-backup-code" = "使用您的任一备份代码";
 "login-name-not-found" = "需提供用户名方可登录。";
 "login-name-illegal" = "您提供了无效的用户名。";
 "login-name-does-not-exist" = "您提供的用户名不存在。";
@@ -99,15 +102,18 @@
 "field-new-password-placeholder" = "输入新密码";
 "field-new-password-confirm-title" = "确认新密码";
 "field-new-password-confirm-placeholder" = "重新输入新密码";
-"field-email-title" = "电子邮件地址（可选）";
+"field-email-title" = "电子邮件";
+"field-email-title-optional" = "电子邮件（可选）";
 "field-email-placeholder" = "example@example.org";
-// Fuzzy
-"field-token-title" = "令牌";
+"field-token-title" = "验证码";
+"field-backup-token-title" = "备份代码";
 "field-token-placeholder" = "输入令牌";
 "field-captcha-title" = "输入您上方看见的文字";
 "field-captcha-placeholder" = "验证码文本";
 "field-alert-username-unavailable" = "用户名不可用";
 "field-alert-password-invalid" = "无效密码";
+// Fuzzy
+"field-alert-token-invalid" = "无效代码。请重试。";
 "field-alert-captcha-invalid" = "无效验证码";
 "field-alert-password-confirm-mismatch" = "密码不匹配";
 "forgot-password-title" = "重置密码";
@@ -116,6 +122,7 @@
 "forgot-password-email-prompt" = "电子邮件（可选）";
 "forgot-password-button-title" = "重置";
 "forgot-password-email-sent" = "已发送一封带有密码重置说明的电子邮件";
+"forgot-password-username-or-email-title" = "或";
 "wikitext-downloading" = "正在加载内容...";
 "wikitext-download-failed" = "无法获取最新的版本。";
 "wikitext-download-success" = "内容已加载。";
@@ -509,6 +516,7 @@
 "places-search-saved-articles" = "保存的条目";
 "places-search-suggested-searches-header" = "建议搜索";
 "places-search-recently-searched-header" = "最近搜索";
+"places-no-saved-articles-have-location" = "您保存的条目均没有位置信息";
 "places-unknown-distance" = "未知距离";
 "places-enable-location-title" = "通过启用位置访问，探索您所在位置附近的条目";
 "places-enable-location-description" = "只当应用或其功能之一在您的屏幕上可见时，才能访问您的位置。";

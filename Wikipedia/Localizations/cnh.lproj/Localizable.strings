@@ -1,5 +1,6 @@
 // Messages for Lai holh (Lai holh)
 // Exported from translatewiki.net
+// Author: Nemo bis
 // Author: Salai
 
 // Fuzzy
@@ -234,13 +235,13 @@
 "onboarding-skip" = "Lonh";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Manlo Cakip Relnak";
-"preference_title_eventlogging_opt_in" = "Hmannak ripawt kua";
-"preference_summary_eventlogging_opt_in" = "App na hmannak ah a that deuh nakhga Wikimedia kha thil sining pawl laknak nawl pe";
-"page_protected_autoconfirmed" = "Hi cahmai hi tlawmpal kilven a si.";
-"page_protected_sysop" = "Hi cahmai hi kilvenpiak a si.";
-"page_protected_other" = "Hi cahmai atanglei dotning in kilven a si: $1";
-"page_protected_can_not_edit" = "Hi cahmai remhnak nawl na ngei lo.";
-"page_protected_can_not_edit_title" = "Hi cahmai hi kilvenpiak a si.";
+"preference-title-eventlogging-opt-in" = "Hmannak ripawt kua";
+"preference-summary-eventlogging-opt-in" = "App na hmannak ah a that deuh nakhga Wikimedia kha thil sining pawl laknak nawl pe";
+"page-protected-autoconfirmed" = "Hi cahmai hi tlawmpal kilven a si.";
+"page-protected-sysop" = "Hi cahmai hi kilvenpiak a si.";
+"page-protected-other" = "Hi cahmai atanglei dotning in kilven a si: $1";
+"page-protected-can-not-edit" = "Hi cahmai remhnak nawl na ngei lo.";
+"page-protected-can-not-edit-title" = "Hi cahmai hi kilvenpiak a si.";
 // Fuzzy
 "license-footer-text" = "$1 tangah chungum pawl zoh khawh a si.";
 "license-footer-name" = "CC BY-SA 3.0";

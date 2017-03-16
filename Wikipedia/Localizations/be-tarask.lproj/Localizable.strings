@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Jim-by
 // Author: Kareyac
+// Author: Nemo bis
 // Author: Red Winged Duck
 // Author: Renessaince
 
@@ -248,13 +249,13 @@
 "onboarding-skip" = "Прапусьціць";
 "onboarding-wikipedia" = "Вікіпэдыя";
 "onboarding-free-encyclopedia" = "Вольная энцыкляпэдыя";
-"preference_title_eventlogging_opt_in" = "Адпраўляць справаздачы пра карыстаньне";
-"preference_summary_eventlogging_opt_in" = "Дазволіць Вікімэдыя зьбіраць інфармацыю пра тое, як Вы выкарыстоўваеце праграму, каб палепшыць яе";
-"page_protected_autoconfirmed" = "Гэтая старонка была часткова абароненая.";
-"page_protected_sysop" = "Гэтая старонка была поўнасьцю абароненая.";
-"page_protected_other" = "Гэтая старонка была абароненая на наступных узроўнях: $1";
-"page_protected_can_not_edit" = "Вы ня маеце правоў рэдагаваць гэтую старонку";
-"page_protected_can_not_edit_title" = "Гэтая старонка абароненая";
+"preference-title-eventlogging-opt-in" = "Адпраўляць справаздачы пра карыстаньне";
+"preference-summary-eventlogging-opt-in" = "Дазволіць Вікімэдыя зьбіраць інфармацыю пра тое, як Вы выкарыстоўваеце праграму, каб палепшыць яе";
+"page-protected-autoconfirmed" = "Гэтая старонка была часткова абароненая.";
+"page-protected-sysop" = "Гэтая старонка была поўнасьцю абароненая.";
+"page-protected-other" = "Гэтая старонка была абароненая на наступных узроўнях: $1";
+"page-protected-can-not-edit" = "Вы ня маеце правоў рэдагаваць гэтую старонку";
+"page-protected-can-not-edit-title" = "Гэтая старонка абароненая";
 // Fuzzy
 "license-footer-text" = "Зьмест даступны на ўмовах $1";
 "license-footer-name" = "CC BY-SA 3.0";

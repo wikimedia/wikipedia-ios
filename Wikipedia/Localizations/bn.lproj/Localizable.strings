@@ -6,6 +6,7 @@
 // Author: Elias Ahmmad
 // Author: Kayser Ahmad
 // Author: Macofe
+// Author: Nemo bis
 // Author: Sayma Jahan
 // Author: Tauhid16
 // Author: আজিজ
@@ -72,6 +73,8 @@
 "two-factor-login-title" = "আপনার অ্যাকাউন্টে প্রবেশ করুন";
 "two-factor-login-instructions" = "দুই গুণনীয়ক যাচাইকরণ কোড প্রবেশ করান";
 "two-factor-login-continue" = "প্রবেশ অব্যাহত রাখুন";
+"two-factor-login-with-regular-code" = "যাচাইকরণ কোড ব্যবহার করুন";
+"two-factor-login-with-backup-code" = "আপনার ব্যাকআপ কোডগুলির একটি ব্যবহার করুন";
 "login-name-not-found" = "প্রবেশ করার জন্য ব্যবহারকারী নাম প্রয়োজন।";
 "login-name-illegal" = "আপনি একটি অবৈধ ব্যবহারকারী নাম দিয়েছেন।";
 "login-name-does-not-exist" = "আপনার দেয়া নামে কোনো ব্যবহারকারী নেই।";
@@ -96,15 +99,18 @@
 "field-new-password-placeholder" = "নতুন পাসওয়ার্ড লিখুন";
 "field-new-password-confirm-title" = "নতুন পাসওয়ার্ড নিশ্চিত করুন";
 "field-new-password-confirm-placeholder" = "নতুন পাসওয়ার্ড পুনরায় লিখুন";
-"field-email-title" = "ইমেইল ঠিকানা (ঐচ্ছিক)";
+"field-email-title" = "ইমেইল";
+"field-email-title-optional" = "ইমেইল (ঐচ্ছিক)";
 "field-email-placeholder" = "example@example.org";
-// Fuzzy
-"field-token-title" = "টোকেন";
+"field-token-title" = "যাচাইকরণ কোড";
+"field-backup-token-title" = "ব্যাকআপ কোড";
 "field-token-placeholder" = "টোকেন লিখুন";
 "field-captcha-title" = "উপরে যে লেখা দেখতে পাচ্ছেন তা লিখুন";
 "field-captcha-placeholder" = "ক্যাপচা পাঠ";
 "field-alert-username-unavailable" = "ব্যবহারকারীর নাম উপলব্ধ নয়";
 "field-alert-password-invalid" = "পাসওয়ার্ড সঠিক নয়";
+// Fuzzy
+"field-alert-token-invalid" = "কোড সঠিক নয়। অনুগ্রহপূর্বক আবার চেষ্টা করুন।";
 "field-alert-captcha-invalid" = "ক্যাপচা সঠিক নয়";
 "field-alert-password-confirm-mismatch" = "পাসওয়ার্ড মিলেনি";
 "forgot-password-title" = "পাসওয়ার্ড পুনঃস্থাপন";
@@ -112,6 +118,7 @@
 "forgot-password-email-prompt" = "ইমেইল (ঐচ্ছিক)";
 "forgot-password-button-title" = "পুন:স্থাপন";
 "forgot-password-email-sent" = "পাসওয়ার্ড পুনঃনির্ধারণ করার নির্দেশাবলী সহ একটি ইমেল প্রেরণ করা হয়েছে";
+"forgot-password-username-or-email-title" = "অথবা";
 "wikitext-downloading" = "বিষয়বস্তু লোড হচ্ছে...";
 "wikitext-download-failed" = "সর্বশেষ সংস্করণটি পাওয়া সম্ভব হয়নি।";
 "wikitext-download-success" = "বিষয়বস্তু লোড হয়েছে।";
@@ -491,6 +498,7 @@
 "places-search-saved-articles" = "সংরক্ষিত নিবন্ধ";
 "places-search-suggested-searches-header" = "প্রস্তাবিত অনুসন্ধান";
 "places-search-recently-searched-header" = "সম্প্রতি অনুসন্ধানকৃত";
+"places-no-saved-articles-have-location" = "আপনার সংরক্ষিত নিবন্ধগুলির কোনটিতে অবস্থানের তথ্য নেই";
 "places-unknown-distance" = "অজানা দূরত্ব";
 "places-enable-location-action-button-title" = "অবস্থান সক্রিয় করুন";
 "places-accessibility-group" = "$1টি নিবন্ধ";
