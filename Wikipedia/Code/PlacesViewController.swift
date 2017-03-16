@@ -178,8 +178,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     // MARK: - MKMapViewDelegate
     
+    private var isMovingToRegion = false
+    
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         deselectAllAnnotations()
+        isMovingToRegion = true
     }
     
     func selectVisibleArticle(articleKey: String) -> Bool {
@@ -198,7 +201,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func selectVisibleKeyToSelectIfNecessary() {
-        guard let keyToSelect = articleKeyToSelect else {
+        guard !isMovingToRegion, let keyToSelect = articleKeyToSelect else {
             return
         }
         guard selectVisibleArticle(articleKey: keyToSelect) else {
@@ -217,6 +220,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
 
         showRedoSearchButtonIfNecessary(forVisibleRegion: mapView.region)
+        
+        isMovingToRegion = false
         
         selectVisibleKeyToSelectIfNecessary()
     }
@@ -1378,6 +1383,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             if (self.needsRegroup) {
                 self.needsRegroup = false
                 self.regroupArticlesIfNecessary(forVisibleRegion: self.mapRegion ?? self.mapView.region)
+            } else {
+                self.selectVisibleKeyToSelectIfNecessary()
             }
         }
     }
