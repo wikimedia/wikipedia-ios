@@ -18,9 +18,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var listAndSearchOverlaySearchHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySliderHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySliderView: RoundedCornerView!
-
-    @IBOutlet weak var redoSearchButtonCenterConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var listView: UITableView!
     @IBOutlet weak var searchSuggestionView: UITableView!
     
@@ -85,7 +82,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         locationManager.delegate = self
         
         view.tintColor = .wmf_blueTint
-        redoSearchButton.backgroundColor = view.tintColor
+        redoSearchButton.setTitleColor(view.tintColor, for: .normal)
         
         // Setup map/list toggle
         let map = #imageLiteral(resourceName: "places-map")
@@ -718,14 +715,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let midHeight: CGFloat = 388
             let currentHeight = listAndSearchOverlayHeightConstraint.constant
             let newHeight: CGFloat
-            let newRedoSearchConstraint: CGFloat
             if currentHeight <= midHeight {
                 newHeight = currentHeight - minHeight <= midHeight - currentHeight ? minHeight : midHeight
-                newRedoSearchConstraint = 0
             } else {
                 let mid = currentHeight - midHeight <= maxHeight - currentHeight
                 newHeight = mid ? midHeight : maxHeight
-                newRedoSearchConstraint = mid ? 0 : 0.5*325
             }
             
             let velocity = panGR.velocity(in: view).y
@@ -737,11 +731,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
             let duration: TimeInterval = 0.5
             UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: springVelocity, options: [.allowUserInteraction], animations: animations, completion: nil)
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: {
-                self.redoSearchButtonCenterConstraint.constant = newRedoSearchConstraint
-                self.view.layoutIfNeeded()
-            }, completion: nil)
-           
             fallthrough
         case .failed:
             fallthrough
