@@ -380,8 +380,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let region = mapView.regionThatFits(value)
             
             _mapRegion = region
+            
             regroupArticlesIfNecessary(forVisibleRegion: region)
             showRedoSearchButtonIfNecessary(forVisibleRegion: region)
+            
+            
+            let mapViewRegion = mapView.region
+            guard mapViewRegion.center.longitude != region.center.longitude || mapViewRegion.center.latitude != region.center.latitude || mapViewRegion.span.longitudeDelta != region.span.longitudeDelta || mapViewRegion.span.latitudeDelta != region.span.latitudeDelta else {
+                selectVisibleKeyToSelectIfNecessary()
+                return
+            }
 
             mapView.setRegion(region, animated: true)
         }
@@ -631,6 +639,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         listView.reloadData()
         currentGroupingPrecision = 0
         regroupArticlesIfNecessary(forVisibleRegion: mapRegion ?? mapView.region)
+        if currentSearch?.region == nil { // this means the search was done in the curent map region and the map won't move
+            selectVisibleKeyToSelectIfNecessary()
+        }
     }
     
     @IBAction func redoSearch(_ sender: Any) {
@@ -1367,8 +1378,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             if (self.needsRegroup) {
                 self.needsRegroup = false
                 self.regroupArticlesIfNecessary(forVisibleRegion: self.mapRegion ?? self.mapView.region)
-            } else {
-                self.selectVisibleKeyToSelectIfNecessary()
             }
         }
     }
