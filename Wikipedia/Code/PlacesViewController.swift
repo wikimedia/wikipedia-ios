@@ -537,7 +537,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let height = top.distance(from: bottom)
         let width = right.distance(from: left)
         
-        let radius = round(0.25*(width + height))
+        let radius = round(0.5*max(width, height))
         let searchRegion = CLCircularRegion(center: center, radius: radius, identifier: "")
         
         let done = {
