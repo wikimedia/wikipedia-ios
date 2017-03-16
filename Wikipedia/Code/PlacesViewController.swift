@@ -51,7 +51,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private var selectedArticlePopover: ArticlePopoverViewController?
     private var selectedArticleAnnotationView: MKAnnotationView?
     private var selectedArticleKey: String?
-    private var placeToSelect: ArticlePlace?
     private var articleKeyToSelect: String?
     private var currentSearchRegion: MKCoordinateRegion?
     private var performDefaultSearchOnNextMapRegionUpdate = false
@@ -183,6 +182,31 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         deselectAllAnnotations()
     }
     
+    func selectVisibleArticle(articleKey: String) -> Bool {
+        let annotations = mapView.annotations(in: mapView.visibleMapRect)
+        for annotation in annotations {
+            guard let place = annotation as? ArticlePlace,
+                place.articles.count == 1,
+                let article = place.articles.first,
+                article.key == articleKey else {
+                    continue
+            }
+            selectArticlePlace(place)
+            break
+        }
+        return false
+    }
+    
+    func selectVisibleKeyToSelectIfNecessary() {
+        guard let keyToSelect = articleKeyToSelect else {
+            return
+        }
+        guard selectVisibleArticle(articleKey: keyToSelect) else {
+            return
+        }
+        articleKeyToSelect = nil
+    }
+    
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         _mapRegion = mapView.region
         guard performDefaultSearchOnNextMapRegionUpdate == false else {
@@ -191,29 +215,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
-        articleKeyToSelect = nil
+
         showRedoSearchButtonIfNecessary(forVisibleRegion: mapView.region)
-        guard let toSelect = placeToSelect else {
-            return
-        }
         
-        placeToSelect = nil
-        
-        guard let articleToSelect = toSelect.articles.first else {
-            return
-        }
-        
-        let annotations = mapView.annotations(in: mapView.visibleMapRect)
-        for annotation in annotations {
-            guard let place = annotation as? ArticlePlace,
-                place.articles.count == 1,
-                let article = place.articles.first,
-                article.key == articleToSelect.key else {
-                    continue
-            }
-            selectArticlePlace(place)
-            break
-        }
+        selectVisibleKeyToSelectIfNecessary()
     }
 
     var placeGroupVC: ArticlePlaceGroupViewController?
@@ -272,7 +277,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             deselectAllAnnotations()
             articleKeyToSelect = place.articles.first?.key
             mapRegion = regionThatFits(articles: place.articles)
-
 #endif
             return
         }
@@ -1282,25 +1286,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             
             let identifier = ArticlePlace.identifierForArticles(articles: group.articles)
             
-            let checkAndSelect = { (place: ArticlePlace) in
-                if let keyToSelect = self.articleKeyToSelect, place.articles.count == 1, place.articles.first?.key == keyToSelect {
-                    // hacky workaround for now
-                    self.deselectAllAnnotations()
-                    self.placeToSelect = place
-                    dispatchAfterDelayInSeconds(1.0, DispatchQueue.main, {
-                        self.placeToSelect = nil
-                        guard self.mapView.selectedAnnotations.count == 0 else {
-                            return
-                        }
-                        self.selectArticlePlace(place)
-                    })
-                    self.articleKeyToSelect = nil
-                }
-            }
-            
             //check for identical place already on the map
-            if let place = annotationsToRemove.removeValue(forKey: identifier) {
-                checkAndSelect(place)
+            if let _ = annotationsToRemove.removeValue(forKey: identifier) {
                 continue
             }
             
@@ -1352,8 +1339,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             
             mapView.addAnnotation(place)
             
-            checkAndSelect(place)
-            
             groups.removeValue(forKey: key)
         }
         
@@ -1382,6 +1367,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             if (self.needsRegroup) {
                 self.needsRegroup = false
                 self.regroupArticlesIfNecessary(forVisibleRegion: self.mapRegion ?? self.mapView.region)
+            } else {
+                self.selectVisibleKeyToSelectIfNecessary()
             }
         }
     }
