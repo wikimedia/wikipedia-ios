@@ -1186,7 +1186,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     
     func shouldShowAllImages(currentPrecision: QuadKeyPrecision, currentSearchPrecision: QuadKeyPrecision, maxPrecision: QuadKeyPrecision) -> Bool {
-        return currentPrecision > maxPrecision + 1 || (currentPrecision >= currentSearchPrecision + 3 && greaterThanOneArticleGroupCount == 0)
+        return currentPrecision > maxPrecision + 2
     }
     
     func updateShouldShowAllImages(currentPrecision: QuadKeyPrecision, currentSearchPrecision: QuadKeyPrecision, maxPrecision: QuadKeyPrecision) {
@@ -1282,7 +1282,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         var groupingAggressiveness: CLLocationDistance = 0.67
         let groupingPrecisionDelta: QuadKeyPrecision = 4
-        let maxPrecision: QuadKeyPrecision = lowestSearchPrecision + groupingPrecisionDelta - 1
+        let maxPrecision: QuadKeyPrecision = 17
         if lowestPrecision + 4 <= lowestSearchPrecision {
             groupingAggressiveness += 0.3
         }
