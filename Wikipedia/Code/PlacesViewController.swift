@@ -1186,7 +1186,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     
     func shouldShowAllImages(currentPrecision: QuadKeyPrecision, currentSearchPrecision: QuadKeyPrecision, maxPrecision: QuadKeyPrecision) -> Bool {
-        return currentPrecision > 17 || (currentPrecision >= currentSearchPrecision + 3 && greaterThanOneArticleGroupCount == 0)
+        return currentPrecision > maxPrecision + 1 || (currentPrecision >= currentSearchPrecision + 3 && greaterThanOneArticleGroupCount == 0)
     }
     
     func updateShouldShowAllImages(currentPrecision: QuadKeyPrecision, currentSearchPrecision: QuadKeyPrecision, maxPrecision: QuadKeyPrecision) {
@@ -1207,11 +1207,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         var articles: [WMFArticle] = []
         var latitudeSum: QuadKeyDegrees = 0
         var longitudeSum: QuadKeyDegrees = 0
+        var latitudeAdjustment: QuadKeyDegrees = 0
+        var longitudeAdjustment: QuadKeyDegrees = 0
         var baseQuadKey: QuadKey = 0
         var baseQuadKeyPrecision: QuadKeyPrecision = 0
         var location: CLLocation {
             get {
-                return CLLocation(latitude: latitudeSum/CLLocationDegrees(articles.count), longitude: longitudeSum/CLLocationDegrees(articles.count))
+                return CLLocation(latitude: (latitudeSum + latitudeAdjustment)/CLLocationDegrees(articles.count), longitude: (longitudeSum + longitudeAdjustment)/CLLocationDegrees(articles.count))
             }
         }
     }
@@ -1278,9 +1280,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let searchDeltaLon = searchRegion.span.longitudeDelta
         let lowestSearchPrecision = QuadKeyPrecision(deltaLongitude: searchDeltaLon)
         
-        let maxPrecision: QuadKeyPrecision = 16
         var groupingAggressiveness: CLLocationDistance = 0.67
         let groupingPrecisionDelta: QuadKeyPrecision = 4
+        let maxPrecision: QuadKeyPrecision = lowestSearchPrecision + groupingPrecisionDelta - 1
         if lowestPrecision + 4 <= lowestSearchPrecision {
             groupingAggressiveness += 0.3
         }
@@ -1333,7 +1335,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
             var group: ArticleGroup
             let adjustedQuadKey: QuadKey
-            let key: String
+            var key: String
             if groupingPrecision < maxPrecision && (articleKeyToSelect == nil || article.key != articleKeyToSelect) {
                 adjustedQuadKey = quadKey.adjusted(downBy: QuadKeyPrecision.maxPrecision - groupingPrecision)
                 let baseQuadKey = adjustedQuadKey - adjustedQuadKey % 2
@@ -1345,6 +1347,19 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 group = ArticleGroup()
                 adjustedQuadKey = quadKey
                 key = "\(adjustedQuadKey)"
+                if var existingGroup = groups[key] {
+                    let existingGroupArticleKey = existingGroup.articles.first?.key ?? ""
+                    let existingGroupTitle = existingGroup.articles.first?.displayTitle ?? ""
+                    existingGroup.latitudeAdjustment = 0.0001 * CLLocationDegrees(existingGroupArticleKey.hash) / CLLocationDegrees(Int.max)
+                    existingGroup.longitudeAdjustment = 0.0001 * CLLocationDegrees(existingGroupTitle.hash) / CLLocationDegrees(Int.max)
+                    groups[key] = existingGroup
+                    
+                    let articleKey = article.key ?? ""
+                    let articleTitle = article.displayTitle ?? ""
+                    group.latitudeAdjustment = 0.0001 * CLLocationDegrees(articleKey.hash) / CLLocationDegrees(Int.max)
+                    group.longitudeAdjustment = 0.0001 * CLLocationDegrees(articleTitle.hash) / CLLocationDegrees(Int.max)
+                    key = articleKey
+                }
                 group.baseQuadKey = quadKey
                 group.baseQuadKeyPrecision = QuadKeyPrecision.maxPrecision
             }
@@ -1361,22 +1376,24 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             guard var group = groups[key] else {
                 continue
             }
-
-            let toMerge = merge(group: group, key: key, groups: groups, groupingDistance: groupingDistance)
-            for adjacentKey in toMerge {
-                guard let adjacentGroup = groups[adjacentKey] else {
-                    continue
+            
+            if groupingPrecision < maxPrecision {
+                let toMerge = merge(group: group, key: key, groups: groups, groupingDistance: groupingDistance)
+                for adjacentKey in toMerge {
+                    guard let adjacentGroup = groups[adjacentKey] else {
+                        continue
+                    }
+                    group.articles.append(contentsOf: adjacentGroup.articles)
+                    group.latitudeSum += adjacentGroup.latitudeSum
+                    group.longitudeSum += adjacentGroup.longitudeSum
+                    groups.removeValue(forKey: adjacentKey)
                 }
-                group.articles.append(contentsOf: adjacentGroup.articles)
-                group.latitudeSum += adjacentGroup.latitudeSum
-                group.longitudeSum += adjacentGroup.longitudeSum
-                groups.removeValue(forKey: adjacentKey)
+                
+                if group.articles.count > 1 {
+                    greaterThanOneArticleGroupCount += 1
+                }
             }
             
-            if group.articles.count > 1 {
-                greaterThanOneArticleGroupCount += 1
-            }
-
             var nextCoordinate: CLLocationCoordinate2D?
             var coordinate = group.location.coordinate
             
@@ -1460,11 +1477,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 self.updateShouldShowAllImages(currentPrecision: currentPrecision, currentSearchPrecision: currentSearchPrecision, maxPrecision: maxPrecision)
             }
             self.groupingTaskGroup = nil
+            self.selectVisibleKeyToSelectIfNecessary()
             if (self.needsRegroup) {
                 self.needsRegroup = false
                 self.regroupArticlesIfNecessary(forVisibleRegion: self.mapRegion ?? self.mapView.region)
-            } else {
-                self.selectVisibleKeyToSelectIfNecessary()
             }
         }
     }
