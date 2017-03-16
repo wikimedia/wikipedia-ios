@@ -28,7 +28,7 @@
                                 </connections>
                             </mapView>
                             <progressView opaque="NO" alpha="0.0" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Pet-ct-8QU">
-                                <rect key="frame" x="0.0" y="64" width="768" height="2.5"/>
+                                <rect key="frame" x="0.0" y="64" width="768" height="3"/>
                             </progressView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxh-CO-RQm">
                                 <rect key="frame" x="713" y="79" width="40" height="40"/>
