@@ -37,6 +37,7 @@ module.exports = function (grunt) {
     jshint: {
       allFiles: allJSFilesInJSFolder,
       options: {
+        reporterOutput: "",
         jshintrc: true
       }
     },
