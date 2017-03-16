@@ -126,10 +126,6 @@ get-node: ##Install node via Homebrew
 RUBY_VERSION = "$(shell ruby -v 2>/dev/null)"
 BUNDLER = "$(shell which bundle 2/dev/null)"
 
-pod: ##Install native dependencies via CocoaPods
-pod: bundle-install
-	@$(BUNDLER) exec pod install
-
 #!!!!!
 #!!!!! Ruby dependency management
 #!!!!!
