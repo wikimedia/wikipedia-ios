@@ -742,9 +742,62 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     var initialOverlayHeightForPan: CGFloat?
     
+    
+    let overlayMidHeight: CGFloat = 388
+    var overlayMinHeight: CGFloat {
+        get {
+            return listAndSearchOverlaySearchHeightConstraint.constant + listAndSearchOverlaySliderHeightConstraint.constant
+        }
+    }
+    var overlayMaxHeight: CGFloat {
+        get {
+            return view.bounds.size.height - listAndSearchOverlayContainerView.frame.minY - listAndSearchOverlayBottomConstraint.constant
+        }
+    }
+
+    enum OverlayState {
+        case min
+        case mid
+        case max
+    }
+    
+    func set(overlayState: OverlayState, withVelocity velocity: CGFloat, animated: Bool) {
+        let currentHeight = listAndSearchOverlayHeightConstraint.constant
+        let newHeight: CGFloat
+        switch overlayState {
+        case .min:
+            newHeight = overlayMinHeight
+        case .max:
+            newHeight = overlayMaxHeight
+        default:
+            newHeight = overlayMidHeight
+        }
+        let springVelocity = velocity / (newHeight - currentHeight)
+        self.view.layoutIfNeeded()
+        let animations = {
+            self.listAndSearchOverlayHeightConstraint.constant = newHeight
+            self.view.layoutIfNeeded()
+        }
+        let duration: TimeInterval = 0.5
+        self.overlayState = overlayState
+        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: springVelocity, options: [.allowUserInteraction], animations: animations, completion: { (didFinish) in
+            if overlayState == .max {
+                self.listAndSearchOverlayHeightConstraint.isActive = false
+                self.listAndSearchOverlayBottomConstraint.isActive = true
+            } else {
+                self.listAndSearchOverlayHeightConstraint.isActive = true
+                self.listAndSearchOverlayBottomConstraint.isActive = false
+            }
+        })
+    }
+    
+    var overlayState = OverlayState.mid
+    
+    
     func handlePanGesture(_ panGR: UIPanGestureRecognizer) {
-        let minHeight = listAndSearchOverlaySearchHeightConstraint.constant + listAndSearchOverlaySliderHeightConstraint.constant
-        let maxHeight = mapView.bounds.size.height - listAndSearchOverlayContainerView.frame.minY - listAndSearchOverlayBottomConstraint.constant
+        let minHeight = overlayMinHeight
+        let maxHeight = overlayMaxHeight
+        let midHeight = overlayMidHeight
         switch panGR.state {
         case .possible:
             fallthrough
@@ -755,35 +808,29 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             if let height = initialOverlayHeightForPan {
                 initialHeight = height
             } else {
+                if (overlayState == .max) {
+                    listAndSearchOverlayHeightConstraint.constant = listAndSearchOverlayContainerView.frame.height
+                }
                 initialHeight = listAndSearchOverlayHeightConstraint.constant
                 initialOverlayHeightForPan = initialHeight
+                listAndSearchOverlayHeightConstraint.isActive = true
+                listAndSearchOverlayBottomConstraint.isActive = false
             }
-           
             listAndSearchOverlayHeightConstraint.constant = max(minHeight, initialHeight + panGR.translation(in: view).y)
         case .ended:
-            let midHeight: CGFloat = 388
-            let currentHeight = listAndSearchOverlayHeightConstraint.constant
-            let newHeight: CGFloat
-            if currentHeight <= midHeight {
-                newHeight = currentHeight - minHeight <= midHeight - currentHeight ? minHeight : midHeight
-            } else {
-                let mid = currentHeight - midHeight <= maxHeight - currentHeight
-                newHeight = mid ? midHeight : maxHeight
-            }
-            
-            let velocity = panGR.velocity(in: view).y
-            let springVelocity = velocity / (newHeight - currentHeight)
-            self.view.layoutIfNeeded()
-            let animations = {
-                self.listAndSearchOverlayHeightConstraint.constant = newHeight
-                self.view.layoutIfNeeded()
-            }
-            let duration: TimeInterval = 0.5
-            UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: springVelocity, options: [.allowUserInteraction], animations: animations, completion: nil)
             fallthrough
         case .failed:
             fallthrough
         case .cancelled:
+            let currentHeight = listAndSearchOverlayHeightConstraint.constant
+            let newState: OverlayState
+            if currentHeight <= midHeight {
+                newState = currentHeight - minHeight <= midHeight - currentHeight ? .min : .mid
+            } else {
+                let mid = currentHeight - midHeight <= maxHeight - currentHeight
+                newState = mid ? .mid : .max
+            }
+            set(overlayState: newState, withVelocity: panGR.velocity(in: view).y, animated: true)
             initialOverlayHeightForPan = nil
             break
         }

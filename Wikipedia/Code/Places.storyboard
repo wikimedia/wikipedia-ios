@@ -28,7 +28,7 @@
                                 </connections>
                             </mapView>
                             <progressView opaque="NO" alpha="0.0" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Pet-ct-8QU">
-                                <rect key="frame" x="0.0" y="64" width="768" height="3"/>
+                                <rect key="frame" x="0.0" y="64" width="768" height="2.5"/>
                             </progressView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxh-CO-RQm">
                                 <rect key="frame" x="713" y="79" width="40" height="40"/>
@@ -233,11 +233,9 @@
                         <constraints>
                             <constraint firstItem="mxh-CO-RQm" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" constant="15" id="11e-K4-HcT"/>
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="hEe-dF-AFg" secondAttribute="bottom" id="1PC-H2-U7d">
-                                <variation key="heightClass=regular-widthClass=regular" constant="15"/>
-                            </constraint>
-                            <constraint firstAttribute="trailing" secondItem="hEe-dF-AFg" secondAttribute="trailing" id="Fqd-WF-erI">
                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                             </constraint>
+                            <constraint firstAttribute="trailing" secondItem="hEe-dF-AFg" secondAttribute="trailing" id="Fqd-WF-erI"/>
                             <constraint firstItem="hEe-dF-AFg" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" id="LbB-iH-rgk">
                                 <variation key="heightClass=regular-widthClass=regular" constant="15"/>
                             </constraint>
