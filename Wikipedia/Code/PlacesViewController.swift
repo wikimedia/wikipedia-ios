@@ -320,7 +320,19 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             deselectAllAnnotations()
 #else
             deselectAllAnnotations()
-            articleKeyToSelect = place.articles.first?.key
+    
+            var minDistance = CLLocationDistanceMax
+            let center = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+            for article in place.articles {
+                guard let location = article.location else {
+                    continue
+                }
+                let distance = location.distance(from: center)
+                if distance < minDistance {
+                    minDistance = distance
+                    articleKeyToSelect = article.key
+                }
+            }
             mapRegion = regionThatFits(articles: place.articles)
 #endif
             return
