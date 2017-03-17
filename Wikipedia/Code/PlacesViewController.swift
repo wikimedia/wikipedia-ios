@@ -1240,6 +1240,24 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 return CLLocation(latitude: (latitudeSum + latitudeAdjustment)/CLLocationDegrees(articles.count), longitude: (longitudeSum + longitudeAdjustment)/CLLocationDegrees(articles.count))
             }
         }
+        
+        init () {
+            
+        }
+        
+        init?(article: WMFArticle?) {
+            guard let article = article,
+                    let quadKey = article.quadKey,
+                    let coordinate = article.coordinate else {
+                return nil
+            }
+            
+            articles = [article]
+            latitudeSum = coordinate.latitude
+            longitudeSum = coordinate.longitude
+            baseQuadKey = quadKey
+            baseQuadKeyPrecision = QuadKeyPrecision.maxPrecision
+        }
     }
 
     
@@ -1350,7 +1368,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         var groups: [String: ArticleGroup] = [:]
-        
+        var splittableGroups: [String: ArticleGroup] = [:]
         for article in articleFetchedResultsController.fetchedObjects ?? [] {
             guard let quadKey = article.quadKey else {
                 continue
@@ -1390,6 +1408,29 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             group.latitudeSum += coordinate.latitude
             group.longitudeSum += coordinate.longitude
             groups[key] = group
+            if group.articles.count == 2 {
+                splittableGroups[key] = group
+            } else {
+                splittableGroups[key] = nil
+            }
+        }
+        
+        
+        for (key, group) in splittableGroups {
+            guard group.articles.count == 2 else {
+                continue
+            }
+            
+            let articleA = group.articles[0]
+            let articleB = group.articles[1]
+            
+            guard let newGroupA = ArticleGroup(article: articleA), let newGroupB = ArticleGroup(article: articleB) else {
+                continue
+            }
+            
+            groups.removeValue(forKey: key)
+            groups[key + "A"] = newGroupA
+            groups[key + "B"] = newGroupB
         }
         
         greaterThanOneArticleGroupCount = 0
@@ -1410,6 +1451,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     group.longitudeSum += adjacentGroup.longitudeSum
                     groups.removeValue(forKey: adjacentKey)
                 }
+                
                 
                 if group.articles.count > 1 {
                     greaterThanOneArticleGroupCount += 1
