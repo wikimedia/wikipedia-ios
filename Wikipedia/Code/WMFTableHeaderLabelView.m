@@ -4,7 +4,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
 
-@property (strong, nonatomic) IBOutlet UILabel *textLabel;
+@property (strong, nonatomic) IBOutlet UILabel *headerLabel;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *leadingConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *trailingConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *clearButton;
@@ -15,25 +15,25 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.textLabel.textColor = [UIColor wmf_nearbyDescription];
+    self.headerLabel.textColor = [UIColor wmf_nearbyDescription];
 }
 
 - (void)setText:(NSString *)text {
     //If its short, display as table view header text
     //If its long, make it read as normal prose
     if (text.length < 50) {
-        self.textLabel.text = [text uppercaseString];
+        self.headerLabel.text = [text uppercaseString];
     } else {
-        self.textLabel.text = text;
+        self.headerLabel.text = text;
     }
 }
 
 - (NSString *)text {
-    return self.textLabel.text;
+    return self.headerLabel.text;
 }
 
 - (CGFloat)heightWithExpectedWidth:(CGFloat)width {
-    self.textLabel.preferredMaxLayoutWidth = width - self.leadingConstraint.constant - self.trailingConstraint.constant;
+    self.headerLabel.preferredMaxLayoutWidth = width - self.leadingConstraint.constant - self.trailingConstraint.constant;
     return [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
 }
 
