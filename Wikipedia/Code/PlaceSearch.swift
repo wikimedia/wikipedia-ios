@@ -92,4 +92,29 @@ struct PlaceSearch {
         self.searchResult = dictionary["searchResult"] as? MWKSearchResult
         self.localizedDescription = dictionary["localizedDescription"] as? String
     }
+    
+    init?(object: NSObject?) {
+        guard let object = object, let typeNumber = object.value(forKey: "type") as? NSNumber,
+            let type = PlaceSearchType(rawValue: typeNumber.uintValue),
+            let sortStyleNumber = object.value(forKey: "sortStyle") as? NSNumber else {
+                return nil
+        }
+        self.type = type
+        let sortStyle = WMFLocationSearchSortStyle(rawValue: sortStyleNumber.uintValue) ?? .none
+        self.sortStyle = sortStyle
+        
+        self.string = object.value(forKey: "string") as? String
+        if let lat = object.value(forKey: "lat") as? NSNumber,
+            let lon = object.value(forKey: "lon") as? NSNumber,
+            let latd = object.value(forKey: "latd") as? NSNumber,
+            let lond = object.value(forKey: "lond") as? NSNumber {
+            let coordinate = CLLocationCoordinate2D(latitude: lat.doubleValue, longitude: lon.doubleValue)
+            let span = MKCoordinateSpan(latitudeDelta: latd.doubleValue, longitudeDelta: lond.doubleValue)
+            self.region = MKCoordinateRegion(center: coordinate, span: span)
+        } else {
+            self.region = nil
+        }
+        self.searchResult = object.value(forKey: "searchResult") as? MWKSearchResult
+        self.localizedDescription = object.value(forKey: "localizedDescription") as? String
+    }
 }
