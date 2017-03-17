@@ -54,30 +54,6 @@
     return substitutions;
 }
 
-- (void)test_mismatched_substitutions {
-
-    NSString *qqqBundlePath = [LOCALIZATIONS_DIR stringByAppendingPathComponent:@"qqq.lproj"];
-    NSDictionary *qqqStringsDict = [self getTranslationStringsDictFromLprogAtPath:qqqBundlePath];
-
-    NSString *enBundlePath = [LOCALIZATIONS_DIR stringByAppendingPathComponent:@"en.lproj"];
-    NSDictionary *enStringsDict = [self getTranslationStringsDictFromLprogAtPath:enBundlePath];
-
-    for (NSString *key in enStringsDict) {
-
-        NSString *enVal = enStringsDict[key];
-        NSOrderedSet *enSubstitutions = [self dollarSubstitutionsInString:enVal];
-        NSUInteger enSubstituionCount = [enSubstitutions count];
-
-        NSString *qqqVal = qqqStringsDict[key];
-        NSOrderedSet *qqqSubstitutions = [self dollarSubstitutionsInString:qqqVal];
-        NSUInteger qqqSubstituionCount = [qqqSubstitutions count];
-
-        if (enSubstituionCount != qqqSubstituionCount) {
-            XCTFail(@"en.lproj:%@ contains %tu substitutions, but qqq.lproj:%@ describes %tu substitutions", key, enSubstituionCount, key, qqqSubstituionCount);
-        }
-    }
-}
-
 - (void)test_lproj_count {
     assertThat(@(self.lprojFiles.count), is(greaterThan(@(0))));
 }
@@ -217,6 +193,30 @@
         for (NSString *key in stringsDict) {
             // Keys use dash "-" separators.
             assertThat(key, isNot(containsSubstring(@"_")));
+        }
+    }
+}
+
+- (void)test_mismatched_substitutions {
+
+    NSString *qqqBundlePath = [LOCALIZATIONS_DIR stringByAppendingPathComponent:@"qqq.lproj"];
+    NSDictionary *qqqStringsDict = [self getTranslationStringsDictFromLprogAtPath:qqqBundlePath];
+
+    NSString *enBundlePath = [LOCALIZATIONS_DIR stringByAppendingPathComponent:@"en.lproj"];
+    NSDictionary *enStringsDict = [self getTranslationStringsDictFromLprogAtPath:enBundlePath];
+
+    for (NSString *key in enStringsDict) {
+
+        NSString *enVal = enStringsDict[key];
+        NSOrderedSet *enSubstitutions = [self dollarSubstitutionsInString:enVal];
+        NSUInteger enSubstituionCount = [enSubstitutions count];
+
+        NSString *qqqVal = qqqStringsDict[key];
+        NSOrderedSet *qqqSubstitutions = [self dollarSubstitutionsInString:qqqVal];
+        NSUInteger qqqSubstituionCount = [qqqSubstitutions count];
+
+        if (enSubstituionCount != qqqSubstituionCount) {
+            XCTFail(@"en.lproj:%@ contains %tu substitutions, but qqq.lproj:%@ describes %tu substitutions", key, enSubstituionCount, key, qqqSubstituionCount);
         }
     }
 }
