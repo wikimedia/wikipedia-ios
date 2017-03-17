@@ -169,7 +169,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         tracker?.wmf_logView(self)
         
-        if traitBasedViewMode == .listOverlay || traitBasedViewMode == .searchOverlay {
+        if isViewModeOverlay {
             navigationController?.setNavigationBarHidden(true, animated: animated)
         }
     }
@@ -877,6 +877,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
+    var isViewModeOverlay: Bool {
+        get {
+            return traitBasedViewMode == .listOverlay || traitBasedViewMode == .searchOverlay
+        }
+    }
+    
     var traitBasedViewMode: ViewMode = .none {
         didSet {
             guard oldValue != traitBasedViewMode else {
@@ -1502,6 +1508,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
+        if isViewModeOverlay, let indexPath = articleFetchedResultsController.indexPath(forObject: article) {
+            listView.scrollToRow(at: indexPath, at: .top, animated: true)
+        }
+        
         let articleVC = ArticlePopoverViewController(article)
         articleVC.delegate = self
         articleVC.view.tintColor = view.tintColor
@@ -1520,7 +1530,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         articleVC.view.alpha = 0
         addChildViewController(articleVC)
         
-        let aboveSubview = traitBasedViewMode == .listOverlay || traitBasedViewMode == .searchOverlay ? listAndSearchOverlayContainerView ?? placeGroupVC?.view : placeGroupVC?.view
+        let aboveSubview = isViewModeOverlay ? listAndSearchOverlayContainerView ?? placeGroupVC?.view : placeGroupVC?.view
         view.insertSubview(articleVC.view, aboveSubview: aboveSubview ?? mapView)
         articleVC.didMove(toParentViewController: self)
         
