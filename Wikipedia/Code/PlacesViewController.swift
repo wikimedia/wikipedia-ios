@@ -1245,17 +1245,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             
         }
         
-        init?(article: WMFArticle?) {
-            guard let article = article,
-                    let quadKey = article.quadKey,
-                    let coordinate = article.coordinate else {
-                return nil
-            }
-            
+        init(article: WMFArticle) {
             articles = [article]
-            latitudeSum = coordinate.latitude
-            longitudeSum = coordinate.longitude
-            baseQuadKey = quadKey
+            latitudeSum = article.coordinate?.latitude ?? 0
+            longitudeSum = article.coordinate?.longitude ?? 0
+            baseQuadKey = article.quadKey ?? 0
             baseQuadKeyPrecision = QuadKeyPrecision.maxPrecision
         }
     }
@@ -1325,6 +1319,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         var groupingAggressiveness: CLLocationDistance = 0.67
         let groupingPrecisionDelta: QuadKeyPrecision = 4
         let maxPrecision: QuadKeyPrecision = 17
+        let minGroupCount = 3
         if lowestPrecision + 4 <= lowestSearchPrecision {
             groupingAggressiveness += 0.3
         }
@@ -1408,7 +1403,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             group.latitudeSum += coordinate.latitude
             group.longitudeSum += coordinate.longitude
             groups[key] = group
-            if group.articles.count == 2 {
+            if group.articles.count < minGroupCount {
                 splittableGroups[key] = group
             } else {
                 splittableGroups[key] = nil
@@ -1417,20 +1412,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         
         for (key, group) in splittableGroups {
-            guard group.articles.count == 2 else {
-                continue
+            for (index, article) in group.articles.enumerated() {
+                groups[key + ":\(index)"] = ArticleGroup(article: article)
             }
-            
-            let articleA = group.articles[0]
-            let articleB = group.articles[1]
-            
-            guard let newGroupA = ArticleGroup(article: articleA), let newGroupB = ArticleGroup(article: articleB) else {
-                continue
-            }
-            
             groups.removeValue(forKey: key)
-            groups[key + "A"] = newGroupA
-            groups[key + "B"] = newGroupB
         }
         
         greaterThanOneArticleGroupCount = 0
