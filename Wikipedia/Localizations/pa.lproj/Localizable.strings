@@ -4,6 +4,7 @@
 // Author: Babanwalia
 // Author: Jimidar
 // Author: Nachhattardhammu
+// Author: Nemo bis
 // Author: Satdeep gill
 // Author: Sony dandiwal
 // Author: Tow
@@ -56,10 +57,6 @@
 "account-creation-passwords-mismatched" = "ਪਛਾਣ-ਸ਼ਬਦ ਦੇ ਡੱਬੇ ਮੇਲ ਨਹੀਂ ਖਾ ਰਹੇ।";
 "account-creation-saving" = "ਸਾਂਭਿਆ ਜਾ ਰਿਹਾ ਹੈ...";
 "account-creation-login" = "ਪਹਿਲੋਂ ਹੀ ਖਾਤਾ ਹੈ? ਦਾਖ਼ਲ ਹੋਵੋ।";
-"account-creation-username-placeholder-text" = "ਵਰਤੋਂਕਾਰ ਨਾਂ";
-"account-creation-password-placeholder-text" = "ਪਛਾਣ-ਸ਼ਬਦ";
-"account-creation-password-confirm-placeholder-text" = "ਪਛਾਣ ਸ਼ਬਦ ਤਸਦੀਕ ਕਰੋ";
-"account-creation-email-placeholder-text" = "ਈਮੇਲ (ਚੋਣਵੀਂ)";
 "account-creation-missing-fields" = "ਅਾਪਣਾ ਖਾਤਾ ਬਣਾੳੁਣ ਲੲੀ ਯੂਜ਼ਰ-ਨਾਂ ਅਤੇ ਗੁਪਤ-ਸ਼ਬਦ ਭਰੋ";
 "login-name-not-found" = "ਦਾਖ਼ਲ ਹੋਣ ਵਾਸਤੇ ਵਰਤੋਂਕਾਰ-ਨਾਂ ਲੁੜੀਂਦਾ ਹੈ।";
 "login-name-illegal" = "ਤੁਸੀਂ ਇੱਕ ਗ਼ੈਰ-ਕਨੂੰਨੀ ਵਰਤੋਂਕਾਰ ਨਾਂ ਦਿੱਤਾ।";
@@ -255,13 +252,13 @@
 "onboarding-skip" = "ਛੱਡੋ";
 "onboarding-wikipedia" = "ਵਿਕੀਪੀਡੀਆ";
 "onboarding-free-encyclopedia" = "ਮੁਫ਼ਤ ਗਿਆਨਕੋਸ਼";
-"preference_title_eventlogging_opt_in" = "ਵਰਤੋਂ ਦੀਆਂ ਇਤਲਾਹਾਂ ਘੱਲੋ";
-"preference_summary_eventlogging_opt_in" = "ਇਸ ਐਪ ਨੂੰ ਚੰਗੇਰੀ ਬਣਾਉਣ ਵਾਸਤੇ ਵਿਕੀਮੀਡੀਆ ਨੂੰ ਤੁਹਾਡੇ ਇਸ ਐਪ ਨੂੰ ਵਰਤਣ ਦੇ ਤਰੀਕੇ ਬਾਬਤ ਜਾਣਕਾਰੀ ਇਕੱਠੀ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿਉ।";
-"page_protected_autoconfirmed" = "ਇਹ ਸਫ਼ਾ ਨੀਮ-ਸੁਰੱਖਿਅਤ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।";
-"page_protected_sysop" = "ਇਹ ਸਫ਼ਾ ਪੂਰਾ ਸੁਰੱਖਿਅਤ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।";
-"page_protected_other" = "ਇਸ ਸਫ਼ੇ ਨੂੰ ਇਹਨਾਂ ਤਹਿਆਂ ਤੱਕ ਸੁਰੱਖਿਅਤ ਕੀਤਾ ਗਿਆ ਹੈ: $1";
-"page_protected_can_not_edit" = "ਤੁਹਾਡੇ ਕੋਲ਼ ਇਸ ਸਫ਼ੇ ਦੀ ਸੁਧਾਈ ਕਰਨ ਦੇ ਹੱਕ ਨਹੀਂ ਹਨ";
-"page_protected_can_not_edit_title" = "ਇਹ ਸਫ਼ਾ ਸੁਰੱਖਿਅਤ ਹੈ";
+"preference-title-eventlogging-opt-in" = "ਵਰਤੋਂ ਦੀਆਂ ਇਤਲਾਹਾਂ ਘੱਲੋ";
+"preference-summary-eventlogging-opt-in" = "ਇਸ ਐਪ ਨੂੰ ਚੰਗੇਰੀ ਬਣਾਉਣ ਵਾਸਤੇ ਵਿਕੀਮੀਡੀਆ ਨੂੰ ਤੁਹਾਡੇ ਇਸ ਐਪ ਨੂੰ ਵਰਤਣ ਦੇ ਤਰੀਕੇ ਬਾਬਤ ਜਾਣਕਾਰੀ ਇਕੱਠੀ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿਉ।";
+"page-protected-autoconfirmed" = "ਇਹ ਸਫ਼ਾ ਨੀਮ-ਸੁਰੱਖਿਅਤ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।";
+"page-protected-sysop" = "ਇਹ ਸਫ਼ਾ ਪੂਰਾ ਸੁਰੱਖਿਅਤ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।";
+"page-protected-other" = "ਇਸ ਸਫ਼ੇ ਨੂੰ ਇਹਨਾਂ ਤਹਿਆਂ ਤੱਕ ਸੁਰੱਖਿਅਤ ਕੀਤਾ ਗਿਆ ਹੈ: $1";
+"page-protected-can-not-edit" = "ਤੁਹਾਡੇ ਕੋਲ਼ ਇਸ ਸਫ਼ੇ ਦੀ ਸੁਧਾਈ ਕਰਨ ਦੇ ਹੱਕ ਨਹੀਂ ਹਨ";
+"page-protected-can-not-edit-title" = "ਇਹ ਸਫ਼ਾ ਸੁਰੱਖਿਅਤ ਹੈ";
 "license-footer-text" = "ਇਹ ਸਮੱਗਰੀ $1 ਹੇਠ ਮੌਜੂਦ ਹੈ। ਅਜਿਹਾ ਨਾ ਹੋਣ ਉੱਤੇ ਵਿਸ਼ੇਸ਼ ਤੌਰ ਉੱਤੇ ਦੱਸਿਆ ਜਾਵੇਗਾ।";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "ਸਮੱਗਰੀ";
@@ -326,8 +323,6 @@
 "page-read-in-other-languages" = "$1 ਹੋਰ ਭਾਸ਼ਾਵਾੰ ਵਿੱਚ ਉਪਲਬਧ";
 "page-last-edited" = "$1 ਪਹਿਲਾੰ ਸੋਧਿਆ ਗਿਆ";
 "page-edit-history" = "ਪੂਰਾ ਸੋਧ ਇਤੇਹਾਸ";
-"captcha-reload" = "ਹੋਰ ਕੈਪਚਾ ਦਿਖਾਵੋ";
-"captcha-prompt" = "ਕੈਪਚਾ ਪਾਠ ਭਰੋ";
 "mwk-empty-title-error" = "ਖਾਲੀ ਸਿਰਲੇਖ ਦੇ ਨਾਲ ਕਾਰਵਾਈ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕਦੀ।";
 "home-title" = "ਵਿਚਰੋ";
 "home-empty-section" = "ਕੋਈ ਨਤੀਜਾ ਨਹੀਂ";

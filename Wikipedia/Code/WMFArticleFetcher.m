@@ -1,7 +1,8 @@
 #import "WMFArticleFetcher.h"
 
+#if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>
-
+#endif
 //Tried not to do it, but we need it for the useageReports BOOL
 //Plan to refactor settings into an another object, then we can remove this.
 #import "SessionSingleton.h"
@@ -41,6 +42,8 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 @property (nonatomic, strong, readwrite) WMFArticleDataStore *previewStore;
 @property (nonatomic, strong) WMFArticleRevisionFetcher *revisionFetcher;
 
+@property (nonatomic, strong) AFHTTPSessionManager *pageSummarySessionManager;
+
 @end
 
 @implementation WMFArticleFetcher
@@ -61,6 +64,8 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         self.operationManager = manager;
         self.operationManager.requestSerializer = [WMFArticleRequestSerializer serializer];
         self.operationManager.responseSerializer = [WMFArticleResponseSerializer serializer];
+
+        self.pageSummarySessionManager = [AFHTTPSessionManager wmf_createDefaultManager];
 
         self.revisionFetcher = [[WMFArticleRevisionFetcher alloc] init];
 
@@ -85,7 +90,8 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                          progress:(WMFProgressHandler __nullable)progress
                                           failure:(WMFErrorHandler)failure
                                           success:(WMFArticleHandler)success {
-    if (!articleURL.wmf_title) {
+    NSString *title = articleURL.wmf_titleWithUnderScores;
+    if (!title) {
         failure([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
         return nil;
     }
@@ -97,6 +103,29 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
     NSURL *url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:articleURL] : [NSURL wmf_mobileAPIURLForURL:articleURL];
 
+    NSURL *siteURL = articleURL.wmf_siteURL;
+    NSString *path = [NSString pathWithComponents:@[@"/api", @"rest_v1", @"page", @"summary", title]];
+    NSURL *pageSummaryURL = [siteURL wmf_URLWithPath:path isMobile:!useDeskTopURL];
+
+    WMFTaskGroup *taskGroup = [WMFTaskGroup new];
+    [[MWNetworkActivityIndicatorManager sharedManager] push];
+
+    __block id summaryResponse = nil;
+    [taskGroup enter];
+    [self.pageSummarySessionManager GET:pageSummaryURL.absoluteString
+        parameters:nil
+        progress:nil
+        success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
+            summaryResponse = responseObject;
+            [taskGroup leave];
+        }
+        failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
+            [taskGroup leave];
+        }];
+
+    __block id articleResponse = nil;
+    __block NSError *articleError = nil;
+    [taskGroup enter];
     NSURLSessionDataTask *operation = [self.operationManager GET:url.absoluteString
         parameters:articleURL
         progress:^(NSProgress *_Nonnull downloadProgress) {
@@ -108,26 +137,42 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
             }
         }
         success:^(NSURLSessionDataTask *operation, id response) {
-            dispatchOnBackgroundQueue(^{
-                [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                MWKArticle *article = [self serializedArticleWithURL:articleURL response:response];
-                [self.dataStore asynchronouslyCacheArticle:article];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.previewStore addPreviewWithURL:articleURL updatedWithArticle:article];
-                    success(article);
-                });
-            });
+            articleResponse = response;
+            [taskGroup leave];
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:articleURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
-                [self fetchArticleForURL:articleURL useDesktopURL:YES progress:progress failure:failure success:success];
-            } else {
-                [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                failure(error);
-            }
+            articleError = error;
+            [taskGroup leave];
         }];
+
     operation.priority = NSURLSessionTaskPriorityHigh;
     [self trackOperation:operation forArticleURL:articleURL];
+
+    [taskGroup waitInBackgroundAndNotifyOnQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)
+                                      withBlock:^{
+                                          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                                          if (articleResponse && [articleResponse isKindOfClass:[NSDictionary class]]) {
+                                              if (!articleResponse[@"coordinates"] && summaryResponse[@"coordinates"]) {
+                                                  NSMutableDictionary *mutableArticleResponse = [articleResponse mutableCopy];
+                                                  mutableArticleResponse[@"coordinates"] = summaryResponse[@"coordinates"];
+                                                  articleResponse = mutableArticleResponse;
+                                              }
+                                              MWKArticle *article = [self serializedArticleWithURL:articleURL response:articleResponse];
+                                              [self.dataStore asynchronouslyCacheArticle:article];
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  [self.previewStore addPreviewWithURL:articleURL updatedWithArticle:article];
+                                                  success(article);
+                                              });
+                                          } else {
+                                              if (!articleError) {
+                                                  articleError = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:@{}];
+                                              }
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  failure(articleError);
+                                              });
+                                          }
+                                      }];
+
     return operation;
 }
 
@@ -171,6 +216,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 - (void)cancelAllFetches {
     [self.operationManager wmf_cancelAllTasks];
+    [self.pageSummarySessionManager wmf_cancelAllTasks];
 }
 
 - (id)serializedArticleWithURL:(NSURL *)url response:(NSDictionary *)response {

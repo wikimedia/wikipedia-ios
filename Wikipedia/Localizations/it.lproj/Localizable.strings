@@ -15,6 +15,7 @@
 // Author: Macofe
 // Author: Martinligabue
 // Author: Nastoshka
+// Author: Nemo bis
 // Author: Nivit
 // Author: Ontsed
 // Author: Peg60
@@ -63,27 +64,26 @@
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "zero-warn-when-leaving" = "Avvisa se sto uscendo da Zero";
 "zero-settings-devmode" = "Zero Devmode";
+"account-creation-title" = "Crea una nuova utenza";
 "account-creation-captcha-required" = "Verifica CAPTCHA richiesta.";
 "account-creation-captcha-retry" = "Inserimento errato. Riprova.";
 "account-creation-captcha-obtaining" = "Creazione di un nuovo CAPTCHA...";
 "account-creation-captcha-cannot-see-image" = "Non riesci a vedere l'immagine? $1";
-"account-creation-captcha-request-account" = "Richiedi un'utenza";
+"account-creation-captcha-request-account" = "Richiedi utenza";
 "account-creation-logging-in" = "Accesso in corso...";
 "account-creation-passwords-mismatched" = "Le password non corrispondono.";
 "account-creation-saving" = "Salvataggio...";
 "account-creation-login" = "Hai già un'utenza? Accedi.";
-"account-creation-username-placeholder-text" = "Nome utente";
-"account-creation-password-placeholder-text" = "Password";
-"account-creation-password-confirm-placeholder-text" = "Conferma password";
-"account-creation-email-placeholder-text" = "Email (opzionale)";
 "account-creation-missing-fields" = "È necessario immettere un nome utente, una password e la conferma della password per creare un account.";
+"account-creation-create-account" = "Crea la tua utenza";
+"account-creation-have-account" = "Hai già un'utenza? $1";
+"account-creation-log-in" = "Entra.";
 "new-password-title" = "Imposta la tua password";
 "new-password-instructions" = "L'accesso è stato effettuato con una password temporanea. Per completare la registrazione, è necessario impostare una nuova password qui.";
-"new-password-password-placeholder-text" = "Nuova password";
-"new-password-confirm-placeholder-text" = "Conferma la nuova password";
 "two-factor-login-title" = "Accedi alla tua utenza";
 "two-factor-login-instructions" = "Inserisci il codice di verifica a due fattori";
-"two-factor-login-token-title" = "Token";
+"two-factor-login-continue" = "Continua l'accesso";
+"two-factor-login-with-regular-code" = "Usa codice di verifica";
 "login-name-not-found" = "Il nome utente è necessario per effettuare l'accesso.";
 "login-name-illegal" = "Hai fornito un nome utente non valido.";
 "login-name-does-not-exist" = "Il nome utente fornito non esiste.";
@@ -95,11 +95,38 @@
 "login-username-placeholder-text" = "Nome utente";
 "login-password-placeholder-text" = "Password";
 "login-forgot-password" = "Hai dimenticato la password?";
+"login-title" = "Accedi alla tua utenza";
+"login-no-account" = "Non hai ancora un'utenza? $1";
+"login-join-wikipedia" = "Unisciti a Wikipedia.";
+"field-username-title" = "Nome utente";
+"field-username-placeholder" = "inserisci il nome utente";
+"field-password-title" = "Password";
+"field-password-placeholder" = "inserisci la password";
+"field-password-confirm-title" = "Conferma password";
+"field-password-confirm-placeholder" = "re-inserisci la password";
+"field-new-password-title" = "Nuova password";
+"field-new-password-placeholder" = "inserisci la nuova password";
+"field-new-password-confirm-title" = "Conferma la nuova password";
+"field-new-password-confirm-placeholder" = "re-inserisci la nuova password";
+"field-email-title" = "Email";
+"field-email-title-optional" = "Email (opzionale)";
+"field-email-placeholder" = "example@example.org";
+"field-token-title" = "Codice di verifica";
+"field-token-placeholder" = "inserisci il token";
+"field-captcha-title" = "Inserisci il testo che vedi sopra";
+"field-captcha-placeholder" = "Testo CAPTCHA";
+"field-alert-username-unavailable" = "Nome utente non disponibile";
+"field-alert-password-invalid" = "Password non valida";
+// Fuzzy
+"field-alert-token-invalid" = "Codice non valido. Riprova.";
+"field-alert-captcha-invalid" = "CAPTCHA non valido";
+"field-alert-password-confirm-mismatch" = "Le password non corrispondono";
 "forgot-password-title" = "Reimposta password";
 "forgot-password-username-prompt" = "Nome utente";
 "forgot-password-email-prompt" = "Email (opzionale)";
 "forgot-password-button-title" = "Reimposta";
 "forgot-password-email-sent" = "Una email è stata inviata con le istruzioni per la reimpostazione della password";
+"forgot-password-username-or-email-title" = "O";
 "wikitext-downloading" = "Caricamento contenuto...";
 "wikitext-download-failed" = "Impossibile visualizzare l'ultima versione.";
 "wikitext-download-success" = "Contenuto caricato.";
@@ -260,6 +287,8 @@
 "share-as-image" = "Condividi come immagine";
 "share-as-text" = "Condividi come testo";
 "share-cancel" = "Annulla";
+"share-open-in-maps" = "Apri in Maps";
+"share-get-directions-in-maps" = "Ottieni indicazioni";
 "timestamp-just-now" = "proprio ora";
 "timestamp-minutes" = "%d minuti fa";
 "timestamp-hours" = "%d ore fa";
@@ -285,13 +314,13 @@
 "onboarding-skip" = "Salta";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "L'enciclopedia libera";
-"preference_title_eventlogging_opt_in" = "Invia rapporti sull'utilizzo";
-"preference_summary_eventlogging_opt_in" = "Consenti a Wikimedia di raccogliere informazioni su come usi l'applicazione per renderla migliore";
-"page_protected_autoconfirmed" = "Questa pagina è stata semi-protetta.";
-"page_protected_sysop" = "Questa pagina è stata protetta.";
-"page_protected_other" = "Questa pagina è stata protetta ai seguenti livelli: $1";
-"page_protected_can_not_edit" = "Non hai i diritti per modificare questa pagina";
-"page_protected_can_not_edit_title" = "Questa pagina è protetta";
+"preference-title-eventlogging-opt-in" = "Invia rapporti sull'utilizzo";
+"preference-summary-eventlogging-opt-in" = "Consenti a Wikimedia di raccogliere informazioni su come usi l'applicazione per renderla migliore";
+"page-protected-autoconfirmed" = "Questa pagina è stata semi-protetta.";
+"page-protected-sysop" = "Questa pagina è stata protetta.";
+"page-protected-other" = "Questa pagina è stata protetta ai seguenti livelli: $1";
+"page-protected-can-not-edit" = "Non hai i diritti per modificare questa pagina";
+"page-protected-can-not-edit-title" = "Questa pagina è protetta";
 "license-footer-text" = "Il contenuto è disponibile in base alla licenza $1, se non diversamente specificato.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Contenuti";
@@ -359,8 +388,7 @@
 "page-read-in-other-languages" = "Disponibile in altre $1 lingue";
 "page-last-edited" = "Modificata $1 giorni fa";
 "page-edit-history" = "Cronologia completa";
-"captcha-reload" = "Mostra un altro captcha";
-"captcha-prompt" = "Inserisci il testo CAPTCHA";
+"page-location" = "Visualizza sulla mappa";
 "mwk-empty-title-error" = "Impossibile eseguire l'operazione con un titolo vuoto.";
 "home-title" = "Esplora";
 "home-empty-section" = "Nessun risultato";
@@ -427,6 +455,11 @@
 "explore-continue-reading-heading" = "Continua a leggere";
 "explore-nearby-heading" = "Luoghi vicino";
 "explore-nearby-sub-heading-your-location" = "Propria posizione";
+"explore-nearby-placeholder-heading" = "Luoghi";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Su Wikipedia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Su Wikipedia in $1";
+"explore-nearby-placeholder-dismiss" = "Nascondi";
+"explore-nearby-placeholder-cancel" = "Annulla";
 "explore-continue-related-heading" = "Perché hai letto";
 "explore-main-page-heading" = "Oggi su Wikipedia";
 "explore-random-article-heading" = "Voce a caso";
@@ -472,6 +505,13 @@
 "announcements-dismiss" = "No, grazie";
 "places-search-saved-articles" = "Voci salvate";
 "places-search-recently-searched-header" = "Cercato recentemente";
+"places-unknown-distance" = "distanza sconosciuta";
+"places-accessibility-group" = "$1 voci";
+"places-accessibility-show-as-map" = "Mostra come mappa";
+"places-accessibility-show-as-list" = "Mostra come elenco";
+"places-accessibility-close-search" = "Chiudi la ricerca";
+"places-accessibility-clear-recent-searches" = "Pulisci le ricerche recenti";
 "action-share" = "Condividi";
 "action-save" = "Salva";
 "action-read" = "Leggi";
+"action-saved" = "Salvato";

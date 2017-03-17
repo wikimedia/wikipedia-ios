@@ -59,7 +59,7 @@ static id _sharedInstance;
 - (void)loadLanguagesFromFile {
     WMFAssetsFile *assetsFile = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeLanguages];
     NSParameterAssert(assetsFile.array);
-    self.allLanguages = [assetsFile.array bk_map:^id(NSDictionary *langAsset) {
+    self.allLanguages = [assetsFile.array wmf_map:^id(NSDictionary *langAsset) {
         NSString *code = langAsset[@"code"];
         NSString *localizedName = langAsset[@"canonical_name"];
         if (![self isCompoundLanguageCode:code]) {
@@ -86,7 +86,7 @@ static id _sharedInstance;
 
 - (void)setAllLanguages:(NSArray *)allLanguages {
     NSArray *unsupportedLanguages = WMFUnsupportedLanguages();
-    NSArray *supportedLanguageLinks = [allLanguages bk_reject:^BOOL(MWKLanguageLink *languageLink) {
+    NSArray *supportedLanguageLinks = [allLanguages wmf_reject:^BOOL(MWKLanguageLink *languageLink) {
         return [unsupportedLanguages containsObject:languageLink.languageCode];
     }];
 
@@ -96,7 +96,7 @@ static id _sharedInstance;
 }
 
 - (nullable MWKLanguageLink *)languageForSiteURL:(NSURL *)siteURL {
-    return [self.allLanguages bk_match:^BOOL(MWKLanguageLink *obj) {
+    return [self.allLanguages wmf_match:^BOOL(MWKLanguageLink *obj) {
         return [obj.siteURL isEqual:siteURL];
     }];
 }
@@ -108,14 +108,14 @@ static id _sharedInstance;
 - (NSArray<MWKLanguageLink *> *)preferredLanguages {
     NSArray *preferredLanguageCodes = [self readPreferredLanguageCodes];
     return [preferredLanguageCodes wmf_mapAndRejectNil:^id(NSString *langString) {
-        return [self.allLanguages bk_match:^BOOL(MWKLanguageLink *langLink) {
+        return [self.allLanguages wmf_match:^BOOL(MWKLanguageLink *langLink) {
             return [langLink.languageCode isEqualToString:langString];
         }];
     }];
 }
 
 - (NSArray<MWKLanguageLink *> *)otherLanguages {
-    return [self.allLanguages bk_select:^BOOL(MWKLanguageLink *langLink) {
+    return [self.allLanguages wmf_select:^BOOL(MWKLanguageLink *langLink) {
         return ![self.preferredLanguages containsObject:langLink];
     }];
 }
@@ -188,7 +188,7 @@ static id _sharedInstance;
                                           }
                                       }];
     }
-    return [preferredLanguages bk_reject:^BOOL(id obj) {
+    return [preferredLanguages wmf_reject:^BOOL(id obj) {
         return [obj isEqual:[NSNull null]];
     }];
 }
@@ -216,7 +216,7 @@ static id _sharedInstance;
 
 - (BOOL)languageIsOSLanguage:(MWKLanguageLink *)language {
     NSArray *languageCodes = [self readOSPreferredLanguageCodes];
-    return [languageCodes bk_match:^BOOL(NSString *obj) {
+    return [languageCodes wmf_match:^BOOL(NSString *obj) {
                BOOL answer = [obj isEqualToString:language.languageCode];
                return answer;
            }] != nil;

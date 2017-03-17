@@ -6,6 +6,7 @@
 // Author: Jhertel
 // Author: Mads Haupt
 // Author: Mortenelling
+// Author: Nemo bis
 // Author: Sarrus
 
 "languages-title" = "Skift sprog";
@@ -49,28 +50,27 @@
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "zero-warn-when-leaving" = "Advar hvis Zero forlades";
 "zero-settings-devmode" = "Zero udviklertilstand";
+"account-creation-title" = "Opret en ny konto";
 "account-creation-captcha-required" = "CAPTCHA kontrol kræves.";
 "account-creation-captcha-retry" = "Forkert indtastning. Prøv venligst igen.";
 "account-creation-captcha-obtaining" = "Henter en ny CAPTCHA...";
 "account-creation-captcha-title" = "CAPTCHA-sikkerhedskontrol";
 "account-creation-captcha-cannot-see-image" = "Kan du ikke se billedet? $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "Anmod om en konto.";
 "account-creation-logging-in" = "Logger på...";
 "account-creation-passwords-mismatched" = "Adgangskoderne stemmer ikke overens.";
 "account-creation-saving" = "Gemmer...";
 "account-creation-login" = "Har du allerede en konto? Log på.";
-"account-creation-username-placeholder-text" = "Brugernavn";
-"account-creation-password-placeholder-text" = "Adgangskode";
-"account-creation-password-confirm-placeholder-text" = "Bekræft adgangskode";
-"account-creation-email-placeholder-text" = "E-mail (valgfri)";
 "account-creation-missing-fields" = "Du skal indtaste et brugernavn, en adgangskode og en adgangskodebekræftelse for at oprette en konto.";
+"account-creation-create-account" = "Opret din konto";
+"account-creation-have-account" = "Har du allerede en konto? $1";
+"account-creation-log-in" = "Log på.";
 "new-password-title" = "Sæt din adgangskode";
 "new-password-instructions" = "Du loggede på med en midlertidig adgangskode. Angiv en ny adgangskode her for at færdiggøre login.";
-"new-password-password-placeholder-text" = "Ny adgangskode";
-"new-password-confirm-placeholder-text" = "Bekræft ny adgangskode";
 "two-factor-login-title" = "Log ind på din konto";
 "two-factor-login-instructions" = "Indtast venligst to-faktor-bekræftelseskode";
-"two-factor-login-token-title" = "Kode";
+"two-factor-login-continue" = "Fortsæt login";
 "login-name-not-found" = "Brugernavn er påkrævet for at logge på.";
 "login-name-illegal" = "Du har angivet et ugyldigt brugernavn.";
 "login-name-does-not-exist" = "Brugernavnet du angav findes ikke.";
@@ -82,6 +82,31 @@
 "login-username-placeholder-text" = "Brugernavn";
 "login-password-placeholder-text" = "Adgangskode";
 "login-forgot-password" = "Glemt din adgangskode?";
+"login-title" = "Log ind på din konto";
+"login-no-account" = "Har du ikke en konto? $1";
+"login-join-wikipedia" = "Deltag i Wikipedia.";
+"field-username-title" = "Brugernavn";
+"field-username-placeholder" = "indtast brugernavn";
+"field-password-title" = "Adgangskode";
+"field-password-placeholder" = "indtast adgangskode";
+"field-password-confirm-title" = "Bekræft adgangskode";
+"field-password-confirm-placeholder" = "genindtast adgangskode";
+"field-new-password-title" = "Ny adgangskode";
+"field-new-password-placeholder" = "indtast ny adgangskode";
+"field-new-password-confirm-title" = "Bekræft ny adgangskode";
+"field-new-password-confirm-placeholder" = "genindtast ny adgangskode";
+// Fuzzy
+"field-email-title" = "E-mailadresse (valgfri)";
+"field-email-placeholder" = "eksempel@eksempel.org";
+// Fuzzy
+"field-token-title" = "Kode";
+"field-token-placeholder" = "indtast kode";
+"field-captcha-title" = "Indtast den tekst, du ser ovenfor";
+"field-captcha-placeholder" = "CAPTCHA-tekst";
+"field-alert-username-unavailable" = "Brugernavn ikke tilgængeligt";
+"field-alert-password-invalid" = "Ugyldig adgangskode";
+"field-alert-captcha-invalid" = "Ugyldig CAPTCHA";
+"field-alert-password-confirm-mismatch" = "Adgangskoderne stemmer ikke overens";
 "forgot-password-title" = "Nulstil adgangskode";
 "forgot-password-instructions" = "Udfyld et af felterne nedenfor for at modtage instruktioner om nulstilling af adgangskoden via e-mail";
 "forgot-password-username-prompt" = "Brugernavn";
@@ -252,6 +277,8 @@
 "share-as-image" = "Del som billede";
 "share-as-text" = "Del som tekst";
 "share-cancel" = "Annuller";
+"share-open-in-maps" = "Åben i Maps";
+"share-get-directions-in-maps" = "Få Rutevejledning";
 "timestamp-just-now" = "lige nu";
 "timestamp-minutes" = "for %d minutter siden";
 "timestamp-hours" = "for %d timer siden";
@@ -277,13 +304,13 @@
 "onboarding-skip" = "Spring over";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Den frie encyklopædi";
-"preference_title_eventlogging_opt_in" = "Send anvendelsesrapporter";
-"preference_summary_eventlogging_opt_in" = "Tillad Wikimedia at indsamle oplysninger om, hvordan du bruger app'en, for at gøre app'en bedre.";
-"page_protected_autoconfirmed" = "Denne side er delvis beskyttet.";
-"page_protected_sysop" = "Denne side er beskyttet.";
-"page_protected_other" = "Denne side er beskyttet til følgende niveauer: $1";
-"page_protected_can_not_edit" = "Du har ikke rettigheder til at redigere denne side";
-"page_protected_can_not_edit_title" = "Denne side er beskyttet";
+"preference-title-eventlogging-opt-in" = "Send anvendelsesrapporter";
+"preference-summary-eventlogging-opt-in" = "Tillad Wikimedia at indsamle oplysninger om, hvordan du bruger app'en, for at gøre app'en bedre.";
+"page-protected-autoconfirmed" = "Denne side er delvis beskyttet.";
+"page-protected-sysop" = "Denne side er beskyttet.";
+"page-protected-other" = "Denne side er beskyttet til følgende niveauer: $1";
+"page-protected-can-not-edit" = "Du har ikke rettigheder til at redigere denne side";
+"page-protected-can-not-edit-title" = "Denne side er beskyttet";
 "license-footer-text" = "Indholdet er udgivet under $1 medmindre andet er angivet.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Indhold";
@@ -351,8 +378,7 @@
 "page-read-in-other-languages" = "Tilgængelig på $1 andre sprog";
 "page-last-edited" = "Redigeret for $1 dage siden";
 "page-edit-history" = "Fuld redigeringshistorik";
-"captcha-reload" = "Vis en anden captcha";
-"captcha-prompt" = "Indtast CAPTCHA teksten";
+"page-location" = "Vis på et kort";
 "mwk-empty-title-error" = "Ude af stand til at udføre operationen med tom titel.";
 "home-title" = "Opdag";
 "home-empty-section" = "Ingen resultater";
@@ -426,6 +452,11 @@
 "explore-continue-reading-heading" = "Fortsæt læsning";
 "explore-nearby-heading" = "Steder i nærheden";
 "explore-nearby-sub-heading-your-location" = "Din position";
+"explore-nearby-placeholder-heading" = "Steder";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "På Wikipedia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "På $1 Wikipedia";
+"explore-nearby-placeholder-dismiss" = "Skjul";
+"explore-nearby-placeholder-cancel" = "Annullér";
 "explore-continue-related-heading" = "Fordi du læste";
 "explore-main-page-heading" = "I dag på Wikipedia";
 "explore-random-article-heading" = "Tilfældig artikel";
@@ -475,6 +506,17 @@
 "places-search-saved-articles" = "Gemte artikler";
 "places-search-suggested-searches-header" = "Søgeforslag";
 "places-search-recently-searched-header" = "Seneste søgninger";
+"places-unknown-distance" = "ukendt afstand";
+"places-enable-location-title" = "Udforsk artikler i nærheden af din placering ved at aktivere placeringsadgang";
+"places-enable-location-description" = "Adgang til din placering er kun tilgængelig, når appen eller en af dens funktioner er synlige på din skærm.";
+"places-enable-location-action-button-title" = "Aktivér placering";
+"places-accessibility-group" = "$1 artikler";
+"places-accessibility-show-as-map" = "Vis som kort";
+"places-accessibility-show-as-list" = "Vis som liste";
+"places-accessibility-recenter-map-on-user-location" = "Centrér på din placering";
+"places-accessibility-close-search" = "Luk søgning";
+"places-accessibility-clear-recent-searches" = "Ryd seneste søgninger";
 "action-share" = "Del";
 "action-save" = "Gem";
 "action-read" = "Læs";
+"action-saved" = "Gemt";

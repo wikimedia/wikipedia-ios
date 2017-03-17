@@ -7,6 +7,7 @@
 // Author: Jkb8
 // Author: Macofe
 // Author: Mansil
+// Author: Nemo bis
 // Author: SandroHc
 // Author: Vitorvicentevalente
 // Author: Webysther
@@ -57,23 +58,17 @@
 "account-creation-captcha-obtaining" = "A obter novo código CAPTCHA...";
 "account-creation-captcha-title" = "Verificação de segurança com CAPTCHA";
 "account-creation-captcha-cannot-see-image" = "Não consegue ver a imagem? $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "Solicitar uma conta.";
 "account-creation-logging-in" = "A autenticar...";
 "account-creation-passwords-mismatched" = "As palavras-passe não correspondem.";
 "account-creation-saving" = "A gravar...";
 "account-creation-login" = "Já possui uma conta? Inicie sessão.";
-"account-creation-username-placeholder-text" = "Nome de utilizador(a)";
-"account-creation-password-placeholder-text" = "Palavra-passe";
-"account-creation-password-confirm-placeholder-text" = "Confirme a palavra-passe";
-"account-creation-email-placeholder-text" = "Endereço de correio eletrónico (opcional)";
 "account-creation-missing-fields" = "Deve inserir um nome de utilizador(a), uma palavra-passe e respetiva confirmação para criar uma conta.";
 "new-password-title" = "Defina a sua palavra-passe";
 "new-password-instructions" = "Está autenticado com uma palavra-passe temporária. Para concluir a autenticação, defina uma nova palavra-passe aqui.";
-"new-password-password-placeholder-text" = "Nova palavra-passe";
-"new-password-confirm-placeholder-text" = "Confirme a nova palavra-passe";
 "two-factor-login-title" = "Inicie sessão na sua conta";
 "two-factor-login-instructions" = "Escreva o código de verificação de dois fatores";
-"two-factor-login-token-title" = "Chave";
 "login-name-not-found" = "O nome de utilizador(a) é necessário para iniciar sessão.";
 "login-name-illegal" = "Forneceu um nome de utilizador(a) ilegal.";
 "login-name-does-not-exist" = "O nome de utilizador(a) que forneceu não existe.";
@@ -280,13 +275,13 @@
 "onboarding-skip" = "Ignorar";
 "onboarding-wikipedia" = "Wikipédia";
 "onboarding-free-encyclopedia" = "A enciclopédia livre";
-"preference_title_eventlogging_opt_in" = "Enviar relatórios de uso";
-"preference_summary_eventlogging_opt_in" = "Permitir que a Wikimedia recolha informações sobre o uso da aplicação para elaborar melhorias";
-"page_protected_autoconfirmed" = "Esta página foi semiprotegida.";
-"page_protected_sysop" = "Esta página foi totalmente protegida.";
-"page_protected_other" = "Esta página está protegida para os seguintes níveis: $1";
-"page_protected_can_not_edit" = "Não tem permissão para editar esta página";
-"page_protected_can_not_edit_title" = "Esta página está protegida";
+"preference-title-eventlogging-opt-in" = "Enviar relatórios de uso";
+"preference-summary-eventlogging-opt-in" = "Permitir que a Wikimedia recolha informações sobre o uso da aplicação para elaborar melhorias";
+"page-protected-autoconfirmed" = "Esta página foi semiprotegida.";
+"page-protected-sysop" = "Esta página foi totalmente protegida.";
+"page-protected-other" = "Esta página está protegida para os seguintes níveis: $1";
+"page-protected-can-not-edit" = "Não tem permissão para editar esta página";
+"page-protected-can-not-edit-title" = "Esta página está protegida";
 "license-footer-text" = "Conteúdo disponibilizado nos termos da $1, salvo indicação contrária.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Índice";
@@ -354,8 +349,6 @@
 "page-read-in-other-languages" = "Disponível em $1 outros idiomas";
 "page-last-edited" = "Editado há $1 dias";
 "page-edit-history" = "Histórico completo";
-"captcha-reload" = "Mostrar outro código";
-"captcha-prompt" = "Insira o código CAPTCHA";
 "mwk-empty-title-error" = "Não é possível executar a operação com o título vazio.";
 "home-title" = "Explorar";
 "home-empty-section" = "Sem resultados";

@@ -3,6 +3,7 @@
 // Author: Aktron
 // Author: Fendo99
 // Author: Milicevic01
+// Author: Nemo bis
 // Author: Rancher
 // Author: Сербијана
 
@@ -51,12 +52,7 @@
 "account-creation-passwords-mismatched" = "Лозинке се не поклапају.";
 "account-creation-saving" = "Чувам…";
 "account-creation-login" = "Већ имате налог? Пријавите се.";
-"account-creation-username-placeholder-text" = "Корисничко име";
-"account-creation-password-placeholder-text" = "Лозинка";
-"account-creation-password-confirm-placeholder-text" = "Потврда лозинке";
-"account-creation-email-placeholder-text" = "Имејл (необавезно)";
 "account-creation-missing-fields" = "За отварање налога је потребно да унесете корисничко име, лозинку и потврду лозинке.";
-"new-password-password-placeholder-text" = "Нова лозинка";
 "login-name-not-found" = "Потребно је корисничко име.";
 "login-name-illegal" = "Наведено корисничко име је неисправно.";
 "login-name-does-not-exist" = "Наведено корисничко име не постоји.";
@@ -247,13 +243,13 @@
 "onboarding-skip" = "Прескочи";
 "onboarding-wikipedia" = "Википедија";
 "onboarding-free-encyclopedia" = "Слободна енциклопедија";
-"preference_title_eventlogging_opt_in" = "Шаљи извештаје о употреби";
-"preference_summary_eventlogging_opt_in" = "Дозволите Викимедији да прикупља информације о томе како користите апликацију у циљу њеног побољшања.";
-"page_protected_autoconfirmed" = "Ова страница је полузаштићена.";
-"page_protected_sysop" = "Ова страница је потпуно заштићена.";
-"page_protected_other" = "Ова страница је заштићена на следећим нивоима: $1";
-"page_protected_can_not_edit" = "Немате права да уређујете ову страницу";
-"page_protected_can_not_edit_title" = "Ова страница је заштићена";
+"preference-title-eventlogging-opt-in" = "Шаљи извештаје о употреби";
+"preference-summary-eventlogging-opt-in" = "Дозволите Викимедији да прикупља информације о томе како користите апликацију у циљу њеног побољшања.";
+"page-protected-autoconfirmed" = "Ова страница је полузаштићена.";
+"page-protected-sysop" = "Ова страница је потпуно заштићена.";
+"page-protected-other" = "Ова страница је заштићена на следећим нивоима: $1";
+"page-protected-can-not-edit" = "Немате права да уређујете ову страницу";
+"page-protected-can-not-edit-title" = "Ова страница је заштићена";
 "license-footer-text" = "Садржај је доступан под лиценцом $1 осим ако је другачије наведено.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Садржај";
@@ -320,8 +316,6 @@
 "page-read-in-other-languages" = "Доступно на $1 језика";
 "page-last-edited" = "Измењено пре $1 дана";
 "page-edit-history" = "Целокупна историја измена";
-"captcha-reload" = "Прикажи другу слику";
-"captcha-prompt" = "Унесите текст са слике";
 "mwk-empty-title-error" = "Не могу да извршим операцију са празним насловом.";
 "home-title" = "Истражи";
 "home-empty-section" = "Нема резултата";

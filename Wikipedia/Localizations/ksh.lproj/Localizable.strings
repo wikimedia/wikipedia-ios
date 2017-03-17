@@ -1,6 +1,7 @@
 // Messages for Colognian (Ripoarisch)
 // Exported from translatewiki.net
 // Author: Mhurd
+// Author: Nemo bis
 // Author: Purodha
 
 "languages-title" = "De Schprohch wääßele";
@@ -50,10 +51,6 @@
 "account-creation-passwords-mismatched" = "De Paßwööter paße nit zersamme.";
 "account-creation-saving" = "Ben aam Afseschere …";
 "account-creation-login" = "Do häs alld_ene Zohjang? Dann donn enlogge!";
-"account-creation-username-placeholder-text" = "Der Metmaacher_Nahme";
-"account-creation-password-placeholder-text" = "Paßwoot";
-"account-creation-password-confirm-placeholder-text" = "Noch ens dat Paßwoot";
-"account-creation-email-placeholder-text" = "De Adräß för de eläktrohnesche Poß, kann och fott bliehve";
 "account-creation-missing-fields" = "Do moss ene Metmaacher_Nahme, e Paßwoot un en Beschtähtejong för et Paßwoot enjävve, öm ene Zohjang aanzelähje.";
 "login-name-not-found" = "Ene Metmaacher_Nahme es nühdesch zom Enlogge.";
 "login-name-illegal" = "Do häss ene onjöltejje Metmaacher_Nahme aanjejovve.";
@@ -251,13 +248,13 @@
 "onboarding-skip" = "Övverjonn";
 "onboarding-wikipedia" = "Wikkipehdija";
 "onboarding-free-encyclopedia" = "Dat freij un offe Nohkixel";
-"preference_title_eventlogging_opt_in" = "Bereeschte met Dahte övver der Jebruch afflivvere";
-"preference_summary_eventlogging_opt_in" = "Donn de Wikkimehdija-Schteffong älaube, Enfommazjuhne drövver opzesammelle, wi De heh di Äpp bruchs, öme se bäßer maache ze künne.";
-"page_protected_autoconfirmed" = "Heh di Sigg es hallef jeschöz.";
-"page_protected_sysop" = "Heh di Sigg es jeschöz.";
-"page_protected_other" = "Heh di Sigg es jeschöß woode op Nivvoh: $1";
-"page_protected_can_not_edit" = "Do häs nit dat Rääsch, heh di Sigg ze ändere";
-"page_protected_can_not_edit_title" = "Heh di Sigg es jeschöz.";
+"preference-title-eventlogging-opt-in" = "Bereeschte met Dahte övver der Jebruch afflivvere";
+"preference-summary-eventlogging-opt-in" = "Donn de Wikkimehdija-Schteffong älaube, Enfommazjuhne drövver opzesammelle, wi De heh di Äpp bruchs, öme se bäßer maache ze künne.";
+"page-protected-autoconfirmed" = "Heh di Sigg es hallef jeschöz.";
+"page-protected-sysop" = "Heh di Sigg es jeschöz.";
+"page-protected-other" = "Heh di Sigg es jeschöß woode op Nivvoh: $1";
+"page-protected-can-not-edit" = "Do häs nit dat Rääsch, heh di Sigg ze ändere";
+"page-protected-can-not-edit-title" = "Heh di Sigg es jeschöz.";
 "license-footer-text" = "Wann nit angersch aanjejovve es dä Ennhalld ze hann onger $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Enhalld";
@@ -329,8 +326,6 @@
 "page-read-in-other-languages" = "En $1 annder Schprohche ze han";
 "page-last-edited" = "Vör $1 Dähsch verändert";
 "page-edit-history" = "De kumplätte Verjangeheijt";
-"captcha-reload" = "En annder Kaptscha";
-"captcha-prompt" = "Jif dä Kaptscha-Täx vun dämm Belld en.";
 "mwk-empty-title-error" = "Medd_ene läddeje Övverschreff jeiht dat nit ze maache.";
 "home-title" = "Ußfochsche";
 "home-empty-section" = "Nix jefonge";

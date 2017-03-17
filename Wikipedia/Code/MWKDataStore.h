@@ -39,6 +39,7 @@ extern NSString *const MWKTeardownDataSourcesNotification;
  */
 extern NSString *const MWKItemUpdatedNotification;
 extern NSString *const MWKURLKey;
+extern NSString *const MWKSavedDateKey;
 
 @interface MWKDataStore : NSObject
 
@@ -226,14 +227,13 @@ extern NSString *const MWKURLKey;
 
 // Storage helper methods
 
-- (void)iterateOverArticles:(void (^)(MWKArticle *))block;
-
 - (NSError *)removeFolderAtBasePath;
 
 - (BOOL)hasHTMLFileForSection:(MWKSection *)section;
 
 - (void)clearMemoryCache;
 
+- (void)removeUnreferencedArticlesFromDiskCacheWithFailure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
 - (void)removeArticlesWithURLsFromCache:(NSArray<NSURL *> *)titlesToRemove;
 
 - (void)startCacheRemoval;

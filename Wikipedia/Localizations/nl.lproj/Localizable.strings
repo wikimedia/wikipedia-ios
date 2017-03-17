@@ -8,6 +8,7 @@
 // Author: Mathonius
 // Author: MedShot
 // Author: MrLeopold
+// Author: Nemo bis
 // Author: Robin van der Vliet
 // Author: Robin0van0der0vliet
 // Author: SPQRobin
@@ -60,17 +61,13 @@
 "zero-settings-devmode" = "Zero-ontwikkelmodus";
 "account-creation-captcha-required" = "CAPTCHA-controle vereist.";
 "account-creation-captcha-obtaining" = "Nieuwe CAPTCHA aan het ophalen...";
+// Fuzzy
 "account-creation-captcha-request-account" = "Vraag een account aan.";
 "account-creation-logging-in" = "Aan het aanmelden...";
 "account-creation-passwords-mismatched" = "De wachtwoorden komen niet overeen.";
 "account-creation-saving" = "Aan het opslaan...";
 "account-creation-login" = "Hebt u al een gebruiker? Meld u dan aan.";
-"account-creation-username-placeholder-text" = "Gebruikersnaam";
-"account-creation-password-placeholder-text" = "Wachtwoord";
-"account-creation-password-confirm-placeholder-text" = "Wachtwoord bevestigen";
-"account-creation-email-placeholder-text" = "E-mailadres (optioneel)";
 "account-creation-missing-fields" = "U moet een gebruikersnaam, wachtwoord, en wachtwoordbevestiging invoeren om een account aan te maken.";
-"new-password-password-placeholder-text" = "Nieuw wachtwoord";
 "login-name-not-found" = "U moet een gebruikersnaam opgeven om aan te melden.";
 "login-name-illegal" = "U hebt een ongeldige gebruikersnaam opgegeven.";
 "login-name-does-not-exist" = "De opgegeven gebruikersnaam bestaat niet.";
@@ -273,13 +270,13 @@
 "onboarding-skip" = "Overslaan";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "De vrije encyclopedie";
-"preference_title_eventlogging_opt_in" = "Gebruiksrapporten verzenden";
-"preference_summary_eventlogging_opt_in" = "Wikimedia toestaan om informatie te verzamelen over hoe u deze app gebruikt, zodat de app beter kan worden gemaakt";
-"page_protected_autoconfirmed" = "Deze pagina is semibeveiligd.";
-"page_protected_sysop" = "Deze pagina is volledig beveiligd.";
-"page_protected_other" = "Deze pagina is beveiligd op de volgende niveaus: $1";
-"page_protected_can_not_edit" = "U heeft geen rechten om deze pagina te bewerken";
-"page_protected_can_not_edit_title" = "Deze pagina is beveiligd";
+"preference-title-eventlogging-opt-in" = "Gebruiksrapporten verzenden";
+"preference-summary-eventlogging-opt-in" = "Wikimedia toestaan om informatie te verzamelen over hoe u deze app gebruikt, zodat de app beter kan worden gemaakt";
+"page-protected-autoconfirmed" = "Deze pagina is semibeveiligd.";
+"page-protected-sysop" = "Deze pagina is volledig beveiligd.";
+"page-protected-other" = "Deze pagina is beveiligd op de volgende niveaus: $1";
+"page-protected-can-not-edit" = "U heeft geen rechten om deze pagina te bewerken";
+"page-protected-can-not-edit-title" = "Deze pagina is beveiligd";
 "license-footer-text" = "De inhoud is beschikbaar onder de $1 tenzij anders aangegeven.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Inhoud";
@@ -347,8 +344,6 @@
 "page-read-in-other-languages" = "Beschikbaar in $1 andere talen";
 "page-last-edited" = "$1 dagen geleden bewerkt";
 "page-edit-history" = "Volledige bewerkingsgeschiedenis";
-"captcha-reload" = "Andere CAPTCHA weergeven";
-"captcha-prompt" = "Vul de CAPTCHA-tekst in";
 "mwk-empty-title-error" = "Het was niet mogelijk de bewerking uit de voeren zonder paginanaam.";
 "home-title" = "Verkennen";
 "home-empty-section" = "Geen resultaten";

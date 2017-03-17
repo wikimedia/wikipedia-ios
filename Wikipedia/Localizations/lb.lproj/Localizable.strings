@@ -1,6 +1,7 @@
 // Messages for Luxembourgish (Lëtzebuergesch)
 // Exported from translatewiki.net
 // Author: Macofe
+// Author: Nemo bis
 // Author: Robby
 
 "languages-title" = "Sprooch änneren";
@@ -44,26 +45,28 @@
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "zero-warn-when-leaving" = "Beim Verloosse vu Zero warnen";
 "zero-settings-devmode" = "Zero-Entwécklermodus";
+"account-creation-title" = "En neie Benotzerkont uleeën";
 "account-creation-captcha-required" = "CAPTCHA-Kontroll obligatoresch.";
 "account-creation-captcha-retry" = "Falsch Entrée. Probéiert w.e.g. nach eng Kéier.";
 "account-creation-captcha-obtaining" = "En neie CAPTCHA kréien.";
 "account-creation-captcha-title" = "CAPtCHA-Sécherheets-Check";
 "account-creation-captcha-cannot-see-image" = "Kënnt Dir d'Bild net gesinn? $1";
-"account-creation-captcha-request-account" = "Ee Benotzerkont ufroen.";
+"account-creation-captcha-request-account" = "Benotzerkont ufroen.";
 "account-creation-logging-in" = "Aloggen...";
 "account-creation-passwords-mismatched" = "D'Passwierder sinn net identesch.";
 "account-creation-saving" = "Späicheren...";
 "account-creation-login" = "Hutt Dir schonn e Benotzerkont? Aloggen.";
-"account-creation-username-placeholder-text" = "Benotzernumm";
-"account-creation-password-placeholder-text" = "Passwuert";
-"account-creation-password-confirm-placeholder-text" = "Passwuert confirméieren";
-"account-creation-email-placeholder-text" = "E-Mail (Fakultativ)";
 "account-creation-missing-fields" = "Dir musst e Benotzernumm, e Passwuert an d'Confirmatioun vum Passwuert agi fir e Benotzerkont opzemaachen.";
+"account-creation-create-account" = "Äre Benotzerkont uleeën";
+"account-creation-have-account" = "Hutt Dir schonn e Benotzerkont? $1";
+"account-creation-log-in" = "Aloggen.";
 "new-password-title" = "Leet Äert Passwuert fest";
-"new-password-password-placeholder-text" = "Neit Passwuert";
-"new-password-confirm-placeholder-text" = "Neit Passwuert confirméieren";
 "two-factor-login-title" = "An Äre Benotzerkont aloggen";
-"two-factor-login-token-title" = "Token";
+"two-factor-login-continue" = "Virufuere mam Aloggen";
+// Fuzzy
+"two-factor-login-with-regular-code" = "Kuerzen numeresche Code benotzen";
+// Fuzzy
+"two-factor-login-with-backup-code" = "Benotzt méi e laange Backup-Code";
 "login-name-not-found" = "De Benotzernumm ass obligatoresch fir sech anzeloggen.";
 "login-name-illegal" = "Dir hutt e falsche Benotzernumm uginn.";
 "login-name-does-not-exist" = "De Benotzernumm deen Dir uginn hutt gëtt et net.";
@@ -75,10 +78,37 @@
 "login-username-placeholder-text" = "Benotzernumm";
 "login-password-placeholder-text" = "Passwuert";
 "login-forgot-password" = "Hutt Dir Äert Passwuert vergiess?";
+"login-title" = "An Äre Benotzerkont aloggen";
+"login-no-account" = "Hutt Dir kee Benotzerkont? $1";
+"login-join-wikipedia" = "Bei Wikipedia matmaachen.";
+"field-username-title" = "Benotzernumm";
+"field-username-placeholder" = "Benotzernumm aginn";
+"field-password-title" = "Passwuert";
+"field-password-placeholder" = "Passwuert aginn";
+"field-password-confirm-title" = "Passwuert confirméieren";
+"field-password-confirm-placeholder" = "Passwuert nees aginn";
+"field-new-password-title" = "Neit Passwuert";
+"field-new-password-placeholder" = "neit Passwuert aginn";
+"field-new-password-confirm-title" = "Neit Passwuert confirméieren";
+"field-new-password-confirm-placeholder" = "neit Passwuert nees aginn";
+"field-email-title" = "E-Mail";
+"field-email-title-optional" = "E-Mail (Fakultativ)";
+"field-email-placeholder" = "beispill@beispill.org";
+// Fuzzy
+"field-token-title" = "Numeresche Code";
+"field-backup-token-title" = "Backup-Code";
+"field-token-placeholder" = "Token aginn";
+"field-captcha-title" = "Gitt den Text an deen Dir hei driwwer gesitt";
+"field-captcha-placeholder" = "CAPTCHA-Text";
+"field-alert-username-unavailable" = "Benotzernumm net disponibel";
+"field-alert-password-invalid" = "Net valabelt Passwuert";
+"field-alert-captcha-invalid" = "Net valabele CAPTCHA";
+"field-alert-password-confirm-mismatch" = "D'Passwierder déi Dir aginn hutt sinn net identesch";
 "forgot-password-title" = "Passwuert zrécksetzen";
 "forgot-password-username-prompt" = "Benotzernumm";
 "forgot-password-email-prompt" = "E-Mail (fakultativ)";
 "forgot-password-button-title" = "Zrécksetzen";
+"forgot-password-username-or-email-title" = "Oder";
 "wikitext-downloading" = "Inhalt gëtt gelueden...";
 "wikitext-download-failed" = "Déi lescht Versioun konnt net opgeruff ginn.";
 "wikitext-download-success" = "Inhalt gelueden.";
@@ -264,13 +294,13 @@
 "onboarding-skip" = "Iwwersprangen";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Déi fräi Enzyklopedie";
-"preference_title_eventlogging_opt_in" = "Rapporten iwwer d'Benotze schécken";
-"preference_summary_eventlogging_opt_in" = "Wikimedia erlaben Informatiounen iwwer d'Benotze vun der App ze sammele fir se ze verbesseren.";
-"page_protected_autoconfirmed" = "Dës Säit ass hallef gespaart.";
-"page_protected_sysop" = "Dës Säit ass komplett gespaart.";
-"page_protected_other" = "Dës Säit gouf fir dës Niveaue gespaart: $1";
-"page_protected_can_not_edit" = "Dir hutt net d'Recht fir dës Säit z'änneren";
-"page_protected_can_not_edit_title" = "Dës Säit ass gespaart";
+"preference-title-eventlogging-opt-in" = "Rapporten iwwer d'Benotze schécken";
+"preference-summary-eventlogging-opt-in" = "Wikimedia erlaben Informatiounen iwwer d'Benotze vun der App ze sammele fir se ze verbesseren.";
+"page-protected-autoconfirmed" = "Dës Säit ass hallef gespaart.";
+"page-protected-sysop" = "Dës Säit ass komplett gespaart.";
+"page-protected-other" = "Dës Säit gouf fir dës Niveaue gespaart: $1";
+"page-protected-can-not-edit" = "Dir hutt net d'Recht fir dës Säit z'änneren";
+"page-protected-can-not-edit-title" = "Dës Säit ass gespaart";
 "license-footer-text" = "Den Inhalt ass ënner der $1 disponibel wann et net anescht uginn ass.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Inhalter";
@@ -336,8 +366,7 @@
 "page-read-in-other-languages" = "Disponibel an $1 aneren Sproochen";
 "page-last-edited" = "Viru(n) $1 Deeg geännert";
 "page-edit-history" = "All Versioune vun der Säit";
-"captcha-reload" = "En anere Captcha weisen";
-"captcha-prompt" = "Gitt de Captcha-Text an";
+"page-location" = "Op enger Kaart weisen";
 "mwk-empty-title-error" = "Operatioun kann net mat engem eidelen Titel gemaach ginn.";
 "home-title" = "Entdecken";
 "home-empty-section" = "Keng Resultater";
@@ -410,6 +439,11 @@
 "explore-continue-reading-heading" = "Virufuere mat Liesen";
 "explore-nearby-heading" = "Plazen nobäi";
 "explore-nearby-sub-heading-your-location" = "Är Plaz";
+"explore-nearby-placeholder-heading" = "Plazen";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Op Wikipedia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Op Wikipedia op $1";
+"explore-nearby-placeholder-dismiss" = "Verwerfen";
+"explore-nearby-placeholder-cancel" = "Ofbriechen";
 "explore-continue-related-heading" = "Well Dir liest";
 "explore-main-page-heading" = "Haut op Wikipedia";
 "explore-random-article-heading" = "Zoufällegen Artikel";
@@ -458,6 +492,12 @@
 "places-search-this-area" = "An dësem  Beräich sichen";
 "places-search-saved-articles" = "Gespäichert Artikelen";
 "places-search-recently-searched-header" = "Rezent gesicht";
+"places-unknown-distance" = "onbekannt Distanz";
+"places-accessibility-group" = "$1 Artikelen";
+"places-accessibility-show-as-map" = "Als Kaart weisen";
+"places-accessibility-show-as-list" = "Als Lëscht weisen";
+"places-accessibility-close-search" = "Sichen zoumaachen";
 "action-share" = "Deelen";
 "action-save" = "Späicheren";
 "action-read" = "Liesen";
+"action-saved" = "Gespäichert";

@@ -14,8 +14,10 @@
 
 // Frameworks
 #import <HockeySDK/HockeySDK.h>
+#if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakViewController.h>
 #import <Tweaks/FBTweakStore.h>
+#endif
 #import "SSDataSources.h"
 
 // Other
@@ -41,7 +43,11 @@ static NSString *const WMFSettingsURLRate = @"itms-apps://itunes.apple.com/app/i
 static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=<app-version>&uselang=<langcode>";
 static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafoundation.org/wiki/Privacy_policy";
 
+#if WMF_TWEAKS_ENABLED
 @interface WMFSettingsViewController () <UITableViewDelegate, WMFPreferredLanguagesViewControllerDelegate, FBTweakViewControllerDelegate>
+#else
+@interface WMFSettingsViewController () <UITableViewDelegate, WMFPreferredLanguagesViewControllerDelegate>
+#endif
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 @property (nonatomic, strong, readwrite) WMFArticleDataStore *previewStore;
@@ -109,14 +115,12 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 }
 
 - (void)configureBackButton {
-    @weakify(self)
-        UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
-                                                           handler:^(id sender) {
-                                                               @strongify(self)
-                                                                   [self dismissViewControllerAnimated:YES
-                                                                                            completion:nil];
-                                                           }];
+    UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
     self.navigationItem.leftBarButtonItems = @[xButton];
+}
+
+- (void)closeButtonPressed {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (nullable NSString *)title {
@@ -134,6 +138,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 
     @weakify(self)
         self.elementDataSource.cellConfigureBlock = ^(WMFSettingsTableViewCell *cell, WMFSettingsMenuItem *menuItem, UITableView *tableView, NSIndexPath *indexPath) {
+            @strongify(self)
         cell.title = menuItem.title;
         cell.iconColor = menuItem.iconColor;
         cell.iconName = menuItem.iconName;
@@ -147,16 +152,19 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
         } else {
             cell.accessibilityTraits = UIAccessibilityTraitStaticText;
         }
+        
+    
+        [cell.disclosureSwitch removeTarget:self action:@selector(disclosureSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+        cell.disclosureSwitch.tag = menuItem.type;
+        [cell.disclosureSwitch addTarget:self action:@selector(disclosureSwitchChanged:) forControlEvents:UIControlEventValueChanged];
 
-        [cell.disclosureSwitch bk_removeEventHandlersForControlEvents:UIControlEventValueChanged];
-        [cell.disclosureSwitch bk_addEventHandler:^(UISwitch *sender) {
-            @strongify(self)
-                menuItem.isSwitchOn = sender.isOn;
-            [self updateStateForMenuItemType:menuItem.type isSwitchOnValue:sender.isOn];
-        }
-                                 forControlEvents:UIControlEventValueChanged];
     };
     [self loadSections];
+}
+
+- (void)disclosureSwitchChanged:(UISwitch *)disclosureSwitch {
+    WMFSettingsMenuItemType type = (WMFSettingsMenuItemType)disclosureSwitch.tag;
+    [self updateStateForMenuItemType:type isSwitchOnValue:disclosureSwitch.isOn];
 }
 
 #pragma mark - Switch tap handling
@@ -217,9 +225,11 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
             [[self class] generateTestCrash];
             break;
         case WMFSettingsMenuItemType_DevSettings: {
+#if WMF_TWEAKS_ENABLED
             FBTweakViewController *tweaksVC = [[FBTweakViewController alloc] initWithStore:[FBTweakStore sharedInstance]];
             tweaksVC.tweaksDelegate = self;
             [self presentViewController:tweaksVC animated:YES completion:nil];
+#endif
         }
         default:
             break;
@@ -315,15 +325,17 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     }
 }
 
+#if WMF_TWEAKS_ENABLED
 - (void)tweakViewControllerPressedDone:(FBTweakViewController *)tweakViewController {
     [[NSNotificationCenter defaultCenter] postNotificationName:FBTweakShakeViewControllerDidDismissNotification object:tweakViewController];
     [tweakViewController dismissViewControllerAnimated:YES completion:nil];
 }
+#endif
 
 #pragma mark - Cell reloading
 
 - (nullable NSIndexPath *)indexPathForVisibleCellOfType:(WMFSettingsMenuItemType)type {
-    return [self.tableView.indexPathsForVisibleRows bk_match:^BOOL(NSIndexPath *indexPath) {
+    return [self.tableView.indexPathsForVisibleRows wmf_match:^BOOL(NSIndexPath *indexPath) {
         return ((WMFSettingsMenuItem *)[self.elementDataSource itemAtIndexPath:indexPath]).type == type;
     }];
 }
@@ -385,7 +397,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SendUsageReports]
         ]];
     section.header = MWLocalizedString(@"main-menu-heading-legal", nil);
-    section.footer = MWLocalizedString(@"preference_summary_eventlogging_opt_in", nil);
+    section.footer = MWLocalizedString(@"preference-summary-eventlogging-opt-in", nil);
     return section;
 }
 

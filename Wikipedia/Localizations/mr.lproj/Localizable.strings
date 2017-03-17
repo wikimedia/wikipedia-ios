@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Abhinavgarule
 // Author: NehalDaveND
+// Author: Nemo bis
 // Author: V.narsikar
 // Author: अभय नातू
 // Author: संतोष दहिवळ
@@ -53,10 +54,6 @@
 "account-creation-passwords-mismatched" = "परवलीचा शब्द जुळत नाही.";
 "account-creation-saving" = "जतन करीत आहे...";
 "account-creation-login" = "आपले खाते आहे? प्रवेश करा";
-"account-creation-username-placeholder-text" = "सदस्यनाव";
-"account-creation-password-placeholder-text" = "परवलीचा शब्द";
-"account-creation-password-confirm-placeholder-text" = "परवलीच्या शब्दाची निश्चिती करा";
-"account-creation-email-placeholder-text" = "विपत्र (‌वैकल्पिक)";
 "account-creation-missing-fields" = "खाते उघडण्यास आपण सदस्यनाव,परवलीचा शब्द व परवलीचा शब्दाचे नक्कीकरण टाकणे आवश्यक आहे.";
 "login-name-not-found" = "सनोंद-प्रवेशास सदस्यनाव हवे.";
 "login-name-illegal" = "आपण अवैध सदस्यनाव पुरविले.";
@@ -236,13 +233,13 @@
 "onboarding-skip" = "पुढे जा";
 "onboarding-wikipedia" = "विकिपीडिया";
 "onboarding-free-encyclopedia" = "मुक्त ज्ञानकोश";
-"preference_title_eventlogging_opt_in" = "वापराचा अहवाल पाठवा";
-"preference_summary_eventlogging_opt_in" = "विकिपीडियास, आपण हे अॅप कसे वापरता याबद्दल माहिती घेण्यास परवानगी द्या जेणेकरुन, ते अॅप अधिक चांगले करता येईल.";
-"page_protected_autoconfirmed" = "हे पान अर्ध-सुरक्षित आहे.";
-"page_protected_sysop" = "हे पान पूर्णत: सुरक्षित आहे.";
-"page_protected_other" = "हे पान खालील स्तरांपर्यंत सुरक्षित आहे:$1";
-"page_protected_can_not_edit" = "तुम्हाला हे पान संपादन करण्याचा अधिकार नाही";
-"page_protected_can_not_edit_title" = "हे पान संरक्षित आहे";
+"preference-title-eventlogging-opt-in" = "वापराचा अहवाल पाठवा";
+"preference-summary-eventlogging-opt-in" = "विकिपीडियास, आपण हे अॅप कसे वापरता याबद्दल माहिती घेण्यास परवानगी द्या जेणेकरुन, ते अॅप अधिक चांगले करता येईल.";
+"page-protected-autoconfirmed" = "हे पान अर्ध-सुरक्षित आहे.";
+"page-protected-sysop" = "हे पान पूर्णत: सुरक्षित आहे.";
+"page-protected-other" = "हे पान खालील स्तरांपर्यंत सुरक्षित आहे:$1";
+"page-protected-can-not-edit" = "तुम्हाला हे पान संपादन करण्याचा अधिकार नाही";
+"page-protected-can-not-edit-title" = "हे पान संरक्षित आहे";
 "license-footer-text" = "तसे नोंदविलेले नसेल तर, यातील आशय हा $1 अंतर्गत उपलब्ध आहे";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "आशय";
@@ -307,8 +304,6 @@
 "page-read-in-other-languages" = "$1 इतर भाषेत उपलब्ध";
 "page-last-edited" = "$1 दिवसांआधी संपादित केले";
 "page-edit-history" = "संपूर्ण संपादन इतिहास";
-"captcha-reload" = "दुसरा कॅप्चा दाखवा";
-"captcha-prompt" = "कॅप्चा मजकूर टाका";
 "mwk-empty-title-error" = "ही क्रिया रिकाम्या शिर्षकाने करता येत नाही.";
 "home-title" = "शोध करा";
 "home-empty-section" = "निकाल नाहीत";

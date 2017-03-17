@@ -42,6 +42,11 @@ extension WMFArticle {
         }
     }
     
+    //allows us to keep coordinate optional above
+    @objc public func update(scalarCoordinate: CLLocationCoordinate2D) {
+        coordinate = CLLocationCoordinate2DIsValid(scalarCoordinate) ? scalarCoordinate : nil
+    }
+    
     public var location: CLLocation? {
         get {
             guard let coordinate = coordinate else {
@@ -52,6 +57,20 @@ extension WMFArticle {
         
         set {
             coordinate = newValue?.coordinate
+        }
+    }
+    
+    public var mapItem: MKMapItem? {
+        get {
+            guard let coord = self.coordinate,
+                CLLocationCoordinate2DIsValid(coord) else {
+                    return nil
+            }
+
+            let placemark = MKPlacemark(coordinate: coord, addressDictionary: nil )
+            let mapItem = MKMapItem(placemark: placemark)
+            mapItem.name = self.displayTitle
+            return mapItem
         }
     }
 }

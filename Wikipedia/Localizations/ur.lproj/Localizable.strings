@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Hindustanilanguage
 // Author: Mhurd
+// Author: Nemo bis
 // Author: Obaid Raza
 // Author: Sohaib
 // Author: امین اکبر
@@ -53,10 +54,6 @@
 "account-creation-passwords-mismatched" = "کلمہ شناخت نہیں ملتے۔";
 "account-creation-saving" = "محفوظ ہورہا ہے...";
 "account-creation-login" = "پہلے سے کھاتہ موجود ہے؟ داخل ہوجائیں۔";
-"account-creation-username-placeholder-text" = "صارف کا نام";
-"account-creation-password-placeholder-text" = "کلمہ شناخت";
-"account-creation-password-confirm-placeholder-text" = "کلمہ شناخت کی تصدیق";
-"account-creation-email-placeholder-text" = "برقی خط (ختیاری)";
 "account-creation-missing-fields" = "کھاتہ بنانے کے لیے صارف کا نام، کلمہ شناخت اور کلمہ شناخت کی تصدیق فراہم کریں۔";
 "login-name-not-found" = "داخل ہونے کے لیے صارف کے نام کی ضرورت ہے۔";
 "login-name-illegal" = "آپ نے ایک ناقابل قبول صارف کا نام فراہم کیا ہے۔";
@@ -254,13 +251,13 @@
 "onboarding-skip" = "چھوڑیں";
 "onboarding-wikipedia" = "ویکیپیڈیا";
 "onboarding-free-encyclopedia" = "آزاد دائرۃ المعاروف";
-"preference_title_eventlogging_opt_in" = "استعمال کی رپورٹ بھیجیے";
-"preference_summary_eventlogging_opt_in" = "ویکیمیڈیا کو اجازت دیں کہ وہ آپ کے اس ایپ کے استعمال کی معلومات حاصل کرے تاکہ یہ کو اور بہتر بنایا جا سکے۔";
-"page_protected_autoconfirmed" = "یہ صفحہ نیم محفوظ رہا ہے۔";
-"page_protected_sysop" = "یہ صفحہ مکمل طور پر محفوظ رہا ہے۔";
-"page_protected_other" = "یہ صفحہ مندرجہ سطح تک محفوظ کیا گیا ہے:$1";
-"page_protected_can_not_edit" = "آپ کے پاس اس صفحہ کو ترمیم کرنے کے حقوق نہیں ہیں";
-"page_protected_can_not_edit_title" = "یہ محفوظ کردہ صفحہ ہے";
+"preference-title-eventlogging-opt-in" = "استعمال کی رپورٹ بھیجیے";
+"preference-summary-eventlogging-opt-in" = "ویکیمیڈیا کو اجازت دیں کہ وہ آپ کے اس ایپ کے استعمال کی معلومات حاصل کرے تاکہ یہ کو اور بہتر بنایا جا سکے۔";
+"page-protected-autoconfirmed" = "یہ صفحہ نیم محفوظ رہا ہے۔";
+"page-protected-sysop" = "یہ صفحہ مکمل طور پر محفوظ رہا ہے۔";
+"page-protected-other" = "یہ صفحہ مندرجہ سطح تک محفوظ کیا گیا ہے:$1";
+"page-protected-can-not-edit" = "آپ کے پاس اس صفحہ کو ترمیم کرنے کے حقوق نہیں ہیں";
+"page-protected-can-not-edit-title" = "یہ محفوظ کردہ صفحہ ہے";
 "license-footer-text" = "تمام مواد $1 کے تحت میسر ہے، جب تک کوئی دوسری وجہ نا ہو۔";
 "license-footer-name" = " کریئیٹیو کامنز انتساب / یکساں-شراکت اجازت نامہ 3.0";
 "table-of-contents-heading" = "مندرجات";
@@ -332,8 +329,6 @@
 "page-read-in-other-languages" = "$1 دیگر زبانوں ميں دستیاب";
 "page-last-edited" = "$1 دن پہلے ترمیم کیا گیا.";
 "page-edit-history" = "مکمل ترمیمی تاریخچہ";
-"captcha-reload" = "دوسرا کیپچا دکھاییں";
-"captcha-prompt" = "کیپچا متن کو ڈالیں";
 "mwk-empty-title-error" = "خالی عنوان پر یہ عمل بہ روئے کار نہیں لایا جاسکتا۔";
 "home-title" = "ایکسپلور";
 "home-empty-section" = "کوئی نتیجہ نہیں";

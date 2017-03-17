@@ -2,11 +2,14 @@
 // Exported from translatewiki.net
 // Author: Brion Vibber
 // Author: Caliburn
+// Author: Derugon
 // Author: Eric.LEWIN
 // Author: Gomoko
 // Author: Hydros
 // Author: John Trololo
 // Author: Macofe
+// Author: Nemo bis
+// Author: Od1n
 // Author: Orikrin1998
 // Author: Selhom
 // Author: Solucer
@@ -56,6 +59,7 @@
 "zero-wikipedia-zero-heading" = "Wikipédia Zéro";
 "zero-warn-when-leaving" = "Avertir en quittant Zéro";
 "zero-settings-devmode" = "Devmode Zéro";
+"account-creation-title" = "Créer un nouveau compte";
 "account-creation-captcha-required" = "Vérification par CAPTCHA obligatoire.";
 "account-creation-captcha-retry" = "Saisie non correcte. Veuillez réessayer.";
 "account-creation-captcha-obtaining" = "Obtention d’un nouveau CAPTCHA…";
@@ -66,18 +70,17 @@
 "account-creation-passwords-mismatched" = "Les champs mot de passe ne correspondent pas.";
 "account-creation-saving" = "Enregistrement en cours…";
 "account-creation-login" = "Vous avez déjà un compte ? Connectez-vous.";
-"account-creation-username-placeholder-text" = "Nom d’utilisateur";
-"account-creation-password-placeholder-text" = "Mot de passe";
-"account-creation-password-confirm-placeholder-text" = "Confirmer le mot de passe";
-"account-creation-email-placeholder-text" = "Courriel (facultatif)";
 "account-creation-missing-fields" = "Vous devez saisir un nom d’utilisateur, un mot de passe et une confirmation de mot de passe, pour créer un compte.";
+"account-creation-create-account" = "Créer votre compte";
+"account-creation-have-account" = "Vous avez déjà un compte ? $1";
+"account-creation-log-in" = "Connexion.";
 "new-password-title" = "Définir votre mot de passe";
 "new-password-instructions" = "Vous vous êtes connecté avec un mot de passe temporaire. Pour achever de vous connecter, saisissez un nouveau mot de passe ici.";
-"new-password-password-placeholder-text" = "Nouveau mot de passe";
-"new-password-confirm-placeholder-text" = "Confirmer le nouveau mot de passe";
 "two-factor-login-title" = "Se connecter à votre compte";
 "two-factor-login-instructions" = "Veuillez entrer le code de vérification à deux facteurs";
-"two-factor-login-token-title" = "Jeton";
+"two-factor-login-continue" = "Continuer la connexion";
+"two-factor-login-with-regular-code" = "Utiliser un code de vérification";
+"two-factor-login-with-backup-code" = "Utiliser un de vos codes de sauvegarde";
 "login-name-not-found" = "Le nom d’utilisateur est obligatoire pour se connecter.";
 "login-name-illegal" = "Vous avez choisi un nom d’utilisateur non autorisé.";
 "login-name-does-not-exist" = "Le nom d’utilisateur que vous avez fourni n’existe pas.";
@@ -89,12 +92,40 @@
 "login-username-placeholder-text" = "Nom d’utilisateur";
 "login-password-placeholder-text" = "Mot de passe";
 "login-forgot-password" = "Mot de passe oublié ?";
+"login-title" = "Connexion à votre compte";
+"login-no-account" = "Vous n’avez pas de compte ? $1";
+"login-join-wikipedia" = "Rejoindre Wikipédia.";
+"field-username-title" = "Nom d’utilisateur";
+"field-username-placeholder" = "saisir le nom d’utilisateur";
+"field-password-title" = "Mot de passe";
+"field-password-placeholder" = "saisir le mot de passe";
+"field-password-confirm-title" = "Confirmer le mot de passe";
+"field-password-confirm-placeholder" = "resaisir le mot de passe";
+"field-new-password-title" = "Nouveau mot de passe";
+"field-new-password-placeholder" = "saisir le nouveau mot de passe";
+"field-new-password-confirm-title" = "Confirmer le nouveau mot de passe";
+"field-new-password-confirm-placeholder" = "resaisir le nouveau mot de passe";
+"field-email-title" = "Courriel";
+"field-email-title-optional" = "Courriel (facultatif)";
+"field-email-placeholder" = "exemple@exemple.org";
+"field-token-title" = "Code de vérification";
+"field-backup-token-title" = "Code de sauvegarde";
+"field-token-placeholder" = "saisir le jeton";
+"field-captcha-title" = "Saisir le texte que vous voyez ci-dessus";
+"field-captcha-placeholder" = "Texte CAPTCHA";
+"field-alert-username-unavailable" = "Nom d’utilisateur non disponible";
+"field-alert-password-invalid" = "Mot de passe non valide";
+// Fuzzy
+"field-alert-token-invalid" = "Code non valide. Veuillez réessayer.";
+"field-alert-captcha-invalid" = "CAPTCHA non valide";
+"field-alert-password-confirm-mismatch" = "Les mots de passe ne correspondent pas";
 "forgot-password-title" = "Réinitialiser le mot de passe";
 "forgot-password-instructions" = "Remplir un des champs ci-dessous pour recevoir les instructions de réinitialisation du mot de passe par courriel";
 "forgot-password-username-prompt" = "Nom d’utilisateur";
 "forgot-password-email-prompt" = "Courriel (facultatif)";
 "forgot-password-button-title" = "Réinitialiser";
 "forgot-password-email-sent" = "Un courriel avec les instructions de réinitialisation du mot de passe a été envoyé";
+"forgot-password-username-or-email-title" = "Ou";
 "wikitext-downloading" = "Chargement du contenu…";
 "wikitext-download-failed" = "Impossible d’obtenir la dernière révision.";
 "wikitext-download-success" = "Contenu chargé.";
@@ -259,6 +290,8 @@
 "share-as-image" = "Partager comme image";
 "share-as-text" = "Partager comme texte";
 "share-cancel" = "Annuler";
+"share-open-in-maps" = "Ouvert dans Cartes";
+"share-get-directions-in-maps" = "Obtenir les Directions";
 "timestamp-just-now" = "à l’instant";
 "timestamp-minutes" = "il y a %d minutes";
 "timestamp-hours" = "il y a %d heures";
@@ -284,13 +317,13 @@
 "onboarding-skip" = "Passer";
 "onboarding-wikipedia" = "Wikipédia";
 "onboarding-free-encyclopedia" = "L’Encyclopédie libre";
-"preference_title_eventlogging_opt_in" = "Envoyer les rapports d’utilisation";
-"preference_summary_eventlogging_opt_in" = "Permettre à Wikimédia de collecter des informations sur la manière dont vous utilisez l’application, afin de l'améliorer";
-"page_protected_autoconfirmed" = "Cette page a été semi-protégée.";
-"page_protected_sysop" = "Cette page a été complètement protégée.";
-"page_protected_other" = "Cette page a été protégée pour les niveaux suivants : $1";
-"page_protected_can_not_edit" = "Vous n’avez pas le droit de modifier cette page";
-"page_protected_can_not_edit_title" = "Cette page est protégée";
+"preference-title-eventlogging-opt-in" = "Envoyer les rapports d’utilisation";
+"preference-summary-eventlogging-opt-in" = "Permettre à Wikimédia de collecter des informations sur la manière dont vous utilisez l’application, afin de l'améliorer";
+"page-protected-autoconfirmed" = "Cette page a été semi-protégée.";
+"page-protected-sysop" = "Cette page a été complètement protégée.";
+"page-protected-other" = "Cette page a été protégée pour les niveaux suivants : $1";
+"page-protected-can-not-edit" = "Vous n’avez pas le droit de modifier cette page";
+"page-protected-can-not-edit-title" = "Cette page est protégée";
 "license-footer-text" = "Le contenu est disponible sous $1 sauf spécification contraire.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Contenus";
@@ -358,8 +391,7 @@
 "page-read-in-other-languages" = "Disponible en $1 autres langues";
 "page-last-edited" = "Modifié il y a $1 jours";
 "page-edit-history" = "Historique complet des modifications";
-"captcha-reload" = "Afficher un autre captcha";
-"captcha-prompt" = "Entrer le texte du CAPTCHA";
+"page-location" = "Afficher sur une carte";
 "mwk-empty-title-error" = "Impossible d’effectuer l’opération avec un titre vide.";
 "home-title" = "Explorer";
 "home-empty-section" = "Aucun résultat";
@@ -433,6 +465,11 @@
 "explore-continue-reading-heading" = "Continuer à lire";
 "explore-nearby-heading" = "Endroits proches";
 "explore-nearby-sub-heading-your-location" = "Votre emplacement";
+"explore-nearby-placeholder-heading" = "Endroits";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Sur Wikipédia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Sur Wikipédia en $1";
+"explore-nearby-placeholder-dismiss" = "Rejeter";
+"explore-nearby-placeholder-cancel" = "Annuler";
 "explore-continue-related-heading" = "Parce que vous avez lu";
 "explore-main-page-heading" = "Aujourd’hui sur Wikipédia";
 "explore-random-article-heading" = "Article au hasard";
@@ -482,6 +519,18 @@
 "places-search-saved-articles" = "Articles enregistrés";
 "places-search-suggested-searches-header" = "Recherches suggérées";
 "places-search-recently-searched-header" = "Récemment recherché";
+"places-no-saved-articles-have-location" = "Aucun de vos articles enregistrés n’a d’information de localisation";
+"places-unknown-distance" = "distance inconnue";
+"places-enable-location-title" = "Explorer des articles proches de votre emplacement en activant Accéder à la localisation";
+"places-enable-location-description" = "Accéder à votre localisation est disponible uniquement quand l’application ou une de ses fonctionnalités est visible sur votre écran.";
+"places-enable-location-action-button-title" = "Activer la localisation";
+"places-accessibility-group" = "$1 articles";
+"places-accessibility-show-as-map" = "Afficher comme carte";
+"places-accessibility-show-as-list" = "Afficher comme liste";
+"places-accessibility-recenter-map-on-user-location" = "Recentrer sur votre emplacement";
+"places-accessibility-close-search" = "Fermer la recherche";
+"places-accessibility-clear-recent-searches" = "Effacer les recherches récentes";
 "action-share" = "Partager";
 "action-save" = "Enregistrer";
 "action-read" = "Lire";
+"action-saved" = "Enregistré";

@@ -10,6 +10,7 @@
 // Author: Josve05a
 // Author: Lokal Profil
 // Author: Macofe
+// Author: Nemo bis
 // Author: Platinawolf
 // Author: Rockyfelle
 // Author: WikiPhoenix
@@ -60,23 +61,17 @@
 "account-creation-captcha-obtaining" = "Hämtar en ny CAPTCHA...";
 "account-creation-captcha-title" = "CAPTCHA-säkerhetskontroll";
 "account-creation-captcha-cannot-see-image" = "Kan du inte se bilden? $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "Begär ett konto.";
 "account-creation-logging-in" = "Loggar in...";
 "account-creation-passwords-mismatched" = "Lösenorden matchar inte.";
 "account-creation-saving" = "Sparar...";
 "account-creation-login" = "Har du redan ett konto? Logga in.";
-"account-creation-username-placeholder-text" = "Användarnamn";
-"account-creation-password-placeholder-text" = "Lösenord";
-"account-creation-password-confirm-placeholder-text" = "Bekräfta lösenord";
-"account-creation-email-placeholder-text" = "E-post (valfritt)";
 "account-creation-missing-fields" = "Du måste ange ett användarnamn, lösenord och en lösenordsbekräftelse för att skapa ett konto.";
 "new-password-title" = "Ändra ditt lösenord";
 "new-password-instructions" = "Du loggade in med ett temporär lösenord. För att slutföra inloggningen måste du ange ett nytt lösenord här:";
-"new-password-password-placeholder-text" = "Nytt lösenord";
-"new-password-confirm-placeholder-text" = "Bekräfta nytt lösenord";
 "two-factor-login-title" = "Logga in på ditt konto";
 "two-factor-login-instructions" = "Ange tvåstegsverifieringskod";
-"two-factor-login-token-title" = "Nyckel";
 "login-name-not-found" = "Användarnamn krävs för att logga in.";
 "login-name-illegal" = "Du angav ett ogiltigt användarnamn.";
 "login-name-does-not-exist" = "Det användarnamn du angav finns inte.";
@@ -283,13 +278,13 @@
 "onboarding-skip" = "Hoppa över";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Den fria encyklopedin";
-"preference_title_eventlogging_opt_in" = "Skicka användningsrapporter";
-"preference_summary_eventlogging_opt_in" = "Tillåt Wikimedia att samla in information om hur du använder appen. Informationen används för att göra appen bättre.";
-"page_protected_autoconfirmed" = "Denna sida är halvskyddad.";
-"page_protected_sysop" = "Denna sida är fullt skrivskyddad.";
-"page_protected_other" = "Denna sida har skyddats för följande nivåer: $1";
-"page_protected_can_not_edit" = "Du saknar rättigheter för att redigera denna sida.";
-"page_protected_can_not_edit_title" = "Denna sida är skrivskyddad";
+"preference-title-eventlogging-opt-in" = "Skicka användningsrapporter";
+"preference-summary-eventlogging-opt-in" = "Tillåt Wikimedia att samla in information om hur du använder appen. Informationen används för att göra appen bättre.";
+"page-protected-autoconfirmed" = "Denna sida är halvskyddad.";
+"page-protected-sysop" = "Denna sida är fullt skrivskyddad.";
+"page-protected-other" = "Denna sida har skyddats för följande nivåer: $1";
+"page-protected-can-not-edit" = "Du saknar rättigheter för att redigera denna sida.";
+"page-protected-can-not-edit-title" = "Denna sida är skrivskyddad";
 "license-footer-text" = "Innehållet är tillgängligt under $1 om ingenting annat anges.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Innehåll";
@@ -357,8 +352,6 @@
 "page-read-in-other-languages" = "Tillgänglig på $1 andra språk";
 "page-last-edited" = "Redigerad för $1 dagar sedan";
 "page-edit-history" = "Full redigeringshistorik";
-"captcha-reload" = "Visa en annan captcha";
-"captcha-prompt" = "Ange CAPTCHA-texten";
 "mwk-empty-title-error" = "Det går inte att utföra åtgärden med tom titel.";
 "home-title" = "Utforska";
 "home-empty-section" = "Inga resultat";

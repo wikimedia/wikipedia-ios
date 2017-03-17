@@ -1,5 +1,6 @@
 // Messages for Latvian (latviešu)
 // Exported from translatewiki.net
+// Author: Nemo bis
 // Author: Papuass
 // Author: Silraks
 
@@ -33,17 +34,20 @@
 "zero-wikipedia-zero-heading" = "Vikipēdija Zero";
 "zero-warn-when-leaving" = "Brīdināt kad iziet no Zero";
 "zero-settings-devmode" = "Zero izstrādātāju versija";
+"account-creation-title" = "Izveidot jaunu kontu";
 "account-creation-captcha-required" = "Nepieciešama CAPTCHA verifikācija.";
 "account-creation-captcha-obtaining" = "Iegūst jaunu CAPTCHA...";
 "account-creation-saving" = "Saglabā...";
-"account-creation-username-placeholder-text" = "Lietotājvārds";
-"account-creation-password-placeholder-text" = "Parole";
-"account-creation-password-confirm-placeholder-text" = "Apstipriniet paroli";
-"account-creation-email-placeholder-text" = "E-pasts (nav obligāti)";
+"account-creation-create-account" = "Izveidot savu kontu";
 "login-password-empty" = "Nepieciešama parole, lai ieietu.";
 "login-user-blocked" = "Dalībnieks ir bloķēts.";
 "login-username-placeholder-text" = "Lietotājvārds";
 "login-password-placeholder-text" = "Parole";
+"field-username-title" = "Lietotājvārds";
+"field-new-password-title" = "Jaunā parole";
+// Fuzzy
+"field-email-title" = "E-pasta adrese (nav obligāta)";
+"field-captcha-placeholder" = "CAPTCHA teksts";
 "wikitext-downloading" = "Ielādē saturu...";
 "wikitext-download-success" = "Saturs ielādēts.";
 "wikitext-upload-captcha-error" = "CAPTCHA verifikācijas kļūda.";
@@ -163,9 +167,9 @@
 "onboarding-skip" = "Izlaist";
 "onboarding-wikipedia" = "Vikipēdija";
 "onboarding-free-encyclopedia" = "Brīvā enciklopēdija";
-"preference_title_eventlogging_opt_in" = "Sūtīt lietošanas ziņojumus";
-"page_protected_sysop" = "Šī lapa ir pilnībā aizsargāta.";
-"page_protected_can_not_edit_title" = "Šī lapa ir aizsargāta";
+"preference-title-eventlogging-opt-in" = "Sūtīt lietošanas ziņojumus";
+"page-protected-sysop" = "Šī lapa ir pilnībā aizsargāta.";
+"page-protected-can-not-edit-title" = "Šī lapa ir aizsargāta";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Saturs";
 "table-of-contents-button-label" = "Satura rādītājs";
@@ -201,8 +205,6 @@
 "hockeyapp-alert-do-not-send" = "Nesūtīt";
 "page-similar-titles" = "Līdzīgas lapas";
 "page-edit-history" = "Pilna labojumu vēsture";
-"captcha-reload" = "Rādīt vēl vienu captcha";
-"captcha-prompt" = "Ievadiet CAPTCHA tekstu";
 "home-empty-section" = "Rezultātu nav";
 "home-empty-section-check-again" = "Mēģināt vēlreiz";
 "home-continue-reading-heading" = "Turpināt lasīšanu";

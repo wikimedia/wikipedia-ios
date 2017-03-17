@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Ahmed-Najib-Biabani-Ibrahimkhel
 // Author: Macofe
+// Author: Nemo bis
 
 "languages-title" = "ژبه بدلول";
 "article-languages-label" = "ژبه ټاکل";
@@ -37,10 +38,7 @@
 "account-creation-logging-in" = "په ننوتلو کې دی...";
 "account-creation-saving" = "خوندي کېږي...";
 "account-creation-login" = "آيا له پخوا نه يو گڼون لرې؟ ورننوځه.";
-"account-creation-username-placeholder-text" = "کارن-نوم";
-"account-creation-password-placeholder-text" = "پټنوم";
-"account-creation-password-confirm-placeholder-text" = "پټنوم مو تاييد کړئ";
-"account-creation-email-placeholder-text" = "برېښليک (اختياري)";
+"account-creation-log-in" = "ننوتل";
 "login-name-not-found" = "د  ننوتلو لپاره کارن-نوم ته اړتيا ده.";
 "login-name-illegal" = "تاسې يو ناقانونه کارن-نوم ورکړی.";
 "login-name-does-not-exist" = "کوم کارن-نوم مو چې ورکړی هغه نشته.";
@@ -50,6 +48,9 @@
 "login-account-creation" = "گڼون نه لرې؟ ويکيپېډيا سره يوځای شه.";
 "login-username-placeholder-text" = "کارن-نوم";
 "login-password-placeholder-text" = "پټنوم";
+"login-join-wikipedia" = "ويکيپېډيا سره يوځای شئ.";
+"field-username-title" = "کارن-نوم";
+"field-password-title" = "پټنوم";
 "wikitext-downloading" = "مېنځپانگه رابرسېرېږي...";
 "wikitext-upload-save" = "خپرېږي...";
 "wikitext-upload-save-sign-in" = "ننوتل";
@@ -171,8 +172,8 @@
 "onboarding-skip" = "تېرېدل";
 "onboarding-wikipedia" = "ويکيپېډيا";
 "onboarding-free-encyclopedia" = "يو وړيا پوهنغونډ";
-"preference_title_eventlogging_opt_in" = "د کارېدنې راپورونه لېږل";
-"page_protected_can_not_edit_title" = "دا مخ ژغورل شوی";
+"preference-title-eventlogging-opt-in" = "د کارېدنې راپورونه لېږل";
+"page-protected-can-not-edit-title" = "دا مخ ژغورل شوی";
 "license-footer-text" = "دا مېنځپانگه د $1 سره سم ستاسې لاسرسي کې ده، خو چې مخالف يې وييل شوی وي.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "منځپانگې";
@@ -216,8 +217,6 @@
 "page-read-in-other-languages" = "په $1 ژبو کې شته";
 "page-last-edited" = "$1 ورځې مخکې سم شوی";
 "page-edit-history" = "د سمون بشپړ پېښليک";
-"captcha-reload" = "يو بل کپچا ښکاره کول";
-"captcha-prompt" = "کپچا متن ورکړئ";
 "home-empty-section" = "بې پايلو";
 "home-empty-section-check-again" = "بيا هڅه";
 "home-continue-related-heading" = "ځکه چې تاسې $1 لوستلی";

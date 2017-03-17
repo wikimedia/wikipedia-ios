@@ -5,6 +5,7 @@
 #import "WMFImageTagParser.h"
 #import "WMFImageTagList.h"
 #import "WMFImageTagList+ImageURLs.h"
+#import <WMF/WMF-Swift.h>
 
 @import CoreText;
 
@@ -45,6 +46,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 @property (readwrite, strong, nonatomic) MWKImage *image;
 @property (readwrite, strong, nonatomic /*, nullable*/) NSArray *citations;
 @property (readwrite, strong, nonatomic) NSString *summary;
+@property (nonatomic) CLLocationCoordinate2D coordinate;
 
 @end
 
@@ -140,7 +142,12 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     dict[@"mainpage"] = @(self.isMain);
 
     [dict wmf_maybeSetObject:self.acceptLanguageRequestHeader forKey:@"acceptLanguageRequestHeader"];
-
+    
+    CLLocationCoordinate2D coordinate = self.coordinate;
+    if (CLLocationCoordinate2DIsValid(coordinate)) {
+        [dict wmf_maybeSetObject:@{@"lat": @(coordinate.latitude), @"lon": @(coordinate.longitude)} forKey:@"coordinates"];
+    }
+    
     return [dict copy];
 }
 
@@ -182,7 +189,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     self.thumbnailURL = [self thumbnailURLFromImageURL:self.imageURL];
 
     // Populate sections
-    NSArray *sectionsData = [dict[@"sections"] bk_map:^id(NSDictionary *sectionData) {
+    NSArray *sectionsData = [dict[@"sections"] wmf_map:^id(NSDictionary *sectionData) {
         return [[MWKSection alloc] initWithArticle:self dict:sectionData];
     }];
 
@@ -206,6 +213,22 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     if ([sectionsData count] > 0) {
         self.sections = [[MWKSectionList alloc] initWithArticle:self sections:sectionsData];
     }
+    
+    id coordinates = dict[@"coordinates"];
+    id coordinateDictionary = coordinates;
+    if ([coordinates isKindOfClass:[NSArray class]]) {
+        coordinateDictionary = [coordinates firstObject];
+    }
+    
+    CLLocationCoordinate2D coordinate = kCLLocationCoordinate2DInvalid;
+    if ([coordinateDictionary isKindOfClass:[NSDictionary class]]) {
+        id lat = coordinateDictionary[@"lat"];
+        id lon = coordinateDictionary[@"lon"];
+        if ([lat respondsToSelector:@selector(doubleValue)] && [lon respondsToSelector:@selector(doubleValue)]) {
+            coordinate = CLLocationCoordinate2DMake([lat doubleValue], [lon doubleValue]);
+        }
+    }
+    self.coordinate = coordinate;
 }
 
 #pragma mark - Image Helpers
@@ -367,7 +390,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 }
 
 - (NSArray<MWKImage *> *)imagesForGallery {
-    return [[self imageURLsForGallery] bk_map:^id(NSURL *url) {
+    return [[self imageURLsForGallery] wmf_map:^id(NSURL *url) {
         return [[MWKImage alloc] initWithArticle:self sourceURL:url];
     }];
 }
@@ -378,7 +401,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 }
 
 - (NSArray<MWKImage *> *)imagesForSaving {
-    return [[self imageURLsForSaving] bk_map:^id(NSURL *url) {
+    return [[self imageURLsForSaving] wmf_map:^id(NSURL *url) {
         return [[MWKImage alloc] initWithArticle:self sourceURL:url];
     }];
 }
@@ -435,7 +458,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 #endif
 
     // remove any null objects inserted during above map/valueForKey operations
-    return [imageURLs bk_reject:^BOOL(id obj) {
+    return [imageURLs wmf_reject:^BOOL(id obj) {
         return [obj isEqual:[NSNull null]];
     }];
 }
@@ -458,10 +481,10 @@ static NSString *const WMFArticleReflistColumnSelector = @"/html/body/*[contains
             DDLogWarn(@"Failed to parse reflist for %@ cached article: %@", self.isCached ? @"" : @"not", self);
             return nil;
         }
-        _citations = [[referenceListItems bk_map:^MWKCitation *(TFHppleElement *el) {
+        _citations = [[referenceListItems wmf_map:^MWKCitation *(TFHppleElement *el) {
             return [[MWKCitation alloc] initWithCitationIdentifier:el.attributes[@"id"]
                                                            rawHTML:el.raw];
-        }] bk_reject:^BOOL(id obj) {
+        }] wmf_reject:^BOOL(id obj) {
             return WMF_IS_EQUAL(obj, [NSNull null]);
         }];
     }

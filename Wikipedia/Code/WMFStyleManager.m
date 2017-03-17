@@ -33,8 +33,8 @@ static WMFStyleManager *_styleManager = nil;
     [[UITabBarItem appearance] setTitleTextAttributes:[UITabBarItem wmf_rootTabBarItemStyleForState:UIControlStateSelected]
                                              forState:UIControlStateSelected];
 
-    [[UITabBar appearance] setTintColor:[UIColor wmf_blueTintColor]];
-    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UIToolbar class]]] setTintColor:[UIColor wmf_blueTintColor]];
+    [[UITabBar appearance] setTintColor:[UIColor wmf_blueTint]];
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UIToolbar class]]] setTintColor:[UIColor wmf_blueTint]];
 
     [[UISwitch appearance] setOnTintColor:[UIColor wmf_green]];
 }

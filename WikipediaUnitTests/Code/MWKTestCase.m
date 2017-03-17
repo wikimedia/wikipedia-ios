@@ -12,7 +12,7 @@
 }
 
 - (NSString *)allObamaHTML {
-    return [[[self loadJSON:@"Obama"][@"mobileview"][@"sections"] bk_map:^NSString *(NSDictionary *section) {
+    return [[[self loadJSON:@"Obama"][@"mobileview"][@"sections"] wmf_map:^NSString *(NSDictionary *section) {
         return section[@"text"];
     }] componentsJoinedByString:@""];
 }

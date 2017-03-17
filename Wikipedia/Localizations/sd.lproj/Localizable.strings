@@ -3,6 +3,7 @@
 // Author: Aursani
 // Author: Macofe
 // Author: Mehtab ahmed
+// Author: Nemo bis
 
 "languages-title" = "ٻولي تبديل ڪريو";
 "article-languages-label" = "ٻولي چونڊيو";
@@ -45,25 +46,27 @@
 "zero-wikipedia-zero-heading" = "وڪيپيڊيا زيرو";
 "zero-warn-when-leaving" = "جيڪڏهن وڪيپيڊيا زيرو ڇڏي وڃي رهي هجي تہ خبردار ڪريو";
 "zero-settings-devmode" = "ٻڙي موڊترقي";
+"account-creation-title" = "نئون کاتو کوليو";
 "account-creation-captcha-required" = "CAPTCHA پڪ گھربل آھي.";
 "account-creation-captcha-retry" = "غيردرست داخلا. براءِ مھرباني ٻيھر ڪوشش ڪريو.";
 "account-creation-captcha-obtaining" = "ھڪ نئون  CAPTCHA حاصل ڪندي...";
 "account-creation-captcha-title" = "ڪيپچا حفاظتي روڪ";
 "account-creation-captcha-cannot-see-image" = "عڪس نٿا ڏسي سگھو؟ $1";
-"account-creation-captcha-request-account" = "کاتي جي درخواست ڏيو";
+"account-creation-captcha-request-account" = "کاتي جي درخواست ڏيو.";
 "account-creation-logging-in" = "داخل ٿيندي...";
 "account-creation-passwords-mismatched" = "ڳجهي لفظ جون جڳهون مشابهت نٿيون رکن.";
 "account-creation-saving" = "سانڍيندي...";
 "account-creation-login" = "اڳ ئي کاتو رکو ٿا؟ داخل ٿيو.";
-"account-creation-username-placeholder-text" = "يوزرنانءُ";
-"account-creation-password-placeholder-text" = "ڳجهو لفظ";
-"account-creation-password-confirm-placeholder-text" = "ڳجهي لفظ جي پڪ ڪريو";
-"account-creation-email-placeholder-text" = "ايميل (مرضيءَ موجب)";
 "account-creation-missing-fields" = "توهان کي کاتو کولڻ لاءِ هڪ يوزرنانءُ، ڳجهو لفظ، ۽ ڳجهي لفظ جي پڪ ضرور هجڻ گهرجي.";
+"account-creation-create-account" = "پنھنجو کاتو کوليو";
+"account-creation-have-account" = "اڳ ئي کاتو رکو ٿا؟ $1";
+"account-creation-log-in" = "داخل ٿيو.";
 "new-password-title" = "پنھنجو ڳجھولفظ طي ڪريو";
-"new-password-password-placeholder-text" = "نئون ڳجھولفظ";
-"new-password-confirm-placeholder-text" = "نئين ڳجھي لفظ جي پڪ ڪريو";
+"new-password-instructions" = "توھان ھڪ عارضي ڳجھي لفظ سان داخل ٿيا. داخل ٿيڻ جي مڪمل ڪرڻ لاءِ ھڪ نئون ڳجھولفظ ترتيب ڪريو.";
 "two-factor-login-title" = "پنھنجي کاتي ۾ داخل ٿيو";
+"two-factor-login-continue" = "داخل ٿيڻ جاري رکو";
+"two-factor-login-with-regular-code" = "تصديق ڪوڊ استعمال ڪريو";
+"two-factor-login-with-backup-code" = "پنھنجو ڪوبہ بيڪ اپ ڪوڊ استعمال ڪريو";
 "login-name-not-found" = "داخل ٿيڻ لاءِ يوزرنانءُ گھربل آهي.";
 "login-name-illegal" = "توهان هڪ غيرقانوني يوزرنانءُ فراهم ڪيو.";
 "login-name-does-not-exist" = "جيڪو يوزرنانءُ توهان فراهم ڪيو اهو وجود نٿو رکي.";
@@ -75,6 +78,27 @@
 "login-username-placeholder-text" = "يوزرنانءُ";
 "login-password-placeholder-text" = "ڳجهو لفظ";
 "login-forgot-password" = "ڳجھولفظ وساري ويٺا آھيو؟";
+"login-title" = "پنھنجي کاتي ۾ داخل ٿيو";
+"login-no-account" = "کاتو نٿا رکو؟ $1";
+"login-join-wikipedia" = "وڪيپيڊيا ۾ شامل ٿيو.";
+"field-username-title" = "يوزرنانءُ";
+"field-username-placeholder" = "يوزرنانءُ داخل ڪريو";
+"field-password-title" = "ڳجھولفظ";
+"field-password-placeholder" = "ڳجھولفظ ڄاڻايو";
+"field-password-confirm-title" = "ڳجھي لفظ جي پڪ ڪريو";
+"field-password-confirm-placeholder" = "ڳجھولفظ ٻيھر داخل ڪريو";
+"field-new-password-title" = "نئون ڳجھولفظ";
+"field-new-password-placeholder" = "نئون ڳجھولفظ داخل ڪريو";
+"field-new-password-confirm-title" = "نيئن ڳجھي لفظ جي پڪ ڪريو";
+"field-new-password-confirm-placeholder" = "نئون ڳجھولفظ داخل ڪريو";
+"field-email-title" = "برقٽپال";
+"field-email-title-optional" = "برقٽپال (اختياري)";
+"field-email-placeholder" = "example@example.org";
+"field-token-title" = "تصديق ڪوڊ";
+"field-backup-token-title" = "بيڪ اپ ڪوڊ";
+"field-token-placeholder" = "ٽوڪن داخل ڪريو";
+"field-captcha-title" = "مٿين جيڪا لکت ڏسو پيا اھا داخل ڪريو";
+"field-captcha-placeholder" = "ڪيپچا لکت";
 "forgot-password-title" = "ٻيھر ڳجھولفظ طي ڪريو";
 "forgot-password-username-prompt" = "يوزرنانءُ";
 "forgot-password-email-prompt" = "برقٽپال (اختياري)";
@@ -260,13 +284,13 @@
 "onboarding-skip" = "ڇڏيو";
 "onboarding-wikipedia" = "وڪيپيڊيا";
 "onboarding-free-encyclopedia" = "مفت ڄاڻ انسائيڪلوپيڊيا";
-"preference_title_eventlogging_opt_in" = "استعمال جون رپورٽون اماڻيو";
-"preference_summary_eventlogging_opt_in" = "وڪيميڊيا ايپ کي اجازت ڏيو ته توهان هن ايپ ڪيئن استعمال ڪريو ٿا جي معلومات جمع ڪري ته جيئن هن ايپ کي وڌيڪ بهتر بڻائي سگھجي";
-"page_protected_autoconfirmed" = "هيءُ صفحو نيم تحفظيل آهي.";
-"page_protected_sysop" = "هيءُ صفحو پوريءَ ريت تحفظيل آهي.";
-"page_protected_other" = "هيءُ صفحو هيٺين سطحن تائين تحفظيل آهي: $1";
-"page_protected_can_not_edit" = "توهان کي هيءُ صفحو سنوارڻ جا حق حاصل نہ آهن";
-"page_protected_can_not_edit_title" = "هيءُ صفحو تحفظيل آهي";
+"preference-title-eventlogging-opt-in" = "استعمال جون رپورٽون اماڻيو";
+"preference-summary-eventlogging-opt-in" = "وڪيميڊيا ايپ کي اجازت ڏيو ته توهان هن ايپ ڪيئن استعمال ڪريو ٿا جي معلومات جمع ڪري ته جيئن هن ايپ کي وڌيڪ بهتر بڻائي سگھجي";
+"page-protected-autoconfirmed" = "هيءُ صفحو نيم تحفظيل آهي.";
+"page-protected-sysop" = "هيءُ صفحو پوريءَ ريت تحفظيل آهي.";
+"page-protected-other" = "هيءُ صفحو هيٺين سطحن تائين تحفظيل آهي: $1";
+"page-protected-can-not-edit" = "توهان کي هيءُ صفحو سنوارڻ جا حق حاصل نہ آهن";
+"page-protected-can-not-edit-title" = "هيءُ صفحو تحفظيل آهي";
 "license-footer-text" = "مواد $1 جي تحت ميسر آهي نہ تہ ٻي صورت ۾ نوٽ ٿيل آھي.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "فهرست";
@@ -332,8 +356,6 @@
 "page-read-in-other-languages" = "$1 ٻين ٻولين ۾ موجود";
 "page-last-edited" = "$1 ڏينهن اڳ ترميم ڪيل";
 "page-edit-history" = "پوري ترميمي سوانح";
-"captcha-reload" = "ھڪ ٻيو  captcha ڏيکاريو";
-"captcha-prompt" = "CAPTCHA لکت داخل ڪريو";
 "mwk-empty-title-error" = "خالي عنوان تي آپريشن پيش ڪرڻ ۾ ناڪام.";
 "home-title" = "تلاش ڪريو";
 "home-empty-section" = "نتيجا نہ آھن";
@@ -457,3 +479,4 @@
 "action-share" = "ونڊيو";
 "action-save" = "سانڍيو";
 "action-read" = "پڙھو";
+"action-saved" = "سانڍيل";

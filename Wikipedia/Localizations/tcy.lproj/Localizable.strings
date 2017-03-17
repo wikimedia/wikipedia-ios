@@ -1,6 +1,7 @@
 // Messages for Tulu (ತುಳು)
 // Exported from translatewiki.net
 // Author: BHARATHESHA ALASANDEMAJALU
+// Author: Nemo bis
 
 "languages-title" = "ಬಾಸೆ ಬದಲ್ ಮಾನ್ಪಿ";
 "article-languages-label" = "ಬಾಸೆನ್ ಆಯ್ಕೆ ಮಲ್ತೊನ್ಲೆ";
@@ -39,15 +40,8 @@
 "account-creation-passwords-mismatched" = "ಪ್ರವೇಸೊ ಪದ ಜೋಡಿ ಅಪೂಜಿ.";
 "account-creation-saving" = "ಓರಿಪವೊಂತುಂಡು...";
 "account-creation-login" = "ಈರೆನ ಖಾತೆ ಉಂಡೇ? ಲಾಗ್ ಇನ್ ಅಲೇ";
-"account-creation-username-placeholder-text" = "ಸದಸ್ಯೆರ್ನ ಪುದರ್";
-"account-creation-password-placeholder-text" = "ಪಾಸ್-ವರ್ಡ್:";
-"account-creation-password-confirm-placeholder-text" = "ಪ್ರವೇಸೊ ಪದೊನು ದೃಡೊ ಮಲ್ಪುಲೆ";
-"account-creation-email-placeholder-text" = "ಇಮೈಲ್(ಇಚ್ಛೆ ಇತುಂಡ ಮಾತ್ರೋ)";
 "new-password-title" = "ಪ್ರವೇಸೊ ಪದೊನ್ ಬರೆಲೆ";
-"new-password-password-placeholder-text" = "ಪೊಸ ಪ್ರವೇಶಪದ";
-"new-password-confirm-placeholder-text" = "ಪ್ರವೇಸೊ ಪದೊನು ದೃಡೊ ಮಲ್ಪುಲೆ";
 "two-factor-login-title" = "ಇರೇನಾ ಖಾತೆಗ್ ಲಾಗಿನ್ ಅಲೇ";
-"two-factor-login-token-title" = "ಟೊಕನ್";
 "login-password-empty" = "ಲಾಗ್ ಇನ್ ಅವರಾ ಪ್ರವೇಶೋ ಪದೋ ಬೋಡು.";
 "login-password-wrong" = "ಇರ್ ಪಾಡ್ನ ಪ್ರವೇಶೋ ಪದೋ ತಪ್ಪಾತುಂಡ್";
 "login-user-blocked" = "ಈ ಸದಸ್ಯೆರೆನ್ ತಡೆ ಮಲ್ತ್ ದ್೦ಡ್.";
@@ -172,8 +166,8 @@
 "onboarding-skip" = "ಬುಡ್ಲೆ";
 "onboarding-wikipedia" = "ವಿಕಿಪೀಡಿಯ";
 "onboarding-free-encyclopedia" = "ಒಂಜಿ ಮುಕ್ತ ವಿಶ್ವಕೋಶ";
-"preference_title_eventlogging_opt_in" = "ಬೊಡಪಿ ವರದಿನ್ ಕಡಪುಡ್ಲೆ";
-"page_protected_can_not_edit_title" = "ಈ ಪುಟನ್ ಜಾಗ್ರತೆಡ್ ಡಿತುಂಡು";
+"preference-title-eventlogging-opt-in" = "ಬೊಡಪಿ ವರದಿನ್ ಕಡಪುಡ್ಲೆ";
+"page-protected-can-not-edit-title" = "ಈ ಪುಟನ್ ಜಾಗ್ರತೆಡ್ ಡಿತುಂಡು";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "ವಿಸಯೊಳು";
 "table-of-contents-button-label" = "ಪರಿವಿಡಿ";
@@ -205,8 +199,6 @@
 "page-similar-titles" = "ಇಂಚಿನವೇ ಪುಟಕುಲು";
 "page-read-in-other-languages" = "$1 ಬಾಸೆಲೆಡ್ ಉಂಡು";
 "page-last-edited" = "$1 ದಿನ ದುಂದು ಸೇರ್ಸಾಯಿನಾ";
-"captcha-reload" = "ನಾನೋಂಜಿ captcha ತೋಜಾಲೆ";
-"captcha-prompt" = "CAPTCHA ಪದೋನ್ ಬರೆಲೆ";
 "home-empty-section-check-again" = "ನನೋರ ಪ್ರಯತ್ನ ಮಾನ್ಪುಲೇ";
 "home-continue-reading-heading" = "ಓದುನೆನ್ ಮುಂದುವರಿಸಲೇ";
 "home-more-like-footer" = "$1 ನೆನ್ನ ಲೆಕೋ";

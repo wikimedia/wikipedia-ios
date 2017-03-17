@@ -7,6 +7,7 @@
 // Author: Kanon und wikipedia
 // Author: Los688
 // Author: Macofe
+// Author: Nemo bis
 // Author: Otokoume
 // Author: Ridmevo
 // Author: Shirayuki
@@ -67,10 +68,6 @@
 "account-creation-passwords-mismatched" = "入力したパスワードが一致しません。";
 "account-creation-saving" = "保存中...";
 "account-creation-login" = "アカウントを既にお持ちの場合は、ログインしてください。";
-"account-creation-username-placeholder-text" = "利用者名";
-"account-creation-password-placeholder-text" = "パスワード";
-"account-creation-password-confirm-placeholder-text" = "パスワード再入力";
-"account-creation-email-placeholder-text" = "メール (省略可能)";
 "account-creation-missing-fields" = "アカウントの作成には利用者名とパスワード、さらに確認のためもう一度パスワードを入力する必要があります。";
 "login-name-not-found" = "ログインするには利用者名が必要です。";
 "login-name-illegal" = "入力した利用者名は無効です。";
@@ -270,13 +267,13 @@
 "onboarding-skip" = "スキップ";
 "onboarding-wikipedia" = "ウィキペディア";
 "onboarding-free-encyclopedia" = "フリー百科事典";
-"preference_title_eventlogging_opt_in" = "利用状況レポートを送信";
-"preference_summary_eventlogging_opt_in" = "このアプリの改善に役立てるため、ウィキメディアがアプリの使用情報を収集することを許可する";
-"page_protected_autoconfirmed" = "このページは半保護されています。";
-"page_protected_sysop" = "このページは全保護されています。";
-"page_protected_other" = "このページは、次のレベルに保護されています:$1";
-"page_protected_can_not_edit" = "このページを編集する権限がありません";
-"page_protected_can_not_edit_title" = "このページは保護されています";
+"preference-title-eventlogging-opt-in" = "利用状況レポートを送信";
+"preference-summary-eventlogging-opt-in" = "このアプリの改善に役立てるため、ウィキメディアがアプリの使用情報を収集することを許可する";
+"page-protected-autoconfirmed" = "このページは半保護されています。";
+"page-protected-sysop" = "このページは全保護されています。";
+"page-protected-other" = "このページは、次のレベルに保護されています:$1";
+"page-protected-can-not-edit" = "このページを編集する権限がありません";
+"page-protected-can-not-edit-title" = "このページは保護されています";
 "license-footer-text" = "特に記載がない限り、コンテンツは$1のライセンスで利用できます。";
 "license-footer-name" = "クリエイティブ・コモンズ 表示-継承 3.0";
 "table-of-contents-heading" = "目次";
@@ -344,8 +341,6 @@
 "page-read-in-other-languages" = "他に$1つの言語で利用可能";
 "page-last-edited" = "最終編集日: $1日前";
 "page-edit-history" = "すべての編集履歴";
-"captcha-reload" = "別の文字を表示";
-"captcha-prompt" = "上に示した画像に書いてある文字を入力してください";
 "mwk-empty-title-error" = "タイトルなしでは操作を実行できません。";
 "home-title" = "探してみよう";
 "home-empty-section" = "該当結果はありません。";

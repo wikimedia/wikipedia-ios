@@ -6,6 +6,7 @@
 // Author: Estevoaei
 // Author: Fisterraeomar
 // Author: Macofe
+// Author: Nemo bis
 // Author: Toliño
 
 "languages-title" = "Cambiar lingua";
@@ -49,28 +50,27 @@
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "zero-warn-when-leaving" = "Avisádeme ao saír de Zero";
 "zero-settings-devmode" = "Modo de desenvolvedor Zero";
+"account-creation-title" = "Crear unha nova conta";
 "account-creation-captcha-required" = "Requírese a verificación do código CAPTCHA.";
 "account-creation-captcha-retry" = "Entrada incorrecta. Por favor inténteo de novo.";
 "account-creation-captcha-obtaining" = "Obtendo un novo código CAPTCHA...";
 "account-creation-captcha-title" = "Verificación de seguridade con CAPTCHA";
 "account-creation-captcha-cannot-see-image" = "Non pode ver a imaxe? $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "Solicitar unha conta.";
 "account-creation-logging-in" = "Accedendo ao sistema...";
 "account-creation-passwords-mismatched" = "Os contrasinais non coinciden.";
 "account-creation-saving" = "Gardando...";
 "account-creation-login" = "Xa ten unha conta? Acceda ao sistema.";
-"account-creation-username-placeholder-text" = "Nome de usuario";
-"account-creation-password-placeholder-text" = "Contrasinal";
-"account-creation-password-confirm-placeholder-text" = "Confirme contrasinal";
-"account-creation-email-placeholder-text" = "Correo electrónico (opcional)";
 "account-creation-missing-fields" = "Debe introducir un nome de usuario, un contrasinal e unha confirmación do contrasinal para crear unha conta.";
+"account-creation-create-account" = "Crear a súa conta";
+"account-creation-have-account" = "Xa ten unha conta? $1";
+"account-creation-log-in" = "Acceder ao sistema";
 "new-password-title" = "Insira o seu contrasinal";
 "new-password-instructions" = "Conectouse cun contrasinal temporal. Para rematar a conexión, escolla un novo contrasinal aquí.";
-"new-password-password-placeholder-text" = "Novo contrasinal";
-"new-password-confirm-placeholder-text" = "Confirmar novo contrasinal";
 "two-factor-login-title" = "Comezar sesión na súa conta";
 "two-factor-login-instructions" = "Escriba o código de verificación de dous factores";
-"two-factor-login-token-title" = "Identificador";
+"two-factor-login-continue" = "Continuar co inicio de sesión";
 "login-name-not-found" = "O nome de usuario é necesario para iniciar sesión.";
 "login-name-illegal" = "Escribiu un nome de usuario non válido.";
 "login-name-does-not-exist" = "O nome de usuario proporcionado non existe.";
@@ -82,6 +82,31 @@
 "login-username-placeholder-text" = "Nome de usuario";
 "login-password-placeholder-text" = "Contrasinal";
 "login-forgot-password" = "Esqueceu o contrasinal?";
+"login-title" = "Comezar sesión na súa conta";
+"login-no-account" = "Non ten unha conta? $1.";
+"login-join-wikipedia" = "Unirse a Wikipedia.";
+"field-username-title" = "Nome de usuario";
+"field-username-placeholder" = "insira o nome de usuario";
+"field-password-title" = "Contrasinal";
+"field-password-placeholder" = "insira o contrasinal";
+"field-password-confirm-title" = "Confirme contrasinal";
+"field-password-confirm-placeholder" = "insira de novo o contrasinal";
+"field-new-password-title" = "Novo contrasinal";
+"field-new-password-placeholder" = "insira un contrasinal novo";
+"field-new-password-confirm-title" = "Confirmar novo contrasinal";
+"field-new-password-confirm-placeholder" = "insira de novo o novo contrasinal";
+// Fuzzy
+"field-email-title" = "Enderezo de correo electrónico (opcional)";
+"field-email-placeholder" = "exemplo@exemplo.gal";
+// Fuzzy
+"field-token-title" = "Identificador";
+"field-token-placeholder" = "insira o identificador";
+"field-captcha-title" = "Insira o texto que ve abaixo";
+"field-captcha-placeholder" = "Texto CAPTCHA";
+"field-alert-username-unavailable" = "O nome de usuario non está dispoñible";
+"field-alert-password-invalid" = "O contrasinal non é válido";
+"field-alert-captcha-invalid" = "O CAPTCHA non é válido";
+"field-alert-password-confirm-mismatch" = "Os contrasinais non coinciden";
 "forgot-password-title" = "Restablecer o contrasinal";
 "forgot-password-instructions" = "Encha un dos campos de abaixo para recibir as instrucións de reinicialización";
 "forgot-password-username-prompt" = "Nome de usuario";
@@ -252,6 +277,8 @@
 "share-as-image" = "Compartir como imaxe";
 "share-as-text" = "Compartir como texto";
 "share-cancel" = "Cancelar";
+"share-open-in-maps" = "Abrir en Maps";
+"share-get-directions-in-maps" = "Obter as direccións";
 "timestamp-just-now" = "agora mesmo";
 "timestamp-minutes" = "hai %d minutos";
 "timestamp-hours" = "hai %d horas";
@@ -277,13 +304,13 @@
 "onboarding-skip" = "Omitir";
 "onboarding-wikipedia" = "Galipedia";
 "onboarding-free-encyclopedia" = "A enciclopedia libre";
-"preference_title_eventlogging_opt_in" = "Enviar informes de uso";
-"preference_summary_eventlogging_opt_in" = "Permitir que a Wikimedia recompile información acerca de como utiliza a aplicación para facela mellor";
-"page_protected_autoconfirmed" = "Esta páxina está semiprotexida.";
-"page_protected_sysop" = "Esta páxina está totalmente protexida.";
-"page_protected_other" = "Esta páxina está protexida para os seguintes niveis: $1";
-"page_protected_can_not_edit" = "Non ten os permisos necesarios para editar esta páxina";
-"page_protected_can_not_edit_title" = "Esta páxina está protexida";
+"preference-title-eventlogging-opt-in" = "Enviar informes de uso";
+"preference-summary-eventlogging-opt-in" = "Permitir que a Wikimedia recompile información acerca de como utiliza a aplicación para facela mellor";
+"page-protected-autoconfirmed" = "Esta páxina está semiprotexida.";
+"page-protected-sysop" = "Esta páxina está totalmente protexida.";
+"page-protected-other" = "Esta páxina está protexida para os seguintes niveis: $1";
+"page-protected-can-not-edit" = "Non ten os permisos necesarios para editar esta páxina";
+"page-protected-can-not-edit-title" = "Esta páxina está protexida";
 "license-footer-text" = "O contido está dispoñible baixo a $1, salvo que se indique o contrario.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Contidos";
@@ -351,8 +378,7 @@
 "page-read-in-other-languages" = "Dispoñible en outras $1 linguas";
 "page-last-edited" = "Editado fai $1 días";
 "page-edit-history" = "Historial de edición completo";
-"captcha-reload" = "Mostrar outro «captcha»";
-"captcha-prompt" = "Escriba o texto do CAPTCHA";
+"page-location" = "Ver nun mapa";
 "mwk-empty-title-error" = "Non se pode realizar a operación cun título baleiro.";
 "home-title" = "Explorar";
 "home-empty-section" = "Sen resultados";
@@ -426,6 +452,11 @@
 "explore-continue-reading-heading" = "Continuar lendo";
 "explore-nearby-heading" = "Lugares próximos";
 "explore-nearby-sub-heading-your-location" = "A súa localización";
+"explore-nearby-placeholder-heading" = "Lugares";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "En Wikipedia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "En Wikipedia en $1";
+"explore-nearby-placeholder-dismiss" = "Descartar";
+"explore-nearby-placeholder-cancel" = "Cancelar";
 "explore-continue-related-heading" = "Porque leu";
 "explore-main-page-heading" = "Hoxe en Wikipedia";
 "explore-random-article-heading" = "Artigo ao chou";
@@ -475,4 +506,17 @@
 "places-search-saved-articles" = "Artigos gardados";
 "places-search-suggested-searches-header" = "Buscas suxeridas";
 "places-search-recently-searched-header" = "Buscado recentemente";
+"places-unknown-distance" = "distancia descoñecida";
+"places-enable-location-title" = "Explore artigos preto da súa localización activando Acceder á localización";
+"places-enable-location-description" = "O acceso á súa localización só está dispoñible cando a aplicación ou unha das súas características está visible na súa pantalla.";
+"places-enable-location-action-button-title" = "Activar localización";
+"places-accessibility-group" = "$1 artigos";
+"places-accessibility-show-as-map" = "Amosar como mapa";
+"places-accessibility-show-as-list" = "Amosar como lista";
+"places-accessibility-recenter-map-on-user-location" = "Volver a centrar na súa localización";
+"places-accessibility-close-search" = "Pechar a busca";
+"places-accessibility-clear-recent-searches" = "Limpar as buscas recentes";
 "action-share" = "Compartir";
+"action-save" = "Gardar";
+"action-read" = "Ler";
+"action-saved" = "Gardado";

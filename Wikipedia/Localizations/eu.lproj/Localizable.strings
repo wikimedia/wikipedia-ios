@@ -3,6 +3,7 @@
 // Author: An13sa
 // Author: Fitoschido
 // Author: Gorkaazk
+// Author: Nemo bis
 // Author: Sator
 // Author: Subi
 
@@ -45,10 +46,6 @@
 "account-creation-passwords-mismatched" = "Pasahitza eremuak ez datoz bat.";
 "account-creation-saving" = "Gordetzen...";
 "account-creation-login" = "Ba al duzu konturen bat? Saioa hasi.";
-"account-creation-username-placeholder-text" = "Erabiltzaile izena";
-"account-creation-password-placeholder-text" = "Pasahitza";
-"account-creation-password-confirm-placeholder-text" = "Berretsi pasahitza";
-"account-creation-email-placeholder-text" = "Helbide elektronikoa (aukerakoa)";
 "login-name-not-found" = "Erabiltzaile izena beharrezkoa da saioa hasteko.";
 "login-name-illegal" = "Eman duzun erabiltzaile izena ez da legezkoa.";
 "login-name-does-not-exist" = "Sartu duzun erabiltzaile izena ez da esistitzen.";
@@ -200,12 +197,12 @@
 "onboarding-skip" = "Utzi";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Entziklopedia askea";
-"preference_title_eventlogging_opt_in" = "Bidali erabilpen iruzkina";
-"page_protected_autoconfirmed" = "Orri hau  erdi babestua dago.";
-"page_protected_sysop" = "Orri hau erabat babestua dago.";
-"page_protected_other" = "Orrialde hau ondoren mailetan babestu da: $1";
-"page_protected_can_not_edit" = "Ez duzu orrialde hau aldatzeko baimenik";
-"page_protected_can_not_edit_title" = "Orrialde hau babestuta dago";
+"preference-title-eventlogging-opt-in" = "Bidali erabilpen iruzkina";
+"page-protected-autoconfirmed" = "Orri hau  erdi babestua dago.";
+"page-protected-sysop" = "Orri hau erabat babestua dago.";
+"page-protected-other" = "Orrialde hau ondoren mailetan babestu da: $1";
+"page-protected-can-not-edit" = "Ez duzu orrialde hau aldatzeko baimenik";
+"page-protected-can-not-edit-title" = "Orrialde hau babestuta dago";
 "license-footer-text" = "Eduki guztia $1(r)en babespean dago, ez bada kontrakoa esaten.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Edukiak";
@@ -236,8 +233,7 @@
 "nearby-open-in-maps" = "Mapsen ireki";
 "nearby-cancel" = "Utzi";
 "migration-skip-button-title" = "Ezabatu";
-// Fuzzy
-"image-gallery-unknown-owner" = "Igotzaile ezezaguna.";
+"image-gallery-unknown-owner" = "Egile ezezaguna.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-send-report" = "Bidali txostena";
 "hockeyapp-alert-always-send" = "Beti bidali";
@@ -246,7 +242,6 @@
 "page-issues" = "Orriaren arazoak";
 "page-similar-titles" = "Antzeko orriak";
 "page-read-in-other-languages" = "Irakurgarri beste $1 hizkuntzatan";
-"captcha-reload" = "Erakutsi beste captcha bat";
 "home-title" = "Esploratu";
 "home-empty-section" = "Emaitzik ez";
 "home-empty-section-check-again" = "Saiatu berriro";

@@ -12,6 +12,7 @@
 // Author: Meno25
 // Author: Mhurd
 // Author: Musab Moahmmed
+// Author: Nemo bis
 // Author: Omda4wady
 // Author: Shbib Al-Subaie
 // Author: Tarawneh
@@ -62,25 +63,20 @@
 "zero-wikipedia-zero-heading" = "ويكيبيديا زيرو";
 "zero-warn-when-leaving" = "قم بالتحذير عند ترك صفر";
 "zero-settings-devmode" = "زيرو في وضع التطوير البرمجي.";
+"account-creation-title" = "أنشئ حسابًا جديدًا";
 "account-creation-captcha-required" = "التحقق مطلوب";
 "account-creation-captcha-retry" = "مدخل غير صحيح. يرجى إعادة المحاولة مرة أخرى.";
 "account-creation-captcha-obtaining" = "جار الحصول على كابتشا جديدة...";
+"account-creation-captcha-request-account" = "طلب حساب";
 "account-creation-logging-in" = "جارٍ تسجيل دخولك...";
 "account-creation-passwords-mismatched" = "كلمتا السر لا تتطابقان";
 "account-creation-saving" = "جارٍ الحفظ...";
 "account-creation-login" = "لديك حساب؟ سجل دخولك.";
-"account-creation-username-placeholder-text" = "اسم المستخدم";
-"account-creation-password-placeholder-text" = "كلمة المرور";
-"account-creation-password-confirm-placeholder-text" = "أكّد كلمة المرور";
-"account-creation-email-placeholder-text" = "البريد الإلكتروني (اختياري)";
 "account-creation-missing-fields" = "يجب عليك إدخال اسم مستخدم، وكلمة مرور، وتأكيد كلمة المرور لإنشاء حسابٍ.";
 "new-password-title" = "قم بتعيين كلمة المرور الخاصة بك";
 "new-password-instructions" = "أنت الآن مسجل الدخول بكلمة سر مؤقتة. لإكمال تسجيل الدخول أعد تعيين كلمة سر جديدة هنا.";
-"new-password-password-placeholder-text" = "كلمة السر الجديدة";
-"new-password-confirm-placeholder-text" = "تأكيد كلمة السر";
 "two-factor-login-title" = "تسجيل الدخول إلى حسابك";
 "two-factor-login-instructions" = "يرجى إدخال تشفيرة المصادقة ذات العاملين";
-"two-factor-login-token-title" = "رمز";
 "login-name-not-found" = "اسم المستخدم مطلوب للولوج.";
 "login-name-illegal" = "لقد دونت اسم مستخدم غير مسموح به.";
 "login-name-does-not-exist" = "اسم المستخدم الذي أدخلته غير موجود.";
@@ -92,11 +88,27 @@
 "login-username-placeholder-text" = "اسم المستخدم";
 "login-password-placeholder-text" = "كلمة المرور";
 "login-forgot-password" = "هل نسيت كلمة السر؟";
+"login-no-account" = "لا حساب لديك؟ $1";
+"login-join-wikipedia" = "انضم لويكيبيديا";
+"field-username-title" = "اسم المستخدم";
+"field-username-placeholder" = "أدخل اسم المستخدم";
+"field-password-title" = "كلمة السر";
+"field-password-placeholder" = "أدخل كلمة السر";
+"field-password-confirm-title" = "أكد كلمة السر";
+"field-password-confirm-placeholder" = "أعد إدخال كلمة السر";
+"field-new-password-title" = "كلمة السر الجديدة";
+"field-new-password-placeholder" = "أدخل كلمة السر";
+"field-new-password-confirm-title" = "تأكيد كلمة السر الجديدة";
+"field-new-password-confirm-placeholder" = "أعد إدخال كلمة السر";
+"field-email-title" = "البريد الإلكتروني";
+"field-email-title-optional" = "البريد الإلكتروني (اختياري)";
+"field-email-placeholder" = "example@example.org";
 "forgot-password-title" = "أعد ضبط كلمة السر";
 "forgot-password-username-prompt" = "اسم المستخدم";
 "forgot-password-email-prompt" = "البريد الإلكتروني (اختياري)";
 "forgot-password-button-title" = "أعد الضبط";
 "forgot-password-email-sent" = "أُرسل بريد إلكتروني يتضمن تعليمات إعادة تعيين كلمة السر";
+"forgot-password-username-or-email-title" = "أو";
 "wikitext-downloading" = "جارٍ تحميل المحتوى...";
 "wikitext-download-failed" = "غير قادر على تحديد المراجعة الأخيرة";
 "wikitext-download-success" = "تم تحميل المحتوى.";
@@ -138,9 +150,11 @@
 "settings-support" = "ادعم ويكبيديا";
 "settings-language-bar" = "إظهار اللغات في البحث";
 "settings-my-languages" = "لغاتي";
+"settings-notifications" = "الإشعارات";
 "settings-help-and-feedback" = "المساعدة والآراء والملاحظات";
 "settings-primary-language" = "أساسي";
 "settings-primary-language-details" = "اللغة الأولى في هذه القائمة هي اللغة الأساسية للتطبيق , تغيير هذه اللغة سيسبب تغيير المحتويات اليومية ( كالمواد المميزة) الظاهرة في المتصفح";
+"settings-notifications-system-turn-on" = "تشغيل الإشعارات";
 "main-menu-title" = "المزيد";
 "main-menu-heading-about" = "حول";
 "main-menu-language-title" = "البحث في ويكيبيديا";
@@ -279,13 +293,13 @@
 "onboarding-skip" = "تجاوز";
 "onboarding-wikipedia" = "ويكيبيديا";
 "onboarding-free-encyclopedia" = "الموسوعة الحرة";
-"preference_title_eventlogging_opt_in" = "إرسال تقارير الاستخدام";
-"preference_summary_eventlogging_opt_in" = "السماح لويكيميديا بجمع المعلومات حول كيفية استخدام التطبيق لتحسينه";
-"page_protected_autoconfirmed" = "تمت حماية هذه الصفحة جزئياً.";
-"page_protected_sysop" = "تمت حماية هذه الصفحة بالكامل.";
-"page_protected_other" = "تمت حماية هذه الصفحة إلى المستويات التالية: $1";
-"page_protected_can_not_edit" = "أنت لا تمتلك الصلاحيات اللازمة لتحرير هذه الصفحة";
-"page_protected_can_not_edit_title" = "هذه الصفحة محمية";
+"preference-title-eventlogging-opt-in" = "إرسال تقارير الاستخدام";
+"preference-summary-eventlogging-opt-in" = "السماح لويكيميديا بجمع المعلومات حول كيفية استخدام التطبيق لتحسينه";
+"page-protected-autoconfirmed" = "تمت حماية هذه الصفحة جزئياً.";
+"page-protected-sysop" = "تمت حماية هذه الصفحة بالكامل.";
+"page-protected-other" = "تمت حماية هذه الصفحة إلى المستويات التالية: $1";
+"page-protected-can-not-edit" = "أنت لا تمتلك الصلاحيات اللازمة لتحرير هذه الصفحة";
+"page-protected-can-not-edit-title" = "هذه الصفحة محمية";
 "license-footer-text" = "المحتوى متاح بموجب رخصة $1 إلا في حالة ذكر خلاف ذلك.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "المحتويات";
@@ -354,8 +368,6 @@
 "page-read-in-other-languages" = "متاحة في $1 لغة أخرى";
 "page-last-edited" = "عدلت $1 يوم مضى";
 "page-edit-history" = "تاريخ التعديل الكامل";
-"captcha-reload" = "اعرض كابتشا أخرى";
-"captcha-prompt" = "أدخل نص كابتشا";
 "mwk-empty-title-error" = "غير قادر على تنفيذ العملية مع عنوان فارغ";
 "home-title" = "استكشف";
 "home-empty-section" = "لا نتائج";
@@ -418,6 +430,7 @@
 "explore-continue-reading-heading" = "واصل القراءة";
 "explore-nearby-heading" = "أماكن قريبة";
 "explore-nearby-sub-heading-your-location" = "موقعك";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "على ويكيبيديا";
 "explore-continue-related-heading" = "لأنك قرأت";
 "explore-main-page-heading" = "اليوم في ويكيبيديا";
 "explore-random-article-heading" = "مقالة عشوائية";
@@ -446,10 +459,24 @@
 "in-the-news-notification-share-action-title" = "شارك...";
 "in-the-news-notification-save-for-later-action-title" = "احفظها لوقت لاحق";
 "in-the-news-currently-trending" = "الأكثر زيارة حاليا";
+"in-the-news-title" = "في الأخبار";
+"in-the-news-title-for-date" = "أخبار في $1";
 "number-thousands" = "$1 ألف";
 "number-millions" = "$1 مليون";
 "number-billions" = "$1 مليار";
 "back" = "رجوع";
+"save-action" = "احفظ";
+"status-saving-for-later" = "تُحفظ لوقت لاحق...";
+"status-saved-for-later" = "محفوظة لوقت لاحق";
+"announcements-dismiss" = "لا شكرًا";
 "places-search-saved-articles" = "المقالات المحفوظة";
+"places-search-suggested-searches-header" = "عمليات البحث المقترحة";
+"places-search-recently-searched-header" = "عمليات البحث الأخيرة";
+"places-no-saved-articles-have-location" = "لا مقالة من مقالاتك المحفوظة تتضمن معلومات عن الموقع";
+"places-unknown-distance" = "المسافة غير معروفة";
+"places-accessibility-close-search" = "أغلق البحث";
+"places-accessibility-clear-recent-searches" = "مسح عمليات البحث الأخيرة";
 "action-share" = "شارك";
 "action-save" = "حفظ";
+"action-read" = "اقرأ";
+"action-saved" = "محفوظة";

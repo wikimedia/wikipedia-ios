@@ -3,6 +3,7 @@
 #import "UIColor+WMFStyle.h"
 #import "UIImageView+WMFImageFetching.h"
 #import <objc/runtime.h>
+#import <WMF/WMF-Swift.h>
 
 @implementation UIImageView (WMFPlaceholder)
 
@@ -25,8 +26,8 @@ static const void *WMFPlaceholderKey = &WMFPlaceholderKey;
         placeholderView.frame = self.bounds;
         placeholderView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         placeholderView.contentMode = UIViewContentModeCenter;
-        placeholderView.backgroundColor = [UIColor wmf_placeholderImageBackgroundColor];
-        placeholderView.tintColor = [UIColor wmf_placeholderImageTintColor];
+        placeholderView.backgroundColor = [UIColor wmf_placeholderImageBackground];
+        placeholderView.tintColor = [UIColor wmf_placeholderImageTint];
         [self addSubview:placeholderView];
         objc_setAssociatedObject(self, WMFPlaceholderKey, placeholderView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }

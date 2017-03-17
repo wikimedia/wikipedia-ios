@@ -1,6 +1,7 @@
 // Messages for Sakha (саха тыла)
 // Exported from translatewiki.net
 // Author: HalanTul
+// Author: Nemo bis
 // Author: Ай-Куо
 // Author: Марианна
 // Author: Туллук
@@ -52,10 +53,6 @@
 "account-creation-passwords-mismatched" = "Аһарыктар сөп түбэспэтилэр.";
 "account-creation-saving" = "Бигэргэнэр...";
 "account-creation-login" = "Бэлиэтэммитиҥ дуо? Киир.";
-"account-creation-username-placeholder-text" = "Бэлиэ-аат";
-"account-creation-password-placeholder-text" = "Аһарык";
-"account-creation-password-confirm-placeholder-text" = "Аһарыккын бигэргэт";
-"account-creation-email-placeholder-text" = "Электрон почта (булгуччута суох)";
 "account-creation-missing-fields" = "Ааккын бэлиэтииргэ кыттааччы аатын, аһарыккын уонна аһарыккын хос суруйуохтааххын.";
 "login-name-not-found" = "Киирэргэ кыттааччы аата ирдэнэр.";
 "login-name-illegal" = "Табыллыбат ааты ыйбыккын.";
@@ -256,13 +253,13 @@
 "onboarding-skip" = "Аһар";
 "onboarding-wikipedia" = "Бикипиэдьийэ";
 "onboarding-free-encyclopedia" = "Аһаҕас энциклопедия";
-"preference_title_eventlogging_opt_in" = "Туһаныы отчуоттарын ыыт";
-"preference_summary_eventlogging_opt_in" = "Дьибилгэти туһанар туһунан Викимедиаҕа ыытары көҥүллээтэххинэ дьибилгэти тупсарарга көмөлөһүөҥ.";
-"page_protected_autoconfirmed" = "Бу сирэй ситэтэ суохтук хатанна.";
-"page_protected_sysop" = "Бу сирэй толору хатанна.";
-"page_protected_other" = "Бу сирэй маннык таһымнарга хатанна: $1";
-"page_protected_can_not_edit" = "Бу сирэйи уларытар кыаҕыҥ суох эбит";
-"page_protected_can_not_edit_title" = "Бу сирэй хатанан турар";
+"preference-title-eventlogging-opt-in" = "Туһаныы отчуоттарын ыыт";
+"preference-summary-eventlogging-opt-in" = "Дьибилгэти туһанар туһунан Викимедиаҕа ыытары көҥүллээтэххинэ дьибилгэти тупсарарга көмөлөһүөҥ.";
+"page-protected-autoconfirmed" = "Бу сирэй ситэтэ суохтук хатанна.";
+"page-protected-sysop" = "Бу сирэй толору хатанна.";
+"page-protected-other" = "Бу сирэй маннык таһымнарга хатанна: $1";
+"page-protected-can-not-edit" = "Бу сирэйи уларытар кыаҕыҥ суох эбит";
+"page-protected-can-not-edit-title" = "Бу сирэй хатанан турар";
 "license-footer-text" = "Иһинээҕитэ $1 лиссиэнсийэнэн тарҕанар";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Иһинээҕитэ";
@@ -330,8 +327,6 @@
 "page-read-in-other-languages" = "Атын $1 тылынан ааҕыахха сөп";
 "page-last-edited" = "$1 күн ынараа өттүгэр уларыйбыт";
 "page-edit-history" = "Уларытыы толору устуоруйата";
-"captcha-reload" = "Атын куоду көрдөр";
-"captcha-prompt" = "Капчаттан тиэкиһин суруй";
 "mwk-empty-title-error" = "Ааттаматах буолан дьайыыны оҥорор табыллыбата.";
 "home-title" = "Чинчий!";
 "home-empty-section" = "Туох да көстүбэтэ";

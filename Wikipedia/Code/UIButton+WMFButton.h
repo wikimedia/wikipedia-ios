@@ -9,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIButton (WMFButton)
 
-+ (UIButton *)wmf_buttonType:(WMFButtonType)type handler:(void (^__nullable)(id sender))action;
++ (UIButton *)wmf_buttonType:(WMFButtonType)type target:(nullable id)target action:(nullable SEL)action;
 
 - (void)wmf_setButtonType:(WMFButtonType)type;
 

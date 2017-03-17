@@ -52,7 +52,7 @@
 "account-creation-captcha-obtaining" = "Obtaining a new CAPTCHA...";
 "account-creation-captcha-title" = "CAPTCHA security check";
 "account-creation-captcha-cannot-see-image" = "Can't see the image? $1";
-"account-creation-captcha-request-account" = "Request an account.";
+"account-creation-captcha-request-account" = "Request account.";
 "account-creation-logging-in" = "Logging in...";
 "account-creation-passwords-mismatched" = "Password fields do not match.";
 "account-creation-saving" = "Saving...";
@@ -68,6 +68,8 @@
 "two-factor-login-title" = "Log in to your account";
 "two-factor-login-instructions" = "Please enter two factor verification code";
 "two-factor-login-continue" = "Continue log in";
+"two-factor-login-with-regular-code" = "Use verification code";
+"two-factor-login-with-backup-code" = "Use one of your backup codes";
 
 "login-name-not-found" = "Username is required to login.";
 "login-name-illegal" = "You provided an illegal username.";
@@ -94,12 +96,19 @@
 "field-new-password-placeholder" = "enter new password";
 "field-new-password-confirm-title" = "Confirm new password";
 "field-new-password-confirm-placeholder" = "re-enter new password";
-"field-email-title" = "Email address (optional)";
+"field-email-title" = "Email";
+"field-email-title-optional" = "Email (optional)";
 "field-email-placeholder" = "example@example.org";
-"field-token-title" = "Token";
+"field-token-title" = "Verification code";
+"field-backup-token-title" = "Backup code";
 "field-token-placeholder" = "enter token";
 "field-captcha-title" = "Enter the text you see above";
 "field-captcha-placeholder" = "CAPTCHA text";
+"field-alert-username-unavailable" = "Username not available";
+"field-alert-password-invalid" = "Invalid password";
+"field-alert-token-invalid" = "Invalid code";
+"field-alert-captcha-invalid" = "Invalid CAPTCHA";
+"field-alert-password-confirm-mismatch" = "Passwords do not match";
 
 "forgot-password-title" = "Reset password";
 "forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";
@@ -107,6 +116,7 @@
 "forgot-password-email-prompt" = "Email (optional)";
 "forgot-password-button-title" = "Reset";
 "forgot-password-email-sent" = "An email with password reset instructions was sent";
+"forgot-password-username-or-email-title" = "Or";
 
 "wikitext-downloading" = "Loading content...";
 "wikitext-download-failed" = "Unable to obtain latest revision.";
@@ -291,6 +301,8 @@
 "share-as-image" = "Share as image";
 "share-as-text" = "Share as text";
 "share-cancel" = "Cancel";
+"share-open-in-maps" = "Open in Maps";
+"share-get-directions-in-maps" = "Get Directions";
 
 "timestamp-just-now" = "just now";
 "timestamp-minutes" = "%d minutes ago";
@@ -322,14 +334,14 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "The Free Encyclopedia";
 
-"preference_title_eventlogging_opt_in" = "Send usage reports";
-"preference_summary_eventlogging_opt_in" = "Allow Wikimedia to collect information about how you use the app to make the app better";
+"preference-title-eventlogging-opt-in" = "Send usage reports";
+"preference-summary-eventlogging-opt-in" = "Allow Wikimedia to collect information about how you use the app to make the app better";
 
-"page_protected_autoconfirmed" = "This page has been semi-protected.";
-"page_protected_sysop" = "This page has been fully protected.";
-"page_protected_other" = "This page has been protected to the following levels: $1";
-"page_protected_can_not_edit" = "You do not have the rights to edit this page";
-"page_protected_can_not_edit_title" = "This page is protected";
+"page-protected-autoconfirmed" = "This page has been semi-protected.";
+"page-protected-sysop" = "This page has been fully protected.";
+"page-protected-other" = "This page has been protected to the following levels: $1";
+"page-protected-can-not-edit" = "You do not have the rights to edit this page";
+"page-protected-can-not-edit-title" = "This page is protected";
 
 "license-footer-text" = "Content is available under $1 unless otherwise noted.";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -408,6 +420,7 @@
 "page-read-in-other-languages" = "Available in $1 other languages";
 "page-last-edited" = "Edited $1 days ago";
 "page-edit-history" = "Full edit history";
+"page-location" = "View on a map";
 
 "mwk-empty-title-error" = "Unable to perform operation with empty title.";
 
@@ -574,14 +587,18 @@
 "places-search-saved-articles" = "Saved articles";
 "places-search-suggested-searches-header" = "Suggested searches";
 "places-search-recently-searched-header" = "Recently searched";
+"places-no-saved-articles-have-location" = "None of your saved articles have location information";
 "places-unknown-distance" = "unknown distance";
 "places-enable-location-title" = "Explore articles near your location by enabling Location Access";
 "places-enable-location-description" = "Access to your location is available only when the app or one of its features is visible on your screen.";
 "places-enable-location-action-button-title" = "Enable location";
 "places-accessibility-group" = "$1 articles";
+"places-accessibility-show-more" = "Show more articles";
 "places-accessibility-show-as-map" = "Show as map";
 "places-accessibility-show-as-list" = "Show as list";
 "places-accessibility-recenter-map-on-user-location" = "Recenter on your location";
+"places-accessibility-close-search" = "Close search";
+"places-accessibility-clear-recent-searches" = "Clear recent searches";
 
 "action-share" = "Share";
 "action-save" = "Save";

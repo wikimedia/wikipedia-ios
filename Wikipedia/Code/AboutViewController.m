@@ -2,7 +2,6 @@
 #import "WikipediaAppUtils.h"
 #import "WKWebView+LoadAssetsHtml.h"
 #import "NSString+WMFExtras.h"
-#import <BlocksKit/BlocksKit.h>
 #import "NSBundle+WMFInfoUtils.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
@@ -98,25 +97,24 @@ static NSString *const kWMFContributorsKey = @"contributors";
     [wv loadHTMLFromAssetsFile:kWMFAboutHTMLFile scrolledToFragment:nil];
     self.webView = wv;
 
-    @weakify(self)
-        self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
-                                               handler:^(id sender) {
-                                                   @strongify(self)
-                                                       [self dismissViewControllerAnimated:YES
-                                                                                completion:nil];
-                                               }];
+    self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
 
-    self.buttonCaretLeft = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft
-                                                   handler:^(id sender) {
-                                                       @strongify(self)
-                                                           [self.webView loadHTMLFromAssetsFile:kWMFAboutHTMLFile
-                                                                             scrolledToFragment:nil];
-                                                   }];
+    self.buttonCaretLeft = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft target:self action:@selector(leftButtonPressed)];
 
     self.buttonX.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish(@"menu-cancel-accessibility-label");
     self.buttonCaretLeft.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish(@"back-button-accessibility-label");
 
     [self updateNavigationBar];
+}
+
+- (void)closeButtonPressed {
+    [self.presentingViewController dismissViewControllerAnimated:YES
+                                                      completion:nil];
+}
+
+- (void)leftButtonPressed {
+    [self.webView loadHTMLFromAssetsFile:kWMFAboutHTMLFile
+                      scrolledToFragment:nil];
 }
 
 - (BOOL)prefersStatusBarHidden {

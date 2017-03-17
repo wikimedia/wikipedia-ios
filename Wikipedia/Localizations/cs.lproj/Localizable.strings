@@ -12,6 +12,7 @@
 // Author: Matěj Suchánek
 // Author: Mirek2
 // Author: Mormegil
+// Author: Nemo bis
 // Author: Niedzielski
 // Author: Vojtěch Dostál
 // Author: Walter Klosse
@@ -64,10 +65,6 @@
 "account-creation-passwords-mismatched" = "Hesla se neshodují.";
 "account-creation-saving" = "Ukládá se…";
 "account-creation-login" = "Již máte účet? Přihlaste se.";
-"account-creation-username-placeholder-text" = "Uživatelské jméno";
-"account-creation-password-placeholder-text" = "Heslo";
-"account-creation-password-confirm-placeholder-text" = "Potvrzení hesla";
-"account-creation-email-placeholder-text" = "E-mail (volitelné)";
 "account-creation-missing-fields" = "Pro vytvoření účtu musíte zadat uživatelské jméno, heslo a potvrzení hesla.";
 "login-name-not-found" = "Pro přihlášení je požadováno uživatelské jméno.";
 "login-name-illegal" = "Zadali jste nepovolené uživatelské jméno.";
@@ -247,10 +244,10 @@
 "onboarding-skip" = "Přeskočit";
 "onboarding-wikipedia" = "Wikipedie";
 "onboarding-free-encyclopedia" = "Otevřená encyklopedie";
-"preference_title_eventlogging_opt_in" = "Odesílat zprávy o využití";
-"preference_summary_eventlogging_opt_in" = "Umožnit nadaci Wikimedia sbírat informace o používání aplikace , aby ji mohla zlepšovat";
-"page_protected_can_not_edit" = "Nemáte oprávnění editovat tuto stránku";
-"page_protected_can_not_edit_title" = "Tato stránka je chráněná";
+"preference-title-eventlogging-opt-in" = "Odesílat zprávy o využití";
+"preference-summary-eventlogging-opt-in" = "Umožnit nadaci Wikimedia sbírat informace o používání aplikace , aby ji mohla zlepšovat";
+"page-protected-can-not-edit" = "Nemáte oprávnění editovat tuto stránku";
+"page-protected-can-not-edit-title" = "Tato stránka je chráněná";
 "license-footer-text" = "Obsah je dostupný pod $1, pokud není uvedeno jinak.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Obsah";
@@ -294,7 +291,6 @@
 "hockeyapp-alert-always-send" = "Vždy posílat";
 "hockeyapp-alert-do-not-send" = "Neposílat";
 "page-similar-titles" = "Podobné stránky";
-"captcha-prompt" = "Zadejte text CAPTCHA";
 "home-title" = "Prozkoumat";
 "home-empty-section" = "Žádné výsledky";
 "home-empty-section-check-again" = "Zkusit znovu";

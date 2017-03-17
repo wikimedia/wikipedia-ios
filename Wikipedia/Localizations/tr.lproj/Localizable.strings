@@ -13,6 +13,7 @@
 // Author: McAang
 // Author: Meelo
 // Author: MrSchipunov
+// Author: Nemo bis
 // Author: Rapsar
 // Author: Sadrettin
 // Author: Sayginer
@@ -68,23 +69,17 @@
 "account-creation-captcha-obtaining" = "Yeni CAPTCHA alınıyor...";
 "account-creation-captcha-title" = "CAPTCHA güvenlik kontrolü";
 "account-creation-captcha-cannot-see-image" = "Resmi göremiyor musunuz? $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "Hesap iste.";
 "account-creation-logging-in" = "Oturum açılıyor...";
 "account-creation-passwords-mismatched" = "Parola alanları uyuşmuyor.";
 "account-creation-saving" = "Kaydediliyor...";
 "account-creation-login" = "Zaten bir hesabınız var mı? Oturum açın";
-"account-creation-username-placeholder-text" = "Kullanıcı adı";
-"account-creation-password-placeholder-text" = "Parola";
-"account-creation-password-confirm-placeholder-text" = "Parolayı onayla";
-"account-creation-email-placeholder-text" = "E-posta (isteğe bağlı)";
 "account-creation-missing-fields" = "Bir hesap oluşturmak için kullanıcı adı, parola ve parola onayı girmeniz gerekir.";
 "new-password-title" = "Parolanızı belirleyin";
 "new-password-instructions" = "Geçici bir parolayla giriş yaptınız. Oturum açmayı tamamlamak için bu sayfada yeni bir parola belirleyin.";
-"new-password-password-placeholder-text" = "Yeni parola";
-"new-password-confirm-placeholder-text" = "Yeni parolayı onayla";
 "two-factor-login-title" = "Hesabınızda oturum açın";
 "two-factor-login-instructions" = "Lütfen iki faktörlü doğrulama kodunu girin";
-"two-factor-login-token-title" = "Anahtar";
 "login-name-not-found" = "Kullanıcı adı, oturum açmak için gereklidir.";
 "login-name-illegal" = "Geçersiz bir kullanıcı adı girdiniz.";
 "login-name-does-not-exist" = "Kayıtlı böyle bir kullanıcı adı yok.";
@@ -291,13 +286,13 @@
 "onboarding-skip" = "Atla";
 "onboarding-wikipedia" = "Vikipedi";
 "onboarding-free-encyclopedia" = "Özgür Ansiklopedi";
-"preference_title_eventlogging_opt_in" = "Kullanım raporlarını gönder";
-"preference_summary_eventlogging_opt_in" = "Wikimedia'nın, uygulamayı geliştirmek için, kullanım alışkanlıklarınız hakkında bilgi toplamasına izin ver";
-"page_protected_autoconfirmed" = "Bu sayfa yarı korumalıdır.";
-"page_protected_sysop" = "Bu sayfa tam korumalıdır.";
-"page_protected_other" = "Bu sayfa aşağıdaki seviyelerde korunmaktadır: $1";
-"page_protected_can_not_edit" = "Bu sayfayı düzenleme yetkiniz yok";
-"page_protected_can_not_edit_title" = "Bu sayfa korumalı";
+"preference-title-eventlogging-opt-in" = "Kullanım raporlarını gönder";
+"preference-summary-eventlogging-opt-in" = "Wikimedia'nın, uygulamayı geliştirmek için, kullanım alışkanlıklarınız hakkında bilgi toplamasına izin ver";
+"page-protected-autoconfirmed" = "Bu sayfa yarı korumalıdır.";
+"page-protected-sysop" = "Bu sayfa tam korumalıdır.";
+"page-protected-other" = "Bu sayfa aşağıdaki seviyelerde korunmaktadır: $1";
+"page-protected-can-not-edit" = "Bu sayfayı düzenleme yetkiniz yok";
+"page-protected-can-not-edit-title" = "Bu sayfa korumalı";
 "license-footer-text" = "İçerik, aksi belirtilmedikçe $1 lisansı altında kullanılabilir";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Konu başlıkları";
@@ -365,8 +360,6 @@
 "page-read-in-other-languages" = "$1 farklı dilde mevcut";
 "page-last-edited" = "$1 gün önce düzenlendi";
 "page-edit-history" = "Bütün düzenleme geçmişi";
-"captcha-reload" = "Başka bir captcha göster";
-"captcha-prompt" = "CAPTCHA metnini girin";
 "mwk-empty-title-error" = "Başlıksız işlem gerçekleştirilemiyor.";
 "home-title" = "Keşfet";
 "home-empty-section" = "Sonuç yok";
@@ -440,6 +433,11 @@
 "explore-continue-reading-heading" = "Okumaya devam et";
 "explore-nearby-heading" = "Yakındaki yerler";
 "explore-nearby-sub-heading-your-location" = "Konumunuz";
+"explore-nearby-placeholder-heading" = "Yerler";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Vikipedi'de";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Vikipedi'de";
+"explore-nearby-placeholder-dismiss" = "Kapat";
+"explore-nearby-placeholder-cancel" = "İptal";
 "explore-continue-related-heading" = "Okuduklarına benzer";
 "explore-main-page-heading" = "Vikipedi'de Bugün";
 "explore-random-article-heading" = "Rastgele madde";
@@ -489,6 +487,15 @@
 "places-search-saved-articles" = "Kaydedilmiş maddeler";
 "places-search-suggested-searches-header" = "Önerilen aramalar";
 "places-search-recently-searched-header" = "Son arananlar";
+"places-unknown-distance" = "bilinmeyen uzaklık";
+"places-enable-location-title" = "Konum Erişimini etkilenştirerek, yakınınızdaki maddeleri keşfedin";
+"places-enable-location-description" = "Sadece uygulama veya uygulamanın bir özelliği ekranda açıkken konumunuza erişim imkanı olacaktır.";
+"places-enable-location-action-button-title" = "Konumu etkinleştir";
+"places-accessibility-group" = "$1 madde";
+"places-accessibility-show-as-map" = "Harita olarak göster";
+"places-accessibility-show-as-list" = "Liste olarak göster";
+"places-accessibility-recenter-map-on-user-location" = "Konumunuza geri dönün";
 "action-share" = "Paylaş";
 "action-save" = "Kaydet";
 "action-read" = "Oku";
+"action-saved" = "Kaydedilenler";

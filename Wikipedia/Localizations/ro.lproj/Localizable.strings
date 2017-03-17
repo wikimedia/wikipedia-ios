@@ -3,6 +3,7 @@
 // Author: ANDROBETA
 // Author: Macofe
 // Author: Minisarm
+// Author: Nemo bis
 
 "languages-title" = "Schimbare limbă";
 "article-languages-label" = "Alegere limbă";
@@ -51,10 +52,6 @@
 "account-creation-passwords-mismatched" = "Câmpurile cu parole nu corespund.";
 "account-creation-saving" = "Se salvează...";
 "account-creation-login" = "Aveți deja un cont? Autentificați-vă.";
-"account-creation-username-placeholder-text" = "Nume de utilizator";
-"account-creation-password-placeholder-text" = "Parolă";
-"account-creation-password-confirm-placeholder-text" = "Confirmare parolă";
-"account-creation-email-placeholder-text" = "E-mail (opțional)";
 "account-creation-missing-fields" = "Trebuie să introduceți un nume de utilizator, o parolă și confirmarea parolei pentru a crea un cont.";
 "login-name-not-found" = "Numele de utilizator este necesar pentru autentificare.";
 "login-name-illegal" = "Ați introdus un nume de utilizator interzis.";
@@ -252,13 +249,13 @@
 "onboarding-skip" = "Omite";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Enciclopedia liberă";
-"preference_title_eventlogging_opt_in" = "Trimite rapoarte de utilizare";
-"preference_summary_eventlogging_opt_in" = "Permiteți Wikimediei să adune informații despre modul în care utilizați aplicația pentru a putea îmbunătăți aplicația";
-"page_protected_autoconfirmed" = "Această pagină a fost semiprotejată.";
-"page_protected_sysop" = "Această pagină a fost protejată.";
-"page_protected_other" = "Această pagină a fost protejată pentru următoarele niveluri: $1";
-"page_protected_can_not_edit" = "Nu aveți drepturi pentru a modifica această pagină";
-"page_protected_can_not_edit_title" = "Această pagină este protejată";
+"preference-title-eventlogging-opt-in" = "Trimite rapoarte de utilizare";
+"preference-summary-eventlogging-opt-in" = "Permiteți Wikimediei să adune informații despre modul în care utilizați aplicația pentru a putea îmbunătăți aplicația";
+"page-protected-autoconfirmed" = "Această pagină a fost semiprotejată.";
+"page-protected-sysop" = "Această pagină a fost protejată.";
+"page-protected-other" = "Această pagină a fost protejată pentru următoarele niveluri: $1";
+"page-protected-can-not-edit" = "Nu aveți drepturi pentru a modifica această pagină";
+"page-protected-can-not-edit-title" = "Această pagină este protejată";
 "license-footer-text" = "Conținutul este disponibil sub $1, exceptând cazurile în care se specifică altfel.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Cuprins";
@@ -328,8 +325,6 @@
 "page-read-in-other-languages" = "Disponibil în alte $1 limbi";
 "page-last-edited" = "Modificat acum $1 zi(le)";
 "page-edit-history" = "Istoric complet al modificărilor";
-"captcha-reload" = "Arată alt text captcha";
-"captcha-prompt" = "Introduceți textul CAPTCHA";
 "mwk-empty-title-error" = "Imposibil de efectuat operațiunea cu un titlu gol.";
 "home-title" = "Explorare";
 "home-empty-section" = "Niciun rezultat";

@@ -16,9 +16,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
-    backgroundView.backgroundColor = [UIColor wmf_settingsBackgroundColor];
+    backgroundView.backgroundColor = [UIColor wmf_settingsBackground];
     self.backgroundView = backgroundView;
-    self.titleLabel.textColor = [UIColor wmf_777777Color];
+    self.titleLabel.textColor = [UIColor wmf_777777];
     [self wmf_configureSubviewsForDynamicType];
 }
 

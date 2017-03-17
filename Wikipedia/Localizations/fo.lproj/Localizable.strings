@@ -1,6 +1,7 @@
 // Messages for Faroese (føroyskt)
 // Exported from translatewiki.net
 // Author: EileenSanda
+// Author: Nemo bis
 
 // Fuzzy
 "languages-title" = "Mál";
@@ -50,11 +51,6 @@
 "account-creation-passwords-mismatched" = "Teigarnar við loyniorði passa ikki saman.";
 "account-creation-saving" = "Goymir...";
 "account-creation-login" = "Hevur tú longuu eina konto? Rita in.";
-// Fuzzy
-"account-creation-username-placeholder-text" = "Brúkaranavn";
-"account-creation-password-placeholder-text" = "Loyniorð";
-"account-creation-password-confirm-placeholder-text" = "Váttað loyniorð";
-"account-creation-email-placeholder-text" = "T-postur (valfrítt)";
 "account-creation-missing-fields" = "Tú mást skriva eitt brúkaranavn, loyniorð ag vátta loyniorðið, fyri at upprætta eina kontu.";
 // Fuzzy
 "login-name-not-found" = "Brúkaranavn verður kravt fyri at rita inn.";
@@ -217,10 +213,10 @@
 "onboarding-skip" = "Loyp um";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Hin frælsa alfrøðin";
-"preference_title_eventlogging_opt_in" = "Send frágreiðingar um nýtslu";
-"preference_summary_eventlogging_opt_in" = "Loyv Wikimedia at savna kunning um hvussu tú nýtir appina fyri at gera hana betri.";
-"page_protected_autoconfirmed" = "Henda síðan er blivin hálv-vard.";
-"page_protected_sysop" = "Henda síðan hevur fulla verju.";
+"preference-title-eventlogging-opt-in" = "Send frágreiðingar um nýtslu";
+"preference-summary-eventlogging-opt-in" = "Loyv Wikimedia at savna kunning um hvussu tú nýtir appina fyri at gera hana betri.";
+"page-protected-autoconfirmed" = "Henda síðan er blivin hálv-vard.";
+"page-protected-sysop" = "Henda síðan hevur fulla verju.";
 "table-of-contents-close-accessibility-hint" = "Lat aftur";
 "menu-edit-accessibility-label" = "Rætta";
 "menu-close-accessibility-label" = "Lat aftur";
@@ -250,5 +246,3 @@
 "hockeyapp-alert-always-send" = "Send altíð";
 "hockeyapp-alert-do-not-send" = "Ikki senda";
 "page-similar-titles" = "Líknandi síður";
-// Fuzzy
-"captcha-prompt" = "Skriva CAPTCHA tekstin frá myndini omanfyri";

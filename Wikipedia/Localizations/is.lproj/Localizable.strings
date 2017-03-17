@@ -3,6 +3,7 @@
 // Author: Fitoschido
 // Author: Macofe
 // Author: Maxí
+// Author: Nemo bis
 // Author: Sveinn í Felli
 
 // Fuzzy
@@ -53,11 +54,6 @@
 "account-creation-passwords-mismatched" = "Lykilorðin passa ekki saman.";
 "account-creation-saving" = "Vistar...";
 "account-creation-login" = "Ert þú með aðgang? Skrá inn.";
-// Fuzzy
-"account-creation-username-placeholder-text" = "Notandanafn";
-"account-creation-password-placeholder-text" = "Lykilorð";
-"account-creation-password-confirm-placeholder-text" = "Staðfesting á lykilorði";
-"account-creation-email-placeholder-text" = "Netfang (valfrjálst)";
 "account-creation-missing-fields" = "Það verður að slá inn notandanafn, lykilorð og staðfesting á lykilorðinu til að stofna aðgang.";
 // Fuzzy
 "login-name-not-found" = "Notandanafn krefst til að skrá inn.";
@@ -253,13 +249,13 @@
 "onboarding-skip" = "Sleppa";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Frjálsa alfræðiritið";
-"preference_title_eventlogging_opt_in" = "Senda notkunarskýrslur";
-"preference_summary_eventlogging_opt_in" = "Leyfa Wikimedia til að safna upplýsingum um hvernig þú notar appið til að gera það betra";
-"page_protected_autoconfirmed" = "Þessi síða er varin að hluta til.";
-"page_protected_sysop" = "Þessi síða er varin í heild.";
-"page_protected_other" = "Þessi síða er varin upp á eftirfarandi stig: $1";
-"page_protected_can_not_edit" = "Þú hefur ekki réttindi á að breyta þessari síðu";
-"page_protected_can_not_edit_title" = "Þessi síða er varin";
+"preference-title-eventlogging-opt-in" = "Senda notkunarskýrslur";
+"preference-summary-eventlogging-opt-in" = "Leyfa Wikimedia til að safna upplýsingum um hvernig þú notar appið til að gera það betra";
+"page-protected-autoconfirmed" = "Þessi síða er varin að hluta til.";
+"page-protected-sysop" = "Þessi síða er varin í heild.";
+"page-protected-other" = "Þessi síða er varin upp á eftirfarandi stig: $1";
+"page-protected-can-not-edit" = "Þú hefur ekki réttindi á að breyta þessari síðu";
+"page-protected-can-not-edit-title" = "Þessi síða er varin";
 // Fuzzy
 "license-footer-text" = "Efnið er gefið út undir $1";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -333,9 +329,6 @@
 "page-read-in-other-languages" = "Lesa á $1 tungumálum";
 "page-last-edited" = "Breytt fyrir $1 dögum";
 "page-edit-history" = "Öll breytingaskráin";
-"captcha-reload" = "Sýna annað captcha";
-// Fuzzy
-"captcha-prompt" = "Settu inn CAPTCHA-textann úr myndinni hér fyrir ofan";
 "mwk-empty-title-error" = "Gat ekki framkvæmt aðgerð með auðum titli.";
 "home-title" = "Könnun";
 "home-empty-section" = "Engar niðurstöður";

@@ -1,6 +1,7 @@
 // Messages for Albanian (shqip)
 // Exported from translatewiki.net
 // Author: Kosovastar
+// Author: Nemo bis
 // Author: Olsi
 
 "languages-title" = "Ndrysho gjuhën";
@@ -54,11 +55,6 @@
 "account-creation-passwords-mismatched" = "Fushat e fjalëkalimeve nuk përputhen.";
 "account-creation-saving" = "Duke ruajtur...";
 "account-creation-login" = "Keni një llogari? Identifikohuni";
-// Fuzzy
-"account-creation-username-placeholder-text" = "Emri i përdoruesit";
-"account-creation-password-placeholder-text" = "Fjalëkalimi";
-"account-creation-password-confirm-placeholder-text" = "Konfirmoni fjalëkalimin";
-"account-creation-email-placeholder-text" = "Email (me dëshirë)";
 "account-creation-missing-fields" = "Ju duhet të fusni një emër përdoruesi, fjalëkalimin dhe konfirmimin e fjalëkalimit për të krijuar një llogari.";
 // Fuzzy
 "login-name-not-found" = "Emri i përdoruesit është i nevojshëm në mënyrë që të hyni.";
@@ -211,10 +207,10 @@
 "onboarding-skip" = "Tejkalo";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Enciklopedia e lirë";
-"page_protected_autoconfirmed" = "Kjo faqe ka qenë gjysmë e mbrojtur.";
-"page_protected_sysop" = "Kjo faqe ka qenë e mbrojtur plotësisht.";
-"page_protected_can_not_edit" = "Ju nuk keni të drejtë të redaktoni këtë faqe";
-"page_protected_can_not_edit_title" = "Kjo faqe është e mbrojtur";
+"page-protected-autoconfirmed" = "Kjo faqe ka qenë gjysmë e mbrojtur.";
+"page-protected-sysop" = "Kjo faqe ka qenë e mbrojtur plotësisht.";
+"page-protected-can-not-edit" = "Ju nuk keni të drejtë të redaktoni këtë faqe";
+"page-protected-can-not-edit-title" = "Kjo faqe është e mbrojtur";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Përmbajtja";
 "table-of-contents-close-accessibility-hint" = "Mbyll";
@@ -258,9 +254,6 @@
 "nearby-wifi" = "Aktivizimi i WI-FI mund ta ndihmojë pajisjen tuaj ta përcaktojë më mirë vendndodhjen tuaj.";
 "image-gallery-fetch-image-info-error-ok" = "Në rregull";
 "page-similar-titles" = "Faqe të ngjashme";
-"captcha-reload" = "Trego një captcha tjetër";
-// Fuzzy
-"captcha-prompt" = "Fusni tekstin CAPTCHA nga imazhi lart";
 "explore-featured-article-heading" = "Artikujt e veçuar";
 "explore-continue-reading-heading" = "Vazhdo leximin";
 "explore-nearby-heading" = "Vendet në afërsi";

@@ -11,6 +11,7 @@
 // Author: Liuxinyu970226
 // Author: Macofe
 // Author: Mikepanhu
+// Author: Nemo bis
 // Author: Reke
 // Author: Simon Shek
 // Author: Wehwei
@@ -57,28 +58,28 @@
 "zero-wikipedia-zero-heading" = "維基百科零";
 "zero-warn-when-leaving" = "離開 Wikipedia Zero 時提示";
 "zero-settings-devmode" = "Zero 開發模式";
+"account-creation-title" = "建立新帳號";
 "account-creation-captcha-required" = "需要使用驗証碼驗証。";
 "account-creation-captcha-retry" = "輸入不正確。請再試一次。";
 "account-creation-captcha-obtaining" = "取得新驗證碼中…";
 "account-creation-captcha-title" = "CAPTCHA 安全性檢查";
 "account-creation-captcha-cannot-see-image" = "看不見圖片嗎？$1";
-"account-creation-captcha-request-account" = "請求一個帳號。";
+"account-creation-captcha-request-account" = "請求帳號。";
 "account-creation-logging-in" = "登入中...";
 "account-creation-passwords-mismatched" = "密碼欄位不符合。";
 "account-creation-saving" = "儲存中...";
 "account-creation-login" = "已經擁有帳號？請登入。";
-"account-creation-username-placeholder-text" = "使用者名稱";
-"account-creation-password-placeholder-text" = "密碼";
-"account-creation-password-confirm-placeholder-text" = "確認密碼";
-"account-creation-email-placeholder-text" = "電子郵件 (選填)";
 "account-creation-missing-fields" = "您必須輸入使用者名稱與密碼，並且在確認密碼之後才能建立一個帳號。";
+"account-creation-create-account" = "建立您的帳號";
+"account-creation-have-account" = "已經擁有帳號？$1";
+"account-creation-log-in" = "登入";
 "new-password-title" = "設定您的密碼";
 "new-password-instructions" = "您以臨時密碼登入。要完成登入，請在此設定新密碼。";
-"new-password-password-placeholder-text" = "新密碼";
-"new-password-confirm-placeholder-text" = "確認新密碼";
 "two-factor-login-title" = "登入至您的帳號";
 "two-factor-login-instructions" = "請輸入雙因素驗證代碼";
-"two-factor-login-token-title" = "權杖";
+"two-factor-login-continue" = "繼續登入";
+"two-factor-login-with-regular-code" = "使用驗證代碼";
+"two-factor-login-with-backup-code" = "使用您的任一備份代碼";
 "login-name-not-found" = "需要填寫使用者名稱才能登入。";
 "login-name-illegal" = "您提供的使用者名稱不合法。";
 "login-name-does-not-exist" = "您提供的使用者名稱不存在。";
@@ -90,12 +91,40 @@
 "login-username-placeholder-text" = "使用者名稱";
 "login-password-placeholder-text" = "密碼";
 "login-forgot-password" = "忘記您的密碼？";
+"login-title" = "登入您的帳號";
+"login-no-account" = "還沒有帳號？$1";
+"login-join-wikipedia" = "加入維基百科。";
+"field-username-title" = "使用者名稱";
+"field-username-placeholder" = "輸入使用者名稱";
+"field-password-title" = "密碼";
+"field-password-placeholder" = "輸入密碼";
+"field-password-confirm-title" = "確認密碼";
+"field-password-confirm-placeholder" = "再次輸入密碼";
+"field-new-password-title" = "新密碼";
+"field-new-password-placeholder" = "輸入新密碼";
+"field-new-password-confirm-title" = "確認新密碼";
+"field-new-password-confirm-placeholder" = "再次輸入新密碼";
+"field-email-title" = "電子郵件";
+"field-email-title-optional" = "電子郵件(選填)";
+"field-email-placeholder" = "example@example.org";
+"field-token-title" = "驗證代碼";
+"field-backup-token-title" = "備份代碼";
+"field-token-placeholder" = "輸入金鑰";
+"field-captcha-title" = "輸入您在上方看到的文字";
+"field-captcha-placeholder" = "驗證碼";
+"field-alert-username-unavailable" = "使用者名稱不可用";
+"field-alert-password-invalid" = "無效密碼";
+// Fuzzy
+"field-alert-token-invalid" = "無效代碼。請重試一次。";
+"field-alert-captcha-invalid" = "無效驗證碼";
+"field-alert-password-confirm-mismatch" = "密碼不符合";
 "forgot-password-title" = "重設密碼";
 "forgot-password-instructions" = "在下方其一欄位填入來透過電子郵件接收密碼重新設定說明";
 "forgot-password-username-prompt" = "使用者名稱";
 "forgot-password-email-prompt" = "電子郵件 (選填)";
 "forgot-password-button-title" = "重設";
 "forgot-password-email-sent" = "一封帶有密碼重設說明的電郵已寄出";
+"forgot-password-username-or-email-title" = "或";
 "wikitext-downloading" = "讀取內容中…";
 "wikitext-download-failed" = "無法取得最新的版本。";
 "wikitext-download-success" = "已讀取內容。";
@@ -260,6 +289,8 @@
 "share-as-image" = "以圖片分享";
 "share-as-text" = "以文字分享";
 "share-cancel" = "取消";
+"share-open-in-maps" = "在地圖中開啟";
+"share-get-directions-in-maps" = "取得路線";
 "timestamp-just-now" = "剛剛";
 "timestamp-minutes" = "%d 分鐘前";
 "timestamp-hours" = "%d 小時前";
@@ -285,13 +316,13 @@
 "onboarding-skip" = "略過";
 "onboarding-wikipedia" = "維基百科";
 "onboarding-free-encyclopedia" = "自由的百科全書";
-"preference_title_eventlogging_opt_in" = "傳送使用情況報告";
-"preference_summary_eventlogging_opt_in" = "允許維基媒體收集有關您如何使用該應用程式使應用程式更好的資訊";
-"page_protected_autoconfirmed" = "此頁面已受半保護。";
-"page_protected_sysop" = "此頁面已受全保護。";
-"page_protected_other" = "此頁面已受到以下層級的保護：$1";
-"page_protected_can_not_edit" = "您沒有權限編輯此頁面";
-"page_protected_can_not_edit_title" = "此頁面受到保護";
+"preference-title-eventlogging-opt-in" = "傳送使用情況報告";
+"preference-summary-eventlogging-opt-in" = "允許維基媒體收集有關您如何使用該應用程式使應用程式更好的資訊";
+"page-protected-autoconfirmed" = "此頁面已受半保護。";
+"page-protected-sysop" = "此頁面已受全保護。";
+"page-protected-other" = "此頁面已受到以下層級的保護：$1";
+"page-protected-can-not-edit" = "您沒有權限編輯此頁面";
+"page-protected-can-not-edit-title" = "此頁面受到保護";
 "license-footer-text" = "除非另有註記，內容根據 $1 授權";
 "license-footer-name" = "創用 CC 姓名標示-相同方式分享 3.0";
 "table-of-contents-heading" = "內容";
@@ -359,8 +390,7 @@
 "page-read-in-other-languages" = "在 $1 種其他語言中可用";
 "page-last-edited" = "$1 日前編輯";
 "page-edit-history" = "完整編輯歷史";
-"captcha-reload" = "顯示其他驗證碼";
-"captcha-prompt" = "輸入上圖中的驗證碼文字";
+"page-location" = "在地圖上檢視";
 "mwk-empty-title-error" = "無法執行有空白標題的操作。";
 "home-title" = "探索";
 "home-empty-section" = "沒有結果";
@@ -434,6 +464,9 @@
 "explore-continue-reading-heading" = "繼續閱讀";
 "explore-nearby-heading" = "位置接近";
 "explore-nearby-sub-heading-your-location" = "您的位置";
+"explore-nearby-placeholder-heading" = "地點";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "在維基百科";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "在$1維基百科";
 "explore-nearby-placeholder-dismiss" = "關閉";
 "explore-nearby-placeholder-cancel" = "取消";
 "explore-continue-related-heading" = "因為您閱讀";
@@ -485,9 +518,17 @@
 "places-search-saved-articles" = "已儲存條目";
 "places-search-suggested-searches-header" = "建議搜尋";
 "places-search-recently-searched-header" = "近期搜尋";
+"places-no-saved-articles-have-location" = "您所儲存的條目皆未有位置訊息";
 "places-unknown-distance" = "未知距離";
+"places-enable-location-title" = "透過啟用位置訪問來瀏覽接近您位置的條目";
+"places-enable-location-description" = "訪問您的位置僅在應用程式、或其一功能在您的螢幕上可見時才可用。";
+"places-enable-location-action-button-title" = "啟用位置";
+"places-accessibility-group" = "$1 個條目";
 "places-accessibility-show-as-map" = "以地圖顯示";
 "places-accessibility-show-as-list" = "以清單顯示";
+"places-accessibility-recenter-map-on-user-location" = "重定位您的位置";
+"places-accessibility-close-search" = "關閉搜尋";
+"places-accessibility-clear-recent-searches" = "清除近期搜尋";
 "action-share" = "分享";
 "action-save" = "儲存";
 "action-read" = "閱讀";

@@ -1,8 +1,9 @@
 #import "WMFNearbyArticleTableViewCell.h"
 
 @import CoreLocation;
+#if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>
-
+#endif
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 
 // Views
@@ -113,7 +114,7 @@
     return [[NSAttributedString alloc] initWithString:self.titleText
                                            attributes:@{
                                                NSFontAttributeName: [UIFont wmf_nearbyTitleFont],
-                                               NSForegroundColorAttributeName: [UIColor wmf_nearbyTitleColor]
+                                               NSForegroundColorAttributeName: [UIColor wmf_nearbyTitle]
                                            }];
 }
 
@@ -142,13 +143,13 @@
 }
 
 - (void)setDistance:(CLLocationDistance)distance {
-#if FB_TWEAK_ENABLED
+#if WMF_TWEAKS_ENABLED
     if (FBTweakValue(@"Explore", @"Nearby", @"Show raw distance", NO)) {
         self.distanceLabel.text = [NSString stringWithFormat:@"%f", distance];
     } else {
 #endif
         self.distanceLabel.text = [NSString wmf_localizedStringForDistance:distance];
-#if FB_TWEAK_ENABLED
+#if WMF_TWEAKS_ENABLED
     }
 #endif
 }

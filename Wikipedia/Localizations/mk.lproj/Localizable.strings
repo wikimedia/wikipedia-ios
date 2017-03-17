@@ -3,6 +3,7 @@
 // Author: Bjankuloski06
 // Author: Bsitzmann
 // Author: Macofe
+// Author: Nemo bis
 // Author: Монтехристо
 
 "languages-title" = "Смени јазик";
@@ -46,6 +47,7 @@
 "zero-wikipedia-zero-heading" = "Википедија Нулта";
 "zero-warn-when-leaving" = "Предупреди ме доколку ја напуштам Нулта";
 "zero-settings-devmode" = "Развоен режим на Нулта";
+"account-creation-title" = "Создај нова сметка";
 "account-creation-captcha-required" = "Се бара потврда со сликичка";
 "account-creation-captcha-retry" = "Внесеното е неточно. Обидете се повторно.";
 "account-creation-captcha-obtaining" = "Правам нова сликичка...";
@@ -56,18 +58,17 @@
 "account-creation-passwords-mismatched" = "Лозинките не се совпаѓаат.";
 "account-creation-saving" = "Зачувувам...";
 "account-creation-login" = "Веќе имате сметка? Најавете се";
-"account-creation-username-placeholder-text" = "Корисничко име";
-"account-creation-password-placeholder-text" = "Лозинка";
-"account-creation-password-confirm-placeholder-text" = "Потврда на лозинката";
-"account-creation-email-placeholder-text" = "Е-пошта (незадолжително)";
 "account-creation-missing-fields" = "Ќе мора да внесете корисничко име, лозинка и нејзина потврда за да направите сметка.";
+"account-creation-create-account" = "Создај нова сметка";
+"account-creation-have-account" = "Веќе имате сметка? $1";
+"account-creation-log-in" = "Најава.";
 "new-password-title" = "Ставете лозинка";
 "new-password-instructions" = "Се најавивте со привремена лозинка. За да ја довршите најавата, ќе мора тука да зададете нова лозинка.";
-"new-password-password-placeholder-text" = "Нова лозинка";
-"new-password-confirm-placeholder-text" = "Потврдете ја новата лозинка";
 "two-factor-login-title" = "Најавете се со вашата сметка";
 "two-factor-login-instructions" = "Внесете го двочинителскиот код за заверка";
-"two-factor-login-token-title" = "Шифра";
+"two-factor-login-continue" = "Продолжете со најавата";
+"two-factor-login-with-regular-code" = "Користи потврден код";
+"two-factor-login-with-backup-code" = "Користи еден од резервните кодови";
 "login-name-not-found" = "Се бара корисничко име за најава.";
 "login-name-illegal" = "Внесовте неправилно корисничко име.";
 "login-name-does-not-exist" = "Внесеното корисничко име не постои.";
@@ -79,12 +80,39 @@
 "login-username-placeholder-text" = "Корисничко име";
 "login-password-placeholder-text" = "Лозинка";
 "login-forgot-password" = "Ја заборавивте лозинката?";
+"login-title" = "Најавете се со вашата сметка";
+"login-no-account" = "Немате корисничка сметка? $1.";
+"login-join-wikipedia" = "Придружете ѝ се на Википедија.";
+"field-username-title" = "Корисничко име";
+"field-username-placeholder" = "внесете корисничко име:";
+"field-password-title" = "Лозинка";
+"field-password-placeholder" = "внесете лозинка";
+"field-password-confirm-title" = "Потврдете ја лозинката";
+"field-password-confirm-placeholder" = "лозинката повторно";
+"field-new-password-title" = "Нова лозинка";
+"field-new-password-placeholder" = "внесете нова лозинка";
+"field-new-password-confirm-title" = "Потврдете ја новата лозинка";
+"field-new-password-confirm-placeholder" = "повторно внесете ја новата лозинка";
+"field-email-title" = "Е-пошта";
+"field-email-title-optional" = "Е-пошта (незадолжително)";
+"field-email-placeholder" = "example@example.org";
+"field-token-title" = "Потврден код";
+"field-backup-token-title" = "Резервен код";
+"field-token-placeholder" = "внесете шифра";
+"field-captcha-title" = "Внесете го гореприкажаниот текст";
+"field-captcha-placeholder" = "CAPTCHA-текст";
+"field-alert-username-unavailable" = "Корисничкото име е недостапно";
+"field-alert-password-invalid" = "Неважечка лозинка";
+"field-alert-token-invalid" = "Неважечки код";
+"field-alert-captcha-invalid" = "Неважечка CAPTCHA";
+"field-alert-password-confirm-mismatch" = "Лозинките не се совпаѓаат";
 "forgot-password-title" = "Нова лозинка";
 "forgot-password-instructions" = "Пополнете едно од полињата подолу за да добиете напатствија за ставање нова лозинка по е-пошта.";
 "forgot-password-username-prompt" = "Корисничко име";
 "forgot-password-email-prompt" = "Е-пошта (незадолжително)";
 "forgot-password-button-title" = "Задај нова лозинка";
 "forgot-password-email-sent" = "На е-пошта ви се испратени напатствија за задавање на нова лозинка";
+"forgot-password-username-or-email-title" = "Или";
 "wikitext-downloading" = "Ги вчитувам содржините...";
 "wikitext-download-failed" = "Не можам да ја добијам најновата преработка.";
 "wikitext-download-success" = "Содржината е вчитана.";
@@ -249,6 +277,8 @@
 "share-as-image" = "Сподели ја сликава";
 "share-as-text" = "Сподели како текст";
 "share-cancel" = "Откажи";
+"share-open-in-maps" = "Отвори во Карти";
+"share-get-directions-in-maps" = "Дај насоки";
 "timestamp-just-now" = "штотуку";
 "timestamp-minutes" = "пред %d минути";
 "timestamp-hours" = "пред %d часа";
@@ -274,13 +304,13 @@
 "onboarding-skip" = "Прескокни";
 "onboarding-wikipedia" = "Википедија";
 "onboarding-free-encyclopedia" = "Слободната енциклопедија";
-"preference_title_eventlogging_opt_in" = "Испраќај извештаи за употребата";
-"preference_summary_eventlogging_opt_in" = "Ѝ овозможува на Викимедија да собира информации за тоа како го користите прилогот, за да може да го подобри";
-"page_protected_autoconfirmed" = "Оваа страница е полузаштитена.";
-"page_protected_sysop" = "Оваа страница е наполно заштитена.";
-"page_protected_other" = "Оваа страница е заштитена во следниве степени: $1";
-"page_protected_can_not_edit" = "Немате право да ја уредувате страницава";
-"page_protected_can_not_edit_title" = "Оваа страница е заштитена";
+"preference-title-eventlogging-opt-in" = "Испраќај извештаи за употребата";
+"preference-summary-eventlogging-opt-in" = "Ѝ овозможува на Викимедија да собира информации за тоа како го користите прилогот, за да може да го подобри";
+"page-protected-autoconfirmed" = "Оваа страница е полузаштитена.";
+"page-protected-sysop" = "Оваа страница е наполно заштитена.";
+"page-protected-other" = "Оваа страница е заштитена во следниве степени: $1";
+"page-protected-can-not-edit" = "Немате право да ја уредувате страницава";
+"page-protected-can-not-edit-title" = "Оваа страница е заштитена";
 "license-footer-text" = "Содржината е достапна под условите на $1 освен ако не е поинаку наведено.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Содржина";
@@ -348,8 +378,7 @@
 "page-read-in-other-languages" = "Достапно на $1 други јазици";
 "page-last-edited" = "Изменето пред $1 дена";
 "page-edit-history" = "Цела историја на уредувања";
-"captcha-reload" = "Прикажи друга Captcha";
-"captcha-prompt" = "Внесете го текстот од сликата";
+"page-location" = "Погл. на карта";
 "mwk-empty-title-error" = "Не можам да извршам задача со празен наслов.";
 "home-title" = "Истражете";
 "home-empty-section" = "Нема исход";
@@ -477,14 +506,18 @@
 "places-search-saved-articles" = "Зачувани статии";
 "places-search-suggested-searches-header" = "Предложени пребарувања";
 "places-search-recently-searched-header" = "Неодамна пребарано";
+"places-no-saved-articles-have-location" = "Ниедна од зачуваните статии немаат информации за местоположба";
 "places-unknown-distance" = "непозната оддалеченост";
 "places-enable-location-title" = "Истражете статии во ваша близина овозможувајќи го „Пристап до местоположба“";
 "places-enable-location-description" = "Пристапот до вашата местоположба е достапен само кога е видлив прилогот или една од неговите функции.";
 "places-enable-location-action-button-title" = "Овозможи местоположба";
 "places-accessibility-group" = "$1 статии";
+"places-accessibility-show-more" = "Повеќе статии";
 "places-accessibility-show-as-map" = "Прикажи како карта";
 "places-accessibility-show-as-list" = "Прикажи како список";
 "places-accessibility-recenter-map-on-user-location" = "Сосредоточи на мојата местоположба";
+"places-accessibility-close-search" = "Затвори пребарување";
+"places-accessibility-clear-recent-searches" = "Исчисти скорешни пребарувања";
 "action-share" = "Сподели";
 "action-save" = "Зачувај";
 "action-read" = "Прочитај";

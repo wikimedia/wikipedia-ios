@@ -7,6 +7,7 @@
 // Author: Kingu
 // Author: Laaknor
 // Author: Macofe
+// Author: Nemo bis
 // Author: SuperPotato
 // Author: Tsaetre
 
@@ -57,10 +58,6 @@
 "account-creation-passwords-mismatched" = "Passordfeltene stemmer ikke overens.";
 "account-creation-saving" = "Lagrer…";
 "account-creation-login" = "Har du en konto allerede? Logg inn";
-"account-creation-username-placeholder-text" = "Brukernavn";
-"account-creation-password-placeholder-text" = "Passord";
-"account-creation-password-confirm-placeholder-text" = "Bekreft passord";
-"account-creation-email-placeholder-text" = "Epost (valgfritt)";
 "account-creation-missing-fields" = "Du må skrive inn brukernavn, passord og passordbekreftelse for å opprette en konto.";
 "login-name-not-found" = "Brukernavn kreves for å logge inn.";
 "login-name-illegal" = "Du oppga et ugyldig brukernavn.";
@@ -261,13 +258,13 @@
 "onboarding-skip" = "Hopp over";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Den frie encyklopedi";
-"preference_title_eventlogging_opt_in" = "Send bruksrapporter";
-"preference_summary_eventlogging_opt_in" = "Tillatt at Wikimedia samler informasjon om hvordan du bruker appen for å gjøre den bedre";
-"page_protected_autoconfirmed" = "Denne siden er delvis beskyttet.";
-"page_protected_sysop" = "Denne siden er beskyttet.";
-"page_protected_other" = "Denne siden har blitt beskyttet til følgende nivåer: $1";
-"page_protected_can_not_edit" = "Du har ikke rettigheter til å redigere denne siden";
-"page_protected_can_not_edit_title" = "Denne siden er beskyttet";
+"preference-title-eventlogging-opt-in" = "Send bruksrapporter";
+"preference-summary-eventlogging-opt-in" = "Tillatt at Wikimedia samler informasjon om hvordan du bruker appen for å gjøre den bedre";
+"page-protected-autoconfirmed" = "Denne siden er delvis beskyttet.";
+"page-protected-sysop" = "Denne siden er beskyttet.";
+"page-protected-other" = "Denne siden har blitt beskyttet til følgende nivåer: $1";
+"page-protected-can-not-edit" = "Du har ikke rettigheter til å redigere denne siden";
+"page-protected-can-not-edit-title" = "Denne siden er beskyttet";
 "license-footer-text" = "Innholdet er tilgjengelig under $1 med mindre annet er angitt.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Innhold";
@@ -335,8 +332,6 @@
 "page-read-in-other-languages" = "Tilgjengelig på $1 annet språk";
 "page-last-edited" = "Redigert for $1 dager siden";
 "page-edit-history" = "Fullstendig redigeringshistorikk";
-"captcha-reload" = "Vis en annen captcha";
-"captcha-prompt" = "Fyll inn CAPTCHA-teksten";
 "mwk-empty-title-error" = "Kunne ikke utføre operasjonen med en tom tittel.";
 "home-title" = "Utforsk";
 "home-empty-section" = "Ingen treff";

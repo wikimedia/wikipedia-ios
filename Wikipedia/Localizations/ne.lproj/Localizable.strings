@@ -1,6 +1,7 @@
 // Messages for Nepali (नेपाली)
 // Exported from translatewiki.net
 // Author: NehalDaveND
+// Author: Nemo bis
 // Author: Nirajan pant
 // Author: Nirjal stha
 // Author: Suniltheblue
@@ -35,10 +36,6 @@
 "zero-wikipedia-zero-heading" = "विकिपीडिया शुन्य";
 "account-creation-saving" = "सङ्ग्रह गर्दै...";
 "account-creation-login" = "पहिले देखिको खाता छ? Log in.";
-"account-creation-username-placeholder-text" = "प्रयोगकर्ताको नाम";
-"account-creation-password-placeholder-text" = "पासवर्ड";
-"account-creation-password-confirm-placeholder-text" = "पासवर्ड निश्चित गर्नुहोस्";
-"account-creation-email-placeholder-text" = "इमेल (वैकल्पिक)";
 "login-user-blocked" = "प्रयोककर्तालाई रोक लगाइएको छ";
 "login-account-creation" = "खाता छैन? Join Wikipedia.";
 "login-username-placeholder-text" = "प्रयोगकर्ताको नाम";
@@ -184,12 +181,12 @@
 "onboarding-skip" = "छोड्नुहोस्";
 "onboarding-wikipedia" = "विकिपिडिया";
 "onboarding-free-encyclopedia" = "स्वतन्त्र  ज्ञानकोष";
-"preference_title_eventlogging_opt_in" = "उपयोग प्रतिवेदन पठाउनुहोस् ।";
-"preference_summary_eventlogging_opt_in" = "अनुप्रयोगलाई अझ राम्रो बनाउन तपाईंले अनुप्रयोगको उपयोग कसरी गर्नुहुन्छ भन्नेबारे विकिपिडियालाई जानकारी सङ्कलन गर्ने अनुमति दिनुहोस्";
-"page_protected_autoconfirmed" = "यो पृष्ठ अर्ध सुरक्षित गरिएको छ";
-"page_protected_sysop" = "यो पृष्ठ पूर्ण सुरक्षित गरिएको छ ।";
-"page_protected_can_not_edit" = "तपाईंलाई यो पृष्ठ सम्पादन गर्ने अधिकार छैन";
-"page_protected_can_not_edit_title" = "यो पृष्ठ सुरक्षण गरिएको छ";
+"preference-title-eventlogging-opt-in" = "उपयोग प्रतिवेदन पठाउनुहोस् ।";
+"preference-summary-eventlogging-opt-in" = "अनुप्रयोगलाई अझ राम्रो बनाउन तपाईंले अनुप्रयोगको उपयोग कसरी गर्नुहुन्छ भन्नेबारे विकिपिडियालाई जानकारी सङ्कलन गर्ने अनुमति दिनुहोस्";
+"page-protected-autoconfirmed" = "यो पृष्ठ अर्ध सुरक्षित गरिएको छ";
+"page-protected-sysop" = "यो पृष्ठ पूर्ण सुरक्षित गरिएको छ ।";
+"page-protected-can-not-edit" = "तपाईंलाई यो पृष्ठ सम्पादन गर्ने अधिकार छैन";
+"page-protected-can-not-edit-title" = "यो पृष्ठ सुरक्षण गरिएको छ";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "सामग्रीहरू";
 "table-of-contents-button-label" = "विषयसूची";

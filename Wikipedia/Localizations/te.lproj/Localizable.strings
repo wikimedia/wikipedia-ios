@@ -4,6 +4,7 @@
 // Author: Chaduvari
 // Author: Chsasank
 // Author: JVRKPRASAD
+// Author: Nemo bis
 // Author: Praveen Illa
 // Author: Ravichandra
 // Author: Veeven
@@ -44,15 +45,11 @@
 "account-creation-captcha-retry" = "తప్పుగా ఇచ్చారు. మళ్ళీ ప్రయత్నించండి.";
 // Fuzzy
 "account-creation-captcha-obtaining" = "కొత్త కాప్చా పొందుతున్నాము.";
+"account-creation-captcha-request-account" = "ఖాతాను అభ్యర్ధించండి.";
 "account-creation-logging-in" = "ప్రవేశిస్తున్నారు...";
 "account-creation-passwords-mismatched" = "సంకేతపదం క్షేత్రాలు సరిపోలలేదు.";
 "account-creation-saving" = "భద్రపరుస్తున్నాము...";
 "account-creation-login" = "ఇదివరకే ఖాతా వుందా? ప్రవేశించండి.";
-"account-creation-username-placeholder-text" = "వాడుకరి పేరు";
-"account-creation-password-placeholder-text" = "భద్రతపదం";
-"account-creation-password-confirm-placeholder-text" = "భద్రతపదము నిర్ధారించండి";
-"account-creation-email-placeholder-text" = "ఈమెయిలు (ఐచ్చికం)";
-"new-password-password-placeholder-text" = "కొత్త సంకేతపదం";
 // Fuzzy
 "login-name-not-found" = "ప్రవేశించడానికి వాడుకరి పేరు అవసరం.";
 // Fuzzy
@@ -65,8 +62,15 @@
 "login-username-placeholder-text" = "వాడుకరి పేరు";
 "login-password-placeholder-text" = "భద్రతపదం";
 "login-forgot-password" = "సంకేతపదం మర్చిపోయారా?";
+"field-username-title" = "వాడుకరి పేరు";
+"field-password-title" = "సంకేతపదం";
+"field-new-password-title" = "కొత్త సంకేతపదం";
+"field-email-title" = "ఈమెయిలు";
+"field-email-title-optional" = "ఈమెయిలు (ఐచ్చికం)";
+"field-alert-username-unavailable" = "వాడుకరి పేరు అందుబాటులో లేదు";
 "forgot-password-username-prompt" = "వాడుకరి పేరు";
 "forgot-password-email-prompt" = "ఈమెయిలు (ఐచ్చికం)";
+"forgot-password-username-or-email-title" = "లేదా";
 "wikitext-upload-save-sign-in" = "ప్రవేశించండి";
 "wikitext-upload-save-terms-name" = "వాడుక నియమాలు";
 "open-link-title" = "లంకెను తెరవండి";
@@ -148,9 +152,9 @@
 "onboarding-skip" = "దాటవేయి";
 "onboarding-wikipedia" = "వికీపీడియా";
 "onboarding-free-encyclopedia" = "స్వేచ్ఛా విజ్ఞాన సర్వస్వం";
-"page_protected_autoconfirmed" = "ఈ పేజి సగం-రక్షించబడింది.";
-"page_protected_other" = "ఈ పేజి ఈ స్థాయిలలో రక్షించబడింది: $1";
-"page_protected_can_not_edit_title" = "ఈ పేజీ సంరక్షించబడింది";
+"page-protected-autoconfirmed" = "ఈ పేజి సగం-రక్షించబడింది.";
+"page-protected-other" = "ఈ పేజి ఈ స్థాయిలలో రక్షించబడింది: $1";
+"page-protected-can-not-edit-title" = "ఈ పేజీ సంరక్షించబడింది";
 "table-of-contents-heading" = "విషయాలు";
 "table-of-contents-button-label" = "విషయ సూచిక";
 "table-of-contents-close-accessibility-label" = "విషయ సూచికను మూసివేయి";
@@ -216,6 +220,11 @@
 "explore-continue-reading-heading" = "చదవడం కొనసాగించండి";
 "explore-nearby-heading" = "చుట్టపక్కల ప్రాంతాలు";
 "explore-nearby-sub-heading-your-location" = "మీ స్థానం";
+"explore-nearby-placeholder-heading" = "ప్రదేశాలు";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "వికీపీడియా లో";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 వికీపీడియాలో";
+"explore-nearby-placeholder-dismiss" = "రద్దుచేయి";
+"explore-nearby-placeholder-cancel" = "రద్దుచేయి";
 "explore-main-page-heading" = "వికీపీడియాలో నేడు";
 "explore-random-article-heading" = "యాదృచ్ఛిక వ్యాసం";
 "explore-random-article-sub-heading" = "తెలుగు వికీపీడియా";
@@ -235,5 +244,9 @@
 "save-action" = "భద్రపరచు";
 "places-search-top-articles" = "మేటి వ్యాసాలు";
 "places-search-recently-searched-header" = "ఇటీవల వెతికినవి";
+"places-accessibility-group" = "$1 వ్యాసాలు";
+"places-accessibility-show-as-map" = "పటంగా చూపించు";
+"places-accessibility-show-as-list" = "జాబితాగా చూపించు";
 "action-share" = "పంచుకోండి";
 "action-save" = "భద్రపరచు";
+"action-saved" = "భద్రపరచబడింది";

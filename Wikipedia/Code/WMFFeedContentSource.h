@@ -10,6 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSInteger const WMFFeedNotificationMinHour;
+extern NSInteger const WMFFeedNotificationMaxHour;
+extern NSInteger const WMFFeedNotificationMaxPerDay;
+
 @interface WMFFeedContentSource : NSObject <WMFContentSource, WMFDateBasedContentSource>
 
 @property (readonly, nonatomic, strong) NSURL *siteURL;

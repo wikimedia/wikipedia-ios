@@ -1,6 +1,7 @@
 // Messages for Bashkir (башҡортса)
 // Exported from translatewiki.net
 // Author: Mhurd
+// Author: Nemo bis
 // Author: Азат Хәлилов
 // Author: Айсар
 // Author: Аҡҡашҡа
@@ -58,11 +59,6 @@
 "account-creation-passwords-mismatched" = "Серһүҙҙәр тура килмәй";
 "account-creation-saving" = "Яҙҙырыла";
 "account-creation-login" = "Һеҙ теркәлдегеҙме? Инегеҙ";
-// Fuzzy
-"account-creation-username-placeholder-text" = "Ҡатнашыусы исеме";
-"account-creation-password-placeholder-text" = "Серһүҙ";
-"account-creation-password-confirm-placeholder-text" = "Серһүҙҙе раҫлағыҙ";
-"account-creation-email-placeholder-text" = "Электрон почта адресы  (мотлаҡ түгел)";
 "account-creation-missing-fields" = "Иҫәп яҙмаһы булдырыу өсөн һеҙ ҡатнашыусының исемен, серһүҙҙе индеререргә һәм серһүҙҙе  раҫларға тейешһегеҙ";
 // Fuzzy
 "login-name-not-found" = "Инеү өсөн ҡатнашыусының исеме талап ителә";
@@ -259,13 +255,13 @@
 "onboarding-skip" = "Ҡалдырып торорға";
 "onboarding-wikipedia" = "Википедия";
 "onboarding-free-encyclopedia" = "Ирекле энциклопедия";
-"preference_title_eventlogging_opt_in" = "Файҙаланыу тураһында отчет ебәреү";
-"preference_summary_eventlogging_opt_in" = "Викимедиаға һеҙҙең ҡушымтаны нисек файҙаланыуығыҙ тураһында мәғлүмәт бирергә рөхсәт итеү. Был уны тағы ла яҡшыраҡ итергә мөмкинселек бирәсәк.";
-"page_protected_autoconfirmed" = "Был бит өлөшләтә һаҡланған ине.";
-"page_protected_sysop" = "Был бит тулыһынса һаҡланған ине.";
-"page_protected_other" = "Был бит тулыһынса һаҡланған ине: $1";
-"page_protected_can_not_edit" = "Һеҙҙең был битте мөхәррирләргә оҡуғыҙ юҡ";
-"page_protected_can_not_edit_title" = "Был бит һаҡланған";
+"preference-title-eventlogging-opt-in" = "Файҙаланыу тураһында отчет ебәреү";
+"preference-summary-eventlogging-opt-in" = "Викимедиаға һеҙҙең ҡушымтаны нисек файҙаланыуығыҙ тураһында мәғлүмәт бирергә рөхсәт итеү. Был уны тағы ла яҡшыраҡ итергә мөмкинселек бирәсәк.";
+"page-protected-autoconfirmed" = "Был бит өлөшләтә һаҡланған ине.";
+"page-protected-sysop" = "Был бит тулыһынса һаҡланған ине.";
+"page-protected-other" = "Был бит тулыһынса һаҡланған ине: $1";
+"page-protected-can-not-edit" = "Һеҙҙең был битте мөхәррирләргә оҡуғыҙ юҡ";
+"page-protected-can-not-edit-title" = "Был бит һаҡланған";
 "license-footer-text" = "$1 лицензияһына ярашлы, эстәлеге менән һәр кем файҙалана ала (башҡаһы күрһәтелмәһә)";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Йөкмәткеһе";
@@ -337,8 +333,6 @@
 "page-read-in-other-languages" = "$1 телдәргә аңлайышлы";
 "page-last-edited" = "$1 көн элек мөхәррирләнгән";
 "page-edit-history" = "Мөхәррирләүҙең тулы тарихы";
-"captcha-reload" = "Икенсе код күрһәтергә";
-"captcha-prompt" = "Капчи текстын керетегеҙ";
 "mwk-empty-title-error" = "Буш атама менән операция башҡарып булмай";
 "home-title" = "Тикшерегеҙ";
 "home-empty-section" = "Һөҙөмтә юҡ";

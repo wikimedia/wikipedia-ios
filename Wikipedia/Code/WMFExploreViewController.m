@@ -127,12 +127,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
         UIImage *w = [UIImage imageNamed:@"W"];
         [b setImage:w forState:UIControlStateNormal];
         [b sizeToFit];
-        @weakify(self);
-        [b bk_addEventHandler:^(id sender) {
-            @strongify(self);
-            [self.collectionView setContentOffset:CGPointZero animated:YES];
-        }
-              forControlEvents:UIControlEventTouchUpInside];
+        [b addTarget:self action:@selector(titleBarButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.titleView = b;
         self.navigationItem.titleView.isAccessibilityElement = YES;
 
@@ -141,6 +136,10 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
         self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
     }
     return self;
+}
+
+- (void)titleBarButtonPressed {
+    [self.collectionView setContentOffset:CGPointZero animated:YES];
 }
 
 #pragma mark - Accessors
@@ -268,7 +267,8 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
     [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
                             completion:^{
-                                WMFAssertMainThread(@"completion must be called on the main thread");                                self.nearbyUpdateTaskGroup = nil;
+                                WMFAssertMainThread(@"completion must be called on the main thread");
+                                self.nearbyUpdateTaskGroup = nil;
                                 if (completion) {
                                     completion();
                                 }
@@ -362,11 +362,11 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     NSArray<id> *content = group.content;
 
     if ([group contentType] == WMFContentTypeTopReadPreview) {
-        content = [content bk_map:^id(WMFFeedTopReadArticlePreview *obj) {
+        content = [content wmf_map:^id(WMFFeedTopReadArticlePreview *obj) {
             return [obj articleURL];
         }];
     } else if ([group contentType] == WMFContentTypeStory) {
-        content = [content bk_map:^id(WMFFeedNewsStory *obj) {
+        content = [content wmf_map:^id(WMFFeedNewsStory *obj) {
             return [[obj featuredArticlePreview] articleURL] ?: [[[obj articlePreviews] firstObject] articleURL];
         }];
     } else if ([group contentType] != WMFContentTypeURL) {
@@ -500,23 +500,20 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     [self.collectionView addSubview:self.notificationHeader];
     [self sizeNotificationHeader];
 
-    @weakify(self);
-    [header.enableNotificationsButton bk_addEventHandler:^(id sender) {
-        @strongify(self);
-        [[PiwikTracker sharedInstance] wmf_logActionEnableInContext:header contentType:header];
-
-        [[WMFNotificationsController sharedNotificationsController] requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error) {
-            if (error) {
-                [self wmf_showAlertWithError:error];
-            }
-        }];
-        [[NSUserDefaults wmf_userDefaults] wmf_setInTheNewsNotificationsEnabled:YES];
-        [self showHideNotificationIfNeccesary];
-
-    }
-                                        forControlEvents:UIControlEventTouchUpInside];
+    [header.enableNotificationsButton addTarget:self action:@selector(enableNotificationsButtonPressed) forControlEvents:UIControlEventTouchUpInside];
 
     [[NSUserDefaults wmf_userDefaults] wmf_setDidShowNewsNotificationCardInFeed:YES];
+}
+
+- (void)enableNotificationsButtonPressed {
+    [[PiwikTracker sharedInstance] wmf_logActionEnableInContext:self.notificationHeader contentType:self.notificationHeader];
+    [[WMFNotificationsController sharedNotificationsController] requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error) {
+        if (error) {
+            [self wmf_showAlertWithError:error];
+        }
+    }];
+    [[NSUserDefaults wmf_userDefaults] wmf_setInTheNewsNotificationsEnabled:YES];
+    [self showHideNotificationIfNeccesary];
 }
 
 - (void)showHideNotificationIfNeccesary {
@@ -557,10 +554,6 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
 #pragma mark - UIViewController
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return [self wmf_orientationMaskPortraitiPhoneAnyiPad];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self registerCellsAndViews];
@@ -575,10 +568,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     self.reachabilityManager = [AFNetworkReachabilityManager manager];
 
     self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl bk_addEventHandler:^(id sender) {
-        [self updateFeedSources:NULL];
-    }
-                           forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self action:@selector(refreshControlActivated) forControlEvents:UIControlEventValueChanged];
     [self resetRefreshControl];
 
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
@@ -599,6 +589,10 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
                                                       @strongify(self);
                                                       [self.collectionView reloadData];
                                                   }];
+}
+
+- (void)refreshControlActivated {
+    [self updateFeedSources:NULL];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -911,7 +905,6 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     [header setSubTitleColor:[section headerSubTitleColor]];
 
     @weakify(self);
-    @weakify(section);
     header.whenTapped = ^{
         @strongify(self);
         NSIndexPath *indexPathForSection = [self.fetchedResultsController indexPathForObject:section];
@@ -924,37 +917,37 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     if (([section blackListOptions] & WMFFeedBlacklistOptionSection) || (([section blackListOptions] & WMFFeedBlacklistOptionContent) && [section headerContentURL])) {
         header.rightButtonEnabled = YES;
         [[header rightButton] setImage:[UIImage imageNamed:@"overflow-mini"] forState:UIControlStateNormal];
-        [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
-        [header.rightButton bk_addEventHandler:^(id sender) {
-            @strongify(section);
-            @strongify(self);
-            if (!self || !section) {
-                return;
-            }
-            UIAlertController *menuActionSheet = [self menuActionSheetForSection:section];
-            if (!menuActionSheet) {
-                return;
-            }
-
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                menuActionSheet.modalPresentationStyle = UIModalPresentationPopover;
-                menuActionSheet.popoverPresentationController.sourceView = sender;
-                menuActionSheet.popoverPresentationController.sourceRect = [sender bounds];
-                menuActionSheet.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
-                [self presentViewController:menuActionSheet animated:YES completion:nil];
-            } else {
-                menuActionSheet.popoverPresentationController.sourceView = self.navigationController.tabBarController.tabBar.superview;
-                menuActionSheet.popoverPresentationController.sourceRect = self.navigationController.tabBarController.tabBar.frame;
-                [self presentViewController:menuActionSheet animated:YES completion:nil];
-            }
-        }
-                              forControlEvents:UIControlEventTouchUpInside];
+        [header.rightButton removeTarget:self action:@selector(headerRightButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        header.rightButton.tag = indexPath.section;
+        [header.rightButton addTarget:self action:@selector(headerRightButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     } else {
         header.rightButtonEnabled = NO;
-        [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
+        [header.rightButton removeTarget:self action:@selector(headerRightButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
 
     return header;
+}
+
+- (void)headerRightButtonPressed:(UIButton *)sender {
+    NSInteger sectionIndex = sender.tag;
+    WMFContentGroup *section = [self sectionAtIndex:sectionIndex];
+
+    UIAlertController *menuActionSheet = [self menuActionSheetForSection:section];
+    if (!menuActionSheet) {
+        return;
+    }
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        menuActionSheet.modalPresentationStyle = UIModalPresentationPopover;
+        menuActionSheet.popoverPresentationController.sourceView = sender;
+        menuActionSheet.popoverPresentationController.sourceRect = [sender bounds];
+        menuActionSheet.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+        [self presentViewController:menuActionSheet animated:YES completion:nil];
+    } else {
+        menuActionSheet.popoverPresentationController.sourceView = self.navigationController.tabBarController.tabBar.superview;
+        menuActionSheet.popoverPresentationController.sourceRect = self.navigationController.tabBarController.tabBar.frame;
+        [self presentViewController:menuActionSheet animated:YES completion:nil];
+    }
 }
 
 #pragma mark - UICollectionViewDataSourcePrefetching
@@ -1029,21 +1022,19 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
             return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier forIndexPath:indexPath];
         case WMFFeedMoreTypeLocationAuthorization: {
             WMFTitledExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFTitledExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
-            [footer bk_whenTapped:^{
-                [[NSUserDefaults wmf_userDefaults] wmf_setExploreDidPromptForLocationAuthorization:YES];
-                if ([WMFLocationManager isAuthorizationNotDetermined]) {
-                    [self.locationManager startMonitoringLocation];
-                    return;
-                }
-                [[UIApplication sharedApplication] wmf_openAppSpecificSystemSettings];
-            }];
+            
+            for (UIGestureRecognizer *gr in footer.gestureRecognizers) {
+                [footer removeGestureRecognizer:gr];
+            }
+            UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handlePromptForLocationAccessGestureRecognizer:)];
+            [footer addGestureRecognizer:tapGR];
             return footer;
         }
         default: {
             WMFExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
             footer.visibleBackgroundView.alpha = 1.0;
             footer.moreLabel.text = [group footerText];
-            footer.moreLabel.textColor = [UIColor wmf_exploreSectionFooterTextColor];
+            footer.moreLabel.textColor = [UIColor wmf_exploreSectionFooterText];
             @weakify(self);
             footer.whenTapped = ^{
                 @strongify(self);
@@ -1056,6 +1047,18 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
             return footer;
         }
     }
+}
+
+- (void)handlePromptForLocationAccessGestureRecognizer:(UITapGestureRecognizer *)tapGR {
+    if (tapGR.state != UIGestureRecognizerStateRecognized) {
+        return;
+    }
+    [[NSUserDefaults wmf_userDefaults] wmf_setExploreDidPromptForLocationAuthorization:YES];
+    if ([WMFLocationManager isAuthorizationNotDetermined]) {
+        [self.locationManager startMonitoringLocation];
+        return;
+    }
+    [[UIApplication sharedApplication] wmf_openAppSpecificSystemSettings];
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -1421,7 +1424,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     }
 }
 
-#pragma mark - WMFArticleingActionsDelegate
+#pragma mark - WMFArticlePreviewingActionsDelegate
 
 - (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
     [self wmf_pushArticleViewController:articleController animated:YES];
@@ -1430,6 +1433,11 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 - (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
                                        shareActivityController:(UIActivityViewController *)shareActivityController {
     [self presentViewController:shareActivityController animated:YES completion:NULL];
+}
+
+- (void)viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
+    NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:articleController.articleURL];
+    [[UIApplication sharedApplication] openURL:placesURL];
 }
 
 #pragma mark - UIViewControllerPreviewingDelegate

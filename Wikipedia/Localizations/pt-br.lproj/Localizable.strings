@@ -15,7 +15,9 @@
 // Author: Luckas
 // Author: Luk3
 // Author: Macofe
+// Author: Maxan
 // Author: Mordecool
+// Author: Nemo bis
 // Author: Peter Fernando
 // Author: Raphaelras
 // Author: Rodrigo codignoli
@@ -70,11 +72,9 @@
 "account-creation-passwords-mismatched" = "Os campos de senha não correspondem.";
 "account-creation-saving" = "Salvando...";
 "account-creation-login" = "Já tem uma conta? Entrar.";
-"account-creation-username-placeholder-text" = "Nome de usuário";
-"account-creation-password-placeholder-text" = "Senha";
-"account-creation-password-confirm-placeholder-text" = "Confirmar senha";
-"account-creation-email-placeholder-text" = "Email (opcional)";
 "account-creation-missing-fields" = "Deve inserir um nome de usuário(a), uma senha e a sua respectiva confirmação para criar uma conta.";
+// Fuzzy
+"two-factor-login-with-regular-code" = "Use código numérico pequeno";
 "login-name-not-found" = "Nome de usuário necessário para entrar.";
 "login-name-illegal" = "Você forneceu um nome de usuário inválido.";
 "login-name-does-not-exist" = "O nome de usuário que você forneceu não existe.";
@@ -85,6 +85,10 @@
 "login-account-creation" = "Não possui uma conta? Junte-se a Wikipédia.";
 "login-username-placeholder-text" = "Nome de usuário";
 "login-password-placeholder-text" = "Senha";
+// Fuzzy
+"field-token-title" = "Código numérico";
+// Fuzzy
+"field-alert-token-invalid" = "Código inválido. Por favor, tente novamente.";
 "wikitext-downloading" = "Carregando conteúdo...";
 "wikitext-download-failed" = "Não é possível obter a revisão mais recente.";
 "wikitext-download-success" = "Conteúdo carregado.";
@@ -274,13 +278,13 @@
 "onboarding-skip" = "Pular";
 "onboarding-wikipedia" = "Wikipédia";
 "onboarding-free-encyclopedia" = "A Enciclopédia Livre";
-"preference_title_eventlogging_opt_in" = "Enviar relatórios de uso";
-"preference_summary_eventlogging_opt_in" = "Permitir que a Wikimedia recolha informações sobre o uso do aplicativo para aperfeiçoá-lo";
-"page_protected_autoconfirmed" = "Esta página foi semiprotegida.";
-"page_protected_sysop" = "Esta página foi totalmente protegida.";
-"page_protected_other" = "Esta página está protegida para os seguintes níveis: $1";
-"page_protected_can_not_edit" = "Você não tem permissão para editar esta página";
-"page_protected_can_not_edit_title" = "Esta página está protegida";
+"preference-title-eventlogging-opt-in" = "Enviar relatórios de uso";
+"preference-summary-eventlogging-opt-in" = "Permitir que a Wikimedia recolha informações sobre o uso do aplicativo para aperfeiçoá-lo";
+"page-protected-autoconfirmed" = "Esta página foi semiprotegida.";
+"page-protected-sysop" = "Esta página foi totalmente protegida.";
+"page-protected-other" = "Esta página está protegida para os seguintes níveis: $1";
+"page-protected-can-not-edit" = "Você não tem permissão para editar esta página";
+"page-protected-can-not-edit-title" = "Esta página está protegida";
 "license-footer-text" = "Conteúdo disponibilizado nos termos da $1, salvo indicação contrária.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Conteúdo";
@@ -348,8 +352,6 @@
 "page-read-in-other-languages" = "Disponível em $1 outros idiomas";
 "page-last-edited" = "Editado $1 dias atrás";
 "page-edit-history" = "Histórico de edição completo";
-"captcha-reload" = "Mostrar outro código";
-"captcha-prompt" = "Insira o texto CAPTCHA";
 "mwk-empty-title-error" = "Não se pode realizar a operação com o título vazio.";
 "home-title" = "explorar";
 "home-empty-section" = "Sem resultados";

@@ -4,6 +4,24 @@ import UIKit
 // Presently it is assumed this view controller will be used only as a
 // child view controller of another view controller.
 
+extension UIStackView {
+    fileprivate var wmf_isCollapsed: Bool {
+        set {
+            for subview in arrangedSubviews {
+                subview.isHidden = newValue
+            }
+        }
+        get {
+            for subview in arrangedSubviews {
+                if !subview.isHidden {
+                    return false
+                }
+            }
+            return true
+        }
+    }
+}
+
 @objc public protocol WMFCaptchaViewControllerDelegate{
     func captchaReloadPushed(_ sender: AnyObject)
     func captchaSolutionChanged(_ sender: AnyObject, solutionText: String?)
@@ -42,15 +60,9 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet fileprivate var captchaTextField: UITextField!
     @IBOutlet fileprivate var stackView: UIStackView!
     @IBOutlet fileprivate var titleLabel: UILabel!
-    @IBOutlet fileprivate var subTitleLabel: UILabel!
-    @IBOutlet fileprivate var topSpacer: UIView!
-    @IBOutlet fileprivate var bottomSpacer: UIView!
-    @IBOutlet fileprivate var buttonSpacer: UIView!
-    @IBOutlet fileprivate var imageSpacer: UIView!
+    @IBOutlet fileprivate var subTitleLabel: WMFAuthLinkLabel!
     @IBOutlet fileprivate var infoButton: UIButton!
     @IBOutlet fileprivate var refreshButton: UIButton!
-    @IBOutlet fileprivate var imageStackView: UIStackView!
-    @IBOutlet fileprivate var buttonStackView: UIStackView!
 
     public var captchaDelegate: WMFCaptchaViewControllerDelegate?
     fileprivate let captchaResetter = WMFCaptchaResetter()
@@ -59,34 +71,16 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         didSet {
             guard let captcha = captcha else {
                 captchaTextField.text = nil
-                stackView(collapse:true)
+                stackView.wmf_isCollapsed = true
                 return;
             }
-            stackView(collapse:false)
+            stackView.wmf_isCollapsed = false
             captchaTextField.text = ""
             refreshImage(for: captcha)
+            if let captchaDelegate = captchaDelegate {
+                subTitleLabel.isHidden = captchaDelegate.captchaHideSubtitle()
+            }
         }
-    }
-
-    fileprivate func stackView(collapse: Bool) {
-        captchaImageView.isHidden = collapse
-        captchaTextField.isHidden = collapse
-        titleLabel.isHidden = collapse
-        topSpacer.isHidden = collapse
-        bottomSpacer.isHidden = collapse
-        refreshButton.isHidden = collapse
-        infoButton.isHidden = collapse
-        imageStackView.isHidden = collapse
-        buttonStackView.isHidden = collapse
-        buttonSpacer.isHidden = collapse
-        imageSpacer.isHidden = collapse
-        captchaTextFieldTitleLabel.isHidden = collapse
-        
-        guard let captchaDelegate = captchaDelegate else{
-            assert(false, "Required delegate is unset")
-            return
-        }
-        subTitleLabel.isHidden = (collapse || captchaDelegate.captchaHideSubtitle())
     }
     
     var solution:String? {
@@ -185,6 +179,8 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         
         assert(firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, "\n\nAll stackview arrangedSubview height constraints need to have a priority of < 1000 so the stackview can collapse the 'cell' if the arrangedSubview's isHidden property is set to true. This arrangedSubview was determined to have a required height: \(firstArrangedSubviewWithRequiredNonZeroHeightConstraint()). To fix reduce the priority of its height constraint to < 1000.\n\n")
         
+        [titleLabel, captchaTextFieldTitleLabel].forEach{$0.textColor = .wmf_authTitle}
+
         captcha = nil
         captchaTextFieldTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-captcha-title")
         captchaTextField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-captcha-placeholder")
@@ -192,11 +188,14 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         titleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-title")
         
         // Reminder: used a label instead of a button for subtitle because of multi-line string issues with UIButton.
-        subTitleLabel.attributedText = subTitleLabel.wmf_authAttributedStringReusingFont(withDollarSignString: localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-cannot-see-image"), substitutionString: localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-request-account"))
+        subTitleLabel.strings = WMFAuthLinkLabelStrings(dollarSignString: localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-cannot-see-image"), substitutionString: localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-request-account"))
         subTitleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(requestAnAccountTapped(_:))))
     
         subTitleLabel.isHidden = (captcha == nil) || captchaDelegate.captchaHideSubtitle()
         
+        infoButton.tintColor = .wmf_blueTint
+        refreshButton.tintColor = .wmf_blueTint
+
         view.wmf_configureSubviewsForDynamicType()
     }
     

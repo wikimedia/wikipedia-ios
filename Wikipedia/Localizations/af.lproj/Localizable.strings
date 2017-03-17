@@ -3,6 +3,7 @@
 // Author: Arnobarnard
 // Author: Fwolff
 // Author: Naudefj
+// Author: Nemo bis
 
 // Fuzzy
 "languages-title" = "Tale";
@@ -50,11 +51,6 @@
 "account-creation-passwords-mismatched" = "Wagwoordvelde stem nie ooreen nie.";
 "account-creation-saving" = "Besig om te stoor…";
 "account-creation-login" = "Het u reeds 'n rekening? Meld aan.";
-// Fuzzy
-"account-creation-username-placeholder-text" = "Gebruikernaam";
-"account-creation-password-placeholder-text" = "Wagwoord";
-"account-creation-password-confirm-placeholder-text" = "Bevestig wagwoord";
-"account-creation-email-placeholder-text" = "E-posadres (opsioneel)";
 "account-creation-missing-fields" = "U moet 'n gebruikersnaam, wagwoord, en wagwoordbevestiging invoer om 'n gebruiker te skep.";
 // Fuzzy
 "login-name-not-found" = "Gebruikersnaam benodig vir aanmelding.";
@@ -241,13 +237,13 @@
 "onboarding-skip" = "Slaan oor";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Die Vrye Ensiklopedie";
-"preference_title_eventlogging_opt_in" = "Stuur gebruiksverslae";
-"preference_summary_eventlogging_opt_in" = "Laat Wikimedia toe om inligting in te samel oor hoe u die toep gebruik om sodoende die toep te verbeter";
-"page_protected_autoconfirmed" = "Hierdie blad is semi-beskerm.";
-"page_protected_sysop" = "Hierdie blad is volledig beskerm.";
-"page_protected_other" = "Hierdie blad is beskerm tot die volgende vlakke: $1";
-"page_protected_can_not_edit" = "U het nie die regte om hierdie blad te wysig nie";
-"page_protected_can_not_edit_title" = "Hierdie blad is beskerm";
+"preference-title-eventlogging-opt-in" = "Stuur gebruiksverslae";
+"preference-summary-eventlogging-opt-in" = "Laat Wikimedia toe om inligting in te samel oor hoe u die toep gebruik om sodoende die toep te verbeter";
+"page-protected-autoconfirmed" = "Hierdie blad is semi-beskerm.";
+"page-protected-sysop" = "Hierdie blad is volledig beskerm.";
+"page-protected-other" = "Hierdie blad is beskerm tot die volgende vlakke: $1";
+"page-protected-can-not-edit" = "U het nie die regte om hierdie blad te wysig nie";
+"page-protected-can-not-edit-title" = "Hierdie blad is beskerm";
 // Fuzzy
 "license-footer-text" = "Inhoud is beskikbaar onder $1";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -312,6 +308,3 @@
 "hockeyapp-alert-privacy" = "$1 privaatheid";
 "page-issues" = "Bladprobleme";
 "page-similar-titles" = "Soortgelyke bladsye";
-"captcha-reload" = "Wys 'n ander captcha";
-// Fuzzy
-"captcha-prompt" = "Tik CAPTCHA-teks op die prentjie bó";

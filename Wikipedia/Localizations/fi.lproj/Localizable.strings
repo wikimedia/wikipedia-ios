@@ -5,6 +5,7 @@
 // Author: ElmA
 // Author: Jack Phoenix
 // Author: McSalama
+// Author: Nemo bis
 // Author: Nike
 // Author: Pyscowicz
 // Author: SMAUG
@@ -54,6 +55,7 @@
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "zero-warn-when-leaving" = "Varoita poistuttaessa Zerosta";
 "zero-settings-devmode" = "Zeron kehitystila";
+"account-creation-title" = "Luo uusi tunnus";
 "account-creation-captcha-required" = "CAPTCHA-varmistus vaaditaan.";
 "account-creation-captcha-retry" = "Virheellinen merkintä. Ole hyvä ja yritä uudelleen.";
 "account-creation-captcha-obtaining" = "Haetaan uutta CAPTCHA-kuvaa...";
@@ -64,18 +66,15 @@
 "account-creation-passwords-mismatched" = "Salasanat eivät täsmää.";
 "account-creation-saving" = "Tallennetaan...";
 "account-creation-login" = "Onko sinulla jo tunnus? Kirjaudu sisään.";
-"account-creation-username-placeholder-text" = "Käyttäjätunnus";
-"account-creation-password-placeholder-text" = "Salasana";
-"account-creation-password-confirm-placeholder-text" = "Vahvista salasana";
-"account-creation-email-placeholder-text" = "Sähköpostiosoite (vapaaehtoinen)";
 "account-creation-missing-fields" = "Tunnuksen luomiseen vaaditaan käyttäjänimi, salasana ja salasanan vahvistus.";
+"account-creation-create-account" = "Luo tunnuksesi";
+"account-creation-have-account" = "Onko sinulla jo tunnus? $1";
+"account-creation-log-in" = "Kirjaudu sisään.";
 "new-password-title" = "Aseta salasanasi";
 "new-password-instructions" = "Olet kirjautunut sisään väliaikaisella salasanalla. Viimeistelläksi kirjautumisen aseta uusi salasana tässä.";
-"new-password-password-placeholder-text" = "Uusi salasana";
-"new-password-confirm-placeholder-text" = "Vahvista uusi salasana";
 "two-factor-login-title" = "Kirjaudu sisään tilillesi";
 "two-factor-login-instructions" = "Syötä kaksivaiheisen vahvistuksen koodi";
-"two-factor-login-token-title" = "Avain";
+"two-factor-login-continue" = "Jatka sisäänkirjautumista";
 "login-name-not-found" = "Käyttäjänimi vaaditaan kirjautumiseen.";
 "login-name-illegal" = "Antamasi käyttäjänimi ei kelpaa.";
 "login-name-does-not-exist" = "Antamaasi käyttäjänimeä ei ole.";
@@ -87,6 +86,31 @@
 "login-username-placeholder-text" = "Käyttäjätunnus";
 "login-password-placeholder-text" = "Salasana";
 "login-forgot-password" = "Unohditko salasanasi?";
+"login-title" = "Kirjaudu sisään tunnuksellesi";
+"login-no-account" = "Eikö sinulla ole tunnusta? $1";
+"login-join-wikipedia" = "Liity Wikipediaan.";
+"field-username-title" = "Käyttäjänimi";
+"field-username-placeholder" = "anna käyttäjänimi";
+"field-password-title" = "Salasana";
+"field-password-placeholder" = "anna salasana";
+"field-password-confirm-title" = "Vahvista salasana";
+"field-password-confirm-placeholder" = "anna salasana uudelleen";
+"field-new-password-title" = "Uusi salasana";
+"field-new-password-placeholder" = "anna uusi salasana";
+"field-new-password-confirm-title" = "Vahvista uusi salasana";
+"field-new-password-confirm-placeholder" = "anna uusi salasana uudelleen";
+"field-email-title" = "Sähköposti";
+"field-email-title-optional" = "Sähköposti (vapaaehtoinen)";
+"field-email-placeholder" = "esimerkki@example.org";
+"field-token-title" = "Vahvistuskoodi";
+"field-captcha-title" = "Kirjoita yllä oleva teksti";
+"field-captcha-placeholder" = "CAPTCHA-teksti";
+"field-alert-username-unavailable" = "Käyttäjänimi ei ole saatavilla";
+"field-alert-password-invalid" = "Salasana ei kelpaa";
+// Fuzzy
+"field-alert-token-invalid" = "Koodi ei kelpaa. Yritä uudelleen.";
+"field-alert-captcha-invalid" = "CAPTCHA ei kelpaa";
+"field-alert-password-confirm-mismatch" = "Salasanat eivät täsmää";
 "forgot-password-title" = "Salasanan palauttaminen";
 "forgot-password-instructions" = "Täytä yksi alla olevista kentistä saadaksesi sähköpostitse ohjeet salasanan palauttamiseen";
 "forgot-password-username-prompt" = "Käyttäjätunnus";
@@ -256,6 +280,8 @@
 "share-as-image" = "Jaa kuvana";
 "share-as-text" = "Jaa tekstinä";
 "share-cancel" = "Peruuta";
+"share-open-in-maps" = "Avaa Mapsissa";
+"share-get-directions-in-maps" = "Hae reittiohjeet";
 "timestamp-just-now" = "juuri nyt";
 "timestamp-minutes" = "%d minuuttia sitten";
 "timestamp-hours" = "%d tuntia sitten";
@@ -281,13 +307,13 @@
 "onboarding-skip" = "Ohita";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Vapaa tietosanakirja";
-"preference_title_eventlogging_opt_in" = "Lähetä käyttöraportteja";
-"preference_summary_eventlogging_opt_in" = "Salli Wikimedian kerätä tietoja siitä, miten käytät sovellusta, jotta sovellusta voidaan parantaa";
-"page_protected_autoconfirmed" = "Tämä sivu on osittain suojattu.";
-"page_protected_sysop" = "Tämä sivu on täysin suojattu.";
-"page_protected_other" = "Sivun suojaustaso on: $1";
-"page_protected_can_not_edit" = "Sinulla ei ole oikeuksia muokata tätä sivua";
-"page_protected_can_not_edit_title" = "Tämä sivu on suojattu";
+"preference-title-eventlogging-opt-in" = "Lähetä käyttöraportteja";
+"preference-summary-eventlogging-opt-in" = "Salli Wikimedian kerätä tietoja siitä, miten käytät sovellusta, jotta sovellusta voidaan parantaa";
+"page-protected-autoconfirmed" = "Tämä sivu on osittain suojattu.";
+"page-protected-sysop" = "Tämä sivu on täysin suojattu.";
+"page-protected-other" = "Sivun suojaustaso on: $1";
+"page-protected-can-not-edit" = "Sinulla ei ole oikeuksia muokata tätä sivua";
+"page-protected-can-not-edit-title" = "Tämä sivu on suojattu";
 "license-footer-text" = "Sisältö on käytettävissä $1 -lisenssin ehtojen mukaisesti ellei toisin mainita.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Sisällys";
@@ -355,8 +381,7 @@
 "page-read-in-other-languages" = "Saatavilla $1 muulla kielellä";
 "page-last-edited" = "Muokattu $1 päivää sitten";
 "page-edit-history" = "Täysi muokkaushistoria";
-"captcha-reload" = "Näytä toinen CAPTCHA";
-"captcha-prompt" = "Syötä CAPTCHA-teksti";
+"page-location" = "Näytä kartalla";
 "mwk-empty-title-error" = "Ei voida suorittaa operaatiota, jossa tyhjä otsikko.";
 "home-title" = "Tutki";
 "home-empty-section" = "Ei tuloksia";
@@ -428,6 +453,11 @@
 "explore-continue-reading-heading" = "Jatka lukemista";
 "explore-nearby-heading" = "Lähistön paikat";
 "explore-nearby-sub-heading-your-location" = "Sijaintisi";
+"explore-nearby-placeholder-heading" = "Paikat";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Wikipediassa";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Wikipediassa";
+"explore-nearby-placeholder-dismiss" = "Hylkää";
+"explore-nearby-placeholder-cancel" = "Peruuta";
 "explore-continue-related-heading" = "Lukusuosituksen peruste";
 "explore-main-page-heading" = "Tänään Wikipediassa";
 "explore-random-article-heading" = "Satunnainen artikkeli";
@@ -476,6 +506,14 @@
 "places-search-saved-articles" = "Tallennetut artikkelit";
 "places-search-suggested-searches-header" = "Ehdotetut haut";
 "places-search-recently-searched-header" = "Äskettäin haetut";
+"places-unknown-distance" = "tuntematon etäisyys";
+"places-enable-location-action-button-title" = "Ota sijainti käyttöön";
+"places-accessibility-group" = "$1 artikkelia";
+"places-accessibility-show-as-map" = "Näytä karttana";
+"places-accessibility-show-as-list" = "Näytä luettelona";
+"places-accessibility-recenter-map-on-user-location" = "Keskitä sijaintiisi";
+"places-accessibility-close-search" = "Sulje haku";
 "action-share" = "Jaa";
 "action-save" = "Tallenna";
 "action-read" = "Lue";
+"action-saved" = "Tallennettu";

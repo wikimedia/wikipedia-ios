@@ -10,6 +10,7 @@
 // Author: Lluis tgn
 // Author: Maceleiro
 // Author: Macofe
+// Author: Nemo bis
 // Author: SMP
 // Author: Ssola
 // Author: Toniher
@@ -58,19 +59,16 @@
 "zero-warn-when-leaving" = "Avisa'm si se surt de Viquipèdia Zero";
 "zero-settings-devmode" = "Zero Devmode";
 "account-creation-captcha-required" = "Verificació de CAPTCHA requerida.";
+"account-creation-captcha-retry" = "Entrada incorrecta. Torneu-ho a provar.";
 "account-creation-captcha-obtaining" = "Obtenint un CAPTCHA nou...";
+"account-creation-captcha-cannot-see-image" = "No podeu veure la imatge? $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "Sol·licita un compte.";
 "account-creation-logging-in" = "Iniciant sessió...";
 "account-creation-passwords-mismatched" = "Les contrasenyes no coincideixen.";
 "account-creation-saving" = "S’està desant…";
 "account-creation-login" = "Ja tens un compte? Inicia una sessió.";
-"account-creation-username-placeholder-text" = "Nom d'usuari";
-"account-creation-password-placeholder-text" = "Contrasenya";
-"account-creation-password-confirm-placeholder-text" = "Confirma la contrasenya";
-"account-creation-email-placeholder-text" = "Adreça electrònica (opcional)";
 "account-creation-missing-fields" = "Heu d'introduir un nom d'usuari, contrasenya i confirmació de contrasenya per a crear un compte.";
-"new-password-password-placeholder-text" = "Contrasenya nova";
-"new-password-confirm-placeholder-text" = "Confirmeu la contrasenya nova";
 "two-factor-login-title" = "Inicieu una sessió amb el vostre compte";
 "login-name-not-found" = "Cal el nom d'usuari per iniciar una sessió.";
 "login-name-illegal" = "Heu introduït un nom d'usuari invàlid.";
@@ -276,13 +274,13 @@
 "onboarding-skip" = "Omet";
 "onboarding-wikipedia" = "Viquipèdia";
 "onboarding-free-encyclopedia" = "L'enciclopèdia lliure";
-"preference_title_eventlogging_opt_in" = "Envia informes d'ús";
-"preference_summary_eventlogging_opt_in" = "Permeteu a Wikimedia recollir informació sobre com utilitzeu l'aplicació, per poder-la millorar";
-"page_protected_autoconfirmed" = "La pàgina ha estat semiprotegida.";
-"page_protected_sysop" = "La pàgina està protegida.";
-"page_protected_other" = "La pàgina ha estat protegida als nivells següents: $1";
-"page_protected_can_not_edit" = "No teniu permisos per modificar la pàgina";
-"page_protected_can_not_edit_title" = "La pàgina està protegida";
+"preference-title-eventlogging-opt-in" = "Envia informes d'ús";
+"preference-summary-eventlogging-opt-in" = "Permeteu a Wikimedia recollir informació sobre com utilitzeu l'aplicació, per poder-la millorar";
+"page-protected-autoconfirmed" = "La pàgina ha estat semiprotegida.";
+"page-protected-sysop" = "La pàgina està protegida.";
+"page-protected-other" = "La pàgina ha estat protegida als nivells següents: $1";
+"page-protected-can-not-edit" = "No teniu permisos per modificar la pàgina";
+"page-protected-can-not-edit-title" = "La pàgina està protegida";
 "license-footer-text" = "El contingut està disponible sota $1 a menys que s'indiqui el contrari.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Continguts";
@@ -350,8 +348,6 @@
 "page-read-in-other-languages" = "Disponible en $1 altres llengües";
 "page-last-edited" = "Modificat fa $1 dies";
 "page-edit-history" = "Historial complet";
-"captcha-reload" = "Mostra un altre captcha";
-"captcha-prompt" = "Introduïu el text del CAPTCHA";
 "mwk-empty-title-error" = "No es pot realitzar l'operació amb un títol buit.";
 "home-title" = "Exploreu!";
 "home-empty-section" = "Cap resultat";
@@ -425,6 +421,9 @@
 "explore-continue-reading-heading" = "Continua llegint";
 "explore-nearby-heading" = "Llocs propers";
 "explore-nearby-sub-heading-your-location" = "La vostra ubicació";
+"explore-nearby-placeholder-heading" = "Llocs";
+"explore-nearby-placeholder-dismiss" = "Descarta";
+"explore-nearby-placeholder-cancel" = "Cancel·la";
 "explore-continue-related-heading" = "Perquè vas llegir";
 "explore-main-page-heading" = "Avui a la Viquipèdia";
 "explore-random-article-heading" = "Article a l’atzar";
@@ -469,9 +468,17 @@
 "status-saving-for-later" = "Es desa per més endavant...";
 "status-saved-for-later" = "Desat per a més endavant";
 "announcements-dismiss" = "No, gràcies";
+"places-search-top-articles" = "Millors articles";
+"places-search-this-area" = "Cerca en aquesta àrea";
 "places-search-saved-articles" = "Articles desats";
 "places-search-suggested-searches-header" = "Cerques suggerides";
 "places-search-recently-searched-header" = "Cercat recentment";
+"places-unknown-distance" = "distància desconeguda";
+"places-accessibility-group" = "$1 articles";
+"places-accessibility-show-as-map" = "Mostra com a mapa";
+"places-accessibility-show-as-list" = "Mostra com a llista";
+"places-accessibility-recenter-map-on-user-location" = "Torneu a centrar en la vostra ubicació";
 "action-share" = "Comparteix";
 "action-save" = "Desa";
 "action-read" = "Llegeix";
+"action-saved" = "Desat";

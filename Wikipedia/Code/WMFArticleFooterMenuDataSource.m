@@ -2,8 +2,9 @@
 #import "WMFArticleFooterMenuItem.h"
 #import "MWKArticle.h"
 #import "WMFArticleFooterMenuCell.h"
+#if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>
-
+#endif
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticleFooterMenuDataSource
@@ -56,7 +57,17 @@ NS_ASSUME_NONNULL_BEGIN
                                                                                                                                           withString:[NSString stringWithFormat:@"%d", article.languagecount]],
                                       nil, @"footer-switch-language")];
     }
-
+    
+#if WMF_PLACES_ENABLED
+    if (CLLocationCoordinate2DIsValid(article.coordinate)) {
+        [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeCoordinate,
+                                      MWSiteLocalizedString(article.url, @"page-location", nil),
+                                      nil,
+                                      @"footer-location")];
+        
+    }
+#endif
+    
     NSDate *lastModified = article.lastmodified ? article.lastmodified : [NSDate date];
 
     NSInteger days = [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:lastModified toDate:[NSDate date]];
@@ -79,6 +90,8 @@ NS_ASSUME_NONNULL_BEGIN
                                       nil,
                                       @"footer-similar-pages")];
     }
+    
+    
     [self updateItems:menuItems];
 }
 
