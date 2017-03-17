@@ -10,6 +10,7 @@
 // Author: Lluis tgn
 // Author: Maceleiro
 // Author: Macofe
+// Author: Nemo bis
 // Author: SMP
 // Author: Ssola
 // Author: Toniher
@@ -61,6 +62,7 @@
 "account-creation-captcha-retry" = "Entrada incorrecta. Torneu-ho a provar.";
 "account-creation-captcha-obtaining" = "Obtenint un CAPTCHA nou...";
 "account-creation-captcha-cannot-see-image" = "No podeu veure la imatge? $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "Sol·licita un compte.";
 "account-creation-logging-in" = "Iniciant sessió...";
 "account-creation-passwords-mismatched" = "Les contrasenyes no coincideixen.";

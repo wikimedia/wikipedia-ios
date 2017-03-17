@@ -10,6 +10,7 @@
 // Author: MadriCR
 // Author: Mcervera
 // Author: Mgpena
+// Author: Nemo bis
 // Author: Rodm23
 // Author: VegaDark
 // Author: Vivaelcelta
@@ -64,7 +65,7 @@
 "account-creation-captcha-obtaining" = "Obtener un nuevo CAPTCHA...";
 "account-creation-captcha-title" = "Verificación de seguridad con CAPTCHA";
 "account-creation-captcha-cannot-see-image" = "¿No puedes ver la imagen? $1";
-"account-creation-captcha-request-account" = "Solicitar una cuenta.";
+"account-creation-captcha-request-account" = "Solicitar cuenta.";
 "account-creation-logging-in" = "Iniciando sesión…";
 "account-creation-passwords-mismatched" = "Las contraseñas no coinciden.";
 "account-creation-saving" = "Guardando…";
@@ -78,6 +79,8 @@
 "two-factor-login-title" = "Inicia sesión en tu cuenta";
 "two-factor-login-instructions" = "Escribe el código de verificación de 2 factores";
 "two-factor-login-continue" = "Continuar con el inicio de sesión";
+"two-factor-login-with-regular-code" = "Usar código de verificación";
+"two-factor-login-with-backup-code" = "Usar uno de tus códigos de respaldo";
 "login-name-not-found" = "Para iniciar sesión debes escribir el nombre de usuario.";
 "login-name-illegal" = "Has escrito un nombre de usuario no válido.";
 "login-name-does-not-exist" = "El nombre de usuario proporcionado no existe.";
@@ -102,10 +105,11 @@
 "field-new-password-placeholder" = "escribe la contraseña nueva";
 "field-new-password-confirm-title" = "Confirmar la contraseña nueva";
 "field-new-password-confirm-placeholder" = "confirma la contraseña nueva";
-"field-email-title" = "Dirección de correo electrónico (opcional)";
+"field-email-title" = "Correo electrónico";
+"field-email-title-optional" = "Correo electrónico (opcional)";
 "field-email-placeholder" = "ejemplo@ejemplo.org";
-// Fuzzy
-"field-token-title" = "Clave";
+"field-token-title" = "Código de verificación";
+"field-backup-token-title" = "Código de respaldo";
 "field-token-placeholder" = "escribe la clave";
 "field-captcha-title" = "Escribe el texto que ves arriba";
 "field-captcha-placeholder" = "Texto CAPTCHA";
@@ -119,6 +123,7 @@
 "forgot-password-email-prompt" = "Correo electrónico (opcional)";
 "forgot-password-button-title" = "Restablecer";
 "forgot-password-email-sent" = "Se envió un correo electrónico con instrucciones para restablecer tu contraseña";
+"forgot-password-username-or-email-title" = "O";
 "wikitext-downloading" = "Cargando el contenido…";
 "wikitext-download-failed" = "No se puede obtener la versión más reciente.";
 "wikitext-download-success" = "Se cargó el contenido.";

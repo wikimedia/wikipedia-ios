@@ -16,6 +16,7 @@
 // Author: Mahdiz
 // Author: Maspadana
 // Author: Namo
+// Author: Nemo bis
 // Author: Reza1615
 // Author: Sahehco
 // Author: Signal89
@@ -82,8 +83,8 @@
 "two-factor-login-title" = "ورود به حساب کاربری";
 "two-factor-login-instructions" = "لطفاً کد تأئید حساب دو مرحله‌ای را وارد کنید";
 "two-factor-login-continue" = "ادامه دادن ورود به سامانه";
-"two-factor-login-with-regular-code" = "استفاده از کدهای عددی کوتاه";
-"two-factor-login-with-backup-code" = "از کد پشتیبانی بلندتری استفاده کنید";
+"two-factor-login-with-regular-code" = "استفاده از کدهای تائید";
+"two-factor-login-with-backup-code" = "از یکی از کدهای پشتیبانی استفاده کنید";
 "login-name-not-found" = "نام کاربری برای ورود به سیستم لازم است.";
 "login-name-illegal" = "شما نام کاربر غیر قانونی ارائه دادید.";
 "login-name-does-not-exist" = "نام کاربری ارائه‌داده شده وجود ندارد.";
@@ -108,16 +109,18 @@
 "field-new-password-placeholder" = "گذرواژه جدید وارد کنید";
 "field-new-password-confirm-title" = "تأیید گذرواژهٔ جدید";
 "field-new-password-confirm-placeholder" = "از نو نوشتن گذرواژه جدید";
-"field-email-title" = "نشانی ایمیل (اختیاری)";
+"field-email-title" = "ایمیل";
+"field-email-title-optional" = "ایمیل (اختیاری)";
 "field-email-placeholder" = "example@example.org";
-"field-token-title" = "کد عددی";
+"field-token-title" = "کد تائید";
 "field-backup-token-title" = "کد پشتیبانی";
-"field-token-invalid" = "کد نادرست. از نو تلاش کنید.";
 "field-token-placeholder" = "وارد کردن توکن";
 "field-captcha-title" = "متنی را که در بالا می‌بینید وارد کنید";
 "field-captcha-placeholder" = "متن کپچا";
 "field-alert-username-unavailable" = "نام کاربری موجود نیست";
 "field-alert-password-invalid" = "گذرواژه نامعتبر";
+// Fuzzy
+"field-alert-token-invalid" = "کد نادرست. از نو تلاش کنید.";
 "field-alert-captcha-invalid" = "کپچای نامعتبر";
 "field-alert-password-confirm-mismatch" = "گذرواژه‌ها مطابقت ندارند";
 "forgot-password-title" = "بازنشانی گذرواژه";
@@ -126,6 +129,7 @@
 "forgot-password-email-prompt" = "ایمیل (اختیاری)";
 "forgot-password-button-title" = "بازنشانی";
 "forgot-password-email-sent" = "ایمیلی حاوی دستورالعمل بازنشانی رمز عبور فرستاده شد";
+"forgot-password-username-or-email-title" = "یا";
 "wikitext-downloading" = "بارگیری متن...";
 "wikitext-download-failed" = "ناتوانی در اخذ آخرین تجدید نظر.";
 "wikitext-download-success" = "متن بارگیری شد.";

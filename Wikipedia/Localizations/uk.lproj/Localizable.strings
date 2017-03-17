@@ -5,6 +5,7 @@
 // Author: Base
 // Author: Green Zero
 // Author: Macofe
+// Author: Nemo bis
 // Author: NickK
 // Author: Piramidion
 // Author: Sir-nik
@@ -59,6 +60,7 @@
 "account-creation-captcha-obtaining" = "Отримання нового зображення…";
 "account-creation-captcha-title" = "Перевірка безпеки за допомогою CAPTCHA";
 "account-creation-captcha-cannot-see-image" = "Не бачите зображення? $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "Подати запит на обліковий запис.";
 "account-creation-logging-in" = "Входимо до системи…";
 "account-creation-passwords-mismatched" = "Паролі не збігаються.";
@@ -73,6 +75,10 @@
 "two-factor-login-title" = "Вхід у Ваш обліковий запис";
 "two-factor-login-instructions" = "Будь ласка, введіть код двофакторної верифікації";
 "two-factor-login-continue" = "Продовжити вхід";
+// Fuzzy
+"two-factor-login-with-regular-code" = "Використати короткий числовий код";
+// Fuzzy
+"two-factor-login-with-backup-code" = "Використати довший резервний код";
 "login-name-not-found" = "Ім'я користувача необхідне для входу в систему.";
 "login-name-illegal" = "Ви вказали незаконне ім'я користувача.";
 "login-name-does-not-exist" = "Ім'я користувача, яке Ви надали, не існує.";
@@ -97,15 +103,19 @@
 "field-new-password-placeholder" = "введіть новий пароль";
 "field-new-password-confirm-title" = "Підтвердження нового пароля";
 "field-new-password-confirm-placeholder" = "введіть новий пароль повторно";
+// Fuzzy
 "field-email-title" = "Адреса електронної пошти (необов'язково)";
 "field-email-placeholder" = "example@example.org";
 // Fuzzy
-"field-token-title" = "Токен";
+"field-token-title" = "Числовий код";
+"field-backup-token-title" = "Резервний код";
 "field-token-placeholder" = "введіть токен";
 "field-captcha-title" = "Введіть текст, який Ви бачите вище";
 "field-captcha-placeholder" = "CAPTCHA-текст";
 "field-alert-username-unavailable" = "Ім'я користувача недоступне";
 "field-alert-password-invalid" = "Недійсний пароль";
+// Fuzzy
+"field-alert-token-invalid" = "Недійсний код. Будь ласка, спробуйте ще раз.";
 "field-alert-captcha-invalid" = "Недійсна CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Паролі не збігаються";
 "forgot-password-title" = "Скинути пароль";
@@ -507,6 +517,7 @@
 "places-search-saved-articles" = "Збережені статті";
 "places-search-suggested-searches-header" = "Пропозиції пошуку";
 "places-search-recently-searched-header" = "Недавні пошукові запити";
+"places-no-saved-articles-have-location" = "Жодна зі збережених Вами статей не має інформації про розташування";
 "places-unknown-distance" = "невідома відстань";
 "places-enable-location-title" = "Перегляньте статті поблизу Вашого місця перебування, увімкнувши доступ до Вашого розташування";
 "places-enable-location-description" = "Доступ до Вашого розташування доступний лише тоді, коли додаток або одна з його функцій видимі на Вашому екрані.";

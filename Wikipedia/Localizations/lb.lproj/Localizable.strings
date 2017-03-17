@@ -1,6 +1,7 @@
 // Messages for Luxembourgish (Lëtzebuergesch)
 // Exported from translatewiki.net
 // Author: Macofe
+// Author: Nemo bis
 // Author: Robby
 
 "languages-title" = "Sprooch änneren";
@@ -50,7 +51,7 @@
 "account-creation-captcha-obtaining" = "En neie CAPTCHA kréien.";
 "account-creation-captcha-title" = "CAPtCHA-Sécherheets-Check";
 "account-creation-captcha-cannot-see-image" = "Kënnt Dir d'Bild net gesinn? $1";
-"account-creation-captcha-request-account" = "Ee Benotzerkont ufroen.";
+"account-creation-captcha-request-account" = "Benotzerkont ufroen.";
 "account-creation-logging-in" = "Aloggen...";
 "account-creation-passwords-mismatched" = "D'Passwierder sinn net identesch.";
 "account-creation-saving" = "Späicheren...";
@@ -61,6 +62,11 @@
 "account-creation-log-in" = "Aloggen.";
 "new-password-title" = "Leet Äert Passwuert fest";
 "two-factor-login-title" = "An Äre Benotzerkont aloggen";
+"two-factor-login-continue" = "Virufuere mam Aloggen";
+// Fuzzy
+"two-factor-login-with-regular-code" = "Kuerzen numeresche Code benotzen";
+// Fuzzy
+"two-factor-login-with-backup-code" = "Benotzt méi e laange Backup-Code";
 "login-name-not-found" = "De Benotzernumm ass obligatoresch fir sech anzeloggen.";
 "login-name-illegal" = "Dir hutt e falsche Benotzernumm uginn.";
 "login-name-does-not-exist" = "De Benotzernumm deen Dir uginn hutt gëtt et net.";
@@ -85,10 +91,12 @@
 "field-new-password-placeholder" = "neit Passwuert aginn";
 "field-new-password-confirm-title" = "Neit Passwuert confirméieren";
 "field-new-password-confirm-placeholder" = "neit Passwuert nees aginn";
-"field-email-title" = "E-Mail-Adress (fakultativ)";
+"field-email-title" = "E-Mail";
+"field-email-title-optional" = "E-Mail (Fakultativ)";
 "field-email-placeholder" = "beispill@beispill.org";
 // Fuzzy
-"field-token-title" = "Token";
+"field-token-title" = "Numeresche Code";
+"field-backup-token-title" = "Backup-Code";
 "field-token-placeholder" = "Token aginn";
 "field-captcha-title" = "Gitt den Text an deen Dir hei driwwer gesitt";
 "field-captcha-placeholder" = "CAPTCHA-Text";
@@ -100,6 +108,7 @@
 "forgot-password-username-prompt" = "Benotzernumm";
 "forgot-password-email-prompt" = "E-Mail (fakultativ)";
 "forgot-password-button-title" = "Zrécksetzen";
+"forgot-password-username-or-email-title" = "Oder";
 "wikitext-downloading" = "Inhalt gëtt gelueden...";
 "wikitext-download-failed" = "Déi lescht Versioun konnt net opgeruff ginn.";
 "wikitext-download-success" = "Inhalt gelueden.";
@@ -487,6 +496,7 @@
 "places-accessibility-group" = "$1 Artikelen";
 "places-accessibility-show-as-map" = "Als Kaart weisen";
 "places-accessibility-show-as-list" = "Als Lëscht weisen";
+"places-accessibility-close-search" = "Sichen zoumaachen";
 "action-share" = "Deelen";
 "action-save" = "Späicheren";
 "action-read" = "Liesen";

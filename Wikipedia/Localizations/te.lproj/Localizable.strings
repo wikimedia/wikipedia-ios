@@ -4,6 +4,7 @@
 // Author: Chaduvari
 // Author: Chsasank
 // Author: JVRKPRASAD
+// Author: Nemo bis
 // Author: Praveen Illa
 // Author: Ravichandra
 // Author: Veeven
@@ -44,6 +45,7 @@
 "account-creation-captcha-retry" = "తప్పుగా ఇచ్చారు. మళ్ళీ ప్రయత్నించండి.";
 // Fuzzy
 "account-creation-captcha-obtaining" = "కొత్త కాప్చా పొందుతున్నాము.";
+"account-creation-captcha-request-account" = "ఖాతాను అభ్యర్ధించండి.";
 "account-creation-logging-in" = "ప్రవేశిస్తున్నారు...";
 "account-creation-passwords-mismatched" = "సంకేతపదం క్షేత్రాలు సరిపోలలేదు.";
 "account-creation-saving" = "భద్రపరుస్తున్నాము...";
@@ -60,8 +62,15 @@
 "login-username-placeholder-text" = "వాడుకరి పేరు";
 "login-password-placeholder-text" = "భద్రతపదం";
 "login-forgot-password" = "సంకేతపదం మర్చిపోయారా?";
+"field-username-title" = "వాడుకరి పేరు";
+"field-password-title" = "సంకేతపదం";
+"field-new-password-title" = "కొత్త సంకేతపదం";
+"field-email-title" = "ఈమెయిలు";
+"field-email-title-optional" = "ఈమెయిలు (ఐచ్చికం)";
+"field-alert-username-unavailable" = "వాడుకరి పేరు అందుబాటులో లేదు";
 "forgot-password-username-prompt" = "వాడుకరి పేరు";
 "forgot-password-email-prompt" = "ఈమెయిలు (ఐచ్చికం)";
+"forgot-password-username-or-email-title" = "లేదా";
 "wikitext-upload-save-sign-in" = "ప్రవేశించండి";
 "wikitext-upload-save-terms-name" = "వాడుక నియమాలు";
 "open-link-title" = "లంకెను తెరవండి";

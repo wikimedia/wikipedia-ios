@@ -14,6 +14,7 @@
 // Author: Macofe
 // Author: Mailman
 // Author: Mariya
+// Author: Nemo bis
 // Author: Nitch
 // Author: Oashnic
 // Author: Okras
@@ -71,7 +72,7 @@
 "account-creation-captcha-obtaining" = "Получение новой капчи...";
 "account-creation-captcha-title" = "Проверка безопасности с помощью CAPTCHA";
 "account-creation-captcha-cannot-see-image" = "Не видите изображение? $1";
-"account-creation-captcha-request-account" = "Запросить учётную запись.";
+"account-creation-captcha-request-account" = "Запрос учётной записи.";
 "account-creation-logging-in" = "Вход в систему…";
 "account-creation-passwords-mismatched" = "Пароли не совпадают.";
 "account-creation-saving" = "Сохраняется…";
@@ -85,6 +86,8 @@
 "two-factor-login-title" = "Войдите в свою учётную запись";
 "two-factor-login-instructions" = "Пожалуйста, введите проверочный код двухэтапной авторизации";
 "two-factor-login-continue" = "Продолжить процедуру входа";
+"two-factor-login-with-regular-code" = "Использовать код подтверждения";
+"two-factor-login-with-backup-code" = "Использовать одну из резервных копий кодов";
 "login-name-not-found" = "Для входа требуется имя участника.";
 "login-name-illegal" = "Вы указали некорректное имя участника.";
 "login-name-does-not-exist" = "Указанного вами имени участника не существует.";
@@ -109,15 +112,18 @@
 "field-new-password-placeholder" = "введите новый пароль";
 "field-new-password-confirm-title" = "Подтвердите новый пароль";
 "field-new-password-confirm-placeholder" = "повторно введите новый пароль";
-"field-email-title" = "Адрес электронной почты (необязательно)";
+"field-email-title" = "Адрес электронной почты";
+"field-email-title-optional" = "Адрес электронной почты (необязательно)";
 "field-email-placeholder" = "example@example.org";
-// Fuzzy
-"field-token-title" = "Токен";
+"field-token-title" = "Код подтверждения";
+"field-backup-token-title" = "Сделать резервную копию кода";
 "field-token-placeholder" = "введите токен";
 "field-captcha-title" = "Введите текст, который вы видите выше";
 "field-captcha-placeholder" = "Текст капчи";
 "field-alert-username-unavailable" = "Имя пользователя не доступно";
 "field-alert-password-invalid" = "Неверный пароль";
+// Fuzzy
+"field-alert-token-invalid" = "Неверный код. Пожалуйста, попробуйте снова.";
 "field-alert-captcha-invalid" = "Неверная капча";
 "field-alert-password-confirm-mismatch" = "Пароли не совпадают";
 "forgot-password-title" = "Сбросить пароль";
@@ -126,6 +132,7 @@
 "forgot-password-email-prompt" = "Адрес электронной почты (необязательно)";
 "forgot-password-button-title" = "Сбросить";
 "forgot-password-email-sent" = "Письмо с инструкциями по сбросу пароля было отправлено";
+"forgot-password-username-or-email-title" = "Или";
 "wikitext-downloading" = "Загрузка содержимого…";
 "wikitext-download-failed" = "Не удаётся получить последнюю версию.";
 "wikitext-download-success" = "Содержимое загружено.";
@@ -519,6 +526,7 @@
 "places-search-saved-articles" = "Сохранённые статьи";
 "places-search-suggested-searches-header" = "Предложения для поиска";
 "places-search-recently-searched-header" = "Недавно искали";
+"places-no-saved-articles-have-location" = "Ни в одной из ваших сохраненных статей нет информации о местоположении";
 "places-unknown-distance" = "расстояние неизвестно";
 "places-enable-location-title" = "Получайте статьи вблизи вашего местоположения, разрешив доступ к определению местоположения";
 "places-enable-location-description" = "Доступ к вашему местоположению доступен только тогда, когда приложение или один из его компонентов отображается на вашем экране.";

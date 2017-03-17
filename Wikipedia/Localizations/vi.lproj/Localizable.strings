@@ -7,6 +7,7 @@
 // Author: Macofe
 // Author: Max20091
 // Author: Minh Nguyen
+// Author: Nemo bis
 // Author: Nguyên Lê
 // Author: Vinhtantran
 
@@ -56,6 +57,7 @@
 "account-creation-captcha-obtaining" = "Đang lấy CAPTCHA mới…";
 "account-creation-captcha-title" = "Kiểm soát an toàn bằng CAPTCHA";
 "account-creation-captcha-cannot-see-image" = "Không thấy được hình này? $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "Yêu cầu một tài khoản.";
 "account-creation-logging-in" = "Đang đăng nhập…";
 "account-creation-passwords-mismatched" = "Mật khẩu không khớp.";

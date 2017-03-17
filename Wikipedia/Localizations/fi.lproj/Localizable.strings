@@ -5,6 +5,7 @@
 // Author: ElmA
 // Author: Jack Phoenix
 // Author: McSalama
+// Author: Nemo bis
 // Author: Nike
 // Author: Pyscowicz
 // Author: SMAUG
@@ -98,12 +99,16 @@
 "field-new-password-placeholder" = "anna uusi salasana";
 "field-new-password-confirm-title" = "Vahvista uusi salasana";
 "field-new-password-confirm-placeholder" = "anna uusi salasana uudelleen";
-"field-email-title" = "Sähköpostiosoite (vapaaehtoinen)";
+"field-email-title" = "Sähköposti";
+"field-email-title-optional" = "Sähköposti (vapaaehtoinen)";
 "field-email-placeholder" = "esimerkki@example.org";
+"field-token-title" = "Vahvistuskoodi";
 "field-captcha-title" = "Kirjoita yllä oleva teksti";
 "field-captcha-placeholder" = "CAPTCHA-teksti";
 "field-alert-username-unavailable" = "Käyttäjänimi ei ole saatavilla";
 "field-alert-password-invalid" = "Salasana ei kelpaa";
+// Fuzzy
+"field-alert-token-invalid" = "Koodi ei kelpaa. Yritä uudelleen.";
 "field-alert-captcha-invalid" = "CAPTCHA ei kelpaa";
 "field-alert-password-confirm-mismatch" = "Salasanat eivät täsmää";
 "forgot-password-title" = "Salasanan palauttaminen";

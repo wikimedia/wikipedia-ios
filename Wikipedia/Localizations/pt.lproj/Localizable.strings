@@ -7,6 +7,7 @@
 // Author: Jkb8
 // Author: Macofe
 // Author: Mansil
+// Author: Nemo bis
 // Author: SandroHc
 // Author: Vitorvicentevalente
 // Author: Webysther
@@ -57,6 +58,7 @@
 "account-creation-captcha-obtaining" = "A obter novo código CAPTCHA...";
 "account-creation-captcha-title" = "Verificação de segurança com CAPTCHA";
 "account-creation-captcha-cannot-see-image" = "Não consegue ver a imagem? $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "Solicitar uma conta.";
 "account-creation-logging-in" = "A autenticar...";
 "account-creation-passwords-mismatched" = "As palavras-passe não correspondem.";

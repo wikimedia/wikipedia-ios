@@ -15,6 +15,7 @@
 // Author: Macofe
 // Author: Martinligabue
 // Author: Nastoshka
+// Author: Nemo bis
 // Author: Nivit
 // Author: Ontsed
 // Author: Peg60
@@ -68,7 +69,7 @@
 "account-creation-captcha-retry" = "Inserimento errato. Riprova.";
 "account-creation-captcha-obtaining" = "Creazione di un nuovo CAPTCHA...";
 "account-creation-captcha-cannot-see-image" = "Non riesci a vedere l'immagine? $1";
-"account-creation-captcha-request-account" = "Richiedi un'utenza";
+"account-creation-captcha-request-account" = "Richiedi utenza";
 "account-creation-logging-in" = "Accesso in corso...";
 "account-creation-passwords-mismatched" = "Le password non corrispondono.";
 "account-creation-saving" = "Salvataggio...";
@@ -82,6 +83,7 @@
 "two-factor-login-title" = "Accedi alla tua utenza";
 "two-factor-login-instructions" = "Inserisci il codice di verifica a due fattori";
 "two-factor-login-continue" = "Continua l'accesso";
+"two-factor-login-with-regular-code" = "Usa codice di verifica";
 "login-name-not-found" = "Il nome utente è necessario per effettuare l'accesso.";
 "login-name-illegal" = "Hai fornito un nome utente non valido.";
 "login-name-does-not-exist" = "Il nome utente fornito non esiste.";
@@ -106,15 +108,17 @@
 "field-new-password-placeholder" = "inserisci la nuova password";
 "field-new-password-confirm-title" = "Conferma la nuova password";
 "field-new-password-confirm-placeholder" = "re-inserisci la nuova password";
-"field-email-title" = "Indirizzo di posta elettronica (opzionale)";
+"field-email-title" = "Email";
+"field-email-title-optional" = "Email (opzionale)";
 "field-email-placeholder" = "example@example.org";
-// Fuzzy
-"field-token-title" = "Token";
+"field-token-title" = "Codice di verifica";
 "field-token-placeholder" = "inserisci il token";
 "field-captcha-title" = "Inserisci il testo che vedi sopra";
 "field-captcha-placeholder" = "Testo CAPTCHA";
 "field-alert-username-unavailable" = "Nome utente non disponibile";
 "field-alert-password-invalid" = "Password non valida";
+// Fuzzy
+"field-alert-token-invalid" = "Codice non valido. Riprova.";
 "field-alert-captcha-invalid" = "CAPTCHA non valido";
 "field-alert-password-confirm-mismatch" = "Le password non corrispondono";
 "forgot-password-title" = "Reimposta password";
@@ -122,6 +126,7 @@
 "forgot-password-email-prompt" = "Email (opzionale)";
 "forgot-password-button-title" = "Reimposta";
 "forgot-password-email-sent" = "Una email è stata inviata con le istruzioni per la reimpostazione della password";
+"forgot-password-username-or-email-title" = "O";
 "wikitext-downloading" = "Caricamento contenuto...";
 "wikitext-download-failed" = "Impossibile visualizzare l'ultima versione.";
 "wikitext-download-success" = "Contenuto caricato.";

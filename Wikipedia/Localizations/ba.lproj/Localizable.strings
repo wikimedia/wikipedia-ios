@@ -1,6 +1,7 @@
 // Messages for Bashkir (башҡортса)
 // Exported from translatewiki.net
 // Author: Mhurd
+// Author: Nemo bis
 // Author: Азат Хәлилов
 // Author: Айсар
 // Author: Аҡҡашҡа
@@ -254,13 +255,13 @@
 "onboarding-skip" = "Ҡалдырып торорға";
 "onboarding-wikipedia" = "Википедия";
 "onboarding-free-encyclopedia" = "Ирекле энциклопедия";
-"preference_title_eventlogging_opt_in" = "Файҙаланыу тураһында отчет ебәреү";
-"preference_summary_eventlogging_opt_in" = "Викимедиаға һеҙҙең ҡушымтаны нисек файҙаланыуығыҙ тураһында мәғлүмәт бирергә рөхсәт итеү. Был уны тағы ла яҡшыраҡ итергә мөмкинселек бирәсәк.";
-"page_protected_autoconfirmed" = "Был бит өлөшләтә һаҡланған ине.";
-"page_protected_sysop" = "Был бит тулыһынса һаҡланған ине.";
-"page_protected_other" = "Был бит тулыһынса һаҡланған ине: $1";
-"page_protected_can_not_edit" = "Һеҙҙең был битте мөхәррирләргә оҡуғыҙ юҡ";
-"page_protected_can_not_edit_title" = "Был бит һаҡланған";
+"preference-title-eventlogging-opt-in" = "Файҙаланыу тураһында отчет ебәреү";
+"preference-summary-eventlogging-opt-in" = "Викимедиаға һеҙҙең ҡушымтаны нисек файҙаланыуығыҙ тураһында мәғлүмәт бирергә рөхсәт итеү. Был уны тағы ла яҡшыраҡ итергә мөмкинселек бирәсәк.";
+"page-protected-autoconfirmed" = "Был бит өлөшләтә һаҡланған ине.";
+"page-protected-sysop" = "Был бит тулыһынса һаҡланған ине.";
+"page-protected-other" = "Был бит тулыһынса һаҡланған ине: $1";
+"page-protected-can-not-edit" = "Һеҙҙең был битте мөхәррирләргә оҡуғыҙ юҡ";
+"page-protected-can-not-edit-title" = "Был бит һаҡланған";
 "license-footer-text" = "$1 лицензияһына ярашлы, эстәлеге менән һәр кем файҙалана ала (башҡаһы күрһәтелмәһә)";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Йөкмәткеһе";

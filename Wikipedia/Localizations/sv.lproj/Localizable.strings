@@ -10,6 +10,7 @@
 // Author: Josve05a
 // Author: Lokal Profil
 // Author: Macofe
+// Author: Nemo bis
 // Author: Platinawolf
 // Author: Rockyfelle
 // Author: WikiPhoenix
@@ -60,6 +61,7 @@
 "account-creation-captcha-obtaining" = "Hämtar en ny CAPTCHA...";
 "account-creation-captcha-title" = "CAPTCHA-säkerhetskontroll";
 "account-creation-captcha-cannot-see-image" = "Kan du inte se bilden? $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "Begär ett konto.";
 "account-creation-logging-in" = "Loggar in...";
 "account-creation-passwords-mismatched" = "Lösenorden matchar inte.";

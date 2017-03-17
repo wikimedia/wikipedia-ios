@@ -3,6 +3,7 @@
 // Author: BodminPill
 // Author: JanRei
 // Author: Metalhead64
+// Author: Nemo bis
 // Author: Purodha
 
 "languages-title" = "Sprache ändern";
@@ -52,7 +53,7 @@
 "account-creation-captcha-obtaining" = "Rufe ein neues CAPTCHA ab …";
 "account-creation-captcha-title" = "CAPTCHA-Sicherheitsprüfung";
 "account-creation-captcha-cannot-see-image" = "Kannst du das Bild nicht sehen? $1";
-"account-creation-captcha-request-account" = "Beantrage ein Benutzerkonto.";
+"account-creation-captcha-request-account" = "Benutzerkonto beantragen.";
 "account-creation-logging-in" = "Anmelden …";
 "account-creation-passwords-mismatched" = "Die Passwortfelder stimmen nicht überein.";
 "account-creation-saving" = "Speichere …";
@@ -66,6 +67,8 @@
 "two-factor-login-title" = "Bei deinem Benutzerkonto anmelden";
 "two-factor-login-instructions" = "Bitte gib einen Zwei-Faktor-Verifikationscode ein";
 "two-factor-login-continue" = "Mit der Anmeldung fortfahren";
+"two-factor-login-with-regular-code" = "Verifizierungscode verwenden";
+"two-factor-login-with-backup-code" = "Einen deiner Backup-Codes verwenden";
 "login-name-not-found" = "Der Benutzername ist zur Anmeldung erforderlich.";
 "login-name-illegal" = "Du hast einen ungültigen Benutzernamen angegeben.";
 "login-name-does-not-exist" = "Der angegebene Benutzername ist nicht vorhanden.";
@@ -90,15 +93,18 @@
 "field-new-password-placeholder" = "Neues Passwort eingeben";
 "field-new-password-confirm-title" = "Neues Passwort bestätigen";
 "field-new-password-confirm-placeholder" = "Neues Passwort erneut eingeben";
-"field-email-title" = "E-Mail-Adresse (optional)";
+"field-email-title" = "E-Mail-Adresse";
+"field-email-title-optional" = "E-Mail-Adresse (optional)";
 "field-email-placeholder" = "beispiel@beispiel.org";
-// Fuzzy
-"field-token-title" = "Token";
+"field-token-title" = "Verifizierungscode";
+"field-backup-token-title" = "Backup-Code";
 "field-token-placeholder" = "Token eingeben";
 "field-captcha-title" = "Gib den Text ein, den du oben siehst.";
 "field-captcha-placeholder" = "CAPTCHA-Text";
 "field-alert-username-unavailable" = "Der Benutzername ist nicht verfügbar";
 "field-alert-password-invalid" = "Ungültiges Passwort";
+// Fuzzy
+"field-alert-token-invalid" = "Ungültiger Code. Bitte erneut versuchen.";
 "field-alert-captcha-invalid" = "Ungültiges CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Die Passwörter stimmen nicht überein";
 "forgot-password-title" = "Passwort zurücksetzen";
@@ -107,6 +113,7 @@
 "forgot-password-email-prompt" = "E-Mail-Adresse (optional)";
 "forgot-password-button-title" = "Zurücksetzen";
 "forgot-password-email-sent" = "Es wurde eine E-Mail mit Anweisungen zur Zurücksetzung des Passworts an dich versandt.";
+"forgot-password-username-or-email-title" = "Oder";
 "wikitext-downloading" = "Lade Inhalt …";
 "wikitext-download-failed" = "Die aktuellste Version konnte nicht abgerufen werden.";
 "wikitext-download-success" = "Inhalt geladen.";
@@ -500,6 +507,7 @@
 "places-search-saved-articles" = "Gespeicherte Artikel";
 "places-search-suggested-searches-header" = "Suchvorschläge";
 "places-search-recently-searched-header" = "Zuletzt gesucht";
+"places-no-saved-articles-have-location" = "Keiner deiner gespeicherten Artikel besitzt Standortinformationen";
 "places-unknown-distance" = "unbekannte Entfernung";
 "places-enable-location-title" = "Entdecke Artikel in deiner Nähe durch das Aktivieren des Standortzugriffs";
 "places-enable-location-description" = "Der Zugriff auf deinen Standort ist nur verfügbar, wenn die App oder eine ihrer Funktionen auf deinem Bildschirm sichtbar ist.";

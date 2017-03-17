@@ -1,5 +1,6 @@
 // Messages for Latvian (latviešu)
 // Exported from translatewiki.net
+// Author: Nemo bis
 // Author: Papuass
 // Author: Silraks
 
@@ -44,6 +45,7 @@
 "login-password-placeholder-text" = "Parole";
 "field-username-title" = "Lietotājvārds";
 "field-new-password-title" = "Jaunā parole";
+// Fuzzy
 "field-email-title" = "E-pasta adrese (nav obligāta)";
 "field-captcha-placeholder" = "CAPTCHA teksts";
 "wikitext-downloading" = "Ielādē saturu...";

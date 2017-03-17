@@ -4,6 +4,7 @@
 // Author: Csega
 // Author: Dj
 // Author: Máté
+// Author: Nemo bis
 // Author: R-Joe
 // Author: Tacsipacsi
 
@@ -54,6 +55,7 @@
 "account-creation-captcha-obtaining" = "Új CAPTCHA kérése folyamatban…";
 "account-creation-captcha-title" = "CAPTCHA biztonsági ellenőrzés";
 "account-creation-captcha-cannot-see-image" = "Nem látod a képet? $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "Igényelj egy fiókot.";
 "account-creation-logging-in" = "Belépés...";
 "account-creation-passwords-mismatched" = "A jelszavak nem egyeznek";
@@ -92,6 +94,7 @@
 "field-new-password-placeholder" = "add meg az új jelszavad";
 "field-new-password-confirm-title" = "Új jelszó megerősítése";
 "field-new-password-confirm-placeholder" = "add meg az új jelszavad még egyszer";
+// Fuzzy
 "field-email-title" = "E-mail-cím (opcionális)";
 "field-email-placeholder" = "pelda@minta.hu";
 // Fuzzy

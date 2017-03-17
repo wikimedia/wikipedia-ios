@@ -3,6 +3,7 @@
 // Author: BRUTE
 // Author: David1010
 // Author: MIKHEIL
+// Author: Nemo bis
 // Author: Otogi
 
 "languages-title" = "ენის შეცვლა";
@@ -50,6 +51,12 @@
 "account-creation-saving" = "ინახება...";
 "account-creation-login" = "უკვე გაქვთ ანგარიში? გაიარეთ ავტორიზაცია";
 "account-creation-missing-fields" = "ანგარიშის შესაქმნელად, თქვენ უნდა შეიყვანოთ მომხმარებლის სახელი, პაროლი და პაროლის დადასტურება.";
+"account-creation-log-in" = "შესვლა.";
+"new-password-title" = "დააყენეთ პაროლი";
+"two-factor-login-title" = "თქვენ ანგარიშში შესვლა";
+"two-factor-login-instructions" = "გთხოვთ, შეიყვანოთ ორფაქტორიანი დადასტურების კოდი";
+"two-factor-login-continue" = "შესვლის გაგრძელება";
+"two-factor-login-with-regular-code" = "გამოიყენეთ დადასტურების კოდი";
 "login-name-not-found" = "შესასვლელად საჭიროა მომხმარებლის სახელი.";
 "login-name-illegal" = "თქვენ მიერ მითითებული მომხმარებლის სახელი არალეგალურია.";
 "login-name-does-not-exist" = "თქვენ მიერ მითითებული მომხმარებლის სახელი არ არსებობს.";
@@ -60,6 +67,21 @@
 "login-account-creation" = "არ გაქვს ანგარიში? შეუერთდი ვიკიპედიას.";
 "login-username-placeholder-text" = "მომხმარებლის სახელი";
 "login-password-placeholder-text" = "პაროლი";
+"login-join-wikipedia" = "შემოუერთდით ვიკიპედიას.";
+"field-username-title" = "მომხმარებლის სახელი";
+"field-username-placeholder" = "შეიყვანეთ მომხმარებლის სახელი";
+"field-password-title" = "პაროლი";
+"field-password-placeholder" = "შეიყვანეთ პაროლი";
+"field-password-confirm-title" = "დაადასტურეთ პაროლი";
+"field-password-confirm-placeholder" = "გაიმეორეთ პაროლი";
+"field-new-password-title" = "ახალი პაროლი";
+"field-new-password-placeholder" = "შეიყვანეთ ახალი პაროლი";
+"field-new-password-confirm-title" = "დაადასტურეთ ახალი პაროლი";
+"field-new-password-confirm-placeholder" = "გაიმეორეთ ახალი პაროლი";
+"field-email-title" = "ელ. ფოსტა";
+"field-email-title-optional" = "ელ. ფოსტა (არასავალდებულო)";
+"field-email-placeholder" = "example@example.org";
+"field-token-title" = "დადასტურების კოდი";
 "field-alert-password-invalid" = "არასწორი პაროლი";
 "field-alert-captcha-invalid" = "არასწორი CAPTCHA";
 "wikitext-downloading" = "შიგთავსი იტვირთება…";

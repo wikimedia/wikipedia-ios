@@ -11,6 +11,7 @@
 // Author: Hidayatsrf
 // Author: Iwan Novirion
 // Author: Kenrick95
+// Author: Nemo bis
 // Author: Presidenvolksraad
 // Author: Relly Komaruzaman
 // Author: Rizkiahmadz
@@ -77,6 +78,8 @@
 "two-factor-login-title" = "Masuk ke akun Anda";
 "two-factor-login-instructions" = "Silakan masukkan kode verifikasi dua faktor";
 "two-factor-login-continue" = "Lanjutkan masuk log";
+"two-factor-login-with-regular-code" = "Gunakan kode verifikasi";
+"two-factor-login-with-backup-code" = "Gunakan kode cadangan";
 "login-name-not-found" = "Nama pengguna diperlukan untuk masuk log.";
 "login-name-illegal" = "Anda memberikan nama pengguna yang tidak sah.";
 "login-name-does-not-exist" = "Nama pengguna yang Anda berikan tidak ada.";
@@ -101,15 +104,18 @@
 "field-new-password-placeholder" = "masukan kata sandi baru";
 "field-new-password-confirm-title" = "Konfirmasi kata sandi baru";
 "field-new-password-confirm-placeholder" = "masukan kembali kata sandi baru";
-"field-email-title" = "Alamat surel/email (sebaiknya diisi)";
+"field-email-title" = "Surel";
+"field-email-title-optional" = "Alamat surel (Opsional)";
 "field-email-placeholder" = "contoh@contoh.org";
-// Fuzzy
-"field-token-title" = "Token";
+"field-token-title" = "Kode verifikasi";
+"field-backup-token-title" = "Kode cadangan";
 "field-token-placeholder" = "masukkan token";
 "field-captcha-title" = "Masukkan teks yang Anda lihat di atas";
 "field-captcha-placeholder" = "Teks CAPTCHA";
 "field-alert-username-unavailable" = "Nama pengguna tidak tersedia";
 "field-alert-password-invalid" = "Kata sandi salah";
+// Fuzzy
+"field-alert-token-invalid" = "Kode salah. Silakan coba lagi.";
 "field-alert-captcha-invalid" = "CAPTCHA tidak sesuai";
 "field-alert-password-confirm-mismatch" = "Kata sandi tidak cocok";
 "forgot-password-title" = "Setel ulang kata sandi";
@@ -118,6 +124,7 @@
 "forgot-password-email-prompt" = "Surel (opsional)";
 "forgot-password-button-title" = "Atur ulang";
 "forgot-password-email-sent" = "Sebuah surel dengan instruksi penyetelan ulang kata sandi telah dikirim";
+"forgot-password-username-or-email-title" = "Atau";
 "wikitext-downloading" = "Memuat konten...";
 "wikitext-download-failed" = "Tidak dapat memperoleh revisi terbaru.";
 "wikitext-download-success" = "Konten dimuat.";
@@ -511,6 +518,7 @@
 "places-search-saved-articles" = "Artikel tersimpan";
 "places-search-suggested-searches-header" = "Penelusuran yang disarankan";
 "places-search-recently-searched-header" = "Ditelusuri baru-baru ini";
+"places-no-saved-articles-have-location" = "Tidak satu pun dari artikel tersimpan Anda memiliki informasi lokasi";
 "places-unknown-distance" = "jarak tidak diketahui";
 "places-enable-location-title" = "Jelajahi artikel di sekitar lokasi Anda dengan mengaktifkan Akses Lokasi";
 "places-enable-location-description" = "Akses ke lokasi Anda hanya tersedia bila aplikasi atau salah satu dari fitur-fiturnya yang terlihat di layar Anda.";

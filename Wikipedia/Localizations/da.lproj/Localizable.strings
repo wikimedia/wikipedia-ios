@@ -6,6 +6,7 @@
 // Author: Jhertel
 // Author: Mads Haupt
 // Author: Mortenelling
+// Author: Nemo bis
 // Author: Sarrus
 
 "languages-title" = "Skift sprog";
@@ -55,6 +56,7 @@
 "account-creation-captcha-obtaining" = "Henter en ny CAPTCHA...";
 "account-creation-captcha-title" = "CAPTCHA-sikkerhedskontrol";
 "account-creation-captcha-cannot-see-image" = "Kan du ikke se billedet? $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "Anmod om en konto.";
 "account-creation-logging-in" = "Logger på...";
 "account-creation-passwords-mismatched" = "Adgangskoderne stemmer ikke overens.";
@@ -93,6 +95,7 @@
 "field-new-password-placeholder" = "indtast ny adgangskode";
 "field-new-password-confirm-title" = "Bekræft ny adgangskode";
 "field-new-password-confirm-placeholder" = "genindtast ny adgangskode";
+// Fuzzy
 "field-email-title" = "E-mailadresse (valgfri)";
 "field-email-placeholder" = "eksempel@eksempel.org";
 // Fuzzy

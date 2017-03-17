@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Alefbeis
 // Author: Har-wradim
+// Author: Nemo bis
 // Author: פוילישער
 
 "languages-title" = "ענדערן שפּראַך";
@@ -35,6 +36,7 @@
 "zero-learn-more-learn-more" = "לייענט ווײַטער";
 "zero-learn-more-no-thanks" = "צומאַכן";
 "zero-wikipedia-zero-heading" = "וויקיפעדיע נול";
+// Fuzzy
 "account-creation-captcha-request-account" = "בעטן א קאנטע";
 "account-creation-logging-in" = "ארײנלאגנדיק…";
 "account-creation-passwords-mismatched" = "פאסווארט פעלדער שטימען נישט.";

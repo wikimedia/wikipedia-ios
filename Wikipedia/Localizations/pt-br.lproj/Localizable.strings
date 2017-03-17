@@ -15,7 +15,9 @@
 // Author: Luckas
 // Author: Luk3
 // Author: Macofe
+// Author: Maxan
 // Author: Mordecool
+// Author: Nemo bis
 // Author: Peter Fernando
 // Author: Raphaelras
 // Author: Rodrigo codignoli
@@ -71,6 +73,8 @@
 "account-creation-saving" = "Salvando...";
 "account-creation-login" = "Já tem uma conta? Entrar.";
 "account-creation-missing-fields" = "Deve inserir um nome de usuário(a), uma senha e a sua respectiva confirmação para criar uma conta.";
+// Fuzzy
+"two-factor-login-with-regular-code" = "Use código numérico pequeno";
 "login-name-not-found" = "Nome de usuário necessário para entrar.";
 "login-name-illegal" = "Você forneceu um nome de usuário inválido.";
 "login-name-does-not-exist" = "O nome de usuário que você forneceu não existe.";
@@ -81,6 +85,10 @@
 "login-account-creation" = "Não possui uma conta? Junte-se a Wikipédia.";
 "login-username-placeholder-text" = "Nome de usuário";
 "login-password-placeholder-text" = "Senha";
+// Fuzzy
+"field-token-title" = "Código numérico";
+// Fuzzy
+"field-alert-token-invalid" = "Código inválido. Por favor, tente novamente.";
 "wikitext-downloading" = "Carregando conteúdo...";
 "wikitext-download-failed" = "Não é possível obter a revisão mais recente.";
 "wikitext-download-success" = "Conteúdo carregado.";

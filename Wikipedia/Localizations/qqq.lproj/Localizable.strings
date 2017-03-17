@@ -102,10 +102,10 @@
 "field-new-password-placeholder" = "Placeholder text shown inside new password field until user taps on it";
 "field-new-password-confirm-title" = "Title for confirm new password field";
 "field-new-password-confirm-placeholder" = "Placeholder text shown inside confirm new password field until user taps on it";
-"field-email-title" = "Title for email address field";
-"field-email-title-optional" = "Title for optional email address field";
+"field-email-title" = "Noun. Title for email address field.\n{{Identical|E-mail}}";
+"field-email-title-optional" = "Noun. Title for optional email address field.";
 "field-email-placeholder" = "Placeholder text shown inside email address field until user taps on it";
-"field-token-title" = "Title for token field\n{{Identical|Token}}";
+"field-token-title" = "Title for token field";
 "field-backup-token-title" = "Title for backup token field";
 "field-token-placeholder" = "Placeholder text shown inside token field until user taps on it";
 "field-captcha-title" = "Title for captcha field";
@@ -121,7 +121,7 @@
 "forgot-password-email-prompt" = "Prompt for email address field";
 "forgot-password-button-title" = "Title for reset password button\n{{Identical|Reset}}";
 "forgot-password-email-sent" = "Alert text shown when password reset email is sent";
-"forgot-password-username-or-email-title" = "Title shown between the username and email text fields. User only has to specify either username \"Or\" email address";
+"forgot-password-username-or-email-title" = "Title shown between the username and email text fields. User only has to specify either username \"Or\" email address\n{{Identical|Or}}";
 "wikitext-downloading" = "Alert text shown when obtaining latest revision of the section being edited";
 "wikitext-download-failed" = "Alert text shown when unable to obtain latest revision of the section being edited";
 "wikitext-download-success" = "Alert text shown when latest revision of the section being edited has been retrieved";
@@ -520,7 +520,6 @@
 "places-enable-location-title" = "Explains that you can explore articles near you by enabling location access. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".";
 "places-enable-location-description" = "Describes that access to your location is only used when the app or one of its features is on the screen";
 "places-enable-location-action-button-title" = "Button title to enable location access";
-"places-no-saved-articles-have-location" = "Indicates to the user that none of their saved articles have location information";
 "places-accessibility-group" = "Accessibility label for a map icon - $1 is replaced with the number of articles in the group\n{{Identical|Article}}";
 "places-accessibility-show-more" = "Accessibility label for a button that shows more articles";
 "places-accessibility-show-as-map" = "Accessibility label for the show as map toggle item";

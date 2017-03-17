@@ -6,6 +6,7 @@
 // Author: Idh0854
 // Author: Jerrykim306
 // Author: Namoroka
+// Author: Nemo bis
 // Author: Priviet
 // Author: Revi
 // Author: SeoJeongHo
@@ -63,6 +64,7 @@
 "account-creation-captcha-obtaining" = "새로운 캡차를 얻는 중입니다...";
 "account-creation-captcha-title" = "CAPTCHA 보안 확인";
 "account-creation-captcha-cannot-see-image" = "사진이 보이지 않습니까? $1";
+// Fuzzy
 "account-creation-captcha-request-account" = "계정 요청.";
 "account-creation-logging-in" = "로그인 중...";
 "account-creation-passwords-mismatched" = "비밀번호 필드가 일치하지 않습니다.";
@@ -77,6 +79,10 @@
 "two-factor-login-title" = "자신의 계정으로 로그인";
 "two-factor-login-instructions" = "2요소 인증 코드를 입력해 주십시오";
 "two-factor-login-continue" = "로그인 계속";
+// Fuzzy
+"two-factor-login-with-regular-code" = "짧은 숫자 코드 사용";
+// Fuzzy
+"two-factor-login-with-backup-code" = "더 긴 백업 코드 사용";
 "login-name-not-found" = "로그인하려면 사용자 이름이 필요합니다.";
 "login-name-illegal" = "잘못된 사용자 이름을 제공했습니다.";
 "login-name-does-not-exist" = "제공한 사용자 이름이 존재하지 않습니다.";
@@ -101,15 +107,19 @@
 "field-new-password-placeholder" = "새 비밀번호 입력";
 "field-new-password-confirm-title" = "새로운 비밀번호 확인";
 "field-new-password-confirm-placeholder" = "새 비밀번호 다시 입력";
+// Fuzzy
 "field-email-title" = "이메일 주소 (선택 사항)";
 "field-email-placeholder" = "example@example.org";
 // Fuzzy
-"field-token-title" = "토큰";
+"field-token-title" = "숫자 코드";
+"field-backup-token-title" = "백업 코드";
 "field-token-placeholder" = "토큰 입력";
 "field-captcha-title" = "위에 보이는 문자를 입력하세요";
 "field-captcha-placeholder" = "CAPTCHA 텍스트";
 "field-alert-username-unavailable" = "사용자 이름을 사용할 수 없습니다";
 "field-alert-password-invalid" = "유효하지 않은 비밀번호";
+// Fuzzy
+"field-alert-token-invalid" = "유효하지 않은 코드입니다. 다시 시도해 주십시오.";
 "field-alert-captcha-invalid" = "유효하지 않은 CAPTCHA";
 "field-alert-password-confirm-mismatch" = "비밀번호가 일치하지 않습니다";
 "forgot-password-title" = "비밀번호 재설정";
@@ -504,6 +514,7 @@
 "places-search-saved-articles" = "저장된 문서";
 "places-search-suggested-searches-header" = "추천된 검색";
 "places-search-recently-searched-header" = "최근 검색됨";
+"places-no-saved-articles-have-location" = "저장한 문서 중 어느 것도 위치 정보가 없습니다";
 "places-unknown-distance" = "알 수 없는 거리";
 "places-enable-location-action-button-title" = "위치 활성화";
 "places-accessibility-group" = "$1개의 문서";
