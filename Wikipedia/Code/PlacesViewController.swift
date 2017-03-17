@@ -1313,7 +1313,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         let currentPrecision = lowestPrecision + groupingPrecisionDelta
         let groupingPrecision = min(maxPrecision, currentPrecision)
-        let currentSearchPrecision = lowestSearchPrecision + groupingPrecisionDelta
 
         guard groupingPrecision != currentGroupingPrecision else {
             return
@@ -1809,8 +1808,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 }
                 let limit = min(count, searchHistoryCountLimit)
                 recentSearches = try results[0..<limit].map({ (kv) -> PlaceSearch in
-                    guard let dictionary = kv.value as? [String : Any],
-                        let ps = PlaceSearch(dictionary: dictionary) else {
+                    guard let ps = PlaceSearch(object: kv.value) else {
                             throw NSError()
                     }
                     return ps
