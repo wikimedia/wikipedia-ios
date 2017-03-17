@@ -206,7 +206,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return false
     }
     
-    func selectVisibleKeyToSelectIfNecessary() {
+    func _selectVisibleKeyToSelectIfNecessary() {
         guard !isMovingToRegion, let keyToSelect = articleKeyToSelect else {
             return
         }
@@ -214,6 +214,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         articleKeyToSelect = nil
+    }
+    
+    func selectVisibleKeyToSelectIfNecessary() {
+        let selector = #selector(_selectVisibleKeyToSelectIfNecessary)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: selector, object: nil)
+        self.perform(selector, with: nil, afterDelay: 0.3)
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
