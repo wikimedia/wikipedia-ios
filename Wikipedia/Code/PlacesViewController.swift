@@ -1437,10 +1437,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             group.latitudeSum += coordinate.latitude
             group.longitudeSum += coordinate.longitude
             groups[key] = group
-            if group.articles.count < minGroupCount {
-                splittableGroups[key] = group
-            } else {
-                splittableGroups[key] = nil
+            if group.articles.count > 1 {
+                if group.articles.count < minGroupCount {
+                    splittableGroups[key] = group
+                } else {
+                    splittableGroups[key] = nil
+                }
             }
         }
         
