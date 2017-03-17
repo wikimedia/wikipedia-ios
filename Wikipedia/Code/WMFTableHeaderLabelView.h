@@ -1,6 +1,6 @@
 #import <UIKit/UIKit.h>
 
-@interface WMFTableHeaderLabelView : UIView
+@interface WMFTableHeaderLabelView : UITableViewHeaderFooterView
 @property (copy, nonatomic) NSString *text;
 - (CGFloat)heightWithExpectedWidth:(CGFloat)width;
 
