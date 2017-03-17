@@ -230,6 +230,35 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         isMovingToRegion = false
         
         selectVisibleKeyToSelectIfNecessary()
+        
+        updateShouldShowAllImagesIfNecessary()
+    }
+    
+    func updateShouldShowAllImagesIfNecessary() {
+        let visibleAnnotations = mapView.annotations(in: mapView.visibleMapRect)
+        var visibleArticleCount = 0
+        var visibleGroupCount = 0
+        for annotation in visibleAnnotations {
+            guard let place = annotation as? ArticlePlace else {
+                continue
+            }
+            if place.articles.count == 1 {
+                visibleArticleCount += 1
+            } else {
+                visibleGroupCount += 1
+            }
+        }
+        let articlesPerSquarePixel = CGFloat(visibleArticleCount) / mapView.bounds.width * mapView.bounds.height
+        let shouldShowAllImages = visibleGroupCount == 0 && visibleArticleCount > 0 && articlesPerSquarePixel < 40
+        if shouldShowAllImages != showingAllImages {
+            for annotation in mapView.annotations {
+                guard let view = mapView.view(for: annotation) as? ArticlePlaceView else {
+                    continue
+                }
+                view.set(alwaysShowImage: shouldShowAllImages, animated: true)
+            }
+            showingAllImages = shouldShowAllImages
+        }
     }
 
     var placeGroupVC: ArticlePlaceGroupViewController?
@@ -1198,25 +1227,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private var showingAllImages = false
     private var greaterThanOneArticleGroupCount = 0
     
-    
-    func shouldShowAllImages(currentPrecision: QuadKeyPrecision, currentSearchPrecision: QuadKeyPrecision, maxPrecision: QuadKeyPrecision) -> Bool {
-        return currentPrecision > maxPrecision + 2
-    }
-    
-    func updateShouldShowAllImages(currentPrecision: QuadKeyPrecision, currentSearchPrecision: QuadKeyPrecision, maxPrecision: QuadKeyPrecision) {
-        let shouldShowAllImages = self.shouldShowAllImages(currentPrecision: currentPrecision, currentSearchPrecision: currentSearchPrecision, maxPrecision: maxPrecision)
-        
-        if shouldShowAllImages != showingAllImages {
-            for annotation in mapView.annotations {
-                guard let view = mapView.view(for: annotation) as? ArticlePlaceView else {
-                    continue
-                }
-                view.set(alwaysShowImage: shouldShowAllImages, animated: true)
-            }
-            showingAllImages = shouldShowAllImages
-        }
-    }
-    
     struct ArticleGroup {
         var articles: [WMFArticle] = []
         var latitudeSum: QuadKeyDegrees = 0
@@ -1306,7 +1316,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let currentSearchPrecision = lowestSearchPrecision + groupingPrecisionDelta
 
         guard groupingPrecision != currentGroupingPrecision else {
-            updateShouldShowAllImages(currentPrecision: currentPrecision, currentSearchPrecision: currentSearchPrecision, maxPrecision: maxPrecision)
             return
         }
         
@@ -1482,14 +1491,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         currentGroupingPrecision = groupingPrecision
         
-        let showAllImages = shouldShowAllImages(currentPrecision: currentPrecision, currentSearchPrecision: currentSearchPrecision, maxPrecision: maxPrecision)
-        if (!showAllImages) {
-             self.updateShouldShowAllImages(currentPrecision: currentPrecision, currentSearchPrecision: currentSearchPrecision, maxPrecision: maxPrecision)
-        }
         taskGroup.waitInBackground {
-            if (showAllImages) {
-                self.updateShouldShowAllImages(currentPrecision: currentPrecision, currentSearchPrecision: currentSearchPrecision, maxPrecision: maxPrecision)
-            }
             self.groupingTaskGroup = nil
             self.selectVisibleKeyToSelectIfNecessary()
             if (self.needsRegroup) {
