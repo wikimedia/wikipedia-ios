@@ -1529,9 +1529,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         articleVC.view.alpha = 0
         addChildViewController(articleVC)
-        
-        let aboveSubview = isViewModeOverlay ? listAndSearchOverlayContainerView ?? placeGroupVC?.view : placeGroupVC?.view
-        view.insertSubview(articleVC.view, aboveSubview: aboveSubview ?? mapView)
+    
+        view.insertSubview(articleVC.view, aboveSubview: placeGroupVC?.view ?? mapView)
         articleVC.didMove(toParentViewController: self)
         
         let size = articleVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
@@ -1645,6 +1644,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func adjustLayout(ofPopover articleVC: ArticlePopoverViewController, withSize popoverSize: CGSize, viewSize: CGSize, forAnnotationView annotationView: MKAnnotationView) {
         var preferredLocations = [PopoverLocation]()
         
+        
+        let annotationSize = annotationView.frame.size
+        let spacing: CGFloat = 5
+        let annotationCenter = view.convert(annotationView.center, from: mapView)
+        
         if let groupAnnotationView = placeGroupAnnotationView {
             let adjustedCenter = view.convert(annotationView.center, from: annotationView.superview)
             let adjustedGroupCenter = view.convert(groupAnnotationView.center, from: groupAnnotationView.superview)
@@ -1676,11 +1680,23 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     preferredLocations = [.left, .top]
                 }
             }
+        } else if isViewModeOverlay {
+            if UIApplication.shared.wmf_isRTL {
+                if annotationCenter.x >= listAndSearchOverlayContainerView.frame.minX {
+                    preferredLocations = [.bottom, .left, .right, .top]
+                } else {
+                    preferredLocations = [.left, .bottom, .top, .right]
+                }
+            } else {
+                if annotationCenter.x <= listAndSearchOverlayContainerView.frame.maxX {
+                    preferredLocations = [.bottom, .right, .left, .top]
+                } else {
+                    preferredLocations = [.right, .bottom, .top, .left]
+                }
+            }
+            
         }
-        
-        let annotationSize = annotationView.frame.size
-        let spacing: CGFloat = 5
-        let annotationCenter = view.convert(annotationView.center, from: mapView)
+    
         let viewCenter = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
     
         let popoverDistanceFromAnnotationCenterY = 0.5 * annotationSize.height + spacing
@@ -1699,7 +1715,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let canFitTopOrBottom = viewSize.width - annotationCenter.x > 0.5*popoverSize.width && annotationCenter.x > 0.5*popoverSize.width
         let fitsTop = top < 0 && canFitTopOrBottom
         let fitsBottom = bottom < 0 && canFitTopOrBottom
-        
         
         let canFitLeftOrRight = viewSize.height - annotationCenter.y > 0.5*popoverSize.height && annotationCenter.y > 0.5*popoverSize.width
         let fitsLeft = left < 0 && canFitLeftOrRight
