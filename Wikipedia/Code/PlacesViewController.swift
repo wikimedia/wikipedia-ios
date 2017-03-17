@@ -205,21 +205,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         return false
     }
-    
-    func _selectVisibleKeyToSelectIfNecessary() {
-        guard !isMovingToRegion, let keyToSelect = articleKeyToSelect else {
+
+    func selectVisibleKeyToSelectIfNecessary() {
+        guard !isMovingToRegion, countOfAnimatingAnnotations == 0, let keyToSelect = articleKeyToSelect else {
             return
         }
         guard selectVisibleArticle(articleKey: keyToSelect) else {
             return
         }
         articleKeyToSelect = nil
-    }
-    
-    func selectVisibleKeyToSelectIfNecessary() {
-        let selector = #selector(_selectVisibleKeyToSelectIfNecessary)
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: selector, object: nil)
-        self.perform(selector, with: nil, afterDelay: 0.3)
+
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -256,6 +251,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         let articlesPerSquarePixel = CGFloat(visibleArticleCount) / mapView.bounds.width * mapView.bounds.height
         let shouldShowAllImages = visibleGroupCount == 0 && visibleArticleCount > 0 && articlesPerSquarePixel < 40
+        set(shouldShowAllImages: shouldShowAllImages)
+    }
+    
+    func set(shouldShowAllImages: Bool) {
         if shouldShowAllImages != showingAllImages {
             for annotation in mapView.annotations {
                 guard let view = mapView.view(for: annotation) as? ArticlePlaceView else {
@@ -338,6 +337,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
     }
     
+    var countOfAnimatingAnnotations = 0 {
+        didSet {
+            if countOfAnimatingAnnotations == 0 {
+                selectVisibleKeyToSelectIfNecessary()
+            }
+        }
+    }
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         guard let place = annotation as? ArticlePlace else {
@@ -372,17 +379,23 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             placeView?.alpha = 0
             placeView?.transform = CGAffineTransform(scaleX: animationScale, y: animationScale)
             dispatchOnMainQueue({
+                self.countOfAnimatingAnnotations += 1
                 UIView.animate(withDuration: self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
                     placeView?.transform = CGAffineTransform.identity
                     placeView?.alpha = 1
-                }, completion: nil)
+                }, completion: { (done) in
+                    self.countOfAnimatingAnnotations -= 1
+                })
             })
         } else if let nextCoordinate = place.nextCoordinate {
             placeView?.alpha = 0
             dispatchOnMainQueue({
+                self.countOfAnimatingAnnotations += 1
                 UIView.animate(withDuration: 2*self.animationDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
                     place.coordinate = nextCoordinate
-                }, completion: nil)
+                }, completion: { (done) in
+                    self.countOfAnimatingAnnotations -= 1
+                })
                 UIView.animate(withDuration: 0.5*self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
                     placeView?.alpha = 1
                 }, completion: nil)
@@ -390,9 +403,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         } else {
             placeView?.alpha = 0
             dispatchOnMainQueue({
+                self.countOfAnimatingAnnotations += 1
                 UIView.animate(withDuration: self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
                     placeView?.alpha = 1
-                }, completion: nil)
+                }, completion: { (done) in
+                    self.countOfAnimatingAnnotations -= 1
+                })
             })
         }
         
@@ -1323,10 +1339,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let lowestSearchPrecision = QuadKeyPrecision(deltaLongitude: searchDeltaLon)
         
         var groupingAggressiveness: CLLocationDistance = 0.67
-        let groupingPrecisionDelta: QuadKeyPrecision = 4
-        let maxPrecision: QuadKeyPrecision = 17
+        let groupingPrecisionDelta: QuadKeyPrecision = isViewModeOverlay ? 6 : 4
+        let maxPrecision: QuadKeyPrecision = isViewModeOverlay ? 19 : 17
         let minGroupCount = 3
-        if lowestPrecision + 4 <= lowestSearchPrecision {
+        if lowestPrecision + groupingPrecisionDelta <= lowestSearchPrecision {
             groupingAggressiveness += 0.3
         }
         
@@ -1487,6 +1503,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     
                     let placeView = mapView.view(for: previousPlace)
                     taskGroup.enter()
+                    self.countOfAnimatingAnnotations += 1
                     UIView.animate(withDuration:animationDuration, delay: 0, options: [.allowUserInteraction], animations: {
                         placeView?.alpha = 0
                         if (previousPlace.articles.count > 1) {
@@ -1496,6 +1513,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     }, completion: { (finished) in
                         taskGroup.leave()
                         self.mapView.removeAnnotation(previousPlace)
+                        self.countOfAnimatingAnnotations -= 1
                     })
                 }
             }
@@ -1513,16 +1531,20 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         for (_, annotation) in annotationsToRemove {
             let placeView = mapView.view(for: annotation)
             taskGroup.enter()
+            self.countOfAnimatingAnnotations += 1
             UIView.animate(withDuration: 0.5*animationDuration, animations: {
                 placeView?.transform = CGAffineTransform(scaleX: self.animationScale, y: self.animationScale)
                 placeView?.alpha = 0
             }, completion: { (finished) in
                 taskGroup.leave()
                 self.mapView.removeAnnotation(annotation)
+                self.countOfAnimatingAnnotations -= 1
             })
         }
         currentGroupingPrecision = groupingPrecision
-        
+        if greaterThanOneArticleGroupCount > 0 {
+            set(shouldShowAllImages: false)
+        }
         taskGroup.waitInBackground {
             self.groupingTaskGroup = nil
             self.selectVisibleKeyToSelectIfNecessary()
