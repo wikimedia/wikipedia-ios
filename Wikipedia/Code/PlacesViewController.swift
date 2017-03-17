@@ -1317,9 +1317,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                         //no grouping with the article to select
                         continue
                     }
+                    guard group.articles.count > 1 || adjacentGroup.articles.count > 1 else {
+                        continue
+                    }
                     let location = group.location
                     let distance = adjacentGroup.location.distance(from: location)
-                    let distanceToCheck = adjacentGroup.articles.count > 1 || group.articles.count > 1 ? groupingDistance : 0.25*groupingDistance
+                    let distanceToCheck = group.articles.count == 1 || adjacentGroup.articles.count == 1 ? 0.25*groupingDistance : groupingDistance
                     if distance < distanceToCheck {
                         toMerge.insert(adjacentKey)
                         var newGroups = groups
@@ -1346,18 +1349,15 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         let deltaLon = visibleRegion.span.longitudeDelta
         let lowestPrecision = QuadKeyPrecision(deltaLongitude: deltaLon)
-        
         let searchDeltaLon = searchRegion.span.longitudeDelta
         let lowestSearchPrecision = QuadKeyPrecision(deltaLongitude: searchDeltaLon)
-        
         var groupingAggressiveness: CLLocationDistance = 0.67
-        let groupingPrecisionDelta: QuadKeyPrecision = isViewModeOverlay ? 6 : 4
-        let maxPrecision: QuadKeyPrecision = isViewModeOverlay ? 19 : 17
+        let groupingPrecisionDelta: QuadKeyPrecision = isViewModeOverlay ? 5 : 4
+        let maxPrecision: QuadKeyPrecision = isViewModeOverlay ? 18 : 17
         let minGroupCount = 3
         if lowestPrecision + groupingPrecisionDelta <= lowestSearchPrecision {
             groupingAggressiveness += 0.3
         }
-        
         let currentPrecision = lowestPrecision + groupingPrecisionDelta
         let groupingPrecision = min(maxPrecision, currentPrecision)
 
