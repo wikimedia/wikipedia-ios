@@ -401,6 +401,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 selectVisibleKeyToSelectIfNecessary()
                 return
             }
+            
+            guard !isViewModeOverlay || overlayState == .min else {
+                let factor = UIApplication.shared.wmf_isRTL ? 0.1 : -0.1
+                let adjustedCenter = CLLocationCoordinate2DMake(region.center.latitude, region.center.longitude + factor * region.span.latitudeDelta)
+                let adjustedRegion = MKCoordinateRegionMake(adjustedCenter, region.span)
+                mapView.setRegion(adjustedRegion, animated: true)
+                return
+            }
 
             mapView.setRegion(region, animated: true)
         }
@@ -1694,7 +1702,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     preferredLocations = [.right, .bottom, .top, .left]
                 }
             }
-            
         }
     
         let viewCenter = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
