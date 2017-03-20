@@ -45,10 +45,6 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier:  PlaceSearchSuggestionController.cellReuseIdentifier, for: indexPath)
         let search = searches[indexPath.section][indexPath.row]
         switch search.type {
-        case .saved:
-            cell.imageView?.image = #imageLiteral(resourceName: "places-suggestion-saved")
-        case .top:
-            cell.imageView?.image = #imageLiteral(resourceName: "places-suggestion-top")
         case .location:
             cell.imageView?.image = #imageLiteral(resourceName: "places-suggestion-location")
         default:
