@@ -474,6 +474,7 @@
 "places-search-recently-searched-header" = "عمليات البحث الأخيرة";
 "places-no-saved-articles-have-location" = "لا مقالة من مقالاتك المحفوظة تتضمن معلومات عن الموقع";
 "places-unknown-distance" = "المسافة غير معروفة";
+"places-accessibility-show-more" = "أظهر المزيد من المقالات";
 "places-accessibility-close-search" = "أغلق البحث";
 "places-accessibility-clear-recent-searches" = "مسح عمليات البحث الأخيرة";
 "action-share" = "شارك";

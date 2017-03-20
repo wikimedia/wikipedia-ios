@@ -1,6 +1,7 @@
 // Messages for Sindhi (سنڌي)
 // Exported from translatewiki.net
 // Author: Aursani
+// Author: Indus Asia
 // Author: Macofe
 // Author: Mehtab ahmed
 // Author: Nemo bis
@@ -62,10 +63,10 @@
 "account-creation-have-account" = "اڳ ئي کاتو رکو ٿا؟ $1";
 "account-creation-log-in" = "داخل ٿيو.";
 "new-password-title" = "پنھنجو ڳجھولفظ طي ڪريو";
-"new-password-instructions" = "توھان ھڪ عارضي ڳجھي لفظ سان داخل ٿيا. داخل ٿيڻ جي مڪمل ڪرڻ لاءِ ھڪ نئون ڳجھولفظ ترتيب ڪريو.";
+"new-password-instructions" = "توھان ھڪ عارضي ڳجھي لفظ (پاسورڊ) سان داخل ٿيا. داخل ٿيڻ جي مڪمل ڪرڻ لاءِ ھڪ نئون ڳجھو لفظ (پاسورڊ) ترتيب ڪريو.";
 "two-factor-login-title" = "پنھنجي کاتي ۾ داخل ٿيو";
 "two-factor-login-continue" = "داخل ٿيڻ جاري رکو";
-"two-factor-login-with-regular-code" = "تصديق ڪوڊ استعمال ڪريو";
+"two-factor-login-with-regular-code" = "تصديقي ڪوڊ استعمال ڪيو";
 "two-factor-login-with-backup-code" = "پنھنجو ڪوبہ بيڪ اپ ڪوڊ استعمال ڪريو";
 "login-name-not-found" = "داخل ٿيڻ لاءِ يوزرنانءُ گھربل آهي.";
 "login-name-illegal" = "توهان هڪ غيرقانوني يوزرنانءُ فراهم ڪيو.";
@@ -81,29 +82,31 @@
 "login-title" = "پنھنجي کاتي ۾ داخل ٿيو";
 "login-no-account" = "کاتو نٿا رکو؟ $1";
 "login-join-wikipedia" = "وڪيپيڊيا ۾ شامل ٿيو.";
-"field-username-title" = "يوزرنانءُ";
-"field-username-placeholder" = "يوزرنانءُ داخل ڪريو";
-"field-password-title" = "ڳجھولفظ";
-"field-password-placeholder" = "ڳجھولفظ ڄاڻايو";
-"field-password-confirm-title" = "ڳجھي لفظ جي پڪ ڪريو";
-"field-password-confirm-placeholder" = "ڳجھولفظ ٻيھر داخل ڪريو";
-"field-new-password-title" = "نئون ڳجھولفظ";
-"field-new-password-placeholder" = "نئون ڳجھولفظ داخل ڪريو";
-"field-new-password-confirm-title" = "نيئن ڳجھي لفظ جي پڪ ڪريو";
-"field-new-password-confirm-placeholder" = "نئون ڳجھولفظ داخل ڪريو";
+"field-username-title" = "واهپيندڙ جو نالو (يوزر نيم)";
+"field-username-placeholder" = "واهپيندڙ نالو (يوزر نيم) داخل ڪيو";
+"field-password-title" = "ڳجھو لفظ (پاسورڊ)";
+"field-password-placeholder" = "ڳجھو لفظ (پاسورڊ) ڄاڻايو";
+"field-password-confirm-title" = "ڳجھي لفظ (پاسورڊ) جي پڪ ڪريو";
+"field-password-confirm-placeholder" = "ڳجھو لفظ (پاسورڊ) ٻيھر داخل ڪريو";
+"field-new-password-title" = "نئون ڳجھو لفظ (پاسورڊ)";
+"field-new-password-placeholder" = "نئون ڳجھو لفظ (پاسورڊ) داخل ڪريو";
+"field-new-password-confirm-title" = "نيئن ڳجھي لفظ (پاسورڊ) جي پڪ ڪريو";
+"field-new-password-confirm-placeholder" = "نئون ڳجھو لفظ (پاسورڊ) داخل ڪيو";
 "field-email-title" = "برقٽپال";
 "field-email-title-optional" = "برقٽپال (اختياري)";
 "field-email-placeholder" = "example@example.org";
-"field-token-title" = "تصديق ڪوڊ";
+"field-token-title" = "تصديقي ڪوڊ";
 "field-backup-token-title" = "بيڪ اپ ڪوڊ";
 "field-token-placeholder" = "ٽوڪن داخل ڪريو";
 "field-captcha-title" = "مٿين جيڪا لکت ڏسو پيا اھا داخل ڪريو";
 "field-captcha-placeholder" = "ڪيپچا لکت";
+"field-alert-username-unavailable" = "واهپيندڙ نالو (يوزر نيم) موجود ڪونهي";
 "forgot-password-title" = "ٻيھر ڳجھولفظ طي ڪريو";
 "forgot-password-username-prompt" = "يوزرنانءُ";
 "forgot-password-email-prompt" = "برقٽپال (اختياري)";
 "forgot-password-button-title" = "وري ترتيب ڪريو";
 "forgot-password-email-sent" = "ڳجھولفظ وري ترتيب ڪرڻ جي ھدايتن سان ھڪ برقٽپال موڪليو ويو";
+"forgot-password-username-or-email-title" = "يا";
 "wikitext-downloading" = "مواد لوڊ ڪندي...";
 "wikitext-download-failed" = "تازو ترين ورزن حاصل ڪرڻ ۾ نالائق.";
 "wikitext-download-success" = "مواد لوڊ  ٿي ويو.";
@@ -259,6 +262,8 @@
 "share-as-image" = "عڪس طور ونڊيو";
 "share-as-text" = "بطور متن ونڊيو";
 "share-cancel" = "رد";
+"share-open-in-maps" = "نقشن (ميپس) ۾ کوليو";
+"share-get-directions-in-maps" = "هدايتون وٺو";
 "timestamp-just-now" = "بلڪل هاڻي";
 "timestamp-minutes" = "%d منٽ اڳ";
 "timestamp-hours" = "%d ڪلاڪَ اڳ";
@@ -356,6 +361,7 @@
 "page-read-in-other-languages" = "$1 ٻين ٻولين ۾ موجود";
 "page-last-edited" = "$1 ڏينهن اڳ ترميم ڪيل";
 "page-edit-history" = "پوري ترميمي سوانح";
+"page-location" = "نقشي تي ڏسو";
 "mwk-empty-title-error" = "خالي عنوان تي آپريشن پيش ڪرڻ ۾ ناڪام.";
 "home-title" = "تلاش ڪريو";
 "home-empty-section" = "نتيجا نہ آھن";
@@ -427,6 +433,9 @@
 "explore-continue-reading-heading" = "پڙهڻ جاري رکو";
 "explore-nearby-heading" = "ويجھيون جڳھون";
 "explore-nearby-sub-heading-your-location" = "توھان جي مڪانيت";
+"explore-nearby-placeholder-heading" = "جڳهيون (هنڌَ)";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "وڪيپيڊيا تي";
+"explore-nearby-placeholder-cancel" = "رد ڪيو";
 "explore-continue-related-heading" = "ڇو تہ توھان پڙھو ٿا";
 "explore-main-page-heading" = "اڄ وڪيپيڊيا تي";
 "explore-random-article-heading" = "بلا ترتيب مضمون";
@@ -476,6 +485,10 @@
 "places-search-saved-articles" = "سانڍيل مضمون";
 "places-search-suggested-searches-header" = "مشورو ڏنل ڳولائون";
 "places-search-recently-searched-header" = "تازو ڳولھيل";
+"places-accessibility-group" = "$1 مضمونَ";
+"places-accessibility-show-more" = "وڌيڪ مضمونَ ڏيکاريو";
+"places-accessibility-show-as-map" = "نقشي وانگر ڏيکاريو";
+"places-accessibility-show-as-list" = "فهرست وانگر ڏيکارو";
 "action-share" = "ونڊيو";
 "action-save" = "سانڍيو";
 "action-read" = "پڙھو";
