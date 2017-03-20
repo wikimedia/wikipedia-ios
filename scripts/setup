@@ -1,9 +1,7 @@
 #!/bin/bash
 
-scripts/setup_homebrew
+scripts/brew_install
 
-brew update && brew install clang-format carthage
-brew upgrade clang-format carthage
 rm -rf .git/hooks/pre-commit
 cp -f scripts/clang_format_git_diff .git/hooks/pre-commit
 

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+scripts/setup_homebrew
+
+BREW_FORMULAE="clang-format carthage"
+
+brew update 
+brew install ${BREW_FORMULAE} || brew upgrade ${BREW_FORMULAE}
+
