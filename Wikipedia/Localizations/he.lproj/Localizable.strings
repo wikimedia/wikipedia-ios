@@ -8,6 +8,7 @@
 // Author: Matanya
 // Author: Nemo bis
 // Author: Or
+// Author: YaronSh
 // Author: איתן96
 // Author: שמזן
 
@@ -108,8 +109,7 @@
 "field-captcha-placeholder" = "טקסט אימות אנושיות";
 "field-alert-username-unavailable" = "שם המשתמש אינו זמין";
 "field-alert-password-invalid" = "ססמה בלתי־תקינה";
-// Fuzzy
-"field-alert-token-invalid" = "קוד בלתי־תקין. נא לנסות שוב.";
+"field-alert-token-invalid" = "קוד בלתי־תקין";
 "field-alert-captcha-invalid" = "קוד אימות בלתי־תקין";
 "field-alert-password-confirm-mismatch" = "הססמאות אינן תואמות";
 "forgot-password-title" = "אתחול ססמה";
@@ -518,6 +518,7 @@
 "places-enable-location-description" = "גישה למיקומך אפשרית רק כשהאפליקציה או אחת התכונות שלה נראות על המסך.";
 "places-enable-location-action-button-title" = "להפעיל מיקום";
 "places-accessibility-group" = "$1 ערכים";
+"places-accessibility-show-more" = "הצגת ערכים נוספים";
 "places-accessibility-show-as-map" = "להציג כמפה";
 "places-accessibility-show-as-list" = "להציג כרשימה";
 "places-accessibility-recenter-map-on-user-location" = "לאחרונה במיקומך";

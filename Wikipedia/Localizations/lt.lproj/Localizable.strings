@@ -7,6 +7,7 @@
 // Author: Macofe
 // Author: Mantak111
 // Author: Nemo bis
+// Author: Nersip
 // Author: Pofka
 // Author: Techwebpd
 // Author: Zygimantus
@@ -47,10 +48,12 @@
 "zero-warn-when-leaving" = "Perspėti, jeigu paliekamas „Zero“";
 "account-creation-captcha-required" = "Reikia patikrinimo saugos kodu.";
 "account-creation-captcha-obtaining" = "Gaunamas naujas CAPTCHA...";
+"account-creation-captcha-request-account" = "Prašyti paskyros";
 "account-creation-logging-in" = "Jungiamasi...";
 "account-creation-passwords-mismatched" = "Slaptažodžių laukai nesutampa.";
 "account-creation-saving" = "Įrašoma...";
 "account-creation-login" = "Jau turite paskyrą? Prisijunkite.";
+"two-factor-login-with-regular-code" = "Naudoti patvirtinimo kodą";
 "login-name-not-found" = "Prisijungimui būtinas vartotojo vardas.";
 "login-name-illegal" = "Jūs pateikėte negalimą vartotojo vardą.";
 "login-name-does-not-exist" = "Jūsų pateikto vartotojo vardo nėra.";
@@ -61,6 +64,10 @@
 "login-account-creation" = "Neturite paskyros? Prisijunkite prie Vikipedijos.";
 "login-username-placeholder-text" = "Vartotojo vardas";
 "login-password-placeholder-text" = "Slaptažodis";
+"field-email-title" = "El. paštas";
+"field-email-title-optional" = "El. paštas (neprivaloma)";
+"field-token-title" = "Patvirtinimo kodas";
+"forgot-password-username-or-email-title" = "Arba";
 "wikitext-downloading" = "Įkeliamas turinys...";
 "wikitext-download-failed" = "Nepavyko gauti naujausios redakcijos.";
 "wikitext-download-success" = "Turinys įkeltas.";
@@ -381,6 +388,7 @@
 "places-unknown-distance" = "nežinomas atstumas";
 "places-enable-location-action-button-title" = "Įgalinti vietą";
 "places-accessibility-group" = "$1 straipsniai";
+"places-accessibility-show-more" = "Rodyti daugiau straipsnių";
 "places-accessibility-show-as-map" = "Rodyti kaip žemėlapį";
 "places-accessibility-show-as-list" = "Rodyti kaip sąrašą";
 "action-saved" = "Išsaugota";

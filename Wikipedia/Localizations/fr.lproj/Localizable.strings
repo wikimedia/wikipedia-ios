@@ -115,8 +115,7 @@
 "field-captcha-placeholder" = "Texte CAPTCHA";
 "field-alert-username-unavailable" = "Nom d’utilisateur non disponible";
 "field-alert-password-invalid" = "Mot de passe non valide";
-// Fuzzy
-"field-alert-token-invalid" = "Code non valide. Veuillez réessayer.";
+"field-alert-token-invalid" = "Code non valide";
 "field-alert-captcha-invalid" = "CAPTCHA non valide";
 "field-alert-password-confirm-mismatch" = "Les mots de passe ne correspondent pas";
 "forgot-password-title" = "Réinitialiser le mot de passe";
@@ -525,6 +524,7 @@
 "places-enable-location-description" = "Accéder à votre localisation est disponible uniquement quand l’application ou une de ses fonctionnalités est visible sur votre écran.";
 "places-enable-location-action-button-title" = "Activer la localisation";
 "places-accessibility-group" = "$1 articles";
+"places-accessibility-show-more" = "Afficher plus d’articles";
 "places-accessibility-show-as-map" = "Afficher comme carte";
 "places-accessibility-show-as-list" = "Afficher comme liste";
 "places-accessibility-recenter-map-on-user-location" = "Recentrer sur votre emplacement";

@@ -63,10 +63,8 @@
 "new-password-title" = "Leet Äert Passwuert fest";
 "two-factor-login-title" = "An Äre Benotzerkont aloggen";
 "two-factor-login-continue" = "Virufuere mam Aloggen";
-// Fuzzy
-"two-factor-login-with-regular-code" = "Kuerzen numeresche Code benotzen";
-// Fuzzy
-"two-factor-login-with-backup-code" = "Benotzt méi e laange Backup-Code";
+"two-factor-login-with-regular-code" = "Verificatiouns-Code benotzen";
+"two-factor-login-with-backup-code" = "Benotzt ee vun Äre Backup-Coden";
 "login-name-not-found" = "De Benotzernumm ass obligatoresch fir sech anzeloggen.";
 "login-name-illegal" = "Dir hutt e falsche Benotzernumm uginn.";
 "login-name-does-not-exist" = "De Benotzernumm deen Dir uginn hutt gëtt et net.";
@@ -94,14 +92,14 @@
 "field-email-title" = "E-Mail";
 "field-email-title-optional" = "E-Mail (Fakultativ)";
 "field-email-placeholder" = "beispill@beispill.org";
-// Fuzzy
-"field-token-title" = "Numeresche Code";
+"field-token-title" = "Verificatiouns-Code";
 "field-backup-token-title" = "Backup-Code";
 "field-token-placeholder" = "Token aginn";
 "field-captcha-title" = "Gitt den Text an deen Dir hei driwwer gesitt";
 "field-captcha-placeholder" = "CAPTCHA-Text";
 "field-alert-username-unavailable" = "Benotzernumm net disponibel";
 "field-alert-password-invalid" = "Net valabelt Passwuert";
+"field-alert-token-invalid" = "Net valabele Code";
 "field-alert-captcha-invalid" = "Net valabele CAPTCHA";
 "field-alert-password-confirm-mismatch" = "D'Passwierder déi Dir aginn hutt sinn net identesch";
 "forgot-password-title" = "Passwuert zrécksetzen";
@@ -269,6 +267,8 @@
 "share-as-image" = "Als Bild deelen";
 "share-as-text" = "Als Text deelen";
 "share-cancel" = "Ofbriechen";
+"share-open-in-maps" = "Op der Kaart opmaachen";
+"share-get-directions-in-maps" = "Richtunge kréien";
 "timestamp-just-now" = "grad elo";
 "timestamp-minutes" = "viru(n) %d Minutten";
 "timestamp-hours" = "viru(n) %d Stonnen";
@@ -494,9 +494,11 @@
 "places-search-recently-searched-header" = "Rezent gesicht";
 "places-unknown-distance" = "onbekannt Distanz";
 "places-accessibility-group" = "$1 Artikelen";
+"places-accessibility-show-more" = "Méi Artikele weisen";
 "places-accessibility-show-as-map" = "Als Kaart weisen";
 "places-accessibility-show-as-list" = "Als Lëscht weisen";
 "places-accessibility-close-search" = "Sichen zoumaachen";
+"places-accessibility-clear-recent-searches" = "Rezent Ufroen, fir ze sichen, läschen";
 "action-share" = "Deelen";
 "action-save" = "Späicheren";
 "action-read" = "Liesen";

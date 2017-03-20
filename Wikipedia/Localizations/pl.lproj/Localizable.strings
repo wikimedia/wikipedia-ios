@@ -104,14 +104,13 @@
 "field-email-title" = "Adres e‐mail";
 "field-email-title-optional" = "Adres e-mail (opcjonalnie)";
 "field-email-placeholder" = "example@example.org";
-"field-token-title" = "Token";
+"field-token-title" = "Kod weryfikacyjny";
 "field-token-placeholder" = "wpisz token";
 "field-captcha-title" = "Wpisz tekst, który widzisz powyżej";
 "field-captcha-placeholder" = "Tekst CAPTCHA";
 "field-alert-username-unavailable" = "Niedostępna nazwa użytkownika";
 "field-alert-password-invalid" = "Nieprawidłowe hasło";
-// Fuzzy
-"field-alert-token-invalid" = "Nieprawidłowy kod. Spróbuj ponownie.";
+"field-alert-token-invalid" = "Nieprawidłowy kod";
 "field-alert-password-confirm-mismatch" = "Hasła nie są takie same";
 "forgot-password-title" = "Zresetuj hasło";
 "forgot-password-instructions" = "Wypełnij jedno z poniższych pól, aby uzyskać e-mail z instrukcją, jak zresetować hasło";
@@ -422,6 +421,7 @@
 "places-search-saved-articles" = "Zapisane artykuły";
 "places-search-suggested-searches-header" = "Proponowane wyszukiwania";
 "places-unknown-distance" = "odległość nieznana";
+"places-accessibility-show-more" = "Pokaż więcej artykułów";
 "places-accessibility-show-as-map" = "Pokaż jako mapę";
 "places-accessibility-show-as-list" = "Pokaż jako listę";
 "places-accessibility-close-search" = "Zamknij wyszukiwanie";

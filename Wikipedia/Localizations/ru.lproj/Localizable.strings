@@ -122,8 +122,7 @@
 "field-captcha-placeholder" = "Текст капчи";
 "field-alert-username-unavailable" = "Имя пользователя не доступно";
 "field-alert-password-invalid" = "Неверный пароль";
-// Fuzzy
-"field-alert-token-invalid" = "Неверный код. Пожалуйста, попробуйте снова.";
+"field-alert-token-invalid" = "Неверный код.";
 "field-alert-captcha-invalid" = "Неверная капча";
 "field-alert-password-confirm-mismatch" = "Пароли не совпадают";
 "forgot-password-title" = "Сбросить пароль";
@@ -532,6 +531,7 @@
 "places-enable-location-description" = "Доступ к вашему местоположению доступен только тогда, когда приложение или один из его компонентов отображается на вашем экране.";
 "places-enable-location-action-button-title" = "Включить поиск расположения";
 "places-accessibility-group" = "$1 статьи";
+"places-accessibility-show-more" = "Показать больше статей";
 "places-accessibility-show-as-map" = "Показать как карту";
 "places-accessibility-show-as-list" = "Показать как список";
 "places-accessibility-recenter-map-on-user-location" = "Перецентрировать ваше положение";
