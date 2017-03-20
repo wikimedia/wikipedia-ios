@@ -216,7 +216,7 @@
         NSUInteger qqqSubstituionCount = [qqqSubstitutions count];
 
         if (enSubstituionCount != qqqSubstituionCount) {
-            XCTFail(@"en.lproj:%@ contains %tu substitutions, but qqq.lproj:%@ describes %tu substitutions", key, enSubstituionCount, key, qqqSubstituionCount);
+            XCTFail(@"en.lproj:%@ contains %tu substitution(s), but qqq.lproj:%@ describes %tu substitution(s)", key, enSubstituionCount, key, qqqSubstituionCount);
         }
     }
 }
