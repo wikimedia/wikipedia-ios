@@ -115,6 +115,7 @@
 "field-captcha-placeholder" = "Texto CAPTCHA";
 "field-alert-username-unavailable" = "El nombre de usuario no está disponible";
 "field-alert-password-invalid" = "La contraseña no es válida";
+"field-alert-token-invalid" = "Código no válido";
 "field-alert-captcha-invalid" = "El CAPTCHA no es válido";
 "field-alert-password-confirm-mismatch" = "Las contraseñas no coinciden";
 "forgot-password-title" = "Restablecer contraseña";
@@ -517,11 +518,13 @@
 "places-search-saved-articles" = "Artículos guardados";
 "places-search-suggested-searches-header" = "Búsquedas sugeridas";
 "places-search-recently-searched-header" = "Búsquedas recientes";
+"places-no-saved-articles-have-location" = "Ninguno de tus artículos guardados tienen información de ubicación";
 "places-unknown-distance" = "distancia desconocida";
 "places-enable-location-title" = "Explora artículos cerca de tu ubicación habilitando el acceso a la ubicación";
 "places-enable-location-description" = "El acceso a tu ubicación sólo está disponible cuando la aplicación o una de sus características es visible en tu pantalla.";
 "places-enable-location-action-button-title" = "Activar la ubicación";
 "places-accessibility-group" = "$1 artículos";
+"places-accessibility-show-more" = "Mostrar más artículos";
 "places-accessibility-show-as-map" = "Mostrar como mapa";
 "places-accessibility-show-as-list" = "Mostrar como lista";
 "places-accessibility-recenter-map-on-user-location" = "Volver a centrar en tu ubicación";

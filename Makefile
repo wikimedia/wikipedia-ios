@@ -45,41 +45,11 @@ get-xcode-cltools: ##Install Xcode command-line tools
 #!!!!!
 
 get-homebrew: ##Install Homebrew using the bootstrapping script from http://brew.sh
-	@if [[ $$(brew -v 2>/dev/null) =~ "Homebrew" ]]; then \
-		echo "Homebrew already installed!"; \
-	else \
-		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"; \
-	fi
-
-brew-check: ##Check that Homebrew is installed
-	@if [[ $$(brew -v 2>/dev/null) =~ "Homebrew" ]]; then \
-		echo "Homebrew is installed!"; \
-	else \
-		echo "Please setup Homebrew by running `make get-homebrew` or following instructions on http://brew.sh/"; \
-		exit 1; \
-	fi
-
-# Append additional dependencies as quoted strings (i.e. BREW_FORMULAE = "f1" "f2" ...)
-BREW_FORMULAE = "imagemagick" "gs" "xctool"
+	@./scripts/setup_homebrew
 
 brew-install: ##Install executable dependencies via Homebrew
-brew-install: brew-check
-	@brew install $(BREW_FORMULAE) || brew upgrade $(BREW_FORMULAE)
-
-# Append additional dependencies as quoted strings (i.e. EXEC_DEPS = "dep1" "dep2" ...)
-EXEC_DEPS = "convert" "gs" "xctool"
-
-# Note: checking for specific executables instead of formula, since Homebrew
-# is just one of many ways to install them
-exec-check:  ##Check that executable dependencies are installed
-	@for dep in $(EXEC_DEPS); do \
-		if [[ -x $$(which $${dep}) ]]; then \
-			echo "$${dep} is installed!"; \
-		else \
-			echo "Missing executable $${dep}, please make sure it's installed on your PATH (e.g. via Homebrew)."; \
-			exit 1; \
-		fi \
-	done
+brew-install:
+	@./scripts/brew_install
 
 #!!!!!
 #!!!!! Web dependency management
@@ -112,8 +82,12 @@ css: ##Download latest stylesheets
 NODE_VERSION = "$(shell node -v 2>/dev/null)"
 NPM_VERSION = "$(shell npm -version 2>/dev/null)"
 
+get-grunt: ##Install grunt via Homebrew
+get-grunt: brew-install
+	brew install grunt
+
 grunt: ##Run grunt
-grunt: npm
+grunt: npm get-grunt
 	@cd www && grunt && cd ..
 
 npm: ##Install Javascript dependencies
@@ -121,6 +95,7 @@ npm:
 	@cd www && npm install && cd ..
 
 get-node: ##Install node via Homebrew
+get-node: brew-install
 	brew install node
 
 #!!!!!
@@ -129,10 +104,6 @@ get-node: ##Install node via Homebrew
 
 RUBY_VERSION = "$(shell ruby -v 2>/dev/null)"
 BUNDLER = "$(shell which bundle 2/dev/null)"
-
-pod: ##Install native dependencies via CocoaPods
-pod: bundle-install
-	@$(BUNDLER) exec pod install
 
 #!!!!!
 #!!!!! Ruby dependency management
