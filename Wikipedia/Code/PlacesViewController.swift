@@ -295,7 +295,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         previouslySelectedArticlePlaceIdentifier = place.identifier
         
         guard place.articles.count == 1 else {
-#if WMF_PLACES_GROUP_POPOVERS
             guard self.placeGroupVC == nil else {
                 return
             }
@@ -318,23 +317,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             annotationView.isHidden = true
             self.placeGroupAnnotationView = annotationView
             deselectAllAnnotations()
-#else
-            deselectAllAnnotations()
-    
-            var minDistance = CLLocationDistanceMax
-            let center = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
-            for article in place.articles {
-                guard let location = article.location else {
-                    continue
-                }
-                let distance = location.distance(from: center)
-                if distance < minDistance {
-                    minDistance = distance
-                    articleKeyToSelect = article.key
-                }
-            }
-            mapRegion = regionThatFits(articles: place.articles)
-#endif
             return
         }
         
