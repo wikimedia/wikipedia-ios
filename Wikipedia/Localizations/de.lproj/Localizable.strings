@@ -103,8 +103,7 @@
 "field-captcha-placeholder" = "CAPTCHA-Text";
 "field-alert-username-unavailable" = "Der Benutzername ist nicht verfügbar";
 "field-alert-password-invalid" = "Ungültiges Passwort";
-// Fuzzy
-"field-alert-token-invalid" = "Ungültiger Code. Bitte erneut versuchen.";
+"field-alert-token-invalid" = "Ungültiger Code";
 "field-alert-captcha-invalid" = "Ungültiges CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Die Passwörter stimmen nicht überein";
 "forgot-password-title" = "Passwort zurücksetzen";
@@ -513,6 +512,7 @@
 "places-enable-location-description" = "Der Zugriff auf deinen Standort ist nur verfügbar, wenn die App oder eine ihrer Funktionen auf deinem Bildschirm sichtbar ist.";
 "places-enable-location-action-button-title" = "Standort aktivieren";
 "places-accessibility-group" = "$1 Artikel";
+"places-accessibility-show-more" = "Weitere Artikel anzeigen";
 "places-accessibility-show-as-map" = "Als Karte anzeigen";
 "places-accessibility-show-as-list" = "Als Liste anzeigen";
 "places-accessibility-recenter-map-on-user-location" = "An deinem Standort neu zentrieren";

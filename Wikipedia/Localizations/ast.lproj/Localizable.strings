@@ -52,7 +52,6 @@
 "account-creation-captcha-obtaining" = "Baxando un CAPTCHA nuevu...";
 "account-creation-captcha-title" = "Comprobación de seguridá CAPTCHA";
 "account-creation-captcha-cannot-see-image" = "¿Nun puedes ver la imaxe? $1";
-// Fuzzy
 "account-creation-captcha-request-account" = "Solicitar una cuenta.";
 "account-creation-logging-in" = "Aniciando sesión...";
 "account-creation-passwords-mismatched" = "Los campos de contraseña nun casen.";
@@ -67,6 +66,8 @@
 "two-factor-login-title" = "Anicia sesión na to cuenta";
 "two-factor-login-instructions" = "Escribe'l códigu de comprobación de 2 factores";
 "two-factor-login-continue" = "Siguir l'aniciu de sesión";
+"two-factor-login-with-regular-code" = "Usar códigu de comprobación";
+"two-factor-login-with-backup-code" = "Usar unu de los códigos de respaldu";
 "login-name-not-found" = "Ye obligatoriu un nome d'usuariu p'aniciar sesión.";
 "login-name-illegal" = "Apurristi un nome d'usuariu illegal.";
 "login-name-does-not-exist" = "El nome d'usuariu qu'apurristi nun esiste.";
@@ -91,20 +92,26 @@
 "field-new-password-placeholder" = "escribe la contraseña nueva";
 "field-new-password-confirm-title" = "Confirma la contraseña nueva";
 "field-new-password-confirm-placeholder" = "escribe otra vuelta la contraseña nueva";
-// Fuzzy
-"field-email-title" = "Direición de corréu electrónicu (opcional)";
+"field-email-title" = "Corréu electrónicu";
+"field-email-title-optional" = "Corréu electrónicu (opcional)";
 "field-email-placeholder" = "exemplu@exemplu.ast";
-// Fuzzy
-"field-token-title" = "Pase";
+"field-token-title" = "Códigu de comprobación";
+"field-backup-token-title" = "Códigu de respaldu";
 "field-token-placeholder" = "escribe'l pase";
 "field-captcha-title" = "Escribe'l testu que ves arriba";
 "field-captcha-placeholder" = "Testu CAPTCHA";
+"field-alert-username-unavailable" = "El nome d'usuariu nun ta disponible";
+"field-alert-password-invalid" = "Contraseña inválida";
+"field-alert-token-invalid" = "Códigu inválidu";
+"field-alert-captcha-invalid" = "CAPTCHA inválidu";
+"field-alert-password-confirm-mismatch" = "Les contraseñes nun casen";
 "forgot-password-title" = "Reaniciar la contraseña";
 "forgot-password-instructions" = "Rellena unu de los campos d'abaxo pa recibir per corréu instrucciones pa reaniciar la contraseña";
 "forgot-password-username-prompt" = "Nome d'usuariu";
 "forgot-password-email-prompt" = "Corréu electrónicu (opcional)";
 "forgot-password-button-title" = "Reaniciar";
 "forgot-password-email-sent" = "Unvióse un corréu electrónicu con instrucciones pa reaniciar la contraseña";
+"forgot-password-username-or-email-title" = "O";
 "wikitext-downloading" = "Cargando'l conteníu...";
 "wikitext-download-failed" = "Nun pue algamase la cabera revisión.";
 "wikitext-download-success" = "Cargáu el conteníu.";
@@ -269,6 +276,8 @@
 "share-as-image" = "Compartir como imaxe";
 "share-as-text" = "Compartir como testu";
 "share-cancel" = "Encaboxar";
+"share-open-in-maps" = "Abrir en Mapes";
+"share-get-directions-in-maps" = "Recibir indicaciones";
 "timestamp-just-now" = "agora mesmo";
 "timestamp-minutes" = "hai %d minutos";
 "timestamp-hours" = "hai %d hores";
@@ -496,14 +505,18 @@
 "places-search-saved-articles" = "Artículos guardaos";
 "places-search-suggested-searches-header" = "Guetes suxeríes";
 "places-search-recently-searched-header" = "Guetao recién";
+"places-no-saved-articles-have-location" = "Dengún artículu de los guardaos tien información d'allugamientu";
 "places-unknown-distance" = "distancia desconocida";
 "places-enable-location-title" = "Esplora artículos cerca del to allugamientu activando Accesu al allugamientu";
 "places-enable-location-description" = "L'accesu al to allugamientu sólo ta disponible cuando la aplicación o una de les sos carauterístiques se ve na pantalla.";
 "places-enable-location-action-button-title" = "Activar l'allugamientu";
 "places-accessibility-group" = "$1 artículos";
+"places-accessibility-show-more" = "Ver más artículos";
 "places-accessibility-show-as-map" = "Ver como mapa";
 "places-accessibility-show-as-list" = "Ver como llista";
 "places-accessibility-recenter-map-on-user-location" = "Volver a centrar nel to allugamientu";
+"places-accessibility-close-search" = "Zarrar la gueta";
+"places-accessibility-clear-recent-searches" = "Llimpiar les guetes recien";
 "action-share" = "Compartir";
 "action-save" = "Guardar";
 "action-read" = "Lleer";
