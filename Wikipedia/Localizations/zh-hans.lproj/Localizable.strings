@@ -112,8 +112,7 @@
 "field-captcha-placeholder" = "验证码文本";
 "field-alert-username-unavailable" = "用户名不可用";
 "field-alert-password-invalid" = "无效密码";
-// Fuzzy
-"field-alert-token-invalid" = "无效代码。请重试。";
+"field-alert-token-invalid" = "无效代码";
 "field-alert-captcha-invalid" = "无效验证码";
 "field-alert-password-confirm-mismatch" = "密码不匹配";
 "forgot-password-title" = "重置密码";
@@ -263,7 +262,7 @@
 "about-translators" = "译者";
 "about-translators-details" = "由$1的志愿者翻译";
 "about-libraries" = "使用的库";
-"about-libraries-license" = "授权协议";
+"about-libraries-license" = "许可协议";
 "about-libraries-licenses" = "许可协议";
 "about-content-license" = "内容许可协议";
 "about-content-license-details" = "除非另有声明，内容基于$1授权。";
@@ -522,6 +521,7 @@
 "places-enable-location-description" = "只当应用或其功能之一在您的屏幕上可见时，才能访问您的位置。";
 "places-enable-location-action-button-title" = "启用位置";
 "places-accessibility-group" = "$1个条目";
+"places-accessibility-show-more" = "显示更多条目";
 "places-accessibility-show-as-map" = "以地图显示";
 "places-accessibility-show-as-list" = "以列表显示";
 "places-accessibility-recenter-map-on-user-location" = "重新定位您的位置";

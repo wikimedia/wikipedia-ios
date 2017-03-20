@@ -56,7 +56,6 @@
 "account-creation-captcha-obtaining" = "Obtendo un novo código CAPTCHA...";
 "account-creation-captcha-title" = "Verificación de seguridade con CAPTCHA";
 "account-creation-captcha-cannot-see-image" = "Non pode ver a imaxe? $1";
-// Fuzzy
 "account-creation-captcha-request-account" = "Solicitar unha conta.";
 "account-creation-logging-in" = "Accedendo ao sistema...";
 "account-creation-passwords-mismatched" = "Os contrasinais non coinciden.";
@@ -71,6 +70,7 @@
 "two-factor-login-title" = "Comezar sesión na súa conta";
 "two-factor-login-instructions" = "Escriba o código de verificación de dous factores";
 "two-factor-login-continue" = "Continuar co inicio de sesión";
+"two-factor-login-with-regular-code" = "Usar código de verificación";
 "login-name-not-found" = "O nome de usuario é necesario para iniciar sesión.";
 "login-name-illegal" = "Escribiu un nome de usuario non válido.";
 "login-name-does-not-exist" = "O nome de usuario proporcionado non existe.";
@@ -95,16 +95,16 @@
 "field-new-password-placeholder" = "insira un contrasinal novo";
 "field-new-password-confirm-title" = "Confirmar novo contrasinal";
 "field-new-password-confirm-placeholder" = "insira de novo o novo contrasinal";
-// Fuzzy
-"field-email-title" = "Enderezo de correo electrónico (opcional)";
+"field-email-title" = "Enderezo de correo electrónico";
+"field-email-title-optional" = "Enderezo de correo electrónico (opcional)";
 "field-email-placeholder" = "exemplo@exemplo.gal";
-// Fuzzy
-"field-token-title" = "Identificador";
+"field-token-title" = "Código de verificación";
 "field-token-placeholder" = "insira o identificador";
 "field-captcha-title" = "Insira o texto que ve abaixo";
 "field-captcha-placeholder" = "Texto CAPTCHA";
 "field-alert-username-unavailable" = "O nome de usuario non está dispoñible";
 "field-alert-password-invalid" = "O contrasinal non é válido";
+"field-alert-token-invalid" = "Código non válido";
 "field-alert-captcha-invalid" = "O CAPTCHA non é válido";
 "field-alert-password-confirm-mismatch" = "Os contrasinais non coinciden";
 "forgot-password-title" = "Restablecer o contrasinal";
@@ -113,6 +113,7 @@
 "forgot-password-email-prompt" = "Enderezo electrónico (opcional)";
 "forgot-password-button-title" = "Restablecer";
 "forgot-password-email-sent" = "Enviouse un correo electrónico coas instrucións para restablecer o contrasinal";
+"forgot-password-username-or-email-title" = "Ou";
 "wikitext-downloading" = "Cargando o contido...";
 "wikitext-download-failed" = "Non se pode obter a versión máis recente.";
 "wikitext-download-success" = "Contido cargado.";
@@ -511,6 +512,7 @@
 "places-enable-location-description" = "O acceso á súa localización só está dispoñible cando a aplicación ou unha das súas características está visible na súa pantalla.";
 "places-enable-location-action-button-title" = "Activar localización";
 "places-accessibility-group" = "$1 artigos";
+"places-accessibility-show-more" = "Amosar máis artigos";
 "places-accessibility-show-as-map" = "Amosar como mapa";
 "places-accessibility-show-as-list" = "Amosar como lista";
 "places-accessibility-recenter-map-on-user-location" = "Volver a centrar na súa localización";

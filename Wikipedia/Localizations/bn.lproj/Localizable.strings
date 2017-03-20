@@ -109,11 +109,11 @@
 "field-captcha-placeholder" = "ক্যাপচা পাঠ";
 "field-alert-username-unavailable" = "ব্যবহারকারীর নাম উপলব্ধ নয়";
 "field-alert-password-invalid" = "পাসওয়ার্ড সঠিক নয়";
-// Fuzzy
-"field-alert-token-invalid" = "কোড সঠিক নয়। অনুগ্রহপূর্বক আবার চেষ্টা করুন।";
+"field-alert-token-invalid" = "কোড সঠিক নয়";
 "field-alert-captcha-invalid" = "ক্যাপচা সঠিক নয়";
 "field-alert-password-confirm-mismatch" = "পাসওয়ার্ড মিলেনি";
 "forgot-password-title" = "পাসওয়ার্ড পুনঃস্থাপন";
+"forgot-password-instructions" = "ইমেলের মাধ্যমে পাসওয়ার্ড পুনঃস্থাপন করার নির্দেশাবলী পেতে নিচের ক্ষেত্রগুলির একটি পূরণ করুন";
 "forgot-password-username-prompt" = "ব্যবহারকারী নাম";
 "forgot-password-email-prompt" = "ইমেইল (ঐচ্ছিক)";
 "forgot-password-button-title" = "পুন:স্থাপন";
@@ -502,6 +502,7 @@
 "places-unknown-distance" = "অজানা দূরত্ব";
 "places-enable-location-action-button-title" = "অবস্থান সক্রিয় করুন";
 "places-accessibility-group" = "$1টি নিবন্ধ";
+"places-accessibility-show-more" = "আরও নিবন্ধ দেখান";
 "places-accessibility-show-as-map" = "মানচিত্র হিসাবে দেখাও";
 "places-accessibility-show-as-list" = "তালিকা হিসাবে দেখাও";
 "places-accessibility-close-search" = "অনুসন্ধান বন্ধ করুন";

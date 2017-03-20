@@ -54,8 +54,7 @@
 "account-creation-captcha-obtaining" = "Kaout ur C'HAPTCHA nevez...";
 "account-creation-captcha-title" = "Gwiriañ ar surentez CAPCHA";
 "account-creation-captcha-cannot-see-image" = "Dibosupl gwelet ar skeudenn ? $1";
-// Fuzzy
-"account-creation-captcha-request-account" = "Goulenn ur gont.";
+"account-creation-captcha-request-account" = "Goulenn kaout ur gont.";
 "account-creation-logging-in" = "O kevreañ ouzh...";
 "account-creation-passwords-mismatched" = "Maeziennoù ar gerioù-tremen ne glotont ket an eil gant egile";
 "account-creation-saving" = "Oc'h enrollañ...";
@@ -69,10 +68,8 @@
 "two-factor-login-title" = "Kevreañ d'ho kont";
 "two-factor-login-instructions" = "Merkit ar c'hod gwiriañ dezhañ daou faktor";
 "two-factor-login-continue" = "Kenderc'hel da gevreañ";
-// Fuzzy
-"two-factor-login-with-regular-code" = "Ober gant ur c'hod niverel berr";
-// Fuzzy
-"two-factor-login-with-backup-code" = "Ober gant ur c'hod saveteiñ hiroc'h";
+"two-factor-login-with-regular-code" = "Ober gant ur c'hod gwiriekaat";
+"two-factor-login-with-backup-code" = "Ober gant unan eus ho kodoù saveteiñ";
 "login-name-not-found" = "Rekis eo an anv implijer evit kevreañ.";
 "login-name-illegal" = "Roet ho peus un anv implijer dilezenn.";
 "login-name-does-not-exist" = "N'eus ket eus an anv implijer roet";
@@ -97,19 +94,17 @@
 "field-new-password-placeholder" = "Bizskrivañ ar ger-tremen nevez";
 "field-new-password-confirm-title" = "Kadarnaat ar ger-tremen nevez";
 "field-new-password-confirm-placeholder" = "Bizskrivañ ar ger-tremen en-dro";
-// Fuzzy
-"field-email-title" = "Chomlec'h postel (diret)";
+"field-email-title" = "Postel";
+"field-email-title-optional" = "Postel (diret)";
 "field-email-placeholder" = "example@example.org";
-// Fuzzy
-"field-token-title" = "Kod niverel";
+"field-token-title" = "Kod gwiriekaat";
 "field-backup-token-title" = "Kod saveteiñ";
 "field-token-placeholder" = "Ebarzhiñ ar jedouer";
 "field-captcha-title" = "Ebarzhiñ an destenn a welit amañ a-us";
 "field-captcha-placeholder" = "Testenn Capcha";
 "field-alert-username-unavailable" = "Ne c'haller ket kaout an anv implijer-mañ";
 "field-alert-password-invalid" = "N'eo ket mat ar ger-tremen-mañ";
-// Fuzzy
-"field-alert-token-invalid" = "Kod direizh. Klaskit en-dro.";
+"field-alert-token-invalid" = "Kod direizh";
 "field-alert-captcha-invalid" = "N'eo ket mat ar c'hCAPCHA-mañ";
 "field-alert-password-confirm-mismatch" = "Ar gerioù-tremen ne glotont ket an eil gant egile";
 "forgot-password-title" = "Adderaouekaat ar ger-tremen";
@@ -118,6 +113,7 @@
 "forgot-password-email-prompt" = "Postel (diret)";
 "forgot-password-button-title" = "Adderaouekaat";
 "forgot-password-email-sent" = "Kaset ez eus bet ur postel gant displegadurioù adderaouekaat";
+"forgot-password-username-or-email-title" = "Pe";
 "wikitext-downloading" = "O kargañ un endalc'had...";
 "wikitext-download-failed" = "N'haller ket kaout an azgweladenn ziwezhañ";
 "wikitext-download-success" = "Endalc'had karget";
@@ -163,7 +159,7 @@
 "settings-help-and-feedback" = "Skoazell hag evezhiadennoù";
 "settings-primary-language" = "Pennañ";
 "settings-primary-language-details" = "Ar yezh kentañ er roll-mañ eo ar yezh implijet en arload. Ma cheñchit an dibarzh-mañ e cheñcho an danvez diskouezet war Ergerzhiñ (evel pennad an talbenn).";
-"settings-notifications-system-off" = "Evit ar poent emañ lazhet ar c'hemennadennoù evit Wikipedia. En arventennoù ho penveg e c'hallit o enaouiñ.";
+"settings-notifications-system-off" = "Evit ar poent emañ lazhet ar c'hemennoù evit Wikipedia. En arventennoù ho penveg e c'hallit o enaouiñ.";
 "settings-notifications-system-turn-on" = "Gweredekaat ar c'hemennadennoù.";
 "settings-notifications-info" = "Gant ar bounter kemennadennoù e c'hallit bezañ kelaouet diwar-benn ar pennadoù diouzh ar c'hiz pe ar re lennet ar muiañ. Pep tra pourvezet en ur zoujañ da brevezded ha da nevezinti ar roadennoù.";
 "settings-notifications-learn-more" = "Evit gouzout hiroc'h diwar-benn ar c'hemennoù";
@@ -398,7 +394,7 @@
 "home-featured-article-heading" = "Pennad eus ar c'hentañ evit $1";
 "home-main-page-heading" = "Hiziv e Wikipedia";
 "home-potd-heading" = "Skeudenn an deiz evit $1";
-"home-last-update-label" = "Hizivadenn diwezhañ: $1";
+"home-last-update-label" = "Hizivadenn diwezhañ: %1$";
 "home-last-update-never-label" = "Hizivadenn diwezhañ : Morse";
 "home-updating-label" = "Oc'h hizivaat...";
 "home-hide-suggestion-prompt" = "Kuzhat ar c'hinnig-mañ";
@@ -517,6 +513,7 @@
 "places-enable-location-description" = "Monet d'ho lec'hiadur a c'haller kaout nemet pa vez gwelet an arload pe unan eus e arc'hweladurioù.";
 "places-enable-location-action-button-title" = "Gweredekaat al lec'hiadur";
 "places-accessibility-group" = "$1 pennadoù";
+"places-accessibility-show-more" = "Diskouez muioc'h a bennadoù";
 "places-accessibility-show-as-map" = "Diskouez evel ur gartenn";
 "places-accessibility-show-as-list" = "Diskouez evel ur roll";
 "places-accessibility-recenter-map-on-user-location" = "Adkreizañ en ho lec'hiadur";

@@ -58,11 +58,12 @@
 "zero-wikipedia-zero-heading" = "Viquipèdia Zero";
 "zero-warn-when-leaving" = "Avisa'm si se surt de Viquipèdia Zero";
 "zero-settings-devmode" = "Zero Devmode";
+"account-creation-title" = "Crea un compte nou";
 "account-creation-captcha-required" = "Verificació de CAPTCHA requerida.";
 "account-creation-captcha-retry" = "Entrada incorrecta. Torneu-ho a provar.";
 "account-creation-captcha-obtaining" = "Obtenint un CAPTCHA nou...";
+"account-creation-captcha-title" = "Comprovació de seguretat CAPTCHA";
 "account-creation-captcha-cannot-see-image" = "No podeu veure la imatge? $1";
-// Fuzzy
 "account-creation-captcha-request-account" = "Sol·licita un compte.";
 "account-creation-logging-in" = "Iniciant sessió...";
 "account-creation-passwords-mismatched" = "Les contrasenyes no coincideixen.";
@@ -81,10 +82,21 @@
 "login-username-placeholder-text" = "Nom d'usuari";
 "login-password-placeholder-text" = "Contrasenya";
 "login-forgot-password" = "Heu perdut la contrasenya?";
+"field-username-title" = "Nom d'usuari";
+"field-username-placeholder" = "introduïu un nom d'usuari";
+"field-password-title" = "Contrasenya";
+"field-email-title" = "Adreça electrònica";
+"field-email-title-optional" = "Adreça electrònica (opcional)";
+"field-token-title" = "Codi de verificació";
+"field-backup-token-title" = "Codi de còpia de seguretat";
+"field-captcha-placeholder" = "Text del CAPTCHA";
+"field-alert-username-unavailable" = "El nom d'usuari no és disponible";
+"field-alert-token-invalid" = "El codi no és vàlid";
 "forgot-password-username-prompt" = "Nom d'usuari";
 "forgot-password-email-prompt" = "Adreça electrònica (opcional)";
 "forgot-password-button-title" = "Restableix";
 "forgot-password-email-sent" = "S'ha enviat un missatge de correu electrònic amb instruccions de restabliment de contrasenya";
+"forgot-password-username-or-email-title" = "O";
 "wikitext-downloading" = "S'està carregant el contingut...";
 "wikitext-download-failed" = "No s'ha pogut obtenir la darrera revisió.";
 "wikitext-download-success" = "S'ha carregat el contingut.";
@@ -348,6 +360,7 @@
 "page-read-in-other-languages" = "Disponible en $1 altres llengües";
 "page-last-edited" = "Modificat fa $1 dies";
 "page-edit-history" = "Historial complet";
+"page-location" = "Mostra en un mapa";
 "mwk-empty-title-error" = "No es pot realitzar l'operació amb un títol buit.";
 "home-title" = "Exploreu!";
 "home-empty-section" = "Cap resultat";
@@ -422,6 +435,7 @@
 "explore-nearby-heading" = "Llocs propers";
 "explore-nearby-sub-heading-your-location" = "La vostra ubicació";
 "explore-nearby-placeholder-heading" = "Llocs";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "A la Viquipèdia";
 "explore-nearby-placeholder-dismiss" = "Descarta";
 "explore-nearby-placeholder-cancel" = "Cancel·la";
 "explore-continue-related-heading" = "Perquè vas llegir";
@@ -475,9 +489,12 @@
 "places-search-recently-searched-header" = "Cercat recentment";
 "places-unknown-distance" = "distància desconeguda";
 "places-accessibility-group" = "$1 articles";
+"places-accessibility-show-more" = "Mostra més articles";
 "places-accessibility-show-as-map" = "Mostra com a mapa";
 "places-accessibility-show-as-list" = "Mostra com a llista";
 "places-accessibility-recenter-map-on-user-location" = "Torneu a centrar en la vostra ubicació";
+"places-accessibility-close-search" = "Tanca la cerca";
+"places-accessibility-clear-recent-searches" = "Esborra les cerques recents";
 "action-share" = "Comparteix";
 "action-save" = "Desa";
 "action-read" = "Llegeix";

@@ -114,8 +114,7 @@
 "field-captcha-placeholder" = "驗證碼";
 "field-alert-username-unavailable" = "使用者名稱不可用";
 "field-alert-password-invalid" = "無效密碼";
-// Fuzzy
-"field-alert-token-invalid" = "無效代碼。請重試一次。";
+"field-alert-token-invalid" = "無效代碼";
 "field-alert-captcha-invalid" = "無效驗證碼";
 "field-alert-password-confirm-mismatch" = "密碼不符合";
 "forgot-password-title" = "重設密碼";
@@ -524,6 +523,7 @@
 "places-enable-location-description" = "訪問您的位置僅在應用程式、或其一功能在您的螢幕上可見時才可用。";
 "places-enable-location-action-button-title" = "啟用位置";
 "places-accessibility-group" = "$1 個條目";
+"places-accessibility-show-more" = "顯示更多條目";
 "places-accessibility-show-as-map" = "以地圖顯示";
 "places-accessibility-show-as-list" = "以清單顯示";
 "places-accessibility-recenter-map-on-user-location" = "重定位您的位置";
