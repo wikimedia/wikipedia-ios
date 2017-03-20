@@ -46,8 +46,8 @@
             <connections>
                 <outlet property="bottomConstraint" destination="Kuh-mg-jeb" id="i3V-TU-a4H"/>
                 <outlet property="clearButton" destination="jwT-17-Zjk" id="qQs-YI-Mah"/>
+                <outlet property="headerLabel" destination="Wqc-Ot-wfb" id="Amg-fy-nsn"/>
                 <outlet property="leadingConstraint" destination="QZd-bg-5X9" id="s04-2c-lFu"/>
-                <outlet property="textLabel" destination="Wqc-Ot-wfb" id="gPP-jo-vco"/>
                 <outlet property="topConstraint" destination="ZFk-HO-p6f" id="gWg-7v-MCK"/>
                 <outlet property="trailingConstraint" destination="AXE-t4-9Uh" id="k3G-Mb-Ggz"/>
             </connections>
