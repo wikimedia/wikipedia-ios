@@ -29,15 +29,6 @@
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qzd-3E-mH2">
                                 <rect key="frame" x="0.0" y="20" width="414" height="48"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kUH-E0-85c">
-                                        <rect key="frame" x="186" y="13" width="42" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="lwh-jx-bcq"/>
@@ -358,7 +349,7 @@
                 <navigationController storyboardIdentifier="Places" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="fC7-UI-Knm" userLabel="Places" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Places" image="tabbar-nearby" selectedImage="tabbar-nearby-selected" id="qMU-9n-S42"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="HFz-Jz-Pn5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HFz-Jz-Pn5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
