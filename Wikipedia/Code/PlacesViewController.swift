@@ -1875,7 +1875,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 let limit = min(count, searchHistoryCountLimit)
                 recentSearches = try results[0..<limit].map({ (kv) -> PlaceSearch in
                     guard let ps = PlaceSearch(object: kv.value) else {
-                            throw NSError()
                             throw PlaceSearchError.deserialization(object: kv.value)
                     }
                     return ps
