@@ -44,6 +44,16 @@
     return nil;
 }
 
+- (NSMutableOrderedSet *)dollarSubstitutionsInString:(NSString *)s {
+    NSMutableOrderedSet *substitutions = [[NSMutableOrderedSet alloc] initWithCapacity:5];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\$[1-5]" options:NSRegularExpressionCaseInsensitive error:NULL];
+    NSArray *matches = [regex matchesInString:s options:0 range:NSMakeRange(0, [s length])];
+    for (NSTextCheckingResult *match in matches) {
+        [substitutions addObject:[s substringWithRange:match.range]];
+    }
+    return substitutions;
+}
+
 - (void)test_lproj_count {
     assertThat(@(self.lprojFiles.count), is(greaterThan(@(0))));
 }
@@ -183,6 +193,30 @@
         for (NSString *key in stringsDict) {
             // Keys use dash "-" separators.
             assertThat(key, isNot(containsSubstring(@"_")));
+        }
+    }
+}
+
+- (void)test_mismatched_substitutions {
+
+    NSString *qqqBundlePath = [LOCALIZATIONS_DIR stringByAppendingPathComponent:@"qqq.lproj"];
+    NSDictionary *qqqStringsDict = [self getTranslationStringsDictFromLprogAtPath:qqqBundlePath];
+
+    NSString *enBundlePath = [LOCALIZATIONS_DIR stringByAppendingPathComponent:@"en.lproj"];
+    NSDictionary *enStringsDict = [self getTranslationStringsDictFromLprogAtPath:enBundlePath];
+
+    for (NSString *key in enStringsDict) {
+
+        NSString *enVal = enStringsDict[key];
+        NSOrderedSet *enSubstitutions = [self dollarSubstitutionsInString:enVal];
+        NSUInteger enSubstituionCount = [enSubstitutions count];
+
+        NSString *qqqVal = qqqStringsDict[key];
+        NSOrderedSet *qqqSubstitutions = [self dollarSubstitutionsInString:qqqVal];
+        NSUInteger qqqSubstituionCount = [qqqSubstitutions count];
+
+        if (enSubstituionCount != qqqSubstituionCount) {
+            XCTFail(@"en.lproj:%@ contains %tu substitution(s), but qqq.lproj:%@ describes %tu substitution(s)", key, enSubstituionCount, key, qqqSubstituionCount);
         }
     }
 }
