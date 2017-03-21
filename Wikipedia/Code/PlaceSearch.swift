@@ -10,6 +10,10 @@ enum PlaceFilterType: UInt {
     case saved
 }
 
+enum PlaceSearchError: Error {
+    case deserialization(object: NSObject?)
+}
+
 extension MKCoordinateRegion {
     var stringValue: String {
         return String(format: "%.3f,%.3f|%.3f,%.3f", center.latitude, center.longitude, span.latitudeDelta, span.longitudeDelta)
