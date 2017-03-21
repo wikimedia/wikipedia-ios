@@ -27,11 +27,32 @@
                                     <outlet property="delegate" destination="pK5-Ai-Kzp" id="paj-rR-O2P"/>
                                 </connections>
                             </mapView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qzd-3E-mH2" customClass="ExtendedNavBarView" customModule="Wikipedia" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qzd-3E-mH2">
                                 <rect key="frame" x="0.0" y="20" width="414" height="48"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kUH-E0-85c">
+                                        <rect key="frame" x="186" y="13" width="42" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="lwh-jx-bcq"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                        <size key="value" width="0.0" height="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <progressView opaque="NO" alpha="0.0" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Pet-ct-8QU">
                                 <rect key="frame" x="0.0" y="68" width="414" height="2.6666666666666714"/>
@@ -308,6 +329,7 @@
                     <navigationItem key="navigationItem" id="8EZ-Mg-WBR"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
+                        <outlet property="extendedNavBarView" destination="qzd-3E-mH2" id="jG5-i0-4B5"/>
                         <outlet property="listAndSearchOverlayBottomConstraint" destination="1PC-H2-U7d" id="Spi-3n-6kC"/>
                         <outlet property="listAndSearchOverlayContainerView" destination="hEe-dF-AFg" id="pNn-lr-x35"/>
                         <outlet property="listAndSearchOverlayHeightConstraint" destination="WjD-Ab-D2o" id="4pj-RB-IFd"/>

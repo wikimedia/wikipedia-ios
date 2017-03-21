@@ -6,6 +6,7 @@ import TUSafariActivity
 class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, WMFAnalyticsViewNameProviding, ArticlePlaceGroupViewControllerDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var redoSearchButton: UIButton!
+    @IBOutlet weak var extendedNavBarView: UIView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var recenterOnUserLocationButton: UIButton!
@@ -78,6 +79,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         navigationController!.navigationBar.isTranslucent = false
         navigationController!.navigationBar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
         navigationController!.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "pixel"), for: .default)
+        extendedNavBarView.shadowOffset = CGSize(width: 0, height: CGFloat(1) / UIScreen.main.scale)
+        extendedNavBarView.shadowRadius = 0
+        extendedNavBarView.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        extendedNavBarView.shadowOpacity = 0.25
         
         // Setup map view
         mapView.mapType = .standard
