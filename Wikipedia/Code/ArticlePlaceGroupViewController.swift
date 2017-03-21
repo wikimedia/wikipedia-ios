@@ -38,17 +38,17 @@ class ArticlePlaceGroupViewController: UIViewController {
                 continue
             }
             let place = ArticlePlace(coordinate: coordinate, nextCoordinate: nil, articles: [article], identifier: key)
-            let placeView = ArticlePlaceView(annotation: place, reuseIdentifier: nil)
+            let placeView = ArticlePlaceView(annotation: place, reuseIdentifier: nil, isExtraLarge: true)
             placeView.set(alwaysShowImage: true, animated: false)
             placeViews.append(placeView)
         }
         let groupPlace = ArticlePlace(coordinate: kCLLocationCoordinate2DInvalid, nextCoordinate: nil, articles: articles, identifier: "group")
-        groupView = ArticlePlaceView(annotation: groupPlace, reuseIdentifier: "group")
+        groupView = ArticlePlaceView(annotation: groupPlace, reuseIdentifier: "group", isExtraLarge: false)
         let zoomPlace = ArticlePlace(coordinate: kCLLocationCoordinate2DInvalid, nextCoordinate: nil, articles: [], identifier: "zoom")
-        zoomPlaceView = ArticlePlaceView(annotation: zoomPlace, reuseIdentifier: "zoom")
+        zoomPlaceView = ArticlePlaceView(annotation: zoomPlace, reuseIdentifier: "zoom", isExtraLarge: true)
         zoomPlaceView.set(alwaysShowImage: true, animated: false)
         self.placeViews = placeViews
-        radius = Double(zoomPlaceView.imageDimension + CGFloat(maximum * 4))
+        radius = Double(zoomPlaceView.imageDimension + CGFloat(maximum * 5))
         zoomPlaceViewScale = zoomPlaceView.groupDimension / zoomPlaceView.imageDimension
         super.init(nibName: nil, bundle: nil)
     }
