@@ -10,6 +10,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var recenterOnUserLocationButton: UIButton!
+    @IBOutlet weak var titleViewSearchBar: UISearchBar!
+    @IBOutlet weak var mapListToggle: UISegmentedControl!
     
     @IBOutlet weak var listAndSearchOverlayContainerView: UIView!
     @IBOutlet weak var listAndSearchOverlaySearchContainerView: RoundedCornerView!
@@ -37,7 +39,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private let popoverFadeDuration = 0.25
     private let searchHistoryCountLimit = 15
     private var searchSuggestionController: PlaceSearchSuggestionController!
-    private var titleViewSearchBar: UISearchBar!
     private var searchBar: UISearchBar? {
         didSet {
             oldValue?.delegate = nil
@@ -46,8 +47,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     private var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
-    private var segmentedControl: UISegmentedControl!
-    private var segmentedControlBarButtonItem: UIBarButtonItem!
     private var closeBarButtonItem: UIBarButtonItem!
     private var currentGroupingPrecision: QuadKeyPrecision = 1
     private let searchHistoryGroup = "PlaceSearch"
@@ -84,6 +83,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         extendedNavBarView.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         extendedNavBarView.shadowOpacity = 0.25
         
+        navigationItem.title = "Top Articles" // TODO:
+        
         // Setup map view
         mapView.mapType = .standard
         mapView.showsBuildings = false
@@ -103,13 +104,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let list = #imageLiteral(resourceName: "places-list")
         map.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-show-as-map")
         list.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-show-as-list")
-        segmentedControl = UISegmentedControl(items: [map, list])
-        
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: #selector(updateViewModeFromSegmentedControl), for: .valueChanged)
-        segmentedControl.tintColor = .wmf_blueTint
-        segmentedControlBarButtonItem = UIBarButtonItem(customView: segmentedControl)
-        navigationItem.rightBarButtonItem = segmentedControlBarButtonItem
+        mapListToggle.setImage(map, forSegmentAt: 0)
+        mapListToggle.setImage(list, forSegmentAt: 1)
+        mapListToggle.selectedSegmentIndex = 0
+        mapListToggle.addTarget(self, action: #selector(updateViewModeFromSegmentedControl), for: .valueChanged)
+        mapListToggle.tintColor = .wmf_blueTint
         
         let closeImage = #imageLiteral(resourceName: "close")
         closeBarButtonItem = UIBarButtonItem(image:  closeImage, style: .plain, target: self, action: #selector(closeSearch))
@@ -137,14 +136,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         searchSuggestionController.delegate = self
 
         // Setup search bar
-        let searchBarHeight: CGFloat = 32
-        let searchBarLeftPadding: CGFloat = 7.5
-        let searchBarRightPadding: CGFloat = 2.5
-        titleViewSearchBar = UISearchBar(frame: CGRect(x: searchBarLeftPadding, y: 0, width: view.bounds.size.width - searchBarLeftPadding - searchBarRightPadding, height: 32))
         titleViewSearchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: searchBarHeight))
-        titleView.addSubview(titleViewSearchBar)
-        navigationItem.titleView = titleView
         titleViewSearchBar.returnKeyType = .search
         titleViewSearchBar.searchBarStyle = .minimal
         
@@ -800,7 +792,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func addSearchBarToNavigationBar(animated: Bool) {
         titleViewSearchBar.isHidden = false
-        segmentedControl.isHidden = false
+        //segmentedControl.isHidden = false // TODO:
         searchBar = titleViewSearchBar
         navigationController?.setNavigationBarHidden(false, animated: animated)
         if let panGR = overlaySliderPanGestureRecognizer {
@@ -810,7 +802,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func removeSearchBarFromNavigationBar(animated: Bool) {
         titleViewSearchBar.isHidden = true
-        segmentedControl.isHidden = true
+        //segmentedControl.isHidden = true // TODO:
         searchBar = listAndSearchOverlaySearchBar
         navigationController?.setNavigationBarHidden(true, animated: animated)
         
@@ -968,7 +960,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 return
             }
             if oldValue == .search && viewMode != .search {
-                navigationItem.setRightBarButton(segmentedControlBarButtonItem, animated: true)
+                // navigationItem.setRightBarButton(segmentedControlBarButtonItem, animated: true) // TODO:
             } else if oldValue != .search && viewMode == .search {
                 navigationItem.setRightBarButton(closeBarButtonItem, animated: true)
             }
@@ -1041,7 +1033,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
 
     func updateViewModeFromSegmentedControl() {
-        switch segmentedControl.selectedSegmentIndex {
+        switch mapListToggle.selectedSegmentIndex {
         case 0:
             viewMode = .map
         default:
