@@ -23,7 +23,7 @@ xcode-select --install
 </tr>
 <tr>
 <td width="33%"><code>brew cask install fastlane</code></td>
-<td width="33%"><a href="https://download.fastlane.tools/fastlane.zip">Download the zip file</a>. Then double click on the <code>install</code> script (or run it in a terminal window).</td>
+<td width="33%"><a href="https://download.fastlane.tools">Download the zip file</a>. Then double click on the <code>install</code> script (or run it in a terminal window).</td>
 <td width="33%"><code>sudo gem install fastlane -NV</code></td>
 </tr>
 </table>
@@ -102,6 +102,11 @@ updates version, builds, and pushes alpha to TestFlight
 ### ios push_beta_cluster
 ```
 fastlane ios push_beta_cluster
+```
+updates version, builds, and pushes beta cluster to TestFlight
+### ios push_beta_app
+```
+fastlane ios push_beta_app
 ```
 updates version, builds, and pushes beta cluster to TestFlight
 ### ios get_latest_alpha_or_beta_build_number
