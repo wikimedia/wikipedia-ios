@@ -522,9 +522,6 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     NSString *earlyJavascriptTransforms = @""
                                            "window.wmf.transformer.transform( 'hideRedlinks', document );"
                                            "window.wmf.transformer.transform( 'disableFilePageEdit', document );"
-                                           "window.wmf.transformer.transform( 'addImageOverflowXContainers', document );"
-                                           // 'addImageOverflowXContainers' needs to happen before 'widenImages'.
-                                           // See "enwiki > Counties of England > Scope and structure > Local government"
                                            "window.wmf.transformer.transform( 'widenImages', document );"
                                            "window.wmf.transformer.transform( 'moveFirstGoodParagraphUp', document );"
                                            "window.webkit.messageHandlers.articleState.postMessage('articleLoaded');"
