@@ -28,17 +28,17 @@ function shouldWidenImage(image) {
         return false;
     }
     
-    // Some wide images are wrapped in a <div style="overflow-x:auto">...</div> so they can
-    // scroll side to side if needed without causing the entire section to scroll side to side.
-    // Such images don't need further widening.
-    if(image.hasAttribute('hasOverflowXContainer')){
+    // Some images are within a <div class="noresize">...</div> which indicates
+    // they should not be widened. Example below has links overlaying such an image.
+    // See:
+    //      "enwiki > Counties of England > Scope and structure > Local government"
+    if(utilities.findClosest(image, "[class*='noresize']")){
         return false;
     }
     
     // Imagemap coordinates are specific to a specific image size, so we never want to widen
     // these or the overlaying links will not be over the intended parts of the image.
     // See:
-    //      "enwiki > Counties of England > Scope and structure > Local government"
     //      "enwiki > Kingdom (biology) > first non lead image is an image map"
     //      "enwiki > Kingdom (biology) > Three domains of life > Phylogenetic Tree of Life image is an image map"
     if(image.hasAttribute("usemap")){
