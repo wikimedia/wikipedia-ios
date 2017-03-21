@@ -7,7 +7,7 @@ wmf.utilities = require("./js/utilities");
 wmf.findInPage = require("./js/findInPage");
 
 window.wmf = wmf;
-},{"./js/elementLocation":2,"./js/findInPage":3,"./js/transformer":6,"./js/utilities":13}],2:[function(require,module,exports){
+},{"./js/elementLocation":2,"./js/findInPage":3,"./js/transformer":6,"./js/utilities":12}],2:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -281,7 +281,7 @@ document.addEventListener("touchend", handleTouchEnded, false);
 
 })();
 
-},{"./refs":5,"./transforms/collapseTables":8,"./utilities":13}],5:[function(require,module,exports){
+},{"./refs":5,"./transforms/collapseTables":7,"./utilities":12}],5:[function(require,module,exports){
 var elementLocation = require("./elementLocation");
 
 function isCitation( href ) {
@@ -455,45 +455,6 @@ module.exports = new Transformer();
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
-function shouldAddImageOverflowXContainer(image) {
-    return ((image.width > (window.screen.width * 0.8)) && !utilities.isNestedInTable(image)) ? true : false;
-}
-
-function addImageOverflowXContainer(image, ancestor) {
-    image.setAttribute('hasOverflowXContainer', 'true'); // So "widenImages" transform knows instantly not to widen this one.
-    var div = document.createElement( 'div' );
-    div.className = 'image_overflow_x_container';
-    ancestor.parentElement.insertBefore( div, ancestor );
-    div.appendChild( ancestor );
-}
-
-function firstAncestorWithMultipleChildren (el) {
-    while ((el = el.parentElement) && (el.childElementCount == 1));
-    return el;
-}
-
-function maybeAddImageOverflowXContainer(image) {
-    if (shouldAddImageOverflowXContainer(image)){
-        var ancestor = firstAncestorWithMultipleChildren (image);
-        if(ancestor){
-            addImageOverflowXContainer(image, ancestor);
-        }
-    }
-}
-
-transformer.register( "addImageOverflowXContainers", function( content ) {
-    // Wrap wide images in a <div style="overflow-x:auto">...</div> so they can scroll
-    // side to side if needed without causing the entire section to scroll side to side.
-    var images = content.getElementsByTagName('img');
-    for (var i = 0; i < images.length; ++i) {
-        maybeAddImageOverflowXContainer(images[i]);
-    }
-} );
-
-},{"../transformer":6,"../utilities":13}],8:[function(require,module,exports){
-var transformer = require("../transformer");
-var utilities = require("../utilities");
-
 /*
 Tries to get an array of table header (TH) contents from a given table.
 If there are no TH elements in the table, an empty array is returned.
@@ -662,7 +623,7 @@ exports.openCollapsedTableIfItContainsElement = function(element){
     }
 };
 
-},{"../transformer":6,"../utilities":13}],9:[function(require,module,exports){
+},{"../transformer":6,"../utilities":12}],8:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "disableFilePageEdit", function( content ) {
@@ -688,7 +649,7 @@ transformer.register( "disableFilePageEdit", function( content ) {
     }
 } );
 
-},{"../transformer":6}],10:[function(require,module,exports){
+},{"../transformer":6}],9:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "hideRedlinks", function( content ) {
@@ -699,7 +660,7 @@ transformer.register( "hideRedlinks", function( content ) {
 	}
 } );
 
-},{"../transformer":6}],11:[function(require,module,exports){
+},{"../transformer":6}],10:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "moveFirstGoodParagraphUp", function( content ) {
@@ -780,7 +741,7 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     block_0.insertBefore(fragmentOfItemsToRelocate, edit_section_button_0.nextSibling);
 });
 
-},{"../transformer":6}],12:[function(require,module,exports){
+},{"../transformer":6}],11:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -811,17 +772,17 @@ function shouldWidenImage(image) {
         return false;
     }
     
-    // Some wide images are wrapped in a <div style="overflow-x:auto">...</div> so they can
-    // scroll side to side if needed without causing the entire section to scroll side to side.
-    // Such images don't need further widening.
-    if(image.hasAttribute('hasOverflowXContainer')){
+    // Some images are within a <div class="noresize">...</div> which indicates
+    // they should not be widened. Example below has links overlaying such an image.
+    // See:
+    //      "enwiki > Counties of England > Scope and structure > Local government"
+    if(utilities.findClosest(image, "[class*='noresize']")){
         return false;
     }
     
     // Imagemap coordinates are specific to a specific image size, so we never want to widen
     // these or the overlaying links will not be over the intended parts of the image.
     // See:
-    //      "enwiki > Counties of England > Scope and structure > Local government"
     //      "enwiki > Kingdom (biology) > first non lead image is an image map"
     //      "enwiki > Kingdom (biology) > Three domains of life > Phylogenetic Tree of Life image is an image map"
     if(image.hasAttribute("usemap")){
@@ -869,7 +830,7 @@ transformer.register( "widenImages", function( content ) {
     }
 } );
 
-},{"../transformer":6,"../utilities":13}],13:[function(require,module,exports){
+},{"../transformer":6,"../utilities":12}],12:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -922,4 +883,4 @@ exports.setLanguage = setLanguage;
 exports.findClosest = findClosest;
 exports.isNestedInTable = isNestedInTable;
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12]);
