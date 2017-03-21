@@ -136,7 +136,7 @@
 "wikitext-upload-save-anonymously" = "Button text for publishing without logging in";
 "wikitext-upload-save-anonymously-warning" = "Button sub-text informing user or draw-backs of not signing in before saving wikitext. Parameters:\n* $1 - sign in button text";
 "wikitext-upload-save-terms-and-license" = "Button text for information about the Terms of Use and edit license. Parameters:\n* $1 - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* $2 - license name link";
-"wikitext-upload-save-terms-name" = "This message is used as $1 in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].\n{{Identical|Terms of use}}";
+"wikitext-upload-save-terms-name" = "This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].\n{{Identical|Terms of use}}";
 "wikitext-upload-save-license-name" = "Name of license user edits are saved under - presently CC BY-SA 3.0\n{{Identical|CC BY-SA}}";
 "open-link-title" = "Title for popup menu of terms/license link options.";
 "open-link-cancel" = "Text for cancel button in popup menu of terms/license link options\n{{Identical|Cancel}}";
@@ -181,7 +181,7 @@
 "main-menu-language-toggle-hide" = "Button text for hiding language list";
 "main-menu-language-selection-saved" = "Alert text shown when user selects a language wiki to search";
 "main-menu-account-title-logged-out" = "Header text used when account is not logged in.\n{{Identical|Account}}";
-"main-menu-account-title-logged-in" = "Header text used when account is logged in";
+"main-menu-account-title-logged-in" = "Header text used when account is logged in. $1 will be replaced with current username.";
 "main-menu-account-login" = "Button text for logging in.\n{{Identical|Log in}}";
 "main-menu-account-logout" = "Button text for logging out. The username of the user who is currently logged in is displayed after the message, e.g. Log out ExampleUserName.\n{{Identical|Log out}}";
 "main-menu-account-logout-are-you-sure" = "Header asking if user is sure they wish to log out.";
@@ -317,7 +317,7 @@
 "preference-summary-eventlogging-opt-in" = "Description of preference that when checked enables data collection of user behavior.";
 "page-protected-autoconfirmed" = "Brief description of Wikipedia 'autoconfirmed' protection level, shown when editing a page that is protected.";
 "page-protected-sysop" = "Brief description of Wikipedia 'sysop' protection level, shown when editing a page that is protected.";
-"page-protected-other" = "Brief description of Wikipedia unknown protection level, shown when editing a page that is protected.";
+"page-protected-other" = "Brief description of Wikipedia unknown protection level, shown when editing a page that is protected. $1 will refer to a list of protection levels.";
 "page-protected-can-not-edit" = "Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.";
 "page-protected-can-not-edit-title" = "Title of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.";
 "license-footer-text" = "Brief footer text linking to CC-BY-SA license. '$1' is placeholder for the {{msg-wm|Wikipedia-ios-license-footer-name}} message";
@@ -366,7 +366,7 @@
 "nearby-location-general-error" = "General location determination error message";
 "nearby-wifi" = "Alert text telling user how to improve location accuracy";
 "migration-update-progress-label" = "Label shown during automatic upgrade of local data to new internal format. May be on screen very briefly or for a few seconds.";
-"migration-update-progress-count-label" = "Shows the progress of article migration in text: 4 / 15, 5 / 15, etc…";
+"migration-update-progress-count-label" = "Shows the progress of article migration in text in the format $1 / $2, for example 4 / 15, 5 / 15, etc…";
 "migration-prompt-title" = "Title of the alert shown to users before migrating all legacy data.";
 "migration-prompt-message" = "Message explaining reason for migration, and what will happen if the users skips it.";
 "migration-confirm-button-title" = "Button within migration prompt that confirms the user wants to proceed with migration.";
@@ -402,7 +402,7 @@
 "home-featured-article-heading" = "Heading above today's featured article. $1 will be replaced with today's date.";
 "home-main-page-heading" = "Heading above Main page.";
 "home-potd-heading" = "Heading above the Wikimedia Commons Picture of the Day. $1 will be replaced with the date for the picture of the day.";
-"home-last-update-label" = "Label that appears before the last updated time of the explore feed\n{{Identical|Last updated}}";
+"home-last-update-label" = "Label that appears before the last updated time of the explore feed. $1 will be replaced by the localized date and time.\n{{Identical|Last updated}}";
 "home-last-update-never-label" = "Label that appears when the explore feed has never been updated\n{{Identical|Last updated}}";
 "home-updating-label" = "Label that appears when a user is updating the explore feed to inform the user that an update is in progress";
 "home-hide-suggestion-prompt" = "Title of button shown for users to confirm the hiding of a suggestion in the explore feed";
