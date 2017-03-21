@@ -73,6 +73,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         redoSearchButton.setTitle("    " + localizedStringForKeyFallingBackOnEnglish("places-search-this-area") + "    ", for: .normal)
         
+        // Setup navigation bar
+        //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
+        navigationController!.navigationBar.isTranslucent = false
+        navigationController!.navigationBar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
+        navigationController!.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "pixel"), for: .default)
+        
         // Setup map view
         mapView.mapType = .standard
         mapView.showsBuildings = false

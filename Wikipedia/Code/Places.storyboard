@@ -21,19 +21,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qzd-3E-mH2" customClass="ExtendedNavBarView" customModule="Wikipedia" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="414" height="48"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="lwh-jx-bcq"/>
-                                </constraints>
-                            </view>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" showsBuildings="NO" showsCompass="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UNC-SX-Sli">
                                 <rect key="frame" x="0.0" y="68" width="414" height="619"/>
                                 <connections>
                                     <outlet property="delegate" destination="pK5-Ai-Kzp" id="paj-rR-O2P"/>
                                 </connections>
                             </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qzd-3E-mH2" customClass="ExtendedNavBarView" customModule="Wikipedia" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="414" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="lwh-jx-bcq"/>
+                                </constraints>
+                            </view>
                             <progressView opaque="NO" alpha="0.0" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Pet-ct-8QU">
                                 <rect key="frame" x="0.0" y="68" width="414" height="2.6666666666666714"/>
                             </progressView>
@@ -270,7 +269,7 @@
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="hEe-dF-AFg" secondAttribute="bottom" id="1PC-H2-U7d">
                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                             </constraint>
-                            <constraint firstItem="qzd-3E-mH2" firstAttribute="bottom" secondItem="Pet-ct-8QU" secondAttribute="top" constant="3.5527136788005009e-15" id="23Q-Ui-By6"/>
+                            <constraint firstItem="qzd-3E-mH2" firstAttribute="bottom" secondItem="Pet-ct-8QU" secondAttribute="top" id="23Q-Ui-By6"/>
                             <constraint firstItem="mxh-CO-RQm" firstAttribute="top" secondItem="qzd-3E-mH2" secondAttribute="bottom" constant="15" id="4Hj-19-SbN"/>
                             <constraint firstItem="qzd-3E-mH2" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="AfI-uU-yeg"/>
                             <constraint firstAttribute="trailing" secondItem="hEe-dF-AFg" secondAttribute="trailing" id="Fqd-WF-erI"/>
@@ -337,7 +336,7 @@
                 <navigationController storyboardIdentifier="Places" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="fC7-UI-Knm" userLabel="Places" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Places" image="tabbar-nearby" selectedImage="tabbar-nearby-selected" id="qMU-9n-S42"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HFz-Jz-Pn5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="HFz-Jz-Pn5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
