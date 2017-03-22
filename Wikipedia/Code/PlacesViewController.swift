@@ -1995,7 +1995,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     @IBAction func closeSearch(_ sender: Any) {
         searchBar?.endEditing(true)
-        searchBar?.text = currentSearch?.localizedDescription
+        let searchText = searchBar?.text
+        if searchText == nil || searchText?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+            performDefaultSearch(withRegion: nil)
+        } else {
+            searchBar?.text = currentSearch?.localizedDescription
+        }
     }
     
     // MARK: - UISearchBarDelegate
