@@ -27,6 +27,7 @@ class ArticlePlaceGroupViewController: UIViewController {
     private let zoomPlaceView: ArticlePlaceView
     private let groupView: ArticlePlaceView
     private let zoomPlaceViewScale: CGFloat
+    private let delay: TimeInterval = 2.0/60.0
     
     required init(articles: [WMFArticle]) {
         self.articles = articles
@@ -37,17 +38,17 @@ class ArticlePlaceGroupViewController: UIViewController {
                 continue
             }
             let place = ArticlePlace(coordinate: coordinate, nextCoordinate: nil, articles: [article], identifier: key)
-            let placeView = ArticlePlaceView(annotation: place, reuseIdentifier: nil)
+            let placeView = ArticlePlaceView(annotation: place, reuseIdentifier: nil, isExtraLarge: true)
             placeView.set(alwaysShowImage: true, animated: false)
             placeViews.append(placeView)
         }
         let groupPlace = ArticlePlace(coordinate: kCLLocationCoordinate2DInvalid, nextCoordinate: nil, articles: articles, identifier: "group")
-        groupView = ArticlePlaceView(annotation: groupPlace, reuseIdentifier: "group")
+        groupView = ArticlePlaceView(annotation: groupPlace, reuseIdentifier: "group", isExtraLarge: false)
         let zoomPlace = ArticlePlace(coordinate: kCLLocationCoordinate2DInvalid, nextCoordinate: nil, articles: [], identifier: "zoom")
-        zoomPlaceView = ArticlePlaceView(annotation: zoomPlace, reuseIdentifier: "zoom")
+        zoomPlaceView = ArticlePlaceView(annotation: zoomPlace, reuseIdentifier: "zoom", isExtraLarge: true)
         zoomPlaceView.set(alwaysShowImage: true, animated: false)
         self.placeViews = placeViews
-        radius = Double(zoomPlaceView.imageDimension + CGFloat(maximum * 4))
+        radius = Double(zoomPlaceView.imageDimension + CGFloat((maximum + 1) * 5))
         zoomPlaceViewScale = zoomPlaceView.groupDimension / zoomPlaceView.imageDimension
         super.init(nibName: nil, bundle: nil)
     }
@@ -189,7 +190,7 @@ class ArticlePlaceGroupViewController: UIViewController {
             return
         }
         let maxDimension = max(view.bounds.size.width, view.bounds.size.height)
-        let grayColor = UIColor(white: 0, alpha: 0.5).cgColor
+        let grayColor = UIColor(white: 0.34, alpha: 0.5).cgColor
         let clearColor = UIColor.clear.cgColor
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let locations: [CGFloat] = [0, CGFloat(radius)/maxDimension, 1]
@@ -233,7 +234,7 @@ class ArticlePlaceGroupViewController: UIViewController {
         
         let count = placeViews.count
         var i = 1
-        let delay: TimeInterval = 0.05
+
         for placeView in self.placeViews {
             UIView.animate(withDuration: 0.6, delay: delay * TimeInterval(i), usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: {
                     let theta = 2*M_PI / Double(count)
@@ -284,7 +285,6 @@ class ArticlePlaceGroupViewController: UIViewController {
             placeView.setSelected(false, animated: true)
             delegate?.articlePlaceGroupViewController(self, didDeselectPlaceView: placeView)
         }
-        let delay: TimeInterval = 0.05
         let group = WMFTaskGroup()
         var i = 1
         let rotationTransform = CGAffineTransform(rotationAngle: CGFloat(-0.99*M_PI))

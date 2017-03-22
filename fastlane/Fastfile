@@ -179,6 +179,17 @@ platform :ios do
     )
   end
   
+  desc "updates version, builds, and pushes beta cluster to TestFlight"
+  lane :push_beta_app do |options|
+    push(
+      product_name: "Beta",
+      app_identifier: "org.wikimedia.wikipedia.tfbeta",
+      tag_prefix: "beta_app",
+      hockey_app_id: "c7ab1c41a3eb4b7581a0057624730467",
+      build: options[:build]
+    )
+  end
+  
   lane :get_latest_alpha_or_beta_build_number do |options|
     latest_alpha_build_number = latest_testflight_build_number(app_identifier:  "org.wikimedia.wikipedia.tfalpha")
     latest_beta_build_number = latest_testflight_build_number(app_identifier:  "org.wikimedia.wikipedia")
