@@ -13,11 +13,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var titleViewSearchBar: UISearchBar!
     @IBOutlet weak var mapListToggle: UISegmentedControl!
     
-    @IBOutlet weak var listAndSearchOverlayContainerView: UIView!
-    @IBOutlet weak var listAndSearchOverlaySearchContainerView: RoundedCornerView!
+    @IBOutlet weak var listAndSearchOverlayContainerView: RoundedCornerView!
+    @IBOutlet weak var listAndSearchOverlayTitleLabel: UILabel!
+    @IBOutlet weak var listAndSearchOverlaySearchContainerView: UIView!
     @IBOutlet weak var listAndSearchOverlaySearchBar: UISearchBar!
     @IBOutlet weak var listAndSearchOverlayBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlayHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var listAndSearchOverlayTitleLabelHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySearchHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySliderHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySearchCancelButtonHideConstraint: NSLayoutConstraint!
@@ -114,12 +116,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         recenterOnUserLocationButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-recenter-map-on-user-location")
         
 
-        listAndSearchOverlaySearchContainerView.corners = [.topLeft, .topRight]
-        listAndSearchOverlaySearchContainerView.radius = 5
+        listAndSearchOverlayContainerView.corners = [.topLeft, .topRight]
+        listAndSearchOverlayContainerView.radius = 5
         
         listAndSearchOverlaySliderView.corners = [.bottomLeft, .bottomRight]
         listAndSearchOverlaySliderView.radius = 5
-        
         
         // Setup list view
         listView.dataSource = self
@@ -817,7 +818,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     let overlayMidHeight: CGFloat = 388
     var overlayMinHeight: CGFloat {
         get {
-            return listAndSearchOverlaySearchHeightConstraint.constant + listAndSearchOverlaySliderHeightConstraint.constant
+            return listAndSearchOverlayTitleLabelHeightConstraint.constant + listAndSearchOverlaySearchHeightConstraint.constant + listAndSearchOverlaySliderHeightConstraint.constant
         }
     }
     var overlayMaxHeight: CGFloat {
