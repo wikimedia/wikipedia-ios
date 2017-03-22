@@ -1933,10 +1933,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     private func searchForFirstSearchSuggestion() {
-        if searchSuggestionController.searches[3].count > 0 {
-            currentSearch = searchSuggestionController.searches[3][0]
-        } else if searchSuggestionController.searches[2].count > 0 {
-            currentSearch = searchSuggestionController.searches[2][0]
+        if searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection].count > 0 {
+            currentSearch = searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection][0]
+        } else if searchSuggestionController.searches[PlaceSearchSuggestionController.currentStringSection].count > 0 {
+            currentSearch = searchSuggestionController.searches[PlaceSearchSuggestionController.currentStringSection][0]
         }
     }
     
@@ -2006,7 +2006,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        updateSearchSuggestions(withCompletions: searchSuggestionController.searches[3])
+        updateSearchSuggestions(withCompletions: searchSuggestionController.searches[PlaceSearchSuggestionController.suggestionSection])
         isWaitingForSearchSuggestionUpdate = true
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(#selector(updateSearchCompletionsFromSearchBarText), with: nil, afterDelay: 0.2)
