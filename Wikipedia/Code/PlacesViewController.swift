@@ -1894,7 +1894,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
-        let currentStringSuggeston = PlaceSearch(filter: currentSearchFilter, type: .text, sortStyle: .links, string: currentSearchString, region: nil, localizedDescription: currentSearchString, searchResult: nil)
+        let currentSearchStringTitle = localizedStringForKeyFallingBackOnEnglish("places-search-articles-that-match").replacingOccurrences(of: "$1", with: currentSearchString)
+        let currentStringSuggeston = PlaceSearch(filter: currentSearchFilter, type: .text, sortStyle: .links, string: currentSearchString, region: nil, localizedDescription: currentSearchStringTitle, searchResult: nil)
         searchSuggestionController.searches = [[], [], [currentStringSuggeston], completions]
     }
     
@@ -1930,10 +1931,30 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let searchResult = MWKSearchResult(articleID: 0, revID: 0, displayTitle: title, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, isDisambiguation: false, isList: false, titleNamespace: nil)
         currentSearch = PlaceSearch(filter: currentSearchFilter, type: .location, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult)
     }
+    
+    private func searchForFirstSearchSuggestion() {
+        if searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection].count > 0 {
+            currentSearch = searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection][0]
+        } else if searchSuggestionController.searches[PlaceSearchSuggestionController.currentStringSection].count > 0 {
+            currentSearch = searchSuggestionController.searches[PlaceSearchSuggestionController.currentStringSection][0]
+        }
+    }
+    
+    private var isGoingToSearchForFirstSearchSuggestionAfterUpdate = false
+    
+    private var isWaitingForSearchSuggestionUpdate = false {
+        didSet {
+            if !isWaitingForSearchSuggestionUpdate && isGoingToSearchForFirstSearchSuggestionAfterUpdate {
+                isGoingToSearchForFirstSearchSuggestionAfterUpdate = false
+                searchForFirstSearchSuggestion()
+            }
+        }
+    }
 
     func updateSearchCompletionsFromSearchBarText() {
         guard let text = searchBar?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), text != "" else {
             updateSearchSuggestions(withCompletions: [])
+            self.isWaitingForSearchSuggestionUpdate = false
             return
         }
         searchFetcher.fetchArticles(forSearchTerm: text, siteURL: siteURL, resultLimit: 24, failure: { (error) in
@@ -1941,12 +1962,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 return
             }
             self.updateSearchSuggestions(withCompletions: [])
+            self.isWaitingForSearchSuggestionUpdate = false
         }) { (searchResult) in
             guard text == self.searchBar?.text else {
                 return
             }
             
             let completions = self.handleCompletion(searchResults: searchResult.results ?? [])
+            self.isWaitingForSearchSuggestionUpdate = false
             guard completions.count < 10 else {
                 return
             }
@@ -1971,7 +1994,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     @IBAction func closeSearch(_ sender: Any) {
         searchBar?.endEditing(true)
-        searchBar?.text = currentSearch?.localizedDescription
+        let searchText = searchBar?.text
+        if searchText == nil || searchText?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+            performDefaultSearch(withRegion: nil)
+        } else {
+            searchBar?.text = currentSearch?.localizedDescription
+        }
     }
     
     // MARK: - UISearchBarDelegate
@@ -1983,7 +2011,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        updateSearchSuggestions(withCompletions: searchSuggestionController.searches[3])
+        updateSearchSuggestions(withCompletions: searchSuggestionController.searches[PlaceSearchSuggestionController.suggestionSection])
+        isWaitingForSearchSuggestionUpdate = true
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(#selector(updateSearchCompletionsFromSearchBarText), with: nil, afterDelay: 0.2)
     }
@@ -1993,8 +2022,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        currentSearch = PlaceSearch(filter: currentSearchFilter, type: .text, sortStyle: .links, string: searchBar.text, region: nil, localizedDescription: searchBar.text, searchResult: nil)
         searchBar.endEditing(true)
+        guard !isWaitingForSearchSuggestionUpdate else {
+            isGoingToSearchForFirstSearchSuggestionAfterUpdate = true
+            return
+        }
+        searchForFirstSearchSuggestion()
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {

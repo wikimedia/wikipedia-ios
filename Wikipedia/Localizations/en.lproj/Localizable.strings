@@ -587,6 +587,7 @@
 "places-search-saved-articles" = "Saved articles";
 "places-search-suggested-searches-header" = "Suggested searches";
 "places-search-recently-searched-header" = "Recently searched";
+"places-search-articles-that-match" = "Articles matching \“$1\”";
 "places-no-saved-articles-have-location" = "None of your saved articles have location information";
 "places-unknown-distance" = "unknown distance";
 "places-enable-location-title" = "Explore articles near your location by enabling Location Access";
