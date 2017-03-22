@@ -1895,7 +1895,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
-        let currentStringSuggeston = PlaceSearch(filter: currentSearchFilter, type: .text, sortStyle: .links, string: currentSearchString, region: nil, localizedDescription: currentSearchString, searchResult: nil)
+        let currentSearchStringTitle = localizedStringForKeyFallingBackOnEnglish("places-search-articles-that-match").replacingOccurrences(of: "$1", with: currentSearchString)
+        let currentStringSuggeston = PlaceSearch(filter: currentSearchFilter, type: .text, sortStyle: .links, string: currentSearchString, region: nil, localizedDescription: currentSearchStringTitle, searchResult: nil)
         searchSuggestionController.searches = [[], [], [currentStringSuggeston], completions]
     }
     
