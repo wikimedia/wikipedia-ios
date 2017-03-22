@@ -70,9 +70,9 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
         header.contentView.backgroundColor = .wmf_articleListBackground
         header.isLabelVerticallyCentered = true
         switch section {
-        case suggestionSection:
+        case PlaceSearchSuggestionController.suggestionSection:
             header.text = localizedStringForKeyFallingBackOnEnglish("places-search-suggested-searches-header")
-        case recentSection:
+        case PlaceSearchSuggestionController.recentSection:
             header.isClearButtonHidden = false
             header.addClearButtonTarget(self, selector: #selector(clearButtonPressed))
             header.text = localizedStringForKeyFallingBackOnEnglish("places-search-recently-searched-header")
@@ -94,7 +94,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         switch indexPath.section {
-        case recentSection:
+        case PlaceSearchSuggestionController.recentSection:
             return true
         default:
             return false
@@ -103,7 +103,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         switch indexPath.section {
-        case recentSection:
+        case PlaceSearchSuggestionController.recentSection:
             return [UITableViewRowAction(style: .destructive, title: "Delete", handler: { (action, indexPath) in
                 let search = self.searches[indexPath.section][indexPath.row]
                 self.delegate?.placeSearchSuggestionController(self, didDeleteSearch: search)
