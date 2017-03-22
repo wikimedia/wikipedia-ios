@@ -1,8 +1,6 @@
 enum PlaceSearchType: UInt {
     case text
     case location
-//    case top
-//    case saved
 }
 
 enum PlaceFilterType: UInt {
