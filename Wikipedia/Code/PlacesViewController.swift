@@ -73,11 +73,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         redoSearchButton.setTitle("    " + localizedStringForKeyFallingBackOnEnglish("places-search-this-area") + "    ", for: .normal)
         
-        // Setup navigation bar
+        // Setup extended navigation bar
         //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
-        navigationController!.navigationBar.isTranslucent = false
-        navigationController!.navigationBar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
-        navigationController!.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "pixel"), for: .default)
         extendedNavBarView.shadowOffset = CGSize(width: 0, height: CGFloat(1) / UIScreen.main.scale)
         extendedNavBarView.shadowRadius = 0
         extendedNavBarView.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -791,20 +788,22 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private var overlaySliderPanGestureRecognizer: UIPanGestureRecognizer?
     
     func addSearchBarToNavigationBar(animated: Bool) {
-        titleViewSearchBar.isHidden = false
-        //segmentedControl.isHidden = false // TODO:
-        searchBar = titleViewSearchBar
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+        //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
+        extendedNavBarView.isHidden = false
+        navigationController!.navigationBar.isTranslucent = false
+        navigationController!.navigationBar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
+        navigationController!.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "pixel"), for: .default)
+        
         if let panGR = overlaySliderPanGestureRecognizer {
             view.removeGestureRecognizer(panGR)
         }
     }
     
     func removeSearchBarFromNavigationBar(animated: Bool) {
-        titleViewSearchBar.isHidden = true
-        //segmentedControl.isHidden = true // TODO:
-        searchBar = listAndSearchOverlaySearchBar
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+        extendedNavBarView.isHidden = true
+        navigationController!.navigationBar.isTranslucent = false
+        navigationController!.navigationBar.shadowImage = nil
+        navigationController!.navigationBar.setBackgroundImage(nil, for: .default)
         
         let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
         panGR.delegate = self
