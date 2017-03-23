@@ -5,6 +5,7 @@
 // Author: Dj
 // Author: Máté
 // Author: Nemo bis
+// Author: Notramo
 // Author: R-Joe
 // Author: Tacsipacsi
 
@@ -37,9 +38,9 @@
 "history-description" = "Talán mindet törölted. Amikor legközelebb meglátogatsz egy lapot, innen találsz vissza rá.";
 "history-none" = "Nincsenek korábbi lapok!";
 "zero-free-verbiage" = "Ingyenes Wikipédia-hozzáférés a mobilszolgáltatódtól (adatforgalmi díjak elengedve)";
-"zero-charged-verbiage" = "A Wikipédia Zero ki van kapcsolva";
+"zero-charged-verbiage" = "A Wikipédia Zéró ki van kapcsolva";
 "zero-charged-verbiage-extended" = "Más szócikkek betöltése adatforgalmi díjakkal járhat. Az elmentett szócikkek kapcsolat nélkül is elérhetőek, így ingyen megtekinthetőek.";
-"zero-interstitial-title" = "Wikipedia Zero elhagyása";
+"zero-interstitial-title" = "Wikipédia Zéró elhagyása";
 "zero-interstitial-leave-app" = "Adatköltségek merülhetnek fel. Továbblépsz a külső oldalra?";
 "zero-interstitial-continue" = "Elhagy";
 "zero-interstitial-cancel" = "Itt marad";
@@ -94,7 +95,7 @@
 "field-new-password-confirm-title" = "Új jelszó megerősítése";
 "field-new-password-confirm-placeholder" = "add meg az új jelszavad még egyszer";
 "field-email-title" = "E-mail";
-"field-email-title-optional" = "E-mail";
+"field-email-title-optional" = "E-mail (opcionális)";
 "field-email-placeholder" = "pelda@minta.hu";
 "field-token-title" = "Ellenőrző kód";
 "field-token-placeholder" = "add meg a tokent";
@@ -134,7 +135,7 @@
 "search-searching" = "Keresés…";
 "search-no-matches" = "Nincs találat a keresési kifejezésre.";
 "search-field-placeholder-text" = "Keresés a Wikipédiában";
-"search-field-placeholder-text-zero" = "Keresés A Wikipédia Zero-ban";
+"search-field-placeholder-text-zero" = "Keresés a Wikipédia Zéróban";
 "search-loading-section-zero" = "A szócikk első szakaszának betöltése…";
 "search-loading-section-remaining" = "A szócikk többi részének betöltése…";
 "search-loading-article-loaded" = "A cikk betöltve.";

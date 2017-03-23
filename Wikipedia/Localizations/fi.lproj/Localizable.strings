@@ -107,8 +107,7 @@
 "field-captcha-placeholder" = "CAPTCHA-teksti";
 "field-alert-username-unavailable" = "Käyttäjänimi ei ole saatavilla";
 "field-alert-password-invalid" = "Salasana ei kelpaa";
-// Fuzzy
-"field-alert-token-invalid" = "Koodi ei kelpaa. Yritä uudelleen.";
+"field-alert-token-invalid" = "Koodi ei kelpaa";
 "field-alert-captcha-invalid" = "CAPTCHA ei kelpaa";
 "field-alert-password-confirm-mismatch" = "Salasanat eivät täsmää";
 "forgot-password-title" = "Salasanan palauttaminen";
@@ -117,6 +116,7 @@
 "forgot-password-email-prompt" = "Sähköpostiosoite (valinnainen)";
 "forgot-password-button-title" = "Palauta";
 "forgot-password-email-sent" = "Sähköposti salasanan palautusohjeiden kanssa lähetetty.";
+"forgot-password-username-or-email-title" = "Tai";
 "wikitext-downloading" = "Ladataan sisältöä...";
 "wikitext-download-failed" = "Uusimman version hakeminen ei onnistu.";
 "wikitext-download-success" = "Sisältö ladattu.";
@@ -509,10 +509,12 @@
 "places-unknown-distance" = "tuntematon etäisyys";
 "places-enable-location-action-button-title" = "Ota sijainti käyttöön";
 "places-accessibility-group" = "$1 artikkelia";
+"places-accessibility-show-more" = "Näytä lisää artikkeleja";
 "places-accessibility-show-as-map" = "Näytä karttana";
 "places-accessibility-show-as-list" = "Näytä luettelona";
 "places-accessibility-recenter-map-on-user-location" = "Keskitä sijaintiisi";
 "places-accessibility-close-search" = "Sulje haku";
+"places-accessibility-clear-recent-searches" = "Tyhjennä tuoreet haut";
 "action-share" = "Jaa";
 "action-save" = "Tallenna";
 "action-read" = "Lue";
