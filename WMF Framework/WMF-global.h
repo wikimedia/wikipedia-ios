@@ -83,8 +83,6 @@
 #import "MWKImageInfo.h"
 #import "NSString+WMFExtras.h"
 
-#import "SDWebImageManager+WMFCacheRemoval.h"
-#import "SDImageCache+WMFPersistentCache.h"
 #import "WMFURLCache.h"
 
 #import "MWKArticle+WMFSharing.h"

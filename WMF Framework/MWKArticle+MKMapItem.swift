@@ -1,4 +1,5 @@
 import Foundation
+import MapKit
 
 extension MWKArticle {
     

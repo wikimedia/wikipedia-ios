@@ -5,7 +5,6 @@ github "bitstadium/HockeySDK-iOS" ~> 4.1.0
 github "swisspol/GCDWebServer" ~> 3.3
 github "vtourraine/VTAcknowledgementsViewController"
 github "NYTimes/NYTPhotoViewer"
-github "wikimedia/SDWebImage" "remove_animated_image"
 github "wikimedia/AFNetworking" "release/3.1.1"
 github "wikimedia/BlocksKit" "master"
 github "wikimedia/SSDataSources" "master"

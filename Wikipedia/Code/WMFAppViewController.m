@@ -63,7 +63,6 @@
 
 #if TEST_SHARED_CONTAINER_MIGRATION
 #import "YapDatabase+WMFExtensions.h"
-#import "SDImageCache+WMFPersistentCache.h"
 #endif
 
 #import "WMFArticleNavigationController.h"

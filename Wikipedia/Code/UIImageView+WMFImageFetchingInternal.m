@@ -8,7 +8,6 @@
 #import "WMFFaceDetectionCache.h"
 #import "UIImageView+WMFPlaceholder.h"
 #import <WMF/WMF-Swift.h>
-#import <SDWebImage/UIImage+GIF.h>
 
 static const char *const MWKURLAssociationKey = "MWKURL";
 
@@ -187,7 +186,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 
     self.image = image;
 
-    if ([self isKindOfClass:[FLAnimatedImageView class]] && image.isGIF && data) {
+    if ([self isKindOfClass:[FLAnimatedImageView class]] && image.images.count > 1 && data) {
         FLAnimatedImage *animatedImage = [FLAnimatedImage animatedImageWithGIFData:data];
         if (animatedImage) {
             FLAnimatedImageView *animatedImageView = ((FLAnimatedImageView *)self);

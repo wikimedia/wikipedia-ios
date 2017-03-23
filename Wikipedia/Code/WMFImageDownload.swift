@@ -1,24 +1,10 @@
 import Foundation
-import SDWebImage
 
 public enum ImageOrigin: Int {
     case network = 0
     case disk = 1
     case memory = 2
     case none = 3
-    
-    public init(sdOrigin: SDImageCacheType) {
-        switch sdOrigin {
-        case .disk:
-            self = .disk
-        case .memory:
-            self = .memory
-        case .none:
-            fallthrough
-        default:
-            self = .none
-        }
-    }
 }
 
 extension ImageOrigin {

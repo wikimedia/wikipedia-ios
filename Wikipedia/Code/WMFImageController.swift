@@ -1,5 +1,4 @@
 import Foundation
-import SDWebImage
 import CocoaLumberjackSwift
 
 ///
@@ -32,23 +31,6 @@ open class WMFTypedImageData: NSObject {
     }
 }
 
-// FIXME: Can't extend the SDWebImageOperation protocol or cast the return value, so we wrap it.
-class SDWebImageOperationWrapper: NSObject, Cancellable {
-    weak var operation: SDWebImageOperation?
-    required init(operation: SDWebImageOperation) {
-        super.init()
-        self.operation = operation
-        // keep wrapper around as long as operation is around
-        objc_setAssociatedObject(operation,
-                                 "SDWebImageOperationWrapper",
-                                 self,
-                                 objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-    }
-    
-    func cancel() -> Void {
-        operation?.cancel()
-    }
-}
 
 
 let WMFExtendedFileAttributeNameMIMEType = "org.wikimedia.MIMEType"
@@ -57,35 +39,47 @@ let WMFExtendedFileAttributeNameMIMEType = "org.wikimedia.MIMEType"
 open class WMFImageController : NSObject {
     // MARK: - Initialization
     
-    fileprivate static let defaultNamespace = "default"
     
-    fileprivate static let _sharedInstance: WMFImageController = {
-        let downloader = SDWebImageDownloader.shared()
-        downloader.setValue(WikipediaAppUtils.versionedUserAgent(), forHTTPHeaderField: "User-Agent")
-        let cache = SDImageCache.wmf_cache(withNamespace: defaultNamespace)
-        return WMFImageController(manager: SDWebImageManager(cache: cache!, downloader: downloader),
-                                  namespace: defaultNamespace)
-    }()
+    static let shared = WMFImageController(namespace: "default")
     
-    open static let backgroundImageFetchOptions: SDWebImageOptions = [.lowPriority, .continueInBackground, .scaleDownLargeImages]
-    
-    open class func sharedInstance() -> WMFImageController {
-        return _sharedInstance
-    }
-    
-    open let imageManager: SDWebImageManager
     
     let cancellingQueue: DispatchQueue
     
-    fileprivate lazy var cancellables: NSMapTable = {
-        NSMapTable<AnyObject, AnyObject>.strongToWeakObjects()
+    var sessionTasks: [String: URLSessionTask] = [:]
+    var operations: [String: Operation] = [:]
+    
+    
+    fileprivate let moc: NSManagedObjectContext = {
+        let bundle = Bundle(identifier: "org.wikimedia.WMF")!
+        let modelURL = bundle.url(forResource: "Cache", withExtension: "momd")!
+        let model = NSManagedObjectModel(contentsOf: modelURL)!
+        let containerURL = FileManager.default.wmf_containerURL()
+        let dbURL = containerURL.appendingPathComponent("Cache.sqlite", isDirectory: false)
+        let psc = NSPersistentStoreCoordinator(managedObjectModel: model)
+        let options = [NSMigratePersistentStoresAutomaticallyOption: NSNumber(booleanLiteral: true), NSInferMappingModelAutomaticallyOption: NSNumber(booleanLiteral: true)]
+        do {
+            try psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: dbURL, options: options)
+        } catch {
+            do {
+                try FileManager.default.removeItem(at: dbURL)
+            } catch {
+                
+            }
+            do {
+                try psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: dbURL, options: options)
+            } catch {
+                abort()
+            }
+        }
+        return NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType)
     }()
     
-    public required init(manager: SDWebImageManager, namespace: String) {
-        self.imageManager = manager;
-        self.imageManager.cacheKeyFilter = { (url: URL?) in (url as NSURL?)?.wmf_schemelessURLString() }
+    public required init(namespace: String) {
         self.cancellingQueue = DispatchQueue(label: "org.wikimedia.wikipedia.wmfimagecontroller.\(namespace)",
                                                      attributes: [])
+        let config = URLSessionConfiguration.default
+        
+        let backgroundSession = URLSession(configuration: <#T##URLSessionConfiguration#>)
         super.init()
     }
     
@@ -102,23 +96,29 @@ open class WMFImageController : NSObject {
      
      */
     open func cacheImage(withURL URL: URL, failure: @escaping (Error) -> Void, success: @escaping (Bool) -> Void) {
-        let key = self.cacheKeyForURL(URL)
-        guard let imageCache = imageManager.imageCache else {
-            failure(WMFImageControllerError.invalidImageCache)
-            return
-        }
-        
-        imageCache.diskImageExists(withKey: key) { (exists) in
-            guard !exists else {
-                success(true)
-                return
+        let moc = self.moc
+        moc.perform {
+            guard let key = self.cacheKeyForURL(URL) else {
+                failure(WMFImageControllerError.invalidOrEmptyURL)
             }
-            
-            self.fetchImage(withURL: URL, options: WMFImageController.backgroundImageFetchOptions, failure: failure) { (download) in
-                imageCache.removeImage(forKey: key, fromDisk: false, withCompletion: nil)
-                success(true)
+            let variant = self.variantForURL(URL)
+            let request: NSFetchRequest<CacheItem> = CacheItem.fetchRequest()
+            request.predicate = NSPredicate(format: "key == %@ && variant == %@", key, variant)
+            do {
+                let results = try moc.fetch(request)
+                guard results.count == 0 else {
+                    success(true)
+                    return
+                }
+                self.fetchImage(withURL: URL, options: WMFImageController.backgroundImageFetchOptions, failure: failure) { (download) in
+                    imageCache.removeImage(forKey: key, fromDisk: false, withCompletion: nil)
+                    success(true)
+                }
+            } catch let error {
+                failure(error)
             }
         }
+
        
     }
     
@@ -135,7 +135,6 @@ open class WMFImageController : NSObject {
      */
     open func fetchImage(
         withURL: URL,
-        options: SDWebImageOptions = [.highPriority, .scaleDownLargeImages],
         failure: @escaping (Error) -> Void,
         success: @escaping (WMFImageDownload) -> Void) {
         
@@ -406,7 +405,14 @@ open class WMFImageController : NSObject {
     }
     
     func cacheKeyForURL(_ url: URL) -> String? {
-        return imageManager.cacheKey(for: url)
+        guard let siteURL = (url as NSURL).wmf_site, let imageName = WMFParseImageNameFromSourceURL(url) else {
+            return nil
+        }
+        return siteURL.absoluteString + "::" + imageName
+    }
+    
+    func variantForURL(_ url: URL) -> Int { //NSNotFound/NSIntegerMax == Original size
+        return WMFParseSizePrefixFromSourceURL(url)
     }
     
     // MARK: - Cancellation
