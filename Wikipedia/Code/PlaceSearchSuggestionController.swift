@@ -6,7 +6,7 @@ protocol PlaceSearchSuggestionControllerDelegate: NSObjectProtocol {
 
 class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableViewDelegate {
     static let cellReuseIdentifier = "org.wikimedia.places"
-    
+    static let headerReuseIdentifier = "org.wikimedia.places.header"
     let suggestionSection = 0
     let recentSection = 1
     let currentStringSection = 2
@@ -15,6 +15,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     var tableView: UITableView = UITableView() {
         didSet {
             tableView.register(UITableViewCell.self, forCellReuseIdentifier: PlaceSearchSuggestionController.cellReuseIdentifier)
+            tableView.register(WMFTableHeaderLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: PlaceSearchSuggestionController.headerReuseIdentifier)
             tableView.dataSource = self
             tableView.delegate = self
             tableView.reloadData()
@@ -65,11 +66,12 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard searches[section].count > 0, section < 2, let header = WMFTableHeaderLabelView.wmf_viewFromClassNib() else {
+        guard searches[section].count > 0, section < 2, let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: PlaceSearchSuggestionController.headerReuseIdentifier) as? WMFTableHeaderLabelView else {
             return nil
         }
+    
         header.prepareForReuse()
-        header.backgroundColor = .wmf_articleListBackground
+        header.contentView.backgroundColor = .wmf_articleListBackground
         header.isLabelVerticallyCentered = true
         switch section {
         case suggestionSection:

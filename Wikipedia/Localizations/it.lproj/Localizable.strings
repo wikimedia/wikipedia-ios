@@ -117,8 +117,7 @@
 "field-captcha-placeholder" = "Testo CAPTCHA";
 "field-alert-username-unavailable" = "Nome utente non disponibile";
 "field-alert-password-invalid" = "Password non valida";
-// Fuzzy
-"field-alert-token-invalid" = "Codice non valido. Riprova.";
+"field-alert-token-invalid" = "Codice non valido";
 "field-alert-captcha-invalid" = "CAPTCHA non valido";
 "field-alert-password-confirm-mismatch" = "Le password non corrispondono";
 "forgot-password-title" = "Reimposta password";
@@ -507,6 +506,7 @@
 "places-search-recently-searched-header" = "Cercato recentemente";
 "places-unknown-distance" = "distanza sconosciuta";
 "places-accessibility-group" = "$1 voci";
+"places-accessibility-show-more" = "Mostra più voci";
 "places-accessibility-show-as-map" = "Mostra come mappa";
 "places-accessibility-show-as-list" = "Mostra come elenco";
 "places-accessibility-close-search" = "Chiudi la ricerca";
