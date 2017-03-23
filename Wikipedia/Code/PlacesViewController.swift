@@ -26,7 +26,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var listAndSearchOverlaySliderHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySearchCancelButtonHideConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySearchCancelButtonShowConstraint: NSLayoutConstraint!
-    @IBOutlet weak var listAndSearchOverlaySliderView: RoundedCornerView!
+    @IBOutlet weak var listAndSearchOverlaySliderView: UIView!
     @IBOutlet weak var listView: UITableView!
     @IBOutlet weak var searchSuggestionView: UITableView!
     
@@ -123,11 +123,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         recenterOnUserLocationButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-recenter-map-on-user-location")
         
 
-        listAndSearchOverlayContainerView.corners = [.topLeft, .topRight]
+        listAndSearchOverlayContainerView.corners = [.topLeft, .topRight, .bottomLeft, .bottomRight]
         listAndSearchOverlayContainerView.radius = 5
-        
-        listAndSearchOverlaySliderView.corners = [.bottomLeft, .bottomRight]
-        listAndSearchOverlaySliderView.radius = 5
         
         // Setup list view
         listView.dataSource = self
