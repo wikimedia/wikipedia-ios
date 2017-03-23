@@ -837,7 +837,6 @@
 		D895D08A1D9C1EB8005418C1 /* WMFInTheNewsNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D895D0891D9C1EB8005418C1 /* WMFInTheNewsNotificationViewController.swift */; };
 		D895D08D1D9C1EB8005418C1 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D895D08B1D9C1EB8005418C1 /* MainInterface.storyboard */; };
 		D895D0911D9C1EB8005418C1 /* InTheNewsNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D895D0831D9C1EB8005418C1 /* InTheNewsNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		D895D0991D9C28D9005418C1 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D895D0841D9C1EB8005418C1 /* UserNotifications.framework */; };
 		D896C7961D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = D896C7951D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m */; };
 		D8987E061E325D8A00E75DA6 /* QuadKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FB46A11E26BC6600F2620F /* QuadKey.swift */; };
 		D89D43FF1D74D35F00F7862E /* WMFArticlePreviewFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B06531621C221BC4003BD7DC /* WMFArticlePreviewFetcher.m */; };
@@ -1182,7 +1181,6 @@
 		D8A42B9E1E815A9C00D8E281 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551A61DF1AE9B00B90177 /* libxml2.tbd */; };
 		D8A42B9F1E815A9C00D8E281 /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB191DF0AAFF00DDF311 /* Masonry.framework */; };
 		D8A42BA01E815A9C00D8E281 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
-		D8A42BA11E815A9C00D8E281 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D895D0841D9C1EB8005418C1 /* UserNotifications.framework */; };
 		D8A42BA21E815A9C00D8E281 /* NYTPhotoViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */; };
 		D8A42BA31E815A9C00D8E281 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
 		D8A42BA41E815A9C00D8E281 /* GCDWebServers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2A1DF0ABBF00DDF311 /* GCDWebServers.framework */; };
@@ -1319,6 +1317,10 @@
 		D8C9BFE91D6CC9310084624F /* MWKLanguageLinkResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062E1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.m */; };
 		D8CB32AD1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */; };
 		D8CB32AE1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */; };
+		D8CD975E1E83F65700ECCA9D /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D895D0841D9C1EB8005418C1 /* UserNotifications.framework */; };
+		D8CD97601E83F68400ECCA9D /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CD975F1E83F68400ECCA9D /* SafariServices.framework */; };
+		D8CD97611E83F68900ECCA9D /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CD975F1E83F68400ECCA9D /* SafariServices.framework */; };
+		D8CD97621E83F68E00ECCA9D /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CD975F1E83F68400ECCA9D /* SafariServices.framework */; };
 		D8CDBA9F1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */; };
 		D8CE211C1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
 		D8CE211D1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
@@ -1647,7 +1649,6 @@
 		D8CE26221E698E2400DAE2E0 /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB191DF0AAFF00DDF311 /* Masonry.framework */; };
 		D8CE26231E698E2400DAE2E0 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
 		D8CE26241E698E2400DAE2E0 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D858A7F81DA6DB96009C3DEB /* libz.tbd */; };
-		D8CE26251E698E2400DAE2E0 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D895D0841D9C1EB8005418C1 /* UserNotifications.framework */; };
 		D8CE26261E698E2400DAE2E0 /* NYTPhotoViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */; };
 		D8CE26271E698E2400DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
 		D8CE26281E698E2400DAE2E0 /* GCDWebServers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2A1DF0ABBF00DDF311 /* GCDWebServers.framework */; };
@@ -3451,7 +3452,7 @@
 		D8987E021E325C7A00E75DA6 /* WMFKeyValue+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WMFKeyValue+CoreDataProperties.h"; path = "../Wikipedia/Code/WMFKeyValue+CoreDataProperties.h"; sourceTree = "<group>"; };
 		D8987E031E325C7A00E75DA6 /* WMFKeyValue+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WMFKeyValue+CoreDataProperties.m"; path = "../Wikipedia/Code/WMFKeyValue+CoreDataProperties.m"; sourceTree = "<group>"; };
 		D8987E071E325EC500E75DA6 /* ArticleLocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleLocationController.swift; path = ../Wikipedia/Code/ArticleLocationController.swift; sourceTree = "<group>"; };
-		D8A42C2B1E815A9C00D8E281 /* Wikipedia UserTesting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wikipedia UserTesting.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8A42C2B1E815A9C00D8E281 /* Wikipedia UserTesting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Wikipedia UserTesting.app"; path = "Wikipedia User Testing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8A42C2D1E815B0700D8E281 /* Wikipedia User Testing-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Wikipedia User Testing-Info.plist"; sourceTree = "<group>"; };
 		D8A42C2F1E815C1300D8E281 /* Wikipedia User Testing.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Wikipedia User Testing.entitlements"; sourceTree = "<group>"; };
 		D8A6BAEC1E4C9BF400A981C8 /* UserLocationAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationAnnotationView.swift; sourceTree = "<group>"; };
@@ -3466,6 +3467,7 @@
 		D8C0C0091D144FF30019374D /* WMFProxyServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFProxyServer.h; sourceTree = "<group>"; };
 		D8C0C00A1D144FF30019374D /* WMFProxyServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFProxyServer.m; sourceTree = "<group>"; };
 		D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCornerView.swift; sourceTree = "<group>"; };
+		D8CD975F1E83F68400ECCA9D /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableOfContentsAboutThisArticleItem.swift; path = Wikipedia/Code/TableOfContentsAboutThisArticleItem.swift; sourceTree = SOURCE_ROOT; };
 		D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = Build/iOS/CocoaLumberjackSwift.framework; sourceTree = "<group>"; };
 		D8CE26AF1E698E2400DAE2E0 /* Wikipedia Alpha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wikipedia Alpha.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3568,12 +3570,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8CD97601E83F68400ECCA9D /* SafariServices.framework in Frameworks */,
 				D8D906941DF58D1900853BFD /* libsqlite3.tbd in Frameworks */,
 				D8D553621DF1B63200B90177 /* QuartzCore.framework in Frameworks */,
 				D8D551A71DF1AE9B00B90177 /* libxml2.tbd in Frameworks */,
 				D82FDB221DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
 				D82FDB3C1DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
-				D895D0991D9C28D9005418C1 /* UserNotifications.framework in Frameworks */,
 				D82FDB2E1DF0ABBF00DDF311 /* NYTPhotoViewer.framework in Frameworks */,
 				D8CE211C1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D82FDB2D1DF0ABBF00DDF311 /* GCDWebServers.framework in Frameworks */,
@@ -3597,6 +3599,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8CD975E1E83F65700ECCA9D /* UserNotifications.framework in Frameworks */,
 				D8CE21201E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D8D906951DF58D2C00853BFD /* libsqlite3.tbd in Frameworks */,
 				D82FDB281DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
@@ -3651,12 +3654,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8CD97621E83F68E00ECCA9D /* SafariServices.framework in Frameworks */,
 				D8A42B9C1E815A9C00D8E281 /* libsqlite3.tbd in Frameworks */,
 				D8A42B9D1E815A9C00D8E281 /* QuartzCore.framework in Frameworks */,
 				D8A42B9E1E815A9C00D8E281 /* libxml2.tbd in Frameworks */,
 				D8A42B9F1E815A9C00D8E281 /* Masonry.framework in Frameworks */,
 				D8A42BA01E815A9C00D8E281 /* FLAnimatedImage.framework in Frameworks */,
-				D8A42BA11E815A9C00D8E281 /* UserNotifications.framework in Frameworks */,
 				D8A42BA21E815A9C00D8E281 /* NYTPhotoViewer.framework in Frameworks */,
 				D8A42BA31E815A9C00D8E281 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D8A42BA41E815A9C00D8E281 /* GCDWebServers.framework in Frameworks */,
@@ -3680,6 +3683,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8CD97611E83F68900ECCA9D /* SafariServices.framework in Frameworks */,
 				D8CE26B81E698F0200DAE2E0 /* Appsee.framework in Frameworks */,
 				D8CE26B61E698EA500DAE2E0 /* CoreVideo.framework in Frameworks */,
 				D8CE26B41E698E9A00DAE2E0 /* AVFoundation.framework in Frameworks */,
@@ -3690,7 +3694,6 @@
 				D8CE26221E698E2400DAE2E0 /* Masonry.framework in Frameworks */,
 				D8CE26231E698E2400DAE2E0 /* FLAnimatedImage.framework in Frameworks */,
 				D8CE26241E698E2400DAE2E0 /* libz.tbd in Frameworks */,
-				D8CE26251E698E2400DAE2E0 /* UserNotifications.framework in Frameworks */,
 				D8CE26261E698E2400DAE2E0 /* NYTPhotoViewer.framework in Frameworks */,
 				D8CE26271E698E2400DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D8CE26281E698E2400DAE2E0 /* GCDWebServers.framework in Frameworks */,
@@ -6427,6 +6430,7 @@
 		D4991437181D51DE00E6073C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D8CD975F1E83F68400ECCA9D /* SafariServices.framework */,
 				D8CE26B91E698F0700DAE2E0 /* Appsee */,
 				D8D906931DF58D1800853BFD /* libsqlite3.tbd */,
 				D82FDAD81DF0A96E00DDF311 /* Carthage */,
@@ -9866,6 +9870,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_MODULES_AUTOLINK = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -10082,6 +10087,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_MODULES_AUTOLINK = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -10141,6 +10147,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_MODULES_AUTOLINK = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -10272,6 +10279,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_MODULES_AUTOLINK = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -10698,6 +10706,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_MODULES_AUTOLINK = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -10918,6 +10927,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_MODULES_AUTOLINK = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -11315,6 +11325,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_MODULES_AUTOLINK = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -11595,6 +11606,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_MODULES_AUTOLINK = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -12244,6 +12256,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_MODULES_AUTOLINK = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -12562,6 +12575,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_MODULES_AUTOLINK = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -13144,6 +13158,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_MODULES_AUTOLINK = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
