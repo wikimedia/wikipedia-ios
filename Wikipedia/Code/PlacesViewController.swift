@@ -5,6 +5,7 @@ import TUSafariActivity
 
 class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, WMFAnalyticsViewNameProviding, ArticlePlaceGroupViewControllerDelegate, UIGestureRecognizerDelegate {
     
+    @IBOutlet weak var filterSelectorView: UIView!
     @IBOutlet weak var redoSearchButton: UIButton!
     @IBOutlet weak var extendedNavBarView: UIView!
     @IBOutlet weak var mapView: MKMapView!
@@ -14,12 +15,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var mapListToggle: UISegmentedControl!
     
     @IBOutlet weak var listAndSearchOverlayContainerView: RoundedCornerView!
-    @IBOutlet weak var listAndSearchOverlayTitleLabel: UILabel!
+    
+    @IBOutlet weak var listAndSearchOverlayFilterSelectorContainerView: UIView!
     @IBOutlet weak var listAndSearchOverlaySearchContainerView: UIView!
     @IBOutlet weak var listAndSearchOverlaySearchBar: UISearchBar!
     @IBOutlet weak var listAndSearchOverlayBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlayHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var listAndSearchOverlayTitleLabelHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var listAndSearchOverlayFilterSelectorContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySearchHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySliderHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySearchCancelButtonHideConstraint: NSLayoutConstraint!
@@ -82,7 +84,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         extendedNavBarView.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         extendedNavBarView.shadowOpacity = 0.25
         
-        navigationItem.title = "Top Articles" // TODO:
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        //navigationItem.title = "Top Articles" // TODO:
+        //navigationItem.titleView = filterSelectorView
+        //filterSelectorView.isHidden = true
+
         
         // Setup map view
         mapView.mapType = .standard
@@ -144,6 +151,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         searchBar = titleViewSearchBar
         
         viewMode = .map
+        
+        self.view.layoutIfNeeded()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -806,6 +815,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         navigationController!.navigationBar.shadowImage = nil
         navigationController!.navigationBar.setBackgroundImage(nil, for: .default)
         
+//        listAndSearchOverlayFilterSelectorContainerView.addSubview(filterSelectorView)
+//        filterSelectorView.frame = listAndSearchOverlayFilterSelectorContainerView.bounds
+        
+       // self.view.setNeedsLayout()
+        
         let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
         panGR.delegate = self
         view.addGestureRecognizer(panGR)
@@ -818,7 +832,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     let overlayMidHeight: CGFloat = 388
     var overlayMinHeight: CGFloat {
         get {
-            return listAndSearchOverlayTitleLabelHeightConstraint.constant + listAndSearchOverlaySearchHeightConstraint.constant + listAndSearchOverlaySliderHeightConstraint.constant
+            return listAndSearchOverlayFilterSelectorContainerHeightConstraint.constant + listAndSearchOverlaySearchHeightConstraint.constant + listAndSearchOverlaySliderHeightConstraint.constant
         }
     }
     var overlayMaxHeight: CGFloat {
