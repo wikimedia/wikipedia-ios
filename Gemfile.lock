@@ -10,7 +10,7 @@ GEM
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
     babosa (1.0.2)
-    badge (0.8.3)
+    badge (0.8.4)
       curb (~> 0.9)
       fastimage (>= 1.6)
       fastlane (>= 2.0)
