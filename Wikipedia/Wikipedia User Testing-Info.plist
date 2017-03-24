@@ -47,11 +47,11 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
+	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Get article recommendations based on your location</string>
 	<key>NSLocationUsageDescription</key>
 	<string>Get article recommendations based on your location</string>
-	<key>NSLocationAlwaysUsageDescription</key>
+	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Get article recommendations based on your location</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Save photos from Wikipedia to your photo library</string>

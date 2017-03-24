@@ -36,11 +36,7 @@ typedef NS_ENUM(NSInteger, WMFImageWidth) {
 }
 
 - (NSNumber *)wmf_nearbyThumbnailWidthForScale {
-#if WMF_PLACES_GROUP_POPOVERS
-    return @(self.wmf_maxScale * WMFImageWidthMedium);
-#else
     return @(self.wmf_maxScale * WMFImageWidthSmall);
-#endif
 }
 
 - (NSNumber *)wmf_leadImageWidthForScale {
