@@ -207,6 +207,12 @@ static uint64_t bundleHash() {
     [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:coreDataDBURL options:options error:&persistentStoreError];
     if (persistentStoreError) {
         DDLogError(@"Error adding persistent store: %@", persistentStoreError);
+        [[NSFileManager defaultManager] removeItemAtURL:coreDataDBURL error:nil];
+        persistentStoreError = nil;
+        [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:coreDataDBURL options:options error:&persistentStoreError];
+        if (persistentStoreError) {
+            DDLogError(@"Second error after adding persistent store: %@", persistentStoreError);
+        }
     }
 
     self.persistentStoreCoordinator = persistentStoreCoordinator;
