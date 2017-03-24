@@ -17,7 +17,7 @@ GEM
       mini_magick (>= 4.5)
     claide (1.0.1)
     colored (1.2)
-    commander-fastlane (4.4.3)
+    commander-fastlane (4.4.4)
       highline (~> 1.7.2)
     curb (0.9.3)
     domain_name (0.5.20170223)
