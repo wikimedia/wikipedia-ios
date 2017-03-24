@@ -71,6 +71,7 @@
 "two-factor-login-instructions" = "Escriba o código de verificación de dous factores";
 "two-factor-login-continue" = "Continuar co inicio de sesión";
 "two-factor-login-with-regular-code" = "Usar código de verificación";
+"two-factor-login-with-backup-code" = "Usar un dos seus códigos de copia de seguridade";
 "login-name-not-found" = "O nome de usuario é necesario para iniciar sesión.";
 "login-name-illegal" = "Escribiu un nome de usuario non válido.";
 "login-name-does-not-exist" = "O nome de usuario proporcionado non existe.";
@@ -99,6 +100,7 @@
 "field-email-title-optional" = "Enderezo de correo electrónico (opcional)";
 "field-email-placeholder" = "exemplo@exemplo.gal";
 "field-token-title" = "Código de verificación";
+"field-backup-token-title" = "Código de copia de seguridade";
 "field-token-placeholder" = "insira o identificador";
 "field-captcha-title" = "Insira o texto que ve abaixo";
 "field-captcha-placeholder" = "Texto CAPTCHA";
@@ -507,6 +509,7 @@
 "places-search-saved-articles" = "Artigos gardados";
 "places-search-suggested-searches-header" = "Buscas suxeridas";
 "places-search-recently-searched-header" = "Buscado recentemente";
+"places-no-saved-articles-have-location" = "Ningún dos seus artigos gardados teñen información de localización";
 "places-unknown-distance" = "distancia descoñecida";
 "places-enable-location-title" = "Explore artigos preto da súa localización activando Acceder á localización";
 "places-enable-location-description" = "O acceso á súa localización só está dispoñible cando a aplicación ou unha das súas características está visible na súa pantalla.";
