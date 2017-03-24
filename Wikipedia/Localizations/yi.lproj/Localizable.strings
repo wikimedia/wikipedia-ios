@@ -53,6 +53,7 @@
 "login-username-placeholder-text" = "באַניצער־נאָמען";
 "login-password-placeholder-text" = "פאַסווארט";
 "login-forgot-password" = "פֿאַרגעסן אײַער פאַסווארט?";
+"field-alert-token-invalid" = "אומגילטיקער קאד";
 "forgot-password-title" = "צוריקשטעלן פאַסווארט";
 "forgot-password-username-prompt" = "באַניצער־נאָמען";
 "forgot-password-email-prompt" = "ע־פאסט (אפציאנאל)";
