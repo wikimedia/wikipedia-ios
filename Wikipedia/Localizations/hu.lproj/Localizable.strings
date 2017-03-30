@@ -70,6 +70,7 @@
 "two-factor-login-title" = "Bejelentkezés a fiókodba";
 "two-factor-login-instructions" = "Írd be a kétlépcsős azonosítás kódját";
 "two-factor-login-continue" = "Bejelentkezés folytatása";
+"two-factor-login-with-regular-code" = "Ellenőrző kód használata";
 "login-name-not-found" = "A felhasználónév szükséges a belépéshez.";
 "login-name-illegal" = "Érvénytelen felhasználónevet adtál meg.";
 "login-name-does-not-exist" = "A megadott felhasználónév nem létezik.";
@@ -502,6 +503,7 @@
 "places-search-saved-articles" = "Mentett szócikkek";
 "places-search-suggested-searches-header" = "Javasolt keresések";
 "places-search-recently-searched-header" = "Legutóbbi keresések";
+"places-no-saved-articles-have-location" = "Egyetlen mentett szócikked sem tartalmaz helyinformációkat.";
 "places-unknown-distance" = "ismeretlen távolság";
 "places-enable-location-title" = "A közeledben lévő témájú szócikkek felfedezése a helymeghatározás engedélyezésével";
 "places-enable-location-description" = "A helyzeted csak akkor érhető el, amikor az alkalmazás vagy egy funkciója látható a képernyőn.";

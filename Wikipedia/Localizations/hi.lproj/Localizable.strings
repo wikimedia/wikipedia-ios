@@ -75,8 +75,7 @@
 "two-factor-login-title" = "अपने अकाउंट में लॉगिन करें";
 "two-factor-login-instructions" = "कृपया टू फैक्टर वेरिफिकेशन कोड डालें";
 "two-factor-login-continue" = "लॉग इन जारी रखें";
-// Fuzzy
-"two-factor-login-with-regular-code" = "छोटे अंकीय कोड का उपयोग करें";
+"two-factor-login-with-regular-code" = "सत्यापन कोड का उपयोग करें";
 "login-name-not-found" = "लॉगिन के लिए सदस्यनाम आवश्यक है।";
 "login-name-illegal" = "आपने एक अवैध सदस्यनाम दिया है।";
 "login-name-does-not-exist" = "जो सदस्यमाम अपने दिया है वो अस्तित्व में नहीं है।";
@@ -101,8 +100,7 @@
 "field-new-password-placeholder" = "नया पासवर्ड डालें";
 "field-new-password-confirm-title" = "नए पासवर्ड की पुष्टि करें";
 "field-new-password-confirm-placeholder" = "पुनः नया पासवर्ड डालें";
-// Fuzzy
-"field-email-title" = "ईमेल एड्रेस (वैकल्पिक)";
+"field-email-title" = "ईमेल";
 "field-email-placeholder" = "example@example.org";
 "field-token-title" = "टोकन";
 "field-token-placeholder" = "टोकन डालें";

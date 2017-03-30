@@ -71,6 +71,8 @@
 "account-creation-login" = "Ja tens un compte? Inicia una sessió.";
 "account-creation-missing-fields" = "Heu d'introduir un nom d'usuari, contrasenya i confirmació de contrasenya per a crear un compte.";
 "two-factor-login-title" = "Inicieu una sessió amb el vostre compte";
+"two-factor-login-with-regular-code" = "Utilitza un codi de verificació";
+"two-factor-login-with-backup-code" = "Utilitza un dels vostres codis de seguretat";
 "login-name-not-found" = "Cal el nom d'usuari per iniciar una sessió.";
 "login-name-illegal" = "Heu introduït un nom d'usuari invàlid.";
 "login-name-does-not-exist" = "El nom d'usuari que heu proporcionat no existeix.";
@@ -82,9 +84,11 @@
 "login-username-placeholder-text" = "Nom d'usuari";
 "login-password-placeholder-text" = "Contrasenya";
 "login-forgot-password" = "Heu perdut la contrasenya?";
+"login-no-account" = "No teniu un compte? $1";
 "field-username-title" = "Nom d'usuari";
 "field-username-placeholder" = "introduïu un nom d'usuari";
 "field-password-title" = "Contrasenya";
+"field-password-placeholder" = "introduïu una contrasenya";
 "field-email-title" = "Adreça electrònica";
 "field-email-title-optional" = "Adreça electrònica (opcional)";
 "field-token-title" = "Codi de verificació";
@@ -261,6 +265,7 @@
 "share-as-image" = "Comparteix com a imatge";
 "share-as-text" = "Comparteix com a text";
 "share-cancel" = "Cancel·la";
+"share-get-directions-in-maps" = "Aconsegueix direccions";
 "timestamp-just-now" = "ara mateix";
 "timestamp-minutes" = "fa %d minuts";
 "timestamp-hours" = "fa %d hores";
@@ -436,6 +441,7 @@
 "explore-nearby-sub-heading-your-location" = "La vostra ubicació";
 "explore-nearby-placeholder-heading" = "Llocs";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "A la Viquipèdia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "A la Viquipèdia en $1";
 "explore-nearby-placeholder-dismiss" = "Descarta";
 "explore-nearby-placeholder-cancel" = "Cancel·la";
 "explore-continue-related-heading" = "Perquè vas llegir";
@@ -487,6 +493,7 @@
 "places-search-saved-articles" = "Articles desats";
 "places-search-suggested-searches-header" = "Cerques suggerides";
 "places-search-recently-searched-header" = "Cercat recentment";
+"places-no-saved-articles-have-location" = "Cap dels vostres articles desats té informació d'ubicació";
 "places-unknown-distance" = "distància desconeguda";
 "places-accessibility-group" = "$1 articles";
 "places-accessibility-show-more" = "Mostra més articles";
