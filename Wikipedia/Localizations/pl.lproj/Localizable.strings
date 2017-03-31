@@ -105,6 +105,7 @@
 "field-email-title-optional" = "Adres e-mail (opcjonalnie)";
 "field-email-placeholder" = "example@example.org";
 "field-token-title" = "Kod weryfikacyjny";
+"field-backup-token-title" = "Kod kopii zapasowej";
 "field-token-placeholder" = "wpisz token";
 "field-captcha-title" = "Wpisz tekst, który widzisz powyżej";
 "field-captcha-placeholder" = "Tekst CAPTCHA";
@@ -420,6 +421,7 @@
 "announcements-dismiss" = "Nie, dziękuję";
 "places-search-saved-articles" = "Zapisane artykuły";
 "places-search-suggested-searches-header" = "Proponowane wyszukiwania";
+"places-no-saved-articles-have-location" = "Żaden z twoich zapisanych artykułów nie ma informacji o lokalizacji";
 "places-unknown-distance" = "odległość nieznana";
 "places-accessibility-show-more" = "Pokaż więcej artykułów";
 "places-accessibility-show-as-map" = "Pokaż jako mapę";

@@ -75,6 +75,8 @@
 "two-factor-login-title" = "Kirjaudu sisään tilillesi";
 "two-factor-login-instructions" = "Syötä kaksivaiheisen vahvistuksen koodi";
 "two-factor-login-continue" = "Jatka sisäänkirjautumista";
+"two-factor-login-with-regular-code" = "Käytä vahvistuskoodia";
+"two-factor-login-with-backup-code" = "Käytä yhtä varmuuskopiokoodeistasi";
 "login-name-not-found" = "Käyttäjänimi vaaditaan kirjautumiseen.";
 "login-name-illegal" = "Antamasi käyttäjänimi ei kelpaa.";
 "login-name-does-not-exist" = "Antamaasi käyttäjänimeä ei ole.";
@@ -103,6 +105,7 @@
 "field-email-title-optional" = "Sähköposti (vapaaehtoinen)";
 "field-email-placeholder" = "esimerkki@example.org";
 "field-token-title" = "Vahvistuskoodi";
+"field-backup-token-title" = "Varmuuskopiointikoodi";
 "field-captcha-title" = "Kirjoita yllä oleva teksti";
 "field-captcha-placeholder" = "CAPTCHA-teksti";
 "field-alert-username-unavailable" = "Käyttäjänimi ei ole saatavilla";
