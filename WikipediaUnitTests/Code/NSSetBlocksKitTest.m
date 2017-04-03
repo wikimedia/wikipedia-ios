@@ -6,7 +6,6 @@
 //
 
 @import XCTest;
-@import BlocksKit;
 
 @interface NSSetBlocksKitTest : XCTestCase
 
