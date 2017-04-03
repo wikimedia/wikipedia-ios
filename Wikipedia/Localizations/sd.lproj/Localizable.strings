@@ -100,7 +100,8 @@
 "field-token-placeholder" = "ٽوڪن داخل ڪريو";
 "field-captcha-title" = "مٿين جيڪا لکت ڏسو پيا اھا داخل ڪريو";
 "field-captcha-placeholder" = "ڪيپچا لکت";
-"field-alert-username-unavailable" = "واهپيندڙ نالو (يوزر نيم) موجود ڪونهي";
+"field-alert-username-unavailable" = "واھپنانءُ موجود ناھي";
+"field-alert-token-invalid" = "اڻقبوليل ڪوڊ";
 "forgot-password-title" = "ٻيھر ڳجھولفظ طي ڪريو";
 "forgot-password-username-prompt" = "يوزرنانءُ";
 "forgot-password-email-prompt" = "برقٽپال (اختياري)";
@@ -262,7 +263,7 @@
 "share-as-image" = "عڪس طور ونڊيو";
 "share-as-text" = "بطور متن ونڊيو";
 "share-cancel" = "رد";
-"share-open-in-maps" = "نقشن (ميپس) ۾ کوليو";
+"share-open-in-maps" = "نقشن ۾ کوليو";
 "share-get-directions-in-maps" = "هدايتون وٺو";
 "timestamp-just-now" = "بلڪل هاڻي";
 "timestamp-minutes" = "%d منٽ اڳ";
@@ -433,7 +434,7 @@
 "explore-continue-reading-heading" = "پڙهڻ جاري رکو";
 "explore-nearby-heading" = "ويجھيون جڳھون";
 "explore-nearby-sub-heading-your-location" = "توھان جي مڪانيت";
-"explore-nearby-placeholder-heading" = "جڳهيون (هنڌَ)";
+"explore-nearby-placeholder-heading" = "ماڳ";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "وڪيپيڊيا تي";
 "explore-nearby-placeholder-cancel" = "رد ڪيو";
 "explore-continue-related-heading" = "ڇو تہ توھان پڙھو ٿا";
@@ -485,10 +486,11 @@
 "places-search-saved-articles" = "سانڍيل مضمون";
 "places-search-suggested-searches-header" = "مشورو ڏنل ڳولائون";
 "places-search-recently-searched-header" = "تازو ڳولھيل";
+"places-unknown-distance" = "اَڻڄاٿل مفاضلو";
 "places-accessibility-group" = "$1 مضمونَ";
 "places-accessibility-show-more" = "وڌيڪ مضمونَ ڏيکاريو";
 "places-accessibility-show-as-map" = "نقشي وانگر ڏيکاريو";
-"places-accessibility-show-as-list" = "فهرست وانگر ڏيکارو";
+"places-accessibility-show-as-list" = "فھرست وانگر ڏيکاريو";
 "action-share" = "ونڊيو";
 "action-save" = "سانڍيو";
 "action-read" = "پڙھو";

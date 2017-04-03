@@ -57,8 +57,6 @@
 
 #import "WMFCVLAttributes.h"
 
-@import BlocksKitUIKitExtensions;
-
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";

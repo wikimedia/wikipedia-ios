@@ -62,7 +62,6 @@
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
 
 @import SafariServices;
-@import BlocksKitUIKitExtensions;
 
 NS_ASSUME_NONNULL_BEGIN
 

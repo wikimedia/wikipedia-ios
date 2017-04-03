@@ -6,7 +6,6 @@ github "swisspol/GCDWebServer" ~> 3.3
 github "vtourraine/VTAcknowledgementsViewController"
 github "NYTimes/NYTPhotoViewer"
 github "wikimedia/AFNetworking" "release/3.1.1"
-github "wikimedia/BlocksKit" "master"
 github "wikimedia/SSDataSources" "master"
 github "wikimedia/piwik-sdk-ios" "master"
 github "wikimedia/hpple" "master"

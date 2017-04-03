@@ -29,7 +29,6 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "NSBundle+WMFInfoUtils.h"
 #import "Wikipedia-Swift.h"
-@import BlocksKitUIKitExtensions;
 
 #pragma mark - Static URLs
 

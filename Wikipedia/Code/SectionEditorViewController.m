@@ -8,7 +8,6 @@
 #import "UIScrollView+WMFScrollsToTop.h"
 #import "Wikipedia-Swift.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
-@import BlocksKitUIKitExtensions;
 
 #define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:16.0f]
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f)

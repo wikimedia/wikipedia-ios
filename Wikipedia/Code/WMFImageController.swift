@@ -267,7 +267,7 @@ open class WMFImageController : NSObject {
             }
             success(WMFImageDownload(url: url, image: image, origin: ImageOrigin(sdOrigin: origin), data: data))
         }
-        addCancellableForURL(op as! Cancellable, url: url)
+        addCancellableForURL(op!, url: url)
     }
     
     // MARK: - Deletion
@@ -510,22 +510,20 @@ extension WMFImageController {
      
      - returns: A string to make OCMockito work.
      */
-    @objc public func cacheImageWithURLInBackground(_ url: URL?, failure: @escaping (_ error: NSError) -> Void, success: @escaping (_ didCache: Bool) -> Void) -> AnyObject? {
+    @objc public func cacheImageWithURLInBackground(_ url: URL?, failure: @escaping (_ error: NSError) -> Void, success: @escaping (_ didCache: Bool) -> Void) {
         guard let url = url else {
             failure(WMFImageControllerError.invalidOrEmptyURL as NSError)
-            return nil
+            return
         }
         
         let metaFailure = { (error: Error) in
             failure(error as NSError)
         }
-        cacheImage(withURL: url, failure: metaFailure, success: success);
-        
-        return nil
+        cacheImage(withURL: url, failure: metaFailure, success: success)
     }
     
     
-    @objc public func cacheImagesWithURLsInBackground(_ imageURLs: [URL], failure: @escaping (_ error: NSError) -> Void, success: @escaping () -> Void) -> AnyObject? {
+    @objc public func cacheImagesWithURLsInBackground(_ imageURLs: [URL], failure: @escaping (_ error: NSError) -> Void, success: @escaping () -> Void) {
         let cacheGroup = WMFTaskGroup()
         var errors = [NSError]()
         
@@ -552,7 +550,5 @@ extension WMFImageController {
                 success()
             }
         }
-        
-        return nil
     }
 }
