@@ -42,6 +42,9 @@ open class WMFImageController : NSObject {
     
     static let shared = WMFImageController(namespace: "default")
     
+    @objc public func sharedInstance() -> WMFImageController {
+        return WMFImageController.shared
+    }
     
     let cancellingQueue: DispatchQueue
     
