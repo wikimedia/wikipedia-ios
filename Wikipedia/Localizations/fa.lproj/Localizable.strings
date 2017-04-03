@@ -119,8 +119,7 @@
 "field-captcha-placeholder" = "متن کپچا";
 "field-alert-username-unavailable" = "نام کاربری موجود نیست";
 "field-alert-password-invalid" = "گذرواژه نامعتبر";
-// Fuzzy
-"field-alert-token-invalid" = "کد نادرست. از نو تلاش کنید.";
+"field-alert-token-invalid" = "کد نادرست";
 "field-alert-captcha-invalid" = "کپچای نامعتبر";
 "field-alert-password-confirm-mismatch" = "گذرواژه‌ها مطابقت ندارند";
 "forgot-password-title" = "بازنشانی گذرواژه";
@@ -529,6 +528,7 @@
 "places-enable-location-description" = "دسترسی به موقعیت شما فقط وقتی که برنامه یا یکی از امکانات آن در نمایشگر شما نمایان باشد ممکن است.";
 "places-enable-location-action-button-title" = "فعال‌کردن موقعیت";
 "places-accessibility-group" = "$1 مقاله";
+"places-accessibility-show-more" = "نمایش مقاله‌های بیشتر";
 "places-accessibility-show-as-map" = "نمایش به عنوان نقشه";
 "places-accessibility-show-as-list" = "نمایش به عنوان فهرست";
 "places-accessibility-recenter-map-on-user-location" = "وسط قرار دادن موقعیت شما";
