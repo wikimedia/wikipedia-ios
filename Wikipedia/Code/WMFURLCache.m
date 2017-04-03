@@ -12,20 +12,14 @@ static NSString *const WMFURLCacheZeroConfigQueryNameValue = @"action=zeroconfig
 
 - (void)permanentlyCacheImagesForArticle:(MWKArticle *)article {
     NSArray *imageURLsForSaving = [article imageURLsForSaving];
-    for (NSURL *url in imageURLsForSaving) {
-        @autoreleasepool {
-            if ([[WMFImageController sharedInstance] hasPermanentlyCachedTypedDiskDataForImageWithURL:url]) {
-                continue;
-            }
-            NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
-            NSCachedURLResponse *response = [super cachedResponseForRequest:request];
-            if (response.data.length > 0) {
-                [[WMFImageController sharedInstance] cacheImageData:response.data url:url MIMEType:response.response.MIMEType];
-            }
-        }
-    };
-}
+    [[WMFImageController shared] permanentlyCacheImagesInBackground:imageURLsForSaving
+                                                            failure:^(NSError *_Nonnull error) {
 
+                                                            }
+                                                            success:^{
+
+                                                            }];
+}
 
 - (BOOL)isMIMETypeImage:(NSString *)type {
     return [type hasPrefix:@"image"];
