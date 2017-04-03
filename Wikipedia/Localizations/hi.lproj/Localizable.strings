@@ -75,8 +75,7 @@
 "two-factor-login-title" = "अपने अकाउंट में लॉगिन करें";
 "two-factor-login-instructions" = "कृपया टू फैक्टर वेरिफिकेशन कोड डालें";
 "two-factor-login-continue" = "लॉग इन जारी रखें";
-// Fuzzy
-"two-factor-login-with-regular-code" = "छोटे अंकीय कोड का उपयोग करें";
+"two-factor-login-with-regular-code" = "सत्यापन कोड का उपयोग करें";
 "login-name-not-found" = "लॉगिन के लिए सदस्यनाम आवश्यक है।";
 "login-name-illegal" = "आपने एक अवैध सदस्यनाम दिया है।";
 "login-name-does-not-exist" = "जो सदस्यमाम अपने दिया है वो अस्तित्व में नहीं है।";
@@ -101,8 +100,7 @@
 "field-new-password-placeholder" = "नया पासवर्ड डालें";
 "field-new-password-confirm-title" = "नए पासवर्ड की पुष्टि करें";
 "field-new-password-confirm-placeholder" = "पुनः नया पासवर्ड डालें";
-// Fuzzy
-"field-email-title" = "ईमेल एड्रेस (वैकल्पिक)";
+"field-email-title" = "ईमेल";
 "field-email-placeholder" = "example@example.org";
 "field-token-title" = "टोकन";
 "field-token-placeholder" = "टोकन डालें";
@@ -139,7 +137,7 @@
 "search-title" = "खोजें";
 "search-searching" = "खोजा जा रहा है...";
 "search-no-matches" = "खोजे गए शब्दों के कोई मेल नहीं मिले।";
-"search-field-placeholder-text" = "विकिपीडिया खोजें";
+"search-field-placeholder-text" = "विकिपीडिया में खोजें";
 "search-field-placeholder-text-zero" = "विकिपीडिया शून्य खोजिये";
 "search-loading-section-zero" = "लेख के पहले भाग को लोड किया जा रहा है...";
 "search-loading-section-remaining" = "बाकी अनुच्छेद  लोड हो रहा है।";
@@ -446,7 +444,7 @@
 "empty-no-history-title" = "दिखाने को कोई इतिहास नहीं";
 "empty-no-history-message" = "इस बात का ट्रैक रखें कि आपके द्वारा यहाँ क्या पढ़ा जा रहा है";
 "alert-no-internet" = "कोई इंटरनेट कनेक्शन नहीं";
-"icon-shortcut-search-title" = "विकिपीडिया खोजें";
+"icon-shortcut-search-title" = "विकिपीडिया में खोजें";
 "icon-shortcut-continue-reading-title" = "पढ़ना जारी रखें";
 "icon-shortcut-random-title" = "कोईभी लेख";
 "icon-shortcut-nearby-title" = "पास के लेख";

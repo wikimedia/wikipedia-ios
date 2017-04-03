@@ -53,6 +53,8 @@
 "account-creation-title" = "Vytvoriť nový účet";
 "account-creation-captcha-required" = "Je požadované overenie pomocou CAPTCHA.";
 "account-creation-captcha-obtaining" = "Generuje sa nová CAPTCHA...";
+"account-creation-captcha-cannot-see-image" = "Nevidíte obrázok? $1";
+"account-creation-captcha-request-account" = "Požiadať o účet";
 "account-creation-logging-in" = "Prihlasujem...";
 "account-creation-passwords-mismatched" = "Heslá sa nezhodujú";
 "account-creation-saving" = "Ukladanie...";
@@ -61,7 +63,12 @@
 "account-creation-create-account" = "Vytvorte si svoj účet";
 "account-creation-have-account" = "Máte už vytvorený účet? $1";
 "account-creation-log-in" = "Prihlásiť sa";
+"new-password-title" = "Nastavte si heslo";
+"new-password-instructions" = "Ste prihlásení s dočasným heslom. Ak chcete dokončiť prihlásenie, nastavte si tu nové heslo.";
+"two-factor-login-title" = "Prihláste sa do svojho účtu";
 "two-factor-login-continue" = "Pokračovať prihlásiť";
+"two-factor-login-with-regular-code" = "Použite overovací kód";
+"two-factor-login-with-backup-code" = "Použite jeden z vašich záložných kódov";
 "login-name-not-found" = "K prihláseniu je potrebné používateľské meno.";
 "login-name-illegal" = "Zadali ste neplatné používateľské meno.";
 "login-name-does-not-exist" = "Zadané používateľské meno neexistuje.";
@@ -85,14 +92,23 @@
 "field-new-password-placeholder" = "zadajte nové heslo";
 "field-new-password-confirm-title" = "Potvrdiť nové heslo";
 "field-new-password-confirm-placeholder" = "Znovuzadajte nové heslo";
-// Fuzzy
-"field-email-title" = "Emailová adresa (nepovinné)";
+"field-email-title" = "Emailová adresa";
+"field-email-title-optional" = "E-mailová adresa (voliteľné)";
 "field-email-placeholder" = "example@example.org";
-// Fuzzy
-"field-token-title" = "Token";
+"field-token-title" = "Overovací kód";
+"field-backup-token-title" = "Záložný kód";
 "field-token-placeholder" = "zadajte token";
 "field-captcha-title" = "Zadajte horeuvedený text";
 "field-captcha-placeholder" = "CAPTCHA text";
+"field-alert-username-unavailable" = "Používateľské meno nie je k dispozícii";
+"field-alert-password-invalid" = "Neplatné heslo";
+"field-alert-token-invalid" = "Neplatný kód";
+"field-alert-captcha-invalid" = "Neplatná CAPTCHA";
+"field-alert-password-confirm-mismatch" = "Heslá sa nezhodujú";
+"forgot-password-title" = "Obnoviť heslo";
+"forgot-password-username-prompt" = "Používateľské meno";
+"forgot-password-email-prompt" = "E-mailová adresa (voliteľné)";
+"forgot-password-button-title" = "Obnoviť";
 "wikitext-downloading" = "Načítavam obsah...";
 "wikitext-download-failed" = "Nepodarilo sa získať najnovšiu revíziu.";
 "wikitext-download-success" = "Obsah je načítaný.";
@@ -179,6 +195,7 @@
 "saved-pages-clear-cancel" = "Zrušiť";
 "saved-pages-clear-delete-all" = "Áno, vymazať všetko";
 "saved-pages-refresh-cancel-alert-title" = "Aktualizácia zrušená";
+"saved-pages-refresh-cancel-alert-message" = "Články na Wikipédii sú neustále aktualizované. Ak chcete zobraziť najnovšiu verziu článku, ťuknite na Obnoviť.";
 "saved-pages-refresh-cancel-alert-button" = "Rozumiem";
 "saved-pages-description" = "Uložené stránky sú úžasné. Vyskúšajte si ich aj ako obľúbené stránky, ktoré je možné používať v offline režime.";
 "saved-pages-none" = "Žiadne uložené stránky.";
@@ -211,7 +228,9 @@
 "fetching-random-article" = "Nahrávam náhodný článok";
 "article-pull-to-refresh-prompt" = "Potiahnutím obnovíte článok";
 "article-pull-to-refresh-is-refreshing" = "Obnovujem článok";
-"credits-wikimedia-repos" = "Wikimédia";
+"credits-title" = "Open source repozitáre";
+"credits-wikimedia-repos" = "Wikimedia repozitáre";
+"credits-external-libraries" = "Externé repozitáre";
 "about-title" = "O aplikácii";
 "about-wikipedia" = "Wikipédia";
 "about-contributors" = "Prispievatelia";
@@ -242,6 +261,8 @@
 "share-as-image" = "Zdieľať ako obrázok";
 "share-as-text" = "Zdieľať ako text";
 "share-cancel" = "Zrušiť";
+"share-open-in-maps" = "Otvoriť v aplikácii Mapy";
+"share-get-directions-in-maps" = "Nájsť trasu";
 "timestamp-just-now" = "práve teraz";
 "timestamp-minutes" = "%d minút dozadu";
 "timestamp-hours" = "%d hodín dozadu";
@@ -384,6 +405,7 @@
 "explore-continue-reading-heading" = "Pokračovať v čítaní";
 "explore-nearby-heading" = "Miesta v okolí";
 "explore-nearby-sub-heading-your-location" = "Vaša poloha";
+"explore-nearby-placeholder-cancel" = "Zrušiť";
 "explore-continue-related-heading" = "Pretože ste čítali";
 "explore-main-page-heading" = "Dnes na Wikipédii";
 "explore-random-article-heading" = "Náhodný článok";
@@ -420,8 +442,21 @@
 "feed-news-notification-button-text" = "Zapnúť upozornenia";
 "back" = "Späť";
 "save-action" = "Uložiť";
+"unsave-action" = "Zrušiť uloženie";
 "status-saving-for-later" = "Ukladanie na neskôr...";
 "status-saved-for-later" = "Uložené na neskôr";
 "announcements-dismiss" = "Nie, vďaka";
+"places-search-top-articles" = "Top články";
+"places-search-saved-articles" = "Uložené články";
+"places-search-suggested-searches-header" = "Návrhy vyhľadávania";
+"places-search-recently-searched-header" = "Nedávno hľadané výrazy";
+"places-unknown-distance" = "neznáma vzdialenosť";
+"places-accessibility-show-more" = "Zobraziť viac článkov";
+"places-accessibility-show-as-map" = "Zobraziť ako mapu";
+"places-accessibility-show-as-list" = "Zobraziť ako zoznam";
 "places-accessibility-close-search" = "Zatvoriť vyhľadávanie";
 "places-accessibility-clear-recent-searches" = "Vymazať nedávne vyhľadávania";
+"action-share" = "Zdieľať";
+"action-save" = "Uložiť";
+"action-read" = "Čítať";
+"action-saved" = "Uložené";
