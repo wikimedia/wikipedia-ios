@@ -1,6 +1,6 @@
 #import "WMFFirstRandomViewController.h"
 #import "WMFRandomArticleFetcher.h"
-#import "Wikipedia-swift.h"
+#import "Wikipedia-Swift.h"
 #import "MWKDataStore.h"
 #import "WMFArticleDataStore.h"
 #import "SessionSingleton.h"

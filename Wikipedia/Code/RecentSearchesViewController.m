@@ -6,8 +6,6 @@
 #import "MWKRecentSearchEntry.h"
 #import <Masonry/Masonry.h>
 
-@import BlocksKitUIKitExtensions;
-
 static NSString *const pListFileName = @"Recent.plist";
 
 @interface RecentSearchesViewController ()
