@@ -51,7 +51,7 @@ open class WelcomeCircleShapeLayer : WelcomeShapeLayer {
             arcCenter: CGPoint.zero,
             radius: unitRadius.wmf_denormalizeUsingReference(referenceSize.width),
             startAngle: 0.0,
-            endAngle: CGFloat(M_PI * 2.0),
+            endAngle: CGFloat(Double.pi * 2.0),
             clockwise: true
             ).cgPath
         if (isDashed){

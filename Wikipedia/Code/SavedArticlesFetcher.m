@@ -421,8 +421,9 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         success();
         return;
     }
-
+    
     [self.imageController cacheImagesWithURLsInBackground:imageURLs failure:failure success:success];
+
 }
 
 #pragma mark - Cancellation
