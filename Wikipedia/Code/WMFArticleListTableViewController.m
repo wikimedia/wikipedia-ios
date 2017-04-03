@@ -3,7 +3,6 @@
 #import "UIViewController+WMFSearch.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "PiwikTracker+WMFExtensions.h"
-@import BlocksKitUIKitExtensions;
 
 @interface WMFArticleListTableViewController () <UIViewControllerPreviewingDelegate, WMFArticlePreviewingActionsDelegate, WMFAnalyticsContextProviding>
 
