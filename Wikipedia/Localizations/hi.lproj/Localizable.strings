@@ -137,7 +137,7 @@
 "search-title" = "खोजें";
 "search-searching" = "खोजा जा रहा है...";
 "search-no-matches" = "खोजे गए शब्दों के कोई मेल नहीं मिले।";
-"search-field-placeholder-text" = "विकिपीडिया खोजें";
+"search-field-placeholder-text" = "विकिपीडिया में खोजें";
 "search-field-placeholder-text-zero" = "विकिपीडिया शून्य खोजिये";
 "search-loading-section-zero" = "लेख के पहले भाग को लोड किया जा रहा है...";
 "search-loading-section-remaining" = "बाकी अनुच्छेद  लोड हो रहा है।";
@@ -444,7 +444,7 @@
 "empty-no-history-title" = "दिखाने को कोई इतिहास नहीं";
 "empty-no-history-message" = "इस बात का ट्रैक रखें कि आपके द्वारा यहाँ क्या पढ़ा जा रहा है";
 "alert-no-internet" = "कोई इंटरनेट कनेक्शन नहीं";
-"icon-shortcut-search-title" = "विकिपीडिया खोजें";
+"icon-shortcut-search-title" = "विकिपीडिया में खोजें";
 "icon-shortcut-continue-reading-title" = "पढ़ना जारी रखें";
 "icon-shortcut-random-title" = "कोईभी लेख";
 "icon-shortcut-nearby-title" = "पास के लेख";

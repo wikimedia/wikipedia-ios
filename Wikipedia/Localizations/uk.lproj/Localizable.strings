@@ -60,7 +60,6 @@
 "account-creation-captcha-obtaining" = "Отримання нового зображення…";
 "account-creation-captcha-title" = "Перевірка безпеки за допомогою CAPTCHA";
 "account-creation-captcha-cannot-see-image" = "Не бачите зображення? $1";
-// Fuzzy
 "account-creation-captcha-request-account" = "Подати запит на обліковий запис.";
 "account-creation-logging-in" = "Входимо до системи…";
 "account-creation-passwords-mismatched" = "Паролі не збігаються.";
@@ -75,10 +74,8 @@
 "two-factor-login-title" = "Вхід у Ваш обліковий запис";
 "two-factor-login-instructions" = "Будь ласка, введіть код двофакторної верифікації";
 "two-factor-login-continue" = "Продовжити вхід";
-// Fuzzy
-"two-factor-login-with-regular-code" = "Використати короткий числовий код";
-// Fuzzy
-"two-factor-login-with-backup-code" = "Використати довший резервний код";
+"two-factor-login-with-regular-code" = "Використати код верифікації";
+"two-factor-login-with-backup-code" = "Використати один з Ваших резервних кодів";
 "login-name-not-found" = "Ім'я користувача необхідне для входу в систему.";
 "login-name-illegal" = "Ви вказали незаконне ім'я користувача.";
 "login-name-does-not-exist" = "Ім'я користувача, яке Ви надали, не існує.";
@@ -103,19 +100,17 @@
 "field-new-password-placeholder" = "введіть новий пароль";
 "field-new-password-confirm-title" = "Підтвердження нового пароля";
 "field-new-password-confirm-placeholder" = "введіть новий пароль повторно";
-// Fuzzy
-"field-email-title" = "Адреса електронної пошти (необов'язково)";
+"field-email-title" = "Електронна пошта";
+"field-email-title-optional" = "Електронна пошта (необов'язково)";
 "field-email-placeholder" = "example@example.org";
-// Fuzzy
-"field-token-title" = "Числовий код";
+"field-token-title" = "Код верифікації";
 "field-backup-token-title" = "Резервний код";
 "field-token-placeholder" = "введіть токен";
 "field-captcha-title" = "Введіть текст, який Ви бачите вище";
 "field-captcha-placeholder" = "CAPTCHA-текст";
 "field-alert-username-unavailable" = "Ім'я користувача недоступне";
 "field-alert-password-invalid" = "Недійсний пароль";
-// Fuzzy
-"field-alert-token-invalid" = "Недійсний код. Будь ласка, спробуйте ще раз.";
+"field-alert-token-invalid" = "Недійсний код";
 "field-alert-captcha-invalid" = "Недійсна CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Паролі не збігаються";
 "forgot-password-title" = "Скинути пароль";
@@ -124,6 +119,7 @@
 "forgot-password-email-prompt" = "Адреса електронної пошти (необов'язково)";
 "forgot-password-button-title" = "Скинути";
 "forgot-password-email-sent" = "Електронний лист з інструкціями щодо скидання пароля надіслано";
+"forgot-password-username-or-email-title" = "Або";
 "wikitext-downloading" = "Завантаження змісту...";
 "wikitext-download-failed" = "Не вдається отримати останню версію програми.";
 "wikitext-download-success" = "Зміст завантажено.";
@@ -523,6 +519,7 @@
 "places-enable-location-description" = "Доступ до Вашого розташування доступний лише тоді, коли додаток або одна з його функцій видимі на Вашому екрані.";
 "places-enable-location-action-button-title" = "Увімкнути розташування";
 "places-accessibility-group" = "$1 статей";
+"places-accessibility-show-more" = "Показати більше статей";
 "places-accessibility-show-as-map" = "Показати як карту";
 "places-accessibility-show-as-list" = "Показати як список";
 "places-accessibility-recenter-map-on-user-location" = "Відцентрувати на Вашому місці розташування";
