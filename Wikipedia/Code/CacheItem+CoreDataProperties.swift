@@ -8,8 +8,9 @@ extension CacheItem {
         return NSFetchRequest<CacheItem>(entityName: "CacheItem");
     }
 
-    @NSManaged public var key: String?
-    @NSManaged public var variant: Int32
     @NSManaged public var date: NSDate?
+    @NSManaged public var key: String?
+    @NSManaged public var permanent: Bool
+    @NSManaged public var variant: Int64
 
 }

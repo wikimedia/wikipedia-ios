@@ -4,7 +4,7 @@
         <attribute name="date" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
         <attribute name="key" attributeType="String" syncable="YES"/>
         <attribute name="permanent" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="variant" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" customClassName="NSArray" syncable="YES"/>
+        <attribute name="variant" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" customClassName="NSArray" syncable="YES"/>
         <compoundIndexes>
             <compoundIndex>
                 <index value="key"/>
