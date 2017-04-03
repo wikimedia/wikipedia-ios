@@ -45,11 +45,11 @@ platform :ios do
      sim: 'iPhone 6s (9.3)'
     )
     verify(
-     sim: 'iPhone 6s (10.2)',
+     sim: 'iPhone 6s (10.3)',
      scheme: "WikipediaRTL"
     )
     verify(
-     sim: 'iPhone 6s (10.2)',
+     sim: 'iPhone 6s (10.3)',
     )
   end
 
@@ -59,14 +59,14 @@ platform :ios do
      sim: 'iPad Air 2 (9.3)',
     )
     verify(
-     sim: 'iPhone 6s (10.2)',
+     sim: 'iPhone 6s (10.3)',
     )
   end
 
   desc "Runs unit tests, generates JUnit report."
   lane :verify do |options|
     scheme = options[:scheme] || 'Wikipedia'
-    sim = options[:sim] || 'iPhone 6s (10.2)'
+    sim = options[:sim] || 'iPhone 6s (10.3)'
     opts = {
       :device => sim,
       :sdk => "iphonesimulator",

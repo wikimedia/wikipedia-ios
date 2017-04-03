@@ -1,5 +1,4 @@
 @import UIKit;
-@import BlocksKit;
 
 //! Project version number for WMF.
 FOUNDATION_EXPORT double WMFVersionNumber;
