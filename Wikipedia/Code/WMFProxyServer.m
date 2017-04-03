@@ -3,7 +3,7 @@
 #import "NSURL+WMFExtras.h"
 #import "NSString+WMFExtras.h"
 #import "NSURL+WMFProxyServer.h"
-#import "Wikipedia-swift.h"
+#import "Wikipedia-Swift.h"
 #import "WMFImageTag.h"
 #import "WMFImageTag+TargetImageWidthURL.h"
 #import "NSString+WMFHTMLParsing.h"

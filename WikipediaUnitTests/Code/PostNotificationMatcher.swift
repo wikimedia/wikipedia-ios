@@ -22,7 +22,7 @@ public func postNotification<T>(
         failureMessage.postfixMessage += " from \(centerDesc)"
         failureMessage.postfixMessage += " with name \(name)"
         if object != nil {
-            failureMessage.postfixMessage += " and object \(object)"
+            failureMessage.postfixMessage += " and object \(String(describing: object))"
         }
 
         failureMessage.actualValue = "\(postedNotification?.description ?? "no notification")"
