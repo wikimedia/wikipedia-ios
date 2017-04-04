@@ -204,8 +204,8 @@ open class ImageController : NSObject {
                 success()
                 return
             }
-            
-            let task = self.session.downloadTask(with: url, completionHandler: { (fileURL, response, error) in
+            let schemedURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless() as URL
+            let task = self.session.downloadTask(with: schemedURL, completionHandler: { (fileURL, response, error) in
                 guard let fileURL = fileURL, let response = response else {
                     let err = error ?? ImageControllerError.invalidResponse
                     failure(err)
