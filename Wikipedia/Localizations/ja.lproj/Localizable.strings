@@ -19,6 +19,7 @@
 // Author: Thibaut120094
 // Author: WwLMvmT
 // Author: おはぐろ蜻蛉
+// Author: ネイ
 // Author: 아라
 
 "languages-title" = "言語を変更";
@@ -69,6 +70,7 @@
 "account-creation-saving" = "保存中...";
 "account-creation-login" = "アカウントを既にお持ちの場合は、ログインしてください。";
 "account-creation-missing-fields" = "アカウントの作成には利用者名とパスワード、さらに確認のためもう一度パスワードを入力する必要があります。";
+"account-creation-log-in" = "ログイン";
 "login-name-not-found" = "ログインするには利用者名が必要です。";
 "login-name-illegal" = "入力した利用者名は無効です。";
 "login-name-does-not-exist" = "指定した利用者名は存在しません。";
@@ -79,6 +81,17 @@
 "login-account-creation" = "アカウントをお持ちではない場合は、こちらからウィキペディアに参加してください。";
 "login-username-placeholder-text" = "利用者名";
 "login-password-placeholder-text" = "パスワード";
+"field-password-title" = "パスワード";
+"field-password-placeholder" = "パスワードを入力";
+"field-password-confirm-title" = "パスワード再入力";
+"field-password-confirm-placeholder" = "パスワードを再入力";
+"field-new-password-title" = "新しいパスワード";
+"field-new-password-placeholder" = "新しいパスワードを入力";
+"field-new-password-confirm-title" = "新しいパスワードを再入力";
+"field-new-password-confirm-placeholder" = "新しいパスワードを再入力";
+"field-email-title" = "メールアドレス";
+"field-email-title-optional" = "メールアドレス (省略可能)";
+"field-email-placeholder" = "メールアドレスを入力";
 "wikitext-downloading" = "本文を読み込み中...";
 "wikitext-download-failed" = "最新の版を取得できません。";
 "wikitext-download-success" = "ウィキテキストを読み込みました。";
@@ -324,8 +337,7 @@
 "migration-prompt-message" = "私たちは、あなたのセーブされた最新のページを上に移動する必要があります。これには数分かかる場合があります…";
 "migration-confirm-button-title" = "私のものを移動する";
 "migration-skip-button-title" = "削除する";
-// Fuzzy
-"image-gallery-unknown-owner" = "アップロード者不明。";
+"image-gallery-unknown-owner" = "作者不明。";
 "image-gallery-fetch-image-info-error-title" = "画像をダウンロードできませんでした";
 "image-gallery-fetch-image-info-error-message" = "この記事の画像をダウンロードできませんでした。記事を更新して、もう一度お試しください。";
 "image-gallery-fetch-image-info-error-ok" = "OK";
@@ -448,3 +460,4 @@
 "status-saving-for-later" = "保存しています...";
 "status-saved-for-later" = "保存しました";
 "announcements-dismiss" = "不要です";
+"action-save" = "保存";

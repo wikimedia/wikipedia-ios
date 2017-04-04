@@ -14,6 +14,7 @@
 // Author: Macofe
 // Author: Mailman
 // Author: Mariya
+// Author: MaxBioHazard
 // Author: Nemo bis
 // Author: Nitch
 // Author: Oashnic
@@ -330,7 +331,7 @@
 "page-protected-other" = "Эта страница были защищена на следующих уровнях: $1";
 "page-protected-can-not-edit" = "У вас нет прав на редактирование этой страницы";
 "page-protected-can-not-edit-title" = "Эта страница защищена";
-"license-footer-text" = "Содержание доступно по лицензии $1";
+"license-footer-text" = "Содержимое доступно по лицензии $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Содержание";
 "table-of-contents-button-label" = "Содержание";
