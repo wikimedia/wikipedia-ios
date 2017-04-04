@@ -18,6 +18,7 @@ import CocoaLumberjackSwift
     case dataNotFound
     case invalidOrEmptyURL
     case invalidImageCache
+    case invalidResponse
     case `deinit`
 }
 
@@ -110,6 +111,10 @@ open class ImageController : NSObject {
         return Int64(sizePrefix == NSNotFound ? 0 : sizePrefix)
     }
     
+    fileprivate func permanentCacheFileURL(key: String, variant: Int64) -> URL {
+        return self.permanentStorageDirectory.appendPathComponent("\(key)::\(variant)", isDirectory: false)
+    }
+    
     fileprivate func fetchCacheItem(key: String, variant: Int64, moc: NSManagedObjectContext) -> CacheItem? {
         let itemRequest: NSFetchRequest<CacheItem> = CacheItem.fetchRequest()
         itemRequest.predicate = NSPredicate(format: "key == %@ && variant == %@", key, variant)
@@ -142,6 +147,7 @@ open class ImageController : NSObject {
         }
         item.key = key
         item.variant = variant
+        item.date = NSDate()
         return item
     }
     
@@ -152,6 +158,15 @@ open class ImageController : NSObject {
         group.key = key
         return group
     }
+    
+    fileprivate func fetchOrCreateCacheItem(key: String, variant: Int64, moc: NSManagedObjectContext) -> CacheItem? {
+        return fetchCacheItem(key: key, variant: variant, moc:moc) ?? createCacheItem(key: key, variant: variant, moc: moc)
+    }
+    
+    fileprivate func fetchOrCreateCacheGroup(key: String, moc: NSManagedObjectContext) -> CacheGroup? {
+        return fetchCacheGroup(key: key, moc: moc) ?? createCacheGroup(key: key, moc: moc)
+    }
+    
     
     fileprivate func save(moc: NSManagedObjectContext) {
         guard moc.hasChanges else {
@@ -172,17 +187,31 @@ open class ImageController : NSObject {
             }
             let variant = self.variantForURL(url)
             if let item = self.fetchCacheItem(key: key, variant: variant, moc: moc) {
-                if let group = self.fetchCacheGroup(key: key, moc: moc) ?? self.createCacheGroup(key: key, moc: moc) {
-                    if !group.cacheItems?.contains(item) {
-                        group.addToCacheItems(item)
-                    }
+                if let group = self.fetchOrCreateCacheGroup(key: groupKey, moc: moc) {
+                    group.addToCacheItems(item)
                 }
                 self.save(moc: moc)
+                success(true)
                 return
             }
             
             let task = self.session.downloadTask(with: url, completionHandler: { (fileURL, response, error) in
-                
+                guard let fileURL = fileURL, let response = response else {
+                    let err = error ?? ImageControllerError.invalidResponse
+                    failure(err)
+                    return
+                }
+                moc.perform {
+                    let permanentCacheFileURL = self.permanentCacheFileURL(key: key, variant: variant)
+                    self.fileManager.moveItem(at: fileURL, to: permanentCacheFileURL)
+                    guard let item = self.fetchOrCreateCacheItem(key: key, variant: variant, moc: moc), let group = self.fetchOrCreateCacheGroup(key: groupKey, moc: moc) else {
+                        failure(ImageControllerError.invalidImageCache)
+                        return
+                    }
+                    group.addToCacheItems(item)
+                    self.save(moc: moc)
+                    success(true)
+                }
             })
             task.priority = 0
             task.resume()

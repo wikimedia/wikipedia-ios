@@ -10,7 +10,6 @@ extension CacheItem {
 
     @NSManaged public var date: NSDate?
     @NSManaged public var key: String?
-    @NSManaged public var permanent: Bool
     @NSManaged public var variant: Int64
     @NSManaged public var cacheGroups: NSSet?
 
