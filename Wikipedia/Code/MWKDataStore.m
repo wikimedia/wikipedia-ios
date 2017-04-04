@@ -1155,11 +1155,11 @@ static uint64_t bundleHash() {
 
 - (void)deleteArticle:(MWKArticle *)article {
     NSString *path = [self pathForArticle:article];
-
-    [[WMFImageController sharedInstance] deleteImagesWithURLs:[self legacyImageURLsForArticle:article]];
-
-    // delete article images *before* metadata (otherwise we won't be able to retrieve image lists)
-    [[WMFImageController sharedInstance] deleteImagesWithURLs:[[article allImageURLs] allObjects]];
+    
+    NSString *groupKey = article.url.wmf_articleDatabaseKey;
+    if (groupKey) {
+        [[WMFImageController sharedInstance] removePermanentlyCachedImagesWithGroupKey:groupKey];
+    }
 
     // delete article metadata last
     [[NSFileManager defaultManager] removeItemAtPath:path error:nil];

@@ -13,14 +13,10 @@
         return;
     }
     _leadImage = leadImage;
-    [_leadImage isDownloaded:^(BOOL isDownloaded) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.focalBounds = isDownloaded ? [self getPrimaryFocalRectFromCanonicalLeadImage] : CGRectZero;
-            [self setNeedsDisplay];
-        });
-    }];
+    self.focalBounds = [self getPrimaryFocalRectFromCanonicalLeadImage];
+    [self setNeedsDisplay];
 }
-    
+
 - (CGRect)getPrimaryFocalRectFromCanonicalLeadImage {
     NSAssert([self.leadImage isVariantOfImage:self.leadImage.article.image], @"Primary focal rect sought on non-lead image.");
 

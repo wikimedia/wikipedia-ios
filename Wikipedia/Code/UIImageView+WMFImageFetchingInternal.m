@@ -60,7 +60,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 #pragma mark - Cached Image
 
 - (UIImage *)wmf_cachedImage {
-    UIImage *cachedImage = [self.wmf_imageController cachedImageInMemoryWithURL:[self wmf_imageURLToFetch]];
+    UIImage *cachedImage = [self.wmf_imageController sessionCachedImageWithURL:[self wmf_imageURLToFetch]];
     return cachedImage;
 }
 
@@ -108,9 +108,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 
     @weakify(self);
     self.wmf_imageURLToCancel = imageURL;
-    [self.wmf_imageController fetchImageWithURL:imageURL
-                                        failure:failure
-                                        success:^(WMFImageDownload *_Nonnull download) {
+    [self.wmf_imageController fetchImageWithURL:imageURL priority:0.5 failure:failure success:^(WMFImageDownload * _Nonnull download) {
                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                 @strongify(self);
                                                 if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
@@ -207,7 +205,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 }
 
 - (void)wmf_cancelImageDownload {
-    [self.wmf_imageController cancelFetchForURL:[self wmf_imageURLToCancel]];
+    [self.wmf_imageController cancelFetchWithURL:[self wmf_imageURLToCancel]];
     self.wmf_imageURL = nil;
     self.wmf_imageMetadata = nil;
     self.wmf_imageURLToCancel = nil;

@@ -12,13 +12,15 @@ static NSString *const WMFURLCacheZeroConfigQueryNameValue = @"action=zeroconfig
 
 - (void)permanentlyCacheImagesForArticle:(MWKArticle *)article {
     NSArray *imageURLsForSaving = [article imageURLsForSaving];
-    [[WMFImageController sharedInstance] permanentlyCacheImagesInBackground:imageURLsForSaving
-                                                            failure:^(NSError *_Nonnull error) {
-
-                                                            }
-                                                            success:^{
-
-                                                            }];
+    NSString *groupKey = article.url.wmf_articleDatabaseKey;
+    if (!groupKey || imageURLsForSaving.count == 0) {
+        return;
+    }
+    [[WMFImageController sharedInstance] permanentlyCacheInBackgroundWithUrls:imageURLsForSaving groupKey:groupKey failure:^(NSError * _Nonnull error) {
+        DDLogError(@"Error caching in background %@", error);
+    } success:^{
+        
+    }];
 }
 
 - (BOOL)isMIMETypeImage:(NSString *)type {

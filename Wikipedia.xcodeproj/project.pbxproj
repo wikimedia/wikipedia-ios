@@ -739,7 +739,7 @@
 		D844D9F41D6CC0220042D692 /* MWKImageInfo+MWKImageComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807791C0CEEC00065EBC0 /* MWKImageInfo+MWKImageComparison.m */; };
 		D844D9F51D6CC0220042D692 /* MWKImage+CanonicalFilenames.m in Sources */ = {isa = PBXBuildFile; fileRef = BC070C2E1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.m */; };
 		D844D9F61D6CC0440042D692 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E806781C0CE9C70065EBC0 /* Cancellable.swift */; };
-		D844D9F71D6CC05F0042D692 /* WMFImageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805C61C0CE5250065EBC0 /* WMFImageDownload.swift */; };
+		D844D9F71D6CC05F0042D692 /* ImageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805C61C0CE5250065EBC0 /* ImageDownload.swift */; };
 		D844DA011D6CC3C20042D692 /* MWKLanguageLink.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8079A1C0CEFBD0065EBC0 /* MWKLanguageLink.m */; };
 		D844DA021D6CC3C40042D692 /* MWKLanguageLink.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807991C0CEFBD0065EBC0 /* MWKLanguageLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844DA031D6CC4C90042D692 /* MWKLanguageLinkController_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E806B31C0CEB160065EBC0 /* MWKLanguageLinkController_Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2679,7 +2679,7 @@
 		B0E8059B1C0CE2F50065EBC0 /* WMFShareFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFShareFunnel.h; path = Wikipedia/Code/WMFShareFunnel.h; sourceTree = SOURCE_ROOT; };
 		B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFShareFunnel.m; path = Wikipedia/Code/WMFShareFunnel.m; sourceTree = SOURCE_ROOT; };
 		B0E805C41C0CE5250065EBC0 /* ImageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageController.swift; path = Wikipedia/Code/ImageController.swift; sourceTree = SOURCE_ROOT; };
-		B0E805C61C0CE5250065EBC0 /* WMFImageDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFImageDownload.swift; path = Wikipedia/Code/WMFImageDownload.swift; sourceTree = SOURCE_ROOT; };
+		B0E805C61C0CE5250065EBC0 /* ImageDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageDownload.swift; path = Wikipedia/Code/ImageDownload.swift; sourceTree = SOURCE_ROOT; };
 		B0E805CF1C0CE5420065EBC0 /* WMFFaceDetectionCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFFaceDetectionCache.h; path = Wikipedia/Code/WMFFaceDetectionCache.h; sourceTree = SOURCE_ROOT; };
 		B0E805D01C0CE5420065EBC0 /* WMFFaceDetectionCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFFaceDetectionCache.m; path = Wikipedia/Code/WMFFaceDetectionCache.m; sourceTree = SOURCE_ROOT; };
 		B0E805D21C0CE5550065EBC0 /* UIImageView+WMFPlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+WMFPlaceholder.h"; path = "Wikipedia/Code/UIImageView+WMFPlaceholder.h"; sourceTree = SOURCE_ROOT; };
@@ -4207,7 +4207,7 @@
 			isa = PBXGroup;
 			children = (
 				B0E805C41C0CE5250065EBC0 /* ImageController.swift */,
-				B0E805C61C0CE5250065EBC0 /* WMFImageDownload.swift */,
+				B0E805C61C0CE5250065EBC0 /* ImageDownload.swift */,
 				B0E806781C0CE9C70065EBC0 /* Cancellable.swift */,
 			);
 			name = "Image Caching";
@@ -8660,7 +8660,7 @@
 				D844D9DC1D6CBBFA0042D692 /* NSString+WMFHTMLParsing.m in Sources */,
 				D8FA18D71E1BD899009675C3 /* NSURL+WMFExtras.m in Sources */,
 				D844DA011D6CC3C20042D692 /* MWKLanguageLink.m in Sources */,
-				D844D9F71D6CC05F0042D692 /* WMFImageDownload.swift in Sources */,
+				D844D9F71D6CC05F0042D692 /* ImageDownload.swift in Sources */,
 				0E728D531DAEEFB00074EB4B /* MWKSiteInfo.m in Sources */,
 				0E728D361DAEE8FF0074EB4B /* WMFRandomContentSource.m in Sources */,
 				D8FA18CF1E1BD891009675C3 /* WMFLocalization.m in Sources */,

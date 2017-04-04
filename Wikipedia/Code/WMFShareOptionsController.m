@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFShareOptionsController
 
 - (void)cleanup {
-    [[WMFImageController sharedInstance] cancelFetchForURL:[NSURL wmf_optionalURLWithString:self.article.imageURL]];
+    [[WMFImageController sharedInstance] cancelFetchWithURL:[NSURL wmf_optionalURLWithString:self.article.imageURL]];
     self.containerViewController = nil;
     self.originButtonItem = nil;
     self.shareImage = nil;

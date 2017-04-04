@@ -961,10 +961,10 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
             continue;
         }
         self.prefetchURLsByIndexPath[indexPath] = imageURL;
-        [[WMFImageController sharedInstance] prefetchImageWithURL:article.thumbnailURL
-                                                       completion:^{
-                                                           [self.prefetchURLsByIndexPath removeObjectForKey:indexPath];
-                                                       }];
+        [[WMFImageController sharedInstance] prefetchWithURL:imageURL
+                                                  completion:^{
+                                                      [self.prefetchURLsByIndexPath removeObjectForKey:indexPath];
+                                                  }];
     }
 }
 
@@ -974,7 +974,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
         if (!imageURL) {
             continue;
         }
-        [[WMFImageController sharedInstance] cancelFetchForURL:imageURL];
+        [[WMFImageController sharedInstance] cancelFetchWithURL:imageURL];
         [self.prefetchURLsByIndexPath removeObjectForKey:indexPath];
     }
 }

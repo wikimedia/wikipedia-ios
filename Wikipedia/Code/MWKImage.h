@@ -58,11 +58,6 @@
 @property (nonatomic, readonly) CGSize originalFileSize;
 @property (nonatomic, readonly) BOOL hasOriginalFileSize;
 
-/**
- * Local storage status
- */
-- (void)isDownloaded:(void (^)(BOOL isDownloaded))completion;
-
 #pragma mark - Initialization
 
 /**

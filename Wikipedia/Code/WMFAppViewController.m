@@ -381,9 +381,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
                 DDLogError(@"Error migrating data store: %@", error);
             }
             error = nil;
-            if (![SDImageCache migrateToSharedContainer:&error]) {
-                DDLogError(@"Error migrating image cache: %@", error);
-            }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:YES];
                 completion();
@@ -524,7 +521,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     if (![self uiIsLoaded]) {
         return;
     }
-    [[WMFImageController sharedInstance] clearMemoryCache];
 
     [self.savedArticlesFetcher stop];
     [self stopContentSources];
@@ -555,7 +551,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         return;
     }
     [super didReceiveMemoryWarning];
-    [[WMFImageController sharedInstance] clearMemoryCache];
     [self.dataStore clearMemoryCache];
 }
 

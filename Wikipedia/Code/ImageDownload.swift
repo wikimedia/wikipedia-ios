@@ -4,7 +4,7 @@ public enum ImageOrigin: Int {
     case network = 0
     case disk = 1
     case memory = 2
-    case none = 3
+    case unknown = 3
 }
 
 extension ImageOrigin {
@@ -16,7 +16,7 @@ extension ImageOrigin {
             return UIColor.yellow
         case .memory:
             return UIColor.green
-        case .none:
+        case .unknown:
             return UIColor.black
         }
     }
@@ -29,17 +29,17 @@ public protocol ImageOriginConvertible {
 
 public func asImageOrigin<T: ImageOriginConvertible>(_ c: T) -> ImageOrigin { return c.asImageOrigin() }
 
-open class WMFImageDownload: NSObject {
+@objc(WMFImageDownload) open class ImageDownload: NSObject {
     // Exposing enums as string constants for ObjC compatibility
     open static let imageOriginNetwork = ImageOrigin.network.rawValue
     open static let imageOriginDisk = ImageOrigin.disk.rawValue
     open static let imageOriginMemory = ImageOrigin.memory.rawValue
-
+    open static let imageOriginUnknown = ImageOrigin.unknown.rawValue
+    
     open var url: URL
     open var image: UIImage
     open var origin: ImageOrigin
     open var data: Data?
-    
     
     public init(url: URL, image: UIImage, origin: ImageOrigin, data: Data?) {
         self.url = url
@@ -47,8 +47,7 @@ open class WMFImageDownload: NSObject {
         self.origin = origin
         self.data = data
     }
-    
-    
+
     public init(url: URL, image: UIImage, originRawValue: Int, data: Data?) {
         self.url = url
         self.image = image
