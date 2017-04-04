@@ -61,7 +61,9 @@ open class ImageController : NSObject {
     fileprivate let cache: URLCache
     fileprivate let permanentStorageDirectory: URL
     fileprivate let managedObjectContext: NSManagedObjectContext
+    fileprivate let persistentStoreCoordinator: NSPersistentStoreCoordinator
     fileprivate let fileManager: FileManager
+    
     
     public required init(session: URLSession, cache: URLCache, fileManager: FileManager, permanentStorageDirectory: URL) {
         self.session = session
@@ -89,7 +91,9 @@ open class ImageController : NSObject {
                 abort()
             }
         }
+        persistentStoreCoordinator = psc
         managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType)
+        managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
         super.init()
     }
     
@@ -112,7 +116,7 @@ open class ImageController : NSObject {
     
     fileprivate func fetchCacheItem(key: String, variant: Int64, moc: NSManagedObjectContext) -> CacheItem? {
         let itemRequest: NSFetchRequest<CacheItem> = CacheItem.fetchRequest()
-        itemRequest.predicate = NSPredicate(format: "key == %@ && variant == %@", key, variant)
+        itemRequest.predicate = NSPredicate(format: "key == %@ && variant == %lli", key, variant)
         itemRequest.fetchLimit = 1
         do {
             let items = try moc.fetch(itemRequest)
