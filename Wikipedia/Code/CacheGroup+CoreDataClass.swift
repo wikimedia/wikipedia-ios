@@ -1,7 +1,7 @@
 import Foundation
 import CoreData
 
-@objc(CacheGroup)
+@objc(WMFCacheGroup)
 public class CacheGroup: NSManagedObject {
 
 }

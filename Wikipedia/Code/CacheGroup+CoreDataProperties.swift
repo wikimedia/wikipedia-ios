@@ -1,7 +1,6 @@
 import Foundation
 import CoreData
 
-
 extension CacheGroup {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CacheGroup> {
