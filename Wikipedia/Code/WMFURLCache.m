@@ -12,7 +12,7 @@ static NSString *const WMFURLCacheZeroConfigQueryNameValue = @"action=zeroconfig
 
 - (void)permanentlyCacheImagesForArticle:(MWKArticle *)article {
     NSArray *imageURLsForSaving = [article imageURLsForSaving];
-    [[WMFImageController shared] permanentlyCacheImagesInBackground:imageURLsForSaving
+    [[WMFImageController sharedInstance] permanentlyCacheImagesInBackground:imageURLsForSaving
                                                             failure:^(NSError *_Nonnull error) {
 
                                                             }
