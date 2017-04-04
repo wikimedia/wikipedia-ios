@@ -19,6 +19,7 @@ import CocoaLumberjackSwift
     case invalidOrEmptyURL
     case invalidImageCache
     case invalidResponse
+    case duplicateRequest
     case `deinit`
 }
 
@@ -48,14 +49,11 @@ open class ImageController : NSObject {
         let permanentStorageDirectory = fileManager.wmf_containerURL().appendingPathComponent("Permanent Image Cache", isDirectory: true)
         do {
             try fileManager.createDirectory(at: permanentStorageDirectory, withIntermediateDirectories: true, attributes: nil)
-        } catch {
-            
+        } catch let error {
+            DDLogError("Error creating permanent cache: \(error)")
         }
         return ImageController(session: session, cache: cache, fileManager: fileManager, permanentStorageDirectory: permanentStorageDirectory)
     }()
-    
-    var sessionTasks: [String: URLSessionTask] = [:]
-    var operations: [String: Operation] = [:]
     
     fileprivate let session: URLSession
     fileprivate let cache: URLCache
@@ -64,6 +62,7 @@ open class ImageController : NSObject {
     fileprivate let persistentStoreCoordinator: NSPersistentStoreCoordinator
     fileprivate let fileManager: FileManager
     
+    fileprivate var permanentCacheTasks: [String:[String: URLSessionDownloadTask]] = [:]
     
     public required init(session: URLSession, cache: URLCache, fileManager: FileManager, permanentStorageDirectory: URL) {
         self.session = session
@@ -190,6 +189,17 @@ open class ImageController : NSObject {
         }
     }
     
+    fileprivate func removePermanentCacheTask(groupKey: String, key: String, variant: Int64) {
+        let groupTaskKey = "\(key)|\(variant)"
+        var groupTasks = self.permanentCacheTasks[groupKey] ?? [:]
+        groupTasks.removeValue(forKey: groupTaskKey)
+        if groupTasks.count == 0 {
+            self.permanentCacheTasks.removeValue(forKey: groupKey)
+        } else {
+            self.permanentCacheTasks[groupKey] = groupTasks
+        }
+    }
+    
     public func permanentlyCache(url: URL, groupKey: String, priority: Float = 0, failure: @escaping (Error) -> Void, success: @escaping () -> Void) {
         let moc = self.managedObjectContext
         moc.perform {
@@ -198,6 +208,12 @@ open class ImageController : NSObject {
                 return
             }
             let variant = self.variantForURL(url)
+            var groupTasks = self.permanentCacheTasks[groupKey] ?? [:]
+            let groupTaskKey = "\(key)|\(variant)"
+            guard groupTasks[groupTaskKey] == nil else {
+                failure(ImageControllerError.duplicateRequest)
+                return
+            }
             if let item = self.fetchCacheItem(key: key, variant: variant, moc: moc) {
                 if let group = self.fetchOrCreateCacheGroup(key: groupKey, moc: moc) {
                     group.addToCacheItems(item)
@@ -211,16 +227,20 @@ open class ImageController : NSObject {
                 guard let fileURL = fileURL, let response = response else {
                     let err = error ?? ImageControllerError.invalidResponse
                     failure(err)
+                    moc.perform {
+                        self.removePermanentCacheTask(groupKey: groupKey, key: key, variant: variant)
+                    }
                     return
                 }
+                let permanentCacheFileURL = self.permanentCacheFileURL(key: key, variant: variant)
+                do {
+                    try self.fileManager.moveItem(at: fileURL, to: permanentCacheFileURL)
+                    self.updateCachedFileMimeTypeAtPath(permanentCacheFileURL.path, toMIMEType: response.mimeType)
+                } catch let error {
+                    DDLogError("Error moving cached file: \(error)")
+                }
                 moc.perform {
-                    let permanentCacheFileURL = self.permanentCacheFileURL(key: key, variant: variant)
-                    do {
-                        try self.fileManager.moveItem(at: fileURL, to: permanentCacheFileURL)
-                        self.updateCachedFileMimeTypeAtPath(permanentCacheFileURL.path, toMIMEType: response.mimeType)
-                    } catch let error {
-                        DDLogError("Error moving cached file: \(error)")
-                    }
+                    self.removePermanentCacheTask(groupKey: groupKey, key: key, variant: variant)
                     guard let item = self.fetchOrCreateCacheItem(key: key, variant: variant, moc: moc), let group = self.fetchOrCreateCacheGroup(key: groupKey, moc: moc) else {
                         failure(ImageControllerError.invalidImageCache)
                         return
@@ -231,6 +251,8 @@ open class ImageController : NSObject {
                 }
             })
             task.priority = priority
+            groupTasks[groupTaskKey] = task
+            self.permanentCacheTasks[groupKey] = groupTasks
             task.resume()
         }
     }
@@ -266,6 +288,11 @@ open class ImageController : NSObject {
         let moc = self.managedObjectContext
         let fm = self.fileManager
         moc.perform {
+            let groupTasks = self.permanentCacheTasks[groupKey] ?? [:]
+            for (_, task) in groupTasks {
+                task.cancel()
+            }
+            self.permanentCacheTasks.removeValue(forKey: groupKey)
             guard let group = self.fetchCacheGroup(key: groupKey, moc: moc) else {
                 return
             }
