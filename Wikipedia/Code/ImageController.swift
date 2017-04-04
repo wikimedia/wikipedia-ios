@@ -102,7 +102,7 @@ open class ImageController : NSObject {
         guard let siteURL = (url as NSURL).wmf_site, let imageName = WMFParseImageNameFromSourceURL(url) else {
             return nil
         }
-        return siteURL.absoluteString + "::" + imageName
+        return siteURL.absoluteString + "||" + imageName
     }
     
     fileprivate func variantForURL(_ url: URL) -> Int64 { // A return value of 0 indicates the original size
@@ -111,7 +111,7 @@ open class ImageController : NSObject {
     }
     
     fileprivate func permanentCacheFileURL(key: String, variant: Int64) -> URL {
-        return self.permanentStorageDirectory.appendingPathComponent("\(key)::\(variant)", isDirectory: false)
+        return self.permanentStorageDirectory.appendingPathComponent("\(key)||\(variant)", isDirectory: false)
     }
     
     fileprivate func fetchCacheItem(key: String, variant: Int64, moc: NSManagedObjectContext) -> CacheItem? {
@@ -141,9 +141,10 @@ open class ImageController : NSObject {
     }
     
     fileprivate func createCacheItem(key: String, variant: Int64, moc: NSManagedObjectContext) -> CacheItem? {
-        guard let item = NSEntityDescription.insertNewObject(forEntityName: "CacheItem", into: moc) as? CacheItem else {
+        guard let entity = NSEntityDescription.entity(forEntityName: "CacheItem", in: moc) else {
             return nil
         }
+        let item = CacheItem(entity: entity, insertInto: moc)
         item.key = key
         item.variant = variant
         item.date = NSDate()
@@ -151,9 +152,10 @@ open class ImageController : NSObject {
     }
     
     fileprivate func createCacheGroup(key: String, moc: NSManagedObjectContext) -> CacheGroup? {
-        guard let group = NSEntityDescription.insertNewObject(forEntityName: "CacheGroup", into: moc) as? CacheGroup else {
+        guard let entity = NSEntityDescription.entity(forEntityName: "CacheGroup", in: moc) else {
             return nil
         }
+        let group = CacheGroup(entity: entity, insertInto: moc)
         group.key = key
         return group
     }
