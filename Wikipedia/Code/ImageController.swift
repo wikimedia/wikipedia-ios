@@ -484,4 +484,49 @@ open class ImageController : NSObject {
     public func deleteTemporaryCache() {
         cache.removeAllCachedResponses()
     }
+    
+    // MARK: - Migration from SDWebImage
+    
+    fileprivate var legacyCacheFolderURL: URL {
+        get {
+            return fileManager.wmf_containerURL().appendingPathComponent("Cache").appendingPathComponent("com.hackemist.SDWebImageCache")
+        }
+    }
+    
+    public func migrateLegacyImageURLs(_ imageURLs: [URL], intoGroup group: String, completion: @escaping () -> Void) {
+        let moc = self.managedObjectContext
+        let legacyCacheFolderURL = self.legacyCacheFolderURL
+        let legacyCacheFolderPath = legacyCacheFolderURL.path
+        moc.perform {
+            let group = self.fetchOrCreateCacheGroup(key: group, moc: moc)
+            for imageURL in imageURLs {
+                guard let legacyKey = (imageURL as NSURL).wmf_schemelessURLString(),
+                    let legacyPath = WMFLegacyImageCache.cachePath(forKey: legacyKey, inPath: legacyCacheFolderPath) else {
+                    continue
+                }
+                let key = self.cacheKeyForURL(imageURL)
+                let variant = self.variantForURL(imageURL)
+                let fileURL = self.permanentCacheFileURL(key: key, variant: variant)
+                let legacyFileURL = URL(fileURLWithPath: legacyPath, isDirectory: false)
+                do {
+                    try self.fileManager.moveItem(at: legacyFileURL, to: fileURL)
+                    if let item = self.fetchOrCreateCacheItem(key: key, variant: variant, moc: moc) {
+                        group?.addToCacheItems(item)
+                    }
+                } catch let error {
+                    DDLogError("Error migrating from legacy cache \(error)")
+                }
+            }
+            self.save(moc: moc)
+            completion()
+        }
+    }
+    
+    public func removeLegacyCache() {
+        do {
+            try fileManager.removeItem(at: legacyCacheFolderURL)
+        } catch let error {
+            DDLogError("Error migrating from legacy cache \(error)")
+        }
+    }
 }

@@ -169,5 +169,4 @@
 #import "NSUserActivity+WMFExtensions.h"
 
 #import "PiwikTracker+WMFExtensions.h"
-
 #endif /* WMF_global_h */

@@ -1775,6 +1775,8 @@
 		D8D365101E93DBEB00593A38 /* CacheGroup+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D3650D1E93DBEB00593A38 /* CacheGroup+CoreDataClass.swift */; };
 		D8D365111E93DBEB00593A38 /* CacheGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D3650E1E93DBEB00593A38 /* CacheGroup+CoreDataProperties.swift */; };
 		D8D365151E953C7100593A38 /* ImageControllerCompletionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D365141E953C7100593A38 /* ImageControllerCompletionManager.swift */; };
+		D8D3651A1E955C9000593A38 /* WMFLegacyImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D365181E955C9000593A38 /* WMFLegacyImageCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8D3651B1E955C9000593A38 /* WMFLegacyImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D365191E955C9000593A38 /* WMFLegacyImageCache.m */; };
 		D8D550811DF0D2BD00B90177 /* NSArray+WMFMatching.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D550801DF0D2BD00B90177 /* NSArray+WMFMatching.m */; };
 		D8D551701DF1A7AC00B90177 /* Piwik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5516F1DF1A7AC00B90177 /* Piwik.framework */; };
 		D8D551711DF1A7AC00B90177 /* Piwik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5516F1DF1A7AC00B90177 /* Piwik.framework */; };
@@ -3473,6 +3475,8 @@
 		D8D3650D1E93DBEB00593A38 /* CacheGroup+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CacheGroup+CoreDataClass.swift"; path = "../Wikipedia/Code/CacheGroup+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D8D3650E1E93DBEB00593A38 /* CacheGroup+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CacheGroup+CoreDataProperties.swift"; path = "../Wikipedia/Code/CacheGroup+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D8D365141E953C7100593A38 /* ImageControllerCompletionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageControllerCompletionManager.swift; path = Wikipedia/Code/ImageControllerCompletionManager.swift; sourceTree = SOURCE_ROOT; };
+		D8D365181E955C9000593A38 /* WMFLegacyImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFLegacyImageCache.h; path = Wikipedia/Code/WMFLegacyImageCache.h; sourceTree = SOURCE_ROOT; };
+		D8D365191E955C9000593A38 /* WMFLegacyImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFLegacyImageCache.m; path = Wikipedia/Code/WMFLegacyImageCache.m; sourceTree = SOURCE_ROOT; };
 		D8D5507F1DF0D2BD00B90177 /* NSArray+WMFMatching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+WMFMatching.h"; path = "WikipediaUnitTests/Code/NSArray+WMFMatching.h"; sourceTree = SOURCE_ROOT; };
 		D8D550801DF0D2BD00B90177 /* NSArray+WMFMatching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+WMFMatching.m"; path = "WikipediaUnitTests/Code/NSArray+WMFMatching.m"; sourceTree = SOURCE_ROOT; };
 		D8D551411DF1A33D00B90177 /* EXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTScope.h; sourceTree = "<group>"; };
@@ -4208,6 +4212,8 @@
 		0E28C4631D74AA81000C5919 /* Image Caching */ = {
 			isa = PBXGroup;
 			children = (
+				D8D365181E955C9000593A38 /* WMFLegacyImageCache.h */,
+				D8D365191E955C9000593A38 /* WMFLegacyImageCache.m */,
 				B0E805C41C0CE5250065EBC0 /* ImageController.swift */,
 				D8D365141E953C7100593A38 /* ImageControllerCompletionManager.swift */,
 				B0E805C61C0CE5250065EBC0 /* ImageDownload.swift */,
@@ -7078,6 +7084,7 @@
 				D8FA18E11E1BD8A3009675C3 /* NSArray+WMFMapping.h in Headers */,
 				D8FA18D21E1BD891009675C3 /* WMFTaskGroup.h in Headers */,
 				0E28C46D1D74AE64000C5919 /* WMFContentGroupDataStore.h in Headers */,
+				D8D3651A1E955C9000593A38 /* WMFLegacyImageCache.h in Headers */,
 				D844D9A91D6CB74F0042D692 /* MWKHistoryList.h in Headers */,
 				D8FA19061E1BDA66009675C3 /* UIColor+WMFStyle.h in Headers */,
 				D844D9701D6CB2600042D692 /* WMF.h in Headers */,
@@ -8656,6 +8663,7 @@
 				0E728D391DAEEAD60074EB4B /* WMFLocationSearchFetcher.m in Sources */,
 				B0484FEF1E74B77F003A0E28 /* UIColor+WMFStyle.swift in Sources */,
 				D8D365111E93DBEB00593A38 /* CacheGroup+CoreDataProperties.swift in Sources */,
+				D8D3651B1E955C9000593A38 /* WMFLegacyImageCache.m in Sources */,
 				D844D9F61D6CC0440042D692 /* Cancellable.swift in Sources */,
 				D89D44031D74D40100F7862E /* MWKSearchResult.m in Sources */,
 				D84448231DDB60FF00425630 /* WMFArticle+Extensions.m in Sources */,

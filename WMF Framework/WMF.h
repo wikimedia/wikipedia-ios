@@ -189,4 +189,5 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import "QueuesSingleton.h"
 #import "MWKSavedPageEntry.h"
 #import "WMFLegacyContentGroup.h"
+#import "WMFLegacyImageCache.h"
 
