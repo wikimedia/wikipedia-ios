@@ -35,45 +35,74 @@ fileprivate struct ImageControllerDataCompletion {
 
 fileprivate class ImageControllerCompletionManager<T> {
     var completions: [String: [T]] = [:]
-    var tasks: [String: URLSessionTask] = [:]
+    var tasks: [String: [String:URLSessionTask]] = [:]
     let queue = DispatchQueue(label: "ImageControllerCompletionManager-" + UUID().uuidString)
     
-    func add(_ completion: T, forKey key: String) -> Bool {
+    func add(_ completion: T, forIdentifier identifier: String) -> Bool {
         return queue.sync {
-            var completionsForKey = completions[key] ?? []
+            var completionsForKey = completions[identifier] ?? []
             let isFirst = completionsForKey.count == 0
             completionsForKey.append(completion)
-            completions[key] = completionsForKey
+            completions[identifier] = completionsForKey
             return isFirst
         }
     }
     
-    func add(_ task: URLSessionTask, forKey key: String) {
+    func add(_ task: URLSessionTask, forGroup group: String, identifier: String) {
         queue.sync {
-            tasks[key] = task
+            var groupTasks = tasks[group] ?? [:]
+            groupTasks[identifier] = task
+            tasks[group] = groupTasks
         }
     }
     
-    func cancel(_ key: String) {
+    func add(_ task: URLSessionTask, forIdentifier identifier: String) {
+        add(task, forGroup: "", identifier: identifier)
+    }
+    
+    func cancel(group: String, identifier: String) {
         queue.async {
-            guard let task = self.tasks[key] else {
+            guard var tasks = self.tasks[group], let task = tasks[identifier] else {
                 return
             }
+            self.completions.removeValue(forKey: identifier)
             task.cancel()
+            tasks.removeValue(forKey: identifier)
+            self.tasks[group] = tasks
         }
     }
     
-    func complete(forKey key: String, enumerator: @escaping (T) -> Void) {
+    func cancel(_ identifier: String) {
+        cancel(group: "", identifier: identifier)
+    }
+    
+    func cancel(group: String) {
         queue.async {
-            guard let completionsForKey = self.completions[key] else {
+            guard let tasks = self.tasks[group] else {
+                return
+            }
+            for (identifier, task) in tasks {
+                self.completions.removeValue(forKey: identifier)
+                task.cancel()
+            }
+        }
+    }
+    
+    func complete(_ group: String, identifier: String, enumerator: @escaping (T) -> Void) {
+        queue.async {
+            guard let completionsForKey = self.completions[identifier] else {
                 return
             }
             for completion in completionsForKey {
                 enumerator(completion)
             }
-            self.completions.removeValue(forKey: key)
-            self.tasks.removeValue(forKey: key)
+            self.completions.removeValue(forKey: identifier)
+            self.tasks[group]?.removeValue(forKey: identifier)
         }
+    }
+    
+    func complete(_ identifier: String, enumerator: @escaping (T) -> Void) {
+        complete("", identifier: identifier, enumerator: enumerator)
     }
 }
 
@@ -116,9 +145,9 @@ open class ImageController : NSObject {
     fileprivate let persistentStoreCoordinator: NSPersistentStoreCoordinator
     fileprivate let fileManager: FileManager
     
-    fileprivate var permanentCacheTasks: [String:[String: URLSessionDownloadTask]] = [:]
     fileprivate var permanentCacheCompletionManager = ImageControllerCompletionManager<ImageControllerPermanentCacheCompletion>()
     fileprivate var dataCompletionManager = ImageControllerCompletionManager<ImageControllerDataCompletion>()
+    
     public required init(session: URLSession, cache: URLCache, fileManager: FileManager, permanentStorageDirectory: URL) {
         self.session = session
         self.cache = cache
@@ -255,44 +284,33 @@ open class ImageController : NSObject {
         }
     }
     
-    fileprivate func removePermanentCacheTask(groupKey: String, key: String, variant: Int64) {
-        let groupTaskKey = "\(key)|\(variant)"
-        var groupTasks = self.permanentCacheTasks[groupKey] ?? [:]
-        groupTasks.removeValue(forKey: groupTaskKey)
-        if groupTasks.count == 0 {
-            self.permanentCacheTasks.removeValue(forKey: groupKey)
-        } else {
-            self.permanentCacheTasks[groupKey] = groupTasks
-        }
-    }
-    
     public func permanentlyCache(url: URL, groupKey: String, priority: Float = 0, failure: @escaping (Error) -> Void, success: @escaping () -> Void) {
+        let key = self.cacheKeyForURL(url)
+        let variant = self.variantForURL(url)
+        let identifier = self.identifierForKey(key, variant: variant)
+        let completion = ImageControllerPermanentCacheCompletion(success: success, failure: failure)
+        guard permanentCacheCompletionManager.add(completion, forIdentifier: identifier) else {
+            return
+        }
         let moc = self.managedObjectContext
         moc.perform {
-            let key = self.cacheKeyForURL(url)
-            let variant = self.variantForURL(url)
-            var groupTasks = self.permanentCacheTasks[groupKey] ?? [:]
-            let groupTaskKey = self.identifierForKey(key, variant: variant)
-            guard groupTasks[groupTaskKey] == nil else {
-                failure(ImageControllerError.duplicateRequest)
-                return
-            }
             if let item = self.fetchCacheItem(key: key, variant: variant, moc: moc) {
                 if let group = self.fetchOrCreateCacheGroup(key: groupKey, moc: moc) {
                     group.addToCacheItems(item)
                 }
                 self.save(moc: moc)
-                success()
+                self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
+                    completion.success()
+                })
                 return
             }
             let schemedURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless() as URL
             let task = self.session.downloadTask(with: schemedURL, completionHandler: { (fileURL, response, error) in
                 guard let fileURL = fileURL, let response = response else {
                     let err = error ?? ImageControllerError.invalidResponse
-                    failure(err)
-                    moc.perform {
-                        self.removePermanentCacheTask(groupKey: groupKey, key: key, variant: variant)
-                    }
+                    self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
+                        completion.failure(err)
+                    })
                     return
                 }
                 let permanentCacheFileURL = self.permanentCacheFileURL(key: key, variant: variant)
@@ -303,19 +321,21 @@ open class ImageController : NSObject {
                     DDLogError("Error moving cached file: \(error)")
                 }
                 moc.perform {
-                    self.removePermanentCacheTask(groupKey: groupKey, key: key, variant: variant)
                     guard let item = self.fetchOrCreateCacheItem(key: key, variant: variant, moc: moc), let group = self.fetchOrCreateCacheGroup(key: groupKey, moc: moc) else {
-                        failure(ImageControllerError.invalidImageCache)
+                        self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
+                            completion.failure(ImageControllerError.invalidImageCache)
+                        })
                         return
                     }
                     group.addToCacheItems(item)
                     self.save(moc: moc)
-                    success()
+                    self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
+                        completion.success()
+                    })
                 }
             })
             task.priority = priority
-            groupTasks[groupTaskKey] = task
-            self.permanentCacheTasks[groupKey] = groupTasks
+            self.permanentCacheCompletionManager.add(task, forGroup: groupKey, identifier: identifier)
             task.resume()
         }
     }
@@ -351,11 +371,7 @@ open class ImageController : NSObject {
         let moc = self.managedObjectContext
         let fm = self.fileManager
         moc.perform {
-            let groupTasks = self.permanentCacheTasks[groupKey] ?? [:]
-            for (_, task) in groupTasks {
-                task.cancel()
-            }
-            self.permanentCacheTasks.removeValue(forKey: groupKey)
+            self.permanentCacheCompletionManager.cancel(group: groupKey)
             guard let group = self.fetchCacheGroup(key: groupKey, moc: moc) else {
                 return
             }
@@ -437,14 +453,14 @@ open class ImageController : NSObject {
             failure(ImageControllerError.invalidOrEmptyURL)
             return
         }
-        let completionKey = identifierForURL(url)
+        let identifier = identifierForURL(url)
         let completion = ImageControllerDataCompletion(success: success, failure: failure)
-        guard dataCompletionManager.add(completion, forKey: completionKey) else {
+        guard dataCompletionManager.add(completion, forIdentifier: identifier) else {
             return
         }
         let schemedURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless() as URL
         let task = session.dataTask(with: schemedURL) { (data, response, error) in
-            self.dataCompletionManager.complete(forKey: completionKey, enumerator: { (completion) in
+            self.dataCompletionManager.complete(identifier, enumerator: { (completion) in
                 guard let data = data, let response = response else {
                     completion.failure(error ?? ImageControllerError.invalidResponse)
                     return
@@ -453,7 +469,7 @@ open class ImageController : NSObject {
             })
         }
         task.priority = priority
-        dataCompletionManager.add(task, forKey: completionKey)
+        dataCompletionManager.add(task, forIdentifier: identifier)
         task.resume()
     }
     
