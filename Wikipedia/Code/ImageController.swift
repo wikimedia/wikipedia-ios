@@ -1,19 +1,6 @@
 import Foundation
 import CocoaLumberjackSwift
 
-///
-/// @name Constants
-///
-
-
-// Warning: Due to issues with `ErrorType` to `NSError` bridging, you must check domains of bridged errors like so: [MyCustomErrorTypeErrorDomain hasSuffix:nsError.domain] because the generated constant in the Swift header (in this case, `WMFImageControllerErrorDomain` in "Wikipedia-Swift.h") doesn't match the actual domain when `ErrorType` is cast to `NSError`.
-/**
- WMFImageControllerError
-
- - DataNotFound:      Failed to find cached image data for the provided URL.
- - InvalidOrEmptyURL: The provided URL was empty or `nil`.
- - Deinit:            Fetch was cancelled because the image controller was deallocated.
- */
 @objc(WMFImageControllerError) public enum ImageControllerError: Int, Error {
     case dataNotFound
     case invalidOrEmptyURL
@@ -21,89 +8,6 @@ import CocoaLumberjackSwift
     case invalidResponse
     case duplicateRequest
     case `deinit`
-}
-
-fileprivate struct ImageControllerPermanentCacheCompletion {
-    let success: () -> Void
-    let failure: (Error) -> Void
-}
-
-fileprivate struct ImageControllerDataCompletion {
-    let success: (Data, URLResponse) -> Void
-    let failure: (Error) -> Void
-}
-
-fileprivate class ImageControllerCompletionManager<T> {
-    var completions: [String: [T]] = [:]
-    var tasks: [String: [String:URLSessionTask]] = [:]
-    let queue = DispatchQueue(label: "ImageControllerCompletionManager-" + UUID().uuidString)
-    
-    func add(_ completion: T, forIdentifier identifier: String) -> Bool {
-        return queue.sync {
-            var completionsForKey = completions[identifier] ?? []
-            let isFirst = completionsForKey.count == 0
-            completionsForKey.append(completion)
-            completions[identifier] = completionsForKey
-            return isFirst
-        }
-    }
-    
-    func add(_ task: URLSessionTask, forGroup group: String, identifier: String) {
-        queue.sync {
-            var groupTasks = tasks[group] ?? [:]
-            groupTasks[identifier] = task
-            tasks[group] = groupTasks
-        }
-    }
-    
-    func add(_ task: URLSessionTask, forIdentifier identifier: String) {
-        add(task, forGroup: "", identifier: identifier)
-    }
-    
-    func cancel(group: String, identifier: String) {
-        queue.async {
-            guard var tasks = self.tasks[group], let task = tasks[identifier] else {
-                return
-            }
-            self.completions.removeValue(forKey: identifier)
-            task.cancel()
-            tasks.removeValue(forKey: identifier)
-            self.tasks[group] = tasks
-        }
-    }
-    
-    func cancel(_ identifier: String) {
-        cancel(group: "", identifier: identifier)
-    }
-    
-    func cancel(group: String) {
-        queue.async {
-            guard let tasks = self.tasks[group] else {
-                return
-            }
-            for (identifier, task) in tasks {
-                self.completions.removeValue(forKey: identifier)
-                task.cancel()
-            }
-        }
-    }
-    
-    func complete(_ group: String, identifier: String, enumerator: @escaping (T) -> Void) {
-        queue.async {
-            guard let completionsForKey = self.completions[identifier] else {
-                return
-            }
-            for completion in completionsForKey {
-                enumerator(completion)
-            }
-            self.completions.removeValue(forKey: identifier)
-            self.tasks[group]?.removeValue(forKey: identifier)
-        }
-    }
-    
-    func complete(_ identifier: String, enumerator: @escaping (T) -> Void) {
-        complete("", identifier: identifier, enumerator: enumerator)
-    }
 }
 
 @objc(WMFTypedImageData)
