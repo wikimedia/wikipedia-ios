@@ -468,7 +468,13 @@ open class ImageController : NSObject {
         fetchData(withURL: url, priority: 0, failure: { (error) in
             completion()
         }) { (data, response) in
-            completion()
+            defer {
+                completion()
+            }
+            guard let image = UIImage(data: data) else {
+                return
+            }
+            self.addToMemoryCache(image, url: url)
         }
     }
     
