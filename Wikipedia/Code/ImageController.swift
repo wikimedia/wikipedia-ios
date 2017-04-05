@@ -354,6 +354,9 @@ open class ImageController : NSObject {
     }
     
     public func addToMemoryCache(_ image: UIImage, url: URL) {
+        guard image.images == nil || image.images?.count == 1 else { // don't cache gifs
+            return
+        }
         let identifier = identifierForURL(url) as NSString
         memoryCache.setObject(image, forKey: identifier, cost: Int(image.size.width * image.size.height))
     }
@@ -461,7 +464,7 @@ open class ImageController : NSObject {
     }
     
     public func prefetch(withURL url: URL?, completion: @escaping () -> Void) {
-        guard let url = url else {
+        guard let url = url, memoryCachedImage(withURL: url) == nil else {
             completion()
             return
         }
