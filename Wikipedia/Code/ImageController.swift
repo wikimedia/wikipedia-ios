@@ -496,7 +496,11 @@ open class ImageController : NSObject {
     }
     
     public func cancelFetch(withURL url: URL?) {
-        // Placebo
+        guard let url = url else {
+            return
+        }
+        let identifier = identifierForURL(url)
+        dataCompletionManager.cancel(identifier)
     }
     
     public func prefetch(withURL url: URL?) {
