@@ -23,6 +23,60 @@ import CocoaLumberjackSwift
     case `deinit`
 }
 
+fileprivate struct ImageControllerPermanentCacheCompletion {
+    let success: () -> Void
+    let failure: (Error) -> Void
+}
+
+fileprivate struct ImageControllerDataCompletion {
+    let success: (Data, URLResponse) -> Void
+    let failure: (Error) -> Void
+}
+
+fileprivate class ImageControllerCompletionManager<T> {
+    var completions: [String: [T]] = [:]
+    var tasks: [String: URLSessionTask] = [:]
+    let queue = DispatchQueue(label: "ImageControllerCompletionManager-" + UUID().uuidString)
+    
+    func add(_ completion: T, forKey key: String) -> Bool {
+        return queue.sync {
+            var completionsForKey = completions[key] ?? []
+            let isFirst = completionsForKey.count == 0
+            completionsForKey.append(completion)
+            completions[key] = completionsForKey
+            return isFirst
+        }
+    }
+    
+    func add(_ task: URLSessionTask, forKey key: String) {
+        queue.sync {
+            tasks[key] = task
+        }
+    }
+    
+    func cancel(_ key: String) {
+        queue.async {
+            guard let task = self.tasks[key] else {
+                return
+            }
+            task.cancel()
+        }
+    }
+    
+    func complete(forKey key: String, enumerator: @escaping (T) -> Void) {
+        queue.async {
+            guard let completionsForKey = self.completions[key] else {
+                return
+            }
+            for completion in completionsForKey {
+                enumerator(completion)
+            }
+            self.completions.removeValue(forKey: key)
+            self.tasks.removeValue(forKey: key)
+        }
+    }
+}
+
 @objc(WMFTypedImageData)
 open class TypedImageData: NSObject {
     open let data:Data?
@@ -63,7 +117,8 @@ open class ImageController : NSObject {
     fileprivate let fileManager: FileManager
     
     fileprivate var permanentCacheTasks: [String:[String: URLSessionDownloadTask]] = [:]
-    
+    fileprivate var permanentCacheCompletionManager = ImageControllerCompletionManager<ImageControllerPermanentCacheCompletion>()
+    fileprivate var dataCompletionManager = ImageControllerCompletionManager<ImageControllerDataCompletion>()
     public required init(session: URLSession, cache: URLCache, fileManager: FileManager, permanentStorageDirectory: URL) {
         self.session = session
         self.cache = cache
@@ -97,11 +152,11 @@ open class ImageController : NSObject {
     }
     
     
-    fileprivate func cacheKeyForURL(_ url: URL) -> String? {
+    fileprivate func cacheKeyForURL(_ url: URL) -> String {
         guard let siteURL = (url as NSURL).wmf_site, let imageName = WMFParseImageNameFromSourceURL(url) else {
-            return nil
+            return url.absoluteString.precomposedStringWithCanonicalMapping
         }
-        return siteURL.absoluteString + "||" + imageName
+        return (siteURL.absoluteString + "||" + imageName).precomposedStringWithCanonicalMapping
     }
     
     fileprivate func variantForURL(_ url: URL) -> Int64 { // A return value of 0 indicates the original size
@@ -109,8 +164,19 @@ open class ImageController : NSObject {
         return Int64(sizePrefix == NSNotFound ? 0 : sizePrefix)
     }
     
+    fileprivate func identifierForURL(_ url: URL) -> String {
+        let key = cacheKeyForURL(url)
+        let variant = variantForURL(url)
+        return "\(key)||\(variant)".precomposedStringWithCanonicalMapping
+    }
+    
+    fileprivate func identifierForKey(_ key: String, variant: Int64) -> String {
+        return "\(key)||\(variant)".precomposedStringWithCanonicalMapping
+    }
+    
     fileprivate func permanentCacheFileURL(key: String, variant: Int64) -> URL {
-        return self.permanentStorageDirectory.appendingPathComponent("\(key)||\(variant)", isDirectory: false)
+        let identifier = identifierForKey(key, variant: variant)
+        return self.permanentStorageDirectory.appendingPathComponent(identifier, isDirectory: false)
     }
     
     fileprivate func fetchCacheItem(key: String, variant: Int64, moc: NSManagedObjectContext) -> CacheItem? {
@@ -203,13 +269,10 @@ open class ImageController : NSObject {
     public func permanentlyCache(url: URL, groupKey: String, priority: Float = 0, failure: @escaping (Error) -> Void, success: @escaping () -> Void) {
         let moc = self.managedObjectContext
         moc.perform {
-            guard let key = self.cacheKeyForURL(url) else {
-                failure(ImageControllerError.invalidOrEmptyURL)
-                return
-            }
+            let key = self.cacheKeyForURL(url)
             let variant = self.variantForURL(url)
             var groupTasks = self.permanentCacheTasks[groupKey] ?? [:]
-            let groupTaskKey = "\(key)|\(variant)"
+            let groupTaskKey = self.identifierForKey(key, variant: variant)
             guard groupTasks[groupTaskKey] == nil else {
                 failure(ImageControllerError.duplicateRequest)
                 return
@@ -314,9 +377,10 @@ open class ImageController : NSObject {
     }
     
     public func permanentlyCachedTypedDiskDataForImage(withURL url: URL?) -> TypedImageData {
-        guard let url = url, let key = cacheKeyForURL(url) else {
+        guard let url = url else {
             return TypedImageData(data: nil, MIMEType: nil)
         }
+        let key = cacheKeyForURL(url)
         let variant = variantForURL(url)
         let fileURL = permanentCacheFileURL(key: key, variant: variant)
         let mimeType: String? = fileManager.wmf_value(forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: fileURL.path)
@@ -325,9 +389,7 @@ open class ImageController : NSObject {
     }
     
     public func permanentlyCachedData(withURL url: URL) -> Data? {
-        guard let key = cacheKeyForURL(url) else {
-            return nil
-        }
+        let key = cacheKeyForURL(url)
         let variant = variantForURL(url)
         let fileURL = permanentCacheFileURL(key: key, variant: variant)
         return fileManager.contents(atPath: fileURL.path)
@@ -347,9 +409,7 @@ open class ImageController : NSObject {
     }
     
     public func permanentlyCachedImage(withURL url: URL) -> UIImage? {
-        guard let key = cacheKeyForURL(url) else {
-            return nil
-        }
+        let key = cacheKeyForURL(url)
         let variant = variantForURL(url)
         let fileURL = permanentCacheFileURL(key: key, variant: variant)
         return UIImage(contentsOfFile: fileURL.path)
@@ -377,16 +437,23 @@ open class ImageController : NSObject {
             failure(ImageControllerError.invalidOrEmptyURL)
             return
         }
+        let completionKey = identifierForURL(url)
+        let completion = ImageControllerDataCompletion(success: success, failure: failure)
+        guard dataCompletionManager.add(completion, forKey: completionKey) else {
+            return
+        }
         let schemedURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless() as URL
         let task = session.dataTask(with: schemedURL) { (data, response, error) in
-            guard let data = data, let response = response else {
-                failure(error ?? ImageControllerError.invalidResponse)
-                return
-            }
-            
-            success(data, response)
+            self.dataCompletionManager.complete(forKey: completionKey, enumerator: { (completion) in
+                guard let data = data, let response = response else {
+                    completion.failure(error ?? ImageControllerError.invalidResponse)
+                    return
+                }
+                completion.success(data, response)
+            })
         }
         task.priority = priority
+        dataCompletionManager.add(task, forKey: completionKey)
         task.resume()
     }
     
@@ -413,11 +480,10 @@ open class ImageController : NSObject {
     }
     
     public func cancelFetch(withURL url: URL?) {
-        
+        // Placebo
     }
     
     public func prefetch(withURL url: URL?) {
-
         prefetch(withURL: url) {
             
         }
