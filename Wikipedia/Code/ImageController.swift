@@ -1,5 +1,6 @@
 import Foundation
 import CocoaLumberjackSwift
+import ImageIO
 
 @objc(WMFImageControllerError) public enum ImageControllerError: Int, Error {
     case dataNotFound
@@ -377,6 +378,30 @@ open class ImageController : NSObject {
         memoryCache.setObject(image, forKey: identifier, cost: Int(image.size.width * image.size.height))
     }
     
+    fileprivate func createImage(data: Data) -> UIImage? {
+        guard let source = CGImageSourceCreateWithData(data as CFData, nil), CGImageSourceGetCount(source) > 0 else {
+            return nil
+        }
+        let options = [kCGImageSourceShouldCache as String: NSNumber(value: true)] as CFDictionary
+        guard let cgImage = CGImageSourceCreateImageAtIndex(source, 0, options) else {
+            return nil
+        }
+        let image = UIImage(cgImage: cgImage)
+        return image
+    }
+    
+    fileprivate func createImage(fileURL: URL) -> UIImage? {
+        guard let source = CGImageSourceCreateWithURL(fileURL as CFURL, nil), CGImageSourceGetCount(source) > 0 else {
+            return nil
+        }
+        let options = [kCGImageSourceShouldCache as String: NSNumber(value: true)] as CFDictionary
+        guard let cgImage = CGImageSourceCreateImageAtIndex(source, 0, options) else {
+            return nil
+        }
+        let image = UIImage(cgImage: cgImage)
+        return image
+    }
+    
     public func permanentlyCachedImage(withURL url: URL) -> UIImage? {
         if let memoryCachedImage = memoryCachedImage(withURL: url) {
             return memoryCachedImage
@@ -384,7 +409,7 @@ open class ImageController : NSObject {
         let key = cacheKeyForURL(url)
         let variant = variantForURL(url)
         let fileURL = permanentCacheFileURL(key: key, variant: variant)
-        guard let image = UIImage(contentsOfFile: fileURL.path) else {
+        guard let image = createImage(fileURL: fileURL) else {
             return nil
         }
         addToMemoryCache(image, url: url)
@@ -401,7 +426,7 @@ open class ImageController : NSObject {
         guard let data = sessionCachedData(withURL: url) else {
             return nil
         }
-        guard let image = UIImage(data: data) else {
+        guard let image = createImage(data: data) else {
             return nil
         }
         addToMemoryCache(image, url: url)
@@ -454,7 +479,7 @@ open class ImageController : NSObject {
             return
         }
         fetchData(withURL: url, priority: priority, failure: failure) { (data, response) in
-            guard let image = UIImage(data: data) else {
+            guard let image = self.createImage(data: data) else {
                 failure(ImageControllerError.invalidResponse)
                 return
             }
@@ -490,7 +515,7 @@ open class ImageController : NSObject {
             defer {
                 completion()
             }
-            guard let image = UIImage(data: data) else {
+            guard let image = self.createImage(data: data) else {
                 return
             }
             self.addToMemoryCache(image, url: url)
