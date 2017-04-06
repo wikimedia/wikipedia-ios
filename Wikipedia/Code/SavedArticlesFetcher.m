@@ -9,7 +9,6 @@
 #import "MWKSavedPageList.h"
 #import "MWKArticle.h"
 #import "MWKImage+CanonicalFilenames.h"
-#import "WMFURLCache.h"
 #import "WMFImageURLParsing.h"
 #import "WMFTaskGroup.h"
 #import <WMF/WMF.h>
@@ -247,7 +246,8 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     };
     if (![[NSUserDefaults wmf_userDefaults] wmf_didFinishLegacySavedArticleImageMigration]) {
         WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.5.0)
-        [self migrateLegacyImagesInArticle:article completion:doneMigration];
+            [self migrateLegacyImagesInArticle:article
+                                    completion:doneMigration];
     } else {
         doneMigration();
     }
@@ -255,7 +255,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)migrateLegacyImagesInArticle:(MWKArticle *)article completion:(dispatch_block_t)completion {
     WMFImageController *imageController = [WMFImageController sharedInstance];
-    NSArray <NSURL *> *legacyImageURLs = [article imageURLsForSaving];
+    NSArray<NSURL *> *legacyImageURLs = [article imageURLsForSaving];
     NSString *group = article.url.wmf_articleDatabaseKey;
     if (!group || !legacyImageURLs.count) {
         completion();
@@ -265,13 +265,13 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)fetchAllImagesInArticle:(MWKArticle *)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     dispatch_block_t doneMigration = ^{
-        //Move any images already cached in the shared URL cache to our own cache (WMFImageController)
-        WMFURLCache *cache = (WMFURLCache *)[NSURLCache sharedURLCache];
-        [cache permanentlyCacheImagesForArticle:article];
-
-        //Download any images that aren't cached
-        NSArray<NSURL *> *URLs = [[article allImageURLs] allObjects];
-        [self cacheImagesForArticleKey:article.url.wmf_articleDatabaseKey withURLsInBackground:URLs failure:failure success:success];
+        NSArray *imageURLsForSaving = [article imageURLsForSaving];
+        NSString *articleKey = article.url.wmf_articleDatabaseKey;
+        if (!articleKey || imageURLsForSaving.count == 0) {
+            success();
+            return;
+        }
+        [self cacheImagesForArticleKey:articleKey withURLsInBackground:imageURLsForSaving failure:failure success:success];
     };
     if (![[NSUserDefaults wmf_userDefaults] wmf_didFinishLegacySavedArticleImageMigration]) {
         WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0 .5)
@@ -358,7 +358,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         success();
         return;
     }
-    
+
     [self.imageController permanentlyCacheInBackgroundWithUrls:imageURLs groupKey:articleKey failure:failure success:success];
 }
 
