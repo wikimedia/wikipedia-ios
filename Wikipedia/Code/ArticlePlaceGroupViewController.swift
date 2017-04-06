@@ -163,8 +163,8 @@ class ArticlePlaceGroupViewController: UIViewController {
         let count = placeViews.count
         var i = 1
         for placeView in placeViews {
-            let theta = 2*M_PI / Double(count)
-            let angle = -1*M_PI_2 + theta*Double(i - 1)
+            let theta = 2*Double.pi / Double(count)
+            let angle = -0.5*Double.pi + theta*Double(i - 1)
             let x = radius * cos(angle)
             let y = radius * sin(angle)
             placeView.center = CGPoint(x: center.x + CGFloat(x), y: center.y + CGFloat(y))
@@ -208,11 +208,11 @@ class ArticlePlaceGroupViewController: UIViewController {
        
         drawGradient(center: center)
         
-        let rotationTransform = CGAffineTransform(rotationAngle: CGFloat(-0.99*M_PI))
+        let rotationTransform = CGAffineTransform(rotationAngle: CGFloat(-0.99*Double.pi))
         let scaleTransform = CGAffineTransform(scaleX: zoomPlaceViewScale, y: zoomPlaceViewScale)
         let transform = rotationTransform.concatenating(scaleTransform)
         
-        let groupRotationTransform = CGAffineTransform(rotationAngle: CGFloat(0.99*M_PI))
+        let groupRotationTransform = CGAffineTransform(rotationAngle: CGFloat(0.99*Double.pi))
         let groupScaleTransform = CGAffineTransform(scaleX: 1/zoomPlaceViewScale, y: 1/zoomPlaceViewScale)
         let groupTransform = groupRotationTransform.concatenating(groupScaleTransform)
         
@@ -237,8 +237,8 @@ class ArticlePlaceGroupViewController: UIViewController {
 
         for placeView in self.placeViews {
             UIView.animate(withDuration: 0.6, delay: delay * TimeInterval(i), usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: {
-                    let theta = 2*M_PI / Double(count)
-                    let angle = -1*M_PI_2 + theta*Double(i - 1)
+                    let theta = 2*Double.pi / Double(count)
+                    let angle = -0.5*Double.pi + theta*Double(i - 1)
                     let x = self.radius * cos(angle)
                     let y = self.radius * sin(angle)
                     placeView.center = CGPoint(x: center.x + CGFloat(x), y: center.y + CGFloat(y))
@@ -287,7 +287,7 @@ class ArticlePlaceGroupViewController: UIViewController {
         }
         let group = WMFTaskGroup()
         var i = 1
-        let rotationTransform = CGAffineTransform(rotationAngle: CGFloat(-0.99*M_PI))
+        let rotationTransform = CGAffineTransform(rotationAngle: CGFloat(-0.99*Double.pi))
         let scaleTransform = CGAffineTransform(scaleX: zoomPlaceViewScale, y: zoomPlaceViewScale)
         let transform = rotationTransform.concatenating(scaleTransform)
         for placeView in placeViews.reversed() {
@@ -305,7 +305,7 @@ class ArticlePlaceGroupViewController: UIViewController {
             i += 1
         }
         
-        let groupRotationTransform = CGAffineTransform(rotationAngle: CGFloat(0.99*M_PI))
+        let groupRotationTransform = CGAffineTransform(rotationAngle: CGFloat(0.99*Double.pi))
         let groupScaleTransform = CGAffineTransform(scaleX: 1/zoomPlaceViewScale, y: 1/zoomPlaceViewScale)
         let groupTransform = groupRotationTransform.concatenating(groupScaleTransform)
         self.groupView.alpha = 1

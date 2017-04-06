@@ -54,7 +54,7 @@
 "zero-wikipedia-zero-heading" = "विकिपीडिया शून्य";
 "zero-warn-when-leaving" = "चेतावनी दें अगर ज़ीरो को छोड़ा जा रहा है";
 "zero-settings-devmode" = "ज़ीरो डेवमोड";
-"account-creation-title" = "एक नया अकाउंट बनायें";
+"account-creation-title" = "एक नया खाता बनायें";
 "account-creation-captcha-required" = "कैप्चा सत्यापन की आवश्यकता है";
 "account-creation-captcha-retry" = "गलत एंट्री, कृपया दोबारा कोशिश करें।";
 "account-creation-captcha-obtaining" = "एक नया कैप्चा प्राप्त किया जा रहा है...";
@@ -67,7 +67,7 @@
 "account-creation-saving" = "सहेज रहा है...";
 "account-creation-login" = "पहले से ही ख़ाता है? लॉगिन करें।";
 "account-creation-missing-fields" = "आपको खाता बनाने के लिए एक यूज़रनेम और पासवर्ड , और प्रमाणित किया गया पासवर्ड डालना आवश्यक है।";
-"account-creation-create-account" = "अपना अकाउंट बनायें";
+"account-creation-create-account" = "अपना खाता बनाएँ";
 "account-creation-have-account" = "पहले से ही अकाउंट है? $1";
 "account-creation-log-in" = "लॉग इन।";
 "new-password-title" = "एक पासवर्ड जोड़ें";
@@ -75,8 +75,7 @@
 "two-factor-login-title" = "अपने अकाउंट में लॉगिन करें";
 "two-factor-login-instructions" = "कृपया टू फैक्टर वेरिफिकेशन कोड डालें";
 "two-factor-login-continue" = "लॉग इन जारी रखें";
-// Fuzzy
-"two-factor-login-with-regular-code" = "छोटे अंकीय कोड का उपयोग करें";
+"two-factor-login-with-regular-code" = "सत्यापन कोड का उपयोग करें";
 "login-name-not-found" = "लॉगिन के लिए सदस्यनाम आवश्यक है।";
 "login-name-illegal" = "आपने एक अवैध सदस्यनाम दिया है।";
 "login-name-does-not-exist" = "जो सदस्यमाम अपने दिया है वो अस्तित्व में नहीं है।";
@@ -89,26 +88,25 @@
 "login-password-placeholder-text" = "कूटशब्द";
 "login-forgot-password" = "अपना पासवर्ड भूल गए?";
 "login-title" = "अपने अकाउंट में लॉग इन करें";
-"login-no-account" = "अकाउंट नहीं है? $1";
+"login-no-account" = "खाता नहीं है? $1";
 "login-join-wikipedia" = "विकिपीडिया से जुड़ें।";
-"field-username-title" = "यूज़रनेम";
-"field-username-placeholder" = "यूज़रनेम डालें";
+"field-username-title" = "सदस्यनाम";
+"field-username-placeholder" = "सदस्य नाम डालें";
 "field-password-title" = "पासवर्ड";
 "field-password-placeholder" = "पासवर्ड डालें";
-"field-password-confirm-title" = "पासवर्ड कन्फर्म करें";
+"field-password-confirm-title" = "पासवर्ड की पुष्टि करें";
 "field-password-confirm-placeholder" = "पुनः पासवर्ड डालें";
 "field-new-password-title" = "नया पासवर्ड";
 "field-new-password-placeholder" = "नया पासवर्ड डालें";
-"field-new-password-confirm-title" = "नया पासवर्ड कन्फर्म करें";
+"field-new-password-confirm-title" = "नए पासवर्ड की पुष्टि करें";
 "field-new-password-confirm-placeholder" = "पुनः नया पासवर्ड डालें";
-// Fuzzy
-"field-email-title" = "ईमेल एड्रेस (वैकल्पिक)";
+"field-email-title" = "ईमेल";
 "field-email-placeholder" = "example@example.org";
 "field-token-title" = "टोकन";
 "field-token-placeholder" = "टोकन डालें";
 "field-captcha-title" = "टेक्स्ट को डालें जो आपको ऊपर दिख रहा है";
 "field-captcha-placeholder" = "कैप्चा टेक्स्ट";
-"field-alert-username-unavailable" = "यूज़रनेम उपलब्ध नहीं";
+"field-alert-username-unavailable" = "यह सदस्य नाम उपलब्ध नहीं";
 "field-alert-password-invalid" = "अमान्य पासवर्ड";
 "field-alert-captcha-invalid" = "अमान्य कैप्चा";
 "field-alert-password-confirm-mismatch" = "पासवर्ड्स नहीं मैच हो रहे";
@@ -139,7 +137,7 @@
 "search-title" = "खोजें";
 "search-searching" = "खोजा जा रहा है...";
 "search-no-matches" = "खोजे गए शब्दों के कोई मेल नहीं मिले।";
-"search-field-placeholder-text" = "विकिपीडिया खोजें";
+"search-field-placeholder-text" = "विकिपीडिया में खोजें";
 "search-field-placeholder-text-zero" = "विकिपीडिया शून्य खोजिये";
 "search-loading-section-zero" = "लेख के पहले भाग को लोड किया जा रहा है...";
 "search-loading-section-remaining" = "बाकी अनुच्छेद  लोड हो रहा है।";
@@ -282,7 +280,7 @@
 "share-as-image" = "चित्र रूप में साझा करें";
 "share-as-text" = "टेक्स्ट रूप में साझा करें";
 "share-cancel" = "रद्द करें";
-"share-open-in-maps" = "मैप्स में खोलें";
+"share-open-in-maps" = "नक्शों में खोलें";
 "share-get-directions-in-maps" = "दिशानिर्देश पाएं";
 "timestamp-just-now" = "अभी-अभी";
 "timestamp-minutes" = "%d मिनट पहले";
@@ -383,7 +381,7 @@
 "page-read-in-other-languages" = "$1 अन्य भाषाओं में उपलब्ध";
 "page-last-edited" = "$1 दिन पहले सम्पादित किया गया";
 "page-edit-history" = "पूर्ण संपादन इतिहास";
-"page-location" = "मैप पर देखें";
+"page-location" = "नक्शे पर देखें";
 "mwk-empty-title-error" = "खाली शीर्षक के साथ कार्य करने में असमर्थ।";
 "home-title" = "छानबीन";
 "home-empty-section" = "कोई परिणाम नहीं";
@@ -446,7 +444,7 @@
 "empty-no-history-title" = "दिखाने को कोई इतिहास नहीं";
 "empty-no-history-message" = "इस बात का ट्रैक रखें कि आपके द्वारा यहाँ क्या पढ़ा जा रहा है";
 "alert-no-internet" = "कोई इंटरनेट कनेक्शन नहीं";
-"icon-shortcut-search-title" = "विकिपीडिया खोजें";
+"icon-shortcut-search-title" = "विकिपीडिया में खोजें";
 "icon-shortcut-continue-reading-title" = "पढ़ना जारी रखें";
 "icon-shortcut-random-title" = "कोईभी लेख";
 "icon-shortcut-nearby-title" = "पास के लेख";
@@ -514,7 +512,7 @@
 "places-unknown-distance" = "अज्ञात दूरी";
 "places-enable-location-title" = "लोकेशन एक्सेस इनेबल कर अपनी लोकेशन के पास के लेख खोजें";
 "places-enable-location-description" = "आपकी लोकेशन की उपलब्धता केवल तभी है जब एप या इसके फीचर्स में से एक स्क्रीन पर दिखे।";
-"places-enable-location-action-button-title" = "लोकेशन इनेबल करें";
+"places-enable-location-action-button-title" = "स्थान सक्रिय करें";
 "places-accessibility-group" = "$1 लेख";
 "places-accessibility-show-as-map" = "मैप पर दिखाएँ";
 "places-accessibility-show-as-list" = "सूची की तरह दिखाएँ";

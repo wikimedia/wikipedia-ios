@@ -75,6 +75,8 @@
 "two-factor-login-title" = "Kirjaudu sisään tilillesi";
 "two-factor-login-instructions" = "Syötä kaksivaiheisen vahvistuksen koodi";
 "two-factor-login-continue" = "Jatka sisäänkirjautumista";
+"two-factor-login-with-regular-code" = "Käytä vahvistuskoodia";
+"two-factor-login-with-backup-code" = "Käytä yhtä varmuuskopiokoodeistasi";
 "login-name-not-found" = "Käyttäjänimi vaaditaan kirjautumiseen.";
 "login-name-illegal" = "Antamasi käyttäjänimi ei kelpaa.";
 "login-name-does-not-exist" = "Antamaasi käyttäjänimeä ei ole.";
@@ -103,12 +105,12 @@
 "field-email-title-optional" = "Sähköposti (vapaaehtoinen)";
 "field-email-placeholder" = "esimerkki@example.org";
 "field-token-title" = "Vahvistuskoodi";
+"field-backup-token-title" = "Varmuuskopiointikoodi";
 "field-captcha-title" = "Kirjoita yllä oleva teksti";
 "field-captcha-placeholder" = "CAPTCHA-teksti";
 "field-alert-username-unavailable" = "Käyttäjänimi ei ole saatavilla";
 "field-alert-password-invalid" = "Salasana ei kelpaa";
-// Fuzzy
-"field-alert-token-invalid" = "Koodi ei kelpaa. Yritä uudelleen.";
+"field-alert-token-invalid" = "Koodi ei kelpaa";
 "field-alert-captcha-invalid" = "CAPTCHA ei kelpaa";
 "field-alert-password-confirm-mismatch" = "Salasanat eivät täsmää";
 "forgot-password-title" = "Salasanan palauttaminen";
@@ -117,6 +119,7 @@
 "forgot-password-email-prompt" = "Sähköpostiosoite (valinnainen)";
 "forgot-password-button-title" = "Palauta";
 "forgot-password-email-sent" = "Sähköposti salasanan palautusohjeiden kanssa lähetetty.";
+"forgot-password-username-or-email-title" = "Tai";
 "wikitext-downloading" = "Ladataan sisältöä...";
 "wikitext-download-failed" = "Uusimman version hakeminen ei onnistu.";
 "wikitext-download-success" = "Sisältö ladattu.";
@@ -509,10 +512,12 @@
 "places-unknown-distance" = "tuntematon etäisyys";
 "places-enable-location-action-button-title" = "Ota sijainti käyttöön";
 "places-accessibility-group" = "$1 artikkelia";
+"places-accessibility-show-more" = "Näytä lisää artikkeleja";
 "places-accessibility-show-as-map" = "Näytä karttana";
 "places-accessibility-show-as-list" = "Näytä luettelona";
 "places-accessibility-recenter-map-on-user-location" = "Keskitä sijaintiisi";
 "places-accessibility-close-search" = "Sulje haku";
+"places-accessibility-clear-recent-searches" = "Tyhjennä tuoreet haut";
 "action-share" = "Jaa";
 "action-save" = "Tallenna";
 "action-read" = "Lue";

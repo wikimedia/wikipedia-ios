@@ -671,7 +671,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         } else if currentSearch?.filter == .top {
             if let centerCoordinate = currentSearch?.region?.center ?? mapRegion?.center {
                 let center = CLLocation(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude)
-                var minDistance = CLLocationDistance(DBL_MAX)
+                var minDistance = CLLocationDistance(Double.greatestFiniteMagnitude)
                 var resultToSelect: MWKLocationSearchResult?
                 for result in searchResults {
                     guard let location = result.location else {

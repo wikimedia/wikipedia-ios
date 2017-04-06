@@ -3,7 +3,6 @@
 #import "SessionSingleton.h"
 #import "WMFArticleDataStore.h"
 #import "Wikipedia-Swift.h"
-@import BlocksKitUIKitExtensions;
 
 NS_ASSUME_NONNULL_BEGIN
 

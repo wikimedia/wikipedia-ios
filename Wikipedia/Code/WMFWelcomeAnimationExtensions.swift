@@ -5,7 +5,7 @@ extension CGFloat {
         return self * reference
     }
     func wmf_radiansFromDegrees() -> CGFloat{
-        return ((self) / 180.0 * CGFloat(M_PI))
+        return ((self) / 180.0 * CGFloat(Double.pi))
     }
 }
 
