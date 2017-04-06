@@ -204,9 +204,23 @@ static uint64_t bundleHash() {
     NSDictionary *options = @{ NSMigratePersistentStoresAutomaticallyOption: @YES,
                                NSInferMappingModelAutomaticallyOption: @YES };
     NSError *persistentStoreError = nil;
-    [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:coreDataDBURL options:options error:&persistentStoreError];
-    if (persistentStoreError) {
+    if (nil == [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:coreDataDBURL options:options error:&persistentStoreError]) {
+        // TODO: Metrics
         DDLogError(@"Error adding persistent store: %@", persistentStoreError);
+        NSError *moveError = nil;
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSString *uuid = [[NSUUID UUID] UUIDString];
+        NSURL *moveURL = [[containerURL URLByAppendingPathComponent:uuid] URLByAppendingPathExtension:@"sqlite"];
+        [fileManager moveItemAtURL:coreDataDBURL toURL:moveURL error:&moveError];
+        if (moveError) {
+            // TODO: Metrics
+            [fileManager removeItemAtURL:coreDataDBURL error:nil];
+        }
+        persistentStoreError = nil;
+        if (nil == [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:coreDataDBURL options:options error:&persistentStoreError]) {
+            // TODO: Metrics
+            DDLogError(@"Second error after adding persistent store: %@", persistentStoreError);
+        }
     }
 
     self.persistentStoreCoordinator = persistentStoreCoordinator;
