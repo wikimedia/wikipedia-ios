@@ -39,8 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
                     savedPageList:(MWKSavedPageList *)savedPageList;
 
 - (void)start;
-
 - (void)stop;
+- (void)fetchUncachedArticlesInSavedPages:(dispatch_block_t)completion;
+- (void)cancelFetchForSavedPages;
 
 @end
 

@@ -95,13 +95,11 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 #pragma mark - Public
 
 - (void)start {
-    [self fetchUncachedArticlesInSavedPages];
     [self observeSavedPages];
 }
 
 - (void)stop {
     [self unobserveSavedPages];
-    [self cancelFetchForSavedPages];
 }
 
 #pragma mark - Observing
@@ -130,12 +128,15 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 #pragma mark - Fetch
 
-- (void)fetchUncachedArticlesInSavedPages {
+- (void)fetchUncachedArticlesInSavedPages:(dispatch_block_t)completion {
     dispatch_block_t didFinishLegacyMigration = ^{
         NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
         if (![defaults wmf_didFinishLegacySavedArticleImageMigration]) {
             [defaults wmf_setDidFinishLegacySavedArticleImageMigration:YES];
             [self.imageController removeLegacyCache];
+        }
+        if (completion) {
+            completion();
         }
     };
     if ([self.savedPageList numberOfItems] == 0) {

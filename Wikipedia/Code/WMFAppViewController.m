@@ -313,6 +313,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }
     self.backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         [self.dataStore stopCacheRemoval];
+        [self.savedArticlesFetcher cancelFetchForSavedPages];
         [self endBackgroundTask];
     }];
 }
@@ -542,6 +543,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }
 
     [self.dataStore startCacheRemoval];
+    [self.savedArticlesFetcher fetchUncachedArticlesInSavedPages:^{
+        DDLogDebug(@"Finished saved articles fetch.");
+    }];
 }
 
 #pragma mark - Memory Warning
