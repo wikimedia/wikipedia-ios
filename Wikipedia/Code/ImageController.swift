@@ -24,6 +24,15 @@ open class TypedImageData: NSObject {
     }
 }
 
+fileprivate extension Error {
+    var isCancellationError: Bool {
+        get {
+            let potentialCancellationError = self as NSError
+            return potentialCancellationError.domain == NSCocoaErrorDomain && potentialCancellationError.code == NSUserCancelledError
+        }
+    }
+}
+
 let WMFExtendedFileAttributeNameMIMEType = "org.wikimedia.MIMEType"
 
 @objc(WMFImageController)
@@ -233,6 +242,9 @@ open class ImageController : NSObject {
             }
             let schemedURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless() as URL
             let task = self.session.downloadTask(with: schemedURL, completionHandler: { (fileURL, response, error) in
+                guard !self.isCancellationError(error) else {
+                    return
+                }
                 guard let fileURL = fileURL, let response = response else {
                     let err = error ?? ImageControllerError.invalidResponse
                     self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
@@ -440,6 +452,10 @@ open class ImageController : NSObject {
         return sessionCachedImage(withURL: url) ?? permanentlyCachedImage(withURL: url)
     }
     
+    fileprivate func isCancellationError(_ error: Error?) -> Bool {
+        return error?.isCancellationError ?? false
+    }
+    
     public func fetchData(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (Data, URLResponse) -> Void) {
         guard let url = url else {
             failure(ImageControllerError.invalidOrEmptyURL)
@@ -452,6 +468,9 @@ open class ImageController : NSObject {
         }
         let schemedURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless() as URL
         let task = session.dataTask(with: schemedURL) { (data, response, error) in
+            guard !self.isCancellationError(error) else {
+                return
+            }
             self.dataCompletionManager.complete(identifier, enumerator: { (completion) in
                 guard let data = data, let response = response else {
                     completion.failure(error ?? ImageControllerError.invalidResponse)
