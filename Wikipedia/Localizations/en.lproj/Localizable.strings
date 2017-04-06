@@ -335,7 +335,7 @@
 "onboarding-free-encyclopedia" = "The Free Encyclopedia";
 
 "preference-title-eventlogging-opt-in" = "Send usage reports";
-"preference-summary-eventlogging-opt-in" = "Allow Wikimedia to collect information about how you use the app to make the app better";
+"preference-summary-eventlogging-opt-in" = "Allow Wikimedia Foundation to collect information about how you use the app to make the app better";
 
 "page-protected-autoconfirmed" = "This page has been semi-protected.";
 "page-protected-sysop" = "This page has been fully protected.";
@@ -407,8 +407,8 @@
 "image-gallery-fetch-image-info-error-message" = "Unable to download the images for this article. Please refresh the article and try again.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
 
-"hockeyapp-alert-question" = "Would you like to send a crash report to $1 so Wikimedia can review your crash?";
-"hockeyapp-alert-question-with-response-field" = "Would you like to send a crash report to $1 so Wikimedia can review your crash? Please describe what happened when the crash occurred:";
+"hockeyapp-alert-question" = "Would you like to send a crash report to $1 so the Wikimedia Foundation can review your crash?";
+"hockeyapp-alert-question-with-response-field" = "Would you like to send a crash report to $1 so the Wikimedia Foundation can review your crash? Please describe what happened when the crash occurred:";
 "hockeyapp-alert-title" = "Sorry, app crashed last time";
 "hockeyapp-alert-send-report" = "Send report";
 "hockeyapp-alert-always-send" = "Always send";
@@ -481,7 +481,7 @@
 "welcome-volunteer-continue-button" = "Continue";
 "welcome-volunteer-thanks" = "$1 Thank you!";
 "welcome-send-data-title" = "Send Anonymous data";
-"welcome-send-data-sub-title" = "Help Wikimedia make the app better by letting us know how you use the app. Data collected is anonymous";
+"welcome-send-data-sub-title" = "Help the Wikimedia Foundation make the app better by letting us know how you use the app. Data collected is anonymous";
 
 
 
