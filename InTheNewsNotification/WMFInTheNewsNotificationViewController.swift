@@ -42,7 +42,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
     }
     
     func analyticsContentType() -> String {
-        return AnalyticsContent(articleURL).analyticsContentType()
+        return AnalyticsContent(articleURL?.host ?? AnalyticsContent.defaultContent).analyticsContentType()
     }
     
     override func awakeFromNib() {
