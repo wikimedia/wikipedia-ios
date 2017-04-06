@@ -37,17 +37,23 @@ public class AnalyticsContent: NSObject, WMFAnalyticsContentTypeProviding, Expre
         type = value
     }
     
-    public init(_ url: URL?) {
-        type = url?.host ?? "unknown domain"
+    @objc(initWithString:) public init(_ string: String) {
+        type = string
+    }
+    
+    @objc(initWithURL:) public init(_ url: URL) {
+        type = url.host ?? AnalyticsContent.defaultContent
     }
     
     public func analyticsContentType() -> String {
         return type
     }
+    
+    public static let defaultContent = "unknown domain"
 }
 
 extension WMFArticle: WMFAnalyticsContentTypeProviding {
     public func analyticsContentType() -> String {
-        return AnalyticsContent(url).analyticsContentType()
+        return AnalyticsContent(url?.host ?? AnalyticsContent.defaultContent).analyticsContentType()
     }
 }
