@@ -129,7 +129,7 @@
     if (!url) {
         return;
     }
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemWasUpdatedWithNotification:) name:MWKItemUpdatedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemWasUpdatedWithNotification:) name:WMFArticleUpdatedNotification object:nil];
 }
 
 - (void)unobserveURL:(NSURL *)url {
@@ -140,13 +140,11 @@
 }
 
 - (void)itemWasUpdatedWithNotification:(NSNotification *)note {
-    NSURL *userInfoURL = note.userInfo[MWKURLKey];
-    NSString *userInfoDatabaseKey = [userInfoURL wmf_articleDatabaseKey];
+    WMFArticle *article = [note object];
+    NSString *articleKey = article.key;
     NSString *myDatabaseKey = self.url.wmf_articleDatabaseKey;
-    if (userInfoDatabaseKey && myDatabaseKey && [userInfoDatabaseKey isEqual:myDatabaseKey]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self updateSavedButtonState];
-        });
+    if (articleKey && myDatabaseKey && [articleKey isEqual:myDatabaseKey]) {
+         [self updateSavedButtonState];
     }
 }
 

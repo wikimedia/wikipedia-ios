@@ -182,10 +182,6 @@
     return fabs(estimatedSize.width - size.width) <= points && fabs(estimatedSize.height - size.height) <= points;
 }
 
-- (void)isDownloaded:(void (^)(BOOL isDownloaded))completion {
-    return [[WMFImageController sharedInstance] hasImageWithURL:[NSURL URLWithString:self.sourceURLString] completion:completion];
-}
-
 - (BOOL)isEqual:(id)object {
     if (self == object) {
         return YES;

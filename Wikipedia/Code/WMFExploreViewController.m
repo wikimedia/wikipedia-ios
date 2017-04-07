@@ -735,7 +735,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
         } break;
         case WMFFeedDisplayTypePageWithPreview: {
             WMFArticlePreviewCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFArticlePreviewCollectionViewCell wmf_nibName] forIndexPath:indexPath];
-            [self configurePreviewCell:cell withSection:contentGroup withArticle:article atIndexPath:indexPath];
+            [self configurePreviewCell:cell withSection:contentGroup withArticle:article atIndexPath:indexPath layoutOnly:NO];
             return cell;
         } break;
         case WMFFeedDisplayTypePageWithLocation: {
@@ -795,7 +795,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
             CGRect frameToFit = CGRectMake(0, 0, columnWidth, estimatedHeight);
             WMFArticlePreviewCollectionViewCell *cell = [self placeholderCellForIdentifier:[WMFArticlePreviewCollectionViewCell wmf_nibName]];
             cell.frame = frameToFit;
-            [self configurePreviewCell:cell withSection:section withArticle:article atIndexPath:indexPath];
+            [self configurePreviewCell:cell withSection:section withArticle:article atIndexPath:indexPath layoutOnly:YES];
             WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
             attributesToFit.frame = frameToFit;
             UICollectionViewLayoutAttributes *attributes = [cell preferredLayoutAttributesFittingAttributes:attributesToFit];
@@ -961,10 +961,10 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
             continue;
         }
         self.prefetchURLsByIndexPath[indexPath] = imageURL;
-        [[WMFImageController sharedInstance] prefetchImageWithURL:article.thumbnailURL
-                                                       completion:^{
-                                                           [self.prefetchURLsByIndexPath removeObjectForKey:indexPath];
-                                                       }];
+        [[WMFImageController sharedInstance] prefetchWithURL:imageURL
+                                                  completion:^{
+                                                      [self.prefetchURLsByIndexPath removeObjectForKey:indexPath];
+                                                  }];
     }
 }
 
@@ -974,7 +974,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
         if (!imageURL) {
             continue;
         }
-        [[WMFImageController sharedInstance] cancelFetchForURL:imageURL];
+        [[WMFImageController sharedInstance] cancelFetchWithURL:imageURL];
         [self.prefetchURLsByIndexPath removeObjectForKey:indexPath];
     }
 }
@@ -1150,14 +1150,22 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     [cell setImageURL:article.thumbnailURL];
 }
 
-- (void)configurePreviewCell:(WMFArticlePreviewCollectionViewCell *)cell withSection:(WMFContentGroup *)section withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath {
+- (void)configurePreviewCell:(WMFArticlePreviewCollectionViewCell *)cell withSection:(WMFContentGroup *)section withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath layoutOnly:(BOOL)layoutOnly {
     cell.titleText = [article.displayTitle wmf_stringByRemovingHTML];
     cell.descriptionText = [article.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     cell.snippetText = article.snippet;
-    [cell setImageURL:article.thumbnailURL];
-    [cell setSaveableURL:article.URL savedPageList:self.userStore.savedPageList];
-    cell.saveButtonController.analyticsContext = [self analyticsContext];
-    cell.saveButtonController.analyticsContentType = [section analyticsContentType];
+    if (layoutOnly) {
+        if (article.thumbnailURL) {
+            [cell restoreImageToFullHeight];
+        } else {
+            [cell collapseImageHeightToZero];
+        }
+    } else {
+        [cell setImageURL:article.thumbnailURL];
+        [cell setSaveableURL:article.URL savedPageList:self.userStore.savedPageList];
+        cell.saveButtonController.analyticsContext = [self analyticsContext];
+        cell.saveButtonController.analyticsContentType = [section analyticsContentType];
+    }
 }
 
 - (void)configureNearbyCell:(WMFNearbyArticleCollectionViewCell *)cell withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath {

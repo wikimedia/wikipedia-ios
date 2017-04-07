@@ -63,7 +63,6 @@
 
 #if TEST_SHARED_CONTAINER_MIGRATION
 #import "YapDatabase+WMFExtensions.h"
-#import "SDImageCache+WMFPersistentCache.h"
 #endif
 
 #import "WMFArticleNavigationController.h"
@@ -314,6 +313,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }
     self.backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         [self.dataStore stopCacheRemoval];
+        [self.savedArticlesFetcher cancelFetchForSavedPages];
         [self endBackgroundTask];
     }];
 }
@@ -359,14 +359,16 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 #endif
     [self migrateToSharedContainerIfNecessaryWithCompletion:^{
         [self migrateToNewFeedIfNecessaryWithCompletion:^{
-            [self migrateToQuadKeyLocationIfNecessaryWithCompletion:^{
-                [self migrateToRemoveUnreferencedArticlesIfNecessaryWithCompletion:^{
-                    [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
-                        [self loadMainUI];
-                        if (!waitToResumeApp) {
-                            [self hideSplashViewAnimated:!didShowOnboarding];
-                            [self resumeApp];
-                        }
+            [self.dataStore performCoreDataMigrations:^{
+                [self migrateToQuadKeyLocationIfNecessaryWithCompletion:^{
+                    [self migrateToRemoveUnreferencedArticlesIfNecessaryWithCompletion:^{
+                        [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+                            [self loadMainUI];
+                            if (!waitToResumeApp) {
+                                [self hideSplashViewAnimated:!didShowOnboarding];
+                                [self resumeApp];
+                            }
+                        }];
                     }];
                 }];
             }];
@@ -382,9 +384,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
                 DDLogError(@"Error migrating data store: %@", error);
             }
             error = nil;
-            if (![SDImageCache migrateToSharedContainer:&error]) {
-                DDLogError(@"Error migrating image cache: %@", error);
-            }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:YES];
                 completion();
@@ -525,7 +524,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     if (![self uiIsLoaded]) {
         return;
     }
-    [[WMFImageController sharedInstance] clearMemoryCache];
 
     [self.savedArticlesFetcher stop];
     [self stopContentSources];
@@ -547,6 +545,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }
 
     [self.dataStore startCacheRemoval];
+    [self.savedArticlesFetcher fetchUncachedArticlesInSavedPages:^{
+        DDLogDebug(@"Finished saved articles fetch.");
+    }];
 }
 
 #pragma mark - Memory Warning
@@ -556,7 +557,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         return;
     }
     [super didReceiveMemoryWarning];
-    [[WMFImageController sharedInstance] clearMemoryCache];
     [self.dataStore clearMemoryCache];
 }
 

@@ -61,7 +61,3 @@
 #import "ToCInteractionFunnel.h"
 #import "LoginFunnel.h"
 #import "CreateAccountFunnel.h"
-
-// ObjC Framework Categories
-#import "SDWebImageManager+WMFCacheRemoval.h"
-#import "SDImageCache+WMFPersistentCache.h"

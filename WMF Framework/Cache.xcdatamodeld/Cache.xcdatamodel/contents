@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16E195" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CacheGroup" representedClassName="WMFCacheGroup" syncable="YES">
+        <attribute name="key" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="cacheItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CacheItem" inverseName="cacheGroups" inverseEntity="CacheItem" syncable="YES"/>
+    </entity>
+    <entity name="CacheItem" representedClassName="WMFCacheItem" syncable="YES">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="key" attributeType="String" syncable="YES"/>
+        <attribute name="variant" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" customClassName="NSArray" syncable="YES"/>
+        <relationship name="cacheGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CacheGroup" inverseName="cacheItems" inverseEntity="CacheGroup" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="key"/>
+                <index value="variant"/>
+            </compoundIndex>
+        </compoundIndexes>
+    </entity>
+    <elements>
+        <element name="CacheGroup" positionX="-63" positionY="9" width="128" height="75"/>
+        <element name="CacheItem" positionX="-63" positionY="-18" width="128" height="105"/>
+    </elements>
+</model>

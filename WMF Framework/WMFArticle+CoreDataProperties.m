@@ -7,6 +7,7 @@
 }
 
 @dynamic isExcludedFromFeed;
+@dynamic isDownloaded;
 @dynamic key;
 @dynamic viewedDate;
 @dynamic viewedFragment;

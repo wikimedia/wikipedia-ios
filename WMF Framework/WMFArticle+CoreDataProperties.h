@@ -7,6 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSFetchRequest<WMFArticle *> *)fetchRequest;
 
 @property (nonatomic) BOOL isExcludedFromFeed;
+@property (nonatomic) BOOL isDownloaded;
 @property (nullable, nonatomic, copy) NSString *key;
 @property (nullable, nonatomic, copy) NSDate *viewedDate;
 @property (nullable, nonatomic, copy) NSDate *viewedDateWithoutTime;

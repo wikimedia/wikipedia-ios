@@ -29,10 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.dataStore fetchArticleForURL:url];
 }
 
-- (void)enumerateItemsWithBlock:(void (^)(WMFArticle *_Nonnull item, BOOL *stop))block {
-    [self.dataStore enumerateArticlesWithBlock:block];
-}
-
 - (WMFArticle *)newOrExistingPreviewWithURL:(NSURL *)url {
     NSParameterAssert(url.wmf_title);
     return [self.dataStore fetchOrCreateArticleForURL:url];
@@ -115,6 +111,8 @@ NS_ASSUME_NONNULL_BEGIN
     preview.isExcludedFromFeed = article.ns != 0 || url.wmf_isMainPage;
     
     [preview updateWithScalarCoordinate:article.coordinate];
+    
+    preview.isDownloaded = NO; //isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
     
     return preview;
 }

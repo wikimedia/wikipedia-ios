@@ -9,7 +9,6 @@
 #import "MWKSavedPageList.h"
 #import "MWKArticle.h"
 #import "MWKImage+CanonicalFilenames.h"
-#import "WMFURLCache.h"
 #import "WMFImageURLParsing.h"
 #import "WMFTaskGroup.h"
 #import <WMF/WMF.h>
@@ -96,33 +95,36 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 #pragma mark - Public
 
 - (void)start {
-    [self fetchUncachedArticlesInSavedPages];
     [self observeSavedPages];
 }
 
 - (void)stop {
     [self unobserveSavedPages];
-    [self cancelFetchForSavedPages];
 }
 
 #pragma mark - Observing
 
-- (void)itemWasUpdated:(NSNotification *)note {
-    NSURL *url = note.userInfo[MWKURLKey];
-    if (!url) {
-        return;
-    }
-    NSDate *savedDate = note.userInfo[MWKSavedDateKey];
-    if (savedDate) {
-        [self fetchUncachedArticleURLs:@[url]];
-    } else {
-        [self cancelFetchForArticleURL:url];
-        [self.spotlightManager removeFromIndexWithUrl:url];
+- (void)articleWasUpdated:(NSNotification *)note {
+    WMFArticle *article = note.object;
+    if (article.savedDate != nil && !article.isDownloaded) {
+        NSURL *articleURL = article.URL;
+        if (articleURL) {
+            [self fetchUncachedArticleURLs:@[articleURL]];
+        }
+    } else if (article.savedDate == nil) {
+        NSURL *articleURL = article.URL;
+        if (articleURL) {
+            [self cancelFetchForArticleURL:articleURL completion:^{}];
+            if (article.isDownloaded) {
+                [self removeCachedImagesForArticleURL:articleURL completion:^{}];
+                [self.spotlightManager removeFromIndexWithUrl:articleURL];
+            }
+        }
     }
 }
 
 - (void)observeSavedPages {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemWasUpdated:) name:MWKItemUpdatedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleWasUpdated:) name:WMFArticleUpdatedNotification object:nil];
 }
 
 - (void)unobserveSavedPages {
@@ -131,33 +133,73 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 #pragma mark - Fetch
 
-- (void)fetchUncachedArticlesInSavedPages {
+- (void)fetchUncachedArticlesInSavedPages:(dispatch_block_t)completion {
     dispatch_block_t didFinishLegacyMigration = ^{
-        [[NSUserDefaults wmf_userDefaults] wmf_setDidFinishLegacySavedArticleImageMigration:YES];
+        NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
+        if (![defaults wmf_didFinishLegacySavedArticleImageMigration]) {
+            [defaults wmf_setDidFinishLegacySavedArticleImageMigration:YES];
+            [self.imageController removeLegacyCache];
+        }
+        if (completion) {
+            completion();
+        }
     };
     if ([self.savedPageList numberOfItems] == 0) {
         didFinishLegacyMigration();
         return;
     }
-
+    
     WMFTaskGroup *group = [WMFTaskGroup new];
-    [self.savedPageList enumerateItemsWithBlock:^(WMFArticle *_Nonnull entry, BOOL *_Nonnull stop) {
-        [group enter];
-        dispatch_async(self.accessQueue, ^{
+    [group enter];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSFetchRequest *undownloadedRequest = [WMFArticle fetchRequest];
+        undownloadedRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate != nil && isDownloaded == NO"];
+        NSError *undownloadedFetchError = nil;
+        NSArray *undownloadedArticles = [self.dataStore.viewContext executeFetchRequest:undownloadedRequest error:&undownloadedFetchError];
+        if (undownloadedFetchError) {
+            DDLogError(@"Error fetching undownloaded saved articles: %@", undownloadedFetchError);
+        }
+        for (WMFArticle *article in undownloadedArticles) {
             @autoreleasepool {
-                NSURL *articleURL = [NSURL URLWithString:entry.key];
-                if (articleURL) {
-                    [self fetchArticleURL:articleURL
-                        failure:^(NSError *error) {
-                            [group leave];
-                        }
-                        success:^{
-                            [group leave];
-                        }];
+                NSURL *articleURL = article.URL;
+                if (!articleURL) {
+                    continue;
                 }
+                [group enter];
+                dispatch_async(self.accessQueue, ^{
+                    [self fetchArticleURL:articleURL
+                                  failure:^(NSError *error) {
+                                      [group leave];
+                                  }
+                                  success:^{
+                                      [group leave];
+                                  }];
+                });
             }
-        });
-    }];
+        }
+        NSFetchRequest *downloadedRequest = [WMFArticle fetchRequest];
+        downloadedRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate == nil && isDownloaded == YES"];
+        NSError *downloadedFetchError = nil;
+        NSArray *articlesToDelete = [self.dataStore.viewContext executeFetchRequest:downloadedRequest error:&downloadedFetchError];
+        if (downloadedFetchError) {
+            DDLogError(@"Error fetching downloaded unsaved articles: %@", downloadedFetchError);
+        }
+        for (WMFArticle *article in articlesToDelete) {
+            @autoreleasepool {
+                NSURL *articleURL = article.URL;
+                if (!articleURL) {
+                    continue;
+                }
+                [group enter];
+                [self cancelFetchForArticleURL:articleURL completion:^{
+                    [self removeCachedImagesForArticleURL:articleURL completion:^{
+                        [group leave];
+                    }];
+                }];
+            }
+        }
+        [group leave];
+    });
     [group waitInBackgroundWithCompletion:didFinishLegacyMigration];
 }
 
@@ -190,25 +232,28 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     }
     // NOTE: must check isCached to determine that all article data has been downloaded
     MWKArticle *articleFromDisk = [self.dataStore articleWithURL:articleURL];
-    @weakify(self);
     if (articleFromDisk.isCached) {
         // only fetch images if article was cached
-        [self downloadImageDataForArticle:articleFromDisk failure:failure success:success];
+        [self downloadImageDataForArticle:articleFromDisk failure:^(NSError *_Nonnull error) {
+            dispatch_async(self.accessQueue, ^{
+                [self didFetchArticle:articleFromDisk url:articleURL error:error];
+            });
+        } success:^{
+            dispatch_async(self.accessQueue, ^{
+                [self didFetchArticle:articleFromDisk url:articleURL error:nil];
+            });
+        }];
     } else {
         self.fetchOperationsByArticleTitle[articleURL] =
             [self.articleFetcher fetchArticleForURL:articleURL
                 progress:NULL
                 failure:^(NSError *_Nonnull error) {
-                    if (!self) {
-                        return;
-                    }
                     dispatch_async(self.accessQueue, ^{
                         [self didFetchArticle:nil url:articleURL error:error];
                     });
                 }
                 success:^(MWKArticle *_Nonnull article) {
                     dispatch_async(self.accessQueue, ^{
-                        @strongify(self);
                         [self downloadImageDataForArticle:article
                             failure:^(NSError *error) {
                                 dispatch_async(self.accessQueue, ^{
@@ -234,107 +279,38 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                 failure([NSError wmf_savedPageImageDownloadError]);
             }
             success:^{
-                //NOTE: turning off gallery image fetching as users are potentially downloading large amounts of data up front when upgrading to a new version of the app.
-                //        [self fetchGalleryDataForArticle:article failure:failure success:success];
                 if (success) {
                     success();
                 }
             }];
     };
     if (![[NSUserDefaults wmf_userDefaults] wmf_didFinishLegacySavedArticleImageMigration]) {
-        WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0.5)
-            [self migrateLegacyImagesInArticle:article
-                                    completion:doneMigration];
+        WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.5.0)
+        [self migrateLegacyImagesInArticle:article completion:doneMigration];
     } else {
         doneMigration();
     }
 }
 
 - (void)migrateLegacyImagesInArticle:(MWKArticle *)article completion:(dispatch_block_t)completion {
-    //  Copies saved article images cached by versions 5.0.4 and older to the locations where 5.0.5 and newer are looking for them. Previously, the app cached at the width of the largest image in the srcset. Currently, we request a thumbnail at wmf_articleImageWidthForScale (or original if it's narrower than that width). By copying from the old size to the new expected sizes, we ensure that articles saved with these older versions will still have images availble offline in the newer versions.
     WMFImageController *imageController = [WMFImageController sharedInstance];
-    NSArray *legacyImageURLs = [self.dataStore legacyImageURLsForArticle:article];
-    NSInteger articleImageWidth = [[UIScreen mainScreen] wmf_articleImageWidthForScale];
-    WMFTaskGroup *group = [WMFTaskGroup new];
-    for (NSURL *legacyImageURL in legacyImageURLs) {
-        @autoreleasepool {
-            NSString *legacyImageURLString = legacyImageURL.absoluteString;
-            NSInteger width = WMFParseSizePrefixFromSourceURL(legacyImageURLString);
-            if (width == articleImageWidth || width == NSNotFound) {
-                continue;
-            }
-
-            if (legacyImageURL == nil) {
-                continue;
-            }
-
-            [group enter];
-            [imageController hasDataOnDiskForImageWithURL:legacyImageURL
-                                               completion:^(BOOL hasLegacyImageData) {
-                                                   if (!hasLegacyImageData) {
-                                                       [group leave];
-                                                       return;
-                                                   }
-
-                                                   NSURL *cachedFileURL = [NSURL fileURLWithPath:[imageController cachePathForImageWithURL:legacyImageURL] isDirectory:NO];
-
-                                                   if (cachedFileURL == nil) {
-                                                       [group leave];
-                                                       return;
-                                                   }
-
-                                                   NSString *imageExtension = [legacyImageURL pathExtension];
-                                                   NSString *imageMIMEType = [imageExtension wmf_asMIMEType];
-
-                                                   NSString *imageURLStringAtArticleWidth = WMFChangeImageSourceURLSizePrefix(legacyImageURLString, articleImageWidth);
-                                                   NSURL *imageURLAtArticleWidth = [NSURL URLWithString:imageURLStringAtArticleWidth];
-
-                                                   if (imageURLAtArticleWidth == nil) {
-                                                       [group leave];
-                                                       return;
-                                                   }
-
-                                                   [group enter];
-                                                   [imageController hasDataOnDiskForImageWithURL:imageURLAtArticleWidth
-                                                                                      completion:^(BOOL hasArticleWithData) {
-                                                                                          if (hasArticleWithData) {
-                                                                                              [group leave];
-                                                                                              return;
-                                                                                          }
-
-                                                                                          [imageController cacheImageFromFileURL:cachedFileURL forURL:imageURLAtArticleWidth MIMEType:imageMIMEType];
-                                                                                          [group leave];
-                                                                                      }];
-
-                                                   NSString *originalImageURLString = WMFOriginalImageURLStringFromURLString(legacyImageURLString);
-                                                   NSURL *originalImageURL = [NSURL URLWithString:originalImageURLString];
-                                                   [group enter];
-                                                   [imageController hasDataOnDiskForImageWithURL:originalImageURL
-                                                                                      completion:^(BOOL hasOriginalData) {
-                                                                                          if (hasOriginalData) {
-                                                                                              [group leave];
-                                                                                              return;
-                                                                                          }
-                                                                                          [imageController cacheImageFromFileURL:cachedFileURL forURL:originalImageURL MIMEType:imageMIMEType];
-                                                                                          [group leave];
-                                                                                      }];
-
-                                                   [group leave];
-                                               }];
-        }
+    NSArray<NSURL *> *legacyImageURLs = [article imageURLsForSaving];
+    NSString *group = article.url.wmf_articleDatabaseKey;
+    if (!group || !legacyImageURLs.count) {
+        completion();
     }
-    [group waitInBackgroundWithTimeout:10 completion:completion];
+    [imageController migrateLegacyImageURLs:legacyImageURLs intoGroup:group completion:completion];
 }
 
 - (void)fetchAllImagesInArticle:(MWKArticle *)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     dispatch_block_t doneMigration = ^{
-        //Move any images already cached in the shared URL cache to our own cache (WMFImageController)
-        WMFURLCache *cache = (WMFURLCache *)[NSURLCache sharedURLCache];
-        [cache permanentlyCacheImagesForArticle:article];
-
-        //Download any images that aren't cached
-        NSArray<NSURL *> *URLs = [[article allImageURLs] allObjects];
-        [self cacheImagesWithURLsInBackground:URLs failure:failure success:success];
+        NSArray *imageURLsForSaving = [article imageURLsForSaving];
+        NSString *articleKey = article.url.wmf_articleDatabaseKey;
+        if (!articleKey || imageURLsForSaving.count == 0) {
+            success();
+            return;
+        }
+        [self cacheImagesForArticleKey:articleKey withURLsInBackground:imageURLsForSaving failure:failure success:success];
     };
     if (![[NSUserDefaults wmf_userDefaults] wmf_didFinishLegacySavedArticleImageMigration]) {
         WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0 .5)
@@ -366,7 +342,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             }
 
             NSArray *URLs = [info valueForKey:@"imageThumbURL"];
-            [self cacheImagesWithURLsInBackground:URLs failure:failure success:success];
+            [self cacheImagesForArticleKey:article.url.wmf_articleDatabaseKey withURLsInBackground:URLs failure:failure success:success];
         }];
 }
 
@@ -412,18 +388,17 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                                   }];
 }
 
-- (void)cacheImagesWithURLsInBackground:(NSArray<NSURL *> *)imageURLs failure:(void (^_Nonnull)(NSError *_Nonnull error))failure success:(void (^_Nonnull)(void))success {
+- (void)cacheImagesForArticleKey:(NSString *)articleKey withURLsInBackground:(NSArray<NSURL *> *)imageURLs failure:(void (^_Nonnull)(NSError *_Nonnull error))failure success:(void (^_Nonnull)(void))success {
     imageURLs = [imageURLs wmf_select:^BOOL(id obj) {
         return [obj isKindOfClass:[NSURL class]];
     }];
 
-    if ([imageURLs count] == 0) {
+    if (!articleKey || [imageURLs count] == 0) {
         success();
         return;
     }
-    
-    [self.imageController cacheImagesWithURLsInBackground:imageURLs failure:failure success:success];
 
+    [self.imageController permanentlyCacheInBackgroundWithUrls:imageURLs groupKey:articleKey failure:failure success:success];
 }
 
 #pragma mark - Cancellation
@@ -432,7 +407,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     BOOL wasFetching = self.fetchOperationsByArticleTitle.count > 0;
     [self.savedPageList enumerateItemsWithBlock:^(WMFArticle *_Nonnull entry, BOOL *_Nonnull stop) {
         dispatch_async(self.accessQueue, ^{
-            [self cancelFetchForArticleURL:entry.URL];
+            [self cancelFetchForArticleURL:entry.URL completion:^{}];
         });
     }];
     if (wasFetching) {
@@ -446,16 +421,31 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     }
 }
 
-- (void)cancelFetchForArticleURL:(NSURL *)URL {
+- (void)removeCachedImagesForArticleURL:(NSURL *)URL completion:(dispatch_block_t)completion {
+    [self.imageController removePermanentlyCachedImagesWithGroupKey:URL.wmf_articleDatabaseKey completion:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            WMFArticle *article = [self.dataStore fetchArticleForURL:URL];
+            article.isDownloaded = NO;
+            NSError *saveError = nil;
+            [self.dataStore save:&saveError];
+            if (saveError) {
+                DDLogError(@"Error saving after cache removal: %@", saveError);
+            }
+            if (completion) {
+                completion();
+            }
+        });
+    }];
+}
+
+- (void)cancelFetchForArticleURL:(NSURL *)URL completion:(dispatch_block_t)completion {
     dispatch_async(self.accessQueue, ^{
         DDLogVerbose(@"Canceling saved page download for title: %@", URL);
         [self.articleFetcher cancelFetchForArticleURL:URL];
-        NSSet<NSURL *> *allImageURLs = [[self.dataStore existingArticleWithURL:URL] allImageURLs];
-        for (NSURL *imageURL in allImageURLs) {
-            [self.imageController cancelFetchForURL:imageURL];
+        [self.fetchOperationsByArticleTitle removeObjectForKey:URL];
+        if (completion) {
+            completion();
         }
-        WMF_TECH_DEBT_TODO(cancel image info & high - res image requests)
-            [self.fetchOperationsByArticleTitle removeObjectForKey:URL];
     });
 }
 
@@ -478,6 +468,15 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     [self.fetchOperationsByArticleTitle removeObjectForKey:url];
 
     dispatch_async(dispatch_get_main_queue(), ^{
+        if (!error) {
+            WMFArticle *article = [self.dataStore fetchArticleForURL:url];
+            article.isDownloaded = YES;
+            NSError *saveError = nil;
+            [self.dataStore save:&saveError];
+            if (saveError) {
+                DDLogError(@"Error saving after saved articles fetch: %@", saveError);
+            }
+        }
         [self.fetchFinishedDelegate savedArticlesFetcher:self
                                              didFetchURL:url
                                                  article:fetchedArticle
