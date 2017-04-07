@@ -284,12 +284,12 @@ public extension UserDefaults {
     }
     
     public func wmf_setDidFinishLegacySavedArticleImageMigration(_ didFinish: Bool) {
-        self.set(didFinish, forKey: "DidFinishLegacySavedArticleImageMigration")
+        self.set(didFinish, forKey: "DidFinishLegacySavedArticleImageMigration2")
         self.synchronize()
     }
     
     public func wmf_didFinishLegacySavedArticleImageMigration() -> Bool {
-        return self.bool(forKey: "DidFinishLegacySavedArticleImageMigration")
+        return self.bool(forKey: "DidFinishLegacySavedArticleImageMigration2")
     }
     
     public func wmf_setDidMigrateHistoryList(_ didFinish: Bool) {

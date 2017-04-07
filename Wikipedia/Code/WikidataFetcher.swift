@@ -1,5 +1,6 @@
 import Foundation
 import WMF
+import MapKit
 
 enum WikidataFetcherError: Error {
     case genericError

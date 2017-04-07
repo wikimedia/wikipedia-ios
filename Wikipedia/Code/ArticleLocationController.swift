@@ -1,20 +1,23 @@
 import Foundation
 
 @objc class ArticleLocationController: NSObject {
-
-    func migrate(managedObjectContext: NSManagedObjectContext, completion: @escaping (Error?) -> Void) {
-
+    let migrationKey = "WMFDidCompleteQuadKeyMigration"
+    
+    func needsMigration(managedObjectContext: NSManagedObjectContext) -> Bool {
         do {
-            let migrationKey = "WMFDidCompleteQuadKeyMigration"
             let keyValueRequest = WMFKeyValue.fetchRequest()
             keyValueRequest.predicate = NSPredicate(format: "key == %@", migrationKey)
             
             let keyValueResult = try managedObjectContext.fetch(keyValueRequest)
-            if keyValueResult.count > 0 && (keyValueResult[0].value != nil) {
-                completion(nil)
-                return
-            }
-            
+            return keyValueResult.count == 0 || (keyValueResult[0].value == nil)
+        } catch {
+            return true
+        }
+    }
+    
+    func migrate(managedObjectContext: NSManagedObjectContext, completion: @escaping (Error?) -> Void) {
+
+        do {
             let request = WMFArticle.fetchRequest()
             request.predicate = NSPredicate(format: "latitude != NULL && latitude != 0 && longitude != NULL && longitude != 0 && signedQuadKey == NULL")
             request.fetchLimit = 500

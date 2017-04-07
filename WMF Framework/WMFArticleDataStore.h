@@ -8,8 +8,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable WMFArticle *)itemForURL:(NSURL *)url;
 
-- (void)enumerateItemsWithBlock:(void (^)(WMFArticle *_Nonnull item, BOOL *stop))block;
-
 - (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithSearchResult:(MWKSearchResult *)searchResult;
 
 - (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithLocationSearchResult:(MWKLocationSearchResult *)searchResult;

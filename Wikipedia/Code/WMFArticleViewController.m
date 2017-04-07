@@ -267,7 +267,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self setupTableOfContentsViewController];
     [self updateWebviewFootersIfNeeded];
     [self updateTableOfContentsForFootersIfNeeded];
-    [self observeArticleUpdates];
 
     if (_article && self.shouldShareArticleOnLoad) {
         self.shareArticleOnLoad = NO;
@@ -399,18 +398,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if ([self.articleURL isEqual:article.url]) {
         self.article = article;
     }
-}
-
-- (void)observeArticleUpdates {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(articleUpdatedWithNotification:)
-                                                 name:MWKArticleSavedNotification
-                                               object:nil];
-}
-
-- (void)unobserveArticleUpdates {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
 }
 
 #pragma mark - Public
@@ -609,7 +596,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (UIBarButtonItem *)shareToolbarItem {
     if (!_shareToolbarItem) {
         _shareToolbarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                                                             target:self action:@selector(shareArticle)];
+                                                                          target:self
+                                                                          action:@selector(shareArticle)];
     }
     return _shareToolbarItem;
 }
@@ -617,7 +605,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (UIBarButtonItem *)findInPageToolbarItem {
     if (!_findInPageToolbarItem) {
         _findInPageToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"find-in-page"]
-                                                                     style:UIBarButtonItemStylePlain target:self action:@selector(findInPageButtonPressed)];
+                                                                  style:UIBarButtonItemStylePlain
+                                                                 target:self
+                                                                 action:@selector(findInPageButtonPressed)];
         _findInPageToolbarItem.accessibilityLabel = MWLocalizedString(@"find-in-page-button-label", nil);
     }
     return _findInPageToolbarItem;
@@ -1242,7 +1232,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 
     [self showProgressViewAnimated:YES];
-    [self unobserveArticleUpdates];
 
     @weakify(self);
     self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfArticleWithURL:self.articleURL

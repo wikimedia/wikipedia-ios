@@ -230,6 +230,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     WMFArticle *article = [self.dataStore fetchArticleForURL:URL];
     article.viewedDate = nil;
+    article.wasSignificantlyViewed = NO;
     [article updateViewedDateWithoutTime];
 
     NSError *error = nil;
@@ -241,6 +242,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeAllEntries {
     [self enumerateItemsWithBlock:^(WMFArticle *_Nonnull entry, BOOL *_Nonnull stop) {
         entry.viewedDate = nil;
+        entry.wasSignificantlyViewed = NO;
         [entry updateViewedDateWithoutTime];
     }];
 
