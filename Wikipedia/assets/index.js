@@ -1,173 +1,4 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-'use strict';
-
-/**
-  Tries to get an array of table header (TH) contents from a given table. If
-  there are no TH elements in the table, an empty array is returned.
-  @param {!Element} element Table or blob of HTML containing a table?
-  @param {?string} pageTitle
-  @return {!Array<string>}
-*/
-var getTableHeader = function getTableHeader(element, pageTitle) {
-  var thArray = [];
-
-  if (element.children === undefined || element.children === null) {
-    return thArray;
-  }
-
-  for (var i = 0; i < element.children.length; i++) {
-    var el = element.children[i];
-
-    if (el.tagName === 'TH') {
-      // ok, we have a TH element!
-      // However, if it contains more than two links, then ignore it, because
-      // it will probably appear weird when rendered as plain text.
-      var aNodes = el.querySelectorAll('a');
-      if (aNodes.length < 3) {
-        // todo: remove nonstandard Element.innerText usage
-        // Also ignore it if it's identical to the page title.
-        if ((el.innerText && el.innerText.length || el.textContent.length) > 0 && el.innerText !== pageTitle && el.textContent !== pageTitle && el.innerHTML !== pageTitle) {
-          thArray.push(el.innerText || el.textContent);
-        }
-      }
-    }
-
-    // if it's a table within a table, don't worry about it
-    if (el.tagName === 'TABLE') {
-      continue;
-    }
-
-    // recurse into children of this element
-    var ret = getTableHeader(el, pageTitle);
-
-    // did we get a list of TH from this child?
-    if (ret.length > 0) {
-      thArray = thArray.concat(ret);
-    }
-  }
-
-  return thArray;
-};
-
-var CollapseTable = {
-  getTableHeader: getTableHeader
-};
-
-// Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
-var findClosest = function findClosest(el, selector) {
-  while ((el = el.parentElement) && !el.matches(selector)) {
-    // Intentionally empty.
-  }
-  return el;
-};
-
-var isNestedInTable = function isNestedInTable(el) {
-  while (el = el.parentElement) {
-    if (el.tagName === 'TD') {
-      return true;
-    }
-  }
-  return false;
-};
-
-var utilities = {
-  findClosest: findClosest,
-  isNestedInTable: isNestedInTable
-};
-
-// If enabled, widened images will have thin red dashed border
-var enableDebugBorders = false;
-
-var widenAncestors = function widenAncestors(el) {
-  while ((el = el.parentElement) && !el.classList.contains('content_block')) {
-    // Only widen if there was a width setting. Keeps changes minimal.
-    if (el.style.width) {
-      el.style.width = '100%';
-    }
-    if (el.style.maxWidth) {
-      el.style.maxWidth = '100%';
-    }
-    if (el.style.float) {
-      el.style.float = 'none';
-    }
-  }
-};
-
-var shouldWidenImage = function shouldWidenImage(image) {
-  // Some images are within a <div class='noresize'>...</div> which indicates
-  // they should not be widened. Example below has links overlaying such an image.
-  // See:
-  //   'enwiki > Counties of England > Scope and structure > Local government'
-  if (utilities.findClosest(image, "[class*='noresize']")) {
-    return false;
-  }
-
-  // Ensure side-by-side images are left alone. Often their captions mention
-  // 'left' and 'right', so we don't want to widen these as doing so would
-  // stack them vertically. See the 2 side by side images in
-  // 'enwiki > Cold Comfort (Inside No. 9) > Casting' and
-  // 'enwiki > Vincent van Gogh > Letters'
-  if (utilities.findClosest(image, "div[class*='tsingle']")) {
-    return false;
-  }
-
-  // Imagemap coordinates are specific to a specific image size, so we never want to widen
-  // these or the overlaying links will not be over the intended parts of the image.
-  // See:
-  //   'enwiki > Kingdom (biology) > first non lead image is an image map'
-  //   'enwiki > Kingdom (biology) > Three domains of life > Phylogenetic Tree of Life image is
-  //   an image map'
-  if (image.hasAttribute('usemap')) {
-    return false;
-  }
-
-  // Don't widen if the image is nested in a table or the table layout can be messed up.
-  if (utilities.isNestedInTable(image)) {
-    return false;
-  }
-
-  return true;
-};
-
-var makeRoomForImageWidening = function makeRoomForImageWidening(image) {
-  // Expand containment so css wideImageOverride width percentages can take effect.
-  widenAncestors(image);
-
-  // Remove width and height attributes so wideImageOverride width percentages can take effect.
-  image.removeAttribute('width');
-  image.removeAttribute('height');
-};
-
-var widenImage = function widenImage(image) {
-  makeRoomForImageWidening(image);
-  image.classList.add('wideImageOverride');
-  if (enableDebugBorders) {
-    image.classList.add('wideImageDebug');
-  }
-};
-
-var maybeWidenImage = function maybeWidenImage(image) {
-  if (shouldWidenImage(image)) {
-    widenImage(image);
-    return true;
-  } else {
-    return false;
-  }
-};
-
-var WidenImage = {
-  maybeWidenImage: maybeWidenImage
-};
-
-var index = {
-  CollapseTable: CollapseTable,
-  WidenImage: WidenImage
-};
-
-module.exports = index;
-
-
-},{}],2:[function(require,module,exports){
 var wmf = {};
 
 wmf.elementLocation = require("./js/elementLocation");
@@ -176,7 +7,7 @@ wmf.utilities = require("./js/utilities");
 wmf.findInPage = require("./js/findInPage");
 
 window.wmf = wmf;
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transformer":7,"./js/utilities":13}],3:[function(require,module,exports){
+},{"./js/elementLocation":2,"./js/findInPage":3,"./js/transformer":6,"./js/utilities":12}],2:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -224,7 +55,7 @@ exports.getElementFromPoint = function(x, y){
     return document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset);
 };
 
-},{}],4:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 // Based on the excellent blog post:
 // http://www.icab.de/blog/2010/01/12/search-and-highlight-text-in-uiwebview/
 
@@ -340,7 +171,7 @@ exports.findAndHighlightAllMatchesForSearchTerm = findAndHighlightAllMatchesForS
 exports.useFocusStyleForHighlightedSearchTermWithId = useFocusStyleForHighlightedSearchTermWithId;
 exports.removeSearchTermHighlights = removeSearchTermHighlights;
 
-},{}],5:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 (function () {
 var refs = require("./refs");
 var utilities = require("./utilities");
@@ -450,7 +281,7 @@ document.addEventListener("touchend", handleTouchEnded, false);
 
 })();
 
-},{"./refs":6,"./transforms/collapseTables":8,"./utilities":13}],6:[function(require,module,exports){
+},{"./refs":5,"./transforms/collapseTables":7,"./utilities":12}],5:[function(require,module,exports){
 var elementLocation = require("./elementLocation");
 
 function isCitation( href ) {
@@ -597,7 +428,7 @@ exports.isReference = isReference;
 exports.isCitation = isCitation;
 exports.sendNearbyReferences = sendNearbyReferences;
 
-},{"./elementLocation":3}],7:[function(require,module,exports){
+},{"./elementLocation":2}],6:[function(require,module,exports){
 function Transformer() {
 }
 
@@ -620,7 +451,7 @@ Transformer.prototype.transform = function( transform ) {
 
 module.exports = new Transformer();
 
-},{}],8:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -792,7 +623,7 @@ exports.openCollapsedTableIfItContainsElement = function(element){
     }
 };
 
-},{"../transformer":7,"../utilities":13}],9:[function(require,module,exports){
+},{"../transformer":6,"../utilities":12}],8:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "disableFilePageEdit", function( content ) {
@@ -818,7 +649,7 @@ transformer.register( "disableFilePageEdit", function( content ) {
     }
 } );
 
-},{"../transformer":7}],10:[function(require,module,exports){
+},{"../transformer":6}],9:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "hideRedlinks", function( content ) {
@@ -829,7 +660,7 @@ transformer.register( "hideRedlinks", function( content ) {
 	}
 } );
 
-},{"../transformer":7}],11:[function(require,module,exports){
+},{"../transformer":6}],10:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "moveFirstGoodParagraphUp", function( content ) {
@@ -910,7 +741,7 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     block_0.insertBefore(fragmentOfItemsToRelocate, edit_section_button_0.nextSibling);
 });
 
-},{"../transformer":7}],12:[function(require,module,exports){
+},{"../transformer":6}],11:[function(require,module,exports){
 
 const transformer = require('../transformer');
 const maybeWidenImage = require('applib').WidenImage.maybeWidenImage;
@@ -927,7 +758,7 @@ transformer.register('widenImages', function(content) {
     .forEach(maybeWidenImage);
 });
 
-},{"../transformer":7,"applib":1}],13:[function(require,module,exports){
+},{"../transformer":6,"applib":13}],12:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -980,4 +811,203 @@ exports.setLanguage = setLanguage;
 exports.findClosest = findClosest;
 exports.isNestedInTable = isNestedInTable;
 
-},{}]},{},[2,3,4,5,6,7,8,9,10,11,12,13]);
+},{}],13:[function(require,module,exports){
+'use strict';
+
+/**
+  Tries to get an array of table header (TH) contents from a given table. If
+  there are no TH elements in the table, an empty array is returned.
+  @param {!Element} element Table or blob of HTML containing a table?
+  @param {?string} pageTitle
+  @return {!Array<string>}
+*/
+var getTableHeader = function getTableHeader(element, pageTitle) {
+  var thArray = [];
+
+  if (element.children === undefined || element.children === null) {
+    return thArray;
+  }
+
+  for (var i = 0; i < element.children.length; i++) {
+    var el = element.children[i];
+
+    if (el.tagName === 'TH') {
+      // ok, we have a TH element!
+      // However, if it contains more than two links, then ignore it, because
+      // it will probably appear weird when rendered as plain text.
+      var aNodes = el.querySelectorAll('a');
+      if (aNodes.length < 3) {
+        // todo: remove nonstandard Element.innerText usage
+        // Also ignore it if it's identical to the page title.
+        if ((el.innerText && el.innerText.length || el.textContent.length) > 0 && el.innerText !== pageTitle && el.textContent !== pageTitle && el.innerHTML !== pageTitle) {
+          thArray.push(el.innerText || el.textContent);
+        }
+      }
+    }
+
+    // if it's a table within a table, don't worry about it
+    if (el.tagName === 'TABLE') {
+      continue;
+    }
+
+    // recurse into children of this element
+    var ret = getTableHeader(el, pageTitle);
+
+    // did we get a list of TH from this child?
+    if (ret.length > 0) {
+      thArray = thArray.concat(ret);
+    }
+  }
+
+  return thArray;
+};
+
+var CollapseTable = {
+  getTableHeader: getTableHeader
+};
+
+/**
+ * Returns closest ancestor of element which matches selector.
+ * Similar to 'closest' methods as seen here:
+ *  https://api.jquery.com/closest/
+ *  https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
+ * @param  {!Element} el        Element
+ * @param  {!string} selector   Selector to look for in ancestors of 'el'
+ * @return {?HTMLElement}       Closest ancestor of 'el' matching 'selector'
+ */
+var findClosest = function findClosest(el, selector) {
+  while ((el = el.parentElement) && !el.matches(selector)) {
+    // Intentionally empty.
+    // Reminder: the parenthesis around 'el = el.parentElement' are also intentional.
+  }
+  return el;
+};
+
+/**
+ * Determines if element has a table ancestor.
+ * @param  {!Element}  el   Element
+ * @return {boolean}        Whether table ancestor of 'el' is found
+ */
+var isNestedInTable = function isNestedInTable(el) {
+  return findClosest(el, 'table') !== null;
+};
+
+var elementUtilities = {
+  findClosest: findClosest,
+  isNestedInTable: isNestedInTable
+};
+
+/**
+ * To widen an image element a css class called 'wideImageOverride' is applied to the image element,
+ * however, ancestors of the image element can prevent the widening from taking effect. This method
+ * makes minimal adjustments to ancestors of the image element being widened so the image widening
+ * can take effect.
+ * @param  {!HTMLElement} el Element whose ancestors will be widened
+ */
+var widenAncestors = function widenAncestors(el) {
+  while ((el = el.parentElement) && !el.classList.contains('content_block')) {
+    // Reminder: the parenthesis around 'el = el.parentElement' are intentional.
+    if (el.style.width) {
+      el.style.width = '100%';
+    }
+    if (el.style.maxWidth) {
+      el.style.maxWidth = '100%';
+    }
+    if (el.style.float) {
+      el.style.float = 'none';
+    }
+  }
+};
+
+/**
+ * Some images should not be widended. This method makes that determination.
+ * @param  {!HTMLElement} image   The image in question
+ * @return {boolean}              Whether 'image' should be widened
+ */
+var shouldWidenImage = function shouldWidenImage(image) {
+  // Images within a "<div class='noresize'>...</div>" should not be widened.
+  // Example exhibiting links overlaying such an image:
+  //   'enwiki > Counties of England > Scope and structure > Local government'
+  if (elementUtilities.findClosest(image, "[class*='noresize']")) {
+    return false;
+  }
+
+  // Side-by-side images should not be widened. Often their captions mention 'left' and 'right', so
+  // we don't want to widen these as doing so would stack them vertically.
+  // Examples exhibiting side-by-side images:
+  //    'enwiki > Cold Comfort (Inside No. 9) > Casting'
+  //    'enwiki > Vincent van Gogh > Letters'
+  if (elementUtilities.findClosest(image, "div[class*='tsingle']")) {
+    return false;
+  }
+
+  // Imagemaps, which expect images to be specific sizes, should not be widened.
+  // Examples can be found on 'enwiki > Kingdom (biology)':
+  //    - first non lead image is an image map
+  //    - 'Three domains of life > Phylogenetic Tree of Life' image is an image map
+  if (image.hasAttribute('usemap')) {
+    return false;
+  }
+
+  // Images in tables should not be widened - doing so can horribly mess up table layout.
+  if (elementUtilities.isNestedInTable(image)) {
+    return false;
+  }
+
+  return true;
+};
+
+/**
+ * Removes barriers to images widening taking effect.
+ * @param  {!HTMLElement} image   The image in question
+ */
+var makeRoomForImageWidening = function makeRoomForImageWidening(image) {
+  widenAncestors(image);
+
+  // Remove width and height attributes so wideImageOverride width percentages can take effect.
+  image.removeAttribute('width');
+  image.removeAttribute('height');
+};
+
+/**
+ * Widens the image.
+ * @param  {!HTMLElement} image   The image in question
+ */
+var widenImage = function widenImage(image) {
+  makeRoomForImageWidening(image);
+  image.classList.add('wideImageOverride');
+};
+
+/**
+ * Widens an image if the image is found to be fit for widening.
+ * @param  {!HTMLElement} image   The image in question
+ * @return {boolean}              Whether or not 'image' was widened
+ */
+var maybeWidenImage = function maybeWidenImage(image) {
+  if (shouldWidenImage(image)) {
+    widenImage(image);
+    return true;
+  }
+  return false;
+};
+
+var WidenImage = {
+  maybeWidenImage: maybeWidenImage,
+  test: {
+    shouldWidenImage: shouldWidenImage,
+    widenAncestors: widenAncestors
+  }
+};
+
+var index = {
+  CollapseTable: CollapseTable,
+  WidenImage: WidenImage,
+  test: {
+    ElementUtilities: elementUtilities
+  }
+};
+
+module.exports = index;
+
+
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12]);
