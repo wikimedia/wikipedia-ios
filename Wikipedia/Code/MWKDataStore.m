@@ -422,13 +422,14 @@ static uint64_t bundleHash() {
         return;
     }
     [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
-        [self.articleLocationController migrateWithManagedObjectContext:moc completion:^(NSError * _Nullable error) {
-           dispatch_async(dispatch_get_main_queue(), ^{
-               if (completion) {
-                   completion(error);
-               }
-           });
-        }];
+        [self.articleLocationController migrateWithManagedObjectContext:moc
+                                                             completion:^(NSError *_Nullable error) {
+                                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                                     if (completion) {
+                                                                         completion(error);
+                                                                     }
+                                                                 });
+                                                             }];
     }];
 }
 
@@ -454,12 +455,12 @@ static uint64_t bundleHash() {
 #pragma mark - Migrations
 
 - (void)performCoreDataMigrations:(dispatch_block_t)completion {
-     if (!self.wasSitesFolderMissing) {
-         if (completion) {
-             completion();
-         }
-         return;
-     }
+    if (!self.wasSitesFolderMissing) {
+        if (completion) {
+            completion();
+        }
+        return;
+    }
     [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
         [self markAllDownloadedArticlesInManagedObjectContextAsUndownloaded:moc];
         dispatch_async(dispatch_get_main_queue(), completion);
@@ -469,24 +470,36 @@ static uint64_t bundleHash() {
 - (void)markAllDownloadedArticlesInManagedObjectContextAsUndownloaded:(NSManagedObjectContext *)moc {
     NSFetchRequest *request = [WMFArticle fetchRequest];
     request.predicate = [NSPredicate predicateWithFormat:@"isDownloaded == YES"];
+    request.fetchLimit = 500;
     NSError *fetchError = nil;
     NSArray *downloadedArticles = [moc executeFetchRequest:request error:&fetchError];
     if (fetchError) {
         DDLogError(@"Error fetching downloaded articles: %@", fetchError);
-    }
-    
-    for (WMFArticle *article in downloadedArticles) {
-        article.isDownloaded = NO;
-    }
-    
-    if (![moc hasChanges]) {
         return;
     }
-    
-    NSError *saveError = nil;
-    [moc save:&saveError];
-    if (saveError) {
-        DDLogError(@"Error saving downloaded articles: %@", fetchError);
+
+    while (downloadedArticles.count > 0) {
+        @autoreleasepool {
+            for (WMFArticle *article in downloadedArticles) {
+                article.isDownloaded = NO;
+            }
+
+            if ([moc hasChanges]) {
+                NSError *saveError = nil;
+                [moc save:&saveError];
+                if (saveError) {
+                    DDLogError(@"Error saving downloaded articles: %@", fetchError);
+                    return;
+                }
+                [moc reset];
+            }
+        }
+
+        downloadedArticles = [moc executeFetchRequest:request error:&fetchError];
+        if (fetchError) {
+            DDLogError(@"Error fetching downloaded articles: %@", fetchError);
+            return;
+        }
     }
 }
 
