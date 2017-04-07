@@ -220,6 +220,17 @@
     return theURL;
 }
 
++ (nullable NSURL *)articleURLForRelatedPagesContentGroupURL:(nullable NSURL *)url {
+    NSArray *components = url.path.pathComponents;
+    if (components.count < 5) {
+        return nil;
+    }
+    NSString *domain = components[2];
+    NSString *language = components[3];
+    NSString *title = components[4];
+    return [NSURL wmf_URLWithDomain:domain language:language title:title fragment:nil];
+}
+
 + (nullable NSURL *)locationContentGroupURLForLocation:(CLLocation *)location {
     NSURL *url = [[self baseURL] URLByAppendingPathComponent:@"nearby"];
     url = [url URLByAppendingPathComponent:[location description]];

@@ -68,8 +68,6 @@ extern NSString *const WMFArticleUpdatedNotification;
 
 - (BOOL)save:(NSError **)error;
 
-- (void)enumerateArticlesWithBlock:(void (^)(WMFArticle *_Nonnull entry, BOOL *stop))block;
-
 #pragma mark - Legacy Datastore methods
 
 /**

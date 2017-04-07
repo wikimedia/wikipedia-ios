@@ -615,19 +615,6 @@ static uint64_t bundleHash() {
     return _recentSearchList;
 }
 
-#pragma mark - Entry Access
-
-- (void)enumerateArticlesWithBlock:(void (^)(WMFArticle *_Nonnull entry, BOOL *stop))block {
-    NSParameterAssert(block);
-    if (!block) {
-        return;
-    }
-    NSArray<WMFArticle *> *allArticles = [self.viewContext executeFetchRequest:[WMFArticle fetchRequest] error:nil];
-    [allArticles enumerateObjectsUsingBlock:^(WMFArticle *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        block(obj, stop);
-    }];
-}
-
 #pragma mark - Legacy DataStore
 
 + (NSString *)mainDataStorePath {

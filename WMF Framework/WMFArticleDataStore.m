@@ -29,10 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.dataStore fetchArticleForURL:url];
 }
 
-- (void)enumerateItemsWithBlock:(void (^)(WMFArticle *_Nonnull item, BOOL *stop))block {
-    [self.dataStore enumerateArticlesWithBlock:block];
-}
-
 - (WMFArticle *)newOrExistingPreviewWithURL:(NSURL *)url {
     NSParameterAssert(url.wmf_title);
     return [self.dataStore fetchOrCreateArticleForURL:url];
