@@ -1,6 +1,5 @@
 import UIKit
 import XCTest
-@testable import Wikipedia
 import Nimble
 import Nocilla
 
