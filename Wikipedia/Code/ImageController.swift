@@ -43,11 +43,19 @@ open class ImageController : NSObject {
         let session = URLSession.shared
         let cache = URLCache.shared
         let fileManager = FileManager.default
-        let permanentStorageDirectory = fileManager.wmf_containerURL().appendingPathComponent("Permanent Image Cache", isDirectory: true)
+        var permanentStorageDirectory = fileManager.wmf_containerURL().appendingPathComponent("Permanent Image Cache", isDirectory: true)
+        var didGetDirectoryExistsError = false
         do {
             try fileManager.createDirectory(at: permanentStorageDirectory, withIntermediateDirectories: true, attributes: nil)
         } catch let error {
             DDLogError("Error creating permanent cache: \(error)")
+        }
+        do {
+            var values = URLResourceValues()
+            values.isExcludedFromBackup = true
+            try permanentStorageDirectory.setResourceValues(values)
+        } catch let error {
+            DDLogError("Error excluding from backup: \(error)")
         }
         return ImageController(session: session, cache: cache, fileManager: fileManager, permanentStorageDirectory: permanentStorageDirectory)
     }()
