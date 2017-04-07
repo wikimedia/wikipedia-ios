@@ -140,13 +140,17 @@ static uint64_t bundleHash() {
     if (self) {
         self.containerURL = containerURL;
         self.basePath = [self.containerURL URLByAppendingPathComponent:@"Data" isDirectory:YES].path;
+        BOOL sitesWasADirectory = false;
+        BOOL sitesExisted = [[NSFileManager defaultManager] fileExistsAtPath:[self pathForSites] isDirectory:&sitesWasADirectory];
         [self setupLegacyDataStore];
         NSDictionary *infoDictionary = [self loadSharedInfoDictionaryWithContainerURL:containerURL];
         self.crossProcessNotificationChannelName = infoDictionary[@"CrossProcessNotificiationChannelName"];
         [self setupCrossProcessCoreDataNotifier];
         [self setupCoreDataStackWithContainerURL:containerURL];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-
+        if (!sitesExisted || !sitesWasADirectory) {
+            [self markAllDownloadedArticlesAsUndownloaded];
+        }
         self.articleLocationController = [ArticleLocationController new];
     }
     return self;
@@ -226,6 +230,22 @@ static uint64_t bundleHash() {
     self.viewContext.persistentStoreCoordinator = persistentStoreCoordinator;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
+}
+
+- (void)markAllDownloadedArticlesAsUndownloaded {
+    NSManagedObjectContext *moc = self.viewContext;
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"isDownloaded == YES"];
+    NSError *fetchError = nil;
+    NSArray *downloadedArticles = [moc executeFetchRequest:request error:&fetchError];
+    if (fetchError) {
+        DDLogError(@"Error fetching downloaded articles: %@", fetchError);
+    }
+    for (WMFArticle *article in downloadedArticles) {
+        article.isDownloaded = NO;
+    }
+    NSError *saveError = nil;
+    [self save:&saveError];
 }
 
 - (nullable id)archiveableNotificationValueForValue:(id)value {
@@ -1142,10 +1162,12 @@ static uint64_t bundleHash() {
 
 - (void)deleteArticle:(MWKArticle *)article {
     NSString *path = [self pathForArticle:article];
-    
+
     NSString *groupKey = article.url.wmf_articleDatabaseKey;
     if (groupKey) {
-        [[WMFImageController sharedInstance] removePermanentlyCachedImagesWithGroupKey:groupKey completion:^{}];
+        [[WMFImageController sharedInstance] removePermanentlyCachedImagesWithGroupKey:groupKey
+                                                                            completion:^{
+                                                                            }];
     }
 
     // delete article metadata last
