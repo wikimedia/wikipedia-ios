@@ -116,6 +116,8 @@ NS_ASSUME_NONNULL_BEGIN
     
     [preview updateWithScalarCoordinate:article.coordinate];
     
+    preview.isDownloaded = NO; //isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
+    
     return preview;
 }
 
