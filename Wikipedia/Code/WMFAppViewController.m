@@ -765,7 +765,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         done();
         return NO;
     }
-    if (![self uiIsLoaded]) {
+    if (![self uiIsLoaded] || self.isWaitingToResumeApp) {
         self.unprocessedUserActivity = activity;
         done();
         return YES;
