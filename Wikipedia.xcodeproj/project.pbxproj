@@ -1809,6 +1809,7 @@
 		D8D92B681DF22E1700B95311 /* NotificationButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B571DF22E1700B95311 /* NotificationButtonBackground.png */; };
 		D8D92B691DF22E1700B95311 /* NotificationButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B581DF22E1700B95311 /* NotificationButtonBackground@2x.png */; };
 		D8D92B6A1DF22E1700B95311 /* TSMessagesDefaultDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B591DF22E1700B95311 /* TSMessagesDefaultDesign.json */; };
+		D8DAD49F1E97FE6C004F6110 /* WMFImageControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DAD49E1E97FE6C004F6110 /* WMFImageControllerTests.swift */; };
 		D8DC16EB1D6F6DD600D6D9FB /* MWKSite.h in Headers */ = {isa = PBXBuildFile; fileRef = D8494AD41D6C85C500337433 /* MWKSite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8DC16EC1D6F6DD600D6D9FB /* MWKTitle.h in Headers */ = {isa = PBXBuildFile; fileRef = D8494AD61D6C85C500337433 /* MWKTitle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8DC16ED1D6F6DD600D6D9FB /* WMFAssetsFile.h in Headers */ = {isa = PBXBuildFile; fileRef = D8494ADD1D6C85C500337433 /* WMFAssetsFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3500,6 +3501,7 @@
 		D8D92B571DF22E1700B95311 /* NotificationButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotificationButtonBackground.png; sourceTree = "<group>"; };
 		D8D92B581DF22E1700B95311 /* NotificationButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NotificationButtonBackground@2x.png"; sourceTree = "<group>"; };
 		D8D92B591DF22E1700B95311 /* TSMessagesDefaultDesign.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TSMessagesDefaultDesign.json; sourceTree = "<group>"; };
+		D8DAD49E1E97FE6C004F6110 /* WMFImageControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFImageControllerTests.swift; sourceTree = "<group>"; };
 		D8DC16FC1D6F709300D6D9FB /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		D8DC16FE1D6F718300D6D9FB /* NSURL+WMFMainPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+WMFMainPage.h"; path = "Wikipedia/Code/NSURL+WMFMainPage.h"; sourceTree = SOURCE_ROOT; };
 		D8DC16FF1D6F718300D6D9FB /* NSURL+WMFMainPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+WMFMainPage.m"; path = "Wikipedia/Code/NSURL+WMFMainPage.m"; sourceTree = SOURCE_ROOT; };
@@ -6228,6 +6230,7 @@
 			children = (
 				BCB669D11A83F6D300C7B1FE /* MediaWikiKitTests */,
 				B0E808FC1C0D18730065EBC0 /* WMFJoinedPropertyParametersTests.m */,
+				D8DAD49E1E97FE6C004F6110 /* WMFImageControllerTests.swift */,
 				D8BDA8C01E71C0760031F4BF /* WMFBlocksKitTests.m */,
 				B39427411E71F79700D3146D /* NSDictionaryBlocksKitTest.m */,
 				B39427421E71F79700D3146D /* NSSetBlocksKitTest.m */,
@@ -8161,6 +8164,7 @@
 				B0E809371C0D1A420065EBC0 /* MWKLanguageLinkControllerTests.m in Sources */,
 				D8BBBCE11D94603800DECA36 /* WMFLocaleTests.m in Sources */,
 				B0E809411C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m in Sources */,
+				D8DAD49F1E97FE6C004F6110 /* WMFImageControllerTests.swift in Sources */,
 				B0E808981C0D16430065EBC0 /* XCTestCase+WMFLocaleTesting.m in Sources */,
 				BC45FF4B1C1B22C200BAE501 /* NSObject+WMFReflection.m in Sources */,
 				B0EEB8571D29B0B200F2099B /* MWKImageVarianceTests.m in Sources */,
