@@ -117,8 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)loadContentForDate:(NSDate *)date force:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    WMFTaskGroup *group = [WMFTaskGroup new];
-
+    WMFTaskGroup *taskGroup = [WMFTaskGroup new];
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.propertiesToFetch = @[@"key"];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(WMFContentGroupKindRelatedPages)];
@@ -128,38 +127,38 @@ NS_ASSUME_NONNULL_BEGIN
         DDLogError(@"Error fetching content groups: %@", fetchError);
     }
     NSArray<NSString *> *keys = [relatedPagesContentGroups valueForKey:@"key"];
+    NSArray<NSString *> *dates = [relatedPagesContentGroups valueForKey:@"midnightUTCDate"];
     NSMutableDictionary<NSString *, WMFContentGroup *> *relatedPagesContentGroupsByKey = [NSMutableDictionary dictionaryWithObjects:relatedPagesContentGroups forKeys:keys];
-
+    NSMutableDictionary<NSDate *, WMFContentGroup *> *relatedPagesContentGroupsByMidnightUTCDate = [NSMutableDictionary dictionaryWithObjects:relatedPagesContentGroups forKeys:dates];
+    __block BOOL didAddRelatedPagesGroup = relatedPagesContentGroupsByMidnightUTCDate[date] != nil;
     [self.userDataStore enumerateArticlesWithBlock:^(WMFArticle *_Nonnull reference, BOOL *_Nonnull stop) {
-        if ([reference needsRelatedPagesGroupForDate:date]) {
-            [group enter];
-            [self fetchAndSaveRelatedArticlesForArticle:reference completion:^{
-                [group leave];
-            }];
-        } else if (reference && ![reference needsRelatedPagesGroup]) {
-            NSURL *URL = reference.URL;
-            if (!URL) {
-                return;
-            }
-            NSURL *contentGroupURL = [WMFContentGroup relatedPagesContentGroupURLForArticleURL:URL];
-            if (!contentGroupURL) {
-                return;
-            }
-            NSString *key = [WMFContentGroup databaseKeyForURL:contentGroupURL];
-            if (!key) {
-                return;
-            }
-            WMFContentGroup *group = relatedPagesContentGroupsByKey[key];
-            if (!group) {
-                return;
-            }
-            
+        NSURL *URL = reference.URL;
+        if (!URL) {
+            return;
+        }
+        NSURL *contentGroupURL = [WMFContentGroup relatedPagesContentGroupURLForArticleURL:URL];
+        if (!contentGroupURL) {
+            return;
+        }
+        NSString *key = [WMFContentGroup databaseKeyForURL:contentGroupURL];
+        if (!key) {
+            return;
+        }
+        WMFContentGroup *group = relatedPagesContentGroupsByKey[key];
+        if (!didAddRelatedPagesGroup && !group && [reference needsRelatedPagesGroupForDate:date]) {
+            didAddRelatedPagesGroup = YES;
+            [taskGroup enter];
+            [self fetchAndSaveRelatedArticlesForArticle:reference
+                                             completion:^{
+                                                 [taskGroup leave];
+                                             }];
+        } else if (group && reference && ![reference needsRelatedPagesGroup]) {
             [self.contentStore removeContentGroup:group];
             [relatedPagesContentGroupsByKey removeObjectForKey:key];
         }
     }];
-    
-    [group waitInBackgroundWithCompletion:^{
+
+    [taskGroup waitInBackgroundWithCompletion:^{
         if (completion) {
             completion();
         }
