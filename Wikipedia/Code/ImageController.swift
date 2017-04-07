@@ -28,7 +28,7 @@ fileprivate extension Error {
     var isCancellationError: Bool {
         get {
             let potentialCancellationError = self as NSError
-            return potentialCancellationError.domain == NSCocoaErrorDomain && potentialCancellationError.code == NSUserCancelledError
+            return potentialCancellationError.domain == NSURLErrorDomain && potentialCancellationError.code == NSURLErrorCancelled
         }
     }
 }
