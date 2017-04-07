@@ -446,12 +446,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 #pragma mark - Start/Pause/Resume App
 
 - (void)hideSplashScreenAndResumeApp {
+    self.waitingToResumeApp = NO;
     if (self.areLaunchMigrationsComplete) {
         [self resumeApp:^{
             [self hideSplashViewAnimated:true];
         }];
     }
-    self.waitingToResumeApp = NO;
 }
 
 - (void)resumeApp:(dispatch_block_t)completion {
