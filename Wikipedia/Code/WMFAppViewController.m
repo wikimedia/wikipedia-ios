@@ -243,7 +243,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
     self.unprocessedUserActivity = nil;
     self.unprocessedShortcutItem = nil;
-    [self resumeApp];
+    [self resumeApp:^{}];
 }
 
 - (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
@@ -371,8 +371,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
                                 [self loadMainUI];
                                 self.launchMigrationsComplete = YES;
                                 if (!self.isWaitingToResumeApp) {
-                                    [self hideSplashViewAnimated:!didShowOnboarding];
-                                    [self resumeApp];
+                                    [self resumeApp:^{
+                                        [self hideSplashViewAnimated:true];
+                                    }];
                                 }
                             }];
                         });
@@ -446,23 +447,33 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 - (void)hideSplashScreenAndResumeApp {
     if (self.areLaunchMigrationsComplete) {
-        [self hideSplashViewAnimated:true];
-        [self resumeApp];
+        [self resumeApp:^{
+            [self hideSplashViewAnimated:true];
+        }];
     }
     self.waitingToResumeApp = NO;
 }
 
-- (void)resumeApp {
+- (void)resumeApp:(dispatch_block_t)completion {
     if (self.isPresentingOnboarding) {
+        if (completion) {
+            completion();
+        }
         return;
     }
 
     if (![self uiIsLoaded]) {
+        if (completion) {
+            completion();
+        }
         return;
     }
 
     dispatch_block_t done = ^{
         [self finishResumingApp];
+        if (completion) {
+            completion();
+        }
     };
 
     if (self.unprocessedUserActivity) {
