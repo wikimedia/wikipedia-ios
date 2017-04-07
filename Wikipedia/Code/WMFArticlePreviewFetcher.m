@@ -129,7 +129,7 @@ NS_ASSUME_NONNULL_BEGIN
     [baseParams setValuesForKeysWithDictionary:@{
         @"titles": [self barSeparatedTitlesStringFromURLs:params.articleURLs],
         @"pilimit": @(params.articleURLs.count),
-        @"pilicense": @"any",
+        //@"pilicense": @"any",
         @"prop": @"coordinates"
     }];
     if (params.extractLength > 0) {
