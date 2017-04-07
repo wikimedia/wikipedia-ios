@@ -372,7 +372,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
                                 self.launchMigrationsComplete = YES;
                                 if (!self.isWaitingToResumeApp) {
                                     [self resumeApp:^{
-                                        [self hideSplashViewAnimated:true];
+                                        [self hideSplashViewAnimated:!didShowOnboarding];
                                     }];
                                 }
                             }];
