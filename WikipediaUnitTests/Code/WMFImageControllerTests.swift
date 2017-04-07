@@ -97,10 +97,10 @@ class WMFImageControllerTests: XCTestCase {
         let success = { (imgDownload: ImageDownload) in
         }
         
-        self.imageController.cancelFetch(withURL: testURL)
-        
         imageController.fetchImage(withURL: testURL, failure:failure, success: success)
         
+        imageController.cancelFetch(withURL: testURL)
+
         URLProtocol.unregisterClass(WMFHTTPHangingProtocol.self)
         LSNocilla.sharedInstance().start()
         defer {
