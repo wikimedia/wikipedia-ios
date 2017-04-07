@@ -29,7 +29,7 @@ module.exports = function (grunt) {
           optimization: 2
         },
         files: [
-          { src: ["less/**/*.less"], dest: distFolder + "styleoverrides.css"}
+          { src: ["less/**/*.less", "node_modules/applib/build/applib.css"], dest: distFolder + "styleoverrides.css"}
         ]
       }
     },
