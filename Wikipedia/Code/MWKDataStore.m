@@ -9,9 +9,7 @@
 NSString *const MWKArticleSavedNotification = @"MWKArticleSavedNotification";
 NSString *const MWKArticleKey = @"MWKArticleKey";
 
-NSString *const MWKItemUpdatedNotification = @"MWKItemUpdatedNotification";
-NSString *const MWKURLKey = @"MWKURLKey";
-NSString *const MWKSavedDateKey = @"MWKSavedDateKey";
+NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification";
 
 NSString *const MWKSetupDataSourcesNotification = @"MWKSetupDataSourcesNotification";
 NSString *const MWKTeardownDataSourcesNotification = @"MWKTeardownDataSourcesNotification";
@@ -291,7 +289,7 @@ static uint64_t bundleHash() {
 - (void)viewContextDidChange:(NSNotification *)note {
     NSDictionary *userInfo = note.userInfo;
     NSArray<NSString *> *keys = @[NSInsertedObjectsKey, NSUpdatedObjectsKey, NSDeletedObjectsKey, NSRefreshedObjectsKey, NSInvalidatedObjectsKey];
-    NSMutableArray<NSDictionary<NSString *, NSObject *> *> *notificationUserInfos = [NSMutableArray arrayWithCapacity:1];
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     for (NSString *key in keys) {
         NSSet<NSManagedObject *> *changedObjects = userInfo[key];
         for (NSManagedObject *object in changedObjects) {
@@ -303,24 +301,12 @@ static uint64_t bundleHash() {
                     continue;
                 }
                 [self.articlePreviewCache removeObjectForKey:articleKey];
-
-                NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:@{MWKURLKey: articleURL}];
-                NSDate *articleSavedDate = article.savedDate;
-                if (articleSavedDate && ![key isEqualToString:NSDeletedObjectsKey]) {
-                    userInfo[MWKSavedDateKey] = articleSavedDate;
+                if (![key isEqualToString:NSDeletedObjectsKey]) {
+                    [nc postNotificationName:WMFArticleUpdatedNotification object:article];
                 }
-                [notificationUserInfos addObject:userInfo];
             }
         }
     }
-    if (notificationUserInfos.count == 0) {
-        return;
-    }
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        for (NSDictionary *userInfo in notificationUserInfos) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:self userInfo:userInfo];
-        }
-    });
 }
 
 + (NSString *)legacyYapDatabasePath {
@@ -1172,7 +1158,7 @@ static uint64_t bundleHash() {
     
     NSString *groupKey = article.url.wmf_articleDatabaseKey;
     if (groupKey) {
-        [[WMFImageController sharedInstance] removePermanentlyCachedImagesWithGroupKey:groupKey];
+        [[WMFImageController sharedInstance] removePermanentlyCachedImagesWithGroupKey:groupKey completion:^{}];
     }
 
     // delete article metadata last

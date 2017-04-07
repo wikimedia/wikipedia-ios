@@ -320,7 +320,7 @@ open class ImageController : NSObject {
         }
     }
     
-    public func removePermanentlyCachedImages(groupKey: String) {
+    public func removePermanentlyCachedImages(groupKey: String, completion: @escaping () -> Void) {
         let moc = self.managedObjectContext
         let fm = self.fileManager
         moc.perform {
@@ -342,6 +342,7 @@ open class ImageController : NSObject {
             }
             moc.delete(group)
             self.save(moc: moc)
+            completion()
         }
     }
     

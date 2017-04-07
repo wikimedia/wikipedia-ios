@@ -32,14 +32,11 @@ extern NSString *const MWKSetupDataSourcesNotification;
 extern NSString *const MWKTeardownDataSourcesNotification;
 
 /**
- * Subscribe to get notifications when an item is
+ * Subscribe to get notifications when a WMFArticle is
  * added to saved pages, history, etc…
- * The url of the item updated will be in the
- * MWKURLKey of the userInfo
  */
-extern NSString *const MWKItemUpdatedNotification;
-extern NSString *const MWKURLKey;
-extern NSString *const MWKSavedDateKey;
+extern NSString *const WMFArticleUpdatedNotification;
+
 
 @interface MWKDataStore : NSObject
 
