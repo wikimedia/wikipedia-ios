@@ -442,7 +442,7 @@ static uint64_t bundleHash() {
     [nc addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:backgroundContext];
     [backgroundContext performBlock:^{
         mocBlock(backgroundContext);
-        [nc removeObserver:self];
+        [nc removeObserver:self name:NSManagedObjectContextDidSaveNotification object:backgroundContext];
     }];
 }
 
