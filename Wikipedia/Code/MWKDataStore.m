@@ -35,6 +35,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @property (readwrite, nonatomic, strong) dispatch_queue_t cacheRemovalQueue;
 @property (readwrite, nonatomic, getter=isCacheRemovalActive) BOOL cacheRemovalActive;
+@property (readwrite, nonatomic, getter=wasSitesFolderMissing) BOOL sitesFolderMissing;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSOperation *> *articleSaveOperations;
 @property (nonatomic, strong) NSOperationQueue *articleSaveQueue;
@@ -142,15 +143,13 @@ static uint64_t bundleHash() {
         self.basePath = [self.containerURL URLByAppendingPathComponent:@"Data" isDirectory:YES].path;
         BOOL sitesWasADirectory = false;
         BOOL sitesExisted = [[NSFileManager defaultManager] fileExistsAtPath:[self pathForSites] isDirectory:&sitesWasADirectory];
+        self.sitesFolderMissing = !sitesExisted || !sitesWasADirectory;
         [self setupLegacyDataStore];
         NSDictionary *infoDictionary = [self loadSharedInfoDictionaryWithContainerURL:containerURL];
         self.crossProcessNotificationChannelName = infoDictionary[@"CrossProcessNotificiationChannelName"];
         [self setupCrossProcessCoreDataNotifier];
         [self setupCoreDataStackWithContainerURL:containerURL];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-        if (!sitesExisted || !sitesWasADirectory) {
-            [self markAllDownloadedArticlesAsUndownloaded];
-        }
         self.articleLocationController = [ArticleLocationController new];
     }
     return self;
@@ -230,22 +229,6 @@ static uint64_t bundleHash() {
     self.viewContext.persistentStoreCoordinator = persistentStoreCoordinator;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
-}
-
-- (void)markAllDownloadedArticlesAsUndownloaded {
-    NSManagedObjectContext *moc = self.viewContext;
-    NSFetchRequest *request = [WMFArticle fetchRequest];
-    request.predicate = [NSPredicate predicateWithFormat:@"isDownloaded == YES"];
-    NSError *fetchError = nil;
-    NSArray *downloadedArticles = [moc executeFetchRequest:request error:&fetchError];
-    if (fetchError) {
-        DDLogError(@"Error fetching downloaded articles: %@", fetchError);
-    }
-    for (WMFArticle *article in downloadedArticles) {
-        article.isDownloaded = NO;
-    }
-    NSError *saveError = nil;
-    [self save:&saveError];
 }
 
 - (nullable id)archiveableNotificationValueForValue:(id)value {
@@ -432,7 +415,79 @@ static uint64_t bundleHash() {
 }
 
 - (void)migrateToQuadKeyLocationIfNecessaryWithCompletion:(nonnull void (^)(NSError *))completion {
-    [self.articleLocationController migrateWithManagedObjectContext:self.viewContext completion:completion];
+    if (![self.articleLocationController needsMigrationWithManagedObjectContext:self.viewContext]) {
+        if (completion) {
+            completion(nil);
+        }
+        return;
+    }
+    [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
+        [self.articleLocationController migrateWithManagedObjectContext:moc completion:^(NSError * _Nullable error) {
+           dispatch_async(dispatch_get_main_queue(), ^{
+               if (completion) {
+                   completion(error);
+               }
+           });
+        }];
+    }];
+}
+
+#pragma mark - Background Context
+- (void)performBackgroundCoreDataOperationOnATemporaryContext:(nonnull void (^)(NSManagedObjectContext *moc))mocBlock {
+    WMFAssertMainThread(@"Background Core Data operations must be started from the main thread.");
+    NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    backgroundContext.persistentStoreCoordinator = self.persistentStoreCoordinator;
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:backgroundContext];
+    [backgroundContext performBlock:^{
+        mocBlock(backgroundContext);
+        [nc removeObserver:self];
+    }];
+}
+
+- (void)backgroundContextDidSave:(NSNotification *)note {
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [self.viewContext mergeChangesFromContextDidSaveNotification:note];
+    });
+}
+
+#pragma mark - Migrations
+
+- (void)performCoreDataMigrations:(dispatch_block_t)completion {
+     if (!self.wasSitesFolderMissing) {
+         if (completion) {
+             completion();
+         }
+         return;
+     }
+    [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
+        [self markAllDownloadedArticlesInManagedObjectContextAsUndownloaded:moc];
+        dispatch_async(dispatch_get_main_queue(), completion);
+    }];
+}
+
+- (void)markAllDownloadedArticlesInManagedObjectContextAsUndownloaded:(NSManagedObjectContext *)moc {
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"isDownloaded == YES"];
+    NSError *fetchError = nil;
+    NSArray *downloadedArticles = [moc executeFetchRequest:request error:&fetchError];
+    if (fetchError) {
+        DDLogError(@"Error fetching downloaded articles: %@", fetchError);
+    }
+    
+    for (WMFArticle *article in downloadedArticles) {
+        article.isDownloaded = NO;
+    }
+    
+    if (![moc hasChanges]) {
+        return;
+    }
+    
+    NSError *saveError = nil;
+    [moc save:&saveError];
+    if (saveError) {
+        DDLogError(@"Error saving downloaded articles: %@", fetchError);
+    }
 }
 
 - (BOOL)migrateToCoreData:(NSError **)error {

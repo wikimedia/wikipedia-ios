@@ -359,14 +359,16 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 #endif
     [self migrateToSharedContainerIfNecessaryWithCompletion:^{
         [self migrateToNewFeedIfNecessaryWithCompletion:^{
-            [self migrateToQuadKeyLocationIfNecessaryWithCompletion:^{
-                [self migrateToRemoveUnreferencedArticlesIfNecessaryWithCompletion:^{
-                    [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
-                        [self loadMainUI];
-                        if (!waitToResumeApp) {
-                            [self hideSplashViewAnimated:!didShowOnboarding];
-                            [self resumeApp];
-                        }
+            [self.dataStore performCoreDataMigrations:^{
+                [self migrateToQuadKeyLocationIfNecessaryWithCompletion:^{
+                    [self migrateToRemoveUnreferencedArticlesIfNecessaryWithCompletion:^{
+                        [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+                            [self loadMainUI];
+                            if (!waitToResumeApp) {
+                                [self hideSplashViewAnimated:!didShowOnboarding];
+                                [self resumeApp];
+                            }
+                        }];
                     }];
                 }];
             }];
