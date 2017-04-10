@@ -237,6 +237,7 @@
 "onboarding-wikipedia" = "विकिपीडिया";
 "onboarding-free-encyclopedia" = "स्वतन्त्रविश्वकोशः";
 "preference-title-eventlogging-opt-in" = "उपयोगस्य वृत्तान्तं प्रेषयतु";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "अनुप्रयोगे आवश्यकपरिवर्तनं कर्तुं भवान्/भवती विकिपीडिया-अनुप्रयोगस्य कथम् उपयोगं करोति इत्यस्य सूचनां क्रोडीकर्तुं विकिपीडिया-जालाय अनुमतिं ददातु ।";
 "page-protected-autoconfirmed" = "एतत् पृष्ठम् अर्धसंरक्षितम् अस्ति ।";
 "page-protected-sysop" = "एतत् पृष्ठं पूर्णतया संरक्षितम् अस्ति ।";
@@ -298,7 +299,9 @@
 "image-gallery-fetch-image-info-error-title" = "चित्रावरोपणं न शक्यम्";
 "image-gallery-fetch-image-info-error-message" = "एतस्य लेखस्य कृते चित्रावरोपणं न शक्यम् । कृपया प्रत्यववस्थाप्य (refresh) पुनः प्रयतताम् ।";
 "image-gallery-fetch-image-info-error-ok" = "अस्तु";
+// Fuzzy
 "hockeyapp-alert-question" = "विकिमीडिया-संस्था भवतः/भवत्याः ध्वस्य समीक्षां कर्तुं शक्नोति । $1 इत्येतस्मै ध्वंसस्य सूचनां प्रेषयितुम् इच्छति ?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "विकिमीडिया-संस्था भवतः/भवत्याः ध्वंसस्य समीक्षां कर्तुं शक्नोति । $1 इत्येतस्मै ध्वंसस्य सूचनां प्रेषयितुम् इच्छति ? कृपया किं जातं ?, ध्वंसः कदा अभवत् ? इति विवर्ण्यताम् :";
 "hockeyapp-alert-title" = "क्षम्यताम्, अन्तिमसमये अनुप्रयोगः ध्वस्तः अभवत्";
 "hockeyapp-alert-send-report" = "वृत्तान्तः प्रेष्यताम्";

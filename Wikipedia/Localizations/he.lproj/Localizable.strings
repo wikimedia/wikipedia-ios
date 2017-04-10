@@ -311,7 +311,7 @@
 "onboarding-wikipedia" = "ויקיפדיה";
 "onboarding-free-encyclopedia" = "האנציקלופדיה החופשית";
 "preference-title-eventlogging-opt-in" = "שליחת דיווחי שימוש";
-"preference-summary-eventlogging-opt-in" = "לאפשר לוויקימדיה לאסוף מידע על השימוש שלך ביישום כדי לשפר אותו";
+"preference-summary-eventlogging-opt-in" = "לאפשר לקרן ויקימדיה לאסוף מידע על השימוש שלך ביישום כדי לשפר אותו";
 "page-protected-autoconfirmed" = "על הדף הזה הופעלה הגנה חלקית.";
 "page-protected-sysop" = "הדף הזה הוגן באופן מלא.";
 "page-protected-other" = "הדף הזה הוגן לרמות הבאות: $1";
@@ -372,8 +372,8 @@
 "image-gallery-fetch-image-info-error-title" = "לא ניתן להוריד את התמונות";
 "image-gallery-fetch-image-info-error-message" = "לא ניתן להוריד את התמונות עבור הערך הזה. נא לרענן את הערך ולנסות שוב.";
 "image-gallery-fetch-image-info-error-ok" = "אישור";
-"hockeyapp-alert-question" = "האם לשלוח דיווח קריסה אל $1 כדי שוויקימדיה תוכל לתקן את הקריסה שלך?";
-"hockeyapp-alert-question-with-response-field" = "האם לשלוח דיווח קריסה אל $1 כדי שוויקימדיה תוכל לבדוק את הקריסה שלך? נא לתאר מה קרה בזמן שאירעה הקריסה:";
+"hockeyapp-alert-question" = "האם לשלוח דיווח קריסה אל $1 כדי שקרן ויקימדיה תוכל לתקן את הקריסה שלך?";
+"hockeyapp-alert-question-with-response-field" = "האם לשלוח דיווח קריסה אל $1 כדי שקרן ויקימדיה תוכל לבדוק את הקריסה שלך? נא לתאר מה קרה בזמן שאירעה הקריסה:";
 "hockeyapp-alert-title" = "סליחה, היישום קרס בפעם הקודמת";
 "hockeyapp-alert-send-report" = "שליחת דיווח";
 "hockeyapp-alert-always-send" = "לשלוח תמיד";
@@ -436,7 +436,7 @@
 "welcome-volunteer-continue-button" = "המשך";
 "welcome-volunteer-thanks" = "$1 תודה!";
 "welcome-send-data-title" = "שליחת נתונים ללא פרטים מזהים";
-"welcome-send-data-sub-title" = "עזרו לוויקימדיה לשפר את האפליקציה על־ידי זה שתספרו לנו איך אתם משתמשים בה. המידע שנאסף אינו מכיל פרטים מזהים.";
+"welcome-send-data-sub-title" = "עזרו לקרן ויקימדיה לשפר את האפליקציה על־ידי זה שתספרו לנו איך אתם משתמשים בה. המידע שנאסף אינו מכיל פרטים מזהים.";
 "empty-no-feed-title" = "אין חיבור אינטרנט";
 "empty-no-feed-message" = "אפשר לראות הצעות לערכים כשיהיה לך אינטרנט";
 "empty-no-feed-action-message" = "עדיין אפשר לקרוא דפים שמורים";

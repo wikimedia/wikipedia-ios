@@ -214,6 +214,7 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Hin frælsa alfrøðin";
 "preference-title-eventlogging-opt-in" = "Send frágreiðingar um nýtslu";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Loyv Wikimedia at savna kunning um hvussu tú nýtir appina fyri at gera hana betri.";
 "page-protected-autoconfirmed" = "Henda síðan er blivin hálv-vard.";
 "page-protected-sysop" = "Henda síðan hevur fulla verju.";

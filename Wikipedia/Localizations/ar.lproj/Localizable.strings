@@ -294,6 +294,7 @@
 "onboarding-wikipedia" = "ويكيبيديا";
 "onboarding-free-encyclopedia" = "الموسوعة الحرة";
 "preference-title-eventlogging-opt-in" = "إرسال تقارير الاستخدام";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "السماح لويكيميديا بجمع المعلومات حول كيفية استخدام التطبيق لتحسينه";
 "page-protected-autoconfirmed" = "تمت حماية هذه الصفحة جزئياً.";
 "page-protected-sysop" = "تمت حماية هذه الصفحة بالكامل.";
@@ -356,7 +357,9 @@
 "image-gallery-fetch-image-info-error-title" = "غير قادر على تنزيل الصور";
 "image-gallery-fetch-image-info-error-message" = "غير قادر على تحميل الصور لهذه المادة , يرجى تحديث المادة والمحاولة لاحقاً";
 "image-gallery-fetch-image-info-error-ok" = "موافق";
+// Fuzzy
 "hockeyapp-alert-question" = "هل تود أن ترسل تقرير بالعطب إلى $1 حتى يمكن لويكيميديا أن تراجع سبب العطب؟";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "هل ترغب في إرسال تقرير عطب إلى $1 حتى يمكن لويكيميديا مراجعة سبب العطب؟ يرجى وصف ما حدث حينما حدث هذا العطب.";
 "hockeyapp-alert-title" = "عذرا، تعطل التطبيق في آخر مرة";
 "hockeyapp-alert-send-report" = "أرسل التقرير";

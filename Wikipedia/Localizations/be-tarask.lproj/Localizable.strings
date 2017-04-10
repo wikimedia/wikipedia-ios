@@ -250,6 +250,7 @@
 "onboarding-wikipedia" = "Вікіпэдыя";
 "onboarding-free-encyclopedia" = "Вольная энцыкляпэдыя";
 "preference-title-eventlogging-opt-in" = "Адпраўляць справаздачы пра карыстаньне";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Дазволіць Вікімэдыя зьбіраць інфармацыю пра тое, як Вы выкарыстоўваеце праграму, каб палепшыць яе";
 "page-protected-autoconfirmed" = "Гэтая старонка была часткова абароненая.";
 "page-protected-sysop" = "Гэтая старонка была поўнасьцю абароненая.";
@@ -313,7 +314,9 @@
 "image-gallery-fetch-image-info-error-title" = "Не атрымліваецца загрузіць выявы";
 "image-gallery-fetch-image-info-error-message" = "Не атрымліваецца загрузіць выявы для гэтага артыкула. Калі ласка, абнавіце артыкул і паспрабуйце зноў.";
 "image-gallery-fetch-image-info-error-ok" = "Добра";
+// Fuzzy
 "hockeyapp-alert-question" = "Вы жадаеце даслаць справаздачу пра памылку ў $1, каб Вікімэдыя вывучыла прычыну Вашай памылкі?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Ці жадаеце вы даслаць справаздачу ў $1, каб Вікімэдыя магла вывучыць памылку? Калі ласка, апішыце, што адбывалася, калі ўзьнікла памылка:";
 "hockeyapp-alert-title" = "Выбачаемся, праграма спынілася мінулым разам";
 "hockeyapp-alert-send-report" = "Даслаць справаздачу";

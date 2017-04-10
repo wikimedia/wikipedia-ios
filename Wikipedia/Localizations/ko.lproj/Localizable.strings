@@ -315,7 +315,7 @@
 "onboarding-wikipedia" = "위키백과";
 "onboarding-free-encyclopedia" = "우리 모두의 백과사전";
 "preference-title-eventlogging-opt-in" = "사용 보고서 보내기";
-"preference-summary-eventlogging-opt-in" = "당신이 어떻게 앱을 사용하는지에 대한 정보를 모으도록 허용합니다. 보내주신 정보는 위키미디어가 앱을 개선하는 데 도움이 됩니다.";
+"preference-summary-eventlogging-opt-in" = "당신이 어떻게 앱을 사용하는지에 대한 정보를 모으도록 허용합니다. 보내주신 정보는 위키미디어 재단이 앱을 개선하는 데 도움이 됩니다.";
 "page-protected-autoconfirmed" = "이 문서는 준보호되어 있습니다.";
 "page-protected-sysop" = "이 문서는 완전히 보호되어 있습니다.";
 "page-protected-other" = "이 문서는 다음 수준으로 보호되어 있습니다: $1";
@@ -376,8 +376,8 @@
 "image-gallery-fetch-image-info-error-title" = "사진을 다운로드하지 못했습니다.";
 "image-gallery-fetch-image-info-error-message" = "이 문서를 위한 사진을 다운로드하지 못했습니다. 새로 고침을 하여, 다시 시도 해보세요.";
 "image-gallery-fetch-image-info-error-ok" = "확인";
-"hockeyapp-alert-question" = "리포트를 $1로 보내시겠습니까? 보내시면, 위키미디어가 문제를 확인해볼 수 있습니다.";
-"hockeyapp-alert-question-with-response-field" = "리포트를 $1로 보내시겠습니까? 보내시면, 위키미디어가 문제를 확인해볼 수 있습니다. 무엇이 일어났었고 언제 문제가 발생했는지 설명해주세요:";
+"hockeyapp-alert-question" = "충돌 보고서를 $1으로 보내시겠습니까? 보내주시면, 위키미디어 재단이 충돌을 확인해볼 수 있습니다.";
+"hockeyapp-alert-question-with-response-field" = "충돌 보고서를 $1으로 보내시겠습니까? 보내주시면, 위키미디어 재단이 충돌을 확인해볼 수 있습니다. 충돌이 발생했을 때 무엇이 일어났는지 설명해 주세요:";
 "hockeyapp-alert-title" = "죄송합니다, 지난 번에 앱이 충돌했습니다";
 "hockeyapp-alert-send-report" = "보고서 보내기";
 "hockeyapp-alert-always-send" = "항상 보내기";
@@ -437,7 +437,7 @@
 "welcome-volunteer-continue-button" = "계속";
 "welcome-volunteer-thanks" = "감사합니다 $1!";
 "welcome-send-data-title" = "익명 데이터 보내기";
-"welcome-send-data-sub-title" = "위키미디어의 앱 개선을 지원하기 위해 앱을 어떻게 사용하고 계신지 알려주세요. 수집된 데이터는 익명 처리됩니다";
+"welcome-send-data-sub-title" = "위키미디어 재단의 앱 개선을 지원하기 위해 앱을 어떻게 사용하고 계신지 알려주세요. 수집된 데이터는 익명 처리됩니다";
 "empty-no-feed-title" = "인터넷 연결 없음";
 "empty-no-feed-message" = "인터넷 이용이 가능할 때 추천 문서를 읽을 수 있습니다.";
 "empty-no-feed-action-message" = "여전히 저장된 페이지를 읽을 수 있습니다.";

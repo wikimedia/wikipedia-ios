@@ -289,6 +289,7 @@
 "onboarding-wikipedia" = "Wikipédia";
 "onboarding-free-encyclopedia" = "Slobodná encyklopédia";
 "preference-title-eventlogging-opt-in" = "Odoslať správu o používaní";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Povoliť Wikimedii zbierať informácie o vašom používaní aplikácie. Pomáha nám to skvalitniť aplikáciu.";
 "page-protected-autoconfirmed" = "Táto stránka je čiastočne zamknutá.";
 "page-protected-sysop" = "Táto stránka je zamknutá.";
@@ -385,6 +386,7 @@
 "welcome-volunteer-continue-button" = "Pokračovať";
 "welcome-volunteer-thanks" = "$1 Ďakujeme!";
 "welcome-send-data-title" = "Odosielať anonymné údaje";
+// Fuzzy
 "welcome-send-data-sub-title" = "Pomôžte Wikimedii vylepšiť aplikáciu tak, že budete zdielať údaje o vašom používaní aplikácie. Zozbierané údaje sú anonymné";
 "empty-no-feed-title" = "Žiadne pripojenie na internet";
 "empty-no-feed-message" = "Odporúčané články uvidíte keď budete pripojení na internet";

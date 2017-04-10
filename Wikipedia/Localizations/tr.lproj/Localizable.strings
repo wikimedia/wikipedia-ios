@@ -21,6 +21,7 @@
 // Author: Uğurkent
 // Author: Velg
 // Author: Violetanka
+// Author: Vito Genovese
 // Author: Ömer Berkay
 
 "languages-title" = "Dili değiştir";
@@ -231,7 +232,7 @@
 "history-title" = "Geçmiş";
 "page-history-title" = "Madde geçmişi";
 "page-history-downloading" = "Madde geçmişi yükleniyor...";
-"navbar-title-mode-edit-wikitext" = "Değiştir";
+"navbar-title-mode-edit-wikitext" = "Düzenle";
 "navbar-title-mode-login" = "Oturum aç";
 "navbar-title-mode-login-and-save" = "Oturum aç ve yayınla";
 "navbar-title-mode-create-account" = "Hesap oluştur";
@@ -304,7 +305,7 @@
 "timestamp-years" = "%d yıl önce";
 "lastmodified-by-user" = "$2 tarafından $1 düzenlendi";
 "lastmodified-by-anon" = "Anonim bir kullanıcı tarafından $1 düzenlendi";
-"button-edit" = "Değiştir";
+"button-edit" = "Düzenle";
 "button-next" = "Sonraki";
 "button-done" = "Tamamlandı";
 "button-save" = "Kaydet";
@@ -322,6 +323,7 @@
 "onboarding-wikipedia" = "Vikipedi";
 "onboarding-free-encyclopedia" = "Özgür Ansiklopedi";
 "preference-title-eventlogging-opt-in" = "Kullanım raporlarını gönder";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Wikimedia'nın, uygulamayı geliştirmek için, kullanım alışkanlıklarınız hakkında bilgi toplamasına izin ver";
 "page-protected-autoconfirmed" = "Bu sayfa yarı korumalıdır.";
 "page-protected-sysop" = "Bu sayfa tam korumalıdır.";
@@ -344,7 +346,7 @@
 "abuse-filter-disallow-heading" = "Bu düzenlemeyi yayınlayamazsınız.  Lütfen geri dönüp değiştirin.";
 "abuse-filter-disallow-unconstructive" = "Bir otomatik filtre, bu değişikliği, potansiyel olarak yıkıcı ya da vandalizm girişimi olarak belirledi.";
 "abuse-filter-disallow-notable" = "Vikipedi bir ansiklopedidir ve sadece tarafsız, kayda değer içerik burada yer alabilir.";
-"menu-edit-accessibility-label" = "Değiştir";
+"menu-edit-accessibility-label" = "Düzenle";
 "menu-close-accessibility-label" = "Kapat";
 "menu-preview-accessibility-label" = "Ön izleme";
 "menu-back-accessibility-label" = "Geri";
@@ -383,7 +385,9 @@
 "image-gallery-fetch-image-info-error-title" = "Görseller indirilemiyor";
 "image-gallery-fetch-image-info-error-message" = "Bu maddedeki görseller indirilemedi. Lütfen maddeyi yenileyerek tekrar deneyin.";
 "image-gallery-fetch-image-info-error-ok" = "TAMAM";
+// Fuzzy
 "hockeyapp-alert-question" = "Oluşan hatayı Wikimedia'nın inceleyebilmesi için $1'e çökme raporu göndermek ister misiniz?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Oluşan hatayı Wikimedia'nın inceleyebilmesi için $1'e çökme raporu göndermek ister misiniz? Lütfen çökme gerçekleştiği sırada ne olduğunu tanımlayabilir misiniz:";
 "hockeyapp-alert-title" = "Üzgünüm, geçen sefer uygulama çöktü";
 "hockeyapp-alert-send-report" = "Rapor gönder";
@@ -447,6 +451,7 @@
 "welcome-volunteer-continue-button" = "Devam";
 "welcome-volunteer-thanks" = "$1 Teşekkürler!";
 "welcome-send-data-title" = "Anonim veri gönder";
+// Fuzzy
 "welcome-send-data-sub-title" = "Uygulamayı nasıl kullandığınızı bilmemize izin vererek Wikimedia'nın uygulamayı iyileştirmesine yardım edin. Veriler anonim olarak toplanır";
 "empty-no-feed-title" = "İnternet Bağlantısı Yok";
 "empty-no-feed-message" = "İnternet bağlantınız olduğunda, size önerilen makaleleri görebilirsiniz";

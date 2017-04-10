@@ -254,6 +254,7 @@
 "onboarding-wikipedia" = "Бикипиэдьийэ";
 "onboarding-free-encyclopedia" = "Аһаҕас энциклопедия";
 "preference-title-eventlogging-opt-in" = "Туһаныы отчуоттарын ыыт";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Дьибилгэти туһанар туһунан Викимедиаҕа ыытары көҥүллээтэххинэ дьибилгэти тупсарарга көмөлөһүөҥ.";
 "page-protected-autoconfirmed" = "Бу сирэй ситэтэ суохтук хатанна.";
 "page-protected-sysop" = "Бу сирэй толору хатанна.";
@@ -315,7 +316,9 @@
 "image-gallery-fetch-image-info-error-title" = "Ойууну көрдөрөр табыллыбата";
 "image-gallery-fetch-image-info-error-message" = "Бу ыстатыйа ойутун көрдөрөр табыллыбата. Бука диэн ыстатыйаны хат холбоон көр.";
 "image-gallery-fetch-image-info-error-ok" = "Сөп";
+// Fuzzy
 "hockeyapp-alert-question" = "Бикимиэдьийэ Пуондата эн моһуогурбуккун үөрэтэрин туһугар отчуот манна $1 ыытыаххын баҕараҕын дуо?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Бикимиэдьийэ Пуондата эн моһуогурбуккун үөрэтэрин туһугар отчуот манна $1 ыытыаххын баҕараҕын дуо? Бука диэн, туох моһуокка тиэрдибитин сабаҕалыыргын суруй:";
 "hockeyapp-alert-title" = "Хомойуох иһин, ааспыкка дьибилгэт моһуогура сылдьыбыт";
 "hockeyapp-alert-send-report" = "Отчуоту ыыт";
@@ -374,6 +377,7 @@
 "welcome-volunteer-continue-button" = "Салгыы";
 "welcome-volunteer-thanks" = "$1 Махтал!";
 "welcome-send-data-title" = "Ааты эппэккэ ыытыы";
+// Fuzzy
 "welcome-send-data-sub-title" = "Бикимиэдьийэ бу тэрили хайдах туһанаргын биллэҕинэ тупсарар кыахтаныа. Хомуллубут дааннайга аатыҥ киирбэт.";
 "empty-no-feed-title" = "Интэриниэти кытта ситим суох";
 "empty-no-feed-message" = "Сүбэлиир ыстатыйаларбытын ситим баар буоллаҕына көрүөххүн сөп";

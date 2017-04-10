@@ -281,6 +281,7 @@
 "onboarding-wikipedia" = "ウィキペディア";
 "onboarding-free-encyclopedia" = "フリー百科事典";
 "preference-title-eventlogging-opt-in" = "利用状況レポートを送信";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "このアプリの改善に役立てるため、ウィキメディアがアプリの使用情報を収集することを許可する";
 "page-protected-autoconfirmed" = "このページは半保護されています。";
 "page-protected-sysop" = "このページは全保護されています。";
@@ -341,7 +342,9 @@
 "image-gallery-fetch-image-info-error-title" = "画像をダウンロードできませんでした";
 "image-gallery-fetch-image-info-error-message" = "この記事の画像をダウンロードできませんでした。記事を更新して、もう一度お試しください。";
 "image-gallery-fetch-image-info-error-ok" = "OK";
+// Fuzzy
 "hockeyapp-alert-question" = "クラッシュレポートを $1 に送信しますか? そうすることであなたの前回のクラッシュを Wikimedia がレビューできるようになります。";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "クラッシュレポートを $1 に送信しますか? そうすることであなたの前回のクラッシュを Wikimedia がレビューできるようになります。クラッシュが発生した際に何が起こったか記述してください。";
 "hockeyapp-alert-title" = "申し訳ありません、前回アプリがクラッシュしました";
 "hockeyapp-alert-send-report" = "レポートを送信";

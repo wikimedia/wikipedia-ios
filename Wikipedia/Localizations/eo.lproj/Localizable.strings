@@ -217,6 +217,7 @@
 "onboarding-wikipedia" = "Vikipedio";
 "onboarding-free-encyclopedia" = "La libera enciklopedio";
 "preference-title-eventlogging-opt-in" = "Sendi raporton pri uzado";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Permesi al Vikipedio kolekti informon pri kiel vi uzas la aplikaĵon por helpi ĝin plibonigi";
 "page-protected-autoconfirmed" = "Ĉi tiu paĝo estas duon-protektita.";
 "page-protected-sysop" = "Ĉi tiu paĝo estas tut-protektita.";

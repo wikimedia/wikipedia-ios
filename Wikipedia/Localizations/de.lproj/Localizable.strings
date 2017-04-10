@@ -305,7 +305,7 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Die freie Enzyklopädie";
 "preference-title-eventlogging-opt-in" = "Nutzungsberichte senden";
-"preference-summary-eventlogging-opt-in" = "Wikimedia erlauben, Informationen über deine Verwendung der App zu sammeln, um die App zu verbessern.";
+"preference-summary-eventlogging-opt-in" = "Der Wikimedia Foundation erlauben, Informationen über deine Verwendung der App zu sammeln, um die App zu verbessern.";
 "page-protected-autoconfirmed" = "Diese Seite wurde halbgesperrt.";
 "page-protected-sysop" = "Diese Seite wurde vollgesperrt.";
 "page-protected-other" = "Diese Seite wurde auf die folgenden Ebenen geschützt: $1";
@@ -366,8 +366,8 @@
 "image-gallery-fetch-image-info-error-title" = "Die Bilder konnten nicht heruntergeladen werden";
 "image-gallery-fetch-image-info-error-message" = "Die Bilder für diesen Artikel konnten nicht heruntergeladen werden. Bitte aktualisiere den Artikel und versuche es erneut.";
 "image-gallery-fetch-image-info-error-ok" = "Okay";
-"hockeyapp-alert-question" = "Möchtest du einen Absturzbericht an $1 senden, so dass Wikimedia deinen Absturz überprüfen kann?";
-"hockeyapp-alert-question-with-response-field" = "Möchtest du einen Absturzbericht an $1 senden, so dass Wikimedia deinen Absturz überprüfen kann? Bitte beschreibe, was passiert ist, als der Absturz aufgetreten ist:";
+"hockeyapp-alert-question" = "Möchtest du einen Absturzbericht an $1 senden, so dass die Wikimedia Foundation deinen Absturz überprüfen kann?";
+"hockeyapp-alert-question-with-response-field" = "Möchtest du einen Absturzbericht an $1 senden, so dass die Wikimedia Foundation deinen Absturz überprüfen kann? Bitte beschreibe, was passiert ist, als der Absturz aufgetreten ist:";
 "hockeyapp-alert-title" = "Leider ist die App beim letzten Mal abgestürzt";
 "hockeyapp-alert-send-report" = "Bericht senden";
 "hockeyapp-alert-always-send" = "Immer senden";
@@ -430,7 +430,7 @@
 "welcome-volunteer-continue-button" = "Fortfahren";
 "welcome-volunteer-thanks" = "$1 Vielen Dank!";
 "welcome-send-data-title" = "Anonymisierte Daten senden";
-"welcome-send-data-sub-title" = "Hilf der Wikimedia, die App zu verbessern, indem du uns wissen lässt, wie du sie nutzt. Die gesammelten Daten sind anonym.";
+"welcome-send-data-sub-title" = "Hilf der Wikimedia Foundation, die App zu verbessern, indem du uns wissen lässt, wie du sie nutzt. Die gesammelten Daten sind anonym.";
 "empty-no-feed-title" = "Keine Internetverbindung";
 "empty-no-feed-message" = "Du kannst deine empfohlenen Artikel ansehen, wenn du Internet hast.";
 "empty-no-feed-action-message" = "Du kannst trotzdem gespeicherte Seiten lesen";

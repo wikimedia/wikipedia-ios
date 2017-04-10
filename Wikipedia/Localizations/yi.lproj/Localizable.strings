@@ -190,6 +190,7 @@
 "onboarding-wikipedia" = "וויקיפעדיע";
 "onboarding-free-encyclopedia" = "די פרײַע ענציקלאפעדיע";
 "preference-title-eventlogging-opt-in" = "שיקן ניצונג־באריכטן";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "דערלויבן וויקימעדיע צו זאמלען אינפארמאציע וויאזוי איר ניצט דעם אפ כדי צו פארבעסערן דעם אפ";
 "page-protected-autoconfirmed" = "דער בלאט איז געווארן האלב געשיצט.";
 "page-protected-sysop" = "דער בלאט איז געווארן גאנג געשיצט.";
@@ -221,7 +222,9 @@
 "migration-update-progress-label" = "מיגרירן לאקאלע דאטן";
 "migration-skip-button-title" = "אויסמעקן";
 "image-gallery-fetch-image-info-error-ok" = "יאָ";
+// Fuzzy
 "hockeyapp-alert-question" = "צי ווילט איר שיקן א קראך־באריכט צו $1 כדי וויקימעדיע קען רעצענזירן אייער קראך?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "צי ווילט איר שיקן א קראך־באריכט צו $1 כדי וויקימעדיע קען רעצענזירן אייער קראך? זײַט אזוי גוט און באשרייבט וואס האט פאסירט ווען דער קראך איז געשען:";
 "hockeyapp-alert-send-report" = "שיקן באריכט";
 "hockeyapp-alert-always-send" = "אלעמאל שיקן";

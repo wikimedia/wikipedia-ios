@@ -291,6 +291,7 @@
 "onboarding-wikipedia" = "وڪيپيڊيا";
 "onboarding-free-encyclopedia" = "مفت ڄاڻ انسائيڪلوپيڊيا";
 "preference-title-eventlogging-opt-in" = "استعمال جون رپورٽون اماڻيو";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "وڪيميڊيا ايپ کي اجازت ڏيو ته توهان هن ايپ ڪيئن استعمال ڪريو ٿا جي معلومات جمع ڪري ته جيئن هن ايپ کي وڌيڪ بهتر بڻائي سگھجي";
 "page-protected-autoconfirmed" = "هيءُ صفحو نيم تحفظيل آهي.";
 "page-protected-sysop" = "هيءُ صفحو پوريءَ ريت تحفظيل آهي.";
@@ -350,7 +351,9 @@
 "image-gallery-fetch-image-info-error-title" = "عڪس لاهڻ ۾ ناڪام";
 "image-gallery-fetch-image-info-error-message" = "هن مضمون لاءِ عڪس لاهڻ ۾ ناڪام. براءِ مهرباني مضمون کي تازو ڪريو ۽ ٻيهر ڪوشش ڪريو.";
 "image-gallery-fetch-image-info-error-ok" = "ٺيڪ";
+// Fuzzy
 "hockeyapp-alert-question" = "ڇا توهان $1 ڏانهن حادثي جي رپورٽ موڪلڻ  چاهيندئو ته جيئن وڪيميڊيا حادثي تي نظرثاني ڪري سگهي؟";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "ڇا توھان $1 ڏانھن ڪريش رپورٽ موڪلڻ چاھيندئو تہ جيئن وڪيميڊيا توھان جي ڪريش جو جائزو وٺي سگھي؟ براءِ مھرباني بيان ڪريو تہ جنھن وقت ڪريش ٿيو ان وقت ڇا ٿيو:";
 "hockeyapp-alert-title" = "معاف ڪجو، پوئين ڀيري ايپ حادثاتاً خراب ٿي وئي";
 "hockeyapp-alert-send-report" = "رپورٽ موڪليو";
