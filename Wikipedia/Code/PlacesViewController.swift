@@ -84,12 +84,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         extendedNavBarView.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         extendedNavBarView.shadowOpacity = 0.25
         
-        
         navigationController?.setNavigationBarHidden(false, animated: true)
-        //navigationItem.title = "Top Articles" // TODO:
-        //navigationItem.titleView = filterSelectorView
-        //filterSelectorView.isHidden = true
-
         
         // Setup map view
         mapView.mapType = .standard
@@ -121,7 +116,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         closeBarButtonItem.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-close-search")
         // Setup recenter button
         recenterOnUserLocationButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-recenter-map-on-user-location")
-        
 
         listAndSearchOverlayContainerView.corners = [.topLeft, .topRight, .bottomLeft, .bottomRight]
         listAndSearchOverlayContainerView.radius = 5
@@ -160,6 +154,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             defaults.wmf_setPlacesHasAppeared(true)
         }
         
+        if isViewModeOverlay {
+            navigationController?.setNavigationBarHidden(true, animated: animated)
+        }
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
@@ -177,10 +175,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         mapView.showsUserLocation = true
         
         tracker?.wmf_logView(self)
-        
-        if isViewModeOverlay {
-            navigationController?.setNavigationBarHidden(true, animated: animated)
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -800,6 +794,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         navigationController!.navigationBar.isTranslucent = false
         navigationController!.navigationBar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
         navigationController!.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "pixel"), for: .default)
+
+        let searchBarHeight: CGFloat = 32
+        let searchBarLeftPadding: CGFloat = 7.5
+        let searchBarRightPadding: CGFloat = 2.5
+        
+        filterSelectorView.frame = CGRect(x: searchBarLeftPadding, y: 0, width: view.bounds.size.width - searchBarLeftPadding - searchBarRightPadding, height: 32)
+        filterSelectorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: searchBarHeight))
+        titleView.addSubview(filterSelectorView)
+        navigationItem.titleView = titleView
         
         if let panGR = overlaySliderPanGestureRecognizer {
             view.removeGestureRecognizer(panGR)
@@ -812,10 +817,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         navigationController!.navigationBar.shadowImage = nil
         navigationController!.navigationBar.setBackgroundImage(nil, for: .default)
         
-//        listAndSearchOverlayFilterSelectorContainerView.addSubview(filterSelectorView)
-//        filterSelectorView.frame = listAndSearchOverlayFilterSelectorContainerView.bounds
-        
-       // self.view.setNeedsLayout()
+        listAndSearchOverlayFilterSelectorContainerView.addSubview(filterSelectorView)
+        filterSelectorView.frame = listAndSearchOverlayFilterSelectorContainerView.bounds
         
         let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
         panGR.delegate = self

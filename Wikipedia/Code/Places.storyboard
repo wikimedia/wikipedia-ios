@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -94,33 +94,10 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mRb-Te-D6R" userLabel="Filter Selector Container View">
                                         <rect key="frame" x="0.0" y="0.0" width="325" height="40"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tli-Ze-PUh" userLabel="Filter Selector View">
-                                                <rect key="frame" x="0.0" y="0.0" width="325" height="40"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1lk-Yo-wUm">
-                                                        <rect key="frame" x="116" y="4" width="94" height="33"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                                        <state key="normal" title="Top articles">
-                                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </state>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstItem="1lk-Yo-wUm" firstAttribute="centerY" secondItem="tli-Ze-PUh" secondAttribute="centerY" id="Qxz-Ux-Ksb"/>
-                                                    <constraint firstItem="1lk-Yo-wUm" firstAttribute="centerX" secondItem="tli-Ze-PUh" secondAttribute="centerX" id="Sde-Mn-82R"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
                                         <constraints>
-                                            <constraint firstItem="tli-Ze-PUh" firstAttribute="top" secondItem="mRb-Te-D6R" secondAttribute="top" id="Cex-10-1yw"/>
-                                            <constraint firstItem="tli-Ze-PUh" firstAttribute="leading" secondItem="mRb-Te-D6R" secondAttribute="leading" id="ZFJ-mE-BF3"/>
                                             <constraint firstAttribute="height" constant="40" id="ZqO-YJ-9iB">
                                                 <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                                             </constraint>
-                                            <constraint firstAttribute="bottom" secondItem="tli-Ze-PUh" secondAttribute="bottom" id="dVg-E5-DQy"/>
-                                            <constraint firstAttribute="trailing" secondItem="tli-Ze-PUh" secondAttribute="trailing" id="nAH-Hx-iVY"/>
                                         </constraints>
                                     </view>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hcr-LT-MnE">
@@ -330,7 +307,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <progressView opaque="NO" alpha="0.0" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Pet-ct-8QU">
-                                <rect key="frame" x="0.0" y="20" width="768" height="2.5"/>
+                                <rect key="frame" x="0.0" y="20" width="768" height="3"/>
                             </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -366,10 +343,10 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="S5v-Rm-6Vf"/>
-                                <exclude reference="mYf-kK-anz"/>
                                 <exclude reference="Vzh-Mz-PUH"/>
                                 <exclude reference="c5J-xG-Znl"/>
+                                <exclude reference="S5v-Rm-6Vf"/>
+                                <exclude reference="mYf-kK-anz"/>
                                 <exclude reference="zCw-7M-ml7"/>
                                 <exclude reference="4Hj-19-SbN"/>
                                 <exclude reference="bVF-HO-Onf"/>
@@ -377,17 +354,17 @@
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
-                                <include reference="mYf-kK-anz"/>
                                 <include reference="Vzh-Mz-PUH"/>
+                                <include reference="mYf-kK-anz"/>
                                 <include reference="zCw-7M-ml7"/>
                                 <include reference="4Hj-19-SbN"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="constraints">
+                                <include reference="c5J-xG-Znl"/>
                                 <exclude reference="Fqd-WF-erI"/>
                                 <include reference="S5v-Rm-6Vf"/>
-                                <include reference="c5J-xG-Znl"/>
                                 <exclude reference="kJv-Kd-ffk"/>
                                 <include reference="bVF-HO-Onf"/>
                                 <exclude reference="1PC-H2-U7d"/>
@@ -398,7 +375,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="extendedNavBarView" destination="qzd-3E-mH2" id="jG5-i0-4B5"/>
-                        <outlet property="filterSelectorView" destination="tli-Ze-PUh" id="3DJ-IU-hRW"/>
+                        <outlet property="filterSelectorView" destination="VAs-ZO-0gF" id="Nmc-zk-NHH"/>
                         <outlet property="listAndSearchOverlayBottomConstraint" destination="1PC-H2-U7d" id="Spi-3n-6kC"/>
                         <outlet property="listAndSearchOverlayContainerView" destination="hEe-dF-AFg" id="pNn-lr-x35"/>
                         <outlet property="listAndSearchOverlayFilterSelectorContainerHeightConstraint" destination="ZqO-YJ-9iB" id="NdX-sc-hcP"/>
@@ -422,6 +399,23 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qcf-lJ-9D0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="VAs-ZO-0gF">
+                    <rect key="frame" x="0.0" y="0.0" width="325" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1lk-Yo-wUm">
+                            <rect key="frame" x="109" y="4" width="107" height="33"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                            <state key="normal" title="Top articles v">
+                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="1lk-Yo-wUm" firstAttribute="centerX" secondItem="VAs-ZO-0gF" secondAttribute="centerX" id="1nB-WB-9yN"/>
+                        <constraint firstItem="1lk-Yo-wUm" firstAttribute="centerY" secondItem="VAs-ZO-0gF" secondAttribute="centerY" id="fH7-Y1-W5K"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="1518.75" y="-168.75"/>
         </scene>
@@ -431,7 +425,7 @@
                 <navigationController storyboardIdentifier="Places" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="fC7-UI-Knm" userLabel="Places" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Places" image="tabbar-nearby" selectedImage="tabbar-nearby-selected" id="qMU-9n-S42"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="HFz-Jz-Pn5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HFz-Jz-Pn5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
