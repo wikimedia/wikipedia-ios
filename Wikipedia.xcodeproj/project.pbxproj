@@ -14520,7 +14520,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -14558,7 +14558,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -14596,7 +14596,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
@@ -14634,7 +14634,7 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
@@ -14675,7 +14675,7 @@
 					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -14721,7 +14721,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -14759,7 +14759,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -14797,7 +14797,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -14835,7 +14835,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -14873,7 +14873,7 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -14914,7 +14914,7 @@
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia Beta-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
