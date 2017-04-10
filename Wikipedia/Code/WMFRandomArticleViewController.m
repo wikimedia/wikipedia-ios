@@ -75,7 +75,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
     if (!self.permaRandomMode) {
         return;
     }
-    [self.navigationController setViewControllers:@[self]];
+    [self.navigationController setViewControllers:@[self.navigationController.viewControllers[0], self]];
     uint32_t rand = arc4random_uniform(100);
     if (rand < 34) {
         [self.dataStore.savedPageList addSavedPageWithURL:self.articleURL];
