@@ -62,6 +62,7 @@
 - (void)saveAnnouncements:(NSArray<WMFAnnouncement *> *)announcements completion:(nullable dispatch_block_t)completion {
 
     [announcements enumerateObjectsUsingBlock:^(WMFAnnouncement *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        
         NSURL *URL = [WMFContentGroup announcementURLForSiteURL:self.siteURL identifier:obj.identifier];
         WMFContentGroup *group = [self.contentStore fetchOrCreateGroupForURL:URL
                                                                       ofKind:WMFContentGroupKindAnnouncement

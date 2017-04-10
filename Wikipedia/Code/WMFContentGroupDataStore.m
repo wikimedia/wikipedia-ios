@@ -6,6 +6,41 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) MWKDataStore *dataStore;
 
+#pragma mark - Content Group Access
+
+- (nullable WMFContentGroup *)contentGroupForURL:(NSURL *)url inManagedObjectContext:(NSManagedObjectContext *)moc;
+
+- (void)enumerateContentGroupsInManagedObjectContext:(NSManagedObjectContext *)moc withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block;
+
+- (void)enumerateContentGroupsOfKind:(WMFContentGroupKind)kind inManagedObjectContext:(NSManagedObjectContext *)moc withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block;
+
+- (void)enumerateContentGroupsOfKind:(WMFContentGroupKind)kind sortedByKey:(NSString *)key ascending:(BOOL)ascending inManagedObjectContext:(NSManagedObjectContext *)moc withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block;
+
+- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind inManagedObjectContext:(NSManagedObjectContext *)moc;
+
+- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc;
+
+- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date siteURL:(NSURL *)url inManagedObjectContext:(NSManagedObjectContext *)moc;
+
+- (nullable NSArray<WMFContentGroup *> *)groupsOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc;
+
+
+#pragma mark - Content Management
+
+- (nullable WMFContentGroup *)fetchOrCreateGroupForURL:(NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent inManagedObjectContext:(NSManagedObjectContext *)moc customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock;
+
+- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent inManagedObjectContext:(NSManagedObjectContext *)moc;
+
+- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent inManagedObjectContext:(NSManagedObjectContext *)moc customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock;
+
+- (NSArray<WMFContentGroup *> *)contentGroupsOfKind:(WMFContentGroupKind)kind inManagedObjectContext:(NSManagedObjectContext *)moc;
+
+- (void)removeContentGroup:(WMFContentGroup *)group inManagedObjectContext:(NSManagedObjectContext *)moc;
+
+- (void)removeContentGroupsWithKeys:(NSArray<NSString *> *)keys inManagedObjectContext:(NSManagedObjectContext *)moc;
+
+- (void)removeAllContentGroupsOfKind:(WMFContentGroupKind)kind inManagedObjectContext:(NSManagedObjectContext *)moc;
+
 @end
 
 @implementation WMFContentGroupDataStore
@@ -20,13 +55,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - section access
 
-- (void)enumerateContentGroupsWithBlock:(void (^)(WMFContentGroup *_Nonnull section, BOOL *stop))block {
+- (void)enumerateContentGroupsInManagedObjectContext:(NSManagedObjectContext *)moc withBlock:(void (^)(WMFContentGroup *_Nonnull section, BOOL *stop))block {
     if (!block) {
         return;
     }
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     NSError *fetchError = nil;
-    NSArray *contentGroups = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
+    NSArray *contentGroups = [moc executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError) {
         DDLogError(@"Error fetching content groups: %@", fetchError);
         return;
@@ -36,12 +71,12 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (NSArray<WMFContentGroup *> *)contentGroupsOfKind:(WMFContentGroupKind)kind sortedByDescriptors:(nullable NSArray *)sortDescriptors {
+- (NSArray<WMFContentGroup *> *)contentGroupsOfKind:(WMFContentGroupKind)kind sortedByDescriptors:(nullable NSArray *)sortDescriptors inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(kind)];
     fetchRequest.sortDescriptors = sortDescriptors;
     NSError *fetchError = nil;
-    NSArray *contentGroups = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
+    NSArray *contentGroups = [moc executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError || !contentGroups) {
         DDLogError(@"Error fetching content groups: %@", fetchError);
         return @[];
@@ -49,35 +84,35 @@ NS_ASSUME_NONNULL_BEGIN
     return contentGroups;
 }
 
-- (NSArray<WMFContentGroup *> *)contentGroupsOfKind:(WMFContentGroupKind)kind sortedByKey:(NSString *)sortKey ascending:(BOOL)ascending {
-    return [self contentGroupsOfKind:kind sortedByDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:sortKey ascending:ascending]]];
+- (NSArray<WMFContentGroup *> *)contentGroupsOfKind:(WMFContentGroupKind)kind sortedByKey:(NSString *)sortKey ascending:(BOOL)ascending inManagedObjectContext:(NSManagedObjectContext *)moc {
+    return [self contentGroupsOfKind:kind sortedByDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:sortKey ascending:ascending]] inManagedObjectContext:moc];
 }
 
-- (NSArray<WMFContentGroup *> *)contentGroupsOfKind:(WMFContentGroupKind)kind {
-    return [self contentGroupsOfKind:kind sortedByDescriptors:nil];
+- (NSArray<WMFContentGroup *> *)contentGroupsOfKind:(WMFContentGroupKind)kind inManagedObjectContext:(NSManagedObjectContext *)moc {
+    return [self contentGroupsOfKind:kind sortedByDescriptors:nil inManagedObjectContext:moc];
 }
 
-- (void)enumerateContentGroupsOfKind:(WMFContentGroupKind)kind sortedByKey:(NSString *)key ascending:(BOOL)ascending withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block {
+- (void)enumerateContentGroupsOfKind:(WMFContentGroupKind)kind sortedByKey:(NSString *)key ascending:(BOOL)ascending inManagedObjectContext:(NSManagedObjectContext *)moc withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block {
     if (!block) {
         return;
     }
-    NSArray<WMFContentGroup *> *contentGroups = [self contentGroupsOfKind:kind sortedByKey:key ascending:ascending];
+    NSArray<WMFContentGroup *> *contentGroups = [self contentGroupsOfKind:kind sortedByKey:key ascending:ascending inManagedObjectContext:moc];
     [contentGroups enumerateObjectsUsingBlock:^(WMFContentGroup *_Nonnull section, NSUInteger idx, BOOL *_Nonnull stop) {
         block(section, stop);
     }];
 }
 
-- (void)enumerateContentGroupsOfKind:(WMFContentGroupKind)kind withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block {
+- (void)enumerateContentGroupsOfKind:(WMFContentGroupKind)kind inManagedObjectContext:(NSManagedObjectContext *)moc withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block {
     if (!block) {
         return;
     }
-    NSArray<WMFContentGroup *> *contentGroups = [self contentGroupsOfKind:kind];
+    NSArray<WMFContentGroup *> *contentGroups = [self contentGroupsOfKind:kind inManagedObjectContext:moc];
     [contentGroups enumerateObjectsUsingBlock:^(WMFContentGroup *_Nonnull section, NSUInteger idx, BOOL *_Nonnull stop) {
         block(section, stop);
     }];
 }
 
-- (nullable WMFContentGroup *)contentGroupForURL:(NSURL *)URL {
+- (nullable WMFContentGroup *)contentGroupForURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSParameterAssert(URL);
     if (!URL) {
         return nil;
@@ -92,7 +127,7 @@ NS_ASSUME_NONNULL_BEGIN
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
     fetchRequest.fetchLimit = 1;
     NSError *fetchError = nil;
-    NSArray *contentGroups = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
+    NSArray *contentGroups = [moc executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError) {
         DDLogError(@"Error fetching content groups: %@", fetchError);
         return nil;
@@ -100,12 +135,12 @@ NS_ASSUME_NONNULL_BEGIN
     return [contentGroups firstObject];
 }
 
-- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind {
+- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(kind)];
     fetchRequest.fetchLimit = 1;
     NSError *fetchError = nil;
-    NSArray *contentGroups = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
+    NSArray *contentGroups = [moc executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError) {
         DDLogError(@"Error fetching content groups: %@", fetchError);
         return nil;
@@ -113,12 +148,12 @@ NS_ASSUME_NONNULL_BEGIN
     return [contentGroups firstObject];
 }
 
-- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date {
+- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate];
     fetchRequest.fetchLimit = 1;
     NSError *fetchError = nil;
-    NSArray *contentGroups = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
+    NSArray *contentGroups = [moc executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError) {
         DDLogError(@"Error fetching content groups: %@", fetchError);
         return nil;
@@ -126,12 +161,12 @@ NS_ASSUME_NONNULL_BEGIN
     return [contentGroups firstObject];
 }
 
-- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date siteURL:(NSURL *)url {
+- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date siteURL:(NSURL *)url   inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@ && siteURLString == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate, url.absoluteString];
     fetchRequest.fetchLimit = 1;
     NSError *fetchError = nil;
-    NSArray *contentGroups = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
+    NSArray *contentGroups = [moc executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError) {
         DDLogError(@"Error fetching content groups: %@", fetchError);
         return nil;
@@ -139,11 +174,11 @@ NS_ASSUME_NONNULL_BEGIN
     return [contentGroups firstObject];
 }
 
-- (nullable NSArray<WMFContentGroup *> *)groupsOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date {
+- (nullable NSArray<WMFContentGroup *> *)groupsOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate];
     NSError *fetchError = nil;
-    NSArray *contentGroups = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
+    NSArray *contentGroups = [moc executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError) {
         DDLogError(@"Error fetching content groups: %@", fetchError);
         return nil;
@@ -153,8 +188,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - section add / remove
 
-- (nullable WMFContentGroup *)createGroupForURL:(nullable NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
-    WMFContentGroup *group = [NSEntityDescription insertNewObjectForEntityForName:@"WMFContentGroup" inManagedObjectContext:self.dataStore.viewContext];
+- (nullable WMFContentGroup *)createGroupForURL:(nullable NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent inManagedObjectContext:(NSManagedObjectContext *)moc customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
+    WMFContentGroup *group = [NSEntityDescription insertNewObjectForEntityForName:@"WMFContentGroup" inManagedObjectContext:moc];
     group.date = date;
     group.midnightUTCDate = date.wmf_midnightUTCDateFromLocalDate;
     group.contentGroupKind = kind;
@@ -176,13 +211,13 @@ NS_ASSUME_NONNULL_BEGIN
     return group;
 }
 
-- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
-    return [self createGroupForURL:nil ofKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent customizationBlock:customizationBlock];
+- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent inManagedObjectContext:(NSManagedObjectContext *)moc customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
+    return [self createGroupForURL:nil ofKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent inManagedObjectContext:moc customizationBlock:customizationBlock];
 }
 
-- (nullable WMFContentGroup *)fetchOrCreateGroupForURL:(NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
+- (nullable WMFContentGroup *)fetchOrCreateGroupForURL:(NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent inManagedObjectContext:(NSManagedObjectContext *)moc customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
 
-    WMFContentGroup *group = [self contentGroupForURL:URL];
+    WMFContentGroup *group = [self contentGroupForURL:URL inManagedObjectContext:moc];
     if (group) {
         group.date = date;
         group.midnightUTCDate = date.wmf_midnightUTCDateFromLocalDate;
@@ -193,46 +228,85 @@ NS_ASSUME_NONNULL_BEGIN
             customizationBlock(group);
         }
     } else {
-        group = [self createGroupForURL:URL ofKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent customizationBlock:customizationBlock];
+        group = [self createGroupForURL:URL ofKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent inManagedObjectContext:moc customizationBlock:customizationBlock];
     }
 
     return group;
 }
 
-- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent {
-    return [self createGroupOfKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent customizationBlock:NULL];
+- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
+    return [self createGroupOfKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent inManagedObjectContext:moc customizationBlock:NULL];
 }
 
-- (void)removeContentGroup:(WMFContentGroup *)group {
+- (void)removeContentGroup:(WMFContentGroup *)group inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSParameterAssert(group);
-    [self.dataStore.viewContext deleteObject:group];
+    [moc deleteObject:group];
 }
 
-- (void)removeContentGroups:(NSArray<WMFContentGroup *> *)contentGroups {
+- (void)removeContentGroups:(NSArray<WMFContentGroup *> *)contentGroups inManagedObjectContext:(NSManagedObjectContext *)moc {
     for (WMFContentGroup *group in contentGroups) {
-        [self.dataStore.viewContext deleteObject:group];
+        [moc deleteObject:group];
     }
 }
 
-- (BOOL)save:(NSError **)saveError {
-    return [self.dataStore save:saveError];
-}
-
-- (void)removeContentGroupsWithKeys:(NSArray<NSString *> *)keys {
+- (void)removeContentGroupsWithKeys:(NSArray<NSString *> *)keys inManagedObjectContext:(NSManagedObjectContext *)moc{
     NSFetchRequest *request = [WMFContentGroup fetchRequest];
     request.predicate = [NSPredicate predicateWithFormat:@"key IN %@", keys];
     NSError *fetchError = nil;
-    NSArray<WMFContentGroup *> *groups = [self.dataStore.viewContext executeFetchRequest:request error:&fetchError];
+    NSArray<WMFContentGroup *> *groups = [moc executeFetchRequest:request error:&fetchError];
     if (fetchError) {
         DDLogError(@"Error fetching content groups for deletion: %@", fetchError);
         return;
     }
-    [self removeContentGroups:groups];
+    [self removeContentGroups:groups inManagedObjectContext:moc];
+}
+
+- (void)removeAllContentGroupsOfKind:(WMFContentGroupKind)kind inManagedObjectContext:(NSManagedObjectContext *)moc {
+    NSArray *groups = [self contentGroupsOfKind:kind inManagedObjectContext:moc];
+    [self removeContentGroups:groups inManagedObjectContext:moc];
+}
+
+#pragma mark - External
+
+- (void)performOnFeedImportContext:(nonnull void (^)(NSManagedObjectContext *moc))block {
+    NSManagedObjectContext *moc = self.dataStore.feedImportContext;
+    [moc performBlock:^{
+        block(moc);
+    }];
+}
+- (void)fetchOrCreateGroupForURL:(NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
+    [self performOnFeedImportContext:^(NSManagedObjectContext * _Nonnull moc) {
+       [self fetchOrCreateGroupForURL:URL ofKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent inManagedObjectContext:moc customizationBlock:customizationBlock];
+    }];
 }
 
 - (void)removeAllContentGroupsOfKind:(WMFContentGroupKind)kind {
-    NSArray *groups = [self contentGroupsOfKind:kind];
-    [self removeContentGroups:groups];
+     [self performOnFeedImportContext:^(NSManagedObjectContext * _Nonnull moc) {
+        NSArray *groups = [self contentGroupsOfKind:kind inManagedObjectContext:moc];
+        [self removeContentGroups:groups inManagedObjectContext:moc];
+    }];
+}
+
+- (void)enumerateContentGroupsOfKind:(WMFContentGroupKind)kind sortedByKey:(NSString *)key ascending:(BOOL)ascending   withBlock:(void (^)(WMFContentGroup *_Nonnull group, NSManagedObjectContext *_Nonnull moc, BOOL *stop))block {
+    if (!block) {
+        return;
+    }
+    [self performOnFeedImportContext:^(NSManagedObjectContext * _Nonnull moc) {
+        [self enumerateContentGroupsOfKind:kind sortedByKey:key ascending:ascending inManagedObjectContext:moc withBlock^(WMFContentGroup * _Nonnull group, BOOL * _Nonnull stop) {
+            block(group, moc, stop);
+        }];
+    }];
+}
+
+- (void)enumerateContentGroupsOfKind:(WMFContentGroupKind)kind withBlock:(void (^)(WMFContentGroup *_Nonnull group, NSManagedObjectContext *_Nonnull moc, BOOL *stop))block {
+    if (!block) {
+        return;
+    }
+    [self performOnFeedImportContext:^(NSManagedObjectContext * _Nonnull moc) {
+        [self enumerateContentGroupsOfKind:kind inManagedObjectContext:moc withBlock:^(WMFContentGroup * _Nonnull group, BOOL * _Nonnull stop) {
+            block(group, moc, stop);
+        }];
+    }];
 }
 
 @end

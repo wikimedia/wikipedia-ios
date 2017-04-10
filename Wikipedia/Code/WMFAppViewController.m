@@ -803,7 +803,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             UINavigationController *navController = [self navigationControllerForTab:WMFAppTabTypeExplore];
             [navController popToRootViewControllerAnimated:NO];
             NSURL *url = [activity wmf_contentURL];
-            WMFContentGroup *group = [self.contentStore contentGroupForURL:url];
+            WMFContentGroup *group = [self.contentStore contentGroupForURL:url inManagedObjectContext:self.dataStore.viewContext];
             [self.exploreViewController presentMoreViewControllerForGroup:group animated:NO];
 
         } break;

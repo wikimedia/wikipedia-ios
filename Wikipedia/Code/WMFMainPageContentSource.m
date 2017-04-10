@@ -56,7 +56,7 @@
     [self fetchAndSaveMainPageForSiteURL:self.siteURL completion:completion];
 }
 
-- (void)removeAllContent {
+- (void)removeAllContentGroupsOfKind:(WMFContentGroupKind)kind {
     [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindMainPage];
 }
 
@@ -65,10 +65,10 @@
 - (void)cleanupOldSections {
     __block BOOL foundTodaysSection = NO;
     [self.contentStore enumerateContentGroupsOfKind:WMFContentGroupKindMainPage
-                                          withBlock:^(WMFContentGroup *_Nonnull section, BOOL *_Nonnull stop) {
+                                          withBlock:^(WMFContentGroup *_Nonnull section, NSManagedObjectContext *_Nonnull moc, BOOL *_Nonnull stop) {
                                               BOOL isForToday = section.isForToday;
                                               if (!isForToday || foundTodaysSection) {
-                                                  [self.contentStore removeContentGroup:section];
+                                                  [self.contentStore removeContentGroup:section inManagedObjectContext:moc];
                                               }
                                               if (!foundTodaysSection) {
                                                   foundTodaysSection = isForToday;

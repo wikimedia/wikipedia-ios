@@ -42,6 +42,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, strong) NSManagedObjectContext *viewContext;
+@property (nonatomic, strong) NSManagedObjectContext *feedImportContext;
 
 @property (nonatomic, strong) NSString *crossProcessNotificationChannelName;
 @property (nonatomic) int crossProcessNotificationToken;
@@ -433,7 +434,8 @@ static uint64_t bundleHash() {
     }];
 }
 
-#pragma mark - Background Context
+#pragma mark - Background Contexts
+
 - (void)performBackgroundCoreDataOperationOnATemporaryContext:(nonnull void (^)(NSManagedObjectContext *moc))mocBlock {
     WMFAssertMainThread(@"Background Core Data operations must be started from the main thread.");
     NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
@@ -447,6 +449,21 @@ static uint64_t bundleHash() {
 }
 
 - (void)backgroundContextDidSave:(NSNotification *)note {
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [self.viewContext mergeChangesFromContextDidSaveNotification:note];
+    });
+}
+
+- (NSManagedObjectContext *)feedImportContext {
+    if (!_feedImportContext) {
+        _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        _feedImportContext.persistentStoreCoordinator = self.persistentStoreCoordinator;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedImportContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
+    }
+    return _feedImportContext;
+}
+
+- (void)feedImportContextDidSave:(NSNotification *)note {
     dispatch_sync(dispatch_get_main_queue(), ^{
         [self.viewContext mergeChangesFromContextDidSaveNotification:note];
     });

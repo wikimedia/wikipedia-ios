@@ -6,43 +6,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
 
-#pragma mark - Content Group Access
+- (nullable WMFContentGroup *)contentGroupForURL:(NSURL *)url inManagedObjectContext:(NSManagedObjectContext *)moc;
 
-- (nullable WMFContentGroup *)contentGroupForURL:(NSURL *)url;
-
-- (void)enumerateContentGroupsWithBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block;
-
-- (void)enumerateContentGroupsOfKind:(WMFContentGroupKind)kind withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block;
-
-- (void)enumerateContentGroupsOfKind:(WMFContentGroupKind)kind sortedByKey:(NSString *)key ascending:(BOOL)ascending withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block;
-
-- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind;
-
-- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date;
-
-- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date siteURL:(NSURL *)url;
-
-- (nullable NSArray<WMFContentGroup *> *)groupsOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date;
-
-
-
-- (BOOL)save:(NSError **)saveError;
-
-#pragma mark - Content Management
-
-- (nullable WMFContentGroup *)fetchOrCreateGroupForURL:(NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock;
-
-- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent;
-
-- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock;
-
-- (NSArray<WMFContentGroup *> *)contentGroupsOfKind:(WMFContentGroupKind)kind;
-
-- (void)removeContentGroup:(WMFContentGroup *)group;
-
-- (void)removeContentGroupsWithKeys:(NSArray<NSString *> *)keys;
-
+- (void)fetchOrCreateGroupForURL:(NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock;
 - (void)removeAllContentGroupsOfKind:(WMFContentGroupKind)kind;
+- (void)enumerateContentGroupsOfKind:(WMFContentGroupKind)kind withBlock:(void (^)(WMFContentGroup *_Nonnull group, NSManagedObjectContext *_Nonnull moc, BOOL *stop))block;
+- (void)removeContentGroup:(WMFContentGroup *)group inManagedObjectContext:(NSManagedObjectContext *)moc;
 
 @end
 

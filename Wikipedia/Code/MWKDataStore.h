@@ -37,7 +37,6 @@ extern NSString *const MWKTeardownDataSourcesNotification;
  */
 extern NSString *const WMFArticleUpdatedNotification;
 
-
 @interface MWKDataStore : NSObject
 
 /**
@@ -59,6 +58,7 @@ extern NSString *const WMFArticleUpdatedNotification;
 @property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
+@property (nonatomic, strong, readonly) NSManagedObjectContext *feedImportContext;
 
 - (nullable WMFArticle *)fetchArticleForURL:(NSURL *)URL;
 - (nullable WMFArticle *)fetchArticleForKey:(NSString *)key;
