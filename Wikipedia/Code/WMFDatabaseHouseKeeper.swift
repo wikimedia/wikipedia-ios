@@ -18,7 +18,7 @@ import Foundation
         }
         
         let utcCalendar = NSCalendar.wmf_utcGregorian() as Calendar
-        guard let thirtyDaysAgoMidnightUTC = utcCalendar.date(byAdding: .day, value: -30, to: midnightTodayUTC)  else{
+        guard let thirtyDaysAgoMidnightUTC = utcCalendar.date(byAdding: .day, value: 0 - WMFExploreFeedMaximumNumberOfDays, to: midnightTodayUTC)  else{
             assertionFailure("Calculating midnight UTC 30 days ago failed")
             return nil
         }
@@ -33,7 +33,7 @@ import Foundation
  
         */
         
-        guard let thirtyDaysAgoMidnightUTC = daysBeforeDateInUTC(days: -30, date: Date()) else {
+        guard let thirtyDaysAgoMidnightUTC = daysBeforeDateInUTC(days: 0 - WMFExploreFeedMaximumNumberOfDays, date: Date()) else {
             assertionFailure("Calculating midnight UTC 30 days ago failed")
             return []
         }
