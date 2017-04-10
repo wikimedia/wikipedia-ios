@@ -43,13 +43,23 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0BE839E91E96D2DC00A9B930"
+               BuildableName = "WikipediaUITests.xctest"
+               BlueprintName = "WikipediaUITests"
+               ReferencedContainer = "container:Wikipedia.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D85D34C41D74D07500845125"
-            BuildableName = "TopReadWidget.appex"
-            BlueprintName = "TopReadWidget"
+            BlueprintIdentifier = "D4991434181D51DE00E6073C"
+            BuildableName = "Wikipedia.app"
+            BlueprintName = "Wikipedia"
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

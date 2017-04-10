@@ -62,3 +62,4 @@ node_modules/
 *.orig
 *.cer
 .env.default
+/screenshots

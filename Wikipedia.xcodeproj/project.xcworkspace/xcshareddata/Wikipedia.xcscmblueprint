@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "6F58B18C33AC36B5D9F9521B586BF8F1E76E5C24",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "6F58B18C33AC36B5D9F9521B586BF8F1E76E5C24" : 9223372036854775807,
+    "12AFBF2029495BDF8ACBF374775C4A9681200AD8" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "86E8E81C-9D7A-4D8C-9B0C-4929813ED694",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "6F58B18C33AC36B5D9F9521B586BF8F1E76E5C24" : "wikipedia-ios\/",
+    "12AFBF2029495BDF8ACBF374775C4A9681200AD8" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Wikipedia",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Wikipedia.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "bitbucket.org:bcojan\/blowy.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "12AFBF2029495BDF8ACBF374775C4A9681200AD8"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:bcojan\/wikipedia-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6F58B18C33AC36B5D9F9521B586BF8F1E76E5C24"
+    }
+  ]
+}
