@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nonnull) NSURL *siteURL;
 @property (nonatomic, strong, nonnull) MWKDataStore *dataStore;
 @property (nonatomic, strong, nonnull) WMFArticleDataStore *previewStore;
+#if WMF_TWEAKS_ENABLED
+@property (nonatomic, getter=isPermaRandomMode) BOOL permaRandomMode;
+#endif
 
 - (nonnull instancetype)initWithSiteURL:(nonnull NSURL *)siteURL dataStore:(nonnull MWKDataStore *)dataStore previewStore:(nonnull WMFArticleDataStore *)previewStore NS_DESIGNATED_INITIALIZER;
 

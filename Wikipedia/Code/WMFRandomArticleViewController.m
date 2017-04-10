@@ -7,6 +7,10 @@
 #import "WMFArticleNavigationController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFArticleNavigationController.h"
+#if WMF_TWEAKS_ENABLED
+#import "MWKDataStore.h"
+#import "MWKSavedPageList.h"
+#endif
 
 static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
@@ -66,6 +70,17 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.viewAppeared = YES;
+    
+#if WMF_TWEAKS_ENABLED
+    if (!self.permaRandomMode) {
+        return;
+    }
+    uint32_t rand = arc4random_uniform(100);
+    if (rand < 34) {
+        [self.dataStore.savedPageList addSavedPageWithURL:self.articleURL];
+    }
+    [self loadAndShowAnotherRandomArticle:self];
+#endif
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -105,6 +120,9 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
         success:^(MWKSearchResult *result) {
             NSURL *titleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
             WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore previewStore:self.previewStore diceButtonItem:self.diceButtonItem];
+#if WMF_TWEAKS_ENABLED
+            randomArticleVC.permaRandomMode = YES;
+#endif
             [self wmf_pushArticleViewController:randomArticleVC animated:YES];
         }];
 }
@@ -141,5 +159,21 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
     self.previousContentOffsetY = newContentOffsetY;
 }
+
+#if WMF_TWEAKS_ENABLED
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
+        [super motionEnded:motion withEvent:event];
+    }
+    if (event.subtype != UIEventSubtypeMotionShake) {
+        return;
+    }
+    self.permaRandomMode = !self.isPermaRandomMode;
+    if (!self.permaRandomMode) {
+        return;
+    }
+    [self loadAndShowAnotherRandomArticle:self];
+}
+#endif
 
 @end
