@@ -306,6 +306,7 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "An Holloueziadur digor";
 "preference-title-eventlogging-opt-in" = "Kas danevelloù implij";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Aotren Wikipedia da zastum titouroù diwar-benn an doare ma implijit an arload evit gwellaat anezhañ";
 "page-protected-autoconfirmed" = "Damwarezet eo bet ar bajenn-mañ.";
 "page-protected-sysop" = "Gwarezet penn-da-benn eo bet ar bajenn-mañ.";
@@ -367,7 +368,9 @@
 "image-gallery-fetch-image-info-error-title" = "Ne c'haller ket pellgargañ skeudennoù";
 "image-gallery-fetch-image-info-error-message" = "Ne c'haller ket pellgargañ ar skeudennoù evit ar pennad-mañ. Klaskit freskaat ar pennad ha klaskit en-dro, mar plij.";
 "image-gallery-fetch-image-info-error-ok" = "Mat eo";
+// Fuzzy
 "hockeyapp-alert-question" = "C'hoant ho peus da gas un danevell sac'hañ da $1 evit ma c'hallo Wikipedia studiañ anezhi ?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "C'hoant ho peus da gas un danevell sac'hañ da $1 evit ma c'hallo Wikipedia studiañ anezhi ? Deskrivit, mar plij, ar pezh zo c'hoarvezet p'eo chomet sac'het ar produ :";
 "hockeyapp-alert-title" = "Ho tigarez, chomet eo sac'het an arload ar wech diwezhañ";
 "hockeyapp-alert-send-report" = "Kas un danevell";
@@ -394,7 +397,7 @@
 "home-featured-article-heading" = "Pennad eus ar c'hentañ evit $1";
 "home-main-page-heading" = "Hiziv e Wikipedia";
 "home-potd-heading" = "Skeudenn an deiz evit $1";
-"home-last-update-label" = "Hizivadenn diwezhañ: $1";
+"home-last-update-label" = "Hizivadenn diwezhañ: %1$";
 "home-last-update-never-label" = "Hizivadenn diwezhañ : Morse";
 "home-updating-label" = "Oc'h hizivaat...";
 "home-hide-suggestion-prompt" = "Kuzhat ar c'hinnig-mañ";
@@ -431,6 +434,7 @@
 "welcome-volunteer-continue-button" = "Kenderc'hel";
 "welcome-volunteer-thanks" = "$1 Trugarez !";
 "welcome-send-data-title" = "Kas roadennoù dizanv.";
+// Fuzzy
 "welcome-send-data-sub-title" = "Skoazellit Wikipedia da wellaat an arload en ur lezel ac'hanomp da c'houzout penaos ec'h embregit an arload. Dizanv e chom an roadennoù dastumet.";
 "empty-no-feed-title" = "Kevreadur ebet ouzh ar Genrouedad";
 "empty-no-feed-message" = "Gallout a reot gwelet ho pennadoù erbedet p'ho pez ar Genrouedad.";

@@ -249,6 +249,7 @@
 "onboarding-wikipedia" = "Wikkipehdija";
 "onboarding-free-encyclopedia" = "Dat freij un offe Nohkixel";
 "preference-title-eventlogging-opt-in" = "Bereeschte met Dahte övver der Jebruch afflivvere";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Donn de Wikkimehdija-Schteffong älaube, Enfommazjuhne drövver opzesammelle, wi De heh di Äpp bruchs, öme se bäßer maache ze künne.";
 "page-protected-autoconfirmed" = "Heh di Sigg es hallef jeschöz.";
 "page-protected-sysop" = "Heh di Sigg es jeschöz.";
@@ -314,7 +315,9 @@
 "image-gallery-fetch-image-info-error-title" = "Kann kein Bellder eronger lahde";
 "image-gallery-fetch-image-info-error-message" = "kann kein Belder för heh dö Atikel eronger lahde. Bes esu johd un donn dä Atikel neu lahde un et norr_ens versöhke.";
 "image-gallery-fetch-image-info-error-ok" = "Johd";
+// Fuzzy
 "hockeyapp-alert-question" = "Wells De ene Bereesch met Dahte övver dä Affbroch aan de $1 scheke, so dat mer en de Wikkimehdija-Schtefftong do noh lohre kann?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Wells De ene Bereesch met Dahte övver dä Affbroch aan de $1 scheke, so dat mer en de Wikkimehdija-Schtefftong do noh lohre kann? Bes esu johd on donn schriehve, wat doh paßehrd es.";
 "hockeyapp-alert-title" = "Schahd, di Äpp es beim läzde Mohl kapott jejange";
 "hockeyapp-alert-send-report" = "Bereesch schecke";

@@ -317,6 +317,7 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Ensiklopedia Bebas";
 "preference-title-eventlogging-opt-in" = "Kirim laporan penggunaan";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Izinkan Wikimedia untuk mengumpulkan informasi tentang bagaimana Anda menggunakan aplikasi untuk membuat aplikasi yang lebih baik";
 "page-protected-autoconfirmed" = "Halaman ini telah dilindungi sebagian.";
 "page-protected-sysop" = "Halaman ini telah sepenuhnya dilindungi.";
@@ -378,7 +379,9 @@
 "image-gallery-fetch-image-info-error-title" = "Tidak dapat mengunduh gambar";
 "image-gallery-fetch-image-info-error-message" = "Tidak dapat mengunduh gambar untuk artikel ini. Silakan segarkan artikel dan coba lagi.";
 "image-gallery-fetch-image-info-error-ok" = "Oke";
+// Fuzzy
 "hockeyapp-alert-question" = "Apakah Anda ingin mengirimkan laporan kesalahan ke $1 jadi Wikimedia dapat meninjau kesalahan Anda?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Apakah Anda ingin mengirimkan laporan kesalahan ke $1 jadi Wikimedia dapat meninjau kesalahan Anda? Silakan jelaskan apa yang terjadi ketika kesalahan terjadi:";
 "hockeyapp-alert-title" = "Maaf, aplikasi berhenti dengan sendirinya terakhir kali";
 "hockeyapp-alert-send-report" = "Kirim laporan";
@@ -442,6 +445,7 @@
 "welcome-volunteer-continue-button" = "Lanjutkan";
 "welcome-volunteer-thanks" = "Terima kasih! $1";
 "welcome-send-data-title" = "Kirim data anonim";
+// Fuzzy
 "welcome-send-data-sub-title" = "Bantu Wikimedia membuat aplikasi yang lebih baik dengan membiarkan kami tahu bagaimana Anda menggunakan aplikasi. Data yang dikumpulkan bersifat anonim";
 "empty-no-feed-title" = "Tidak ada sambungan internet";
 "empty-no-feed-message" = "Anda bisa melihat artikel yang disarankan untuk Anda saat Anda mempunyai sambungan intenet";

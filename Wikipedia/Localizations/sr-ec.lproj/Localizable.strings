@@ -244,6 +244,7 @@
 "onboarding-wikipedia" = "Википедија";
 "onboarding-free-encyclopedia" = "Слободна енциклопедија";
 "preference-title-eventlogging-opt-in" = "Шаљи извештаје о употреби";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Дозволите Викимедији да прикупља информације о томе како користите апликацију у циљу њеног побољшања.";
 "page-protected-autoconfirmed" = "Ова страница је полузаштићена.";
 "page-protected-sysop" = "Ова страница је потпуно заштићена.";
@@ -304,7 +305,9 @@
 "image-gallery-fetch-image-info-error-title" = "Грешка при преузимању слика";
 "image-gallery-fetch-image-info-error-message" = "Не могу да преузмем слике за овај чланак. Освежите га па покушајте поново.";
 "image-gallery-fetch-image-info-error-ok" = "У реду";
+// Fuzzy
 "hockeyapp-alert-question" = "Желите ли $1-у да пошаљете извештај о отказивању како би Викимедија могла да исправи проблем?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Желите ли $1-у да пошаљете извештај о отказивању како би Викимедија могла да исправи проблем? Опишите шта сте радили када је дошло до отказивања:";
 "hockeyapp-alert-title" = "Апликација је отказала прошли пут";
 "hockeyapp-alert-send-report" = "Пошаљи извештај";

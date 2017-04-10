@@ -304,6 +304,7 @@
 "onboarding-wikipedia" = "Wikipédia";
 "onboarding-free-encyclopedia" = "A Szabad Enciklopédia";
 "preference-title-eventlogging-opt-in" = "Használati jelentés küldése";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "A Wikimédia adatokat gyűjthet arról, hogy hogyan használod az appot, hogy még jobbá tehessük.";
 "page-protected-autoconfirmed" = "Ez az oldal félig védett.";
 "page-protected-sysop" = "Ez a lap teljesen védett.";
@@ -365,7 +366,9 @@
 "image-gallery-fetch-image-info-error-title" = "A képek letöltése sikertelen";
 "image-gallery-fetch-image-info-error-message" = "A szócikkben szereplő képek letöltése sikertelen. Frissítsd a cikket és próbáld újra.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
+// Fuzzy
 "hockeyapp-alert-question" = "Szeretnél küldeni egy összeomlási jelentést a(z) $1 harmadik félnek, hogy a Wikimédia megvizsgálhassa?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Szeretnél küldeni egy összeomlási jelentést a(z) $1 harmadik félnek, hogy a Wikimédia megvizsgálhassa? Írd le, mi történt az összeomláskor:";
 "hockeyapp-alert-title" = "Sajnáljuk, az alkalmazás összeomlott legutóbb";
 "hockeyapp-alert-send-report" = "Jelentés küldése";
@@ -429,6 +432,7 @@
 "welcome-volunteer-continue-button" = "Tovább";
 "welcome-volunteer-thanks" = "$1 Köszönjük!";
 "welcome-send-data-title" = "Névtelen adatok küldése";
+// Fuzzy
 "welcome-send-data-sub-title" = "Segíts a Wikimédiának az alkalmazás jobbá tételében azzal, hogy megosztod velünk, hogyan használod az alkalmazást. A gyűjtött adatok névtelenek";
 "empty-no-feed-title" = "Nincs internetkapcsolat";
 "empty-no-feed-message" = "A neked ajánlott szócikkeket akkor láthatod, ha kapcsolódsz az internethez";

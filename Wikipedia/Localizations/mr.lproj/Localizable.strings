@@ -234,6 +234,7 @@
 "onboarding-wikipedia" = "विकिपीडिया";
 "onboarding-free-encyclopedia" = "मुक्त ज्ञानकोश";
 "preference-title-eventlogging-opt-in" = "वापराचा अहवाल पाठवा";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "विकिपीडियास, आपण हे अॅप कसे वापरता याबद्दल माहिती घेण्यास परवानगी द्या जेणेकरुन, ते अॅप अधिक चांगले करता येईल.";
 "page-protected-autoconfirmed" = "हे पान अर्ध-सुरक्षित आहे.";
 "page-protected-sysop" = "हे पान पूर्णत: सुरक्षित आहे.";
