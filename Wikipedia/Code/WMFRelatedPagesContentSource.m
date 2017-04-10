@@ -162,13 +162,6 @@ NS_ASSUME_NONNULL_BEGIN
         [self.contentStore removeContentGroup:group];
     }
     
-    if (hasRelatedPageGroupForThisDate) {
-        if (completion) {
-            completion();
-        }
-        return;
-    }
-    
     NSFetchRequest *relatedSeedRequest = [WMFArticle fetchRequest];
     relatedSeedRequest.predicate = [NSPredicate predicateWithFormat:@"isExcludedFromFeed == NO && (wasSignificantlyViewed == YES || savedDate != NULL) && !(key IN %@)", remainingKeys];
     relatedSeedRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"viewedDate" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:NO]];
