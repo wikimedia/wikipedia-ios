@@ -11,38 +11,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticle (WMFRelatedPages)
 
-- (BOOL)needsRelatedPagesGroupForDate:(NSDate *)date {
-    NSDate *beginingOfDay = [date wmf_midnightDate];
-    if (self.isExcludedFromFeed) {
-        return NO;
-    } else if ([self.savedDate compare:beginingOfDay] == NSOrderedDescending) {
-        return YES;
-    } else if (self.wasSignificantlyViewed && [self.viewedDate compare:beginingOfDay] == NSOrderedDescending) {
-        return YES;
-    } else {
-        return NO;
-    }
-}
-
 - (BOOL)needsRelatedPagesGroup {
     if (self.isExcludedFromFeed) {
         return NO;
     } else if (self.savedDate != nil) {
         return YES;
-    } else if (self.wasSignificantlyViewed && (self.viewedDate != nil)) {
+    } else if (self.wasSignificantlyViewed) {
         return YES;
     } else {
         return NO;
-    }
-}
-
-- (NSDate *)dateForGroup {
-    if (self.savedDate && self.viewedDate) {
-        return [self.viewedDate earlierDate:self.savedDate];
-    } else if (self.savedDate) {
-        return self.savedDate;
-    } else {
-        return self.viewedDate;
     }
 }
 
@@ -86,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - WMFContentSource
 
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    [self loadContentForDate:[self lastDateAdded] force:force completion:completion];
+    [self loadContentForDate:[NSDate date] force:force completion:completion];
 }
 
 - (void)preloadContentForNumberOfDays:(NSInteger)days force:(BOOL)force completion:(nullable dispatch_block_t)completion {
@@ -117,53 +94,109 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)loadContentForDate:(NSDate *)date force:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    WMFTaskGroup *group = [WMFTaskGroup new];
-
+    NSParameterAssert(date);
+    if (!date) {
+        if (completion) {
+            completion();
+        }
+        return;
+    }
+    
+    NSDate *midnightUTCDate = [date wmf_midnightUTCDateFromLocalDate];
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.propertiesToFetch = @[@"key"];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(WMFContentGroupKindRelatedPages)];
     NSError *fetchError = nil;
     NSArray<WMFContentGroup *> *relatedPagesContentGroups = [self.userDataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
-    if (fetchError || !relatedPagesContentGroups) {
+    if (fetchError || !relatedPagesContentGroups.count) {
         DDLogError(@"Error fetching content groups: %@", fetchError);
     }
-    NSArray<NSString *> *keys = [relatedPagesContentGroups valueForKey:@"key"];
-    NSMutableDictionary<NSString *, WMFContentGroup *> *relatedPagesContentGroupsByKey = [NSMutableDictionary dictionaryWithObjects:relatedPagesContentGroups forKeys:keys];
-
-    [self.userDataStore enumerateArticlesWithBlock:^(WMFArticle *_Nonnull reference, BOOL *_Nonnull stop) {
-        if ([reference needsRelatedPagesGroupForDate:date]) {
-            [group enter];
-            [self fetchAndSaveRelatedArticlesForArticle:reference completion:^{
-                [group leave];
-            }];
-        } else if (reference && ![reference needsRelatedPagesGroup]) {
-            NSURL *URL = reference.URL;
-            if (!URL) {
-                return;
-            }
-            NSURL *contentGroupURL = [WMFContentGroup relatedPagesContentGroupURLForArticleURL:URL];
-            if (!contentGroupURL) {
-                return;
-            }
-            NSString *key = [WMFContentGroup databaseKeyForURL:contentGroupURL];
-            if (!key) {
-                return;
-            }
-            WMFContentGroup *group = relatedPagesContentGroupsByKey[key];
-            if (!group) {
-                return;
-            }
-            
-            [self.contentStore removeContentGroup:group];
-            [relatedPagesContentGroupsByKey removeObjectForKey:key];
-        }
-    }];
     
-    [group waitInBackgroundWithCompletion:^{
+    BOOL hasRelatedPageGroupForThisDate = false;
+    NSMutableArray<NSString *> *articleKeys = [NSMutableArray arrayWithCapacity:relatedPagesContentGroups.count];
+    NSMutableArray<WMFContentGroup *> *validGroups = [NSMutableArray arrayWithCapacity:relatedPagesContentGroups.count];
+
+    for (WMFContentGroup *contentGroup in relatedPagesContentGroups) {
+        NSString *articleKey = [[WMFContentGroup articleURLForRelatedPagesContentGroupURL:contentGroup.URL] wmf_articleDatabaseKey];
+        if (!articleKey) {
+            continue;
+        }
+        [articleKeys addObject:articleKey];
+        [validGroups addObject:contentGroup];
+        if (hasRelatedPageGroupForThisDate) {
+            continue;
+        }
+        NSDate *contentGroupDate = contentGroup.midnightUTCDate;
+        hasRelatedPageGroupForThisDate = [contentGroupDate isEqualToDate:midnightUTCDate];
+    }
+    
+    NSMutableDictionary<NSString *, WMFContentGroup *> *relatedPagesContentGroupsByKey = [NSMutableDictionary dictionaryWithObjects:validGroups forKeys:articleKeys];
+    
+    NSFetchRequest *referencedArticlesRequest = [WMFArticle fetchRequest];
+    referencedArticlesRequest.predicate = [NSPredicate predicateWithFormat:@"key IN %@", articleKeys];
+    NSError *referencedArticlesRequestError = nil;
+    NSArray *referencedArticles = [self.userDataStore.viewContext executeFetchRequest:referencedArticlesRequest error:&referencedArticlesRequestError];
+    if (referencedArticlesRequestError) {
+        DDLogError(@"Error fetching related pages referenced articles: %@", referencedArticlesRequestError);
+    }
+    
+    NSMutableSet<NSString *> *remainingKeys = [NSMutableSet setWithArray:articleKeys];
+    NSMutableSet<NSString *> *keysToDelete = [NSMutableSet setWithArray:articleKeys];
+    for (WMFArticle *article in referencedArticles) {
+        NSString *key = article.key;
+        if (!key) {
+            continue;
+        }
+        if (![article needsRelatedPagesGroup]) {
+            [remainingKeys removeObject:key];
+            continue;
+        }
+        [keysToDelete removeObject:key];
+    }
+    
+    for (NSString *key in keysToDelete) {
+        WMFContentGroup *group = relatedPagesContentGroupsByKey[key];
+        if (!group) {
+            continue;
+        }
+        [self.contentStore removeContentGroup:group];
+    }
+    
+    if (hasRelatedPageGroupForThisDate) {
         if (completion) {
             completion();
         }
-    }];
+        return;
+    }
+    
+    NSFetchRequest *relatedSeedRequest = [WMFArticle fetchRequest];
+    relatedSeedRequest.predicate = [NSPredicate predicateWithFormat:@"isExcludedFromFeed == NO && (wasSignificantlyViewed == YES || savedDate != NULL) && !(key IN %@)", remainingKeys];
+    relatedSeedRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"viewedDate" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:NO]];
+    relatedSeedRequest.fetchLimit = 1;
+    NSError *relatedSeedFetchError = nil;
+    NSArray *relatedSeedResults = [self.userDataStore.viewContext executeFetchRequest:relatedSeedRequest error:&relatedSeedFetchError];
+    if (relatedSeedFetchError) {
+        DDLogError(@"Error fetching article for related page: %@", relatedSeedFetchError);
+    }
+    
+    WMFArticle *article = relatedSeedResults.firstObject;
+    BOOL isCurrent = NO;
+    NSDate *viewedDate = article.viewedDate;
+    if (viewedDate && [[viewedDate wmf_midnightUTCDateFromLocalDate] isEqualToDate:midnightUTCDate]) {
+        isCurrent = YES;
+    }
+    NSDate *savedDate = article.savedDate;
+    if (savedDate && [[savedDate wmf_midnightUTCDateFromLocalDate] isEqualToDate:midnightUTCDate]) {
+        isCurrent = YES;
+    }
+    if (!article || !isCurrent) {
+        if (completion) {
+            completion();
+        }
+        return;
+    }
+    
+    [self fetchAndSaveRelatedArticlesForArticle:article date:date completion:completion];
 }
 
 - (void)removeAllContent {
@@ -172,7 +205,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Fetch
 
-- (void)fetchAndSaveRelatedArticlesForArticle:(WMFArticle *)article completion:(nullable dispatch_block_t)completion {
+- (void)fetchAndSaveRelatedArticlesForArticle:(WMFArticle *)article date:(NSDate *)date completion:(nullable dispatch_block_t)completion {
     NSURL *groupURL = [WMFContentGroup relatedPagesContentGroupURLForArticleURL:article.URL];
     WMFContentGroup *existingGroup = [self.contentStore contentGroupForURL:groupURL];
     NSArray<NSURL *> *related = (NSArray<NSURL *> *)existingGroup.content;
@@ -199,7 +232,7 @@ NS_ASSUME_NONNULL_BEGIN
             }];
             [self.contentStore fetchOrCreateGroupForURL:groupURL
                                                  ofKind:WMFContentGroupKindRelatedPages
-                                                forDate:[article dateForGroup]
+                                                forDate:date
                                             withSiteURL:article.URL.wmf_siteURL
                                       associatedContent:urls
                                      customizationBlock:^(WMFContentGroup *_Nonnull group) {
@@ -217,22 +250,6 @@ NS_ASSUME_NONNULL_BEGIN
         }];
 }
 
-#pragma mark - Date
-
-- (NSDate *)lastDateAdded {
-    __block NSDate *date = nil;
-    [self.contentStore enumerateContentGroupsOfKind:WMFContentGroupKindRelatedPages
-                                          withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
-                                              if (date == nil || [group.midnightUTCDate compare:date] == NSOrderedDescending) {
-                                                  date = group.midnightUTCDate;
-                                              }
-                                          }];
-
-    if (date == nil) {
-        date = [NSDate date];
-    }
-    return date;
-}
 
 @end
 

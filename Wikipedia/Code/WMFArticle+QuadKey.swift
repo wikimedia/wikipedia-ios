@@ -1,5 +1,5 @@
 import Foundation
-
+import MapKit
 
 extension WMFArticle {
     public var quadKey: QuadKey? {

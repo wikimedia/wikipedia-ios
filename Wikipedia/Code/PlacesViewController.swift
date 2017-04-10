@@ -62,7 +62,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private let mapTrackerContext: AnalyticsContext = "Places_map"
     private let listTrackerContext: AnalyticsContext = "Places_list"
     private let searchTrackerContext: AnalyticsContext = "Places_search"
-    private let imageController = WMFImageController.sharedInstance()
+    private let imageController = ImageController.shared
     
     // MARK: - View Lifecycle
     
@@ -1493,8 +1493,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 if let article = group.articles.first, let key = article.key, let previousPlace = previousPlaceByArticle[key] {
                     nextCoordinate = coordinate
                     coordinate = previousPlace.coordinate
-                    let thumbnailURL = article.thumbnailURL
-                    imageController.prefetchImageWithURL(thumbnailURL, completion: { })
+                    if let thumbnailURL = article.thumbnailURL {
+                        imageController.prefetch(withURL: thumbnailURL)
+                    }
                 }
                 
             } else {

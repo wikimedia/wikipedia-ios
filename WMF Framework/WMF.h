@@ -75,8 +75,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import "MWKImageInfo.h"
 #import "NSString+WMFExtras.h"
 
-#import "SDWebImageManager+WMFCacheRemoval.h"
-#import "SDImageCache+WMFPersistentCache.h"
 #import "WMFURLCache.h"
 
 #import "MWKArticle+WMFSharing.h"
@@ -191,4 +189,5 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import "QueuesSingleton.h"
 #import "MWKSavedPageEntry.h"
 #import "WMFLegacyContentGroup.h"
+#import "WMFLegacyImageCache.h"
 

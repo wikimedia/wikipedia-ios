@@ -63,7 +63,6 @@
 
 #if TEST_SHARED_CONTAINER_MIGRATION
 #import "YapDatabase+WMFExtensions.h"
-#import "SDImageCache+WMFPersistentCache.h"
 #endif
 
 #import "WMFArticleNavigationController.h"
@@ -130,6 +129,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 @property (nonatomic, strong) WMFDailyStatsLoggingFunnel *statsFunnel;
 
 @property (nonatomic, strong) WMFNotificationsController *notificationsController;
+
+@property (nonatomic, getter=isWaitingToResumeApp) BOOL waitingToResumeApp;
+@property (nonatomic, getter=areLaunchMigrationsComplete) BOOL launchMigrationsComplete;
 
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
@@ -241,7 +243,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
     self.unprocessedUserActivity = nil;
     self.unprocessedShortcutItem = nil;
-    [self resumeApp];
+    [self resumeApp:^{}];
 }
 
 - (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
@@ -314,6 +316,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }
     self.backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         [self.dataStore stopCacheRemoval];
+        [self.savedArticlesFetcher cancelFetchForSavedPages];
         [self endBackgroundTask];
     }];
 }
@@ -335,6 +338,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 }
 
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
+    self.waitingToResumeApp = waitToResumeApp;
     WMFStyleManager *manager = [WMFStyleManager new];
     [manager applyStyleToWindow:window];
     [WMFStyleManager setSharedStyleManager:manager];
@@ -359,14 +363,20 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 #endif
     [self migrateToSharedContainerIfNecessaryWithCompletion:^{
         [self migrateToNewFeedIfNecessaryWithCompletion:^{
-            [self migrateToQuadKeyLocationIfNecessaryWithCompletion:^{
-                [self migrateToRemoveUnreferencedArticlesIfNecessaryWithCompletion:^{
-                    [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
-                        [self loadMainUI];
-                        if (!waitToResumeApp) {
-                            [self hideSplashViewAnimated:!didShowOnboarding];
-                            [self resumeApp];
-                        }
+            [self.dataStore performCoreDataMigrations:^{
+                [self migrateToQuadKeyLocationIfNecessaryWithCompletion:^{
+                    [self migrateToRemoveUnreferencedArticlesIfNecessaryWithCompletion:^{
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+                                [self loadMainUI];
+                                self.launchMigrationsComplete = YES;
+                                if (!self.isWaitingToResumeApp) {
+                                    [self resumeApp:^{
+                                        [self hideSplashViewAnimated:!didShowOnboarding];
+                                    }];
+                                }
+                            }];
+                        });
                     }];
                 }];
             }];
@@ -382,9 +392,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
                 DDLogError(@"Error migrating data store: %@", error);
             }
             error = nil;
-            if (![SDImageCache migrateToSharedContainer:&error]) {
-                DDLogError(@"Error migrating image cache: %@", error);
-            }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:YES];
                 completion();
@@ -439,21 +446,34 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 #pragma mark - Start/Pause/Resume App
 
 - (void)hideSplashScreenAndResumeApp {
-    [self hideSplashViewAnimated:true];
-    [self resumeApp];
+    self.waitingToResumeApp = NO;
+    if (self.areLaunchMigrationsComplete) {
+        [self resumeApp:^{
+            [self hideSplashViewAnimated:true];
+        }];
+    }
 }
 
-- (void)resumeApp {
+- (void)resumeApp:(dispatch_block_t)completion {
     if (self.isPresentingOnboarding) {
+        if (completion) {
+            completion();
+        }
         return;
     }
 
     if (![self uiIsLoaded]) {
+        if (completion) {
+            completion();
+        }
         return;
     }
 
     dispatch_block_t done = ^{
         [self finishResumingApp];
+        if (completion) {
+            completion();
+        }
     };
 
     if (self.unprocessedUserActivity) {
@@ -525,7 +545,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     if (![self uiIsLoaded]) {
         return;
     }
-    [[WMFImageController sharedInstance] clearMemoryCache];
 
     [self.savedArticlesFetcher stop];
     [self stopContentSources];
@@ -547,6 +566,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }
 
     [self.dataStore startCacheRemoval];
+    [self.savedArticlesFetcher fetchUncachedArticlesInSavedPages:^{
+        DDLogDebug(@"Finished saved articles fetch.");
+    }];
 }
 
 #pragma mark - Memory Warning
@@ -556,7 +578,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         return;
     }
     [super didReceiveMemoryWarning];
-    [[WMFImageController sharedInstance] clearMemoryCache];
     [self.dataStore clearMemoryCache];
 }
 
@@ -755,7 +776,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         done();
         return NO;
     }
-    if (![self uiIsLoaded]) {
+    if (![self uiIsLoaded] || self.isWaitingToResumeApp) {
         self.unprocessedUserActivity = activity;
         done();
         return YES;

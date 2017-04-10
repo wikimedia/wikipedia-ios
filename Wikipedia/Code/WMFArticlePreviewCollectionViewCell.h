@@ -19,6 +19,10 @@
  */
 - (void)setSaveableURL:(NSURL *)url savedPageList:(MWKSavedPageList *)savedPageList;
 
+// Adjust constraints for image layout
+- (void)restoreImageToFullHeight;
+- (void)collapseImageHeightToZero;
+
 @end
 
 @interface WMFArticlePreviewCollectionViewCell (Outlets)

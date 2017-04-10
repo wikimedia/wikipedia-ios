@@ -1,3 +1,5 @@
+import MapKit
+
 enum PlaceSearchType: UInt {
     case text
     case location

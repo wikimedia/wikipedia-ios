@@ -111,7 +111,11 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
             assert(false, "Unable to determine fullCaptchaImageURL")
             return
         }
-        captchaImageView.sd_setImage(with: fullCaptchaImageURL)
+        captchaImageView.wmf_setImage(with: fullCaptchaImageURL, detectFaces: false, onGPU: false, failure: { (error) in
+            
+        }) { 
+            
+        }
     }
     
     public func captchaTextFieldBecomeFirstResponder() {

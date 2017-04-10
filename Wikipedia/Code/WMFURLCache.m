@@ -10,42 +10,24 @@ static NSString *const WMFURLCacheZeroConfigQueryNameValue = @"action=zeroconfig
 
 @implementation WMFURLCache
 
-- (void)permanentlyCacheImagesForArticle:(MWKArticle *)article {
-    NSArray *imageURLsForSaving = [article imageURLsForSaving];
-    for (NSURL *url in imageURLsForSaving) {
-        @autoreleasepool {
-            if ([[WMFImageController sharedInstance] hasPermanentlyCachedTypedDiskDataForImageWithURL:url]) {
-                continue;
-            }
-            NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
-            NSCachedURLResponse *response = [super cachedResponseForRequest:request];
-            if (response.data.length > 0) {
-                [[WMFImageController sharedInstance] cacheImageData:response.data url:url MIMEType:response.response.MIMEType];
-            }
-        }
-    };
-}
-
-
 - (BOOL)isMIMETypeImage:(NSString *)type {
     return [type hasPrefix:@"image"];
 }
 
 - (NSCachedURLResponse *)cachedResponseForRequest:(NSURLRequest *)request {
-    NSString *mimeType = [request.URL wmf_mimeTypeForExtension];
-    
-    if ([self isMIMETypeImage:mimeType]) {
+    NSCachedURLResponse *response = [super cachedResponseForRequest:request];
+    if (!response && [self isMIMETypeImage:[request.URL wmf_mimeTypeForExtension]]) {
         WMFTypedImageData *typedData = [[WMFImageController sharedInstance] permanentlyCachedTypedDiskDataForImageWithURL:request.URL];
         NSData *data = typedData.data;
         NSString *mimeType = typedData.MIMEType;
         if (data.length > 0) {
-            NSURLResponse *response = [[NSURLResponse alloc] initWithURL:request.URL MIMEType:mimeType expectedContentLength:data.length textEncodingName:nil];
-            NSCachedURLResponse *cachedResponse = [[NSCachedURLResponse alloc] initWithResponse:response data:data];
-            return cachedResponse;
+            NSURLResponse *typedDataResponse = [[NSURLResponse alloc] initWithURL:request.URL MIMEType:mimeType expectedContentLength:data.length textEncodingName:nil];
+            NSCachedURLResponse *cachedTypedDataResponse = [[NSCachedURLResponse alloc] initWithResponse:typedDataResponse data:data];
+            [self storeCachedResponse:cachedTypedDataResponse forRequest:request];
+            response = cachedTypedDataResponse;
         }
     }
     
-    NSCachedURLResponse *response = [super cachedResponseForRequest:request];
     NSURLResponse *maybeHTTPResponse = response.response;
     
     if (![maybeHTTPResponse isKindOfClass:[NSHTTPURLResponse class]]) {
