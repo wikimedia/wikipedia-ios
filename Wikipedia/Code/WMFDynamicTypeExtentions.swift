@@ -38,12 +38,12 @@ extension UIView {
         if #available(iOS 10.0, *) {
             if isKind(of: UIButton.self) {
                 (self as! UIButton).wmf_configureForDynamicType()
-            }else if self.isKind(of: UILabel.self) {
+            }else if isKind(of: UILabel.self) {
                 (self as! UILabel).wmf_configureForDynamicType()
-            }else if self.isKind(of: UITextField.self) {
+            }else if isKind(of: UITextField.self) {
                 (self as! UITextField).wmf_configureForDynamicType()
             }
-            for subview in self.subviews {
+            for subview in subviews {
                 subview.wmf_configureSubviewsForDynamicType()
             }
         }
