@@ -321,6 +321,7 @@
 "onboarding-wikipedia" = "ویکی‌پدیا";
 "onboarding-free-encyclopedia" = "دانشنامهٔ آزاد";
 "preference-title-eventlogging-opt-in" = "ارسال گزارش‌های استفاده";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "به ویکی‌مدیا برای جمع‌آوری اطلاعات درباره چگونگی استفاده‌تان از این اپلیکیشن برای بهتر ساختن اپلیکیشن اجازه دهید";
 "page-protected-autoconfirmed" = "این صفحه به طور نیمه حفاظت شده‌است.";
 "page-protected-sysop" = "این صفحه به طور کامل حفاظت شده‌است.";
@@ -382,7 +383,9 @@
 "image-gallery-fetch-image-info-error-title" = "امکان دانلود تصویرها نیست";
 "image-gallery-fetch-image-info-error-message" = "امکان دانلود پرونده برای این مقاله نیست. لطفاً صفحه را تازه کرده و مجددا امتحان کنید.";
 "image-gallery-fetch-image-info-error-ok" = "تأیید";
+// Fuzzy
 "hockeyapp-alert-question" = "آیا مایلید تا گزارش از کار افتادن را به $1 ارسال کنید تا ویکی‌مدیا بتواند آن‌را بررسی کند؟";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "آیا مایلید تا گزارش از کار افتادن را به $1 ارسال کنید تا ویکی‌مدیا بتواند آن‌را بررسی کند؟ لطفاً شرح دهید که در هنگام از کار افتادن چه رخ داد:";
 "hockeyapp-alert-title" = "متاسفیم، نرم‌افزار در بار پیشین از کار افتاد";
 "hockeyapp-alert-send-report" = "ارسال گزارش";
@@ -446,6 +449,7 @@
 "welcome-volunteer-continue-button" = "ادامه";
 "welcome-volunteer-thanks" = "$1 متشکریم!";
 "welcome-send-data-title" = "ارسال اطلاعات به صورت ناشناس";
+// Fuzzy
 "welcome-send-data-sub-title" = "به ویکی‌مدیا کمک کنید که اپلیکیشنش را بهبود و ارتقاء دهد. اطلاعات به صورت ناشناس جمع‌آوری می‌شوند.";
 "empty-no-feed-title" = "عدم اتصال به اینترنت";
 "empty-no-feed-message" = "زمانی که به اینترنت متصل باشید می‌توانید مقالات پیشنهادی را مشاهده کنید.";

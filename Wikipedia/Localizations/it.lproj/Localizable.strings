@@ -314,6 +314,7 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "L'enciclopedia libera";
 "preference-title-eventlogging-opt-in" = "Invia rapporti sull'utilizzo";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Consenti a Wikimedia di raccogliere informazioni su come usi l'applicazione per renderla migliore";
 "page-protected-autoconfirmed" = "Questa pagina è stata semi-protetta.";
 "page-protected-sysop" = "Questa pagina è stata protetta.";
@@ -375,7 +376,9 @@
 "image-gallery-fetch-image-info-error-title" = "Impossibile scaricare le immagini";
 "image-gallery-fetch-image-info-error-message" = "Impossibile scaricare le immagini per questo articolo. Ricarica la pagina e prova ancora.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
+// Fuzzy
 "hockeyapp-alert-question" = "Desideri inviare una segnalazione di crash a $1 in modo che Wikimedia sia in grado di esaminarlo?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Desideri inviare una segnalazione di crash a $1 in modo che Wikimedia sia in grado di esaminarlo? Per favore descrivi ciò che è successo quando si è verificato il crash:";
 "hockeyapp-alert-title" = "Spiacenti, l'ultima volta l'applicazione è andata in errore";
 "hockeyapp-alert-send-report" = "Invia segnalazione";
@@ -432,6 +435,7 @@
 "welcome-volunteer-send-usage-reports" = "Invia rapporti sull'utilizzo";
 "welcome-volunteer-continue-button" = "Continua";
 "welcome-volunteer-thanks" = "$1 Grazie!";
+// Fuzzy
 "welcome-send-data-sub-title" = "Aiuto Wikimedia a rendere migliore l'applicazione, facendoci sapere come la utilizzi. I dati raccolti sono anonimi";
 "empty-no-feed-title" = "Nessuna connessione internet";
 "empty-no-feed-message" = "Puoi vedere le tue voci consigliate quando si dispone di internet";

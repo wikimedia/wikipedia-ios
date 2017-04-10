@@ -256,6 +256,7 @@
 "onboarding-wikipedia" = "Википедия";
 "onboarding-free-encyclopedia" = "Ирекле энциклопедия";
 "preference-title-eventlogging-opt-in" = "Файҙаланыу тураһында отчет ебәреү";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Викимедиаға һеҙҙең ҡушымтаны нисек файҙаланыуығыҙ тураһында мәғлүмәт бирергә рөхсәт итеү. Был уны тағы ла яҡшыраҡ итергә мөмкинселек бирәсәк.";
 "page-protected-autoconfirmed" = "Был бит өлөшләтә һаҡланған ине.";
 "page-protected-sysop" = "Был бит тулыһынса һаҡланған ине.";
@@ -321,7 +322,9 @@
 "image-gallery-fetch-image-info-error-title" = "Һүрәтте күсереп булмай";
 "image-gallery-fetch-image-info-error-message" = "Был мәҡәлә өсөн һүрәт күсереп булмай. Мәҡәләне яңыртығыҙ йәки һуңғараҡ тағы берҙе ҡабатлағыҙ";
 "image-gallery-fetch-image-info-error-ok" = "Яҡшы";
+// Fuzzy
 "hockeyapp-alert-question" = "Викимедиа фонды һеҙҙең \"түбән төшөү\" осрағын өйрәнә алһын өсөн $1 отчет ебәрергә теләйһегеҙме?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Викимедиа фонды һеҙҙең \"түбән төшөү\" осрағын өйрәнә алһын өсөн отчет ебәрергә теләйһегеҙме? Быға нимә сәбәп булыуын һүрәтләгеҙ:";
 "hockeyapp-alert-title" = "Үкенескә ҡаршы, үткән юлы ҡушымта \"төшкән\"";
 "hockeyapp-alert-send-report" = "Отчет ебәрергә";

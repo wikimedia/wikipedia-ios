@@ -252,6 +252,7 @@
 "onboarding-wikipedia" = "ویکیپیڈیا";
 "onboarding-free-encyclopedia" = "آزاد دائرۃ المعاروف";
 "preference-title-eventlogging-opt-in" = "استعمال کی رپورٹ بھیجیے";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "ویکیمیڈیا کو اجازت دیں کہ وہ آپ کے اس ایپ کے استعمال کی معلومات حاصل کرے تاکہ یہ کو اور بہتر بنایا جا سکے۔";
 "page-protected-autoconfirmed" = "یہ صفحہ نیم محفوظ رہا ہے۔";
 "page-protected-sysop" = "یہ صفحہ مکمل طور پر محفوظ رہا ہے۔";
@@ -317,7 +318,9 @@
 "image-gallery-fetch-image-info-error-title" = "تصاویر ڈاؤنلوڈ کرنے ميں ناکام";
 "image-gallery-fetch-image-info-error-message" = "اس مضمون کے لیے تصاویر ڈاؤنلوڈ نہیں کیا جاسکتا۔ براہ کرم مضمون کو بازتازہ کرکے پھر سے کوشش کریں۔";
 "image-gallery-fetch-image-info-error-ok" = "ٹھیک ہے";
+// Fuzzy
 "hockeyapp-alert-question" = "کیا آپ $1 کو کریش رپورٹ بھیجنا چاہیں گے تاکہ ویکیمیڈیا آپ کے کریش کا جائزہ لے سکے؟";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "کیا آپ $1 کو کریش رپورٹ بھیجنا چاہیں گے تاکہ ویکیمیڈیا آپ کے کریش کا جائزہ لے سکے؟\n\nبراہ کرم بتائیں کہ کیا ہؤا تھا جب کریس پیش آیا:";
 "hockeyapp-alert-title" = "معاف کریں، ایپ پچھلی بار کریش کرگیا";
 "hockeyapp-alert-send-report" = "رپورٹ بھیجیں";

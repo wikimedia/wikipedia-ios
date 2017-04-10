@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Arifin.wijaya
 // Author: Nemo bis
+// Author: NoiX180
 
 "languages-title" = "Ganti basa";
 "article-languages-label" = "Pilih basa";
@@ -57,14 +58,14 @@
 "account-creation-saving" = "Nyimpen...";
 "account-creation-login" = "Wis kagungan akun? Mlebu.";
 "account-creation-missing-fields" = "Sampeyan kudu ngetik jeneng panganggo, sandi, lan konfirmasi sandhi kanggo nggawe akun.";
-"account-creation-create-account" = "Gawé akun sampéyan";
+"account-creation-create-account" = "Gawé akuné panjenengan";
 "account-creation-have-account" = "Wis duwé akun? $1";
 "account-creation-log-in" = "Mlebu log.";
 "new-password-title" = "Nata tembung wadining sampeyan";
 "new-password-instructions" = "Panjenengan wis mlebu log karo tembung sandhi sementara. Menawa kersa nglanjutaké milih tembung sandhi anyar ing kéné.";
 "two-factor-login-title" = "Mlebu menyang akun panjenengan";
 "two-factor-login-instructions" = "Mangga ketik kode verifikasi loro faktor";
-"two-factor-login-continue" = "Banjuraké mlebu log.";
+"two-factor-login-continue" = "Banjuraké mlebu log";
 // Fuzzy
 "two-factor-login-with-regular-code" = "Nggunakake kode numerik singkat";
 // Fuzzy
@@ -80,33 +81,33 @@
 "login-username-placeholder-text" = "Jeneng panganggo";
 "login-password-placeholder-text" = "Tembung wadi";
 "login-forgot-password" = "Lali tembung wadining sampéyan?";
-"login-title" = "Mlebu menyang akun panjenengan";
+"login-title" = "Mlebua menyang akuné panjenengan";
 "login-no-account" = "Durung duwé akun? $1";
-"login-join-wikipedia" = "Nggabungake ing Wikipédia";
+"login-join-wikipedia" = "Mèlu Wikipédia.";
 "field-username-title" = "Jeneng panganggo";
 "field-username-placeholder" = "lebokaké jeneng panganggo";
 "field-password-title" = "Tembung wadi";
 "field-password-placeholder" = "lebokaké tembung wadi";
-"field-password-confirm-title" = "Netepaké tembung wadi";
-"field-password-confirm-placeholder" = "lebokaké lagi tembung wadi";
+"field-password-confirm-title" = "Konfirmasi tembung wadi";
+"field-password-confirm-placeholder" = "lebokaké manèh tembung wadi";
 "field-new-password-title" = "Tembung wadi anyar";
 "field-new-password-placeholder" = "lebokaké tembung wadi anyar";
 "field-new-password-confirm-title" = "Konfirmasi tembung wadi anyar";
-"field-new-password-confirm-placeholder" = "lebokaké lagi tembung wadi anyar";
+"field-new-password-confirm-placeholder" = "lebokaké manèh tembung wadi anyar";
 // Fuzzy
 "field-email-title" = "Alamat layang èlèktronik (manasuka)";
-"field-email-placeholder" = "contone@contone.org";
-"field-token-title" = "Token";
-"field-backup-token-title" = "Kode serep";
+"field-email-placeholder" = "conto@conto.org";
+"field-token-title" = "Kodhé vèrifikasi";
+"field-backup-token-title" = "Kodhé sèrep";
 "field-token-placeholder" = "lebokaké token";
-"field-captcha-title" = "Ketik teks sing ndeleng ndhuwur";
-"field-captcha-placeholder" = "Teks CAPTCHA";
-"field-alert-username-unavailable" = "Jeneng panganggo ora kasedhiya";
+"field-captcha-title" = "Lebokaké tèks sing katon ing ndhuwur";
+"field-captcha-placeholder" = "Tèks CAPTCHA";
+"field-alert-username-unavailable" = "Jeneng panganggo ora cumepak";
 "field-alert-password-invalid" = "Tembung wadi ora sah";
 // Fuzzy
 "field-alert-token-invalid" = "Kode salah. Mangga nyoba maneh.";
 "field-alert-captcha-invalid" = "CAPTCHA ora sah";
-"field-alert-password-confirm-mismatch" = "Tembung sandhiné ora padha";
+"field-alert-password-confirm-mismatch" = "Tembung wadiné ora mathuk";
 "forgot-password-title" = "Balèni gawé tembung wadi";
 "forgot-password-instructions" = "Isi ing salah siji saka kothak ngisor iki kanggo nampa instruksi kanggo mbalèkaké tembung sandhi liwat email";
 "forgot-password-username-prompt" = "Jeneng panganggo";
@@ -277,8 +278,8 @@
 "share-as-image" = "Nuduhake minangka gambar";
 "share-as-text" = "Nuduhake minangka teks";
 "share-cancel" = "Batal";
-"share-open-in-maps" = "Mbukak ing Peta";
-"share-get-directions-in-maps" = "Dapatkan Petunjuk Arah";
+"share-open-in-maps" = "Bukak ing Maps";
+"share-get-directions-in-maps" = "Golèk Lor-Kidul";
 "timestamp-just-now" = "baru saja";
 "timestamp-minutes" = "%d menit lalu";
 "timestamp-hours" = "%d jam lalu";
@@ -305,6 +306,7 @@
 "onboarding-wikipedia" = "Wikipédia";
 "onboarding-free-encyclopedia" = "Bauwarna mardika";
 "preference-title-eventlogging-opt-in" = "Ngirim laporan panggunan";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Ngidini Wikimedia kanggo ngumpulake informasi bab carane nganggo aplikasi kanggo nggawe aplikasi sing luwih apik";
 "page-protected-autoconfirmed" = "Kaca iki wis pangreksan semi.";
 "page-protected-sysop" = "Kaca iki wis direksa kanthi.";
@@ -366,7 +368,9 @@
 "image-gallery-fetch-image-info-error-title" = "Tukang undhuh gambar";
 "image-gallery-fetch-image-info-error-message" = "Ora kanggo ngundhuh gambar kanggo artikel iki. Mangga refresh artikel lan coba manèh.";
 "image-gallery-fetch-image-info-error-ok" = "Oké";
+// Fuzzy
 "hockeyapp-alert-question" = "Punapa panjenengan kersa ngirim laporan kacilakan kanggo $1 supaya Wikimedia bisa maneh kacilakan Panjenengan?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Punapa panjenengan kersa ngirim laporan kacilakan kanggo $1 supaya Wikimedia bisa maneh kacilakan Panjenengan? Mangga njlèntrèhaké apa kedaden nalika kacilakan wonten:";
 "hockeyapp-alert-title" = "Nuwun, aplikasi tabrakan pungkasan wektu";
 "hockeyapp-alert-send-report" = "Ngirim laporan";
@@ -378,7 +382,7 @@
 "page-read-in-other-languages" = "Kasedhiya ing $1 basa liyane";
 "page-last-edited" = "Disunting $1 dina lalu";
 "page-edit-history" = "Sajarah suntingan kabeh";
-"page-location" = "Deleng ing peta";
+"page-location" = "Deleng ing petha";
 "mwk-empty-title-error" = "Tukang nindakake operasi karo judhul kosong.";
 "home-title" = "Njelajah";
 "home-empty-section" = "Ora ana asilé";
@@ -430,6 +434,7 @@
 "welcome-volunteer-continue-button" = "Banjuraké";
 "welcome-volunteer-thanks" = "Matur nuwun! $1";
 "welcome-send-data-title" = "Kirimi data anonim";
+// Fuzzy
 "welcome-send-data-sub-title" = "Bantuan Wikimedia nggawe aplikasi sing luwih apik ngeculke kita ngerti carane nganggo aplikasi. Data dikumpulake iku anonim";
 "empty-no-feed-title" = "Ora ana sambungan internet";
 "empty-no-feed-message" = "Sampeyan bisa ndeleng artikel dianjurake nalika duwe internet";
@@ -506,7 +511,7 @@
 "places-search-saved-articles" = "Artikel disimpen";
 "places-search-suggested-searches-header" = "Ngolèki disaranake";
 "places-search-recently-searched-header" = "Bubar nggolèki";
-"places-no-saved-articles-have-location" = "Ora ana artikel sing disimpen duwe informasi lokasi";
+"places-no-saved-articles-have-location" = "Artikel sing disimpen siji-sijia ora ana sing ngemu katerangan panggon";
 "places-unknown-distance" = "Kadohan dingerteni";
 "places-enable-location-title" = "Njelajah artikel near lokasi dening Nerjemahake isoh Lokasi Akses";
 "places-enable-location-description" = "Akses menyang lokasi mung kasedhiya nalika aplikasi utawa salah siji saka sawijining fitur katon ing layar.";
@@ -515,8 +520,8 @@
 "places-accessibility-show-as-map" = "Nuduhake minangka peta";
 "places-accessibility-show-as-list" = "Nuduhake minangka dhaftar";
 "places-accessibility-recenter-map-on-user-location" = "Pusatkan ulang di lokasi Anda";
-"places-accessibility-close-search" = "Cedhak nggoléki";
-"places-accessibility-clear-recent-searches" = "Mbusak ngupadi";
+"places-accessibility-close-search" = "Tutup golèkan";
+"places-accessibility-clear-recent-searches" = "Busak golèkan mentas waé";
 "action-share" = "Nuduhake";
 "action-save" = "Simpen";
 "action-read" = "Waca";

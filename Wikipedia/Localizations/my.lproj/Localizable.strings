@@ -211,6 +211,7 @@
 "onboarding-wikipedia" = "ဝီကီပီးဒီးယား";
 "onboarding-free-encyclopedia" = "အခမဲ့ လွတ်လပ်စွယ်စုံကျမ်း";
 "preference-title-eventlogging-opt-in" = "အသုံးပြုမှု အစီရင်ခံချက်များအား ပို့ရန်";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "အက်ပ်အား ပိုမိုကောင်းမွန်လာစေရန် သင်အသုံးပြုပုံ အချက်အလက်များ ရယူစုဆောင်းနိုင်ရန် ဝီကီမီဒီယာအား ခွင့်ပြုပါ";
 "page-protected-autoconfirmed" = "ဤစာမျက်နှာအား တစ်စိတ်တစ်ပိုင်း ကာကွယ်ထားသည်။";
 "page-protected-sysop" = "ဤစာမျက်နှာအား အပြည့်အဝ ကာကွယ်ထားသည်။";

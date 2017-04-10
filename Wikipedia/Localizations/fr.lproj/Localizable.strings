@@ -317,7 +317,7 @@
 "onboarding-wikipedia" = "Wikipédia";
 "onboarding-free-encyclopedia" = "L’Encyclopédie libre";
 "preference-title-eventlogging-opt-in" = "Envoyer les rapports d’utilisation";
-"preference-summary-eventlogging-opt-in" = "Permettre à Wikimédia de collecter des informations sur la manière dont vous utilisez l’application, afin de l'améliorer";
+"preference-summary-eventlogging-opt-in" = "Permettre à la Fondation Wikimédia de collecter des informations sur la manière dont vous utilisez l’application, afin de l'améliorer";
 "page-protected-autoconfirmed" = "Cette page a été semi-protégée.";
 "page-protected-sysop" = "Cette page a été complètement protégée.";
 "page-protected-other" = "Cette page a été protégée pour les niveaux suivants : $1";
@@ -378,8 +378,8 @@
 "image-gallery-fetch-image-info-error-title" = "Impossible de télécharger les images";
 "image-gallery-fetch-image-info-error-message" = "Impossible de télécharger les images pour cet article. Veuillez rafraîchir l’article et réessayer.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
-"hockeyapp-alert-question" = "Voulez-vous envoyer un rapport de plantage à $1 pour que Wikipédia puisse l’étudier ?";
-"hockeyapp-alert-question-with-response-field" = "Voulez-vous envoyer un rapport de plantage à $1 pour que Wikipédia puisse l’étudier ? Veuillez décrire ce qui s’est produit lorsque le plantage s’est produit :";
+"hockeyapp-alert-question" = "Voulez-vous envoyer un rapport de plantage à $1 pour que la Fondation Wikimedia puisse l’étudier ?";
+"hockeyapp-alert-question-with-response-field" = "Voulez-vous envoyer un rapport de plantage à $1 pour que la Fondation Wikipédia puisse l’étudier ? Veuillez décrire ce qui s’est produit lorsque le plantage est arrivé :";
 "hockeyapp-alert-title" = "Désolé, l’application s’est plantée la dernière fois";
 "hockeyapp-alert-send-report" = "Envoyer un rapport";
 "hockeyapp-alert-always-send" = "Toujours envoyer";
@@ -442,7 +442,7 @@
 "welcome-volunteer-continue-button" = "Continuer";
 "welcome-volunteer-thanks" = "$1 Merci !";
 "welcome-send-data-title" = "Envoyer des données anonymes";
-"welcome-send-data-sub-title" = "Aider Wikimédia à améliorer l’application en nous faisant savoir comment vous l’utilisez. Les données collectées sont anonymes.";
+"welcome-send-data-sub-title" = "Aider la Fondation Wikimédia à améliorer l’application en nous faisant savoir comment vous l’utilisez. Les données collectées sont anonymes.";
 "empty-no-feed-title" = "Pas de connexion à Internet";
 "empty-no-feed-message" = "Vous pouvez voir vos articles recommandés quand vous avez Internet";
 "empty-no-feed-action-message" = "Vous pouvez toujours lire les pages enregistrées";

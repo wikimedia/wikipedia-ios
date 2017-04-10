@@ -259,6 +259,7 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Den frie encyklopedi";
 "preference-title-eventlogging-opt-in" = "Send bruksrapporter";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Tillatt at Wikimedia samler informasjon om hvordan du bruker appen for å gjøre den bedre";
 "page-protected-autoconfirmed" = "Denne siden er delvis beskyttet.";
 "page-protected-sysop" = "Denne siden er beskyttet.";
@@ -320,7 +321,9 @@
 "image-gallery-fetch-image-info-error-title" = "Kunne ikke laste ned bilder";
 "image-gallery-fetch-image-info-error-message" = "Kunne ikke laste ned bildene for denne artikkelen. Oppdater artikkelen og prøv igjen.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
+// Fuzzy
 "hockeyapp-alert-question" = "Ønsker du å sende en krasjrapport til $1 slik at Wikimedia kan ta den i ettersyn?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Ønsker du å sende en krasjrapport til $1 slik at Wikimedia kan ta den i ettersyn? Beskriv hva som skjedde da det inntraff:";
 "hockeyapp-alert-title" = "Beklager, app-en krasjet forrige gang";
 "hockeyapp-alert-send-report" = "Send rapport";
@@ -383,6 +386,7 @@
 "welcome-volunteer-continue-button" = "Fortsett";
 "welcome-volunteer-thanks" = "$1 Takk!";
 "welcome-send-data-title" = "Send anonyme data";
+// Fuzzy
 "welcome-send-data-sub-title" = "Hjelp Wikipedia med å gjøre appen bedre ved å opplyse oss om hvordan du bruker den. Data samles inn anonymt.";
 "empty-no-feed-title" = "Ingen internettforbindelse";
 "empty-no-feed-message" = "Du kan se de anbefalte artiklene dine når du ikke har internett";

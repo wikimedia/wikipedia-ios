@@ -275,6 +275,7 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Bách khoa toàn thư mở";
 "preference-title-eventlogging-opt-in" = "Gửi báo cáo sử dụng";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Cho phép Wikimedia thu thập thông tin về cách bạn sử dụng ứng dụng để giúp cải thiện ứng dụng";
 "page-protected-autoconfirmed" = "Trang này đã bị bán khóa.";
 "page-protected-sysop" = "Trang này đã bị khóa hẳn.";
@@ -336,7 +337,9 @@
 "image-gallery-fetch-image-info-error-title" = "Không thể tải hình ảnh về";
 "image-gallery-fetch-image-info-error-message" = "Không thể tải về các hình ảnh cho bài này. Hãy tải lại bài và thử lại.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
+// Fuzzy
 "hockeyapp-alert-question" = "Bạn có muốn gửi bản báo cáo sự cố cho $1 để Wikimedia có thể xem lại sự cố của bạn?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Bạn có muốn gửi bản báo cáo sự cố cho $1 để chúng tôi sửa lỗi này? Vui lòng miêu tả những gì đã xảy ra vào lúc sự cố:";
 "hockeyapp-alert-title" = "Rất tiếc, ứng dụng gặp sự cố lần vừa rồi";
 "hockeyapp-alert-send-report" = "Gửi báo cáo";
@@ -399,6 +402,7 @@
 "welcome-volunteer-continue-button" = "Tiếp tục";
 "welcome-volunteer-thanks" = "$1 Cảm ơn bạn!";
 "welcome-send-data-title" = "Gửi Dữ liệu Vô danh";
+// Fuzzy
 "welcome-send-data-sub-title" = "Giúp Wikimedia cải thiện ứng dụng này bằng cách cho biết bạn sử dụng ứng dụng như thế nào. Các dữ liệu được tập hợp là vô danh.";
 "empty-no-feed-title" = "Không có kết nối Internet";
 "empty-no-feed-message" = "Bạn có thể xem các bài được gợi ý cho bạn khi bạn có kết nối Internet";

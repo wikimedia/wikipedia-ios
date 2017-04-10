@@ -245,7 +245,7 @@
 "onboarding-wikipedia" = "Wikipedie";
 "onboarding-free-encyclopedia" = "Otevřená encyklopedie";
 "preference-title-eventlogging-opt-in" = "Odesílat zprávy o využití";
-"preference-summary-eventlogging-opt-in" = "Umožnit nadaci Wikimedia sbírat informace o používání aplikace , aby ji mohla zlepšovat";
+"preference-summary-eventlogging-opt-in" = "Umožnit nadaci Wikimedia sbírat informace o používání aplikace, aby ji mohla zlepšovat";
 "page-protected-can-not-edit" = "Nemáte oprávnění editovat tuto stránku";
 "page-protected-can-not-edit-title" = "Tato stránka je chráněná";
 "license-footer-text" = "Obsah je dostupný pod $1, pokud není uvedeno jinak.";

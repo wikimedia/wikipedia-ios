@@ -238,6 +238,7 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Die Vrye Ensiklopedie";
 "preference-title-eventlogging-opt-in" = "Stuur gebruiksverslae";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Laat Wikimedia toe om inligting in te samel oor hoe u die toep gebruik om sodoende die toep te verbeter";
 "page-protected-autoconfirmed" = "Hierdie blad is semi-beskerm.";
 "page-protected-sysop" = "Hierdie blad is volledig beskerm.";
@@ -299,7 +300,9 @@
 "image-gallery-fetch-image-info-error-title" = "Nie moontlik om beelde af te laai";
 "image-gallery-fetch-image-info-error-message" = "Nie moontlik om beelde af te laai vir hierdie artikel. Herlaai asseblief die artikel en probeer weer.";
 "image-gallery-fetch-image-info-error-ok" = "Regso";
+// Fuzzy
 "hockeyapp-alert-question" = "Wil u 'n breekverslag aan $1 stuur sodat Wikimedia die breek kan hersien?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Wil u 'n breekverslag aan $1 stuur sodat Wikimedia die breek kan hersien? Beskryf asseblief wat gebeur het tydens die breek:";
 "hockeyapp-alert-title" = "Jammer, toep het laaskeer gebreek";
 "hockeyapp-alert-send-report" = "Stuur verslag";

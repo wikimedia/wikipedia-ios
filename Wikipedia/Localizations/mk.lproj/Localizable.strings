@@ -305,6 +305,7 @@
 "onboarding-wikipedia" = "Википедија";
 "onboarding-free-encyclopedia" = "Слободната енциклопедија";
 "preference-title-eventlogging-opt-in" = "Испраќај извештаи за употребата";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Ѝ овозможува на Викимедија да собира информации за тоа како го користите прилогот, за да може да го подобри";
 "page-protected-autoconfirmed" = "Оваа страница е полузаштитена.";
 "page-protected-sysop" = "Оваа страница е наполно заштитена.";
@@ -366,7 +367,9 @@
 "image-gallery-fetch-image-info-error-title" = "Не можам да ги преземам сликите";
 "image-gallery-fetch-image-info-error-message" = "Не можам да ги преземам сликите за статијава. Превчитајте ја и обидете се повторно.";
 "image-gallery-fetch-image-info-error-ok" = "ОК";
+// Fuzzy
 "hockeyapp-alert-question" = "Дали би сакале да испратите пријава за уривање на $1 за Викимедија да ви го разгледа проблемот?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Дали би сакале да испратите пријава за уривање на $1 за Викимедија да ви го арзгледа проблемот? Опишете што се случи кога настана уривањето:";
 "hockeyapp-alert-title" = "За жал, прилогот се урна минатиот пат";
 "hockeyapp-alert-send-report" = "Испрати пријава";
@@ -430,6 +433,7 @@
 "welcome-volunteer-continue-button" = "Продолжи";
 "welcome-volunteer-thanks" = "$1 Благодариме!";
 "welcome-send-data-title" = "Испраќај анонимни податоци";
+// Fuzzy
 "welcome-send-data-sub-title" = "Помогнете ѝ на Википедија да го подобри прилогов со тоа што ќе имаме сознанија за тоа како го користите. Податоците ќе се прибавуваат анонимно.";
 "empty-no-feed-title" = "Не сте поврзани со семрежјето";
 "empty-no-feed-message" = "Препорачаните статии ќе ги видите кога ќе се поврзете со семрежјето";
