@@ -216,6 +216,7 @@
 "onboarding-wikipedia" = "ৱিকিপিডিয়া";
 "onboarding-free-encyclopedia" = "মুক্ত বিশ্বকোষ";
 "preference-title-eventlogging-opt-in" = "ব্যৱহাৰৰ প্ৰতিবেদন পঠিয়াওক";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "এপ্‌টো উন্নত কৰিবৰ বাবে আপুনি এই এপ্‌ কেনেকৈ ব্যৱহাৰ কৰে জানিবলৈ ৱিকিমিডিয়াক তথ্য সংগ্ৰহৰ অনুমতি দিয়ক";
 "page-protected-autoconfirmed" = "এই পৃষ্ঠাটো অৰ্ধ-সুৰক্ষিত কৰা হৈছে।";
 "page-protected-sysop" = "এই পৃষ্ঠাটো সম্পূৰ্ণ সুৰক্ষিত কৰা হৈছে।";

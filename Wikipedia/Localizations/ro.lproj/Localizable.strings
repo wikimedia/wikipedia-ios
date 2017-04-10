@@ -250,6 +250,7 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Enciclopedia liberă";
 "preference-title-eventlogging-opt-in" = "Trimite rapoarte de utilizare";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Permiteți Wikimediei să adune informații despre modul în care utilizați aplicația pentru a putea îmbunătăți aplicația";
 "page-protected-autoconfirmed" = "Această pagină a fost semiprotejată.";
 "page-protected-sysop" = "Această pagină a fost protejată.";
@@ -313,7 +314,9 @@
 "image-gallery-fetch-image-info-error-title" = "Imposibil de descărcat imaginile";
 "image-gallery-fetch-image-info-error-message" = "Imposibil de descărcat imaginile pentru acest articol. Reîncărcați articolul și încercați din nou.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
+// Fuzzy
 "hockeyapp-alert-question" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât Wikimedia să studieze problema?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât Wikimedia să studieze problema? Vă rugăm să descrieți împrejurarea în care s-a produs blocarea:";
 "hockeyapp-alert-title" = "Ne pare rău, aplicația s-a blocat ultima dată";
 "hockeyapp-alert-send-report" = "Trimite raportul";

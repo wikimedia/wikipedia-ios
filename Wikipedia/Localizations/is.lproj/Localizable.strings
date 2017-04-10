@@ -250,6 +250,7 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Frjálsa alfræðiritið";
 "preference-title-eventlogging-opt-in" = "Senda notkunarskýrslur";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Leyfa Wikimedia til að safna upplýsingum um hvernig þú notar appið til að gera það betra";
 "page-protected-autoconfirmed" = "Þessi síða er varin að hluta til.";
 "page-protected-sysop" = "Þessi síða er varin í heild.";
@@ -316,7 +317,9 @@
 "image-gallery-fetch-image-info-error-title" = "Gat ekki sótt myndir";
 "image-gallery-fetch-image-info-error-message" = "Gat ekki sótt myndir með þessari grein. Prófaðu að endurlesa greinina inn til að reyna aftur.";
 "image-gallery-fetch-image-info-error-ok" = "Í lagi";
+// Fuzzy
 "hockeyapp-alert-question" = "Viltu senda tilkynningu um hrunið til $1 þannig að Wikimedia geti skoðað hvað fór úrskeiðis?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Viltu senda tilkynningu um hrunið til $1 þannig að Wikimedia geti skoðað hvað fór úrskeiðis? Endilega lýstu því sem var í gangi þegar hrunið átti sér stað:";
 "hockeyapp-alert-title" = "Því miður, appið hrundi síðast";
 "hockeyapp-alert-send-report" = "Senda villuskýrslu";

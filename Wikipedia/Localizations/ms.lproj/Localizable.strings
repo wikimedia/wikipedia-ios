@@ -309,6 +309,7 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Ensiklopedia Bebas";
 "preference-title-eventlogging-opt-in" = "Kirim laporan penggunaan";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Benarkan Wikimedia untuk mengumpul maklumat mengenai cara penggunaan aplikasi demi peningkatan kualiti aplikasi";
 "page-protected-autoconfirmed" = "Laman ini telah diberi perlindungan separa.";
 "page-protected-sysop" = "Laman ini telah diberi perlindungan penuh.";
@@ -370,7 +371,9 @@
 "image-gallery-fetch-image-info-error-title" = "Imej tidak dapat dimuat turun";
 "image-gallery-fetch-image-info-error-message" = "Gambar-gambar rencana ini tidak dapat dimuat turun. Sila muat semula rencana ini dan cuba lagi.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
+// Fuzzy
 "hockeyapp-alert-question" = "Adakah anda ingin menghantar laporan keruntuhan kepada $1 supaya Wikimedia boleh mengkaji keruntuhan ini?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Adakah anda ingin menghantar laporan keruntuhan kepada $1 supaya Wikimedia boleh mengkaji keruntuhan ini? Sila terangkan apa yang terjadi ketika keruntuhan aplikasi:";
 "hockeyapp-alert-title" = "Maaf sebab aplikasi runtuh dulu";
 "hockeyapp-alert-send-report" = "Hantar laporan";
@@ -434,6 +437,7 @@
 "welcome-volunteer-continue-button" = "Teruskan";
 "welcome-volunteer-thanks" = "Terima kasih! $1";
 "welcome-send-data-title" = "Hantar data tanpa nama";
+// Fuzzy
 "welcome-send-data-sub-title" = "Bantuan Wikimedia membuat aplikasi yang lebih baik dengan membiarkan kita tahu bagaimana anda menggunakan aplikasi. Data yang dikumpul adalah tanpa nama";
 "empty-no-feed-title" = "Tiada Sambungan Internet";
 "empty-no-feed-message" = "Anda boleh lihat rencana cadangan anda apabila anda mempunyai internet";

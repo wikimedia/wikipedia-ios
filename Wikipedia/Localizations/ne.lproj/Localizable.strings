@@ -182,6 +182,7 @@
 "onboarding-wikipedia" = "विकिपिडिया";
 "onboarding-free-encyclopedia" = "स्वतन्त्र  ज्ञानकोष";
 "preference-title-eventlogging-opt-in" = "उपयोग प्रतिवेदन पठाउनुहोस् ।";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "अनुप्रयोगलाई अझ राम्रो बनाउन तपाईंले अनुप्रयोगको उपयोग कसरी गर्नुहुन्छ भन्नेबारे विकिपिडियालाई जानकारी सङ्कलन गर्ने अनुमति दिनुहोस्";
 "page-protected-autoconfirmed" = "यो पृष्ठ अर्ध सुरक्षित गरिएको छ";
 "page-protected-sysop" = "यो पृष्ठ पूर्ण सुरक्षित गरिएको छ ।";
@@ -241,6 +242,7 @@
 "welcome-volunteer-continue-button" = "जारी राख्नुहोस्";
 "welcome-volunteer-thanks" = "$1 तपाईँलाई धन्यवाद!";
 "welcome-send-data-title" = "अज्ञात रूपमा डाटा पठाउनुहोस्";
+// Fuzzy
 "welcome-send-data-sub-title" = "विकिमिडियालाई एप राम्रो बनाउन तपाईँले कसरी एप प्रयोग गर्नुहुन्छ भन्ने जानकारी दिएर सहयोग गर्नुहोस्। संकलित तथ्याङ्क अज्ञातरूपमा गरिन्छ";
 "empty-no-feed-title" = "इन्टरनेट जडान छैन";
 "empty-no-feed-message" = "तपाईँलाई सिफारिस गरिएका लेखहरू तपाईँसँग इन्टरनेट भएको बेला देखिने छ";
