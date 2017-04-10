@@ -32,14 +32,11 @@ extern NSString *const MWKSetupDataSourcesNotification;
 extern NSString *const MWKTeardownDataSourcesNotification;
 
 /**
- * Subscribe to get notifications when an item is
+ * Subscribe to get notifications when a WMFArticle is
  * added to saved pages, history, etc…
- * The url of the item updated will be in the
- * MWKURLKey of the userInfo
  */
-extern NSString *const MWKItemUpdatedNotification;
-extern NSString *const MWKURLKey;
-extern NSString *const MWKSavedDateKey;
+extern NSString *const WMFArticleUpdatedNotification;
+
 
 @interface MWKDataStore : NSObject
 
@@ -54,6 +51,7 @@ extern NSString *const MWKSavedDateKey;
 
 + (BOOL)migrateToSharedContainer:(NSError **)error;
 - (BOOL)migrateToCoreData:(NSError **)error;
+- (void)performCoreDataMigrations:(dispatch_block_t)completion;
 - (void)migrateToQuadKeyLocationIfNecessaryWithCompletion:(nonnull void (^)(NSError *))completion;
 
 @property (readonly, strong, nonatomic) MWKHistoryList *historyList;
@@ -70,8 +68,6 @@ extern NSString *const MWKSavedDateKey;
 - (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed forArticleURL:(NSURL *)articleURL;
 
 - (BOOL)save:(NSError **)error;
-
-- (void)enumerateArticlesWithBlock:(void (^)(WMFArticle *_Nonnull entry, BOOL *stop))block;
 
 #pragma mark - Legacy Datastore methods
 

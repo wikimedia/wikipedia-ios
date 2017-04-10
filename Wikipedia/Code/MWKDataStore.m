@@ -9,9 +9,7 @@
 NSString *const MWKArticleSavedNotification = @"MWKArticleSavedNotification";
 NSString *const MWKArticleKey = @"MWKArticleKey";
 
-NSString *const MWKItemUpdatedNotification = @"MWKItemUpdatedNotification";
-NSString *const MWKURLKey = @"MWKURLKey";
-NSString *const MWKSavedDateKey = @"MWKSavedDateKey";
+NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification";
 
 NSString *const MWKSetupDataSourcesNotification = @"MWKSetupDataSourcesNotification";
 NSString *const MWKTeardownDataSourcesNotification = @"MWKTeardownDataSourcesNotification";
@@ -37,6 +35,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @property (readwrite, nonatomic, strong) dispatch_queue_t cacheRemovalQueue;
 @property (readwrite, nonatomic, getter=isCacheRemovalActive) BOOL cacheRemovalActive;
+@property (readwrite, nonatomic, getter=wasSitesFolderMissing) BOOL sitesFolderMissing;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSOperation *> *articleSaveOperations;
 @property (nonatomic, strong) NSOperationQueue *articleSaveQueue;
@@ -142,13 +141,15 @@ static uint64_t bundleHash() {
     if (self) {
         self.containerURL = containerURL;
         self.basePath = [self.containerURL URLByAppendingPathComponent:@"Data" isDirectory:YES].path;
+        BOOL sitesWasADirectory = false;
+        BOOL sitesExisted = [[NSFileManager defaultManager] fileExistsAtPath:[self pathForSites] isDirectory:&sitesWasADirectory];
+        self.sitesFolderMissing = !sitesExisted || !sitesWasADirectory;
         [self setupLegacyDataStore];
         NSDictionary *infoDictionary = [self loadSharedInfoDictionaryWithContainerURL:containerURL];
         self.crossProcessNotificationChannelName = infoDictionary[@"CrossProcessNotificiationChannelName"];
         [self setupCrossProcessCoreDataNotifier];
         [self setupCoreDataStackWithContainerURL:containerURL];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-
         self.articleLocationController = [ArticleLocationController new];
     }
     return self;
@@ -291,7 +292,7 @@ static uint64_t bundleHash() {
 - (void)viewContextDidChange:(NSNotification *)note {
     NSDictionary *userInfo = note.userInfo;
     NSArray<NSString *> *keys = @[NSInsertedObjectsKey, NSUpdatedObjectsKey, NSDeletedObjectsKey, NSRefreshedObjectsKey, NSInvalidatedObjectsKey];
-    NSMutableArray<NSDictionary<NSString *, NSObject *> *> *notificationUserInfos = [NSMutableArray arrayWithCapacity:1];
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     for (NSString *key in keys) {
         NSSet<NSManagedObject *> *changedObjects = userInfo[key];
         for (NSManagedObject *object in changedObjects) {
@@ -303,24 +304,12 @@ static uint64_t bundleHash() {
                     continue;
                 }
                 [self.articlePreviewCache removeObjectForKey:articleKey];
-
-                NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:@{MWKURLKey: articleURL}];
-                NSDate *articleSavedDate = article.savedDate;
-                if (articleSavedDate && ![key isEqualToString:NSDeletedObjectsKey]) {
-                    userInfo[MWKSavedDateKey] = articleSavedDate;
+                if (![key isEqualToString:NSDeletedObjectsKey]) {
+                    [nc postNotificationName:WMFArticleUpdatedNotification object:article];
                 }
-                [notificationUserInfos addObject:userInfo];
             }
         }
     }
-    if (notificationUserInfos.count == 0) {
-        return;
-    }
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        for (NSDictionary *userInfo in notificationUserInfos) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:self userInfo:userInfo];
-        }
-    });
 }
 
 + (NSString *)legacyYapDatabasePath {
@@ -426,7 +415,92 @@ static uint64_t bundleHash() {
 }
 
 - (void)migrateToQuadKeyLocationIfNecessaryWithCompletion:(nonnull void (^)(NSError *))completion {
-    [self.articleLocationController migrateWithManagedObjectContext:self.viewContext completion:completion];
+    if (![self.articleLocationController needsMigrationWithManagedObjectContext:self.viewContext]) {
+        if (completion) {
+            completion(nil);
+        }
+        return;
+    }
+    [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
+        [self.articleLocationController migrateWithManagedObjectContext:moc
+                                                             completion:^(NSError *_Nullable error) {
+                                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                                     if (completion) {
+                                                                         completion(error);
+                                                                     }
+                                                                 });
+                                                             }];
+    }];
+}
+
+#pragma mark - Background Context
+- (void)performBackgroundCoreDataOperationOnATemporaryContext:(nonnull void (^)(NSManagedObjectContext *moc))mocBlock {
+    WMFAssertMainThread(@"Background Core Data operations must be started from the main thread.");
+    NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    backgroundContext.persistentStoreCoordinator = self.persistentStoreCoordinator;
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:backgroundContext];
+    [backgroundContext performBlock:^{
+        mocBlock(backgroundContext);
+        [nc removeObserver:self name:NSManagedObjectContextDidSaveNotification object:backgroundContext];
+    }];
+}
+
+- (void)backgroundContextDidSave:(NSNotification *)note {
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [self.viewContext mergeChangesFromContextDidSaveNotification:note];
+    });
+}
+
+#pragma mark - Migrations
+
+- (void)performCoreDataMigrations:(dispatch_block_t)completion {
+    if (!self.wasSitesFolderMissing) {
+        if (completion) {
+            completion();
+        }
+        return;
+    }
+    [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
+        [self markAllDownloadedArticlesInManagedObjectContextAsUndownloaded:moc];
+        dispatch_async(dispatch_get_main_queue(), completion);
+    }];
+}
+
+- (void)markAllDownloadedArticlesInManagedObjectContextAsUndownloaded:(NSManagedObjectContext *)moc {
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"isDownloaded == YES"];
+    request.fetchLimit = 500;
+    NSError *fetchError = nil;
+    NSArray *downloadedArticles = [moc executeFetchRequest:request error:&fetchError];
+    if (fetchError) {
+        DDLogError(@"Error fetching downloaded articles: %@", fetchError);
+        return;
+    }
+
+    while (downloadedArticles.count > 0) {
+        @autoreleasepool {
+            for (WMFArticle *article in downloadedArticles) {
+                article.isDownloaded = NO;
+            }
+
+            if ([moc hasChanges]) {
+                NSError *saveError = nil;
+                [moc save:&saveError];
+                if (saveError) {
+                    DDLogError(@"Error saving downloaded articles: %@", fetchError);
+                    return;
+                }
+                [moc reset];
+            }
+        }
+
+        downloadedArticles = [moc executeFetchRequest:request error:&fetchError];
+        if (fetchError) {
+            DDLogError(@"Error fetching downloaded articles: %@", fetchError);
+            return;
+        }
+    }
 }
 
 - (BOOL)migrateToCoreData:(NSError **)error {
@@ -627,19 +701,6 @@ static uint64_t bundleHash() {
         _recentSearchList = [[MWKRecentSearchList alloc] initWithDataStore:self];
     }
     return _recentSearchList;
-}
-
-#pragma mark - Entry Access
-
-- (void)enumerateArticlesWithBlock:(void (^)(WMFArticle *_Nonnull entry, BOOL *stop))block {
-    NSParameterAssert(block);
-    if (!block) {
-        return;
-    }
-    NSArray<WMFArticle *> *allArticles = [self.viewContext executeFetchRequest:[WMFArticle fetchRequest] error:nil];
-    [allArticles enumerateObjectsUsingBlock:^(WMFArticle *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        block(obj, stop);
-    }];
 }
 
 #pragma mark - Legacy DataStore
@@ -1170,10 +1231,12 @@ static uint64_t bundleHash() {
 - (void)deleteArticle:(MWKArticle *)article {
     NSString *path = [self pathForArticle:article];
 
-    [[WMFImageController sharedInstance] deleteImagesWithURLs:[self legacyImageURLsForArticle:article]];
-
-    // delete article images *before* metadata (otherwise we won't be able to retrieve image lists)
-    [[WMFImageController sharedInstance] deleteImagesWithURLs:[[article allImageURLs] allObjects]];
+    NSString *groupKey = article.url.wmf_articleDatabaseKey;
+    if (groupKey) {
+        [[WMFImageController sharedInstance] removePermanentlyCachedImagesWithGroupKey:groupKey
+                                                                            completion:^{
+                                                                            }];
+    }
 
     // delete article metadata last
     [[NSFileManager defaultManager] removeItemAtPath:path error:nil];

@@ -29,10 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.dataStore fetchArticleForURL:url];
 }
 
-- (void)enumerateItemsWithBlock:(void (^)(WMFArticle *_Nonnull item, BOOL *stop))block {
-    [self.dataStore enumerateArticlesWithBlock:block];
-}
-
 - (WMFArticle *)newOrExistingPreviewWithURL:(NSURL *)url {
     NSParameterAssert(url.wmf_title);
     return [self.dataStore fetchOrCreateArticleForURL:url];
@@ -106,15 +102,19 @@ NS_ASSUME_NONNULL_BEGIN
     if ([article.summary length] > 0) {
         preview.snippet = article.summary;
     }
-    //The thumb from the article is almost always worse, dont use it unless we have to
-    if (preview.thumbnailURL == nil && [article bestThumbnailImageURL] != nil) {
-        NSURL *thumb = [NSURL URLWithString:[article bestThumbnailImageURL]];
-        preview.thumbnailURL = thumb;
-    }
+
+//    This whole block is commented out due to the fact that articles are requested with @"pilicense": @"any" and we can't use those thumbs in previews. Uncomment this block of code when this issue is resolved: https://phabricator.wikimedia.org/T162474
+//    //The thumb from the article is almost always worse, dont use it unless we have to
+//    if (preview.thumbnailURL == nil && [article bestThumbnailImageURL] != nil) {
+//        NSURL *thumb = [NSURL URLWithString:[article bestThumbnailImageURL]];
+//        preview.thumbnailURL = thumb;
+//    }
     
     preview.isExcludedFromFeed = article.ns != 0 || url.wmf_isMainPage;
     
     [preview updateWithScalarCoordinate:article.coordinate];
+    
+    preview.isDownloaded = NO; //isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
     
     return preview;
 }

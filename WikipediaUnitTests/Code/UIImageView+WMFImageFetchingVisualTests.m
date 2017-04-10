@@ -2,7 +2,6 @@
 #import <FBSnapshotTestCase/FBSnapshotTestCase.h>
 
 #import "FBSnapshotTestCase+WMFConvenience.h"
-#import "WMFImageController+Testing.h"
 #import "Wikipedia-Swift.h"
 #import "WMFAsyncTestCase.h"
 #import <Nocilla/Nocilla.h>
@@ -33,7 +32,7 @@
 - (void)tearDown {
     [[LSNocilla sharedInstance] stop];
     [[UIImageView faceDetectionCache] clearCache];
-    [self.imageView.wmf_imageController deleteAllImages];
+    [self.imageView.wmf_imageController deleteTemporaryCache];
     [super tearDown];
 }
 

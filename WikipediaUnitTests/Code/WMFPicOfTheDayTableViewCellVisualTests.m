@@ -4,7 +4,6 @@
 #import "WMFPicOfTheDayCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UIImageView+WMFImageFetchingInternal.h"
-#import "WMFImageController+Testing.h"
 #import "WMFHTTPHangingProtocol.h"
 #import "WMFAsyncTestCase.h"
 #import "UIImage+WMFStyle.h"

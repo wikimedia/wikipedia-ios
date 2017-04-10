@@ -40,8 +40,7 @@
     [super tearDown];
     [self.dataStore removeFolderAtBasePath];
     [[LSNocilla sharedInstance] stop];
-    [[WMFImageController sharedInstance] clearMemoryCache];
-    [[WMFImageController sharedInstance] deleteAllImages];
+    [[WMFImageController sharedInstance] deleteTemporaryCache];
 }
 
 - (void)testLayoutWithShortExtractAndImage {

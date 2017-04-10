@@ -23,7 +23,7 @@
                                          @"description", @"wbptterms",
                                          // pageimage
                                          @"thumbnail", @"piprop",
-                                         @"any", @"pilicense",
+                                         //@"any", @"pilicense",
                                          imageWidth, @"pithumbsize",
                                          // revision
                                          @(1), @"rrvlimit",
