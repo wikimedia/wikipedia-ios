@@ -70,11 +70,12 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.viewAppeared = YES;
-    
+
 #if WMF_TWEAKS_ENABLED
     if (!self.permaRandomMode) {
         return;
     }
+    [self.navigationController setViewControllers:@[self]];
     uint32_t rand = arc4random_uniform(100);
     if (rand < 34) {
         [self.dataStore.savedPageList addSavedPageWithURL:self.articleURL];
@@ -123,7 +124,8 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 #if WMF_TWEAKS_ENABLED
             randomArticleVC.permaRandomMode = YES;
 #endif
-            [self wmf_pushArticleViewController:randomArticleVC animated:YES];
+            [self wmf_pushArticleViewController:randomArticleVC
+                                       animated:YES];
         }];
 }
 
