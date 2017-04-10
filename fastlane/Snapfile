@@ -4,9 +4,9 @@
 devices([
   "iPhone 6",
   # "iPhone 6 Plus",
-  # "iPhone 5",
+  "iPhone 5",
   # "iPhone 6 Plus",
-  # "iPad Air 2",
+  "iPad Air 2"
   # "iPad Pro (12.9-inch)"
   # "Apple TV 1080p"
 ])
