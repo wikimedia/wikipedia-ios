@@ -317,7 +317,7 @@
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="hEe-dF-AFg" secondAttribute="bottom" id="1PC-H2-U7d">
                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                             </constraint>
-                            <constraint firstItem="mxh-CO-RQm" firstAttribute="top" secondItem="qzd-3E-mH2" secondAttribute="bottom" constant="15" id="4Hj-19-SbN"/>
+                            <constraint firstItem="z6h-da-ewO" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" constant="55" id="3Ke-5f-t0f"/>
                             <constraint firstAttribute="trailing" secondItem="UNC-SX-Sli" secondAttribute="trailing" id="7ov-Jm-CLu"/>
                             <constraint firstItem="qzd-3E-mH2" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="AfI-uU-yeg"/>
                             <constraint firstAttribute="trailing" secondItem="hEe-dF-AFg" secondAttribute="trailing" id="Fqd-WF-erI"/>
@@ -340,7 +340,7 @@
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="UNC-SX-Sli" secondAttribute="bottom" id="jLh-ua-mYO"/>
                             <constraint firstItem="z6h-da-ewO" firstAttribute="centerX" secondItem="pBD-gM-dPf" secondAttribute="centerX" id="kJv-Kd-ffk"/>
                             <constraint firstItem="hEe-dF-AFg" firstAttribute="top" secondItem="qzd-3E-mH2" secondAttribute="bottom" id="mYf-kK-anz"/>
-                            <constraint firstItem="z6h-da-ewO" firstAttribute="top" secondItem="qzd-3E-mH2" secondAttribute="bottom" constant="15" id="zCw-7M-ml7"/>
+                            <constraint firstItem="mxh-CO-RQm" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" constant="55" id="xSx-Bn-twF"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -348,17 +348,17 @@
                                 <exclude reference="c5J-xG-Znl"/>
                                 <exclude reference="S5v-Rm-6Vf"/>
                                 <exclude reference="mYf-kK-anz"/>
-                                <exclude reference="zCw-7M-ml7"/>
-                                <exclude reference="4Hj-19-SbN"/>
+                                <exclude reference="3Ke-5f-t0f"/>
                                 <exclude reference="bVF-HO-Onf"/>
+                                <exclude reference="xSx-Bn-twF"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
                                 <include reference="Zax-gD-BeZ"/>
                                 <include reference="mYf-kK-anz"/>
-                                <include reference="zCw-7M-ml7"/>
-                                <include reference="4Hj-19-SbN"/>
+                                <include reference="3Ke-5f-t0f"/>
+                                <include reference="xSx-Bn-twF"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
