@@ -12,17 +12,17 @@ import Foundation
     /** TODO: refactor into date utilities? */
     internal func daysBeforeDateInUTC(days : Int, date: Date) -> Date? {
         
-        guard let midnightTodayUTC = (date as NSDate).wmf_midnightUTCDateFromLocal else {
+        guard let dateMidnightUTC = (date as NSDate).wmf_midnightUTCDateFromLocal else {
             assertionFailure("Calculating midnight UTC today failed")
             return nil
         }
         
         let utcCalendar = NSCalendar.wmf_utcGregorian() as Calendar
-        guard let thirtyDaysAgoMidnightUTC = utcCalendar.date(byAdding: .day, value: 0 - WMFExploreFeedMaximumNumberOfDays, to: midnightTodayUTC)  else{
-            assertionFailure("Calculating midnight UTC 30 days ago failed")
+        guard let olderDateMidnightUTC = utcCalendar.date(byAdding: .day, value: 0 - days, to: dateMidnightUTC)  else{
+            assertionFailure("Calculating older midnight UTC date failed")
             return nil
         }
-        return (thirtyDaysAgoMidnightUTC as NSDate).wmf_midnightUTCDateFromLocal
+        return olderDateMidnightUTC
     }
     
     private func deleteStaleUnreferencedArticles(_ moc: NSManagedObjectContext) throws -> [URL] {
@@ -33,8 +33,8 @@ import Foundation
  
         */
         
-        guard let thirtyDaysAgoMidnightUTC = daysBeforeDateInUTC(days: 0 - WMFExploreFeedMaximumNumberOfDays, date: Date()) else {
-            assertionFailure("Calculating midnight UTC 30 days ago failed")
+        guard let oldestFeedDateMidnightUTC = daysBeforeDateInUTC(days: WMFExploreFeedMaximumNumberOfDays, date: Date()) else {
+            assertionFailure("Calculating midnight UTC on the oldest feed date failed")
             return []
         }
         
@@ -45,7 +45,7 @@ import Foundation
         var referencedArticleKeys = Set<String>(minimumCapacity: allContentGroups.count * 5 + 1)
         
         for group in allContentGroups {
-            if group.midnightUTCDate?.compare(thirtyDaysAgoMidnightUTC) == .orderedAscending {
+            if group.midnightUTCDate?.compare(oldestFeedDateMidnightUTC) == .orderedAscending {
                 moc.delete(group)
                 continue
             }
