@@ -8,11 +8,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var filterSelectorView: UIView!
     @IBOutlet weak var redoSearchButton: UIButton!
     @IBOutlet weak var extendedNavBarView: UIView!
+    @IBOutlet weak var extendedNavBarViewHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var recenterOnUserLocationButton: UIButton!
     @IBOutlet weak var titleViewSearchBar: UISearchBar!
     @IBOutlet weak var mapListToggle: UISegmentedControl!
+    @IBOutlet weak var filterDropDown: UIView!
     
     @IBOutlet weak var listAndSearchOverlayContainerView: RoundedCornerView!
     
@@ -68,6 +70,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private let searchTrackerContext: AnalyticsContext = "Places_search"
     private let imageController = ImageController.shared
     
+    private var extendedNavBarHeightOrig: CGFloat?
+    
     private let currentSearchFilter: PlaceFilterType = .top // TODO: fix me
     
     // MARK: - View Lifecycle
@@ -83,6 +87,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         extendedNavBarView.shadowRadius = 0
         extendedNavBarView.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         extendedNavBarView.shadowOpacity = 0.25
+        extendedNavBarHeightOrig = extendedNavBarViewHeightContraint.constant
         
         navigationController?.setNavigationBarHidden(false, animated: true)
         
@@ -175,6 +180,49 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         mapView.showsUserLocation = true
         
         tracker?.wmf_logView(self)
+    }
+    
+    @IBAction func showSearchFilterDropDown(_ sender: Any) {
+        
+        guard let isSearchBarInNavigationBar = self.isSearchBarInNavigationBar,
+            let isFilterDropDownShowing = self.isFilterDropDownShowing else {
+                // TODO: error
+                return
+        }
+        
+
+        if (isSearchBarInNavigationBar) {
+            
+            if (!isFilterDropDownShowing) {
+                
+                extendedNavBarViewHeightContraint.constant = filterDropDown.bounds.height
+                
+                let f2 = CGRect(x: 0, y: 0,
+                                width: extendedNavBarView.bounds.width,
+                                height: filterDropDown.bounds.height)
+                
+                filterDropDown.frame = f2
+                
+                extendedNavBarView.addSubview(filterDropDown)
+                
+            } else {
+                extendedNavBarViewHeightContraint.constant = extendedNavBarHeightOrig!
+                filterDropDown.removeFromSuperview()
+            }
+    
+            //            self.view.addSubview(filterDropDown)
+//            let f2 = CGRect(x: self.view.frame.minX, y: self.view.frame.minY, width: self.view.frame.width, height: filterDropDown.bounds.height)
+//            
+//            filterDropDown.frame = f2
+//            
+//            self.view.addSubview(filterDropDown)
+            
+            
+            
+            
+        }
+        
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -935,6 +983,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
+    var isFilterDropDownShowing: Bool? {
+        get {
+            return filterDropDown.superview != nil
+        }
+    }
     
     private func updateTraitBasedViewMode() {
         //forces an update
