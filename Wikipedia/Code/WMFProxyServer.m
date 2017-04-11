@@ -259,7 +259,7 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
 
     NSURLComponents *components = [NSURLComponents componentsWithURL:serverURL resolvingAgainstBaseURL:NO];
     components.path = [NSString pathWithComponents:@[@"/", secret, WMFProxyImageBasePath]];
-    NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:@"originalSrc" value:imageURLString];
+    NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:WMFProxyImageOriginalSrcKey value:imageURLString];
     if (queryItem) {
         components.queryItems = @[queryItem];
     }
