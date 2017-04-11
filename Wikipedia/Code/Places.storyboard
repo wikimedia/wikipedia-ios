@@ -327,7 +327,7 @@
                             <constraint firstItem="mxh-CO-RQm" firstAttribute="top" secondItem="Pet-ct-8QU" secondAttribute="top" constant="15" id="NpV-RO-Sui"/>
                             <constraint firstItem="hEe-dF-AFg" firstAttribute="top" secondItem="mxh-CO-RQm" secondAttribute="top" id="S5v-Rm-6Vf"/>
                             <constraint firstItem="z6h-da-ewO" firstAttribute="top" secondItem="mxh-CO-RQm" secondAttribute="top" id="Skb-G3-07E"/>
-                            <constraint firstItem="UNC-SX-Sli" firstAttribute="top" secondItem="qzd-3E-mH2" secondAttribute="bottom" id="Vzh-Mz-PUH"/>
+                            <constraint firstItem="UNC-SX-Sli" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" constant="40" id="Zax-gD-BeZ"/>
                             <constraint firstItem="mxh-CO-RQm" firstAttribute="leading" secondItem="z6h-da-ewO" secondAttribute="trailing" constant="15" id="bVF-HO-Onf"/>
                             <constraint firstItem="UNC-SX-Sli" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" id="c5J-xG-Znl"/>
                             <constraint firstItem="qzd-3E-mH2" firstAttribute="width" secondItem="pBD-gM-dPf" secondAttribute="width" id="clO-nM-bps"/>
@@ -344,7 +344,7 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="Vzh-Mz-PUH"/>
+                                <exclude reference="Zax-gD-BeZ"/>
                                 <exclude reference="c5J-xG-Znl"/>
                                 <exclude reference="S5v-Rm-6Vf"/>
                                 <exclude reference="mYf-kK-anz"/>
@@ -355,7 +355,7 @@
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
-                                <include reference="Vzh-Mz-PUH"/>
+                                <include reference="Zax-gD-BeZ"/>
                                 <include reference="mYf-kK-anz"/>
                                 <include reference="zCw-7M-ml7"/>
                                 <include reference="4Hj-19-SbN"/>
