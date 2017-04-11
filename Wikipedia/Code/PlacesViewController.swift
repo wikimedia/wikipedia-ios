@@ -190,38 +190,57 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 return
         }
         
+        switch (isSearchBarInNavigationBar, isFilterDropDownShowing) {
+            
+        case (true, false):
+            extendedNavBarViewHeightContraint.constant = filterDropDown.bounds.height
+            filterDropDown.frame = CGRect(x: 0,
+                                          y: 0,
+                                          width: extendedNavBarView.bounds.width,
+                                          height: filterDropDown.bounds.height)
+            extendedNavBarView.addSubview(filterDropDown)
+            
+        case (false, false):
+            filterDropDown.frame = CGRect(x: 0,
+                                          y: listAndSearchOverlayFilterSelectorContainerView.frame.maxY,
+                                          width: listAndSearchOverlayFilterSelectorContainerView.bounds.width,
+                                          height: filterDropDown.bounds.height)
+            listAndSearchOverlayContainerView.addSubview(filterDropDown)
 
-        if (isSearchBarInNavigationBar) {
+        case (true, true):
+            extendedNavBarViewHeightContraint.constant = extendedNavBarHeightOrig!
+            fallthrough
             
-            if (!isFilterDropDownShowing) {
-                
-                extendedNavBarViewHeightContraint.constant = filterDropDown.bounds.height
-                
-                let f2 = CGRect(x: 0, y: 0,
-                                width: extendedNavBarView.bounds.width,
-                                height: filterDropDown.bounds.height)
-                
-                filterDropDown.frame = f2
-                
-                extendedNavBarView.addSubview(filterDropDown)
-                
-            } else {
-                extendedNavBarViewHeightContraint.constant = extendedNavBarHeightOrig!
-                filterDropDown.removeFromSuperview()
-            }
-    
-            //            self.view.addSubview(filterDropDown)
-//            let f2 = CGRect(x: self.view.frame.minX, y: self.view.frame.minY, width: self.view.frame.width, height: filterDropDown.bounds.height)
-//            
-//            filterDropDown.frame = f2
-//            
-//            self.view.addSubview(filterDropDown)
-            
-            
-            
-            
+        case (_, true):
+               filterDropDown.removeFromSuperview()
         }
-        
+
+//        if (isSearchBarInNavigationBar) {
+//            if (!isFilterDropDownShowing) {
+//                extendedNavBarViewHeightContraint.constant = filterDropDown.bounds.height
+//                filterDropDown.frame = CGRect(x: 0, y: 0,
+//                                              width: extendedNavBarView.bounds.width,
+//                                              height: filterDropDown.bounds.height)
+//                extendedNavBarView.addSubview(filterDropDown)
+//                
+//            } else {
+//                extendedNavBarViewHeightContraint.constant = extendedNavBarHeightOrig!
+//                filterDropDown.removeFromSuperview()
+//            }
+//        } else {
+//            
+//            if (!isFilterDropDownShowing) {
+//                filterDropDown.frame = CGRect(x: 0,
+//                                              y: listAndSearchOverlayFilterSelectorContainerView.frame.maxY,
+//                                              width: listAndSearchOverlayFilterSelectorContainerView.bounds.width,
+//                                              height: filterDropDown.bounds.height)
+//                listAndSearchOverlayFilterSelectorContainerView.addSubview(filterDropDown)
+//            } else {
+//            
+//            }
+//            
+//        }
+
         
     }
     
