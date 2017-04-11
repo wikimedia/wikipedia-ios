@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D4991434181D51DE00E6073C"
-               BuildableName = "Wikipedia.app"
-               BlueprintName = "Wikipedia"
+               BlueprintIdentifier = "D8EC3DCE1E9BDA35006712EB"
+               BuildableName = "Wikipedia Beta.app"
+               BlueprintName = "Wikipedia Beta"
                ReferencedContainer = "container:Wikipedia.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D4991434181D51DE00E6073C"
-            BuildableName = "Wikipedia.app"
-            BlueprintName = "Wikipedia"
+            BlueprintIdentifier = "D8EC3DCE1E9BDA35006712EB"
+            BuildableName = "Wikipedia Beta.app"
+            BlueprintName = "Wikipedia Beta"
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -55,9 +55,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D4991434181D51DE00E6073C"
-            BuildableName = "Wikipedia.app"
-            BlueprintName = "Wikipedia"
+            BlueprintIdentifier = "D8EC3DCE1E9BDA35006712EB"
+            BuildableName = "Wikipedia Beta.app"
+            BlueprintName = "Wikipedia Beta"
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -70,16 +70,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D4991434181D51DE00E6073C"
-            BuildableName = "Wikipedia.app"
-            BlueprintName = "Wikipedia"
+            BlueprintIdentifier = "D8EC3DCE1E9BDA35006712EB"
+            BuildableName = "Wikipedia Beta.app"
+            BlueprintName = "Wikipedia Beta"
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Beta">

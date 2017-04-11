@@ -8,33 +8,19 @@ import Foundation
         let urls = try deleteStaleUnreferencedArticles(moc)
         return urls
     }
-    
-    /** TODO: refactor into date utilities? */
-    internal func daysBeforeDateInUTC(days : Int, date: Date) -> Date? {
-        
-        guard let midnightTodayUTC = (date as NSDate).wmf_midnightUTCDateFromLocal else {
-            assertionFailure("Calculating midnight UTC today failed")
-            return nil
-        }
-        
-        let utcCalendar = NSCalendar.wmf_utcGregorian() as Calendar
-        guard let thirtyDaysAgoMidnightUTC = utcCalendar.date(byAdding: .day, value: -30, to: midnightTodayUTC)  else{
-            assertionFailure("Calculating midnight UTC 30 days ago failed")
-            return nil
-        }
-        return (thirtyDaysAgoMidnightUTC as NSDate).wmf_midnightUTCDateFromLocal
-    }
+
     
     private func deleteStaleUnreferencedArticles(_ moc: NSManagedObjectContext) throws -> [URL] {
         
         /**
  
-        Find `WMFContentGroup`s more than 30 days old.
+        Find `WMFContentGroup`s more than WMFExploreFeedMaximumNumberOfDays days old.
  
         */
         
-        guard let thirtyDaysAgoMidnightUTC = daysBeforeDateInUTC(days: -30, date: Date()) else {
-            assertionFailure("Calculating midnight UTC 30 days ago failed")
+        let today = Date() as NSDate
+        guard let oldestFeedDateMidnightUTC = today.wmf_midnightUTCDateFromLocalDate(byAddingDays: 0 - WMFExploreFeedMaximumNumberOfDays) else {
+            assertionFailure("Calculating midnight UTC on the oldest feed date failed")
             return []
         }
         
@@ -45,7 +31,7 @@ import Foundation
         var referencedArticleKeys = Set<String>(minimumCapacity: allContentGroups.count * 5 + 1)
         
         for group in allContentGroups {
-            if group.midnightUTCDate?.compare(thirtyDaysAgoMidnightUTC) == .orderedAscending {
+            if group.midnightUTCDate?.compare(oldestFeedDateMidnightUTC) == .orderedAscending {
                 moc.delete(group)
                 continue
             }
