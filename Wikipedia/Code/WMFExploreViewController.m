@@ -56,11 +56,12 @@
 #import "WMFChange.h"
 
 #import "WMFCVLAttributes.h"
+#import "NSCalendar+WMFCommonCalendars.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
-
+const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
 @interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching>
@@ -274,6 +275,10 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 }
 
 - (void)updateFeedSources:(nullable dispatch_block_t)completion {
+    [self updateFeedSourcesWithDate:nil completion:completion];
+}
+
+- (void)updateFeedSourcesWithDate:(nullable NSDate *)date completion:(nullable dispatch_block_t)completion {
     WMFAssertMainThread(@"updateFeedSources: must be called on the main thread");
     if (self.feedUpdateTaskGroup) {
         if (completion) {
@@ -290,21 +295,27 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     NSMutableSet *entered = [NSMutableSet setWithCapacity:self.contentSources.count];
 #endif
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        //TODO: nearby doesnt always fire
         [group enter];
 #if DEBUG
         NSString *classString = NSStringFromClass([obj class]);
         [entered addObject:classString];
 #endif
-
-        [obj loadNewContentForce:NO
-                      completion:^{
+        dispatch_block_t contentSourceCompletion = ^{
 #if DEBUG
-                          assert([entered containsObject:classString]);
-                          [entered removeObject:classString];
+            assert([entered containsObject:classString]);
+            [entered removeObject:classString];
 #endif
-                          [group leave];
-                      }];
+            [group leave];
+        };
+
+        if (date && [obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
+            id<WMFDateBasedContentSource> dateBased = (id<WMFDateBasedContentSource>)obj;
+            [dateBased loadContentForDate:date force:NO completion:contentSourceCompletion];
+        } else if (!date) {
+            [obj loadNewContentForce:NO completion:contentSourceCompletion];
+        } else {
+            contentSourceCompletion();
+        }
     }];
 
     [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
@@ -934,7 +945,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     if (!menuActionSheet) {
         return;
     }
-    
+
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         menuActionSheet.modalPresentationStyle = UIModalPresentationPopover;
         menuActionSheet.popoverPresentationController.sourceView = sender;
@@ -1020,7 +1031,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
             return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier forIndexPath:indexPath];
         case WMFFeedMoreTypeLocationAuthorization: {
             WMFTitledExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFTitledExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
-            
+
             for (UIGestureRecognizer *gr in footer.gestureRecognizers) {
                 [footer removeGestureRecognizer:gr];
             }
@@ -1702,6 +1713,49 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 - (NSString *)analyticsName {
     return [self analyticsContext];
 }
+
+#if WMF_TWEAKS_ENABLED
+#pragma mark - Load More
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.feedUpdateTaskGroup) {
+        return;
+    }
+    CGFloat ratio = scrollView.contentOffset.y / (scrollView.contentSize.height - scrollView.bounds.size.height);
+    if (ratio < 0.8) {
+        return;
+    }
+
+    NSInteger lastGroupIndex = self.fetchedResultsController.sections.lastObject.numberOfObjects - 1;
+    if (lastGroupIndex < 0) {
+        return;
+    }
+
+    WMFContentGroup *lastGroup = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForItem:lastGroupIndex inSection:0]];
+
+    NSDate *now = [NSDate date];
+    NSDate *midnightUTC = [now wmf_midnightUTCDateFromLocalDate];
+    NSDate *lastGroupMidnightUTC = lastGroup.midnightUTCDate;
+
+    if (!midnightUTC || !lastGroupMidnightUTC) {
+        return;
+    }
+
+    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
+    NSInteger days = [calendar wmf_daysFromDate:lastGroupMidnightUTC toDate:midnightUTC];
+    if (days >= WMFExploreFeedMaximumNumberOfDays) {
+        return;
+    }
+
+    NSDate *nextOldestDate = [[calendar dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:lastGroupMidnightUTC options:NSCalendarMatchStrictly] wmf_midnightLocalDateForEquivalentUTCDate];
+
+    [self updateFeedSourcesWithDate:nextOldestDate
+                         completion:^{
+
+                         }];
+}
+
+#endif
 
 @end
 
