@@ -29,7 +29,7 @@ import Foundation
         
         /**
  
-        Find `WMFContentGroup`s more than 30 days old.
+        Find `WMFContentGroup`s more than WMFExploreFeedMaximumNumberOfDays days old.
  
         */
         
