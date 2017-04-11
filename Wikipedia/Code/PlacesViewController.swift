@@ -89,6 +89,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         extendedNavBarView.shadowOpacity = 0.25
         extendedNavBarHeightOrig = extendedNavBarViewHeightContraint.constant
         
+        // config filter drop down
+        filterDropDown.shadowOffset = CGSize(width: 0, height: CGFloat(1) / UIScreen.main.scale)
+        filterDropDown.shadowRadius = 0
+        filterDropDown.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        filterDropDown.shadowOpacity = 0.25
+        isFilterDropDownShowing = false
+        
         navigationController?.setNavigationBarHidden(false, animated: true)
         
         // Setup map view
@@ -182,67 +189,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         tracker?.wmf_logView(self)
     }
     
-    @IBAction func showSearchFilterDropDown(_ sender: Any) {
+    @IBAction func toggleSearchFilterDropDown(_ sender: Any) {
         
-        guard let isSearchBarInNavigationBar = self.isSearchBarInNavigationBar,
-            let isFilterDropDownShowing = self.isFilterDropDownShowing else {
-                // TODO: error
-                return
+        guard let isFilterDropDownShowing = self.isFilterDropDownShowing else {
+            // TODO: error?
+            return
         }
         
-        switch (isSearchBarInNavigationBar, isFilterDropDownShowing) {
-            
-        case (true, false):
-            extendedNavBarViewHeightContraint.constant = filterDropDown.bounds.height
-            filterDropDown.frame = CGRect(x: 0,
-                                          y: 0,
-                                          width: extendedNavBarView.bounds.width,
-                                          height: filterDropDown.bounds.height)
-            extendedNavBarView.addSubview(filterDropDown)
-            
-        case (false, false):
-            filterDropDown.frame = CGRect(x: 0,
-                                          y: listAndSearchOverlayFilterSelectorContainerView.frame.maxY,
-                                          width: listAndSearchOverlayFilterSelectorContainerView.bounds.width,
-                                          height: filterDropDown.bounds.height)
-            listAndSearchOverlayContainerView.addSubview(filterDropDown)
-
-        case (true, true):
-            extendedNavBarViewHeightContraint.constant = extendedNavBarHeightOrig!
-            fallthrough
-            
-        case (_, true):
-               filterDropDown.removeFromSuperview()
-        }
-
-//        if (isSearchBarInNavigationBar) {
-//            if (!isFilterDropDownShowing) {
-//                extendedNavBarViewHeightContraint.constant = filterDropDown.bounds.height
-//                filterDropDown.frame = CGRect(x: 0, y: 0,
-//                                              width: extendedNavBarView.bounds.width,
-//                                              height: filterDropDown.bounds.height)
-//                extendedNavBarView.addSubview(filterDropDown)
-//                
-//            } else {
-//                extendedNavBarViewHeightContraint.constant = extendedNavBarHeightOrig!
-//                filterDropDown.removeFromSuperview()
-//            }
-//        } else {
-//            
-//            if (!isFilterDropDownShowing) {
-//                filterDropDown.frame = CGRect(x: 0,
-//                                              y: listAndSearchOverlayFilterSelectorContainerView.frame.maxY,
-//                                              width: listAndSearchOverlayFilterSelectorContainerView.bounds.width,
-//                                              height: filterDropDown.bounds.height)
-//                listAndSearchOverlayFilterSelectorContainerView.addSubview(filterDropDown)
-//            } else {
-//            
-//            }
-//            
-//        }
-
-        
+        self.isFilterDropDownShowing = !isFilterDropDownShowing
     }
+
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -1003,8 +959,41 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     var isFilterDropDownShowing: Bool? {
-        get {
-            return filterDropDown.superview != nil
+        didSet {
+            guard let newValue = isFilterDropDownShowing, oldValue != newValue else {
+                return
+            }
+            
+            if newValue {
+                guard let isSearchBarInNavigationBar = self.isSearchBarInNavigationBar else {
+                        // TODO: error
+                        return
+                }
+
+                let frame: CGRect
+                let superView: UIView
+                
+                if (isSearchBarInNavigationBar) {
+                    frame = CGRect(x: 0,
+                                   y: extendedNavBarView.frame.minY,
+                                   width: extendedNavBarView.bounds.width,
+                                   height: filterDropDown.bounds.height)
+                    superView = self.view
+                    
+                } else {
+                    frame = CGRect(x: 0,
+                                   y: listAndSearchOverlayFilterSelectorContainerView.frame.maxY,
+                                   width: listAndSearchOverlayFilterSelectorContainerView.bounds.width,
+                                   height: filterDropDown.bounds.height)
+                    superView = listAndSearchOverlayContainerView
+                }
+                
+                filterDropDown.frame = frame
+                superView.addSubview(filterDropDown)
+                
+            } else {
+                filterDropDown.removeFromSuperview()
+            }
         }
     }
     

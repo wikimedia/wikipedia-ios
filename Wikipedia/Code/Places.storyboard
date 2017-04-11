@@ -502,7 +502,7 @@
                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
-                                <action selector="showSearchFilterDropDown:" destination="pK5-Ai-Kzp" eventType="touchUpInside" id="Z5T-zV-yZd"/>
+                                <action selector="toggleSearchFilterDropDown:" destination="pK5-Ai-Kzp" eventType="touchUpInside" id="zPB-CF-WZx"/>
                             </connections>
                         </button>
                     </subviews>
