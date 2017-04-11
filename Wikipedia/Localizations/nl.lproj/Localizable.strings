@@ -307,6 +307,7 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "De vrije encyclopedie";
 "preference-title-eventlogging-opt-in" = "Gebruiksrapporten verzenden";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Wikimedia toestaan om informatie te verzamelen over hoe u deze app gebruikt, zodat de app beter kan worden gemaakt";
 "page-protected-autoconfirmed" = "Deze pagina is semibeveiligd.";
 "page-protected-sysop" = "Deze pagina is volledig beveiligd.";
@@ -368,7 +369,9 @@
 "image-gallery-fetch-image-info-error-title" = "Downloaden van afbeeldingen niet mogelijk";
 "image-gallery-fetch-image-info-error-message" = "Het was niet mogelijk de afbeeldingen voor de pagina te laden. Ververs de pagina en probeer het opnieuw.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
+// Fuzzy
 "hockeyapp-alert-question" = "Wilt u het crashrapport naar $1 verzenden, zodat Wikimedia het kan bekijken?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Wilt u het crashrapport naar $1 verzenden, zodat Wikimedia het kan bekijken? Beschrijf wat er gebeurde tijdens de crash:";
 "hockeyapp-alert-title" = "De app crashte de laatste keer helaas";
 "hockeyapp-alert-send-report" = "Rapport verzenden";
@@ -432,6 +435,7 @@
 "welcome-volunteer-continue-button" = "Doorgaan";
 "welcome-volunteer-thanks" = "$1 Bedankt!";
 "welcome-send-data-title" = "Anoniem gegevens zenden";
+// Fuzzy
 "welcome-send-data-sub-title" = "Help Wikimedia de app beter te maken door ons te laten weten hoe u de app gebruikt. De gegevens worden anoniem verzameld.";
 "empty-no-feed-title" = "Geen internetverbinding";
 "empty-no-feed-message" = "U kunt aanbevolen pagina's bekijken wanneer u bent verbonden met het internet";

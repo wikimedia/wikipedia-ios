@@ -261,6 +261,7 @@
 "onboarding-wikipedia" = "ვიკიპედია";
 "onboarding-free-encyclopedia" = "თავისუფალი ენციკლოპედია";
 "preference-title-eventlogging-opt-in" = "გამოყენების ანგარიშის გაგზავნა";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "ნება მიეცი ვიკიმედიას მოაგროვოს ინფორმაცია თუ როგორ იყენებ ამ აპლიკაციას, რათა ის უკეთესი გახადოს";
 "page-protected-autoconfirmed" = "ეს გვერდი ნახევრად დაცულია.";
 "page-protected-sysop" = "ეს გვერდი სრულად დაცულია.";
@@ -322,7 +323,9 @@
 "image-gallery-fetch-image-info-error-title" = "სურათის ჩატვირთვა ვერ ხერხდება";
 "image-gallery-fetch-image-info-error-message" = "ამ სტატიისთვის სურათის ჩატვირთვა ვერ ხერხდება. გთხოვთ, განაახლოთ სტატია და კიდევ სცადოთ.";
 "image-gallery-fetch-image-info-error-ok" = "კარგი";
+// Fuzzy
 "hockeyapp-alert-question" = "გსურთ $1-სთვის პრობლემის ანგარიშის გაგზავნა, რათა ვიკიმედიამ შეძლოს მისი განხილვა?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "გსურთ $1-სთვის პრობლემის ანგარიშის გაგზავნა, რათა ვიკიმედიამ შეძლოს მისი განხილვა? გთხოვთ აღწერეთ თუ რა მოხდა, როდესაც პრობლემა შეიქმნა:";
 "hockeyapp-alert-title" = "უკაცრავად, უკანასკნელად აპლიკაციამ არ უმუშავა";
 "hockeyapp-alert-send-report" = "რეპორტის გაგზავნა";

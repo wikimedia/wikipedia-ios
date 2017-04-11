@@ -314,7 +314,7 @@
 "onboarding-wikipedia" = "维基百科";
 "onboarding-free-encyclopedia" = "自由的百科全书";
 "preference-title-eventlogging-opt-in" = "发送使用反馈";
-"preference-summary-eventlogging-opt-in" = "允许维基媒体收集有关您操作本应用程序的信息，从而改善应用程序";
+"preference-summary-eventlogging-opt-in" = "允许维基媒体基金会收集有关您操作本应用程序的信息，从而改善应用程序";
 "page-protected-autoconfirmed" = "此页面已半保护。";
 "page-protected-sysop" = "此页面已全保护。";
 "page-protected-other" = "此页面已获以下保护：$1";
@@ -375,8 +375,8 @@
 "image-gallery-fetch-image-info-error-title" = "无法下载图片";
 "image-gallery-fetch-image-info-error-message" = "无法下载此条目的图片。请刷新条目并重试。";
 "image-gallery-fetch-image-info-error-ok" = "确定";
-"hockeyapp-alert-question" = "您想要将崩溃报告发送至$1，这样维基媒体可以复查您的崩溃么？";
-"hockeyapp-alert-question-with-response-field" = "您想要将崩溃报告发送至$1，这样维基媒体可以复查您的崩溃么？请描述崩溃发生时出现了什么现象：";
+"hockeyapp-alert-question" = "您想要将崩溃报告发送至$1，这样维基媒体基金会可以复查您的崩溃么？";
+"hockeyapp-alert-question-with-response-field" = "您想要将崩溃报告发送至$1，这样维基媒体基金会可以复查您的崩溃么？请描述崩溃发生时出现了什么现象：";
 "hockeyapp-alert-title" = "抱歉，应用程序上次发生了崩溃";
 "hockeyapp-alert-send-report" = "发送报告";
 "hockeyapp-alert-always-send" = "总是发送";
@@ -439,7 +439,7 @@
 "welcome-volunteer-continue-button" = "继续";
 "welcome-volunteer-thanks" = "$1感谢您！";
 "welcome-send-data-title" = "发送匿名数据";
-"welcome-send-data-sub-title" = "通过让我们了解您如何应用，帮助维基媒体使应用做的更好。数据收集是匿名的";
+"welcome-send-data-sub-title" = "通过让我们了解您如何应用，帮助维基媒体基金会使应用做的更好。数据收集是匿名的";
 "empty-no-feed-title" = "没有网络连接";
 "empty-no-feed-message" = "当您有网络连接时，您可以查看您推荐的条目";
 "empty-no-feed-action-message" = "您仍然可以阅读保存的页面";

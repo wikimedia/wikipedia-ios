@@ -236,6 +236,7 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Manlo Cakip Relnak";
 "preference-title-eventlogging-opt-in" = "Hmannak ripawt kua";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "App na hmannak ah a that deuh nakhga Wikimedia kha thil sining pawl laknak nawl pe";
 "page-protected-autoconfirmed" = "Hi cahmai hi tlawmpal kilven a si.";
 "page-protected-sysop" = "Hi cahmai hi kilvenpiak a si.";
@@ -297,7 +298,9 @@
 "image-gallery-fetch-image-info-error-title" = "Hmanthlak laak khawh a si lo";
 "image-gallery-fetch-image-info-error-message" = "Hi cabia hin hmanthlak a la kholo. Vun tuah than hmah.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
+// Fuzzy
 "hockeyapp-alert-question" = "Wikimedia nih zoh thannak caah $1 sin a rawhnak na kua lai maw?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Wikimedia nih zoh thannak caah $1 sin a rawhnak na kua lai maw? A rawh lio ah zeitin dah a um:";
 "hockeyapp-alert-title" = "Sorry, ahnu bik app a rawk";
 "hockeyapp-alert-send-report" = "Ripawl kua";

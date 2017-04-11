@@ -253,6 +253,7 @@
 "onboarding-wikipedia" = "ਵਿਕੀਪੀਡੀਆ";
 "onboarding-free-encyclopedia" = "ਮੁਫ਼ਤ ਗਿਆਨਕੋਸ਼";
 "preference-title-eventlogging-opt-in" = "ਵਰਤੋਂ ਦੀਆਂ ਇਤਲਾਹਾਂ ਘੱਲੋ";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "ਇਸ ਐਪ ਨੂੰ ਚੰਗੇਰੀ ਬਣਾਉਣ ਵਾਸਤੇ ਵਿਕੀਮੀਡੀਆ ਨੂੰ ਤੁਹਾਡੇ ਇਸ ਐਪ ਨੂੰ ਵਰਤਣ ਦੇ ਤਰੀਕੇ ਬਾਬਤ ਜਾਣਕਾਰੀ ਇਕੱਠੀ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿਉ।";
 "page-protected-autoconfirmed" = "ਇਹ ਸਫ਼ਾ ਨੀਮ-ਸੁਰੱਖਿਅਤ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।";
 "page-protected-sysop" = "ਇਹ ਸਫ਼ਾ ਪੂਰਾ ਸੁਰੱਖਿਅਤ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।";

@@ -312,6 +312,7 @@
 "onboarding-wikipedia" = "Вікіпедія";
 "onboarding-free-encyclopedia" = "Вільна енциклопедія";
 "preference-title-eventlogging-opt-in" = "Надсилати звіти про використання";
+// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Дозвольте Wikimedia збирати відомості, про те, як ви користуєтеся застосунком, аби вдосконалити його";
 "page-protected-autoconfirmed" = "Сторінка є частково захищена.";
 "page-protected-sysop" = "Сторінка є повністю захищена.";
@@ -373,7 +374,9 @@
 "image-gallery-fetch-image-info-error-title" = "Не вдається завантажити зображення";
 "image-gallery-fetch-image-info-error-message" = "Не вдається завантажити зображення для цієї статті. Будь ласка, оновіть статтю і спробуйте ще раз.";
 "image-gallery-fetch-image-info-error-ok" = "Гаразд";
+// Fuzzy
 "hockeyapp-alert-question" = "Хочете надіслати звіт у $1, щоб у Вікімедіа могли дослідити Ваш випадок «падіння»?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Хочете надіслати звіт у $1, щоб у Вікімедіа могли дослідити Ваш випадок «падіння»? Будь ласка, опишіть, що сталося:";
 "hockeyapp-alert-title" = "Перепрошуємо, минулого разу програма «впала»";
 "hockeyapp-alert-send-report" = "Надіслати звіт";
@@ -437,6 +440,7 @@
 "welcome-volunteer-continue-button" = "Продовжити";
 "welcome-volunteer-thanks" = "$1 Дякуємо!";
 "welcome-send-data-title" = "Надіслати анонімні дані";
+// Fuzzy
 "welcome-send-data-sub-title" = "Допоможіть Вікімедіа зробити цей додаток кращим, повідомивши нас, яким чином Ви ним користуєтесь. Зібрані дані є анонімними";
 "empty-no-feed-title" = "Не має з'єднання з інтернетом";
 "empty-no-feed-message" = "Ви можете побачити ваші рекомендовані статті, коли у вас є інтернет";
