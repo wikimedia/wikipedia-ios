@@ -300,7 +300,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
         NSString *classString = NSStringFromClass([obj class]);
         [entered addObject:classString];
 #endif
-        dispatch_block_t completion = ^{
+        dispatch_block_t contentSourceCompletion = ^{
 #if DEBUG
             assert([entered containsObject:classString]);
             [entered removeObject:classString];
@@ -310,11 +310,11 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
         if (date && [obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
             id<WMFDateBasedContentSource> dateBased = (id<WMFDateBasedContentSource>)obj;
-            [dateBased loadContentForDate:date force:NO completion:completion];
+            [dateBased loadContentForDate:date force:NO completion:contentSourceCompletion];
         } else if (!date) {
-            [obj loadNewContentForce:NO completion:completion];
+            [obj loadNewContentForce:NO completion:contentSourceCompletion];
         } else {
-            completion();
+            contentSourceCompletion();
         }
     }];
 
