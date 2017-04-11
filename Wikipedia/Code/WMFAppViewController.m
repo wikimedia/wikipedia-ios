@@ -46,6 +46,7 @@
 #import "WMFHistoryTableViewController.h"
 #import "WMFSavedArticleTableViewController.h"
 #import "WMFFirstRandomViewController.h"
+#import "WMFRandomArticleViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFMorePageListViewController.h"
 #import "UIViewController+WMFSearch.h"
@@ -1342,5 +1343,32 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         }];
     });
 }
+
+
+#pragma mark - Perma Random Mode
+
+#if WMF_TWEAKS_ENABLED
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
+        [super motionEnded:motion withEvent:event];
+    }
+    if (event.subtype != UIEventSubtypeMotionShake) {
+        return;
+    }
+    UINavigationController *navController = [self navigationControllerForTab:WMFAppTabTypeExplore];
+    if ([navController.visibleViewController isKindOfClass:[WMFRandomArticleViewController class]] || [navController.visibleViewController isKindOfClass:[WMFFirstRandomViewController class]]) {
+        return;
+    }
+    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+    UINavigationController *exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
+    if (exploreNavController.presentedViewController) {
+        [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
+    }
+    
+    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore previewStore:self.previewStore];
+    vc.permaRandomMode = YES;
+    [exploreNavController pushViewController:vc animated:YES];
+}
+#endif
 
 @end
