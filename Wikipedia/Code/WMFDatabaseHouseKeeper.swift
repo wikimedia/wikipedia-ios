@@ -8,22 +8,7 @@ import Foundation
         let urls = try deleteStaleUnreferencedArticles(moc)
         return urls
     }
-    
-    /** TODO: refactor into date utilities? */
-    internal func daysBeforeDateInUTC(days : Int, date: Date) -> Date? {
-        
-        guard let dateMidnightUTC = (date as NSDate).wmf_midnightUTCDateFromLocal else {
-            assertionFailure("Calculating midnight UTC today failed")
-            return nil
-        }
-        
-        let utcCalendar = NSCalendar.wmf_utcGregorian() as Calendar
-        guard let olderDateMidnightUTC = utcCalendar.date(byAdding: .day, value: 0 - days, to: dateMidnightUTC)  else{
-            assertionFailure("Calculating older midnight UTC date failed")
-            return nil
-        }
-        return olderDateMidnightUTC
-    }
+
     
     private func deleteStaleUnreferencedArticles(_ moc: NSManagedObjectContext) throws -> [URL] {
         
@@ -33,7 +18,8 @@ import Foundation
  
         */
         
-        guard let oldestFeedDateMidnightUTC = daysBeforeDateInUTC(days: WMFExploreFeedMaximumNumberOfDays, date: Date()) else {
+        let today = Date() as NSDate
+        guard let oldestFeedDateMidnightUTC = today.wmf_midnightUTCDateFromLocalDate(byAddingDays: 0 - WMFExploreFeedMaximumNumberOfDays) else {
             assertionFailure("Calculating midnight UTC on the oldest feed date failed")
             return []
         }

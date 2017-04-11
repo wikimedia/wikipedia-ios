@@ -91,4 +91,9 @@
     return timelessLocalDate;
 }
 
+- (NSDate *)wmf_midnightUTCDateFromLocalDateByAddingDays:(NSInteger)days {
+    NSDate *daysAgoDate = [[NSCalendar wmf_gregorianCalendar] dateByAddingUnit:NSCalendarUnitDay value:days toDate:self options:NSCalendarMatchStrictly];
+    return [daysAgoDate wmf_midnightUTCDateFromLocalDate];
+}
+
 @end
