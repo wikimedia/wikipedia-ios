@@ -843,7 +843,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             [self.exploreViewController showSettings];
             break;
         case WMFUserActivityTypeGenericLink:
-            [self wmf_openExternalUrl:activity.webpageURL];
+            [self wmf_openExternalUrl:[activity wmf_articleURL]];
             break;
         default:
             done();
