@@ -15,6 +15,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var titleViewSearchBar: UISearchBar!
     @IBOutlet weak var mapListToggle: UISegmentedControl!
     @IBOutlet weak var filterDropDown: UIView!
+    @IBOutlet weak var filterDropDownTopArticlesButton: UIButton!
+    @IBOutlet weak var filterDropDownSavedPlacesButton: UIButton!
     
     @IBOutlet weak var listAndSearchOverlayContainerView: RoundedCornerView!
     
@@ -96,6 +98,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         filterDropDown.shadowOpacity = 0.25
         isFilterDropDownShowing = false
         
+        filterDropDownTopArticlesButton.backgroundColor = UIColor.wmf_filterDropDownBackground
+        filterDropDownSavedPlacesButton.backgroundColor = UIColor.wmf_filterDropDownBackground
+   
         navigationController?.setNavigationBarHidden(false, animated: true)
         
         // Setup map view

@@ -378,6 +378,8 @@
                         <outlet property="extendedNavBarView" destination="qzd-3E-mH2" id="jG5-i0-4B5"/>
                         <outlet property="extendedNavBarViewHeightContraint" destination="Rb6-54-TnS" id="Vcg-Xk-pkX"/>
                         <outlet property="filterDropDown" destination="1Ta-R8-aIJ" id="pwu-iz-fq2"/>
+                        <outlet property="filterDropDownSavedPlacesButton" destination="iqe-ZJ-7u9" id="0r5-r6-DHw"/>
+                        <outlet property="filterDropDownTopArticlesButton" destination="jTf-Kk-KuG" id="vVE-a9-bSf"/>
                         <outlet property="filterSelectorView" destination="VAs-ZO-0gF" id="Nmc-zk-NHH"/>
                         <outlet property="listAndSearchOverlayBottomConstraint" destination="1PC-H2-U7d" id="Spi-3n-6kC"/>
                         <outlet property="listAndSearchOverlayContainerView" destination="hEe-dF-AFg" id="pNn-lr-x35"/>
@@ -409,7 +411,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="r4u-vI-7Pd">
                             <rect key="frame" x="15" y="8" width="295" height="128"/>
                             <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jTf-Kk-KuG">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jTf-Kk-KuG" customClass="UIButton" customModule="Wikipedia" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="295" height="60"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" highlightedImage="places-suggestion-top" translatesAutoresizingMaskIntoConstraints="NO" id="H8P-7d-moF">
@@ -445,7 +447,7 @@
                                         <constraint firstItem="H8P-7d-moF" firstAttribute="top" secondItem="jTf-Kk-KuG" secondAttribute="top" constant="10" id="s94-1t-cb3"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iqe-ZJ-7u9">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iqe-ZJ-7u9" customClass="UIButton" customModule="Wikipedia" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="68" width="295" height="60"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-filter-saved-grey" highlightedImage="places-suggestion-saved" translatesAutoresizingMaskIntoConstraints="NO" id="Gcx-Ig-3SB">
