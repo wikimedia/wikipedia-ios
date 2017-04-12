@@ -56,16 +56,18 @@
     [self fetchAndSaveMainPageForSiteURL:self.siteURL completion:completion];
 }
 
-- (void)removeAllContentGroupsOfKind:(WMFContentGroupKind)kind {
-    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindMainPage];
+- (void)removeAllContentGroupsOfKind:(WMFContentGroupKind)kind inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindMainPage inManagedObjectContext:moc];
 }
 
 #pragma mark - Add / Remove Sections
 
-- (void)cleanupOldSections {
+- (void)cleanupOldSectionsInManagedObjectContext:(NSManagedObjectContext *)moc {
     __block BOOL foundTodaysSection = NO;
+    
     [self.contentStore enumerateContentGroupsOfKind:WMFContentGroupKindMainPage
-                                          withBlock:^(WMFContentGroup *_Nonnull section, NSManagedObjectContext *_Nonnull moc, BOOL *_Nonnull stop) {
+                             inManagedObjectContext:moc
+                                          withBlock:^(WMFContentGroup *_Nonnull section, BOOL *_Nonnull stop) {
                                               BOOL isForToday = section.isForToday;
                                               if (!isForToday || foundTodaysSection) {
                                                   [self.contentStore removeContentGroup:section inManagedObjectContext:moc];
@@ -79,61 +81,61 @@
 #pragma mark - Fetch
 
 - (void)fetchAndSaveMainPageForSiteURL:(NSURL *)siteURL completion:(nullable dispatch_block_t)completion {
-
-    __block WMFContentGroup *section = [self.contentStore contentGroupForURL:[WMFContentGroup mainPageURLForSiteURL:siteURL]];
-
-    if (section.isForToday && section.content != nil) {
-        if (completion) {
-            completion();
-        }
-        return;
-    }
-
-    [self.siteInfoFetcher fetchSiteInfoForSiteURL:self.siteURL
-        completion:^(MWKSiteInfo *_Nonnull data) {
-            if (data.mainPageURL == nil) {
-                if (completion) {
-                    completion();
-                }
-                return;
-            }
-
-            [self.previewFetcher fetchArticlePreviewResultsForArticleURLs:@[data.mainPageURL]
-                siteURL:self.siteURL
-                completion:^(NSArray<MWKSearchResult *> *_Nonnull results) {
-                    if ([results count] == 0) {
-                        if (completion) {
-                            completion();
-                        }
-                        return;
-                    }
-
-                    if (!section) {
-                        section = [self.contentStore createGroupOfKind:WMFContentGroupKindMainPage forDate:[NSDate date] withSiteURL:siteURL associatedContent:nil];
-                    }
-                    [self.previewStore addPreviewWithURL:data.mainPageURL updatedWithSearchResult:[results firstObject]];
-                    section.content = @[data.mainPageURL];
-                    [self cleanupOldSections];
-
-                    if (completion) {
-                        completion();
-                    }
-                }
-                failure:^(NSError *_Nonnull error) {
-                    //TODO??
-                    if (completion) {
-                        completion();
-                    }
-
-                }];
-
-        }
-        failure:^(NSError *_Nonnull error) {
-            //TODO??
+    WMFContentGroupDataStore *cs = self.contentStore;
+    [cs performBlockOnImportContext:^(NSManagedObjectContext * _Nonnull moc) {
+        NSURL *groupURL = [WMFContentGroup mainPageURLForSiteURL:siteURL];
+        WMFContentGroup *section = [cs contentGroupForURL:groupURL inManagedObjectContext:moc];
+        if (section.isForToday && section.content != nil) {
             if (completion) {
                 completion();
             }
-        }];
+            return;
+        }
+        [self.siteInfoFetcher fetchSiteInfoForSiteURL:self.siteURL
+                                           completion:^(MWKSiteInfo *_Nonnull data) {
+                                               if (data.mainPageURL == nil) {
+                                                   if (completion) {
+                                                       completion();
+                                                   }
+                                                   return;
+                                               }
+                                               
+                                               [self.previewFetcher fetchArticlePreviewResultsForArticleURLs:@[data.mainPageURL]
+                                                                                                     siteURL:self.siteURL
+                                                                                                  completion:^(NSArray<MWKSearchResult *> *_Nonnull results) {
+                                                                                                      if ([results count] == 0) {
+                                                                                                          if (completion) {
+                                                                                                              completion();
+                                                                                                          }
+                                                                                                          return;
+                                                                                                      }
+                                                                                                      [cs performBlockOnImportContext:^(NSManagedObjectContext * _Nonnull moc) {
+                                                                                                          WMFContentGroup *section = [self.contentStore fetchOrCreateGroupForURL:groupURL ofKind:WMFContentGroupKindMainPage forDate:[NSDate date] withSiteURL:siteURL associatedContent:nil inManagedObjectContext:moc customizationBlock:NULL];
+                                                                                                          [self.previewStore addPreviewWithURL:data.mainPageURL updatedWithSearchResult:[results firstObject] inManagedObjectContext:moc];
+                                                                                                          section.content = @[data.mainPageURL];
+                                                                                                          [self cleanupOldSectionsInManagedObjectContext:moc];
+                                                                                                          
+                                                                                                          if (completion) {
+                                                                                                              completion();
+                                                                                                          }
+                                                                                                      }];
+                                                                                                  }
+                                                                                                     failure:^(NSError *_Nonnull error) {
+                                                                                                         //TODO??
+                                                                                                         if (completion) {
+                                                                                                             completion();
+                                                                                                         }
+                                                                                                         
+                                                                                                     }];
+                                               
+                                           }
+                                              failure:^(NSError *_Nonnull error) {
+                                                  //TODO??
+                                                  if (completion) {
+                                                      completion();
+                                                  }
+                                              }];
+    }];
 }
 
 @end
