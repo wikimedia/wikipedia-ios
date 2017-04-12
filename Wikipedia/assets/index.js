@@ -7,7 +7,7 @@ wmf.utilities = require("./js/utilities");
 wmf.findInPage = require("./js/findInPage");
 
 window.wmf = wmf;
-},{"./js/elementLocation":2,"./js/findInPage":3,"./js/transformer":6,"./js/utilities":12}],2:[function(require,module,exports){
+},{"./js/elementLocation":2,"./js/findInPage":3,"./js/transformer":6,"./js/utilities":13}],2:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -281,7 +281,7 @@ document.addEventListener("touchend", handleTouchEnded, false);
 
 })();
 
-},{"./refs":5,"./transforms/collapseTables":7,"./utilities":12}],5:[function(require,module,exports){
+},{"./refs":5,"./transforms/collapseTables":8,"./utilities":13}],5:[function(require,module,exports){
 var elementLocation = require("./elementLocation");
 
 function isCitation( href ) {
@@ -452,6 +452,146 @@ Transformer.prototype.transform = function( transform ) {
 module.exports = new Transformer();
 
 },{}],7:[function(require,module,exports){
+
+const transformer = require('../transformer');
+
+class WMFPage {
+    constructor(title, thumbnail, terms, extract) {
+        this.title = title;
+        this.thumbnail = thumbnail;
+        this.terms = terms;
+        this.extract = extract;
+    }
+}
+
+class WMFPageFragment {
+    constructor(wmfPage, index) {
+        var pageContainer = document.createElement('div');
+        pageContainer.id = index;
+        pageContainer.className = 'footer_readmore_page';
+
+        var containerAnchor = document.createElement('a');
+        containerAnchor.href = '/wiki/' + wmfPage.title.replace(/ /g, '_');
+        pageContainer.appendChild(containerAnchor);
+
+        var bottomActions = document.createElement('div');
+        bottomActions.id = index;
+        bottomActions.className = 'footer_readmore_page_actions';
+        pageContainer.appendChild(bottomActions);
+
+        if(wmfPage.title){
+            var title = document.createElement('h3');
+            title.id = index;
+            title.className = 'footer_readmore_page_title';
+            title.innerHTML = wmfPage.title;
+            containerAnchor.appendChild(title);
+        }
+
+        if(wmfPage.thumbnail){
+            var img = document.createElement('img');
+            img.id = index;
+            img.className = 'footer_readmore_page_thumbnail';
+            img.src = wmfPage.thumbnail.source;
+            img.width = 120;
+            containerAnchor.appendChild(img);
+        }
+
+        if(wmfPage.terms){
+            var description = document.createElement('h4');
+            description.id = index;
+            description.className = 'footer_readmore_page_description';
+            description.innerHTML = wmfPage.terms.description;
+            containerAnchor.appendChild(description);
+        }
+
+        if(wmfPage.extract){
+            var extract = document.createElement('div');
+            extract.id = index;
+            extract.className = 'footer_readmore_page_extract';
+            extract.innerHTML = wmfPage.extract;
+            containerAnchor.appendChild(extract);
+        }
+
+        var saveAnchor = document.createElement('a');
+        saveAnchor.id = index;
+        saveAnchor.innerText = 'Save for later';
+        saveAnchor.className = 'footer_readmore_page_action_save';
+        saveAnchor.href = '/wiki/Dog';
+        bottomActions.appendChild(saveAnchor);
+        
+        return document.createDocumentFragment().appendChild(pageContainer);
+    }
+}
+
+const showReadMore = (pages) => {
+  const app_footer_readmore = document.getElementById('app_footer_readmore');
+  pages.forEach((page, index) => {
+    const pageModel = new WMFPage(page.title, page.thumbnail, page.terms, page.extract);
+    const pageFragment = new WMFPageFragment(pageModel, index);
+    app_footer_readmore.appendChild(pageFragment);
+  });
+};
+
+// Leave 'baseURL' null if you don't need to deal with proxying.
+const fetchReadMore = (baseURL, title, showReadMoreHandler) => {
+    var xhr = new XMLHttpRequest();
+    if (baseURL === null) {
+      baseURL = '';
+    }
+    
+    const pageCountToFetch = 3;
+    const params = {
+      action: 'query',
+      continue: '',
+      exchars: 256,
+      exintro: 1,
+      exlimit: pageCountToFetch,
+      explaintext: '',
+      format: 'json',
+      generator: 'search',
+      gsrinfo: '',
+      gsrlimit: pageCountToFetch,
+      gsrnamespace: 0,
+      gsroffset: 0,
+      gsrprop: 'redirecttitle',
+      gsrsearch: `morelike:${title}`,
+      gsrwhat: 'text',
+      ns: 'ppprop',
+      pilimit: pageCountToFetch,
+      piprop: 'thumbnail',
+      pithumbsize: 320,
+      prop: 'pageterms|pageimages|pageprops|revisions|extracts',
+      rrvlimit: 1,
+      rvprop: 'ids',
+      wbptterms: 'description',
+      formatversion: 2
+    };
+
+    const paramsString = Object.keys(params)
+      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`).join('&');
+    
+    xhr.open('GET', `${baseURL}/w/api.php?${paramsString}`, true);
+    xhr.onload = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+            showReadMoreHandler(JSON.parse(xhr.responseText).query.pages);
+        } else {
+          // console.error(xhr.statusText);
+        }
+      }
+    };
+    xhr.onerror = (e) => {
+      console.log(`${e}`);
+      // console.error(xhr.statusText);
+    };
+    xhr.send(null);
+};
+
+transformer.register('addReadMoreFooter', function(baseURL, title) {
+  fetchReadMore(baseURL, title, showReadMore);
+});
+
+},{"../transformer":6}],8:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -623,7 +763,7 @@ exports.openCollapsedTableIfItContainsElement = function(element){
     }
 };
 
-},{"../transformer":6,"../utilities":12}],8:[function(require,module,exports){
+},{"../transformer":6,"../utilities":13}],9:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "disableFilePageEdit", function( content ) {
@@ -649,7 +789,7 @@ transformer.register( "disableFilePageEdit", function( content ) {
     }
 } );
 
-},{"../transformer":6}],9:[function(require,module,exports){
+},{"../transformer":6}],10:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "hideRedlinks", function( content ) {
@@ -660,7 +800,7 @@ transformer.register( "hideRedlinks", function( content ) {
 	}
 } );
 
-},{"../transformer":6}],10:[function(require,module,exports){
+},{"../transformer":6}],11:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "moveFirstGoodParagraphUp", function( content ) {
@@ -741,7 +881,7 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     block_0.insertBefore(fragmentOfItemsToRelocate, edit_section_button_0.nextSibling);
 });
 
-},{"../transformer":6}],11:[function(require,module,exports){
+},{"../transformer":6}],12:[function(require,module,exports){
 
 const transformer = require('../transformer');
 const maybeWidenImage = require('applib').WidenImage.maybeWidenImage;
@@ -758,7 +898,7 @@ transformer.register('widenImages', function(content) {
     .forEach(maybeWidenImage);
 });
 
-},{"../transformer":6,"applib":13}],12:[function(require,module,exports){
+},{"../transformer":6,"applib":14}],13:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -811,7 +951,7 @@ exports.setLanguage = setLanguage;
 exports.findClosest = findClosest;
 exports.isNestedInTable = isNestedInTable;
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 /**
@@ -1010,4 +1150,4 @@ var index = {
 module.exports = index;
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13]);
