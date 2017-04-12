@@ -204,8 +204,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 - (void)showSettings {
     UINavigationController *settingsContainer =
         [[UINavigationController alloc] initWithRootViewController:
-                                            [WMFSettingsViewController settingsViewControllerWithDataStore:self.userStore
-                                                                                             ]];
+                                            [WMFSettingsViewController settingsViewControllerWithDataStore:self.userStore]];
     [self presentViewController:settingsContainer
                        animated:YES
                      completion:nil];
@@ -226,9 +225,9 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
             [group enter];
             [obj loadNewContentInManagedObjectContext:moc
                                                 force:NO
-                          completion:^{
-                              [group leave];
-                          }];
+                                           completion:^{
+                                               [group leave];
+                                           }];
         }
     }];
 
@@ -250,10 +249,11 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([obj isKindOfClass:[WMFNearbyContentSource class]]) {
             [group enter];
-            [obj loadNewContentInManagedObjectContext:moc force:NO
-                          completion:^{
-                              [group leave];
-                          }];
+            [obj loadNewContentInManagedObjectContext:moc
+                                                force:NO
+                                           completion:^{
+                                               [group leave];
+                                           }];
         }
     }];
 
@@ -992,7 +992,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
             [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil)
                                                       style:UIAlertActionStyleDestructive
                                                     handler:^(UIAlertAction *_Nonnull action) {
-                                                        [self.userStore setIsExcludedFromFeed:YES forArticleURL:url];
+                                                        [self.userStore setIsExcludedFromFeed:YES withArticleURL:url];
                                                         [self.userStore.viewContext removeContentGroup:section];
                                                     }]];
             [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
