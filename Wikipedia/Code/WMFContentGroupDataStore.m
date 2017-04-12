@@ -6,41 +6,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) MWKDataStore *dataStore;
 
-#pragma mark - Content Group Access
-
-- (nullable WMFContentGroup *)contentGroupForURL:(NSURL *)url inManagedObjectContext:(NSManagedObjectContext *)moc;
-
-- (void)enumerateContentGroupsInManagedObjectContext:(NSManagedObjectContext *)moc withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block;
-
-- (void)enumerateContentGroupsOfKind:(WMFContentGroupKind)kind inManagedObjectContext:(NSManagedObjectContext *)moc withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block;
-
-- (void)enumerateContentGroupsOfKind:(WMFContentGroupKind)kind sortedByKey:(NSString *)key ascending:(BOOL)ascending inManagedObjectContext:(NSManagedObjectContext *)moc withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block;
-
-- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind inManagedObjectContext:(NSManagedObjectContext *)moc;
-
-- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc;
-
-- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date siteURL:(NSURL *)url inManagedObjectContext:(NSManagedObjectContext *)moc;
-
-- (nullable NSArray<WMFContentGroup *> *)groupsOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc;
-
-
-#pragma mark - Content Management
-
-- (nullable WMFContentGroup *)fetchOrCreateGroupForURL:(NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent inManagedObjectContext:(NSManagedObjectContext *)moc customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock;
-
-- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent inManagedObjectContext:(NSManagedObjectContext *)moc;
-
-- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent inManagedObjectContext:(NSManagedObjectContext *)moc customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock;
-
-- (NSArray<WMFContentGroup *> *)contentGroupsOfKind:(WMFContentGroupKind)kind inManagedObjectContext:(NSManagedObjectContext *)moc;
-
-- (void)removeContentGroup:(WMFContentGroup *)group inManagedObjectContext:(NSManagedObjectContext *)moc;
-
-- (void)removeContentGroupsWithKeys:(NSArray<NSString *> *)keys inManagedObjectContext:(NSManagedObjectContext *)moc;
-
-- (void)removeAllContentGroupsOfKind:(WMFContentGroupKind)kind inManagedObjectContext:(NSManagedObjectContext *)moc;
-
 @end
 
 @implementation WMFContentGroupDataStore
@@ -266,46 +231,10 @@ NS_ASSUME_NONNULL_BEGIN
     [self removeContentGroups:groups inManagedObjectContext:moc];
 }
 
-#pragma mark - External
-
-- (void)performOnFeedImportContext:(nonnull void (^)(NSManagedObjectContext *moc))block {
+- (void)performBlockOnImportContext:(nonnull void (^)(NSManagedObjectContext *moc))block {
     NSManagedObjectContext *moc = self.dataStore.feedImportContext;
     [moc performBlock:^{
         block(moc);
-    }];
-}
-- (void)fetchOrCreateGroupForURL:(NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
-    [self performOnFeedImportContext:^(NSManagedObjectContext * _Nonnull moc) {
-       [self fetchOrCreateGroupForURL:URL ofKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent inManagedObjectContext:moc customizationBlock:customizationBlock];
-    }];
-}
-
-- (void)removeAllContentGroupsOfKind:(WMFContentGroupKind)kind {
-     [self performOnFeedImportContext:^(NSManagedObjectContext * _Nonnull moc) {
-        NSArray *groups = [self contentGroupsOfKind:kind inManagedObjectContext:moc];
-        [self removeContentGroups:groups inManagedObjectContext:moc];
-    }];
-}
-
-- (void)enumerateContentGroupsOfKind:(WMFContentGroupKind)kind sortedByKey:(NSString *)key ascending:(BOOL)ascending   withBlock:(void (^)(WMFContentGroup *_Nonnull group, NSManagedObjectContext *_Nonnull moc, BOOL *stop))block {
-    if (!block) {
-        return;
-    }
-    [self performOnFeedImportContext:^(NSManagedObjectContext * _Nonnull moc) {
-        [self enumerateContentGroupsOfKind:kind sortedByKey:key ascending:ascending inManagedObjectContext:moc withBlock^(WMFContentGroup * _Nonnull group, BOOL * _Nonnull stop) {
-            block(group, moc, stop);
-        }];
-    }];
-}
-
-- (void)enumerateContentGroupsOfKind:(WMFContentGroupKind)kind withBlock:(void (^)(WMFContentGroup *_Nonnull group, NSManagedObjectContext *_Nonnull moc, BOOL *stop))block {
-    if (!block) {
-        return;
-    }
-    [self performOnFeedImportContext:^(NSManagedObjectContext * _Nonnull moc) {
-        [self enumerateContentGroupsOfKind:kind inManagedObjectContext:moc withBlock:^(WMFContentGroup * _Nonnull group, BOOL * _Nonnull stop) {
-            block(group, moc, stop);
-        }];
     }];
 }
 
