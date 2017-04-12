@@ -1,7 +1,4 @@
 #import "WMFMainPageContentSource.h"
-
-#import "WMFContentGroupDataStore.h"
-#import "WMFArticleDataStore.h"
 #import "MWKSiteInfoFetcher.h"
 #import "WMFArticlePreviewFetcher.h"
 #import "MWKSiteInfo.h"
@@ -52,11 +49,11 @@
 
 #pragma mark - WMFContentSource
 
-- (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
+- (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(dispatch_block_t)completion {
     [self fetchAndSaveMainPageForSiteURL:self.siteURL completion:completion];
 }
 
-- (void)removeAllContentGroupsOfKind:(WMFContentGroupKind)kind inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
+- (void)removeAllContentInManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
     [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindMainPage inManagedObjectContext:moc];
 }
 
@@ -80,11 +77,10 @@
 
 #pragma mark - Fetch
 
-- (void)fetchAndSaveMainPageForSiteURL:(NSURL *)siteURL completion:(nullable dispatch_block_t)completion {
-    WMFContentGroupDataStore *cs = self.contentStore;
-    [cs performBlockOnImportContext:^(NSManagedObjectContext * _Nonnull moc) {
+- (void)fetchAndSaveMainPageForSiteURL:(NSURL *)siteURL intoManagedObjectContext:(NSManagedObjectContext *)moc completion:(nullable dispatch_block_t)completion {
+    [moc performBlock:^{
         NSURL *groupURL = [WMFContentGroup mainPageURLForSiteURL:siteURL];
-        WMFContentGroup *section = [cs contentGroupForURL:groupURL inManagedObjectContext:moc];
+        WMFContentGroup *section = [WMFContentGroup contentGroupForURL:groupURL inManagedObjectContext:moc];
         if (section.isForToday && section.content != nil) {
             if (completion) {
                 completion();

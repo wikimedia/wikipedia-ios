@@ -1,6 +1,4 @@
 #import "WMFRandomContentSource.h"
-#import "WMFContentGroupDataStore.h"
-#import "WMFArticleDataStore.h"
 #import "WMFRandomArticleFetcher.h"
 
 NS_ASSUME_NONNULL_BEGIN

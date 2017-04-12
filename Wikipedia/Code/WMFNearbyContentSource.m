@@ -1,6 +1,4 @@
 #import "WMFNearbyContentSource.h"
-#import "WMFContentGroupDataStore.h"
-#import "WMFArticleDataStore.h"
 #import "WMFLocationSearchResults.h"
 #import "MWKLocationSearchResult.h"
 

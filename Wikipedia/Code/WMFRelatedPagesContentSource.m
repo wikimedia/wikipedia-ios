@@ -1,5 +1,4 @@
 #import "WMFRelatedPagesContentSource.h"
-#import "WMFContentGroupDataStore.h"
 #import "MWKDataStore.h"
 #import "WMFArticleDataStore.h"
 #import "MWKSearchResult.h"

@@ -1,7 +1,5 @@
 #import "WMFContinueReadingContentSource.h"
-#import "WMFContentGroupDataStore.h"
 #import "MWKDataStore.h"
-#import "WMFArticleDataStore.h"
 #import "MWKHistoryEntry.h"
 #import "MWKArticle.h"
 #import <WMF/WMF-Swift.h>
@@ -42,7 +40,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 - (void)stopUpdating {
 }
 
-- (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
+- (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
     NSURL *lastRead = [[NSUserDefaults wmf_userDefaults] wmf_openArticleURL];
 
     NSDate *resignActiveDate = [[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate];
@@ -51,48 +49,50 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
                                      fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeDisplayingLastReadArticle;
 
     NSURL *continueReadingURL = [WMFContentGroup continueReadingContentGroupURL];
-    WMFContentGroup *group = (id)[self.contentStore contentGroupForURL:continueReadingURL];
-
-    if (!shouldShowContinueReading) {
-        if (group) {
-            [self.contentStore removeContentGroup:group];
+    [moc performBlock:^{
+        WMFContentGroup * group = [moc contentGroupForURL:continueReadingURL];
+        if (!shouldShowContinueReading) {
+            if (group) {
+                [moc removeContentGroup:group];
+            }
+            if (completion) {
+                completion();
+            }
+            return;
         }
+        
+        NSURL *savedURL = (NSURL *)[group.content firstObject];
+        
+        if ([savedURL isEqual:lastRead]) {
+            if (completion) {
+                completion();
+            }
+            return;
+        }
+        
+        WMFArticle *userData = [moc fetchArticleWithURL:lastRead];
+        
+        if (userData == nil) {
+            if (completion) {
+                completion();
+            }
+            return;
+        }
+        
+        WMF_TECH_DEBT_TODO(Remove this in a later version.A preview will always be available)
+        WMFArticle *article = [moc fetchArticleWithURL:lastRead];
+        if (!article) {
+            MWKArticle *article = [self.userDataStore articleWithURL:lastRead];
+            NSParameterAssert(article);
+            [article updateWith
+        }
+        
+        [self.contentStore fetchOrCreateGroupForURL:continueReadingURL ofKind:WMFContentGroupKindContinueReading forDate:userData.viewedDate withSiteURL:nil associatedContent:@[lastRead] inManagedObjectContext:moc customizationBlock:NULL];
+        
         if (completion) {
             completion();
         }
-        return;
-    }
-
-    NSURL *savedURL = (NSURL *)[group.content firstObject];
-
-    if ([savedURL isEqual:lastRead]) {
-        if (completion) {
-            completion();
-        }
-        return;
-    }
-
-    WMFArticle *userData = [self.userDataStore fetchArticleForURL:lastRead];
-
-    if (userData == nil) {
-        if (completion) {
-            completion();
-        }
-        return;
-    }
-
-    WMF_TECH_DEBT_TODO(Remove this in a later version.A preview will always be available available)
-    if (![self.previewStore itemForURL:lastRead]) {
-        MWKArticle *article = [self.userDataStore articleWithURL:lastRead];
-        NSParameterAssert(article);
-        [self.previewStore addPreviewWithURL:lastRead updatedWithArticle:article];
-    }
-
-    [self.contentStore fetchOrCreateGroupForURL:continueReadingURL ofKind:WMFContentGroupKindContinueReading forDate:userData.viewedDate withSiteURL:nil associatedContent:@[lastRead] customizationBlock:NULL];
-
-    if (completion) {
-        completion();
-    }
+    }]
 }
 
 - (void)removeAllContent {
