@@ -188,7 +188,7 @@
     } else if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10] && [self.activityType isEqualToString:CSQueryContinuationActionType]) {
         return WMFUserActivityTypeSearchResults;
     } else {
-        if (self.webpageURL.wmf_isWikiResource) {
+        if ([self wmf_articleURL].wmf_isWikiResource) {
             return WMFUserActivityTypeArticle;
         } else {
             return WMFUserActivityTypeGenericLink;
