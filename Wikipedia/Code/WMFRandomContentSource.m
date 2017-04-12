@@ -85,57 +85,58 @@ NS_ASSUME_NONNULL_BEGIN
         }
         return;
     }
+    WMFContentGroupDataStore *cs = self.contentStore;
+    [cs performBlockOnImportContext:^(NSManagedObjectContext * _Nonnull moc) {
+        NSURL *contentGroupURL = [WMFContentGroup randomContentGroupURLForSiteURL:siteURL midnightUTCDate:date.wmf_midnightUTCDateFromLocalDate];
+        WMFContentGroup *existingGroup = [cs contentGroupForURL:contentGroupURL inManagedObjectContext:moc];
+        if (existingGroup) {
+            if (completion) {
+                completion();
+            }
+            return;
+        }
+        
+        @weakify(self)
+        [self.fetcher fetchRandomArticleWithSiteURL:self.siteURL
+                                            failure:^(NSError *error) {
+                                                if (completion) {
+                                                    completion();
+                                                }
+                                            }
+                                            success:^(MWKSearchResult *result) {
+                                                @strongify(self);
+                                                if (!self) {
+                                                    if (completion) {
+                                                        completion();
+                                                    }
+                                                    return;
+                                                }
+                                                
+                                                NSURL *articleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
+                                                if (!articleURL) {
+                                                    if (completion) {
+                                                        completion();
+                                                    }
+                                                    return;
+                                                }
+                                                [cs performBlockOnImportContext:^(NSManagedObjectContext * _Nonnull moc) {
+                                                    [cs fetchOrCreateGroupForURL:contentGroupURL ofKind:WMFContentGroupKindRandom forDate:date withSiteURL:siteURL associatedContent:@[articleURL] inManagedObjectContext:moc customizationBlock:NULL];
+                                                    [self.previewStore addPreviewWithURL:articleURL updatedWithSearchResult:result inManagedObjectContext:moc];
+                                                    if (completion) {
+                                                        completion();
+                                                    }
+                                                }];
+
+                                            }];
+    }];
     
-    NSURL *contentGroupURL = [WMFContentGroup randomContentGroupURLForSiteURL:siteURL midnightUTCDate:date.wmf_midnightUTCDateFromLocalDate];
-    WMFContentGroup *existingGroup = [self.contentStore contentGroupForURL:contentGroupURL];
-    if (existingGroup) {
-        if (completion) {
-            completion();
-        }
-        return;
-    }
-
-    @weakify(self)
-    [self.fetcher fetchRandomArticleWithSiteURL:self.siteURL
-        failure:^(NSError *error) {
-            if (completion) {
-                completion();
-            }
-        }
-        success:^(MWKSearchResult *result) {
-            @strongify(self);
-            if (!self) {
-                if (completion) {
-                    completion();
-                }
-                return;
-            }
-
-            NSURL *articleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
-            if (!articleURL) {
-                if (completion) {
-                    completion();
-                }
-                return;
-            }
-            
-            [self.contentStore fetchOrCreateGroupForURL:contentGroupURL ofKind:WMFContentGroupKindRandom forDate:date withSiteURL:siteURL associatedContent:@[articleURL] customizationBlock:^(WMFContentGroup * _Nonnull group) {
-                
-            }];
-            [self.previewStore addPreviewWithURL:articleURL updatedWithSearchResult:result];
-            
-            if (completion) {
-                completion();
-            }
-        }];
 }
 
 - (void)removeAllContent {
-    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindRandom];
-}
-
-- (nullable WMFContentGroup *)randomForDate:(NSDate *)date {
-    return (id)[self.contentStore firstGroupOfKind:WMFContentGroupKindRandom forDate:date];
+    [self.contentStore performBlockOnImportContext:^(NSManagedObjectContext * _Nonnull moc) {
+        [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindRandom inManagedObjectContext:moc];
+    }];
+    
 }
 
 @end
