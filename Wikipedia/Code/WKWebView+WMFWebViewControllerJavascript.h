@@ -4,6 +4,8 @@
 
 @interface WKWebView (WMFWebViewControllerJavascript)
 
+- (void)wmf_addReadMoreFooterForArticle:(MWKArticle *)article;
+
 - (void)wmf_setTextSize:(NSInteger)textSize;
 
 - (void)wmf_collapseTablesForArticle:(MWKArticle *)article;

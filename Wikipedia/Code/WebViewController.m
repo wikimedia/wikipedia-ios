@@ -266,6 +266,8 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
         [self.webView wmf_setLanguage:[MWLanguageInfo languageInfoForCode:self.article.url.wmf_language]];
     } else if ([messageString isEqualToString:@"setPageProtected"] && !self.article.editable) {
         [self.webView wmf_setPageProtected];
+    } else if ([messageString isEqualToString:@"addReadMoreFooter"]) {
+        [self.webView wmf_addReadMoreFooterForArticle:self.article];
     }
 }
 
@@ -503,6 +505,8 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 
     [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('setLanguage');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
 
+    [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('addReadMoreFooter');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
+    
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"lateJavascriptTransform"];
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"peek"];

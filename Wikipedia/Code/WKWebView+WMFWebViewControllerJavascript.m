@@ -3,11 +3,20 @@
 #import "MWKArticle.h"
 #import "MWLanguageInfo.h"
 #import "Wikipedia-Swift.h"
+#import "WMFProxyServer.h"
+#import "NSURL+WMFLinkParsing.h"
 
 // Some dialects have complex characters, so we use 2 instead of 10
 static int const kMinimumTextSelectionLength = 2;
 
 @implementation WKWebView (WMFWebViewControllerJavascript)
+
+- (void)wmf_addReadMoreFooterForArticle:(MWKArticle *)article {
+    NSURL *proxyURL = [[WMFProxyServer sharedProxyServer] proxyURLForWikipediaAPIHost:article.url.host];
+    NSString *readMoreTransform =
+    [NSString stringWithFormat:@"window.wmf.transformer.transform( 'addReadMoreFooter', '%@', '%@');", proxyURL, article.url.wmf_title];
+    [self evaluateJavaScript:readMoreTransform completionHandler:nil];
+}
 
 - (void)wmf_setTextSize:(NSInteger)textSize {
     [self evaluateJavaScript:[NSString stringWithFormat:@"document.querySelector('body').style['-webkit-text-size-adjust'] = '%ld%%';", (long)textSize] completionHandler:NULL];
