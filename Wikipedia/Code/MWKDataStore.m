@@ -1282,11 +1282,12 @@ static uint64_t bundleHash() {
     return [self.viewContext save:error];
 }
 
-- (nullable WMFArticle *)fetchArticleForURL:(NSURL *)URL inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
+
+- (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
     return [self fetchArticleForKey:[URL wmf_articleDatabaseKey] inManagedObjectContext:moc];
 }
 
-- (nullable WMFArticle *)fetchArticleForKey:(NSString *)key inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
+- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
     WMFArticle *article = nil;
     if (moc == self.viewContext) {
         article = [self.articlePreviewCache objectForKey:key];
@@ -1294,25 +1295,21 @@ static uint64_t bundleHash() {
             return article;
         }
     }
-    NSFetchRequest *request = [WMFArticle fetchRequest];
-    request.fetchLimit = 1;
-    request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
-    article = [[moc executeFetchRequest:request error:nil] firstObject];
-    
+    article = [moc fetchArticleWithKey:key];
     if (article && moc == self.viewContext) {
         [self.articlePreviewCache setObject:article forKey:key];
     }
     return article;
 }
 
-- (nullable WMFArticle *)fetchOrCreateArticleForURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc {
+- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSString *language = URL.wmf_language;
     NSString *title = URL.wmf_title;
     NSString *key = [URL wmf_articleDatabaseKey];
     if (!language || !title || !key) {
         return nil;
     }
-    WMFArticle *article = [self fetchArticleForKey:key inManagedObjectContext:moc];
+    WMFArticle *article = [self fetchArticleWithKey:key inManagedObjectContext:moc];
     if (!article) {
         article = [[WMFArticle alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:moc] insertIntoManagedObjectContext:moc];
         article.key = key;
@@ -1323,31 +1320,15 @@ static uint64_t bundleHash() {
     return article;
 }
 
-- (nullable WMFArticle *)fetchOrCreateFeedImportArticleForURL:(NSURL *)URL {
-    NSString *language = URL.wmf_language;
-    NSString *title = URL.wmf_title;
-    NSString *key = [URL wmf_articleDatabaseKey];
-    if (!language || !title || !key) {
-        return nil;
-    }
-    NSManagedObjectContext *moc = self.feedImportContext;
-    WMFArticle *article = [self fetchArticleForKey:key inManagedObjectContext:moc];
-    if (!article) {
-        article = [[WMFArticle alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:moc] insertIntoManagedObjectContext:moc];
-        article.key = key;
-    }
-    return article;
-}
-
 - (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc {
-    WMFArticle *article = [self fetchArticleForURL:articleURL inManagedObjectContext:moc];
+    WMFArticle *article = [self fetchArticleWithURL:articleURL inManagedObjectContext:moc];
     if (!article) {
         return NO;
     }
     return article.isExcludedFromFeed;
 }
 
-- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed forArticleURL:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc {
+- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed withArticleURL:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSParameterAssert(articleURL);
     if ([articleURL wmf_isNonStandardURL]) {
         return;
@@ -1356,7 +1337,7 @@ static uint64_t bundleHash() {
         return;
     }
 
-    WMFArticle *article = [self fetchOrCreateArticleForURL:articleURL inManagedObjectContext:moc];
+    WMFArticle *article = [self fetchOrCreateArticleWithURL:articleURL inManagedObjectContext:moc];
     article.isExcludedFromFeed = isExcludedFromFeed;
     [self save:nil];
 }

@@ -43,7 +43,6 @@
 #import "NSBundle+WMFInfoUtils.h"
 
 #import "MWKDataStore.h"
-#import "WMFContentGroupDataStore.h"
 
 #import "SessionSingleton.h"
 #import "QueuesSingleton.h"

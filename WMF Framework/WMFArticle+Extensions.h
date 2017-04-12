@@ -43,4 +43,26 @@ typedef NS_ENUM(NSUInteger, WMFArticleAction) {
 
 - (void)updateViewedDateWithoutTime; // call after setting viewedDate
 
+- (void)updateWithSearchResult:(nullable MWKSearchResult *)searchResult;
+
+- (void)updateWithMWKArticle:(nullable MWKArticle *)article;
+
+@end
+
+@interface NSManagedObjectContext (WMFArticle)
+
+- (nullable WMFArticle *)fetchArticleWithURL:(nullable NSURL *)articleURL;
+
+- (nullable WMFArticle *)fetchArticleWithKey:(nullable NSString *)key;
+
+- (nullable WMFArticle *)fetchOrCreateArticleWithKey:(nullable NSString *)key;
+
+- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL;
+
+- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithSearchResult:(nullable MWKSearchResult *)searchResult;
+
+- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithArticle:(nullable MWKArticle *)article;
+
+- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithFeedPreview:(nullable WMFFeedArticlePreview *)feedPreview pageViews:(nullable NSDictionary<NSDate *, NSNumber *> *)pageViews;
+
 @end
