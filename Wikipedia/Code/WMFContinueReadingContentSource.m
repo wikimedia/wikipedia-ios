@@ -10,24 +10,17 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 
 @interface WMFContinueReadingContentSource ()
 
-@property (readwrite, nonatomic, strong) WMFContentGroupDataStore *contentStore;
 @property (readwrite, nonatomic, strong) MWKDataStore *userDataStore;
-@property (readwrite, nonatomic, strong) WMFArticleDataStore *previewStore;
 
 @end
 
 @implementation WMFContinueReadingContentSource
 
-- (instancetype)initWithContentGroupDataStore:(WMFContentGroupDataStore *)contentStore userDataStore:(MWKDataStore *)userDataStore articlePreviewDataStore:(WMFArticleDataStore *)previewStore {
-
-    NSParameterAssert(contentStore);
+- (instancetype)initWithUserDataStore:(MWKDataStore *)userDataStore {
     NSParameterAssert(userDataStore);
-    NSParameterAssert(previewStore);
     self = [super init];
     if (self) {
-        self.contentStore = contentStore;
         self.userDataStore = userDataStore;
-        self.previewStore = previewStore;
     }
     return self;
 }

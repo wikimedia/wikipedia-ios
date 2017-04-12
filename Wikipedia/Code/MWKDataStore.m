@@ -42,7 +42,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, strong) NSManagedObjectContext *viewContext;
-@property (nonatomic, strong) NSManagedObjectContext *feedImportContext;
+//@property (nonatomic, strong) NSManagedObjectContext *feedImportContext;
 
 @property (nonatomic, strong) NSString *crossProcessNotificationChannelName;
 @property (nonatomic) int crossProcessNotificationToken;
@@ -454,20 +454,20 @@ static uint64_t bundleHash() {
     });
 }
 
-- (NSManagedObjectContext *)feedImportContext {
-    if (!_feedImportContext) {
-        _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        _feedImportContext.persistentStoreCoordinator = self.persistentStoreCoordinator;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedImportContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
-    }
-    return _feedImportContext;
-}
+//- (NSManagedObjectContext *)feedImportContext {
+//    if (!_feedImportContext) {
+//        _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+//        _feedImportContext.persistentStoreCoordinator = self.persistentStoreCoordinator;
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedImportContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
+//    }
+//    return _feedImportContext;
+//}
 
-- (void)feedImportContextDidSave:(NSNotification *)note {
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [self.viewContext mergeChangesFromContextDidSaveNotification:note];
-    });
-}
+//- (void)feedImportContextDidSave:(NSNotification *)note {
+//    dispatch_sync(dispatch_get_main_queue(), ^{
+//        [self.viewContext mergeChangesFromContextDidSaveNotification:note];
+//    });
+//}
 
 #pragma mark - Migrations
 
@@ -1320,12 +1320,18 @@ static uint64_t bundleHash() {
     return article;
 }
 
-- (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc {
-    WMFArticle *article = [self fetchArticleWithURL:articleURL inManagedObjectContext:moc];
-    if (!article) {
-        return NO;
-    }
-    return article.isExcludedFromFeed;
+- (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL {
+    return [self fetchArticleWithKey:[URL wmf_articleDatabaseKey]];
+}
+
+- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key {
+    WMFAssertMainThread(@"Article fetch must be performed on the main thread.");
+    return [self fetchArticleWithKey:key inManagedObjectContext:self.viewContext];
+}
+
+- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL {
+    WMFAssertMainThread(@"Article fetch must be performed on the main thread.");
+    return [self fetchOrCreateArticleWithURL:URL inManagedObjectContext:self.viewContext];
 }
 
 - (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed withArticleURL:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc {
@@ -1340,6 +1346,22 @@ static uint64_t bundleHash() {
     WMFArticle *article = [self fetchOrCreateArticleWithURL:articleURL inManagedObjectContext:moc];
     article.isExcludedFromFeed = isExcludedFromFeed;
     [self save:nil];
+}
+
+- (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc {
+    WMFArticle *article = [self fetchArticleWithURL:articleURL inManagedObjectContext:moc];
+    if (!article) {
+        return NO;
+    }
+    return article.isExcludedFromFeed;
+}
+
+- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed withArticleURL:(NSURL *)articleURL {
+    [self setIsExcludedFromFeed:isExcludedFromFeed withArticleURL:articleURL inManagedObjectContext:self.viewContext];
+}
+
+- (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL {
+    return [self isArticleWithURLExcludedFromFeed:articleURL inManagedObjectContext:self.viewContext];
 }
 
 @end

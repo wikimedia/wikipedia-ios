@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     [entries enumerateObjectsUsingBlock:^(MWKHistoryEntry *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:obj.url inManagedObjectContext:self.dataStore.viewContext];
+        WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:obj.url];
         article.viewedDate = obj.dateViewed;
         [article updateViewedDateWithoutTime];
         article.wasSignificantlyViewed = obj.titleWasSignificantlyViewed;
@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
 
-    WMFArticle *article = [self.dataStore fetchArticleWithKey:key inManagedObjectContext:self.dataStore.viewContext];
+    WMFArticle *article = [self.dataStore fetchArticleWithKey:key];
     if (article.viewedDate) {
         return article;
     } else {
@@ -127,7 +127,7 @@ NS_ASSUME_NONNULL_BEGIN
         if ([URL.wmf_title length] == 0) {
             continue;
         }
-        WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:URL inManagedObjectContext:self.dataStore.viewContext];
+        WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:URL];
         article.viewedDate = now;
         [article updateViewedDateWithoutTime];
     }
@@ -154,7 +154,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSDate *now = [NSDate date];
 
-    WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:URL inManagedObjectContext:self.dataStore.viewContext];
+    WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:URL];
     article.viewedDate = now;
     [article updateViewedDateWithoutTime];
 
@@ -173,7 +173,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    WMFArticle *article = [self.dataStore fetchArticleWithURL:URL inManagedObjectContext:self.dataStore.viewContext];
+    WMFArticle *article = [self.dataStore fetchArticleWithURL:URL];
     article.viewedFragment = fragment;
     article.viewedScrollPosition = scrollposition;
 
@@ -191,7 +191,7 @@ NS_ASSUME_NONNULL_BEGIN
         if ([URL.wmf_title length] == 0) {
             continue;
         }
-        WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:URL inManagedObjectContext:self.dataStore.viewContext];
+        WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:URL];
         article.newsNotificationDate = date;
     }
 
@@ -210,7 +210,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    WMFArticle *article = [self.dataStore fetchArticleWithURL:URL inManagedObjectContext:self.dataStore.viewContext];
+    WMFArticle *article = [self.dataStore fetchArticleWithURL:URL];
     article.wasSignificantlyViewed = YES;
 
     NSError *error = nil;
@@ -228,7 +228,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    WMFArticle *article = [self.dataStore fetchArticleWithURL:URL inManagedObjectContext:self.dataStore.viewContext];
+    WMFArticle *article = [self.dataStore fetchArticleWithURL:URL];
     article.viewedDate = nil;
     article.wasSignificantlyViewed = NO;
     [article updateViewedDateWithoutTime];

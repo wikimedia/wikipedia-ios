@@ -6,20 +6,17 @@
 @interface WMFAnnouncementsContentSource ()
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
-@property (readwrite, nonatomic, strong) WMFContentGroupDataStore *contentStore;
 @property (readwrite, nonatomic, strong) WMFAnnouncementsFetcher *fetcher;
 
 @end
 
 @implementation WMFAnnouncementsContentSource
 
-- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore {
+- (instancetype)initWithSiteURL:(NSURL *)siteURL {
     NSParameterAssert(siteURL);
-    NSParameterAssert(contentStore);
     self = [super init];
     if (self) {
         self.siteURL = siteURL;
-        self.contentStore = contentStore;
     }
     return self;
 }

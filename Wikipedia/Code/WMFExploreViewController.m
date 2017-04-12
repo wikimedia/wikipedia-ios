@@ -6,9 +6,7 @@
 
 #import "PiwikTracker+WMFExtensions.h"
 
-#import "WMFContentGroupDataStore.h"
 #import "MWKDataStore.h"
-#import "WMFArticleDataStore.h"
 #import "MWKLanguageLinkController.h"
 
 #import "WMFLocationManager.h"
@@ -57,6 +55,7 @@
 
 #import "WMFCVLAttributes.h"
 #import "NSCalendar+WMFCommonCalendars.h"
+@import WMF;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -75,8 +74,6 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 @property (nonatomic, strong, nullable) WMFContentGroup *groupForPreviewedCell;
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
-
-@property (nonatomic, strong) WMFContentGroupDataStore *internalContentStore;
 
 @property (nonatomic, strong, nullable) WMFFeedNotificationHeader *notificationHeader;
 
@@ -165,13 +162,6 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
                                            action:@selector(didTapSettingsButton:)];
 }
 
-- (WMFContentGroupDataStore *)internalContentStore {
-    if (_internalContentStore == nil) {
-        _internalContentStore = [[WMFContentGroupDataStore alloc] initWithDataStore:self.userStore];
-    }
-    return _internalContentStore;
-}
-
 - (MWKSavedPageList *)savedPages {
     NSParameterAssert(self.userStore);
     return self.userStore.savedPageList;
@@ -215,7 +205,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     UINavigationController *settingsContainer =
         [[UINavigationController alloc] initWithRootViewController:
                                             [WMFSettingsViewController settingsViewControllerWithDataStore:self.userStore
-                                                                                              previewStore:self.previewStore]];
+                                                                                             ]];
     [self presentViewController:settingsContainer
                        animated:YES
                      completion:nil];
@@ -228,12 +218,14 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     if (self.relatedUpdatedTaskGroup) {
         return;
     }
+    NSManagedObjectContext *moc = self.userStore.viewContext;
     WMFTaskGroup *group = [WMFTaskGroup new];
     self.relatedUpdatedTaskGroup = group;
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([obj isKindOfClass:[WMFRelatedPagesContentSource class]]) {
             [group enter];
-            [obj loadNewContentForce:NO
+            [obj loadNewContentInManagedObjectContext:moc
+                                                force:NO
                           completion:^{
                               [group leave];
                           }];
@@ -252,12 +244,13 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     if (self.nearbyUpdateTaskGroup || self.feedUpdateTaskGroup) {
         return;
     }
+    NSManagedObjectContext *moc = self.userStore.viewContext;
     WMFTaskGroup *group = [WMFTaskGroup new];
     self.nearbyUpdateTaskGroup = group;
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([obj isKindOfClass:[WMFNearbyContentSource class]]) {
             [group enter];
-            [obj loadNewContentForce:NO
+            [obj loadNewContentInManagedObjectContext:moc force:NO
                           completion:^{
                               [group leave];
                           }];
@@ -294,6 +287,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 #if DEBUG
     NSMutableSet *entered = [NSMutableSet setWithCapacity:self.contentSources.count];
 #endif
+    NSManagedObjectContext *moc = self.userStore.viewContext;
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         [group enter];
 #if DEBUG
@@ -310,9 +304,9 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
         if (date && [obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
             id<WMFDateBasedContentSource> dateBased = (id<WMFDateBasedContentSource>)obj;
-            [dateBased loadContentForDate:date force:NO completion:contentSourceCompletion];
+            [dateBased loadContentForDate:date inManagedObjectContext:moc force:NO completion:contentSourceCompletion];
         } else if (!date) {
-            [obj loadNewContentForce:NO completion:contentSourceCompletion];
+            [obj loadNewContentInManagedObjectContext:moc force:NO completion:contentSourceCompletion];
         } else {
             contentSourceCompletion();
         }
@@ -420,7 +414,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     if (url == nil) {
         return nil;
     }
-    return [self.userStore fetchArticleForURL:url];
+    return [self.userStore fetchArticleWithURL:url];
 }
 
 - (nullable WMFFeedTopReadArticlePreview *)topReadPreviewForIndexPath:(NSIndexPath *)indexPath {
@@ -614,10 +608,8 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    NSParameterAssert(self.contentStore);
     NSParameterAssert(self.userStore);
     NSParameterAssert(self.contentSources);
-    NSParameterAssert(self.internalContentStore);
     [super viewDidAppear:animated];
 
     [[PiwikTracker sharedInstance] wmf_logView:self];
@@ -1001,7 +993,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
                                                       style:UIAlertActionStyleDestructive
                                                     handler:^(UIAlertAction *_Nonnull action) {
                                                         [self.userStore setIsExcludedFromFeed:YES forArticleURL:url];
-                                                        [self.contentStore removeContentGroup:section];
+                                                        [self.userStore.viewContext removeContentGroup:section];
                                                     }]];
             [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
             return sheet;
@@ -1280,7 +1272,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     switch ([group headerActionType]) {
         case WMFFeedHeaderActionTypeOpenHeaderContent: {
             NSURL *url = [group headerContentURL];
-            [self wmf_pushArticleWithURL:url dataStore:self.userStore previewStore:self.previewStore animated:YES];
+            [self wmf_pushArticleWithURL:url dataStore:self.userStore animated:YES];
         } break;
         case WMFFeedHeaderActionTypeOpenFirstItem: {
             [self selectItem:0 inSection:section];
@@ -1306,22 +1298,22 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
     switch (group.moreType) {
         case WMFFeedMoreTypePageList: {
-            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs userDataStore:self.userStore previewStore:self.previewStore];
+            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs userDataStore:self.userStore];
             vc.cellType = WMFMorePageListCellTypeNormal;
             [self.navigationController pushViewController:vc animated:animated];
         } break;
         case WMFFeedMoreTypePageListWithPreview: {
-            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs userDataStore:self.userStore previewStore:self.previewStore];
+            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs userDataStore:self.userStore];
             vc.cellType = WMFMorePageListCellTypePreview;
             [self.navigationController pushViewController:vc animated:animated];
         } break;
         case WMFFeedMoreTypePageListWithLocation: {
-            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs userDataStore:self.userStore previewStore:self.previewStore];
+            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs userDataStore:self.userStore];
             vc.cellType = WMFMorePageListCellTypeLocation;
             [self.navigationController pushViewController:vc animated:animated];
         } break;
         case WMFFeedMoreTypePageWithRandomButton: {
-            WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self currentSiteURL] dataStore:self.userStore previewStore:self.previewStore];
+            WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self currentSiteURL] dataStore:self.userStore];
             [self.navigationController pushViewController:vc animated:animated];
         } break;
 
@@ -1344,12 +1336,12 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
-            WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore previewStore:self.previewStore];
+            WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore];
             return vc;
         } break;
         case WMFFeedDetailTypePageWithRandomButton: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
-            WMFRandomArticleViewController *vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore previewStore:self.previewStore];
+            WMFRandomArticleViewController *vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore];
             return vc;
         } break;
         case WMFFeedDetailTypeGallery: {
@@ -1519,7 +1511,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 #pragma mark - In The News
 
 - (InTheNewsViewController *)inTheNewsViewControllerForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date {
-    InTheNewsViewController *vc = [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore previewStore:self.previewStore];
+    InTheNewsViewController *vc = [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore];
     NSString *format = MWLocalizedString(@"in-the-news-title-for-date", nil);
     if (format && date) {
         NSString *dateString = [[NSDateFormatter wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date];

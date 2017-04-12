@@ -3,8 +3,6 @@
 #import "WMFContentSource.h"
 
 @class MWKDataStore;
-@class WMFContentGroupDataStore;
-@class WMFArticleDataStore;
 
 extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
@@ -15,8 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray<id<WMFContentSource>> *contentSources;
 
 @property (nonatomic, strong) MWKDataStore *userStore;
-@property (nonatomic, strong) WMFContentGroupDataStore *contentStore;
-@property (nonatomic, strong) WMFArticleDataStore *previewStore;
 
 @property (nonatomic, assign) BOOL canScrollToTop;
 

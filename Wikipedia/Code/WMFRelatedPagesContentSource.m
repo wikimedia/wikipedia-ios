@@ -27,29 +27,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFRelatedPagesContentSource ()
 
-@property (readwrite, nonatomic, strong) WMFContentGroupDataStore *contentStore;
-@property (readwrite, nonatomic, strong) MWKDataStore *userDataStore;
-@property (readwrite, nonatomic, strong) WMFArticleDataStore *previewStore;
-
 @property (nonatomic, strong) WMFRelatedSearchFetcher *relatedSearchFetcher;
 
 @end
 
 @implementation WMFRelatedPagesContentSource
-
-- (instancetype)initWithContentGroupDataStore:(WMFContentGroupDataStore *)contentStore userDataStore:(MWKDataStore *)userDataStore articlePreviewDataStore:(WMFArticleDataStore *)previewStore {
-
-    NSParameterAssert(contentStore);
-    NSParameterAssert(userDataStore);
-    NSParameterAssert(previewStore);
-    self = [super init];
-    if (self) {
-        self.contentStore = contentStore;
-        self.userDataStore = userDataStore;
-        self.previewStore = previewStore;
-    }
-    return self;
-}
 
 #pragma mark - Accessors
 
@@ -109,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
         fetchRequest.propertiesToFetch = @[@"key"];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(WMFContentGroupKindRelatedPages)];
         NSError *fetchError = nil;
-        NSArray<WMFContentGroup *> *relatedPagesContentGroups = [self.userDataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
+        NSArray<WMFContentGroup *> *relatedPagesContentGroups = [moc executeFetchRequest:fetchRequest error:&fetchError];
         if (fetchError || !relatedPagesContentGroups.count) {
             DDLogError(@"Error fetching content groups: %@", fetchError);
         }
@@ -137,7 +119,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSFetchRequest *referencedArticlesRequest = [WMFArticle fetchRequest];
         referencedArticlesRequest.predicate = [NSPredicate predicateWithFormat:@"key IN %@", articleKeys];
         NSError *referencedArticlesRequestError = nil;
-        NSArray *referencedArticles = [self.userDataStore.viewContext executeFetchRequest:referencedArticlesRequest error:&referencedArticlesRequestError];
+        NSArray *referencedArticles = [moc executeFetchRequest:referencedArticlesRequest error:&referencedArticlesRequestError];
         if (referencedArticlesRequestError) {
             DDLogError(@"Error fetching related pages referenced articles: %@", referencedArticlesRequestError);
         }
@@ -169,7 +151,7 @@ NS_ASSUME_NONNULL_BEGIN
         relatedSeedRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"viewedDate" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:NO]];
         relatedSeedRequest.fetchLimit = 1;
         NSError *relatedSeedFetchError = nil;
-        NSArray *relatedSeedResults = [self.userDataStore.viewContext executeFetchRequest:relatedSeedRequest error:&relatedSeedFetchError];
+        NSArray *relatedSeedResults = [moc executeFetchRequest:relatedSeedRequest error:&relatedSeedFetchError];
         if (relatedSeedFetchError) {
             DDLogError(@"Error fetching article for related page: %@", relatedSeedFetchError);
         }

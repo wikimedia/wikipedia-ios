@@ -9,8 +9,6 @@
 @interface WMFNotificationTests : XCTestCase
 
 @property (nonnull, nonatomic, strong) WMFFeedContentSource *feedContentSource;
-@property (nonnull, nonatomic, strong) WMFArticleDataStore *previewStore;
-@property (nonnull, nonatomic, strong) WMFContentGroupDataStore *contentStore;
 
 @property (nonnull, nonatomic, strong) NSCalendar *calendar;
 @property (nonnull, nonatomic, strong) NSDate *date;
@@ -28,9 +26,7 @@
 
     MWKDataStore *dataStore = [MWKDataStore temporaryDataStore];
     NSURL *siteURL = [NSURL URLWithString:@"https://en.wikipedia.org"];
-    self.previewStore = [[WMFArticleDataStore alloc] initWithDataStore:dataStore];
-    self.contentStore = [[WMFContentGroupDataStore alloc] initWithDataStore:dataStore];
-    self.feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL contentGroupDataStore:self.contentStore articlePreviewDataStore:self.previewStore userDataStore:dataStore notificationsController:[WMFNotificationsController sharedNotificationsController]];
+    self.feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL userDataStore:dataStore notificationsController:[WMFNotificationsController sharedNotificationsController]];
     self.feedContentSource.notificationSchedulingEnabled = YES;
 
     self.calendar = [NSCalendar wmf_gregorianCalendar];

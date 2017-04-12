@@ -6,7 +6,6 @@
 //Tried not to do it, but we need it for the useageReports BOOL
 //Plan to refactor settings into an another object, then we can remove this.
 #import "SessionSingleton.h"
-#import "WMFArticleDataStore.h"
 
 //AFNetworking
 #import "MWNetworkActivityIndicatorManager.h"
@@ -39,7 +38,6 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 @property (nonatomic, strong) dispatch_queue_t operationsQueue;
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
-@property (nonatomic, strong, readwrite) WMFArticleDataStore *previewStore;
 @property (nonatomic, strong) WMFArticleRevisionFetcher *revisionFetcher;
 
 @property (nonatomic, strong) AFHTTPSessionManager *pageSummarySessionManager;
@@ -48,14 +46,12 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 @implementation WMFArticleFetcher
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticleDataStore *)previewStore {
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
     NSParameterAssert(dataStore);
-    NSParameterAssert(previewStore);
     self = [super init];
     if (self) {
 
         self.dataStore = dataStore;
-        self.previewStore = previewStore;
 
         self.operationsKeyedByTitle = [NSMapTable strongToWeakObjectsMapTable];
         NSString *queueID = [NSString stringWithFormat:@"org.wikipedia.articlefetcher.accessQueue.%@", [[NSUUID UUID] UUIDString]];
@@ -160,7 +156,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                               MWKArticle *article = [self serializedArticleWithURL:articleURL response:articleResponse];
                                               [self.dataStore asynchronouslyCacheArticle:article];
                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                  [self.previewStore addPreviewWithURL:articleURL updatedWithArticle:article];
+                                                  [self.dataStore.viewContext fetchOrCreateArticleWithURL:articleURL updatedWithMWKArticle:article];
                                                   success(article);
                                               });
                                           } else {

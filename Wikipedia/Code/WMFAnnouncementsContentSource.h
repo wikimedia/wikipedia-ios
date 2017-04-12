@@ -4,8 +4,6 @@
 
 @property (readonly, nonatomic, strong) NSURL *siteURL;
 
-@property (readonly, nonatomic, strong) WMFContentGroupDataStore *contentStore;
-
-- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore;
+- (instancetype)initWithSiteURL:(NSURL *)siteURL;
 
 @end

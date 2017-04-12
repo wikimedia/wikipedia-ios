@@ -131,7 +131,7 @@
     return article;
 }
 
-- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithArticle:(nullable MWKArticle *)article {
+- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithMWKArticle:(nullable MWKArticle *)article {
     NSParameterAssert(articleURL);
     if (!articleURL) {
         return nil;

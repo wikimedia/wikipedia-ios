@@ -5,7 +5,6 @@
 #import "MWKImageInfoFetcher.h"
 
 #import "MWKDataStore.h"
-#import "WMFArticleDataStore.h"
 #import "MWKSavedPageList.h"
 #import "MWKArticle.h"
 #import "MWKImage+CanonicalFilenames.h"
@@ -35,7 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableDictionary<NSURL *, NSError *> *errorsByArticleTitle;
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
-                     previewStore:(WMFArticleDataStore *)previewStore
                     savedPageList:(MWKSavedPageList *)savedPageList
                    articleFetcher:(WMFArticleFetcher *)articleFetcher
                   imageController:(WMFImageController *)imageController
@@ -55,13 +53,11 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
-                     previewStore:(WMFArticleDataStore *)previewStore
                     savedPageList:(MWKSavedPageList *)savedPageList
                    articleFetcher:(WMFArticleFetcher *)articleFetcher
                   imageController:(WMFImageController *)imageController
                  imageInfoFetcher:(MWKImageInfoFetcher *)imageInfoFetcher {
     NSParameterAssert(dataStore);
-    NSParameterAssert(previewStore);
     NSParameterAssert(savedPageList);
     NSParameterAssert(articleFetcher);
     NSParameterAssert(imageController);
@@ -82,12 +78,10 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
-                     previewStore:(WMFArticleDataStore *)previewStore
                     savedPageList:(MWKSavedPageList *)savedPageList {
     return [self initWithDataStore:dataStore
-                      previewStore:previewStore
                      savedPageList:savedPageList
-                    articleFetcher:[[WMFArticleFetcher alloc] initWithDataStore:dataStore previewStore:previewStore]
+                    articleFetcher:[[WMFArticleFetcher alloc] initWithDataStore:dataStore]
                    imageController:[WMFImageController sharedInstance]
                   imageInfoFetcher:[[MWKImageInfoFetcher alloc] init]];
 }
@@ -424,7 +418,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 - (void)removeCachedImagesForArticleURL:(NSURL *)URL completion:(dispatch_block_t)completion {
     [self.imageController removePermanentlyCachedImagesWithGroupKey:URL.wmf_articleDatabaseKey completion:^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            WMFArticle *article = [self.dataStore fetchArticleForURL:URL];
+            WMFArticle *article = [self.dataStore fetchArticleWithURL:URL];
             article.isDownloaded = NO;
             NSError *saveError = nil;
             [self.dataStore save:&saveError];
@@ -469,7 +463,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
     dispatch_async(dispatch_get_main_queue(), ^{
         if (!error) {
-            WMFArticle *article = [self.dataStore fetchArticleForURL:url];
+            WMFArticle *article = [self.dataStore fetchArticleWithURL:url];
             article.isDownloaded = YES;
             NSError *saveError = nil;
             [self.dataStore save:&saveError];

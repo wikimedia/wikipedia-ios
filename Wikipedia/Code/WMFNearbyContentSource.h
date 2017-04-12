@@ -1,8 +1,5 @@
 #import "WMFContentSource.h"
 
-@class WMFContentGroupDataStore;
-@class WMFArticleDataStore;
-
 @interface WMFNearbyContentSource : NSObject <WMFContentSource, WMFAutoUpdatingContentSource>
 
 @property (readonly, nonatomic, strong) NSURL *siteURL;

@@ -12,8 +12,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     var feedContentFetcher = WMFFeedContentFetcher()
     
     var userStore: MWKDataStore!
-    var contentStore: WMFContentGroupDataStore!
-    var previewStore: WMFArticleDataStore!
     var contentSource: WMFFeedContentSource!
 
     
@@ -74,9 +72,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
 
         siteURL = appLanguage.siteURL()
         userStore = SessionSingleton.sharedInstance().dataStore
-        contentStore = WMFContentGroupDataStore(dataStore: userStore)
-        previewStore = WMFArticleDataStore(dataStore: userStore)
-        contentSource = WMFFeedContentSource(siteURL: siteURL, contentGroupDataStore: contentStore, articlePreviewDataStore: previewStore, userDataStore: userStore, notificationsController: nil)
+        contentSource = WMFFeedContentSource(siteURL: siteURL, userDataStore: userStore, notificationsController: nil)
         
         if #available(iOSApplicationExtension 10.0, *) {
             headerLabel.textColor = .wmf_darkGray
@@ -197,7 +193,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         var dataValueMin = CGFloat.greatestFiniteMagnitude
         var dataValueMax = CGFloat.leastNormalMagnitude
         for result in results[0...(maximumRowCount - 1)] {
-            let articlePreview = self.previewStore.item(for: result.articleURL)
+            let articlePreview = self.userStore.viewContext.fetchArticle(with: result.articleURL)
             guard let dataValues = articlePreview?.pageViews else {
                 continue
             }
@@ -241,7 +237,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             let rankString = NumberFormatter.localizedThousandsStringFromNumber(NSNumber(value: i + 1))
             vc.rankLabel.text = rankString
             vc.rankLabel.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("rank-accessibility-label").replacingOccurrences(of: "$1", with: rankString)
-            if let articlePreview = self.previewStore.item(for: result.articleURL) {
+            if let articlePreview = self.userStore.fetchArticle(with: result.articleURL) {
                 if var viewCounts = articlePreview.pageViewsSortedByDate, viewCounts.count >= daysToShowInSparkline {
                     vc.sparklineView.minDataValue = dataValueMin
                     vc.sparklineView.maxDataValue = dataValueMax
@@ -351,7 +347,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     func updateUIWithTopReadFromContentStoreForSiteURL(siteURL: URL, date: Date) -> Bool {
-        if let topRead = self.contentStore.firstGroup(of: .topRead, for: date, siteURL: siteURL) {
+        if let topRead = self.userStore.viewContext.firstGroup(of: .topRead, for: date, siteURL: siteURL) {
             if let content = topRead.content as? [WMFFeedTopReadArticlePreview] {
                 self.group = topRead
                 self.results = content
@@ -374,7 +370,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             completionHandler(.noData)
             return
         }
-        contentSource.loadContent(for: date, force: false) {
+        contentSource.loadContent(for: date, in: userStore.viewContext, force: false) {
             DispatchQueue.main.async(execute: {
                 guard self.updateUIWithTopReadFromContentStoreForSiteURL(siteURL: siteURL, date: date) else {
                     if (attempt == 1) {
