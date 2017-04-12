@@ -60,12 +60,12 @@ extern NSString *const WMFArticleUpdatedNotification;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *feedImportContext;
 
-- (nullable WMFArticle *)fetchArticleForURL:(NSURL *)URL;
-- (nullable WMFArticle *)fetchArticleForKey:(NSString *)key;
-- (nullable WMFArticle *)fetchOrCreateArticleForURL:(NSURL *)URL;
+- (nullable WMFArticle *)fetchArticleForURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc;
+- (nullable WMFArticle *)fetchArticleForKey:(NSString *)key inManagedObjectContext:(NSManagedObjectContext *)moc;
+- (nullable WMFArticle *)fetchOrCreateArticleForURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc;
 
-- (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL;
-- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed forArticleURL:(NSURL *)articleURL;
+- (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc;
+- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed forArticleURL:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc;
 
 - (BOOL)save:(NSError **)error;
 

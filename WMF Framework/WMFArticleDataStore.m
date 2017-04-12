@@ -25,35 +25,35 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (nullable WMFArticle *)itemForURL:(NSURL *)url {
-    return [self.dataStore fetchArticleForURL:url];
+- (nullable WMFArticle *)itemForURL:(NSURL *)url inManagedObjectContext:(NSManagedObjectContext *)moc {
+    return [self.dataStore fetchArticleForURL:url inManagedObjectContext:moc];
 }
 
-- (WMFArticle *)newOrExistingPreviewWithURL:(NSURL *)url {
+- (WMFArticle *)newOrExistingPreviewWithURL:(NSURL *)url inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSParameterAssert(url.wmf_title);
-    return [self.dataStore fetchOrCreateArticleForURL:url];
+    return [self.dataStore fetchOrCreateArticleForURL:url inManagedObjectContext:moc];
 }
 
-- (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithSearchResult:(MWKSearchResult *)searchResult {
+- (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithSearchResult:(MWKSearchResult *)searchResult inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
 
     NSParameterAssert(url);
 
-    WMFArticle *preview = [self newOrExistingPreviewWithURL:url];
-    [self updatePreview:preview withSearchResult:searchResult];
+    WMFArticle *preview = [self newOrExistingPreviewWithURL:url inManagedObjectContext:moc];
+    [self updatePreview:preview withSearchResult:searchResult inManagedObjectContext:moc];
     return preview;
 }
 
-- (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithLocationSearchResult:(MWKLocationSearchResult *)searchResult {
+- (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithLocationSearchResult:(MWKLocationSearchResult *)searchResult inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
 
     NSParameterAssert(url);
 
-    WMFArticle *preview = [self newOrExistingPreviewWithURL:url];
-    [self updatePreview:preview withLocationSearchResult:searchResult];
+    WMFArticle *preview = [self newOrExistingPreviewWithURL:url inManagedObjectContext:moc];
+    [self updatePreview:preview withLocationSearchResult:searchResult inManagedObjectContext:moc];
 
     return preview;
 }
 
-- (void)updatePreview:(WMFArticle *)preview withSearchResult:(MWKSearchResult *)searchResult {
+- (void)updatePreview:(WMFArticle *)preview withSearchResult:(MWKSearchResult *)searchResult inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
 
     if ([searchResult.displayTitle length] > 0) {
         preview.displayTitle = searchResult.displayTitle;
@@ -78,21 +78,21 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)updatePreview:(WMFArticle *)preview withLocationSearchResult:(MWKLocationSearchResult *)searchResult {
-    [self updatePreview:preview withSearchResult:searchResult];
+- (void)updatePreview:(WMFArticle *)preview withLocationSearchResult:(MWKLocationSearchResult *)searchResult inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
+    [self updatePreview:preview withSearchResult:searchResult inManagedObjectContext:moc];
     if (searchResult.location != nil) {
         preview.location = searchResult.location;
     }
 }
 
-- (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithArticle:(MWKArticle *)article {
+- (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithArticle:(MWKArticle *)article inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
 
     NSParameterAssert(url);
     if (!url) {
         return nil;
     }
 
-    WMFArticle *preview = [self newOrExistingPreviewWithURL:url];
+    WMFArticle *preview = [self newOrExistingPreviewWithURL:url inManagedObjectContext:moc];
     if ([article.displaytitle length] > 0) {
         preview.displayTitle = article.displaytitle;
     }
@@ -119,13 +119,13 @@ NS_ASSUME_NONNULL_BEGIN
     return preview;
 }
 
-- (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithFeedPreview:(WMFFeedArticlePreview *)feedPreview pageViews:(nullable NSDictionary<NSDate *, NSNumber *> *)pageViews {
+- (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithFeedPreview:(WMFFeedArticlePreview *)feedPreview pageViews:(nullable NSDictionary<NSDate *, NSNumber *> *)pageViews inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
     NSParameterAssert(url);
     if (!url) {
         return nil;
     }
 
-    WMFArticle *preview = [self newOrExistingPreviewWithURL:url];
+    WMFArticle *preview = [self newOrExistingPreviewWithURL:url inManagedObjectContext:moc];
     if ([feedPreview.displayTitle length] > 0) {
         preview.displayTitle = feedPreview.displayTitle;
     }

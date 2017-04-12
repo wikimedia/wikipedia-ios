@@ -6,17 +6,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
 
-- (nullable WMFArticle *)itemForURL:(NSURL *)url;
+- (nullable WMFArticle *)itemForURL:(NSURL *)url inManagedObjectContext:(NSManagedObjectContext *)moc;
 
-- (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithSearchResult:(MWKSearchResult *)searchResult;
+- (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithSearchResult:(MWKSearchResult *)searchResult inManagedObjectContext:(NSManagedObjectContext *)moc;
 
-- (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithLocationSearchResult:(MWKLocationSearchResult *)searchResult;
+- (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithLocationSearchResult:(MWKLocationSearchResult *)searchResult inManagedObjectContext:(NSManagedObjectContext *)moc;
 
-- (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithArticle:(MWKArticle *)article;
+- (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithArticle:(MWKArticle *)article inManagedObjectContext:(NSManagedObjectContext *)moc;
 
-- (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithFeedPreview:(WMFFeedArticlePreview *)feedPreview pageViews:(nullable NSDictionary<NSDate *, NSNumber *> *)pageViews;
+- (nullable WMFArticle *)addPreviewWithURL:(NSURL *)url updatedWithFeedPreview:(WMFFeedArticlePreview *)feedPreview pageViews:(nullable NSDictionary<NSDate *, NSNumber *> *)pageViews inManagedObjectContext:(NSManagedObjectContext *)moc;
 
-- (void)updatePreview:(WMFArticle *)preview withSearchResult:(MWKSearchResult *)searchResult;
+- (void)updatePreview:(WMFArticle *)preview withSearchResult:(MWKSearchResult *)searchResult inManagedObjectContext:(NSManagedObjectContext *)moc;
 
 @end
 
