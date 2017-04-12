@@ -8,6 +8,8 @@
 
 @interface WMFNotificationTests : XCTestCase
 
+@property (nonnull, nonatomic, strong) MWKDataStore *dataStore;
+
 @property (nonnull, nonatomic, strong) WMFFeedContentSource *feedContentSource;
 
 @property (nonnull, nonatomic, strong) NSCalendar *calendar;
@@ -24,15 +26,14 @@
 
     [[NSUserDefaults wmf_userDefaults] wmf_resetToDefaultValues];
 
-    MWKDataStore *dataStore = [MWKDataStore temporaryDataStore];
+    self.dataStore = [MWKDataStore temporaryDataStore];
     NSURL *siteURL = [NSURL URLWithString:@"https://en.wikipedia.org"];
-    self.feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL userDataStore:dataStore notificationsController:[WMFNotificationsController sharedNotificationsController]];
+    self.feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL userDataStore:self.dataStore notificationsController:[WMFNotificationsController sharedNotificationsController]];
     self.feedContentSource.notificationSchedulingEnabled = YES;
 
     self.calendar = [NSCalendar wmf_gregorianCalendar];
     self.date = [NSDate date];
-    
-    
+
     NSDateComponents *dateComponents = [self.calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:self.date];
     self.scheduledForTomorrow = dateComponents.hour > WMFFeedNotificationMaxHour;
 
@@ -68,6 +69,7 @@
 
     NSInteger count = self.isScheduledForTomorrow ? 1 : WMFFeedNotificationMaxPerDay;
     [self.feedContentSource loadContentForDate:self.date
+                        inManagedObjectContext:self.dataStore.viewContext
                                          force:YES
                                     completion:^{
                                         XCTAssertEqual([defaults wmf_inTheNewsMostRecentDateNotificationCount], count);
@@ -92,6 +94,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for content to load"];
     NSInteger count = self.isScheduledForTomorrow ? 1 : 2;
     [self.feedContentSource loadContentForDate:self.date
+                        inManagedObjectContext:self.dataStore.viewContext
                                          force:YES
                                     completion:^{
                                         XCTAssertEqual([defaults wmf_inTheNewsMostRecentDateNotificationCount], count);
@@ -108,6 +111,7 @@
     expectation = [self expectationWithDescription:@"Wait for content to load"];
 
     [self.feedContentSource loadContentForDate:self.date
+                        inManagedObjectContext:self.dataStore.viewContext
                                          force:YES
                                     completion:^{
                                         XCTAssertEqual([defaults wmf_inTheNewsMostRecentDateNotificationCount], count);
@@ -135,6 +139,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for content to load"];
 
     [self.feedContentSource loadContentForDate:self.date
+                        inManagedObjectContext:self.dataStore.viewContext
                                          force:YES
                                     completion:^{
                                         XCTAssertEqual([defaults wmf_inTheNewsMostRecentDateNotificationCount], count);
@@ -158,6 +163,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for content to load"];
     NSInteger count = self.isScheduledForTomorrow ? 1 : WMFFeedNotificationMaxPerDay;
     [self.feedContentSource loadContentForDate:self.date
+                        inManagedObjectContext:self.dataStore.viewContext
                                          force:YES
                                     completion:^{
                                         XCTAssertEqual([defaults wmf_inTheNewsMostRecentDateNotificationCount], count);
