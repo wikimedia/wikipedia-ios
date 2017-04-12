@@ -6,9 +6,6 @@
 
 @interface WMFMainPageContentSource ()
 
-@property (readwrite, nonatomic, strong) WMFContentGroupDataStore *contentStore;
-@property (readwrite, nonatomic, strong) WMFArticleDataStore *previewStore;
-
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
 
 @property (nonatomic, strong) MWKSiteInfoFetcher *siteInfoFetcher;
@@ -18,15 +15,11 @@
 
 @implementation WMFMainPageContentSource
 
-- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticleDataStore *)previewStore {
-    NSParameterAssert(contentStore);
-    NSParameterAssert(previewStore);
+- (instancetype)initWithSiteURL:(NSURL *)siteURL  {
     NSParameterAssert(siteURL);
     self = [super init];
     if (self) {
         self.siteURL = siteURL;
-        self.contentStore = contentStore;
-        self.previewStore = previewStore;
     }
     return self;
 }
@@ -50,11 +43,11 @@
 #pragma mark - WMFContentSource
 
 - (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(dispatch_block_t)completion {
-    [self fetchAndSaveMainPageForSiteURL:self.siteURL completion:completion];
+    [self fetchAndSaveMainPageForSiteURL:self.siteURL intoManagedObjectContext:moc completion:completion];
 }
 
 - (void)removeAllContentInManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
-    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindMainPage inManagedObjectContext:moc];
+    [moc removeAllContentGroupsOfKind:WMFContentGroupKindMainPage];
 }
 
 #pragma mark - Add / Remove Sections
@@ -62,12 +55,11 @@
 - (void)cleanupOldSectionsInManagedObjectContext:(NSManagedObjectContext *)moc {
     __block BOOL foundTodaysSection = NO;
     
-    [self.contentStore enumerateContentGroupsOfKind:WMFContentGroupKindMainPage
-                             inManagedObjectContext:moc
+    [moc enumerateContentGroupsOfKind:WMFContentGroupKindMainPage
                                           withBlock:^(WMFContentGroup *_Nonnull section, BOOL *_Nonnull stop) {
                                               BOOL isForToday = section.isForToday;
                                               if (!isForToday || foundTodaysSection) {
-                                                  [self.contentStore removeContentGroup:section inManagedObjectContext:moc];
+                                                  [moc removeContentGroup:section];
                                               }
                                               if (!foundTodaysSection) {
                                                   foundTodaysSection = isForToday;
@@ -80,7 +72,7 @@
 - (void)fetchAndSaveMainPageForSiteURL:(NSURL *)siteURL intoManagedObjectContext:(NSManagedObjectContext *)moc completion:(nullable dispatch_block_t)completion {
     [moc performBlock:^{
         NSURL *groupURL = [WMFContentGroup mainPageURLForSiteURL:siteURL];
-        WMFContentGroup *section = [WMFContentGroup contentGroupForURL:groupURL inManagedObjectContext:moc];
+        WMFContentGroup *section = [moc contentGroupForURL:groupURL];
         if (section.isForToday && section.content != nil) {
             if (completion) {
                 completion();
@@ -105,9 +97,9 @@
                                                                                                           }
                                                                                                           return;
                                                                                                       }
-                                                                                                      [cs performBlockOnImportContext:^(NSManagedObjectContext * _Nonnull moc) {
-                                                                                                          WMFContentGroup *section = [self.contentStore fetchOrCreateGroupForURL:groupURL ofKind:WMFContentGroupKindMainPage forDate:[NSDate date] withSiteURL:siteURL associatedContent:nil inManagedObjectContext:moc customizationBlock:NULL];
-                                                                                                          [self.previewStore addPreviewWithURL:data.mainPageURL updatedWithSearchResult:[results firstObject] inManagedObjectContext:moc];
+                                                                                                      [moc performBlock:^{
+                                                                                                          WMFContentGroup *section = [moc fetchOrCreateGroupForURL:groupURL ofKind:WMFContentGroupKindMainPage forDate:[NSDate date] withSiteURL:siteURL associatedContent:nil customizationBlock:NULL];
+                                                                                                          [moc fetchOrCreateArticleWithURL:data.mainPageURL updatedWithSearchResult:[results firstObject]];
                                                                                                           section.content = @[data.mainPageURL];
                                                                                                           [self cleanupOldSectionsInManagedObjectContext:moc];
                                                                                                           
@@ -115,6 +107,7 @@
                                                                                                               completion();
                                                                                                           }
                                                                                                       }];
+                                                                                                      
                                                                                                   }
                                                                                                      failure:^(NSError *_Nonnull error) {
                                                                                                          //TODO??

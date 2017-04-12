@@ -1284,7 +1284,7 @@ static uint64_t bundleHash() {
 
 
 - (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
-    return [self fetchArticleForKey:[URL wmf_articleDatabaseKey] inManagedObjectContext:moc];
+    return [self fetchArticleWithKey:[URL wmf_articleDatabaseKey] inManagedObjectContext:moc];
 }
 
 - (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {

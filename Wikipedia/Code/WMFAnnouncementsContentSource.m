@@ -45,6 +45,7 @@
         }
         success:^(NSArray<WMFAnnouncement *> *announcements) {
             [self saveAnnouncements:announcements
+             inManagedObjectContext:moc
                          completion:^{
                              [self updateVisibilityOfAnnouncementsInManagedObjectContext:moc];
                              if (completion) {
@@ -58,19 +59,17 @@
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindAnnouncement];
 }
 
-- (void)saveAnnouncements:(NSArray<WMFAnnouncement *> *)announcements completion:(nullable dispatch_block_t)completion {
+- (void)saveAnnouncements:(NSArray<WMFAnnouncement *> *)announcements inManagedObjectContext:(NSManagedObjectContext *)moc completion:(nullable dispatch_block_t)completion {
 
     [announcements enumerateObjectsUsingBlock:^(WMFAnnouncement *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
 
         NSURL *URL = [WMFContentGroup announcementURLForSiteURL:self.siteURL identifier:obj.identifier];
-        WMFContentGroup *group = [WMFContentGroup fetchOrCreateGroupForURL:URL
-                                                                    ofKind:WMFContentGroupKindAnnouncement
-                                                                   forDate:[NSDate date]
-                                                               withSiteURL:self.siteURL
-                                                         associatedContent:@[obj]
-                                                        customizationBlock:^(WMFContentGroup *_Nonnull group){
-
-                                                        }];
+        WMFContentGroup *group = [moc fetchOrCreateGroupForURL:URL
+                                                        ofKind:WMFContentGroupKindAnnouncement
+                                                       forDate:[NSDate date]
+                                                   withSiteURL:self.siteURL
+                                             associatedContent:@[obj]
+                                            customizationBlock:NULL];
         //Make these visible immediately for previous users
         if ([[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate] != nil) {
             [group updateVisibility];
@@ -89,11 +88,10 @@
         return;
     }
 
-    [WMFContentGroup enumerateContentGroupsOfKind:WMFContentGroupKindAnnouncement
-                           inManagedObjectContext:moc
-                                        withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
-                                            [group updateVisibility];
-                                        }];
+    [moc enumerateContentGroupsOfKind:WMFContentGroupKindAnnouncement
+                            withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
+                                [group updateVisibility];
+                            }];
 }
 
 @end

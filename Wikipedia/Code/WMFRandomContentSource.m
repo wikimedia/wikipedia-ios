@@ -6,25 +6,17 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFRandomContentSource ()
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
-
-@property (readwrite, nonatomic, strong) WMFContentGroupDataStore *contentStore;
-@property (readwrite, nonatomic, strong) WMFArticleDataStore *previewStore;
-
 @property (nonatomic, strong) WMFRandomArticleFetcher *fetcher;
 
 @end
 
 @implementation WMFRandomContentSource
 
-- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticleDataStore *)previewStore {
+- (instancetype)initWithSiteURL:(NSURL *)siteURL {
     NSParameterAssert(siteURL);
-    NSParameterAssert(contentStore);
-    NSParameterAssert(previewStore);
     self = [super init];
     if (self) {
         self.siteURL = siteURL;
-        self.contentStore = contentStore;
-        self.previewStore = previewStore;
     }
     return self;
 }
@@ -35,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
     return _fetcher;
 }
+
 #pragma mark - WMFContentSource
 
 - (void)startUpdating {
@@ -43,11 +36,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stopUpdating {
 }
 
-- (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    [self loadContentForDate:[NSDate date] force:force completion:completion];
+- (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
+    [self loadContentForDate:[NSDate date] inManagedObjectContext:moc force:force completion:completion];
 }
 
-- (void)preloadContentForNumberOfDays:(NSInteger)days force:(BOOL)force completion:(nullable dispatch_block_t)completion {
+- (void)preloadContentForNumberOfDays:(NSInteger)days inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
     if (days < 1) {
         if (completion) {
             completion();
@@ -65,6 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
         [group enter];
         NSDate *date = [calendar dateByAddingUnit:NSCalendarUnitDay value:-i toDate:now options:NSCalendarMatchStrictly];
         [self loadContentForDate:date
+          inManagedObjectContext:moc
                            force:force
                       completion:^{
                           [group leave];
@@ -74,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
     [group waitInBackgroundWithCompletion:completion];
 }
 
-- (void)loadContentForDate:(NSDate *)date force:(BOOL)force completion:(nullable dispatch_block_t)completion {
+- (void)loadContentForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
     NSURL *siteURL = self.siteURL;
     
     if (!siteURL) {
@@ -83,10 +77,9 @@ NS_ASSUME_NONNULL_BEGIN
         }
         return;
     }
-    WMFContentGroupDataStore *cs = self.contentStore;
-    [cs performBlockOnImportContext:^(NSManagedObjectContext * _Nonnull moc) {
+    [moc performBlock:^{
         NSURL *contentGroupURL = [WMFContentGroup randomContentGroupURLForSiteURL:siteURL midnightUTCDate:date.wmf_midnightUTCDateFromLocalDate];
-        WMFContentGroup *existingGroup = [cs contentGroupForURL:contentGroupURL inManagedObjectContext:moc];
+        WMFContentGroup *existingGroup = [moc contentGroupForURL:contentGroupURL];
         if (existingGroup) {
             if (completion) {
                 completion();
@@ -117,9 +110,9 @@ NS_ASSUME_NONNULL_BEGIN
                                                     }
                                                     return;
                                                 }
-                                                [cs performBlockOnImportContext:^(NSManagedObjectContext * _Nonnull moc) {
-                                                    [cs fetchOrCreateGroupForURL:contentGroupURL ofKind:WMFContentGroupKindRandom forDate:date withSiteURL:siteURL associatedContent:@[articleURL] inManagedObjectContext:moc customizationBlock:NULL];
-                                                    [self.previewStore addPreviewWithURL:articleURL updatedWithSearchResult:result inManagedObjectContext:moc];
+                                                [moc performBlock:^{
+                                                    [moc fetchOrCreateGroupForURL:contentGroupURL ofKind:WMFContentGroupKindRandom forDate:date withSiteURL:siteURL associatedContent:@[articleURL] customizationBlock:NULL];
+                                                    [moc fetchOrCreateArticleWithURL:articleURL updatedWithSearchResult:result];
                                                     if (completion) {
                                                         completion();
                                                     }
@@ -130,10 +123,8 @@ NS_ASSUME_NONNULL_BEGIN
     
 }
 
-- (void)removeAllContent {
-    [self.contentStore performBlockOnImportContext:^(NSManagedObjectContext * _Nonnull moc) {
-        [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindRandom inManagedObjectContext:moc];
-    }];
+- (void)removeAllContentInManagedObjectContext:(NSManagedObjectContext *)moc {
+    [moc removeAllContentGroupsOfKind:WMFContentGroupKindRandom];
     
 }
 

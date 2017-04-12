@@ -16,9 +16,7 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
 @interface WMFNearbyContentSource () <WMFLocationManagerDelegate>
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
-@property (readwrite, nonatomic, strong) WMFContentGroupDataStore *contentStore;
-@property (readwrite, nonatomic, strong) WMFArticleDataStore *previewStore;
-
+@property (readwrite, nonatomic, strong) MWKDataStore *dataStore;
 @property (nonatomic, strong, readwrite) WMFLocationManager *currentLocationManager;
 @property (nonatomic, strong) WMFLocationSearchFetcher *locationSearchFetcher;
 
@@ -32,15 +30,12 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
 
 @implementation WMFNearbyContentSource
 
-- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticleDataStore *)previewStore {
+- (instancetype)initWithSiteURL:(NSURL *)siteURL dataStore:(MWKDataStore *)dataStore {
     NSParameterAssert(siteURL);
-    NSParameterAssert(contentStore);
-    NSParameterAssert(previewStore);
     self = [super init];
     if (self) {
         self.siteURL = siteURL;
-        self.contentStore = contentStore;
-        self.previewStore = previewStore;
+        self.dataStore = dataStore;
     }
     return self;
 }
@@ -73,11 +68,10 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
     [self.currentLocationManager stopMonitoringLocation];
 }
 
-- (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    WMFContentGroupDataStore *cs = self.contentStore;
-    [cs performBlockOnImportContext:^(NSManagedObjectContext * _Nonnull moc) {
+- (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(dispatch_block_t)completion {
+    [moc performBlock:^{
         if (![WMFLocationManager isAuthorized]) {
-            [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocation inManagedObjectContext:moc];
+            [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
             if (![[NSUserDefaults wmf_userDefaults] wmf_exploreDidPromptForLocationAuthorization]) {
                 [self showAuthorizationPlaceholderInManagedObjectContext:moc completion:^{
                     if (completion) {
@@ -90,7 +84,7 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
             return;
         }
         
-        [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder inManagedObjectContext:moc];
+        [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder];
         
         if (self.currentLocationManager.location == nil) {
             self.isFetchingInitialLocation = YES;
@@ -103,6 +97,7 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
                 }
             };
             [self getGroupForLocation:self.currentLocationManager.location
+               inManagedObjectContext:moc
                            completion:^(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark) {
                                if (group && [group.content isKindOfClass:[NSArray class]] && group.content.count > 0) {
                                    NSDate *now = [NSDate date];
@@ -116,6 +111,7 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
                                }
                                [self fetchResultsForLocation:location
                                                    placemark:placemark
+                                      inManagedObjectContext:moc
                                                   completion:^{
                                                       done();
                                                   }];
@@ -129,16 +125,16 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
 }
 
 - (void)removeAllContentInManagedObjectContext:(NSManagedObjectContext *)moc {
-    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocation inManagedObjectContext:moc];
-    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder inManagedObjectContext:moc];
+    [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
+    [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder];
 }
 
 - (void)showAuthorizationPlaceholderInManagedObjectContext:(NSManagedObjectContext *)moc completion:(nonnull dispatch_block_t)completion {
-    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocation inManagedObjectContext:moc];
+    [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
     NSURL *placeholderURL = [WMFContentGroup locationPlaceholderContentGroupURL];
     NSDate *date = [NSDate date];
     // Check for group for date to re-use the same group if it was updated today
-    WMFContentGroup *group = [self.contentStore firstGroupOfKind:WMFContentGroupKindLocationPlaceholder inManagedObjectContext:moc];
+    WMFContentGroup *group = [moc firstGroupOfKind:WMFContentGroupKindLocationPlaceholder];
 
     if (group && (group.wasDismissed || [group.midnightUTCDate isEqualToDate:date.wmf_midnightUTCDateFromLocalDate])) {
         completion();
@@ -165,8 +161,8 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
                 completion();
                 return;
             }
-            [self.previewStore addPreviewWithURL:articleURL updatedWithSearchResult:result inManagedObjectContext:moc];
-            [self.contentStore fetchOrCreateGroupForURL:placeholderURL ofKind:WMFContentGroupKindLocationPlaceholder forDate:date withSiteURL:self.siteURL associatedContent:@[articleURL] inManagedObjectContext:moc customizationBlock:nil];
+            [moc fetchOrCreateArticleWithURL:articleURL updatedWithSearchResult:result];
+            [moc fetchOrCreateGroupForURL:placeholderURL ofKind:WMFContentGroupKindLocationPlaceholder forDate:date withSiteURL:self.siteURL associatedContent:@[articleURL] customizationBlock:nil];
             completion();
         }
         failure:^(NSError *_Nonnull error) {
@@ -181,7 +177,8 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
         [self stopUpdating];
     }
     self.isFetchingInitialLocation = NO;
-    [self getGroupForLocation:location
+    NSManagedObjectContext *moc = self.dataStore.viewContext;
+    [self getGroupForLocation:location inManagedObjectContext:moc
         completion:^(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark) {
             if (group && [group.content isKindOfClass:[NSArray class]] && group.content.count > 0) {
                 if (self.completion) {
@@ -190,7 +187,7 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
                 self.completion = nil;
                 return;
             }
-            [self fetchResultsForLocation:location placemark:placemark completion:self.completion];
+            [self fetchResultsForLocation:location placemark:placemark inManagedObjectContext:moc completion:self.completion];
             self.completion = nil;
         }
         failure:^(NSError *error) {
@@ -212,13 +209,13 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
     self.completion = nil;
 }
 
-- (nullable WMFContentGroup *)contentGroupCloseToLocation:(CLLocation *)location {
+- (nullable WMFContentGroup *)contentGroupCloseToLocation:(CLLocation *)location inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSDate *todayMidnightUTC = [[NSDate date] wmf_midnightUTCDateFromLocalDate];
     __block WMFContentGroup *locationContentGroup = nil;
     __block NSDate *newestMidnightUTCDate = nil;
     __block CLLocationDistance distanceThreshold = WMFNearbyUpdateDistanceThresholdInMeters;
     __block NSInteger daysUntilForcedUpdate = [[NSUserDefaults wmf_userDefaults] wmf_placesHasAppeared] ? NSIntegerMax : WMFNearbyDaysBetweenForcedUpdates;
-    [self.contentStore enumerateContentGroupsOfKind:WMFContentGroupKindLocation
+    [moc enumerateContentGroupsOfKind:WMFContentGroupKindLocation
                                         sortedByKey:@"midnightUTCDate"
                                           ascending:NO
                                           withBlock:^(WMFContentGroup *_Nonnull currentGroup, BOOL *_Nonnull stop) {
@@ -245,7 +242,7 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
 
 #pragma mark - Fetching
 
-- (void)getGroupForLocation:(CLLocation *)location completion:(void (^)(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark))completion
+- (void)getGroupForLocation:(CLLocation *)location inManagedObjectContext:(NSManagedObjectContext *)moc completion:(void (^)(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark))completion
                     failure:(void (^)(NSError *error))failure {
 
     if (self.isProcessingLocation || !location) {
@@ -253,26 +250,28 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
         return;
     }
     self.isProcessingLocation = YES;
-
-    WMFContentGroup *group = [self contentGroupCloseToLocation:location];
-    if (group) {
-        self.isProcessingLocation = NO;
-        completion(group, group.location, group.placemark);
-        return;
-    }
-
-    [self.currentLocationManager reverseGeocodeLocation:location
-        completion:^(CLPlacemark *_Nonnull placemark) {
-            completion(nil, location, placemark);
+    
+    [moc performBlock:^{
+        WMFContentGroup *group = [self contentGroupCloseToLocation:location inManagedObjectContext:moc];
+        if (group) {
             self.isProcessingLocation = NO;
+            completion(group, group.location, group.placemark);
+            return;
         }
-        failure:^(NSError *_Nonnull error) {
-            self.isProcessingLocation = NO;
-            failure(error);
-        }];
+        
+        [self.currentLocationManager reverseGeocodeLocation:location
+                                                 completion:^(CLPlacemark *_Nonnull placemark) {
+                                                     completion(nil, location, placemark);
+                                                     self.isProcessingLocation = NO;
+                                                 }
+                                                    failure:^(NSError *_Nonnull error) {
+                                                        self.isProcessingLocation = NO;
+                                                        failure(error);
+                                                    }];
+    }];
 }
 
-- (void)fetchResultsForLocation:(CLLocation *)location placemark:(CLPlacemark *)placemark completion:(nullable dispatch_block_t)completion {
+- (void)fetchResultsForLocation:(CLLocation *)location placemark:(CLPlacemark *)placemark inManagedObjectContext:(NSManagedObjectContext *)moc completion:(nullable dispatch_block_t)completion {
     NSDate *date = [NSDate date];
     @weakify(self);
     [self.locationSearchFetcher fetchArticlesWithSiteURL:self.siteURL
@@ -292,24 +291,28 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
             NSArray<NSURL *> *urls = [results.results wmf_map:^id(id obj) {
                 return [results urlForResult:obj];
             }];
-
-            [results.results enumerateObjectsUsingBlock:^(MWKLocationSearchResult *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                [self.previewStore addPreviewWithURL:urls[idx] updatedWithLocationSearchResult:obj];
+            
+            [moc performBlock:^{
+                [results.results enumerateObjectsUsingBlock:^(MWKLocationSearchResult *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+                    [moc fetchOrCreateArticleWithURL:urls[idx] updatedWithSearchResult:obj];
+                }];
+                
+                WMFContentGroup *group = [moc createGroupOfKind:WMFContentGroupKindLocation
+                                                                      forDate:date
+                                                                  withSiteURL:self.siteURL
+                                                            associatedContent:nil
+                                                           customizationBlock:^(WMFContentGroup *_Nonnull group) {
+                                                               group.location = location;
+                                                               group.placemark = placemark;
+                                                           }];
+                [self removeSectionsForMidnightUTCDate:group.midnightUTCDate withKeyNotEqualToKey:group.key inManagedObjectContext:moc];
+                group.content = urls;
+                if (completion) {
+                    completion();
+                }
             }];
 
-            WMFContentGroup *group = [self.contentStore createGroupOfKind:WMFContentGroupKindLocation
-                                                                  forDate:date
-                                                              withSiteURL:self.siteURL
-                                                        associatedContent:nil
-                                                       customizationBlock:^(WMFContentGroup *_Nonnull group) {
-                                                           group.location = location;
-                                                           group.placemark = placemark;
-                                                       }];
-            [self removeSectionsForMidnightUTCDate:group.midnightUTCDate withKeyNotEqualToKey:group.key];
-            group.content = urls;
-            if (completion) {
-                completion();
-            }
+            
         }
         failure:^(NSError *_Nonnull error) {
             self.isProcessingLocation = NO;
@@ -319,15 +322,15 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
         }];
 }
 
-- (void)removeSectionsForMidnightUTCDate:(NSDate *)midnightUTCDate withKeyNotEqualToKey:(NSString *)key {
+- (void)removeSectionsForMidnightUTCDate:(NSDate *)midnightUTCDate withKeyNotEqualToKey:(NSString *)key inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSMutableArray *oldSectionKeys = [NSMutableArray array];
-    [self.contentStore enumerateContentGroupsOfKind:WMFContentGroupKindLocation
-                                          withBlock:^(WMFContentGroup *_Nonnull section, BOOL *_Nonnull stop) {
-                                              if ([section.midnightUTCDate isEqualToDate:midnightUTCDate] && ![section.key isEqualToString:key]) {
-                                                  [oldSectionKeys addObject:key];
-                                              }
-                                          }];
-    [self.contentStore removeContentGroupsWithKeys:oldSectionKeys];
+    [moc enumerateContentGroupsOfKind:WMFContentGroupKindLocation
+                            withBlock:^(WMFContentGroup *_Nonnull section, BOOL *_Nonnull stop) {
+                                if ([section.midnightUTCDate isEqualToDate:midnightUTCDate] && ![section.key isEqualToString:key]) {
+                                    [oldSectionKeys addObject:key];
+                                }
+                            }];
+    [moc removeContentGroupsWithKeys:oldSectionKeys];
 }
 
 @end
