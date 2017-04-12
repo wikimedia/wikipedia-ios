@@ -1026,13 +1026,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                                                                     y: self.filterDropDownContainerView.frame.origin.y,
                                                                     width: self.filterDropDownContainerView.frame.width,
                                                                     height: 0)
-                    
                 }, completion: { (done) in
-                
                     self.filterDropDownContainerView.removeFromSuperview()
                     self.filterDropDownContainerView.frame.size.height = origHeight
                 })
-
             }
         }
     }
