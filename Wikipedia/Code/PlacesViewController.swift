@@ -3,7 +3,7 @@ import MapKit
 import WMF
 import TUSafariActivity
 
-class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, WMFAnalyticsViewNameProviding, ArticlePlaceGroupViewControllerDelegate, UIGestureRecognizerDelegate {
+class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, WMFAnalyticsViewNameProviding, ArticlePlaceGroupViewControllerDelegate, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate {
     
     @IBOutlet weak var filterSelectorView: UIView!
     @IBOutlet weak var redoSearchButton: UIButton!
@@ -76,6 +76,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     private let currentSearchFilter: PlaceFilterType = .top // TODO: fix me
     
+   // private lazy var tapGR = UITapGestureRecognizer(target: self, action: #selector(toggleSearchFilterDropDown(_:)))
+    
+    private var tapOutSideView: TouchOutsideOverlayView!
+    
     // MARK: - View Lifecycle
     
     fileprivate func addBottomShadow(view: UIView) {
@@ -95,14 +99,19 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         addBottomShadow(view: extendedNavBarView)
         extendedNavBarHeightOrig = extendedNavBarViewHeightContraint.constant
         
-        // config filter drop down
-        addBottomShadow(view: filterDropDownContainerView)
-        isFilterDropDownShowing = false
+
         
         searchFilterListController = PlaceSearchFilterListController()
         filterDropDownTableView.dataSource = searchFilterListController
         filterDropDownTableView.delegate = searchFilterListController
         
+        tapOutSideView = TouchOutsideOverlayView(frame: self.view.bounds)
+        tapOutSideView.delegate = self
+
+        // config filter drop down
+        addBottomShadow(view: filterDropDownContainerView)
+        isFilterDropDownShowing = false
+
         navigationController?.setNavigationBarHidden(false, animated: true)
         
         // Setup map view
@@ -977,28 +986,44 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 }
 
                 let frame: CGRect
-                let superView: UIView
+               // let superView: UIView
                 
                 if (isSearchBarInNavigationBar) {
                     frame = CGRect(x: 0,
                                    y: extendedNavBarView.frame.minY,
                                    width: extendedNavBarView.bounds.width,
                                    height: filterDropDownContainerView.bounds.height)
-                    superView = self.view
+                //    superView = self.view
                     
                 } else {
-                    frame = CGRect(x: 0,
-                                   y: listAndSearchOverlayFilterSelectorContainerView.frame.maxY,
-                                   width: listAndSearchOverlayFilterSelectorContainerView.bounds.width,
-                                   height: filterDropDownContainerView.bounds.height)
-                    superView = listAndSearchOverlayContainerView
+                    frame = self.view.convert(CGRect(x: 0,
+                                                     y: listAndSearchOverlayFilterSelectorContainerView.frame.maxY,
+                                                     width: listAndSearchOverlayFilterSelectorContainerView.bounds.width,
+                                                     height: filterDropDownContainerView.bounds.height),
+                                              from: listAndSearchOverlayContainerView)
+                    
+                    
+//                    frame = self.view.convert(frame, from: listAndSearchOverlayContainerView)
+                    
+                //    superView = listAndSearchOverlayContainerView
                 }
                 
                 filterDropDownContainerView.frame = frame
-                superView.addSubview(filterDropDownContainerView)
+               // superView.addSubview(filterDropDownContainerView)
+                tapOutSideView.addSubview(filterDropDownContainerView)
+                
+                //self.view.addSubview(filterDropDownContainerView)
+                self.view.addSubview(tapOutSideView)
+                
+                
+//                let tapGR = UITapGestureRecognizer(target: self, action: #selector(toggleSearchFilterDropDown(_:)))
+                //self.view.addGestureRecognizer(tapGR)
                 
             } else {
-                filterDropDownContainerView.removeFromSuperview()
+//                filterDropDownContainerView.removeFromSuperview()
+                //self.view.removeGestureRecognizer(tapGR)
+                
+                self.tapOutSideView.removeFromSuperview()
             }
         }
     }
@@ -2381,6 +2406,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let location = touch.location(in: view)
         let shouldReceive = location.x < listAndSearchOverlayContainerView.frame.maxX && abs(location.y - listAndSearchOverlayContainerView.frame.maxY - 10) < 32
         return shouldReceive
+    }
+    
+    func touchOutside(_ overlayView: TouchOutsideOverlayView) {
+        
+        toggleSearchFilterDropDown(overlayView)
     }
 }
 

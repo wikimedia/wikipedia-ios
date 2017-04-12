@@ -484,6 +484,9 @@
 		B34B0ED51E9E9FC100716D75 /* PlaceSearchFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0ED41E9E9FC100716D75 /* PlaceSearchFilterCell.swift */; };
 		B34B0ED61E9E9FC100716D75 /* PlaceSearchFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0ED41E9E9FC100716D75 /* PlaceSearchFilterCell.swift */; };
 		B34B0ED71E9E9FC100716D75 /* PlaceSearchFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0ED41E9E9FC100716D75 /* PlaceSearchFilterCell.swift */; };
+		B34B0ED91E9EBD0400716D75 /* TouchOutsideOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0ED81E9EBD0400716D75 /* TouchOutsideOverlayView.swift */; };
+		B34B0EDA1E9EBD0400716D75 /* TouchOutsideOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0ED81E9EBD0400716D75 /* TouchOutsideOverlayView.swift */; };
+		B34B0EDB1E9EBD0400716D75 /* TouchOutsideOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0ED81E9EBD0400716D75 /* TouchOutsideOverlayView.swift */; };
 		B37B38F01E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */; };
 		B384069E1E64D5C000DFC889 /* 640px-Shoso-in.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B384069D1E64D5C000DFC889 /* 640px-Shoso-in.jpg */; };
 		B389CFCB1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */; };
@@ -3517,6 +3520,7 @@
 		B0FCB2391D3D5BEC00D80D57 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B0FCB23A1D3D5BEC00D80D57 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B34B0ED41E9E9FC100716D75 /* PlaceSearchFilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchFilterCell.swift; sourceTree = "<group>"; };
+		B34B0ED81E9EBD0400716D75 /* TouchOutsideOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchOutsideOverlayView.swift; sourceTree = "<group>"; };
 		B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHouseKeeper.swift; sourceTree = "<group>"; };
 		B384069D1E64D5C000DFC889 /* 640px-Shoso-in.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "640px-Shoso-in.jpg"; sourceTree = "<group>"; };
 		B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHousekeeperTests.swift; sourceTree = "<group>"; };
@@ -7332,6 +7336,7 @@
 				D87234031E1FF18100751E83 /* Places.storyboard */,
 				B3D889431E9E8F8400F08F53 /* PlaceSearchFilterListController.swift */,
 				B34B0ED41E9E9FC100716D75 /* PlaceSearchFilterCell.swift */,
+				B34B0ED81E9EBD0400716D75 /* TouchOutsideOverlayView.swift */,
 			);
 			name = Places;
 			sourceTree = "<group>";
@@ -9285,6 +9290,7 @@
 				0E03617A1C44905400FD9642 /* WMFMorePageListViewController.m in Sources */,
 				B0E8037D1C0CD9E10065EBC0 /* TableOfContentsReadMoreItem.swift in Sources */,
 				D84F2C031D30162700963D42 /* WMFFirstRandomViewController.m in Sources */,
+				B34B0ED91E9EBD0400716D75 /* TouchOutsideOverlayView.swift in Sources */,
 				B0E803F71C0CDDA80065EBC0 /* WMFIntrinsicSizeTableView.m in Sources */,
 				D82972881E3A49980061550A /* ArticlePopoverViewController.swift in Sources */,
 				B0E8073E1C0CED810065EBC0 /* WMFLogFormatter.m in Sources */,
@@ -10199,6 +10205,7 @@
 				D8CE260D1E698E2400DAE2E0 /* WMFScrollable.swift in Sources */,
 				D8CE260E1E698E2400DAE2E0 /* WKWebView+ElementLocation.m in Sources */,
 				D8CE260F1E698E2400DAE2E0 /* WMFImageInfoController.m in Sources */,
+				B34B0EDA1E9EBD0400716D75 /* TouchOutsideOverlayView.swift in Sources */,
 				D8CE26101E698E2400DAE2E0 /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				D8CE26111E698E2400DAE2E0 /* WMFFontSliderContainer.swift in Sources */,
 				D8CE26121E698E2400DAE2E0 /* WMFTableOfContentsPresentationController.swift in Sources */,
@@ -10533,6 +10540,7 @@
 				D8EC3F0C1E9BDA35006712EB /* WMFScrollable.swift in Sources */,
 				D8EC3F0D1E9BDA35006712EB /* WKWebView+ElementLocation.m in Sources */,
 				D8EC3F0E1E9BDA35006712EB /* WMFImageInfoController.m in Sources */,
+				B34B0EDB1E9EBD0400716D75 /* TouchOutsideOverlayView.swift in Sources */,
 				D8EC3F0F1E9BDA35006712EB /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				D8EC3F101E9BDA35006712EB /* WMFFontSliderContainer.swift in Sources */,
 				D8EC3F111E9BDA35006712EB /* WMFTableOfContentsPresentationController.swift in Sources */,
