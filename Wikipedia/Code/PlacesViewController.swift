@@ -14,10 +14,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var recenterOnUserLocationButton: UIButton!
     @IBOutlet weak var titleViewSearchBar: UISearchBar!
     @IBOutlet weak var mapListToggle: UISegmentedControl!
-    @IBOutlet weak var filterDropDown: UIView!
-    @IBOutlet weak var filterDropDownTopArticlesButton: UIButton!
-    @IBOutlet weak var filterDropDownSavedPlacesButton: UIButton!
-    
+    @IBOutlet weak var filterDropDownContainerView: UIView!
+    @IBOutlet weak var filterDropDownTableView: UITableView!
+
     @IBOutlet weak var listAndSearchOverlayContainerView: RoundedCornerView!
     
     @IBOutlet weak var listAndSearchOverlayFilterSelectorContainerView: UIView!
@@ -71,6 +70,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private let listTrackerContext: AnalyticsContext = "Places_list"
     private let searchTrackerContext: AnalyticsContext = "Places_search"
     private let imageController = ImageController.shared
+    private var searchFilterListController: PlaceSearchFilterListController!
     
     private var extendedNavBarHeightOrig: CGFloat?
     
@@ -78,29 +78,31 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     // MARK: - View Lifecycle
     
+    fileprivate func addBottomShadow(view: UIView) {
+        // Setup extended navigation bar
+        //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
+        view.shadowOffset = CGSize(width: 0, height: CGFloat(1) / UIScreen.main.scale)
+        view.shadowRadius = 0
+        view.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        view.shadowOpacity = 0.25
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         redoSearchButton.setTitle("    " + localizedStringForKeyFallingBackOnEnglish("places-search-this-area") + "    ", for: .normal)
         
-        // Setup extended navigation bar
-        //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
-        extendedNavBarView.shadowOffset = CGSize(width: 0, height: CGFloat(1) / UIScreen.main.scale)
-        extendedNavBarView.shadowRadius = 0
-        extendedNavBarView.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        extendedNavBarView.shadowOpacity = 0.25
+        addBottomShadow(view: extendedNavBarView)
         extendedNavBarHeightOrig = extendedNavBarViewHeightContraint.constant
         
         // config filter drop down
-        filterDropDown.shadowOffset = CGSize(width: 0, height: CGFloat(1) / UIScreen.main.scale)
-        filterDropDown.shadowRadius = 0
-        filterDropDown.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        filterDropDown.shadowOpacity = 0.25
+        addBottomShadow(view: filterDropDownContainerView)
         isFilterDropDownShowing = false
         
-        filterDropDownTopArticlesButton.backgroundColor = UIColor.wmf_filterDropDownBackground
-        filterDropDownSavedPlacesButton.backgroundColor = UIColor.wmf_filterDropDownBackground
-   
+        searchFilterListController = PlaceSearchFilterListController()
+        filterDropDownTableView.dataSource = searchFilterListController
+        filterDropDownTableView.delegate = searchFilterListController
+        
         navigationController?.setNavigationBarHidden(false, animated: true)
         
         // Setup map view
@@ -204,7 +206,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         self.isFilterDropDownShowing = !isFilterDropDownShowing
     }
 
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -982,22 +983,22 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     frame = CGRect(x: 0,
                                    y: extendedNavBarView.frame.minY,
                                    width: extendedNavBarView.bounds.width,
-                                   height: filterDropDown.bounds.height)
+                                   height: filterDropDownContainerView.bounds.height)
                     superView = self.view
                     
                 } else {
                     frame = CGRect(x: 0,
                                    y: listAndSearchOverlayFilterSelectorContainerView.frame.maxY,
                                    width: listAndSearchOverlayFilterSelectorContainerView.bounds.width,
-                                   height: filterDropDown.bounds.height)
+                                   height: filterDropDownContainerView.bounds.height)
                     superView = listAndSearchOverlayContainerView
                 }
                 
-                filterDropDown.frame = frame
-                superView.addSubview(filterDropDown)
+                filterDropDownContainerView.frame = frame
+                superView.addSubview(filterDropDownContainerView)
                 
             } else {
-                filterDropDown.removeFromSuperview()
+                filterDropDownContainerView.removeFromSuperview()
             }
         }
     }
