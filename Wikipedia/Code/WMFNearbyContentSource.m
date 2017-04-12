@@ -76,67 +76,71 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
 }
 
 - (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    if (![WMFLocationManager isAuthorized]) {
-        [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
-        if (![[NSUserDefaults wmf_userDefaults] wmf_exploreDidPromptForLocationAuthorization]) {
-            [self showAuthorizationPlaceholder:^{
+    WMFContentGroupDataStore *cs = self.contentStore;
+    [cs performBlockOnImportContext:^(NSManagedObjectContext * _Nonnull moc) {
+        if (![WMFLocationManager isAuthorized]) {
+            [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocation inManagedObjectContext:moc];
+            if (![[NSUserDefaults wmf_userDefaults] wmf_exploreDidPromptForLocationAuthorization]) {
+                [self showAuthorizationPlaceholderInManagedObjectContext:moc completion:^{
+                    if (completion) {
+                        completion();
+                    }
+                }];
+            } else if (completion) {
+                completion();
+            }
+            return;
+        }
+        
+        [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder inManagedObjectContext:moc];
+        
+        if (self.currentLocationManager.location == nil) {
+            self.isFetchingInitialLocation = YES;
+            self.completion = completion;
+            [self.currentLocationManager startMonitoringLocation];
+        } else {
+            dispatch_block_t done = ^{
                 if (completion) {
                     completion();
                 }
-            }];
-        } else if (completion) {
-            completion();
+            };
+            [self getGroupForLocation:self.currentLocationManager.location
+                           completion:^(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark) {
+                               if (group && [group.content isKindOfClass:[NSArray class]] && group.content.count > 0) {
+                                   NSDate *now = [NSDate date];
+                                   NSDate *todayMidnightUTC = [now wmf_midnightUTCDateFromLocalDate];
+                                   if (![[NSUserDefaults wmf_userDefaults] wmf_placesHasAppeared] && [[NSCalendar wmf_utcGregorianCalendar] wmf_daysFromDate:group.midnightUTCDate toDate:todayMidnightUTC] >= WMFNearbyDaysBetweenForcedUpdates) {
+                                       group.date = now;
+                                       group.midnightUTCDate = todayMidnightUTC;
+                                   }
+                                   done();
+                                   return;
+                               }
+                               [self fetchResultsForLocation:location
+                                                   placemark:placemark
+                                                  completion:^{
+                                                      done();
+                                                  }];
+                           }
+                              failure:^(NSError *error) {
+                                  done();
+                              }];
         }
-        return;
-    }
-
-    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder];
-
-    if (self.currentLocationManager.location == nil) {
-        self.isFetchingInitialLocation = YES;
-        self.completion = completion;
-        [self.currentLocationManager startMonitoringLocation];
-    } else {
-        dispatch_block_t done = ^{
-            if (completion) {
-                completion();
-            }
-        };
-        [self getGroupForLocation:self.currentLocationManager.location
-            completion:^(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark) {
-                if (group && [group.content isKindOfClass:[NSArray class]] && group.content.count > 0) {
-                    NSDate *now = [NSDate date];
-                    NSDate *todayMidnightUTC = [now wmf_midnightUTCDateFromLocalDate];
-                    if (![[NSUserDefaults wmf_userDefaults] wmf_placesHasAppeared] && [[NSCalendar wmf_utcGregorianCalendar] wmf_daysFromDate:group.midnightUTCDate toDate:todayMidnightUTC] >= WMFNearbyDaysBetweenForcedUpdates) {
-                        group.date = now;
-                        group.midnightUTCDate = todayMidnightUTC;
-                    }
-                    done();
-                    return;
-                }
-                [self fetchResultsForLocation:location
-                                    placemark:placemark
-                                   completion:^{
-                                       done();
-                                   }];
-            }
-            failure:^(NSError *error) {
-                done();
-            }];
-    }
+        
+    }];
 }
 
-- (void)removeAllContent {
-    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
-    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder];
+- (void)removeAllContentInManagedObjectContext:(NSManagedObjectContext *)moc {
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocation inManagedObjectContext:moc];
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder inManagedObjectContext:moc];
 }
 
-- (void)showAuthorizationPlaceholder:(nonnull dispatch_block_t)completion {
-    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
+- (void)showAuthorizationPlaceholderInManagedObjectContext:(NSManagedObjectContext *)moc completion:(nonnull dispatch_block_t)completion {
+    [self.contentStore removeAllContentGroupsOfKind:WMFContentGroupKindLocation inManagedObjectContext:moc];
     NSURL *placeholderURL = [WMFContentGroup locationPlaceholderContentGroupURL];
     NSDate *date = [NSDate date];
     // Check for group for date to re-use the same group if it was updated today
-    WMFContentGroup *group = [self.contentStore firstGroupOfKind:WMFContentGroupKindLocationPlaceholder];
+    WMFContentGroup *group = [self.contentStore firstGroupOfKind:WMFContentGroupKindLocationPlaceholder inManagedObjectContext:moc];
 
     if (group && (group.wasDismissed || [group.midnightUTCDate isEqualToDate:date.wmf_midnightUTCDateFromLocalDate])) {
         completion();
@@ -163,8 +167,8 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
                 completion();
                 return;
             }
-            [self.previewStore addPreviewWithURL:articleURL updatedWithSearchResult:result];
-            [self.contentStore fetchOrCreateGroupForURL:placeholderURL ofKind:WMFContentGroupKindLocationPlaceholder forDate:date withSiteURL:self.siteURL associatedContent:@[articleURL] customizationBlock:nil];
+            [self.previewStore addPreviewWithURL:articleURL updatedWithSearchResult:result inManagedObjectContext:moc];
+            [self.contentStore fetchOrCreateGroupForURL:placeholderURL ofKind:WMFContentGroupKindLocationPlaceholder forDate:date withSiteURL:self.siteURL associatedContent:@[articleURL] inManagedObjectContext:moc customizationBlock:nil];
             completion();
         }
         failure:^(NSError *_Nonnull error) {
