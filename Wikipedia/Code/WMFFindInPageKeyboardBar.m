@@ -110,7 +110,7 @@
     } else if (count > 0 && index == -1) {
         labelText = [NSString stringWithFormat:@"%lu", (unsigned long)count];
     } else if (count == 0) {
-        labelText = MWLocalizedString(@"find-in-page-no-matches", nil);
+        labelText = @"0 / 0";
     } else {
         labelText = [NSString stringWithFormat:@"%lu / %lu", (unsigned long)(index + 1), (unsigned long)count];
     }
