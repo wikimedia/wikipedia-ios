@@ -10,6 +10,8 @@ import XCTest
 
 class WikipediaUITests: XCTestCase {
     var args: [String] = []
+    let app = XCUIApplication()
+    
     override func setUp() {
         super.setUp()
         
@@ -18,13 +20,24 @@ class WikipediaUITests: XCTestCase {
         // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
         // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
-        let app = XCUIApplication()
+//        let app = XCUIApplication()
+
+//        app.launchArguments = [
+//            "-inUITest",
+//            "-AppleLanguages",
+//            "(de)",
+//            "-AppleLocale",
+//            "de-DE"
+//        ]
+
+        
         setupSnapshot(app)
         
         args = app.launchArguments
         
         app.launch()
         print(app.launchArguments)
+
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
     
@@ -36,7 +49,7 @@ class WikipediaUITests: XCTestCase {
     
     
     func enUS () {
-        let app = XCUIApplication()
+//        let app = XCUIApplication()
         let existsPredicate = NSPredicate(format: "exists == true")
         
         if app.buttons["GET STARTED"].exists {
@@ -65,14 +78,14 @@ class WikipediaUITests: XCTestCase {
         
         let steveJobsLink = tablesQuery.links["Steve Jobs\nAmerican entrepreneur and co-founder of Apple Inc.\n"]
         expectation(for: existsPredicate, evaluatedWith: steveJobsLink, handler: nil)
-        waitForExpectations(timeout: 10.0) { (error) in
-        }
-        tablesQuery.links["Steve Jobs\nAmerican entrepreneur and co-founder of Apple Inc.\n"].tap()
-        
+        waitForExpectations(timeout: 5, handler: nil)
         
         let steveJobsElement = app.staticTexts["Steve Jobs"]
         
         expectation(for: existsPredicate, evaluatedWith: steveJobsElement, handler: nil)
+        
+        tablesQuery.links["Steve Jobs\nAmerican entrepreneur and co-founder of Apple Inc.\n"].tap()
+        
         waitForExpectations(timeout: 5, handler: nil)
         
         
@@ -81,7 +94,7 @@ class WikipediaUITests: XCTestCase {
     }
     
     func frFR () {
-        let app = XCUIApplication()
+//        let app = XCUIApplication()
         let existsPredicate = NSPredicate(format: "exists == true")
         
         if app.buttons["COMMENCER"].exists {
@@ -109,14 +122,13 @@ class WikipediaUITests: XCTestCase {
         
         let steveJobsLink = tablesQuery.links["Steve Jobs\nEntrepreneur et inventeur américain\n"]
         expectation(for: existsPredicate, evaluatedWith: steveJobsLink, handler: nil)
-        waitForExpectations(timeout: 10.0) { (error) in
-        }
-        tablesQuery.links["Steve Jobs\nEntrepreneur et inventeur américain\n"].tap()
-        
-        
+        waitForExpectations(timeout: 5, handler: nil)
         
         let steveJobsElement = app.staticTexts["Steve Jobs"]
         expectation(for: existsPredicate, evaluatedWith: steveJobsElement, handler: nil)
+        
+        tablesQuery.links["Steve Jobs\nEntrepreneur et inventeur américain\n"].tap()
+        
         waitForExpectations(timeout: 5, handler: nil)
         
         
@@ -125,8 +137,7 @@ class WikipediaUITests: XCTestCase {
     }
     
     func deDE () {
-        let app = XCUIApplication()
-        let existsPredicate = NSPredicate(format: "exists == 1")
+        let existsPredicate = NSPredicate(format: "exists == true")
         
         if app.buttons["ANFANGEN"].exists {
             app.buttons["ANFANGEN"].tap()
@@ -159,16 +170,15 @@ class WikipediaUITests: XCTestCase {
         
         let steveJobsLink = tablesQuery.links["Steve Jobs\nUS-amerikanischer Unternehmer, Mitbegründer von Apple Computer\n"]
         expectation(for: existsPredicate, evaluatedWith: steveJobsLink, handler: nil)
-        waitForExpectations(timeout: 10.0) { (error) in
-        }
-        tablesQuery.links["Steve Jobs\nUS-amerikanischer Unternehmer, Mitbegründer von Apple Computer\n"].tap()
-        
+        waitForExpectations(timeout: 5, handler: nil)
         
         let steveJobsElement = app.staticTexts["Steve Jobs"]
         
         expectation(for: existsPredicate, evaluatedWith: steveJobsElement, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
         
+        tablesQuery.links["Steve Jobs\nUS-amerikanischer Unternehmer, Mitbegründer von Apple Computer\n"].tap()
+        
+        waitForExpectations(timeout: 5, handler: nil)
         
         snapshot("Steve Jobs Page")
     }
@@ -176,7 +186,7 @@ class WikipediaUITests: XCTestCase {
     
     func testExample() {
         
-        let app = XCUIApplication()
+        
         
         
         let locales = args.filter { (locale) -> Bool in
@@ -185,8 +195,9 @@ class WikipediaUITests: XCTestCase {
             || locale == "fr-FR"
         }
         print(args)
-        print(locales)
         let locale = locales.first
+        print(locale)
+
         if let locale = locale {
             switch locale {
                 case "de-DE": deDE()
