@@ -82,10 +82,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic, strong) NSMutableArray<WMFObjectChange *> *objectChanges;
 @property (nonatomic, strong) NSMutableArray<NSNumber *> *sectionCounts;
 
-@property (nonatomic, strong, nullable) WMFTaskGroup *feedUpdateTaskGroup;
-@property (nonatomic, strong, nullable) WMFTaskGroup *relatedUpdatedTaskGroup;
-@property (nonatomic, strong, nullable) WMFTaskGroup *nearbyUpdateTaskGroup;
-
 @property (nonatomic, strong) NSMutableDictionary<NSString *, WMFExploreCollectionViewCell *> *placeholderCells;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, WMFExploreCollectionReusableView *> *placeholderFooters;
 
@@ -94,6 +90,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic) CGFloat topInsetBeforeHeader;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *cachedHeights;
+
+@property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 
 @end
 
@@ -473,13 +471,16 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                                                   }];
 }
 
-- (void)updateFeedSourcesWithDate:(nullable NSDate *)date {
+- (void)updateFeedSourcesWithDate:(nullable NSDate *)date completion:(nullable dispatch_block_t)completion {
     [self.userStore.feedContentController updateFeedSourcesWithDate:date
                                                          completion:^{
                                                              WMFAssertMainThread(@"Completion is assumed to be called on the main thread.");
                                                              [self resetRefreshControl];
                                                              if (date == nil) { //only hide on a new content update
                                                                  [self showHideNotificationIfNeccesary];
+                                                             }
+                                                             if (completion) {
+                                                                 completion();
                                                              }
                                                          }];
 }
@@ -488,7 +489,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     if (!self.refreshControl.isRefreshing) {
         [self.refreshControl beginRefreshing];
     }
-    [self updateFeedSourcesWithDate:nil];
+    [self updateFeedSourcesWithDate:nil completion:nil];
 }
 
 - (void)refreshControlActivated {
@@ -1620,11 +1621,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     return [self analyticsContext];
 }
 
-#if WMF_TWEAKS_ENABLED
 #pragma mark - Load More
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (self.feedUpdateTaskGroup) {
+    if (self.isLoadingOlderContent) {
         return;
     }
     CGFloat ratio = scrollView.contentOffset.y / (scrollView.contentSize.height - scrollView.bounds.size.height);
@@ -1655,10 +1655,12 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     NSDate *nextOldestDate = [[calendar dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:lastGroupMidnightUTC options:NSCalendarMatchStrictly] wmf_midnightLocalDateForEquivalentUTCDate];
 
-    [self updateFeedSourcesWithDate:nextOldestDate];
+    self.loadingOlderContent = YES;
+    [self updateFeedSourcesWithDate:nextOldestDate
+                         completion:^{
+                             self.loadingOlderContent = NO;
+                         }];
 }
-
-#endif
 
 @end
 
