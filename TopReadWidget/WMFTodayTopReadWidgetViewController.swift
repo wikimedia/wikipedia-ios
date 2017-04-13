@@ -193,7 +193,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         var dataValueMin = CGFloat.greatestFiniteMagnitude
         var dataValueMax = CGFloat.leastNormalMagnitude
         for result in results[0...(maximumRowCount - 1)] {
-            let articlePreview = self.userStore.viewContext.fetchArticle(with: result.articleURL)
+            let articlePreview = self.userStore.fetchArticle(with: result.articleURL)
             guard let dataValues = articlePreview?.pageViews else {
                 continue
             }
