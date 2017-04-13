@@ -3,8 +3,17 @@ import MapKit
 enum PlaceSearchType: UInt {
     case text
     case location
+//    case top
+//    case saved
+}
+
+enum PlaceFilterType: UInt {
     case top
     case saved
+}
+
+enum PlaceSearchError: Error {
+    case deserialization(object: NSObject?)
 }
 
 extension MKCoordinateRegion {
@@ -14,6 +23,7 @@ extension MKCoordinateRegion {
 }
 
 struct PlaceSearch {
+    let filter: PlaceFilterType
     let type: PlaceSearchType
     let sortStyle: WMFLocationSearchSortStyle
     let string: String?
@@ -22,7 +32,8 @@ struct PlaceSearch {
     let searchResult: MWKSearchResult?
     var needsWikidataQuery: Bool = true
     
-    init(type: PlaceSearchType, sortStyle: WMFLocationSearchSortStyle, string: String?, region: MKCoordinateRegion?, localizedDescription: String?, searchResult: MWKSearchResult?) {
+    init(filter: PlaceFilterType, type: PlaceSearchType, sortStyle: WMFLocationSearchSortStyle, string: String?, region: MKCoordinateRegion?, localizedDescription: String?, searchResult: MWKSearchResult?) {
+        self.filter = filter
         self.type = type
         self.sortStyle = sortStyle
         self.string = string
@@ -71,11 +82,14 @@ struct PlaceSearch {
     }
     
     init?(dictionary: [String: Any]) {
-        guard let typeNumber = dictionary["type"] as? NSNumber,
+        guard let filterNumber = dictionary["filter"] as? NSNumber,
+            let filter = PlaceFilterType(rawValue: filterNumber.uintValue),
+            let typeNumber = dictionary["type"] as? NSNumber,
             let type = PlaceSearchType(rawValue: typeNumber.uintValue),
             let sortStyleNumber = dictionary["sortStyle"] as? NSNumber else {
                 return nil
         }
+        self.filter = filter
         self.type = type
         let sortStyle = WMFLocationSearchSortStyle(rawValue: sortStyleNumber.uintValue) ?? .none
         self.sortStyle = sortStyle
@@ -96,11 +110,15 @@ struct PlaceSearch {
     }
     
     init?(object: NSObject?) {
-        guard let object = object, let typeNumber = object.value(forKey: "type") as? NSNumber,
+        guard let object = object,
+            let filterNumber = object.value(forKey: "filter") as? NSNumber,
+            let filter = PlaceFilterType(rawValue: filterNumber.uintValue),
+            let typeNumber = object.value(forKey: "type") as? NSNumber,
             let type = PlaceSearchType(rawValue: typeNumber.uintValue),
             let sortStyleNumber = object.value(forKey: "sortStyle") as? NSNumber else {
                 return nil
         }
+        self.filter = filter
         self.type = type
         let sortStyle = WMFLocationSearchSortStyle(rawValue: sortStyleNumber.uintValue) ?? .none
         self.sortStyle = sortStyle

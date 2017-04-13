@@ -515,6 +515,7 @@
 "places-search-saved-articles" = "A search suggestion for saved articles";
 "places-search-suggested-searches-header" = "Suggested searches - header for the list of suggested searches";
 "places-search-recently-searched-header" = "Recently searched - header for the list of recently searched items";
+"places-search-articles-that-match" = "A search suggestion for filtering the articles in the area by the search string. $1 is replaced with the search string";
 "places-no-saved-articles-have-location" = "Indicates to the user that none of their saved articles have location information";
 "places-unknown-distance" = "Indicates that a place is an unknown distance away";
 "places-enable-location-title" = "Explains that you can explore articles near you by enabling location access. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".";
