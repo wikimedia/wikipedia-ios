@@ -289,7 +289,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
         }
         return;
     }
-    if (!self.refreshControl.isRefreshing) {
+    if (!date && !self.refreshControl.isRefreshing) {
         [self.refreshControl beginRefreshing];
     }
     WMFTaskGroup *group = [WMFTaskGroup new];
