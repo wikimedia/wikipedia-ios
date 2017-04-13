@@ -144,7 +144,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     operation.priority = NSURLSessionTaskPriorityHigh;
     [self trackOperation:operation forArticleURL:articleURL];
 
-    [taskGroup waitInBackgroundAndNotifyOnQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)
+    [taskGroup waitInBackgroundAndNotifyOnQueue:dispatch_get_main_queue()
                                       withBlock:^{
                                           [[MWNetworkActivityIndicatorManager sharedManager] pop];
                                           if (articleResponse && [articleResponse isKindOfClass:[NSDictionary class]]) {
@@ -155,17 +155,13 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                               }
                                               MWKArticle *article = [self serializedArticleWithURL:articleURL response:articleResponse];
                                               [self.dataStore asynchronouslyCacheArticle:article];
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  [self.dataStore.viewContext fetchOrCreateArticleWithURL:articleURL updatedWithMWKArticle:article];
-                                                  success(article);
-                                              });
+                                              [self.dataStore.viewContext fetchOrCreateArticleWithURL:articleURL updatedWithMWKArticle:article];
+                                              success(article);
                                           } else {
                                               if (!articleError) {
                                                   articleError = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:@{}];
                                               }
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  failure(articleError);
-                                              });
+                                              failure(articleError);
                                           }
                                       }];
 
