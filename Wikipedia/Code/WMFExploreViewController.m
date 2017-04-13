@@ -95,6 +95,8 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
 @property (nonatomic, strong) NSMutableDictionary<NSIndexPath *, NSURL *> *prefetchURLsByIndexPath;
 
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *cachedHeights;
+
 @end
 
 @implementation WMFExploreViewController
@@ -108,6 +110,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     self.placeholderCells = [NSMutableDictionary dictionaryWithCapacity:10];
     self.placeholderFooters = [NSMutableDictionary dictionaryWithCapacity:10];
     self.prefetchURLsByIndexPath = [NSMutableDictionary dictionaryWithCapacity:10];
+    self.cachedHeights = [NSMutableDictionary dictionaryWithCapacity:10];
 }
 
 - (void)dealloc {
@@ -644,6 +647,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 }
 
 - (void)didReceiveMemoryWarning {
+    [self.cachedHeights removeAllObjects];
     [super didReceiveMemoryWarning];
 }
 
@@ -802,6 +806,14 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
         } break;
         case WMFFeedDisplayTypePageWithPreview: {
             WMFArticle *article = [self articleForIndexPath:indexPath];
+            NSString *key = article.key;
+            NSString *cacheKey = [NSString stringWithFormat:@"%@-%lli", key, (long long)columnWidth];
+            NSNumber *cachedValue = [self.cachedHeights objectForKey:cacheKey];
+            if (cachedValue) {
+                estimate.height = [cachedValue doubleValue];
+                estimate.precalculated = YES;
+                break;
+            }
             CGFloat estimatedHeight = [WMFArticlePreviewCollectionViewCell estimatedRowHeightWithImage:article.thumbnailURL != nil];
             CGRect frameToFit = CGRectMake(0, 0, columnWidth, estimatedHeight);
             WMFArticlePreviewCollectionViewCell *cell = [self placeholderCellForIdentifier:[WMFArticlePreviewCollectionViewCell wmf_nibName]];
@@ -812,6 +824,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
             UICollectionViewLayoutAttributes *attributes = [cell preferredLayoutAttributesFittingAttributes:attributesToFit];
             estimate.height = attributes.frame.size.height;
             estimate.precalculated = YES;
+            [self.cachedHeights setObject:@(estimate.height) forKey:cacheKey];
         } break;
         case WMFFeedDisplayTypePageWithLocation: {
             estimate.height = [WMFNearbyArticleCollectionViewCell estimatedRowHeight];
