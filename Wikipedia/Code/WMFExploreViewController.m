@@ -468,24 +468,16 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)updateFeedSourcesWithDate:(nullable NSDate *)date {
-    if (!self.refreshControl.isRefreshing) {
-        [self.refreshControl beginRefreshing];
-    }
-    dispatch_block_t completion = ^{
-        [self resetRefreshControl];
-        [self startMonitoringReachabilityIfNeeded];
-        [self showOfflineEmptyViewIfNeeded];
-        [self showHideNotificationIfNeccesary];
-    };
-
-    if (date) {
-        [self.userStore.feedContentController updateFeedSourcesWithDate:date completion:completion];
-    } else {
-        [self.userStore.feedContentController updateFeedSources:completion];
-    }
+    [self.userStore.feedContentController updateFeedSourcesWithDate:date
+                                                         completion:^{
+                                                             [self resetRefreshControl];
+                                                         }];
 }
 
 - (void)updateFeedSources {
+    if (!self.refreshControl.isRefreshing) {
+        [self.refreshControl beginRefreshing];
+    }
     [self updateFeedSourcesWithDate:nil];
 }
 
@@ -1542,6 +1534,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     [self.objectChanges removeAllObjects];
     [self.sectionChanges removeAllObjects];
+
+    [self startMonitoringReachabilityIfNeeded];
+    [self showOfflineEmptyViewIfNeeded];
+    [self showHideNotificationIfNeccesary];
 }
 
 #pragma mark - WMFAnnouncementCollectionViewCellDelegate
