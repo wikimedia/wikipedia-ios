@@ -478,6 +478,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                                                          completion:^{
                                                              WMFAssertMainThread(@"Completion is assumed to be called on the main thread.");
                                                              [self resetRefreshControl];
+                                                             if (date == nil) { //only hide on a new content update
+                                                                 [self showHideNotificationIfNeccesary];
+                                                             }
                                                          }];
 }
 
@@ -1559,7 +1562,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     [self startMonitoringReachabilityIfNeeded];
     [self showOfflineEmptyViewIfNeeded];
-    [self showHideNotificationIfNeccesary];
 }
 
 #pragma mark - WMFAnnouncementCollectionViewCellDelegate
