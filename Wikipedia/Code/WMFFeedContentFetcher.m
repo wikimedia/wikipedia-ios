@@ -7,6 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFFeedContentFetcher ()
 @property (nonatomic, strong) AFHTTPSessionManager *operationManager;
 @property (nonatomic, strong) AFHTTPSessionManager *unserializedOperationManager;
+@property (nonatomic, strong) dispatch_queue_t serialQueue;
 @end
 
 @implementation WMFFeedContentFetcher
@@ -22,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
         AFHTTPSessionManager *unserializedOperationManager = [AFHTTPSessionManager wmf_createDefaultManager];
         self.unserializedOperationManager = unserializedOperationManager;
+        NSString *queueID = [NSString stringWithFormat:@"org.wikipedia.feedcontentfetcher.accessQueue.%@", [[NSUUID UUID] UUIDString]];
+        self.serialQueue = dispatch_queue_create([queueID cStringUsingEncoding:NSUTF8StringEncoding], DISPATCH_QUEUE_SERIAL);
     }
     return self;
 }
@@ -124,7 +127,7 @@ NS_ASSUME_NONNULL_BEGIN
         parameters:nil
         progress:NULL
         success:^(NSURLSessionDataTask *operation, NSDictionary *responseObject) {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            dispatch_async(self.serialQueue, ^{
                 NSArray *items = responseObject[@"items"];
                 if (![items isKindOfClass:[NSArray class]]) {
                     failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
