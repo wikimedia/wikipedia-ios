@@ -2,6 +2,9 @@ protocol PlaceSearchFilterListDelegate: NSObjectProtocol {
     
     func placesSearchFilterListController(_ placesSearchFilterListController: PlaceSearchFilterListController,
                                           didSelectFilterType filterType: PlaceFilterType) -> Void
+    
+    func placesSearchFilterListController(_ placesSearchFilterListController: PlaceSearchFilterListController, countForFilterType: PlaceFilterType) -> Int
+    
 }
 
 class PlaceSearchFilterListController: UITableViewController {
@@ -46,7 +49,7 @@ class PlaceSearchFilterListController: UITableViewController {
         
         if (indexPath.row == 0) {
             myCell.titleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles")
-            myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles-count").replacingOccurrences(of: "$1", with: "0")
+            myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles-count").replacingOccurrences(of: "$1", with: String(delegate.placesSearchFilterListController(self, countForFilterType: .top)))
             
             if (currentFilterType == .top) {
                 myCell.iconImageView?.image = #imageLiteral(resourceName: "places-suggestion-top")
@@ -56,7 +59,7 @@ class PlaceSearchFilterListController: UITableViewController {
 
         } else if (indexPath.row == 1) {
             myCell.titleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles")
-            myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles-count").replacingOccurrences(of: "$1", with: "0")
+            myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles-count").replacingOccurrences(of: "$1", with: String(delegate.placesSearchFilterListController(self, countForFilterType: .saved)))
             
             if (currentFilterType == .saved) {
                 myCell.iconImageView?.image = #imageLiteral(resourceName: "places-suggestion-saved")

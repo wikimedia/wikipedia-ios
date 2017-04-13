@@ -2476,6 +2476,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         toggleSearchFilterDropDown(overlayView)
     }
     
+    func placesSearchFilterListController(_ placesSearchFilterListController: PlaceSearchFilterListController, countForFilterType: PlaceFilterType) -> Int {
+        return 1
+    }
+    
     func placesSearchFilterListController(_ placesSearchFilterListController: PlaceSearchFilterListController,
                                           didSelectFilterType filterType: PlaceFilterType) {
         currentSearchFilter = filterType
