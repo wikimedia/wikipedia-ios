@@ -91,6 +91,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 @property (nonatomic, strong) NSMutableDictionary<NSIndexPath *, NSURL *> *prefetchURLsByIndexPath;
 
+@property (nonatomic) CGFloat topInsetBeforeHeader;
 @end
 
 @implementation WMFExploreViewController
@@ -351,6 +352,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [header layoutIfNeeded];
 
     UIEdgeInsets insets = self.collectionView.contentInset;
+    self.topInsetBeforeHeader = insets.top;
     insets.top = f.size.height;
     self.collectionView.contentInset = insets;
 }
@@ -412,7 +414,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 animations:^{
 
                     UIEdgeInsets insets = self.collectionView.contentInset;
-                    insets.top = 0.0;
+                    insets.top = self.topInsetBeforeHeader;
                     self.collectionView.contentInset = insets;
 
                     self.notificationHeader.alpha = 0.0;
