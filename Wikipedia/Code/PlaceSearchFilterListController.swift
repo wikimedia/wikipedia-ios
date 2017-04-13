@@ -22,14 +22,13 @@ class PlaceSearchFilterListController: NSObject, UITableViewDataSource, UITableV
         }
         
         if (indexPath.row == 0) {
+            myCell.titleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles")
+            myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles-count").replacingOccurrences(of: "$1", with: "0")
             
-            myCell.titleLabel.text = "Top articles"
-            
-            
+   
         } else if (indexPath.row == 1) {
-
-            myCell.titleLabel.text =  "Saved places"
-
+            myCell.titleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles")
+            myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles-count").replacingOccurrences(of: "$1", with: "0")
         }
     }
     

@@ -528,6 +528,10 @@
 "places-accessibility-recenter-map-on-user-location" = "Accessibility label for the recenter map on the user's location button";
 "places-accessibility-close-search" = "Accessibility label for the button to close search";
 "places-accessibility-clear-recent-searches" = "Accessibility label for the button to clear recent searches";
+"places-filter-top-articles" = "Title of places search filter that searches top articles";
+"places-filter-top-articles-count" = "Describes how many top articles are found in the top articles filter - $1 is replaced with the number of articles";
+"places-filter-saved-articles" = "Title of places saerch filter that searches saved articles";
+"places-filter-saved-articles-count" = "Describes how many saved articles are found in the saved articles filter - $1 is replaced with the number of articles";
 "action-share" = "Title for the 'Share' action\n{{Identical|Share}}";
 "action-save" = "Title for the 'Save' action\n{{Identical|Save}}";
 "action-read" = "Title for the 'Read' action\n{{Identical|Read}}";
