@@ -1,18 +1,6 @@
 
 const transformer = require('../transformer');
 
-const removeParenthesizedContent = (string) => {
-  const regex = new RegExp('[(][^()]+[)]', 'g');
-  var previousString = null;
-  var counter = 0;
-  do {
-    previousString = string;
-    string = string.replace(regex, '');
-    counter++;
-  } while (previousString !== string && counter < 30);
-  return string;
-};
-
 class WMFPage {
     constructor(title, thumbnail, terms, extract) {
         this.title = title;
@@ -66,7 +54,7 @@ class WMFPageFragment {
             var extract = document.createElement('div');
             extract.id = index;
             extract.className = 'footer_readmore_page_extract';
-            extract.innerHTML = removeParenthesizedContent(wmfPage.extract);
+            extract.innerHTML = wmfPage.extract;
             containerAnchor.appendChild(extract);
         }
 
@@ -101,7 +89,7 @@ const fetchReadMore = (baseURL, title, showReadMoreHandler) => {
     const params = {
       action: 'query',
       continue: '',
-      exchars: 512,
+      exchars: 256,
       exintro: 1,
       exlimit: pageCountToFetch,
       explaintext: '',
