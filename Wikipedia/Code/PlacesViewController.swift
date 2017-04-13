@@ -107,7 +107,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
 
         // config filter drop down
         addBottomShadow(view: filterDropDownContainerView)
-        isFilterDropDownShowing = false
+        isSearchFilterDropDownShowing = false
 
         navigationController?.setNavigationBarHidden(false, animated: true)
         
@@ -204,12 +204,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     @IBAction func toggleSearchFilterDropDown(_ sender: Any) {
         
-        guard let isFilterDropDownShowing = self.isFilterDropDownShowing else {
+        guard let isSearchFilterDropDownShowing = self.isSearchFilterDropDownShowing else {
             // TODO: error?
             return
         }
         
-        self.isFilterDropDownShowing = !isFilterDropDownShowing
+        self.isSearchFilterDropDownShowing = !isSearchFilterDropDownShowing
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -970,68 +970,77 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    var isFilterDropDownShowing: Bool? {
+    fileprivate func showSearchFilterDropdown() {
+        
+        guard let isSearchBarInNavigationBar = self.isSearchBarInNavigationBar else {
+            // TODO: error
+            return
+        }
+        
+        let origHeight = filterDropDownContainerView.bounds.height
+        
+        let frame: CGRect
+        if (isSearchBarInNavigationBar) {
+            frame = CGRect(x: 0,
+                           y: extendedNavBarView.frame.minY,
+                           width: extendedNavBarView.bounds.width,
+                           height: 0)
+            
+        } else {
+            frame = self.view.convert(CGRect(x: 0,
+                                             y: listAndSearchOverlayFilterSelectorContainerView.frame.maxY,
+                                             width: listAndSearchOverlayFilterSelectorContainerView.bounds.width,
+                                             height: 0),
+                                      from: listAndSearchOverlayContainerView)
+        }
+        
+        touchOutsideOverlayView.resetInsideRects()
+        touchOutsideOverlayView.addInsideRect(fromView: filterDropDownContainerView)
+        touchOutsideOverlayView.addInsideRect(fromView: listAndSearchOverlayFilterSelectorContainerView)
+        self.view.addSubview(touchOutsideOverlayView)
+        
+        filterDropDownContainerView.frame = frame
+        searchFilterListController.currentFilterType = currentSearchFilter
+        self.view.addSubview(filterDropDownContainerView)
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: {
+            
+            self.filterDropDownContainerView.frame = CGRect(x: self.filterDropDownContainerView.frame.origin.x,
+                                                            y: self.filterDropDownContainerView.frame.origin.y,
+                                                            width: self.filterDropDownContainerView.frame.size.width,
+                                                            height: origHeight)
+            
+        }, completion: { (done) in })
+    }
+    
+    fileprivate func hideSearchFilterDropdown() {
+        
+        let origHeight = filterDropDownContainerView.bounds.height
+        
+        self.touchOutsideOverlayView.removeFromSuperview()
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: {
+            
+            self.filterDropDownContainerView.frame = CGRect(x: self.filterDropDownContainerView.frame.origin.x,
+                                                            y: self.filterDropDownContainerView.frame.origin.y,
+                                                            width: self.filterDropDownContainerView.frame.width,
+                                                            height: 0)
+        }, completion: { (done) in
+            self.filterDropDownContainerView.removeFromSuperview()
+            self.filterDropDownContainerView.frame.size.height = origHeight
+        })
+    }
+    
+    var isSearchFilterDropDownShowing: Bool? {
         didSet {
-            guard let newValue = isFilterDropDownShowing, oldValue != newValue else {
+            guard let newValue = isSearchFilterDropDownShowing, oldValue != newValue else {
                 return
             }
-            
-            let origHeight = filterDropDownContainerView.bounds.height
-            
+
             if newValue {
-                guard let isSearchBarInNavigationBar = self.isSearchBarInNavigationBar else {
-                        // TODO: error
-                        return
-                }
-
-                let frame: CGRect
-
-                if (isSearchBarInNavigationBar) {
-                    frame = CGRect(x: 0,
-                                   y: extendedNavBarView.frame.minY,
-                                   width: extendedNavBarView.bounds.width,
-                                   height: 0)
-                    
-                } else {
-                    frame = self.view.convert(CGRect(x: 0,
-                                                     y: listAndSearchOverlayFilterSelectorContainerView.frame.maxY,
-                                                     width: listAndSearchOverlayFilterSelectorContainerView.bounds.width,
-                                                     height: 0),
-                                              from: listAndSearchOverlayContainerView)
-                }
-                
-                touchOutsideOverlayView.resetInsideRects()
-                touchOutsideOverlayView.addInsideRect(fromView: filterDropDownContainerView)
-                touchOutsideOverlayView.addInsideRect(fromView: listAndSearchOverlayFilterSelectorContainerView)
-                self.view.addSubview(touchOutsideOverlayView)
-                
-                filterDropDownContainerView.frame = frame
-                searchFilterListController.currentFilterType = currentSearchFilter
-                self.view.addSubview(filterDropDownContainerView)
-                
-                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: {
-                    
-                    self.filterDropDownContainerView.frame = CGRect(x: self.filterDropDownContainerView.frame.origin.x,
-                                                                    y: self.filterDropDownContainerView.frame.origin.y,
-                                                                    width: self.filterDropDownContainerView.frame.size.width,
-                                                                    height: origHeight)
-                    
-                }, completion: { (done) in })
-
+                showSearchFilterDropdown()
             } else {
-
-                self.touchOutsideOverlayView.removeFromSuperview()
-                
-                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: {
-                    
-                    self.filterDropDownContainerView.frame = CGRect(x: self.filterDropDownContainerView.frame.origin.x,
-                                                                    y: self.filterDropDownContainerView.frame.origin.y,
-                                                                    width: self.filterDropDownContainerView.frame.width,
-                                                                    height: 0)
-                }, completion: { (done) in
-                    self.filterDropDownContainerView.removeFromSuperview()
-                    self.filterDropDownContainerView.frame.size.height = origHeight
-                })
+                hideSearchFilterDropdown()
             }
         }
     }
@@ -2384,7 +2393,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     public func analyticsName() -> String {
         return "Places"
     }
-
     
     // MARK: - ArticlePlaceGroupViewControllerDelegate
     
@@ -2424,7 +2432,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func placesSearchFilterListController(_ placesSearchFilterListController: PlaceSearchFilterListController,
                                           didSelectFilterType filterType: PlaceFilterType) {
         currentSearchFilter = filterType
-        isFilterDropDownShowing = false
+        isSearchFilterDropDownShowing = false
     }
 }
 
