@@ -476,6 +476,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)updateFeedSourcesWithDate:(nullable NSDate *)date {
     [self.userStore.feedContentController updateFeedSourcesWithDate:date
                                                          completion:^{
+                                                             WMFAssertMainThread(@"Completion is assumed to be called on the main thread.");
                                                              [self resetRefreshControl];
                                                          }];
 }
