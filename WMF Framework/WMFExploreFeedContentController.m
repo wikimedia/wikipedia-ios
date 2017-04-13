@@ -21,6 +21,14 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
 
 @implementation WMFExploreFeedContentController
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.queue = [NSMutableArray arrayWithCapacity:1];
+    }
+    return self;
+}
+
 #pragma mark - Content Sources
 
 - (WMFFeedContentSource *)feedContentSource {
