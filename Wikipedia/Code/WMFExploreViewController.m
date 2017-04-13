@@ -209,8 +209,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                      completion:nil];
 }
 
-
-
 #pragma mark - Section Access
 
 - (nullable WMFContentGroup *)sectionAtIndex:(NSUInteger)sectionIndex {
@@ -469,7 +467,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                                                   }];
 }
 
-
 - (void)updateFeedSourcesWithDate:(nullable NSDate *)date {
     if (!self.refreshControl.isRefreshing) {
         [self.refreshControl beginRefreshing];
@@ -480,7 +477,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         [self showOfflineEmptyViewIfNeeded];
         [self showHideNotificationIfNeccesary];
     };
-    
+
     if (date) {
         [self.userStore.feedContentController updateFeedSourcesWithDate:date completion:completion];
     } else {
@@ -1638,10 +1635,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     NSDate *nextOldestDate = [[calendar dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:lastGroupMidnightUTC options:NSCalendarMatchStrictly] wmf_midnightLocalDateForEquivalentUTCDate];
 
-    [self updateFeedSourcesWithDate:nextOldestDate
-                         completion:^{
-
-                         }];
+    [self updateFeedSourcesWithDate:nextOldestDate];
 }
 
 #endif
