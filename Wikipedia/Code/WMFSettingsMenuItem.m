@@ -156,6 +156,16 @@
                                            disclosureText:nil
                                                isSwitchOn:NO];
         }
+        case WMFSettingsMenuItemType_ClearCache: {
+            return
+            [[WMFSettingsMenuItem alloc] initWithType:type
+                                                title:MWLocalizedString(@"settings-clear-cache", nil)
+                                             iconName:@"settings-clear-cache"
+                                            iconColor:[UIColor wmf_colorWithHex:0x000000 alpha:1.0]
+                                       disclosureType:WMFSettingsMenuItemDisclosureType_None
+                                       disclosureText:nil
+                                           isSwitchOn:NO];
+        }
         case WMFSettingsMenuItemType_DebugCrash: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type

@@ -220,6 +220,9 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
                                animated:YES
                              completion:nil];
             break;
+        case WMFSettingsMenuItemType_ClearCache:
+            [self showClearCacheActionSheet];
+            break;
         case WMFSettingsMenuItemType_DebugCrash:
             [[self class] generateTestCrash];
             break;
@@ -278,6 +281,21 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
                                                 }]];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"main-menu-account-logout-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
 
+    [self presentViewController:sheet animated:YES completion:NULL];
+}
+
+#pragma mark - Clear Cache
+
+- (void)showClearCacheActionSheet {
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:MWLocalizedString(@"settings-clear-cache-are-you-sure", nil) preferredStyle:UIAlertControllerStyleAlert];
+    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"settings-clear-cache", nil)
+                                              style:UIAlertActionStyleDestructive
+                                            handler:^(UIAlertAction *_Nonnull action) {
+                                                [[WMFImageController sharedInstance] deleteTemporaryCache];
+                                                [[WMFImageController sharedInstance] removeLegacyCache];
+                                            }]];
+    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"settings-clear-cache-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
+    
     [self presentViewController:sheet animated:YES completion:NULL];
 }
 
@@ -417,6 +435,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_RateApp],
             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SendFeedback],
             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_About],
+            [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ClearCache]
         ]];
     section.header = nil;
     section.footer = nil;
