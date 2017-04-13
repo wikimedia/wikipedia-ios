@@ -91,18 +91,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let image: UIImage
 
         if (isSearchFilterDropDownShowing) {
-            title = "Search filters"
+            title = localizedStringForKeyFallingBackOnEnglish("places-filter-list-title")
             image = #imageLiteral(resourceName: "chevron-up")
-            
         } else {
-            image = #imageLiteral(resourceName: "chevron-down")
-            
             switch currentSearchFilter {
             case .top:
                 title = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles")
             case .saved:
                 title = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles")
             }
+            image = #imageLiteral(resourceName: "chevron-down")
         }
         
         let attributedTitle = NSMutableAttributedString(string: title + " ")

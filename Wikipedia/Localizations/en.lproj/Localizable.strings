@@ -607,6 +607,7 @@
 "places-filter-top-articles-count" = "$1 articles";
 "places-filter-saved-articles" = "Saved articles";
 "places-filter-saved-articles-count" = "$1 places found";
+"places-filter-list-title" = "Search filters";
 
 "action-share" = "Share";
 "action-save" = "Save";
