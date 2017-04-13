@@ -94,6 +94,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic) CGFloat topInsetBeforeHeader;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *cachedHeights;
+
 @end
 
 @implementation WMFExploreViewController
@@ -514,7 +515,12 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self stopMonitoringReachability];
 }
 
+- (void)resetLayoutCache {
+    [self.cachedHeights removeAllObjects];
+}
+
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
+    [self resetLayoutCache];
     [super traitCollectionDidChange:previousTraitCollection];
     [self registerForPreviewingIfAvailable];
 }
@@ -527,7 +533,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)didReceiveMemoryWarning {
-    [self.cachedHeights removeAllObjects];
+    [self resetLayoutCache];
     [super didReceiveMemoryWarning];
 }
 
