@@ -101,7 +101,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
 #if DEBUG
     NSMutableSet *entered = [NSMutableSet setWithCapacity:self.contentSources.count];
 #endif
-    NSManagedObjectContext *moc = self.dataStore.viewContext;
+    NSManagedObjectContext *moc = self.dataStore.feedImportContext;
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         [group enter];
 #if DEBUG
@@ -128,17 +128,22 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     
     [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
                             completion:^{
-                                NSError *saveError = nil;
-                                if (![moc save:&saveError]) {
-                                    DDLogError(@"Error saving: %@", saveError);
-                                }
-                                [[NSUserDefaults wmf_userDefaults] wmf_setFeedRefreshDate:[NSDate date]];
+                                [moc performBlock:^{
+                                    NSError *saveError = nil;
+                                    if (![moc save:&saveError]) {
+                                        DDLogError(@"Error saving: %@", saveError);
+                                    }
+                                    [self.dataStore teardownFeedImportContext];
+                                    [[NSUserDefaults wmf_userDefaults] wmf_setFeedRefreshDate:[NSDate date]];
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        self.taskGroup = nil;
+                                        if (completion) {
+                                            completion();
+                                        }
+                                        [self popQueue];
+                                    });
+                                }];
                                 
-                                self.taskGroup = nil;
-                                if (completion) {
-                                    completion();
-                                }
-                                [self popQueue];
 #if DEBUG
                                 if ([entered count] > 0) {
                                     DDLogError(@"Didn't leave: %@", entered);
