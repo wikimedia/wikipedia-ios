@@ -478,6 +478,7 @@
 "request-feedback-on-error" = "L'applicazione ha riscontrato un problema su cui i nostri sviluppatori vorrebbero saperne di più. Si prega di toccare qui per inviarci una email con i dettagli dell'errore.";
 "explore-another-random" = "Un'altra voce a caso";
 "explore-randomizer" = "Una pagina a caso";
+"find-in-page-no-matches" = "0 corrispondenze";
 "find-in-page-button-label" = "Trova nella pagina";
 "find-in-page-popover-description" = "Ricerca testo nelle voci";
 "continue-reading-empty-title" = "Nessuna voce letta recentemente";

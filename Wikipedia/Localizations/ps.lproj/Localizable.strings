@@ -268,6 +268,7 @@
 "explore-most-read-footer" = "ټولې ډېرې لوستل شوې ليکنې";
 "explore-most-read-footer-for-date" = "په $1 ټولې ډېرې لوستل شوې ليکنې";
 "explore-most-read-more-list-title" = "د سر ليکنې";
+"find-in-page-no-matches" = "0 ورته والی لري";
 "find-in-page-button-label" = "په مخ کې موندل";
 "top-read-header-with-language" = "$1 ويکيپېډيا";
 "top-read-header-generic" = "ويکيپېډيا";

@@ -476,6 +476,7 @@
 "request-feedback-on-error" = "Прилогот наиде на проблем за кој нашите програмери сакаат да дознаат повеќе. Допрете тука за да ни испратите е-пошта со поединости за грешката.";
 "explore-another-random" = "Друга случајна статија";
 "explore-randomizer" = "Случаен избирач";
+"find-in-page-no-matches" = "0 совпаѓања";
 "find-in-page-button-label" = "Најди на страницата";
 "find-in-page-popover-description" = "Пребарај текст во статиите";
 "continue-reading-empty-title" = "Немате неодамна прочитани статии";

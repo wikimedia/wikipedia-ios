@@ -439,6 +439,7 @@
 "request-feedback-on-error" = "アプリが遭遇した問題について、開発者はもっと詳しく知りたいと考えています。こちらをタップして、エラーの詳細についてメールをご送信ください。";
 "explore-another-random" = "おまかせで別の記事";
 "explore-randomizer" = "おまかせ表示";
+"find-in-page-no-matches" = "該当するものはありません";
 "find-in-page-button-label" = "ページ内検索";
 "find-in-page-popover-description" = "記事内のテキストを検索します";
 "continue-reading-empty-title" = "最近読んだ記事はありません";

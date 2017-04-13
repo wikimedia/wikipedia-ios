@@ -405,6 +405,7 @@
 "explore-most-read-more-list-title" = "საუკეთესო სტატიები";
 "explore-most-read-more-list-title-for-date" = "საუკეთესო $1-ზე";
 "explore-another-random" = "სხვა შემთხვევითი სტატია";
+"find-in-page-no-matches" = "0 შესაბამისობა";
 "find-in-page-button-label" = "გვერდში ძიება";
 "find-in-page-popover-description" = "ტექსტის ძიება სტატიებში";
 "top-read-header-with-language" = "$1 ვიკიპედია";

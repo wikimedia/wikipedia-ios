@@ -362,6 +362,7 @@
 "no-email-account-alert" = "Prosím, nastavte na vašem přístroji e-mailový účet a zkuste to znovu.";
 "request-feedback-on-error" = "V aplikaci došlo k problému, o kterém by naši vývojáři chtěli vědět více. Prosím, klikněte zde a pošlete nám e-mail s podrobnostmi o chybě.";
 "explore-another-random" = "Další náhodný článek";
+"find-in-page-no-matches" = "Žádná shoda";
 "find-in-page-button-label" = "Najít na stránce";
 "find-in-page-popover-description" = "Hledat text v článcích";
 "continue-reading-empty-title" = "Žádné nedávno přečtené články";

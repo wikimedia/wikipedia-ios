@@ -475,6 +475,7 @@
 "request-feedback-on-error" = "Az alkalmazás egy hibát észlelt, amiről a fejlesztőink szeretnének többet tudni. Koppints ide egy e-mail elküldéséhez a hiba részleteivel.";
 "explore-another-random" = "Másik cikk találomra";
 "explore-randomizer" = "Randomizáló";
+"find-in-page-no-matches" = "0 találat";
 "find-in-page-button-label" = "Keresés a lapon";
 "find-in-page-popover-description" = "Szöveg keresése szócikkekben";
 "continue-reading-empty-title" = "Nincsenek nemrég olvasott szócikkek";

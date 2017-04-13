@@ -396,6 +396,7 @@
 "explore-most-read-more-list-title-for-date" = "$1 ਉੱਤੇ ਚੋਟੀ ਦੇ";
 "no-email-account-alert" = "ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਜੰਤਰ ਤੇ ਇੱਕ ਈਮੇਲ ਖਾਤਾ ਸਥਾਪਤ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।";
 "explore-another-random" = "ਇੱਕ ਹੋਰ ਰਲ਼ਵਾਂ ਲੇਖ";
+"find-in-page-no-matches" = "0 ਮਿਲਦੇ";
 "top-read-header-with-language" = "$1 ਵਿਕੀਪੀਡੀਆ";
 "top-read-header-generic" = "ਵਿਕੀਪੀਡੀਆ";
 "readers-accessibility-label" = "$1 ਪਡ਼੍ਹਨ ਵਾਲੇ";

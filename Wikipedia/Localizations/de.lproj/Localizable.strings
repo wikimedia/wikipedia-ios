@@ -472,6 +472,7 @@
 "request-feedback-on-error" = "Die App hat ein Problem festgestellt und unsere Entwickler möchten gerne mehr darüber wissen. Bitte tippe hier, um eine E-Mail mit den Einzelheiten zum Fehler an uns zu senden.";
 "explore-another-random" = "Ein anderer zufälliger Artikel";
 "explore-randomizer" = "Zufallsgenerator";
+"find-in-page-no-matches" = "Keine Treffer";
 "find-in-page-button-label" = "In Seite finden";
 "find-in-page-popover-description" = "Text in Artikeln suchen";
 "continue-reading-empty-title" = "Keine kürzlich gelesenen Artikel";

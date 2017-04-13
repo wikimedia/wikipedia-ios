@@ -488,6 +488,7 @@
 "request-feedback-on-error" = "Aplikasi ini mengalami masalah yang menyebabkan pengembang kami ingin tahu lebih lanjut. Silakan ketuk di sini untuk mengirimkan kami surel dengan rincian kesalahan.";
 "explore-another-random" = "Artikel sembarang lainnya";
 "explore-randomizer" = "Artikel sembarang";
+"find-in-page-no-matches" = "Tidak ada yang cocok";
 "find-in-page-button-label" = "Cari di halaman";
 "find-in-page-popover-description" = "Cari teks di artikel";
 "continue-reading-empty-title" = "Tidak ada artikel yang dibaca baru-baru ini";

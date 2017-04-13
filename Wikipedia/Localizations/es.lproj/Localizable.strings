@@ -488,6 +488,7 @@
 "request-feedback-on-error" = "La aplicación ha detectado un problema sobre el cual nuestros desarrolladores les gustaría saber más. Pulsa aquí para enviarnos un correo electrónico con los detalles del error.";
 "explore-another-random" = "Otro artículo aleatorio";
 "explore-randomizer" = "Aleatorio";
+"find-in-page-no-matches" = "0 coincidencias";
 "find-in-page-button-label" = "Buscar en la página";
 "find-in-page-popover-description" = "Búsqueda de texto en los artículos";
 "continue-reading-empty-title" = "No hay artículos leídos recientemente";

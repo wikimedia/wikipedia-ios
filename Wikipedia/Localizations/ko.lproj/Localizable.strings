@@ -479,6 +479,7 @@
 "request-feedback-on-error" = "이 앱은 우리 개발자들이 관심이 있는 문제를 마주쳤습니다. 여기를 탭하여 자세한 오류 설명과 함께 이메일을 저희에게 보내 주세요.";
 "explore-another-random" = "다른 임의 문서";
 "explore-randomizer" = "임의 문서 보기";
+"find-in-page-no-matches" = "0개 일치";
 "find-in-page-button-label" = "문서에서 찾기";
 "find-in-page-popover-description" = "문서에서 텍스트 검색";
 "continue-reading-empty-title" = "최근에 읽은 문서 없음";

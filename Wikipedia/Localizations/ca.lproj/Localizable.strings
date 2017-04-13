@@ -486,6 +486,7 @@
 "request-feedback-on-error" = "L'aplicació s'ha trobat amb un problema que els nostres desenvolupadors voldrien conèixer més en detall. Toqueu aquí per enviar-nos un correu amb els detalls de l'error.";
 "explore-another-random" = "Un altre article a l'atzar";
 "explore-randomizer" = "Article a l’atzar";
+"find-in-page-no-matches" = "0 coincidències";
 "find-in-page-button-label" = "Busca una pàgina";
 "find-in-page-popover-description" = "Cerca text als articles";
 "continue-reading-empty-title" = "No hi ha cap article llegit recentment";

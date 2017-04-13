@@ -444,6 +444,7 @@
 "request-feedback-on-error" = "O aplicativo encontrou um problema que nossos desenvolvedores gostariam de saber mais sobre. Toque aqui para enviar um e-mail com os detalhes do erro.";
 "explore-another-random" = "Outro artigo aleatório";
 "explore-randomizer" = "Aleatório";
+"find-in-page-no-matches" = "Sem correspondências";
 "find-in-page-button-label" = "Localizar na página";
 "find-in-page-popover-description" = "Pesquisa de texto em artigos";
 "continue-reading-empty-title" = "Nenhum artigo lido recentemente";

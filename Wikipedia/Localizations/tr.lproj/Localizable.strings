@@ -494,6 +494,7 @@
 "request-feedback-on-error" = "Uygulama bir sorunla karşılaştı ve geliştiricilerimiz bu konu hakkında daha fazla şey bilmek isteyecektir. Lütfen hata detaylarını bize e-posta ile göndermek için buraya dokunun.";
 "explore-another-random" = "Rastgele başka bir madde";
 "explore-randomizer" = "Rastgele";
+"find-in-page-no-matches" = "Eşleşme yok";
 "find-in-page-button-label" = "Sayfada bul";
 "find-in-page-popover-description" = "Maddelerde metin ara";
 "continue-reading-empty-title" = "Son okunan makale yok";

@@ -467,6 +467,7 @@
 "request-feedback-on-error" = "এই অ্যাপলিকেশনটি একটি সমস্যার সম্মুখীন হয়েছে, যা আমাদের উন্নয়নকারী জানতে চান। এই ত্রুটির বিবরণসহ ইমেইল পাঠাতে দয়া করে এখানে টোকা দিন।";
 "explore-another-random" = "অন্যান্য অজানা যে কোন নিবন্ধ";
 "explore-randomizer" = "অজানা পাতা";
+"find-in-page-no-matches" = "০টি মিল";
 "find-in-page-button-label" = "পাতায় খুঁজুন";
 "find-in-page-popover-description" = "নিবন্ধে পাঠ্যাংশ অনুসন্ধান করুন";
 "continue-reading-empty-title" = "সম্প্রতি পড়া কোনও নিবন্ধ নেই";

@@ -487,6 +487,7 @@
 "request-feedback-on-error" = "此應用程式已發生了問題，我們的開發人員想要瞭解更多有關於此的資料。請輕觸這裡向我們傳送一份含有錯誤詳細資料的電子信件。";
 "explore-another-random" = "其他隨機條目";
 "explore-randomizer" = "隨機條目產生";
+"find-in-page-no-matches" = "沒有匹配結果";
 "find-in-page-button-label" = "在頁面裡找尋";
 "find-in-page-popover-description" = "搜尋條目裡的文字內容";
 "continue-reading-empty-title" = "沒有最近讀取的條目";
