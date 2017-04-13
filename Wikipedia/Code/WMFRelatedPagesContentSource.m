@@ -66,11 +66,11 @@ NS_ASSUME_NONNULL_BEGIN
         [group enter];
         NSDate *date = [calendar dateByAddingUnit:NSCalendarUnitDay value:-i toDate:now options:NSCalendarMatchStrictly];
         [self loadContentForDate:date
-          inManagedObjectContext:moc
-                           force:force
-                      completion:^{
-                          [group leave];
-                      }];
+            inManagedObjectContext:moc
+                             force:force
+                        completion:^{
+                            [group leave];
+                        }];
     }
 
     [group waitInBackgroundWithCompletion:completion];
@@ -84,7 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
         }
         return;
     }
-    
+
     [moc performBlock:^{
         NSDate *midnightUTCDate = [date wmf_midnightUTCDateFromLocalDate];
         NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
@@ -92,14 +92,14 @@ NS_ASSUME_NONNULL_BEGIN
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(WMFContentGroupKindRelatedPages)];
         NSError *fetchError = nil;
         NSArray<WMFContentGroup *> *relatedPagesContentGroups = [moc executeFetchRequest:fetchRequest error:&fetchError];
-        if (fetchError || !relatedPagesContentGroups.count) {
+        if (fetchError) {
             DDLogError(@"Error fetching content groups: %@", fetchError);
         }
-        
+
         BOOL hasRelatedPageGroupForThisDate = false;
         NSMutableArray<NSString *> *articleKeys = [NSMutableArray arrayWithCapacity:relatedPagesContentGroups.count];
         NSMutableArray<WMFContentGroup *> *validGroups = [NSMutableArray arrayWithCapacity:relatedPagesContentGroups.count];
-        
+
         for (WMFContentGroup *contentGroup in relatedPagesContentGroups) {
             NSString *articleKey = [[WMFContentGroup articleURLForRelatedPagesContentGroupURL:contentGroup.URL] wmf_articleDatabaseKey];
             if (!articleKey) {
@@ -113,9 +113,9 @@ NS_ASSUME_NONNULL_BEGIN
             NSDate *contentGroupDate = contentGroup.midnightUTCDate;
             hasRelatedPageGroupForThisDate = [contentGroupDate isEqualToDate:midnightUTCDate];
         }
-        
+
         NSMutableDictionary<NSString *, WMFContentGroup *> *relatedPagesContentGroupsByKey = [NSMutableDictionary dictionaryWithObjects:validGroups forKeys:articleKeys];
-        
+
         NSFetchRequest *referencedArticlesRequest = [WMFArticle fetchRequest];
         referencedArticlesRequest.predicate = [NSPredicate predicateWithFormat:@"key IN %@", articleKeys];
         NSError *referencedArticlesRequestError = nil;
@@ -123,7 +123,7 @@ NS_ASSUME_NONNULL_BEGIN
         if (referencedArticlesRequestError) {
             DDLogError(@"Error fetching related pages referenced articles: %@", referencedArticlesRequestError);
         }
-        
+
         NSMutableSet<NSString *> *remainingKeys = [NSMutableSet setWithArray:articleKeys];
         NSMutableSet<NSString *> *keysToDelete = [NSMutableSet setWithArray:articleKeys];
         for (WMFArticle *article in referencedArticles) {
@@ -137,7 +137,7 @@ NS_ASSUME_NONNULL_BEGIN
             }
             [keysToDelete removeObject:key];
         }
-        
+
         for (NSString *key in keysToDelete) {
             WMFContentGroup *group = relatedPagesContentGroupsByKey[key];
             if (!group) {
@@ -145,7 +145,7 @@ NS_ASSUME_NONNULL_BEGIN
             }
             [moc removeContentGroup:group];
         }
-        
+
         NSFetchRequest *relatedSeedRequest = [WMFArticle fetchRequest];
         relatedSeedRequest.predicate = [NSPredicate predicateWithFormat:@"isExcludedFromFeed == NO && (wasSignificantlyViewed == YES || savedDate != NULL) && !(key IN %@)", remainingKeys];
         relatedSeedRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"viewedDate" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:NO]];
@@ -155,7 +155,7 @@ NS_ASSUME_NONNULL_BEGIN
         if (relatedSeedFetchError) {
             DDLogError(@"Error fetching article for related page: %@", relatedSeedFetchError);
         }
-        
+
         WMFArticle *article = relatedSeedResults.firstObject;
         if (!article) {
             if (completion) {
@@ -179,7 +179,7 @@ NS_ASSUME_NONNULL_BEGIN
             }
             return;
         }
-        
+
         [self fetchAndSaveRelatedArticlesForArticle:article date:date inManagedObjectContext:moc completion:completion];
     }];
 }
@@ -217,13 +217,13 @@ NS_ASSUME_NONNULL_BEGIN
                     [moc fetchOrCreateArticleWithURL:urls[idx] updatedWithSearchResult:obj];
                 }];
                 [moc fetchOrCreateGroupForURL:groupURL
-                                                     ofKind:WMFContentGroupKindRelatedPages
-                                                    forDate:date
-                                                withSiteURL:article.URL.wmf_siteURL
-                                          associatedContent:urls
-                                         customizationBlock:^(WMFContentGroup *_Nonnull group) {
-                                             group.articleURL = article.URL;
-                                         }];
+                                       ofKind:WMFContentGroupKindRelatedPages
+                                      forDate:date
+                                  withSiteURL:article.URL.wmf_siteURL
+                            associatedContent:urls
+                           customizationBlock:^(WMFContentGroup *_Nonnull group) {
+                               group.articleURL = article.URL;
+                           }];
                 if (completion) {
                     completion();
                 }
