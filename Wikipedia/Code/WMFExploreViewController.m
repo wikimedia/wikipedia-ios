@@ -639,8 +639,8 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
-    [super traitCollectionDidChange:previousTraitCollection];
     [self resetLayoutCache];
+    [super traitCollectionDidChange:previousTraitCollection];
     [self registerForPreviewingIfAvailable];
 }
 
