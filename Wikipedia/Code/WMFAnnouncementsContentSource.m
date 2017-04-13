@@ -35,20 +35,22 @@
     [self.fetcher fetchAnnouncementsForURL:self.siteURL
         force:force
         failure:^(NSError *_Nonnull error) {
-            [self updateVisibilityOfAnnouncementsInManagedObjectContext:moc];
-            if (completion) {
-                completion();
-            }
+            [moc performBlock:^{
+                [self updateVisibilityOfAnnouncementsInManagedObjectContext:moc];
+                if (completion) {
+                    completion();
+                }
+            }];
         }
         success:^(NSArray<WMFAnnouncement *> *announcements) {
             [self saveAnnouncements:announcements
-             inManagedObjectContext:moc
-                         completion:^{
-                             [self updateVisibilityOfAnnouncementsInManagedObjectContext:moc];
-                             if (completion) {
-                                 completion();
-                             }
-                         }];
+                inManagedObjectContext:moc
+                            completion:^{
+                                [self updateVisibilityOfAnnouncementsInManagedObjectContext:moc];
+                                if (completion) {
+                                    completion();
+                                }
+                            }];
         }];
 }
 
@@ -57,25 +59,26 @@
 }
 
 - (void)saveAnnouncements:(NSArray<WMFAnnouncement *> *)announcements inManagedObjectContext:(NSManagedObjectContext *)moc completion:(nullable dispatch_block_t)completion {
+    [moc performBlock:^{
+        [announcements enumerateObjectsUsingBlock:^(WMFAnnouncement *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
 
-    [announcements enumerateObjectsUsingBlock:^(WMFAnnouncement *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+            NSURL *URL = [WMFContentGroup announcementURLForSiteURL:self.siteURL identifier:obj.identifier];
+            WMFContentGroup *group = [moc fetchOrCreateGroupForURL:URL
+                                                            ofKind:WMFContentGroupKindAnnouncement
+                                                           forDate:[NSDate date]
+                                                       withSiteURL:self.siteURL
+                                                 associatedContent:@[obj]
+                                                customizationBlock:NULL];
+            //Make these visible immediately for previous users
+            if ([[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate] != nil) {
+                [group updateVisibility];
+            }
+        }];
 
-        NSURL *URL = [WMFContentGroup announcementURLForSiteURL:self.siteURL identifier:obj.identifier];
-        WMFContentGroup *group = [moc fetchOrCreateGroupForURL:URL
-                                                        ofKind:WMFContentGroupKindAnnouncement
-                                                       forDate:[NSDate date]
-                                                   withSiteURL:self.siteURL
-                                             associatedContent:@[obj]
-                                            customizationBlock:NULL];
-        //Make these visible immediately for previous users
-        if ([[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate] != nil) {
-            [group updateVisibility];
+        if (completion) {
+            completion();
         }
     }];
-
-    if (completion) {
-        completion();
-    }
 }
 
 - (void)updateVisibilityOfAnnouncementsInManagedObjectContext:(NSManagedObjectContext *)moc {
