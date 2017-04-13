@@ -74,7 +74,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     private var extendedNavBarHeightOrig: CGFloat?
     
-    private let currentSearchFilter: PlaceFilterType = .top // TODO: fix me
+    private var currentSearchFilter: PlaceFilterType = .top // TODO: remember last setting?
     
     private var touchOutsideOverlayView: TouchOutsideOverlayView!
     
@@ -98,6 +98,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         extendedNavBarHeightOrig = extendedNavBarViewHeightContraint.constant
         
         searchFilterListController = PlaceSearchFilterListController(delegate: self)
+        searchFilterListController.tableView = filterDropDownTableView
         filterDropDownTableView.dataSource = searchFilterListController
         filterDropDownTableView.delegate = searchFilterListController
         
@@ -1005,6 +1006,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 self.view.addSubview(touchOutsideOverlayView)
                 
                 filterDropDownContainerView.frame = frame
+                searchFilterListController.currentFilterType = currentSearchFilter
                 self.view.addSubview(filterDropDownContainerView)
                 
                 UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: {
@@ -2419,9 +2421,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         toggleSearchFilterDropDown(overlayView)
     }
     
-    func placesSearchFilterListControllerNeedsCurrentFilterType(_ placesSearchFilterListController: PlaceSearchFilterListController) -> PlaceFilterType {
-        
-        return currentSearchFilter
+    func placesSearchFilterListController(_ placesSearchFilterListController: PlaceSearchFilterListController,
+                                          didSelectFilterType filterType: PlaceFilterType) {
+        currentSearchFilter = filterType
+        isFilterDropDownShowing = false
     }
 }
 

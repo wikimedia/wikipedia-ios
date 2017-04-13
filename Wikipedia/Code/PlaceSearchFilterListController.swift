@@ -1,25 +1,38 @@
 protocol PlaceSearchFilterListDelegate: NSObjectProtocol {
     
-    func placesSearchFilterListControllerNeedsCurrentFilterType(_ placesSearchFilterListController: PlaceSearchFilterListController) -> PlaceFilterType
+    func placesSearchFilterListController(_ placesSearchFilterListController: PlaceSearchFilterListController,
+                                          didSelectFilterType filterType: PlaceFilterType) -> Void
 }
 
-class PlaceSearchFilterListController: NSObject, UITableViewDataSource, UITableViewDelegate {
+class PlaceSearchFilterListController: UITableViewController {
     
     weak var delegate: PlaceSearchFilterListDelegate!
     
-    init(delegate: PlaceSearchFilterListDelegate) {
-        self.delegate = delegate
+    var currentFilterType: PlaceFilterType = .top {
+        didSet {
+            self.tableView.reloadData()
+        }
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    init(delegate: PlaceSearchFilterListDelegate) {
+        super.init(style: .plain)
+        self.delegate = delegate
+        self.currentFilterType = .top
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         configureCell(cell: cell, forRowAt: indexPath)
         return cell
@@ -31,34 +44,39 @@ class PlaceSearchFilterListController: NSObject, UITableViewDataSource, UITableV
             return
         }
         
-        let currentSearchFilter = delegate.placesSearchFilterListControllerNeedsCurrentFilterType(self)
-        
         if (indexPath.row == 0) {
             myCell.titleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles")
             myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles-count").replacingOccurrences(of: "$1", with: "0")
             
-            if (currentSearchFilter == .top) {
-                
+            if (currentFilterType == .top) {
+                myCell.iconImageView?.image = #imageLiteral(resourceName: "places-suggestion-top")
             } else {
-                
+                myCell.iconImageView?.image = #imageLiteral(resourceName: "places-filter-saved-disabled")
             }
 
         } else if (indexPath.row == 1) {
             myCell.titleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles")
             myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles-count").replacingOccurrences(of: "$1", with: "0")
             
-            if (currentSearchFilter == .saved) {
+            if (currentFilterType == .saved) {
+                myCell.iconImageView?.image = #imageLiteral(resourceName: "places-suggestion-saved")
                 
             } else {
-                
+                myCell.iconImageView?.image = #imageLiteral(resourceName: "places-filter-saved-disabled")
             }
         }
     }
     
     //MARK: UITableViewDelegate
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
      
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        if (indexPath.row == 0) {
+            delegate.placesSearchFilterListController(self, didSelectFilterType: .top)
+        } else if (indexPath.row == 1) {
+            delegate.placesSearchFilterListController(self, didSelectFilterType: .saved)
+        }
     }
 }

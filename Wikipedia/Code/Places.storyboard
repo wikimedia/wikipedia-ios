@@ -422,7 +422,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcf-oG-RBc">
                                                 <rect key="frame" x="8" y="5" width="224" height="50"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-filter-saved-grey" translatesAutoresizingMaskIntoConstraints="NO" id="iao-2h-sq7">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-filter-saved-disabled" translatesAutoresizingMaskIntoConstraints="NO" id="iao-2h-sq7">
                                                         <rect key="frame" x="8" y="8" width="34" height="34"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="iao-2h-sq7" secondAttribute="height" multiplier="1:1" id="i7N-Ij-u2O"/>
@@ -528,7 +528,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="places-filter-saved-grey" width="60" height="60"/>
+        <image name="places-filter-saved-disabled" width="60" height="60"/>
         <image name="places-location-arrow" width="18" height="18"/>
         <image name="places-slider" width="50" height="6"/>
         <image name="tabbar-nearby" width="20" height="24"/>
