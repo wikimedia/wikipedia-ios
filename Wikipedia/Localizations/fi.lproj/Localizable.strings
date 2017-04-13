@@ -480,7 +480,6 @@
 "request-feedback-on-error" = "Tämä sovellus on kohdannut virheen, josta kehittäjämme haluaisivat tietää lisää. Napauta tästä lähettääksesi meille sähköpostitse virheen tiedot.";
 "explore-another-random" = "Toinen satunnainen sivu";
 "explore-randomizer" = "Satunnaistaminen";
-"find-in-page-no-matches" = "0 tulosta";
 "find-in-page-button-label" = "Etsi sivulta";
 "find-in-page-popover-description" = "Etsi artikkelien teksteistä";
 "continue-reading-empty-title" = "Ei äskettäin luettuja artikkeleja";

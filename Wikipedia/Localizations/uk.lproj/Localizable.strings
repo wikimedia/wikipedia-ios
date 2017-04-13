@@ -483,7 +483,6 @@
 "request-feedback-on-error" = "Програмка зіткнулася з проблемою, про яку нашим розробникам хотілося б знати більше. Будь ласка, натисніть тут, щоб надіслати нам листа з деталями помилки.";
 "explore-another-random" = "Інша випадкова стаття";
 "explore-randomizer" = "Рандомайзер";
-"find-in-page-no-matches" = "0 збігів";
 "find-in-page-button-label" = "Знайти на сторінці";
 "find-in-page-popover-description" = "Шукати текст у статтях";
 "continue-reading-empty-title" = "Немає нещодавно прочитаних статей";

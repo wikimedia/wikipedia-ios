@@ -481,7 +481,6 @@
 "request-feedback-on-error" = "应用程序遇到问题，需要我们开发人员了解更多关于它的信息。请在此点按以向我们发送带有错误详情的电子邮件。";
 "explore-another-random" = "其他随机条目";
 "explore-randomizer" = "随机产生条目器";
-"find-in-page-no-matches" = "0个匹配";
 "find-in-page-button-label" = "在页面中查找";
 "find-in-page-popover-description" = "搜索条目中的文本";
 "continue-reading-empty-title" = "没有最近阅读条目";
