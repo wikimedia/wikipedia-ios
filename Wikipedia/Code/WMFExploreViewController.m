@@ -634,8 +634,13 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     [self stopMonitoringReachability];
 }
 
+- (void)resetLayoutCache {
+    [self.cachedHeights removeAllObjects];
+}
+
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
+    [self resetLayoutCache];
     [self registerForPreviewingIfAvailable];
 }
 
@@ -647,7 +652,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 }
 
 - (void)didReceiveMemoryWarning {
-    [self.cachedHeights removeAllObjects];
+    [self resetLayoutCache];
     [super didReceiveMemoryWarning];
 }
 
