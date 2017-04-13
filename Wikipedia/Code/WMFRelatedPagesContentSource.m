@@ -110,7 +110,7 @@ NS_ASSUME_NONNULL_BEGIN
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(WMFContentGroupKindRelatedPages)];
     NSError *fetchError = nil;
     NSArray<WMFContentGroup *> *relatedPagesContentGroups = [self.userDataStore.viewContext executeFetchRequest:fetchRequest error:&fetchError];
-    if (fetchError || !relatedPagesContentGroups.count) {
+    if (fetchError) {
         DDLogError(@"Error fetching content groups: %@", fetchError);
     }
 
