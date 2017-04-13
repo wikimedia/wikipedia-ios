@@ -1,5 +1,15 @@
+protocol PlaceSearchFilterListDelegate: NSObjectProtocol {
+    
+    func placesSearchFilterListControllerNeedsCurrentFilterType(_ placesSearchFilterListController: PlaceSearchFilterListController) -> PlaceFilterType
+}
+
 class PlaceSearchFilterListController: NSObject, UITableViewDataSource, UITableViewDelegate {
     
+    weak var delegate: PlaceSearchFilterListDelegate!
+    
+    init(delegate: PlaceSearchFilterListDelegate) {
+        self.delegate = delegate
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -21,14 +31,27 @@ class PlaceSearchFilterListController: NSObject, UITableViewDataSource, UITableV
             return
         }
         
+        let currentSearchFilter = delegate.placesSearchFilterListControllerNeedsCurrentFilterType(self)
+        
         if (indexPath.row == 0) {
             myCell.titleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles")
             myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles-count").replacingOccurrences(of: "$1", with: "0")
             
-   
+            if (currentSearchFilter == .top) {
+                
+            } else {
+                
+            }
+
         } else if (indexPath.row == 1) {
             myCell.titleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles")
             myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles-count").replacingOccurrences(of: "$1", with: "0")
+            
+            if (currentSearchFilter == .saved) {
+                
+            } else {
+                
+            }
         }
     }
     

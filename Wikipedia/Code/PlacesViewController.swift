@@ -3,7 +3,7 @@ import MapKit
 import WMF
 import TUSafariActivity
 
-class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, WMFAnalyticsViewNameProviding, ArticlePlaceGroupViewControllerDelegate, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate {
+class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, WMFAnalyticsViewNameProviding, ArticlePlaceGroupViewControllerDelegate, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
     
     @IBOutlet weak var filterSelectorView: UIView!
     @IBOutlet weak var redoSearchButton: UIButton!
@@ -97,7 +97,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         addBottomShadow(view: extendedNavBarView)
         extendedNavBarHeightOrig = extendedNavBarViewHeightContraint.constant
         
-        searchFilterListController = PlaceSearchFilterListController()
+        searchFilterListController = PlaceSearchFilterListController(delegate: self)
         filterDropDownTableView.dataSource = searchFilterListController
         filterDropDownTableView.delegate = searchFilterListController
         
@@ -2417,6 +2417,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func touchOutside(_ overlayView: TouchOutsideOverlayView) {
         
         toggleSearchFilterDropDown(overlayView)
+    }
+    
+    func placesSearchFilterListControllerNeedsCurrentFilterType(_ placesSearchFilterListController: PlaceSearchFilterListController) -> PlaceFilterType {
+        
+        return currentSearchFilter
     }
 }
 
