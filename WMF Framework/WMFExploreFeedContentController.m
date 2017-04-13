@@ -130,7 +130,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
                             completion:^{
                                 [moc performBlock:^{
                                     NSError *saveError = nil;
-                                    if (![moc save:&saveError]) {
+                                    if ([moc hasChanges] && ![moc save:&saveError]) {
                                         DDLogError(@"Error saving: %@", saveError);
                                     }
                                     [self.dataStore teardownFeedImportContext];
