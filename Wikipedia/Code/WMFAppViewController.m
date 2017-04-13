@@ -87,7 +87,6 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 * 60;
 
-
 static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 @interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate>
@@ -224,12 +223,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
     self.unprocessedUserActivity = nil;
     self.unprocessedShortcutItem = nil;
-    [self resumeApp:^{}];
+    [self resumeApp:^{
+    }];
 }
 
 - (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
     self.notificationsController.applicationActive = YES;
-    
+
     if (![self uiIsLoaded]) {
         return;
     }
@@ -237,7 +237,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKSetupDataSourcesNotification object:nil];
 #if WMF_TWEAKS_ENABLED
     if (FBTweakValue(@"Notifications", @"In the news", @"Send on app open", NO)) {
-        [self debugSendRandomInTheNewsNotification];
+        [self.dataStore.feedContentController debugSendRandomInTheNewsNotification];
     }
 #endif
 }
@@ -265,7 +265,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     dispatch_async(dispatch_get_main_queue(), ^{
 #if WMF_TWEAKS_ENABLED
         if (FBTweakValue(@"Notifications", @"In the news", @"Send on app exit", NO)) {
-            [self debugSendRandomInTheNewsNotification];
+            [self.dataStore.feedContentController debugSendRandomInTheNewsNotification];
         }
 #endif
         [self pauseApp];
@@ -810,7 +810,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     if (!_savedArticlesFetcher) {
         _savedArticlesFetcher =
             [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]
-                                              
+
                                               savedPageList:[self.dataStore savedPageList]];
     }
     return _savedArticlesFetcher;
@@ -1192,7 +1192,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self.exploreViewController showInTheNewsForStory:feedNewsStory date:nil animated:NO];
 }
 
-
 #pragma mark - Perma Random Mode
 
 #if WMF_TWEAKS_ENABLED
@@ -1212,7 +1211,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (exploreNavController.presentedViewController) {
         [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
     }
-    
+
     WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore];
     vc.permaRandomMode = YES;
     [exploreNavController pushViewController:vc animated:YES];
