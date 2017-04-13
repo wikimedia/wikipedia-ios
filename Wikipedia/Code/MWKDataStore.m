@@ -29,6 +29,8 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (readwrite, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 @property (readwrite, strong, nonatomic) ArticleLocationController *articleLocationController;
 
+@property (nonatomic, strong) WMFExploreFeedContentController *feedContentController;
+
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
 @property (readwrite, strong, nonatomic) NSCache *articlePreviewCache;
@@ -42,7 +44,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, strong) NSManagedObjectContext *viewContext;
-//@property (nonatomic, strong) NSManagedObjectContext *feedImportContext;
+@property (nonatomic, strong) NSManagedObjectContext *feedImportContext;
 
 @property (nonatomic, strong) NSString *crossProcessNotificationChannelName;
 @property (nonatomic) int crossProcessNotificationToken;
@@ -150,6 +152,9 @@ static uint64_t bundleHash() {
         self.crossProcessNotificationChannelName = infoDictionary[@"CrossProcessNotificiationChannelName"];
         [self setupCrossProcessCoreDataNotifier];
         [self setupCoreDataStackWithContainerURL:containerURL];
+        self.feedContentController = [[WMFExploreFeedContentController alloc] init];
+        self.feedContentController.dataStore = self;
+        self.feedContentController.siteURL = [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
         self.articleLocationController = [ArticleLocationController new];
     }
@@ -454,20 +459,24 @@ static uint64_t bundleHash() {
     });
 }
 
-//- (NSManagedObjectContext *)feedImportContext {
-//    if (!_feedImportContext) {
-//        _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-//        _feedImportContext.persistentStoreCoordinator = self.persistentStoreCoordinator;
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedImportContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
-//    }
-//    return _feedImportContext;
-//}
+- (NSManagedObjectContext *)feedImportContext {
+    if (!_feedImportContext) {
+        _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        _feedImportContext.persistentStoreCoordinator = self.persistentStoreCoordinator;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedImportContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
+    }
+    return _feedImportContext;
+}
 
-//- (void)feedImportContextDidSave:(NSNotification *)note {
-//    dispatch_sync(dispatch_get_main_queue(), ^{
-//        [self.viewContext mergeChangesFromContextDidSaveNotification:note];
-//    });
-//}
+- (void)teardownFeedImportContext {
+    _feedImportContext = nil;
+}
+
+- (void)feedImportContextDidSave:(NSNotification *)note {
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [self.viewContext mergeChangesFromContextDidSaveNotification:note];
+    });
+}
 
 #pragma mark - Migrations
 
@@ -1363,5 +1372,6 @@ static uint64_t bundleHash() {
 - (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL {
     return [self isArticleWithURLExcludedFromFeed:articleURL inManagedObjectContext:self.viewContext];
 }
+
 
 @end

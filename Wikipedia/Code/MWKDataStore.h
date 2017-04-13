@@ -8,6 +8,7 @@
 @class MWKImageInfo;
 @class MWKImageList;
 @class WMFArticle;
+@class WMFExploreFeedContentController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -58,7 +59,10 @@ extern NSString *const WMFArticleUpdatedNotification;
 @property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
-//@property (nonatomic, strong, readonly) NSManagedObjectContext *feedImportContext;
+@property (nonatomic, strong, readonly) NSManagedObjectContext *feedImportContext;
+@property (nonatomic, strong, readonly) WMFExploreFeedContentController *feedContentController;
+
+- (void)teardownFeedImportContext;
 
 - (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc;
 - (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key inManagedObjectContext:(NSManagedObjectContext *)moc;

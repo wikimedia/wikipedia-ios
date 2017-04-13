@@ -61,7 +61,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
-static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
 @interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching>
 
@@ -210,131 +209,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
                      completion:nil];
 }
 
-#pragma mark - Feed Sources
 
-- (void)updateRelatedPages {
-    WMFAssertMainThread(@"updateRelatedPages must be called on the main thread");
-    if (self.relatedUpdatedTaskGroup) {
-        return;
-    }
-    NSManagedObjectContext *moc = self.userStore.viewContext;
-    WMFTaskGroup *group = [WMFTaskGroup new];
-    self.relatedUpdatedTaskGroup = group;
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        if ([obj isKindOfClass:[WMFRelatedPagesContentSource class]]) {
-            [group enter];
-            [obj loadNewContentInManagedObjectContext:moc
-                                                force:NO
-                                           completion:^{
-                                               [group leave];
-                                           }];
-        }
-    }];
-
-    [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
-                            completion:^{
-                                WMFAssertMainThread(@"completion must be called on the main thread");
-                                self.relatedUpdatedTaskGroup = nil;
-                            }];
-}
-
-- (void)updateNearby:(nullable dispatch_block_t)completion {
-    WMFAssertMainThread(@"updateNearby: must be called on the main thread");
-    if (self.nearbyUpdateTaskGroup || self.feedUpdateTaskGroup) {
-        return;
-    }
-    NSManagedObjectContext *moc = self.userStore.viewContext;
-    WMFTaskGroup *group = [WMFTaskGroup new];
-    self.nearbyUpdateTaskGroup = group;
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        if ([obj isKindOfClass:[WMFNearbyContentSource class]]) {
-            [group enter];
-            [obj loadNewContentInManagedObjectContext:moc
-                                                force:NO
-                                           completion:^{
-                                               [group leave];
-                                           }];
-        }
-    }];
-
-    [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
-                            completion:^{
-                                WMFAssertMainThread(@"completion must be called on the main thread");
-                                self.nearbyUpdateTaskGroup = nil;
-                                if (completion) {
-                                    completion();
-                                }
-                            }];
-}
-
-- (void)updateFeedSources:(nullable dispatch_block_t)completion {
-    [self updateFeedSourcesWithDate:nil completion:completion];
-}
-
-- (void)updateFeedSourcesWithDate:(nullable NSDate *)date completion:(nullable dispatch_block_t)completion {
-    WMFAssertMainThread(@"updateFeedSources: must be called on the main thread");
-    if (self.feedUpdateTaskGroup) {
-        if (completion) {
-            completion();
-        }
-        return;
-    }
-    if (!self.refreshControl.isRefreshing) {
-        [self.refreshControl beginRefreshing];
-    }
-    WMFTaskGroup *group = [WMFTaskGroup new];
-    self.feedUpdateTaskGroup = group;
-#if DEBUG
-    NSMutableSet *entered = [NSMutableSet setWithCapacity:self.contentSources.count];
-#endif
-    NSManagedObjectContext *moc = self.userStore.viewContext;
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        [group enter];
-#if DEBUG
-        NSString *classString = NSStringFromClass([obj class]);
-        [entered addObject:classString];
-#endif
-        dispatch_block_t contentSourceCompletion = ^{
-#if DEBUG
-            assert([entered containsObject:classString]);
-            [entered removeObject:classString];
-#endif
-            [group leave];
-        };
-
-        if (date && [obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
-            id<WMFDateBasedContentSource> dateBased = (id<WMFDateBasedContentSource>)obj;
-            [dateBased loadContentForDate:date inManagedObjectContext:moc force:NO completion:contentSourceCompletion];
-        } else if (!date) {
-            [obj loadNewContentInManagedObjectContext:moc force:NO completion:contentSourceCompletion];
-        } else {
-            contentSourceCompletion();
-        }
-    }];
-
-    [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
-                            completion:^{
-                                NSError *saveError = nil;
-                                if (![self.userStore save:&saveError]) {
-                                    DDLogError(@"Error saving: %@", saveError);
-                                }
-                                [[NSUserDefaults wmf_userDefaults] wmf_setFeedRefreshDate:[NSDate date]];
-                                [self resetRefreshControl];
-                                [self startMonitoringReachabilityIfNeeded];
-                                [self showOfflineEmptyViewIfNeeded];
-                                [self showHideNotificationIfNeccesary];
-                                self.feedUpdateTaskGroup = nil;
-                                if (completion) {
-                                    completion();
-                                }
-
-#if DEBUG
-                                if ([entered count] > 0) {
-                                    DDLogError(@"Didn't leave: %@", entered);
-                                }
-#endif
-                            }];
-}
 
 #pragma mark - Section Access
 
@@ -594,8 +469,31 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
                                                   }];
 }
 
+
+- (void)updateFeedSourcesWithDate:(nullable NSDate *)date {
+    if (!self.refreshControl.isRefreshing) {
+        [self.refreshControl beginRefreshing];
+    }
+    dispatch_block_t completion = ^{
+        [self resetRefreshControl];
+        [self startMonitoringReachabilityIfNeeded];
+        [self showOfflineEmptyViewIfNeeded];
+        [self showHideNotificationIfNeccesary];
+    };
+    
+    if (date) {
+        [self.userStore.feedContentController updateFeedSourcesWithDate:date completion:completion];
+    } else {
+        [self.userStore.feedContentController updateFeedSources:completion];
+    }
+}
+
+- (void)updateFeedSources {
+    [self updateFeedSourcesWithDate:nil];
+}
+
 - (void)refreshControlActivated {
-    [self updateFeedSources:NULL];
+    [self updateFeedSources];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -609,7 +507,6 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
 - (void)viewDidAppear:(BOOL)animated {
     NSParameterAssert(self.userStore);
-    NSParameterAssert(self.contentSources);
     [super viewDidAppear:animated];
 
     [[PiwikTracker sharedInstance] wmf_logView:self];
@@ -658,7 +555,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
                 switch (status) {
                     case AFNetworkReachabilityStatusReachableViaWWAN:
                     case AFNetworkReachabilityStatusReachableViaWiFi: {
-                        [self updateFeedSources:NULL];
+                        [self updateFeedSources];
                     } break;
                     case AFNetworkReachabilityStatusNotReachable: {
                         [self showOfflineEmptyViewIfNeeded];
@@ -1410,7 +1307,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
 - (void)locationManager:(WMFLocationManager *)controller didChangeEnabledState:(BOOL)enabled {
     [[NSUserDefaults wmf_userDefaults] wmf_setLocationAuthorized:enabled];
-    [self updateNearby:NULL];
+    [self.userStore.feedContentController updateNearby:NULL];
 }
 
 #pragma mark - Previewing

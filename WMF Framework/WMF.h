@@ -46,6 +46,7 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import "EXTScope.h"
 
 #import "MWKDataStore.h"
+#import "WMFExploreFeedContentController.h"
 
 #import "MWKDataObject.h"
 #import "MWKSiteDataObject.h"
